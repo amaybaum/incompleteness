@@ -363,7 +363,7 @@ If this argument is correct, the century-long search for a unified theory that c
 
 This doesn't mean physics is stuck. It means physics needs to recognize what kind of problem it's facing. The incompatibility between quantum mechanics and gravity is not a deficiency waiting to be repaired. It is a *structural feature* of what it means to observe the universe from the inside — a feature that comes with a precise numerical signature (10¹²⁰), a derivable quantum framework, and testable predictions.
 
-The universe is not broken. We are inside it, and that fact has consequences.
+The universe is not broken. We are just observing it from within, which sets fundamental limits on our ability to unify certain projections of reality.
 
 ---
 
