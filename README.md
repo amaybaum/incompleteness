@@ -371,4 +371,4 @@ The universe is not broken. We are inside it, and that fact has consequences.
 
 ***
 
-**Acknowledgment of AI Assistance:** The author acknowledges the use of **Claude Opus 4.6** and **Gemini 3 Pro** to assist in synthesizing technical concepts and refining the clarity of this explainer. The final text and all scientific claims were reviewed and verified by the author.
+**Acknowledgment of AI-Assisted Technologies:** The author acknowledges the use of **Claude Opus 4.6** and **Gemini 3 Pro** to assist in synthesizing technical concepts and refining the clarity of this explainer. The final text and all scientific claims were reviewed and verified by the author.
