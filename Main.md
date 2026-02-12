@@ -1,5 +1,5 @@
 # THE INCOMPLETENESS OF OBSERVATION
-### Why Quantum Mechanics and Gravity Cannot Be Unified From Within
+### Why Quantum Mechanics and General Relativity Cannot Be Unified From Within
 
 **Author:** Alex Maybaum  
 **Date:** February 2026  
