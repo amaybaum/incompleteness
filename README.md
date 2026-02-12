@@ -7,7 +7,7 @@
 
 ## The Problem
 
-Physics has a dirty secret. Its two most successful theories — quantum mechanics and general relativity — flatly contradict each other about the most basic property of empty space: how much energy it contains.
+Physics has a secret. Its two most successful theories — quantum mechanics and general relativity — flatly contradict each other about the most basic property of empty space: how much energy it contains.
 
 Quantum mechanics says the vacuum is seething with energy. If you add up the zero-point fluctuations of every quantum field, you get an energy density of roughly 10¹¹⁰ joules per cubic meter. That's an unimaginably large number.
 
