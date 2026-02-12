@@ -368,3 +368,7 @@ The universe is not broken. We are inside it, and that fact has consequences.
 ---
 
 *This is a simplified overview of the full technical paper "The Incompleteness of Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From Within" (Maybaum, February 2026). The core argument — including mathematical proofs, formal theorems, and detailed experimental predictions — is presented in the companion paper. Several of the reinterpretations explored in this explainer (the arrow of time, dark matter, quantization, String Theory) go beyond the formal results and are flagged as speculative implications in both documents.*
+
+---
+
+**Acknowledgment of AI Assistance:** The author acknowledges the use of **Claude** and **Gemini** to assist in synthesizing technical concepts and refining the clarity of this explainer. The final text and all scientific claims were reviewed and verified by the author.
