@@ -269,6 +269,12 @@ If this argument is correct, the incompatibility between quantum mechanics and g
 
 ---
 
+## DECLARATION OF AI-ASSISTED TECHNOLOGIES
+
+During the preparation of this work, the author used **Claude (Anthropic)** and **Gemini (Google)** in order to assist in drafting specific sections, refining the argumentation structure, and verifying the bibliographic details of cited references. After using these tools/services, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication.
+
+---
+
 ## REFERENCES
 
 [1] S. Weinberg, "The cosmological constant problem," *Rev. Mod. Phys.* **61**, 1 (1989).
