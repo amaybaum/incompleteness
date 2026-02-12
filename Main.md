@@ -241,7 +241,7 @@ The framework reinterprets String Theory [10, 19] not as a failed Theory of Ever
 
 **"You claim to derive the Standard Model but mostly assume SR and gauge theory."** The paper is explicit: the framework derives the quantum framework—the foundational layer—and combining it with special relativity (an input) produces the structural architecture. Specific content (gauge groups, particle masses, coupling constants) requires additional input about $\Phi$.
 
-### 6.3 Speculative Implications
+### 6.3 Speculations
 
 Beyond the formal results, the framework suggests several broader reinterpretations that we note briefly without claiming to have proven them.
 
