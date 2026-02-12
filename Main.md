@@ -93,7 +93,7 @@ $$\rho_{\text{QM}} \sim \sum_k \frac{1}{2}\hbar\omega_k \sim \int_0^{\Lambda} \f
 
 has the structure of $\text{Tr}[\hat{H}_{\text{vac}}] = \sum_k \langle 0 | \hat{a}_k^\dagger \hat{a}_k + \frac{1}{2} | 0 \rangle \cdot \hbar\omega_k$, where the vacuum expectation value of each mode's energy is its zero-point fluctuation amplitude—a variance-type quantity that is always positive. Note that $\langle 0|x_k|0\rangle = \langle 0|p_k|0\rangle = 0$ for every mode, so $\langle 0|H_k|0\rangle = \frac{1}{2}\text{Var}(p_k) + \frac{1}{2}\omega_k^2\,\text{Var}(x_k)$: the zero-point energy is identically the sum of the canonical variances. In the classical ground state both variances vanish and the vacuum energy is zero—the entire $\frac{1}{2}\hbar\omega_k$ is fluctuation content.
 
-By contrast, the gravitational measurement couples to $\langle T_{\mu\nu} \rangle$—a first-moment quantity. For modes with randomly distributed phases, the signed contributions undergo massive cancellation: $\mathbb{E}[\sum_i s_i X_i]$ for random signs $s_i$ scales as $\sqrt{N}$ rather than $N$.
+By contrast, the gravitational measurement couples to $\langle T_{\mu\nu} \rangle$—a first-moment quantity. This identification is not metaphorical. The Einstein field equations $G_{\mu\nu} = 8\pi G \langle T_{\mu\nu} \rangle$ are explicitly a mean-field coupling: the left-hand side is a smooth geometric quantity (spacetime curvature), and the right-hand side is the expectation value of the stress-energy tensor over the quantum state. In semiclassical gravity, this expectation value is computed by averaging over all field configurations weighted by the path integral—the definition of a statistical mean. Gravity does not couple to individual mode amplitudes or to the variance of the field; it couples to the net, signed, aggregate energy-momentum content. For modes with randomly distributed phases, the signed contributions undergo massive cancellation: $\mathbb{E}[\sum_i s_i X_i]$ for random signs $s_i$ scales as $\sqrt{N}$ rather than $N$.
 
 For any distribution with a large number of degrees of freedom, the variance can be enormously larger than the mean. The $10^{120}$ ratio is the quantitative expression of this difference.
 
@@ -203,7 +203,7 @@ $$N \sim 10^{240} \approx (10^{122})^2 = S_{\text{dS}}^2$$
 
 The number of hidden-sector degrees of freedom is the **square** of the holographic entropy bound. This admits a natural interpretation: if each of $\sim 10^{122}$ Planck-area cells on the cosmological horizon encodes one holographic degree of freedom, and each has an internal state space of dimension $\sim 10^{122}$, the total is $(10^{122})^2 = 10^{244} \approx 10^{240}$. The hidden sector has a **doubly holographic** structure: a holographic boundary whose elements are themselves holographic.
 
-This count is independently corroborated by Sorkin's causal-set prediction [33], which derives $\Lambda \sim 1/\sqrt{V_4}$ from Poisson fluctuations in the number of spacetime atoms, yielding $N \sim 10^{244}$ before the 1998 discovery of cosmic acceleration.
+This count is independently corroborated by Sorkin's causal-set prediction [30], which derives $\Lambda \sim 1/\sqrt{V_4}$ from Poisson fluctuations in the number of spacetime atoms, yielding $N \sim 10^{244}$ before the 1998 discovery of cosmic acceleration.
 
 ### 4.3 Robustness
 
@@ -215,13 +215,13 @@ The estimate is robust: replacing random signs with random complex phases gives 
 
 If the Complementarity Theorem is correct, General Relativity is an effective mean-field theory that breaks down whenever adiabatic averaging fails. This yields distinct observational signatures.
 
-**5.1 Gravitational Wave Echoes.** The event horizon is the limit of the mechanical projection. We predict that future gravitational wave observations of binary black hole mergers should detect **post-merger echoes** [31]—repeating signals from wave reflections at the effective boundary of the hidden sector. The distinguishing signature is that echo amplitude should scale with the ratio of probe frequency to the hidden sector's relaxation frequency: $A_{\text{echo}} / A_{\text{signal}} \sim (f / f_{\text{relax}})^\beta$. This frequency-dependent slope distinguishes mean-field breakdown from static surface models, which predict frequency-independent reflectivity.
+**5.1 Gravitational Wave Echoes.** The event horizon is the limit of the mechanical projection. We predict that future gravitational wave observations of binary black hole mergers should detect **post-merger echoes** [28]—repeating signals from wave reflections at the effective boundary of the hidden sector. The distinguishing signature is that echo amplitude should scale with the ratio of probe frequency to the hidden sector's relaxation frequency: $A_{\text{echo}} / A_{\text{signal}} \sim (f / f_{\text{relax}})^\beta$. This frequency-dependent slope distinguishes mean-field breakdown from static surface models, which predict frequency-independent reflectivity.
 
-**5.2 Stochastic Gravitational Noise Floor.** Since gravity is the mean of a high-variance distribution, it should exhibit statistical fluctuations at high frequencies. We predict a **stochastic gravitational wave background** in the MHz–GHz band [32], with a $1/f^\alpha$ spectrum ($\alpha \approx 2$) satisfying the fluctuation-dissipation relation. The strain noise power at frequency $f$ would be $S_h(f) \sim 10^{-78} (1\text{ GHz}/f)^2$ Hz$^{-1}$, yielding $h_{\text{rms}} \sim 10^{-39}$ Hz$^{-1/2}$ at 1 GHz—beyond current detectors but within projected reach of next-generation sensors [32]. This amplitude is anchored to the $10^{120}$ ratio and is falsifiable.
+**5.2 Stochastic Gravitational Noise Floor.** Since gravity is the mean of a high-variance distribution, it should exhibit statistical fluctuations at high frequencies. We predict a **stochastic gravitational wave background** in the MHz–GHz band [29], with a $1/f^\alpha$ spectrum ($\alpha \approx 2$) satisfying the fluctuation-dissipation relation. The strain noise power at frequency $f$ would be $S_h(f) \sim 10^{-78} (1\text{ GHz}/f)^2$ Hz$^{-1}$, yielding $h_{\text{rms}} \sim 10^{-39}$ Hz$^{-1/2}$ at 1 GHz—beyond current detectors but within projected reach of next-generation sensors [29]. This amplitude is anchored to the $10^{120}$ ratio and is falsifiable.
 
 **5.3 Null Prediction.** We predict a **null result** for searches for supersymmetric partners or inflaton particles invoked to solve the cosmological constant problem. The continued absence of these particles serves as confirming evidence for the Complementarity framework.
 
-**Remark on detectability.** The echo and noise-floor predictions yield signal amplitudes far below current sensitivity. Their value lies in the scaling relations rather than immediate detection. Near-term empirical content resides in the null prediction and the correlated running of couplings predicted by the connection to Asymptotic Safety [29]: as probe energy increases, $G$ and $\Lambda$ should run in a correlated pattern that preserves the complementary relationship between projections.
+**Remark on detectability.** The echo and noise-floor predictions yield signal amplitudes far below current sensitivity. Their value lies in the scaling relations rather than immediate detection. Near-term empirical content resides in the null prediction and the correlated running of couplings predicted by the connection to Asymptotic Safety [27]: as probe energy increases, $G$ and $\Lambda$ should run in a correlated pattern that preserves the complementary relationship between projections.
 
 ---
 
@@ -229,7 +229,7 @@ If the Complementarity Theorem is correct, General Relativity is an effective me
 
 ### 6.1 Relation to Prior Work
 
-The argument connects several existing threads: Wolpert's inference impossibility [4] provides the physics-independent mathematical foundation; the Nakajima-Zwanzig projection formalism [7, 8] provides the trace-out machinery; the Barandes stochastic-quantum correspondence [14, 15] converts non-Markovian dynamics into quantum mechanics; and Sorkin's causal-set prediction [33] independently corroborates the degree-of-freedom count. This framework is compatible with but distinct from Bohr's complementarity [12] (which operates within QM, not between QM and GR), 't Hooft's deterministic quantum mechanics [13] (the hidden sector could be deterministic, but need not be), Nelson's stochastic mechanics [27] (a conceptual precursor to Barandes, though facing the Wallstrom objection [28]), and emergent gravity programmes [16, 17] (we do not derive gravity, but identify why the gravitational and quantum descriptions cannot agree).
+The argument connects several existing threads: Wolpert's inference impossibility [4] provides the physics-independent mathematical foundation; the Nakajima-Zwanzig projection formalism [7, 8] provides the trace-out machinery; the Barandes stochastic-quantum correspondence [14, 15] converts non-Markovian dynamics into quantum mechanics; and Sorkin's causal-set prediction [30] independently corroborates the degree-of-freedom count. This framework is compatible with but distinct from Bohr's complementarity [12] (which operates within QM, not between QM and GR), 't Hooft's deterministic quantum mechanics [13] (the hidden sector could be deterministic, but need not be), Nelson's stochastic mechanics [25] (a conceptual precursor to Barandes, though facing the Wallstrom objection [26]), and emergent gravity programmes [16, 17] (we do not derive gravity, but identify why the gravitational and quantum descriptions cannot agree).
 
 The framework reinterprets String Theory [10, 19] not as a failed Theory of Everything but as a successful characterization of the hidden sector. The AdS/CFT correspondence maps onto the two-projection structure (bulk geometry = mechanical projection, boundary CFT = fluctuation projection); extra dimensions correspond to hidden-sector degrees of freedom rather than literal geometric structures; and the Landscape's $\sim 10^{500}$ vacua represent the combinatorial complexity of $\Phi$'s $\sim 10^{240}$ degrees of freedom, not different universes requiring anthropic selection.
 
@@ -241,9 +241,13 @@ The framework reinterprets String Theory [10, 19] not as a failed Theory of Ever
 
 **"You claim to derive the Standard Model but mostly assume SR and gauge theory."** The paper is explicit: the framework derives the quantum framework—the foundational layer—and combining it with special relativity (an input) produces the structural architecture. Specific content (gauge groups, particle masses, coupling constants) requires additional input about $\Phi$.
 
-### 6.3 Implications
+### 6.3 Speculations
 
-The framework dissolves or reframes several longstanding puzzles. **Dark energy** is the mean-field residual of the hidden sector—the first moment of a distribution whose second moment is $10^{120}$ times larger, explaining why it has equation of state $w = -1$ and no dynamics of its own. **Bekenstein-Hawking entropy** is proportional to area because the observer's channel to the hidden sector is area-limited. **The black hole singularity** is the point where the mean-field approximation fails—where the density of hidden-sector degrees of freedom overwhelms the first-moment description. **The measurement problem** is dissolved: "collapse" is a feature of the reduced description $\rho(X)$, not of the full-state dynamics. **The information paradox** arises from assuming a single unified description that sees both projections simultaneously—precisely what the Complementarity Theorem prohibits.
+Beyond the formal results, the framework suggests several broader reinterpretations that we note briefly without claiming to have proven them.
+
+**Dark energy** is the mean-field residual of the hidden sector—the first moment of a distribution whose second moment is $10^{120}$ times larger, explaining why it has equation of state $w = -1$ and no dynamics of its own. **Bekenstein-Hawking entropy** is proportional to area because the observer's channel to the hidden sector is area-limited. **The black hole singularity** is the point where the mean-field approximation fails—where the density of hidden-sector degrees of freedom overwhelms the first-moment description. **The measurement problem** is dissolved: "collapse" is a feature of the reduced description $\rho(X)$, not of the full-state dynamics. **The information paradox** arises from assuming a single unified description that sees both projections simultaneously—precisely what the Complementarity Theorem prohibits.
+
+The framework also suggests reinterpretations of several topics treated at length in the companion explainer [*The Incompleteness of Observation: Why the Universe's Biggest Contradiction Might Not Be a Mistake*, Maybaum 2026]. These include: **the arrow of time** as the one-directional flow of information from the observable sector into the vastly larger hidden sector; **quantization** as a sampling artifact of the finite-bandwidth projection rather than a fundamental property of reality; **dark matter** as spatial correlations in the mean-field residual rather than an undiscovered particle; and **String Theory** as a successful characterization of the hidden sector whose failure to make observable predictions reflects the Complementarity Theorem's prohibition on simultaneously capturing both projections. These reinterpretations are consistent with the formal framework but go beyond what it rigorously derives; they are presented as directions for future investigation rather than established results.
 
 ### 6.4 Open Problems
 
@@ -315,19 +319,19 @@ If this argument is correct, the incompatibility between quantum mechanics and g
 
 [24] A. Einstein, "Ist die Trägheit eines Körpers von seinem Energieinhalt abhängig?" *Ann. Phys.* **323**, 639–641 (1905).
 
-[27] E. Nelson, "Derivation of the Schrödinger Equation from Newtonian Mechanics," *Phys. Rev.* **150**, 1079 (1966).
+[25] E. Nelson, "Derivation of the Schrödinger Equation from Newtonian Mechanics," *Phys. Rev.* **150**, 1079 (1966).
 
-[28] T. Wallstrom, "Inequivalence between the Schrödinger equation and the Madelung hydrodynamic equations," *Phys. Rev. A* **49**, 1613 (1994).
+[26] T. Wallstrom, "Inequivalence between the Schrödinger equation and the Madelung hydrodynamic equations," *Phys. Rev. A* **49**, 1613 (1994).
 
-[29] S. Weinberg, "Ultraviolet divergences in quantum theories of gravitation," in *General Relativity: An Einstein Centenary Survey*, eds. S. W. Hawking and W. Israel (Cambridge University Press, 1979).
+[27] S. Weinberg, "Ultraviolet divergences in quantum theories of gravitation," in *General Relativity: An Einstein Centenary Survey*, eds. S. W. Hawking and W. Israel (Cambridge University Press, 1979).
 
-[31] J. Abedi, H. Dykaar, and N. Afshordi, "Echoes from the Abyss," *Phys. Rev. D* **96**, 082004 (2017).
+[28] J. Abedi, H. Dykaar, and N. Afshordi, "Echoes from the Abyss," *Phys. Rev. D* **96**, 082004 (2017).
 
-[32] A. Arvanitaki and A. A. Geraci, "Detecting High-Frequency Gravitational Waves with Optically Levitated Sensors," *Phys. Rev. Lett.* **110**, 071105 (2013).
+[29] A. Arvanitaki and A. A. Geraci, "Detecting High-Frequency Gravitational Waves with Optically Levitated Sensors," *Phys. Rev. Lett.* **110**, 071105 (2013).
 
-[33] S. Ahmed, S. Dodelson, P. B. Greene, and R. Sorkin, "Everpresent $\Lambda$," *Phys. Rev. D* **69**, 103523 (2004). arXiv:astro-ph/0209274.
+[30] S. Ahmed, S. Dodelson, P. B. Greene, and R. Sorkin, "Everpresent $\Lambda$," *Phys. Rev. D* **69**, 103523 (2004). arXiv:astro-ph/0209274.
 
-[34] G. W. Gibbons and S. W. Hawking, "Cosmological event horizons, thermodynamics, and particle creation," *Phys. Rev. D* **15**, 2738 (1977).
+[31] G. W. Gibbons and S. W. Hawking, "Cosmological event horizons, thermodynamics, and particle creation," *Phys. Rev. D* **15**, 2738 (1977).
 
 ---
 
