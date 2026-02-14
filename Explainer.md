@@ -496,7 +496,6 @@ This eliminates the need for a multiverse. The complexity is real, it's local to
 **The verdict.** If this framework is correct, then String Theory isn't a failed Theory of Everything. It's a **successful theory of the hidden sector** — a remarkably detailed mathematical characterization of the degrees of freedom beyond our projection. It works because it's describing something real. It fails to make predictions about our observable world because it's trying to describe both the hidden sector *and* the observable sector within a single framework — exactly the operation that the Complementarity Theorem says is impossible for any embedded observer.
 
 We haven't failed to find the unified theory. We may have found the physics of the hidden sector — and the reason it doesn't match our experiments is not that the math is wrong, but that we're trying to squeeze the *variance* of the hidden world into the *mean* of the visible one.
-
 ### But What *Is* the Hidden Sector?
 
 This is the most natural question — and the one that requires the most care, because a loose answer invites misunderstanding.
