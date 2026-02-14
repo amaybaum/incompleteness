@@ -47,7 +47,7 @@ The standard view is that something must be wrong with one or both calculations.
 
 Consider an analogy. Imagine you want to understand the microscopic reality of a calm glass of water. You have two ways to measure its energy:
 
-- A **thermometer**, which measures the total microscopic violence of the water molecules bouncing around (their absolute kinetic energy — the "fluctuation" measurement)
+- A **thermometer**, which measures the total thermal energy of the water molecules bouncing around (their absolute kinetic energy — the "fluctuation" measurement)
 - A **suspended speck of dust** (Brownian motion), which reveals the net mechanical push the water exerts on an object (the "mean-field" measurement)
 
 The thermometer gives an enormous number, because every single molecule's energy contributes positively to the total heat. They are all vibrating, and those vibrations add up. 
