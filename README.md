@@ -607,6 +607,8 @@ This doesn't mean physics is stuck. It means physics needs to recognize what kin
 
 The universe is not broken. We are just observing it from within, which sets fundamental limits on our ability to unify certain projections of reality.
 
+In 1926, Einstein wrote to Max Born: "I, at any rate, am convinced that He does not throw dice." For a century, this has been read as Einstein being wrong — as a great mind unable to accept the fundamental randomness of quantum mechanics. This framework suggests a different reading. Einstein's intuition was correct: the underlying reality, the full state of the universe including its hidden sector, is definite. The dice are real, but they belong to the projection, not to reality itself. What Einstein called "the secret of the Old One" is not randomness. It is the structural fact that no observer inside the universe can see the whole game — and what we call quantum mechanics is what the game looks like through the keyhole.
+
 ---
 
 *This is a simplified overview of the full technical paper "The Incompleteness of Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From Within" (Maybaum, February 2026). The core argument — including mathematical proofs, formal theorems, and detailed experimental predictions — is presented in the companion paper. Several of the reinterpretations explored in this explainer (the arrow of time, dark matter, quantization, String Theory) go beyond the formal results and are flagged as speculative implications in both documents.*
