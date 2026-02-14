@@ -497,14 +497,6 @@ This eliminates the need for a multiverse. The complexity is real, it's local to
 
 We haven't failed to find the unified theory. We may have found the physics of the hidden sector — and the reason it doesn't match our experiments is not that the math is wrong, but that we're trying to squeeze the *variance* of the hidden world into the *mean* of the visible one.
 
-### What This Framework Doesn't Explain
-
-It's important to be honest about the boundaries. This framework derives the *structure* of quantum mechanics — interference, superposition, entanglement, the Born rule — but it doesn't tell you *which* quantum theory describes our universe. Why are there three fundamental forces (electromagnetism, the strong force, the weak force) and not two or five? Why is the electron 1,836 times lighter than the proton? Why are there exactly three generations of matter particles? Why do the forces have the specific strengths they do?
-
-These details depend on the internal structure of the hidden sector — the specific way its degrees of freedom are organized — and the framework deliberately leaves that unspecified. It tells you that *some* quantum theory must emerge from the projection, but not which one. The gauge symmetries, particle masses, and coupling constants of the Standard Model are inputs to the framework, not outputs. Getting them would require knowing the hidden sector's structure in detail — which is precisely the information the Complementarity Theorem says an embedded observer cannot fully access.
-
-This is a strength, not a weakness. A framework that claimed to derive everything from nothing would be unfalsifiable. This one draws a clear line: here is what follows from being an embedded observer (quantum mechanics, the two-projection structure, the 10¹²⁰), and here is what requires additional information about the specific universe we inhabit.
-
 ### But What *Is* the Hidden Sector?
 
 This is the most natural question — and the one that requires the most care, because a loose answer invites misunderstanding.
