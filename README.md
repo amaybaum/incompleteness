@@ -12,8 +12,6 @@ This repository contains two companion papers arguing that the incompatibility b
 
 The core claim: any observer that is part of the universe it measures must access reality through projections that discard causally inaccessible degrees of freedom. The quantum-mechanical and gravitational descriptions of vacuum energy correspond to variance and mean estimations of a hidden sector, and Wolpert's mutual inference impossibility prohibits their simultaneous determination. The 10¹²⁰ cosmological constant discrepancy is not an error — it is a measurement.
 
-## Papers
-
 ### Main Paper
 
 **"The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
