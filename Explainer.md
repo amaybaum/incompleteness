@@ -42,6 +42,7 @@ $$\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{120}$$
 The standard view is that something must be wrong with one or both calculations. This paper proposes that neither calculation is wrong — they disagree because they are measuring *different statistical properties* of the same underlying thing.
 
 ---
+
 ## The Core Idea: You Can't See Everything From Inside
 
 Consider an analogy. Imagine you want to understand the microscopic reality of a calm glass of water. You have two ways to measure its energy:
