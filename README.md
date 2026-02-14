@@ -20,15 +20,11 @@ The core claim: any observer that is part of the universe it measures must acces
 
 The full technical paper. Introduces the Complementarity Theorem via Wolpert's inference impossibility framework, derives quantum mechanics from embedded observation through the Barandes stochastic-quantum correspondence, and extracts N ~ 10²⁴⁰ hidden-sector degrees of freedom from the cosmological constant ratio. Includes formal proofs, experimental predictions, and a detailed discussion of objections.
 
-Available as: `Main.pdf` (compiled) · `Main.tex` (LaTeX source) · `Main.md` (Markdown source)
-
 ### Companion Explainer
 
 **"The Incompleteness of Observation: Why the Universe's Biggest Contradiction Might Not Be a Mistake"**
 
 An accessible companion written for physicists and scientifically literate readers who want the argument without the full formalism. Covers the same core ideas and extends into speculative reinterpretations of quantum phenomena, gravity, dark matter, dark energy, String Theory, and the logical parallels to Gödel and Turing.
-
-Available as: `Explainer.pdf` (compiled) · `Explainer.tex` (LaTeX source) · `Explainer.md` (Markdown source)
 
 ## Key Results
 
