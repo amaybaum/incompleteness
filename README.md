@@ -35,4 +35,4 @@ An accessible companion written for physicists and scientifically literate reade
 ## Contact
 
 Alex Maybaum — Independent Researcher  
-[LinkedIn](https://www.linkedin.com/in/alexmaybaum)
+[LinkedIn](https://www.linkedin.com/in/amaybaum)
