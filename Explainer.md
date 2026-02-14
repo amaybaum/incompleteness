@@ -262,17 +262,9 @@ Barandes proved that if a stochastic process is indivisible, it *automatically* 
 
 ### Why Tracing Out the Hidden Sector Produces Indivisibility
 
-This is where the Nakajima-Zwanzig formalism comes in. When you trace out part of a system, the remaining part obeys:
+This is where the Nakajima-Zwanzig formalism [a standard result from the 1950s–60s] comes in. When you trace out part of a system, the remaining part's evolution acquires a **memory kernel** — a mathematical term that encodes how the hidden sector's past states influence the visible sector's present. The visible sector's state at time $t$ depends not just on its current state, but on its entire history of interactions with the hidden sector.
 
-$$\frac{\partial \rho(X)}{\partial t} = \mathcal{L}\, \rho(X) + \int_0^t d\tau\, \mathcal{K}(t, \tau)\, \rho(X, \tau)$$
-
-Unpacking this:
-
-- $\rho(X)$ is the state of the visible sector
-- $\mathcal{L}\, \rho(X)$ is the "local" part — how $X$ would evolve on its own
-- $\int_0^t d\tau\, \mathcal{K}(t, \tau)\, \rho(X, \tau)$ is the **memory kernel** — how the hidden sector's past states influence the visible sector's present
-
-The memory kernel is the key. If the hidden sector has temporal correlations (perturbations in it persist for some time rather than vanishing instantly), then $\mathcal{K}(t, \tau)$ is nonzero, and the visible sector's dynamics has memory — it becomes non-Markovian.
+The memory kernel is the key. If the hidden sector has temporal correlations (perturbations in it persist for some time rather than vanishing instantly), then the memory kernel is nonzero, and the visible sector's dynamics has memory — it becomes non-Markovian.
 
 ### Why the Hidden Sector Must Have Temporal Correlations
 
@@ -293,7 +285,7 @@ $$\text{Embedded observer} \to \text{Hidden sector exists} \to \text{Trace it ou
 
 ### A Technical Subtlety
 
-A nonzero memory kernel is *necessary* for indivisibility but not automatically *sufficient*. In principle, fine-tuned cancellations between $\mathcal{L}$ and $\mathcal{K}$ could produce factorizing (divisible) dynamics. However, such cancellations would need to hold for *all times and all initial states simultaneously* — an extraordinarily special condition. When tracing out a hidden sector that constitutes the vast majority of the universe's degrees of freedom, system-environment correlations are dominant, and indivisibility is robustly satisfied. It's like asking whether a random 1,000-digit number could accidentally be divisible by $10^{999}$ — mathematically *possible* but so fine-tuned as to be absurd for any realistic scenario.
+A nonzero memory kernel is *necessary* for indivisibility but not automatically *sufficient*. In principle, fine-tuned cancellations between the system's own dynamics and the memory kernel could produce factorizing (divisible) dynamics. However, such cancellations would need to hold for *all times and all initial states simultaneously* — an extraordinarily special condition. When tracing out a hidden sector that constitutes the vast majority of the universe's degrees of freedom, system-environment correlations are dominant, and indivisibility is robustly satisfied. It's like asking whether a random 1,000-digit number could accidentally be divisible by $10^{999}$ — mathematically *possible* but so fine-tuned as to be absurd for any realistic scenario.
 
 **The punchline:** Quantum mechanics isn't a fundamental law — it's what any embedded observer would see after tracing out a temporally correlated hidden sector. The weirdness of quantum mechanics is a *projection artifact*.
 

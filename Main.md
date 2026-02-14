@@ -76,9 +76,7 @@ Vacuum energy is the energy density of the hidden sector. When physicists measur
 
 $$\rho_{\text{QM}} \sim \int_0^{\Lambda} \frac{d^3k}{(2\pi)^3} \frac{1}{2}\hbar\omega_k \sim \frac{\Lambda^4}{16\pi^2}$$
 
-**Projection 2: Mean-field pressure (gravity).** Gravity characterizes the hidden sector through its net mechanical effect—the aggregate pressure that the hidden degrees of freedom exert on spacetime:
-
-$$\rho_{\text{grav}} = \langle T_{00} \rangle_{\text{eff}} \sim 6 \times 10^{-10}\ \text{J/m}^3$$
+**Projection 2: Mean-field pressure (gravity).** Gravity characterizes the hidden sector through its net mechanical effect—the aggregate pressure that the hidden degrees of freedom exert on spacetime. The observed value $\rho_{\text{grav}} \sim 6 \times 10^{-10}\ \text{J/m}^3$ is obtained by coupling to the expectation value of the stress-energy tensor—a first-moment quantity.
 
 The physical reason for the divergence is that gravity acts as an **adiabatic probe**, averaging over Planck-scale fluctuations and seeing only the mean energy density. Quantum mechanics probes the **correlation structure**—summing over propagators to measure how much the medium fluctuates, not how heavy it is.
 
@@ -87,11 +85,7 @@ The physical reason for the divergence is that gravity acts as an **adiabatic pr
 - $\rho_{\text{QM}}$: total fluctuation content (related to variance / second moment)
 - $\rho_{\text{grav}}$: net mechanical effect (related to mean / first moment)
 
-This identification has precise mathematical content. The QFT vacuum energy is a sum over zero-point energies $\frac{1}{2}\hbar\omega_k$, one for each field mode $k$. Each mode contributes positively regardless of any relative phase or sign. Formally, the QFT zero-point sum
-
-$$\rho_{\text{QM}} \sim \sum_k \frac{1}{2}\hbar\omega_k \sim \int_0^{\Lambda} \frac{d^3k}{(2\pi)^3} \frac{1}{2}\hbar\omega_k$$
-
-has the structure of $\text{Tr}[\hat{H}_{\text{vac}}] = \sum_k \langle 0 | \hat{a}_k^\dagger \hat{a}_k + \frac{1}{2} | 0 \rangle \cdot \hbar\omega_k$, where the vacuum expectation value of each mode's energy is its zero-point fluctuation amplitude—a variance-type quantity that is always positive. Note that $\langle 0|x_k|0\rangle = \langle 0|p_k|0\rangle = 0$ for every mode, so $\langle 0|H_k|0\rangle = \frac{1}{2}\text{Var}(p_k) + \frac{1}{2}\omega_k^2\,\text{Var}(x_k)$: the zero-point energy is identically the sum of the canonical variances. In the classical ground state both variances vanish and the vacuum energy is zero—the entire $\frac{1}{2}\hbar\omega_k$ is fluctuation content.
+This identification has precise mathematical content. The QFT vacuum energy is a sum over zero-point energies $\frac{1}{2}\hbar\omega_k$, one for each field mode $k$. Each mode contributes positively regardless of any relative phase or sign. The vacuum expectation value of each mode's energy is its zero-point fluctuation amplitude—a variance-type quantity that is always positive. Note that $\langle 0|x_k|0\rangle = \langle 0|p_k|0\rangle = 0$ for every mode, so $\langle 0|H_k|0\rangle = \frac{1}{2}\text{Var}(p_k) + \frac{1}{2}\omega_k^2\,\text{Var}(x_k)$: the zero-point energy is identically the sum of the canonical variances. In the classical ground state both variances vanish and the vacuum energy is zero—the entire $\frac{1}{2}\hbar\omega_k$ is fluctuation content.
 
 By contrast, the gravitational measurement couples to $\langle T_{\mu\nu} \rangle$—a first-moment quantity. This identification is not metaphorical. The Einstein field equations $G_{\mu\nu} = 8\pi G \langle T_{\mu\nu} \rangle$ are explicitly a mean-field coupling: the left-hand side is a smooth geometric quantity (spacetime curvature), and the right-hand side is the expectation value of the stress-energy tensor over the quantum state. In semiclassical gravity, this expectation value is computed by averaging over all field configurations weighted by the path integral—the definition of a statistical mean. Gravity does not couple to individual mode amplitudes or to the variance of the field; it couples to the net, signed, aggregate energy-momentum content. For modes with randomly distributed phases, the signed contributions undergo massive cancellation: $\mathbb{E}[\sum_i s_i X_i]$ for random signs $s_i$ scales as $\sqrt{N}$ rather than $N$.
 
@@ -151,17 +145,11 @@ It is **indivisible** if this factorization fails—the process has temporal mem
 
 When an observer traces out a hidden sector $\Phi$, the resulting dynamics for $X$ depends on whether $\Phi$ retains temporal correlations. If the hidden sector has no memory—white noise—the projected dynamics is a classical Markov process. If the hidden sector has temporal correlations, the projected dynamics is non-Markovian and **indivisible**.
 
-This follows from the Nakajima-Zwanzig formalism [7, 8]. The exact equation of motion for the reduced state is:
-
-$$\frac{\partial \rho(X)}{\partial t} = \mathcal{L}\, \rho(X) + \int_0^t d\tau\, \mathcal{K}(t, \tau)\, \rho(X, \tau)$$
-
-where $\mathcal{K}(t, \tau)$ is the memory kernel encoding the hidden sector's influence at time $t$ due to the system's state at earlier time $\tau$. The argument is model-independent. The only requirements are that: **(a)** $\Phi$ exists, **(b)** $\Phi$ has dynamics, and **(c)** $\Phi$ has temporal correlations.
+This is a standard result of the Nakajima-Zwanzig projection formalism [7, 8]: the exact equation of motion for the reduced state includes a memory kernel $\mathcal{K}(t, \tau)$ encoding the hidden sector's influence at time $t$ due to the system's state at earlier time $\tau$. When this kernel is nonzero, the reduced dynamics acquires temporal memory and becomes non-Markovian. The argument is model-independent. The only requirements are that: **(a)** $\Phi$ exists, **(b)** $\Phi$ has dynamics, and **(c)** $\Phi$ has temporal correlations.
 
 Condition (c) is physically generic. A hidden sector with no memory would imply infinite propagation speed or a complete lack of internal structure. If the hidden sector has a finite characteristic speed (e.g., $c$) or any internal dynamics, perturbations must persist for a nonzero duration. White noise is a mathematical idealization; physical substrates always have a finite correlation time.
 
-**Technical precision.** The connection from non-zero memory kernel to indivisibility requires care, as these are distinct conditions. The Nakajima-Zwanzig memory kernel $\mathcal{K}(t,\tau) \neq 0$ is *necessary* for indivisibility but not automatically *sufficient*: in principle, fine-tuned cancellations between the local generator $\mathcal{L}$ and the memory integral could produce transition matrices that still factorize.
-
-However, such cancellations are non-generic in the following precise sense: they require that $\mathcal{L}$ and $\mathcal{K}$ conspire to produce a completely positive, trace-preserving (CPTP) intermediate map $T(t_f, t_m) = T(t_f, t_i) \cdot T(t_m, t_i)^{-1}$ for *every* intermediate time $t_m$ and *every* initial state simultaneously. This is a measure-zero condition in the space of memory kernels. The Nakajima-Zwanzig formalism generates CP-indivisible dynamics whenever system-environment correlations are non-negligible [5, 6]. Since the traced-out hidden sector constitutes the vast majority of the universe's degrees of freedom, these correlations are dominant rather than perturbative, and the indivisibility condition is robustly satisfied.
+**Technical precision.** A nonzero memory kernel is *necessary* for indivisibility but not automatically *sufficient*: in principle, fine-tuned cancellations could produce transition matrices that still factorize. However, such cancellations require divisibility to hold for *every* intermediate time and *every* initial state simultaneously—a measure-zero condition in the space of memory kernels [5, 6]. Since the traced-out hidden sector constitutes the vast majority of the universe's degrees of freedom, these correlations are dominant rather than perturbative, and the indivisibility condition is robustly satisfied.
 
 **Therefore:** tracing out the hidden sector generically produces an indivisible stochastic process. By the Barandes correspondence, this is equivalent to quantum mechanics. The chain is complete:
 
