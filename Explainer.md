@@ -497,7 +497,7 @@ This eliminates the need for a multiverse. The complexity is real, it's local to
 
 **The verdict.** If this framework is correct, then String Theory isn't a failed Theory of Everything. It's a **successful theory of the hidden sector** — a remarkably detailed mathematical characterization of the degrees of freedom beyond our projection. It works because it's describing something real. It fails to make predictions about our observable world because it's trying to describe both the hidden sector *and* the observable sector within a single framework — exactly the operation that the Complementarity Theorem says is impossible for any embedded observer.
 
-We haven't failed to find the unified theory. We may have found the physics of the hidden sector — and the reason it doesn't match our experiments is not that the math is wrong, but that we're trying to squeeze the *variance* of the hidden world into the *mean* of the visible one.
+Physicists may not have failed to find the unified theory. String Theory may be the physics of the hidden sector — and the reason it doesn't match experiments is not that the math is wrong, but that it's an attempt to squeeze the *variance* of the hidden world into the *mean* of the visible one.
 ### But What *Is* the Hidden Sector?
 
 This is the most natural question — and the one that requires the most care, because a loose answer invites misunderstanding.
@@ -522,7 +522,7 @@ Here's a way to picture it. Imagine you're in a massive, crowded stadium, but yo
 
 ## What the 10¹²⁰ Tells Us
 
-If the 10¹²⁰ ratio is the variance-to-mean ratio of the hidden sector, we can work backwards and ask: how many independent degrees of freedom must the hidden sector have to produce a ratio this large?
+If the 10¹²⁰ ratio is the variance-to-mean ratio of the hidden sector, it is possible to work backwards and ask: how many independent degrees of freedom must the hidden sector have to produce a ratio this large?
 
 ### The Random-Sign Cancellation Model
 
@@ -574,7 +574,7 @@ Gödel's "unprovable truths" live in the logical structure of arithmetic. The hi
 
 What makes this framework different from a philosophical observation is that the incompleteness has a *number*. In Gödel's proof, the unprovable statement is constructed using a specific encoding — a "Gödel number" that the system can reference but cannot resolve. In this framework, the 10¹²⁰ cosmological constant discrepancy plays the same role. It is the quantitative signature of what the embedded observer cannot see: the gap between the variance and the mean of a hidden sector with $N \sim 10^{240}$ degrees of freedom.
 
-The standard interpretation of the 10¹²⁰ is that it represents a calculational failure — the worst prediction in the history of physics. This framework says it is the opposite: it is the most precise measurement we have of the boundary between what an embedded observer can and cannot know. It is not an error. It is the physical world's Gödel sentence — a number that encodes, in the starkest possible terms, the fact that we are inside the system we are trying to describe.
+The standard interpretation of the 10¹²⁰ is that it represents a calculational failure — the worst prediction in the history of physics. This framework says it is the opposite: it is the most precise measurement we have of the boundary between what an embedded observer can and cannot know. It is not an error. It is the physical world's Gödel sentence — a number that encodes, in the starkest possible terms, the fact that observers are inside the system they are trying to describe.
 
 ---
 
@@ -594,7 +594,7 @@ The framework makes several testable predictions:
 
 ## What This Means
 
-If this argument is correct, the century-long search for a unified theory that combines quantum mechanics and gravity into a single framework is asking the wrong question. It's like asking for a single instrument that simultaneously measures both temperature and pressure by being a thermometer and a barometer at the same time. The request is structurally impossible — not because we haven't been clever enough, but because the two measurements require fundamentally different operations on the same underlying system.
+If this argument is correct, the century-long search for a unified theory that combines quantum mechanics and gravity into a single framework is asking the wrong question. It's like asking for a single instrument that simultaneously measures both temperature and pressure by being a thermometer and a barometer at the same time. The request is structurally impossible — not because physicists haven't been clever enough, but because the two measurements require fundamentally different operations on the same underlying system.
 
 This doesn't mean physics is stuck. It means physics needs to recognize what kind of problem it's facing. The incompatibility between quantum mechanics and gravity is not a deficiency waiting to be repaired. It is a *structural feature* of what it means to observe the universe from the inside — a feature that comes with a precise numerical signature (10¹²⁰), a derivable quantum framework, and testable predictions.
 

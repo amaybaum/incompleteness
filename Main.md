@@ -10,7 +10,7 @@
 
 ## ABSTRACT
 
-We argue that the incompatibility between quantum mechanics and general relativity is a structural consequence of embedded observation. Any observer that is part of the universe it measures must access their reality through projections which discard information about causally inaccessible degrees of freedom. Using Wolpert's (2008) physics-independent impossibility theorems for inference devices, we introduce a Complementarity Theorem: the quantum-mechanical and gravitational descriptions of vacuum energy correspond to variance and mean estimations of a hidden sector, and Wolpert's mutual inference impossibility prohibits their simultaneous determination by any embedded observer. The $10^{120}$ cosmological constant discrepancy is not an error but the quantitative signature of this structural incompleteness. We show that tracing out any dynamical hidden sector with temporal correlations generically produces indivisible stochastic processes, which are mathematically equivalent to quantum mechanics (Barandes 2023). Interpreting the $10^{120}$ value as a variance-to-mean ratio, we extract $N \sim 10^{240}$ hidden-sector degrees of freedom—equal to $S_{\text{dS}}^2$, the square of the Bekenstein-Hawking entropy of the cosmological horizon—converting the cosmological constant problem from a mystery into a measurement. We offer specific experimental predictions, including near-term null predictions for beyond-Standard-Model particles and longer-term frequency-dependent scaling relations for gravitational wave echoes and a stochastic noise floor quantitatively anchored to the $10^{120}$ ratio.
+This paper argues that the incompatibility between quantum mechanics and general relativity is a structural consequence of embedded observation. Any observer that is part of the universe it measures must access their reality through projections which discard information about causally inaccessible degrees of freedom. Using Wolpert's (2008) physics-independent impossibility theorems for inference devices, a Complementarity Theorem is introduced: the quantum-mechanical and gravitational descriptions of vacuum energy correspond to variance and mean estimations of a hidden sector, and Wolpert's mutual inference impossibility prohibits their simultaneous determination by any embedded observer. The $10^{120}$ cosmological constant discrepancy is not an error but the quantitative signature of this structural incompleteness. It is shown that tracing out any dynamical hidden sector with temporal correlations generically produces indivisible stochastic processes, which are mathematically equivalent to quantum mechanics (Barandes 2023). Interpreting the $10^{120}$ value as a variance-to-mean ratio, $N \sim 10^{240}$ hidden-sector degrees of freedom are extracted—equal to $S_{\text{dS}}^2$, the square of the Bekenstein-Hawking entropy of the cosmological horizon—converting the cosmological constant problem from a mystery into a measurement. Specific experimental predictions are offered, including near-term null predictions for beyond-Standard-Model particles and longer-term frequency-dependent scaling relations for gravitational wave echoes and a stochastic noise floor quantitatively anchored to the $10^{120}$ ratio.
 
 ---
 
@@ -18,7 +18,7 @@ We argue that the incompatibility between quantum mechanics and general relativi
 
 ### 1.1 The Incompatibility
 
-Quantum mechanics and general relativity are extraordinarily successful yet incompatible. The dominant assumption has been that this incompatibility is a deficiency—that a deeper theory will eventually unify them. We propose the opposite: **the incompatibility is a structural feature of embedded observation.**
+Quantum mechanics and general relativity are extraordinarily successful yet incompatible. The dominant assumption has been that this incompatibility is a deficiency—that a deeper theory will eventually unify them. This paper proposes the opposite: **the incompatibility is a structural feature of embedded observation.**
 
 ### 1.2 The $10^{120}$ ratio
 
@@ -38,7 +38,7 @@ $$\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{120}$$
 
 is the largest quantitative disagreement in all of physics. The standard interpretation is that one or both calculations must be wrong—that some unknown mechanism cancels the QFT contribution down to the observed value. Decades of effort have failed to find such a mechanism [2, 3].
 
-We propose a different interpretation: **neither calculation is wrong. They disagree because they are answering fundamentally different questions about the same thing.**
+A different interpretation is proposed: **neither calculation is wrong. They disagree because they are answering fundamentally different questions about the same thing.**
 
 ---
 
@@ -46,13 +46,13 @@ We propose a different interpretation: **neither calculation is wrong. They disa
 
 ### 2.1 Observers Are Embedded
 
-We observers are part of the universe that we observe. This assertion has both physical and mathematical consequences. Wolpert (2008) proved that any physical device performing observation, prediction, or recollection—an "inference device"—faces fundamental limits on what it can know about the universe it inhabits [4]. These limits hold **independent of the laws of physics**:
+Observers are part of the universe that they observe. This assertion has both physical and mathematical consequences. Wolpert (2008) proved that any physical device performing observation, prediction, or recollection—an "inference device"—faces fundamental limits on what it can know about the universe it inhabits [4]. These limits hold **independent of the laws of physics**:
 
 **(a)** There exists at least one function of the universe state that the inference device cannot correctly compute—regardless of its computational power or the determinism of the underlying physics.
 
 **(b)** No two distinguishable inference devices can fully infer each other's conclusions (the "mutual inference impossibility").
 
-These are physics-independent analogues of the Halting theorem, extended to physical devices embedded in physical universes [4]. The key mathematical structure is the **setup function** $\pi: \Omega \to S_C$ that maps the full universe state space $\Omega$ to the device's state space $S_C$. Wolpert's impossibility theorem requires only that $\pi$ is surjective and many-to-one. We assume this is trivially satisfied by any observer.
+These are physics-independent analogues of the Halting theorem, extended to physical devices embedded in physical universes [4]. The key mathematical structure is the **setup function** $\pi: \Omega \to S_C$ that maps the full universe state space $\Omega$ to the device's state space $S_C$. Wolpert's impossibility theorem requires only that $\pi$ is surjective and many-to-one. This is assumed to be trivially satisfied by any observer.
 
 ### 2.2 The Hidden Sector
 
@@ -64,7 +64,7 @@ $$\pi: (X, \Phi) \mapsto \rho(X)$$
 
 This map is many-to-one: many distinct configurations $\Phi$ yield the same $\rho(X)$. It therefore satisfies the requirements of a Wolpert setup function. **There exist properties of the universe that no observer confined to $X$ can determine.**
 
-We do not need to specify what $\Phi$ is. The argument requires only that it exists and that $\pi$ is many-to-one.
+It is not necessary to specify what $\Phi$ is. The argument requires only that it exists and that $\pi$ is many-to-one.
 
 The hidden sector consists not of exotic particles but of standard degrees of freedom rendered causally inaccessible by the structure of spacetime: (i) trans-horizon modes beyond the cosmological horizon, (ii) sub-Planckian degrees of freedom below the observer's resolution limit, and (iii) black hole interiors. In each case, the mechanism enforcing hiddenness is the causal structure of spacetime. The partition between $X$ and $\Phi$ is a property of the observer's position, not of the hidden sector's content.
 
@@ -97,7 +97,7 @@ By contrast, the gravitational measurement couples to $\langle T_{\mu\nu} \rangl
 
 For any distribution with a large number of degrees of freedom, the variance can be enormously larger than the mean. The $10^{120}$ ratio is the quantitative expression of this difference.
 
-To see how the divergence arises concretely, consider $N$ modes each contributing energy $\pm \mu$ with random sign. The unsigned sum—the fluctuation content—is $N\mu$. The signed sum—the net mechanical effect—is a random walk of $N$ steps, whose expectation scales by the central limit theorem as $\sqrt{N}\,\mu$. The ratio is $\sqrt{N}$, which grows without bound. For the vacuum, $N$ is set by the number of hidden-sector degrees of freedom; we show in §4 that the observed ratio of $10^{120}$ implies $N \sim 10^{240}$.
+To see how the divergence arises concretely, consider $N$ modes each contributing energy $\pm \mu$ with random sign. The unsigned sum—the fluctuation content—is $N\mu$. The signed sum—the net mechanical effect—is a random walk of $N$ steps, whose expectation scales by the central limit theorem as $\sqrt{N}\,\mu$. The ratio is $\sqrt{N}$, which grows without bound. For the vacuum, $N$ is set by the number of hidden-sector degrees of freedom; §4 shows that the observed ratio of $10^{120}$ implies $N \sim 10^{240}$.
 
 ### 2.4 Why They Cannot Be Unified
 
@@ -105,7 +105,7 @@ The two projections require **incompatible operations on the hidden sector.**
 
 The quantum projection *traces out* the hidden sector—it requires that $\Phi$ be inaccessible. The gravitational projection *couples to* the hidden sector—it requires that $\Phi$ be mechanically present. One operation hides the hidden sector. The other feels it. No single description available to an observer in $X$ can simultaneously hide and reveal $\Phi$.
 
-This incompatibility is not merely conceptual. Because the two operations extract independent statistical moments of $\Phi$ (variance and mean respectively), Wolpert's mutual inference impossibility provides a quantitative bound on their simultaneous determination, which we now state formally.
+This incompatibility is not merely conceptual. Because the two operations extract independent statistical moments of $\Phi$ (variance and mean respectively), Wolpert's mutual inference impossibility provides a quantitative bound on their simultaneous determination, which is now stated formally.
 
 > **Complementarity Theorem (informal):** For any embedded observer, the quantum-mechanical and gravitational descriptions of vacuum energy are complementary projections that cannot be unified into a single observer-accessible description. The cosmological constant problem is the observable signature of this structural complementarity.
 
@@ -121,7 +121,7 @@ These correspond to $\rho_{\text{QM}}$ and $\rho_{\text{grav}}$ respectively.
 
 **Inference devices.** An observer confined to $V$ constitutes an inference device in Wolpert's sense: the setup function $X: \Omega \to V$ is the projection $\pi$, and the conclusion function $Y: \Omega \to \{0, 1\}$ encodes the observer's best estimate of a binary question about the target. Device 1 (the "quantum observer") targets $\Gamma_{\text{fluc}}$; Device 2 (the "gravitational observer") targets $\Gamma_{\text{mech}}$. Both share the same setup function $X = \pi$.
 
-**Application of the impossibility theorem.** Wolpert's mutual inference impossibility (result (b) in §2.1) applies when the two targets are independently configurable—when distributions exist with the same mean but different variances, and vice versa. This is manifestly the case. To obtain a quantitative bound, we apply the stochastic extension of Wolpert's Theorem 1 [4, §4], which generalizes the deterministic impossibility result to probabilistic inference devices. In the stochastic setting, each device's "correctness" is measured by the probability $\epsilon$ that its conclusion function matches the target. Wolpert shows that for two inference devices sharing the same setup function $\pi$ and targeting independently configurable functions of the universe state, the product of their success probabilities is bounded:
+**Application of the impossibility theorem.** Wolpert's mutual inference impossibility (result (b) in §2.1) applies when the two targets are independently configurable—when distributions exist with the same mean but different variances, and vice versa. This is manifestly the case. To obtain a quantitative bound, the stochastic extension of Wolpert's Theorem 1 [4, §4] is applied, which generalizes the deterministic impossibility result to probabilistic inference devices. In the stochastic setting, each device's "correctness" is measured by the probability $\epsilon$ that its conclusion function matches the target. Wolpert shows that for two inference devices sharing the same setup function $\pi$ and targeting independently configurable functions of the universe state, the product of their success probabilities is bounded:
 
 $$\epsilon_{\text{fluc}} \cdot \epsilon_{\text{mech}} \leq \frac{1}{4}$$
 
@@ -131,7 +131,7 @@ The $1/4$ arises because each device partitions universe states into equivalence
 
 **Remark on generality.** This result is physics-independent—it requires only that the observer is embedded and that the variance and mean of $H$ are independently variable.
 
-**Remark on the inference-ontology bridge.** Wolpert's theorem bounds inference accuracy, not physical quantities directly. The bridge is this: the values we call $\rho_{\text{QM}}$ and $\rho_{\text{grav}}$ are not observer-independent properties of the hidden sector. They are outputs of specific measurement procedures—QFT mode-summation and gravitational coupling—each constituting an inference operation in Wolpert's sense. There is no "true" vacuum energy behind both measurements. The two values are the best answers that two structurally different inference procedures can extract from the same hidden sector, and Wolpert's theorem guarantees they cannot converge. The $10^{120}$ is not the gap between two estimates of one quantity; it is the gap between two quantities that embeddedness forces to be distinct.
+**Remark on the inference-ontology bridge.** Wolpert's theorem bounds inference accuracy, not physical quantities directly. The bridge is this: the values called $\rho_{\text{QM}}$ and $\rho_{\text{grav}}$ are not observer-independent properties of the hidden sector. They are outputs of specific measurement procedures—QFT mode-summation and gravitational coupling—each constituting an inference operation in Wolpert's sense. There is no "true" vacuum energy behind both measurements. The two values are the best answers that two structurally different inference procedures can extract from the same hidden sector, and Wolpert's theorem guarantees they cannot converge. The $10^{120}$ is not the gap between two estimates of one quantity; it is the gap between two quantities that embeddedness forces to be distinct.
 
 ---
 
@@ -155,13 +155,13 @@ This follows from the Nakajima-Zwanzig formalism [7, 8]. The exact equation of m
 
 $$\frac{\partial \rho(X)}{\partial t} = \mathcal{L}\, \rho(X) + \int_0^t d\tau\, \mathcal{K}(t, \tau)\, \rho(X, \tau)$$
 
-where $\mathcal{K}(t, \tau)$ is the memory kernel encoding the hidden sector's influence at time $t$ due to the system's state at earlier time $\tau$. The argument is model-independent. We need only that: **(a)** $\Phi$ exists, **(b)** $\Phi$ has dynamics, and **(c)** $\Phi$ has temporal correlations.
+where $\mathcal{K}(t, \tau)$ is the memory kernel encoding the hidden sector's influence at time $t$ due to the system's state at earlier time $\tau$. The argument is model-independent. The only requirements are that: **(a)** $\Phi$ exists, **(b)** $\Phi$ has dynamics, and **(c)** $\Phi$ has temporal correlations.
 
 Condition (c) is physically generic. A hidden sector with no memory would imply infinite propagation speed or a complete lack of internal structure. If the hidden sector has a finite characteristic speed (e.g., $c$) or any internal dynamics, perturbations must persist for a nonzero duration. White noise is a mathematical idealization; physical substrates always have a finite correlation time.
 
 **Technical precision.** The connection from non-zero memory kernel to indivisibility requires care, as these are distinct conditions. The Nakajima-Zwanzig memory kernel $\mathcal{K}(t,\tau) \neq 0$ is *necessary* for indivisibility but not automatically *sufficient*: in principle, fine-tuned cancellations between the local generator $\mathcal{L}$ and the memory integral could produce transition matrices that still factorize.
 
-However, such cancellations are non-generic in the following precise sense: they require that $\mathcal{L}$ and $\mathcal{K}$ conspire to produce a completely positive, trace-preserving (CPTP) intermediate map $T(t_f, t_m) = T(t_f, t_i) \cdot T(t_m, t_i)^{-1}$ for *every* intermediate time $t_m$ and *every* initial state simultaneously. This is a measure-zero condition in the space of memory kernels. The Nakajima-Zwanzig formalism generates CP-indivisible dynamics whenever system-environment correlations are non-negligible [5, 6]. Since we are tracing out a hidden sector constituting the vast majority of the universe's degrees of freedom, these correlations are dominant rather than perturbative, and the indivisibility condition is robustly satisfied.
+However, such cancellations are non-generic in the following precise sense: they require that $\mathcal{L}$ and $\mathcal{K}$ conspire to produce a completely positive, trace-preserving (CPTP) intermediate map $T(t_f, t_m) = T(t_f, t_i) \cdot T(t_m, t_i)^{-1}$ for *every* intermediate time $t_m$ and *every* initial state simultaneously. This is a measure-zero condition in the space of memory kernels. The Nakajima-Zwanzig formalism generates CP-indivisible dynamics whenever system-environment correlations are non-negligible [5, 6]. Since the traced-out hidden sector constitutes the vast majority of the universe's degrees of freedom, these correlations are dominant rather than perturbative, and the indivisibility condition is robustly satisfied.
 
 **Therefore:** tracing out the hidden sector generically produces an indivisible stochastic process. By the Barandes correspondence, this is equivalent to quantum mechanics. The chain is complete:
 
@@ -221,11 +221,11 @@ The estimate is robust: replacing random signs with random complex phases gives 
 
 If the Complementarity Theorem is correct, General Relativity is an effective mean-field theory that breaks down whenever adiabatic averaging fails. This yields distinct observational signatures.
 
-**5.1 Gravitational Wave Echoes.** The event horizon is the limit of the mechanical projection. We predict that future gravitational wave observations of binary black hole mergers should detect **post-merger echoes** [28]—repeating signals from wave reflections at the effective boundary of the hidden sector. The distinguishing signature is that echo amplitude should scale with the ratio of probe frequency to the hidden sector's relaxation frequency: $A_{\text{echo}} / A_{\text{signal}} \sim (f / f_{\text{relax}})^\beta$. This frequency-dependent slope distinguishes mean-field breakdown from static surface models, which predict frequency-independent reflectivity.
+**5.1 Gravitational Wave Echoes.** The event horizon is the limit of the mechanical projection. The framework predicts that future gravitational wave observations of binary black hole mergers should detect **post-merger echoes** [28]—repeating signals from wave reflections at the effective boundary of the hidden sector. The distinguishing signature is that echo amplitude should scale with the ratio of probe frequency to the hidden sector's relaxation frequency: $A_{\text{echo}} / A_{\text{signal}} \sim (f / f_{\text{relax}})^\beta$. This frequency-dependent slope distinguishes mean-field breakdown from static surface models, which predict frequency-independent reflectivity.
 
-**5.2 Stochastic Gravitational Noise Floor.** Since gravity is the mean of a high-variance distribution, it should exhibit statistical fluctuations at high frequencies. We predict a **stochastic gravitational wave background** in the MHz–GHz band [29], with a $1/f^\alpha$ spectrum ($\alpha \approx 2$) satisfying the fluctuation-dissipation relation. The strain noise power at frequency $f$ would be $S_h(f) \sim 10^{-78} (1\text{ GHz}/f)^2$ Hz$^{-1}$, yielding $h_{\text{rms}} \sim 10^{-39}$ Hz$^{-1/2}$ at 1 GHz—beyond current detectors but within projected reach of next-generation sensors [29]. This amplitude is anchored to the $10^{120}$ ratio and is falsifiable.
+**5.2 Stochastic Gravitational Noise Floor.** Since gravity is the mean of a high-variance distribution, it should exhibit statistical fluctuations at high frequencies. The framework predicts a **stochastic gravitational wave background** in the MHz–GHz band [29], with a $1/f^\alpha$ spectrum ($\alpha \approx 2$) satisfying the fluctuation-dissipation relation. The strain noise power at frequency $f$ would be $S_h(f) \sim 10^{-78} (1\text{ GHz}/f)^2$ Hz$^{-1}$, yielding $h_{\text{rms}} \sim 10^{-39}$ Hz$^{-1/2}$ at 1 GHz—beyond current detectors but within projected reach of next-generation sensors [29]. This amplitude is anchored to the $10^{120}$ ratio and is falsifiable.
 
-**5.3 Null Prediction.** We predict a **null result** for searches for supersymmetric partners or inflaton particles invoked to solve the cosmological constant problem. The continued absence of these particles serves as confirming evidence for the Complementarity framework.
+**5.3 Null Prediction.** The framework predicts a **null result** for searches for supersymmetric partners or inflaton particles invoked to solve the cosmological constant problem. The continued absence of these particles serves as confirming evidence for the Complementarity framework.
 
 **Remark on detectability.** The echo and noise-floor predictions yield signal amplitudes far below current sensitivity. Their value lies in the scaling relations rather than immediate detection. Near-term empirical content resides in the null prediction and the correlated running of couplings predicted by the connection to Asymptotic Safety [27]: as probe energy increases, $G$ and $\Lambda$ should run in a correlated pattern that preserves the complementary relationship between projections.
 
@@ -251,7 +251,7 @@ More broadly, the Complementarity Theorem belongs to the family of impossibility
 
 ### 6.3 Speculations
 
-Beyond the formal results, the framework suggests several broader reinterpretations that we note briefly without claiming to have proven them.
+Beyond the formal results, the framework suggests several broader reinterpretations that are noted briefly below without claiming to have proven them.
 
 **Dark energy** is the mean-field residual of the hidden sector—the first moment of a distribution whose second moment is $10^{120}$ times larger, explaining why it has equation of state $w = -1$ and no dynamics of its own. **Bekenstein-Hawking entropy** is proportional to area because the observer's channel to the hidden sector is area-limited. **The black hole singularity** is the point where the mean-field approximation fails—where the density of hidden-sector degrees of freedom overwhelms the first-moment description. **The measurement problem** is dissolved: "collapse" is a feature of the reduced description $\rho(X)$, not of the full-state dynamics. **The information paradox** arises from assuming a single unified description that sees both projections simultaneously—precisely what the Complementarity Theorem prohibits.
 
@@ -267,13 +267,13 @@ The most important open problems include: (1) a fully continuous formulation of 
 
 The argument proceeds in three steps.
 
-**First**, we establish that embedded observers face irreducible inference limits (Wolpert), that quantum mechanics and general relativity represent two structurally incompatible projections of the same hidden sector (the Complementarity Theorem), and that the $10^{120}$ cosmological constant discrepancy is the quantitative signature of this incompleteness.
+**First**, it is established that embedded observers face irreducible inference limits (Wolpert), that quantum mechanics and general relativity represent two structurally incompatible projections of the same hidden sector (the Complementarity Theorem), and that the $10^{120}$ cosmological constant discrepancy is the quantitative signature of this incompleteness.
 
-**Second**, we show that the quantum projection is not arbitrary. Via the Barandes stochastic-quantum correspondence, tracing out any dynamical hidden sector with temporal correlations generically produces indivisible stochastic processes equivalent to quantum mechanics. Interference, superposition, entanglement, and the Born rule follow from the projection structure.
+**Second**, it is shown that the quantum projection is not arbitrary. Via the Barandes stochastic-quantum correspondence, tracing out any dynamical hidden sector with temporal correlations generically produces indivisible stochastic processes equivalent to quantum mechanics. Interference, superposition, entanglement, and the Born rule follow from the projection structure.
 
-**Third**, we convert the $10^{120}$ from a problem into a measurement. The central limit theorem yields $N \sim 10^{240}$ hidden-sector degrees of freedom—equal to $S_{\text{dS}}^2$—independently corroborated by Sorkin's causal-set prediction.
+**Third**, the $10^{120}$ is converted from a problem into a measurement. The central limit theorem yields $N \sim 10^{240}$ hidden-sector degrees of freedom—equal to $S_{\text{dS}}^2$—independently corroborated by Sorkin's causal-set prediction.
 
-If this argument is correct, the incompatibility between quantum mechanics and gravity is not a bug to be fixed. It is the physical analogue of Gödel incompleteness in formal systems—the universe telling us, in the starkest numerical terms available, that we are inside the system we are trying to describe.
+If this argument is correct, the incompatibility between quantum mechanics and gravity is not a bug to be fixed. It is the physical analogue of Gödel incompleteness in formal systems—the universe telling observers, in the starkest numerical terms available, that they are inside the system they are trying to describe.
 
 ---
 
