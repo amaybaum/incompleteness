@@ -1,40 +1,51 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[12pt, a4paper]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb,amsfonts}
+% Font setup
+\usepackage{mathpazo}
+\usepackage{amsmath, amssymb, amsfonts}
 \usepackage{mathtools}
-\usepackage{geometry}
-\usepackage{hyperref}
-\usepackage{titlesec}
+\usepackage[margin=1in]{geometry}
 \usepackage{parskip}
 \usepackage{enumitem}
+\usepackage{hyperref}
 \usepackage{xcolor}
-
-\geometry{margin=1in}
+\usepackage{csquotes}
+\usepackage{microtype}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
 
 \hypersetup{
     colorlinks=true,
     linkcolor=blue!60!black,
     urlcolor=blue!60!black,
-    citecolor=blue!60!black
+    citecolor=blue!60!black,
 }
 
-\titleformat{\section}{\Large\bfseries}{}{0em}{}
+% Section formatting
+\titleformat{\section}{\Large\bfseries}{}{0em}{}[\vspace{0.2em}\hrule\vspace{0.5em}]
 \titleformat{\subsection}{\large\bfseries}{}{0em}{}
 \titleformat{\subsubsection}{\normalsize\bfseries}{}{0em}{}
 
-\title{\LARGE\bfseries The Incompleteness of Observation\\[0.5em]
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{The Incompleteness of Observation}}
+\fancyhead[R]{\small\textit{Maybaum, February 2026}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\title{\vspace{-1cm}\textbf{\LARGE The Incompleteness of Observation}\\[0.4em]
 \large Why the Universe's Biggest Contradiction Might Not Be a Mistake}
-\author{\textbf{Alex Maybaum} --- February 2026}
-\date{}
+\author{Alex Maybaum}
+\date{February 2026}
 
 \begin{document}
 
 \maketitle
-\thispagestyle{empty}
-
-\noindent\rule{\textwidth}{0.4pt}
+\thispagestyle{fancy}
 
 \section{The Problem}
 
@@ -55,49 +66,44 @@ This paper argues the opposite. \textbf{Neither calculation is wrong. They disag
 To see why, it helps to look at what each theory actually computes.
 
 Quantum mechanics says that every possible vibration mode of every quantum field contributes a tiny bit of energy, even in a vacuum. Imagine an infinitely large orchestra where every instrument is humming at its lowest possible note. You add up all those hums:
-
-\begin{equation}
+\[
 \rho_{\text{QM}} \sim \int_0^{\Lambda} \frac{d^3k}{(2\pi)^3} \frac{1}{2}\hbar\omega_k \sim 10^{110}\ \text{J/m}^3
-\end{equation}
-
+\]
 Sum up the minimum energy of every possible vibration, from the longest wavelengths to the shortest ones allowed by physics (the ``Planck scale'' cutoff $\Lambda$). You get an enormous number.
 
 General relativity measures vacuum energy differently --- by observing how it makes the universe expand:
-
-\begin{equation}
+\[
 \rho_{\text{grav}} \sim 6 \times 10^{-10}\ \text{J/m}^3
-\end{equation}
-
+\]
 Look at how fast the universe is actually accelerating, and work backwards to figure out how much energy the vacuum must contain. You get a tiny number.
 
 The ratio:
-
-\begin{equation}
+\[
 \frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{120}
-\end{equation}
+\]
 
 The standard view is that something must be wrong with one or both calculations. This paper proposes that neither calculation is wrong --- they disagree because they are measuring \emph{different statistical properties} of the same underlying thing.
 
-\noindent\rule{\textwidth}{0.4pt}
 
 \section{The Core Idea: You Can't See Everything From Inside}
 
-Consider an analogy. Imagine you live inside a giant aquarium. You want to understand the water you're swimming in. You have two instruments:
+Consider an analogy. Imagine you want to understand the microscopic reality of a calm glass of water. You have two ways to measure its energy:
 
-\begin{itemize}[nosep]
-\item A \textbf{thermometer}, which measures how violently the water molecules are bouncing around (their kinetic energy --- the ``fluctuation'' measurement)
-\item A \textbf{pressure gauge}, which measures the net push the water exerts on your body (the ``mean-field'' measurement)
+\begin{itemize}[leftmargin=2em]
+\item A \textbf{thermometer}, which measures the total microscopic violence of the water molecules bouncing around (their absolute kinetic energy --- the ``fluctuation'' measurement)
+\item A \textbf{suspended speck of dust} (Brownian motion), which reveals the net mechanical push the water exerts on an object (the ``mean-field'' measurement)
 \end{itemize}
 
-The thermometer gives a big number, because every molecule contributes positively --- they're all bouncing. The pressure gauge gives a much smaller number, because the molecules are pushing you in all directions and mostly cancel out. The net push is just the tiny residual left over after all that cancellation.
+The thermometer gives an enormous number, because every single molecule's energy contributes positively to the total heat. They are all vibrating, and those vibrations add up.
 
-These two instruments aren't giving you contradictory information about the water. They're measuring \emph{different statistical properties} of the same underlying reality. The thermometer measures the variance (total activity). The pressure gauge measures the mean (net effect). For a system with billions of molecules pushing in random directions, the variance is naturally enormous compared to the mean.
+The dust speck, however, barely jitters. Why? Because at any given microsecond, millions of molecules strike the speck from the left, and millions strike it from the right. Because they hit from random directions, their impacts mostly cancel each other out. The net push that actually moves the speck is just the tiny statistical residual left over after all that cancellation.
 
-The critical point is this: \textbf{you can't build a single instrument that measures both simultaneously.} The thermometer works by responding to each molecular impact individually. The pressure gauge works by averaging over all of them. These are fundamentally different operations. No single measurement procedure can do both at once.
+These two measurements aren't giving you contradictory information about the water. They're measuring \emph{different statistical properties} of the same underlying reality. The thermometer measures the total activity (the variance). The dust speck's movement measures the net effect (the mean). For a system with trillions of molecules pushing in random directions, the total unsigned activity is naturally enormous compared to the tiny, canceled-out net push.
 
-This paper argues that quantum mechanics and general relativity are exactly like the thermometer and the pressure gauge. Quantum mechanics measures the \emph{fluctuation content} of the vacuum --- the total activity of the hidden degrees of freedom. General relativity measures the \emph{net mechanical effect} --- the aggregate push the vacuum exerts on spacetime. The $10^{120}$ ratio between them is not an error. It's the difference between a variance and a mean for a system with an astronomically large number of degrees of freedom.
+The critical point is this: \textbf{these are fundamentally different operations.} The thermometer reading arises from adding up every individual impact. The net mechanical push arises from averaging over all of them. In classical physics, you can just build two different instruments. But what if you are trying to measure the very fabric of the universe from the inside, and you are forced to use the universe's own structural projections to do it?
 
-\noindent\rule{\textwidth}{0.4pt}
+This paper argues that quantum mechanics and general relativity are exactly like the thermometer and the dust speck. Quantum mechanics measures the \emph{fluctuation content} of the vacuum --- the total, unsigned activity of the hidden degrees of freedom. General relativity measures the \emph{net mechanical effect} --- the aggregate, canceled-out push the vacuum exerts on spacetime. The $10^{120}$ ratio between them is not an error. It's the difference between an unsigned total and a canceled-out residual for a system with an astronomically large number of degrees of freedom.
+
 
 \section{Why This Isn't Just an Analogy}
 
@@ -106,11 +112,9 @@ There's a branch of mathematics, developed by physicist David Wolpert in 2008, t
 \subsection{Wolpert's Framework}
 
 Think of the observer as a camera trying to photograph a landscape. The camera can only capture what's in its frame --- a \emph{projection} of the full scene. Mathematically:
-
-\begin{equation}
+\[
 \pi: \Omega \to S_C
-\end{equation}
-
+\]
 where $\Omega$ is the complete state of the entire universe, $S_C$ is what the observer can access (their ``frame''), and $\pi$ is the projection --- the act of looking through the viewfinder.
 
 The critical property is that $\pi$ is \textbf{many-to-one}: many different complete universe states look the same through the observer's limited window. Just as many different landscapes might produce the same photograph if most of the scenery is behind the camera.
@@ -125,7 +129,6 @@ These theorems aren't about technology limitations. They're about \emph{logical 
 
 This paper takes Wolpert's mathematical framework and applies it to the specific case of quantum mechanics and gravity. It shows that the ``fluctuation measurement'' (quantum mechanics) and the ``mean-field measurement'' (gravity) are exactly the kind of mutually exclusive probes that Wolpert's theorems say cannot be combined. The result is a \textbf{Complementarity Theorem}: no observer inside the universe can simultaneously determine both the quantum and gravitational descriptions of vacuum energy. The $10^{120}$ discrepancy is the quantitative signature of this structural impossibility.
 
-\noindent\rule{\textwidth}{0.4pt}
 
 \section{What Makes the Hidden Sector Hidden?}
 
@@ -138,17 +141,13 @@ Nothing in the universe can transmit information faster than light. This isn't a
 \subsection{Formally: Splitting the Universe}
 
 The paper splits the universe's degrees of freedom into two bins:
-
-\begin{equation}
+\[
 \Omega = (X, \Phi)
-\end{equation}
-
+\]
 where $X$ is everything the observer \emph{can} access (particles they can detect, regions they can see) and $\Phi$ is the \textbf{hidden sector} --- everything they \emph{can't} directly access. The projection that discards the hidden sector is:
-
-\begin{equation}
+\[
 \pi: (X, \Phi) \mapsto \rho(X)
-\end{equation}
-
+\]
 Take the full state of the universe, throw away everything in the hidden sector, and what you're left with is the observer's reduced description $\rho(X)$.
 
 What fills the hidden sector? Nothing exotic --- just ordinary physics rendered inaccessible by geometry:
@@ -169,9 +168,8 @@ The key insight: the boundary between ``visible'' and ``hidden'' isn't a propert
 
 This is why the hiddenness isn't a temporary inconvenience or a technological limitation. It's woven into the fabric of spacetime itself. The speed of light creates the projection --- it defines the boundary between what you can see and what you can't. And as Wolpert's theorems guarantee, any observer bounded by such a projection faces irreducible limits on what it can know about the full system.
 
-The $10^{122}$ degrees of freedom accessible to us --- the Bekenstein--Hawking entropy of the cosmological horizon --- is determined by the \emph{area} of this light-speed boundary. The $10^{240}$ degrees of freedom in the hidden sector is what lies beyond it. The speed of light doesn't just limit our communication. It determines the shape and size of the keyhole through which we observe the universe.
+The $10^{122}$ degrees of freedom accessible to us --- the Bekenstein-Hawking entropy of the cosmological horizon --- is determined by the \emph{area} of this light-speed boundary. The $10^{240}$ degrees of freedom in the hidden sector is what lies beyond it. The speed of light doesn't just limit our communication. It determines the shape and size of the keyhole through which we observe the universe.
 
-\noindent\rule{\textwidth}{0.4pt}
 
 \section{Two Projections, Two Answers}
 
@@ -181,7 +179,7 @@ This is the heart of the argument. Quantum mechanics and gravity are measuring t
 
 Imagine you run a company with 1,000 employees. Two people ask you questions:
 
-\begin{itemize}[nosep]
+\begin{itemize}[leftmargin=2em]
 \item \textbf{Person A} asks: ``How much do your employees' salaries \emph{vary}?'' (This is asking about the \textbf{variance} --- the spread of the distribution.)
 \item \textbf{Person B} asks: ``What's the \emph{average} salary?'' (This is asking about the \textbf{mean} --- the center of the distribution.)
 \end{itemize}
@@ -191,40 +189,31 @@ These are different questions about the same set of salaries, and they can give 
 \subsection{Projection 1: Quantum Mechanics Measures Variance}
 
 The QFT vacuum energy calculation sums up the zero-point energy of every field mode:
-
-\begin{equation}
+\[
 \rho_{\text{QM}} \sim \sum_k \frac{1}{2}\hbar\omega_k
-\end{equation}
-
+\]
 Why this is a variance-type quantity: for each mode $k$, the expectation values of position and momentum are both zero:
-
-\begin{equation}
+\[
 \langle 0|x_k|0\rangle = 0 \qquad \langle 0|p_k|0\rangle = 0
-\end{equation}
-
+\]
 So the zero-point energy is \emph{entirely} due to the spread (variance) of position and momentum:
-
-\begin{equation}
+\[
 \langle 0|H_k|0\rangle = \frac{1}{2}\text{Var}(p_k) + \frac{1}{2}\omega_k^2\,\text{Var}(x_k)
-\end{equation}
-
+\]
 In a classical vacuum, both variances would be zero and the vacuum energy would vanish. The entire $\frac{1}{2}\hbar\omega_k$ per mode is pure fluctuation content. You're standing next to a calm lake --- quantum mechanics measures how choppy the water is, the total wave energy from all the ripples, regardless of their direction. Every ripple contributes positively, so the total can be enormous.
 
 \subsection{Projection 2: Gravity Measures the Mean}
 
 The Einstein field equations couple spacetime curvature to the \emph{expectation value} (average) of the stress-energy tensor:
-
-\begin{equation}
+\[
 G_{\mu\nu} = 8\pi G \langle T_{\mu\nu} \rangle
-\end{equation}
-
+\]
 The left side (curvature) is smooth. The right side is an average over all quantum configurations. Gravity doesn't care about individual ripples --- it only feels the net, aggregate energy content.
 
 Why this gives a much smaller number: when you have a huge number of contributions with random signs, the signed sum is much smaller than the unsigned sum. If 1,000 people each owe or are owed a random amount between $-$\$100 and $+$\$100, the total \emph{absolute} amount of debt (the variance-like quantity) is roughly $1{,}000 \times \$50 = \$50{,}000$, while the \emph{net} balance (the mean-like quantity) is roughly $\sqrt{1{,}000} \times \$50 \approx \$1{,}580$. The net balance is much smaller because positive and negative contributions cancel.
 
 Gravity is measuring the net water level of the lake --- are the waves pushing the average surface up or down? Since waves go up and down roughly equally, the net displacement is tiny compared to the total wave energy.
 
-\noindent\rule{\textwidth}{0.4pt}
 
 \section{The Complementarity Theorem: Why Unification Is Impossible}
 
@@ -243,27 +232,23 @@ Imagine trying to study a pond by two methods: (1) seal off the pond and analyze
 \textbf{Step 1: Define the setup.}
 
 Split the universe into visible ($V$) and hidden ($H$) sectors:
-
-\begin{equation}
+\[
 u = (v, h) \in \Omega
-\end{equation}
-
+\]
 Define two ``target functions'' --- the two things we're trying to measure:
-
-\begin{equation}
+\[
 \Gamma_{\text{fluc}}(u) = \text{Var}_H[h] \qquad \text{(total fluctuation content)}
-\end{equation}
-\begin{equation}
+\]
+\[
 \Gamma_{\text{mech}}(u) = \mathbb{E}_H[h] \qquad \text{(net mechanical effect)}
-\end{equation}
-
+\]
 These correspond to the QM and GR vacuum energies, respectively.
 
 \textbf{Step 2: Identify the observers as Wolpert inference devices.}
 
 An observer confined to $V$ is an ``inference device'' in Wolpert's framework. They can only see $V$, so their setup function is the projection $\pi: \Omega \to V$.
 
-\begin{itemize}[nosep]
+\begin{itemize}[leftmargin=2em]
 \item \textbf{Device 1} (the ``quantum observer'') tries to determine $\Gamma_{\text{fluc}}$ (the variance).
 \item \textbf{Device 2} (the ``gravitational observer'') tries to determine $\Gamma_{\text{mech}}$ (the mean).
 \end{itemize}
@@ -274,26 +259,24 @@ Both devices share the same projection $\pi$ --- they're the same observer tryin
 
 For Wolpert's mutual inference impossibility to apply, the two targets must be \emph{independently configurable} --- it must be possible to change one without changing the other. In statistics:
 
-\begin{itemize}[nosep]
+\begin{itemize}[leftmargin=2em]
 \item You can construct distributions with the \textbf{same mean but different variances} (e.g., compare a narrow bell curve with a wide bell curve, both centered at zero).
 \item You can construct distributions with the \textbf{same variance but different means} (e.g., shift a bell curve left or right without changing its width).
 \end{itemize}
 
-So mean and variance are indeed independently configurable. \checkmark
+So mean and variance are indeed independently configurable. $\checkmark$
 
 \textbf{Step 4: Apply Wolpert's bound.}
 
 Wolpert's stochastic extension of the mutual inference impossibility gives:
-
-\begin{equation}
+\[
 \epsilon_{\text{fluc}} \cdot \epsilon_{\text{mech}} \leq \frac{1}{4}
-\end{equation}
-
+\]
 where $\epsilon_{\text{fluc}}$ and $\epsilon_{\text{mech}}$ are the probabilities that the observer correctly infers each target.
 
 If you get the variance exactly right ($\epsilon_{\text{fluc}} = 1$), your mean estimate can be no better than random chance ($\epsilon_{\text{mech}} \leq 1/4$). And vice versa. Perfect knowledge of one forces ignorance of the other. It's like a seesaw --- pushing one end up forces the other end down. The product of the two accuracies has a hard ceiling, and that ceiling is low.
 
-\subsection{The Inference--Ontology Bridge}
+\subsection{The Inference-Ontology Bridge}
 
 There is an important subtlety here. Wolpert's theorem is about \emph{inference accuracy}, not physical quantities directly. The bridge works like this:
 
@@ -303,7 +286,6 @@ There is no single ``true'' vacuum energy sitting behind both measurements. The 
 
 The $10^{120}$ is not the gap between two bad estimates of one thing. It is the gap between two \emph{different things} that embeddedness forces to be distinct.
 
-\noindent\rule{\textwidth}{0.4pt}
 
 \section{Where Does Quantum Mechanics Come From?}
 
@@ -311,35 +293,31 @@ This leads to a second claim, which may be the more consequential one.
 
 When you're inside a system and you ``trace out'' the parts you can't see --- when you mathematically discard the information about the hidden degrees of freedom --- the resulting description of what you \emph{can} see has a very specific mathematical structure. It's not classical. It's not random noise. It's \textbf{quantum mechanics.}
 
-\subsection{The Barandes Stochastic--Quantum Correspondence}
+\subsection{The Barandes Stochastic-Quantum Correspondence}
 
 This result comes from a 2023 theorem by physicist Jacob Barandes, who proved that \textbf{any indivisible stochastic process is exactly equivalent to a quantum system.}
 
 A stochastic process is any system that evolves with some randomness --- a ball bouncing around in a box, say. Such a process is described by \emph{transition matrices}: tables of probabilities telling you how likely the system is to go from state A to state B over some time interval.
 
 A process is \textbf{divisible} if you can always break a long transition into a chain of shorter ones:
-
-\begin{equation}
+\[
 T(t_f, t_i) = T(t_f, t_m) \cdot T(t_m, t_i)
-\end{equation}
-
+\]
 Think of driving from New York to Los Angeles. A divisible process is like driving on a highway --- your probability of reaching LA can be computed by multiplying the probability of reaching Chicago by the probability of getting from Chicago to LA. Each segment is independent.
 
-An \textbf{indivisible} process violates this. The long-range transition \emph{cannot} be decomposed into independent short steps. The system has \emph{temporal memory} --- what happened in the past influences the future in a way that can't be captured by the present state alone. Imagine driving through a desert where the road conditions at noon depend on the temperature at 6 AM in ways that aren't captured by the 9 AM temperature. You can't just chain together 6-to-9 and 9-to-noon segments --- you'd miss the 6 AM $\to$ noon correlation.
+An \textbf{indivisible} process violates this. The long-range transition \emph{cannot} be decomposed into independent short steps. The system has \emph{temporal memory} --- what happened in the past influences the future in a way that can't be captured by the present state alone. Imagine driving through a desert where the road conditions at noon depend on the temperature at 6 AM in ways that aren't captured by the 9 AM temperature. You can't just chain together 6-to-9 and 9-to-noon segments --- you'd miss the 6~AM $\to$ noon correlation.
 
 Barandes proved that if a stochastic process is indivisible, it \emph{automatically} reproduces interference, entanglement, the Born rule, and superposition. These aren't added in by hand. They emerge mathematically from indivisibility.
 
 \subsection{Why Tracing Out the Hidden Sector Produces Indivisibility}
 
-This is where the Nakajima--Zwanzig formalism comes in. When you trace out part of a system, the remaining part obeys:
-
-\begin{equation}
+This is where the Nakajima-Zwanzig formalism comes in. When you trace out part of a system, the remaining part obeys:
+\[
 \frac{\partial \rho(X)}{\partial t} = \mathcal{L}\, \rho(X) + \int_0^t d\tau\, \mathcal{K}(t, \tau)\, \rho(X, \tau)
-\end{equation}
-
+\]
 Unpacking this:
 
-\begin{itemize}[nosep]
+\begin{itemize}[leftmargin=2em]
 \item $\rho(X)$ is the state of the visible sector
 \item $\mathcal{L}\, \rho(X)$ is the ``local'' part --- how $X$ would evolve on its own
 \item $\int_0^t d\tau\, \mathcal{K}(t, \tau)\, \rho(X, \tau)$ is the \textbf{memory kernel} --- how the hidden sector's past states influence the visible sector's present
@@ -354,15 +332,12 @@ For the hidden sector to have \emph{no} memory (white noise), it would need infi
 \subsection{The Complete Chain}
 
 Putting it all together:
+\begin{gather*}
+\text{Embedded observer} \to \text{Hidden sector exists} \to \text{Trace it out} \\
+\to \text{Memory kernel} \to \text{Indivisibility} \to \text{Quantum mechanics}
+\end{gather*}
 
-\begin{center}
-\fbox{\parbox{0.9\textwidth}{
-\centering
-Embedded observer $\to$ Hidden sector exists $\to$ Trace it out $\to$ Memory kernel $\to$ Indivisibility $\to$ Quantum mechanics
-}}
-\end{center}
-
-\begin{enumerate}[nosep]
+\begin{enumerate}[leftmargin=2em]
 \item You're inside the universe (embedded observer)
 \item Therefore some degrees of freedom are inaccessible (hidden sector)
 \item Your description discards them (trace out)
@@ -377,13 +352,12 @@ A nonzero memory kernel is \emph{necessary} for indivisibility but not automatic
 
 \textbf{The punchline:} Quantum mechanics isn't a fundamental law --- it's what any embedded observer would see after tracing out a temporally correlated hidden sector. The weirdness of quantum mechanics is a \emph{projection artifact}.
 
-\noindent\rule{\textwidth}{0.4pt}
 
 \section{Explaining the Quantum World}
 
 One of the most striking features of this framework is that the counterintuitive phenomena of quantum mechanics --- the ones that have occupied physicists and philosophers for a century --- all follow as \emph{consequences} of being an inside observer with missing information. They are not irreducible properties of reality. They are what reality looks like through an incomplete projection.
 
-The major cases are outlined below. \emph{(Readers already comfortable with quantum mechanics may wish to skip ahead to the section on Reinterpreting Gravity.)}
+The major cases are outlined below. \emph{(Readers already comfortable with quantum mechanics may wish to skip ahead to \S\ref{sec:gravity}.)}
 
 \subsection{The Double-Slit Experiment and Interference}
 
@@ -453,15 +427,11 @@ This framework offers a reinterpretation: \textbf{quantization is a sampling art
 
 The analogy is a digital camera photographing a smooth landscape. The landscape has no pixels --- the rolling hills, the gradient of the sunset, the curve of the river are all perfectly continuous. But the camera's sensor has a finite number of photosites, each of which reports a single color value for a small patch of the image. The result is pixels: discrete blocks of color that aren't in the landscape itself but are an inevitable consequence of capturing a continuous scene through a finite-resolution channel. If you only ever see the landscape through such cameras, you might conclude that the world is fundamentally pixelated. But the pixelation is in the camera, not in the world.
 
-This reinterpretation touches some of the most iconic moments in the history of physics:
+This reinterpretation touches some of the most iconic moments in the history of physics. Consider the founding case:
 
 \textbf{Planck and blackbody radiation (1900).} The birth of quantum mechanics came when Max Planck found that he could explain the spectrum of light emitted by hot objects only if he assumed that energy was emitted in discrete packets of size $E = hf$ (energy equals Planck's constant times frequency). In the standard telling, this means energy \emph{is} fundamentally discrete. In this framework, the hot object is a system of hidden-sector modes being observed through a finite-bandwidth projection. The projection can only resolve energy exchanges in minimum-sized chunks --- not because the underlying energy transfer is discontinuous, but because the observer's channel has a minimum resolution set by its bandwidth. Planck's constant $\hbar$ is, in this reading, not a fundamental property of energy itself but a \textbf{measure of the projection's resolution limit} --- the smallest energy step that the observer's channel can distinguish.
 
-\textbf{Einstein and the photoelectric effect (1905).} Einstein showed that light knocks electrons off metal surfaces in a way that can only be explained if light comes in discrete packets (photons), each carrying energy $E = hf$. Below a threshold frequency, no electrons are emitted regardless of how bright the light is --- a result that makes no sense if light is a continuous wave but perfect sense if it comes in minimum-energy packets. In this framework, the photon isn't a fundamental indivisible unit of light. It's the minimum energy exchange that the projection can resolve. The hidden sector's electromagnetic activity is continuous, but the observer's interaction with it --- knocking an electron off a metal surface --- can only register energy transfers in discrete chunks. The threshold frequency isn't a property of light; it's a property of the observation: below the threshold, the projection can't resolve a single energy quantum large enough to dislodge an electron.
-
-\textbf{Bohr and atomic spectra (1913).} When you heat a gas, it emits light only at specific frequencies --- sharp spectral lines rather than a continuous rainbow. Niels Bohr explained this by proposing that electrons orbit the nucleus only at certain allowed energy levels, and the emitted light corresponds to jumps between these levels. In this framework, the electron's interaction with the nucleus involves the hidden sector --- the degrees of freedom that mediate the electromagnetic binding. The observer's projection of this interaction can only resolve a discrete set of configurations --- the ``allowed orbits.'' The continuous spectrum of possible electron-nucleus distances exists in the full state of the system (observable + hidden sector), but the finite-bandwidth projection compresses this into a discrete ladder of energy levels. The spectral lines that atoms emit are the observable signature of this compression --- the specific frequencies that correspond to transitions between the resolvable levels of the projected description.
-
-\textbf{The pattern across all three.} In each case, the standard story says: ``We discovered that nature is fundamentally discrete.'' This framework says: ``We discovered the resolution limit of our observation channel.'' The discreteness is real --- you genuinely cannot observe half a photon or a quarter of an energy level --- but it's a property of the \emph{projection}, not of the underlying reality.
+The same logic recurs across the founding moments of quantum theory. Einstein's photons (1905) --- discrete packets of light that knock electrons off metal surfaces only above a threshold frequency --- become the minimum energy exchange the projection can resolve, with the threshold set by the observation channel rather than by light itself. Bohr's atomic spectra (1913) --- sharp spectral lines rather than a continuous rainbow --- become the observable signature of a finite-bandwidth projection compressing a continuous spectrum of electron-nucleus configurations into a discrete ladder of energy levels. In each case, the standard story says: ``We discovered that nature is fundamentally discrete.'' This framework says: ``We discovered the resolution limit of our observation channel.'' The discreteness is real --- you genuinely cannot observe half a photon or a quarter of an energy level --- but it's a property of the \emph{projection}, not of the underlying reality.
 
 Planck's constant, in this reading, is the single most important number in physics not because it tells us about the graininess of reality, but because it tells us about the \textbf{bandwidth of the channel} through which we access reality. It's the conversion factor between the hidden sector's continuous dynamics and the observer's discrete description --- the physical analogue of a camera's pixel pitch.
 
@@ -495,9 +465,9 @@ One of the deepest discoveries in theoretical physics is that the maximum amount
 
 This framework offers a natural explanation. The hidden sector occupies the full ``volume'' of the state space --- it has an enormous number of degrees of freedom everywhere. But the observer doesn't access the hidden sector directly. The observer accesses it only through the projection --- the interface between the observable and hidden sectors. The bandwidth of this interface --- how much information it can transmit --- is proportional to the \emph{area} of the boundary, not the volume behind it. Information is bounded by area because the observer's channel to reality is an area-limited interface. The holographic principle isn't a strange fact about the universe --- it's a natural consequence of how embedded observation works.
 
-\noindent\rule{\textwidth}{0.4pt}
 
 \section{Reinterpreting Gravity}
+\label{sec:gravity}
 
 \emph{The sections that follow explore implications of the framework that go beyond what the technical paper formally derives. The core argument --- the Complementarity Theorem, the derivation of quantum mechanics via Barandes, and the $10^{240}$ degree-of-freedom count --- is presented in \S\S1--4 of the full paper. What follows are extrapolations: reinterpretations of known physics that are consistent with the framework and illustrative of its explanatory reach, but which should be understood as directions for future investigation rather than established results.}
 
@@ -531,9 +501,9 @@ In this framework, the paradox dissolves in the same way as the measurement prob
 
 About 27\% of the universe's energy budget consists of ``dark matter'' --- something that has gravitational effects but doesn't interact with light or any other force we can detect. Despite decades of increasingly sensitive experiments, no dark matter particle has ever been found.
 
-This framework suggests --- speculatively --- an alternative interpretation. If the hidden sector's contributions to the mean-field average aren't perfectly uniform across space, some regions will have a larger-than-average net effect. These regions would curve spacetime, attract ordinary matter, and bend light, but wouldn't show up in non-gravitational experiments because the correlations are in the \emph{mean-field structure}, not in the fluctuation statistics that produce electromagnetism and nuclear forces. Dark matter, in this reading, would be a \emph{spatial pattern in the gravitational projection} --- statistical eddies rather than undiscovered particles.
+This framework suggests --- speculatively --- an alternative interpretation. If the hidden sector's contributions to the mean-field average aren't perfectly uniform across space, some regions will have a larger-than-average net effect. These regions would curve spacetime, attract ordinary matter, and bend light, but wouldn't show up in non-gravitational experiments because the correlations are in the \emph{mean-field structure}, not in the fluctuation statistics that produce electromagnetism and nuclear forces. Dark matter, in this reading, might be better understood as a \emph{spatial pattern in the gravitational projection} --- statistical inhomogeneities in the mean-field average --- rather than a population of undiscovered particles.
 
-This is among the most speculative implications of the framework and would need to reproduce the specific observational signatures that particle dark matter explains (galaxy rotation curves, gravitational lensing patterns, the cosmic microwave background power spectrum). It is offered as an illustration of how the two-projection structure naturally produces a universe where most of the gravitational budget is ``dark,'' not as a developed alternative to particle dark matter models.
+This is among the most speculative implications of the framework. It would need to quantitatively reproduce the specific observational signatures that particle dark matter models currently explain --- galaxy rotation curves, gravitational lensing patterns, the cosmic microwave background power spectrum, and the distribution of large-scale structure --- before it could be considered a serious alternative. It is offered here as an illustration of how the two-projection structure naturally produces a universe where most of the gravitational budget is ``dark,'' not as a developed alternative to particle dark matter models.
 
 \subsection{Why 95\% of the Universe Is Invisible}
 
@@ -599,7 +569,6 @@ Here's a way to picture it. Imagine you're in a massive, crowded stadium, but yo
 
 \textbf{Why this matters.} Standard physics, when it encounters the ``dark'' 95\% of the universe, assumes there must be new, exotic particles --- WIMPs, axions, sterile neutrinos --- floating right through us, interacting only through gravity. This framework says something fundamentally different: the hidden sector is made of \emph{standard} degrees of freedom that are simply causally separated from us by horizons or by scale. The darkness isn't a property of the stuff. It's a property of our position --- inside a finite bubble, above a minimum resolution, outside every event horizon. Move the observer, and what counts as ``hidden'' changes. The stuff doesn't.
 
-\noindent\rule{\textwidth}{0.4pt}
 
 \section{What the $10^{120}$ Tells Us}
 
@@ -610,30 +579,26 @@ If the $10^{120}$ ratio is the variance-to-mean ratio of the hidden sector, we c
 This is where the paper converts the cosmological constant ``problem'' into a \emph{measurement} of the hidden sector's size. The math is surprisingly accessible.
 
 Imagine the hidden sector has $N$ independent degrees of freedom. Each one contributes an energy:
-
-\begin{equation}
+\[
 X_i = s_i \mu + \epsilon_i
-\end{equation}
-
+\]
 where $s_i = \pm 1$ is a random sign (positive or negative contribution), $\mu$ is a characteristic energy per mode (like a typical salary), and $\epsilon_i$ is a random fluctuation with mean zero and variance $\sigma^2$ (like individual variation around the typical value).
 
 The quantum projection sums all contributions without regard to sign --- it measures total activity. The gravitational projection sums them \emph{with} their signs --- it measures the net effect. With $N$ random signs, the net sum grows only as $\sqrt{N}$ while the total activity grows as $N$. The ratio between them is $\sqrt{N}$.
 
 Setting this equal to $10^{120}$:
-
-\begin{equation}
+\[
 \sqrt{N} \sim 10^{120} \implies N \sim 10^{240}
-\end{equation}
+\]
 
 \subsection{The Holographic Connection}
 
-The answer --- about $10^{240}$ --- is not arbitrary. It turns out to be exactly the \emph{square} of another well-known number in physics: the Bekenstein--Hawking entropy of the cosmological horizon, which is roughly $10^{122}$.
+The answer --- about $10^{240}$ --- is not arbitrary. It turns out to be exactly the \emph{square} of another well-known number in physics: the Bekenstein-Hawking entropy of the cosmological horizon, which is roughly $10^{122}$.
 
 This ``coincidence'' --- that the hidden sector has exactly $(10^{122})^2$ degrees of freedom --- suggests a deep connection to the holographic principle, the idea that the information content of a region of space is proportional to its surface area rather than its volume. The paper argues this is not a coincidence: the $10^{120}$ is the one number where both projections make contact with the same physical reality, and it encodes the hidden sector's structure directly.
 
 The cosmological constant problem, in this reading, isn't a problem. It's a \emph{measurement} --- the most precise measurement we have of the dimensionality of the parts of reality we cannot see.
 
-\noindent\rule{\textwidth}{0.4pt}
 
 \section{The Logical Structure of Incompleteness}
 
@@ -661,7 +626,6 @@ What makes this framework different from a philosophical observation is that the
 
 The standard interpretation of the $10^{120}$ is that it represents a calculational failure --- the worst prediction in the history of physics. This framework says it is the opposite: it is the most precise measurement we have of the boundary between what an embedded observer can and cannot know. It is not an error. It is the physical world's G\"odel sentence --- a number that encodes, in the starkest possible terms, the fact that we are inside the system we are trying to describe.
 
-\noindent\rule{\textwidth}{0.4pt}
 
 \section{Can We Test This?}
 
@@ -675,7 +639,6 @@ The framework makes several testable predictions:
 
 \textbf{Correlated running of constants.} The strength of gravity and the vacuum energy should change with the energy scale at which you measure them, and they should change in a correlated way --- converging toward each other at very high energies. This is testable through precision observations of the cosmic microwave background.
 
-\noindent\rule{\textwidth}{0.4pt}
 
 \section{What This Means}
 
@@ -688,15 +651,15 @@ The universe is not broken. We are just observing it from within, which sets fun
 In 1926, Einstein wrote to Max Born: ``I, at any rate, am convinced that He does not throw dice.'' For a century, this has been read as Einstein being wrong --- as a great mind unable to accept the fundamental randomness of quantum mechanics. This framework suggests a different reading. Einstein's intuition was correct: the underlying reality, the full state of the universe including its hidden sector, is definite. The dice are real, but they belong to the projection, not to reality itself. What Einstein called ``the secret of the Old One'' is not randomness. It is the structural fact that no observer inside the universe can see the whole game --- and what we call quantum mechanics is what the game looks like through the keyhole.
 
 \bigskip
-\noindent\rule{\textwidth}{0.4pt}
+\hrule
+\bigskip
 
-\medskip
-\noindent\emph{This is a simplified overview of the full technical paper ``The Incompleteness of Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From Within'' (Maybaum, February 2026). The core argument --- including mathematical proofs, formal theorems, and detailed experimental predictions --- is presented in the companion paper. Several of the reinterpretations explored in this explainer (the arrow of time, dark matter, quantization, String Theory) go beyond the formal results and are flagged as speculative implications in both documents.}
+\emph{This is a simplified overview of the full technical paper ``The Incompleteness of Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From Within'' (Maybaum, February 2026). The core argument --- including mathematical proofs, formal theorems, and detailed experimental predictions --- is presented in the companion paper. Several of the reinterpretations explored in this explainer (the arrow of time, dark matter, quantization, String Theory) go beyond the formal results and are flagged as speculative implications in both documents.}
 
 \bigskip
-\noindent\rule{\textwidth}{0.4pt}
+\hrule
+\bigskip
 
-\medskip
-\noindent\textbf{Acknowledgment of AI-Assisted Technologies:} The author acknowledges the use of \textbf{Claude Opus 4.6} and \textbf{Gemini 3 Pro} to assist in synthesizing technical concepts and refining the clarity of this explainer. The final text and all scientific claims were reviewed and verified by the author.
+\textbf{Acknowledgment of AI-Assisted Technologies:} The author acknowledges the use of \textbf{Claude Opus 4.6} and \textbf{Gemini 3 Pro} to assist in synthesizing technical concepts and refining the clarity of this explainer. The final text and all scientific claims were reviewed and verified by the author.
 
 \end{document}
