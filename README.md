@@ -30,7 +30,7 @@ An accessible companion written for physicists and scientifically literate reade
 
 2. **Quantum mechanics from embeddedness.** Tracing out a temporally correlated hidden sector generically produces indivisible stochastic processes, which are mathematically equivalent to quantum mechanics (Barandes 2023).
 
-3. **10¹²⁰ as measurement.** Interpreting the cosmological constant ratio as a variance-to-mean ratio yields N ~ 10²⁴⁰ hidden-sector degrees of freedom — equal to S_dS², the square of the de Sitter horizon entropy.
+3. **10¹²⁰ as measurement.** Interpreting the cosmological constant ratio as a variance-to-mean ratio yields N ~ 10²⁴⁰ hidden-sector degrees of freedom — equal to S_dS², the square of the Bekenstein-Hawking entropy of the cosmological horizon.
 
 ## Contact
 
