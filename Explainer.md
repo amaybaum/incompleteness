@@ -31,7 +31,7 @@ The ratio:
 
 $$\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{120}$$
 
-The standard view is that something must be wrong with one or both calculations. This paper proposes that neither calculation is wrong — they disagree because they are aggregating the same underlying contributions in *structurally different ways*: one sums them unsigned (every contribution adds positively), the other sums them signed (where different sectors cancel).
+The standard view is that something must be wrong with one or both calculations. This paper proposes that neither calculation is wrong — they disagree because they are measuring *different statistical properties* of the same underlying thing.
 
 ---
 
@@ -46,11 +46,11 @@ The thermometer gives an enormous number, because every single molecule's energy
 
 The dust speck, however, barely jitters. Why? Because at any given microsecond, millions of molecules strike the speck from the left, and millions strike it from the right. Because they hit from random directions, their impacts mostly cancel each other out. The net push that actually moves the speck is just the tiny statistical residual left over after all that cancellation.
 
-These two measurements aren't giving you contradictory information about the water. They're measuring *different aggregations* of the same underlying reality. The thermometer adds every molecule's energy as a positive number (unsigned total). The dust speck's movement reflects the net push after cancellation (signed net). For a system with trillions of molecules pushing in random directions, the total unsigned activity is naturally enormous compared to the tiny, canceled-out net push.
+These two measurements aren't giving you contradictory information about the water. They're measuring *different statistical properties* of the same underlying reality. The thermometer measures the total activity (the variance). The dust speck's movement measures the net effect (the mean). For a system with trillions of molecules pushing in random directions, the total unsigned activity is naturally enormous compared to the tiny, canceled-out net push.
 
 The critical point is this: **these are fundamentally different operations.** The thermometer reading arises from adding up every individual impact. The net mechanical push arises from averaging over all of them. In classical physics, you can just build two different instruments. But what if you are trying to measure the very fabric of the universe from the inside, and you are forced to use the universe's own structural projections to do it?
 
-This paper argues that quantum mechanics and general relativity are just like the thermometer and the dust speck. Quantum mechanics measures the *unsigned total activity* of the hidden degrees of freedom — summing every mode's contribution positively. General relativity measures the *signed net effect* — the aggregate, canceled-out push the vacuum exerts on spacetime. The 10¹²⁰ ratio between them is not an error. It's the difference between an unsigned total and a canceled-out signed residual for a system with an astronomically large number of degrees of freedom.
+This paper argues that quantum mechanics and general relativity are just like the thermometer and the dust speck. Quantum mechanics measures the *fluctuation content* of the vacuum — the total, unsigned activity of the hidden degrees of freedom. General relativity measures the *net mechanical effect* — the aggregate, canceled-out push the vacuum exerts on spacetime. The 10¹²⁰ ratio between them is not an error. It's the difference between an unsigned total and a canceled-out residual for a system with an astronomically large number of degrees of freedom.
 
 ---
 
@@ -72,7 +72,7 @@ Wolpert proved two key results from this setup:
 
 These theorems aren't about technology limitations. They're about *logical structure* — in the same family as Gödel's incompleteness theorem for mathematics and Turing's halting problem for computers. They show that being embedded inside the system you're studying creates inescapable constraints.
 
-This paper takes Wolpert's mathematical framework and applies it to the specific case of quantum mechanics and gravity. It shows that the "unsigned accumulation" (quantum mechanics) and the "signed accumulation" (gravity) are exactly the kind of mutually exclusive probes that Wolpert's theorems say cannot be combined. The result is a **Complementarity Theorem**: no observer inside the universe can simultaneously determine both the quantum and gravitational descriptions of vacuum energy. The 10¹²⁰ discrepancy is the quantitative signature of this structural impossibility.
+This paper takes Wolpert's mathematical framework and applies it to the specific case of quantum mechanics and gravity. It shows that the "fluctuation measurement" (quantum mechanics) and the "mean-field measurement" (gravity) are exactly the kind of mutually exclusive probes that Wolpert's theorems say cannot be combined. The result is a **Complementarity Theorem**: no observer inside the universe can simultaneously determine both the quantum and gravitational descriptions of vacuum energy. The 10¹²⁰ discrepancy is the quantitative signature of this structural impossibility.
 
 ---
 
@@ -92,7 +92,7 @@ What fills the hidden sector? Nothing exotic. Go back to the glass of water: if 
 
 **The sub-Planckian world.** If you zoom into a digital photograph far enough, you eventually see square pixels. You can't see half a pixel — the camera's resolution simply stops there. The Planck scale is physics' pixel boundary. Below about 10⁻³⁵ meters, the energy required to probe the system is so enormous that it would create a micro black hole, swallowing the very information you were trying to extract. The act of looking that closely destroys the thing you're looking at. What's down there? Presumably, the continuous geometric reality that our "pixelated" measurements can't resolve — the smooth landscape behind the camera's grid. It's "hidden" not because it's made of exotic matter, but because the resolution of our observational channel bottoms out at the Planck scale.
 
-That's it. Imagine you're in a massive, crowded stadium, but you can only observe the crowd two ways. Method one: you have a seismometer that registers *every footfall* — every stomp, every jump, every shuffle — and adds up the total vibrational energy. The reading is enormous, because every person contributes positively regardless of direction. That's quantum mechanics, the unsigned accumulation. Method two: you watch a giant beach ball floating on the crowd's outstretched hands. The ball drifts slowly in one direction — the tiny residual of millions of random pushes that mostly cancel. That's gravity, the signed accumulation. The hidden sector is the crowd itself — billions of people whose individual motions you can't track, but whose collective energy creates the environment you live in.
+That's it. Imagine you're in a massive, crowded stadium, but you can only observe the crowd two ways. Method one: you have a seismometer that registers *every footfall* — every stomp, every jump, every shuffle — and adds up the total vibrational energy. The reading is enormous, because every person contributes positively regardless of direction. That's quantum mechanics, the fluctuation measurement. Method two: you watch a giant beach ball floating on the crowd's outstretched hands. The ball drifts slowly in one direction — the tiny residual of millions of random pushes that mostly cancel. That's gravity, the mean-field measurement. The hidden sector is the crowd itself — billions of people whose individual motions you can't track, but whose collective energy creates the environment you live in.
 
 ### Why the Projection Satisfies Wolpert's Requirements
 
@@ -108,28 +108,28 @@ The roughly 10¹²⁰ degrees of freedom accessible to us — the Bekenstein-Haw
 
 ## Two Projections, Two Answers
 
-This is the heart of the argument. Quantum mechanics and gravity aggregate the hidden sector's contributions in structurally different ways — and the mathematics of embedded observation guarantees they cannot agree.
+This is the heart of the argument. Quantum mechanics and gravity are measuring two different *statistical moments* of the same distribution — and the mathematics of embedded observation guarantees they cannot agree.
 
-### Unsigned vs. Signed Accumulation
+### What Are Statistical Moments?
 
 Imagine you run a company with 1,000 employees. Two people ask you questions:
 
-- **Person A** asks: "What's the *total amount* your company pays out in absolute salary?" (This adds every salary as a positive number — the **unsigned total**.)
-- **Person B** asks: "What's the *net effect* on your company's bank account each month, after counting both salaries paid out *and* revenue coming in?" (This adds positive and negative contributions — the **signed net**.)
+- **Person A** asks: "How much do your employees' salaries *vary*?" (This is asking about the **variance** — the spread of the distribution.)
+- **Person B** asks: "What's the *average* salary?" (This is asking about the **mean** — the center of the distribution.)
 
-These are different questions about the same company, and they can give very different numbers. The unsigned total of all salaries is always large and positive. The signed net — revenue minus costs — could be a tiny positive number, a tiny negative number, or even zero, depending on how much cancellation occurs between income and outgo.
+These are different questions about the same set of salaries, and they can give very different numbers. A company where everyone earns between \$95,000 and \$105,000 has a small variance but a large mean. A company with a mix of unpaid interns and millionaire executives could have a very large variance despite a modest mean.
 
-### Projection 1: Quantum Mechanics Sums Unsigned
+### Projection 1: Quantum Mechanics Measures Variance
 
-The QFT vacuum energy calculation sums up the zero-point energy of every field mode. Strictly, this is an expectation value — a first moment — but it has a crucial property: every mode contributes *positively* ($+\frac{1}{2}\hbar\omega$). No cancellation between modes is possible. The sum grows linearly with the number of modes. (Why is each mode's contribution positive? Because it arises from the position and momentum variances of the quantum ground state. In a classical vacuum, both variances vanish and the zero-point energy is zero. The entire zero-point energy per mode is pure fluctuation content.)
+The QFT vacuum energy calculation sums up the zero-point energy of every field mode. Strictly, this is an expectation value — a first moment — but it has a crucial property: every mode contributes *positively* ($+\frac{1}{2}\hbar\omega$). No cancellation between modes is possible. The sum grows linearly with the number of modes. Why is each mode's contribution positive? Because it arises from the position and momentum variances of the quantum ground state. In a classical vacuum, both variances vanish and the zero-point energy is zero. The entire zero-point energy per mode is pure fluctuation content — a variance-type quantity.
 
 You're standing next to a calm lake — quantum mechanics measures how choppy the water is, the total wave energy from all the ripples, regardless of their direction. Every ripple contributes positively, so the total can be enormous.
 
-### Projection 2: Gravity Sums Signed
+### Projection 2: Gravity Measures the Mean
 
-The Einstein field equations couple spacetime curvature to the *expectation value* (average) of the stress-energy tensor. This too is formally a first moment. But unlike the QFT sum, the stress-energy tensor is not positive-definite: different sectors — bosonic fields, fermionic fields, vacuum condensates — contribute to the effective cosmological constant with different signs. The gravitational measurement couples to the net signed result, where cancellation between sectors is not only possible but expected.
+The Einstein field equations couple spacetime curvature to the *expectation value* (average) of the stress-energy tensor. This too is formally a first moment. But unlike the QFT sum, the stress-energy tensor is not positive-definite: different sectors — bosonic fields, fermionic fields, vacuum condensates — contribute to the effective cosmological constant with different signs. Gravity doesn't care about individual ripples — it only feels the net, aggregate energy content, where cancellation between sectors is not only possible but expected.
 
-Why this gives a much smaller number: when you have a huge number of contributions with different signs, the signed sum is much smaller than the unsigned sum. If 1,000 people each owe or are owed a random amount between −\$100 and +\$100, the total *absolute* amount of debt (the unsigned total) is roughly \$50,000, while the *net* balance (the signed total) is roughly \$1,580. The net balance is much smaller because positive and negative contributions cancel.
+Why this gives a much smaller number: when you have a huge number of contributions with random signs, the signed sum is much smaller than the unsigned sum. If 1,000 people each owe or are owed a random amount between −\$100 and +\$100, the total *absolute* amount of debt (the variance-like quantity) is roughly \$50,000, while the *net* balance (the mean-like quantity) is roughly \$1,580. The net balance is much smaller because positive and negative contributions cancel.
 
 Gravity is measuring the net water level of the lake — are the waves pushing the average surface up or down? Since waves go up and down roughly equally, the net displacement is tiny compared to the total wave energy.
 
@@ -139,7 +139,7 @@ Gravity is measuring the net water level of the lake — are the waves pushing t
 
 ### The Informal Version
 
-> The quantum-mechanical and gravitational descriptions of vacuum energy are complementary projections — unsigned and signed accumulations of the same hidden-sector contributions — that cannot be unified into a single observer-accessible description.
+> The quantum-mechanical and gravitational descriptions of vacuum energy are complementary projections that cannot be unified into a single observer-accessible description.
 
 The two projections require **contradictory operations** on the hidden sector. The quantum projection works by *tracing out* the hidden sector — treating it as inaccessible and studying only the residual effects on the visible sector. The gravitational projection works by *coupling to* the hidden sector — feeling its mechanical presence through the curvature of spacetime. One hides it. The other feels it. No single description available to an embedded observer can simultaneously hide and reveal the same thing.
 
@@ -149,25 +149,25 @@ Imagine trying to study a pond by two methods: (1) seal off the pond and analyze
 
 **Step 1: Define the setup.**
 
-Split the universe into visible and hidden sectors. Define two "target functions" — the two things we're trying to measure: the unsigned total of the hidden sector's contributions (corresponding to the QM vacuum energy, where every mode adds positively) and the signed net (corresponding to the GR vacuum energy, where different sectors can cancel).
+Split the universe into visible and hidden sectors. Define two "target functions" — the two things we're trying to measure: the total fluctuation content (the variance of the hidden sector, corresponding to the QM vacuum energy) and the net mechanical effect (the mean of the hidden sector, corresponding to the GR vacuum energy).
 
 **Step 2: Identify the observers as Wolpert inference devices.**
 
-An observer confined to the visible sector is an "inference device" in Wolpert's framework. They can only see the visible sector, so their setup function is the projection from the full state to the visible sector. Device 1 (the "quantum observer") tries to determine the unsigned total. Device 2 (the "gravitational observer") tries to determine the signed net. Both devices share the same projection — they're the same observer trying to answer two different questions.
+An observer confined to the visible sector is an "inference device" in Wolpert's framework. They can only see the visible sector, so their setup function is the projection from the full state to the visible sector. Device 1 (the "quantum observer") tries to determine the variance. Device 2 (the "gravitational observer") tries to determine the mean. Both devices share the same projection — they're the same observer trying to answer two different questions.
 
 **Step 3: Check the "independent configurability" condition.**
 
-For Wolpert's mutual inference impossibility to apply, the two targets must be *independently configurable* — meaning that states must exist in the hidden sector's state space where one target changes without the other changing. (This is a condition on the mathematical state space, not on anyone's ability to physically prepare such states.) It is satisfied: you can rearrange the signs of contributions while keeping their magnitudes fixed (changing the signed net but not the unsigned total), and you can scale magnitudes while preserving sign ratios (changing the unsigned total but not the signed net). In the physical hidden sector, signs depend on spin-statistics (bosonic vs. fermionic) while magnitudes depend on excitation level — independent parameters.
+For Wolpert's mutual inference impossibility to apply, the two targets must be *independently configurable* — it must be possible to change one without changing the other. This is a condition on the mathematical state space, not on anyone's ability to physically prepare such states. In statistics, you can construct distributions with the same mean but different variances (compare a narrow bell curve with a wide bell curve, both centered at zero), and you can construct distributions with the same variance but different means (shift a bell curve left or right without changing its width). So mean and variance are indeed independently configurable. In the physical hidden sector, the mean depends on the net sign balance — where signs depend on spin-statistics (bosonic vs. fermionic) — while the variance depends on excitation levels. These are independent parameters.
 
 **Step 4: Apply Wolpert's bound.**
 
 Wolpert's stochastic extension of the mutual inference impossibility gives:
 
-$$\epsilon_{\text{unsigned}} \cdot \epsilon_{\text{signed}} \leq \frac{1}{4}$$
+$$\epsilon_{\text{fluc}} \cdot \epsilon_{\text{mech}} \leq \frac{1}{4}$$
 
-where $\epsilon_{\text{unsigned}}$ and $\epsilon_{\text{signed}}$ are the probabilities that the observer correctly infers each target.
+where $\epsilon_{\text{fluc}}$ and $\epsilon_{\text{mech}}$ are the probabilities that the observer correctly infers each target.
 
-If you get the unsigned total exactly right ($\epsilon_{\text{unsigned}} = 1$), your signed-net estimate can be no better than random chance ($\epsilon_{\text{signed}} \leq 1/4$). And vice versa. Perfect knowledge of one forces ignorance of the other. It's like a seesaw — pushing one end up forces the other end down. The product of the two accuracies has a hard ceiling, and that ceiling is low.
+If you get the variance exactly right ($\epsilon_{\text{fluc}} = 1$), your mean estimate can be no better than random chance ($\epsilon_{\text{mech}} \leq 1/4$). And vice versa. Perfect knowledge of one forces ignorance of the other. It's like a seesaw — pushing one end up forces the other end down. The product of the two accuracies has a hard ceiling, and that ceiling is low.
 
 ### The Inference-Ontology Bridge
 
@@ -278,7 +278,7 @@ Quantum computing exploits the indivisible correlations of the projected dynamic
 
 In mainstream physics, dark energy is the substance or field responsible for the accelerating expansion of the universe. It constitutes roughly 68% of the total energy content of the cosmos, and its nature remains unknown.
 
-In this framework, dark energy isn't a substance at all. It's the **signed net residual** of the hidden sector — the tiny leftover when an unsigned total 10¹²⁰ times larger partially cancels. Remember the glass of water: the dust speck doesn't sit perfectly still, because the random molecular pushes don't *perfectly* cancel out. With 10²⁴⁰ hidden-sector degrees of freedom pushing in random directions, basic statistics (the central limit theorem) predicts that the leftover net push should be roughly 10¹²⁰ times smaller than the total activity — which is exactly what we observe. Dark energy is what "almost-but-not-quite-perfect cancellation" looks like when you have an astronomically large number of randomly oriented contributions. It would be more surprising if the residual were exactly zero.
+In this framework, dark energy isn't a substance at all. It's the **mean-field residual** of the hidden sector — the first moment of a distribution whose second moment is 10¹²⁰ times larger. Remember the glass of water: the dust speck doesn't sit perfectly still, because the random molecular pushes don't *perfectly* cancel out. With 10²⁴⁰ hidden-sector degrees of freedom pushing in random directions, basic statistics (the central limit theorem) predicts that the leftover net push should be roughly 10¹²⁰ times smaller than the total activity — which is exactly what we observe. Dark energy is what "almost-but-not-quite-perfect cancellation" looks like when you have an astronomically large number of randomly oriented contributions. It would be more surprising if the residual were exactly zero.
 
 This also explains two otherwise puzzling features of dark energy: its equation of state is $w = -1$ (indistinguishable from a cosmological constant), and it has no dynamics of its own. Both follow naturally if dark energy is a statistical residual rather than a physical substance — a net balance left over from massive cancellation has no internal structure to evolve, and its pressure-to-density ratio is fixed by the symmetry of the underlying distribution.
 
@@ -350,7 +350,7 @@ This framework says: it would be more surprising if it weren't. An embedded obse
 
 For decades, physicists have been searching for a "theory of quantum gravity" — a single framework that combines quantum mechanics and general relativity into one unified description. String theory, loop quantum gravity, and many other approaches have been pursued with enormous effort and ingenuity.
 
-This framework suggests that the quest, as traditionally conceived, is structurally impossible — for the same reason that Gödel showed you can't have a complete and consistent axiomatization of arithmetic. A unified theory would need to provide a single description that captures both the unsigned total (quantum mechanics) and the signed net (gravity) simultaneously. But the Complementarity Theorem says that no observer inside the universe can access both.
+This framework suggests that the quest, as traditionally conceived, is structurally impossible — for the same reason that Gödel showed you can't have a complete and consistent axiomatization of arithmetic. A unified theory would need to provide a single description that captures both the fluctuation content (quantum mechanics) and the mean-field effect (gravity) simultaneously. But the Complementarity Theorem says that no observer inside the universe can access both.
 
 This doesn't mean the research is wasted. It means the *goal* needs to be reconceived. Instead of seeking a single description that eliminates the tension, physicists could seek a framework that makes both projections explicit — one that tells you precisely when and how the two descriptions can be safely combined (in everyday situations, where the discrepancy is negligible) and when they fundamentally cannot (near black holes, at the Big Bang, at the Planck scale). The mathematics of how two complementary projections relate to each other is itself a rich structure — and understanding that structure *is* the theory of quantum gravity, properly understood.
 
@@ -380,21 +380,21 @@ This eliminates the need for a multiverse. The complexity is real, it's local to
 
 **The verdict.** If this framework is correct, then String Theory isn't a failed Theory of Everything. It's a **successful theory of the hidden sector** — a remarkably detailed mathematical characterization of the degrees of freedom beyond our projection. It works because it's describing something real. It fails to make predictions about our observable world because it's trying to describe both the hidden sector *and* the observable sector within a single framework — exactly the operation that the Complementarity Theorem says is impossible for any embedded observer.
 
-Physicists may not have failed to find the unified theory. String Theory may be the physics of the hidden sector — and the reason it doesn't match experiments is not that the math is wrong, but that it's an attempt to squeeze the *unsigned total* of the hidden world into the *signed net* of the visible one.
+Physicists may not have failed to find the unified theory. String Theory may be the physics of the hidden sector — and the reason it doesn't match experiments is not that the math is wrong, but that it's an attempt to squeeze the *variance* of the hidden world into the *mean* of the visible one.
 
 ---
 
 ## What the 10¹²⁰ Tells Us
 
-If the 10¹²⁰ ratio is the unsigned-to-signed ratio of the hidden sector's contributions, it is possible to work backwards and ask: how many independent degrees of freedom must the hidden sector have to produce a ratio this large?
+If the 10¹²⁰ ratio is the variance-to-mean ratio of the hidden sector, it is possible to work backwards and ask: how many independent degrees of freedom must the hidden sector have to produce a ratio this large?
 
-### The Signed/Unsigned Accumulation Model
+### The Random-Sign Cancellation Model
 
 This is where the paper converts the cosmological constant "problem" into a *measurement* of the hidden sector's size. The math is surprisingly accessible.
 
-Imagine the hidden sector has $N$ independent degrees of freedom. Each one contributes energy with a characteristic magnitude (like a typical salary). The QFT calculation sums every contribution as a positive number — the unsigned total. The gravitational coupling sees the net result after contributions from different sectors (bosonic vs. fermionic, different field types) partially cancel — the signed net.
+Imagine the hidden sector has $N$ independent degrees of freedom. Each one contributes an energy with a characteristic magnitude (like a typical salary). The quantum projection sums all contributions without regard to sign — it measures total activity (the variance). The gravitational projection sums them *with* their signs — it measures the net effect (the mean).
 
-Where do the signs come from? Not from individual mode zero-point energies, which are all positive. The effective signs arise at the level of sectors: bosonic fields contribute positively to the cosmological constant, fermionic fields contribute negatively, and other contributions (gauge condensates, symmetry-breaking potentials) have their own signs. With $N$ effectively randomly signed contributions, the unsigned total grows as $N$ while the signed net grows only as $\sqrt{N}$. The ratio between them is $\sqrt{N}$.
+Where do the signs come from? Not from individual mode zero-point energies, which are all positive. The effective signs arise at the level of sectors: bosonic fields contribute positively to the cosmological constant, fermionic fields contribute negatively, and other contributions (gauge condensates, symmetry-breaking potentials) have their own signs. With $N$ effectively randomly signed contributions, the net sum grows only as $\sqrt{N}$ while the total activity grows as $N$. The ratio between them is $\sqrt{N}$.
 
 Setting this equal to 10¹²⁰:
 
@@ -406,7 +406,7 @@ The answer — about 10²⁴⁰ — is not arbitrary. It turns out to be exactly
 
 $$N \sim 10^{240} = S_{\text{dS}}^2$$
 
-This "coincidence" — that the hidden sector has (10¹²⁰)² degrees of freedom — suggests a deep connection to the holographic principle, the idea that the information content of a region of space is proportional to its surface area rather than its volume. The paper argues this is not a coincidence: the 10¹²⁰ is the number where both projections (unsigned and signed) make contact with the same physical boundary, and it encodes the hidden sector's structure directly.
+This "coincidence" — that the hidden sector has (10¹²⁰)² degrees of freedom — suggests a deep connection to the holographic principle, the idea that the information content of a region of space is proportional to its surface area rather than its volume. The paper argues this is not a coincidence: the 10¹²⁰ is the one number where both projections make contact with the same physical reality, and it encodes the hidden sector's structure directly.
 
 The cosmological constant problem, in this reading, isn't a problem. It's a *measurement* — the most precise measurement we have of the dimensionality of the parts of reality we cannot see.
 
@@ -420,7 +420,7 @@ The argument of this paper belongs to a family. Two of the deepest results in tw
 
 In 1936, Alan Turing proved that no computer program can exist that correctly predicts, for every possible program, whether it will eventually halt or run forever. The proof works by self-reference: if such a "halting checker" existed, you could feed it a description of itself, producing a contradiction. The impossibility isn't a technological limitation — it's a theorem about what self-referential computational systems can and cannot do.
 
-The Complementarity Theorem has the same structure. The "halting checker" that physics has been searching for is a unified theory — a single framework that simultaneously captures both the unsigned total (quantum mechanics) and the signed net (gravity) of reality. The Complementarity Theorem says this framework cannot exist for an embedded observer, and for the same structural reason: the observer is part of the system it is trying to describe. The two projections require incompatible operations on the hidden sector — one hides it, the other couples to it — and no single description available from within can do both. The quest for a "Theory of Everything" is, in this reading, the physicist's version of the quest for a universal halting checker: a project that feels like it should be possible, but whose impossibility is guaranteed by the logical structure of self-reference.
+The Complementarity Theorem has the same structure. The "halting checker" that physics has been searching for is a unified theory — a single framework that simultaneously captures both the fluctuation content (quantum mechanics) and the net mechanical effect (gravity) of reality. The Complementarity Theorem says this framework cannot exist for an embedded observer, and for the same structural reason: the observer is part of the system it is trying to describe. The two projections require incompatible operations on the hidden sector — one hides it, the other couples to it — and no single description available from within can do both. The quest for a "Theory of Everything" is, in this reading, the physicist's version of the quest for a universal halting checker: a project that feels like it should be possible, but whose impossibility is guaranteed by the logical structure of self-reference.
 
 This doesn't mean the quest was wasted. Turing's proof didn't end computer science — it *focused* it, by drawing a sharp boundary between what computation can and cannot do. Similarly, the Complementarity Theorem doesn't end the search for deeper physics. It redirects it: instead of seeking one description that eliminates the tension, the goal becomes understanding the precise mathematical relationship between two complementary descriptions — and that relationship *is* the theory of quantum gravity, properly understood.
 
@@ -434,7 +434,7 @@ Gödel's "unprovable truths" live in the logical structure of arithmetic. The hi
 
 ### The 10¹²⁰ as a Quantitative Marker
 
-What makes this framework different from a philosophical observation is that the incompleteness has a *number*. In Gödel's proof, the unprovable statement is constructed using a specific encoding — a "Gödel number" that the system can reference but cannot resolve. In this framework, the 10¹²⁰ cosmological constant discrepancy plays the same role. It is the quantitative signature of what the embedded observer cannot see: the gap between the unsigned total and the signed net of a hidden sector with roughly 10²⁴⁰ degrees of freedom.
+What makes this framework different from a philosophical observation is that the incompleteness has a *number*. In Gödel's proof, the unprovable statement is constructed using a specific encoding — a "Gödel number" that the system can reference but cannot resolve. In this framework, the 10¹²⁰ cosmological constant discrepancy plays the same role. It is the quantitative signature of what the embedded observer cannot see: the gap between the variance and the mean of a hidden sector with roughly 10²⁴⁰ degrees of freedom.
 
 The standard interpretation of the 10¹²⁰ is that it represents a calculational failure — the worst prediction in the history of physics. This framework says it is the opposite: it is the most precise measurement we have of the boundary between what an embedded observer can and cannot know. It is not an error. It is the physical world's Gödel sentence — a number that encodes, in the starkest possible terms, the fact that observers are inside the system they are trying to describe.
 
@@ -448,7 +448,7 @@ The framework makes several testable predictions:
 
 **Gravitational wave echoes (future detectors).** If the event horizon of a black hole is really the boundary of the mean-field description rather than a clean geometric surface, then gravitational waves from black hole mergers should produce faint echoes — repeated signals bouncing off this boundary. The framework predicts these echoes should get *stronger* at higher frequencies, because higher frequencies probe shorter timescales where the mean-field averaging breaks down. Current detectors aren't sensitive enough, but the scaling pattern is a specific prediction that future instruments can test.
 
-**A gravitational noise floor (future detectors).** If gravity is the signed net of a distribution whose unsigned total is 10¹²⁰ times larger, it should be slightly "grainy" at high frequencies — a faint hiss of gravitational noise unrelated to any astrophysical source. The framework predicts a specific amplitude and spectral shape for this noise, anchored to the 10¹²⁰ ratio.
+**A gravitational noise floor (future detectors).** If gravity is the mean of a high-variance distribution, it should be slightly "grainy" at high frequencies — a faint hiss of gravitational noise unrelated to any astrophysical source. The framework predicts a specific amplitude and spectral shape for this noise, anchored to the 10¹²⁰ ratio.
 
 **Correlated running of constants.** The strength of gravity and the vacuum energy should change with the energy scale at which you measure them, and they should change in a correlated way — converging toward each other at very high energies. This is testable through precision observations of the cosmic microwave background.
 
@@ -456,7 +456,7 @@ The framework makes several testable predictions:
 
 ## What This Means
 
-If this argument is correct, the century-long search for a unified theory that combines quantum mechanics and gravity into a single framework is asking the wrong question. It's like asking for a single accounting method that simultaneously reports the total absolute value of all transactions *and* the net balance — when the whole point is that these are different operations on the same ledger. The request is structurally impossible — not because physicists haven't been clever enough, but because the two measurements require fundamentally different aggregation operations on the same underlying system.
+If this argument is correct, the century-long search for a unified theory that combines quantum mechanics and gravity into a single framework is asking the wrong question. It's like asking for a single instrument that simultaneously measures both temperature and pressure by being a thermometer and a barometer at the same time. The request is structurally impossible — not because physicists haven't been clever enough, but because the two measurements require fundamentally different operations on the same underlying system.
 
 This doesn't mean physics is stuck. It means physics needs to recognize what kind of problem it's facing. The incompatibility between quantum mechanics and gravity is not a deficiency waiting to be repaired. It is a *structural feature* of what it means to observe the universe from the inside — a feature that comes with a precise numerical signature (10¹²⁰), a derivable quantum framework, and testable predictions.
 
