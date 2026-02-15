@@ -23,17 +23,9 @@ This paper argues the opposite. **Neither calculation is wrong. They disagree be
 
 To see why, it helps to look at what each theory actually computes.
 
-Quantum mechanics says that every possible vibration mode of every quantum field contributes a tiny bit of energy, even in a vacuum. Imagine an infinitely large orchestra where every instrument is humming at its lowest possible note. You add up all those hums:
+Quantum mechanics says that every possible vibration mode of every quantum field contributes a tiny bit of energy, even in a vacuum. Imagine an infinitely large orchestra where every instrument is humming at its lowest possible note. You add up all those hums — summing the minimum energy of every possible vibration, from the longest wavelengths to the shortest ones allowed by physics (the "Planck scale" cutoff). You get an enormous number: roughly 10¹¹⁰ joules per cubic meter.
 
-$$\rho_{\text{QM}} \sim \int_0^{\Lambda} \frac{d^3k}{(2\pi)^3} \frac{1}{2}\hbar\omega_k \sim 10^{110}\ \text{J/m}^3$$
-
-Sum up the minimum energy of every possible vibration, from the longest wavelengths to the shortest ones allowed by physics (the "Planck scale" cutoff $\Lambda$). You get an enormous number.
-
-General relativity measures vacuum energy differently — by observing how it makes the universe expand:
-
-$$\rho_{\text{grav}} \sim 6 \times 10^{-10}\ \text{J/m}^3$$
-
-Look at how fast the universe is actually accelerating, and work backwards to figure out how much energy the vacuum must contain. You get a tiny number.
+General relativity measures vacuum energy differently — by observing how it makes the universe expand. Look at how fast the universe is actually accelerating, and work backwards to figure out how much energy the vacuum must contain. You get a tiny number: roughly 6 × 10⁻¹⁰ joules per cubic meter.
 
 The ratio:
 
@@ -68,13 +60,9 @@ There's a branch of mathematics, developed by physicist David Wolpert in 2008, t
 
 ### Wolpert's Framework
 
-Think of the observer as a camera trying to photograph a landscape. The camera can only capture what's in its frame — a *projection* of the full scene. Mathematically:
+Think of the observer as a camera trying to photograph a landscape. The camera can only capture what's in its frame — a *projection* of the full scene. Mathematically, the observer has a mapping from the complete state of the entire universe to what they can access (their "frame"). The act of looking through the viewfinder is the projection.
 
-$$\pi: \Omega \to S_C$$
-
-where $\Omega$ is the complete state of the entire universe, $S_C$ is what the observer can access (their "frame"), and $\pi$ is the projection — the act of looking through the viewfinder.
-
-The critical property is that $\pi$ is **many-to-one**: many different complete universe states look the same through the observer's limited window. Just as many different landscapes might produce the same photograph if most of the scenery is behind the camera.
+The critical property is that this projection is **many-to-one**: many different complete universe states look the same through the observer's limited window. Just as many different landscapes might produce the same photograph if most of the scenery is behind the camera.
 
 Wolpert proved two key results from this setup:
 
@@ -98,15 +86,7 @@ Nothing in the universe can transmit information faster than light. This isn't a
 
 ### Formally: Splitting the Universe
 
-The paper splits the universe's degrees of freedom into two bins:
-
-$$\Omega = (X, \Phi)$$
-
-where $X$ is everything the observer *can* access (particles they can detect, regions they can see) and $\Phi$ is the **hidden sector** — everything they *can't* directly access. The projection that discards the hidden sector is:
-
-$$\pi: (X, \Phi) \mapsto \rho(X)$$
-
-Take the full state of the universe, throw away everything in the hidden sector, and what you're left with is the observer's reduced description $\rho(X)$.
+The paper splits the universe's degrees of freedom into two bins: everything the observer *can* access (particles they can detect, regions they can see) and the **hidden sector** — everything they *can't* directly access. The projection that discards the hidden sector takes the full state of the universe, throws away everything in the hidden sector, and what you're left with is the observer's reduced description.
 
 What fills the hidden sector? Nothing exotic — just ordinary physics rendered inaccessible by geometry:
 
@@ -120,7 +100,7 @@ What fills the hidden sector? Nothing exotic — just ordinary physics rendered 
 
 ### Why the Projection Satisfies Wolpert's Requirements
 
-For Wolpert's theorems to apply, the projection $\pi$ needs to be **many-to-one** — many different configurations of the hidden sector must look the same from the observer's perspective. This is clearly true: there are astronomically many different ways the interior of a black hole or the region beyond the cosmological horizon could be arranged, all of which are invisible to us.
+For Wolpert's theorems to apply, the projection needs to be **many-to-one** — many different configurations of the hidden sector must look the same from the observer's perspective. This is clearly true: there are astronomically many different ways the interior of a black hole or the region beyond the cosmological horizon could be arranged, all of which are invisible to us.
 
 The key insight: the boundary between "visible" and "hidden" isn't a property of the hidden sector. It's a property of *where the observer is standing*. Move the observer, and what counts as "hidden" changes. The stuff doesn't.
 
@@ -145,29 +125,15 @@ These are different questions about the same set of salaries, and they can give 
 
 ### Projection 1: Quantum Mechanics Measures Variance
 
-The QFT vacuum energy calculation sums up the zero-point energy of every field mode:
+The QFT vacuum energy calculation sums up the zero-point energy of every field mode. Why this is a variance-type quantity: for each mode, the expectation values of position and momentum are both zero. So the zero-point energy is *entirely* due to the spread (variance) of position and momentum.
 
-$$\rho_{\text{QM}} \sim \sum_k \frac{1}{2}\hbar\omega_k$$
-
-Why this is a variance-type quantity: for each mode $k$, the expectation values of position and momentum are both zero:
-
-$$\langle 0|x_k|0\rangle = 0 \qquad \langle 0|p_k|0\rangle = 0$$
-
-So the zero-point energy is *entirely* due to the spread (variance) of position and momentum:
-
-$$\langle 0|H_k|0\rangle = \frac{1}{2}\text{Var}(p_k) + \frac{1}{2}\omega_k^2\,\text{Var}(x_k)$$
-
-In a classical vacuum, both variances would be zero and the vacuum energy would vanish. The entire $\frac{1}{2}\hbar\omega_k$ per mode is pure fluctuation content. You're standing next to a calm lake — quantum mechanics measures how choppy the water is, the total wave energy from all the ripples, regardless of their direction. Every ripple contributes positively, so the total can be enormous.
+In a classical vacuum, both variances would be zero and the vacuum energy would vanish. The entire zero-point energy per mode is pure fluctuation content. You're standing next to a calm lake — quantum mechanics measures how choppy the water is, the total wave energy from all the ripples, regardless of their direction. Every ripple contributes positively, so the total can be enormous.
 
 ### Projection 2: Gravity Measures the Mean
 
-The Einstein field equations couple spacetime curvature to the *expectation value* (average) of the stress-energy tensor:
+The Einstein field equations couple spacetime curvature to the *expectation value* (average) of the stress-energy tensor. The left side (curvature) is smooth. The right side is an average over all quantum configurations. Gravity doesn't care about individual ripples — it only feels the net, aggregate energy content.
 
-$$G_{\mu\nu} = 8\pi G \langle T_{\mu\nu} \rangle$$
-
-The left side (curvature) is smooth. The right side is an average over all quantum configurations. Gravity doesn't care about individual ripples — it only feels the net, aggregate energy content.
-
-Why this gives a much smaller number: when you have a huge number of contributions with random signs, the signed sum is much smaller than the unsigned sum. If 1,000 people each owe or are owed a random amount between −\$100 and +\$100, the total *absolute* amount of debt (the variance-like quantity) is roughly $1{,}000 \times \$50 = \$50{,}000$, while the *net* balance (the mean-like quantity) is roughly $\sqrt{1{,}000} \times \$50 \approx \$1{,}580$. The net balance is much smaller because positive and negative contributions cancel.
+Why this gives a much smaller number: when you have a huge number of contributions with random signs, the signed sum is much smaller than the unsigned sum. If 1,000 people each owe or are owed a random amount between −\$100 and +\$100, the total *absolute* amount of debt (the variance-like quantity) is roughly \$50,000, while the *net* balance (the mean-like quantity) is roughly \$1,580. The net balance is much smaller because positive and negative contributions cancel.
 
 Gravity is measuring the net water level of the lake — are the waves pushing the average surface up or down? Since waves go up and down roughly equally, the net displacement is tiny compared to the total wave energy.
 
@@ -187,34 +153,15 @@ Imagine trying to study a pond by two methods: (1) seal off the pond and analyze
 
 **Step 1: Define the setup.**
 
-Split the universe into visible ($V$) and hidden ($H$) sectors:
-
-$$u = (v, h) \in \Omega$$
-
-Define two "target functions" — the two things we're trying to measure:
-
-$$\Gamma_{\text{fluc}}(u) = \text{Var}_H[h] \qquad \text{(total fluctuation content)}$$
-$$\Gamma_{\text{mech}}(u) = \mathbb{E}_H[h] \qquad \text{(net mechanical effect)}$$
-
-These correspond to the QM and GR vacuum energies, respectively.
+Split the universe into visible and hidden sectors. Define two "target functions" — the two things we're trying to measure: the total fluctuation content (the variance of the hidden sector, corresponding to the QM vacuum energy) and the net mechanical effect (the mean of the hidden sector, corresponding to the GR vacuum energy).
 
 **Step 2: Identify the observers as Wolpert inference devices.**
 
-An observer confined to $V$ is an "inference device" in Wolpert's framework. They can only see $V$, so their setup function is the projection $\pi: \Omega \to V$.
-
-- **Device 1** (the "quantum observer") tries to determine $\Gamma_{\text{fluc}}$ (the variance).
-- **Device 2** (the "gravitational observer") tries to determine $\Gamma_{\text{mech}}$ (the mean).
-
-Both devices share the same projection $\pi$ — they're the same observer trying to answer two different questions.
+An observer confined to the visible sector is an "inference device" in Wolpert's framework. They can only see the visible sector, so their setup function is the projection from the full state to the visible sector. Device 1 (the "quantum observer") tries to determine the variance. Device 2 (the "gravitational observer") tries to determine the mean. Both devices share the same projection — they're the same observer trying to answer two different questions.
 
 **Step 3: Check the "independent configurability" condition.**
 
-For Wolpert's mutual inference impossibility to apply, the two targets must be *independently configurable* — it must be possible to change one without changing the other. In statistics:
-
-- You can construct distributions with the **same mean but different variances** (e.g., compare a narrow bell curve with a wide bell curve, both centered at zero).
-- You can construct distributions with the **same variance but different means** (e.g., shift a bell curve left or right without changing its width).
-
-So mean and variance are indeed independently configurable. ✓
+For Wolpert's mutual inference impossibility to apply, the two targets must be *independently configurable* — it must be possible to change one without changing the other. In statistics, you can construct distributions with the same mean but different variances (compare a narrow bell curve with a wide bell curve, both centered at zero), and you can construct distributions with the same variance but different means (shift a bell curve left or right without changing its width). So mean and variance are indeed independently configurable.
 
 **Step 4: Apply Wolpert's bound.**
 
@@ -230,7 +177,7 @@ If you get the variance exactly right ($\epsilon_{\text{fluc}} = 1$), your mean 
 
 There is an important subtlety here. Wolpert's theorem is about *inference accuracy*, not physical quantities directly. The bridge works like this:
 
-The values $\rho_{\text{QM}}$ and $\rho_{\text{grav}}$ are not observer-independent facts about the hidden sector. They are *outputs of specific measurement procedures* — QFT mode-summation and gravitational coupling — each of which constitutes an inference operation in Wolpert's sense.
+The QM and GR vacuum energies are not observer-independent facts about the hidden sector. They are *outputs of specific measurement procedures* — QFT mode-summation and gravitational coupling — each of which constitutes an inference operation in Wolpert's sense.
 
 There is no single "true" vacuum energy sitting behind both measurements. The two values are the best answers that two structurally different inference procedures can extract from the same hidden sector, and Wolpert guarantees they cannot converge.
 
@@ -250,11 +197,7 @@ This result comes from a 2023 theorem by physicist Jacob Barandes, who proved th
 
 A stochastic process is any system that evolves with some randomness — a ball bouncing around in a box, say. Such a process is described by *transition matrices*: tables of probabilities telling you how likely the system is to go from state A to state B over some time interval.
 
-A process is **divisible** if you can always break a long transition into a chain of shorter ones:
-
-$$T(t_f, t_i) = T(t_f, t_m) \cdot T(t_m, t_i)$$
-
-Think of driving from New York to Los Angeles. A divisible process is like driving on a highway — your probability of reaching LA can be computed by multiplying the probability of reaching Chicago by the probability of getting from Chicago to LA. Each segment is independent.
+A process is **divisible** if you can always break a long transition into a chain of shorter ones. Think of driving from New York to Los Angeles. A divisible process is like driving on a highway — your probability of reaching LA can be computed by multiplying the probability of reaching Chicago by the probability of getting from Chicago to LA. Each segment is independent.
 
 An **indivisible** process violates this. The long-range transition *cannot* be decomposed into independent short steps. The system has *temporal memory* — what happened in the past influences the future in a way that can't be captured by the present state alone. Imagine driving through a desert where the road conditions at noon depend on the temperature at 6 AM in ways that aren't captured by the 9 AM temperature. You can't just chain together 6-to-9 and 9-to-noon segments — you'd miss the 6 AM → noon correlation.
 
@@ -262,17 +205,9 @@ Barandes proved that if a stochastic process is indivisible, it *automatically* 
 
 ### Why Tracing Out the Hidden Sector Produces Indivisibility
 
-This is where the Nakajima-Zwanzig formalism comes in. When you trace out part of a system, the remaining part obeys:
+This is where the Nakajima-Zwanzig formalism [a standard result from the 1950s–60s] comes in. When you trace out part of a system, the remaining part's evolution acquires a **memory kernel** — a mathematical term that encodes how the hidden sector's past states influence the visible sector's present. The visible sector's state at a given time depends not just on its current state, but on its entire history of interactions with the hidden sector.
 
-$$\frac{\partial \rho(X)}{\partial t} = \mathcal{L}\, \rho(X) + \int_0^t d\tau\, \mathcal{K}(t, \tau)\, \rho(X, \tau)$$
-
-Unpacking this:
-
-- $\rho(X)$ is the state of the visible sector
-- $\mathcal{L}\, \rho(X)$ is the "local" part — how $X$ would evolve on its own
-- $\int_0^t d\tau\, \mathcal{K}(t, \tau)\, \rho(X, \tau)$ is the **memory kernel** — how the hidden sector's past states influence the visible sector's present
-
-The memory kernel is the key. If the hidden sector has temporal correlations (perturbations in it persist for some time rather than vanishing instantly), then $\mathcal{K}(t, \tau)$ is nonzero, and the visible sector's dynamics has memory — it becomes non-Markovian.
+The memory kernel is the key. If the hidden sector has temporal correlations (perturbations in it persist for some time rather than vanishing instantly), then the memory kernel is nonzero, and the visible sector's dynamics has memory — it becomes non-Markovian.
 
 ### Why the Hidden Sector Must Have Temporal Correlations
 
@@ -281,8 +216,6 @@ For the hidden sector to have *no* memory (white noise), it would need infinite 
 ### The Complete Chain
 
 Putting it all together:
-
-$$\text{Embedded observer} \to \text{Hidden sector exists} \to \text{Trace it out} \to \text{Memory kernel} \to \text{Indivisibility} \to \text{Quantum mechanics}$$
 
 1. You're inside the universe (embedded observer)
 2. Therefore some degrees of freedom are inaccessible (hidden sector)
@@ -293,7 +226,7 @@ $$\text{Embedded observer} \to \text{Hidden sector exists} \to \text{Trace it ou
 
 ### A Technical Subtlety
 
-A nonzero memory kernel is *necessary* for indivisibility but not automatically *sufficient*. In principle, fine-tuned cancellations between $\mathcal{L}$ and $\mathcal{K}$ could produce factorizing (divisible) dynamics. However, such cancellations would need to hold for *all times and all initial states simultaneously* — an extraordinarily special condition. When tracing out a hidden sector that constitutes the vast majority of the universe's degrees of freedom, system-environment correlations are dominant, and indivisibility is robustly satisfied. It's like asking whether a random 1,000-digit number could accidentally be divisible by $10^{999}$ — mathematically *possible* but so fine-tuned as to be absurd for any realistic scenario.
+A nonzero memory kernel is *necessary* for indivisibility but not automatically *sufficient*. In principle, fine-tuned cancellations between the system's own dynamics and the memory kernel could produce factorizing (divisible) dynamics. However, such cancellations would need to hold for *all times and all initial states simultaneously* — an extraordinarily special condition. When tracing out a hidden sector that constitutes the vast majority of the universe's degrees of freedom, system-environment correlations are dominant, and indivisibility is robustly satisfied. It's like asking whether a random thousand-digit number could accidentally be divisible by 10⁹⁹⁹ — mathematically *possible* but so fine-tuned as to be absurd for any realistic scenario.
 
 **The punchline:** Quantum mechanics isn't a fundamental law — it's what any embedded observer would see after tracing out a temporally correlated hidden sector. The weirdness of quantum mechanics is a *projection artifact*.
 
@@ -367,9 +300,11 @@ This reveals a hierarchy. The Heisenberg uncertainty principle is the *within-ph
 
 ### Quantization: Why Is Energy Discrete?
 
+*The following reinterpretation is among the more speculative implications of the framework. It is consistent with the formal results but goes beyond what they rigorously derive.*
+
 One of the founding discoveries of quantum mechanics was that energy comes in discrete packets (quanta) rather than continuous amounts. Planck's constant, *ħ*, sets the size of these packets. But *why* should energy be discrete? In classical physics, energy is continuous — you can have any amount of it, smoothly varying from a little to a lot. The discovery that nature seems to deal in minimum units of energy was so shocking that even Planck himself, who introduced the idea in 1900, considered it a mathematical trick rather than a statement about reality.
 
-This framework offers a reinterpretation: **quantization is a sampling artifact.** The underlying reality (the hidden sector) may well be continuous. But the observer is accessing it through a projection with finite bandwidth — and that finite bandwidth imposes discrete structure on what is actually a smooth underlying system.
+This framework offers a reinterpretation: **quantization may be a sampling artifact.** The underlying reality (the hidden sector) may well be continuous. But the observer is accessing it through a projection with finite bandwidth — and that finite bandwidth would impose discrete structure on what is actually a smooth underlying system.
 
 The analogy is a digital camera photographing a smooth landscape. The landscape has no pixels — the rolling hills, the gradient of the sunset, the curve of the river are all perfectly continuous. But the camera's sensor has a finite number of photosites, each of which reports a single color value for a small patch of the image. The result is pixels: discrete blocks of color that aren't in the landscape itself but are an inevitable consequence of capturing a continuous scene through a finite-resolution channel. If you only ever see the landscape through such cameras, you might conclude that the world is fundamentally pixelated. But the pixelation is in the camera, not in the world.
 
@@ -381,9 +316,9 @@ This reinterpretation touches some of the most iconic moments in the history of 
 
 **Bohr and atomic spectra (1913).** When you heat a gas, it emits light only at specific frequencies — sharp spectral lines rather than a continuous rainbow. Niels Bohr explained this by proposing that electrons orbit the nucleus only at certain allowed energy levels, and the emitted light corresponds to jumps between these levels. In this framework, the electron's interaction with the nucleus involves the hidden sector — the degrees of freedom that mediate the electromagnetic binding. The observer's projection of this interaction can only resolve a discrete set of configurations — the "allowed orbits." The continuous spectrum of possible electron-nucleus distances exists in the full state of the system (observable + hidden sector), but the finite-bandwidth projection compresses this into a discrete ladder of energy levels. The spectral lines that atoms emit are the observable signature of this compression — the specific frequencies that correspond to transitions between the resolvable levels of the projected description.
 
-**The pattern across all three.** In each case, the standard story says: "We discovered that nature is fundamentally discrete." This framework says: "We discovered the resolution limit of our observation channel." The discreteness is real — you genuinely cannot observe half a photon or a quarter of an energy level — but it's a property of the *projection*, not of the underlying reality.
+**The pattern across all three.** In each case, the standard story says: "We discovered that nature is fundamentally discrete." This framework suggests an alternative: "We discovered the resolution limit of our observation channel." The discreteness is real — you genuinely cannot observe half a photon or a quarter of an energy level — but it may be a property of the *projection*, not of the underlying reality.
 
-Planck's constant, in this reading, is the single most important number in physics not because it tells us about the graininess of reality, but because it tells us about the **bandwidth of the channel** through which we access reality. It's the conversion factor between the hidden sector's continuous dynamics and the observer's discrete description — the physical analogue of a camera's pixel pitch.
+Planck's constant, in this reading, would be the single most important number in physics not because it tells us about the graininess of reality, but because it tells us about the **bandwidth of the channel** through which we access reality. It would be the conversion factor between the hidden sector's continuous dynamics and the observer's discrete description — the physical analogue of a camera's pixel pitch. This reinterpretation remains to be formalized; it is offered here as a direction that the framework naturally suggests.
 
 ### Quantum Computing
 
@@ -391,11 +326,17 @@ Quantum computing promises to solve certain problems exponentially faster than a
 
 The biggest engineering challenge, *decoherence*, is equally clear: it happens when uncontrolled environmental interactions disrupt the carefully prepared hidden-sector correlations, forcing the system into a new projection where those correlations no longer exist. Quantum computers need extreme isolation not because quantum states are inherently fragile, but because the hidden-sector correlations that power the computation are easily scrambled by stray interactions.
 
+---
+
+## Beyond the Framework: Speculative Reinterpretations
+
+*Everything above — the Complementarity Theorem, the derivation of quantum mechanics via Barandes, the 10²⁴⁰ degree-of-freedom count, and the explanations of interference, entanglement, tunneling, superposition, the Born rule, and the measurement problem — follows from the formal results of the technical paper. What follows is different in character. The sections below explore reinterpretations of known physics that are consistent with the framework and illustrative of its explanatory reach, but which go beyond what the formal arguments rigorously establish. They are best understood as directions for future investigation — places where the framework's logic points but its proofs do not yet reach.*
+
 ### Dark Energy
 
 In mainstream physics, dark energy is the substance or field responsible for the accelerating expansion of the universe. It constitutes roughly 68% of the total energy content of the cosmos, and its nature remains unknown.
 
-In this framework, dark energy isn't a substance at all. It's the **mean-field residual** of the hidden sector. Remember the aquarium analogy: the pressure gauge reads a small but nonzero value because the random molecular pushes don't *perfectly* cancel out. With 10²⁴⁰ hidden-sector degrees of freedom pushing in random directions, basic statistics (the central limit theorem) predicts that the leftover net push should be roughly 10¹²⁰ times smaller than the total activity — which is exactly what we observe. Dark energy is what "almost-but-not-quite-perfect cancellation" looks like when you have an astronomically large number of randomly oriented contributions. It would be more surprising if the residual were exactly zero.
+In this framework, dark energy isn't a substance at all. It's the **mean-field residual** of the hidden sector. Remember the glass of water: the dust speck doesn't sit perfectly still, because the random molecular pushes don't *perfectly* cancel out. With 10²⁴⁰ hidden-sector degrees of freedom pushing in random directions, basic statistics (the central limit theorem) predicts that the leftover net push should be roughly 10¹²⁰ times smaller than the total activity — which is exactly what we observe. Dark energy is what "almost-but-not-quite-perfect cancellation" looks like when you have an astronomically large number of randomly oriented contributions. It would be more surprising if the residual were exactly zero.
 
 ### The Arrow of Time
 
@@ -403,7 +344,7 @@ Why does time only move forward? The fundamental laws of physics are time-symmet
 
 In this framework, entropy isn't a mysterious force driving things to disorder. It's the **rate of information loss to the hidden sector.**
 
-Return to the aquarium. If you drop a blob of blue ink into the tank, it starts as a compact, ordered shape — a configuration you can describe with very little information ("a sphere of ink near the top left corner"). Over time, the random collisions of billions of water molecules — the hidden sector — scatter the ink molecules until the entire tank is uniformly pale blue. The information about the ink's original shape hasn't been *destroyed*. It has been *transferred* — encoded into the precise positions and velocities of billions of hidden-sector water molecules that you can't track. Because you only have access to the mean-field projection (the "pressure gauge"), that information is lost to you. It still exists in the full state of the system, but it has migrated from the small observable sector into the vast hidden sector, and your projection can't retrieve it.
+Return to the glass of water. If you drop a tiny bead of ink into it, it starts as a compact, ordered shape — a configuration you can describe with very little information ("a dot of ink near the top"). Over time, the random collisions of billions of water molecules — the hidden sector — scatter the ink molecules until the entire glass is uniformly tinted. The information about the ink's original shape hasn't been *destroyed*. It has been *transferred* — encoded into the precise positions and velocities of billions of hidden-sector water molecules that you can't track. Because you only have access to the mean-field projection (the dust speck's jitter), that information is lost to you. It still exists in the full state of the system, but it has migrated from the small observable sector into the vast hidden sector, and your projection can't retrieve it.
 
 The Arrow of Time is the observation that this transfer is overwhelmingly one-directional — and the reason is simple statistics. The hidden sector is astronomically larger than the observable sector. Information naturally flows from a small container to a vast ocean, not the other way around, for the same reason that heat flows from a hot cup to a cold room and not in reverse. The probability of all that scattered information spontaneously reconcentrating into the observable sector is not zero, but it's so vanishingly small — suppressed by factors related to the 10²⁴⁰ hidden-sector degrees of freedom — that it will never happen in the lifetime of the universe.
 
@@ -419,7 +360,7 @@ This framework offers a natural explanation. The hidden sector occupies the full
 
 ## Reinterpreting Gravity
 
-*The sections that follow explore implications of the framework that go beyond what the technical paper formally derives. The core argument — the Complementarity Theorem, the derivation of quantum mechanics via Barandes, and the $10^{240}$ degree-of-freedom count — is presented in §§1–4 of the full paper. What follows are extrapolations: reinterpretations of known physics that are consistent with the framework and illustrative of its explanatory reach, but which should be understood as directions for future investigation rather than established results.*
+As with the sections immediately above, the gravitational reinterpretations that follow are speculative extensions of the framework. The core formal results are presented in §§1–4 of the full paper.
 
 The quantum phenomena above all follow from one side of the framework — the *fluctuation projection*, which is what quantum mechanics captures. But the framework has two projections. The other one — the *mean-field projection* — is gravity. And just as the quantum side of the framework reinterprets familiar quantum phenomena, the gravitational side reinterprets some of the deepest puzzles in general relativity.
 
@@ -429,7 +370,7 @@ In Einstein's general relativity, gravity isn't a force — it's the curvature o
 
 But general relativity doesn't explain *why* mass curves spacetime. It simply states the relationship (the Einstein field equations) and moves on.
 
-In this framework, gravity is the **mean-field projection** of the hidden sector. Return to the aquarium analogy: the pressure gauge measures the net push of all the water molecules. It doesn't measure any individual molecule — it averages over all of them and reports the aggregate effect. Gravity does the same thing with the hidden sector. It averages over the 10²⁴⁰ hidden degrees of freedom and reports the net mechanical result: spacetime curvature.
+In this framework, gravity is the **mean-field projection** of the hidden sector. Return to the glass of water: the suspended dust speck responds to the net push of all the water molecules. It doesn't respond to any individual molecule — it averages over all of them and reports the aggregate effect. Gravity does the same thing with the hidden sector. It averages over the 10²⁴⁰ hidden degrees of freedom and reports the net mechanical result: spacetime curvature.
 
 Mass curves spacetime because a concentration of energy in the observable sector is correlated with a concentration of hidden-sector activity — and the mean-field average of that activity is what we experience as the gravitational field. Gravity, in this reading, is not a fundamental force. It's a *statistical summary* — the first moment of an enormously complex distribution, smoothed into the clean geometric language of curved spacetime.
 
@@ -479,7 +420,7 @@ This framework does not reject String Theory. It *reinterprets* it — and in do
 
 **The holographic duality.** String Theory's greatest achievement is the AdS/CFT correspondence — the discovery that a theory of gravity in a three-dimensional volume is mathematically identical to a quantum field theory on its two-dimensional boundary. The gravitational description and the quantum description are *exactly equivalent*, expressed in different mathematical languages.
 
-In this framework, that's exactly what you'd expect. The gravitational description is the mean-field projection (the "pressure gauge"). The quantum description is the fluctuation projection (the "thermometer"). The AdS/CFT correspondence is the mathematical dictionary for translating between the two projections of the same hidden sector. String Theory discovered this dictionary — one of the great intellectual achievements of the twentieth century — but attributed it to a special property of strings. This framework suggests it's a property of *observation horizons*. Any embedded observer looking at any hidden sector through any area-limited projection would discover the same duality. String Theory found the right mathematics for a reason that is deeper and more general than strings.
+In this framework, that's exactly what you'd expect. The gravitational description is the mean-field projection (the "dust speck"). The quantum description is the fluctuation projection (the "thermometer"). The AdS/CFT correspondence is the mathematical dictionary for translating between the two projections of the same hidden sector. String Theory discovered this dictionary — one of the great intellectual achievements of the twentieth century — but attributed it to a special property of strings. This framework suggests it's a property of *observation horizons*. Any embedded observer looking at any hidden sector through any area-limited projection would discover the same duality. String Theory found the right mathematics for a reason that is deeper and more general than strings.
 
 **Extra dimensions aren't extra dimensions.** String Theory requires 10 or 11 dimensions of spacetime to be mathematically consistent. Since we only observe 3 spatial dimensions plus time, the standard explanation is that the extra 6 or 7 dimensions are "compactified" — curled up so small we can't see them. This explanation has never been fully satisfying: it doesn't explain why that specific number, why that specific size, or why they should be undetectable.
 
@@ -502,7 +443,7 @@ Physicists may not have failed to find the unified theory. String Theory may be 
 
 This is the most natural question — and the one that requires the most care, because a loose answer invites misunderstanding.
 
-The hidden sector is made of the same stuff as everything else — just the parts we can't see. Go back to the aquarium: if you ask "what's in the water far away from you, beyond the range of your thermometer?", the answer is simply more water molecules, too far away to hit your instruments. The hidden sector works the same way. It's "dark" because the lights are off, not because it's made of strange stuff.
+The hidden sector is made of the same stuff as everything else — just the parts we can't see. Go back to the glass of water: if you ask "what's in the water far away from you, beyond the range of your thermometer?", the answer is simply more water molecules, too far away to hit your instruments. The hidden sector works the same way. It's "dark" because the lights are off, not because it's made of strange stuff.
 
 Specifically, the hidden sector consists of three things we know exist but cannot access:
 
@@ -528,11 +469,7 @@ If the 10¹²⁰ ratio is the variance-to-mean ratio of the hidden sector, it is
 
 This is where the paper converts the cosmological constant "problem" into a *measurement* of the hidden sector's size. The math is surprisingly accessible.
 
-Imagine the hidden sector has $N$ independent degrees of freedom. Each one contributes an energy:
-
-$$X_i = s_i \mu + \epsilon_i$$
-
-where $s_i = \pm 1$ is a random sign (positive or negative contribution), $\mu$ is a characteristic energy per mode (like a typical salary), and $\epsilon_i$ is a random fluctuation with mean zero and variance $\sigma^2$ (like individual variation around the typical value).
+Imagine the hidden sector has $N$ independent degrees of freedom. Each one contributes an energy with a random sign (positive or negative contribution), a characteristic energy per mode (like a typical salary), and a random fluctuation around the typical value.
 
 The quantum projection sums all contributions without regard to sign — it measures total activity. The gravitational projection sums them *with* their signs — it measures the net effect. With $N$ random signs, the net sum grows only as $\sqrt{N}$ while the total activity grows as $N$. The ratio between them is $\sqrt{N}$.
 
@@ -566,13 +503,13 @@ This doesn't mean the quest was wasted. Turing's proof didn't end computer scien
 
 In 1931, five years before Turing, Kurt Gödel proved that any mathematical system powerful enough to describe arithmetic contains true statements that the system itself cannot prove. The "unprovable truths" aren't errors or gaps — they are an inevitable consequence of the system being rich enough to refer to itself. Gödel's result didn't break mathematics. It revealed a structural boundary: there are always truths that are real but inaccessible from within.
 
-The physical counterpart is the hidden sector. The full state of the universe, $\Omega = (X, \Phi)$, is definite — it exists and has a specific configuration. But an observer confined to the visible sector $X$ cannot access $\Phi$. The hidden sector is made of ordinary physics — galaxies beyond the cosmological horizon, interiors of black holes, sub-Planckian degrees of freedom — that is real but causally inaccessible. The projection $\pi: \Omega \to \rho(X)$ discards this information, not because it doesn't exist, but because the causal structure of spacetime prevents the observer from reaching it.
+The physical counterpart is the hidden sector. The full state of the universe is definite — it exists and has a specific configuration. But an observer confined to the visible sector cannot access the hidden sector. The hidden sector is made of ordinary physics — galaxies beyond the cosmological horizon, interiors of black holes, sub-Planckian degrees of freedom — that is real but causally inaccessible. The observer's projection discards this information, not because it doesn't exist, but because the causal structure of spacetime prevents the observer from reaching it.
 
 Gödel's "unprovable truths" live in the logical structure of arithmetic. The hidden sector's inaccessible degrees of freedom live in the causal structure of spacetime. In both cases, the incompleteness is not a deficiency of the observer or the system — it is a structural feature of being powerful enough (or embedded enough) to encounter the limits of self-reference.
 
 ### The 10¹²⁰ as a Quantitative Marker
 
-What makes this framework different from a philosophical observation is that the incompleteness has a *number*. In Gödel's proof, the unprovable statement is constructed using a specific encoding — a "Gödel number" that the system can reference but cannot resolve. In this framework, the 10¹²⁰ cosmological constant discrepancy plays the same role. It is the quantitative signature of what the embedded observer cannot see: the gap between the variance and the mean of a hidden sector with $N \sim 10^{240}$ degrees of freedom.
+What makes this framework different from a philosophical observation is that the incompleteness has a *number*. In Gödel's proof, the unprovable statement is constructed using a specific encoding — a "Gödel number" that the system can reference but cannot resolve. In this framework, the 10¹²⁰ cosmological constant discrepancy plays the same role. It is the quantitative signature of what the embedded observer cannot see: the gap between the variance and the mean of a hidden sector with roughly 10²⁴⁰ degrees of freedom.
 
 The standard interpretation of the 10¹²⁰ is that it represents a calculational failure — the worst prediction in the history of physics. This framework says it is the opposite: it is the most precise measurement we have of the boundary between what an embedded observer can and cannot know. It is not an error. It is the physical world's Gödel sentence — a number that encodes, in the starkest possible terms, the fact that observers are inside the system they are trying to describe.
 
