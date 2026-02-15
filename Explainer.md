@@ -336,7 +336,9 @@ The biggest engineering challenge, *decoherence*, is equally clear: it happens w
 
 In mainstream physics, dark energy is the substance or field responsible for the accelerating expansion of the universe. It constitutes roughly 68% of the total energy content of the cosmos, and its nature remains unknown.
 
-In this framework, dark energy isn't a substance at all. It's the **mean-field residual** of the hidden sector. Remember the glass of water: the dust speck doesn't sit perfectly still, because the random molecular pushes don't *perfectly* cancel out. With 10²⁴⁰ hidden-sector degrees of freedom pushing in random directions, basic statistics (the central limit theorem) predicts that the leftover net push should be roughly 10¹²⁰ times smaller than the total activity — which is exactly what we observe. Dark energy is what "almost-but-not-quite-perfect cancellation" looks like when you have an astronomically large number of randomly oriented contributions. It would be more surprising if the residual were exactly zero.
+In this framework, dark energy isn't a substance at all. It's the **mean-field residual** of the hidden sector — the first moment of a distribution whose second moment is 10¹²⁰ times larger. Remember the glass of water: the dust speck doesn't sit perfectly still, because the random molecular pushes don't *perfectly* cancel out. With 10²⁴⁰ hidden-sector degrees of freedom pushing in random directions, basic statistics (the central limit theorem) predicts that the leftover net push should be roughly 10¹²⁰ times smaller than the total activity — which is exactly what we observe. Dark energy is what "almost-but-not-quite-perfect cancellation" looks like when you have an astronomically large number of randomly oriented contributions. It would be more surprising if the residual were exactly zero.
+
+This also explains two otherwise puzzling features of dark energy: its equation of state is $w = -1$ (indistinguishable from a cosmological constant), and it has no dynamics of its own. Both follow naturally if dark energy is a statistical residual rather than a physical substance — a net balance left over from massive cancellation has no internal structure to evolve, and its pressure-to-density ratio is fixed by the symmetry of the underlying distribution.
 
 ### The Arrow of Time
 
@@ -541,7 +543,7 @@ In 1926, Einstein wrote to Max Born: "I, at any rate, am convinced that He does 
 
 ---
 
-*This is a simplified overview of the full technical paper "The Incompleteness of Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From Within" (Maybaum, February 2026). The core argument — including mathematical proofs, formal theorems, and detailed experimental predictions — is presented in the companion paper. Several of the reinterpretations explored in this explainer (the arrow of time, dark matter, quantization, String Theory) go beyond the formal results and are flagged as speculative implications in both documents.*
+*This is a simplified overview of the full technical paper "The Incompleteness of Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From Within" (Maybaum, February 2026). The core argument — including mathematical proofs, formal theorems, and detailed experimental predictions — is presented in the companion paper. Several of the reinterpretations explored in this explainer (the arrow of time, dark matter, quantization, String Theory) go beyond the formal results and are flagged as speculative; they are presented here as directions for future investigation rather than established results.*
 
 ***
 

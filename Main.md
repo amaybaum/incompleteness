@@ -194,15 +194,7 @@ More broadly, the Complementarity Theorem belongs to the family of impossibility
 
 **"You claim to derive the Standard Model but mostly assume SR and gauge theory."** The paper is explicit: the framework derives the quantum framework—the foundational layer—and combining it with special relativity (an input) produces the structural architecture. Specific content (gauge groups, particle masses, coupling constants) requires additional input about $\Phi$.
 
-### 6.3 Speculations
-
-Beyond the formal results, the framework suggests several broader reinterpretations that are noted briefly below without claiming to have proven them.
-
-**Dark energy** is the mean-field residual of the hidden sector — the first moment of a distribution whose second moment is $10^{120}$ times larger, explaining why it has equation of state $w = -1$ and no dynamics of its own. **Bekenstein-Hawking entropy** is proportional to area because the observer's channel to the hidden sector is area-limited. **The black hole singularity** is the point where the mean-field approximation fails — where the density of hidden-sector degrees of freedom overwhelms the first-moment description. **The measurement problem** is dissolved: "collapse" is a feature of the reduced description, not of the full-state dynamics. **The information paradox** arises from assuming a single unified description that sees both projections simultaneously — precisely what the Complementarity Theorem prohibits.
-
-The framework also suggests reinterpretations of several topics treated at length in the companion explainer [*The Incompleteness of Observation: Why the Universe's Biggest Contradiction Might Not Be a Mistake*, Maybaum 2026]. These include: **the arrow of time** as the one-directional flow of information from the observable sector into the vastly larger hidden sector; **quantization** as a sampling artifact of the finite-bandwidth projection rather than a fundamental property of reality; **dark matter** as spatial correlations in the mean-field residual rather than an undiscovered particle; and **String Theory** as a successful characterization of the hidden sector whose failure to make observable predictions reflects the Complementarity Theorem's prohibition on simultaneously capturing both projections. These reinterpretations are consistent with the formal framework but go beyond what it rigorously derives; they are presented as directions for future investigation rather than established results.
-
-### 6.4 Open Problems
+### 6.3 Open Problems
 
 The most important open problems include: (1) a fully continuous formulation of the Complementarity Theorem via the multi-parameter quantum Cramér-Rao bound; (2) whether the $N \sim S_{\text{dS}}^2$ relationship can be derived rather than observed; (3) whether special relativity can be derived from the hidden sector's propagation structure; (4) whether gauge symmetry can be derived from the projection structure; and (5) whether the Einstein field equations can be derived as the mean-field equation governing the mechanical projection.
 
