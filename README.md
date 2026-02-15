@@ -22,7 +22,7 @@ The full technical paper. Introduces the Complementarity Theorem via Wolpert's i
 
 **"The Incompleteness of Observation: Why the Universe's Biggest Contradiction Might Not Be a Mistake"**
 
-An accessible companion written for physicists and scientifically literate readers who want the argument without the full formalism. Covers the same core ideas, derives quantum mechanics from embedded observation through the Barandes stochastic-quantum correspondence, and extends into speculative reinterpretations of quantum phenomena, gravity, dark matter, dark energy, String Theory, and the logical parallels to Gödel and Turing.
+An accessible companion written for physicists and scientifically literate readers who want the argument without the full formalism. Covers the same core ideas, derives quantum mechanics from embedded observation through the Barandes stochastic-quantum correspondence, and extends into re-interpretations of quantum phenomena, gravity, dark matter, dark energy, String Theory, and the logical parallels to Gödel and Turing.
 
 ## Files
 
