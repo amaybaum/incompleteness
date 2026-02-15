@@ -15,7 +15,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern}
+% lmodern removed
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -77,18 +77,18 @@ it contains.
 
 Quantum mechanics says the vacuum is seething with energy. If you add up
 the zero-point fluctuations of every quantum field, you get an energy
-density of roughly 10¹¹⁰ joules per cubic meter. That's an unimaginably
+density of roughly $10^{110}$ joules per cubic meter. That's an unimaginably
 large number.
 
 General relativity, meanwhile, measures the vacuum's energy through its
 gravitational effect --- the accelerating expansion of the universe.
-That measurement gives about 6 × 10⁻¹⁰ joules per cubic meter, which is
+That measurement gives about 6 × $10^{-10}$ joules per cubic meter, which is
 a very tiny number.
 
-The ratio between them is 10¹²⁰. That's a 1 followed by 120 zeros. It's
+The ratio between them is $10^{120}$. That's a 1 followed by 120 zeros. It's
 the largest disagreement between theory and observation in all of
 science. For context, the number of atoms in the observable universe is
-only about 10⁸⁰.
+only about $10^{80}$.
 
 For decades, physicists have assumed this means something has gone badly
 wrong --- that one or both calculations must contain an error, and that
@@ -111,12 +111,12 @@ Imagine an infinitely large orchestra where every instrument is humming
 at its lowest possible note. You add up all those hums --- summing the
 minimum energy of every possible vibration, from the longest wavelengths
 to the shortest ones allowed by physics (the ``Planck scale'' cutoff).
-You get an enormous number: roughly 10¹¹⁰ joules per cubic meter.
+You get an enormous number: roughly $10^{110}$ joules per cubic meter.
 
 General relativity measures vacuum energy differently --- by observing
 how it makes the universe expand. Look at how fast the universe is
 actually accelerating, and work backwards to figure out how much energy
-the vacuum must contain. You get a tiny number: roughly 6 × 10⁻¹⁰ joules
+the vacuum must contain. You get a tiny number: roughly 6 × $10^{-10}$ joules
 per cubic meter.
 
 The ratio:
@@ -181,7 +181,7 @@ like the thermometer and the dust speck. Quantum mechanics measures the
 \emph{fluctuation content} of the vacuum --- the total, unsigned
 activity of the hidden degrees of freedom. General relativity measures
 the \emph{net mechanical effect} --- the aggregate, canceled-out push
-the vacuum exerts on spacetime. The 10¹²⁰ ratio between them is not an
+the vacuum exerts on spacetime. The $10^{120}$ ratio between them is not an
 error. It's the difference between an unsigned total and a canceled-out
 residual for a system with an astronomically large number of degrees of
 freedom.
@@ -245,7 +245,7 @@ measurement'' (gravity) are exactly the kind of mutually exclusive
 probes that Wolpert's theorems say cannot be combined. The result is a
 \textbf{Complementarity Theorem}: no observer inside the universe can
 simultaneously determine both the quantum and gravitational descriptions
-of vacuum energy. The 10¹²⁰ discrepancy is the quantitative signature of
+of vacuum energy. The $10^{120}$ discrepancy is the quantitative signature of
 this structural impossibility.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -292,9 +292,9 @@ universe continues, but its light hasn't had time to arrive. What's out
 there? Galaxies, stars, gas, photons --- standard energy and matter,
 made of the same particles and governed by the same physics as
 everything inside our bubble. There are vastly more degrees of freedom
-outside our bubble than inside it. Their collective random fluctuations
-press against our bubble, creating the ``pressure'' we measure as dark
-energy.
+outside our bubble than inside it. Their collective contributions ---
+summed with effectively random signs --- leave a tiny net residual that
+we measure as dark energy.
 
 \textbf{The interiors of black holes.} Every black hole has an event
 horizon --- a boundary inside which the escape velocity exceeds the
@@ -312,7 +312,7 @@ can never be directly measured.
 \textbf{The sub-Planckian world.} If you zoom into a digital photograph
 far enough, you eventually see square pixels. You can't see half a pixel
 --- the camera's resolution simply stops there. The Planck scale is
-physics' pixel boundary. Below about 10⁻³⁵ meters, the energy required
+physics' pixel boundary. Below about $10^{-35}$ meters, the energy required
 to probe the system is so enormous that it would create a micro black
 hole, swallowing the very information you were trying to extract. The
 act of looking that closely destroys the thing you're looking at. What's
@@ -356,9 +356,9 @@ defines the boundary between what you can see and what you can't. And as
 Wolpert's theorems guarantee, any observer bounded by such a projection
 faces irreducible limits on what it can know about the full system.
 
-The roughly 10¹²⁰ degrees of freedom accessible to us --- the
+The roughly $10^{120}$ degrees of freedom accessible to us --- the
 Bekenstein-Hawking entropy of the cosmological horizon --- is determined
-by the \emph{area} of this light-speed boundary. The 10²⁴⁰ degrees of
+by the \emph{area} of this light-speed boundary. The $10^{240}$ degrees of
 freedom in the hidden sector is what lies beyond it. The speed of light
 doesn't just limit our communication. It determines the shape and size
 of the keyhole through which we observe the universe.
@@ -413,27 +413,33 @@ very large variance despite a modest mean.
 Variance}\label{projection-1-quantum-mechanics-measures-variance}}
 
 The QFT vacuum energy calculation sums up the zero-point energy of every
-field mode. Why this is a variance-type quantity: for each mode, the
-expectation values of position and momentum are both zero. So the
-zero-point energy is \emph{entirely} due to the spread (variance) of
-position and momentum.
+field mode. Strictly, this is an expectation value --- a first moment
+--- but it has a crucial property: every mode contributes
+\emph{positively} (\(+\frac{1}{2}\hbar\omega\)). No cancellation between
+modes is possible. The sum grows linearly with the number of modes. Why
+is each mode's contribution positive? Because it arises from the
+position and momentum variances of the quantum ground state. In a
+classical vacuum, both variances vanish and the zero-point energy is
+zero. The entire zero-point energy per mode is pure fluctuation content
+--- a variance-type quantity.
 
-In a classical vacuum, both variances would be zero and the vacuum
-energy would vanish. The entire zero-point energy per mode is pure
-fluctuation content. You're standing next to a calm lake --- quantum
-mechanics measures how choppy the water is, the total wave energy from
-all the ripples, regardless of their direction. Every ripple contributes
-positively, so the total can be enormous.
+You're standing next to a calm lake --- quantum mechanics measures how
+choppy the water is, the total wave energy from all the ripples,
+regardless of their direction. Every ripple contributes positively, so
+the total can be enormous.
 
 \hypertarget{projection-2-gravity-measures-the-mean}{%
 \subsubsection{Projection 2: Gravity Measures the
 Mean}\label{projection-2-gravity-measures-the-mean}}
 
 The Einstein field equations couple spacetime curvature to the
-\emph{expectation value} (average) of the stress-energy tensor. The left
-side (curvature) is smooth. The right side is an average over all
-quantum configurations. Gravity doesn't care about individual ripples
---- it only feels the net, aggregate energy content.
+\emph{expectation value} (average) of the stress-energy tensor. This too
+is formally a first moment. But unlike the QFT sum, the stress-energy
+tensor is not positive-definite: different sectors --- bosonic fields,
+fermionic fields, vacuum condensates --- contribute to the effective
+cosmological constant with different signs. Gravity doesn't care about
+individual ripples --- it only feels the net, aggregate energy content,
+where cancellation between sectors is not only possible but expected.
 
 Why this gives a much smaller number: when you have a huge number of
 contributions with random signs, the signed sum is much smaller than the
@@ -501,12 +507,17 @@ observer trying to answer two different questions.
 
 For Wolpert's mutual inference impossibility to apply, the two targets
 must be \emph{independently configurable} --- it must be possible to
-change one without changing the other. In statistics, you can construct
-distributions with the same mean but different variances (compare a
-narrow bell curve with a wide bell curve, both centered at zero), and
-you can construct distributions with the same variance but different
-means (shift a bell curve left or right without changing its width). So
-mean and variance are indeed independently configurable.
+change one without changing the other. This is a condition on the
+mathematical state space, not on anyone's ability to physically prepare
+such states. In statistics, you can construct distributions with the
+same mean but different variances (compare a narrow bell curve with a
+wide bell curve, both centered at zero), and you can construct
+distributions with the same variance but different means (shift a bell
+curve left or right without changing its width). So mean and variance
+are indeed independently configurable. In the physical hidden sector,
+the mean depends on the net sign balance --- where signs depend on
+spin-statistics (bosonic vs.~fermionic) --- while the variance depends
+on excitation levels. These are independent parameters.
 
 \textbf{Step 4: Apply Wolpert's bound.}
 
@@ -531,21 +542,33 @@ Bridge}\label{the-inference-ontology-bridge}}
 
 There is an important subtlety here. Wolpert's theorem is about
 \emph{inference accuracy}, not physical quantities directly. The bridge
-works like this:
+relies on a non-trivial interpretive step:
 
 The QM and GR vacuum energies are not observer-independent facts about
 the hidden sector. They are \emph{outputs of specific measurement
 procedures} --- QFT mode-summation and gravitational coupling --- each
 of which constitutes an inference operation in Wolpert's sense.
 
-There is no single ``true'' vacuum energy sitting behind both
-measurements. The two values are the best answers that two structurally
-different inference procedures can extract from the same hidden sector,
-and Wolpert guarantees they cannot converge.
+On this interpretation, there is no single ``true'' vacuum energy
+sitting behind both measurements. The two values are the best answers
+that two structurally different inference procedures can extract from
+the same hidden sector, and Wolpert guarantees they cannot converge.
 
-The 10¹²⁰ is not the gap between two bad estimates of one thing. It is
+The $10^{120}$ is not the gap between two bad estimates of one thing. It is
 the gap between two \emph{different things} that embeddedness forces to
 be distinct.
+
+This interpretive step --- treating the measurements as constitutive of
+the quantities rather than as approximations to a shared underlying
+value --- is a substantive philosophical position, akin to quantum
+Bayesian and perspectival approaches. Most physicists currently assume
+there \emph{is} a single true vacuum energy that both calculations
+approximate. If you share that assumption, the Complementarity Theorem
+says something weaker but still significant: the two inference
+procedures are structurally prevented from converging, so the assumption
+of a shared underlying value cannot be empirically verified by any
+embedded observer. Whether the underlying value ``exists'' becomes a
+question that embedded observation cannot answer.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -661,7 +684,7 @@ an extraordinarily special condition. When tracing out a hidden sector
 that constitutes the vast majority of the universe's degrees of freedom,
 system-environment correlations are dominant, and indivisibility is
 robustly satisfied. It's like asking whether a random thousand-digit
-number could accidentally be divisible by 10⁹⁹⁹ --- mathematically
+number could accidentally be divisible by $10^{999}$ --- mathematically
 \emph{possible} but so fine-tuned as to be absurd for any realistic
 scenario.
 
@@ -780,7 +803,7 @@ projection in a way that leaves the other maximally unconstrained ---
 incompatible projections of the same hidden-sector correlations. This
 reveals a hierarchy: the Heisenberg uncertainty principle is the
 \emph{within-physics} version of embedded-observer incompleteness; the
-Complementarity Theorem (the 10¹²⁰) is the \emph{between-physics}
+Complementarity Theorem (the $10^{120}$) is the \emph{between-physics}
 version. Same root cause, different scales.
 
 \hypertarget{quantization}{%
@@ -828,7 +851,7 @@ by stray interactions.
 Reinterpretations}\label{beyond-the-framework-speculative-reinterpretations}}
 
 \emph{Everything above --- the Complementarity Theorem, the derivation
-of quantum mechanics via Barandes, the 10²⁴⁰ degree-of-freedom count,
+of quantum mechanics via Barandes, the $10^{240}$ degree-of-freedom count,
 and the explanations of interference, entanglement, tunneling,
 superposition, the Born rule, and the measurement problem --- follows
 from the formal results of the technical paper. What follows is
@@ -849,12 +872,12 @@ unknown.
 
 In this framework, dark energy isn't a substance at all. It's the
 \textbf{mean-field residual} of the hidden sector --- the first moment
-of a distribution whose second moment is 10¹²⁰ times larger. Remember
+of a distribution whose second moment is $10^{120}$ times larger. Remember
 the glass of water: the dust speck doesn't sit perfectly still, because
 the random molecular pushes don't \emph{perfectly} cancel out. With
-10²⁴⁰ hidden-sector degrees of freedom pushing in random directions,
+$10^{240}$ hidden-sector degrees of freedom pushing in random directions,
 basic statistics (the central limit theorem) predicts that the leftover
-net push should be roughly 10¹²⁰ times smaller than the total activity
+net push should be roughly $10^{120}$ times smaller than the total activity
 --- which is exactly what we observe. Dark energy is what
 ``almost-but-not-quite-perfect cancellation'' looks like when you have
 an astronomically large number of randomly oriented contributions. It
@@ -910,7 +933,7 @@ the other way around, for the same reason that heat flows from a hot cup
 to a cold room and not in reverse. The probability of all that scattered
 information spontaneously reconcentrating into the observable sector is
 not zero, but it's so vanishingly small --- suppressed by factors
-related to the 10²⁴⁰ hidden-sector degrees of freedom --- that it will
+related to the $10^{240}$ hidden-sector degrees of freedom --- that it will
 never happen in the lifetime of the universe.
 
 We perceive this one-way information leak as ``time passing.'' The past
@@ -985,7 +1008,7 @@ hidden sector. Return to the glass of water: the suspended dust speck
 responds to the net push of all the water molecules. It doesn't respond
 to any individual molecule --- it averages over all of them and reports
 the aggregate effect. Gravity does the same thing with the hidden
-sector. It averages over the 10²⁴⁰ hidden degrees of freedom and reports
+sector. It averages over the $10^{240}$ hidden degrees of freedom and reports
 the net mechanical result: spacetime curvature.
 
 Mass curves spacetime because a concentration of energy in the
@@ -1097,7 +1120,7 @@ invisible?
 
 This framework says: it would be more surprising if it weren't. An
 embedded observer accessing reality through a mean-field projection that
-compresses 10²⁴⁰ degrees of freedom into an average is, almost by
+compresses $10^{240}$ degrees of freedom into an average is, almost by
 definition, going to see a universe dominated by statistical residuals.
 The 5\% that's visible is the small fraction of modes organized into
 coherent, structured matter. The 95\% that's dark is the vast
@@ -1197,17 +1220,17 @@ geometry of physical space.
 
 \textbf{The Landscape Problem --- solved.} String Theory's most
 significant unresolved difficulty is that its equations have roughly
-10⁵⁰⁰ possible solutions. Each one describes a different possible
+$10^{500}$ possible solutions. Each one describes a different possible
 universe with different particles, different forces, different
 constants. Since the theory doesn't specify which solution describes
 \emph{our} universe, critics argue it predicts nothing. The standard
-response has been to invoke the multiverse --- all 10⁵⁰⁰ solutions are
+response has been to invoke the multiverse --- all $10^{500}$ solutions are
 real, and we happen to live in one that supports life.
 
 This framework offers a much simpler explanation. The hidden sector has
-roughly 10²⁴⁰ degrees of freedom. If each degree of freedom can be in
+roughly $10^{240}$ degrees of freedom. If each degree of freedom can be in
 even two possible states, the total number of configurations is 2 raised
-to the power of 10²⁴⁰ --- a number that dwarfs 10⁵⁰⁰. The ``Landscape''
+to the power of $10^{240}$ --- a number that dwarfs $10^{500}$. The ``Landscape''
 isn't a catalogue of different universes. It's the \textbf{internal
 complexity of the hidden sector of this one universe}. String Theory
 finds so many solutions because the hidden sector really is that
@@ -1216,7 +1239,7 @@ that we can't see because the projection compresses them into a single
 effective description.
 
 This eliminates the need for a multiverse. The complexity is real, it's
-local to this universe, and it's consistent with the 10²⁴⁰
+local to this universe, and it's consistent with the $10^{240}$
 degree-of-freedom count.
 
 \textbf{Strings are bandwidth limits.} In String Theory, every particle
@@ -1248,10 +1271,10 @@ attempt to squeeze the \emph{variance} of the hidden world into the
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{what-the-10uxb9uxb2ux2070-tells-us}{%
-\subsection{What the 10¹²⁰ Tells
+\subsection{What the $10^{120}$ Tells
 Us}\label{what-the-10uxb9uxb2ux2070-tells-us}}
 
-If the 10¹²⁰ ratio is the variance-to-mean ratio of the hidden sector,
+If the $10^{120}$ ratio is the variance-to-mean ratio of the hidden sector,
 it is possible to work backwards and ask: how many independent degrees
 of freedom must the hidden sector have to produce a ratio this large?
 
@@ -1264,17 +1287,22 @@ into a \emph{measurement} of the hidden sector's size. The math is
 surprisingly accessible.
 
 Imagine the hidden sector has \(N\) independent degrees of freedom. Each
-one contributes an energy with a random sign (positive or negative
-contribution), a characteristic energy per mode (like a typical salary),
-and a random fluctuation around the typical value.
+one contributes an energy with a characteristic magnitude (like a
+typical salary). The quantum projection sums all contributions without
+regard to sign --- it measures total activity (the variance). The
+gravitational projection sums them \emph{with} their signs --- it
+measures the net effect (the mean).
 
-The quantum projection sums all contributions without regard to sign ---
-it measures total activity. The gravitational projection sums them
-\emph{with} their signs --- it measures the net effect. With \(N\)
-random signs, the net sum grows only as \(\sqrt{N}\) while the total
-activity grows as \(N\). The ratio between them is \(\sqrt{N}\).
+Where do the signs come from? Not from individual mode zero-point
+energies, which are all positive. The effective signs arise at the level
+of sectors: bosonic fields contribute positively to the cosmological
+constant, fermionic fields contribute negatively, and other
+contributions (gauge condensates, symmetry-breaking potentials) have
+their own signs. With \(N\) effectively randomly signed contributions,
+the net sum grows only as \(\sqrt{N}\) while the total activity grows as
+\(N\). The ratio between them is \(\sqrt{N}\).
 
-Setting this equal to 10¹²⁰:
+Setting this equal to $10^{120}$:
 
 \[\sqrt{N} \sim 10^{120} \implies N \sim 10^{240}\]
 
@@ -1282,18 +1310,18 @@ Setting this equal to 10¹²⁰:
 \subsubsection{The Holographic
 Connection}\label{the-holographic-connection}}
 
-The answer --- about 10²⁴⁰ --- is not arbitrary. It turns out to be
+The answer --- about $10^{240}$ --- is not arbitrary. It turns out to be
 exactly the \emph{square} of another well-known number in physics: the
 Bekenstein-Hawking entropy of the cosmological horizon, which is roughly
-10¹²⁰.
+$10^{120}$.
 
 \[N \sim 10^{240} = S_{\text{dS}}^2\]
 
-This ``coincidence'' --- that the hidden sector has (10¹²⁰)² degrees of
+This ``coincidence'' --- that the hidden sector has $(10^{120})^2$ degrees of
 freedom --- suggests a deep connection to the holographic principle, the
 idea that the information content of a region of space is proportional
 to its surface area rather than its volume. The paper argues this is not
-a coincidence: the 10¹²⁰ is the one number where both projections make
+a coincidence: the $10^{120}$ is the one number where both projections make
 contact with the same physical reality, and it encodes the hidden
 sector's structure directly.
 
@@ -1381,19 +1409,19 @@ feature of being powerful enough (or embedded enough) to encounter the
 limits of self-reference.
 
 \hypertarget{the-10uxb9uxb2ux2070-as-a-quantitative-marker}{%
-\subsubsection{The 10¹²⁰ as a Quantitative
+\subsubsection{The $10^{120}$ as a Quantitative
 Marker}\label{the-10uxb9uxb2ux2070-as-a-quantitative-marker}}
 
 What makes this framework different from a philosophical observation is
 that the incompleteness has a \emph{number}. In Gödel's proof, the
 unprovable statement is constructed using a specific encoding --- a
 ``Gödel number'' that the system can reference but cannot resolve. In
-this framework, the 10¹²⁰ cosmological constant discrepancy plays the
+this framework, the $10^{120}$ cosmological constant discrepancy plays the
 same role. It is the quantitative signature of what the embedded
 observer cannot see: the gap between the variance and the mean of a
-hidden sector with roughly 10²⁴⁰ degrees of freedom.
+hidden sector with roughly $10^{240}$ degrees of freedom.
 
-The standard interpretation of the 10¹²⁰ is that it represents a
+The standard interpretation of the $10^{120}$ is that it represents a
 calculational failure --- the worst prediction in the history of
 physics. This framework says it is the opposite: it is the most precise
 measurement we have of the boundary between what an embedded observer
@@ -1436,7 +1464,7 @@ pattern is a specific prediction that future instruments can test.
 the mean of a high-variance distribution, it should be slightly
 ``grainy'' at high frequencies --- a faint hiss of gravitational noise
 unrelated to any astrophysical source. The framework predicts a specific
-amplitude and spectral shape for this noise, anchored to the 10¹²⁰
+amplitude and spectral shape for this noise, anchored to the $10^{120}$
 ratio.
 
 \textbf{Correlated running of constants.} The strength of gravity and
@@ -1464,7 +1492,7 @@ what kind of problem it's facing. The incompatibility between quantum
 mechanics and gravity is not a deficiency waiting to be repaired. It is
 a \emph{structural feature} of what it means to observe the universe
 from the inside --- a feature that comes with a precise numerical
-signature (10¹²⁰), a derivable quantum framework, and testable
+signature ($10^{120}$), a derivable quantum framework, and testable
 predictions.
 
 The universe is not broken. We are just observing it from within, which

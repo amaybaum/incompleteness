@@ -86,7 +86,7 @@ The paper splits the universe's degrees of freedom into two bins: everything the
 
 What fills the hidden sector? Nothing exotic. Go back to the glass of water: if you ask "what's in the water far away from you, beyond the range of your thermometer?", the answer is simply more water molecules, too far away to hit your instruments. The hidden sector works the same way. It's "dark" because the lights are off, not because it's made of strange stuff. It consists of three things we know exist but cannot access — all rendered hidden by the same mechanism: the causal structure of spacetime.
 
-**The rest of the universe, beyond the cosmological horizon.** The universe is 13.8 billion years old, and it's been expanding since the Big Bang. Light has had a finite amount of time to travel, and the expansion of space has been stretching distances as it goes. The result is a maximum distance from which light can ever reach us — about 46 billion light-years in every direction. Beyond that boundary, the universe continues, but its light hasn't had time to arrive. What's out there? Galaxies, stars, gas, photons — standard energy and matter, made of the same particles and governed by the same physics as everything inside our bubble. There are vastly more degrees of freedom outside our bubble than inside it. Their collective random fluctuations press against our bubble, creating the "pressure" we measure as dark energy.
+**The rest of the universe, beyond the cosmological horizon.** The universe is 13.8 billion years old, and it's been expanding since the Big Bang. Light has had a finite amount of time to travel, and the expansion of space has been stretching distances as it goes. The result is a maximum distance from which light can ever reach us — about 46 billion light-years in every direction. Beyond that boundary, the universe continues, but its light hasn't had time to arrive. What's out there? Galaxies, stars, gas, photons — standard energy and matter, made of the same particles and governed by the same physics as everything inside our bubble. There are vastly more degrees of freedom outside our bubble than inside it. Their collective contributions — summed with effectively random signs — leave a tiny net residual that we measure as dark energy.
 
 **The interiors of black holes.** Every black hole has an event horizon — a boundary inside which the escape velocity exceeds the speed of light. Anything that crosses it is causally disconnected from the rest of the universe, permanently. What's inside? The star that collapsed, the gas it ate, the light it trapped — ordinary matter and energy that has crossed the event horizon and exited our observable projection. Black holes aren't holes in reality. They're data sinks — places where degrees of freedom leave our observable description but continue to exist on the other side of the projection boundary. There are an enormous number of them in the observable universe, each one containing hidden degrees of freedom that contribute to the total but can never be directly measured.
 
@@ -121,13 +121,13 @@ These are different questions about the same set of salaries, and they can give 
 
 ### Projection 1: Quantum Mechanics Measures Variance
 
-The QFT vacuum energy calculation sums up the zero-point energy of every field mode. Why this is a variance-type quantity: for each mode, the expectation values of position and momentum are both zero. So the zero-point energy is *entirely* due to the spread (variance) of position and momentum.
+The QFT vacuum energy calculation sums up the zero-point energy of every field mode. Strictly, this is an expectation value — a first moment — but it has a crucial property: every mode contributes *positively* ($+\frac{1}{2}\hbar\omega$). No cancellation between modes is possible. The sum grows linearly with the number of modes. Why is each mode's contribution positive? Because it arises from the position and momentum variances of the quantum ground state. In a classical vacuum, both variances vanish and the zero-point energy is zero. The entire zero-point energy per mode is pure fluctuation content — a variance-type quantity.
 
-In a classical vacuum, both variances would be zero and the vacuum energy would vanish. The entire zero-point energy per mode is pure fluctuation content. You're standing next to a calm lake — quantum mechanics measures how choppy the water is, the total wave energy from all the ripples, regardless of their direction. Every ripple contributes positively, so the total can be enormous.
+You're standing next to a calm lake — quantum mechanics measures how choppy the water is, the total wave energy from all the ripples, regardless of their direction. Every ripple contributes positively, so the total can be enormous.
 
 ### Projection 2: Gravity Measures the Mean
 
-The Einstein field equations couple spacetime curvature to the *expectation value* (average) of the stress-energy tensor. The left side (curvature) is smooth. The right side is an average over all quantum configurations. Gravity doesn't care about individual ripples — it only feels the net, aggregate energy content.
+The Einstein field equations couple spacetime curvature to the *expectation value* (average) of the stress-energy tensor. This too is formally a first moment. But unlike the QFT sum, the stress-energy tensor is not positive-definite: different sectors — bosonic fields, fermionic fields, vacuum condensates — contribute to the effective cosmological constant with different signs. Gravity doesn't care about individual ripples — it only feels the net, aggregate energy content, where cancellation between sectors is not only possible but expected.
 
 Why this gives a much smaller number: when you have a huge number of contributions with random signs, the signed sum is much smaller than the unsigned sum. If 1,000 people each owe or are owed a random amount between −\$100 and +\$100, the total *absolute* amount of debt (the variance-like quantity) is roughly \$50,000, while the *net* balance (the mean-like quantity) is roughly \$1,580. The net balance is much smaller because positive and negative contributions cancel.
 
@@ -157,7 +157,7 @@ An observer confined to the visible sector is an "inference device" in Wolpert's
 
 **Step 3: Check the "independent configurability" condition.**
 
-For Wolpert's mutual inference impossibility to apply, the two targets must be *independently configurable* — it must be possible to change one without changing the other. In statistics, you can construct distributions with the same mean but different variances (compare a narrow bell curve with a wide bell curve, both centered at zero), and you can construct distributions with the same variance but different means (shift a bell curve left or right without changing its width). So mean and variance are indeed independently configurable.
+For Wolpert's mutual inference impossibility to apply, the two targets must be *independently configurable* — it must be possible to change one without changing the other. This is a condition on the mathematical state space, not on anyone's ability to physically prepare such states. In statistics, you can construct distributions with the same mean but different variances (compare a narrow bell curve with a wide bell curve, both centered at zero), and you can construct distributions with the same variance but different means (shift a bell curve left or right without changing its width). So mean and variance are indeed independently configurable. In the physical hidden sector, the mean depends on the net sign balance — where signs depend on spin-statistics (bosonic vs. fermionic) — while the variance depends on excitation levels. These are independent parameters.
 
 **Step 4: Apply Wolpert's bound.**
 
@@ -171,13 +171,15 @@ If you get the variance exactly right ($\epsilon_{\text{fluc}} = 1$), your mean 
 
 ### The Inference-Ontology Bridge
 
-There is an important subtlety here. Wolpert's theorem is about *inference accuracy*, not physical quantities directly. The bridge works like this:
+There is an important subtlety here. Wolpert's theorem is about *inference accuracy*, not physical quantities directly. The bridge relies on a non-trivial interpretive step:
 
 The QM and GR vacuum energies are not observer-independent facts about the hidden sector. They are *outputs of specific measurement procedures* — QFT mode-summation and gravitational coupling — each of which constitutes an inference operation in Wolpert's sense.
 
-There is no single "true" vacuum energy sitting behind both measurements. The two values are the best answers that two structurally different inference procedures can extract from the same hidden sector, and Wolpert guarantees they cannot converge.
+On this interpretation, there is no single "true" vacuum energy sitting behind both measurements. The two values are the best answers that two structurally different inference procedures can extract from the same hidden sector, and Wolpert guarantees they cannot converge.
 
 The 10¹²⁰ is not the gap between two bad estimates of one thing. It is the gap between two *different things* that embeddedness forces to be distinct.
+
+This interpretive step — treating the measurements as constitutive of the quantities rather than as approximations to a shared underlying value — is a substantive philosophical position, akin to quantum Bayesian and perspectival approaches. Most physicists currently assume there *is* a single true vacuum energy that both calculations approximate. If you share that assumption, the Complementarity Theorem says something weaker but still significant: the two inference procedures are structurally prevented from converging, so the assumption of a shared underlying value cannot be empirically verified by any embedded observer. Whether the underlying value "exists" becomes a question that embedded observation cannot answer.
 
 ---
 
@@ -390,9 +392,9 @@ If the 10¹²⁰ ratio is the variance-to-mean ratio of the hidden sector, it is
 
 This is where the paper converts the cosmological constant "problem" into a *measurement* of the hidden sector's size. The math is surprisingly accessible.
 
-Imagine the hidden sector has $N$ independent degrees of freedom. Each one contributes an energy with a random sign (positive or negative contribution), a characteristic energy per mode (like a typical salary), and a random fluctuation around the typical value.
+Imagine the hidden sector has $N$ independent degrees of freedom. Each one contributes an energy with a characteristic magnitude (like a typical salary). The quantum projection sums all contributions without regard to sign — it measures total activity (the variance). The gravitational projection sums them *with* their signs — it measures the net effect (the mean).
 
-The quantum projection sums all contributions without regard to sign — it measures total activity. The gravitational projection sums them *with* their signs — it measures the net effect. With $N$ random signs, the net sum grows only as $\sqrt{N}$ while the total activity grows as $N$. The ratio between them is $\sqrt{N}$.
+Where do the signs come from? Not from individual mode zero-point energies, which are all positive. The effective signs arise at the level of sectors: bosonic fields contribute positively to the cosmological constant, fermionic fields contribute negatively, and other contributions (gauge condensates, symmetry-breaking potentials) have their own signs. With $N$ effectively randomly signed contributions, the net sum grows only as $\sqrt{N}$ while the total activity grows as $N$. The ratio between them is $\sqrt{N}$.
 
 Setting this equal to 10¹²⁰:
 
