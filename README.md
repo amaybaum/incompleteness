@@ -16,13 +16,24 @@ The core claim: any observer that is part of the universe it measures must acces
 
 **"The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
 
-The full technical paper. Introduces the Complementarity Theorem via Wolpert's inference impossibility framework, derives quantum mechanics from embedded observation through the Barandes stochastic-quantum correspondence, and extracts N ~ 10²⁴⁰ hidden-sector degrees of freedom from the cosmological constant ratio. Includes formal proofs, experimental predictions, and a detailed discussion of objections.
+The full technical paper. Introduces the Complementarity Theorem via Wolpert's inference impossibility framework and extracts N ~ 10²⁴⁰ hidden-sector degrees of freedom from the cosmological constant ratio. Includes formal proofs, experimental predictions, and a detailed discussion of objections.
 
 ### Companion Explainer
 
 **"The Incompleteness of Observation: Why the Universe's Biggest Contradiction Might Not Be a Mistake"**
 
-An accessible companion written for physicists and scientifically literate readers who want the argument without the full formalism. Covers the same core ideas and extends into speculative reinterpretations of quantum phenomena, gravity, dark matter, dark energy, String Theory, and the logical parallels to Gödel and Turing.
+An accessible companion written for physicists and scientifically literate readers who want the argument without the full formalism. Covers the same core ideas, derives quantum mechanics from embedded observation through the Barandes stochastic-quantum correspondence, and extends into speculative reinterpretations of quantum phenomena, gravity, dark matter, dark energy, String Theory, and the logical parallels to Gödel and Turing.
+
+## Files
+
+| File | Description |
+|------|-------------|
+| `Main.md` | Technical paper (Markdown) |
+| `Main.tex` | Technical paper (LaTeX) |
+| `Main.pdf` | Technical paper (PDF) |
+| `Explainer.md` | Companion explainer (Markdown) |
+| `Explainer.tex` | Companion explainer (LaTeX) |
+| `Explainer.pdf` | Companion explainer (PDF) |
 
 ## Key Results
 
@@ -36,3 +47,19 @@ An accessible companion written for physicists and scientifically literate reade
 
 Alex Maybaum — Independent Researcher  
 [LinkedIn](https://www.linkedin.com/in/amaybaum)
+
+## Citation
+
+```bibtex
+@unpublished{maybaum2026incompleteness,
+  title   = {The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within},
+  author  = {Maybaum, Alex},
+  year    = {2026},
+  month   = {February},
+  note    = {Draft pre-print}
+}
+```
+
+## License
+
+© 2026 Alex Maybaum. All rights reserved. This work may be shared for personal and academic use with attribution. No modifications or derivative works without permission.
