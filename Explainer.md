@@ -50,7 +50,7 @@ These two measurements aren't giving you contradictory information about the wat
 
 The critical point is this: **these are fundamentally different operations.** The thermometer reading arises from adding up every individual impact. The net mechanical push arises from averaging over all of them. In classical physics, you can just build two different instruments. But what if you are trying to measure the very fabric of the universe from the inside, and you are forced to use the universe's own structural projections to do it?
 
-This paper argues that quantum mechanics and general relativity are just like the thermometer and the dust speck. Quantum mechanics measures the *fluctuation content* of the vacuum — the total, unsigned activity of the hidden degrees of freedom. General relativity measures the *net mechanical effect* — the aggregate, canceled-out push the vacuum exerts on spacetime. The 10¹²⁰ ratio between them is not an error. It's the difference between an unsigned total and a canceled-out residual for a system with an astronomically large number of degrees of freedom.
+This paper argues that quantum mechanics and general relativity are just like the thermometer and the dust speck. Quantum mechanics measures the *fluctuation content* of the vacuum — the total, unsigned activity of the hidden degrees of freedom. General relativity measures the *net mechanical effect* — the aggregate, canceled-out push the vacuum exerts on spacetime. The 10¹²⁰ ratio between them is not an error. It's the difference between an unsigned total and a canceled-out residual for a system with an astronomically large number of degrees of freedom. (The recognition that the two theories probe different statistical properties of the vacuum originates with the physicist T. Padmanabhan. This paper inverts his specific assignment and grounds the distinction in a mathematical impossibility result.)
 
 ---
 
@@ -108,7 +108,7 @@ The roughly 10¹²⁰ degrees of freedom accessible to us — the Bekenstein-Haw
 
 ## Two Projections, Two Answers
 
-This is the heart of the argument. Quantum mechanics and gravity are measuring two different *statistical moments* of the same distribution — and the mathematics of embedded observation guarantees they cannot agree.
+This is the heart of the argument — and it builds on a key insight from the Indian theoretical physicist T. Padmanabhan, who in 2004 identified that the QFT and gravitational descriptions of vacuum energy probe *different statistical properties* of the same underlying degrees of freedom. Padmanabhan argued that classical gravity probes vacuum *fluctuations* rather than the mean energy density. The present framework adopts this core insight — that two distinct statistical operations yield the discrepancy — but **inverts the assignment**: here it is QFT that measures the fluctuation content (the variance) and gravity that measures the net mechanical effect (the mean). The inversion is grounded in the Wolpert impossibility results described in the next section.
 
 ### What Are Statistical Moments?
 
@@ -390,7 +390,7 @@ If the 10¹²⁰ ratio is the variance-to-mean ratio of the hidden sector, it is
 
 ### The Random-Sign Cancellation Model
 
-This is where the paper converts the cosmological constant "problem" into a *measurement* of the hidden sector's size. The math is surprisingly accessible.
+This is where the paper converts the cosmological constant "problem" into a *measurement* of the hidden sector's size, using the √N scaling first identified in this context by Padmanabhan. The math is surprisingly accessible.
 
 Imagine the hidden sector has $N$ independent degrees of freedom. Each one contributes an energy with a characteristic magnitude (like a typical salary). The quantum projection sums all contributions without regard to sign — it measures total activity (the variance). The gravitational projection sums them *with* their signs — it measures the net effect (the mean).
 
