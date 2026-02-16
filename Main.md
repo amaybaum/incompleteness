@@ -22,19 +22,23 @@ Quantum mechanics and general relativity are extraordinarily successful yet inco
 
 ### 1.2 The $10^{120}$ Ratio
 
-The sharpest manifestation of the QM-GR incompatibility is the **cosmological constant problem** [1]. It concerns the single quantity that both frameworks predict: the energy density of empty space.
+The sharpest manifestation of the QM-GR incompatibility is the **cosmological constant problem** [1]. It concerns the single quantity that both frameworks predict: the energy density of empty space, $\rho_{\text{vac}}$.
 
-**Quantum mechanics** computes the vacuum energy by summing the zero-point fluctuations of all quantum field modes up to the Planck scale cutoff, yielding roughly $10^{110}$ joules per cubic meter.
+**Quantum mechanics** computes the vacuum energy by summing the zero-point fluctuations of all quantum field modes up to the Planck scale cutoff $E_{\text{Pl}}$:
 
-**General relativity** measures the vacuum energy through its gravitational effect — the accelerated expansion of the universe — yielding roughly $6 \times 10^{-10}$ joules per cubic meter.
+$$\rho_{\text{QM}} \;\sim\; \frac{E_{\text{Pl}}^{\,4}}{(\hbar c)^3} \;\sim\; 10^{110} \;\text{J/m}^3$$
+
+**General relativity** measures the vacuum energy through its gravitational effect — the accelerated expansion of the universe — yielding:
+
+$$\rho_{\text{grav}} \;=\; \frac{\Lambda \, c^2}{8\pi G} \;\sim\; 6 \times 10^{-10} \;\text{J/m}^3$$
 
 The ratio between them:
 
 $$\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{120}$$
 
-is the largest quantitative disagreement in all of physics. The standard interpretation is that one or both calculations must be wrong—that some unknown mechanism cancels the QFT contribution down to the observed value. Decades of effort have failed to find such a mechanism [2, 3].
+is the largest quantitative disagreement in all of physics. The standard interpretation is that one or both calculations must be wrong—that some unknown mechanism cancels the QFT contribution down to the observed value, i.e. $\rho_{\text{QM}} - \delta\rho \stackrel{?}{=} \rho_{\text{grav}}$, requiring fine-tuning to one part in $10^{120}$. Decades of effort have failed to find such a mechanism [2, 3].
 
-A different interpretation is proposed: **neither calculation is wrong. They disagree because they are answering fundamentally different questions about the same thing.**
+A different interpretation is proposed: **neither calculation is wrong. They disagree because they are answering fundamentally different questions about the same thing.** The discrepancy $\rho_{\text{QM}} \neq \rho_{\text{grav}}$ is not an error to be cancelled but a structural consequence of the two frameworks probing the vacuum through incompatible projections.
 
 ---
 
