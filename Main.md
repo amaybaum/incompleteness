@@ -112,7 +112,7 @@ The one-quarter bound arises because independent configurability ensures the two
 
 ---
 
-## 3. THE $10^{120}$ AS MEASUREMENT
+## 3. THE DISCREPANCY AS MEASUREMENT
 
 If the $10^{120}$ encodes statistical properties of the hidden sector, it should yield quantitative information about the hidden sector's dimensionality.
 
