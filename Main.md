@@ -94,7 +94,7 @@ Because the two operations extract independent statistical moments of $\Phi$ (va
 
 > **Observational Incompleteness Theorem (informal):** For any embedded observer, the quantum-mechanical and gravitational descriptions of vacuum energy are structurally incompatible projections that cannot be unified into a single observer-accessible description. The cosmological constant problem is the observable signature of this structural incompleteness.
 
-### 2.5 Formal Statement via Wolpert's Framework
+### 2.5 Formal Statement
 
 **Setup.** The universe state is partitioned into visible and hidden sectors. Two target functions are defined: the fluctuation content of the hidden sector (its variance, corresponding to the QFT vacuum energy) and the net mechanical effect (its mean, corresponding to the gravitationally observed vacuum energy).
 
