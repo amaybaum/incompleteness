@@ -20,7 +20,7 @@ This paper argues that the incompatibility between quantum mechanics and general
 
 Quantum mechanics and general relativity are extraordinarily successful yet incompatible. The dominant assumption has been that this incompatibility is a deficiency—that a deeper theory will eventually unify them. This paper proposes the opposite: **the incompatibility is a structural feature of embedded observation.**
 
-### 1.2 The $10^{120}$ Ratio
+### 1.2 The Cosmological Discrepancy
 
 The sharpest manifestation of the QM-GR incompatibility is the **cosmological constant problem** [1]. It concerns the single quantity that both frameworks predict: the energy density of empty space, $\rho_{\text{vac}}$.
 
