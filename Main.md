@@ -66,23 +66,25 @@ The hidden sector consists not of exotic particles but of standard degrees of fr
 
 Vacuum energy is the energy density of the hidden sector. When physicists measure or calculate it, they are attempting to characterize $\Phi$ from within the visible sector. There is more than one way to do this, and the different ways are not equivalent.
 
-**Projection 1: Fluctuation statistics (QM).** Quantum mechanics characterizes the hidden sector through its fluctuation structure. The QFT vacuum energy calculation sums the zero-point energies of all field modes up to a cutoff — formally $\langle 0 | H | 0 \rangle$. Each mode contributes $+\frac{1}{2}\hbar\omega$, a quantity proportional to the position and momentum variances of the quantum ground state. No cancellation between modes is possible — every term is positive, and the sum grows linearly with the number of modes. The QFT vacuum energy is therefore a positive-definite, variance-type quantity:
+Padmanabhan [19] identified the central structural point: the QFT and gravitational descriptions of vacuum energy probe different statistical properties of the same underlying degrees of freedom. He argued that classical gravity probes vacuum *fluctuations* rather than the mean energy density, arriving at the observed dark energy scale as the geometric mean of the Planck and Hubble energy densities: $\rho_{\text{vac}} \simeq \sqrt{\rho_{\text{UV}} \, \rho_{\text{IR}}}$. The present framework adopts Padmanabhan's core insight — that two distinct statistical operations yield the discrepancy — but **inverts the assignment** and grounds it in the impossibility results of §2.4–2.5:
+
+**Projection 1: Fluctuation statistics (QM).** The QFT vacuum energy sums zero-point energies mode by mode — each contributing $+\frac{1}{2}\hbar\omega$, a quantity proportional to the position and momentum variances of the quantum ground state. No cancellation is possible; every term is positive. This is a variance-type quantity:
 
 $$V = \sum_{i=1}^{N} \frac{1}{2}\hbar\omega_i \propto N$$
 
-**Projection 2: Mean-field pressure (gravity).** Gravity characterizes the hidden sector through its net mechanical effect — the aggregate pressure that the hidden degrees of freedom exert on spacetime. Unlike the QFT sum, the stress-energy tensor is not positive-definite: different field sectors (bosonic vs. fermionic, different spin types, vacuum condensates) contribute with signs $s_i = \pm 1$, and the Einstein equations couple to the net signed aggregate. Cancellation between sectors is not only possible but generically expected. This makes the gravitational measurement a mean-type quantity:
+**Projection 2: Mean-field pressure (gravity).** The stress-energy tensor is not positive-definite: different field sectors (bosonic vs. fermionic, vacuum condensates) contribute with signs $s_i = \pm 1$, and the Einstein equations couple to the net signed aggregate. This is a mean-type quantity:
 
 $$M = \sum_{i=1}^{N} s_i \,\frac{1}{2}\hbar\omega_i \sim \sqrt{N}$$
 
-where the $\sqrt{N}$ scaling follows from the central limit theorem when the signs are not fine-tuned.
+where the $\sqrt{N}$ scaling follows from the central limit theorem when the signs are not fine-tuned — the same scaling that underlies Padmanabhan's geometric mean result [19].
 
 Physically: gravity acts as an **adiabatic probe**, coupling to the net signed energy-momentum content averaged over all Planck-scale fluctuations. Quantum mechanics probes the **correlation structure** — summing propagators mode by mode, each contributing positively, to measure how much the medium fluctuates.
 
-The ratio of the two projections therefore grows without bound:
+The ratio of the two projections grows without bound:
 
 $$\frac{V}{M} \sim \frac{N}{\sqrt{N}} = \sqrt{N}$$
 
-### 2.4 Why They Can't Be Unified
+### 2.4 Why They Cannot Be Unified
 
 The two projections require **incompatible operations on the hidden sector.**
 
@@ -110,15 +112,15 @@ The one-quarter bound arises because independent configurability ensures the two
 
 ---
 
-## 3. THE DISCREPANCY AS A MEASUREMENT
+## 3. THE DISCREPANCY AS MEASUREMENT
 
-If the $10^{120}$ ratio encodes statistical properties of the hidden sector, it should yield quantitative information about the hidden sector's dimensionality.
+If the $10^{120}$ encodes statistical properties of the hidden sector, it should yield quantitative information about the hidden sector's dimensionality.
 
-### 3.1 The Random-Sign Cancellation Model
+### 3.1 Extracting the Hidden-Sector Dimensionality
 
 Consider a hidden sector with $N$ independent degrees of freedom, each contributing energy with a characteristic magnitude of order one in Planck units. Different sectors contribute to the effective cosmological constant with different signs — bosonic fields contribute positively, fermionic fields contribute negatively, and vacuum condensates shift the balance further. The QFT mode-sum sums positive-definite zero-point energies mode by mode, so every contribution adds. The gravitational coupling sees the net result after all inter-sector cancellations.
 
-The **total fluctuation content** (quantum projection) scales as $V \propto N$. The **net mechanical effect** (gravitational projection) scales as $M \sim \sqrt{N}$. Setting their ratio equal to the observed discrepancy:
+The **total fluctuation content** (quantum projection) scales as $V \propto N$. The **net mechanical effect** (gravitational projection) scales as $M \sim \sqrt{N}$. The $\sqrt{N}$ scaling of this variance-to-mean ratio, first identified in this context by Padmanabhan [19], allows the $10^{120}$ discrepancy to be read as a measurement. Setting the ratio equal to the observed value:
 
 $$\frac{V}{M} \sim \sqrt{N} \sim 10^{120}$$
 
@@ -161,6 +163,8 @@ If the Observational Incompleteness Theorem is correct, General Relativity is an
 ### 5.1 Relation to Prior Work
 
 The argument connects several existing threads: Wolpert's inference impossibility [4] provides the physics-independent mathematical foundation; and Sorkin's causal-set prediction [17] independently supports the degree-of-freedom count. This framework is compatible with but distinct from Bohr's complementarity [8] (which operates within QM, not between QM and GR), 't Hooft's deterministic quantum mechanics [9] (the hidden sector could be deterministic, but need not be), and emergent gravity programmes [10, 11] (we do not derive gravity, but identify why the gravitational and quantum descriptions cannot agree). A companion explainer paper develops the connection between the hidden-sector trace-out and the emergence of quantum mechanics via the Barandes stochastic-quantum correspondence, which is treated there rather than here to keep the present paper focused on the Observational Incompleteness Theorem and its direct consequences.
+
+The closest partial precedent is the work of Padmanabhan [19], whose variance-mean distinction is adopted and inverted in §2.3. His later Cosmic Information (CosmIn) programme [20] argued that gravity controls the information accessible to any observer and that demanding finite cosmic information requires a positive cosmological constant — an information-theoretic approach to $\Lambda$ compatible with the interpretation offered here. The key advance of the Observational Incompleteness Theorem is the Wolpert grounding (§2.4–2.5), which converts the variance-mean distinction from a suggestive observation into a provable impossibility result for embedded observers and determines which projection corresponds to which framework.
 
 ### 5.2 Key Objections
 
@@ -229,6 +233,10 @@ During the preparation of this work, the author used **Claude Opus 4.6 (Anthropi
 [17] S. Ahmed, S. Dodelson, P. B. Greene, and R. Sorkin, "Everpresent $\Lambda$," *Phys. Rev. D* **69**, 103523 (2004). arXiv:astro-ph/0209274.
 
 [18] G. W. Gibbons and S. W. Hawking, "Cosmological event horizons, thermodynamics, and particle creation," *Phys. Rev. D* **15**, 2738 (1977).
+
+[19] T. Padmanabhan, "Vacuum Fluctuations of Energy Density can lead to the observed Cosmological Constant," *Class. Quantum Grav.* **22**, L107–L110 (2005). arXiv:hep-th/0406060.
+
+[20] T. Padmanabhan and H. Padmanabhan, "Cosmic Information, the Cosmological Constant and the Amplitude of primordial perturbations," *Phys. Lett. B* **773**, 81–85 (2017). arXiv:1703.06144.
 
 ---
 
