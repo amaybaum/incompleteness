@@ -72,7 +72,7 @@ Wolpert proved two key results from this setup:
 
 These theorems aren't about technology limitations. They're about *logical structure* — in the same family as Gödel's incompleteness theorem for mathematics and Turing's halting problem for computers. They show that being embedded inside the system you're studying creates inescapable constraints.
 
-This paper takes Wolpert's mathematical framework and applies it to the specific case of quantum mechanics and gravity. It shows that the "fluctuation measurement" (quantum mechanics) and the "mean-field measurement" (gravity) are exactly the kind of mutually exclusive probes that Wolpert's theorems say cannot be combined. The result is a **Complementarity Theorem**: no observer inside the universe can simultaneously determine both the quantum and gravitational descriptions of vacuum energy. The 10¹²⁰ discrepancy is the quantitative signature of this structural impossibility.
+This paper takes Wolpert's mathematical framework and applies it to the specific case of quantum mechanics and gravity. It shows that the "fluctuation measurement" (quantum mechanics) and the "mean-field measurement" (gravity) are exactly the kind of mutually exclusive probes that Wolpert's theorems say cannot be combined. The result is an **Observational Incompleteness Theorem**: no observer inside the universe can simultaneously determine both the quantum and gravitational descriptions of vacuum energy. The 10¹²⁰ discrepancy is the quantitative signature of this structural impossibility.
 
 ---
 
@@ -135,11 +135,11 @@ Gravity is measuring the net water level of the lake — are the waves pushing t
 
 ---
 
-## The Complementarity Theorem: Why Unification Is Impossible
+## The Observational Incompleteness Theorem: Why Unification Is Impossible
 
 ### The Informal Version
 
-> The quantum-mechanical and gravitational descriptions of vacuum energy are complementary projections that cannot be unified into a single observer-accessible description.
+> The quantum-mechanical and gravitational descriptions of vacuum energy are structurally incompatible projections that cannot be unified into a single observer-accessible description.
 
 The two projections require **contradictory operations** on the hidden sector. The quantum projection works by *tracing out* the hidden sector — treating it as inaccessible and studying only the residual effects on the visible sector. The gravitational projection works by *coupling to* the hidden sector — feeling its mechanical presence through the curvature of spacetime. One hides it. The other feels it. No single description available to an embedded observer can simultaneously hide and reveal the same thing.
 
@@ -179,7 +179,7 @@ On this interpretation, there is no single "true" vacuum energy sitting behind b
 
 The 10¹²⁰ is not the gap between two bad estimates of one thing. It is the gap between two *different things* that embeddedness forces to be distinct.
 
-This interpretive step — treating the measurements as constitutive of the quantities rather than as approximations to a shared underlying value — is a substantive philosophical position, akin to quantum Bayesian and perspectival approaches. Most physicists currently assume there *is* a single true vacuum energy that both calculations approximate. If you share that assumption, the Complementarity Theorem says something weaker but still significant: the two inference procedures are structurally prevented from converging, so the assumption of a shared underlying value cannot be empirically verified by any embedded observer. Whether the underlying value "exists" becomes a question that embedded observation cannot answer.
+This interpretive step — treating the measurements as constitutive of the quantities rather than as approximations to a shared underlying value — is a substantive philosophical position, akin to quantum Bayesian and perspectival approaches. Most physicists currently assume there *is* a single true vacuum energy that both calculations approximate. If you share that assumption, the Observational Incompleteness Theorem says something weaker but still significant: the two inference procedures are structurally prevented from converging, so the assumption of a shared underlying value cannot be empirically verified by any embedded observer. Whether the underlying value "exists" becomes a question that embedded observation cannot answer.
 
 ---
 
@@ -256,7 +256,7 @@ The Born rule — the specific recipe for converting quantum states into probabi
 
 In classical physics, a particle without enough energy to cross a barrier simply bounces back. In quantum mechanics, particles routinely appear on the far side — tunneling through. In this framework, the barrier exists in the projected description, but the full system includes hidden-sector degrees of freedom that the projection doesn't represent. The particle doesn't go *through* the barrier; it utilizes hidden-sector degrees of freedom to bypass a restriction that exists only in the observable sector. The tunneling probability — exponentially suppressed by barrier width and height — reflects how much of a "detour" through hidden-sector modes is required.
 
-The uncertainty principle has the same root cause. Position and momentum correspond to different ways of interrogating the hidden sector at infinitesimally separated moments. Pinning down one constrains the projection in a way that leaves the other maximally unconstrained — incompatible projections of the same hidden-sector correlations. This reveals a hierarchy: the Heisenberg uncertainty principle is the *within-physics* version of embedded-observer incompleteness; the Complementarity Theorem (the 10¹²⁰) is the *between-physics* version. Same root cause, different scales.
+The uncertainty principle has the same root cause. Position and momentum correspond to different ways of interrogating the hidden sector at infinitesimally separated moments. Pinning down one constrains the projection in a way that leaves the other maximally unconstrained — incompatible projections of the same hidden-sector correlations. This reveals a hierarchy: the Heisenberg uncertainty principle is the *within-physics* version of embedded-observer incompleteness; the Observational Incompleteness Theorem (the 10¹²⁰) is the *between-physics* version. Same root cause, different scales.
 
 ### Quantization
 
@@ -272,7 +272,7 @@ Quantum computing exploits the indivisible correlations of the projected dynamic
 
 ## Beyond the Framework: Speculative Reinterpretations
 
-*Everything above — the Complementarity Theorem, the derivation of quantum mechanics via Barandes, the 10²⁴⁰ degree-of-freedom count, and the explanations of interference, entanglement, tunneling, superposition, the Born rule, and the measurement problem — follows from the formal results of the technical paper. What follows is different in character. The sections below explore reinterpretations of known physics that are consistent with the framework and illustrative of its explanatory reach, but which go beyond what the formal arguments rigorously establish. They are best understood as directions for future investigation — places where the framework's logic points but its proofs do not yet reach.*
+*Everything above — the Observational Incompleteness Theorem, the derivation of quantum mechanics via Barandes, the 10²⁴⁰ degree-of-freedom count, and the explanations of interference, entanglement, tunneling, superposition, the Born rule, and the measurement problem — follows from the formal results of the technical paper. What follows is different in character. The sections below explore reinterpretations of known physics that are consistent with the framework and illustrative of its explanatory reach, but which go beyond what the formal arguments rigorously establish. They are best understood as directions for future investigation — places where the framework's logic points but its proofs do not yet reach.*
 
 ### Dark Energy
 
@@ -350,9 +350,9 @@ This framework says: it would be more surprising if it weren't. An embedded obse
 
 For decades, physicists have been searching for a "theory of quantum gravity" — a single framework that combines quantum mechanics and general relativity into one unified description. String theory, loop quantum gravity, and many other approaches have been pursued with enormous effort and ingenuity.
 
-This framework suggests that the quest, as traditionally conceived, is structurally impossible — for the same reason that Gödel showed you can't have a complete and consistent axiomatization of arithmetic. A unified theory would need to provide a single description that captures both the fluctuation content (quantum mechanics) and the mean-field effect (gravity) simultaneously. But the Complementarity Theorem says that no observer inside the universe can access both.
+This framework suggests that the quest, as traditionally conceived, is structurally impossible — for the same reason that Gödel showed you can't have a complete and consistent axiomatization of arithmetic. A unified theory would need to provide a single description that captures both the fluctuation content (quantum mechanics) and the mean-field effect (gravity) simultaneously. But the Observational Incompleteness Theorem says that no observer inside the universe can access both.
 
-This doesn't mean the research is wasted. It means the *goal* needs to be reconceived. Instead of seeking a single description that eliminates the tension, physicists could seek a framework that makes both projections explicit — one that tells you precisely when and how the two descriptions can be safely combined (in everyday situations, where the discrepancy is negligible) and when they fundamentally cannot (near black holes, at the Big Bang, at the Planck scale). The mathematics of how two complementary projections relate to each other is itself a rich structure — and understanding that structure *is* the theory of quantum gravity, properly understood.
+This doesn't mean the research is wasted. It means the *goal* needs to be reconceived. Instead of seeking a single description that eliminates the tension, physicists could seek a framework that makes both projections explicit — one that tells you precisely when and how the two descriptions can be safely combined (in everyday situations, where the discrepancy is negligible) and when they fundamentally cannot (near black holes, at the Big Bang, at the Planck scale). The mathematics of how two structurally incompatible projections relate to each other is itself a rich structure — and understanding that structure *is* the theory of quantum gravity, properly understood.
 
 ### Reinterpreting String Theory
 
@@ -378,7 +378,7 @@ This eliminates the need for a multiverse. The complexity is real, it's local to
 
 **Strings are bandwidth limits.** In String Theory, every particle is a vibrational mode of a string — a specific frequency of oscillation. In this framework, every "particle" is a discrete mode of the hidden sector as seen through a finite-bandwidth projection. A vibrating string *is* a bandwidth-limited mode. Whether you call the discreteness "a string vibration" or "a sampling artifact of a finite-resolution projection," the physics is the same: the observable world is discrete because our channel to the hidden sector has limited bandwidth, not because reality itself is grainy.
 
-**The verdict.** If this framework is correct, then String Theory isn't a failed Theory of Everything. It's a **successful theory of the hidden sector** — a remarkably detailed mathematical characterization of the degrees of freedom beyond our projection. It works because it's describing something real. It fails to make predictions about our observable world because it's trying to describe both the hidden sector *and* the observable sector within a single framework — exactly the operation that the Complementarity Theorem says is impossible for any embedded observer.
+**The verdict.** If this framework is correct, then String Theory isn't a failed Theory of Everything. It's a **successful theory of the hidden sector** — a remarkably detailed mathematical characterization of the degrees of freedom beyond our projection. It works because it's describing something real. It fails to make predictions about our observable world because it's trying to describe both the hidden sector *and* the observable sector within a single framework — exactly the operation that the Observational Incompleteness Theorem says is impossible for any embedded observer.
 
 Physicists may not have failed to find the unified theory. String Theory may be the physics of the hidden sector — and the reason it doesn't match experiments is not that the math is wrong, but that it's an attempt to squeeze the *variance* of the hidden world into the *mean* of the visible one.
 
@@ -414,15 +414,15 @@ The cosmological constant problem, in this reading, isn't a problem. It's a *mea
 
 ## The Logical Structure of Incompleteness
 
-The argument of this paper belongs to a family. Two of the deepest results in twentieth-century logic established that self-referential systems face irreducible limits — not because of insufficient cleverness, but because of their internal structure. The Complementarity Theorem is the physical member of this family, and the correspondences are not loose analogies. They are structurally precise.
+The argument of this paper belongs to a family. Two of the deepest results in twentieth-century logic established that self-referential systems face irreducible limits — not because of insufficient cleverness, but because of their internal structure. The Observational Incompleteness Theorem is the physical member of this family, and the correspondences are not loose analogies. They are structurally precise.
 
 ### Turing's Halting Problem and the Impossibility of Unification
 
 In 1936, Alan Turing proved that no computer program can exist that correctly predicts, for every possible program, whether it will eventually halt or run forever. The proof works by self-reference: if such a "halting checker" existed, you could feed it a description of itself, producing a contradiction. The impossibility isn't a technological limitation — it's a theorem about what self-referential computational systems can and cannot do.
 
-The Complementarity Theorem has the same structure. The "halting checker" that physics has been searching for is a unified theory — a single framework that simultaneously captures both the fluctuation content (quantum mechanics) and the net mechanical effect (gravity) of reality. The Complementarity Theorem says this framework cannot exist for an embedded observer, and for the same structural reason: the observer is part of the system it is trying to describe. The two projections require incompatible operations on the hidden sector — one hides it, the other couples to it — and no single description available from within can do both. The quest for a "Theory of Everything" is, in this reading, the physicist's version of the quest for a universal halting checker: a project that feels like it should be possible, but whose impossibility is guaranteed by the logical structure of self-reference.
+The Observational Incompleteness Theorem has the same structure. The "halting checker" that physics has been searching for is a unified theory — a single framework that simultaneously captures both the fluctuation content (quantum mechanics) and the net mechanical effect (gravity) of reality. The Observational Incompleteness Theorem says this framework cannot exist for an embedded observer, and for the same structural reason: the observer is part of the system it is trying to describe. The two projections require incompatible operations on the hidden sector — one hides it, the other couples to it — and no single description available from within can do both. The quest for a "Theory of Everything" is, in this reading, the physicist's version of the quest for a universal halting checker: a project that feels like it should be possible, but whose impossibility is guaranteed by the logical structure of self-reference.
 
-This doesn't mean the quest was wasted. Turing's proof didn't end computer science — it *focused* it, by drawing a sharp boundary between what computation can and cannot do. Similarly, the Complementarity Theorem doesn't end the search for deeper physics. It redirects it: instead of seeking one description that eliminates the tension, the goal becomes understanding the precise mathematical relationship between two complementary descriptions — and that relationship *is* the theory of quantum gravity, properly understood.
+This doesn't mean the quest was wasted. Turing's proof didn't end computer science — it *focused* it, by drawing a sharp boundary between what computation can and cannot do. Similarly, the Observational Incompleteness Theorem doesn't end the search for deeper physics. It redirects it: instead of seeking one description that eliminates the tension, the goal becomes understanding the precise mathematical relationship between two incomplete descriptions — and that relationship *is* the theory of quantum gravity, properly understood.
 
 ### Gödel's Incompleteness and the Hidden Sector
 

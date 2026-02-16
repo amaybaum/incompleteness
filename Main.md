@@ -10,7 +10,7 @@
 
 ## ABSTRACT
 
-This paper argues that the incompatibility between quantum mechanics and general relativity is a structural consequence of embedded observation. Any observer that is part of the universe it measures must access reality through projections that discard information about causally inaccessible degrees of freedom. Using Wolpert's (2008) physics-independent impossibility theorems for inference devices, a Complementarity Theorem is introduced: the quantum-mechanical and gravitational descriptions of vacuum energy correspond to variance and mean estimations of a hidden sector, and Wolpert's mutual inference impossibility prohibits their simultaneous determination by any embedded observer. The 10¹²⁰ cosmological constant discrepancy is not an error but the quantitative signature of this structural incompleteness. Interpreting the 10¹²⁰ value as a variance-to-mean ratio, roughly 10²⁴⁰ hidden-sector degrees of freedom are extracted — equal to the square of the Bekenstein-Hawking entropy of the cosmological horizon — converting the cosmological constant problem from a mystery into a measurement. Specific experimental predictions are offered, including near-term null predictions for beyond-Standard-Model particles and longer-term frequency-dependent scaling relations for gravitational wave echoes and a stochastic noise floor quantitatively anchored to the 10¹²⁰ ratio.
+This paper argues that the incompatibility between quantum mechanics and general relativity is a structural consequence of embedded observation. Any observer that is part of the universe it measures must access reality through projections that discard information about causally inaccessible degrees of freedom. Using Wolpert's (2008) physics-independent impossibility theorems for inference devices, an Observational Incompleteness Theorem is introduced: the quantum-mechanical and gravitational descriptions of vacuum energy correspond to variance and mean estimations of a hidden sector, and Wolpert's mutual inference impossibility prohibits their simultaneous determination by any embedded observer. The 10¹²⁰ cosmological constant discrepancy is not an error but the quantitative signature of this structural incompleteness. Interpreting the 10¹²⁰ value as a variance-to-mean ratio, roughly 10²⁴⁰ hidden-sector degrees of freedom are extracted — equal to the square of the Bekenstein-Hawking entropy of the cosmological horizon — converting the cosmological constant problem from a mystery into a measurement. Specific experimental predictions are offered, including near-term null predictions for beyond-Standard-Model particles and longer-term frequency-dependent scaling relations for gravitational wave echoes and a stochastic noise floor quantitatively anchored to the 10¹²⁰ ratio.
 
 ---
 
@@ -82,7 +82,7 @@ The ratio of the two projections therefore grows without bound:
 
 $$\frac{V}{M} \sim \frac{N}{\sqrt{N}} = \sqrt{N}$$
 
-### 2.4 Why They Cannot Be Unified
+### 2.4 Why They Can't Be Unified
 
 The two projections require **incompatible operations on the hidden sector.**
 
@@ -90,9 +90,9 @@ The quantum projection *traces out* the hidden sector — it requires that $\Phi
 
 Because the two operations extract independent statistical moments of $\Phi$ (variance and mean respectively), Wolpert's mutual inference impossibility provides a quantitative bound on their simultaneous determination, which is now stated formally.
 
-> **Complementarity Theorem (informal):** For any embedded observer, the quantum-mechanical and gravitational descriptions of vacuum energy are complementary projections that cannot be unified into a single observer-accessible description. The cosmological constant problem is the observable signature of this structural complementarity.
+> **Observational Incompleteness Theorem (informal):** For any embedded observer, the quantum-mechanical and gravitational descriptions of vacuum energy are structurally incompatible projections that cannot be unified into a single observer-accessible description. The cosmological constant problem is the observable signature of this structural incompleteness.
 
-### 2.5 Formal Statement via Wolpert's Framework
+### 2.5 Formal Statement
 
 **Setup.** The universe state is partitioned into visible and hidden sectors. Two target functions are defined: the fluctuation content of the hidden sector (its variance, corresponding to the QFT vacuum energy) and the net mechanical effect (its mean, corresponding to the gravitationally observed vacuum energy).
 
@@ -106,13 +106,13 @@ $$\epsilon_{\text{fluc}} \cdot \epsilon_{\text{mech}} \leq \frac{1}{4}$$
 
 The one-quarter bound arises because independent configurability ensures the two binary partitions are cross-cutting: for any assignment of conclusions by one device, universe states exist in each equivalence class that defeat the other device's inference. **Perfect inference of one target forces the other to be no better than chance.**
 
-> **Complementarity Theorem (formal):** Let the universe be partitioned into visible and hidden sectors, and let the observer's projection from the full state to the visible sector be many-to-one. If the variance and mean of the hidden-sector distribution are independently configurable, then by Wolpert's mutual inference impossibility, no single inference device confined to the visible sector can simultaneously determine both with joint accuracy exceeding one-quarter.
+> **Observational Incompleteness Theorem (formal):** Let the universe be partitioned into visible and hidden sectors, and let the observer's projection from the full state to the visible sector be many-to-one. If the variance and mean of the hidden-sector distribution are independently configurable, then by Wolpert's mutual inference impossibility, no single inference device confined to the visible sector can simultaneously determine both with joint accuracy exceeding one-quarter.
 
 ---
 
-## 3. THE $10^{120}$ AS MEASUREMENT
+## 3. THE DISCREPANCY AS A MEASUREMENT
 
-If the $10^{120}$ encodes statistical properties of the hidden sector, it should yield quantitative information about the hidden sector's dimensionality.
+If the $10^{120}$ ratio encodes statistical properties of the hidden sector, it should yield quantitative information about the hidden sector's dimensionality.
 
 ### 3.1 The Random-Sign Cancellation Model
 
@@ -144,7 +144,7 @@ The square-root-of-$N$ scaling is robust under several modifications. Replacing 
 
 ## 4. EXPERIMENTAL PREDICTIONS
 
-If the Complementarity Theorem is correct, General Relativity is an effective mean-field theory that breaks down whenever adiabatic averaging fails. This yields distinct observational signatures.
+If the Observational Incompleteness Theorem is correct, General Relativity is an effective mean-field theory that breaks down whenever adiabatic averaging fails. This yields distinct observational signatures.
 
 **4.1 Null Prediction (near-term).** The framework predicts a **null result** for searches for supersymmetric partners or inflaton particles invoked to solve the cosmological constant problem. If the vacuum energy discrepancy is structural rather than caused by unknown particles, the particles postulated to cancel the QFT vacuum energy should not exist.
 
@@ -152,7 +152,7 @@ If the Complementarity Theorem is correct, General Relativity is an effective me
 
 **4.3 Stochastic Gravitational Noise Floor (future detectors).** Since gravity is the mean of a high-variance distribution, it should exhibit statistical fluctuations at high frequencies. The framework predicts a **stochastic gravitational wave background** in the MHz–GHz band [16], with an inverse-frequency-squared spectrum satisfying the fluctuation-dissipation relation. The predicted strain noise power is beyond current detectors but within projected reach of next-generation sensors [16]. The amplitude is anchored to the $10^{120}$ ratio and is falsifiable.
 
-**Remark on detectability.** The echo and noise-floor predictions (§4.2–4.3) yield signal amplitudes far below current sensitivity. Their value lies in the scaling relations rather than immediate detection. Near-term empirical content resides in the null prediction (§4.1) and the correlated running of couplings predicted by the connection to Asymptotic Safety [14]: as probe energy increases, the gravitational and cosmological constants should run in a correlated pattern that preserves the complementary relationship between projections.
+**Remark on detectability.** The echo and noise-floor predictions (§4.2–4.3) yield signal amplitudes far below current sensitivity. Their value lies in the scaling relations rather than immediate detection. Near-term empirical content resides in the null prediction (§4.1) and the correlated running of couplings predicted by the connection to Asymptotic Safety [14]: as probe energy increases, the gravitational and cosmological constants should run in a correlated pattern that preserves the structural relationship between projections.
 
 ---
 
@@ -160,17 +160,17 @@ If the Complementarity Theorem is correct, General Relativity is an effective me
 
 ### 5.1 Relation to Prior Work
 
-The argument connects several existing threads: Wolpert's inference impossibility [4] provides the physics-independent mathematical foundation; and Sorkin's causal-set prediction [17] independently supports the degree-of-freedom count. This framework is compatible with but distinct from Bohr's complementarity [8] (which operates within QM, not between QM and GR), 't Hooft's deterministic quantum mechanics [9] (the hidden sector could be deterministic, but need not be), and emergent gravity programmes [10, 11] (we do not derive gravity, but identify why the gravitational and quantum descriptions cannot agree). A companion explainer paper develops the connection between the hidden-sector trace-out and the emergence of quantum mechanics via the Barandes stochastic-quantum correspondence, which is treated there rather than here to keep the present paper focused on the Complementarity Theorem and its direct consequences.
+The argument connects several existing threads: Wolpert's inference impossibility [4] provides the physics-independent mathematical foundation; and Sorkin's causal-set prediction [17] independently supports the degree-of-freedom count. This framework is compatible with but distinct from Bohr's complementarity [8] (which operates within QM, not between QM and GR), 't Hooft's deterministic quantum mechanics [9] (the hidden sector could be deterministic, but need not be), and emergent gravity programmes [10, 11] (we do not derive gravity, but identify why the gravitational and quantum descriptions cannot agree). A companion explainer paper develops the connection between the hidden-sector trace-out and the emergence of quantum mechanics via the Barandes stochastic-quantum correspondence, which is treated there rather than here to keep the present paper focused on the Observational Incompleteness Theorem and its direct consequences.
 
 ### 5.2 Key Objections
 
-**"The QFT vacuum energy calculation is just wrong."** The Complementarity Theorem does not depend on the specific value of the QFT vacuum energy. It depends on the structural claim that the fluctuation measure and the mechanical measure are computed by different operations and need not agree. Even if a UV-complete theory reduces the mismatch from $10^{120}$ to $10^{40}$, the conceptual problem remains.
+**"The QFT vacuum energy calculation is just wrong."** The Observational Incompleteness Theorem does not depend on the specific value of the QFT vacuum energy. It depends on the structural claim that the fluctuation measure and the mechanical measure are computed by different operations and need not agree. Even if a UV-complete theory reduces the mismatch from $10^{120}$ to $10^{40}$, the conceptual problem remains.
 
 **"Doesn't this just redescribe the cosmological constant problem rather than solving it?"** The framework does more than relabel the discrepancy. It converts an unexplained free parameter into a derived quantity: the $10^{120}$ ratio yields roughly $10^{240}$ hidden-sector degrees of freedom, independently corroborated by the square of the de Sitter entropy and Sorkin's causal-set prediction. It also generates falsifiable experimental predictions (§4) that the standard formulation of the problem does not.
 
 ### 5.3 Open Problems
 
-The most important open problems include: (1) a fully continuous formulation of the Complementarity Theorem via the multi-parameter quantum Cramér-Rao bound; (2) whether the relationship between the hidden-sector dimensionality and the square of the de Sitter entropy can be derived rather than observed; (3) whether special relativity can be derived from the hidden sector's propagation structure; and (4) whether the Einstein field equations can be derived as the mean-field equation governing the mechanical projection.
+The most important open problems include: (1) a fully continuous formulation of the Observational Incompleteness Theorem via the multi-parameter quantum Cramér-Rao bound; (2) whether the relationship between the hidden-sector dimensionality and the square of the de Sitter entropy can be derived rather than observed; (3) whether special relativity can be derived from the hidden sector's propagation structure; and (4) whether the Einstein field equations can be derived as the mean-field equation governing the mechanical projection.
 
 ---
 
@@ -178,7 +178,7 @@ The most important open problems include: (1) a fully continuous formulation of 
 
 The argument proceeds in two steps.
 
-**First**, it is established that embedded observers face irreducible inference limits (Wolpert), that quantum mechanics and general relativity represent two structurally incompatible projections of the same hidden sector (the Complementarity Theorem), and that the $10^{120}$ cosmological constant discrepancy is the quantitative signature of this incompleteness.
+**First**, it is established that embedded observers face irreducible inference limits (Wolpert), that quantum mechanics and general relativity represent two structurally incompatible projections of the same hidden sector (the Observational Incompleteness Theorem), and that the $10^{120}$ cosmological constant discrepancy is the quantitative signature of this incompleteness.
 
 **Second**, the $10^{120}$ is converted from a problem into a measurement. The central limit theorem yields roughly $10^{240}$ hidden-sector degrees of freedom — equal to the square of the de Sitter entropy — independently supported by Sorkin's causal-set prediction.
 
