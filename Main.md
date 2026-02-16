@@ -26,11 +26,11 @@ The sharpest manifestation of the QM-GR incompatibility is the **cosmological co
 
 **Quantum mechanics** computes the vacuum energy by summing the zero-point fluctuations of all quantum field modes up to the Planck scale cutoff $E_{\text{Pl}}$:
 
-$$\rho_{\text{QM}} \;\sim\; \frac{E_{\text{Pl}}^{\,4}}{(\hbar c)^3} \;\sim\; 10^{110} \;\text{J/m}^3$$
+$$\rho_{\text{QM}} \sim \frac{E_{\text{Pl}}^{\,4}}{(\hbar c)^3} \sim 10^{110} \text{J/m}^3$$
 
 **General relativity** measures the vacuum energy through its gravitational effect — the accelerated expansion of the universe — yielding:
 
-$$\rho_{\text{grav}} \;=\; \frac{\Lambda \, c^2}{8\pi G} \;\sim\; 6 \times 10^{-10} \;\text{J/m}^3$$
+$$\rho_{\text{grav}} = \frac{\Lambda \, c^2}{8\pi G} \sim 6 \times 10^{-10} \text{J/m}^3$$
 
 The ratio between them:
 
@@ -68,11 +68,11 @@ Vacuum energy is the energy density of the hidden sector. When physicists measur
 
 **Projection 1: Fluctuation statistics (QM).** Quantum mechanics characterizes the hidden sector through its fluctuation structure. The QFT vacuum energy calculation sums the zero-point energies of all field modes up to a cutoff — formally $\langle 0 | H | 0 \rangle$. Each mode contributes $+\frac{1}{2}\hbar\omega$, a quantity proportional to the position and momentum variances of the quantum ground state. No cancellation between modes is possible — every term is positive, and the sum grows linearly with the number of modes. The QFT vacuum energy is therefore a positive-definite, variance-type quantity:
 
-$$V = \sum_{i=1}^{N} \frac{1}{2}\hbar\omega_i \;\;\propto\;\; N$$
+$$V = \sum_{i=1}^{N} \frac{1}{2}\hbar\omega_i \propto N$$
 
 **Projection 2: Mean-field pressure (gravity).** Gravity characterizes the hidden sector through its net mechanical effect — the aggregate pressure that the hidden degrees of freedom exert on spacetime. Unlike the QFT sum, the stress-energy tensor is not positive-definite: different field sectors (bosonic vs. fermionic, different spin types, vacuum condensates) contribute with signs $s_i = \pm 1$, and the Einstein equations couple to the net signed aggregate. Cancellation between sectors is not only possible but generically expected. This makes the gravitational measurement a mean-type quantity:
 
-$$M = \sum_{i=1}^{N} s_i \,\frac{1}{2}\hbar\omega_i \;\;\sim\;\; \sqrt{N}$$
+$$M = \sum_{i=1}^{N} s_i \,\frac{1}{2}\hbar\omega_i \sim \sqrt{N}$$
 
 where the $\sqrt{N}$ scaling follows from the central limit theorem when the signs are not fine-tuned.
 
@@ -80,7 +80,7 @@ Physically: gravity acts as an **adiabatic probe**, coupling to the net signed e
 
 The ratio of the two projections therefore grows without bound:
 
-$$\frac{V}{M} \;\sim\; \frac{N}{\sqrt{N}} \;=\; \sqrt{N}$$
+$$\frac{V}{M} \sim \frac{N}{\sqrt{N}} = \sqrt{N}$$
 
 ### 2.4 Why They Cannot Be Unified
 
@@ -132,7 +132,7 @@ The Planck-unit normalization assumes that the effective contribution of each hi
 
 The Bekenstein-Hawking entropy of the cosmological horizon is independently calculated as $S_{\text{dS}} \sim 10^{120}$ [12, 18]. The number of hidden-sector degrees of freedom is therefore the **square** of the holographic entropy bound:
 
-$$N \;\sim\; S_{\text{dS}}^{\,2} \;\sim\; \left(10^{120}\right)^2 \;=\; 10^{240}$$
+$$N \sim S_{\text{dS}}^{\,2} \sim \left(10^{120}\right)^2 = 10^{240}$$
 
 This count is independently supported by Sorkin's causal-set prediction [17], which derives the cosmological constant from Poisson fluctuations in the number of spacetime atoms, yielding $N$ of order $10^{240}$ before the 1998 discovery of cosmic acceleration.
 
