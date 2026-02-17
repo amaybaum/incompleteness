@@ -10,7 +10,7 @@
 
 ## ABSTRACT
 
-This paper argues that the incompatibility between quantum mechanics and general relativity is a structural consequence of embedded observation. Any observer that is part of the universe it measures must access reality through projections that discard causally inaccessible degrees of freedom.
+The central argument is that the incompatibility between quantum mechanics and general relativity is a structural consequence of embedded observation. Any observer that is part of the universe it measures must access reality through projections that discard causally inaccessible degrees of freedom.
 
 Using Wolpert's (2008) physics-independent impossibility theorems for inference devices, an Observational Incompleteness Theorem is introduced: the quantum-mechanical and gravitational descriptions of vacuum energy correspond to variance-type and mean-type estimations of a hidden sector, and Wolpert's mutual inference impossibility prohibits their simultaneous determination by any embedded observer.
 
@@ -26,7 +26,7 @@ Specific experimental predictions are offered, including near-term null predicti
 
 ### 1.1 The Incompatibility
 
-Quantum mechanics and general relativity are extraordinarily successful yet incompatible. The dominant assumption has been that this incompatibility is a deficiency — that a deeper theory will eventually unify them. This paper proposes the opposite: **the incompatibility is a structural feature of embedded observation.**
+Quantum mechanics and general relativity are extraordinarily successful yet incompatible. The dominant assumption has been that this incompatibility is a deficiency — that a deeper theory will eventually unify them. The opposite is proposed here: **the incompatibility is a structural feature of embedded observation.**
 
 ### 1.2 The Cosmological Discrepancy
 
@@ -72,7 +72,7 @@ The hidden sector consists not of exotic particles but of standard degrees of fr
 
 Vacuum energy is the energy density of the hidden sector. When physicists measure or calculate it, they are attempting to characterize $\Phi$ from within the visible sector.
 
-Padmanabhan [19] identified the central structural point: the QFT and gravitational descriptions probe different statistical properties of the same underlying degrees of freedom. He argued that classical gravity probes vacuum *fluctuations* rather than mean energy density. The present framework adopts Padmanabhan's core insight but **inverts the assignment** and grounds it in the impossibility results of §2.4–2.5.
+Padmanabhan [19] identified the central structural point: the QFT and gravitational descriptions probe different statistical properties of the same underlying degrees of freedom. He argued that classical gravity probes vacuum *fluctuations* rather than mean energy density. The framework here adopts Padmanabhan's core insight but **inverts the assignment** and grounds it in the impossibility results of §2.4–2.5.
 
 The inversion is motivated by each framework's coupling structure. QFT computes a sum of positive-definite zero-point energies ($+\frac{1}{2}\hbar\omega$ per mode, no cancellation possible) — structurally analogous to a variance estimator. The Einstein equations couple to the full stress-energy tensor, which is not positive-definite and admits inter-sector cancellation (bosonic vs. fermionic, condensates) — structurally analogous to a mean estimator.
 
@@ -118,7 +118,7 @@ The one-quarter bound arises because independent configurability ensures the two
 
 The claim that the quantum projection "traces out" the hidden sector requires justification: why should the resulting reduced description be specifically *quantum-mechanical* rather than classical or arbitrary?
 
-The answer follows from three established results, none of which originate with this framework:
+The answer follows from three established results, none of which originate with the framework:
 
 **Step 1: Trace-out produces memory.** When degrees of freedom are traced out of a composite system, the Nakajima-Zwanzig formalism [22, 23] — a standard result from open quantum systems theory — shows that the remaining subsystem's evolution acquires a **memory kernel**: a non-local-in-time integral term encoding the influence of the traced-out sector's past states on the visible sector's present. If the hidden sector has any finite propagation speed or internal dynamics (i.e., if perturbations persist for any nonzero time rather than vanishing instantly), the memory kernel is nonzero and the visible sector's dynamics is non-Markovian.
 
