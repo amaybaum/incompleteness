@@ -18,7 +18,7 @@ Via the Nakajima-Zwanzig formalism and Barandes' (2023) stochastic-quantum corre
 
 The 10¹²⁰ cosmological constant discrepancy is not an error but the quantitative signature of this structural incompleteness. Interpreting the 10¹²⁰ as a variance-to-mean ratio yields roughly 10²⁴⁰ hidden-sector degrees of freedom — equal to the square of the Bekenstein-Hawking entropy of the cosmological horizon — converting the cosmological constant problem from a mystery into a measurement.
 
-Specific experimental predictions are offered, including near-term null predictions for beyond-Standard-Model particles and longer-term frequency-dependent scaling relations for gravitational wave echoes and a stochastic noise floor quantitatively anchored to the 10¹²⁰ ratio.
+Specific experimental predictions are offered, including near-term null predictions for particles postulated to resolve the vacuum energy discrepancy and longer-term frequency-dependent scaling relations for gravitational wave echoes and a stochastic noise floor quantitatively anchored to the 10¹²⁰ ratio.
 
 ---
 
@@ -152,9 +152,11 @@ $$\boxed{N \sim 10^{240}}$$
 
 ### 3.2 The Holographic Coincidence
 
-The Bekenstein-Hawking entropy of the cosmological horizon is independently $S_{\text{dS}} \sim 10^{120}$ [12, 18]. The hidden-sector dimensionality is therefore:
+The Bekenstein-Hawking entropy of the cosmological horizon is independently $S_{\text{dS}} \sim 10^{122}$ [12, 18]. The hidden-sector dimensionality is therefore approximately:
 
-$$N \sim S_{\text{dS}}^{\,2} \sim \left(10^{120}\right)^2 = 10^{240}$$
+$$N \sim S_{\text{dS}}^{\,2} \sim \left(10^{122}\right)^2 \approx 10^{244}$$
+
+This is consistent at order-of-magnitude with the $\sim 10^{240}$ derived from the cosmological constant ratio, since that ratio itself is convention-dependent within $10^{120}$–$10^{123}$ depending on the UV cutoff used.
 
 This is supported by Sorkin's causal-set prediction [17], which derives $\Lambda \sim N^{-1/2}$ from Poisson fluctuations in spacetime atoms — the same functional form as the variance-to-mean scaling — before the 1998 discovery of cosmic acceleration. The value $N \sim 10^{240}$ is an input to Sorkin's model; the genuine prediction is the scaling relation, which independently confirms the statistical structure posited here.
 
@@ -174,7 +176,7 @@ If the Observational Incompleteness Theorem is correct, General Relativity is an
 
 **4.3 Stochastic Gravitational Noise Floor (future detectors).** Since gravity is the mean of a high-variance distribution, it should exhibit statistical fluctuations at high frequencies: a **stochastic gravitational wave background** in the MHz–GHz band [16], with an inverse-frequency-squared spectrum. The amplitude is anchored to the $10^{120}$ ratio and is falsifiable.
 
-**Remark on detectability.** The echo and noise-floor predictions yield amplitudes far below current sensitivity. Near-term empirical content resides in the null prediction (§4.1) and the correlated running of couplings predicted by the connection to Asymptotic Safety [14].
+**Remark on detectability.** The echo and noise-floor predictions yield amplitudes far below current sensitivity. Near-term empirical content resides in the null prediction (§4.1) and the correlated running of couplings suggested by the Asymptotic Safety programme (originating in [14]).
 
 ---
 
@@ -206,7 +208,7 @@ The closest precedent is Padmanabhan [19], whose variance-mean distinction is ad
 
 **First**, embedded observers face irreducible inference limits (Wolpert), quantum mechanics and general relativity represent two structurally incompatible projections of the same hidden sector (the Observational Incompleteness Theorem), and the $10^{120}$ cosmological constant discrepancy is the quantitative signature of this incompleteness.
 
-**Second**, the $10^{120}$ converts from a problem into a measurement: ~$10^{240}$ hidden-sector degrees of freedom — equal to the square of the de Sitter entropy — with $\Lambda \sim N^{-1/2}$ independently confirmed by Sorkin.
+**Second**, the $10^{120}$ converts from a problem into a measurement: ~$10^{240}$ hidden-sector degrees of freedom — approximately the square of the de Sitter entropy — with $\Lambda \sim N^{-1/2}$ independently confirmed by Sorkin.
 
 If correct, the incompatibility between quantum mechanics and gravity is not a bug to be fixed. It is the physical analogue of Gödel incompleteness — the universe telling observers, in the starkest numerical terms available, that they are inside the system they are trying to describe.
 
@@ -256,7 +258,7 @@ During the preparation of this work, the author used **Claude Opus 4.6 (Anthropi
 
 [18] G. W. Gibbons and S. W. Hawking, "Cosmological event horizons, thermodynamics, and particle creation," *Phys. Rev. D* **15**, 2738 (1977).
 
-[19] T. Padmanabhan, "Vacuum Fluctuations of Energy Density can lead to the observed Cosmological Constant," *Class. Quantum Grav.* **22**, L107–L110 (2005). arXiv:hep-th/0406060.
+[19] T. Padmanabhan, "Vacuum Fluctuations of Energy Density can lead to the observed Cosmological Constant," *Class. Quantum Grav.* **22**, L107–L112 (2005). arXiv:hep-th/0406060.
 
 [20] T. Padmanabhan and H. Padmanabhan, "Cosmic Information, the Cosmological Constant and the Amplitude of primordial perturbations," *Phys. Lett. B* **773**, 81–85 (2017). arXiv:1703.06144.
 
@@ -268,7 +270,7 @@ During the preparation of this work, the author used **Claude Opus 4.6 (Anthropi
 
 [24] J. A. Barandes, "The Stochastic-Quantum Theorem," arXiv:2309.03085 (2023).
 
-[25] J. A. Barandes, "Quantizing Stochastic Processes: A Stochastic-Quantum Correspondence," *Philosophy of Physics* **3**(1):8 (2025).
+[25] J. A. Barandes, "The Stochastic-Quantum Correspondence," *Philosophy of Physics* **3**(1):8 (2025).
 
 ---
 

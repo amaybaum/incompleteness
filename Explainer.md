@@ -17,7 +17,7 @@ The ratio is 10¹²⁰. That's a 1 followed by 120 zeros — the largest disagre
 
 For decades, physicists have assumed something has gone badly wrong — that one or both calculations must contain an error, and that finding the mistake will lead to a "theory of everything" unifying quantum mechanics and gravity.
 
-This paper argues the opposite. **Neither calculation is wrong. They disagree because they're answering different questions about the same thing.** And they *have* to disagree, for a reason that has nothing to do with the specific physics involved.
+The companion paper argues the opposite. **Neither calculation is wrong. They disagree because they're answering different questions about the same thing.** And they *have* to disagree, for a reason that has nothing to do with the specific physics involved.
 
 ### The Two Calculations
 
@@ -27,7 +27,7 @@ General relativity measures vacuum energy by observing how it makes the universe
 
 $$\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{120}$$
 
-This paper proposes that they disagree because they are measuring *different statistical properties* of the same underlying thing.
+The companion paper proposes that they disagree because they are measuring *different statistical properties* of the same underlying thing.
 
 ---
 
@@ -41,7 +41,7 @@ A **suspended dust speck** (Brownian motion) reveals the net mechanical push the
 
 These aren't giving contradictory information. They're measuring *different statistical properties* of the same underlying reality. The thermometer measures total activity (the variance). The dust speck measures net effect (the mean). For a system with trillions of molecules pushing in random directions, the total unsigned activity is naturally enormous compared to the tiny canceled-out residual.
 
-This paper argues that quantum mechanics and general relativity are just like the thermometer and the dust speck. Quantum mechanics measures the *fluctuation content* of the vacuum — the total, unsigned activity. General relativity measures the *net mechanical effect* — the aggregate, canceled-out push on spacetime. The 10¹²⁰ ratio is the difference between an unsigned total and a canceled-out residual for a system with an astronomically large number of degrees of freedom. (The recognition that the two theories probe different statistical properties originates with T. Padmanabhan. This paper inverts his specific assignment — assigning the variance to QFT and the mean to gravity, based on the positive-definite vs. sign-admitting structure of each theory's coupling — and grounds the distinction in a mathematical impossibility result.)
+The argument is that quantum mechanics and general relativity are just like the thermometer and the dust speck. Quantum mechanics measures the *fluctuation content* of the vacuum — the total, unsigned activity. General relativity measures the *net mechanical effect* — the aggregate, canceled-out push on spacetime. The 10¹²⁰ ratio is the difference between an unsigned total and a canceled-out residual for a system with an astronomically large number of degrees of freedom. (The recognition that the two theories probe different statistical properties originates with T. Padmanabhan. The companion paper inverts his specific assignment — assigning the variance to QFT and the mean to gravity, based on the positive-definite vs. sign-admitting structure of each theory's coupling — and grounds the distinction in a mathematical impossibility result.)
 
 ---
 
@@ -61,7 +61,7 @@ Wolpert proved two key results:
 
 These theorems aren't about technology limitations. They're about *logical structure* — in the same family as Gödel's incompleteness theorem and Turing's halting problem.
 
-This paper applies Wolpert's framework to the specific case of quantum mechanics and gravity. It shows that the "fluctuation measurement" (QM) and the "mean-field measurement" (gravity) are exactly the kind of mutually exclusive probes that Wolpert's theorems say cannot be combined. The result is an **Observational Incompleteness Theorem**: no observer inside the universe can simultaneously determine both the quantum and gravitational descriptions of vacuum energy. The 10¹²⁰ discrepancy is the quantitative signature of this impossibility.
+The companion paper applies Wolpert's framework to the specific case of quantum mechanics and gravity. It shows that the "fluctuation measurement" (QM) and the "mean-field measurement" (gravity) are exactly the kind of mutually exclusive probes that Wolpert's theorems say cannot be combined. The result is an **Observational Incompleteness Theorem**: no observer inside the universe can simultaneously determine both the quantum and gravitational descriptions of vacuum energy. The 10¹²⁰ discrepancy is the quantitative signature of this impossibility.
 
 ---
 
@@ -77,7 +77,7 @@ The universe's degrees of freedom split into everything the observer *can* acces
 
 **Below the Planck scale.** Below about 10⁻³⁵ meters, the energy required to probe would create a micro black hole, swallowing the information you're trying to extract. The resolution of our observational channel bottoms out.
 
-How much can an observer access? There is a fundamental result in physics (the Bekenstein-Hawking entropy) that sets the answer: the maximum information available to an observer is proportional to the *area* of their causal boundary. For our cosmological horizon, this works out to ~10¹²⁰ degrees of freedom in the visible sector. The hidden sector is far larger — ~10²⁴⁰ degrees of freedom, as derived below (§The Discrepancy as Measurement).
+How much can an observer access? There is a fundamental result in physics (the Bekenstein-Hawking entropy) that sets the answer: the maximum information available to an observer is proportional to the *area* of their causal boundary. For our cosmological horizon, this works out to ~10¹²² degrees of freedom in the visible sector. The hidden sector is far larger — ~10²⁴⁰ degrees of freedom, as derived below (§The Discrepancy as Measurement).
 
 **Why this matters.** Standard physics assumes the "dark" 95% of the universe requires exotic particles — WIMPs, axions, sterile neutrinos. This framework says something different: the hidden sector is made of *standard* degrees of freedom, causally separated from us by horizons or by scale. The darkness is a property of our position, not of the stuff.
 
@@ -117,7 +117,7 @@ The two projections require **contradictory operations** on the hidden sector. T
 
 $$\epsilon_{\text{fluc}} \cdot \epsilon_{\text{mech}} \leq \frac{1}{4}$$
 
-If you get the variance exactly right ($\epsilon_{\text{fluc}} = 1$), your mean estimate can be no better than random chance ($\epsilon_{\text{mech}} \leq 1/4$). Perfect knowledge of one forces ignorance of the other.
+If you get the variance exactly right ($\epsilon_{\text{fluc}} = 1$), the product bound forces $\epsilon_{\text{mech}} \leq 1/4$ — worse than the 1/2 you'd get from a random coin flip. Perfect knowledge of one forces ignorance of the other.
 
 ### The Inference-Ontology Bridge
 
@@ -244,11 +244,11 @@ These reinterpretations share a common thread: String Theory may have found succ
 
 If the 10¹²⁰ is a variance-to-mean ratio, we can work backwards to find the hidden sector's size.
 
-With $N$ independent degrees of freedom, the quantum projection sums all contributions without regard to sign ($V \propto N$) while the gravitational projection sums them with their signs ($M \sim \sqrt{N}$). The ratio is $\sqrt{N}$:
+With $N$ independent degrees of freedom each contributing energy of the same order, the quantum projection sums all contributions without regard to sign ($V \propto N$) while the gravitational projection sums them with their signs ($M \sim \sqrt{N}$). The ratio is $\sqrt{N}$:
 
 $$\sqrt{N} \sim 10^{120} \implies N \sim 10^{240}$$
 
-This is exactly $S_{\text{dS}}^2$ — the square of the Bekenstein-Hawking entropy of the cosmological horizon. Independently, Sorkin derived $\Lambda \sim N^{-1/2}$ from causal set theory — the same functional form — before the 1998 discovery of cosmic acceleration.
+This is approximately $S_{\text{dS}}^2$ — the square of the Bekenstein-Hawking entropy of the cosmological horizon ($S_{\text{dS}} \sim 10^{122}$, giving $S_{\text{dS}}^2 \approx 10^{244}$, consistent at order-of-magnitude since the cosmological constant ratio is convention-dependent within $10^{120}$–$10^{123}$). Independently, Sorkin derived $\Lambda \sim N^{-1/2}$ from causal set theory — the same functional form — before the 1998 discovery of cosmic acceleration.
 
 The cosmological constant problem isn't a problem. It's the most precise measurement we have of the dimensionality of the parts of reality we cannot see.
 
@@ -266,13 +266,13 @@ The 10¹²⁰ is the physical world's Gödel sentence — a number encoding, in 
 
 ## Can We Test This?
 
-**The null prediction (testable now).** If the discrepancy is structural, particles postulated to fix it — supersymmetric partners, inflatons — should not exist at the scales required to cancel the vacuum energy. The prediction is not that supersymmetry cannot exist in any form, but that no particle discovery will resolve the vacuum energy discrepancy. Every year without finding such particles makes the structural explanation more plausible.
+**The null prediction (testable now).** If the discrepancy is structural, particles postulated to fix it — such as supersymmetric partners — should not exist at the scales required to cancel the vacuum energy. The prediction is not that supersymmetry cannot exist in any form, but that no particle discovery will resolve the vacuum energy discrepancy. Every year without finding such particles makes the structural explanation more plausible.
 
 **Gravitational wave echoes (future detectors).** If the event horizon is the boundary of the mean-field description, gravitational waves from mergers should produce faint echoes that get *stronger* at higher frequencies — because higher frequencies probe shorter timescales where averaging breaks down. Current detectors aren't sensitive enough, but the scaling pattern is a specific, testable prediction.
 
 **A gravitational noise floor (future detectors).** If gravity is the mean of a high-variance distribution, it should be slightly "grainy" at high frequencies — a faint hiss of gravitational noise with a specific amplitude and spectral shape anchored to the 10¹²⁰ ratio.
 
-**Correlated running of constants.** The strength of gravity and the vacuum energy should change with energy scale in a correlated way — converging at very high energies. Testable through precision observations of the cosmic microwave background.
+**Correlated running of constants (speculative).** The Asymptotic Safety programme suggests that the strength of gravity and the vacuum energy should change with energy scale in a correlated way — converging at very high energies. If confirmed by precision observations of the cosmic microwave background, this would provide additional support.
 
 ---
 
