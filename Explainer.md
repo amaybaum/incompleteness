@@ -17,7 +17,7 @@ The ratio is 10¹²⁰. That's a 1 followed by 120 zeros — the largest disagre
 
 For decades, physicists have assumed something has gone badly wrong — that one or both calculations must contain an error, and that finding the mistake will lead to a "theory of everything" unifying quantum mechanics and gravity.
 
-The formal argument is the opposite. **Neither calculation is wrong. They disagree because they're answering different questions about the same thing.** And they *have* to disagree, for a reason that has nothing to do with the specific physics involved.
+The opposite is true. **Neither calculation is wrong. They disagree because they're answering different questions about the same thing.** And they *have* to disagree, for a reason that has nothing to do with the specific physics involved.
 
 ### The Two Calculations
 
@@ -27,7 +27,7 @@ General relativity measures vacuum energy by observing how it makes the universe
 
 $$\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{120}$$
 
-The proposal is that they disagree because they are measuring *different statistical properties* of the same underlying thing.
+They disagree because they are measuring *different statistical properties* of the same underlying thing.
 
 ---
 
@@ -41,7 +41,7 @@ A **suspended dust speck** (Brownian motion) reveals the net mechanical push the
 
 These aren't giving contradictory information. They're measuring *different statistical properties* of the same underlying reality. The thermometer measures total activity (the variance). The dust speck measures net effect (the mean). For a system with trillions of molecules pushing in random directions, the total unsigned activity is naturally enormous compared to the tiny canceled-out residual.
 
-The argument is that quantum mechanics and general relativity are just like the thermometer and the dust speck. Quantum mechanics measures the *fluctuation content* of the vacuum — the total, unsigned activity. General relativity measures the *net mechanical effect* — the aggregate, canceled-out push on spacetime. The 10¹²⁰ ratio is the difference between an unsigned total and a canceled-out residual for a system with an astronomically large number of degrees of freedom. (The recognition that the two theories probe different statistical properties originates with T. Padmanabhan. The formal treatment inverts his specific assignment — assigning the variance to QFT and the mean to gravity, based on the positive-definite vs. sign-admitting structure of each theory's coupling — and grounds the distinction in a mathematical impossibility result.)
+Quantum mechanics and general relativity are just like the thermometer and the dust speck. Quantum mechanics measures the *fluctuation content* of the vacuum — the total, unsigned activity. General relativity measures the *net mechanical effect* — the aggregate, canceled-out push on spacetime. The 10¹²⁰ ratio is the difference between an unsigned total and a canceled-out residual for a system with an astronomically large number of degrees of freedom. (The recognition that the two theories probe different statistical properties originates with T. Padmanabhan. The assignment is inverted below — the variance belongs to QFT and the mean to gravity, based on the positive-definite vs. sign-admitting structure of each theory's coupling — and the distinction is grounded in a mathematical impossibility result.)
 
 ---
 
@@ -61,7 +61,7 @@ Wolpert proved two key results:
 
 These theorems aren't about technology limitations. They're about *logical structure* — in the same family as Gödel's incompleteness theorem and Turing's halting problem.
 
-The formal treatment applies Wolpert's framework to the specific case of quantum mechanics and gravity. It shows that the "fluctuation measurement" (QM) and the "mean-field measurement" (gravity) are exactly the kind of mutually exclusive probes that Wolpert's theorems say cannot be combined. The result is an **Observational Incompleteness Theorem**: no observer inside the universe can simultaneously determine both the quantum and gravitational descriptions of vacuum energy. The 10¹²⁰ discrepancy is the quantitative signature of this impossibility.
+Wolpert's framework applies directly to quantum mechanics and gravity. The "fluctuation measurement" (QM) and the "mean-field measurement" (gravity) are exactly the kind of mutually exclusive probes that Wolpert's theorems say cannot be combined. The result is an **Observational Incompleteness Theorem**: no observer inside the universe can simultaneously determine both the quantum and gravitational descriptions of vacuum energy. The 10¹²⁰ discrepancy is the quantitative signature of this impossibility.
 
 ---
 
@@ -79,13 +79,13 @@ The universe's degrees of freedom split into everything the observer *can* acces
 
 How much can an observer access? There is a fundamental result in physics (the Bekenstein-Hawking entropy) that sets the answer: the maximum information available to an observer is proportional to the *area* of their causal boundary. For our cosmological horizon, this works out to ~10¹²² degrees of freedom in the visible sector. The hidden sector is far larger — ~10²⁴⁰ degrees of freedom, as derived below (§The Discrepancy as Measurement).
 
-**Why this matters.** Standard physics assumes the "dark" 95% of the universe requires exotic particles — WIMPs, axions, sterile neutrinos. This framework says something different: the hidden sector is made of *standard* degrees of freedom, causally separated from us by horizons or by scale. The darkness is a property of our position, not of the stuff.
+**Why this matters.** Standard physics assumes the "dark" 95% of the universe requires exotic particles — WIMPs, axions, sterile neutrinos. But the hidden sector is made of *standard* degrees of freedom, causally separated from us by horizons or by scale. The darkness is a property of our position, not of the stuff.
 
 ---
 
 ## Two Projections, Two Answers
 
-This builds on an insight from T. Padmanabhan, who in 2005 identified that the QFT and gravitational descriptions probe *different statistical properties* of the same degrees of freedom. The framework here adopts this core insight but **inverts the assignment**: QFT measures the fluctuation content (the variance) and gravity measures the net mechanical effect (the mean). The inversion is motivated by each theory's coupling structure: QFT sums strictly positive zero-point energies (no cancellation possible — structurally analogous to a variance), while the Einstein equations couple to a stress-energy tensor that admits inter-sector cancellation (structurally analogous to a mean). The smallness of the gravitational value follows naturally from √N cancellation among effectively randomly signed contributions.
+This builds on an insight from T. Padmanabhan, who in 2005 identified that the QFT and gravitational descriptions probe *different statistical properties* of the same degrees of freedom. Padmanabhan's core insight is correct, but the **assignment should be inverted**: QFT measures the fluctuation content (the variance) and gravity measures the net mechanical effect (the mean). The inversion is motivated by each theory's coupling structure: QFT sums strictly positive zero-point energies (no cancellation possible — structurally analogous to a variance), while the Einstein equations couple to a stress-energy tensor that admits inter-sector cancellation (structurally analogous to a mean). The smallness of the gravitational value follows naturally from √N cancellation among effectively randomly signed contributions.
 
 ### Projection 1: Quantum Mechanics Measures Fluctuation Content
 
@@ -160,7 +160,7 @@ For the hidden sector to have *no* memory, it would need infinite propagation sp
 
 ## Explaining the Quantum World
 
-The counterintuitive phenomena of quantum mechanics all *have natural readings* within this framework — not as irreducible mysteries, but as features of what an embedded observer sees after tracing out a temporally correlated hidden sector.
+The counterintuitive phenomena of quantum mechanics all *have natural readings* — not as irreducible mysteries, but as features of what an embedded observer sees after tracing out a temporally correlated hidden sector.
 
 **Interference.** The double-slit pattern arises because the particle's journey involves hidden-sector degrees of freedom that retain correlations between passage and arrival. The journey cannot be decomposed into "went through slit A" or "went through slit B." Adding a detector forces the hidden sector to relinquish that information, disrupting the correlations and destroying the pattern.
 
@@ -172,7 +172,7 @@ The counterintuitive phenomena of quantum mechanics all *have natural readings* 
 
 The hidden sector here doesn't produce classical statistics. When you trace it out, the Nakajima-Zwanzig memory kernel makes the resulting dynamics *indivisible* — the statistics don't factorize. And by Barandes' theorem, indivisible stochastic processes *are* quantum mechanics. They violate Bell inequalities natively, not by smuggling in faster-than-light signals, but because the trace-out produces a fundamentally non-classical probability structure. The full reality (visible + hidden) is local and definite. Bell violations are what locality *looks like* when you're missing most of the picture and the missing information produces indivisible rather than classical statistics.
 
-An honest caveat: the claim that reality is "really local but inaccessibly so" is a metaphysical commitment. If no observer can ever access the local level, some physicists would call the distinction between "local but hidden" and "nonlocal" vacuous. The framework's defense is that it isn't just an interpretation — it makes predictions (§Can We Test This?) that the standard view doesn't, which gives the metaphysical commitment empirical stakes.
+An honest caveat: the claim that reality is "really local but inaccessibly so" is a metaphysical commitment. If no observer can ever access the local level, some physicists would call the distinction between "local but hidden" and "nonlocal" vacuous. The defense is that this isn't just an interpretation — it makes predictions (§Can We Test This?) that the standard view doesn't, which gives the metaphysical commitment empirical stakes.
 
 **The Born rule.** The recipe for converting quantum states into probabilities is a *consequence* of the projection: the statistical distribution of measurement outcomes follows from the mathematics of how incomplete descriptions work.
 
@@ -180,15 +180,15 @@ An honest caveat: the claim that reality is "really local but inaccessibly so" i
 
 **The uncertainty principle.** Position and momentum correspond to different ways of interrogating the hidden sector at infinitesimally separated moments. Pinning down one constrains the projection in a way that leaves the other maximally unconstrained. The Heisenberg uncertainty principle is the *within-physics* version of embedded-observer incompleteness; the 10¹²⁰ is the *between-physics* version.
 
-**Quantization** *(highly speculative).* Energy comes in discrete packets. One possibility suggested by the framework is that quantization is a sampling artifact: a continuous underlying reality accessed through a finite-bandwidth projection that imposes discrete structure. This is a suggestive analogy, not a derived result.
+**Quantization** *(highly speculative).* Energy comes in discrete packets. One possibility is that quantization is a sampling artifact: a continuous underlying reality accessed through a finite-bandwidth projection that imposes discrete structure. This is a suggestive analogy, not a derived result.
 
 **Quantum computing.** Quantum algorithms exploit the indivisible correlations of the projected dynamics — engineering hidden-sector correlations so wrong answers interfere destructively and right answers constructively. Decoherence happens when uncontrolled environmental interactions scramble these correlations.
 
 ---
 
-## Beyond the Framework: Speculative Reinterpretations
+## Beyond the Formal Results: Speculative Reinterpretations
 
-*Everything above follows from the formal results. What follows explores reinterpretations that are consistent with the framework but go beyond what the formal arguments establish. Each subsection is a direction for future investigation, not a proven result. The formal theorem's scope is limited to the cosmological constant problem (see the technical paper, §5.2); these extensions are offered to illustrate the framework's suggestive reach, not its demonstrated range.*
+*Everything above follows from the formal results. What follows explores reinterpretations that are consistent with those results but go beyond what the formal arguments establish. Each subsection is a direction for future investigation, not a proven result. The formal theorem's scope is limited to the cosmological constant problem (§5.2 of the technical paper); these extensions illustrate suggestive reach, not demonstrated range.*
 
 ### Dark Energy
 
@@ -196,7 +196,7 @@ An honest caveat: the claim that reality is "really local but inaccessibly so" i
 
 ### The Arrow of Time
 
-*Speculative.* The fundamental laws of physics are time-symmetric, yet our experience is irreversibly one-directional. In this framework, entropy is the **rate of information loss to the hidden sector.** Information naturally flows from the small observable sector into the vast hidden sector, like heat from a hot cup to a cold room. The early universe started with an unusually large fraction of its information in the observable sector (low-entropy initial state), and that information has been draining into the hidden sector ever since. The Arrow of Time is information flowing downhill.
+*Speculative.* The fundamental laws of physics are time-symmetric, yet our experience is irreversibly one-directional. Entropy is the **rate of information loss to the hidden sector.** Information naturally flows from the small observable sector into the vast hidden sector, like heat from a hot cup to a cold room. The early universe started with an unusually large fraction of its information in the observable sector (low-entropy initial state), and that information has been draining into the hidden sector ever since. The Arrow of Time is information flowing downhill.
 
 ### The Holographic Principle
 
@@ -204,7 +204,7 @@ An honest caveat: the claim that reality is "really local but inaccessibly so" i
 
 ### What Gravity Actually Is
 
-*Speculative.* General relativity doesn't explain *why* mass curves spacetime. In this framework, gravity is the **mean-field projection** of the hidden sector — a statistical summary averaging over 10²⁴⁰ hidden degrees of freedom and reporting the net mechanical result as spacetime curvature. Mass curves spacetime because a concentration of energy in the observable sector is correlated with a concentration of hidden-sector activity.
+*Speculative.* General relativity doesn't explain *why* mass curves spacetime. Gravity is the **mean-field projection** of the hidden sector — a statistical summary averaging over 10²⁴⁰ hidden degrees of freedom and reporting the net mechanical result as spacetime curvature. Mass curves spacetime because a concentration of energy in the observable sector is correlated with a concentration of hidden-sector activity.
 
 ### Black Holes
 
@@ -226,9 +226,9 @@ An honest caveat: the claim that reality is "really local but inaccessibly so" i
 
 ### Reinterpreting String Theory
 
-*Speculative. The following reinterpretations are suggestive but carry no formal backing in the technical paper.*
+*Speculative. The following reinterpretations are suggestive but carry no formal backing.*
 
-This framework doesn't reject String Theory — it offers a possible reinterpretation.
+The Observational Incompleteness Theorem doesn't reject String Theory — it offers a possible reinterpretation.
 
 **The holographic duality (AdS/CFT)** is what you might expect if two projections of the same hidden sector exist: a mathematical dictionary for translating between them. Any embedded observer with an area-limited projection might discover such a duality.
 
@@ -280,13 +280,13 @@ The 10¹²⁰ is the physical world's Gödel sentence — a number encoding, in 
 
 If correct, the century-long search for a unified theory is asking the wrong question. It's like asking for a single instrument that simultaneously measures both temperature and pressure by being a thermometer and a barometer at the same time. The request is structurally impossible — not because physicists haven't been clever enough, but because the two measurements require fundamentally different operations on the same underlying system.
 
-An important caveat: the framework's scope is the cosmological constant problem. It does not claim to resolve other manifestations of the QM-GR tension — the non-renormalizability of perturbative quantum gravity, the frozen-time problem, or the information paradox. These require separate treatment. What it claims is that even if those problems were solved, the variance-mean discrepancy would persist.
+An important caveat: the scope is the cosmological constant problem. The Observational Incompleteness Theorem does not resolve other manifestations of the QM-GR tension — the non-renormalizability of perturbative quantum gravity, the frozen-time problem, or the information paradox. These require separate treatment. The claim is that even if those problems were solved, the variance-mean discrepancy would persist.
 
-The universe is not broken. We are just observing it from within, which sets fundamental limits on our ability to unify certain projections of reality. In practical terms, this would shift priorities: rather than building ever-larger colliders to find unification particles that the framework predicts do not exist, resources could flow toward high-frequency gravitational wave detectors designed to test the specific scaling predictions — instruments built not to find new particles, but to detect the statistical fingerprints of the hidden sector itself.
+The universe is not broken. We are just observing it from within, which sets fundamental limits on our ability to unify certain projections of reality. In practical terms, this would shift priorities: rather than building ever-larger colliders to find unification particles that do not exist, resources could flow toward high-frequency gravitational wave detectors designed to test the specific scaling predictions — instruments built not to find new particles, but to detect the statistical fingerprints of the hidden sector itself.
 
-In 1926, Einstein wrote to Max Born: "I, at any rate, am convinced that He does not throw dice." For a century, this has been read as Einstein being wrong. This framework suggests a more sympathetic reading. The full state of the universe, including its hidden sector, *is* definite. The dice are real, but they belong to the projection, not to reality itself. What Einstein called "the secret of the Old One" is not randomness. It is the structural fact that no observer inside the universe can see the whole game — and what we call quantum mechanics is what the game looks like through the keyhole.
+In 1926, Einstein wrote to Max Born: "I, at any rate, am convinced that He does not throw dice." For a century, this has been read as Einstein being wrong. There is a more sympathetic reading. The full state of the universe, including its hidden sector, *is* definite. The dice are real, but they belong to the projection, not to reality itself. What Einstein called "the secret of the Old One" is not randomness. It is the structural fact that no observer inside the universe can see the whole game — and what we call quantum mechanics is what the game looks like through the keyhole.
 
-*This is a simplified overview of the full technical paper "The Incompleteness of Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From Within" (Maybaum, February 2026). The core argument — including mathematical proofs, formal theorems, and detailed experimental predictions — is presented there. Several reinterpretations explored here (the arrow of time, dark matter, quantization, String Theory) go beyond the formal results and are flagged as speculative.*
+*This is a simplified overview of "The Incompleteness of Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From Within" (Maybaum, February 2026), which presents the mathematical proofs, formal theorems, and detailed experimental predictions. Several reinterpretations explored here (the arrow of time, dark matter, quantization, String Theory) go beyond the formal results and are flagged as speculative.*
 
 ***
 

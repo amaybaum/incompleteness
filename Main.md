@@ -10,7 +10,7 @@
 
 ## ABSTRACT
 
-The central argument is that the incompatibility between quantum mechanics and general relativity is a structural consequence of embedded observation. Any observer that is part of the universe it measures must access reality through projections that discard causally inaccessible degrees of freedom.
+The incompatibility between quantum mechanics and general relativity is a structural consequence of embedded observation. Any observer that is part of the universe it measures must access reality through projections that discard causally inaccessible degrees of freedom.
 
 Using Wolpert's (2008) physics-independent impossibility theorems for inference devices, an Observational Incompleteness Theorem is introduced: the quantum-mechanical and gravitational descriptions of vacuum energy correspond to variance-type and mean-type estimations of a hidden sector, and Wolpert's mutual inference impossibility prohibits their simultaneous determination by any embedded observer.
 
@@ -26,7 +26,7 @@ Specific experimental predictions are offered, including near-term null predicti
 
 ### 1.1 The Incompatibility
 
-Quantum mechanics and general relativity are extraordinarily successful yet incompatible. The dominant assumption has been that this incompatibility is a deficiency — that a deeper theory will eventually unify them. The opposite is proposed here: **the incompatibility is a structural feature of embedded observation.**
+Quantum mechanics and general relativity are extraordinarily successful yet incompatible. The dominant assumption has been that this incompatibility is a deficiency — that a deeper theory will eventually unify them. The opposite is the case: **the incompatibility is a structural feature of embedded observation.**
 
 ### 1.2 The Cosmological Discrepancy
 
@@ -72,7 +72,7 @@ The hidden sector consists not of exotic particles but of standard degrees of fr
 
 Vacuum energy is the energy density of the hidden sector. When physicists measure or calculate it, they are attempting to characterize $\Phi$ from within the visible sector.
 
-Padmanabhan [19] identified the central structural point: the QFT and gravitational descriptions probe different statistical properties of the same underlying degrees of freedom. He argued that classical gravity probes vacuum *fluctuations* rather than mean energy density. The framework here adopts Padmanabhan's core insight but **inverts the assignment** and grounds it in the impossibility results of §2.4–2.5.
+Padmanabhan [19] identified the central structural point: the QFT and gravitational descriptions probe different statistical properties of the same underlying degrees of freedom. He argued that classical gravity probes vacuum *fluctuations* rather than mean energy density. Padmanabhan's core insight is correct, but the **assignment should be inverted** — a conclusion grounded in the impossibility results of §2.4–2.5.
 
 The inversion is motivated by each framework's coupling structure. QFT computes a sum of positive-definite zero-point energies ($+\frac{1}{2}\hbar\omega$ per mode, no cancellation possible) — structurally analogous to a variance estimator. The Einstein equations couple to the full stress-energy tensor, which is not positive-definite and admits inter-sector cancellation (bosonic vs. fermionic, condensates) — structurally analogous to a mean estimator.
 
@@ -118,7 +118,7 @@ The one-quarter bound arises because independent configurability ensures the two
 
 The claim that the quantum projection "traces out" the hidden sector requires justification: why should the resulting reduced description be specifically *quantum-mechanical* rather than classical or arbitrary?
 
-The answer follows from three established results, none of which originate with the framework:
+The answer follows from three established results:
 
 **Step 1: Trace-out produces memory.** When degrees of freedom are traced out of a composite system, the Nakajima-Zwanzig formalism [22, 23] — a standard result from open quantum systems theory — shows that the remaining subsystem's evolution acquires a **memory kernel**: a non-local-in-time integral term encoding the influence of the traced-out sector's past states on the visible sector's present. If the hidden sector has any finite propagation speed or internal dynamics (i.e., if perturbations persist for any nonzero time rather than vanishing instantly), the memory kernel is nonzero and the visible sector's dynamics is non-Markovian.
 
@@ -128,7 +128,7 @@ The answer follows from three established results, none of which originate with 
 
 **The chain.** Embedded observation → hidden sector → trace-out → memory kernel (Nakajima-Zwanzig) → indivisibility → quantum mechanics (Barandes). The quantum-mechanical description of the visible sector is not postulated — it is *derived* from the structure of embedded observation.
 
-**Relation to Bell's theorem.** A critical consequence: because the trace-out produces *indivisible* rather than *divisible* statistics, the hidden sector evades Bell's theorem [21]. Bell proved that no *divisible* (factorable) hidden-variable model can reproduce quantum correlations. The hidden sector here produces non-factorable statistics — the memory kernel prevents the conditional independence that Bell's theorem requires — and by Barandes' correspondence, these statistics violate Bell inequalities natively. The full state (visible + hidden) is local and definite; Bell violations arise from the projection, not from nonlocality. This carries a metaphysical commitment — that "local but permanently inaccessible" is meaningful — which is empirically anchored by the framework's independent predictions (§4).
+**Relation to Bell's theorem.** A critical consequence: because the trace-out produces *indivisible* rather than *divisible* statistics, the hidden sector evades Bell's theorem [21]. Bell proved that no *divisible* (factorable) hidden-variable model can reproduce quantum correlations. The hidden sector here produces non-factorable statistics — the memory kernel prevents the conditional independence that Bell's theorem requires — and by Barandes' correspondence, these statistics violate Bell inequalities natively. The full state (visible + hidden) is local and definite; Bell violations arise from the projection, not from nonlocality. This carries a metaphysical commitment — that "local but permanently inaccessible" is meaningful — which is empirically anchored by independent predictions (§4).
 
 **Status of results.** The Nakajima-Zwanzig formalism [22, 23] and the Stinespring dilation theorem are textbook results. Barandes' stochastic-quantum correspondence paper is published [25]; the core mathematical theorem [24] remains a preprint. The generic indivisibility of the trace-out (Step 2) is the step with the weakest formal status — it is physically well-motivated but a rigorous measure-theoretic proof that divisibility has measure zero in the space of hidden-sector Hamiltonians remains open (see §5.3).
 
@@ -170,7 +170,7 @@ The $\sqrt{N}$ scaling is robust: replacing random signs with random complex pha
 
 If the Observational Incompleteness Theorem is correct, General Relativity is an effective mean-field theory — a statistical summary that is reliable when the underlying degrees of freedom are averaged over slowly and smoothly, but breaks down at scales or in regimes where this averaging fails.
 
-**4.1 Null Prediction (near-term).** The framework predicts a **null result** for searches for particles invoked to cancel the QFT vacuum energy. If the discrepancy is structural rather than particle-mediated, particles postulated to solve the cosmological constant problem through boson-fermion cancellation should not exist at the required scales. Current LHC bounds have excluded many simplified supersymmetric scenarios; the prediction is that no discovery in the remaining parameter space will resolve the vacuum energy discrepancy.
+**4.1 Null Prediction (near-term).** If the discrepancy is structural rather than particle-mediated, particles invoked to cancel the QFT vacuum energy should not exist at the required scales. Current LHC bounds have excluded many simplified supersymmetric scenarios; the prediction is that no discovery in the remaining parameter space will resolve the vacuum energy discrepancy.
 
 **4.2 Gravitational Wave Echoes (future detectors).** The event horizon is the limit of the mechanical projection. Future observations of binary black hole mergers should detect **post-merger echoes** [15] whose amplitude scales with the ratio of probe frequency to the hidden sector's relaxation frequency. This frequency-dependent slope distinguishes mean-field breakdown from static surface models, which predict frequency-independent reflectivity.
 
@@ -184,7 +184,7 @@ If the Observational Incompleteness Theorem is correct, General Relativity is an
 
 ### 5.1 Relation to Prior Work
 
-The argument connects: Wolpert's inference impossibility [4] as the mathematical foundation, Sorkin's causal-set prediction [17] as independent confirmation of $\Lambda \sim N^{-1/2}$, and the Barandes stochastic-quantum correspondence [24, 25] via the Nakajima-Zwanzig trace-out (§2.6) as the mechanism by which the quantum projection produces specifically quantum-mechanical statistics. The framework is compatible with but distinct from Bohr's complementarity [8] (which operates within QM, not between QM and GR), 't Hooft's deterministic quantum mechanics [9], and emergent gravity programmes [10, 11] (we do not derive gravity, but identify why the gravitational and quantum descriptions cannot agree).
+The argument connects: Wolpert's inference impossibility [4] as the mathematical foundation, Sorkin's causal-set prediction [17] as independent confirmation of $\Lambda \sim N^{-1/2}$, and the Barandes stochastic-quantum correspondence [24, 25] via the Nakajima-Zwanzig trace-out (§2.6) as the mechanism by which the quantum projection produces specifically quantum-mechanical statistics. The result is compatible with but distinct from Bohr's complementarity [8] (which operates within QM, not between QM and GR), 't Hooft's deterministic quantum mechanics [9], and emergent gravity programmes [10, 11] (we do not derive gravity, but identify why the gravitational and quantum descriptions cannot agree).
 
 The closest precedent is Padmanabhan [19], whose variance-mean distinction is adopted and inverted in §2.3. His later Cosmic Information programme [20] argued that demanding finite cosmic information requires a positive cosmological constant — compatible with the interpretation offered here. The key advance is the Wolpert grounding (§2.4–2.5), which converts the variance-mean distinction from a suggestive observation into a provable impossibility result.
 
@@ -192,7 +192,7 @@ The closest precedent is Padmanabhan [19], whose variance-mean distinction is ad
 
 **"The QFT vacuum energy calculation is just wrong."** The theorem does not depend on the specific value. It depends on the structural claim that the fluctuation and mechanical measures are computed by different operations and need not agree. Even if a UV-complete theory reduces the mismatch from $10^{120}$ to $10^{40}$, the conceptual problem remains.
 
-**"Doesn't this just redescribe the cosmological constant problem?"** The framework converts an unexplained free parameter into a derived quantity: the $10^{120}$ yields ~$10^{240}$ hidden-sector degrees of freedom, corroborated by the de Sitter entropy and Sorkin's scaling. It also generates falsifiable predictions (§4) that the standard formulation does not.
+**"Doesn't this just redescribe the cosmological constant problem?"** The $10^{120}$ converts from an unexplained free parameter into a derived quantity: the $10^{120}$ yields ~$10^{240}$ hidden-sector degrees of freedom, corroborated by the de Sitter entropy and Sorkin's scaling. It also generates falsifiable predictions (§4) that the standard formulation does not.
 
 **"A hidden sector mediating correlations between entangled particles is a local hidden variable theory, and Bell's theorem rules those out."** As shown in §2.6, the hidden sector is not a local hidden variable theory in Bell's sense [21]. Bell's theorem requires that hidden variables produce *divisible* (factorable) statistics; the trace-out of the hidden sector produces *indivisible* statistics via the Nakajima-Zwanzig memory kernel, which by Barandes' correspondence [24, 25] violate Bell inequalities natively. The full argument is developed in §2.6.
 
