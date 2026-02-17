@@ -16,15 +16,15 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-\usepackage{lmodern}
+%\usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+  %\usepackage[]{microtype}
+  %\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
@@ -42,6 +42,7 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{amsmath,amssymb,amsthm}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -76,11 +77,10 @@ Within}\label{why-quantum-mechanics-and-general-relativity-cannot-be-unified-fro
 \hypertarget{abstract}{%
 \subsection{ABSTRACT}\label{abstract}}
 
-This paper argues that the incompatibility between quantum mechanics and
-general relativity is a structural consequence of embedded observation.
-Any observer that is part of the universe it measures must access
-reality through projections that discard causally inaccessible degrees
-of freedom.
+The incompatibility between quantum mechanics and general relativity is
+a structural consequence of embedded observation. Any observer that is
+part of the universe it measures must access reality through projections
+that discard causally inaccessible degrees of freedom.
 
 Using Wolpert's (2008) physics-independent impossibility theorems for
 inference devices, an Observational Incompleteness Theorem is
@@ -103,9 +103,10 @@ entropy of the cosmological horizon --- converting the cosmological
 constant problem from a mystery into a measurement.
 
 Specific experimental predictions are offered, including near-term null
-predictions for beyond-Standard-Model particles and longer-term
-frequency-dependent scaling relations for gravitational wave echoes and
-a stochastic noise floor quantitatively anchored to the 10¹²⁰ ratio.
+predictions for particles postulated to resolve the vacuum energy
+discrepancy and longer-term frequency-dependent scaling relations for
+gravitational wave echoes and a stochastic noise floor quantitatively
+anchored to the 10¹²⁰ ratio.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -118,8 +119,8 @@ a stochastic noise floor quantitatively anchored to the 10¹²⁰ ratio.
 Quantum mechanics and general relativity are extraordinarily successful
 yet incompatible. The dominant assumption has been that this
 incompatibility is a deficiency --- that a deeper theory will eventually
-unify them. This paper proposes the opposite: \textbf{the
-incompatibility is a structural feature of embedded observation.}
+unify them. The opposite is the case: \textbf{the incompatibility is a
+structural feature of embedded observation.}
 
 \hypertarget{the-cosmological-discrepancy}{%
 \subsubsection{1.2 The Cosmological
@@ -215,9 +216,9 @@ physicists measure or calculate it, they are attempting to characterize
 Padmanabhan {[}19{]} identified the central structural point: the QFT
 and gravitational descriptions probe different statistical properties of
 the same underlying degrees of freedom. He argued that classical gravity
-probes vacuum \emph{fluctuations} rather than mean energy density. The
-present framework adopts Padmanabhan's core insight but \textbf{inverts
-the assignment} and grounds it in the impossibility results of
+probes vacuum \emph{fluctuations} rather than mean energy density.
+Padmanabhan's core insight is correct, but the \textbf{assignment should
+be inverted} --- a conclusion grounded in the impossibility results of
 §2.4--2.5.
 
 The inversion is motivated by each framework's coupling structure. QFT
@@ -357,8 +358,7 @@ requires justification: why should the resulting reduced description be
 specifically \emph{quantum-mechanical} rather than classical or
 arbitrary?
 
-The answer follows from three established results, none of which
-originate with this framework:
+The answer follows from three established results:
 
 \textbf{Step 1: Trace-out produces memory.} When degrees of freedom are
 traced out of a composite system, the Nakajima-Zwanzig formalism {[}22,
@@ -409,8 +409,8 @@ correspondence, these statistics violate Bell inequalities natively. The
 full state (visible + hidden) is local and definite; Bell violations
 arise from the projection, not from nonlocality. This carries a
 metaphysical commitment --- that ``local but permanently inaccessible''
-is meaningful --- which is empirically anchored by the framework's
-independent predictions (§4).
+is meaningful --- which is empirically anchored by independent
+predictions (§4).
 
 \textbf{Status of results.} The Nakajima-Zwanzig formalism {[}22, 23{]}
 and the Stinespring dilation theorem are textbook results. Barandes'
@@ -464,10 +464,15 @@ relationships average to an effectively random distribution.
 Coincidence}\label{the-holographic-coincidence}}
 
 The Bekenstein-Hawking entropy of the cosmological horizon is
-independently \(S_{\text{dS}} \sim 10^{120}\) {[}12, 18{]}. The
-hidden-sector dimensionality is therefore:
+independently \(S_{\text{dS}} \sim 10^{122}\) {[}12, 18{]}. The
+hidden-sector dimensionality is therefore approximately:
 
-\[N \sim S_{\text{dS}}^{\,2} \sim \left(10^{120}\right)^2 = 10^{240}\]
+\[N \sim S_{\text{dS}}^{\,2} \sim \left(10^{122}\right)^2 \approx 10^{244}\]
+
+This is consistent at order-of-magnitude with the \(\sim 10^{240}\)
+derived from the cosmological constant ratio, since that ratio itself is
+convention-dependent within \(10^{120}\)--\(10^{123}\) depending on the
+UV cutoff used.
 
 This is supported by Sorkin's causal-set prediction {[}17{]}, which
 derives \(\Lambda \sim N^{-1/2}\) from Poisson fluctuations in spacetime
@@ -501,14 +506,12 @@ that is reliable when the underlying degrees of freedom are averaged
 over slowly and smoothly, but breaks down at scales or in regimes where
 this averaging fails.
 
-\textbf{4.1 Null Prediction (near-term).} The framework predicts a
-\textbf{null result} for searches for particles invoked to cancel the
-QFT vacuum energy. If the discrepancy is structural rather than
-particle-mediated, particles postulated to solve the cosmological
-constant problem through boson-fermion cancellation should not exist at
-the required scales. Current LHC bounds have excluded many simplified
-supersymmetric scenarios; the prediction is that no discovery in the
-remaining parameter space will resolve the vacuum energy discrepancy.
+\textbf{4.1 Null Prediction (near-term).} If the discrepancy is
+structural rather than particle-mediated, particles invoked to cancel
+the QFT vacuum energy should not exist at the required scales. Current
+LHC bounds have excluded many simplified supersymmetric scenarios; the
+prediction is that no discovery in the remaining parameter space will
+resolve the vacuum energy discrepancy.
 
 \textbf{4.2 Gravitational Wave Echoes (future detectors).} The event
 horizon is the limit of the mechanical projection. Future observations
@@ -528,7 +531,8 @@ anchored to the \(10^{120}\) ratio and is falsifiable.
 \textbf{Remark on detectability.} The echo and noise-floor predictions
 yield amplitudes far below current sensitivity. Near-term empirical
 content resides in the null prediction (§4.1) and the correlated running
-of couplings predicted by the connection to Asymptotic Safety {[}14{]}.
+of couplings suggested by the Asymptotic Safety programme (originating
+in {[}14{]}).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -544,7 +548,7 @@ mathematical foundation, Sorkin's causal-set prediction {[}17{]} as
 independent confirmation of \(\Lambda \sim N^{-1/2}\), and the Barandes
 stochastic-quantum correspondence {[}24, 25{]} via the Nakajima-Zwanzig
 trace-out (§2.6) as the mechanism by which the quantum projection
-produces specifically quantum-mechanical statistics. The framework is
+produces specifically quantum-mechanical statistics. The result is
 compatible with but distinct from Bohr's complementarity {[}8{]} (which
 operates within QM, not between QM and GR), 't Hooft's deterministic
 quantum mechanics {[}9{]}, and emergent gravity programmes {[}10, 11{]}
@@ -570,11 +574,12 @@ UV-complete theory reduces the mismatch from \(10^{120}\) to
 \(10^{40}\), the conceptual problem remains.
 
 \textbf{``Doesn't this just redescribe the cosmological constant
-problem?''} The framework converts an unexplained free parameter into a
-derived quantity: the \(10^{120}\) yields \textasciitilde{}\(10^{240}\)
-hidden-sector degrees of freedom, corroborated by the de Sitter entropy
-and Sorkin's scaling. It also generates falsifiable predictions (§4)
-that the standard formulation does not.
+problem?''} The \(10^{120}\) converts from an unexplained free parameter
+into a derived quantity: the \(10^{120}\) yields
+\textasciitilde{}\(10^{240}\) hidden-sector degrees of freedom,
+corroborated by the de Sitter entropy and Sorkin's scaling. It also
+generates falsifiable predictions (§4) that the standard formulation
+does not.
 
 \textbf{``A hidden sector mediating correlations between entangled
 particles is a local hidden variable theory, and Bell's theorem rules
@@ -628,7 +633,7 @@ incompleteness.
 
 \textbf{Second}, the \(10^{120}\) converts from a problem into a
 measurement: \textasciitilde{}\(10^{240}\) hidden-sector degrees of
-freedom --- equal to the square of the de Sitter entropy --- with
+freedom --- approximately the square of the de Sitter entropy --- with
 \(\Lambda \sim N^{-1/2}\) independently confirmed by Sorkin.
 
 If correct, the incompatibility between quantum mechanics and gravity is
@@ -719,7 +724,7 @@ thermodynamics, and particle creation,'' \emph{Phys. Rev.~D}
 
 {[}19{]} T. Padmanabhan, ``Vacuum Fluctuations of Energy Density can
 lead to the observed Cosmological Constant,'' \emph{Class. Quantum
-Grav.} \textbf{22}, L107--L110 (2005). arXiv:hep-th/0406060.
+Grav.} \textbf{22}, L107--L112 (2005). arXiv:hep-th/0406060.
 
 {[}20{]} T. Padmanabhan and H. Padmanabhan, ``Cosmic Information, the
 Cosmological Constant and the Amplitude of primordial perturbations,''
@@ -737,9 +742,8 @@ Irreversibility,'' \emph{J. Chem. Phys.} \textbf{33}, 1338--1341 (1960).
 {[}24{]} J. A. Barandes, ``The Stochastic-Quantum Theorem,''
 arXiv:2309.03085 (2023).
 
-{[}25{]} J. A. Barandes, ``Quantizing Stochastic Processes: A
-Stochastic-Quantum Correspondence,'' \emph{Philosophy of Physics}
-\textbf{3}(1):8 (2025).
+{[}25{]} J. A. Barandes, ``The Stochastic-Quantum Correspondence,''
+\emph{Philosophy of Physics} \textbf{3}(1):8 (2025).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 

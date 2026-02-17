@@ -16,15 +16,15 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-\usepackage{lmodern}
+%\usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+  %\usepackage[]{microtype}
+  %\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
@@ -42,6 +42,7 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{amsmath,amssymb,amsthm}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -95,10 +96,10 @@ that one or both calculations must contain an error, and that finding
 the mistake will lead to a ``theory of everything'' unifying quantum
 mechanics and gravity.
 
-This paper argues the opposite. \textbf{Neither calculation is wrong.
-They disagree because they're answering different questions about the
-same thing.} And they \emph{have} to disagree, for a reason that has
-nothing to do with the specific physics involved.
+The opposite is true. \textbf{Neither calculation is wrong. They
+disagree because they're answering different questions about the same
+thing.} And they \emph{have} to disagree, for a reason that has nothing
+to do with the specific physics involved.
 
 \hypertarget{the-two-calculations}{%
 \subsubsection{The Two Calculations}\label{the-two-calculations}}
@@ -115,8 +116,8 @@ get roughly 6 × 10⁻¹⁰ joules per cubic meter.
 
 \[\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{120}\]
 
-This paper proposes that they disagree because they are measuring
-\emph{different statistical properties} of the same underlying thing.
+They disagree because they are measuring \emph{different statistical
+properties} of the same underlying thing.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -144,19 +145,18 @@ measures net effect (the mean). For a system with trillions of molecules
 pushing in random directions, the total unsigned activity is naturally
 enormous compared to the tiny canceled-out residual.
 
-This paper argues that quantum mechanics and general relativity are just
-like the thermometer and the dust speck. Quantum mechanics measures the
-\emph{fluctuation content} of the vacuum --- the total, unsigned
-activity. General relativity measures the \emph{net mechanical effect}
---- the aggregate, canceled-out push on spacetime. The 10¹²⁰ ratio is
-the difference between an unsigned total and a canceled-out residual for
-a system with an astronomically large number of degrees of freedom. (The
-recognition that the two theories probe different statistical properties
-originates with T. Padmanabhan. This paper inverts his specific
-assignment --- assigning the variance to QFT and the mean to gravity,
-based on the positive-definite vs.~sign-admitting structure of each
-theory's coupling --- and grounds the distinction in a mathematical
-impossibility result.)
+Quantum mechanics and general relativity are just like the thermometer
+and the dust speck. Quantum mechanics measures the \emph{fluctuation
+content} of the vacuum --- the total, unsigned activity. General
+relativity measures the \emph{net mechanical effect} --- the aggregate,
+canceled-out push on spacetime. The 10¹²⁰ ratio is the difference
+between an unsigned total and a canceled-out residual for a system with
+an astronomically large number of degrees of freedom. (The recognition
+that the two theories probe different statistical properties originates
+with T. Padmanabhan. The assignment is inverted below --- the variance
+belongs to QFT and the mean to gravity, based on the positive-definite
+vs.~sign-admitting structure of each theory's coupling --- and the
+distinction is grounded in a mathematical impossibility result.)
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -193,14 +193,14 @@ These theorems aren't about technology limitations. They're about
 \emph{logical structure} --- in the same family as Gödel's
 incompleteness theorem and Turing's halting problem.
 
-This paper applies Wolpert's framework to the specific case of quantum
-mechanics and gravity. It shows that the ``fluctuation measurement''
-(QM) and the ``mean-field measurement'' (gravity) are exactly the kind
-of mutually exclusive probes that Wolpert's theorems say cannot be
-combined. The result is an \textbf{Observational Incompleteness
-Theorem}: no observer inside the universe can simultaneously determine
-both the quantum and gravitational descriptions of vacuum energy. The
-10¹²⁰ discrepancy is the quantitative signature of this impossibility.
+Wolpert's framework applies directly to quantum mechanics and gravity.
+The ``fluctuation measurement'' (QM) and the ``mean-field measurement''
+(gravity) are exactly the kind of mutually exclusive probes that
+Wolpert's theorems say cannot be combined. The result is an
+\textbf{Observational Incompleteness Theorem}: no observer inside the
+universe can simultaneously determine both the quantum and gravitational
+descriptions of vacuum energy. The 10¹²⁰ discrepancy is the quantitative
+signature of this impossibility.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -239,16 +239,15 @@ How much can an observer access? There is a fundamental result in
 physics (the Bekenstein-Hawking entropy) that sets the answer: the
 maximum information available to an observer is proportional to the
 \emph{area} of their causal boundary. For our cosmological horizon, this
-works out to \textasciitilde10¹²⁰ degrees of freedom in the visible
+works out to \textasciitilde10¹²² degrees of freedom in the visible
 sector. The hidden sector is far larger --- \textasciitilde10²⁴⁰ degrees
 of freedom, as derived below (§The Discrepancy as Measurement).
 
 \textbf{Why this matters.} Standard physics assumes the ``dark'' 95\% of
 the universe requires exotic particles --- WIMPs, axions, sterile
-neutrinos. This framework says something different: the hidden sector is
-made of \emph{standard} degrees of freedom, causally separated from us
-by horizons or by scale. The darkness is a property of our position, not
-of the stuff.
+neutrinos. But the hidden sector is made of \emph{standard} degrees of
+freedom, causally separated from us by horizons or by scale. The
+darkness is a property of our position, not of the stuff.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -258,8 +257,8 @@ Answers}\label{two-projections-two-answers}}
 
 This builds on an insight from T. Padmanabhan, who in 2005 identified
 that the QFT and gravitational descriptions probe \emph{different
-statistical properties} of the same degrees of freedom. The present
-framework adopts this core insight but \textbf{inverts the assignment}:
+statistical properties} of the same degrees of freedom. Padmanabhan's
+core insight is correct, but the \textbf{assignment should be inverted}:
 QFT measures the fluctuation content (the variance) and gravity measures
 the net mechanical effect (the mean). The inversion is motivated by each
 theory's coupling structure: QFT sums strictly positive zero-point
@@ -353,9 +352,9 @@ formal proof remains open.)
 \[\epsilon_{\text{fluc}} \cdot \epsilon_{\text{mech}} \leq \frac{1}{4}\]
 
 If you get the variance exactly right (\(\epsilon_{\text{fluc}} = 1\)),
-your mean estimate can be no better than random chance
-(\(\epsilon_{\text{mech}} \leq 1/4\)). Perfect knowledge of one forces
-ignorance of the other.
+the product bound forces \(\epsilon_{\text{mech}} \leq 1/4\) --- worse
+than the 1/2 you'd get from a random coin flip. Perfect knowledge of one
+forces ignorance of the other.
 
 \hypertarget{the-inference-ontology-bridge}{%
 \subsubsection{The Inference-Ontology
@@ -465,9 +464,9 @@ hidden sector.}
 World}\label{explaining-the-quantum-world}}
 
 The counterintuitive phenomena of quantum mechanics all \emph{have
-natural readings} within this framework --- not as irreducible
-mysteries, but as features of what an embedded observer sees after
-tracing out a temporally correlated hidden sector.
+natural readings} --- not as irreducible mysteries, but as features of
+what an embedded observer sees after tracing out a temporally correlated
+hidden sector.
 
 \textbf{Interference.} The double-slit pattern arises because the
 particle's journey involves hidden-sector degrees of freedom that retain
@@ -515,10 +514,10 @@ statistics.
 An honest caveat: the claim that reality is ``really local but
 inaccessibly so'' is a metaphysical commitment. If no observer can ever
 access the local level, some physicists would call the distinction
-between ``local but hidden'' and ``nonlocal'' vacuous. The framework's
-defense is that it isn't just an interpretation --- it makes predictions
-(§Can We Test This?) that the standard view doesn't, which gives the
-metaphysical commitment empirical stakes.
+between ``local but hidden'' and ``nonlocal'' vacuous. The defense is
+that this isn't just an interpretation --- it makes predictions (§Can We
+Test This?) that the standard view doesn't, which gives the metaphysical
+commitment empirical stakes.
 
 \textbf{The Born rule.} The recipe for converting quantum states into
 probabilities is a \emph{consequence} of the projection: the statistical
@@ -539,10 +538,10 @@ embedded-observer incompleteness; the 10¹²⁰ is the
 \emph{between-physics} version.
 
 \textbf{Quantization} \emph{(highly speculative).} Energy comes in
-discrete packets. One possibility suggested by the framework is that
-quantization is a sampling artifact: a continuous underlying reality
-accessed through a finite-bandwidth projection that imposes discrete
-structure. This is a suggestive analogy, not a derived result.
+discrete packets. One possibility is that quantization is a sampling
+artifact: a continuous underlying reality accessed through a
+finite-bandwidth projection that imposes discrete structure. This is a
+suggestive analogy, not a derived result.
 
 \textbf{Quantum computing.} Quantum algorithms exploit the indivisible
 correlations of the projected dynamics --- engineering hidden-sector
@@ -552,17 +551,17 @@ interactions scramble these correlations.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{beyond-the-framework-speculative-reinterpretations}{%
-\subsection{Beyond the Framework: Speculative
-Reinterpretations}\label{beyond-the-framework-speculative-reinterpretations}}
+\hypertarget{beyond-the-formal-results-speculative-reinterpretations}{%
+\subsection{Beyond the Formal Results: Speculative
+Reinterpretations}\label{beyond-the-formal-results-speculative-reinterpretations}}
 
 \emph{Everything above follows from the formal results. What follows
-explores reinterpretations that are consistent with the framework but go
+explores reinterpretations that are consistent with those results but go
 beyond what the formal arguments establish. Each subsection is a
 direction for future investigation, not a proven result. The formal
-theorem's scope is limited to the cosmological constant problem (see the
-companion paper, §5.2); these extensions are offered to illustrate the
-framework's suggestive reach, not its demonstrated range.}
+theorem's scope is limited to the cosmological constant problem (§5.2 of
+the technical paper); these extensions illustrate suggestive reach, not
+demonstrated range.}
 
 \hypertarget{dark-energy}{%
 \subsubsection{Dark Energy}\label{dark-energy}}
@@ -581,14 +580,14 @@ internal structure to evolve.
 \subsubsection{The Arrow of Time}\label{the-arrow-of-time}}
 
 \emph{Speculative.} The fundamental laws of physics are time-symmetric,
-yet our experience is irreversibly one-directional. In this framework,
-entropy is the \textbf{rate of information loss to the hidden sector.}
-Information naturally flows from the small observable sector into the
-vast hidden sector, like heat from a hot cup to a cold room. The early
-universe started with an unusually large fraction of its information in
-the observable sector (low-entropy initial state), and that information
-has been draining into the hidden sector ever since. The Arrow of Time
-is information flowing downhill.
+yet our experience is irreversibly one-directional. Entropy is the
+\textbf{rate of information loss to the hidden sector.} Information
+naturally flows from the small observable sector into the vast hidden
+sector, like heat from a hot cup to a cold room. The early universe
+started with an unusually large fraction of its information in the
+observable sector (low-entropy initial state), and that information has
+been draining into the hidden sector ever since. The Arrow of Time is
+information flowing downhill.
 
 \hypertarget{the-holographic-principle}{%
 \subsubsection{The Holographic
@@ -607,12 +606,12 @@ interface.
 Is}\label{what-gravity-actually-is}}
 
 \emph{Speculative.} General relativity doesn't explain \emph{why} mass
-curves spacetime. In this framework, gravity is the \textbf{mean-field
-projection} of the hidden sector --- a statistical summary averaging
-over 10²⁴⁰ hidden degrees of freedom and reporting the net mechanical
-result as spacetime curvature. Mass curves spacetime because a
-concentration of energy in the observable sector is correlated with a
-concentration of hidden-sector activity.
+curves spacetime. Gravity is the \textbf{mean-field projection} of the
+hidden sector --- a statistical summary averaging over 10²⁴⁰ hidden
+degrees of freedom and reporting the net mechanical result as spacetime
+curvature. Mass curves spacetime because a concentration of energy in
+the observable sector is correlated with a concentration of
+hidden-sector activity.
 
 \hypertarget{black-holes}{%
 \subsubsection{Black Holes}\label{black-holes}}
@@ -671,10 +670,10 @@ background. The question isn't ``why is 95\% dark?'' --- it's ``how did
 Theory}\label{reinterpreting-string-theory}}
 
 \emph{Speculative. The following reinterpretations are suggestive but
-carry no formal backing in the companion paper.}
+carry no formal backing.}
 
-This framework doesn't reject String Theory --- it offers a possible
-reinterpretation.
+The Observational Incompleteness Theorem doesn't reject String Theory
+--- it offers a possible reinterpretation.
 
 \textbf{The holographic duality (AdS/CFT)} is what you might expect if
 two projections of the same hidden sector exist: a mathematical
@@ -711,18 +710,21 @@ Measurement}\label{the-discrepancy-as-measurement}}
 If the 10¹²⁰ is a variance-to-mean ratio, we can work backwards to find
 the hidden sector's size.
 
-With \(N\) independent degrees of freedom, the quantum projection sums
-all contributions without regard to sign (\(V \propto N\)) while the
-gravitational projection sums them with their signs
-(\(M \sim \sqrt{N}\)). The ratio is \(\sqrt{N}\):
+With \(N\) independent degrees of freedom each contributing energy of
+the same order, the quantum projection sums all contributions without
+regard to sign (\(V \propto N\)) while the gravitational projection sums
+them with their signs (\(M \sim \sqrt{N}\)). The ratio is \(\sqrt{N}\):
 
 \[\sqrt{N} \sim 10^{120} \implies N \sim 10^{240}\]
 
-This is exactly \(S_{\text{dS}}^2\) --- the square of the
-Bekenstein-Hawking entropy of the cosmological horizon. Independently,
-Sorkin derived \(\Lambda \sim N^{-1/2}\) from causal set theory --- the
-same functional form --- before the 1998 discovery of cosmic
-acceleration.
+This is approximately \(S_{\text{dS}}^2\) --- the square of the
+Bekenstein-Hawking entropy of the cosmological horizon
+(\(S_{\text{dS}} \sim 10^{122}\), giving
+\(S_{\text{dS}}^2 \approx 10^{244}\), consistent at order-of-magnitude
+since the cosmological constant ratio is convention-dependent within
+\(10^{120}\)--\(10^{123}\)). Independently, Sorkin derived
+\(\Lambda \sim N^{-1/2}\) from causal set theory --- the same functional
+form --- before the 1998 discovery of cosmic acceleration.
 
 The cosmological constant problem isn't a problem. It's the most precise
 measurement we have of the dimensionality of the parts of reality we
@@ -764,8 +766,8 @@ they are trying to describe.
 \subsection{Can We Test This?}\label{can-we-test-this}}
 
 \textbf{The null prediction (testable now).} If the discrepancy is
-structural, particles postulated to fix it --- supersymmetric partners,
-inflatons --- should not exist at the scales required to cancel the
+structural, particles postulated to fix it --- such as supersymmetric
+partners --- should not exist at the scales required to cancel the
 vacuum energy. The prediction is not that supersymmetry cannot exist in
 any form, but that no particle discovery will resolve the vacuum energy
 discrepancy. Every year without finding such particles makes the
@@ -785,10 +787,12 @@ the mean of a high-variance distribution, it should be slightly
 with a specific amplitude and spectral shape anchored to the 10¹²⁰
 ratio.
 
-\textbf{Correlated running of constants.} The strength of gravity and
-the vacuum energy should change with energy scale in a correlated way
---- converging at very high energies. Testable through precision
-observations of the cosmic microwave background.
+\textbf{Correlated running of constants (speculative).} The Asymptotic
+Safety programme suggests that the strength of gravity and the vacuum
+energy should change with energy scale in a correlated way ---
+converging at very high energies. If confirmed by precision observations
+of the cosmic microwave background, this would provide additional
+support.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -803,39 +807,38 @@ structurally impossible --- not because physicists haven't been clever
 enough, but because the two measurements require fundamentally different
 operations on the same underlying system.
 
-An important caveat: the framework's scope is the cosmological constant
-problem. It does not claim to resolve other manifestations of the QM-GR
-tension --- the non-renormalizability of perturbative quantum gravity,
-the frozen-time problem, or the information paradox. These require
-separate treatment. What it claims is that even if those problems were
-solved, the variance-mean discrepancy would persist.
+An important caveat: the scope is the cosmological constant problem. The
+Observational Incompleteness Theorem does not resolve other
+manifestations of the QM-GR tension --- the non-renormalizability of
+perturbative quantum gravity, the frozen-time problem, or the
+information paradox. These require separate treatment. The claim is that
+even if those problems were solved, the variance-mean discrepancy would
+persist.
 
 The universe is not broken. We are just observing it from within, which
 sets fundamental limits on our ability to unify certain projections of
 reality. In practical terms, this would shift priorities: rather than
-building ever-larger colliders to find unification particles that the
-framework predicts do not exist, resources could flow toward
-high-frequency gravitational wave detectors designed to test the
-specific scaling predictions --- instruments built not to find new
-particles, but to detect the statistical fingerprints of the hidden
-sector itself.
+building ever-larger colliders to find unification particles that do not
+exist, resources could flow toward high-frequency gravitational wave
+detectors designed to test the specific scaling predictions ---
+instruments built not to find new particles, but to detect the
+statistical fingerprints of the hidden sector itself.
 
 In 1926, Einstein wrote to Max Born: ``I, at any rate, am convinced that
 He does not throw dice.'' For a century, this has been read as Einstein
-being wrong. This framework suggests a more sympathetic reading. The
-full state of the universe, including its hidden sector, \emph{is}
-definite. The dice are real, but they belong to the projection, not to
-reality itself. What Einstein called ``the secret of the Old One'' is
-not randomness. It is the structural fact that no observer inside the
-universe can see the whole game --- and what we call quantum mechanics
-is what the game looks like through the keyhole.
+being wrong. There is a more sympathetic reading. The full state of the
+universe, including its hidden sector, \emph{is} definite. The dice are
+real, but they belong to the projection, not to reality itself. What
+Einstein called ``the secret of the Old One'' is not randomness. It is
+the structural fact that no observer inside the universe can see the
+whole game --- and what we call quantum mechanics is what the game looks
+like through the keyhole.
 
-\emph{This is a simplified overview of the full technical paper ``The
-Incompleteness of Observation: Why Quantum Mechanics and Gravity Cannot
-Be Unified From Within'' (Maybaum, February 2026). The core argument ---
-including mathematical proofs, formal theorems, and detailed
-experimental predictions --- is presented in the companion paper.
-Several reinterpretations explored here (the arrow of time, dark matter,
+\emph{This is a simplified overview of ``The Incompleteness of
+Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From
+Within'' (Maybaum, February 2026), which presents the mathematical
+proofs, formal theorems, and detailed experimental predictions. Several
+reinterpretations explored here (the arrow of time, dark matter,
 quantization, String Theory) go beyond the formal results and are
 flagged as speculative.}
 
