@@ -15,16 +15,14 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-\usepackage{lmodern}
+% \usepackage{lmodern} % not available
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
+% microtype disabled (requires scalable fonts)
+% \IfFileExists{microtype.sty}{\usepackage[]{microtype}\UseMicrotypeSet[protrusion]{basicmath}}{}
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
   \IfFileExists{parskip.sty}{%
@@ -56,11 +54,11 @@
 \begin{document}
 
 \hypertarget{the-incompleteness-of-observation}{%
-\section{THE INCOMPLETENESS OF
+\section*{THE INCOMPLETENESS OF
 OBSERVATION}\label{the-incompleteness-of-observation}}
 
 \hypertarget{why-quantum-mechanics-and-general-relativity-cannot-be-unified-from-within}{%
-\subsubsection{Why Quantum Mechanics and General Relativity Cannot Be
+\subsubsection*{Why Quantum Mechanics and General Relativity Cannot Be
 Unified From
 Within}\label{why-quantum-mechanics-and-general-relativity-cannot-be-unified-from-within}}
 
@@ -92,9 +90,9 @@ the hidden sector generically produces indivisible subsystem dynamics
 --- mathematically equivalent to quantum mechanics --- yielding
 non-factorable statistics that evade Bell's theorem without nonlocality.
 
-The 10¹²⁰ cosmological constant discrepancy is not an error but the
+The $10^{120}$ cosmological constant discrepancy is not an error but the
 quantitative signature of this structural incompleteness. Interpreting
-the 10¹²⁰ as a variance-to-mean ratio yields roughly 10²⁴⁰ hidden-sector
+the $10^{120}$ as a variance-to-mean ratio yields roughly $10^{240}$ hidden-sector
 degrees of freedom --- equal to the square of the Bekenstein-Hawking
 entropy of the cosmological horizon --- converting the cosmological
 constant problem from a mystery into a measurement.
@@ -103,15 +101,15 @@ Specific experimental predictions are offered, including near-term null
 predictions for particles postulated to resolve the vacuum energy
 discrepancy and longer-term frequency-dependent scaling relations for
 gravitational wave echoes and a stochastic noise floor quantitatively
-anchored to the 10¹²⁰ ratio.
+anchored to the $10^{120}$ ratio.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{the-problem}{%
-\subsection{THE PROBLEM}\label{the-problem}}
+\section{THE PROBLEM}\label{the-problem}}
 
 \hypertarget{the-incompatibility}{%
-\subsubsection{The Incompatibility}\label{the-incompatibility}}
+\subsection{The Incompatibility}\label{the-incompatibility}}
 
 Quantum mechanics and general relativity are extraordinarily successful
 yet incompatible. The dominant assumption has been that this
@@ -120,7 +118,7 @@ unify them. The opposite is the case: \textbf{the incompatibility is a
 structural feature of embedded observation.}
 
 \hypertarget{the-cosmological-discrepancy}{%
-\subsubsection{The Cosmological
+\subsection{The Cosmological
 Discrepancy}\label{the-cosmological-discrepancy}}
 
 The sharpest manifestation of the QM-GR incompatibility is the
@@ -156,10 +154,10 @@ questions about the same thing.}
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{the-argument}{%
-\subsection{THE ARGUMENT}\label{the-argument}}
+\section{THE ARGUMENT}\label{the-argument}}
 
 \hypertarget{observers-are-embedded}{%
-\subsubsection{Observers Are
+\subsection{Observers Are
 Embedded}\label{observers-are-embedded}}
 
 Wolpert (2008) proved that any physical device performing observation,
@@ -184,7 +182,7 @@ device's perspective. This condition is trivially satisfied by any
 observer that is part of the universe it measures.
 
 \hypertarget{the-hidden-sector}{%
-\subsubsection{The Hidden Sector}\label{the-hidden-sector}}
+\subsection{The Hidden Sector}\label{the-hidden-sector}}
 
 Let the full state space be partitioned into degrees of freedom
 accessible to observers (the visible sector) and degrees of freedom that
@@ -203,7 +201,7 @@ is a property of the observer's position, not of the hidden sector's
 content.
 
 \hypertarget{two-projections-of-the-same-thing}{%
-\subsubsection{Two Projections of the Same
+\subsection{Two Projections of the Same
 Thing}\label{two-projections-of-the-same-thing}}
 
 Vacuum energy is the energy density of the hidden sector. When
@@ -246,7 +244,7 @@ when the signs are not fine-tuned --- the same scaling underlying
 Padmanabhan's geometric mean result {[}19{]}.
 
 \hypertarget{why-they-cannot-be-unified}{%
-\subsubsection{Why They Cannot Be
+\subsection{Why They Cannot Be
 Unified}\label{why-they-cannot-be-unified}}
 
 The two projections require \textbf{incompatible operations on the
@@ -282,7 +280,7 @@ structural incompleteness.
 \end{quote}
 
 \hypertarget{formal-statement}{%
-\subsubsection{Formal Statement}\label{formal-statement}}
+\subsection{Formal Statement}\label{formal-statement}}
 
 \textbf{Setup.} The universe state is partitioned into visible and
 hidden sectors. Two target functions are defined: the fluctuation
@@ -347,7 +345,7 @@ determine both with joint accuracy exceeding one-quarter.
 \end{quote}
 
 \hypertarget{the-quantum-projection-as-trace-out}{%
-\subsubsection{The Quantum Projection as
+\subsection{The Quantum Projection as
 Trace-Out}\label{the-quantum-projection-as-trace-out}}
 
 The claim that the quantum projection ``traces out'' the hidden sector
@@ -421,11 +419,11 @@ of hidden-sector Hamiltonians remains open (see §5.3).
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{the-discrepancy-as-measurement}{%
-\subsection{THE DISCREPANCY AS
+\section{THE DISCREPANCY AS
 MEASUREMENT}\label{the-discrepancy-as-measurement}}
 
 \hypertarget{extracting-the-hidden-sector-dimensionality}{%
-\subsubsection{Extracting the Hidden-Sector
+\subsection{Extracting the Hidden-Sector
 Dimensionality}\label{extracting-the-hidden-sector-dimensionality}}
 
 Consider a hidden sector with \(N\) independent degrees of freedom, each
@@ -457,7 +455,7 @@ which extends far beyond the Standard Model's field content --- these
 relationships average to an effectively random distribution.
 
 \hypertarget{the-holographic-coincidence}{%
-\subsubsection{The Holographic
+\subsection{The Holographic
 Coincidence}\label{the-holographic-coincidence}}
 
 The Bekenstein-Hawking entropy of the cosmological horizon is
@@ -480,7 +478,7 @@ prediction is the scaling relation, which independently confirms the
 statistical structure posited here.
 
 \hypertarget{robustness}{%
-\subsubsection{Robustness}\label{robustness}}
+\subsection{Robustness}\label{robustness}}
 
 The \(\sqrt{N}\) scaling is robust: replacing random signs with random
 complex phases preserves it, and weak pairwise correlations modify the
@@ -492,7 +490,7 @@ Planck volume'' and implying a holographic or extra-dimensional
 structure.
 
 \hypertarget{indirect-access-to-the-hidden-sector}{%
-\subsubsection{Indirect Access to the Hidden
+\subsection{Indirect Access to the Hidden
 Sector}\label{indirect-access-to-the-hidden-sector}}
 
 The Observational Incompleteness Theorem does not imply that the hidden
@@ -549,7 +547,7 @@ freedom.
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{experimental-predictions}{%
-\subsection{EXPERIMENTAL
+\section{EXPERIMENTAL
 PREDICTIONS}\label{experimental-predictions}}
 
 If the Observational Incompleteness Theorem is correct, General
@@ -558,7 +556,7 @@ that is reliable when the underlying degrees of freedom are averaged
 over slowly and smoothly, but breaks down at scales or in regimes where
 this averaging fails.
 
-\subsubsection{Null Prediction (Near-Term)}
+\subsection{Null Prediction (Near-Term)}
 
 If the discrepancy is
 structural rather than particle-mediated, particles invoked to cancel
@@ -567,7 +565,7 @@ LHC bounds have excluded many simplified supersymmetric scenarios; the
 prediction is that no discovery in the remaining parameter space will
 resolve the vacuum energy discrepancy.
 
-\subsubsection{Gravitational Wave Echoes (Future Detectors)}
+\subsection{Gravitational Wave Echoes (Future Detectors)}
 
 The event
 horizon is the limit of the mechanical projection. Future observations
@@ -577,7 +575,7 @@ hidden sector's relaxation frequency. This frequency-dependent slope
 distinguishes mean-field breakdown from static surface models, which
 predict frequency-independent reflectivity.
 
-\subsubsection{Stochastic Gravitational Noise Floor (Future Detectors)}
+\subsection{Stochastic Gravitational Noise Floor (Future Detectors)}
 
 Since gravity is the mean of a high-variance distribution, it should
 exhibit statistical fluctuations at high frequencies: a
@@ -594,10 +592,10 @@ in {[}14{]}).
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{discussion}{%
-\subsection{DISCUSSION}\label{discussion}}
+\section{DISCUSSION}\label{discussion}}
 
 \hypertarget{relation-to-prior-work}{%
-\subsubsection{Relation to Prior
+\subsection{Relation to Prior
 Work}\label{relation-to-prior-work}}
 
 The argument connects: Wolpert's inference impossibility {[}4{]} as the
@@ -621,7 +619,7 @@ grounding (§2.4--2.5), which converts the variance-mean distinction from
 a suggestive observation into a provable impossibility result.
 
 \hypertarget{key-objections}{%
-\subsubsection{Key Objections}\label{key-objections}}
+\subsection{Key Objections}\label{key-objections}}
 
 \textbf{``The QFT vacuum energy calculation is just wrong.''} The
 theorem does not depend on the specific value. It depends on the
@@ -658,7 +656,7 @@ even if those problems were solved, the variance-mean discrepancy would
 persist.
 
 \hypertarget{open-problems}{%
-\subsubsection{Open Problems}\label{open-problems}}
+\subsection{Open Problems}\label{open-problems}}
 
 \begin{enumerate}
 \def\labelenumi{(\arabic{enumi})}
@@ -687,7 +685,7 @@ persist.
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{conclusion}{%
-\subsection{CONCLUSION}\label{conclusion}}
+\section{CONCLUSION}\label{conclusion}}
 
 \textbf{First}, embedded observers face irreducible inference limits
 (Wolpert), quantum mechanics and general relativity represent two
