@@ -166,7 +166,7 @@ The $\sqrt{N}$ scaling is robust: replacing random signs with random complex pha
 
 ### 3.4 Indirect Access to the Hidden Sector
 
-The Observational Incompleteness Theorem does not imply that the hidden sector yields zero information. The Wolpert bound constrains *simultaneous complete determination* of both projections; it permits — and the framework relies upon — substantial indirect knowledge.
+The Observational Incompleteness Theorem does not imply that the hidden sector yields zero information. The Wolpert bound constrains *simultaneous complete determination* of both projections; substantial indirect knowledge remains accessible — and the results of §3.1–3.3 already depend on it.
 
 **Statistical properties are accessible even when the microstate is not.** The situation is analogous to statistical mechanics: the position and momentum of every molecule in a gas are inaccessible, but temperature, pressure, entropy, and heat capacity are measurable and constitute genuine information about the microscopic degrees of freedom. The hidden sector's effective dimensionality ($N \sim 10^{240}$), its sign structure (producing $\sqrt{N}$ rather than exact cancellation), and its boundary entropy ($S_{\text{dS}} \sim 10^{122}$) are all already-measured statistical properties of this kind.
 

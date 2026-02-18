@@ -256,7 +256,7 @@ The cosmological constant problem isn't a problem. It's the most precise measure
 
 ## What Can We Learn About What We Can't See?
 
-A natural concern: if the hidden sector is permanently inaccessible, is it just a philosophical abstraction? No. The Observational Incompleteness Theorem forbids *simultaneous complete determination* of both projections. It does not forbid indirect knowledge — and the framework already relies on it.
+A natural concern: if the hidden sector is permanently inaccessible, is it just a philosophical abstraction? No. The Observational Incompleteness Theorem forbids *simultaneous complete determination* of both projections. It does not forbid indirect knowledge — and the derivation of $N \sim 10^{240}$ already depends on it.
 
 The situation is analogous to a gas. You cannot know the position and momentum of every molecule. But you can measure temperature, pressure, and entropy — genuine information about trillions of microscopic degrees of freedom, obtained without accessing any of them individually. The hidden sector is similar: its *microstate* is permanently inaccessible, but its *statistical properties* are not.
 
