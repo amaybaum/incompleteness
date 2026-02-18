@@ -131,7 +131,10 @@ This is a substantive philosophical position. Most physicists assume there *is* 
 
 If the 10¹²⁰ is a variance-to-mean ratio, we can work backwards to find the hidden sector's size.
 
-With $N$ independent degrees of freedom each contributing energy of the same order, the quantum projection sums all contributions without regard to sign ($V \propto N$) while the gravitational projection sums them with their signs ($M \sim \sqrt{N}$). The ratio is $\sqrt{N}$:
+With $N$ independent degrees of freedom each contributing energy of the same order, the quantum projection sums all contributions without regard to sign ($V \propto N$) while the gravitational projection sums them with their signs ($M \sim \sqrt{N}$). Their ratio is a function of $\sqrt{N}$ alone:
+
+$$\frac{V}{M} \sim \frac{N}{\sqrt{N}} = \sqrt{N}$$
+Setting this equal to the observed value:
 
 $$\sqrt{N} \sim 10^{120} \implies N \sim 10^{240}$$
 
