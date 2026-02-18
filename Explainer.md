@@ -85,7 +85,7 @@ How much can an observer access? There is a fundamental result in physics (the B
 
 ## Two Projections, Two Answers
 
-This builds on an insight from T. Padmanabhan, who in 2005 identified that the QFT and gravitational descriptions probe *different statistical properties* of the same degrees of freedom. Padmanabhan's core insight is correct, but the **assignment should be inverted**: QFT measures the fluctuation content (the variance) and gravity measures the net mechanical effect (the mean). The inversion is motivated by each theory's coupling structure: QFT sums strictly positive zero-point energies (no cancellation possible — structurally analogous to a variance), while the Einstein equations couple to a stress-energy tensor that admits inter-sector cancellation (structurally analogous to a mean). The smallness of the gravitational value follows naturally from √N cancellation among effectively randomly signed contributions.
+This builds on an insight from T. Padmanabhan, who in 2004 identified that the QFT and gravitational descriptions probe *different statistical properties* of the same degrees of freedom. Padmanabhan's core insight is correct, but the **assignment should be inverted**: QFT measures the fluctuation content (the variance) and gravity measures the net mechanical effect (the mean). The inversion is motivated by each theory's coupling structure: QFT sums strictly positive zero-point energies (no cancellation possible — structurally analogous to a variance), while the Einstein equations couple to a stress-energy tensor that admits inter-sector cancellation (structurally analogous to a mean). The smallness of the gravitational value follows naturally from √N cancellation among effectively randomly signed contributions.
 
 ### Projection 1: Quantum Mechanics Measures Fluctuation Content
 
@@ -251,6 +251,22 @@ $$\sqrt{N} \sim 10^{120} \implies N \sim 10^{240}$$
 This is approximately $S_{\text{dS}}^2$ — the square of the Bekenstein-Hawking entropy of the cosmological horizon ($S_{\text{dS}} \sim 10^{122}$, giving $S_{\text{dS}}^2 \approx 10^{244}$, consistent at order-of-magnitude since the cosmological constant ratio is convention-dependent within $10^{120}$–$10^{123}$). Independently, Sorkin derived $\Lambda \sim N^{-1/2}$ from causal set theory — the same functional form — before the 1998 discovery of cosmic acceleration.
 
 The cosmological constant problem isn't a problem. It's the most precise measurement we have of the dimensionality of the parts of reality we cannot see.
+
+---
+
+## What Can We Learn About What We Can't See?
+
+A natural concern: if the hidden sector is permanently inaccessible, is it just a philosophical abstraction? No. The Observational Incompleteness Theorem forbids *simultaneous complete determination* of both projections. It does not forbid indirect knowledge — and the derivation of $N \sim 10^{240}$ already depends on it.
+
+The situation is analogous to a gas. You cannot know the position and momentum of every molecule. But you can measure temperature, pressure, and entropy — genuine information about trillions of microscopic degrees of freedom, obtained without accessing any of them individually. The hidden sector is similar: its *microstate* is permanently inaccessible, but its *statistical properties* are not.
+
+**Already measured.** The effective dimensionality ($N \sim 10^{240}$, extracted from the 10¹²⁰ ratio), the boundary entropy ($S_{\text{dS}} \sim 10^{122}$, from the area of the cosmological horizon), and the sign structure (the cosmological constant is small but nonzero, meaning the hidden sector's contributions don't exactly cancel — they produce $\sqrt{N}$ scaling rather than zero).
+
+**Measurable with future instruments.** The hidden sector's *relaxation timescale* — how quickly perturbations at the projection boundary decay — would be revealed by gravitational wave echoes (§Can We Test This?). Its *high-frequency variance spectrum* would appear as the stochastic gravitational noise floor. Non-Markovian signatures in precision quantum experiments — anomalous decoherence rates, quantum revivals, non-exponential decay — are indirect readouts of the hidden sector's internal dynamics, because the Nakajima-Zwanzig memory kernel that produces quantum mechanics encodes how the hidden sector's past states influence the visible sector's present.
+
+**Permanently inaccessible.** The full microstate. The simultaneous determination of both the variance and the mean. Any quantity requiring direct causal access to trans-horizon or sub-Planckian degrees of freedom.
+
+The hidden sector is not a black box that yields nothing. It is a black box that yields *statistical* information generously while withholding *state-level* information permanently — like a room you can never enter but whose walls you can tap, whose temperature you can feel through the door, and whose occupants occasionally slide notes under the gap.
 
 ---
 

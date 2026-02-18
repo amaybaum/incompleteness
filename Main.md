@@ -164,6 +164,20 @@ This is supported by Sorkin's causal-set prediction [17], which derives $\Lambda
 
 The $\sqrt{N}$ scaling is robust: replacing random signs with random complex phases preserves it, and weak pairwise correlations modify the estimate only when the correlation coefficient reaches order $1/N$ — a fine-tuned regime. The result exceeds the number of Planck volumes in the observable universe (~$10^{185}$) by ~$10^{55}$, ruling out "one degree of freedom per Planck volume" and implying a holographic or extra-dimensional structure.
 
+### 3.4 Indirect Access to the Hidden Sector
+
+The Observational Incompleteness Theorem does not imply that the hidden sector yields zero information. The Wolpert bound constrains *simultaneous complete determination* of both projections; substantial indirect knowledge remains accessible — and the results of §3.1–3.3 already depend on it.
+
+**Statistical properties are accessible even when the microstate is not.** The situation is analogous to statistical mechanics: the position and momentum of every molecule in a gas are inaccessible, but temperature, pressure, entropy, and heat capacity are measurable and constitute genuine information about the microscopic degrees of freedom. The hidden sector's effective dimensionality ($N \sim 10^{240}$), its sign structure (producing $\sqrt{N}$ rather than exact cancellation), and its boundary entropy ($S_{\text{dS}} \sim 10^{122}$) are all already-measured statistical properties of this kind.
+
+**Boundary properties are directly measurable.** The Bekenstein-Hawking entropy characterizes the *interface* between visible and hidden sectors. Hawking radiation, black hole quasinormal mode spectra, and the CMB power spectrum (as a snapshot of the last scattering surface) all carry information imprinted by the hidden sector at the causal boundary. The holographic principle implies the boundary encodes the bulk — but in a form that Wolpert's theorem guarantees no embedded observer can fully decode.
+
+**Consistency constraints are informative.** If both projections describe the same underlying reality, quantities appearing in both QM and GR must satisfy cross-projection constraints. Anomaly cancellation conditions, unitarity bounds, and the convergence behavior of running couplings at high energies are all examples: they constrain the hidden sector's structure by requiring mutual consistency between the two projections where they overlap.
+
+**The memory kernel is measurable.** The Nakajima-Zwanzig memory kernel (§2.6) encodes how the hidden sector's past states influence the visible sector's present. Non-Markovian signatures in quantum systems — anomalous decoherence rates, quantum revival phenomena, non-exponential decay — are indirect readouts of the hidden sector's internal dynamics and propagation structure.
+
+Three tiers of knowledge about the hidden sector can therefore be distinguished: (i) *already measured* — dimensionality, boundary entropy, sign structure; (ii) *measurable with future instruments* — relaxation timescale (from gravitational wave echoes, §4.2), high-frequency variance spectrum (from the stochastic noise floor, §4.3), correlation structure (from precision non-Markovian signatures); (iii) *permanently inaccessible* — the full microstate, simultaneous variance-and-mean determination, any quantity requiring direct causal access to trans-horizon or sub-Planckian degrees of freedom.
+
 ---
 
 ## 4. EXPERIMENTAL PREDICTIONS
