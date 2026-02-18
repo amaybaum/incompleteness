@@ -1,8 +1,10 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
+  11pt,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -15,9 +17,12 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-\usepackage{lmodern}
+% \usepackage{lmodern} % removed - using system fonts with xelatex
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -36,6 +41,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -47,7 +53,11 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  hidelinks,
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 
 \author{}
@@ -76,17 +86,18 @@ disagree about the most basic property of empty space: how much energy
 it contains.
 
 Quantum mechanics says the vacuum is seething with energy. Add up the
-zero-point fluctuations of every quantum field and you get roughly 10¹¹⁰
-joules per cubic meter --- an unimaginably large number.
+zero-point fluctuations of every quantum field and you get roughly
+\(10^{110}\) joules per cubic meter --- an unimaginably large number.
 
 General relativity measures the vacuum's energy through its
 gravitational effect --- the accelerating expansion of the universe ---
-and gets about 6 × 10⁻¹⁰ joules per cubic meter. A very tiny number.
+and gets about \(6 \times 10^{-10}\) joules per cubic meter. A very tiny
+number.
 
-The ratio is 10¹²⁰. That's a 1 followed by 120 zeros --- the largest
-disagreement between theory and observation in all of science. For
-context, the number of atoms in the observable universe is only about
-10⁸⁰.
+The ratio is \(10^{120}\). That's a 1 followed by 120 zeros --- the
+largest disagreement between theory and observation in all of science.
+For context, the number of atoms in the observable universe is only
+about \(10^{80}\).
 
 For decades, physicists have assumed something has gone badly wrong ---
 that one or both calculations must contain an error, and that finding
@@ -105,11 +116,11 @@ Quantum mechanics says every possible vibration mode of every quantum
 field contributes energy, even in a vacuum. You add up all those
 contributions --- from the longest wavelengths to the shortest ones
 allowed by physics (the ``Planck scale'' cutoff) --- and get roughly
-10¹¹⁰ joules per cubic meter.
+\(10^{110}\) joules per cubic meter.
 
 General relativity measures vacuum energy by observing how it makes the
 universe expand. Work backwards from the observed acceleration and you
-get roughly 6 × 10⁻¹⁰ joules per cubic meter.
+get roughly \(6 \times 10^{-10}\) joules per cubic meter.
 
 \[\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{120}\]
 
@@ -146,7 +157,7 @@ Quantum mechanics and general relativity are just like the thermometer
 and the dust speck. Quantum mechanics measures the \emph{fluctuation
 content} of the vacuum --- the total, unsigned activity. General
 relativity measures the \emph{net mechanical effect} --- the aggregate,
-canceled-out push on spacetime. The 10¹²⁰ ratio is the difference
+canceled-out push on spacetime. The \(10^{120}\) ratio is the difference
 between an unsigned total and a canceled-out residual for a system with
 an astronomically large number of degrees of freedom. (The recognition
 that the two theories probe different statistical properties originates
@@ -196,8 +207,8 @@ The ``fluctuation measurement'' (QM) and the ``mean-field measurement''
 Wolpert's theorems say cannot be combined. The result is an
 \textbf{Observational Incompleteness Theorem}: no observer inside the
 universe can simultaneously determine both the quantum and gravitational
-descriptions of vacuum energy. The 10¹²⁰ discrepancy is the quantitative
-signature of this impossibility.
+descriptions of vacuum energy. The \(10^{120}\) discrepancy is the
+quantitative signature of this impossibility.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -227,8 +238,8 @@ boundary beyond which the escape velocity exceeds the speed of light.
 Matter that crosses it exits our observable projection permanently ---
 ordinary physics that has become hidden.
 
-\textbf{Below the Planck scale.} Below about 10⁻³⁵ meters, the energy
-required to probe would create a micro black hole, swallowing the
+\textbf{Below the Planck scale.} Below about \(10^{-35}\) meters, the
+energy required to probe would create a micro black hole, swallowing the
 information you're trying to extract. The resolution of our
 observational channel bottoms out.
 
@@ -236,9 +247,9 @@ How much can an observer access? There is a fundamental result in
 physics (the Bekenstein-Hawking entropy) that sets the answer: the
 maximum information available to an observer is proportional to the
 \emph{area} of their causal boundary. For our cosmological horizon, this
-works out to \textasciitilde10¹²² degrees of freedom in the visible
-sector. The hidden sector is far larger --- \textasciitilde10²⁴⁰ degrees
-of freedom, as derived below (§The Discrepancy as Measurement).
+works out to \(~10^{122}\) degrees of freedom in the visible sector. The
+hidden sector is far larger --- \(~10^{240}\) degrees of freedom, as
+derived below (§The Ratio as Measurement).
 
 \textbf{Why this matters.} Standard physics assumes the ``dark'' 95\% of
 the universe requires exotic particles --- WIMPs, axions, sterile
@@ -363,8 +374,8 @@ interpretation, the QM and GR vacuum energies are not
 observer-independent facts --- they are \emph{outputs of specific
 measurement procedures}, each constituting an inference operation in
 Wolpert's sense. There is no single ``true'' vacuum energy behind both
-measurements. The 10¹²⁰ is the gap between two \emph{different things}
-that embeddedness forces to be distinct.
+measurements. The \(10^{120}\) is the gap between two \emph{different
+things} that embeddedness forces to be distinct.
 
 This is a substantive philosophical position. Most physicists assume
 there \emph{is} a single true vacuum energy that both calculations
@@ -372,6 +383,34 @@ approximate. Even on that assumption, the theorem says the two inference
 procedures are structurally prevented from converging, so the shared
 underlying value cannot be empirically verified by any embedded
 observer.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-ratio-as-measurement}{%
+\subsection{The Ratio as Measurement}\label{the-ratio-as-measurement}}
+
+If the \(10^{120}\) is a variance-to-mean ratio, we can work backwards
+to find the hidden sector's size.
+
+With \(N\) independent degrees of freedom each contributing energy of
+the same order, the quantum projection sums all contributions without
+regard to sign (\(V \propto N\)) while the gravitational projection sums
+them with their signs (\(M \sim \sqrt{N}\)). The ratio is \(\sqrt{N}\):
+
+\[\sqrt{N} \sim 10^{120} \implies N \sim 10^{240}\]
+
+This is approximately \(S_{\text{dS}}^2\) --- the square of the
+Bekenstein-Hawking entropy of the cosmological horizon
+(\(S_{\text{dS}} \sim 10^{122}\), giving
+\(S_{\text{dS}}^2 \approx 10^{244}\), consistent at order-of-magnitude
+since the cosmological constant ratio is convention-dependent within
+\(10^{120}\)--\(10^{123}\)). Independently, Sorkin derived
+\(\Lambda \sim N^{-1/2}\) from causal set theory --- the same functional
+form --- before the 1998 discovery of cosmic acceleration.
+
+The cosmological constant problem isn't a problem. It's the most precise
+measurement we have of the dimensionality of the parts of reality we
+cannot see.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -385,7 +424,7 @@ hidden degrees of freedom --- the resulting description of what you
 classical. It's not random noise. It's \textbf{quantum mechanics.}
 
 \hypertarget{the-barandes-stochastic-quantum-correspondence}{%
-\subsubsection{The Barandes Stochastic-Quantum
+\paragraph{The Barandes Stochastic-Quantum
 Correspondence}\label{the-barandes-stochastic-quantum-correspondence}}
 
 In 2023, Jacob Barandes proved that \textbf{any indivisible stochastic
@@ -407,7 +446,7 @@ rule, and superposition. These emerge mathematically from
 indivisibility.
 
 \hypertarget{why-tracing-out-produces-indivisibility}{%
-\subsubsection{Why Tracing Out Produces
+\paragraph{Why Tracing Out Produces
 Indivisibility}\label{why-tracing-out-produces-indivisibility}}
 
 When you trace out part of a system, the remaining part's evolution
@@ -429,7 +468,7 @@ special condition for a hidden sector constituting the vast majority of
 the universe's degrees of freedom.)
 
 \hypertarget{the-complete-chain}{%
-\subsubsection{The Complete Chain}\label{the-complete-chain}}
+\paragraph{The Complete Chain}\label{the-complete-chain}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -486,15 +525,14 @@ between them --- like two thermometers reading the same temperature
 because they're immersed in the same water, not because one signals the
 other. No information travels between the particles.
 
-\textbf{Bell's Theorem and why this isn't ruled out.} The immediate
-objection is: doesn't this sound like a local hidden variable theory,
-which Bell's theorem proved impossible? No --- and the distinction
-matters. Bell proved that no theory producing \emph{classical}
-(divisible, factorable) statistics can reproduce quantum correlations.
-Classical hidden variables always produce statistics where measurement
-outcomes at distant locations are independent once you know the hidden
-cause. That independence is what forces Bell inequalities to hold, and
-nature violates them.
+\textbf{Bell's Theorem.} The immediate objection is: doesn't this sound
+like a local hidden variable theory, which Bell's theorem proved
+impossible? No --- and the distinction matters. Bell proved that no
+theory producing \emph{classical} (divisible, factorable) statistics can
+reproduce quantum correlations. Classical hidden variables always
+produce statistics where measurement outcomes at distant locations are
+independent once you know the hidden cause. That independence is what
+forces Bell inequalities to hold, and nature violates them.
 
 The hidden sector here doesn't produce classical statistics. When you
 trace it out, the Nakajima-Zwanzig memory kernel makes the resulting
@@ -502,19 +540,18 @@ dynamics \emph{indivisible} --- the statistics don't factorize. And by
 Barandes' theorem, indivisible stochastic processes \emph{are} quantum
 mechanics. They violate Bell inequalities natively, not by smuggling in
 faster-than-light signals, but because the trace-out produces a
-fundamentally non-classical probability structure. The full reality
-(visible + hidden) is local and definite. Bell violations are what
-locality \emph{looks like} when you're missing most of the picture and
-the missing information produces indivisible rather than classical
-statistics.
+fundamentally non-classical probability structure.
 
-An honest caveat: the claim that reality is ``really local but
-inaccessibly so'' is a metaphysical commitment. If no observer can ever
-access the local level, some physicists would call the distinction
-between ``local but hidden'' and ``nonlocal'' vacuous. The defense is
-that this isn't just an interpretation --- it makes predictions (§Can We
-Test This?) that the standard view doesn't, which gives the metaphysical
-commitment empirical stakes.
+On this reading, the full reality (visible + hidden) is local and
+definite, and Bell violations are what locality \emph{looks like} when
+you're missing most of the picture and the missing information produces
+indivisible rather than classical statistics. But this is a metaphysical
+commitment, not a derivation. If no observer can ever access the local
+level, some physicists would call the distinction between ``local but
+hidden'' and ``nonlocal'' vacuous. The defense is that this isn't just
+an interpretation --- it makes predictions (§Can We Test This?) that the
+standard view doesn't, which gives the metaphysical commitment empirical
+stakes.
 
 \textbf{The Born rule.} The recipe for converting quantum states into
 probabilities is a \emph{consequence} of the projection: the statistical
@@ -531,14 +568,8 @@ different ways of interrogating the hidden sector at infinitesimally
 separated moments. Pinning down one constrains the projection in a way
 that leaves the other maximally unconstrained. The Heisenberg
 uncertainty principle is the \emph{within-physics} version of
-embedded-observer incompleteness; the 10¹²⁰ is the
+embedded-observer incompleteness; the \(10^{120}\) is the
 \emph{between-physics} version.
-
-\textbf{Quantization} \emph{(highly speculative).} Energy comes in
-discrete packets. One possibility is that quantization is a sampling
-artifact: a continuous underlying reality accessed through a
-finite-bandwidth projection that imposes discrete structure. This is a
-suggestive analogy, not a derived result.
 
 \textbf{Quantum computing.} Quantum algorithms exploit the indivisible
 correlations of the projected dynamics --- engineering hidden-sector
@@ -548,9 +579,8 @@ interactions scramble these correlations.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{beyond-the-formal-results-speculative-reinterpretations}{%
-\subsection{Beyond the Formal Results: Speculative
-Reinterpretations}\label{beyond-the-formal-results-speculative-reinterpretations}}
+\hypertarget{beyond-the-formal-results}{%
+\subsection{Beyond the Formal Results}\label{beyond-the-formal-results}}
 
 \emph{Everything above follows from the formal results. What follows
 explores reinterpretations that are consistent with those results but go
@@ -563,58 +593,63 @@ demonstrated range.}
 \hypertarget{dark-energy}{%
 \subsubsection{Dark Energy}\label{dark-energy}}
 
-\emph{Speculative.} Dark energy isn't a substance --- it's the
-\textbf{mean-field residual} of the hidden sector. With 10²⁴⁰ degrees of
-freedom pushing in random directions, the central limit theorem predicts
-the leftover net push should be \textasciitilde10¹²⁰ times smaller than
-the total activity --- exactly what we observe. This also explains why
-dark energy behaves like a cosmological constant --- with a fixed,
-unchanging pressure-to-density ratio (\(w = -1\)) --- and why it has no
-dynamics: a statistical residual from massive cancellation has no
-internal structure to evolve.
+Dark energy isn't a substance --- it's the \textbf{mean-field residual}
+of the hidden sector. With \(10^{240}\) degrees of freedom pushing in
+random directions, the central limit theorem predicts the leftover net
+push should be \(~10^{120}\) times smaller than the total activity ---
+exactly what we observe. This also explains why dark energy behaves like
+a cosmological constant --- with a fixed, unchanging pressure-to-density
+ratio (\(w = -1\)) --- and why it has no dynamics: a statistical
+residual from massive cancellation has no internal structure to evolve.
 
 \hypertarget{the-arrow-of-time}{%
 \subsubsection{The Arrow of Time}\label{the-arrow-of-time}}
 
-\emph{Speculative.} The fundamental laws of physics are time-symmetric,
-yet our experience is irreversibly one-directional. Entropy is the
-\textbf{rate of information loss to the hidden sector.} Information
-naturally flows from the small observable sector into the vast hidden
-sector, like heat from a hot cup to a cold room. The early universe
-started with an unusually large fraction of its information in the
-observable sector (low-entropy initial state), and that information has
-been draining into the hidden sector ever since. The Arrow of Time is
-information flowing downhill.
+The fundamental laws of physics are time-symmetric, yet our experience
+is irreversibly one-directional. Entropy is the \textbf{rate of
+information loss to the hidden sector.} Information naturally flows from
+the small observable sector into the vast hidden sector, like heat from
+a hot cup to a cold room. The early universe started with an unusually
+large fraction of its information in the observable sector (low-entropy
+initial state), and that information has been draining into the hidden
+sector ever since. The Arrow of Time is information flowing downhill.
 
 \hypertarget{the-holographic-principle}{%
 \subsubsection{The Holographic
 Principle}\label{the-holographic-principle}}
 
-\emph{Speculative.} The maximum information storable in a region of
-space is proportional to its \emph{surface area}, not its volume. This
-follows naturally: the observer doesn't access the hidden sector
-directly, but only through the projection interface, whose bandwidth is
-proportional to the \emph{area} of the boundary. Information is bounded
-by area because the observer's channel to reality is an area-limited
-interface.
+The maximum information storable in a region of space is proportional to
+its \emph{surface area}, not its volume. This follows naturally: the
+observer doesn't access the hidden sector directly, but only through the
+projection interface, whose bandwidth is proportional to the \emph{area}
+of the boundary. Information is bounded by area because the observer's
+channel to reality is an area-limited interface.
+
+\hypertarget{quantization}{%
+\subsubsection{Quantization}\label{quantization}}
+
+Energy comes in discrete packets. One possibility is that quantization
+is a sampling artifact: a continuous underlying reality accessed through
+a finite-bandwidth projection that imposes discrete structure. This is a
+suggestive analogy, not a derived result.
 
 \hypertarget{what-gravity-actually-is}{%
 \subsubsection{What Gravity Actually
 Is}\label{what-gravity-actually-is}}
 
-\emph{Speculative.} General relativity doesn't explain \emph{why} mass
-curves spacetime. Gravity is the \textbf{mean-field projection} of the
-hidden sector --- a statistical summary averaging over 10²⁴⁰ hidden
-degrees of freedom and reporting the net mechanical result as spacetime
-curvature. Mass curves spacetime because a concentration of energy in
-the observable sector is correlated with a concentration of
-hidden-sector activity.
+General relativity doesn't explain \emph{why} mass curves spacetime.
+Gravity is the \textbf{mean-field projection} of the hidden sector --- a
+statistical summary averaging over \(10^{240}\) hidden degrees of
+freedom and reporting the net mechanical result as spacetime curvature.
+Mass curves spacetime because a concentration of energy in the
+observable sector is correlated with a concentration of hidden-sector
+activity.
 
 \hypertarget{black-holes}{%
 \subsubsection{Black Holes}\label{black-holes}}
 
-\emph{Speculative.} Black holes are what happens when the mean-field
-projection is pushed to its limit.
+Black holes are what happens when the mean-field projection is pushed to
+its limit.
 
 \textbf{The event horizon is an inference boundary} --- the surface
 beyond which the projection becomes maximally lossy. Only the coarsest
@@ -638,36 +673,31 @@ have.
 \hypertarget{dark-matter}{%
 \subsubsection{Dark Matter}\label{dark-matter}}
 
-\emph{Speculative.} If the hidden sector's contributions to the
-mean-field average aren't perfectly uniform across space --- an
-additional assumption not established by the formal framework, which
-treats the hidden sector globally --- some regions would have a
-larger-than-average net effect. These regions would curve spacetime and
-attract ordinary matter but wouldn't show up in non-gravitational
-experiments --- matching the broad profile of dark matter. This is among
-the most speculative implications and would need to reproduce specific
-observational signatures (rotation curves, lensing, CMB power spectrum).
-It is offered as a direction for investigation rather than a developed
-alternative.
+If the hidden sector's contributions to the mean-field average aren't
+perfectly uniform across space --- an additional assumption not
+established by the formal framework, which treats the hidden sector
+globally --- some regions would have a larger-than-average net effect.
+These regions would curve spacetime and attract ordinary matter but
+wouldn't show up in non-gravitational experiments --- matching the broad
+profile of dark matter. This is among the most speculative implications
+and would need to reproduce specific observational signatures (rotation
+curves, lensing, CMB power spectrum). It is offered as a direction for
+investigation rather than a developed alternative.
 
 \hypertarget{why-95-of-the-universe-is-invisible}{%
 \subsubsection{Why 95\% of the Universe Is
 Invisible}\label{why-95-of-the-universe-is-invisible}}
 
-\emph{Speculative.} An embedded observer accessing reality through a
-mean-field projection that compresses 10²⁴⁰ degrees of freedom into an
-average is, almost by definition, going to see a universe dominated by
-statistical residuals. The 5\% that's visible is the fraction organized
-into coherent, structured matter. The 95\% is the vast statistical
+An embedded observer accessing reality through a mean-field projection
+that compresses \(10^{240}\) degrees of freedom into an average is,
+almost by definition, going to see a universe dominated by statistical
+residuals. The 5\% that's visible is the fraction organized into
+coherent, structured matter. The 95\% is the vast statistical
 background. The question isn't ``why is 95\% dark?'' --- it's ``how did
 5\% manage to be bright?''
 
-\hypertarget{reinterpreting-string-theory}{%
-\subsubsection{Reinterpreting String
-Theory}\label{reinterpreting-string-theory}}
-
-\emph{Speculative. The following reinterpretations are suggestive but
-carry no formal backing.}
+\hypertarget{string-theory}{%
+\subsubsection{String Theory}\label{string-theory}}
 
 The Observational Incompleteness Theorem doesn't reject String Theory
 --- it offers a possible reinterpretation.
@@ -683,12 +713,12 @@ Theory's math describes a vibration ``moving into the fifth dimension,''
 the translation would be: that correlation has moved beyond the
 observer's projection horizon.
 
-\textbf{The Landscape Problem.} String Theory's \textasciitilde10⁵⁰⁰
-solutions might reflect the internal complexity of a single universe's
-hidden sector rather than a catalogue of distinct universes. The hidden
-sector's 10²⁴⁰ degrees of freedom could generate far more configurations
-than 10⁵⁰⁰. This would reduce the need for a multiverse but remains
-highly conjectural.
+\textbf{The Landscape Problem.} String Theory's \(~10^{500}\) solutions
+might reflect the internal complexity of a single universe's hidden
+sector rather than a catalogue of distinct universes. The hidden
+sector's \(10^{240}\) degrees of freedom could generate far more
+configurations than \(10^{500}\). This would reduce the need for a
+multiverse but remains highly conjectural.
 
 These reinterpretations share a common thread: String Theory may have
 found successful mathematics for the hidden sector but struggles to
@@ -697,35 +727,6 @@ sectors within a single framework --- the operation the Observational
 Incompleteness Theorem says is impossible. Whether this reading survives
 contact with the detailed structure of string theory is an open
 question.
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\hypertarget{the-discrepancy-as-measurement}{%
-\subsection{The Discrepancy as
-Measurement}\label{the-discrepancy-as-measurement}}
-
-If the 10¹²⁰ is a variance-to-mean ratio, we can work backwards to find
-the hidden sector's size.
-
-With \(N\) independent degrees of freedom each contributing energy of
-the same order, the quantum projection sums all contributions without
-regard to sign (\(V \propto N\)) while the gravitational projection sums
-them with their signs (\(M \sim \sqrt{N}\)). The ratio is \(\sqrt{N}\):
-
-\[\sqrt{N} \sim 10^{120} \implies N \sim 10^{240}\]
-
-This is approximately \(S_{\text{dS}}^2\) --- the square of the
-Bekenstein-Hawking entropy of the cosmological horizon
-(\(S_{\text{dS}} \sim 10^{122}\), giving
-\(S_{\text{dS}}^2 \approx 10^{244}\), consistent at order-of-magnitude
-since the cosmological constant ratio is convention-dependent within
-\(10^{120}\)--\(10^{123}\)). Independently, Sorkin derived
-\(\Lambda \sim N^{-1/2}\) from causal set theory --- the same functional
-form --- before the 1998 discovery of cosmic acceleration.
-
-The cosmological constant problem isn't a problem. It's the most precise
-measurement we have of the dimensionality of the parts of reality we
-cannot see.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -748,8 +749,8 @@ The hidden sector is similar: its \emph{microstate} is permanently
 inaccessible, but its \emph{statistical properties} are not.
 
 \textbf{Already measured.} The effective dimensionality
-(\(N \sim 10^{240}\), extracted from the 10¹²⁰ ratio), the boundary
-entropy (\(S_{\text{dS}} \sim 10^{122}\), from the area of the
+(\(N \sim 10^{240}\), extracted from the \(10^{120}\) ratio), the
+boundary entropy (\(S_{\text{dS}} \sim 10^{122}\), from the area of the
 cosmological horizon), and the sign structure (the cosmological constant
 is small but nonzero, meaning the hidden sector's contributions don't
 exactly cancel --- they produce \(\sqrt{N}\) scaling rather than zero).
@@ -803,9 +804,9 @@ relationship between two incomplete descriptions --- and that
 relationship \emph{is} the theory of quantum gravity, properly
 understood.
 
-The 10¹²⁰ is the physical world's Gödel sentence --- a number encoding,
-in the starkest possible terms, that observers are inside the system
-they are trying to describe.
+The \(10^{120}\) is the physical world's Gödel sentence --- a number
+encoding, in the starkest possible terms, that observers are inside the
+system they are trying to describe.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -831,8 +832,8 @@ prediction.
 \textbf{A gravitational noise floor (future detectors).} If gravity is
 the mean of a high-variance distribution, it should be slightly
 ``grainy'' at high frequencies --- a faint hiss of gravitational noise
-with a specific amplitude and spectral shape anchored to the 10¹²⁰
-ratio.
+with a specific amplitude and spectral shape anchored to the
+\(10^{120}\) ratio.
 
 \textbf{Correlated running of constants (speculative).} The Asymptotic
 Safety programme suggests that the strength of gravity and the vacuum
@@ -883,11 +884,11 @@ like through the keyhole.
 
 \emph{This is a simplified overview of ``The Incompleteness of
 Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From
-Within'' (Maybaum, February 2026), which presents the mathematical
-proofs, formal theorems, and detailed experimental predictions. Several
+Within'' (Maybaum, February 2026), which presents the formal theorems
+with detailed proofs and experimental predictions. Several
 reinterpretations explored here (the arrow of time, dark matter,
-quantization, String Theory) go beyond the formal results and are
-flagged as speculative.}
+quantization, String Theory) go beyond the formal results and provide
+direction for future research.}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 

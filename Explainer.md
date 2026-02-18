@@ -77,7 +77,7 @@ The universe's degrees of freedom split into everything the observer *can* acces
 
 **Below the Planck scale.** Below about 10⁻³⁵ meters, the energy required to probe would create a micro black hole, swallowing the information you're trying to extract. The resolution of our observational channel bottoms out.
 
-How much can an observer access? There is a fundamental result in physics (the Bekenstein-Hawking entropy) that sets the answer: the maximum information available to an observer is proportional to the *area* of their causal boundary. For our cosmological horizon, this works out to ~10¹²² degrees of freedom in the visible sector. The hidden sector is far larger — ~10²⁴⁰ degrees of freedom, as derived below (§The Discrepancy as Measurement).
+How much can an observer access? There is a fundamental result in physics (the Bekenstein-Hawking entropy) that sets the answer: the maximum information available to an observer is proportional to the *area* of their causal boundary. For our cosmological horizon, this works out to ~10¹²² degrees of freedom in the visible sector. The hidden sector is far larger — ~10²⁴⁰ degrees of freedom, as derived below (§The Ratio as Measurement).
 
 **Why this matters.** Standard physics assumes the "dark" 95% of the universe requires exotic particles — WIMPs, axions, sterile neutrinos. But the hidden sector is made of *standard* degrees of freedom, causally separated from us by horizons or by scale. The darkness is a property of our position, not of the stuff.
 
@@ -127,11 +127,25 @@ This is a substantive philosophical position. Most physicists assume there *is* 
 
 ---
 
+## The Ratio as Measurement
+
+If the 10¹²⁰ is a variance-to-mean ratio, we can work backwards to find the hidden sector's size.
+
+With $N$ independent degrees of freedom each contributing energy of the same order, the quantum projection sums all contributions without regard to sign ($V \propto N$) while the gravitational projection sums them with their signs ($M \sim \sqrt{N}$). The ratio is $\sqrt{N}$:
+
+$$\sqrt{N} \sim 10^{120} \implies N \sim 10^{240}$$
+
+This is approximately $S_{\text{dS}}^2$ — the square of the Bekenstein-Hawking entropy of the cosmological horizon ($S_{\text{dS}} \sim 10^{122}$, giving $S_{\text{dS}}^2 \approx 10^{244}$, consistent at order-of-magnitude since the cosmological constant ratio is convention-dependent within $10^{120}$–$10^{123}$). Independently, Sorkin derived $\Lambda \sim N^{-1/2}$ from causal set theory — the same functional form — before the 1998 discovery of cosmic acceleration.
+
+The cosmological constant problem isn't a problem. It's the most precise measurement we have of the dimensionality of the parts of reality we cannot see.
+
+---
+
 ## Where Does Quantum Mechanics Come From?
 
 When you "trace out" the hidden sector — mathematically discard the hidden degrees of freedom — the resulting description of what you *can* see has a very specific mathematical structure. It's not classical. It's not random noise. It's **quantum mechanics.**
 
-### The Barandes Stochastic-Quantum Correspondence
+#### The Barandes Stochastic-Quantum Correspondence
 
 In 2023, Jacob Barandes proved that **any indivisible stochastic process is exactly equivalent to a quantum system.** (Published correspondence paper in *Philosophy of Physics* (2025); core theorem paper remains a preprint. The key claim — that tracing out a temporally correlated environment produces indivisible subsystem dynamics — rests on the well-established Nakajima-Zwanzig formalism and Stinespring dilation theorem.)
 
@@ -139,13 +153,13 @@ A stochastic process is **divisible** if you can break a long transition into in
 
 Barandes proved that if a process is indivisible, it *automatically* reproduces interference, entanglement, the Born rule, and superposition. These emerge mathematically from indivisibility.
 
-### Why Tracing Out Produces Indivisibility
+#### Why Tracing Out Produces Indivisibility
 
 When you trace out part of a system, the remaining part's evolution acquires a **memory kernel** (Nakajima-Zwanzig formalism) — encoding how the hidden sector's past states influence the visible sector's present. If the hidden sector has temporal correlations (perturbations persist rather than vanishing instantly), the memory kernel is nonzero and the visible sector's dynamics becomes non-Markovian — its future depends on its past, not just its present.
 
 For the hidden sector to have *no* memory, it would need infinite propagation speed or zero internal structure — both physically absurd. Memory is generic; memorylessness is the pathological special case. (A nonzero memory kernel is necessary but not automatically sufficient for indivisibility. Fine-tuned cancellations could in principle produce divisible dynamics, but such cancellations would need to hold for all times and all initial states simultaneously — an extraordinarily special condition for a hidden sector constituting the vast majority of the universe's degrees of freedom.)
 
-### The Complete Chain
+#### The Complete Chain
 
 1. You're inside the universe (embedded observer)
 2. Some degrees of freedom are inaccessible (hidden sector)
@@ -168,11 +182,11 @@ The counterintuitive phenomena of quantum mechanics all *have natural readings* 
 
 **Entanglement.** When two entangled particles are measured, the correlation arises because the hidden sector mediates correlations between them — like two thermometers reading the same temperature because they're immersed in the same water, not because one signals the other. No information travels between the particles.
 
-**Bell's Theorem and why this isn't ruled out.** The immediate objection is: doesn't this sound like a local hidden variable theory, which Bell's theorem proved impossible? No — and the distinction matters. Bell proved that no theory producing *classical* (divisible, factorable) statistics can reproduce quantum correlations. Classical hidden variables always produce statistics where measurement outcomes at distant locations are independent once you know the hidden cause. That independence is what forces Bell inequalities to hold, and nature violates them.
+**Bell's Theorem.** The immediate objection is: doesn't this sound like a local hidden variable theory, which Bell's theorem proved impossible? No — and the distinction matters. Bell proved that no theory producing *classical* (divisible, factorable) statistics can reproduce quantum correlations. Classical hidden variables always produce statistics where measurement outcomes at distant locations are independent once you know the hidden cause. That independence is what forces Bell inequalities to hold, and nature violates them.
 
-The hidden sector here doesn't produce classical statistics. When you trace it out, the Nakajima-Zwanzig memory kernel makes the resulting dynamics *indivisible* — the statistics don't factorize. And by Barandes' theorem, indivisible stochastic processes *are* quantum mechanics. They violate Bell inequalities natively, not by smuggling in faster-than-light signals, but because the trace-out produces a fundamentally non-classical probability structure. The full reality (visible + hidden) is local and definite. Bell violations are what locality *looks like* when you're missing most of the picture and the missing information produces indivisible rather than classical statistics.
+The hidden sector here doesn't produce classical statistics. When you trace it out, the Nakajima-Zwanzig memory kernel makes the resulting dynamics *indivisible* — the statistics don't factorize. And by Barandes' theorem, indivisible stochastic processes *are* quantum mechanics. They violate Bell inequalities natively, not by smuggling in faster-than-light signals, but because the trace-out produces a fundamentally non-classical probability structure.
 
-An honest caveat: the claim that reality is "really local but inaccessibly so" is a metaphysical commitment. If no observer can ever access the local level, some physicists would call the distinction between "local but hidden" and "nonlocal" vacuous. The defense is that this isn't just an interpretation — it makes predictions (§Can We Test This?) that the standard view doesn't, which gives the metaphysical commitment empirical stakes.
+On this reading, the full reality (visible + hidden) is local and definite, and Bell violations are what locality *looks like* when you're missing most of the picture and the missing information produces indivisible rather than classical statistics. But this is a metaphysical commitment, not a derivation. If no observer can ever access the local level, some physicists would call the distinction between "local but hidden" and "nonlocal" vacuous. The defense is that this isn't just an interpretation — it makes predictions (§Can We Test This?) that the standard view doesn't, which gives the metaphysical commitment empirical stakes.
 
 **The Born rule.** The recipe for converting quantum states into probabilities is a *consequence* of the projection: the statistical distribution of measurement outcomes follows from the mathematics of how incomplete descriptions work.
 
@@ -180,35 +194,37 @@ An honest caveat: the claim that reality is "really local but inaccessibly so" i
 
 **The uncertainty principle.** Position and momentum correspond to different ways of interrogating the hidden sector at infinitesimally separated moments. Pinning down one constrains the projection in a way that leaves the other maximally unconstrained. The Heisenberg uncertainty principle is the *within-physics* version of embedded-observer incompleteness; the 10¹²⁰ is the *between-physics* version.
 
-**Quantization** *(highly speculative).* Energy comes in discrete packets. One possibility is that quantization is a sampling artifact: a continuous underlying reality accessed through a finite-bandwidth projection that imposes discrete structure. This is a suggestive analogy, not a derived result.
-
 **Quantum computing.** Quantum algorithms exploit the indivisible correlations of the projected dynamics — engineering hidden-sector correlations so wrong answers interfere destructively and right answers constructively. Decoherence happens when uncontrolled environmental interactions scramble these correlations.
 
 ---
 
-## Beyond the Formal Results: Speculative Reinterpretations
+## Beyond the Formal Results
 
 *Everything above follows from the formal results. What follows explores reinterpretations that are consistent with those results but go beyond what the formal arguments establish. Each subsection is a direction for future investigation, not a proven result. The formal theorem's scope is limited to the cosmological constant problem (§5.2 of the technical paper); these extensions illustrate suggestive reach, not demonstrated range.*
 
 ### Dark Energy
 
-*Speculative.* Dark energy isn't a substance — it's the **mean-field residual** of the hidden sector. With 10²⁴⁰ degrees of freedom pushing in random directions, the central limit theorem predicts the leftover net push should be ~10¹²⁰ times smaller than the total activity — exactly what we observe. This also explains why dark energy behaves like a cosmological constant — with a fixed, unchanging pressure-to-density ratio ($w = -1$) — and why it has no dynamics: a statistical residual from massive cancellation has no internal structure to evolve.
+Dark energy isn't a substance — it's the **mean-field residual** of the hidden sector. With 10²⁴⁰ degrees of freedom pushing in random directions, the central limit theorem predicts the leftover net push should be ~10¹²⁰ times smaller than the total activity — exactly what we observe. This also explains why dark energy behaves like a cosmological constant — with a fixed, unchanging pressure-to-density ratio ($w = -1$) — and why it has no dynamics: a statistical residual from massive cancellation has no internal structure to evolve.
 
 ### The Arrow of Time
 
-*Speculative.* The fundamental laws of physics are time-symmetric, yet our experience is irreversibly one-directional. Entropy is the **rate of information loss to the hidden sector.** Information naturally flows from the small observable sector into the vast hidden sector, like heat from a hot cup to a cold room. The early universe started with an unusually large fraction of its information in the observable sector (low-entropy initial state), and that information has been draining into the hidden sector ever since. The Arrow of Time is information flowing downhill.
+The fundamental laws of physics are time-symmetric, yet our experience is irreversibly one-directional. Entropy is the **rate of information loss to the hidden sector.** Information naturally flows from the small observable sector into the vast hidden sector, like heat from a hot cup to a cold room. The early universe started with an unusually large fraction of its information in the observable sector (low-entropy initial state), and that information has been draining into the hidden sector ever since. The Arrow of Time is information flowing downhill.
 
 ### The Holographic Principle
 
-*Speculative.* The maximum information storable in a region of space is proportional to its *surface area*, not its volume. This follows naturally: the observer doesn't access the hidden sector directly, but only through the projection interface, whose bandwidth is proportional to the *area* of the boundary. Information is bounded by area because the observer's channel to reality is an area-limited interface.
+The maximum information storable in a region of space is proportional to its *surface area*, not its volume. This follows naturally: the observer doesn't access the hidden sector directly, but only through the projection interface, whose bandwidth is proportional to the *area* of the boundary. Information is bounded by area because the observer's channel to reality is an area-limited interface.
+
+### Quantization
+
+Energy comes in discrete packets. One possibility is that quantization is a sampling artifact: a continuous underlying reality accessed through a finite-bandwidth projection that imposes discrete structure. This is a suggestive analogy, not a derived result.
 
 ### What Gravity Actually Is
 
-*Speculative.* General relativity doesn't explain *why* mass curves spacetime. Gravity is the **mean-field projection** of the hidden sector — a statistical summary averaging over 10²⁴⁰ hidden degrees of freedom and reporting the net mechanical result as spacetime curvature. Mass curves spacetime because a concentration of energy in the observable sector is correlated with a concentration of hidden-sector activity.
+General relativity doesn't explain *why* mass curves spacetime. Gravity is the **mean-field projection** of the hidden sector — a statistical summary averaging over 10²⁴⁰ hidden degrees of freedom and reporting the net mechanical result as spacetime curvature. Mass curves spacetime because a concentration of energy in the observable sector is correlated with a concentration of hidden-sector activity.
 
 ### Black Holes
 
-*Speculative.* Black holes are what happens when the mean-field projection is pushed to its limit.
+Black holes are what happens when the mean-field projection is pushed to its limit.
 
 **The event horizon is an inference boundary** — the surface beyond which the projection becomes maximally lossy. Only the coarsest summaries survive: total mass, charge, spin. This is why the "no-hair theorem" holds — not because the interior is simple, but because the projection can't resolve its complexity.
 
@@ -218,15 +234,13 @@ An honest caveat: the claim that reality is "really local but inaccessibly so" i
 
 ### Dark Matter
 
-*Speculative.* If the hidden sector's contributions to the mean-field average aren't perfectly uniform across space — an additional assumption not established by the formal framework, which treats the hidden sector globally — some regions would have a larger-than-average net effect. These regions would curve spacetime and attract ordinary matter but wouldn't show up in non-gravitational experiments — matching the broad profile of dark matter. This is among the most speculative implications and would need to reproduce specific observational signatures (rotation curves, lensing, CMB power spectrum). It is offered as a direction for investigation rather than a developed alternative.
+If the hidden sector's contributions to the mean-field average aren't perfectly uniform across space — an additional assumption not established by the formal framework, which treats the hidden sector globally — some regions would have a larger-than-average net effect. These regions would curve spacetime and attract ordinary matter but wouldn't show up in non-gravitational experiments — matching the broad profile of dark matter. This is among the most speculative implications and would need to reproduce specific observational signatures (rotation curves, lensing, CMB power spectrum). It is offered as a direction for investigation rather than a developed alternative.
 
 ### Why 95% of the Universe Is Invisible
 
-*Speculative.* An embedded observer accessing reality through a mean-field projection that compresses 10²⁴⁰ degrees of freedom into an average is, almost by definition, going to see a universe dominated by statistical residuals. The 5% that's visible is the fraction organized into coherent, structured matter. The 95% is the vast statistical background. The question isn't "why is 95% dark?" — it's "how did 5% manage to be bright?"
+An embedded observer accessing reality through a mean-field projection that compresses 10²⁴⁰ degrees of freedom into an average is, almost by definition, going to see a universe dominated by statistical residuals. The 5% that's visible is the fraction organized into coherent, structured matter. The 95% is the vast statistical background. The question isn't "why is 95% dark?" — it's "how did 5% manage to be bright?"
 
-### Reinterpreting String Theory
-
-*Speculative. The following reinterpretations are suggestive but carry no formal backing.*
+### String Theory
 
 The Observational Incompleteness Theorem doesn't reject String Theory — it offers a possible reinterpretation.
 
@@ -237,20 +251,6 @@ The Observational Incompleteness Theorem doesn't reject String Theory — it off
 **The Landscape Problem.** String Theory's ~10⁵⁰⁰ solutions might reflect the internal complexity of a single universe's hidden sector rather than a catalogue of distinct universes. The hidden sector's 10²⁴⁰ degrees of freedom could generate far more configurations than 10⁵⁰⁰. This would reduce the need for a multiverse but remains highly conjectural.
 
 These reinterpretations share a common thread: String Theory may have found successful mathematics for the hidden sector but struggles to predict our observable world because it attempts to describe both sectors within a single framework — the operation the Observational Incompleteness Theorem says is impossible. Whether this reading survives contact with the detailed structure of string theory is an open question.
-
----
-
-## The Discrepancy as Measurement
-
-If the 10¹²⁰ is a variance-to-mean ratio, we can work backwards to find the hidden sector's size.
-
-With $N$ independent degrees of freedom each contributing energy of the same order, the quantum projection sums all contributions without regard to sign ($V \propto N$) while the gravitational projection sums them with their signs ($M \sim \sqrt{N}$). The ratio is $\sqrt{N}$:
-
-$$\sqrt{N} \sim 10^{120} \implies N \sim 10^{240}$$
-
-This is approximately $S_{\text{dS}}^2$ — the square of the Bekenstein-Hawking entropy of the cosmological horizon ($S_{\text{dS}} \sim 10^{122}$, giving $S_{\text{dS}}^2 \approx 10^{244}$, consistent at order-of-magnitude since the cosmological constant ratio is convention-dependent within $10^{120}$–$10^{123}$). Independently, Sorkin derived $\Lambda \sim N^{-1/2}$ from causal set theory — the same functional form — before the 1998 discovery of cosmic acceleration.
-
-The cosmological constant problem isn't a problem. It's the most precise measurement we have of the dimensionality of the parts of reality we cannot see.
 
 ---
 
@@ -302,7 +302,7 @@ The universe is not broken. We are just observing it from within, which sets fun
 
 In 1926, Einstein wrote to Max Born: "I, at any rate, am convinced that He does not throw dice." For a century, this has been read as Einstein being wrong. There is a more sympathetic reading. The full state of the universe, including its hidden sector, *is* definite. The dice are real, but they belong to the projection, not to reality itself. What Einstein called "the secret of the Old One" is not randomness. It is the structural fact that no observer inside the universe can see the whole game — and what we call quantum mechanics is what the game looks like through the keyhole.
 
-*This is a simplified overview of "The Incompleteness of Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From Within" (Maybaum, February 2026), which presents the mathematical proofs, formal theorems, and detailed experimental predictions. Several reinterpretations explored here (the arrow of time, dark matter, quantization, String Theory) go beyond the formal results and are flagged as speculative.*
+*This is a simplified overview of "The Incompleteness of Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From Within" (Maybaum, February 2026), which presents the formal theorems with detailed proofs and experimental predictions. Several reinterpretations explored here (the arrow of time, dark matter, quantization, String Theory) go beyond the formal results and provide direction for future research.*
 
 ***
 
