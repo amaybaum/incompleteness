@@ -3,7 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  11pt,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -16,15 +15,15 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-%\usepackage{lmodern}
+\usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
-  %\usepackage[]{microtype}
-  %\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
@@ -37,12 +36,10 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{amsmath,amssymb,amsthm}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -255,7 +252,7 @@ darkness is a property of our position, not of the stuff.
 \subsection{Two Projections, Two
 Answers}\label{two-projections-two-answers}}
 
-This builds on an insight from T. Padmanabhan, who in 2005 identified
+This builds on an insight from T. Padmanabhan, who in 2004 identified
 that the QFT and gravitational descriptions probe \emph{different
 statistical properties} of the same degrees of freedom. Padmanabhan's
 core insight is correct, but the \textbf{assignment should be inverted}:
@@ -729,6 +726,56 @@ form --- before the 1998 discovery of cosmic acceleration.
 The cosmological constant problem isn't a problem. It's the most precise
 measurement we have of the dimensionality of the parts of reality we
 cannot see.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{what-can-we-learn-about-what-we-cant-see}{%
+\subsection{What Can We Learn About What We Can't
+See?}\label{what-can-we-learn-about-what-we-cant-see}}
+
+A natural concern: if the hidden sector is permanently inaccessible, is
+it just a philosophical abstraction? No.~The Observational
+Incompleteness Theorem forbids \emph{simultaneous complete
+determination} of both projections. It does not forbid indirect
+knowledge --- and the derivation of \(N \sim 10^{240}\) already depends
+on it.
+
+The situation is analogous to a gas. You cannot know the position and
+momentum of every molecule. But you can measure temperature, pressure,
+and entropy --- genuine information about trillions of microscopic
+degrees of freedom, obtained without accessing any of them individually.
+The hidden sector is similar: its \emph{microstate} is permanently
+inaccessible, but its \emph{statistical properties} are not.
+
+\textbf{Already measured.} The effective dimensionality
+(\(N \sim 10^{240}\), extracted from the 10¹²⁰ ratio), the boundary
+entropy (\(S_{\text{dS}} \sim 10^{122}\), from the area of the
+cosmological horizon), and the sign structure (the cosmological constant
+is small but nonzero, meaning the hidden sector's contributions don't
+exactly cancel --- they produce \(\sqrt{N}\) scaling rather than zero).
+
+\textbf{Measurable with future instruments.} The hidden sector's
+\emph{relaxation timescale} --- how quickly perturbations at the
+projection boundary decay --- would be revealed by gravitational wave
+echoes (§Can We Test This?). Its \emph{high-frequency variance spectrum}
+would appear as the stochastic gravitational noise floor. Non-Markovian
+signatures in precision quantum experiments --- anomalous decoherence
+rates, quantum revivals, non-exponential decay --- are indirect readouts
+of the hidden sector's internal dynamics, because the Nakajima-Zwanzig
+memory kernel that produces quantum mechanics encodes how the hidden
+sector's past states influence the visible sector's present.
+
+\textbf{Permanently inaccessible.} The full microstate. The simultaneous
+determination of both the variance and the mean. Any quantity requiring
+direct causal access to trans-horizon or sub-Planckian degrees of
+freedom.
+
+The hidden sector is not a black box that yields nothing. It is a black
+box that yields \emph{statistical} information generously while
+withholding \emph{state-level} information permanently --- like a room
+you can never enter but whose walls you can tap, whose temperature you
+can feel through the door, and whose occupants occasionally slide notes
+under the gap.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
