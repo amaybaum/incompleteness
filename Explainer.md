@@ -9,11 +9,11 @@
 
 Physics has a contradiction it cannot resolve. Its two most successful theories — quantum mechanics and general relativity — flatly disagree about the most basic property of empty space: how much energy it contains.
 
-Quantum mechanics says the vacuum is seething with energy. Add up the zero-point fluctuations of every quantum field and you get roughly 10¹¹⁰ joules per cubic meter — an unimaginably large number.
+Quantum mechanics says the vacuum is seething with energy. Add up the zero-point fluctuations of every quantum field and you get roughly 10¹¹³ joules per cubic meter — an unimaginably large number.
 
 General relativity measures the vacuum's energy through its gravitational effect — the accelerating expansion of the universe — and gets about 6 × 10⁻¹⁰ joules per cubic meter. A very tiny number.
 
-The ratio is 10¹²⁰. That's a 1 followed by 120 zeros — the largest disagreement between theory and observation in all of science. For context, the number of atoms in the observable universe is only about 10⁸⁰.
+The ratio is roughly 10¹²² — conventionally rounded to 10¹²⁰ in the physics literature, and by any accounting the largest disagreement between theory and observation in all of science. For context, the number of atoms in the observable universe is only about 10⁸⁰.
 
 For decades, physicists have assumed something has gone badly wrong — that one or both calculations must contain an error, and that finding the mistake will lead to a "theory of everything" unifying quantum mechanics and gravity.
 
@@ -21,11 +21,11 @@ The opposite is true. **Neither calculation is wrong. They disagree because they
 
 ### The Two Calculations
 
-Quantum mechanics says every possible vibration mode of every quantum field contributes energy, even in a vacuum. You add up all those contributions — from the longest wavelengths to the shortest ones allowed by physics (the "Planck scale" cutoff) — and get roughly 10¹¹⁰ joules per cubic meter.
+Quantum mechanics says every possible vibration mode of every quantum field contributes energy, even in a vacuum. You add up all those contributions — from the longest wavelengths to the shortest ones allowed by physics (the "Planck scale" cutoff) — and get roughly 10¹¹³ joules per cubic meter.
 
 General relativity measures vacuum energy by observing how it makes the universe expand. Work backwards from the observed acceleration and you get roughly 6 × 10⁻¹⁰ joules per cubic meter.
 
-$$\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{120}$$
+$$\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{122}$$
 
 They disagree because they are measuring *different statistical properties* of the same underlying thing.
 
@@ -41,13 +41,13 @@ A **suspended dust speck** (Brownian motion) reveals the net mechanical push the
 
 These aren't giving contradictory information. They're measuring *different statistical properties* of the same underlying reality. The thermometer measures total activity (the variance). The dust speck measures net effect (the mean). For a system with trillions of molecules pushing in random directions, the total unsigned activity is naturally enormous compared to the tiny canceled-out residual.
 
-Quantum mechanics and general relativity are just like the thermometer and the dust speck. Quantum mechanics measures the *fluctuation content* of the vacuum — the total, unsigned activity. General relativity measures the *net mechanical effect* — the aggregate, canceled-out push on spacetime. The 10¹²⁰ ratio is the difference between an unsigned total and a canceled-out residual for a system with an astronomically large number of degrees of freedom. 
+Quantum mechanics and general relativity are just like the thermometer and the dust speck. Quantum mechanics measures the *fluctuation content* of the vacuum — the total, unsigned activity. General relativity measures the *net mechanical effect* — the aggregate, canceled-out push on spacetime. The 10¹²² ratio is the difference between an unsigned total and a canceled-out residual for a system with an astronomically large number of degrees of freedom. 
 
 ---
 
 ## Why This Isn't Just an Analogy
 
-There's a branch of mathematics, developed by physicist David Wolpert in 2008, that proves something remarkable: **any observer that is part of the system it's trying to measure faces irreducible limits on what it can know.** These limits don't depend on technology, intelligence, or computational power. They follow purely from the mathematical structure of being inside the thing you're measuring.
+There's a branch of mathematics, proved by physicist David Wolpert in 2008, that shows something remarkable: **any observer that is part of the system it's trying to measure faces irreducible limits on what it can know.** These limits don't depend on technology, intelligence, or computational power. They follow purely from the mathematical structure of being inside the thing you're measuring.
 
 ### Wolpert's Framework
 
@@ -61,7 +61,7 @@ Wolpert proved two key results:
 
 These theorems aren't about technology limitations. They're about *logical structure* — in the same family as Gödel's incompleteness theorem and Turing's halting problem.
 
-Wolpert's framework applies directly to quantum mechanics and gravity. The "fluctuation measurement" (QM) and the "mean-field measurement" (gravity) are exactly the kind of mutually exclusive probes that Wolpert's theorems say cannot be combined. The result is an **Observational Incompleteness Theorem**: no observer inside the universe can simultaneously determine both the quantum and gravitational descriptions of vacuum energy. The 10¹²⁰ discrepancy is the quantitative signature of this impossibility.
+Wolpert's framework applies directly to quantum mechanics and gravity. The "fluctuation measurement" (QM) and the "mean-field measurement" (gravity) are exactly the kind of mutually exclusive probes that Wolpert's theorems say cannot be combined. The result is an **Observational Incompleteness Theorem**: no observer inside the universe can simultaneously determine both the quantum and gravitational descriptions of vacuum energy. The 10¹²² discrepancy is the quantitative signature of this impossibility.
 
 ---
 
@@ -79,7 +79,7 @@ The universe's degrees of freedom split into everything the observer *can* acces
 
 **Behind an accelerating observer.** When you accelerate close to the speed of light, the math of relativity dictates that a "Rindler horizon" forms behind you. Anything beyond that boundary can never catch up to your reference frame. Your acceleration dynamically creates a new hidden sector, instantaneously re-partitioning what you can and cannot see. 
 
-How much can an observer access? There is a fundamental result in physics (the Bekenstein-Hawking entropy) that sets the answer: the maximum information available to an observer is proportional to the *area* of their causal boundary. For our cosmological horizon, this works out to ~10¹²² degrees of freedom in the visible sector. The hidden sector is far larger — ~10²⁴⁰ degrees of freedom, as derived below (§The Ratio as Measurement).
+How much can an observer access? There is a fundamental result in physics (the Bekenstein-Hawking entropy) that sets the answer: the maximum information available to an observer is proportional to the *area* of their causal boundary. For our cosmological horizon, this works out to ~10¹²² degrees of freedom in the visible sector. The hidden sector is far larger — ~10²⁴⁴ degrees of freedom, as derived below (§The Ratio as Measurement).
 
 **Why this matters.** Standard physics assumes the "dark" 95% of the universe requires exotic particles — WIMPs, axions, sterile neutrinos. But the hidden sector is made of *standard* degrees of freedom, causally separated from us by horizons or by scale. The darkness is a property of our position, not of the stuff.
 
@@ -123,22 +123,22 @@ If you get the variance exactly right ($\epsilon_{\text{fluc}} = 1$), the produc
 
 ### The Inference-Ontology Bridge
 
-There is an important subtlety. Wolpert's theorem is about *inference accuracy*, not physical ontology. The theorem doesn't necessarily mean there is no 'true' objective vacuum energy out there in the universe. Rather, it means that even if a single true vacuum state exists, no embedded observer can simultaneously extract both its fluctuation (quantum) and mean-field (gravitational) properties. The 10¹²⁰ discrepancy is the artifact of our embeddedness.
+There is an important subtlety. Wolpert's theorem is about *inference accuracy*, not physical ontology. The theorem doesn't necessarily mean there is no 'true' objective vacuum energy out there in the universe. Rather, it means that even if a single true vacuum state exists, no embedded observer can simultaneously extract both its fluctuation (quantum) and mean-field (gravitational) properties. The 10¹²² discrepancy is the artifact of our embeddedness.
 
 ---
 
 ## The Ratio as Measurement
 
-If the 10¹²⁰ is a variance-to-mean ratio, we can work backwards to find the hidden sector's size.
+If the 10¹²² is a variance-to-mean ratio, we can work backwards to find the hidden sector's size.
 
 With $N$ independent degrees of freedom each contributing energy of the same order, the quantum projection sums all contributions without regard to sign ($V \propto N$) while the gravitational projection sums them with their signs ($M \sim \sqrt{N}$). Their ratio is a function of $\sqrt{N}$ alone:
 
 $$\frac{V}{M} \sim \frac{N}{\sqrt{N}} = \sqrt{N}$$
 Setting this equal to the observed value:
 
-$$\sqrt{N} \sim 10^{120} \implies N \sim 10^{240}$$
+$$\sqrt{N} \sim 10^{122} \implies N \sim 10^{244}$$
 
-This is approximately $S_{\text{dS}}^2$ — the square of the Bekenstein-Hawking entropy of the cosmological horizon ($S_{\text{dS}} \sim 10^{122}$, giving $S_{\text{dS}}^2 \approx 10^{244}$, consistent at order-of-magnitude since the cosmological constant ratio is convention-dependent within $10^{120}$–$10^{123}$). Independently, Sorkin derived $\Lambda \sim N^{-1/2}$ from causal set theory — the same functional form — before the 1998 discovery of cosmic acceleration.
+This is $S_{\text{dS}}^2$ — the square of the Bekenstein-Hawking entropy of the cosmological horizon ($S_{\text{dS}} \sim 10^{122}$). Independently, Sorkin derived $\Lambda \sim N^{-1/2}$ from causal set theory — the same functional form — before the 1998 discovery of cosmic acceleration.
 
 The cosmological constant problem isn't a problem. It's the most precise measurement we have of the dimensionality of the parts of reality we cannot see.
 
@@ -150,7 +150,7 @@ When you "trace out" the hidden sector — mathematically discard the hidden deg
 
 #### The Barandes Stochastic-Quantum Correspondence
 
-In 2023, Jacob Barandes proved that **any indivisible stochastic process is exactly equivalent to a quantum system.** 
+In 2023, Jacob Barandes proved that **any indivisible stochastic process is exactly equivalent to a quantum system.** (The companion paper, "The Stochastic-Quantum Correspondence," is published in *Philosophy of Physics*; the core mathematical theorem paper remains a preprint under review.)
 
 A stochastic process is **divisible** if you can break a long transition into independent shorter ones. An **indivisible** process cannot be decomposed this way — the system has *temporal memory* that can't be captured by the present state alone.
 
@@ -185,13 +185,13 @@ The counterintuitive phenomena of quantum mechanics all *have natural readings* 
 
 **Entanglement.** When two entangled particles are measured, the correlation arises because the hidden sector mediates correlations between them — like two thermometers reading the same temperature because they're immersed in the same water, not because one signals the other. No information travels between the particles.
 
-**Bell's Theorem.** The immediate objection is: doesn't this sound like a local hidden variable theory, which Bell's theorem proved impossible? No — and the distinction matters. Bell proved that no theory producing *classical* (divisible, factorable) statistics can reproduce quantum correlations. But forcing the statistics of the universe to be classical would require $10^{240}$ hidden degrees of freedom to perfectly and accidentally cancel out their historical memory at all times. That level of fine-tuning is mathematically pathological. When you trace out a hidden sector this massive, the resulting dynamics are inescapably non-Markovian (indivisible). And by Barandes' theorem, indivisible stochastic processes *are* quantum mechanics. They violate Bell inequalities natively, not by smuggling in faster-than-light signals, but because tracing out $10^{240}$ local, definite, but inaccessible variables mathematically guarantees a fundamentally non-classical probability structure. *(It is worth noting that while indivisibility guarantees non-classical Bell violations, mapping this specific memory kernel to the exact numerical limits of standard quantum mechanics remains an exciting open mathematical problem.)*
+**Bell's Theorem.** The immediate objection is: doesn't this sound like a local hidden variable theory, which Bell's theorem proved impossible? No — and the distinction matters. Bell proved that no theory whose statistics *factorize* — meaning the joint probability of two distant measurements decomposes into a product of independent single-measurement probabilities — can reproduce quantum correlations. This spatial factorizability is the mathematical heart of Bell's theorem. Now, when you trace out the hidden sector, the Nakajima-Zwanzig memory kernel makes the visible sector's dynamics *temporally indivisible* — its future depends on its history, not just its present state. For the resulting statistics to be spatially factorable (Bell-classical), the $10^{244}$ hidden degrees of freedom would need to perfectly and accidentally cancel out their historical memory at all times — a mathematically pathological level of fine-tuning. When you trace out a hidden sector this massive, the resulting dynamics are generically non-factorable. And by Barandes' theorem, indivisible stochastic processes *are* quantum mechanics — they violate Bell inequalities not by exploiting a loophole, but for the same structural reason quantum systems do: their correlations cannot be decomposed into independent local parts. *(It is worth noting that while indivisibility guarantees non-classical Bell violations, mapping this specific memory kernel to the exact numerical limits of standard quantum mechanics remains an exciting open mathematical problem.)*
 
 **The Born rule.** The recipe for converting quantum states into probabilities is a *consequence* of the projection: the statistical distribution of measurement outcomes follows from the mathematics of how incomplete descriptions work.
 
 **Tunneling.** The barrier exists in the projected description, but the full system includes hidden-sector degrees of freedom that the projection doesn't represent. The particle utilizes these to bypass a restriction that exists only in the observable sector.
 
-**The uncertainty principle.** Position and momentum correspond to different ways of interrogating the hidden sector at infinitesimally separated moments. Pinning down one constrains the projection in a way that leaves the other maximally unconstrained. The Heisenberg uncertainty principle is the *within-physics* version of embedded-observer incompleteness; the 10¹²⁰ is the *between-physics* version.
+**The uncertainty principle.** Position and momentum correspond to different ways of interrogating the hidden sector at infinitesimally separated moments. Pinning down one constrains the projection in a way that leaves the other maximally unconstrained. The Heisenberg uncertainty principle is the *within-physics* version of embedded-observer incompleteness; the 10¹²² is the *between-physics* version.
 
 **Quantum computing.** Quantum algorithms exploit the indivisible correlations of the projected dynamics — engineering hidden-sector correlations so wrong answers interfere destructively and right answers constructively. Decoherence happens when uncontrolled environmental interactions scramble these correlations.
 

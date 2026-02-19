@@ -16,9 +16,9 @@ Using Wolpert's (2008) physics-independent impossibility theorems for inference 
 
 Via the Nakajima-Zwanzig formalism and Barandes' (2023) stochastic-quantum correspondence, it is further shown that tracing out the hidden sector generically produces indivisible subsystem dynamics — mathematically equivalent to quantum mechanics — yielding non-factorable statistics that evade Bell's theorem without nonlocality.
 
-The 10¹²⁰ cosmological constant discrepancy is not an error but the quantitative signature of this structural incompleteness. Interpreting the 10¹²⁰ as a variance-to-mean ratio yields roughly 10²⁴⁰ hidden-sector degrees of freedom — equal to the square of the Bekenstein-Hawking entropy of the cosmological horizon — converting the cosmological constant problem from a mystery into a measurement.
+The 10¹²² cosmological constant discrepancy is not an error but the quantitative signature of this structural incompleteness. Interpreting the 10¹²² as a variance-to-mean ratio yields roughly 10²⁴⁴ hidden-sector degrees of freedom — equal to the square of the Bekenstein-Hawking entropy of the cosmological horizon — converting the cosmological constant problem from a mystery into a measurement.
 
-Specific experimental predictions are offered, including near-term null predictions for particles postulated to resolve the vacuum energy discrepancy and longer-term frequency-dependent scaling relations for gravitational wave echoes and a stochastic noise floor quantitatively anchored to the 10¹²⁰ ratio.
+Specific experimental predictions are offered, including near-term null predictions for particles postulated to resolve the vacuum energy discrepancy and longer-term frequency-dependent scaling relations for gravitational wave echoes and a stochastic noise floor quantitatively anchored to the 10¹²² ratio.
 
 ---
 
@@ -34,7 +34,7 @@ The sharpest manifestation of the QM-GR incompatibility is the **cosmological co
 
 **Quantum mechanics** computes the vacuum energy by summing zero-point fluctuations of all quantum field modes up to the Planck scale:
 
-$$\rho_{\text{QM}} \sim \frac{E_{\text{Pl}}^{\,4}}{(\hbar c)^3} \sim 10^{110} \text{J/m}^3$$
+$$\rho_{\text{QM}} \sim \frac{E_{\text{Pl}}^{\,4}}{(\hbar c)^3} \sim 10^{113} \text{J/m}^3$$
 
 **General relativity** measures the vacuum energy through its gravitational effect — the accelerated expansion of the universe:
 
@@ -42,9 +42,9 @@ $$\rho_{\text{grav}} = \frac{\Lambda \, c^2}{8\pi G} \sim 6 \times 10^{-10} \tex
 
 The ratio:
 
-$$\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{120}$$
+$$\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{122}$$
 
-is the largest quantitative disagreement in all of physics. The standard interpretation is that some unknown mechanism cancels the QFT contribution down to the observed value, requiring fine-tuning to one part in $10^{120}$. Decades of effort have failed to find such a mechanism [2, 3].
+is the largest quantitative disagreement in all of physics (conventionally rounded to $10^{120}$ in the literature). The standard interpretation is that some unknown mechanism cancels the QFT contribution down to the observed value, requiring fine-tuning to one part in $10^{122}$. Decades of effort have failed to find such a mechanism [2, 3].
 
 A different interpretation is proposed: **neither calculation is wrong. They disagree because they are answering fundamentally different questions about the same thing.**
 
@@ -108,7 +108,7 @@ Because the two operations extract independent statistical moments of $\Phi$ (va
 
 **The Nakajima-Zwanzig Constraint.** The degradation of the Wolpert bound is not merely a conjecture; it is dynamically enforced by the trace-out operation itself. When the hidden sector is traced out, the Nakajima-Zwanzig generalized master equation dictates that the visible sector's density matrix $\rho_v(t)$ evolves under the influence of a shared non-Markovian memory kernel, $\mathcal{K}(t, \tau)$, which encodes the hidden sector's temporal correlations. Because both the positive-definite sum (variance/Unruh spectrum) and the sign-admitting trace (mean/gravitational curvature) must be computed from this exact same $\rho_v(t)$, any fluctuation in the hidden sector propagates through $\mathcal{K}(t, \tau)$ to simultaneously shift both projections. They are therefore permanently structurally coupled, mathematically guaranteeing that the variance and mean cannot be completely independently configured, thus locking the incompleteness discrepancy into the observable physics.
 
-**The bound.** Wolpert's stochastic extension [4, §4, Corollary 2] gives:
+**The bound.** Wolpert's stochastic extension [4, §8, Proposition 6] gives:
 
 $$\epsilon_{\text{fluc}} \cdot \epsilon_{\text{mech}} \leq \frac{1}{4}$$
 
@@ -130,7 +130,7 @@ The answer follows from three established results:
 
 **The chain.** Embedded observation → hidden sector → trace-out → memory kernel (Nakajima-Zwanzig) → indivisibility → quantum mechanics (Barandes). The quantum-mechanical description of the visible sector is not postulated — it is *derived* from the structure of embedded observation.
 
-**Relation to Bell's theorem.** A critical consequence of this inescapable indivisibility is the natural evasion of Bell's theorem. Bell proved that no factorable hidden-variable model can reproduce quantum correlations. However, because fine-tuning the memory kernel to zero across $10^{240}$ degrees of freedom is mathematically pathological, the hidden sector generically produces non-factorable, indivisible statistics. Therefore, by Barandes' correspondence, these statistics violate Bell inequalities natively without requiring nonlocality. *It must be noted that while indivisibility guarantees Bell violations, mapping the specific non-Markovian memory kernel of the cosmological hidden sector to the exact Tsirelson bound ($2\sqrt{2}$) of standard quantum mechanics remains a critical open mathematical problem (see §5.3).*
+**Relation to Bell's theorem.** A critical consequence of this inescapable indivisibility is the natural accommodation of Bell's theorem. Bell proved that no model whose measurement statistics *factorize* — i.e., where the joint probability P(A,B|λ,a,b) decomposes into P(A|λ,a)·P(B|λ,b) — can reproduce quantum correlations. Temporal indivisibility (non-decomposability of transition matrices) is conceptually distinct from but structurally linked to spatial non-factorizability (Bell's condition): because fine-tuning the memory kernel to zero across $10^{244}$ degrees of freedom is mathematically pathological, the hidden sector generically produces non-factorable statistics. Therefore, by Barandes' correspondence, these statistics violate Bell inequalities not by exploiting a loophole but for the same structural reason quantum systems do — their correlations cannot be decomposed into independent local parts. *It must be noted that while indivisibility guarantees Bell violations, mapping the specific non-Markovian memory kernel of the cosmological hidden sector to the exact Tsirelson bound ($2\sqrt{2}$) of standard quantum mechanics remains a critical open mathematical problem (see §5.3).*
 
 **Status of results.** The Nakajima-Zwanzig formalism [22, 23] and the Stinespring dilation theorem are textbook results. Barandes' stochastic-quantum correspondence paper is published [25]; the core mathematical theorem [24] remains a preprint. The generic indivisibility of the trace-out (Step 2) is the step with the weakest formal status — it is physically well-motivated but a rigorous measure-theoretic proof that divisibility has measure zero in the space of hidden-sector Hamiltonians remains open (see §5.3).
 
@@ -146,9 +146,9 @@ $$\frac{V}{M} \sim \frac{N}{\sqrt{N}} = \sqrt{N}$$
 
 Setting this equal to the observed value:
 
-$$\sqrt{N} \sim 10^{120}$$
+$$\sqrt{N} \sim 10^{122}$$
 
-$$\boxed{N \sim 10^{240}}$$
+$$\boxed{N \sim 10^{244}}$$
 
 **Assumption of Statistical Independence and Broken Symmetry:** The derivation of $M \sim \sqrt{N}$ via the central limit theorem assumes that the $N$ degrees of freedom contribute to the stress-energy tensor with effectively random signs. This requires that the hidden sector lacks exact, unbroken symmetries (such as exact supersymmetry) that would enforce strict, mode-by-mode cancellation (yielding $M = 0$). Provided such symmetries are dynamically broken across the vast majority of the hidden sector's phase space, the $\sqrt{N}$ scaling emerges not as a special condition, but as the generic macroscopic residual of high-dimensional, uncorrelated sums.
 
@@ -156,23 +156,23 @@ $$\boxed{N \sim 10^{240}}$$
 
 ### 3.2 The Holographic Coincidence
 
-The Bekenstein-Hawking entropy of the cosmological horizon is independently $S_{\text{dS}} \sim 10^{122}$ [12, 18]. The hidden-sector dimensionality is therefore approximately:
+The Bekenstein-Hawking entropy of the cosmological horizon is independently $S_{\text{dS}} \sim 10^{122}$ [12, 18]. The hidden-sector dimensionality is therefore:
 
-$$N \sim S_{\text{dS}}^{\,2} \sim \left(10^{122}\right)^2 \approx 10^{244}$$
+$$N \sim S_{\text{dS}}^{\,2} \sim \left(10^{122}\right)^2 = 10^{244}$$
 
-This is consistent at order-of-magnitude with the $\sim 10^{240}$ derived from the cosmological constant ratio, since that ratio itself is convention-dependent within $10^{120}$–$10^{123}$ depending on the UV cutoff used.
+matching the value derived from the cosmological constant ratio.
 
-This is supported by Sorkin's causal-set prediction [17], which derives $\Lambda \sim N^{-1/2}$ from Poisson fluctuations in spacetime atoms — the same functional form as the variance-to-mean scaling — before the 1998 discovery of cosmic acceleration. The value $N \sim 10^{240}$ is an input to Sorkin's model; the genuine prediction is the scaling relation, which independently confirms the statistical structure posited here.
+This is supported by Sorkin's causal-set prediction [17], which derives $\Lambda \sim N^{-1/2}$ from Poisson fluctuations in spacetime atoms — the same functional form as the variance-to-mean scaling — before the 1998 discovery of cosmic acceleration. The value $N \sim 10^{244}$ is an input to Sorkin's model; the genuine prediction is the scaling relation, which independently confirms the statistical structure posited here.
 
 ### 3.3 Robustness
 
-The $\sqrt{N}$ scaling is robust: replacing random signs with random complex phases preserves it, and weak pairwise correlations modify the estimate only when the correlation coefficient reaches order $1/N$ — a fine-tuned regime. The result exceeds the number of Planck volumes in the observable universe (~$10^{185}$) by ~$10^{55}$, ruling out "one degree of freedom per Planck volume" and implying a holographic or extra-dimensional structure.
+The $\sqrt{N}$ scaling is robust: replacing random signs with random complex phases preserves it, and weak pairwise correlations modify the estimate only when the correlation coefficient reaches order $1/N$ — a fine-tuned regime. The result exceeds the number of Planck volumes in the observable universe (~$10^{185}$) by ~$10^{59}$, ruling out "one degree of freedom per Planck volume" and implying a holographic or extra-dimensional structure.
 
 ### 3.4 Indirect Access to the Hidden Sector
 
 The Observational Incompleteness Theorem does not imply that the hidden sector yields zero information. The Wolpert bound constrains *simultaneous complete determination* of both projections; substantial indirect knowledge remains accessible — and the results of §3.1–3.3 already depend on it.
 
-**Statistical properties are accessible even when the microstate is not.** The situation is analogous to statistical mechanics: the position and momentum of every molecule in a gas are inaccessible, but temperature, pressure, entropy, and heat capacity are measurable and constitute genuine information about the microscopic degrees of freedom. The hidden sector's effective dimensionality ($N \sim 10^{240}$), its sign structure (producing $\sqrt{N}$ rather than exact cancellation), and its boundary entropy ($S_{\text{dS}} \sim 10^{122}$) are all already-measured statistical properties of this kind.
+**Statistical properties are accessible even when the microstate is not.** The situation is analogous to statistical mechanics: the position and momentum of every molecule in a gas are inaccessible, but temperature, pressure, entropy, and heat capacity are measurable and constitute genuine information about the microscopic degrees of freedom. The hidden sector's effective dimensionality ($N \sim 10^{244}$), its sign structure (producing $\sqrt{N}$ rather than exact cancellation), and its boundary entropy ($S_{\text{dS}} \sim 10^{122}$) are all already-measured statistical properties of this kind.
 
 **Boundary properties are directly measurable.** The Bekenstein-Hawking entropy characterizes the *interface* between visible and hidden sectors. Hawking radiation, black hole quasinormal mode spectra, and the CMB power spectrum (as a snapshot of the last scattering surface) all carry information imprinted by the hidden sector at the causal boundary. The holographic principle implies the boundary encodes the bulk — but in a form that Wolpert's theorem guarantees no embedded observer can fully decode.
 
@@ -192,7 +192,7 @@ If the Observational Incompleteness Theorem is correct, General Relativity is an
 
 **4.2 Gravitational Wave Echoes (future detectors).** The event horizon is the limit of the mechanical projection. Future observations of binary black hole mergers should detect **post-merger echoes** [15] whose amplitude scales with the ratio of probe frequency to the hidden sector's relaxation frequency. This frequency-dependent slope distinguishes mean-field breakdown from static surface models, which predict frequency-independent reflectivity.
 
-**4.3 Stochastic Gravitational Noise Floor (future detectors).** Since gravity is the mean of a high-variance distribution, it should exhibit statistical fluctuations at high frequencies: a **stochastic gravitational wave background** in the MHz–GHz band [16], with an inverse-frequency-squared spectrum. The amplitude is anchored to the $10^{120}$ ratio and is falsifiable.
+**4.3 Stochastic Gravitational Noise Floor (future detectors).** Since gravity is the mean of a high-variance distribution, it should exhibit statistical fluctuations at high frequencies: a **stochastic gravitational wave background** in the MHz–GHz band [16], with an inverse-frequency-squared spectrum. The amplitude is anchored to the $10^{122}$ ratio and is falsifiable.
 
 **4.4 Dynamic Unruh-Gravity Scaling (theoretical).** If the vacuum energy discrepancy is a function of the inference boundary, it must scale dynamically for an accelerating observer. Acceleration generates a Rindler horizon, establishing a localized hidden sector whose degrees of freedom, $N_a$, depend strictly on the horizon's area. The framework predicts that the Unruh thermal spectrum (the local variance, $V_a$) and the high-frequency stochastic gravitational noise floor (the local mean, $M_a$) must exhibit a locked, correlated running according to:
 $$\frac{V_{\text{Unruh}}(a)}{M_{\text{GravNoise}}(a)} \sim \sqrt{N_a(a)}$$
@@ -212,13 +212,13 @@ The closest precedent is Padmanabhan [19], whose variance-mean distinction is ad
 
 ### 5.2 Key Objections
 
-**"The QFT vacuum energy calculation is just wrong."** The theorem does not depend on the specific value. It depends on the structural claim that the fluctuation and mechanical measures are computed by different operations and need not agree. Even if a UV-complete theory reduces the mismatch from $10^{120}$ to $10^{40}$, the conceptual problem remains.
+**"The QFT vacuum energy calculation is just wrong."** The theorem does not depend on the specific value. It depends on the structural claim that the fluctuation and mechanical measures are computed by different operations and need not agree. Even if a UV-complete theory reduces the mismatch from $10^{122}$ to $10^{40}$, the conceptual problem remains.
 
-**"Doesn't this just redescribe the cosmological constant problem?"** The $10^{120}$ converts from an unexplained free parameter into a derived quantity: the $10^{120}$ yields ~$10^{240}$ hidden-sector degrees of freedom, corroborated by the de Sitter entropy and Sorkin's scaling. It also generates falsifiable predictions (§4) that the standard formulation does not.
+**"Doesn't this just redescribe the cosmological constant problem?"** The $10^{122}$ converts from an unexplained free parameter into a derived quantity: the $10^{122}$ yields ~$10^{244}$ hidden-sector degrees of freedom, corroborated by the de Sitter entropy and Sorkin's scaling. It also generates falsifiable predictions (§4) that the standard formulation does not.
 
-**"A hidden sector mediating correlations between entangled particles is a local hidden variable theory, and Bell's theorem rules those out."** As shown in §2.6, the hidden sector is not a local hidden variable theory in Bell's sense [21]. Bell's theorem requires that hidden variables produce *divisible* (factorable) statistics; the trace-out of the hidden sector produces *indivisible* statistics via the Nakajima-Zwanzig memory kernel, which by Barandes' correspondence [24, 25] violate Bell inequalities natively. The full argument is developed in §2.6.
+**"A hidden sector mediating correlations between entangled particles is a local hidden variable theory, and Bell's theorem rules those out."** As shown in §2.6, the hidden sector is not a local hidden variable theory in Bell's sense [21]. Bell's theorem requires that hidden variables produce *factorable* statistics — joint probabilities that decompose into products of independent local terms. The trace-out of the hidden sector produces *indivisible* statistics via the Nakajima-Zwanzig memory kernel. Temporal indivisibility and spatial non-factorizability are conceptually distinct but structurally linked: the former generically entails the latter when the hidden sector is sufficiently large. By Barandes' correspondence [24, 25], these non-factorable statistics violate Bell inequalities for the same structural reason quantum systems do. The full argument is developed in §2.6.
 
-**"This conflates epistemology (what we can measure) with ontology (what exists)."** The Observational Incompleteness Theorem strictly bounds inference accuracy, not physical ontology. The theorem does not preclude the existence of a single, objective, observer-independent vacuum state. Rather, it proves that no embedded observer can simultaneously extract both its fluctuation (quantum) and mean-field (gravitational) properties, because the operational procedures required to measure them are structurally mutually exclusive. The $10^{120}$ discrepancy is therefore an epistemological artifact of embeddedness, even if the underlying ontology is perfectly unified.
+**"This conflates epistemology (what we can measure) with ontology (what exists)."** The Observational Incompleteness Theorem strictly bounds inference accuracy, not physical ontology. The theorem does not preclude the existence of a single, objective, observer-independent vacuum state. Rather, it proves that no embedded observer can simultaneously extract both its fluctuation (quantum) and mean-field (gravitational) properties, because the operational procedures required to measure them are structurally mutually exclusive. The $10^{122}$ discrepancy is therefore an epistemological artifact of embeddedness, even if the underlying ontology is perfectly unified.
 
 **"The QM-GR incompatibility has concrete mathematical manifestations that no interpretive framework can dissolve."** This is the strongest objection. Non-renormalizability of perturbative quantum gravity, the frozen-time problem, and the information paradox are structural features of the mathematical theories. The theorem's scope is limited to the cosmological constant problem. What it claims is that even if those problems were solved, the variance-mean discrepancy would persist.
 
@@ -230,9 +230,9 @@ The closest precedent is Padmanabhan [19], whose variance-mean distinction is ad
 
 ## 6. CONCLUSION
 
-**First**, embedded observers face irreducible inference limits (Wolpert), quantum mechanics and general relativity represent two structurally incompatible projections of the same hidden sector (the Observational Incompleteness Theorem), and the $10^{120}$ cosmological constant discrepancy is the quantitative signature of this incompleteness.
+**First**, embedded observers face irreducible inference limits (Wolpert), quantum mechanics and general relativity represent two structurally incompatible projections of the same hidden sector (the Observational Incompleteness Theorem), and the $10^{122}$ cosmological constant discrepancy is the quantitative signature of this incompleteness.
 
-**Second**, the $10^{120}$ converts from a problem into a measurement: ~$10^{240}$ hidden-sector degrees of freedom — approximately the square of the de Sitter entropy — with $\Lambda \sim N^{-1/2}$ independently confirmed by Sorkin.
+**Second**, the $10^{122}$ converts from a problem into a measurement: ~$10^{244}$ hidden-sector degrees of freedom — the square of the de Sitter entropy — with $\Lambda \sim N^{-1/2}$ independently confirmed by Sorkin.
 
 If correct, the incompatibility between quantum mechanics and gravity is not a bug to be fixed. It is the physical analogue of Gödel incompleteness — the universe telling observers, in the starkest numerical terms available, that they are inside the system they are trying to describe.
 
@@ -278,11 +278,11 @@ During the preparation of this work, the author used **Claude Opus 4.6 (Anthropi
 
 [16] A. Arvanitaki and A. A. Geraci, "Detecting High-Frequency Gravitational Waves with Optically Levitated Sensors," *Phys. Rev. Lett.* **110**, 071105 (2013).
 
-[17] S. Ahmed, S. Dodelson, P. B. Greene, and R. Sorkin, "Everpresent $\Lambda$," *Phys. Rev. D* **69**, 103523 (2004). arXiv:astro-ph/0209274.
+[17] M. Ahmed, S. Dodelson, P. B. Greene, and R. Sorkin, "Everpresent $\Lambda$," *Phys. Rev. D* **69**, 103523 (2004). arXiv:astro-ph/0209274.
 
 [18] G. W. Gibbons and S. W. Hawking, "Cosmological event horizons, thermodynamics, and particle creation," *Phys. Rev. D* **15**, 2738 (1977).
 
-[19] T. Padmanabhan, "Vacuum Fluctuations of Energy Density can lead to the observed Cosmological Constant," *Class. Quantum Grav.* **22**, L107–L112 (2004). arXiv:hep-th/0406060.
+[19] T. Padmanabhan, "Vacuum Fluctuations of Energy Density can lead to the observed Cosmological Constant," *Class. Quantum Grav.* **22**, L107–L112 (2005). arXiv:hep-th/0406060.
 
 [20] T. Padmanabhan and H. Padmanabhan, "Cosmic Information, the Cosmological Constant and the Amplitude of primordial perturbations," *Phys. Lett. B* **773**, 81–85 (2017). arXiv:1703.06144.
 
