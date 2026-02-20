@@ -21,13 +21,13 @@ The opposite is true. **Neither calculation is wrong. They disagree because they
 
 ### The Two Calculations
 
-Quantum mechanics says every possible vibration mode of every quantum field contributes energy, even in a vacuum. You add up all those contributions — from the longest wavelengths to the shortest ones allowed by physics (the "Planck scale" cutoff) — and get roughly 10¹¹³ joules per cubic meter.
+Quantum mechanics calculates the vacuum's **fluctuation power spectrum**. It measures the absolute magnitude of zero-point activity for every quantum field. You add up all those active fluctuations — from the longest wavelengths to the shortest ones allowed by physics (the "Planck scale" cutoff) — and get roughly 10¹¹³ joules per cubic meter.
 
-General relativity measures vacuum energy by observing how it makes the universe expand. Work backwards from the observed acceleration and you get roughly 6 × 10⁻¹⁰ joules per cubic meter.
+General relativity calculates the vacuum's **macroscopic expectation value**. It measures how the vacuum's energy actually pushes on spacetime (the stress-energy tensor). Work backwards from the observed cosmic acceleration and you get roughly 6 × 10⁻¹⁰ joules per cubic meter.
 
 $$\frac{\rho_{\text{QM}}}{\rho_{\text{grav}}} \sim 10^{122}$$
 
-They disagree because they are measuring *different statistical properties* of the same underlying thing.
+They disagree because they are extracting *different statistical properties* from the same underlying reality.
 
 ---
 
@@ -35,11 +35,12 @@ They disagree because they are measuring *different statistical properties* of t
 
 Imagine you want to understand the energy of a calm glass of water. You have two ways to measure it:
 
-A **thermometer** measures the total thermal fluctuation — every molecule's kinetic energy contributes positively, regardless of direction. The reading is enormous because nothing cancels. This is a *variance-type* measurement.
+A **thermometer** measures the total thermal fluctuation — every molecule's kinetic energy contributes positively, regardless of direction. The reading is enormous because nothing cancels out. This is a *variance-type* measurement.
 
-A **suspended dust speck** (Brownian motion) reveals the net mechanical push the water exerts.  At any given microsecond, millions of molecules strike from the left and millions from the right. Their impacts mostly cancel. The net push is just the tiny statistical residual left over. This is a *mean-type* measurement.
+A **suspended dust speck** (Brownian motion) reveals the net mechanical push the water exerts. At any given microsecond, millions of molecules strike from the left and millions from the right. Their impacts mostly cancel. The net push is just the tiny statistical residual left over. This is a *mean-type* measurement.
 
-These aren't giving contradictory information. They're measuring *different statistical properties* of the same underlying reality. The thermometer measures total activity (the variance). The dust speck measures net effect (the mean). For a system with trillions of molecules pushing in random directions, the total unsigned activity is naturally enormous compared to the tiny canceled-out residual.
+
+These aren't giving contradictory information. They're measuring fundamentally different statistical properties. The thermometer measures total unsigned activity (the variance). The dust speck measures the net, canceled-out push (the mean). For a system with trillions of molecules pushing in random directions, the total unsigned activity is naturally enormous compared to the tiny canceled-out residual.
 
 Quantum mechanics and general relativity are just like the thermometer and the dust speck. Quantum mechanics measures the *fluctuation content* of the vacuum — the total, unsigned activity. General relativity measures the *net mechanical effect* — the aggregate, canceled-out push on spacetime. The 10¹²² ratio is the difference between an unsigned total and a canceled-out residual for a system with an astronomically large number of degrees of freedom. 
 
@@ -47,7 +48,7 @@ Quantum mechanics and general relativity are just like the thermometer and the d
 
 ## Why This Isn't Just an Analogy
 
-There's a branch of mathematics, proved by physicist David Wolpert in 2008, that shows something remarkable: **any observer that is part of the system it's trying to measure faces irreducible limits on what it can know.** These limits don't depend on technology, intelligence, or computational power. They follow purely from the mathematical structure of being inside the thing you're measuring.
+There's a deeper reason this works. In 2008, physicist David Wolpert proved a set of theorems showing that **any observer that is part of the system it's trying to measure faces irreducible limits on what it can know.** These limits don't depend on technology, intelligence, or computational power. They follow purely from the mathematical structure of being inside the thing you're measuring.
 
 ### Wolpert's Framework
 
@@ -57,31 +58,27 @@ Wolpert proved two key results:
 
 **(a) The "Blind Spot" Theorem.** There is always at least one fact about the universe that the observer simply *cannot* determine — no matter how clever they are or how much computing power they have.
 
-**(b) The "Mutual Inference" Impossibility.** If two methods use genuinely different projections to study the same thing, they cannot fully reconstruct each other's conclusions.
+**(b) The "Mutual Inference" Impossibility.** If two methods use genuinely different projections to study the same target, they cannot fully reconstruct each other's conclusions.
 
 These theorems aren't about technology limitations. They're about *logical structure* — in the same family as Gödel's incompleteness theorem and Turing's halting problem.
 
-Wolpert's framework applies directly to quantum mechanics and gravity. The "fluctuation measurement" (QM) and the "mean-field measurement" (gravity) are exactly the kind of mutually exclusive probes that Wolpert's theorems say cannot be combined. The result is an **Observational Incompleteness Theorem**: no observer inside the universe can simultaneously determine both the quantum and gravitational descriptions of vacuum energy. The 10¹²² discrepancy is the quantitative signature of this impossibility.
+Crucially, in Wolpert's framework, an "inference device" doesn't have to be a conscious scientist or a supercomputer. **Spacetime itself is an inference device.** The local gravitational field physically couples to the vacuum, and the expansion of the universe is the physical "record" of that coupling. Similarly, **localized matter** (like a hydrogen atom or a particle detector) is an inference device physically coupling to the vacuum's local fluctuations. Because both spacetime and localized matter are physical subsystems embedded *inside* the universe, they are bound by the exact same strict, mathematical limits of observation.
 
 ---
 
 ## The Hidden Sector
 
-What prevents the observer from accessing these hidden degrees of freedom? The answer is the **speed of light.** Nothing transmits information faster than light — a structural feature of spacetime, not a technological limitation. This creates a boundary around every observer, beyond which information cannot reach them.
+What prevents the observer (or these physical inference devices) from accessing these hidden degrees of freedom? The answer is the **speed of light.** Nothing transmits information faster than light — a structural feature of spacetime, not a technological limitation. This creates a boundary around every observer, beyond which information cannot reach them.
 
 The universe's degrees of freedom split into everything the observer *can* access and the **hidden sector** — everything they can't. The hidden sector isn't exotic. It consists of standard physics rendered inaccessible by spacetime's causal structure:
 
-**Beyond the cosmological horizon.** The universe is 13.8 billion years old and expanding. Light from beyond ~46 billion light-years has not had time to reach us. Beyond that boundary: galaxies, stars, gas, photons — standard matter governed by the same physics, but causally disconnected from us.
+**Beyond the cosmological horizon.** The universe is 13.8 billion years old and expanding. Light from beyond ~46 billion light-years has not had time to reach us. Beyond that boundary: standard matter governed by the same physics, but causally disconnected from us.
 
-**Inside black holes.** Every black hole's event horizon is a boundary beyond which the escape velocity exceeds the speed of light. Matter that crosses it exits our observable projection permanently — ordinary physics that has become hidden.
+**Inside black holes.** Every black hole's event horizon is a boundary beyond which the escape velocity exceeds the speed of light. Matter that crosses it exits our observable projection permanently.
 
-**Below the Planck scale.** Below about 10⁻³⁵ meters, the energy required to probe would create a micro black hole, swallowing the information you're trying to extract. The resolution of our observational channel bottoms out.
+**Below the Planck scale.** Below about 10⁻³⁵ meters, the energy required to probe would create a micro black hole, swallowing the information you're trying to extract. 
 
-**Behind an accelerating observer.** When you accelerate close to the speed of light, the math of relativity dictates that a "Rindler horizon" forms behind you. Anything beyond that boundary can never catch up to your reference frame. Your acceleration dynamically creates a new hidden sector, instantaneously re-partitioning what you can and cannot see. 
-
-How much can an observer access? There is a fundamental result in physics (the Bekenstein-Hawking entropy) that sets the answer: the maximum information available to an observer is proportional to the *area* of their causal boundary. For our cosmological horizon, this works out to ~10¹²² degrees of freedom in the visible sector. The hidden sector is far larger — ~10²⁴⁴ degrees of freedom, as derived below (§The Ratio as Measurement).
-
-**Why this matters.** Standard physics assumes the "dark" 95% of the universe requires exotic particles — WIMPs, axions, sterile neutrinos. But the hidden sector is made of *standard* degrees of freedom, causally separated from us by horizons or by scale. The darkness is a property of our position, not of the stuff.
+How much can an observer access? There is a fundamental result in physics (the Bekenstein-Hawking entropy) that sets the answer: the maximum information available to an observer is proportional to the *area* of their causal boundary. For our cosmological horizon, this works out to ~10¹²² degrees of freedom in the visible sector. The hidden sector is astronomically larger, as we will calculate below.
 
 ---
 
@@ -91,11 +88,13 @@ The mathematical structure of quantum mechanics and gravity forces them to extra
 
 ### Projection 1: Quantum Mechanics Measures Fluctuation Content
 
-The QFT vacuum energy sums the zero-point energy of every field mode. Every mode contributes *positively* ($+\frac{1}{2}\hbar\omega$). No cancellation between modes is possible — the sum grows linearly with the number of modes. Each mode's contribution arises from the position and momentum variances of the quantum ground state. The entire zero-point energy is pure fluctuation content — structurally a variance-type quantity.
+While the formal mathematics of QFT contains both positive and negative contributions, its operational reality — the phenomena that actually verify the vacuum's seething nature, like the Lamb shift or spontaneous emission — is driven by the vacuum's *fluctuation power spectrum*. This is an unsigned, variance-type measurement. Every active fluctuation contributes positively, no cancellation is possible, and the sum grows linearly with the number of modes.
 
 ### Projection 2: Gravity Measures the Net Effect
 
-The Einstein field equations couple spacetime curvature to the stress-energy tensor — the mathematical object that encodes how much energy, momentum, and pressure exist at each point. Unlike the QFT sum, this is not positive-definite: bosonic fields, fermionic fields, and vacuum condensates contribute with different signs. Assuming the universe doesn't have perfectly exact hidden symmetries (like unbroken supersymmetry) that would force everything to perfectly cancel out to zero, a huge number of contributions with random signs means the signed sum is much smaller than the unsigned sum. Gravity measures the net displacement, not the total wave energy.
+Gravity is unique: it does not couple to the absolute fluctuation power. The Einstein field equations couple spacetime curvature to the macroscopic expectation value of the stress-energy tensor. Unlike the QFT fluctuation spectrum, this is a signed sum. Bosonic fields, fermionic fields, and vacuum condensates contribute with different signs. 
+
+Assuming the universe doesn't have perfectly exact, unbroken global symmetries (like perfect supersymmetry) that would force everything to perfectly cancel out to zero, this vast hidden sector acts like a high-dimensional, complex statistical system. A huge number of uncoordinated contributions with varying signs means the macroscopic residual (the mean) is naturally tiny compared to the total unsigned activity (the variance). 
 
 ---
 
@@ -103,17 +102,17 @@ The Einstein field equations couple spacetime curvature to the stress-energy ten
 
 ### The Informal Version
 
-> The quantum-mechanical and gravitational descriptions of vacuum energy are structurally incompatible projections that cannot be unified into a single observer-accessible description.
+> The quantum-mechanical and gravitational descriptions of vacuum energy are structurally incompatible projections that cannot be unified into a single embedded description.
 
-The two projections require **contradictory operations** on the hidden sector. The quantum projection works by *tracing out* the hidden sector — treating it as inaccessible. The gravitational projection works by *coupling to* it — feeling its mechanical presence. One hides it. The other feels it. No single description available to an embedded observer can do both simultaneously.
+The two projections require **contradictory operations** on the hidden sector. The quantum projection works by *tracing out* the hidden sector — treating it as inaccessible. The gravitational projection works by *coupling to* it — feeling its mechanical presence. One hides it. The other feels it. No single description available to an embedded observer (or an embedded hardware device) can do both simultaneously.
 
-### The Formal Proof
+### The Formal Argument
 
-**Step 1: Define the setup.** Split the universe into visible and hidden sectors. Define two target functions: the total fluctuation content (a variance-type quantity, corresponding to QM vacuum energy) and the net mechanical effect (a mean-type quantity, corresponding to GR vacuum energy).
+**Step 1: Define the setup.** Split the universe into visible and hidden sectors. Define two target functions: the total fluctuation content (a variance-type quantity) and the net mechanical effect (a mean-type quantity).
 
-**Step 2: Identify the observers as Wolpert inference devices.** An observer confined to the visible sector has a setup function that is the projection from the full state to the visible sector. Device 1 tries to determine the fluctuation content; Device 2 tries to determine the net effect. Both are physical processes performed by observers inside the universe — the QFT calculation no less than the gravitational measurement, since the physicist performing the calculation is a physical subsystem with access only to the visible sector.
+**Step 2: Identify the observers as Wolpert inference devices.** The **local gravitational field** is an embedded physical subsystem whose curvature dynamically infers the state of the vacuum's macroscopic mean. For quantum mechanics, the inference device isn't a human physicist — it is **localized matter** (like a hydrogen atom or a particle detector) whose physical state is perturbed by the absolute magnitude of local vacuum fluctuations. Both are physical "hardware" restricted by Wolpert's many-to-one setup functions.
 
-**Step 3: Check independent configurability.** Wolpert's mutual inference impossibility requires that the two targets can be changed independently. In statistics, you can change a distribution's mean without changing its variance and vice versa. But here, the math steps in to enforce a rigid link. Because both the quantum variance and the gravitational mean are generated by tracing out the *exact same* hidden sector, the memory kernel (from the Nakajima-Zwanzig formalism) forces them to share a statistical signature. If a massive fluctuation happens in the hidden sector, it ripples through the memory kernel and alters both the quantum variance and the gravitational mean simultaneously. They are structurally locked together, ensuring you can never adjust one to perfectly read out the other. 
+**Step 3: Check independent configurability.** Wolpert's mutual inference impossibility requires that the two targets can be changed independently. The mean depends on the net sign balance, while the variance depends on absolute amplitudes. Unless the ultimate laws of physics rigidly and exactly lock the sign structure to the excitation spectrum across the entire universe, independent configurability holds.
 
 **Step 4: Apply Wolpert's bound.**
 
@@ -121,24 +120,21 @@ $$\epsilon_{\text{fluc}} \cdot \epsilon_{\text{mech}} \leq \frac{1}{4}$$
 
 If you get the variance exactly right ($\epsilon_{\text{fluc}} = 1$), the product bound forces $\epsilon_{\text{mech}} \leq 1/4$ — worse than the 1/2 you'd get from a random coin flip. Perfect knowledge of one forces ignorance of the other.
 
-### The Inference-Ontology Bridge
-
-There is an important subtlety. Wolpert's theorem is about *inference accuracy*, not physical ontology. The theorem doesn't necessarily mean there is no 'true' objective vacuum energy out there in the universe. Rather, it means that even if a single true vacuum state exists, no embedded observer can simultaneously extract both its fluctuation (quantum) and mean-field (gravitational) properties. The 10¹²² discrepancy is the artifact of our embeddedness.
-
 ---
 
 ## The Ratio as Measurement
 
-If the 10¹²² is a variance-to-mean ratio, we can work backwards to find the hidden sector's size.
+If the 10¹²² discrepancy is actually a variance-to-mean ratio, we can work backwards to find the hidden sector's true size.
 
-With $N$ independent degrees of freedom each contributing energy of the same order, the quantum projection sums all contributions without regard to sign ($V \propto N$) while the gravitational projection sums them with their signs ($M \sim \sqrt{N}$). Their ratio is a function of $\sqrt{N}$ alone:
+With $N$ independent degrees of freedom, the quantum projection sums all contributions without regard to sign ($V \propto N$). The gravitational projection sums them with their signs. By the rules of statistical typicality for large, complex systems without unbroken symmetries, the residual macroscopic mean scales as the square root ($M \sim \sqrt{N}$). Their ratio is a function of $\sqrt{N}$ alone:
 
 $$\frac{V}{M} \sim \frac{N}{\sqrt{N}} = \sqrt{N}$$
-Setting this equal to the observed value:
+
+Setting this equal to the observed value of cosmic acceleration:
 
 $$\sqrt{N} \sim 10^{122} \implies N \sim 10^{244}$$
 
-This is $S_{\text{dS}}^2$ — the square of the Bekenstein-Hawking entropy of the cosmological horizon ($S_{\text{dS}} \sim 10^{122}$). Independently, Sorkin derived $\Lambda \sim N^{-1/2}$ from causal set theory — the same functional form — before the 1998 discovery of cosmic acceleration.
+This is exactly $S_{\text{dS}}^2$ — the square of the Bekenstein-Hawking entropy of our cosmological horizon ($S_{\text{dS}} \sim 10^{122}$). Independently, physicist Rafael Sorkin derived $\Lambda \sim N^{-1/2}$ from causal set theory — the exact same functional form — before the 1998 discovery of cosmic acceleration.
 
 The cosmological constant problem isn't a problem. It's the most precise measurement we have of the dimensionality of the parts of reality we cannot see.
 
@@ -150,7 +146,7 @@ When you "trace out" the hidden sector — mathematically discard the hidden deg
 
 #### The Barandes Stochastic-Quantum Correspondence
 
-In 2023, Jacob Barandes proved that **any indivisible stochastic process is exactly equivalent to a quantum system.** (The companion paper, "The Stochastic-Quantum Correspondence," is published in *Philosophy of Physics*; the core mathematical theorem paper remains a preprint under review.)
+In 2023, Jacob Barandes proved that **any indivisible stochastic process is exactly equivalent to a quantum system.**
 
 A stochastic process is **divisible** if you can break a long transition into independent shorter ones. An **indivisible** process cannot be decomposed this way — the system has *temporal memory* that can't be captured by the present state alone.
 
@@ -158,56 +154,58 @@ Barandes proved that if a process is indivisible, it *automatically* reproduces 
 
 #### Why Tracing Out Produces Indivisibility
 
-When you trace out part of a system, the remaining part's evolution acquires a **memory kernel** (Nakajima-Zwanzig formalism) — encoding how the hidden sector's past states influence the visible sector's present. If the hidden sector has temporal correlations (perturbations persist rather than vanishing instantly), the memory kernel is nonzero and the visible sector's dynamics becomes non-Markovian — its future depends on its past, not just its present.
+When you trace out part of a system, the remaining part's evolution acquires a **memory kernel** — encoding how the hidden sector's past states influence the visible sector's present. If the hidden sector has temporal correlations (perturbations persist rather than vanishing instantly), the memory kernel is nonzero and the visible sector's dynamics becomes non-Markovian — its future depends on its past, not just its present.
 
-For the hidden sector to have *no* memory, it would need infinite propagation speed or zero internal structure — both physically absurd. Memory is generic; memorylessness is the pathological special case. 
+But there is a subtlety. Having memory is necessary but not sufficient. There is an intermediate regime — dynamics with memory that can still be decomposed into independent steps. Indivisibility is the stronger condition: the steps *themselves* fail, not just the memorylessness. A generic mathematical trace-out doesn't guarantee you land in the indivisible regime rather than the intermediate one.
+
+This is where the specific physics of our universe matters. The hidden sector isn't a generic mathematical abstraction — it has three concrete physical properties, each of which independently pushes the dynamics away from divisibility:
+
+**The boundary is maximally entangled.** In quantum field theory, the vacuum state across a causal horizon (like the cosmological horizon) is not weakly correlated — it is maximally entangled. Modes just inside the boundary are locked to modes just outside. This is the physical origin of Hawking radiation. Tracing out a maximally entangled sector produces extreme information backflow — the hidden sector's past rigidly constrains the visible sector's future — far stronger than for a generic, weakly correlated environment.
+
+**The hidden sector is a fast scrambler.** Causal horizons scramble information across all their degrees of freedom exponentially fast. Any imprint the visible sector makes on the hidden sector is rapidly and chaotically distributed across ~10²⁴⁴ degrees of freedom. A memory kernel generated by a fast-scrambling environment is densely correlated over time, resisting the clean decomposition into independent steps that divisibility requires.
+
+**Conservation laws prevent reset.** Dynamics usually only becomes divisible when the environment can instantly "forget" each interaction — resetting to a blank slate. But the universe is a closed system with strict conservation laws (energy, momentum). The hidden sector cannot reset to equilibrium after each interaction without violating those laws. Because it must remember where the energy went, the resulting dynamics cannot be memoryless.
 
 #### The Complete Chain
 
 1. You're inside the universe (embedded observer)
 2. Some degrees of freedom are inaccessible (hidden sector)
 3. Your description discards them (trace out)
-4. The hidden sector has temporal correlations → your reduced description has memory
-5. Memory makes the process indivisible
+4. The trace-out generates a memory kernel
+5. The hidden sector's specific physical structure — maximal entanglement, fast scrambling, conservation laws — forces that memory into the indivisible regime
 6. Indivisible stochastic processes *are* quantum mechanics (Barandes)
 
-**Quantum mechanics isn't a fundamental law — it's what any embedded observer would see after tracing out a temporally correlated hidden sector.**
+**Quantum mechanics isn't a fundamental law — it's what any embedded observer sees after tracing out a maximally entangled, fast-scrambling hidden sector constrained by conservation laws.**
+
+*Note: The core Observational Incompleteness Theorem relies on proven mathematics. The trace-out chain above is a conjecture. The three physical constraints narrow it to a specific, falsifiable open problem — but the formal proof that their combination forces indivisibility remains open.*
 
 ---
 
 ## Explaining the Quantum World
 
-The counterintuitive phenomena of quantum mechanics all *have natural readings* — not as irreducible mysteries, but as features of what an embedded observer sees after tracing out a temporally correlated hidden sector.
+If the trace-out conjecture is correct, the counterintuitive phenomena of quantum mechanics all have natural readings — not as irreducible mysteries, but as features of what an embedded observer sees.
 
-**Interference.** The double-slit pattern arises because the particle's journey involves hidden-sector degrees of freedom that retain correlations between passage and arrival. The journey cannot be decomposed into "went through slit A" or "went through slit B." Adding a detector forces the hidden sector to relinquish that information, disrupting the correlations and destroying the pattern.
+**Interference.** The double-slit pattern arises because the particle's journey involves hidden-sector degrees of freedom that retain correlations between passage and arrival. Adding a detector forces the hidden sector to relinquish that information, disrupting the correlations and destroying the pattern.
 
-**Superposition and measurement.** Superposition is what incomplete information looks like when the incompleteness has the mathematical structure of indivisibility. The full state of the universe is perfectly definite — your projected view of it is irreducibly fuzzy. "Collapse" happens in your description, not in reality: a measurement entangles your apparatus with the system, causing previously hidden correlations to appear in the observable sector.
+**Superposition and measurement.** Superposition is what incomplete information looks like when the incompleteness has the mathematical structure of indivisibility. The full state of the universe is perfectly definite — your projected view of it is irreducibly fuzzy. 
 
 **Entanglement.** When two entangled particles are measured, the correlation arises because the hidden sector mediates correlations between them — like two thermometers reading the same temperature because they're immersed in the same water, not because one signals the other. No information travels between the particles.
-
-**Bell's Theorem.** The immediate objection is: doesn't this sound like a local hidden variable theory, which Bell's theorem proved impossible? No — and the distinction matters. Bell proved that no theory whose statistics *factorize* — meaning the joint probability of two distant measurements decomposes into a product of independent single-measurement probabilities — can reproduce quantum correlations. This spatial factorizability is the mathematical heart of Bell's theorem. Now, when you trace out the hidden sector, the Nakajima-Zwanzig memory kernel makes the visible sector's dynamics *temporally indivisible* — its future depends on its history, not just its present state. For the resulting statistics to be spatially factorable (Bell-classical), the $10^{244}$ hidden degrees of freedom would need to perfectly and accidentally cancel out their historical memory at all times — a mathematically pathological level of fine-tuning. When you trace out a hidden sector this massive, the resulting dynamics are generically non-factorable. And by Barandes' theorem, indivisible stochastic processes *are* quantum mechanics — they violate Bell inequalities not by exploiting a loophole, but for the same structural reason quantum systems do: their correlations cannot be decomposed into independent local parts. *(It is worth noting that while indivisibility guarantees non-classical Bell violations, mapping this specific memory kernel to the exact numerical limits of standard quantum mechanics remains an exciting open mathematical problem.)*
-
-**The Born rule.** The recipe for converting quantum states into probabilities is a *consequence* of the projection: the statistical distribution of measurement outcomes follows from the mathematics of how incomplete descriptions work.
-
-**Tunneling.** The barrier exists in the projected description, but the full system includes hidden-sector degrees of freedom that the projection doesn't represent. The particle utilizes these to bypass a restriction that exists only in the observable sector.
-
-**The uncertainty principle.** Position and momentum correspond to different ways of interrogating the hidden sector at infinitesimally separated moments. Pinning down one constrains the projection in a way that leaves the other maximally unconstrained. The Heisenberg uncertainty principle is the *within-physics* version of embedded-observer incompleteness; the 10¹²² is the *between-physics* version.
-
-**Quantum computing.** Quantum algorithms exploit the indivisible correlations of the projected dynamics — engineering hidden-sector correlations so wrong answers interfere destructively and right answers constructively. Decoherence happens when uncontrolled environmental interactions scramble these correlations.
 
 ---
 
 ## What This Means
 
-If correct, the century-long search for a unified theory is asking the wrong question. It's like asking for a single instrument that simultaneously measures both temperature and pressure by being a thermometer and a barometer at the same time. The request is structurally impossible — not because physicists haven't been clever enough, but because the two measurements require fundamentally different operations on the same underlying system.
+If correct, the century-long search for a unified theory is asking the wrong question. It's like asking for a single instrument that simultaneously measures both temperature and pressure by being a thermometer and a barometer at the exact same time. The request is structurally impossible.
 
-An important caveat: the scope is the cosmological constant problem. The Observational Incompleteness Theorem does not resolve other manifestations of the QM-GR tension — the non-renormalizability of perturbative quantum gravity, the frozen-time problem, or the information paradox. These require separate treatment. The claim is that even if those problems were solved, the variance-mean discrepancy would persist.
+This also elegantly explains why the most famous mathematical unification of quantum mechanics and gravity — the AdS/CFT correspondence — works flawlessly. AdS/CFT is formulated by placing an observer on the *asymptotic boundary* of a hypothetical universe, looking inward. Because they are on the outside looking in, they are not an embedded observer, and Wolpert's limits don't apply. But our actual universe is expanding (de Sitter space); it has no outer boundary. We are permanently embedded inside it.
 
-The universe is not broken. We are just observing it from within, which sets fundamental limits on our ability to unify certain projections of reality. In practical terms, this would shift priorities: rather than building ever-larger colliders to find unification particles that do not exist, resources could flow toward high-frequency gravitational wave detectors designed to test the specific scaling predictions — instruments built not to find new particles, but to detect the statistical fingerprints of the hidden sector itself.
+The universe is not broken. We are just observing it from within, which sets fundamental limits on our ability to unify certain projections of reality. 
 
-In 1926, Einstein wrote to Max Born: "I, at any rate, am convinced that He does not throw dice." For a century, this has been read as Einstein being wrong. There is a more sympathetic reading. The full state of the universe, including its hidden sector, *is* definite. The dice are real, but they belong to the projection, not to reality itself. What Einstein called "the secret of the Old One" is not randomness. It is the structural fact that no observer inside the universe can see the whole game — and what we call quantum mechanics is what the game looks like through the keyhole.
+In 1926, Einstein wrote to Max Born: "I, at any rate, am convinced that He does not throw dice." For a century, this has been read as Einstein being wrong. There is a more sympathetic reading. The full state of the universe, including its hidden sector, *is* definite. The dice are real, but they belong to the projection, not to reality itself. What Einstein called "the secret of the Old One" is not randomness. It is the structural fact that no observer inside the universe can see the whole game.
 
-*This is a simplified overview of "The Incompleteness of Observation: Why Quantum Mechanics and Gravity Cannot Be Unified From Within" (Maybaum, February 2026), which presents the formal theorems with detailed proofs and experimental predictions.*
+---
+
+*This is a simplified overview of "The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within" (Maybaum, February 2026), which presents the formal theorems with detailed arguments and experimental predictions.*
 
 ***
 
