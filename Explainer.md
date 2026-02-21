@@ -148,7 +148,7 @@ When you "trace out" the hidden sector — mathematically discard the hidden deg
 
 In 2023, Jacob Barandes proved that **any indivisible stochastic process is exactly equivalent to a quantum system.**
 
-A stochastic process is **divisible** if you can break a long transition into independent shorter ones. An **indivisible** process cannot be decomposed this way — the system has *temporal memory* that can't be captured by the present state alone.
+A stochastic process is **divisible** if you can break a long transition into independent shorter ones. An **indivisible** process cannot be decomposed this way — the system has *temporal memory* that can't be captured by the present state alone. Think of it like a conversation: if you walk in mid-sentence, you can't reconstruct what was said before from the current word alone — the history matters in a way that can't be faked.
 
 Barandes proved that if a process is indivisible, it *automatically* reproduces interference, entanglement, the Born rule, and superposition. These emerge mathematically from indivisibility.
 
@@ -177,7 +177,7 @@ This is where the specific physics of our universe matters. The hidden sector is
 
 **Quantum mechanics isn't a fundamental law — it's what any embedded observer sees after tracing out a maximally entangled, fast-scrambling hidden sector constrained by conservation laws.**
 
-*Note: The core Observational Incompleteness Theorem relies on proven mathematics. The trace-out chain above is a conjecture. The three physical constraints narrow it to a specific, falsifiable open problem — but the formal proof that their combination forces indivisibility remains open.*
+*Note: The Observational Incompleteness Theorem rests on proven mathematics. The trace-out chain extending it to derive quantum mechanics is a conjecture — one that the three physical constraints narrow to a specific, falsifiable open problem, but the formal proof that their combination forces indivisibility remains open.*
 
 ---
 
