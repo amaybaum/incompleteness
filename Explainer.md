@@ -67,7 +67,8 @@ Crucially, in Wolpert's framework, an "inference device" doesn't have to be a co
 
 ## The Hidden Sector
 
-What prevents the observer (or these physical inference devices) from accessing these hidden degrees of freedom? The answer is the **speed of light.** Nothing transmits information faster than light — a structural feature of spacetime, not a technological limitation. This creates a boundary around every observer, beyond which information cannot reach them. 
+What prevents the observer (or these physical inference devices) from accessing these hidden degrees of freedom? The answer is the **speed of light.** Nothing transmits information faster than light — a structural feature of spacetime, not a technological limitation. This creates a boundary around every observer, beyond which information cannot reach them.
+
 The universe's degrees of freedom split into everything the observer *can* access and the **hidden sector** — everything they can't. The hidden sector isn't exotic. It consists of standard physics rendered inaccessible by spacetime's causal structure:
 
 **Beyond the cosmological horizon.** The universe is 13.8 billion years old and expanding. Light from beyond ~46 billion light-years has not had time to reach us. Beyond that boundary: standard matter governed by the same physics, but causally disconnected from us.
