@@ -209,22 +209,22 @@ During the preparation of this work, the author used **Claude Opus 4.6 (Anthropi
 [12] G. 't Hooft, "Dimensional Reduction in Quantum Gravity," arXiv:gr-qc/9310026 (1993).
 [13] J. Maldacena, "The Large-N Limit of Superconformal Field Theories and Supergravity," *Int. J. Theor. Phys.* **38**, 1113–1133 (1999).
 [14] S. Weinberg, "Ultraviolet divergences in quantum theories of gravitation," in *General Relativity: An Einstein Centenary Survey*, eds. S. W. Hawking and W. Israel (Cambridge University Press, 1979).
-[15] J. Abedi, H. Dykaar, and N. Afshordi, "Echoes from the Abyss," *Phys. Rev. D* **96**, 082004 (2017).
+[15] J. Abedi, H. Dykaar, and N. Afshordi, "Echoes from the Abyss: Tentative evidence for Planck-scale structure at black hole horizons," *Phys. Rev. D* **96**, 082004 (2017).
 [16] A. Arvanitaki and A. A. Geraci, "Detecting High-Frequency Gravitational Waves with Optically Levitated Sensors," *Phys. Rev. Lett.* **110**, 071105 (2013).
 [17] M. Ahmed, S. Dodelson, P. B. Greene, and R. Sorkin, "Everpresent $\Lambda$," *Phys. Rev. D* **69**, 103523 (2004). arXiv:astro-ph/0209274.
 [18] G. W. Gibbons and S. W. Hawking, "Cosmological event horizons, thermodynamics, and particle creation," *Phys. Rev. D* **15**, 2738 (1977).
-[19] T. Padmanabhan, "Vacuum Fluctuations of Energy Density can lead to the observed Cosmological Constant," *Class. Quantum Grav.* **22**, L107–L112 (2005). arXiv:hep-th/0406060.
+[19] T. Padmanabhan, "Vacuum Fluctuations of Energy Density can lead to the observed Cosmological Constant," *Class. Quantum Grav.* **22**, L107–L110 (2005). arXiv:hep-th/0406060.
 [20] T. Padmanabhan and H. Padmanabhan, "Cosmic Information, the Cosmological Constant and the Amplitude of primordial perturbations," *Phys. Lett. B* **773**, 81–85 (2017). arXiv:1703.06144.
 [21] J. S. Bell, "On the Einstein Podolsky Rosen paradox," *Physics Physique Fizika* **1**, 195–200 (1964).
-[22] S. Nakajima, "On Quantum Theory of Transport Phenomena," *Prog. Theor. Phys.* **20**, 948–959 (1958).
+[22] S. Nakajima, "On Quantum Theory of Transport Phenomena: Steady Diffusion," *Prog. Theor. Phys.* **20**, 948–959 (1958).
 [23] R. Zwanzig, "Ensemble Method in the Theory of Irreversibility," *J. Chem. Phys.* **33**, 1338–1341 (1960).
 [24] J. A. Barandes, "The Stochastic-Quantum Theorem," arXiv:2309.03085 (2023).
 [25] J. A. Barandes, "The Stochastic-Quantum Correspondence," *Philosophy of Physics* **3**(1):8 (2025).
 [26] A. Almheiri, X. Dong, and D. Harlow, "Bulk Locality and Quantum Error Correction in AdS/CFT," *JHEP* **2015**, 163 (2015). arXiv:1411.7041.
-[27] J. A. Barandes, S. Hasan, and J. Kagan, "The CHSH Game, Tsirelson's Bound, and Causal Locality," arXiv:2512.18105 (2025).
+[27] J. A. Barandes, M. Hasan, and D. Kagan, "The CHSH Game, Tsirelson's Bound, and Causal Locality," arXiv:2512.18105 (2025).
 [28] T. Le, F. A. Pollock, T. Paterek, M. Paternostro, and K. Modi, "Divisible quantum dynamics satisfies temporal Tsirelson's bound," *J. Phys. A* **50**, 055302 (2017). arXiv:1510.04425.
 [29] A. Seif, M. Malekakhlagh, S. Majumder, and L. C. G. Govia, "Single snapshot non-Markovianity of Pauli channels," arXiv:2602.13145 (2026).
-[30] D. Caro and B. Graswald, "Necessary Criteria for Markovian Divisibility of Linear Maps," *J. Math. Phys.* **62**, 042203 (2021).
+[30] M. C. Caro and B. Graswald, "Necessary Criteria for Markovian Divisibility of Linear Maps," *J. Math. Phys.* **62**, 042203 (2021).
 [31] W. G. Unruh, "Notes on black-hole evaporation," *Phys. Rev. D* **14**, 870 (1976).
-[32] Y. Sekino and L. Susskind, "Fast Scramblers," *JHEP* **2008**, 065 (2008). arXiv:0808.2096.
+[32] Y. Sekino and L. Susskind, "Fast Scramblers," *JHEP* **10** (2008) 065. arXiv:0808.2096.
 [33] H.-P. Breuer and F. Petruccione, *The Theory of Open Quantum Systems* (Oxford University Press, 2002).
