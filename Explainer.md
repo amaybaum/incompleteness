@@ -209,4 +209,4 @@ In 1926, Einstein wrote to Max Born: "I, at any rate, am convinced that He does 
 
 ***
 
-**Acknowledgment of AI-Assisted Technologies:** The author acknowledges the use of **Claude Opus 4.6** and **Gemini 3 Pro** to assist in synthesizing technical concepts and refining clarity. The final text and all scientific claims were reviewed and verified by the author.
+**Acknowledgment of AI-Assisted Technologies:** The author acknowledges the use of **Claude Opus 4.6** and **Gemini 3.1 Pro** to assist in synthesizing technical concepts and refining clarity. The final text and all scientific claims were reviewed and verified by the author.
