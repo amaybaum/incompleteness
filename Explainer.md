@@ -37,7 +37,8 @@ Imagine you want to understand the energy of a calm glass of water. You have two
 
 A **thermometer** measures the total thermal fluctuation — every molecule's kinetic energy contributes positively, regardless of direction. The reading is enormous because nothing cancels out. This is a *variance-type* measurement.
 
-A **suspended dust speck** (Brownian motion) reveals the net mechanical push the water exerts. At any given microsecond, millions of molecules strike from the left and millions from the right. Their impacts mostly cancel. The net push is just the tiny statistical residual left over. This is a *mean-type* measurement. 
+A **suspended dust speck** (Brownian motion) reveals the net mechanical push the water exerts. At any given microsecond, millions of molecules strike from the left and millions from the right. Their impacts mostly cancel. The net push is just the tiny statistical residual left over. This is a *mean-type* measurement.
+
 These aren't giving contradictory information. They're measuring fundamentally different statistical properties. The thermometer measures total unsigned activity (the variance). The dust speck measures the net, canceled-out push (the mean). For a system with trillions of molecules pushing in random directions, the total unsigned activity is naturally enormous compared to the tiny canceled-out residual.
 
 Quantum mechanics and general relativity are just like the thermometer and the dust speck. Quantum mechanics measures the *fluctuation content* of the vacuum — the total, unsigned activity. General relativity measures the *net mechanical effect* — the aggregate, canceled-out push on spacetime. The 10¹²² ratio is the difference between an unsigned total and a canceled-out residual for a system with an astronomically large number of degrees of freedom. 
