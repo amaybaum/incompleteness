@@ -9,7 +9,8 @@
 
 Physics has a contradiction it cannot resolve. Its two most successful theories — quantum mechanics and general relativity — flatly disagree about the most basic property of empty space: how much energy it contains.
 
-Quantum mechanics says the vacuum is seething with energy. Add up the zero-point fluctuations of every quantum field and you get roughly 10¹¹³ joules per cubic meter — an unimaginably large number. 
+Quantum mechanics says the vacuum is seething with energy. Add up the zero-point fluctuations of every quantum field and you get roughly 10¹¹³ joules per cubic meter — an unimaginably large number.
+
 General relativity measures the vacuum's energy through its gravitational effect — the accelerating expansion of the universe — and gets about 6 × 10⁻¹⁰ joules per cubic meter. A very tiny number.
 
 The ratio is roughly 10¹²² — conventionally rounded to 10¹²⁰ in the physics literature, and by any accounting the largest disagreement between theory and observation in all of science. For context, the number of atoms in the observable universe is only about 10⁸⁰.
