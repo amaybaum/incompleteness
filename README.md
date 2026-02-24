@@ -8,58 +8,29 @@
 
 ## Overview
 
-This repository contains a main technical paper and a companion explainer arguing that the incompatibility between quantum mechanics and general relativity is not a deficiency to be repaired, but a structural consequence of embedded observation.
+This repository contains a technical paper arguing that the incompatibility between quantum mechanics and general relativity is not a deficiency to be repaired, but a structural consequence of embedded observation.
 
-The core claim: any observer that is part of the universe it measures must access reality through projections that discard causally inaccessible degrees of freedom. The quantum-mechanical and gravitational descriptions of vacuum energy correspond to variance and mean estimations of a hidden sector, and Wolpert's mutual inference impossibility prohibits their simultaneous determination. The 10¹²⁰ cosmological constant discrepancy is not an error — it is a measurement.
+The core claim: any observer that is part of the universe it measures must access reality through projections that discard causally inaccessible degrees of freedom. The quantum-mechanical and gravitational descriptions of vacuum energy correspond to variance and mean projections of a shared hidden sector, and Wolpert's mutual inference impossibility prohibits their simultaneous determination. The 10¹²² cosmological constant discrepancy is not an error — it is a measurement.
 
-### Main Paper
+### Paper
 
 **"The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
 
-The full technical paper. Introduces the Complementarity Theorem via Wolpert's inference impossibility framework and extracts N ~ 10²⁴⁰ hidden-sector degrees of freedom from the cosmological constant ratio. Includes formal proofs, experimental predictions, and a detailed discussion of objections.
-
-### Companion Explainer
-
-**"The Incompleteness of Observation: Why the Universe's Biggest Contradiction Might Not Be a Mistake"**
-
-An accessible companion written for physicists and scientifically literate readers who want the argument without the full formalism. Covers the same core ideas, derives quantum mechanics from embedded observation through the Barandes stochastic-quantum correspondence, and extends into re-interpretations of quantum phenomena, gravity, dark matter, dark energy, String Theory, and the logical parallels to Gödel and Turing.
-
-## Files
-
-| File | Description |
-|------|-------------|
-| `Main.md` | Technical paper (Markdown) |
-| `Main.tex` | Technical paper (LaTeX) |
-| `Main.pdf` | Technical paper (PDF) |
-| `Explainer.md` | Companion explainer (Markdown) |
-| `Explainer.tex` | Companion explainer (LaTeX) |
-| `Explainer.pdf` | Companion explainer (PDF) |
+The full technical paper. Introduces the Observational Incompleteness Principle via Wolpert's inference impossibility framework, derives quantum mechanics from embedded observation through the Nakajima–Zwanzig trace-out formalism and Barandes' stochastic-quantum correspondence, and extracts N ~ 10²⁴⁴ hidden-sector degrees of freedom from the cosmological constant ratio. Includes falsifiable predictions, implications for foundational paradoxes, and a detailed discussion of objections.
 
 ## Key Results
 
-1. **Complementarity Theorem.** The quantum and gravitational descriptions of vacuum energy are complementary projections of a hidden sector. Wolpert's bound gives ε_fluc · ε_mech ≤ 1/4 — perfect knowledge of one forces the other to chance.
+1. **Observational Incompleteness Principle.** The quantum and gravitational descriptions of vacuum energy are complementary projections of a hidden sector. No single embedded inference device can simultaneously determine both the variance-type and mean-type targets with joint accuracy exceeding Wolpert's bounds.
 
-2. **Quantum mechanics from embeddedness.** Tracing out a temporally correlated hidden sector generically produces indivisible stochastic processes, which are mathematically equivalent to quantum mechanics (Barandes 2023).
+2. **Quantum mechanics from embeddedness.** Tracing out the trans-horizon hidden sector via the Nakajima–Zwanzig formalism yields CP-indivisible stochastic dynamics, which are mathematically equivalent to quantum mechanics by Barandes' stochastic-quantum correspondence (2023, 2025).
 
-3. **10¹²⁰ as measurement.** Interpreting the cosmological constant ratio as a variance-to-mean ratio yields N ~ 10²⁴⁰ hidden-sector degrees of freedom — equal to S_dS², the square of the Bekenstein-Hawking entropy of the cosmological horizon.
+3. **10¹²² as measurement.** Interpreting the cosmological constant ratio as a variance-to-mean ratio yields N ~ 10²⁴⁴ hidden-sector degrees of freedom — equal to S_dS², the square of the de Sitter horizon entropy.
+
+4. **Falsifiable predictions.** A 54 ms gravitational wave echo for a 30 M☉ black hole, and a stochastic gravitational noise floor with an inverse-frequency-squared spectrum in the MHz–GHz band.
+
+5. **Foundational implications.** Bell's theorem addressed via dynamical indivisibility rather than nonlocality or superdeterminism; Wigner's Friend paradox natively resolved; Everettian measure problem dissolved; AdS/CFT success explained as a consequence of non-embedded (boundary) observation.
 
 ## Contact
 
 Alex Maybaum — Independent Researcher  
 [LinkedIn](https://www.linkedin.com/in/amaybaum)
-
-## Citation
-
-```bibtex
-@unpublished{maybaum2026incompleteness,
-  title   = {The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within},
-  author  = {Maybaum, Alex},
-  year    = {2026},
-  month   = {February},
-  note    = {Draft pre-print}
-}
-```
-
-## License
-
-© 2026 Alex Maybaum. All rights reserved. This work may be shared for personal and academic use with attribution. No modifications or derivative works without permission.
