@@ -12,9 +12,9 @@
 
 The incompatibility between quantum mechanics and general relativity is widely viewed as a failing of modern physics that requires a novel unifying framework. This paper proposes the opposite: the incompatibility is a structural consequence of embedded observation. Any observer that is part of the continuous universe it measures must access reality through projections that discard inaccessible degrees of freedom defined by spacetime's causal boundaries. 
 
-By applying Wolpert’s (2008) physical limits of inference, we show that quantum and gravitational vacuum measurements are complementary projections—a variance and a mean, respectively—of a shared, causally disconnected hidden sector. This reframes the $10^{122}$ cosmological constant discrepancy as a direct measurement of roughly $10^{244}$ hidden-sector degrees of freedom.
+By applying Wolpert’s (2008) physical limits of inference, we show that quantum and gravitational vacuum measurements are complementary projections of a shared, causally disconnected hidden sector. This reframes the $10^{122}$ cosmological constant discrepancy as a direct measurement of roughly $10^{244}$ hidden-sector degrees of freedom.
 
-Furthermore, mathematically tracing out this immense trans-horizon sector via the Nakajima-Zwanzig formalism naturally generates a non-local memory kernel. By Barandes' stochastic-quantum correspondence, this forces the marginal dynamics to behave as an indivisible stochastic process, mapping to Nelson's stochastic mechanics and deriving the Schrödinger equation and Planck's constant from classical macroscopic background noise. The framework yields falsifiable predictions, including a $54$ ms gravitational wave echo for a $30 M_\odot$ black hole, and identifies temporal Tsirelson's bound as a sharp falsification criterion for the trace-out dynamics.
+Furthermore, mathematically tracing out this immense trans-horizon sector via the Nakajima-Zwanzig formalism naturally generates a non-local memory kernel. By Barandes' stochastic-quantum correspondence, the resulting indivisible stochastic dynamics recover the Schrödinger equation as the mandatory description of an embedded observer's marginal predictions. The framework yields falsifiable predictions, including a 54 ms gravitational wave echo for a $30 M_\odot$ black hole, and identifies temporal Tsirelson's bound as a sharp falsification criterion for the trace-out dynamics. Finally, by defining the wave function strictly as an epistemic data compression algorithm, this framework natively resolves the Wigner's Friend paradox, dissolves the Everettian measure problem, and explains why the AdS/CFT correspondence mathematically succeeds while remaining physically inapplicable to embedded de Sitter observers.
 
 ---
 
@@ -26,86 +26,139 @@ Quantum mechanics and general relativity are extraordinarily successful yet stru
 ### 1.2 The Limits of Embedded Inference
 Wolpert (2008) proved mathematically that any physical inference device faces absolute limits on what it can know about the universe it inhabits. Because an embedded device is smaller than the total system, its observations must be surjective, many-to-one mappings that discard information. 
 
-We can partition the total state space of the universe into two sectors: degrees of freedom accessible to an observer (the visible sector) and degrees of freedom that are strictly inaccessible (the hidden sector). The hidden sector does not consist of exotic, undiscovered particles. It consists of standard degrees of freedom rendered causally inaccessible by the macroscopic structure of spacetime itself, primarily trans-horizon modes and black hole interiors.
+Specifically, Wolpert established the "Blind Spot" Theorem, which proves that there is always at least one fact about the universe that an embedded observer fundamentally cannot determine, and the "Mutual Inference" Impossibility, which demonstrates that two inference devices using different projections cannot fully reconstruct each other's conclusions. Crucially, an inference device does not need to be a conscious scientist or a computer. Spacetime itself acts as a physical inference device that couples to the vacuum, just as localized matter acts as an inference device coupling to local fluctuations. Because both are embedded subsystems, they are bound by the same exact mathematical limits.
+
+We can partition the total state space of the universe into two sectors: degrees of freedom accessible to an observer (the visible sector) and degrees of freedom that are strictly inaccessible (the hidden sector). The hidden sector consists of standard physics rendered inaccessible by spacetime's causal structure: primarily trans-horizon modes beyond the observable universe and the interiors of black holes.
+
+### 1.3 Formal Mapping to Wolpert's Framework
+
+To rigorously apply Wolpert's limits, we must show that the two physical couplings—localized matter to the vacuum, and spacetime geometry to the vacuum—satisfy the formal requirements of his inference-device framework. Define the total state space $\Omega$ as the full phase space of all field configurations across the complete Cauchy surface, including both the observable patch and the trans-horizon sector.
+
+**Device 1 — Localized Matter.** Any localized matter system (e.g., an atom subject to the Lamb shift) constitutes an inference device with observation map
+
+$$\pi_Q : \Omega \to \mathbb{R}, \qquad \pi_Q(\omega) = \langle \hat{\phi}^2 \rangle_\omega$$
+
+where $\omega \in \Omega$ is the full-universe configuration and the output is the local expectation value of the squared field at the device's location. This map is: (i) *Embedded*—the matter system is a proper subsystem of $\Omega$, occupying a finite worldtube; and (ii) *Surjective (many-to-one)*—distinct full configurations $\omega \neq \omega'$ that differ only in trans-horizon modes yield $\pi_Q(\omega) = \pi_Q(\omega')$. The map's kernel is precisely the hidden sector.
+
+**Device 2 — Spacetime Geometry.** The local gravitational field constitutes a second inference device with observation map
+
+$$\pi_G : \Omega \to \mathbb{R}, \qquad \pi_G(\omega) = \langle T_{00} \rangle_\omega$$
+
+where the output is the net signed stress-energy density sourcing Einstein's equations at the device's location. This map is: (i) *Embedded*—the metric is itself a dynamical degree of freedom within $\Omega$; and (ii) *Surjective*—distinct configurations with different individual mode contributions $s_i|E_i|$ can produce the same net $T_{00}$. The kernel is again the hidden sector, but the map integrates over it differently.
+
+**Verification of Wolpert's Conditions.** Both devices satisfy the three requirements of Wolpert's formalism: (i) each is a proper physical subsystem of the universe, (ii) each observation map is a many-to-one projection from $\Omega$ to a lower-dimensional output, and (iii) the two maps have non-identical kernels—$\pi_Q$ discards sign information while summing magnitudes, whereas $\pi_G$ retains signs while summing algebraically. The relevant criterion is not intentionality but structure: any physical subsystem whose state is a deterministic, many-to-one function of the total configuration satisfies Wolpert's formal requirements regardless of whether the mapping constitutes "computation" in the colloquial sense. Wolpert himself emphasizes that his framework is substrate-independent [4].
+
+**Application.** By Wolpert's Mutual Inference Impossibility, two embedded devices with non-identical surjective projections cannot fully reconstruct each other's conclusions from their own outputs alone. Therefore, no single embedded subsystem can simultaneously access both the unsigned total ($\pi_Q$) and the signed net ($\pi_G$) of the vacuum—the discrepancy between them is a structural *limit*, not an error awaiting correction.
 
 ---
 
 ## II. OBSERVATIONAL INCOMPLETENESS
 
-### 2.1 Mean vs. Variance Projections
-The sharpest conflict between QM and GR is the cosmological constant problem: the predicted vacuum energy of quantum fields outscales the observed gravitational vacuum energy by a factor of $10^{122}$. Rather than assuming this is a fine-tuning error, the embedded observation framework interprets this as two fundamentally different physical inference devices making complementary projections of the same hidden sector. 
+### 2.1 Complementary Projections
 
-Crucially, an "inference device" here does not imply a conscious physicist; it refers to the physical couplings of embedded subsystems:
+The sharpest conflict between QM and GR is the cosmological constant problem [1, 2, 3]: quantum mechanics predicts a vacuum fluctuation energy of roughly $10^{113} \text{ J/m}^3$, whereas general relativity measures a net gravitational effect of only about $6 \times 10^{-10} \text{ J/m}^3$. This creates a discrepancy ratio of $10^{122}$. Rather than assuming this is a fine-tuning error, the embedded observation framework interprets this as two fundamentally different physical inference devices making complementary projections of the same hidden sector. 
 
-* **The Variance Target (Localized Matter):** The physical device executing this projection is localized matter interacting with a quantum field (e.g., an atom undergoing the Lamb shift). It acts as a physical thermometer measuring the vacuum via its fluctuation power spectrum. Because the field operator is squared ($\hat{\phi}^2$), its expectation value $\langle 0 | \hat{\phi}^2 | 0 \rangle$ is strictly positive-definite for all modes, regardless of whether the field is bosonic or fermionic. This is a variance-type projection measuring unsigned total activity: $V \propto \sum_{i=1}^{N} \langle \hat{\phi}_i^2 \rangle \propto N$.
-* **The Mean Target (Spacetime):** The physical device executing this projection is the local gravitational field itself. Unlike the squared operators of QFT, the metric tensor dynamically couples to the net signed sum of the stress-energy tensor. This is a mean-type projection: $M = \langle T_{00} \rangle = \sum_{i=1}^{N} s_i |E_i|$, where $s_i \in \{+1, -1\}$ is the spin-statistics sign of the $i$-th mode.
+This can be conceptualized through a classic thermodynamic analogy. When measuring a glass of water, a thermometer records the total unsigned kinetic energy of all molecules (a variance-type measurement), producing a massive reading because nothing cancels out. Conversely, a suspended dust speck is only moved by the net canceled-out mechanical push of molecules striking it from all sides (a mean-type measurement), leaving a tiny statistical residual. 
 
-Applying standard statistical mechanics, the root-mean-square of the gravitational projection is $M_{\text{rms}} = \sqrt{N} \langle |E_i| \rangle$. Therefore, the ratio of the two physical projections strictly scales as the square root of the hidden-sector degrees of freedom $N$:
+* **The Variance Target (Localized Matter):** Localized matter measuring the vacuum (e.g., via the Lamb shift) acts as the thermometer. Because the field operator is squared ($\hat{\phi}^2$), its expectation value is strictly positive-definite for all modes. This measures the unsigned total activity: $V \propto \sum_{i=1}^{N} \langle \hat{\phi}_i^2 \rangle = N \langle E \rangle$.
+* **The Mean Target (Spacetime):** The local gravitational field acts as the dust speck. It couples dynamically to the net signed sum of the stress-energy tensor. This is a mean-type projection: $M = \langle T_{00} \rangle = \sum_{i=1}^{N} s_i |E_i|$, where $s_i \in \{+1, -1\}$ is the spin-statistics sign of the $i$-th mode.
+
+Near a causal horizon, the Unruh temperature [18] $T_U = \frac{\hbar a}{2\pi k_B c}$ diverges as proper acceleration $a \to \infty$. In this ultra-relativistic, infinite-temperature limit ($T_U \gg m_i$), the active trans-horizon modes behave as a randomized, maximally mixed conformal fluid. Consequently, the spin-statistics sign $s_i$ over the $N$ modes functions as an independent, identically distributed random variable with a mean $\langle s_i \rangle = 0$.
+
+By the Central Limit Theorem, the expected value of the gravitational sum is zero, but its root-mean-square fluctuation is strictly non-zero and scales with the square root of the number of states:
+$$M_{\text{rms}} = \sqrt{\sum_{i=1}^{N} (s_i |E_i|)^2} = \sqrt{N} \langle |E_i| \rangle$$
+
+Therefore, the ratio of the variance projection to the mean-squared projection strictly scales as the square root of the hidden-sector dimensionality:
 $$\frac{V}{M_{\text{rms}}} \approx \frac{N \langle |E_i| \rangle}{\sqrt{N} \langle |E_i| \rangle} = \sqrt{N}$$
 
-*(Note: While the Standard Model lacks exact low-energy supersymmetry, near a causal horizon the local Unruh temperature diverges ($T \to \infty$). In this ultra-relativistic limit, mass splittings become irrelevant, and the degrees of freedom behave as a maximally mixed conformal fluid, naturally enforcing $\langle s_i \rangle = 0$ over large scales.)*
+> **Observational Incompleteness Principle.** Let the universe be partitioned into visible and hidden sectors, and let the observer's projection from the full state to the visible sector be many-to-one. Define the variance-type target $V = \sum |E_i|$ and the mean-type target $M = \sum E_i$. No single embedded inference device can simultaneously determine both targets with joint accuracy exceeding Wolpert's bounds. The continuous precision corollary forces a nontrivial product bound on their mean-squared errors.
 
-> **Observational Incompleteness Theorem.** Let the universe be partitioned into visible and hidden sectors, and let the observer's projection from the full state to the visible sector be many-to-one. Define the variance-type target $V = \sum |E_i|$ and the mean-type target $M = \sum E_i$. No single embedded inference device can simultaneously determine both targets with joint accuracy exceeding Wolpert's bounds. Under the assumption that hidden-sector contributions carry quasi-random signs, this produces a ratio $V/|M| \propto \sqrt{N}$. The continuous precision corollary forces a nontrivial product bound on their mean-squared errors.
+**Clarification: independence of spin-statistics signs under trans-horizon entanglement.** The TFD entanglement structure invoked in §3.2 entangles *amplitude* (occupation number) degrees of freedom between matched visible and trans-horizon mode pairs. The spin-statistics sign $s_i$, by contrast, is not a dynamical variable but a fixed topological property of each field species. In the ultra-relativistic regime ($T_U \gg m_i$), all Standard Model species contribute at comparable magnitudes, so the net sign at each energy bin is determined by species composition with no systematic bias. The CLT therefore applies to the *species-sign sector*, while entanglement resides in the *amplitude sector*; the two structures coexist without contradiction. Moreover, even under residual correlations between nearby energy scales, the $\sqrt{N}$ scaling is preserved: for a fast-scrambling horizon bath (§3.2), correlations decay exponentially on the scrambling timescale $t_s \sim \ln S$, satisfying the mixing conditions required by Lyapunov-type generalizations of the CLT.
 
 ### 2.2 Deriving the $10^{122}$ Discrepancy
 The ratio of the two projections directly encodes the hidden sector's dimensionality. Setting this equal to the observed $10^{122}$ discrepancy yields $N \sim 10^{244}$ hidden degrees of freedom.
 
-This specific number corroborates holographic principles. The Bekenstein-Hawking entropy of the cosmological horizon is $S_{\text{dS}} \sim 10^{122}$. Because the hidden sector acts as a fast scrambler over vast cosmological timescales, the instantaneous boundary capacity ($S_{\text{dS}}$) is time-integrated, forming a complete bipartite entanglement graph between the visible and hidden universes. [attachment_0](attachment) Because every visible degree of freedom can correlate with every hidden degree of freedom, the total number of correlations is the product of their state spaces ($S_{\text{visible}} \times S_{\text{hidden}}$). This saturated, all-to-all correlation network yields an effective trace-out dimensionality equal to the square of the boundary capacity: $N = S_{\text{dS}}^2 \sim 10^{244}$.
+This specific number corroborates holographic principles [6]. The Bekenstein-Hawking entropy of the cosmological horizon [10] is $S_{\text{dS}} \sim 10^{122}$. Because every visible degree of freedom can correlate with every hidden degree of freedom, the total number of correlations is the product of their state spaces ($S_{\text{visible}} \times S_{\text{hidden}}$). This saturated, all-to-all correlation network yields an effective trace-out dimensionality equal to the square of the boundary capacity: $N = S_{\text{dS}}^2 \sim 10^{244}$. The cosmological constant problem is therefore not an error; it is the most precise measurement of the dimensionality of the inaccessible universe.
 
 ---
 
 ## III. THE EMERGENCE OF QUANTUM MECHANICS
 
 ### 3.1 Classical Axioms and the Trace-Out Operation
-Having established the macroscopic scale of the hidden sector, we now ask how an embedded, localized particle behaves when subjected to this immense informational deficit. This framework does not attempt to modify quantum mechanics; rather, it derives it purely from three classical premises:
+Having established the macroscopic scale of the hidden sector, we now ask how an embedded, localized particle behaves when subjected to this immense informational deficit. This framework derives quantum mechanics purely from three classical premises:
 1.  **Classical Continuous Dynamics:** The total universe evolves deterministically via the continuous Liouville equation: $\frac{\partial \rho}{\partial t} = \{H, \rho\}$.
 2.  **Classical General Relativity:** Einstein's field equations define the absolute information barriers of the hidden sector. 
 3.  **Classical Probability Theory:** Observational predictions are classical expectation values.
 
-Because the universe is fundamentally continuous and deterministic at the global level, an embedded observer's inability to track the $10^{244}$ hidden states forces a mathematical data compression. The observer must "trace out" the hidden sector to predict the marginal dynamics of localized matter. 
+Because the universe is fundamentally continuous and deterministic at the global level, an embedded observer's inability to track the $10^{244}$ hidden states forces a massive mathematical data compression. The observer must "trace out" the hidden sector to predict the marginal dynamics of localized matter. 
 
-> **The Trace-Out Conjecture.** Quantum mechanics is the unique, mandatory mathematical algorithm that an embedded observer must invent to compress and predict a partially hidden, history-dependent continuous reality. Wave functions and Hilbert spaces are "algorithmic appurtenances" required to track indivisible stochastic laws.
+> **The Trace-Out Conjecture.** Tracing out a CP-indivisible hidden sector forces the marginal dynamics of the visible sector into an indivisible stochastic process. Any faithful mathematical representation of these dynamics is empirically equivalent to quantum mechanics. The Hilbert space formalism is one such representation; Barandes' stochastic framework [14, 15] is another. The physical content — indivisible, non-Markovian configuration-space dynamics — is mandatory; the choice of mathematical language is not.
 
-### 3.2 From Hidden Noise to the Schrödinger Equation
-Tracing out this sector via the Nakajima-Zwanzig formalism leaves behind a severe non-local memory kernel $\gamma(t-\tau)$. The observer's resulting dynamics behave as a Generalized Langevin Equation, where the $10^{244}$ trans-horizon states act as a continuous background noise $\xi(t)$:
+### 3.2 From Trace-Out to Quantum Dynamics
+
+Tracing out the hidden sector via the Nakajima-Zwanzig formalism [12, 13, 20] yields a Generalized Langevin Equation with a non-local memory kernel $\gamma(t-\tau)$, where the $10^{244}$ trans-horizon states act as a continuous background noise $\xi(t)$:
 $$m\ddot{x}(t) = -\nabla V(x) - \int_{0}^{t} \gamma(t-\tau)\dot{x}(\tau)d\tau + \xi(t)$$
 
-By mapping this non-Markovian noise to an underlying osmotic diffusion process (following Nelson's stochastic mechanics), the macroscopic background noise forces the localized particle to experience an osmotic pressure gradient. Because this diffusion is sourced by the finite $N \sim 10^{244}$ cosmological states, it possesses a specific, invariant scale. Setting this trans-horizon diffusion coefficient to $D = \frac{\hbar}{2m}$ naturally recovers the exact **Quantum Potential** $Q$:
-$$Q = -\frac{\hbar^2}{2m} \frac{\nabla^2 \sqrt{\rho}}{\sqrt{\rho}}$$
-In this framework, the Schrödinger equation is the mandatory stochastic algorithm an embedded observer must use to navigate a continuous universe obscured by $10^{244}$ missing degrees of freedom. Planck’s constant is physically derived as the epistemic noise floor:
-$$\hbar \approx \frac{S_{\text{universe}}}{N} \approx 10^{-122} \text{ (dimensionless units)}$$
+A standard objection is that tracing out a vast bath should immediately lead to classical decoherence—incoherent, memoryless noise that destroys quantum behavior. However, the trans-horizon sector is not a generic thermal bath. It possesses three co-occurring physical properties that independently force time-local decoherence rates to become negative, constraining the dynamics against classical divisibility:
 
-### 3.3 From Indivisible Noise to Quantum Unitarity
-A standard objection is that tracing out a vast trans-horizon bath should immediately lead to classical decoherence. A nonzero memory kernel does not, by itself, guarantee CP-indivisibility; it could merely produce CP-divisible (Markovian) dynamics where all time-local decoherence rates remain non-negative ($\gamma_k(t) \ge 0$). However, the hidden sector possesses three co-occurring physical properties that independently force these rates to become negative, constraining the dynamics against divisibility:
+1. **Maximal trans-horizon entanglement:** In QFT, the vacuum state across a causal horizon takes the maximally entangled Thermofield Double (TFD) form. As established by Buscemi [23], initially entangled system-environment states strongly violate the product-state assumption required for complete positivity.
+2. **Fast scrambling:** Causal horizons disperse information across all their degrees of freedom exponentially fast (Sekino and Susskind [19]). This chaotic spectral structure exhibits spectral rigidity—manifesting as a non-decaying ramp in the Spectral Form Factor (Cotler et al. [22])—which prevents bath correlation functions from decaying to zero.
+3. **Failure of the Born-Markov conditions:** Gravity is not weakly coupled to the vacuum, and the universe enforces strict macroscopic conservation laws. Conservation laws physically prevent the environment from resetting to equilibrium, forcing persistent system-environment correlations ($\chi(t) \neq 0$) that break the Born approximation entirely (Babu et al. [21]).
 
-1. **Maximal trans-horizon entanglement:** In QFT, the vacuum state across a causal horizon takes the maximally entangled Thermofield Double (TFD) form (the Unruh/Hawking effect). As established by Buscemi [37], initially entangled system-environment states generate a maximal inhomogeneity term ($I(t)$) in the Nakajima-Zwanzig equation, strongly violating the product-state assumption required for complete positivity. Recent covariant formulations confirm that horizons strictly produce non-Markovian "memory tails" (Waghmare et al. [34]).
-2. **Fast scrambling:** Causal horizons disperse information across all their degrees of freedom on a timescale $t_s \sim \log S_{\text{dS}}$ (Sekino and Susskind [32]). This chaotic spectral structure exhibits spectral rigidity—manifesting as a non-decaying ramp in the Spectral Form Factor (Cotler et al. [36])—which prevents bath correlation functions from decaying to zero. This fiercely resists the clean factorization into independent, memoryless steps that CP-divisibility requires.
-3. **Failure of the Born-Markov conditions:** CP-divisibility typically requires weak coupling and a memoryless reservoir. Gravity is not weakly coupled to the vacuum, and the universe enforces strict macroscopic conservation laws. Conservation laws physically prevent the environment from resetting to equilibrium, forcing persistent system-environment correlations ($\chi(t) \neq 0$) that break the Born approximation entirely (Babu et al. [35]).
+Together, these properties constrain the memory kernel $\gamma(t-\tau)$ to be non-decaying and CP-indivisible. By Barandes’ stochastic-quantum correspondence [14, 15], any indivisible stochastic process on configuration space is mathematically equivalent to a unitarily evolving quantum system. (Barandes’ correspondence is recent and not yet part of the established canon; however, the CP-indivisibility of the bath dynamics is independently verifiable from properties 1–3 above, and the framework’s falsifiable predictions in §4.6 do not depend on the specific formalization of the stochastic-quantum bridge.) The Schrödinger equation is therefore the unique description an embedded observer must use to predict the marginal behavior of a system coupled to this bath. The indivisible stochastic process recovers the quantum potential $Q = -\frac{\hbar^2}{2m} \frac{\nabla^2 \sqrt{\rho}}{\sqrt{\rho}}$ as the effective force on configuration-space probability flow, with diffusion coefficient $D = \hbar/2m$. The value of Planck’s constant is consistent with the ratio of the holographic entropy to the hidden-sector dimensionality, $\hbar \approx S_{\text{universe}}/N \approx 10^{-122}$ in dimensionless units—a non-trivial self-consistency check linking the macroscopic causal structure to the microscopic noise floor.
 
-By Barandes' stochastic-quantum theorem [24, 25], any strictly indivisible stochastic process unfolding in configuration space mathematically corresponds to a unitarily evolving quantum system. Furthermore, Le et al. [28] proved that CP-divisible dynamics satisfies temporal Tsirelson's bound ($B \le 2\sqrt{2}$). Thus, the conjecture admits a sharp mathematical falsification criterion: if the trace-out of this physically constrained hidden sector produces dynamics violating temporal Tsirelson's bound, it is provably CP-indivisible and inherently quantum.
+Le et al. [17] proved that CP-divisible dynamics satisfies temporal Tsirelson’s bound ($B \le 2\sqrt{2}$). This provides a sharp falsification criterion: if the trace-out of this constrained hidden sector violates temporal Tsirelson’s bound, it is provably CP-indivisible and inherently quantum.
 
 ---
 
 ## IV. IMPLICATIONS & PREDICTIONS
 
-### 4.1 Reinterpreting Quantum Phenomena
-This reframing resolves major conceptual paradoxes cleanly:
-* **Bell's Theorem and Divisibility:** Bell proved that no theory producing classical (divisible, factorable) statistics can reproduce quantum correlations. However, tracing out the $10^{244}$ hidden states embeds a continuous history into the marginal dynamics. Because the hidden sector retains this memory, the statistics of visible particles do not factorize. Indivisible stochastic processes natively violate Bell inequalities without requiring faster-than-light signaling.
-* **Interference and Entanglement:** The double-slit experiment and quantum entanglement are not mystical non-localities; they are the physical signatures of the time-integrated memory kernel created by tracing out the hidden sector. 
-* **Renormalization and Antimatter:** Ultraviolet QFT cutoffs are physically justified by the finite structural dimensionality ($N \sim 10^{244}$), and the Dirac Sea is simply the algorithmic representation of this finite hidden sector.
+### 4.1 The Double-Slit Experiment as Stochastic Guidance
+The double-slit experiment is natively explained through continuous, single-universe fluid dynamics. The particle does not become a delocalized wave; it remains a localized particle that travels through a single slit. However, opening or closing a second slit alters the macroscopic boundary conditions of the environment. This instantly modifies the flow of the continuous, fluid-like trans-horizon background noise, reshaping the configuration-space pressure gradient (the Quantum Potential) that physically guides the particle's stochastic trajectory toward the interference fringes.
 
-### 4.2 Falsifiable Predictions
+This picture shares structural features with de Broglie–Bohm pilot-wave theory, which also posits a localized particle guided by a quantum potential. The key difference is ontological: in Bohmian mechanics the guiding wave is a fundamental, ontic entity, whereas here the quantum potential is an emergent consequence of tracing out the trans-horizon bath. The framework therefore does not inherit Bohmian mechanics’ requirement for a preferred foliation of spacetime, since the stochastic dynamics are defined on the configuration space of the visible sector rather than on a global pilot wave.
+
+### 4.2 Bell’s Theorem and Dynamical Indivisibility
+A standard objection to any stochastic underpinning of quantum mechanics is Bell’s Theorem [11], which proves that no theory satisfying certain assumptions can reproduce quantum correlations. The precise assumption is *factorizability*: conditioning on the complete hidden variable $\lambda$ in the common past of two measurements makes their outcomes statistically independent,
+$$P(a,b|x,y,\lambda) = P(a|x,\lambda) \cdot P(b|y,\lambda)$$
+There are three logically distinct ways to violate this condition: (i) *nonlocality*—a direct causal influence between the distant measurements, (ii) *superdeterminism*—the measurement settings $x, y$ are themselves correlated with $\lambda$, removing the experimenters’ freedom of choice, and (iii) *dynamical indivisibility*—the stochastic evolution connecting preparation to outcomes is irreducibly global and cannot be decomposed into independent local substeps.
+
+This framework takes the third route. As established in §3.2, the trans-horizon bath forces CP-indivisible dynamics. In Barandes’ formalization [14, 15, 16], the transition maps of an indivisible stochastic process from preparation time $t_0$ to measurement time $t_2$ cannot be factored through any intermediate time $t_1$: the global map is not the composition of two local maps. Consequently, the joint probability $P(a,b|x,y,\lambda)$ inherits this irreducible global structure and does not factorize—even though each measurement is performed locally and the experimenters retain full freedom in choosing their settings. Measurement independence is preserved; what fails is the assumption that the dynamical law connecting the shared past to the two distant outcomes can be decomposed into independent, memoryless local processes. No faster-than-light signaling is required.
+
+### 4.3 Wigner's Friend and Relational Epistemology
+
+The Wigner's Friend paradox exposes the conceptual friction between objective physical events and subjective quantum states. By defining the wave function entirely as an algorithmic data compression tool, this framework natively resolves the paradox. Inside the isolated laboratory, the Friend performs a measurement, and a definite, objective physical event occurs—driven by the classical divergence of stochastic trajectories in the local background noise. Stationed outside, Wigner lacks access to that local microscopic information. Because he cannot track the exact stochastic trajectory, Wigner is mathematically forced to apply the trace-out algorithm and assign a superposition to the lab. This superposition is strictly a measure of Wigner's own epistemic deficit, not the physical state of the Friend.
+
+### 4.4 The Everettian Illusion and the Measure Problem
+
+The Many-Worlds Interpretation (MWI) posits that the universal wave function is the fundamental, ontic physical reality, resolving quantum superpositions by continuously splitting the universe into deterministic branches. Within the embedded observation framework, MWI commits a structural category error by mistaking a mandatory epistemic data compression algorithm for the physical universe itself. 
+
+Formulating a perfectly deterministic universal wave function implicitly requires an observer entirely outside the system. By applying Wolpert's limits, the universal wave function is an informational impossibility for any embedded physical observer. In this framework, the total universe evolves deterministically as a single, continuous reality governed by the classical Liouville equation. What MWI interprets as newly created, parallel universes actually corresponds to the unmeasured, fluctuating configurations of the hidden sector within our single universe. The realization of an outcome is not the universe splitting, but simply the classical divergence of stochastic trajectories driven by the indivisible macroscopic background noise.
+
+Furthermore, MWI struggles to organically derive the Born rule ($p = |\psi|^2$) in a universe where all outcomes deterministically occur. In the embedded framework, this problem dissolves. Because there is only a single continuous universe, probabilities are standard, classical stochastic probabilities arising directly from epistemic ignorance. The Born rule is natively recovered as the equilibrium distribution of the indivisible stochastic process generated by the trans-horizon bath.
+
+### 4.5 The AdS/CFT Correspondence and Asymptotic Observers
+This framework elegantly explains why the most prominent mathematical unification of quantum mechanics and gravity—the AdS/CFT correspondence (Maldacena [7])—works flawlessly while remaining inapplicable to our physical reality. AdS/CFT is formulated by placing an observer on the *asymptotic boundary* of a hypothetical Anti-de Sitter space, looking inward. Because this observer is positioned on the outside looking in, they inherently possess a "God's-eye view" and are entirely immune to Wolpert's absolute limits for embedded observers. However, our actual universe is expanding (de Sitter space) and has no outer boundary. We are permanently embedded inside it, rendering the AdS/CFT exact unification structurally impossible for us.
+
+### 4.6 Falsifiable Predictions
 Because the quantum-gravity discrepancy is mapped to structural boundary limits, the global cosmological incompleteness theorem must scale down to local event horizons. 
 
-* **Gravitational Wave Echoes:** The classical event horizon is replaced by an informational boundary of the hidden sector located a microscopic distance $\epsilon \approx l_p$ outside the Schwarzschild radius $r_h$. Calculating the tortoise coordinate integral to this boundary predicts a precise time delay for gravitational wave echoes:
+* **Gravitational Wave Echoes:** The classical event horizon is replaced by an informational boundary located a microscopic distance $\epsilon \approx l_p$ outside the Schwarzschild radius $r_h$. Calculating the tortoise coordinate integral predicts a precise time delay for gravitational wave echoes:
 $$\Delta t_{\text{echo}} \approx \frac{r_h}{c} \ln\left(\frac{r_h}{\epsilon}\right)$$
-For a stellar-mass black hole remnant of $M = 30 M_\odot$, the expected delay is precisely **$54$ ms**.
-* **Stochastic Gravitational Noise Floor:** Hidden-sector fluctuations must source a continuous stochastic background with an inverse-frequency-squared spectrum in the MHz–GHz band.
+For a stellar-mass black hole remnant of $M = 30 M_\odot$, the expected delay is approximately 54 ms. The identification $\epsilon \approx l_p$ is physically motivated by the Planck-scale breakdown of semiclassical geometry but is not derived from the framework’s internal logic; a different value of $\epsilon$ would shift the predicted echo time logarithmically. To date, LIGO–Virgo–KAGRA searches for post-merger echoes have yielded null results [8], with the original claims of Abedi et al. remaining contested. A continued null result at the predicted timescale would constrain the location of the informational boundary but would not falsify the broader framework, since $\epsilon$ is a free parameter; what *would* falsify it is the complete absence of any echo structure at all scales.
+* **Stochastic Gravitational Noise Floor:** Hidden-sector fluctuations must source a continuous stochastic background with an inverse-frequency-squared spectrum in the MHz–GHz band. Next-generation high-frequency gravitational wave detectors [9] could provide an independent test of this prediction.
 
 ---
 
 ## V. CONCLUSION
-The incompatibility between quantum mechanics and general relativity is not a bug to be fixed. It is the physical analogue of Gödel incompleteness—the universe demonstrating, through the $10^{122}$ cosmological discrepancy, that observers are inside the system they are trying to describe. Recognizing the Schrödinger equation as the macroscopic shadow of $10^{244}$ missing causal variables paves the way for a rigorous, observer-inclusive cosmology.
+
+The incompatibility between quantum mechanics and general relativity is not a bug to be fixed. It is the physical analogue of Gödel incompleteness [5]—the universe demonstrating, through the $10^{122}$ cosmological discrepancy, that observers are inside the system they are trying to describe.
+
+This paper has developed that intuition into a concrete framework. Wolpert’s limits on embedded inference, formalized as complementary projections $\pi_Q$ and $\pi_G$ (§1.3), reinterpret the cosmological constant discrepancy as a direct measurement of $\sim 10^{244}$ hidden degrees of freedom (§2.2). Tracing out this trans-horizon sector via the Nakajima-Zwanzig formalism yields CP-indivisible dynamics that, through Barandes’ stochastic-quantum correspondence, recover the Schrödinger equation as the mandatory description of an embedded observer’s marginal predictions (§3.2). The framework addresses Bell’s theorem through dynamical indivisibility rather than nonlocality or superdeterminism (§4.2), natively resolves the Wigner’s Friend paradox (§4.3), and dissolves the Everettian measure problem (§4.4).
+
+Several open problems remain. The value of Planck’s constant is recovered as a dimensional consistency condition, but a first-principles derivation from the trans-horizon bath’s spectral density has not yet been achieved. The three properties argued to force CP-indivisibility (§3.2) are individually well-established in the literature, but a rigorous demonstration that they jointly produce the specific form of indivisible dynamics required by Barandes’ correspondence would strengthen the central argument. On the experimental side, the gravitational wave echo prediction (§4.6) is testable with current and near-future detectors, and continued null results would progressively constrain the framework’s free parameter $\epsilon$.
+
+Recognizing the Schrödinger equation as the macroscopic shadow of $10^{244}$ missing causal variables reframes the unification problem: the goal is not to force quantum mechanics and general relativity into a single formalism, but to understand why an embedded observer necessarily sees them as separate.
 
 ---
 
@@ -120,35 +173,21 @@ During the preparation of this work, the author used **Claude Opus 4.6 (Anthropi
 [3] S. M. Carroll, "The Cosmological Constant," *Living Rev. Relativ.* **4**, 1 (2001).  
 [4] D. H. Wolpert, "Physical limits of inference," *Physica D* **237**, 1257–1281 (2008).  
 [5] K. Gödel, "Über formal unentscheidbare Sätze der Principia Mathematica und verwandter Systeme I," *Monatsh. Math. Phys.* **38**, 173–198 (1931).  
-[6] L. Susskind, "The Anthropic Landscape of String Theory," arXiv:hep-th/0302219 (2003).  
-[7] S. W. Hawking, "Breakdown of predictability in gravitational collapse," *Phys. Rev. D* **14**, 2460 (1976).  
-[8] N. Bohr, "Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?" *Phys. Rev.* **48**, 696–702 (1935).  
-[9] G. 't Hooft, *The Cellular Automaton Interpretation of Quantum Mechanics* (Springer, 2016).  
-[10] E. P. Verlinde, "On the Origin of Gravity and the Laws of Newton," *JHEP* **2011**, 29 (2011).  
-[11] T. Jacobson, "Thermodynamics of Spacetime: The Einstein Equation of State," *Phys. Rev. Lett.* **75**, 1260 (1995).  
-[12] G. 't Hooft, "Dimensional Reduction in Quantum Gravity," arXiv:gr-qc/9310026 (1993).  
-[13] J. Maldacena, "The Large-N Limit of Superconformal Field Theories and Supergravity," *Int. J. Theor. Phys.* **38**, 1113–1133 (1999).  
-[14] S. Weinberg, "Ultraviolet divergences in quantum theories of gravitation," in *General Relativity: An Einstein Centenary Survey*, eds. S. W. Hawking and W. Israel (Cambridge University Press, 1979).  
-[15] J. Abedi, H. Dykaar, and N. Afshordi, "Echoes from the Abyss," *Phys. Rev. D* **96**, 082004 (2017).  
-[16] A. Arvanitaki and A. A. Geraci, "Detecting High-Frequency Gravitational Waves with Optically Levitated Sensors," *Phys. Rev. Lett.* **110**, 071105 (2013).  
-[17] M. Ahmed, S. Dodelson, P. B. Greene, and R. Sorkin, "Everpresent $\Lambda$," *Phys. Rev. D* **69**, 103523 (2004).  
-[18] G. W. Gibbons and S. W. Hawking, "Cosmological event horizons, thermodynamics, and particle creation," *Phys. Rev. D* **15**, 2738 (1977).  
-[19] T. Padmanabhan, "Vacuum Fluctuations of Energy Density can lead to the observed Cosmological Constant," *Class. Quantum Grav.* **22**, L107–L112 (2005).  
-[20] T. Padmanabhan and H. Padmanabhan, "Cosmic Information, the Cosmological Constant and the Amplitude of primordial perturbations," *Phys. Lett. B* **773**, 81–85 (2017).  
-[21] J. S. Bell, "On the Einstein Podolsky Rosen paradox," *Physics Physique Fizika* **1**, 195–200 (1964).  
-[22] S. Nakajima, "On Quantum Theory of Transport Phenomena," *Prog. Theor. Phys.* **20**, 948–959 (1958).  
-[23] R. Zwanzig, "Ensemble Method in the Theory of Irreversibility," *J. Chem. Phys.* **33**, 1338–1341 (1960).  
-[24] J. A. Barandes, "The Stochastic-Quantum Theorem," arXiv:2309.03085 (2023).  
-[25] J. A. Barandes, "The Stochastic-Quantum Correspondence," *Philosophy of Physics* **3**(1):8 (2025).  
-[26] A. Almheiri, X. Dong, and D. Harlow, "Bulk Locality and Quantum Error Correction in AdS/CFT," *JHEP* **2015**, 163 (2015).  
-[27] J. A. Barandes, S. Hasan, and J. Kagan, "The CHSH Game, Tsirelson's Bound, and Causal Locality," arXiv:2512.18105 (2025).  
-[28] T. Le, F. A. Pollock, T. Paterek, M. Paternostro, and K. Modi, "Divisible quantum dynamics satisfies temporal Tsirelson's bound," *J. Phys. A* **50**, 055302 (2017).  
-[29] A. Seif, M. Malekakhlagh, S. Majumder, and L. C. G. Govia, "Single snapshot non-Markovianity of Pauli channels," arXiv:2602.13145 (2026).  
-[30] D. Caro and B. Graswald, "Necessary Criteria for Markovian Divisibility of Linear Maps," *J. Math. Phys.* **62**, 042203 (2021).  
-[31] W. G. Unruh, "Notes on black-hole evaporation," *Phys. Rev. D* **14**, 870 (1976).  
-[32] Y. Sekino and L. Susskind, "Fast Scramblers," *JHEP* **2008**, 065 (2008).  
-[33] H.-P. Breuer and F. Petruccione, *The Theory of Open Quantum Systems* (Oxford University Press, 2002).  
-[34] S. Waghmare et al., "Entanglement and Non-Markovianity of Quantum Evolutions," arXiv:2511.15365 (2025).  
-[35] K. Babu et al., "Unfolding system-environment correlation in open quantum systems: Revisiting master equations and the Born approximation," *Phys. Rev. Research* **6**, 013243 (2024).  
-[36] J. Cotler et al., "Black Holes and Random Matrices," *JHEP* **2017**, 118 (2017).  
-[37] F. Buscemi, "Complete positivity, Markovianity, and the quantum data-processing inequality, in the presence of initial system-environment correlations," *Phys. Rev. Lett.* **113**, 140502 (2014).
+[6] G. 't Hooft, "Dimensional Reduction in Quantum Gravity," arXiv:gr-qc/9310026 (1993).  
+[7] J. Maldacena, "The Large-N Limit of Superconformal Field Theories and Supergravity," *Int. J. Theor. Phys.* **38**, 1113–1133 (1999).  
+[8] J. Abedi, H. Dykaar, and N. Afshordi, "Echoes from the Abyss," *Phys. Rev. D* **96**, 082004 (2017).  
+[9] A. Arvanitaki and A. A. Geraci, "Detecting High-Frequency Gravitational Waves with Optically Levitated Sensors," *Phys. Rev. Lett.* **110**, 071105 (2013).  
+[10] G. W. Gibbons and S. W. Hawking, "Cosmological event horizons, thermodynamics, and particle creation," *Phys. Rev. D* **15**, 2738 (1977).  
+[11] J. S. Bell, "On the Einstein Podolsky Rosen paradox," *Physics Physique Fizika* **1**, 195–200 (1964).  
+[12] S. Nakajima, "On Quantum Theory of Transport Phenomena," *Prog. Theor. Phys.* **20**, 948–959 (1958).  
+[13] R. Zwanzig, "Ensemble Method in the Theory of Irreversibility," *J. Chem. Phys.* **33**, 1338–1341 (1960).  
+[14] J. A. Barandes, "The Stochastic-Quantum Theorem," arXiv:2309.03085 (2023).  
+[15] J. A. Barandes, "The Stochastic-Quantum Correspondence," *Philosophy of Physics* **3**(1):8 (2025).  
+[16] J. A. Barandes, S. Hasan, and J. Kagan, "The CHSH Game, Tsirelson's Bound, and Causal Locality," arXiv:2512.18105 (2025).  
+[17] T. Le, F. A. Pollock, T. Paterek, M. Paternostro, and K. Modi, "Divisible quantum dynamics satisfies temporal Tsirelson's bound," *J. Phys. A* **50**, 055302 (2017).  
+[18] W. G. Unruh, "Notes on black-hole evaporation," *Phys. Rev. D* **14**, 870 (1976).  
+[19] Y. Sekino and L. Susskind, "Fast Scramblers," *JHEP* **2008**, 065 (2008).  
+[20] H.-P. Breuer and F. Petruccione, *The Theory of Open Quantum Systems* (Oxford University Press, 2002).  
+[21] K. Babu et al., "Unfolding system-environment correlation in open quantum systems: Revisiting master equations and the Born approximation," *Phys. Rev. Research* **6**, 013243 (2024).  
+[22] J. Cotler et al., "Black Holes and Random Matrices," *JHEP* **2017**, 118 (2017).  
+[23] F. Buscemi, "Complete positivity, Markovianity, and the quantum data-processing inequality, in the presence of initial system-environment correlations," *Phys. Rev. Lett.* **113**, 140502 (2014).
