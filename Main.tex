@@ -69,28 +69,28 @@ Quantum mechanics and general relativity are extraordinarily successful yet stru
 
 The sharpest consequence of embedded observation is that different physical subsystems, coupling to the same underlying degrees of freedom through different mechanisms, can produce irreconcilable measurements --- not because one is wrong, but because each discards different information. We partition the total state space $\Omega$ into degrees of freedom accessible to an observer (the visible sector) and degrees of freedom rendered inaccessible by spacetime's causal structure (the hidden sector) --- primarily trans-horizon modes beyond the observable universe and the interiors of black holes.
 
-Two physical couplings to the vacuum define two projection maps from $\Omega$ to observables. Localized matter (e.g., an atom subject to the Lamb shift) measures the unsigned total vacuum activity through the squared field operator:
+Two physical couplings to the vacuum define two projection maps from $\Omega$ to observables: localized matter couples to the unsigned total vacuum activity ($\pi_Q$, measuring $\langle \hat{\phi}^2 \rangle$), while spacetime geometry couples to the net signed stress-energy density ($\pi_G$, measuring $\langle T_{00} \rangle$). Both maps are many-to-one --- distinct full-universe configurations yield identical outputs --- but their kernels are non-identical: $\pi_Q$ sums magnitudes while $\pi_G$ sums algebraically with signs. Section 2.1 shows that this structural difference produces the $10^{122}$ discrepancy via the Central Limit Theorem.
 
-\begin{equation}
-\pi_Q : \Omega \to \mathbb{R}, \qquad \pi_Q(\omega) = \langle \hat{\phi}^2 \rangle_\omega
-\end{equation}
-
-Spacetime geometry measures the net signed stress-energy density sourcing Einstein's equations:
-
-\begin{equation}
-\pi_G : \Omega \to \mathbb{R}, \qquad \pi_G(\omega) = \langle T_{00} \rangle_\omega
-\end{equation}
-
-Both maps are many-to-one: distinct full-universe configurations that differ only in the hidden sector yield identical outputs. But their kernels are non-identical --- $\pi_Q$ discards sign information while summing magnitudes, whereas $\pi_G$ retains signs while summing algebraically. This is the origin of the discrepancy.
-
-Wolpert's (2008) limits of inference \cite{4} provide the formal no-go theorem confirming that this discrepancy is structural. Wolpert proved that any physical subsystem whose state is a deterministic, many-to-one function of the total configuration constitutes an inference device subject to absolute limits: two such devices with non-identical surjective projections cannot fully reconstruct each other's conclusions from their own outputs alone (the Mutual Inference Impossibility). Both $\pi_Q$ and $\pi_G$ satisfy Wolpert's conditions --- each is an embedded proper subsystem of $\Omega$ with a surjective observation map --- and their non-identical kernels trigger the impossibility result. No single embedded subsystem can simultaneously access both the unsigned total and the signed net of the vacuum. The $10^{122}$ discrepancy between them is therefore a structural limit on embedded observation, not an error awaiting correction.
+Wolpert's (2008) limits of inference \cite{4} confirm that this discrepancy cannot be resolved by any embedded observer. Wolpert proved that any physical subsystem whose state is a deterministic, many-to-one function of the total configuration constitutes an inference device subject to absolute limits: two such devices with non-identical surjective projections cannot fully reconstruct each other's conclusions from their own outputs alone (the Mutual Inference Impossibility). Both $\pi_Q$ and $\pi_G$ satisfy these conditions, and their non-identical kernels trigger the impossibility result. The discrepancy is a structural limit on embedded observation, not an error awaiting correction.
 
 
 \section{OBSERVATIONAL INCOMPLETENESS}
 
 \subsection{Quantifying the Discrepancy}
 
-Having established that the $10^{122}$ cosmological constant discrepancy \cite{1,2,3} reflects a structural limit rather than a fine-tuning error (\S\,1.2), we now extract its quantitative content. A thermodynamic analogy clarifies the mechanism. When measuring a glass of water, a thermometer records the total unsigned kinetic energy of all molecules (a variance-type measurement), producing a massive reading because nothing cancels out. Conversely, a suspended dust speck is only moved by the net canceled-out mechanical push of molecules striking it from all sides (a mean-type measurement), leaving a tiny statistical residual.
+The cosmological constant problem \cite{1,2,3} --- quantum mechanics predicts a vacuum energy of $\sim 10^{113} \text{ J/m}^3$ while general relativity measures $\sim 6 \times 10^{-10} \text{ J/m}^3$, a ratio of $10^{122}$ --- is the quantitative expression of the structural limit identified in \S\,1.2. We now show that this ratio directly encodes the hidden-sector dimensionality.
+
+The two projection maps are formally:
+
+\begin{equation}
+\pi_Q : \Omega \to \mathbb{R}, \qquad \pi_Q(\omega) = \langle \hat{\phi}^2 \rangle_\omega \qquad \text{(unsigned total)}
+\end{equation}
+
+\begin{equation}
+\pi_G : \Omega \to \mathbb{R}, \qquad \pi_G(\omega) = \langle T_{00} \rangle_\omega \qquad \text{(signed net)}
+\end{equation}
+
+A thermodynamic analogy clarifies why these must differ. When measuring a glass of water, a thermometer records the total unsigned kinetic energy of all molecules (a variance-type measurement), producing a massive reading because nothing cancels out. A suspended dust speck responds only to the net mechanical push from all sides (a mean-type measurement), leaving a tiny statistical residual.
 
 \begin{itemize}
   \item \textbf{The Variance Target (Localized Matter):} Localized matter measuring the vacuum (e.g., via the Lamb shift) acts as the thermometer. Because the field operator is squared ($\hat{\phi}^2$), its expectation value is strictly positive-definite for all modes. This measures the unsigned total activity: $V \propto \sum_{i=1}^{N} \langle \hat{\phi}_i^2 \rangle = N \langle E \rangle$.
@@ -112,9 +112,7 @@ Therefore, the ratio of the variance projection to the mean-squared projection s
 \begin{quote}
 \textbf{Observational Incompleteness Principle.} For any many-to-one partition of the universe into visible and hidden sectors, the variance-type projection $V = \sum |E_i|$ and the mean-type projection $M = \sum s_i |E_i|$ satisfy $V/M_{\text{rms}} = \sqrt{N}$, where $N$ is the hidden-sector dimensionality. The discrepancy between them is a structural consequence of embedded observation, not a fine-tuning problem.
 \end{quote}
-\textbf{Clarification: independence of spin-statistics signs under trans-horizon entanglement.} The TFD entanglement structure invoked in \S\,3.2 entangles \textit{amplitude} (occupation number) degrees of freedom between matched visible and trans-horizon mode pairs. The spin-statistics sign $s_i$, by contrast, is not a dynamical variable but a fixed topological property of each field species: $s_i = +1$ for bosonic and $s_i = -1$ for fermionic contributions at each energy scale. In the ultra-relativistic regime ($T_U \gg m_i$), all Standard Model species contribute at comparable magnitudes, so the net sign at each energy bin is determined by species composition with no systematic bias. The CLT therefore applies to the \textit{species-sign sector}, while entanglement resides in the \textit{amplitude sector}; the two structures coexist without contradiction.
-
-The iid assumption on the signs $s_i$ can be relaxed. Even under residual correlations between nearby energy scales, the $\sqrt{N}$ scaling is preserved provided the correlations decay sufficiently fast. Specifically, for a fast-scrambling horizon bath (\S\,3.2), correlations decay exponentially on the scrambling timescale $t_s \sim \ln S$, satisfying the strong mixing ($\alpha$-mixing) condition: $\alpha(k) \to 0$ as the separation $k$ between energy bins grows. Bradley’s central limit theorem for $\alpha$-mixing sequences \cite{40} guarantees that $M/\sqrt{N} \to \mathcal{N}(0, \sigma^2)$ with $\sigma^2 = \text{Var}(s_i) + 2\sum_{k=1}^{\infty} \text{Cov}(s_0, s_k)$, where the covariance sum converges due to exponential decay. The $\sqrt{N}$ scaling is therefore robust to short-range correlations; only long-range power-law correlations with exponent $\alpha < 1/2$ could alter the scaling to $N^\alpha$, which would change the predicted discrepancy ratio from $10^{122}$ to $10^{244\alpha}$. Since the observed discrepancy provides a single data point, such a modification would constrain $\alpha$ rather than falsify the framework---but would require a physical mechanism for long-range sign correlations across widely separated energy scales, which the scrambling dynamics disfavor.
+\textbf{Robustness of the $\sqrt{N}$ scaling.} The spin-statistics sign $s_i$ is not a dynamical variable but a fixed topological property of each field species ($+1$ for bosonic, $-1$ for fermionic), so the TFD entanglement invoked in \S\,3.2 --- which entangles \textit{amplitude} degrees of freedom --- does not affect the sign sector. In the ultra-relativistic regime ($T_U \gg m_i$), all Standard Model species contribute at comparable magnitudes with no systematic sign bias, validating the CLT. The iid assumption can be further relaxed: for a fast-scrambling horizon bath, correlations decay exponentially on the scrambling timescale $t_s \sim \ln S$, satisfying the $\alpha$-mixing condition. Bradley's CLT for mixing sequences \cite{40} guarantees $M/\sqrt{N} \to \mathcal{N}(0, \sigma^2)$ with convergent covariance sum. The $\sqrt{N}$ scaling is therefore robust to short-range correlations; only long-range power-law correlations with exponent $\alpha < 1/2$ could alter it to $N^\alpha$ (changing the predicted ratio from $10^{122}$ to $10^{244\alpha}$), but such correlations would require a physical mechanism for sign alignment across widely separated energy scales, which the scrambling dynamics disfavor.
 
 \subsection{Deriving the $10^{122}$ Discrepancy}
 The ratio of the two projections directly encodes the hidden sector's dimensionality. Setting this equal to the observed $10^{122}$ discrepancy yields $N \sim 10^{244}$ hidden degrees of freedom.
