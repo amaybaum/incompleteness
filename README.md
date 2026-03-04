@@ -1,34 +1,40 @@
-# The Incompleteness of Observation
+# The Undecidability of Observation
 
 **Author:** Alex Maybaum  
-**Date:** February 2026  
+**Date:** March 2026  
 **Status:** Draft Pre-Print
 
 ---
 
 ## Overview
 
-This repository contains a technical paper arguing that the incompatibility between quantum mechanics and general relativity is not a deficiency to be repaired, but a structural consequence of embedded observation.
+This repository contains a technical paper proving that an observer embedded in a deterministic system with a finite phase space, whose dynamics are partitioned into a visible sector and a slowly coupled hidden sector of sufficient capacity, necessarily describes the visible sector using quantum mechanics.
 
-The core claim: any observer that is part of the universe it measures must access reality through projections that discard causally inaccessible degrees of freedom. The quantum-mechanical and gravitational descriptions of vacuum energy correspond to variance and mean projections of a shared hidden sector, and Wolpert's mutual inference impossibility prohibits their simultaneous determination. The 10¹²² cosmological constant discrepancy is not an error — it is a measurement.
+The core claim: quantum mechanics is not a fundamental law but a mandatory compression algorithm — the unique reduced description available to any observer whose causal access defines a partition satisfying three conditions (non-zero coupling, inverted timescale separation, and sufficient capacity). The Schrödinger equation, the Born rule, and Bell inequality violations are structural consequences. The action scale ℏ is uniquely determined by the hidden sector's thermodynamic properties. No quantum postulates are assumed.
 
 ### Paper
 
-**"The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
+**"The Undecidability of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
 
-The full technical paper. Introduces the Observational Incompleteness Principle via Wolpert's inference impossibility framework, derives quantum mechanics from embedded observation through the Nakajima–Zwanzig trace-out formalism and Barandes' stochastic-quantum correspondence, and extracts N ~ 10²⁴⁴ hidden-sector degrees of freedom from the cosmological constant ratio. Includes falsifiable predictions, implications for foundational paradoxes, and a detailed discussion of objections.
+- [`Main.md`](Main.md) — Markdown source
+- [`Main.tex`](Main.tex) — LaTeX source
+- [`Main.pdf`](Main.pdf) — Compiled PDF
+
+The paper is structured in two parts. **Part I** establishes a general theorem: under three axioms (deterministic dynamics on a finite phase space, a causal partition, and classical probability) and three conditions on the hidden sector, the embedded observer's reduced description is mathematically equivalent to unitarily evolving quantum mechanics, via Barandes' stochastic-quantum correspondence. **Part II** identifies the cosmological horizon as a physical realization where all conditions are satisfied, derives ℏ from classical general relativity and the phase-space discreteness scale, and dissolves the cosmological constant problem.
 
 ## Key Results
 
-1. **Observational Incompleteness Principle.** The quantum and gravitational descriptions of vacuum energy are complementary projections of a hidden sector. No single embedded inference device can simultaneously determine both the variance-type and mean-type targets with joint accuracy exceeding Wolpert's bounds.
+1. **General theorem (Part I).** Under Axioms 1–3 and conditions (C1)–(C3), the embedded observer's reduced description of the visible sector is P-indivisible, and by Barandes' stochastic-quantum correspondence, mathematically equivalent to unitarily evolving quantum mechanics. The Schrödinger equation, Born rule, and Bell inequality violations emerge as structural consequences — not independent postulates.
 
-2. **Quantum mechanics from embeddedness.** Tracing out the trans-horizon hidden sector via the Nakajima–Zwanzig formalism yields CP-indivisible stochastic dynamics, which are mathematically equivalent to quantum mechanics by Barandes' stochastic-quantum correspondence (2023, 2025).
+2. **Derivation of ℏ (Part II).** Applying the theorem to the cosmological horizon of a de Sitter universe, the emergent action scale is derived as ℏ = c³ε²/4πG, where ε is the phase-space discreteness scale. Self-consistency uniquely fixes ε² = 4π l_p², recovering the Planck length.
 
-3. **10¹²² as measurement.** Interpreting the cosmological constant ratio as a variance-to-mean ratio yields N ~ 10²⁴⁴ hidden-sector degrees of freedom — equal to S_dS², the square of the de Sitter horizon entropy.
+3. **Dissolution of the cosmological constant problem.** The 10¹²² discrepancy equals S_dS — the Bekenstein-Hawking entropy of the cosmological horizon. It is the information compression ratio of the emergent quantum description: a category error, not a fine-tuning failure. Gravity sees the classical value because spacetime geometry is logically prior to the quantum description the causal partition generates.
 
-4. **Falsifiable predictions.** A 54 ms gravitational wave echo for a 30 M☉ black hole, and a stochastic gravitational noise floor with an inverse-frequency-squared spectrum in the MHz–GHz band.
+4. **Bell inequality violations without superdeterminism.** The framework is a hidden variable theory that evades Bell's theorem through P-indivisible joint dynamics (violating outcome independence) rather than through superdeterminism or nonlocality. The Tsirelson bound |S| ≤ 2√2 follows from indivisibility plus causal locality.
 
-5. **Foundational implications.** Bell's theorem addressed via dynamical indivisibility rather than nonlocality or superdeterminism; Wigner's Friend paradox natively resolved; Everettian measure problem dissolved; AdS/CFT success explained as a consequence of non-embedded (boundary) observation.
+5. **Falsifiable predictions.** Dark energy evolution in Running Vacuum Model form (Λ_eff = Λ₀ + ν H²), consistent with DESI 2024–2025 data at 2.8σ–4.2σ; and gravitational wave echoes with a ~54 ms delay for a 30 M☉ remnant. No competing framework predicts both.
+
+6. **Foundational implications.** Wigner's Friend paradox resolved (superposition assignment is epistemic); Everettian measure problem dissolved (branches are features of the compressed description); AdS/CFT success explained as a consequence of external (boundary) observation immune to Wolpert's inferential limits.
 
 ## Contact
 
