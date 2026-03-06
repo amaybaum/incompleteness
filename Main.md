@@ -10,9 +10,9 @@
 
 ## ABSTRACT
 
-We prove that an observer embedded in a deterministic system, whose dynamics are partitioned into a visible sector and a slowly coupled hidden sector of sufficient capacity, necessarily describes the visible sector using quantum mechanics — provided the effective configuration space is finite-dimensional, a condition that in the cosmological application follows from the partition geometry itself. The hidden sector's persistent correlations render the visible-sector stochastic process P-indivisible; by Barandes' stochastic-quantum correspondence, this is mathematically equivalent to unitarily evolving quantum mechanics. The Schrödinger equation, the Born rule, and Bell inequality violations emerge as structural consequences. The action scale $\hbar$ is uniquely determined by the local structural properties of the partition boundary. No quantum postulates are assumed.
+An observer embedded in a deterministic system, whose dynamics are partitioned into a visible sector and a slowly coupled hidden sector of sufficient capacity, necessarily describes the visible sector using quantum mechanics — provided the effective configuration space is finite-dimensional, a condition that in the cosmological application follows from the partition geometry itself. The hidden sector's persistent correlations render the visible-sector stochastic process P-indivisible; by Barandes' stochastic-quantum correspondence, this is mathematically equivalent to unitarily evolving quantum mechanics. The Schrödinger equation, the Born rule, and Bell inequality violations emerge as structural consequences. The action scale $\hbar$ is uniquely determined by the local structural properties of the partition boundary. No quantum postulates are assumed.
 
-The cosmological horizon provides a physical realization of the theorem's conditions. Applying the framework to de Sitter spacetime, we derive the scaling $\hbar \propto c^3 \epsilon^2 / G$ from classical general relativity and the phase-space discreteness scale, with self-consistency fixing $\epsilon$ at the Planck length, and dissolve the cosmological constant problem: the $10^{122}$ discrepancy equals $S_{\text{dS}}$, the information compression ratio of the emergent quantum description — a category error, not a fine-tuning failure.
+The cosmological horizon provides a physical realization of the theorem's conditions. Applying the framework to de Sitter spacetime, the scaling $\hbar \propto c^3 \epsilon^2 / G$ follows from classical general relativity and the phase-space discreteness scale, with self-consistency fixing $\epsilon$ at the Planck length, and dissolve the cosmological constant problem: the $10^{122}$ discrepancy equals $S_{\text{dS}}$, the information compression ratio of the emergent quantum description — a category error, not a fine-tuning failure.
 
 Falsifiable predictions include dark energy evolution in Running Vacuum Model form ($\Lambda_{\text{eff}} = \Lambda_0 + \nu H^2$) and gravitational wave echoes near black hole horizons. No competing framework predicts both.
 
@@ -24,9 +24,9 @@ Falsifiable predictions include dark energy evolution in Running Vacuum Model fo
 
 ### 1.1 The Problem of Embedded Observation
 
-Physical observers are subsystems of the systems they measure. This elementary fact has consequences that have not been fully traced. An observer embedded in a deterministic universe cannot access the complete state: degrees of freedom beyond the observer's causal reach are permanently hidden, and the observer's description of the visible sector is necessarily a reduced one obtained by marginalizing over the hidden sector. This paper asks what structural constraints that reduction imposes on the form of the observer's physical laws.
+Physical observers are subsystems of the systems they measure. This elementary fact has consequences that have not been fully traced. An observer embedded in a deterministic universe cannot access the complete state: degrees of freedom beyond the observer's causal reach are permanently hidden, and the observer's description of the visible sector is necessarily a reduced one obtained by marginalizing over the hidden sector. The question is what structural constraints that reduction imposes on the form of the observer's physical laws.
 
-The observer's epistemic situation has been foregrounded before. QBism treats quantum states as expressions of an agent's beliefs; relational quantum mechanics defines states relative to interacting subsystems; 't Hooft's cellular automaton interpretation [1] derives quantum behavior from deterministic dynamics through information loss. These programs take observer-dependence as an interpretive starting point or, in 't Hooft's case, derive it from a specific microphysical model. The present work differs in that it identifies *sufficient conditions* under which any embedded observer in any deterministic system necessarily sees quantum mechanics, independent of the system's specific physical content.
+The observer's epistemic situation has been foregrounded before. QBism treats quantum states as expressions of an agent's beliefs; relational quantum mechanics defines states relative to interacting subsystems; 't Hooft's cellular automaton interpretation [1] derives quantum behavior from deterministic dynamics through information loss. These programs take observer-dependence as an interpretive starting point or, in 't Hooft's case, derive it from a specific microphysical model. The present framework differs in that it identifies *sufficient conditions* under which any embedded observer in any deterministic system necessarily sees quantum mechanics, independent of the system's specific physical content.
 
 ### 1.2 Axioms
 
@@ -72,7 +72,7 @@ This is the *inverse* of the standard Markovian regime, which requires $\tau_B \
 
 ### 1.4 Partition-Relativity
 
-Before proceeding to the proof, we derive a structural consequence of the axioms that will constrain the emergent description throughout.
+Before proceeding to the proof, a structural consequence of the axioms is derived that will constrain the emergent description throughout.
 
 **Lemma (partition-relativity).** *The emergent description of the visible sector is uniquely determined by the partition. Two observers whose causal access defines the same partition obtain the same reduced description. Any parameters of the emergent theory can depend only on quantities intrinsic to the partition — the geometric and thermodynamic properties of the boundary between visible and hidden sectors.*
 
@@ -80,7 +80,7 @@ Before proceeding to the proof, we derive a structural consequence of the axioms
 
 $$T_{ij}(t_2, t_1) = \int_{\Gamma_H} \delta_{x_j}[\pi_V(\phi_{t_2-t_1}(x_i, h))] \, d\mu(h)$$
 
-are therefore uniquely determined by three inputs: the dynamics ($\phi_t$), the partition ($\Gamma_V, \Gamma_H$), and the measure ($\mu$). Since $\phi_t$ and $\mu$ are fixed by the axioms, the transition probabilities — and hence the complete stochastic process — depend only on the partition. If this process is P-indivisible (as we will show in §2), the stochastic-quantum correspondence maps it to a quantum description. Since the stochastic process is unique, the quantum description is unique (up to unitary equivalence and gauge freedoms resolved below). In particular, any free parameters of the emergent theory — including the action scale $\hbar$ — can depend only on quantities intrinsic to the partition: the geometric and thermodynamic properties of the boundary between $\Gamma_V$ and $\Gamma_H$. $\square$
+are therefore uniquely determined by three inputs: the dynamics ($\phi_t$), the partition ($\Gamma_V, \Gamma_H$), and the measure ($\mu$). Since $\phi_t$ and $\mu$ are fixed by the axioms, the transition probabilities — and hence the complete stochastic process — depend only on the partition. If this process is P-indivisible (as shown in §2), the stochastic-quantum correspondence maps it to a quantum description. Since the stochastic process is unique, the quantum description is unique (up to unitary equivalence and gauge freedoms resolved below). In particular, any free parameters of the emergent theory — including the action scale $\hbar$ — can depend only on quantities intrinsic to the partition: the geometric and thermodynamic properties of the boundary between $\Gamma_V$ and $\Gamma_H$. $\square$
 
 **Why this matters.** Partition-relativity is not an additional postulate but a direct consequence of the axioms' deterministic and measure-theoretic content. It will play three roles in what follows: (i) it ensures that the emergent quantum mechanics is universal for all sub-$c$ observers sharing the same cosmological horizon (§4.1); (ii) it constrains the action scale $\hbar$ to depend only on quantities intrinsic to the partition, and specifically to its local *structure* rather than its volume, which together with dimensional analysis determines the scaling $\hbar \propto c^3 \epsilon^2 / G$ (§5.2); and (iii) it provides the logical bridge between the general theorem and the quantitative derivation: the same principle that guarantees uniqueness also restricts which physical quantities can appear in the emergent description.
 
@@ -126,7 +126,7 @@ Condition (C3) is what prevents P-indivisibility from being transient. Each visi
 
 ### 2.5 Explicit Construction: A Minimal Model
 
-To make the P-indivisibility argument concrete, we construct a minimal deterministic system satisfying conditions (C1)–(C3) and verify explicitly that its reduced dynamics are P-indivisible.
+To make the P-indivisibility argument concrete, consider a minimal deterministic system satisfying conditions (C1)–(C3); its reduced dynamics are explicitly verified to be P-indivisible.
 
 **The model.** The visible sector has two states: $x \in \{0, 1\}$. The hidden sector has six states: $h \in \{1, 2, 3, 4, 5, 6\}$. The total phase space has 12 states $(x, h)$. The dynamics are a deterministic, invertible permutation $\sigma$ on these 12 states, defined as six disjoint transpositions:
 
@@ -144,7 +144,7 @@ At $t = 2$ ($\sigma^2 = \text{id}$): every state returns to itself, so $T(2,0) =
 
 A Markov chain with transition matrix $T(1,0)$ would predict $T(2,0)_{\text{Markov}} = T(1,0)^2 = \left(\begin{smallmatrix} 5/9 & 4/9 \\ 4/9 & 5/9 \end{smallmatrix}\right)$ — continued mixing. The actual dynamics show complete *un-mixing*: the system returns to its initial state with certainty. This is information backflow.
 
-**P-divisibility test.** If the process were P-divisible, we could write $T(2,0) = \Lambda(2,1) \cdot T(1,0)$ with $\Lambda(2,1)$ a valid stochastic matrix (non-negative entries, rows summing to 1). Computing:
+**P-divisibility test.** If the process were P-divisible, one could write $T(2,0) = \Lambda(2,1) \cdot T(1,0)$ with $\Lambda(2,1)$ a valid stochastic matrix (non-negative entries, rows summing to 1). Computing:
 
 $$\Lambda(2,1) = T(2,0) \cdot [T(1,0)]^{-1} = I \cdot \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}$$
 
@@ -218,13 +218,13 @@ This is a conditional prediction, not a claim that distinct partitions are gener
 
 **Relation to 't Hooft's deterministic quantum mechanics.** The present theorem shares 't Hooft's philosophical commitment [1] — quantum randomness is epistemic, arising from coarse-graining a deterministic substratum — but differs in mechanism: 't Hooft locates information loss at the Planck scale (local, cell-by-cell coarse-graining of a fast substratum), while the present framework locates it at the causal partition (global, trace-out of a slow environment). The critical empirical distinction is that 't Hooft's program requires superdeterminism to accommodate Bell violations, while the present framework reproduces them through P-indivisibility without violating measurement independence (§3.2).
 
-**The question that motivates Part II.** The theorem establishes that *any* system satisfying conditions (C1)–(C3) produces quantum mechanics for the embedded observer. We now ask: does our universe satisfy these conditions?
+**The question that motivates Part II.** The theorem establishes that *any* system satisfying conditions (C1)–(C3) produces quantum mechanics for the embedded observer. The question that motivates Part II is: does our universe satisfy these conditions?
 
 ---
 
 # PART II: THE COSMOLOGICAL APPLICATION
 
-We argue that the cosmological horizon of a de Sitter universe provides a physical realization of conditions (C1)–(C3), and derive the quantitative consequences. The argument requires only general relativity and the Jacobson thermodynamic identity; no model of the microphysical coupling is assumed.
+The cosmological horizon of a de Sitter universe provides a physical realization of conditions (C1)–(C3), and the quantitative consequences follow. The argument requires only general relativity and the Jacobson thermodynamic identity; no model of the microphysical coupling is assumed.
 
 ## 4. THE COSMOLOGICAL HORIZON AS CAUSAL PARTITION
 
@@ -232,7 +232,7 @@ We argue that the cosmological horizon of a de Sitter universe provides a physic
 
 General relativity defines the causal structure of spacetime. The cosmological horizon is the boundary beyond which no signal propagating at or below $c$ can reach the embedded observer. Every physically realizable measurement technique — electromagnetic, gravitational-wave, neutrino — propagates at or below $c$ and therefore encounters the same boundary. The horizon implements the causal partition of Axiom 2 for all sub-$c$ observers simultaneously: the visible sector $\Gamma_V$ is the interior of the cosmological horizon, and the hidden sector $\Gamma_H$ is everything beyond it.
 
-This identification is not a modeling choice but a consequence of GR's causal structure. A hypothetical observer with access to a causal channel not constrained by the light cone would have a different partition, a different (or absent) hidden sector, and by the theorem's own logic, a different emergent description. No such channel is available within GR. The specific quantum mechanics we observe is the quantum mechanics of light-cone-bounded observers; its universality is a consequence of the causal structure, not a postulate.
+This identification is not a modeling choice but a consequence of GR's causal structure. A hypothetical observer with access to a causal channel not constrained by the light cone would have a different partition, a different (or absent) hidden sector, and by the theorem's own logic, a different emergent description. No such channel is available within GR. The specific quantum mechanics observed is the quantum mechanics of light-cone-bounded observers; its universality is a consequence of the causal structure, not a postulate.
 
 ### 4.2 Verification of the Conditions
 
@@ -416,7 +416,7 @@ The AdS/CFT correspondence [28] achieves exact unification by placing the observ
 
 ## 10. CONCLUSION
 
-This paper has established two results at different levels of generality.
+Two results at different levels of generality have been established.
 
 **The general theorem (Part I).** Under three axioms (deterministic dynamics, a causal partition, and classical probability), a finiteness condition on the effective configuration space, and three conditions on the hidden sector (non-zero coupling, inverted timescale separation, and sufficient capacity), the embedded observer's reduced description of the visible sector is necessarily quantum mechanics. The Schrödinger equation, the Born rule, and Bell inequality violations are structural consequences. The action scale $\hbar$ is uniquely determined by the local structural properties of the partition boundary. No quantum postulates are required.
 
