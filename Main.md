@@ -1,4 +1,4 @@
-# THE UNDECIDABILITY OF OBSERVATION
+# THE INCOMPLETENESS OF OBSERVATION
 ### Why Quantum Mechanics and General Relativity Cannot Be Unified From Within
 
 **Author:** Alex Maybaum  

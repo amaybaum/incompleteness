@@ -1,4 +1,4 @@
-# The Undecidability of Observation
+# The Incompleteness of Observation
 
 **Author:** Alex Maybaum  
 **Date:** March 2026  
@@ -14,11 +14,21 @@ The core claim: quantum mechanics is not a fundamental law but a mandatory compr
 
 ### Paper
 
-**"The Undecidability of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
+**"The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
 
 - [`Main.md`](Main.md) — Markdown source
 - [`Main.tex`](Main.tex) — LaTeX source
 - [`Main.pdf`](Main.pdf) — Compiled PDF
+
+### Explainer
+
+**"Why Physics' Biggest Contradiction Might Not Be a Contradiction at All"**
+
+A non-technical overview of the paper's core argument — from the cosmological constant problem through the emergence of quantum mechanics from causal partitions — written for a broad audience.
+
+- [`Explainer.md`](Explainer.md) — Markdown source
+- [`Explainer.tex`](Explainer.tex) — LaTeX source
+- [`Explainer.pdf`](Explainer.pdf) — Compiled PDF
 
 The paper is structured in two parts. **Part I** establishes a general theorem: under three axioms (deterministic dynamics on a finite phase space, a causal partition, and classical probability) and three conditions on the hidden sector, the embedded observer's reduced description is mathematically equivalent to unitarily evolving quantum mechanics, via Barandes' stochastic-quantum correspondence. **Part II** identifies the cosmological horizon as a physical realization where all conditions are satisfied, derives ℏ from classical general relativity and the phase-space discreteness scale, and dissolves the cosmological constant problem.
 
