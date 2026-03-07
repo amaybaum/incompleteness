@@ -1,4 +1,4 @@
-# The Undecidability of Observation
+# The Incompleteness of Observation
 ### Why Physics' Biggest Contradiction Might Not Be a Contradiction at All
 
 **Alex Maybaum — March 2026**
@@ -144,7 +144,7 @@ The universe is not broken. We are observing it from within.
 
 ---
 
-*This is a simplified overview of "The Undecidability of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within" (Maybaum, March 2026), which presents the formal arguments with detailed derivations.*
+*This is a simplified overview of "The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within" (Maybaum, March 2026), which presents the formal arguments with detailed derivations.*
 
 ***
 
