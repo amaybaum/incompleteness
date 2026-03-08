@@ -36,7 +36,7 @@ The paper is structured in two parts. **Part I** establishes a general theorem: 
 
 1. **General theorem (Part I).** Under Axioms 1–3 and conditions (C1)–(C3), the embedded observer's reduced description of the visible sector is P-indivisible, and by Barandes' stochastic-quantum correspondence, mathematically equivalent to unitarily evolving quantum mechanics. The Schrödinger equation, Born rule, and Bell inequality violations emerge as structural consequences — not independent postulates.
 
-2. **Derivation of ℏ (Part II).** Applying the theorem to the cosmological horizon of a de Sitter universe, the emergent action scale is derived as ℏ = c³ε²/4πG, where ε is the phase-space discreteness scale. Self-consistency uniquely fixes ε² = 4π l_p², recovering the Planck length.
+2. **Derivation of ℏ (Part II).** Applying the theorem to the cosmological horizon of a de Sitter universe, the emergent action scale is derived as ℏ = c³ε²/(4G), where ε is the phase-space discreteness scale. Self-consistency uniquely fixes ε² = 4 l_p², recovering the Planck length.
 
 3. **Dissolution of the cosmological constant problem.** The 10¹²² discrepancy equals S_dS — the Bekenstein-Hawking entropy of the cosmological horizon. It is the information compression ratio of the emergent quantum description: a category error, not a fine-tuning failure. Gravity sees the classical value because spacetime geometry is logically prior to the quantum description the causal partition generates.
 
