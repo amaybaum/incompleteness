@@ -8,9 +8,9 @@
 
 ## Overview
 
-This repository contains a technical paper proving that an observer embedded in a deterministic system with a finite phase space, whose dynamics are partitioned into a visible sector and a slowly coupled hidden sector of sufficient capacity, necessarily describes the visible sector using quantum mechanics.
+This repository contains a technical paper proving that an observer embedded in a deterministic system with a finite phase space, whose dynamics are partitioned into a visible sector and a slowly coupled hidden sector of sufficient capacity, necessarily describes the visible sector using quantum mechanics — and that the converse holds: any quantum system, realized as a deterministic dilation, requires precisely these conditions.
 
-The core claim: quantum mechanics is not a fundamental law but a mandatory compression algorithm — the unique reduced description available to any observer whose causal access defines a partition satisfying three conditions (non-zero coupling, inverted timescale separation, and sufficient capacity). The Schrödinger equation, the Born rule, and Bell inequality violations are structural consequences. The action scale ℏ is uniquely determined by the hidden sector's thermodynamic properties. No quantum postulates are assumed.
+The core claim: quantum mechanics is not a fundamental law but a mandatory compression algorithm — equivalent to the reduced description of any observer whose causal partition satisfies three conditions (non-zero coupling, inverted timescale separation, and sufficient capacity). The equivalence is bidirectional: these conditions produce quantum mechanics, and quantum mechanics requires them. The Schrödinger equation, the Born rule, and Bell inequality violations are structural consequences. The action scale ℏ is uniquely determined by the hidden sector's thermodynamic properties. No quantum postulates are assumed.
 
 ### Paper
 
@@ -30,11 +30,11 @@ A non-technical overview of the paper's core argument — from the cosmological 
 - [`Explainer.tex`](Explainer.tex) — LaTeX source
 - [`Explainer.pdf`](Explainer.pdf) — Compiled PDF
 
-The paper is structured in two parts. **Part I** establishes a general theorem: under three axioms (deterministic dynamics on a finite phase space, a causal partition, and classical probability) and three conditions on the hidden sector, the embedded observer's reduced description is mathematically equivalent to unitarily evolving quantum mechanics, via Barandes' stochastic-quantum correspondence. **Part II** identifies the cosmological horizon as a physical realization where all conditions are satisfied, derives ℏ from classical general relativity and the phase-space discreteness scale, and dissolves the cosmological constant problem.
+The paper is structured in two parts. **Part I** establishes a general theorem: under three axioms (deterministic dynamics on a finite phase space, a causal partition, and classical probability) and three conditions on the hidden sector, the embedded observer's reduced description is mathematically equivalent to unitarily evolving quantum mechanics, via Barandes' stochastic-quantum correspondence. A characterization theorem proves the conditions are also necessary, establishing a full equivalence between quantum mechanics and embedded observation. **Part II** identifies the cosmological horizon as a physical realization where all conditions are satisfied, derives ℏ from classical general relativity and the phase-space discreteness scale, and dissolves the cosmological constant problem.
 
 ## Key Results
 
-1. **General theorem (Part I).** Under Axioms 1–3 and conditions (C1)–(C3), the embedded observer's reduced description of the visible sector is P-indivisible, and by Barandes' stochastic-quantum correspondence, mathematically equivalent to unitarily evolving quantum mechanics. The Schrödinger equation, Born rule, and Bell inequality violations emerge as structural consequences — not independent postulates.
+1. **General theorem (Part I).** Under Axioms 1–3 and conditions (C1)–(C3), the embedded observer's reduced description of the visible sector is P-indivisible, and by Barandes' stochastic-quantum correspondence, mathematically equivalent to unitarily evolving quantum mechanics. The characterization theorem proves the converse: any P-indivisible process realized through a deterministic dilation requires (C1)–(C3), establishing that quantum mechanics and embedded observation are equivalent. The Schrödinger equation, Born rule, and Bell inequality violations emerge as structural consequences — not independent postulates.
 
 2. **Derivation of ℏ (Part II).** Applying the theorem to the cosmological horizon of a de Sitter universe, the emergent action scale is derived as ℏ = c³ε²/(4G), where ε is the phase-space discreteness scale. Self-consistency uniquely fixes ε² = 4 l_p², recovering the Planck length.
 
