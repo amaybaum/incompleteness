@@ -15,7 +15,7 @@ Ask quantum mechanics how much energy empty space contains and it gives you a st
 
 For decades, the assumption has been that something is deeply broken — that one or both calculations contain an error, and that finding the mistake will point the way to a unified theory of everything.
 
-This paper argues the opposite. Neither calculation is wrong. They disagree because they *must*, and the reason has nothing to do with the specific physics of either theory.
+This paper argues the opposite. Neither calculation is wrong. They disagree because they *must*. In fact, that massive $10^{122}$ discrepancy isn't a failure at all. It is the strongest piece of existing evidence we have that quantum mechanics is not the fundamental bedrock of reality, but an emergent description forced upon us by our limited vantage point.
 
 ---
 
@@ -87,6 +87,8 @@ The critical insight is that general relativity and quantum field theory are not
 This ordering is not a choice. The causal partition that *produces* quantum mechanics is defined by the null geodesics of the metric. The metric must therefore exist before the partition, and the partition before the quantum description. Treating the metric as emergent from quantum mechanics would make the whole construction circular.
 
 The $10^{122}$ ratio between the two answers is not a discrepancy. It equals $S_{\text{dS}}$ — the Bekenstein-Hawking entropy of the cosmological horizon — which is the number of hidden-sector degrees of freedom the trace-out compresses into the emergent quantum state. The "worst prediction in physics" is the information compression ratio of the observer's blind spot. A category error, not a fine-tuning failure.
+
+This is not a prediction awaiting future data. The observed vacuum energy has been measured since 1998, and it sits exactly at the classical geometric scale — the value the framework expects. Meanwhile, every attempt to explain this value from within a framework where quantum mechanics is fundamental has failed: supersymmetric cancellations are increasingly ruled out by the LHC, and anthropic arguments constrain the range of possible values without predicting the specific one we observe. Five decades of searching for a cancellation mechanism have found nothing. The framework explains why: there is nothing to cancel. The observed baseline, the identification of the discrepancy as $S_{\text{dS}}$, and the absence of any cancellation mechanism are existing evidence that the quantum description is emergent rather than fundamental.
 
 ---
 
