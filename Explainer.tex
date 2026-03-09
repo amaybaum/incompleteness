@@ -1,34 +1,46 @@
 \documentclass[12pt,a4paper]{article}
 
+% Packages
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb}
-\usepackage[margin=1in]{geometry}
-\usepackage{parskip}
+\usepackage{geometry}
 \usepackage{hyperref}
-\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{parskip}
 
+\geometry{margin=1in}
 \hypersetup{
     colorlinks=true,
-    linkcolor=black,
-    urlcolor=blue,
-    citecolor=black
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
 }
 
-\title{\textbf{The Incompleteness of Observation}\\[6pt]
-\large Why Physics' Biggest Contradiction Might Not Be a Contradiction at All}
-\author{Alex Maybaum}
-\date{March 2026}
+\titleformat{\section}{\Large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries}{}{0em}{}
+
+\onehalfspacing
 
 \begin{document}
-\maketitle
-\thispagestyle{empty}
 
-\bigskip
+% ==============================
+% TITLE
+% ==============================
+
+\begin{center}
+{\LARGE\bfseries The Incompleteness of Observation}\\[0.5em]
+{\large Why Physics' Biggest Contradiction Might Not Be a Contradiction at All}\\[1.5em]
+{\large Alex Maybaum --- March 2026}
+\end{center}
+
+\vspace{1em}
 \hrule
-\bigskip
+\vspace{1.5em}
 
-\section*{The Worst Prediction in Physics}
+% ==============================
+\section{The Worst Prediction in Physics}
 
 Physics has two spectacularly successful theories. Quantum mechanics describes the behavior of atoms, particles, and light. General relativity describes gravity, space, and time. Each has been confirmed to extraordinary precision. They have never disagreed with any experiment.
 
@@ -38,9 +50,12 @@ Ask quantum mechanics how much energy empty space contains and it gives you a st
 
 For decades, the assumption has been that something is deeply broken---that one or both calculations contain an error, and that finding the mistake will point the way to a unified theory of everything.
 
-This paper argues the opposite. Neither calculation is wrong. They disagree because they \emph{must}, and the reason has nothing to do with the specific physics of either theory.
+This paper argues the opposite. Neither calculation is wrong. They disagree because they \emph{must}. In fact, that massive $10^{122}$ discrepancy isn't a failure at all. It is the strongest piece of existing evidence we have that quantum mechanics is not the fundamental bedrock of reality, but an emergent description forced upon us by our limited vantage point.
 
-\section*{The Observer's Blind Spot}
+\vspace{0.5em}\hrule\vspace{0.5em}
+
+% ==============================
+\section{The Observer's Blind Spot}
 
 Light travels at a finite speed, and the universe has a finite age. Put those together and every observer has a horizon---a boundary beyond which no signal has had time to arrive. Everything beyond that boundary is ordinary physics: fields, particles, radiation. But it is structurally inaccessible. Not because our telescopes aren't good enough, but because the geometry of spacetime forbids it. No technology that obeys the speed of light can reach past it.
 
@@ -52,13 +67,16 @@ But the hidden sector beyond the cosmological horizon is not like that. It diffe
 
 \textbf{It's coupled.} The horizon is not a static wall. Stress-energy conservation enforces continuous dynamical correlations across it. Matter crosses the horizon, and the horizon area adjusts in response to interior energy density. Information flows in both directions. (Condition~C1.)
 
-\textbf{It's slow.} The hidden sector's correlation time is set by the Hubble timescale---roughly $10^{17}$~seconds, the age of the universe. Any laboratory experiment operates on timescales of $10^{-15}$~seconds or shorter. The ratio is $10^{-32}$. The hidden sector cannot ``reset'' between your measurements. Every correlation it picks up from one experiment is still there when the next one begins. This is the \emph{opposite} of the standard Markovian regime, where the environment decorrelates fast. Here, it never decorrelates at all. (Condition~C2.)
+\textbf{It's slow.} The hidden sector's correlation time is set by the Hubble timescale---roughly $10^{17}$ seconds, the age of the universe. Any laboratory experiment operates on timescales of $10^{-15}$ seconds or shorter. The ratio is $10^{-32}$. The hidden sector cannot ``reset'' between your measurements. Every correlation it picks up from one experiment is still there when the next one begins. This is the \emph{opposite} of the standard Markovian regime, where the environment decorrelates fast. Here, it never decorrelates at all. (Condition~C2.)
 
 \textbf{It's vast.} The hidden sector has roughly $10^{122}$ independent degrees of freedom---the Bekenstein--Hawking entropy of the cosmological horizon. No experiment you could ever perform would appreciably disturb its state. Its memory never saturates. (Condition~C3.)
 
 A fast environment with vast capacity would wash out correlations (Markovian noise). A slow environment with limited capacity would eventually fill up and stop recording. Only an environment that is simultaneously coupled, slow, and vast sustains the kind of persistent, non-decomposable correlations that the paper calls \emph{P-indivisibility}---a technical term meaning the system's transition probabilities at different times cannot be broken into independent steps.
 
-\section*{From Indivisibility to Quantum Mechanics}
+\vspace{0.5em}\hrule\vspace{0.5em}
+
+% ==============================
+\section{From Indivisibility to Quantum Mechanics}
 
 This is the key link, and it relies on a mathematical result proved by Jacob Barandes in 2023.
 
@@ -68,7 +86,7 @@ The equivalence is not approximate. It is not an analogy. It is a mathematical i
 
 So the argument chains together like this:
 
-\begin{enumerate}[leftmargin=2em]
+\begin{enumerate}
 \item The cosmological horizon partitions the universe into what you can see and what you can't.
 \item Tracing out the hidden sector produces a stochastic process---you're forced to assign probabilities because you can't track the hidden degrees of freedom.
 \item The three conditions (coupled, slow, vast) guarantee that this stochastic process is P-indivisible.
@@ -77,14 +95,16 @@ So the argument chains together like this:
 
 Quantum mechanics is not a fundamental law of nature. It is what embedded observation looks like---and the paper proves the equivalence runs both ways. These three conditions produce quantum mechanics, and any quantum system, traced back to its deterministic roots, requires exactly these conditions. Quantum mechanics and embedded observation are the same thing.
 
-\section*{Where Planck's Constant Comes From}
+\vspace{0.5em}\hrule\vspace{0.5em}
+
+% ==============================
+\section{Where Planck's Constant Comes From}
 
 The paper proves a further result called \emph{partition-relativity}: the emergent quantum description is completely and uniquely determined by the partition---the boundary between what the observer can and cannot see. Two observers sharing the same cosmological horizon get exactly the same quantum mechanics. Different partition, different quantum mechanics (or, if the conditions aren't met, no quantum mechanics at all).
 
-This means $\hbar$---Planck's constant, the fundamental scale of quantum mechanics---cannot be a free parameter. It must be fixed by the geometry of the boundary. The paper argues that $\hbar$ depends only on the \emph{local structure} of the partition boundary (the gravitational coupling~$G$, the speed of light~$c$, and a discreteness scale~$\epsilon$)---not on the total size of the hidden sector. The unique combination with the right dimensions is $c^3 \epsilon^2 / G$, but dimensional analysis alone cannot fix the numerical prefactor.
+This means $\hbar$---Planck's constant, the fundamental scale of quantum mechanics---cannot be a free parameter. It must be fixed by the geometry of the boundary. The paper argues that $\hbar$ depends only on the \emph{local structure} of the partition boundary (the gravitational coupling $G$, the speed of light $c$, and a discreteness scale $\epsilon$)---not on the total size of the hidden sector. The unique combination with the right dimensions is $c^3 \epsilon^2 / G$, but dimensional analysis alone cannot fix the numerical prefactor.
 
 The paper closes this gap with a self-consistency argument. The cosmological horizon has a classical temperature---derivable from general relativity alone, with no quantum mechanics---that depends on $\epsilon$ but not on $\hbar$. Independently, the emergent quantum theory predicts a specific temperature for the same horizon: the Gibbons--Hawking temperature, which depends on $\hbar$ but is a \emph{consequence} of the emergent description, not an independent input. Requiring these to agree---the emergent description must be consistent with the conditions that produced it---gives one equation in one unknown and fixes the prefactor exactly:
-%
 \begin{equation}
 \hbar = \frac{c^3 \epsilon^2}{4G}
 \end{equation}
@@ -93,15 +113,18 @@ This in turn pins the discreteness scale to $\epsilon = 2\,l_p$---twice the Plan
 
 A bonus: the famous Bekenstein--Hawking entropy formula $S = A/(4\,l_p^2)$---including the factor of $1/4$ that has never had a first-principles explanation---falls out as a direct consequence. Each minimal cell of area $\epsilon^2 = 4\,l_p^2$ on the horizon contributes one unit of entropy.
 
-\section*{The Two Levels}
+\vspace{0.5em}\hrule\vspace{0.5em}
+
+% ==============================
+\section{The Two Levels}
 
 Now the cosmological constant problem dissolves.
 
 The critical insight is that general relativity and quantum field theory are not competing answers to the same question. They are answers to \emph{different questions}, asked at different levels of the same reality.
 
-\textbf{Level~1: The classical substratum.} Spacetime geometry is part of the fundamental layer. The metric tensor evolves via Einstein's field equations. The stress-energy tensor that sources gravity is the classical stress-energy of the total microstate. At this level, the vacuum energy density sits at the critical scale: $\rho \sim H^2/G \sim 10^{-9}$~J/m$^3$. No zero-point energy. No discrepancy.
+\textbf{Level 1: The classical substratum.} Spacetime geometry is part of the fundamental layer. The metric tensor evolves via Einstein's field equations. The stress-energy tensor that sources gravity is the classical stress-energy of the total microstate. At this level, the vacuum energy density sits at the critical scale: $\rho \sim H^2/G \sim 10^{-9}$~J/m$^3$. No zero-point energy. No discrepancy.
 
-\textbf{Level~2: The emergent quantum description.} For an embedded observer tracing out the hidden sector, the mandatory quantum description assigns a zero-point energy of $\frac{1}{2}\hbar\omega$ per mode. Sum to the Planck cutoff and you get $\rho_{\text{QFT}} \sim 10^{113}$~J/m$^3$. This number is real \emph{within the quantum description}---it reflects the magnitude of the trace-out noise---but it is not a source term in Einstein's equations, because those equations operate at the classical level, which is logically prior to the quantum description.
+\textbf{Level 2: The emergent quantum description.} For an embedded observer tracing out the hidden sector, the mandatory quantum description assigns a zero-point energy of $\frac{1}{2}\hbar\omega$ per mode. Sum to the Planck cutoff and you get $\rho_{\text{QFT}} \sim 10^{113}$~J/m$^3$. This number is real \emph{within the quantum description}---it reflects the magnitude of the trace-out noise---but it is not a source term in Einstein's equations, because those equations operate at the classical level, which is logically prior to the quantum description.
 
 This ordering is not a choice. The causal partition that \emph{produces} quantum mechanics is defined by the null geodesics of the metric. The metric must therefore exist before the partition, and the partition before the quantum description. Treating the metric as emergent from quantum mechanics would make the whole construction circular.
 
@@ -109,7 +132,10 @@ The $10^{122}$ ratio between the two answers is not a discrepancy. It equals $S_
 
 This is not a prediction awaiting future data. The observed vacuum energy has been measured since 1998, and it sits exactly at the classical geometric scale---the value the framework expects. Meanwhile, every attempt to explain this value from within a framework where quantum mechanics is fundamental has failed: supersymmetric cancellations are increasingly ruled out by the LHC, and anthropic arguments constrain the range of possible values without predicting the specific one we observe. Five decades of searching for a cancellation mechanism have found nothing. The framework explains why: there is nothing to cancel. The observed baseline, the identification of the discrepancy as $S_{\text{dS}}$, and the absence of any cancellation mechanism are existing evidence that the quantum description is emergent rather than fundamental.
 
-\section*{What Quantum Weirdness Looks Like From Here}
+\vspace{0.5em}\hrule\vspace{0.5em}
+
+% ==============================
+\section{What Quantum Weirdness Looks Like From Here}
 
 If quantum mechanics is an emergent description forced on embedded observers, the standard quantum puzzles acquire straightforward readings.
 
@@ -119,32 +145,36 @@ If quantum mechanics is an emergent description forced on embedded observers, th
 
 \textbf{The measurement problem.} Measurement produces definite outcomes through the indivisible dynamics. When Wigner can't access his Friend's lab, he traces out its internal degrees of freedom and assigns a superposition. The superposition reflects Wigner's epistemic situation---what \emph{he} can infer---not the Friend's physical state. Branching in the Many-Worlds sense is a feature of the compressed description, not of the underlying reality.
 
-\section*{Predictions}
+\vspace{0.5em}\hrule\vspace{0.5em}
+
+% ==============================
+\section{Predictions}
 
 The framework is not just a reinterpretation. It makes two specific, falsifiable predictions.
 
-\textbf{Dark energy evolution.} Because the hidden sector's dimensionality changes as the Hubble parameter~$H$ evolves (the horizon area is $A = 4\pi c^2/H^2$), the emergent vacuum energy inherits a dependence on~$H$. The predicted form matches the Running Vacuum Model: $\Lambda_{\text{eff}} = \Lambda_0 + \nu H^2$, with the coefficient~$\nu$ positive and small ($\nu \ll 1$). DESI's 2024--2025 data releases report evidence for evolving dark energy at $2.8\sigma$--$4.2\sigma$---the qualitative signature this predicts.
+\textbf{Dark energy evolution.} Because the hidden sector's dimensionality changes as the Hubble parameter $H$ evolves (the horizon area is $A = 4\pi c^2/H^2$), the emergent vacuum energy inherits a dependence on $H$. The predicted form matches the Running Vacuum Model: $\Lambda_{\text{eff}} = \Lambda_0 + \nu H^2$, with the coefficient $\nu$ positive and small ($\nu \ll 1$). DESI's 2024--2025 data releases report evidence for evolving dark energy at $2.8\sigma$--$4.2\sigma$---the qualitative signature this predicts.
 
-\textbf{Gravitational wave echoes.} At a proper distance of about one discreteness scale ($\epsilon = 2\,l_p$) outside a black hole horizon, an infalling mode's wavelength hits the discreteness floor and must scatter back. For a 30~solar-mass remnant, the predicted echo delay is roughly 54~milliseconds.
+\textbf{Gravitational wave echoes.} At a proper distance of about one discreteness scale ($\epsilon = 2\,l_p$) outside a black hole horizon, an infalling mode's wavelength hits the discreteness floor and must scatter back. For a 30 solar-mass remnant, the predicted echo delay is roughly 54 milliseconds.
 
 Each prediction alone is compatible with other frameworks. Their \emph{conjunction}---dark energy evolution in RVM form \emph{and} gravitational wave echoes at the predicted timescale---is distinctive. No competing framework predicts both.
 
-\section*{What This Means}
+\vspace{0.5em}\hrule\vspace{0.5em}
+
+% ==============================
+\section{What This Means}
 
 The search for a ``theory of everything'' that unifies quantum mechanics and general relativity has assumed that the two theories describe the same level of reality and must be reconciled there. This paper argues that assumption is wrong. The two theories operate at different levels---one fundamental, one emergent---and their apparent contradiction is the information-theoretic cost of being an observer trapped inside the system you're trying to describe.
 
 The universe is not broken. We are observing it from within.
 
-\bigskip
+\vspace{1.5em}
 \hrule
-\bigskip
+\vspace{0.5em}
 
-\noindent\textit{This is a simplified overview of ``The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within'' (Maybaum, March 2026), which presents the formal arguments with detailed derivations.}
+{\small\emph{This is a simplified overview of ``The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within'' (Maybaum, March 2026), which presents the formal arguments with detailed derivations.}}
 
-\bigskip
-\hrule
-\bigskip
+\vspace{1em}
 
-\noindent\textbf{Acknowledgment of AI-Assisted Technologies:} The author acknowledges the use of \textbf{Claude Opus 4.6} and \textbf{Gemini 3.1 Pro} to assist in synthesizing technical concepts and refining clarity. The final text and all scientific claims were reviewed and verified by the author.
+{\small\textbf{Acknowledgment of AI-Assisted Technologies:} The author acknowledges the use of \textbf{Claude Opus 4.6} and \textbf{Gemini 3.1 Pro} to assist in synthesizing technical concepts and refining clarity. The final text and all scientific claims were reviewed and verified by the author.}
 
 \end{document}

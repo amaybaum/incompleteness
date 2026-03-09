@@ -15,7 +15,7 @@ Ask quantum mechanics how much energy empty space contains and it gives you a st
 
 For decades, the assumption has been that something is deeply broken — that one or both calculations contain an error, and that finding the mistake will point the way to a unified theory of everything.
 
-This paper argues the opposite. Neither calculation is wrong. They disagree because they *must*, and the reason has nothing to do with the specific physics of either theory.
+This paper argues the opposite. Neither calculation is wrong. They disagree because they *must*. In fact, that massive $10^{122}$ discrepancy isn't a failure at all. It is the strongest piece of existing evidence we have that quantum mechanics is not the fundamental bedrock of reality, but an emergent description forced upon us by our limited vantage point.
 
 ---
 
