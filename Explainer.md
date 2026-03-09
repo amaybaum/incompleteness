@@ -19,37 +19,15 @@ This paper argues the opposite. Neither calculation is wrong. They disagree beca
 
 ---
 
-## An Observer Inside a Box
+## The Observer's Blind Spot
 
-Start with a thought experiment.
+Light travels at a finite speed, and the universe has a finite age. Put those together and every observer has a horizon — a boundary beyond which no signal has had time to arrive. Everything beyond that boundary is ordinary physics: fields, particles, radiation. But it is structurally inaccessible. Not because our telescopes aren't good enough, but because the geometry of spacetime forbids it. No technology that obeys the speed of light can reach past it.
 
-You live inside a sealed room. Outside the walls is a vast, complicated system — call it the environment — that you cannot see, hear, or measure directly. The room has no windows. But the walls aren't perfect: they transmit faint vibrations from the environment, and those vibrations subtly influence everything you measure inside the room.
+This means every observer in the universe is in the same epistemic situation: there are degrees of freedom — a vast number of them — that influence what you measure but that you can never track. When you write down the laws of physics for the things you *can* see, you're forced to average over everything you can't. You have to "trace out" the hidden sector.
 
-You want to write down laws of physics for the things you *can* see. You have two problems. First, every measurement you make is slightly influenced by the environment's state, which you don't know. Second, the environment changes so slowly compared to your experiments that its influence doesn't wash out between measurements — it's a persistent, invisible hand nudging your results in correlated ways.
+The standard expectation is that this should produce something boring — classical, memoryless noise. And it would, if the hidden sector were fast and forgettable, like air molecules bouncing off a grain of pollen. Each kick is independent of the last. Physicists call this *Markovian* behavior.
 
-What kind of physics would you write down?
-
-Not classical physics. Classical physics requires that you can, in principle, specify the exact state of everything and predict its future precisely. But you can't specify the environment's state. You're forced to average over it — to "trace it out" — and the result is a description that is *irreducibly* probabilistic. Not because the underlying system is random, but because you're missing information you can never recover.
-
-The claim of this paper is that the specific kind of probabilistic description you'd be forced to write down is not just "noisy classical mechanics." It is quantum mechanics — complete with the Schrödinger equation, superposition, entanglement, and the Born rule. These emerge not as fundamental laws but as the *only mathematically consistent description available to an observer in your situation*.
-
----
-
-## The Real Room, the Real Walls
-
-The thought experiment isn't hypothetical. Every observer in our universe lives in exactly this situation. The walls are the cosmological horizon — the boundary beyond which light has not had time to reach us since the Big Bang. Nothing can carry information faster than light, so everything beyond this boundary is permanently hidden. This is not a technological limitation. It is a structural feature of spacetime.
-
-The "environment" is the hidden sector: every degree of freedom beyond the horizon. It is not exotic or speculative. It is ordinary physics — fields, particles, radiation — rendered inaccessible by the geometry of spacetime.
-
-And the walls are not perfectly isolating. Matter and radiation cross the horizon continuously. The horizon area itself responds to changes in the energy density inside it. The visible and hidden sectors are dynamically coupled through the boundary.
-
----
-
-## Why the Hidden Sector Doesn't Just Add Noise
-
-Here is where the argument turns. The standard expectation — and it's a reasonable one — is that tracing out a vast environment should produce something boring: classical, memoryless, noisy behavior. This is what happens when you trace out the air molecules bouncing off a grain of pollen. You get Brownian motion. The environment decorrelates so quickly between collisions that each kick is effectively independent of the last. Physicists call this *Markovian* behavior.
-
-The cosmological hidden sector is different in three specific ways, and the paper proves that their conjunction is sufficient to produce quantum mechanics instead of classical noise.
+But the hidden sector beyond the cosmological horizon is not like that. It differs in three specific ways, and the paper proves that their conjunction changes everything.
 
 **It's coupled.** The horizon is not a static wall. Stress-energy conservation enforces continuous dynamical correlations across it. Matter crosses the horizon, and the horizon area adjusts in response to interior energy density. Information flows in both directions. (Condition C1.)
 
@@ -76,7 +54,7 @@ So the argument chains together like this:
 3. The three conditions (coupled, slow, vast) guarantee that this stochastic process is P-indivisible.
 4. By Barandes' correspondence, any P-indivisible stochastic process is mathematically equivalent to quantum mechanics.
 
-Quantum mechanics is not a fundamental law of nature. It is the unique description available to any observer whose causal access is restricted by a partition satisfying these three conditions.
+Quantum mechanics is not a fundamental law of nature. It is what embedded observation looks like — and the paper proves the equivalence runs both ways. These three conditions produce quantum mechanics, and any quantum system, traced back to its deterministic roots, requires exactly these conditions. Quantum mechanics and embedded observation are the same thing.
 
 ---
 
