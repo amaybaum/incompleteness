@@ -248,26 +248,16 @@ Three features of quantum mechanics emerge from this correspondence. The Schr\"{
 
 \subsection{Bell Inequality Violations}
 
-The framework is a hidden variable theory: quantum randomness arises epistemically from ignorance of hidden-sector degrees of freedom rather than fundamental indeterminacy. Bell's theorem~\cite{Bell1964} rules out \emph{local} hidden variable theories---those satisfying the factorizability condition $P(a, b \mid x, y, \lambda) = P(a \mid x, \lambda) \cdot P(b \mid y, \lambda)$, where $\lambda$ denotes hidden variables with distribution $\rho(\lambda)$, and $x, y$ are measurement settings assumed statistically independent of $\lambda$. The present framework evades Bell's theorem not by violating measurement independence (superdeterminism) but by violating factorizability through a mechanism that is nonetheless \emph{causally local}---no superluminal signaling occurs.
+The framework is a hidden variable theory: quantum randomness arises epistemically from ignorance of hidden-sector degrees of freedom. Bell's theorem~\cite{Bell1964} rules out \emph{local} hidden variable theories satisfying the factorizability condition $P(a, b \mid x, y, \lambda) = P(a \mid x, \lambda) \cdot P(b \mid y, \lambda)$. The present framework evades Bell's theorem not by violating measurement independence (superdeterminism) but by violating factorizability through P-indivisible joint dynamics---while remaining causally local.
 
-\textbf{The mechanism: non-factorizable joint dynamics from a shared causal past.} Consider two subsystems $Q$ and $R$ that interact locally at preparation time $t'$ and are subsequently separated to spacelike-distant measurement stations. In the stochastic-quantum framework~\cite{Barandes2023,Barandes2025,Barandes2025b}, the preparation interaction creates a \emph{joint} transition matrix $T_{QR}(t_2, t_1)$ on the composite configuration space $\mathcal{C}_Q \times \mathcal{C}_R$. Because the joint process is P-indivisible (\S2.3), this transition matrix does not factorize:
+The mechanism is non-factorizable joint dynamics from a shared causal past. Two subsystems $Q$ and $R$ that interact at preparation and are subsequently separated carry a joint transition matrix $T_{QR}(t_2, t_1)$ on $\mathcal{C}_Q \times \mathcal{C}_R$ that does not factorize:
 \begin{equation}
 T_{QR} \neq T_Q \otimes T_R
 \end{equation}
 
-This non-factorizability \emph{is} entanglement, expressed at the stochastic level. The correlations are encoded in the \emph{form of the dynamical law itself}---in the structure of the joint transition matrix---rather than in a hidden variable $\lambda$ over which one could integrate and apply screening-off. Since the process is indivisible, there are no well-defined intermediate conditional probabilities that would permit the factorization Bell's theorem requires.
+This non-factorizability \emph{is} entanglement at the stochastic level~\cite{Barandes2023,Barandes2025,Barandes2025b}. The correlations are encoded in the structure of the joint transition matrix rather than in a hidden variable $\lambda$ over which one could integrate. Since the process is indivisible, there are no well-defined intermediate conditional probabilities that would permit the factorization Bell's theorem requires.
 
-Reichenbach's common-cause principle does not apply to indivisible processes, because the principle presupposes that conditioning on the complete common cause renders the effects independent---a decomposition that indivisibility explicitly forbids.
-
-\textbf{Causal locality without Bell locality.} The Jarrett decomposition splits Bell's factorizability condition into \emph{parameter independence} (PI) and \emph{outcome independence} (OI). Quantum mechanics violates OI while preserving PI. The present framework reproduces this structure. Barandes, Hasan, and Kagan~\cite{Barandes2025b} formalize causal locality as a marginalization condition on the joint transition matrix: for subsystems $Q$ and $R$ at spacelike separation, $\sum_{r} T_{(q,r),(q_0,r_0)}(t) = T_{q,q_0}^{(Q)}(t)$ for all $r_0$---marginalizing over $R$'s final configuration yields $Q$'s transition probabilities independent of $R$'s initial configuration. The joint transition matrix carries non-factorizable correlations from the shared preparation, but these correlations are accessible only through joint statistics, never through local marginals.
-
-\textbf{The Tsirelson bound from indivisibility plus causal locality.} Barandes, Hasan, and Kagan~\cite{Barandes2025b} prove that the conjunction of indivisibility and causal locality restricts the maximum CHSH correlator to exactly Tsirelson's bound $|S| \leq 2\sqrt{2}$. Divisible (classical) stochastic processes satisfy $|S| \leq 2$, reproducing Bell's bound. PR-box correlations ($|S| = 4$) cannot be realized because the required transition matrices have no unitary square root. This result receives independent support from Le~et~al.~\cite{Le2017}, who prove the temporal analogue: \emph{divisible} quantum dynamics satisfies the temporal Tsirelson bound, while \emph{indivisible} dynamics can exceed it.
-
-\textbf{Measurement independence and the distinction from superdeterminism.} The framework preserves measurement independence by construction: the transition probabilities $T_{ij}(t_2, t_1)$ are defined independently of the initial distribution, and measurement settings enter through which subsystem couplings are activated, not through pre-established correlations with the prepared state.
-
-Superdeterministic theories evade Bell's theorem by violating this independence; the present framework instead violates outcome independence---the P-indivisible dynamics propagate preparation correlations forward as a single, non-factorizable transition. This distinction has empirical content: superdeterministic theories generically predict deviations from standard statistical mechanics, while the present framework predicts none.
-
-This placement---violating factorizability (specifically outcome independence in the Jarrett decomposition) while preserving both measurement independence and parameter independence---is precisely the class Fine's theorem~\cite{Fine1982} permits: models that reproduce quantum correlations through non-factorizable joint dynamics rather than through conspiracy between hidden variables and measurement settings.
+In the Jarrett decomposition, quantum mechanics violates outcome independence (OI) while preserving parameter independence (PI). The present framework reproduces this structure exactly. Barandes, Hasan, and Kagan~\cite{Barandes2025b} prove that the conjunction of indivisibility and causal locality restricts the maximum CHSH correlator to exactly Tsirelson's bound $|S| \leq 2\sqrt{2}$, with independent support from Le~et~al.~\cite{Le2017}. Measurement independence is preserved by construction: transition probabilities are defined independently of the initial distribution. This placement---violating outcome independence while preserving measurement independence and parameter independence---is precisely the class Fine's theorem~\cite{Fine1982} permits.
 
 \subsection{The Characterization Theorem: Necessity of the Conditions}
 
@@ -591,46 +581,21 @@ The discrepancy equals $S_{\text{dS}} = A/(4\,l_p^2)$---the Bekenstein--Hawking 
 
 \subsection{Dark Energy Evolution in Running Vacuum Form}
 
-The action scale $\hbar$ depends only on structural properties of the partition boundary and is independent of $H$ (\S5.2). But the emergent vacuum energy is a state-level quantity, and it does depend on the hidden sector's volume. The horizon area $A = 4\pi c^2/H^2$ evolves with the Hubble parameter. Since the hidden sector's dimensionality $N_{\text{modes}} = A/\epsilon^2$ depends on $H$, the emergent vacuum energy inherits a dependence on $H$. Expanding $\Lambda_{\text{eff}}(H)$ around the present epoch:
+The action scale $\hbar$ depends only on structural properties of the partition boundary and is independent of $H$ (\S5.2). But the emergent vacuum energy is a state-level quantity that depends on the hidden sector's volume. The horizon area $A = 4\pi c^2/H^2$ evolves with the Hubble parameter, so the emergent vacuum energy inherits a dependence on $H$. Expanding $\Lambda_{\text{eff}}(H)$ around the present epoch:
 \begin{equation}
 \Lambda_{\text{eff}}(H) = \Lambda_0 + \frac{3\nu_{\text{OI}}}{8\pi G}(H^2 - H_0^2) + \mathcal{O}((H^2 - H_0^2)^2)
 \end{equation}
-where $\nu_{\text{OI}}$ is a dimensionless coefficient encoding the rate at which the hidden-sector dimensionality responds to changes in $H$. This is precisely the form of the Running Vacuum Model (RVM)~\cite{Sola2022,Sola2023}.
 
-\emph{Sign.} The framework requires $\nu_{\text{OI}} > 0$: as $H$ decreases, the horizon area grows, the hidden sector gains capacity, and the effective cosmological constant decreases. This sign prediction is unambiguous.
+This is precisely the form of the Running Vacuum Model (RVM)~\cite{Sola2022,Sola2023}. The framework requires $\nu_{\text{OI}} > 0$ (the hidden sector gains capacity as $H$ decreases) and $\nu_{\text{OI}} \ll 1$ (condition~C3 requires the hidden sector not be saturated). Its value is determined by the spectral structure of the partition boundary.
 
-\emph{Magnitude.} Condition~(C3) requires $\nu_{\text{OI}} \ll 1$: the fractional change in the emergent description per unit change in $N_{\text{modes}}$ must be small, or the hidden sector would be effectively saturated.
-
-\emph{Value.} The coefficient can be computed from the spectral structure of the partition boundary. The $S_{\text{dS}}$ horizon modes span frequencies from $\omega_{\text{IR}} = H$ (the horizon scale) to $\omega_{\text{UV}} = c/\epsilon$ (the discreteness cutoff). Massless field modes on the horizon 2-sphere have a conformal mode density: equal numbers of independent modes per logarithmic frequency interval. The number of spectral decades is:
-\begin{equation}
-\mathcal{N}(H) = \ln\frac{c}{\epsilon H}
-\end{equation}
-
-The emergent vacuum energy---the gravitating residual of the trace-out compression---is distributed across these $\mathcal{N}$ independent spectral channels. As $H$ changes, $\mathcal{N}$ changes, and the noise per channel changes inversely. The effective vacuum energy therefore scales as:
-\begin{equation}
-\rho_\Lambda(H) \propto \frac{1}{\mathcal{N}(H)} = \frac{1}{\ln(c/\epsilon H)}
-\end{equation}
-
-This is a non-perturbative result: the dependence on $H$ enters through the logarithmic spectral range of the trace-out, not through any power of $H/M_{\text{Pl}}$. Standard perturbative QFT gives corrections suppressed by $(H/M_{\text{Pl}})^2 \sim 10^{-122}$; the trace-out's spectral response gives $1/\ln(c/\epsilon H) \sim 1/140$, which is $10^{119}$ times larger.
-
-Normalizing $\rho_\Lambda(H_0) = \Omega_\Lambda \rho_c$ and Taylor-expanding around $H_0$:
-\begin{equation}
-\frac{d\rho_\Lambda}{dH^2}\bigg|_{H_0} = \frac{\Omega_\Lambda \rho_c}{2\,\mathcal{N}(H_0)\,H_0^2}
-\end{equation}
-
-Matching to the RVM form $\rho_\Lambda = \rho_\Lambda^0 + \frac{3\nu_{\text{OI}} c^2}{8\pi G}(H^2 - H_0^2)$ and using $\rho_c = 3H_0^2 c^2/(8\pi G)$:
+The $S_{\text{dS}}$ horizon modes span frequencies from $\omega_{\text{IR}} = H$ to $\omega_{\text{UV}} = c/\epsilon$. Massless field modes on a 2-sphere have conformal mode density---equal numbers of independent modes per logarithmic frequency interval (a standard result in field theory on curved backgrounds). The trace-out compression noise (\S7) is distributed across these $\mathcal{N}(H) = \ln(c/\epsilon H)$ independent spectral channels, so the gravitating vacuum energy scales as $\rho_\Lambda \propto 1/\mathcal{N}$. This is a non-perturbative result: standard QFT gives corrections suppressed by $(H/M_{\text{Pl}})^2 \sim 10^{-122}$, whereas the spectral response gives $1/\mathcal{N} \sim 1/140$. Normalizing at $H_0$ and Taylor-expanding:
 \begin{equation}
 \boxed{\nu_{\text{OI}} = \frac{\Omega_\Lambda}{2\,\ln(c/\epsilon H_0)}}
 \end{equation}
 
-Evaluating with $\epsilon = 2\,l_p$, $H_0 = 67.4$~km/s/Mpc, and $\Omega_\Lambda = 0.685$: $\mathcal{N}(H_0) = \ln(c/(2\,l_p\,H_0)) \approx 139.6$, giving:
-\begin{equation}
-\nu_{\text{OI}} = \frac{0.685}{2 \times 139.6} = (2.45 \pm 0.03) \times 10^{-3}
-\end{equation}
+With $\epsilon = 2\,l_p$, $H_0 = 67.4$~km/s/Mpc, and $\Omega_\Lambda = 0.685$: $\mathcal{N}(H_0) \approx 139.6$, giving $\nu_{\text{OI}} = (2.45 \pm 0.03) \times 10^{-3}$. The result is insensitive to $H_0$ (which enters only inside the logarithm) and yields an independently testable ratio: $\nu_{\text{OI}} / \Omega_\Lambda = 1/(2\,\ln(c/\epsilon H_0)) \approx 0.00358$.
 
-The result is insensitive to $H_0$: varying $H_0$ from 66 to 73~km/s/Mpc changes $\nu_{\text{OI}}$ by less than 0.1\%, because $H_0$ enters only inside the logarithm. The formula yields an independently testable relationship: $\nu_{\text{OI}} / \Omega_\Lambda = 1/(2\,\ln(c/\epsilon H_0)) \approx 0.00358$.
-
-DESI's 2024--2025 data releases~\cite{DESI2024,DESI2025} report evidence for evolving dark energy at $2.8\sigma$--$4.2\sigma$, with $w_0 > -1$ and $w_a < 0$---the qualitative signature the RVM predicts. Direct RVM fits to the latest data have now been performed: de~Cruz~P\'{e}rez, G\'{o}mez-Valent, and Sol\`{a}~Peracaula~\cite{deCruz2025} find significant evidence for dynamical vacuum energy at $2.7\sigma$--$3.1\sigma$. The framework's prediction $\nu_{\text{OI}} = 2.45 \times 10^{-3}$ lies within the phenomenological range from all major dataset combinations.
+DESI's 2024--2025 data releases~\cite{DESI2024,DESI2025} report evidence for evolving dark energy at $2.8\sigma$--$4.2\sigma$. Direct RVM fits by de~Cruz~P\'{e}rez, G\'{o}mez-Valent, and Sol\`{a}~Peracaula~\cite{deCruz2025} find $\nu \sim \mathcal{O}(10^{-3})$ with $\nu = 0$ disfavored at $2.7\sigma$--$3.1\sigma$. The framework's prediction lies within the phenomenological range from all major dataset combinations. The outstanding discriminating tests are whether the one-parameter RVM form fits the data as well as or better than the two-parameter $w_0 w_a$ model, and whether the measured $\nu / \Omega_\Lambda$ ratio converges to the predicted value.
 
 \subsection{Gravitational Wave Echoes}
 
