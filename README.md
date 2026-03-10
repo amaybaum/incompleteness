@@ -40,7 +40,7 @@ A non-technical overview for a broad audience.
 
 3. **Cosmological constant as corroborating evidence.** The 10¹²² discrepancy is S_dS — the exact information compression ratio of the emergent quantum description. The observed macroscopic vacuum energy is not a fine-tuned anomaly, but the mandatory classical baseline predicted by the framework.
 
-4. **Falsifiable predictions.** Dark energy evolution in Running Vacuum Model form (Λ_eff = Λ₀ + ν H²), consistent with DESI 2024–2025 data; and gravitational wave echoes near black hole horizons. The conjunction is distinctive to this framework.
+4. **Falsifiable predictions.** Dark energy evolution in Running Vacuum Model form (Λ_eff = Λ₀ + ν H²) with a computed coefficient ν_OI = Ω_Λ / (2·ln(c/εH₀)) = (2.45 ± 0.03) × 10⁻³, consistent with DESI 2024–2025 data; and gravitational wave echoes near black hole horizons. The conjunction is distinctive to this framework.
 
 5. **Foundational implications.** Wigner's Friend resolved (superposition is epistemic); Everettian measure problem dissolved (branches are compression artifacts); AdS/CFT success explained via external observation.
 
