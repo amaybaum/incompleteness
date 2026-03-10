@@ -17,6 +17,8 @@ For decades, the assumption has been that something is deeply broken — that on
 
 This paper argues the opposite. Neither calculation is wrong. They disagree because they *must*. In fact, that massive $10^{122}$ discrepancy isn't a failure at all. It is the strongest piece of existing evidence we have that quantum mechanics is not the fundamental bedrock of reality, but an emergent description forced upon us by our limited vantage point.
 
+The argument is built from a chain of mathematical proofs, each feeding into the next. This document explains what the paper claims, walks through the logic of every major proof, and shows how they connect.
+
 ---
 
 ## The Observer's Blind Spot
@@ -58,19 +60,133 @@ Quantum mechanics is not a fundamental law of nature. It is what embedded observ
 
 ---
 
+## Inside the Proofs
+
+The argument above sounds clean in outline. But each link is a rigorous mathematical proof, and the proofs are where the real persuasion lives. The rest of this document walks through each one in detail — what it claims, why it's true, and what it feeds into next.
+
+### Proof 1: The P-Indivisibility Theorem (§2.3)
+
+**What it claims.** If a deterministic system is split into a visible and hidden sector, and these sectors are genuinely coupled, then the visible sector's behavior *cannot* be a simple memoryless random process. It must exhibit P-indivisibility — a specific kind of built-in memory.
+
+**What "P-indivisible" means.** Imagine watching someone roll dice. If the dice are fair and independent, each roll has no memory of the last — knowing what happened on roll 5 tells you nothing about roll 6. This is a "Markov process," or equivalently, a "P-divisible" one. Its key property is that distinguishable things always stay distinguishable or become less so over time. Two different starting points gradually blur together, and they *never* un-blur.
+
+P-indivisibility means the blurring *reverses*. Two states that looked identical at some intermediate time later become distinguishable again. The system "remembers" distinctions that appeared to be erased.
+
+**The three-step proof.** The proof is surprisingly short. It uses only two ingredients: the dynamics are deterministic and reversible, and the visible and hidden sectors are genuinely coupled.
+
+*Step 1 — Everything comes back.* The total system is deterministic and operates on a finite number of states. A reversible shuffling of a finite deck of cards must eventually return to the original order — there are only so many arrangements. After some number of steps $N$, every state is back where it started. Distinguishability is fully restored.
+
+*Step 2 — But things blur in between.* Because the visible and hidden sectors are coupled, the same visible state can lead to different visible outcomes depending on which hidden state happens to be in play. Since the observer doesn't know the hidden state, they see probabilistic mixing. Distinguishability has decreased.
+
+*Step 3 — The contradiction with Markov behavior.* After one step, distinguishability went down. After $N$ steps, it's fully restored. That means it went down and then came back up. But in any P-divisible (memoryless) process, distinguishability can only decrease or stay the same. The fact that it increases proves the process is P-indivisible.
+
+### Seeing It Work: The Coin-and-Dice Model (§2.4)
+
+The paper builds a concrete toy model to make the mechanism tangible.
+
+**The setup.** The visible sector is a single coin: Heads (0) or Tails (1). The hidden sector is a six-sided die (values 1 through 6). The total system has 12 states. The dynamics are a deterministic rule that repeats after two steps. Two of the six die values (1 and 2) cause the coin to flip; the other four leave the coin alone but shuffle the die.
+
+**After one step:** The observer doesn't know the die. Since 2 out of 6 hidden states flip the coin and 4 don't, the coin has a 1/3 chance of flipping and a 2/3 chance of staying. There's genuine randomness — from the observer's perspective.
+
+**What a memoryless process would predict after two steps:** Continued blurring. Starting at Heads, there'd be roughly a 44% chance of being at Tails. Things should keep mixing.
+
+**What actually happens after two steps:** Every state returns to its starting point. The coin is back where it started with 100% certainty. Complete un-mixing.
+
+**The smoking gun:** To bridge the gap between the one-step and two-step results, you'd need a valid intermediate propagator. The paper computes it and finds it contains *negative entries* (−1 in the off-diagonals). Probabilities can't be negative. No valid probability matrix exists. The process is P-indivisible.
+
+**The mechanism:** The die works as a memory register. At step 1, die values 1 and 2 flip the coin while preserving the die — so after step 1, a coin at Tails with die value 1 carries an implicit record: "I was Heads." At step 2, the same rule reads that record and flips the coin back. The hidden sector stored which transitions happened and played them back.
+
+### Why conditions C2 and C3 matter physically
+
+The theorem above needs only coupling (C1) and finiteness. So why does the paper insist on slow memory (C2) and vast capacity (C3)?
+
+Because P-indivisibility without C2 and C3 might only show up at absurd timescales or might self-destruct. C2 ensures the memory persists on timescales accessible to actual experiments, not just at cosmic recurrence times. C3 ensures the hidden sector never runs out of room to store information — if it saturates, later imprints overwrite earlier ones, and the process becomes effectively memoryless. Together, C2 and C3 guarantee that P-indivisibility is strong, persistent, and observationally relevant.
+
+---
+
+### Proof 2: The Stochastic-Quantum Correspondence (§3.1)
+
+**What it claims.** Any P-indivisible stochastic process is mathematically identical to a quantum system evolving unitarily. There exists a Hilbert space and a unitary operator $U(t)$ such that the transition probabilities of the stochastic process are *exactly* the Born-rule probabilities: $T_{ij}(t) = |U_{ij}(t)|^2$.
+
+**Where this comes from.** This is not proved in the paper — it's a theorem by Jacob Barandes (2023–2025), which the paper imports as established mathematics. The key tool is the *Stinespring dilation theorem*, a result in functional analysis from the 1950s.
+
+**The intuition.** P-indivisibility means transition probabilities can't be factored through intermediate times — try it and you get "negative probabilities." In standard probability theory, this is nonsensical. But in quantum mechanics, it's *exactly what happens*: probability amplitudes (which can be negative or complex) combine to produce interference patterns that don't factorize classically. What Barandes proved is that these are not analogous phenomena — they are the same mathematical object, written in different notation.
+
+**What emerges for free.** Three pillars of quantum mechanics come out of this correspondence without being assumed:
+
+- *The Schrödinger equation.* The process evolves continuously, so the unitary operator is differentiable. The Schrödinger equation is the unique time-evolution law compatible with unitarity and continuity.
+
+- *The Born rule.* In standard quantum mechanics, "probability equals amplitude squared" is an additional postulate. Here it's derived: $T_{ij} = |U_{ij}|^2$ is the definition of how the stochastic process maps to the quantum description.
+
+- *Bell inequality violations.* Since the transition matrices for composite systems don't factorize, entangled systems naturally produce correlations that violate Bell inequalities, up to exactly Tsirelson's bound — the maximum quantum violation.
+
+**What does *not* emerge yet.** The value of Planck's constant ℏ. The correspondence says "a quantum description exists" but is silent about the dimensionful scale. Fixing ℏ requires the physical content of the partition — the job of §5.
+
+---
+
+### Proof 3: The Characterization Theorem (§3.3)
+
+**What it claims.** The paper's main theorem says: *if* you have a deterministic system with coupling, slow memory, and sufficient capacity, *then* the observer sees quantum mechanics. The characterization theorem says the reverse: *if* a process is quantum mechanical, it *must* arise from embedded observation under exactly those three conditions. The equivalence is exact: QM ⟺ embedded observation under C1–C3.
+
+**Why each condition is independently necessary:**
+
+*C1 (coupling).* If the hidden sector doesn't affect the visible sector, each visible state maps deterministically to exactly one other. That's a permutation — perfectly decomposable, no memory, P-divisible. No coupling → no quantum mechanics.
+
+*C2 (slow memory).* If the hidden sector scrambles itself between interactions — like re-rolling the die before every coin flip — each step becomes independent. That's a Markov chain. The paper formalizes this via the ergodic theorem: fast mixing drives the hidden sector's state to uniformity, erasing all correlations. No memory → no quantum mechanics.
+
+*C3 (sufficient capacity).* The hidden sector is the only place memory can be stored (the visible sector is known to the observer). The total non-Markovian memory is bounded by the hidden sector's information capacity: $I(\text{past} ; \text{future} \mid \text{present}) \leq \log_2(\text{hidden sector size})$. If the hidden sector is too small, it runs out of room. Earlier records get overwritten. The process becomes effectively Markov. Insufficient capacity → no quantum mechanics.
+
+**The full equivalence.** The three pieces snap together by transitivity:
+
+- Barandes' correspondence: QM ⟺ P-indivisibility
+- Sufficiency (§2.3): embedded observation (C1–C3) ⟹ P-indivisibility
+- Necessity (the three results above): P-indivisibility ⟹ embedded observation (C1–C3)
+
+Therefore: **QM ⟺ embedded observation under C1–C3.** There's no way to get quantum mechanics from a deterministic substrate except through these conditions, and no way to have these conditions without getting quantum mechanics.
+
+---
+
 ## Where Planck's Constant Comes From
 
 The paper proves a further result called *partition-relativity*: the emergent quantum description is completely and uniquely determined by the partition — the boundary between what the observer can and cannot see. Two observers sharing the same cosmological horizon get exactly the same quantum mechanics. Different partition, different quantum mechanics (or, if the conditions aren't met, no quantum mechanics at all).
 
-This means $\hbar$ — Planck's constant, the fundamental scale of quantum mechanics — cannot be a free parameter. It must be fixed by the geometry of the boundary. The paper argues that $\hbar$ depends only on the *local structure* of the partition boundary (the gravitational coupling $G$, the speed of light $c$, and a discreteness scale $\epsilon$) — not on the total size of the hidden sector. The unique combination with the right dimensions is $c^3 \epsilon^2 / G$, but dimensional analysis alone cannot fix the numerical prefactor.
+This means $\hbar$ — Planck's constant, the fundamental scale of quantum mechanics — cannot be a free parameter. It must be fixed by the geometry of the boundary.
 
-The paper closes this gap with a self-consistency argument. The cosmological horizon has a classical temperature — derivable from general relativity alone, with no quantum mechanics — that depends on $\epsilon$ but not on $\hbar$. Independently, the emergent quantum theory predicts a specific temperature for the same horizon: the Gibbons-Hawking temperature, which depends on $\hbar$ but is a *consequence* of the emergent description, not an independent input. Requiring these to agree — the emergent description must be consistent with the conditions that produced it — gives one equation in one unknown and fixes the prefactor exactly:
+### Proof 4: The Volume-Independence Lemma and the ℏ Derivation (§5.2)
+
+**The problem.** The stochastic-quantum correspondence tells us quantum mechanics emerges, but not the value of Planck's constant. ℏ has units of energy × time, and the correspondence operates entirely in dimensionless probabilities. Something external must set the scale. But *which* properties of the boundary determine it? The hidden sector is vast (the entire universe beyond the horizon). Does ℏ depend on the total amount of stuff out there?
+
+**The Volume-Independence Lemma: Only the boundary matters.** The answer is no. Divide the hidden sector into "boundary modes" (degrees of freedom right at the horizon) and "deep modes" (stuff far beyond). Deep modes can only affect the boundary by sending signals through the hidden sector, which propagates at most at the speed of light. The hidden sector's correlation time is the Hubble time. For any experiment lasting less than the age of the universe, the deep modes simply cannot get a message to the boundary in time.
+
+The formal proof is clean: if the visible-sector transition is independent of the deep modes (because they're causally disconnected on the relevant timescale), then the sum over deep modes in the transition-probability formula contributes a factor that exactly cancels. The transition probabilities depend only on the boundary modes. Corrections from deep modes are of order $t/\tau_B \sim 10^{-32}$.
+
+**The four-step derivation.** With volume excluded:
+
+*Step 1 (Uniqueness).* Partition-relativity guarantees the quantum description is unique for a given partition. ℏ is determined, not free.
+
+*Step 2 (Structural, not volumetric).* The volume-independence lemma excludes any dependence on $H$ (which sets the horizon's size). If ℏ depended on $H$, observers at different cosmic epochs would have different quantum mechanics. The only candidates are $c$, $G$, and $\epsilon$.
+
+*Step 3 (Dimensional analysis).* There's only one way to combine $c$, $G$, and $\epsilon$ to get units of action: $c^3 \epsilon^2 / G$, times a dimensionless prefactor $\beta$.
+
+*Step 4 (Thermal self-consistency).* The horizon has a classical temperature derivable from GR alone, with no ℏ. Independently, the emergent quantum theory predicts a Gibbons-Hawking temperature that depends on ℏ. Requiring these to agree gives one equation in one unknown:
 
 $$\hbar = \frac{c^3 \epsilon^2}{4G}$$
 
-This in turn pins the discreteness scale to $\epsilon = 2\,l_p$ — twice the Planck length. Planck's constant is not a brute fact about the universe. It is determined by the geometry of the observer's causal boundary, through a self-consistency condition that leaves no free parameters.
+The prefactor is $\beta = 1/4$. No free parameters remain. The discreteness scale pins to $\epsilon = 2\,l_p$ — twice the Planck length. The Bekenstein-Hawking entropy formula $S = A/(4\,l_p^2)$ — including its famous factor of $1/4$ — falls out as a direct consequence.
 
-A bonus: the famous Bekenstein-Hawking entropy formula $S = A/(4\,l_p^2)$ — including the factor of $1/4$ that has never had a first-principles explanation — falls out as a direct consequence. Each minimal cell of area $\epsilon^2 = 4\,l_p^2$ on the horizon contributes one unit of entropy.
+**Why this isn't circular.** The Gibbons-Hawking temperature is a result of quantum field theory — the very theory being derived. But the logic is sequential: Part I proves quantum mechanics emerges with *some* ℏ → the emergent QM predicts $T_{\text{GH}}(\hbar)$ → the classical temperature $T_{\text{cl}}$ was calculated independently → matching them fixes ℏ. This is a "gap equation," the same structure used routinely in condensed matter physics.
+
+---
+
+### Proof 5: The D-Gauge Completeness Theorem (§5.3)
+
+**The problem.** Barandes' correspondence maps probabilities to quantum amplitudes, but the map has built-in ambiguity. Transition probabilities constrain only $|U_{ij}|^2$ — the squared magnitudes. The quantum *phases* (the angles in the complex plane) are not determined by probabilities alone. This is the "Schur-Hadamard gauge freedom." If the phases are ambiguous, the emergent quantum description isn't unique.
+
+**The resolution: Continuous time locks the phases.** The paper's setup provides the full continuous-time evolution of transition probabilities, $T_{ij}(t)$ for all times $t$. The theorem shows this is enormously more constraining than single-time data.
+
+The unitary $U(t) = e^{-iHt}$ can be expanded in the energy eigenbasis. The transition probabilities become Fourier series in time, with frequencies given by energy differences. If the energy spectrum is non-degenerate (a condition holding for almost all systems), the Fourier frequencies are distinct and the coefficients are uniquely determined. Working through the algebra uniquely fixes the moduli and constrains the phases to a single remaining freedom: a global rephasing of the basis states (like choosing where to set the zero on your clock). This changes nothing observable — all transition probabilities, energy spacings, and interference patterns are invariant.
+
+**The dimensional obstruction.** Even with all phases locked, the probability data cannot determine the overall dimensionful scale. ℏ enters only when converting the dimensionless unitary into a physical Hamiltonian. No amount of dimensionless data can produce a dimensionful constant. This is why Step 4 of the ℏ derivation (thermal self-consistency) is not just a convenient check but the *mathematically obligatory* step: it's the only place where dimensionful physical input enters the framework.
 
 ---
 
@@ -88,7 +204,7 @@ This ordering is not a choice. The causal partition that *produces* quantum mech
 
 The $10^{122}$ ratio between the two answers is not a discrepancy. It equals $S_{\text{dS}}$ — the Bekenstein-Hawking entropy of the cosmological horizon — which is the number of hidden-sector degrees of freedom the trace-out compresses into the emergent quantum state. The "worst prediction in physics" is the information compression ratio of the observer's blind spot. A category error, not a fine-tuning failure.
 
-This is not a prediction awaiting future data. The observed vacuum energy has been measured since 1998, and it sits exactly at the classical geometric scale — the value the framework expects. Meanwhile, every attempt to explain this value from within a framework where quantum mechanics is fundamental has failed: supersymmetric cancellations are increasingly ruled out by the LHC, and anthropic arguments constrain the range of possible values without predicting the specific one we observe. Five decades of searching for a cancellation mechanism have found nothing. The framework explains why: there is nothing to cancel. The observed baseline, the identification of the discrepancy as $S_{\text{dS}}$, and the absence of any cancellation mechanism are existing evidence that the quantum description is emergent rather than fundamental.
+This is not a prediction awaiting future data. The observed vacuum energy has been measured since 1998, and it sits exactly at the classical geometric scale — the value the framework expects. Meanwhile, every attempt to explain this value from within a framework where quantum mechanics is fundamental has failed: supersymmetric cancellations are increasingly ruled out by the LHC, and anthropic arguments constrain the range of possible values without predicting the specific one we observe. Five decades of searching for a cancellation mechanism have found nothing. The framework explains why: there is nothing to cancel.
 
 ---
 
@@ -116,6 +232,75 @@ Each prediction alone is compatible with other frameworks. Their *conjunction* �
 
 ---
 
+## Philosophical Lineage
+
+The paper is a physics paper, but its core claims — that observers face irreducible limits, that two irreconcilable descriptions can both be correct, that incompleteness is a structural feature rather than a deficiency — sit at the intersection of some of the oldest debates in philosophy. A systematic mapping against the major traditions reveals a striking pattern: broad support for most of the framework, and near-universal resistance to one specific thesis.
+
+### The seven claims
+
+The framework rests on seven implicit philosophical commitments:
+
+1. **Embedded observers face irreducible limits.** No observer inside a system can access the complete state.
+2. **QM and GR are both correct** within their domains.
+3. **The hidden sector is permanently inaccessible** — not due to technological limitations, but structural ones.
+4. **The underlying reality is local and definite.** Indeterminacy belongs to the observer's description, not to the world.
+5. **Incompleteness is structural, not deficient** — analogous to Gödel's theorem, not to ignorance that better instruments could cure.
+6. **The description is observer-relative.** Different partitions yield different emergent physics.
+7. **The two descriptions are irreconcilable** — not because one is wrong, but because they are complementary projections of a single reality that no embedded observer can access directly.
+
+Claims 1, 5, 6, and 7 enjoy broad philosophical support across nearly every tradition examined. Claim 4 — that the underlying reality is definite — is the paper's most philosophically isolated thesis.
+
+### Closest ancestor: Nicholas of Cusa
+
+Of all thinkers surveyed, the fifteenth-century cardinal Nicholas of Cusa provides the most precise structural alignment. His *docta ignorantia* (learned ignorance) is essentially Claim 5: the highest knowledge is knowing what we cannot know, and this is an intellectual achievement, not a failure. His *coincidentia oppositorum* (coincidence of opposites) maps onto Claim 7 with remarkable precision: contradictions irreconcilable in the finite realm dissolve in infinity — the infinitely large circle's circumference becomes a straight line, the infinite polygon becomes a circle. QM and GR, irreconcilable within any finite observational framework, would be coincident in the infinite ground that generates both.
+
+Most strikingly, Cusa's "wall of Paradise" from *De Visione Dei* maps onto Claim 3: an insurmountable boundary beyond which finite intellect cannot pass. Scholars like Emmanuel Falque interpret reaching this wall not as escaping through it but as *inhabiting the boundary* — profoundly compatible with a framework where understanding the limit is itself the deepest available insight.
+
+### Deepest ontological parallel: Spinoza
+
+Spinoza's attribute theory is arguably the single closest ontological parallel. One substance (God/Nature) expresses itself through infinite attributes, of which humans know only two: Thought and Extension. Jonathan Bennett's "barrier doctrine" captures the key feature: each attribute must be conceived through itself — no explanatory flow crosses between them. This is precisely Claim 7: two complete, correct descriptions that are structurally irreconcilable, yet both describe the same underlying reality. Spinoza's substance is fully determinate, aligning with Claim 4. His parallelism doctrine — the order of ideas is the same as the order of things — means the two descriptions track the same structure through incommensurable vocabularies.
+
+The divergence is epistemological: Spinoza believes reason achieves adequate knowledge of reality through *scientia intuitiva* (intuitive knowledge). The paper's permanent limits directly contradict this ambition.
+
+### The recurring fault line: Claim 4
+
+Across every tradition examined, a striking pattern emerges. The claim that underlying reality is "local and definite" faces resistance from virtually every direction:
+
+**Kant** prohibits positive characterization of the noumenal realm as dogmatic metaphysics — you can know *that* things-in-themselves exist but never *what* they are. **Hegel** diagnoses a performative contradiction: to posit a hidden sector and characterize it as containing standard physics is already to have crossed the boundary you claim is uncrossable. **Nietzsche** attacks it as residual Platonism — having correctly shown that all observation is perspectival, the paper reinstates the very "true world" his career was dedicated to destroying. **Wittgenstein** rejects it as nonsensical: asserting what lies beyond the limits of the sayable transgresses exactly the limits the paper identifies.
+
+**Nagarjuna** identifies it as *svabhāva*-reification — attributing inherent existence to what Buddhist emptiness (*śūnyatā*) says lacks it. **Daoism** warns against naming the unnameable: the Dao that can be spoken is not the eternal Dao, and calling reality "definite" is itself an act of conceptual carving. **Whitehead** insists reality is fundamentally processual and creative, involving genuine indeterminacy — removing that indeterminacy robs the cosmos of its creative character.
+
+**Advaita Vedanta** comes closest to full support — Brahman is indeed a definite underlying reality — but insists it is *accessible*: the observer IS the underlying reality, and liberation (*mokṣa*) consists in recognizing this identity. Every Hindu and Buddhist soteriology rejects permanent inaccessibility.
+
+Only Spinoza (whose fully determinate substance is naturally definite) and Worrall's epistemic structural realism (which posits real but unknowable natures behind structures) provide genuine philosophical support for Claim 4.
+
+### What's genuinely new
+
+The paper's philosophical lineage is not a single line of descent but a mosaic. Its structural epistemology draws from Kant through Wittgenstein to Wolpert. Its complementarity thesis combines Bohr's physics with Cusa's coincidence of opposites and Daoist yin-yang. Its projection metaphysics reaches through Plato's cave and Plotinus's emanation to Advaita Vedanta's maya-Brahman distinction.
+
+What is genuinely new is the *combination*: accepting Bohr's complementarity while insisting on Einstein's realism, grounding Kantian limits in physical structure while claiming knowledge of noumenal character, embracing Cusanian learned ignorance while giving it formal Gödelian teeth. The traditions reveal that this combination creates a productive philosophical tension — the paper claims to know the character of what it proves unknowable. Whether this tension is a contradiction (as Hegel would insist), a residual Platonism (as Nietzsche would charge), or a legitimate achievement of learned ignorance (as Cusa would celebrate) may be the framework's deepest philosophical question.
+
+---
+
+## Frequently Asked Questions
+
+**"Isn't this just another interpretation of quantum mechanics?"**
+No. Interpretations (Copenhagen, Many-Worlds, Bohmian mechanics) accept the quantum formalism and disagree about what it *means*. This framework *derives* the quantum formalism from non-quantum premises and proves the derivation is the only possible one. It makes quantitative predictions — the value of ℏ, dark energy evolution, gravitational wave echoes — that interpretations do not.
+
+**"Doesn't Bell's theorem rule out hidden variable theories?"**
+Bell's theorem rules out *local* hidden variable theories satisfying a specific factorizability condition. This framework violates that factorizability — not through faster-than-light signals, but because P-indivisible joint dynamics don't permit the decomposition Bell's theorem assumes. The framework reproduces exactly Tsirelson's bound (the maximum quantum violation), no more and no less.
+
+**"If everything is deterministic underneath, where does randomness come from?"**
+From ignorance. The total system is deterministic, but the observer can't access the hidden sector. Different hidden states compatible with the same visible state lead to different outcomes. The observer must assign probabilities — not because the universe is random, but because their information is incomplete.
+
+**"Why does gravity 'see' the classical vacuum energy and not the quantum one?"**
+Because the spacetime metric exists at the classical level, *before* the quantum description emerges. The quantum zero-point energy is a feature of the observer's compressed description. It's real for quantum experiments (the Casimir effect, the Lamb shift) but doesn't appear in the stress-energy tensor that governs curvature. The $10^{122}$ discrepancy is the information compression ratio — the entropy of the observer's blind spot.
+
+**"How can the paper claim reality is 'definite' if it's permanently inaccessible?"**
+This is the paper's most philosophically contested thesis (see *Philosophical Lineage* above). The paper's defense is that the claim follows from the derivation's own logic: the axioms posit deterministic dynamics on a phase space, and the theorem shows that quantum indeterminacy arises from tracing out part of that phase space — not from any indeterminacy in the underlying evolution. The "definiteness" is a consequence of the starting premises, not a speculative addition. Whether those premises are the right ones to start from is, of course, an open question — but within the framework, Claim 4 is a theorem, not an assumption.
+
+---
+
 ## What This Means
 
 The search for a "theory of everything" that unifies quantum mechanics and general relativity has assumed that the two theories describe the same level of reality and must be reconciled there. This paper argues that assumption is wrong. The two theories operate at different levels — one fundamental, one emergent — and their apparent contradiction is the information-theoretic cost of being an observer trapped inside the system you're trying to describe.
@@ -124,7 +309,7 @@ The universe is not broken. We are observing it from within.
 
 ---
 
-*This is a simplified overview of "The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within" (Maybaum, March 2026), which presents the formal arguments with detailed derivations.*
+*This is a companion overview to "The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within" (Maybaum, March 2026), which presents the formal arguments with detailed derivations. The philosophical lineage section draws on a systematic analysis mapping the paper's claims against the major traditions in Western, Eastern, and contemporary philosophy of science.*
 
 ***
 
