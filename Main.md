@@ -134,7 +134,31 @@ The theorem requires only two inputs: deterministic bijective dynamics (Axiom 1)
 
 ### 2.4 Explicit Construction: A Minimal Model
 
-A minimal illustration: visible sector $x \in \{0,1\}$, hidden sector $h \in \{1,\ldots,6\}$, dynamics a permutation $\sigma$ on the 12 joint states with $\sigma^2 = \text{id}$. Two of six hidden states flip $x$ (coupling, C1); four do not. The hidden sector retains perfect correlations ($\sigma^2 = \text{id}$, so C2 holds). The one-step transition matrix is $T = \left(\begin{smallmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{smallmatrix}\right)$, but the two-step matrix is $T^{(2)} = I$ (complete un-mixing). The required intermediate propagator $\Lambda = T^{(2)} \cdot T^{-1} = \left(\begin{smallmatrix} 2 & -1 \\ -1 & 2 \end{smallmatrix}\right)$ has negative entries — the process is P-indivisible. The hidden sector acts as a memory register: it records which transitions occurred and reads them back at the next step.
+The following minimal model illustrates the theorem and makes its mechanism explicit.
+
+**The model.** The visible sector has two states: $x \in \{0, 1\}$. The hidden sector has six states: $h \in \{1, 2, 3, 4, 5, 6\}$. The total phase space has 12 states $(x, h)$. The dynamics are a deterministic, invertible permutation $\sigma$ on these 12 states, defined as six disjoint transpositions:
+
+$$\sigma = (0{,}1 \leftrightarrow 1{,}1)\;(0{,}2 \leftrightarrow 1{,}2)\;(0{,}3 \leftrightarrow 0{,}4)\;(0{,}5 \leftrightarrow 0{,}6)\;(1{,}3 \leftrightarrow 1{,}4)\;(1{,}5 \leftrightarrow 1{,}6)$$
+
+The first two transpositions couple the visible and hidden sectors — they change $x$ while preserving $h$, implementing condition (C1). The remaining four permute hidden-sector labels within each visible-sector value, representing the hidden sector's internal dynamics. Since $\sigma$ is a product of disjoint transpositions, $\sigma^2 = \text{id}$: the hidden sector retains perfect correlations between successive transitions, satisfying condition (C2). Six hidden-sector states per visible-sector value ensures the hidden sector is not saturated by a single transition, satisfying condition (C3).
+
+**Transition matrices.** At $t = 0$, the observer knows $x$ but not $h$, and assigns the uniform (Liouville) measure over the 6 hidden states. At $t = 1$ (one application of $\sigma$):
+
+From $x = 0$: two of six hidden states ($h = 1, 2$) send $x$ to 1; four ($h = 3, 4, 5, 6$) leave $x$ at 0. From $x = 1$: two of six ($h = 1, 2$) send $x$ to 0; four leave $x$ at 1. The one-step transition matrix is:
+
+$$T(1,0) = \begin{pmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{pmatrix}$$
+
+At $t = 2$ ($\sigma^2 = \text{id}$): every state returns to itself, so $T(2,0) = I$.
+
+A Markov chain with transition matrix $T(1,0)$ would predict $T(2,0)_{\text{Markov}} = T(1,0)^2 = \left(\begin{smallmatrix} 5/9 & 4/9 \\ 4/9 & 5/9 \end{smallmatrix}\right)$ — continued mixing. The actual dynamics show complete *un-mixing*: the system returns to its initial state with certainty. This is information backflow.
+
+**P-divisibility test.** If the process were P-divisible, one could write $T(2,0) = \Lambda(2,1) \cdot T(1,0)$ with $\Lambda(2,1)$ a valid stochastic matrix (non-negative entries, rows summing to 1). Computing:
+
+$$\Lambda(2,1) = T(2,0) \cdot [T(1,0)]^{-1} = I \cdot \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}$$
+
+The matrix $\Lambda(2,1)$ has negative entries $(-1)$. No valid stochastic matrix can serve as the intermediate propagator. **The process is P-indivisible.** $\square$
+
+**The mechanism.** The hidden sector acts as a memory register. At step 1, the transpositions $(0,h) \leftrightarrow (1,h)$ for $h \in \{1, 2\}$ flip $x$ while preserving $h$. After step 1, a state now at $x = 1$ with $h \in \{1, 2\}$ carries the record "I was at $x = 0$." At step 2, the same transposition reads this record and flips $x$ back. The visible-sector dynamics exhibit information backflow: the system appears to "remember" its origin, which is impossible for a memoryless process. The model illustrates the mechanism in the idealized limit of perfect recurrence ($\sigma^2 = \text{id}$, i.e., $\tau_B/\tau_S = 2$). The cosmological realization of Part II has $\tau_S/\tau_B \sim 10^{-32}$; the P-indivisibility is more extreme, not less, when the hidden sector's memory is more persistent.
 
 ---
 
@@ -219,6 +243,8 @@ where the second inequality is a standard property of mutual information ($I(A; 
 
 *Proof.* (i) $\iff$ (ii) is Barandes' stochastic-quantum correspondence [10, 11]. (iii) $\implies$ (ii) is the theorem of §2.3. (ii) $\implies$ (iii) is proved by the three necessity theorems above. $\square$
 
+**Interpretive consequence.** The characterization theorem closes the logical gap that a sufficiency-only result would leave open. Quantum mechanics is not merely *compatible with* the epistemic situation of an embedded observer — it is *equivalent to* it. Every quantum system can be understood as one in which an observer is embedded in a larger deterministic system with non-trivial, slowly decorrelating coupling to a hidden sector of sufficient capacity. Conversely, every such embedding necessarily produces quantum mechanics in the observer's reduced description.
+
 ---
 
 # PART II: THE COSMOLOGICAL APPLICATION
@@ -285,9 +311,19 @@ The determination of $\hbar$ proceeds in four steps. Steps 1–3 establish the s
 
 This argument is made precise by the following factorization result, combined with the D-gauge completeness theorem of §5.3.
 
-**Lemma (volume-independence of transition probabilities).** *If the visible-sector transition is independent of deep hidden-sector modes (those at distances $\gg c/H$ beyond the horizon) on timescales up to $t_*$, then $T_{ij}(t) = T^{(B)}_{ij}(t)$ for all $t \leq t_*$, where $T^{(B)}$ is computed by marginalizing over boundary modes alone.* (Proof: the sum over deep modes contributes a factor that cancels its prefactor when the indicator is independent of those modes.)
+**Lemma (volume-independence of transition probabilities).** *Let $(\mathcal{C}_V, \mathcal{C}_H, \varphi_t)$ be a deterministic system with transition matrix $T_{ij}(t)$ on $\mathcal{C}_V$. Decompose $\mathcal{C}_H = \mathcal{C}_B \times \mathcal{C}_D$ into boundary modes $\mathcal{C}_B$ and deep modes $\mathcal{C}_D$. If the visible-sector transition is independent of the deep modes on timescales up to $t_*$ — that is, $\pi_V(\varphi_t(x, h_B, h_D)) = \pi_V(\varphi_t(x, h_B, h'_D))$ for all $h_D, h'_D$ and all $t \leq t_*$ — then $T_{ij}(t) = T^{(B)}_{ij}(t)$ for all $t \leq t_*$, where $T^{(B)}$ is computed by marginalizing over $\mathcal{C}_B$ alone.*
 
-**Application to the cosmological partition.** Deep modes can influence the boundary only by propagating through the hidden sector, which takes time $\gtrsim \tau_B$ (C2). For all $t \ll \tau_B$, the transition probabilities are volume-independent with corrections $\delta \lesssim t/\tau_B \sim 10^{-32}$.
+*Proof.* For $t \leq t_*$:
+
+$$T_{ij}(t) = \frac{1}{|\mathcal{C}_B||\mathcal{C}_D|} \sum_{h_B, h_D} \mathbf{1}[\pi_V(\varphi_t(x_i, h_B, h_D)) = x_j]$$
+
+By hypothesis, the indicator function is independent of $h_D$, so the sum over $\mathcal{C}_D$ contributes a factor of $|\mathcal{C}_D|$ that cancels the $1/|\mathcal{C}_D|$ prefactor:
+
+$$T_{ij}(t) = \frac{1}{|\mathcal{C}_B|} \sum_{h_B} \mathbf{1}[\pi_V(\varphi_t(x_i, h_B)) = x_j] = T^{(B)}_{ij}(t) \quad \square$$
+
+The lemma extends to approximate independence: if the visible-sector transition depends on the deep modes for at most a fraction $\delta$ of configurations, then $|T_{ij}(t) - T^{(B)}_{ij}(t)| \leq \delta$.
+
+**Application to the cosmological partition.** The boundary modes are the $A/\epsilon^2$ degrees of freedom on the horizon surface; the deep modes are degrees of freedom at distances $\gg c/H$ beyond the horizon. Deep modes can influence the boundary only by propagating through the hidden sector, which takes time $\gtrsim \tau_B$ (C2). For all $t \ll \tau_B$, the lemma's condition is satisfied with $\delta \lesssim t/\tau_B \sim 10^{-32}$, and the transition probabilities are volume-independent.
 
 **Step 3: Dimensional determination.** With volumetric quantities excluded, the partition-intrinsic quantities that can appear in $\hbar$ are restricted to those characterizing the local structure of the boundary: $c$ (defines the causal boundary), $G$ (enters through Jacobson's identity relating geometry to energy), and $\epsilon$ (sets the phase-space grain). The unique combination with dimensions of action is $c^3 \epsilon^2 / G$, giving:
 
@@ -328,13 +364,19 @@ The prefactor is $\beta = 1/4$. No free parameter remains.
 
 This is a *gap equation*: the same logical structure as self-consistent mean-field calculations in condensed matter physics, where the order parameter is determined by requiring the emergent collective description to reproduce the microscopic conditions that generated it. The Gibbons-Hawking temperature is not imported as an external postulate; it is a *prediction* of the emergent theory that must be consistent with the classical temperature that preceded the theory's emergence.
 
-### 5.3 Gauge-Fixing and the Dimensional Obstruction
+**Robustness.** The self-consistency condition can be derived without the Gibbons-Hawking formula: the hidden sector is a thermal reservoir at $T_{\text{cl}}$, the visible sector equilibrates with it (C1–C3 ensure persistent thermal contact), and the zeroth law of quantum statistical mechanics gives $T_Q = T_{\text{cl}}$ exactly. The Gibbons-Hawking formula is then *recovered* as a prediction. Lattice corrections enter only as $\mathcal{O}((\epsilon H/c)^2) \sim 10^{-122}$, consistent with trans-Planckian insensitivity [28, 29].
 
-While Barandes' map establishes the unitary $U(t)$, it inherently leaves a Schur-Hadamard gauge freedom regarding the quantum phases. Continuous-time dynamics resolve this ambiguity. 
+### 5.3 Gauge-Fixing, the Dimensional Obstruction, and the Role of Thermal Self-Consistency
 
-**D-Gauge Completeness:** Matching the full continuous-time evolution of the transition probabilities ($T_{ij}(t) = |U_{ij}(t)|^2$) strictly locks the quantum phases. Any remaining gauge freedom is restricted to a time-independent diagonal unitary matrix $D$. Physically, this represents a trivial global basis rephasing that leaves all interference patterns and energy spacings invariant. For time-dependent effective generators (condition C2 ensures $H_{\text{eff}}(t)$ is approximately time-independent on intervals $\tau_S \ll \Delta t \ll \tau_B$), the D-gauge theorem applies within each interval, and cross-interval transition probabilities fix the relative gauge between intervals up to a single global phase with no observable consequences.
+The stochastic-quantum correspondence maps the P-indivisible process to a unitary $U(t)$, but leaves the Schur-Hadamard gauge freedom: the transition probabilities $T_{ij} = |U_{ij}|^2$ do not uniquely determine the quantum phases. Continuous-time transition data resolves this ambiguity. The following theorem shows that matching the full time-evolution forces the phases into a unique configuration, up to a physically trivial rephasing.
 
-**The Dimensional Obstruction:** Despite this phase-locking, a pure transition matrix provides only dimensionless rates. To convert these rates into a physical Hamiltonian ($\hat{H} = i\hbar \, \partial_t U \cdot U^\dagger$), a dimensionful conversion factor is mandatory. No purely dimensionless probability data can generate this scale. Therefore, the thermal self-consistency loop utilized in §5.2 is not merely a convenient check—it is the mathematically obligatory step to bridge the dimensionless stochastic dynamics with dimensionful physical energy.
+**Theorem (D-gauge completeness).** *Let $U(t) = e^{-iHt}$ be a unitary propagator with non-degenerate eigenvalues and non-vanishing configuration-basis overlaps. If $U'(t) = e^{-iH't}$ satisfies $|U'_{ij}(t)|^2 = |U_{ij}(t)|^2$ for all $i, j$ and all $t$, then $H' = DHD^\dagger$ for a time-independent diagonal unitary $D = \text{diag}(e^{i\alpha_1}, \ldots, e^{i\alpha_n})$.* (Proof: expanding $|U_{ij}(t)|^2$ as a Fourier series in the energy differences, non-degeneracy uniquely determines the moduli $|c_{ia}|$; matching the phase constraints forces $\delta_{ia} = \alpha_i + \beta_a$, giving $H' = DHD^\dagger$.)
+
+The D-gauge is physically trivial: it corresponds to a time-independent basis rephasing that leaves all transition probabilities, energy-level spacings, and interference patterns invariant. The non-degeneracy conditions hold generically (measure zero among Hermitian matrices).
+
+**Cross-interval matching and time dependence.** For time-dependent effective generators (condition C2 ensures $H_{\text{eff}}(t)$ is approximately time-independent on intervals $\tau_S \ll \Delta t \ll \tau_B$), the D-gauge theorem applies within each interval. Cross-interval transition probabilities fix the relative gauge between intervals up to a single global phase: the requirement $|\sum_j e^{i\phi_j} U_{ij} U_{jk}|^2 = |\sum_j U_{ij} U_{jk}|^2$ for all $i, k$ forces $\phi_j = \phi$ for all $j$. In the continuum limit, the chain of global phases becomes a smooth function $e^{i\theta(t)}$ with no observable consequences. The continuous-time transition probabilities therefore determine the unitary propagator up to physically irrelevant rephasing.
+
+**The dimensional obstruction.** The preceding results resolve all *dimensionless* ambiguity but leave $\hbar$ untouched — by structural necessity. The unitary $U(t)$ is dimensionless; $\hbar$ enters only when defining $\hat{H} = i\hbar \, \partial_t U \cdot U^\dagger$, converting dimensionless rates into energy units. No quantity of dimensionless probability data can fix a dimensionful constant. Step 4 provides the necessary dimensionful input: the thermal self-consistency condition $T_{\text{cl}} = T_{\text{GH}}(\hbar)$ connects the dimensionless oscillation frequencies to a physical temperature derived from the classical partition geometry (§5.1).
 
 ---
 
@@ -372,13 +414,21 @@ The cosmological constant problem [2, 3, 18] — the $10^{122}$-fold discrepancy
 
 ### 7.2 Why Gravity Sees the Classical Value
 
-Spacetime geometry is part of the classical substratum (Axiom 2): the metric tensor evolves via Einstein's field equations *before* the trace-out that produces quantum mechanics. The stress-energy tensor that sources gravity is the classical stress-energy of the total microstate, not the expectation value of an emergent quantum operator. The zero-point energy exists in the observer's informational ledger but does not appear in the stress-energy tensor that governs the geometry.
+Spacetime geometry is part of the classical substratum (Axiom 2): the metric tensor is defined on the fundamental phase space and evolves via Einstein's field equations *before* the trace-out that produces quantum mechanics. The stress-energy tensor that sources the Einstein equations is the classical stress-energy of the total microstate, not the expectation value of an emergent quantum operator. The $10^{113}$ J/m$^3$ zero-point energy exists in the observer's informational ledger — it is a consequence of re-describing the classical noise as quantum fluctuations — but it does not appear in the stress-energy tensor that governs the geometry. The semiclassical gravity equation $G_{\mu\nu} = 8\pi G \langle \hat{T}_{\mu\nu} \rangle$ is itself an emergent approximation, valid when the quantum description is treated as fundamental. Within the present framework, where the quantum description is derived, the gravitational field equations operate at the classical level and never encounter the zero-point sum.
 
-This ordering follows from the derivation's logical structure: the causal partition is defined by null geodesics of the metric (§4.1), so the metric must exist prior to the partition, and hence prior to the quantum description. The emergent vacuum energy does feed back into gravitational dynamics through state-level quantities (§8.1 derives dark energy evolution in RVM form), but the zero-point sum — a property of the correspondence itself — is not a gravitational source.
+**Ontological commitment and its consequences.** The framework makes a specific ontological commitment: classical spacetime geometry is fundamental; quantum mechanics is emergent. This is not a free choice but follows from the logical structure of the derivation. The causal partition that produces quantum mechanics is defined by null geodesics of the metric (§4.1); the metric must therefore exist prior to the partition, and hence prior to the quantum description the partition generates. Reversing this ordering — treating the metric as emergent from quantum mechanics — would make the partition definition circular. This logical priority is opposite to programs that treat the metric as emergent (canonical quantum gravity, asymptotic safety, string-theoretic emergent spacetime), and the ordering question has observable consequences.
+
+The cosmological constant problem is one such consequence. Any framework in which the quantum description is logically prior to the metric will necessarily treat the zero-point sum as a source term in the gravitational field equations, because the stress-energy tensor is constructed from quantum operators. The $10^{122}$ discrepancy is then a real problem requiring cancellation or fine-tuning. In the present framework, where the metric is logically prior, the zero-point sum is an artifact of the emergent description and never enters the stress-energy tensor. The dissolution of the CC problem is therefore a direct prediction of the framework's central commitment — not a separate result, and not an ad hoc stipulation, but a consequence of taking seriously the derivation's own logical structure.
+
+**Quantum corrections to gravity.** The claim is not that gravity is immune to quantum effects. The emergent quantum description does feed back into the gravitational dynamics through state-level quantities: §8.1 derives dark energy evolution in Running Vacuum form precisely because the emergent vacuum energy — a state-level property of the quantum description — depends on the Hubble parameter through the hidden sector's volume. This $H$-dependent running of $\Lambda_{\text{eff}}$ *is* a quantum correction to gravity.
+
+What the framework excludes is the zero-point sum — a property of the correspondence itself rather than of any particular state — as a gravitational source. The structural/volumetric distinction of §5.2 applies here too: the action scale $\hbar$ (structural) does not gravitate; the vacuum energy (volumetric, state-dependent) does, but at the classical scale $\rho \sim H^2/G$ rather than the QFT scale $\rho \sim M_{\text{Pl}}^4$.
 
 ### 7.3 The Structural Origin of the $10^{122}$ Discrepancy
 
-The ratio $\rho_{\text{QFT}} / \rho_{\text{classical}} \sim M_{\text{Pl}}^4 / (H^2/G) = S_{\text{dS}}$. The discrepancy equals the Bekenstein-Hawking entropy of the cosmological horizon — the number of hidden-sector degrees of freedom the trace-out compresses into the emergent quantum state. The "worst prediction in physics" is the information compression ratio of the observer's blind spot.
+The ratio $\rho_{\text{QFT}} / \rho_{\text{classical}} \sim M_{\text{Pl}}^4 / (H^2/G) = S_{\text{dS}}$. The discrepancy equals $S_{\text{dS}} = A/(4\,l_p^2)$ — the Bekenstein-Hawking entropy of the cosmological horizon, now identified as the number of independent modes on the partition boundary ($N_{\text{modes}} = A/\epsilon^2 = S_{\text{dS}}$). This is the information compression ratio of the quantum description: the number of hidden-sector degrees of freedom that the trace-out compresses into the emergent quantum state. The "worst prediction in physics" is the entropy of the observer's blind spot — a category error, not a fine-tuning failure.
+
+That this discrepancy cannot be resolved from within is confirmed by Wolpert's (2008) limits of inference [19]: any physical subsystem whose state is a deterministic, many-to-one function of the total configuration is subject to absolute inferential limits. Both geometric measurements (classical substratum) and local particle measurements (emergent QFT) are faithful to their respective descriptions; no embedded observer can determine from within which is more fundamental.
 
 This is not a prediction awaiting future data. The observed vacuum energy sits at the classical geometric scale $\rho \sim H^2/G$ — the value the framework expects. Five decades of searching for a cancellation mechanism within frameworks where quantum mechanics is fundamental have found nothing (supersymmetric cancellations increasingly constrained by LHC null results, anthropic arguments unable to predict the specific observed value). The framework explains why: there is nothing to cancel.
 
@@ -422,9 +472,15 @@ The conjunction of confirmed dark energy evolution *and* detected GW echoes woul
 
 ### 9.1 Interpretive Consequences
 
-In the cosmological application, the hidden sector is the trans-horizon region; all degrees of freedom involved in quantum experiments are visible-sector objects whose quantum behavior follows from the single cosmological trace-out.
+In the cosmological application, the hidden sector is the trans-horizon region; the degrees of freedom involved in quantum experiments — photons, electrons, slits, detectors — are all visible-sector objects. Their quantum behavior is not produced by a separate marginalization over nearby modes but is a downstream consequence of the single cosmological trace-out: the emergent quantum mechanics, once established by the theorem, governs all visible-sector dynamics, including the local experiments discussed here.
 
-The theorem resolves foundational puzzles as direct consequences. In the double-slit experiment, the particle traverses a single slit in the deterministic substratum; interference arises because the transition matrix encodes the full experimental geometry, and opening or closing the second slit changes the boundary conditions of the marginalization. In Wigner's friend scenarios, the Friend obtains a definite outcome; Wigner's superposition assignment reflects his epistemic deficit (a different partition), not the Friend's physical state. The Everettian measure problem dissolves because "branches" are features of the compressed description, not of the underlying deterministic dynamics, and the Born rule is the equilibrium distribution of the indivisible process.
+The theorem resolves several foundational puzzles as direct consequences rather than additional postulates.
+
+In the double-slit experiment, the particle traverses a single slit at the level of the deterministic substratum — it has a definite trajectory in the total phase space. The interference pattern arises because the observer does not have access to the total phase space. The transition matrix $T_{ij}(t_2, t_1)$ encodes the boundary conditions of the full experimental geometry, including the number of open slits. Opening or closing the second slit changes those boundary conditions, which changes the transition probabilities and hence the distribution of detection events. What appears as "wave-like" behavior is the trace-out-induced dynamics responding to a change in the visible-sector geometry. The which-path story follows the same logic: a detector at one slit couples the particle's trajectory to additional visible-sector degrees of freedom, altering the transition matrix and eliminating the interference terms.
+
+In Wigner's friend scenarios, the Friend's measurement produces a definite outcome: the indivisible dynamics of the total system (Friend + measured system + hidden sector) evolve to a single state. Wigner, who lacks access to the lab's internal degrees of freedom, must trace them out — producing a superposition assignment that reflects his epistemic deficit, not the Friend's physical state. There is no contradiction because the two descriptions correspond to different partitions, and partition-relativity (§1.4) permits different partitions to yield different reduced descriptions.
+
+The Everettian measure problem dissolves because the total system evolves deterministically as a single reality — the Schrödinger equation is a mandatory compression algorithm for an observer who cannot track hidden-sector degrees of freedom, and "branches" are features of the compressed description, not of the underlying dynamics. The question "why does the Born rule give the right probabilities across branches?" is replaced by the answer that the Born rule *is* the equilibrium distribution of the indivisible stochastic process, derived rather than postulated.
 
 ### 9.2 Scope of the Theorem
 
