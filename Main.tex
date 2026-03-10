@@ -204,34 +204,7 @@ The theorem requires only two inputs: deterministic bijective dynamics (Axiom~1)
 
 \subsection{Explicit Construction: A Minimal Model}
 
-The following minimal model illustrates the theorem and makes its mechanism explicit.
-
-\textbf{The model.} The visible sector has two states: $x \in \{0, 1\}$. The hidden sector has six states: $h \in \{1, 2, 3, 4, 5, 6\}$. The total phase space has 12 states $(x, h)$. The dynamics are a deterministic, invertible permutation $\sigma$ on these 12 states, defined as six disjoint transpositions:
-\begin{equation}
-\sigma = (0{,}1 \leftrightarrow 1{,}1)\;(0{,}2 \leftrightarrow 1{,}2)\;(0{,}3 \leftrightarrow 0{,}4)\;(0{,}5 \leftrightarrow 0{,}6)\;(1{,}3 \leftrightarrow 1{,}4)\;(1{,}5 \leftrightarrow 1{,}6)
-\end{equation}
-
-The first two transpositions couple the visible and hidden sectors---they change $x$ while preserving $h$, implementing condition~(C1). The remaining four permute hidden-sector labels within each visible-sector value, representing the hidden sector's internal dynamics. Since $\sigma$ is a product of disjoint transpositions, $\sigma^2 = \text{id}$: the hidden sector retains perfect correlations between successive transitions, satisfying condition~(C2). Six hidden-sector states per visible-sector value ensures the hidden sector is not saturated by a single transition, satisfying condition~(C3).
-
-\textbf{Transition matrices.} At $t = 0$, the observer knows $x$ but not $h$, and assigns the uniform (Liouville) measure over the 6 hidden states. At $t = 1$ (one application of $\sigma$):
-
-From $x = 0$: two of six hidden states ($h = 1, 2$) send $x$ to 1; four ($h = 3, 4, 5, 6$) leave $x$ at 0. From $x = 1$: two of six ($h = 1, 2$) send $x$ to 0; four leave $x$ at 1. The one-step transition matrix is:
-\begin{equation}
-T(1,0) = \begin{pmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{pmatrix}
-\end{equation}
-
-At $t = 2$ ($\sigma^2 = \text{id}$): every state returns to itself, so $T(2,0) = I$.
-
-A Markov chain with transition matrix $T(1,0)$ would predict $T(2,0)_{\text{Markov}} = T(1,0)^2 = \left(\begin{smallmatrix} 5/9 & 4/9 \\ 4/9 & 5/9 \end{smallmatrix}\right)$---continued mixing. The actual dynamics show complete \emph{un-mixing}: the system returns to its initial state with certainty. This is information backflow.
-
-\textbf{P-divisibility test.} If the process were P-divisible, one could write $T(2,0) = \Lambda(2,1) \cdot T(1,0)$ with $\Lambda(2,1)$ a valid stochastic matrix (non-negative entries, rows summing to~1). Computing:
-\begin{equation}
-\Lambda(2,1) = T(2,0) \cdot [T(1,0)]^{-1} = I \cdot \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}
-\end{equation}
-
-The matrix $\Lambda(2,1)$ has negative entries $(-1)$. No valid stochastic matrix can serve as the intermediate propagator. \textbf{The process is P-indivisible.} $\square$
-
-\textbf{The mechanism.} The hidden sector acts as a memory register. At step~1, the transpositions $(0,h) \leftrightarrow (1,h)$ for $h \in \{1, 2\}$ flip $x$ while preserving $h$. After step~1, a state now at $x = 1$ with $h \in \{1, 2\}$ carries the record ``I was at $x = 0$.'' At step~2, the same transposition reads this record and flips $x$ back. The visible-sector dynamics exhibit information backflow: the system appears to ``remember'' its origin, which is impossible for a memoryless process. The model illustrates the mechanism in the idealized limit of perfect recurrence ($\sigma^2 = \text{id}$, i.e., $\tau_B/\tau_S = 2$). The cosmological realization of Part~II has $\tau_S/\tau_B \sim 10^{-32}$; the P-indivisibility is more extreme, not less, when the hidden sector's memory is more persistent.
+A minimal illustration: visible sector $x \in \{0,1\}$, hidden sector $h \in \{1,\ldots,6\}$, dynamics a permutation $\sigma$ on the 12 joint states with $\sigma^2 = \text{id}$. Two of six hidden states flip $x$ (coupling, C1); four do not. The hidden sector retains perfect correlations ($\sigma^2 = \text{id}$, so C2 holds). The one-step transition matrix is $T = \left(\begin{smallmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{smallmatrix}\right)$, but the two-step matrix is $T^{(2)} = I$ (complete un-mixing). The required intermediate propagator $\Lambda = T^{(2)} \cdot T^{-1} = \left(\begin{smallmatrix} 2 & -1 \\ -1 & 2 \end{smallmatrix}\right)$ has negative entries---the process is P-indivisible. The hidden sector acts as a memory register: it records which transitions occurred and reads them back at the next step.
 
 % ==============================
 \section{The Emergence of Quantum Mechanics}
