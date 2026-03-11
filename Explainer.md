@@ -21,6 +21,28 @@ The argument is built from a chain of mathematical proofs, each feeding into the
 
 ---
 
+## The Starting Point
+
+Every mathematical proof starts from assumptions, and the paper is explicit about its four. None of them mention quantum mechanics. None of them mention general relativity. They are:
+
+1. **Deterministic dynamics.** The universe evolves according to definite rules. Given the complete state at one time, the state at any other time is uniquely determined. This is just classical physics — Hamilton's equations on a phase space.
+
+2. **Finiteness.** The part of the universe the observer can describe has a finite number of distinguishable configurations. This is motivated by a purely geometric fact: a finite-area boundary can only couple to finitely many modes across it. The paper treats the discreteness scale $\epsilon$ as a free parameter and derives its value later.
+
+3. **Causal partition.** The universe splits into what the observer can access (the visible sector) and what they can't (the hidden sector). The two sectors interact, but the observer can only measure one of them.
+
+4. **Classical probability.** The observer reasons using ordinary probability theory — expectation values, the law of large numbers, the central limit theorem. Nothing exotic.
+
+That's it. The claim is that quantum mechanics — the Schrödinger equation, the Born rule, superposition, entanglement, Bell inequality violations — follows from these four premises alone, given the right conditions on the hidden sector. Specifically, the hidden sector must be:
+
+- **Coupled** (C1) — it dynamically interacts with the visible sector, not just passively coexists with it.
+- **Slow** (C2) — it retains correlations longer than the timescale of any experiment, so its memory is still there between measurements.
+- **Vast** (C3) — it has enough capacity that its memory never fills up or gets overwritten.
+
+The axioms set the stage. The conditions determine what kind of show plays on it. The next section explains why the cosmological horizon satisfies all three.
+
+---
+
 ## The Observer's Blind Spot
 
 Light travels at a finite speed, and the universe has a finite age. Put those together and every observer has a horizon — a boundary beyond which no signal has had time to arrive. Everything beyond that boundary is ordinary physics: fields, particles, radiation. But it is structurally inaccessible. Not because our telescopes aren't good enough, but because the geometry of spacetime forbids it. No technology that obeys the speed of light can reach past it.
