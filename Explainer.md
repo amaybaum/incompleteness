@@ -323,6 +323,13 @@ Because the spacetime metric exists at the classical level, *before* the quantum
 **"How can the paper claim reality is 'definite' if it's permanently inaccessible?"**
 This is the paper's most philosophically contested thesis (see *Philosophical Lineage* above). The paper's defense is that the claim follows from the derivation's own logic: the axioms posit deterministic dynamics on a phase space, and the theorem shows that quantum indeterminacy arises from tracing out part of that phase space — not from any indeterminacy in the underlying evolution. The "definiteness" is a consequence of the starting premises, not a speculative addition. Whether those premises are the right ones to start from is, of course, an open question — but within the framework, Claim 4 is a theorem, not an assumption.
 
+**"Doesn't holographic physics show that spacetime comes from entanglement?"**
+This is probably the strongest objection to the framework's ordering — classical spacetime first, quantum mechanics second. The Ryu-Takayanagi formula says entanglement entropy equals boundary area divided by $4G$. Van Raamsdonk argued that reducing entanglement disconnects spacetime. Programs like ER=EPR and "it from qubit" read these results as evidence that quantum entanglement is prior to geometry.
+
+The framework offers an alternative reading. If the quantum description is produced by tracing out over a geometric boundary, then *of course* its entanglement entropy is proportional to the boundary's area — the information content of the trace-out is set by the number of modes crossing the boundary, which scales with area. The Ryu-Takayanagi formula, on this account, isn't a hint that entanglement builds geometry; it's a consequence of the fact that geometry built the entanglement. The Bekenstein-Hawking entropy $S = A/(4\,l_p^2)$, which the paper derives, is exactly this statement.
+
+The correlation between entanglement and geometry is real either way. The question is which direction the arrow of explanation points. The two orderings make different empirical predictions: if geometry emerges from entanglement, spacetime structure should break down at high energy; if quantum mechanics emerges from geometry, the quantum description should break down near the discreteness scale while the geometric substratum persists. The paper's gravitational wave echo prediction provides one test.
+
 ---
 
 ## What This Means
