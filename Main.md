@@ -274,9 +274,17 @@ The D-gauge is physically trivial (basis rephasing). Cross-interval transition p
 
 ## 6. SELF-CONSISTENCY AND THE DISCRETENESS SCALE
 
-From $\hbar = c^3 \epsilon^2 / (4G)$: $\epsilon^2 = 4\hbar G / c^3 = 4\,l_p^2$, so $\epsilon = 2\,l_p$. This is algebraically equivalent to the $\hbar$ formula but serves as a consistency check: $\epsilon \ll l_p$ would create a second trace-out breaking single-valuedness of $\hbar$; $\epsilon \gg l_p$ would assign distinct quantum states to physically identical configurations. Thermal self-consistency selects $\epsilon = 2\,l_p$.
+Rearranging $\hbar = c^3 \epsilon^2 / (4G)$:
 
-The number of horizon modes is then $N_{\text{modes}} = A/\epsilon^2 = A/(4\,l_p^2) = S_{\text{dS}}$ — the Bekenstein-Hawking entropy. The factor $1/4$ is derived from partition geometry and thermal self-consistency.
+$$\epsilon^2 = \frac{4\hbar G}{c^3} = 4\,l_p^2$$
+
+The framework yields $\epsilon = 2\,l_p$ exactly. This is algebraically equivalent to the formula for $\hbar$ but serves as a consistency check: the discreteness scale lands at the Planck scale, the only self-consistent regime. If $\epsilon^2 \ll l_p^2$, sub-Planckian subcells would be dynamically active yet unresolvable by the emergent description, creating a second trace-out with its own noise intensity and breaking the single-valuedness of $\hbar$. If $\epsilon^2 \gg l_p^2$, the emergent description would assign distinct quantum states to configurations that are physically identical in the substratum. Thermal self-consistency selects $\epsilon = 2\,l_p$ within this regime.
+
+With $\epsilon = 2\,l_p$, the number of independent modes on the cosmological horizon is:
+
+$$N_{\text{modes}} = \frac{A}{\epsilon^2} = \frac{A}{4\,l_p^2} = S_{\text{dS}}$$
+
+where $S_{\text{dS}} = A/(4\,l_p^2)$ is the Bekenstein-Hawking entropy of the de Sitter horizon. The factor of $1/4$ in the Bekenstein-Hawking formula — historically introduced as a proportionality constant — is here derived: each minimal cell of area $\epsilon^2 = 4\,l_p^2$ on the horizon contributes one unit of entropy, and $A / (4\,l_p^2) = A / \epsilon^2$ recovers the standard formula exactly.
 
 ---
 
