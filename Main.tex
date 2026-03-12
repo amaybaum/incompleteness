@@ -153,15 +153,15 @@ are therefore uniquely determined by three inputs: the dynamics (\(\phi_t\)), th
 
 \subsection{2.1 Emergent Stochasticity}
 
-The total system (visible + hidden sectors) evolves deterministically (Axiom 1). Every phase-space point \((x, h) \in \Gamma_V \times \Gamma_H\) maps to exactly one future point under the Hamiltonian flow. No randomness exists at this level. But the visible sector alone --- what the embedded observer accesses --- is stochastic. The observer knows \(x\) but not \(h\). Different hidden-sector states \(h_k\) compatible with the same \(x\) send \(x\) to different visible-sector futures \(x'_k\). The observer must assign transition probabilities \(T_{ij}(t_2, t_1)\) by marginalizing the deterministic flow over the hidden sector using the Liouville measure, as defined in §1.4. As established there, the Liouville measure is the unique absolutely continuous measure preserved by the Hamiltonian flow, ensuring that the transition probabilities --- and hence the emergent description --- are uniquely determined by the partition.
+The total system (visible + hidden sectors) evolves deterministically (Axiom 1). Every phase-space point \((x, h) \in \Gamma_V \times \Gamma_H\) maps to exactly one future point under the Hamiltonian flow. No randomness exists at this level. But the visible sector alone --- what the embedded observer accesses --- is stochastic. The observer knows \(x\) but not \(h\). Different hidden-sector states \(h_k\) compatible with the same \(x\) send \(x\) to different visible-sector futures \(x'_k\). The observer must assign transition probabilities \(T_{ij}(t_2, t_1)\) by marginalizing the deterministic flow over the hidden sector using the Liouville measure (§1.4), which uniquely determines the transition probabilities --- and hence the emergent description --- for a given partition.
 
 This architecture makes the framework a hidden variable theory: the randomness observed by the embedded observer is epistemic, arising from ignorance of hidden-sector degrees of freedom rather than fundamental indeterminacy. The consistency of this structure with Bell's theorem is addressed in §3.2.
 
 \subsection{2.2 The Slow-Bath Regime}
 
-The Markovian limit for reduced dynamics requires a strict timescale separation \(\tau_B \ll \tau_S\) {[}4{]}, where the environment decorrelates much faster than the system evolves. Condition (C2) inverts this hierarchy: \(\tau_S \ll \tau_B\). The hidden sector evolves on timescales far exceeding those of any visible-sector process, so its correlations do not decorrelate between successive system transitions. The memory kernel of the reduced dynamics is effectively constant over all observationally relevant timescales.
+The Markovian limit for reduced dynamics requires \(\tau_B \ll \tau_S\) {[}4{]}, where the environment decorrelates much faster than the system evolves. Condition (C2) inverts this: \(\tau_S \ll \tau_B\). The hidden sector's correlations do not decorrelate between successive system transitions, and the memory kernel of the reduced dynamics is effectively constant over all observationally relevant timescales.
 
-A slow bath must be distinguished from a static external field. A genuinely static (decoupled) hidden sector would merely shift Hamiltonian parameters in \(H_V\) without inducing information backflow. By condition (C1), the hidden sector is not decoupled: the interaction Hamiltonian \(H_{\text{int}}\) is continuously active. During each visible-sector transition, \(H_{\text{int}}\) imprints the identity of the transition onto the hidden-sector state. Because the hidden sector is slow --- not static --- these imprints persist without being thermally overwritten: the hidden sector's internal relaxation timescale (\(\tau_B\)) vastly exceeds the interval between successive visible-sector transitions (\(\tau_S\)). On subsequent transitions, the coupling reads back the stored correlations, producing transition probabilities that depend on the system's prior trajectory --- the non-Markovian open-systems regime of Breuer and Petruccione {[}4{]}.
+A slow bath must be distinguished from a static external field. A static (decoupled) hidden sector would merely shift Hamiltonian parameters without inducing information backflow. By condition (C1), the coupling is continuously active: during each visible-sector transition, \(H_{\text{int}}\) imprints the identity of the transition onto the hidden-sector state. Because the hidden sector is slow (not static), these imprints persist without being thermally overwritten. On subsequent transitions, the coupling reads back the stored correlations, producing transition probabilities that depend on the system's prior trajectory --- the non-Markovian regime of Breuer and Petruccione {[}4{]}.
 
 \subsection{2.3 P-Indivisibility}
 
@@ -362,11 +362,9 @@ This temperature depends on \(G\), \(c\), \(H\), \(\epsilon\), and \(k_B\) --- n
 
 \subsection{5.2 The Emergent Action Scale}
 
-The stochastic-quantum correspondence maps the P-indivisible transition matrices to a unitary evolution \(U(t)\), but leaves an enormous gauge freedom: the transition matrix constrains only \(|U_{ij}|^2\), leaving the quantum phases --- and hence the energy eigenvalues and the overall action scale --- undetermined. This is the Schur-Hadamard gauge freedom inherent in the stochastic-to-quantum map. Partition-relativity (§1.4) constrains the resolution: the emergent quantum description is uniquely determined by the partition, so the action scale \(\hbar\) can depend only on quantities intrinsic to the partition --- the geometric and thermodynamic properties of the boundary between visible and hidden sectors.
+The stochastic-quantum correspondence establishes that the emergent description is quantum mechanics but does not determine \(\hbar\). Partition-relativity (§1.4) constrains the resolution: \(\hbar\) can depend only on quantities intrinsic to the partition boundary. The determination proceeds in four steps.
 
-The determination of \(\hbar\) proceeds in four steps. Steps 1--3 establish the scaling; Step 4 fixes the prefactor. Step 2 invokes a result proved in §5.3; the derivation is self-contained once that section is reached.
-
-\textbf{Step 1: Uniqueness from partition-relativity.} By the lemma of §1.4, the three inputs --- dynamics \(\phi_t\), Liouville measure \(\mu\), and partition \(\Gamma_V \times \Gamma_H\) --- yield a single stochastic process, which maps to a single quantum description. The action scale \(\hbar\) is therefore a derived quantity, not a free parameter.
+\textbf{Step 1: Uniqueness from partition-relativity.} By §1.4, the partition uniquely determines the stochastic process and hence the quantum description. The action scale \(\hbar\) is a derived quantity, not a free parameter.
 
 \textbf{Step 2: The action scale is structural, not volumetric.} The action scale governs the stochastic-to-unitary conversion --- how the hidden sector couples to and imprints correlations on the visible sector --- not the total capacity of the hidden sector. The distinction is analogous to a classical thermal reservoir: temperature determines the Boltzmann factor regardless of the bath's total size. If \(\hbar\) depended on \(H\) through volumetric factors, observers at different cosmological epochs would obtain different quantum mechanics.
 
@@ -416,21 +414,7 @@ The Hubble parameter \(H\) cancels --- confirming the structural/volumetric poin
 
 The prefactor is \(\beta = 1/4\). No free parameter remains.
 
-\textbf{Why this is not circular.} The argument uses the Gibbons-Hawking temperature, which is a result of quantum field theory on curved spacetime --- the very theory whose emergence the theorem establishes. The logic is sequential, not circular:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Part I establishes that the emergent description \emph{is} quantum mechanics, with \emph{some} action scale \(\hbar\) (existence, not value).
-\item
-  The emergent QM, applied to the de Sitter horizon, predicts \(T_{\text{GH}}(\hbar) = \hbar H / (2\pi k_B)\). This is a \emph{consequence} of the emergent theory, expressed in terms of the unknown \(\hbar\).
-\item
-  The classical temperature \(T_{\text{cl}}\) is derived independently in §5.1, with no \(\hbar\).
-\item
-  Matching the two --- requiring that the emergent description be consistent with the conditions that produced it --- gives one equation in one unknown.
-\end{enumerate}
-
-This is a \emph{gap equation}: the same logical structure as self-consistent mean-field calculations in condensed matter physics, where the order parameter is determined by requiring the emergent collective description to reproduce the microscopic conditions that generated it. The Gibbons-Hawking temperature is not imported as an external postulate; it is a \emph{prediction} of the emergent theory that must be consistent with the classical temperature that preceded the theory's emergence.
+\textbf{Why this is not circular.} The Gibbons-Hawking temperature is a result of QFT on curved spacetime --- the very theory whose emergence the theorem establishes. But the logic is sequential: Part I proves QM emerges with \emph{some} \(\hbar\) → the emergent QM predicts \(T_{\text{GH}}(\hbar)\) → the classical \(T_{\text{cl}}\) was derived independently (§5.1) → matching fixes \(\hbar\). This is a \emph{gap equation}: the same structure as self-consistent mean-field calculations in condensed matter physics.
 
 \textbf{Robustness.} The self-consistency condition can be derived without the Gibbons-Hawking formula: the hidden sector is a thermal reservoir at \(T_{\text{cl}}\), the visible sector equilibrates with it (C1--C3 ensure persistent thermal contact), and the zeroth law of quantum statistical mechanics gives \(T_Q = T_{\text{cl}}\) exactly. The Gibbons-Hawking formula is then \emph{recovered} as a prediction. Lattice corrections enter only as \(\mathcal{O}((\epsilon H/c)^2) \sim 10^{-122}\), consistent with trans-Planckian insensitivity {[}28, 29{]}.
 
@@ -554,15 +538,13 @@ The conjunction of confirmed dark energy evolution \emph{and} detected GW echoes
 
 \subsection{9.1 Interpretive Consequences}
 
-In the cosmological application, the hidden sector is the trans-horizon region; the degrees of freedom involved in quantum experiments --- photons, electrons, slits, detectors --- are all visible-sector objects. Their quantum behavior is not produced by a separate marginalization over nearby modes but is a downstream consequence of the single cosmological trace-out: the emergent quantum mechanics, once established by the theorem, governs all visible-sector dynamics, including the local experiments discussed here.
+In the cosmological application, the hidden sector is the trans-horizon region; the degrees of freedom involved in quantum experiments --- photons, electrons, slits, detectors --- are all visible-sector objects. Their quantum behavior is a downstream consequence of the single cosmological trace-out: the emergent quantum mechanics, once established by the theorem, governs all visible-sector dynamics.
 
-The theorem resolves several foundational puzzles as direct consequences rather than additional postulates.
+The theorem resolves several foundational puzzles as direct consequences. In the double-slit experiment, the particle traverses a single slit in the deterministic substratum. The interference pattern arises because opening or closing the second slit changes the boundary conditions of the transition matrix, altering the distribution of detection events. A which-path detector at one slit couples the trajectory to additional visible-sector degrees of freedom, changing the transition matrix and eliminating the interference terms.
 
-In the double-slit experiment, the particle traverses a single slit at the level of the deterministic substratum --- it has a definite trajectory in the total phase space. The interference pattern arises because the observer does not have access to the total phase space. The transition matrix \(T_{ij}(t_2, t_1)\) encodes the boundary conditions of the full experimental geometry, including the number of open slits. Opening or closing the second slit changes those boundary conditions, which changes the transition probabilities and hence the distribution of detection events. What appears as ``wave-like'' behavior is the trace-out-induced dynamics responding to a change in the visible-sector geometry. The which-path story follows the same logic: a detector at one slit couples the particle's trajectory to additional visible-sector degrees of freedom, altering the transition matrix and eliminating the interference terms.
+In Wigner's friend scenarios, the Friend's measurement produces a definite outcome. Wigner, lacking access to the lab's internal degrees of freedom, traces them out and assigns a superposition that reflects his epistemic deficit, not the Friend's physical state. Different partitions yield different reduced descriptions (§1.4).
 
-In Wigner's friend scenarios, the Friend's measurement produces a definite outcome: the indivisible dynamics of the total system (Friend + measured system + hidden sector) evolve to a single state. Wigner, who lacks access to the lab's internal degrees of freedom, must trace them out --- producing a superposition assignment that reflects his epistemic deficit, not the Friend's physical state. There is no contradiction because the two descriptions correspond to different partitions, and partition-relativity (§1.4) permits different partitions to yield different reduced descriptions.
-
-The Everettian measure problem dissolves because the total system evolves deterministically as a single reality --- the Schrödinger equation is a mandatory compression algorithm for an observer who cannot track hidden-sector degrees of freedom, and ``branches'' are features of the compressed description, not of the underlying dynamics. The question ``why does the Born rule give the right probabilities across branches?'' is replaced by the answer that the Born rule \emph{is} the equilibrium distribution of the indivisible stochastic process, derived rather than postulated.
+The Everettian measure problem dissolves because the total system evolves deterministically as a single reality --- ``branches'' are features of the compressed description, not of the underlying dynamics. The Born rule is the equilibrium distribution of the indivisible stochastic process, derived rather than postulated.
 
 \subsection{9.2 Scope of the Theorem}
 
@@ -602,9 +584,9 @@ The broader question --- whether the ordering ``geometry first, then quantum mec
 
 \subsection{9.7 Assumptions, Limitations, and Falsifiability}
 
-\textbf{The theorem} requires Axiom 2 (independent assumption in Part I; consequence of the partition geometry in Part II) and Barandes' correspondence (entering at a single step, §3.1). The genericity assumptions --- non-degenerate spectrum and non-vanishing configuration-basis overlaps --- hold for all but a measure-zero set of systems. The tensor product structure of the emergent QFT follows from the locality preservation theorem (§7.1), which shows that spatial locality of the classical substratum is inherited by the emergent quantum Hamiltonian.
+\textbf{The theorem} requires Axiom 2 (independent assumption in Part I; consequence of the partition geometry in Part II), Barandes' correspondence (§9.3), and the genericity conditions (non-degenerate spectrum, non-vanishing configuration-basis overlaps), which hold for all but a measure-zero set of systems.
 
-\textbf{The Planck-scale ordering.} The framework's ontological commitment --- classical spacetime prior to quantum mechanics --- may break down at the Planck scale, where the distinction between ``geometric'' and ``quantum'' degrees of freedom loses operational meaning. The framework does not address the deep Planck regime; its domain is the macroscopic causal structure of the cosmological horizon. The self-consistency loop fixes \(\epsilon\) at \(2\,l_p\), at the boundary of the regime where the ordering might break down. If a deeper theory unifies geometry and quantum mechanics at sub-Planckian scales, the present framework would describe the effective macroscopic regime in which the geometric description is valid and the quantum description emerges from it --- analogous to how thermodynamics describes the macroscopic regime of statistical mechanics without being invalidated by it.
+\textbf{The Planck-scale ordering.} The framework's ontological commitment --- classical spacetime prior to quantum mechanics --- may break down at the Planck scale, where the distinction between ``geometric'' and ``quantum'' degrees of freedom loses operational meaning. The self-consistency loop fixes \(\epsilon\) at \(2\,l_p\), at the boundary of this regime. If a deeper theory unifies geometry and quantum mechanics at sub-Planckian scales, the present framework would describe the effective macroscopic regime --- analogous to how thermodynamics describes the macroscopic regime of statistical mechanics without being invalidated by it.
 
 \textbf{Falsifiability.} The \emph{theorem} would be falsified by a restriction of Barandes' correspondence excluding the processes generated here. The \emph{application} would be falsified by the definitive absence of dark energy evolution or gravitational wave echoes at the predicted timescale, while leaving the theorem intact.
 
