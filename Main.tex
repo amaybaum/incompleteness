@@ -1,707 +1,556 @@
 \documentclass[12pt,a4paper]{article}
 
-% Encoding and fonts
-\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[expansion=false]{microtype}
-
-% Math
+\usepackage[T1]{fontenc}
+% lmodern not available; using default Computer Modern
 \usepackage{amsmath,amssymb,amsthm}
-
-% Layout
+\usepackage{mathtools}
+\usepackage{physics}
 \usepackage[margin=1in]{geometry}
-\usepackage{parskip}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-\setlength{\parindent}{0pt}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{float}
 
-% Headers
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\small\textit{The Incompleteness of Observation}}
-\fancyhead[R]{\small\textit{Maybaum (2026)}}
-\fancyfoot[C]{\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
 
-% Hyperlinks
-\usepackage[dvipsnames]{xcolor}
-\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
 
-% Prevent overfull lines
-\setlength{\emergencystretch}{3em}
-
-% Don't auto-number sections
-\setcounter{secnumdepth}{-1}
-
-% Custom commands
-\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
-\title{\textbf{\LARGE The Incompleteness of Observation}\\[8pt]
-{\large Why Quantum Mechanics and General Relativity\\Cannot Be Unified From Within}}
+\title{\textbf{THE INCOMPLETENESS OF OBSERVATION} \\[6pt]
+\large Why Quantum Mechanics and General Relativity Cannot Be Unified From Within}
 \author{Alex Maybaum}
-\date{March 2026\\[4pt]\small\textsc{Draft Pre-Print} --- Theoretical Physics / Foundations}
+\date{March 2026 \\ \textit{DRAFT PRE-PRINT} \\ \textit{Theoretical Physics / Foundations}}
 
 \begin{document}
-
 \maketitle
-\thispagestyle{empty}
 
 \begin{abstract}
-\noindent Physical observers are strictly subsystems of the deterministic universes they measure, permanently barred from accessing degrees of freedom beyond their causal reach. This paper proves that the structural constraints imposed by this epistemic reduction necessarily give rise to quantum mechanics. We show that an observer coupled to a slow, high-capacity hidden sector on a finite-dimensional configuration space must describe the visible sector using P-indivisible stochastic dynamics. By the stochastic-quantum correspondence, this reduction is mathematically equivalent to unitarily evolving quantum mechanics.
+Physical observers are subsystems of the universes they measure, permanently barred from accessing degrees of freedom beyond their causal reach. We prove that the structural constraints of this epistemic reduction necessarily give rise to quantum mechanics. An observer coupled to a slow, high-capacity hidden sector on a finite-dimensional configuration space must describe the visible sector using P-indivisible stochastic dynamics. By the stochastic-quantum correspondence, this is mathematically equivalent to unitary quantum mechanics.
 
-Crucially, the converse also holds: any quantum system, realized as a deterministic dilation, requires precisely these conditions --- non-trivial coupling, slow-bath memory, and sufficient hidden-sector capacity --- establishing a full equivalence between quantum mechanics and embedded observation. Consequently, the Schrödinger equation, the Born rule, and Bell inequality violations emerge as structural consequences of this equivalence, requiring no independent quantum postulates.
+The converse also holds: any quantum system, realized as a deterministic dilation, requires non-trivial coupling, slow-bath memory, and sufficient hidden-sector capacity --- establishing a full equivalence. The Schr\"odinger equation, Born rule, and Bell violations emerge as structural consequences requiring no independent quantum postulates.
 
-Applying this theorem to the cosmological horizon, which provides an exact physical realization of these causal conditions, uniquely determines the emergent action scale. Partition-relativity, dimensional analysis, and the thermodynamic consistency of the horizon fix \(\hbar = c^3 \epsilon^2 / (4G)\), establishing the geometric discreteness scale at \(\epsilon = 2\,l_p\) and recovering the exact Bekenstein-Hawking entropy formula. Furthermore, this framework reframes the cosmological constant problem from a theoretical failure into corroborating evidence. The \(10^{122}\) discrepancy is precisely \(S_{\text{dS}}\), representing the exact information compression ratio of the emergent quantum description. Consequently, the observed macroscopic vacuum energy is not a fine-tuned anomaly, but the mandatory classical baseline predicted by the framework. Falsifiable predictions include dark energy evolution in Running Vacuum Model form (\(\Lambda_{\text{eff}} = \Lambda_0 + \nu H^2\)) with a coefficient \(\nu_{\text{OI}} = \Omega_\Lambda / (2\,\ln(c/\epsilon H_0)) \approx 2.45 \times 10^{-3}\), consistent with current observational fits, and distinct gravitational wave echoes near black hole horizons.
+Applied to the cosmological horizon --- an exact physical realization of these conditions --- the framework uniquely determines $\hbar = c^3 \epsilon^2 / (4G)$, fixes $\epsilon = 2\,l_p$, and recovers the Bekenstein-Hawking entropy $S = A/(4\,l_p^2)$. The $10^{122}$ cosmological constant discrepancy is identified as $S_{\text{dS}}$, the information compression ratio of the emergent quantum description; the observed vacuum energy is the mandatory classical baseline. Falsifiable predictions include dark energy evolution in Running Vacuum Model form with $\nu_{\text{OI}} \approx 2.45 \times 10^{-3}$, consistent with current data, and gravitational wave echoes near black hole horizons.
 \end{abstract}
 
 \newpage
-\tableofcontents
-\newpage
 
-\section{THE INCOMPLETENESS OF OBSERVATION}
+%======================================================================
+\part*{PART I: THE GENERAL THEOREM}
+%======================================================================
 
-\subsection*{Why Quantum Mechanics and General Relativity Cannot Be Unified From Within}
+\section{Introduction}
 
-\textbf{Author:} Alex Maybaum\\
-\textbf{Date:} March 2026\\
-\textbf{Status:} DRAFT PRE-PRINT\\
-\textbf{Classification:} Theoretical Physics / Foundations
+\subsection{The Problem of Embedded Observation}
 
+An observer embedded in a deterministic universe cannot access the complete state: degrees of freedom beyond causal reach are permanently hidden, and the observer's description is obtained by marginalizing over the hidden sector. The question is what this reduction imposes on the form of the observer's physical laws.
 
-\vspace{1cm}
-\begin{center}
-{\Large\bfseries PART I: THE GENERAL THEOREM}
-\end{center}
-\vspace{0.5cm}
+Prior work (QBism, relational QM, 't~Hooft's cellular automaton \cite{tHooft2016}) takes observer-dependence as an interpretive starting point or derives it from specific microphysical models. This framework differs by identifying \emph{necessary and sufficient conditions} under which any embedded observer in any deterministic system necessarily sees quantum mechanics --- and proving these are the \emph{only} conditions under which QM arises from a deterministic embedding. These constraints carry empirical weight: the framework reveals that phenomena previously viewed as catastrophic anomalies --- most notably the $10^{122}$ cosmological constant discrepancy --- are mandatory consequences of embedded observation.
 
-\section{1. INTRODUCTION}
+\subsection{Axioms}
 
-\subsection{1.1 The Problem of Embedded Observation}
-
-Physical observers are subsystems of the systems they measure. This elementary fact has consequences that have not been traced. An observer embedded in a deterministic universe cannot access the complete state: degrees of freedom beyond the observer's causal reach are permanently hidden, and the observer's description of the visible sector is necessarily a reduced one obtained by marginalizing over the hidden sector. The question is what structural constraints that reduction imposes on the form of the observer's physical laws.
-
-The observer's epistemic situation has been foregrounded before. QBism treats quantum states as expressions of an agent's beliefs; relational quantum mechanics defines states relative to interacting subsystems; 't Hooft's cellular automaton interpretation {[}1{]} derives quantum behavior from deterministic dynamics through information loss. These programs take observer-dependence as an interpretive starting point or, in 't Hooft's case, derive it from a specific microphysical model. The present framework differs in that it identifies \emph{necessary and sufficient conditions} under which any embedded observer in any deterministic system necessarily sees quantum mechanics, independent of the system's specific physical content --- and proves that these are the \emph{only} conditions under which quantum mechanics arises from a deterministic embedding.
-
-The structural constraints imposed by this reduction are not merely interpretive; they carry massive empirical weight. By establishing this equivalence, the framework reveals that phenomena previously viewed as catastrophic theoretical anomalies---most notably the \(10^{122}\) cosmological constant discrepancy---are in fact mandatory, predictable consequences of embedded observation.
-
-\subsection{1.2 Axioms}
-
-The framework rests on four axioms. None reference quantum mechanics, general relativity, or any specific physical theory.
+The framework rests on four axioms referencing no quantum mechanics, general relativity, or specific physical theory.
 
 \begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \textbf{Deterministic dynamics.} The total system evolves deterministically on a phase space \(\Gamma\). The phase-space density \(\rho(q, p, t)\) evolves via the Liouville equation:
+\item \textbf{Deterministic dynamics.} The total system evolves deterministically on a phase space $\Gamma$:
+\begin{equation}
+\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\} \equiv \mathcal{L}\rho
+\end{equation}
+
+\item \textbf{Finiteness.} The effective configuration space of the visible sector is finite-dimensional, with a discreteness scale $\epsilon$ providing a finite minimal cell volume. Any observer bounded by a finite-area surface can couple to only finitely many modes across that boundary; independent support comes from holographic entropy bounds \cite{Bao2017}. In Part~I, $\epsilon$ is free; self-consistency (\S6) pins $\epsilon = 2\,l_p$. In Part~II, the cosmological horizon makes this a consequence of partition geometry.
+
+\item \textbf{Causal partition.} $\Gamma$ is partitioned into a visible sector $\Gamma_V$ and hidden sector $\Gamma_H$:
+\begin{equation}
+\Gamma = \Gamma_V \times \Gamma_H, \qquad H_{\text{tot}} = H_V + H_H + H_{\text{int}}
+\end{equation}
+The product decomposition is a simplification; the axiom requires that graded epistemic access be well-approximated by a sharp partition with cross-partition correlations entering only through $H_{\text{int}}$. This is a condition on the physics, not just the observer: it is satisfied when a physical boundary enforces a separation sharp enough that residual leakage is absorbed into the interaction term. Part~II identifies a realization where the sharpness is exact.
+
+\item \textbf{Classical probability.} The observer's predictions are classical expectation values over phase space; standard probability theory applies.
 \end{enumerate}
 
-\[\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\} \equiv \mathcal{L}\rho\]
+These axioms contain no quantum postulates. The claim is that quantum mechanics \emph{emerges} under the conditions below.
 
-where \(\mathcal{L}\) is the Liouville operator and \(\{\cdot, \cdot\}\) denotes the Poisson bracket.
+\subsection{Conditions on the Hidden Sector}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\item
-  \textbf{Finiteness.} The effective configuration space of the visible sector is finite-dimensional, with a discreteness scale \(\epsilon\) providing a finite minimal cell volume.
+\textbf{(C1) Non-zero coupling.} $H_{\text{int}} \neq 0$. The coupling is bidirectional.
+
+\textbf{(C2) Slow-bath timescale separation.} $\tau_S \ll \tau_B$ --- the \emph{inverse} of the Markovian regime. The hidden sector evolves on timescales far exceeding those accessible to the observer.
+
+\textbf{(C3) Sufficient capacity.} $N_H / N_V$ is large enough that visible-sector interactions do not appreciably perturb the hidden sector's state on timescales $\ll \tau_B$.
+
+\textbf{Theorem statement.} Under Axioms~1--4 and (C1)--(C3), the embedded observer's reduced description is mathematically equivalent to unitarily evolving quantum mechanics. The conditions are not merely sufficient but \emph{necessary} (\S3.3), establishing full equivalence.
+
+\subsection{Partition-Relativity}
+
+\begin{lemma}
+The emergent description is uniquely determined by the partition. Any parameters of the emergent theory depend only on the geometric and thermodynamic properties of the partition boundary.
+\end{lemma}
+
+\begin{proof}
+By Axiom~1, the Hamiltonian flow $\phi_t$ is unique. By Axiom~3, the partition is fixed. By Axiom~4, the observer uses the Liouville measure $\mu$ --- the unique absolutely continuous measure preserved by $\phi_t$ (any other smooth measure would evolve, introducing dependence on an arbitrary reference time; singular invariant measures are excluded by Axiom~4). The marginalized transition probabilities
+\begin{equation}
+T_{ij}(t_2, t_1) = \int_{\Gamma_H} \delta_{x_j}[\pi_V(\phi_{t_2-t_1}(x_i, h))] \, d\mu(h)
+\end{equation}
+are therefore uniquely determined by three inputs: dynamics ($\phi_t$), partition ($\Gamma_V, \Gamma_H$), and measure ($\mu$). Since $\phi_t$ and $\mu$ are fixed by the axioms, the stochastic process --- and hence any emergent quantum description (\S3.1) --- depends only on the partition.
+\end{proof}
+
+
+%----------------------------------------------------------------------
+\section{Emergent Stochasticity and P-Indivisibility}
+%----------------------------------------------------------------------
+
+\subsection{Emergent Stochasticity}
+
+The total system evolves deterministically, but the visible sector alone is stochastic. The observer knows $x$ but not $h$; different hidden states $h_k$ compatible with the same $x$ send it to different futures $x'_k$. Transition probabilities are obtained by marginalizing over the Liouville measure (\S1.4). This makes the framework a hidden variable theory; consistency with Bell's theorem is addressed in \S3.2.
+
+\subsection{The Slow-Bath Regime}
+
+The Markovian limit requires $\tau_B \ll \tau_S$ \cite{Breuer2002}. Condition~(C2) inverts this: $\tau_S \ll \tau_B$. A slow bath must be distinguished from a static field. By~(C1), coupling is continuously active: each visible-sector transition imprints on the hidden sector. Because the hidden sector is slow (not static), imprints persist without thermal overwriting. On subsequent transitions, coupling reads back stored correlations, producing history-dependent transition probabilities --- the non-Markovian regime \cite{Breuer2002}.
+
+\subsection{P-Indivisibility}
+
+\begin{theorem}
+Let $\mathcal{C}_V$ and $\mathcal{C}_H$ be finite sets with $|\mathcal{C}_V| \geq 2$, and let $\varphi: \mathcal{C}_V \times \mathcal{C}_H \to \mathcal{C}_V \times \mathcal{C}_H$ be a bijection. Define:
+\begin{equation}
+T_{ij} = \frac{|\{h \in \mathcal{C}_H : \pi_V(\varphi(x_i, h)) = x_j\}|}{|\mathcal{C}_H|}
+\end{equation}
+and the $k$-step matrix $T^{(k)}_{ij}$ by applying $\varphi^k$. If $T$ is not a permutation matrix, then the process is P-indivisible.
+\end{theorem}
+
+\begin{proof}
+Uses total variation distance $d(p, q) = \frac{1}{2}\sum_k |p_k - q_k|$. P-divisibility $\iff$ $d(p(t), q(t))$ non-increasing for all initial $p, q$ \cite{Rivas2010,Rivas2014}.
+
+\emph{Step~1 (Recurrence).} $\varphi$ bijective on a finite set $\Rightarrow$ $\exists N: \varphi^N = \text{id}$. Thus $T^{(N)} = I$ and $d(\delta_i T^{(N)}, \delta_j T^{(N)}) = 1$ for $i \neq j$.
+
+\emph{Step~2 (Strict contraction).} $T$ not a permutation $\Rightarrow$ $\exists i, j, l$: $T_{il} > 0$ and $T_{jl} > 0$. Then:
+\begin{equation}
+d(\delta_i T, \delta_j T) = \frac{1}{2}\sum_k |T_{ik} - T_{jk}| < 1
+\end{equation}
+
+\emph{Step~3.} $d(\delta_i T^{(1)}, \delta_j T^{(1)}) < 1 = d(\delta_i T^{(N)}, \delta_j T^{(N)})$: non-monotonic, hence P-indivisible.
+\end{proof}
+
+The theorem requires only bijective dynamics (Axiom~1) and non-trivial coupling (C1). Axiom~2 guarantees the finite configuration space.
+
+\textbf{Convergence with prior work.} The theorem converges with independent results: Pechukas \cite{Pechukas1994} (reduced dynamics need not preserve positivity), Rivas et al.\ \cite{Rivas2010,Rivas2014} (divisibility failure $\leftrightarrow$ information backflow), Pollock et al.\ \cite{Pollock2018} (process-tensor Markovianity conditions), and Strasberg and Esposito \cite{Strasberg2017} (non-Markovian reduced dynamics in the slow-bath regime of C2).
+
+\textbf{Continuous-time extension.} The Hamiltonian flow on finite-dimensional phase space preserves Liouville measure on compact energy surfaces. $T_{ij}(t)$ is continuous with $T(0) = I$. By~(C1), $T(t)$ departs from the permutation class for $t > 0$. By Poincar\'e recurrence, $\exists t_R$: the set of hidden states with $\pi_V(\varphi_{t_R}(x_i, h)) = x_i$ has measure $> 1 - \delta$ for any $\delta > 0$. For small $\delta$, this gives non-monotonic trace distance, establishing P-indivisibility in continuous time.
+
+\textbf{Role of (C2) and (C3).} P-indivisibility follows from (C1) and finiteness alone. (C2) ensures information backflow occurs on accessible timescales (not just Poincar\'e recurrence times). (C3) ensures P-indivisibility persists at scale: insufficient capacity causes saturation and effectively Markovian crossover. Together they guarantee P-indivisibility is strong, persistent, and observationally relevant.
+
+\subsection{Explicit Construction: A Minimal Model}
+
+Visible sector: $x \in \{0, 1\}$. Hidden sector: $h \in \{1, \ldots, 6\}$. Dynamics: the permutation
+\begin{equation}
+\sigma = (0{,}1 \leftrightarrow 1{,}1)\;(0{,}2 \leftrightarrow 1{,}2)\;(0{,}3 \leftrightarrow 0{,}4)\;(0{,}5 \leftrightarrow 0{,}6)\;(1{,}3 \leftrightarrow 1{,}4)\;(1{,}5 \leftrightarrow 1{,}6)
+\end{equation}
+satisfying (C1)--(C3). Since $\sigma^2 = \text{id}$: at $t = 1$, two of six hidden states flip $x$, giving
+\begin{equation}
+T(1,0) = \begin{pmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{pmatrix}
+\end{equation}
+
+At $t = 2$ ($\sigma^2 = \text{id}$): $T(2,0) = I$. A Markov chain would predict continued mixing: $T(1,0)^2 = \left(\begin{smallmatrix} 5/9 & 4/9 \\ 4/9 & 5/9 \end{smallmatrix}\right)$. The actual dynamics show complete \emph{un-mixing}. Computing the intermediate propagator:
+\begin{equation}
+\Lambda(2,1) = T(2,0) \cdot [T(1,0)]^{-1} = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}
+\end{equation}
+
+Negative entries --- no valid stochastic matrix exists. \textbf{P-indivisible.} $\square$
+
+\textbf{The mechanism.} The hidden sector acts as a memory register. The transpositions $(0,h) \leftrightarrow (1,h)$ for $h \in \{1, 2\}$ flip $x$ while preserving $h$, so a state at $x = 1$ with $h \in \{1, 2\}$ after step~1 carries the record ``I was at $x = 0$.'' Step~2 reads this record and flips $x$ back --- information backflow impossible for a memoryless process. The cosmological realization has $\tau_S/\tau_B \sim 10^{-32}$; P-indivisibility is more extreme, not less, when memory is more persistent.
+
+
+%----------------------------------------------------------------------
+\section{The Emergence of Quantum Mechanics}
+%----------------------------------------------------------------------
+
+\subsection{The Stochastic-Quantum Correspondence}
+
+By Barandes' correspondence \cite{Barandes2023,Barandes2025}, any P-indivisible stochastic process on a finite configuration space of size $n$ embeds into a unitarily evolving quantum system on $\mathcal{H}$ of dimension $\leq n^3$. P-indivisible transition matrices develop negative entries at fine time resolution; the Stinespring dilation theorem guarantees $\exists$ a Hilbert space and unitary $U(t)$ with $T_{ij}(t) = |U_{ij}(t)|^2$ --- transition probabilities are exactly Born-rule probabilities.
+
+\textbf{From phase space to configuration space.} The transition probabilities $T_{ij}$ are projections of the full phase-space flow onto the configuration sector of $\Gamma_V$, with momenta and hidden-sector degrees of freedom absorbed into the Liouville marginalization. The resulting process lives on the discrete configuration space of Axiom~2.
+
+Three features emerge. The Schr\"odinger equation arises from the differentiability of $U(t)$. The Born rule is the equilibrium distribution of the indivisible process \cite{Barandes2023,Barandes2025}. The action scale $\hbar$ enters when defining $\hat{H}(t) \equiv i\hbar \, \partial_t U \cdot U^\dagger$, converting dimensionless rates to energy units; its value requires physical input from the partition (Part~II, \S5).
+
+\textbf{Phase uniqueness from continuous-time data.} The relation $T_{ij}(t) = |U_{ij}(t)|^2$ discards phase information at any single time. Doukas \cite{Doukas2026} identifies this gap for discrete-time data. The resolution: continuous-time data $\{T_{ij}(t)\}_{t \in \mathbb{R}}$ provides strictly more information.
+
+\begin{lemma}[Phase-locking]
+Let $H$ be Hermitian on $\mathbb{C}^n$ with eigenbasis $\{|k\rangle\}$, eigenvalues $\{E_k\}$, and $V_{ik} = \langle i | k \rangle$. Assume: (G1)~non-degenerate spectrum; (G2)~non-degenerate energy gaps; (G3)~$V_{ik} \neq 0$ for all $i, k$. Then $T_{ij}(t) = |\langle i | e^{-iHt} | j \rangle|^2$ for all $i, j, t$ uniquely determines $H$ up to an overall energy shift and basis phase conventions.
+\end{lemma}
+
+\begin{proof}
+Write:
+\begin{equation}
+T_{ij}(t) = \sum_{k,l} V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\; e^{-i(E_k - E_l)t}
+\end{equation}
+By~(G2), the frequencies $\omega_{kl} = E_k - E_l$ are distinct for distinct pairs with $k \neq l$. Fourier-transforming yields:
+\begin{equation}
+a_{ij}^{kl} = V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*
+\end{equation}
+The moduli $|V_{ik}|$ follow from $a_{ii}^{kl} = |V_{ik}|^2 |V_{il}|^2$ (non-zero by (G3)). The phases carry a double-difference structure:
+\begin{equation}
+\arg(a_{ij}^{kl}) = (\varphi_{ik} - \varphi_{il}) - (\varphi_{jk} - \varphi_{jl})
+\end{equation}
+The gauge freedom preserving all double differences is $\varphi_{ik} \to \varphi_{ik} + \alpha_i + \beta_k$ (physically irrelevant basis rephasing). Fixing $\varphi_{1k} = 0$, $\varphi_{i1} = 0$, each remaining phase is $\varphi_{ik} = \arg(a_{i1}^{k1})$, directly extracted from Fourier data. $H = V \, \text{diag}(E_k) \, V^\dagger$ is unique up to energy shift and phase conventions.
+\end{proof}
+
+Conditions (G1)--(G3) fail only on a measure-zero set of Hamiltonians.
+
+\textbf{Finite-dimensionality.} Barandes' proof requires a finite-dimensional configuration space: Axiom~2 in Part~I, the horizon's finite area ($A/\epsilon^2$ modes) in Part~II. Calvo \cite{Calvo2026} extends the correspondence to infinite dimensions, but this is not required here.
+
+\subsection{Bell Inequality Violations}
+
+The framework is a hidden variable theory evading Bell's theorem \cite{Bell1964} not by superdeterminism but by violating factorizability through P-indivisible joint dynamics --- while remaining causally local. Two subsystems interacting at preparation carry a joint transition matrix $T_{QR} \neq T_Q \otimes T_R$. This non-factorizability \emph{is} stochastic entanglement \cite{Barandes2023,Barandes2025,Barandes2025b}. Since the process is indivisible, no well-defined intermediate conditional probabilities permit Bell's factorization.
+
+In the Jarrett decomposition, the framework violates outcome independence while preserving parameter independence and measurement independence --- precisely the class Fine's theorem \cite{Fine1982} permits. Barandes, Hasan, and Kagan \cite{Barandes2025b} prove the maximum CHSH correlator is exactly Tsirelson's bound $2\sqrt{2}$, with independent support from Le et al.\ \cite{Le2017}.
+
+\subsection{The Characterization Theorem: Necessity of the Conditions}
+
+The logical structure: Barandes' correspondence gives QM $\iff$ P-indivisibility. What remains is P-indivisibility $\implies$ embedded observation under (C1)--(C3).
+
+\textbf{Dilation existence.} Any stochastic process on a finite configuration space can be realized as marginalization of a deterministic process on a larger state space --- furnishing Axioms~1--4.
+
+\begin{theorem}[C1 equivalence]
+The marginalized process is P-indivisible iff $T$ is not a permutation matrix.
+\end{theorem}
+
+\begin{proof}
+Forward: \S2.3. Reverse: if $T$ is a permutation, $\Lambda(k_2, k_1) = T^{(k_2-k_1)}$ is a valid stochastic matrix for all $k_2 > k_1$ $\Rightarrow$ P-divisible.
+\end{proof}
+
+\begin{theorem}[C2 necessity]
+In the fast-bath regime ($\tau_B \ll \tau_S$), ergodic mixing drives the hidden sector to uniformity before each coupling event, yielding a Markov chain ($T^{(k)} = T^k$), which is P-divisible. Contrapositively, P-indivisibility requires $\tau_S \ll \tau_B$.
+\end{theorem}
+
+\emph{Proof sketch.} Fast mixing ($m \gg |\mathcal{C}_H|$ hidden steps between couplings) drives conditioned hidden-sector distributions to uniformity by the ergodic theorem. The $k$-step matrix becomes the $k$-th power --- a P-divisible Markov chain. $\square$
+
+\begin{theorem}[C3 necessity]
+The non-Markovian mutual information satisfies:
+\begin{equation}
+I(X_{<t} ; X_{>t} \mid X_t) \leq \log_2 m
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The total system is deterministic: $X_{>t}$ is a function of $(X_t, H_t)$. Conditioning on $X_t$: $X_{<t} \to H_t \to X_{>t}$ is a Markov chain. By data processing:
+\begin{equation}
+I(X_{<t} ; X_{>t} \mid X_t) \leq I(X_{<t} ; H_t \mid X_t) \leq H(H_t \mid X_t) \leq \log_2 m \qedhere
+\end{equation}
+\end{proof}
+
+\begin{corollary}
+P-indivisibility across $n$ visible configurations requires $m \geq n$, and persistence over $K$ transitions requires $m/n$ growing with the observation window --- precisely~(C3).
+\end{corollary}
+
+\begin{theorem}[Characterization theorem]
+For $|\mathcal{C}_V| \geq 2$, the following are equivalent:
+\begin{enumerate}[label=(\roman*)]
+\item $\mathcal{S}$ is mathematically equivalent to unitarily evolving QM \cite{Barandes2023,Barandes2025}.
+\item $\mathcal{S}$ is P-indivisible.
+\item $\mathcal{S}$ arises from marginalizing a deterministic bijection on $\mathcal{C}_V \times \mathcal{C}_H$ with (C1)~non-trivial coupling, (C2)~slow-bath memory, and (C3)~sufficient capacity.
 \end{enumerate}
+\end{theorem}
 
-Any observer bounded by a finite-area surface can couple to only finitely many modes across that boundary. This purely geometric fact motivates the axiom. Independent support comes from holographic entropy bounds, which require the state space of any region bounded by finite area to be finite-dimensional {[}27{]}. The axiom enters the proof at a single point --- the stochastic-quantum correspondence (§3.1), which requires a finite configuration space. In Part I, \(\epsilon\) is a free parameter; its value is determined \emph{a posteriori} by self-consistency (§6), which pins \(\epsilon = 2\,l_p\) exactly. In Part II, the cosmological horizon provides the finite-area boundary that makes the condition a consequence of the partition geometry rather than an independent assumption.
+\begin{proof}
+(i) $\iff$ (ii): Barandes \cite{Barandes2023,Barandes2025}. (iii) $\implies$ (ii): \S2.3. (ii) $\implies$ (iii): necessity theorems above.
+\end{proof}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\item
-  \textbf{Causal partition.} \(\Gamma\) is partitioned into a visible sector \(\Gamma_V\) accessible to the observer and a hidden sector \(\Gamma_H\) that is not:
-\end{enumerate}
+QM is not merely \emph{compatible with} embedded observation --- it is \emph{equivalent to} it.
 
-\[\Gamma = \Gamma_V \times \Gamma_H\]
 
-The partition is fixed on timescales relevant to the observer (it may drift on much longer timescales, but such drift is not required for the theorem). The total Hamiltonian decomposes as:
+%======================================================================
+\part*{PART II: THE COSMOLOGICAL APPLICATION}
+%======================================================================
 
-\[H_{\text{tot}} = H_V + H_H + H_{\text{int}}\]
+\section{The Cosmological Horizon as Causal Partition}
 
-The product decomposition \(\Gamma_V \times \Gamma_H\) is a simplification. A real observer's epistemic access is graded: some degrees of freedom are measured precisely, others poorly, and others not at all. The axiom requires that this graded access be well-approximated by a sharp partition --- that there exist a clean division into accessible and inaccessible sectors such that cross-partition correlations enter only through \(H_{\text{int}}\). This is a condition on the physics, not just the observer: it is satisfied when a physical boundary (causal, thermodynamic, or spatial) enforces a separation sharp enough that the residual leakage across the boundary can be absorbed into the interaction term. The theorem applies to any system where such an approximation holds; Part II identifies a physical realization where the sharpness is exact.
+\subsection{The Partition}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\item
-  \textbf{Classical probability.} The observer's predictions are classical expectation values over the phase space; standard results of probability theory (the law of large numbers, the central limit theorem) are the primary statistical tools.
-\end{enumerate}
+The cosmological horizon --- the boundary beyond which no signal propagating at or below $c$ can reach the observer --- implements the causal partition of Axiom~3 for all sub-$c$ observers: $\Gamma_V$ is the interior, $\Gamma_H$ everything beyond. This is a consequence of GR's causal structure, not a modeling choice. A hypothetical observer with access to a causal channel not constrained by the light cone would have a different partition, a different (or absent) hidden sector, and by the theorem's own logic, a different emergent description. No such channel is available within GR. The specific quantum mechanics observed is the quantum mechanics of light-cone-bounded observers; its universality is a consequence of the causal structure, not a postulate.
 
-These axioms contain no quantum postulates --- no Hilbert spaces, no commutation relations, no Born rule. The framework's central claim is that quantum mechanics \emph{emerges} from these premises under the conditions specified below (§1.3).
+\subsection{Verification of the Conditions}
 
-\subsection{1.3 Conditions on the Hidden Sector}
+\textbf{(C1)} Stress-energy conservation enforces bidirectional dynamical correlations across the horizon. \textbf{Satisfied.}
 
-The theorem requires three conditions on the relationship between the visible and hidden sectors. These are stated as sufficient conditions for the emergence of quantum mechanics; §3.3 proves they are also necessary, establishing a full equivalence.
+\textbf{(C2)} $\tau_B \gtrsim 1/H \sim 10^{17}$~s; for laboratory processes, $\tau_S \sim 10^{-15}$~s. Ratio: $\tau_S / \tau_B \sim 10^{-32}$. \textbf{Satisfied.}
 
-\textbf{(C1) Non-zero coupling.} The interaction Hamiltonian satisfies \(H_{\text{int}} \neq 0\). The visible and hidden sectors are dynamically coupled, not merely co-existing. The coupling is bidirectional: visible-sector transitions influence the hidden-sector state, and the hidden-sector state influences visible-sector transition probabilities.
+\textbf{(C3)} Hidden sector has $A/\epsilon^2$ modes with $A \sim 10^{52}$~m$^2$; visible sector has $\sim 10^{80}$ baryons. No laboratory process saturates the hidden sector. \textbf{Satisfied.}
 
-\textbf{(C2) Slow-bath timescale separation.} The hidden sector's correlation time \(\tau_B\) vastly exceeds the visible sector's dynamical timescale \(\tau_S\):
+\subsection{Application}
 
-\[\tau_S \ll \tau_B\]
+Axiom~2 is now a consequence of partition geometry: the horizon has finite area $A = 4\pi c^2/H^2$, bounding coupled modes to $A/\epsilon^2 < \infty$. The Part~I theorem applies: the observer's reduced description is P-indivisible and, by Barandes' correspondence, equivalent to unitary QM with $\hbar$ determined by the partition boundary.
 
-This is the \emph{inverse} of the standard Markovian regime, which requires \(\tau_B \ll \tau_S\). The hidden sector evolves on timescales far exceeding those of any process accessible to the observer.
 
-\textbf{(C3) Sufficient capacity.} The hidden sector has enough degrees of freedom that visible-sector interactions do not appreciably perturb its state on timescales \(\ll \tau_B\). Precisely: if \(N_H\) and \(N_V\) denote the number of independent degrees of freedom in the hidden and visible sectors respectively, then \(N_H / N_V\) is large enough that the cumulative imprint of all visible-sector transitions during any observationally relevant interval occupies a negligible fraction of the hidden sector's state space.
+%----------------------------------------------------------------------
+\section{Derivation of the Emergent Action Scale ($\hbar$)}
+%----------------------------------------------------------------------
 
-\textbf{Statement of the theorem.} Under Axioms 1--4 and conditions (C1)--(C3), the embedded observer's reduced description of the visible sector is mathematically equivalent to unitarily evolving quantum mechanics. The remainder of Part I constitutes the proof. The conditions are shown to be not merely sufficient but \emph{necessary} for P-indivisibility in any deterministic dilation (§3.3), establishing a full equivalence between quantum mechanics and embedded observation.
+\subsection{The Classical Horizon Temperature}
 
-\subsection{1.4 Partition-Relativity}
+Jacobson \cite{Jacobson1995} showed $dE = T\,dS$ applied to local causal horizons yields Einstein's equations, with $dE = (c^2 \kappa / 8\pi G)\,dA$. The entropy density is $\eta = 1/\epsilon^2$ (one DOF per minimal cell), so $dS = dA/\epsilon^2$. Equating:
+\begin{equation}
+T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G k_B}
+\end{equation}
+For de~Sitter ($\kappa = cH$): $k_B T_{\text{cl}} = c^3 \epsilon^2 H / (8\pi G)$. No $\hbar$ appears.
 
-Before proceeding to the proof, a structural consequence of the axioms is derived that will constrain the emergent description throughout.
+\subsection{The Emergent Action Scale}
 
-\textbf{Lemma (partition-relativity).} \emph{The emergent description of the visible sector is uniquely determined by the partition. Two observers whose causal access defines the same partition obtain the same reduced description. Any parameters of the emergent theory can depend only on quantities intrinsic to the partition --- the geometric and thermodynamic properties of the boundary between visible and hidden sectors.}
+\textbf{Step~1: Uniqueness.} By partition-relativity (\S1.4), $\hbar$ is derived, not free.
 
-\emph{Proof.} By Axiom 1, the dynamics are deterministic: the Hamiltonian flow \(\phi_t\) on \(\Gamma_V \times \Gamma_H\) is a single, uniquely defined map. By Axiom 3, the partition \(\Gamma = \Gamma_V \times \Gamma_H\) is fixed. By Axiom 4, the observer uses the Liouville measure \(\mu\) on \(\Gamma_H\) --- the unique absolutely continuous measure preserved by the Hamiltonian flow (Liouville's theorem); any other smooth measure would evolve under the dynamics, introducing dependence on an arbitrary reference time, and singular invariant measures (e.g., those supported on periodic orbits) are excluded by Axiom 4's requirement that the observer assigns classical probability distributions over the full phase space. The marginalized transition probabilities
+\textbf{Step~2: $\hbar$ is structural, not volumetric.} The action scale governs the stochastic-to-unitary conversion at the boundary, not total hidden-sector capacity. This is made precise by:
 
-\[T_{ij}(t_2, t_1) = \int_{\Gamma_H} \delta_{x_j}[\pi_V(\phi_{t_2-t_1}(x_i, h))] \, d\mu(h)\]
+\begin{lemma}[Volume-independence]
+Decompose $\mathcal{C}_H = \mathcal{C}_B \times \mathcal{C}_D$ into boundary and deep modes. If $\pi_V(\varphi_t(x, h_B, h_D)) = \pi_V(\varphi_t(x, h_B, h'_D))$ for all $h_D, h'_D$ and $t \leq t_*$, then $T_{ij}(t) = T^{(B)}_{ij}(t)$ for $t \leq t_*$.
+\end{lemma}
 
-are therefore uniquely determined by three inputs: the dynamics (\(\phi_t\)), the partition (\(\Gamma_V, \Gamma_H\)), and the measure (\(\mu\)). Since \(\phi_t\) and \(\mu\) are fixed by the axioms, the transition probabilities --- and hence the complete stochastic process --- depend only on the partition. If this process is P-indivisible (as shown in §2), the stochastic-quantum correspondence maps it to a quantum description. Since the stochastic process is unique, the quantum description is unique (up to unitary equivalence and gauge freedoms resolved below). In particular, any free parameters of the emergent theory --- including the action scale \(\hbar\) --- can depend only on quantities intrinsic to the partition: the geometric and thermodynamic properties of the boundary between \(\Gamma_V\) and \(\Gamma_H\). \(\square\)
+\begin{proof}
+The indicator in $T_{ij}(t) = \frac{1}{|\mathcal{C}_B||\mathcal{C}_D|} \sum_{h_B, h_D} \mathbf{1}[\pi_V(\varphi_t(x_i, h_B, h_D)) = x_j]$ is independent of $h_D$; the $\mathcal{C}_D$ sum and prefactor cancel.
+\end{proof}
 
+For the cosmological partition, deep modes influence the boundary only by propagating through the hidden sector, taking time $\gtrsim \tau_B$. For $t \ll \tau_B$: $\delta \lesssim t/\tau_B \sim 10^{-32}$.
 
-\section{2. EMERGENT STOCHASTICITY AND P-INDIVISIBILITY}
+\textbf{Step~3: Dimensional determination.} With volumetric quantities excluded, the partition-intrinsic quantities are $c$, $G$, $\epsilon$. The unique combination with dimensions of action:
+\begin{equation}
+\hbar = \beta \frac{c^3 \epsilon^2}{G}
+\end{equation}
 
-\subsection{2.1 Emergent Stochasticity}
+\textbf{Step~4: Thermal self-consistency.} Before the trace-out: $k_B T_{\text{cl}} = c^3 \epsilon^2 \kappa / (8\pi G)$. After: the emergent QFT predicts the Gibbons-Hawking temperature \cite{Gibbons1977}: $k_B T_{\text{GH}} = \hbar \kappa / (2\pi c)$. These describe the same boundary; self-consistency requires $T_{\text{cl}} = T_{\text{GH}}$:
+\begin{equation}
+\frac{c^3 \epsilon^2 H}{8\pi G} = \frac{\hbar H}{2\pi}
+\end{equation}
+$H$ cancels (confirming structural/volumetric distinction). Solving:
+\begin{equation}
+\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}
+\end{equation}
 
-The total system (visible + hidden sectors) evolves deterministically (Axiom 1). Every phase-space point \((x, h) \in \Gamma_V \times \Gamma_H\) maps to exactly one future point under the Hamiltonian flow. No randomness exists at this level. But the visible sector alone --- what the embedded observer accesses --- is stochastic. The observer knows \(x\) but not \(h\). Different hidden-sector states \(h_k\) compatible with the same \(x\) send \(x\) to different visible-sector futures \(x'_k\). The observer must assign transition probabilities \(T_{ij}(t_2, t_1)\) by marginalizing the deterministic flow over the hidden sector using the Liouville measure (§1.4), which uniquely determines the transition probabilities --- and hence the emergent description --- for a given partition.
+\textbf{Why not circular.} The logic is sequential: Part~I proves QM emerges with \emph{some} $\hbar$ $\to$ emergent QM predicts $T_{\text{GH}}(\hbar)$ $\to$ classical $T_{\text{cl}}$ was derived independently $\to$ matching fixes $\hbar$. This is a gap equation.
 
-This architecture makes the framework a hidden variable theory: the randomness observed by the embedded observer is epistemic, arising from ignorance of hidden-sector degrees of freedom rather than fundamental indeterminacy. The consistency of this structure with Bell's theorem is addressed in §3.2.
+\textbf{Robustness.} The result can be derived without the Gibbons-Hawking formula: C1--C3 ensure persistent thermal contact, and the zeroth law gives $T_Q = T_{\text{cl}}$ exactly; the Gibbons-Hawking formula is then \emph{recovered} as a prediction. Lattice corrections are $\mathcal{O}((\epsilon H/c)^2) \sim 10^{-122}$, consistent with trans-Planckian insensitivity \cite{Unruh1995,Fredenhagen1990}.
 
-\subsection{2.2 The Slow-Bath Regime}
+\subsection{Gauge-Fixing and the Dimensional Obstruction}
 
-The Markovian limit for reduced dynamics requires \(\tau_B \ll \tau_S\) {[}4{]}, where the environment decorrelates much faster than the system evolves. Condition (C2) inverts this: \(\tau_S \ll \tau_B\). The hidden sector's correlations do not decorrelate between successive system transitions, and the memory kernel of the reduced dynamics is effectively constant over all observationally relevant timescales.
+\begin{theorem}[D-gauge completeness]
+Let $U(t) = e^{-iHt}$ with non-degenerate eigenvalues and non-vanishing configuration-basis overlaps. If $|U'_{ij}(t)|^2 = |U_{ij}(t)|^2$ for all $i, j, t$, then $H' = DHD^\dagger$ for a time-independent diagonal unitary $D$. \emph{(Proof: Fourier analysis uniquely determines moduli $|c_{ia}|$; phase matching forces $\delta_{ia} = \alpha_i + \beta_a$.)}
+\end{theorem}
 
-A slow bath must be distinguished from a static external field. A static (decoupled) hidden sector would merely shift Hamiltonian parameters without inducing information backflow. By condition (C1), the coupling is continuously active: during each visible-sector transition, \(H_{\text{int}}\) imprints the identity of the transition onto the hidden-sector state. Because the hidden sector is slow (not static), these imprints persist without being thermally overwritten. On subsequent transitions, the coupling reads back the stored correlations, producing transition probabilities that depend on the system's prior trajectory --- the non-Markovian regime of Breuer and Petruccione {[}4{]}.
+The D-gauge is physically trivial (basis rephasing). Cross-interval transition probabilities fix the relative gauge up to a single global phase; in the continuum limit this becomes an unobservable smooth function $e^{i\theta(t)}$.
 
-\subsection{2.3 P-Indivisibility}
+\textbf{Dimensional obstruction.} The unitary $U(t)$ is dimensionless; $\hbar$ enters only via $\hat{H} = i\hbar \, \partial_t U \cdot U^\dagger$. No dimensionless data can fix a dimensionful constant --- Step~4's thermal self-consistency provides the necessary dimensionful input.
 
-\textbf{Theorem (P-indivisibility of embedded observation).} \emph{Let \(\mathcal{C}_V\) and \(\mathcal{C}_H\) be finite sets with \(|\mathcal{C}_V| \geq 2\), and let \(\varphi: \mathcal{C}_V \times \mathcal{C}_H \to \mathcal{C}_V \times \mathcal{C}_H\) be a bijection. Define the one-step transition matrix on \(\mathcal{C}_V\) by marginalizing over \(\mathcal{C}_H\) with respect to the uniform measure:}
 
-\[T_{ij} = \frac{|\{h \in \mathcal{C}_H : \pi_V(\varphi(x_i, h)) = x_j\}|}{|\mathcal{C}_H|}\]
+%----------------------------------------------------------------------
+\section{Self-Consistency and the Discreteness Scale}
+%----------------------------------------------------------------------
 
-\emph{and the \(k\)-step transition matrix \(T^{(k)}_{ij}\) by the same construction applied to \(\varphi^k\). If \(T\) is not a permutation matrix --- i.e., the marginalized dynamics is genuinely stochastic --- then the stochastic process generated by iterating \(\varphi\) is P-indivisible.}
+Rearranging $\hbar = c^3 \epsilon^2 / (4G)$:
+\begin{equation}
+\epsilon^2 = \frac{4\hbar G}{c^3} = 4\,l_p^2
+\end{equation}
+The framework yields $\epsilon = 2\,l_p$ exactly. This is algebraically equivalent to the formula for $\hbar$ but serves as a consistency check: the discreteness scale lands at the Planck scale, the only self-consistent regime. If $\epsilon^2 \ll l_p^2$, sub-Planckian subcells would be dynamically active yet unresolvable by the emergent description, creating a second trace-out with its own noise intensity and breaking the single-valuedness of $\hbar$. If $\epsilon^2 \gg l_p^2$, the emergent description would assign distinct quantum states to configurations that are physically identical in the substratum. Thermal self-consistency selects $\epsilon = 2\,l_p$ within this regime.
 
-\emph{Proof.} The proof uses the total variation distance \(d(p, q) = \frac{1}{2}\sum_k |p_k - q_k|\) between probability distributions. A stochastic process is P-divisible if and only if \(d(p(t), q(t))\) is non-increasing in \(t\) for all initial distributions \(p, q\) {[}6, 7{]}. P-indivisibility is established by exhibiting a non-monotonicity.
+With $\epsilon = 2\,l_p$, the number of independent modes on the cosmological horizon is:
+\begin{equation}
+N_{\text{modes}} = \frac{A}{\epsilon^2} = \frac{A}{4\,l_p^2} = S_{\text{dS}}
+\end{equation}
+where $S_{\text{dS}} = A/(4\,l_p^2)$ is the Bekenstein-Hawking entropy of the de~Sitter horizon. The factor of $1/4$ in the Bekenstein-Hawking formula --- historically introduced as a proportionality constant --- is here derived: each minimal cell of area $\epsilon^2 = 4\,l_p^2$ on the horizon contributes one unit of entropy, and $A / (4\,l_p^2) = A / \epsilon^2$ recovers the standard formula exactly.
 
-\emph{Step 1 (Recurrence).} Since \(\varphi\) is a bijection on a finite set, it has finite order: there exists \(N \geq 1\) such that \(\varphi^N = \text{id}\). Every state \((x_i, h)\) returns to itself after \(N\) steps, so \(T^{(N)} = I\). In particular, \(d(\delta_i T^{(N)}, \delta_j T^{(N)}) = d(\delta_i, \delta_j) = 1\) for all \(i \neq j\).
 
-\emph{Step 2 (Strict contraction at step 1).} Since \(T\) is row-stochastic and not a permutation matrix, there exist distinct indices \(i, j\) whose rows have overlapping support: some column \(l\) satisfies \(T_{il} > 0\) and \(T_{jl} > 0\). (If no two rows had overlapping support, their supports would be pairwise disjoint, forcing each row to concentrate on a single column --- a permutation matrix, contradicting the hypothesis.) For such \(i, j\):
+%----------------------------------------------------------------------
+\section{Dissolution of the Cosmological Constant Problem}
+%----------------------------------------------------------------------
 
-\[d(\delta_i T, \delta_j T) = \frac{1}{2}\sum_k |T_{ik} - T_{jk}| < \frac{1}{2}\sum_k (T_{ik} + T_{jk}) = 1\]
+\subsection{The Two Levels of Description}
 
-The strict inequality holds because every column \(l\) with overlapping support contributes \(|T_{il} - T_{jl}| < T_{il} + T_{jl}\) to the sum.
+\textbf{From finite-dimensional QM to QFT.} Part~I delivers QM on a finite-dimensional Hilbert space. The $N = A/\epsilon^2$ cells discretize the visible sector; spatial locality of the classical substratum restricts which cells interact on any given timescale. The emergent Hilbert space decomposes as $\mathcal{H} = \bigotimes_k \mathcal{H}_k$ --- a lattice-regularized QFT with UV cutoff at $\epsilon = 2\,l_p$.
 
-\emph{Step 3 (Non-monotonicity).} Steps 1 and 2 together give:
+\begin{theorem}[Locality preservation]
+If the classical Hamiltonian is spatially local (couples only neighbors), then the emergent quantum Hamiltonian inherits spatial locality.
+\end{theorem}
 
-\[d(\delta_i T^{(1)}, \delta_j T^{(1)}) < 1 = d(\delta_i T^{(N)}, \delta_j T^{(N)})\]
+\begin{proof}
+For infinitesimal $dt$ and $x' \neq x$: $T_{x,x'}(dt) = |\langle x'|\hat{H}|x\rangle|^2\,dt^2 + O(dt^3)$. If $x, x'$ differ at non-neighboring sites, spatial locality of the classical dynamics gives $T_{x,x'}(dt) = 0$ at leading order, hence $\langle x'|\hat{H}|x\rangle = 0$. The emergent Hamiltonian has the form $\hat{H} = \sum_k \hat{h}_k + \sum_{\langle k,l\rangle} \hat{h}_{kl}$.
+\end{proof}
 
-The total variation distance decreases from step 0 to step 1, then increases from step 1 to step \(N\). This is non-monotonic: the process is P-indivisible. \(\square\)
+\textbf{Classical substratum} (what geometric measurements probe): The horizon has classical thermal equilibrium. By the Friedmann equation, $\rho_{\text{crit}} = 3H^2 c^2/(8\pi G)$. No zero-point energy, no discrepancy. Total vacuum energy density: $\rho \sim H^2/G \sim 10^{-9}$~J/m$^3$ --- precisely observed.
 
-The theorem requires only two inputs: deterministic bijective dynamics (Axiom 1) and non-trivial coupling (condition C1, which ensures \(T\) is not a permutation matrix). Axiom 2 guarantees the finite configuration space on which the theorem operates. The proof mechanism is information backflow: information about the initial visible-sector state leaks to the hidden sector via the coupling (Step 2) and is later read back by the deterministic dynamics (Step 1), producing the non-monotonic trace distance that characterizes P-indivisibility.
+\textbf{Emergent QFT} (what local quantum measurements probe): Zero-point energy $\frac{1}{2}\hbar\omega$ per mode summed to the Planck cutoff gives $\rho_{\text{QFT}} \sim 10^{113}$~J/m$^3$.
 
-\textbf{Continuous-time extension.} The theorem is stated for discrete-time dynamics, but the physical setup involves continuous-time Hamiltonian flow. The extension follows from continuity and Poincaré recurrence. The Hamiltonian flow \(\varphi_t\) on the finite-dimensional phase space (Axiom 2) preserves the Liouville measure on compact energy surfaces. The transition matrix \(T_{ij}(t)\) is continuous in \(t\), with \(T(0) = I\). Non-zero coupling (C1) ensures that \(T(t)\) departs from the permutation class for \(t > 0\), so that \(d(\delta_i T(t), \delta_j T(t)) < 1\) for some pair \(i, j\) and some \(t > 0\). By Poincaré's recurrence theorem, for any \(\delta > 0\), there exists \(t_R > 0\) such that the set of hidden-sector states satisfying \(\pi_V(\varphi_{t_R}(x_i, h)) = x_i\) has measure \(> 1 - \delta\), giving \(d(\delta_i T(t_R), \delta_j T(t_R)) > 1 - 2\delta\). For \(\delta\) small enough, this exceeds \(d(\delta_i T(t), \delta_j T(t))\), establishing non-monotonic trace distance and hence P-indivisibility for the continuous-time process.
+\subsection{Why Gravity Sees the Classical Value}
 
-\textbf{Convergence with prior work.} The theorem converges with several independent lines of work: Pechukas {[}5{]} showed that reduced dynamics of a correlated system need not preserve positivity; Rivas, Huelga, and Plenio {[}6, 7{]} formalized the connection between divisibility failure and information backflow; Pollock et al.~{[}8{]} derived necessary and sufficient Markovianity conditions via the process tensor framework; and most directly, Strasberg and Esposito {[}9{]} demonstrated non-Markovian reduced dynamics precisely in the slow-bath regime of condition (C2).
+Spacetime geometry is part of the classical substratum (Axiom~3): the metric evolves via Einstein's equations \emph{before} the trace-out. The stress-energy sourcing gravity is the classical stress-energy of the total microstate, not the expectation value of an emergent quantum operator. The semiclassical equation $G_{\mu\nu} = 8\pi G \langle \hat{T}_{\mu\nu} \rangle$ is itself an emergent approximation; at the classical level, the gravitational field equations never encounter the zero-point sum.
 
-\textbf{The physical role of conditions (C2) and (C3).} The theorem establishes P-indivisibility from (C1) and finiteness alone. Conditions (C2) and (C3) are not needed for the mathematical result but are essential for its physical force. (C2) ensures that information backflow occurs on timescales accessible to the observer, not merely at Poincaré recurrence times that may exceed the age of the universe. (C3) ensures that P-indivisibility persists at physical scale: if the hidden sector has insufficient capacity, successive imprints overwrite earlier ones --- the hidden sector saturates, and the reduced dynamics cross over to effectively Markovian behavior. The conjunction of (C2) and (C3) guarantees that P-indivisibility is strong, persistent, and observationally relevant.
+\textbf{Ontological commitment.} Classical spacetime is fundamental; QM is emergent. This follows from the derivation's logic: the causal partition is defined by null geodesics of the metric (\S4.1), so the metric must exist prior to the partition and hence prior to the quantum description. Reversing this ordering makes the partition definition circular. Any framework in which QM is logically prior to the metric must treat the zero-point sum as a gravitational source --- producing the $10^{122}$ discrepancy requiring cancellation or fine-tuning. In the present framework, the zero-point sum is an artifact of the emergent description and never enters the stress-energy tensor.
 
-\subsection{2.4 Explicit Construction: A Minimal Model}
+The converse also holds: the dissolution is evidence for the ordering. Quantum-first frameworks have produced the $10^{122}$ discrepancy and, after five decades, no resolution --- supersymmetric cancellations are increasingly constrained by LHC null results, and anthropic arguments constrain the range without predicting the observed value. The present framework predicts $\rho \sim H^2/G$ and identifies the discrepancy as $S_{\text{dS}}$. One ordering produces the worst prediction in physics; the other predicts the observed value. This does not prove the ordering correct --- the GW echo prediction (\S8.2) provides a more direct test --- but it constitutes existing empirical evidence for geometry-first.
 
-The following minimal model illustrates the theorem and makes its mechanism explicit.
+\textbf{Quantum corrections to gravity.} The emergent quantum description does feed back into gravitational dynamics through state-level quantities: \S8.1 derives dark energy evolution because the emergent vacuum energy depends on $H$ through the hidden sector's volume. What the framework excludes is the zero-point sum --- a property of the correspondence itself rather than of any particular state --- as a gravitational source. The structural/volumetric distinction of \S5.2 applies: $\hbar$ (structural) does not gravitate; the vacuum energy (volumetric, state-dependent) does, but at the classical scale $\rho \sim H^2/G$ rather than $\rho \sim M_{\text{Pl}}^4$.
 
-\textbf{The model.} The visible sector has two states: \(x \in \{0, 1\}\). The hidden sector has six states: \(h \in \{1, 2, 3, 4, 5, 6\}\). The total phase space has 12 states \((x, h)\). The dynamics are a deterministic, invertible permutation \(\sigma\) on these 12 states, defined as six disjoint transpositions:
+\subsection{The Structural Origin of the $10^{122}$ Discrepancy}
 
-\[\sigma = (0{,}1 \leftrightarrow 1{,}1)\;(0{,}2 \leftrightarrow 1{,}2)\;(0{,}3 \leftrightarrow 0{,}4)\;(0{,}5 \leftrightarrow 0{,}6)\;(1{,}3 \leftrightarrow 1{,}4)\;(1{,}5 \leftrightarrow 1{,}6)\]
+$\rho_{\text{QFT}} / \rho_{\text{classical}} \sim M_{\text{Pl}}^4 / (H^2/G) = S_{\text{dS}} = A/(4\,l_p^2)$ --- the Bekenstein-Hawking entropy, now identified as the information compression ratio of the trace-out. The ``worst prediction in physics'' is the entropy of the observer's blind spot --- a category error, not a fine-tuning failure. Wolpert's limits of inference \cite{Wolpert2008} confirm this cannot be resolved from within: both geometric and quantum measurements are faithful to their respective descriptions, and no embedded observer can determine which is more fundamental. This is not a prediction awaiting future data --- the observed vacuum energy sits at the classical geometric scale $\rho \sim H^2/G$, the value the framework expects.
 
-The first two transpositions couple the visible and hidden sectors --- they change \(x\) while preserving \(h\), implementing condition (C1). The remaining four permute hidden-sector labels within each visible-sector value, representing the hidden sector's internal dynamics. Since \(\sigma\) is a product of disjoint transpositions, \(\sigma^2 = \text{id}\): the hidden sector retains perfect correlations between successive transitions, satisfying condition (C2). Six hidden-sector states per visible-sector value ensures the hidden sector is not saturated by a single transition, satisfying condition (C3).
 
-\textbf{Transition matrices.} At \(t = 0\), the observer knows \(x\) but not \(h\), and assigns the uniform (Liouville) measure over the 6 hidden states. At \(t = 1\) (one application of \(\sigma\)):
+%----------------------------------------------------------------------
+\section{Predictions and Tests}
+%----------------------------------------------------------------------
 
-From \(x = 0\): two of six hidden states (\(h = 1, 2\)) send \(x\) to 1; four (\(h = 3, 4, 5, 6\)) leave \(x\) at 0. From \(x = 1\): two of six (\(h = 1, 2\)) send \(x\) to 0; four leave \(x\) at 1. The one-step transition matrix is:
+\subsection{Dark Energy Evolution in Running Vacuum Form}
 
-\[T(1,0) = \begin{pmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{pmatrix}\]
+$\hbar$ is $H$-independent (\S5.2), but the emergent vacuum energy is a state-level quantity depending on the hidden sector's volume. Expanding $\Lambda_{\text{eff}}(H)$:
+\begin{equation}
+\Lambda_{\text{eff}}(H) = \Lambda_0 + \frac{3\nu_{\text{OI}}}{8\pi G}(H^2 - H_0^2) + \mathcal{O}((H^2 - H_0^2)^2)
+\end{equation}
+This is the Running Vacuum Model \cite{Sola2022,Sola2023}. The $S_{\text{dS}}$ horizon modes span frequencies $\omega_{\text{IR}} = H$ to $\omega_{\text{UV}} = c/\epsilon$. Conformal mode density on a 2-sphere gives $\mathcal{N}(H) = \ln(c/\epsilon H)$ independent spectral channels. Each carries fraction $1/\mathcal{N}$ of the total gravitating vacuum energy, so $\rho_\Lambda \propto 1/\mathcal{N}$. Taylor-expanding:
+\begin{equation}
+\boxed{\nu_{\text{OI}} = \frac{\Omega_\Lambda}{2\,\ln(c/\epsilon H_0)}}
+\end{equation}
+With $\epsilon = 2\,l_p$, $H_0 = 67.4$~km/s/Mpc, $\Omega_\Lambda = 0.685$: $\nu_{\text{OI}} = (2.45 \pm 0.03) \times 10^{-3}$. Independently testable ratio: $\nu_{\text{OI}} / \Omega_\Lambda \approx 0.00358$.
 
-At \(t = 2\) (\(\sigma^2 = \text{id}\)): every state returns to itself, so \(T(2,0) = I\).
+DESI data \cite{DESI2024,DESI2025} report evolving dark energy at $2.8\sigma$--$4.2\sigma$. RVM fits \cite{deCruz2025} find $\nu \sim \mathcal{O}(10^{-3})$ with $\nu = 0$ disfavored at $2.7\sigma$--$3.1\sigma$, consistent with the prediction.
 
-A Markov chain with transition matrix \(T(1,0)\) would predict \(T(2,0)_{\text{Markov}} = T(1,0)^2 = \left(\begin{smallmatrix} 5/9 & 4/9 \\ 4/9 & 5/9 \end{smallmatrix}\right)\) --- continued mixing. The actual dynamics show complete \emph{un-mixing}: the system returns to its initial state with certainty. This is information backflow.
+\subsection{Gravitational Wave Echoes}
 
-\textbf{P-divisibility test.} If the process were P-divisible, one could write \(T(2,0) = \Lambda(2,1) \cdot T(1,0)\) with \(\Lambda(2,1)\) a valid stochastic matrix (non-negative entries, rows summing to 1). Computing:
+A black hole horizon represents a regime where the causal partition differs from the cosmological one: degrees of freedom reclassify from visible to hidden sector as they cross the horizon, shifting the effective partition and the emergent description.
 
-\[\Lambda(2,1) = T(2,0) \cdot [T(1,0)]^{-1} = I \cdot \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}\]
+At proper distance $\sim \epsilon$ outside a black hole horizon $r_h$, an infalling mode reaches the discreteness floor and must scatter back. The predicted time delay is:
+\begin{equation}
+\Delta t_{\text{echo}} \approx \frac{r_h}{c} \ln\!\left(\frac{r_h}{2\,l_p}\right)
+\end{equation}
+For a $30\,M_\odot$ remnant, logarithmic dependence on $\epsilon$ makes this robust ($\sim 0.1$~ms shift within the $\sim 54$~ms timescale \cite{Abedi2017}). Detection would constitute direct evidence that $\epsilon$ has observable consequences at horizons other than the cosmological one --- a regime where partition-relativity (\S9.2) becomes empirically accessible.
 
-The matrix \(\Lambda(2,1)\) has negative entries \((-1)\). No valid stochastic matrix can serve as the intermediate propagator. \textbf{The process is P-indivisible.} \(\square\)
+\subsection{Conjunction as Discriminant}
 
-\textbf{The mechanism.} The hidden sector acts as a memory register. At step 1, the transpositions \((0,h) \leftrightarrow (1,h)\) for \(h \in \{1, 2\}\) flip \(x\) while preserving \(h\). After step 1, a state now at \(x = 1\) with \(h \in \{1, 2\}\) carries the record ``I was at \(x = 0\).'' At step 2, the same transposition reads this record and flips \(x\) back. The visible-sector dynamics exhibit information backflow: the system appears to ``remember'' its origin, which is impossible for a memoryless process. The model illustrates the mechanism in the idealized limit of perfect recurrence (\(\sigma^2 = \text{id}\), i.e., \(\tau_B/\tau_S = 2\)). The cosmological realization of Part II has \(\tau_S/\tau_B \sim 10^{-32}\); the P-indivisibility is more extreme, not less, when the hidden sector's memory is more persistent.
+Joint confirmation of dark energy evolution \emph{and} GW echoes would uniquely favor an information-theoretic origin: standard RVMs predict $\Lambda(H)$ running but have no mechanism for discreteness-scale echoes.
 
 
-\section{3. THE EMERGENCE OF QUANTUM MECHANICS}
+%----------------------------------------------------------------------
+\section{Discussion}
+%----------------------------------------------------------------------
 
-\subsection{3.1 The Stochastic-Quantum Correspondence}
-
-By Barandes' stochastic-quantum correspondence {[}10, 11{]}, any indivisible stochastic process on a finite configuration space of size \(n\) can be embedded into a unitarily evolving quantum system on a Hilbert space of dimension \(\leq n^3\). A stochastic process on \(n\) configurations is characterized by its transition matrices \(T_{ij}(t_2, t_1)\). If the process is P-divisible, these matrices can be factored through intermediate times and the system admits a classical description at all scales. If it is P-indivisible, no such factoring exists: the transition matrices at fine time resolution develop negative entries (as in §2.4), violating classicality. Barandes shows that the Stinespring dilation theorem then guarantees the existence of a Hilbert space and a unitary operator \(U(t)\) such that \(T_{ij}(t) = |U_{ij}(t)|^2\) --- the transition probabilities of the stochastic process are exactly the Born-rule probabilities of the quantum system. Indivisibility is not merely \emph{analogous} to quantum behavior; it is \emph{mathematically equivalent} to it. The P-indivisible process established in §2.3 satisfies the correspondence's hypotheses directly.
-
-\textbf{From phase space to configuration space.} The axioms define the dynamics on a phase space \(\Gamma\) with coordinates \((q, p)\), while Barandes' correspondence operates on a configuration space. The connection is the marginalization itself: the transition probabilities \(T_{ij}(t_2, t_1)\) defined in §2.1 are projections of the full phase-space flow onto the configuration sector of \(\Gamma_V\), with the momenta --- along with all hidden-sector degrees of freedom --- absorbed into the marginalization over the Liouville measure. The resulting stochastic process lives on the discrete configuration space defined by Axiom 2, where the correspondence applies directly.
-
-Three features of quantum mechanics emerge from this correspondence. The Schrödinger equation is the unique time-evolution law, arising from the differentiability of the unitary in time. The Born rule is not an additional postulate but the equilibrium distribution of the indivisible stochastic process {[}10, 11{]}. The action scale \(\hbar\) requires more careful treatment. The correspondence guarantees the existence of a unitary evolution operator \(U(t)\), but \(U\) is dimensionless; \(\hbar\) enters only when one defines the Hamiltonian \(\hat{H}(t) \equiv i\hbar \, \partial_t U \cdot U^\dagger\), converting the dimensionless rate of change into energy units. The correspondence itself is silent about the value of this conversion factor --- it establishes that a quantum description exists for any P-indivisible process, but not which action scale it carries. What fixes \(\hbar\) is the physical content of the partition: the emergent description must be unique for a given partition (§1.4), so the action scale can depend only on quantities intrinsic to the partition boundary. Its value is derived for the cosmological realization in Part II (§5).
-
-\textbf{Phase uniqueness from continuous-time data.} The relation \(T_{ij}(t) = |U_{ij}(t)|^2\) discards phase information: at any single time, \(T\) does not determine \(U\) uniquely. Doukas {[}26{]} correctly identifies this as a structural gap for discrete-time transition data. The resolution is that the embedded observer's dynamics are continuous in time (Axiom 1), and the full continuous family \(\{T_{ij}(t)\}_{t \in \mathbb{R}}\) provides strictly more information than any discrete sampling. The following lemma shows this additional information is sufficient to fix all physically meaningful phases.
-
-\textbf{Lemma (phase-locking).} \emph{Let \(H\) be a Hermitian operator on an \(n\)-dimensional Hilbert space with eigenbasis \(\{|k\rangle\}\) and eigenvalues \(\{E_k\}\). Let \(V_{ik} = \langle i | k \rangle\) denote the change-of-basis matrix from the configuration basis \(\{|i\rangle\}\) to the energy basis. Assume: (G1) the spectrum is non-degenerate (\(E_k \neq E_l\) for \(k \neq l\)); (G2) the energy gaps are non-degenerate (\(E_k - E_l \neq E_{k'} - E_{l'}\) for \((k,l) \neq (k',l')\), excluding the trivial case \(k = l\), \(k' = l'\)); and (G3) the configuration-basis overlaps are non-vanishing (\(V_{ik} \neq 0\) for all \(i, k\)). Then the continuous-time transition probabilities \(T_{ij}(t) = |\langle i | e^{-iHt} | j \rangle|^2\) for all \(i, j\) and \(t \in \mathbb{R}\) uniquely determine \(H\) up to an overall energy shift and phase conventions on the basis vectors.}
-
-\emph{Proof.} Write \(U(t) = e^{-iHt}\) in the energy eigenbasis:
-
-\[T_{ij}(t) = |U_{ij}(t)|^2 = \sum_{k,l} V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\; e^{-i(E_k - E_l)t}\]
-
-This is a trigonometric polynomial in \(t\) with frequencies \(\omega_{kl} = E_k - E_l\). By (G2), the frequencies \(\omega_{kl}\) for distinct pairs \((k,l)\) with \(k \neq l\) are all distinct. The Fourier transform of \(T_{ij}(t)\) therefore cleanly separates each \((k,l)\) contribution, yielding the complex coefficients:
-
-\[a_{ij}^{kl} = V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\]
-
-The moduli \(|V_{ik}|\) are recovered from the diagonal terms: \(a_{ii}^{kl} = |V_{ik}|^2 |V_{il}|^2\), which by (G3) are all non-zero. The phases carry a double-difference structure:
-
-\[\arg(a_{ij}^{kl}) = (\varphi_{ik} - \varphi_{il}) - (\varphi_{jk} - \varphi_{jl})\]
-
-where \(\varphi_{ik} = \arg(V_{ik})\). The gauge freedom that preserves all double differences is \(\varphi_{ik} \to \varphi_{ik} + \alpha_i + \beta_k\), corresponding to rephasing the configuration basis (\(\alpha_i\)) and the energy basis (\(\beta_k\)). Both are physically irrelevant: the first is a redefinition of configuration-basis states, the second shifts the overall energy origin. Fixing the gauge by \(\varphi_{1k} = 0\) for all \(k\) and \(\varphi_{i1} = 0\) for all \(i\), each remaining phase is determined by:
-
-\[\varphi_{ik} = \arg(a_{i1}^{k1})\]
-
-which is directly extracted from the Fourier data. The eigenvalues \(\{E_k\}\) are determined (up to a global shift) by the frequencies \(\omega_{kl}\), and \(V\) is determined up to the gauge freedom. The Hamiltonian \(H = V \, \text{diag}(E_k) \, V^\dagger\) is therefore unique up to an overall energy shift and phase conventions. \(\square\)
-
-The genericity conditions (G1)--(G3) fail only on a measure-zero set in the space of Hamiltonians. Non-degenerate spectrum (G1) and non-vanishing overlaps (G3) are the conditions already stated in §9.7. Non-degenerate energy gaps (G2) --- requiring that no two distinct pairs of energy levels share the same spacing --- excludes systems with equally spaced spectra (e.g., the harmonic oscillator), which form a set of measure zero. For the cosmological application, the Hamiltonian governing visible-hidden coupling is a complex many-body operator with no reason to have degenerate gaps.
-
-\textbf{Finite-dimensionality.} Barandes' proof requires a finite-dimensional configuration space. In Part I, Axiom 2 guarantees this directly. In Part II, the horizon's finite area bounds the coupled modes to \(A/\epsilon^2\). Calvo {[}12{]} has extended the correspondence to infinite-dimensional systems, but the extension is not required here.
-
-\subsection{3.2 Bell Inequality Violations}
-
-The framework is a hidden variable theory: quantum randomness arises epistemically from ignorance of hidden-sector degrees of freedom. Bell's theorem {[}13{]} rules out \emph{local} hidden variable theories satisfying the factorizability condition \(P(a, b \mid x, y, \lambda) = P(a \mid x, \lambda) \cdot P(b \mid y, \lambda)\). The present framework evades Bell's theorem not by violating measurement independence (superdeterminism) but by violating factorizability through P-indivisible joint dynamics --- while remaining causally local.
-
-The mechanism is non-factorizable joint dynamics from a shared causal past. Two subsystems \(Q\) and \(R\) that interact at preparation and are subsequently separated carry a joint transition matrix \(T_{QR}(t_2, t_1)\) on \(\mathcal{C}_Q \times \mathcal{C}_R\) that does not factorize:
-
-\[T_{QR} \neq T_Q \otimes T_R\]
-
-This non-factorizability \emph{is} entanglement at the stochastic level {[}10, 11, 14{]}. The correlations are encoded in the structure of the joint transition matrix rather than in a hidden variable \(\lambda\) over which one could integrate. Since the process is indivisible, there are no well-defined intermediate conditional probabilities that would permit the factorization Bell's theorem requires.
-
-In the Jarrett decomposition, quantum mechanics violates outcome independence (OI) while preserving parameter independence (PI). The present framework reproduces this structure exactly. Barandes, Hasan, and Kagan {[}14{]} prove that the conjunction of indivisibility and causal locality restricts the maximum CHSH correlator to exactly Tsirelson's bound \(|S| \leq 2\sqrt{2}\), with independent support from Le et al.~{[}15{]}. Measurement independence is preserved by construction: transition probabilities are defined independently of the initial distribution. This placement --- violating outcome independence while preserving measurement independence and parameter independence --- is precisely the class Fine's theorem {[}24{]} permits.
-
-\subsection{3.3 The Characterization Theorem: Necessity of the Conditions}
-
-The theorem of §1.3 establishes sufficiency: Axioms 1--4 and conditions (C1)--(C3) guarantee quantum mechanics. This section proves the converse --- that quantum mechanics \emph{requires} these conditions --- establishing a full equivalence between quantum mechanics and embedded observation.
-
-\textbf{The logical structure.} Barandes' stochastic-quantum correspondence is already bidirectional: a stochastic process is P-indivisible if and only if it is mathematically equivalent to unitarily evolving quantum mechanics {[}10, 11{]}. The equivalence
-
-\[\text{QM} \iff \text{P-indivisibility}\]
-
-is established. What remains is to prove the converse of the other link:
-
-\[\text{P-indivisibility} \implies \text{embedded observation under (C1)–(C3)}\]
-
-The full equivalence QM \(\iff\) embedded observation (under Axioms 1--4 and (C1)--(C3)) then follows by transitivity.
-
-\textbf{Dilation existence (necessity of the axioms).} Any stochastic process on a finite configuration space can be realized as the marginalization of a deterministic process on a larger state space: one enlarges the state space to encode the randomness as ignorance of auxiliary variables and recovers the original process by tracing them out. This is a standard construction in classical probability theory. The dilation furnishes a deterministic total system (Axiom 1), a finite configuration space (Axiom 2), a partition into visible and hidden sectors (Axiom 3), and classical marginalization (Axiom 4). The four axioms are therefore necessary in the sense that any stochastic process --- and hence any P-indivisible process --- admits a deterministic embedding with a causal partition on a finite configuration space.
-
-\textbf{Theorem (C1 equivalence).} \emph{The marginalized process is P-indivisible if and only if \(T\) is not a permutation matrix (i.e., C1 holds).}
-
-\emph{Proof.} Forward: §2.3. Reverse: if \(T\) is a permutation matrix, then \(T^{(k)}\) is also a permutation for every \(k\), and \(\Lambda(k_2, k_1) = T^{(k_2-k_1)}\) is a valid stochastic matrix for all \(k_2 > k_1\). The process is P-divisible. Contrapositively, P-indivisibility requires non-trivial coupling. \(\square\)
-
-\textbf{Theorem (C2 necessity: Markovian limit).} \emph{Let \(\varphi_{\text{coup}}\) implement the visible-hidden coupling and \(\varphi_H\) be an ergodic permutation on \(\mathcal{C}_H\). In the fast-bath regime (\(\tau_B \ll \tau_S\)), ergodic mixing drives the hidden-sector distribution to uniformity before each coupling event, making the hidden sector's state independent of the visible sector's history. The resulting process is a Markov chain with \(T^{(k)} = T^k\), and the intermediate propagator \(\Lambda(k_2, k_1) = T^{k_2 - k_1}\) is a valid stochastic matrix for all \(k_2 > k_1\). The process is P-divisible.}
-
-\emph{Proof sketch.} If the hidden sector re-randomizes between coupling events, the \(k\)-step matrix is the \(k\)-th power of the one-step matrix --- a Markov chain, which is P-divisible. Fast mixing (\(m \gg |\mathcal{C}_H|\) hidden-sector steps between couplings) drives the conditioned hidden-sector distribution to uniformity by the ergodic theorem for finite groups. Contrapositively, P-indivisibility requires the hidden sector to retain memory of past visible-sector transitions, which requires \(\tau_S \ll \tau_B\) --- condition (C2). \(\square\)
-
-A slow bath retains imprints of past transitions and reads them back on subsequent steps (information backflow). A fast bath erases those imprints through internal mixing, destroying the memory that P-indivisibility requires.
-
-\textbf{Theorem (C3 necessity: information-theoretic capacity bound).} \emph{Let \(\varphi\) be a bijection on \(\mathcal{C}_V \times \mathcal{C}_H\) with \(|\mathcal{C}_V| = n\) and \(|\mathcal{C}_H| = m\). Let \(X_0, X_1, X_2, \ldots\) denote the visible-sector trajectory and \(H_0, H_1, H_2, \ldots\) the corresponding hidden-sector trajectory under the deterministic dynamics. The non-Markovian mutual information --- the information that the visible sector's history provides about its future evolution, beyond what is contained in its present state --- satisfies:}
-
-\[I(X_{<t} ; X_{>t} \mid X_t) \leq \log_2 m\]
-
-\emph{In particular, the total non-Markovian information capacity of the reduced process is bounded by the logarithmic size of the hidden sector.}
-
-\emph{Proof.} The total system evolves deterministically: \(X_{t+1}\) and \(H_{t+1}\) are deterministic functions of \((X_t, H_t)\). Therefore the entire future trajectory \(X_{>t} = (X_{t+1}, X_{t+2}, \ldots)\) is a deterministic function of \((X_t, H_t)\). By the data processing inequality for Markov chains: if \(A \to B \to C\) is a Markov chain, then \(I(A; C) \leq I(A; B)\). Conditioning on \(X_t\):
-
-\[X_{<t} \to H_t \to X_{>t} \quad (\text{conditioned on } X_t)\]
-
-This is a Markov chain because, given \(X_t\) and \(H_t\), the future \(X_{>t}\) is fully determined and independent of \(X_{<t}\). Applying the data processing inequality:
-
-\[I(X_{<t} ; X_{>t} \mid X_t) \leq I(X_{<t} ; H_t \mid X_t) \leq H(H_t \mid X_t) \leq \log_2 |\mathcal{C}_H| = \log_2 m\]
-
-where the second inequality is a standard property of mutual information (\(I(A; B) \leq H(B)\)), and the third is the maximum entropy of a random variable on \(m\) values. \(\square\)
-
-\textbf{Corollary (necessity of C3).} \emph{P-indivisibility across all \(n\) visible-sector configurations requires at least \(\log_2 n\) bits of hidden-sector memory. By the capacity bound, \(m \geq n\), and persistence over \(K\) successive transitions requires \(m/n\) to grow with the observation window. The hidden sector must scale with the visible sector --- precisely condition (C3).} \(\square\)
-
-\textbf{Characterization theorem (equivalence of quantum mechanics and embedded observation).} \emph{Let \(\mathcal{C}_V\) be a finite configuration space with \(|\mathcal{C}_V| \geq 2\), and let \(\mathcal{S}\) be a stochastic process on \(\mathcal{C}_V\). The following are equivalent:}
-
-\emph{(i) \(\mathcal{S}\) is mathematically equivalent to unitarily evolving quantum mechanics (via Barandes' stochastic-quantum correspondence {[}10, 11{]}).}
-
-\emph{(ii) \(\mathcal{S}\) is P-indivisible.}
-
-\emph{(iii) \(\mathcal{S}\) arises from the marginalization of a deterministic bijection \(\varphi\) on \(\mathcal{C}_V \times \mathcal{C}_H\) over a hidden sector \(\mathcal{C}_H\), with:} - \emph{(C1) non-trivial coupling: the marginalized transition matrix \(T\) is not a permutation matrix;} - \emph{(C2) slow-bath memory: the hidden sector retains correlations between successive coupling events (its mixing timescale exceeds the visible sector's dynamical timescale);} - \emph{(C3) sufficient capacity: \(|\mathcal{C}_H| \geq |\mathcal{C}_V|\), with \(|\mathcal{C}_H| / |\mathcal{C}_V|\) large enough that the hidden sector is not saturated by visible-sector interactions over the relevant observation window.}
-
-\emph{Proof.} (i) \(\iff\) (ii) is Barandes' stochastic-quantum correspondence {[}10, 11{]}. (iii) \(\implies\) (ii) is the theorem of §2.3. (ii) \(\implies\) (iii) is proved by the three necessity theorems above. \(\square\)
-
-\textbf{Interpretive consequence.} The characterization theorem closes the logical gap that a sufficiency-only result would leave open. Quantum mechanics is not merely \emph{compatible with} the epistemic situation of an embedded observer --- it is \emph{equivalent to} it. Every quantum system can be understood as one in which an observer is embedded in a larger deterministic system with non-trivial, slowly decorrelating coupling to a hidden sector of sufficient capacity. Conversely, every such embedding necessarily produces quantum mechanics in the observer's reduced description.
-
-
-\vspace{1cm}
-\begin{center}
-{\Large\bfseries PART II: THE COSMOLOGICAL APPLICATION}
-\end{center}
-\vspace{0.5cm}
-
-\section{4. THE COSMOLOGICAL HORIZON AS CAUSAL PARTITION}
-
-\subsection{4.1 The Partition}
-
-General relativity defines the causal structure of spacetime. The cosmological horizon is the boundary beyond which no signal propagating at or below \(c\) can reach the embedded observer. Every physically realizable measurement technique --- electromagnetic, gravitational-wave, neutrino --- propagates at or below \(c\) and therefore encounters the same boundary. The horizon implements the causal partition of Axiom 3 for all sub-\(c\) observers simultaneously: the visible sector \(\Gamma_V\) is the interior of the cosmological horizon, and the hidden sector \(\Gamma_H\) is everything beyond it.
-
-This identification is not a modeling choice but a consequence of GR's causal structure. A hypothetical observer with access to a causal channel not constrained by the light cone would have a different partition, a different (or absent) hidden sector, and by the theorem's own logic, a different emergent description. No such channel is available within GR. The specific quantum mechanics observed is the quantum mechanics of light-cone-bounded observers; its universality is a consequence of the causal structure, not a postulate.
-
-\subsection{4.2 Verification of the Conditions}
-
-\textbf{Condition (C1): Non-zero coupling.} The cosmological horizon is not a static wall. Stress-energy conservation across the horizon enforces dynamical correlations between the visible and hidden sectors: matter and radiation cross the horizon continuously, and the horizon area responds to changes in the interior energy density via the Friedmann equation. The coupling is bidirectional. \textbf{Condition (C1) is satisfied.}
-
-\textbf{Condition (C2): Slow-bath timescale separation.} The hidden sector's shortest correlation timescale is set by the Hubble time: \(\tau_B \gtrsim 1/H \sim 10^{17}\) s, since modes beyond the horizon evolve on timescales no shorter than the rate at which the horizon itself changes. (Modes deeper in the hidden sector have even longer correlation times.) For any laboratory-scale process with characteristic frequency \(\omega \gg H\), the visible sector's dynamical timescale is \(\tau_S \sim 1/\omega \sim 10^{-15}\) s or shorter. The ratio is:
-
-\[\frac{\tau_S}{\tau_B} \sim 10^{-32}\]
-
-The hidden sector cannot decorrelate between any pair of visible-sector events. The Markovian approximation fails categorically. \textbf{Condition (C2) is satisfied.}
-
-\textbf{Condition (C3): Sufficient capacity.} The hidden sector has \(N_{\text{modes}} = A/\epsilon^2\) independent degrees of freedom, where \(A = 4\pi c^2/H^2\) is the horizon area and \(\epsilon\) is the discreteness scale of Axiom 2. For any \(\epsilon\) at or above the Planck scale, the horizon area is cosmological (\(A \sim 10^{52}\) m\(^2\)) and the visible sector involves at most \(\sim 10^{80}\) baryons. No laboratory process can appreciably perturb the hidden sector's state. The hidden sector is never saturated. \textbf{Condition (C3) is satisfied.}
-
-\subsection{4.3 Application of the Theorem}
-
-All four axioms hold. All three conditions hold. Axiom 2 --- which is an independent assumption in Part I --- is here a consequence of the partition geometry: the cosmological horizon has finite area \(A = 4\pi c^2/H^2\), and all visible-hidden coupling passes through this boundary. The number of modes that participate in the trace-out is bounded by \(A/\epsilon^2\), which is finite for any \(\epsilon > 0\). The effective stochastic process therefore lives on a finite-dimensional configuration space, as Barandes' correspondence requires, without any assumption that the total phase space beyond the horizon is itself finite.
-
-The theorem of Part I applies: the embedded observer's reduced description of the visible sector is P-indivisible, and by Barandes' stochastic-quantum correspondence {[}10, 11{]}, mathematically equivalent to unitarily evolving quantum mechanics with an action scale \(\hbar\) determined by the local structural properties of the partition boundary.
-
-\emph{What this step requires:} Part I plus Barandes. Axiom 2 is satisfied by the partition geometry. No additional physics.
-
-
-\section{5. DERIVATION OF THE EMERGENT ACTION SCALE (\(\hbar\))}
-
-\subsection{5.1 The Classical Horizon Temperature}
-
-The theorem guarantees that \(\hbar\) exists but does not compute its value. Partition-relativity (§1.4) constrains \(\hbar\) to depend only on quantities intrinsic to the partition --- the geometric and thermodynamic properties of the boundary between visible and hidden sectors. The required thermodynamic input is model-independent: it follows from Jacobson's thermodynamic derivation of Einstein's field equations {[}16{]}.
-
-Jacobson (1995) demonstrated that applying the thermodynamic relation \(dE = T \, dS\) to local causal horizons yields Einstein's field equations. The same identity relates mass-energy to area via:
-
-\[dE = \frac{c^2 \kappa}{8\pi G} \, dA\]
-
-The classical entropy density on the horizon is \(\eta = 1/\epsilon^2\) --- one degree of freedom per minimal cell (Axiom 2). Therefore \(dS = dA/\epsilon^2\), and equating \(dE = T_{\text{cl}} \, dS\) fixes the classical temperature:
-
-\[T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G k_B}\]
-
-For the de Sitter horizon, the surface gravity is \(\kappa = cH\), giving:
-
-\[k_B T_{\text{cl}} = \frac{c^3 \epsilon^2 H}{8\pi G}\]
-
-This temperature depends on \(G\), \(c\), \(H\), \(\epsilon\), and \(k_B\) --- no \(\hbar\). It is the temperature of the hidden sector as a classical thermal reservoir, derived from the horizon geometry without reference to quantum mechanics.
-
-\subsection{5.2 The Emergent Action Scale}
-
-The stochastic-quantum correspondence establishes that the emergent description is quantum mechanics but does not determine \(\hbar\). Partition-relativity (§1.4) constrains the resolution: \(\hbar\) can depend only on quantities intrinsic to the partition boundary. The determination proceeds in four steps.
-
-\textbf{Step 1: Uniqueness from partition-relativity.} By §1.4, the partition uniquely determines the stochastic process and hence the quantum description. The action scale \(\hbar\) is a derived quantity, not a free parameter.
-
-\textbf{Step 2: The action scale is structural, not volumetric.} The action scale governs the stochastic-to-unitary conversion --- how the hidden sector couples to and imprints correlations on the visible sector --- not the total capacity of the hidden sector. The distinction is analogous to a classical thermal reservoir: temperature determines the Boltzmann factor regardless of the bath's total size. If \(\hbar\) depended on \(H\) through volumetric factors, observers at different cosmological epochs would obtain different quantum mechanics.
-
-This argument is made precise by the following factorization result, combined with the D-gauge completeness theorem of §5.3.
-
-\textbf{Lemma (volume-independence of transition probabilities).} \emph{Let \((\mathcal{C}_V, \mathcal{C}_H, \varphi_t)\) be a deterministic system with transition matrix \(T_{ij}(t)\) on \(\mathcal{C}_V\). Decompose \(\mathcal{C}_H = \mathcal{C}_B \times \mathcal{C}_D\) into boundary modes \(\mathcal{C}_B\) and deep modes \(\mathcal{C}_D\). If the visible-sector transition is independent of the deep modes on timescales up to \(t_*\) --- that is, \(\pi_V(\varphi_t(x, h_B, h_D)) = \pi_V(\varphi_t(x, h_B, h'_D))\) for all \(h_D, h'_D\) and all \(t \leq t_*\) --- then \(T_{ij}(t) = T^{(B)}_{ij}(t)\) for all \(t \leq t_*\), where \(T^{(B)}\) is computed by marginalizing over \(\mathcal{C}_B\) alone.}
-
-\emph{Proof.} For \(t \leq t_*\):
-
-\[T_{ij}(t) = \frac{1}{|\mathcal{C}_B||\mathcal{C}_D|} \sum_{h_B, h_D} \mathbf{1}[\pi_V(\varphi_t(x_i, h_B, h_D)) = x_j]\]
-
-By hypothesis, the indicator function is independent of \(h_D\), so the sum over \(\mathcal{C}_D\) contributes a factor of \(|\mathcal{C}_D|\) that cancels the \(1/|\mathcal{C}_D|\) prefactor:
-
-\[T_{ij}(t) = \frac{1}{|\mathcal{C}_B|} \sum_{h_B} \mathbf{1}[\pi_V(\varphi_t(x_i, h_B)) = x_j] = T^{(B)}_{ij}(t) \quad \square\]
-
-The lemma extends to approximate independence: if the visible-sector transition depends on the deep modes for at most a fraction \(\delta\) of configurations, then \(|T_{ij}(t) - T^{(B)}_{ij}(t)| \leq \delta\).
-
-\textbf{Application to the cosmological partition.} The boundary modes are the \(A/\epsilon^2\) degrees of freedom on the horizon surface; the deep modes are degrees of freedom at distances \(\gg c/H\) beyond the horizon. Deep modes can influence the boundary only by propagating through the hidden sector, which takes time \(\gtrsim \tau_B\) (C2). For all \(t \ll \tau_B\), the lemma's condition is satisfied with \(\delta \lesssim t/\tau_B \sim 10^{-32}\), and the transition probabilities are volume-independent.
-
-\textbf{Step 3: Dimensional determination.} With volumetric quantities excluded, the partition-intrinsic quantities that can appear in \(\hbar\) are restricted to those characterizing the local structure of the boundary: \(c\) (defines the causal boundary), \(G\) (enters through Jacobson's identity relating geometry to energy), and \(\epsilon\) (sets the phase-space grain). The unique combination with dimensions of action is \(c^3 \epsilon^2 / G\), giving:
-
-\[\hbar = \beta \frac{c^3 \epsilon^2}{G}\]
-
-where \(\beta\) is a dimensionless prefactor.
-
-\textbf{Step 4: Thermal self-consistency fixes the prefactor.}
-
-\emph{Before the trace-out} (§5.1), the classical horizon temperature is derived from Jacobson's thermodynamic identity and the entropy density \(\eta = 1/\epsilon^2\):
-
-\[k_B T_{\text{cl}} = \frac{c^3 \epsilon^2 \kappa}{8\pi G}\]
-
-This expression involves only classical quantities: \(G\), \(c\), \(\epsilon\), \(\kappa\), \(k_B\). No \(\hbar\) appears.
-
-\emph{After the trace-out}, the emergent quantum mechanics is established by Part I with an action scale \(\hbar\) whose scaling is \(\hbar = \beta c^3 \epsilon^2 / G\) (Step 3) but whose prefactor \(\beta\) is not yet fixed. Quantum field theory on curved spacetime --- which is now a \emph{consequence} of the emergent description, not an independent input --- predicts the Gibbons-Hawking temperature {[}17{]} for any horizon with surface gravity \(\kappa\):
-
-\[k_B T_{\text{GH}} = \frac{\hbar \kappa}{2\pi c}\]
-
-These two temperatures describe the same physical boundary. \(T_{\text{cl}}\) is the temperature of the hidden sector as a classical thermal reservoir, derived from the partition geometry. \(T_{\text{GH}}\) is the temperature that the emergent quantum description assigns to the same horizon. If \(T_{\text{cl}} \neq T_{\text{GH}}\), the emergent description is internally inconsistent: it predicts a different thermal state for the very boundary that produced it.
-
-Self-consistency requires \(T_{\text{cl}} = T_{\text{GH}}\). For the de Sitter horizon (\(\kappa = cH\)):
-
-\[\frac{c^3 \epsilon^2 H}{8\pi G} = \frac{\hbar H}{2\pi}\]
-
-The Hubble parameter \(H\) cancels --- confirming the structural/volumetric point, since the result is \(H\)-independent. Solving for \(\hbar\):
-
-\[\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}\]
-
-The prefactor is \(\beta = 1/4\). No free parameter remains.
-
-\textbf{Why this is not circular.} The Gibbons-Hawking temperature is a result of QFT on curved spacetime --- the very theory whose emergence the theorem establishes. But the logic is sequential: Part I proves QM emerges with \emph{some} \(\hbar\) → the emergent QM predicts \(T_{\text{GH}}(\hbar)\) → the classical \(T_{\text{cl}}\) was derived independently (§5.1) → matching fixes \(\hbar\). This is a \emph{gap equation}: the same structure as self-consistent mean-field calculations in condensed matter physics.
-
-\textbf{Robustness.} The self-consistency condition can be derived without the Gibbons-Hawking formula: the hidden sector is a thermal reservoir at \(T_{\text{cl}}\), the visible sector equilibrates with it (C1--C3 ensure persistent thermal contact), and the zeroth law of quantum statistical mechanics gives \(T_Q = T_{\text{cl}}\) exactly. The Gibbons-Hawking formula is then \emph{recovered} as a prediction. Lattice corrections enter only as \(\mathcal{O}((\epsilon H/c)^2) \sim 10^{-122}\), consistent with trans-Planckian insensitivity {[}28, 29{]}.
-
-\subsection{5.3 Gauge-Fixing, the Dimensional Obstruction, and the Role of Thermal Self-Consistency}
-
-The stochastic-quantum correspondence maps the P-indivisible process to a unitary \(U(t)\), but leaves the Schur-Hadamard gauge freedom: the transition probabilities \(T_{ij} = |U_{ij}|^2\) do not uniquely determine the quantum phases. Continuous-time transition data resolves this ambiguity. The following theorem shows that matching the full time-evolution forces the phases into a unique configuration, up to a physically trivial rephasing.
-
-\textbf{Theorem (D-gauge completeness).} \emph{Let \(U(t) = e^{-iHt}\) be a unitary propagator with non-degenerate eigenvalues and non-vanishing configuration-basis overlaps. If \(U'(t) = e^{-iH't}\) satisfies \(|U'_{ij}(t)|^2 = |U_{ij}(t)|^2\) for all \(i, j\) and all \(t\), then \(H' = DHD^\dagger\) for a time-independent diagonal unitary \(D = \text{diag}(e^{i\alpha_1}, \ldots, e^{i\alpha_n})\).} (Proof: expanding \(|U_{ij}(t)|^2\) as a Fourier series in the energy differences, non-degeneracy uniquely determines the moduli \(|c_{ia}|\); matching the phase constraints forces \(\delta_{ia} = \alpha_i + \beta_a\), giving \(H' = DHD^\dagger\).)
-
-The D-gauge is physically trivial: it corresponds to a time-independent basis rephasing that leaves all transition probabilities, energy-level spacings, and interference patterns invariant. The non-degeneracy conditions hold generically (measure zero among Hermitian matrices).
-
-\textbf{Cross-interval matching and time dependence.} For time-dependent effective generators (condition C2 ensures \(H_{\text{eff}}(t)\) is approximately time-independent on intervals \(\tau_S \ll \Delta t \ll \tau_B\)), the D-gauge theorem applies within each interval. Cross-interval transition probabilities fix the relative gauge between intervals up to a single global phase: the requirement \(|\sum_j e^{i\phi_j} U_{ij} U_{jk}|^2 = |\sum_j U_{ij} U_{jk}|^2\) for all \(i, k\) forces \(\phi_j = \phi\) for all \(j\). In the continuum limit, the chain of global phases becomes a smooth function \(e^{i\theta(t)}\) with no observable consequences. The continuous-time transition probabilities therefore determine the unitary propagator up to physically irrelevant rephasing.
-
-\textbf{The dimensional obstruction.} The preceding results resolve all \emph{dimensionless} ambiguity but leave \(\hbar\) untouched --- by structural necessity. The unitary \(U(t)\) is dimensionless; \(\hbar\) enters only when defining \(\hat{H} = i\hbar \, \partial_t U \cdot U^\dagger\), converting dimensionless rates into energy units. No quantity of dimensionless probability data can fix a dimensionful constant. Step 4 provides the necessary dimensionful input: the thermal self-consistency condition \(T_{\text{cl}} = T_{\text{GH}}(\hbar)\) connects the dimensionless oscillation frequencies to a physical temperature derived from the classical partition geometry (§5.1).
-
-
-\section{6. SELF-CONSISTENCY AND THE DISCRETENESS SCALE}
-
-Rearranging \(\hbar = c^3 \epsilon^2 / (4G)\):
-
-\[\epsilon^2 = \frac{4\hbar G}{c^3} = 4\,l_p^2\]
-
-The framework yields \(\epsilon = 2\,l_p\) exactly. This is not an independent prediction --- it is algebraically equivalent to the formula for \(\hbar\) --- but it serves as a consistency check: the discreteness scale lands at the Planck scale, the only self-consistent regime. If \(\epsilon^2 \ll l_p^2\), sub-Planckian subcells would be dynamically active yet unresolvable by the emergent description, creating a second trace-out with its own noise intensity and breaking the single-valuedness of \(\hbar\). If \(\epsilon^2 \gg l_p^2\), the emergent description would assign distinct quantum states to configurations that are physically identical in the substratum. The regime \(\epsilon = \mathcal{O}(l_p)\) is the only self-consistent one; thermal self-consistency selects \(\epsilon = 2\,l_p\) within it.
-
-With \(\epsilon = 2\,l_p\), the number of independent modes on the cosmological horizon is:
-
-\[N_{\text{modes}} = \frac{A}{\epsilon^2} = \frac{A}{4\,l_p^2} = S_{\text{dS}}\]
-
-where \(S_{\text{dS}} = A/(4\,l_p^2)\) is the Bekenstein-Hawking entropy of the de Sitter horizon. The factor of \(1/4\) in the Bekenstein-Hawking formula --- historically introduced as a proportionality constant --- is here derived as a consequence of the partition geometry and the thermal self-consistency condition: each minimal cell of area \(\epsilon^2 = 4\,l_p^2\) on the horizon contributes one unit of entropy, and \(A / (4\,l_p^2) = A / \epsilon^2\) recovers the standard formula exactly.
-
-\textbf{Consistency check.} After the emergence of quantum mechanics and the identification \(\epsilon = 2\,l_p\), the classical horizon temperature becomes \(T_{\text{cl}} = c^3 \epsilon^2 \kappa / (8\pi G k_B) = c^3 (4\,l_p^2) \kappa / (8\pi G k_B) = \hbar \kappa / (2\pi c k_B)\) --- the standard Gibbons-Hawking temperature {[}17{]} exactly. This recovery is guaranteed by construction (it is the self-consistency condition of Step 4), but verifying it confirms the algebraic consistency of the derivation.
-
-
-\section{7. DISSOLUTION OF THE COSMOLOGICAL CONSTANT PROBLEM}
-
-\subsection{7.1 The Two Levels of Description}
-
-The cosmological constant problem {[}2, 3, 18{]} --- the \(10^{122}\)-fold discrepancy between the QFT prediction for vacuum energy density and the observed value --- is often called the worst prediction in physics. Its resolution turns on recognizing that the classical substratum and the emergent quantum description give different --- and independently self-consistent --- answers to the same question.
-
-\textbf{From finite-dimensional QM to QFT.} The theorem of Part I delivers quantum mechanics on a finite-dimensional Hilbert space. The connection to quantum field theory proceeds through three steps. First, Axiom 2 discretizes the visible sector into \(N = A/\epsilon^2\) cells of area \(\epsilon^2\), each coupled to the hidden sector through the partition boundary. Second, the causal structure of the classical substratum restricts which cells interact on any given timescale, and the emergent quantum description inherits this locality (proved below). Third, spatial locality implies the emergent Hilbert space decomposes as \(\mathcal{H} = \bigotimes_k \mathcal{H}_k\) --- a lattice-regularized QFT with a built-in ultraviolet cutoff at \(\epsilon = 2\,l_p\). The zero-point energy \(\frac{1}{2}\hbar\omega\) per mode and the resulting QFT vacuum energy density are properties of this emergent description, not of the classical substratum.
-
-\textbf{Locality preservation theorem.} \emph{If the classical substratum has spatial locality --- the Hamiltonian couples only neighboring cells --- then the emergent quantum Hamiltonian inherits this locality structure.}
-
-\emph{Proof.} The Barandes correspondence maps each configuration \((x_1, x_2, \ldots, x_N)\) of the \(N\) visible-sector cells to a basis state \(|x_1, x_2, \ldots, x_N\rangle\) in the emergent Hilbert space. This basis is a tensor product: \(\mathcal{H} = \bigotimes_k \mathcal{H}_k\) where \(\mathcal{H}_k = \text{span}\{|x_k\rangle\}\). What must be shown is that the emergent Hamiltonian \(\hat{H}\) respects this structure --- that \(\langle x'|\hat{H}|x\rangle = 0\) when \(x\) and \(x'\) differ at non-neighboring sites.
-
-For infinitesimal \(dt\), the unitary evolution operator expands as \(U(dt) = I - i\hat{H}\,dt + O(dt^2)\). For \(x' \neq x\), the transition probability is:
-
-\[T_{x,x'}(dt) = |U_{x'x}(dt)|^2 = |\langle x'|\hat{H}|x\rangle|^2\,dt^2 + O(dt^3)\]
-
-In the classical substratum, spatial locality means the Hamiltonian couples only neighboring cells: \(H_{\text{tot}} = \sum_k h_k + \sum_{\langle k,l\rangle} h_{kl}\). Under this dynamics, the configuration of cell \(k\) can change over time \(dt\) only if \(k\) is directly coupled to a cell whose state changes. If configurations \(x\) and \(x'\) differ at sites that are not neighbors of one another, no single-step evolution can connect them, and \(T_{x,x'}(dt) = 0\) at leading order. By the equation above, \(|\langle x'|\hat{H}|x\rangle|^2 = 0\), hence \(\langle x'|\hat{H}|x\rangle = 0\). The emergent Hamiltonian therefore has the form:
-
-\[\hat{H} = \sum_k \hat{h}_k + \sum_{\langle k,l\rangle} \hat{h}_{kl}\]
-
-where \(\hat{h}_k\) acts on \(\mathcal{H}_k\) and \(\hat{h}_{kl}\) acts on \(\mathcal{H}_k \otimes \mathcal{H}_l\). This is a spatially local lattice Hamiltonian. The tensor product decomposition \(\mathcal{H} = \bigotimes_k \mathcal{H}_k\) with nearest-neighbor interactions follows directly. \(\square\)
-
-The proof requires only the infinitesimal structure of the transition probabilities and the spatial locality of the classical dynamics. It does not invoke the D-gauge completeness result (§5.3) or the genericity conditions --- the zero structure of the Hamiltonian matrix elements is determined by which transition probabilities vanish, independently of the phase-locking mechanism. The result holds for any classical substratum satisfying Axioms 1--4 whose Hamiltonian is spatially local.
-
-\textbf{The classical substratum} (what geometric measurements probe): The cosmological horizon has a classical thermal equilibrium. By the Friedmann equation, \(H^2 = (8\pi G/3)\rho\), the horizon area \(A = 4\pi c^2/H^2\) adjusts self-consistently so that the mean energy density matches the critical density \(\rho_{\text{crit}} = 3H^2 c^2/(8\pi G)\). The classical energy per mode is \(k_B T_H\). There is no zero-point energy and no discrepancy. The total vacuum energy density is at the critical scale \(\rho \sim H^2/G \sim 10^{-9}\) J/m\(^3\) --- precisely what is observed.
-
-\textbf{The emergent QFT} (what local quantum measurements probe): Quantum field theory assigns a zero-point energy of \(\frac{1}{2}\hbar\omega\) per mode. Summing to the Planck cutoff yields \(\rho_{\text{QFT}} \sim M_{\text{Pl}}^4 \sim 10^{113}\) J/m\(^3\).
-
-\subsection{7.2 Why Gravity Sees the Classical Value}
-
-Spacetime geometry is part of the classical substratum (Axiom 3): the metric tensor is defined on the fundamental phase space and evolves via Einstein's field equations \emph{before} the trace-out that produces quantum mechanics. The stress-energy tensor that sources the Einstein equations is the classical stress-energy of the total microstate, not the expectation value of an emergent quantum operator. The \(10^{113}\) J/m\(^3\) zero-point energy exists in the observer's informational ledger --- it is a consequence of re-describing the classical noise as quantum fluctuations --- but it does not appear in the stress-energy tensor that governs the geometry. The semiclassical gravity equation \(G_{\mu\nu} = 8\pi G \langle \hat{T}_{\mu\nu} \rangle\) is itself an emergent approximation, valid when the quantum description is treated as fundamental. Within the present framework, where the quantum description is derived, the gravitational field equations operate at the classical level and never encounter the zero-point sum.
-
-\textbf{Ontological commitment and its consequences.} The framework makes a specific ontological commitment: classical spacetime geometry is fundamental; quantum mechanics is emergent. This is not a free choice but follows from the logical structure of the derivation. The causal partition that produces quantum mechanics is defined by null geodesics of the metric (§4.1); the metric must therefore exist prior to the partition, and hence prior to the quantum description the partition generates. Reversing this ordering --- treating the metric as emergent from quantum mechanics --- would make the partition definition circular. This logical priority is opposite to programs that treat the metric as emergent (canonical quantum gravity, asymptotic safety, string-theoretic emergent spacetime), and the ordering question has observable consequences.
-
-The cosmological constant problem is one such consequence. Any framework in which the quantum description is logically prior to the metric will necessarily treat the zero-point sum as a source term in the gravitational field equations, because the stress-energy tensor is constructed from quantum operators. The \(10^{122}\) discrepancy is then a real problem requiring cancellation or fine-tuning. In the present framework, where the metric is logically prior, the zero-point sum is an artifact of the emergent description and never enters the stress-energy tensor. The dissolution of the CC problem is therefore a direct prediction of the framework's central commitment --- not a separate result, and not an ad hoc stipulation, but a consequence of taking seriously the derivation's own logical structure.
-
-The converse also holds: the success of the dissolution is evidence for the ordering. Frameworks in which quantum mechanics is logically prior to geometry have produced the \(10^{122}\) discrepancy and, after five decades, no mechanism that resolves it --- supersymmetric cancellations are increasingly constrained by LHC null results, and anthropic arguments constrain the range of possible values without predicting the specific one observed. The present framework predicts the observed vacuum energy at the classical geometric scale \(\rho \sim H^2/G\) and identifies the magnitude of the discrepancy as a derived quantity --- \(S_{\text{dS}}\), the de Sitter entropy. This is the empirical situation the ordering question must be evaluated against: one ordering produces the worst prediction in physics and has no solution; the other predicts the observed value and explains the discrepancy. This does not prove the ordering is correct --- the gravitational wave echo prediction (§8.2) provides a more direct test --- but it constitutes existing empirical evidence in favor of geometry-first over quantum-first.
-
-\textbf{Quantum corrections to gravity.} This exclusion of the zero-point sum does not, however, mean that gravity is immune to all quantum effects. The emergent quantum description does feed back into the gravitational dynamics through state-level quantities: §8.1 derives dark energy evolution in Running Vacuum form precisely because the emergent vacuum energy --- a state-level property of the quantum description --- depends on the Hubble parameter through the hidden sector's volume. This \(H\)-dependent running of \(\Lambda_{\text{eff}}\) \emph{is} a quantum correction to gravity.
-
-What the framework excludes is the zero-point sum --- a property of the correspondence itself rather than of any particular state --- as a gravitational source. The structural/volumetric distinction of §5.2 applies here too: the action scale \(\hbar\) (structural) does not gravitate; the vacuum energy (volumetric, state-dependent) does, but at the classical scale \(\rho \sim H^2/G\) rather than the QFT scale \(\rho \sim M_{\text{Pl}}^4\).
-
-\subsection{7.3 The Structural Origin of the \(10^{122}\) Discrepancy}
-
-The ratio \(\rho_{\text{QFT}} / \rho_{\text{classical}} \sim M_{\text{Pl}}^4 / (H^2/G) = S_{\text{dS}}\). The discrepancy equals \(S_{\text{dS}} = A/(4\,l_p^2)\) --- the Bekenstein-Hawking entropy of the cosmological horizon, now identified as the number of independent modes on the partition boundary (\(N_{\text{modes}} = A/\epsilon^2 = S_{\text{dS}}\)). This is the information compression ratio of the quantum description: the number of hidden-sector degrees of freedom that the trace-out compresses into the emergent quantum state. The ``worst prediction in physics'' is the entropy of the observer's blind spot --- a category error, not a fine-tuning failure.
-
-That this discrepancy cannot be resolved from within is confirmed by Wolpert's (2008) limits of inference {[}19{]}: any physical subsystem whose state is a deterministic, many-to-one function of the total configuration is subject to absolute inferential limits. Both geometric measurements (classical substratum) and local particle measurements (emergent QFT) are faithful to their respective descriptions; no embedded observer can determine from within which is more fundamental.
-
-This is not a prediction awaiting future data. The observed vacuum energy sits at the classical geometric scale \(\rho \sim H^2/G\) --- the value the framework expects. The empirical case for the ordering is discussed in §7.2.
-
-
-\section{8. PREDICTIONS AND TESTS}
-
-\subsection{8.1 Dark Energy Evolution in Running Vacuum Form}
-
-The action scale \(\hbar\) depends only on structural properties of the partition boundary and is independent of \(H\) (§5.2). But the emergent vacuum energy is a state-level quantity that depends on the hidden sector's volume. The horizon area \(A = 4\pi c^2/H^2\) evolves with the Hubble parameter, so the emergent vacuum energy inherits a dependence on \(H\). Expanding \(\Lambda_{\text{eff}}(H)\) around the present epoch:
-
-\[\Lambda_{\text{eff}}(H) = \Lambda_0 + \frac{3\nu_{\text{OI}}}{8\pi G}(H^2 - H_0^2) + \mathcal{O}((H^2 - H_0^2)^2)\]
-
-This is precisely the form of the Running Vacuum Model (RVM) {[}20, 21{]}. The framework requires \(\nu_{\text{OI}} > 0\) (the hidden sector gains capacity as \(H\) decreases) and \(\nu_{\text{OI}} \ll 1\) (condition C3 requires the hidden sector not be saturated). Its value is determined by the spectral structure of the partition boundary.
-
-The \(S_{\text{dS}}\) horizon modes span frequencies from \(\omega_{\text{IR}} = H\) to \(\omega_{\text{UV}} = c/\epsilon\). Massless field modes on a 2-sphere have conformal mode density --- equal numbers of independent modes per logarithmic frequency interval --- a consequence of the conformal invariance of the wave equation on the 2-sphere, which maps modes at different scales into one another without introducing a preferred frequency. The total number of independent spectral channels is therefore \(\mathcal{N}(H) = \ln(\omega_{\text{UV}}/\omega_{\text{IR}}) = \ln(c/\epsilon H)\). Since the total gravitating vacuum energy is fixed at the classical scale \(\rho \sim H^2/G\) (§7.2) and the trace-out compression noise (§7) is distributed equally across these channels, each channel carries a fraction \(1/\mathcal{N}\) of the total, so \(\rho_\Lambda \propto 1/\mathcal{N}\). This is a non-perturbative result: standard QFT gives corrections suppressed by \((H/M_{\text{Pl}})^2 \sim 10^{-122}\), whereas the spectral response gives \(1/\mathcal{N} \sim 1/140\). Normalizing at \(H_0\) and Taylor-expanding:
-
-\[\boxed{\nu_{\text{OI}} = \frac{\Omega_\Lambda}{2\,\ln(c/\epsilon H_0)}}\]
-
-With \(\epsilon = 2\,l_p\), \(H_0 = 67.4\) km/s/Mpc, and \(\Omega_\Lambda = 0.685\): \(\mathcal{N}(H_0) \approx 139.6\), giving \(\nu_{\text{OI}} = (2.45 \pm 0.03) \times 10^{-3}\). The result is insensitive to \(H_0\) (which enters only inside the logarithm) and yields an independently testable ratio: \(\nu_{\text{OI}} / \Omega_\Lambda = 1/(2\,\ln(c/\epsilon H_0)) \approx 0.00358\).
-
-DESI's 2024--2025 data releases {[}22, 30{]} report evidence for evolving dark energy at \(2.8\sigma\)--\(4.2\sigma\). Direct RVM fits by de Cruz Pérez, Gómez-Valent, and Solà Peracaula {[}31{]} find \(\nu \sim \mathcal{O}(10^{-3})\) with \(\nu = 0\) disfavored at \(2.7\sigma\)--\(3.1\sigma\). The framework's prediction lies within the phenomenological range from all major dataset combinations. The outstanding discriminating tests are whether the one-parameter RVM form fits the data as well as or better than the two-parameter \(w_0 w_a\) model, and whether the measured \(\nu / \Omega_\Lambda\) ratio converges to the predicted value.
-
-\subsection{8.2 Gravitational Wave Echoes}
-
-A black hole horizon represents a regime where the causal partition differs from the cosmological one. For an observer near the horizon, degrees of freedom that are part of the cosmological visible sector become locally inaccessible --- reclassified from visible to hidden sector as they cross the horizon. The effective partition shifts, and the emergent description must shift accordingly.
-
-At a proper distance \(\sim \epsilon\) outside a black hole horizon \(r_h\), the local wavelength of an infalling mode reaches \(\epsilon\) --- the discreteness floor. The mode has no kinematically accessible states at shorter wavelengths and must scatter back. The predicted time delay is:
-
-\[\Delta t_{\text{echo}} \approx \frac{r_h}{c} \ln\left(\frac{r_h}{2\,l_p}\right)\]
-
-For a \(30 M_\odot\) remnant with \(\epsilon = 2\,l_p\), the logarithmic dependence on \(\epsilon\) makes this prediction insensitive to the exact value: replacing \(l_p\) with \(2\,l_p\) shifts the delay by \(\ln 2 \cdot r_h/c \approx 0.1\) ms, well within the \(\sim 54\) ms timescale {[}23{]}. The exact reflection amplitude requires non-perturbative calculation. The echo signal, if detected, would constitute direct evidence that the discreteness scale \(\epsilon\) identified by the self-consistency argument (§6) has observable consequences at horizons other than the cosmological one --- a regime where the partition-relativity of the emergent description (§9.2) becomes empirically accessible.
-
-\subsection{8.3 Conjunction as Discriminant}
-
-The conjunction of confirmed dark energy evolution \emph{and} detected GW echoes would uniquely favor an information-theoretic origin over standard QFT-derived RVMs, which predict \(\Lambda(H)\) running but have no mechanism for discreteness-scale echoes. Each prediction alone is compatible with other frameworks; their joint confirmation would be distinctive.
-
-
-\section{9. DISCUSSION}
-
-\subsection{9.1 Interpretive Consequences}
+\subsection{Interpretive Consequences}
 
 In the cosmological application, the hidden sector is the trans-horizon region; the degrees of freedom involved in quantum experiments --- photons, electrons, slits, detectors --- are all visible-sector objects. Their quantum behavior is a downstream consequence of the single cosmological trace-out: the emergent quantum mechanics, once established by the theorem, governs all visible-sector dynamics.
 
-The theorem resolves several foundational puzzles as direct consequences. In the double-slit experiment, the particle traverses a single slit in the deterministic substratum. The interference pattern arises because opening or closing the second slit changes the boundary conditions of the transition matrix, altering the distribution of detection events. A which-path detector at one slit couples the trajectory to additional visible-sector degrees of freedom, changing the transition matrix and eliminating the interference terms.
+In the double-slit experiment, the particle traverses a single slit in the deterministic substratum. The interference pattern arises because opening or closing the second slit changes the boundary conditions of the transition matrix, altering the distribution of detection events. A which-path detector at one slit couples the trajectory to additional visible-sector degrees of freedom, changing the transition matrix and eliminating the interference terms. In Wigner's friend, the Friend has a definite outcome; Wigner's superposition reflects his epistemic deficit. The Everettian measure problem dissolves: the system evolves as a single reality; ``branches'' are features of the compressed description, and the Born rule is derived.
 
-In Wigner's friend scenarios, the Friend's measurement produces a definite outcome. Wigner, lacking access to the lab's internal degrees of freedom, traces them out and assigns a superposition that reflects his epistemic deficit, not the Friend's physical state. Different partitions yield different reduced descriptions (§1.4).
+\subsection{Scope}
 
-The Everettian measure problem dissolves because the total system evolves deterministically as a single reality --- ``branches'' are features of the compressed description, not of the underlying dynamics. The Born rule is the equilibrium distribution of the indivisible stochastic process, derived rather than postulated.
+The characterization theorem is a full equivalence: QM $\iff$ embedded observation under (C1)--(C3). The theorem does not identify which physical systems satisfy the conditions (empirical) nor derive $\hbar$ for specific systems (requires Part~II). Universality in our universe follows from the shared causal partition defined by null geodesics.
 
-\subsection{9.2 Scope of the Theorem}
+\subsection{Dependence on Barandes' Correspondence}
 
-The characterization theorem (§3.3) establishes a full equivalence: a stochastic process on a finite configuration space is quantum mechanics if and only if it arises from embedded observation under conditions (C1)--(C3). The theorem does not identify which physical systems satisfy the conditions (that is empirical) nor derive \(\hbar\) for any specific system (that requires Part II). Different partitions produce different reduced descriptions --- the equivalence says ``quantum mechanics and embedded observation under (C1)--(C3) are the same thing,'' not that quantum mechanics is the unique description of reality. In our universe, where null geodesics define the causal partition and all sub-\(c\) observers share the same horizon, the emergent description is universal.
+The correspondence \cite{Barandes2023,Barandes2025} is bidirectional and exact, proved via Stinespring dilation, peer-reviewed, and independently corroborated \cite{Calvo2026,Pimenta2025,Doukas2026}. It enters at a single step: \S3.1. Partition-relativity, emergent stochasticity, and P-indivisibility (\S\S1.4, 2) do not invoke it.
 
-\subsection{9.3 Dependence on Barandes' Correspondence}
+\subsection{The Status of the Discreteness Scale}
 
-The theorem rests on Barandes' stochastic-quantum correspondence {[}10, 11{]} as its mathematical engine. The correspondence is bidirectional and exact, proved via the Stinespring dilation theorem and standard linear algebra, published in a peer-reviewed venue {[}11{]}, and independently corroborated by Calvo {[}12{]} (infinite-dimensional extension), Pimenta {[}25{]} (geometric characterization), and Doukas {[}26{]} (structural properties). The dependence is load-bearing but circumscribed: partition-relativity, emergent stochasticity, and P-indivisibility (§§1.4, 2) do not invoke Barandes at all. The correspondence enters at a single step: the map from P-indivisible process to quantum mechanics (§3.1).
+$\epsilon$ does not smuggle in a quantum assumption. Axiom~2 requires finite-dimensionality, motivated by the classical fact that finite-area boundaries admit finitely many modes. The result $\epsilon = 2\,l_p$ is a \emph{consequence} of self-consistency (\S6). Holographic entropy bounds \cite{Bao2017} provide independent, non-quantum motivation.
 
-The correspondence is a 2023 result that has not yet undergone decades of scrutiny. A restriction that narrowed the class of admissible processes could affect the theorem's scope, though this risk is mitigated by the fact that the cosmological trace-out produces a highly structured process whose hypotheses are satisfied directly.
+\subsection{Observable Vacuum Energy Effects}
 
-\subsection{9.4 The Status of the Discreteness Scale}
+Casimir forces and Lamb shifts are predictions \emph{within} the emergent QFT --- relative effects depending on energy differences between configurations. The framework denies that the \emph{absolute} zero-point sum gravitates, because gravity operates at the logically prior classical level (\S7.2).
 
-The discreteness scale \(\epsilon\) may appear to smuggle in a quantum assumption. It does not. Axiom 2 requires a finite-dimensional configuration space --- motivated on purely classical grounds by the fact that a finite-area boundary admits a finite number of coupled modes. The result \(\epsilon = 2\,l_p\) is a \emph{consequence} of the self-consistency loop (§6), not an input. The Planck length itself is a combination of \(c\), \(G\), and \(\hbar\) --- but here \(\hbar\) is derived (§5.2), so \(l_p\) is determined by the same loop. No quantum concept is presupposed.
+\subsection{Relation to Prior Work}
 
-The deeper question is whether any framework claiming to derive quantum mechanics must posit \emph{some} form of discreteness to avoid an infinite-dimensional configuration space --- in which case Axiom 2 would be a necessary structural ingredient rather than an ad hoc addition. Holographic entropy bounds {[}27{]} provide independent, non-quantum motivation: the maximum entropy of a region bounded by area \(A\) is \(A/(4\,l_p^2)\), suggesting that finite-area boundaries enforce finite-dimensionality regardless of the theory used to describe the interior.
+\textbf{'t~Hooft \cite{tHooft2016}:} Differs in mechanism (epistemic trace-out vs.\ information loss), generality (any system satisfying axioms vs.\ particular rules), and Bell placement (outcome independence violation vs.\ superdeterminism). \textbf{QBism/relational QM:} Share observer-relative epistemic states; this framework provides a structural \emph{why} and quantitative predictions. \textbf{Jacobson \cite{Jacobson1995}:} Derives gravity from thermodynamics; this framework derives QM from causal structure --- complementary, with mutual consistency as a check. \textbf{AdS/CFT and the geometry-entanglement connection.} The most developed challenge to the framework's ordering comes from holographic physics: the Ryu-Takayanagi formula, Van~Raamsdonk's disconnection argument, the ER=EPR conjecture, and ``it from qubit'' programs all suggest entanglement is prior to geometry.
 
-\subsection{9.5 Observable Vacuum Energy Effects}
+The framework offers an alternative reading. Tracing out across a geometric boundary produces entanglement entropy proportional to boundary area ($A/\epsilon^2$ modes), so the Ryu-Takayanagi formula is a consequence of geometry assembling entanglement, not the reverse. Van~Raamsdonk's argument similarly reverses: changing the partition geometry changes the emergent entanglement, not the other way around. For AdS/CFT specifically, the boundary CFT's completeness follows because the boundary observer is \emph{external}, immune to the inferential limits of embedded observers \cite{Wolpert2008}; the framework does not explain the Ryu-Takayanagi formula's specific form in that context.
 
-If the quantum vacuum energy is compression noise, why do effects like the Casimir force and the Lamb shift produce observable consequences? Because these are predictions \emph{within} the emergent quantum description, which is empirically exact for all visible-sector physics. The Casimir force depends on energy \emph{differences} between boundary configurations; the Lamb shift depends on virtual photon fluctuations coupling to atomic levels. Both are relative effects within the quantum description. What the framework denies is that the \emph{absolute} zero-point sum appears as a gravitational source, because gravity operates at the classical level that is logically prior to the quantum description (§7.2).
+The ordering question has observable consequences: entanglement-first programs predict spacetime breakdown at low entanglement or high energy; this framework predicts QM breakdown near $\epsilon = 2\,l_p$ while the geometric substratum persists (\S8). The CC dissolution (\S7.2) constitutes existing empirical evidence for geometry-first.
 
-\subsection{9.6 Relation to Prior Work}
+\subsection{Assumptions, Limitations, and Falsifiability}
 
-\textbf{'t Hooft's cellular automaton interpretation {[}1{]}} is the closest predecessor, proposing quantum mechanics emerges from deterministic dynamics through information loss. The present framework differs in mechanism (epistemic trace-out vs.~microscopic information loss), generality (any system satisfying the axioms vs.~particular dynamical rules), and Bell's theorem (outcome independence violation vs.~superdeterminism).
+\textbf{The theorem} requires Axiom~2 (independent in Part~I; consequence of geometry in Part~II), Barandes' correspondence (\S9.3), and genericity conditions (non-degenerate spectrum, non-vanishing overlaps), which hold for all but a measure-zero set.
 
-\textbf{QBism and relational quantum mechanics} agree that the quantum state is observer-relative and epistemic, but the present framework provides a structural account of \emph{why} (the trace-out applied to the causal partition) and makes quantitative predictions that purely interpretive programs do not.
+\textbf{Planck-scale ordering.} The classical-prior ontology may break down at $l_p$, where ``geometric'' and ``quantum'' lose operational distinction. If a deeper theory unifies both, this framework describes the effective macroscopic regime.
 
-\textbf{Jacobson's thermodynamic derivation {[}16{]}} derives gravity from thermodynamics applied to local horizons; the present framework inverts the direction, deriving quantum mechanics from the causal structure that gravity creates. The two are complementary, and their consistency is a non-trivial check on both.
-
-\textbf{AdS/CFT and the geometry-entanglement connection.} The most developed challenge to the framework's ontological ordering --- classical spacetime prior to quantum mechanics --- comes from holographic physics. The Ryu-Takayanagi formula equates the entanglement entropy of a boundary subregion with the area of the corresponding minimal bulk surface. Van Raamsdonk argued that reducing entanglement between subsystems disconnects the corresponding spacetime regions. The ER=EPR conjecture, ``it from qubit'' programs, and emergent-spacetime approaches all read these results as evidence that quantum entanglement structure is prior to geometry, the reverse of the ordering assumed here.
-
-The present framework offers an alternative reading. If the quantum description is produced by tracing out degrees of freedom across a geometric boundary, the entanglement entropy of the emergent description is necessarily proportional to the area of that boundary --- the number of modes participating in the trace-out scales as \(A/\epsilon^2\). The Ryu-Takayanagi formula, on this account, is not a hint that entanglement assembles geometry; it is a consequence of the fact that geometry assembled the entanglement. The Bekenstein-Hawking formula \(S = A/(4\,l_p^2)\), derived in §6, is precisely this statement. Van Raamsdonk's disconnection argument similarly reverses: changing the partition geometry --- disconnecting the boundary --- changes the emergent entanglement structure, not the other way around. The observed correlation between entanglement and connectivity is real, but the arrow of explanation runs from geometry to entanglement.
-
-For AdS/CFT specifically, the boundary CFT's completeness follows because the boundary observer is \emph{external} to the system, immune to the inferential limits constraining embedded observers {[}19{]}. The holographic description works precisely because no causal partition restricts the boundary observer's access. The framework does not explain why the Ryu-Takayanagi formula takes its specific form in the AdS/CFT context, where the observer is external and the partition structure differs from the cosmological setting. This remains an open question; the claim is only that the geometry-entanglement connection in the cosmological context is more naturally explained by the framework's ordering than by its reverse.
-
-The broader question --- whether the ordering ``geometry first, then quantum mechanics'' or ``quantum mechanics first, then geometry'' is correct --- may have observable consequences. Programs in which geometry emerges from entanglement predict that spacetime structure should break down in regimes of low entanglement or high energy, while the present framework predicts that the quantum description should break down near the discreteness scale \(\epsilon = 2\,l_p\) while the geometric substratum persists. The gravitational wave echo prediction (§8) provides one such test. More broadly, as argued in §7.2, the dissolution of the cosmological constant problem constitutes existing empirical evidence for the geometry-first ordering: one ordering produces the \(10^{122}\) discrepancy and has no resolution after five decades; the other predicts the observed value.
-
-\subsection{9.7 Assumptions, Limitations, and Falsifiability}
-
-\textbf{The theorem} requires Axiom 2 (independent assumption in Part I; consequence of the partition geometry in Part II), Barandes' correspondence (§9.3), and the genericity conditions (non-degenerate spectrum, non-vanishing configuration-basis overlaps), which hold for all but a measure-zero set of systems.
-
-\textbf{The Planck-scale ordering.} The framework's ontological commitment --- classical spacetime prior to quantum mechanics --- may break down at the Planck scale, where the distinction between ``geometric'' and ``quantum'' degrees of freedom loses operational meaning. The self-consistency loop fixes \(\epsilon\) at \(2\,l_p\), at the boundary of this regime. If a deeper theory unifies geometry and quantum mechanics at sub-Planckian scales, the present framework would describe the effective macroscopic regime --- analogous to how thermodynamics describes the macroscopic regime of statistical mechanics without being invalidated by it.
-
-\textbf{Falsifiability.} The \emph{theorem} would be falsified by a restriction of Barandes' correspondence excluding the processes generated here. The \emph{application} would be falsified by the definitive absence of dark energy evolution or gravitational wave echoes at the predicted timescale, while leaving the theorem intact.
+\textbf{Falsifiability.} The \emph{theorem} would be falsified by a restriction of Barandes' correspondence excluding the processes generated here. The \emph{application} would be falsified by definitive absence of dark energy evolution or GW echoes at the predicted timescale.
 
 
-\section{10. CONCLUSION}
+%----------------------------------------------------------------------
+\section{Conclusion}
+%----------------------------------------------------------------------
 
-Two results at different levels of generality have been established.
+\textbf{The general theorem (Part~I).} Under four axioms and conditions (C1)--(C3), the P-indivisibility of reduced dynamics is proved: any bijective dynamics on a finite system with non-trivial coupling necessarily produces P-indivisible stochastic dynamics. By the stochastic-quantum correspondence, the observer's description is necessarily quantum mechanics. Continuous-time transition data resolves all gauge freedom. The Schr\"odinger equation, Born rule, and Bell violations are structural consequences. The characterization theorem establishes that the conditions are necessary: QM and embedded observation under (C1)--(C3) are equivalent.
 
-\textbf{The general theorem (Part I).} Under four axioms (deterministic dynamics, finiteness, a causal partition, and classical probability), the P-indivisibility of the reduced dynamics is proved as a mathematical theorem: any bijective dynamics on a finite system with non-trivial coupling (condition C1) necessarily produces P-indivisible stochastic dynamics in the visible sector. Conditions (C2) and (C3) --- inverted timescale separation and sufficient capacity --- ensure the physical persistence and observational relevance of this indivisibility. By Barandes' stochastic-quantum correspondence, the embedded observer's reduced description is necessarily quantum mechanics. Crucially, the continuous-time transition data rigorously locks the quantum phases, resolving the Schur-Hadamard gauge freedom and leaving no physical ambiguity in the emergent unitary evolution. The Schrödinger equation, the Born rule, and Bell inequality violations are structural consequences. The action scale \(\hbar\) is uniquely determined by the local structural properties of the partition boundary. No quantum postulates are required. The characterization theorem (§3.3) establishes that the conditions are not merely sufficient but \emph{necessary}: any P-indivisible process, realized through a deterministic dilation, requires non-trivial coupling (C1), slow-bath memory (C2), and sufficient hidden-sector capacity (C3). Quantum mechanics and embedded observation under (C1)--(C3) are equivalent.
+\textbf{The cosmological application (Part~II).} The cosmological horizon provides a realization where the sharp-partition approximation is exact and all conditions hold. The theorem yields: (a)~$\hbar = c^3 \epsilon^2 / (4G)$ with $\epsilon = 2\,l_p$ and the Bekenstein-Hawking formula as consequences; (b)~dissolution of the CC problem --- the $10^{122}$ discrepancy is $S_{\text{dS}}$, the compression ratio of the observer's quantum description; and (c)~falsifiable predictions including RVM dark energy with $\nu_{\text{OI}} \approx 2.45 \times 10^{-3}$ and gravitational wave echoes.
 
-\textbf{The cosmological application (Part II).} The cosmological horizon provides a physical realization where the sharp-partition approximation is exact and all three conditions are satisfied. The theorem yields: (a) the exact value \(\hbar = c^3 \epsilon^2 / (4G)\) from partition-relativity, the structural/volumetric distinction, dimensional analysis, and thermal self-consistency, with \(\epsilon = 2\,l_p\) and the Bekenstein-Hawking entropy formula \(S = A/(4\,l_p^2)\) recovered as consequences; (b) a fundamental dissolution of the cosmological constant problem --- the locality preservation theorem (§7.1) establishes that the emergent QFT inherits spatial locality from the classical substratum --- recognizing the \(10^{122}\) discrepancy not as a catastrophic fine-tuning failure, but precisely as \(S_{\text{dS}}\) --- the information compression ratio of the observer's quantum description; and (c) falsifiable predictions including dark energy evolution in RVM form with a computed coefficient \(\nu_{\text{OI}} = \Omega_\Lambda / (2\,\ln(c/\epsilon H_0)) = (2.45 \pm 0.03) \times 10^{-3}\), consistent with current observational fits, and gravitational wave echoes.
+The apparent conflict between quantum mechanics and general relativity is the information-theoretic cost of observing the universe from within.
 
-The universe is not broken. The apparent conflict between its two most successful theories is the information-theoretic cost of observing it from within.
-
-
-\section*{Declaration of AI-Assisted Technologies}
+%----------------------------------------------------------------------
+\subsection*{Declaration of AI-Assisted Technologies}
+%----------------------------------------------------------------------
 
 During the preparation of this work, the author used \textbf{Claude Opus 4.6 (Anthropic)} and \textbf{Gemini 3.1 Pro (Google)} to assist in drafting, refining argumentation, and verifying bibliographic details. The author reviewed and edited the content and takes full responsibility for the publication.
 
-\begin{thebibliography}{99}
+%----------------------------------------------------------------------
+\begin{thebibliography}{31}
+%----------------------------------------------------------------------
 
-\bibitem{1} G. 't Hooft, \emph{The Cellular Automaton Interpretation of Quantum Mechanics} (Springer, 2016).
+\bibitem{tHooft2016} G.~'t~Hooft, \emph{The Cellular Automaton Interpretation of Quantum Mechanics} (Springer, 2016).
 
-\bibitem{2} J. Martin, ``Everything you always wanted to know about the cosmological constant problem (but were afraid to ask),'' \emph{C. R. Phys.} \textbf{13}, 566--665 (2012).
+\bibitem{Martin2012} J.~Martin, ``Everything you always wanted to know about the cosmological constant problem (but were afraid to ask),'' \emph{C. R. Phys.} \textbf{13}, 566--665 (2012).
 
-\bibitem{3} S. Weinberg, ``The cosmological constant problem,'' \emph{Rev.~Mod. Phys.} \textbf{61}, 1 (1989).
+\bibitem{Weinberg1989} S.~Weinberg, ``The cosmological constant problem,'' \emph{Rev. Mod. Phys.} \textbf{61}, 1 (1989).
 
-\bibitem{4} H.-P. Breuer and F. Petruccione, \emph{The Theory of Open Quantum Systems} (Oxford University Press, 2002).
+\bibitem{Breuer2002} H.-P.~Breuer and F.~Petruccione, \emph{The Theory of Open Quantum Systems} (Oxford University Press, 2002).
 
-\bibitem{5} P. Pechukas, ``Reduced dynamics need not be completely positive,'' \emph{Phys. Rev.~Lett.} \textbf{73}, 1060 (1994).
+\bibitem{Pechukas1994} P.~Pechukas, ``Reduced dynamics need not be completely positive,'' \emph{Phys. Rev. Lett.} \textbf{73}, 1060 (1994).
 
-\bibitem{6} Á. Rivas, S. F. Huelga, and M. B. Plenio, ``Entanglement and non-Markovianity of quantum evolutions,'' \emph{Phys. Rev.~Lett.} \textbf{105}, 050403 (2010).
+\bibitem{Rivas2010} \'A.~Rivas, S.~F.~Huelga, and M.~B.~Plenio, ``Entanglement and non-Markovianity of quantum evolutions,'' \emph{Phys. Rev. Lett.} \textbf{105}, 050403 (2010).
 
-\bibitem{7} Á. Rivas, S. F. Huelga, and M. B. Plenio, ``Quantum non-Markovianity: characterization, quantification and detection,'' \emph{Rep.~Prog. Phys.} \textbf{77}, 094001 (2014).
+\bibitem{Rivas2014} \'A.~Rivas, S.~F.~Huelga, and M.~B.~Plenio, ``Quantum non-Markovianity: characterization, quantification and detection,'' \emph{Rep. Prog. Phys.} \textbf{77}, 094001 (2014).
 
-\bibitem{8} F. A. Pollock, C. Rodríguez-Rosario, T. Frauenheim, M. Paternostro, and K. Modi, ``Operational Markov condition for quantum processes,'' \emph{Phys. Rev.~Lett.} \textbf{120}, 040405 (2018).
+\bibitem{Pollock2018} F.~A.~Pollock, C.~Rodr\'iguez-Rosario, T.~Frauenheim, M.~Paternostro, and K.~Modi, ``Operational Markov condition for quantum processes,'' \emph{Phys. Rev. Lett.} \textbf{120}, 040405 (2018).
 
-\bibitem{9} P. Strasberg and M. Esposito, ``Stochastic thermodynamics in the strong coupling regime: An unambiguous approach based on coarse graining,'' \emph{Phys. Rev.~E} \textbf{95}, 062101 (2017).
+\bibitem{Strasberg2017} P.~Strasberg and M.~Esposito, ``Stochastic thermodynamics in the strong coupling regime: An unambiguous approach based on coarse graining,'' \emph{Phys. Rev. E} \textbf{95}, 062101 (2017).
 
-\bibitem{10} J. A. Barandes, ``The Stochastic-Quantum Theorem,'' arXiv:2309.03085 (2023).
+\bibitem{Barandes2023} J.~A.~Barandes, ``The Stochastic-Quantum Theorem,'' arXiv:2309.03085 (2023).
 
-\bibitem{11} J. A. Barandes, ``The Stochastic-Quantum Correspondence,'' \emph{Philosophy of Physics} \textbf{3}(1):8 (2025).
+\bibitem{Barandes2025} J.~A.~Barandes, ``The Stochastic-Quantum Correspondence,'' \emph{Philosophy of Physics} \textbf{3}(1):8 (2025).
 
-\bibitem{12} S. Calvo, ``On the Stochastic-Quantum Correspondence,'' arXiv:2601.18720 (2026).
+\bibitem{Calvo2026} S.~Calvo, ``On the Stochastic-Quantum Correspondence,'' arXiv:2601.18720 (2026).
 
-\bibitem{13} J. S. Bell, ``On the Einstein Podolsky Rosen paradox,'' \emph{Physics Physique Fizika} \textbf{1}, 195--200 (1964).
+\bibitem{Bell1964} J.~S.~Bell, ``On the Einstein Podolsky Rosen paradox,'' \emph{Physics Physique Fizika} \textbf{1}, 195--200 (1964).
 
-\bibitem{14} J. A. Barandes, S. Hasan, and J. Kagan, ``The CHSH Game, Tsirelson's Bound, and Causal Locality,'' arXiv:2512.18105 (2025).
+\bibitem{Barandes2025b} J.~A.~Barandes, S.~Hasan, and J.~Kagan, ``The CHSH Game, Tsirelson's Bound, and Causal Locality,'' arXiv:2512.18105 (2025).
 
-\bibitem{15} T. Le, F. A. Pollock, T. Paterek, M. Paternostro, and K. Modi, ``Divisible quantum dynamics satisfies temporal Tsirelson's bound,'' \emph{J. Phys. A} \textbf{50}, 055302 (2017).
+\bibitem{Le2017} T.~Le, F.~A.~Pollock, T.~Paterek, M.~Paternostro, and K.~Modi, ``Divisible quantum dynamics satisfies temporal Tsirelson's bound,'' \emph{J. Phys. A} \textbf{50}, 055302 (2017).
 
-\bibitem{16} T. Jacobson, ``Thermodynamics of Spacetime: The Einstein Equation of State,'' \emph{Phys. Rev.~Lett.} \textbf{75}, 1260 (1995).
+\bibitem{Jacobson1995} T.~Jacobson, ``Thermodynamics of Spacetime: The Einstein Equation of State,'' \emph{Phys. Rev. Lett.} \textbf{75}, 1260 (1995).
 
-\bibitem{17} G. W. Gibbons and S. W. Hawking, ``Cosmological event horizons, thermodynamics, and particle creation,'' \emph{Phys. Rev.~D} \textbf{15}, 2738 (1977).
+\bibitem{Gibbons1977} G.~W.~Gibbons and S.~W.~Hawking, ``Cosmological event horizons, thermodynamics, and particle creation,'' \emph{Phys. Rev. D} \textbf{15}, 2738 (1977).
 
-\bibitem{18} S. M. Carroll, ``The Cosmological Constant,'' \emph{Living Rev.~Relativ.} \textbf{4}, 1 (2001).
+\bibitem{Carroll2001} S.~M.~Carroll, ``The Cosmological Constant,'' \emph{Living Rev. Relativ.} \textbf{4}, 1 (2001).
 
-\bibitem{19} D. H. Wolpert, ``Physical limits of inference,'' \emph{Physica D} \textbf{237}, 1257--1281 (2008).
+\bibitem{Wolpert2008} D.~H.~Wolpert, ``Physical limits of inference,'' \emph{Physica D} \textbf{237}, 1257--1281 (2008).
 
-\bibitem{20} J. Solà Peracaula, ``The cosmological constant problem and running vacuum in the expanding universe,'' \emph{Phil. Trans. R. Soc. A} \textbf{380}, 20210182 (2022).
+\bibitem{Sola2022} J.~Sol\`a Peracaula, ``The cosmological constant problem and running vacuum in the expanding universe,'' \emph{Phil. Trans. R. Soc. A} \textbf{380}, 20210182 (2022).
 
-\bibitem{21} J. Solà Peracaula, A. Gómez-Valent, and J. de Cruz Pérez, ``Running vacuum in the Universe,'' \emph{Universe} \textbf{9}, 262 (2023).
+\bibitem{Sola2023} J.~Sol\`a Peracaula, A.~G\'omez-Valent, and J.~de Cruz P\'erez, ``Running vacuum in the Universe,'' \emph{Universe} \textbf{9}, 262 (2023).
 
-\bibitem{22} DESI Collaboration, ``DESI 2024 VI: Cosmological Constraints from BAO,'' arXiv:2404.03002 (2024).
+\bibitem{DESI2024} DESI Collaboration, ``DESI 2024 VI: Cosmological Constraints from BAO,'' arXiv:2404.03002 (2024).
 
-\bibitem{23} J. Abedi, H. Dykaar, and N. Afshordi, ``Echoes from the Abyss,'' \emph{Phys. Rev.~D} \textbf{96}, 082004 (2017).
+\bibitem{Abedi2017} J.~Abedi, H.~Dykaar, and N.~Afshordi, ``Echoes from the Abyss,'' \emph{Phys. Rev. D} \textbf{96}, 082004 (2017).
 
-\bibitem{24} A. Fine, ``Hidden Variables, Joint Probability, and the Bell Inequalities,'' \emph{Phys. Rev.~Lett.} \textbf{48}, 291 (1982).
+\bibitem{Fine1982} A.~Fine, ``Hidden Variables, Joint Probability, and the Bell Inequalities,'' \emph{Phys. Rev. Lett.} \textbf{48}, 291 (1982).
 
-\bibitem{25} L. S. Pimenta, ``Divisible and indivisible Stochastic-Quantum dynamics,'' arXiv:2505.08785 (2025).
+\bibitem{Pimenta2025} L.~S.~Pimenta, ``Divisible and indivisible Stochastic-Quantum dynamics,'' arXiv:2505.08785 (2025).
 
-\bibitem{26} J. Doukas, ``On the emergence of quantum mechanics from stochastic processes,'' arXiv:2602.22095 (2026).
+\bibitem{Doukas2026} J.~Doukas, ``On the emergence of quantum mechanics from stochastic processes,'' arXiv:2602.22095 (2026).
 
-\bibitem{27} N. Bao, S. M. Carroll, and A. Singh, ``The Hilbert space of quantum gravity is locally finite-dimensional,'' \emph{Int. J. Mod. Phys. D} \textbf{26}, 1743013 (2017).
+\bibitem{Bao2017} N.~Bao, S.~M.~Carroll, and A.~Singh, ``The Hilbert space of quantum gravity is locally finite-dimensional,'' \emph{Int. J. Mod. Phys. D} \textbf{26}, 1743013 (2017).
 
-\bibitem{28} W. G. Unruh, ``Sonic analogue of black holes and the effects of high frequencies on black hole evaporation,'' \emph{Phys. Rev.~D} \textbf{51}, 2827 (1995).
+\bibitem{Unruh1995} W.~G.~Unruh, ``Sonic analogue of black holes and the effects of high frequencies on black hole evaporation,'' \emph{Phys. Rev. D} \textbf{51}, 2827 (1995).
 
-\bibitem{29} K. Fredenhagen and R. Haag, ``On the derivation of Hawking radiation associated with the formation of a black hole,'' \emph{Commun. Math. Phys.} \textbf{127}, 273--284 (1990).
+\bibitem{Fredenhagen1990} K.~Fredenhagen and R.~Haag, ``On the derivation of Hawking radiation associated with the formation of a black hole,'' \emph{Commun. Math. Phys.} \textbf{127}, 273--284 (1990).
 
-\bibitem{30} DESI Collaboration, ``DESI DR2 Results II: Measurements of Baryon Acoustic Oscillations and Cosmological Constraints,'' \emph{Phys. Rev.~D} \textbf{112}, 083515 (2025); arXiv:2503.14738.
+\bibitem{DESI2025} DESI Collaboration, ``DESI DR2 Results II: Measurements of Baryon Acoustic Oscillations and Cosmological Constraints,'' \emph{Phys. Rev. D} \textbf{112}, 083515 (2025); arXiv:2503.14738.
 
-\bibitem{31} J. de Cruz Pérez, A. Gómez-Valent, and J. Solà Peracaula, ``Dynamical Dark Energy models in light of the latest observations,'' arXiv:2512.20616 (2025).
+\bibitem{deCruz2025} J.~de Cruz P\'erez, A.~G\'omez-Valent, and J.~Sol\`a Peracaula, ``Dynamical Dark Energy models in light of the latest observations,'' arXiv:2512.20616 (2025).
 
 \end{thebibliography}
 
