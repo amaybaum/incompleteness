@@ -216,7 +216,11 @@ The unitary $U(t) = e^{-iHt}$ can be expanded in the energy eigenbasis. The tran
 
 ## The Two Levels
 
-Now the cosmological constant problem dissolves.
+Now the cosmological constant problem dissolves. But first, a crucial link: how does finite-dimensional quantum mechanics become quantum *field* theory — with independent modes, each carrying zero-point energy?
+
+The answer is spatial locality. The classical substratum has it — neighboring cells interact, distant cells don't. The paper proves that the emergent quantum description inherits it. The argument is direct: the Barandes correspondence maps each classical configuration $(x_1, x_2, \ldots, x_N)$ to a quantum basis state $|x_1, x_2, \ldots, x_N\rangle$. That's already a tensor product. The only question is whether the emergent Hamiltonian respects the structure. And it must, because if two configurations differ only at sites that aren't neighbors, the classical dynamics can't connect them in an infinitesimal time step — so the transition probability between them is zero — so the corresponding quantum Hamiltonian matrix element is zero. The emergent Hamiltonian couples only neighboring cells, exactly like the classical one. You get a lattice quantum field theory with a built-in ultraviolet cutoff at $\epsilon = 2\,l_p$.
+
+This is what makes the CC dissolution work. The QFT has independent modes. Each mode gets a zero-point energy. The sum diverges. And the "worst prediction in physics" follows — but only within the emergent description.
 
 The critical insight is that general relativity and quantum field theory are not competing answers to the same question. They are answers to *different questions*, asked at different levels of the same reality.
 
