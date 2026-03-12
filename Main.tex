@@ -24,6 +24,7 @@
 \renewcommand{\headrulewidth}{0.4pt}
 
 % Hyperlinks
+\usepackage[dvipsnames]{xcolor}
 \usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
 
 % Prevent overfull lines
@@ -244,6 +245,30 @@ By Barandes' stochastic-quantum correspondence {[}10, 11{]}, any indivisible sto
 
 Three features of quantum mechanics emerge from this correspondence. The Schrödinger equation is the unique time-evolution law, arising from the differentiability of the unitary in time. The Born rule is not an additional postulate but the equilibrium distribution of the indivisible stochastic process {[}10, 11{]}. The action scale \(\hbar\) requires more careful treatment. The correspondence guarantees the existence of a unitary evolution operator \(U(t)\), but \(U\) is dimensionless; \(\hbar\) enters only when one defines the Hamiltonian \(\hat{H}(t) \equiv i\hbar \, \partial_t U \cdot U^\dagger\), converting the dimensionless rate of change into energy units. The correspondence itself is silent about the value of this conversion factor --- it establishes that a quantum description exists for any P-indivisible process, but not which action scale it carries. What fixes \(\hbar\) is the physical content of the partition: the emergent description must be unique for a given partition (§1.4), so the action scale can depend only on quantities intrinsic to the partition boundary. Its value is derived for the cosmological realization in Part II (§5).
 
+\textbf{Phase uniqueness from continuous-time data.} The relation \(T_{ij}(t) = |U_{ij}(t)|^2\) discards phase information: at any single time, \(T\) does not determine \(U\) uniquely. Doukas {[}26{]} correctly identifies this as a structural gap for discrete-time transition data. The resolution is that the embedded observer's dynamics are continuous in time (Axiom 1), and the full continuous family \(\{T_{ij}(t)\}_{t \in \mathbb{R}}\) provides strictly more information than any discrete sampling. The following lemma shows this additional information is sufficient to fix all physically meaningful phases.
+
+\textbf{Lemma (phase-locking).} \emph{Let \(H\) be a Hermitian operator on an \(n\)-dimensional Hilbert space with eigenbasis \(\{|k\rangle\}\) and eigenvalues \(\{E_k\}\). Let \(V_{ik} = \langle i | k \rangle\) denote the change-of-basis matrix from the configuration basis \(\{|i\rangle\}\) to the energy basis. Assume: (G1) the spectrum is non-degenerate (\(E_k \neq E_l\) for \(k \neq l\)); (G2) the energy gaps are non-degenerate (\(E_k - E_l \neq E_{k'} - E_{l'}\) for \((k,l) \neq (k',l')\), excluding the trivial case \(k = l\), \(k' = l'\)); and (G3) the configuration-basis overlaps are non-vanishing (\(V_{ik} \neq 0\) for all \(i, k\)). Then the continuous-time transition probabilities \(T_{ij}(t) = |\langle i | e^{-iHt} | j \rangle|^2\) for all \(i, j\) and \(t \in \mathbb{R}\) uniquely determine \(H\) up to an overall energy shift and phase conventions on the basis vectors.}
+
+\emph{Proof.} Write \(U(t) = e^{-iHt}\) in the energy eigenbasis:
+
+\[T_{ij}(t) = |U_{ij}(t)|^2 = \sum_{k,l} V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\; e^{-i(E_k - E_l)t}\]
+
+This is a trigonometric polynomial in \(t\) with frequencies \(\omega_{kl} = E_k - E_l\). By (G2), the frequencies \(\omega_{kl}\) for distinct pairs \((k,l)\) with \(k \neq l\) are all distinct. The Fourier transform of \(T_{ij}(t)\) therefore cleanly separates each \((k,l)\) contribution, yielding the complex coefficients:
+
+\[a_{ij}^{kl} = V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\]
+
+The moduli \(|V_{ik}|\) are recovered from the diagonal terms: \(a_{ii}^{kl} = |V_{ik}|^2 |V_{il}|^2\), which by (G3) are all non-zero. The phases carry a double-difference structure:
+
+\[\arg(a_{ij}^{kl}) = (\varphi_{ik} - \varphi_{il}) - (\varphi_{jk} - \varphi_{jl})\]
+
+where \(\varphi_{ik} = \arg(V_{ik})\). The gauge freedom that preserves all double differences is \(\varphi_{ik} \to \varphi_{ik} + \alpha_i + \beta_k\), corresponding to rephasing the configuration basis (\(\alpha_i\)) and the energy basis (\(\beta_k\)). Both are physically irrelevant: the first is a redefinition of configuration-basis states, the second shifts the overall energy origin. Fixing the gauge by \(\varphi_{1k} = 0\) for all \(k\) and \(\varphi_{i1} = 0\) for all \(i\), each remaining phase is determined by:
+
+\[\varphi_{ik} = \arg(a_{i1}^{k1})\]
+
+which is directly extracted from the Fourier data. The eigenvalues \(\{E_k\}\) are determined (up to a global shift) by the frequencies \(\omega_{kl}\), and \(V\) is determined up to the gauge freedom. The Hamiltonian \(H = V \, \text{diag}(E_k) \, V^\dagger\) is therefore unique up to an overall energy shift and phase conventions. \(\square\)
+
+The genericity conditions (G1)--(G3) fail only on a measure-zero set in the space of Hamiltonians. Non-degenerate spectrum (G1) and non-vanishing overlaps (G3) are the conditions already stated in §9.7. Non-degenerate energy gaps (G2) --- requiring that no two distinct pairs of energy levels share the same spacing --- excludes systems with equally spaced spectra (e.g., the harmonic oscillator), which form a set of measure zero. For the cosmological application, the Hamiltonian governing visible-hidden coupling is a complex many-body operator with no reason to have degenerate gaps.
+
 \textbf{Finite-dimensionality.} Barandes' proof requires a finite-dimensional configuration space. In Part I, Axiom 2 guarantees this directly. In Part II, the horizon's finite area bounds the coupled modes to \(A/\epsilon^2\). Calvo {[}12{]} has extended the correspondence to infinite-dimensional systems, but the extension is not required here.
 
 \subsection{3.2 Bell Inequality Violations}
@@ -447,9 +472,7 @@ Rearranging \(\hbar = c^3 \epsilon^2 / (4G)\):
 
 \[\epsilon^2 = \frac{4\hbar G}{c^3} = 4\,l_p^2\]
 
-The framework predicts \(\epsilon = 2\,l_p\) exactly. The geometric discreteness scale is twice the Planck length --- a specific quantitative prediction, not an order-of-magnitude estimate.
-
-This value is necessary for self-consistency. If \(\epsilon^2 \ll l_p^2\), sub-Planckian subcells would be dynamically active yet unresolvable by the emergent description, creating a second trace-out with its own noise intensity and breaking the single-valuedness of \(\hbar\). If \(\epsilon^2 \gg l_p^2\), the emergent description would assign distinct quantum states to configurations that are physically identical in the substratum. The regime \(\epsilon = \mathcal{O}(l_p)\) is the only self-consistent one; thermal self-consistency selects \(\epsilon = 2\,l_p\) within it.
+The framework yields \(\epsilon = 2\,l_p\) exactly. This is not an independent prediction --- it is algebraically equivalent to the formula for \(\hbar\) --- but it serves as a consistency check: the discreteness scale lands at the Planck scale, the only self-consistent regime. If \(\epsilon^2 \ll l_p^2\), sub-Planckian subcells would be dynamically active yet unresolvable by the emergent description, creating a second trace-out with its own noise intensity and breaking the single-valuedness of \(\hbar\). If \(\epsilon^2 \gg l_p^2\), the emergent description would assign distinct quantum states to configurations that are physically identical in the substratum. The regime \(\epsilon = \mathcal{O}(l_p)\) is the only self-consistent one; thermal self-consistency selects \(\epsilon = 2\,l_p\) within it.
 
 With \(\epsilon = 2\,l_p\), the number of independent modes on the cosmological horizon is:
 
