@@ -6,8 +6,6 @@
 **Status:** DRAFT PRE-PRINT  
 **Classification:** Theoretical Physics / Foundations
 
-**AI Disclosure:** During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining argumentation, and verifying bibliographic details. The author reviewed and edited the content and takes full responsibility for the publication.
-
 ---
 
 ## ABSTRACT
@@ -32,7 +30,7 @@ Prior work (QBism, relational QM, 't Hooft's cellular automaton [1]) takes obser
 
 The framework rests on four axioms referencing no quantum mechanics, general relativity, or specific physical theory.
 
-1. **Deterministic dynamics.** The total system evolves deterministically on a phase space $\Gamma$:
+1. **Deterministic dynamics.** The total system evolves deterministically on a phase space $\Gamma$ via a Hamiltonian flow $\phi_t$. A probability density $\rho$ on $\Gamma$ (representing the observer's incomplete knowledge) evolves by the Liouville equation:
 
 $$\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\} \equiv \mathcal{L}\rho$$
 
@@ -52,9 +50,9 @@ These axioms contain no quantum postulates. The claim is that quantum mechanics 
 
 **(C1) Non-zero coupling.** $H_{\text{int}} \neq 0$. The coupling is bidirectional.
 
-**(C2) Slow-bath timescale separation.** $\tau_S \ll \tau_B$ — the *inverse* of the Markovian regime. The hidden sector evolves on timescales far exceeding those accessible to the observer.
+**(C2) Slow-bath timescale separation.** The visible-sector (system) timescale $\tau_S$ is much shorter than the hidden-sector (bath) timescale $\tau_B$: $\tau_S \ll \tau_B$ — the *inverse* of the Markovian regime. The hidden sector evolves on timescales far exceeding those accessible to the observer.
 
-**(C3) Sufficient capacity.** $N_H / N_V$ is large enough that visible-sector interactions do not appreciably perturb the hidden sector's state on timescales $\ll \tau_B$.
+**(C3) Sufficient capacity.** The number of hidden-sector degrees of freedom $N_H$ exceeds the number of visible-sector degrees of freedom $N_V$ by enough that visible-sector interactions do not appreciably perturb the hidden sector's state on timescales $\ll \tau_B$.
 
 **Theorem statement.** Under Axioms 1–4 and (C1)–(C3), the embedded observer's reduced description is mathematically equivalent to unitarily evolving quantum mechanics. The conditions are not merely sufficient but *necessary* (§3.3), establishing full equivalence.
 
@@ -62,7 +60,7 @@ These axioms contain no quantum postulates. The claim is that quantum mechanics 
 
 **Lemma.** *The emergent description is uniquely determined by the partition. Any parameters of the emergent theory depend only on the geometric and thermodynamic properties of the partition boundary.*
 
-*Proof.* By Axiom 1, the Hamiltonian flow $\phi_t$ is unique. By Axiom 3, the partition is fixed. By Axiom 4, the observer uses the Liouville measure $\mu$ — the unique absolutely continuous measure preserved by $\phi_t$ (any other smooth measure would evolve, introducing dependence on an arbitrary reference time; singular invariant measures are excluded by Axiom 4). The marginalized transition probabilities
+*Proof.* By Axiom 1, the Hamiltonian flow $\phi_t$ is unique. By Axiom 3, the partition is fixed. By Axiom 4, the observer uses the Liouville measure $\mu$ — the unique absolutely continuous measure preserved by $\phi_t$ (any other smooth measure would evolve, introducing dependence on an arbitrary reference time; singular invariant measures are excluded by Axiom 4). Letting $\pi_V$ denote projection onto the visible sector, the marginalized transition probabilities
 
 $$T_{ij}(t_2, t_1) = \int_{\Gamma_H} \delta_{x_j}[\pi_V(\phi_{t_2-t_1}(x_i, h))] \, d\mu(h)$$
 
@@ -81,6 +79,8 @@ The total system evolves deterministically, but the visible sector alone is stoc
 The Markovian limit requires $\tau_B \ll \tau_S$ [4]. Condition (C2) inverts this: $\tau_S \ll \tau_B$. A slow bath must be distinguished from a static field. By (C1), coupling is continuously active: each visible-sector transition imprints on the hidden sector. Because the hidden sector is slow (not static), imprints persist without thermal overwriting. On subsequent transitions, coupling reads back stored correlations, producing history-dependent transition probabilities — the non-Markovian regime [4].
 
 ### 2.3 P-Indivisibility
+
+By Axiom 2, the visible and hidden sectors have finite configuration spaces $\mathcal{C}_V$ and $\mathcal{C}_H$ (the discrete counterparts of $\Gamma_V$ and $\Gamma_H$). On these finite sets:
 
 **Theorem.** *Let $\mathcal{C}_V$ and $\mathcal{C}_H$ be finite sets with $|\mathcal{C}_V| \geq 2$, and let $\varphi: \mathcal{C}_V \times \mathcal{C}_H \to \mathcal{C}_V \times \mathcal{C}_H$ be a bijection. Define:*
 
@@ -178,9 +178,9 @@ The logical structure: Barandes' correspondence gives QM $\iff$ P-indivisibility
 
 **Theorem (C2 necessity).** *In the fast-bath regime ($\tau_B \ll \tau_S$), ergodic mixing drives the hidden sector to uniformity before each coupling event, yielding a Markov chain ($T^{(k)} = T^k$), which is P-divisible. Contrapositively, P-indivisibility requires $\tau_S \ll \tau_B$.*
 
-*Proof sketch.* Fast mixing ($m \gg |\mathcal{C}_H|$ hidden steps between couplings) drives conditioned hidden-sector distributions to uniformity by the ergodic theorem. The $k$-step matrix becomes the $k$-th power — a P-divisible Markov chain. $\square$
+*Proof sketch.* Fast mixing (many hidden-sector steps between coupling events) drives conditioned hidden-sector distributions to uniformity by the ergodic theorem. The $k$-step matrix becomes the $k$-th power — a P-divisible Markov chain. $\square$
 
-**Theorem (C3 necessity).** *The non-Markovian mutual information satisfies:*
+**Theorem (C3 necessity).** *Let $m = |\mathcal{C}_H|$. The non-Markovian mutual information satisfies:*
 
 $$I(X_{<t} ; X_{>t} \mid X_t) \leq \log_2 m$$
 
@@ -232,7 +232,7 @@ Axiom 2 is now a consequence of partition geometry: the horizon has finite area 
 
 ### 5.1 The Classical Horizon Temperature
 
-Jacobson [16] showed $dE = T\,dS$ applied to local causal horizons yields Einstein's equations, with $dE = (c^2 \kappa / 8\pi G)\,dA$. The entropy density is $\eta = 1/\epsilon^2$ (one DOF per minimal cell), so $dS = dA/\epsilon^2$. Equating:
+Jacobson [16] showed $dE = T\,dS$ applied to local causal horizons yields Einstein's equations, with $dE = (c^2 \kappa / 8\pi G)\,dA$, where $\kappa$ is the surface gravity of the horizon. The entropy density is $\eta = 1/\epsilon^2$ (one DOF per minimal cell), so $dS = dA/\epsilon^2$. Equating:
 
 $$T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G k_B}$$
 
@@ -401,6 +401,12 @@ Witten's Type II algebra program achieves finite entropy without finite-dimensio
 **The cosmological application (Part II).** The cosmological horizon provides a realization where the sharp-partition approximation is exact and all conditions hold. The theorem yields: (a) $\hbar = c^3 \epsilon^2 / (4G)$ with $\epsilon = 2\,l_p$ and the Bekenstein-Hawking formula as consequences; (b) dissolution of the CC problem — the $10^{122}$ discrepancy is $S_{\text{dS}}$, the compression ratio of the observer's quantum description; and (c) falsifiable predictions including RVM dark energy with $\nu_{\text{OI}} \approx 2.45 \times 10^{-3}$ and gravitational wave echoes.
 
 The apparent conflict between quantum mechanics and general relativity is the information-theoretic cost of observing the universe from within.
+
+---
+
+## ACKNOWLEDGEMENTS
+
+During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining argumentation, and verifying bibliographic details. The author reviewed and edited all content and takes full responsibility for the publication.
 
 ---
 
