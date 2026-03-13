@@ -106,6 +106,8 @@ The theorem requires only bijective dynamics (Axiom 1) and non-trivial coupling 
 
 **Role of (C2) and (C3).** P-indivisibility follows from (C1) and finiteness alone. (C2) ensures information backflow occurs on accessible timescales (not just Poincaré recurrence times). (C3) ensures P-indivisibility persists at scale: insufficient capacity causes saturation and effectively Markovian crossover. Together they guarantee P-indivisibility is strong, persistent, and observationally relevant.
 
+**Weak-coupling and fast-bath regimes.** Known P-divisible systems with non-zero coupling illustrate the necessity of (C2), not a failure of the theorem. The Jaynes-Cummings model with Lorentzian spectral density is P-divisible when dissipation dominates coupling — the fast-bath regime ($\tau_B \ll \tau_S$), violating (C2). The Davies-Merkli Markovian convergence theorem likewise applies in the Born-Markov (fast-bath) limit. The §3.3 necessity proof for (C2) establishes this formally.
+
 ### 2.4 Explicit Construction: A Minimal Model
 
 Visible sector: $x \in \{0, 1\}$. Hidden sector: $h \in \{1, \ldots, 6\}$. Dynamics: the permutation
@@ -164,6 +166,8 @@ The framework is a hidden variable theory evading Bell's theorem [13] not by sup
 
 In the Jarrett decomposition, the framework violates outcome independence while preserving parameter independence and measurement independence — precisely the class Fine's theorem [24] permits. Barandes, Hasan, and Kagan [14] prove the maximum CHSH correlator is exactly Tsirelson's bound $2\sqrt{2}$, with independent support from Le et al. [15].
 
+**Fine-tuning and causal structure.** The framework does not claim to restore Bell locality: outcome independence is genuinely violated. What it provides is a *derivation* of this nonlocality from the causal partition, rather than treating it as axiomatic. The fine-tuning objection (Wood and Spekkens, 2015) — that classical causal models reproducing Bell violations require parameter adjustment — assumes DAG causal structure with Markov factorization. P-indivisible processes violate the Markov condition on any DAG; the appropriate framework is the process tensor [8], within which no-signaling follows from the marginalization structure without fine-tuning. The OI violation saturates Tsirelson's bound, consistent with recent results excluding partial OI relaxation.
+
 ### 3.3 The Characterization Theorem: Necessity of the Conditions
 
 The logical structure: Barandes' correspondence gives QM $\iff$ P-indivisibility. What remains is P-indivisibility $\implies$ embedded observation under (C1)–(C3).
@@ -208,11 +212,11 @@ QM is not merely *compatible with* embedded observation — it is *equivalent to
 
 ### 4.1 The Partition
 
-The cosmological horizon — the boundary beyond which no signal propagating at or below $c$ can reach the observer — implements the causal partition of Axiom 3 for all sub-$c$ observers: $\Gamma_V$ is the interior, $\Gamma_H$ everything beyond. This is a consequence of GR's causal structure, not a modeling choice. A hypothetical observer with access to a causal channel not constrained by the light cone would have a different partition, a different (or absent) hidden sector, and by the theorem's own logic, a different emergent description. No such channel is available within GR. The specific quantum mechanics observed is the quantum mechanics of light-cone-bounded observers; its universality is a consequence of the causal structure, not a postulate.
+The cosmological horizon — the boundary beyond which no signal propagating at or below $c$ can reach the observer — implements the causal partition of Axiom 3 for all sub-$c$ observers: $\Gamma_V$ is the interior, $\Gamma_H$ everything beyond. This is a consequence of GR's causal structure, not a modeling choice. A hypothetical observer with access to a causal channel not constrained by the light cone would have a different partition, a different (or absent) hidden sector, and by the theorem's own logic, a different emergent description. No such channel is available within GR. The specific quantum mechanics observed is the quantum mechanics of light-cone-bounded observers; its universality is a consequence of the causal structure, not a postulate. Different observers have different horizon areas (hence different $S_{\text{dS}}$), but $\hbar = c^3 \epsilon^2/(4G)$ depends only on local geometric quantities — not on the observer's worldline or horizon area — so all observers share the same emergent action scale.
 
 ### 4.2 Verification of the Conditions
 
-**(C1)** Stress-energy conservation enforces bidirectional dynamical correlations across the horizon. **Satisfied.**
+**(C1)** Stress-energy conservation enforces dynamical correlations across the horizon. "Bidirectional" refers not to signal propagation (forbidden by the causal structure) but to the gravitational constraint equations: the Hamiltonian and momentum constraints on any Cauchy surface couple interior and exterior data, so $H_{\text{tot}} \neq H_V + H_H$. **Satisfied.**
 
 **(C2)** $\tau_B \gtrsim 1/H \sim 10^{17}$ s; for laboratory processes, $\tau_S \sim 10^{-15}$ s. Ratio: $\tau_S / \tau_B \sim 10^{-32}$. **Satisfied.**
 
@@ -258,7 +262,7 @@ $H$ cancels (confirming structural/volumetric distinction). Solving:
 
 $$\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}$$
 
-**Why not circular.** The logic is sequential: Part I proves QM emerges with *some* $\hbar$ → emergent QM predicts $T_{\text{GH}}(\hbar)$ → classical $T_{\text{cl}}$ was derived independently → matching fixes $\hbar$. This is a gap equation.
+**Why not circular.** The derivation is a gap equation: $\epsilon$ is the free geometric input (Axiom 2), $\hbar$ is the output. That $T_{\text{GH}}$ contains $\hbar$ is the point — it is the emergent QFT's prediction with $\hbar$ unknown; matching it to the $\hbar$-free $T_{\text{cl}}(\epsilon)$ solves for $\hbar$. The result $\epsilon = 2\,l_p$ restates the output in conventional units; substituting back and obtaining $\hbar = \hbar$ confirms consistency, not circularity. Jacobson's original derivation [16] uses $\hbar$-containing forms ($T_{\text{Unruh}}$, $S_{\text{BH}}$); this paper does not — it uses the classical identity $dE = (c^2 \kappa / 8\pi G)\,dA$ and the classical entropy density $\eta = 1/\epsilon^2$. The $\hbar$-containing formulas are *recovered* after the matching.
 
 **Robustness.** The result can be derived without the Gibbons-Hawking formula: C1–C3 ensure persistent thermal contact, and the zeroth law gives $T_Q = T_{\text{cl}}$ exactly; the Gibbons-Hawking formula is then *recovered* as a prediction. Lattice corrections are $\mathcal{O}((\epsilon H/c)^2) \sim 10^{-122}$, consistent with trans-Planckian insensitivity [28, 29].
 
@@ -300,7 +304,7 @@ where $S_{\text{dS}} = A/(4\,l_p^2)$ is the Bekenstein-Hawking entropy of the de
 
 **Classical substratum** (what geometric measurements probe): The horizon has classical thermal equilibrium. By the Friedmann equation, $\rho_{\text{crit}} = 3H^2 c^2/(8\pi G)$. No zero-point energy, no discrepancy. Total vacuum energy density: $\rho \sim H^2/G \sim 10^{-9}$ J/m$^3$ — precisely observed.
 
-**Emergent QFT** (what local quantum measurements probe): Zero-point energy $\frac{1}{2}\hbar\omega$ per mode summed to the Planck cutoff gives $\rho_{\text{QFT}} \sim 10^{113}$ J/m$^3$.
+**Emergent QFT** (what local quantum measurements probe): Zero-point energy $\frac{1}{2}\hbar\omega$ per mode summed to the Planck cutoff gives $\rho_{\text{QFT}} \sim 10^{113}$ J/m$^3$ — a $\sim 10^{122}$ discrepancy with the observed value [2, 3, 18].
 
 ### 7.2 Why Gravity Sees the Classical Value
 
@@ -326,7 +330,7 @@ $\hbar$ is $H$-independent (§5.2), but the emergent vacuum energy is a state-le
 
 $$\Lambda_{\text{eff}}(H) = \Lambda_0 + \frac{3\nu_{\text{OI}}}{8\pi G}(H^2 - H_0^2) + \mathcal{O}((H^2 - H_0^2)^2)$$
 
-This is the Running Vacuum Model [20, 21]. The $S_{\text{dS}}$ horizon modes span frequencies $\omega_{\text{IR}} = H$ to $\omega_{\text{UV}} = c/\epsilon$. Conformal mode density on a 2-sphere gives $\mathcal{N}(H) = \ln(c/\epsilon H)$ independent spectral channels. Each carries fraction $1/\mathcal{N}$ of the total gravitating vacuum energy, so $\rho_\Lambda \propto 1/\mathcal{N}$. Taylor-expanding:
+This is the Running Vacuum Model [20, 21]. The $S_{\text{dS}}$ horizon modes span frequencies $\omega_{\text{IR}} = H$ to $\omega_{\text{UV}} = c/\epsilon$. For conformal fields, the spectral density is uniform in $\ln\omega$, so the number of independent spectral channels is $\mathcal{N}(H) = \ln(c/\epsilon H)$. Each carries fraction $1/\mathcal{N}$ of the total gravitating vacuum energy, so $\rho_\Lambda \propto 1/\mathcal{N}$. Taylor-expanding:
 
 $$\boxed{\nu_{\text{OI}} = \frac{\Omega_\Lambda}{2\,\ln(c/\epsilon H_0)}}$$
 
@@ -374,11 +378,13 @@ $\epsilon$ does not smuggle in a quantum assumption. Axiom 2 requires finite-dim
 
 Casimir forces and Lamb shifts are predictions *within* the emergent QFT — relative effects depending on energy differences between configurations. The framework denies that the *absolute* zero-point sum gravitates, because gravity operates at the logically prior classical level (§7.2).
 
+**The Higgs potential.** The strongest CC objection is not the zero-point sum but the electroweak Higgs potential: symmetry breaking shifts $V(\phi)$ by $\sim (200\;\text{GeV})^4$, exceeding the observed $\Lambda$ by $\sim 55$ orders of magnitude. The framework's response follows from its ontological ordering: the Higgs field, like all quantum fields, is part of the emergent description (§7.1). The classical substratum has deterministic dynamics on a finite configuration space; the degrees of freedom that the emergent theory organizes as a scalar field with spontaneous symmetry breaking have a non-field-theoretic character in the substratum. The vacuum energy shift is therefore a property of the emergent ground state — the same category as the zero-point sum. The dissolution applies uniformly: if QM is emergent, then so is the Higgs mechanism and its vacuum energy.
+
 ### 9.6 Relation to Prior Work
 
 **'t Hooft [1]:** Differs in mechanism (epistemic trace-out vs. information loss), generality (any system satisfying axioms vs. particular rules), and Bell placement (outcome independence violation vs. superdeterminism). **QBism/relational QM:** Share observer-relative epistemic states; this framework provides a structural *why* and quantitative predictions. **Jacobson [16]:** Derives gravity from thermodynamics; this framework derives QM from causal structure — complementary, with mutual consistency as a check. **AdS/CFT and the geometry-entanglement connection.** The most developed challenge to the framework's ordering comes from holographic physics: the Ryu-Takayanagi formula, Van Raamsdonk's disconnection argument, the ER=EPR conjecture, and "it from qubit" programs all suggest entanglement is prior to geometry.
 
-The framework offers an alternative reading. Tracing out across a geometric boundary produces entanglement entropy proportional to boundary area ($A/\epsilon^2$ modes), so the Ryu-Takayanagi formula is a consequence of geometry assembling entanglement, not the reverse. Van Raamsdonk's argument similarly reverses: changing the partition geometry changes the emergent entanglement, not the other way around. For AdS/CFT specifically, the boundary CFT's completeness follows because the boundary observer is *external*, immune to the inferential limits of embedded observers [19]; the framework does not explain the Ryu-Takayanagi formula's specific form in that context.
+The framework offers an alternative reading. Tracing out across a geometric boundary produces entanglement entropy proportional to boundary area ($A/\epsilon^2$ modes), so the Ryu-Takayanagi formula is a consequence of geometry assembling entanglement, not the reverse. Van Raamsdonk's argument similarly reverses: changing the partition geometry changes the emergent entanglement, not the other way around. For AdS/CFT specifically, the boundary CFT's completeness follows because the boundary observer is *external*, immune to the inferential limits of embedded observers [19]; the framework does not explain the Ryu-Takayanagi formula's specific form in that context. Witten's Type II algebra program achieves finite entropy without finite-dimensional Hilbert spaces; this is compatible, since the framework's predictions depend on finite entropy (the physical content of Axiom 2), not on dimensional finiteness per se.
 
 The ordering question has observable consequences: entanglement-first programs predict spacetime breakdown at low entanglement or high energy; this framework predicts QM breakdown near $\epsilon = 2\,l_p$ while the geometric substratum persists (§8). The CC dissolution (§7.2) constitutes existing empirical evidence for geometry-first.
 
