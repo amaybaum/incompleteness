@@ -67,18 +67,20 @@ A fast environment with vast capacity would wash out correlations (Markovian noi
 
 ## From Indivisibility to Quantum Mechanics
 
-This is the key link, and it relies on a mathematical result proved by Jacob Barandes in 2023.
+This is the key link, and it can be established by two independent mathematical routes.
 
-Barandes showed that there is an exact equivalence between two things that seem completely different. On one side: any stochastic process whose transition probabilities are P-indivisible — that is, any process with the kind of persistent, undecomposable memory described above. On the other side: a quantum system evolving unitarily under the Schrödinger equation.
+The first route uses a result proved by Jacob Barandes in 2023. Barandes showed that there is an exact equivalence between two things that seem completely different. On one side: any stochastic process whose transition probabilities are P-indivisible — that is, any process with the kind of persistent, undecomposable memory described above. On the other side: a quantum system evolving unitarily under the Schrödinger equation.
 
-The equivalence is not approximate. It is not an analogy. It is a mathematical identity. Every P-indivisible stochastic process *is* a quantum system, and every quantum system *is* a P-indivisible stochastic process. The Schrödinger equation, the Born rule, interference, entanglement, and superposition all come out of the correspondence automatically.
+The second route uses Stinespring's dilation theorem, a foundational result in functional analysis from 1955. Because the total dynamics is a deterministic bijection on a finite set, it defines a unitary operator on a Hilbert space. Tracing out the hidden sector with the Liouville measure produces a quantum channel — a completely positive, trace-preserving map — whose measurement probabilities are identical to the classical transition probabilities. The Stinespring construction requires nothing beyond textbook mathematics.
+
+The equivalence is not approximate. It is not an analogy. It is a mathematical identity. Every P-indivisible stochastic process *is* a quantum system, and every quantum system *is* a P-indivisible stochastic process. The Schrödinger equation, the Born rule, interference, entanglement, and superposition all come out automatically.
 
 So the argument chains together like this:
 
 1. The cosmological horizon partitions the universe into what you can see and what you can't.
 2. Tracing out the hidden sector produces a stochastic process — you're forced to assign probabilities because you can't track the hidden degrees of freedom.
 3. The three conditions (coupled, slow, vast) guarantee that this stochastic process is P-indivisible.
-4. By Barandes' correspondence, any P-indivisible stochastic process is mathematically equivalent to quantum mechanics.
+4. By either Barandes' correspondence or the Stinespring construction, P-indivisible stochastic dynamics is mathematically equivalent to quantum mechanics.
 
 Quantum mechanics is not a fundamental law of nature. It is what embedded observation looks like — and the paper proves the equivalence runs both ways. These three conditions produce quantum mechanics, and any quantum system, traced back to its deterministic roots, requires exactly these conditions. Quantum mechanics and embedded observation are the same thing.
 
@@ -128,11 +130,11 @@ Because P-indivisibility without C2 and C3 might only show up at absurd timescal
 
 ---
 
-### Proof 2: The Stochastic-Quantum Correspondence (§3.1)
+### Proof 2: The Stochastic-Quantum Correspondence (§3.1 and Appendix A)
 
 **What it claims.** Any P-indivisible stochastic process is mathematically identical to a quantum system evolving unitarily. There exists a Hilbert space and a unitary operator $U(t)$ such that the transition probabilities of the stochastic process are *exactly* the Born-rule probabilities: $T_{ij}(t) = |U_{ij}(t)|^2$.
 
-**Where this comes from.** This is not proved in the paper — it's a theorem by Jacob Barandes (2023–2025), which the paper imports as established mathematics. The key tool is the *Stinespring dilation theorem*, a result in functional analysis from the 1950s.
+**Two independent routes to the same conclusion.** The primary route uses Barandes' stochastic-quantum correspondence (2023–2025), which establishes the equivalence for any P-indivisible process. The secondary route, given in Appendix A, uses Stinespring's dilation theorem (1955): a deterministic bijection on a finite product space defines a permutation unitary; tracing out the hidden sector with the Liouville measure produces a completely positive quantum channel whose diagonal elements recover the classical transition probabilities exactly. This second route requires only textbook results from the 1950s–2000s. Either route alone suffices; together they ensure the bridge rests on no single recent result.
 
 **The intuition.** P-indivisibility means transition probabilities can't be factored through intermediate times — try it and you get "negative probabilities." In standard probability theory, this is nonsensical. But in quantum mechanics, it's *exactly what happens*: probability amplitudes (which can be negative or complex) combine to produce interference patterns that don't factorize classically. What Barandes proved is that these are not analogous phenomena — they are the same mathematical object, written in different notation.
 
@@ -162,7 +164,7 @@ Because P-indivisibility without C2 and C3 might only show up at absurd timescal
 
 **The full equivalence.** The three pieces snap together by transitivity:
 
-- Barandes' correspondence: QM ⟺ P-indivisibility
+- Barandes' correspondence / Stinespring construction: QM ⟺ P-indivisibility
 - Sufficiency (§2.3): embedded observation (C1–C3) ⟹ P-indivisibility
 - Necessity (the three results above): P-indivisibility ⟹ embedded observation (C1–C3)
 
