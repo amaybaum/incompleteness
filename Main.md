@@ -254,17 +254,15 @@ For de Sitter ($\kappa = cH$): $k_B T_{\text{cl}} = c^3 \epsilon^2 H / (8\pi G)$
 
 $$\hbar = \beta \frac{c^3 \epsilon^2}{G}$$
 
-**Step 4: Thermal self-consistency.** Before the trace-out: $k_B T_{\text{cl}} = c^3 \epsilon^2 \kappa / (8\pi G)$. After: the emergent QFT predicts the Gibbons-Hawking temperature [17]: $k_B T_{\text{GH}} = \hbar \kappa / (2\pi c)$. These describe the same boundary; self-consistency requires $T_{\text{cl}} = T_{\text{GH}}$:
+**Step 4: Thermal self-consistency.** The classical substratum assigns the partition boundary a temperature $k_B T_{\text{cl}} = c^3 \epsilon^2 \kappa / (8\pi G)$ (§5.1), containing no $\hbar$. The emergent QFT of Part I lives on this classical background, which has a bifurcate Killing horizon with surface gravity $\kappa$. The Bisognano-Wichmann theorem — a structural result in algebraic QFT, equivalently the Euclidean periodicity of the Wick-rotated metric — guarantees that the emergent vacuum restricted to the horizon is a KMS state at temperature $T_Q = \hbar \kappa / (2\pi c k_B)$, with $\hbar$ unknown. This is a theorem *within* the derived QFT, not an external import. A thermometer at the boundary is a visible-sector object whose click rate is computable in either description; the classical and emergent accounts of one boundary cannot disagree, so $T_{\text{cl}} = T_Q$:
 
-$$\frac{c^3 \epsilon^2 H}{8\pi G} = \frac{\hbar H}{2\pi}$$
+$$\frac{c^3 \epsilon^2 \kappa}{8\pi G} = \frac{\hbar \kappa}{2\pi c}$$
 
-$H$ cancels (confirming structural/volumetric distinction). Solving:
+$\kappa$ cancels (confirming the structural/volumetric distinction). Solving:
 
 $$\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}$$
 
-**Why not circular.** The derivation is a gap equation: $\epsilon$ is the free geometric input, $\hbar$ is the output. $T_{\text{cl}}(\epsilon)$ contains no $\hbar$; $T_{\text{GH}}(\hbar)$ is the emergent QFT's prediction with $\hbar$ unknown; matching the two solves for $\hbar$. The result $\epsilon = 2\,l_p$ restates the output in conventional units. Jacobson's original derivation [16] uses $\hbar$-containing forms; this paper does not — it uses the classical identity $dE = (c^2 \kappa / 8\pi G)\,dA$ and the classical entropy density $\eta = 1/\epsilon^2$. The $\hbar$-containing formulas are *recovered* after the matching.
-
-**Robustness.** The result can be derived without the Gibbons-Hawking formula: C1–C3 ensure persistent thermal contact, and the zeroth law gives $T_Q = T_{\text{cl}}$ exactly; the Gibbons-Hawking formula is then *recovered* as a prediction. Lattice corrections are $\mathcal{O}((\epsilon H/c)^2) \sim 10^{-122}$, consistent with trans-Planckian insensitivity [28, 29].
+The derivation is a gap equation: $\epsilon$ is the free geometric input, $\hbar$ is the output. Jacobson's original derivation [16] uses $\hbar$-containing forms; this paper does not — it uses the classical identity $dE = (c^2 \kappa / 8\pi G)\,dA$ and the classical entropy density $\eta = 1/\epsilon^2$. The Gibbons-Hawking temperature [17] $k_B T_{\text{GH}} = \hbar \kappa / (2\pi c)$ is recovered as a prediction, not used as an input. Lattice corrections are $\mathcal{O}((\epsilon H/c)^2) \sim 10^{-122}$, consistent with trans-Planckian insensitivity [28, 29].
 
 ### 5.3 Gauge-Fixing and the Dimensional Obstruction
 
