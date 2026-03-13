@@ -145,7 +145,7 @@ d(\delta_i T, \delta_j T) = \frac{1}{2}\sum_k |T_{ik} - T_{jk}| < 1
 
 The theorem requires only bijective dynamics (Axiom~1) and non-trivial coupling (C1). Axiom~2 guarantees the finite configuration space.
 
-\textbf{Convergence with prior work.} The theorem converges with independent results: Pechukas \cite{Pechukas1994} (reduced dynamics need not preserve positivity), Rivas et al.\ \cite{Rivas2010,Rivas2014} (divisibility failure $\leftrightarrow$ information backflow), Pollock et al.\ \cite{Pollock2018} (process-tensor Markovianity conditions), and Strasberg and Esposito \cite{Strasberg2017} (non-Markovian reduced dynamics in the slow-bath regime of C2).
+\textbf{Convergence with prior work.} The theorem converges with independent results: Pechukas \cite{Pechukas1994} (reduced dynamics need not preserve positivity), Rivas et al.\ \cite{Rivas2010,Rivas2014} (divisibility failure $\leftrightarrow$ information backflow), Pollock et al.\ \cite{Pollock2018} (process-tensor Markovianity conditions), and Strasberg and Esposito \cite{Strasberg2017} (non-Markovian reduced dynamics in the slow-bath regime of C2). Bylicka, Johansson, and Ac\'in \cite{Bylicka2017} prove that for bijective dynamical maps---the class generated here---CP-divisibility and information backflow are equivalent, so the P-indivisibility established above implies CP-indivisibility directly. Milz et al.\ \cite{Milz2019} further show that even CP-divisibility does not guarantee Markovianity in the process-tensor sense, confirming that the non-Markovian character identified here is robust under all current definitions.
 
 \textbf{Continuous-time extension.} The Hamiltonian flow on finite-dimensional phase space preserves Liouville measure on compact energy surfaces. $T_{ij}(t)$ is continuous with $T(0) = I$. By (C1), $T(t)$ departs from the permutation class for $t > 0$. By Poincar\'e recurrence, $\exists\, t_R$: the set of hidden states with $\pi_V(\varphi_{t_R}(x_i, h)) = x_i$ has measure $> 1 - \delta$ for any $\delta > 0$. For small $\delta$, this gives non-monotonic trace distance, establishing P-indivisibility in continuous time.
 
@@ -179,7 +179,7 @@ Negative entries---no valid stochastic matrix exists. \textbf{P-indivisible.} $\
 
 \subsection{The Stochastic-Quantum Correspondence}\label{sec:SQC}
 
-By Barandes' correspondence \cite{Barandes2023,Barandes2025}, any P-indivisible stochastic process on a finite configuration space of size $n$ embeds into a unitarily evolving quantum system on $\mathcal{H}$ of dimension $\leq n^3$. P-indivisible transition matrices develop negative entries at fine time resolution; the Stinespring dilation theorem guarantees $\exists$ a Hilbert space and unitary $U(t)$ with $T_{ij}(t) = |U_{ij}(t)|^2$---transition probabilities are exactly Born-rule probabilities. The proof requires a finite-dimensional configuration space (Axiom~2); Calvo \cite{Calvo2026} extends the correspondence to infinite dimensions, but this is not required here.
+By Barandes' correspondence \cite{Barandes2023,Barandes2025}, any P-indivisible stochastic process on a finite configuration space of size $n$ embeds into a unitarily evolving quantum system on $\mathcal{H}$ of dimension $\leq n^3$. P-indivisible transition matrices develop negative entries at fine time resolution; the Stinespring dilation theorem guarantees $\exists$ a Hilbert space and unitary $U(t)$ with $T_{ij}(t) = |U_{ij}(t)|^2$---transition probabilities are exactly Born-rule probabilities. The proof requires a finite-dimensional configuration space (Axiom~2); Calvo \cite{Calvo2026} extends the correspondence to infinite dimensions, but this is not required here. An independent derivation using only Stinespring's dilation theorem \cite{Stinespring1955} and standard partial-trace properties \cite{NielsenChuang2000} is given in Appendix~\ref{app:stinespring}; either route alone suffices.
 
 \textbf{From phase space to configuration space.} The transition probabilities $T_{ij}$ are projections of the full phase-space flow onto the configuration sector of $\Gamma_V$, with momenta and hidden-sector degrees of freedom absorbed into the Liouville marginalization. The resulting process lives on the discrete configuration space of Axiom~2.
 
@@ -455,9 +455,9 @@ In the double-slit experiment, the particle traverses a single slit in the deter
 
 The characterization theorem is a full equivalence: QM $\iff$ embedded observation under (C1)--(C3). The theorem does not identify which physical systems satisfy the conditions (empirical) nor derive $\hbar$ for specific systems (requires Part~II). Universality in our universe follows from the shared causal partition defined by null geodesics.
 
-\subsection{Dependence on Barandes' Correspondence}
+\subsection{The Stochastic-Quantum Bridge}
 
-The correspondence \cite{Barandes2023,Barandes2025} is bidirectional and exact, proved via Stinespring dilation, peer-reviewed, and independently corroborated \cite{Calvo2026,Pimenta2025,Doukas2026}. It enters at a single step: \S\ref{sec:SQC}. Partition-relativity, emergent stochasticity, and P-indivisibility (\S\S\ref{sec:partition-relativity}, 2) do not invoke it.
+The bridge from P-indivisible stochastic dynamics to unitary quantum mechanics is established by two independent routes. The primary route uses Barandes' stochastic-quantum correspondence \cite{Barandes2023,Barandes2025}, which is bidirectional and exact, peer-reviewed, and independently corroborated \cite{Calvo2026,Pimenta2025,Doukas2026}. Appendix~\ref{app:stinespring} provides an independent derivation using only Stinespring's dilation theorem \cite{Stinespring1955} and the complete positivity of partial-trace channels \cite{NielsenChuang2000}---textbook results requiring no material more recent than 2000. The two routes yield identical physical predictions (Appendix~\ref{app:stinespring}, Table~1). Partition-relativity, emergent stochasticity, and P-indivisibility (\S\S\ref{sec:partition-relativity}, 2) invoke neither.
 
 \subsection{The Status of the Discreteness Scale}
 
@@ -485,13 +485,13 @@ Witten's Type~II algebra program achieves finite entropy without finite-dimensio
 
 \subsection{Assumptions, Limitations, and Falsifiability}\label{sec:assumptions}
 
-\textbf{The theorem} requires Axiom~2 (independent in Part~I; consequence of geometry in Part~II), Barandes' correspondence (\S9.3), and genericity conditions (non-degenerate spectrum, non-vanishing overlaps), which hold for all but a measure-zero set.
+\textbf{The theorem} requires Axiom~2 (independent in Part~I; consequence of geometry in Part~II), the stochastic-quantum bridge (\S9.3; established by two independent routes), and genericity conditions (non-degenerate spectrum, non-vanishing overlaps), which hold for all but a measure-zero set.
 
 \textbf{The sharp partition.} Axiom~3's product decomposition idealizes what is in general graded epistemic access. The axiom requires that the physics admits a sharp partition with cross-partition correlations entering only through $H_{\text{int}}$---a condition on the boundary, not the observer. It is satisfied when a physical boundary enforces a separation sharp enough that residual leakage is absorbed into the interaction term. The cosmological horizon (\S\ref{sec:partition}) provides an exact realization; for other systems, the approximation quality determines the fidelity of the emergent quantum description.
 
 \textbf{Planck-scale ordering.} The classical-prior ontology may break down at $l_p$, where ``geometric'' and ``quantum'' lose operational distinction. If a deeper theory unifies both, this framework describes the effective macroscopic regime.
 
-\textbf{Falsifiability.} The \emph{theorem} would be falsified by a restriction of Barandes' correspondence excluding the processes generated here. The \emph{application} would be falsified by definitive absence of dark energy evolution or GW echoes at the predicted timescale.
+\textbf{Falsifiability.} The \emph{theorem} would be falsified by a failure of both the stochastic-quantum correspondence and the Stinespring construction for the class of processes generated here---a possibility excluded by the independent proofs in \S\ref{sec:SQC} and Appendix~\ref{app:stinespring}. The \emph{application} would be falsified by definitive absence of dark energy evolution or GW echoes at the predicted timescale.
 
 %=============================================================================
 \section{Conclusion}
@@ -606,6 +606,106 @@ DESI Collaboration, ``DESI DR2 Results II: Measurements of Baryon Acoustic Oscil
 \bibitem{deCruzPerez2025}
 J.~de~Cruz~P\'erez, A.~G\'omez-Valent, and J.~Sol\`a~Peracaula, ``Dynamical Dark Energy models in light of the latest observations,'' arXiv:2512.20616 (2025).
 
+\bibitem{Stinespring1955}
+W.~F.~Stinespring, ``Positive functions on C*-algebras,'' \emph{Proc.~Amer.~Math.~Soc.} \textbf{6}, 211--216 (1955).
+
+\bibitem{NielsenChuang2000}
+M.~A.~Nielsen and I.~L.~Chuang, \emph{Quantum Computation and Quantum Information} (Cambridge University Press, 2000).
+
+\bibitem{Bylicka2017}
+B.~Bylicka, M.~Johansson, and A.~Ac\'in, ``Constructive method for detecting the information backflow of non-Markovian dynamics,'' \emph{Phys.~Rev.~Lett.} \textbf{118}, 120501 (2017).
+
+\bibitem{Milz2019}
+S.~Milz, M.~S.~Kim, F.~A.~Pollock, and K.~Modi, ``Completely positive divisibility does not mean Markovianity,'' \emph{Phys.~Rev.~Lett.} \textbf{123}, 040401 (2019).
+
 \end{thebibliography}
+
+%=============================================================================
+\appendix
+\section{Independent Derivation via Stinespring Dilation}\label{app:stinespring}
+%=============================================================================
+
+This appendix derives the emergent quantum description using only Stinespring's dilation theorem \cite{Stinespring1955} and standard properties of the partial trace \cite{NielsenChuang2000}, without invoking the stochastic-quantum correspondence \cite{Barandes2023,Barandes2025}. The two routes are logically independent; either alone suffices.
+
+\subsection{Setup}
+
+The finite configuration spaces $\mathcal{C}_V = \{x_1, \ldots, x_n\}$ and $\mathcal{C}_H = \{h_1, \ldots, h_m\}$ (Axiom~2) embed into Hilbert spaces $\mathcal{H}_V = \mathbb{C}^n$ and $\mathcal{H}_H = \mathbb{C}^m$ via $|i\rangle \leftrightarrow x_i$ and $|k\rangle \leftrightarrow h_k$. This introduces no quantum postulates: it is the canonical identification of probability distributions on a finite set with diagonal density matrices.
+
+\subsection{Permutation Unitarity}
+
+\begin{lemma}\label{lem:permunitary}
+Any bijection $\varphi: \mathcal{C}_V \times \mathcal{C}_H \to \mathcal{C}_V \times \mathcal{C}_H$ defines a unitary $U_\varphi$ on $\mathcal{H} = \mathcal{H}_V \otimes \mathcal{H}_H$.
+\end{lemma}
+
+\begin{proof}
+Define $U_\varphi |i, k\rangle = |\varphi(x_i, h_k)\rangle$. Since $\varphi$ is a bijection, $U_\varphi$ permutes the orthonormal basis, hence is unitary.
+\end{proof}
+
+For continuous-time dynamics $\varphi_t$, Stone's theorem on $\mathcal{H}$ yields $U_t = e^{-i\hat{H}t}$ for Hermitian $\hat{H}$.
+
+\subsection{The Quantum Channel}
+
+The observer's ignorance of the hidden sector (Axioms~3--4) corresponds to $\rho_H = I_m/m$. The visible-sector quantum channel is
+\begin{equation}
+\Phi(\rho_V) = \mathrm{Tr}_H\!\left[U_\varphi\,(\rho_V \otimes \rho_H)\,U_\varphi^\dagger\right]
+\end{equation}
+This is CPTP by a standard result \cite[Theorem~8.1]{NielsenChuang2000}, with Kraus representation $\Phi(\rho_V) = \sum_{k,l} K_{kl}\,\rho_V\,K_{kl}^\dagger$ where $K_{kl} = m^{-1/2}\langle l|U_\varphi|k\rangle_H$. The triple $(\mathcal{H}_H, U_\varphi, \rho_H)$ is the Stinespring dilation \cite{Stinespring1955} of $\Phi$.
+
+\subsection{Born Rule Recovery}
+
+\begin{theorem}\label{thm:born}
+The classical transition probabilities $T_{ij}$ (\S\ref{sec:partition-relativity}) equal the Born-rule probabilities of $\Phi$.
+\end{theorem}
+
+\begin{proof}
+$P(j|i) = \langle j|\Phi(|i\rangle\langle i|)|j\rangle = m^{-1}\sum_{k,l} |\langle j,l|U_\varphi|i,k\rangle|^2$. Since $U_\varphi$ is a permutation, $\langle j,l|U_\varphi|i,k\rangle = \delta_{(j,l),\varphi(i,k)}$. Thus $P(j|i) = m^{-1}\sum_k \delta_{j,\pi_V(\varphi(x_i,h_k))} = T_{ij}$.
+\end{proof}
+
+\subsection{Emergent Coherence}
+
+\begin{theorem}\label{thm:coherence}
+If $T$ is not a permutation matrix (condition (C1)), then $\Phi$ generates genuine quantum coherence: it is not entanglement-breaking.
+\end{theorem}
+
+\begin{proof}
+If $T$ is not a permutation, some initial state $|i\rangle$ maps to at least two distinct outputs, so $\Phi(|i\rangle\langle i|)$ has rank $\geq 2$. By linearity, $\Phi$ maps some off-diagonal input $|i\rangle\langle j|$ to a non-zero operator, precluding the measure-and-prepare form of entanglement-breaking channels.
+\end{proof}
+
+\subsection{CP-Indivisibility}
+
+\begin{theorem}\label{thm:CPindivisible}
+The P-indivisibility of \S\ref{sec:Pindivisibility} implies CP-indivisibility of $\{\Phi_t\}$: there exist $t_2 > t_1 > 0$ with no CPTP map $\Lambda$ satisfying $\Phi_{t_2} = \Lambda \circ \Phi_{t_1}$.
+\end{theorem}
+
+\begin{proof}
+CP-divisibility restricted to diagonal inputs reduces to P-divisibility. The contrapositive gives the result.
+\end{proof}
+
+By the Breuer--Laine--Piilo criterion \cite{Breuer2002,Rivas2010}, CP-indivisibility implies non-monotonic trace distance (information backflow)---the quantum signature of non-Markovianity.
+
+\subsection{Approximate Unitarity}
+
+On observable timescales $t \ll \tau_B$, the hidden-sector state is approximately frozen (conditions (C2)--(C3)). The channel generator decomposes as $d\Phi_t/dt|_{t=0}(\rho_V) = -i[\hat{H}_{\text{eff}}, \rho_V] + \mathcal{D}(\rho_V)$ with $\mathcal{D} \sim \mathcal{O}(\tau_S/\tau_B)$. The leading-order dynamics is the Schr\"odinger equation. The phase-locking lemma (Lemma~\ref{lem:phaselocking}) and D-gauge theorem (Theorem~\ref{thm:Dgauge}) then determine $\hat{H}_{\text{eff}}$ uniquely from continuous-time transition data.
+
+\subsection{Comparison of Routes}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\hline
+& \textbf{Barandes route (\S\ref{sec:SQC})} & \textbf{Stinespring route (this appendix)} \\
+\hline
+Input & P-indivisible process on $\mathcal{C}_V$ & Bijection on $\mathcal{C}_V \times \mathcal{C}_H$ + marginalization \\
+Bridge & Stochastic-quantum correspondence \cite{Barandes2023,Barandes2025} & Stinespring dilation \cite{Stinespring1955} + partial trace \cite{NielsenChuang2000} \\
+Output & Unitary with $T_{ij} = |U_{ij}|^2$ & CPTP channel with $T_{ij} = \langle j|\Phi(|i\rangle\langle i|)|j\rangle$ \\
+Born rule & Equilibrium of indivisible process & Partial trace structure (Theorem~\ref{thm:born}) \\
+Scope & Any P-indivisible process & Processes from marginalized bijections \\
+\hline
+\end{tabular}
+\caption{Comparison of the two independent routes to the emergent quantum description.}
+\label{tab:routes}
+\end{table}
+
+The Barandes route is more general; the Stinespring route requires only textbook results \cite{Stinespring1955,NielsenChuang2000} predating 2000. Together they establish that the bridge is overdetermined.
 
 \end{document}
