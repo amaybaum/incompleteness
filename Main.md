@@ -178,21 +178,13 @@ The logical structure: Barandes' correspondence gives QM $\iff$ P-indivisibility
 
 **Theorem (C2 necessity).** *In the fast-bath regime ($\tau_B \ll \tau_S$), ergodic mixing drives the hidden sector to uniformity before each coupling event, yielding a Markov chain ($T^{(k)} = T^k$), which is P-divisible. Contrapositively, P-indivisibility requires $\tau_S \ll \tau_B$.*
 
-*Proof.* Decompose the total evolution into visible-sector coupling events (timescale $\tau_S$) and free hidden-sector evolution between them (timescale $\tau_B$). Between coupling events, the hidden sector evolves under its own Hamiltonian $H_H$. Let $\mathcal{L}_H$ denote the hidden-sector Liouvillian and $\Delta$ the spectral gap of $\mathcal{L}_H$ restricted to the microcanonical surface (guaranteed positive on a finite ergodic system by the discrete spectrum of the Liouvillian on compact phase space).
-
-In the fast-bath regime, the hidden sector completes $\sim \tau_S / \tau_B \gg 1$ relaxation times between successive coupling events. For any conditioned hidden-sector distribution $\mu_H(\cdot | x_i)$ at the moment of a coupling event, the free evolution satisfies:
+*Proof.* Between coupling events (separated by $\tau_S$), the hidden sector evolves under its own Hamiltonian $H_H$. Let $\mathcal{L}_H$ denote the hidden-sector Liouvillian with spectral gap $\Delta > 0$ (guaranteed on a finite ergodic system). For any conditioned hidden-sector distribution $\mu_H(\cdot | x_i)$ at a coupling event:
 
 $$\| e^{\mathcal{L}_H \tau_S} \mu_H(\cdot | x_i) - \mu_{\text{eq}} \|_{\text{TV}} \leq C \, e^{-\Delta \tau_S}$$
 
-where $\mu_{\text{eq}}$ is the equilibrium (uniform) distribution on the microcanonical surface and $C$ is a constant depending on the initial distribution. When $\tau_S / \tau_B \gg 1$ (equivalently $\Delta \tau_S \gg 1$), this norm is exponentially small: by the time the next coupling event occurs, the hidden-sector distribution has relaxed to uniformity regardless of its post-coupling state.
+In the fast-bath regime ($\Delta \tau_S \gg 1$), this is exponentially small: the hidden sector relaxes to equilibrium $\mu_{\text{eq}}$ before each coupling event regardless of its post-coupling state. Each single-step transition matrix $T$ is therefore computed against the same equilibrium distribution, so $T^{(k)} = T^k$ — a homogeneous Markov chain, hence P-divisible.
 
-Consequently, the hidden-sector distribution entering each coupling event is effectively independent of all prior visible-sector history. The $k$-step transition matrix factors as:
-
-$$T^{(k)}_{ij} = \sum_{i_1, \ldots, i_{k-1}} T_{i\,i_1} \, T_{i_1 i_2} \cdots T_{i_{k-1} j} = (T^k)_{ij}$$
-
-since each single-step matrix $T$ is computed against the same equilibrium hidden-sector distribution. This is a homogeneous Markov chain. For any Markov chain, $\Lambda(k_2, k_1) = T^{k_2 - k_1}$ is a valid stochastic matrix for all $k_2 > k_1$, so the process is P-divisible.
-
-Contrapositively: P-indivisibility requires that conditioned hidden-sector distributions *not* relax between coupling events — i.e., $\Delta \tau_S \lesssim 1$, which is $\tau_S \lesssim \tau_B$. For the strong, persistent P-indivisibility required by the characterization theorem (not merely marginal failure of divisibility), the separation must be $\tau_S \ll \tau_B$: the hidden sector must retain the imprints of prior coupling events essentially unmodified through subsequent ones. $\square$
+Contrapositively: P-indivisibility requires $\Delta \tau_S \lesssim 1$, i.e., $\tau_S \lesssim \tau_B$. For the strong, persistent P-indivisibility of the characterization theorem, the separation must be $\tau_S \ll \tau_B$. $\square$
 
 **Theorem (C3 necessity).** *Let $m = |\mathcal{C}_H|$. The non-Markovian mutual information satisfies:*
 
