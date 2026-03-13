@@ -34,7 +34,7 @@ The framework rests on four axioms referencing no quantum mechanics, general rel
 
 $$\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\} \equiv \mathcal{L}\rho$$
 
-2. **Finiteness.** The effective configuration space of the visible sector is finite-dimensional, with a discreteness scale $\epsilon$ providing a finite minimal cell volume. Any observer bounded by a finite-area surface can couple to only finitely many modes across that boundary; independent support comes from holographic entropy bounds [27]. In Part I, $\epsilon$ is free; self-consistency (§6) pins $\epsilon = 2\,l_p$.
+2. **Finiteness.** The effective configuration space of the visible sector is finite-dimensional, with a discreteness scale $\epsilon$ providing a finite minimal cell volume. At this stage, $\epsilon$ is a free geometric parameter with no assumed relationship to $\hbar$, $l_p$, or any quantum quantity — it enters solely as the minimal resolution of the classical configuration space. Any observer bounded by a finite-area surface can couple to only finitely many modes across that boundary; independent support comes from holographic entropy bounds [27]. In Part I, $\epsilon$ is free; self-consistency (§6) pins $\epsilon = 2\,l_p$ as an *output*.
 
 3. **Causal partition.** $\Gamma$ is partitioned into a visible sector $\Gamma_V$ and hidden sector $\Gamma_H$:
 
@@ -178,7 +178,21 @@ The logical structure: Barandes' correspondence gives QM $\iff$ P-indivisibility
 
 **Theorem (C2 necessity).** *In the fast-bath regime ($\tau_B \ll \tau_S$), ergodic mixing drives the hidden sector to uniformity before each coupling event, yielding a Markov chain ($T^{(k)} = T^k$), which is P-divisible. Contrapositively, P-indivisibility requires $\tau_S \ll \tau_B$.*
 
-*Proof sketch.* Fast mixing (many hidden-sector steps between coupling events) drives conditioned hidden-sector distributions to uniformity by the ergodic theorem. The $k$-step matrix becomes the $k$-th power — a P-divisible Markov chain. $\square$
+*Proof.* Decompose the total evolution into visible-sector coupling events (timescale $\tau_S$) and free hidden-sector evolution between them (timescale $\tau_B$). Between coupling events, the hidden sector evolves under its own Hamiltonian $H_H$. Let $\mathcal{L}_H$ denote the hidden-sector Liouvillian and $\Delta$ the spectral gap of $\mathcal{L}_H$ restricted to the microcanonical surface (guaranteed positive on a finite ergodic system by the discrete spectrum of the Liouvillian on compact phase space).
+
+In the fast-bath regime, the hidden sector completes $\sim \tau_S / \tau_B \gg 1$ relaxation times between successive coupling events. For any conditioned hidden-sector distribution $\mu_H(\cdot | x_i)$ at the moment of a coupling event, the free evolution satisfies:
+
+$$\| e^{\mathcal{L}_H \tau_S} \mu_H(\cdot | x_i) - \mu_{\text{eq}} \|_{\text{TV}} \leq C \, e^{-\Delta \tau_S}$$
+
+where $\mu_{\text{eq}}$ is the equilibrium (uniform) distribution on the microcanonical surface and $C$ is a constant depending on the initial distribution. When $\tau_S / \tau_B \gg 1$ (equivalently $\Delta \tau_S \gg 1$), this norm is exponentially small: by the time the next coupling event occurs, the hidden-sector distribution has relaxed to uniformity regardless of its post-coupling state.
+
+Consequently, the hidden-sector distribution entering each coupling event is effectively independent of all prior visible-sector history. The $k$-step transition matrix factors as:
+
+$$T^{(k)}_{ij} = \sum_{i_1, \ldots, i_{k-1}} T_{i\,i_1} \, T_{i_1 i_2} \cdots T_{i_{k-1} j} = (T^k)_{ij}$$
+
+since each single-step matrix $T$ is computed against the same equilibrium hidden-sector distribution. This is a homogeneous Markov chain. For any Markov chain, $\Lambda(k_2, k_1) = T^{k_2 - k_1}$ is a valid stochastic matrix for all $k_2 > k_1$, so the process is P-divisible.
+
+Contrapositively: P-indivisibility requires that conditioned hidden-sector distributions *not* relax between coupling events — i.e., $\Delta \tau_S \lesssim 1$, which is $\tau_S \lesssim \tau_B$. For the strong, persistent P-indivisibility required by the characterization theorem (not merely marginal failure of divisibility), the separation must be $\tau_S \ll \tau_B$: the hidden sector must retain the imprints of prior coupling events essentially unmodified through subsequent ones. $\square$
 
 **Theorem (C3 necessity).** *Let $m = |\mathcal{C}_H|$. The non-Markovian mutual information satisfies:*
 
@@ -216,7 +230,7 @@ Different observers have different horizon areas (hence different $S_{\text{dS}}
 
 ### 4.2 Verification of the Conditions
 
-**(C1)** Stress-energy conservation enforces dynamical correlations across the horizon. "Bidirectional" refers not to signal propagation (forbidden by the causal structure) but to the gravitational constraint equations: the Hamiltonian and momentum constraints on any Cauchy surface couple interior and exterior data, so $H_{\text{tot}} \neq H_V + H_H$. **Satisfied.**
+**(C1)** Stress-energy conservation enforces dynamical correlations across the horizon. "Bidirectional" refers not to signal propagation (forbidden by the causal structure) but to the gravitational constraint equations: the Hamiltonian and momentum constraints on any Cauchy surface couple interior and exterior data, so $H_{\text{tot}} \neq H_V + H_H$. More precisely, in the ADM decomposition the Hamiltonian constraint $\mathcal{H} = 0$ is not a dynamical equation but a restriction on allowed initial data; however, the physical (reduced) Hamiltonian generating evolution on the constraint surface inherits cross-boundary dependence: solving the constraints for the lapse and shift yields an effective $H_{\text{int}}$ coupling interior and exterior gravitational and matter degrees of freedom on each Cauchy slice. This is the sense in which (C1) is satisfied — the coupling is mediated by the constraint structure of GR, which induces a genuine dynamical interaction term in the reduced phase space. **Satisfied.**
 
 **(C2)** $\tau_B \gtrsim 1/H \sim 10^{17}$ s; for laboratory processes, $\tau_S \sim 10^{-15}$ s. Ratio: $\tau_S / \tau_B \sim 10^{-32}$. **Satisfied.**
 
@@ -262,7 +276,23 @@ $$\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}$$
 
 ### 5.3 Gauge-Fixing and the Dimensional Obstruction
 
-**Theorem (D-gauge completeness).** *Let $U(t) = e^{-iHt}$ with non-degenerate eigenvalues and non-vanishing configuration-basis overlaps. If $|U'_{ij}(t)|^2 = |U_{ij}(t)|^2$ for all $i, j, t$, then $H' = DHD^\dagger$ for a time-independent diagonal unitary $D$.* (Proof: Fourier analysis uniquely determines moduli $|c_{ia}|$; phase matching forces $\delta_{ia} = \alpha_i + \beta_a$.)
+**Theorem (D-gauge completeness).** *Let $U(t) = e^{-iHt}$ with non-degenerate eigenvalues and non-vanishing configuration-basis overlaps. If $|U'_{ij}(t)|^2 = |U_{ij}(t)|^2$ for all $i, j, t$, then $H' = DHD^\dagger$ for a time-independent diagonal unitary $D$.*
+
+*Proof.* Write $U_{ij}(t) = \sum_a V_{ia} \, e^{-iE_a t} \, V_{ja}^*$ with $V_{ia} = \langle i | a \rangle$ and eigenvalues $\{E_a\}$, and similarly $U'_{ij}(t) = \sum_a V'_{ia} \, e^{-iE'_a t} \, V'^*_{ja}$.
+
+*Step 1 (Eigenvalue recovery).* By the phase-locking argument of §3.1, $|U_{ij}(t)|^2 = |U'_{ij}(t)|^2$ for all $t$ implies, via Fourier analysis, that the frequency sets $\{E_a - E_b\}$ and $\{E'_a - E'_b\}$ coincide. Non-degeneracy of energy gaps then gives $E'_a = E_{\sigma(a)} + E_0$ for some permutation $\sigma$ and global shift $E_0$. The Fourier coefficients $a^{kl}_{ij} = V_{ik} V^*_{jk} V_{jl} V^*_{il}$ must match between primed and unprimed, which (by the non-vanishing condition on overlaps) forces $\sigma = \text{id}$ up to relabeling. Thus $E'_a = E_a + E_0$.
+
+*Step 2 (Modulus recovery).* From the diagonal Fourier coefficients $a^{kl}_{ii} = |V_{ik}|^2 |V_{il}|^2$, the non-vanishing condition gives $|V'_{ia}| = |V_{ia}|$ for all $i, a$.
+
+*Step 3 (Phase structure).* Write $V'_{ia} = V_{ia} \, e^{i\delta_{ia}}$. The off-diagonal Fourier coefficients require:
+
+$$V'_{ik} V'^*_{jk} V'_{jl} V'^*_{il} = V_{ik} V^*_{jk} V_{jl} V^*_{il}$$
+
+Substituting and canceling moduli:
+
+$$e^{i(\delta_{ik} - \delta_{jk} - \delta_{il} + \delta_{jl})} = 1 \quad \text{for all } i, j, k, l$$
+
+This is the double-difference condition: $\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0 \pmod{2\pi}$. The general solution on the integer lattice is $\delta_{ia} = \alpha_i + \beta_a$ for phases $\{\alpha_i\}$, $\{\beta_a\}$. Thus $V' = D_\alpha \, V \, D_\beta$ where $D_\alpha = \text{diag}(e^{i\alpha_i})$ and $D_\beta = \text{diag}(e^{i\beta_a})$. The $D_\beta$ factor is absorbed into the eigenvector phase convention (physically irrelevant), giving $H' = D_\alpha H D_\alpha^\dagger$ with $D = D_\alpha$ a time-independent diagonal unitary. $\square$
 
 The D-gauge is physically trivial (basis rephasing). Cross-interval transition probabilities fix the relative gauge up to a single global phase; in the continuum limit this becomes an unobservable smooth function $e^{i\theta(t)}$.
 
@@ -291,6 +321,8 @@ where $S_{\text{dS}} = A/(4\,l_p^2)$ is the Bekenstein-Hawking entropy of the de
 ### 7.1 The Two Levels of Description
 
 **From finite-dimensional QM to QFT.** Part I delivers QM on a finite-dimensional Hilbert space. The $N = A/\epsilon^2$ cells discretize the visible sector; spatial locality of the classical substratum restricts which cells interact on any given timescale. The emergent Hilbert space decomposes as $\mathcal{H} = \bigotimes_k \mathcal{H}_k$ — a lattice-regularized QFT with UV cutoff at $\epsilon = 2\,l_p$.
+
+The tensor product structure requires comment. Barandes' correspondence embeds the $N$-configuration stochastic process into a Hilbert space of dimension $\leq N^3$, but does not by itself dictate a factorization into site-local subsystems. The factorization follows from the spatial locality of the classical substratum: each cell $k$ of area $\epsilon^2$ on the horizon couples classically only to its neighbors, so the transition matrix $T_{x,x'}(dt)$ vanishes at leading order whenever $x$ and $x'$ differ at non-adjacent sites (formalized in the locality preservation theorem below). This block structure of $T$ constrains the emergent Hamiltonian to be a sum of local terms, which in turn induces a tensor product decomposition of the Hilbert space into site-local factors $\mathcal{H}_k$, each of dimension determined by the local configuration space of cell $k$. The total dimension of $\bigotimes_k \mathcal{H}_k$ is bounded by $N^3$ but generically much smaller, since each local factor is low-dimensional.
 
 **Locality preservation theorem.** *If the classical Hamiltonian is spatially local (couples only neighbors), then the emergent quantum Hamiltonian inherits spatial locality.*
 
@@ -378,7 +410,7 @@ The framework offers an alternative reading of each result. The Ryu-Takayanagi f
 
 Van Raamsdonk's disconnection argument — that reducing entanglement between CFT subsystems disconnects the dual geometry — similarly admits reversal: changing the partition geometry changes the emergent entanglement. The question is which direction carries the explanatory weight. In the holographic context, the boundary CFT observer is *external* to the bulk, immune to the inferential limits of embedded observers [19]; the framework does not claim to reproduce the specific form of holographic results in that setting.
 
-The key point of contact is empirical. Entanglement-first programs predict spacetime breakdown at low entanglement or high energy. This framework predicts QM breakdown near $\epsilon = 2\,l_p$ while the geometric substratum persists (§8). The CC dissolution (§7.2) provides a concrete test: the geometry-first ordering predicts $\rho \sim H^2/G$ without fine-tuning, while entanglement-first orderings inherit the zero-point sum as a gravitational source.
+The key point of contact is empirical. Entanglement-first programs predict spacetime breakdown at low entanglement or high energy. This framework predicts QM breakdown near $\epsilon = 2\,l_p$ while the geometric substratum persists (§8). The CC dissolution (§7.2) provides a concrete test: the geometry-first ordering predicts $\rho \sim H^2/G$ without fine-tuning, while entanglement-first orderings inherit the zero-point sum as a gravitational source. It should be noted that the exact bulk-to-boundary dictionary of AdS/CFT is a property of the large-$N$ holographic duality; the present framework, which concerns embedded observers with finite causal access, does not claim to reproduce or invalidate results specific to that regime.
 
 Witten's Type II algebra program achieves finite entropy without finite-dimensional Hilbert spaces; this is compatible, since the framework's predictions depend on finite entropy (the physical content of Axiom 2), not on dimensional finiteness per se.
 
