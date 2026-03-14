@@ -10,9 +10,9 @@
 
 ## ABSTRACT
 
-Physical observers are subsystems of the universes they measure, permanently barred from accessing degrees of freedom beyond their causal reach. We prove that any such observer — coupled to a slow, high-capacity hidden sector on a finite-dimensional configuration space — must describe the visible sector using P-indivisible stochastic dynamics, mathematically equivalent to unitary quantum mechanics. The converse also holds: any quantum system, realized as a deterministic dilation, requires non-trivial coupling, slow-bath memory, and sufficient hidden-sector capacity. The Schrödinger equation, Born rule, and Bell violations emerge as structural consequences requiring no independent quantum postulates.
+An observer embedded in a deterministic universe cannot access the complete state. We prove that any such observer — coupled to a slow, high-capacity hidden sector on a finite-dimensional configuration space — must describe the visible sector using P-indivisible stochastic dynamics, mathematically equivalent to unitary quantum mechanics. The converse also holds: any quantum system, realized as a deterministic dilation, requires non-trivial coupling, slow-bath memory, and sufficient hidden-sector capacity. The Schrödinger equation, Born rule, and Bell violations emerge as structural consequences requiring no independent quantum postulates.
 
-Applied to the cosmological horizon, the framework uniquely determines $\hbar = c^3 \epsilon^2 / (4G)$, fixes $\epsilon = 2\,l_p$, and recovers the Bekenstein-Hawking entropy $S = A/(4\,l_p^2)$. The $10^{122}$ cosmological constant discrepancy is identified as $S_{\text{dS}}$, the information compression ratio of the emergent quantum description; the observed vacuum energy is the mandatory classical baseline. Falsifiable predictions include dark energy evolution in Running Vacuum Model form with $\nu_{\text{OI}} \approx 2.45 \times 10^{-3}$, consistent with current data, and gravitational wave echoes near black hole horizons. As a second, independent application of the same axioms and conditions, the framework predicts additional gravitational effects with no particle-sector source at acceleration scales below $cH$ — a qualitatively distinct consequence that strengthens the case for observational incompleteness as a unifying principle.
+Applied to the cosmological horizon, the framework uniquely determines $\hbar = c^3 \epsilon^2 / (4G)$, fixes $\epsilon = 2\,l_p$, and recovers the Bekenstein-Hawking entropy $S = A/(4\,l_p^2)$. The $10^{122}$ cosmological constant discrepancy is identified as $S_{\text{dS}}$, the information compression ratio of the emergent quantum description; the observed vacuum energy is the mandatory classical baseline. Falsifiable predictions include dark energy evolution in Running Vacuum Model form with $\nu_{\text{OI}} \approx 2.45 \times 10^{-3}$ (parametric; systematic range $1$–$5 \times 10^{-3}$), consistent with current DESI data, and gravitational wave echoes near black hole horizons. As a second, independent application of the same axioms and conditions, the framework predicts additional gravitational effects with no particle-sector source at acceleration scales below $cH$, derived from the boundary entropy's invisibility to the emergent QFT.
 
 ---
 
@@ -114,9 +114,7 @@ $$I(X_{<t}; X_{>t} \mid X_t) \geq I_0(1 - k\Delta\tau_S) = I_0\left(1 - \frac{k\
 
 where $I_0 > 0$ is the single-step information transfer from (C1). For $k\tau_S \ll \tau_B$, this remains $\mathcal{O}(I_0)$ — comparable to the single-step coupling strength, not exponentially suppressed. The bound saturates (C3): the maximum storable history is $\log_2 m$ bits (§3.3), so persistent backflow over $K$ transitions requires $m \geq 2^K$, which is amply satisfied when $N_H \gg N_V$. $\square$
 
-The Poincaré recurrence argument and the accessible-timescale lemma are independent: the former establishes P-indivisibility from (C1) and finiteness alone; the latter shows that (C2) and (C3) promote it from a formal property to an observationally dominant one.
-
-**Role of (C2) and (C3).** P-indivisibility follows from (C1) and finiteness alone. (C2) ensures information backflow occurs on accessible timescales, as the lemma above establishes: without timescale separation, the hidden sector thermalizes between coupling events and the process becomes effectively Markovian (§3.3). (C3) ensures P-indivisibility persists at scale: insufficient capacity causes saturation and effectively Markovian crossover. Together they guarantee P-indivisibility is strong, persistent, and observationally relevant.
+**Role of (C2) and (C3).** The Poincaré recurrence argument and the accessible-timescale lemma are independent: the former establishes P-indivisibility from (C1) and finiteness alone; the latter shows that (C2) and (C3) promote it from a formal property to an observationally dominant one.
 
 **Weak-coupling and fast-bath regimes.** Known P-divisible systems with non-zero coupling illustrate the necessity of (C2), not a failure of the theorem. The Jaynes-Cummings model with Lorentzian spectral density is P-divisible when dissipation dominates coupling — the fast-bath regime ($\tau_B \ll \tau_S$), violating (C2). The Davies-Merkli Markovian convergence theorem likewise applies in the Born-Markov (fast-bath) limit. The §3.3 necessity proof for (C2) establishes this formally.
 
@@ -176,7 +174,7 @@ The framework is a hidden variable theory evading Bell's theorem [13] not by sup
 
 In the Jarrett decomposition, the framework violates outcome independence while preserving parameter independence and measurement independence — precisely the class Fine's theorem [24] permits. Barandes, Hasan, and Kagan [14] prove the maximum CHSH correlator is exactly Tsirelson's bound $2\sqrt{2}$, with independent support from Le et al. [15]. The bound also follows from the Stinespring route: Appendix A establishes full unitary QM on a tensor-product Hilbert space, from which Tsirelson's original operator-norm argument [36] yields $|\langle S \rangle| \leq 2\sqrt{2}$; achievability follows because all quantum states, including maximally entangled ones, are realizable in the emergent description.
 
-**Fine-tuning and causal structure.** The framework does not claim to restore Bell locality: outcome independence is genuinely violated. What it provides is a *derivation* of this nonlocality from the causal partition, rather than treating it as axiomatic. The fine-tuning objection (Wood and Spekkens, 2015) — that classical causal models reproducing Bell violations require parameter adjustment — assumes DAG causal structure with Markov factorization. P-indivisible processes violate the Markov condition on any DAG; the appropriate framework is the process tensor [8], within which no-signaling follows from the marginalization structure without fine-tuning. The OI violation saturates Tsirelson's bound, consistent with recent results excluding partial OI relaxation.
+**Fine-tuning and causal structure.** The framework does not claim to restore Bell locality: outcome independence is genuinely violated. What it provides is a *derivation* of this nonlocality from the causal partition, rather than treating it as axiomatic. The fine-tuning objection (Wood and Spekkens, 2015) assumes DAG causal structure with Markov factorization; P-indivisible processes violate the Markov condition on any DAG, so the appropriate framework is the process tensor [8], within which no-signaling follows from marginalization structure without fine-tuning.
 
 ### 3.3 The Characterization Theorem: Necessity of the Conditions
 
@@ -228,7 +226,7 @@ QM is not merely *compatible with* embedded observation — it is *equivalent to
 
 ### 4.1 The Partition
 
-The cosmological horizon — the boundary beyond which no signal propagating at or below $c$ can reach the observer — implements the causal partition of Axiom 3 for all sub-$c$ observers: $\Gamma_V$ is the interior, $\Gamma_H$ everything beyond. This is a consequence of GR's causal structure, not a modeling choice. A hypothetical observer with access to a causal channel not constrained by the light cone would have a different partition, a different (or absent) hidden sector, and by the theorem's own logic, a different emergent description. No such channel is available within GR. The specific quantum mechanics observed is the quantum mechanics of light-cone-bounded observers; its universality is a consequence of the causal structure, not a postulate.
+The cosmological horizon — the boundary beyond which no signal propagating at or below $c$ can reach the observer — implements the causal partition of Axiom 3: $\Gamma_V$ is the interior, $\Gamma_H$ everything beyond. This is a consequence of GR's causal structure, not a modeling choice. The universality of the observed quantum mechanics follows from all sub-$c$ observers sharing the same causal structure.
 
 Different observers have different horizon areas (hence different $S_{\text{dS}}$), but $\hbar = c^3 \epsilon^2/(4G)$ depends only on local geometric quantities — not on the observer's worldline or horizon area — so all observers share the same emergent action scale.
 
@@ -260,7 +258,31 @@ For de Sitter ($\kappa = cH$): $k_B T_{\text{cl}} = c^3 \epsilon^2 H / (8\pi G)$
 
 **Step 1: Uniqueness.** By partition-relativity (§1.4), $\hbar$ is derived, not free.
 
-**Step 2: $\hbar$ is structural, not volumetric.** Deep hidden-sector modes influence the boundary only by propagating through the hidden sector, taking time $\gtrsim \tau_B$. On observable timescales ($t \ll \tau_B$), transition probabilities depend only on boundary modes: decomposing $\mathcal{C}_H = \mathcal{C}_B \times \mathcal{C}_D$, the Liouville integral factorizes as $\int_{\Gamma_B} \int_{\Gamma_D}$, and the deep-mode dependence contributes a multiplicative factor independent of visible-sector indices $i, j$ that cancels in normalized transition probabilities. Thus $T_{ij}(t) = T^{(B)}_{ij}(t)$ with corrections $\delta \lesssim t/\tau_B \sim 10^{-32}$, and $\hbar$ inherits boundary-only dependence.
+**Step 2: $\hbar$ is structural, not volumetric.**
+
+**Lemma (Boundary-only dependence).** *Decompose the hidden sector as $\mathcal{C}_H = \mathcal{C}_B \times \mathcal{C}_D$, where $\mathcal{C}_B$ denotes boundary modes (within the interaction range of $H_{\text{int}}$) and $\mathcal{C}_D$ denotes deep modes (the remainder of the hidden sector). If the classical Hamiltonian is spatially local, then on timescales $t \ll \tau_B$:*
+
+$$T_{ij}(t) = T^{(B)}_{ij}(t) + \mathcal{O}(t/\tau_B)$$
+
+*where $T^{(B)}_{ij}$ depends only on the $V$-$B$ dynamics.*
+
+*Proof.* (i) *Coupling structure.* Spatial locality of the classical Hamiltonian implies the interaction decomposes as $H_{\text{tot}} = H_V + H_B + H_D + H_{VB} + H_{BD}$, with no direct $V$-$D$ coupling: a deep hidden-sector mode must propagate through the boundary layer before influencing the visible sector. The coupling chain is $V \leftrightarrow B \leftrightarrow D$, not $V \leftrightarrow D$.
+
+(ii) *Frozen deep sector.* Let $\Delta_D$ be the spectral gap of $H_D + H_{BD}$ restricted to the deep sector conditioned on a fixed boundary configuration. The deep-sector evolution over time $t$ displaces any initial configuration by $\mathcal{O}(\Delta_D \, t)$ in phase space. By condition (C2), $\Delta_D \sim 1/\tau_B$, so for $t \ll \tau_B$: $\|\varphi_t^D - \text{id}\| = \mathcal{O}(t/\tau_B)$.
+
+(iii) *Factorization of the Liouville integral.* The transition probability is:
+
+$$T_{ij}(t) = \frac{1}{|\mathcal{C}_B||\mathcal{C}_D|} \sum_{b \in \mathcal{C}_B} \sum_{d \in \mathcal{C}_D} \delta_{x_j}[\pi_V(\varphi_t(x_i, b, d))]$$
+
+By (i), $\pi_V(\varphi_t(x_i, b, d))$ depends on $d$ only through the back-reaction $B \leftarrow D$, which by (ii) shifts $b$ by $\mathcal{O}(t/\tau_B)$. Expanding:
+
+$$\pi_V(\varphi_t(x_i, b, d)) = \pi_V(\varphi_t^{VB}(x_i, b)) + \mathcal{O}(t/\tau_B)$$
+
+where $\varphi_t^{VB}$ is the flow restricted to $V \times B$ with $D$ frozen. The $d$-sum then contributes $|\mathcal{C}_D|$ identical terms at leading order:
+
+$$T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|} \sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]}_{T^{(B)}_{ij}(t)} + \mathcal{O}(t/\tau_B) \qquad \square$$
+
+The correction is $\mathcal{O}(t/\tau_B) \sim 10^{-32}$ for laboratory processes. Since $T_{ij}(t)$ determines the emergent quantum description (§3.1), and $T^{(B)}_{ij}(t)$ depends only on the $V$-$B$ dynamics — which are characterized by the boundary geometry ($A$, $\epsilon$, $\kappa$) and the constants $c$, $G$ appearing in the classical Hamiltonian — the emergent action scale $\hbar$ inherits boundary-only dependence.
 
 **Step 3: Dimensional determination.** With volumetric quantities excluded, the partition-intrinsic quantities are $c$, $G$, $\epsilon$. The unique combination with dimensions of action:
 
@@ -274,11 +296,13 @@ $\kappa$ cancels (confirming the structural/volumetric distinction). Solving:
 
 $$\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}$$
 
-The derivation is a gap equation: $\epsilon$ is the free geometric input, $\hbar$ is the output. The two temperatures entering the gap equation arise from independent levels of the framework's hierarchy, precluding circularity. $T_{\text{cl}}$ is computed entirely within the classical substratum — Axioms 1–4, the Jacobson identity $dE = (c^2 \kappa / 8\pi G)\,dA$, and the classical entropy density $\eta = 1/\epsilon^2$ — with no reference to the emergent quantum description. $T_Q$ is computed entirely within the emergent QFT — Part I's theorem plus Euclidean regularity of the Wick-rotated metric — and contains $\hbar$ as the sole unknown. The equation $T_{\text{cl}} = T_Q$ is a matching condition between two complete, independently formulated descriptions of one physical boundary. This is analogous to matching an effective field theory onto its UV completion: neither side's derivation invokes the other, yet their agreement at the boundary constrains parameters. The self-consistency is non-trivial because either temperature could, in principle, depend on quantities that break the match — $T_{\text{cl}}$ could depend on volumetric hidden-sector data (excluded by §5.2, Step 2), or $T_Q$ could depend on the state (it does not — the KMS temperature is purely kinematic, determined by the horizon's surface gravity). That neither pathology obtains is what makes the gap equation a genuine determination rather than a tautology.
+The derivation is a gap equation: $\epsilon$ is the free geometric input, $\hbar$ is the output. The two temperatures are computed independently: $T_{\text{cl}}$ from the classical substratum alone (Axioms 1–4, the Jacobson identity, and $\eta = 1/\epsilon^2$), $T_Q$ from the emergent QFT alone (Part I's theorem plus Euclidean regularity), with $\hbar$ as the sole unknown. The match is non-trivial: $T_{\text{cl}}$ could depend on volumetric hidden-sector data (excluded by Step 2), or $T_Q$ could depend on the state (it does not — the KMS temperature is purely kinematic). That neither pathology obtains makes the gap equation a genuine determination.
 
 Jacobson's original derivation [16] uses $\hbar$-containing forms; this paper does not — it uses the classical identity $dE = (c^2 \kappa / 8\pi G)\,dA$ and the classical entropy density $\eta = 1/\epsilon^2$. The Gibbons-Hawking temperature [17] $k_B T_{\text{GH}} = \hbar \kappa / (2\pi c)$ is recovered as a prediction, not used as an input. Lattice corrections are $\mathcal{O}((\epsilon H/c)^2) \sim 10^{-122}$, consistent with trans-Planckian insensitivity [28, 29].
 
 ### 5.3 Gauge-Fixing and the Dimensional Obstruction
+
+Steps 1–2 establish that $\hbar$ depends only on boundary quantities; Step 4 will fix its value via thermal matching. A prior question must be addressed: does the transition-probability data $\{T_{ij}(t)\}$ determine the emergent Hamiltonian uniquely, or does residual gauge freedom leave $\hbar$ underdetermined? The following theorem, completing the phase-locking argument of §3.1, shows the gauge freedom is physically trivial.
 
 **Theorem (D-gauge completeness).** *Let $U(t) = e^{-iHt}$ with non-degenerate eigenvalues and non-vanishing configuration-basis overlaps. If $|U'_{ij}(t)|^2 = |U_{ij}(t)|^2$ for all $i, j, t$, then $H' = DHD^\dagger$ for a time-independent diagonal unitary $D$.*
 
@@ -330,7 +354,7 @@ where $S_{\text{dS}} = A/(4\,l_p^2)$ is the Bekenstein-Hawking entropy of the de
 
 *Proof.* For infinitesimal $dt$ and $x' \neq x$: $T_{x,x'}(dt) = |\langle x'|\hat{H}|x\rangle|^2\,dt^2 + O(dt^3)$. If $x, x'$ differ at non-neighboring sites, spatial locality of the classical dynamics gives $T_{x,x'}(dt) = 0$ at leading order, hence $|\langle x'|\hat{H}|x\rangle|^2 = 0$. By the D-gauge theorem (§5.3), the residual phase freedom is a diagonal unitary $D$ that preserves the vanishing of off-diagonal moduli, so $\langle x'|\hat{H}|x\rangle = 0$ in any gauge. The emergent Hamiltonian has the form $\hat{H} = \sum_k \hat{h}_k + \sum_{\langle k,l\rangle} \hat{h}_{kl}$. $\square$
 
-**Scope of the emergent QFT.** The emergent lattice QFT need not reproduce the Standard Model in detail for the arguments of §7 to apply. The CC dissolution requires only that the emergent description assigns zero-point energy $\sim \hbar\omega/2$ per mode with UV cutoff at $\epsilon^{-1}$ — a property shared by any lattice QFT with local couplings, regardless of gauge group or matter content. That the observed universe's field content includes the specific gauge groups and matter representations of the Standard Model is a question about which classical substrata satisfy the axioms — it constrains the dynamics $\phi_t$ of Axiom 1, not the trace-out mechanism. The framework's predictive content in Part II concerns quantities ($\hbar$, $S_{\text{dS}}$, $\nu_{\text{OI}}$) that depend on the partition geometry, not on the emergent field content; the CC dissolution depends on the *existence* of zero-point energy in the emergent description, not on its detailed spectrum.
+**Scope of the emergent QFT.** The CC dissolution requires only that the emergent description assigns zero-point energy $\sim \hbar\omega/2$ per mode with UV cutoff at $\epsilon^{-1}$ — a property shared by any lattice QFT with local couplings, regardless of gauge group or matter content. The framework's predictions in Part II ($\hbar$, $S_{\text{dS}}$, $\nu_{\text{OI}}$) depend on partition geometry, not on the emergent field content.
 
 **Classical substratum** (what geometric measurements probe): The horizon has classical thermal equilibrium. By the Friedmann equation, $\rho_{\text{crit}} = 3H^2 c^2/(8\pi G)$. No zero-point energy, no discrepancy. Total vacuum energy density: $\rho \sim H^2/G \sim 10^{-9}$ J/m$^3$ — precisely observed.
 
@@ -340,9 +364,17 @@ where $S_{\text{dS}} = A/(4\,l_p^2)$ is the Bekenstein-Hawking entropy of the de
 
 Spacetime geometry is part of the classical substratum (Axiom 3): the metric evolves via Einstein's equations *before* the trace-out. The stress-energy sourcing gravity is the classical stress-energy of the total microstate, not the expectation value of an emergent quantum operator. The semiclassical equation $G_{\mu\nu} = 8\pi G \langle \hat{T}_{\mu\nu} \rangle$ is itself an emergent approximation; at the classical level, the gravitational field equations never encounter the zero-point sum.
 
-**Ontological commitment.** Classical spacetime is fundamental; QM is emergent. This follows from the derivation's logic: the causal partition is defined by null geodesics of the metric (§4.1), so the metric must exist prior to the partition and hence prior to the quantum description. Reversing this ordering makes the partition definition circular. Any framework in which QM is logically prior to the metric must treat the zero-point sum as a gravitational source — producing the $10^{122}$ discrepancy requiring cancellation or fine-tuning. In the present framework, the zero-point sum is an artifact of the emergent description and never enters the stress-energy tensor.
+**Ontological commitment.** Classical spacetime is fundamental; QM is emergent. This ordering is not a modeling choice but is forced by the logical structure of the derivation through three independent requirements:
 
-**The classical vacuum energy scale.** The framework does not explain *why* $\rho \sim H^2/G$; this is set by initial conditions via the Friedmann equation. The framework reclassifies the CC puzzle: from quantum vacuum cancellation ($10^{122}$-fold, unsolved for five decades) to classical initial conditions (a standard cosmological question). Supersymmetric cancellations are increasingly constrained by LHC null results, and anthropic arguments constrain the range without predicting the observed value; the present framework predicts $\rho \sim H^2/G$ and identifies the discrepancy as $S_{\text{dS}}$. This does not prove the ordering correct — the GW echo prediction (§8.2) provides a more direct test — but it constitutes existing empirical evidence for geometry-first.
+*(i) Definiteness.* The trace-out that produces QM is defined by a *specific* partition $\Gamma = \Gamma_V \times \Gamma_H$. The partition must be definite — not in superposition, not subject to quantum uncertainty — for the marginalization integral (§1.4) to be well-defined. A partition in superposition would yield an incoherent mixture of inequivalent quantum theories, not a single QM. The metric at the partition boundary must therefore be classical.
+
+*(ii) Non-circularity.* The partition is defined by the causal structure: $\Gamma_H$ is the set of degrees of freedom beyond the observer's causal reach (§4.1). Causal structure is determined by null geodesics of the metric. If the metric were derived from QM, then the derivation would require: QM $\to$ metric $\to$ causal structure $\to$ partition $\to$ QM — a circular dependency with no entry point. The circle breaks only if the metric exists prior to the partition.
+
+*(iii) Uniqueness of $\hbar$.* The emergent action scale is determined by the boundary geometry (§5.2). If the geometry were itself quantum-mechanical, $\hbar$ would depend on a quantum state — but $\hbar$ is state-independent by observation. The geometry-first ordering is the only one consistent with a universal $\hbar$.
+
+Any framework in which QM is logically prior to the metric must either (a) treat the zero-point sum as a gravitational source — producing the $10^{122}$ discrepancy requiring cancellation or fine-tuning — or (b) invoke an independent mechanism to decouple quantum vacuum energy from gravity. In the present framework, the zero-point sum is an artifact of the emergent description and never enters the stress-energy tensor; no decoupling mechanism is needed.
+
+**The classical vacuum energy scale.** The framework does not explain *why* $\rho \sim H^2/G$; this is set by initial conditions via the Friedmann equation. What it does is reclassify the CC puzzle: from quantum vacuum cancellation ($10^{122}$-fold, unsolved for five decades) to classical initial conditions (a standard cosmological question).
 
 **Quantum corrections to gravity.** The emergent quantum description does feed back into gravitational dynamics through state-level quantities: §8.1 derives dark energy evolution because the emergent vacuum energy depends on $H$ through the hidden sector's volume. What the framework excludes is the zero-point sum — a property of the correspondence itself rather than of any particular state — as a gravitational source. The structural/volumetric distinction of §5.2 applies: $\hbar$ (structural) does not gravitate; the vacuum energy (volumetric, state-dependent) does, but at the classical scale $\rho \sim H^2/G$ rather than $\rho \sim M_{\text{Pl}}^4$.
 
@@ -364,9 +396,9 @@ This is the Running Vacuum Model [20, 21]. The $S_{\text{dS}}$ horizon modes spa
 
 $$\boxed{\nu_{\text{OI}} = \frac{\Omega_\Lambda}{2\,\ln(c/\epsilon H_0)}}$$
 
-With $\epsilon = 2\,l_p$, $H_0 = 67.4$ km/s/Mpc, $\Omega_\Lambda = 0.685$: $\nu_{\text{OI}} = (2.45 \pm 0.03) \times 10^{-3}$. Independently testable ratio: $\nu_{\text{OI}} / \Omega_\Lambda \approx 0.00358$.
+With $\epsilon = 2\,l_p$, $H_0 = 67.4$ km/s/Mpc, $\Omega_\Lambda = 0.685$: $\nu_{\text{OI}} = 2.45 \times 10^{-3}$ (parametric uncertainty $\pm 0.03 \times 10^{-3}$ from $H_0$ and $\Omega_\Lambda$; systematic range $\sim 1$–$5 \times 10^{-3}$ from the spectral assumption below). Independently testable ratio: $\nu_{\text{OI}} / \Omega_\Lambda \approx 0.00358$.
 
-**Sensitivity to field content.** The conformal assumption (uniform spectral density in $\ln\omega$) is an idealization; massive fields and QCD confinement break conformal invariance. For a spectral density $\propto \omega^\alpha$ with $\alpha \neq 0$, the effective channel count $\mathcal{N}$ is modified, but $\nu_{\text{OI}} \propto 1/\mathcal{N}$ and $\mathcal{N} \sim 140$, so order-unity changes to $\alpha$ shift $\nu_{\text{OI}}$ within $\mathcal{O}(10^{-3})$. The prediction is logarithmically insensitive to the UV field content; a factor-of-two uncertainty in $\nu_{\text{OI}}$ is a conservative estimate.
+**Sensitivity to field content.** The conformal assumption (uniform spectral density in $\ln\omega$) is an idealization; massive fields and QCD confinement break conformal invariance. For a spectral density $\propto \omega^\alpha$ with $\alpha \neq 0$, the effective channel count $\mathcal{N}$ is modified. Since $\nu_{\text{OI}} \propto 1/\mathcal{N}$ and the conformal value is $\mathcal{N} \sim 140$, even order-unity changes to $\alpha$ shift $\nu_{\text{OI}}$ within $\mathcal{O}(10^{-3})$: the logarithmic structure suppresses sensitivity to UV field content. The systematic range $1$–$5 \times 10^{-3}$ spans a factor-of-two variation in $\mathcal{N}$ around the conformal value; this is the dominant uncertainty, not the parametric error. The central value $2.45 \times 10^{-3}$ should be understood as the conformal benchmark, not a precision prediction.
 
 DESI data [22, 30] report evolving dark energy at $2.8\sigma$–$4.2\sigma$. RVM fits [31] find $\nu \sim \mathcal{O}(10^{-3})$ with $\nu = 0$ disfavored at $2.7\sigma$–$3.1\sigma$, consistent with the prediction.
 
@@ -390,21 +422,27 @@ The framework implies additional gravitational effects beyond those captured by 
 
 ## 9. DARK GRAVITY AS A CONSEQUENCE OF OBSERVATIONAL INCOMPLETENESS
 
-The same partition, axioms, and conditions that produce QM also produce a second, qualitatively distinct physical effect: additional gravitational acceleration with no source in the emergent quantum field theory. That two apparently unrelated phenomena — quantum mechanics and dark-matter-like gravitational anomalies — emerge from identical premises is evidence that observational incompleteness is capturing real physical structure, not merely repackaging known results.
+The same partition, axioms, and conditions that produce QM also produce a second, qualitatively distinct physical effect: additional gravitational acceleration with no source in the emergent quantum field theory. That two apparently unrelated phenomena — quantum mechanics and anomalous gravitational effects — emerge from identical premises is evidence that observational incompleteness is capturing real physical structure, not merely repackaging known results.
 
-§9.1–9.4 derive the qualitative prediction from the framework's own axioms. §9.5 shows that Verlinde's emergent gravity program [37] provides an independent, quantitative force law consistent with this prediction. The quantitative force law is external input; the qualitative prediction is not.
+§9.1–9.4 derive the qualitative prediction from the framework's own axioms. The quantitative force law governing these effects requires additional input beyond Axioms 1–4 and is deferred to future work.
 
 ### 9.1 The Entropy Medium
 
-**Lemma (Entropy medium density).** *The gravitational influence of the de Sitter boundary entropy at the Gibbons-Hawking temperature is equivalent, for a bulk observer, to that of a uniform medium at the critical density.*
+**Lemma (Entropy medium density).** *The gravitational potential generated by the de Sitter boundary entropy at the Gibbons-Hawking temperature equals, at any interior point, the potential of a uniform medium at the critical density.*
 
-*Proof.* The horizon carries $S_{\text{dS}} = A/(4\,l_p^2)$ modes (§6) at temperature $k_B T_{\text{GH}} = \hbar H/(2\pi)$ (§5.2). The volume entropy density is $s = S_{\text{dS}}/V_H$ where $V_H = 4\pi c^3/(3H^3)$. The associated energy density:
+*Proof.* The horizon carries $S_{\text{dS}} = A/(4\,l_p^2)$ modes (§6) at temperature $k_B T_{\text{GH}} = \hbar H/(2\pi)$ (§5.2). The total thermal energy is $E_s = S_{\text{dS}} \cdot k_B T_{\text{GH}}$. Distributing this over the enclosed volume $V_H = 4\pi c^3/(3H^3)$ gives the effective density:
 
-$$\rho_s = s \cdot k_B T_{\text{GH}} = \frac{3\hbar H^2}{8\pi l_p^2 c} = \frac{3c^2 H^2}{8\pi G} = \rho_{\text{crit}}$$
+$$\rho_s = \frac{E_s}{V_H} = \frac{3\hbar H^2}{8\pi l_p^2 c} = \frac{3c^2 H^2}{8\pi G} = \rho_{\text{crit}}$$
 
-where the third equality uses $\hbar = c^3 l_p^2/G$ (§5.2). $\square$
+where the third equality uses $\hbar = c^3 l_p^2/G$ (§5.2). By the shell theorem (Gauss's law for gravity), a uniform mass shell of total energy $E$ produces, at any interior point, the same gravitational potential as a uniform medium of density $E/V$ filling the enclosed volume. The de Sitter isometry ensures the boundary entropy is uniformly distributed on the horizon, so the shell theorem applies. $\square$
 
-The lemma computes an *effective* gravitational source density: the gravitational potential generated by $S_{\text{dS}}$ thermal modes on a sphere of area $A$ equals, at any interior point, that of a uniform medium at $\rho_{\text{crit}}$. This follows from the isometry of de Sitter space — every interior point is equivalent, so any anisotropy in the boundary's gravitational influence would break the symmetry of the background. The entropy modes are physically localized on the horizon; the uniform-medium description is a diagnostic equivalence for computing their bulk gravitational effects, not a claim about physical delocalization. The coincidence $\rho_s = \rho_{\text{crit}}$ is an algebraic consequence of the Friedmann equation and the self-consistency relation $\hbar = c^3\epsilon^2/(4G)$; it does not require the entropy to occupy the bulk.
+Three clarifications are essential for what follows.
+
+*Physical locus.* The entropy modes are physically localized on the horizon — they are the hidden-sector boundary degrees of freedom of §5.2. The uniform-medium description is a gravitational equivalence (shell theorem), not a claim about physical delocalization. No entropy occupies the bulk.
+
+*Why the equivalence is useful.* When matter is present, it locally deforms the horizon geometry (§9.2–9.3), redistributing the boundary entropy. The gravitational effect of this redistribution on bulk observers is most easily computed using the uniform-medium equivalence: the deformed boundary is equivalent to a non-uniform effective bulk source, and the deviation from uniformity is the "dark gravity" effect. The displacement is physical — it occurs on the horizon — but the bulk-medium language provides the computational framework.
+
+*Algebraic status.* The coincidence $\rho_s = \rho_{\text{crit}}$ is an algebraic consequence of the Friedmann equation and the self-consistency relation $\hbar = c^3\epsilon^2/(4G)$; it is not an independent physical input.
 
 This identity, which Verlinde [37] assumes, is here derived.
 
@@ -424,7 +462,7 @@ The effect becomes significant where the baryonic gravitational acceleration $g_
 
 ### 9.3 Memory Effects and P-Indivisibility
 
-Matter displaces entropy from the de Sitter medium, and the displacement persists because $\tau_B \gtrsim 1/H$ (condition C2). Verlinde [37] identifies this as a "memory effect" from the non-thermalization of de Sitter states at sub-Hubble scales. In the present framework, this non-thermalization is not assumed but derived: it is P-indivisibility operating in the gravitational sector, with (C2) ensuring that entropy displacements persist without thermal overwriting.
+Matter locally deforms the horizon geometry, redistributing the boundary entropy (§9.1). This displacement persists because $\tau_B \gtrsim 1/H$ (condition C2): the hidden-sector modes carrying the redistributed entropy do not thermalize back to the unperturbed configuration on sub-Hubble timescales. Verlinde [37] identifies this as a "memory effect" from the non-thermalization of de Sitter states at sub-Hubble scales. In the present framework, this non-thermalization is not assumed but derived: it is P-indivisibility operating in the gravitational sector, with (C2) ensuring that entropy displacements persist without thermal overwriting.
 
 ### 9.4 The Qualitative Prediction
 
@@ -432,33 +470,9 @@ Matter displaces entropy from the de Sitter medium, and the displacement persist
 
 *Proof.* Each property is proved in the referenced subsection. $\square$
 
-These are qualitative predictions derived entirely from the framework's axioms, independent of any specific force law.
+These are qualitative predictions derived entirely from the framework's axioms, independent of any specific force law. A quantitative force law — determining the interpolation function between the Newtonian and anomalous regimes, and hence the connection to observed rotation curves and scaling relations — requires additional input (e.g., holographic entropy assignments) beyond Axioms 1–4 and is left to future work. The qualitative prediction stands regardless of which force law, if any, proves correct.
 
-### 9.5 Quantitative Corroboration: Verlinde's Force Law
-
-Verlinde [37] independently derives the force law governing entropy displacement in de Sitter space using holographic entropy assignments [38]. For a baryonic point mass $M_b$, the elastic equilibrium between area-law and volume-law entropy gives:
-
-$$g_D^2 = g_b \cdot \frac{cH}{\beta}$$
-
-in the regime $g_b \ll cH/\beta$, with the Tully-Fisher relation $v^4 = GM_b \cdot cH/\beta$ as a direct consequence. Verlinde [37] obtains $\beta = 6$; recent work [40] suggests $\beta \approx 9$; Hossenfelder [41] constructed a covariant Lagrangian. The empirically allowed range $\beta \in [5, 9]$ gives $a_M \in (0.7$–$1.3) \times 10^{-10}$ m/s$^2$, consistent with Milgrom's value and the radial acceleration relation [39].
-
-The framework and Verlinde's derivation are logically independent but mutually reinforcing. The framework derives what Verlinde assumes: the entropy medium's energy density (§9.1), the memory mechanism (§9.3), and the invisibility to QFT (§9.2). It also resolves the tension between Verlinde's entanglement-first holographic origins and the geometry-first ordering established in Part II. Conversely, Verlinde provides the quantitative force law — the value of $\beta$ and the interpolation function — which requires holographic entropy assignments beyond the scope of Axioms 1–4.
-
-**Open problems.** Verlinde's force law faces known tensions at galaxy-cluster scales and in CMB acoustic peak fits. These tensions attach to the quantitative force law, not to the framework's qualitative prediction (i)–(v). The CMB regime, where the partition geometry differs substantially from the present-day de Sitter approximation, requires further analysis.
-
-### 9.6 Fertility and Unification
-
-QM arises from P-indivisibility acting on transition probabilities (Part I); dark gravity arises from P-indivisibility preserving entropy displacements (§9.3). Both require all three conditions; without any one, neither emerges.
-
-That axioms formulated with no reference to gravity, dark matter, or astrophysics produce both quantum mechanics and a gravitational anomaly matching the qualitative profile of dark matter is not guaranteed by the framework's construction. Part I does not logically require Part III. The boundary entropy might have had negligible gravitational effect, or its effect might have been captured within the emergent QFT. Neither holds. The second application is a non-trivial consequence that the framework did not need to produce but did.
-
-### 9.7 Predictions and Falsifiability
-
-**Framework-level predictions** (independent of the force law): (i) permanent null results in dark matter particle searches (§9.2); (ii) apparent dark matter tracking the baryonic gravitational field, consistent with the radial acceleration relation [39]; (iii) a cosmologically evolving acceleration scale $a_0 = cH$.
-
-**Verlinde-level predictions** (dependent on the elastic equilibrium): (iv) the Tully-Fisher relation $v^4 \propto M_b$ with $\beta \in [5, 9]$ [37, 40]; (v) radial profile $M_D(r) \propto r\sqrt{M_b}$ in the deep-MOND regime.
-
-**Falsification.** Detection of dark matter particles would falsify (i). Dark matter dynamics uncorrelated with baryonic fields would falsify (ii). Confirmation of (i)–(iii) with failure of (iv)–(v) would indicate the qualitative prediction is correct but the specific force law requires revision.
+**Falsifiability.** The dark gravity prediction would be falsified by definitive detection of dark matter particles (contradicting (i)), or by gravitational anomalies uncorrelated with the baryonic field (contradicting (iii)–(iv)).
 
 ---
 
@@ -476,7 +490,7 @@ The characterization theorem is a full equivalence: QM $\iff$ embedded observati
 
 ### 10.3 The Stochastic-Quantum Bridge
 
-The bridge from P-indivisible stochastic dynamics to unitary quantum mechanics is established by two independent routes. The primary route uses Barandes' stochastic-quantum correspondence [10, 11], which is bidirectional and exact, peer-reviewed, and independently corroborated [12, 25, 26]. Appendix A provides an independent derivation using only Stinespring's dilation theorem [32] and the complete positivity of partial-trace channels [33] — textbook results requiring no material more recent than 2000. The two routes yield identical physical predictions (Appendix A, Table 1). Partition-relativity, emergent stochasticity, and P-indivisibility (§§1.4, 2) invoke neither.
+The bridge is established by two independent routes: Barandes' stochastic-quantum correspondence [10, 11] (peer-reviewed, corroborated [12, 25, 26]) and the Stinespring construction (Appendix A, using only textbook results [32, 33]). Either alone suffices; together they overdetermine the bridge. Partition-relativity, emergent stochasticity, and P-indivisibility (§§1.4, 2) invoke neither.
 
 ### 10.4 The Status of the Discreteness Scale
 
@@ -492,13 +506,9 @@ $\epsilon$ does not smuggle in a quantum assumption. Axiom 2 requires finite-dim
 
 **'t Hooft [1]:** Differs in mechanism (epistemic trace-out vs. information loss), generality (any system satisfying axioms vs. particular rules), and Bell placement (outcome independence violation vs. superdeterminism). **QBism/relational QM:** Share observer-relative epistemic states; this framework provides a structural *why* and quantitative predictions. **Jacobson [16]:** Derives gravity from thermodynamics; this framework derives QM from causal structure — complementary, with mutual consistency as a check.
 
-**AdS/CFT and the geometry-entanglement connection.** The most developed challenge to the framework's ordering comes from holographic physics: the Ryu-Takayanagi formula, Van Raamsdonk's disconnection argument, the ER=EPR conjecture, and "it from qubit" programs all suggest entanglement is prior to geometry.
+**AdS/CFT and the geometry-entanglement connection.** The Ryu-Takayanagi formula, Van Raamsdonk's disconnection argument, ER=EPR, and "it from qubit" programs all suggest entanglement is prior to geometry. The framework offers a uniform alternative reading: tracing out across a geometric boundary produces entanglement entropy proportional to boundary area ($A/\epsilon^2$ modes), so each of these results is equally consistent with geometry assembling entanglement rather than the reverse. For Ryu-Takayanagi specifically, the proportionality constant must follow from the partition structure — and it does: §6 derives the $1/4$ factor. In the holographic context, the boundary CFT observer is *external* to the bulk, immune to the inferential limits of embedded observers [19]; the framework does not claim to reproduce holographic results in that setting.
 
-The framework offers an alternative reading of each result. The Ryu-Takayanagi formula equates entanglement entropy with extremal surface area. In the present framework, tracing out across a geometric boundary produces entanglement entropy proportional to boundary area ($A/\epsilon^2$ modes), so the area-entropy relation is a consequence of geometry assembling entanglement, not the reverse. For this reading to hold, the proportionality constant must follow from the partition structure — and it does: §6 derives the $1/4$ factor from $\epsilon = 2\,l_p$, yielding $S = A/(4\,l_p^2)$ without assuming the Ryu-Takayanagi formula.
-
-Van Raamsdonk's disconnection argument — that reducing entanglement between CFT subsystems disconnects the dual geometry — similarly admits reversal: changing the partition geometry changes the emergent entanglement. The question is which direction carries the explanatory weight. In the holographic context, the boundary CFT observer is *external* to the bulk, immune to the inferential limits of embedded observers [19]; the framework does not claim to reproduce the specific form of holographic results in that setting.
-
-The key point of contact is empirical. Entanglement-first programs predict spacetime breakdown at low entanglement or high energy. This framework predicts QM breakdown near $\epsilon = 2\,l_p$ while the geometric substratum persists (§8). The CC dissolution (§7.2) provides a concrete test: the geometry-first ordering predicts $\rho \sim H^2/G$ without fine-tuning, while entanglement-first orderings inherit the zero-point sum as a gravitational source.
+The point of contact is empirical. Entanglement-first programs predict spacetime breakdown at low entanglement or high energy. This framework predicts QM breakdown near $\epsilon = 2\,l_p$ while the geometric substratum persists. The CC dissolution (§7.2) provides a concrete test: geometry-first predicts $\rho \sim H^2/G$ without fine-tuning; entanglement-first orderings inherit the zero-point sum as a gravitational source.
 
 Witten's Type II algebra program achieves finite entropy without finite-dimensional Hilbert spaces; this is compatible, since the framework's predictions depend on finite entropy (the physical content of Axiom 2), not on dimensional finiteness per se.
 
@@ -510,7 +520,7 @@ Witten's Type II algebra program achieves finite entropy without finite-dimensio
 
 **Planck-scale ordering.** The classical-prior ontology may break down at $l_p$, where "geometric" and "quantum" lose operational distinction. If a deeper theory unifies both, this framework describes the effective macroscopic regime.
 
-**Falsifiability.** The *theorem* would be falsified by a failure of both the stochastic-quantum correspondence and the Stinespring construction for the class of processes generated here — a possibility excluded by the independent proofs in §3.1 and Appendix A. The *cosmological application* would be falsified by definitive absence of dark energy evolution or GW echoes at the predicted timescale. The *dark gravity prediction* divides into two levels: the framework-level prediction (additional gravity with no particle source at scales below $cH$) would be falsified by definitive detection of dark matter particles or by dark matter dynamics uncorrelated with baryonic fields; the quantitative force law, which relies on Verlinde's derivation, would be independently tested by rotation curve fits and the Tully-Fisher relation (§9.7).
+**Falsifiability.** The *theorem* would be falsified by a failure of both the stochastic-quantum correspondence and the Stinespring construction for the class of processes generated here — a possibility excluded by the independent proofs in §3.1 and Appendix A. The *cosmological application* would be falsified by definitive absence of dark energy evolution or GW echoes at the predicted timescale. The *dark gravity prediction* (§9.4) would be falsified by definitive detection of dark matter particles or by gravitational anomalies uncorrelated with the baryonic field at scales below $cH$.
 
 ---
 
@@ -520,7 +530,7 @@ Witten's Type II algebra program achieves finite entropy without finite-dimensio
 
 **The cosmological application (Part II).** The cosmological horizon provides a realization where the sharp-partition approximation is exact and all conditions hold. The theorem yields: (a) $\hbar = c^3 \epsilon^2 / (4G)$ with $\epsilon = 2\,l_p$ and the Bekenstein-Hawking formula as consequences; (b) dissolution of the CC problem — the $10^{122}$ discrepancy is $S_{\text{dS}}$, the compression ratio of the observer's quantum description; and (c) falsifiable predictions including RVM dark energy with $\nu_{\text{OI}} \approx 2.45 \times 10^{-3}$ and gravitational wave echoes.
 
-**A second application (Part III).** The same axioms and conditions that produce quantum mechanics independently predict additional gravitational effects: the boundary entropy's thermal energy equals $\rho_{\text{crit}}$, its gravitational influence has no operator in the emergent QFT, and entropy displacements persist through P-indivisibility. These qualitative predictions match the observed profile of dark matter phenomenology and are quantitatively consistent with Verlinde's emergent gravity force law [37]. That two apparently unrelated phenomena — quantum mechanics and dark-matter-like gravitational anomalies — emerge as independent consequences of observational incompleteness provides evidence that the framework is capturing real physical structure.
+**A second application (Part III).** The same axioms and conditions that produce quantum mechanics independently predict additional gravitational effects: the boundary entropy's thermal energy equals $\rho_{\text{crit}}$ (derived, not assumed), its gravitational influence has no operator in the emergent QFT, and entropy displacements persist through P-indivisibility. These qualitative predictions — additional gravity with no particle-sector source, onset at $g_b \lesssim cH$, and cosmologically evolving acceleration scale — emerge as independent consequences of observational incompleteness. That the framework produces a second, qualitatively distinct phenomenon from the same premises provides evidence that it is capturing real physical structure.
 
 The apparent conflict between quantum mechanics and general relativity is the information-theoretic cost of observing the universe from within.
 
@@ -570,10 +580,6 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [35] S. Milz, M. S. Kim, F. A. Pollock, and K. Modi, "Completely positive divisibility does not mean Markovianity," *Phys. Rev. Lett.* **123**, 040401 (2019).
 [36] B. S. Cirel'son, "Quantum generalizations of Bell's inequality," *Lett. Math. Phys.* **4**, 93–100 (1980).
 [37] E. P. Verlinde, "Emergent Gravity and the Dark Universe," *SciPost Phys.* **2**, 016 (2017); arXiv:1611.02269.
-[38] J. D. Bekenstein, "Universal upper bound on the entropy-to-energy ratio for bounded systems," *Phys. Rev. D* **23**, 287 (1981).
-[39] S. McGaugh, F. Lelli, and J. Schombert, "The Radial Acceleration Relation in Rotationally Supported Galaxies," *Phys. Rev. Lett.* **117**, 201101 (2016).
-[40] Y. Yoon, "Comment on 'Emergent Gravity and the Dark Universe' by Erik Verlinde," arXiv:1909.01734 (2025).
-[41] S. Hossenfelder, "A Covariant Version of Verlinde's Emergent Gravity," *Phys. Rev. D* **95**, 124018 (2017); arXiv:1703.01415.
 
 ---
 
