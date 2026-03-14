@@ -6,7 +6,6 @@
 \usepackage{geometry}
 \usepackage{hyperref}
 \usepackage{enumitem}
-\usepackage{booktabs}
 
 \geometry{margin=1in}
 
@@ -261,13 +260,17 @@ If quantum mechanics is an emergent description forced on embedded observers, th
 
 \section*{Predictions}
 
-The framework is not just a reinterpretation. It makes two specific, falsifiable predictions.
+The framework is not just a reinterpretation. It makes three specific, falsifiable predictions.
 
 \textbf{Dark energy evolution.} Because the hidden sector's dimensionality changes as the Hubble parameter $H$ evolves (the horizon area is $A = 4\pi c^2/H^2$), the emergent vacuum energy inherits a dependence on $H$. The predicted form matches the Running Vacuum Model: $\Lambda_{\text{eff}} = \Lambda_0 + \nu H^2$. The coefficient $\nu$ is computed from the spectral structure of the horizon: the trace-out compression noise is distributed over $\mathcal{N} = \ln(c/\epsilon H)$ spectral decades, giving $\nu = \Omega_\Lambda / (2\mathcal{N}) \approx 2.45 \times 10^{-3}$. DESI's 2024--2025 data releases report evidence for evolving dark energy at $2.8\sigma$--$4.2\sigma$, with phenomenological fits consistently finding $\nu \sim 1$--$4 \times 10^{-3}$---the range in which the framework's prediction sits.
 
 \textbf{Gravitational wave echoes.} At a proper distance of about one discreteness scale ($\epsilon = 2\,l_p$) outside a black hole horizon, an infalling mode's wavelength hits the discreteness floor and must scatter back. For a 30~solar-mass remnant, the predicted echo delay is roughly 54~milliseconds.
 
-Each prediction alone is compatible with other frameworks. Their \emph{conjunction}---dark energy evolution in RVM form \emph{and} gravitational wave echoes at the predicted timescale---is distinctive. No competing framework predicts both.
+\textbf{Dark gravity.} The boundary entropy---the $S_{\text{dS}}$ modes traced out to produce the quantum description---has thermal energy that, distributed over the Hubble volume, equals the critical density exactly. This is an algebraic consequence of the framework's thermal self-consistency. Matter gravitationally displaces this entropy, and the displacement persists because the hidden sector's slow dynamics (condition C2) prevents re-equilibration---the same P-indivisibility that produces quantum mechanics. The displaced entropy gravitates (gravity is pre-trace-out) but has no particle image in the emergent QFT (the boundary modes are hidden sector). To the embedded observer, this appears as additional gravity with no visible source---dark matter.
+
+The predicted force law, derived by Verlinde using holographic entropy assignments that the present framework provides an axiomatic foundation for, gives $g_D = \sqrt{g_b \cdot cH/6}$, where $g_b$ is the baryonic acceleration and $cH$ is the horizon's surface gravity. This yields flat rotation curves, the Tully--Fisher relation $v^4 \propto M_b$, and a Milgrom acceleration scale $a_M = cH_0/6 \approx 1.1 \times 10^{-10}$~m/s$^2$, consistent with the observed value. The mechanism predicts permanent null results in dark matter particle searches, and an acceleration scale that evolves cosmologically as $H$ evolves.
+
+The conjunction of all three predictions---dark energy evolution in RVM form, gravitational wave echoes at the predicted timescale, and dark gravity with no particle-sector source---is distinctive. No competing framework predicts all three.
 
 \section*{Philosophical Lineage}
 
@@ -282,12 +285,22 @@ The framework rests on seven implicit philosophical commitments:
 \item \textbf{QM and GR are both correct} within their domains.
 \item \textbf{The hidden sector is permanently inaccessible}---not due to technological limitations, but structural ones.
 \item \textbf{The underlying reality is local and definite.} Indeterminacy belongs to the observer's description, not to the world.
-\item \textbf{Incompleteness is structural, not deficient}---analogous to G\"odel's theorem, not to ignorance that better instruments could cure.
+\item \textbf{Incompleteness is structural, not deficient.} The limitation arises because the observer is made of the same elements as the universe it is trying to describe---a physical form of self-reference. This is analogous to G\"odel's incompleteness theorem, not to ignorance that better instruments could cure.
 \item \textbf{The description is observer-relative.} Different partitions yield different emergent physics.
 \item \textbf{The two descriptions are irreconcilable}---not because one is wrong, but because they are complementary projections of a single reality that no embedded observer can access directly.
 \end{enumerate}
 
 Claims 1, 5, 6, and~7 enjoy broad philosophical support across nearly every tradition examined. Claim~4---that the underlying reality is definite---is the paper's most philosophically isolated thesis.
+
+\subsection*{The G\"odel connection}
+
+The analogy between this framework and G\"odel's incompleteness theorem is not merely metaphorical. G\"odel proved that a formal system rich enough to encode arithmetic cannot prove all true statements about itself from within---the limitation arises because the system is self-referential, capable of constructing sentences that refer to its own provability. The observer in this framework faces a structurally parallel situation: the reason a cosmological horizon exists at all is that the observer is a physical subsystem made of the same fields, obeying the same speed-of-light constraint, as the universe it is trying to describe. An observer not made of the universe's own elements would not face a horizon and would not be forced into a quantum description. The incompleteness is a consequence of self-inclusion.
+
+The connection can be made precise through Wolpert's limits of inference [19], which the paper cites. Wolpert proved, using diagonal self-referential arguments directly descended from G\"odel's, that any inference device embedded in the universe it is trying to predict faces fundamental limits---not because of noise or finite resources, but because complete self-prediction is logically impossible. The present framework provides the concrete physical mechanism by which Wolpert's logical limitation manifests: the causal partition enforces the trace-out, the trace-out produces P-indivisibility, and P-indivisibility is quantum mechanics. The $10^{122}$ compression ratio---the Bekenstein--Hawking entropy of the cosmological horizon---is the quantitative measure of how much information self-inclusion forces the observer to lose.
+
+The key difference from G\"odel is in the \emph{form} of self-reference. G\"odel's is syntactic: the system encodes a sentence that says ``I am not provable.'' The framework's is physical: the observer is made of the described, so complete description would require the observer to fully encode its own state plus everything causally connected to it, which the causal structure forbids. Wolpert sits between the two, using G\"odelian logic applied to physical systems. Together they form a chain: G\"odel (formal systems cannot completely describe themselves) $\to$ Wolpert (physical inference devices cannot completely predict the systems they inhabit) $\to$ this framework (the specific mechanism is the causal partition, and the specific cost is quantum mechanics).
+
+Hofstadter's \emph{G\"odel, Escher, Bach} argues that self-referential systems produce genuinely emergent higher levels---``strange loops'' where a system's hierarchical levels fold back on themselves, generating properties invisible at the lower level. This framework agrees: quantum mechanics is the real, irreducible description available to any embedded observer, just as Hofstadter's ``I'' is real even though it emerges from neurons. The strange loop is intact---the observer, made of the universe's own elements, generates through self-inclusion an emergent description that governs everything the observer can access. The disagreement with Hofstadter is narrow but consequential: he argues that once the emergent level is established, the substrate beneath it is explanatorily inert. The cosmological constant problem suggests otherwise. The $10^{122}$ discrepancy exists precisely because the emergent quantum description and the classical substrate assign different vacuum energies, and only the substrate's value matches observation. The loop has a floor, and the floor matters.
 
 \subsection*{Closest ancestor: Nicholas of Cusa}
 
@@ -317,18 +330,21 @@ Only Spinoza (whose fully determinate substance is naturally definite) and Worra
 
 The paper's philosophical lineage is not a single line of descent but a mosaic. Its structural epistemology draws from Kant through Wittgenstein to Wolpert. Its complementarity thesis combines Bohr's physics with Cusa's coincidence of opposites and Daoist yin-yang. Its projection metaphysics reaches through Plato's cave and Plotinus's emanation to Advaita Vedanta's maya-Brahman distinction.
 
-What is genuinely new is the \emph{combination}: accepting Bohr's complementarity while insisting on Einstein's realism, grounding Kantian limits in physical structure while claiming knowledge of noumenal character, embracing Cusanian learned ignorance while giving it formal G\"odelian teeth. The traditions reveal that this combination creates a productive philosophical tension---the paper claims to know the character of what it proves unknowable. Whether this tension is a contradiction (as Hegel would insist), a residual Platonism (as Nietzsche would charge), or a legitimate achievement of learned ignorance (as Cusa would celebrate) may be the framework's deepest philosophical question.
+What is genuinely new is the \emph{combination}: accepting Bohr's complementarity while insisting on Einstein's realism, grounding Kantian limits in physical structure while claiming knowledge of noumenal character, embracing Cusanian learned ignorance while grounding it in a concrete physical mechanism---the G\"odel $\to$ Wolpert $\to$ causal partition chain described above. The traditions reveal that this combination creates a productive philosophical tension---the paper claims to know the character of what it proves unknowable. Whether this tension is a contradiction (as Hegel would insist), a residual Platonism (as Nietzsche would charge), or a legitimate achievement of learned ignorance (as Cusa would celebrate) may be the framework's deepest philosophical question.
 
 \section*{Frequently Asked Questions}
 
 \textbf{``Isn't this just another interpretation of quantum mechanics?''}
-No. Interpretations (Copenhagen, Many-Worlds, Bohmian mechanics) accept the quantum formalism and disagree about what it \emph{means}. This framework \emph{derives} the quantum formalism from non-quantum premises and proves the derivation is the only possible one. It makes quantitative predictions---the value of $\hbar$, dark energy evolution, gravitational wave echoes---that interpretations do not.
+No. Interpretations (Copenhagen, Many-Worlds, Bohmian mechanics) accept the quantum formalism and disagree about what it \emph{means}. This framework \emph{derives} the quantum formalism from non-quantum premises and proves the derivation is the only possible one. It makes quantitative predictions---the value of $\hbar$, dark energy evolution, gravitational wave echoes, and a dark gravity mechanism---that interpretations do not.
 
 \textbf{``Doesn't Bell's theorem rule out hidden variable theories?''}
 Bell's theorem rules out \emph{local} hidden variable theories satisfying a specific factorizability condition. This framework violates that factorizability---not through faster-than-light signals, but because P-indivisible joint dynamics don't permit the decomposition Bell's theorem assumes. The framework reproduces exactly Tsirelson's bound (the maximum quantum violation), no more and no less.
 
 \textbf{``If everything is deterministic underneath, where does randomness come from?''}
 From ignorance. The total system is deterministic, but the observer can't access the hidden sector. Different hidden states compatible with the same visible state lead to different outcomes. The observer must assign probabilities---not because the universe is random, but because their information is incomplete.
+
+\textbf{``What about dark matter?''}
+The framework predicts that dark matter is not a particle. It is an additional gravitational effect arising from the interaction between ordinary matter and the boundary entropy medium---the same $S_{\text{dS}}$ modes whose trace-out produces quantum mechanics. Matter displaces entropy from this medium; the displacement persists because of the hidden sector's slow dynamics (condition C2---the same condition responsible for P-indivisibility); and the displaced entropy gravitates because gravity operates at the classical level, before the trace-out. The emergent QFT has no operator for this gravitational effect because the boundary modes are the degrees of freedom that were traced out to produce the QFT in the first place. Dark matter and quantum mechanics are therefore dual consequences of the same structural feature: P-indivisibility operating at different scales.
 
 \textbf{``Why does gravity `see' the classical vacuum energy and not the quantum one?''}
 Because the spacetime metric exists at the classical level, \emph{before} the quantum description emerges. The quantum zero-point energy is a feature of the observer's compressed description. It's real for quantum experiments (the Casimir effect, the Lamb shift) but doesn't appear in the stress-energy tensor that governs curvature. The $10^{122}$ discrepancy is the information compression ratio---the entropy of the observer's blind spot.
@@ -346,6 +362,8 @@ The correlation between entanglement and geometry is real either way. The questi
 \section*{What This Means}
 
 The search for a ``theory of everything'' that unifies quantum mechanics and general relativity has assumed that the two theories describe the same level of reality and must be reconciled there. This paper argues that assumption is wrong. The two theories operate at different levels---one fundamental, one emergent---and their apparent contradiction is the information-theoretic cost of being an observer trapped inside the system you're trying to describe.
+
+Dark matter, on this account, is not a new substance but a second cost of the same entrapment. The boundary entropy that produces quantum mechanics also produces an additional gravitational effect that the quantum description cannot represent. Quantum weirdness and dark matter are two faces of the same coin: P-indivisibility---the universe's memory of what we cannot see.
 
 The universe is not broken. We are observing it from within.
 
