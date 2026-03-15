@@ -262,7 +262,7 @@ The framework is not just a reinterpretation. It makes specific, falsifiable pre
 
 The paper proves that this entropy has no operator in the emergent QFT. The baryonic sector — what QFT can account for — is ~5% of $\rho_{\text{crit}}$. The remaining ~95% is the boundary entropy: gravitationally active, invisible to the emergent description, and persistent through P-indivisibility (condition C2). This matches the observed composition of the universe, in which ~95% of the gravitational content has no source in particle physics. The uniform component corresponds to dark energy (handled by Part II's CC dissolution); the structured component (dark matter) is a candidate consequence of matter-induced entropy redistribution, though the redistribution profile requires further work. That axioms designed to derive quantum mechanics also account for the dark sector's total budget is independent corroboration that observational incompleteness is capturing real structure.
 
-The conjunction is distinctive: dark energy evolution in RVM form, gravitational wave echoes, and a natural account of the dark sector's total gravitational budget — all from four axioms about embedded observation. No competing framework produces all three.
+The conjunction is distinctive: dark energy evolution in RVM form, gravitational wave echoes, and a natural account of the dark sector's total gravitational budget — all from four axioms about embedded observation. No competing framework produces all three. The parallel with the cosmological constant dissolution is exact. Part II identifies the $10^{122}$ discrepancy as the *information compression ratio* of the trace-out — how much the emergent description distorts the vacuum energy. Part III identifies the ~95% dark sector as the *gravitational occlusion fraction* — how much of the gravitational universe the trace-out hides from the emergent description. Together, they account for the two largest anomalies in modern cosmology as two aspects of a single phenomenon: the cost of observing the universe from within.
 
 ---
 
@@ -359,7 +359,7 @@ The correlation between entanglement and geometry is real either way. The questi
 
 The search for a "theory of everything" that unifies quantum mechanics and general relativity has assumed that the two theories describe the same level of reality and must be reconciled there. This paper argues that assumption is wrong. The two theories operate at different levels — one fundamental, one emergent — and their apparent contradiction is the information-theoretic cost of being an observer trapped inside the system you're trying to describe.
 
-That this framework also accounts for the dark sector — ~95% of the universe's gravitational budget having no source in QFT — from the same axioms that produce quantum mechanics is perhaps the strongest reason to take it seriously. Axioms designed to address one problem are not obligated to produce consequences in another domain. When they do, it suggests the framework is capturing real structure rather than fitting known results.
+The apparent conflict between QM and GR, the $10^{122}$ vacuum energy discrepancy, and the dark sector are three faces of the same fact. The first is the existence of the trace-out. The second is its information compression ratio. The third is its gravitational occlusion fraction. All three are mandatory consequences of observational incompleteness — and all three match what we observe.
 
 The universe is not broken. We are observing it from within.
 
