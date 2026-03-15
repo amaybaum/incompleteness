@@ -10,7 +10,11 @@
 
 This paper proves that quantum mechanics is equivalent to embedded observation: an observer in a deterministic system with a causal partition, slow-bath coupling, and sufficient hidden-sector capacity necessarily describes the visible sector using quantum mechanics — and any quantum system requires precisely these conditions. The Schrödinger equation, the Born rule, and Bell inequality violations are structural consequences. No quantum postulates are assumed.
 
-**Part I** establishes the equivalence as a mathematical theorem, via two independent routes (Barandes' stochastic-quantum correspondence and Stinespring dilation). **Part II** identifies the cosmological horizon as a physical realization where all conditions hold, derives ℏ = c³ε²/(4G) from partition-relativity and thermal self-consistency (fixing ε = 2 l_p exactly), and dissolves the cosmological constant problem — the 10¹²² discrepancy is the information compression ratio of the trace-out. **Part III** shows that the same trace-out simultaneously renders ~95% of the universe's gravitational budget invisible to the emergent QFT — matching the observed dark sector — providing independent corroboration of observational incompleteness.
+**Part I** establishes the equivalence as a mathematical theorem, via two independent routes (Barandes' stochastic-quantum correspondence and Stinespring dilation).
+
+**Part II** identifies the cosmological horizon as a physical realization where all conditions hold, derives ℏ = c³ε²/(4G) from partition-relativity and thermal self-consistency (fixing ε = 2 l_p exactly), and dissolves the cosmological constant problem — the 10¹²² discrepancy is the information compression ratio of the trace-out.
+
+**Part III** shows that the same trace-out simultaneously renders ~95% of the universe's gravitational budget invisible to the emergent QFT — matching the observed dark sector — providing independent corroboration of observational incompleteness.
 
 ## Contents
 
