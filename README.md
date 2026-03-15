@@ -42,7 +42,7 @@ A companion overview covering the logical chain of the argument, detailed proof 
 
 4. **Falsifiable predictions.** Dark energy evolution in Running Vacuum Model form with conformal benchmark ν_OI ≈ 2.45 × 10⁻³ (systematic range ~1–5 × 10⁻³), consistent with DESI 2024–2025 data; and gravitational wave echoes near black hole horizons. The conjunction is distinctive to this framework.
 
-5. **Dark-sector concordance (Part III).** The trace-out producing QM simultaneously renders ~95% of ρ_crit invisible to the emergent QFT — matching the observed dark sector. The boundary entropy has effective energy density ρ_crit (derived), no QFT operator (proved), and persistent matter-induced displacements (from C2). The uniform component corresponds to dark energy; the redistribution profile (relevant to dark matter phenomenology) requires future work.
+5. **Dark-sector concordance (Part III).** The trace-out producing QM simultaneously renders ~95% of ρ_crit invisible to the emergent QFT — matching the observed dark sector. The boundary entropy has effective energy density ρ_crit (derived), no QFT operator (proved), and persistent matter-induced displacements (from C2). This gravitational occlusion fraction parallels the 10¹²² information compression ratio of Part II: one measures how much the trace-out distorts the emergent vacuum energy, the other how much of the gravitational universe it hides.
 
 6. **Foundational implications.** Wigner's Friend resolved (superposition is epistemic); Everettian measure problem dissolved (branches are compression artifacts); Born rule derived as the equilibrium distribution of the indivisible stochastic process.
 
