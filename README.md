@@ -10,7 +10,7 @@
 
 This paper proves that quantum mechanics is equivalent to embedded observation: an observer in a deterministic system with a causal partition, slow-bath coupling, and sufficient hidden-sector capacity necessarily describes the visible sector using quantum mechanics — and any quantum system requires precisely these conditions. The Schrödinger equation, the Born rule, and Bell inequality violations are structural consequences. No quantum postulates are assumed.
 
-**Part I** establishes the equivalence as a mathematical theorem, via Barandes' stochastic-quantum correspondence. **Part II** identifies the cosmological horizon as a physical realization where all conditions hold, derives ℏ = c³ε²/(4G) from partition-relativity and thermal self-consistency (fixing ε = 2 l_p exactly), and reframes the cosmological constant problem from a theoretical failure into corroborating evidence for the framework.
+**Part I** establishes the equivalence as a mathematical theorem, via two independent routes (Barandes' stochastic-quantum correspondence and Stinespring dilation). **Part II** identifies the cosmological horizon as a physical realization where all conditions hold, derives ℏ = c³ε²/(4G) from partition-relativity and thermal self-consistency (fixing ε = 2 l_p exactly), and dissolves the cosmological constant problem — the 10¹²² discrepancy is the information compression ratio of the trace-out. **Part III** shows that the same trace-out simultaneously renders ~95% of the universe's gravitational budget invisible to the emergent QFT — matching the observed dark sector — providing independent corroboration of observational incompleteness.
 
 ## Contents
 
@@ -26,7 +26,7 @@ This paper proves that quantum mechanics is equivalent to embedded observation: 
 
 **"Why Physics' Biggest Contradiction Might Not Be a Contradiction at All"**
 
-A non-technical overview for a broad audience.
+A companion overview covering the logical chain of the argument, detailed proof walkthroughs, philosophical lineage, and FAQ.
 
 - [`Explainer.md`](Explainer.md) — Markdown source
 - [`Explainer.tex`](Explainer.tex) — LaTeX source
@@ -36,13 +36,15 @@ A non-technical overview for a broad audience.
 
 1. **QM–embedded observation equivalence.** A stochastic process on a finite configuration space is quantum mechanics if and only if it arises from deterministic dynamics with non-trivial coupling (C1), slow-bath memory (C2), and sufficient hidden-sector capacity (C3). Bell inequality violations and the Tsirelson bound follow from P-indivisibility plus causal locality.
 
-2. **Derivation of ℏ.** From the cosmological horizon: ℏ = c³ε²/(4G), with ε² = 4 l_p² fixed by self-consistency. The Bekenstein-Hawking entropy formula S = A/(4 l_p²) is recovered as a consequence.
+2. **Derivation of ℏ.** From the cosmological horizon: ℏ = c³ε²/(4G), with ε² = 4 l_p² fixed by self-consistency. The Bekenstein-Hawking entropy formula S = A/(4 l_p²) — including the factor of 1/4 — is recovered as a consequence.
 
-3. **Cosmological constant as corroborating evidence.** The 10¹²² discrepancy is S_dS — the exact information compression ratio of the emergent quantum description. The observed macroscopic vacuum energy is not a fine-tuned anomaly, but the mandatory classical baseline predicted by the framework.
+3. **Cosmological constant dissolution.** The 10¹²² discrepancy is S_dS — the information compression ratio of the emergent quantum description. The observed vacuum energy is the mandatory classical baseline. The geometry-first ordering is forced by three independent requirements (definiteness, non-circularity, ℏ universality).
 
-4. **Falsifiable predictions.** Dark energy evolution in Running Vacuum Model form (Λ_eff = Λ₀ + ν H²) with a computed coefficient ν_OI = Ω_Λ / (2·ln(c/εH₀)) = (2.45 ± 0.03) × 10⁻³, consistent with DESI 2024–2025 data; and gravitational wave echoes near black hole horizons. The conjunction is distinctive to this framework.
+4. **Falsifiable predictions.** Dark energy evolution in Running Vacuum Model form with conformal benchmark ν_OI ≈ 2.45 × 10⁻³ (systematic range ~1–5 × 10⁻³), consistent with DESI 2024–2025 data; and gravitational wave echoes near black hole horizons. The conjunction is distinctive to this framework.
 
-5. **Foundational implications.** Wigner's Friend resolved (superposition is epistemic); Everettian measure problem dissolved (branches are compression artifacts); AdS/CFT success explained via external observation.
+5. **Dark-sector concordance (Part III).** The trace-out producing QM simultaneously renders ~95% of ρ_crit invisible to the emergent QFT — matching the observed dark sector. The boundary entropy has effective energy density ρ_crit (derived), no QFT operator (proved), and persistent matter-induced displacements (from C2). The uniform component corresponds to dark energy; the redistribution profile (relevant to dark matter phenomenology) requires future work.
+
+6. **Foundational implications.** Wigner's Friend resolved (superposition is epistemic); Everettian measure problem dissolved (branches are compression artifacts); Born rule derived as the equilibrium distribution of the indivisible stochastic process.
 
 ## Contact
 
