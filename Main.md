@@ -530,7 +530,7 @@ Witten's Type II algebra program achieves finite entropy without finite-dimensio
 
 **Falsifiability.** The *theorem* would be falsified by a failure of both the stochastic-quantum correspondence and the Stinespring construction for the class of processes generated here — a possibility excluded by the independent proofs in §3.1 and Appendix A. The *cosmological application* would be falsified by definitive absence of dark energy evolution or GW echoes at the predicted timescale. The *dark-sector concordance* (§9.4) would be falsified by detection of dark matter particles accounting for the full structured dark sector, or by evidence that the dark sector's gravitational effects are unrelated to the cosmological boundary geometry.
 
-**Open problems.** The framework does not address the regime of nested or overlapping partitions (e.g., a black hole horizon inside the cosmological horizon), where two partition boundaries with different geometries coexist. §8.2 treats the specific case of GW echoes; the general theory requires further development. Laboratory tests of the characterization theorem are possible in analogue gravity systems where the hidden sector capacity is tunable; detailed predictions for BEC analogue black holes will be presented separately.
+**Open problems.** The framework does not address the regime of nested or overlapping partitions (e.g., a black hole horizon inside the cosmological horizon), where two partition boundaries with different geometries coexist. §8.2 treats the specific case of GW echoes; the general theory requires further development. Laboratory tests of the characterization theorem may be possible in analogue gravity systems where the hidden sector capacity is tunable.
 
 ---
 
