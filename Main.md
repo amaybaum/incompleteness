@@ -512,6 +512,8 @@ $\epsilon$ does not smuggle in a quantum assumption. Axiom 2 requires finite-dim
 
 **'t Hooft [1]:** Differs in mechanism (epistemic trace-out vs. information loss), generality (any system satisfying axioms vs. particular rules), and Bell placement (outcome independence violation vs. superdeterminism). **QBism/relational QM:** Share observer-relative epistemic states; this framework provides a structural *why* and quantitative predictions. **Jacobson [16]:** Derives gravity from thermodynamics; this framework derives QM from causal structure — complementary, with mutual consistency as a check.
 
+**Danielson-Satishchandran-Wald (DSW) horizon decoherence [38, 39].** DSW proved within standard QFT that any Killing horizon imparts a fundamental rate of decoherence on nearby quantum superpositions: the horizon registers the long-range field of the superposed body via soft gravitons/photons, destroying coherence at a rate determined by the horizon geometry. This is precisely the framework's partition mechanism described in QFT language — the horizon is the causal boundary, information leaks through it, and the exterior state decoheres. Three specific features match: (i) the decoherence rate depends on horizon geometry (partition-relativity); (ii) decoherence vanishes for extremal black holes where the coupling to the interior is screened (C1 failure); (iii) the process is non-Markovian near the horizon, with information backflow from the interior [40]. The DSW program derives these results within the emergent QFT; the present framework explains *why* horizons produce decoherence — because the trace-out across a causal partition is the mechanism that generates quantum mechanics itself.
+
 **AdS/CFT and the geometry-entanglement connection.** The Ryu-Takayanagi formula, Van Raamsdonk's disconnection argument, ER=EPR, and "it from qubit" programs all suggest entanglement is prior to geometry. The framework offers a uniform alternative reading: tracing out across a geometric boundary produces entanglement entropy proportional to boundary area ($A/\epsilon^2$ modes), so each of these results is equally consistent with geometry assembling entanglement rather than the reverse. For Ryu-Takayanagi specifically, the proportionality constant must follow from the partition structure — and it does: §6 derives the $1/4$ factor. In the holographic context, the boundary CFT observer is *external* to the bulk, immune to the inferential limits of embedded observers [19]; the framework does not claim to reproduce holographic results in that setting.
 
 The point of contact is empirical. Entanglement-first programs predict spacetime breakdown at low entanglement or high energy. This framework predicts QM breakdown near $\epsilon = 2\,l_p$ while the geometric substratum persists. The geometry-first ordering produces six independent concordances with observation (§7.2); entanglement-first orderings inherit the zero-point sum as a gravitational source and have no natural account of the dark sector.
@@ -528,7 +530,7 @@ Witten's Type II algebra program achieves finite entropy without finite-dimensio
 
 **Falsifiability.** The *theorem* would be falsified by a failure of both the stochastic-quantum correspondence and the Stinespring construction for the class of processes generated here — a possibility excluded by the independent proofs in §3.1 and Appendix A. The *cosmological application* would be falsified by definitive absence of dark energy evolution or GW echoes at the predicted timescale. The *dark-sector concordance* (§9.4) would be falsified by detection of dark matter particles accounting for the full structured dark sector, or by evidence that the dark sector's gravitational effects are unrelated to the cosmological boundary geometry.
 
-**Open problems.** The framework does not address the regime of nested or overlapping partitions (e.g., a black hole horizon inside the cosmological horizon), where two partition boundaries with different geometries coexist. §8.2 treats the specific case of GW echoes; the general theory requires further development.
+**Open problems.** The framework does not address the regime of nested or overlapping partitions (e.g., a black hole horizon inside the cosmological horizon), where two partition boundaries with different geometries coexist. §8.2 treats the specific case of GW echoes; the general theory requires further development. Laboratory tests of the characterization theorem are possible in analogue gravity systems where the hidden sector capacity is tunable; detailed predictions for BEC analogue black holes will be presented separately.
 
 ---
 
@@ -588,6 +590,12 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [35] S. Milz, M. S. Kim, F. A. Pollock, and K. Modi, "Completely positive divisibility does not mean Markovianity," *Phys. Rev. Lett.* **123**, 040401 (2019).
 [36] B. S. Cirel'son, "Quantum generalizations of Bell's inequality," *Lett. Math. Phys.* **4**, 93–100 (1980).
 [37] E. P. Verlinde, "Emergent Gravity and the Dark Universe," *SciPost Phys.* **2**, 016 (2017); arXiv:1611.02269.
+
+[38] D. L. Danielson, G. Satishchandran, and R. M. Wald, "Black holes decohere quantum superpositions," *Int. J. Mod. Phys. D* **31**, 2241003 (2022).
+
+[39] D. L. Danielson, G. Satishchandran, and R. M. Wald, "Killing horizons decohere quantum superpositions," *Phys. Rev. D* **108**, 025007 (2023).
+
+[40] Y. Li, "Non-Markovian Gravitational Decoherence and the Black Hole Information Paradox," *Int. J. Theor. Phys.* **63**, 293 (2024).
 
 ---
 
