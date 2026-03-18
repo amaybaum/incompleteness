@@ -1,5 +1,6 @@
 # The Incompleteness of Observation
 ### Why Physics' Biggest Contradiction Might Not Be a Contradiction at All
+### With Complete Mathematical Detail
 
 **Alex Maybaum — March 2026**
 
@@ -21,23 +22,37 @@ The argument is built from a chain of mathematical proofs, each feeding into the
 
 ---
 
-## The Starting Point
+## The Starting Point: Four Axioms and Three Conditions
 
 Every mathematical proof starts from assumptions, and the paper is explicit about its four. None of them mention quantum mechanics. None of them mention general relativity. They are:
 
-1. **Deterministic dynamics.** The universe evolves according to definite rules. Given the complete state at one time, the state at any other time is uniquely determined. This is just classical physics — Hamilton's equations on a phase space.
+**Axiom 1: Deterministic dynamics.** The universe evolves according to definite rules. Given the complete state at one time, the state at any other time is uniquely determined. Mathematically, the state lives in a phase space Γ, and there's a Hamiltonian H_tot that governs how the state changes:
 
-2. **Finiteness.** The part of the universe the observer can describe has a finite number of distinguishable configurations. This is motivated by a purely geometric fact: a finite-area boundary can only couple to finitely many modes across it. The paper treats the discreteness scale $\epsilon$ as a free parameter and derives its value later.
+$$\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\}$$
 
-3. **Causal partition.** The universe splits into what the observer can access (the visible sector) and what they can't (the hidden sector). The two sectors interact, but the observer can only measure one of them.
+The curly braces {,} are Poisson brackets — the classical mechanics version of "how things change." The function ρ represents a probability distribution, but that probability reflects the observer's ignorance, not any fundamental randomness. Think of it like a billiard table: if you knew the exact position and velocity of every ball, you could predict the future perfectly.
 
-4. **Classical probability.** The observer reasons using ordinary probability theory — expectation values, the law of large numbers, the central limit theorem. Nothing exotic.
+**Axiom 2: Finiteness.** The system has finitely many distinguishable states. There's a smallest meaningful size ε — you can't resolve anything smaller. This means the configuration space is finite, not continuous. This matters because finite systems have a property infinite systems don't — they must eventually return to their starting state (Poincaré recurrence). In Part I, ε is left unspecified. In Part II, self-consistency forces ε = 2 l_p (twice the Planck length).
 
-That's it. The claim is that quantum mechanics — the Schrödinger equation, the Born rule, superposition, entanglement, Bell inequality violations — follows from these four premises alone, given the right conditions on the hidden sector. Specifically, the hidden sector must be:
+**Axiom 3: Causal partition.** The total phase space splits into two pieces:
 
-- **Coupled** (C1) — it dynamically interacts with the visible sector, not just passively coexists with it.
-- **Slow** (C2) — it retains correlations longer than the timescale of any experiment, so its memory is still there between measurements.
-- **Vast** (C3) — it has enough capacity that its memory never fills up or gets overwritten.
+$$\Gamma = \Gamma_V \times \Gamma_H$$
+
+Γ_V is the visible sector (what the observer can access). Γ_H is the hidden sector (what they cannot). The total Hamiltonian splits correspondingly:
+
+$$H_{\text{tot}} = H_V + H_H + H_{\text{int}}$$
+
+H_V governs the visible sector alone. H_H governs the hidden sector alone. H_int couples them — it's how the two sectors talk to each other. Without H_int, the two sectors would evolve independently and the observer would never feel the hidden sector's influence.
+
+**Axiom 4: Classical probability.** The observer uses standard Kolmogorov probability theory. No exotic probability theories, no negative probabilities, no quantum probability — just ordinary probability. This is the axiom that makes the result surprising: we're putting in classical probability and getting out quantum mechanics.
+
+That's it. The claim is that quantum mechanics — the Schrödinger equation, the Born rule, superposition, entanglement, Bell inequality violations — follows from these four premises alone, given the right conditions on the hidden sector:
+
+**C1: Non-zero coupling (H_int ≠ 0).** The visible and hidden sectors interact. Information flows between them. Without this, the observer's room is perfectly isolated — nothing interesting happens.
+
+**C2: Slow bath (τ_S ≪ τ_B).** The hidden sector evolves much more slowly than the visible sector. τ_S is the timescale of visible-sector processes; τ_B is the timescale of hidden-sector processes. This is the *opposite* of the usual assumption in physics. Normally, people assume the environment is fast and chaotic (a "heat bath" that quickly forgets everything). Here, the environment is slow and has a long memory. This is what makes the dynamics non-Markovian.
+
+**C3: Sufficient capacity (N_H ≫ N_V).** The hidden sector has many more degrees of freedom than the visible sector. There's enough "room" to store information about the visible sector's history without running out of space.
 
 The axioms set the stage. The conditions determine what kind of show plays on it. The next section explains why the cosmological horizon satisfies all three.
 
@@ -65,152 +80,452 @@ A fast environment with vast capacity would wash out correlations (Markovian noi
 
 ---
 
-## From Indivisibility to Quantum Mechanics
+## Partition-Relativity (§1.4)
 
-This is the key link, and it can be established by two independent mathematical routes.
+This is the first real proof in the paper, and it's beautifully simple.
 
-The first route uses a result proved by Jacob Barandes in 2023. Barandes showed that there is an exact equivalence between two things that seem completely different. On one side: any stochastic process whose transition probabilities are P-indivisible — that is, any process with the kind of persistent, undecomposable memory described above. On the other side: a quantum system evolving unitarily under the Schrödinger equation.
+**What it proves:** The emergent description (what the observer sees) depends *only* on the partition — on which degrees of freedom are visible and which are hidden. Nothing else.
 
-The second route uses Stinespring's dilation theorem, a foundational result in functional analysis from 1955. Because the total dynamics is a deterministic bijection on a finite set, it defines a unitary operator on a Hilbert space. Tracing out the hidden sector with the Liouville measure produces a quantum channel — a completely positive, trace-preserving map — whose measurement probabilities are identical to the classical transition probabilities. The Stinespring construction requires nothing beyond textbook mathematics.
+**The formula:**
 
-The equivalence is not approximate. It is not an analogy. It is a mathematical identity. Every P-indivisible stochastic process *is* a quantum system, and every quantum system *is* a P-indivisible stochastic process. The Schrödinger equation, the Born rule, interference, entanglement, and superposition all come out automatically.
+$$T_{ij}(t_2, t_1) = \int_{\Gamma_H} \delta_{x_j}[\pi_V(\phi_{t_2-t_1}(x_i, h))] \, d\mu(h)$$
 
-So the argument chains together like this:
+Unpacking each symbol:
 
-1. The cosmological horizon partitions the universe into what you can see and what you can't.
-2. Tracing out the hidden sector produces a stochastic process — you're forced to assign probabilities because you can't track the hidden degrees of freedom.
-3. The three conditions (coupled, slow, vast) guarantee that this stochastic process is P-indivisible.
-4. By either Barandes' correspondence or the Stinespring construction, P-indivisible stochastic dynamics is mathematically equivalent to quantum mechanics.
+- **T_ij**: The probability of transitioning from visible state x_i to visible state x_j in the time interval from t_1 to t_2. This is what the observer measures.
+- **(x_i, h)**: The complete state — visible part x_i, hidden part h.
+- **φ_{t2-t1}**: The deterministic evolution. Takes the complete state at time t_1 and returns the complete state at time t_2. Uniquely determined by Axiom 1.
+- **π_V**: Projection onto the visible sector. Takes a complete state (x, h) and returns just x.
+- **δ_{xj}[...]**: The Kronecker delta. Equals 1 if the visible part ended up at x_j, equals 0 otherwise.
+- **dμ(h)**: Integration over all possible hidden states, weighted by the Liouville measure.
 
-Quantum mechanics is not a fundamental law of nature. It is what embedded observation looks like — and the paper proves the equivalence runs both ways. These three conditions produce quantum mechanics, and any quantum system, traced back to its deterministic roots, requires exactly these conditions. Quantum mechanics and embedded observation are the same thing.
+**In plain English:** For each possible hidden state h, check whether starting at (x_i, h) and evolving forward lands the visible part on x_j. Count up all the hidden states where this happens, weighted by how likely each hidden state is. The result is the probability of the transition x_i → x_j.
+
+**The proof:** The formula has exactly three inputs: (1) the dynamics φ_t — fixed by Axiom 1, (2) the partition (Γ_V, Γ_H) and projection π_V — fixed by Axiom 3, and (3) the measure μ — fixed by Axiom 4 (Liouville measure is the unique choice). Since inputs 1 and 3 are determined by the axioms, the only free input is the partition. Therefore: everything about the emergent description depends only on the partition. QED.
+
+**Why the Liouville measure is unique:** The observer needs a "prior" — a way to weight the hidden states. Liouville measure is the unique measure on phase space that is absolutely continuous (no point masses) and invariant under Hamiltonian flow. Any smooth initial distribution evolves toward it. Singular measures are excluded by Axiom 4's requirement of standard probability theory. The observer has no choice.
 
 ---
 
-## Inside the Proofs
+## Emergent Stochasticity and the Slow-Bath Regime (§§2.1–2.2)
 
-The argument above sounds clean in outline. But each link is a rigorous mathematical proof, and the proofs are where the real persuasion lives. The rest of this document walks through each one in detail — what it claims, why it's true, and what it feeds into next.
+The total system is deterministic. If you knew both x and h, you'd know the future with certainty. But the observer knows only x. Different hidden states h send the same visible state x to different futures.
 
-### Proof 1: The P-Indivisibility Theorem (§2.3)
+Example: visible state is "Heads." Hidden state could be any die value 1–6. If the die is 1 or 2, the dynamics flip the coin to Tails. If the die is 3–6, the coin stays at Heads. The observer doesn't know the die, so they see: P(Heads → Tails) = 2/6 = 1/3. The randomness is epistemic (from ignorance) not ontological (from fundamental indeterminacy).
+
+In a normal "heat bath" scenario, the environment is fast and chaotic. It scrambles any information you write into it before you can read it back. This produces Markovian (memoryless) dynamics — each step is independent of previous steps.
+
+C2 inverts this. The hidden sector is slow. When the visible sector interacts with it (writing information through H_int), the information stays there. At the next interaction, the hidden sector reads back what was written before. The observer sees history-dependent transition probabilities — what happens next depends on what happened before.
+
+This is non-Markovian dynamics. It's the key ingredient that separates quantum mechanics from classical stochastic processes.
+
+---
+
+## The P-Indivisibility Theorem (§2.3)
 
 **What it claims.** If a deterministic system is split into a visible and hidden sector, and these sectors are genuinely coupled, then the visible sector's behavior *cannot* be a simple memoryless random process. It must exhibit P-indivisibility — a specific kind of built-in memory.
 
-**What "P-indivisible" means.** Imagine watching someone roll dice. If the dice are fair and independent, each roll has no memory of the last — knowing what happened on roll 5 tells you nothing about roll 6. This is a "Markov process," or equivalently, a "P-divisible" one. Its key property is that distinguishable things always stay distinguishable or become less so over time. Two different starting points gradually blur together, and they *never* un-blur.
+**What "P-indivisible" means.** A stochastic process is "P-divisible" if you can always find a valid transition matrix connecting any two time points. Mathematically: for any times t_1 < t_2 < t_3, there exists a stochastic matrix Λ such that:
 
-P-indivisibility means the blurring *reverses*. Two states that looked identical at some intermediate time later become distinguishable again. The system "remembers" distinctions that appeared to be erased.
+$$T(t_3, t_1) = \Lambda(t_3, t_2) \cdot T(t_2, t_1)$$
 
-**The three-step proof.** The proof is surprisingly short. It uses only two ingredients: the dynamics are deterministic and reversible, and the visible and hidden sectors are genuinely coupled.
+where Λ has non-negative entries and rows summing to 1. "P-indivisible" means this fails — the "intermediate propagator" would need negative entries, which means it's not a valid probability matrix.
 
-*Step 1 — Everything comes back.* The total system is deterministic and operates on a finite number of states. A reversible shuffling of a finite deck of cards must eventually return to the original order — there are only so many arrangements. After some number of steps $N$, every state is back where it started. Distinguishability is fully restored.
+Breuer, Laine, and Piilo proved that P-indivisibility is equivalent to "information backflow" — the system's distinguishability can *increase* over time. In a classical Markov process, you can only lose information (mixing). In a P-indivisible process, information comes back. This is exactly what quantum systems do — interference, revivals, and non-classical correlations all involve information returning from where it was stored.
 
-*Step 2 — But things blur in between.* Because the visible and hidden sectors are coupled, the same visible state can lead to different visible outcomes depending on which hidden state happens to be in play. Since the observer doesn't know the hidden state, they see probabilistic mixing. Distinguishability has decreased.
+**The setup.** We work on finite sets (Axiom 2). The visible sector has states C_V = {x_1, x_2, ...} with |C_V| ≥ 2. The hidden sector has states C_H = {h_1, h_2, ...}. The total dynamics is a bijection φ on C_V × C_H. The transition matrix is:
 
-*Step 3 — The contradiction with Markov behavior.* After one step, distinguishability went down. After $N$ steps, it's fully restored. That means it went down and then came back up. But in any P-divisible (memoryless) process, distinguishability can only decrease or stay the same. The fact that it increases proves the process is P-indivisible.
+$$T_{ij} = \frac{|\{h \in \mathcal{C}_H : \pi_V(\varphi(x_i, h)) = x_j\}|}{|\mathcal{C}_H|}$$
 
-### Seeing It Work: The Coin-and-Dice Model (§2.4)
+**The key tool — total variation distance:**
+
+$$d(p, q) = \frac{1}{2}\sum_k |p_k - q_k|$$
+
+This measures how distinguishable two probability distributions are. If d = 1, they're perfectly distinguishable. If d = 0, they're identical. For P-divisible processes, d can only decrease or stay constant.
+
+**Step 1 — Recurrence.** φ is a bijection on a finite set. Keep applying φ and you must eventually return to where you started — there are only finitely many states to visit. Formally: there exists N such that φ^N = id. So T^(N) = I, and:
+
+$$d(\delta_i T^{(N)}, \delta_j T^{(N)}) = d(\delta_i, \delta_j) = 1$$
+
+After N steps, states that started distinguishable are still perfectly distinguishable.
+
+**Step 2 — Strict contraction.** T is not a permutation matrix (this follows from C1 — the coupling mixes things). So there exist states i, j, l where both T_il > 0 and T_jl > 0. The total variation distance after one step:
+
+$$d(\delta_i T, \delta_j T) = \frac{1}{2}\sum_k |T_{ik} - T_{jk}| < 1$$
+
+The inequality is strict because the distributions overlap. Distinguishability has decreased.
+
+**Step 3 — The punchline.** At t = 1: d < 1 (distinguishability decreased). At t = N: d = 1 (distinguishability restored). The distinguishability went down then came back up — non-monotonic behavior. A P-divisible process can only have non-increasing distinguishability. Therefore the process is P-indivisible. QED.
+
+The proof uses almost nothing — just that the dynamics is a bijection on a finite set (Axioms 1 and 2) and that the coupling is non-trivial (C1). It is purely combinatorial.
+
+---
+
+## The Accessible-Timescale Lemma (§2.3 continued)
+
+The recurrence proof shows P-indivisibility exists as a mathematical property. But the recurrence time is absurdly long — for the cosmological case, it's e^(10^122) years. Nobody will ever observe it.
+
+The accessible-timescale lemma shows that information backflow happens on *laboratory timescales*, independently of recurrence.
+
+**The mechanism:** At each interaction (timescale τ_S), the coupling H_int transfers some information from the visible sector to the hidden sector. Call the amount I_0. Between interactions, the hidden sector's correlations decay with a rate set by its spectral gap Δ ~ 1/τ_B.
+
+The decay per visible-sector step is:
+
+$$e^{-\Delta \tau_S} \approx 1 - \frac{\tau_S}{\tau_B}$$
+
+When τ_S ≪ τ_B (C2), this is very close to 1 — almost no decay. The hidden sector remembers almost perfectly between steps. After k steps, the cumulative decay is:
+
+$$e^{-k\Delta\tau_S} \approx 1 - \frac{k\tau_S}{\tau_B}$$
+
+As long as k·τ_S ≪ τ_B, the hidden sector retains ~k bits of visible-sector history. The mutual information satisfies:
+
+$$I(X_{<t}; X_{>t} \mid X_t) \geq I_0\left(1 - \frac{k\tau_S}{\tau_B}\right)$$
+
+For the cosmological case: τ_S ~ 10^{-15} s, τ_B ~ 10^{17} s. Even after k = 10^{20} steps, k·τ_S/τ_B ~ 10^{-12} — negligible. The hidden sector remembers everything.
+
+**The role of C3:** The hidden sector's memory capacity is log_2(|C_H|) bits. If k bits of history are written but the capacity is only m < k bits, old data gets overwritten. C3 ensures m is large enough that the memory never saturates on observable timescales.
+
+---
+
+## The Coin-and-Die Model (§2.4)
 
 The paper builds a concrete toy model to make the mechanism tangible.
 
-**The setup.** The visible sector is a single coin: Heads (0) or Tails (1). The hidden sector is a six-sided die (values 1 through 6). The total system has 12 states. The dynamics are a deterministic rule that repeats after two steps. Two of the six die values (1 and 2) cause the coin to flip; the other four leave the coin alone but shuffle the die.
+**Setup:**
+- Visible: x ∈ {0, 1} (a coin: 0 = Heads, 1 = Tails)
+- Hidden: h ∈ {1, 2, 3, 4, 5, 6} (a die)
+- Total: 12 states
 
-**After one step:** The observer doesn't know the die. Since 2 out of 6 hidden states flip the coin and 4 don't, the coin has a 1/3 chance of flipping and a 2/3 chance of staying. There's genuine randomness — from the observer's perspective.
+**The permutation σ:**
 
-**What a memoryless process would predict after two steps:** Continued blurring. Starting at Heads, there'd be roughly a 44% chance of being at Tails. Things should keep mixing.
+| Input state | Output state | What happens |
+|---|---|---|
+| (0, 1) | (1, 1) | Coin flips, die stays |
+| (1, 1) | (0, 1) | Coin flips, die stays |
+| (0, 2) | (1, 2) | Coin flips, die stays |
+| (1, 2) | (0, 2) | Coin flips, die stays |
+| (0, 3) | (0, 4) | Coin stays, die changes |
+| (0, 4) | (0, 3) | Coin stays, die changes |
+| (0, 5) | (0, 6) | Coin stays, die changes |
+| (0, 6) | (0, 5) | Coin stays, die changes |
+| (1, 3) | (1, 4) | Coin stays, die changes |
+| (1, 4) | (1, 3) | Coin stays, die changes |
+| (1, 5) | (1, 6) | Coin stays, die changes |
+| (1, 6) | (1, 5) | Coin stays, die changes |
 
-**What actually happens after two steps:** Every state returns to its starting point. The coin is back where it started with 100% certainty. Complete un-mixing.
+Every swap is a transposition (a ↔ b), so σ² = id (apply twice, everything returns).
 
-**The smoking gun:** To bridge the gap between the one-step and two-step results, you'd need a valid intermediate propagator. The paper computes it and finds it contains *negative entries* (−1 in the off-diagonals). Probabilities can't be negative. No valid probability matrix exists. The process is P-indivisible.
+**Checking the conditions:** C1 (coupling): die values 1 and 2 flip the coin ✓. C2 (slow bath): σ² = id means recurrence time is 2 steps, giving τ_S/τ_B = 1/2 ✓. C3 (sufficient capacity): 6 hidden states vs 2 visible states ✓.
 
-**The mechanism:** The die works as a memory register. At step 1, die values 1 and 2 flip the coin while preserving the die — so after step 1, a coin at Tails with die value 1 carries an implicit record: "I was Heads." At step 2, the same rule reads that record and flips the coin back. The hidden sector stored which transitions happened and played them back.
+**Computing T(1,0).** Start at x = 0 (Heads). All 6 die values are equally likely.
+
+- h = 1: σ(0,1) = (1,1) → Tails
+- h = 2: σ(0,2) = (1,2) → Tails
+- h = 3: σ(0,3) = (0,4) → Heads
+- h = 4: σ(0,4) = (0,3) → Heads
+- h = 5: σ(0,5) = (0,6) → Heads
+- h = 6: σ(0,6) = (0,5) → Heads
+
+P(0 → 0) = 4/6 = 2/3, P(0 → 1) = 2/6 = 1/3. By the same logic for x = 1:
+
+$$T(1,0) = \begin{pmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{pmatrix}$$
+
+**Distinguishability at t = 1:**
+
+$$d(\delta_0 T, \delta_1 T) = \frac{1}{2}(|2/3 - 1/3| + |1/3 - 2/3|) = 1/3$$
+
+Started at d = 1. Now d = 1/3. Distinguishability decreased.
+
+**What Markov would predict at t = 2:** Apply the same transition matrix again:
+
+$$T(1,0)^2 = \begin{pmatrix} 5/9 & 4/9 \\ 4/9 & 5/9 \end{pmatrix}$$
+
+Distinguishability would drop to d = 1/9. More mixing.
+
+**What actually happens at t = 2:** σ² = id. Every state returns to its starting point.
+
+$$T(2,0) = I = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$$
+
+Distinguishability is back to d = 1. Complete un-mixing. Impossible for a Markov process.
+
+**The smoking gun — negative entries.** If there were a valid stochastic matrix Λ(2,1) connecting steps 1 and 2:
+
+$$\Lambda(2,1) = T(2,0) \cdot [T(1,0)]^{-1} = I \cdot \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix} = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}$$
+
+The entries −1 are negative. No valid stochastic matrix exists. **This is P-indivisibility.**
+
+**The mechanism in detail.** The die works as a memory register. At step 1, if the coin was at 0 and the die was at 1, the coin flips to 1 but the die stays at 1. The die value 1 now encodes the information "the coin was at 0 and I flipped it." At step 2, σ sees (1, 1) and flips it back to (0, 1). The die read its own memory and reversed the flip. C1 (coupling) allows writing to the memory. C2 (slow bath) ensures it isn't erased between reads. C3 (sufficient capacity) ensures there's enough room. Together, they produce the information backflow that makes the process P-indivisible — and therefore, by the stochastic-quantum correspondence, equivalent to quantum mechanics.
+
+---
 
 ### Why conditions C2 and C3 matter physically
 
-The theorem above needs only coupling (C1) and finiteness. So why does the paper insist on slow memory (C2) and vast capacity (C3)?
+The P-indivisibility theorem needs only coupling (C1) and finiteness. So why does the paper insist on slow memory (C2) and vast capacity (C3)?
 
 Because P-indivisibility without C2 and C3 might only show up at absurd timescales or might self-destruct. C2 ensures the memory persists on timescales accessible to actual experiments, not just at cosmic recurrence times. C3 ensures the hidden sector never runs out of room to store information — if it saturates, later imprints overwrite earlier ones, and the process becomes effectively memoryless. Together, C2 and C3 guarantee that P-indivisibility is strong, persistent, and observationally relevant.
 
 ---
 
-### Proof 2: The Stochastic-Quantum Correspondence (§3.1 and Appendix A)
+## The Stochastic-Quantum Correspondence (§3.1 and Appendix A)
 
-**What it claims.** Any P-indivisible stochastic process is mathematically identical to a quantum system evolving unitarily. There exists a Hilbert space and a unitary operator $U(t)$ such that the transition probabilities of the stochastic process are *exactly* the Born-rule probabilities: $T_{ij}(t) = |U_{ij}(t)|^2$.
+This is the key link. Section 2 proved that the embedded observer's dynamics are P-indivisible. Section 3 shows this is mathematically equivalent to quantum mechanics.
 
-**Two independent routes to the same conclusion.** The primary route uses Barandes' stochastic-quantum correspondence (2023–2025), which establishes the equivalence for any P-indivisible process. The secondary route, given in Appendix A, uses Stinespring's dilation theorem (1955): a deterministic bijection on a finite product space defines a permutation unitary; tracing out the hidden sector with the Liouville measure produces a completely positive quantum channel whose diagonal elements recover the classical transition probabilities exactly. This second route requires only textbook results from the 1950s–2000s. Either route alone suffices; together they ensure the bridge rests on no single recent result.
+**The core statement.** Any P-indivisible stochastic process on a finite configuration space of size n can be embedded into a unitarily evolving quantum system. Specifically, there exists a Hilbert space H (dimension ≤ n³) and a unitary operator U(t) such that:
 
-**The intuition.** P-indivisibility means transition probabilities can't be factored through intermediate times — try it and you get "negative probabilities." In standard probability theory, this is nonsensical. But in quantum mechanics, it's *exactly what happens*: probability amplitudes (which can be negative or complex) combine to produce interference patterns that don't factorize classically. What Barandes proved is that these are not analogous phenomena — they are the same mathematical object, written in different notation.
+$$T_{ij}(t) = |U_{ij}(t)|^2$$
 
-**What emerges for free.** Three pillars of quantum mechanics come out of this correspondence without being assumed:
+This is the Born rule. The left side is the transition probability computed by averaging over hidden states (the classical formula from partition-relativity). The right side is the quantum mechanical probability — the squared modulus of a matrix element of the unitary evolution operator. The equivalence is not approximate. It is not an analogy. It is a mathematical identity.
 
-- *The Schrödinger equation.* The process evolves continuously, so the unitary operator is differentiable. The Schrödinger equation is the unique time-evolution law compatible with unitarity and continuity.
+**Two independent routes to the same conclusion.** The primary route uses Barandes' stochastic-quantum correspondence (2023–2025): P-indivisibility means transition probabilities can't be factored through intermediate times — try it and you get "negative probabilities." In quantum mechanics, this is *exactly what happens*: probability amplitudes combine to produce interference patterns that don't factorize classically. What Barandes proved is that these are the same mathematical object, written in different notation.
 
-- *The Born rule.* In standard quantum mechanics, "probability equals amplitude squared" is an additional postulate. Here it's derived: $T_{ij} = |U_{ij}|^2$ is the definition of how the stochastic process maps to the quantum description.
+The secondary route, given in Appendix A, uses Stinespring's dilation theorem (1955): a deterministic bijection on a finite product space defines a permutation unitary; tracing out the hidden sector with the Liouville measure produces a completely positive quantum channel whose diagonal elements recover the classical transition probabilities exactly. This second route requires only textbook results. Either route alone suffices; together they ensure the bridge rests on no single recent result.
 
-- *Bell inequality violations.* Since the transition matrices for composite systems don't factorize, entangled systems naturally produce correlations that violate Bell inequalities, up to exactly Tsirelson's bound — the maximum quantum violation.
+**Where the quantum features come from:**
 
-**What does *not* emerge yet.** The value of Planck's constant ℏ. The correspondence says "a quantum description exists" but is silent about the dimensionful scale. Fixing ℏ requires the physical content of the partition — the job of §5.
+- **The Schrödinger equation** arises because U(t) is differentiable. Any smooth family of unitary matrices can be written as U(t) = exp(-iHt/ℏ) for some Hermitian matrix H.
 
----
+- **The Born rule** T_ij = |U_ij|² is not an additional postulate — it's the definition of how the stochastic process maps onto the unitary one.
 
-### Proof 3: The Characterization Theorem (§3.3)
+- **The action scale ℏ** enters when converting from the dimensionless unitary to a dimensionful Hamiltonian: Ĥ = iℏ (∂U/∂t) U†. The value of ℏ cannot be determined from the dimensionless transition data alone — it requires additional physical input from the partition geometry (§5).
 
-**What it claims.** The paper's main theorem says: *if* you have a deterministic system with coupling, slow memory, and sufficient capacity, *then* the observer sees quantum mechanics. The characterization theorem says the reverse: *if* a process is quantum mechanical, it *must* arise from embedded observation under exactly those three conditions. The equivalence is exact: QM ⟺ embedded observation under C1–C3.
-
-**Why each condition is independently necessary:**
-
-*C1 (coupling).* If the hidden sector doesn't affect the visible sector, each visible state maps deterministically to exactly one other. That's a permutation — perfectly decomposable, no memory, P-divisible. No coupling → no quantum mechanics.
-
-*C2 (slow memory).* If the hidden sector scrambles itself between interactions — like re-rolling the die before every coin flip — each step becomes independent. That's a Markov chain. The paper formalizes this via the ergodic theorem: fast mixing drives the hidden sector's state to uniformity, erasing all correlations. No memory → no quantum mechanics.
-
-*C3 (sufficient capacity).* The hidden sector is the only place memory can be stored (the visible sector is known to the observer). The total non-Markovian memory is bounded by the hidden sector's information capacity: $I(\text{past} ; \text{future} \mid \text{present}) \leq \log_2(\text{hidden sector size})$. If the hidden sector is too small, it runs out of room. Earlier records get overwritten. The process becomes effectively Markov. Insufficient capacity → no quantum mechanics.
-
-**The full equivalence.** The three pieces snap together by transitivity:
-
-- Barandes' correspondence / Stinespring construction: QM ⟺ P-indivisibility
-- Sufficiency (§2.3): embedded observation (C1–C3) ⟹ P-indivisibility
-- Necessity (the three results above): P-indivisibility ⟹ embedded observation (C1–C3)
-
-Therefore: **QM ⟺ embedded observation under C1–C3.** There's no way to get quantum mechanics from a deterministic substrate except through these conditions, and no way to have these conditions without getting quantum mechanics.
+- **Bell inequality violations.** Since the transition matrices for composite systems don't factorize, entangled systems naturally produce correlations that violate Bell inequalities, up to exactly Tsirelson's bound.
 
 ---
 
-## Where Planck's Constant Comes From
+## The Phase-Locking Lemma (§3.1 continued)
 
-The paper proves a further result called *partition-relativity*: the emergent quantum description is completely and uniquely determined by the partition — the boundary between what the observer can and cannot see. Two observers sharing the same cosmological horizon get exactly the same quantum mechanics. Different partition, different quantum mechanics (or, if the conditions aren't met, no quantum mechanics at all).
+A potential objection: the relation T_ij = |U_ij|² throws away phase information. Different unitaries could give the same transition probabilities. Does this make the quantum description ambiguous?
 
-This means $\hbar$ — Planck's constant, the fundamental scale of quantum mechanics — cannot be a free parameter. It must be fixed by the geometry of the boundary.
+The phase-locking lemma shows: no.
 
-### Proof 4: The Volume-Independence Lemma and the ℏ Derivation (§5.2)
+**Setup:** The transition probability at time t is:
 
-**The problem.** The stochastic-quantum correspondence tells us quantum mechanics emerges, but not the value of Planck's constant. ℏ has units of energy × time, and the correspondence operates entirely in dimensionless probabilities. Something external must set the scale. But *which* properties of the boundary determine it? The hidden sector is vast (the entire universe beyond the horizon). Does ℏ depend on the total amount of stuff out there?
+$$T_{ij}(t) = \left|\sum_k V_{ik} \, e^{-iE_k t} \, V_{jk}^*\right|^2$$
 
-**The Volume-Independence Lemma: Only the boundary matters.** The answer is no. The formal proof has three parts. First, spatial locality of the classical Hamiltonian means the visible sector couples only to boundary modes — deep modes must propagate through the boundary layer before influencing anything observable, and the coupling chain is $V \leftrightarrow B \leftrightarrow D$ with no direct $V$-$D$ term. Second, condition C2 means the deep sector is effectively frozen on experimental timescales: it evolves by $\mathcal{O}(t/\tau_B) \sim 10^{-32}$ per laboratory measurement. Third, because the deep modes are frozen, the sum over them in the transition-probability formula contributes identical terms that cancel in normalized probabilities. The transition probabilities depend only on the boundary modes.
+where V_ik = ⟨i|k⟩ are the overlaps between the configuration basis and the energy eigenbasis, and E_k are the energy eigenvalues. Expanding the square:
 
-**The four-step derivation.** With volume excluded:
+$$T_{ij}(t) = \sum_{k,l} V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\; e^{-i(E_k - E_l)t}$$
 
-*Step 1 (Uniqueness).* Partition-relativity guarantees the quantum description is unique for a given partition. ℏ is determined, not free.
+**The Fourier trick:** This is a sum of oscillating terms at frequencies ω_kl = E_k - E_l. If all these frequencies are distinct (condition G2: non-degenerate energy gaps), you can extract each coefficient by Fourier transform:
 
-*Step 2 (Structural, not volumetric).* The volume-independence lemma excludes any dependence on $H$ (which sets the horizon's size). If ℏ depended on $H$, observers at different cosmic epochs would have different quantum mechanics. The only candidates are $c$, $G$, and $\epsilon$.
+$$a_{ij}^{kl} = V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*$$
 
-*Step 3 (Dimensional analysis).* There's only one way to combine $c$, $G$, and $\epsilon$ to get units of action: $c^3 \epsilon^2 / G$, times a dimensionless prefactor $\beta$.
+**Extracting the moduli:** Setting i = j: $a_{ii}^{kl} = |V_{ik}|^2 |V_{il}|^2$. If none of the overlaps are zero (condition G3), all moduli |V_ik| are determined.
 
-*Step 4 (Thermal self-consistency).* The horizon has a classical temperature derivable from GR alone, with no ℏ. Independently, the emergent quantum theory predicts a Gibbons-Hawking temperature that depends on ℏ. Requiring these to agree gives one equation in one unknown:
+**Extracting the phases:** Write V_ik = |V_ik| e^{iφ_ik}. The argument of the Fourier coefficient gives:
 
-$$\hbar = \frac{c^3 \epsilon^2}{4G}$$
+$$\arg(a_{ij}^{kl}) = (\varphi_{ik} - \varphi_{il}) - (\varphi_{jk} - \varphi_{jl})$$
 
-The prefactor is $\beta = 1/4$. No free parameters remain. The discreteness scale pins to $\epsilon = 2\,l_p$ — twice the Planck length. The Bekenstein-Hawking entropy formula $S = A/(4\,l_p^2)$ — including its famous factor of $1/4$ — falls out as a direct consequence.
+The only transformation preserving all double differences is φ_ik → φ_ik + α_i + β_k — just relabeling (choosing a different phase convention for the basis states). Once you fix these conventions, all remaining phases are uniquely determined.
 
-**Why this isn't circular.** The Gibbons-Hawking temperature is a result of quantum field theory — the very theory being derived. But the logic is sequential: Part I proves quantum mechanics emerges with *some* ℏ → the emergent QM predicts $T_{\text{GH}}(\hbar)$ → the classical temperature $T_{\text{cl}}$ was calculated independently → matching them fixes ℏ. This is a "gap equation," the same structure used routinely in condensed matter physics.
+**Bottom line:** Continuous-time transition probability data uniquely determines the Hamiltonian up to physically irrelevant relabeling.
 
 ---
 
-### Proof 5: The D-Gauge Completeness Theorem (§5.3)
+## Bell Inequality Violations (§3.2)
 
-**The problem.** Barandes' correspondence maps probabilities to quantum amplitudes, but the map has built-in ambiguity. Transition probabilities constrain only $|U_{ij}|^2$ — the squared magnitudes. The quantum *phases* (the angles in the complex plane) are not determined by probabilities alone. This is the "Schur-Hadamard gauge freedom." If the phases are ambiguous, the emergent quantum description isn't unique.
+This is the question everyone asks: isn't this ruled out by Bell's theorem?
 
-**The resolution: Continuous time locks the phases.** The paper's setup provides the full continuous-time evolution of transition probabilities, $T_{ij}(t)$ for all times $t$. The theorem shows this is enormously more constraining than single-time data.
+**What Bell's theorem actually requires.** Bell's theorem proves that no hidden variable theory can reproduce quantum correlations if it satisfies three conditions simultaneously:
 
-The unitary $U(t) = e^{-iHt}$ can be expanded in the energy eigenbasis. The transition probabilities become Fourier series in time, with frequencies given by energy differences. If the energy spectrum is non-degenerate (a condition holding for almost all systems), the Fourier frequencies are distinct and the coefficients are uniquely determined. Working through the algebra uniquely fixes the moduli and constrains the phases to a single remaining freedom: a global rephasing of the basis states (like choosing where to set the zero on your clock). This changes nothing observable — all transition probabilities, energy spacings, and interference patterns are invariant.
+1. **Locality:** The outcome at detector A doesn't depend on the setting at detector B
+2. **Measurement independence:** The experimenters' choices are independent of the hidden variables
+3. **Factorizability:** P(a,b | x,y,λ) = P(a|x,λ) · P(b|y,λ)
 
-**The dimensional obstruction.** Even with all phases locked, the probability data cannot determine the overall dimensionful scale. ℏ enters only when converting the dimensionless unitary into a physical Hamiltonian. No amount of dimensionless data can produce a dimensionful constant. This is why Step 4 of the ℏ derivation (thermal self-consistency) is not just a convenient check but the *mathematically obligatory* step: it's the only place where dimensionful physical input enters the framework.
+The framework satisfies conditions 1 and 2. It violates condition 3.
+
+**Why factorizability fails.** Factorizability requires that, conditioned on the hidden variable λ, the outcomes at the two detectors are independent — that λ carries all the relevant information as a snapshot at a single moment.
+
+P-indivisible processes don't work this way. The transition probabilities for a joint system can't be factored:
+
+$$T_{QR} \neq T_Q \otimes T_R$$
+
+Two subsystems that interacted during preparation carry a joint transition matrix that doesn't decompose into a product. This non-factorizability IS entanglement.
+
+**The Jarrett decomposition.** Factorizability splits into parameter independence (outcome at A doesn't depend on setting at B — preserved ✓) and outcome independence (outcome at A doesn't depend on outcome at B — violated ✗). Parameter independence prevents faster-than-light signaling. Fine's theorem shows that violating outcome independence while preserving parameter independence is exactly the class of theories consistent with quantum correlations.
+
+**The maximum violation.** Barandes, Hasan, and Kagan prove the maximum CHSH violation from P-indivisible processes is exactly Tsirelson's bound: 2√2 — the quantum maximum.
+
+---
+
+## The Characterization Theorem (§3.3)
+
+It's not enough to show that embedded observation *produces* QM (sufficiency). The paper shows QM *requires* embedded observation under C1–C3 (necessity). The full logical chain:
+
+- Barandes proved: QM ⟺ P-indivisibility
+- Section 2.3 proved: C1–C3 ⟹ P-indivisibility (sufficiency)
+- Section 3.3 proves: P-indivisibility ⟹ C1–C3 (necessity)
+- Combined: **QM ⟺ P-indivisibility ⟺ embedded observation under C1–C3**
+
+**Necessity of C1 (coupling).** If T is a permutation (no coupling), then T^k is also a permutation for all k. The intermediate propagator Λ(k₂,k₁) = T^{k₂-k₁} is always a valid stochastic matrix. So the process is P-divisible. Contrapositive: P-indivisibility requires non-trivial coupling.
+
+**Necessity of C2 (slow bath).** Between coupling events (separated by τ_S), the hidden sector evolves under its own Hamiltonian. The convergence to equilibrium is:
+
+$$\| e^{\mathcal{L}_H \tau_S} \mu_H(\cdot | x_i) - \mu_{\text{eq}} \|_{\text{TV}} \leq C \, e^{-\Delta \tau_S}$$
+
+In the fast-bath regime (Δ·τ_S ≫ 1), this is exponentially small. The hidden sector forgets everything between interactions. Each transition is computed against the same equilibrium distribution, so T^(k) = T^k — a Markov chain, hence P-divisible. Contrapositive: P-indivisibility requires τ_S ≪ τ_B.
+
+**Necessity of C3 (sufficient capacity).** The non-Markovian mutual information is bounded by the hidden sector's size:
+
+$$I(X_{<t} ; X_{>t} \mid X_t) \leq \log_2 m$$
+
+where m = |C_H|. Proof: the total system is deterministic, so X_{>t} is a function of (X_t, H_t). Given X_t, the chain X_{<t} → H_t → X_{>t} is Markov. By the data processing inequality:
+
+$$I(X_{<t} ; X_{>t} \mid X_t) \leq I(X_{<t} ; H_t \mid X_t) \leq H(H_t \mid X_t) \leq H(H_t) \leq \log_2 m$$
+
+Each step uses a standard information-theoretic inequality. The result: if you want K bits of history dependence, you need m ≥ 2^K hidden states.
+
+**The complete characterization.** For |C_V| ≥ 2, the following are equivalent: (1) the process is mathematically equivalent to unitarily evolving QM, (2) the process is P-indivisible, (3) the process arises from marginalizing a deterministic bijection with C1, C2, C3. This is the biconditional: **QM ⟺ embedded observation under C1–C3.**
+
+---
+
+## The Cosmological Application (§4)
+
+### 4.1 The Partition
+
+The cosmological horizon is the boundary beyond which no signal traveling at or below c can ever reach the observer. In a universe with a positive cosmological constant (de Sitter space), this horizon exists for every observer and has a definite, finite area:
+
+$$A = \frac{4\pi c^2}{H^2}$$
+
+where H is the Hubble parameter. This implements Axiom 3 naturally: Γ_V = everything inside the horizon, Γ_H = everything beyond.
+
+**Why ℏ is the same for all observers:** Different observers have slightly different horizons. But the gap equation ℏ = c³ε²/(4G) depends only on local geometric quantities (c, G, ε) — not on the horizon area or the observer's worldline. So all observers derive the same ℏ.
+
+### 4.2 Verification of the Conditions
+
+**C1 (coupling).** In general relativity's ADM formulation, the bulk Hamiltonian is a sum of constraints that vanish on-shell — meaning the "real" dynamics happens at the boundary. The Hamiltonian and momentum constraints correlate interior and exterior data. This is stronger than just H_int ≠ 0: the constraints enforce correlations that persist on all timescales.
+
+**C2 (slow bath).** τ_B ~ 1/H ~ 10¹⁷ seconds (the Hubble time). τ_S ~ 10⁻¹⁵ seconds (a typical atomic process). The ratio: τ_S/τ_B ~ 10⁻³².
+
+**C3 (sufficient capacity).** The hidden sector has A/ε² ~ 10¹²² modes (the de Sitter entropy). The visible sector has ~ 10⁸⁰ baryons. No experiment comes close to saturating the hidden sector.
+
+### 4.3 Application
+
+With the cosmological horizon satisfying all axioms and conditions, the characterization theorem applies. The observer's reduced description is P-indivisible and therefore equivalent to unitary quantum mechanics. The value of ℏ is determined by the partition geometry — which is what Section 5 derives.
+
+---
+
+## Where Planck's Constant Comes From (§5)
+
+Partition-relativity proved that the emergent quantum description is completely and uniquely determined by the partition. This means $\hbar$ cannot be a free parameter — it must be fixed by the geometry of the boundary.
+
+### The Classical Horizon Temperature (§5.1)
+
+**Starting point: Jacobson's identity.** Jacobson (1995) showed that Einstein's field equations follow from applying the first law of thermodynamics δQ = TdS to local causal horizons:
+
+$$dE = \frac{c^2 \kappa}{8\pi G} \, dA$$
+
+where κ is the surface gravity and dA is the change in horizon area. This is a classical gravitational identity — no quantum mechanics involved.
+
+The entropy density is η = 1/ε² (one degree of freedom per minimal cell of area ε²). So dS = dA/ε². From dE = TdS:
+
+$$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G}$$
+
+For the de Sitter horizon, κ = cH:
+
+$$k_B T_{\text{cl}} = \frac{c^3 \epsilon^2 H}{8\pi G}$$
+
+**Critical point: no ℏ appears anywhere.** This temperature is computed from purely classical quantities.
+
+### The Four-Step Derivation (§5.2)
+
+**Step 1 (Uniqueness).** Partition-relativity guarantees ℏ is determined by the partition geometry. It's not a free parameter.
+
+**Step 2 (Boundary-only dependence).** A substantial lemma showing that ℏ depends only on the boundary modes, not on the deep interior of the hidden sector. Decompose the hidden sector into boundary modes C_B (near the horizon) and deep modes C_D (far from the horizon):
+
+$$\mathcal{C}_H = \mathcal{C}_B \times \mathcal{C}_D$$
+
+The proof has three parts: (i) spatial locality means V talks to B, and B talks to D, but V doesn't talk directly to D; (ii) on timescales t ≪ τ_B, the deep sector barely moves (displacement ~ 10⁻³²); (iii) because the deep modes are frozen, the sum over them produces a trivial factor:
+
+$$T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|} \sum_{b} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]}_{T^{(B)}_{ij}(t)} + \mathcal{O}(t/\tau_B)$$
+
+The transition probabilities depend only on boundary dynamics. Since ℏ is determined by transition probabilities, ℏ depends only on boundary quantities: c, G, and ε. This excludes dependence on H — if ℏ depended on H, observers at different cosmic epochs would have different quantum mechanics.
+
+**Step 3 (Dimensional analysis).** There's a unique combination of c, G, and ε with dimensions of action:
+
+$$[\hbar] = \frac{[c]^3 \, [\epsilon]^2}{[G]} = \text{kg·m}^2/\text{s} \quad \checkmark$$
+
+So ℏ = β c³ε²/G, where β is a dimensionless constant that dimensional analysis alone can't fix.
+
+**Step 4 (Thermal self-consistency).** We have two independent descriptions of the horizon temperature:
+
+*Classical:* T_cl = c²ε²κ/(8πGk_B) — computed from the geometric substratum, no ℏ.
+
+*Quantum:* The emergent QFT lives on a spacetime with a bifurcate Killing horizon. Standard QFT on curved spacetime gives a KMS thermal state at temperature:
+
+$$T_Q = \frac{\hbar \kappa}{2\pi c k_B}$$
+
+A thermometer at the horizon must read the same temperature either way. Setting T_cl = T_Q:
+
+$$\frac{c^2 \epsilon^2 \kappa}{8\pi G} = \frac{\hbar \kappa}{2\pi c}$$
+
+The surface gravity κ cancels from both sides. Solving:
+
+$$\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}$$
+
+This fixes β = 1/4.
+
+**Why this is not circular.** The KMS temperature T_Q contains ℏ as an *unknown*. The classical temperature T_cl contains no ℏ at all. The logic is sequential: Part I proves quantum mechanics emerges with some ℏ → the emergent QM predicts T_GH(ℏ) → the classical temperature T_cl was calculated independently → matching them fixes ℏ. This is a "gap equation," the same structure used routinely in condensed matter physics. If T_cl had depended on the deep hidden-sector volume (it doesn't), or if T_Q had been state-dependent (it isn't), the matching wouldn't work. The fact that it works is a non-trivial self-consistency check.
+
+---
+
+## The D-Gauge Completeness Theorem (§5.3)
+
+**The problem.** The relation T_ij = |U_ij|² discards phase information. Could different Hamiltonians give the same transition probabilities?
+
+**The theorem.** If |U'_ij(t)|² = |U_ij(t)|² for all i, j, t, then H' = DHD† where D is a diagonal unitary (a physically meaningless relabeling of basis phases).
+
+**The proof in three steps:**
+
+*Step 1 (eigenvalue recovery):* Fourier analysis of T_ij(t) extracts the energy differences E_k - E_l. Non-degeneracy of energy gaps means E'_k = E_k + E₀ (same eigenvalues up to a global shift).
+
+*Step 2 (modulus recovery):* The diagonal Fourier coefficients give |V_ik|² directly. So |V'_ik| = |V_ik|.
+
+*Step 3 (phase structure):* Writing V'_ik = V_ik e^{iδ_ik} and requiring all Fourier coefficients to match gives the double-difference condition:
+
+$$\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0 \pmod{2\pi}$$
+
+The general solution: δ_ik = α_i + β_k — a sum of a row phase and a column phase. This is just basis rephasing.
+
+**The dimensional obstruction.** The unitary U(t) is dimensionless. The Hamiltonian Ĥ = iℏ ∂_tU · U† contains ℏ, which is dimensionful. No amount of dimensionless data can fix a dimensionful constant. This is why Step 4 (thermal matching) is not just a convenient check but the *mathematically obligatory* step: it's the only place where dimensionful physical input enters the framework.
+
+---
+
+## The Discreteness Scale (§6)
+
+### What ε = 2 l_p means
+
+Rearranging the gap equation ℏ = c³ε²/(4G):
+
+$$\epsilon^2 = \frac{4\hbar G}{c^3} = 4 \, l_p^2$$
+
+where l_p = √(ℏG/c³) is the Planck length. Therefore ε = 2 l_p.
+
+**What this is:** The framework has one free geometric parameter — the discreteness scale ε. The gap equation fixes its relationship to ℏ. Given the measured value of ℏ, the discreteness scale is determined: ε = 2 l_p ≈ 3.2 × 10⁻³⁵ meters.
+
+**What this is NOT:** This is not an independent prediction of ε. The framework contains one free parameter and one equation relating it to known constants. The self-consistency condition pins ε to the Planck regime but doesn't predict a number that wasn't already implicitly known.
+
+### The Bekenstein-Hawking Entropy — Why the 1/4 factor is derived
+
+The number of independent modes on the cosmological horizon is:
+
+$$N_{\text{modes}} = \frac{A}{\epsilon^2} = \frac{A}{4 \, l_p^2}$$
+
+This is the Bekenstein-Hawking entropy:
+
+$$S_{\text{BH}} = \frac{A}{4 \, l_p^2}$$
+
+The factor of 1/4 — which Bekenstein and Hawking introduced as a proportionality constant in 1973 — is here derived: each minimal cell of area ε² = 4 l_p² contributes one unit of entropy. The 4 in the denominator comes from ε = 2 l_p.
+
+**Why this is significant:** The 1/4 factor has been a mystery for 50 years. Most frameworks either assume it or derive it within constructions specifically designed to produce it. Here it follows from the gap equation with no additional input.
+
+### Self-consistency bounds on ε
+
+**If ε² ≪ l_p²:** Sub-Planckian cells would need further subdivision, creating a second trace-out within the first. This would make ℏ multi-valued — contradicting the observed universality of ℏ.
+
+**If ε² ≫ l_p²:** Super-Planckian cells would be too coarse. The emergent quantum description would assign distinct quantum states to configurations that are physically identical.
+
+The self-consistency condition ε = 2 l_p is the unique value where neither pathology occurs.
 
 ---
 
@@ -329,7 +644,7 @@ What is genuinely new is the *combination*: accepting Bohr's complementarity whi
 ## Frequently Asked Questions
 
 **"Isn't this just another interpretation of quantum mechanics?"**
-No. Interpretations (Copenhagen, Many-Worlds, Bohmian mechanics) accept the quantum formalism and disagree about what it *means*. This framework *derives* the quantum formalism from non-quantum premises and proves the derivation is the only possible one. It makes quantitative predictions — the value of ℏ, dark energy evolution, and gravitational wave echoes — that interpretations do not, and it accounts for the dark sector's gravitational budget as an automatic consequence.
+No. Interpretations (Copenhagen, Many-Worlds, Bohmian mechanics) accept the quantum formalism and disagree about what it *means*. This framework *derives* the quantum formalism from non-quantum premises and proves the derivation is the only possible one. It makes quantitative predictions — the value of ℏ, dark energy evolution, and gravitational wave echoes — that interpretations do not, and it accounts for the dark-sector concordance as an automatic consequence.
 
 **"Doesn't Bell's theorem rule out hidden variable theories?"**
 Bell's theorem rules out *local* hidden variable theories satisfying a specific factorizability condition. This framework violates that factorizability — not through faster-than-light signals, but because P-indivisible joint dynamics don't permit the decomposition Bell's theorem assumes. The framework reproduces exactly Tsirelson's bound (the maximum quantum violation), no more and no less.
@@ -366,6 +681,72 @@ The universe is not broken. We are observing it from within.
 ---
 
 *This is a companion overview to "The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within" (Maybaum, March 2026), which presents the formal arguments with detailed derivations. The philosophical lineage section draws on a systematic analysis mapping the paper's claims against the major traditions in Western, Eastern, and contemporary philosophy of science.*
+
+
+---
+
+## Appendix: Mathematical Summary Tables
+
+### Sections 1–2: What Each Piece Does
+
+| Component | What it establishes | What it uses |
+|---|---|---|
+| Axioms 1–4 | The physical setup (no QM assumed) | Nothing — these are starting points |
+| Partition-relativity (§1.4) | Emergent description depends only on partition | Axioms 1, 3, 4 |
+| Emergent stochasticity (§2.1) | Determinism looks random to embedded observer | Axioms 1, 3, 4 |
+| P-indivisibility proof (§2.3) | The stochastic process is non-Markovian | Axioms 1, 2 + C1 |
+| Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1 + C2 + C3 |
+| Coin-and-die model (§2.4) | Concrete demonstration of all mechanisms | All axioms + all conditions |
+| Stochastic-quantum correspondence (§3.1) | P-indivisibility = quantum mechanics | Barandes [10,11] or Stinespring (Appendix A) |
+| Necessity proof (§3.3) | QM *requires* C1, C2, C3 | Contrapositives of sufficiency |
+
+### Sections 3–6: The Logical Flow
+
+| Step | What it establishes | Key equation |
+|---|---|---|
+| §3.1: Stochastic-quantum correspondence | P-indivisibility = QM | T_ij = \|U_ij\|² |
+| §3.1: Phase-locking | Quantum Hamiltonian is unique | Fourier analysis of T_ij(t) |
+| §3.2: Bell analysis | Framework evades Bell's theorem | Outcome independence violated, parameter independence preserved |
+| §3.3: Necessity of C1 | QM requires coupling | No coupling → permutation → P-divisible |
+| §3.3: Necessity of C2 | QM requires slow bath | Fast bath → Markov → P-divisible |
+| §3.3: Necessity of C3 | QM requires capacity | I ≤ log₂ m bounds memory |
+| §3.3: Characterization theorem | QM ⟺ C1+C2+C3 | Biconditional |
+| §4: Cosmological horizon | The universe satisfies the axioms | C1 ✓, C2 ✓, C3 ✓ |
+| §5.1: Classical temperature | T_cl = c²ε²κ/(8πGk_B) | No ℏ |
+| §5.2 Step 1: Uniqueness | ℏ is determined, not free | Partition-relativity |
+| §5.2 Step 2: Boundary-only | ℏ depends only on c, G, ε | Deep sector frozen |
+| §5.2 Step 3: Dimensional analysis | ℏ = β c³ε²/G | Unique combination |
+| §5.2 Step 4: Thermal matching | T_cl = T_Q fixes β = 1/4 | ℏ = c³ε²/(4G) |
+| §5.3: D-gauge theorem | No phase ambiguity | Double-difference condition |
+| §6: Self-consistency | ε = 2 l_p, S_BH = A/(4l_p²) | ε² = 4ℏG/c³ |
+
+The chain from axioms to ℏ:
+
+Axioms → P-indivisibility → QM → Hamiltonian with unknown ℏ → thermal matching at the horizon → ℏ = c³ε²/(4G) → ε = 2 l_p → S_BH = A/(4 l_p²)
+
+Every link is either a proof or a calculation. No link requires quantum mechanics as input — QM appears as output at step 3 and its parameters are determined by steps 4–6.
+
+---
+
+## Appendix: Key Mathematical Subtleties
+
+**1. The gap equation is a gap equation, not a derivation from nothing.**
+
+The framework has one free parameter (ε). The gap equation relates ε to ℏ. You need to know one to determine the other. The predictive content is:
+- The *relationship* ℏ = c³ε²/(4G) — which could have been any function of c, G, ε
+- The *consequences* — Bekenstein-Hawking entropy, CC dissolution, dark-sector fraction — which follow from this specific relationship
+
+**2. The KMS condition on the lattice.**
+
+The thermal matching in Step 4 uses the KMS condition, which is proved for continuum QFT on curved spacetime. The emergent QFT from Part I is lattice-regularized with cutoff ε. Thermal periodicity on a lattice has corrections of order (εκ/c)². For the cosmological horizon: εκ/c = εH/c ~ 10⁻⁶¹, so corrections are ~ 10⁻¹²². Negligible, but a referee could ask for a lattice-native proof.
+
+**3. The D-gauge theorem requires genericity.**
+
+The phase-locking and D-gauge results assume non-degenerate spectrum, non-degenerate energy gaps, and non-vanishing overlaps (conditions G1–G3). These fail on a measure-zero set of Hamiltonians. For "almost all" Hamiltonians, the results hold. A referee might ask what happens on the measure-zero set — the answer is that the Hamiltonian is still determined up to a finite discrete ambiguity, which doesn't affect the physics.
+
+**4. Why doesn't the deep sector matter?**
+
+The boundary-only dependence lemma is crucial because without it, ℏ might depend on the vast interior of the hidden sector — which we can't observe or constrain. The lemma shows the deep sector is frozen on observable timescales, so its details are irrelevant. ℏ is a property of the boundary geometry, not of the bulk.
 
 ***
 
