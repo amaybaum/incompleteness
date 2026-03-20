@@ -249,6 +249,12 @@ Each link is a point where the framework could have failed and did not. The stru
 
 ---
 
+## Acknowledgements
+
+During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) to assist in drafting, numerical simulations, literature review, and refining argumentation. The author reviewed and edited all content and takes full responsibility for the publication.
+
+---
+
 ## References
 
 [1] A. Maybaum, "The Incompleteness of Observation," submitted to Foundations of Physics (2026).
