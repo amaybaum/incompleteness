@@ -1,14 +1,16 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   11pt,
+  a4paper,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
 \ifPDFTeX
-  % \usepackage[T1]{fontenc}
+  \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
@@ -16,15 +18,13 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
+% \usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  % \usepackage[]{microtype}
-  % \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
+% microtype disabled
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
   \IfFileExists{parskip.sty}{%
@@ -51,7 +51,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{amsmath,amssymb,amsfonts,booktabs,longtable}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -59,33 +58,23 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  hidelinks,
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={blue},
+  urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 
-\author{}
-\date{}
+\title{\textbf{THE INCOMPLETENESS OF OBSERVATION}\\[0.5em]
+\large Why Quantum Mechanics and General Relativity Cannot Be Unified From Within}
+\author{Alex Maybaum}
+\date{March 2026\\[0.5em]\small DRAFT PRE-PRINT\\Theoretical Physics / Foundations}
 
 \begin{document}
 
-\hypertarget{the-incompleteness-of-observation}{%
-\section{THE INCOMPLETENESS OF
-OBSERVATION}\label{the-incompleteness-of-observation}}
+\maketitle
 
-\hypertarget{why-quantum-mechanics-and-general-relativity-cannot-be-unified-from-within}{%
-\subsubsection{Why Quantum Mechanics and General Relativity Cannot Be
-Unified From
-Within}\label{why-quantum-mechanics-and-general-relativity-cannot-be-unified-from-within}}
-
-\textbf{Author:} Alex Maybaum\\
-\textbf{Date:} March 2026\\
-\textbf{Status:} DRAFT PRE-PRINT\\
-\textbf{Classification:} Theoretical Physics / Foundations
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\hypertarget{abstract}{%
-\subsection{ABSTRACT}\label{abstract}}
-
+\begin{abstract}
 An observer embedded in a deterministic universe cannot access the
 complete state. We prove that any such observer --- coupled to a slow,
 high-capacity hidden sector on a finite-dimensional configuration space
@@ -93,7 +82,7 @@ high-capacity hidden sector on a finite-dimensional configuration space
 dynamics, mathematically equivalent to unitary quantum mechanics. The
 converse also holds: any quantum system, realized as a deterministic
 dilation, requires non-trivial coupling, slow-bath memory, and
-sufficient hidden-sector capacity. The Schrödinger equation, Born rule,
+sufficient hidden-sector capacity. The Schr\"odinger equation, Born rule,
 and Bell violations emerge as structural consequences requiring no
 independent quantum postulates.
 
@@ -107,12 +96,14 @@ classical baseline. Falsifiable predictions include dark energy
 evolution in Running Vacuum Model form with
 \(\nu_{\text{OI}} \approx 2.45 \times 10^{-3}\) (parametric; systematic
 range \(1\)--\(5 \times 10^{-3}\)), consistent with current DESI data,
-and gravitational wave echoes near black hole horizons. A corollary is
-noted: the trace-out that produces QM simultaneously renders
-\textasciitilde95\% of the universe's gravitational budget invisible to
-the emergent description, matching the observed dark sector fraction.
+and gravitational wave echoes near black hole horizons. The trace-out
+that produces QM simultaneously renders \textasciitilde95\% of the
+universe's gravitational budget invisible to the emergent description
+--- matching the observed dark sector --- providing independent
+corroboration of observational incompleteness.
+\end{abstract}
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+\newpage
 
 \hypertarget{part-i-the-general-theorem}{%
 \section{PART I: THE GENERAL THEOREM}\label{part-i-the-general-theorem}}
@@ -315,11 +306,11 @@ coupling (C1). Axiom 2 guarantees the finite configuration space.
 
 \textbf{Convergence with prior work.} The theorem converges with
 independent results: Pechukas {[}5{]} (reduced dynamics need not
-preserve positivity), Rivas et al.~{[}6, 7{]} (divisibility failure ↔
+preserve positivity), Rivas et al.~{[}6, 7{]} (divisibility failure $\leftrightarrow$
 information backflow), Pollock et al.~{[}8{]} (process-tensor
 Markovianity conditions), and Strasberg and Esposito {[}9{]}
 (non-Markovian reduced dynamics in the slow-bath regime of C2). Bylicka,
-Johansson, and Acín {[}34{]} prove that for bijective dynamical maps ---
+Johansson, and Ac\'\i n {[}34{]} prove that for bijective dynamical maps ---
 the class generated here --- CP-divisibility and information backflow
 are equivalent, so the P-indivisibility established above implies
 CP-indivisibility directly. Milz et al.~{[}35{]} further show that even
@@ -330,7 +321,7 @@ robust under all current definitions.
 \textbf{Continuous-time extension.} The Hamiltonian flow on
 finite-dimensional phase space preserves Liouville measure on compact
 energy surfaces. \(T_{ij}(t)\) is continuous with \(T(0) = I\). By (C1),
-\(T(t)\) departs from the permutation class for \(t > 0\). By Poincaré
+\(T(t)\) departs from the permutation class for \(t > 0\). By Poincar\'e
 recurrence, \(\exists t_R\): the set of hidden states with
 \(\pi_V(\varphi_{t_R}(x_i, h)) = x_i\) has measure \(> 1 - \delta\) for
 any \(\delta > 0\). For small \(\delta\), this gives non-monotonic trace
@@ -338,7 +329,7 @@ distance, establishing P-indivisibility in continuous time.
 
 The recurrence argument establishes P-indivisibility in principle. The
 following lemma shows that under (C2), information backflow occurs on
-observable timescales --- not merely at Poincaré recurrence times.
+observable timescales --- not merely at Poincar\'e recurrence times.
 
 \textbf{Lemma (Accessible-timescale backflow).} \emph{Under (C1)--(C3)
 with \(\tau_S \ll \tau_B\), the non-Markovian mutual information
@@ -372,7 +363,7 @@ bound saturates (C3): the maximum storable history is \(\log_2 m\) bits
 \(m \geq 2^K\), which is amply satisfied when \(N_H \gg N_V\).
 \(\square\)
 
-\textbf{Role of (C2) and (C3).} The Poincaré recurrence argument and the
+\textbf{Role of (C2) and (C3).} The Poincar\'e recurrence argument and the
 accessible-timescale lemma are independent: the former establishes
 P-indivisibility from (C1) and finiteness alone; the latter shows that
 (C2) and (C3) promote it from a formal property to an observationally
@@ -453,7 +444,7 @@ hidden-sector degrees of freedom absorbed into the Liouville
 marginalization. The resulting process lives on the discrete
 configuration space of Axiom 2.
 
-Three features emerge. The Schrödinger equation arises from the
+Three features emerge. The Schr\"odinger equation arises from the
 differentiability of \(U(t)\). The Born rule is the equilibrium
 distribution of the indivisible process {[}10, 11{]}. The action scale
 \(\hbar\) enters when defining
@@ -1041,24 +1032,24 @@ artifact of the emergent description and never enters the stress-energy
 tensor; no decoupling mechanism is needed.
 
 \textbf{Cumulative evidence for the ordering.} The geometry-first
-ordering produces five independent consequences that match observation,
+ordering produces six independent consequences that match observation,
 none of which were designed into the axioms: (1) the CC dissolution ---
 the observed vacuum energy sits at \(\rho \sim H^2/G\), the classical
 baseline, without fine-tuning (§7.3); (2) the Bekenstein-Hawking formula
 including the \(1/4\) factor, derived from \(\epsilon = 2\,l_p\) (§6);
 (3) the value of \(\hbar\), determined by partition geometry rather than
-treated as a free parameter (§5.2); (4) dark energy evolution with
-\(\nu_{\text{OI}}\) in the range consistent with DESI data (§8.1); (5) a
-testable GW echo prediction at the discreteness scale (§8.2). A further
-consequence --- that \textasciitilde95\% of \(\rho_{\text{crit}}\) is
-invisible to the emergent QFT, matching the observed dark sector
-fraction --- is noted in §9 without full development. Quantum-first
-orderings produce the \(10^{122}\) discrepancy, have no natural account
-of the dark sector, and treat \(\hbar\) and the \(1/4\) factor as
-unexplained inputs. The cumulative case is not a single tiebreaker but a
-pattern: every quantitative output of the geometry-first ordering is
-consistent with observation; the central quantitative output of the
-quantum-first ordering is the worst prediction in physics.
+treated as a free parameter (§5.2); (4) the dark-sector concordance ---
+\textasciitilde95\% of \(\rho_{\text{crit}}\) is invisible to QFT,
+matching the observed dark sector (§9); (5) dark energy evolution with
+\(\nu_{\text{OI}}\) in the range consistent with DESI data (§8.1); (6) a
+testable GW echo prediction at the discreteness scale (§8.2).
+Quantum-first orderings produce the \(10^{122}\) discrepancy, have no
+natural account of the dark sector, and treat \(\hbar\) and the \(1/4\)
+factor as unexplained inputs. The cumulative case is not a single
+tiebreaker but a pattern: every quantitative output of the
+geometry-first ordering is consistent with observation; the central
+quantitative output of the quantum-first ordering is the worst
+prediction in physics.
 
 \textbf{The classical vacuum energy scale.} The framework does not
 explain \emph{why} \(\rho \sim H^2/G\); this is set by initial
@@ -1172,59 +1163,232 @@ empirically accessible. Joint confirmation of dark energy evolution
 origin, since standard RVMs predict \(\Lambda(H)\) running but have no
 mechanism for discreteness-scale echoes.
 
-\hypertarget{a-gravitational-consequence}{%
-\subsubsection{8.3 A Gravitational
-Consequence}\label{a-gravitational-consequence}}
+\hypertarget{the-dark-sector-as-corroboration}{%
+\subsubsection{8.3 The Dark Sector as
+Corroboration}\label{the-dark-sector-as-corroboration}}
 
-The trace-out that produces QM has an additional consequence for the
-gravitational budget, noted without full development in §9.
+The trace-out that produces QM has a gravitational consequence: the
+boundary entropy is invisible to the emergent QFT but gravitationally
+active. Part III shows that this accounts for the observed fact that
+\textasciitilde95\% of the universe's gravitational content has no
+source in particle physics --- providing independent corroboration of
+the framework's structural claims.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{corollary-the-invisible-gravitational-budget}{%
-\subsection{9. COROLLARY: THE INVISIBLE GRAVITATIONAL
-BUDGET}\label{corollary-the-invisible-gravitational-budget}}
+\hypertarget{part-iii-the-dark-sector-as-corroboration}{%
+\section{PART III: THE DARK SECTOR AS
+CORROBORATION}\label{part-iii-the-dark-sector-as-corroboration}}
 
-The trace-out that produces quantum mechanics has a gravitational
-consequence that we note here without full development.
+\hypertarget{the-invisible-gravitational-budget}{%
+\subsection{9. THE INVISIBLE GRAVITATIONAL
+BUDGET}\label{the-invisible-gravitational-budget}}
 
-The horizon carries \(S_{\text{dS}} = A/\epsilon^2\) modes at the
-classical temperature
-\(T_{\text{cl}} = c^3 \epsilon^2 H / (8\pi G k_B)\) (§5.1). The total
-thermal energy, distributed over the Hubble volume, gives an effective
+Observationally, \textasciitilde95\% of the universe's gravitational
+content --- the dark sector comprising dark energy (\textasciitilde68\%)
+and dark matter (\textasciitilde27\%) --- has no source in quantum field
+theory. The baryonic sector accounts for only \textasciitilde5\% of
+\(\rho_{\text{crit}}\). This section shows that the trace-out producing
+QM simultaneously and unavoidably renders the boundary entropy
+gravitationally active but invisible to the emergent description, with
+total energy density equal to \(\rho_{\text{crit}}\). The framework does
+not set out to explain the dark sector; it produces the dark sector as
+an automatic consequence of the same mechanism that produces quantum
+mechanics.
+
+Part II identified the \(10^{122}\) cosmological constant discrepancy as
+the \emph{information compression ratio} of the trace-out --- the cost
+of describing the visible sector in the emergent quantum language. This
+section identifies a complementary quantity: the \emph{gravitational
+occlusion fraction} --- the share of the universe's gravitational budget
+that the trace-out renders invisible to the emergent description. The
+compression ratio measures how much the emergent description distorts
+what the observer can see; the occlusion fraction measures how much of
+what gravitates the observer cannot see at all. Together, they account
+for the two largest anomalies in modern cosmology as two aspects of a
+single phenomenon: the cost of observing the universe from within.
+
+\hypertarget{the-entropy-medium}{%
+\subsubsection{9.1 The Entropy Medium}\label{the-entropy-medium}}
+
+\textbf{Lemma (Entropy medium density).} \emph{The gravitational
+potential generated by the de Sitter boundary entropy at the
+Gibbons-Hawking temperature equals, at any interior point, the potential
+of a uniform medium at the critical density.}
+
+\emph{Proof.} The horizon carries
+\(S_{\text{dS}} = A/(4\,l_p^2) = A/\epsilon^2\) modes (§6). The thermal
+self-consistency of §5.2 establishes \(T_{\text{GH}} = T_{\text{cl}}\);
+critically, the classical temperature
+\(T_{\text{cl}} = c^3 \epsilon^2 H / (8\pi G k_B)\) is computed entirely
+within the classical substratum (§5.1) --- the Jacobson identity, the
+entropy density \(\eta = 1/\epsilon^2\), and the surface gravity
+\(\kappa = cH\) --- with no reference to \(\hbar\) or the emergent
+quantum description. The total thermal energy is
+\(E_s = S_{\text{dS}} \cdot k_B T_{\text{cl}}\). Distributing this over
+the enclosed volume \(V_H = 4\pi c^3/(3H^3)\) gives the effective
 density:
 
-\[\rho_s = \frac{A}{\epsilon^2} \cdot \frac{c^3 \epsilon^2 H}{8\pi G} \cdot \frac{3H^3}{4\pi c^3} = \frac{3c^2 H^2}{8\pi G} = \rho_{\text{crit}}\]
+\[\rho_s = \frac{E_s}{V_H} = \frac{A}{\epsilon^2} \cdot \frac{c^3 \epsilon^2 H}{8\pi G} \cdot \frac{3H^3}{4\pi c^3} = \frac{3c^2 H^2}{8\pi G} = \rho_{\text{crit}}\]
 
-This calculation uses only pre-trace-out quantities; it does not invoke
-the emergent quantum description. The boundary modes are hidden-sector
-degrees of freedom --- the variables traced out to produce QM --- so by
-construction, no operator on \(\mathcal{H}_V\) corresponds to their
-gravitational influence. Under the geometry-first ordering of §7.2, the
-boundary entropy's thermal energy gravitates at the classical level but
-contributes no term to the emergent
-\(\langle \hat{T}_{\mu\nu} \rangle\).
+By the shell theorem (Gauss's law for gravity), a uniform mass shell of
+total energy \(E\) produces, at any interior point, the same
+gravitational potential as a uniform medium of density \(E/V\) filling
+the enclosed volume. The de Sitter isometry ensures the boundary entropy
+is uniformly distributed on the horizon, so the shell theorem applies.
+\(\square\)
 
-The result is that the trace-out renders a fraction of the gravitational
-budget invisible to the emergent QFT. The baryonic sector accounts for
-\textasciitilde5\% of \(\rho_{\text{crit}}\) through the emergent
-description; the remaining \textasciitilde95\% is boundary entropy ---
-gravitationally active but invisible to the emergent theory. This
+Four clarifications are essential for what follows.
+
+\emph{Classical, not emergent.} The calculation above uses only
+pre-trace-out quantities: the number of boundary modes
+(\(A/\epsilon^2\)), the classical temperature (\(T_{\text{cl}}\)), and
+the Hubble volume (\(V_H\)). No step invokes the emergent quantum
+description. This is what distinguishes \(\rho_s\) from the QFT
+zero-point energy \(\rho_{\text{QFT}} \sim M_{\text{Pl}}^4\): the latter
+is computed as \(\sum \frac{1}{2}\hbar\omega\) over modes of the
+\emph{emergent} quantum field theory --- a quantity that exists only
+after the trace-out. The framework denies that \(\rho_{\text{QFT}}\)
+gravitates (§7.2), because it is an artifact of the emergent
+description. The boundary entropy's thermal energy, by contrast, is a
+classical quantity that predates the trace-out and gravitates at the
+classical level. That both involve \(\hbar\) numerically (because
+\(T_{\text{cl}} = T_{\text{GH}}\)) is a consequence of the gap
+equation's self-consistency, not a dependence on QM. The ratio
+\(\rho_{\text{QFT}} / \rho_s \sim S_{\text{dS}} \sim 10^{122}\) --- the
+same compression ratio identified in §7.3 --- confirming that the two
+quantities occupy different levels of the framework's hierarchy.
+
+\emph{Physical locus.} The entropy modes are physically localized on the
+horizon --- they are the hidden-sector boundary degrees of freedom of
+§5.2. The uniform-medium description is a gravitational equivalence
+(shell theorem), not a claim about physical delocalization. No entropy
+occupies the bulk.
+
+\emph{Why the equivalence is useful.} When matter is present, it locally
+deforms the horizon geometry (§9.2--9.3), redistributing the boundary
+entropy. The gravitational effect of this redistribution on bulk
+observers is most easily computed using the uniform-medium equivalence:
+the deformed boundary is equivalent to a non-uniform effective bulk
+source. Whether this redistribution produces observable local effects
+(beyond the uniform background already captured by the Friedmann
+equation) depends on the redistribution profile --- a question addressed
+in §9.4.
+
+\emph{Algebraic status.} The coincidence \(\rho_s = \rho_{\text{crit}}\)
+is an algebraic consequence of the Friedmann equation and the
+self-consistency relation \(\hbar = c^3\epsilon^2/(4G)\); it is not an
+independent physical input.
+
+This identity, which Verlinde {[}37{]} assumes, is here derived.
+
+\hypertarget{the-matter-boundary-interaction}{%
+\subsubsection{9.2 The Matter-Boundary
+Interaction}\label{the-matter-boundary-interaction}}
+
+\textbf{Theorem (Invisibility).} \emph{The gravitational influence of
+the boundary entropy has no operator in the emergent QFT.}
+
+\emph{Proof.} The argument has two logically distinct components.
+
+\emph{(i) Construction-level invisibility (from Part I alone).} The
+boundary modes comprising \(S_{\text{dS}}\) are hidden-sector degrees of
+freedom --- the variables traced out to produce the quantum description.
+By the trace-out structure, no hidden-sector degree of freedom maps to
+an operator on \(\mathcal{H}_V\). This is a theorem of Part I,
+independent of any gravitational content: the hidden sector is invisible
+to the emergent description by construction.
+
+\emph{(ii) Gravitational consequence (from the ontological ordering of
+§7.2).} The physical import --- that the boundary entropy's
+gravitational influence appears as additional gravity with no source in
+\(\langle \hat{T}_{\mu\nu} \rangle\) --- requires the geometry-first
+ordering established in §7.2: the metric exists at the pre-trace-out
+level, and the stress-energy sourcing gravity is the classical
+stress-energy, not the emergent quantum expectation value. Under this
+ordering, the gravitational interaction between bulk matter and boundary
+entropy is mediated by the metric at the classical level, modifying the
+geometry but contributing no term to the emergent
+\(\langle \hat{T}_{\mu\nu} \rangle\). To the embedded observer, this
+appears as additional gravity with no particle-sector source.
+
+Part III's predictions are therefore conditional on the same
+geometry-first ordering that dissolves the CC problem in §7.2. This is
+not an additional assumption: the ordering is already required by Part
+II's logic (the partition is defined by null geodesics, so the metric
+must exist prior to the partition). What Part III provides is a second,
+qualitatively distinct \emph{consequence} of that ordering --- not a
+second independent derivation of it. \(\square\)
+
+In the regime where baryonic gravity dominates (\(g_b \gg cH\)), the
+boundary entropy's influence is a small perturbation. The partition
+boundary's surface gravity \(cH\) is the only acceleration scale
+intrinsic to the partition geometry, suggesting a transition at
+\(g_b \sim cH\); but whether the redistribution produces significant
+local effects --- and if so, at what precise scale --- requires a
+quantitative force law beyond the axioms (§9.4).
+
+\hypertarget{memory-effects-and-p-indivisibility}{%
+\subsubsection{9.3 Memory Effects and
+P-Indivisibility}\label{memory-effects-and-p-indivisibility}}
+
+Matter locally deforms the horizon geometry, redistributing the boundary
+entropy (§9.1). This displacement persists because
+\(\tau_B \gtrsim 1/H\) (condition C2): the hidden-sector modes carrying
+the redistributed entropy do not thermalize back to the unperturbed
+configuration on sub-Hubble timescales. Verlinde {[}37{]} identifies
+this as a ``memory effect'' from the non-thermalization of de Sitter
+states at sub-Hubble scales. In the present framework, this
+non-thermalization is not assumed but derived: it is P-indivisibility
+operating in the gravitational sector, with (C2) ensuring that entropy
+displacements persist without thermal overwriting.
+
+\hypertarget{the-concordance}{%
+\subsubsection{9.4 The Concordance}\label{the-concordance}}
+
+\textbf{Theorem (Invisible gravitational budget).} \emph{Under Axioms
+1--4 and conditions (C1)--(C3), the cosmological trace-out that produces
+quantum mechanics simultaneously produces a gravitational budget with
+the following properties: (i) total effective energy density
+\(\rho_{\text{crit}}\) (§9.1); (ii) no source in the emergent QFT
+(§9.2); (iii) persistent entropy displacements by matter, producing
+history-dependent gravitational structure (§9.3).}
+
+\emph{Proof.} Each property is proved in the referenced subsection.
+\(\square\)
+
+The framework accounts for the baryonic sector (\textasciitilde5\% of
+\(\rho_{\text{crit}}\)) through the emergent QFT. The remaining
+\textasciitilde95\% is the boundary entropy --- gravitationally active
+but invisible to the emergent description. Crucially, this
+\textasciitilde95\% gravitates because the boundary entropy's thermal
+energy is a classical quantity computed before the trace-out (§9.1,
+first clarification), unlike the QFT zero-point energy which is an
+artifact of the emergent description and does not gravitate (§7.2). This
 matches the observed composition of the universe, in which
-\textasciitilde95\% of the gravitational content has no source in
-particle physics.
-
-Two caveats are essential. First, \(\rho_s = \rho_{\text{crit}}\) is an
-algebraic consequence of the Friedmann equation and the gap equation
-\(\hbar = c^3\epsilon^2/(4G)\); it is a consistency check, not an
-independent prediction. Second, the framework identifies the total
-invisible budget but does not provide a quantitative account of its
-decomposition into dark energy (\textasciitilde68\%) and dark matter
-(\textasciitilde27\%). The uniform component maps onto dark energy (§7);
-whether matter-induced redistribution of the boundary entropy {[}37{]}
-produces local gravitational effects resembling dark matter is an open
-question requiring a force law beyond Axioms 1--4, deferred to future
+\textasciitilde95\% of the gravitational content (dark energy + dark
+matter) has no source in particle physics. The uniform component of the
+boundary entropy corresponds to dark energy (addressed in §7); the
+matter-induced redistribution (property (iii)) is a candidate mechanism
+for the structured component (dark matter), though the redistribution
+profile --- and hence the dark energy/dark matter split --- requires a
+quantitative force law beyond Axioms 1--4 {[}37{]}, deferred to future
 work.
+
+The concordance is non-trivial. The axioms were formulated to address
+embedded observation, not cosmological composition. That they produce a
+gravitational budget matching the observed dark sector is independent
+corroboration that observational incompleteness is capturing real
+physical structure. The parallel with the CC dissolution is exact: the
+\(10^{122}\) compression ratio (§7.3) and the \textasciitilde95\%
+occlusion fraction are both mandatory consequences of the same
+trace-out, addressing the two largest anomalies in cosmology through a
+single mechanism.
+
+\textbf{Falsifiability.} The invisible-budget prediction would be
+falsified by detection of dark matter particles accounting for the full
+\textasciitilde27\% (contradicting (ii)), or by discovery that the dark
+sector's gravitational effects are unrelated to the boundary geometry.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1358,8 +1522,8 @@ not claim to reproduce holographic results in that setting.
 The point of contact is empirical. Entanglement-first programs predict
 spacetime breakdown at low entanglement or high energy. This framework
 predicts QM breakdown near \(\epsilon = 2\,l_p\) while the geometric
-substratum persists. The geometry-first ordering produces five
-independent consequences matching observation (§7.2); entanglement-first
+substratum persists. The geometry-first ordering produces six
+independent concordances with observation (§7.2); entanglement-first
 orderings inherit the zero-point sum as a gravitational source and have
 no natural account of the dark sector.
 
@@ -1407,7 +1571,7 @@ Stinespring construction for the class of processes generated here --- a
 possibility excluded by the independent proofs in §3.1 and Appendix A.
 The \emph{cosmological application} would be falsified by definitive
 absence of dark energy evolution or GW echoes at the predicted
-timescale. The \emph{invisible-budget corollary} (§9) would be falsified
+timescale. The \emph{dark-sector concordance} (§9.4) would be falsified
 by detection of dark matter particles accounting for the full structured
 dark sector, or by evidence that the dark sector's gravitational effects
 are unrelated to the cosmological boundary geometry.
@@ -1431,7 +1595,7 @@ bijective dynamics on a finite system with non-trivial coupling
 necessarily produces P-indivisible stochastic dynamics. By the
 stochastic-quantum correspondence, the observer's description is
 necessarily quantum mechanics. Continuous-time transition data resolves
-all gauge freedom. The Schrödinger equation, Born rule, and Bell
+all gauge freedom. The Schr\"odinger equation, Born rule, and Bell
 violations are structural consequences. The characterization theorem
 establishes that the conditions are necessary: QM and embedded
 observation under (C1)--(C3) are equivalent.
@@ -1447,18 +1611,23 @@ falsifiable predictions including RVM dark energy with
 \(\nu_{\text{OI}} \approx 2.45 \times 10^{-3}\) and gravitational wave
 echoes.
 
-\textbf{A gravitational corollary (§9).} The trace-out that produces
-quantum mechanics simultaneously renders \textasciitilde95\% of the
-universe's gravitational budget invisible to the emergent QFT. The
-boundary entropy has effective energy density \(\rho_{\text{crit}}\) and
-no QFT operator. This matches the observed dark sector fraction, though
-the decomposition into dark energy and dark matter remains an open
-problem.
+\textbf{The dark sector as corroboration (Part III).} The trace-out that
+produces quantum mechanics simultaneously renders \textasciitilde95\% of
+the universe's gravitational budget invisible to the emergent QFT: the
+boundary entropy has effective energy density \(\rho_{\text{crit}}\), no
+QFT operator, and matter-induced displacements that persist through
+P-indivisibility. This gravitational occlusion fraction parallels the
+\(10^{122}\) information compression ratio of Part II: one measures how
+much the trace-out distorts the emergent vacuum energy, the other how
+much of the gravitational universe the trace-out hides. Together they
+account for the cosmological constant problem and the dark sector ---
+the two largest anomalies in modern cosmology --- as two aspects of a
+single phenomenon.
 
-The apparent conflict between quantum mechanics and general relativity
-and the \(10^{122}\) vacuum energy discrepancy are two faces of the same
-fact: the information-theoretic cost of observing the universe from
-within. The dark sector fraction may be a third.
+The apparent conflict between quantum mechanics and general relativity,
+the \(10^{122}\) vacuum energy discrepancy, and the dark sector are
+three faces of the same fact: the information-theoretic cost of
+observing the universe from within.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1490,7 +1659,7 @@ and non-Markovianity of quantum evolutions,'' \emph{Phys. Rev.~Lett.}
 \textbf{105}, 050403 (2010). {[}7{]} Á. Rivas, S. F. Huelga, and M. B.
 Plenio, ``Quantum non-Markovianity: characterization, quantification and
 detection,'' \emph{Rep.~Prog. Phys.} \textbf{77}, 094001 (2014). {[}8{]}
-F. A. Pollock, C. Rodríguez-Rosario, T. Frauenheim, M. Paternostro, and
+F. A. Pollock, C. Rodr\'\i guez-Rosario, T. Frauenheim, M. Paternostro, and
 K. Modi, ``Operational Markov condition for quantum processes,''
 \emph{Phys. Rev.~Lett.} \textbf{120}, 040405 (2018). {[}9{]} P.
 Strasberg and M. Esposito, ``Stochastic thermodynamics in the strong
@@ -1513,10 +1682,10 @@ horizons, thermodynamics, and particle creation,'' \emph{Phys. Rev.~D}
 \textbf{15}, 2738 (1977). {[}18{]} S. M. Carroll, ``The Cosmological
 Constant,'' \emph{Living Rev.~Relativ.} \textbf{4}, 1 (2001). {[}19{]}
 D. H. Wolpert, ``Physical limits of inference,'' \emph{Physica D}
-\textbf{237}, 1257--1281 (2008). {[}20{]} J. Solà Peracaula, ``The
+\textbf{237}, 1257--1281 (2008). {[}20{]} J. Sol\`a Peracaula, ``The
 cosmological constant problem and running vacuum in the expanding
 universe,'' \emph{Phil. Trans. R. Soc. A} \textbf{380}, 20210182 (2022).
-{[}21{]} J. Solà Peracaula, A. Gómez-Valent, and J. de Cruz Pérez,
+{[}21{]} J. Sol\`a Peracaula, A. G\'omez-Valent, and J. de Cruz P\'erez,
 ``Running vacuum in the Universe,'' \emph{Universe} \textbf{9}, 262
 (2023). {[}22{]} DESI Collaboration, ``DESI 2024 VI: Cosmological
 Constraints from BAO,'' arXiv:2404.03002 (2024). {[}23{]} J. Abedi, H.
@@ -1537,13 +1706,13 @@ of a black hole,'' \emph{Commun. Math. Phys.} \textbf{127}, 273--284
 (1990). {[}30{]} DESI Collaboration, ``DESI DR2 Results II: Measurements
 of Baryon Acoustic Oscillations and Cosmological Constraints,''
 \emph{Phys. Rev.~D} \textbf{112}, 083515 (2025); arXiv:2503.14738.
-{[}31{]} J. de Cruz Pérez, A. Gómez-Valent, and J. Solà Peracaula,
+{[}31{]} J. de Cruz P\'erez, A. G\'omez-Valent, and J. Sol\`a Peracaula,
 ``Dynamical Dark Energy models in light of the latest observations,''
 arXiv:2512.20616 (2025). {[}32{]} W. F. Stinespring, ``Positive
 functions on C\emph{-algebras,'' }Proc. Amer. Math. Soc.* \textbf{6},
 211--216 (1955). {[}33{]} M. A. Nielsen and I. L. Chuang, \emph{Quantum
 Computation and Quantum Information} (Cambridge University Press, 2000).
-{[}34{]} B. Bylicka, M. Johansson, and A. Acín,''Constructive method for
+{[}34{]} B. Bylicka, M. Johansson, and A. Ac\'\i n,''Constructive method for
 detecting the information backflow of non-Markovian dynamics,''
 \emph{Phys. Rev.~Lett.} \textbf{118}, 120501 (2017). {[}35{]} S. Milz,
 M. S. Kim, F. A. Pollock, and K. Modi, ``Completely positive
@@ -1673,7 +1842,7 @@ approximately frozen (conditions (C2)--(C3)). The channel generator
 decomposes as
 \(d\Phi_t/dt|_{t=0}(\rho_V) = -i[\hat{H}_{\text{eff}}, \rho_V] + \mathcal{D}(\rho_V)\)
 with \(\mathcal{D} \sim \mathcal{O}(\tau_S/\tau_B)\). The leading-order
-dynamics is the Schrödinger equation. The phase-locking lemma (§3.1) and
+dynamics is the Schr\"odinger equation. The phase-locking lemma (§3.1) and
 D-gauge theorem (§5.3) then determine \(\hat{H}_{\text{eff}}\) uniquely
 from continuous-time transition data.
 
