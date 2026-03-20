@@ -8,7 +8,7 @@
 
 ## Overview
 
-This paper proves that quantum mechanics is equivalent to embedded observation: an observer in a deterministic system with a causal partition, slow-bath coupling, and sufficient hidden-sector capacity necessarily describes the visible sector using quantum mechanics — and any quantum system requires precisely these conditions. The Schrödinger equation, the Born rule, and Bell inequality violations are structural consequences. No quantum postulates are assumed.
+This research program shows that quantum mechanics is equivalent to embedded observation: an observer in a deterministic system with a causal partition, slow-bath coupling, and sufficient hidden-sector capacity necessarily describes the visible sector using quantum mechanics — and any quantum system requires precisely these conditions. The Schrödinger equation, the Born rule, and Bell inequality violations are structural consequences. No quantum postulates are assumed.
 
 **Part I** establishes the equivalence as a mathematical theorem, via two independent routes (Barandes' stochastic-quantum correspondence and Stinespring dilation).
 
@@ -16,7 +16,9 @@ This paper proves that quantum mechanics is equivalent to embedded observation: 
 
 **Part III** shows that the same trace-out simultaneously renders ~95% of the universe's gravitational budget invisible to the emergent QFT — matching the observed dark sector — providing independent corroboration of observational incompleteness.
 
-A companion paper tests the framework's rigidity by constructing an explicit lattice realization and showing that the dynamics uniquely selected by the QM requirement also produces all the inputs for general relativity — seven independent checks, each of which could have failed, none of which does. A second companion paper addresses the ontological status of the lattice, showing that the framework's results depend on six structural properties and nothing else — the lattice is the coupling graph of the bijection, the alphabet size is a gauge freedom, and the fundamental object is (S, φ, V): a finite set, a bijection, and a partition.
+We then test the framework's rigidity by constructing an explicit lattice realization and showing that the dynamics uniquely selected by the QM requirement also produces all the inputs for general relativity — seven independent checks, each of which could have failed, none of which does.
+
+Finally we address the ontological status of the lattice, showing that the framework's results depend on six structural properties and nothing else — the lattice is the coupling graph of the bijection, the alphabet size is a gauge freedom, and the fundamental object is (S, φ, V): a finite set, a bijection, and a partition.
 
 ## Contents
 
