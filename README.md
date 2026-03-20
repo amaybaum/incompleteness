@@ -16,7 +16,7 @@ This paper proves that quantum mechanics is equivalent to embedded observation: 
 
 **Part III** shows that the same trace-out simultaneously renders ~95% of the universe's gravitational budget invisible to the emergent QFT — matching the observed dark sector — providing independent corroboration of observational incompleteness.
 
-A companion paper tests the framework's rigidity by constructing an explicit lattice realization and showing that the dynamics uniquely selected by the QM requirement also produces all the inputs for general relativity — seven independent checks, each of which could have failed, none of which does.
+A companion paper tests the framework's rigidity by constructing an explicit lattice realization and showing that the dynamics uniquely selected by the QM requirement also produces all the inputs for general relativity — seven independent checks, each of which could have failed, none of which does. A second companion paper addresses the ontological status of the lattice, showing that the framework's results depend on six structural properties and nothing else — the lattice is the coupling graph of the bijection, the alphabet size is a gauge freedom, and the fundamental object is (S, φ, V): a finite set, a bijection, and a partition.
 
 ## Contents
 
@@ -28,7 +28,7 @@ A companion paper tests the framework's rigidity by constructing an explicit lat
 - [`Main.tex`](Main.tex) — LaTeX source
 - [`Main.pdf`](Main.pdf) — Compiled PDF
 
-### Companion Paper
+### Companion Paper: GR
 
 **"Dynamics Selection and Emergent General Relativity in the Observational Incompleteness Framework"**
 
@@ -37,6 +37,16 @@ Tests the framework by constructing the mod-q discrete wave equation on a lattic
 - [`GR.md`](GR.md) — Markdown source
 - [`GR.tex`](GR.tex) — LaTeX source
 - [`GR.pdf`](GR.pdf) — Compiled PDF
+
+### Companion Paper: Ontology
+
+**"The Substrate Problem: Structural Foundations of the Observational Incompleteness Framework"**
+
+Addresses the ontological status of the lattice. Shows that the framework's theorems depend on six structural properties (deterministic bijectivity, finite boundary entropy, bounded coupling degree, statistical isotropy, non-trivial partition coupling, slow-bath capacity) and on nothing else. The product decomposition of the state space into "sites" is derived as the unique factorization minimizing coupling degree — confirmed numerically. The alphabet size q is a gauge freedom with no physical consequences — confirmed for q = 2 through 64. The framework's causal partial order is a causal set in the sense of Sorkin, with the bijection providing the deterministic dynamics that standard causal set theory lacks. The fundamental object is (S, φ, V): a finite set, a bijection, and a partition. Everything else is emergent.
+
+- [`Ontology.md`](Ontology.md) — Markdown source
+- [`Ontology.tex`](Ontology.tex) — LaTeX source
+- [`Ontology.pdf`](Ontology.pdf) — Compiled PDF
 
 ### Explainer
 
@@ -58,11 +68,13 @@ A companion overview covering the logical chain of the argument, detailed proof 
 
 4. **Dynamics selection and emergent GR.** Among all second-order reversible nearest-neighbor dynamics, center independence, isotropy, and linearity uniquely select the wave equation. Linearity is itself selected by three independent criteria (maximum speed, maximum P-indivisibility, horizon thermality). This dynamics produces all inputs for Einstein's equations via Jacobson's thermodynamic route, with no free parameters. Seven links, all analytically proven for both ℝ and ℤ/qℤ.
 
-5. **Falsifiable predictions.** Dark energy evolution in Running Vacuum Model form with conformal benchmark ν_OI ≈ 2.45 × 10⁻³ (systematic range ~1–5 × 10⁻³), consistent with DESI 2024–2025 data; and gravitational wave echoes near black hole horizons. The conjunction is distinctive to this framework.
+5. **Structural foundations.** The lattice is not a physical substrate but the coupling graph of the bijection — the unique factorization of the state space minimizing coupling degree. The alphabet size q is a gauge freedom. The framework's causal partial order is a causal set, with the bijection providing the dynamics CST lacks. The fundamental object is (S, φ, V).
 
-6. **Dark-sector concordance.** The trace-out producing QM simultaneously renders ~95% of ρ_crit invisible to the emergent QFT — matching the observed dark sector. The boundary entropy has effective energy density ρ_crit (derived), no QFT operator (proved), and persistent matter-induced displacements (from C2).
+6. **Falsifiable predictions.** Dark energy evolution in Running Vacuum Model form with conformal benchmark ν_OI ≈ 2.45 × 10⁻³ (systematic range ~1–5 × 10⁻³), consistent with DESI 2024–2025 data; and gravitational wave echoes near black hole horizons. The conjunction is distinctive to this framework.
 
-7. **Foundational implications.** Wigner's Friend resolved (superposition is epistemic); Everettian measure problem dissolved (branches are compression artifacts); Born rule derived as the equilibrium distribution of the indivisible stochastic process.
+7. **Dark-sector concordance.** The trace-out producing QM simultaneously renders ~95% of ρ_crit invisible to the emergent QFT — matching the observed dark sector. The boundary entropy has effective energy density ρ_crit (derived), no QFT operator (proved), and persistent matter-induced displacements (from C2).
+
+8. **Foundational implications.** Wigner's Friend resolved (superposition is epistemic); Everettian measure problem dissolved (branches are compression artifacts); Born rule derived as the equilibrium distribution of the indivisible stochastic process.
 
 ## Contact
 
