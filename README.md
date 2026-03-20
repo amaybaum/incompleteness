@@ -16,15 +16,27 @@ This paper proves that quantum mechanics is equivalent to embedded observation: 
 
 **Part III** shows that the same trace-out simultaneously renders ~95% of the universe's gravitational budget invisible to the emergent QFT — matching the observed dark sector — providing independent corroboration of observational incompleteness.
 
+A companion paper tests the framework's rigidity by constructing an explicit lattice realization and showing that the dynamics uniquely selected by the QM requirement also produces all the inputs for general relativity — seven independent checks, each of which could have failed, none of which does.
+
 ## Contents
 
-### Paper
+### Main Paper
 
 **"The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
 
 - [`Main.md`](Main.md) — Markdown source
 - [`Main.tex`](Main.tex) — LaTeX source
 - [`Main.pdf`](Main.pdf) — Compiled PDF
+
+### Companion Paper
+
+**"Dynamics Selection and Emergent General Relativity in the Observational Incompleteness Framework"**
+
+Tests the framework by constructing the mod-q discrete wave equation on a lattice with a checkerboard partition. The wave equation is the unique dynamics satisfying center independence (necessary for emergent QM), spatial isotropy, and linearity — for any alphabet size q ≥ 2 and dimension d ≥ 1. This dynamics, without tuning, produces area-law entropy, Lorentz-invariant dispersion, horizon thermality, and all inputs to Jacobson's thermodynamic derivation of Einstein's equations. Seven links, all analytically proven. The structural consistency constitutes corroborative evidence for the main paper's central claim.
+
+- [`GR.md`](GR.md) — Markdown source
+- [`GR.tex`](GR.tex) — LaTeX source
+- [`GR.pdf`](GR.pdf) — Compiled PDF
 
 ### Explainer
 
@@ -44,11 +56,13 @@ A companion overview covering the logical chain of the argument, detailed proof 
 
 3. **Cosmological constant dissolution.** The 10¹²² discrepancy is S_dS — the information compression ratio of the emergent quantum description. The observed vacuum energy is the mandatory classical baseline. The geometry-first ordering is forced by three independent requirements (definiteness, non-circularity, ℏ universality).
 
-4. **Falsifiable predictions.** Dark energy evolution in Running Vacuum Model form with conformal benchmark ν_OI ≈ 2.45 × 10⁻³ (systematic range ~1–5 × 10⁻³), consistent with DESI 2024–2025 data; and gravitational wave echoes near black hole horizons. The conjunction is distinctive to this framework.
+4. **Dynamics selection and emergent GR.** Among all second-order reversible nearest-neighbor dynamics, center independence, isotropy, and linearity uniquely select the wave equation. Linearity is itself selected by three independent criteria (maximum speed, maximum P-indivisibility, horizon thermality). This dynamics produces all inputs for Einstein's equations via Jacobson's thermodynamic route, with no free parameters. Seven links, all analytically proven for both ℝ and ℤ/qℤ.
 
-5. **Dark-sector concordance (Part III).** The trace-out producing QM simultaneously renders ~95% of ρ_crit invisible to the emergent QFT — matching the observed dark sector. The boundary entropy has effective energy density ρ_crit (derived), no QFT operator (proved), and persistent matter-induced displacements (from C2). This gravitational occlusion fraction parallels the 10¹²² information compression ratio of Part II: one measures how much the trace-out distorts the emergent vacuum energy, the other how much of the gravitational universe it hides.
+5. **Falsifiable predictions.** Dark energy evolution in Running Vacuum Model form with conformal benchmark ν_OI ≈ 2.45 × 10⁻³ (systematic range ~1–5 × 10⁻³), consistent with DESI 2024–2025 data; and gravitational wave echoes near black hole horizons. The conjunction is distinctive to this framework.
 
-6. **Foundational implications.** Wigner's Friend resolved (superposition is epistemic); Everettian measure problem dissolved (branches are compression artifacts); Born rule derived as the equilibrium distribution of the indivisible stochastic process.
+6. **Dark-sector concordance.** The trace-out producing QM simultaneously renders ~95% of ρ_crit invisible to the emergent QFT — matching the observed dark sector. The boundary entropy has effective energy density ρ_crit (derived), no QFT operator (proved), and persistent matter-induced displacements (from C2).
+
+7. **Foundational implications.** Wigner's Friend resolved (superposition is epistemic); Everettian measure problem dissolved (branches are compression artifacts); Born rule derived as the equilibrium distribution of the indivisible stochastic process.
 
 ## Contact
 
