@@ -8,25 +8,21 @@
 
 ## Overview
 
-This research program shows that quantum mechanics, general relativity, and the Standard Model's gauge structure are structural consequences of embedded observation: an observer in a deterministic system with a causal partition, slow-bath coupling, and sufficient hidden-sector capacity necessarily describes the visible sector using quantum mechanics — and any quantum system requires precisely these conditions. The Schrödinger equation, the Born rule, Bell inequality violations, SU(3) × SU(2) × U(1) with three generations, the Higgs mechanism, and θ̄ = 0 all follow from a single starting point: a finite set, a bijection, and a partition.
+The universe is a finite lossless memory. Physics is what that memory looks like from inside.
 
-**Part I** establishes the QM equivalence as a mathematical theorem, via two independent routes (Barandes' stochastic-quantum correspondence and Stinespring dilation).
+This research program shows that quantum mechanics, general relativity, and the structure of the Standard Model are consequences of a single primitive: (S, φ) — a finite set and a bijection. S is the storage capacity: the total number of distinguishable states. φ is perfect memory: a reversible update rule that never creates or destroys information. An observer embedded in (S, φ) with partial read access — a partition into visible and hidden sectors — necessarily describes the visible sector using quantum mechanics. The conditions are not merely sufficient but necessary: QM and embedded observation are equivalent.
 
-**Part II** identifies the cosmological horizon as a physical realization where all conditions hold, derives ℏ = c³ε²/(4G) from partition-relativity and thermal self-consistency (fixing ε = 2 l_p exactly), and dissolves the cosmological constant problem — the 10¹²² discrepancy is the information compression ratio of the trace-out.
+The cosmological horizon provides the physical realization. The framework derives ℏ = c³ε²/(4G) from thermal self-consistency, recovers the Bekenstein-Hawking entropy S = A/(4l_p²) including the 1/4 factor, and dissolves the 10¹²² cosmological constant discrepancy — identifying it as the information compression ratio of the observer's quantum description. The same trace-out renders ~95% of the universe's gravitational budget invisible to the emergent QFT, matching the observed dark sector.
 
-**Part III** shows that the same trace-out simultaneously renders ~95% of the universe's gravitational budget invisible to the emergent QFT — matching the observed dark sector — providing independent corroboration of observational incompleteness.
-
-We then test the framework's rigidity by constructing an explicit lattice realization and showing that the dynamics uniquely selected by the QM requirement also produces all the inputs for general relativity — seven independent checks, each of which could have failed, none of which does.
-
-We address the ontological status of the lattice, showing that the framework's results depend on two structural properties of the bijection — bounded coupling degree and statistical isotropy — and on nothing else. The lattice is the coupling graph of the bijection, the alphabet size is a gauge freedom, the observer is generic (any small subgraph sees QM), the dimension d = 3 is the unique self-consistent value, and the fundamental object is (S, φ): a finite set and a bijection. Everything else — including the observer, the dimension, and the laws of physics — is emergent.
-
-Finally, we derive the Standard Model's structure from the same framework: the wave equation factors into staggered Dirac fermions, center independence enforces chiral symmetry (mandating the Higgs), the multi-component extension produces gauge structure from a coupling matrix M, the cubic rotation group decomposes 6 link directions as T₁(3) ⊕ E(2) ⊕ A₁(1) giving SU(3) × SU(2) × U(1), the partition's chirality structure makes SU(2) chiral, anomaly cancellation uniquely determines the hypercharges, and T-invariance of the wave equation forces θ̄ = 0. The filter chain contains no empirical inputs beyond the framework's axioms.
+The framework is tested for rigidity: the dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures. The ontological status of the lattice is resolved: the lattice is the coupling graph of φ, the alphabet size is a gauge freedom, the observer is generic, and d = 3 is the unique self-consistent dimension. The question of which quantum field theory the observer sees is addressed in a companion paper deriving the Standard Model's gauge group, matter content, and discrete symmetries, with results ranging from theorem to well-characterized proposition.
 
 ## Contents
 
 ### Main Paper
 
 **"The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
+
+Submitted to Foundations of Physics. Establishes the QM–embedded observation equivalence (Part I), applies it to the cosmological horizon (Part II), and derives the dark-sector concordance (Part III).
 
 - [`Main.md`](Main.md) — Markdown source
 - [`Main.tex`](Main.tex) — LaTeX source
@@ -36,7 +32,7 @@ Finally, we derive the Standard Model's structure from the same framework: the w
 
 **"Dynamics Selection and Emergent General Relativity in the Observational Incompleteness Framework"**
 
-Tests the framework by constructing the mod-q discrete wave equation on a lattice with a checkerboard partition. The wave equation is the unique dynamics satisfying center independence (necessary for emergent QM), spatial isotropy, and linearity — for any alphabet size q ≥ 2 and dimension d ≥ 1. This dynamics, without tuning, produces area-law entropy, Lorentz-invariant dispersion, horizon thermality, and all inputs to Jacobson's thermodynamic derivation of Einstein's equations. Seven links, all analytically proven. The structural consistency constitutes corroborative evidence for the main paper's central claim.
+Tests the framework's rigidity. Among all second-order reversible nearest-neighbor dynamics, center independence (necessary for emergent QM), spatial isotropy, and linearity uniquely select the discrete wave equation — for any alphabet size q ≥ 2 and dimension d ≥ 1. This dynamics, without tuning, produces area-law entropy, Lorentz-invariant dispersion, horizon thermality, and all inputs to Jacobson's thermodynamic derivation of Einstein's equations. Seven links, all analytically proven. Self-contained; does not depend on the other companion papers.
 
 - [`GR.md`](GR.md) — Markdown source
 - [`GR.tex`](GR.tex) — LaTeX source
@@ -46,7 +42,7 @@ Tests the framework by constructing the mod-q discrete wave equation on a lattic
 
 **"The Substrate Problem: Structural Foundations of the Observational Incompleteness Framework"**
 
-Addresses the ontological status of the lattice. Shows that the framework's theorems depend on two structural properties of the bijection (bounded coupling degree and statistical isotropy) and on nothing else. The observer is proved generic: any small subgraph of any large bounded-degree bijection satisfies C1–C3. The dimension d = 3 is derived from self-consistency: four independent filters (propagating gravity, stable matter, gravitational concordance, renormalizability) converge on d = 3 as the unique value. The integer dimension is itself derived: self-consistency excludes exponential and fractal graph growth. The product decomposition of the state space into "sites" is derived as the unique factorization minimizing coupling degree. The alphabet size q is a gauge freedom. Background independence is achieved through state-dependent bijections, with the discrete Einstein equation (Ollivier-Ricci curvature = stress-energy) proved as a theorem. The fundamental object is (S, φ): a finite set and a bijection. Everything else is emergent.
+Addresses the ontological status of the lattice and the physical interpretation of (S, φ). Shows that the framework's theorems depend on two structural properties of the bijection (bounded coupling degree and statistical isotropy) and on nothing else. The observer is proved generic: any small subgraph of any large bounded-degree energy-conserving bijection satisfies C1–C3, with C2 automatic for Hamiltonian dynamics. The dimension d = 3 is derived from self-consistency: four independent filters converge. The fundamental object (S, φ) is interpreted as a finite lossless memory — S is storage capacity, φ is perfect information preservation — placing the framework in the family of productive incompleteness results alongside Gödel and Turing.
 
 - [`Ontology.md`](Ontology.md) — Markdown source
 - [`Ontology.tex`](Ontology.tex) — LaTeX source
@@ -56,7 +52,7 @@ Addresses the ontological status of the lattice. Shows that the framework's theo
 
 **"Why These Particles: Standard Model Structure from Observational Incompleteness"**
 
-Derives the Standard Model's gauge group, matter content, chiral structure, and θ̄ = 0 from the OI framework. The argument proceeds in three directions: **Bottom-up** — the wave equation factors into staggered Dirac fermions (Susskind); center independence enforces chiral symmetry, mandating the Higgs; in d = 3, staggered tastes give N_gen = 3. **Gauge emergence** — the multi-component extension produces the matrix wave equation with coupling matrix M as sole parameter; the gauge group is the commutant of M; the factorization principle gives K = 2d = 6; the cubic rotation group decomposes 6 = T₁(3) ⊕ E(2) ⊕ A₁(1), yielding SU(3) × SU(2) × U(1). **Top-down** — anomaly cancellation uniquely determines the hypercharges; D_LL = 0 makes the gauge coupling chiral; T-invariance forces θ̄ = 0. An exact analytical formula is proved: NM = √3 · √⟨μ⁴⟩. The filter chain has 18 steps, zero empirical inputs, and zero identified logical gaps.
+Derives the Standard Model's gauge group, matter content, chiral structure, and θ̄ = 0. Results range from theorem to well-characterized proposition; the paper is explicit about which is which. **Bottom-up** — the wave equation factors into staggered Dirac fermions; center independence enforces chiral symmetry, mandating the Higgs; in d = 3, staggered tastes give three fermion sectors and one scalar sector. **Gauge emergence** — coupling-degree minimization uniquely gives K = 2d = 6 (proved); the cubic rotation group decomposes 6 = T₁(3) ⊕ E(2) ⊕ A₁(1), fixing multiplicities (3, 2, 1) (proved); Wilson's lattice gauge construction promotes the commutant symmetry to local gauge invariance. **Top-down** — anomaly cancellation uniquely determines the hypercharges; D_LL = 0 makes the gauge coupling chiral; T-invariance forces θ = 0 (proved) and θ̄ = 0 at the lattice scale (proved) with radiatively stable IR persistence.
 
 - [`SM.md`](SM.md) — Markdown source
 - [`SM.tex`](SM.tex) — LaTeX source
@@ -66,7 +62,7 @@ Derives the Standard Model's gauge group, matter content, chiral structure, and 
 
 **"Why Physics' Biggest Contradiction Might Not Be a Contradiction at All"**
 
-A companion overview covering the logical chain of the full argument — QM emergence, GR derivation, structural foundations, and Standard Model structure — with detailed proof walkthroughs, philosophical lineage, and FAQ. Updated to cover all four companion papers.
+A companion overview covering the full argument — QM emergence, GR derivation, structural foundations, Standard Model structure, and the memory interpretation of (S, φ) — with detailed proof walkthroughs, philosophical lineage, and FAQ.
 
 - [`Explainer.md`](Explainer.md) — Markdown source
 - [`Explainer.tex`](Explainer.tex) — LaTeX source
@@ -74,34 +70,30 @@ A companion overview covering the logical chain of the full argument — QM emer
 
 ## Key Results
 
-1. **QM–embedded observation equivalence.** A stochastic process on a finite configuration space is quantum mechanics if and only if it arises from deterministic dynamics with non-trivial coupling (C1), slow-bath memory (C2), and sufficient hidden-sector capacity (C3). Bell inequality violations and the Tsirelson bound follow from P-indivisibility plus causal locality.
+1. **QM–embedded observation equivalence.** A stochastic process on a finite configuration space is quantum mechanics if and only if it arises from deterministic dynamics with non-trivial coupling (C1), slow-bath memory (C2), and sufficient hidden-sector capacity (C3). *Status: theorem.*
 
-2. **Derivation of ℏ.** From the cosmological horizon: ℏ = c³ε²/(4G), with ε² = 4 l_p² fixed by self-consistency. The Bekenstein-Hawking entropy formula S = A/(4 l_p²) — including the factor of 1/4 — is recovered as a consequence.
+2. **Derivation of ℏ.** From the cosmological horizon: ℏ = c³ε²/(4G), with ε = 2l_p fixed by self-consistency. The Bekenstein-Hawking entropy formula S = A/(4l_p²) — including the 1/4 factor — is recovered as a consequence. *Status: theorem.*
 
-3. **Cosmological constant dissolution.** The 10¹²² discrepancy is S_dS — the information compression ratio of the emergent quantum description. The observed vacuum energy is the mandatory classical baseline.
+3. **Cosmological constant dissolution.** The 10¹²² discrepancy is S_dS — the information compression ratio of the emergent quantum description. The observed vacuum energy is the mandatory classical baseline. *Status: theorem.*
 
-4. **Dynamics selection and emergent GR.** Among all second-order reversible nearest-neighbor dynamics, center independence, isotropy, and linearity uniquely select the wave equation. This dynamics produces all inputs for Einstein's equations via Jacobson's thermodynamic route. Seven links, all analytically proven for both ℝ and ℤ/qℤ, with no free parameters.
+4. **Dynamics selection and emergent GR.** The wave equation is uniquely selected by center independence, isotropy, and linearity. It produces all inputs for Einstein's equations via Jacobson's thermodynamic route. Seven links, all analytically proven. *Status: theorem.*
 
-5. **Structural foundations.** The lattice is the coupling graph of the bijection. The alphabet size q is a gauge freedom. The observer is generic (any small subgraph sees QM). d = 3 is the unique self-consistent dimension (four independent filters converge). The fundamental object is (S, φ) — a finite set and a bijection. The partition V is derived, not fundamental.
+5. **Structural foundations.** The lattice is the coupling graph of φ. The alphabet size q is a gauge freedom. The observer is generic (C2 is automatic for Hamiltonian dynamics). d = 3 is the unique self-consistent dimension. The fundamental object is (S, φ): a finite lossless memory. *Status: theorem.*
 
-6. **Standard Model structure derived.** The wave equation factors into staggered Dirac fermions. Center independence enforces chiral symmetry, mandating the Higgs. K = 2d = 6 from the factorization principle. The cubic group decomposition 6 = T₁(3) ⊕ E(2) ⊕ A₁(1) gives SU(3) × SU(2) × U(1). The partition's chirality (D_LL = 0) makes SU(2) chiral. Anomaly cancellation uniquely determines the hypercharges. N_gen = d = 3. The filter chain has zero empirical inputs.
+6. **Standard Model structure.** The wave equation factors into staggered Dirac fermions (theorem). Center independence enforces chiral symmetry, mandating the Higgs (theorem). K = 2d = 6 from coupling-degree minimization (theorem). The cubic group decomposition gives multiplicities (3, 2, 1) → SU(3) × SU(2) × U(1) (theorem). The generation identification and chirality from the trace-out are at proposition level — well-motivated consistency arguments, not pure derivations.
 
-7. **Strong CP solved.** T-invariance of the wave equation → θ = 0. Detailed balance of transition probabilities (T_ij = T_ji) → real Yukawa matrices → θ̄ = 0. No axion needed.
+7. **Strong CP.** T-invariance of the wave equation → θ = 0 (theorem). Detailed balance → T-invariant Hamiltonian → real Yukawa matrices → θ̄ = 0 at the lattice scale (theorem). IR persistence is radiatively stable; a narrow, well-characterized gap remains.
 
-8. **NM formula.** Exact analytical result: NM = √3 · √⟨μ⁴⟩, decomposing additively over eigenmodes of M. Proved via Fourier analysis; verified numerically.
+8. **Dark-sector concordance.** The trace-out producing QM simultaneously renders ~95% of ρ_crit invisible to the emergent QFT. *Status: theorem (total budget); the structured dark matter story is a consistency check, not a derivation.*
 
-9. **Hierarchy problem dissolved.** The Higgs mass is set by the eigenvalue μ_w of the coupling matrix M — a property of the substratum bijection φ, with no radiative corrections.
+9. **Arrow of time.** The substratum (S, φ) has no arrow of time — φ and φ⁻¹ are equally valid. Entropy increase is a property of the observer's coarse-grained description: the standard Boltzmann mechanism applied to the partition. Like QM, the Second Law is emergent.
 
-10. **Falsifiable predictions.** Dark energy evolution with ν_OI ≈ 2.45 × 10⁻³; GW echoes near black hole horizons; θ̄ = 0 exactly (no axion, neutron EDM = 0); no SUSY partners; no fourth generation; no additional gauge groups below M_Pl; Majorana neutrinos (neutrinoless double beta decay); no proton decay from GUT-scale gauge boson exchange. The conjunction is distinctive to this framework.
-
-11. **Dark-sector concordance.** The trace-out producing QM simultaneously renders ~95% of ρ_crit invisible to the emergent QFT — matching the observed dark sector.
-
-12. **Foundational implications.** Wigner's Friend resolved; Everettian measure problem dissolved; Born rule derived; measurement problem dissolved.
+10. **Falsifiable predictions.** Dark energy evolution with ν_OI ≈ 2.45 × 10⁻³; GW echoes near black hole horizons; θ̄ = 0 exactly (no axion, neutron EDM = 0); no SUSY partners; no fourth generation; Majorana neutrinos. The conjunction is distinctive to this framework.
 
 ## The Derivation Chain
 
 ```
-(S, φ) — a finite set and a bijection, with bounded coupling and statistical isotropy
+(S, φ) — a finite lossless memory with bounded coupling and statistical isotropy
   │
   ├─→ V (observer) is generic (Ontology, theorem)
   ├─→ d = 3 from self-consistency (Ontology, theorem)
@@ -110,17 +102,19 @@ A companion overview covering the logical chain of the full argument — QM emer
   ├─→ ℏ = c³ε²/(4G), ε = 2l_p (Main, theorem)
   ├─→ Bekenstein-Hawking entropy with 1/4 (Main/GR, theorem)
   ├─→ CC dissolution: 10¹²² = S_dS (Main, theorem)
-  ├─→ General relativity (GR, seven links)
+  ├─→ General relativity (GR, seven links — theorem)
   ├─→ Wave eq. → KG → staggered Dirac fermions (SM, theorem)
-  ├─→ Center independence = chiral symmetry → Higgs (SM, theorem + proposition)
-  ├─→ K = 2d = 6, decomposition (3,2,1) → SU(3)×SU(2)×U(1) (SM, theorem)
+  ├─→ Center independence = chiral symmetry → Higgs (SM, theorem)
+  ├─→ K = 2d = 6 from coupling-degree minimization (SM, theorem)
+  ├─→ Cubic group decomposition (3,2,1) → SU(3)×SU(2)×U(1) (SM, theorem)
   ├─→ D_LL = 0 → chiral gauge coupling (SM, proposition)
   ├─→ Anomaly cancellation → unique hypercharges (SM, theorem)
-  ├─→ Observer self-consistency → matter representations (SM, proposition)
-  ├─→ N_gen = d = 3 (SM, proposition)
-  ├─→ T-invariance → θ̄ = 0 (SM, proposition)
+  ├─→ Triplet tastes + anomaly cancellation → 3 generations (SM, proposition)
+  ├─→ θ = 0 from T-invariance (SM, theorem)
+  ├─→ θ̄ = 0 from detailed balance (SM, theorem at UV; radiatively stable)
   ├─→ Dark energy ν_OI ≈ 2.45×10⁻³ (Main, proposition)
-  └─→ Dark gravity (Main, proposition)
+  ├─→ Dark-sector concordance (Main, theorem — total budget)
+  └─→ Arrow of time from coarse-graining (Ontology, standard Boltzmann)
 ```
 
 ## Contact
