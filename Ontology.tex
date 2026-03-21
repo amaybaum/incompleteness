@@ -1410,6 +1410,138 @@ including the observer, is emergent.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-physical-interpretation-of-s-varphi}{%
+\subsection{\texorpdfstring{8.6 The physical interpretation of (S,
+\(\varphi\))}{8.6 The physical interpretation of (S, \textbackslash varphi)}}\label{the-physical-interpretation-of-s-varphi}}
+
+The preceding sections establish that (S, \(\varphi\)) is the
+framework's fundamental object. This section asks: what kind of object
+is it?
+
+\hypertarget{storage-and-memory}{%
+\subsubsection{Storage and memory}\label{storage-and-memory}}
+
+S is the set of all distinguishable states of the total system. Its
+physical meaning is \emph{finite capacity}: there are \(|S|\)
+configurations that can be told apart, carrying \(\log_2 |S|\) bits of
+information. The finiteness of S is not a regularization or
+approximation --- it is load-bearing. Finiteness gives Poincaré
+recurrence (\(\varphi^N = \mathrm{id}\)), which gives P-indivisibility
+(§2.3 of {[}1{]}), which gives quantum mechanics. An infinite S would
+not recur, and the derivation fails.
+
+\(\varphi\) is a bijection: every state has exactly one successor and
+exactly one predecessor. Its physical meaning is \emph{perfect memory}
+--- information is never created and never destroyed. The past is always
+recoverable from the present in principle, because \(\varphi^{-1}\)
+exists. A non-bijective map would send two distinct states to the same
+successor, destroying the distinction between them. \(\varphi\)
+preserves all distinctions, permanently.
+
+Together, (S, \(\varphi\)) is a finite lossless memory: a system with
+finite storage capacity whose contents are updated without loss at each
+step. The partition V defines the observer's \emph{read access} --- the
+portion of the memory whose contents are visible. The hidden sector H is
+the remainder: storage that is written and read by the dynamics but
+inaccessible to the observer.
+
+In this language, the framework's results have a uniform interpretation.
+C1 (coupling) means the readable and unreadable registers are
+dynamically linked --- writes to one affect the other. C2 (slow bath)
+means the unreadable register retains its contents between reads --- for
+Hamiltonian dynamics, this is automatic (§7.6). C3 (capacity) means the
+unreadable register is large enough to store the full interaction
+history without overflow. Quantum mechanics is the read statistics of a
+lossless memory through a partial interface: the Schrödinger equation
+governs the time evolution of the read probabilities, the Born rule is
+the equilibrium distribution over unread states, and interference is the
+signature of information written to hidden storage and read back at a
+later time.
+
+The \(10^{122}\) cosmological constant discrepancy {[}1, §7.3{]} is the
+compression ratio between total storage and readable storage. The dark
+sector {[}1, §9{]} is the gravitational effect of the unreadable
+storage. The Bekenstein-Hawking entropy \(S = A/(4l_p^2)\) is the
+storage capacity of the partition boundary. The action scale \(\hbar\)
+is the conversion factor between storage geometry and read statistics.
+
+\hypertarget{comparison-with-a-turing-machine}{%
+\subsubsection{Comparison with a Turing
+machine}\label{comparison-with-a-turing-machine}}
+
+A Turing machine has a tape (storage), a head (partial read/write
+access), and a transition function (update rule). The correspondence is
+suggestive: S is the tape, V is the head's read window, \(\varphi\) is
+the transition function. But three differences are physically
+significant.
+
+First, a Turing machine's tape is potentially infinite. S is finite. The
+finiteness is essential: it produces recurrence, P-indivisibility, and
+quantum mechanics. An infinite-tape machine would not generate QM
+through this mechanism.
+
+Second, a Turing machine is generally irreversible --- it can erase,
+overwrite, and halt. \(\varphi\) is a bijection: nothing is erased,
+nothing is created, there is no halting. The dynamics is a reversible
+permutation, not a computation in the Turing sense. The reversibility is
+what makes (S, \(\varphi\)) a lossless memory rather than an information
+processor.
+
+Third --- and most fundamentally --- a Turing machine computes. It
+transforms input to output; the interest is in the input-output map. (S,
+\(\varphi\)) does not compute anything. There is no input, no output, no
+halting, no answer. The system is a closed permutation that cycles
+through states and returns. The appearance of dynamics, probability,
+particles, and forces is entirely the observer's perspective --- what
+the permutation looks like through the partial window V. (S,
+\(\varphi\)) is simpler than a Turing machine: it is the minimal
+dynamical object (a finite set and a permutation), and the framework's
+claim is that this is sufficient for all of physics.
+
+\hypertarget{the-incompleteness-family}{%
+\subsubsection{The incompleteness
+family}\label{the-incompleteness-family}}
+
+The framework's central result --- that an embedded observer necessarily
+describes the visible sector using quantum mechanics --- belongs to a
+family of impossibility-with-structure theorems in mathematics and
+logic.
+
+Gödel's incompleteness theorem (1931): a sufficiently powerful formal
+system cannot prove all truths about itself. The unprovable statements
+are not arbitrary --- they have a rigid structure (the Gödel sentence,
+the consistency statement, the arithmetical hierarchy).
+
+Turing's undecidability theorem (1936): a universal computer cannot
+decide all questions about its own behavior. The undecidable problems
+are not arbitrary --- they have a rigid structure (the halting problem,
+the Turing degrees, the arithmetical hierarchy of oracle machines).
+
+The OI characterization theorem {[}1, §3.3{]}: an observer embedded in a
+deterministic system with finite capacity cannot access the complete
+state. The emergent description is not arbitrary --- it has a rigid
+structure (unitary quantum mechanics with the Schrödinger equation, Born
+rule, and Bell violations).
+
+The common structure is \emph{self-reference under finite resources}. In
+each case, a system with finite capacity attempts to completely model
+something it is part of, and the structural impossibility of doing so
+determines the form of what it produces instead. Gödel's system tries to
+prove its own consistency and produces the incompleteness theorems.
+Turing's machine tries to predict its own halting and produces the
+computability hierarchy. The OI observer tries to track a dynamics it is
+embedded in and produces quantum mechanics.
+
+In all three cases, the impossibility result is not merely negative ---
+it is \emph{generative}. The specific structure of what cannot be
+achieved determines the specific structure of what emerges instead. The
+limitation and the structure are the same object viewed from two sides.
+In the OI framework, quantum mechanics is not a deficiency of the
+observer's description --- it is the unique, rigid, mathematically
+determined consequence of finite lossless memory observed from within.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
 \hypertarget{conclusion}{%
 \subsection{9. Conclusion}\label{conclusion}}
 
@@ -1422,11 +1554,14 @@ the visible sector. General relativity is the thermodynamic limit of the
 coupling structure.
 
 The fundamental object is (S, \(\varphi\)) --- a finite set and a
-bijection. The partition V is derived: any small subgraph of any large
-bounded-degree bijection automatically satisfies C1--C3 (§7.6). The
-dimension \(d = 3\) is derived: the unique value consistent with
-propagating gravity, stable matter, gravitational concordance, and
-renormalizable gauge interactions (§7.6).
+bijection. Physically: a finite lossless memory. S is the storage
+capacity; \(\varphi\) is the guarantee that nothing is ever erased. The
+partition V is the observer's read access, derived rather than
+postulated: any small subgraph of any large bounded-degree bijection
+automatically satisfies C1--C3 (§7.6). The dimension \(d = 3\) is
+derived: the unique value consistent with propagating gravity, stable
+matter, gravitational concordance, and renormalizable gauge interactions
+(§7.6).
 
 From (S, \(\varphi\)) alone: the factorization into sites is derived
 (§3.1), the wave equation is derived (§2.2), \(d = 3\) is derived
@@ -1445,6 +1580,14 @@ the emergent description is quantum mechanics on a \(d = 3\) lattice
 with general relativity as its thermodynamic limit. The question of
 which specific quantum field theory the observer sees is constrained by
 \(d = 3\) and the wave equation but is beyond the scope of this paper.
+
+The deepest lesson (§8.6) is that the framework belongs to a family of
+impossibility-with-structure results --- alongside Gödel's
+incompleteness theorem and Turing's halting problem --- in which
+self-reference under finite resources produces not formless ignorance
+but rigid, mathematically determined structure. The universe is a finite
+memory that never forgets. Physics is what that memory looks like from
+inside.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
