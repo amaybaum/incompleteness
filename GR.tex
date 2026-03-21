@@ -8,7 +8,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
 \ifPDFTeX
-  % \usepackage[T1]{fontenc}
+  \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
@@ -16,6 +16,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
+% \usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -36,7 +37,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -51,7 +51,18 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{amsmath,amssymb,amsfonts,booktabs,longtable}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{float}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage{enumitem}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -91,12 +102,12 @@ dynamics uniquely selected by the QM requirement also produce the inputs
 for general relativity? It does. Among all second-order reversible
 nearest-neighbor dynamics on a lattice, center independence (necessary
 for emergent QM), spatial isotropy, and linearity uniquely select the
-discrete wave equation --- for any alphabet size q ≥ 2 and dimension d ≥
+discrete wave equation --- for any alphabet size q \ensuremath{\geq} 2 and dimension d \ensuremath{\geq}
 1. This dynamics, without further tuning, produces area-law entropy,
 Lorentz-invariant dispersion, horizon thermality, and all inputs to
 Jacobson's thermodynamic derivation of Einstein's equations. The
 derivation chain has seven links, all analytically proven for both the
-linear wave equation over ℝ and the mod-q wave equation over ℤ/qℤ. Each
+linear wave equation over \ensuremath{\mathbb{R}} and the mod-q wave equation over \ensuremath{\mathbb{Z}}/q\ensuremath{\mathbb{Z}}. Each
 link is an independent check that could have failed; none does. The
 structural consistency --- a dynamics selected by one criterion
 (emergent QM) passing seven additional tests (emergent GR) with no free
@@ -149,27 +160,27 @@ framework.
 \hypertarget{the-system}{%
 \subsection{2. The System}\label{the-system}}
 
-The mod-q discrete wave equation on a d-dimensional cubic lattice Λ =
-(ℤ/Lℤ)\^{}d with periodic boundary conditions:
+The mod-q discrete wave equation on a d-dimensional cubic lattice \ensuremath{\Lambda} =
+(\ensuremath{\mathbb{Z}}/L\ensuremath{\mathbb{Z}})\^{}d with periodic boundary conditions:
 
 \[x_\mathbf{i}(t+1) = \left(\sum_{\mathbf{j} \sim \mathbf{i}} x_\mathbf{j}(t) \ - \ x_\mathbf{i}(t-1)\right) \bmod q\]
 
 where the sum runs over the 2d nearest neighbors of site \textbf{i}, and
 q is a positive integer.
 
-\textbf{Axiom 1 (Bijectivity).} The phase-space map F: (x(t−1), x(t)) →
+\textbf{Axiom 1 (Bijectivity).} The phase-space map F: (x(t\ensuremath{-}1), x(t)) \ensuremath{\to}
 (x(t), x(t+1)) is bijective.
 
 \textbf{Axiom 2 (Finiteness).} The configuration space C = \{0, 1,
-\ldots, q−1\}\^{}\{\textbar Λ\textbar\} is finite, with
+\ldots, q\ensuremath{-}1\}\^{}\{\textbar \ensuremath{\Lambda}\textbar\} is finite, with
 \textbar C\textbar{} = q\textsuperscript{\{L}d\}.
 
 \textbf{Axiom 3 (Partition).} The lattice is partitioned into visible
 (V) and hidden (H) sectors via the checkerboard rule: site \textbf{i} is
-visible if Σ\_k i\_k is even, hidden if odd. Every visible site has
+visible if \ensuremath{\Sigma}\_k i\_k is even, hidden if odd. Every visible site has
 hidden neighbors (C1). For a core-shell partition (visible = cube of
 side r in a lattice of side L), timescale separation C2 and capacity
-asymmetry C3 are controlled by the ratio (L − r)/r.
+asymmetry C3 are controlled by the ratio (L \ensuremath{-} r)/r.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -178,11 +189,11 @@ asymmetry C3 are controlled by the ratio (L − r)/r.
 Mechanics}\label{link-1-emergent-quantum-mechanics}}
 
 \textbf{Theorem 1.} \emph{The visible-sector propagator of the wave
-equation with checkerboard partition satisfies G(2) ≠ G(1)² for all L ≥
-4 in any dimension d ≥ 1. The reduced dynamics is non-Markovian.}
+equation with checkerboard partition satisfies G(2) \ensuremath{\neq} G(1)\ensuremath{^2} for all L \ensuremath{\geq}
+4 in any dimension d \ensuremath{\geq} 1. The reduced dynamics is non-Markovian.}
 
-\textbf{Proof.} The full-system evolution in phase space (x(t), x(t−1))
-∈ ℝ\^{}\{2N\} is the linear map
+\textbf{Proof.} The full-system evolution in phase space (x(t), x(t\ensuremath{-}1))
+\ensuremath{\in} \ensuremath{\mathbb{R}}\^{}\{2N\} is the linear map
 
 \[M = \begin{pmatrix} A & -I \\ I & 0 \end{pmatrix}\]
 
@@ -192,25 +203,25 @@ is G(n) = P\_V M\^{}n P\_V\^{}T. For L = 4, d = 1:
 \[G(2) - G(1)^2 = \begin{pmatrix} 2 & 2 & 0 & 0 \\ 2 & 2 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}\]
 
 The entries are exactly 2, arising from the two hidden sites that each
-connect the visible pair. For general L ≥ 4, every pair of visible sites
-at lattice distance 2 shares at least one hidden neighbor, so G(2) −
-G(1)² ≠ 0. ∎
+connect the visible pair. For general L \ensuremath{\geq} 4, every pair of visible sites
+at lattice distance 2 shares at least one hidden neighbor, so G(2) \ensuremath{-}
+G(1)\ensuremath{^2} \ensuremath{\neq} 0. \ensuremath{\blacksquare}
 
 \textbf{Corollary.} By the Barandes stochastic-quantum correspondence
 {[}2{]}, the visible-sector dynamics admits a description as unitary
 quantum mechanics with a Hermitian Hamiltonian and Born rule.
 
 \textbf{Theorem 1b} (C2-C3 strengthening). \emph{The (i,j) entry of G(2)
-− G(1)² equals \textbar N\_H(i) ∩ N\_H(j)\textbar, the number of common
+\ensuremath{-} G(1)\ensuremath{^2} equals \textbar N\_H(i) \ensuremath{\cap} N\_H(j)\textbar, the number of common
 hidden neighbors. For core-shell partitions, this grows monotonically as
-the visible core shrinks and the hidden shell grows.} ∎
+the visible core shrinks and the hidden shell grows.} \ensuremath{\blacksquare}
 
 \textbf{Theorem 1c} (Validity window). \emph{The emergent Hamiltonian is
-valid for lags n \textless{} τ\_B = (L − r)/(2v). The wave equation has
+valid for lags n \textless{} \ensuremath{\tau}\_B = (L \ensuremath{-} r)/(2v). The wave equation has
 an exact light cone (range R = 1, no exponential tails), so information
-entering the hidden shell at the core boundary takes at least τ\_B steps
+entering the hidden shell at the core boundary takes at least \ensuremath{\tau}\_B steps
 to traverse the shell and return. Before this time, the emergent
-description holds; after it, returning correlations invalidate it.} ∎
+description holds; after it, returning correlations invalidate it.} \ensuremath{\blacksquare}
 
 \textbf{Numerical confirmation.} For finite q, P-indivisibility was
 confirmed via conditional mutual information against a Markov null:
@@ -225,7 +236,7 @@ System & CMI z-score \\
 1+1D, L=60, mod-256 wave eq & \textbf{31.1} \\
 3+1D, L=8, mod-256 wave eq & \textbf{4.7} \\
 1+1D, L=60, binary CA & \textbf{30.3} \\
-3+1D, 16³, core r=2 (511:1) & \textbf{14.9} \\
+3+1D, 16\ensuremath{^3}, core r=2 (511:1) & \textbf{14.9} \\
 \end{longtable}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -235,19 +246,19 @@ System & CMI z-score \\
 Spacetime}\label{link-2-emergent-spacetime}}
 
 \textbf{Theorem 2.} \emph{The (site, time) partial order on a
-d-dimensional lattice with L\_∞ light cone has Myrheim-Meyer dimension
-converging to d + 1 as L → ∞.}
+d-dimensional lattice with L\_\ensuremath{\infty} light cone has Myrheim-Meyer dimension
+converging to d + 1 as L \ensuremath{\to} \ensuremath{\infty}.}
 
-\textbf{Proof.} The causal relation (i, t) ≺ (j, t′) holds iff t
-\textless{} t′ and \textbar\textbar i − j\textbar\textbar\_∞ ≤ v(t′ −
+\textbf{Proof.} The causal relation (i, t) \ensuremath{\prec} (j, t\ensuremath{^{\prime}}) holds iff t
+\textless{} t\ensuremath{^{\prime}} and \textbar\textbar i \ensuremath{-} j\textbar\textbar\_\ensuremath{\infty} \ensuremath{\leq} v(t\ensuremath{^{\prime}} \ensuremath{-}
 t). By the Bombelli-Lee-Meyer-Sorkin theorem {[}4{]}, the ordering
 fraction converges to the value for d+1 Minkowski spacetime. Numerical
-confirmation: MM dimension = 3.97 in 3+1D at L=14. ∎
+confirmation: MM dimension = 3.97 in 3+1D at L=14. \ensuremath{\blacksquare}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{link-3-emergent-ux210f}{%
-\subsection{5. Link 3: Emergent ℏ}\label{link-3-emergent-ux210f}}
+\subsection{5. Link 3: Emergent \ensuremath{\hbar}}\label{link-3-emergent-ux210f}}
 
 \textbf{Theorem 3} (Gap Equation). \emph{The classical horizon
 temperature and the emergent quantum horizon temperature, computed
@@ -255,46 +266,46 @@ independently, must agree. This uniquely determines}
 
 \[\hbar = \frac{c^3 \varepsilon^2}{4G}\]
 
-\emph{connecting the lattice spacing ε to Newton's constant.
-Self-consistently, ε = 2l\_P.}
+\emph{connecting the lattice spacing \ensuremath{\varepsilon} to Newton's constant.
+Self-consistently, \ensuremath{\varepsilon} = 2l\_P.}
 
 \textbf{Proof.} The argument proceeds in four steps.
 
 \emph{Step 1: Classical horizon temperature.} The lattice has a
-discreteness scale ε. A local causal horizon with surface gravity κ has
-an entropy density of one degree of freedom per minimal cell of area ε²,
-so dS = dA/ε². The Jacobson identity {[}3{]} gives the energy flux
-across the horizon as dE = (c² κ / 8π G) dA. Applying the Clausius
+discreteness scale \ensuremath{\varepsilon}. A local causal horizon with surface gravity \ensuremath{\kappa} has
+an entropy density of one degree of freedom per minimal cell of area \ensuremath{\varepsilon}\ensuremath{^2},
+so dS = dA/\ensuremath{\varepsilon}\ensuremath{^2}. The Jacobson identity {[}3{]} gives the energy flux
+across the horizon as dE = (c\ensuremath{^2} \ensuremath{\kappa} / 8\ensuremath{\pi} G) dA. Applying the Clausius
 relation dE = T dS:
 
 \[T_{\text{cl}} = \frac{c^2 \varepsilon^2 \kappa}{8\pi G k_B}\]
 
 This temperature is computed entirely within the classical substratum.
-No ℏ appears.
+No \ensuremath{\hbar} appears.
 
-\emph{Step 2: Boundary-only dependence.} The emergent action scale ℏ is
+\emph{Step 2: Boundary-only dependence.} The emergent action scale \ensuremath{\hbar} is
 determined by the partition boundary, not by volumetric hidden-sector
 data. This follows from spatial locality: the transition probabilities
 \(T_{ij}(t)\) depend, to leading order, only on the visible-boundary
 dynamics (see {[}1, §5.2{]} for the full argument). The
 partition-intrinsic quantities with which to construct an action are c,
-G, and ε. The unique combination with dimensions of action is ℏ = β
-c³ε²/G for a dimensionless constant β.
+G, and \ensuremath{\varepsilon}. The unique combination with dimensions of action is \ensuremath{\hbar} = \ensuremath{\beta}
+c\ensuremath{^3}\ensuremath{\varepsilon}\ensuremath{^2}/G for a dimensionless constant \ensuremath{\beta}.
 
 \emph{Step 3: Emergent quantum temperature.} The emergent QFT of Link 1
 lives on the classical background, which possesses a bifurcate Killing
-horizon with surface gravity κ. Regularity of the Euclidean
-(Wick-rotated) metric at the horizon enforces periodicity 2πc/κ in
+horizon with surface gravity \ensuremath{\kappa}. Regularity of the Euclidean
+(Wick-rotated) metric at the horizon enforces periodicity 2\ensuremath{\pi}c/\ensuremath{\kappa} in
 imaginary time. Any QFT on this background --- including the
 lattice-regularized one emerging from the OI framework --- must
 therefore be in a KMS (thermal) state at temperature:
 
 \[T_Q = \frac{\hbar \kappa}{2\pi c k_B}\]
 
-with ℏ as the sole unknown. This is a theorem \emph{within} the derived
+with \ensuremath{\hbar} as the sole unknown. This is a theorem \emph{within} the derived
 QFT, not an external import. For the lattice theory, thermal periodicity
 is robust against UV modifications of the dispersion relation, with
-corrections at O((εκ/c)²) {[}see references in 1, §5.2{]}.
+corrections at O((\ensuremath{\varepsilon}\ensuremath{\kappa}/c)\ensuremath{^2}) {[}see references in 1, §5.2{]}.
 
 \emph{Step 4: Thermal matching.} A thermometer at the horizon is a
 visible-sector object whose click rate is computable in either
@@ -303,19 +314,19 @@ disagree:
 
 \[T_{\text{cl}} = T_Q \implies \frac{c^2 \varepsilon^2 \kappa}{8\pi G k_B} = \frac{\hbar \kappa}{2\pi c k_B}\]
 
-The surface gravity κ cancels --- confirming that ℏ is structural
+The surface gravity \ensuremath{\kappa} cancels --- confirming that \ensuremath{\hbar} is structural
 (boundary-dependent) rather than state-dependent. Solving:
 
 \[\boxed{\hbar = \frac{c^3 \varepsilon^2}{4G}}\]
 
-Rearranging: ε² = 4ℏG/c³ = 4l\_P², giving ε = 2l\_P. The factor 1/4 in
-the Bekenstein-Hawking formula S = A/(4l\_P²) is then derived: each cell
-of area ε² = 4l\_P² contributes one entropy unit, so S = A/ε² =
-A/(4l\_P²). ∎
+Rearranging: \ensuremath{\varepsilon}\ensuremath{^2} = 4\ensuremath{\hbar}G/c\ensuremath{^3} = 4l\_P\ensuremath{^2}, giving \ensuremath{\varepsilon} = 2l\_P. The factor 1/4 in
+the Bekenstein-Hawking formula S = A/(4l\_P\ensuremath{^2}) is then derived: each cell
+of area \ensuremath{\varepsilon}\ensuremath{^2} = 4l\_P\ensuremath{^2} contributes one entropy unit, so S = A/\ensuremath{\varepsilon}\ensuremath{^2} =
+A/(4l\_P\ensuremath{^2}). \ensuremath{\blacksquare}
 
 \emph{Remark.} The two temperatures are computed from independent
 inputs: T\_cl from the classical substratum alone (Axioms 1--3, the
-Jacobson identity, and η = 1/ε²), T\_Q from the emergent QFT alone (Link
+Jacobson identity, and \ensuremath{\eta} = 1/\ensuremath{\varepsilon}\ensuremath{^2}), T\_Q from the emergent QFT alone (Link
 1's theorem plus Euclidean regularity). The match is non-trivial: T\_cl
 could have depended on volumetric hidden-sector data (excluded by Step
 2), or T\_Q could have depended on the quantum state (it does not ---
@@ -329,33 +340,33 @@ makes the gap equation a genuine determination, not a tautology.
 Area}\label{link-4-entropy-proportional-to-area}}
 
 \textbf{Theorem 4} (Area Law). \emph{The entanglement entropy of a
-spatial region V in the d-dimensional wave equation scales as S(V) = η
-\textbar∂V\textbar{} / ε\^{}\{d−1\}. This holds for both the linear wave
-equation over ℝ and the mod-q wave equation over ℤ/qℤ.}
+spatial region V in the d-dimensional wave equation scales as S(V) = \ensuremath{\eta}
+\textbar\ensuremath{\partial}V\textbar{} / \ensuremath{\varepsilon}\^{}\{d\ensuremath{-}1\}. This holds for both the linear wave
+equation over \ensuremath{\mathbb{R}} and the mod-q wave equation over \ensuremath{\mathbb{Z}}/q\ensuremath{\mathbb{Z}}.}
 
-\textbf{Proof.} \emph{Over ℝ:} The linear wave equation on a lattice is
+\textbf{Proof.} \emph{Over \ensuremath{\mathbb{R}}:} The linear wave equation on a lattice is
 equivalent to a system of coupled harmonic oscillators with a quadratic
 Hamiltonian determined by the adjacency matrix A. This is a Gaussian
 (free bosonic) system, so the area-law theorem of Eisert, Cramer, and
 Plenio {[}5{]} applies directly.
 
-\emph{Over ℤ/qℤ:} The area law follows from the spatial Markov property
-of nearest-neighbor dynamics. Let V° = V ~∂V be the interior of a block
-V and ∂V its boundary (sites adjacent to V\^{}c). The wave equation has
-range R = 1, so x\_i(t+1) depends only on x\_j(t) for \textbar i −
-j\textbar{} ≤ 1 and on x\_i(t−1). For any i ∈ V°, all neighbors lie
+\emph{Over \ensuremath{\mathbb{Z}}/q\ensuremath{\mathbb{Z}}:} The area law follows from the spatial Markov property
+of nearest-neighbor dynamics. Let V° = V ~\ensuremath{\partial}V be the interior of a block
+V and \ensuremath{\partial}V its boundary (sites adjacent to V\^{}c). The wave equation has
+range R = 1, so x\_i(t+1) depends only on x\_j(t) for \textbar i \ensuremath{-}
+j\textbar{} \ensuremath{\leq} 1 and on x\_i(t\ensuremath{-}1). For any i \ensuremath{\in} V°, all neighbors lie
 inside V, so x\_i(1) is a function of initial data within V alone. With
-uniform initial conditions (independent across sites), V° ⊥ V\^{}c
-\textbar{} ∂V. By the chain rule: I(V; V\^{}c) = I(∂V; V\^{}c) + I(V°;
-V\^{}c \textbar{} ∂V) = I(∂V; V\^{}c) ≤ H(∂V) ≤ \textbar∂V\textbar{} ·
-log₂ q. The mutual information scales as boundary area, not volume, for
-any q ≥ 2 and d ≥ 1. Numerical confirmation (Appendix A.5) gives
-I/\textbar∂V\textbar{} ≈ 0.3 log₂ q per boundary pair, constant to
+uniform initial conditions (independent across sites), V° \ensuremath{\perp} V\^{}c
+\textbar{} \ensuremath{\partial}V. By the chain rule: I(V; V\^{}c) = I(\ensuremath{\partial}V; V\^{}c) + I(V°;
+V\^{}c \textbar{} \ensuremath{\partial}V) = I(\ensuremath{\partial}V; V\^{}c) \ensuremath{\leq} H(\ensuremath{\partial}V) \ensuremath{\leq} \textbar\ensuremath{\partial}V\textbar{} ·
+log\ensuremath{_2} q. The mutual information scales as boundary area, not volume, for
+any q \ensuremath{\geq} 2 and d \ensuremath{\geq} 1. Numerical confirmation (Appendix A.5) gives
+I/\textbar\ensuremath{\partial}V\textbar{} \ensuremath{\approx} 0.3 log\ensuremath{_2} q per boundary pair, constant to
 within 3\% as block width varies from 1 to 7.
 
-Combined with the gap equation (Theorem 3), ε = 2l\_P, giving S = η
-A/l\_P² for d = 3. The coefficient η = 1/4 is fixed by the thermal
-matching condition (§5, Step 4). ∎
+Combined with the gap equation (Theorem 3), \ensuremath{\varepsilon} = 2l\_P, giving S = \ensuremath{\eta}
+A/l\_P\ensuremath{^2} for d = 3. The coefficient \ensuremath{\eta} = 1/4 is fixed by the thermal
+matching condition (§5, Step 4). \ensuremath{\blacksquare}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -364,15 +375,15 @@ matching condition (§5, Step 4). ∎
 Invariance}\label{link-5-lorentz-invariance}}
 
 \textbf{Theorem 5} (Relativistic Dispersion). \emph{The wave equation
-has exact dispersion relation cos ω = cos k.}
+has exact dispersion relation cos \ensuremath{\omega} = cos k.}
 
-\textbf{Proof.} Substituting x\_j(t) = A exp(i(kj − ωt)):
+\textbf{Proof.} Substituting x\_j(t) = A exp(i(kj \ensuremath{-} \ensuremath{\omega}t)):
 
 \[e^{-i\omega} + e^{i\omega} = e^{-ik} + e^{ik} \implies \cos\omega = \cos k \qquad \square\]
 
-For small k: ω = \textbar k\textbar{} + O(k³), giving relativistic
+For small k: \ensuremath{\omega} = \textbar k\textbar{} + O(k\ensuremath{^3}), giving relativistic
 propagation with v = 1. The identity is algebraic: for the mod-q wave
-equation, the same substitution using characters of ℤ/qℤ yields the same
+equation, the same substitution using characters of \ensuremath{\mathbb{Z}}/q\ensuremath{\mathbb{Z}} yields the same
 dispersion relation exactly, not as a large-q approximation.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -386,7 +397,7 @@ systems whose low-energy effective theory is Lorentz-invariant, the
 Bisognano-Wichmann theorem holds on the lattice: the entanglement
 Hamiltonian for a half-space bipartition has the BW form (linear spatial
 deformation of the physical Hamiltonian), with errors vanishing as
-ℓ\^{}\{−2\} {[}6, 7{]}. For free-fermion and harmonic-oscillator chains,
+\ensuremath{\ell}\^{}\{\ensuremath{-}2\} {[}6, 7{]}. For free-fermion and harmonic-oscillator chains,
 this has been proven analytically {[}8{]}.}
 
 The mod-q wave equation is a coupled harmonic oscillator system ---
@@ -396,10 +407,10 @@ state for a Rindler observer is thermal at
 
 \[T_U = \frac{\hbar\kappa}{2\pi c k_B}\]
 
-where κ is the surface gravity. The thermality of the Unruh effect is
+where \ensuremath{\kappa} is the surface gravity. The thermality of the Unruh effect is
 robust against UV modifications of the dispersion relation: for the
-lattice dispersion cos ω = cos k, corrections to the Unruh temperature
-scale as O(ε²κ²/c²) {[}9, 10{]}. ∎
+lattice dispersion cos \ensuremath{\omega} = cos k, corrections to the Unruh temperature
+scale as O(\ensuremath{\varepsilon}\ensuremath{^2}\ensuremath{\kappa}\ensuremath{^2}/c\ensuremath{^2}) {[}9, 10{]}. \ensuremath{\blacksquare}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -407,9 +418,9 @@ scale as O(ε²κ²/c²) {[}9, 10{]}. ∎
 \subsection{9. Link 7: Einstein's
 Equations}\label{link-7-einsteins-equations}}
 
-\textbf{Theorem 7} (Jacobson {[}3{]}). \emph{Given (i) δS = η δA/l\_P²
-for local causal horizons, (ii) T = ℏκ/(2πck\_B), and (iii) the
-Raychaudhuri equation, the Clausius relation δQ = TδS yields:}
+\textbf{Theorem 7} (Jacobson {[}3{]}). \emph{Given (i) \ensuremath{\delta}S = \ensuremath{\eta} \ensuremath{\delta}A/l\_P\ensuremath{^2}
+for local causal horizons, (ii) T = \ensuremath{\hbar}\ensuremath{\kappa}/(2\ensuremath{\pi}ck\_B), and (iii) the
+Raychaudhuri equation, the Clausius relation \ensuremath{\delta}Q = T\ensuremath{\delta}S yields:}
 
 \[R_{\mu\nu} - \frac{1}{2}Rg_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4}T_{\mu\nu}\]
 
@@ -419,7 +430,7 @@ property applies to arbitrary connected subregions; (ii) from Theorem 6
 --- the Unruh temperature at each local horizon; (iii) from the emergent
 (d+1)-dimensional Lorentzian manifold (Theorem 2), on which the
 Raychaudhuri equation is a kinematic identity relating the expansion of
-null congruences to the Ricci tensor. ∎
+null congruences to the Ricci tensor. \ensuremath{\blacksquare}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -433,17 +444,17 @@ Link & Statement & Proof \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-1 & Non-Markovian → QM & Theorems 1, 1b, 1c \\
+1 & Non-Markovian \ensuremath{\to} QM & Theorems 1, 1b, 1c \\
 2 & MM dimension = d+1 & Theorem 2 \\
-3 & Gap equation → ℏ & Theorem 3 \\
-4 & S ∝ A (area law) & Theorem 4 \\
-5 & cos ω = cos k (Lorentz invariance) & Theorem 5 \\
+3 & Gap equation \ensuremath{\to} \ensuremath{\hbar} & Theorem 3 \\
+4 & S \ensuremath{\propto} A (area law) & Theorem 4 \\
+5 & cos \ensuremath{\omega} = cos k (Lorentz invariance) & Theorem 5 \\
 6 & Unruh temperature & Theorem 6 \\
 7 & Einstein's equations & Theorem 7 \\
 \end{longtable}
 
-All seven links are analytical for the linear wave equation over ℝ. For
-the mod-q wave equation over ℤ/qℤ, all seven have analytical proofs: the
+All seven links are analytical for the linear wave equation over \ensuremath{\mathbb{R}}. For
+the mod-q wave equation over \ensuremath{\mathbb{Z}}/q\ensuremath{\mathbb{Z}}, all seven have analytical proofs: the
 lattice BW theorem (Link 6) is proven for free-particle systems {[}8{]},
 the class to which the wave equation belongs.
 
@@ -467,25 +478,25 @@ arbitrary; it is uniquely determined by three physical requirements.
 reversible nearest-neighbor dynamics on a d-dimensional lattice of
 alphabet size q, the requirements of (i) center independence, (ii)
 spatial isotropy, and (iii) linearity uniquely select the discrete wave
-equation f(neighbors) = Σ neighbors mod q. This holds for any q ≥ 2 and
-d ≥ 1.}
+equation f(neighbors) = \ensuremath{\Sigma} neighbors mod q. This holds for any q \ensuremath{\geq} 2 and
+d \ensuremath{\geq} 1.}
 
 \textbf{Proof.} The update function has the form x\_i(t+1) =
-(f(neighbors of i at time t) − x\_i(t−1)) mod q. Center independence
+(f(neighbors of i at time t) \ensuremath{-} x\_i(t\ensuremath{-}1)) mod q. Center independence
 requires that f not depend on x\_i itself: f reduces to a function of
 the 2d neighboring values only. Spatial isotropy requires f to be
 symmetric under all permutations of the neighbors that correspond to
-lattice symmetries. Linearity over ℤ/qℤ requires f(a + a') = f(a) +
+lattice symmetries. Linearity over \ensuremath{\mathbb{Z}}/q\ensuremath{\mathbb{Z}} requires f(a + a') = f(a) +
 f(a') for neighbor configurations a, a'. The unique function satisfying
-all three is f = α(x₁ + x₂ + \ldots{} + x\_\{2d\}) mod q for some
-constant α. The propagation speed is v = α, so α = 1 gives the maximum
-lattice-scale speed. This is the discrete wave equation. ∎
+all three is f = \ensuremath{\alpha}(x\ensuremath{_1} + x\ensuremath{_2} + \ldots{} + x\_\{2d\}) mod q for some
+constant \ensuremath{\alpha}. The propagation speed is v = \ensuremath{\alpha}, so \ensuremath{\alpha} = 1 gives the maximum
+lattice-scale speed. This is the discrete wave equation. \ensuremath{\blacksquare}
 
 Each requirement has a physical justification:
 
 \textbf{Center independence is necessary for emergent QM.} Center
-dependence suppresses P-indivisibility for linear rules over ℤ/qℤ: Rule
-150 (f = l ⊕ c ⊕ r) has zero P-indivisibility (CMI z = 0.0) vs Rule 90's
+dependence suppresses P-indivisibility for linear rules over \ensuremath{\mathbb{Z}}/q\ensuremath{\mathbb{Z}}: Rule
+150 (f = l \ensuremath{\oplus} c \ensuremath{\oplus} r) has zero P-indivisibility (CMI z = 0.0) vs Rule 90's
 z = 7.2, despite identical propagation speed. The mechanism ---
 information screening by the visible self-coupling --- is proven
 analytically in §11.2 and confirmed numerically through q = 64 (Appendix
@@ -499,12 +510,12 @@ demands.
 \textbf{Linearity gives maximum propagation speed.} Among all
 center-independent, isotropic dynamics, the linear wave equation
 achieves the maximum propagation speed v = 1 (the lattice speed of
-light). The dispersion relation cos ω = cos k (Theorem 5) gives exact
-group velocity v\_g = sin k / sin ω → 1 as k → 0. Nonlinear
+light). The dispersion relation cos \ensuremath{\omega} = cos k (Theorem 5) gives exact
+group velocity v\_g = sin k / sin \ensuremath{\omega} \ensuremath{\to} 1 as k \ensuremath{\to} 0. Nonlinear
 center-independent dynamics generically have v \textless{} 1, confirmed
 by the exhaustive scan of all 256 binary rules: the 53 QM-producing
 rules have mean speed 0.33, while only Rule 90 achieves v = 1
-(anti-correlation r = −0.60, p \textless{} 10⁻⁴).
+(anti-correlation r = \ensuremath{-}0.60, p \textless{} 10\ensuremath{^{-}}\ensuremath{^4}).
 
 The derivation chain for GR therefore requires wave-equation dynamics,
 uniquely selected by center independence, isotropy, and linearity.
@@ -522,27 +533,27 @@ lattice corrections to Lorentz invariance invalidate the result. This
 can be resolved by decomposing Jacobson's derivation into its four
 inputs and checking each independently:
 
-\emph{(i) δS = δA/ε² (area-law entropy).} Proven for Gaussian systems
-over ℝ {[}5{]} and for any nearest-neighbor dynamics over ℤ/qℤ via the
+\emph{(i) \ensuremath{\delta}S = \ensuremath{\delta}A/\ensuremath{\varepsilon}\ensuremath{^2} (area-law entropy).} Proven for Gaussian systems
+over \ensuremath{\mathbb{R}} {[}5{]} and for any nearest-neighbor dynamics over \ensuremath{\mathbb{Z}}/q\ensuremath{\mathbb{Z}} via the
 spatial Markov property (Theorem 4). No Lorentz invariance enters.
 \textbf{Exact on the lattice.}
 
-\emph{(ii) T = ℏκ/(2πck\_B) (Unruh temperature).} This requires the
+\emph{(ii) T = \ensuremath{\hbar}\ensuremath{\kappa}/(2\ensuremath{\pi}ck\_B) (Unruh temperature).} This requires the
 Bisognano-Wichmann theorem. On the lattice, the BW form of the
 entanglement Hamiltonian is proven analytically for free-particle
 systems {[}8{]}, confirmed numerically across multiple universality
 classes {[}6, 7{]}, and shown to be robust against UV modifications of
-the dispersion relation with corrections at O(ε²κ²/c²) {[}9, 10{]}.
-\textbf{Approximate: O(ε²κ²/c²) corrections.}
+the dispersion relation with corrections at O(\ensuremath{\varepsilon}\ensuremath{^2}\ensuremath{\kappa}\ensuremath{^2}/c\ensuremath{^2}) {[}9, 10{]}.
+\textbf{Approximate: O(\ensuremath{\varepsilon}\ensuremath{^2}\ensuremath{\kappa}\ensuremath{^2}/c\ensuremath{^2}) corrections.}
 
-\emph{(iii) δQ = ∫ T\_μν k\^{}μ dΣ\^{}ν (energy flux).} This is a
+\emph{(iii) \ensuremath{\delta}Q = \ensuremath{\int} T\_\ensuremath{\mu}\ensuremath{\nu} k\^{}\ensuremath{\mu} d\ensuremath{\Sigma}\^{}\ensuremath{\nu} (energy flux).} This is a
 definition on the emergent manifold (Theorem 2). The stress-energy
 tensor is constructed from the emergent fields; the integral is over a
 null generator of the local causal horizon. No Lorentz invariance is
 required. \textbf{Exact on the emergent manifold.}
 
-\emph{(iv) Raychaudhuri equation.} The identity dθ/dλ = −(1/2)θ² −
-σ\_\{ab\}σ\^{}\{ab\} − R\_μν k\^{}μ k\^{}ν is kinematic: it holds on any
+\emph{(iv) Raychaudhuri equation.} The identity d\ensuremath{\theta}/d\ensuremath{\lambda} = \ensuremath{-}(1/2)\ensuremath{\theta}\ensuremath{^2} \ensuremath{-}
+\ensuremath{\sigma}\_\{ab\}\ensuremath{\sigma}\^{}\{ab\} \ensuremath{-} R\_\ensuremath{\mu}\ensuremath{\nu} k\^{}\ensuremath{\mu} k\^{}\ensuremath{\nu} is kinematic: it holds on any
 pseudo-Riemannian manifold as a consequence of the definition of
 curvature. No Lorentz invariance is required. \textbf{Exact on the
 emergent manifold.}
@@ -552,9 +563,9 @@ Einstein's equations enter only through input (ii):
 
 \[G_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu} \times \left[1 + \mathcal{O}\!\left(\frac{\varepsilon^2 \kappa^2}{c^2}\right)\right]\]
 
-For the cosmological horizon, εκ/c = 2l\_P · H/c \textasciitilde{}
-10⁻⁶¹, giving corrections of order 10⁻¹²². For solar-mass black holes,
-εκ/c \textasciitilde{} 10⁻³⁸, giving corrections of order 10⁻⁷⁶. The
+For the cosmological horizon, \ensuremath{\varepsilon}\ensuremath{\kappa}/c = 2l\_P · H/c \textasciitilde{}
+10\ensuremath{^{-}}\ensuremath{^6}\ensuremath{^1}, giving corrections of order 10\ensuremath{^{-}}\ensuremath{^1}\ensuremath{^2}\ensuremath{^2}. For solar-mass black holes,
+\ensuremath{\varepsilon}\ensuremath{\kappa}/c \textasciitilde{} 10\ensuremath{^{-}}\ensuremath{^3}\ensuremath{^8}, giving corrections of order 10\ensuremath{^{-}}\ensuremath{^7}\ensuremath{^6}. The
 corrections are negligible for any horizon much larger than the Planck
 scale.
 
@@ -569,25 +580,25 @@ A\_VV = 0 (no visible--visible edges). A center-dependent rule replaces
 A with A + I, giving (A + I)\_VV = I.
 
 \emph{CI case (A\_VV = 0):} For each visible site i, the update
-x\_i(t+1) = {[}h\_\{i−1\}(t) + h\_\{i+1\}(t) − x\_i(t−1){]} mod q does
+x\_i(t+1) = {[}h\_\{i\ensuremath{-}1\}(t) + h\_\{i+1\}(t) \ensuremath{-} x\_i(t\ensuremath{-}1){]} mod q does
 not contain x\_i(t). Therefore X\_V(t+1) is a function of (H(t),
-X\_V(t−1)) that carries no information about X\_V(t). Conditioning on
+X\_V(t\ensuremath{-}1)) that carries no information about X\_V(t). Conditioning on
 X\_V(t+1) constrains H(t) but does not screen X\_V(t) from the future.
-Since H(t+1) depends on X\_V(t), the path X\_V(t) → H(t+1) → X\_V(t+2)
+Since H(t+1) depends on X\_V(t), the path X\_V(t) \ensuremath{\to} H(t+1) \ensuremath{\to} X\_V(t+2)
 bypasses the present: the process is non-Markovian.
 
 *CD case ((A+I)\emph{VV = I):* The update x\_i(t+1) = {[}x\_i(t) +
-h\_\{i−1\}(t) + h\_\{i+1\}(t) − x\_i(t−1){]} mod q contains x\_i(t)
+h\_\{i\ensuremath{-}1\}(t) + h\_\{i+1\}(t) \ensuremath{-} x\_i(t\ensuremath{-}1){]} mod q contains x\_i(t)
 explicitly. Conditioning on (X\_V(t), X\_V(t+1)) gives, for each visible
-site i, the constraint h}\{i−1\}(t) + h\_\{i+1\}(t) = x\_i(t+1) −
-x\_i(t) + x\_i(t−1) mod q. This is a system of \textbar V\textbar{}
-linear equations in \textbar H\textbar{} unknowns over ℤ/qℤ, with
+site i, the constraint h}\{i\ensuremath{-}1\}(t) + h\_\{i+1\}(t) = x\_i(t+1) \ensuremath{-}
+x\_i(t) + x\_i(t\ensuremath{-}1) mod q. This is a system of \textbar V\textbar{}
+linear equations in \textbar H\textbar{} unknowns over \ensuremath{\mathbb{Z}}/q\ensuremath{\mathbb{Z}}, with
 coefficient matrix A\_VH. When this system has a unique solution (which
 it does generically for q prime), the hidden state H(t) is fully
-determined by (X\_V(t), X\_V(t+1), X\_V(t−1)). Since the full state
+determined by (X\_V(t), X\_V(t+1), X\_V(t\ensuremath{-}1)). Since the full state
 determines all future evolution, the augmented process Y\_V(t) =
-(X\_V(t), X\_V(t−1)) is Markov. Numerical verification: the
-augmented-state CMI for CD is suppressed by 10--30× relative to CI at
+(X\_V(t), X\_V(t\ensuremath{-}1)) is Markov. Numerical verification: the
+augmented-state CMI for CD is suppressed by 10--30\ensuremath{\times} relative to CI at
 all tested q from 3 to 7.
 
 The mechanism is information screening: center coupling makes X\_V(t+1)
@@ -595,49 +606,51 @@ an explicit function of X\_V(t), allowing the present to determine the
 hidden state and screen the past from the future. Without center
 coupling (A\_VV = 0), the present carries no information about the
 visible past, so the hidden sector retains unscreened correlations. Over
-ℝ, the screening does not operate --- G(2) − G(1)² is identical for CI
+\ensuremath{\mathbb{R}}, the screening does not operate --- G(2) \ensuremath{-} G(1)\ensuremath{^2} is identical for CI
 and CD --- because the mod operation is essential to the conditional
 entropy structure.
 
 \textbf{Linearity selection.} The linearity requirement in Theorem 8 is
 selected by three independent criteria, none imposed as an axiom. First,
-over ℝ, nonlinear CI dynamics have propagation speed v \textless{} 1, so
-linearity gives maximum speed (§11.1). Second, over ℤ/qℤ, among all
-linear CI dynamics f = α(l + r) mod q with prime q ≥ 5, α = 1 uniquely
-maximizes P-indivisibility (Appendix A.6): z-scores of 3--11 vs z ≈ 0
-for all other α. Third, modified (nonlinear) dispersion relations break
+over \ensuremath{\mathbb{R}}, nonlinear CI dynamics have propagation speed v \textless{} 1, so
+linearity gives maximum speed (§11.1). Second, over \ensuremath{\mathbb{Z}}/q\ensuremath{\mathbb{Z}}, among all
+linear CI dynamics f = \ensuremath{\alpha}(l + r) mod q with prime q \ensuremath{\geq} 5, \ensuremath{\alpha} = 1 uniquely
+maximizes P-indivisibility (Appendix A.6): z-scores of 3--11 vs z \ensuremath{\approx} 0
+for all other \ensuremath{\alpha}. Third, modified (nonlinear) dispersion relations break
 the thermality of the Unruh effect {[}9, 10{]} --- the KMS condition
-holds only for linear dispersion ω = \textbar k\textbar. Since
+holds only for linear dispersion \ensuremath{\omega} = \textbar k\textbar. Since
 Jacobson's derivation requires thermal equilibrium at horizons, only the
 wave equation supports the full chain. All three criteria converge on
 the same dynamics.
 
-\textbf{The η = 1/4 coefficient.} The Bekenstein-Hawking formula S =
-A/(4l\_P²) follows from ε = 2l\_P (the gap equation): one entropy unit
-per cell of area ε² = 4l\_P². This cannot be confirmed via entanglement
+\textbf{The \ensuremath{\eta} = 1/4 coefficient.} The Bekenstein-Hawking formula S =
+A/(4l\_P\ensuremath{^2}) follows from \ensuremath{\varepsilon} = 2l\_P (the gap equation): one entropy unit
+per cell of area \ensuremath{\varepsilon}\ensuremath{^2} = 4l\_P\ensuremath{^2}. This cannot be confirmed via entanglement
 entropy because of the species problem --- the entanglement entropy
-coefficient is species-dependent (Srednicki found η\_ent ≈ 0.295 per
+coefficient is species-dependent (Srednicki found \ensuremath{\eta}\_ent \ensuremath{\approx} 0.295 per
 scalar field), while the BH entropy is not. The thermal matching route
-avoids this by counting classical boundary DOF (one per ε² cell,
+avoids this by counting classical boundary DOF (one per \ensuremath{\varepsilon}\ensuremath{^2} cell,
 independent of field content) rather than any particular field's vacuum
 entanglement.
 
 \textbf{Jacobson's local equilibrium.} Required only for input (ii)
 above. For the wave equation, the lattice BW theorem {[}8{]} proves the
 entanglement Hamiltonian has the BW form exactly, establishing local
-thermal equilibrium at each causal horizon up to O(ε²κ²/c²) corrections.
+thermal equilibrium at each causal horizon up to O(\ensuremath{\varepsilon}\ensuremath{^2}\ensuremath{\kappa}\ensuremath{^2}/c\ensuremath{^2}) corrections.
 
 \textbf{Field content.} The wave equation is a scalar (bosonic) system.
 The Standard Model contains fermions and gauge fields, which are absent
 from the lattice construction. This does not affect the GR derivation
 chain: the Jacobson route requires only thermodynamic inputs (entropy
 proportional to area, the Unruh temperature, and the Raychaudhuri
-equation), none of which depend on the emergent field content. However,
-a complete physical picture would need to account for how fermionic and
-gauge degrees of freedom arise from the same lattice substrate ---
-whether through doubling, topological features of the partition, or
-other mechanisms. This is an open question for the broader OI program,
-not for the specific GR derivation presented here.
+equation), none of which depend on the emergent field content. A
+companion paper {[}11{]} shows that fermionic and gauge degrees of
+freedom arise from the same lattice substrate: the wave equation factors
+into staggered Dirac operators (Susskind factorization), center
+independence enforces chiral symmetry, and the multi-component extension
+with \(K = 6\) internal components produces the Standard Model gauge
+group \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) from
+the cubic group decomposition of the link directions.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -658,12 +671,12 @@ spatial isotropy, and linearity select the discrete wave equation alone
 thermality --- leaving no free parameters.
 
 This dynamics then passes seven independent checks (Links 1--7), all
-analytically proven for both ℝ and ℤ/qℤ: non-Markovian reduced dynamics,
-correct emergent spacetime dimension, the gap equation for ℏ, area-law
+analytically proven for both \ensuremath{\mathbb{R}} and \ensuremath{\mathbb{Z}}/q\ensuremath{\mathbb{Z}}: non-Markovian reduced dynamics,
+correct emergent spacetime dimension, the gap equation for \ensuremath{\hbar}, area-law
 entropy, Lorentz-invariant dispersion, the Unruh temperature, and all
 inputs to Jacobson's derivation of Einstein's equations. The continuum
 limit is controlled: three of four Jacobson inputs are lattice-exact,
-and the fourth carries corrections of O(ε²κ²/c²) --- negligible for all
+and the fourth carries corrections of O(\ensuremath{\varepsilon}\ensuremath{^2}\ensuremath{\kappa}\ensuremath{^2}/c\ensuremath{^2}) --- negligible for all
 physical horizons (§11.2).
 
 Each link is a point where the framework could have failed and did not.
@@ -721,6 +734,9 @@ high frequencies on black hole evaporation,'' Phys. Rev.~D 51, 2827
 the dispersion relation on the Unruh effect,'' Phys. Rev.~D 103, 085010
 (2021).
 
+{[}11{]} A. Maybaum, ``Why These Particles: Standard Model Structure
+from Observational Incompleteness,'' companion paper (2026).
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{appendix-numerical-confirmation-of-dynamics-selection}{%
@@ -743,10 +759,10 @@ Criterion & Rules passing (of 256) \\
 \endlastfoot
 Nontrivial dynamics & 254 \\
 Robust QM (min z \textgreater{} 2, multi-seed) & 53 \\
-Ballistic propagation (speed \textgreater{} 0.7, R² \textgreater{} 0.9)
+Ballistic propagation (speed \textgreater{} 0.7, R\ensuremath{^2} \textgreater{} 0.9)
 & 24 \\
 Area-law entropy scaling & 18 \\
-QM ∩ ballistic & 1--2 \\
+QM \ensuremath{\cap} ballistic & 1--2 \\
 \end{longtable}
 
 \hypertarget{a.2-algebraic-characterization}{%
@@ -771,13 +787,13 @@ All three (excluding trivial) & 1 (Rule 90) & Wave equation \\
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
-Property & Rule 90: f = l ⊕ r & Rule 150: f = l ⊕ c ⊕ r \\
+Property & Rule 90: f = l \ensuremath{\oplus} r & Rule 150: f = l \ensuremath{\oplus} c \ensuremath{\oplus} r \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
 Propagation speed & 1.000 & 1.000 \\
-CMI z (L=50) & 7.2 ± 1.1 & 0.0 ± 0.6 \\
+CMI z (L=50) & 7.2 \ensuremath{\pm} 1.1 & 0.0 \ensuremath{\pm} 0.6 \\
 Center-independent & Yes & No \\
 \end{longtable}
 
@@ -792,7 +808,7 @@ The following data extends the Rule 90/150 comparison to arbitrary
 alphabet size q. For each q, we compare the linear wave equation f = l +
 r mod q (center-independent, CI) against its center-dependent analog f =
 l + c + r mod q (CD). The non-Markovianity statistic is the z-score of
-\textbar\textbar G(2) − G(1)²\textbar\textbar\_F against a time-shuffled
+\textbar\textbar G(2) \ensuremath{-} G(1)\ensuremath{^2}\textbar\textbar\_F against a time-shuffled
 null (L = 60, T = 1000, 30 seeds).
 
 \begin{longtable}[]{@{}llll@{}}
@@ -802,8 +818,8 @@ q & CI z-score & CD z-score & Both v = 1 \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-2 & 4.1 & −0.1 & Yes \\
-3 & 6.8 & −0.1 & Yes \\
+2 & 4.1 & \ensuremath{-}0.1 & Yes \\
+3 & 6.8 & \ensuremath{-}0.1 & Yes \\
 4 & 10.9 & 0.1 & Yes \\
 5 & 8.6 & 0.1 & Yes \\
 7 & 8.6 & 0.0 & Yes \\
@@ -827,9 +843,9 @@ linear dynamics.
 \subsubsection{A.5 Area law for the mod-q wave equation in
 2D}\label{a.5-area-law-for-the-mod-q-wave-equation-in-2d}}
 
-The area law (Theorem 4) is proven analytically for both ℝ (Gaussian
-argument {[}5{]}) and ℤ/qℤ (spatial Markov property). The following data
-provides independent numerical confirmation at finite q. On a 16 × 16
+The area law (Theorem 4) is proven analytically for both \ensuremath{\mathbb{R}} (Gaussian
+argument {[}5{]}) and \ensuremath{\mathbb{Z}}/q\ensuremath{\mathbb{Z}} (spatial Markov property). The following data
+provides independent numerical confirmation at finite q. On a 16 \ensuremath{\times} 16
 periodic lattice with T = 8000 timesteps averaged over 5 initial
 conditions, we measure the per-boundary-pair mutual information across
 the right edge of a strip of width w:
@@ -841,11 +857,11 @@ q & w = 1 & w = 2 & w = 3 & w = 4 & w = 5 & w = 6 & w = 7 & slope \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-4 & 0.271 & 0.287 & 0.271 & 0.304 & 0.261 & 0.275 & 0.263 & −0.002 \\
-8 & 0.714 & 0.727 & 0.712 & 0.723 & 0.701 & 0.711 & 0.692 & −0.004 \\
-16 & 1.352 & 1.348 & 1.329 & 1.334 & 1.340 & 1.341 & 1.336 & −0.002 \\
-32 & 2.118 & 2.110 & 2.095 & 2.094 & 2.101 & 2.097 & 2.103 & −0.002 \\
-64 & 2.963 & 2.955 & 2.946 & 2.943 & 2.951 & 2.951 & 2.956 & −0.001 \\
+4 & 0.271 & 0.287 & 0.271 & 0.304 & 0.261 & 0.275 & 0.263 & \ensuremath{-}0.002 \\
+8 & 0.714 & 0.727 & 0.712 & 0.723 & 0.701 & 0.711 & 0.692 & \ensuremath{-}0.004 \\
+16 & 1.352 & 1.348 & 1.329 & 1.334 & 1.340 & 1.341 & 1.336 & \ensuremath{-}0.002 \\
+32 & 2.118 & 2.110 & 2.095 & 2.094 & 2.101 & 2.097 & 2.103 & \ensuremath{-}0.002 \\
+64 & 2.963 & 2.955 & 2.946 & 2.943 & 2.951 & 2.951 & 2.956 & \ensuremath{-}0.001 \\
 \end{longtable}
 
 Under an area law, the per-pair MI is independent of strip width
@@ -855,19 +871,19 @@ than 3\% at every q, with slopes consistent with zero. The area law
 holds for the mod-q wave equation at all tested alphabet sizes.
 
 \hypertarget{a.6-ux3b1-selection-wave-equation-maximizes-p-indivisibility}{%
-\subsubsection{A.6 α-selection: wave equation maximizes
+\subsubsection{A.6 \ensuremath{\alpha}-selection: wave equation maximizes
 P-indivisibility}\label{a.6-ux3b1-selection-wave-equation-maximizes-p-indivisibility}}
 
-Among all linear center-independent dynamics f = α(l + r) mod q, the
-wave equation (α = 1, and its equivalent α = q−1) uniquely maximizes
+Among all linear center-independent dynamics f = \ensuremath{\alpha}(l + r) mod q, the
+wave equation (\ensuremath{\alpha} = 1, and its equivalent \ensuremath{\alpha} = q\ensuremath{-}1) uniquely maximizes
 P-indivisibility for prime q. The statistic is the z-score of
-\textbar\textbar G(2) − G(1)²\textbar\textbar\_F against a time-shuffled
-null (L = 60, T = 800, 15 seeds). For each q, the table shows α = 1
-vs.~the best-performing alternative α.
+\textbar\textbar G(2) \ensuremath{-} G(1)\ensuremath{^2}\textbar\textbar\_F against a time-shuffled
+null (L = 60, T = 800, 15 seeds). For each q, the table shows \ensuremath{\alpha} = 1
+vs.~the best-performing alternative \ensuremath{\alpha}.
 
 \begin{longtable}[]{@{}lllll@{}}
 \toprule\noalign{}
-q & α = 1 z-score & Best other α & Best other z & α = 1 wins? \\
+q & \ensuremath{\alpha} = 1 z-score & Best other \ensuremath{\alpha} & Best other z & \ensuremath{\alpha} = 1 wins? \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -881,11 +897,11 @@ q & α = 1 z-score & Best other α & Best other z & α = 1 wins? \\
 23 & 5.8 & 13 & 0.1 & Yes \\
 \end{longtable}
 
-For every prime q tested, α = 1 is the unique maximizer of
-P-indivisibility (excluding the equivalent α = q−1). For composite q (4,
-8, 16), some non-unit α values match α = 1 by effectively reducing the
+For every prime q tested, \ensuremath{\alpha} = 1 is the unique maximizer of
+P-indivisibility (excluding the equivalent \ensuremath{\alpha} = q\ensuremath{-}1). For composite q (4,
+8, 16), some non-unit \ensuremath{\alpha} values match \ensuremath{\alpha} = 1 by effectively reducing the
 system to a smaller prime-power alphabet. The wave equation is selected
 by maximum P-indivisibility, providing an independent criterion that
-converges with the maximum-speed argument over ℝ.
+converges with the maximum-speed argument over \ensuremath{\mathbb{R}}.
 
 \end{document}

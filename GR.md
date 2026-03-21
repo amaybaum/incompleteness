@@ -233,7 +233,7 @@ The mechanism is information screening: center coupling makes X_V(t+1) an explic
 
 **Jacobson's local equilibrium.** Required only for input (ii) above. For the wave equation, the lattice BW theorem [8] proves the entanglement Hamiltonian has the BW form exactly, establishing local thermal equilibrium at each causal horizon up to O(ε²κ²/c²) corrections.
 
-**Field content.** The wave equation is a scalar (bosonic) system. The Standard Model contains fermions and gauge fields, which are absent from the lattice construction. This does not affect the GR derivation chain: the Jacobson route requires only thermodynamic inputs (entropy proportional to area, the Unruh temperature, and the Raychaudhuri equation), none of which depend on the emergent field content. However, a complete physical picture would need to account for how fermionic and gauge degrees of freedom arise from the same lattice substrate — whether through doubling, topological features of the partition, or other mechanisms. This is an open question for the broader OI program, not for the specific GR derivation presented here.
+**Field content.** The wave equation is a scalar (bosonic) system. The Standard Model contains fermions and gauge fields, which are absent from the lattice construction. This does not affect the GR derivation chain: the Jacobson route requires only thermodynamic inputs (entropy proportional to area, the Unruh temperature, and the Raychaudhuri equation), none of which depend on the emergent field content. A companion paper [11] shows that fermionic and gauge degrees of freedom arise from the same lattice substrate: the wave equation factors into staggered Dirac operators (Susskind factorization), center independence enforces chiral symmetry, and the multi-component extension with $K = 6$ internal components produces the Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ from the cubic group decomposition of the link directions.
 
 ---
 
@@ -276,6 +276,8 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [9] W.G. Unruh, "Sonic analogue of black holes and the effects of high frequencies on black hole evaporation," Phys. Rev. D 51, 2827 (1995).
 
 [10] L.J. Garay, J.R. Anglin, J.I. Cirac, P. Zoller, "Influence of the dispersion relation on the Unruh effect," Phys. Rev. D 103, 085010 (2021).
+
+[11] A. Maybaum, "Why These Particles: Standard Model Structure from Observational Incompleteness," companion paper (2026).
 
 ---
 
