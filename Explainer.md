@@ -866,6 +866,8 @@ The framework's results all have a clean interpretation in this language. The co
 
 Quantum mechanics is the *read statistics* of a lossless memory through a partial interface. The Schrödinger equation governs how read probabilities evolve. The Born rule is the equilibrium distribution over unread states. Interference is the signature of information written to hidden storage and read back later. The 10¹²² cosmological constant discrepancy is the compression ratio between total storage and readable storage. The dark sector is the gravitational weight of the unreadable storage. The Bekenstein-Hawking entropy is the storage capacity of the partition boundary. ℏ is the conversion factor between storage geometry and read statistics.
 
+An immediate objection: "Memory made of *what*?" In everyday life, memory requires a physical substrate — silicon, magnetic domains, neurons. But (S, φ) is not *implemented in* a substrate. It *is* the substrate. S is the totality of distinguishable configurations; φ is the structure of dynamical dependence. Space, time, and matter are all derived from (S, φ), so they can't appear in its definition without circularity. The "memory" isn't a metaphor for something physical — it's the mathematical structure from which physicality emerges. Asking what it's made of is like asking what the number 7 is made of.
+
 ### Not a computer
 
 A Turing machine has a tape (storage), a head (read/write access), and a transition function (update rule). That maps suggestively onto (S, φ, V). But three differences matter.
