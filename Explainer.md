@@ -760,7 +760,7 @@ This dissolves the container problem. The lattice doesn't sit in anything. There
 
 **Connection to causal set theory.** The bijection's coupling graph, extended in time, generates a causal partial order: event A precedes event B if B is within A's future coupling light cone. This partial order is a causal set in the sense of Bombelli, Lee, Meyer, and Sorkin — the starting point of causal set theory, one of the established approaches to quantum gravity. Causal set theory has always had a specific gap: it postulates a causal order but lacks a deterministic dynamics that produces QM and GR. The OI framework provides exactly this. Sorkin's slogan is "Order + Number = Geometry." The OI version is "Bijection + Locality = QM + GR."
 
-**The hierarchy of physics.** If the fundamental object is (S, φ, V), then every concept in physics is a different aspect of this triple:
+**The hierarchy of physics.** If the fundamental object is (S, φ) — a finite set and a bijection — then every concept in physics is a different aspect of this pair:
 
 - **φ** is the dynamical law — the complete rule mapping states to states.
 - **Space** is the coupling structure of φ — which degrees of freedom affect which others. It is determined by φ as the factorization minimizing coupling degree. Space is not a container; it is a relationship.
@@ -773,13 +773,84 @@ This dissolves the container problem. The lattice doesn't sit in anything. There
 
 None of these are independent substances. They are the same structure viewed at different scales or from different angles. The framework does not unify them by reducing them to a common material. It unifies them by showing they were never separate.
 
-**What remains.** The structural reading leaves some questions genuinely open. Why does our universe have three spatial dimensions rather than some other number? Can the coupling graph evolve dynamically — responding to the state it carries, the way GR's metric responds to the stress-energy tensor? If so, the bijection would need to be state-dependent: the coupling structure at each step determined by the current configuration, while remaining deterministic and bijective at each step. This is the discrete analog of background independence, and whether it can be achieved while preserving all seven links in the derivation chain is an open problem.
+**What remains.** The structural reading leaves remarkably little genuinely open. The spatial dimensionality $d = 3$ is derived by four independent self-consistency filters (the dark sector concordance, propagating gravity, stable matter, and renormalizability). Background independence is achieved through state-dependent bijections, with the discrete Einstein equation identified as the Ollivier-Ricci curvature condition. The observer is proved to be generic: any small subgraph of any large bounded-degree bijection satisfies the conditions for emergent QM. The fundamental object is (S, φ) — a finite set and a bijection. The partition V, the dimension, and the laws of physics are all derived. What remains undetermined are the 18+ parameter values of the Standard Model, which depend on the specific bijection φ — analogous to how Einstein's equations don't determine the mass of Jupiter.
 
-But the central claim stands: the fundamental object is (S, φ, V) — a finite set, a bijection, and a partition. Everything else is emergent.
+But the central claim stands: the fundamental object is (S, φ) — a finite set and a bijection. The observer, the dimension, and the laws of physics are all emergent.
 
 ---
 
-*This is a companion overview to "The Incompleteness of Observation" (Maybaum, March 2026), which presents the formal arguments with detailed derivations; "Dynamics Selection and Emergent General Relativity in the Observational Incompleteness Framework" (Maybaum, March 2026), which presents the rigidity test; and "The Substrate Problem: Structural Foundations of the Observational Incompleteness Framework" (Maybaum, 2026), which addresses the ontological status of the lattice. The philosophical lineage section draws on a systematic analysis mapping the paper's claims against the major traditions in Western, Eastern, and contemporary philosophy of science.*
+## Why These Particles?
+
+The first three papers establish that the framework produces quantum mechanics and general relativity. But quantum mechanics is a *framework*, not a *theory*. It tells the observer to use Hilbert spaces, unitary evolution, and the Born rule — but it's compatible with infinitely many different quantum field theories. You could have quantum mechanics with an SU(7) gauge group, or with 15 generations of fermions, or with no gauge fields at all. Deriving QM answers the question "what kind of probability does the observer use?" It doesn't answer "what particles exist?" or "what forces act between them?"
+
+The Standard Model of particle physics — quarks, leptons, the strong and weak nuclear forces, electromagnetism, the Higgs boson — has been confirmed to extraordinary precision. But its *structure* has always been taken as empirical. We observe three generations, SU(3) × SU(2) × U(1), specific hypercharge assignments, and we accept them as given. Nobody has explained *why* these particles and not others.
+
+A fourth companion paper ("Why These Particles: Standard Model Structure from Observational Incompleteness") asks whether the specific lattice dynamics selected by the QM and GR requirements — the wave equation on a d = 3 hypercubic lattice with checkerboard partition — determines which quantum field theory the observer sees. The answer is yes — almost completely.
+
+**Fermions from the wave equation.** The wave equation selected by the QM requirement (the discrete lattice Klein-Gordon equation) has a well-known mathematical property: it factors into first-order operators called staggered Dirac operators. This factorization, discovered by Susskind in 1977, means the *same dynamics* that produces bosonic waves also describes fermionic matter. Fermions are not added to the framework. They *are* the framework, seen from a different mathematical angle.
+
+The factorization produces a specific structure: on a three-dimensional lattice, the staggered construction yields exactly 4 "tastes" — independent species of fermions. These decompose as 1 + 3 under the cubic symmetry of the lattice: one singlet and one triplet. The triplet count equals the spatial dimension $d = 3$. Since $d = 3$ is derived by the Ontology paper, the three-generation structure of the Standard Model — the fact that there are three copies of each type of quark and lepton — is traced back to the dimensionality of space.
+
+Numerically, the singlet and triplet are not just distinguished by symmetry — they have quantitatively different coupling strengths. The singlet has coupling $|\mu| = 1$ (the maximum), while the three triplet members each have $|\mu| = 1/3$. The triplet members are exactly degenerate by cubic symmetry, providing a lattice-level origin for "generation symmetry."
+
+**The Higgs mechanism from one condition.** The same center independence condition ($\alpha = 0$) that produces quantum mechanics also enforces exact chiral symmetry in the staggered fermions. This means fermion mass terms are forbidden in the fundamental Lagrangian. The *only* way to give fermions mass while preserving unitarity and renormalizability is the Higgs mechanism. One algebraic condition — center independence — simultaneously produces QM, chiral fermions, and the necessity of a Higgs boson.
+
+**Gauge structure from a matrix.** The wave equation naturally generalizes to multiple components. Each lattice site carries a $K$-component vector instead of a single number. The selection criteria (center independence, isotropy, reversibility, linearity) uniquely produce the *matrix wave equation*, where a coupling matrix $M$ is the sole new parameter.
+
+This matrix $M$ determines everything about the gauge structure. Its eigenvalue multiplicities give the gauge group — the group of transformations that leave $M$ invariant (technically, its commutant in U(K)). Its eigenvalues give the mass spectrum. The gauge group and the mass spectrum are dual descriptions of the same matrix. This is a theorem, not an approximation.
+
+**Why K = 6.** In three dimensions, each lattice site has 6 nearest neighbors (±x, ±y, ±z). If the internal components correspond to these link directions — the natural choice from the factorization principle, which says to decompose the per-site state space into its independent dynamical channels — then $K = 2d = 6$.
+
+These 6 link directions form a representation of the cubic rotation group $O$. Standard character theory decomposes this representation into irreducibles:
+
+$$6 = T_1(3) \oplus E(2) \oplus A_1(1)$$
+
+The dimensions are 3, 2, and 1. By Schur's lemma, the coupling matrix $M$ acts as an independent scalar on each irreducible subspace: $M = \text{diag}(\mu_c I_3, \mu_w I_2, \mu_y)$. The gauge group — the commutant of $M$ — is therefore:
+
+$$U(3) \times U(2) \times U(1) \supset SU(3) \times SU(2) \times U(1)$$
+
+This is the Standard Model gauge group. It comes from the representation theory of the cubic lattice in three spatial dimensions. The three factors correspond to the three irreducible representations of $O$: the vector ($T_1$, dimension 3) gives color SU(3), the quadrupole ($E$, dimension 2) gives weak SU(2), and the scalar ($A_1$, dimension 1) gives hypercharge U(1).
+
+**Chiral coupling.** The Standard Model has a peculiar feature: the weak force treats left-handed and right-handed particles differently. Left-handed particles form SU(2) doublets; right-handed particles are SU(2) singlets. No other known force has this asymmetry. Where does it come from?
+
+In the OI framework, the answer is the partition itself. The checkerboard partition that produces quantum mechanics — even sites visible, odd sites hidden — is *identical* to the chirality decomposition of staggered fermions. Even sites carry left-handed spinor components; odd sites carry right-handed. The trace-out that produces QM simultaneously integrates out the right-handed sector. The staggered Dirac operator has the property $D_{LL} = D_{RR} = 0$: it couples *only* across sublattices, never within them. After the trace-out, the effective Lagrangian has only left-handed external legs — precisely the chiral coupling structure of SU(2)$_L$.
+
+Meanwhile, color SU(3) acts on the *internal* components (the $K$-component index at each site), which are preserved by the spatial trace-out. Both left and right fields carry color. SU(3) remains vector-like. The distinction: chirality lives in the spatial structure (affected by the trace-out); color lives in the internal structure (unaffected).
+
+**The strong CP problem solved.** QCD has a parameter $\bar{\theta}$ that violates CP symmetry. Experimentally, $|\bar{\theta}| < 10^{-10}$. Why is it so small? This is the strong CP problem. The standard solution invokes a new particle (the axion).
+
+The OI framework solves it without new particles. The wave equation is exactly invariant under time reversal $T$. The trace-out is a spatial operation — it doesn't break $T$. Therefore the emergent QFT inherits $T$-invariance. The $\theta$-term in QCD is $T$-odd, so $T$-invariance forces $\theta = 0$. The physical parameter $\bar{\theta} = \theta + \arg\det(Y_u Y_d)$ also vanishes because the visible-sector transition matrix satisfies detailed balance ($T_{ij} = T_{ji}$, proved and verified numerically), which constrains the Yukawa matrices to be real. The prediction: $\bar{\theta} = 0$ exactly, no axion, and the neutron electric dipole moment is exactly zero.
+
+**No empirical inputs.** The hypercharge U(1)$_Y$ — traditionally an empirical input — is automatic: any U($n$) gauge group contains a U(1) factor, and anomaly cancellation uniquely determines the hypercharge assignments. The parity violation — also traditionally empirical — follows from the partition's chirality structure. The filter chain from (S, φ) to the Standard Model contains no empirical inputs beyond the framework's two structural properties (bounded coupling and statistical isotropy).
+
+**Where the matter representations come from.** A subtle point: the K = 6 internal space decomposes as a *direct sum* 3 + 2 + 1, but the SM quark doublet Q$_L$ = (3, 2, +1/6) is a *tensor product* representation — it transforms simultaneously under both SU(3) and SU(2). This representation doesn't come from the lattice geometry. It comes from the *observer's existence*: the observer genericity theorem (proved in the Ontology paper) guarantees that any observer has a self-consistent quantum description. A self-consistent chiral QFT requires anomaly cancellation. Anomaly cancellation with SU(3) × SU(2) × U(1) uniquely determines the matter content per generation: Q$_L$, u$_R$, d$_R$, L$_L$, e$_R$ with specific hypercharges. The lattice gives the gauge group and the generation count; the observer's self-consistency gives the representations. Three degenerate tastes then give three copies — three generations.
+
+**What the framework does not determine.** The coupling matrix $M$ has three independent eigenvalues ($\mu_c$, $\mu_w$, $\mu_y$), constrained by the max-speed condition to have $\mu_y = 1$. The remaining two eigenvalues set the strong and weak coupling strengths at the lattice scale. These, along with the Yukawa couplings (which determine fermion masses and mixing angles) and the Higgs potential parameters, are properties of the specific bijection $\varphi$ — the specific "universe" the observer inhabits. The framework determines the *form* of the laws of physics but not the *constants*.
+
+**Predictions.** The SM paper makes seven predictions: (1) no additional gauge groups below the Planck scale; (2) no fundamental scalars beyond the Higgs; (3) no supersymmetric partners; (4) no fourth generation; (5) $\bar{\theta} = 0$ exactly, no axion; (6) the CKM CP-violating phase arises from parity violation, not time-reversal violation; (7) neutrinos are Majorana — the singlet taste is the Higgs sector (not a right-handed neutrino), so neutrinoless double beta decay should be observed.
+
+Combined with the earlier papers' predictions — dark energy evolution with $\nu_{\text{OI}} \approx 2.45 \times 10^{-3}$, gravitational wave echoes, and dark gravity — the framework makes a suite of falsifiable predictions that no competing theory makes jointly.
+
+---
+
+## The Full Picture
+
+The framework now covers the three pillars of modern physics:
+
+| Pillar | What is derived | Source paper |
+|--------|----------------|--------------|
+| **Quantum mechanics** | Emerges from embedded observation | Main paper [1] |
+| **General relativity** | Emerges from lattice dynamics passing 7 checks | GR paper [2] |
+| **Standard Model structure** | SU(3) × SU(2) × U(1), 3 generations, Higgs, chiral coupling, θ̄ = 0 | SM paper [5] |
+| **Structural foundations** | $d = 3$, coupling graph ontology, $q$-gauge, background independence | Ontology paper [3] |
+
+The starting point for all of it: a finite set, a bijection, and a partition.
+
+The framework does not claim to be a complete theory of everything. It does not determine the 18+ parameters of the Standard Model — these depend on the specific bijection φ, just as the mass distribution of the universe depends on initial conditions, not on Einstein's equations. What it does claim — and what the derivation chain supports — is that the *structure* of the known laws of physics is not arbitrary. It is what mathematical consistency looks like when a finite deterministic system is observed from within. The fundamental object is (S, φ): a finite set and a bijection. Everything else — the observer, the dimension, quantum mechanics, general relativity, and the Standard Model — is emergent.
+
+---
+
+*This is a companion overview to "The Incompleteness of Observation" (Maybaum, March 2026), which presents the formal arguments with detailed derivations; "Dynamics Selection and Emergent General Relativity in the Observational Incompleteness Framework" (Maybaum, March 2026), which presents the rigidity test; "The Substrate Problem: Structural Foundations of the Observational Incompleteness Framework" (Maybaum, 2026), which addresses the ontological status of the lattice; and "Why These Particles: Standard Model Structure from Observational Incompleteness" (Maybaum, 2026), which derives the Standard Model's gauge group, matter content, and chiral structure. The philosophical lineage section draws on a systematic analysis mapping the paper's claims against the major traditions in Western, Eastern, and contemporary philosophy of science.*
 
 
 ---
