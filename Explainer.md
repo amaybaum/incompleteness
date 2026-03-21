@@ -874,9 +874,19 @@ A Turing machine's tape is potentially infinite. S is finite — and finiteness 
 
 A Turing machine is generally irreversible: it can erase, overwrite, halt. φ is a bijection: nothing is ever erased, nothing is ever created, there is no halting. This is what makes (S, φ) a lossless memory rather than a computation.
 
-Most fundamentally: a Turing machine *computes*. It takes input, transforms it, produces output. (S, φ) does not compute anything. There is no input, no output, no halting, no answer. It's a closed permutation that cycles through states and returns. The appearance of dynamics, probability, particles, and forces is entirely the observer's perspective — what the permutation looks like through a partial window.
+Most fundamentally: a Turing machine computes an *extrinsic function* — it maps input to output for an external user who feeds in the input and reads the result. (S, φ) has no external user. There is no input, no output, no halting, no answer. It's a closed permutation that cycles through states and returns.
+
+An information theorist might object: any reversible finite automaton *is* a computer — the initial state is the input, the final state is the output, and the cycle is the computation. Formally, that's correct. But the distinction isn't formal — it's about *purpose*. A Turing machine computes something *for someone*. (S, φ) computes nothing for nobody. It's a closed system; there's no recipient of the "answer." What the framework shows is that the appearance of purposeful physical law — evolution equations, conserved quantities, gauge symmetries — arises entirely from the *internal* perspective of the partition. The complexity is in the observer, not in the map.
 
 People ask: "Is the universe a computer?" The framework's answer: the universe is something *less* than a computer. It's a finite lossless cycle. And physics is the *appearance of complexity* created by observing a simple thing through a keyhole.
+
+### The arrow of time
+
+If the universe is a finite permutation, it must eventually cycle back: φ^N = id for some N. So where does the arrow of time come from? Why does entropy increase?
+
+The answer: entropy increase is a property of the observer's coarse-grained description, not of the substratum. The observer sees transition probabilities, not the full state. From their perspective, the visible sector evolves stochastically, and their probability distribution spreads over accessible states — entropy increases. This is the standard Boltzmann mechanism: coarse-graining a reversible microscopic dynamics produces irreversible macroscopic behavior.
+
+The substratum itself has no arrow of time. φ and φ⁻¹ are equally valid. The total fine-grained entropy is exactly conserved. The Second Law is a theorem about the read statistics, not about the memory. Like quantum mechanics itself, the direction of time is emergent — a consequence of observing a lossless cycle from within.
 
 ### The incompleteness family
 
