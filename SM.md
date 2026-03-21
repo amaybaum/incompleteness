@@ -18,7 +18,7 @@ The Observational Incompleteness (OI) framework derives quantum mechanics and ge
 
 ## 1. INTRODUCTION
 
-The OI framework [1] derives quantum mechanics from the causal partition imposed by the cosmological horizon. The companion papers derive general relativity [2] and establish the structural foundations — $d = 3$, background independence, the coupling graph ontology [3]. But quantum mechanics is a *framework*, not a *theory*. It is compatible with infinitely many quantum field theories: any gauge group, any matter content, any number of generations. The QM derivation tells the embedded observer that they must use quantum probability; it does not tell them which particles exist, which forces act, or which symmetries govern the interactions.
+The OI framework [1] derives quantum mechanics from the causal partition imposed by the cosmological horizon. But quantum mechanics is a *framework*, not a *theory*. It is compatible with infinitely many quantum field theories: any gauge group, any matter content, any number of generations. The QM derivation tells the embedded observer that they must use quantum probability; it does not tell them which particles exist, which forces act, or which symmetries govern the interactions.
 
 This paper asks: does the specific lattice structure selected by the QM and GR requirements — the wave equation on a $d = 3$ hypercubic lattice with checkerboard partition — determine the quantum field theory the observer sees? The answer is yes: the emergent QFT is the Standard Model, with no empirical inputs beyond the framework's axioms.
 
@@ -28,7 +28,7 @@ The argument has three parts. Part I works bottom-up from the lattice dynamics t
 
 ## 2. THE WAVE EQUATION AS LATTICE KLEIN-GORDON
 
-The OI lattice is a $d$-dimensional hypercubic lattice $\Lambda = \mathbb{Z}^d$ with spacing $\epsilon = 2\,l_p$. Each site carries $\phi(\mathbf{n}, t) \in \mathbb{Z}/q\mathbb{Z}$. The dynamics selected by [2] is the discrete wave equation ($d = 1$):
+The OI lattice is a $d$-dimensional hypercubic lattice $\Lambda = \mathbb{Z}^d$ with spacing $\epsilon = 2\,l_p$. Each site carries $\phi(\mathbf{n}, t) \in \mathbb{Z}/q\mathbb{Z}$. Among all second-order reversible nearest-neighbor dynamics, center independence (required for emergent QM [1]), spatial isotropy, and linearity uniquely select the discrete wave equation ($d = 1$):
 
 $$\phi(n, t+1) = \phi(n-1, t) + \phi(n+1, t) - \phi(n, t-1)$$
 
@@ -60,7 +60,7 @@ The bosonic and fermionic descriptions are related by an exact change of variabl
 
 **The chain:**
 
-$$\text{P-indivisibility} \xrightarrow{\text{[2]}} \text{center independence} \xrightarrow{\text{Thm.~3}} \text{chiral symmetry} \xrightarrow{\text{[6, 7]}} \text{Higgs mechanism}$$
+$$\text{P-indivisibility} \xrightarrow{\text{Thm.~1}} \text{center independence} \xrightarrow{\text{Thm.~3}} \text{chiral symmetry} \xrightarrow{\text{[6, 7]}} \text{Higgs mechanism}$$
 
 **Corollary.** *One algebraic condition ($\alpha = 0$) produces quantum mechanics, chiral fermions, and the Higgs boson.*
 
@@ -91,7 +91,7 @@ Grouping by complementation ($\boldsymbol{\eta} \leftrightarrow \bar{\boldsymbol
 
 *Proof.* The $2^{d-1}$ taste pairs include one singlet ($\Gamma$-$R$). The $d$ axis-aligned pairs form a $d$-dimensional irreducible representation. For $d = 3$: $3$ non-singlet tastes. $\square$
 
-Since $d = 3$ is derived [3, §7.3], the triplet count is 3.
+Since the OI framework operates on a $d = 3$ lattice (the unique dimension consistent with propagating gravity, stable matter, and gravitational concordance [1, §9]), the triplet count is 3.
 
 **Proposition 3a** (Taste coupling structure in $d = 3$). *On the $d$-dimensional lattice with the normalized wave equation $\phi(\mathbf{n}, t+1) = \frac{1}{d}\sum_j[\phi(\mathbf{n}+\hat{e}_j, t) + \phi(\mathbf{n}-\hat{e}_j, t)] - \phi(\mathbf{n}, t-1)$, each BZ corner $\boldsymbol{\eta}$ has coupling $\mu(\boldsymbol{\eta}) = \sigma(\boldsymbol{\eta})/d$ where $\sigma = \sum_j \cos(\pi\eta_j)$. In $d = 3$:*
 
@@ -208,7 +208,7 @@ The update at site $\mathbf{n}$ receives exactly $2d$ independent spatial inputs
 
 *Uniqueness.* $K = 2d$ is the unique value achieving $\delta = 1$: Steps 2–3 show $\delta \geq 2$ for all $K \neq 2d$. $\square$
 
-This is the per-site analog of the factorization principle [3, §3.1], which selects the product decomposition of the full state space that minimizes the coupling degree of the coupling graph. The spatial factorization principle gives the sites; the internal factorization principle gives the components per site.
+This is the per-site analog of the global factorization principle — the product decomposition of the full state space that minimizes the coupling degree of the coupling graph selects the spatial sites; the internal factorization principle gives the components per site.
 
 **Theorem 11** ($K = 6$ with multiplicities $(3, 2, 1)$ from $d = 3$). *The $2d = 6$ nearest-neighbor link directions of the $d = 3$ cubic lattice decompose under the rotation group $O$ as:*
 
@@ -230,7 +230,7 @@ with $n(A_2) = n(T_2) = 0$. By Schur's lemma and spatial isotropy (Theorem 4), $
 
 ## 12. TOP-DOWN CONSTRAINTS: RENORMALIZABILITY AND THE STRONG SECTOR
 
-The OI framework establishes: $d = 3$ [3], lattice QFT with UV cutoff $\epsilon = 2l_p$ [1], spatial locality [1], Lorentz invariance in the continuum limit [2], unitarity [1], and the conformal spectral assumption for $\nu_{\text{OI}}$ [1].
+The OI framework establishes: $d = 3$ (the unique self-consistent dimension), lattice QFT with UV cutoff $\epsilon = 2l_p$ [1, §6], spatial locality [1, §7.1], Lorentz invariance in the continuum limit (from the wave equation's dispersion relation), unitarity [1, §3.1], and the conformal spectral assumption for $\nu_{\text{OI}}$ [1, §8.1].
 
 **Proposition 4.** *The Yang-Mills coupling has mass dimension $[g] = (3-d)/2$; dimensionless iff $d = 3$.* Since $d = 3$ is derived, the emergent QFT supports renormalizable gauge interactions.
 
@@ -369,8 +369,8 @@ $\bar{\theta} = 0$ exactly. No axion needed. Neutron EDM $d_n \propto \bar{\thet
 
 | Step | Constraint | Source | Selects | Status |
 |------|-----------|--------|---------|--------|
-| 0 | Emergent QFT, $d = 3$ | OI [1, 3] | Lattice QFT, $3+1$D | Theorem |
-| 1 | Wave eq. = massless KG | [2], Thm. 1 | Staggered fermions | Theorem |
+| 0 | Emergent QFT, $d = 3$ | OI [1] | Lattice QFT, $3+1$D | Theorem |
+| 1 | Wave eq. = massless KG | Thm. 1 | Staggered fermions | Theorem |
 | 2 | Center indep. = chiral sym. | Thm. 3 | Massless chiral fermions | Theorem |
 | 3 | Multi-component $\to$ matrix WE | Thm. 4 | Gauge structure from $M$ | Theorem |
 | 4 | Gauge group = commutant of $M$ | Thm. 6 | $\mathrm{U}(n_1) \times \cdots$ | Theorem (global sym.); lattice gauge promotion standard |
@@ -442,8 +442,6 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 ## REFERENCES
 
 [1] A. Maybaum, "The Incompleteness of Observation," submitted to *Foundations of Physics* (2026).
-[2] A. Maybaum, "General Relativity from Observational Incompleteness," companion paper (2026).
-[3] A. Maybaum, "The Substrate Problem," companion paper (2026).
 [4] J. B. Kogut and L. Susskind, "Hamiltonian formulation of Wilson's lattice gauge theories," *Phys. Rev. D* **11**, 395 (1975).
 [5] L. Susskind, "Lattice fermions," *Phys. Rev. D* **16**, 3031 (1977).
 [6] P. W. Higgs, "Broken symmetries and the masses of gauge bosons," *Phys. Rev. Lett.* **13**, 508 (1964).

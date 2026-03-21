@@ -360,16 +360,16 @@ Throughout this paper and its companions, the fundamental object has been stated
 
 - **V is derived:** any small subgraph of any large bounded-degree bijection satisfies C1–C3 (genericity theorem above).
 - **$d = 3$ is derived:** the unique dimension consistent with propagating gravity, stable matter, gravitational concordance, and renormalizability.
-- **The SM is derived:** follows from $d = 3$ + the wave equation + mathematical consistency [20].
-- **$\varphi$ determines the parameters:** the specific bijection sets the coupling strengths, masses, and mixing angles — the 18+ free parameters of the SM.
+- **The emergent QFT is constrained:** $d = 3$ plus the wave equation plus mathematical consistency severely restrict the possible field content; the question of which specific QFT emerges is deferred to future work.
+- **$\varphi$ determines the parameters:** the specific bijection sets the coupling strengths, masses, and mixing angles.
 
-The observer doesn't create the physics. The bijection $\varphi$ does. The observer is the lens through which the structure of $\varphi$ becomes accessible. The dimension, the gauge group, the matter content, the chiral structure, and $\bar{\theta} = 0$ are all necessary structural features of any self-consistent (S, $\varphi$).
+The observer doesn't create the physics. The bijection $\varphi$ does. The observer is the lens through which the structure of $\varphi$ becomes accessible. The dimension and the laws of the emergent description are necessary structural features of any self-consistent (S, $\varphi$).
 
 **The integer dimension is derived, not presupposed.** The self-consistency argument might appear to presuppose that the coupling graph has a well-defined integer dimension. In fact, this is a consequence. Every bounded-degree graph falls into one of three growth classes: exponential ($|B(r)| \sim k^r$), fractal ($|B(r)| \sim r^\alpha$ with non-integer $\alpha$), or integer-polynomial ($|B(r)| \sim r^d$ with integer $d$). Self-consistency excludes the first two:
 
 *Exponential growth* fails because the wave equation on such graphs does not produce Lorentz-invariant dispersion (the spectral gap doesn't close correctly), so Jacobson's derivation of Einstein's equations fails. Additionally, the effective dimension $d_{\text{eff}} \to \infty$ is incompatible with stable matter ($d \leq 3$) and renormalizability ($d = 3$).
 
-*Fractal growth* fails because Jacobson's argument requires the Raychaudhuri equation, which requires geodesic congruences on a manifold — fractal spaces don't support them. The staggered fermion decomposition requires a hypercubic BZ structure ($\eta \in \{0,1\}^d$), which doesn't exist on fractal graphs. The cubic group decomposition (Theorem 11 of [20]) requires cubic lattice symmetry, absent in fractals.
+*Fractal growth* fails because Jacobson's argument requires the Raychaudhuri equation, which requires geodesic congruences on a manifold — fractal spaces don't support them. The staggered fermion decomposition requires a hypercubic BZ structure ($\eta \in \{0,1\}^d$), which doesn't exist on fractal graphs. The cubic group decomposition of $2d$ link directions into irreducible representations — which constrains the emergent gauge structure — requires cubic lattice symmetry, absent in fractals.
 
 Only *integer-polynomial growth* survives. By Gromov's theorem (finitely generated groups of polynomial growth are virtually nilpotent) and statistical isotropy, the graph is quasi-isometric to $\mathbb{Z}^d$ for integer $d$. The four filters then select $d = 3$. The integer dimension is a consequence of self-consistency, not an input.
 
@@ -420,14 +420,10 @@ The framework produces, from four axioms with no quantum or gravitational input:
 9. The lattice as a derived structure (minimal-coupling factorization)
 10. The alphabet size as a gauge freedom
 11. The spatial dimensionality d = 3, selected by ρ_s/ρ_crit = 2/(d−1) = 1
-12. The Standard Model gauge group SU(3) × SU(2) × U(1) from the cubic group decomposition 6 = T₁(3) ⊕ E(2) ⊕ A₁(1) [20]
-13. Three generations of fermions from the staggered taste triplet, one Higgs doublet from the singlet taste [20]
-14. Chiral gauge coupling from D_LL = 0 and the trace-out [20]
-15. θ̄ = 0 from T-invariance and detailed balance [20]
 
-Items 1–6 come from the general theorem [1]. Items 7–8 come from the rigidity test [2]. Items 9–11 come from this paper. Items 12–15 come from the SM companion paper [20]. Each item is independently verifiable. No item was built into the axioms. The conjunction — a single framework producing all fifteen from four axioms with zero free parameters — is the cumulative case.
+Items 1–6 come from the general theorem [1]. Items 7–8 come from the rigidity test [2]. Items 9–11 come from this paper. Each item is independently verifiable. No item was built into the axioms. The question of which specific quantum field theory the embedded observer sees — including gauge group, matter content, and discrete symmetries — is constrained by the framework ($d = 3$, the wave equation, and mathematical consistency) but is deferred to future work.
 
-Predictions await experimental verdict: ν_OI ≈ 2.45 × 10⁻³ (DESI, Euclid); GW echoes (LIGO/Virgo/KAGRA); θ̄ = 0 exactly (neutron EDM experiments); no SUSY partners (colliders); Majorana neutrinos (neutrinoless double beta decay). The conjunction of these predictions is distinctive to this framework.
+Predictions await experimental verdict: ν_OI ≈ 2.45 × 10⁻³ (DESI, Euclid); GW echoes (LIGO/Virgo/KAGRA).
 
 The deepest result (§7.6) is that the partition V and the dimension $d = 3$ are both derived, not postulated: V is generic (any small subgraph sees QM), and $d = 3$ is the unique self-consistent value (four independent filters converge). The fundamental object is (S, $\varphi$) — a finite set and a bijection. Everything else, including the observer, is emergent.
 
@@ -437,11 +433,11 @@ The deepest result (§7.6) is that the partition V and the dimension $d = 3$ are
 
 The lattice in the OI framework is not a physical substrate. It is the coupling graph of a bijection on a finite set — the adjacency structure that the dynamics induces on the degrees of freedom. Space is the large-scale geometry of this graph. Time is the iteration of the bijection. Quantum mechanics is the observer's compressed description of the visible sector. General relativity is the thermodynamic limit of the coupling structure.
 
-The fundamental object is (S, $\varphi$) — a finite set and a bijection. The partition V is derived: any small subgraph of any large bounded-degree bijection automatically satisfies C1–C3 (§7.6). The dimension $d = 3$ is derived: the unique value consistent with propagating gravity, stable matter, gravitational concordance, and renormalizable gauge interactions (§7.6). The Standard Model gauge structure SU(3) × SU(2) × U(1) with three generations, a Higgs doublet, chiral coupling, and $\bar{\theta} = 0$ is derived: it follows from $d = 3$ plus the wave equation plus mathematical consistency [20].
+The fundamental object is (S, $\varphi$) — a finite set and a bijection. The partition V is derived: any small subgraph of any large bounded-degree bijection automatically satisfies C1–C3 (§7.6). The dimension $d = 3$ is derived: the unique value consistent with propagating gravity, stable matter, gravitational concordance, and renormalizable gauge interactions (§7.6).
 
-From (S, $\varphi$) alone: the factorization into sites is derived (§3.1), the wave equation is derived (§2.2), $d = 3$ is derived (§7.6), $q$-gauge freedom is established (§4), background independence is achieved (§7.4), the observer is derived (§7.6), QM is derived [1], GR is derived [2], and the SM is derived [20] — with no free parameters except the specific bijection $\varphi$, which determines the 18+ parameter values.
+From (S, $\varphi$) alone: the factorization into sites is derived (§3.1), the wave equation is derived (§2.2), $d = 3$ is derived (§7.6), $q$-gauge freedom is established (§4), background independence is achieved (§7.4), the observer is derived (§7.6), QM is derived [1], and GR is derived [2] — with no free parameters except the specific bijection $\varphi$.
 
-The remaining presupposition: the coupling graph must have bounded degree and statistical isotropy — both already required by the framework for the Myrheim-Meyer dimension estimate and Lorentz invariance. The integer dimension and the value $d = 3$ are consequences of self-consistency, not inputs. The framework's claim: for any bijection $\varphi$ satisfying these two structural properties, the emergent physics is uniquely the Standard Model coupled to general relativity in $d = 3$. Everything else is emergent.
+The remaining presupposition: the coupling graph must have bounded degree and statistical isotropy — both already required by the framework for the Myrheim-Meyer dimension estimate and Lorentz invariance. The integer dimension and the value $d = 3$ are consequences of self-consistency, not inputs. The framework's claim: for any bijection $\varphi$ satisfying these two structural properties, the emergent description is quantum mechanics on a $d = 3$ lattice with general relativity as its thermodynamic limit. The question of which specific quantum field theory the observer sees is constrained by $d = 3$ and the wave equation but is beyond the scope of this paper.
 
 ---
 
@@ -487,4 +483,3 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 
 [19] Y. Ollivier, "Ricci curvature of Markov chains on metric spaces," *J. Funct. Anal.* **256**, 810 (2009).
 
-[20] A. Maybaum, "Why These Particles: Standard Model Structure from Observational Incompleteness" (2026).
