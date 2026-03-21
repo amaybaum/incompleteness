@@ -1487,16 +1487,60 @@ permutation, not a computation in the Turing sense. The reversibility is
 what makes (S, \(\varphi\)) a lossless memory rather than an information
 processor.
 
-Third --- and most fundamentally --- a Turing machine computes. It
-transforms input to output; the interest is in the input-output map. (S,
-\(\varphi\)) does not compute anything. There is no input, no output, no
-halting, no answer. The system is a closed permutation that cycles
-through states and returns. The appearance of dynamics, probability,
-particles, and forces is entirely the observer's perspective --- what
-the permutation looks like through the partial window V. (S,
-\(\varphi\)) is simpler than a Turing machine: it is the minimal
+Third --- and most fundamentally --- a Turing machine computes an
+\emph{extrinsic function}: it maps input to output, and the interest is
+in the input-output relation. (S, \(\varphi\)) computes no extrinsic
+function. There is no input, no output, no halting, no answer. The
+system is a closed permutation that cycles through states and returns.
+The appearance of dynamics, probability, particles, and forces is
+entirely the observer's perspective --- what the permutation looks like
+through the partial window V.
+
+An anticipated objection: information theorists may argue that any
+reversible finite automaton \emph{is} a computer --- the initial state
+is the input, the final state is the output, and the cycle is the
+computation. Formally, this is true: (S, \(\varphi\)) is a reversible
+automaton. The distinction is not formal but teleological. A Turing
+machine computes a function \emph{for an external user} --- someone who
+feeds in input and reads output. (S, \(\varphi\)) has no external user.
+It is a closed system; the ``computation'' (if one insists on the word)
+has no recipient and no purpose. What the framework shows is that the
+appearance of purposeful physical law --- deterministic evolution,
+conserved quantities, gauge symmetries --- arises entirely from the
+\emph{internal} perspective of the partition, not from any objective
+computational content of \(\varphi\) itself. The complexity is in the
+observer, not in the map.
+
+(S, \(\varphi\)) is simpler than a Turing machine: it is the minimal
 dynamical object (a finite set and a permutation), and the framework's
 claim is that this is sufficient for all of physics.
+
+\hypertarget{the-arrow-of-time}{%
+\subsubsection{The arrow of time}\label{the-arrow-of-time}}
+
+A finite bijection is cyclic: \(\varphi^N = \mathrm{id}\) for some
+\(N\). A skeptical reader will ask how the framework accounts for the
+thermodynamic arrow of time and the Second Law, given that the
+fundamental dynamics is a lossless cycle with Poincaré recurrence.
+
+The answer: entropy increase is a property of the observer's
+coarse-grained description, not of the substratum. The observer sees
+transition probabilities \(T_{ij}(t)\), not the full state. From the
+observer's perspective, the visible sector appears to evolve
+stochastically (§2.1 of {[}1{]}), and the coarse-grained entropy
+\(S_{\mathrm{obs}} = -\sum_i p_i \ln p_i\) generically increases as the
+observer's probability distribution spreads over accessible visible
+states. This is the standard Boltzmann mechanism: coarse-graining a
+reversible microscopic dynamics produces irreversible macroscopic
+behavior.
+
+The substratum itself has no arrow of time --- \(\varphi\) and
+\(\varphi^{-1}\) are equally valid, and the total fine-grained entropy
+(Gibbs entropy of the Liouville measure) is exactly conserved. The
+Second Law is a theorem about the read statistics, not about the memory
+itself. The direction of time, like quantum mechanics itself, is an
+emergent property of the partition --- a consequence of observing a
+lossless cycle from within.
 
 \hypertarget{the-incompleteness-family}{%
 \subsubsection{The incompleteness
