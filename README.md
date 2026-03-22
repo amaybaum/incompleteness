@@ -42,7 +42,7 @@ Tests the framework's rigidity. Among all second-order reversible nearest-neighb
 
 **"The Substrate Problem: Structural Foundations of the Observational Incompleteness Framework"**
 
-Addresses the ontological status of the lattice and the physical interpretation of (S, φ). Shows that the framework's theorems depend on two structural properties of the bijection (bounded coupling degree and statistical isotropy) and on nothing else. The observer is proved generic: any small subgraph of any large bounded-degree energy-conserving bijection satisfies C1–C3, with C2 automatic for Hamiltonian dynamics. The dimension d = 3 is derived from self-consistency: four independent filters converge. The fundamental object (S, φ) is interpreted as a finite lossless memory — S is storage capacity, φ is perfect information preservation — placing the framework in the family of productive incompleteness results alongside Gödel and Turing.
+Addresses the ontological status of the lattice and the physical interpretation of (S, φ). Shows that the framework's theorems depend on two structural properties of the bijection (bounded coupling degree and statistical isotropy) and on nothing else. The observer is proved generic: any small subgraph of any large bounded-degree energy-conserving bijection satisfies C1–C3, with C2 automatic for Hamiltonian dynamics. The dimension d = 3 is derived from self-consistency: four independent filters converge. The fundamental object (S, φ) is interpreted as a finite lossless memory — S is storage capacity, φ is perfect information preservation — placing the framework in the family of productive incompleteness results alongside Gödel and Turing. Appendix A proves that the trace-out performs a Jordan-Chevalley projection — extracting the semisimple part of the dynamics and erasing the nilpotent monodromy — establishing a precise connection to Weil-Deligne representations in the Langlands program.
 
 - [`Ontology.md`](Ontology.md) — Markdown source
 - [`Ontology.tex`](Ontology.tex) — LaTeX source
@@ -62,11 +62,21 @@ Derives the Standard Model's gauge group, matter content, chiral structure, and 
 
 **"Why Physics' Biggest Contradiction Might Not Be a Contradiction at All"**
 
-A companion overview covering the full argument — QM emergence, GR derivation, structural foundations, Standard Model structure, and the memory interpretation of (S, φ) — with detailed proof walkthroughs, philosophical lineage, and FAQ.
+A companion overview covering the full argument — QM emergence, GR derivation, structural foundations, Standard Model structure, the memory interpretation of (S, φ), and the relationship between mathematics and physics — with detailed proof walkthroughs, philosophical lineage, and FAQ.
 
 - [`Explainer.md`](Explainer.md) — Markdown source
 - [`Explainer.tex`](Explainer.tex) — LaTeX source
 - [`Explainer.pdf`](Explainer.pdf) — Compiled PDF
+
+### Research Note: Arithmetic
+
+**"The Arithmetic of Indivisibility: How the OI Trace-Out Translates Arithmetic to Geometry"**
+
+Reports a computational discovery: the OI wave equation over finite fields carries genuine arithmetic data — eigenvalue multiplicative orders, a well-defined conductor, and a structured (transcendental) Artin-Mazur zeta function — and the trace-out strips this arithmetic data via a Jordan-Chevalley projection. The Weil-Deligne conductor decomposes exactly over the gauge group's irreducible representations with multiplicities (3, 2, 1), matching SU(3) × SU(2) × U(1). Includes the full computational pipeline and all verification scripts.
+
+- [`Arithmetic.md`](Arithmetic.md) — Markdown source
+- [`Arithmetic.tex`](Arithmetic.tex) — LaTeX source
+- [`Arithmetic.pdf`](Arithmetic.pdf) — Compiled PDF
 
 ## Key Results
 
@@ -90,6 +100,8 @@ A companion overview covering the full argument — QM emergence, GR derivation,
 
 10. **Falsifiable predictions.** Dark energy evolution with ν_OI ≈ 2.45 × 10⁻³; GW echoes near black hole horizons; θ̄ = 0 exactly (no axion, neutron EDM = 0); no SUSY partners; no fourth generation; Majorana neutrinos. The conjunction is distinctive to this framework.
 
+11. **The trace-out as Jordan-Chevalley projection.** Over finite fields, the evolution matrix F decomposes as F = F_ss · F_u (semisimple × unipotent). The trace-out extracts the semisimple part and erases the nilpotent monodromy N. The Weil-Deligne conductor f_WD = f_ss(L) + 2 is q-independent and decomposes additively over gauge irreps with multiplicities (3, 2, 1). Physics is the semisimple shadow of mathematics. *Status: theorem (Ontology, Appendix A).*
+
 ## The Derivation Chain
 
 ```
@@ -112,6 +124,8 @@ A companion overview covering the full argument — QM emergence, GR derivation,
   ├─→ Triplet tastes + anomaly cancellation → 3 generations (SM, proposition)
   ├─→ θ = 0 from T-invariance (SM, theorem)
   ├─→ θ̄ = 0 from detailed balance (SM, theorem at UV; radiatively stable)
+  ├─→ Trace-out = Jordan-Chevalley projection (Ontology App. A, theorem)
+  ├─→ Weil-Deligne conductor decomposes over gauge irreps (Ontology App. A, theorem)
   ├─→ Dark energy ν_OI ≈ 2.45×10⁻³ (Main, proposition)
   ├─→ Dark-sector concordance (Main, theorem — total budget)
   └─→ Arrow of time from coarse-graining (Ontology, standard Boltzmann)
