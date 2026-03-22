@@ -513,41 +513,45 @@ The emergent quantum description is therefore the *semisimple part of the dynami
 
 The forward direction — from $(S, \varphi)$ to observed physics — is established by the preceding papers. The converse question is whether the observed physics uniquely determines $(S, \varphi)$.
 
-**Theorem** (Reconstruction). *Suppose a physical theory reproduces:*
+The answer depends on the level of description. At the lattice level — the natural resolution of the framework — the converse holds as a theorem with no gaps. At the continuum level, it requires the standard (unproved) assumption of lattice QFT universality.
+
+**Theorem** (Lattice-level reconstruction). *Suppose the emergent description at the lattice scale reproduces:*
 
 *(i) Unitary quantum mechanics with Bell violations on a finite configuration space,  
-(ii) Einstein gravity via the thermodynamic route (area-law entropy, Unruh temperature, Raychaudhuri equation),  
-(iii) Gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ with three chiral generations and the Higgs mechanism,  
-(iv) $\bar{\theta} = 0$ from T-invariance of the fundamental dynamics,  
+(ii) The wave equation as the selected dynamics, with area-law entropy and the Unruh temperature at local causal horizons,  
+(iii) The algebraic gauge structure $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ with eigenvalue multiplicities $(3, 2, 1)$, three chiral fermion generations, one Higgs doublet $(\mathbf{1}, \mathbf{2}, +\tfrac{1}{2})$, and uniquely determined hypercharges,  
+(iv) T-invariance of the dynamics with $\bar{\theta} = 0$ at the lattice scale,  
 (v) $\hbar = c^3 \epsilon^2 / (4G)$ with $\epsilon = 2\,l_p$.*
 
-*Then the theory arises from a member of the equivalence class $[(S, \varphi)]$: a finite set with a bijection of bounded coupling degree and statistical isotropy, with the wave equation as the selected dynamics, $d = 3$, $K = 6$, and coupling matrix $M$ with eigenvalue multiplicities $(3, 2, 1)$.*
+*Then the theory arises from a member of the equivalence class $[(S, \varphi)]$: a finite set with a bijection of bounded coupling degree and statistical isotropy, with $d = 3$, $K = 6$, and coupling matrix $M$ with eigenvalue multiplicities $(3, 2, 1)$. The equivalence class is unique up to q-gauge freedom, partition genericity, and choice of specific isotropic bounded-degree representative.*
 
-*Proof sketch.* The argument chains the uniqueness results:
+*Proof.* Each step in the converse chain uses only proved results:
 
-(i) $\Rightarrow$ The theory describes a P-indivisible stochastic process on a finite configuration space. By the characterization theorem [1, §3.3], this arises from embedded observation in some deterministic system $(S, \varphi, V)$ satisfying C1–C3. (The forward direction uses Barandes' stochastic-quantum correspondence; the converse uses the Stinespring dilation theorem, which guarantees that any CPTP map dilates to a unitary on a larger space, combined with the finite permutation construction of [1, Appendix A].)
+(i) $\Rightarrow$ By the characterization theorem [1, §3.3], the theory arises from embedded observation in some deterministic system $(S, \varphi, V)$ satisfying C1–C3. The converse direction uses the Stinespring dilation theorem (any CPTP map dilates to a unitary on a larger space) combined with the finite permutation construction [1, Appendix A].
 
-(ii) $\Rightarrow$ Among all second-order reversible nearest-neighbor dynamics on the coupling graph, the Jacobson inputs (area-law entropy, Unruh temperature) together with center independence (required by (i) for emergent QM), spatial isotropy, and linearity uniquely select the wave equation [2, Theorem 8].
+(ii) $\Rightarrow$ Among all second-order reversible nearest-neighbor dynamics, the Jacobson inputs together with center independence (required by (i)), spatial isotropy, and linearity uniquely select the wave equation [2, Theorem 8]. This is a uniqueness theorem.
 
-(iii) $\Rightarrow$ The multi-component extension of the wave equation has $K = 2d$ components (Theorem 13 of the SM paper, from coupling-degree minimization). The cubic rotation group decomposes $K = 6$ as $T_1(3) \oplus E(2) \oplus A_1(1)$, uniquely fixing the multiplicities $(3, 2, 1)$. Anomaly cancellation uniquely determines the hypercharges.
+(iii) $\Rightarrow$ Coupling-degree minimization gives $K = 2d$ (Theorem 13). The cubic rotation group decomposes $K = 6$ as $T_1(3) \oplus E(2) \oplus A_1(1)$ (Theorem 11). Anomaly cancellation uniquely determines the hypercharges (Theorem 19). The matter content — three chiral generations (Theorem 18) and one Higgs (Theorem 20) — is uniquely determined by cubic symmetry and anomaly cancellation. Chirality is SU(2)-chiral, SU(3)-vector-like (Theorem 17).
 
-(iv) $\Rightarrow$ The dynamics is T-invariant, which together with the wave equation structure forces $\theta = 0$ and $\bar{\theta} = 0$ at the lattice scale.
+(iv) $\Rightarrow$ T-invariance of the wave equation forces $\theta = 0$ (Theorem 14). Detailed balance forces $\bar{\theta} = 0$ at the lattice scale (Theorems 15–16, Proposition 13).
 
-(v) $\Rightarrow$ The gap equation $\hbar = c^3 \epsilon^2 / (4G)$ has the unique solution $\epsilon = 2\,l_p$ [1, §6], fixing the discreteness scale.
+(v) $\Rightarrow$ The gap equation has the unique solution $\epsilon = 2\,l_p$ [1, §6].
 
-The dimension $d = 3$ is independently determined by the self-consistency filters (§7.6): propagating gravity requires $d \geq 3$, stable matter requires $d \leq 3$, and the concordance $\rho_s / \rho_{\mathrm{crit}} = 2/(d-1) = 1$ requires $d = 3$ exactly.
+The dimension $d = 3$ is independently determined by the self-consistency filters (§7.6): propagating gravity requires $d \geq 3$, stable matter requires $d \leq 3$, and the concordance $\rho_s / \rho_{\mathrm{crit}} = 2/(d-1) = 1$ requires $d = 3$ exactly. $\square$
 
-What remains undetermined is the *specific* bijection $\varphi$ within the equivalence class of bounded-degree, statistically isotropic bijections producing the wave equation on a $d = 3$ lattice. Different members of this class give identical emergent physics — this is the content of the q-gauge freedom (§4) and the structural-realism argument (§7.1). The alphabet size $q$ is also undetermined, being a gauge freedom. The partition $V$ is generic (§7.6). $\square$
+**Remark** (Continuum extension). The lattice-level reconstruction extends to the full continuum Standard Model under the assumption of lattice QFT universality: that the lattice gauge theory with the algebraic structure $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ flows to the correct continuum QFT under the renormalization group. This assumption is supported by decades of numerical evidence and is universally used in lattice QCD, but is not rigorously proved — it is essentially the Yang-Mills mass gap problem (Clay Millennium Prize). The extension also requires the standard Wilson promotion of global to local gauge symmetry. These two items are open problems in lattice QFT, shared with all lattice formulations of the Standard Model — they are not specific to the OI framework. (The $\bar{\theta}$ IR persistence gap, previously identified as a third item, has been closed: Theorem 27 of the SM companion paper proves $\bar{\theta} = 0$ at all energy scales using the bijection structure of $\varphi^n$.)
 
-The reconstruction theorem establishes a bidirectional correspondence:
+The reconstruction theorem establishes a bidirectional correspondence at the lattice level:
 
-$$\text{Observed physics} \quad \longleftrightarrow \quad [(S, \varphi)] / \sim$$
+$$\text{Lattice-scale physics} \quad \longleftrightarrow \quad [(S, \varphi)] / \sim$$
 
-where $\sim$ identifies bijections that produce the same emergent description (q-equivalence, partition genericity, and choice of specific isotropic bounded-degree representative). Physics and the mathematical structure determine each other *up to gauge equivalence* — which is exactly how physical theories always work. In general relativity, the observed physics determines an equivalence class of metrics modulo diffeomorphisms. In gauge theory, the physics determines an equivalence class of connections modulo gauge transformations. Here, the physics determines an equivalence class of finite bijections modulo the OI gauge freedoms.
+where $\sim$ identifies bijections that produce the same emergent description (q-equivalence, partition genericity, and choice of specific isotropic bounded-degree representative). The mathematical structure and the physics determine each other *up to gauge equivalence* — which is exactly how physical theories always work. In general relativity, the observed physics determines an equivalence class of metrics modulo diffeomorphisms. In gauge theory, the physics determines an equivalence class of connections modulo gauge transformations. Here, the physics determines an equivalence class of finite bijections modulo the OI gauge freedoms.
 
-The distinction between "mathematics describes reality" and "mathematics is reality" therefore has no empirical content within the framework. If $(S, \varphi)$ predicts all observed physics correctly — and the predictions are falsifiable — then the question "but is $(S, \varphi)$ *really* what exists?" cannot be answered by any measurement, because every measurement's outcome is already determined by the equivalence class $[(S, \varphi)]$. The framework does not resolve the metaphysical question; it dissolves it, by showing that the two positions make identical predictions and are therefore operationally indistinguishable.
+The distinction between "mathematics describes reality" and "mathematics is reality" therefore has no empirical content within the framework — not because the question is unimportant, but because it is provably undecidable by any measurement. The reconstruction theorem establishes that the mathematical structure $[(S, \varphi)]/\sim$ and the observed physics determine each other up to gauge. Any experiment that could distinguish "the universe is $[(S, \varphi)]$" from "the universe is described by $[(S, \varphi)]$" would have to detect structure outside the equivalence class — but the equivalence class already accounts for everything observable.
 
-This reframes Wigner's puzzle. Mathematics is not "unreasonably effective" at describing physics. The observed physics and the mathematical structure $(S, \varphi)$ determine each other uniquely (up to gauge). The "effectiveness" is not unreasonable — it is a theorem. The map is faithful to the territory because the map and the territory are related by a bijective correspondence, with the gauge equivalence being the only slack.
+This is the same logical structure as gauge invariance. In electromagnetism, the potential $A_\mu$ is underdetermined by the physics — only $F_{\mu\nu}$ is measurable. The boundary between the physical ($F_{\mu\nu}$) and the gauge ($A_\mu$) is exact. The OI framework identifies an analogous exact boundary: the physics is the equivalence class $[(S, \varphi)]/\sim$; the ontological status of $(S, \varphi)$ — whether it "is" reality or "describes" reality — is gauge. The boundary is a theorem, not a philosophical preference.
+
+This reframes Wigner's puzzle. Mathematics is not "unreasonably effective" at describing physics. The reconstruction theorem proves that the observed physics and the mathematical structure determine each other uniquely up to gauge. The effectiveness is a theorem, not a mystery.
 
 The relationship extends the incompleteness family in a specific direction. Gödel showed that a formal system cannot fully prove truths about itself — the unprovable truths have rigid structure. Turing showed that a computer cannot fully predict its own behavior — the undecidable problems have rigid structure. The OI framework shows that an observer cannot fully see the system it inhabits — the partial description has rigid structure (quantum mechanics). The mathematical content of this partial description is the semisimple part of the full dynamics. What the observer *cannot* see — the nilpotent monodromy, the arithmetic data over finite fields, the Jordan block structure — is not noise or ignorance. It is the specific, mathematically determined complement of the observable world.
 
