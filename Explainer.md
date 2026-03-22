@@ -866,7 +866,7 @@ The framework's results all have a clean interpretation in this language. The co
 
 Quantum mechanics is the *read statistics* of a lossless memory through a partial interface. The Schrödinger equation governs how read probabilities evolve. The Born rule is the equilibrium distribution over unread states. Interference is the signature of information written to hidden storage and read back later. The 10¹²² cosmological constant discrepancy is the compression ratio between total storage and readable storage. The dark sector is the gravitational weight of the unreadable storage. The Bekenstein-Hawking entropy is the storage capacity of the partition boundary. ℏ is the conversion factor between storage geometry and read statistics.
 
-An immediate objection: "Memory made of *what*?" In everyday life, memory requires a physical substrate — silicon, magnetic domains, neurons. But (S, φ) is not *implemented in* a substrate. It *is* the substrate. S is the totality of distinguishable configurations; φ is the structure of dynamical dependence. Space, time, and matter are all derived from (S, φ), so they can't appear in its definition without circularity. The "memory" isn't a metaphor for something physical — it's the mathematical structure from which physicality emerges. Asking what it's made of is like asking what the number 7 is made of.
+An immediate objection: "Memory made of *what*?" In everyday life, memory requires a physical substrate — silicon, magnetic domains, neurons. The answer: (S, φ) is a *complete description* — it determines every observable, with nothing left over that any measurement could detect. S is the totality of distinguishable configurations; φ is the structure of dynamical dependence. Space, time, and matter are all derived from (S, φ), so they can't appear in its definition without circularity. Whether (S, φ) *is* reality or *describes* reality is a question the framework proves to be gauge — undecidable by any experiment. The "memory" is a mathematical structure that completely characterizes everything observable. Asking what it's made of presupposes a deeper level that no measurement can access — like asking what the number 7 is made of.
 
 ### Not a computer
 
@@ -904,7 +904,7 @@ The common thread: a system with finite resources tries to completely model some
 
 Gödel and Turing are usually read as negative results — limits on knowledge. The framework recasts the physical instance as *generative*. Quantum mechanics is not what we're stuck with because we can't see the full state. It's the unique, mathematically rigid consequence of finite lossless memory observed from within.
 
-The universe is a finite memory that never forgets. Physics is what that memory looks like from inside.
+The universe is completely described by a finite memory that never forgets. Physics is what that memory looks like from inside.
 
 ### Why does mathematics describe physics?
 
