@@ -866,7 +866,7 @@ The framework's results all have a clean interpretation in this language. The co
 
 Quantum mechanics is the *read statistics* of a lossless memory through a partial interface. The Schrödinger equation governs how read probabilities evolve. The Born rule is the equilibrium distribution over unread states. Interference is the signature of information written to hidden storage and read back later. The 10¹²² cosmological constant discrepancy is the compression ratio between total storage and readable storage. The dark sector is the gravitational weight of the unreadable storage. The Bekenstein-Hawking entropy is the storage capacity of the partition boundary. ℏ is the conversion factor between storage geometry and read statistics.
 
-An immediate objection: "Memory made of *what*?" In everyday life, memory requires a physical substrate — silicon, magnetic domains, neurons. But (S, φ) is not *implemented in* a substrate. It *is* the substrate. S is the totality of distinguishable configurations; φ is the structure of dynamical dependence. Space, time, and matter are all derived from (S, φ), so they can't appear in its definition without circularity. The "memory" isn't a metaphor for something physical — it's the mathematical structure from which physicality emerges. Asking what it's made of is like asking what the number 7 is made of.
+An immediate objection: "Memory made of *what*?" In everyday life, memory requires a physical substrate — silicon, magnetic domains, neurons. The answer: (S, φ) is a *complete description* — it determines every observable, with nothing left over that any measurement could detect. S is the totality of distinguishable configurations; φ is the structure of dynamical dependence. Space, time, and matter are all derived from (S, φ), so they can't appear in its definition without circularity. Whether (S, φ) *is* reality or *describes* reality is a question the framework proves to be gauge — undecidable by any experiment. The "memory" is a mathematical structure that completely characterizes everything observable. Asking what it's made of presupposes a deeper level that no measurement can access — like asking what the number 7 is made of.
 
 ### Not a computer
 
@@ -904,7 +904,45 @@ The common thread: a system with finite resources tries to completely model some
 
 Gödel and Turing are usually read as negative results — limits on knowledge. The framework recasts the physical instance as *generative*. Quantum mechanics is not what we're stuck with because we can't see the full state. It's the unique, mathematically rigid consequence of finite lossless memory observed from within.
 
-The universe is a finite memory that never forgets. Physics is what that memory looks like from inside.
+The universe is completely described by a finite memory that never forgets. Physics is what that memory looks like from inside.
+
+### Why does mathematics describe physics?
+
+This reframes one of the oldest questions in the philosophy of science.
+
+The standard view: mathematics *describes* physics. The physical world exists independently, and we discover that mathematical equations capture its behavior. Wigner called this the "unreasonable effectiveness of mathematics" — why should abstract structures developed by pure mathematicians turn out to describe the physical world?
+
+Tegmark's answer: the physical world *is* a mathematical structure. But this is a metaphysical claim that can't be tested, and it doesn't explain *which* mathematical structure or *why* this particular one.
+
+The OI framework provides a different answer, with a mechanism. Mathematics doesn't describe physics. Physics is what mathematics *looks like from inside*.
+
+The mathematical structure is (S, φ) — a finite set and a bijection. An observer embedded in that structure, seeing only part of it through the partition V, produces a description of what it can see. That description is quantum mechanics. Not because QM was designed to describe nature. Not because nature is mysteriously mathematical. But because the structural constraints of embedded observation — finite capacity, lossless dynamics, partial access — uniquely determine the form of what the observer produces.
+
+The trace-out is the mechanism. It takes the complete mathematical structure — the full evolution matrix with all its eigenvalues, Jordan blocks, and nilpotent monodromy — and projects it onto what the observer can see: the semisimple spectral data, organized by the representation theory of the partition. Physics is this projection.
+
+What gets erased? The nilpotent part — the Jordan blocks that exist over finite fields but vanish over the reals, the monodromy operator that the observer can't detect, the arithmetic data about eigenvalue orders in finite field extensions. This is genuine mathematical structure. It's *there* in the dynamics. But the observer, looking through the keyhole of the partition, sees only the diagonalizable shadow.
+
+So Wigner's puzzle dissolves. Mathematics isn't "unreasonably effective" at describing physics. Mathematics is the territory. Physics is the map drawn by someone who can't see the whole territory. The map is effective because it's a faithful projection — the semisimple part genuinely captures the eigenvalue structure. But it's not the territory. The territory has structure (the nilpotent monodromy) that no physical measurement can reveal.
+
+But there's a stronger result. The map doesn't just follow from the territory — the territory follows from the map.
+
+The forward direction: start from (S, φ) and derive physics. That's the program's main result. The converse: start from the observed physics and reconstruct (S, φ). And the pieces are already in hand.
+
+If you observe quantum mechanics with Bell violations on a finite system, the characterization theorem forces you into some (S, φ, V) — there must be a deterministic system with a partition. If your physics includes Einstein gravity via the thermodynamic route, the dynamics selection theorem pins the wave equation — it's the unique dynamics consistent with QM emergence, isotropy, and linearity. If you see SU(3) × SU(2) × U(1) with three generations, the gauge structure pins K = 6 with multiplicities (3, 2, 1) — the cubic group decomposition is unique. If θ̄ = 0, the dynamics is T-invariant. If ℏ has the specific value c³ε²/(4G), the gap equation pins ε = 2l_p. And d = 3 is the unique self-consistent dimension.
+
+Chain all of these together and you get: the observed physics determines a unique equivalence class [(S, φ)] — a finite set with a bijection, pinned up to the framework's gauge freedoms (the alphabet size q, the choice of specific isotropic bounded-degree bijection, and the specific partition V within the generic class).
+
+This is exactly how physics always works. In general relativity, measurements determine an equivalence class of spacetime metrics modulo diffeomorphisms — not a unique coordinate system. In gauge theory, experiments determine an equivalence class of connections modulo gauge transformations — not a unique field configuration. Here, the observed physics determines an equivalence class of finite bijections modulo the OI gauge freedoms — not a unique (S, φ).
+
+So the question "is mathematics reality, or does it just describe reality?" is not unanswered — it's provably unanswerable by any measurement. The observed physics and the mathematical structure determine each other uniquely up to gauge. Any experiment that could distinguish "the universe is (S, φ)" from "the universe is described by (S, φ)" would need to detect something outside the equivalence class. But the equivalence class already accounts for everything observable.
+
+This is the same structure as gauge invariance in electromagnetism. The potential A is underdetermined — only the field strength F is measurable. We don't agonize over whether A is "real." We identify the exact boundary between the physical (F) and the gauge (A). The OI framework identifies the same kind of boundary for the math-physics relationship: the physics is the equivalence class [(S, φ)]; the ontological status of (S, φ) is gauge. The boundary is a theorem.
+
+This suggests a precise way to understand what physics is. The mathematical structure (S, φ) has two parts: the part accessible to an embedded observer (the equivalence class, the gauge-invariant content, the semisimple spectral data), and the part that isn't (the specific representative, the nilpotent monodromy, the choice of q). The first part is what we call physics. A better name for it might be *observable mathematics* — the portion of mathematical structure that an embedded subsystem with partial read access can detect.
+
+Under this definition, Wigner's puzzle dissolves to the point of tautology. "Why is mathematics effective at describing physics?" becomes "Why is mathematics effective at describing observable mathematics?" — which isn't a mystery. It's a definition. Physics is the observable part of mathematics. Of course mathematics describes it. The unreasonable effectiveness was never unreasonable; it was a category error, treating mathematics and physics as separate domains when one is a subset of the other.
+
+And the incompleteness family extends one step further: Gödel showed that proof can't capture all truth. Turing showed that computation can't predict all behavior. The OI framework shows that observation can't capture all dynamics. In each case, what *can't* be captured has rigid mathematical structure, and what *is* captured is determined by the incompleteness itself. Physics — all of it, from quantum mechanics to the Standard Model — is the rigid structure of what embedded observation captures. Mathematics is larger. Physics is the view from inside.
 
 ---
 

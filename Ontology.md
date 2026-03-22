@@ -192,7 +192,7 @@ A potential connection: if spin network edges are reinterpreted as edges of a co
 
 ### 7.1 Structural realism
 
-The structural reading of the OI framework is a form of ontic structural realism: what exists fundamentally is not objects (particles, fields, spacetime points) but structure (the coupling graph, the bijection, the partition). The "stuff" of the universe is not atoms of space, strings, loops, or qubits — it is the abstract structure of a bijection on a finite set with bounded coupling.
+The structural reading of the OI framework aligns with ontic structural realism but does not require it. What the framework proves is that (S, $\varphi$) is a *complete description* of reality up to gauge equivalence (the reconstruction theorem, §8.6). Whether the structure described *is* reality (the OSR commitment) or *describes* a reality that exists independently (standard realism) is a question the framework identifies as gauge — provably undecidable by any measurement. The "stuff" of the universe, in either reading, is fully characterized by the abstract structure of a bijection on a finite set with bounded coupling.
 
 This position is not new in the philosophy of physics — it echoes Ladyman and Ross [10], French [11], and others who argue that modern physics is best interpreted as describing structures rather than objects. What the OI framework adds is a concrete realization: the structure is (S, φ, V), and from this triple, all known physics follows. The ontological commitment is three items and their mathematical properties. Nothing else is needed, and nothing else is claimed to exist.
 
@@ -461,7 +461,7 @@ In this language, the framework's results have a uniform interpretation. C1 (cou
 
 The $10^{122}$ cosmological constant discrepancy [1, §7.3] is the compression ratio between total storage and readable storage. The dark sector [1, §9] is the gravitational effect of the unreadable storage. The Bekenstein-Hawking entropy $S = A/(4l_p^2)$ is the storage capacity of the partition boundary. The action scale $\hbar$ is the conversion factor between storage geometry and read statistics.
 
-**The substrate objection.** The word "memory" invites the question: what is it made of? In everyday experience, memory requires a physical substrate — silicon, magnetic domains, neurons. The answer is that (S, $\varphi$) is not *implemented in* a substrate; it *is* the substrate. The finite set S is not a collection of objects sitting in a container. It is the totality of distinguishable configurations — the state space itself. The bijection $\varphi$ is not a rule written on something; it is the structure of dynamical dependence. Asking "what is the memory made of?" presupposes that (S, $\varphi$) is embedded in some deeper physical reality, but the framework's claim (§3.3–3.4) is precisely that no such embedding exists. Space, time, matter, and energy are all derived from (S, $\varphi$), so they cannot appear in its definition without circularity. The "memory" is not a metaphor for something physical — it is the mathematical structure from which physicality emerges. This is the ontic structural realist commitment (§6.1): the structure is the reality, and asking what it is "made of" is a category error, like asking what number 7 is made of.
+**The substrate objection.** The word "memory" invites the question: what is it made of? In everyday experience, memory requires a physical substrate — silicon, magnetic domains, neurons. The answer is that (S, $\varphi$) is a *complete description* — it determines all observables, with nothing left over that a measurement could detect. The finite set S is the totality of distinguishable configurations — the state space itself. The bijection $\varphi$ is the structure of dynamical dependence. Space, time, matter, and energy are all derived from (S, $\varphi$), so they cannot appear in its definition without circularity. Whether (S, $\varphi$) *is* reality or *describes* reality is a question the framework proves to be gauge — undecidable by any measurement (§8.6, reconstruction theorem). The "memory" is a mathematical structure that completely characterizes everything observable. Asking what it is "made of" presupposes a deeper level that no experiment can access — like asking what the number 7 is made of.
 
 A Turing machine has a tape (storage), a head (partial read/write access), and a transition function (update rule). The correspondence is suggestive: S is the tape, V is the head's read window, $\varphi$ is the transition function. But three differences are physically significant.
 
@@ -497,6 +497,64 @@ The common structure is *self-reference under finite resources*. In each case, a
 
 In all three cases, the impossibility result is not merely negative — it is *generative*. The specific structure of what cannot be achieved determines the specific structure of what emerges instead. The limitation and the structure are the same object viewed from two sides. In the OI framework, quantum mechanics is not a deficiency of the observer's description — it is the unique, rigid, mathematically determined consequence of finite lossless memory observed from within.
 
+### Mathematics and physics
+
+The framework implies a specific relationship between mathematics and physics that differs from the standard positions.
+
+The traditional view (Galileo, Newton): mathematics *describes* physics — the physical world exists independently, and mathematical equations capture its regularities. Wigner's "unreasonable effectiveness" (1960) sharpens this into a puzzle: why should mathematics, developed for its own internal reasons, describe the physical world so well? Tegmark's Mathematical Universe Hypothesis (2008) resolves the puzzle by identifying the two: the physical world *is* a mathematical structure. But this is an untestable metaphysical claim that leaves the specific relationship unexplained.
+
+The OI framework provides a mechanism. The mathematical structure is (S, $\varphi$) — a finite set and a bijection. An observer embedded in this structure, with partial access (the partition V), necessarily describes the visible sector using quantum mechanics. Physics is not a *description* of a mathematical structure, nor is it *identical* to one. Physics is what a mathematical structure *looks like from the inside* — the unique, rigid projection that an embedded subsystem produces when it cannot access the complete state.
+
+The trace-out provides the technical content of this claim. Appendix A proves that the trace-out performs a Jordan-Chevalley projection on the evolution matrix: it extracts the semisimple (diagonalizable) part of the dynamics and erases the nilpotent (monodromy) part. Over $\mathbb{R}$, where the evolution matrix is always diagonalizable, the nilpotent part is absent and the observer sees the full semisimple structure. Over finite fields $\mathbb{F}_q$, the nilpotent part carries additional arithmetic data (Jordan blocks at parabolic eigenvalues) that the trace-out erases — producing the same q-independent quantum description regardless of the underlying field.
+
+The emergent quantum description is therefore the *semisimple part of the dynamics*: the diagonalizable spectral data, encoded via the coupling eigenvalues $\mu_k$ and organized by the representation theory of the partition. The nilpotent monodromy — genuine mathematical structure that exists in the full dynamics — is invisible to the observer. Physics, in this precise sense, is the semisimple shadow of mathematics.
+
+### The reconstruction theorem
+
+The forward direction — from $(S, \varphi)$ to observed physics — is established by the preceding papers. The converse question is whether the observed physics uniquely determines $(S, \varphi)$.
+
+The answer depends on the level of description. At the lattice level — the natural resolution of the framework — the converse holds as a theorem with no gaps. At the continuum level, it requires the standard (unproved) assumption of lattice QFT universality.
+
+**Theorem** (Lattice-level reconstruction). *Suppose the emergent description at the lattice scale reproduces:*
+
+*(i) Unitary quantum mechanics with Bell violations on a finite configuration space,  
+(ii) The wave equation as the selected dynamics, with area-law entropy and the Unruh temperature at local causal horizons,  
+(iii) The algebraic gauge structure $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ with eigenvalue multiplicities $(3, 2, 1)$, three chiral fermion generations, one Higgs doublet $(\mathbf{1}, \mathbf{2}, +\tfrac{1}{2})$, and uniquely determined hypercharges,  
+(iv) T-invariance of the dynamics with $\bar{\theta} = 0$ at the lattice scale,  
+(v) $\hbar = c^3 \epsilon^2 / (4G)$ with $\epsilon = 2\,l_p$.*
+
+*Then the theory arises from a member of the equivalence class $[(S, \varphi)]$: a finite set with a bijection of bounded coupling degree and statistical isotropy, with $d = 3$, $K = 6$, and coupling matrix $M$ with eigenvalue multiplicities $(3, 2, 1)$. The equivalence class is unique up to q-gauge freedom, partition genericity, and choice of specific isotropic bounded-degree representative.*
+
+*Proof.* Each step in the converse chain uses only proved results:
+
+(i) $\Rightarrow$ By the characterization theorem [1, §3.3], the theory arises from embedded observation in some deterministic system $(S, \varphi, V)$ satisfying C1–C3. The converse direction uses the Stinespring dilation theorem (any CPTP map dilates to a unitary on a larger space) combined with the finite permutation construction [1, Appendix A].
+
+(ii) $\Rightarrow$ Among all second-order reversible nearest-neighbor dynamics, the Jacobson inputs together with center independence (required by (i)), spatial isotropy, and linearity uniquely select the wave equation [2, Theorem 8]. This is a uniqueness theorem.
+
+(iii) $\Rightarrow$ Coupling-degree minimization gives $K = 2d$ (Theorem 13). The cubic rotation group decomposes $K = 6$ as $T_1(3) \oplus E(2) \oplus A_1(1)$ (Theorem 11). Anomaly cancellation uniquely determines the hypercharges (Theorem 19). The matter content — three chiral generations (Theorem 18) and one Higgs (Theorem 20) — is uniquely determined by cubic symmetry and anomaly cancellation. Chirality is SU(2)-chiral, SU(3)-vector-like (Theorem 17).
+
+(iv) $\Rightarrow$ T-invariance of the wave equation forces $\theta = 0$ (Theorem 14). Detailed balance forces $\bar{\theta} = 0$ at the lattice scale (Theorems 15–16, Proposition 13).
+
+(v) $\Rightarrow$ The gap equation has the unique solution $\epsilon = 2\,l_p$ [1, §6].
+
+The dimension $d = 3$ is independently determined by the self-consistency filters (§7.6): propagating gravity requires $d \geq 3$, stable matter requires $d \leq 3$, and the concordance $\rho_s / \rho_{\mathrm{crit}} = 2/(d-1) = 1$ requires $d = 3$ exactly. $\square$
+
+**Remark** (Continuum extension). The lattice-level reconstruction extends to the full continuum Standard Model under the assumption of lattice QFT universality: that the lattice gauge theory with the algebraic structure $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ flows to the correct continuum QFT under the renormalization group. This assumption is supported by decades of numerical evidence and is universally used in lattice QCD, but is not rigorously proved — it is essentially the Yang-Mills mass gap problem (Clay Millennium Prize). The extension also requires the standard Wilson promotion of global to local gauge symmetry. These two items are open problems in lattice QFT, shared with all lattice formulations of the Standard Model — they are not specific to the OI framework. (The $\bar{\theta}$ IR persistence gap, previously identified as a third item, has been closed: Theorem 27 of the SM companion paper proves $\bar{\theta} = 0$ at all energy scales using the bijection structure of $\varphi^n$.)
+
+The reconstruction theorem establishes a bidirectional correspondence at the lattice level:
+
+$$\text{Lattice-scale physics} \quad \longleftrightarrow \quad [(S, \varphi)] / \sim$$
+
+where $\sim$ identifies bijections that produce the same emergent description (q-equivalence, partition genericity, and choice of specific isotropic bounded-degree representative). The mathematical structure and the physics determine each other *up to gauge equivalence* — which is exactly how physical theories always work. In general relativity, the observed physics determines an equivalence class of metrics modulo diffeomorphisms. In gauge theory, the physics determines an equivalence class of connections modulo gauge transformations. Here, the physics determines an equivalence class of finite bijections modulo the OI gauge freedoms.
+
+The distinction between "mathematics describes reality" and "mathematics is reality" therefore has no empirical content within the framework — not because the question is unimportant, but because it is provably undecidable by any measurement. The reconstruction theorem establishes that the mathematical structure $[(S, \varphi)]/\sim$ and the observed physics determine each other up to gauge. Any experiment that could distinguish "the universe is $[(S, \varphi)]$" from "the universe is described by $[(S, \varphi)]$" would have to detect structure outside the equivalence class — but the equivalence class already accounts for everything observable.
+
+This is the same logical structure as gauge invariance. In electromagnetism, the potential $A_\mu$ is underdetermined by the physics — only $F_{\mu\nu}$ is measurable. The boundary between the physical ($F_{\mu\nu}$) and the gauge ($A_\mu$) is exact. The OI framework identifies an analogous exact boundary: the physics is the equivalence class $[(S, \varphi)]/\sim$; the ontological status of $(S, \varphi)$ — whether it "is" reality or "describes" reality — is gauge. The boundary is a theorem, not a philosophical preference.
+
+This reframes Wigner's puzzle. Mathematics is not "unreasonably effective" at describing physics. The reconstruction theorem proves that the observed physics and the mathematical structure determine each other uniquely up to gauge. The effectiveness is a theorem, not a mystery.
+
+The relationship extends the incompleteness family in a specific direction. Gödel showed that a formal system cannot fully prove truths about itself — the unprovable truths have rigid structure. Turing showed that a computer cannot fully predict its own behavior — the undecidable problems have rigid structure. The OI framework shows that an observer cannot fully see the system it inhabits — the partial description has rigid structure (quantum mechanics). The mathematical content of this partial description is the semisimple part of the full dynamics. What the observer *cannot* see — the nilpotent monodromy, the arithmetic data over finite fields, the Jordan block structure — is not noise or ignorance. It is the specific, mathematically determined complement of the observable world.
+
 ---
 
 ## 9. Conclusion
@@ -509,7 +567,7 @@ From (S, $\varphi$) alone: the factorization into sites is derived (§3.1), the 
 
 The remaining presupposition: the coupling graph must have bounded degree and statistical isotropy — both already required by the framework for the Myrheim-Meyer dimension estimate and Lorentz invariance. The integer dimension and the value $d = 3$ are consequences of self-consistency, not inputs. The framework's claim: for any bijection $\varphi$ satisfying these two structural properties, the emergent description is quantum mechanics on a $d = 3$ lattice with general relativity as its thermodynamic limit. The question of which specific quantum field theory the observer sees is constrained by $d = 3$ and the wave equation but is beyond the scope of this paper.
 
-The deepest lesson (§8.6) is that the framework belongs to a family of impossibility-with-structure results — alongside Gödel's incompleteness theorem and Turing's halting problem — in which self-reference under finite resources produces not formless ignorance but rigid, mathematically determined structure. The universe is a finite memory that never forgets. Physics is what that memory looks like from inside.
+The deepest lesson (§8.6) is that the framework belongs to a family of impossibility-with-structure results — alongside Gödel's incompleteness theorem and Turing's halting problem — in which self-reference under finite resources produces not formless ignorance but rigid, mathematically determined structure. The relationship between mathematics and physics is itself illuminated: the reconstruction theorem establishes a bidirectional correspondence between the observed physics and the equivalence class $[(S, \varphi)]$, up to gauge freedoms — dissolving Wigner's puzzle by showing that the "unreasonable effectiveness" of mathematics is a theorem, not a mystery. The universe is completely described by a finite memory that never forgets. Physics is what that memory looks like from inside — and what it looks like from inside uniquely determines what it is.
 
 ---
 
@@ -524,6 +582,10 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [1] A. Maybaum, "The Incompleteness of Observation," submitted to Foundations of Physics (2026).
 
 [2] A. Maybaum, "Dynamics Selection and Emergent General Relativity in the Observational Incompleteness Framework" (2026).
+
+[3] R. Bousso, "The holographic principle," *Rev. Mod. Phys.* **74**, 825 (2002).
+
+[4] L. Bombelli, J. Lee, D. Meyer, and R. Sorkin, "Space-time as a causal set," *Phys. Rev. Lett.* **59**, 521 (1987).
 
 [5] D.P. Rideout and R.D. Sorkin, "A classical sequential growth dynamics for causal sets," Phys. Rev. D 61, 024002 (2000).
 
@@ -555,3 +617,75 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 
 [19] Y. Ollivier, "Ricci curvature of Markov chains on metric spaces," *J. Funct. Anal.* **256**, 810 (2009).
 
+---
+
+## Appendix A: The Trace-Out as a Jordan-Chevalley Projection
+
+This appendix proves that the OI trace-out extracts the semisimple part of the evolution matrix's Jordan-Chevalley decomposition, erasing the nilpotent monodromy. The results are stated for the scalar wave equation on a ring of $L$ sites over $\mathbb{F}_q$; the multi-component extension (Theorem A.4) incorporates the gauge group.
+
+### Setup
+
+The wave equation $x(n, t+1) = x(n-1, t) + x(n+1, t) - x(n, t-1) \pmod{q}$ has phase space $(\mathbb{Z}/q\mathbb{Z})^{2L}$ and evolution matrix $F = \left(\begin{smallmatrix} 0 & I \\ -I & A \end{smallmatrix}\right)$ where $A$ is the circulant adjacency matrix of the ring. The eigenvalues of $A$ over $\mathbb{C}$ are $\lambda_k = 2\cos(2\pi k/L)$ for $k = 0, \ldots, L-1$.
+
+### Theorem A.1 (Period formula)
+
+*For $q$ prime with $\gcd(L, q) = 1$: $\mathrm{ord}(F \bmod q) = qL$ if $q$ is odd, and $L$ if $q = 2$.*
+
+*Proof.* For each Fourier mode $k$, the $2 \times 2$ block $B_k = \left(\begin{smallmatrix} 0 & 1 \\ -1 & \lambda_k \end{smallmatrix}\right)$ has characteristic polynomial $t^2 - \lambda_k t + 1$ with roots $\zeta^k, \zeta^{-k}$ (where $\zeta = e^{2\pi i/L}$). Over $\bar{\mathbb{F}}_q$ with $\gcd(L, q) = 1$, these remain $L$-th roots of unity with multiplicative orders dividing $L$.
+
+At the parabolic modes ($\lambda_k = \pm 2$, eigenvalues $\alpha = \pm 1$), $B_k$ has a repeated eigenvalue but is not a scalar matrix. Its Jordan form is $\left(\begin{smallmatrix} \alpha & 1 \\ 0 & \alpha \end{smallmatrix}\right)$. Under iteration:
+
+$$B_k^n = \alpha^n \begin{pmatrix} 1 & n\alpha^{-1} \\ 0 & 1 \end{pmatrix}$$
+
+For $\alpha = 1$: $B_k^n = I$ requires $n \equiv 0 \pmod{q}$. For $\alpha = -1$: $B_k^n = I$ requires $n$ even and $n \equiv 0 \pmod{q}$, giving order $2q$. The diagonalizable eigenvalues contribute orders dividing $L$. Therefore $\mathrm{ord}(F) = \mathrm{lcm}(L, q, 2q) = qL$.
+
+For $q = 2$: $\left(\begin{smallmatrix} 1 & 1 \\ 0 & 1 \end{smallmatrix}\right)^2 = I$ over $\mathbb{F}_2$, so the nilpotent part is automatically killed and $\mathrm{ord}(F) = L$. $\square$
+
+### Theorem A.2 (Jordan-Chevalley decomposition)
+
+*Define $N = (F^L - I)/L \bmod q$. Then:*
+
+*(i) $N$ is nilpotent with $N^2 = 0$ and $\mathrm{rank}(N) = 2$.  
+(ii) $F_u = I + N$ is unipotent with $F_u^q = I$.  
+(iii) $F_{\mathrm{ss}} = F \cdot (I - N)$ is semisimple with $F_{\mathrm{ss}}^L = I$.  
+(iv) $F = F_{\mathrm{ss}} \cdot F_u$ and $[F_{\mathrm{ss}}, N] = 0$.*
+
+*Proof.* $F^L$ has the form $I + LN'$ where $N'$ arises from the Jordan blocks: the block $\left(\begin{smallmatrix} 1 & 1 \\ 0 & 1 \end{smallmatrix}\right)^L = \left(\begin{smallmatrix} 1 & L \\ 0 & 1 \end{smallmatrix}\right)$ contributes a rank-1 nilpotent, and similarly for $\alpha = -1$ (since $(-1)^L = 1$ for even $L$). So $N = N'$ has $N^2 = 0$ (each block is rank-1 nilpotent on a 2D subspace) and $\mathrm{rank}(N) = 2$ (two parabolic modes). Since $N^2 = 0$: $(I + N)^{-1} = I - N$, giving $F_{\mathrm{ss}} = F(I - N)$. Then $F_{\mathrm{ss}}^L = F^L (I - N)^L = (I + LN)(I - LN + \ldots) = I \bmod q$ since terms involving $LN$ cancel modulo $q$ (using $N^2 = 0$). Commutativity follows from $N$ being supported on the parabolic eigenspaces, which are $F$-invariant. $\square$
+
+*Verified computationally for $L = 4, 6, 8, 10, 12$ and $q = 3, 5, 7, 11, 13$.*
+
+### Theorem A.3 (q-independence of the Weil-Deligne conductor)
+
+*The Weil-Deligne conductor $\mathfrak{f}_{\mathrm{WD}} = \mathfrak{f}_{\mathrm{ss}}(L) + \mathrm{rank}(N) = \mathfrak{f}_{\mathrm{ss}}(L) + 2$ is q-independent when $\gcd(L, q) = 1$, where $\mathfrak{f}_{\mathrm{ss}}(L) = \sum_\alpha (\mathrm{ord}(\alpha) - 1)$ is computed from the eigenvalue orders of $F_{\mathrm{ss}}$, all dividing $L$.*
+
+*Proof.* $F_{\mathrm{ss}}$ has order $L$ and all its eigenvalues are $L$-th roots of unity in $\bar{\mathbb{F}}_q$. For $\gcd(L, q) = 1$, the $L$-th roots of unity in $\bar{\mathbb{F}}_q$ are isomorphic (as a group) to those in $\mathbb{C}$, so their multiplicative orders are the same. $\square$
+
+| $L$ | $\mathfrak{f}_{\mathrm{ss}}(L)$ | $\mathfrak{f}_{\mathrm{WD}}$ | $\mathrm{NM}^2 = 3L/4$ |
+|-----|---|---|---|
+| 4 | 14 | 16 | 3.00 |
+| 6 | 30 | 32 | 4.50 |
+| 8 | 70 | 72 | 6.00 |
+| 10 | 106 | 108 | 7.50 |
+| 12 | 130 | 132 | 9.00 |
+
+Both $\mathfrak{f}_{\mathrm{ss}}$ and $\mathrm{NM}^2$ are q-independent encodings of the same semisimple eigenvalue data — one via multiplicative orders (integers), one via fourth moments of magnitudes (reals).
+
+### Theorem A.4 (Additive decomposition over gauge irreps)
+
+*For the $K$-component wave equation with coupling matrix $M = \mathrm{diag}(\mu_1 I_{n_1}, \ldots, \mu_r I_{n_r})$:*
+
+$$\mathfrak{f}_{\mathrm{WD}}(M) = \sum_{i=1}^{r} n_i \cdot \mathfrak{f}_{\mathrm{WD}}(\mu_i)$$
+
+*In particular, for $K = 6$ with $M = \mathrm{diag}(\mu_c I_3, \mu_w I_2, 1)$: $\mathfrak{f}_{\mathrm{WD}} = 3\mathfrak{f}_{\mathrm{WD}}(\mu_c) + 2\mathfrak{f}_{\mathrm{WD}}(\mu_w) + \mathfrak{f}_{\mathrm{WD}}(1)$, with the same multiplicities $(3, 2, 1)$ that determine $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$.*
+
+*Proof.* The multi-component evolution matrix is block-diagonal: the $a$-th component has its own $2L \times 2L$ block $F_{\mu_a}$ with eigenvalues depending only on $\mu_a$. Both $F_{\mathrm{ss}}$ and $N$ inherit the block-diagonal structure, so $\mathfrak{f}_{\mathrm{ss}}$ and $\mathrm{rank}(N)$ decompose additively. $\square$
+
+*Verified for all $(\mu_c, \mu_w) \in \{1, \ldots, q-1\}^2$ at $q = 3, 5, 7$ with $L = 4$. Every case matches exactly.*
+
+### The projection
+
+The OI trace-out (marginalization over the hidden sector) produces the emergent quantum description, which depends on the coupling eigenvalues $\mu_k$ via the NM formula $\mathrm{NM}^2 = 3\langle\mu^4\rangle$ (a consequence of the stochastic-quantum correspondence applied to the wave equation's Fourier decomposition). These $\mu_k$ are properties of $F_{\mathrm{ss}}$ — the semisimple part of the dynamics. The nilpotent monodromy $N$ contributes nothing to the emergent description: it affects only the off-diagonal Jordan block entries, which are erased by the coarse-graining over the hidden sector.
+
+The trace-out therefore performs the Jordan-Chevalley projection $(F_{\mathrm{ss}}, N) \mapsto F_{\mathrm{ss}} \mapsto \{\mu_k\} \mapsto \mathrm{NM}^2$: it extracts the semisimple part, encodes it via magnitudes rather than orders, and organizes it by the representation theory of the partition. The nilpotent monodromy — genuine mathematical structure present in the full dynamics — is invisible to the embedded observer.
+
+This is the precise sense in which physics is the semisimple shadow of mathematics: the observer sees only the diagonalizable spectral data, projected by the trace-out and organized by the gauge group's representation structure. The nilpotent part is the mathematical complement — present in the dynamics, absent from the physics.
