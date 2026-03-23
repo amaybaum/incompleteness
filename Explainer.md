@@ -860,7 +860,7 @@ The papers derive what (S, φ) *produces*. But what kind of thing *is* it?
 
 ### Storage and memory
 
-S is the set of all distinguishable states. Its physical meaning is *finite capacity*: there are |S| configurations that can be told apart, carrying log₂|S| bits of information. The finiteness is not a regularization — it's load-bearing. Finite sets recur (φ^N = id), recurrence produces P-indivisibility, and P-indivisibility produces quantum mechanics. An infinite S wouldn't recur, and the whole mechanism breaks.
+S is the set of all distinguishable states. Its physical meaning is *finite capacity*: there are |S| configurations that can be told apart, carrying log₂|S| bits of information. The finiteness is not a regularization — it's load-bearing. Finite sets recur (φ^N = id), recurrence produces P-indivisibility, and P-indivisibility produces quantum mechanics. Strictly, only the visible sector and boundary layer need to be finite — the deep hidden sector may be infinite, because the accessible-timescale backflow lemma (Main, §2.3) establishes P-indivisibility without recurrence, and the boundary-only dependence lemma (Main, §5.2) ensures the deep sector's contribution is suppressed by $\tau_S/\tau_B \sim 10^{-32}$.
 
 φ is a bijection: every state has exactly one predecessor and exactly one successor. Its physical meaning is *perfect memory*. Information is never created, never destroyed. The past is always recoverable from the present, because φ⁻¹ exists. A non-bijective map would send two states to the same successor, erasing the distinction between them. φ preserves all distinctions, permanently.
 
