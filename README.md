@@ -28,21 +28,11 @@ Submitted to Foundations of Physics. Establishes the QM–embedded observation e
 - [`Main.tex`](Main.tex) — LaTeX source
 - [`Main.pdf`](Main.pdf) — Compiled PDF
 
-### Companion Paper: GR
-
-**"Dynamics Selection and Emergent General Relativity in the Observational Incompleteness Framework"**
-
-Tests the framework's rigidity. Among all second-order reversible nearest-neighbor dynamics, center independence (necessary for emergent QM), spatial isotropy, and linearity uniquely select the discrete wave equation — for any alphabet size q ≥ 2 and dimension d ≥ 1. This dynamics, without tuning, produces area-law entropy, Lorentz-invariant dispersion, horizon thermality, and all inputs to Jacobson's thermodynamic derivation of Einstein's equations. Seven links, all analytically proven. Self-contained; does not depend on the other companion papers.
-
-- [`GR.md`](GR.md) — Markdown source
-- [`GR.tex`](GR.tex) — LaTeX source
-- [`GR.pdf`](GR.pdf) — Compiled PDF
-
 ### Companion Paper: Fundamental Structure
 
 **"The Fundamental Structure of the Observational Incompleteness Framework: From Finite Bijection to the Standard Model"**
 
-Addresses the ontological status of the lattice, the physical interpretation of (S, φ), and which quantum field theory the embedded observer sees. Shows that the framework's theorems depend on six structural properties (bounded coupling degree, statistical isotropy, and four others) and on nothing else. The observer is proved generic: any small subgraph of any large bounded-degree energy-conserving bijection satisfies C1–C3. The dimension d = 3 is derived from self-consistency: four independent filters converge. The wave equation on a d = 3 lattice uniquely determines the Standard Model's structure: the wave equation factors into staggered Dirac fermions; center independence enforces chiral symmetry, mandating the Higgs; staggered tastes give three fermion generations; coupling-degree minimization gives K = 2d = 6; the cubic rotation group decomposes 6 = T₁(3) ⊕ E(2) ⊕ A₁(1), fixing multiplicities (3, 2, 1); background independence promotes the commutant to local gauge invariance; anomaly cancellation uniquely determines hypercharges; the trace-out makes SU(2) chiral while SU(3) remains vector-like; T-invariance forces θ̄ = 0 at all energy scales. The primary derivation chain is proved end-to-end (23 theorems). The reconstruction theorem proves a bidirectional correspondence: observed QM + Bell violations + finite entropy + isotropy ↔ [(S, φ)]/~ up to gauge. Appendix A proves the trace-out performs a Jordan-Chevalley projection.
+Addresses the ontological status of the lattice, the physical interpretation of (S, φ), and which quantum field theory the embedded observer sees. Shows that the framework's theorems depend on six structural properties and on nothing else. The wave equation is uniquely selected by center independence, isotropy, and linearity (proved). It produces all inputs for Einstein's equations: area-law entropy, Lorentz-invariant dispersion, horizon thermality, and the Jacobson thermodynamic derivation — seven independent links, all analytically proven. The wave equation on a d = 3 lattice uniquely determines the Standard Model's structure: staggered Dirac fermions, chiral symmetry mandating the Higgs, three fermion generations, K = 2d = 6, multiplicities (3, 2, 1) from the cubic group, local gauge invariance from background independence, unique hypercharges from anomaly cancellation, chirality from the trace-out, and θ̄ = 0 at all energy scales. The primary derivation chain is proved end-to-end (29 theorems/lemmas). The reconstruction theorem proves a bidirectional correspondence: observed QM + Bell violations + finite entropy + isotropy ↔ [(S, φ)]/~ up to gauge.
 
 - [`Fundamental.md`](Fundamental.md) — Markdown source
 - [`Fundamental.tex`](Fundamental.tex) — LaTeX source
@@ -66,7 +56,7 @@ A companion overview covering the full argument — QM emergence, GR derivation,
 
 3. **Cosmological constant dissolution.** The 10¹²² discrepancy is S_dS — the information compression ratio of the emergent quantum description. The observed vacuum energy is the mandatory classical baseline. *Status: theorem.*
 
-4. **Dynamics selection and emergent GR.** The wave equation is uniquely selected by center independence, isotropy, and linearity. It produces all inputs for Einstein's equations via Jacobson's thermodynamic route. Seven links, all analytically proven. *Status: theorem.*
+4. **Dynamics selection and emergent general relativity.** The wave equation is uniquely selected by center independence, isotropy, and linearity. It produces all inputs for Einstein's equations via Jacobson's thermodynamic route. Seven links, all analytically proven. *Status: theorem.*
 
 5. **Structural foundations.** The lattice is the coupling graph of φ. The alphabet size q is a gauge freedom. The observer is generic (C2 is automatic for Hamiltonian dynamics). d = 3 is the unique self-consistent dimension. The fundamental object is (S, φ): a finite lossless memory. *Status: theorem.*
 
@@ -84,7 +74,11 @@ A companion overview covering the full argument — QM emergence, GR derivation,
 
 12. **Reconstruction theorem.** Observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/~. The SM gauge structure, three generations, θ̄ = 0, and ℏ = c³ε²/(4G) are retrodictions derived within the reconstruction, not inputs to it. The correspondence is bidirectional: the mathematical description and the physics determine each other up to gauge. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement — the framework identifies this as gauge. *Status: theorem (Fundamental, §10.6).*
 
-## The Derivation Chain
+## The Bidirectional Correspondence
+
+The forward derivation and the reconstruction theorem together establish a bidirectional correspondence: (S, φ) determines observed physics, and observed physics uniquely determines [(S, φ)]/∼. The mathematical description and the physics are informationally equivalent up to gauge.
+
+### Forward: From (S, φ) to Observed Physics
 
 ```
 (S, φ) — a finite lossless memory with bounded coupling and statistical isotropy
@@ -92,11 +86,11 @@ A companion overview covering the full argument — QM emergence, GR derivation,
   ├─→ V (observer) is generic (Fundamental, theorem)
   ├─→ d = 3 from self-consistency (Fundamental, theorem)
   ├─→ QM emergence (Main, theorem)
-  ├─→ Wave equation uniquely selected (GR, theorem)
+  ├─→ Wave equation uniquely selected (Fundamental, theorem)
   ├─→ ℏ = c³ε²/(4G), ε = 2l_p (Main, theorem)
-  ├─→ Bekenstein-Hawking entropy with 1/4 (Main/GR, theorem)
+  ├─→ Bekenstein-Hawking entropy with 1/4 (Main, theorem)
   ├─→ CC dissolution: 10¹²² = S_dS (Main, theorem)
-  ├─→ General relativity (GR, seven links — theorem)
+  ├─→ General relativity (Fundamental §5, seven links — theorem)
   ├─→ Wave eq. → KG → staggered Dirac fermions (Fundamental, theorem)
   ├─→ Center independence = chiral symmetry → Higgs (Fundamental, theorem)
   ├─→ K = 2d = 6 from coupling-degree minimization (Fundamental, theorem)
@@ -109,10 +103,24 @@ A companion overview covering the full argument — QM emergence, GR derivation,
   ├─→ θ̄ = 0 at all energy scales from bijection structure (Fundamental, theorem)
   ├─→ Trace-out = Jordan-Chevalley projection (Fundamental App. A, theorem)
   ├─→ Weil-Deligne conductor decomposes over gauge irreps (Fundamental App. A, theorem)
-  ├─→ Reconstruction: observed physics ↔ [(S,φ)]/~ (Fundamental §10.6, theorem)
   ├─→ Dark energy ν_OI ≈ 2.45×10⁻³ (Main, proposition)
   ├─→ Dark-sector concordance (Main, theorem — total budget)
   └─→ Arrow of time from coarse-graining (Fundamental, standard Boltzmann)
+```
+
+### Reverse: From Observed Physics to [(S, φ)]/∼
+
+```
+Observed QM + Bell violations + finite boundary entropy + spatial isotropy
+  │
+  ├─→ Stage 1: Stinespring dilation + characterization theorem
+  │     → deterministic embedding (S, φ, V) with C1–C3 (Main, theorem)
+  ├─→ Stage 2: Coupling graph + dynamics selection + filter chain
+  │     → d = 3, wave equation, SM gauge structure, θ̄ = 0 (Fundamental, theorem)
+  └─→ Stage 3: Thermal self-consistency
+        → ℏ = c³ε²/(4G), ε = 2l_p (Main, theorem)
+
+Output: [(S, φ)]/∼ uniquely determined at the lattice level (Fundamental §10.6, theorem)
 ```
 
 ## Contact
