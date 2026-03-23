@@ -9,7 +9,7 @@
 
 ## Abstract
 
-The Observational Incompleteness (OI) framework derives quantum mechanics and general relativity from a deterministic bijection on a finite lattice with a visible/hidden partition [1, 2]. This paper addresses two questions the derivations leave open: what is the lattice, and which quantum field theory does the embedded observer see?
+The Observational Incompleteness (OI) framework derives quantum mechanics and general relativity from a deterministic bijection on a finite lattice with a visible/hidden partition [1]. This paper addresses two questions the derivations leave open: what is the lattice, and which quantum field theory does the embedded observer see?
 
 For the first question, we show that the framework's results depend on six structural properties — deterministic bijectivity, finite boundary entropy, bounded coupling degree, statistical isotropy, non-trivial partition coupling, and slow-bath capacity — and on nothing else. The regular lattice, the alphabet size q, and the wave equation are all either derived from these properties or irrelevant to the predictions. The lattice is the coupling graph of the bijection: the adjacency structure defined by which degrees of freedom affect which others in one dynamical step. The product decomposition of the state space into "sites" — and hence space itself — is determined by the bijection as the unique factorization minimizing coupling degree. The alphabet size q is a gauge freedom. The spatial dimensionality d = 3 is selected by four independent self-consistency filters. The fundamental ontological commitment is minimal: a finite set, a bijection, and a partition. Everything else — space, time, dimensionality, quantum mechanics, general relativity — is emergent.
 
@@ -21,7 +21,7 @@ The reconstruction theorem establishes the converse: observed QM with Bell viola
 
 ## 1. Introduction
 
-The companion papers establish two results. The first [1] proves that an observer embedded in a deterministic system with a coupled, slow, high-capacity hidden sector necessarily describes the visible sector using quantum mechanics — and that these conditions are necessary and sufficient. The second [2] constructs a specific lattice system (the mod-q wave equation with a checkerboard partition) and shows it provides all inputs for Jacobson's thermodynamic derivation of Einstein's equations, with the dynamics uniquely selected by the QM requirement.
+The companion paper [1] proves that an observer embedded in a deterministic system with a coupled, slow, high-capacity hidden sector necessarily describes the visible sector using quantum mechanics — and that these conditions are necessary and sufficient. It also shows that the cosmological horizon realizes these conditions, determines ℏ = c³ε²/(4G), recovers the Bekenstein-Hawking entropy, and dissolves the cosmological constant discrepancy.
 
 Both papers use explicit constructions: a cubic lattice in d dimensions, an alphabet ℤ/qℤ at each site, nearest-neighbor coupling, a specific update rule. These constructions work — every link in the derivation chain is analytically proven. But they raise two questions. First, what is the ontological status of the lattice? Three readings are possible: literal (the lattice is physical reality), effective (the lattice approximates unknown structure), and structural (the physics lives in the equivalence class of systems sharing the lattice's structural properties, not in any particular representative). This paper argues for the structural reading and develops its consequences.
 
@@ -35,21 +35,21 @@ The paper is organized as follows. §§2–4 establish the structural foundation
 
 ### 2.1 What the theorems require
 
-Each assumption in the companion papers does specific work. The question is which assumptions are essential to the results and which are artifacts of the particular construction chosen.
+Each assumption in the companion paper [1] does specific work. The question is which assumptions are essential to the results and which are artifacts of the particular construction chosen.
 
 **Deterministic bijectivity.** The P-indivisibility proof [1, §2.3] requires a bijection on a finite set: bijectivity guarantees recurrence (φ^N = id), and recurrence produces the non-monotonic distinguishability that defines P-indivisibility. The entire framework rests on QM emerging from marginalizing deterministic dynamics — if the dynamics were already stochastic, there would be nothing to derive. Determinism is the core of the framework and cannot be weakened. However, determinism does not require a lattice. A continuous Hamiltonian system on a compact phase space is also deterministic and bijective (by Liouville's theorem). The lattice is one way to implement determinism on a finite set; it is not the only way.
 
-**Finite boundary entropy.** The gap equation [1, §5; 2, Theorem 3] requires a finite number of degrees of freedom across the partition boundary: S = A/ε². This follows from the holographic entropy bound [3] applied to any finite-area surface, not from lattice structure. What matters is that the boundary carries finitely many modes — not that the bulk is a lattice.
+**Finite boundary entropy.** The gap equation [1, §5] requires a finite number of degrees of freedom across the partition boundary: S = A/ε². This follows from the holographic entropy bound [3] applied to any finite-area surface, not from lattice structure. What matters is that the boundary carries finitely many modes — not that the bulk is a lattice.
 
-**Bounded coupling degree (locality).** This assumption does the most work. The area law [2, Theorem 4] follows from the spatial Markov property, which requires range-1 coupling. Without bounded coupling, long-range correlations could produce volume-law entropy, breaking the Jacobson route to GR. Locality does not require a regular lattice. Any bounded-degree graph has the spatial Markov property for range-1 dynamics. The theorems would work on a random graph with bounded degree, as long as it has the right statistical properties.
+**Bounded coupling degree (locality).** This assumption does the most work. The area law (§5) follows from the spatial Markov property, which requires range-1 coupling. Without bounded coupling, long-range correlations could produce volume-law entropy, breaking the Jacobson route to GR. Locality does not require a regular lattice. Any bounded-degree graph has the spatial Markov property for range-1 dynamics. The theorems would work on a random graph with bounded degree, as long as it has the right statistical properties.
 
-**Statistical homogeneity and isotropy.** The Myrheim-Meyer dimension [2, Theorem 2] requires a well-defined notion of spacetime dimension, which emerges from the causal order statistics on a homogeneous, isotropic structure. The dispersion relation [2, Theorem 5] uses translation invariance. The dynamics selection [2, Theorem 8] uses isotropy. Exact lattice regularity is sufficient but not necessary. A random graph with statistical homogeneity and isotropy at large scales would produce the same results.
+**Statistical homogeneity and isotropy.** The Myrheim-Meyer dimension [4] requires a well-defined notion of spacetime dimension, which emerges from the causal order statistics on a homogeneous, isotropic structure. The dispersion relation (§5) uses translation invariance. The dynamics selection (§7.1) uses isotropy. Exact lattice regularity is sufficient but not necessary. A random graph with statistical homogeneity and isotropy at large scales would produce the same results.
 
 **Non-trivial coupling (C1) and slow bath with capacity (C2, C3).** These are conditions on the partition, not on the lattice. They hold for any system with the right partition geometry, regardless of whether the underlying space is a lattice, a graph, or something else.
 
 ### 2.2 What the theorems do not require
 
-A *regular lattice*. Any bounded-degree graph with statistical isotropy suffices. A *specific alphabet size q*. All proofs work for any q ≥ 2; no prediction depends on q. A *specific dimensionality d*. The proofs work for any d ≥ 1; self-consistency selects d = 3 (§6). The *wave equation*. It is derived from center independence, isotropy, and linearity [2, Theorem 8], each of which follows from the structural properties listed above.
+A *regular lattice*. Any bounded-degree graph with statistical isotropy suffices. A *specific alphabet size q*. All proofs work for any q ≥ 2; no prediction depends on q. A *specific dimensionality d*. The proofs work for any d ≥ 1; self-consistency selects d = 3 (§6). The *wave equation*. It is derived from center independence, isotropy, and linearity (§7.1), each of which follows from the structural properties listed above.
 
 ### 2.3 The minimal object
 
@@ -87,7 +87,7 @@ Two systems (S, φ) and (S', φ') with different alphabet sizes q and q' are *ph
 
 ## 5. Background Independence
 
-The companion papers treat the coupling graph as fixed. In general relativity, the spacetime geometry is dynamical. If space is the coupling graph, background independence requires the graph to evolve with the state: s(t+1) = φ_{s(t)}(s(t)), where each φ_s is a bijection but G_{φ_s} varies with s.
+The companion paper [1] treats the coupling graph as fixed. In general relativity, the spacetime geometry is dynamical. If space is the coupling graph, background independence requires the graph to evolve with the state: s(t+1) = φ_{s(t)}(s(t)), where each φ_s is a bijection but G_{φ_s} varies with s.
 
 **Bijectivity is automatic.** The wave equation is second-order: x_i(t+1) = f(neighbors of i at time t) − x_i(t−1) mod q. The phase-space map F: (x(t−1), x(t)) → (x(t), x(t+1)) has an explicit inverse that uses x(t) to determine which graph to apply. Bijectivity of the phase-space map is automatic for any second-order reversible dynamics, regardless of whether the coupling is state-dependent. The P-indivisibility proof applies without modification.
 
@@ -103,7 +103,19 @@ $$\phi(\mathbf{n}) \to G(\mathbf{n})\,\phi(\mathbf{n}), \qquad M(\mathbf{n}, \ha
 
 The wave equation is invariant. This is local gauge invariance. The link variable $M(\mathbf{n}, \hat{e}_j)$ transforms as a gauge connection: the plaquette product $P(\mathbf{n}, j, k) = M(\mathbf{n}, \hat{e}_j)\,M(\mathbf{n}+\hat{e}_j, \hat{e}_k)\,M(\mathbf{n}+\hat{e}_k, \hat{e}_j)^{-1}\,M(\mathbf{n}, \hat{e}_k)^{-1}$ transforms in the adjoint ($P \to G(\mathbf{n})\,P\,G(\mathbf{n})^{-1}$), so $\mathrm{Re\,Tr}(P)$ is gauge-invariant — it is the Wilson plaquette action [9], now derived rather than postulated.
 
-**Einstein's equations as self-consistency.** The Jacobson argument [2, Theorem 7], applied to local causal horizons on the state-dependent graph, produces the discrete Einstein equation.
+**Einstein's equations as self-consistency.** The Jacobson thermodynamic argument [24], applied to local causal horizons on the state-dependent graph, requires three inputs — each proved here for the wave equation.
+
+**Lemma** (Area law). *The entanglement entropy of a spatial region V in the wave equation scales as $S(V) = \eta\,|\partial V|$. This holds for both the linear wave equation over $\mathbb{R}$ and the mod-q wave equation over $\mathbb{Z}/q\mathbb{Z}$.*
+
+*Proof.* Over $\mathbb{R}$: the wave equation is a system of coupled harmonic oscillators with a quadratic Hamiltonian determined by the adjacency matrix. The area-law theorem for Gaussian systems applies directly [2]. Over $\mathbb{Z}/q\mathbb{Z}$: the wave equation has range $R = 1$, so for any $i \in V°$ (interior of $V$), all neighbors lie inside $V$. With uniform initial conditions: $V° \perp V^c \mid \partial V$ (spatial Markov property). By the chain rule: $I(V;\, V^c) = I(\partial V;\, V^c) \leq H(\partial V) \leq |\partial V| \cdot \log_2 q$. The mutual information scales as boundary area, not volume. $\square$
+
+**Lemma** (Relativistic dispersion). *The wave equation has exact dispersion relation $\cos\omega = \cos k$.*
+
+*Proof.* Substituting $x_j(t) = A\exp(i(kj - \omega t))$: $e^{-i\omega} + e^{i\omega} = e^{-ik} + e^{ik}$, giving $\cos\omega = \cos k$. For small $k$: $\omega = |k| + O(k^3)$ — relativistic propagation with $v = 1$. $\square$
+
+**Lemma** (Lattice Bisognano-Wichmann). *For the wave equation, whose low-energy effective theory is Lorentz-invariant, the entanglement Hamiltonian for a half-space bipartition has the Bisognano-Wichmann form. The reduced state for a Rindler observer is thermal at $T_U = \hbar\kappa/(2\pi c k_B)$, with corrections at $O(\varepsilon^2\kappa^2/c^2)$.*
+
+*Proof.* The mod-q wave equation is a coupled harmonic oscillator system — the class for which the lattice BW theorem is proved analytically [23]. Its low-energy dispersion is relativistic (the preceding lemma). Thermality of the Unruh effect is robust against UV modifications of the dispersion relation, with corrections scaling as $O(\varepsilon^2\kappa^2/c^2)$. $\square$
 
 **Theorem** (Discrete Einstein equation). *For the state-dependent wave equation on a bounded-degree graph G(x) satisfying constraints (i)–(iii), the Jacobson thermodynamic argument produces:*
 
@@ -111,9 +123,17 @@ $$\kappa_{OR}(i, j;\, G(x)) = \alpha \cdot \mathcal{T}_{ij}(x,\, G(x))$$
 
 *where $\kappa_{OR}$ is the Ollivier-Ricci curvature [21], $\mathcal{T}_{ij}$ is the discrete stress-energy, and $\alpha = 8\pi G/(c^4 \eta)$.*
 
-*Proof.* (i) *Area law.* The entanglement entropy of a connected subgraph V scales as $S(V) = \eta\,|\partial V|$ [2, Theorem 4], holding for any bounded-degree graph. (ii) *Unruh temperature.* The lattice Bisognano-Wichmann theorem [2, Theorem 6] gives $T = \hbar\kappa/(2\pi c k_B)$ at local causal horizons for any graph with Lorentz-invariant low-energy dispersion. (iii) *Clausius relation.* At each edge $(i,j)$: the area variation under graph deformation is captured by $\kappa_{OR}$ (which measures, via optimal transport, the deviation from flat space), giving $\delta A / A = -\kappa_{OR}\,\delta\lambda$. Substituting into $\delta Q = T\,\delta S$: $\mathcal{T}_{ij}\,\delta\lambda\,\delta A = T \cdot \eta \cdot (-\kappa_{OR}\,\delta\lambda\,A)$, which rearranges to $\kappa_{OR} = \alpha \cdot \mathcal{T}_{ij}$. (iv) *Continuum limit.* Van der Hoorn et al. [15] prove $\kappa_{OR} \to \mathrm{Ric}$ on random geometric graphs converging to a Riemannian manifold. Kelly et al. [16] prove $\sum \kappa_{OR} \to \int R\,\sqrt{g}\,d^dx$. Together: the discrete Einstein equation converges to $G_{\mu\nu} + \Lambda g_{\mu\nu} = (8\pi G/c^4)\,T_{\mu\nu}$. $\square$
+*Proof.* (i) *Area law.* The entanglement entropy scales as $S(V) = \eta\,|\partial V|$ (area-law lemma above), holding for any bounded-degree graph with range-1 dynamics. (ii) *Unruh temperature.* The lattice Bisognano-Wichmann lemma gives $T = \hbar\kappa/(2\pi c k_B)$ at local causal horizons. (iii) *Clausius relation.* At each edge $(i,j)$: the area variation under graph deformation is captured by $\kappa_{OR}$ (which measures, via optimal transport, the deviation from flat space), giving $\delta A / A = -\kappa_{OR}\,\delta\lambda$. Substituting into $\delta Q = T\,\delta S$: $\mathcal{T}_{ij}\,\delta\lambda\,\delta A = T \cdot \eta \cdot (-\kappa_{OR}\,\delta\lambda\,A)$, which rearranges to $\kappa_{OR} = \alpha \cdot \mathcal{T}_{ij}$. (iv) *Continuum limit.* Van der Hoorn et al. [15] prove $\kappa_{OR} \to \mathrm{Ric}$ on random geometric graphs converging to a Riemannian manifold. Kelly et al. [16] prove $\sum \kappa_{OR} \to \int R\,\sqrt{g}\,d^dx$. Together: the discrete Einstein equation converges to $G_{\mu\nu} + \Lambda g_{\mu\nu} = (8\pi G/c^4)\,T_{\mu\nu}$. $\square$
 
 Every orbit is self-consistent by construction: the state determines the graph, which determines the entropy and temperature, and the Clausius relation constrains the graph's response to energy flux — paralleling continuum GR where the Einstein equations are the equations of motion, not constraints on separate dynamics. The mathematical framework is unchanged: the full dynamics F(u, v) = (v, WE_{G(v)}(v) − u) is a single bijection on the finite phase space. The ontological object is still (S, F, V).
+
+**Lattice corrections to Einstein's equations.** The derivation invokes continuum results in the final step (Jacobson). Decomposing Jacobson's argument into its four inputs and checking each independently: (i) $\delta S = \eta\,\delta A/\varepsilon^2$ (area-law entropy) — proved for Gaussian systems over $\mathbb{R}$ [2] and for any nearest-neighbor dynamics over $\mathbb{Z}/q\mathbb{Z}$ via the spatial Markov property (area-law lemma above). No Lorentz invariance enters. **Exact on the lattice.** (ii) $T = \hbar\kappa/(2\pi c k_B)$ (Unruh temperature) — requires the Bisognano-Wichmann theorem. On the lattice, the BW form is proved analytically for coupled harmonic oscillator systems [23] and shown robust against UV modifications of the dispersion relation with corrections at $O(\varepsilon^2\kappa^2/c^2)$. **Approximate.** (iii) $\delta Q = \int T_{\mu\nu} k^\mu d\Sigma^\nu$ (energy flux) — a definition on the emergent manifold. No Lorentz invariance required. **Exact.** (iv) The Raychaudhuri equation — kinematic: it holds on any pseudo-Riemannian manifold as a consequence of the definition of curvature. **Exact.** Since inputs (i), (iii), and (iv) are lattice-exact, corrections enter only through input (ii):
+
+$$G_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu} \times \left[1 + \mathcal{O}\!\left(\frac{\varepsilon^2 \kappa^2}{c^2}\right)\right]$$
+
+For the cosmological horizon, $\varepsilon\kappa/c = 2l_P \cdot H/c \sim 10^{-61}$, giving corrections of order $10^{-122}$. For solar-mass black holes, $\varepsilon\kappa/c \sim 10^{-38}$, giving corrections of order $10^{-76}$. The corrections are negligible for any horizon much larger than the Planck scale.
+
+**The $\eta = 1/4$ coefficient.** The Bekenstein-Hawking formula $S = A/(4l_P^2)$ follows from $\varepsilon = 2l_P$ (the gap equation [1, §5]): one entropy unit per cell of area $\varepsilon^2 = 4l_P^2$, giving $S = A/\varepsilon^2 = A/(4l_P^2)$. This cannot be confirmed via entanglement entropy because of the species problem — the entanglement entropy coefficient is species-dependent (Srednicki found $\eta_{\text{ent}} \approx 0.295$ per scalar field), while the BH entropy is species-independent. The thermal matching route avoids this by counting classical boundary degrees of freedom (one per $\varepsilon^2$ cell, independent of field content) rather than any particular field's vacuum entanglement.
 
 ---
 
@@ -157,11 +177,23 @@ Only *integer-polynomial growth* survives. By Gromov's theorem (finitely generat
 
 ## 7. The Emergent Quantum Field Theory
 
-The wave equation on a d = 3 lattice determines not just QM and GR but the specific QFT the observer sees. This section derives the Standard Model's structure through three complementary routes: bottom-up (§§7.1–7.5), gauge emergence (§§7.6–7.9), and top-down (§§7.10–7.12).
+The wave equation on a d = 3 lattice determines not just QM and GR but the specific QFT the observer sees. This section derives the Standard Model's structure through three complementary routes: bottom-up from the lattice dynamics to fermionic matter (§§7.1–7.3), gauge emergence from multi-component dynamics (§§7.4–7.6), and the staggered species / consistency constraints that fix the matter content and discrete symmetries (§§7.7–7.12).
 
 ### 7.1 The wave equation as lattice Klein-Gordon
 
-The OI lattice is a d-dimensional hypercubic lattice Λ = ℤ^d with spacing ε = 2 l_p. Among all second-order reversible nearest-neighbor dynamics, center independence (required for emergent QM), spatial isotropy, and linearity uniquely select the discrete wave equation [2, Theorem 8]:
+The OI lattice is a d-dimensional hypercubic lattice Λ = ℤ^d with spacing ε = 2 l_p. The dynamics on this lattice is not a free choice — it is uniquely determined by three requirements.
+
+**Theorem** (Dynamics selection). *Among all second-order reversible nearest-neighbor dynamics on a d-dimensional lattice of alphabet size q, the requirements of (i) center independence, (ii) spatial isotropy, and (iii) linearity uniquely select the discrete wave equation. This holds for any q ≥ 2 and d ≥ 1.*
+
+*Proof.* The update function has the form $x_i(t+1) = (f(\text{neighbors of } i \text{ at time } t) - x_i(t-1)) \bmod q$. Center independence requires that $f$ not depend on $x_i$ itself: $f$ reduces to a function of the $2d$ neighboring values only. Spatial isotropy requires $f$ to be symmetric under all permutations of the neighbors corresponding to lattice symmetries. Linearity over $\mathbb{Z}/q\mathbb{Z}$ requires $f(a + a') = f(a) + f(a')$. The unique function satisfying all three is $f = \alpha(x_1 + x_2 + \cdots + x_{2d}) \bmod q$ for some constant $\alpha$. The propagation speed is $v = \alpha$, so $\alpha = 1$ gives the maximum lattice-scale speed. This is the discrete wave equation. $\square$
+
+Each requirement has a physical justification.
+
+*Center independence is necessary for emergent QM.* The mechanism is information screening. For the checkerboard partition, the adjacency matrix $A$ is bipartite: $A_{VV} = 0$ (no visible–visible edges). In the center-independent (CI) case, the update $x_i(t+1) = [h_{i-1}(t) + h_{i+1}(t) - x_i(t-1)] \bmod q$ does not contain $x_i(t)$. Therefore $X_V(t+1)$ carries no information about $X_V(t)$; conditioning on $X_V(t+1)$ constrains $H(t)$ but does not screen $X_V(t)$ from the future. Since $H(t+1)$ depends on $X_V(t)$, the path $X_V(t) \to H(t+1) \to X_V(t+2)$ bypasses the present: the process is non-Markovian. In the center-dependent (CD) case, the update $x_i(t+1) = [x_i(t) + h_{i-1}(t) + h_{i+1}(t) - x_i(t-1)] \bmod q$ contains $x_i(t)$ explicitly. Conditioning on $(X_V(t), X_V(t+1))$ gives $|V|$ linear equations in $|H|$ unknowns over $\mathbb{Z}/q\mathbb{Z}$; generically (for $q$ prime) the hidden state $H(t)$ is fully determined, so the augmented process is Markov. Center coupling makes the present an explicit function of the visible past, allowing it to determine the hidden state and screen the past from the future. Without center coupling, the hidden sector retains unscreened correlations — which is P-indivisibility.
+
+*Spatial isotropy is required for Lorentz invariance:* without rotational symmetry, the dynamics has a preferred spatial direction, breaking the isotropy that Lorentz invariance demands.
+
+*Linearity is selected by three independent criteria.* First, over $\mathbb{R}$, nonlinear center-independent dynamics have propagation speed $v < 1$, so linearity gives maximum speed. Second, over $\mathbb{Z}/q\mathbb{Z}$, among all linear CI dynamics $f = \alpha(l + r) \bmod q$ with prime $q \geq 5$, $\alpha = 1$ uniquely maximizes P-indivisibility. Third, modified (nonlinear) dispersion relations break the thermality of the Unruh effect — the KMS condition holds only for linear dispersion $\omega = |k|$. Since the Jacobson derivation (§5) requires thermal equilibrium at horizons, only the wave equation supports the full GR chain. All three criteria converge on the same dynamics.
 
 $$\phi(n, t+1) = \phi(n-1, t) + \phi(n+1, t) - \phi(n, t-1)$$
 
@@ -227,7 +259,7 @@ The max-speed constraint requires μ_y = 1 (the A₁ mode propagates at the latt
 
 ### 7.7 Staggered species, generations, and the Higgs
 
-The Nielsen-Ninomiya theorem requires $2^{d+1}$ Weyl species. Staggered reduction gives $N_{\text{taste}} = 2^{\lfloor(d+1)/2\rfloor} = 4$ Dirac tastes in d+1 = 4.
+The Nielsen-Ninomiya theorem [8] requires $2^{d+1}$ Weyl species. Staggered reduction gives $N_{\text{taste}} = 2^{\lfloor(d+1)/2\rfloor} = 4$ Dirac tastes in d+1 = 4.
 
 **Theorem 8.** *Under the cubic group O: $4 = \mathbf{1} \oplus \mathbf{3}$. One singlet taste and three triplet tastes.*
 
@@ -273,7 +305,7 @@ $$\mu_\Gamma = 1, \quad \mu_X = \tfrac{1}{3}, \quad \mu_M = -\tfrac{1}{3}, \quad
 
 *Proof.* Each factor of the commutant decomposes as $\mathrm{U}(n_i) = \mathrm{SU}(n_i) \times \mathrm{U}(1)_i$. For K = 6 with multiplicities (3, 2, 1): $G = [\mathrm{SU}(3) \times \mathrm{U}(1)_B] \times [\mathrm{SU}(2) \times \mathrm{U}(1)_L] \times \mathrm{U}(1)_S$. Three U(1) factors exist automatically. A general abelian charge is $Q = \alpha B + \beta L + \gamma S$. Given SU(3) × SU(2) and the minimal fermion content (5 representations per generation), the six anomaly conditions impose 4 independent constraints on the 5 hypercharge unknowns, leaving exactly one free parameter (overall normalization). There is therefore exactly one anomaly-free U(1). $\square$
 
-**Theorem 15** (Unique hypercharges). *Given $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ with fermions in fundamental or singlet representations, the six anomaly conditions uniquely determine the hypercharges* [10]:
+**Theorem 15** (Unique hypercharges). *Given $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ with fermions in fundamental or singlet representations, the six anomaly conditions [11] uniquely determine the hypercharges* [10]:
 
 $$Y_Q = \tfrac{1}{6}, \quad Y_u = \tfrac{2}{3}, \quad Y_d = -\tfrac{1}{3}, \quad Y_L = -\tfrac{1}{2}, \quad Y_e = -1$$
 
@@ -335,7 +367,7 @@ The checkerboard partition marginalizes over spatial sites, not temporal data. I
 
 *Remark.* This proof bypasses the instanton question. T-invariance of the transition probabilities is an exact consequence of the bijection structure, holding at every time scale without perturbative or non-perturbative approximation. The RG flow cannot generate T-violation because the underlying bijection structure forbids it at every scale.
 
-**Prediction:** $\bar{\theta} = 0$ exactly. No axion needed. Neutron EDM should be exactly zero.
+**Prediction:** $\bar{\theta} = 0$ exactly. No axion needed. Neutron EDM should be exactly zero (current bound: $|d_n| < 1.8 \times 10^{-26}\;e\cdot\text{cm}$ [22]).
 
 ---
 
@@ -373,7 +405,7 @@ C3: $|H| = N - |V| \geq 2N/3$. The hidden-sector configuration space has $q^{|H|
 
 ### 9.5 Relation to other approaches
 
-**Causal set theory.** The bijection φ with coupling graph G_φ generates a causal partial order that is a causal set in the sense of Bombelli-Lee-Meyer-Sorkin [4]. The OI framework provides what CST lacks: a deterministic dynamics that provably produces both QM and GR. The CST Hauptvermutung corresponds to the Myrheim-Meyer dimension result [2, Theorem 2].
+**Causal set theory.** The bijection φ with coupling graph G_φ generates a causal partial order that is a causal set in the sense of Bombelli-Lee-Meyer-Sorkin [4]. The OI framework provides what CST lacks: a deterministic dynamics that provably produces both QM and GR. The CST Hauptvermutung corresponds to the Myrheim-Meyer dimension result [4].
 
 **'t Hooft [17].** Agrees on emergent QM from determinism but differs: OI requires bijectivity (not information loss), violates outcome independence (not superdeterminism), and derives ℏ, S_BH, and Einstein's equations.
 
@@ -409,9 +441,9 @@ Four axioms: deterministic dynamics, finiteness, a causal partition into visible
 
 Under these axioms and conditions, the visible-sector reduced dynamics is P-indivisible, equivalent to unitary quantum mechanics. The conditions are necessary and sufficient. Applied to the cosmological horizon: the gap equation ℏ = c³ε²/(4G), the Bekenstein-Hawking formula with the 1/4 factor, dissolution of the 10¹²² CC discrepancy, and dark sector concordance (~95% of ρ_crit invisible to the emergent QFT). Falsifiable predictions: dark energy evolution and GW echoes.
 
-### 10.3 The rigidity test [2]
+### 10.3 The rigidity test
 
-Center independence, isotropy, and linearity uniquely select the wave equation. Seven links — all analytically proven — provide all inputs for Einstein's equations. The dynamics selected by QM emergence passes every GR test with no free parameters.
+Center independence, isotropy, and linearity uniquely select the wave equation (§7.1). The wave equation produces all inputs for Einstein's equations: area-law entropy, Lorentz-invariant dispersion, horizon thermality, and the Jacobson thermodynamic derivation (§5). Seven independent links — dynamics selection, emergent spacetime dimension, the gap equation, the area law, relativistic dispersion, the Unruh temperature, and Einstein's equations — are all analytically proven. The dynamics selected by QM emergence passes every GR test with no free parameters.
 
 ### 10.4 The structural foundations and emergent SM [this paper]
 
@@ -435,7 +467,7 @@ The $10^{122}$ CC discrepancy is the compression ratio between total storage and
 
 ### 10.6 The reconstruction theorem
 
-The forward direction — from (S, φ) to observed physics — is established by §§7–8 and the companion papers. The converse question is whether the observed physics uniquely determines (S, φ). The reconstruction proceeds in three stages.
+The forward direction — from (S, φ) to observed physics — is established by §§5, 7–8 and the companion paper [1]. The converse question is whether the observed physics uniquely determines (S, φ). The reconstruction proceeds in three stages.
 
 **Stage 1: From observed QM to deterministic embedding.**
 
@@ -451,13 +483,13 @@ The finite-entropy condition has independent justification from holographic boun
 
 *Additional empirical input:* Spatial isotropy.
 
-*Derivation.* The coupling graph gives d = 3 (§6). Center independence + isotropy + linearity uniquely select the wave equation [2, Theorem 8]. The wave equation determines the full SM structure: K = 2d = 6 (Theorem 6), cubic decomposition (3,2,1) (Theorem 7), local gauge invariance (§5), staggered species → three generations + one Higgs (Theorems 8–11), partition-spinor identification (Theorem 12), chirality (Theorem 13), anomaly cancellation (Theorems 14–15), T-invariance → θ̄ = 0 (Theorems 17–21).
+*Derivation.* The coupling graph gives d = 3 (§6). Center independence + isotropy + linearity uniquely select the wave equation (§7.1). The wave equation determines the full SM structure: K = 2d = 6 (Theorem 6), cubic decomposition (3,2,1) (Theorem 7), local gauge invariance (§5), staggered species → three generations + one Higgs (Theorems 8–11), partition-spinor identification (Theorem 12), chirality (Theorem 13), anomaly cancellation (Theorems 14–15), T-invariance → θ̄ = 0 (Theorems 17–21).
 
 *Output:* Dynamics, dimension, gauge group, matter content, and discrete symmetries are all derived. The SM structure is a retrodiction checked against observation. *Status:* Theorem at the lattice level.
 
 **Stage 3: From the dynamics to the emergent constants.**
 
-*No additional input.* The gap equation from thermal self-consistency [1, §5; 2, Theorem 3] gives $\hbar = c^3 \epsilon^2 / (4G)$ with ε = 2 l_p. *Status:* Theorem.
+*No additional input.* The gap equation from thermal self-consistency [1, §5] gives $\hbar = c^3 \epsilon^2 / (4G)$ with ε = 2 l_p. *Status:* Theorem.
 
 **Theorem 23** (Layered reconstruction). *Observed quantum mechanics with Bell violations and finite boundary entropy, together with spatial isotropy, uniquely determine — at the lattice level — the equivalence class $[(S, \varphi)]/\!\sim$: a finite set with a bijection of bounded coupling degree and statistical isotropy, with d = 3, K = 6, coupling matrix eigenvalue multiplicities (3, 2, 1), $\bar{\theta} = 0$, and $\hbar = c^3 \epsilon^2/(4G)$.*
 
@@ -483,7 +515,7 @@ The lattice in the OI framework is not a physical substrate. It is the coupling 
 
 The fundamental object is (S, φ) — a finite set and a bijection. Physically: a finite lossless memory. The partition V is derived (any small subgraph sees QM). The dimension d = 3 is derived (four independent filters converge). The gauge group, matter content, and discrete symmetries are derived (the primary chain is proved end-to-end).
 
-From (S, φ) alone: the factorization into sites is derived (§3.1), the wave equation is derived (§2.2), d = 3 is derived (§6), q-gauge freedom is established (§4), background independence is achieved (§5), the observer is derived (§9.4), QM is derived [1], GR is derived [2], and the Standard Model is derived (§7) — with no free parameters except the specific bijection φ. The reconstruction theorem (§10.6) establishes the converse: observed physics uniquely determines [(S, φ)]/∼ at the lattice level. The universe is completely described by a finite memory that never forgets. Physics is what that memory looks like from inside — and what it looks like from inside uniquely determines what it is.
+From (S, φ) alone: the factorization into sites is derived (§3.1), the wave equation is derived (§2.2), d = 3 is derived (§6), q-gauge freedom is established (§4), background independence is achieved (§5), the observer is derived (§9.4), QM is derived [1], GR is derived (§5), and the Standard Model is derived (§7) — with no free parameters except the specific bijection φ. The reconstruction theorem (§10.6) establishes the converse: observed physics uniquely determines [(S, φ)]/∼ at the lattice level. The universe is completely described by a finite memory that never forgets. Physics is what that memory looks like from inside — and what it looks like from inside uniquely determines what it is.
 
 ---
 
@@ -497,7 +529,7 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 
 [1] A. Maybaum, "The Incompleteness of Observation," submitted to Foundations of Physics (2026).
 
-[2] A. Maybaum, "Dynamics Selection and Emergent General Relativity in the Observational Incompleteness Framework" (2026).
+[2] J. Eisert, M. Cramer, and M. B. Plenio, "Area laws for the entanglement entropy," *Rev. Mod. Phys.* **82**, 277 (2010).
 
 [3] R. Bousso, "The holographic principle," *Rev. Mod. Phys.* **74**, 825 (2002).
 
@@ -538,6 +570,10 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [21] Y. Ollivier, "Ricci curvature of Markov chains on metric spaces," *J. Funct. Anal.* **256**, 810 (2009).
 
 [22] C. Abel et al., "Measurement of the permanent electric dipole moment of the neutron," *Phys. Rev. Lett.* **124**, 081803 (2020).
+
+[23] V. Eisler, "On the Bisognano-Wichmann entanglement Hamiltonian of nonrelativistic fermions," *J. Stat. Mech.* (2025) 013101.
+
+[24] T. Jacobson, "Thermodynamics of Spacetime: The Einstein Equation of State," *Phys. Rev. Lett.* **75**, 1260 (1995).
 
 ---
 

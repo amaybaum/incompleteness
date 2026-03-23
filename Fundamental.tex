@@ -428,6 +428,47 @@ unchanged: the full dynamics F(u, v) = (v, WE\_\{G(v)\}(v) − u) is a
 single bijection on the finite phase space. The ontological object is
 still (S, F, V).
 
+\textbf{Lattice corrections to Einstein's equations.} The derivation
+invokes continuum results in the final step (Jacobson). Decomposing
+Jacobson's argument into its four inputs and checking each
+independently: (i) \(\delta S = \eta\,\delta A/\varepsilon^2\) (area-law
+entropy) --- proved for Gaussian systems over \(\mathbb{R}\) {[}2{]} and
+for any nearest-neighbor dynamics over \(\mathbb{Z}/q\mathbb{Z}\) via
+the spatial Markov property (area-law lemma above). No Lorentz
+invariance enters. \textbf{Exact on the lattice.} (ii)
+\(T = \hbar\kappa/(2\pi c k_B)\) (Unruh temperature) --- requires the
+Bisognano-Wichmann theorem. On the lattice, the BW form is proved
+analytically for coupled harmonic oscillator systems {[}23{]} and shown
+robust against UV modifications of the dispersion relation with
+corrections at \(O(\varepsilon^2\kappa^2/c^2)\). \textbf{Approximate.}
+(iii) \(\delta Q = \int T_{\mu\nu} k^\mu d\Sigma^\nu\) (energy flux) ---
+a definition on the emergent manifold. No Lorentz invariance required.
+\textbf{Exact.} (iv) The Raychaudhuri equation --- kinematic: it holds
+on any pseudo-Riemannian manifold as a consequence of the definition of
+curvature. \textbf{Exact.} Since inputs (i), (iii), and (iv) are
+lattice-exact, corrections enter only through input (ii):
+
+\[G_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu} \times \left[1 + \mathcal{O}\!\left(\frac{\varepsilon^2 \kappa^2}{c^2}\right)\right]\]
+
+For the cosmological horizon,
+\(\varepsilon\kappa/c = 2l_P \cdot H/c \sim 10^{-61}\), giving
+corrections of order \(10^{-122}\). For solar-mass black holes,
+\(\varepsilon\kappa/c \sim 10^{-38}\), giving corrections of order
+\(10^{-76}\). The corrections are negligible for any horizon much larger
+than the Planck scale.
+
+\textbf{The \(\eta = 1/4\) coefficient.} The Bekenstein-Hawking formula
+\(S = A/(4l_P^2)\) follows from \(\varepsilon = 2l_P\) (the gap equation
+{[}1, §5{]}): one entropy unit per cell of area
+\(\varepsilon^2 = 4l_P^2\), giving \(S = A/\varepsilon^2 = A/(4l_P^2)\).
+This cannot be confirmed via entanglement entropy because of the species
+problem --- the entanglement entropy coefficient is species-dependent
+(Srednicki found \(\eta_{\text{ent}} \approx 0.295\) per scalar field),
+while the BH entropy is species-independent. The thermal matching route
+avoids this by counting classical boundary degrees of freedom (one per
+\(\varepsilon^2\) cell, independent of field content) rather than any
+particular field's vacuum entanglement.
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{why-d-3}{%
@@ -558,16 +599,44 @@ unique function satisfying all three is
 gives the maximum lattice-scale speed. This is the discrete wave
 equation. \(\square\)
 
-Each requirement has a physical justification. \emph{Center independence
-is necessary for emergent QM:} center dependence allows the present
-visible state to screen the past from the future via the hidden sector,
-suppressing P-indivisibility. \emph{Spatial isotropy is required for
-Lorentz invariance:} without rotational symmetry, the dynamics has a
-preferred spatial direction. \emph{Linearity gives maximum propagation
-speed:} among all center-independent, isotropic dynamics, only the
-linear wave equation achieves \(v = 1\); linearity is also uniquely
-selected by maximum P-indivisibility and by horizon thermality (the KMS
-condition requires linear dispersion).
+Each requirement has a physical justification.
+
+\emph{Center independence is necessary for emergent QM.} The mechanism
+is information screening. For the checkerboard partition, the adjacency
+matrix \(A\) is bipartite: \(A_{VV} = 0\) (no visible--visible edges).
+In the center-independent (CI) case, the update
+\(x_i(t+1) = [h_{i-1}(t) + h_{i+1}(t) - x_i(t-1)] \bmod q\) does not
+contain \(x_i(t)\). Therefore \(X_V(t+1)\) carries no information about
+\(X_V(t)\); conditioning on \(X_V(t+1)\) constrains \(H(t)\) but does
+not screen \(X_V(t)\) from the future. Since \(H(t+1)\) depends on
+\(X_V(t)\), the path \(X_V(t) \to H(t+1) \to X_V(t+2)\) bypasses the
+present: the process is non-Markovian. In the center-dependent (CD)
+case, the update
+\(x_i(t+1) = [x_i(t) + h_{i-1}(t) + h_{i+1}(t) - x_i(t-1)] \bmod q\)
+contains \(x_i(t)\) explicitly. Conditioning on \((X_V(t), X_V(t+1))\)
+gives \(|V|\) linear equations in \(|H|\) unknowns over
+\(\mathbb{Z}/q\mathbb{Z}\); generically (for \(q\) prime) the hidden
+state \(H(t)\) is fully determined, so the augmented process is Markov.
+Center coupling makes the present an explicit function of the visible
+past, allowing it to determine the hidden state and screen the past from
+the future. Without center coupling, the hidden sector retains
+unscreened correlations --- which is P-indivisibility.
+
+\emph{Spatial isotropy is required for Lorentz invariance:} without
+rotational symmetry, the dynamics has a preferred spatial direction,
+breaking the isotropy that Lorentz invariance demands.
+
+\emph{Linearity is selected by three independent criteria.} First, over
+\(\mathbb{R}\), nonlinear center-independent dynamics have propagation
+speed \(v < 1\), so linearity gives maximum speed. Second, over
+\(\mathbb{Z}/q\mathbb{Z}\), among all linear CI dynamics
+\(f = \alpha(l + r) \bmod q\) with prime \(q \geq 5\), \(\alpha = 1\)
+uniquely maximizes P-indivisibility. Third, modified (nonlinear)
+dispersion relations break the thermality of the Unruh effect --- the
+KMS condition holds only for linear dispersion \(\omega = |k|\). Since
+the Jacobson derivation (§5) requires thermal equilibrium at horizons,
+only the wave equation supports the full GR chain. All three criteria
+converge on the same dynamics.
 
 \[\phi(n, t+1) = \phi(n-1, t) + \phi(n+1, t) - \phi(n, t-1)\]
 
