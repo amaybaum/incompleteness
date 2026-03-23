@@ -22,7 +22,7 @@ The framework is tested for rigidity: the dynamics uniquely selected by the QM r
 
 **"The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
 
-Submitted to Foundations of Physics. Establishes the QM–embedded observation equivalence (Part I), applies it to the cosmological horizon (Part II), and derives the dark-sector concordance (Part III).
+Submitted to Foundations of Physics. Establishes the QM–embedded observation equivalence (Part I), applies it to the cosmological horizon (Part II), and derives the dark-sector concordance as a corollary.
 
 - [`Main.md`](Main.md) — Markdown source
 - [`Main.tex`](Main.tex) — LaTeX source
