@@ -1,51 +1,154 @@
 \documentclass[11pt,a4paper]{article}
-
-% XeLaTeX font support
-\usepackage{fontspec}
-\defaultfontfeatures{Ligatures=TeX}
-\usepackage{microtype}
-
-% Page geometry
 \usepackage[margin=1in]{geometry}
-
-% Math
-\usepackage{amsmath,amssymb,amsfonts,amsthm}
-\usepackage{mathtools}
-
-% Tables
-\usepackage{longtable,booktabs,array}
-\usepackage{multirow}
-
-% Graphics and color
-\usepackage{xcolor}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{longtable}
 \usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{textcomp}
+\usepackage{newunicodechar}
 
-% Links
-\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
-\usepackage{bookmark}
+% Unicode character definitions
+\DeclareUnicodeCharacter{2194}{\ensuremath{\leftrightarrow}}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\to}}
+\DeclareUnicodeCharacter{2190}{\ensuremath{\leftarrow}}
+\DeclareUnicodeCharacter{2248}{\ensuremath{\approx}}
+\DeclareUnicodeCharacter{2264}{\ensuremath{\leq}}
+\DeclareUnicodeCharacter{2265}{\ensuremath{\geq}}
+\DeclareUnicodeCharacter{2261}{\ensuremath{\equiv}}
+\DeclareUnicodeCharacter{2260}{\ensuremath{\neq}}
+\DeclareUnicodeCharacter{2208}{\ensuremath{\in}}
+\DeclareUnicodeCharacter{2205}{\ensuremath{\emptyset}}
+\DeclareUnicodeCharacter{221E}{\ensuremath{\infty}}
+\DeclareUnicodeCharacter{2297}{\ensuremath{\otimes}}
+\DeclareUnicodeCharacter{2282}{\ensuremath{\subset}}
+\DeclareUnicodeCharacter{2283}{\ensuremath{\supset}}
+\DeclareUnicodeCharacter{00D7}{\ensuremath{\times}}
+\DeclareUnicodeCharacter{00B1}{\ensuremath{\pm}}
+\DeclareUnicodeCharacter{00B7}{\ensuremath{\cdot}}
+\DeclareUnicodeCharacter{2124}{\ensuremath{\mathbb{Z}}}
+\DeclareUnicodeCharacter{2212}{\ensuremath{-}}
+\DeclareUnicodeCharacter{223C}{\ensuremath{\sim}}
+\DeclareUnicodeCharacter{210F}{\ensuremath{\hbar}}
+\DeclareUnicodeCharacter{2713}{\checkmark}
+\DeclareUnicodeCharacter{2717}{\ensuremath{\times}}
+\DeclareUnicodeCharacter{00B2}{\ensuremath{^2}}
+\DeclareUnicodeCharacter{00B3}{\ensuremath{^3}}
+\DeclareUnicodeCharacter{00B9}{\ensuremath{^1}}
+\DeclareUnicodeCharacter{2076}{\ensuremath{^6}}
+\DeclareUnicodeCharacter{207B}{\ensuremath{^-}}
+\DeclareUnicodeCharacter{2077}{\ensuremath{^7}}
+\DeclareUnicodeCharacter{00B0}{\ensuremath{^\circ}}
 
-% Section formatting - numbered
-\setcounter{secnumdepth}{3}
+% Greek uppercase
+\DeclareUnicodeCharacter{0393}{\ensuremath{\Gamma}}
+\DeclareUnicodeCharacter{0394}{\ensuremath{\Delta}}
+\DeclareUnicodeCharacter{039B}{\ensuremath{\Lambda}}
+\DeclareUnicodeCharacter{03A3}{\ensuremath{\Sigma}}
 
-% Tight list
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% Greek lowercase
+\DeclareUnicodeCharacter{03B1}{\ensuremath{\alpha}}
+\DeclareUnicodeCharacter{03B2}{\ensuremath{\beta}}
+\DeclareUnicodeCharacter{03B3}{\ensuremath{\gamma}}
+\DeclareUnicodeCharacter{03B4}{\ensuremath{\delta}}
+\DeclareUnicodeCharacter{03B5}{\ensuremath{\varepsilon}}
+\DeclareUnicodeCharacter{03B7}{\ensuremath{\eta}}
+\DeclareUnicodeCharacter{03B8}{\ensuremath{\theta}}
+\DeclareUnicodeCharacter{03BA}{\ensuremath{\kappa}}
+\DeclareUnicodeCharacter{03BB}{\ensuremath{\lambda}}
+\DeclareUnicodeCharacter{03BC}{\ensuremath{\mu}}
+\DeclareUnicodeCharacter{03BD}{\ensuremath{\nu}}
+\DeclareUnicodeCharacter{03C0}{\ensuremath{\pi}}
+\DeclareUnicodeCharacter{03C1}{\ensuremath{\rho}}
+\DeclareUnicodeCharacter{03C3}{\ensuremath{\sigma}}
+\DeclareUnicodeCharacter{03C4}{\ensuremath{\tau}}
+\DeclareUnicodeCharacter{03C6}{\ensuremath{\varphi}}
+\DeclareUnicodeCharacter{03C7}{\ensuremath{\chi}}
+\DeclareUnicodeCharacter{03C8}{\ensuremath{\psi}}
+\DeclareUnicodeCharacter{03C9}{\ensuremath{\omega}}
 
-% Prevent overfull lines
-\setlength{\emergencystretch}{3em}
+% Superscripts and subscripts
+\DeclareUnicodeCharacter{2070}{\ensuremath{^0}}
+\DeclareUnicodeCharacter{2075}{\ensuremath{^5}}
+\DeclareUnicodeCharacter{2078}{\ensuremath{^8}}
+\DeclareUnicodeCharacter{2080}{\ensuremath{_0}}
+\DeclareUnicodeCharacter{2081}{\ensuremath{_1}}
+\DeclareUnicodeCharacter{2082}{\ensuremath{_2}}
+\DeclareUnicodeCharacter{2083}{\ensuremath{_3}}
+\DeclareUnicodeCharacter{2084}{\ensuremath{_4}}
 
-% Paragraph spacing
-\setlength{\parskip}{0.5ex plus 0.2ex minus 0.1ex}
-\setlength{\parindent}{1.5em}
+% Math symbols
+\DeclareUnicodeCharacter{2202}{\ensuremath{\partial}}
+\DeclareUnicodeCharacter{221A}{\ensuremath{\sqrt{}}}
+\DeclareUnicodeCharacter{226A}{\ensuremath{\ll}}
+\DeclareUnicodeCharacter{226B}{\ensuremath{\gg}}
+\DeclareUnicodeCharacter{21D2}{\ensuremath{\Rightarrow}}
+\DeclareUnicodeCharacter{27F9}{\ensuremath{\Longrightarrow}}
+\DeclareUnicodeCharacter{27FA}{\ensuremath{\Longleftrightarrow}}
 
-% Header info
-\title{The Incompleteness of Observation: Why Physics' Biggest Contradiction Might Not Be a Contradiction at All\\[0.5em]\large With Complete Mathematical Detail}
+% Modifier letters
+\DeclareUnicodeCharacter{02B2}{\ensuremath{^j}}
+\DeclareUnicodeCharacter{0304}{\={}}
+
+% Additional symbols that may appear
+\DeclareUnicodeCharacter{2113}{\ensuremath{\ell}}
+\DeclareUnicodeCharacter{2229}{\ensuremath{\cap}}
+\DeclareUnicodeCharacter{222A}{\ensuremath{\cup}}
+\DeclareUnicodeCharacter{2227}{\ensuremath{\wedge}}
+\DeclareUnicodeCharacter{2228}{\ensuremath{\vee}}
+\DeclareUnicodeCharacter{00AC}{\ensuremath{\neg}}
+
+% hyperref setup
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black,
+  pdftitle={The Incompleteness of Observation: Why Physics' Biggest Contradiction Might Not Be a Contradiction at All},
+  pdfauthor={Alex Maybaum}
+}
+
+% Section formatting - no auto-numbering (source has its own)
+\setcounter{secnumdepth}{0}
+\titleformat{\section}{\Large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{}{0em}{}
+
+% Tight list spacing
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Fix for pandoc's CSLReferences
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newenvironment{CSLReferences}[2]{}{}
+
+\title{The Incompleteness of Observation: Why Physics' Biggest Contradiction Might Not Be a Contradiction at All}
 \author{Alex Maybaum}
 \date{March 2026}
 
 \begin{document}
 
-\maketitle
+\hypertarget{the-incompleteness-of-observation}{%
+\section{The Incompleteness of Observation}\label{the-incompleteness-of-observation}}
+
+\hypertarget{why-physics-biggest-contradiction-might-not-be-a-contradiction-at-all}{%
+\subsubsection{Why Physics' Biggest Contradiction Might Not Be a Contradiction at All}\label{why-physics-biggest-contradiction-might-not-be-a-contradiction-at-all}}
+
+\hypertarget{with-complete-mathematical-detail}{%
+\subsubsection{With Complete Mathematical Detail}\label{with-complete-mathematical-detail}}
+
+\textbf{Alex Maybaum --- March 2026}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{the-worst-prediction-in-physics}{%
 \subsection{The Worst Prediction in Physics}\label{the-worst-prediction-in-physics}}
@@ -477,7 +580,7 @@ Each step uses a standard information-theoretic inequality. The result: if you w
 \subsection{The Cosmological Application (§4)}\label{the-cosmological-application-4}}
 
 \hypertarget{the-partition}{%
-\subsubsection{The Partition}\label{the-partition}}
+\subsubsection{4.1 The Partition}\label{the-partition}}
 
 The cosmological horizon is the boundary beyond which no signal traveling at or below c can ever reach the observer. In a universe with a positive cosmological constant (de Sitter space), this horizon exists for every observer and has a definite, finite area:
 
@@ -488,7 +591,7 @@ where H is the Hubble parameter. This implements Axiom 3 naturally: Γ\_V = ever
 \textbf{Why ℏ is the same for all observers:} Different observers have slightly different horizons. But the gap equation ℏ = c³ε²/(4G) depends only on local geometric quantities (c, G, ε) --- not on the horizon area or the observer's worldline. So all observers derive the same ℏ.
 
 \hypertarget{verification-of-the-conditions}{%
-\subsubsection{Verification of the Conditions}\label{verification-of-the-conditions}}
+\subsubsection{4.2 Verification of the Conditions}\label{verification-of-the-conditions}}
 
 \textbf{C1 (coupling).} In general relativity's ADM formulation, the bulk Hamiltonian is a sum of constraints that vanish on-shell --- meaning the ``real'' dynamics happens at the boundary. The Hamiltonian and momentum constraints correlate interior and exterior data. This is stronger than just H\_int ≠ 0: the constraints enforce correlations that persist on all timescales.
 
@@ -497,7 +600,7 @@ where H is the Hubble parameter. This implements Axiom 3 naturally: Γ\_V = ever
 \textbf{C3 (sufficient capacity).} The hidden sector has A/ε² \textasciitilde{} 10¹²² modes (the de Sitter entropy). The visible sector has \textasciitilde{} 10⁸⁰ baryons. No experiment comes close to saturating the hidden sector.
 
 \hypertarget{application}{%
-\subsubsection{Application}\label{application}}
+\subsubsection{4.3 Application}\label{application}}
 
 With the cosmological horizon satisfying all axioms and conditions, the characterization theorem applies. The observer's reduced description is P-indivisible and therefore equivalent to unitary quantum mechanics. The value of ℏ is determined by the partition geometry --- which is what Section 5 derives.
 
@@ -979,18 +1082,9 @@ Combined with the earlier papers' predictions --- dark energy evolution with \(\
 
 The framework now covers the three pillars of modern physics:
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2105}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4211}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3684}}@{}}
+\begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Pillar
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-What is derived
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Source paper
-\end{minipage} \\
+Pillar & What is derived & Source paper \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1015,7 +1109,7 @@ The papers derive what (S, φ) \emph{produces}. But what kind of thing \emph{is}
 \hypertarget{storage-and-memory}{%
 \subsubsection{Storage and memory}\label{storage-and-memory}}
 
-S is the set of all distinguishable states. Its physical meaning is \emph{finite capacity}: there are \textbar S\textbar{} configurations that can be told apart, carrying log₂\textbar S\textbar{} bits of information. The finiteness is not a regularization --- it's load-bearing. Finite sets recur (φ\^{}N = id), recurrence produces P-indivisibility, and P-indivisibility produces quantum mechanics. An infinite S wouldn't recur, and the whole mechanism breaks.
+S is the set of all distinguishable states. Its physical meaning is \emph{finite capacity}: there are \textbar S\textbar{} configurations that can be told apart, carrying log₂\textbar S\textbar{} bits of information. The finiteness is not a regularization --- it's load-bearing. Finite sets recur (φ\^{}N = id), recurrence produces P-indivisibility, and P-indivisibility produces quantum mechanics. Strictly, only the visible sector and boundary layer need to be finite --- the deep hidden sector may be infinite, because the accessible-timescale backflow lemma (Main, §2.3) establishes P-indivisibility without recurrence, and the boundary-only dependence lemma (Main, §5.2) ensures the deep sector's contribution is suppressed by \(\tau_S/\tau_B \sim 10^{-32}\).
 
 φ is a bijection: every state has exactly one predecessor and exactly one successor. Its physical meaning is \emph{perfect memory}. Information is never created, never destroyed. The past is always recoverable from the present, because φ⁻¹ exists. A non-bijective map would send two states to the same successor, erasing the distinction between them. φ preserves all distinctions, permanently.
 
@@ -1027,20 +1121,22 @@ Quantum mechanics is the \emph{read statistics} of a lossless memory through a p
 
 An immediate objection: ``Memory made of \emph{what}?'' In everyday life, memory requires a physical substrate --- silicon, magnetic domains, neurons. The answer: (S, φ) is a \emph{complete description} of reality --- it determines every observable, with nothing left over that any measurement could detect. S is the totality of distinguishable configurations; φ is the structure of dynamical dependence. Space, time, and matter are all derived from (S, φ), so they can't appear in its definition without circularity. Whether (S, φ) \emph{is} reality or \emph{describes} reality is a question the framework proves to be gauge --- undecidable by any experiment. The ``memory'' is a complete mathematical description from which everything observable is derived. Asking what it's made of presupposes a deeper level that no measurement can access --- like asking what the number 7 is made of.
 
-\hypertarget{not-a-computer}{%
-\subsubsection{Not a computer}\label{not-a-computer}}
+\hypertarget{computation-from-within}{%
+\subsubsection{Computation from within}\label{computation-from-within}}
 
-A Turing machine has a tape (storage), a head (read/write access), and a transition function (update rule). That maps suggestively onto (S, φ, V). But three differences matter.
+A Turing machine has a tape (storage), a head (read/write access), and a transition function (update rule). Under effective finiteness --- where the visible sector and boundary layer are finite but the deep hidden sector may be infinite (Main, §9.7) --- the correspondence between (S, φ, V) and a reversible Turing machine is not an analogy. It is structural.
 
-A Turing machine's tape is potentially infinite. S is finite --- and finiteness is what produces QM.
+The visible sector V is the head: a finite-state subsystem with bounded local coupling. The hidden sector H is the tape: a memory register that stores correlations written by past interactions. φ is a reversible transition function: no erasure, no halting, no information loss. The conditions C1--C3 characterize this architecture: C1 (coupling) is the read/write mechanism. C2 (slow bath) says the tape retains its contents between head operations. C3 (capacity) says the tape is large enough to store the full interaction history.
 
-A Turing machine is generally irreversible: it can erase, overwrite, halt. φ is a bijection: nothing is ever erased, nothing is ever created, there is no halting. This is what makes (S, φ) a lossless memory rather than a computation.
+So what's different? Not the finiteness --- the tape can be infinite. Not the reversibility --- that's a specialization (reversible Turing machines are a well-studied subclass, going back to Bennett and Fredkin-Toffoli). The one genuine difference is the \emph{question asked}.
 
-Most fundamentally: a Turing machine computes an \emph{extrinsic function} --- it maps input to output for an external user who feeds in the input and reads the result. (S, φ) has no external user. There is no input, no output, no halting, no answer. It's a closed permutation that cycles through states and returns.
+Turing asked: what can a machine compute for an external observer who feeds in input and reads output?
 
-An information theorist might object: any reversible finite automaton \emph{is} a computer --- the initial state is the input, the final state is the output, and the cycle is the computation. Formally, that's correct. But the distinction isn't formal --- it's about \emph{purpose}. A Turing machine computes something \emph{for someone}. (S, φ) computes nothing for nobody. It's a closed system; there's no recipient of the ``answer.'' What the framework shows is that the appearance of purposeful physical law --- evolution equations, conserved quantities, gauge symmetries --- arises entirely from the \emph{internal} perspective of the partition. The complexity is in the observer, not in the map.
+The framework asks: what does computation look like to a component of the machine that cannot read the full tape?
 
-People ask: ``Is the universe a computer?'' The framework's answer: the universe is something \emph{less} than a computer. It's a finite lossless cycle. And physics is the \emph{appearance of complexity} created by observing a simple thing through a keyhole.
+The answer is quantum mechanics. The head cannot access the tape's global state. It sees only local read statistics --- transition probabilities obtained by marginalizing over unread tape cells. The characterization theorem proves those statistics are necessarily P-indivisible, hence quantum-mechanical. The Schrödinger equation, the Born rule, superposition, entanglement --- all are what reversible computation looks like from inside.
+
+People ask: ``Is the universe a computer?'' The framework's answer: the universe is a reversible computation. And physics --- quantum mechanics, general relativity, the Standard Model --- is what that computation looks like to a subsystem embedded within it, observing through a finite window.
 
 \hypertarget{the-arrow-of-time}{%
 \subsubsection{The arrow of time}\label{the-arrow-of-time}}
@@ -1062,11 +1158,13 @@ This places the framework in a family of results where self-reference under fini
 
 \textbf{OI:} An observer embedded in (S, φ) cannot access the complete state. The emergent description isn't random --- it has a precise structure (unitary quantum mechanics with the Schrödinger equation, Born rule, and Bell violations).
 
-The common thread: a system with finite resources tries to completely model something it's part of, and the structural impossibility of doing so determines the \emph{form} of what it produces instead. The limitation and the law are the same object viewed from two sides.
+The precise OI analog of the halting problem is: \emph{can the observer determine the hidden-sector state h?} The hidden state has a definite value at every moment --- the total system is deterministic. Different hidden states send the same visible state to different futures (the particle goes left or right, the spin is measured up or down). But the observer provably cannot determine h: multiple hidden states are compatible with any visible-sector history, and transition probabilities are averages over h. The structural consequence is quantum mechanics --- just as the structural consequence of the halting problem is the architecture of computability theory.
 
-Gödel and Turing are usually read as negative results --- limits on knowledge. The framework recasts the physical instance as \emph{generative}. Quantum mechanics is not what we're stuck with because we can't see the full state. It's the unique, mathematically rigid consequence of finite lossless memory observed from within.
+The framework also identifies a distinct class of inaccessible quantities: the alphabet size q and the deep-sector cardinality \textbar C\_D\textbar. These are not undecidable --- they are \emph{gauge}. Different values produce identical observables, so there is no fact of the matter to be inaccessible. The hidden state h is undecidable: it has a real answer the observer cannot reach. The cardinality \textbar C\_D\textbar{} is gauge: there is nothing there to reach.
 
-The universe is completely described by a finite memory that never forgets. Physics is what that memory looks like from inside.
+The common thread: a system with finite resources tries to completely model something it's part of, and the structural impossibility of doing so determines the \emph{form} of what it produces instead. The limitation and the law are the same object viewed from two sides. The Turing connection is direct: the observer is the head of a reversible computation; the halting problem (the head cannot determine the tape's global state) and the QM emergence theorem (the head's read statistics are necessarily quantum-mechanical) are two consequences of the same structural constraint --- finite self-referential access to a lossless computation.
+
+Gödel and Turing are usually read as negative results --- limits on knowledge. The framework recasts the physical instance as \emph{generative}. Quantum mechanics is not what we're stuck with because we can't see the full state. It's the unique, mathematically rigid consequence of a reversible computation observed from within.
 
 \hypertarget{why-does-mathematics-describe-physics}{%
 \subsubsection{Why does mathematics describe physics?}\label{why-does-mathematics-describe-physics}}
@@ -1119,18 +1217,9 @@ And the incompleteness family extends one step further: Gödel showed that proof
 \hypertarget{sections-12-what-each-piece-does}{%
 \subsubsection{Sections 1--2: What Each Piece Does}\label{sections-12-what-each-piece-does}}
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Component
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-What it establishes
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-What it uses
-\end{minipage} \\
+Component & What it establishes & What it uses \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -1148,18 +1237,9 @@ Necessity proof (§3.3) & QM \emph{requires} C1, C2, C3 & Contrapositives of suf
 \hypertarget{sections-36-the-logical-flow}{%
 \subsubsection{Sections 3--6: The Logical Flow}\label{sections-36-the-logical-flow}}
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Step
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-What it establishes
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Key equation
-\end{minipage} \\
+Step & What it establishes & Key equation \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
