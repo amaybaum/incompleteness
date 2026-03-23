@@ -14,7 +14,7 @@ This research program shows that quantum mechanics, general relativity, and the 
 
 The cosmological horizon provides the physical realization. The framework derives ℏ = c³ε²/(4G) from thermal self-consistency, recovers the Bekenstein-Hawking entropy S = A/(4l_p²) including the 1/4 factor, and dissolves the 10¹²² cosmological constant discrepancy — identifying it as the information compression ratio of the observer's quantum description. The same trace-out renders ~95% of the universe's gravitational budget invisible to the emergent QFT, matching the observed dark sector.
 
-The framework is tested for rigidity: the dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures. The ontological status of the lattice is resolved: the lattice is the coupling graph of φ, the alphabet size is a gauge freedom, the observer is generic, d = 3 is the unique self-consistent dimension, and (S, φ) is a complete description of reality — whether it *is* reality or *describes* reality is provably undecidable by any measurement, identified by the framework as gauge. The question of which quantum field theory the observer sees is addressed in a companion paper deriving the Standard Model's gauge group, matter content, and discrete symmetries — with the primary derivation chain proved end-to-end. The reconstruction theorem establishes the converse: observed physics satisfying five specific conditions uniquely determines the equivalence class [(S, φ)]/~ — proving that the mathematical description and the physics are informationally equivalent up to gauge.
+The framework is tested for rigidity: the dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures. The ontological status of the lattice is resolved: the lattice is the coupling graph of φ, the alphabet size is a gauge freedom, the observer is generic, d = 3 is the unique self-consistent dimension, and (S, φ) is a complete description of reality — whether it *is* reality or *describes* reality is provably undecidable by any measurement, identified by the framework as gauge. The wave equation on a d = 3 lattice uniquely determines the Standard Model's gauge group, matter content, and discrete symmetries — with the primary derivation chain proved end-to-end. The reconstruction theorem establishes the converse: observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/~ — proving that the mathematical description and the physics are informationally equivalent up to gauge.
 
 ## Contents
 
@@ -38,25 +38,15 @@ Tests the framework's rigidity. Among all second-order reversible nearest-neighb
 - [`GR.tex`](GR.tex) — LaTeX source
 - [`GR.pdf`](GR.pdf) — Compiled PDF
 
-### Companion Paper: Ontology
+### Companion Paper: Fundamental Structure
 
-**"The Substrate Problem: Structural Foundations of the Observational Incompleteness Framework"**
+**"The Fundamental Structure of the Observational Incompleteness Framework: From Finite Bijection to the Standard Model"**
 
-Addresses the ontological status of the lattice and the physical interpretation of (S, φ). Shows that the framework's theorems depend on two structural properties of the bijection (bounded coupling degree and statistical isotropy) and on nothing else. The observer is proved generic: any small subgraph of any large bounded-degree energy-conserving bijection satisfies C1–C3, with C2 automatic for Hamiltonian dynamics. The dimension d = 3 is derived from self-consistency: four independent filters converge. The fundamental object (S, φ) is interpreted as a finite lossless memory — S is storage capacity, φ is perfect information preservation — placing the framework in the family of productive incompleteness results alongside Gödel and Turing. The reconstruction theorem proves a bidirectional correspondence: observed lattice-scale physics ↔ [(S, φ)]/~ up to gauge, establishing that whether (S, φ) *is* reality or *describes* reality is itself gauge — provably undecidable by any measurement. Appendix A proves that the trace-out performs a Jordan-Chevalley projection — extracting the semisimple part of the dynamics and erasing the nilpotent monodromy — establishing a precise connection to Weil-Deligne representations in the Langlands program.
+Addresses the ontological status of the lattice, the physical interpretation of (S, φ), and which quantum field theory the embedded observer sees. Shows that the framework's theorems depend on six structural properties (bounded coupling degree, statistical isotropy, and four others) and on nothing else. The observer is proved generic: any small subgraph of any large bounded-degree energy-conserving bijection satisfies C1–C3. The dimension d = 3 is derived from self-consistency: four independent filters converge. The wave equation on a d = 3 lattice uniquely determines the Standard Model's structure: the wave equation factors into staggered Dirac fermions; center independence enforces chiral symmetry, mandating the Higgs; staggered tastes give three fermion generations; coupling-degree minimization gives K = 2d = 6; the cubic rotation group decomposes 6 = T₁(3) ⊕ E(2) ⊕ A₁(1), fixing multiplicities (3, 2, 1); background independence promotes the commutant to local gauge invariance; anomaly cancellation uniquely determines hypercharges; the trace-out makes SU(2) chiral while SU(3) remains vector-like; T-invariance forces θ̄ = 0 at all energy scales. The primary derivation chain is proved end-to-end (23 theorems). The reconstruction theorem proves a bidirectional correspondence: observed QM + Bell violations + finite entropy + isotropy ↔ [(S, φ)]/~ up to gauge. Appendix A proves the trace-out performs a Jordan-Chevalley projection.
 
-- [`Ontology.md`](Ontology.md) — Markdown source
-- [`Ontology.tex`](Ontology.tex) — LaTeX source
-- [`Ontology.pdf`](Ontology.pdf) — Compiled PDF
-
-### Companion Paper: Standard Model
-
-**"Why These Particles: Standard Model Structure from Observational Incompleteness"**
-
-Derives the Standard Model's gauge group, matter content, chiral structure, and θ̄ = 0 at all energy scales. The primary derivation chain is proved end-to-end (28 theorems); the remaining propositions provide redundant second-route confirmations. **Bottom-up** — the wave equation factors into staggered Dirac fermions; center independence enforces chiral symmetry, mandating the Higgs; in d = 3, staggered tastes give three fermion sectors constituting three complete SM generations (proved via cubic symmetry + anomaly cancellation uniqueness). **Gauge emergence** — coupling-degree minimization uniquely gives K = 2d = 6 (proved); the cubic rotation group decomposes 6 = T₁(3) ⊕ E(2) ⊕ A₁(1), fixing multiplicities (3, 2, 1) (proved); background independence makes the coupling site-dependent, and the local commutant is automatically a local gauge symmetry (proved). **Top-down** — anomaly cancellation uniquely determines the hypercharges (proved); chirality from the trace-out makes SU(2) chiral while SU(3) remains vector-like (proved); T-invariance forces θ = 0 (proved) and θ̄ = 0 at all energy scales (proved — the bijection structure of φⁿ guarantees detailed balance at every time scale, bypassing the instanton question).
-
-- [`SM.md`](SM.md) — Markdown source
-- [`SM.tex`](SM.tex) — LaTeX source
-- [`SM.pdf`](SM.pdf) — Compiled PDF
+- [`Fundamental.md`](Fundamental.md) — Markdown source
+- [`Fundamental.tex`](Fundamental.tex) — LaTeX source
+- [`Fundamental.pdf`](Fundamental.pdf) — Compiled PDF
 
 ### Explainer
 
@@ -90,39 +80,39 @@ A companion overview covering the full argument — QM emergence, GR derivation,
 
 10. **Falsifiable predictions.** Dark energy evolution with ν_OI ≈ 2.45 × 10⁻³; GW echoes near black hole horizons; θ̄ = 0 exactly (no axion, neutron EDM = 0); no SUSY partners; no fourth generation; Majorana neutrinos. The conjunction is distinctive to this framework.
 
-11. **The trace-out as Jordan-Chevalley projection.** Over finite fields, the evolution matrix F decomposes as F = F_ss · F_u (semisimple × unipotent). The trace-out extracts the semisimple part and erases the nilpotent monodromy N. The Weil-Deligne conductor f_WD = f_ss(L) + 2 is q-independent and decomposes additively over gauge irreps with multiplicities (3, 2, 1). *Status: theorem (Ontology, Appendix A).*
+11. **The trace-out as Jordan-Chevalley projection.** Over finite fields, the evolution matrix F decomposes as F = F_ss · F_u (semisimple × unipotent). The trace-out extracts the semisimple part and erases the nilpotent monodromy N. The Weil-Deligne conductor f_WD = f_ss(L) + 2 is q-independent and decomposes additively over gauge irreps with multiplicities (3, 2, 1). *Status: theorem (Fundamental, Appendix A).*
 
-12. **Reconstruction theorem.** Observed lattice-scale physics satisfying conditions (i)–(v) — QM with Bell violations, the wave equation, SM gauge structure, T-invariance with θ̄ = 0, and ℏ = c³ε²/(4G) — must arise from a member of the equivalence class [(S, φ)]/~. The correspondence is bidirectional: the mathematical description and the physics determine each other up to gauge. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement — the framework identifies this as gauge. *Status: theorem (Ontology, §8.6).*
+12. **Reconstruction theorem.** Observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/~. The SM gauge structure, three generations, θ̄ = 0, and ℏ = c³ε²/(4G) are retrodictions derived within the reconstruction, not inputs to it. The correspondence is bidirectional: the mathematical description and the physics determine each other up to gauge. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement — the framework identifies this as gauge. *Status: theorem (Fundamental, §10.6).*
 
 ## The Derivation Chain
 
 ```
 (S, φ) — a finite lossless memory with bounded coupling and statistical isotropy
   │
-  ├─→ V (observer) is generic (Ontology, theorem)
-  ├─→ d = 3 from self-consistency (Ontology, theorem)
+  ├─→ V (observer) is generic (Fundamental, theorem)
+  ├─→ d = 3 from self-consistency (Fundamental, theorem)
   ├─→ QM emergence (Main, theorem)
   ├─→ Wave equation uniquely selected (GR, theorem)
   ├─→ ℏ = c³ε²/(4G), ε = 2l_p (Main, theorem)
   ├─→ Bekenstein-Hawking entropy with 1/4 (Main/GR, theorem)
   ├─→ CC dissolution: 10¹²² = S_dS (Main, theorem)
   ├─→ General relativity (GR, seven links — theorem)
-  ├─→ Wave eq. → KG → staggered Dirac fermions (SM, theorem)
-  ├─→ Center independence = chiral symmetry → Higgs (SM, theorem)
-  ├─→ K = 2d = 6 from coupling-degree minimization (SM, theorem)
-  ├─→ Cubic group decomposition (3,2,1) → SU(3)×SU(2)×U(1) (SM, theorem)
-  ├─→ D_LL = 0 → SU(2) chiral, SU(3) vector-like (SM, theorem)
-  ├─→ Anomaly cancellation → unique hypercharges (SM, theorem)
-  ├─→ Cubic symmetry + anomaly uniqueness → 3 SM generations (SM, theorem)
-  ├─→ Higgs quantum numbers (1, 2, +1/2) (SM, theorem)
-  ├─→ θ = 0 from T-invariance (SM, theorem)
-  ├─→ θ̄ = 0 at all energy scales from bijection structure (SM, theorem)
-  ├─→ Trace-out = Jordan-Chevalley projection (Ontology App. A, theorem)
-  ├─→ Weil-Deligne conductor decomposes over gauge irreps (Ontology App. A, theorem)
-  ├─→ Reconstruction: lattice physics ↔ [(S,φ)]/~ (Ontology §8.6, theorem)
+  ├─→ Wave eq. → KG → staggered Dirac fermions (Fundamental, theorem)
+  ├─→ Center independence = chiral symmetry → Higgs (Fundamental, theorem)
+  ├─→ K = 2d = 6 from coupling-degree minimization (Fundamental, theorem)
+  ├─→ Cubic group decomposition (3,2,1) → SU(3)×SU(2)×U(1) (Fundamental, theorem)
+  ├─→ D_LL = 0 → SU(2) chiral, SU(3) vector-like (Fundamental, theorem)
+  ├─→ Anomaly cancellation → unique hypercharges (Fundamental, theorem)
+  ├─→ Cubic symmetry + anomaly uniqueness → 3 SM generations (Fundamental, theorem)
+  ├─→ Higgs quantum numbers (1, 2, +1/2) (Fundamental, theorem)
+  ├─→ θ = 0 from T-invariance (Fundamental, theorem)
+  ├─→ θ̄ = 0 at all energy scales from bijection structure (Fundamental, theorem)
+  ├─→ Trace-out = Jordan-Chevalley projection (Fundamental App. A, theorem)
+  ├─→ Weil-Deligne conductor decomposes over gauge irreps (Fundamental App. A, theorem)
+  ├─→ Reconstruction: observed physics ↔ [(S,φ)]/~ (Fundamental §10.6, theorem)
   ├─→ Dark energy ν_OI ≈ 2.45×10⁻³ (Main, proposition)
   ├─→ Dark-sector concordance (Main, theorem — total budget)
-  └─→ Arrow of time from coarse-graining (Ontology, standard Boltzmann)
+  └─→ Arrow of time from coarse-graining (Fundamental, standard Boltzmann)
 ```
 
 ## Contact
