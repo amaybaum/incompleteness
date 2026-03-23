@@ -377,6 +377,8 @@ Each step uses a standard information-theoretic inequality. The result: if you w
 
 **The complete characterization.** For |C_V| ≥ 2, the following are equivalent: (1) the process is mathematically equivalent to unitarily evolving QM, (2) the process is P-indivisible, (3) the process arises from marginalizing a deterministic bijection with C1, C2, C3. This is the biconditional: **QM ⟺ embedded observation under C1–C3.**
 
+**What "unitarily evolving QM" means precisely.** The characterization theorem delivers a Hilbert space, a Hermitian Hamiltonian, a unitary time evolution, and Born-rule transition probabilities. Additional structures of operational quantum mechanics — the tensor product decomposition for spatially separated subsystems, state update via the Lüders rule, and multi-time predictions — are all derived from the construction rather than added as independent postulates. The tensor product for the visible–hidden split comes from the Stinespring route (Appendix A). The tensor product for subsystems within the visible sector (two laboratories, for instance) follows from the spatial Markov property of range-1 dynamics on the coupling graph. Projective measurement corresponds to Bayesian conditioning on the classical substratum. The equivalence between "classical non-Markovian" and "quantum" is not metaphorical — the theorem proves these are the same mathematical category.
+
 ---
 
 ## The Cosmological Application (§4)
@@ -417,7 +419,7 @@ $$dE = \frac{c^2 \kappa}{8\pi G} \, dA$$
 
 where κ is the surface gravity and dA is the change in horizon area. This is a classical gravitational identity — no quantum mechanics involved.
 
-The entropy density is η = 1/ε² (one degree of freedom per minimal cell of area ε²). So dS = dA/ε². From dE = TdS:
+The entropy density is η = 1/ε² — one coupled mode per minimal cell of area ε². This is not an assumption about the number of states per cell: ε is defined as the minimal distinguishable scale (Axiom 2), so each cell of area ε² contributes exactly one boundary mode that couples across the partition. The number of internal states per mode (the alphabet size q) is a gauge freedom with no observable consequences (Fundamental, §4). So dS = dA/ε². From dE = TdS:
 
 $$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G}$$
 
@@ -441,7 +443,7 @@ $$T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|} \sum_{b} \delta_{x_j}[\pi_V(
 
 The transition probabilities depend only on boundary dynamics. Since ℏ is determined by transition probabilities, ℏ depends only on boundary quantities: c, G, and ε. This excludes dependence on H — if ℏ depended on H, observers at different cosmic epochs would have different quantum mechanics.
 
-**Step 3 (Dimensional analysis).** There's a unique combination of c, G, and ε with dimensions of action:
+**Step 3 (Dimensional analysis).** Step 2 excludes volumetric (deep-sector) quantities, leaving boundary quantities. The boundary carries both *local* geometric data (ε, κ, and the constants c, G) and a *global* quantity: the total area A, which forms the dimensionless ratio A/ε² = S_dS. If ℏ depended on S_dS, it would be observer-dependent — different observers have different horizon areas — contradicting the universality of the emergent action scale. This excludes A. Since κ is also observer-dependent (the surface gravity of a specific horizon), it too is excluded. The unique combination of c, G, and ε with dimensions of action:
 
 $$[\hbar] = \frac{[c]^3 \, [\epsilon]^2}{[G]} = \text{kg·m}^2/\text{s} \quad \checkmark$$
 
@@ -455,7 +457,7 @@ So ℏ = β c³ε²/G, where β is a dimensionless constant that dimensional ana
 
 $$T_Q = \frac{\hbar \kappa}{2\pi c k_B}$$
 
-A thermometer at the horizon must read the same temperature either way. Setting T_cl = T_Q:
+The two temperatures are computed independently — $T_{\text{cl}}$ from the classical substratum alone (no QM), $T_Q$ from the emergent QFT alone (no classical substratum details) — but they describe the same physical degrees of freedom: the boundary modes across which the partition is defined. Since the quantum description is derived from the classical one (Part I), and the derivation is exact at the boundary, the two descriptions cannot assign contradictory temperatures. Consistency requires $T_{\text{cl}} = T_Q$:
 
 $$\frac{c^2 \epsilon^2 \kappa}{8\pi G} = \frac{\hbar \kappa}{2\pi c}$$
 
@@ -465,7 +467,9 @@ $$\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}$$
 
 This fixes β = 1/4.
 
-**Why this is not circular.** The KMS temperature T_Q contains ℏ as an *unknown*. The classical temperature T_cl contains no ℏ at all. The logic is sequential: Part I proves quantum mechanics emerges with some ℏ → the emergent QM predicts T_GH(ℏ) → the classical temperature T_cl was calculated independently → matching them fixes ℏ. This is a "gap equation," the same structure used routinely in condensed matter physics. If T_cl had depended on the deep hidden-sector volume (it doesn't), or if T_Q had been state-dependent (it isn't), the matching wouldn't work. The fact that it works is a non-trivial self-consistency check.
+**Why this is not circular.** The KMS temperature T_Q contains ℏ as an *unknown*. The classical temperature T_cl contains no ℏ at all. The non-circularity is structural: Part I establishes that a QFT emerges with *some* action scale ℏ; §5 determines *which* ℏ, using the independent classical temperature that Part I neither requires nor produces. If T_cl had depended on the deep hidden-sector volume (it doesn't — the boundary-only lemma excludes it), or if T_Q had been state-dependent (it isn't — the KMS temperature is purely kinematic), the matching wouldn't work. That neither pathology obtains makes the gap equation a genuine determination.
+
+**Predictive content.** The gap equation relates one free parameter (ε) to one output (ℏ). The predictive content lies not in the relation alone but in its consequences: the specific relationship ℏ = c³ε²/(4G) — rather than any other function of c, G, ε — produces the Bekenstein-Hawking formula with the exact factor 1/4, the CC dissolution with S_dS as the compression ratio, the RVM parameter ν_OI, and the GW echo timescale. Any alternative ℏ(ε) would fail at least one of these checks.
 
 ---
 
@@ -577,7 +581,7 @@ The framework is not just a reinterpretation. It makes specific, falsifiable pre
 
 The paper proves that this entropy has no operator in the emergent QFT. The baryonic sector — what QFT can account for — is ~5% of $\rho_{\text{crit}}$. The remaining ~95% is the boundary entropy: gravitationally active, invisible to the emergent description, and persistent through P-indivisibility (condition C2). This matches the observed composition of the universe, in which ~95% of the gravitational content has no source in particle physics. The uniform component corresponds to dark energy (handled by Part II's CC dissolution); the structured component (dark matter) is a candidate consequence of matter-induced entropy redistribution, though the redistribution profile requires further work. That axioms designed to derive quantum mechanics also account for the dark sector's total budget is independent corroboration that observational incompleteness is capturing real structure.
 
-The conjunction is distinctive: dark energy evolution in RVM form, gravitational wave echoes, and a natural account of the dark sector's total gravitational budget — all from four axioms about embedded observation. No competing framework produces all three. The parallel with the cosmological constant dissolution is exact. Part II identifies the $10^{122}$ discrepancy as the *information compression ratio* of the trace-out — how much the emergent description distorts the vacuum energy. Part III identifies the ~95% dark sector as the *gravitational occlusion fraction* — how much of the gravitational universe the trace-out hides from the emergent description. Together, they account for the two largest anomalies in modern cosmology as two aspects of a single phenomenon: the cost of observing the universe from within.
+The conjunction is distinctive: dark energy evolution in RVM form, gravitational wave echoes, and a natural account of the dark sector's total gravitational budget — all from four axioms about embedded observation. No competing framework produces all three. The parallel with the cosmological constant dissolution is exact. Part II identifies the $10^{122}$ discrepancy as the *information compression ratio* of the trace-out — how much the emergent description distorts the vacuum energy. The dark-sector corollary identifies the ~95% dark sector as the *gravitational occlusion fraction* — how much of the gravitational universe the trace-out hides from the emergent description. Together, they account for the two largest anomalies in modern cosmology as two aspects of a single phenomenon: the cost of observing the universe from within.
 
 ---
 
@@ -998,9 +1002,7 @@ Every link is either a proof or a calculation. No link requires quantum mechanic
 
 **1. The gap equation is a gap equation, not a derivation from nothing.**
 
-The framework has one free parameter (ε). The gap equation relates ε to ℏ. You need to know one to determine the other. The predictive content is:
-- The *relationship* ℏ = c³ε²/(4G) — which could have been any function of c, G, ε
-- The *consequences* — Bekenstein-Hawking entropy, CC dissolution, dark-sector fraction — which follow from this specific relationship
+The framework has one free parameter (ε). The gap equation relates ε to ℏ. You need to know one to determine the other. The predictive content lies not in the gap equation alone but in its consequences: the specific relationship ℏ = c³ε²/(4G) — rather than any other function of c, G, ε — produces the Bekenstein-Hawking formula with the exact factor 1/4 (§6), the CC dissolution with S_dS as the compression ratio (§7.3), the RVM parameter ν_OI (§8.1), and the GW echo timescale (§8.2). Any alternative ℏ(ε) would fail at least one of these checks. The situation is analogous to deriving the Schwarzschild metric with M as a free parameter: the derivation has genuine content (the functional form) even though one input is not determined from within.
 
 **2. The KMS condition on the lattice.**
 
@@ -1008,7 +1010,7 @@ The thermal matching in Step 4 uses the KMS condition, which is proved for conti
 
 **3. The D-gauge theorem requires genericity.**
 
-The phase-locking and D-gauge results assume non-degenerate spectrum, non-degenerate energy gaps, and non-vanishing overlaps (conditions G1–G3). These fail on a measure-zero set of Hamiltonians. For "almost all" Hamiltonians, the results hold. A referee might ask what happens on the measure-zero set — the answer is that the Hamiltonian is still determined up to a finite discrete ambiguity, which doesn't affect the physics.
+The phase-locking and D-gauge results assume non-degenerate spectrum, non-degenerate energy gaps, and non-vanishing overlaps (conditions G1–G3). These fail on a measure-zero set of Hamiltonians. For the cosmological realization, a stronger argument applies: the genericity conditions concern the *effective* visible-sector Hamiltonian $\hat{H}_{\text{eff}}$ (after the trace-out), not the total Hamiltonian $H_{\text{tot}}$. The trace-out generically breaks the symmetries of $H_{\text{tot}}$ because the partition boundary (the cosmological horizon) doesn't respect them — it breaks translational invariance, rotational symmetry about distant points, and boost invariance. Any degeneracy relying on symmetries the partition breaks is lifted in $\hat{H}_{\text{eff}}$. The residual degeneracies are gauge symmetries of the emergent QFT, which correspond to physically equivalent states and don't affect the phase-locking argument.
 
 **4. Why doesn't the deep sector matter?**
 
