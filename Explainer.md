@@ -730,7 +730,7 @@ The universe is not broken. We are observing it from within.
 
 A natural objection to any framework this sweeping is: maybe it only works because it was built to work. Maybe the axioms were chosen to produce QM, and the cosmological application was chosen because it fits. A flexible framework that can accommodate anything predicts nothing.
 
-A companion paper ("Dynamics Selection and Emergent General Relativity in the Observational Incompleteness Framework") tests this by asking a question the main paper doesn't address: if you build a concrete system satisfying the axioms, does the framework constrain the dynamics? And if so, does the constrained dynamics produce anything beyond QM — something the framework wasn't designed to deliver?
+A companion paper ("The Fundamental Structure of the Observational Incompleteness Framework") tests this by asking a question the main paper doesn't address: if you build a concrete system satisfying the axioms, does the framework constrain the dynamics? And if so, does the constrained dynamics produce anything beyond QM — something the framework wasn't designed to deliver?
 
 It does, on both counts.
 
@@ -839,10 +839,10 @@ The framework now covers the three pillars of modern physics:
 
 | Pillar | What is derived | Source paper |
 |--------|----------------|--------------|
-| **Quantum mechanics** | Emerges from embedded observation | Main paper [1] |
-| **General relativity** | Emerges from lattice dynamics passing 7 checks | GR paper [2] |
-| **Standard Model structure** | SU(3) × SU(2) × U(1), 3 generations, Higgs, chiral coupling, θ̄ = 0 | Fundamental Structure paper [3] |
-| **Structural foundations** | $d = 3$, coupling graph ontology, $q$-gauge, background independence | Fundamental Structure paper [3] |
+| **Quantum mechanics** | Emerges from embedded observation | Main paper |
+| **General relativity** | Emerges from lattice dynamics passing 7 checks | Fundamental Structure paper |
+| **Standard Model structure** | SU(3) × SU(2) × U(1), 3 generations, Higgs, chiral coupling, θ̄ = 0 | Fundamental Structure paper |
+| **Structural foundations** | $d = 3$, coupling graph ontology, $q$-gauge, background independence | Fundamental Structure paper |
 
 The starting point for all of it: a finite set, a bijection, and a partition.
 
@@ -946,7 +946,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 
 ---
 
-*This is a companion overview to "The Incompleteness of Observation" (Maybaum, March 2026), which presents the formal arguments with detailed derivations; "Dynamics Selection and Emergent General Relativity in the Observational Incompleteness Framework" (Maybaum, March 2026), which presents the rigidity test; and "The Fundamental Structure of the Observational Incompleteness Framework: From Finite Bijection to the Standard Model" (Maybaum, 2026), which addresses the ontological status of the lattice and derives the Standard Model's gauge group, matter content, and chiral structure. The philosophical lineage section draws on a systematic analysis mapping the paper's claims against the major traditions in Western, Eastern, and contemporary philosophy of science.*
+*This is a companion overview to "The Incompleteness of Observation" (Maybaum, March 2026), which presents the formal arguments with detailed derivations; and "The Fundamental Structure of the Observational Incompleteness Framework: From Finite Bijection to the Standard Model" (Maybaum, 2026), which addresses the ontological status of the lattice, derives general relativity from the lattice dynamics, and derives the Standard Model's gauge group, matter content, and chiral structure. The philosophical lineage section draws on a systematic analysis mapping the paper's claims against the major traditions in Western, Eastern, and contemporary philosophy of science.*
 
 
 ---
