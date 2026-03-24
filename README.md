@@ -88,7 +88,7 @@ A companion overview covering the full argument — QM emergence, GR derivation,
 
 7. **Strong CP solved.** T-invariance of the wave equation → θ = 0 (theorem). Detailed balance at all time scales (φⁿ is a bijection for every n) → T-invariant Hamiltonian at every energy scale → real Yukawa matrices at every scale → θ̄ = 0 at all energy scales (theorem). No axion needed. The proof bypasses the instanton question entirely.
 
-8. **Dark-sector concordance.** The trace-out producing QM simultaneously renders ~95% of ρ_crit invisible to the emergent QFT. *Status: theorem (total budget); the structured dark matter story is a consistency check, not a derivation.*
+8. **Dark-sector concordance and dark matter.** The trace-out producing QM renders ~95% of ρ_crit invisible to the emergent QFT (theorem — total budget). The structured component is derived from entropy displacement: baryonic matter displaces boundary entropy via the Clausius relation, the Jacobson mechanism converts the entropy gradient into curvature, yielding the MOND acceleration scale a₀ = cH/6 ≈ 1.2 × 10⁻¹⁰ m/s² and the baryonic Tully-Fisher relation v⁴ = GM_B · cH/6 — both parameter-free. *Status: theorem (total budget and acceleration scale); interpolation steepness is solution-specific.*
 
 9. **Nested partitions and the Page curve.** When multiple causal horizons coexist, the emergent QM is self-consistent: sequential and direct trace-outs produce the same CPTP channel, Hamiltonian, and ℏ (Theorems B.1–B.4). Dissipative corrections decompose additively with cross term bounded at O(10⁻⁴⁴) (Theorem B.5). The generalized second law — non-decrease of S_matter + S_BH + S_dS — follows from strong subadditivity and CPTP monotonicity (Theorem B.6). The Page curve is derived: S_rad(t) = min(n_R, n_B) · ln q with Page time t_P ≈ 0.646 t_evap, from bijectivity (cycle decomposition on finite energy shells) and Popescu-Short-Winter typicality (Theorems B.7–B.9). Information is never lost. *Status: theorem (Main, Appendix B).*
 
@@ -131,6 +131,7 @@ The forward derivation and the reconstruction theorem together establish a bidir
   ├─→ Weil-Deligne conductor decomposes over gauge irreps (Fundamental App. A, theorem)
   ├─→ Dark energy ν_OI ≈ 2.45×10⁻³ (Main, proposition)
   ├─→ Dark-sector concordance (Main, theorem — total budget)
+  ├─→ Dark matter: a₀ = cH/6, v⁴ = GM·cH/6 (Main §8.4, theorem)
   ├─→ Nested trace-out consistency (Main App. B, theorem)
   ├─→ Generalized second law (Main App. B, theorem)
   ├─→ Page curve with t_P ≈ 0.646 t_evap (Main App. B, theorem)
