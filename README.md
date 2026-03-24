@@ -16,7 +16,7 @@ Physics has two foundational theories — quantum mechanics (QM) and general rel
 
 ### The starting point
 
-The framework rests on four axioms referencing no quantum mechanics or specific physics: deterministic dynamics (a bijection φ on a finite set S), finiteness of the observable sector, a causal partition into visible and hidden sectors, and classical probability. An observer satisfying these axioms is *embedded*: part of the system they are trying to describe, with incomplete access to its state. The observer reads the visible sector and writes correlations into the hidden sector through coupling; the hidden sector stores those writes and returns them on subsequent reads.
+The framework rests on four axioms referencing no quantum mechanics or specific physical theory: deterministic dynamics (a bijection φ on a finite set S), finiteness of the observable sector, a causal partition into visible and hidden sectors, and classical probability. An observer satisfying these axioms is *embedded*: part of the system they are trying to describe, with incomplete access to its state. The observer reads the visible sector and writes correlations into the hidden sector through coupling; the hidden sector stores those writes and returns them on subsequent reads.
 
 ### The core theorem
 
