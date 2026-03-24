@@ -46,7 +46,7 @@ The reconstruction theorem establishes the converse: observed QM with Bell viola
 
 **"The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
 
-Submitted to Foundations of Physics. Establishes the QM–embedded observation equivalence (Part I), applies it to the cosmological horizon (Part II), and derives the dark-sector concordance as a corollary.
+Submitted to Foundations of Physics. Establishes the QM–embedded observation equivalence (Part I), applies it to the cosmological horizon (Part II), derives the dark-sector concordance as a corollary, and proves the consistency of nested partitions — including the generalized second law and the Page curve — in Appendix B.
 
 - [`Main.md`](Main.md) — Markdown source
 - [`Main.tex`](Main.tex) — LaTeX source
@@ -90,13 +90,15 @@ A companion overview covering the full argument — QM emergence, GR derivation,
 
 8. **Dark-sector concordance.** The trace-out producing QM simultaneously renders ~95% of ρ_crit invisible to the emergent QFT. *Status: theorem (total budget); the structured dark matter story is a consistency check, not a derivation.*
 
-9. **Arrow of time.** The substratum (S, φ) has no arrow of time — φ and φ⁻¹ are equally valid. Entropy increase is a property of the observer's coarse-grained description: the standard Boltzmann mechanism applied to the partition. Like QM, the Second Law is emergent.
+9. **Nested partitions and the Page curve.** When multiple causal horizons coexist, the emergent QM is self-consistent: sequential and direct trace-outs produce the same CPTP channel, Hamiltonian, and ℏ (Theorems B.1–B.4). Dissipative corrections decompose additively with cross term bounded at O(10⁻⁴⁴) (Theorem B.5). The generalized second law — non-decrease of S_matter + S_BH + S_dS — follows from strong subadditivity and CPTP monotonicity (Theorem B.6). The Page curve is derived: S_rad(t) = min(n_R, n_B) · ln q with Page time t_P ≈ 0.646 t_evap, from bijectivity (cycle decomposition on finite energy shells) and Popescu-Short-Winter typicality (Theorems B.7–B.9). Information is never lost. *Status: theorem (Main, Appendix B).*
 
-10. **Falsifiable predictions.** Dark energy evolution with ν_OI ≈ 2.45 × 10⁻³; GW echoes near black hole horizons; θ̄ = 0 exactly (no axion, neutron EDM = 0); no SUSY partners; no fourth generation; Majorana neutrinos. The conjunction is distinctive to this framework.
+10. **Arrow of time.** The substratum (S, φ) has no arrow of time — φ and φ⁻¹ are equally valid. Entropy increase is a property of the observer's coarse-grained description: the standard Boltzmann mechanism applied to the partition. Like QM, the Second Law is emergent.
 
-11. **The trace-out as Jordan-Chevalley projection.** Over finite fields, the evolution matrix F decomposes as F = F_ss · F_u (semisimple × unipotent). The trace-out extracts the semisimple part and erases the nilpotent monodromy N. The Weil-Deligne conductor f_WD = f_ss(L) + 2 is q-independent and decomposes additively over gauge irreps with multiplicities (3, 2, 1). *Status: theorem (Fundamental, Appendix A).*
+11. **Falsifiable predictions.** Dark energy evolution with ν_OI ≈ 2.45 × 10⁻³; GW echoes near black hole horizons; θ̄ = 0 exactly (no axion, neutron EDM = 0); no SUSY partners; no fourth generation; Majorana neutrinos. The conjunction is distinctive to this framework.
 
-12. **Reconstruction theorem.** Observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/~. The SM gauge structure, three generations, θ̄ = 0, and ℏ = c³ε²/(4G) are retrodictions derived within the reconstruction, not inputs to it. The correspondence is bidirectional: the mathematical description and the physics determine each other up to gauge. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement — the framework identifies this as gauge. *Status: theorem (Fundamental, §10.3).*
+12. **The trace-out as Jordan-Chevalley projection.** Over finite fields, the evolution matrix F decomposes as F = F_ss · F_u (semisimple × unipotent). The trace-out extracts the semisimple part and erases the nilpotent monodromy N. The Weil-Deligne conductor f_WD = f_ss(L) + 2 is q-independent and decomposes additively over gauge irreps with multiplicities (3, 2, 1). *Status: theorem (Fundamental, Appendix A).*
+
+13. **Reconstruction theorem.** Observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/~. The SM gauge structure, three generations, θ̄ = 0, and ℏ = c³ε²/(4G) are retrodictions derived within the reconstruction, not inputs to it. The correspondence is bidirectional: the mathematical description and the physics determine each other up to gauge. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement — the framework identifies this as gauge. *Status: theorem (Fundamental, §10.3).*
 
 ## The Bidirectional Correspondence
 
@@ -129,6 +131,9 @@ The forward derivation and the reconstruction theorem together establish a bidir
   ├─→ Weil-Deligne conductor decomposes over gauge irreps (Fundamental App. A, theorem)
   ├─→ Dark energy ν_OI ≈ 2.45×10⁻³ (Main, proposition)
   ├─→ Dark-sector concordance (Main, theorem — total budget)
+  ├─→ Nested trace-out consistency (Main App. B, theorem)
+  ├─→ Generalized second law (Main App. B, theorem)
+  ├─→ Page curve with t_P ≈ 0.646 t_evap (Main App. B, theorem)
   └─→ Arrow of time from coarse-graining (Fundamental, standard Boltzmann)
 ```
 
