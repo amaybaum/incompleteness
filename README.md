@@ -10,13 +10,15 @@
 
 The universe is completely described by a lossless memory with finite read-write access. Physics is what that memory looks like from inside.
 
+A lossless memory is a system whose states evolve by a reversible rule: every state has exactly one predecessor and exactly one successor, so no information is ever created or destroyed. The past is always recoverable from the present. Formally, this is a finite set S of distinguishable states and a bijection φ: S → S. The observer does not have access to the full state — only to a bounded portion called the visible sector. Each step updates both sectors simultaneously, but the observer can only read the visible part. The correlations written into the hidden sector persist there and are returned on subsequent steps. This read-write cycle, not passive observation, is what produces quantum mechanics.
+
 ### The problem
 
 Physics has two foundational theories — quantum mechanics (QM) and general relativity (GR) — that are individually precise and mutually inconsistent. When both are used to compute the energy density of empty space, they disagree by a factor of 10¹²². The standard assumption is that one or both theories contain an error. This framework argues otherwise: neither is wrong, and the discrepancy is a necessary consequence of observation from within.
 
 ### The starting point
 
-The framework rests on four axioms referencing no quantum mechanics or specific physical theory: deterministic dynamics (a bijection φ on a finite set S), finiteness of the observable sector, a causal partition into visible and hidden sectors, and classical probability. An observer satisfying these axioms is *embedded*: part of the system they are trying to describe, with incomplete access to its state. The observer reads the visible sector and writes correlations into the hidden sector through coupling; the hidden sector stores those writes and returns them on subsequent reads.
+The framework rests on four axioms referencing no quantum mechanics or specific physics: (1) deterministic dynamics — the rule φ is a bijection, (2) finiteness of the observable sector, (3) a causal partition into visible and hidden sectors, and (4) classical probability. No quantum postulates appear. The claim is that quantum mechanics emerges under three conditions on the hidden sector.
 
 ### The core theorem
 
