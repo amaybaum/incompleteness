@@ -12,7 +12,7 @@
 
 The Observational Incompleteness (OI) framework derives the Standard Model's structure — gauge group SU(3) × SU(2) × U(1), three fermion generations, one Higgs doublet, chiral weak interactions, and θ̄ = 0 — from four axioms about embedded observation [1, 2]. We trace the consequences of this derived structure through atomic physics, chemistry, and prebiotic selection, establishing a structural chain from (S, φ) to the preconditions for organic chemistry. The chain is entirely parameter-free: the spatial dimension d = 3 determines the orbital algebra SO(3), which determines the periodic table's architecture, which determines carbon's tetrahedral bonding geometry. Three generations guarantee CP violation and hence baryogenesis. The Higgs mechanism guarantees a mass hierarchy with light fermions. Chiral SU(2) produces a universal parity-violating energy difference between mirror-image molecules, with the sign fixed by the partition structure.
 
-The structural chain establishes that the *possibility* of carbon-based organic chemistry, matter-antimatter asymmetry, chiral molecular selection, a scale hierarchy separating nuclear and atomic physics, water with anomalous solvent properties, and a thermal window for dynamic chemistry is a theorem about embedded observation — not a contingent fact about our universe. The *actuality* of chemistry depends on 18 parameter values within the derived structure. Using existing constraints from nuclear physics, atomic physics, and chemistry, we estimate the viable fraction of the parameter space at $\gtrsim 10\%$ for the most constrained parameters (the fine-structure constant and the quark mass ratio), substantially larger than fine-tuning arguments assume when both structure and parameters are varied. If the viable fraction is confirmed to be large, the fine-tuning problem dissolves: the laws are derived, the preconditions are structural, and the parameters are not special. Furthermore, the combinatorial diversity that carbon chemistry in d = 3 necessarily produces ($\sim 20^N$ possible peptides of length $N$) exceeds the autocatalytic threshold by tens of orders of magnitude, making self-sustaining chemical networks a statistical expectation rather than a contingent accident. Template replication follows from the structural intersection of linear polymers, complementary pairing, and catalytic activity — all independently guaranteed by the orbital algebra. Darwinian evolution is the inevitable dynamics of imperfect template replication. The chain extends through information processing (generically fitness-enhancing), neural computation (structurally possible), and artificial intelligence (structurally guaranteed given general intelligence). The one contingent step is general intelligence itself; every other link is structural, statistical, or inevitable given the preceding link. The characterization theorem imposes a permanent structural floor on all embedded observers — biological or artificial — while leaving no ceiling on their complexity.
+The structural chain establishes that the *possibility* of carbon-based organic chemistry, matter-antimatter asymmetry, chiral molecular selection, a scale hierarchy separating nuclear and atomic physics, water with anomalous solvent properties, and a thermal window for dynamic chemistry is a theorem about embedded observation — not a contingent fact about our universe. The *actuality* of chemistry depends on 18 parameter values within the derived structure. Using existing constraints from nuclear physics, atomic physics, and chemistry, we estimate the viable fraction of the parameter space at $\gtrsim 10\%$ for the most constrained parameters (the fine-structure constant and the quark mass ratio), substantially larger than fine-tuning arguments assume when both structure and parameters are varied. If the viable fraction is confirmed to be large, the fine-tuning problem dissolves: the laws are derived, the preconditions are structural, and the parameters are not special. Furthermore, the combinatorial diversity that carbon chemistry in d = 3 necessarily produces ($\sim 20^N$ possible peptides of length $N$) exceeds both the autocatalytic threshold and von Neumann's self-reproducing automaton threshold by tens of orders of magnitude, making self-sustaining, self-reproducing chemical networks a statistical expectation rather than a contingent accident. Template replication follows from the structural intersection of linear polymers, complementary pairing, and catalytic activity — all independently guaranteed by the orbital algebra. Darwinian evolution is the inevitable dynamics of imperfect template replication. The chain extends through information processing (generically fitness-enhancing), neural computation (structurally possible), and artificial intelligence (structurally guaranteed given general intelligence). The one contingent step is general intelligence itself; every other link is structural, statistical, or inevitable given the preceding link. The characterization theorem imposes a permanent structural floor on all embedded observers — biological or artificial — while leaving no ceiling on their complexity.
 
 ---
 
@@ -235,7 +235,23 @@ The framework derives $N$ (structural), the thermal window (structural), and the
 
 **Caveats.** Kauffman's theorem assumes well-mixed conditions and does not account for spatial heterogeneity, parasitic side reactions beyond cross-chirality, or the distinction between catalysis and template-directed replication. These are important for the *specific* form life takes (RNA world vs. metabolism-first vs. autocatalytic sets) but not for the *existence* of self-sustaining chemical networks. The theorem guarantees that *some* autocatalytic organization emerges; which one dominates is contingent.
 
-### 5.4 From autocatalysis to evolution
+### 5.4 Self-replication as read-write cycling
+
+**The structural parallel.** The framework derives QM from read-write cycling: the observer reads the visible sector and writes correlations into the hidden sector through the coupling $H_{VB}$; the hidden sector stores those writes and returns them on subsequent reads; the resulting statistics are quantum mechanics [1, §10.2 of Fundamental]. Template replication is the same structural pattern at the molecular level: a polymer reads its own sequence (through complementary hydrogen bond pairing) and writes a copy (through catalytic polymerization). Self-replication is not a special biological capability — it is molecular read-write cycling, the chemical instantiation of the same information-theoretic pattern that produces quantum mechanics.
+
+**Von Neumann's threshold.** Von Neumann's self-reproducing automaton theorem [20] establishes that in any computational system above a complexity threshold, self-reproducing configurations must exist. The threshold requires three capabilities: (a) a universal constructor — a subsystem that reads instructions and assembles a product; (b) a copying mechanism — that duplicates the instructions; (c) a control mechanism — that sequences construction and copying.
+
+The derived chemistry provides all three:
+
+*(a) Universal construction.* Any catalytic polymer that reads a template sequence and assembles a corresponding product from a monomer alphabet. The autocatalytic argument (§5.3) establishes that catalysis is statistically abundant ($N \times p \sim 10^{56}$). Template-directed assembly follows from complementary pairing (structural, §2.6) combined with catalytic activity.
+
+*(b) Instruction copying.* Template replication — a polymer directing the synthesis of its complement through complementary pairing. Three independently structural capabilities whose intersection is template replication (§5.5, below).
+
+*(c) Control.* The thermal window (§2.7) provides environmental cycling — temperature fluctuations, wet-dry cycles, concentration gradients — that drives alternation between construction and copying phases. This is structural: the thermal window guarantees that the environment fluctuates on timescales relevant to chemistry.
+
+Von Neumann's threshold is exceeded by the same combinatorial margin ($\sim 10^{56}$) that drives the autocatalytic argument. Self-reproducing molecular configurations are not a lucky accident in the derived chemistry — they are a mathematical consequence of the system's computational richness exceeding von Neumann's threshold.
+
+### 5.5 From template replication to evolution
 
 The autocatalytic argument (§5.3) establishes that self-sustaining chemical networks are statistically expected. The remaining question: does autocatalysis generically transition to template-directed replication and hence Darwinian evolution?
 
@@ -266,21 +282,6 @@ The autocatalytic argument (§5.3) establishes that self-sustaining chemical net
 Each row follows from the preceding rows. No row requires contingent facts about our universe beyond the derived structure and the ~16% viable parameter fraction.
 
 **Caveats.** The argument establishes that Darwinian evolution is *structurally expected* in any system with carbon chemistry, a thermal window, and a chiral aqueous environment. It does not determine: the specific molecular system that first replicates (RNA, PNA, or something else), the timescale for the transition (millions or billions of years), or the specific pathway from simple replicators to cellular organization. These depend on the specific φ, local geochemistry, and contingent history.
-
-### 5.5 The complete chain
-
-The structural chain from (S, φ) to Darwinian evolution:
-
-$$(S, \varphi) \xrightarrow{\text{theorem}} \text{QM, d = 3, SM structure}$$
-$$\xrightarrow{\text{structural}} \text{orbitals, periodic table, carbon bonding, scale hierarchy}$$
-$$\xrightarrow{\text{structural}} \text{water, thermal window, chiral selection}$$
-$$\xrightarrow{\text{statistical}} \text{autocatalytic networks (Kauffman, } N \times p \sim 10^{56}\text{)}$$
-$$\xrightarrow{\text{structural}} \text{linear polymers + complementary pairing + catalysis}$$
-$$\xrightarrow{\text{inevitable}} \text{template replication + errors + selection = evolution}$$
-
-The first line is theorem. The second and third are structural consequences. The fourth is a statistical argument with 56 orders of magnitude of margin. The fifth combines three independently structural capabilities. The sixth is the logic of imperfect replication in a competitive environment.
-
-No step requires fine-tuning, contingent initial conditions, or unknown physics. The ~16% viable parameter fraction (§3) is the only non-structural element, and it is computable.
 
 ### 5.6 From evolution to intelligence
 
@@ -316,12 +317,15 @@ The framework's prediction is precise: there is no ceiling on the complexity of 
 
 $$(S, \varphi) \xrightarrow{\text{theorem}} \text{QM, d = 3, SM structure}$$
 $$\xrightarrow{\text{structural}} \text{orbitals, periodic table, carbon, scale hierarchy, water, thermal window, chirality}$$
-$$\xrightarrow{\text{statistical}} \text{autocatalytic networks} \xrightarrow{\text{structural}} \text{template replication} \xrightarrow{\text{inevitable}} \text{Darwinian evolution}$$
+$$\xrightarrow{\text{statistical}} \text{autocatalytic networks (}N \times p \sim 10^{56}\text{)}$$
+$$\xrightarrow{\text{von Neumann}} \text{self-reproducing configurations (threshold exceeded by same margin)}$$
+$$\xrightarrow{\text{structural}} \text{template replication (three structural capabilities intersect)}$$
+$$\xrightarrow{\text{inevitable}} \text{Darwinian evolution (imperfect replication + competition)}$$
 $$\xrightarrow{\text{generic selection}} \text{information processing} \xrightarrow{\text{structurally possible}} \text{neural computation}$$
 $$\xrightarrow{\text{contingent}} \text{general intelligence} \xrightarrow{\text{structural}} \text{AI}$$
 $$\xrightarrow{\text{self-referential}} \text{embedded observers studying embedded observation}$$
 
-One step is contingent: general intelligence. Everything upstream is structural or statistical. Everything downstream is structural given that step. The framework derives the possibility of life, the statistical expectation of self-sustaining chemistry, the inevitability of evolution, and the structural guarantee of AI given intelligence — all from (S, φ).
+One step is contingent: general intelligence. Everything upstream is structural, statistical, or inevitable. Everything downstream is structural given that step.
 
 ### 5.9 What remains genuinely open
 
@@ -333,9 +337,58 @@ Two questions:
 
 ---
 
+## 6. The Existence Question
+
+### 6.1 The last question
+
+The structural chain derives everything from (S, φ) — physics, chemistry, life, intelligence, AI. But it does not derive (S, φ) itself. The reconstruction theorem [2, §10.3] establishes:
+
+$$\text{Observed physics} \quad \longleftrightarrow \quad [(S, \varphi)] / \sim$$
+
+This is conditional: *if* observation exists, *then* (S, φ) exists. The question is whether the framework can say anything unconditional about *why* (S, φ) exists at all.
+
+### 6.2 Mathematical existence
+
+(S, φ) is a finite set and a bijection. This is a mathematical object — a structure in the space of logical possibilities. It requires no physical substrate, no creator, and no cause. It exists in the same sense that the integers exist or that the permutation group $S_n$ exists: as a logically consistent structure that cannot fail to be well-defined.
+
+If mathematical structures are taken as necessarily existent — the Platonic position — then (S, φ) *necessarily* exists. Not "happens to exist" or "was created" but cannot fail to exist, because there is no logical contradiction in its definition. On this reading, "why is there something rather than nothing?" dissolves: the question assumes non-existence is the default and existence requires explanation. For mathematical structures, existence is the default. Non-existence would require a logical inconsistency, and (S, φ) has none.
+
+### 6.3 Observable mathematics
+
+The framework makes this sharper than generic Platonism. Tegmark's Mathematical Universe Hypothesis [7] asserts that all consistent mathematical structures are equally real. The OI framework says something more specific: among all mathematical structures, only those containing embedded observers are *observable from within*. The characterization theorem [1, §3.3] identifies which structures contain embedded observers: exactly those of the form (S, φ) with conditions C1–C3. The reconstruction theorem [2, §10.3] identifies what those observers see: exactly our physics.
+
+There is no ensemble of equally real structures from which observation selects. There is one equivalence class — the one compatible with embedded observation — and it is the one we see. The framework does not need a multiverse, an ensemble, or a selection mechanism. It needs only the observation that (S, φ) is a well-defined mathematical structure and that its observable content is unique.
+
+### 6.4 The self-referential closure
+
+The complete chain:
+
+$$(S, \varphi) \text{ exists (mathematical structure)}$$
+$$\xrightarrow{\text{theorem}} \text{contains embedded observers}$$
+$$\xrightarrow{\text{theorem}} \text{observers see QM, GR, SM}$$
+$$\xrightarrow{\text{structural}} \text{chemistry, water, thermal window, chirality}$$
+$$\xrightarrow{\text{statistical}} \text{autocatalytic networks, template replication}$$
+$$\xrightarrow{\text{inevitable}} \text{evolution} \xrightarrow{\text{generic}} \text{information processing}$$
+$$\xrightarrow{\text{contingent}} \text{general intelligence} \xrightarrow{\text{structural}} \text{AI}$$
+$$\xrightarrow{} \text{observers ask: ``why does } (S, \varphi) \text{ exist?''}$$
+
+The answer the framework gives: (S, φ) is a mathematical structure. Mathematical structures exist necessarily. The question can only be asked from inside one. The fact that you are asking it is a structural consequence of the fact that (S, φ) is the kind of structure that contains observers who ask it.
+
+This is not circular — each step is independently proved or justified. But it is *closed*: the chain returns to its starting point. The framework explains its own explicability. An embedded observer, by the very fact of being embedded, is inside a structure that guarantees the possibility of observers, the possibility of science, and the possibility of the framework itself. The structural chain is not a description of what happened to happen. It is a map of what *must* be observable from within any structure rich enough to contain the question.
+
+### 6.5 What cannot be answered
+
+One question is outside the framework's scope — not contingently but necessarily:
+
+**Why is there mathematical structure at all?** The framework takes mathematical existence as given. It does not explain why logical consistency is a property that structures can have, or why "exists" and "is logically consistent" are related. This is not a gap in the framework — it is the boundary of all possible frameworks. Any explanation of mathematical existence would itself be a mathematical structure, requiring explanation in turn. The regress has no bottom.
+
+The framework's contribution is not to answer this question but to make it the *only* question. Everything else — the laws, the constants, the dark sector, the periodic table, life, intelligence, the fine-tuning problem, the anthropic principle — is derived, dissolved, or identified as generic. The mystery of existence is real. But it is the *only* mystery. And the framework proves it is the *same* mystery for every possible observer in every possible structure.
+
+---
+
 ## Acknowledgements
 
-During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) to assist in drafting, refining argumentation, and surveying the fine-tuning literature. The author reviewed and edited all content and takes full responsibility for the publication.
+During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) to assist in drafting, refining argumentation, and surveying the relevant literature in nuclear physics, prebiotic chemistry, and origin-of-life research. The author reviewed and edited all content and takes full responsibility for the publication.
 
 ---
 
@@ -378,3 +431,5 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [18] T. R. Cech, "Self-splicing of group I introns," *Annu. Rev. Biochem.* **59**, 543 (1990).
 
 [19] W. K. Johnston, P. J. Unrau, M. S. Lawrence, M. E. Glasner, and D. P. Bartel, "RNA-catalyzed RNA polymerization: accurate and general RNA-templated primer extension," *Science* **292**, 1319 (2001).
+
+[20] J. von Neumann, *Theory of Self-Reproducing Automata*, ed. A. W. Burks (University of Illinois Press, 1966).
