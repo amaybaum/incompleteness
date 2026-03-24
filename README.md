@@ -52,7 +52,7 @@ Establishes the QM–embedded observation equivalence (Part I), applies it to th
 - [`Main.tex`](Main.tex) — LaTeX source
 - [`Main.pdf`](Main.pdf) — Compiled PDF
 
-### Companion Paper: Fundamental Structure
+### Fundamental Structure
 
 **"The Fundamental Structure of the Observational Incompleteness Framework: From Finite Bijection to the Standard Model"**
 
@@ -71,6 +71,16 @@ A companion overview covering the full argument — QM emergence, GR derivation,
 - [`Explainer.md`](Explainer.md) — Markdown source
 - [`Explainer.tex`](Explainer.tex) — LaTeX source
 - [`Explainer.pdf`](Explainer.pdf) — Compiled PDF
+
+### Complexity 
+
+**"The Structural Preconditions for Complexity: Why the Laws of Physics Guarantee the Possibility of Organic Chemistry"**
+
+Traces the consequences of the derived structure through atomic physics, chemistry, prebiotic selection, and the origin of life. The structural chain from (S, φ) to the preconditions for organic chemistry is entirely parameter-free: d = 3 determines orbital structure, the periodic table, carbon's bonding geometry, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window. The viable parameter fraction is estimated at ~16%. The chirality chain traces biological homochirality to the partition. Autocatalytic networks are statistically expected (10⁵⁶ × Kauffman threshold). Template replication follows from three independently structural capabilities. The chain extends through evolution, information processing, and AI to a self-referential closure.
+
+- [`Complexity.md`](Complexity.md) — Markdown source
+- [`Complexity.tex`](Complexity.tex) — LaTeX source
+- [`Complexity.pdf`](Complexity.pdf) — Compiled PDF
 
 ## Key Results
 
@@ -99,6 +109,8 @@ A companion overview covering the full argument — QM emergence, GR derivation,
 12. **The trace-out as Jordan-Chevalley projection.** Over finite fields, the evolution matrix F decomposes as F = F_ss · F_u (semisimple × unipotent). The trace-out extracts the semisimple part and erases the nilpotent monodromy N. The Weil-Deligne conductor f_WD = f_ss(L) + 2 is q-independent and decomposes additively over gauge irreps with multiplicities (3, 2, 1). *Status: theorem (Fundamental, Appendix A).*
 
 13. **Reconstruction theorem.** Observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/~. The SM gauge structure, three generations, θ̄ = 0, and ℏ = c³ε²/(4G) are retrodictions derived within the reconstruction, not inputs to it. The correspondence is bidirectional: the mathematical description and the physics determine each other up to gauge. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement — the framework identifies this as gauge. *Status: theorem (Fundamental, §10.3).*
+
+14. **Structural preconditions for complexity.** The derived structure guarantees, with no free parameters: orbital algebra and the periodic table (d = 3 + SO(3)), carbon's tetrahedral bonding geometry, the nuclear-atomic scale hierarchy (two independent gauge groups), water's solvent properties (element 8 in d = 3), a thermal window for dynamic chemistry, chiral molecular selection (PVED from the partition), and combinatorial diversity exceeding the autocatalytic threshold by 10⁵⁶. Template replication follows from the structural intersection of linear polymers, complementary pairing, and catalytic activity. Darwinian evolution is the inevitable dynamics of imperfect replication. The viable parameter fraction is ~16%. Fine-tuning and the anthropic principle dissolve. *Status: structural chain + statistical argument (Complexity Paper).*
 
 ## The Bidirectional Correspondence
 
@@ -135,6 +147,11 @@ The forward derivation and the reconstruction theorem together establish a bidir
   ├─→ Nested trace-out consistency (Main App. B, theorem)
   ├─→ Generalized second law (Main App. B, theorem)
   ├─→ Page curve with t_P ≈ 0.646 t_evap (Main App. B, theorem)
+  ├─→ Structural chain: orbitals → periodic table → carbon bonding → water (Complexity, structural)
+  ├─→ Viable parameter fraction ~16% (Complexity, computed)
+  ├─→ Chirality: partition → PVED → L-amino acids (Complexity, structural)
+  ├─→ Autocatalytic networks (Complexity, statistical — 10⁵⁶ × threshold)
+  ├─→ Template replication → Darwinian evolution (Complexity, structural + inevitable)
   └─→ Arrow of time from coarse-graining (Fundamental, standard Boltzmann)
 ```
 
