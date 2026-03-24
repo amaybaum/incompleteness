@@ -8,7 +8,7 @@
 
 ## Overview
 
-The universe is completely described by a lossless memory observed through a finite interface. Physics is what that memory looks like from inside — or equivalently, physics is observable mathematics: the portion of mathematical structure accessible to an embedded observer with partial read access.
+The universe is completely described by a lossless memory with finite read access. Physics is what that memory looks like from inside — or equivalently, physics is observable mathematics: the portion of mathematical structure accessible to an embedded observer with partial read access.
 
 This research program shows that quantum mechanics, general relativity, and the structure of the Standard Model are consequences of a single primitive: (S, φ) — a finite set and a bijection. S is the storage capacity: the total number of distinguishable states. φ is perfect memory: a reversible update rule that never creates or destroys information. An observer embedded in (S, φ) with partial read access — a partition into visible and hidden sectors — necessarily describes the visible sector using quantum mechanics. The conditions are not merely sufficient but necessary: QM and embedded observation are equivalent. For the cosmological application, finiteness is required only for the visible sector and boundary layer — both guaranteed by the holographic entropy bound — while the deep hidden sector may be infinite (Main, §9.6).
 
