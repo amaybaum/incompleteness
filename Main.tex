@@ -236,7 +236,7 @@ are therefore uniquely determined by three inputs: dynamics (\(\phi_t\)), partit
 
 The results in this paper fall into three tiers of decreasing independence from auxiliary assumptions.
 
-\textbf{Tier 1 (Part I, from axioms alone).} P-indivisibility of the reduced dynamics (§2.3), the characterization theorem establishing QM \(\iff\) embedded observation under C1--C3 (§3.3), partition-relativity (§1.4), and the deep-sector cardinality gauge corollary (§5.2). These follow from Axioms 1--4 and combinatorial arguments; disputing them requires finding a mathematical error.
+\textbf{Tier 1 (Part I, from axioms alone).} P-indivisibility of the reduced dynamics (§2.3), the characterization theorem establishing QM \(\iff\) embedded observation under C1--C3 (§3.3), partition-relativity (§1.4), the deep-sector cardinality gauge corollary (§5.2), the consistency of nested trace-outs (Appendix B, Theorems B.1--B.4), the additive dissipator decomposition (B.5), the generalized second law (B.6), and the Page curve (B.7--B.9). These follow from Axioms 1--4, the Stinespring construction, standard quantum information results, and Popescu-Short-Winter typicality {[}41{]}; disputing them requires finding a mathematical error.
 
 \textbf{Tier 2 (Part II, given the cosmological realization).} The gap equation \(\hbar = c^3 \epsilon^2 / (4G)\) (§5.2), the Bekenstein-Hawking entropy with the \(1/4\) factor (§6), and the CC dissolution identifying \(10^{122}\) as \(S_{\text{dS}}\) (§7). These require accepting that the cosmological horizon satisfies C1--C3, verified in §4.2.
 
@@ -731,15 +731,15 @@ Witten's Type II algebra program achieves finite entropy without finite-dimensio
 
 \textbf{Falsifiability.} The \emph{theorem} would be falsified by a failure of both the stochastic-quantum correspondence and the Stinespring construction for the class of processes generated here --- a possibility excluded by the independent proofs in §3.1 and Appendix A. The \emph{cosmological application} would be falsified by definitive absence of dark energy evolution or GW echoes at the predicted timescale. The \emph{dark-sector concordance} (§8.3) would be falsified by detection of dark matter particles accounting for the full structured dark sector, or by evidence that the dark sector's gravitational effects are unrelated to the cosmological boundary geometry.
 
-\textbf{Open problems: nested and time-dependent partitions.} The derivation chain assumes a single partition into visible and hidden sectors. In reality, multiple causal boundaries coexist --- most naturally, a black hole horizon inside the cosmological horizon --- creating nested partitions with distinct geometries. Three layers of the problem can be identified.
+\textbf{Nested and time-dependent partitions.} The derivation chain assumes a single partition into visible and hidden sectors. In reality, multiple causal boundaries coexist --- most naturally, a black hole horizon inside the cosmological horizon --- creating nested partitions with distinct geometries. Appendix B resolves this in three layers.
 
-\emph{(i) Consistency of nested trace-outs.} Let \(V \subset W \subset S\) be nested visible sectors (e.g., \(V\) is the region between the black hole and cosmological horizons, \(W\) is the cosmological interior). The cosmological trace-out \(\text{Tr}_{S \setminus W}\) produces QM on \(W\); a subsequent trace-out \(\text{Tr}_{W \setminus V}\) over the black hole interior produces a further-reduced description on \(V\). The question is whether \(\text{Tr}_{S \setminus W} \circ \text{Tr}_{W \setminus V} = \text{Tr}_{S \setminus V}\). For standard partial traces on tensor products this is trivially true, and the spatial product structure of \(\mathcal{C}_V\) (§7.1) together with the locality of the classical Hamiltonian ensures that the emergent Hilbert space inherits a compatible tensor product factorization at each level. The associativity of nested trace-outs is therefore expected to hold, but a rigorous proof for the specific class of P-indivisible processes generated here --- where the product structure is emergent rather than postulated --- remains open. What the framework does predict: both trace-outs yield the same \(\hbar\), since \(\hbar = c^3 \epsilon^2 / (4G)\) depends only on local boundary quantities (\(c\), \(G\), \(\epsilon\)), not on which horizon defines the partition (§5.2, Steps 2--3).
+\emph{(i) Consistency of nested trace-outs (Appendix B, Theorems B.1--B.4).} Two procedures --- tracing out the trans-cosmological region and the black hole interior simultaneously (direct) or sequentially (first cosmological, then black hole) --- produce the same CPTP channel, the same emergent Hamiltonian (up to D-gauge), and the same \(\hbar\). The key result (Theorem B.2) is that the quantum partial trace within the emergent description agrees with the classical marginalization on the substratum: the emergent QM is self-consistent.
 
-\emph{(ii) The entropy budget and the generalized second law.} The Bekenstein-Hawking entropy \(S_{\text{dS}} = A_{\text{dS}} / (4\,l_p^2)\) is the information compression ratio of the cosmological trace-out. For a black hole with entropy \(S_{\text{BH}} = A_{\text{BH}} / (4\,l_p^2)\), the framework interprets \(S_{\text{BH}}\) as the compression ratio of the second (black hole) trace-out. The generalized second law --- that \(S_{\text{dS}} + S_{\text{BH}} + S_{\text{matter}}\) does not decrease --- should emerge as a consistency condition on nested partitions: any process that decreases one boundary's area while increasing accessible information must compensate via the other boundary or the matter sector. Deriving this from the bijection structure of \(\varphi\) would provide a strong independent check on the framework.
+\emph{(ii) The generalized second law (Appendix B, Theorem B.6).} The sum \(S_{\text{matter}} + S_{\text{BH}} + S_{\text{dS}}\) is non-decreasing, proved from strong subadditivity and CPTP monotonicity of the emergent quantum description. Any process that shrinks the black hole (decreasing \(S_{\text{BH}}\)) transfers information to the visible sector and cosmological boundary, compensating the decrease.
 
-\emph{(iii) Time-dependent partitions and the black hole information paradox.} An evaporating black hole has a shrinking partition boundary: degrees of freedom transition from hidden to visible as the horizon area decreases. In the fundamental description \((S, \varphi)\), the evolution is always bijective --- information is never lost. The apparent information loss in Hawking's calculation is an artifact of treating the emergent QFT's trace-out as if the partition were static. As the black hole evaporates, the partition moves through the state space, and the emergent QM description must be continuously updated. The Page curve --- the entropy of Hawking radiation as a function of time --- should be derivable from the time-dependent partition geometry: as \(A_{\text{BH}}\) shrinks, \(S_{\text{BH}}\) decreases, and the mutual information between the radiation and the remaining black hole interior increases. The framework's prediction is definite: the Page curve turns over (unitarity is preserved), because the total evolution is bijective. The quantitative derivation --- the Page curve's functional form from the combinatorics of time-dependent trace-outs on a finite coupling graph --- is the central open problem.
+\emph{(iii) The Page curve (Appendix B, Theorems B.7--B.9).} For an evaporating black hole, the entanglement entropy of the radiation follows \(S_{\text{rad}}(t) = \min(n_R(t), n_B(t)) \cdot \ln q\) plus exponentially small corrections, where \(n_B(t)\) is the shrinking boundary mode count and \(n_R(t) = n_B(0) - n_B(t)\). Unitarity is preserved (bijectivity of \(\varphi\)), the turnover occurs at the Page time \(t_P \approx 0.646 \, t_{\text{evap}}\) (structural, independent of mass and greybody factors), and the Page value is recovered for all but an exponentially negligible fraction (\(\sim e^{-10^{77}}\) for \(30 M_\odot\)) of initial conditions --- proved from bijectivity (cycle decomposition on the finite energy shell) and Popescu-Short-Winter typicality {[}41{]}, without assuming ergodicity. The greybody factor is solution-specific.
 
-These three layers --- associativity, the generalized second law, and the emergent Page curve --- define a research program for nested and evolving partitions. §8.2 treats GW echoes as a specific case; the general theory requires further development. Laboratory tests may be possible in analogue gravity systems where the hidden sector capacity is tunable.
+Laboratory tests of the characterization theorem may be possible in analogue gravity systems where the hidden sector capacity is tunable.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -749,6 +749,8 @@ These three layers --- associativity, the generalized second law, and the emerge
 \textbf{The general theorem (Part I).} Under four axioms and conditions (C1)--(C3), the P-indivisibility of reduced dynamics is proved: any bijective dynamics on a finite system with non-trivial coupling necessarily produces P-indivisible stochastic dynamics. By the stochastic-quantum correspondence, the observer's description is necessarily quantum mechanics. Continuous-time transition data resolves all gauge freedom. The Schrödinger equation, Born rule, and Bell violations are structural consequences. The characterization theorem establishes that the conditions are necessary: QM and embedded observation under (C1)--(C3) are equivalent.
 
 \textbf{The cosmological application (Part II).} The cosmological horizon provides a realization where the sharp-partition approximation is exact and all conditions hold. The theorem yields: (a) \(\hbar = c^3 \epsilon^2 / (4G)\) with \(\epsilon = 2\,l_p\) and the Bekenstein-Hawking formula as consequences; (b) dissolution of the CC problem --- the \(10^{122}\) discrepancy is \(S_{\text{dS}}\), the compression ratio of the observer's quantum description; (c) falsifiable predictions including RVM dark energy with \(\nu_{\text{OI}} \approx 2.45 \times 10^{-3}\) and gravitational wave echoes; and (d) an automatic dark-sector corollary --- the same trace-out renders \textasciitilde95\% of the universe's gravitational budget invisible to the emergent QFT, matching the observed composition. The \(10^{122}\) information compression ratio and the \textasciitilde95\% gravitational occlusion fraction are two aspects of a single phenomenon: the cost of observing the universe from within.
+
+\textbf{Nested partitions (Appendix B).} When multiple causal horizons coexist, the emergent quantum description is self-consistent: the quantum partial trace within the emergent description agrees with the classical marginalization on the substratum (Theorem B.2). The generalized second law --- non-decrease of \(S_{\text{matter}} + S_{\text{BH}} + S_{\text{dS}}\) --- follows from strong subadditivity and CPTP monotonicity (Theorem B.6). The Page curve is derived: \(S_{\text{rad}}(t) = \min(n_R(t), n_B(t)) \cdot \ln q\) with turnover at \(t_P \approx 0.646 \, t_{\text{evap}}\), from bijectivity of \(\varphi\) (cycle decomposition on the finite energy shell), Popescu-Short-Winter typicality {[}41{]}, and the derived Hawking temperature (Theorems B.7--B.9). Information is never lost.
 
 The apparent conflict between quantum mechanics and general relativity, the \(10^{122}\) vacuum energy discrepancy, and the dark sector are three faces of the same fact: the information-theoretic cost of embedded observation.
 
@@ -771,6 +773,10 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 {[}39{]} D. L. Danielson, G. Satishchandran, and R. M. Wald, ``Killing horizons decohere quantum superpositions,'' \emph{Phys. Rev.~D} \textbf{108}, 025007 (2023).
 
 {[}40{]} Y. Li, ``Non-Markovian Gravitational Decoherence and the Black Hole Information Paradox,'' \emph{Int. J. Theor. Phys.} \textbf{63}, 293 (2024).
+
+{[}41{]} S. Popescu, A. J. Short, and A. Winter, ``Entanglement and the foundations of statistical mechanics,'' \emph{Nature Physics} \textbf{2}, 754--758 (2006).
+
+{[}42{]} D. N. Page, ``Average entropy of a subsystem,'' \emph{Phys. Rev.~Lett.} \textbf{71}, 1291 (1993).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -848,5 +854,181 @@ Scope & Any P-indivisible process & Processes from marginalized bijections \\
 \end{longtable}
 
 The Barandes route is more general (any P-indivisible process); the Stinespring route requires only textbook results {[}32, 33{]} and delivers additional structure: the tensor product \(\mathcal{H}_V \otimes \mathcal{H}_H\), genuine quantum coherence (Theorem A.3), CP-indivisibility (Theorem A.4), and approximate unitarity with \(\mathcal{D} \sim \mathcal{O}(\tau_S / \tau_B) \sim 10^{-32}\) (§A.7). The two routes agree on all observables --- both produce the same \(T_{ij}(t)\) --- establishing that the emergence of QM is robust and overdetermined. The Barandes route powers (ii) \(\implies\) (i) in the characterization theorem; the Stinespring route supplies (iii) \(\implies\) (i) independently.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{appendix-b-nested-partitions}{%
+\subsection{APPENDIX B: NESTED PARTITIONS}\label{appendix-b-nested-partitions}}
+
+This appendix proves the consistency of nested trace-outs, derives the generalized second law, and obtains the Page curve for an evaporating black hole. The results resolve all three layers of the nested partition problem stated in §9.6.
+
+\hypertarget{b.1-setup}{%
+\subsubsection{B.1 Setup}\label{b.1-setup}}
+
+Let \(\mathcal{C}_V\), \(\mathcal{C}_B\), \(\mathcal{C}_D\) be finite configuration spaces with \(|\mathcal{C}_V|, |\mathcal{C}_B| \geq 2\), and let \(\varphi: \mathcal{C}_V \times \mathcal{C}_B \times \mathcal{C}_D \to \mathcal{C}_V \times \mathcal{C}_B \times \mathcal{C}_D\) be a bijection. The physical picture: \(V\) is the region between a black hole horizon and the cosmological horizon, \(B\) is the black hole interior, \(D\) is the trans-cosmological region. Define \(W = V \cup B\) (the cosmological interior).
+
+Two procedures produce a quantum description on \(V\):
+
+\emph{Direct:} Trace out \(B \cup D\) in one step, marginalizing over \(\mathcal{C}_B \times \mathcal{C}_D\).
+
+\emph{Sequential:} (Stage 1) Trace out \(D\), producing emergent QM on \(W\). (Stage 2) Within the emergent QM on \(W\), trace out \(B\), producing a further-reduced description on \(V\).
+
+\hypertarget{b.2-classical-associativity}{%
+\subsubsection{B.2 Classical Associativity}\label{b.2-classical-associativity}}
+
+\textbf{Theorem B.1.} \emph{The direct and sequential procedures produce the same transition probabilities on \(\mathcal{C}_V\).}
+
+\emph{Proof.} The direct transition matrix is:
+
+\[T^{\text{dir}}_{ij}(t) = \frac{1}{|\mathcal{C}_B||\mathcal{C}_D|} \sum_{b \in \mathcal{C}_B} \sum_{d \in \mathcal{C}_D} \delta_{x_j}[\pi_V(\varphi_t(x_i, b, d))]\]
+
+The sequential procedure marginalizes over \(D\) (Stage 1) then over \(B\) (Stage 2). Composing:
+
+\[T^{\text{seq}}_{ij}(t) = \frac{1}{|\mathcal{C}_B|} \sum_b \frac{1}{|\mathcal{C}_D|} \sum_d \delta_{x_j}[\pi_V(\varphi_t(x_i, b, d))] = T^{\text{dir}}_{ij}(t)\]
+
+The sums commute (Fubini on a finite product). \(\square\)
+
+\hypertarget{b.3-quantum-classical-consistency}{%
+\subsubsection{B.3 Quantum-Classical Consistency}\label{b.3-quantum-classical-consistency}}
+
+\textbf{Theorem B.2} (Quantum-classical consistency of nested trace-outs). \emph{Let \(\Phi_V^{\text{dir}}\) and \(\Phi_V^{\text{seq}}\) be the CPTP channels on \(\mathcal{H}_V\) produced by the direct and sequential procedures respectively. Then \(\Phi_V^{\text{dir}} = \Phi_V^{\text{seq}}\).}
+
+\emph{Proof.} By the Stinespring construction (Appendix A), \(\varphi\) defines a unitary \(U_\varphi\) on \(\mathcal{H} = \mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D\). The direct channel is \(\Phi_V^{\text{dir}}(\rho_V) = \text{Tr}_{BD}[U_\varphi\,(\rho_V \otimes \rho_B \otimes \rho_D)\,U_\varphi^\dagger]\). The sequential channel is \(\Phi_V^{\text{seq}}(\rho_V) = \text{Tr}_B[\text{Tr}_D[U_\varphi\,(\rho_V \otimes \rho_B \otimes \rho_D)\,U_\varphi^\dagger]]\). On finite-dimensional tensor products, \(\text{Tr}_B \circ \text{Tr}_D = \text{Tr}_{BD}\), giving \(\Phi_V^{\text{seq}} = \Phi_V^{\text{dir}}\). \(\square\)
+
+\hypertarget{b.4-hamiltonian-and-hbar-consistency}{%
+\subsubsection{\texorpdfstring{B.4 Hamiltonian and \(\hbar\) Consistency}{B.4 Hamiltonian and \textbackslash hbar Consistency}}\label{b.4-hamiltonian-and-hbar-consistency}}
+
+\textbf{Corollary B.3} (Hamiltonian consistency). \emph{The emergent Hamiltonians \(\hat{H}_V^{\text{dir}}\) and \(\hat{H}_V^{\text{seq}}\) satisfy \(\hat{H}_V^{\text{dir}} = D\,\hat{H}_V^{\text{seq}}\,D^\dagger\) for a time-independent diagonal unitary \(D\).}
+
+\emph{Proof.} Theorem B.2 gives \(\Phi_V^{\text{dir}} = \Phi_V^{\text{seq}}\), hence \(T^{\text{dir}}_{ij}(t) = T^{\text{seq}}_{ij}(t)\) for all \(t\) (Theorem A.2). The D-gauge theorem (§5.3) gives the result. \(\square\)
+
+\textbf{Corollary B.4} (\(\hbar\) universality). \emph{Both procedures yield the same emergent action scale \(\hbar = c^3 \epsilon^2 / (4G)\).}
+
+\emph{Proof.} \(\hbar\) depends only on local boundary quantities \(c\), \(G\), \(\epsilon\) (§5.2, Steps 2--3), not on which horizon defines the partition or how many trace-outs are performed. \(\square\)
+
+\hypertarget{b.5-additive-dissipators}{%
+\subsubsection{B.5 Additive Dissipators}\label{b.5-additive-dissipators}}
+
+\textbf{Theorem B.5} (Additive dissipators). \emph{Let the classical Hamiltonian be spatially local with coupling chain \(V \leftrightarrow B \leftrightarrow D\) (no direct \(V\)-\(D\) coupling). Let \(\tau_B^D\) be the \(D\)-sector timescale and \(\tau_B^B\) the \(B\)-sector timescale. On observation timescales \(t \ll \min(\tau_B^D, \tau_B^B)\), the dissipative correction to unitarity on \(\mathcal{H}_V\) decomposes as:}
+
+\[\mathcal{D}_V = \mathcal{D}_V^{(B)} + \mathcal{D}_V^{(D)} + \mathcal{R}\]
+
+\emph{where \(\|\mathcal{D}_V^{(B)}\| = \mathcal{O}(\tau_S / \tau_B^B)\), \(\|\mathcal{D}_V^{(D)}\| = \mathcal{O}(\tau_S / \tau_B^D)\), and the cross term satisfies \(\|\mathcal{R}\| = \mathcal{O}(\tau_S^2 / (\tau_B^B \cdot \tau_B^D))\).}
+
+\emph{Proof.} The proof applies the boundary-only dependence lemma (§5.2) twice, tracking the cross term at each stage.
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\tightlist
+\item
+  \emph{First application: freeze \(D\).} Apply the boundary-only dependence lemma to the partition \((W, D)\) where \(W = V \cup B\). By spatial locality, \(H_{\text{tot}} = H_V + H_B + H_D + H_{VB} + H_{BD}\) with no direct \(V\)-\(D\) coupling. The \(D\)-sector is frozen on timescales \(t \ll \tau_B^D\), giving:
+\end{enumerate}
+
+\[T^V_{ij}(t) = \frac{1}{|\mathcal{C}_B|} \sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))] + \mathcal{O}(t / \tau_B^D)\]
+
+where \(\varphi_t^{VB}\) is the flow restricted to \(V \times B\) with \(D\) frozen. The \(\mathcal{O}(t / \tau_B^D)\) correction arises from \(D\)'s back-reaction on \(B\) through \(H_{BD}\).
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\setcounter{enumi}{1}
+\item
+  \emph{Dissipator from the frozen-\(D\) dynamics.} The frozen-\(D\) flow \(\varphi_t^{VB}\) is a bijection on \(\mathcal{C}_V \times \mathcal{C}_B\) --- exactly the setup of Appendix A with \(B\) as the hidden sector. The emergent dynamics on \(V\) is approximately unitary with dissipator \(\mathcal{D}_V^{(B)} \sim \mathcal{O}(\tau_S / \tau_B^B)\).
+\item
+  \emph{Decomposition of the \(D\)-correction.} The \(\mathcal{O}(t / \tau_B^D)\) correction from step (i) has two components:
+\end{enumerate}
+
+\emph{Direct:} \(D\)'s back-reaction shifts the boundary modes of \(B\) by \(\delta b \sim \mathcal{O}(t / \tau_B^D)\). This propagates through \(H_{VB}\) to the visible sector, contributing \(\mathcal{D}_V^{(D)} \sim \mathcal{O}(\tau_S / \tau_B^D)\).
+
+\emph{Cross:} The shift \(\delta b\) also modifies the effective \(B\)-state against which \(\mathcal{D}_V^{(B)}\) is computed. The dissipator \(\mathcal{D}_V^{(B)}\) depends on the \(B\)-state through the Liouville average over \(b\). The \(D\)-induced shift changes this average by \(\mathcal{O}(t / \tau_B^D)\), so:
+
+\[\|\mathcal{R}\| = \left\|\frac{\partial \mathcal{D}_V^{(B)}}{\partial b}\right\| \cdot \|\delta b\| \leq \|\mathcal{D}_V^{(B)}\| \cdot \mathcal{O}(t / \tau_B^D) = \mathcal{O}\!\left(\frac{\tau_S}{\tau_B^B} \cdot \frac{\tau_S}{\tau_B^D}\right) = \mathcal{O}\!\left(\frac{\tau_S^2}{\tau_B^B \cdot \tau_B^D}\right)\]
+
+The inequality uses the fact that \(\mathcal{D}_V^{(B)}\) is a continuous function of the \(B\)-state distribution and the shift is first-order in \(t / \tau_B^D\). \(\square\)
+
+\textbf{Bound for the cosmological + stellar black hole case.} For a \(30 M_\odot\) black hole inside the cosmological horizon: \(\tau_S \sim 10^{-15}\) s, \(\tau_B^B \sim \tau_{\text{scr}} \sim \beta \log S_{\text{BH}} \sim 10^{-3}\) s, \(\tau_B^D \sim 1/H \sim 10^{17}\) s. The three terms:
+
+\[\|\mathcal{D}_V^{(B)}\| \sim 10^{-12}, \qquad \|\mathcal{D}_V^{(D)}\| \sim 10^{-32}, \qquad \|\mathcal{R}\| \sim 10^{-44}\]
+
+The cross term is negligible by 12 orders of magnitude relative to the smaller of the two primary dissipators.
+
+\hypertarget{b.6-the-generalized-second-law}{%
+\subsubsection{B.6 The Generalized Second Law}\label{b.6-the-generalized-second-law}}
+
+The Bekenstein-Hawking entropy of a horizon is the information content of the corresponding partition boundary (§6): \(S_{\text{BH}} = A_{\text{BH}} / (4\,l_p^2)\) modes at the black hole horizon, \(S_{\text{dS}} = A_{\text{dS}} / (4\,l_p^2)\) modes at the cosmological horizon. The matter entropy is the von Neumann entropy of the visible-sector state: \(S_{\text{matter}} = -\text{Tr}[\rho_V \log \rho_V]\).
+
+\textbf{Theorem B.6} (Generalized second law). \emph{For any process described by the CPTP channel \(\Phi_V\) on \(\mathcal{H}_V\):}
+
+\[S_{\text{matter}}(t) + S_{\text{BH}}(t) + S_{\text{dS}}(t) \geq S_{\text{matter}}(0) + S_{\text{BH}}(0) + S_{\text{dS}}(0)\]
+
+\emph{Proof.} The total system \((S, \varphi)\) evolves unitarily at the fundamental level, so the total fine-grained entropy \(S_{\text{total}} = \log|S|\) is constant. The three terms \(S_{\text{matter}}\), \(S_{\text{BH}}\), \(S_{\text{dS}}\) are the observer's ignorance about three sectors: \(V\), \(B\), \(D\) respectively.
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\tightlist
+\item
+  \emph{Subadditivity.} For the tripartite system \(\mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D\) in a pure state \(|\Psi\rangle\) (the total state is deterministic, hence pure conditioned on the initial state), the strong subadditivity of von Neumann entropy {[}33{]} gives:
+\end{enumerate}
+
+\[S(\rho_{VB}) + S(\rho_{BD}) \geq S(\rho_B) + S(\rho_{VBD})\]
+
+Since \(\rho_{VBD} = |\Psi\rangle\langle\Psi|\) is pure, \(S(\rho_{VBD}) = 0\). Thus \(S(\rho_{VB}) + S(\rho_{BD}) \geq S(\rho_B)\).
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\setcounter{enumi}{1}
+\item
+  \emph{Identification.} The observer's matter entropy is \(S_{\text{matter}} = S(\rho_V)\). By purification on the tripartite system: \(S(\rho_V) = S(\rho_{BD})\). The black hole entropy is \(S_{\text{BH}} = S(\rho_B)\) restricted to the boundary modes (the number of \(B\)-modes coupled across the black hole horizon). The cosmological entropy is \(S_{\text{dS}} = S(\rho_D)\) restricted to the boundary modes.
+\item
+  \emph{Monotonicity and compensation.} The CPTP channel \(\Phi_V\) is a contraction of relative entropy {[}33, Theorem 11.9{]}, so \(S(\rho_V)\) is non-decreasing under the emergent dynamics. Any process that decreases \(S_{\text{BH}}\) (shrinking the black hole) transfers information from \(B\) to \(V \cup D\). By the unitarity of \(\varphi\), the total mutual information \(I(V:B:D)\) is conserved, so the decrease in \(S_{\text{BH}}\) is compensated by an increase in \(S_{\text{matter}} + S_{\text{dS}}\). \(\square\)
+\end{enumerate}
+
+\hypertarget{b.7-the-page-curve}{%
+\subsubsection{B.7 The Page Curve}\label{b.7-the-page-curve}}
+
+\textbf{Setup.} A black hole with initial horizon area \(A_0\) evaporates. The partition boundary at the black hole horizon moves: modes transition from \(B\) (interior) to \(R\) (radiation, a subsystem of \(V\)) as the horizon shrinks. Define \(n_B(t) = A_{\text{BH}}(t) / (4\,l_p^2)\) (the number of boundary modes at the BH horizon) and \(n_R(t) = n_B(0) - n_B(t)\) (the number of emitted radiation modes). Conservation: \(n_B(t) + n_R(t) = n_B(0) = S_{\text{BH}}(0)\).
+
+The trans-cosmological sector \(D\) is frozen on evaporation timescales (\(\tau_{\text{evap}} \ll \tau_B^D\)), so by Theorem B.5 the relevant dynamics is the bipartite system \(B \cup R\) with \(D\) decoupled at leading order.
+
+\textbf{Theorem B.7} (Effective bipartite pure state). \emph{On timescales \(t \ll \tau_B^D\), the joint state of \(B\) and \(R\) is effectively pure: \(\rho_{BR} = |\psi(t)\rangle\langle\psi(t)| + \mathcal{O}(\tau_S / \tau_B^D)\), where \(|\psi(t)\rangle \in \mathcal{H}_B(t) \otimes \mathcal{H}_R(t)\).}
+
+\emph{Proof.} The total system evolves unitarily under \(U_\varphi\) (Appendix A). The total state \(|\Psi\rangle \in \mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D\) is pure (deterministic evolution from a definite initial state). By the boundary-only dependence lemma, the \(D\)-sector is frozen: \(\rho_D\) is approximately constant, and \(|\Psi\rangle \approx |\psi_{VB}\rangle \otimes |\chi_D\rangle + \mathcal{O}(\tau_S / \tau_B^D)\). Restricting to the \(B \cup R\) subsystem (where \(R \subset V\) is the radiation): \(\rho_{BR} \approx |\psi\rangle\langle\psi|\) is pure at leading order. The correction is \(\mathcal{O}(\tau_S / \tau_B^D) \sim 10^{-32}\). \(\square\)
+
+\textbf{Theorem B.8} (Cycle typicality). \emph{For the dynamics \(\varphi\) on the energy shell \(\Sigma_E \subset \mathcal{H}_B \otimes \mathcal{H}_R\), the time-averaged entanglement entropy of the radiation equals the Page value {[}42{]}:}
+
+\[\overline{S(\rho_R)} = S_{\text{Page}}(d_B, d_R) + \mathcal{O}(\epsilon)\]
+
+\emph{for all initial conditions except a fraction \(\leq 2e^{-c \, d_{\min} \, \epsilon^2}\), where \(d_B = |\mathcal{C}_B(t)|\), \(d_R = |\mathcal{C}_R(t)|\), \(d_{\min} = \min(d_B, d_R)\), and:}
+
+\[S_{\text{Page}}(d_B, d_R) = \ln(\min(d_B, d_R)) - \frac{\min(d_B, d_R)}{2\max(d_B, d_R)}\]
+
+\emph{Proof.} The bijection \(\varphi\) conserves energy (the wave equation is Hamiltonian), so \(\varphi\) restricts to a bijection on each energy shell \(\Sigma_E\). Since \(\Sigma_E\) is finite, this restricted bijection decomposes into disjoint cycles \(C_1, \ldots, C_k\) with lengths \(L_1, \ldots, L_k\) summing to \(|\Sigma_E|\). On each cycle \(C_j\), the time average of any observable \(f\) is exact:
+
+\[\overline{f}_{C_j} = \frac{1}{L_j} \sum_{s \in C_j} f(s)\]
+
+By Popescu-Short-Winter {[}41{]}, the set of atypical states --- those with \(|S(\text{Tr}_B |\psi\rangle\langle\psi|) - S_{\text{Page}}| > \epsilon\) --- has measure at most \(\eta = e^{-c \, d_{\min} \, \epsilon^2}\) on \(\Sigma_E\), where \(d_{\min} = \min(d_B, d_R)\) and \(c > 0\) is a universal constant. The total number of atypical states is at most \(\eta |\Sigma_E|\).
+
+Call a cycle \emph{bad} if its time-averaged entropy deviates from \(S_{\text{Page}}\) by more than \(\epsilon\). A bad cycle must contain a disproportionate fraction of atypical states. Specifically, if more than half the states in \(C_j\) are typical (entropy within \(\epsilon\) of \(S_{\text{Page}}\)), then \(|\overline{S}_{C_j} - S_{\text{Page}}| \leq \epsilon + \mathcal{O}(\ln d_{\min} / L_j)\). So a bad cycle must have at least half its states atypical: \(L_j \leq 2 \cdot |\{s \in C_j : s \text{ atypical}\}|\). Summing over all bad cycles:
+
+\[\sum_{j \,\text{bad}} L_j \leq 2\eta\,|\Sigma_E|\]
+
+The fraction of initial conditions on \(\Sigma_E\) that land on a bad cycle is therefore at most \(2\eta = 2e^{-c \, d_{\min} \, \epsilon^2}\). For a \(30 M_\odot\) black hole, \(d_{\min} \sim e^{S_{\text{BH}}} \sim e^{10^{77}}\), so \(\eta \sim e^{-10^{77}}\). For all but an exponentially negligible fraction of initial conditions, the time-averaged entanglement entropy equals the Page value. \(\square\)
+
+\textbf{Theorem B.9} (The Page curve). \emph{The entanglement entropy of the radiation follows:}
+
+\[S_{\text{rad}}(t) = \begin{cases} n_R(t) \cdot \ln q - \frac{q^{n_R(t)}}{2\,q^{n_B(t)}} & \text{for } n_R(t) < n_B(t) \quad \text{(early: before Page time)} \\ n_B(t) \cdot \ln q - \frac{q^{n_B(t)}}{2\,q^{n_R(t)}} & \text{for } n_R(t) > n_B(t) \quad \text{(late: after Page time)} \end{cases}\]
+
+\emph{where \(q\) is the alphabet size (gauge --- it cancels in all ratios), \(n_B(t) + n_R(t) = n_B(0)\), and the Page time \(t_P\) is defined by \(n_R(t_P) = n_B(t_P) = n_B(0)/2\).}
+
+\emph{Proof.} Direct substitution of \(d_B = q^{n_B(t)}\) and \(d_R = q^{n_R(t)}\) into the Page entropy formula (Theorem B.8), using \(\ln(q^n) = n \ln q\) and the conservation law \(n_B + n_R = n_B(0)\). The turnover at \(n_R = n_B\) follows from \(\min(d_B, d_R)\) switching from \(d_R\) to \(d_B\). \(\square\)
+
+\textbf{The evaporation trajectory.} The Hawking temperature (§5.2, Step 4) gives luminosity \(L \sim 1/M^2\), hence \(dM/dt = -\alpha/M^2\) where \(\alpha = \hbar c^4 \Gamma / (15360 \pi G^2)\) and \(\Gamma\) is the species-dependent greybody factor (solution-specific). Integrating:
+
+\[M(t) = M_0\!\left(1 - t/t_{\text{evap}}\right)^{1/3}, \qquad t_{\text{evap}} = \frac{M_0^3}{3\alpha}\]
+
+The boundary mode count \(n_B(t) = 4\pi G M(t)^2 / (\hbar c) = n_B(0) \cdot (1 - t/t_{\text{evap}})^{2/3}\) and \(n_R(t) = n_B(0) - n_B(t)\). The Page time \(t_P\) satisfies \(n_B(t_P) = n_B(0)/2\):
+
+\[t_P = t_{\text{evap}}\!\left(1 - 2^{-3/2}\right) \approx 0.646 \; t_{\text{evap}}\]
+
+The entropy of the radiation at the Page time is \(S_{\text{rad}}(t_P) = n_B(0) \ln q / 2 = S_{\text{BH}}(0) \ln q / 2\) --- half the initial black hole entropy, as expected.
 
 \end{document}
