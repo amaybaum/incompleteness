@@ -8,35 +8,35 @@
 
 ## Overview
 
-The universe is completely described by a lossless memory with finite read-write access. Physics is what that memory looks like from inside — or equivalently, physics is observable mathematics: the portion of mathematical structure accessible to an embedded observer with partial read-write access.
+The universe is completely described by a lossless memory with finite read-write access. Physics is what that memory looks like from inside.
 
-This research program shows that quantum mechanics, general relativity, and the structure of the Standard Model are consequences of a single primitive: (S, φ) — a finite set and a bijection. S is the storage capacity: the total number of distinguishable states. φ is perfect memory: a reversible update rule that never creates or destroys information. An observer embedded in (S, φ) with partial access — a partition into visible and hidden sectors — reads the visible sector and writes correlations into the hidden sector through coupling; the hidden sector stores those writes and returns them on subsequent reads. The observer necessarily describes the visible sector using quantum mechanics. The conditions are not merely sufficient but necessary: QM and embedded observation are equivalent. For the cosmological application, finiteness is required only for the visible sector and boundary layer — both guaranteed by the holographic entropy bound — while the deep hidden sector may be infinite (Main, §9.6).
-
-The cosmological horizon provides the physical realization. The framework derives ℏ = c³ε²/(4G) from thermal self-consistency, recovers the Bekenstein-Hawking entropy S = A/(4l_p²) including the 1/4 factor, and dissolves the 10¹²² cosmological constant discrepancy — identifying it as the information compression ratio of the observer's quantum description. The same trace-out renders ~95% of the universe's gravitational budget invisible to the emergent QFT, matching the observed dark sector.
-
-The framework is tested for rigidity: the dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures. The ontological status of the lattice is resolved: the lattice is the coupling graph of φ, the alphabet size is a gauge freedom, the observer is generic, d = 3 is the unique self-consistent dimension, and (S, φ) is a complete description of reality — whether it *is* reality or *describes* reality is provably undecidable by any measurement, identified by the framework as gauge. The wave equation on a d = 3 lattice uniquely determines the Standard Model's gauge group, matter content, and discrete symmetries — with the primary derivation chain proved end-to-end. The reconstruction theorem establishes the converse: observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/~ — proving that the mathematical description and the physics are informationally equivalent up to gauge.
-
-## Summary for Non-Specialists
-
-### The Problem
+### The problem
 
 Physics has two foundational theories — quantum mechanics (QM) and general relativity (GR) — that are individually precise and mutually inconsistent. When both are used to compute the energy density of empty space, they disagree by a factor of 10¹²². The standard assumption is that one or both theories contain an error. This framework argues otherwise: neither is wrong, and the discrepancy is a necessary consequence of observation from within.
 
-### The Core Mechanism
+### The starting point
 
-An embedded observer — one who is part of the system they are trying to describe — cannot access the complete state. Their description is obtained by summing over all possible hidden states. The framework proves that when the hidden sector is coupled (C1), retains correlations much longer than the observer's measurement timescale (C2), and is large enough that measurements do not appreciably perturb it (C3), the resulting description is necessarily quantum mechanics. The proof rests on P-indivisibility: the transition probabilities cannot be decomposed into independent steps, because finiteness guarantees the system eventually returns to its starting state (recurrence), while coupling ensures distinguishability contracts at short times — producing a non-monotonic trajectory that no memoryless process can replicate.
+The framework rests on four axioms referencing no quantum mechanics or specific physics: deterministic dynamics (a bijection φ on a finite set S), finiteness of the observable sector, a causal partition into visible and hidden sectors, and classical probability. An observer satisfying these axioms is *embedded*: part of the system they are trying to describe, with incomplete access to its state. The observer reads the visible sector and writes correlations into the hidden sector through coupling; the hidden sector stores those writes and returns them on subsequent reads.
 
-### The Cosmological Realization
+### The core theorem
 
-The theorem becomes physics at the cosmological horizon — the boundary beyond which no signal can reach the observer. Stress-energy conservation enforces coupling (C1). The hidden sector's correlation time is the age of the universe (~10¹⁷ s) vs. laboratory timescales (~10⁻¹⁵ s), a ratio of 10⁻³² (C2). The hidden sector has ~10¹²² degrees of freedom (C3). From this single realization, the framework derives ℏ, the Bekenstein-Hawking entropy including the 1/4 factor, and dissolves the 10¹²² discrepancy — identifying it as the information compression ratio of the observer's quantum description. The companion paper derives the Standard Model's gauge group, matter content, and discrete symmetries from the same structure.
+When the hidden sector is coupled (C1), retains correlations much longer than the observer's measurement timescale (C2), and is large enough that measurements do not appreciably perturb it (C3), the observer's reduced description is necessarily quantum mechanics — the Schrödinger equation, the Born rule, and Bell violations all emerge as structural consequences. The conditions are also *necessary*: QM and embedded observation under C1–C3 are equivalent. The proof rests on P-indivisibility: finiteness guarantees recurrence, coupling ensures distinguishability contracts at short times, and recurrence restores it — producing a non-monotonic trajectory that no memoryless process can replicate.
 
-### Two Types of Inaccessibility
+### The cosmological realization
 
-The framework identifies a distinction between quantities that are *undecidable* (the hidden-sector state h — definite, consequential, provably inaccessible) and quantities that are *gauge* (the alphabet size q and the deep-sector cardinality |C_D| — different values produce identical observables, so the question itself is empty). The hidden state's inaccessibility produces quantum mechanics; the deep sector's inaccessibility means the question "is the universe finite or infinite?" has no empirical content.
+The theorem becomes physics at the cosmological horizon — the boundary beyond which no signal can reach the observer. Stress-energy conservation enforces coupling (C1); the hidden sector's correlation time is the age of the universe vs. laboratory timescales, a ratio of 10⁻³² (C2); the hidden sector has ~10¹²² degrees of freedom (C3). From this single realization, the framework derives ℏ = c³ε²/(4G) from thermal self-consistency, recovers the Bekenstein-Hawking entropy S = A/(4l_p²) including the 1/4 factor, and dissolves the 10¹²² cosmological constant discrepancy — identifying it as the information compression ratio of the observer's quantum description. The same trace-out renders ~95% of the universe's gravitational budget invisible to the emergent QFT, matching the observed dark sector.
 
-### The Incompleteness Family
+### The emergent structure
 
-The framework belongs to a family of results where self-reference under finite resources produces rigid structure: Gödel (1931) — a formal system cannot prove all truths about itself; Turing (1936) — a computer cannot decide all questions about its own behavior; OI — an embedded observer cannot access the complete state. In each case, the structural impossibility determines the form of what the system produces instead.
+The dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures. The lattice is the coupling graph of φ, the alphabet size is a gauge freedom, d = 3 is the unique self-consistent dimension, and the observer is generic. The wave equation on a d = 3 lattice uniquely determines the Standard Model's gauge group, matter content, and discrete symmetries — with the primary derivation chain proved end-to-end (29 theorems/lemmas).
+
+### Two types of inaccessibility
+
+The framework identifies a distinction between quantities that are *undecidable* (the hidden-sector state h — definite, consequential, provably inaccessible; the structural consequence is quantum mechanics) and quantities that are *gauge* (the alphabet size q and the deep-sector cardinality |C_D| — different values produce identical observables, so the question itself is empty). The question "is the universe finite or infinite?" has no empirical content — it is identified as gauge.
+
+### The reconstruction and the incompleteness family
+
+The reconstruction theorem establishes the converse: observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/~ — proving that the mathematical description and the physics are informationally equivalent up to gauge. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement. The framework belongs to a family of results where self-reference under finite resources produces rigid structure: Gödel (a formal system cannot prove all truths about itself), Turing (a computer cannot decide all questions about its own behavior), OI (an embedded observer cannot access the complete state). In each case, the structural impossibility determines the form of what the system produces instead.
 
 ## Contents
 
