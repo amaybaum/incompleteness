@@ -860,7 +860,7 @@ The papers derive what (S, φ) *produces*. But what kind of thing *is* it?
 
 ### Storage and memory
 
-S is the set of all distinguishable states. Its physical meaning is *finite capacity*: there are |S| configurations that can be told apart, carrying log₂|S| bits of information. The finiteness is not a regularization — it's load-bearing. Finite sets recur (φ^N = id), recurrence produces P-indivisibility, and P-indivisibility produces quantum mechanics. An infinite S wouldn't recur, and the whole mechanism breaks.
+S is the set of all distinguishable states. Its physical meaning is *finite capacity*: there are |S| configurations that can be told apart, carrying log₂|S| bits of information. The finiteness is not a regularization — it's load-bearing. Finite sets recur (φ^N = id), recurrence produces P-indivisibility, and P-indivisibility produces quantum mechanics. Strictly, only the visible sector and boundary layer need to be finite — the deep hidden sector may be infinite, because the accessible-timescale backflow lemma (Main, §2.3) establishes P-indivisibility without recurrence, and the boundary-only dependence lemma (Main, §5.2) ensures the deep sector's contribution is suppressed by $\tau_S/\tau_B \sim 10^{-32}$.
 
 φ is a bijection: every state has exactly one predecessor and exactly one successor. Its physical meaning is *perfect memory*. Information is never created, never destroyed. The past is always recoverable from the present, because φ⁻¹ exists. A non-bijective map would send two states to the same successor, erasing the distinction between them. φ preserves all distinctions, permanently.
 
@@ -872,19 +872,21 @@ Quantum mechanics is the *read statistics* of a lossless memory through a partia
 
 An immediate objection: "Memory made of *what*?" In everyday life, memory requires a physical substrate — silicon, magnetic domains, neurons. The answer: (S, φ) is a *complete description* of reality — it determines every observable, with nothing left over that any measurement could detect. S is the totality of distinguishable configurations; φ is the structure of dynamical dependence. Space, time, and matter are all derived from (S, φ), so they can't appear in its definition without circularity. Whether (S, φ) *is* reality or *describes* reality is a question the framework proves to be gauge — undecidable by any experiment. The "memory" is a complete mathematical description from which everything observable is derived. Asking what it's made of presupposes a deeper level that no measurement can access — like asking what the number 7 is made of.
 
-### Not a computer
+### Computation from within
 
-A Turing machine has a tape (storage), a head (read/write access), and a transition function (update rule). That maps suggestively onto (S, φ, V). But three differences matter.
+A Turing machine has a tape (storage), a head (read/write access), and a transition function (update rule). Under effective finiteness — where the visible sector and boundary layer are finite but the deep hidden sector may be infinite (Main, §9.7) — the correspondence between (S, φ, V) and a reversible Turing machine is not an analogy. It is structural.
 
-A Turing machine's tape is potentially infinite. S is finite — and finiteness is what produces QM.
+The visible sector V is the head: a finite-state subsystem with bounded local coupling. The hidden sector H is the tape: a memory register that stores correlations written by past interactions. φ is a reversible transition function: no erasure, no halting, no information loss. The conditions C1–C3 characterize this architecture: C1 (coupling) is the read/write mechanism. C2 (slow bath) says the tape retains its contents between head operations. C3 (capacity) says the tape is large enough to store the full interaction history.
 
-A Turing machine is generally irreversible: it can erase, overwrite, halt. φ is a bijection: nothing is ever erased, nothing is ever created, there is no halting. This is what makes (S, φ) a lossless memory rather than a computation.
+So what's different? Not the finiteness — the tape can be infinite. Not the reversibility — that's a specialization (reversible Turing machines are a well-studied subclass, going back to Bennett and Fredkin-Toffoli). The one genuine difference is the *question asked*.
 
-Most fundamentally: a Turing machine computes an *extrinsic function* — it maps input to output for an external user who feeds in the input and reads the result. (S, φ) has no external user. There is no input, no output, no halting, no answer. It's a closed permutation that cycles through states and returns.
+Turing asked: what can a machine compute for an external observer who feeds in input and reads output?
 
-An information theorist might object: any reversible finite automaton *is* a computer — the initial state is the input, the final state is the output, and the cycle is the computation. Formally, that's correct. But the distinction isn't formal — it's about *purpose*. A Turing machine computes something *for someone*. (S, φ) computes nothing for nobody. It's a closed system; there's no recipient of the "answer." What the framework shows is that the appearance of purposeful physical law — evolution equations, conserved quantities, gauge symmetries — arises entirely from the *internal* perspective of the partition. The complexity is in the observer, not in the map.
+The framework asks: what does computation look like to a component of the machine that cannot read the full tape?
 
-People ask: "Is the universe a computer?" The framework's answer: the universe is something *less* than a computer. It's a finite lossless cycle. And physics is the *appearance of complexity* created by observing a simple thing through a keyhole.
+The answer is quantum mechanics. The head cannot access the tape's global state. It sees only local read statistics — transition probabilities obtained by marginalizing over unread tape cells. The characterization theorem proves those statistics are necessarily P-indivisible, hence quantum-mechanical. The Schrödinger equation, the Born rule, superposition, entanglement — all are what reversible computation looks like from inside.
+
+People ask: "Is the universe a computer?" The framework's answer: the universe is a reversible computation. And physics — quantum mechanics, general relativity, the Standard Model — is what that computation looks like to a subsystem embedded within it, observing through a finite window.
 
 ### The arrow of time
 
@@ -904,11 +906,13 @@ This places the framework in a family of results where self-reference under fini
 
 **OI:** An observer embedded in (S, φ) cannot access the complete state. The emergent description isn't random — it has a precise structure (unitary quantum mechanics with the Schrödinger equation, Born rule, and Bell violations).
 
-The common thread: a system with finite resources tries to completely model something it's part of, and the structural impossibility of doing so determines the *form* of what it produces instead. The limitation and the law are the same object viewed from two sides.
+The precise OI analog of the halting problem is: *can the observer determine the hidden-sector state h?* The hidden state has a definite value at every moment — the total system is deterministic. Different hidden states send the same visible state to different futures (the particle goes left or right, the spin is measured up or down). But the observer provably cannot determine h: multiple hidden states are compatible with any visible-sector history, and transition probabilities are averages over h. The structural consequence is quantum mechanics — just as the structural consequence of the halting problem is the architecture of computability theory.
 
-Gödel and Turing are usually read as negative results — limits on knowledge. The framework recasts the physical instance as *generative*. Quantum mechanics is not what we're stuck with because we can't see the full state. It's the unique, mathematically rigid consequence of finite lossless memory observed from within.
+The framework also identifies a distinct class of inaccessible quantities: the alphabet size q and the deep-sector cardinality |C_D|. These are not undecidable — they are *gauge*. Different values produce identical observables, so there is no fact of the matter to be inaccessible. The hidden state h is undecidable: it has a real answer the observer cannot reach. The cardinality |C_D| is gauge: there is nothing there to reach.
 
-The universe is completely described by a finite memory that never forgets. Physics is what that memory looks like from inside.
+The common thread: a system with finite resources tries to completely model something it's part of, and the structural impossibility of doing so determines the *form* of what it produces instead. The limitation and the law are the same object viewed from two sides. The Turing connection is direct: the observer is the head of a reversible computation; the halting problem (the head cannot determine the tape's global state) and the QM emergence theorem (the head's read statistics are necessarily quantum-mechanical) are two consequences of the same structural constraint — finite self-referential access to a lossless computation.
+
+Gödel and Turing are usually read as negative results — limits on knowledge. The framework recasts the physical instance as *generative*. Quantum mechanics is not what we're stuck with because we can't see the full state. It's the unique, mathematically rigid consequence of a reversible computation observed from within.
 
 ### Why does mathematics describe physics?
 
