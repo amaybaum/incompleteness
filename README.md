@@ -40,7 +40,7 @@ The framework identifies a distinction between quantities that are *undecidable*
 
 The reconstruction theorem establishes the converse: observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/~ — proving that the mathematical description and the physics are informationally equivalent up to gauge. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement. The framework belongs to a family of results where self-reference under finite resources produces rigid structure: Gödel (a formal system cannot prove all truths about itself), Turing (a computer cannot decide all questions about its own behavior), OI (an embedded observer cannot access the complete state). In each case, the structural impossibility determines the form of what the system produces instead.
 
-## Contents 
+## Contents
 
 ### Main Paper
 
