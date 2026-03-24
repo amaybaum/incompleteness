@@ -874,7 +874,7 @@ An immediate objection: "Memory made of *what*?" In everyday life, memory requir
 
 ### Computation from within
 
-A Turing machine has a tape (storage), a head (read/write access), and a transition function (update rule). Under effective finiteness — where the visible sector and boundary layer are finite but the deep hidden sector may be infinite (Main, §9.7) — the correspondence between (S, φ, V) and a reversible Turing machine is not an analogy. It is structural.
+A Turing machine has a tape (storage), a head (read/write access), and a transition function (update rule). Under effective finiteness — where the visible sector and boundary layer are finite but the deep hidden sector may be infinite (Main, §9.6) — the correspondence between (S, φ, V) and a reversible Turing machine is not an analogy. It is structural.
 
 The visible sector V is the head: a finite-state subsystem with bounded local coupling. The hidden sector H is the tape: a memory register that stores correlations written by past interactions. φ is a reversible transition function: no erasure, no halting, no information loss. The conditions C1–C3 characterize this architecture: C1 (coupling) is the read/write mechanism. C2 (slow bath) says the tape retains its contents between head operations. C3 (capacity) says the tape is large enough to store the full interaction history.
 
