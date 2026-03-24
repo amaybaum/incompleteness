@@ -10,7 +10,7 @@
 
 The universe is completely described by a lossless memory with finite read-write access. Physics is what that memory looks like from inside.
 
-By *lossless memory* we mean a system with distinguishable states that evolves by a reversible rule — every state has exactly one predecessor and one successor, so no information is ever created or destroyed. The past is always recoverable from the present. Formally: a finite set S and a bijection φ: S → S. By *finite read-write access* we mean the observer can interact with only a bounded portion of the total state — the visible sector — while the rest (the hidden sector) stores and returns correlations but cannot be directly inspected.
+A lossless memory is a system whose states evolve by a reversible rule: every state has exactly one predecessor and exactly one successor, so no information is ever created or destroyed. The past is always recoverable from the present. Formally, this is a finite set S of distinguishable states and a bijection φ: S → S. The observer does not have access to the full state — only to a bounded portion called the visible sector. Every observation reads from this sector and simultaneously writes correlations into the remainder (the hidden sector), which stores them and returns them on subsequent reads. This read-write cycle, not passive observation, is what produces quantum mechanics.
 
 ### The problem
 
