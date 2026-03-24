@@ -46,7 +46,7 @@ The reconstruction theorem establishes the converse: observed QM with Bell viola
 
 **"The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
 
-Submitted to Foundations of Physics. Establishes the QM–embedded observation equivalence (Part I), applies it to the cosmological horizon (Part II), derives the dark-sector concordance as a corollary, and proves the consistency of nested partitions — including the generalized second law and the Page curve — in Appendix B.
+Establishes the QM–embedded observation equivalence (Part I), applies it to the cosmological horizon (Part II), derives the dark-sector concordance as a corollary, and proves the consistency of nested partitions — including the generalized second law and the Page curve — in Appendix B.
 
 - [`Main.md`](Main.md) — Markdown source
 - [`Main.tex`](Main.tex) — LaTeX source
