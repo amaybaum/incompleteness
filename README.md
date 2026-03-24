@@ -40,7 +40,7 @@ The framework identifies a distinction between quantities that are *undecidable*
 
 The reconstruction theorem establishes the converse: observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/~ — proving that the mathematical description and the physics are informationally equivalent up to gauge. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement. The framework belongs to a family of results where self-reference under finite resources produces rigid structure: Gödel (a formal system cannot prove all truths about itself), Turing (a computer cannot decide all questions about its own behavior), OI (an embedded observer cannot access the complete state). In each case, the structural impossibility determines the form of what the system produces instead.
 
-## Contents
+## Contents 
 
 ### Main Paper
 
@@ -52,7 +52,7 @@ Establishes the QM–embedded observation equivalence (Part I), applies it to th
 - [`Main.tex`](Main.tex) — LaTeX source
 - [`Main.pdf`](Main.pdf) — Compiled PDF
 
-### Companion Paper: Fundamental Structure
+### Fundamental Structure
 
 **"The Fundamental Structure of the Observational Incompleteness Framework: From Finite Bijection to the Standard Model"**
 
@@ -72,15 +72,15 @@ A companion overview covering the full argument — QM emergence, GR derivation,
 - [`Explainer.tex`](Explainer.tex) — LaTeX source
 - [`Explainer.pdf`](Explainer.pdf) — Compiled PDF
 
-### Complexity Paper
+### Complexity 
 
 **"The Structural Preconditions for Complexity: Why the Laws of Physics Guarantee the Possibility of Organic Chemistry"**
 
 Traces the consequences of the derived structure through atomic physics, chemistry, prebiotic selection, and the origin of life. The structural chain from (S, φ) to the preconditions for organic chemistry is entirely parameter-free: d = 3 determines orbital structure, the periodic table, carbon's bonding geometry, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window. The viable parameter fraction is estimated at ~16%. The chirality chain traces biological homochirality to the partition. Autocatalytic networks are statistically expected (10⁵⁶ × Kauffman threshold). Template replication follows from three independently structural capabilities. The chain extends through evolution, information processing, and AI to a self-referential closure.
 
-- [`Complexity_Paper.md`](Complexity_Paper.md) — Markdown source
-- [`Complexity_Paper.tex`](Complexity_Paper.tex) — LaTeX source
-- [`Complexity_Paper.pdf`](Complexity_Paper.pdf) — Compiled PDF
+- [`Complexity.md`](Complexity.md) — Markdown source
+- [`Complexity.tex`](Complexity.tex) — LaTeX source
+- [`Complexity.pdf`](Complexity.pdf) — Compiled PDF
 
 ## Key Results
 
