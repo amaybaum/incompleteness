@@ -447,21 +447,9 @@ The "mass hierarchy" — the five-order-of-magnitude spread of fermion masses �
 
 ## 10. Synthesis: The Complete Program
 
-### 10.1 The starting point
+### 10.1 Summary of results
 
-Four axioms: deterministic dynamics, finiteness, a causal partition into visible and hidden sectors, and classical probability. Three conditions on the hidden sector: non-trivial coupling (C1), slow-bath timescale separation (C2), sufficient capacity (C3). No quantum mechanics. No general relativity. No specific dynamics.
-
-### 10.2 The general theorem [1]
-
-Under these axioms and conditions, the visible-sector reduced dynamics is P-indivisible, equivalent to unitary quantum mechanics. The conditions are necessary and sufficient. Applied to the cosmological horizon: the gap equation ℏ = c³ε²/(4G), the Bekenstein-Hawking formula with the 1/4 factor, dissolution of the 10¹²² CC discrepancy, and dark sector concordance (~95% of ρ_crit invisible to the emergent QFT). Falsifiable predictions: dark energy evolution and GW echoes.
-
-### 10.3 The rigidity test
-
-Center independence, isotropy, and linearity uniquely select the wave equation (§7.1). The wave equation produces all inputs for Einstein's equations: area-law entropy, Lorentz-invariant dispersion, horizon thermality, and the Jacobson thermodynamic derivation (§5). Seven independent links — dynamics selection, emergent spacetime dimension, the gap equation, the area law, relativistic dispersion, the Unruh temperature, and Einstein's equations — are all analytically proven. The dynamics selected by QM emergence passes every GR test with no free parameters.
-
-### 10.4 The structural foundations and emergent SM [this paper]
-
-The framework's results depend on six structural properties and nothing else. The lattice is the coupling graph of φ. The alphabet size q is gauge. d = 3 is the unique self-consistent dimension. The observer is generic. The wave equation on a d = 3 lattice determines the Standard Model: gauge group SU(3)×SU(2)×U(1) with multiplicities (3,2,1), three chiral generations, one Higgs doublet, unique hypercharges, and θ̄ = 0 at all energy scales — with the primary derivation chain proved end-to-end.
+The framework starts from four axioms (deterministic dynamics, finiteness, causal partition, classical probability) and three conditions (C1–C3), with no quantum mechanics, general relativity, or specific dynamics. The companion paper [1] proves that embedded observation under these conditions is equivalent to unitary QM, derives ℏ = c³ε²/(4G) and the Bekenstein-Hawking formula, dissolves the CC discrepancy, and predicts dark energy evolution and GW echoes. This paper establishes that center independence, isotropy, and linearity uniquely select the wave equation (§7.1), which passes all seven GR tests with no free parameters (§5). The framework's results depend on six structural properties and nothing else; the wave equation on a d = 3 lattice determines the Standard Model with the primary derivation chain proved end-to-end (§7).
 
 ### 10.5 The physical interpretation of (S, φ)
 
@@ -531,9 +519,7 @@ The mathematical structure and the physics determine each other up to gauge equi
 
 The lattice in the OI framework is not a physical substrate. It is the coupling graph of a bijection on a finite set. Space is the large-scale geometry of this graph. Time is the iteration of the bijection. Quantum mechanics is the observer's compressed description of the visible sector. General relativity is the thermodynamic limit of the coupling structure. The Standard Model is the specific QFT determined by the lattice structure in d = 3.
 
-The fundamental object is (S, φ) — a finite set and a bijection. Physically: a finite lossless memory. The partition V is derived (any small subgraph sees QM). The dimension d = 3 is derived (four independent filters converge). The gauge group, matter content, and discrete symmetries are derived (the primary chain is proved end-to-end).
-
-From (S, φ) alone: the factorization into sites is derived (§3.1), the wave equation is derived (§2.2), d = 3 is derived (§6), q-gauge freedom is established (§4), background independence is achieved (§5), the observer is derived (§9.4), QM is derived [1], GR is derived (§5), and the Standard Model is derived (§7) — with no free parameters except the specific bijection φ. The reconstruction theorem (§10.6) establishes the converse: observed physics uniquely determines [(S, φ)]/∼ at the lattice level. The universe is completely described by a finite memory that never forgets. Physics is what that memory looks like from inside — and what it looks like from inside uniquely determines what it is.
+The fundamental object is (S, φ) — a finite set and a bijection. Physically: a finite lossless memory. The partition V is derived (any small subgraph sees QM). The dimension d = 3 is derived (four independent filters converge). The gauge group, matter content, and discrete symmetries are derived (the primary chain is proved end-to-end). The reconstruction theorem (§10.6) establishes the converse: observed physics uniquely determines [(S, φ)]/∼ at the lattice level. The universe is completely described by a finite memory that never forgets. Physics is what that memory looks like from inside — and what it looks like from inside uniquely determines what it is.
 
 ---
 
