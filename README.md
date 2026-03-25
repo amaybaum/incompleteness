@@ -72,7 +72,7 @@ A companion overview covering the full argument — QM emergence, GR derivation,
 - [`Explainer.tex`](Explainer.tex) — LaTeX source
 - [`Explainer.pdf`](Explainer.pdf) — Compiled PDF
 
-### Complexity 
+### Complexity
 
 **"The Structural Preconditions for Complexity: Why the Laws of Physics Guarantee the Possibility of Organic Chemistry"**
 
