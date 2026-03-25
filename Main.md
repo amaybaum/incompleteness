@@ -12,7 +12,7 @@
 
 An observer embedded in a deterministic universe cannot access the complete state. We prove that any such observer — coupled to a slow, high-capacity hidden sector on a finite-dimensional configuration space — must describe the visible sector using P-indivisible stochastic dynamics, mathematically equivalent to unitary quantum mechanics. The converse also holds: any quantum system, realized as a deterministic dilation, requires non-trivial coupling, slow-bath memory, and sufficient hidden-sector capacity. The Schrödinger equation, Born rule, and Bell violations emerge as structural consequences requiring no independent quantum postulates.
 
-Applied to the cosmological horizon, the framework uniquely determines $\hbar = c^3 \epsilon^2 / (4G)$, fixes $\epsilon = 2\,l_p$, and recovers the Bekenstein-Hawking entropy $S = A/(4\,l_p^2)$. The $10^{122}$ cosmological constant discrepancy is identified as $S_{\text{dS}}$, the information compression ratio of the emergent quantum description; the observed vacuum energy is the mandatory classical baseline. Falsifiable predictions include dark energy evolution in Running Vacuum Model form with $\nu_{\text{OI}} \approx 2.45 \times 10^{-3}$ (parametric; systematic range $1$–$5 \times 10^{-3}$), consistent with current DESI data, and gravitational wave echoes near black hole horizons. The trace-out that produces QM simultaneously renders ~95% of the universe's gravitational budget invisible to the emergent description — matching the observed dark sector — providing independent corroboration of observational incompleteness.
+Applied to the cosmological horizon, the framework uniquely determines $\hbar = c^3 \epsilon^2 / (4G)$, fixes $\epsilon = 2\,l_p$, and recovers the Bekenstein-Hawking entropy $S = A/(4\,l_p^2)$. The $10^{122}$ cosmological constant discrepancy is identified as $S_{\text{dS}}$, the information compression ratio of the emergent quantum description; the observed vacuum energy is the mandatory classical baseline. Falsifiable predictions include dark energy evolution in Running Vacuum Model form with $\nu_{\text{OI}} \approx 2.45 \times 10^{-3}$ (systematic range $2.2$–$2.7 \times 10^{-3}$), consistent with current DESI data, and gravitational wave echoes near black hole horizons. The trace-out that produces QM simultaneously renders ~95% of the universe's gravitational budget invisible to the emergent description — matching the observed dark sector — providing independent corroboration of observational incompleteness.
 
 ---
 
@@ -434,9 +434,17 @@ This is the Running Vacuum Model [20, 21]. The $S_{\text{dS}}$ horizon modes spa
 
 $$\boxed{\nu_{\text{OI}} = \frac{\Omega_\Lambda}{2\,\ln(c/\epsilon H_0)}}$$
 
-With $\epsilon = 2\,l_p$, $H_0 = 67.4$ km/s/Mpc, $\Omega_\Lambda = 0.685$: $\nu_{\text{OI}} = 2.45 \times 10^{-3}$ (parametric uncertainty $\pm 0.03 \times 10^{-3}$ from $H_0$ and $\Omega_\Lambda$; systematic range $\sim 1$–$5 \times 10^{-3}$ from the spectral assumption below). Independently testable ratio: $\nu_{\text{OI}} / \Omega_\Lambda \approx 0.00358$.
+With $\epsilon = 2\,l_p$, $H_0 = 67.4$ km/s/Mpc, $\Omega_\Lambda = 0.685$: $\nu_{\text{OI}} = 2.45 \times 10^{-3}$ (parametric uncertainty $\pm 0.03 \times 10^{-3}$ from $H_0$ and $\Omega_\Lambda$; systematic range $2.2$–$2.7 \times 10^{-3}$ from SM corrections to the spectral assumption below). Independently testable ratio: $\nu_{\text{OI}} / \Omega_\Lambda \approx 0.00358$.
 
-**Sensitivity to field content.** The conformal assumption (uniform spectral density in $\ln\omega$) is an idealization; massive fields and QCD confinement break conformal invariance. For a spectral density $\propto \omega^\alpha$ with $\alpha \neq 0$, the effective channel count $\mathcal{N}$ is modified. Since $\nu_{\text{OI}} \propto 1/\mathcal{N}$ and the conformal value is $\mathcal{N} \sim 140$, even order-unity changes to $\alpha$ shift $\nu_{\text{OI}}$ within $\mathcal{O}(10^{-3})$: the logarithmic structure suppresses sensitivity to UV field content. The systematic range $1$–$5 \times 10^{-3}$ spans a factor-of-two variation in $\mathcal{N}$ around the conformal value; this is the dominant uncertainty, not the parametric error. The central value $2.45 \times 10^{-3}$ should be understood as the conformal benchmark, not a precision prediction.
+**Sensitivity to the spectral assumption.** The prediction depends on the spectral distribution of the boundary mode energy. Three cases illustrate the range:
+
+(i) *Flat in $\ln\omega$ (conformal boundary).* Each logarithmic frequency band carries equal energy. This gives $\mathcal{N} = \ln(c/\epsilon H_0) \approx 140$ and $\nu_{\text{OI}} = 2.45 \times 10^{-3}$. This is the physically motivated case: the boundary modes are degrees of freedom of the classical substratum, whose dynamics (the wave equation) has approximately conformal dispersion $\omega = |k|$ over the full 140-decade range from $H$ to $c/\epsilon$. Standard Model mass thresholds and QCD confinement modify the *emergent* field content but not the substratum's boundary mode spectrum.
+
+(ii) *SM-corrected conformal.* If non-conformal corrections affect ~15 decades (from the electron mass to the top quark mass) out of 140, the effective channel count shifts to $\mathcal{N}_{\text{eff}} \in [125, 155]$, giving $\nu_{\text{OI}} \in [2.2, 2.7] \times 10^{-3}$. The logarithmic structure suppresses sensitivity: a 10% change in the spectral range produces a 12% shift in $\nu$.
+
+(iii) *Power-law boundary spectrum.* A naive 2D density of states $g(\omega) \propto \omega$ gives energy per logarithmic band $\propto \omega^2$ (UV-dominated), yielding $\nu \sim (\epsilon H/c)^2 \sim 10^{-122}$ — effectively zero. This case is excluded if the boundary modes' energy follows equipartition at $T_{\text{dS}}$ on the substratum rather than the emergent QFT's spectral weighting.
+
+The prediction is therefore: $\nu_{\text{OI}} \approx 2.45 \times 10^{-3}$ (conformal benchmark), with SM corrections contained within $[2.2, 2.7] \times 10^{-3}$, provided the boundary spectral density is set by the substratum dynamics. The independently testable ratio $\nu_{\text{OI}} / \Omega_\Lambda \approx 0.00358$ is robust to $\pm 12\%$.
 
 DESI data [22, 30] report evolving dark energy at $2.8\sigma$–$4.2\sigma$. RVM fits [31] find $\nu \sim \mathcal{O}(10^{-3})$ with $\nu = 0$ disfavored at $2.7\sigma$–$3.1\sigma$, consistent with the prediction.
 
@@ -482,11 +490,23 @@ $$\Delta S = \frac{M_B c^2}{k_B T_{\text{dS}}} = \frac{2\pi M_B c^3}{\hbar H}$$
 
 This follows from the generalized second law (Theorem B.6) applied to the matter-boundary system: the boundary's entropy reduction is $Q/T$ for a reversible process, where $Q = M_B c^2$ and $T = T_{\text{dS}}$. For dynamic configurations, the Clausius inequality $\Delta S \geq Q/T$ only strengthens the displacement.
 
-**Step 2: The critical acceleration (derived).** The displaced entropy redistributes over the volume between the matter and the horizon. The Jacobson mechanism converts the entropy gradient into additional radial acceleration. The crossover between Newtonian gravity and the entropic effect, accounting for the volume-to-surface ratio of spherical redistribution in de Sitter ($1/6$), gives:
+**Step 2: The critical acceleration (derived).** The displaced entropy perturbs the entanglement structure of de Sitter space. At radius $r$ from the mass, the entanglement entropy between the interior and exterior of a sphere is modified by the ratio of the Newtonian gravitational potential to the de Sitter background potential:
 
-$$a_0 = \frac{cH}{6} \approx 1.2 \times 10^{-10} \; \text{m/s}^2$$
+$$\varepsilon(r) = \frac{\Phi_N(r)}{\Phi_{\text{dS}}(r)} = \frac{2GM_B}{H^2 r^3}$$
 
-This is the MOND critical acceleration — derived, not fitted. (Milgrom's empirical value: $a_0^{\text{obs}} \approx 1.2 \times 10^{-10}$ m/s².)
+The Jacobson mechanism converts this entropy perturbation into curvature. The gravitational response is quadratic in the strain: the apparent dark mass at radius $r$ satisfies
+
+$$M_D(r)^2 = \frac{M_B \cdot cH \cdot r^2}{d(d-1)\,G}$$
+
+where $d$ is the spatial dimension. The quadratic relationship — rather than linear $M_D \propto \varepsilon \cdot M_{\text{dS}}$ — arises because the gravitational effect of the entropy displacement involves the square of the perturbation, as in any elastic medium [37]. The factor $d(d-1)$ enters through the $d$-dimensional Friedmann equation, $\rho_{\text{crit}} = d(d-1)\,c^2 H^2 / (16\pi G)$, which sets the background de Sitter mass within radius $r$. From the Gauss law, $g_D(r) = GM_D(r)/r^2 = \sqrt{GM_B \cdot a_0}/r$. The crossover acceleration, where $g_D = g_N = GM_B/r^2$, is:
+
+$$a_0 = \frac{cH}{d(d-1)}$$
+
+For $d = 3$ (derived in the companion paper from four independent self-consistency filters):
+
+$$\boxed{a_0 = \frac{cH}{6} \approx 1.2 \times 10^{-10} \; \text{m/s}^2}$$
+
+This matches the empirical MOND acceleration scale — derived, not fitted. The factor $6 = 3 \times 2$ is a geometric consequence of three spatial dimensions, connecting the MOND scale to the $d = 3$ derivation. Verlinde [37] obtains the same result from the elastic response of de Sitter entanglement entropy; the OI framework provides the entropy displacement (Step 1) and the dimensional origin ($d = 3$ from self-consistency).
 
 **Step 3: The deep-MOND regime.** For baryonic acceleration $\ll a_0$, the displaced entropy dominates. The Jacobson mechanism converts the entropy gradient into curvature, giving $g_{\text{total}} = \sqrt{g_B \cdot a_0}$ and rotation velocity:
 
@@ -510,7 +530,7 @@ These constraints narrow the interpolation to a one-parameter family indexed by 
 
 $$g_D = \frac{a_0}{2}\left(\sqrt{1 + \frac{4g_B}{a_0}} - 1\right)$$
 
-**Epistemic status.** Steps 1–3 are Tier 2: the displacement formula follows from the Clausius relation applied to the boundary reservoir (§5.2, B.6), the geometric factor from spherical redistribution in de Sitter, and $a_0 = cH/6$ and $v^4 = GM_B \cdot cH/6$ are parameter-free consequences. The interpolation constraints (i)–(v) are Tier 2; the transition steepness is Tier 3 (solution-specific).
+**Epistemic status.** Steps 1–3 are Tier 2: the displacement formula follows from the Clausius relation applied to the boundary reservoir (§5.2, B.6), the factor $d(d-1) = 6$ from the $d$-dimensional Friedmann equation with $d = 3$ derived from self-consistency, and $a_0 = cH/6$ and $v^4 = GM_B \cdot cH/6$ are parameter-free consequences. The interpolation constraints (i)–(v) are Tier 2; the transition steepness is Tier 3 (solution-specific).
 
 **Observational predictions.** (i) Dark matter "mass" within radius $r$ is determined entirely by enclosed baryonic mass and $H$ — no halo-specific parameters. (ii) The effect depends on $H(z)$: dark matter phenomenology at high redshift differs systematically from low-redshift observations. (iii) The Tully-Fisher relation evolves: $v^4 \propto H(z)$.
 
