@@ -52,7 +52,7 @@ Establishes the QM–embedded observation equivalence (Part I), applies it to th
 - [`Main.tex`](Main.tex) — LaTeX source
 - [`Main.pdf`](Main.pdf) — Compiled PDF
 
-### Companion Paper: Fundamental Structure
+### Fundamental Structure
 
 **"The Fundamental Structure of the Observational Incompleteness Framework: From Finite Bijection to the Standard Model"**
 
@@ -72,7 +72,7 @@ A companion overview covering the full argument — QM emergence, GR derivation,
 - [`Explainer.tex`](Explainer.tex) — LaTeX source
 - [`Explainer.pdf`](Explainer.pdf) — Compiled PDF
 
-### Complexity Paper
+### Complexity
 
 **"The Structural Preconditions for Complexity: Why the Laws of Physics Guarantee the Possibility of Organic Chemistry"**
 
