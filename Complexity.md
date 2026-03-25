@@ -12,7 +12,7 @@
 
 The Observational Incompleteness (OI) framework derives the Standard Model's structure — gauge group SU(3) × SU(2) × U(1), three fermion generations, one Higgs doublet, chiral weak interactions, and θ̄ = 0 — from four axioms about embedded observation [1, 2]. We trace the consequences of this derived structure through atomic physics, chemistry, and prebiotic selection, establishing a structural chain from (S, φ) to the preconditions for organic chemistry. The chain is entirely parameter-free: the spatial dimension d = 3 determines the orbital algebra SO(3), which determines the periodic table's architecture, which determines carbon's tetrahedral bonding geometry. Three generations guarantee CP violation and hence baryogenesis. The Higgs mechanism guarantees a mass hierarchy with light fermions. Chiral SU(2) produces a universal parity-violating energy difference between mirror-image molecules, with the sign fixed by the partition structure.
 
-The structural chain establishes that the *possibility* of carbon-based organic chemistry, matter-antimatter asymmetry, chiral molecular selection, a scale hierarchy separating nuclear and atomic physics, water with anomalous solvent properties, and a thermal window for dynamic chemistry is a theorem about embedded observation — not a contingent fact about our universe. The *actuality* of chemistry depends on 18 parameter values within the derived structure. Using existing constraints from nuclear physics, atomic physics, and chemistry, we estimate the viable fraction of the parameter space at $\gtrsim 10\%$ for the most constrained parameters (the fine-structure constant and the quark mass ratio), substantially larger than fine-tuning arguments assume when both structure and parameters are varied. If the viable fraction is confirmed to be large, the fine-tuning problem dissolves: the laws are derived, the preconditions are structural, and the parameters are not special. Furthermore, the combinatorial diversity that carbon chemistry in d = 3 necessarily produces ($\sim 20^N$ possible peptides of length $N$) exceeds both the autocatalytic threshold and von Neumann's self-reproducing automaton threshold by tens of orders of magnitude, making self-sustaining, self-reproducing chemical networks a statistical expectation rather than a contingent accident. Template replication follows from the structural intersection of linear polymers, complementary pairing, and catalytic activity — all independently guaranteed by the orbital algebra. Darwinian evolution is the inevitable dynamics of imperfect template replication. The chain extends through information processing (generically fitness-enhancing), neural computation (structurally possible), and artificial intelligence (structurally guaranteed given general intelligence). The one contingent step is general intelligence itself; every other link is structural, statistical, or inevitable given the preceding link. The characterization theorem imposes a permanent structural floor on all embedded observers — biological or artificial — while leaving no ceiling on their complexity.
+The structural chain establishes that the *possibility* of carbon-based organic chemistry, matter-antimatter asymmetry, chiral molecular selection, a scale hierarchy separating nuclear and atomic physics, water with anomalous solvent properties, and a thermal window for dynamic chemistry is a theorem about embedded observation — not a contingent fact about our universe. The *actuality* of chemistry depends on 18 parameter values within the derived structure. Using existing constraints from nuclear physics, atomic physics, and chemistry, we estimate the viable fraction of the parameter space at $\gtrsim 10\%$ for the most constrained parameters (the fine-structure constant and the quark mass ratio), substantially larger than fine-tuning arguments assume when both structure and parameters are varied. If the viable fraction is confirmed to be large, the fine-tuning problem dissolves: the laws are derived, the preconditions are structural, and the parameters are not special. Furthermore, the combinatorial diversity that carbon chemistry in d = 3 necessarily produces ($\sim 20^N$ possible peptides of length $N$) exceeds both the autocatalytic threshold and von Neumann's self-reproducing automaton threshold by tens of orders of magnitude, making self-sustaining, self-reproducing chemical networks a statistical expectation rather than a contingent accident. Template replication follows from the structural intersection of linear polymers, complementary pairing, and catalytic activity — all independently guaranteed by the orbital algebra. Darwinian evolution is the inevitable dynamics of imperfect template replication. The chain extends through information processing (generically fitness-enhancing), neural computation (structurally possible), and artificial intelligence (structurally guaranteed given general intelligence). The one contingent step is general intelligence itself; every other link is structural, statistical, or inevitable given the preceding link. The characterization theorem imposes a permanent structural floor on all embedded observers — biological or artificial — while leaving no ceiling on their complexity. The same C1–C3 conditions that produce QM at the cosmological scale are satisfied within biological systems — protein scaffolds act as slow, high-capacity hidden sectors coupled to enzyme active sites — predicting non-Markovian enzyme kinetics consistent with single-molecule experiments, with implications for allosteric drug design and the structural basis of drug resistance. The non-Markovian corrections grow as $\tau_S / \tau_B$ increases: negligible at the cosmological scale ($10^{-32}$), measurable in enzymes ($10^{-9}$), and approaching engineering relevance in quantum computing ($10^{-3}$) and quantum sensing ($10^{-6}$). The framework identifies a new design space — engineered C1–C3 architectures — in which the environment is a programmable quantum memory rather than a source of noise.
 
 ---
 
@@ -22,7 +22,7 @@ The fine-tuning problem in physics rests on a counterfactual: if the laws of phy
 
 The OI framework [1, 2] challenges the premise. The companion papers prove that an embedded observer in a deterministic system with conditions C1–C3 (coupling, slow bath, sufficient capacity) necessarily describes the visible sector using quantum mechanics [1], and that the dynamics uniquely selected by this requirement determines the Standard Model's complete structure [2]. If the laws are derived rather than contingent, the largest source of anthropic variation — the structure of the laws themselves — is eliminated.
 
-This paper traces the consequences. §2 establishes the structural chain from (S, φ) to the full preconditions for organic chemistry — orbital structure, the periodic table, carbon's bonding geometry, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window for dynamic chemistry. §3 estimates the viable fraction of the parameter space using existing literature. §4 derives the chirality chain from the partition to biological homochirality. §5 extends the chain through autocatalytic networks, template replication, Darwinian evolution, information processing, and artificial intelligence, identifying the one contingent step and the structural limits on all embedded observers.
+This paper traces the consequences. §2 establishes the structural chain from (S, φ) to the full preconditions for organic chemistry — orbital structure, the periodic table, carbon's bonding geometry, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window for dynamic chemistry. §3 estimates the viable fraction of the parameter space using existing literature. §4 derives the chirality chain from the partition to biological homochirality. §5 extends the chain through autocatalytic networks, template replication, Darwinian evolution, information processing, and artificial intelligence, identifying the one contingent step and the structural limits on all embedded observers. §6 addresses the existence question. §7 applies C1–C3 to biological systems, predicting non-Markovian enzyme kinetics with implications for drug design. §8 identifies where OI corrections reach engineering relevance — quantum computing, quantum sensing, and precision metrology — and proposes three engineering frontiers: engineered partitions (the bath as programmable memory), non-Markovian quantum computation (P-indivisible gate sequences), and quantum materials with designed C1–C3 architectures.
 
 ---
 
@@ -293,7 +293,28 @@ Each row follows from the preceding rows. No row requires contingent facts about
 
 ### 5.7 From intelligence to AI and the self-referential limit
 
-**AI is structurally guaranteed given general intelligence.** If general intelligence exists — for whatever contingent or structural reason — then AI follows from the derived structure. The reconstruction theorem [2, §10.3] implies that a sufficiently sophisticated observer can discover (S, φ). An observer that understands its own substrate can build computational devices exploiting it. The derived periodic table provides semiconductors (silicon: element 14, band gap set by the orbital algebra and parametric bond energies). Derived QM provides transistor physics. The scale hierarchy separates computational energies from bond energies. The chain: general intelligence + derived periodic table + derived QM → semiconductor physics → programmable computation → AI.
+**The structural chain to universal computation.** If general intelligence exists — for whatever contingent or structural reason — then AI follows from the derived structure through a specific chain in which every link is structural.
+
+*Band theory.* Derived QM (Main, Part I) applied to electrons in a periodic crystal potential (the sp³ diamond-cubic lattice of a Group IV element) gives Bloch's theorem: energy bands separated by gaps. The periodic potential is structural — it follows from sp³ hybridization in d = 3. Band structure is a consequence of derived QM applied to derived crystal geometry.
+
+*Semiconductors.* For Group IV elements (4 valence electrons per atom), the Pauli exclusion principle (derived — spin-statistics from staggered fermions [2, §7.2]) exactly fills the valence band and leaves the conduction band empty. The band gap for silicon (~1.1 eV) sits in the thermal sweet spot: $E_{\text{gap}} / kT \sim 40$ at room temperature. Large enough that thermal excitation doesn't flood the conduction band (the material isn't always conducting); small enough that a modest voltage promotes electrons across the gap (the material can be switched). The *existence* of Group IV semiconductors with gaps in the right range relative to the thermal window is structural — it follows from the scale hierarchy (§2.5): the gap is set by the atomic energy scale ($\alpha^2 m_e c^2$), and the thermal window operates far below it.
+
+*Doping.* Replacing a silicon atom (Group IV) with phosphorus (Group V, 5 valence electrons) adds one free electron — n-type. Replacing with boron (Group III, 3 valence electrons) removes one — p-type. Both dopant types exist in the derived periodic table. The ability to create n-type and p-type regions is a structural consequence of the periodic table architecture.
+
+*From transistors to universal computation.* A p-n junction rectifies current. A transistor (two p-n junctions) amplifies and switches. Transistors in combination implement logic gates. A NAND gate is functionally complete — any Boolean function can be built from NAND gates alone. Sufficient NAND gates implement a universal Turing machine. Each step is either a structural consequence of semiconductor physics or a mathematical theorem about computation.
+
+| Step | Content | Status |
+|------|---------|--------|
+| Band theory | QM + periodic crystal potential | Structural |
+| Band gap for Group IV | Exactly filled valence band (4 electrons + Pauli) | Structural |
+| Semiconductor behavior | Gap in thermal sweet spot ($E_{\text{gap}} / kT \sim 40$) | Structural (scale hierarchy) |
+| Doping | Group III / V substitution | Structural (periodic table) |
+| p-n junctions | Interface between p-type and n-type | Structural consequence |
+| Transistors | Voltage-controlled p-n junctions | Structural |
+| Logic gates | Transistors in series / parallel | Structural |
+| Universal computation | NAND is functionally complete | Mathematical theorem |
+
+The chain from (S, φ) to a universal computer is structural — given someone to build it. That is the same contingent step (general intelligence) identified in §5.6. The reconstruction theorem [2, §10.3] implies that a sufficiently sophisticated observer can discover (S, φ) — and an observer that understands its own substrate can build computational devices exploiting it.
 
 **The self-referential loop.** AI is an embedded observer building another embedded observer within the same (S, φ). The characterization theorem [1, §3.3] applies to the new observer. It sees the same QM, the same ℏ, the same SM, the same dark sector. Not because it is limited by human design, but because the physics is structural — determined by the partition, not by the observer's complexity. A superintelligent AI has the same observational access as any other embedded observer: it reads the visible sector and writes to the hidden sector through the same coupling. It cannot determine $h$. It cannot see past the cosmological horizon. It can build better instruments, but it cannot overcome the partition.
 
@@ -322,7 +343,8 @@ $$\xrightarrow{\text{von Neumann}} \text{self-reproducing configurations (thresh
 $$\xrightarrow{\text{structural}} \text{template replication (three structural capabilities intersect)}$$
 $$\xrightarrow{\text{inevitable}} \text{Darwinian evolution (imperfect replication + competition)}$$
 $$\xrightarrow{\text{generic selection}} \text{information processing} \xrightarrow{\text{structurally possible}} \text{neural computation}$$
-$$\xrightarrow{\text{contingent}} \text{general intelligence} \xrightarrow{\text{structural}} \text{AI}$$
+$$\xrightarrow{\text{contingent}} \text{general intelligence}$$
+$$\xrightarrow{\text{structural}} \text{Group IV semiconductors} \xrightarrow{\text{structural}} \text{transistors} \xrightarrow{\text{theorem}} \text{universal computation}$$
 $$\xrightarrow{\text{self-referential}} \text{embedded observers studying embedded observation}$$
 
 One step is contingent: general intelligence. Everything upstream is structural, statistical, or inevitable. Everything downstream is structural given that step.
@@ -386,9 +408,159 @@ The framework's contribution is not to answer this question but to make it the *
 
 ---
 
+## 7. Quantum Biology: C1–C3 Inside Living Systems
+
+### 7.1 The reframing
+
+Quantum biology — the study of quantum coherence in biological systems — is an active and contested field. The central question is usually framed as: "How do biological systems maintain quantum coherence at warm, wet, noisy conditions?" The framework reframes this. QM is not a fragile state that biology must protect from decoherence. QM is the *necessary description* of any subsystem coupled to a slow, high-capacity hidden sector (the characterization theorem [1, §3.3]). If biological subsystems satisfy C1–C3 internally, their dynamics is necessarily P-indivisible — not because evolution engineered quantum coherence, but because the coupling architecture mandates it.
+
+### 7.2 C1–C3 in proteins
+
+Consider an enzyme's active site as the visible sector and the protein scaffold's conformational degrees of freedom as the hidden sector.
+
+**C1 (coupling).** The active site is covalently bonded to the scaffold — coupling is continuous and bidirectional. Electronic transitions at the active site induce conformational strain in the scaffold; conformational changes in the scaffold modulate the active site's electronic structure. This is the standard picture of allostery.
+
+**C2 (slow bath).** Electronic transitions at the active site occur on femtosecond timescales ($\tau_S \sim 10^{-15}$ s). Conformational changes of the protein scaffold occur on microsecond to millisecond timescales ($\tau_B \sim 10^{-6}$ to $10^{-3}$ s). The ratio: $\tau_S / \tau_B \sim 10^{-12}$ to $10^{-9}$. This is the *inverse* of the Markovian regime — exactly the slow-bath condition. The scaffold retains correlations for $\sim 10^9$ electronic transitions before relaxing.
+
+**C3 (capacity).** A typical enzyme has $\sim 10^3$ to $10^4$ atoms, each with multiple conformational degrees of freedom. The conformational state space is exponentially large: $\sim q^{N_{\text{conf}}}$ with $N_{\text{conf}} \sim 10^3$. This exceeds the active site's electronic state space ($\sim 10$ to $100$ relevant states) by tens of orders of magnitude.
+
+All three conditions are satisfied. The characterization theorem predicts: the active site's reduced dynamics is P-indivisible.
+
+### 7.3 The prediction
+
+**Standard theory (Markovian).** Enzyme kinetics is conventionally described by Michaelis-Menten theory and transition state theory, both of which assume the protein environment is a fast thermal bath — the opposite of C2. Rate constants are treated as time-independent. The environment's role is to provide thermal activation energy and then equilibrate before the next catalytic event.
+
+**OI prediction (non-Markovian).** The protein scaffold is a *slow* bath. Correlations written into the scaffold during one catalytic event persist through subsequent events. The active site's transition probabilities are history-dependent — they depend on the scaffold's conformational state, which remembers previous catalytic cycles. This produces:
+
+*Information backflow.* The scaffold returns correlations to the active site on conformational timescales (μs to ms), modulating catalytic rates in a way that depends on the enzyme's recent history. Standard rate theory predicts exponential kinetics; P-indivisibility predicts non-exponential kinetics with a specific signature: the rate "constant" oscillates or shows memory effects on the conformational timescale.
+
+*Non-Markovian signatures.* The mutual information $I(X_{<t}; X_{>t} | X_t)$ between past and future catalytic events, conditioned on the present state, is $\mathcal{O}(1)$ — not exponentially suppressed. This is the accessible-timescale backflow lemma [1, §2.3] applied to the protein system.
+
+### 7.4 Existing evidence
+
+Several lines of experimental evidence are consistent with the non-Markovian prediction:
+
+**Single-molecule enzyme kinetics.** Experiments tracking individual enzyme molecules (English et al. 2006 [21]; Lu et al. 1998 [22]) reveal fluctuating catalytic rates — the same enzyme molecule catalyzes reactions at different rates at different times, with correlations persisting for milliseconds to seconds. This is conventionally attributed to "conformational fluctuations" but is precisely the signature of a slow bath: the scaffold's conformational state modulates the active site's electronic dynamics, producing history-dependent rates.
+
+**Dispersed kinetics.** Many enzymes show stretched-exponential or power-law waiting-time distributions rather than the single-exponential predicted by Markovian theory. This is generic in P-indivisible systems: the transition probability matrix at intermediate times has no valid stochastic decomposition, producing non-standard temporal statistics.
+
+**Quantum coherence in photosynthesis.** Long-lived quantum coherence in the Fenna-Matthews-Olson (FMO) complex (Engel et al. 2007 [23]) and similar light-harvesting systems persists for hundreds of femtoseconds at biological temperatures. The conventional puzzle — how is coherence maintained in a "warm, wet" environment? — dissolves under the OI reframing: the protein scaffold is a slow bath (C2), so the electronic dynamics is necessarily non-Markovian. Coherence is not maintained *despite* the environment; it is maintained *because* the environment is slow.
+
+**Enzyme catalysis and tunneling.** Hydrogen tunneling in alcohol dehydrogenase and other enzymes shows temperature-independent kinetic isotope effects — inconsistent with transition state theory but consistent with quantum tunneling modulated by slow conformational dynamics [24]. The conformational gating of tunneling is a specific instance of C2: the scaffold's slow dynamics controls the barrier width, producing history-dependent tunneling rates.
+
+### 7.5 Testable predictions for medical science
+
+The non-Markovian prediction has specific implications for drug design and enzymology:
+
+**Allosteric drug design.** Allosteric drugs work by binding at a site distant from the active site, modulating catalytic activity through conformational changes — precisely the C1 coupling between visible and hidden sectors. The framework predicts that allosteric effects are not instantaneous but carry temporal correlations: the drug's binding event writes conformational information into the scaffold, which is returned to the active site over the conformational timescale. Optimal allosteric drug design should account for these temporal correlations, not just equilibrium binding affinities.
+
+**Drug resistance.** Resistance mutations often occur far from the active site — in the conformational sector. The OI reframing suggests that resistance works by altering the *memory structure* of the hidden sector: mutations change the scaffold's conformational dynamics ($\tau_B$, the spectral gap, the capacity), which changes the non-Markovian character of the active site's dynamics. This predicts that resistance mutations cluster in regions that maximally alter the scaffold's slowest conformational modes — a testable prediction using normal mode analysis.
+
+**Enzyme engineering.** Directed evolution optimizes catalytic rate but often produces enzymes with reduced thermal stability or promiscuity. The framework suggests a design principle: optimize not just the active site's electronic structure but the *coupling architecture* — the C1–C3 relationship between the active site and the scaffold. Enzymes with better-tuned $\tau_S / \tau_B$ ratios should show both higher catalytic rates and more robust performance.
+
+### 7.6 Epistemic status
+
+The application of C1–C3 to protein systems is a *structural prediction* of the framework — it follows from the same characterization theorem that produces QM at the cosmological scale. The specific signatures (non-exponential kinetics, fluctuating rates, conformational gating of tunneling) are consistent with existing experimental data but have not been quantitatively tested against the framework's specific predictions ($I(X_{<t}; X_{>t} | X_t) = \mathcal{O}(1)$, P-indivisibility of the catalytic cycle statistics). The medical implications (allosteric temporal correlations, resistance as memory-structure alteration) are consequences of the prediction but have not been independently tested.
+
+The honest summary: the framework predicts that enzyme kinetics is non-Markovian for the same structural reason that cosmological observation is quantum-mechanical. The prediction is consistent with existing evidence and makes specific testable claims. Whether the non-Markovian corrections are large enough to matter for practical drug design is an empirical question — the corrections are $\mathcal{O}(\tau_S / \tau_B) \sim 10^{-9}$ to $10^{-12}$ for individual catalytic events, but may accumulate over many cycles or in systems with exceptionally slow conformational dynamics.
+
+---
+
+## 8. The GPS Analogy: Where OI Corrections Reach Engineering Relevance
+
+### 8.1 The precedent
+
+Nobody building a satellite navigation system in the 1950s would have predicted they would need general relativity. GPS requires relativistic corrections because satellite clocks experience different gravitational potentials — 45 μs/day from GR, 7 μs/day from SR. Without corrections, position drifts ~10 km/day. The practical application emerged when engineering precision reached the scale where the correction mattered.
+
+The framework's specific correction is non-Markovian dynamics: $\mathcal{O}(\tau_S / \tau_B)$ deviations from standard Markovian models. At the cosmological scale, $\tau_S / \tau_B \sim 10^{-32}$ — irrelevant for any technology. But $\tau_S / \tau_B$ is scale-dependent. The question: where does engineering precision reach the scale where OI corrections matter?
+
+### 8.2 Quantum computing
+
+**The Markovian assumption in error correction.** Standard quantum error correction (surface codes, stabilizer codes) assumes Markovian noise — each error is statistically independent of previous errors. The framework predicts this is wrong whenever the qubit's environment satisfies C2 (slow bath).
+
+**The physical system.** Superconducting qubits (transmons) are coupled to two-level systems (TLS) in the substrate — structural defects in the amorphous oxide layer. TLS dynamics is slow ($\tau_B \sim \mu\text{s}$) relative to gate operations ($\tau_S \sim \text{ns}$). The ratio: $\tau_S / \tau_B \sim 10^{-3}$. This is 29 orders of magnitude larger than the cosmological case.
+
+**The prediction.** The noise is P-indivisible: error probabilities at gate $k$ depend on the error history at gates $k-1, k-2, \ldots$ through correlations stored in the TLS bath. Standard Markovian error correction sees these correlated errors as an anomalously high uncorrectable error rate. Non-Markovian error correction protocols — designed for the actual P-indivisible noise structure — could exploit the correlations rather than treating them as random, improving logical error rates.
+
+**The scale.** A 0.1% correction per gate. Small — but in a quantum algorithm with $10^4$ gates, the cumulative effect is $\sim 10\%$. Current quantum computers are at the threshold where this matters. As gate counts increase toward practical quantum advantage ($10^6$+ gates), the correction becomes dominant.
+
+### 8.3 Quantum sensing
+
+**Nitrogen-vacancy (NV) centers.** NV centers in diamond detect magnetic fields with sensitivity approaching the standard quantum limit, bounded by the coherence time $T_2$. Standard models assume Markovian decoherence — coherence decays exponentially and is gone.
+
+**The OI prediction.** The diamond lattice's phonon bath has slow modes (paramagnetic impurities, strain fields with relaxation times ~ms–s). C2 is satisfied: $\tau_S$ (electronic spin dynamics, ~ns) $\ll \tau_B$ (bath relaxation, ~ms). The decoherence is non-Markovian — coherence partially revives at times set by the bath's correlation time. This is information backflow: correlations written into the lattice during one measurement are returned during a later measurement.
+
+**The application.** Sensing protocols that exploit the revival — measuring at the backflow time rather than during the initial decay — could push sensitivity beyond the Markovian-assumed $T_2$ limit. The improvement factor is $\mathcal{O}(\tau_S / \tau_B) \sim 10^{-6}$ per measurement, but sensing protocols accumulate over $\sim 10^6$ repetitions, making the integrated improvement potentially significant.
+
+### 8.4 Precision metrology and atomic clocks
+
+**Current situation.** Optical lattice clocks achieve fractional frequency uncertainty $\sim 10^{-18}$ — sensitive enough that GR corrections from a 1 cm height difference are measurable. At this precision, the atoms' interaction with the lattice light field may satisfy C1–C3: the lattice photons provide coupling (C1), the optical cavity has slow modes (C2), and the photon field has high capacity (C3).
+
+**The prediction.** If the atom-cavity system satisfies C2 with sufficient separation, the atomic transition dynamics is non-Markovian. Clock instability would show correlations at the cavity correlation time — not the white frequency noise assumed by standard Allan variance analysis. Whether the correction is measurable at $10^{-18}$ fractional uncertainty depends on the specific cavity parameters, but the framework predicts its existence as a structural consequence.
+
+### 8.5 The pattern
+
+| Domain | System / Bath | $\tau_S / \tau_B$ | Current relevance |
+|--------|--------------|-------------------|-------------------|
+| Cosmology | Observer / trans-horizon | $10^{-32}$ | Framework's home ground |
+| Enzymes | Active site / scaffold | $10^{-9}$ to $10^{-12}$ | §7: consistent with data |
+| Quantum sensing | NV spin / lattice defects | $10^{-6}$ | Approaching relevance |
+| Quantum computing | Qubit / TLS | $10^{-3}$ | At the threshold |
+| Atomic clocks | Atom / cavity | $\sim 10^{-6}$ | Potentially measurable |
+
+The corrections grow as $\tau_S / \tau_B$ increases — equivalently, as the hidden sector's timescale approaches the system's timescale. The cosmological case is the most extreme separation (corrections negligible). Engineered quantum devices have the least separation (corrections largest). The framework predicts the same structural phenomenon — P-indivisible dynamics from a slow bath — at every scale. The question in each case is whether the correction has reached the precision frontier.
+
+The GPS analogy is exact: GR corrections were irrelevant until clocks got precise enough. OI corrections are irrelevant until quantum devices get precise enough. The framework predicts that as quantum technologies continue improving, non-Markovian corrections will transition from negligible to measurable to design-relevant — following the same trajectory that relativistic corrections followed from Newtonian mechanics to GPS.
+
+### 8.6 Engineered partitions: the bath as a resource
+
+Standard quantum engineering treats the environment as the enemy — decoherence destroys quantum information, and the goal is to isolate qubits from their surroundings. The framework suggests a fundamentally different design philosophy: *engineer* the C1–C3 architecture to produce the quantum behavior you want.
+
+**The design principle.** Instead of isolating a qubit from all environmental coupling, deliberately couple it to a *slow, high-capacity hidden sector* with controllable properties. The hidden sector stores correlations written during one gate operation and returns them during a later operation. The bath is not noise — it is programmable quantum memory.
+
+**Concrete platform: qubit + spin chain.** A qubit coupled to a linear chain of $L$ ancillary spins. The chain is the engineered hidden sector. Its correlation time scales as $\tau_B \sim L^z$ (where $z$ is the dynamical exponent — for a Heisenberg chain, $z = 1$). Its capacity scales exponentially: $\sim 2^L$ states. By tuning $L$:
+
+- Short chain ($L \lesssim 5$, $\tau_B \sim \tau_S$): Markovian regime. Standard decoherence. The bath equilibrates between gate operations.
+- Long chain ($L \gtrsim 20$, $\tau_B \gg \tau_S$): P-indivisible regime. Information backflow. Correlations from gate $k$ return at gate $k + \tau_B / \tau_S$, partially restoring coherence.
+- The transition is sharp: the P-indivisibility theorem [1, §2.3] guarantees that once $\tau_B / \tau_S$ exceeds the C2 threshold, the dynamics becomes qualitatively non-Markovian.
+
+This is testable in existing platforms: superconducting qubits coupled to engineered spin chains [25], NV centers in diamond with controllable nuclear spin baths, or trapped ions with engineered phonon modes. The prediction: at the critical chain length, the qubit's $T_2$ coherence time shows a qualitative change — from monotonic exponential decay to oscillatory behavior with partial revivals at multiples of $\tau_B$.
+
+### 8.7 Non-Markovian quantum computation
+
+**The standard assumption.** Quantum circuits are sequences of unitary gates, each assumed to act independently of past gates. Error correction adds redundancy to protect against independent errors. The entire architecture assumes Markovian noise.
+
+**The OI alternative.** If gates share a slow bath (a common hidden sector with $\tau_B$ longer than the circuit depth $\times \, \tau_S$), the gates carry temporal correlations. Gate $k$'s effect depends on what gates $k-1, k-2, \ldots$ did, through correlations stored in the bath.
+
+**Built-in error correction.** P-indivisible dynamics can *increase* the distinguishability of quantum states over time — information backflow reverses some decoherence without requiring additional overhead. In Markovian evolution, distinguishability only decreases (data processing inequality). In P-indivisible evolution, the bath returns information that was temporarily inaccessible. This is a form of dynamical error correction built into the physics rather than added as a computational layer.
+
+**The open question.** Whether P-indivisible gate sequences can perform computations that no Markovian circuit of equal depth can is a well-posed mathematical question. The framework provides the tools — P-indivisible stochastic processes, the accessible-timescale backflow lemma [1, §2.3] — but the computational complexity implications are unexplored. If the answer is yes, it would constitute a new model of quantum computation beyond the standard circuit model, with the bath playing the role of a shared temporal resource analogous to entanglement as a spatial resource.
+
+### 8.8 Quantum materials by design
+
+**Heavy-fermion materials as natural P-indivisible systems.** Heavy-fermion compounds (CeCoIn$_5$, YbRh$_2$Si$_2$, UPt$_3$) contain localized f-electrons forming a slow bath ($\tau_B \sim$ ps to ns) coupled to itinerant conduction electrons ($\tau_S \sim$ fs). The ratio: $\tau_S / \tau_B \sim 10^{-3}$ to $10^{-6}$. These materials exhibit anomalous transport — non-Fermi liquid resistivity ($\rho \sim T^\alpha$ with non-integer $\alpha$), logarithmic specific heat, and memory effects in magnetoresistance. The standard explanation invokes Kondo physics and quantum criticality. The OI framework provides a structural reframing: the conduction electrons satisfy C1–C3 with the f-electron bath, so their dynamics is P-indivisible. The anomalous transport is a *consequence* of non-Markovian electronic dynamics, not a deviation from normal behavior requiring a special mechanism.
+
+**The design principle.** In natural materials, $\tau_S / \tau_B$ is fixed by the chemistry. In engineered metamaterials, it can be tuned. Candidate platforms:
+
+*Molecular junctions.* A single molecule bridging two metallic electrodes, with the molecule's conformational degrees of freedom as the hidden sector. By choosing molecules with slow conformational dynamics (large, floppy side chains: $\tau_B \sim \mu$s) and fast electronic transport ($\tau_S \sim$ fs), ratios of $\tau_S / \tau_B \sim 10^{-9}$ are achievable. The prediction: the junction's I-V curve shows history-dependent conductance — the current depends on the recent voltage history, not just the instantaneous voltage.
+
+*Cold-atom lattices.* Ultracold atoms in optical lattices, with one species forming the "system" and another forming the "bath." The bath species' tunneling rate (tuned by lattice depth) sets $\tau_B$; the system species' tunneling rate sets $\tau_S$. The ratio is continuously tunable from $\sim 1$ (Markovian) to $\sim 10^{-3}$ (strongly P-indivisible). The prediction: at large $\tau_B / \tau_S$, the system species' momentum distribution shows non-thermal features — signatures of information backflow from the bath species.
+
+*Photonic crystals with embedded quantum dots.* Quantum dots in a photonic bandgap material, with the photonic crystal modes as the hidden sector. The photonic density of states can be engineered to have a gap (suppressing fast decay, increasing $\tau_B$) while maintaining coupling (C1). The prediction: the quantum dot's fluorescence shows non-exponential decay with partial revivals — the photonic crystal stores and returns excitation energy on the engineered timescale.
+
+### 8.9 The broader principle
+
+The framework identifies a design space that standard quantum engineering does not recognize: the space of C1–C3 architectures. Current technology either (a) minimizes coupling to fight decoherence (standard qubits) or (b) accepts the natural coupling and works within its constraints (standard materials science). The framework opens a third option: (c) *engineer* the coupling, bath timescale, and capacity to produce desired P-indivisible dynamics.
+
+The potential applications extend beyond the specific platforms listed above. Any system where a fast observable subsystem is coupled to a slow, high-capacity hidden sector — and where the coupling architecture can be controlled — is a candidate for P-indivisible engineering. The framework provides the theory (the characterization theorem tells you exactly when P-indivisibility appears), the design parameters ($\tau_S / \tau_B$ and the capacity ratio), and the predicted signatures (information backflow, non-exponential dynamics, history-dependent transport).
+
+Whether this leads to practical breakthroughs depends on whether the P-indivisible effects at engineered $\tau_S / \tau_B$ ratios produce useful capabilities. The framework can't answer that — it identifies the design space and the physics. Filling the space with useful devices is engineering.
+
+---
+
 ## Acknowledgements
 
-During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) to assist in drafting, refining argumentation, and surveying the relevant literature in nuclear physics, prebiotic chemistry, and origin-of-life research. The author reviewed and edited all content and takes full responsibility for the publication.
+During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) to assist in drafting, refining argumentation, and surveying the relevant literature in nuclear physics, prebiotic chemistry, origin-of-life research, quantum biology, and quantum computing. The author reviewed and edited all content and takes full responsibility for the publication.
 
 ---
 
@@ -433,3 +605,13 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [19] W. K. Johnston, P. J. Unrau, M. S. Lawrence, M. E. Glasner, and D. P. Bartel, "RNA-catalyzed RNA polymerization: accurate and general RNA-templated primer extension," *Science* **292**, 1319 (2001).
 
 [20] J. von Neumann, *Theory of Self-Reproducing Automata*, ed. A. W. Burks (University of Illinois Press, 1966).
+
+[21] B. P. English, W. Min, A. M. van Oijen, K. T. Lee, G. Luo, H. Sun, B. J. Cherayil, S. C. Kou, and X. S. Xie, "Ever-fluctuating single enzyme molecules: Michaelis-Menten equation revisited," *Nature Chemical Biology* **2**, 87 (2006).
+
+[22] H. P. Lu, L. Xun, and X. S. Xie, "Single-molecule enzymatic dynamics," *Science* **282**, 1877 (1998).
+
+[23] G. S. Engel, T. R. Calhoun, E. L. Read, T.-K. Ahn, T. Mančal, Y.-C. Cheng, R. E. Blankenship, and G. R. Fleming, "Evidence for wavelike energy transfer through quantum coherence in photosynthetic systems," *Nature* **446**, 782 (2007).
+
+[24] J. P. Klinman, "An integrated model for enzyme catalysis," *FEBS Letters* **589**, 467 (2015).
+
+[25] P. Roushan et al., "Spectroscopic signatures of localization with interacting photons in superconducting qubits," *Science* **358**, 1175 (2017).
