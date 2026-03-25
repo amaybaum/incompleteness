@@ -774,39 +774,34 @@ The framework's predictions about non-Markovian effects are not speculative --- 
 
 \textbf{The unifying explanation.} These experimental results --- from quantum computing hardware and from single-enzyme biophysics --- are conventionally treated as unrelated phenomena requiring separate theoretical frameworks. The OI framework unifies them: both are instances of P-indivisible dynamics arising from a slow, high-capacity hidden sector coupled to a fast observable subsystem. The TLS bath in a superconducting chip and the conformational bath in a protein scaffold play the same structural role --- they satisfy C2 (slow) and C3 (high capacity), producing the same qualitative phenomenon (information backflow, memory effects, non-exponential dynamics) at different scales.
 
-\hypertarget{cross-domain-observation-universal-memory-strength}{%
-\subsubsection{8.11 Cross-domain observation: universal memory strength}\label{cross-domain-observation-universal-memory-strength}}
+\hypertarget{cross-domain-observation-universal-memory-strength-in-single-entity-systems}{%
+\subsubsection{8.11 Cross-domain observation: universal memory strength in single-entity systems}\label{cross-domain-observation-universal-memory-strength-in-single-entity-systems}}
 
-The non-Markovian dynamics in C1--C3 systems is conventionally quantified by domain-specific measures: the stretched exponential exponent \(\beta\) for enzymes and glasses, the 1/\(f^\alpha\) spectral exponent for qubits and neural systems, and direct Hurst analysis for financial and hydrological time series. These measures can be converted to a common dimensionless metric --- the Hurst exponent \(H\), where \(H = 0.5\) is Markovian and \(H > 0.5\) indicates persistent memory. The conversions are: \(H \approx 1 - \beta/2\) for stretched exponential processes, and \(H = (1 + \alpha)/2\) for stationary \(1/f^\alpha\) noise.
+The non-Markovian dynamics documented in §8.10 is conventionally quantified by domain-specific measures. These can be converted to the Hurst exponent \(H\) (\(H = 0.5\): Markovian; \(H > 0.5\): persistent memory) via \(H \approx 1 - \beta/2\) for stretched exponential processes and \(H = (1 + \alpha)/2\) for \(1/f^\alpha\) noise.
 
-Compiling published data across eight domains yields:
+A known objection to universality claims is that any ensemble of many independent exponentially relaxing modes with a broad rate distribution generically produces \(H \approx 0.7\)--\(0.8\) {[}31{]}. This superposition argument applies to bulk/aggregate measurements (glasses, financial markets, river flows, EEG) where many components are averaged. It does \emph{not} apply to single-molecule and single-system measurements, where there is no ensemble to superpose. Non-exponential kinetics in a single molecule must arise from the molecule's internal dynamics --- specifically, from coupling between the observed process and slow internal degrees of freedom (C1--C3).
+
+Restricting to single-entity measurements where superposition is excluded by construction:
 
 \begin{longtable}[]{@{}lllll@{}}
 \toprule\noalign{}
-System & Domain & Memory depth & \(H\) & Source \\
+System & Measurement & Memory depth & \(H\) & Source \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\(\beta\)-galactosidase & Enzyme & \(\sim 10^{2.6}\) & 0.80 & English et al.~2006 (\(\beta = 0.4\)) \\
-Cholesterol oxidase & Enzyme & \(\sim 10^{1.6}\) & 0.75 & Lu et al.~1998 (\(\beta \approx 0.5\)) \\
-Horseradish peroxidase & Enzyme & \(\sim 10^3\) & 0.83 & Edman/Rigler 2000 (\(\beta \approx 0.35\)) \\
-Lipase B & Enzyme & \(\sim 10^2\) & 0.80 & Flomenbom et al.~2005 (\(\beta \approx 0.4\)) \\
-SC qubit (Lorentzian TLS) & Qubit & \(\sim 10^2\) & 0.80 & Noise spectroscopy (\(\alpha \approx 0.6\)) \\
-Silica glass (short-range) & Glass & \(\sim 10^{12}\) & 0.70 & Phillips 1996 (\(\beta = 3/5\)) \\
-Silica glass (long-range) & Glass & \(\sim 10^{12}\) & 0.79 & Phillips 1996 (\(\beta = 3/7\)) \\
-Polymer glass (PVAc) & Glass & \(\sim 10^{10}\) & 0.75 & Williams/Watts 1970 (\(\beta \approx 0.5\)) \\
-S\&P 500 volatility & Finance & \(\sim 10^{2.4}\) & 0.75 & Direct R/S analysis \\
-Nile River annual flow & Hydrology & \(\sim 10^2\) & 0.77 & Hurst 1951 (direct) \\
-EEG resting state & Neural & \(\sim 10^3\) & 0.75 & Aperiodic exponent analysis \\
-Ion channel (coupled) & Ion channel & \(\sim 10^3\) & 0.80 & Dwell-time autocorrelation \\
+\(\beta\)-galactosidase & Single-molecule turnover & \(\sim 10^{2.6}\) & 0.80 & English et al.~2006 (\(\beta = 0.4\)) \\
+Cholesterol oxidase & Single-molecule turnover & \(\sim 10^{1.6}\) & 0.75 & Lu et al.~1998 (\(\beta \approx 0.5\)) \\
+Horseradish peroxidase & Single-molecule turnover & \(\sim 10^3\) & 0.83 & Edman/Rigler 2000 (\(\beta \approx 0.35\)) \\
+Lipase B & Single-molecule turnover & \(\sim 10^2\) & 0.80 & Flomenbom et al.~2005 (\(\beta \approx 0.4\)) \\
+Myoglobin CO rebinding & Single-molecule kinetics & \(\sim 10^6\) & 0.95 & Austin et al.~1975 (\(\beta \approx 0.1\)) \\
+SC qubit (Lorentzian TLS) & Single-qubit trajectory & \(\sim 10^2\) & 0.80 & Noise spectroscopy (\(\alpha \approx 0.6\)) \\
+Ion channel (membrane-coupled) & Single-channel recording & \(\sim 10^3\) & 0.80 & Dwell-time autocorrelation \\
 \end{longtable}
 
-The result: \(H = 0.76 \pm 0.04\) across 12 systems spanning 8 domains and 10 orders of magnitude in memory depth (excluding two outliers: myoglobin CO rebinding at \(H \approx 0.95\) and pure \(1/f\) qubit noise at \(H = 1.0\)). The memory \emph{strength} is approximately constant at \(H \approx 0.75\) regardless of whether the hidden sector is a protein scaffold, a TLS bath, a glassy network, institutional positioning, or an ocean basin.
+For the four enzymes and the qubit --- all with ``typical'' C3 capacity (conformational state spaces of \(\sim 10^2\)--\(10^4\) states) --- \(H = 0.79 \pm 0.03\). The superposition objection is excluded: these are individual molecules or devices, not ensembles. The memory is intrinsic, arising from coupling to a slow internal hidden sector (protein scaffold conformational dynamics for enzymes, TLS bath for the qubit).
 
-This constancy has a known alternative explanation: any superposition of exponential relaxations with a broad distribution of rates generically produces \(H \approx 0.7\)--\(0.8\) {[}31{]}. What the superposition argument does not explain is why \emph{all} C1--C3 systems produce the \emph{same} \(H\), given that the physical origins of the broad rate distribution are completely different in each domain. The OI framework provides a candidate structural explanation: C1--C3 guarantees a broad rate distribution through the capacity condition (C3), and the resulting \(H\) is determined by the mathematical structure of the trace-out rather than by the specific physics.
-
-The two outliers support this interpretation. Myoglobin (\(H \approx 0.95\)) has an unusually deep conformational hierarchy --- its C3 capacity is much larger than a typical enzyme's. Pure \(1/f\) qubit noise (\(H = 1.0\)) corresponds to an exactly flat distribution of TLS timescales --- maximal C3. If \(H\) increases monotonically with C3 capacity, the cluster at \(H \approx 0.75\) reflects ``typical'' C3 and the outliers reflect ``extreme'' C3. The predicted relationship \(H(C3)\) is a quantitative test the framework must pass.
+The myoglobin outlier (\(H = 0.95\)) has an anomalously deep conformational hierarchy --- Frauenfelder's ``protein energy landscape'' involves \(\sim 10^6\)--\(10^9\) conformational substates organized in a fractal-like tier structure, far exceeding typical enzyme C3 capacity. This suggests \(H\) increases with C3: typical capacity gives \(H \approx 0.8\); deep capacity gives \(H \to 1\). The predicted relationship \(H(C3)\) --- derivable in principle from the characterization theorem's dependence on hidden-sector dimension --- is a quantitative test.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
