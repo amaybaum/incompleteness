@@ -114,61 +114,9 @@ Traces the consequences of the derived structure through atomic physics, chemist
 
 ## The Bidirectional Correspondence
 
-The forward derivation and the reconstruction theorem together establish a bidirectional correspondence: (S, φ) determines observed physics, and observed physics uniquely determines [(S, φ)]/∼. The mathematical description and the physics are informationally equivalent up to gauge.
+**Forward:** (S, φ) → QM emergence → ℏ, BH entropy, CC dissolution → GR (seven links) → SM (29 theorems) → dark sector → complexity chain → template replication.
 
-### Forward: From (S, φ) to Observed Physics
-
-```
-(S, φ) — a finite lossless memory with bounded coupling and statistical isotropy
-  │
-  ├─→ V (observer) is generic (Fundamental, theorem)
-  ├─→ d = 3 from self-consistency (Fundamental, theorem)
-  ├─→ QM emergence (Main, theorem)
-  ├─→ Wave equation uniquely selected (Fundamental, theorem)
-  ├─→ ℏ = c³ε²/(4G), ε = 2l_p (Main, theorem)
-  ├─→ Bekenstein-Hawking entropy with 1/4 (Main, theorem)
-  ├─→ CC dissolution: 10¹²² = S_dS (Main, theorem)
-  ├─→ General relativity (Fundamental §5, seven links — theorem)
-  ├─→ Wave eq. → KG → staggered Dirac fermions (Fundamental, theorem)
-  ├─→ Center independence = chiral symmetry → Higgs (Fundamental, theorem)
-  ├─→ K = 2d = 6 from coupling-degree minimization (Fundamental, theorem)
-  ├─→ Cubic group decomposition (3,2,1) → SU(3)×SU(2)×U(1) (Fundamental, theorem)
-  ├─→ D_LL = 0 → SU(2) chiral, SU(3) vector-like (Fundamental, theorem)
-  ├─→ Anomaly cancellation → unique hypercharges (Fundamental, theorem)
-  ├─→ Cubic symmetry + anomaly uniqueness → 3 SM generations (Fundamental, theorem)
-  ├─→ Higgs quantum numbers (1, 2, +1/2) (Fundamental, theorem)
-  ├─→ θ = 0 from T-invariance (Fundamental, theorem)
-  ├─→ θ̄ = 0 at all energy scales from bijection structure (Fundamental, theorem)
-  ├─→ Trace-out = Jordan-Chevalley projection (Fundamental App. A, theorem)
-  ├─→ Weil-Deligne conductor decomposes over gauge irreps (Fundamental App. A, theorem)
-  ├─→ Dark energy ν_OI ≈ 2.45×10⁻³ (Main, proposition)
-  ├─→ Dark-sector concordance (Main, theorem — total budget)
-  ├─→ Dark matter: a₀ = cH/6, v⁴ = GM·cH/6 (Main §8.4, theorem)
-  ├─→ Nested trace-out consistency (Main App. B, theorem)
-  ├─→ Generalized second law (Main App. B, theorem)
-  ├─→ Page curve with t_P ≈ 0.646 t_evap (Main App. B, theorem)
-  ├─→ Structural chain: orbitals → periodic table → carbon bonding → water (Complexity, structural)
-  ├─→ Viable parameter fraction ~16% (Complexity, computed)
-  ├─→ Chirality: partition → PVED → L-amino acids (Complexity, structural)
-  ├─→ Autocatalytic networks (Complexity, statistical — 10⁵⁶ × threshold)
-  ├─→ Template replication → Darwinian evolution (Complexity, structural + inevitable)
-  └─→ Arrow of time from coarse-graining (Fundamental, standard Boltzmann)
-```
-
-### Reverse: From Observed Physics to [(S, φ)]/∼
-
-```
-Observed QM + Bell violations + finite boundary entropy + spatial isotropy
-  │
-  ├─→ Stage 1: Stinespring dilation + characterization theorem
-  │     → deterministic embedding (S, φ, V) with C1–C3 (Main, theorem)
-  ├─→ Stage 2: Coupling graph + dynamics selection + filter chain
-  │     → d = 3, wave equation, SM gauge structure, θ̄ = 0 (Fundamental, theorem)
-  └─→ Stage 3: Thermal self-consistency
-        → ℏ = c³ε²/(4G), ε = 2l_p (Main, theorem)
-
-Output: [(S, φ)]/∼ uniquely determined at the lattice level (Fundamental §10.3, theorem)
-```
+**Reverse:** Observed QM + Bell violations + finite entropy + isotropy → Stinespring dilation + characterization theorem → (S, φ, V) with C1–C3 → dynamics selection → SM structure → ℏ. Output: [(S, φ)]/∼ uniquely determined.
 
 ## Contact
 

@@ -223,17 +223,7 @@ The framework derives $N$ (structural), the thermal window (structural), and the
 
 **The structural parallel.** The framework derives QM from read-write cycling: the observer reads the visible sector and writes correlations into the hidden sector through the coupling $H_{VB}$; the hidden sector stores those writes and returns them on subsequent reads; the resulting statistics are quantum mechanics [1, §10.2 of Fundamental]. Template replication is the same structural pattern at the molecular level: a polymer reads its own sequence (through complementary hydrogen bond pairing) and writes a copy (through catalytic polymerization). Self-replication is not a special biological capability — it is molecular read-write cycling, the chemical instantiation of the same information-theoretic pattern that produces quantum mechanics.
 
-**Von Neumann's threshold.** Von Neumann's self-reproducing automaton theorem [20] establishes that in any computational system above a complexity threshold, self-reproducing configurations must exist. The threshold requires three capabilities: (a) a universal constructor — a subsystem that reads instructions and assembles a product; (b) a copying mechanism — that duplicates the instructions; (c) a control mechanism — that sequences construction and copying.
-
-The derived chemistry provides all three:
-
-*(a) Universal construction.* Any catalytic polymer that reads a template sequence and assembles a corresponding product from a monomer alphabet. The autocatalytic argument (§5.3) establishes that catalysis is statistically abundant ($N \times p \sim 10^{56}$). Template-directed assembly follows from complementary pairing (structural, §2.6) combined with catalytic activity.
-
-*(b) Instruction copying.* Template replication — a polymer directing the synthesis of its complement through complementary pairing. Three independently structural capabilities whose intersection is template replication (§5.5, below).
-
-*(c) Control.* The thermal window (§2.7) provides environmental cycling — temperature fluctuations, wet-dry cycles, concentration gradients — that drives alternation between construction and copying phases. This is structural: the thermal window guarantees that the environment fluctuates on timescales relevant to chemistry.
-
-Von Neumann's threshold is exceeded by the same combinatorial margin ($\sim 10^{56}$) that drives the autocatalytic argument. Self-reproducing molecular configurations are not a lucky accident in the derived chemistry — they are a mathematical consequence of the system's computational richness exceeding von Neumann's threshold.
+**Von Neumann's threshold.** Von Neumann's theorem [20] requires three capabilities for self-reproduction: universal construction, instruction copying, and control. The derived chemistry provides all three: catalytic polymers (§5.3, $N \times p \sim 10^{56}$), template replication via complementary pairing, and environmental cycling from the thermal window (§2.7). Von Neumann's threshold is exceeded by the same $10^{56}$ margin.
 
 ### 5.5 From template replication to evolution
 
@@ -372,7 +362,7 @@ The framework's contribution is not to answer this question but to make it the *
 
 ### 7.1 The reframing
 
-Quantum biology — the study of quantum coherence in biological systems — is an active and contested field. The central question is usually framed as: "How do biological systems maintain quantum coherence at warm, wet, noisy conditions?" The framework reframes this. QM is not a fragile state that biology must protect from decoherence. QM is the *necessary description* of any subsystem coupled to a slow, high-capacity hidden sector (the characterization theorem [1, §3.3]). If biological subsystems satisfy C1–C3 internally, their dynamics is necessarily P-indivisible — not because evolution engineered quantum coherence, but because the coupling architecture mandates it.
+The framework reframes quantum biology: QM is the *necessary description* of any subsystem satisfying C1–C3. If biological subsystems satisfy these conditions internally, their dynamics is necessarily P-indivisible — not because evolution engineered coherence, but because the coupling architecture mandates it.
 
 ### 7.2 C1–C3 in proteins
 
@@ -404,13 +394,9 @@ The protein scaffold is a slow bath. Correlations written into the scaffold duri
 
 **Conformationally gated tunneling.** Hydrogen tunneling in enzymes shows temperature-independent kinetic isotope effects [24] — inconsistent with transition state theory but consistent with quantum tunneling modulated by slow conformational dynamics (C2).
 
-### 7.5 Implications for drug design
+### 7.5 Implications
 
-**Allosteric drugs.** The framework predicts that allosteric effects carry temporal correlations through the scaffold — the drug's binding event writes conformational information that is returned to the active site over the conformational timescale. Optimal design should account for these temporal correlations, not just equilibrium binding affinities.
-
-**Drug resistance.** Resistance mutations often occur far from the active site. The framework predicts they cluster in regions that maximally alter the scaffold's slowest conformational modes — altering the *memory structure* of the hidden sector. Testable via normal mode analysis.
-
-**Enzyme engineering.** The framework suggests optimizing the *coupling architecture* (C1–C3 between active site and scaffold), not just the active site's electronic structure. Better-tuned $\tau_S / \tau_B$ ratios should yield both higher catalytic rates and more robust performance.
+The framework predicts allosteric effects carry temporal correlations (not just equilibrium binding affinities), resistance mutations cluster in regions altering the scaffold's slowest conformational modes, and enzyme engineering should optimize C1–C3 coupling architecture. All testable.
 
 ### 7.6 Epistemic status
 
@@ -430,27 +416,15 @@ The framework's specific correction is non-Markovian dynamics: $\mathcal{O}(\tau
 
 ### 8.2 Quantum computing
 
-**The Markovian assumption in error correction.** Standard quantum error correction (surface codes, stabilizer codes) assumes Markovian noise — each error is statistically independent of previous errors. The framework predicts this is wrong whenever the qubit's environment satisfies C2 (slow bath).
-
-**The physical system.** Superconducting qubits (transmons) are coupled to two-level systems (TLS) in the substrate — structural defects in the amorphous oxide layer. TLS dynamics is slow ($\tau_B \sim \mu\text{s}$) relative to gate operations ($\tau_S \sim \text{ns}$). The ratio: $\tau_S / \tau_B \sim 10^{-3}$. This is 29 orders of magnitude larger than the cosmological case.
-
-**The prediction.** The noise is P-indivisible: error probabilities at gate $k$ depend on the error history at gates $k-1, k-2, \ldots$ through correlations stored in the TLS bath. Standard Markovian error correction sees these correlated errors as an anomalously high uncorrectable error rate. Non-Markovian error correction protocols — designed for the actual P-indivisible noise structure — could exploit the correlations rather than treating them as random, improving logical error rates.
-
-**The scale.** A 0.1% correction per gate. Small — but in a quantum algorithm with $10^4$ gates, the cumulative effect is $\sim 10\%$. Current quantum computers are at the threshold where this matters. As gate counts increase toward practical quantum advantage ($10^6$+ gates), the correction becomes dominant.
+Superconducting qubits coupled to TLS defects ($\tau_S / \tau_B \sim 10^{-3}$) satisfy C2. The framework predicts P-indivisible noise: error probabilities depend on history through correlations stored in the TLS bath. Non-Markovian error correction exploiting these correlations could improve logical error rates. The correction is ~0.1% per gate but cumulates to ~10% over $10^4$ gates.
 
 ### 8.3 Quantum sensing
 
-**Nitrogen-vacancy (NV) centers.** NV centers in diamond detect magnetic fields with sensitivity approaching the standard quantum limit, bounded by the coherence time $T_2$. Standard models assume Markovian decoherence — coherence decays exponentially and is gone.
+NV centers in diamond satisfy C2 ($\tau_S \sim$ ns, $\tau_B \sim$ ms for paramagnetic impurities). The framework predicts non-Markovian coherence revivals at the bath correlation time. Sensing protocols exploiting this backflow could push sensitivity beyond the Markovian $T_2$ limit.
 
-**The OI prediction.** The diamond lattice's phonon bath has slow modes (paramagnetic impurities, strain fields with relaxation times ~ms–s). C2 is satisfied: $\tau_S$ (electronic spin dynamics, ~ns) $\ll \tau_B$ (bath relaxation, ~ms). The decoherence is non-Markovian — coherence partially revives at times set by the bath's correlation time. This is information backflow: correlations written into the lattice during one measurement are returned during a later measurement.
+### 8.4 Precision metrology
 
-**The application.** Sensing protocols that exploit the revival — measuring at the backflow time rather than during the initial decay — could push sensitivity beyond the Markovian-assumed $T_2$ limit. The improvement factor is $\mathcal{O}(\tau_S / \tau_B) \sim 10^{-6}$ per measurement, but sensing protocols accumulate over $\sim 10^6$ repetitions, making the integrated improvement potentially significant.
-
-### 8.4 Precision metrology and atomic clocks
-
-**Current situation.** Optical lattice clocks achieve fractional frequency uncertainty $\sim 10^{-18}$ — sensitive enough that GR corrections from a 1 cm height difference are measurable. At this precision, the atoms' interaction with the lattice light field may satisfy C1–C3: the lattice photons provide coupling (C1), the optical cavity has slow modes (C2), and the photon field has high capacity (C3).
-
-**The prediction.** If the atom-cavity system satisfies C2 with sufficient separation, the atomic transition dynamics is non-Markovian. Clock instability would show correlations at the cavity correlation time — not the white frequency noise assumed by standard Allan variance analysis. Whether the correction is measurable at $10^{-18}$ fractional uncertainty depends on the specific cavity parameters, but the framework predicts its existence as a structural consequence.
+Optical lattice clocks ($\sim 10^{-18}$ fractional uncertainty) may reach the scale where atom-cavity coupling satisfies C1–C3, producing non-Markovian frequency correlations beyond standard Allan variance assumptions.
 
 ### 8.5 The pattern
 
@@ -466,29 +440,9 @@ The corrections grow as $\tau_S / \tau_B$ increases — equivalently, as the hid
 
 The GPS analogy is exact: GR corrections were irrelevant until clocks got precise enough. OI corrections are irrelevant until quantum devices get precise enough. The framework predicts that as quantum technologies continue improving, non-Markovian corrections will transition from negligible to measurable to design-relevant — following the same trajectory that relativistic corrections followed from Newtonian mechanics to GPS.
 
-### 8.6 Engineered partitions: the bath as a resource
+### 8.6 Engineered partitions and non-Markovian computation
 
-Standard quantum engineering treats the environment as the enemy — decoherence destroys quantum information, and the goal is to isolate qubits from their surroundings. The framework suggests a fundamentally different design philosophy: *engineer* the C1–C3 architecture to produce the quantum behavior you want.
-
-**The design principle.** Instead of isolating a qubit from all environmental coupling, deliberately couple it to a *slow, high-capacity hidden sector* with controllable properties. The hidden sector stores correlations written during one gate operation and returns them during a later operation. The bath is not noise — it is programmable quantum memory.
-
-**Concrete platform: qubit + spin chain.** A qubit coupled to a linear chain of $L$ ancillary spins. The chain is the engineered hidden sector. Its correlation time scales as $\tau_B \sim L^z$ (where $z$ is the dynamical exponent — for a Heisenberg chain, $z = 1$). Its capacity scales exponentially: $\sim 2^L$ states. By tuning $L$:
-
-- Short chain ($L \lesssim 5$, $\tau_B \sim \tau_S$): Markovian regime. Standard decoherence. The bath equilibrates between gate operations.
-- Long chain ($L \gtrsim 20$, $\tau_B \gg \tau_S$): P-indivisible regime. Information backflow. Correlations from gate $k$ return at gate $k + \tau_B / \tau_S$, partially restoring coherence.
-- The transition is sharp: the P-indivisibility theorem [1, §2.3] guarantees that once $\tau_B / \tau_S$ exceeds the C2 threshold, the dynamics becomes qualitatively non-Markovian.
-
-This is testable in existing platforms: superconducting qubits coupled to engineered spin chains [25], NV centers in diamond with controllable nuclear spin baths, or trapped ions with engineered phonon modes. The prediction: at the critical chain length, the qubit's $T_2$ coherence time shows a qualitative change — from monotonic exponential decay to oscillatory behavior with partial revivals at multiples of $\tau_B$.
-
-### 8.7 Non-Markovian quantum computation
-
-**The standard assumption.** Quantum circuits are sequences of unitary gates, each assumed to act independently of past gates. Error correction adds redundancy to protect against independent errors. The entire architecture assumes Markovian noise.
-
-**The OI alternative.** If gates share a slow bath (a common hidden sector with $\tau_B$ longer than the circuit depth $\times \, \tau_S$), the gates carry temporal correlations. Gate $k$'s effect depends on what gates $k-1, k-2, \ldots$ did, through correlations stored in the bath.
-
-**Built-in error correction.** P-indivisible dynamics can *increase* the distinguishability of quantum states over time — information backflow reverses some decoherence without requiring additional overhead. In Markovian evolution, distinguishability only decreases (data processing inequality). In P-indivisible evolution, the bath returns information that was temporarily inaccessible. This is a form of dynamical error correction built into the physics rather than added as a computational layer.
-
-**The open question.** Whether P-indivisible gate sequences can perform computations that no Markovian circuit of equal depth can is a well-posed mathematical question. The framework provides the tools — P-indivisible stochastic processes, the accessible-timescale backflow lemma [1, §2.3] — but the computational complexity implications are unexplored. If the answer is yes, it would constitute a new model of quantum computation beyond the standard circuit model, with the bath playing the role of a shared temporal resource analogous to entanglement as a spatial resource.
+The framework suggests a design principle: deliberately couple qubits to a slow, high-capacity hidden sector. The bath becomes programmable quantum memory, not noise. A qubit coupled to a spin chain of length $L$ transitions from Markovian ($L \lesssim 5$) to P-indivisible ($L \gtrsim 20$) dynamics — testable in existing platforms. P-indivisible dynamics can *increase* state distinguishability over time (information backflow reverses decoherence without overhead), suggesting a model of quantum computation beyond the standard circuit model.
 
 ### 8.8 Quantum materials by design
 
@@ -519,7 +473,7 @@ The engineering gains from P-indivisible design are not incremental corrections.
 
 The framework's predictions about non-Markovian effects are not speculative — they are corroborated by existing experimental data across multiple domains. The literature has been documenting these effects for over two decades without a unifying structural explanation. The OI framework provides one: wherever C1–C3 are satisfied, P-indivisibility is mandatory.
 
-**Superconducting qubits.** Agarwal et al. [26] found that purely Markovian noise models cannot reproduce experimental data from driven superconducting qubits. The non-Markovian dynamics arises from two-level system (TLS) interactions in the substrate — precisely the slow bath (C2) the framework identifies. White et al. [27] performed the first full multi-time quantum process tomography on superconducting processors and found non-Markovian noise present in all cases measured, with a significant fraction originating from genuine quantum correlations across time. Most strikingly, Burkard and collaborators [28] found that QAOA algorithm performance *improves* as the noise correlation time increases at fixed local error probability — direct evidence that correlated noise is a resource, not merely an obstacle, exactly as §8.7 predicts.
+**Superconducting qubits.** Agarwal et al. [26] found that purely Markovian noise models cannot reproduce experimental data from driven superconducting qubits. The non-Markovian dynamics arises from two-level system (TLS) interactions in the substrate — precisely the slow bath (C2) the framework identifies. White et al. [27] performed the first full multi-time quantum process tomography on superconducting processors and found non-Markovian noise present in all cases measured, with a significant fraction originating from genuine quantum correlations across time. Most strikingly, Burkard and collaborators [28] found that QAOA algorithm performance *improves* as the noise correlation time increases at fixed local error probability — direct evidence that correlated noise is a resource, not merely an obstacle, exactly as §8.6 predicts.
 
 **Single-molecule enzymology.** Edman and Rigler [29] directly measured "memory landscapes" of single horseradish peroxidase molecules, extracting non-Markovian behavior from the catalytic cycle. The enzyme's activity fluctuates over timescales from milliseconds to seconds — the signature of a slow conformational bath (C2) modulating the active site's electronic dynamics. Kou and Xie [30] showed that slow conformational interconversion produces memory effects in successive enzymatic turnover times: the waiting time for turnover $k+1$ is correlated with the waiting time for turnover $k$, with correlation strength decaying on the conformational timescale. This is precisely the information backflow predicted by the accessible-timescale lemma [1, §2.3] applied to the protein system.
 

@@ -615,15 +615,11 @@ Hofstadter's *Gödel, Escher, Bach* argues that self-referential systems produce
 
 ### Closest ancestor: Nicholas of Cusa
 
-Of all thinkers surveyed, the fifteenth-century cardinal Nicholas of Cusa provides the most precise structural alignment. His *docta ignorantia* (learned ignorance) is essentially Claim 5: the highest knowledge is knowing what we cannot know, and this is an intellectual achievement, not a failure. His *coincidentia oppositorum* (coincidence of opposites) maps onto Claim 7 with remarkable precision: contradictions irreconcilable in the finite realm dissolve in infinity — the infinitely large circle's circumference becomes a straight line, the infinite polygon becomes a circle. QM and GR, irreconcilable within any finite observational framework, would be coincident in the infinite ground that generates both.
-
-Most strikingly, Cusa's "wall of Paradise" from *De Visione Dei* maps onto Claim 3: an insurmountable boundary beyond which finite intellect cannot pass. Scholars like Emmanuel Falque interpret reaching this wall not as escaping through it but as *inhabiting the boundary* — profoundly compatible with a framework where understanding the limit is itself the deepest available insight.
+*Docta ignorantia* (1440): the finite mind's attempt to comprehend the infinite generates structured descriptions revealing its limitations. Replace "finite mind" with "finite visible sector" and "structured description" with "quantum mechanics."
 
 ### Deepest ontological parallel: Spinoza
 
-Spinoza's attribute theory is arguably the single closest ontological parallel. One substance (God/Nature) expresses itself through infinite attributes, of which humans know only two: Thought and Extension. Jonathan Bennett's "barrier doctrine" captures the key feature: each attribute must be conceived through itself — no explanatory flow crosses between them. This is precisely Claim 7: two complete, correct descriptions that are structurally irreconcilable, yet both describe the same underlying reality. Spinoza's substance is fully determinate, aligning with Claim 4. His parallelism doctrine — the order of ideas is the same as the order of things — means the two descriptions track the same structure through incommensurable vocabularies.
-
-The divergence is epistemological: Spinoza believes reason achieves adequate knowledge of reality through *scientia intuitiva* (intuitive knowledge). The paper's permanent limits directly contradict this ambition.
+*Ethics* (1677): one substance, infinite attributes, of which we perceive two. Replace "one substance" with (S, φ), "perceived attributes" with emergent descriptions. The framework adds what Spinoza could not: proof and falsifiable predictions.
 
 ### The recurring fault line: Claim 4
 
@@ -686,19 +682,7 @@ None of these are properties of the deterministic substratum. In the substratum,
 
 ### Antimatter as algorithmic artifact
 
-This reframing changes the understanding of specific phenomena. Consider antimatter.
-
-The standard account: the Dirac equation, which combines quantum mechanics with special relativity, has solutions with both positive and negative energy. The negative-energy solutions correspond to antiparticles — particles with opposite charge and quantum numbers. Every particle must have an antiparticle, because CPT invariance (a theorem of any local Lorentz-invariant quantum field theory) requires it.
-
-The framework's account: the trace-out over the hidden sector forces the reconstruction algorithm to use two-signed amplitudes. When the algorithm operates in a relativistic context — which it must, because the substratum's causal structure is relativistic — the two-signed amplitude structure becomes the two-signed energy structure of the Dirac equation. Negative-energy solutions aren't additional features of reality. They're what the algorithm requires for self-consistency when the incomplete data comes from a relativistic system.
-
-The parallel to the coin-and-die model is direct. The intermediate propagator:
-
-$$\Lambda(2,1) = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}$$
-
-has entries of $-1$ — "anti-probabilities" that don't exist in the substratum (where every transition probability is between 0 and 1). These negative entries are the minimal-model ancestors of antimatter. They arise for the same reason: the algorithm can't reconstruct the observed dynamics without them. In the toy model, the $-1$ entries encode the fact that the die remembers and reverses the coin flip — information backflow that no positive-entry matrix can describe. In the relativistic case, the negative-energy solutions encode the fact that the relativistic trace-out requires a doubled Hilbert space to remain self-consistent.
-
-In both cases: the substratum has no doubling. The algorithm demands one.
+Matter-antimatter asymmetry dissolves: φ contains both forward and backward trajectories; the observer interprets them as matter and antimatter (Feynman-Stueckelberg). The baryon asymmetry is an initial-conditions question. CP violation is structural (three generations guarantee a complex CKM phase); the asymmetry magnitude is solution-specific.
 
 ### Nothing in quantum mechanics explains a fundamental phenomenon
 
@@ -874,19 +858,8 @@ An immediate objection: "Memory made of *what*?" In everyday life, memory requir
 
 ### Computation from within
 
-A Turing machine has a tape (storage), a head (read/write access), and a transition function (update rule). Under effective finiteness — where the visible sector and boundary layer are finite but the deep hidden sector may be infinite (Main, §9.6) — the correspondence between (S, φ, V) and a reversible Turing machine is not an analogy. It is structural.
+The correspondence with a reversible Turing machine is structural: V is the head, H is the tape, φ is the reversible transition function, C1–C3 characterize the architecture. The framework extends Turing's question: instead of asking what a machine can compute for an external observer, it asks what computation looks like to a component of the machine. The answer — proved by the characterization theorem — is quantum mechanics.
 
-The visible sector V is the head: a finite-state subsystem with bounded local coupling. The hidden sector H is the tape: a memory register that stores correlations written by past interactions. φ is a reversible transition function: no erasure, no halting, no information loss. The conditions C1–C3 characterize this architecture: C1 (coupling) is the read/write mechanism. C2 (slow bath) says the tape retains its contents between head operations. C3 (capacity) says the tape is large enough to store the full interaction history.
-
-So what's different? Not the finiteness — the tape can be infinite. Not the reversibility — that's a specialization (reversible Turing machines are a well-studied subclass, going back to Bennett and Fredkin-Toffoli). The one genuine difference is the *question asked*.
-
-Turing asked: what can a machine compute for an external observer who feeds in input and reads output?
-
-The framework asks: what does computation look like to a component of the machine that cannot read the full tape?
-
-The answer is quantum mechanics. The head cannot access the tape's global state. It sees only local statistics — transition probabilities obtained by marginalizing over unread tape cells. The characterization theorem proves those statistics are necessarily P-indivisible, hence quantum-mechanical. The Schrödinger equation, the Born rule, superposition, entanglement — all are what reversible computation looks like from inside.
-
-People ask: "Is the universe a computer?" The framework's answer: the universe is a reversible computation. And physics — quantum mechanics, general relativity, the Standard Model — is what that computation looks like to a subsystem embedded within it, observing through a finite window.
 
 ### The arrow of time
 
