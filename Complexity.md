@@ -418,13 +418,13 @@ The GPS analogy is exact: GR corrections were irrelevant until clocks got precis
 
 The framework suggests a design principle: deliberately couple qubits to a slow, high-capacity hidden sector. The bath becomes programmable quantum memory, not noise. A qubit coupled to a spin chain of length $L$ transitions from Markovian ($L \lesssim 5$) to P-indivisible ($L \gtrsim 20$) dynamics — testable in existing platforms. P-indivisible dynamics can *increase* state distinguishability over time (information backflow reverses decoherence without overhead), suggesting a model of quantum computation beyond the standard circuit model.
 
-### 8.8 Quantum materials by design
+### 8.7 Quantum materials by design
 
 **Heavy-fermion materials as natural P-indivisible systems.** Heavy-fermion compounds (CeCoIn$_5$, YbRh$_2$Si$_2$, UPt$_3$) contain localized f-electrons forming a slow bath ($\tau_B \sim$ ps to ns) coupled to itinerant conduction electrons ($\tau_S \sim$ fs). The ratio: $\tau_S / \tau_B \sim 10^{-3}$ to $10^{-6}$. These materials exhibit anomalous transport — non-Fermi liquid resistivity ($\rho \sim T^\alpha$ with non-integer $\alpha$), logarithmic specific heat, and memory effects in magnetoresistance. The standard explanation invokes Kondo physics and quantum criticality. The OI framework provides a structural reframing: the conduction electrons satisfy C1–C3 with the f-electron bath, so their dynamics is P-indivisible. The anomalous transport is a *consequence* of non-Markovian electronic dynamics, not a deviation from normal behavior requiring a special mechanism.
 
 **The design principle.** In natural materials, $\tau_S / \tau_B$ is fixed by the chemistry. In engineered metamaterials, it can be tuned. Candidate platforms: (i) *Molecular junctions* — single molecules bridging electrodes, with floppy side chains as slow bath ($\tau_S / \tau_B \sim 10^{-9}$); prediction: history-dependent conductance. (ii) *Cold-atom lattices* — two species with independently tunable tunneling rates; prediction: non-thermal momentum distributions at large $\tau_B / \tau_S$. (iii) *Photonic crystals with quantum dots* — engineered bandgap suppresses fast decay while maintaining coupling; prediction: non-exponential fluorescence with partial revivals.
 
-### 8.9 Quantitative performance estimates
+### 8.8 Quantitative performance estimates
 
 The engineering gains from P-indivisible design are not incremental corrections. They scale with $\tau_B / \tau_S$ — the ratio the framework identifies as the fundamental design parameter.
 
@@ -443,7 +443,7 @@ The engineering gains from P-indivisible design are not incremental corrections.
 | Quantum sensing | $10^{-6}$ | Up to $10^3$× sensitivity | Requires backflow-optimized protocols |
 | Quantum materials | $10^{-1}$ (engineered) | Qualitatively new regime | Requires metamaterial fabrication |
 
-### 8.10 Existing experimental evidence
+### 8.9 Existing experimental evidence
 
 The framework's predictions about non-Markovian effects are not speculative — they are corroborated by existing experimental data across multiple domains. The literature has been documenting these effects for over two decades without a unifying structural explanation. The OI framework provides one: wherever C1–C3 are satisfied, P-indivisibility is mandatory.
 
@@ -453,9 +453,9 @@ The framework's predictions about non-Markovian effects are not speculative — 
 
 **The unifying explanation.** These experimental results — from quantum computing hardware and from single-enzyme biophysics — are conventionally treated as unrelated phenomena requiring separate theoretical frameworks. The OI framework unifies them: both are instances of P-indivisible dynamics arising from a slow, high-capacity hidden sector coupled to a fast observable subsystem. The TLS bath in a superconducting chip and the conformational bath in a protein scaffold play the same structural role — they satisfy C2 (slow) and C3 (high capacity), producing the same qualitative phenomenon (information backflow, memory effects, non-exponential dynamics) at different scales.
 
-### 8.11 Cross-domain observation: universal memory strength in single-entity systems
+### 8.10 Cross-domain observation: universal memory strength in single-entity systems
 
-The non-Markovian dynamics documented in §8.10 is conventionally quantified by domain-specific measures. These can be converted to the Hurst exponent $H$ ($H = 0.5$: Markovian; $H > 0.5$: persistent memory) via $H \approx 1 - \beta/2$ for stretched exponential processes and $H = (1 + \alpha)/2$ for $1/f^\alpha$ noise.
+The non-Markovian dynamics documented in §8.9 is conventionally quantified by domain-specific measures. These can be converted to the Hurst exponent $H$ ($H = 0.5$: Markovian; $H > 0.5$: persistent memory) via $H \approx 1 - \beta/2$ for stretched exponential processes and $H = (1 + \alpha)/2$ for $1/f^\alpha$ noise.
 
 A known objection to universality claims is that any ensemble of many independent exponentially relaxing modes with a broad rate distribution generically produces $H \approx 0.7$–$0.8$ [31]. This superposition argument applies to bulk/aggregate measurements (glasses, financial markets, river flows, EEG) where many components are averaged. It does *not* apply to single-molecule and single-system measurements, where there is no ensemble to superpose. Non-exponential kinetics in a single molecule must arise from the molecule's internal dynamics — specifically, from coupling between the observed process and slow internal degrees of freedom (C1–C3).
 
