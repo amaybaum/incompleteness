@@ -148,7 +148,13 @@ By Barandes' correspondence [10, 11], any P-indivisible stochastic process on a 
 
 Three features emerge. The Schrödinger equation arises from the differentiability of $U(t)$. The Born rule is the equilibrium distribution of the indivisible process [10, 11]. The action scale $\hbar$ enters when defining $\hat{H}(t) \equiv i\hbar \, \partial_t U \cdot U^\dagger$, converting dimensionless rates to energy units; its value requires physical input from the partition (§5).
 
-**Phase uniqueness from continuous-time data.** The relation $T_{ij}(t) = |U_{ij}(t)|^2$ discards phase information at any single time. Doukas [26] identifies this gap for discrete-time data. The resolution: continuous-time data $\{T_{ij}(t)\}_{t \in \mathbb{R}}$ provides strictly more information. Under generic conditions (non-degenerate spectrum, non-degenerate energy gaps, non-vanishing overlaps — failing only on a measure-zero set), Fourier analysis of $T_{ij}(t)$ recovers the energy eigenvalues and all eigenvector moduli; the remaining phase freedom is a physically trivial basis rephasing $H \to DHD^\dagger$ with $D$ a diagonal unitary (the D-gauge theorem, §5.3). For the cosmological realization, the partition boundary breaks translational and boost invariance, generically lifting degeneracies in $\hat{H}_{\text{eff}}$.
+**Phase uniqueness from continuous-time data.** The relation $T_{ij}(t) = |U_{ij}(t)|^2$ discards phase information at any single time. Doukas [26] identifies this gap for discrete-time data. The resolution: continuous-time data $\{T_{ij}(t)\}_{t \in \mathbb{R}}$ provides strictly more information.
+
+**Lemma (phase-locking).** *Assume: (G1) non-degenerate spectrum; (G2) non-degenerate energy gaps; (G3) non-vanishing overlaps $V_{ik} = \langle i | k \rangle \neq 0$. Then $T_{ij}(t) = |\langle i | e^{-iHt} | j \rangle|^2$ for all $i, j, t$ uniquely determines $H$ up to an overall energy shift and basis phase conventions.*
+
+*Proof sketch.* (i) Expanding $T_{ij}(t)$ and Fourier-transforming extracts the frequencies $\omega_{kl} = E_k - E_l$ (distinct by G2), recovering all eigenvalues up to a global shift. (ii) The diagonal Fourier coefficients give $|V_{ik}|^2$ (non-zero by G3), recovering all eigenvector moduli. (iii) The off-diagonal coefficients carry a double-difference phase structure: $\arg(a_{ij}^{kl}) = (\varphi_{ik} - \varphi_{il}) - (\varphi_{jk} - \varphi_{jl})$. The gauge freedom preserving all double differences is $\varphi_{ik} \to \varphi_{ik} + \alpha_i + \beta_k$ — physically irrelevant basis rephasing. The full proof with explicit phase extraction is the D-gauge theorem (§5.3). $\square$
+
+Conditions (G1)–(G3) fail only on a measure-zero set. For the cosmological realization, the partition boundary breaks translational and boost invariance, generically lifting degeneracies in $\hat{H}_{\text{eff}}$.
 
 ### 3.2 Bell Inequality Violations
 
@@ -252,7 +258,11 @@ $$T_{ij}(t) = T^{(B)}_{ij}(t) + \mathcal{O}(t/\tau_B)$$
 
 *where $T^{(B)}_{ij}$ depends only on the $V$-$B$ dynamics.*
 
-*Proof.* Spatial locality gives a coupling chain $V \leftrightarrow B \leftrightarrow D$ with no direct $V$-$D$ coupling. The deep sector's spectral gap $\Delta_D \sim 1/\tau_B$ implies $\|\varphi_t^D - \text{id}\| = \mathcal{O}(t/\tau_B)$ for $t \ll \tau_B$: the deep sector is frozen. The visible-sector output $\pi_V(\varphi_t(x_i, b, d))$ therefore depends on $d$ only through $\mathcal{O}(t/\tau_B)$ back-reaction on $b$. The $d$-sum contributes $|\mathcal{C}_D|$ identical terms at leading order, yielding $T^{(B)}_{ij}(t) = |\mathcal{C}_B|^{-1} \sum_b \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]$, independent of $|\mathcal{C}_D|$. $\square$
+*Proof.* (i) *Coupling structure.* Spatial locality gives a coupling chain $V \leftrightarrow B \leftrightarrow D$ with no direct $V$-$D$ coupling.
+
+(ii) *Frozen deep sector.* The deep sector's spectral gap $\Delta_D \sim 1/\tau_B$ implies $\|\varphi_t^D - \text{id}\| = \mathcal{O}(t/\tau_B)$ for $t \ll \tau_B$: the deep sector is frozen.
+
+(iii) *Factorization.* The visible-sector output $\pi_V(\varphi_t(x_i, b, d))$ depends on $d$ only through $\mathcal{O}(t/\tau_B)$ back-reaction on $b$. The $d$-sum contributes $|\mathcal{C}_D|$ identical terms at leading order, yielding $T^{(B)}_{ij}(t) = |\mathcal{C}_B|^{-1} \sum_b \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]$, independent of $|\mathcal{C}_D|$. $\square$
 
 The correction is $\mathcal{O}(t/\tau_B) \sim 10^{-32}$ for laboratory processes. Since $T^{(B)}_{ij}(t)$ depends only on the boundary geometry ($A$, $\epsilon$, $\kappa$) and the constants $c$, $G$, the emergent action scale $\hbar$ inherits boundary-only dependence.
 
@@ -687,7 +697,13 @@ The cross term is negligible by 12 orders of magnitude relative to the smaller o
 
 $$S_{\text{matter}}(t) + S_{\text{BH}}(t) + S_{\text{dS}}(t) \geq S_{\text{matter}}(0) + S_{\text{BH}}(0) + S_{\text{dS}}(0)$$
 
-*Proof.* The total state is pure (deterministic evolution). Strong subadditivity on $\mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D$ gives $S(\rho_{VB}) + S(\rho_{BD}) \geq S(\rho_B)$. Identifying $S_{\text{matter}} = S(\rho_V) = S(\rho_{BD})$ (by purification), $S_{\text{BH}} = S(\rho_B)$, $S_{\text{dS}} = S(\rho_D)$: the CPTP channel $\Phi_V$ contracts relative entropy [33], so $S(\rho_V)$ is non-decreasing. Any decrease in $S_{\text{BH}}$ transfers information from $B$ to $V \cup D$; unitarity of $\varphi$ ensures the total is compensated. $\square$
+*Proof.* The total state is pure (deterministic evolution from a definite initial state).
+
+(i) *Subadditivity.* Strong subadditivity on $\mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D$ gives $S(\rho_{VB}) + S(\rho_{BD}) \geq S(\rho_B)$ (since $S(\rho_{VBD}) = 0$ for the pure total state).
+
+(ii) *Identification.* $S_{\text{matter}} = S(\rho_V) = S(\rho_{BD})$ (by purification), $S_{\text{BH}} = S(\rho_B)$, $S_{\text{dS}} = S(\rho_D)$.
+
+(iii) *Monotonicity.* The CPTP channel $\Phi_V$ contracts relative entropy [33], so $S(\rho_V)$ is non-decreasing. Any decrease in $S_{\text{BH}}$ transfers information from $B$ to $V \cup D$; unitarity of $\varphi$ ensures the total is compensated. $\square$
 
 ### B.7 The Page Curve
 

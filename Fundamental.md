@@ -307,7 +307,13 @@ $$\mu_\Gamma = 1, \quad \mu_X = \tfrac{1}{3}, \quad \mu_M = -\tfrac{1}{3}, \quad
 
 **Theorem 13** (Chirality). *The emergent gauge coupling of the visible sector is chiral: SU(2) is chiral while SU(3) remains vector-like.*
 
-*Proof.* Chirality equals sublattice parity: the staggered-to-Dirac reconstruction [12, 5] assigns left-handed components to even sites ($|\eta|$ even) and right-handed to odd ($|\eta|$ odd). Chiral symmetry (Theorem 3) gives $D_{LL} = D_{RR} = 0$: the Dirac operator couples only across sublattices. The trace-out marginalizes over the odd (right-handed) sublattice (Theorem 12), so the effective coupling has only left-handed external legs: $\mathcal{L}_{\text{eff}} = \bar{\psi}_L(D_{LR}G_{RR}D_{RL})\psi_L$. SU(3) acts on internal components (both sublattices carry color) → **vector-like**. SU(2) acts on the $E(2)$ sector but only L legs survive the trace-out → **chiral**. $\square$
+*Proof.* (i) *Chirality = sublattice parity.* The staggered-to-Dirac reconstruction [12, 5] assigns left-handed components to even sites ($|\eta|$ even) and right-handed to odd ($|\eta|$ odd).
+
+(ii) *$D_{LL} = D_{RR} = 0$.* Chiral symmetry (Theorem 3) implies the Dirac operator couples only across sublattices.
+
+(iii) *Trace-out removes right-handed fields.* The checkerboard partition marginalizes over the odd (right-handed) sublattice (Theorem 12), so the effective coupling has only left-handed external legs: $\mathcal{L}_{\text{eff}} = \bar{\psi}_L(D_{LR}G_{RR}D_{RL})\psi_L$.
+
+(iv) *SU(3) vector-like; SU(2) chiral.* SU(3) acts on internal components (both sublattices carry color) → **vector-like**. SU(2) acts on the $E(2)$ sector but only L legs survive the trace-out → **chiral**. $\square$
 
 ### 7.9 Anomaly cancellation and hypercharges
 
