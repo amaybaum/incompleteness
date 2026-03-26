@@ -110,11 +110,11 @@ The theorem converges with independent results on reduced dynamics [5–9] and i
 
 **Lemma (Accessible-timescale backflow).** *Under (C1)–(C3) with $\tau_S \ll \tau_B$, the non-Markovian mutual information $I(X_{<t}; X_{>t} \mid X_t)$ is $\mathcal{O}(1)$ for observation windows $t \sim k\tau_S$ with $k\tau_S \ll \tau_B$.*
 
-*Proof.* The coupling $H_{\text{int}}$ transfers visible-sector information to the hidden sector at each interaction, at rate $\sim 1/\tau_S$. Between interactions, the hidden sector evolves under $H_H$ with spectral gap $\Delta \sim 1/\tau_B$. The decay of correlations stored in the hidden sector is governed by $e^{-\Delta \tau_S}$. When $\tau_S \ll \tau_B$, $\Delta \tau_S \ll 1$, so the decay per visible-sector transition is $1 - e^{-\Delta \tau_S} \approx \Delta \tau_S \ll 1$: correlations survive each step essentially intact. After $k$ transitions spanning a time $k\tau_S \ll \tau_B$, the cumulative decay is $e^{-k\Delta\tau_S} \approx 1 - k\Delta\tau_S$, which remains close to unity. The hidden sector therefore retains $\sim k$ bits of visible-sector history over this window, and the $(k+1)$-th transition reads back stored correlations through $H_{\text{int}}$, producing history-dependent transition probabilities — i.e., information backflow. More precisely, the mutual information satisfies:
+*Proof.* Each coupling event transfers $I_0 > 0$ bits to the hidden sector (C1). Between events, correlations decay as $e^{-\Delta \tau_S}$ where $\Delta \sim 1/\tau_B$ is the hidden-sector spectral gap. For $\tau_S \ll \tau_B$: $\Delta \tau_S \ll 1$, so correlations survive each step intact. After $k$ transitions:
 
-$$I(X_{<t}; X_{>t} \mid X_t) \geq I_0(1 - k\Delta\tau_S) = I_0\left(1 - \frac{k\tau_S}{\tau_B}\right)$$
+$$I(X_{<t}; X_{>t} \mid X_t) \geq I_0\left(1 - \frac{k\tau_S}{\tau_B}\right)$$
 
-where $I_0 > 0$ is the single-step information transfer from (C1). For $k\tau_S \ll \tau_B$, this remains $\mathcal{O}(I_0)$ — comparable to the single-step coupling strength, not exponentially suppressed. The bound saturates (C3): the maximum storable history is $\log_2 m$ bits (§3.3), so persistent backflow over $K$ transitions requires $m \geq 2^K$, which is amply satisfied when $N_H \gg N_V$. $\square$
+For $k\tau_S \ll \tau_B$, this remains $\mathcal{O}(I_0)$. The bound saturates (C3): persistent backflow over $K$ transitions requires hidden-sector capacity $m \geq 2^K$, amply satisfied when $N_H \gg N_V$. $\square$
 
 **Role of (C2) and (C3).** The Poincaré recurrence argument and the accessible-timescale lemma are independent: the former establishes P-indivisibility from (C1) and finiteness alone; the latter shows that (C2) and (C3) promote it from a formal property to an observationally dominant one.
 
@@ -148,25 +148,7 @@ By Barandes' correspondence [10, 11], any P-indivisible stochastic process on a 
 
 Three features emerge. The Schrödinger equation arises from the differentiability of $U(t)$. The Born rule is the equilibrium distribution of the indivisible process [10, 11]. The action scale $\hbar$ enters when defining $\hat{H}(t) \equiv i\hbar \, \partial_t U \cdot U^\dagger$, converting dimensionless rates to energy units; its value requires physical input from the partition (§5).
 
-**Phase uniqueness from continuous-time data.** The relation $T_{ij}(t) = |U_{ij}(t)|^2$ discards phase information at any single time. Doukas [26] identifies this gap for discrete-time data. The resolution: continuous-time data $\{T_{ij}(t)\}_{t \in \mathbb{R}}$ provides strictly more information.
-
-**Lemma (phase-locking).** *Let $H$ be Hermitian on $\mathbb{C}^n$ with eigenbasis $\{|k\rangle\}$, eigenvalues $\{E_k\}$, and $V_{ik} = \langle i | k \rangle$. Assume: (G1) non-degenerate spectrum; (G2) non-degenerate energy gaps; (G3) $V_{ik} \neq 0$ for all $i, k$. Then $T_{ij}(t) = |\langle i | e^{-iHt} | j \rangle|^2$ for all $i, j, t$ uniquely determines $H$ up to an overall energy shift and basis phase conventions.*
-
-*Proof.* Write:
-
-$$T_{ij}(t) = \sum_{k,l} V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\; e^{-i(E_k - E_l)t}$$
-
-By (G2), the frequencies $\omega_{kl} = E_k - E_l$ are distinct for distinct pairs with $k \neq l$. Fourier-transforming yields:
-
-$$a_{ij}^{kl} = V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*$$
-
-The moduli $|V_{ik}|$ follow from $a_{ii}^{kl} = |V_{ik}|^2 |V_{il}|^2$ (non-zero by (G3)). The phases carry a double-difference structure:
-
-$$\arg(a_{ij}^{kl}) = (\varphi_{ik} - \varphi_{il}) - (\varphi_{jk} - \varphi_{jl})$$
-
-The gauge freedom preserving all double differences is $\varphi_{ik} \to \varphi_{ik} + \alpha_i + \beta_k$ (physically irrelevant basis rephasing). Fixing $\varphi_{1k} = 0$, $\varphi_{i1} = 0$, each remaining phase is $\varphi_{ik} = \arg(a_{i1}^{k1})$, directly extracted from Fourier data. $H = V \, \text{diag}(E_k) \, V^\dagger$ is unique up to energy shift and phase conventions. $\square$
-
-Conditions (G1)–(G3) fail only on a measure-zero set. For the cosmological realization, the partition boundary breaks translational and boost invariance, generically lifting degeneracies in $\hat{H}_{\text{eff}}$; residual gauge degeneracies do not affect the phase-locking argument.
+**Phase uniqueness from continuous-time data.** The relation $T_{ij}(t) = |U_{ij}(t)|^2$ discards phase information at any single time. Doukas [26] identifies this gap for discrete-time data. The resolution: continuous-time data $\{T_{ij}(t)\}_{t \in \mathbb{R}}$ provides strictly more information. Under generic conditions (non-degenerate spectrum, non-degenerate energy gaps, non-vanishing overlaps — failing only on a measure-zero set), Fourier analysis of $T_{ij}(t)$ recovers the energy eigenvalues and all eigenvector moduli; the remaining phase freedom is a physically trivial basis rephasing $H \to DHD^\dagger$ with $D$ a diagonal unitary (the D-gauge theorem, §5.3). For the cosmological realization, the partition boundary breaks translational and boost invariance, generically lifting degeneracies in $\hat{H}_{\text{eff}}$.
 
 ### 3.2 Bell Inequality Violations
 
@@ -186,15 +168,9 @@ The logical structure: Barandes' correspondence gives QM $\iff$ P-indivisibility
 
 *Proof.* Forward: §2.3. Reverse: if $T$ is a permutation, $\Lambda(k_2, k_1) = T^{(k_2-k_1)}$ is a valid stochastic matrix for all $k_2 > k_1$ $\Rightarrow$ P-divisible. $\square$
 
-**Theorem (C2 necessity).** *In the fast-bath regime ($\tau_B \ll \tau_S$), ergodic mixing drives the hidden sector to uniformity before each coupling event, yielding a Markov chain ($T^{(k)} = T^k$), which is P-divisible. Contrapositively, P-indivisibility requires $\tau_S \ll \tau_B$.*
+**Theorem (C2 necessity).** *In the fast-bath regime ($\tau_B \ll \tau_S$), the hidden sector relaxes to equilibrium before each coupling event, yielding a homogeneous Markov chain, which is P-divisible. Contrapositively, P-indivisibility requires $\tau_S \ll \tau_B$.*
 
-*Proof.* Between coupling events (separated by $\tau_S$), the hidden sector evolves under its own Hamiltonian $H_H$. Let $\mathcal{L}_H$ denote the hidden-sector Liouvillian with spectral gap $\Delta > 0$ (guaranteed on a finite ergodic system). For any conditioned hidden-sector distribution $\mu_H(\cdot | x_i)$ at a coupling event:
-
-$$\| e^{\mathcal{L}_H \tau_S} \mu_H(\cdot | x_i) - \mu_{\text{eq}} \|_{\text{TV}} \leq C \, e^{-\Delta \tau_S}$$
-
-In the fast-bath regime ($\Delta \tau_S \gg 1$), this is exponentially small: the hidden sector relaxes to equilibrium $\mu_{\text{eq}}$ before each coupling event regardless of its post-coupling state. Each single-step transition matrix $T$ is therefore computed against the same equilibrium distribution, so $T^{(k)} = T^k$ — a homogeneous Markov chain, hence P-divisible.
-
-Contrapositively: P-indivisibility requires $\Delta \tau_S \lesssim 1$, i.e., $\tau_S \lesssim \tau_B$. For the strong, persistent P-indivisibility of the characterization theorem, the separation must be $\tau_S \ll \tau_B$. (The proof uses discrete coupling events; for continuous Hamiltonian flow, $\tau_S$ is the visible sector's dynamical timescale and $\Delta$ is the spectral gap of $\mathcal{L}_H$. The continuous-time extension replaces the collision-model structure with the continuous spectral condition $\Delta \tau_S \gg 1 \Rightarrow$ Markovian, established in [4, 9].) $\square$
+*Proof.* The hidden-sector Liouvillian has spectral gap $\Delta \sim 1/\tau_B$. For $\Delta \tau_S \gg 1$ (fast bath), any conditioned distribution $\mu_H(\cdot | x_i)$ satisfies $\| e^{\mathcal{L}_H \tau_S} \mu_H - \mu_{\text{eq}} \|_{\text{TV}} \leq C e^{-\Delta \tau_S} \ll 1$: the hidden sector equilibrates between coupling events. Each transition is computed against the same $\mu_{\text{eq}}$, so $T^{(k)} = T^k$ — P-divisible. Contrapositively, P-indivisibility requires $\Delta \tau_S \lesssim 1$, i.e., $\tau_S \lesssim \tau_B$. $\square$
 
 **Theorem (C3 necessity).** *Let $m = |\mathcal{C}_H|$. The non-Markovian mutual information satisfies:*
 
@@ -224,7 +200,7 @@ QM is not merely *compatible with* embedded observation — it is *equivalent to
 
 *(i) Tensor product structure (visible–hidden).* The Stinespring route (Appendix A) constructs $\mathcal{H} = \mathcal{H}_V \otimes \mathcal{H}_H$ and derives the CPTP channel $\Phi$ by partial trace. The visible–hidden tensor product is therefore given by the construction, not postulated.
 
-*(ii) Tensor product structure (visible-sector subsystems).* Spatially separated subsystems within the visible sector — e.g., two laboratories — correspond to subsets $V_A, V_B \subset V$ with disjoint coupling neighborhoods on the coupling graph (the companion paper). The spatial Markov property of range-1 dynamics (the companion paper, area-law lemma) guarantees conditional independence: $\rho_{AB} = \rho_A \otimes \rho_B$ conditioned on boundary data. The emergent Hilbert space inherits the factorization $\mathcal{H}_{V_A} \otimes \mathcal{H}_{V_B}$ from the locality of the coupling graph, with entanglement between $A$ and $B$ arising from shared boundary history — precisely the stochastic entanglement of [10, 14].
+*(ii) Tensor product structure (visible-sector subsystems).* Spatially separated subsystems within the visible sector — e.g., two laboratories — correspond to subsets $V_A, V_B \subset V$ with disjoint coupling neighborhoods on the coupling graph. If the classical Hamiltonian has range-1 coupling, the spatial Markov property guarantees conditional independence: $\rho_{AB} = \rho_A \otimes \rho_B$ conditioned on boundary data. The emergent Hilbert space inherits the factorization $\mathcal{H}_{V_A} \otimes \mathcal{H}_{V_B}$ from the locality of the coupling graph, with entanglement between $A$ and $B$ arising from shared boundary history — precisely the stochastic entanglement of [10, 14].
 
 *(iii) State update, measurement, and multi-time predictions.* Projective measurement in the emergent description corresponds to conditioning on a visible-sector outcome and re-marginalizing over the hidden sector. The Lüders rule $\rho \to P_k \rho P_k / \text{Tr}(P_k \rho)$ is the quantum transcription of Bayesian updating on the classical substratum (Axiom 4). No independent measurement postulate is required. Multi-time correlation functions, weak values, and Leggett-Garg inequalities are standard calculations within the delivered formalism ($\mathcal{H}_V$, $U(t)$, Born rule); they require no additional postulates beyond what the characterization theorem provides.
 
@@ -258,7 +234,7 @@ Axiom 2 is now a consequence of partition geometry: the horizon has finite area 
 
 ### 5.1 The Classical Horizon Temperature
 
-Jacobson [16] showed $dE = T\,dS$ applied to local causal horizons yields Einstein's equations, with $dE = (c^2 \kappa / 8\pi G)\,dA$, where $\kappa$ is the surface gravity of the horizon. The entropy density is $\eta = 1/\epsilon^2$ — one coupled mode per minimal cell. This is not an assumption about the number of states per cell but a consequence of two results: $\epsilon$ is defined as the minimal distinguishable scale (Axiom 2), so each cell of area $\epsilon^2$ contributes exactly one boundary mode that couples across the partition; the number of internal states per mode (the alphabet size $q$) is a gauge freedom with no observable consequences (the companion paper). Thus $dS = dA/\epsilon^2$. Equating:
+Jacobson [16] showed $dE = T\,dS$ applied to local causal horizons yields Einstein's equations, with $dE = (c^2 \kappa / 8\pi G)\,dA$, where $\kappa$ is the surface gravity of the horizon. The entropy density is $\eta = 1/\epsilon^2$ — one coupled mode per minimal cell. This is not an assumption about the number of states per cell but a consequence of two results: $\epsilon$ is defined as the minimal distinguishable scale (Axiom 2), so each cell of area $\epsilon^2$ contributes exactly one boundary mode that couples across the partition; the number of internal states per mode (the alphabet size $q$) is a gauge freedom: all emergent transition probabilities, the dispersion relation, and the gap equation are $q$-independent for any $q \geq 2$, so no experiment can measure $q$. Thus $dS = dA/\epsilon^2$. Equating:
 
 $$T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G k_B}$$
 
@@ -270,35 +246,21 @@ For de Sitter ($\kappa = cH$): $k_B T_{\text{cl}} = c^3 \epsilon^2 H / (8\pi G)$
 
 **Step 2: $\hbar$ is structural, not volumetric.**
 
-**Lemma (Boundary-only dependence).** *Decompose the hidden sector as $\mathcal{C}_H = \mathcal{C}_B \times \mathcal{C}_D$, where $\mathcal{C}_B$ denotes boundary modes (within the interaction range of $H_{\text{int}}$) and $\mathcal{C}_D$ denotes deep modes (the remainder of the hidden sector). If the classical Hamiltonian is spatially local, then on timescales $t \ll \tau_B$:*
+**Lemma (Boundary-only dependence).** *Decompose the hidden sector as $\mathcal{C}_H = \mathcal{C}_B \times \mathcal{C}_D$, where $\mathcal{C}_B$ denotes boundary modes and $\mathcal{C}_D$ denotes deep modes. If the classical Hamiltonian is spatially local, then on timescales $t \ll \tau_B$:*
 
 $$T_{ij}(t) = T^{(B)}_{ij}(t) + \mathcal{O}(t/\tau_B)$$
 
 *where $T^{(B)}_{ij}$ depends only on the $V$-$B$ dynamics.*
 
-*Proof.* (i) *Coupling structure.* Spatial locality of the classical Hamiltonian implies the interaction decomposes as $H_{\text{tot}} = H_V + H_B + H_D + H_{VB} + H_{BD}$, with no direct $V$-$D$ coupling: a deep hidden-sector mode must propagate through the boundary layer before influencing the visible sector. The coupling chain is $V \leftrightarrow B \leftrightarrow D$, not $V \leftrightarrow D$.
+*Proof.* Spatial locality gives a coupling chain $V \leftrightarrow B \leftrightarrow D$ with no direct $V$-$D$ coupling. The deep sector's spectral gap $\Delta_D \sim 1/\tau_B$ implies $\|\varphi_t^D - \text{id}\| = \mathcal{O}(t/\tau_B)$ for $t \ll \tau_B$: the deep sector is frozen. The visible-sector output $\pi_V(\varphi_t(x_i, b, d))$ therefore depends on $d$ only through $\mathcal{O}(t/\tau_B)$ back-reaction on $b$. The $d$-sum contributes $|\mathcal{C}_D|$ identical terms at leading order, yielding $T^{(B)}_{ij}(t) = |\mathcal{C}_B|^{-1} \sum_b \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]$, independent of $|\mathcal{C}_D|$. $\square$
 
-(ii) *Frozen deep sector.* Let $\Delta_D$ be the spectral gap of $H_D + H_{BD}$ restricted to the deep sector conditioned on a fixed boundary configuration. The deep-sector evolution over time $t$ displaces any initial configuration by $\mathcal{O}(\Delta_D \, t)$ in phase space. By condition (C2), $\Delta_D \sim 1/\tau_B$, so for $t \ll \tau_B$: $\|\varphi_t^D - \text{id}\| = \mathcal{O}(t/\tau_B)$.
-
-(iii) *Factorization of the Liouville integral.* The transition probability is:
-
-$$T_{ij}(t) = \frac{1}{|\mathcal{C}_B||\mathcal{C}_D|} \sum_{b \in \mathcal{C}_B} \sum_{d \in \mathcal{C}_D} \delta_{x_j}[\pi_V(\varphi_t(x_i, b, d))]$$
-
-By (i), $\pi_V(\varphi_t(x_i, b, d))$ depends on $d$ only through the back-reaction $B \leftarrow D$, which by (ii) shifts $b$ by $\mathcal{O}(t/\tau_B)$. Expanding:
-
-$$\pi_V(\varphi_t(x_i, b, d)) = \pi_V(\varphi_t^{VB}(x_i, b)) + \mathcal{O}(t/\tau_B)$$
-
-where $\varphi_t^{VB}$ is the flow restricted to $V \times B$ with $D$ frozen. The $d$-sum then contributes $|\mathcal{C}_D|$ identical terms at leading order:
-
-$$T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|} \sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]}_{T^{(B)}_{ij}(t)} + \mathcal{O}(t/\tau_B) \qquad \square$$
-
-The correction is $\mathcal{O}(t/\tau_B) \sim 10^{-32}$ for laboratory processes. Since $T_{ij}(t)$ determines the emergent quantum description (§3.1), and $T^{(B)}_{ij}(t)$ depends only on the $V$-$B$ dynamics — which are characterized by the boundary geometry ($A$, $\epsilon$, $\kappa$) and the constants $c$, $G$ appearing in the classical Hamiltonian — the emergent action scale $\hbar$ inherits boundary-only dependence.
+The correction is $\mathcal{O}(t/\tau_B) \sim 10^{-32}$ for laboratory processes. Since $T^{(B)}_{ij}(t)$ depends only on the boundary geometry ($A$, $\epsilon$, $\kappa$) and the constants $c$, $G$, the emergent action scale $\hbar$ inherits boundary-only dependence.
 
 **Corollary (deep-sector cardinality is gauge).** *No observable of the emergent description — no transition probability, emergent Hamiltonian eigenvalue, or scattering amplitude — depends on the cardinality $|\mathcal{C}_D|$ of the deep hidden sector. Systems with the same $\mathcal{C}_V \times \mathcal{C}_B$ dynamics produce the same emergent physics to within $\mathcal{O}(\tau_S/\tau_B)$, whether $|\mathcal{C}_D|$ is finite, countably infinite, or uncountably infinite.*
 
 *Proof.* $T^{(B)}_{ij}(t)$ is defined by a sum over $\mathcal{C}_B$ alone. The $\mathcal{C}_D$-dependent terms enter only through the $\mathcal{O}(t/\tau_B)$ back-reaction. Since the emergent Hamiltonian $\hat{H}_{\text{eff}}$ is uniquely determined by $\{T_{ij}(t)\}$ (phase-locking lemma, §3.1; D-gauge theorem, §5.3), it inherits $\mathcal{C}_D$-independence at leading order. All observables — eigenvalues, transition amplitudes, scattering cross-sections — are functions of $\hat{H}_{\text{eff}}$ and therefore $\mathcal{C}_D$-independent. $\square$
 
-The cardinality of the deep hidden sector is gauge in the same technical sense as the alphabet size $q$ (the companion paper): just as two systems with different $q$ are physically equivalent if they share the same coupling structure, two systems with different $|\mathcal{C}_D|$ are physically equivalent if they share the same $\mathcal{C}_V \times \mathcal{C}_B$ dynamics. Axiom 2 requires $S$ finite for the recurrence proof (§2.3); the corollary establishes that the deep sector's contribution to this finiteness has no observable consequences. The question "is the universe finite or infinite?" has no empirical content within the framework — it is identified as gauge.
+The cardinality of the deep hidden sector is gauge: just as two systems with different alphabet sizes $q$ produce the same emergent transition probabilities (because all predictions are $q$-independent), two systems with different $|\mathcal{C}_D|$ are physically equivalent if they share the same $\mathcal{C}_V \times \mathcal{C}_B$ dynamics. Axiom 2 requires $S$ finite for the recurrence proof (§2.3); the corollary establishes that the deep sector's contribution to this finiteness has no observable consequences. The question "is the universe finite or infinite?" has no empirical content within the framework — it is identified as gauge.
 
 **Step 3: Dimensional determination.** Step 2 excludes volumetric (deep-sector) quantities, leaving boundary quantities. The boundary carries both *local* geometric data ($\epsilon$, $\kappa$, and the constants $c$, $G$ of the classical Hamiltonian) and a *global* quantity: the total area $A$, which forms the dimensionless ratio $A/\epsilon^2 = S_{\text{dS}}$. If $\hbar$ depended on $S_{\text{dS}}$, it would be observer-dependent — different observers have different horizon areas (§4.1) — contradicting the universality of the emergent action scale. (All sub-$c$ observers share the same local physics and hence the same $\hbar$; §4.1.) This excludes $A$, leaving the local boundary quantities $c$, $G$, $\epsilon$, and $\kappa$. Since $\kappa$ is the surface gravity of a specific horizon (observer-dependent, like $A$), it too is excluded. The unique combination of $c$, $G$, $\epsilon$ with dimensions of action:
 
@@ -314,7 +276,7 @@ $$\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}$$
 
 The derivation is a gap equation: $\epsilon$ is the free geometric input, $\hbar$ is the output. The match is non-trivial: $T_{\text{cl}}$ could have depended on volumetric hidden-sector data (excluded by Step 2), or $T_Q$ could have depended on the state (it does not — the KMS temperature is purely kinematic). That neither pathology obtains makes the gap equation a genuine determination. The non-circularity is structural: Part I establishes that a QFT emerges with *some* action scale $\hbar$; §5 determines *which* $\hbar$, using the independent classical temperature that Part I neither requires nor produces.
 
-**Non-circularity of the entropy density.** The claim $\eta = 1/\epsilon^2$ — one mode per minimal cell — may appear to pre-bake the area-entropy proportionality. To see why it does not, consider the counterfactual: suppose the classical entropy density were $\eta = \alpha/\epsilon^2$ for arbitrary $\alpha > 0$. Then $T_{\text{cl}} = \alpha c^2 \epsilon^2 \kappa / (8\pi G k_B)$, and thermal matching gives $\hbar = \alpha c^3 \epsilon^2 / (4G)$. The Bekenstein-Hawking entropy becomes $S = A / (4\alpha^{-1} l_p^2)$, which reproduces the observed $1/4$ factor only for $\alpha = 1$. Thus $\alpha = 1$ is a non-trivial constraint — it says that each minimal cell contributes exactly one boundary mode, not a fractional or multiple contribution. This is the physical content of the $q$-gauge theorem (the companion paper): the alphabet size $q$ (the number of internal states per cell) is observationally irrelevant, so what counts is the number of *cells*, not the number of *states*. The counting $\eta = 1/\epsilon^2$ is not an assumption about mode density but a consequence of $\epsilon$ being defined as the minimal distinguishable scale (Axiom 2) combined with the irrelevance of sub-cell structure.
+**Non-circularity of the entropy density.** The claim $\eta = 1/\epsilon^2$ may appear to pre-bake the area-entropy proportionality. Consider the counterfactual $\eta = \alpha/\epsilon^2$: thermal matching gives $\hbar = \alpha c^3 \epsilon^2 / (4G)$, and the Bekenstein-Hawking entropy becomes $S = A / (4\alpha^{-1} l_p^2)$, reproducing the $1/4$ factor only for $\alpha = 1$. This is a non-trivial constraint: each minimal cell contributes exactly one boundary mode. The counting follows from $\epsilon$ being the minimal distinguishable scale (Axiom 2) combined with the $q$-independence of all predictions — the number of internal states per cell is irrelevant, so what counts is cells, not states.
 
 The predictive content lies not in the gap equation alone but in its consequences. The specific relationship $\hbar = c^3\epsilon^2/(4G)$ — rather than any other function of $c$, $G$, $\epsilon$ — produces: the Bekenstein-Hawking formula with the exact factor $1/4$ (§6), the CC dissolution with $S_{\text{dS}}$ as the compression ratio (§7.3), the RVM parameter $\nu_{\text{OI}}$ (§8.1), and the GW echo timescale (§8.2). Any alternative $\hbar(\epsilon)$ would fail at least one of these checks. The situation is analogous to deriving the Schwarzschild metric with $M$ as a free parameter: the derivation has genuine content (the functional form) even though one input is not determined from within.
 
@@ -322,17 +284,11 @@ Jacobson's original derivation [16] uses $\hbar$-containing forms; this paper do
 
 ### 5.3 Gauge-Fixing and the Dimensional Obstruction
 
-Steps 1–2 establish that $\hbar$ depends only on boundary quantities; Step 4 will fix its value via thermal matching. A prior question must be addressed: does the transition-probability data $\{T_{ij}(t)\}$ determine the emergent Hamiltonian uniquely, or does residual gauge freedom leave $\hbar$ underdetermined? The following theorem, completing the phase-locking argument of §3.1, shows the gauge freedom is physically trivial.
+Does the transition-probability data $\{T_{ij}(t)\}$ determine the emergent Hamiltonian uniquely? The following theorem shows the residual gauge freedom is physically trivial.
 
 **Theorem (D-gauge completeness).** *Let $U(t) = e^{-iHt}$ with non-degenerate eigenvalues and non-vanishing configuration-basis overlaps. If $|U'_{ij}(t)|^2 = |U_{ij}(t)|^2$ for all $i, j, t$, then $H' = DHD^\dagger$ for a time-independent diagonal unitary $D$.*
 
-*Proof.* Write $U_{ij}(t) = \sum_a V_{ia} \, e^{-iE_a t} \, V_{ja}^*$ with $V_{ia} = \langle i | a \rangle$ and eigenvalues $\{E_a\}$, and similarly $U'_{ij}(t) = \sum_a V'_{ia} \, e^{-iE'_a t} \, V'^*_{ja}$.
-
-*Step 1 (Eigenvalue recovery).* By the phase-locking argument of §3.1, $|U_{ij}(t)|^2 = |U'_{ij}(t)|^2$ for all $t$ implies, via Fourier analysis, that the frequency sets $\{E_a - E_b\}$ and $\{E'_a - E'_b\}$ coincide. Non-degeneracy of energy gaps then gives $E'_a = E_{\sigma(a)} + E_0$ for some permutation $\sigma$ and global shift $E_0$. The Fourier coefficients $a^{kl}_{ij} = V_{ik} V^*_{jk} V_{jl} V^*_{il}$ must match between primed and unprimed, which (by the non-vanishing condition on overlaps) forces $\sigma = \text{id}$ up to relabeling. Thus $E'_a = E_a + E_0$.
-
-*Step 2 (Modulus recovery).* From the diagonal Fourier coefficients $a^{kl}_{ii} = |V_{ik}|^2 |V_{il}|^2$, the non-vanishing condition gives $|V'_{ia}| = |V_{ia}|$ for all $i, a$.
-
-*Step 3 (Phase structure).* Write $V'_{ia} = V_{ia} \, e^{i\delta_{ia}}$. The off-diagonal Fourier coefficients require:
+*Proof.* Expand $|U_{ij}(t)|^2 = \sum_{k,l} V_{ik} V^*_{jk} V_{jl} V^*_{il} \, e^{-i(E_k - E_l)t}$. Fourier analysis recovers the frequencies $E_k - E_l$ (distinct by non-degeneracy) and the coefficients $a^{kl}_{ij} = V_{ik} V^*_{jk} V_{jl} V^*_{il}$. From the diagonal coefficients: $|V'_{ia}| = |V_{ia}|$. Writing $V'_{ia} = V_{ia} e^{i\delta_{ia}}$, the off-diagonal coefficients require:
 
 $$V'_{ik} V'^*_{jk} V'_{jl} V'^*_{il} = V_{ik} V^*_{jk} V_{jl} V^*_{il}$$
 
@@ -480,7 +436,7 @@ where $d$ is the spatial dimension. The quadratic relationship — rather than l
 
 $$a_0 = \frac{cH}{d(d-1)}$$
 
-For $d = 3$ (derived in the companion paper from four independent self-consistency filters):
+For $d = 3$ (the observed spatial dimensionality; the unique value consistent with propagating gravity, stable matter, renormalizability, and the concordance $\rho_s/\rho_{\text{crit}} = 2/(d-1) = 1$):
 
 $$\boxed{a_0 = \frac{cH}{6} \approx 1.2 \times 10^{-10} \; \text{m/s}^2}$$
 
@@ -731,17 +687,7 @@ The cross term is negligible by 12 orders of magnitude relative to the smaller o
 
 $$S_{\text{matter}}(t) + S_{\text{BH}}(t) + S_{\text{dS}}(t) \geq S_{\text{matter}}(0) + S_{\text{BH}}(0) + S_{\text{dS}}(0)$$
 
-*Proof.* The total system $(S, \varphi)$ evolves unitarily at the fundamental level, so the total fine-grained entropy $S_{\text{total}} = \log|S|$ is constant. The three terms $S_{\text{matter}}$, $S_{\text{BH}}$, $S_{\text{dS}}$ are the observer's ignorance about three sectors: $V$, $B$, $D$ respectively.
-
-(i) *Subadditivity.* For the tripartite system $\mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D$ in a pure state $|\Psi\rangle$ (the total state is deterministic, hence pure conditioned on the initial state), the strong subadditivity of von Neumann entropy [33] gives:
-
-$$S(\rho_{VB}) + S(\rho_{BD}) \geq S(\rho_B) + S(\rho_{VBD})$$
-
-Since $\rho_{VBD} = |\Psi\rangle\langle\Psi|$ is pure, $S(\rho_{VBD}) = 0$. Thus $S(\rho_{VB}) + S(\rho_{BD}) \geq S(\rho_B)$.
-
-(ii) *Identification.* The observer's matter entropy is $S_{\text{matter}} = S(\rho_V)$. By purification on the tripartite system: $S(\rho_V) = S(\rho_{BD})$. The black hole entropy is $S_{\text{BH}} = S(\rho_B)$ restricted to the boundary modes (the number of $B$-modes coupled across the black hole horizon). The cosmological entropy is $S_{\text{dS}} = S(\rho_D)$ restricted to the boundary modes.
-
-(iii) *Monotonicity and compensation.* The CPTP channel $\Phi_V$ is a contraction of relative entropy [33, Theorem 11.9], so $S(\rho_V)$ is non-decreasing under the emergent dynamics. Any process that decreases $S_{\text{BH}}$ (shrinking the black hole) transfers information from $B$ to $V \cup D$. By the unitarity of $\varphi$, the total mutual information $I(V:B:D)$ is conserved, so the decrease in $S_{\text{BH}}$ is compensated by an increase in $S_{\text{matter}} + S_{\text{dS}}$. $\square$
+*Proof.* The total state is pure (deterministic evolution). Strong subadditivity on $\mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D$ gives $S(\rho_{VB}) + S(\rho_{BD}) \geq S(\rho_B)$. Identifying $S_{\text{matter}} = S(\rho_V) = S(\rho_{BD})$ (by purification), $S_{\text{BH}} = S(\rho_B)$, $S_{\text{dS}} = S(\rho_D)$: the CPTP channel $\Phi_V$ contracts relative entropy [33], so $S(\rho_V)$ is non-decreasing. Any decrease in $S_{\text{BH}}$ transfers information from $B$ to $V \cup D$; unitarity of $\varphi$ ensures the total is compensated. $\square$
 
 ### B.7 The Page Curve
 

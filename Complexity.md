@@ -86,23 +86,7 @@ For chemistry to support complexity, a thermal window must exist where bond ener
 
 ### 2.8 Summary of the structural chain
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} d = 3 \xrightarrow{\text{SO(3)}} \text{orbitals} \xrightarrow{\text{Pauli}} \text{periodic table} \xrightarrow{\text{element 6}} \text{tetrahedral carbon}$$
-
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{3 generations} \xrightarrow{\text{CKM}} \text{CP violation} \xrightarrow{\text{Sakharov}} \text{baryogenesis possible}$$
-
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{Higgs} \xrightarrow{\text{taste-breaking}} \text{mass hierarchy} \xrightarrow{} \text{light fermions} \xrightarrow{} \text{stable atoms}$$
-
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{SU(3)} \xrightarrow{\text{confinement}} \text{hadrons} \xrightarrow{\text{residual force}} \text{nuclei possible}$$
-
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{SU(3) + U(1) independent} \xrightarrow{} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$$
-
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{element 8 in d = 3} \xrightarrow{} \text{bent H}_2\text{O} \xrightarrow{\text{H-bonding}} \text{anomalous solvent}$$
-
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{scale hierarchy + orbital structure} \xrightarrow{} \text{thermal window exists}$$
-
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{chiral SU(2)} \xrightarrow{\text{PVED}} \text{L-amino acid preference}$$
-
-Every arrow is either a theorem from [1, 2] or a standard textbook result applied to the derived structure. No parameter values enter. The possibility of a universe with atoms, nuclei, a periodic table, organic chemistry, matter-antimatter asymmetry, and chirally selected molecules is a theorem about embedded observation.
+Eight independent chains connect (S, φ) to the preconditions for life, each link either a theorem from [1, 2] or a standard textbook result: (i) d = 3 → SO(3) orbitals → Pauli exclusion → periodic table → tetrahedral carbon; (ii) three generations → CKM CP violation → baryogenesis possible; (iii) Higgs → taste-breaking → mass hierarchy → light fermions → stable atoms; (iv) SU(3) → confinement → hadrons → residual force → nuclei possible; (v) independent SU(3) + U(1) → scale hierarchy → atoms are permanent building blocks; (vi) element 8 in d = 3 → bent H₂O → hydrogen bonding → anomalous solvent; (vii) scale hierarchy + orbital structure → thermal window exists; (viii) chiral SU(2) → PVED → L-amino acid preference. No parameter values enter. The possibility of atoms, nuclei, organic chemistry, matter-antimatter asymmetry, and chirally selected molecules is a theorem about embedded observation.
 
 ---
 
@@ -334,19 +318,9 @@ There is no ensemble of equally real structures from which observation selects. 
 
 ### 6.4 The self-referential closure
 
-The complete chain:
+The complete chain: (S, φ) exists as a mathematical structure → contains embedded observers seeing QM, GR, SM (theorem) → orbitals, periodic table, carbon, scale hierarchy, water, thermal window, chirality (structural) → autocatalytic networks with $N \times p \sim 10^{56}$ (statistical) → self-reproducing configurations (von Neumann) → template replication → Darwinian evolution (inevitable) → information processing → general intelligence (contingent) → semiconductors → universal computation → AI (structural) → observers ask "why does (S, φ) exist?"
 
-$$(S, \varphi) \text{ exists (mathematical structure)}$$
-$$\xrightarrow{\text{theorem}} \text{contains embedded observers seeing QM, GR, SM}$$
-$$\xrightarrow{\text{structural}} \text{orbitals, periodic table, carbon, scale hierarchy, water, thermal window, chirality}$$
-$$\xrightarrow{\text{statistical}} \text{autocatalytic networks (}N \times p \sim 10^{56}\text{)}$$
-$$\xrightarrow{\text{von Neumann}} \text{self-reproducing configurations}$$
-$$\xrightarrow{\text{structural}} \text{template replication} \xrightarrow{\text{inevitable}} \text{Darwinian evolution}$$
-$$\xrightarrow{\text{generic}} \text{information processing} \xrightarrow{\text{contingent}} \text{general intelligence}$$
-$$\xrightarrow{\text{structural}} \text{semiconductors} \xrightarrow{\text{theorem}} \text{universal computation} \xrightarrow{\text{structural}} \text{AI}$$
-$$\xrightarrow{} \text{observers ask: ``why does } (S, \varphi) \text{ exist?''}$$
-
-One step is contingent (general intelligence). Everything else is structural, statistical, or inevitable. The chain is closed: (S, φ) is a mathematical structure that contains observers who discover (S, φ).
+One step is contingent (general intelligence). Everything else is structural, statistical, or inevitable. The chain is closed: (S, φ) contains observers who discover (S, φ).
 
 ### 6.5 What cannot be answered
 
