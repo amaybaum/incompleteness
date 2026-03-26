@@ -150,9 +150,21 @@ Three features emerge. The Schrödinger equation arises from the differentiabili
 
 **Phase uniqueness from continuous-time data.** The relation $T_{ij}(t) = |U_{ij}(t)|^2$ discards phase information at any single time. Doukas [26] identifies this gap for discrete-time data. The resolution: continuous-time data $\{T_{ij}(t)\}_{t \in \mathbb{R}}$ provides strictly more information.
 
-**Lemma (phase-locking).** *Assume: (G1) non-degenerate spectrum; (G2) non-degenerate energy gaps; (G3) non-vanishing overlaps $V_{ik} = \langle i | k \rangle \neq 0$. Then $T_{ij}(t) = |\langle i | e^{-iHt} | j \rangle|^2$ for all $i, j, t$ uniquely determines $H$ up to an overall energy shift and basis phase conventions.*
+**Lemma (phase-locking).** *Let $H$ be Hermitian on $\mathbb{C}^n$ with eigenbasis $\{|k\rangle\}$, eigenvalues $\{E_k\}$, and $V_{ik} = \langle i | k \rangle$. Assume: (G1) non-degenerate spectrum; (G2) non-degenerate energy gaps; (G3) $V_{ik} \neq 0$ for all $i, k$. Then $T_{ij}(t) = |\langle i | e^{-iHt} | j \rangle|^2$ for all $i, j, t$ uniquely determines $H$ up to an overall energy shift and basis phase conventions.*
 
-*Proof sketch.* (i) Expanding $T_{ij}(t)$ and Fourier-transforming extracts the frequencies $\omega_{kl} = E_k - E_l$ (distinct by G2), recovering all eigenvalues up to a global shift. (ii) The diagonal Fourier coefficients give $|V_{ik}|^2$ (non-zero by G3), recovering all eigenvector moduli. (iii) The off-diagonal coefficients carry a double-difference phase structure: $\arg(a_{ij}^{kl}) = (\varphi_{ik} - \varphi_{il}) - (\varphi_{jk} - \varphi_{jl})$. The gauge freedom preserving all double differences is $\varphi_{ik} \to \varphi_{ik} + \alpha_i + \beta_k$ — physically irrelevant basis rephasing. The full proof with explicit phase extraction is the D-gauge theorem (§5.3). $\square$
+*Proof.* Write:
+
+$$T_{ij}(t) = \sum_{k,l} V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\; e^{-i(E_k - E_l)t}$$
+
+By (G2), the frequencies $\omega_{kl} = E_k - E_l$ are distinct for distinct pairs with $k \neq l$. Fourier-transforming yields:
+
+$$a_{ij}^{kl} = V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*$$
+
+The moduli $|V_{ik}|$ follow from $a_{ii}^{kl} = |V_{ik}|^2 |V_{il}|^2$ (non-zero by (G3)). The phases carry a double-difference structure:
+
+$$\arg(a_{ij}^{kl}) = (\varphi_{ik} - \varphi_{il}) - (\varphi_{jk} - \varphi_{jl})$$
+
+The gauge freedom preserving all double differences is $\varphi_{ik} \to \varphi_{ik} + \alpha_i + \beta_k$ (physically irrelevant basis rephasing). Fixing $\varphi_{1k} = 0$, $\varphi_{i1} = 0$, each remaining phase is $\varphi_{ik} = \arg(a_{i1}^{k1})$, directly extracted from Fourier data. $H = V \, \text{diag}(E_k) \, V^\dagger$ is unique up to energy shift and phase conventions. $\square$
 
 Conditions (G1)–(G3) fail only on a measure-zero set. For the cosmological realization, the partition boundary breaks translational and boost invariance, generically lifting degeneracies in $\hat{H}_{\text{eff}}$.
 
