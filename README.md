@@ -68,7 +68,7 @@ Addresses the ontological status of the lattice, the physical interpretation of 
 
 A companion overview covering the full argument — QM emergence, GR derivation, structural foundations, Standard Model structure, the memory interpretation of (S, φ), the relationship between mathematics and physics, and the identification of physics as observable mathematics — with detailed proof walkthroughs, philosophical lineage, and FAQ.
 
-- [`Explainer.md`](Incompleteness/Explainer.md) — Markdown source
+- [`Explainer.md`](Explainer.md) — Markdown source
 - [`Explainer.tex`](Explainer.tex) — LaTeX source
 - [`Explainer.pdf`](Explainer.pdf) — Compiled PDF
 
@@ -181,7 +181,7 @@ Level 1 — D-gauge H → DHD† (Main §5.3, theorem)
 G_sub is the kernel of the reconstruction map: Level 3 ⊃ Level 2 ⊃ Level 1
 ```
 
-### Reverse: From Observed Physics to [(S, φ)]/∼
+### Reverse: From Observed Physics to [(S, φ)]/G_sub
 
 ```
 Observed QM + Bell violations + finite boundary entropy + spatial isotropy
