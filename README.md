@@ -48,7 +48,7 @@ The reconstruction theorem establishes the converse: observed QM with Bell viola
 
 Establishes the QM–embedded observation equivalence (Part I), applies it to the cosmological horizon (Part II), derives the dark-sector concordance as a corollary, and proves the consistency of nested partitions — including the generalized second law and the Page curve — in Appendix B.
 
-- [`Main.md`](Main.md) — Markdown source
+- [`Main.md`](Incompleteness/Main.md) — Markdown source
 - [`Main.tex`](Main.tex) — LaTeX source
 - [`Main.pdf`](Main.pdf) — Compiled PDF
 
@@ -58,7 +58,7 @@ Establishes the QM–embedded observation equivalence (Part I), applies it to th
 
 Addresses the ontological status of the lattice, the physical interpretation of (S, φ), and which quantum field theory the embedded observer sees. Shows that the framework's theorems depend on six structural properties and on nothing else. The wave equation is uniquely selected by center independence, isotropy, and linearity (proved). It produces all inputs for Einstein's equations: area-law entropy, Lorentz-invariant dispersion, horizon thermality, and the Jacobson thermodynamic derivation — seven independent links, all analytically proven. The wave equation on a d = 3 lattice uniquely determines the Standard Model's structure: staggered Dirac fermions, chiral symmetry mandating the Higgs, three fermion generations, K = 2d = 6, multiplicities (3, 2, 1) from the cubic group, local gauge invariance from background independence, unique hypercharges from anomaly cancellation, chirality from the trace-out, and θ̄ = 0 at all energy scales. The primary derivation chain is proved end-to-end (29 theorems/lemmas). The reconstruction theorem proves a bidirectional correspondence: observed QM + Bell violations + finite entropy + isotropy ↔ [(S, φ)]/~ up to gauge.
 
-- [`Fundamental.md`](Fundamental.md) — Markdown source
+- [`Fundamental.md`](Incompleteness/Fundamental.md) — Markdown source
 - [`Fundamental.tex`](Fundamental.tex) — LaTeX source
 - [`Fundamental.pdf`](Fundamental.pdf) — Compiled PDF
 
@@ -68,7 +68,7 @@ Addresses the ontological status of the lattice, the physical interpretation of 
 
 A companion overview covering the full argument — QM emergence, GR derivation, structural foundations, Standard Model structure, the memory interpretation of (S, φ), the relationship between mathematics and physics, and the identification of physics as observable mathematics — with detailed proof walkthroughs, philosophical lineage, and FAQ.
 
-- [`Explainer.md`](Explainer.md) — Markdown source
+- [`Explainer.md`](Incompleteness/Explainer.md) — Markdown source
 - [`Explainer.tex`](Explainer.tex) — LaTeX source
 - [`Explainer.pdf`](Explainer.pdf) — Compiled PDF
 
@@ -116,7 +116,7 @@ Traces the consequences of the derived structure through atomic physics, chemist
 
 ## The Bidirectional Correspondence
 
-The forward derivation and the reconstruction theorem together establish a bidirectional correspondence: (S, φ) determines observed physics, and observed physics uniquely determines [(S, φ)]/∼. The mathematical description and the physics are informationally equivalent up to gauge.
+The forward derivation and the reconstruction theorem together establish a bidirectional correspondence: (S, φ) determines observed physics, and observed physics uniquely determines [(S, φ)]/G_sub — the equivalence class under the substratum gauge group (§10.4). The four generators of G_sub (state relabeling, alphabet change, deep-sector enlargement, graph isomorphism up to statistical isotropy) are the complete list of transformations that leave all observables invariant. The mathematical description and the physics determine each other up to this gauge — and nothing finer is empirically accessible.
 
 ### Forward: From (S, φ) to Observed Physics
 
