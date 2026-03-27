@@ -15,7 +15,7 @@ For the first question, we show that the framework's results depend on six struc
 
 For the second question, we show that the wave equation on a d = 3 lattice uniquely determines the Standard Model's structure. Bottom-up: the wave equation factors into staggered Dirac fermions; center independence enforces chiral symmetry, mandating the Higgs; staggered tastes give three fermion generations. Gauge emergence: coupling-degree minimization gives K = 2d = 6 internal components; the cubic rotation group fixes multiplicities (3, 2, 1); background independence promotes the commutant to local gauge invariance. Top-down: anomaly cancellation uniquely determines the hypercharges; the trace-out makes SU(2) chiral while SU(3) remains vector-like; T-invariance forces θ̄ = 0 at all energy scales.
 
-The reconstruction theorem establishes the converse: observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/∼ at the lattice level — a finite set with a bijection of bounded coupling degree and statistical isotropy. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement — the framework identifies this as gauge.
+The reconstruction theorem establishes the converse: observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/$\mathcal{G}_{\text{sub}}$ at the lattice level — a finite set with a bijection of bounded coupling degree and statistical isotropy. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement — the framework identifies this as gauge.
 
 ---
 
@@ -33,7 +33,7 @@ The paper is organized as follows. §§2–4 establish the structural foundation
 
 The results fall into three tiers.
 
-**Tier 1 (structural foundations, from the six properties alone).** The lattice is the coupling graph (§3), the alphabet size is gauge (§4), the observer is generic (§9.4), and d = 3 is the unique self-consistent dimension (§6). These are theorems about the equivalence class [(S, φ)]/∼ and do not depend on which specific dynamics is selected.
+**Tier 1 (structural foundations, from the six properties alone).** The lattice is the coupling graph (§3), the alphabet size is gauge (§4), the observer is generic (§9.4), and d = 3 is the unique self-consistent dimension (§6). These are theorems about the equivalence class [(S, φ)]/$\mathcal{G}_{\text{sub}}$ and do not depend on which specific dynamics is selected.
 
 **Tier 2 (dynamics selection and the primary SM derivation chain).** Center independence + isotropy + linearity uniquely select the wave equation (§7.1). The wave equation determines: staggered Dirac fermions, K = 2d = 6 from coupling-degree minimization, multiplicities (3, 2, 1) from the cubic group, local gauge invariance from background independence, chirality from the trace-out, unique hypercharges from anomaly cancellation, three generations from cubic symmetry, one Higgs doublet, and θ̄ = 0 at all energy scales. Each step is proved; the chain is 29 theorems/lemmas long, and each depends on its predecessors. The individual proofs are short, but the cumulative chain is the paper's most exposed structure: a single failure at any link would propagate forward.
 
@@ -445,7 +445,7 @@ The conjunction is distinctive to this framework.
 
 The framework's predictions fall into two categories, and the distinction matters for assessing their status.
 
-**Structural predictions** are properties of the equivalence class [(S, φ)]/∼ — they hold for every bijection satisfying the six structural properties. These include: SU(3) × SU(2) × U(1) with multiplicities (3, 2, 1), three chiral generations with identical gauge quantum numbers, one Higgs doublet (1, 2, +1/2), unique hypercharges from anomaly cancellation, $\bar{\theta} = 0$ at all energy scales, ℏ = c³ε²/(4G), and the Bekenstein-Hawking formula. These are theorems. They do not depend on which specific φ describes our universe.
+**Structural predictions** are properties of the equivalence class [(S, φ)]/$\mathcal{G}_{\text{sub}}$ — they hold for every bijection satisfying the six structural properties. These include: SU(3) × SU(2) × U(1) with multiplicities (3, 2, 1), three chiral generations with identical gauge quantum numbers, one Higgs doublet (1, 2, +1/2), unique hypercharges from anomaly cancellation, $\bar{\theta} = 0$ at all energy scales, ℏ = c³ε²/(4G), and the Bekenstein-Hawking formula. These are theorems. They do not depend on which specific φ describes our universe.
 
 **Solution-specific properties** are determined by the particular bijection φ within the equivalence class. These include: gauge couplings (set by the eigenvalues μ_c, μ_w of M), fermion masses (set by taste-breaking in φ at $\mathcal{O}(\epsilon^2)$), and mixing parameters (set by the Yukawa structure of φ). These are analogous to the mass $M$ in the Schwarzschild solution: GR derives the functional form of the metric but does not predict which $M$ describes a particular black hole. The OI framework derives the SM's structure but does not predict which φ describes our universe.
 
@@ -523,13 +523,43 @@ $$\text{Observed physics (QM + Bell + finite entropy + isotropy)} \quad \longlef
 
 The mathematical structure and the physics determine each other up to gauge equivalence. The distinction between "mathematics describes reality" and "mathematics is reality" has no empirical content — it is itself gauge. This reframes Wigner's puzzle: the "unreasonable effectiveness" of mathematics is a theorem, not a mystery.
 
+### 10.4 The substratum gauge group
+
+The equivalence relation $\sim$ in the reconstruction theorem has a precise structure. Define: $(S, \varphi) \sim (S', \varphi')$ if the two systems produce identical emergent physics — the same transition probabilities $T_{ij}(t)$, the same emergent Hamiltonian (up to D-gauge), and the same $\hbar$ — for all partitions of the same structural class. The set of transformations mapping $(S, \varphi)$ to an equivalent $(S', \varphi')$ is a group — the *substratum gauge group* $\mathcal{G}_{\text{sub}}$.
+
+**Theorem 24** (Generators of the substratum gauge group). *$\mathcal{G}_{\text{sub}}$ contains at least four independent families of transformations:*
+
+*(i) State relabeling.* For any bijection $\sigma: S \to S$, the conjugate $(S, \sigma \circ \varphi \circ \sigma^{-1}) \sim (S, \varphi)$. The transition probabilities depend on the coupling structure of $\varphi$, not on which labels are attached to which states. This is an $|S|!$-element subgroup — vastly larger than any gauge group in the Standard Model.
+
+*(ii) Alphabet change.* Replacing the local state space $\mathbb{Z}/q\mathbb{Z}$ with $\mathbb{Z}/q'\mathbb{Z}$ for any $q' \geq 2$, while preserving the coupling graph and dynamics class, leaves all observables unchanged (§4). This family is parametrized by all integers $q \geq 2$.
+
+*(iii) Deep-sector enlargement.* Adjoining additional degrees of freedom to $\mathcal{C}_D$ (the deep hidden sector beyond the boundary layer), with arbitrary dynamics satisfying $\tau_B^D \gg \tau_S$, does not change the emergent description. The boundary-only dependence lemma [1, §5.2] proves $T_{ij}(t) = T_{ij}^{(B)}(t) + \mathcal{O}(t/\tau_B)$: observables depend only on $\mathcal{C}_V \times \mathcal{C}_B$. The deep sector may be finite of any size, or infinite.
+
+*(iv) Graph isomorphism (up to statistical isotropy).* Two coupling graphs $G_\varphi$ and $G_{\varphi'}$ that are quasi-isometric with the same polynomial growth exponent $d$, the same spectral properties, and the same statistical isotropy at large scales produce the same emergent physics. The regular cubic lattice $\mathbb{Z}^3$ and any bounded-degree random graph with $d = 3$ polynomial growth and statistical isotropy are gauge-equivalent.
+
+*Proof.* Each generator preserves all inputs to the derivation chain. (i): conjugation preserves the coupling graph $G_\varphi$ up to relabeling, hence all graph-dependent quantities (area law, dispersion, dimension, eigenvalue multiplicities). (ii): §4 proves $q$-independence of every prediction. (iii): the boundary-only dependence lemma gives the result directly. (iv): the derivation chain uses only statistical properties of $G_\varphi$ (dimension via Myrheim-Meyer, isotropy, bounded degree), not the specific graph. $\square$
+
+**Completeness.** The reconstruction theorem (Theorem 23) establishes that the equivalence class $[(S, \varphi)]/\!\sim$ is uniquely determined by the observed physics. Any transformation not in $\mathcal{G}_{\text{sub}}$ would change at least one observable, contradicting equivalence. The four generators therefore span the full gauge group — $\mathcal{G}_{\text{sub}}$ is the kernel of the reconstruction map.
+
+**The gauge hierarchy.** Three levels of gauge symmetry appear in the framework, each projecting onto the next through the trace-out:
+
+*Level 3 (substratum):* $\mathcal{G}_{\text{sub}}$ acts on $(S, \varphi)$ before the trace-out. It is the largest gauge group and includes transformations with no analog in the emergent description (deep-sector enlargement, alphabet change).
+
+*Level 2 (emergent QFT):* $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$ is the commutant of the coupling matrix $M$, acting on the emergent fields. It is the image of $\mathcal{G}_{\text{sub}}$ restricted to transformations that permute internal components within the eigenspaces of $M$.
+
+*Level 1 (emergent Hamiltonian):* The D-gauge $H \to DHD^\dagger$ with $D$ a diagonal unitary, acting on the emergent Hamiltonian within the emergent QM. It is the residual freedom after all transition-probability data has been extracted.
+
+Each level is contained in the one above: Level 1 $\subset$ Level 2 $\subset$ Level 3. The trace-out projects Level 3 onto Level 2 (the SM gauge group is the shadow of $\mathcal{G}_{\text{sub}}$ visible to the emergent QFT), and restricting to the Hamiltonian projects Level 2 onto Level 1.
+
+**Remark.** The substratum gauge group is not a symmetry of a Lagrangian or an action — no Lagrangian exists at the substratum level. It is a symmetry of the *equivalence class of substrata*, defined by the condition that all observables are preserved. The emergent gauge symmetries (Levels 1 and 2) are Lagrangian symmetries in the standard sense, derived from the substratum through the trace-out.
+
 ---
 
 ## 11. Conclusion
 
 The lattice in the OI framework is not a physical substrate. It is the coupling graph of a bijection on a finite set. Space is the large-scale geometry of this graph. Time is the iteration of the bijection. Quantum mechanics is the observer's compressed description of the visible sector. General relativity is the thermodynamic limit of the coupling structure. The Standard Model is the specific QFT determined by the lattice structure in d = 3.
 
-The fundamental object is (S, φ) — a finite set and a bijection. Physically: a finite lossless memory. The partition V is derived (any small subgraph sees QM). The dimension d = 3 is derived (four independent filters converge). The gauge group, matter content, and discrete symmetries are derived (the primary chain is proved end-to-end). The reconstruction theorem (§10.3) establishes the converse: observed physics uniquely determines [(S, φ)]/∼ at the lattice level. The universe is completely described by a lossless memory with finite read-write access. Physics is what that memory looks like from inside — and what it looks like from inside uniquely determines what it is.
+The fundamental object is (S, φ) — a finite set and a bijection. Physically: a finite lossless memory. The partition V is derived (any small subgraph sees QM). The dimension d = 3 is derived (four independent filters converge). The gauge group, matter content, and discrete symmetries are derived (the primary chain is proved end-to-end). The reconstruction theorem (§10.3) establishes the converse: observed physics uniquely determines [(S, φ)]/$\mathcal{G}_{\text{sub}}$ at the lattice level. The universe is completely described by a lossless memory with finite read-write access. Physics is what that memory looks like from inside — and what it looks like from inside uniquely determines what it is.
 
 ---
 
