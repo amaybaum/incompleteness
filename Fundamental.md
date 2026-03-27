@@ -523,6 +523,36 @@ $$\text{Observed physics (QM + Bell + finite entropy + isotropy)} \quad \longlef
 
 The mathematical structure and the physics determine each other up to gauge equivalence. The distinction between "mathematics describes reality" and "mathematics is reality" has no empirical content — it is itself gauge. This reframes Wigner's puzzle: the "unreasonable effectiveness" of mathematics is a theorem, not a mystery.
 
+### 10.4 The substratum gauge group
+
+The equivalence relation $\sim$ in the reconstruction theorem has a precise structure. Define: $(S, \varphi) \sim (S', \varphi')$ if the two systems produce identical emergent physics — the same transition probabilities $T_{ij}(t)$, the same emergent Hamiltonian (up to D-gauge), and the same $\hbar$ — for all partitions of the same structural class. The set of transformations mapping $(S, \varphi)$ to an equivalent $(S', \varphi')$ is a group — the *substratum gauge group* $\mathcal{G}_{\text{sub}}$.
+
+**Theorem 24** (Generators of the substratum gauge group). *$\mathcal{G}_{\text{sub}}$ contains at least four independent families of transformations:*
+
+*(i) State relabeling.* For any bijection $\sigma: S \to S$, the conjugate $(S, \sigma \circ \varphi \circ \sigma^{-1}) \sim (S, \varphi)$. The transition probabilities depend on the coupling structure of $\varphi$, not on which labels are attached to which states. This is an $|S|!$-element subgroup — vastly larger than any gauge group in the Standard Model.
+
+*(ii) Alphabet change.* Replacing the local state space $\mathbb{Z}/q\mathbb{Z}$ with $\mathbb{Z}/q'\mathbb{Z}$ for any $q' \geq 2$, while preserving the coupling graph and dynamics class, leaves all observables unchanged (§4). This family is parametrized by all integers $q \geq 2$.
+
+*(iii) Deep-sector enlargement.* Adjoining additional degrees of freedom to $\mathcal{C}_D$ (the deep hidden sector beyond the boundary layer), with arbitrary dynamics satisfying $\tau_B^D \gg \tau_S$, does not change the emergent description. The boundary-only dependence lemma [1, §5.2] proves $T_{ij}(t) = T_{ij}^{(B)}(t) + \mathcal{O}(t/\tau_B)$: observables depend only on $\mathcal{C}_V \times \mathcal{C}_B$. The deep sector may be finite of any size, or infinite.
+
+*(iv) Graph isomorphism (up to statistical isotropy).* Two coupling graphs $G_\varphi$ and $G_{\varphi'}$ that are quasi-isometric with the same polynomial growth exponent $d$, the same spectral properties, and the same statistical isotropy at large scales produce the same emergent physics. The regular cubic lattice $\mathbb{Z}^3$ and any bounded-degree random graph with $d = 3$ polynomial growth and statistical isotropy are gauge-equivalent.
+
+*Proof.* Each generator preserves all inputs to the derivation chain. (i): conjugation preserves the coupling graph $G_\varphi$ up to relabeling, hence all graph-dependent quantities (area law, dispersion, dimension, eigenvalue multiplicities). (ii): §4 proves $q$-independence of every prediction. (iii): the boundary-only dependence lemma gives the result directly. (iv): the derivation chain uses only statistical properties of $G_\varphi$ (dimension via Myrheim-Meyer, isotropy, bounded degree), not the specific graph. $\square$
+
+**Completeness.** The reconstruction theorem (Theorem 23) establishes that the equivalence class $[(S, \varphi)]/\!\sim$ is uniquely determined by the observed physics. Any transformation not in $\mathcal{G}_{\text{sub}}$ would change at least one observable, contradicting equivalence. The four generators therefore span the full gauge group — $\mathcal{G}_{\text{sub}}$ is the kernel of the reconstruction map.
+
+**The gauge hierarchy.** Three levels of gauge symmetry appear in the framework, each projecting onto the next through the trace-out:
+
+*Level 3 (substratum):* $\mathcal{G}_{\text{sub}}$ acts on $(S, \varphi)$ before the trace-out. It is the largest gauge group and includes transformations with no analog in the emergent description (deep-sector enlargement, alphabet change).
+
+*Level 2 (emergent QFT):* $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$ is the commutant of the coupling matrix $M$, acting on the emergent fields. It is the image of $\mathcal{G}_{\text{sub}}$ restricted to transformations that permute internal components within the eigenspaces of $M$.
+
+*Level 1 (emergent Hamiltonian):* The D-gauge $H \to DHD^\dagger$ with $D$ a diagonal unitary, acting on the emergent Hamiltonian within the emergent QM. It is the residual freedom after all transition-probability data has been extracted.
+
+Each level is contained in the one above: Level 1 $\subset$ Level 2 $\subset$ Level 3. The trace-out projects Level 3 onto Level 2 (the SM gauge group is the shadow of $\mathcal{G}_{\text{sub}}$ visible to the emergent QFT), and restricting to the Hamiltonian projects Level 2 onto Level 1.
+
+**Remark.** The substratum gauge group is not a symmetry of a Lagrangian or an action — no Lagrangian exists at the substratum level. It is a symmetry of the *equivalence class of substrata*, defined by the condition that all observables are preserved. The emergent gauge symmetries (Levels 1 and 2) are Lagrangian symmetries in the standard sense, derived from the substratum through the trace-out.
+
 ---
 
 ## 11. Conclusion
