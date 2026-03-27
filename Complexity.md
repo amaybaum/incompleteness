@@ -191,9 +191,13 @@ If the amplification chain is robust — and every step is either derived, known
 
 The fine-tuning problem assumes two freedoms: the laws could have been different, and the parameters could have been different. The OI framework removes the first — the structure is derived. §3 shows the second is not as constrained as traditionally claimed: the viable parameter fraction is $\mathcal{O}(10\%)$, not $\mathcal{O}(10^{-50})$. The apparent fine-tuning was dominated by structural variation that the framework proves doesn't exist.
 
+The substratum gauge group $\mathcal{G}_{\text{sub}}$ (Fundamental, §10.4) makes this precise. The structural chain of §2 — $d = 3$, orbitals, the periodic table, carbon's tetrahedral bonding, water, the thermal window, chirality — is invariant under every generator of $\mathcal{G}_{\text{sub}}$: state relabeling, alphabet change, deep-sector enlargement, and graph isomorphism up to statistical isotropy. These preconditions for complexity are not contingent features that happen to hold in our universe. They are gauge-invariant properties of the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$ — they hold for every $(S, \varphi)$ in the class. The only quantities that could have been different are the solution-specific parameters (gauge couplings, fermion masses, mixing angles), and §3 shows these have a viable fraction of $\mathcal{O}(10\%)$.
+
 ### 5.2 The dissolution of the anthropic principle
 
 The anthropic principle assumes there is an ensemble of possible universes from which observation selects. The framework removes the ensemble: the structure is the only structure consistent with embedded observation (characterization theorem [1, §3.3]; reconstruction theorem [2, §10.3]). The preconditions for organic chemistry — atoms, carbon bonding geometry, the scale hierarchy, water, the thermal window, chiral selection — are structural (§2). The parameters have a viable fraction of $\mathcal{O}(10\%)$ (§3). There is nothing for observation to select, because there is nothing that could have been otherwise.
+
+The completeness of $\mathcal{G}_{\text{sub}}$ (Fundamental, Theorem 24) closes this argument: the four generators are the *complete* set of transformations that leave observables invariant. No finer distinction between substrata is empirically accessible. The structural preconditions for complexity are therefore as immutable as the gauge group itself — they are not drawn from an ensemble but fixed by the equivalence class.
 
 ### 5.3 The autocatalytic argument
 
