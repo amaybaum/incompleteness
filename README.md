@@ -58,7 +58,7 @@ Establishes the QM–embedded observation equivalence (Part I), applies it to th
 
 Addresses the ontological status of the lattice, the physical interpretation of (S, φ), and which quantum field theory the embedded observer sees. Shows that the framework's theorems depend on six structural properties and on nothing else. The wave equation is uniquely selected by center independence, isotropy, and linearity (proved). It produces all inputs for Einstein's equations: area-law entropy, Lorentz-invariant dispersion, horizon thermality, and the Jacobson thermodynamic derivation — seven independent links, all analytically proven. The wave equation on a d = 3 lattice uniquely determines the Standard Model's structure: staggered Dirac fermions, chiral symmetry mandating the Higgs, three fermion generations, K = 2d = 6, multiplicities (3, 2, 1) from the cubic group, local gauge invariance from background independence, unique hypercharges from anomaly cancellation, chirality from the trace-out, and θ̄ = 0 at all energy scales. The primary derivation chain is proved end-to-end (29 theorems/lemmas). The reconstruction theorem proves a bidirectional correspondence: observed QM + Bell violations + finite entropy + isotropy ↔ [(S, φ)]/~ up to gauge.
 
-- [`Fundamental.md`](Incompleteness/Fundamental.md) — Markdown source
+- [`Fundamental.md`](Fundamental.md) — Markdown source
 - [`Fundamental.tex`](Fundamental.tex) — LaTeX source
 - [`Fundamental.pdf`](Fundamental.pdf) — Compiled PDF
 
