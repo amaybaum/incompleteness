@@ -1482,6 +1482,46 @@ six structural properties and nothing else; the wave equation on a d = 3
 lattice determines the Standard Model with the primary derivation chain
 proved end-to-end (§7).
 
+\textbf{Theorem dependency structure.} The 24 theorems are not a linear
+chain of 24 sequential steps. They form a tree with four independent
+branches. The critical path through the SM derivation is five theorems
+long (1 → 2 → 5 → 6 → 7); the strong CP solution is independent of the
+SM structure; and the reconstruction uses all preceding results but adds
+only two new theorems.
+
+\begin{verbatim}
+Axioms + d=3
+  │
+  ├─→ Thm 1 (wave eq) ─→ Thm 2 (Dirac) ─→ Thm 3 (chiral sym)
+  │         │
+  │         ├─→ Thm 4 (mass spectrum)
+  │         └─→ Thm 5 (gauge = commutant of M)
+  │
+  ├─→ Thm 6 (K=2d) ─┐
+  │                   ├─→ Thm 7 (cubic decomposition → multiplicities (3,2,1))
+  │                   │     │
+  │                   │     ├─→ Thms 8–11 (tastes, generations, Higgs)
+  │                   │     ├─→ Thm 13 (chirality)
+  │                   │     └─→ Thms 14–15 (hypercharges, anomaly cancellation)
+  │                   │
+  │                   └─→ Thm 16 (renormalizability iff d=3)
+  │
+  ├─→ Thm 12 (partition = spinor) [independent of Thms 6–11]
+  │
+  ├─→ Thms 17–21 (strong CP: θ̄ = 0) [independent of Thms 6–16; uses only bijectivity]
+  │
+  ├─→ Thm 22 (observer genericity) [independent of Thms 1–21]
+  │
+  └─→ Thm 23 (reconstruction) [uses Thms 1–22]
+        └─→ Thm 24 (substratum gauge group) [uses Thm 23]
+\end{verbatim}
+
+A referee can verify any branch independently. The strong CP block (Thms
+17--21) requires only the bijectivity of φ and the wave equation's
+T-invariance --- it does not depend on the gauge structure derivation.
+The observer genericity theorem (Thm 22) is independent of all preceding
+results.
+
 \hypertarget{the-physical-interpretation-of-s-ux3c6}{%
 \subsubsection{10.2 The physical interpretation of (S,
 φ)}\label{the-physical-interpretation-of-s-ux3c6}}

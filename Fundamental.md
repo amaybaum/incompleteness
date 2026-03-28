@@ -461,6 +461,37 @@ The "mass hierarchy" — the five-order-of-magnitude spread of fermion masses �
 
 The framework starts from four axioms (deterministic dynamics, finiteness, causal partition, classical probability) and three conditions (C1–C3), with no quantum mechanics, general relativity, or specific dynamics. The companion paper [1] proves that embedded observation under these conditions is equivalent to unitary QM, derives ℏ = c³ε²/(4G) and the Bekenstein-Hawking formula, dissolves the CC discrepancy, and predicts dark energy evolution and GW echoes. This paper establishes that center independence, isotropy, and linearity uniquely select the wave equation (§7.1), which passes all seven GR tests with no free parameters (§5). The framework's results depend on six structural properties and nothing else; the wave equation on a d = 3 lattice determines the Standard Model with the primary derivation chain proved end-to-end (§7).
 
+**Theorem dependency structure.** The 24 theorems are not a linear chain of 24 sequential steps. They form a tree with four independent branches. The critical path through the SM derivation is five theorems long (1 → 2 → 5 → 6 → 7); the strong CP solution is independent of the SM structure; and the reconstruction uses all preceding results but adds only two new theorems.
+
+```
+Axioms + d=3
+  │
+  ├─→ Thm 1 (wave eq) ─→ Thm 2 (Dirac) ─→ Thm 3 (chiral sym)
+  │         │
+  │         ├─→ Thm 4 (mass spectrum)
+  │         └─→ Thm 5 (gauge = commutant of M)
+  │
+  ├─→ Thm 6 (K=2d) ─┐
+  │                   ├─→ Thm 7 (cubic decomposition → multiplicities (3,2,1))
+  │                   │     │
+  │                   │     ├─→ Thms 8–11 (tastes, generations, Higgs)
+  │                   │     ├─→ Thm 13 (chirality)
+  │                   │     └─→ Thms 14–15 (hypercharges, anomaly cancellation)
+  │                   │
+  │                   └─→ Thm 16 (renormalizability iff d=3)
+  │
+  ├─→ Thm 12 (partition = spinor) [independent of Thms 6–11]
+  │
+  ├─→ Thms 17–21 (strong CP: θ̄ = 0) [independent of Thms 6–16; uses only bijectivity]
+  │
+  ├─→ Thm 22 (observer genericity) [independent of Thms 1–21]
+  │
+  └─→ Thm 23 (reconstruction) [uses Thms 1–22]
+        └─→ Thm 24 (substratum gauge group) [uses Thm 23]
+```
+
+A referee can verify any branch independently. The strong CP block (Thms 17–21) requires only the bijectivity of φ and the wave equation's T-invariance — it does not depend on the gauge structure derivation. The observer genericity theorem (Thm 22) is independent of all preceding results.
+
 ### 10.2 The physical interpretation of (S, φ)
 
 **Storage and memory.** S is the set of all distinguishable states: *finite capacity*. φ is a bijection: *perfect memory* — information is never created or destroyed. Together, (S, φ) is a finite lossless memory. The partition V defines the observer's *access* — both read and write. The observer reads the visible sector (measuring x) and writes to the hidden sector (each visible-sector operation imprints correlations on H through the coupling $H_{\text{int}}$). The slow bath (C2) preserves those writes; subsequent reads retrieve them — producing the information backflow that constitutes P-indivisibility. Quantum mechanics is the statistics of this read-write cycle: not passive observation of a static memory, but the self-consistent description that emerges when a finite subsystem both reads from and writes to a lossless register it cannot fully access. The Born rule is the equilibrium of the cycle, not of passive reading. Interference is write-then-read: information deposited in the hidden sector during one transition is retrieved on a later transition and partially cancels or reinforces the transition probabilities.
