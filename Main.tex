@@ -18,6 +18,9 @@
 \fi
 \ifPDFTeX\else
   % xetex/luatex font selection
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -353,7 +356,7 @@ coupling (C1). Axiom 2 guarantees the finite configuration space.
 
 \textbf{Convergence with prior work.} The theorem converges with
 independent results: Pechukas {[}5{]} (reduced dynamics need not
-preserve positivity), Rivas et al.~{[}6, 7{]} (divisibility failure $\leftrightarrow$
+preserve positivity), Rivas et al.~{[}6, 7{]} (divisibility failure ↔
 information backflow), Pollock et al.~{[}8{]} (process-tensor
 Markovianity conditions), and Strasberg and Esposito {[}9{]}
 (non-Markovian reduced dynamics in the slow-bath regime of C2). Bylicka,
@@ -888,9 +891,11 @@ chain is \(V \leftrightarrow B \leftrightarrow D\), not
   \(H_D + H_{BD}\) restricted to the deep sector conditioned on a fixed
   boundary configuration. The deep-sector evolution over time \(t\)
   displaces any initial configuration by \(\mathcal{O}(\Delta_D \, t)\)
-  in phase space. By condition (C2), \(\Delta_D \sim 1/\tau_B\), so for
-  \(t \ll \tau_B\):
-  \(\|\varphi_t^D - \text{id}\| = \mathcal{O}(t/\tau_B)\).
+  in phase space. The spectral gap gives the inverse relaxation time of
+  the slowest mode, so \(\Delta_D \leq 1/\tau_B\) (with equality when
+  the slowest mode dominates the relaxation). For
+  \(t \ll 1/\Delta_D \leq \tau_B\):
+  \(\|\varphi_t^D - \text{id}\| = \mathcal{O}(\Delta_D \, t) = \mathcal{O}(t/\tau_B)\).
 \item
   \emph{Factorization of the Liouville integral.} The transition
   probability is:
@@ -959,16 +964,21 @@ different observers have different horizon areas (§4.1) ---
 contradicting the universality of the emergent action scale. (All
 sub-\(c\) observers share the same local physics and hence the same
 \(\hbar\); §4.1.) This excludes \(A\), leaving the local boundary
-quantities \(c\), \(G\), \(\epsilon\), and \(\kappa\). Since \(\kappa\)
-is the surface gravity of a specific horizon (observer-dependent, like
-\(A\)), it too is excluded. The unique combination of \(c\), \(G\),
+quantities \(c\), \(G\), \(\epsilon\), and \(\kappa\). The surface
+gravity \(\kappa\) is excluded by two independent arguments: (i)
+\(\kappa\) differs between horizon types (cosmological vs.~black hole),
+but \(\hbar\) is universal --- a laboratory experiment measures the same
+\(\hbar\) regardless of which horizon defines the partition; (ii) for
+the cosmological horizon, \(\kappa = cH\) is time-dependent
+(\(\dot{H} \neq 0\)), but \(\hbar\) is observed to be constant on
+laboratory timescales. The unique combination of \(c\), \(G\),
 \(\epsilon\) with dimensions of action:
 
 \[\hbar = \beta \frac{c^3 \epsilon^2}{G}\]
 
 \textbf{Step 4: Thermal self-consistency.} The classical substratum
 assigns the partition boundary a temperature
-\(k_B T_{\text{cl}} = c^3 \epsilon^2 \kappa / (8\pi G)\) (§5.1),
+\(k_B T_{\text{cl}} = c^2 \epsilon^2 \kappa / (8\pi G)\) (§5.1),
 containing no \(\hbar\). The emergent QFT of Part I lives on this
 classical background, which has a bifurcate Killing horizon with surface
 gravity \(\kappa\). Regularity of the Wick-rotated metric at the horizon
@@ -988,7 +998,7 @@ the boundary (Step 2's correction is
 cannot assign contradictory temperatures to the same boundary.
 Consistency requires \(T_{\text{cl}} = T_Q\):
 
-\[\frac{c^3 \epsilon^2 \kappa}{8\pi G} = \frac{\hbar \kappa}{2\pi c}\]
+\[\frac{c^2 \epsilon^2 \kappa}{8\pi G} = \frac{\hbar \kappa}{2\pi c}\]
 
 \(\kappa\) cancels (confirming the structural/volumetric distinction).
 Solving:
