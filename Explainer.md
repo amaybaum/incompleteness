@@ -1010,7 +1010,7 @@ The framework has one free parameter (ε). The gap equation relates ε to ℏ. Y
 
 **2. The KMS condition on the lattice.**
 
-The thermal matching in Step 4 uses the KMS condition, which is proved for continuum QFT on curved spacetime. The emergent QFT from Part I is lattice-regularized with cutoff ε. Thermal periodicity on a lattice has corrections of order (εκ/c)². For the cosmological horizon: εκ/c = εH/c ~ 10⁻⁶¹, so corrections are ~ 10⁻¹²². Negligible, but a referee could ask for a lattice-native proof.
+The thermal matching in Step 4 uses the KMS condition, which is proved for continuum QFT on curved spacetime. The emergent QFT from Part I is lattice-regularized with cutoff ε. Thermal periodicity on a lattice has corrections of order (εκ/c)². For the cosmological horizon: εκ/c = εH/c ~ 10⁻⁶¹, so corrections are ~ 10⁻¹²². Negligible, but a lattice-native proof of the KMS condition would strengthen the argument.
 
 **3. The D-gauge theorem requires genericity.**
 

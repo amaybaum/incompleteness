@@ -451,7 +451,7 @@ The framework's predictions fall into two categories, and the distinction matter
 
 The "mass hierarchy" — the five-order-of-magnitude spread of fermion masses — falls in the second category. It is not a gap in the framework; it is a property of the specific solution. The framework makes the correct structural prediction: three generations with *identical* gauge quantum numbers (from cubic symmetry) but *non-degenerate* masses (because the specific φ breaks the cubic symmetry through its Yukawa structure). The hierarchy problem proper — why the Higgs mass is so much lighter than the Planck scale — is dissolved: the Higgs mass is an eigenvalue of M (a property of φ), not a radiative correction within the emergent QFT (§7.11).
 
-**Remaining open problems.** (i) *Lattice-continuum comparison* — the structural predictions are exact theorems at the lattice level and do not require a continuum limit. The lattice is the fundamental description ($\epsilon = 2l_p$ is physical, not a regulator), so there is no $\epsilon \to 0$ limit to take. The comparison to experiment — which is interpreted through continuum perturbation theory — introduces corrections of order $(E/M_{\text{Pl}})^2 \sim 10^{-32}$ at LHC energies, far below any foreseeable experimental sensitivity. The Yang-Mills mass gap problem (proving rigorous existence of the continuum limit for Yang-Mills theory) is a famous open problem in mathematics that referees may raise because the word "lattice" appears, but it does not affect any prediction of the OI framework: the lattice theory is complete as stated. (ii) *Generation identification* — the fermion count (three) is proved; the assignment of specific representations to specific tastes is a uniqueness argument from anomaly cancellation, not a geometric derivation.
+**Remaining open problems.** (i) *Lattice-continuum comparison* — the structural predictions are exact theorems at the lattice level and do not require a continuum limit. The lattice is the fundamental description ($\epsilon = 2l_p$ is physical, not a regulator), so there is no $\epsilon \to 0$ limit to take. The comparison to experiment — which is interpreted through continuum perturbation theory — introduces corrections of order $(E/M_{\text{Pl}})^2 \sim 10^{-32}$ at LHC energies, far below any foreseeable experimental sensitivity. The Yang-Mills mass gap problem (proving rigorous existence of the continuum limit for Yang-Mills theory) is a famous open problem in mathematics, but it does not affect any prediction of the OI framework: the lattice theory is complete as stated, and the lattice is the fundamental description, not a regularization. (ii) *Generation identification* — the fermion count (three) is proved; the assignment of specific representations to specific tastes is a uniqueness argument from anomaly cancellation, not a geometric derivation.
 
 ---
 
@@ -460,6 +460,37 @@ The "mass hierarchy" — the five-order-of-magnitude spread of fermion masses �
 ### 10.1 Summary of results
 
 The framework starts from four axioms (deterministic dynamics, finiteness, causal partition, classical probability) and three conditions (C1–C3), with no quantum mechanics, general relativity, or specific dynamics. The companion paper [1] proves that embedded observation under these conditions is equivalent to unitary QM, derives ℏ = c³ε²/(4G) and the Bekenstein-Hawking formula, dissolves the CC discrepancy, and predicts dark energy evolution and GW echoes. This paper establishes that center independence, isotropy, and linearity uniquely select the wave equation (§7.1), which passes all seven GR tests with no free parameters (§5). The framework's results depend on six structural properties and nothing else; the wave equation on a d = 3 lattice determines the Standard Model with the primary derivation chain proved end-to-end (§7).
+
+**Theorem dependency structure.** The 24 theorems are not a linear chain of 24 sequential steps. They form a tree with four independent branches. The critical path through the SM derivation is five theorems long (1 → 2 → 5 → 6 → 7); the strong CP solution is independent of the SM structure; and the reconstruction uses all preceding results but adds only two new theorems.
+
+```
+Axioms + d=3
+  │
+  ├─→ Thm 1 (wave eq) ─→ Thm 2 (Dirac) ─→ Thm 3 (chiral sym)
+  │         │
+  │         ├─→ Thm 4 (mass spectrum)
+  │         └─→ Thm 5 (gauge = commutant of M)
+  │
+  ├─→ Thm 6 (K=2d) ─┐
+  │                   ├─→ Thm 7 (cubic decomposition → multiplicities (3,2,1))
+  │                   │     │
+  │                   │     ├─→ Thms 8–11 (tastes, generations, Higgs)
+  │                   │     ├─→ Thm 13 (chirality)
+  │                   │     └─→ Thms 14–15 (hypercharges, anomaly cancellation)
+  │                   │
+  │                   └─→ Thm 16 (renormalizability iff d=3)
+  │
+  ├─→ Thm 12 (partition = spinor) [independent of Thms 6–11]
+  │
+  ├─→ Thms 17–21 (strong CP: θ̄ = 0) [independent of Thms 6–16; uses only bijectivity]
+  │
+  ├─→ Thm 22 (observer genericity) [independent of Thms 1–21]
+  │
+  └─→ Thm 23 (reconstruction) [uses Thms 1–22]
+        └─→ Thm 24 (substratum gauge group) [uses Thm 23]
+```
+
+Each branch can be verified independently. The strong CP block (Thms 17–21) requires only the bijectivity of φ and the wave equation's T-invariance — it does not depend on the gauge structure derivation. The observer genericity theorem (Thm 22) is independent of all preceding results.
 
 ### 10.2 The physical interpretation of (S, φ)
 

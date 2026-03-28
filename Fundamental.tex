@@ -1451,11 +1451,11 @@ perturbation theory --- introduces corrections of order
 \((E/M_{\text{Pl}})^2 \sim 10^{-32}\) at LHC energies, far below any
 foreseeable experimental sensitivity. The Yang-Mills mass gap problem
 (proving rigorous existence of the continuum limit for Yang-Mills
-theory) is a famous open problem in mathematics that referees may raise
-because the word ``lattice'' appears, but it does not affect any
-prediction of the OI framework: the lattice theory is complete as
-stated. (ii) \emph{Generation identification} --- the fermion count
-(three) is proved; the assignment of specific representations to
+theory) is a famous open problem in mathematics, but it does not affect
+any prediction of the OI framework: the lattice theory is complete as
+stated, and the lattice is the fundamental description, not a
+regularization. (ii) \emph{Generation identification} --- the fermion
+count (three) is proved; the assignment of specific representations to
 specific tastes is a uniqueness argument from anomaly cancellation, not
 a geometric derivation.
 
@@ -1481,6 +1481,46 @@ tests with no free parameters (§5). The framework's results depend on
 six structural properties and nothing else; the wave equation on a d = 3
 lattice determines the Standard Model with the primary derivation chain
 proved end-to-end (§7).
+
+\textbf{Theorem dependency structure.} The 24 theorems are not a linear
+chain of 24 sequential steps. They form a tree with four independent
+branches. The critical path through the SM derivation is five theorems
+long (1 → 2 → 5 → 6 → 7); the strong CP solution is independent of the
+SM structure; and the reconstruction uses all preceding results but adds
+only two new theorems.
+
+\begin{verbatim}
+Axioms + d=3
+  │
+  ├─→ Thm 1 (wave eq) ─→ Thm 2 (Dirac) ─→ Thm 3 (chiral sym)
+  │         │
+  │         ├─→ Thm 4 (mass spectrum)
+  │         └─→ Thm 5 (gauge = commutant of M)
+  │
+  ├─→ Thm 6 (K=2d) ─┐
+  │                   ├─→ Thm 7 (cubic decomposition → multiplicities (3,2,1))
+  │                   │     │
+  │                   │     ├─→ Thms 8–11 (tastes, generations, Higgs)
+  │                   │     ├─→ Thm 13 (chirality)
+  │                   │     └─→ Thms 14–15 (hypercharges, anomaly cancellation)
+  │                   │
+  │                   └─→ Thm 16 (renormalizability iff d=3)
+  │
+  ├─→ Thm 12 (partition = spinor) [independent of Thms 6–11]
+  │
+  ├─→ Thms 17–21 (strong CP: θ̄ = 0) [independent of Thms 6–16; uses only bijectivity]
+  │
+  ├─→ Thm 22 (observer genericity) [independent of Thms 1–21]
+  │
+  └─→ Thm 23 (reconstruction) [uses Thms 1–22]
+        └─→ Thm 24 (substratum gauge group) [uses Thm 23]
+\end{verbatim}
+
+Each branch can be verified independently. The strong CP block (Thms
+17--21) requires only the bijectivity of φ and the wave equation's
+T-invariance --- it does not depend on the gauge structure derivation.
+The observer genericity theorem (Thm 22) is independent of all preceding
+results.
 
 \hypertarget{the-physical-interpretation-of-s-ux3c6}{%
 \subsubsection{10.2 The physical interpretation of (S,
