@@ -331,12 +331,13 @@ quasi-isometric to \(\mathbb{Z}^d\), so the asymptotic dimension is
 independent low-energy propagation modes (from heat kernel asymptotics:
 the spectral dimension equals \(d\), giving \(d\) momentum-like
 parameters over two orientations each). Third, the integer-valued
-coupling degree \(\delta(K)\) depends continuously on the graph
-structure but discretely on \(K\); since the graph is connected to
-\(\mathbb{Z}^d\) by a continuous path of statistically isotropic
-bounded-degree graphs (all quasi-isometric), the minimizer \(K = 2d\) is
-topologically stable. The factorization uniqueness is therefore a
-property of the equivalence class
+coupling degree \(\delta(K)\) depends on the graph only through its
+spectral properties (heat kernel decay exponent, spectral dimension),
+which vary continuously under quasi-isometric deformations; since \(K\)
+is integer-valued and the minimizer is \(K = 2d\) for \(\mathbb{Z}^d\),
+it cannot change without a discontinuous jump in the spectral dimension
+--- which quasi-isometries preserve. The factorization uniqueness is
+therefore a property of the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\), not of the specific graph.
 
 \hypertarget{space-as-coupling-structure}{%
@@ -896,11 +897,11 @@ with polynomial growth exponent \(d\) and statistical isotropy: (i)
 propagation modes, determined by the spectral dimension \(d_s = d\)
 (from heat kernel asymptotics \(p_t(x,x) \sim t^{-d/2}\) on graphs with
 polynomial growth exponent \(d\)); (iii) the coupling-degree minimizer
-\(K = 2d\) on \(\mathbb{Z}^d\) is topologically stable under
-quasi-isometric deformations, because \(\delta(K)\) is integer-valued
-and depends continuously on the graph structure --- it cannot change
-without crossing a codimension-1 boundary in the space of statistically
-isotropic bounded-degree graphs. \(\square\)
+\(K = 2d\) on \(\mathbb{Z}^d\) is stable under quasi-isometric
+deformations, because \(\delta(K)\) depends on the graph only through
+its spectral dimension, which quasi-isometries preserve --- and \(K\) is
+integer-valued, so it cannot change without a discontinuous jump in
+\(d_s\). \(\square\)
 
 This is the per-site analog of the global factorization principle
 (§3.1): at the global level, \(S = S_1 \times \cdots \times S_N\) is the
@@ -1096,7 +1097,8 @@ H: all operators in the emergent description act on the visible
 (left-handed) Hilbert space. (iv) \emph{Left-handed effective
 Lagrangian.} Since \(D_{LL} = 0\), the gauge coupling in the full theory
 is purely \(L \leftrightarrow R\). After integrating out R (the hidden
-sublattice), the effective coupling has the form
+sublattice) via the Schur complement --- a standard procedure in lattice
+QFT {[}5, 12{]} --- the effective coupling has the form
 \(\mathcal{L}_{\text{eff}} = \bar{\psi}_L\,(D_{LR}\,G_{RR}\,D_{RL})\,\psi_L + \cdots\),
 where \(G_{RR}\) is the hidden-sector propagator. Both external legs are
 left-handed. (v) \emph{SU(3) vector-like; SU(2) chiral.} The chirality
@@ -1212,18 +1214,20 @@ time reversal commutes with the visible/hidden projection. \(\square\)
 \subsubsection{8.3 Detailed balance and θ̄ =
 0}\label{detailed-balance-and-ux3b8-0}}
 
-\textbf{Theorem 19} (Detailed balance). \emph{The visible-sector
-transition probabilities satisfy \(T_{ij} = T_{ji}\) for all i, j.}
+\textbf{Theorem 19} (Detailed balance). \emph{For a spatial partition
+(one preserved by time reversal: \(\pi_V \circ \mathcal{T} = \pi_V\)),
+the visible-sector transition probabilities satisfy \(T_{ij} = T_{ji}\)
+for all i, j.}
 
 \emph{Proof.} The full dynamics φ is a bijection, and T-invariance
 (Theorem 17) gives
 \(\varphi^{-1} = \mathcal{T} \circ \varphi \circ \mathcal{T}\). For each
 hidden state h with \(\pi_V(\varphi(i, h)) = j\), let
 \(h' = \pi_H(\varphi(i, h))\). Then \(\varphi(i, h) = (j, h')\), so
-\(\varphi^{-1}(j, h') = (i, h)\). Since the partition is spatial (not
-temporal), \(\mathcal{T}\) preserves the visible/hidden classification:
-\(\pi_V \circ \mathcal{T} = \pi_V\). The map \(h \mapsto h'\) is an
-injection from \(\{h : \pi_V(\varphi(i,h)) = j\}\) into
+\(\varphi^{-1}(j, h') = (i, h)\). Since the partition is spatial,
+\(\mathcal{T}\) preserves the visible/hidden classification. The map
+\(h \mapsto h'\) is an injection from
+\(\{h : \pi_V(\varphi(i,h)) = j\}\) into
 \(\{h' : \pi_V(\varphi(j,h')) = i\}\). Since φ is a bijection on a
 finite set, the injection is a bijection between sets of equal
 cardinality. Dividing by \(|\mathcal{C}_H|\): \(T_{ij} = T_{ji}\).
@@ -1355,7 +1359,9 @@ and preserves phase-space volume. The hidden sector has spectral gap Δ =
 time. The C2 necessity proof {[}1, §3.3{]} establishes that
 \(\Delta \tau_S \gg 1\) drives the system to Markovianity; for any
 Hamiltonian hidden sector, \(\Delta \tau_S = 0 \ll 1\) --- maximally in
-the slow-bath regime, regardless of partition geometry.
+the slow-bath regime (\(\tau_B \to \infty\), the strongest possible
+satisfaction of \(\tau_S \ll \tau_B\)), regardless of partition
+geometry.
 
 C3: \(|H| = N - |V| \geq 2N/3\). The hidden-sector configuration space
 has \(q^{|H|}\) states; the non-Markovian mutual information is bounded
@@ -1832,12 +1838,19 @@ Myrheim-Meyer, isotropy, bounded degree), not the specific graph.
 \(\square\)
 
 \textbf{Completeness.} The reconstruction theorem (Theorem 23)
-establishes that the equivalence class \([(S, \varphi)]/\!\sim\) is
-uniquely determined by the observed physics. Any transformation not in
-\(\mathcal{G}_{\text{sub}}\) would change at least one observable,
-contradicting equivalence. The four generators therefore span the full
-gauge group --- \(\mathcal{G}_{\text{sub}}\) is the kernel of the
-reconstruction map.
+establishes that the map
+\(\Phi: (S, \varphi) \mapsto \text{(observables)}\) has fibers
+\([(S, \varphi)]/\!\sim\). By definition, \(\mathcal{G}_{\text{sub}}\)
+is the stabilizer of \(\Phi\) --- the set of transformations that
+preserve all observables. A transformation
+\(g \notin \mathcal{G}_{\text{sub}}\) would, by definition, change at
+least one observable, placing \(g \cdot (S, \varphi)\) in a different
+fiber. Since Theorem 23 proves the fibers are uniquely determined, the
+four generators --- which exhaust all transformations preserving the six
+structural inputs to the derivation chain (coupling structure,
+dimensionality, spectral properties, boundary geometry, entropy
+counting, dynamics class) --- span the full gauge group.
+\(\mathcal{G}_{\text{sub}}\) is the kernel of the reconstruction map.
 
 \textbf{The gauge hierarchy.} Three levels of gauge symmetry appear in
 the framework, each projecting onto the next through the trace-out:
