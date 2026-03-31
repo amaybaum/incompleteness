@@ -848,7 +848,7 @@ Combined with the earlier papers' predictions — dark energy evolution with $\n
 
 ## The Full Picture
 
-The framework now covers the three pillars of modern physics:
+The framework now covers the three pillars of modern physics and their consequences:
 
 | Pillar | What is derived | Source paper |
 |--------|----------------|--------------|
@@ -856,8 +856,11 @@ The framework now covers the three pillars of modern physics:
 | **General relativity** | Emerges from lattice dynamics passing 7 checks | Fundamental Structure paper |
 | **Standard Model structure** | SU(3) × SU(2) × U(1), 3 generations, Higgs, chiral coupling, θ̄ = 0 | Fundamental Structure paper |
 | **Structural foundations** | $d = 3$, coupling graph ontology, $q$-gauge, background independence | Fundamental Structure paper |
+| **Chemistry → life** | Orbitals, periodic table, carbon, water, chirality, autocatalysis, origin of life, evolution | Complexity paper |
 
 The starting point for all of it: a finite set, a bijection, and a partition.
+
+**From physics to life.** The derived structure guarantees the preconditions for organic chemistry with no free parameters: $d = 3$ determines orbital structure, the periodic table, carbon's tetrahedral bonding, water's solvent properties, and a thermal window for dynamic chemistry. The partition produces parity violation, which selects L-amino acids through autocatalytic amplification of the parity-violating energy difference. Combinatorial diversity exceeds Kauffman's autocatalytic threshold by $10^{56}$. The origin of life is identified as the first molecular system satisfying C1–C3 — the same conditions that produce quantum mechanics at the cosmological scale. RNA is the unique molecule that is simultaneously template (C2, C3) and catalyst (C1), making the RNA world a structural prediction rather than a historical hypothesis. C1–C3 systems grow exponentially while ordinary chemistry grows linearly, so the transition is inevitable and irreversible. Darwinian evolution follows from imperfect template replication. The viable parameter fraction is ~16%; fine-tuning and the anthropic principle dissolve.
 
 The framework does not claim to be a complete theory of everything. It does not determine the 18+ parameters of the Standard Model — these depend on the specific bijection φ, just as the mass distribution of the universe depends on initial conditions, not on Einstein's equations. What it does claim — and what the derivation chain supports — is that the *structure* of the known laws of physics is not arbitrary. It is what mathematical consistency looks like when a finite deterministic system is observed from within. The fundamental object is (S, φ): a finite set and a bijection. Everything else — the observer, the dimension, quantum mechanics, general relativity, and the Standard Model — is emergent.
 
