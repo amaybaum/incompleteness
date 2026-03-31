@@ -76,7 +76,7 @@ A companion overview covering the full argument — QM emergence, GR derivation,
 
 **"The Structural Preconditions for Complexity: Why the Laws of Physics Guarantee the Possibility of Organic Chemistry"**
 
-Traces the consequences of the derived structure through atomic physics, chemistry, prebiotic selection, and the origin of life. The structural chain from (S, φ) to the preconditions for organic chemistry is entirely parameter-free: d = 3 determines orbital structure, the periodic table, carbon's bonding geometry, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window. The viable parameter fraction is estimated at ~16%. The chirality chain traces biological homochirality to the partition. Autocatalytic networks are statistically expected (10⁵⁶ × Kauffman threshold). Template replication follows from three independently structural capabilities. The chain extends through evolution, information processing, and AI to a self-referential closure.
+Traces the consequences of the derived structure through atomic physics, chemistry, prebiotic selection, and the origin of life. The structural chain from (S, φ) to the preconditions for organic chemistry is entirely parameter-free: d = 3 determines orbital structure, the periodic table, carbon's bonding geometry, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window. The viable parameter fraction is estimated at ~16%. The chirality chain traces biological homochirality to the partition. Autocatalytic networks are statistically expected (10⁵⁶ × Kauffman threshold). The origin of life is identified as the first molecular C1–C3 system; RNA is the unique single-molecule satisfying all three conditions (both template and catalyst), making the RNA world a structural prediction. C1–C3 systems are exponential-growth attractors, so the transition is inevitable. The chain extends through evolution, information processing, and AI to a self-referential closure.
 
 - [`Complexity.md`](Complexity.md) — Markdown source
 - [`Complexity.tex`](Complexity.tex) — LaTeX source
@@ -112,7 +112,7 @@ Traces the consequences of the derived structure through atomic physics, chemist
 
 13. **Reconstruction theorem and substratum gauge group.** Observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine [(S, φ)]/G_sub. The gauge group G_sub has four generators: state relabeling, alphabet change, deep-sector enlargement, and graph isomorphism up to statistical isotropy. Whether (S, φ) *is* reality or *describes* reality is provably undecidable — identified as gauge. *Status: theorem (Fundamental, §§10.3–10.4).*
 
-14. **Structural preconditions for complexity.** The derived structure guarantees, with no free parameters: orbital algebra and the periodic table (d = 3 + SO(3)), carbon's tetrahedral bonding geometry, the nuclear-atomic scale hierarchy (two independent gauge groups), water's solvent properties (element 8 in d = 3), a thermal window for dynamic chemistry, chiral molecular selection (PVED from the partition), and combinatorial diversity exceeding the autocatalytic threshold by 10⁵⁶. Template replication follows from the structural intersection of linear polymers, complementary pairing, and catalytic activity. Darwinian evolution is the inevitable dynamics of imperfect replication. The viable parameter fraction is ~16%. Fine-tuning and the anthropic principle dissolve. *Status: structural chain + statistical argument (Complexity Paper).*
+14. **Structural preconditions for complexity.** The derived structure guarantees, with no free parameters: orbital algebra and the periodic table (d = 3 + SO(3)), carbon's tetrahedral bonding geometry, the nuclear-atomic scale hierarchy (two independent gauge groups), water's solvent properties (element 8 in d = 3), a thermal window for dynamic chemistry, chiral molecular selection (PVED from the partition), and combinatorial diversity exceeding the autocatalytic threshold by 10⁵⁶. The origin of life is the first molecular C1–C3 system; RNA is the unique molecule satisfying all three conditions simultaneously, making the RNA world a structural prediction. C1–C3 systems are exponential-growth attractors — the transition is inevitable. Darwinian evolution follows from imperfect template replication. The viable parameter fraction is ~16%. Fine-tuning and the anthropic principle dissolve. *Status: structural chain + statistical argument (Complexity Paper).*
 
 ## The Bidirectional Correspondence
 
@@ -159,6 +159,7 @@ The forward derivation and reconstruction theorem establish: (S, φ) determines 
   ├─→ Viable parameter fraction ~16% (Complexity, computed)
   ├─→ Chirality: partition → PVED → L-amino acids (Complexity, structural)
   ├─→ Autocatalytic networks (Complexity, statistical — 10⁵⁶ × threshold)
+  ├─→ Origin of life = first molecular C1–C3; RNA world predicted (Complexity, structural)
   ├─→ Template replication → Darwinian evolution (Complexity, structural + inevitable)
   └─→ Arrow of time from coarse-graining (Fundamental, standard Boltzmann)
 ```
