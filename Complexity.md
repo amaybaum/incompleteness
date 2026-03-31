@@ -70,7 +70,7 @@ The framework derives two independent gauge groups — SU(3) and U(1) — with i
 
 $$E_{\text{nuclear}} \sim \Lambda_{\text{QCD}} \sim \text{MeV}, \qquad E_{\text{atomic}} \sim \alpha^2 m_e c^2 \sim \text{eV}$$
 
-The ratio $E_{\text{nuclear}} / E_{\text{atomic}} \sim 10^6$ is partly parametric (it depends on the specific couplings), but the *existence* of two independent scales is structural — it follows from having two independent gauge groups. This separation has a profound consequence: nuclei are stable against chemical reactions. Chemistry rearranges electrons (eV) without touching nuclei (MeV). Atoms are permanent building blocks that can be assembled, disassembled, and reassembled without being destroyed.
+The ratio $E_{\text{nuclear}} / E_{\text{atomic}} \sim 10^6$ is partly parametric (it depends on the specific couplings), but the *existence* of two independent scales is structural — it follows from having two independent gauge groups. The universal induced coupling $1/\alpha_0 = 23.25$ at the Planck scale is itself structural — determined by $N_f = 6$ and the Dynkin index, not by the eigenvalues of $M$ — and the framework reproduces all three SM gauge couplings at $M_Z$ through non-perturbative gauge self-energy corrections and RG running [2, §9]. This separation has a profound consequence: nuclei are stable against chemical reactions. Chemistry rearranges electrons (eV) without touching nuclei (MeV). Atoms are permanent building blocks that can be assembled, disassembled, and reassembled without being destroyed.
 
 ### 2.6 Water
 
