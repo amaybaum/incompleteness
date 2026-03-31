@@ -651,6 +651,8 @@ From the cosmological application {[}1{]}: dark energy evolution with \(\nu_{\te
 
 From the SM derivation (§§7--8): no additional gauge groups below \(M_{\text{Pl}}\); no fundamental scalars beyond the Higgs doublet; no SUSY partners; no fourth generation; \(\bar{\theta} = 0\) exactly (no axion, neutron EDM = 0; current bound \(d_n = (0.0 \pm 1.1) \times 10^{-26}\,e\cdot\text{cm}\), with n2EDM at PSI targeting \(10^{-27}\)); the CKM CP-violating phase arises from P-violation (the partition), not from T-violation; neutrinos are Majorana; no proton decay from GUT-scale gauge bosons (the eigenvalues of M correspond to independent irreps of O, so couplings do not unify).
 
+From the neutrino sector (§10.8): Majorana neutrinos (testable via \(0\nu\beta\beta\)); normal mass ordering; large PMNS mixing angles; hierarchical spectrum with \(\Sigma m_\nu\) near the minimum (\(\approx 0.059\) eV for normal ordering). All four are consistent with current data (DESI DR2+CMB: \(\Sigma m_\nu < 0.064\) eV, normal ordering preferred).
+
 From the gauge coupling prediction (§9): the three SM gauge couplings at \(M_Z\) are reproduced by the induced coupling \(1/\alpha_0 = 23.25\), the resummed gauge self-energy threshold, and SM RG running --- matching observed values to \(< 0.1\%\).
 
 The conjunction is distinctive to this framework.
@@ -667,6 +669,31 @@ The framework's predictions fall into two categories, and the distinction matter
 The ``mass hierarchy'' --- the five-order-of-magnitude spread of fermion masses --- falls in the second category. It is not a gap in the framework; it is a property of the specific solution. The framework makes the correct structural prediction: three generations with \emph{identical} gauge quantum numbers (from cubic symmetry) but \emph{non-degenerate} masses (because the specific φ breaks the cubic symmetry through its Yukawa structure). The hierarchy problem proper --- why the Higgs mass is so much lighter than the Planck scale --- is dissolved: the Higgs mass is an eigenvalue of M (a property of φ), not a radiative correction within the emergent QFT (§7.11).
 
 \textbf{Remaining open problems.} (i) \emph{Lattice-continuum comparison} --- the structural predictions are exact theorems at the lattice level and do not require a continuum limit. The lattice is the fundamental description (\(\epsilon = 2l_p\) is physical, not a regulator), so there is no \(\epsilon \to 0\) limit to take. The comparison to experiment --- which is interpreted through continuum perturbation theory --- introduces corrections of order \((E/M_{\text{Pl}})^2 \sim 10^{-32}\) at LHC energies, far below any foreseeable experimental sensitivity. The Yang-Mills mass gap problem (proving rigorous existence of the continuum limit for Yang-Mills theory) is a famous open problem in mathematics, but it does not affect any prediction of the OI framework: the lattice theory is complete as stated, and the lattice is the fundamental description, not a regularization. (ii) \emph{Generation identification} --- the fermion count (three) is proved; the assignment of specific representations to specific tastes is a uniqueness argument from anomaly cancellation, not a geometric derivation.
+
+\hypertarget{neutrino-masses-from-taste-breaking}{%
+\subsubsection{10.8 Neutrino masses from taste-breaking}\label{neutrino-masses-from-taste-breaking}}
+
+The staggered fermion construction gives 4 tastes decomposing as \(1(A_1) + 3(T_1)\) under the cubic group \(O\) (§7.7). The singlet taste is identified as the Higgs sector --- not a right-handed neutrino. Neutrinos therefore acquire mass only through the dimension-5 Weinberg operator \((LLHH)/\Lambda\), making them Majorana particles.
+
+\textbf{The mass matrix.} The neutrino mass matrix in the generation basis \(\{e_x, e_y, e_z\}\) (the \(T_1\) representation) is \(M_\nu = m_0 I_3 + \delta M\), where \(\delta M\) is the taste-breaking correction. Under the cubic group, the symmetric matrix \(\delta M\) decomposes as \(\mathrm{Sym}^2(T_1) = A_1 \oplus E \oplus T_2\). The \(A_1\) part shifts all masses equally (absorbed into \(m_0\)). The \(E\) part (2-dimensional) controls the mass splittings via two parameters \((a, b)\). The \(T_2\) part (3-dimensional) controls the mixing angles.
+
+\textbf{Structural predictions (Tier 2).} Four predictions follow from the representation theory alone, independent of the specific \(\varphi\):
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \emph{Majorana neutrinos.} No right-handed neutrino exists in the spectrum --- the singlet taste is the Higgs. Neutrinoless double beta decay (\(0\nu\beta\beta\)) should be observed.
+\item
+  \emph{Normal mass ordering.} The taste-breaking in \(T_1\) generically gives the largest correction to the state most coupled to all three lattice directions --- the \([111]\) direction in taste space. This corresponds to \(m_3 > m_2 > m_1\).
+\item
+  \emph{Large PMNS mixing angles.} The charged lepton mass matrix (Dirac, general \(3 \times 3\)) and the neutrino mass matrix (Majorana, symmetric \(3 \times 3\)) have different symmetry structures under the cubic group. The structural mismatch produces large angles --- unlike the quark sector, where both up-type and down-type matrices are general \(3 \times 3\) with similar dominant structure, giving small CKM angles.
+\item
+  \emph{Hierarchical spectrum.} The taste-breaking splittings are the same order as the common mass \(m_0\). A quasi-degenerate spectrum (\(m_1 \approx m_2 \approx m_3 \gg \Delta m\)) requires fine cancellation between \(m_0\) and the splittings, which is not generic. The framework naturally produces \(\Sigma m_\nu\) near the minimum allowed by the mass splittings.
+\end{enumerate}
+
+\textbf{Observational status.} DESI DR2 combined with CMB data gives \(\Sigma m_\nu < 0.064\) eV with preference for normal ordering and \(m_{\text{lightest}} < 0.023\) eV --- consistent with all four structural predictions. The minimum sum for normal ordering is \(\Sigma m_\nu^{\text{min}} \approx 0.059\) eV; the DESI+CMB bound is only 8\% above this minimum, consistent with the hierarchical prediction. The observed PMNS angles (\(\theta_{12} \approx 34°\), \(\theta_{23} \approx 49°\), \(\theta_{13} \approx 9°\)) are all large compared to CKM angles, as predicted.
+
+\textbf{Solution-specific properties (Tier 3).} The absolute mass scale (set by \(\Lambda_{\text{seesaw}}\)), the ratio \(\Delta m^2_{32}/\Delta m^2_{21} \approx 33\) (set by \(a/b\)), the specific PMNS angles (set by the \(T_2\) component of \(\delta M\)), and the CP-violating phase \(\delta_{CP}\) are all properties of the particular \(\varphi\) --- not predictions of the equivalence class.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
