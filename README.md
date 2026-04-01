@@ -30,7 +30,7 @@ The theorem becomes physics at the cosmological horizon — the boundary beyond 
 
 ### The emergent structure
 
-The dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures. The lattice is the coupling graph of φ, the alphabet size is a gauge freedom, d = 3 is the unique self-consistent dimension, and the observer is generic. The wave equation on a d = 3 lattice uniquely determines the Standard Model's gauge group, matter content, discrete symmetries, and — through the universal induced coupling 1/α₀ = 23.25 — all three gauge coupling strengths at M_Z, with the primary derivation chain proved end-to-end (29 theorems/lemmas).
+The dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures. The lattice is the coupling graph of φ, the alphabet size is a gauge freedom, d = 3 is the unique self-consistent dimension, and the observer is generic. The wave equation on a d = 3 lattice uniquely determines the Standard Model's gauge group, matter content, discrete symmetries, and — through the universal induced coupling 1/α₀ = 23.25 — all three gauge coupling strengths at M_Z and the bottom-to-tau mass ratio m_b/m_τ = 2.42 (observed: 2.35), with the primary derivation chain proved end-to-end (29 theorems/lemmas).
 
 ### Two types of inaccessibility
 
@@ -56,7 +56,7 @@ Establishes the QM–embedded observation equivalence (Part I), applies it to th
 
 **"The Fundamental Structure of the Observational Incompleteness Framework: From Finite Bijection to the Standard Model"**
 
-Addresses the ontological status of the lattice and which QFT the embedded observer sees. Six structural properties suffice; the wave equation is uniquely selected and produces all inputs for Einstein's equations (seven links, all proved). On a d = 3 lattice it uniquely determines the Standard Model: gauge group, matter content, three generations, the Higgs, chirality, θ̄ = 0, and — through the induced coupling 1/α₀ = 23.25 — all three gauge couplings at M_Z to <0.1%. Primary derivation chain: 29 theorems/lemmas. The reconstruction theorem proves the bidirectional correspondence: observed QM + Bell violations + finite entropy + isotropy ↔ [(S, φ)]/G_sub.
+Addresses the ontological status of the lattice and which QFT the embedded observer sees. Six structural properties suffice; the wave equation is uniquely selected and produces all inputs for Einstein's equations (seven links, all proved). On a d = 3 lattice it uniquely determines the Standard Model: gauge group, matter content, three generations, the Higgs, chirality, θ̄ = 0, and — through the induced coupling 1/α₀ = 23.25 — all three gauge couplings at M_Z to <0.1% and the bottom-to-tau mass ratio m_b/m_τ = 2.42 ± 0.02 (observed: 2.35, 3% deviation). Primary derivation chain: 29 theorems/lemmas. The reconstruction theorem proves the bidirectional correspondence: observed QM + Bell violations + finite entropy + isotropy ↔ [(S, φ)]/G_sub.
 
 - [`Fundamental.md`](Fundamental.md) — Markdown source
 - [`Fundamental.tex`](Fundamental.tex) — LaTeX source
@@ -96,7 +96,7 @@ Traces the consequences of the derived structure through atomic physics, chemist
 
 6. **Standard Model structure.** The wave equation factors into staggered Dirac fermions; center independence mandates the Higgs; K = 2d = 6 from coupling-degree minimization; the cubic group gives multiplicities (3, 2, 1) → SU(3) × SU(2) × U(1); the trace-out makes SU(2) chiral; anomaly cancellation uniquely determines hypercharges and three generations; Higgs quantum numbers (1, 2, +1/2). Primary derivation chain proved end-to-end.
 
-6b. **Gauge coupling prediction.** The fermion-induced coupling gives a universal 1/α₀ = 23.25 at the Planck scale — determined by N_f = 6 and T(R) = 1/2, structural quantities independent of the specific bijection φ. Non-perturbative gauge self-energy corrections (computed from pure-gauge lattice Monte Carlo) and Standard Model RG running reproduce all three gauge couplings at M_Z: 1/α₁ = 59.00, 1/α₂ = 29.57, 1/α₃ = 8.47 — matching observed values to <0.1%. *Status: proposition (Fundamental §9).*
+6b. **Gauge coupling and mass ratio predictions.** The fermion-induced coupling gives a universal 1/α₀ = 23.25 at the Planck scale — determined by N_f = 6 and T(R) = 1/2, structural quantities independent of the specific bijection φ. Non-perturbative gauge self-energy corrections (computed from pure-gauge lattice Monte Carlo) and Standard Model RG running reproduce all three gauge couplings at M_Z: 1/α₁ = 59.00, 1/α₂ = 29.57, 1/α₃ = 8.47 — matching observed values to <0.1%. The same lattice structure gives y_b = y_τ at tree level (the staggered taste-breaking is diagonal in gauge indices). Combined with full SM RGE running (including the top Yukawa's suppression of y_b) and non-perturbative SU(3) mass renormalization Z_m = 0.835 ± 0.007 (from Monte Carlo at the structurally determined β = 11.1): m_b/m_τ = 2.42 ± 0.02, matching the observed 2.35 to 3% — the first derived fermion mass ratio. *Status: proposition (Fundamental §9, §10.7).*
 
 7. **Strong CP solved.** T-invariance of the wave equation → θ = 0 (theorem). Detailed balance at all time scales (φⁿ is a bijection for every n) → T-invariant Hamiltonian at every energy scale → real Yukawa matrices at every scale → θ̄ = 0 at all energy scales (theorem). No axion needed. The proof bypasses the instanton question entirely.
 
@@ -106,7 +106,7 @@ Traces the consequences of the derived structure through atomic physics, chemist
 
 10. **Arrow of time.** The substratum (S, φ) has no arrow of time — φ and φ⁻¹ are equally valid. Entropy increase is a property of the observer's coarse-grained description: the standard Boltzmann mechanism applied to the partition. Like QM, the Second Law is emergent.
 
-11. **Falsifiable predictions.** ν_OI = (2.45 ± 0.04) × 10⁻³ (DESI consistent); GW echoes with Δt = (r₊/c)ln(r₊/2l_p) and FF = 0.19 (non-detection consistent); all three gauge couplings at M_Z to <0.1%; θ̄ = 0 exactly; no SUSY, no fourth generation; Majorana neutrinos with normal ordering and Σm_ν near 0.059 eV (DESI+CMB: <0.064 eV); baryonic TF evolves as v⁴ ∝ H(z) (untested). The conjunction is distinctive to this framework.
+11. **Falsifiable predictions.** ν_OI = (2.45 ± 0.04) × 10⁻³ (DESI consistent); GW echoes with Δt = (r₊/c)ln(r₊/2l_p) and FF = 0.19 (non-detection consistent); all three gauge couplings at M_Z to <0.1%; m_b/m_τ = 2.42 ± 0.02 (observed: 2.35, 3%); θ̄ = 0 exactly; no SUSY, no fourth generation; Majorana neutrinos with normal ordering and Σm_ν near 0.059 eV (DESI+CMB: <0.064 eV); baryonic TF evolves as v⁴ ∝ H(z) (untested). The conjunction is distinctive to this framework.
 
 12. **The trace-out as Jordan-Chevalley projection.** Over finite fields, the evolution matrix F decomposes as F = F_ss · F_u (semisimple × unipotent). The trace-out extracts the semisimple part and erases the nilpotent monodromy N. The Weil-Deligne conductor f_WD = f_ss(L) + 2 is q-independent and decomposes additively over gauge irreps with multiplicities (3, 2, 1). *Status: theorem (Fundamental, Appendix A).*
 
@@ -152,6 +152,7 @@ The forward derivation and reconstruction theorem establish: (S, φ) determines 
   ├─→ High-z dark matter: a₀(z) = cH(z)/6, declining RCs (Main §8.4)
   ├─→ GW echoes: Δt = (r₊/c)ln(r₊/2l_p), A₁ = Γ ≈ 0.45 (Main §8.2)
   ├─→ Gauge couplings: 1/α₀ = 23.25 → all three at M_Z (Fundamental §9)
+  ├─→ y_b = y_τ at tree level + full SM RGE + NP SU(3) Z_m → m_b/m_τ = 2.42 (Fundamental §10.7)
   ├─→ Nested trace-out consistency (Main App. B, theorem)
   ├─→ Generalized second law (Main App. B, theorem)
   ├─→ Page curve with t_P ≈ 0.646 t_evap (Main App. B, theorem)
