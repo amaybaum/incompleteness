@@ -69,8 +69,8 @@ Addresses the ontological status of the lattice and which QFT the embedded obser
 Presents twenty zero-parameter predictions derived from the $d = 3$ cubic lattice. The Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ (0.04%), the Wolfenstein $A = \sqrt{2/3}$ (0.8σ), the Koide angle $\theta_0 = 2/9$ giving $m_e$ and $m_\mu$ from $m_\tau$ to <0.01%, PMNS mixing angles from TBM + Cabibbo corrections (all within 0.5σ), the Higgs mass from $\lambda(M_{\text{Pl}}) = 0$, and $m_b/m_\tau = 2.2 \pm 0.15$ from Monte Carlo at $\beta = 11.1$. All structural constants trace to $d = 3$: $\pi\sqrt{2}$, $\sqrt{2/3}$, $2/9$, $2/3$, $4/9$, $1/3$, $1/2$. MC simulations at $L = 16$–$64$ confirm chiral condensate formation, validating the self-consistency approach that links the remaining imprecise predictions ($m_b/m_\tau$, $m_H$, $v/M_{\text{Pl}}$) through a single computation.
 
 - [`Predictions.md`](Predictions.md) — Markdown source
-- [`predictions.tex`](predictions.tex) — LaTeX source
-- [`predictions.pdf`](predictions.pdf) — Compiled PDF
+- [`Predictions.tex`](Predictions.tex) — LaTeX source
+- [`Predictions.pdf`](Predictions.pdf) — Compiled PDF
 
 ### Explainer
 
