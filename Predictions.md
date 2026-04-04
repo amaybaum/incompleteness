@@ -164,9 +164,11 @@ $$\sin^2\theta_{13} = \frac{4}{9} \cdot \frac{1}{2\pi^2} = \frac{4}{18\pi^2} = 0
 
 | Angle | Predicted | Observed | Match |
 |-------|-----------|----------|-------|
-| $\sin^2\theta_{12}$ | 0.3080 | 0.307 ± 0.013 | $0.1\sigma$ |
+| $\sin^2\theta_{12}$ | 0.3080 | 0.3092 ± 0.0087 (JUNO) | $0.14\sigma$ |
 | $\sin^2\theta_{23}$ | 0.5507 | 0.546 ± 0.021 | $0.2\sigma$ |
 | $\sin^2\theta_{13}$ | 0.02252 | 0.02220 ± 0.00068 | $0.5\sigma$ |
+
+**Experimental confirmation (JUNO).** The Jiangmen Underground Neutrino Observatory reported its first measurement of reactor neutrino oscillations in November 2025 [10], achieving the world's most precise determination of $\sin^2\theta_{12}$: $0.3092 \pm 0.0087$ (a factor of 1.6 improvement over all previous measurements combined). The OI prediction $1/3 - 1/(4\pi^2) = 0.3080$ matches this measurement at $0.14\sigma$. The updated global fit including JUNO data gives $\sin^2\theta_{12} = 0.3085 \pm 0.0073$ [11], matching the prediction at $0.07\sigma$. As JUNO accumulates data over its 30-year design lifetime, the error bar is projected to reach $\pm 0.0014$, testing the prediction at sub-percent precision.
 
 The coefficient $4/9 = (2/3)^2$ in the reactor angle connects to the Higgs projection factor $\sqrt{2/3}$ that also determines the Wolfenstein $A$ parameter.
 
@@ -254,7 +256,7 @@ Twenty predictions from a $d = 3$ cubic lattice with spacing $2\,l_P$:
 | $Q_{\text{down}}$ | $(2/3)(1+\alpha_s/\pi)$ | 0.7303 | 0.7314 | 0.15% |
 | $m_b$ (from $m_s$) | Koide($Q_{\text{down}}$) | 4144 MeV | 4180 ± 30 | 0.9% |
 | $m_u/m_d$ | $\sqrt{2/9}$ | 0.4714 | 0.474 ± 0.056 | $0.05\sigma$ |
-| $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | 0.3080 | 0.307 ± 0.013 | $0.1\sigma$ |
+| $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | 0.3080 | 0.3092 ± 0.0087 (JUNO) | $0.14\sigma$ |
 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | 0.5507 | 0.546 ± 0.021 | $0.2\sigma$ |
 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | 0.02252 | 0.02220 ± 0.00068 | $0.5\sigma$ |
 | $m_H$ | $\lambda(M_{\text{Pl}}) = 0$ | 129–132 GeV | 125.10 ± 0.14 | $m_t$-dep. |
@@ -286,3 +288,7 @@ Remaining open: (i) $m_s$ (the overall mass scale — the hierarchy problem); (i
 [8] D. Buttazzo *et al.*, "Investigating the near-criticality of the Higgs boson," JHEP **1312**, 089 (2013).
 
 [9] CMS Collaboration, "Measurement of the top quark mass using a profile likelihood approach with the lepton+jets final states in proton-proton collisions at √s = 13 TeV," (2024).
+
+[10] JUNO Collaboration, "First measurement of reactor neutrino oscillations at JUNO," arXiv:2511.14593 (2025).
+
+[11] F. Capozzi *et al.*, "Updated bounds on the (1,2) neutrino oscillation parameters after first JUNO results," arXiv:2511.21650 (2025).
