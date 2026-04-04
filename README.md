@@ -1,7 +1,7 @@
 # The Incompleteness of Observation
 
 **Author:** Alex Maybaum  
-**Date:** March 2026  
+**Date:** April 2026  
 **Status:** Draft Pre-Print
 
 ---
@@ -30,7 +30,7 @@ The theorem becomes physics at the cosmological horizon — the boundary beyond 
 
 ### The emergent structure
 
-The dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures. The lattice is the coupling graph of φ, the alphabet size is a gauge freedom, d = 3 is the unique self-consistent dimension, and the observer is generic. The wave equation on a d = 3 lattice uniquely determines the Standard Model's gauge group, matter content, discrete symmetries, and — through the universal induced coupling 1/α₀ = 23.25 — all three gauge coupling strengths at M_Z, with the primary derivation chain proved end-to-end (29 theorems/lemmas).
+The dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures. The lattice is the coupling graph of φ, the alphabet size is a gauge freedom, d = 3 is the unique self-consistent dimension, and the observer is generic. The wave equation on a d = 3 lattice uniquely determines the Standard Model's gauge group, matter content, discrete symmetries, and — through the universal induced coupling 1/α₀ = 23.25 — all three gauge coupling strengths at M_Z, with the primary derivation chain proved end-to-end (29 theorems/lemmas). The lattice geometry further determines fifteen quantitative SM parameters with zero free parameters — gauge couplings, CKM mixing, charged lepton masses, PMNS angles, the Higgs mass, and the bottom-to-tau mass ratio — all matching observation.
 
 ### Two types of inaccessibility
 
@@ -61,6 +61,16 @@ Addresses the ontological status of the lattice and which QFT the embedded obser
 - [`Fundamental.md`](Fundamental.md) — Markdown source
 - [`Fundamental.tex`](Fundamental.tex) — LaTeX source
 - [`Fundamental.pdf`](Fundamental.pdf) — Compiled PDF
+
+### Quantitative Predictions
+
+**"Quantitative Predictions from Observational Incompleteness"**
+
+Presents fifteen zero-parameter predictions derived from the $d = 3$ cubic lattice. The Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ (0.04%), the Wolfenstein $A = \sqrt{2/3}$ (0.8σ), the Koide angle $\theta_0 = 2/9$ giving $m_e$ and $m_\mu$ from $m_\tau$ to <0.01%, PMNS mixing angles from TBM + Cabibbo corrections (all within 0.5σ), the Higgs mass from $\lambda(M_{\text{Pl}}) = 0$, and $m_b/m_\tau = 2.2 \pm 0.15$ from Monte Carlo at $\beta = 11.1$. All structural constants trace to $d = 3$: $\pi\sqrt{2}$, $\sqrt{2/3}$, $2/9$, $2/3$, $4/9$, $1/3$, $1/2$. MC simulations at $L = 16$–$64$ confirm chiral condensate formation, validating the self-consistency approach that links the remaining imprecise predictions ($m_b/m_\tau$, $m_H$, $v/M_{\text{Pl}}$) through a single computation.
+
+- [`Predictions.md`](Predictions.md) — Markdown source
+- [`Predictions.tex`](Predictions.tex) — LaTeX source
+- [`Predictions.pdf`](Predictions.pdf) — Compiled PDF
 
 ### Explainer
 
@@ -98,6 +108,8 @@ Traces the consequences of the derived structure through atomic physics, chemist
 
 6b. **Gauge coupling prediction.** The fermion-induced coupling gives a universal 1/α₀ = 23.25 at the Planck scale — determined by N_f = 6 and T(R) = 1/2, structural quantities independent of the specific bijection φ. Non-perturbative gauge self-energy corrections (computed from pure-gauge lattice Monte Carlo) and Standard Model RG running reproduce all three gauge couplings at M_Z: 1/α₁ = 59.00, 1/α₂ = 29.57, 1/α₃ = 8.47 — matching observed values to <0.1%. *Status: proposition (Fundamental §9).*
 
+6c. **Fifteen quantitative predictions from d = 3.** Beyond the gauge couplings, the cubic lattice structure determines twelve additional SM parameters with zero free parameters (Predictions Paper): the Cabibbo angle λ = 1/(π√2) (0.04% match), the Wolfenstein A = √(2/3) (0.8σ), m_d/m_s = 1/(2π²) (~1σ), |V_cb| = √(2/3)/(2π²) (0.4σ), Koide Q = 2/3 (<0.01%), the Koide angle θ₀ = 2/9 giving m_e and m_μ from m_τ to <0.01%, three PMNS angles from TBM + Cabibbo corrections (all within 0.5σ), the Higgs mass from λ(M_Pl) = 0 (0.6σ), and m_b/m_τ = 2.2 ± 0.15 from non-perturbative condensate (observed 2.352, inside band). Monte Carlo simulations at L = 16–64 confirm chiral condensate formation, validating the self-consistency approach that links m_b/m_τ, m_H, and v/M_Pl through a single lattice computation. *Status: observation + MC verification (Predictions Paper).*
+
 7. **Strong CP solved.** T-invariance of the wave equation → θ = 0 (theorem). Detailed balance at all time scales (φⁿ is a bijection for every n) → T-invariant Hamiltonian at every energy scale → real Yukawa matrices at every scale → θ̄ = 0 at all energy scales (theorem). No axion needed. The proof bypasses the instanton question entirely.
 
 8. **Dark-sector concordance and dark matter.** The trace-out renders ~95% of ρ_crit invisible to the emergent QFT (theorem — total budget). The structured component — entropy displacement via the Clausius relation and Jacobson mechanism — yields a₀ = cH/6 and v⁴ = GM_B · cH/6 (parameter-free). The simple interpolation ν(y) = (1+√(1+4/y))/2 matches galaxies AND clusters (Coma to <1%). The Bullet Cluster: frozen boundary entropy (τ_relax ~ H⁻¹ ≫ t_collision). CMB acoustic peaks: thermodynamic averaging gives non-oscillating wells identical to CDM. High-z: declining rotation curves confirmed (Genzel+2017); stellar TF no-evolution confirmed (McGaugh+2024, gas fraction compensates). *Status: theorem (total budget, acceleration scale); interpolation and CMB pending numerical verification.*
@@ -106,7 +118,7 @@ Traces the consequences of the derived structure through atomic physics, chemist
 
 10. **Arrow of time.** The substratum (S, φ) has no arrow of time — φ and φ⁻¹ are equally valid. Entropy increase is a property of the observer's coarse-grained description: the standard Boltzmann mechanism applied to the partition. Like QM, the Second Law is emergent.
 
-11. **Falsifiable predictions.** ν_OI = (2.45 ± 0.04) × 10⁻³ (DESI consistent); GW echoes with Δt = (r₊/c)ln(r₊/2l_p) and FF = 0.19 (non-detection consistent); all three gauge couplings at M_Z to <0.1%; θ̄ = 0 exactly; no SUSY, no fourth generation; Majorana neutrinos with normal ordering and Σm_ν near 0.059 eV (DESI+CMB: <0.064 eV); baryonic TF evolves as v⁴ ∝ H(z) (untested). The conjunction is distinctive to this framework.
+11. **Falsifiable predictions.** ν_OI = (2.45 ± 0.04) × 10⁻³ (DESI consistent); GW echoes with Δt = (r₊/c)ln(r₊/2l_p) and FF = 0.19 (non-detection consistent); all three gauge couplings at M_Z to <0.1%; θ̄ = 0 exactly; no SUSY, no fourth generation; Majorana neutrinos with normal ordering and Σm_ν near 0.059 eV (DESI+CMB: <0.064 eV); baryonic TF evolves as v⁴ ∝ H(z) (untested); Cabibbo angle λ = 1/(π√2) (confirmed to 0.04%); Wolfenstein A = √(2/3) (confirmed to 0.8σ); Koide angle θ₀ = 2/9 giving m_e and m_μ to <0.01%; PMNS angles from TBM + Cabibbo corrections (confirmed to 0.5σ); m_b/m_τ = 2.2 ± 0.15 (observed 2.352, inside band). The conjunction is distinctive to this framework.
 
 12. **The trace-out as Jordan-Chevalley projection.** Over finite fields, the evolution matrix F decomposes as F = F_ss · F_u (semisimple × unipotent). The trace-out extracts the semisimple part and erases the nilpotent monodromy N. The Weil-Deligne conductor f_WD = f_ss(L) + 2 is q-independent and decomposes additively over gauge irreps with multiplicities (3, 2, 1). *Status: theorem (Fundamental, Appendix A).*
 
@@ -152,6 +164,16 @@ The forward derivation and reconstruction theorem establish: (S, φ) determines 
   ├─→ High-z dark matter: a₀(z) = cH(z)/6, declining RCs (Main §8.4)
   ├─→ GW echoes: Δt = (r₊/c)ln(r₊/2l_p), A₁ = Γ ≈ 0.45 (Main §8.2)
   ├─→ Gauge couplings: 1/α₀ = 23.25 → all three at M_Z (Fundamental §9)
+  ├─→ Cabibbo angle: λ = 1/(π√2) = 0.22508 — BZ corner distance (Predictions)
+  ├─→ Wolfenstein A = √(2/3) — generation-Higgs angle (Predictions)
+  ├─→ m_d/m_s = 1/(2π²) via GST relation (Predictions)
+  ├─→ |V_cb| = √(2/3)/(2π²) (Predictions)
+  ├─→ Koide Q = 2/3 from Z₃ symmetry of T₁ (Predictions)
+  ├─→ Koide angle θ₀ = C₂/d² = 2/9 → m_e, m_μ from m_τ to <0.01% (Predictions)
+  ├─→ PMNS angles: TBM from A₄ ⊂ O + Cabibbo corrections (Predictions)
+  ├─→ Higgs mass: λ(M_Pl) = 0 from composite A₁ taste (Predictions)
+  ├─→ m_b/m_τ = 4.28/Z_S = 2.2 ± 0.15 from chiral condensate (Predictions)
+  ├─→ Chiral condensate Σ confirmed at L=16–64, linking m_b/m_τ, m_H, v/M_Pl (Predictions)
   ├─→ Nested trace-out consistency (Main App. B, theorem)
   ├─→ Generalized second law (Main App. B, theorem)
   ├─→ Page curve with t_P ≈ 0.646 t_evap (Main App. B, theorem)
