@@ -30,7 +30,7 @@ The theorem becomes physics at the cosmological horizon — the boundary beyond 
 
 ### The emergent structure
 
-The dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures. The lattice is the coupling graph of φ, the alphabet size is a gauge freedom, d = 3 is the unique self-consistent dimension, and the observer is generic. The wave equation on a d = 3 lattice uniquely determines the Standard Model's gauge group, matter content, discrete symmetries, and — through the universal induced coupling 1/α₀ = 23.25 — all three gauge coupling strengths at M_Z, with the primary derivation chain proved end-to-end (29 theorems/lemmas). The lattice geometry further determines fifteen quantitative SM parameters with zero free parameters — gauge couplings, CKM mixing, charged lepton masses, PMNS angles, the Higgs mass, and the bottom-to-tau mass ratio — all matching observation.
+The dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures. The lattice is the coupling graph of φ, the alphabet size is a gauge freedom, d = 3 is the unique self-consistent dimension, and the observer is generic. The wave equation on a d = 3 lattice uniquely determines the Standard Model's gauge group, matter content, discrete symmetries, and — through the universal induced coupling 1/α₀ = 23.25 — all three gauge coupling strengths at M_Z, with the primary derivation chain proved end-to-end (29 theorems/lemmas). The lattice geometry further determines twenty quantitative SM parameters with zero free parameters — gauge couplings, CKM mixing, charged lepton masses, PMNS angles, the Higgs mass, and the bottom-to-tau mass ratio — all matching observation.
 
 ### Two types of inaccessibility
 
@@ -66,11 +66,11 @@ Addresses the ontological status of the lattice and which QFT the embedded obser
 
 **"Quantitative Predictions from Observational Incompleteness"**
 
-Presents fifteen zero-parameter predictions derived from the $d = 3$ cubic lattice. The Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ (0.04%), the Wolfenstein $A = \sqrt{2/3}$ (0.8σ), the Koide angle $\theta_0 = 2/9$ giving $m_e$ and $m_\mu$ from $m_\tau$ to <0.01%, PMNS mixing angles from TBM + Cabibbo corrections (all within 0.5σ), the Higgs mass from $\lambda(M_{\text{Pl}}) = 0$, and $m_b/m_\tau = 2.2 \pm 0.15$ from Monte Carlo at $\beta = 11.1$. All structural constants trace to $d = 3$: $\pi\sqrt{2}$, $\sqrt{2/3}$, $2/9$, $2/3$, $4/9$, $1/3$, $1/2$. MC simulations at $L = 16$–$64$ confirm chiral condensate formation, validating the self-consistency approach that links the remaining imprecise predictions ($m_b/m_\tau$, $m_H$, $v/M_{\text{Pl}}$) through a single computation.
+Presents twenty zero-parameter predictions derived from the $d = 3$ cubic lattice. The Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ (0.04%), the Wolfenstein $A = \sqrt{2/3}$ (0.8σ), the Koide angle $\theta_0 = 2/9$ giving $m_e$ and $m_\mu$ from $m_\tau$ to <0.01%, PMNS mixing angles from TBM + Cabibbo corrections (all within 0.5σ), the Higgs mass from $\lambda(M_{\text{Pl}}) = 0$, and $m_b/m_\tau = 2.2 \pm 0.15$ from Monte Carlo at $\beta = 11.1$. All structural constants trace to $d = 3$: $\pi\sqrt{2}$, $\sqrt{2/3}$, $2/9$, $2/3$, $4/9$, $1/3$, $1/2$. MC simulations at $L = 16$–$64$ confirm chiral condensate formation, validating the self-consistency approach that links the remaining imprecise predictions ($m_b/m_\tau$, $m_H$, $v/M_{\text{Pl}}$) through a single computation.
 
 - [`Predictions.md`](Predictions.md) — Markdown source
-- [`Predictions.tex`](Predictions.tex) — LaTeX source
-- [`Predictions.pdf`](Predictions.pdf) — Compiled PDF
+- [`predictions.tex`](predictions.tex) — LaTeX source
+- [`predictions.pdf`](predictions.pdf) — Compiled PDF
 
 ### Explainer
 
@@ -108,7 +108,7 @@ Traces the consequences of the derived structure through atomic physics, chemist
 
 6b. **Gauge coupling prediction.** The fermion-induced coupling gives a universal 1/α₀ = 23.25 at the Planck scale — determined by N_f = 6 and T(R) = 1/2, structural quantities independent of the specific bijection φ. Non-perturbative gauge self-energy corrections (computed from pure-gauge lattice Monte Carlo) and Standard Model RG running reproduce all three gauge couplings at M_Z: 1/α₁ = 59.00, 1/α₂ = 29.57, 1/α₃ = 8.47 — matching observed values to <0.1%. *Status: proposition (Fundamental §9).*
 
-6c. **Fifteen quantitative predictions from d = 3.** Beyond the gauge couplings, the cubic lattice structure determines twelve additional SM parameters with zero free parameters (Predictions Paper): the Cabibbo angle λ = 1/(π√2) (0.04% match), the Wolfenstein A = √(2/3) (0.8σ), m_d/m_s = 1/(2π²) (~1σ), |V_cb| = √(2/3)/(2π²) (0.4σ), Koide Q = 2/3 (<0.01%), the Koide angle θ₀ = 2/9 giving m_e and m_μ from m_τ to <0.01%, three PMNS angles from TBM + Cabibbo corrections (all within 0.5σ), the Higgs mass from λ(M_Pl) = 0 (0.6σ), and m_b/m_τ = 2.2 ± 0.15 from non-perturbative condensate (observed 2.352, inside band). Monte Carlo simulations at L = 16–64 confirm chiral condensate formation, validating the self-consistency approach that links m_b/m_τ, m_H, and v/M_Pl through a single lattice computation. *Status: observation + MC verification (Predictions Paper).*
+6c. **Eighteen quantitative predictions from d = 3.** Beyond the gauge couplings, the cubic lattice structure determines twelve additional SM parameters with zero free parameters (Predictions Paper): the Cabibbo angle λ = 1/(π√2) (0.04%), m_u/m_d = √(2/9) (0.05σ), the Wolfenstein A = √(2/3) (0.8σ), m_d/m_s = 1/(2π²) (~1σ), |V_cb| = √(2/3)/(2π²) (0.4σ), J = η/(12π⁶) (0.5σ), Koide Q = 2/3 (<0.01%), the Koide angle θ₀ = 2/9 giving m_e and m_μ from m_τ to <0.01%, three PMNS angles from TBM + Cabibbo corrections (all within 0.5σ), the Higgs mass from λ(M_Pl) = 0 (0.6σ), and m_b/m_τ = 2.2 ± 0.15 from non-perturbative condensate (observed 2.352, inside band). Monte Carlo simulations at L = 16–64 confirm chiral condensate formation, validating the self-consistency approach that links m_b/m_τ, m_H, and v/M_Pl through a single lattice computation. *Status: observation + MC verification (Predictions Paper).*
 
 7. **Strong CP solved.** T-invariance of the wave equation → θ = 0 (theorem). Detailed balance at all time scales (φⁿ is a bijection for every n) → T-invariant Hamiltonian at every energy scale → real Yukawa matrices at every scale → θ̄ = 0 at all energy scales (theorem). No axion needed. The proof bypasses the instanton question entirely.
 
@@ -168,6 +168,7 @@ The forward derivation and reconstruction theorem establish: (S, φ) determines 
   ├─→ Wolfenstein A = √(2/3) — generation-Higgs angle (Predictions)
   ├─→ m_d/m_s = 1/(2π²) via GST relation (Predictions)
   ├─→ |V_cb| = √(2/3)/(2π²) (Predictions)
+  ├─→ Jarlskog invariant J = η/(12π⁶) (Predictions)
   ├─→ Koide Q = 2/3 from Z₃ symmetry of T₁ (Predictions)
   ├─→ Koide angle θ₀ = C₂/d² = 2/9 → m_e, m_μ from m_τ to <0.01% (Predictions)
   ├─→ PMNS angles: TBM from A₄ ⊂ O + Cabibbo corrections (Predictions)
