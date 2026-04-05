@@ -18,7 +18,7 @@ Physics has two foundational theories — quantum mechanics (QM) and general rel
 
 ### The starting point
 
-The framework rests on four axioms referencing no quantum mechanics or specific physics: (1) deterministic dynamics — the rule φ is a bijection, (2) finiteness of the observable sector, (3) a causal partition into visible and hidden sectors, and (4) classical probability. No quantum postulates appear. The claim is that quantum mechanics emerges under three conditions on the hidden sector.
+The framework begins with a single empirical fact — *observation occurs* — formalized as a definition: an observation is a triple (S, φ, V) consisting of a total system, a deterministic dynamics, and an embedded observer. No quantum postulates appear. Three structural lemmas follow (finiteness, causal partition, unique measure), from which quantum mechanics emerges under three conditions on the hidden sector.
 
 ### The core theorem
 
