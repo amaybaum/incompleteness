@@ -32,13 +32,13 @@ An observer records distinguishable outcomes of interactions with a system not w
 
 The paper formalizes this as a definition:
 
-**Definition.** An *observation* is a triple (S, φ, V): a total system S, a dynamics φ: S → S, and an observer V ⊊ S — a proper subsystem with finitely many distinguishable internal states, coupled to the complement H = S \ V through φ.
+**Definition.** An *observation* is a triple $(S, \varphi, V)$: a total system $S$, a deterministic dynamics $\varphi: S \to S$, and an observer $V \subsetneq S$ — a proper subsystem with finitely many distinguishable internal states, coupled to the complement $H = S \setminus V$ through $\varphi$.
 
-This definition captures three features implicit in the concept of observation: there is a whole (S), the observer is not the whole (V ⊊ S), and the observer registers changes (coupling through φ). From this definition, three structural properties follow as lemmas — not additional assumptions, but logical consequences.
+This single sentence contains no physics. It is weaker than classical mechanics (no continuity, no Hamiltonian, no Lagrangian). A shuffled deck of cards satisfies it. A finite cellular automaton satisfies it. Any finite computation satisfies it. The paper shows that three structural lemmas follow from this definition alone:
 
-**Lemma 1: Finiteness.** The observer has finitely many distinguishable states. There's a smallest meaningful size ε — you can't resolve anything smaller. This means the configuration space is finite, not continuous. This matters because finite systems have a property infinite systems don't — they must eventually return to their starting state (Poincaré recurrence). In Part I, ε is left unspecified. In Part II, self-consistency forces ε = 2 l_p (twice the Planck length).
+**Lemma 1** (Finiteness). *The observer has finitely many distinguishable internal states, so the visible configuration space $\mathcal{C}_V$ is finite, with a discreteness scale $\epsilon$ providing a finite minimal cell volume.* There's a smallest meaningful size ε — you can't resolve anything smaller. This means the configuration space is finite, not continuous. This matters because finite systems have a property infinite systems don't — they must eventually return to their starting state (Poincaré recurrence). In Part I, ε is left unspecified. In Part II, self-consistency forces ε = 2 l_p (twice the Planck length).
 
-**Lemma 2: Causal partition.** The observer is a proper subsystem — not the whole. The complement is the hidden sector. The total phase space splits into two pieces:
+**Lemma 2** (Causal partition). *An observer is a proper subsystem $V \subsetneq S$. The complement $H = S \setminus V$ is the hidden sector.* The total phase space splits into two pieces:
 
 $$\Gamma = \Gamma_V \times \Gamma_H$$
 
@@ -46,15 +46,11 @@ $$\Gamma = \Gamma_V \times \Gamma_H$$
 
 $$H_{\text{tot}} = H_V + H_H + H_{\text{int}}$$
 
-H_V governs the visible sector alone. H_H governs the hidden sector alone. H_int couples them — it's how the two sectors talk to each other. Without H_int, the two sectors would evolve independently and the observer would never feel the hidden sector's influence. This partition isn't a modeling choice — it's the definition of embedded observation. An observer that could access all of S would have nothing external to observe.
+H_V governs the visible sector alone. H_H governs the hidden sector alone. H_int couples them — it's how the two sectors talk to each other. Without H_int, the two sectors would evolve independently and the observer would never feel the hidden sector's influence.
 
-**Lemma 3: Determinism and unique measure.** The dynamics φ must be a bijection — distinct states have distinct successors. Why? Because non-injective dynamics would merge distinct total states, erasing the distinction between outcomes the observer has already recorded. An observer whose records get overwritten isn't observing. On a finite set, injectivity automatically implies surjectivity, so φ is a bijection — reversible, information-preserving. The unique measure invariant under a bijection on a finite set is the counting measure (equal weight to each state), which in the continuum limit becomes the Liouville measure:
+**Lemma 3** (Unique measure). *The counting measure on $S$ — assigning equal weight to each state — is the unique measure invariant under $\varphi$.* The observer uses standard Kolmogorov probability theory. No exotic probability theories, no negative probabilities, no quantum probability — just ordinary probability. This is what makes the result surprising: we're putting in classical probability and getting out quantum mechanics.
 
-$$\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\}$$
-
-The observer uses standard Kolmogorov probability theory. No exotic probability theories, no negative probabilities, no quantum probability — just ordinary probability. This is what makes the result surprising: we're putting in classical probability and getting out quantum mechanics.
-
-That's it. The claim is that quantum mechanics — the Schrödinger equation, the Born rule, superposition, entanglement, Bell inequality violations — follows from this single definition alone, given the right conditions on the hidden sector:
+That's it. The claim is that quantum mechanics — the Schrödinger equation, the Born rule, superposition, entanglement, Bell inequality violations — follows from this definition alone, given the right conditions on the hidden sector:
 
 **C1: Non-zero coupling (H_int ≠ 0).** The visible and hidden sectors interact. Information flows between them. Without this, the observer's room is perfectly isolated — nothing interesting happens.
 
@@ -102,14 +98,14 @@ Unpacking each symbol:
 
 - **T_ij**: The probability of transitioning from visible state x_i to visible state x_j in the time interval from t_1 to t_2. This is what the observer measures.
 - **(x_i, h)**: The complete state — visible part x_i, hidden part h.
-- **φ_{t2-t1}**: The deterministic evolution. Takes the complete state at time t_1 and returns the complete state at time t_2. Uniquely determined by Lemma 3.
+- **φ_{t2-t1}**: The deterministic evolution. Takes the complete state at time t_1 and returns the complete state at time t_2. Uniquely determined by the definition.
 - **π_V**: Projection onto the visible sector. Takes a complete state (x, h) and returns just x.
 - **δ_{xj}[...]**: The Kronecker delta. Equals 1 if the visible part ended up at x_j, equals 0 otherwise.
 - **dμ(h)**: Integration over all possible hidden states, weighted by the Liouville measure.
 
 **In plain English:** For each possible hidden state h, check whether starting at (x_i, h) and evolving forward lands the visible part on x_j. Count up all the hidden states where this happens, weighted by how likely each hidden state is. The result is the probability of the transition x_i → x_j.
 
-**The proof:** The formula has exactly three inputs: (1) the dynamics φ_t — fixed by Lemma 3, (2) the partition (Γ_V, Γ_H) and projection π_V — fixed by Lemma 2, and (3) the measure μ — fixed by Lemma 3 (Liouville measure is the unique choice). Since inputs 1 and 3 are determined by the lemmas, the only free input is the partition. Therefore: everything about the emergent description depends only on the partition. QED.
+**The proof:** The formula has exactly three inputs: (1) the dynamics φ_t — fixed by the definition, (2) the partition (Γ_V, Γ_H) and projection π_V — fixed by Lemma 2, and (3) the measure μ — fixed by Lemma 3 (Liouville measure is the unique choice). Since inputs 1 and 3 are determined by the definition, the only free input is the partition. Therefore: everything about the emergent description depends only on the partition. QED.
 
 **Why the Liouville measure is unique:** The observer needs a "prior" — a way to weight the hidden states. Liouville measure is the unique measure on phase space that is absolutely continuous (no point masses) and invariant under Hamiltonian flow. Any smooth initial distribution evolves toward it. Singular measures are excluded by Lemma 3's requirement of standard probability theory. The observer has no choice.
 
@@ -141,7 +137,7 @@ where Λ has non-negative entries and rows summing to 1. "P-indivisible" means t
 
 Breuer, Laine, and Piilo proved that P-indivisibility is equivalent to "information backflow" — the system's distinguishability can *increase* over time. In a classical Markov process, you can only lose information (mixing). In a P-indivisible process, information comes back. This is exactly what quantum systems do — interference, revivals, and non-classical correlations all involve information returning from where it was stored.
 
-**The setup.** We work on finite sets (Lemma 1). The visible sector has states C_V = {x_1, x_2, ...} with |C_V| ≥ 2. The hidden sector has states C_H = {h_1, h_2, ...}. The total dynamics is a bijection φ on C_V × C_H. The transition matrix is:
+**The setup.** We work on finite sets Lemma 1. The visible sector has states C_V = {x_1, x_2, ...} with |C_V| ≥ 2. The hidden sector has states C_H = {h_1, h_2, ...}. The total dynamics is a bijection φ on C_V × C_H. The transition matrix is:
 
 $$T_{ij} = \frac{|\{h \in \mathcal{C}_H : \pi_V(\varphi(x_i, h)) = x_j\}|}{|\mathcal{C}_H|}$$
 
@@ -165,7 +161,7 @@ The inequality is strict because the distributions overlap. Distinguishability h
 
 **Step 3 — The punchline.** At t = 1: d < 1 (distinguishability decreased). At t = N: d = 1 (distinguishability restored). The distinguishability went down then came back up — non-monotonic behavior. A P-divisible process can only have non-increasing distinguishability. Therefore the process is P-indivisible. QED.
 
-The proof uses almost nothing — just that the dynamics is a bijection on a finite set (Lemmas 1 and 3) and that the coupling is non-trivial (C1). It is purely combinatorial.
+The proof uses almost nothing — just that the dynamics is a bijection on a finite set (the definition and Lemma 1) and that the coupling is non-trivial (C1). It is purely combinatorial.
 
 ---
 
@@ -427,7 +423,7 @@ $$dE = \frac{c^2 \kappa}{8\pi G} \, dA$$
 
 where κ is the surface gravity and dA is the change in horizon area. This is a classical gravitational identity — no quantum mechanics involved.
 
-The entropy density is η = 1/ε² — one coupled mode per minimal cell of area ε². This is not an assumption about the number of states per cell: ε is defined as the minimal distinguishable scale (Lemma 1), so each cell of area ε² contributes exactly one boundary mode that couples across the partition. The number of internal states per mode (the alphabet size q) is a gauge freedom with no observable consequences (Fundamental, §4). So dS = dA/ε². From dE = TdS:
+The entropy density is η = 1/ε² — one coupled mode per minimal cell of area ε². This is not an assumption about the number of states per cell: ε is defined as the minimal distinguishable scale Lemma 1, so each cell of area ε² contributes exactly one boundary mode that couples across the partition. The number of internal states per mode (the alphabet size q) is a gauge freedom with no observable consequences (Fundamental, §4). So dS = dA/ε². From dE = TdS:
 
 $$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G}$$
 
@@ -918,27 +914,19 @@ The substratum itself has no arrow of time. φ and φ⁻¹ are equally valid. Th
 
 ### The incompleteness family
 
-This places the framework in a family of results where self-reference under finite resources produces rigid structure. The connection can be made precise: all three incompleteness results follow from the single definition of observation.
+This places the framework in a family of results where self-reference under finite resources produces rigid structure.
 
-**Definition.** An *observation* is a triple $(S, \varphi, V)$: a finite set $S$, a bijection $\varphi: S \to S$, and a proper subset $V \subsetneq S$.
+**Gödel (1931):** A sufficiently powerful formal system cannot prove all truths about itself. The unprovable statements aren't random — they have a precise structure (the Gödel sentence, the consistency statement, the arithmetical hierarchy).
 
-**Proposition 1 (Arithmetic is embedded in observation).** The observer $V$ can count iterations of $\varphi$: the sequence $v, \varphi(v), \varphi^2(v), \ldots$ defines a successor function on the observable states. This embeds bounded Peano arithmetic in $(S, \varphi, V)$. Gödel's incompleteness follows as a structural corollary: $V$ has $|V| < |S|$ distinguishable internal states, so any formal system the observer constructs from its observations cannot represent all states of $S$ — the hidden sector $H = S \setminus V$ contains truths about $S$ that no $V$-expressible proof can reach.
+**Turing (1936):** A universal computer cannot decide all questions about its own behavior. The undecidable problems aren't random — they have a precise structure (the halting problem, Turing degrees, the oracle hierarchy).
 
-**Proposition 2 (Computation is embedded in observation).** $\varphi$ restricted to $V$ defines a finite automaton. The hidden sector $H$ acts as external memory (tape). The observer reads partial state (head position) and the dynamics updates both (transition function). This embeds a bounded Turing machine in $(S, \varphi, V)$. The halting problem follows: $V$ cannot predict its own future state because that state depends on $H$, which $V$ cannot read. The observer cannot decide whether a given $V$-state will recur — this requires tracking $\varphi$ on all of $S$.
+**OI:** An observer embedded in (S, φ) cannot access the complete state. The emergent description isn't random — it has a precise structure (unitary quantum mechanics with the Schrödinger equation, Born rule, and Bell violations).
 
-**Proposition 3 (QM is the observation limit).** Under conditions C1–C3, the observer's reduced description of $V$ is unitarily evolving quantum mechanics. The Born rule, Schrödinger equation, and Bell violations emerge from the same $(S, \varphi, V)$ that embeds arithmetic and computation.
+The precise OI analog of the halting problem is: *can the observer determine the hidden-sector state h?* The hidden state has a definite value at every moment — the total system is deterministic. Different hidden states send the same visible state to different futures (the particle goes left or right, the spin is measured up or down). But the observer provably cannot determine h: multiple hidden states are compatible with any visible-sector history, and transition probabilities are averages over h. The structural consequence is quantum mechanics — just as the structural consequence of the halting problem is the architecture of computability theory.
 
-**Theorem (The Incompleteness Family).** Let $(S, \varphi, V)$ be an observation. Then:
+The framework also identifies a distinct class of inaccessible quantities: the alphabet size q and the deep-sector cardinality |C_D|. These are not undecidable — they are *gauge*. Different values produce identical observables, so there is no fact of the matter to be inaccessible. The hidden state h is undecidable: it has a real answer the observer cannot reach. The cardinality |C_D| is gauge: there is nothing there to reach.
 
-- (i) $V$ embeds bounded arithmetic → Gödel incompleteness
-- (ii) $V$ embeds bounded computation → Turing undecidability
-- (iii) $V$'s reduced dynamics is quantum mechanics → observational incompleteness
-
-All three limitations arise from a single structural fact: $V \subsetneq S$. The observer is not the whole. Gödel: the observer cannot prove all truths about $S$. Turing: the observer cannot decide all questions about $\varphi$. OI: the observer cannot access the complete state of $S$. These are three manifestations of one phenomenon — self-referential incompleteness under finite resources — applied to logic, computation, and physics.
-
-**Corollary (Observation is logically prior).** Arithmetic and computation both presuppose an entity that distinguishes states and records outcomes — which is the definition of $V$. Neither Gödel's theorem nor Turing's theorem can be stated without implicitly assuming an observer. Observation is not derived from mathematics or computation; mathematics and computation are derived from observation.
-
-The framework also identifies a distinct class of inaccessible quantities: the alphabet size $q$ and the deep-sector cardinality $|C_D|$. These are not undecidable — they are *gauge*. Different values produce identical observables, so there is no fact of the matter to be inaccessible. The hidden state $h$ is undecidable: it has a real answer the observer cannot reach. The cardinality $|C_D|$ is gauge: there is nothing there to reach.
+The common thread: a system with finite resources tries to completely model something it's part of, and the structural impossibility of doing so determines the *form* of what it produces instead. The limitation and the law are the same object viewed from two sides. The Turing connection is direct: the observer is the head of a reversible computation; the halting problem (the head cannot determine the tape's global state) and the QM emergence theorem (the head's read-write statistics are necessarily quantum-mechanical) are two consequences of the same structural constraint — finite self-referential access to a lossless computation.
 
 Gödel and Turing are usually read as negative results — limits on knowledge. The framework recasts the physical instance as *generative*. Quantum mechanics is not what we're stuck with because we can't see the full state. It's the unique, mathematically rigid consequence of a reversible computation observed from within.
 
@@ -993,10 +981,10 @@ And the incompleteness family extends one step further: Gödel showed that proof
 
 | Component | What it establishes | What it uses |
 |---|---|---|
-| Lemmas 1–3 | The physical setup (no QM assumed) | Nothing — these are starting points |
-| Partition-relativity (§1.4) | Emergent description depends only on partition | Lemmas 2, 3 |
-| Emergent stochasticity (§2.1) | Determinism looks random to embedded observer | Lemmas 2, 3 |
-| P-indivisibility proof (§2.3) | The stochastic process is non-Markovian | Lemmas 1, 3 + C1 |
+| Definition + Lemmas 1–3 | The physical setup (no QM assumed) | Nothing — these are starting points |
+| Partition-relativity (§1.4) | Emergent description depends only on partition | Definition, Lemmas 2, 3 |
+| Emergent stochasticity (§2.1) | Determinism looks random to embedded observer | Definition, Lemmas 2, 3 |
+| P-indivisibility proof (§2.3) | The stochastic process is non-Markovian | Definition, Lemma 1 + C1 |
 | Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1 + C2 + C3 |
 | Coin-and-die model (§2.4) | Concrete demonstration of all mechanisms | Definition + all conditions |
 | Stochastic-quantum correspondence (§3.1) | P-indivisibility = quantum mechanics | Barandes [10,11] or Stinespring (Appendix A) |
