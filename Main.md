@@ -563,7 +563,7 @@ This is the baryonic Tully-Fisher relation. Flat rotation curves emerge with no 
 
 (v) *Analytic.* The entropy redistribution is a smooth function of the coupling structure — no discontinuities or phase transitions in the interpolation.
 
-These constraints narrow the interpolation to a one-parameter family indexed by the transition steepness — a property of the particular bijection $\varphi$, in the same category as fermion masses (Fundamental, §9.7). The simplest member satisfying all five constraints:
+These constraints narrow the interpolation to a one-parameter family indexed by the transition steepness — a property of the particular bijection $\varphi$, in the same category as fermion masses (Fundamental, §10.7). The simplest member satisfying all five constraints:
 
 $$g_D = \frac{g_B}{2}\left(\sqrt{1 + \frac{4a_0}{g_B}} - 1\right)$$
 
@@ -734,7 +734,7 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 
 [45] D. Wu et al., "Model-independent search of gravitational wave echoes in LVK data," arXiv:2512.24730 (2025).
 
-[42] D. N. Page, "Average entropy of a subsystem," *Phys. Rev. Lett.* **71**, 1291 (1993).
+[46] D. N. Page, "Average entropy of a subsystem," *Phys. Rev. Lett.* **71**, 1291 (1993).
 
 ---
 
@@ -908,7 +908,7 @@ The trans-cosmological sector $D$ is frozen on evaporation timescales ($\tau_{\t
 
 *Proof.* The total system evolves unitarily under $U_\varphi$ (Appendix A). The total state $|\Psi\rangle \in \mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D$ is pure (deterministic evolution from a definite initial state). By the boundary-only dependence lemma, the $D$-sector is frozen: $\rho_D$ is approximately constant, and $|\Psi\rangle \approx |\psi_{VB}\rangle \otimes |\chi_D\rangle + \mathcal{O}(\tau_S / \tau_B^D)$. Restricting to the $B \cup R$ subsystem (where $R \subset V$ is the radiation): $\rho_{BR} \approx |\psi\rangle\langle\psi|$ is pure at leading order. The correction is $\mathcal{O}(\tau_S / \tau_B^D) \sim 10^{-32}$. $\square$
 
-**Theorem B.8** (Cycle typicality). *For the dynamics $\varphi$ on the energy shell $\Sigma_E \subset \mathcal{H}_B \otimes \mathcal{H}_R$, the time-averaged entanglement entropy of the radiation equals the Page value [42]:*
+**Theorem B.8** (Cycle typicality). *For the dynamics $\varphi$ on the energy shell $\Sigma_E \subset \mathcal{H}_B \otimes \mathcal{H}_R$, the time-averaged entanglement entropy of the radiation equals the Page value [46]:*
 
 $$\overline{S(\rho_R)} = S_{\text{Page}}(d_B, d_R) + \mathcal{O}(\epsilon)$$
 
