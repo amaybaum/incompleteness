@@ -6,7 +6,7 @@
 
 ## Abstract
 
-The Observational Incompleteness (OI) framework derives the Standard Model as the unique emergent description available to observers embedded in a deterministic system on a $d = 3$ cubic lattice with spacing $2\,l_P$. We present twenty quantitative predictions with zero free parameters. The three gauge couplings at $M_Z$ are reproduced to $< 0.1\%$ each. The Cabibbo angle $\lambda = 1/(\pi\sqrt{2}) = 0.22508$ matches the observed $0.22500 \pm 0.00067$ to $0.04\%$ — the inverse of the Brillouin zone distance between adjacent generation corners. The Wolfenstein parameter $A = \sqrt{2/3} = 0.8165$ matches $0.826 \pm 0.012$ to $0.8\sigma$ — the sine of the angle between a generation axis and the Higgs direction. The Koide angle $\theta_0 = 2/9$ predicts $m_e$ and $m_\mu$ from $m_\tau$ to better than $0.01\%$. Tribimaximal neutrino mixing from $A_4 \subset O$ with Cabibbo corrections gives all three PMNS angles within $0.5\sigma$. The composite Higgs ($A_1$ taste) predicts $\lambda(M_{\text{Pl}}) = 0$, consistent with the observed near-criticality at $0.6\sigma$. Monte Carlo simulations at $L = 16$–$64$ confirm chiral condensate formation; the matching mass $m_{\text{match}} = \lambda g_0^2 = 0.122$ gives $m_b/m_\tau = 4.28/Z_S = 2.36$ (observed: $2.352$, $0.4\%$). The down-quark Koide parameter $Q_{\text{down}} = (2/3)(1 + \alpha_s/\pi)$ predicts $m_b$ from $m_s$ to $0.9\%$; combined with the other relations, a single mass input ($m_s$) determines six fermion masses ($m_d$, $m_u$, $m_b$, $m_\tau$, $m_\mu$, $m_e$), all within $1\%$; the top mass $m_t = v/\sqrt{2}$ follows from the IR quasi-fixed point $y_t = 1$ ($0.9\%$). All structural constants trace to the geometry of $d = 3$: $\pi\sqrt{2}$, $\sqrt{2/3}$, $2/9$, $\sqrt{2/9}$, $2/3$, $4/9$, $1/3$, $1/2$.
+The Observational Incompleteness (OI) framework derives the Standard Model as the unique emergent description available to observers embedded in a deterministic system on a $d = 3$ cubic lattice with spacing $2\,l_P$. We present twenty-one quantitative predictions with zero free parameters. The three gauge couplings at $M_Z$ are reproduced to $< 0.1\%$ each. The Cabibbo angle $\lambda = 1/(\pi\sqrt{2}) = 0.22508$ matches the observed $0.22500 \pm 0.00067$ to $0.04\%$ — the inverse of the Brillouin zone distance between adjacent generation corners. The Wolfenstein parameter $A = \sqrt{2/3} = 0.8165$ matches $0.826 \pm 0.012$ to $0.8\sigma$ — the sine of the angle between a generation axis and the Higgs direction. The Koide angle $\theta_0 = 2/9$ predicts $m_e$ and $m_\mu$ from $m_\tau$ to better than $0.01\%$. Tribimaximal neutrino mixing from $A_4 \subset O$ with Cabibbo corrections gives all three PMNS angles within $0.5\sigma$. The composite Higgs ($A_1$ taste) predicts $\lambda(M_{\text{Pl}}) = 0$, consistent with the observed near-criticality at $0.6\sigma$. Monte Carlo simulations at $L = 16$–$64$ confirm chiral condensate formation; the matching mass $m_{\text{match}} = \lambda g_0^2 = 0.122$ gives $m_b/m_\tau = 4.28/Z_S = 2.36$ (observed: $2.352$, $0.4\%$). The down-quark Koide parameter $Q_{\text{down}} = (2/3)(1 + \alpha_s/\pi)$ predicts $m_b$ from $m_s$ to $0.9\%$; combined with the other relations, a single mass input ($m_s$) determines six fermion masses ($m_d$, $m_u$, $m_b$, $m_\tau$, $m_\mu$, $m_e$), all within $1\%$; the top mass $m_t = v/\sqrt{2}$ follows from the IR quasi-fixed point $y_t = 1$ ($0.9\%$). All structural constants trace to the geometry of $d = 3$: $\pi\sqrt{2}$, $\sqrt{2/3}$, $2/9$, $\sqrt{2/9}$, $2/3$, $4/9$, $1/3$, $1/2$.
 
 ---
 
@@ -16,7 +16,7 @@ The Standard Model contains approximately 19 free parameters, none derived from 
 
 The framework rests on four axioms [1]: (1) determinism (the dynamics is a bijection $\varphi$ on a finite set $S$); (2) discreteness ($S$ has a regular lattice structure with spacing $\epsilon = 2\,l_P$); (3) bipartition (the observer accesses a visible sector $V$, with a hidden sector $H$); (4) the observer uses the natural (Liouville) measure. The emergent description on $V$ is unitarily evolving quantum mechanics [1], and the $d = 3$ cubic lattice structure induces the SM gauge group SU(3) $\times$ SU(2) $\times$ U(1) with specific coupling constants [2].
 
-We present twenty predictions spanning gauge couplings, quark mixing, lepton masses, neutrino mixing, the Higgs mass, and fermion masses. Sixteen are purely geometric; four involve non-perturbative dynamics or RGE fixed-point behavior.
+We present twenty-one predictions spanning gauge couplings, quark mixing, lepton masses, neutrino mixing, the Higgs mass, and fermion masses. Seventeen are purely geometric; four involve non-perturbative dynamics or RGE fixed-point behavior.
 
 ---
 
@@ -234,19 +234,17 @@ No free parameters, no GUT, no SUSY, no extra dimensions.
 
 ### 9.2 Gauge vs. Yukawa precision
 
-The gauge coupling prediction achieves $< 0.1\%$; the Yukawa prediction achieves $\sim 7\%$. This asymmetry is structural: gauge matching uses the plaquette (mass-independent), while Yukawa matching uses the chiral condensate (mass-dependent). The full $Z_S(m)$ scan confirms no mass-independent fixed point exists.
+The gauge coupling prediction achieves $< 0.1\%$; the Yukawa prediction $m_b/m_\tau = 2.361$ achieves $0.4\%$. The remaining asymmetry is structural: gauge matching uses the plaquette (mass-independent), while Yukawa matching uses the chiral condensate $Z_S(m_{\text{match}})$ evaluated at $m_{\text{match}} = \lambda g_0^2$.
 
-### 9.3 Three problems, one solution
+### 9.3 Remaining open problems
 
-The three remaining imprecise predictions — $m_b/m_\tau$ ($\pm 0.15$), $m_H$ ($m_t$-dependent), and $v/M_{\text{Pl}}$ (unexplained) — share a single root cause: the matching mass $m_{\text{match}}$ at the lattice scale. The self-consistency equation $m = y \times v(m)/M_{\text{Pl}}$, where $v(m)$ comes from the Coleman–Weinberg effective potential on the lattice, determines $m_{\text{match}}$ uniquely. Solving this equation would simultaneously fix $Z_S(m_{\text{match}}) \to m_b/m_\tau$, $\lambda(M_{\text{Pl}}) \to m_H$, and $v/M_{\text{Pl}} \to$ the hierarchy ratio.
-
-The confirmation of chiral condensate formation validates this approach: the Coleman–Weinberg potential, whose derivative is $\langle\bar\psi\psi\rangle(m)$, has the ingredients needed to determine $v/M_{\text{Pl}}$. This is equivalent to computing the quantitative $\hbar$ from the information-theoretic trace-out that defines the framework — connecting the foundational result (emergent QM) to measurable particle physics.
+Two predictions depend on quantities not yet determined: $m_H$ (sensitive to $m_t$ at $\partial m_H/\partial m_t \approx -1.1$ GeV/GeV) and $v/M_{\text{Pl}}$ (the hierarchy — requires determining the absolute mass scale). The self-consistency equation $m = y \times v(m)/M_{\text{Pl}}$, where $v(m)$ comes from the Coleman–Weinberg effective potential on the lattice, would simultaneously fix $v/M_{\text{Pl}}$ and sharpen $m_H$. The confirmation of chiral condensate formation validates this approach: the Coleman–Weinberg potential has the ingredients needed to determine $v/M_{\text{Pl}}$, connecting the foundational result (emergent QM) to measurable particle physics.
 
 ---
 
 ## 10. Summary
 
-Twenty predictions from a $d = 3$ cubic lattice with spacing $2\,l_P$:
+Twenty-one predictions from a $d = 3$ cubic lattice with spacing $2\,l_P$:
 
 | Prediction | Formula | Value | Observed | Match |
 |------------|---------|-------|----------|-------|
