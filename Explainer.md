@@ -22,19 +22,23 @@ The argument is built from a chain of mathematical proofs, each feeding into the
 
 ---
 
-## The Starting Point: Four Axioms and Three Conditions
+## The Starting Point: Observation Exists
 
-Every mathematical proof starts from assumptions, and the paper is explicit about its four. None of them mention quantum mechanics. None of them mention general relativity. They are:
+Every mathematical proof starts from assumptions, and this framework has exactly one. It doesn't mention quantum mechanics. It doesn't mention general relativity. It is:
 
-**Axiom 1: Deterministic dynamics.** The universe evolves according to definite rules. Given the complete state at one time, the state at any other time is uniquely determined. Mathematically, the state lives in a phase space Γ, and there's a Hamiltonian H_tot that governs how the state changes:
+*Observation occurs.*
 
-$$\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\}$$
+An observer records distinguishable outcomes of interactions with a system not wholly under the observer's control. This is the cogito of Descartes — "I think, therefore I am" — made mathematically precise. It is the one empirical fact that cannot be doubted: if you are reading this sentence, observation is occurring.
 
-The curly braces {,} are Poisson brackets — the classical mechanics version of "how things change." The function ρ represents a probability distribution, but that probability reflects the observer's ignorance, not any fundamental randomness. Think of it like a billiard table: if you knew the exact position and velocity of every ball, you could predict the future perfectly.
+The paper formalizes this as a definition:
 
-**Axiom 2: Finiteness.** The system has finitely many distinguishable states. There's a smallest meaningful size ε — you can't resolve anything smaller. This means the configuration space is finite, not continuous. This matters because finite systems have a property infinite systems don't — they must eventually return to their starting state (Poincaré recurrence). In Part I, ε is left unspecified. In Part II, self-consistency forces ε = 2 l_p (twice the Planck length).
+**Definition.** An *observation* is a triple $(S, \varphi, V)$: a total system $S$, a deterministic dynamics $\varphi: S \to S$, and an observer $V \subsetneq S$ — a proper subsystem with finitely many distinguishable internal states, coupled to the complement $H = S \setminus V$ through $\varphi$.
 
-**Axiom 3: Causal partition.** The total phase space splits into two pieces:
+This single sentence contains no physics. It is weaker than classical mechanics (no continuity, no Hamiltonian, no Lagrangian). A shuffled deck of cards satisfies it. A finite cellular automaton satisfies it. Any finite computation satisfies it. The paper shows that three structural lemmas follow from this definition alone:
+
+**Lemma 1** (Finiteness). *The observer has finitely many distinguishable internal states, so the visible configuration space $\mathcal{C}_V$ is finite, with a discreteness scale $\epsilon$ providing a finite minimal cell volume.* There's a smallest meaningful size ε — you can't resolve anything smaller. This means the configuration space is finite, not continuous. This matters because finite systems have a property infinite systems don't — they must eventually return to their starting state (Poincaré recurrence). In Part I, ε is left unspecified. In Part II, self-consistency forces ε = 2 l_p (twice the Planck length).
+
+**Lemma 2** (Causal partition). *An observer is a proper subsystem $V \subsetneq S$. The complement $H = S \setminus V$ is the hidden sector.* The total phase space splits into two pieces:
 
 $$\Gamma = \Gamma_V \times \Gamma_H$$
 
@@ -44,9 +48,9 @@ $$H_{\text{tot}} = H_V + H_H + H_{\text{int}}$$
 
 H_V governs the visible sector alone. H_H governs the hidden sector alone. H_int couples them — it's how the two sectors talk to each other. Without H_int, the two sectors would evolve independently and the observer would never feel the hidden sector's influence.
 
-**Axiom 4: Classical probability.** The observer uses standard Kolmogorov probability theory. No exotic probability theories, no negative probabilities, no quantum probability — just ordinary probability. This is the axiom that makes the result surprising: we're putting in classical probability and getting out quantum mechanics.
+**Lemma 3** (Unique measure). *The counting measure on $S$ — assigning equal weight to each state — is the unique measure invariant under $\varphi$.* The observer uses standard Kolmogorov probability theory. No exotic probability theories, no negative probabilities, no quantum probability — just ordinary probability. This is what makes the result surprising: we're putting in classical probability and getting out quantum mechanics.
 
-That's it. The claim is that quantum mechanics — the Schrödinger equation, the Born rule, superposition, entanglement, Bell inequality violations — follows from these four premises alone, given the right conditions on the hidden sector:
+That's it. The claim is that quantum mechanics — the Schrödinger equation, the Born rule, superposition, entanglement, Bell inequality violations — follows from this definition alone, given the right conditions on the hidden sector:
 
 **C1: Non-zero coupling (H_int ≠ 0).** The visible and hidden sectors interact. Information flows between them. Without this, the observer's room is perfectly isolated — nothing interesting happens.
 
@@ -54,7 +58,7 @@ That's it. The claim is that quantum mechanics — the Schrödinger equation, th
 
 **C3: Sufficient capacity (N_H ≫ N_V).** The hidden sector has many more degrees of freedom than the visible sector. There's enough "room" to store information about the visible sector's history without running out of space.
 
-The axioms set the stage. The conditions determine what kind of show plays on it. The next section explains why the cosmological horizon satisfies all three.
+The definition sets the stage. The conditions determine what kind of show plays on it. The next section explains why the cosmological horizon satisfies all three.
 
 ---
 
@@ -94,16 +98,16 @@ Unpacking each symbol:
 
 - **T_ij**: The probability of transitioning from visible state x_i to visible state x_j in the time interval from t_1 to t_2. This is what the observer measures.
 - **(x_i, h)**: The complete state — visible part x_i, hidden part h.
-- **φ_{t2-t1}**: The deterministic evolution. Takes the complete state at time t_1 and returns the complete state at time t_2. Uniquely determined by Axiom 1.
+- **φ_{t2-t1}**: The deterministic evolution. Takes the complete state at time t_1 and returns the complete state at time t_2. Uniquely determined by the definition.
 - **π_V**: Projection onto the visible sector. Takes a complete state (x, h) and returns just x.
 - **δ_{xj}[...]**: The Kronecker delta. Equals 1 if the visible part ended up at x_j, equals 0 otherwise.
 - **dμ(h)**: Integration over all possible hidden states, weighted by the Liouville measure.
 
 **In plain English:** For each possible hidden state h, check whether starting at (x_i, h) and evolving forward lands the visible part on x_j. Count up all the hidden states where this happens, weighted by how likely each hidden state is. The result is the probability of the transition x_i → x_j.
 
-**The proof:** The formula has exactly three inputs: (1) the dynamics φ_t — fixed by Axiom 1, (2) the partition (Γ_V, Γ_H) and projection π_V — fixed by Axiom 3, and (3) the measure μ — fixed by Axiom 4 (Liouville measure is the unique choice). Since inputs 1 and 3 are determined by the axioms, the only free input is the partition. Therefore: everything about the emergent description depends only on the partition. QED.
+**The proof:** The formula has exactly three inputs: (1) the dynamics φ_t — fixed by the definition, (2) the partition (Γ_V, Γ_H) and projection π_V — fixed by Lemma 2, and (3) the measure μ — fixed by Lemma 3 (Liouville measure is the unique choice). Since inputs 1 and 3 are determined by the definition, the only free input is the partition. Therefore: everything about the emergent description depends only on the partition. QED.
 
-**Why the Liouville measure is unique:** The observer needs a "prior" — a way to weight the hidden states. Liouville measure is the unique measure on phase space that is absolutely continuous (no point masses) and invariant under Hamiltonian flow. Any smooth initial distribution evolves toward it. Singular measures are excluded by Axiom 4's requirement of standard probability theory. The observer has no choice.
+**Why the Liouville measure is unique:** The observer needs a "prior" — a way to weight the hidden states. Liouville measure is the unique measure on phase space that is absolutely continuous (no point masses) and invariant under Hamiltonian flow. Any smooth initial distribution evolves toward it. Singular measures are excluded by Lemma 3's requirement of standard probability theory. The observer has no choice.
 
 ---
 
@@ -133,7 +137,7 @@ where Λ has non-negative entries and rows summing to 1. "P-indivisible" means t
 
 Breuer, Laine, and Piilo proved that P-indivisibility is equivalent to "information backflow" — the system's distinguishability can *increase* over time. In a classical Markov process, you can only lose information (mixing). In a P-indivisible process, information comes back. This is exactly what quantum systems do — interference, revivals, and non-classical correlations all involve information returning from where it was stored.
 
-**The setup.** We work on finite sets (Axiom 2). The visible sector has states C_V = {x_1, x_2, ...} with |C_V| ≥ 2. The hidden sector has states C_H = {h_1, h_2, ...}. The total dynamics is a bijection φ on C_V × C_H. The transition matrix is:
+**The setup.** We work on finite sets Lemma 1. The visible sector has states C_V = {x_1, x_2, ...} with |C_V| ≥ 2. The hidden sector has states C_H = {h_1, h_2, ...}. The total dynamics is a bijection φ on C_V × C_H. The transition matrix is:
 
 $$T_{ij} = \frac{|\{h \in \mathcal{C}_H : \pi_V(\varphi(x_i, h)) = x_j\}|}{|\mathcal{C}_H|}$$
 
@@ -157,7 +161,7 @@ The inequality is strict because the distributions overlap. Distinguishability h
 
 **Step 3 — The punchline.** At t = 1: d < 1 (distinguishability decreased). At t = N: d = 1 (distinguishability restored). The distinguishability went down then came back up — non-monotonic behavior. A P-divisible process can only have non-increasing distinguishability. Therefore the process is P-indivisible. QED.
 
-The proof uses almost nothing — just that the dynamics is a bijection on a finite set (Axioms 1 and 2) and that the coupling is non-trivial (C1). It is purely combinatorial.
+The proof uses almost nothing — just that the dynamics is a bijection on a finite set (the definition and Lemma 1) and that the coupling is non-trivial (C1). It is purely combinatorial.
 
 ---
 
@@ -389,7 +393,7 @@ The cosmological horizon is the boundary beyond which no signal traveling at or 
 
 $$A = \frac{4\pi c^2}{H^2}$$
 
-where H is the Hubble parameter. This implements Axiom 3 naturally: Γ_V = everything inside the horizon, Γ_H = everything beyond.
+where H is the Hubble parameter. This implements Lemma 2 naturally: Γ_V = everything inside the horizon, Γ_H = everything beyond.
 
 **Why ℏ is the same for all observers:** Different observers have slightly different horizons. But the gap equation ℏ = c³ε²/(4G) depends only on local geometric quantities (c, G, ε) — not on the horizon area or the observer's worldline. So all observers derive the same ℏ.
 
@@ -403,7 +407,7 @@ where H is the Hubble parameter. This implements Axiom 3 naturally: Γ_V = every
 
 ### 4.3 Application
 
-With the cosmological horizon satisfying all axioms and conditions, the characterization theorem applies. The observer's reduced description is P-indivisible and therefore equivalent to unitary quantum mechanics. The value of ℏ is determined by the partition geometry — which is what Section 5 derives.
+With the cosmological horizon satisfying the definition and all conditions, the characterization theorem applies. The observer's reduced description is P-indivisible and therefore equivalent to unitary quantum mechanics. The value of ℏ is determined by the partition geometry — which is what Section 5 derives.
 
 ---
 
@@ -419,7 +423,7 @@ $$dE = \frac{c^2 \kappa}{8\pi G} \, dA$$
 
 where κ is the surface gravity and dA is the change in horizon area. This is a classical gravitational identity — no quantum mechanics involved.
 
-The entropy density is η = 1/ε² — one coupled mode per minimal cell of area ε². This is not an assumption about the number of states per cell: ε is defined as the minimal distinguishable scale (Axiom 2), so each cell of area ε² contributes exactly one boundary mode that couples across the partition. The number of internal states per mode (the alphabet size q) is a gauge freedom with no observable consequences (Fundamental, §4). So dS = dA/ε². From dE = TdS:
+The entropy density is η = 1/ε² — one coupled mode per minimal cell of area ε². This is not an assumption about the number of states per cell: ε is defined as the minimal distinguishable scale Lemma 1, so each cell of area ε² contributes exactly one boundary mode that couples across the partition. The number of internal states per mode (the alphabet size q) is a gauge freedom with no observable consequences (Fundamental, §4). So dS = dA/ε². From dE = TdS:
 
 $$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G}$$
 
@@ -579,7 +583,7 @@ The framework is not just a reinterpretation. It makes specific, falsifiable pre
 
 **The dark sector as corroboration.** The trace-out that produces quantum mechanics has a gravitational consequence that the paper did not set out to find. The boundary entropy — the $S_{\text{dS}}$ modes traced out to produce the quantum description — has thermal energy that, distributed over the Hubble volume, equals the critical density exactly. A crucial subtlety: this thermal energy is computed entirely from pre-trace-out (classical) quantities — the number of boundary modes, the classical horizon temperature, and the Hubble volume — with no reference to $\hbar$ or the emergent quantum description. This is what distinguishes the boundary entropy's gravitational contribution from the QFT zero-point energy ($\rho_{\text{QFT}} \sim 10^{113}$ J/m³), which exists only *after* the trace-out and is an artifact of the emergent description. The framework denies that the zero-point energy gravitates (this is the CC dissolution of Part II); the boundary entropy's classical thermal energy *does* gravitate, at the scale $\rho_{\text{crit}} \sim 10^{-9}$ J/m³.
 
-The paper proves that this entropy has no operator in the emergent QFT. The baryonic sector — what QFT can account for — is ~5% of $\rho_{\text{crit}}$. The remaining ~95% is the boundary entropy: gravitationally active, invisible to the emergent description, and persistent through P-indivisibility (condition C2). This matches the observed composition of the universe, in which ~95% of the gravitational content has no source in particle physics. The uniform component corresponds to dark energy (handled by Part II's CC dissolution). The structured component — dark matter — arises from matter-induced entropy displacement: baryonic matter displaces boundary entropy via the Clausius relation, the Jacobson mechanism converts the entropy gradient into curvature, yielding the MOND acceleration scale $a_0 = cH/6 \approx 1.2 \times 10^{-10}$ m/s² and the baryonic Tully-Fisher relation $v^4 = GM_B \cdot cH/6$ — both parameter-free (Main, §8.4). That axioms designed to derive quantum mechanics also account for the dark sector's total budget and internal structure is independent corroboration that observational incompleteness is capturing real structure.
+The paper proves that this entropy has no operator in the emergent QFT. The baryonic sector — what QFT can account for — is ~5% of $\rho_{\text{crit}}$. The remaining ~95% is the boundary entropy: gravitationally active, invisible to the emergent description, and persistent through P-indivisibility (condition C2). This matches the observed composition of the universe, in which ~95% of the gravitational content has no source in particle physics. The uniform component corresponds to dark energy (handled by Part II's CC dissolution). The structured component — dark matter — arises from matter-induced entropy displacement: baryonic matter displaces boundary entropy via the Clausius relation, the Jacobson mechanism converts the entropy gradient into curvature, yielding the MOND acceleration scale $a_0 = cH/6 \approx 1.2 \times 10^{-10}$ m/s² and the baryonic Tully-Fisher relation $v^4 = GM_B \cdot cH/6$ — both parameter-free (Main, §8.4). That a definition designed to formalize observation also account for the dark sector's total budget and internal structure is independent corroboration that observational incompleteness is capturing real structure.
 
 **High-redshift dark matter.** Because $a_0(z) = cH(z)/6$ and $H(z)$ increases with redshift, the dark matter phenomenology evolves: $a_0$ is $1.8\times$ larger at $z = 1$, $3.0\times$ at $z = 2$, and $4.6\times$ at $z = 3$. This shrinks the MOND crossover radius, making galaxies more baryon-dominated at high redshift — their rotation curves should decline beyond a smaller radius. Genzel et al. (Nature, 2017) report exactly this: stacked rotation curves at $z = 0.9$–$2.4$ show declining outer velocities at $> 3\sigma$ significance relative to local spirals. The baryonic Tully-Fisher relation also evolves: $v_{\text{flat}} \propto H(z)^{1/4}$, predicting 32% higher velocities at $z = 2$ at fixed baryonic mass. McGaugh et al. (2024) report no evolution in the *stellar* mass TF to $z \sim 2.5$ — but this is actually *predicted* by the framework, because gas fractions at high $z$ are large ($f_{\text{gas}} \sim 50$–$70\%$) and the gas mass omitted from $M_*$ almost exactly compensates the dynamical shift (the cancellation gas fractions — 44% at $z = 1$, 67% at $z = 2$ — match observations). The definitive test is the *baryonic* TF at $z > 1$ with reliable ALMA gas masses. Particle dark matter (NFW halos) predicts flat rotation curves at all redshifts — the observed decline is unexpected in ΛCDM but natural in the OI framework.
 
@@ -587,7 +591,7 @@ The paper proves that this entropy has no operator in the emergent QFT. The bary
 
 **Gauge coupling prediction.** The companion paper (Fundamental, §9) extends the derivation chain to the gauge coupling strengths. The fermion-induced coupling gives $1/\alpha_0 = 23.25$ at the Planck scale — a universal value determined by the lattice structure ($N_f = 6$ flavors, $T(R) = 1/2$), not by the specific bijection $\varphi$. Combined with non-perturbative gauge self-energy corrections (from pure-gauge Monte Carlo at the induced coupling) and Standard Model renormalization group running, this reproduces all three SM gauge couplings at $M_Z$: $1/\alpha_1 = 59.00$, $1/\alpha_2 = 29.57$, $1/\alpha_3 = 8.47$ — matching the observed values to $< 0.1\%$.
 
-No competing framework produces all of these from a single set of axioms. The parallel with the cosmological constant dissolution is exact: the $10^{122}$ discrepancy is the *information compression ratio* of the trace-out, and the ~95% dark sector is the *gravitational occlusion fraction*. Together, they account for the two largest anomalies in modern cosmology as two aspects of a single phenomenon: the cost of observing the universe from within.
+No competing framework produces all of these from a single definition. The parallel with the cosmological constant dissolution is exact: the $10^{122}$ discrepancy is the *information compression ratio* of the trace-out, and the ~95% dark sector is the *gravitational occlusion fraction*. Together, they account for the two largest anomalies in modern cosmology as two aspects of a single phenomenon: the cost of observing the universe from within.
 
 ---
 
@@ -672,7 +676,7 @@ The horizon's response time ($\sim H^{-1} \approx 14$ Gyr) vastly exceeds the co
 Because the spacetime metric exists at the classical level, *before* the quantum description emerges. The quantum zero-point energy is a feature of the observer's compressed description. It's real for quantum experiments (the Casimir effect, the Lamb shift) but doesn't appear in the stress-energy tensor that governs curvature. The $10^{122}$ discrepancy is the information compression ratio — the entropy of the observer's blind spot.
 
 **"How can the paper claim reality is 'definite' if it's permanently inaccessible?"**
-This is the paper's most philosophically contested thesis (see *Philosophical Lineage* above). The paper's defense is that the claim follows from the derivation's own logic: the axioms posit deterministic dynamics on a phase space, and the theorem shows that quantum indeterminacy arises from tracing out part of that phase space — not from any indeterminacy in the underlying evolution. The "definiteness" is a consequence of the starting premises, not a speculative addition. Whether those premises are the right ones to start from is, of course, an open question — but within the framework, Claim 4 is a theorem, not an assumption.
+This is the paper's most philosophically contested thesis (see *Philosophical Lineage* above). The paper's defense is that the claim follows from the derivation's own logic: the definition posits deterministic dynamics on a phase space, and the theorem shows that quantum indeterminacy arises from tracing out part of that phase space — not from any indeterminacy in the underlying evolution. The "definiteness" is a consequence of the starting premises, not a speculative addition. Whether those premises are the right ones to start from is, of course, an open question — but within the framework, Claim 4 is a theorem, not an assumption.
 
 **"Doesn't holographic physics show that spacetime comes from entanglement?"**
 This is probably the strongest objection to the framework's ordering — classical spacetime first, quantum mechanics second. The Ryu-Takayanagi formula says entanglement entropy equals boundary area divided by $4G$. Van Raamsdonk argued that reducing entanglement disconnects spacetime. Programs like ER=EPR and "it from qubit" read these results as evidence that quantum entanglement is prior to geometry.
@@ -741,9 +745,9 @@ The universe is not broken. We are observing it from within.
 
 ## Corroboration: The Rigidity Test
 
-A natural objection to any framework this sweeping is: maybe it only works because it was built to work. Maybe the axioms were chosen to produce QM, and the cosmological application was chosen because it fits. A flexible framework that can accommodate anything predicts nothing.
+A natural objection to any framework this sweeping is: maybe it only works because it was built to work. Maybe the definition was chosen to produce QM, and the cosmological application was chosen because it fits. A flexible framework that can accommodate anything predicts nothing.
 
-A companion paper ("The Fundamental Structure of the Observational Incompleteness Framework") tests this by asking a question the main paper doesn't address: if you build a concrete system satisfying the axioms, does the framework constrain the dynamics? And if so, does the constrained dynamics produce anything beyond QM — something the framework wasn't designed to deliver?
+A companion paper ("The Fundamental Structure of the Observational Incompleteness Framework") tests this by asking a question the main paper doesn't address: if you build a concrete system satisfying the definition, does the framework constrain the dynamics? And if so, does the constrained dynamics produce anything beyond QM — something the framework wasn't designed to deliver?
 
 It does, on both counts.
 
@@ -977,12 +981,12 @@ And the incompleteness family extends one step further: Gödel showed that proof
 
 | Component | What it establishes | What it uses |
 |---|---|---|
-| Axioms 1–4 | The physical setup (no QM assumed) | Nothing — these are starting points |
-| Partition-relativity (§1.4) | Emergent description depends only on partition | Axioms 1, 3, 4 |
-| Emergent stochasticity (§2.1) | Determinism looks random to embedded observer | Axioms 1, 3, 4 |
-| P-indivisibility proof (§2.3) | The stochastic process is non-Markovian | Axioms 1, 2 + C1 |
+| Definition + Lemmas 1–3 | The physical setup (no QM assumed) | Nothing — these are starting points |
+| Partition-relativity (§1.4) | Emergent description depends only on partition | Definition, Lemmas 2, 3 |
+| Emergent stochasticity (§2.1) | Determinism looks random to embedded observer | Definition, Lemmas 2, 3 |
+| P-indivisibility proof (§2.3) | The stochastic process is non-Markovian | Definition, Lemma 1 + C1 |
 | Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1 + C2 + C3 |
-| Coin-and-die model (§2.4) | Concrete demonstration of all mechanisms | All axioms + all conditions |
+| Coin-and-die model (§2.4) | Concrete demonstration of all mechanisms | Definition + all conditions |
 | Stochastic-quantum correspondence (§3.1) | P-indivisibility = quantum mechanics | Barandes [10,11] or Stinespring (Appendix A) |
 | Necessity proof (§3.3) | QM *requires* C1, C2, C3 | Contrapositives of sufficiency |
 
@@ -997,7 +1001,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | §3.3: Necessity of C2 | QM requires slow bath | Fast bath → Markov → P-divisible |
 | §3.3: Necessity of C3 | QM requires capacity | I ≤ log₂ m bounds memory |
 | §3.3: Characterization theorem | QM ⟺ C1+C2+C3 | Biconditional |
-| §4: Cosmological horizon | The universe satisfies the axioms | C1 ✓, C2 ✓, C3 ✓ |
+| §4: Cosmological horizon | The universe satisfies the definition | C1 ✓, C2 ✓, C3 ✓ |
 | §5.1: Classical temperature | T_cl = c²ε²κ/(8πGk_B) | No ℏ |
 | §5.2 Step 1: Uniqueness | ℏ is determined, not free | Partition-relativity |
 | §5.2 Step 2: Boundary-only | ℏ depends only on c, G, ε | Deep sector frozen |
@@ -1006,9 +1010,9 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | §5.3: D-gauge theorem | No phase ambiguity | Double-difference condition |
 | §6: Self-consistency | ε = 2 l_p, S_BH = A/(4l_p²) | ε² = 4ℏG/c³ |
 
-The chain from axioms to ℏ:
+The chain from definition to ℏ:
 
-Axioms → P-indivisibility → QM → Hamiltonian with unknown ℏ → thermal matching at the horizon → ℏ = c³ε²/(4G) → ε = 2 l_p → S_BH = A/(4 l_p²)
+Definition → P-indivisibility → QM → Hamiltonian with unknown ℏ → thermal matching at the horizon → ℏ = c³ε²/(4G) → ε = 2 l_p → S_BH = A/(4 l_p²)
 
 Every link is either a proof or a calculation. No link requires quantum mechanics as input — QM appears as output at step 3 and its parameters are determined by steps 4–6.
 
