@@ -137,7 +137,7 @@ where Λ has non-negative entries and rows summing to 1. "P-indivisible" means t
 
 Breuer, Laine, and Piilo proved that P-indivisibility is equivalent to "information backflow" — the system's distinguishability can *increase* over time. In a classical Markov process, you can only lose information (mixing). In a P-indivisible process, information comes back. This is exactly what quantum systems do — interference, revivals, and non-classical correlations all involve information returning from where it was stored.
 
-**The setup.** We work on finite sets Lemma 1. The visible sector has states C_V = {x_1, x_2, ...} with |C_V| ≥ 2. The hidden sector has states C_H = {h_1, h_2, ...}. The total dynamics is a bijection φ on C_V × C_H. The transition matrix is:
+**The setup.** We work on finite sets (Lemma 1). The visible sector has states C_V = {x_1, x_2, ...} with |C_V| ≥ 2. The hidden sector has states C_H = {h_1, h_2, ...}. The total dynamics is a bijection φ on C_V × C_H. The transition matrix is:
 
 $$T_{ij} = \frac{|\{h \in \mathcal{C}_H : \pi_V(\varphi(x_i, h)) = x_j\}|}{|\mathcal{C}_H|}$$
 
@@ -423,7 +423,7 @@ $$dE = \frac{c^2 \kappa}{8\pi G} \, dA$$
 
 where κ is the surface gravity and dA is the change in horizon area. This is a classical gravitational identity — no quantum mechanics involved.
 
-The entropy density is η = 1/ε² — one coupled mode per minimal cell of area ε². This is not an assumption about the number of states per cell: ε is defined as the minimal distinguishable scale Lemma 1, so each cell of area ε² contributes exactly one boundary mode that couples across the partition. The number of internal states per mode (the alphabet size q) is a gauge freedom with no observable consequences (Fundamental, §4). So dS = dA/ε². From dE = TdS:
+The entropy density is η = 1/ε² — one coupled mode per minimal cell of area ε². This is not an assumption about the number of states per cell: ε is defined as the minimal distinguishable scale (Lemma 1), so each cell of area ε² contributes exactly one boundary mode that couples across the partition. The number of internal states per mode (the alphabet size q) is a gauge freedom with no observable consequences (Fundamental, §4). So dS = dA/ε². From dE = TdS:
 
 $$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G}$$
 

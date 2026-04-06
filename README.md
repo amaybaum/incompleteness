@@ -92,6 +92,16 @@ Traces the consequences of the derived structure through atomic physics, chemist
 - [`Complexity.tex`](Complexity.tex) — LaTeX source
 - [`Complexity.pdf`](Complexity.pdf) — Compiled PDF
 
+### Medical Applications
+
+**"Non-Markovian Dynamics in Biology and Medicine: Molecular Memory as a Therapeutic Target"**
+
+Applies the C1–C3 architecture to biological systems where fast catalytic processes are coupled to slow conformational or post-translational modification dynamics. Develops a unified framework for seven medical domains: cancer pharmacology (checkpoint kinase memory and schedule-dependent sensitization), neurodegeneration (Alzheimer's and Parkinson's as disorders of molecular memory timescale — targeting τ_B rather than protein aggregates), antibiotic resistance (persister cells as SOS memory accumulation), immunotherapy (T cell exhaustion as accumulated TCR signaling memory), cardiac pharmacology (use-dependent ion channel block), autoimmune disease (disproportionate efficacy of partial JAK inhibition as memory disruption), and genetic disorder management (replacement therapy scheduling, inhibitor prevention, gene therapy durability). Identifies **memory asymmetry** — differential dependence on non-Markovian dynamics between disease and normal tissue — as a pharmacologically distinct therapeutic axis. Twenty-six testable predictions, each distinguishing non-Markovian from Markovian pharmacology. Several already supported by existing data (Abl kinase resistance dynamics, BTK inhibitor-specific regulatory effects, RGS4 selectivity patterns).
+
+- [`Medicine.md`](Medicine.md) — Markdown source
+- [`Medicine.tex`](Medicine.tex) — LaTeX source
+- [`Medicine.pdf`](Medicine.pdf) — Compiled PDF
+
 ## Key Results
 
 1. **QM–embedded observation equivalence.** A stochastic process on a finite configuration space is quantum mechanics if and only if it arises from deterministic dynamics with non-trivial coupling (C1), slow-bath memory (C2), and sufficient hidden-sector capacity (C3). *Status: theorem.*
@@ -125,6 +135,8 @@ Traces the consequences of the derived structure through atomic physics, chemist
 13. **Reconstruction theorem and substratum gauge group.** Observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine [(S, φ)]/G_sub. The gauge group G_sub has four generators: state relabeling, alphabet change, deep-sector enlargement, and graph isomorphism up to statistical isotropy. Whether (S, φ) *is* reality or *describes* reality is provably undecidable — identified as gauge. *Status: theorem (Fundamental, §§10.3–10.4).*
 
 14. **Structural preconditions for complexity.** The derived structure guarantees, with no free parameters: orbital algebra and the periodic table (d = 3 + SO(3)), carbon's tetrahedral bonding geometry, the nuclear-atomic scale hierarchy (two independent gauge groups), water's solvent properties (element 8 in d = 3), a thermal window for dynamic chemistry, chiral molecular selection (PVED from the partition), and combinatorial diversity exceeding the autocatalytic threshold by 10⁵⁶. The origin of life is the first molecular C1–C3 system; RNA is the unique molecule satisfying all three conditions simultaneously, making the RNA world a structural prediction. C1–C3 systems are exponential-growth attractors — the transition is inevitable. Darwinian evolution follows from imperfect template replication. The viable parameter fraction is ~16%. Fine-tuning and the anthropic principle dissolve. *Status: structural chain + statistical argument (Complexity Paper).*
+
+15. **Non-Markovian dynamics in biology and medicine.** The C1–C3 conditions that produce quantum mechanics at the cosmological scale produce molecular memory at the enzymatic scale. Enzymes, kinases, ion channels, and receptors satisfy C1–C3 through the coupling of fast catalytic domains to slow regulatory/PTM dynamics. The framework identifies memory asymmetry — differential dependence on non-Markovian dynamics between disease and normal tissue — as a therapeutic axis distinct from catalytic inhibition. Applications span cancer (memory-priming chemotherapy schedules, memory-targeted drugs invisible to standard kinase screens), neurodegeneration (Alzheimer's as a τ_B disorder of CaMKII rather than a protein aggregation disease), antibiotic resistance (SOS memory-optimized dosing to prevent persisters), immunotherapy (TCR memory erasure to reverse T cell exhaustion), cardiac pharmacology (heart-rate-adapted antiarrhythmic dosing), autoimmune disease (memory-selective JAK modulation), epigenetics (the chromatin state as the biological hidden sector with five nested memory timescales), and genetic disorder management (factor replacement scheduling, inhibitor prevention through immune memory optimization, gene therapy durability through epigenetic stabilization). Twenty-six testable predictions distinguish the framework from standard Markovian pharmacology. *Status: predictions with partial existing support (Medical Paper).*
 
 ## The Bidirectional Correspondence
 
@@ -191,6 +203,11 @@ The forward derivation and reconstruction theorem establish: (S, φ) determines 
   ├─→ Autocatalytic networks (Complexity, statistical — 10⁵⁶ × threshold)
   ├─→ Origin of life = first molecular C1–C3; RNA world predicted (Complexity, structural)
   ├─→ Template replication → Darwinian evolution (Complexity, structural + inevitable)
+  ├─→ Molecular C1–C3: enzyme memory → non-Markovian pharmacology (Medical Paper)
+  ├─→ Cancer: memory-priming schedules, memory-targeted drugs (Medical Paper)
+  ├─→ Alzheimer's/Parkinson's: τ_B disorder of synaptic kinases (Medical Paper)
+  ├─→ Epigenetics: chromatin = biological hidden sector, 5-layer memory (Medical Paper)
+  ├─→ Genetic disorders: treatment scheduling, inhibitor prevention, gene therapy (Medical Paper)
   └─→ Arrow of time from coarse-graining (Fundamental, standard Boltzmann)
 ```
 
