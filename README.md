@@ -98,9 +98,9 @@ Traces the consequences of the derived structure through atomic physics, chemist
 
 Applies the C1–C3 architecture to biological systems where fast catalytic processes are coupled to slow conformational or post-translational modification dynamics. Develops a unified framework for seven medical domains: cancer pharmacology (checkpoint kinase memory and schedule-dependent sensitization), neurodegeneration (Alzheimer's and Parkinson's as disorders of molecular memory timescale — targeting τ_B rather than protein aggregates), antibiotic resistance (persister cells as SOS memory accumulation), immunotherapy (T cell exhaustion as accumulated TCR signaling memory), cardiac pharmacology (use-dependent ion channel block), autoimmune disease (disproportionate efficacy of partial JAK inhibition as memory disruption), and genetic disorder management (replacement therapy scheduling, inhibitor prevention, gene therapy durability). Identifies **memory asymmetry** — differential dependence on non-Markovian dynamics between disease and normal tissue — as a pharmacologically distinct therapeutic axis. Twenty-six testable predictions, each distinguishing non-Markovian from Markovian pharmacology. Several already supported by existing data (Abl kinase resistance dynamics, BTK inhibitor-specific regulatory effects, RGS4 selectivity patterns).
 
-- [`Medical.md`](Medical.md) — Markdown source
-- [`Medical.tex`](Medical.tex) — LaTeX source
-- [`Medical.pdf`](Medical.pdf) — Compiled PDF
+- [`Medicine.md`](Medicine.md) — Markdown source
+- [`Medicine.tex`](Medicine.tex) — LaTeX source
+- [`Medicine.pdf`](Medicine.pdf) — Compiled PDF
 
 ## Key Results
 
