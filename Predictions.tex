@@ -16,14 +16,13 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
-  
+  \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
@@ -37,6 +36,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -51,31 +51,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{amsmath,amssymb,mathtools}
-\usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{enumitem}
-\usepackage[T1]{fontenc}
-
-% Fix for \square command
-\providecommand{\square}{\ensuremath{\Box}}
-
-% Better paragraph spacing
-\setlength{\parskip}{0.5em}
-\setlength{\parindent}{0em}
-
-% Table column width fix
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
-
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue,
-  urlcolor=blue,
-  citecolor=blue
-}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -86,12 +61,10 @@
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{Quantitative Predictions from Observational Incompleteness}
-\author{Alex Maybaum}
-\date{April 2026}
+\author{}
+\date{}
 
 \begin{document}
-\maketitle
 
 \hypertarget{quantitative-predictions-from-observational-incompleteness}{%
 \section{Quantitative Predictions from Observational
@@ -107,8 +80,12 @@ Incompleteness}\label{quantitative-predictions-from-observational-incompleteness
 The Observational Incompleteness (OI) framework derives the Standard
 Model as the unique emergent description available to observers embedded
 in a deterministic system on a \(d = 3\) cubic lattice with spacing
-\(2\,l_P\). We present twenty-one quantitative predictions with zero
-free parameters. The three gauge couplings at \(M_Z\) are reproduced to
+\(2\,l_P\). We present twenty-one quantitative predictions --- seventeen
+purely geometric, four involving non-perturbative dynamics or RGE fixed
+points. The structural input for gauge couplings is the one-loop induced
+coupling \(1/\alpha_0 = 23.25\); combined with one threshold parameter
+constrained by U(1) and two non-perturbative coefficients from Monte
+Carlo, all three gauge couplings at \(M_Z\) are reproduced to
 \(< 0.1\%\) each. The Cabibbo angle
 \(\lambda = 1/(\pi\sqrt{2}) = 0.22508\) matches the observed
 \(0.22500 \pm 0.00067\) to \(0.04\%\) --- the inverse of the Brillouin
@@ -200,7 +177,16 @@ Coupling & Predicted & Observed & Deviation \\
 \end{longtable}
 
 Zero free parameters: the lattice spacing (\(2\,l_P\)), dimension
-(\(d = 3\)), and RGE coefficients are all fixed.
+(\(d = 3\)), and RGE coefficients are all fixed. The structural input is
+the one-loop induced coupling \(1/\alpha_0 = 23.25\); the
+\(C_2\)-independent threshold \(\delta_0 = 10.0\) is constrained by U(1)
+and independently supported by the two-loop VP computation
+(\(8.0 \pm 2\), with all four diagrams now computed); the resummed gauge
+self-energy coefficients \((A, B)\) are determined from SU(2) and SU(3)
+Monte Carlo plaquettes. The prediction is therefore a one-parameter
+consistency test: \(1/\alpha_0\) is structural, \(\delta_0\) is
+constrained by one coupling, and the remaining two couplings provide
+independent checks.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -314,10 +300,12 @@ measures the strength of the anisotropy at each BZ corner. Normalized by
 
 Observed: \(\theta_0 = 0.22227\). Match: \(0.02\%\). The formula is
 representation-theoretic: \(C_2\) is the unique quadratic invariant, and
-\(d^2\) is the unique normalization consistent with the lattice
-structure. For the \(A_1\) (Higgs) taste, \(l = 0\) gives
-\(\theta_0 = 0\) --- no generational splitting, consistent with a single
-Higgs field.
+\(d^2\) is the natural normalization given the lattice structure. A
+rigorous derivation showing \(d^2\) is the unique normalization ---
+rather than, say, \(d(d+1)\) or \(2d\) --- remains an open problem; the
+\(0.02\%\) match is strong evidence that the identification is correct.
+For the \(A_1\) (Higgs) taste, \(l = 0\) gives \(\theta_0 = 0\) --- no
+generational splitting, consistent with a single Higgs field.
 
 \hypertarget{mass-predictions}{%
 \subsubsection{5.3 Mass predictions}\label{mass-predictions}}

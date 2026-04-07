@@ -417,7 +417,7 @@ $$\frac{1}{\alpha_i(M_Z)} = \underbrace{23.25}_{1/\alpha_0} + \underbrace{10.0}_
 The four components:
 
 - $1/\alpha_0 = 23.25$: computed (one-loop vacuum polarization, exact).
-- $\delta_0 = 10.0$: the $C_2$-independent threshold, corresponding to a two-loop VP coefficient $c \approx 10$ (a $\sim$43% correction over one loop). Numerical computation of the two-loop staggered VP with the induced gauge propagator $D(p) = 1/(p^2_{\text{lat}} \cdot \Pi_s)$ — an 8-dimensional lattice integral evaluated on $N^4$ grids up to $N = 12$ with Richardson extrapolation — gives $\delta_0 = 8.6 \pm 2$, consistent with the required value. The dominant contributions are the self-energy insertion ($+3.9$), vertex correction ($+2.7$), momentum-dependent $\Pi_s$ correction ($+0.8$), and the sails diagram ($+1.2$ estimated).
+- $\delta_0 = 10.0$: the $C_2$-independent threshold, corresponding to a two-loop VP coefficient $c \approx 10$ (a $\sim$43% correction over one loop). Numerical computation of the two-loop staggered VP with the induced gauge propagator $D(p) = 1/(p^2_{\text{lat}} \cdot \Pi_s)$ — an 8-dimensional lattice integral evaluated on $N^4$ grids up to $N = 12$ with Richardson extrapolation — gives $\delta_0 = 8.0 \pm 2$, consistent with the required value within the systematic uncertainty. The contributions are the self-energy insertion ($+3.9$), vertex correction ($+2.7$, by Ward identity), momentum-dependent $\Pi_s$ correction ($+0.8$), and the sails (crossed) diagram ($+0.63$, computed directly and N-independent to 5 digits across $N = 6, 8, 10, 12$).
 - $8.3 \cdot \ln(1 + 5.59 \cdot C_2 g_0^2)$: the resummed gauge self-energy, determined non-perturbatively from the Monte Carlo plaquette data. The logarithmic form reduces to linear $C_2$ at weak coupling and produces an effective exponent $p \approx 0.42$ at the OI coupling — not a fundamental constant, but the local slope of the logarithm at $C_2 g_0^2 \sim 1.3$. The amplitude $A = 8.3$ and coupling strength $B = 5.59$ are determined from SU(2) and SU(3). The perturbative series coefficients are $a_1 = AB = 21.3$ and $a_2/a_1 = -0.275$.
 - SM RG running: the one-loop $\beta$-function coefficients $b_1 = 41/10$, $b_2 = -19/6$, $b_3 = -7$ over $\ln(M_{\text{Pl}}/M_Z) = 39.4$.
 
@@ -429,7 +429,7 @@ The four components:
 | SU(2) | 23.25 | 10.02 | 16.17 | $-19.88$ | **29.57** | 29.57 |
 | SU(3) | 23.25 | 10.02 | 19.13 | $-43.93$ | **8.47** | 8.48 |
 
-All three SM gauge couplings are reproduced. The model has two undetermined parameters ($A$, $B$) fitted to two non-trivial data points (SU(2) and SU(3)); U(1) fixes $\delta_0$. The two-loop VP computation gives $\delta_0 = 8.6 \pm 2$ from first principles, consistent with the required 10.0; with this determination, the prediction becomes a one-parameter test.
+All three SM gauge couplings are reproduced. The model has two undetermined parameters ($A$, $B$) fitted to two non-trivial data points (SU(2) and SU(3)); U(1) fixes $\delta_0$. The two-loop VP computation gives $\delta_0 = 8.0 \pm 2$ from first principles — with all four diagrams (SE, VC, $\Pi_q$, sails) now computed rather than estimated — consistent with the required 10.0 within the systematic uncertainty.
 
 ### 9.4 What is structural and what is solution-specific
 

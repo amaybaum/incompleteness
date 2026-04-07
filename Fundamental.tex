@@ -16,14 +16,13 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
-  
+  \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
@@ -37,6 +36,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -51,31 +51,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{amsmath,amssymb,mathtools}
-\usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{enumitem}
-\usepackage[T1]{fontenc}
-
-% Fix for \square command
-\providecommand{\square}{\ensuremath{\Box}}
-
-% Better paragraph spacing
-\setlength{\parskip}{0.5em}
-\setlength{\parindent}{0em}
-
-% Table column width fix
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
-
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue,
-  urlcolor=blue,
-  citecolor=blue
-}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -86,12 +61,10 @@
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{From Finite Bijection to the Standard Model}
-\author{Alex Maybaum}
-\date{April 2026}
+\author{}
+\date{}
 
 \begin{document}
-\maketitle
 
 \hypertarget{the-fundamental-structure-of-the-observational-incompleteness-framework}{%
 \section{The Fundamental Structure of the Observational Incompleteness
@@ -1392,11 +1365,13 @@ The four components:
   staggered VP with the induced gauge propagator
   \(D(p) = 1/(p^2_{\text{lat}} \cdot \Pi_s)\) --- an 8-dimensional
   lattice integral evaluated on \(N^4\) grids up to \(N = 12\) with
-  Richardson extrapolation --- gives \(\delta_0 = 8.6 \pm 2\),
-  consistent with the required value. The dominant contributions are the
-  self-energy insertion (\(+3.9\)), vertex correction (\(+2.7\)),
-  momentum-dependent \(\Pi_s\) correction (\(+0.8\)), and the sails
-  diagram (\(+1.2\) estimated).
+  Richardson extrapolation --- gives \(\delta_0 = 8.0 \pm 2\),
+  consistent with the required value within the systematic uncertainty.
+  The contributions are the self-energy insertion (\(+3.9\)), vertex
+  correction (\(+2.7\), by Ward identity), momentum-dependent \(\Pi_s\)
+  correction (\(+0.8\)), and the sails (crossed) diagram (\(+0.63\),
+  computed directly and N-independent to 5 digits across
+  \(N = 6, 8, 10, 12\)).
 \item
   \(8.3 \cdot \ln(1 + 5.59 \cdot C_2 g_0^2)\): the resummed gauge
   self-energy, determined non-perturbatively from the Monte Carlo
@@ -1452,9 +1427,10 @@ SU(3) & 23.25 & 10.02 & 19.13 & \(-43.93\) & \textbf{8.47} & 8.48 \\
 All three SM gauge couplings are reproduced. The model has two
 undetermined parameters (\(A\), \(B\)) fitted to two non-trivial data
 points (SU(2) and SU(3)); U(1) fixes \(\delta_0\). The two-loop VP
-computation gives \(\delta_0 = 8.6 \pm 2\) from first principles,
-consistent with the required 10.0; with this determination, the
-prediction becomes a one-parameter test.
+computation gives \(\delta_0 = 8.0 \pm 2\) from first principles ---
+with all four diagrams (SE, VC, \(\Pi_q\), sails) now computed rather
+than estimated --- consistent with the required 10.0 within the
+systematic uncertainty.
 
 \hypertarget{what-is-structural-and-what-is-solution-specific}{%
 \subsubsection{9.4 What is structural and what is
