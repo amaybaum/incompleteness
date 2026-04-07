@@ -507,15 +507,15 @@ C3: $|H| = N - |V| \geq 2N/3$. The hidden-sector configuration space has $q^{|H|
 
 The framework makes the following falsifiable predictions.
 
-From the cosmological application [1]: dark energy evolution with $\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}$ (DESI DR2 reports 2.7–4.2$\sigma$ evidence for evolving DE, consistent with the prediction); GW echoes with delay $\Delta t = (r_+/c)\ln(r_+/2l_p)$, first-echo amplitude $\sim 45\%$, and fitting factor FF = 0.19 against existing searches (non-detection consistent); dark matter from entropy displacement with $a_0 = cH/6$, the simple interpolation matching galaxy clusters (Coma to $< 1\%$), the Bullet Cluster gas-lensing offset (frozen boundary entropy), CMB acoustic peaks (thermodynamic averaging), and redshift evolution $a_0(z) = cH(z)/6$ (declining rotation curves confirmed by Genzel et al. 2017; stellar TF no-evolution confirmed by McGaugh et al. 2024).
+From the cosmological application [1]: dark energy evolution with $\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}$ (DESI DR2 reports 2.7–4.2$\sigma$ evidence for evolving DE; the most recent multi-model analysis [27] finds the running vacuum model variants point to significant evidence of dynamical dark energy at a level comparable to $w_0w_a$CDM — i.e., DESI now favors the specific functional form OI predicts); GW echoes with delay $\Delta t = (r_+/c)\ln(r_+/2l_p)$, first-echo amplitude $\sim 45\%$, and fitting factor FF = 0.19 against existing searches (non-detection consistent; two recent independent analyses [31, 32] of GW250114 detect non-trivial horizon-scale structure beyond the standard QNM picture at SNR comparable to the predicted echo amplitude); dark matter from entropy displacement with $a_0 = cH/6$, the simple interpolation matching galaxy clusters (Coma to $< 1\%$), the Bullet Cluster gas-lensing offset (frozen boundary entropy), CMB acoustic peaks (thermodynamic averaging), and redshift evolution $a_0(z) = cH(z)/6$ (declining rotation curves confirmed by Genzel et al. 2017; the first detection of a Keplerian decline in the Milky Way's own rotation curve at $\sim 19$ kpc [34] provides the cleanest local test; stellar TF no-evolution confirmed by McGaugh et al. 2024). Continued null results from direct dark matter searches (LZ 417-day analysis, December 2025 [33]) are consistent with the framework's prediction that no particle dark matter exists.
 
 From the SM derivation (§§7–8): no additional gauge groups below $M_{\text{Pl}}$; no fundamental scalars beyond the Higgs doublet; no SUSY partners; no fourth generation; $\bar{\theta} = 0$ exactly (no axion, neutron EDM = 0; current bound $d_n = (0.0 \pm 1.1) \times 10^{-26}\,e\cdot\text{cm}$, with n2EDM at PSI targeting $10^{-27}$); the CKM CP-violating phase arises from P-violation (the partition), not from T-violation; neutrinos are Majorana; no proton decay from GUT-scale gauge bosons (the eigenvalues of M correspond to independent irreps of O, so couplings do not unify).
 
-From the neutrino sector (§10.8): Majorana neutrinos (testable via $0\nu\beta\beta$); normal mass ordering; large PMNS mixing angles; hierarchical spectrum with $\Sigma m_\nu$ near the minimum ($\approx 0.059$ eV for normal ordering). All four are consistent with current data (DESI DR2+CMB: $\Sigma m_\nu < 0.064$ eV, normal ordering preferred).
+From the neutrino sector (§10.8): Majorana neutrinos (testable via $0\nu\beta\beta$); normal mass ordering; large PMNS mixing angles; hierarchical spectrum with $\Sigma m_\nu$ near the minimum ($\approx 0.059$ eV for normal ordering). All four are consistent with current data: DESI DR2+CMB [28] reports $\Sigma m_\nu < 0.0642$ eV with normal ordering preferred and the lightest mass bounded at $m_l < 0.023$ eV — every directly comparable measurement matches the OI prediction. The same analysis finds a $3\sigma$ tension with the lower oscillation limit assuming $\Lambda$CDM, interpreted as a hint of new physics not necessarily related to neutrinos — exactly the structural mismatch the framework's RVM dark energy resolves. JUNO first results [29, 30] confirm world-leading precision on $\sin^2\theta_{12} = 0.3092 \pm 0.0087$ and the persistence of the solar/reactor 1.5$\sigma$ tension, providing additional support for new structure in the neutrino sector.
 
 From the gauge coupling prediction (§9): the three SM gauge couplings at $M_Z$ are reproduced by the induced coupling $1/\alpha_0 = 23.25$, the resummed gauge self-energy threshold, and SM RG running — matching observed values to $< 0.1\%$.
 
-The conjunction is distinctive to this framework.
+The conjunction is distinctive to this framework. The trace-out mechanism on which the construction relies — that integrating out hidden degrees of freedom from a deterministic substrate yields well-defined non-Markovian visible dynamics — is now established at theorem level in the open systems literature [25] for general autonomous linear evolution equations, with explicit error bounds and a convergent perturbation scheme. The formal correspondence between classical hidden Markov models and quantum dynamics is independently developed in the monitored quantum systems literature [26].
 
 ### 10.7 What the framework determines and what the specific bijection determines
 
@@ -747,6 +747,26 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [23] V. Eisler, "On the Bisognano-Wichmann entanglement Hamiltonian of nonrelativistic fermions," *J. Stat. Mech.* (2025) 013101.
 
 [24] T. Jacobson, "Thermodynamics of Spacetime: The Einstein Equation of State," *Phys. Rev. Lett.* **75**, 1260 (1995).
+
+[25] K. Brandner, "Dynamics of microscale and nanoscale systems in the weak-memory regime," *Phys. Rev. Lett.* **134**, 037101 (2025); companion paper *Phys. Rev. E* **111**, 014137 (2025).
+
+[26] S. W. P. Kim, "Measurement-induced phase transitions in quantum inference problems and quantum hidden Markov models," arXiv:2504.08888 (2025).
+
+[27] J. de Cruz Pérez, A. Gómez-Valent, and J. Solà Peracaula, "Dynamical Dark Energy models in light of the latest observations," arXiv:2512.20616 (2025).
+
+[28] DESI Collaboration: W. Elbers et al., "Constraints on Neutrino Physics from DESI DR2 BAO and DR1 Full Shape," arXiv:2503.14744 (2025).
+
+[29] JUNO Collaboration: A. Abusleme et al., "First measurement of reactor neutrino oscillations at JUNO," arXiv:2511.14593 (2025).
+
+[30] F. Capozzi et al., "Updated bounds on the (1,2) neutrino oscillation parameters after first JUNO results," arXiv:2511.21650 (2025).
+
+[31] N. Lu, S. Ma, O. J. Piccinni, L. Sun, and E. Finch, "GW250114 reveals black hole horizon signatures," arXiv:2510.01001 (2025).
+
+[32] LIGO Scientific Collaboration, Virgo Collaboration, and KAGRA Collaboration: A. G. Abac et al., "GW250114: Testing Hawking's Area Law and the Kerr Nature of Black Holes," *Phys. Rev. Lett.* **135**, 111403 (2025).
+
+[33] LZ Collaboration: J. Aalbers et al., "Dark matter search results from 4.2 tonne-years of exposure of the LUX-ZEPLIN (LZ) experiment," (2025); 417-day analysis presented at SURF, December 2025.
+
+[34] Y. Jiao et al., "Detection of the Keplerian decline in the Milky Way rotation curve," *Astronomy & Astrophysics* **678**, A208 (2023).
 
 
 ---
