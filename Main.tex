@@ -1571,18 +1571,26 @@ quantitatively by the morphology mismatch between the search and the
 signal. The Wu et al.~{[}45{]} search targets long-lived
 quasi-monochromatic oscillations persisting after the ringdown ---
 effectively a damped sinusoid with
-\(\tau_{\text{LL}} \gg \tau_{\text{GR}}\). The OI echo is a \emph{train
-of short bursts} --- each lasting only \(\tau \sim 1.4\) ms, separated
-by \(\sim 50\) ms of silence, with alternating phase \((-1)^n\). The
-exact fitting factor --- the overlap integral between the OI echo
-template and the best long-lived QNM template (maximized over damping
-time, frequency, and phase) --- is \(\text{FF} = 0.19\). The long-lived
-QNM search recovers only \(19\%\) of the optimal SNR, a \(5.3\times\)
-loss. For GW250114: the matched-filter echo SNR is \(\sim 15\)
-(detectable), but the long-lived QNM search SNR is
+\(\tau_{\text{LL}} \gg \tau_{\text{QNM}}\). The OI echo is a \emph{train
+of short bursts} --- each lasting only \(\tau \sim 3.8\) ms (the
+physical QNM damping time), separated by \(\sim 45\) ms of silence, with
+alternating phase \((-1)^n\). The fitting factor between the OI template
+and a single damped sinusoid depends strongly on the template's assumed
+damping time: for \(\tau_{\text{LL}} \sim \tau_{\text{QNM}}\), the best
+overlap is \(\text{FF} \approx 0.83\); for
+\(\tau_{\text{LL}} \sim 10\,\tau_{\text{QNM}}\),
+\(\text{FF} \approx 0.50\); and for
+\(\tau_{\text{LL}} \sim 10^2\,\tau_{\text{QNM}}\) (the regime targeted
+by model-independent searches for long-lived echo-type signals),
+\(\text{FF} \approx 0.19\). The long-lived QNM search therefore recovers
+only \(\sim 19\%\) of the optimal SNR against the OI template, a
+\(5.3\times\) loss. For GW250114: the matched-filter echo SNR is
+\(\sim 15\) (detectable), but the long-lived QNM search SNR is
 \(\sim 15 \times 0.19 \approx 2.8\) --- well below any detection
 threshold. The non-detection is \textbf{fully consistent} with the OI
-prediction.
+prediction \emph{for the specific class of long-lived templates used by
+existing model-independent searches}; a dedicated search using the OI
+template directly remains the definitive test.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
@@ -1602,13 +1610,13 @@ Formula
 \endlastfoot
 \(\Delta t\) & \((r_+/c)\ln(r_+/2l_p)\) & 48.9 ms \\
 \(f_{\text{QNM}}\) & Berti+2006 (\(l=2\), \(m=2\)) & 271 Hz \\
-\(\tau\) & Berti+2006 & 1.42 ms \\
+\(\tau\) & Berti+2006 & 3.76 ms \\
 \(\Gamma\) & Greybody factor at \(f_{\text{QNM}}\) & \(\approx 0.45\) \\
 \(\mathcal{R}\) & Wall reflectivity (computed) & \(\approx 1\) \\
 \(A_1/A_{\text{ringdown}}\) & \(\mathcal{R} \times \Gamma\) &
 \(\approx 0.45\) \\
 Comb teeth within QNM line & \((1/\tau)/(1/\Delta t)\) &
-\(\approx 34\) \\
+\(\approx 13\) \\
 Fitting factor vs long-lived QNM &
 \(\text{FF} = \max_{\tau_{\text{LL}},f,\phi} \langle h_{\text{OI}} | h_{\text{LL}} \rangle\)
 & \(0.19\) \\
@@ -1646,8 +1654,9 @@ these.
 post-merger echoes in GW150914, GW231226, and GW250114 find no
 statistically significant evidence {[}45{]}. This non-detection is
 consistent with the OI prediction because the searches target long-lived
-QNMs (single spectral line), while the OI echo is a comb of \(\sim 34\)
-spectral teeth --- the \(5.3\times\) SNR loss (fitting factor \(0.19\))
+QNMs (single spectral line), while the OI echo is a comb of \(\sim 13\)
+spectral teeth --- the \(5.3\times\) SNR loss (fitting factor
+\(\approx 0.19\) against long-lived templates, as discussed above)
 pushes the predicted signal below the search sensitivity. A dedicated
 matched-filter search using the OI template on GW250114 data would
 recover the full echo power at predicted SNR \(\sim 15\) and provide the
