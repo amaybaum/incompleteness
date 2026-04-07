@@ -16,14 +16,13 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
-  
+  \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
@@ -37,6 +36,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -51,31 +51,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{amsmath,amssymb,mathtools}
-\usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{enumitem}
-\usepackage[T1]{fontenc}
-
-% Fix for \square command
-\providecommand{\square}{\ensuremath{\Box}}
-
-% Better paragraph spacing
-\setlength{\parskip}{0.5em}
-\setlength{\parindent}{0em}
-
-% Table column width fix
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
-
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue,
-  urlcolor=blue,
-  citecolor=blue
-}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -86,12 +61,10 @@
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{Quantitative Predictions from Observational Incompleteness}
-\author{Alex Maybaum}
-\date{April 2026}
+\author{}
+\date{}
 
 \begin{document}
-\maketitle
 
 \hypertarget{quantitative-predictions-from-observational-incompleteness}{%
 \section{Quantitative Predictions from Observational
@@ -107,8 +80,12 @@ Incompleteness}\label{quantitative-predictions-from-observational-incompleteness
 The Observational Incompleteness (OI) framework derives the Standard
 Model as the unique emergent description available to observers embedded
 in a deterministic system on a \(d = 3\) cubic lattice with spacing
-\(2\,l_P\). We present twenty-one quantitative predictions with zero
-free parameters. The three gauge couplings at \(M_Z\) are reproduced to
+\(2\,l_P\). We present twenty-one quantitative predictions --- seventeen
+purely geometric, four involving non-perturbative dynamics or RGE fixed
+points. The structural input for gauge couplings is the one-loop induced
+coupling \(1/\alpha_0 = 23.25\); combined with one threshold parameter
+constrained by U(1) and two non-perturbative coefficients from Monte
+Carlo, all three gauge couplings at \(M_Z\) are reproduced to
 \(< 0.1\%\) each. The Cabibbo angle
 \(\lambda = 1/(\pi\sqrt{2}) = 0.22508\) matches the observed
 \(0.22500 \pm 0.00067\) to \(0.04\%\) --- the inverse of the Brillouin
@@ -200,7 +177,15 @@ Coupling & Predicted & Observed & Deviation \\
 \end{longtable}
 
 Zero free parameters: the lattice spacing (\(2\,l_P\)), dimension
-(\(d = 3\)), and RGE coefficients are all fixed.
+(\(d = 3\)), and RGE coefficients are all fixed. The structural input is
+the one-loop induced coupling \(1/\alpha_0 = 23.25\); the
+\(C_2\)-independent threshold \(\delta_0 = 10.0\) is constrained by U(1)
+and independently supported by the two-loop VP computation
+(\(8.0 \pm 2\)); the resummed gauge self-energy coefficients \((A, B)\)
+are determined from SU(2) and SU(3) Monte Carlo plaquettes. The
+prediction is therefore a one-parameter consistency test: \(1/\alpha_0\)
+is structural, \(\delta_0\) is constrained by one coupling, and the
+remaining two couplings provide independent checks.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -312,12 +297,66 @@ measures the strength of the anisotropy at each BZ corner. Normalized by
 
 \[\boxed{\theta_0 = \frac{C_2}{d^2} = \frac{2}{9} = 0.22222}\]
 
-Observed: \(\theta_0 = 0.22227\). Match: \(0.02\%\). The formula is
-representation-theoretic: \(C_2\) is the unique quadratic invariant, and
-\(d^2\) is the unique normalization consistent with the lattice
-structure. For the \(A_1\) (Higgs) taste, \(l = 0\) gives
-\(\theta_0 = 0\) --- no generational splitting, consistent with a single
-Higgs field.
+Observed: \(\theta_0 = 0.22227\). Match: \(0.02\%\). For the \(A_1\)
+(Higgs) taste, \(l = 0\) gives \(\theta_0 = 0\) --- no generational
+splitting, consistent with a single Higgs field.
+
+\textbf{Uniqueness of the normalization.} The Koide angle is
+dimensionless, so it must be a pure-number ratio of structural constants
+of the \((d=3, T_1)\) data: angular momentum \(l\), Casimir
+\(C_2 = l(l+1)\), dimension \(\dim(T_1) = 2l+1\), lattice dimension
+\(d\), and the dimensions of related representations and tensor
+products. Enumerating the natural ratios with the right order of
+magnitude:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Ratio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Match to \(\theta_0 = 0.22227\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(C_2 / d^2 = 2/9\) & \(0.22222\) & \(\mathbf{0.02\%}\) ✓ \\
+\(\dim(E)/\dim(T_1\otimes T_1) = 2/9\) & \(0.22222\) &
+\(\mathbf{0.02\%}\) ✓ \\
+\(C_2 / (d(d+1)) = 2/12\) & \(0.16667\) & \(25\%\) off \\
+\(l / d^2 = 1/9\) & \(0.11111\) & \(50\%\) off \\
+\(\dim(T_2)/\dim(T_1\otimes T_1) = 3/9\) & \(0.33333\) & \(50\%\) off \\
+\((2l+1)/(d(d+1)) = 3/12\) & \(0.25000\) & \(12\%\) off \\
+\(1/d^2 = 1/9\) & \(0.11111\) & \(50\%\) off \\
+\(l/(2d) = 1/6\) & \(0.16667\) & \(25\%\) off \\
+\(C_2/(2d) = 2/6\) & \(0.33333\) & \(50\%\) off \\
+\(\dim(E)/\dim(\text{Sym}^2(T_1)) = 2/6\) & \(0.33333\) & \(50\%\)
+off \\
+\end{longtable}
+
+Only \(2/9\) matches. Two structurally distinct constructions yield it:
+\(C_2(T_1)/d^2\) (Casimir of the generation rep divided by the dimension
+of the operator space \(\text{End}(T_1) = T_1 \otimes T_1\)), and
+\(\dim(E)/\dim(T_1 \otimes T_1)\) (dimension of the splitting irrep
+\(E\), which appears in \(\text{Sym}^2(T_1) = A_1 \oplus E \oplus T_2\),
+divided by the operator-space dimension). These coincide because of an
+accident of cubic-group representation theory:
+\(\dim(E) = C_2(T_1) = 2\) for \(O\) acting on its 3-dimensional vector
+representation. The two interpretations agree on the value but offer
+different physical pictures of \emph{why} it is \(2/9\).
+
+This narrows the search space from ``any natural normalization'' to a
+single answer. A first-principles dynamical derivation showing that the
+staggered taste-breaking potential picks out \(C_2/d^2\) rather than the
+other 2/9-equivalent construction remains an open problem, but the
+alternative ratios have been ruled out --- among dimensionally
+consistent \((d=3, T_1)\) structural ratios, \(\theta_0 = 2/9\) is the
+unique match.
 
 \hypertarget{mass-predictions}{%
 \subsubsection{5.3 Mass predictions}\label{mass-predictions}}
