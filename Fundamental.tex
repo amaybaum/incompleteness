@@ -1,32 +1,82 @@
-\documentclass[11pt,a4paper]{article}
-\usepackage[margin=1in]{geometry}
-\usepackage{fontspec}
-\setmainfont{Latin Modern Roman}
-\setsansfont{Latin Modern Sans}
-\setmonofont{Latin Modern Mono}
-\usepackage{unicode-math}
-\setmathfont{Latin Modern Math}
-\usepackage{amsmath}
-\AtBeginDocument{%
-  \let\square\mdlgwhtsquare%
-  \let\Box\mdlgwhtsquare%
-}
-\usepackage{hyperref}
-\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue,breaklinks=true}
-\usepackage{graphicx}
-\usepackage{longtable,booktabs,array}
-\usepackage{calc}
-\usepackage{etoolbox}
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setmonofont[]{DejaVu Sans Mono}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
 \usepackage{xcolor}
-\usepackage{fancyvrb}
-\usepackage{framed}
-\usepackage{footnote}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\setlength{\emergencystretch}{3em}
-\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen}
-\providecommand{\pandocbounded}[1]{#1}
-\sloppy
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Unicode character fallbacks for missing glyphs in main font
+\usepackage{newunicodechar}
+\newunicodechar{✓}{\ensuremath{\checkmark}}
+\newunicodechar{∅}{\ensuremath{\emptyset}}
+% Increase math display tolerance
+\setlength{\jot}{10pt}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
 
 \begin{document}
 
@@ -83,11 +133,16 @@ the commutant to local gauge invariance. Top-down: anomaly cancellation
 uniquely determines the hypercharges; the trace-out makes SU(2) chiral
 while SU(3) remains vector-like; T-invariance forces θ̄ = 0 at all energy
 scales. The gauge coupling strengths follow quantitatively: the
-fermion-induced coupling gives \(1/\alpha_0 = 23.25\) at the Planck
-scale; combined with non-perturbative gauge self-energy corrections
-(determined by pure-gauge Monte Carlo) and Standard Model
-renormalization group running, this reproduces all three observed gauge
-couplings at the \(Z\) mass.
+structural induced coupling \(1/\alpha_0 = 23.25\), combined with a
+universal threshold \(\delta_0\) (constrained by U(1) to be \(10.02\)
+and independently calculated from a two-loop staggered VP integral as
+\(8.0 \pm 2\), consistent at \(\sim 1\sigma\)) and a \(C_2\)-dependent
+threshold extracted from pure-gauge Monte Carlo plaquette measurements
+at the OI couplings (\(\beta_2 = 7.4\), \(\beta_3 = 11.1\)), reproduces
+all three observed gauge couplings at \(M_Z\) via standard SM
+renormalization group running. The chain has one effective free
+parameter (\(\delta_0\)), and the SU(2) and SU(3) couplings are
+predictions of the chain at \(<0.1\%\) and \(0.3\%\) respectively.
 
 The reconstruction theorem establishes the converse: observed QM with
 Bell violations, finite boundary entropy, and spatial isotropy uniquely
@@ -165,10 +220,14 @@ doublet, and θ̄ = 0 at all energy scales. Each step is proved; the chain
 is 29 theorems/lemmas long, and each depends on its predecessors. The
 individual proofs are short, but the cumulative chain is the paper's
 most exposed structure: a single failure at any link would propagate
-forward. The gauge coupling prediction (§9) --- reproducing all three SM
-couplings at \(M_Z\) --- extends the chain quantitatively, combining the
-one-loop induced coupling (structural) with non-perturbative gauge
-self-energy corrections (from Monte Carlo).
+forward. The gauge coupling prediction (§9) extends the chain
+quantitatively: the structural input \(1/\alpha_0 = 23.25\) combined
+with a universal threshold \(\delta_0\) (constrained by U(1) and
+independently calculated from a two-loop integral, consistent at
+\(\sim 1\sigma\)) and a \(C_2\)-dependent threshold extracted from
+pure-gauge MC plaquettes reproduces all three SM couplings at \(M_Z\)
+through standard SM RG running. The result is a one-parameter
+consistency test (§9.6).
 
 \textbf{Tier 3 (redundant confirmations).} Asymptotic freedom requiring
 N\_c ≥ 3 (Proposition), minimal chiral group (Proposition), and the
@@ -588,8 +647,8 @@ d & ρ\_s / ρ\_crit & Status \\
 \end{longtable}
 
 \textbf{Propagating gravity requires d ≥ 3.} The Weyl tensor vanishes
-for d ≤ 2. GW echoes and the Jacobson derivation require propagating
-gravitational degrees of freedom.
+for d ≤ 2. The Jacobson derivation requires propagating gravitational
+degrees of freedom.
 
 \textbf{Stable matter requires d ≤ 3.} The Coulomb potential in d
 dimensions gives unstable atoms for d ≥ 4 (Ehrenfest {[}13{]}).
@@ -827,7 +886,12 @@ minimization}\label{k-2d-from-coupling-degree-minimization}}
 \textbf{Theorem 6} (\(K = 2d\)). \emph{For any bounded-degree graph with
 polynomial growth exponent \(d\) and statistical isotropy, the wave
 equation (selected by center independence, isotropy, and linearity) has
-a unique minimal-coupling factorization with \(K = 2d\) components.}
+a unique minimal-coupling factorization with \(K = 2d\) components,
+where the minimization is restricted to factorizations in which every
+component has at least one spatial coupling (no inert components,
+\(\delta \geq 1\) everywhere --- fully decoupled components carry no
+observable degrees of freedom and can be removed without changing the
+physics).}
 
 \emph{Proof (translation-invariant case).} The matrix wave equation on
 \(\mathbb{Z}^d\) updates the K-component vector at site \textbf{n} using
@@ -850,13 +914,12 @@ principle, at least one component must receive contributions from
 carry independent data from distinct neighboring sites, so δ(K) ≥ 2.
 
 \emph{Step 3 (K \textgreater{} 2d forces δ ≥ 2).} With K \textgreater{}
-2d components and only 2d spatial input channels, at least K − 2d
-\textgreater{} 0 components have no dedicated spatial input. The matrix
-M has rank at most 2d in its spatial coupling structure (since it acts
-on 2d independent inputs), so the K × K coupling necessarily maps excess
-components to linear combinations of other components' spatial inputs.
-These excess components therefore depend on at least 2 spatial channels
-through M: δ(K) ≥ 2.
+2d components each required to have \(\delta \geq 1\) but only 2d
+distinct spatial channels available, by pigeonhole at least two
+components share a channel. Two components depending on the same single
+channel and on no others would be linearly dependent dynamical
+variables, contradicting independence; at least one of them must
+therefore couple to a second channel, so δ(K) ≥ 2.
 
 \emph{Uniqueness.} Steps 1--3 show δ = 1 iff K = 2d.
 
@@ -998,10 +1061,19 @@ spin-0 excitations with quantum numbers
 \((\mathbf{1}, \mathbf{2}, +\tfrac{1}{2})\) --- exactly the Higgs
 doublet.}
 
-\emph{Proof.} The singlet taste is spin-0 (Theorem 9a). The tensor
-product with the E(2) sector gives A₁ ⊗ E = E: the Higgs couples to
-SU(2) as a doublet. The hypercharge +1/2 is uniquely determined by
-gauge-invariant Yukawa couplings and anomaly cancellation. \(\square\)
+\emph{Proof.} The singlet taste is spin-0 (Theorem 9a) and decomposes
+under the gauge group as
+\(T_1(\mathbf{3}) \oplus E(\mathbf{2}) \oplus A_1(\mathbf{1})\) (Theorem
+7). Of these three projections, only \(E(\mathbf{2})\) admits
+gauge-invariant Yukawa couplings to the SM fermion doublets: the
+up-quark Yukawa \(\bar Q_L \cdot \Phi \cdot u_R\) requires
+\(\Phi \sim (\mathbf{1}, \mathbf{2}, +\tfrac{1}{2})\), ruling out the
+\(T_1\) projection on color grounds and the \(A_1\) projection on weak
+grounds. The hypercharge \(+\tfrac{1}{2}\) is forced by the bilinear
+\(\bar Q_L u_R\) and is consistent with anomaly cancellation (Theorem
+14). The \(T_1\) and \(A_1\) projections of the singlet taste admit no
+Yukawa couplings to the fermion sector and do not enter the low-energy
+SM as additional Higgs-like fields. \(\square\)
 
 \emph{Consequences.} Exactly one Higgs doublet (one singlet taste). No
 ν\_R: the singlet taste produces the Higgs, not a fourth generation.
@@ -1141,6 +1213,17 @@ minimal fermion content (5 representations per generation), the six
 anomaly conditions impose 4 independent constraints on the 5 hypercharge
 unknowns, leaving exactly one free parameter (overall normalization).
 There is therefore exactly one anomaly-free U(1). \(\square\)
+
+\textbf{Remark (the two non-gauge U(1) combinations).} The two
+combinations of \((B, L, S)\) orthogonal to hypercharge cannot be
+gauged: gauging them would introduce non-cancelling chiral anomalies.
+They survive as accidental global symmetries of the emergent theory ---
+the same status that baryon number \(B\) and lepton number \(L\) have in
+the standard SM construction, broken only by the Weinberg operator and
+non-perturbative effects. No new gauge bosons are introduced, and the
+framework's prediction of \(B\) and \(L\) as accidental global
+symmetries matches observation (proton stability; lepton number
+conservation up to the small Majorana mass).
 
 \textbf{Theorem 15} (Unique hypercharges). \emph{Given
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) with
@@ -1383,14 +1466,21 @@ The four components:
   \(N = 6, 8, 10, 12\)).
 \item
   \(8.3 \cdot \ln(1 + 5.59 \cdot C_2 g_0^2)\): the resummed gauge
-  self-energy, determined non-perturbatively from the Monte Carlo
-  plaquette data. The logarithmic form reduces to linear \(C_2\) at weak
-  coupling and produces an effective exponent \(p \approx 0.42\) at the
-  OI coupling --- not a fundamental constant, but the local slope of the
-  logarithm at \(C_2 g_0^2 \sim 1.3\). The amplitude \(A = 8.3\) and
-  coupling strength \(B = 5.59\) are determined from SU(2) and SU(3).
-  The perturbative series coefficients are \(a_1 = AB = 21.3\) and
-  \(a_2/a_1 = -0.275\).
+  self-energy, determined from non-perturbative pure-gauge Monte Carlo
+  plaquette data at the OI couplings
+  \(\beta_2 = 2 \cdot 2 / g_0^2 = 7.4\) and
+  \(\beta_3 = 2 \cdot 3 / g_0^2 = 11.1\). The logarithmic form reduces
+  to linear \(C_2\) at weak coupling and produces an effective exponent
+  \(p \approx 0.42\) at the OI coupling --- not a fundamental constant,
+  but the local slope of the logarithm at \(C_2 g_0^2 \sim 1.3\). The
+  amplitude \(A = 8.3\) and coupling strength \(B = 5.59\) are extracted
+  by fitting the logarithmic form to the two MC-measured plaquettes
+  (\(\langle P \rangle_{SU(2)} = 0.783\),
+  \(\langle P \rangle_{SU(3)} = 0.806\) on \(4^4\) Creutz heat-bath,
+  confirmed with Symanzik improvement). This is a two-data-point fit of
+  two parameters: tight algebraically, but the data points themselves
+  are non-trivial lattice computations, not fits to observed M\_Z
+  couplings.
 \item
   SM RG running: the one-loop \(\beta\)-function coefficients
   \(b_1 = 41/10\), \(b_2 = -19/6\), \(b_3 = -7\) over
@@ -1433,12 +1523,26 @@ SU(2) & 23.25 & 10.02 & 16.17 & \(-19.88\) & \textbf{29.57} & 29.57 \\
 SU(3) & 23.25 & 10.02 & 19.13 & \(-43.93\) & \textbf{8.47} & 8.48 \\
 \end{longtable}
 
-All three SM gauge couplings are reproduced. The model has two
-undetermined parameters (\(A\), \(B\)) fitted to two non-trivial data
-points (SU(2) and SU(3)); U(1) fixes \(\delta_0\). The two-loop VP
-computation gives \(\delta_0 = 8.0 \pm 2\) from first principles, with
-all four diagrams (SE, VC, \(\Pi_q\), sails) computed directly,
-consistent with the required 10.0 within the systematic uncertainty.
+All three SM gauge couplings are reproduced through a chain that has
+\textbf{one effective free parameter}: \(\delta_0\). The structural
+input is \(1/\alpha_0 = 23.25\) (one number, exact, from §9.1). The
+universal threshold \(\delta_0\) is doubly constrained: the U(1) row
+requires \(\delta_0 = 10.02\), and the independent two-loop staggered VP
+computation gives \(\delta_0 = 8.0 \pm 2\) from first principles (§9.2).
+These are consistent at \(\sim 1\sigma\), and the central value
+\(10.02\) is taken from the U(1) constraint. The \(C_2\)-dependent
+threshold parameters \((A, B) = (8.3, 5.59)\) are extracted from two
+pure-gauge MC plaquette measurements at the OI couplings
+(\(\beta_2 = 7.4\), \(\beta_3 = 11.1\)) --- physical inputs, not fits to
+observed M\_Z couplings. With \(1/\alpha_0\) structural and \(\delta_0\)
+constrained by U(1), the SU(2) and SU(3) entries in the table are
+predictions of the chain MC plaquette \(\to\) lattice-to-MS-bar matching
+\(\to\) SM RG running, with no further adjustable parameters. They match
+observation at \(<0.1\%\) and \(0.3\%\) respectively. The framework's
+gauge coupling result is best characterized as a one-parameter
+consistency test: the fact that a single value of \(\delta_0\) (within
+\(1\sigma\) of the 2-loop calculation) reproduces all three couplings is
+the substantive content.
 
 \hypertarget{what-is-structural-and-what-is-solution-specific}{%
 \subsubsection{9.4 What is structural and what is
@@ -1511,6 +1615,27 @@ after renormalization. The perturbative calculation (§9.1) works in the
 \(q\)-independent sector and correctly determines the physical coupling.
 The Haar-measure Monte Carlo explored a confined phase that does not
 correspond to the OI framework's gauge measure.
+
+\hypertarget{status-of-the-calculation}{%
+\subsubsection{9.6 Status of the
+calculation}\label{status-of-the-calculation}}
+
+The chain in §9.3 has one free parameter, \(\delta_0\), doubly
+constrained by U(1) (which requires \(\delta_0 = 10.02\)) and by the
+two-loop staggered VP computation of §9.2 (which gives \(8.0 \pm 2\)
+from first principles); the two values agree at \(\sim 1\sigma\). The
+remaining inputs are structural (\(1/\alpha_0 = 23.25\), analytic) or
+physical lattice measurements (\(\langle P \rangle_{SU(2)} = 0.783\) at
+\(\beta_2 = 7.4\) and \(\langle P \rangle_{SU(3)} = 0.806\) at
+\(\beta_3 = 11.1\), from which \(A\) and \(B\) are extracted). The SU(2)
+and SU(3) M\_Z values are then predictions of the chain with no further
+adjustable parameters.
+
+A direct first-principles simulation of the OI-induced theory itself ---
+replacing the pure-gauge MC + scheme conversion currently in use ---
+would provide an independent cross-check of \((A, B)\) and is in
+development as an optional sharpening step. This work is not required
+for the §9 result as presented.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1662,22 +1787,17 @@ From the cosmological application {[}1{]}: dark energy evolution with
 analysis {[}27{]} finds the running vacuum model variants point to
 significant evidence of dynamical dark energy at a level comparable to
 \(w_0w_a\)CDM --- i.e., DESI now favors the specific functional form OI
-predicts); GW echoes with delay \(\Delta t = (r_+/c)\ln(r_+/2l_p)\),
-first-echo amplitude \(\sim 45\%\), and fitting factor FF = 0.19 against
-existing searches (non-detection consistent; two recent independent
-analyses {[}31, 32{]} of GW250114 detect non-trivial horizon-scale
-structure beyond the standard QNM picture at SNR comparable to the
-predicted echo amplitude); dark matter from entropy displacement with
-\(a_0 = cH/6\), the simple interpolation matching galaxy clusters (Coma
-to \(< 1\%\)), the Bullet Cluster gas-lensing offset (frozen boundary
-entropy), CMB acoustic peaks (thermodynamic averaging), and redshift
-evolution \(a_0(z) = cH(z)/6\) (declining rotation curves confirmed by
-Genzel et al.~2017; the first detection of a Keplerian decline in the
-Milky Way's own rotation curve at \(\sim 19\) kpc {[}34{]} provides the
-cleanest local test; stellar TF no-evolution confirmed by McGaugh et
-al.~2024). Continued null results from direct dark matter searches (LZ
-417-day analysis, December 2025 {[}33{]}) are consistent with the
-framework's prediction that no particle dark matter exists.
+predicts); dark matter from entropy displacement with \(a_0 = cH/6\),
+the simple interpolation matching galaxy clusters (Coma to \(< 1\%\)),
+the Bullet Cluster gas-lensing offset (frozen boundary entropy), CMB
+acoustic peaks (thermodynamic averaging), and redshift evolution
+\(a_0(z) = cH(z)/6\) (declining rotation curves confirmed by Genzel et
+al.~2017; the first detection of a Keplerian decline in the Milky Way's
+own rotation curve at \(\sim 19\) kpc {[}34{]} provides the cleanest
+local test; stellar TF no-evolution confirmed by McGaugh et al.~2024).
+Continued null results from direct dark matter searches (LZ 417-day
+analysis, December 2025 {[}33{]}) are consistent with the framework's
+prediction that no particle dark matter exists.
 
 From the SM derivation (§§7--8): no additional gauge groups below
 \(M_{\text{Pl}}\); no fundamental scalars beyond the Higgs doublet; no
@@ -1705,10 +1825,15 @@ results {[}29, 30{]} confirm world-leading precision on
 solar/reactor 1.5\(\sigma\) tension, providing additional support for
 new structure in the neutrino sector.
 
-From the gauge coupling prediction (§9): the three SM gauge couplings at
-\(M_Z\) are reproduced by the induced coupling \(1/\alpha_0 = 23.25\),
-the resummed gauge self-energy threshold, and SM RG running --- matching
-observed values to \(< 0.1\%\).
+From the gauge coupling prediction (§9): all three SM gauge couplings at
+\(M_Z\) are reproduced through a one-parameter chain. The structural
+input is \(1/\alpha_0 = 23.25\). The universal threshold \(\delta_0\) is
+doubly constrained (the U(1) row requires \(10.02\) exactly; an
+independent two-loop staggered VP calculation gives \(8.0 \pm 2\);
+consistent at \(\sim 1\sigma\)). The \(C_2\)-dependent threshold is
+determined by pure-gauge MC plaquette measurements at the OI couplings.
+The SU(2) and SU(3) M\_Z couplings are then predictions of the chain at
+\(<0.1\%\) and \(0.3\%\).
 
 The conjunction is distinctive to this framework. The trace-out
 mechanism on which the construction relies --- that integrating out
@@ -1865,17 +1990,18 @@ conditions (C1)--(C3) is equivalent to unitary QM, derives ℏ = c³ε²/(4G)
 and the Bekenstein-Hawking formula, dissolves the CC discrepancy, and
 predicts dark energy evolution
 (\(\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}\), consistent with
-DESI DR2), GW echoes (fitting factor 0.19 explains non-detection), and
-dark matter phenomenology from galaxies through clusters to the Bullet
-Cluster. This paper establishes that center independence, isotropy, and
-linearity uniquely select the wave equation (§7.1), which passes all
-seven GR tests with no free parameters (§5). The framework's results
-depend on six structural properties and nothing else; the wave equation
-on a d = 3 lattice determines the Standard Model with the primary
-derivation chain proved end-to-end (§7), resolves the strong CP problem
-(§8), and reproduces all three SM gauge couplings at \(M_Z\) to
-\(< 0.1\%\) through the induced coupling, non-perturbative gauge
-self-energy corrections, and SM renormalization group running (§9).
+DESI DR2) and dark matter phenomenology from galaxies through clusters
+to the Bullet Cluster. This paper establishes that center independence,
+isotropy, and linearity uniquely select the wave equation (§7.1), which
+passes all seven GR tests with no free parameters (§5). The framework's
+results depend on six structural properties and nothing else; the wave
+equation on a d = 3 lattice determines the Standard Model with the
+primary derivation chain proved end-to-end (§7), resolves the strong CP
+problem (§8), and reproduces all three SM gauge couplings at \(M_Z\) via
+a one-parameter chain combining the structural induced coupling, a
+doubly-constrained universal threshold (U(1) and 2-loop, consistent at
+\(\sim 1\sigma\)), and a \(C_2\)-dependent threshold extracted from
+pure-gauge MC plaquettes (§9).
 
 \textbf{Theorem dependency structure.} The 24 theorems are not a linear
 chain of 24 sequential steps. They form a tree with four independent
@@ -2647,6 +2773,5 @@ spectrum. NM is maximized at \(M = I_K\); the SM structure (3,2,1) with
 μ\_w, μ\_c \textless{} 1 gives NM \textless{} √3: P-indivisibility does
 not select the gauge group. Verified numerically for K = 1--12, L =
 8--50, μ ∈ {[}0,1{]} with machine-precision agreement.
-
 
 \end{document}

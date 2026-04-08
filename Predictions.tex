@@ -1,32 +1,82 @@
-\documentclass[11pt,a4paper]{article}
-\usepackage[margin=1in]{geometry}
-\usepackage{fontspec}
-\setmainfont{Latin Modern Roman}
-\setsansfont{Latin Modern Sans}
-\setmonofont{Latin Modern Mono}
-\usepackage{unicode-math}
-\setmathfont{Latin Modern Math}
-\usepackage{amsmath}
-\AtBeginDocument{%
-  \let\square\mdlgwhtsquare%
-  \let\Box\mdlgwhtsquare%
-}
-\usepackage{hyperref}
-\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue,breaklinks=true}
-\usepackage{graphicx}
-\usepackage{longtable,booktabs,array}
-\usepackage{calc}
-\usepackage{etoolbox}
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  11pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setmonofont[]{DejaVu Sans Mono}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
 \usepackage{xcolor}
-\usepackage{fancyvrb}
-\usepackage{framed}
-\usepackage{footnote}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\setlength{\emergencystretch}{3em}
-\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen}
-\providecommand{\pandocbounded}[1]{#1}
-\sloppy
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Unicode character fallbacks for missing glyphs in main font
+\usepackage{newunicodechar}
+\newunicodechar{✓}{\ensuremath{\checkmark}}
+\newunicodechar{∅}{\ensuremath{\emptyset}}
+% Increase math display tolerance
+\setlength{\jot}{10pt}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
 
 \begin{document}
 
@@ -47,11 +97,13 @@ in a deterministic system on a \(d = 3\) cubic lattice with spacing
 \(2\,l_P\). We present twenty-one quantitative predictions --- seventeen
 purely geometric, four involving non-perturbative dynamics or RGE fixed
 points. The structural input for gauge couplings is the one-loop induced
-coupling \(1/\alpha_0 = 23.25\); combined with one threshold parameter
-constrained by U(1) and two non-perturbative coefficients from Monte
-Carlo, all three gauge couplings at \(M_Z\) are reproduced to
-\(< 0.1\%\) each. The Cabibbo angle
-\(\lambda = 1/(\pi\sqrt{2}) = 0.22508\) matches the observed
+coupling \(1/\alpha_0 = 23.25\); combined with a universal threshold
+\(\delta_0\) (constrained by U(1) and independently calculated from a
+two-loop staggered VP integral, consistent at \(\sim 1\sigma\)) and a
+\(C_2\)-dependent threshold extracted from pure-gauge MC plaquette
+measurements at the OI couplings, all three SM gauge couplings at
+\(M_Z\) are reproduced via a one-parameter consistency test. The Cabibbo
+angle \(\lambda = 1/(\pi\sqrt{2}) = 0.22508\) matches the observed
 \(0.22500 \pm 0.00067\) to \(0.04\%\) --- the inverse of the Brillouin
 zone distance between adjacent generation corners. The Wolfenstein
 parameter \(A = \sqrt{2/3} = 0.8165\) matches \(0.826 \pm 0.012\) to
@@ -115,10 +167,13 @@ decompose under the octahedral group \(O\) as taste representations:
 The \(A_1\) taste is the composite Higgs; the three \(T_1\) tastes are
 the fermion generations; \(T_2\) and \(A_2\) are additional scalars
 {[}2{]}. The gauge coupling at the lattice scale is
-\(1/\alpha_0 = 23.25\) (a convergent one-loop integral), with
-non-perturbative correction \(\delta_0 \approx 10\) from the Monte Carlo
-plaquette. The induced coupling \(\beta = 2N_c/g_0^2 = 11.1\) determines
-all three gauge couplings at \(M_Z\) via the SM RGE {[}2{]}.
+\(1/\alpha_0 = 23.25\) (a convergent one-loop integral), with universal
+threshold \(\delta_0\) doubly constrained by U(1) and a two-loop
+staggered VP integral (consistent at \(\sim 1\sigma\)). Pure-gauge MC
+plaquettes at the OI couplings \(\beta_2 = 7.4\) and \(\beta_3 = 11.1\)
+determine the \(C_2\)-dependent threshold. Combined with SM RG running,
+the chain reproduces all three SM gauge couplings at \(M_Z\) via a
+one-parameter consistency test {[}2{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -237,6 +292,19 @@ structural.
 
 \hypertarget{charged-lepton-masses}{%
 \subsection{5. Charged Lepton Masses}\label{charged-lepton-masses}}
+
+\textbf{Structural and bijection-level content.} The three lepton
+generations come from the three triplet (\(T_1\)) staggered tastes,
+related at the structural level by the cubic symmetry \(O\). The
+framework predicts the \emph{angular position}
+\(\theta_0 = C_2/d^2 = 2/9\) in the \(\mathbb{Z}_3\)-symmetric mass
+parametrization (a property of the cubic-group representation theory of
+\(T_1\)), but not the overall splitting magnitude (set by the
+bijection-level \(\varphi\), taken as one empirical mass input per
+chain). Given the structural angular prediction and one mass input, the
+Koide relation determines the remaining masses; the same
+structural-vs-bijection-level distinction applies to the down-quark
+chain (§5.5) and the cross-sector relations (§5.6).
 
 \hypertarget{the-koide-parameter}{%
 \subsubsection{5.1 The Koide parameter}\label{the-koide-parameter}}
@@ -737,6 +805,5 @@ oscillations at JUNO,'' arXiv:2511.14593 (2025).
 {[}11{]} F. Capozzi \emph{et al.}, ``Updated bounds on the (1,2)
 neutrino oscillation parameters after first JUNO results,''
 arXiv:2511.21650 (2025).
-
 
 \end{document}
