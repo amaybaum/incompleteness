@@ -90,11 +90,7 @@ The Wolfenstein parameters $\rho$ and $\eta$ require complex CKM entries. On the
 
 ## 5. Charged Lepton Masses
 
-**Structural and bijection-level content of the lepton mass predictions.** The three lepton generations are produced by the three triplet ($T_1$) staggered tastes, which are related by the cubic symmetry $O$ that permutes the spatial axes (Theorem 8 in [2]). At the *structural* level — i.e., in the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$ — the three sectors are exactly degenerate: they have identical gauge quantum numbers and identical masses, related by the $O$-action. The observed mass hierarchy $m_e \ll m_\mu \ll m_\tau$ therefore comes from how the *specific* bijection $\varphi$ breaks the $O$-symmetry (the bijection-level content), not from any structural asymmetry.
-
-What the framework predicts structurally is the *direction* of the symmetry breaking in moduli space — the angular position $\theta_0 = C_2/d^2 = 2/9$ at which the $\mathbb{Z}_3$-symmetric mass parametrization sits, determined entirely by the cubic-group representation theory of the $T_1$ triplet. The *magnitude* of the splitting (set by, e.g., $m_\tau$) is bijection-specific and is taken as an empirical input. Given the structural angular prediction and one mass input, the Koide relation then determines the remaining lepton masses from the geometry of the parametrization. This is a parametric prediction about the *shape* of the spectrum, not about its absolute scale.
-
-The same structural-vs-bijection-level distinction applies to the down-quark masses in §5.5 and the cross-sector relations in §5.6: the framework predicts ratios and angular positions structurally, with one absolute scale (typically $m_s$) supplied empirically per chain.
+**Structural and bijection-level content.** The three lepton generations come from the three triplet ($T_1$) staggered tastes, related at the structural level by the cubic symmetry $O$. The framework predicts the *angular position* $\theta_0 = C_2/d^2 = 2/9$ in the $\mathbb{Z}_3$-symmetric mass parametrization (a property of the cubic-group representation theory of $T_1$), but not the overall splitting magnitude (set by the bijection-level $\varphi$, taken as one empirical mass input per chain). Given the structural angular prediction and one mass input, the Koide relation determines the remaining masses; the same structural-vs-bijection-level distinction applies to the down-quark chain (§5.5) and the cross-sector relations (§5.6).
 
 ### 5.1 The Koide parameter
 
