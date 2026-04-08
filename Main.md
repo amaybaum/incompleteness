@@ -178,7 +178,7 @@ By (G2), the frequencies $\omega_{kl} = E_k - E_l$ are distinct for distinct pai
 
 $$a_{ij}^{kl} = V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*$$
 
-The moduli $|V_{ik}|$ follow from $a_{ii}^{kl} = |V_{ik}|^2 |V_{il}|^2$ (non-zero by (G3)). The phases carry a double-difference structure:
+The moduli $|V_{ik}|$ follow from $a_{ii}^{kl} = |V_{ik}|^2 |V_{il}|^2$ (non-zero by (G3)): the rank-1 outer-product structure determines $|V_{ik}|^2$ up to a global scale, and unitarity $\sum_k |V_{ik}|^2 = 1$ fixes the scale. The phases carry a double-difference structure:
 
 $$\arg(a_{ij}^{kl}) = (\varphi_{ik} - \varphi_{il}) - (\varphi_{jk} - \varphi_{jl})$$
 
@@ -206,15 +206,15 @@ The logical structure: Barandes' correspondence gives QM $\iff$ P-indivisibility
 
 *Proof.* Forward: §2.3. Reverse: if $T$ is a permutation, $\Lambda(k_2, k_1) = T^{(k_2-k_1)}$ is a valid stochastic matrix for all $k_2 > k_1$ $\Rightarrow$ P-divisible. $\square$
 
-**Theorem (C2 necessity).** *In the fast-bath regime ($\tau_B \ll \tau_S$), ergodic mixing drives the hidden sector to uniformity before each coupling event, yielding a Markov chain ($T^{(k)} = T^k$), which is P-divisible. Contrapositively, P-indivisibility requires $\tau_S \ll \tau_B$.*
+**Theorem (C2 necessity).** *In the fast-bath regime ($\tau_B \ll \tau_S$), the hidden sector dephases to its diagonal ensemble between coupling events, so the marginal dynamics on $\mathcal{C}_V$ is Markovian on accessible timescales ($T^{(k)} = T^k$) and hence P-divisible. Contrapositively, observable P-indivisibility requires $\tau_S \ll \tau_B$.*
 
-*Proof.* Between coupling events (separated by $\tau_S$), the hidden sector evolves under its own Hamiltonian $H_H$. Let $\mathcal{L}_H$ denote the hidden-sector Liouvillian with spectral gap $\Delta > 0$ (guaranteed on a finite ergodic system). For any conditioned hidden-sector distribution $\mu_H(\cdot | x_i)$ at a coupling event:
+*Proof.* Between coupling events (separated by $\tau_S$), the hidden sector evolves under its own Hamiltonian $H_H$. The substratum dynamics is reversible, so there is no relaxation in the strict sense — finite-dimensional Hamiltonian flow has purely imaginary spectrum and Poincaré recurrence at $t_R$ exponentially large in the system size. What does occur, for any chaotic many-body $H_H$ satisfying the eigenstate thermalization hypothesis (ETH), is *dephasing*: starting from any distribution $\mu_H(\cdot | x_i)$ conditioned on the previous visible state, the off-diagonal matrix elements in the energy basis decay on the timescale $\tau_B \sim \hbar / \Delta E$, where $\Delta E$ is the hidden sector's typical energy spread. After dephasing, the diagonal ensemble agrees with the microcanonical distribution to corrections exponentially small in the hidden-sector size, so for any few-body visible-sector observable $O_V$ and any time $\tau_S \gg \tau_B$:
 
-$$\| e^{\mathcal{L}_H \tau_S} \mu_H(\cdot | x_i) - \mu_{\text{eq}} \|_{\text{TV}} \leq C \, e^{-\Delta \tau_S}$$
+$$\big| \langle O_V \rangle_{\mu_H(\tau_S | x_i)} - \langle O_V \rangle_{\text{eq}} \big| \;\lesssim\; \tau_B / \tau_S$$
 
-In the fast-bath regime ($\Delta \tau_S \gg 1$), this is exponentially small: the hidden sector relaxes to equilibrium $\mu_{\text{eq}}$ before each coupling event regardless of its post-coupling state. Each single-step transition matrix $T$ is therefore computed against the same equilibrium distribution, so $T^{(k)} = T^k$ — a homogeneous Markov chain, hence P-divisible.
+In the fast-bath regime ($\tau_B \ll \tau_S$) this is parametrically small: from the visible sector's perspective the hidden sector "looks" thermalized at every coupling event regardless of its post-coupling state, even though the underlying trajectory remains reversible and quasi-periodic with recurrence only at $t \sim t_R$. Each single-step transition matrix $T$ is therefore computed against the same effective equilibrium distribution, so $T^{(k)} = T^k$ — a homogeneous Markov chain on accessible timescales $t \ll t_R$, hence P-divisible in the observable sense.
 
-Contrapositively: P-indivisibility requires $\Delta \tau_S \lesssim 1$, i.e., $\tau_S \lesssim \tau_B$. For the strong, persistent P-indivisibility of the characterization theorem, the separation must be $\tau_S \ll \tau_B$. (The proof uses discrete coupling events; for continuous Hamiltonian flow, $\tau_S$ is the visible sector's dynamical timescale and $\Delta$ is the spectral gap of $\mathcal{L}_H$. The continuous-time extension replaces the collision-model structure with the continuous spectral condition $\Delta \tau_S \gg 1 \Rightarrow$ Markovian, established in [4, 9].) $\square$
+Contrapositively: observable P-indivisibility requires $\tau_S \lesssim \tau_B$ — the visible sector must couple back into the hidden sector before dephasing erases the memory. For the strong, persistent P-indivisibility of the characterization theorem, the separation must be $\tau_S \ll \tau_B$. The continuous-time extension to general Hamiltonian flow replaces the collision-model picture with the full ETH/dephasing condition; the relevant machinery for chaotic open quantum systems in the weak-memory regime is established in [4, 9, 44, 45]. $\square$
 
 **Theorem (C3 necessity).** *Let $m = |\mathcal{C}_H|$. The non-Markovian mutual information satisfies:*
 
@@ -224,7 +224,7 @@ $$I(X_{<t} ; X_{>t} \mid X_t) \leq \log_2 m$$
 
 $$I(X_{<t} ; X_{>t} \mid X_t) \leq I(X_{<t} ; H_t \mid X_t) \leq H(H_t \mid X_t) \leq \log_2 m \quad \square$$
 
-**Corollary.** P-indivisibility across $n$ visible configurations requires $m \geq n$, and persistence over $K$ transitions requires $m/n$ growing with the observation window — precisely (C3). $\square$
+**Corollary.** P-indivisibility across $n$ visible configurations requires $m \geq n$. Sustained information backflow at rate $I_0 > 0$ per coupling event over $K$ events requires $m \gtrsim 2^{K I_0}$ — exponential growth in the observation window, of which the framework's qualitative (C3) ("hidden sector large enough") is a conservative restatement. $\square$
 
 **Definition (unitarily evolving QM).** A stochastic process $\mathcal{S}$ on a finite configuration space $\mathcal{C}_V = \{x_1, \ldots, x_n\}$ is *mathematically equivalent to unitarily evolving quantum mechanics* if there exists a Hilbert space $\mathcal{H}_V$ of dimension $\leq n^3$, a Hermitian operator $\hat{H}$ on $\mathcal{H}_V$, and a unitary family $U(t) = e^{-i\hat{H}t}$ such that $T_{ij}(t) = |U_{ij}(t)|^2$ for all $i, j, t$ — i.e., transition probabilities are exactly Born-rule probabilities. This definition captures the Hilbert space, unitary dynamics, and the Born rule. Additional quantum-mechanical structures — the tensor product decomposition for spatially separated visible-sector subsystems, state update, and the measurement formalism — are addressed in the remarks following the theorem.
 
@@ -232,11 +232,11 @@ $$I(X_{<t} ; X_{>t} \mid X_t) \leq I(X_{<t} ; H_t \mid X_t) \leq H(H_t \mid X_t)
 
 *(i) $\mathcal{S}$ is mathematically equivalent to unitarily evolving QM (in the sense of the preceding definition).*
 
-*(ii) $\mathcal{S}$ is P-indivisible.*
+*(ii) $\mathcal{S}$ is P-indivisible on accessible timescales — i.e., information backflow occurs at $t \ll t_R$, not merely at the formal Poincaré recurrence time.*
 
 *(iii) $\mathcal{S}$ arises from marginalizing a deterministic bijection on $\mathcal{C}_V \times \mathcal{C}_H$ with (C1) non-trivial coupling, (C2) slow-bath memory, and (C3) sufficient capacity.*
 
-*Proof.* (i) $\iff$ (ii): Barandes [10, 11]. (iii) $\implies$ (ii): §2.3. (ii) $\implies$ (iii): necessity theorems above. $\square$
+*Proof.* (i) $\iff$ (ii): Barandes [10, 11], on accessible timescales by construction (the equivalence is formulated for the dynamics observers can resolve, not for behavior at recurrence times). (iii) $\implies$ (ii): §2.3, where the accessible-timescale lemma upgrades the bare recurrence-based P-indivisibility (which follows from C1 alone) to information backflow on observable timescales using C2 and C3. (ii) $\implies$ (iii): the necessity theorems above — C1 from the equivalence with non-permutation $T$, C2 from the dephasing argument (without C2, $T$ becomes Markovian on accessible timescales and information backflow disappears), C3 from the data-processing bound. $\square$
 
 QM is not merely *compatible with* embedded observation — it is *equivalent to* it.
 
