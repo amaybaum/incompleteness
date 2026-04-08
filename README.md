@@ -46,7 +46,7 @@ The reconstruction theorem establishes the converse: observed QM with Bell viola
 
 **"The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
 
-Establishes the QM–embedded observation equivalence (Part I), applies it to the cosmological horizon (Part II), derives the dark-sector concordance as a corollary, and proves the consistency of nested partitions — including the generalized second law and the Page curve — in Appendix B. Predictions include dark energy evolution with ν_OI = (2.45 ± 0.04) × 10⁻³ (§8.1; DESI DR2 multi-model analyses now favor this specific RVM functional form at a level comparable to w₀w_a CDM), GW echoes with a computed waveform and fitting factor analysis (§8.2; two recent independent analyses of GW250114 detect non-trivial horizon-scale structure beyond the standard QNM picture at SNR comparable to the predicted echo amplitude), Majorana neutrinos with normal mass ordering and Σm_ν near 0.059 eV (DESI DR2+CMB, JUNO precision on sin²θ₁₂), and dark matter phenomenology from galaxies through clusters to the Bullet Cluster (§8.4; first detection of a Keplerian decline in the Milky Way's own rotation curve at ~19 kpc, Jiao et al. 2023).
+Establishes the QM–embedded observation equivalence (Part I), applies it to the cosmological horizon (Part II), derives the dark-sector concordance as a corollary, and proves the consistency of nested partitions — including the generalized second law and the Page curve — in Appendix B. Predictions include dark energy evolution with ν_OI = (2.45 ± 0.04) × 10⁻³ (§8.1; DESI DR2 multi-model analyses now favor this specific RVM functional form at a level comparable to w₀w_a CDM), Majorana neutrinos with normal mass ordering and Σm_ν near 0.059 eV (DESI DR2+CMB, JUNO precision on sin²θ₁₂), and dark matter phenomenology from galaxies through clusters to the Bullet Cluster (§8.3; first detection of a Keplerian decline in the Milky Way's own rotation curve at ~19 kpc, Jiao et al. 2023).
 
 - [`Main.md`](Main.md) — Markdown source
 - [`Main.tex`](Main.tex) — LaTeX source
@@ -76,7 +76,7 @@ Presents twenty-one zero-parameter predictions derived from the $d = 3$ cubic la
 
 **"Why Physics' Biggest Contradiction Might Not Be a Contradiction at All"**
 
-A companion overview covering the full argument — QM emergence, GR derivation, structural foundations, Standard Model structure, the memory interpretation of (S, φ), the relationship between mathematics and physics, and the identification of physics as observable mathematics — with detailed proof walkthroughs, philosophical lineage, observational confrontation (DESI DR2 RVM-favoring multi-model analysis, GW250114 horizon-physics detections, JUNO precision on sin²θ₁₂, DESI DR2 neutrino constraints, LZ Dec 2025 null, Jiao et al. 2023 Milky Way Keplerian decline, Genzel+2017, McGaugh+2024, Bullet Cluster, Brandner 2025 mechanism support), and FAQ.
+A companion overview covering the full argument — QM emergence, GR derivation, structural foundations, Standard Model structure, the memory interpretation of (S, φ), the relationship between mathematics and physics, and the identification of physics as observable mathematics — with detailed proof walkthroughs, philosophical lineage, observational confrontation (DESI DR2 RVM-favoring multi-model analysis, JUNO precision on sin²θ₁₂, DESI DR2 neutrino constraints, LZ Dec 2025 null, Jiao et al. 2023 Milky Way Keplerian decline, Genzel+2017, McGaugh+2024, Bullet Cluster, Brandner 2025 mechanism support), and FAQ.
 
 - [`Explainer.md`](Explainer.md) — Markdown source
 - [`Explainer.tex`](Explainer.tex) — LaTeX source
@@ -128,7 +128,7 @@ Applies the C1–C3 architecture to biological systems where fast catalytic proc
 
 10. **Arrow of time.** The substratum (S, φ) has no arrow of time — φ and φ⁻¹ are equally valid. Entropy increase is a property of the observer's coarse-grained description: the standard Boltzmann mechanism applied to the partition. Like QM, the Second Law is emergent.
 
-11. **Falsifiable predictions.** ν_OI = (2.45 ± 0.04) × 10⁻³ (DESI DR2 multi-model RVM analyses now favor this functional form at a level comparable to w₀w_a CDM); GW echoes with Δt = (r₊/c)ln(r₊/2l_p) and FF = 0.19 (model-independent search non-detection consistent; two recent independent analyses of GW250114 detect non-trivial horizon-scale structure beyond the standard QNM picture at SNR ~14, comparable to the predicted echo amplitude); all three gauge couplings at M_Z to <0.1%; θ̄ = 0 exactly; no SUSY, no fourth generation; Majorana neutrinos with normal ordering and Σm_ν near 0.059 eV (DESI DR2+CMB: Σm_ν < 0.0642 eV with normal ordering preferred and lightest mass bounded at m_l < 0.023 eV — every directly comparable measurement matches the prediction; JUNO sub-percent precision on sin²θ₁₂ confirming the persistent solar/reactor 1.5σ tension); baryonic TF evolves as v⁴ ∝ H(z) (untested); Cabibbo angle λ = 1/(π√2) (confirmed to 0.04%); Wolfenstein A = √(2/3) (confirmed to 0.8σ); m_d/m_s = 1/(2π²) (~1σ); m_u/m_d = √(2/9) (0.05σ); Koide angle θ₀ = 2/9 giving m_e and m_μ to <0.01%; Q_down = (2/3)(1+α_s/π) predicting m_b to 0.9%; PMNS angles from TBM + Cabibbo corrections (sin²θ₁₂ confirmed by JUNO at 0.14σ, all within 0.5σ); m_t = v/√2 from y_t = 1 fixed point (0.9%); m_b/m_τ = 4.28/Z_S(λg₀²) = 2.36 (observed 2.352, 0.4%); six fermion masses from one input (m_s), all within 1%. The conjunction is distinctive to this framework.
+11. **Falsifiable predictions.** ν_OI = (2.45 ± 0.04) × 10⁻³ (DESI DR2 multi-model RVM analyses now favor this functional form at a level comparable to w₀w_a CDM); all three gauge couplings at M_Z to <0.1%; θ̄ = 0 exactly; no SUSY, no fourth generation; Majorana neutrinos with normal ordering and Σm_ν near 0.059 eV (DESI DR2+CMB: Σm_ν < 0.0642 eV with normal ordering preferred and lightest mass bounded at m_l < 0.023 eV — every directly comparable measurement matches the prediction; JUNO sub-percent precision on sin²θ₁₂ confirming the persistent solar/reactor 1.5σ tension); baryonic TF evolves as v⁴ ∝ H(z) (untested); Cabibbo angle λ = 1/(π√2) (confirmed to 0.04%); Wolfenstein A = √(2/3) (confirmed to 0.8σ); m_d/m_s = 1/(2π²) (~1σ); m_u/m_d = √(2/9) (0.05σ); Koide angle θ₀ = 2/9 giving m_e and m_μ to <0.01%; Q_down = (2/3)(1+α_s/π) predicting m_b to 0.9%; PMNS angles from TBM + Cabibbo corrections (sin²θ₁₂ confirmed by JUNO at 0.14σ, all within 0.5σ); m_t = v/√2 from y_t = 1 fixed point (0.9%); m_b/m_τ = 4.28/Z_S(λg₀²) = 2.36 (observed 2.352, 0.4%); six fermion masses from one input (m_s), all within 1%. The conjunction is distinctive to this framework.
 
 12. **The trace-out as Jordan-Chevalley projection.** Over finite fields, the evolution matrix F decomposes as F = F_ss · F_u (semisimple × unipotent). The trace-out extracts the semisimple part and erases the nilpotent monodromy N. The Weil-Deligne conductor f_WD = f_ss(L) + 2 is q-independent and decomposes additively over gauge irreps with multiplicities (3, 2, 1). *Status: theorem (Fundamental, Appendix A).*
 
@@ -169,12 +169,11 @@ The forward derivation and reconstruction theorem establish: (S, φ) determines 
   ├─→ Weil-Deligne conductor decomposes over gauge irreps (Fundamental App. A, theorem)
   ├─→ Dark energy ν_OI = (2.45 ± 0.04)×10⁻³ (Main, proposition)
   ├─→ Dark-sector concordance (Main, theorem — total budget)
-  ├─→ Dark matter: a₀ = cH/6, v⁴ = GM·cH/6 (Main §8.4, theorem)
-  ├─→ Interpolation ν(y) = (1+√(1+4/y))/2 matches galaxies + clusters (Main §8.4)
-  ├─→ Bullet Cluster: frozen entropy (τ_relax ~ H⁻¹ >> t_collision) (Main §8.4)
-  ├─→ CMB acoustic peaks: thermodynamic averaging → non-oscillating wells = CDM (Main §8.4)
-  ├─→ High-z dark matter: a₀(z) = cH(z)/6, declining RCs (Main §8.4)
-  ├─→ GW echoes: Δt = (r₊/c)ln(r₊/2l_p), A₁ = Γ ≈ 0.45 (Main §8.2)
+  ├─→ Dark matter: a₀ = cH/6, v⁴ = GM·cH/6 (Main §8.3, theorem)
+  ├─→ Interpolation ν(y) = (1+√(1+4/y))/2 matches galaxies + clusters (Main §8.3)
+  ├─→ Bullet Cluster: frozen entropy (τ_relax ~ H⁻¹ >> t_collision) (Main §8.3)
+  ├─→ CMB acoustic peaks: thermodynamic averaging → non-oscillating wells = CDM (Main §8.3)
+  ├─→ High-z dark matter: a₀(z) = cH(z)/6, declining RCs (Main §8.3)
   ├─→ Gauge couplings: 1/α₀ = 23.25 → all three at M_Z (Fundamental §9)
   ├─→ Cabibbo angle: λ = 1/(π√2) = 0.22508 — BZ corner distance (Predictions)
   ├─→ Wolfenstein A = √(2/3) — generation-Higgs angle (Predictions)

@@ -7,10 +7,7 @@
 \usepackage{unicode-math}
 \setmathfont{Latin Modern Math}
 \usepackage{amsmath}
-\AtBeginDocument{%
-  \let\square\mdlgwhtsquare%
-  \let\Box\mdlgwhtsquare%
-}
+\providecommand{\square}{\mdlgwhtsquare}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue,breaklinks=true}
 \usepackage{graphicx}
@@ -71,23 +68,21 @@ evolution in Running Vacuum Model form with
 \(\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}\) (the spectral
 uniformity that determines the central value is derived from the lattice
 structure, not assumed) --- DESI DR2 multi-model analyses now favor this
-specific functional form at a level comparable to \(w_0w_a\)CDM;
-gravitational wave echoes near black hole horizons (with two recent
-independent detections of horizon-scale structure in GW250114 at SNR
-comparable to the predicted echo amplitude); and Majorana neutrinos with
-normal mass ordering and a hierarchical spectrum, \(\Sigma m_\nu\) near
-the oscillation minimum of \(0.059\) eV (DESI DR2+CMB: \(< 0.064\) eV
-with normal ordering preferred and lightest mass \(< 0.023\) eV; JUNO
-sub-percent precision on \(\sin^2\theta_{12}\) confirming the
-solar/reactor tension). The trace-out that produces QM simultaneously
-renders \textasciitilde95\% of the universe's gravitational budget
-invisible to the emergent description --- matching the observed dark
-sector and consistent with the continuing null results from direct dark
-matter searches (LZ, XENONnT, PandaX-4T). Independent corroboration of
-the construction's central trace-out mechanism is now available in the
-open systems literature, where the move from deterministic substrate to
-non-Markovian visible dynamics has been established with explicit error
-bounds at theorem level.
+specific functional form at a level comparable to \(w_0w_a\)CDM; and
+Majorana neutrinos with normal mass ordering and a hierarchical
+spectrum, \(\Sigma m_\nu\) near the oscillation minimum of \(0.059\) eV
+(DESI DR2+CMB: \(< 0.064\) eV with normal ordering preferred and
+lightest mass \(< 0.023\) eV; JUNO sub-percent precision on
+\(\sin^2\theta_{12}\) confirming the solar/reactor tension). The
+trace-out that produces QM simultaneously renders \textasciitilde95\% of
+the universe's gravitational budget invisible to the emergent
+description --- matching the observed dark sector and consistent with
+the continuing null results from direct dark matter searches (LZ,
+XENONnT, PandaX-4T). Independent corroboration of the construction's
+central trace-out mechanism is now available in the open systems
+literature, where the move from deterministic substrate to non-Markovian
+visible dynamics has been established with explicit error bounds at
+theorem level.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -149,7 +144,7 @@ distinguishable internal states, so the visible configuration space
 providing a finite minimal cell volume.} Any observer bounded by a
 finite-area surface can couple to only finitely many modes across that
 boundary; independent support comes from holographic entropy bounds
-{[}27{]}. In Part I, \(\epsilon\) is free; self-consistency (§6) pins
+{[}26{]}. In Part I, \(\epsilon\) is free; self-consistency (§6) pins
 \(\epsilon = 2\,l_p\). The boundary-only dependence lemma (§5.2) shows
 that the cardinality of the deep hidden sector is gauge: no observable
 depends on it.
@@ -247,28 +242,28 @@ partition-relativity (§1.4), the deep-sector cardinality gauge corollary
 B.1--B.4), the additive dissipator decomposition (B.5), the generalized
 second law (B.6), and the Page curve (B.7--B.9). These follow from
 Lemmas 1--3, the Stinespring construction, standard quantum information
-results, and Popescu-Short-Winter typicality {[}41{]}; disputing them
+results, and Popescu-Short-Winter typicality {[}40{]}; disputing them
 requires finding a mathematical error.
 
 \textbf{Tier 2 (Part II, given the cosmological realization).} The gap
-equation \(\hbar = c^3 \epsilon^2 / (4G)\) (§5.2), the
-Bekenstein-Hawking entropy with the \(1/4\) factor (§6), the CC
-dissolution identifying \(10^{122}\) as \(S_{\text{dS}}\) (§7), and the
-dark matter acceleration scale \(a_0 = cH/6\) with the baryonic
-Tully-Fisher relation \(v^4 = GM_B \cdot cH/6\) (§8.4). These require
-accepting that the cosmological horizon satisfies C1--C3, verified in
-§4.2.
+equation \(\hbar = c^3 \epsilon^2 / (4G)\) (§5.2), the area-entropy law
+\(S = A/(4 l_p^2)\) with the \(1/4\) factor derived for the cosmological
+horizon in §6 (and applying to any horizon by the same minimal-cell
+counting argument), the CC dissolution identifying \(10^{122}\) as
+\(S_{\text{dS}}\) (§7), and the dark matter acceleration scale
+\(a_0 = cH/6\) with the baryonic Tully-Fisher relation
+\(v^4 = GM_B \cdot cH/6\) (§8.3). These require accepting that the
+cosmological horizon satisfies C1--C3, verified in §4.2.
 
 \textbf{Tier 3 (consistency checks and solution-specific elements).} The
 dark-sector concordance (\textasciitilde95\% of \(\rho_{\text{crit}}\),
-§8.3), the dark energy parameter
+§8.2), the dark energy parameter
 \(\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}\) (§8.1; the spectral
 uniformity is derived from the lattice structure, reducing the
-systematic from a factor of \(\sim 3\) to \(\pm 1.4\%\)), the GW echo
-timescale (§8.2), and the dark matter interpolation steepness (§8.4,
-Step 4). These are derived consequences or solution-specific elements;
-they would be falsified by observation but do not carry the same
-deductive weight as Tiers 1--2.
+systematic from a factor of \(\sim 3\) to \(\pm 1.4\%\)), and the dark
+matter interpolation steepness (§8.3, Step 4). These are derived
+consequences or solution-specific elements; they would be falsified by
+observation but do not carry the same deductive weight as Tiers 1--2.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -345,10 +340,10 @@ preserve positivity), Rivas et al.~{[}6, 7{]} (divisibility failure ↔
 information backflow), Pollock et al.~{[}8{]} (process-tensor
 Markovianity conditions), and Strasberg and Esposito {[}9{]}
 (non-Markovian reduced dynamics in the slow-bath regime of C2). Bylicka,
-Johansson, and Acín {[}34{]} prove that for bijective dynamical maps ---
+Johansson, and Acín {[}33{]} prove that for bijective dynamical maps ---
 the class generated here --- CP-divisibility and information backflow
 are equivalent, so the P-indivisibility established above implies
-CP-indivisibility directly. Milz et al.~{[}35{]} further show that even
+CP-indivisibility directly. Milz et al.~{[}34{]} further show that even
 CP-divisibility does not guarantee Markovianity in the process-tensor
 sense, confirming that the non-Markovian character identified here is
 robust under all current definitions.
@@ -467,19 +462,19 @@ at fine time resolution; the Stinespring dilation theorem guarantees
 \(T_{ij}(t) = |U_{ij}(t)|^2\) --- transition probabilities are exactly
 Born-rule probabilities. The proof requires a finite-dimensional
 configuration space (Lemma 1); Calvo {[}12{]} extends the correspondence
-to infinite dimensions, but this is not required here. Pimenta {[}25{]}
+to infinite dimensions, but this is not required here. Pimenta {[}24{]}
 distinguishes P-divisible and P-indivisible stochastic-quantum dynamics:
 the correspondence is non-trivial only in the P-indivisible regime,
 which is precisely the regime produced by §2.3. An independent
-derivation using only Stinespring's dilation theorem {[}32{]} and
-standard partial-trace properties {[}33{]} is given in Appendix A;
+derivation using only Stinespring's dilation theorem {[}31{]} and
+standard partial-trace properties {[}32{]} is given in Appendix A;
 either route alone suffices.
 
 \textbf{Independent corroboration of the trace-out mechanism.} The
 technical move from a deterministic substrate to non-Markovian visible
 dynamics via the trace-out of inaccessible degrees of freedom ---
 central to both routes --- is now established at theorem level in the
-open systems literature. Brandner {[}47, 48{]} proves that for
+open systems literature. Brandner {[}44, 45{]} proves that for
 autonomous linear evolution equations, integrating out inaccessible
 degrees of freedom (whether external environments or internal
 subsystems) yields well-defined non-Markovian visible dynamics in a
@@ -487,11 +482,11 @@ controlled weak-memory regime, with explicit error bounds and a
 convergent perturbation scheme. This is the mathematical apparatus the
 present construction relies upon, derived independently for general open
 systems. Direct experimental demonstrations of the mechanism include
-Mehl et al.~{[}50{]}, who showed that hidden slow degrees of freedom in
+Mehl et al.~{[}47{]}, who showed that hidden slow degrees of freedom in
 a colloidal system produce non-Markovian visible dynamics violating
-naive Markovian fluctuation theorems, and Gröblacher et al.~{[}51{]},
+naive Markovian fluctuation theorems, and Gröblacher et al.~{[}48{]},
 who observed non-Markovian Brownian motion in a macroscopic
-micromechanical oscillator. On the quantum side, Kim {[}49{]} shows that
+micromechanical oscillator. On the quantum side, Kim {[}46{]} shows that
 monitored quantum systems are formally quantum hidden Markov models,
 with a rigorous correspondence to classical hidden Markov models for
 setups involving Haar-random unitaries and measurements --- the same
@@ -515,7 +510,7 @@ from the partition (§5).
 
 \textbf{Phase uniqueness from continuous-time data.} The relation
 \(T_{ij}(t) = |U_{ij}(t)|^2\) discards phase information at any single
-time. Doukas {[}26{]} identifies this gap for discrete-time data. The
+time. Doukas {[}25{]} identifies this gap for discrete-time data. The
 resolution: continuous-time data \(\{T_{ij}(t)\}_{t \in \mathbb{R}}\)
 provides strictly more information.
 
@@ -588,12 +583,12 @@ permit Bell's factorization.
 
 In the Jarrett decomposition, the framework violates outcome
 independence while preserving parameter independence and measurement
-independence --- precisely the class Fine's theorem {[}24{]} permits.
+independence --- precisely the class Fine's theorem {[}23{]} permits.
 Barandes, Hasan, and Kagan {[}14{]} prove the maximum CHSH correlator is
 exactly Tsirelson's bound \(2\sqrt{2}\), with independent support from
 Le et al.~{[}15{]}. The bound also follows from the Stinespring route:
 Appendix A establishes full unitary QM on a tensor-product Hilbert
-space, from which Tsirelson's original operator-norm argument {[}36{]}
+space, from which Tsirelson's original operator-norm argument {[}35{]}
 yields \(|\langle S \rangle| \leq 2\sqrt{2}\); achievability follows
 because all quantum states, including maximally entangled ones, are
 realizable in the emergent description.
@@ -975,13 +970,12 @@ contradicting the universality of the emergent action scale. (All
 sub-\(c\) observers share the same local physics and hence the same
 \(\hbar\); §4.1.) This excludes \(A\), leaving the local boundary
 quantities \(c\), \(G\), \(\epsilon\), and \(\kappa\). The surface
-gravity \(\kappa\) is excluded by two independent arguments: (i)
-\(\kappa\) differs between horizon types (cosmological vs.~black hole),
-but \(\hbar\) is universal --- a laboratory experiment measures the same
-\(\hbar\) regardless of which horizon defines the partition; (ii) for
-the cosmological horizon, \(\kappa = cH\) is time-dependent
-(\(\dot{H} \neq 0\)), but \(\hbar\) is observed to be constant on
-laboratory timescales. The unique combination of \(c\), \(G\),
+gravity \(\kappa\) is excluded because it varies between observers and
+epochs while \(\hbar\) is observed to be universal across observers and
+constant in time: a laboratory experiment measures the same \(\hbar\)
+regardless of the observer's local cosmological-horizon parameters, and
+for the cosmological horizon \(\kappa = cH\) is itself time-dependent
+(\(\dot{H} \neq 0\)). The unique combination of \(c\), \(G\),
 \(\epsilon\) with dimensions of action:
 
 \[\hbar = \beta \frac{c^3 \epsilon^2}{G}\]
@@ -1050,12 +1044,11 @@ consequences. The specific relationship \(\hbar = c^3\epsilon^2/(4G)\)
 --- rather than any other function of \(c\), \(G\), \(\epsilon\) ---
 produces: the Bekenstein-Hawking formula with the exact factor \(1/4\)
 (§6), the CC dissolution with \(S_{\text{dS}}\) as the compression ratio
-(§7.3), the RVM parameter \(\nu_{\text{OI}}\) (§8.1), and the GW echo
-timescale (§8.2). Any alternative \(\hbar(\epsilon)\) would fail at
-least one of these checks. The situation is analogous to deriving the
-Schwarzschild metric with \(M\) as a free parameter: the derivation has
-genuine content (the functional form) even though one input is not
-determined from within.
+(§7.3), and the RVM parameter \(\nu_{\text{OI}}\) (§8.1). Any
+alternative \(\hbar(\epsilon)\) would fail at least one of these checks.
+The situation is analogous to deriving the Schwarzschild metric with
+\(M\) as a free parameter: the derivation has genuine content (the
+functional form) even though one input is not determined from within.
 
 Jacobson's original derivation {[}16{]} uses \(\hbar\)-containing forms;
 this paper does not --- it uses the classical identity
@@ -1075,7 +1068,7 @@ derived for continuum QFT on bifurcate Killing horizons; for the
 lattice-regularized theory emerging from Part I, the relevant result is
 that thermal periodicity of the Euclidean Green's functions is robust
 against UV modifications of the dispersion relation, with corrections at
-\(\mathcal{O}((\epsilon \kappa/c)^2)\) {[}28, 29{]}. For the
+\(\mathcal{O}((\epsilon \kappa/c)^2)\) {[}27, 28{]}. For the
 cosmological horizon,
 \(\epsilon \kappa / c = \epsilon H / c \sim 10^{-61}\), so lattice
 corrections are \(\sim 10^{-122}\).
@@ -1196,7 +1189,10 @@ Bekenstein-Hawking formula --- historically introduced as a
 proportionality constant --- is here derived: each minimal cell of area
 \(\epsilon^2 = 4\,l_p^2\) on the horizon contributes one unit of
 entropy, and \(A / (4\,l_p^2) = A / \epsilon^2\) recovers the standard
-formula exactly.
+formula exactly. The same minimal-cell counting argument applies to any
+horizon with area \(A\), giving \(S = A/(4 l_p^2)\) for black-hole
+horizons as well; the recent observational confirmation of the area law
+on GW250114 {[}54{]} is consistent with this extension.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1307,7 +1303,7 @@ artifact of the emergent description and never enters the stress-energy
 tensor; no decoupling mechanism is needed.
 
 \textbf{Cumulative evidence for the ordering.} The geometry-first
-ordering produces twelve independent consequences that match
+ordering produces eleven independent consequences that match
 observation, none of which were designed into the starting point: (1)
 the CC dissolution --- the observed vacuum energy sits at
 \(\rho \sim H^2/G\), the classical baseline, without fine-tuning (§7.3);
@@ -1316,20 +1312,19 @@ from \(\epsilon = 2\,l_p\) (§6); (3) the value of \(\hbar\), determined
 by partition geometry rather than treated as a free parameter (§5.2);
 (4) the dark-sector concordance --- \textasciitilde95\% of
 \(\rho_{\text{crit}}\) is invisible to QFT, matching the observed dark
-sector (§8.3); (5) dark energy evolution with \(\nu_{\text{OI}}\) in the
-range consistent with DESI data (§8.1); (6) a testable GW echo
-prediction at the discreteness scale (§8.2); (7) the MOND acceleration
-scale \(a_0 = cH/6\) and the baryonic Tully-Fisher relation, derived
-from entropy displacement (§8.4); (8) the SM gauge group with its
-coupling strengths, reproduced to \(< 0.1\%\) at \(M_Z\); (9) declining
-rotation curves at high redshift, confirmed by Genzel et al.~(§8.4);
-(10) \(\bar{\theta} = 0\) at all energy scales; (11) galaxy cluster
-masses matched by the simple interpolation function (§8.4); (12) the
-Bullet Cluster lensing morphology reproduced by frozen boundary entropy
-(§8.4). Quantum-first orderings produce the \(10^{122}\) discrepancy,
-have no natural account of the dark sector, and treat \(\hbar\) and the
-\(1/4\) factor as unexplained inputs. The cumulative case is not a
-single tiebreaker but a pattern: every quantitative output of the
+sector (§8.2); (5) dark energy evolution with \(\nu_{\text{OI}}\) in the
+range consistent with DESI data (§8.1); (6) the MOND acceleration scale
+\(a_0 = cH/6\) and the baryonic Tully-Fisher relation, derived from
+entropy displacement (§8.3); (7) the SM gauge group with its coupling
+strengths, reproduced to \(< 0.1\%\) at \(M_Z\); (8) declining rotation
+curves at high redshift, confirmed by Genzel et al.~(§8.3); (9)
+\(\bar{\theta} = 0\) at all energy scales; (10) galaxy cluster masses
+matched by the simple interpolation function (§8.3); (11) the Bullet
+Cluster lensing morphology reproduced by frozen boundary entropy (§8.3).
+Quantum-first orderings produce the \(10^{122}\) discrepancy, have no
+natural account of the dark sector, and treat \(\hbar\) and the \(1/4\)
+factor as unexplained inputs. The cumulative case is not a single
+tiebreaker but a pattern: every quantitative output of the
 geometry-first ordering is consistent with observation; the central
 quantitative output of the quantum-first ordering is the worst
 prediction in physics.
@@ -1463,11 +1458,11 @@ arguments above constrain \(\alpha = 0\) to within
 \(\mathcal{O}(1/\mathcal{N})\), reducing the systematic from a factor of
 \(\sim 3\) (the range \(1\)--\(5 \times 10^{-3}\)) to \(\pm 1.4\%\).
 
-DESI data {[}22, 30{]} report evolving dark energy at
-\(2.8\sigma\)--\(4.2\sigma\). RVM fits {[}31{]} find
+DESI data {[}22, 29{]} report evolving dark energy at
+\(2.8\sigma\)--\(4.2\sigma\). RVM fits {[}30{]} find
 \(\nu \sim \mathcal{O}(10^{-3})\) with \(\nu = 0\) disfavored at
 \(2.7\sigma\)--\(3.1\sigma\), consistent with the prediction. The most
-recent multi-model analysis {[}31{]} of DESI DR2 + Planck PR4 +
+recent multi-model analysis {[}30{]} of DESI DR2 + Planck PR4 +
 supernovae explicitly tests several RVM variants and finds the ``flipped
 RVM'' and ``RVM with threshold'' point to significant evidence of
 dynamical dark energy at a level comparable to the more flexible
@@ -1478,7 +1473,7 @@ the decisive test.
 
 \textbf{Coupled neutrino test.} The same dataset that constrains
 \(\nu_{\text{OI}}\) also constrains the neutrino sector. The DESI DR2 +
-CMB analysis {[}54{]} finds \(\Sigma m_\nu < 0.0642\) eV (95\% CL)
+CMB analysis {[}51{]} finds \(\Sigma m_\nu < 0.0642\) eV (95\% CL)
 assuming \(\Lambda\)CDM, prefers normal mass ordering, and bounds the
 lightest neutrino mass at \(m_l < 0.023\) eV --- all three results match
 the OI predictions of normal ordering with \(\Sigma m_\nu\) near the
@@ -1486,7 +1481,7 @@ oscillation minimum of 0.059 eV. The same analysis finds a \(3\sigma\)
 tension with the lower oscillation limit assuming \(\Lambda\)CDM,
 interpreted as ``a hint of new physics not necessarily related to
 neutrinos'' --- exactly the structural mismatch that the RVM dark energy
-resolves. JUNO first results {[}55, 56{]} confirm the world-leading
+resolves. JUNO first results {[}52, 53{]} confirm the world-leading
 precision on \(\sin^2\theta_{12} = 0.3092 \pm 0.0087\) and
 \(\delta m^2 = (7.48 \pm 0.10) \times 10^{-5}\) eV\(^2\), with the
 solar/reactor 1.5\(\sigma\) tension persisting. The neutrino sector
@@ -1496,260 +1491,8 @@ joint observational support is therefore not independent confirmation of
 separate effects but a single empirical pattern consistent with the
 framework's central mechanism.
 
-\hypertarget{gravitational-wave-echoes}{%
-\subsubsection{8.2 Gravitational Wave
-Echoes}\label{gravitational-wave-echoes}}
-
-A black hole horizon represents a regime where the causal partition
-differs from the cosmological one: degrees of freedom reclassify from
-visible to hidden sector as they cross the horizon, shifting the
-effective partition and the emergent description.
-
-At proper distance \(\sim \epsilon\) outside a black hole horizon
-\(r_+\), an infalling mode reaches the discreteness floor and must
-scatter. The predicted echo time delay is:
-
-\[\Delta t_{\text{echo}} = \frac{r_+}{c} \ln\left(\frac{r_+}{2\,l_p}\right)\]
-
-where \(r_+ = (GM/c^2)(1 + \sqrt{1-a^2})\) is the Kerr outer horizon
-radius, with \(M\) understood as the source-frame mass. For GW250114
-(\(M_{\text{source}} = 62.7\,M_\odot\), \(a/M = 0.68\)):
-\(\Delta t_{\text{source}} = 48.9\) ms in the source frame. The observed
-echo delay in detector data is redshifted by \((1+z)\), giving
-\(\Delta t_{\text{obs}} = (1+z)\,\Delta t_{\text{source}}\); for
-GW250114 (\(z = 0.09\)), \(\Delta t_{\text{obs}} = 53.2\) ms.
-Equivalently, plugging the detector-frame mass
-\(M_{\text{det}} = (1+z)\,M_{\text{source}} = 68.1\,M_\odot\) into the
-formula above directly yields \(\Delta t = 53.2\) ms (with a small
-\(\ln(1+z)/\ln(r_+/2l_p) \sim 0.1\%\) correction). All matched-filter
-calculations against actual detector strain data must use detector-frame
-quantities. For a non-spinning \(30\,M_\odot\) remnant:
-\(\Delta t = 26.8\) ms. The logarithmic dependence on \(\epsilon\) makes
-the timescale robust (\(\sim 0.1\) ms shift within the \(\sim 53\) ms
-scale {[}23{]}).
-
-\textbf{The echo waveform.} After the ringdown, the ingoing component of
-the QNM signal propagates toward the horizon, scatters off the lattice
-boundary, and bounces between the boundary and the angular momentum
-barrier. The echo train:
-
-\[h_{\text{echo}}(t) = \sum_{n=1}^{\infty} (-1)^n \, \mathcal{R} \, \Gamma \, (1-\Gamma)^{n-1} \, e^{-(t - n\Delta t)/\tau} \cos(2\pi f_{\text{QNM}}(t - n\Delta t)) \, \Theta(t - n\Delta t)\]
-
-where \(\Gamma \approx 0.45\) is the \(l = 2\) greybody factor at the
-QNM frequency, \(\mathcal{R}\) is the effective wall reflectivity, and
-\((-1)^n\) is the phase flip from the boundary condition. The first echo
-amplitude relative to the ringdown is
-\(A_1 = \mathcal{R} \times \Gamma\): the ingoing QNM amplitude at the
-horizon is \(\sqrt{\Gamma}\) times the outgoing ringdown amplitude (by
-reciprocity of the barrier transmission), and after reflecting off the
-wall it must transmit back through the barrier (another factor
-\(\sqrt{\Gamma}\)), giving \(A_1 = \mathcal{R} \times \Gamma\).
-Subsequent echoes decay by factor \((1 - \Gamma)\) per bounce from
-barrier reflection.
-
-For Kerr remnants (\(a/M \sim 0.7\), as in most BBH mergers), the QNM
-frequency shifts (Berti et al.~fitting:
-\(M\omega_R = 1.5251 - 1.1568(1-a)^{0.1292}\) for \(l = 2\), \(m = 2\))
-but the greybody factor at the QNM frequency is approximately
-spin-independent (\(\Gamma \approx 0.4\)--\(0.5\)), because the QNM
-frequency tracks the angular momentum barrier peak even as spin
-increases (\(\omega_{\text{QNM}} \approx \omega_{\text{light ring}}\)).
-
-\textbf{The wall reflectivity.} A first-principles analysis of the
-boundary mode structure gives \(\mathcal{R} \approx 1\). The boundary at
-\(\epsilon = 2\,l_p\) carries \(S_{\text{BH}} = A/(4\,l_p^2)\) degrees
-of freedom, but only \(\sim 5\) modes have angular structure \(l = 2\)
-(the same as the GW). At the QNM frequency, the GW resonates with the
-fundamental \(l = 2\) boundary oscillation
-(\(f_0 \approx c \cdot l/r_h\), within a factor of 2 of
-\(f_{\text{QNM}}\)). Dissipation of this mode requires angular momentum
-transfer to \(l \neq 2\) boundary modes, which is suppressed by
-\((\epsilon/\lambda_{\text{GW}})^{2|\Delta l|} \sim 10^{-82}\) per step
---- effectively zero. The \(l = 2\) mode does not thermalize with the
-\(\sim 10^{77}\) other boundary modes on any relevant timescale, so the
-boundary acts as a near-perfect reflector: \(\mathcal{R} \approx 1\).
-
-This gives a first-echo amplitude
-\(A_1 = \mathcal{R} \times \Gamma \approx 0.45\) relative to the
-ringdown peak strain. The predicted matched-filter signal-to-noise ratio
-in a single detector is
-\(\text{SNR}_{\text{echo}} \approx \sqrt{\Sigma}\,A_1\,\text{SNR}_{\text{rd}}\),
-where \(\text{SNR}_{\text{rd}}\) is the (per-detector) ringdown
-matched-filter SNR for the dominant \((2,2,0)\) mode and
-\(\Sigma = \sum_n (1-\Gamma)^{2(n-1)} \approx 1/(2\Gamma - \Gamma^2) \approx 1.55\)
-accounts for the coherent contribution of subsequent echoes;
-numerically, \(\sqrt{\Sigma}\,A_1 \approx 0.56\). For GW250114, the
-per-detector ringdown SNR for \((2,2,0)\) alone is \(\sim 8\)--\(12\) in
-each of H1 and L1 (the network ringdown SNR including all modes is
-higher), giving a per-detector echo SNR of approximately \(4\)--\(7\).
-Coherent two-detector network analysis (with antenna-pattern weighting
-and time-delay alignment) gains a further factor \(\sim \sqrt{2}\),
-giving a coherent network echo SNR of \(\sim 6\)--\(10\). These numbers
-are at or just above the standard detection threshold of \(5\), so a
-\emph{single-event} test is marginal; a clean detection requires either
-a higher-SNR ringdown event, coherent multi-detector analysis, or
-coherent stacking across several BBH events. Existing model-independent
-echo searches on GW250114 find no statistically significant evidence
-{[}45{]}, which is consistent with both the OI prediction (because of
-the search-template mismatch discussed below) and with the framework
-being incorrect.
-
-\textbf{Why model-independent searches do not constrain this
-prediction.} Beyond the marginal single-event sensitivity discussed
-above, there is a second reason existing searches do not test the OI
-prediction: a morphology mismatch between the typical search template
-and the OI signal. The Wu et al.~{[}45{]} search targets long-lived
-quasi-monochromatic oscillations persisting after the ringdown ---
-effectively a damped sinusoid with
-\(\tau_{\text{LL}} \gg \tau_{\text{QNM}}\). The OI echo is a \emph{train
-of short bursts} --- each lasting only \(\tau \sim 4\) ms (the physical
-QNM damping time, in the detector frame), separated by \(\sim 50\) ms of
-silence, with alternating phase \((-1)^n\). The fitting factor between
-the OI template and a single damped sinusoid depends strongly on the
-template's assumed damping time: for
-\(\tau_{\text{LL}} \sim \tau_{\text{QNM}}\), the best overlap is
-\(\text{FF} \approx 0.83\); for
-\(\tau_{\text{LL}} \sim 10\,\tau_{\text{QNM}}\),
-\(\text{FF} \approx 0.50\); and for
-\(\tau_{\text{LL}} \sim 10^2\,\tau_{\text{QNM}}\) (the regime targeted
-by model-independent searches for long-lived echo-type signals),
-\(\text{FF} \approx 0.19\). The long-lived QNM search therefore recovers
-only \(\sim 19\%\) of the optimal SNR against the OI template against
-which it would otherwise be best matched --- a \(5.3\times\) loss
-relative to a dedicated OI matched filter. Combined with the marginal
-predicted single-event SNR, the long-lived QNM search would expect to
-see effective SNR \(\lesssim 2\) even if the OI prediction is correct,
-well below detection threshold. The non-detection is therefore
-consistent with the OI prediction, but it also does not strongly
-constrain it. A dedicated matched-filter search using the OI template is
-required for a meaningful test.
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Parameter
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Formula
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(M_{\text{source}} = 62.7\,M_\odot\), \(a/M = 0.68\), \(z = 0.09\)
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\(M_{\text{det}}\) & \((1+z)\,M_{\text{source}}\) & \(68.1\,M_\odot\) \\
-\(\Delta t\) (observed) & \((r_+/c)\ln(r_+/2l_p)\) with
-\(M_{\text{det}}\) & 53.2 ms \\
-\(f_{\text{QNM}}\) (observed) & Berti+2006 fit with \(M_{\text{det}}\) &
-250 Hz \\
-\(\tau\) (observed) & Berti+2006 with \(M_{\text{det}}\) & 4.08 ms \\
-\(\Gamma\) & Greybody factor at \(f_{\text{QNM}}\) & \(\approx 0.45\) \\
-\(\mathcal{R}\) & Wall reflectivity (computed) & \(\approx 1\) \\
-\(A_1/A_{\text{ringdown}}\) & \(\mathcal{R} \times \Gamma\) &
-\(\approx 0.45\) \\
-Comb teeth within QNM line & \((1/\tau)/(1/\Delta t)\) &
-\(\approx 13\) \\
-Fitting factor vs long-lived QNM &
-\(\text{FF} = \max_{\tau_{\text{LL}},f,\phi} \langle h_{\text{OI}} \mid h_{\text{LL}} \rangle\)
-& \(0.19\) (long-lived); up to \(0.83\)
-(\(\tau_{\text{LL}} \sim \tau_{\text{QNM}}\)) \\
-Per-detector predicted echo SNR &
-\(\sqrt{\Sigma}\,A_1\,\text{SNR}_{\text{rd},(2,2,0)}\) &
-\(\sim 4\)--\(7\) (range from
-\(\text{SNR}_{\text{rd}} \sim 8\)--\(12\)) \\
-Coherent network echo SNR & \(\sim \sqrt{2} \times\) per-detector &
-\(\sim 6\)--\(10\) \\
-\end{longtable}
-
-\textbf{Detection prospects.} The predicted echo amplitude
-(\(\sim 45\%\) of ringdown) is substantial, but the signal's comb
-structure and phase alternation make it nearly orthogonal to long-lived
-QNM templates (fitting factor as low as \(0.19\) depending on the
-assumed search-template damping time). Three search strategies can
-recover the full power: (i) matched filtering with the one-parameter OI
-template (overall amplitude as the only unknown, everything else fixed
-by the detector-frame remnant mass and spin; predicted per-detector SNR
-\(\sim 4\)--\(7\) for GW250114, coherent network SNR
-\(\sim 6\)--\(10\)), (ii) auto-correlation of the post-ringdown signal
-at lag \(\Delta t\), or (iii) a comb filter at spacing \(1/\Delta t\).
-All three are feasible with publicly released O4 strain data, but a
-single high-SNR event is at the threshold of single-event detectability.
-Coherent stacking across multiple BBH events with similar remnant
-masses, or analysis with next-generation detectors (Einstein Telescope,
-Cosmic Explorer, where the matched-filter echo SNR for typical BBH
-mergers would exceed 100), would make detection unambiguous.
-
-\textbf{Distinguishing features.} (i) The echo delay \(\Delta t\)
-depends on \(\ln(r_h/l_p)\) --- a parameter-free prediction. (ii) The
-phase alternates \((-1)^n\) from the boundary condition. (iii) The echo
-frequency equals the QNM frequency (no shift). (iv) The wall
-reflectivity \(\mathcal{R} \approx 1\) is a derived result (no
-dissipation channel for the \(l = 2\) boundary mode), not an adjustable
-parameter. (v) The framework predicts both echoes AND dark energy
-evolution from the same lattice structure --- no other model connects
-these.
-
-\textbf{Observational status.} Model-independent searches for
-post-merger echoes in GW150914, GW231226, and GW250114 find no
-statistically significant evidence {[}45{]}. As discussed above, this
-non-detection does not constrain the OI prediction, both because the
-predicted single-event matched-filter SNR is only marginally above
-threshold and because the search templates are mismatched against the OI
-comb morphology (recovering as little as \(\sim 19\%\) of the optimal
-SNR). A dedicated matched-filter search using the OI template at the
-detector-frame remnant mass and spin is required to test the prediction.
-A preliminary single-detector matched-filter analysis on public LVK
-GW250114 strain data, using the OI template with
-\(M_{\text{det}} = 68.1\,M_\odot\), \(a/M = 0.68\), locally-normalized
-SNR statistics to handle non-stationary detector noise, and a \(\pm 5\)
-ms timing window around the predicted echo arrival, returns no detection
-above the \(5\sigma\) threshold in either H1 or L1 individually, with
-healthy noise diagnostics (\(\text{bg\_std} \approx 1.0\) in both
-detectors) and a per-detector \(5\sigma\) upper limit on the echo
-amplitude of \(A_1 \lesssim 7 \times 10^{-22}\)
-strain.\footnote{This upper limit is approximately a factor of 1.5 above the standard predicted echo amplitude assuming detector-frame ringdown peak strain $\sim 10^{-21}$, and is not yet a decisive test. A coherent H1-L1 network analysis with antenna-pattern weighting and time-delay alignment, expected to gain a factor $\sim \sqrt{2}$ in SNR, and coherent stacking across additional high-SNR BBH ringdowns, are required for a definitive test.}
-\textbf{The decisive single-event test is therefore a coherent network
-analysis on the highest-SNR BBH events in O3-O4, supplemented by
-stacking across events with similar remnant parameters.} If a coherent
-matched-filter analysis on a sufficiently high-SNR event or a stacked
-analysis returns no detection at the OI template's predicted amplitude,
-the prediction would be falsified. Joint confirmation of dark energy
-evolution (\(\nu_{\text{OI}}\)) \emph{and} GW echoes would uniquely
-favor an information-theoretic origin.
-
-\textbf{Independent horizon-physics signals in GW250114.} Two recent
-analyses of GW250114 detect non-trivial structure beyond the standard
-quasi-normal-mode spectrum. Lu et al.~{[}57{]} report observational
-evidence for a ``direct wave'' component oscillating near \(2\Omega_H\)
-(the horizon angular frequency) and decaying at the surface gravity
-\(\kappa\), with matched-filter SNR \(14.0^{+0.2}_{-0.1}\) in LIGO
-Hanford and \(13.5^{+0.1}_{-0.2}\) in Livingston. The Lu et al.~signal
-is a different proposed horizon effect with different morphology (smooth
-damped sinusoid rather than the OI comb), and its per-detector SNR is
-significantly higher than the predicted OI echo SNR (\(\sim 4\)--\(7\)
-per detector); we make no quantitative comparison between the two
-signals. The relevance of the Lu et al.~result is methodological: it
-establishes that horizon-scale structure beyond the standard QNM picture
-is detectable in current LIGO data, and that the LIGO-Virgo-KAGRA
-analysis infrastructure for non-standard horizon physics on GW250114 is
-operational. Wang et al.~{[}58{]} independently detect six quadratic
-quasi-normal modes in the GW250114 ringdown at Bayes factor 74,
-demonstrating that the post-merger signal contains nonlinear structure
-requiring more than the linear \((\ell, m, n) = (2, 2, 0/1)\) modes ---
-the standard ringdown analysis is incomplete. The standard area-law
-confirmation from Abac et al.~{[}59{]} independently verifies the
-Bekenstein-Hawking entropy formula derived in §6, including the factor
-of \(1/4\). None of these results is the OI echo, but each establishes
-that horizon physics beyond standard GR is now a tractable observational
-target. The dedicated OI matched-filter search on GW250114, supplemented
-by coherent network analysis and stacking across additional events,
-remains the highest-leverage near-term test.
-
 \hypertarget{the-dark-sector-corollary}{%
-\subsubsection{8.3 The Dark-Sector
+\subsubsection{8.2 The Dark-Sector
 Corollary}\label{the-dark-sector-corollary}}
 
 The trace-out that produces QM has an automatic gravitational
@@ -1772,7 +1515,7 @@ distributing over \(V_H = 4\pi c^3/(3H^3)\):
 
 \[\rho_s = \frac{E_s}{V_H} = \frac{A}{\epsilon^2} \cdot \frac{c^3 \epsilon^2 H}{8\pi G} \cdot \frac{3H^3}{4\pi c^3} = \frac{3c^2 H^2}{8\pi G} = \rho_{\text{crit}}\]
 
-This identity, which Verlinde {[}37{]} assumes, is here derived.
+This identity, which Verlinde {[}36{]} assumes, is here derived.
 
 Four clarifications are essential for what follows.
 
@@ -1856,7 +1599,7 @@ the gravitational content has no source in particle physics. \(\square\)
 corollary's prediction is that no particle dark matter exists --- the
 dark sector is the trace-out, not a missing particle species. The
 strongest current constraint is the LZ Collaboration's 417-day analysis
-(December 2025) {[}60{]}, which is the most sensitive WIMP search ever
+(December 2025) {[}55{]}, which is the most sensitive WIMP search ever
 conducted and reports null results across the 3--9 GeV range, extending
 world-leading constraints from XENONnT and PandaX-4T to lower mass. The
 continued failure to detect particle dark matter across multiple decades
@@ -1871,7 +1614,7 @@ horizon geometry, redistributing the boundary entropy. This displacement
 persists because \(\tau_B \gtrsim 1/H\) (condition C2): the
 hidden-sector modes carrying the redistributed entropy do not thermalize
 back to the unperturbed configuration on sub-Hubble timescales. Verlinde
-{[}37{]} identifies this as a ``memory effect'' from the
+{[}36{]} identifies this as a ``memory effect'' from the
 non-thermalization of de Sitter states at sub-Hubble scales. In the
 present framework, this non-thermalization is not assumed but derived:
 it is P-indivisibility operating in the gravitational sector, with (C2)
@@ -1882,7 +1625,7 @@ not a derivation of its internal structure. The uniform component of the
 boundary entropy corresponds to dark energy (§7); the structured
 component --- the matter-induced redistribution of boundary entropy
 producing local gravitational effects resembling dark matter --- is
-derived in §8.4. The ratio
+derived in §8.3. The ratio
 \(\rho_{\text{QFT}} / \rho_s \sim S_{\text{dS}} \sim 10^{122}\) confirms
 the parallel with §7.3: the information compression ratio and the
 gravitational occlusion fraction are two aspects of a single phenomenon.
@@ -1893,10 +1636,10 @@ structured dark sector, or by evidence that the dark sector's
 gravitational effects are unrelated to the boundary geometry.
 
 \hypertarget{dark-matter-from-entropy-displacement}{%
-\subsubsection{8.4 Dark Matter from Entropy
+\subsubsection{8.3 Dark Matter from Entropy
 Displacement}\label{dark-matter-from-entropy-displacement}}
 
-The total dark sector budget is established by §8.3. This section
+The total dark sector budget is established by §8.2. This section
 derives the structured component from the entropy displacement induced
 by baryonic matter.
 
@@ -1978,7 +1721,7 @@ which is equivalent to \(g_{\text{total}} = g_B \cdot \nu(g_B/a_0)\)
 with \(\nu(y) = (1 + \sqrt{1 + 4/y})/2\) --- the ``simple'' MOND
 interpolation function corresponding to \(\mu(x) = x/(1+x)\). This form
 matches the empirical radial acceleration relation (McGaugh et
-al.~{[}44{]}) to \(< 0.1\) dex across all galaxy-relevant accelerations.
+al.~{[}43{]}) to \(< 0.1\) dex across all galaxy-relevant accelerations.
 
 \textbf{Epistemic status.} Steps 1--3 are Tier 2: the displacement
 formula follows from the Clausius relation applied to the boundary
@@ -2002,14 +1745,14 @@ Since \(r_M\) shrinks with increasing \(z\), high-redshift galaxies are
 systematically more baryon-dominated --- their rotation curves decline
 at smaller radii.
 
-This prediction is borne out by the data. Genzel et al.~{[}42, 43{]}
+This prediction is borne out by the data. Genzel et al.~{[}41, 42{]}
 report stacked rotation curves for massive star-forming galaxies at
 \(z = 0.9\text{–}2.4\) showing a declining outer velocity at
 \(> 3\sigma\) significance relative to local spirals --- consistent with
 the OI prediction. In ΛCDM, flat rotation curves from NFW halos are
 expected at all redshifts; explaining the Genzel data requires
 anomalously low halo concentrations or baryon-dominated inner regions.
-The cleanest local test is Jiao et al.~{[}61{]}, who detect for the
+The cleanest local test is Jiao et al.~{[}56{]}, who detect for the
 first time a Keplerian decline in the Milky Way's own rotation curve
 from \(\sim 19\) to \(\sim 26.5\) kpc using Gaia DR3 kinematics, with
 the flat rotation curve hypothesis rejected at \(3\sigma\). Our own
@@ -2071,7 +1814,7 @@ tests:
   and \(H(z)\) --- no halo-specific parameters. This predicts: the
   radial acceleration relation (RAR) at fixed \(g_B\) has zero intrinsic
   scatter (at fixed \(z\)), and the scatter does not correlate with halo
-  properties. Current SPARC data {[}44{]} show remarkably small RAR
+  properties. Current SPARC data {[}43{]} show remarkably small RAR
   scatter (\(\sim 0.13\) dex), consistent with OI but requiring
   fine-tuning in ΛCDM.
 \end{enumerate}
@@ -2149,7 +1892,7 @@ photon-baryon fluid; it tracks the growing mode exclusively.
 The entropy displacement perturbation then evolves identically to CDM in
 the linear regime: (i) it has the same effective density
 (\(\rho_E \approx \Omega_{\text{CDM}} \times \rho_{\text{crit}}\), from
-the dark-sector corollary §8.3); (ii) it does not couple to photons (it
+the dark-sector corollary §8.2); (ii) it does not couple to photons (it
 is a gravitational effect at the horizon, not a fluid component); (iii)
 it grows under its own gravity from adiabatic initial conditions set by
 inflation; (iv) its growth equation
@@ -2212,7 +1955,7 @@ Scale}\label{the-status-of-the-discreteness-scale}}
 finite-dimensionality, motivated by the classical fact that finite-area
 boundaries admit finitely many modes. The result \(\epsilon = 2\,l_p\)
 is a \emph{consequence} of self-consistency (§6). Holographic entropy
-bounds {[}27{]} provide independent, non-quantum motivation.
+bounds {[}26{]} provide independent, non-quantum motivation.
 
 \hypertarget{vacuum-energy-relative-effects-and-the-higgs-potential}{%
 \subsubsection{9.4 Vacuum Energy: Relative Effects and the Higgs
@@ -2288,23 +2031,29 @@ observer-relative epistemic states; this framework provides a structural
 Derives gravity from thermodynamics; this framework derives QM from
 causal structure --- complementary, with mutual consistency as a check.
 
-\textbf{Danielson-Satishchandran-Wald (DSW) horizon decoherence {[}38,
-39{]}.} DSW proved within standard QFT that any Killing horizon imparts
+\textbf{Danielson-Satishchandran-Wald (DSW) horizon decoherence {[}37,
+38{]}.} DSW proved within standard QFT that any Killing horizon imparts
 a fundamental rate of decoherence on nearby quantum superpositions: the
 horizon registers the long-range field of the superposed body via soft
 gravitons/photons, destroying coherence at a rate determined by the
-horizon geometry. This is precisely the framework's partition mechanism
-described in QFT language --- the horizon is the causal boundary,
-information leaks through it, and the exterior state decoheres. Three
-specific features match: (i) the decoherence rate depends on horizon
-geometry (partition-relativity); (ii) decoherence vanishes for extremal
-black holes where the coupling to the interior is screened (C1 failure);
-(iii) the process is non-Markovian near the horizon, with information
-backflow from the interior {[}40{]}. The DSW program derives these
-results within the emergent QFT; the present framework explains
-\emph{why} horizons produce decoherence --- because the trace-out across
-a causal partition is the mechanism that generates quantum mechanics
-itself.
+horizon geometry. For the cosmological horizon, this is precisely the
+framework's partition mechanism described in QFT language --- the
+horizon is the causal boundary, information leaks through it, and the
+exterior state decoheres. Three specific features match: (i) the
+decoherence rate depends on horizon geometry (partition-relativity);
+(ii) decoherence vanishes for extremal black holes where the coupling to
+the interior is screened (C1 failure); (iii) the process is
+non-Markovian near the horizon, with information backflow from the
+interior {[}39{]}. The DSW program derives these results within the
+emergent QFT; the present framework explains \emph{why} the cosmological
+horizon produces decoherence --- because the trace-out across the causal
+partition is the mechanism that generates quantum mechanics itself. For
+black-hole horizons, the DSW result is consistent with the
+nested-partition formalism of Appendix B (where the BH horizon
+participates in the bookkeeping of the generalized second law and the
+Page curve), but this is a separate consistency statement --- under
+partition-relativity, BH horizons do not modify the emergent QM seen by
+external observers in our cosmological patch (§9.6).
 
 \textbf{AdS/CFT and the geometry-entanglement connection.} The
 Ryu-Takayanagi formula, Van Raamsdonk's disconnection argument, ER=EPR,
@@ -2345,7 +2094,7 @@ for all but a measure-zero set. The P-indivisibility proof uses
 finiteness via the recurrence argument (\(\varphi^N = \text{id}\)). The
 deep-sector cardinality corollary (§5.2) establishes that only
 \(\mathcal{C}_V\) and \(\mathcal{C}_B\) need be finite --- both
-guaranteed by holographic entropy bounds {[}27{]} independently of the
+guaranteed by holographic entropy bounds {[}26{]} independently of the
 de Sitter finite-dimensionality conjecture --- while the deep sector
 \(\mathcal{C}_D\) may be infinite. The accessible-timescale backflow
 lemma (§2.3) provides a second route to P-indivisibility that is
@@ -2378,16 +2127,16 @@ failure of both the stochastic-quantum correspondence and the
 Stinespring construction for the class of processes generated here --- a
 possibility excluded by the independent proofs in §3.1 and Appendix A.
 The \emph{cosmological application} would be falsified by definitive
-absence of dark energy evolution or GW echoes at the predicted
-timescale. The \emph{dark-sector concordance} (§8.3) would be falsified
-by detection of dark matter particles accounting for the full structured
-dark sector, or by evidence that the dark sector's gravitational effects
-are unrelated to the cosmological boundary geometry.
+absence of dark energy evolution in RVM form at \(\nu_{\text{OI}}\). The
+\emph{dark-sector concordance} (§8.2) would be falsified by detection of
+dark matter particles accounting for the full structured dark sector, or
+by evidence that the dark sector's gravitational effects are unrelated
+to the cosmological boundary geometry.
 
 \textbf{A near-term mechanism-side test.} A more tractable falsification
 target is provided by the recently developed operational distinction
-between classical and quantum memory in non-Markovian processes {[}52,
-53{]}. Some non-Markovian quantum dynamics can be simulated using only
+between classical and quantum memory in non-Markovian processes {[}49,
+50{]}. Some non-Markovian quantum dynamics can be simulated using only
 classical stored information, while others require genuinely quantum
 memory in the environment, with the dividing line set by entanglement
 structure of the channel's Choi state. The framework predicts that all
@@ -2401,11 +2150,43 @@ even without cosmological data. This is a near-term tractable test in a
 literature where the experimental and theoretical tools are advancing
 rapidly.
 
-\textbf{Nested and time-dependent partitions.} The derivation chain
-assumes a single partition into visible and hidden sectors. In reality,
-multiple causal boundaries coexist --- most naturally, a black hole
-horizon inside the cosmological horizon --- creating nested partitions
-with distinct geometries. Appendix B resolves this in three layers.
+\textbf{Black-hole horizons under partition-relativity.} The framework's
+mechanism is grounded in the cosmological horizon as the primary
+partition for any sub-\(c\) observer in this universe (§4.1). A
+black-hole horizon within the cosmological visible sector is a
+\emph{local} causal boundary: it prevents an external observer from
+probing the black-hole interior by direct geometric access, but it does
+not redefine that observer's epistemic partition in the sense of §1.4.
+Matter falling into a distant black hole was already inside the external
+observer's \(\Gamma_V\) before the merger and remains inside it after;
+the trace-out that defines the external observer's emergent quantum
+description is over the cosmological horizon, not over the black-hole
+horizon. The framework therefore predicts that gravitational wave
+signatures from binary black-hole mergers follow standard
+general-relativistic ringdown morphology, with no OI-specific echo,
+comb, or wall-reflection features. A four-event coherent matched-filter
+stack on LVK O1--O4 strain data using a dedicated discreteness-scale
+echo template (with the predicted detector-frame delay
+\(\Delta t = (r_+/c)\ln(r_+/2 l_p)\) at the remnant mass and spin)
+returned a clean null: stacked statistic \(-0.45\), empirical
+\(p = 0.66\), with the previously hypothesized echo amplitude excluded
+at \(5.9\sigma\). The framework's BH physics for external observers is
+identical to standard GR plus the cosmological-scale dark-sector effects
+of §8.2--§8.3.
+
+\textbf{Nested and time-dependent partitions.} The primary partition for
+any sub-\(c\) observer in this universe is the cosmological horizon
+(§4.1). When additional causal boundaries are present --- most
+naturally, a black hole horizon within the cosmological patch --- the
+trace-out machinery extends to a nested formalism, addressed in Appendix
+B. The nested formalism is a self-consistency exercise: it shows that
+the framework's emergent description is well-defined when multiple
+boundaries coexist, and that quantities like the generalized second law
+and the Page curve emerge naturally. It is \emph{not} a claim that
+external observers' emergent quantum descriptions acquire
+BH-horizon-specific features; under partition-relativity (above), the
+cosmological horizon remains the primary partition. Appendix B resolves
+the formal nested-partition machinery in three layers.
 
 \emph{(i) Consistency of nested trace-outs (Appendix B, Theorems
 B.1--B.4).} Two procedures --- tracing out the trans-cosmological region
@@ -2434,7 +2215,7 @@ of mass and greybody factors), and the Page value is recovered for all
 but an exponentially negligible fraction (\(\sim e^{-10^{77}}\) for
 \(30 M_\odot\)) of initial conditions --- proved from bijectivity (cycle
 decomposition on the finite energy shell) and Popescu-Short-Winter
-typicality {[}41{]}, without assuming ergodicity. The greybody factor is
+typicality {[}40{]}, without assuming ergodicity. The greybody factor is
 solution-specific.
 
 Laboratory tests of the characterization theorem may be possible in
@@ -2465,18 +2246,18 @@ Bekenstein-Hawking formula as consequences; (b) dissolution of the CC
 problem --- the \(10^{122}\) discrepancy is \(S_{\text{dS}}\), the
 compression ratio of the observer's quantum description; (c) falsifiable
 predictions including RVM dark energy with
-\(\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}\) and gravitational
-wave echoes; (d) an automatic dark-sector corollary --- the same
-trace-out renders \textasciitilde95\% of the universe's gravitational
-budget invisible to the emergent QFT; and (e) dark matter phenomenology
-from entropy displacement --- flat rotation curves, the baryonic
-Tully-Fisher relation \(v^4 = GM_B \cdot cH/6\), and the MOND
-acceleration scale \(a_0 = cH/6 \approx 1.2 \times 10^{-10}\) m/s², all
-derived from the boundary entropy and the Jacobson mechanism (§8.4). The
-\(H(z)\) dependence of \(a_0\) predicts systematically more Keplerian
-rotation curves at high redshift --- consistent with the declining
-rotation curves observed at \(z = 0.9\)--\(2.4\) {[}42, 43{]} and
-testable at higher precision with JWST and ELT kinematics.
+\(\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}\); (d) an automatic
+dark-sector corollary --- the same trace-out renders \textasciitilde95\%
+of the universe's gravitational budget invisible to the emergent QFT;
+and (e) dark matter phenomenology from entropy displacement --- flat
+rotation curves, the baryonic Tully-Fisher relation
+\(v^4 = GM_B \cdot cH/6\), and the MOND acceleration scale
+\(a_0 = cH/6 \approx 1.2 \times 10^{-10}\) m/s², all derived from the
+boundary entropy and the Jacobson mechanism (§8.3). The \(H(z)\)
+dependence of \(a_0\) predicts systematically more Keplerian rotation
+curves at high redshift --- consistent with the declining rotation
+curves observed at \(z = 0.9\)--\(2.4\) {[}41, 42{]} and testable at
+higher precision with JWST and ELT kinematics.
 
 \textbf{Nested partitions (Appendix B).} When multiple causal horizons
 coexist, the emergent quantum description is self-consistent: the
@@ -2488,7 +2269,7 @@ strong subadditivity and CPTP monotonicity (Theorem B.6). The Page curve
 is derived: \(S_{\text{rad}}(t) = \min(n_R(t), n_B(t)) \cdot \ln q\)
 with turnover at \(t_P \approx 0.646 \, t_{\text{evap}}\), from
 bijectivity of \(\varphi\) (cycle decomposition on the finite energy
-shell), Popescu-Short-Winter typicality {[}41{]}, and the derived
+shell), Popescu-Short-Winter typicality {[}40{]}, and the derived
 Hawking temperature (Theorems B.7--B.9). Information is never lost.
 
 The apparent conflict between quantum mechanics and general relativity,
@@ -2513,171 +2294,205 @@ publication.
 \subsection{REFERENCES}\label{references}}
 
 {[}1{]} G. 't Hooft, \emph{The Cellular Automaton Interpretation of
-Quantum Mechanics} (Springer, 2016). {[}2{]} J. Martin, ``Everything you
-always wanted to know about the cosmological constant problem (but were
-afraid to ask),'' \emph{C. R. Phys.} \textbf{13}, 566--665 (2012).
+Quantum Mechanics} (Springer, 2016).
+
+{[}2{]} J. Martin, ``Everything you always wanted to know about the
+cosmological constant problem (but were afraid to ask),'' \emph{C. R.
+Phys.} \textbf{13}, 566--665 (2012).
+
 {[}3{]} S. Weinberg, ``The cosmological constant problem,''
-\emph{Rev.~Mod. Phys.} \textbf{61}, 1 (1989). {[}4{]} H.-P. Breuer and
-F. Petruccione, \emph{The Theory of Open Quantum Systems} (Oxford
-University Press, 2002). {[}5{]} P. Pechukas, ``Reduced dynamics need
-not be completely positive,'' \emph{Phys. Rev.~Lett.} \textbf{73}, 1060
-(1994). {[}6{]} Á. Rivas, S. F. Huelga, and M. B. Plenio, ``Entanglement
-and non-Markovianity of quantum evolutions,'' \emph{Phys. Rev.~Lett.}
-\textbf{105}, 050403 (2010). {[}7{]} Á. Rivas, S. F. Huelga, and M. B.
-Plenio, ``Quantum non-Markovianity: characterization, quantification and
-detection,'' \emph{Rep.~Prog. Phys.} \textbf{77}, 094001 (2014). {[}8{]}
-F. A. Pollock, C. Rodríguez-Rosario, T. Frauenheim, M. Paternostro, and
-K. Modi, ``Operational Markov condition for quantum processes,''
-\emph{Phys. Rev.~Lett.} \textbf{120}, 040405 (2018). {[}9{]} P.
-Strasberg and M. Esposito, ``Stochastic thermodynamics in the strong
-coupling regime: An unambiguous approach based on coarse graining,''
-\emph{Phys. Rev.~E} \textbf{95}, 062101 (2017). {[}10{]} J. A. Barandes,
-``The Stochastic-Quantum Theorem,'' arXiv:2309.03085 (2023). {[}11{]} J.
-A. Barandes, ``The Stochastic-Quantum Correspondence,'' \emph{Philosophy
-of Physics} \textbf{3}(1):8 (2025). {[}12{]} S. Calvo, ``On the
-Stochastic-Quantum Correspondence,'' arXiv:2601.18720 (2026). {[}13{]}
-J. S. Bell, ``On the Einstein Podolsky Rosen paradox,'' \emph{Physics
-Physique Fizika} \textbf{1}, 195--200 (1964). {[}14{]} J. A. Barandes,
-S. Hasan, and J. Kagan, ``The CHSH Game, Tsirelson's Bound, and Causal
-Locality,'' arXiv:2512.18105 (2025). {[}15{]} T. Le, F. A. Pollock, T.
-Paterek, M. Paternostro, and K. Modi, ``Divisible quantum dynamics
-satisfies temporal Tsirelson's bound,'' \emph{J. Phys. A} \textbf{50},
-055302 (2017). {[}16{]} T. Jacobson, ``Thermodynamics of Spacetime: The
-Einstein Equation of State,'' \emph{Phys. Rev.~Lett.} \textbf{75}, 1260
-(1995). {[}17{]} G. W. Gibbons and S. W. Hawking, ``Cosmological event
-horizons, thermodynamics, and particle creation,'' \emph{Phys. Rev.~D}
-\textbf{15}, 2738 (1977). {[}18{]} S. M. Carroll, ``The Cosmological
-Constant,'' \emph{Living Rev.~Relativ.} \textbf{4}, 1 (2001). {[}19{]}
-D. H. Wolpert, ``Physical limits of inference,'' \emph{Physica D}
-\textbf{237}, 1257--1281 (2008). {[}20{]} J. Solà Peracaula, ``The
-cosmological constant problem and running vacuum in the expanding
-universe,'' \emph{Phil. Trans. R. Soc. A} \textbf{380}, 20210182 (2022).
+\emph{Rev.~Mod. Phys.} \textbf{61}, 1 (1989).
+
+{[}4{]} H.-P. Breuer and F. Petruccione, \emph{The Theory of Open
+Quantum Systems} (Oxford University Press, 2002).
+
+{[}5{]} P. Pechukas, ``Reduced dynamics need not be completely
+positive,'' \emph{Phys. Rev.~Lett.} \textbf{73}, 1060 (1994).
+
+{[}6{]} Á. Rivas, S. F. Huelga, and M. B. Plenio, ``Entanglement and
+non-Markovianity of quantum evolutions,'' \emph{Phys. Rev.~Lett.}
+\textbf{105}, 050403 (2010).
+
+{[}7{]} Á. Rivas, S. F. Huelga, and M. B. Plenio, ``Quantum
+non-Markovianity: characterization, quantification and detection,''
+\emph{Rep.~Prog. Phys.} \textbf{77}, 094001 (2014).
+
+{[}8{]} F. A. Pollock, C. Rodríguez-Rosario, T. Frauenheim, M.
+Paternostro, and K. Modi, ``Operational Markov condition for quantum
+processes,'' \emph{Phys. Rev.~Lett.} \textbf{120}, 040405 (2018).
+
+{[}9{]} P. Strasberg and M. Esposito, ``Stochastic thermodynamics in the
+strong coupling regime: An unambiguous approach based on coarse
+graining,'' \emph{Phys. Rev.~E} \textbf{95}, 062101 (2017).
+
+{[}10{]} J. A. Barandes, ``The Stochastic-Quantum Theorem,''
+arXiv:2309.03085 (2023).
+
+{[}11{]} J. A. Barandes, ``The Stochastic-Quantum Correspondence,''
+\emph{Philosophy of Physics} \textbf{3}(1):8 (2025).
+
+{[}12{]} S. Calvo, ``On the Stochastic-Quantum Correspondence,''
+arXiv:2601.18720 (2026).
+
+{[}13{]} J. S. Bell, ``On the Einstein Podolsky Rosen paradox,''
+\emph{Physics Physique Fizika} \textbf{1}, 195--200 (1964).
+
+{[}14{]} J. A. Barandes, S. Hasan, and J. Kagan, ``The CHSH Game,
+Tsirelson's Bound, and Causal Locality,'' arXiv:2512.18105 (2025).
+
+{[}15{]} T. Le, F. A. Pollock, T. Paterek, M. Paternostro, and K. Modi,
+``Divisible quantum dynamics satisfies temporal Tsirelson's bound,''
+\emph{J. Phys. A} \textbf{50}, 055302 (2017).
+
+{[}16{]} T. Jacobson, ``Thermodynamics of Spacetime: The Einstein
+Equation of State,'' \emph{Phys. Rev.~Lett.} \textbf{75}, 1260 (1995).
+
+{[}17{]} G. W. Gibbons and S. W. Hawking, ``Cosmological event horizons,
+thermodynamics, and particle creation,'' \emph{Phys. Rev.~D}
+\textbf{15}, 2738 (1977).
+
+{[}18{]} S. M. Carroll, ``The Cosmological Constant,'' \emph{Living
+Rev.~Relativ.} \textbf{4}, 1 (2001).
+
+{[}19{]} D. H. Wolpert, ``Physical limits of inference,'' \emph{Physica
+D} \textbf{237}, 1257--1281 (2008).
+
+{[}20{]} J. Solà Peracaula, ``The cosmological constant problem and
+running vacuum in the expanding universe,'' \emph{Phil. Trans. R. Soc.
+A} \textbf{380}, 20210182 (2022).
+
 {[}21{]} J. Solà Peracaula, A. Gómez-Valent, and J. de Cruz Pérez,
 ``Running vacuum in the Universe,'' \emph{Universe} \textbf{9}, 262
-(2023). {[}22{]} DESI Collaboration, ``DESI 2024 VI: Cosmological
-Constraints from BAO,'' arXiv:2404.03002 (2024). {[}23{]} J. Abedi, H.
-Dykaar, and N. Afshordi, ``Echoes from the Abyss,'' \emph{Phys. Rev.~D}
-\textbf{96}, 082004 (2017). {[}24{]} A. Fine, ``Hidden Variables, Joint
-Probability, and the Bell Inequalities,'' \emph{Phys. Rev.~Lett.}
-\textbf{48}, 291 (1982). {[}25{]} L. S. Pimenta, ``Divisible and
-indivisible Stochastic-Quantum dynamics,'' arXiv:2505.08785 (2025).
-{[}26{]} J. Doukas, ``On the emergence of quantum mechanics from
-stochastic processes,'' arXiv:2602.22095 (2026). {[}27{]} N. Bao, S. M.
-Carroll, and A. Singh, ``The Hilbert space of quantum gravity is locally
-finite-dimensional,'' \emph{Int. J. Mod. Phys. D} \textbf{26}, 1743013
-(2017). {[}28{]} W. G. Unruh, ``Sonic analogue of black holes and the
-effects of high frequencies on black hole evaporation,'' \emph{Phys.
-Rev.~D} \textbf{51}, 2827 (1995). {[}29{]} K. Fredenhagen and R. Haag,
-``On the derivation of Hawking radiation associated with the formation
-of a black hole,'' \emph{Commun. Math. Phys.} \textbf{127}, 273--284
-(1990). {[}30{]} DESI Collaboration, ``DESI DR2 Results II: Measurements
-of Baryon Acoustic Oscillations and Cosmological Constraints,''
-\emph{Phys. Rev.~D} \textbf{112}, 083515 (2025); arXiv:2503.14738.
-{[}31{]} J. de Cruz Pérez, A. Gómez-Valent, and J. Solà Peracaula,
-``Dynamical Dark Energy models in light of the latest observations,''
-arXiv:2512.20616 (2025). {[}32{]} W. F. Stinespring, ``Positive
-functions on C\emph{-algebras,'' }Proc. Amer. Math. Soc.* \textbf{6},
-211--216 (1955). {[}33{]} M. A. Nielsen and I. L. Chuang, \emph{Quantum
-Computation and Quantum Information} (Cambridge University Press, 2000).
-{[}34{]} B. Bylicka, M. Johansson, and A. Acín,''Constructive method for
-detecting the information backflow of non-Markovian dynamics,''
-\emph{Phys. Rev.~Lett.} \textbf{118}, 120501 (2017). {[}35{]} S. Milz,
-M. S. Kim, F. A. Pollock, and K. Modi, ``Completely positive
-divisibility does not mean Markovianity,'' \emph{Phys. Rev.~Lett.}
-\textbf{123}, 040401 (2019). {[}36{]} B. S. Cirel'son, ``Quantum
-generalizations of Bell's inequality,'' \emph{Lett. Math. Phys.}
-\textbf{4}, 93--100 (1980). {[}37{]} E. P. Verlinde, ``Emergent Gravity
-and the Dark Universe,'' \emph{SciPost Phys.} \textbf{2}, 016 (2017);
-arXiv:1611.02269.
+(2023).
 
-{[}38{]} D. L. Danielson, G. Satishchandran, and R. M. Wald, ``Black
+{[}22{]} DESI Collaboration, ``DESI 2024 VI: Cosmological Constraints
+from BAO,'' arXiv:2404.03002 (2024).
+
+{[}23{]} A. Fine, ``Hidden Variables, Joint Probability, and the Bell
+Inequalities,'' \emph{Phys. Rev.~Lett.} \textbf{48}, 291 (1982).
+
+{[}24{]} L. S. Pimenta, ``Divisible and indivisible Stochastic-Quantum
+dynamics,'' arXiv:2505.08785 (2025).
+
+{[}25{]} J. Doukas, ``On the emergence of quantum mechanics from
+stochastic processes,'' arXiv:2602.22095 (2026).
+
+{[}26{]} N. Bao, S. M. Carroll, and A. Singh, ``The Hilbert space of
+quantum gravity is locally finite-dimensional,'' \emph{Int. J. Mod.
+Phys. D} \textbf{26}, 1743013 (2017).
+
+{[}27{]} W. G. Unruh, ``Sonic analogue of black holes and the effects of
+high frequencies on black hole evaporation,'' \emph{Phys. Rev.~D}
+\textbf{51}, 2827 (1995).
+
+{[}28{]} K. Fredenhagen and R. Haag, ``On the derivation of Hawking
+radiation associated with the formation of a black hole,'' \emph{Commun.
+Math. Phys.} \textbf{127}, 273--284 (1990).
+
+{[}29{]} DESI Collaboration, ``DESI DR2 Results II: Measurements of
+Baryon Acoustic Oscillations and Cosmological Constraints,'' \emph{Phys.
+Rev.~D} \textbf{112}, 083515 (2025); arXiv:2503.14738.
+
+{[}30{]} J. de Cruz Pérez, A. Gómez-Valent, and J. Solà Peracaula,
+``Dynamical Dark Energy models in light of the latest observations,''
+arXiv:2512.20616 (2025).
+
+{[}31{]} W. F. Stinespring, ``Positive functions on C\emph{-algebras,''
+}Proc. Amer. Math. Soc.* \textbf{6}, 211--216 (1955).
+
+{[}32{]} M. A. Nielsen and I. L. Chuang, \emph{Quantum Computation and
+Quantum Information} (Cambridge University Press, 2000).
+
+{[}33{]} B. Bylicka, M. Johansson, and A. Acín, ``Constructive method
+for detecting the information backflow of non-Markovian dynamics,''
+\emph{Phys. Rev.~Lett.} \textbf{118}, 120501 (2017).
+
+{[}34{]} S. Milz, M. S. Kim, F. A. Pollock, and K. Modi, ``Completely
+positive divisibility does not mean Markovianity,'' \emph{Phys.
+Rev.~Lett.} \textbf{123}, 040401 (2019).
+
+{[}35{]} B. S. Cirel'son, ``Quantum generalizations of Bell's
+inequality,'' \emph{Lett. Math. Phys.} \textbf{4}, 93--100 (1980).
+
+{[}36{]} E. P. Verlinde, ``Emergent Gravity and the Dark Universe,''
+\emph{SciPost Phys.} \textbf{2}, 016 (2017); arXiv:1611.02269.
+
+{[}37{]} D. L. Danielson, G. Satishchandran, and R. M. Wald, ``Black
 holes decohere quantum superpositions,'' \emph{Int. J. Mod. Phys. D}
 \textbf{31}, 2241003 (2022).
 
-{[}39{]} D. L. Danielson, G. Satishchandran, and R. M. Wald, ``Killing
+{[}38{]} D. L. Danielson, G. Satishchandran, and R. M. Wald, ``Killing
 horizons decohere quantum superpositions,'' \emph{Phys. Rev.~D}
 \textbf{108}, 025007 (2023).
 
-{[}40{]} Y. Li, ``Non-Markovian Gravitational Decoherence and the Black
+{[}39{]} Y. Li, ``Non-Markovian Gravitational Decoherence and the Black
 Hole Information Paradox,'' \emph{Int. J. Theor. Phys.} \textbf{63}, 293
 (2024).
 
-{[}41{]} S. Popescu, A. J. Short, and A. Winter, ``Entanglement and the
+{[}40{]} S. Popescu, A. J. Short, and A. Winter, ``Entanglement and the
 foundations of statistical mechanics,'' \emph{Nature Physics}
 \textbf{2}, 754--758 (2006).
 
-{[}42{]} R. Genzel et al., ``Strongly baryon-dominated disk galaxies at
+{[}41{]} R. Genzel et al., ``Strongly baryon-dominated disk galaxies at
 the peak of galaxy formation ten billion years ago,'' \emph{Nature}
 \textbf{543}, 397--401 (2017).
 
-{[}43{]} R. Genzel et al., ``Rotation curves in z \textasciitilde{} 1--2
+{[}42{]} R. Genzel et al., ``Rotation curves in z \textasciitilde{} 1--2
 star-forming disks: evidence for cored dark matter distributions,''
 \emph{Astrophys. J.} \textbf{902}, 98 (2020).
 
-{[}44{]} S. S. McGaugh, F. Lelli, and J. M. Schombert, ``Radial
+{[}43{]} S. S. McGaugh, F. Lelli, and J. M. Schombert, ``Radial
 acceleration relation in rotationally supported galaxies,'' \emph{Phys.
 Rev.~Lett.} \textbf{117}, 201101 (2016).
 
-{[}45{]} D. Wu et al., ``Model-independent search of gravitational wave
-echoes in LVK data,'' arXiv:2512.24730 (2025).
-
-{[}46{]} D. N. Page, ``Average entropy of a subsystem,'' \emph{Phys.
-Rev.~Lett.} \textbf{71}, 1291 (1993).
-
-{[}47{]} K. Brandner, ``Dynamics of microscale and nanoscale systems in
+{[}44{]} K. Brandner, ``Dynamics of microscale and nanoscale systems in
 the weak-memory regime,'' \emph{Phys. Rev.~Lett.} \textbf{134}, 037101
 (2025).
 
-{[}48{]} K. Brandner, ``Dynamics of microscale and nanoscale systems in
+{[}45{]} K. Brandner, ``Dynamics of microscale and nanoscale systems in
 the weak-memory regime: A mathematical framework beyond the Markov
 approximation,'' \emph{Phys. Rev.~E} \textbf{111}, 014137 (2025).
 
-{[}49{]} S. W. P. Kim, ``Measurement-induced phase transitions in
+{[}46{]} S. W. P. Kim, ``Measurement-induced phase transitions in
 quantum inference problems and quantum hidden Markov models,''
 arXiv:2504.08888 (2025).
 
-{[}50{]} J. Mehl, B. Lander, C. Bechinger, V. Blickle, and U. Seifert,
+{[}47{]} J. Mehl, B. Lander, C. Bechinger, V. Blickle, and U. Seifert,
 ``Role of hidden slow degrees of freedom in the fluctuation theorem,''
 \emph{Phys. Rev.~Lett.} \textbf{108}, 220601 (2012).
 
-{[}51{]} S. Gröblacher, A. Trubarov, N. Prigge, G. D. Cole, M.
+{[}48{]} S. Gröblacher, A. Trubarov, N. Prigge, G. D. Cole, M.
 Aspelmeyer, and J. Eisert, ``Observation of non-Markovian
 micromechanical Brownian motion,'' \emph{Nature Communications}
 \textbf{6}, 7606 (2015).
 
-{[}52{]} H. C. Bäcker, S. Milz, and K. Modi, ``Operational
+{[}49{]} H. C. Bäcker, S. Milz, and K. Modi, ``Operational
 discrimination of classical and quantum memory in non-Markovian
 processes,'' (2023).
 
-{[}53{]} B. Yosifov et al., ``Distinguishing classical and quantum
+{[}50{]} B. Yosifov et al., ``Distinguishing classical and quantum
 memory in collision models with controllable correlations,'' (2025).
 
-{[}54{]} DESI Collaboration: W. Elbers et al., ``Constraints on Neutrino
+{[}51{]} DESI Collaboration: W. Elbers et al., ``Constraints on Neutrino
 Physics from DESI DR2 BAO and DR1 Full Shape,'' arXiv:2503.14744 (2025).
 
-{[}55{]} JUNO Collaboration: A. Abusleme et al., ``First measurement of
+{[}52{]} JUNO Collaboration: A. Abusleme et al., ``First measurement of
 reactor neutrino oscillations at JUNO,'' arXiv:2511.14593 (2025).
 
-{[}56{]} F. Capozzi et al., ``Updated bounds on the (1,2) neutrino
+{[}53{]} F. Capozzi et al., ``Updated bounds on the (1,2) neutrino
 oscillation parameters after first JUNO results,'' arXiv:2511.21650
 (2025).
 
-{[}57{]} N. Lu, S. Ma, O. J. Piccinni, L. Sun, and E. Finch, ``GW250114
-reveals black hole horizon signatures,'' arXiv:2510.01001 (2025).
-
-{[}58{]} Y.-F. Wang, S. Ma, et al., ``A nonlinear voice from GW250114
-ringdown,'' arXiv:2601.05734 (2026).
-
-{[}59{]} LIGO Scientific Collaboration, Virgo Collaboration, and KAGRA
+{[}54{]} LIGO Scientific Collaboration, Virgo Collaboration, and KAGRA
 Collaboration: A. G. Abac et al., ``GW250114: Testing Hawking's Area Law
 and the Kerr Nature of Black Holes,'' \emph{Phys. Rev.~Lett.}
 \textbf{135}, 111403 (2025).
 
-{[}60{]} LZ Collaboration: J. Aalbers et al., ``Dark matter search
+{[}55{]} LZ Collaboration: J. Aalbers et al., ``Dark matter search
 results from 4.2 tonne-years of exposure of the LUX-ZEPLIN (LZ)
 experiment,'' (2025); 417-day analysis presented at SURF, December 2025.
 
-{[}61{]} Y. Jiao et al., ``Detection of the Keplerian decline in the
+{[}56{]} Y. Jiao et al., ``Detection of the Keplerian decline in the
 Milky Way rotation curve,'' \emph{Astronomy \& Astrophysics}
 \textbf{678}, A208 (2023).
 
