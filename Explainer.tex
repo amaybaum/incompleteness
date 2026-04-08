@@ -7,10 +7,7 @@
 \usepackage{unicode-math}
 \setmathfont{Latin Modern Math}
 \usepackage{amsmath}
-\AtBeginDocument{%
-  \let\square\mdlgwhtsquare%
-  \let\Box\mdlgwhtsquare%
-}
+\providecommand{\square}{\mdlgwhtsquare}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue,breaklinks=true}
 \usepackage{graphicx}
@@ -27,7 +24,9 @@
 \setcounter{secnumdepth}{-\maxdimen}
 \providecommand{\pandocbounded}[1]{#1}
 \sloppy
+
 \begin{document}
+
 \hypertarget{the-incompleteness-of-observation}{%
 \section{The Incompleteness of
 Observation}\label{the-incompleteness-of-observation}}
@@ -1031,9 +1030,8 @@ equation a genuine determination.
 alone but in its consequences: the specific relationship ℏ = c³ε²/(4G)
 --- rather than any other function of c, G, ε --- produces the
 Bekenstein-Hawking formula with the exact factor 1/4, the CC dissolution
-with S\_dS as the compression ratio, the RVM parameter ν\_OI, and the GW
-echo timescale. Any alternative ℏ(ε) would fail at least one of these
-checks.
+with S\_dS as the compression ratio, and the RVM parameter ν\_OI. Any
+alternative ℏ(ε) would fail at least one of these checks.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1223,9 +1221,8 @@ prior to geometry is usually treated as a philosophical preference. But
 it has an empirical signature sitting in plain sight: one ordering
 produces the worst prediction in physics and has no solution; the other
 predicts the observed value and explains the discrepancy as a derived
-quantity. That doesn't prove the ordering is correct --- the
-gravitational wave echo prediction provides a more direct test --- but
-it's existing evidence, not a future hope.
+quantity. That doesn't prove the ordering is correct, but it's existing
+evidence, not a future hope.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1303,58 +1300,6 @@ functional form OI predicts, not merely ``some kind of dynamical dark
 energy.'' DESI Year 5 (\textasciitilde1\% precision on \(\nu\)) provides
 the decisive test.
 
-\textbf{Gravitational wave echoes.} At a proper distance of about one
-discreteness scale (\(\epsilon = 2\,l_p\)) outside a black hole horizon,
-an infalling mode's wavelength hits the discreteness floor and must
-scatter. For a 62.7 solar-mass remnant (like GW250114), the predicted
-echo delay is \(\Delta t = (r_+/c)\ln(r_+/2l_p) = 48.9\) ms, where
-\(r_+\) is the Kerr outer horizon radius. The echo waveform is a train
-of damped sinusoids at the QNM frequency (\(f_{\text{QNM}} = 271\) Hz
-for GW250114), with alternating phase \((-1)^n\) and amplitude
-\(A_n = \mathcal{R} \times \Gamma \times (1-\Gamma)^{n-1}\), where
-\(\Gamma \approx 0.45\) is the greybody factor and
-\(\mathcal{R} \approx 1\) is the wall reflectivity (computed from
-boundary mode analysis: the \(l = 2\) mode has no dissipation channel
-because angular momentum transfer to \(l \neq 2\) modes is suppressed by
-\((\epsilon/\lambda)^2 \sim 10^{-82}\)). The first echo amplitude is
-\(\sim 45\%\) of the ringdown. Model-independent searches on GW250114
-(total SNR \(\sim 80\)) find no echoes, but this is fully consistent
-with the prediction: the exact fitting factor between the OI echo
-template and the best long-lived QNM template is only
-\(\text{FF} = 0.19\) --- the search recovers less than \(20\%\) of the
-optimal SNR. The mismatch arises because the OI echo is silent for
-\(\sim 49\) ms between bursts and alternates phase \((-1)^n\), features
-no long-lived sinusoid can match. For GW250114: matched-filter SNR
-\(\sim 15\) (detectable) vs long-lived QNM search SNR \(\sim 2.8\)
-(below threshold). A dedicated matched-filter search using the
-one-parameter OI comb template on GW250114 public data would provide the
-definitive test (Main, §8.2).
-
-Two recent independent analyses tighten the empirical context. Lu et
-al.~(October 2025) report observational evidence for a ``direct wave''
-component in GW250114 oscillating near twice the horizon angular
-frequency and decaying at the surface gravity, with matched-filter SNR
-\(14.0^{+0.2}_{-0.1}\) in LIGO Hanford and \(13.5^{+0.1}_{-0.2}\) in
-Livingston --- the same SNR range the OI echo is predicted to occupy
-(\(\sim 15\) for GW250114). The Lu et al.~signal is a different proposed
-horizon effect with different morphology (a smooth damped sinusoid
-rather than the OI comb), but its detection establishes that
-horizon-scale structure beyond the standard QNM picture is detectable in
-current data at the predicted scale, and that the analysis
-infrastructure for non-standard horizon physics on GW250114 is now
-operational. Wang et al.~(January 2026) independently detect six
-quadratic quasi-normal modes in the same ringdown at Bayes factor 74,
-demonstrating that the post-merger signal contains nonlinear structure
-requiring more than the standard linear modes --- the standard ringdown
-analysis is incomplete. The LIGO-Virgo-KAGRA standard area-law
-confirmation (Abac et al., PRL 135, 111403) independently verifies the
-Bekenstein-Hawking entropy formula derived in Part II of the Main paper,
-including the factor of 1/4. None of these is the OI echo, but each
-tightens the empirical context: horizon physics beyond standard GR is
-now a tractable observational target, GW250114 has the SNR to detect it,
-and the predicted OI echo scale is comparable to what is being seen in
-adjacent analyses.
-
 \textbf{The dark sector as corroboration.} The trace-out that produces
 quantum mechanics has a gravitational consequence that the paper did not
 set out to find. The boundary entropy --- the \(S_{\text{dS}}\) modes
@@ -1387,7 +1332,7 @@ Clausius relation, the Jacobson mechanism converts the entropy gradient
 into curvature, yielding the MOND acceleration scale
 \(a_0 = cH/6 \approx 1.2 \times 10^{-10}\) m/s² and the baryonic
 Tully-Fisher relation \(v^4 = GM_B \cdot cH/6\) --- both parameter-free
-(Main, §8.4). That a definition designed to formalize observation also
+(Main, §8.3). That a definition designed to formalize observation also
 account for the dark sector's total budget and internal structure is
 independent corroboration that observational incompleteness is capturing
 real structure.
@@ -1446,7 +1391,7 @@ configuration (centered on the galaxies, which defined the potential
 wells for gigayears), not tracking the recently displaced gas. This
 reproduces the observed lensing morphology and makes a testable
 prediction: very old post-collision systems should show gradual
-relaxation of the dark gravity toward the gas distribution (Main, §8.4).
+relaxation of the dark gravity toward the gas distribution (Main, §8.3).
 The same thermodynamic averaging explains why the entropy displacement
 reproduces the CMB acoustic peak pattern: oscillating perturbations have
 zero net entropy displacement per cycle (the Clausius relation involves
@@ -1749,10 +1694,9 @@ mechanics?''} No.~Interpretations (Copenhagen, Many-Worlds, Bohmian
 mechanics) accept the quantum formalism and disagree about what it
 \emph{means}. This framework \emph{derives} the quantum formalism from
 non-quantum premises and proves the derivation is the only possible one.
-It makes quantitative predictions --- the value of ℏ, dark energy
-evolution, and gravitational wave echoes --- that interpretations do
-not, and it accounts for the dark-sector concordance as an automatic
-consequence.
+It makes quantitative predictions --- the value of ℏ and dark energy
+evolution --- that interpretations do not, and it accounts for the
+dark-sector concordance as an automatic consequence.
 
 \textbf{``Doesn't Bell's theorem rule out hidden variable theories?''}
 Bell's theorem rules out \emph{local} hidden variable theories
@@ -1835,18 +1779,18 @@ orderings make different empirical predictions: if geometry emerges from
 entanglement, spacetime structure should break down at high energy; if
 quantum mechanics emerges from geometry, the quantum description should
 break down near the discreteness scale while the geometric substratum
-persists. The gravitational wave echo prediction provides one test. But
-the cumulative case is already substantial: the geometry-first ordering
-produces the observed vacuum energy, the Bekenstein-Hawking \(1/4\)
-factor, the value of \(\hbar\), the dark-sector concordance, dark energy
-evolution consistent with DESI data, the MOND acceleration scale
-\(a_0 = cH/6\), the baryonic Tully-Fisher relation, the SM gauge group
-with its coupling strengths, the declining rotation curves at high
-redshift, \(\bar{\theta} = 0\), the Coma cluster mass, and the Bullet
-Cluster lensing morphology --- twelve independent consequences matching
-observation. The quantum-first ordering produces the \(10^{122}\)
-discrepancy, treats \(\hbar\) and the \(1/4\) factor as unexplained
-inputs, and has no natural account of the dark sector.
+persists. The cumulative case for the geometry-first ordering is already
+substantial: it produces the observed vacuum energy, the
+Bekenstein-Hawking \(1/4\) factor, the value of \(\hbar\), the
+dark-sector concordance, dark energy evolution consistent with DESI
+data, the MOND acceleration scale \(a_0 = cH/6\), the baryonic
+Tully-Fisher relation, the SM gauge group with its coupling strengths,
+the declining rotation curves at high redshift, \(\bar{\theta} = 0\),
+the Coma cluster mass, and the Bullet Cluster lensing morphology ---
+twelve independent consequences matching observation. The quantum-first
+ordering produces the \(10^{122}\) discrepancy, treats \(\hbar\) and the
+\(1/4\) factor as unexplained inputs, and has no natural account of the
+dark sector.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2415,10 +2359,10 @@ oscillation minimum (\(\approx 0.059\) eV). DESI DR2+CMB data
 with all of these.
 
 Combined with the earlier papers' predictions --- dark energy evolution
-with \(\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}\), gravitational
-wave echoes, dark matter from galaxies through clusters to the Bullet
-Cluster, gauge couplings at \(M_Z\) --- and the Predictions paper's
-twenty-one zero-parameter quantitative predictions (including
+with \(\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}\), dark matter
+from galaxies through clusters to the Bullet Cluster, gauge couplings at
+\(M_Z\) --- and the Predictions paper's twenty-one zero-parameter
+quantitative predictions (including
 \(\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)\) confirmed by JUNO at
 \(0.14\sigma\)), the framework makes a suite of falsifiable predictions
 that no competing theory makes jointly.
@@ -2965,12 +2909,12 @@ The framework has one free parameter (ε). The gap equation relates ε to
 lies not in the gap equation alone but in its consequences: the specific
 relationship ℏ = c³ε²/(4G) --- rather than any other function of c, G, ε
 --- produces the Bekenstein-Hawking formula with the exact factor 1/4
-(§6), the CC dissolution with S\_dS as the compression ratio (§7.3), the
-RVM parameter ν\_OI (§8.1), and the GW echo timescale (§8.2). Any
-alternative ℏ(ε) would fail at least one of these checks. The situation
-is analogous to deriving the Schwarzschild metric with M as a free
-parameter: the derivation has genuine content (the functional form) even
-though one input is not determined from within.
+(§6), the CC dissolution with S\_dS as the compression ratio (§7.3), and
+the RVM parameter ν\_OI (§8.1). Any alternative ℏ(ε) would fail at least
+one of these checks. The situation is analogous to deriving the
+Schwarzschild metric with M as a free parameter: the derivation has
+genuine content (the functional form) even though one input is not
+determined from within.
 
 \textbf{2. The KMS condition on the lattice.}
 
@@ -3014,5 +2958,6 @@ acknowledges the use of \textbf{Claude Opus 4.6} and \textbf{Gemini 3.1
 Pro} to assist in synthesizing technical concepts and refining clarity.
 The final text and all scientific claims were reviewed and verified by
 the author.
+
 
 \end{document}
