@@ -1,9 +1,10 @@
 # Non-Markovian Dynamics in Biology and Medicine
 ### Molecular Memory as a Unifying Framework for Disease Mechanisms and Therapeutic Design
 
-### Alex Maybaum
-
-### April 2026
+**Author:** Alex Maybaum  
+**Date:** April 2026  
+**Status:** DRAFT PRE-PRINT  
+**Classification:** Theoretical Biology / Pharmacology
 
 ---
 

@@ -1,10 +1,9 @@
 # The Standard Model from a Cubic Lattice
 
-**Alex Maybaum**
-
-*Independent researcher*
-
-**April 2026**
+**Author:** Alex Maybaum  
+**Date:** April 2026  
+**Status:** DRAFT PRE-PRINT  
+**Classification:** Theoretical Physics / High Energy Physics
 
 ---
 
@@ -814,6 +813,20 @@ $$\mathfrak{f}_{\mathrm{WD}}(M) = \sum_{i=1}^{r} n_i \cdot \mathfrak{f}_{\mathrm
 The OI trace-out (marginalization over the hidden sector) produces the emergent quantum description, which depends on the coupling eigenvalues $\mu_k$ via the NM formula $\mathrm{NM}^2 = 3\langle\mu^4\rangle$ (a consequence of the stochastic-quantum correspondence applied to the wave equation's Fourier decomposition). These $\mu_k$ are properties of $F_{\mathrm{ss}}$ — the semisimple part of the dynamics. The nilpotent monodromy $N$ contributes nothing to the emergent description: it affects only the off-diagonal Jordan block entries, which are erased by the coarse-graining over the hidden sector.
 
 The trace-out therefore performs the Jordan-Chevalley projection $(F_{\mathrm{ss}}, N) \mapsto F_{\mathrm{ss}} \mapsto \{\mu_k\} \mapsto \mathrm{NM}^2$: it extracts the semisimple part, encodes it via magnitudes rather than orders, and organizes it by the representation theory of the partition. The nilpotent monodromy — genuine mathematical structure present in the full dynamics — is invisible to the embedded observer. This is the precise sense in which physics is the semisimple shadow of mathematics: the observer sees only the diagonalizable spectral data, projected by the trace-out and organized by the gauge group's representation structure.
+
+---
+
+## Code and Data Availability
+
+The lattice Monte Carlo computations reported in this paper were performed using a custom C implementation. Specifically:
+
+- The pure-gauge plaquette measurements in §6.4 — $\langle P \rangle_{\mathrm{SU}(2)} = 0.783$ at $\beta_2 = 7.4$ and $\langle P \rangle_{\mathrm{SU}(3)} = 0.806$ at $\beta_3 = 11.1$, both on a $4^4$ lattice — were obtained from a Creutz heat-bath simulation of the standard Wilson plaquette action, with results cross-checked against Symanzik improvement.
+
+- The scalar density renormalization $Z_S(m)$ in §7.5 was computed on SU(3) gauge backgrounds at $\beta_3 = 11.1$, scanning 30 bare masses from $m = 0.005$ to $0.50$. Volumes $L = 16$ (30 configurations) and $L = 32$ (50 configurations) were the primary ensembles, with $L = 64$ used for convergence checks. The reported value $Z_S(0.122) = 1.813 \pm 0.001$ is the cubic interpolant of the $L = 32$ measurements. The chiral condensate $\Sigma \approx 0.20$ is the linear extrapolation in the volume-converged region ($mL \gtrsim 3$).
+
+- The dynamical fermion HMC infrastructure for the full $K = 6$, $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ lattice has been developed and is in active use; gauge-only HMC is verified for all three groups, and the staggered fermion force has been numerically validated against the analytic form for all eight Gell-Mann generators.
+
+The source code, gauge configurations at the OI couplings $\beta_2 = 7.4$ and $\beta_3 = 11.1$, and the $Z_S(m)$ measurement outputs underlying the §7.5 prediction are available from the author on request. A public release with a permanent DOI is planned in conjunction with the journal version of this paper.
 
 ---
 

@@ -2,7 +2,7 @@
 ### The Equivalence of Quantum Mechanics and Embedded Observation
 
 **Author:** Alex Maybaum  
-**Date:** March 2026  
+**Date:** April 2026  
 **Status:** DRAFT PRE-PRINT  
 **Classification:** Theoretical Physics / Foundations
 

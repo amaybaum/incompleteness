@@ -1,10 +1,9 @@
 # The Substratum Construction: Reconstruction, the Substratum Gauge Group, and the QM-GR Synthesis
 
-**Alex Maybaum**
-
-*Independent researcher*
-
-**April 2026**
+**Author:** Alex Maybaum  
+**Date:** April 2026  
+**Status:** DRAFT PRE-PRINT  
+**Classification:** Theoretical Physics / Foundations
 
 ---
 

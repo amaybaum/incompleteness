@@ -1,10 +1,9 @@
 # ℏ, the Bekenstein-Hawking Entropy, and Dynamical Dark Energy from the Cosmological Horizon
 
-**Alex Maybaum**
-
-*Independent researcher*
-
-**April 2026**
+**Author:** Alex Maybaum  
+**Date:** April 2026  
+**Status:** DRAFT PRE-PRINT  
+**Classification:** Theoretical Physics / Gravitation / Cosmology
 
 ---
 

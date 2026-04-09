@@ -1,7 +1,9 @@
 # The Incompleteness of Observation
 
 **Author:** Alex Maybaum  
-**Date:** April 2026
+**Date:** April 2026  
+**Status:** DRAFT PRE-PRINT  
+**Classification:** Theoretical Physics / Foundations
 
 The framework is developed across four papers: a foundational paper establishing the equivalence between embedded observation and quantum mechanics ([Main]), a paper deriving the Standard Model from a $d = 3$ cubic lattice ([SM]), a paper deriving the gravitational sector from the cosmological horizon ([GR]), and a paper establishing the substratum-level synthesis that makes these derivations a single construction ([Substratum]). See [Contents](#contents) below for the full list.
 
