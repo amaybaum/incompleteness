@@ -115,6 +115,70 @@ Applies the C1–C3 architecture to biological systems where fast catalytic proc
 - [`Medicine.tex`](Medicine.tex) — LaTeX source
 - [`Medicine.pdf`](Medicine.pdf) — Compiled PDF
 
+### Lattice Monte Carlo Code
+
+Source code for the lattice computations reported in the SM paper, §§6.4 (gauge-coupling thresholds) and 7.5 (scalar-density renormalization $Z_S$, dynamical fermion HMC, Higgs effective potential). All files live under [`oi_lattice_code/`](oi_lattice_code/).
+
+```
+oi_lattice_code/
+├── gauge/                          Pure-gauge measurements + perturbative δ₀
+│   ├── metropolis_plaquette.c      Pure-gauge Wilson plaquette via Metropolis (§6.4)
+│   ├── oi_su3_hmc.c                SU(3) OI-induced gauge HMC
+│   ├── oi_su2_hmc.c                SU(2) OI-induced gauge HMC
+│   ├── oi_u1_hmc.c                 Compact U(1) OI-induced HMC
+│   ├── oi_sm_hmc.c                 Full SU(3)×SU(2)×U(1) OI-induced HMC
+│   ├── two_loop_vp.c               Two-loop staggered vacuum polarization
+│   └── two_loop_vp.py              Python integration helper
+├── fermion/
+│   └── k6_hmc.c                    K=6 dynamical staggered HMC; the Z_S(m) workhorse
+├── effective_potential/            Higgs / Coleman-Weinberg variants
+│   ├── k6_cw.c                     Sector-decomposed Coleman-Weinberg potential
+│   ├── k6_cep.c                    Constraint Effective Potential (background h)
+│   ├── k6_taste.c                  Taste-projected CW with point-split bilinears
+│   └── k6_higgs.c                  Dynamical SU(2)-doublet Higgs with Yukawa
+├── zs_measurements/                Z_S extraction variants (cross-checks)
+│   ├── rimom.c                     RI-MOM scheme: Z_S(μ) at fixed momentum
+│   ├── taste_irrep.c               Z_S decomposed by O(3) irrep (A₁/T₁/T₂/A₂)
+│   └── ward_chiral.c               L/R sublattice parity (Ward identity)
+└── scripts/                        Run drivers and Python analysis
+```
+
+**What each piece does.** `gauge/` contains both the perturbative ($\text{two\_loop\_vp.c}$) and non-perturbative ($\text{oi\_*\_hmc.c}$) inputs to the universal induced coupling $1/\alpha_0 = 23.25$, plus a pure-gauge Wilson plaquette utility ($\text{metropolis\_plaquette.c}$) for the C₂-dependent thresholds in §6.4. `fermion/k6_hmc.c` is the dynamical staggered fermion HMC used to compute $Z_S(m)$ on SU(3) backgrounds at $\beta_3 = 11.1$ across 30 mass points and three volumes; the published $Z_S(0.122) = 1.813 \pm 0.001$ is the cubic interpolant of the $L = 32$ ensemble. `effective_potential/` contains four genuinely different attacks on the Higgs / electroweak-scale problem (sector-decomposed CW, constraint effective potential, taste-decomposed CW, dynamical Higgs doublet). `zs_measurements/` contains three independent Z_S extraction schemes used as cross-checks.
+
+**Build.** All C files are single-file with no external dependencies beyond a C99 compiler with libm and (for some files) OpenMP. Each file's header documents its compile line and command-line usage.
+
+```bash
+gcc -O3 -o metropolis_plaquette oi_lattice_code/gauge/metropolis_plaquette.c -lm
+gcc -O3 -fopenmp -o k6_hmc oi_lattice_code/fermion/k6_hmc.c -lm
+```
+
+On macOS with libomp via homebrew, replace `-fopenmp` with `-Xpreprocessor -fopenmp -I$(brew --prefix libomp)/include -L$(brew --prefix libomp)/lib -lomp`. Files without `omp.h` (`metropolis_plaquette.c`, `oi_*.c`, `rimom.c`, `taste_irrep.c`, `ward_chiral.c`) build without the OpenMP flag.
+
+**Quick-start: reproducing the §6.4 plaquette inputs.**
+```bash
+./metropolis_plaquette 2 4 7.4  1000 2000 2 10 0.2    # SU(2) at β=7.4 on 4⁴
+./metropolis_plaquette 3 4 11.1 1000 2000 2 10 0.2    # SU(3) at β=11.1 on 4⁴
+```
+Each run takes ~1 minute on a single core. Output ends with the average plaquette and a comparison against the §6.4 reference value. The utility was validated against literature reference values at SU(2) β=2.3 (gives 0.609 vs lit ≈ 0.605), SU(2) β=20 (0.962 vs ≈ 0.96), SU(3) β=5.7 (0.560 vs ≈ 0.55), and SU(3) β=6.0 (0.596 vs ≈ 0.594).
+
+**Quick-start: reproducing $Z_S(0.122) = 1.813$.**
+```bash
+./k6_hmc 32 0.122 50 200 zs_L32_m0p122.dat
+```
+The full mass scan that produces the cubic interpolation reported in §7.5 requires running the same command across the 30 mass points from $m = 0.005$ to $0.50$, then fitting a cubic in the volume-converged region ($mL \gtrsim 3$).
+
+**Status — read this before running.**
+
+1. **The §6.4 SU(2) plaquette discrepancy.** Running `metropolis_plaquette` at the SM-stated coupling β=7.4 on a 4⁴ lattice produces $\langle P \rangle = 0.8957 \pm 0.0001$, not the 0.783 reported in §6.4. The SU(3) value at β=11.1 is consistent (0.8073 vs 0.806). The SU(2) discrepancy is far too large to be sampling noise (~1100 σ) and disagrees with 1-loop perturbation theory in the wrong direction (1-loop predicts 0.899). This needs investigation before public release: it might be a transcription error in §6.4, a different action convention than standard Wilson, a fit-output mistakenly transcribed as an input, or something more subtle. The author should re-verify the SU(2) plaquette value used in the §6.4 threshold extraction and the implied refit of the constants $A$ and $B$ in $A \cdot \ln(1 + B \cdot C_2 g_0^2)$.
+
+2. **The §6.4 method description.** SM §6.4 describes the plaquette computations as "Creutz heat-bath simulation on a 4⁴ lattice, confirmed with Symanzik improvement." The shipped utility uses Metropolis. For pure equilibrium expectation values both methods are equivalent — they sample the same Wilson Boltzmann distribution — but the method description in §6.4 should be updated to reflect what is actually implemented and shipped, or a separate Creutz heat-bath utility should be written.
+
+3. **The OI-induced confined-phase issue.** As discussed in SM §6.5, running `oi_su3_hmc.c` (or any of the `oi_*_hmc.c` variants) with the Haar measure on the gauge group produces a confined phase $\langle P \rangle \to 0$ — an artifact of using the wrong measure. The actual OI gauge measure is the discrete pushforward of the uniform measure on $(\mathbb{Z}/q\mathbb{Z})^{K \times N}$, not Haar. The perturbative-regime values used for the SM coupling derivation come from the matched two-loop calculation in `two_loop_vp.c`, not from running `oi_*_hmc.c` directly.
+
+4. **Research-grade defaults.** CG tolerances are 1e-10 to 1e-12 across files. The published $Z_S(0.122) = 1.813 \pm 0.001$ quotes statistical error from the $L = 32$ ensemble; systematic errors from finite volume and finite trajectory length are not exhaustively quantified. No regression test suite is included.
+
+**Provenance.** Two files present in the development tree were removed during the cleanup before this release. `oi_hmc.c` had a sign bug in the kinetic-energy computation (`K -=` instead of `K +=` for the squared anti-Hermitian momentum), making the molecular-dynamics integrator incorrect; the fix is in `oi_su3_hmc.c`, which is now the canonical SU(3) OI-induced HMC source. `taste_proj.c` performed a binary in-vs-out-of-reduced-BZ split for the taste-projected $Z_S$; it is subsumed by `taste_irrep.c`, which decomposes the same data into all four O(3) irreps plus the all-tastes total.
+
 ## Key Results
 
 1. **QM–embedded observation equivalence.** A stochastic process on a finite configuration space is quantum mechanics if and only if it arises from deterministic dynamics with non-trivial coupling (C1), slow-bath memory (C2), and sufficient hidden-sector capacity (C3). *Status: theorem.*
