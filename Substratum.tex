@@ -1,0 +1,976 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\hypertarget{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}{%
+\section{The Substratum Construction: Reconstruction, the Substratum
+Gauge Group, and the QM-GR
+Synthesis}\label{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}}
+
+\textbf{Author:} Alex Maybaum\\
+\textbf{Date:} April 2026\\
+\textbf{Status:} DRAFT PRE-PRINT\\
+\textbf{Classification:} Theoretical Physics / Foundations
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{abstract}{%
+\subsection{Abstract}\label{abstract}}
+
+Quantum mechanics and general relativity are conventionally treated as
+two fundamental theories awaiting unification. This paper establishes
+that they are instead two projections of a single finite deterministic
+construction, with the apparent incompatibility arising as a category
+error rather than a technical problem. The construction is the bijection
+\((S, \varphi)\) on a finite configuration space whose visible-sector
+projection is the Standard Model {[}SM{]} and whose
+boundary-thermodynamic projection is general relativity {[}GR{]}, as
+developed in companion papers. The substratum-level results that make
+these emergences a single construction rather than two independent
+applications of the same formalism are: (i) the \emph{reconstruction
+theorem} (Theorem 23), which shows that observed physics --- quantum
+mechanics with Bell violations, finite boundary entropy, and spatial
+isotropy --- uniquely determines the equivalence class
+\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the lattice level, with
+the Standard Model gauge group
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\), three
+chiral generations, anomaly-free hypercharges, and \(\bar\theta = 0\) as
+forced retrodictions; and (ii) the \emph{substratum gauge group}
+\(\mathcal{G}_{\text{sub}}\) (Theorem 24), with four explicit families
+of generators that exhaust all transformations preserving the
+framework's structural inputs. The Standard Model gauge group is the
+visible-sector shadow of \(\mathcal{G}_{\text{sub}}\) --- the image of
+the substratum's symmetry under the trace-out --- and the three-level
+gauge hierarchy (substratum, emergent QFT, emergent Hamiltonian)
+provides the structural account of why the Standard Model has its
+specific gauge structure. The synthesis claim is that the QM-GR
+incompatibility, as conventionally posed, asks how to merge two
+descriptions that share no common framework; the present construction
+provides that common framework, and the apparent incompatibility is the
+artifact of treating two different projections of one object as if they
+were two different theories. The result is not a unification of quantum
+mechanics and general relativity in the traditional sense --- that
+program remains as ill-posed as before --- but a dissolution of the
+question.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{introduction}{%
+\subsection{1. Introduction}\label{introduction}}
+
+The standard physical picture of the world contains two fundamental
+theories. Quantum mechanics describes the microscopic regime in terms of
+unitary evolution on a Hilbert space, superposition, and Born-rule
+probabilities. General relativity describes the gravitational regime in
+terms of a deterministic, classical, dynamical metric obeying Einstein's
+equations. The two are mathematically and conceptually incompatible.
+Quantum mechanics has no preferred temporal foliation and no
+observer-independent state; general relativity has both. Quantum
+mechanics treats measurement as a primitive operation; general
+relativity treats it as a process within the dynamics. Quantum mechanics
+is linear; general relativity is not. Every attempt to unify them --- to
+quantize gravity, to geometrize quantum mechanics, to merge the two into
+a deeper underlying theory --- has produced either inconsistencies,
+ambiguities, or empirically unfalsifiable conjectures. The unification
+problem has resisted solution for nearly a century, and the most active
+current programs (loop quantum gravity, string theory, causal dynamical
+triangulations, asymptotic safety) have produced neither a quantitative
+empirical confirmation nor a clean conceptual resolution.
+
+This paper argues that the QM-GR incompatibility is not a technical
+problem to be solved by finding the right mathematical framework. It is
+a category error: an attempt to merge two descriptions that turn out to
+be projections of the same underlying object viewed from different
+perspectives, rather than two competing accounts of the same regime. The
+framework developed in the four-paper sequence to which this paper
+belongs --- {[}Main{]}, {[}SM{]}, {[}GR{]}, and the present paper ---
+provides the underlying object and the projection map. The underlying
+object is a finite deterministic bijection \((S, \varphi)\) on a
+configuration space partitioned into a visible sector accessible to an
+embedded observer and a hidden sector beyond the observer's causal
+reach. The projection from the underlying object to quantum mechanics is
+the trace-out over the hidden sector, formalized in {[}Main{]} as the
+embedded-observation theorem: under three structural conditions (C1:
+non-trivial coupling, C2: slow bath, C3: high-capacity hidden sector),
+the embedded observer's description is necessarily quantum mechanics,
+with the wave function, Born rule, and unitary evolution arising as
+derived rather than fundamental constructs. The projection from the same
+underlying object to general relativity is the thermodynamic limit at
+the partition boundary, formalized in {[}GR{]} as the
+cosmological-horizon application: applied to the cosmological horizon as
+a causal partition, the framework determines
+\(\hbar = c^3 (2 l_p)^2 / (4G)\), the Bekenstein-Hawking entropy with
+the \(1/4\) coefficient, and the dissolution of the cosmological
+constant problem. The Standard Model emerges from the same bijection on
+a cubic lattice with the wave equation as substratum dynamics, with the
+gauge group
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\), three
+chiral generations, the Higgs as composite, and \(\bar\theta = 0\) as
+forced consequences {[}SM{]}.
+
+The present paper develops the substratum-level results that make these
+three emergences --- emergent QM in {[}Main{]}, the Standard Model
+derivation in {[}SM{]}, and the gravitational sector in {[}GR{]} --- a
+single construction rather than three separate applications of the same
+formalism. The two technical results that do this work are the
+\emph{reconstruction theorem} (§3) and the \emph{substratum gauge group}
+(§4). The reconstruction theorem shows that the map from
+\((S, \varphi)\) to observed physics is invertible: observed quantum
+mechanics with Bell violations, together with finite boundary entropy
+and spatial isotropy, uniquely determine the equivalence class of
+bijections on a lattice, with the Standard Model structure as a forced
+retrodiction. The substratum gauge group identifies the kernel of this
+inverse map --- the transformations of \((S, \varphi)\) that preserve
+all observables --- and shows that the Standard Model gauge group is its
+shadow under the trace-out. The combination of these two results turns
+the framework's three derivations into a single object: the SM gauge
+group is not chosen from a landscape, the gravitational thermodynamics
+are not appended to a quantum description, and the emergent QM is not
+postulated as a starting point. All three emerge from the same
+\((S, \varphi)\), and the substratum gauge group is the symmetry that
+makes the relationship between them exact rather than approximate.
+
+The synthesis claim that follows from these results --- developed in §5
+--- is that quantum mechanics and general relativity are not two
+theories awaiting unification but two projections of the same
+construction, viewed at different levels of description. Quantum
+mechanics lives at the level of the visible-sector trace-out: the
+embedded observer sees the bijection through the hole of finite causal
+access, and the resulting compressed description is unitary QM. General
+relativity lives at the level of the boundary thermodynamics: the same
+causal partition that produces QM at the visible-sector level produces
+classical horizon thermodynamics at the boundary level, and Jacobson's
+thermodynamic argument promotes this to Einstein's equations. The two
+descriptions are not in tension because they refer to different objects
+in the construction --- not different \emph{aspects of the same regime},
+which would invite unification, but different \emph{projections of the
+same substratum}, which makes unification a category error. The
+substratum gauge group makes this precise: at the level of
+\((S, \varphi)\), there is no quantum and no classical, no metric and no
+wave function; there is only the bijection and its symmetries. The
+trace-out at the visible-sector level produces one set of derived
+structures (the wave function, the SM gauge group, particle content),
+and the thermodynamic limit at the boundary level produces another (the
+metric, \(\hbar\), the BH entropy, the dynamical dark energy), and the
+framework provides the construction that makes both of these
+descriptions exact projections of the same object.
+
+The paper is organized as follows. §2 develops the physical
+interpretation of \((S, \varphi)\) as a finite lossless memory with
+partial read-write access, and addresses the substrate objection (what
+is the memory made of?) by identifying it as gauge in the precise
+technical sense established by the substratum gauge group of §4. §3
+states and proves the reconstruction theorem (Theorem 23). §4 states and
+proves the substratum gauge group result (Theorem 24) and develops the
+three-level gauge hierarchy. §5 makes the synthesis claim explicit,
+citing {[}Main{]}, {[}SM{]}, and {[}GR{]} for the empirical content. §6
+discusses structural realism, the ontological hierarchy, and the
+dissolution of the measurement problem. §7 concludes. The paper is short
+by design: the technical content fits in two sections (§§3--4) and the
+rest is the structural and interpretive context that shows why those two
+sections matter.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-physical-interpretation-of-s-ux3c6}{%
+\subsection{2. The Physical Interpretation of (S,
+φ)}\label{the-physical-interpretation-of-s-ux3c6}}
+
+\textbf{Storage and memory.} S is the set of all distinguishable states:
+\emph{finite capacity}. φ is a bijection: \emph{perfect memory} ---
+information is never created or destroyed. Together, (S, φ) is a finite
+lossless memory. The partition V defines the observer's \emph{access}
+--- both read and write. The observer reads the visible sector
+(measuring x) and writes to the hidden sector (each visible-sector
+operation imprints correlations on H through the coupling
+\(H_{\text{int}}\)). The slow bath (C2) preserves those writes;
+subsequent reads retrieve them --- producing the information backflow
+that constitutes P-indivisibility. Quantum mechanics is the statistics
+of this read-write cycle: not passive observation of a static memory,
+but the self-consistent description that emerges when a finite subsystem
+both reads from and writes to a lossless register it cannot fully
+access. The Born rule is the equilibrium of the cycle, not of passive
+reading. Interference is write-then-read: information deposited in the
+hidden sector during one transition is retrieved on a later transition
+and partially cancels or reinforces the transition probabilities.
+
+The \(10^{122}\) CC discrepancy is the compression ratio between total
+storage and readable storage. The dark sector is the gravitational
+effect of the unreadable storage. The Bekenstein-Hawking entropy is the
+storage capacity of the partition boundary. The action scale ℏ is the
+conversion factor between storage geometry and read-write statistics.
+
+\textbf{The substrate objection.} ``What is the memory made of?'' (S, φ)
+is a \emph{complete description} of reality --- it determines all
+observables. Space, time, matter, and energy are derived from (S, φ), so
+they cannot appear in its definition without circularity. Whether (S, φ)
+\emph{is} reality or \emph{describes} reality is provably undecidable by
+any measurement (reconstruction theorem below).
+
+\textbf{Relation to computation.} A Turing machine has a tape (storage),
+a head (partial read/write access), and a transition function (update
+rule). The correspondence is suggestive: S is the tape, V is the head's
+access window, φ is the transition function. But three differences are
+physically significant. First, a Turing machine's tape is potentially
+infinite; S is finite --- finiteness is essential for the recurrence
+proof of P-indivisibility and QM, though the effective finiteness result
+({[}GR, §8.4{]}) shows the deep hidden sector may be infinite without
+affecting the observable physics. Second, a Turing machine is generally
+irreversible (it can erase, overwrite, and halt); φ is a bijection ---
+nothing is erased, nothing is created, there is no halting. Third, a
+Turing machine computes an \emph{extrinsic function} (input → output for
+an external user); (S, φ) computes no extrinsic function --- it is a
+closed permutation that cycles through states and returns. The
+appearance of dynamics, probability, particles, and forces is entirely
+the observer's perspective --- what the permutation looks like through
+the partial window V.
+
+\textbf{Remark (the Turing connection under effective finiteness).} The
+three differences soften under the effective finiteness result. With the
+deep hidden sector potentially infinite, the first difference is between
+the formal definition (S finite) and the physical requirement (only
+\(\mathcal{C}_V \times \mathcal{C}_B\) need be finite). The second
+difference is a specialization, not an opposition: reversible Turing
+machines (Bennett, Fredkin-Toffoli) are a well-studied subclass. The
+third difference --- extrinsic vs.~intrinsic --- is the one that does
+physical work. The mapping is then structural: V is the head, H is the
+tape, φ is a reversible transition function, and C1--C3 characterize the
+architecture. The framework extends Turing's question: instead of asking
+what a machine can compute for an external observer, it asks what
+computation looks like to a component of the machine --- and proves the
+answer is quantum mechanics.
+
+\textbf{The arrow of time.} The substratum has no arrow of time --- φ
+and φ⁻¹ are equally valid. Entropy increase is a property of the
+observer's coarse-grained description: the standard Boltzmann mechanism
+applied to the partition.
+
+\textbf{The incompleteness family.} The framework's central result
+belongs to a family of impossibility-with-structure theorems. Gödel: a
+formal system cannot prove all truths about itself --- the unprovable
+truths have rigid structure. Turing: a computer cannot decide all
+questions about its own behavior --- the undecidable problems have rigid
+structure. OI: an observer embedded in a deterministic system cannot
+access the complete state --- the emergent description has rigid
+structure (quantum mechanics). The common structure is
+\emph{self-reference under finite resources}.
+
+The precise OI analog of the halting problem is: \emph{can the observer
+determine the hidden-sector state \(h\)?} The question is well-posed ---
+\(h\) has a definite value at every moment, because \((S, \varphi)\) is
+deterministic. Different \(h\) values produce different physical
+outcomes. But the observer provably cannot determine \(h\): multiple
+hidden states are compatible with any visible-sector history, and
+transition probabilities \(T_{ij}(t)\) are averages over \(h\). The
+structural consequence of this inaccessibility is quantum mechanics ---
+just as the structural consequence of the halting problem's
+undecidability is computability theory. The framework also identifies a
+second class of inaccessible quantities --- the alphabet size \(q\)
+({[}SM, §2.7{]}) and the deep-sector cardinality \(|\mathcal{C}_D|\)
+({[}GR, §3.2{]}) --- but these are \emph{gauge}, not undecidable:
+different values produce identical observables, so the question itself
+is physically empty. The hidden state \(h\) is undecidable (real answer,
+provably inaccessible). The cardinality \(|\mathcal{C}_D|\) is gauge (no
+answer to find).
+
+\textbf{Mathematics and physics.} The trace-out performs a
+Jordan-Chevalley projection ({[}SM, Appendix A{]}): it extracts the
+semisimple part of the dynamics and erases the nilpotent monodromy.
+Physics is the semisimple shadow of mathematics --- the diagonalizable
+spectral data, projected by the trace-out and organized by the gauge
+group's representation structure. The reconstruction theorem (below)
+proves that the mathematical description and the physics determine each
+other uniquely up to gauge.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-reconstruction-theorem}{%
+\subsection{3. The Reconstruction
+Theorem}\label{the-reconstruction-theorem}}
+
+The forward direction --- from (S, φ) to observed physics --- is
+established by {[}SM, §§3.1, 4--5{]} and the companion paper {[}Main{]}.
+The converse question is whether the observed physics uniquely
+determines (S, φ). The reconstruction proceeds in three stages.
+
+\textbf{Stage 1: From observed QM to deterministic embedding.}
+
+\emph{Empirical input:} Unitary quantum mechanics with Bell violations,
+on a configuration space with finite entropy bounded by a finite-area
+surface.
+
+The finite-entropy condition has independent justification from
+holographic bounds {[}1, 2{]}. The cosmological horizon has finite area;
+the bound applies.
+
+\emph{Derivation.} Any CPTP quantum channel on a finite-dimensional
+Hilbert space admits a Stinespring dilation as a bijection on a finite
+set {[}Main, §3.2{]}. Bell violations require non-trivial coupling (C1).
+The characterization theorem {[}Main, §3.4{]} requires slow-bath memory
+(C2) and sufficient capacity (C3).
+
+\emph{Output:} The observed QM arises from some (S, φ, V) satisfying
+C1--C3. \emph{Status:} Theorem.
+
+\textbf{Stage 2: From the embedding to the dynamics and gauge
+structure.}
+
+\emph{Additional empirical input:} Spatial isotropy.
+
+\emph{Derivation.} The coupling graph gives d = 3 ({[}SM, §3.2{]}).
+Center independence + isotropy + linearity uniquely select the wave
+equation ({[}SM, §4.1{]}). The wave equation determines the full SM
+structure: K = 2d = 6 (Theorem 6), cubic decomposition (3,2,1) (Theorem
+7), local gauge invariance ({[}SM, §3.1{]}), staggered species → three
+generations + one Higgs (Theorems 8--11), partition-spinor
+identification (Theorem 12), chirality (Theorem 13), anomaly
+cancellation (Theorems 14--15), T-invariance → θ̄ = 0 (Theorems 17--21).
+
+\emph{Output:} Dynamics, dimension, gauge group, matter content, and
+discrete symmetries are all derived. The SM structure is a retrodiction
+checked against observation. \emph{Status:} Theorem at the lattice
+level.
+
+\textbf{Stage 3: From the dynamics to the emergent constants.}
+
+\emph{No additional input.} The gap equation from thermal
+self-consistency {[}GR, §3{]} gives \(\hbar = c^3 \epsilon^2 / (4G)\)
+with ε = 2 l\_p.~\emph{Status:} Theorem.
+
+\textbf{Theorem 23} (Layered reconstruction). \emph{Observed quantum
+mechanics with Bell violations and finite boundary entropy, together
+with spatial isotropy, uniquely determine --- at the lattice level ---
+the equivalence class \([(S, \varphi)]/\!\sim\): a finite set with a
+bijection of bounded coupling degree and statistical isotropy, with d =
+3, K = 6, coupling matrix eigenvalue multiplicities (3, 2, 1),
+\(\bar{\theta} = 0\), and \(\hbar = c^3 \epsilon^2/(4G)\).}
+
+\emph{Proof.} Stage 1 ⇒ Stage 2 ⇒ Stage 3, as detailed above.
+\(\square\)
+
+The theorem starts from empirical inputs (QM, Bell violations, finite
+entropy, isotropy) and derives the framework. The SM gauge structure,
+three generations, one Higgs, θ̄ = 0, and the Bekenstein-Hawking formula
+are retrodictions --- derived, not assumed.
+
+\textbf{Remark} (Evidential weight of the reconstruction). The
+reconstruction uniquely derives
+\(\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)\) with
+multiplicities \((3, 2, 1)\), three chiral generations, one Higgs
+doublet \((1, 2, +1/2)\), unique hypercharges, and \(\bar{\theta} = 0\).
+Because the derivation is unique --- no free parameters, no
+model-building choices, no landscape of alternatives --- every
+independent experimental confirmation of the Standard Model's gauge
+structure is retroactive evidence for the derivation chain that produces
+it. The Standard Model is the most precisely tested mathematical
+structure in the history of science (\(g - 2\) of the electron confirmed
+to \(10^{-12}\), electroweak precision observables to \(10^{-5}\), QCD
+cross-sections across decades of energy). This experimental record
+transfers in full to the framework, because uniqueness of the derivation
+makes the relationship between evidence and theory transitive: data
+confirms structure, structure is uniquely derived, therefore data
+confirms the derivation.
+
+\textbf{Remark} (Scope). The reconstruction establishes uniqueness
+within the class of finite deterministic systems with bounded coupling.
+It does not exclude intrinsically continuum or stochastic alternatives.
+
+\textbf{Remark} (Continuum extension). The lattice-level predictions are
+the framework's primary claims --- the lattice is the fundamental
+description, not an approximation to a continuum theory. The structural
+results (gauge group, representations, generation count,
+\(\bar{\theta} = 0\)) are algebraic/topological properties of the
+lattice theory and are exact. Quantitative observables (scattering
+amplitudes, mass ratios) are compared to experiment through continuum
+perturbation theory; the lattice-continuum discrepancy at any
+experimentally accessible energy \(E\) is suppressed by
+\((E\epsilon/\hbar c)^2 = (E/M_{\text{Pl}})^2\), which is
+\(\sim 10^{-32}\) at LHC energies. The rigorous proof that lattice
+Yang-Mills defines a continuum limit with a mass gap (a Clay Millennium
+Prize problem) is an open problem in mathematics, but it is not required
+by the OI framework: the lattice theory is complete, and its predictions
+are lattice-exact.
+
+The reconstruction establishes a bidirectional correspondence:
+
+\[\text{Observed physics (QM + Bell + finite entropy + isotropy)} \quad \longleftrightarrow \quad [(S, \varphi)] / \sim\]
+
+The mathematical structure and the physics determine each other up to
+gauge equivalence. The distinction between ``mathematics describes
+reality'' and ``mathematics is reality'' has no empirical content --- it
+is itself gauge. This reframes Wigner's puzzle: the ``unreasonable
+effectiveness'' of mathematics is a theorem, not a mystery.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-substratum-gauge-group}{%
+\subsection{4. The Substratum Gauge
+Group}\label{the-substratum-gauge-group}}
+
+The equivalence relation \(\sim\) in the reconstruction theorem has a
+precise structure. Define: \((S, \varphi) \sim (S', \varphi')\) if the
+two systems produce identical emergent physics --- the same transition
+probabilities \(T_{ij}(t)\), the same emergent Hamiltonian (up to
+D-gauge), and the same \(\hbar\) --- for all partitions of the same
+structural class. The set of transformations mapping \((S, \varphi)\) to
+an equivalent \((S', \varphi')\) is a group --- the \emph{substratum
+gauge group} \(\mathcal{G}_{\text{sub}}\).
+
+\textbf{Theorem 24} (Generators of the substratum gauge group).
+\emph{\(\mathcal{G}_{\text{sub}}\) contains at least four independent
+families of transformations:}
+
+\emph{(i) State relabeling.} For any bijection \(\sigma: S \to S\), the
+conjugate
+\((S, \sigma \circ \varphi \circ \sigma^{-1}) \sim (S, \varphi)\). The
+transition probabilities depend on the coupling structure of
+\(\varphi\), not on which labels are attached to which states. This is
+an \(|S|!\)-element subgroup --- vastly larger than any gauge group in
+the Standard Model.
+
+\emph{(ii) Alphabet change.} Replacing the local state space
+\(\mathbb{Z}/q\mathbb{Z}\) with \(\mathbb{Z}/q'\mathbb{Z}\) for any
+\(q' \geq 2\), while preserving the coupling graph and dynamics class,
+leaves all observables unchanged ({[}SM, §2.7{]}). This family is
+parametrized by all integers \(q \geq 2\).
+
+\emph{(iii) Deep-sector enlargement.} Adjoining additional degrees of
+freedom to \(\mathcal{C}_D\) (the deep hidden sector beyond the boundary
+layer), with arbitrary dynamics satisfying \(\tau_B^D \gg \tau_S\), does
+not change the emergent description. The boundary-only dependence lemma
+{[}GR, §3.2{]} proves
+\(T_{ij}(t) = T_{ij}^{(B)}(t) + \mathcal{O}(t/\tau_B)\): observables
+depend only on \(\mathcal{C}_V \times \mathcal{C}_B\). The deep sector
+may be finite of any size, or infinite.
+
+\emph{(iv) Graph isomorphism (up to statistical isotropy).} Two coupling
+graphs \(G_\varphi\) and \(G_{\varphi'}\) that are quasi-isometric with
+the same polynomial growth exponent \(d\), the same spectral properties,
+and the same statistical isotropy at large scales produce the same
+emergent physics. The regular cubic lattice \(\mathbb{Z}^3\) and any
+bounded-degree random graph with \(d = 3\) polynomial growth and
+statistical isotropy are gauge-equivalent.
+
+\emph{Proof.} Each generator preserves all inputs to the derivation
+chain. (i): conjugation preserves the coupling graph \(G_\varphi\) up to
+relabeling, hence all graph-dependent quantities (area law, dispersion,
+dimension, eigenvalue multiplicities). (ii): {[}SM, §2.7{]} proves
+\(q\)-independence of every prediction. (iii): the boundary-only
+dependence lemma gives the result directly. (iv): the derivation chain
+uses only statistical properties of \(G_\varphi\) (dimension via
+Myrheim-Meyer, isotropy, bounded degree), not the specific graph.
+\(\square\)
+
+\textbf{Completeness.} The reconstruction theorem (Theorem 23)
+establishes that the map
+\(\Phi: (S, \varphi) \mapsto \text{(observables)}\) has fibers
+\([(S, \varphi)]/\!\sim\). By definition, \(\mathcal{G}_{\text{sub}}\)
+is the stabilizer of \(\Phi\) --- the set of transformations that
+preserve all observables. A transformation
+\(g \notin \mathcal{G}_{\text{sub}}\) would, by definition, change at
+least one observable, placing \(g \cdot (S, \varphi)\) in a different
+fiber. Since Theorem 23 proves the fibers are uniquely determined, the
+four generators --- which exhaust all transformations preserving the six
+structural inputs to the derivation chain (coupling structure,
+dimensionality, spectral properties, boundary geometry, entropy
+counting, dynamics class) --- span the full gauge group.
+\(\mathcal{G}_{\text{sub}}\) is the kernel of the reconstruction map.
+
+\textbf{The gauge hierarchy.} Three levels of gauge symmetry appear in
+the framework, each projecting onto the next through the trace-out:
+
+\emph{Level 3 (substratum):} \(\mathcal{G}_{\text{sub}}\) acts on
+\((S, \varphi)\) before the trace-out. It is the largest gauge group and
+includes transformations with no analog in the emergent description
+(deep-sector enlargement, alphabet change).
+
+\emph{Level 2 (emergent QFT):}
+\(\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)\) is the commutant
+of the coupling matrix \(M\), acting on the emergent fields. It is the
+image of \(\mathcal{G}_{\text{sub}}\) restricted to transformations that
+permute internal components within the eigenspaces of \(M\).
+
+\emph{Level 1 (emergent Hamiltonian):} The D-gauge \(H \to DHD^\dagger\)
+with \(D\) a diagonal unitary, acting on the emergent Hamiltonian within
+the emergent QM. It is the residual freedom after all
+transition-probability data has been extracted.
+
+Each level is contained in the one above: Level 1 \(\subset\) Level 2
+\(\subset\) Level 3. The trace-out projects Level 3 onto Level 2 (the SM
+gauge group is the shadow of \(\mathcal{G}_{\text{sub}}\) visible to the
+emergent QFT), and restricting to the Hamiltonian projects Level 2 onto
+Level 1.
+
+\textbf{Remark.} The substratum gauge group is not a symmetry of a
+Lagrangian or an action --- no Lagrangian exists at the substratum
+level. It is a symmetry of the \emph{equivalence class of substrata},
+defined by the condition that all observables are preserved. The
+emergent gauge symmetries (Levels 1 and 2) are Lagrangian symmetries in
+the standard sense, derived from the substratum through the trace-out.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{synthesis-qm-and-gr-as-projections-of-s-ux3c6}{%
+\subsection{5. Synthesis: QM and GR as Projections of (S,
+φ)}\label{synthesis-qm-and-gr-as-projections-of-s-ux3c6}}
+
+The reconstruction theorem (§3) establishes that observed physics ---
+quantum mechanics with Bell violations, finite boundary entropy, and
+spatial isotropy --- uniquely determines the equivalence class
+\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the lattice level. The
+substratum gauge group (§4) makes the equivalence relation precise and
+identifies the Standard Model gauge group as the visible-sector shadow
+of \(\mathcal{G}_{\text{sub}}\). This section makes the synthesis claim
+explicit: quantum mechanics and general relativity are not two theories
+awaiting unification but two projections of the same finite
+deterministic construction.
+
+\hypertarget{the-two-projections}{%
+\subsubsection{5.1 The two projections}\label{the-two-projections}}
+
+The framework's three derivations --- emergent QM in {[}Main{]}, the
+Standard Model in {[}SM{]}, and the gravitational sector in {[}GR{]} ---
+apply the same trace-out machinery to the same kind of object
+\((S, \varphi)\) at two different levels of description.
+
+\textbf{Visible-sector projection.} At the level of the embedded
+observer's epistemic access, the trace-out over the hidden sector
+produces unitary quantum mechanics with the wave function, Born rule,
+and Schrödinger evolution as derived structures (rather than postulated
+ones). The proof in {[}Main, §3{]} establishes this as a theorem: under
+the three structural conditions C1 (non-trivial coupling), C2 (slow
+bath), and C3 (high-capacity hidden sector), the embedded observer's
+compressed description is necessarily quantum mechanical, with the
+conditions both necessary and sufficient. Applied to a cubic lattice
+with the wave equation as substratum dynamics --- itself uniquely
+selected among second-order reversible nearest-neighbor dynamics by
+center independence, isotropy, and linearity ({[}SM, §4.1{]}) --- this
+projection produces the Standard Model gauge group
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) (as the
+commutant of the coupling matrix, {[}SM, §§4.4--4.6{]}), three chiral
+generations and the Higgs as a composite scalar in the singlet staggered
+taste ({[}SM, §4.7{]}, Theorems 8--11), anomaly-free hypercharges
+({[}SM, §4.9{]}, Theorems 14--15), and \(\bar\theta = 0\) at all energy
+scales ({[}SM, §5{]}, Theorems 17--21). Twenty-one quantitative
+predictions follow ({[}SM, §7{]}), including the Cabibbo angle from a
+single Brillouin-zone distance, the Koide angle from a cubic-group
+quadratic Casimir, all three PMNS angles within \(0.5\sigma\), six
+fermion masses from one empirical input to better than \(1\%\), and all
+three SM gauge couplings at \(M_Z\) via a one-parameter consistency test
+({[}SM, §6.3{]}).
+
+\textbf{Boundary-thermodynamic projection.} At the level of the
+partition boundary, classical horizon thermodynamics --- the
+temperature, entropy, and dynamical evolution of the causal horizon as a
+gravitating object --- produces general relativity through Jacobson's
+thermodynamic argument: the Clausius relation \(dE = T \, dS\) applied
+at local causal horizons yields Einstein's equations with the same
+structural inputs that give the visible-sector projection its form.
+Applied to the cosmological horizon as a causal partition ({[}GR,
+§2{]}), this projection determines the emergent action scale
+\(\hbar = c^3 (2 l_p)^2 / (4G)\) from thermal self-consistency ({[}GR,
+§3{]}), fixes the discreteness scale \(\epsilon = 2 l_p\) as the unique
+simultaneous solution ({[}GR, §4{]}), derives the Bekenstein-Hawking
+entropy \(S = A/(4 l_p^2)\) including the \(1/4\) coefficient by direct
+mode counting ({[}GR, §5{]}) --- recently confirmed at \(99.999\%\)
+confidence by GW250114 --- and dissolves the cosmological constant
+problem by identifying the quantum vacuum energy and the effective
+\(\Lambda\) as properties of logically distinct levels of description
+rather than commensurable quantities whose \(10^{122}\) ratio requires
+cancellation ({[}GR, §6{]}). The framework predicts dynamical dark
+energy in running-vacuum form with a structural coefficient
+\(\nu_{\text{OI}} = 2.45 \times 10^{-3}\), currently supported by DESI
+DR2 at \(2.8\)--\(4.2\sigma\), a \textasciitilde{}\(95\%\) dark sector
+corollary as a structural feature rather than a new particle species,
+and a MOND acceleration scale \(a_0 = cH/6\) from entropy displacement
+at the boundary ({[}GR, §7{]}).
+
+The two projections share the same source (\((S, \varphi)\)), the same
+trace-out machinery (marginalization over the hidden sector under
+conditions C1--C3), and the same structural inputs (the partition
+geometry, the boundary entropy, the substratum gauge group). They differ
+only in the level at which the trace-out is applied: the visible-sector
+projection works on the bulk dynamics of the embedded observer, while
+the boundary-thermodynamic projection works on the classical thermal
+data at the partition boundary. The same construction supplies both.
+
+\hypertarget{the-qm-gr-incompatibility-as-a-category-error}{%
+\subsubsection{5.2 The QM-GR incompatibility as a category
+error}\label{the-qm-gr-incompatibility-as-a-category-error}}
+
+The conventional formulation of the QM-GR unification problem treats
+quantum mechanics and general relativity as two competing theories in
+the same logical category --- two attempts to describe the same regime
+--- and asks how to merge them into a single mathematically consistent
+framework. Every program of unification proceeds from this assumption:
+quantum gravity programs treat the metric as a quantum field to be
+quantized; geometric programs treat the wave function as a structure on
+the spacetime manifold; emergent programs treat one of the two as
+derived from a deeper substrate that recovers the other. The persistent
+failure of all three approaches to produce a quantitatively confirmed
+unification suggests that the underlying assumption is wrong.
+
+In the present framework, the assumption is wrong because quantum
+mechanics and general relativity occupy different positions in the
+trace-out hierarchy. They are not two theories of the same regime at all
+--- they are two projections of the same construction, viewed at
+different levels. The visible-sector projection that produces QM and the
+boundary-thermodynamic projection that produces GR are not in tension
+because they refer to \emph{different objects in the construction}. The
+wave function is a property of the embedded observer's compressed
+description of the visible sector; the metric is a property of the
+classical dynamics of the partition boundary. These are not two
+descriptions of the same physical system at different levels of
+approximation. They are descriptions of two different substructures of
+the same total object \((S, \varphi)\).
+
+The analogy that captures the structure most clearly is the one between
+a thermodynamic and a statistical-mechanical description of a gas. The
+thermodynamic description deals with pressure, temperature, and entropy;
+the statistical-mechanical description deals with particle positions,
+momenta, and microstate counting. These are not two competing theories
+of the gas, and the question ``how do we unify thermodynamics and
+statistical mechanics?'' is not a coherent question --- they describe
+different things about the same system, and the relationship between
+them is one of projection (statistical mechanics produces thermodynamic
+quantities by averaging) rather than unification. The QM-GR relationship
+in the present framework is structurally similar: GR describes the
+thermodynamic (boundary, classical, deterministic) projection of
+\((S, \varphi)\), and QM describes the statistical (visible-sector,
+compressed, stochastic-emergent) projection. The two are related by a
+definite procedure (the trace-out under conditions C1--C3), and the
+question ``how do we unify them?'' is dissolved rather than answered.
+
+This is not the same as saying that quantum mechanics is ``more
+fundamental'' than general relativity, or vice versa. Both are emergent.
+Both depend on the trace-out and the partition. Both are derived rather
+than fundamental. The fundamental object is \((S, \varphi)\) --- a
+finite set with a deterministic bijection --- and neither QM nor GR is a
+feature of \((S, \varphi)\) itself. They are features of how an embedded
+observer or a horizon-bounded thermodynamic regime sees \((S, \varphi)\)
+from inside.
+
+\hypertarget{the-three-level-hierarchy-made-explicit}{%
+\subsubsection{5.3 The three-level hierarchy made
+explicit}\label{the-three-level-hierarchy-made-explicit}}
+
+The substratum gauge group (§4) provides the structural framework for
+the synthesis claim. At the substratum level, the only object is the
+bijection and its gauge group \(\mathcal{G}_{\text{sub}}\). The
+trace-out projects this onto two derived structures simultaneously: the
+emergent quantum field theory at the visible-sector level, with the
+Standard Model gauge group as the commutant of the coupling matrix
+({[}SM, §4.4{]}, Theorem 5) and the Standard Model representations as
+the cubic decomposition of the link directions ({[}SM, §4.6{]}, Theorem
+7); and the classical horizon thermodynamics at the boundary level, with
+the metric, the surface gravity, the entropy, and the temperature
+determined by the partition geometry and the area-law theorem ({[}GR,
+§3{]}). Both derived structures inherit the framework's structural
+inputs from the substratum, and both are exact rather than approximate
+at the lattice level.
+
+The three-level gauge hierarchy makes this exact. At Level 3 (the
+substratum), \(\mathcal{G}_{\text{sub}}\) acts on \((S, \varphi)\)
+before any trace-out and includes transformations with no analog in the
+emergent description (state relabeling, alphabet change, deep-sector
+enlargement, graph isomorphism up to statistical isotropy). At Level 2
+(the emergent QFT), the Standard Model gauge group acts on the emergent
+fields as the commutant of the coupling matrix, and is the image of
+\(\mathcal{G}_{\text{sub}}\) restricted to transformations that permute
+internal components within the eigenspaces of \(M\). At Level 1 (the
+emergent Hamiltonian), the diagonal-unitary D-gauge acts on the emergent
+Hamiltonian within the emergent QM and is the residual freedom after all
+transition-probability data has been extracted. Each level is contained
+in the one above, and the trace-out projects each onto the next.
+
+The boundary-thermodynamic projection that produces GR is a parallel
+structure at Level 2 --- but acting on the \emph{partition} rather than
+on the internal field content. Where the emergent QFT is the trace-out's
+effect on the bulk dynamics, the classical horizon thermodynamics is the
+trace-out's effect on the partition geometry itself. Both are at Level
+2. Both descend from Level 3. The framework's claim is that this
+structural relationship is exact: the SM gauge group and Einstein's
+equations are not two independent theoretical inputs but two co-derived
+structures, both consequences of the same underlying \((S, \varphi)\)
+and the same trace-out under the same conditions C1--C3.
+
+\hypertarget{what-the-synthesis-does-and-does-not-claim}{%
+\subsubsection{5.4 What the synthesis does and does not
+claim}\label{what-the-synthesis-does-and-does-not-claim}}
+
+The synthesis claim is structural and architectural rather than
+empirical. It does not claim that the framework predicts gravitational
+phenomena that conventional QFT plus GR cannot reproduce --- most of
+{[}GR{]}'s predictions (the BH area law, the basic properties of horizon
+thermodynamics, the broad shape of dark energy phenomenology) are also
+recovered by other approaches. The framework's empirical content is
+concentrated in {[}SM{]} (the SM derivation, twenty-one quantitative
+predictions) and in the specific GR-side predictions of {[}GR{]} (RVM
+dark energy at \(\nu_{\text{OI}} = 2.45 \times 10^{-3}\), MOND
+\(a_0 = cH/6\), dark sector concordance), which collectively distinguish
+the framework from standard \(\Lambda\)CDM plus the Standard Model.
+
+What the synthesis claim \emph{does} establish is that those two papers
+are not independent. The same construction that produces the SM in
+{[}SM{]} produces the gravitational sector in {[}GR{]}, and the same
+trace-out that gives the SM gauge group as the commutant of the coupling
+matrix ({[}SM, §4.4{]}, Theorem 5) gives the BH entropy as the boundary
+mode count ({[}GR, §5{]}). This is not a claim about new gravitational
+phenomena. It is a claim about the structural relationship between two
+derivations that, in the conventional picture, are independent and
+incommensurable --- and that, in the present framework, are derived from
+the same object by the same procedure under the same conditions.
+
+This matters for two reasons. First, it removes the QM-GR unification
+problem from the active research agenda by dissolving rather than
+solving it: the problem was based on a category error, and the category
+error is fixed by the substratum-level construction developed here.
+Second, it provides an explanation for why the SM has the gauge group it
+does --- namely, that the SM gauge group is the visible-sector shadow of
+the substratum gauge group, with no choice of model and no landscape of
+alternatives to select among. The SM is not one possibility among many
+but the unique consequence of the framework's structural inputs.
+
+Neither of these results requires that the framework be the final theory
+of physics. The substratum may itself be an effective description of
+something deeper; the trace-out may have corrections beyond the
+leading-order results developed here; the specific bijection \(\varphi\)
+that describes our universe is left unspecified by the framework, just
+as the specific mass of the sun is left unspecified by general
+relativity. What the framework establishes is that the \emph{structural}
+relationship between QM and GR, which has been the central open problem
+of fundamental physics since the 1920s, is fixed by the construction
+developed in the four-paper sequence. The remaining open problems ---
+the specific bijection, the trans-Planckian regime, the initial
+conditions --- are framed within the construction, not against it.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{discussion}{%
+\subsection{6. Discussion}\label{discussion}}
+
+This section discusses three interpretive consequences of the
+substratum-level results developed in §§3--5: the structural-realist
+reading of the framework (§6.1), the ontological hierarchy of derived
+concepts (§6.2), and the dissolution of the measurement problem (§6.3).
+These are not new technical results but consequences of the
+reconstruction theorem and the substratum gauge group that bear on
+long-standing questions in the philosophy of physics. The reconstruction
+theorem identifies the question ``is mathematics describing reality, or
+is it reality?'' as gauge in the precise sense established by §4 ---
+provably undecidable by any measurement --- and reframes Wigner's puzzle
+of the unreasonable effectiveness of mathematics as a theorem rather
+than a mystery. The ontological hierarchy makes explicit that space,
+time, matter, and energy are derived rather than fundamental concepts.
+And the measurement problem dissolves once the wave function is
+recognized as a derived object rather than a component of the underlying
+reality.
+
+\hypertarget{structural-realism}{%
+\subsubsection{6.1 Structural realism}\label{structural-realism}}
+
+The structural reading aligns with ontic structural realism but does not
+require it. What the framework proves is that (S, φ) is a \emph{complete
+description} of reality up to gauge equivalence (the reconstruction
+theorem, §3). Whether the structure \emph{is} reality (the OSR
+commitment) or \emph{describes} a reality that exists independently is a
+question the framework identifies as gauge --- provably undecidable by
+any measurement. The ``stuff'' of the universe, in any reading, is fully
+characterized by the abstract structure of a bijection on a finite set
+with bounded coupling.
+
+\hypertarget{the-ontological-hierarchy}{%
+\subsubsection{6.2 The ontological
+hierarchy}\label{the-ontological-hierarchy}}
+
+The triple (S, φ, V) generates every concept in fundamental physics, not
+as independent substances but as different aspects of the same
+structure. \textbf{Space} is the coupling structure of φ --- the graph
+G\_φ determined by which degrees of freedom affect which others ({[}SM,
+§2.4{]}). \textbf{Matter} is the state --- localized patterns that
+propagate through the coupling graph. \textbf{Energy} is the rate of
+change under iteration. \textbf{Time} is the iteration itself.
+\textbf{Quantum mechanics} is the observer's compressed description of
+the visible sector. \textbf{General relativity} is the thermodynamic
+limit of the coupling structure. \textbf{Conservation laws} are
+emergent: energy conservation (Noether) is what information conservation
+(bijectivity) looks like in the emergent quantum description. None of
+these are independent entities; they are descriptions of (S, φ, V) at
+different scales.
+
+\hypertarget{the-measurement-problem}{%
+\subsubsection{6.3 The measurement
+problem}\label{the-measurement-problem}}
+
+On the structural reading, the measurement problem is dissolved. The
+wave function is not a component of (S, φ, V) --- it is a derived
+object. Since it is derived, not fundamental, asking ``does it
+collapse?'' is asking about the behavior of a compression artifact. In
+the double-slit experiment, the particle traverses a single slit in the
+deterministic substratum. In Wigner's friend, the Friend has a definite
+outcome; Wigner's superposition reflects his epistemic deficit.
+
+Branching is forbidden by the rigidity of φ. A fixed bijection on a
+finite set has exactly one trajectory from any initial state. There is
+no point at which the trajectory splits. The appearance of branching in
+the emergent quantum description reflects the observer's uncertainty
+about which trajectory they are on (because they cannot see the hidden
+sector), not a physical splitting of worlds.
+
+Non-locality in Bell correlations is explained by the coupling graph
+G\_φ. Two visible sites prepared in a joint state (entangled) have
+correlated hidden-sector configurations --- a consequence of the joint
+P-indivisible dynamics at preparation {[}Main, §3.3{]}. The correlations
+are mediated by the coupling graph, not by any superluminal influence.
+The graph structure ensures that the correlations respect the Tsirelson
+bound and violate Bell inequalities without violating parameter
+independence.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{conclusion}{%
+\subsection{7. Conclusion}\label{conclusion}}
+
+The substratum-level results developed in this paper --- the
+reconstruction theorem (Theorem 23) and the substratum gauge group
+(Theorem 24) --- turn the framework's three derivations into a single
+construction. The reconstruction theorem establishes that observed
+quantum mechanics with Bell violations, finite boundary entropy, and
+spatial isotropy uniquely determine the equivalence class
+\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the lattice level, with
+the Standard Model gauge group, three chiral generations, anomaly-free
+hypercharges, and \(\bar\theta = 0\) as forced retrodictions. The
+substratum gauge group identifies the kernel of this inverse map and
+shows that the Standard Model gauge group is its visible-sector shadow.
+Together, these two results establish that the framework's emergence of
+quantum mechanics {[}Main{]}, its derivation of the Standard Model
+{[}SM{]}, and its derivation of the gravitational sector {[}GR{]} are
+not three independent applications of the same trace-out machinery but
+three projections of one object --- the bijection \((S, \varphi)\) ---
+viewed at different levels of description.
+
+The synthesis claim that follows is not a unification of quantum
+mechanics and general relativity in the traditional sense. The
+traditional unification problem treats the two theories as competing
+accounts of the same regime and asks how to merge them. The present
+framework treats them as projections of the same construction onto two
+different substructures --- the visible-sector trace-out and the
+boundary-thermodynamic limit --- and the question of how to merge them
+is dissolved as a category error rather than answered as a technical
+problem. The result is not a theory of everything but a structural
+account of why the apparent incompatibility between quantum mechanics
+and general relativity has been so resistant to resolution: there is
+nothing to resolve, because the two are not in competition. They are
+co-derived from the same object by the same procedure under the same
+conditions, and the framework developed across the four-paper sequence
+makes this exact rather than approximate.
+
+Three sets of open problems remain. First, the \emph{specific bijection}
+\(\varphi\) that describes our universe is not determined by the
+framework --- only the equivalence class
+\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) is. The framework predicts
+the structural features of the Standard Model and the gravitational
+sector but not the specific values of (for example) the lightest fermion
+mass or the specific value of \(\nu_{\text{OI}}\) beyond the
+leading-order calculation. These are properties of the particular
+bijection, analogous to the mass of the sun in general relativity.
+Second, the \emph{trans-Planckian regime} --- the regime in which the
+lattice spacing \(\epsilon = 2 l_p\) is not small compared to the
+relevant length scale --- lies outside the framework's leading-order
+results. The framework presents the lattice as fundamental, not as a
+regulator approximating a continuum theory, and so does not need a
+continuum limit in the standard sense; but the corrections to the
+leading-order results in the regime where the partition geometry varies
+on lattice scales are an open question. Third, the \emph{initial
+conditions} --- the specific configuration of the bijection at any given
+time --- are likewise not determined by the framework. The framework
+establishes which structures emerge from the bijection but not which
+microstate the universe is currently in.
+
+These open problems are framed within the construction rather than
+against it. Each is sharply formulated and admits a definite (if
+presently unanswered) form. The progress reported here is that the
+structural relationship between quantum mechanics and general relativity
+--- the central open problem of fundamental physics for nearly a century
+--- is fixed by the construction developed in the four-paper sequence,
+and the remaining open problems are problems within the construction
+rather than problems with it.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{references}{%
+\subsection{References}\label{references}}
+
+{[}1{]} R. Bousso, ``The holographic principle,'' \emph{Rev.~Mod. Phys.}
+\textbf{74}, 825 (2002).
+
+{[}2{]} N. Bao, S. M. Carroll, and A. Singh, ``The Hilbert space of
+quantum gravity is locally finite-dimensional,'' \emph{Int. J. Mod.
+Phys. D} \textbf{26}, 1743013 (2017).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Companion papers (cited inline by short name):}
+
+{[}Main{]} A. Maybaum, ``The Incompleteness of Observation,'' (2026).
+
+{[}SM{]} A. Maybaum, ``The Standard Model from a Cubic Lattice,''
+(2026).
+
+{[}GR{]} A. Maybaum, ``ℏ, the Bekenstein-Hawking Entropy, and Dynamical
+Dark Energy from the Cosmological Horizon,'' (2026).
+
+\end{document}
