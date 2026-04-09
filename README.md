@@ -1,8 +1,9 @@
 # The Incompleteness of Observation
 
 **Author:** Alex Maybaum  
-**Date:** April 2026  
-**Status:** Draft Pre-Print
+**Date:** April 2026
+
+The framework is developed across four papers: a foundational paper establishing the equivalence between embedded observation and quantum mechanics ([Main]), a paper deriving the Standard Model from a $d = 3$ cubic lattice ([SM]), a paper deriving the gravitational sector from the cosmological horizon ([GR]), and a paper establishing the substratum-level synthesis that makes these derivations a single construction ([Substratum]). See [Contents](#contents) below for the full list.
 
 ---
 
@@ -44,33 +45,43 @@ The reconstruction theorem establishes the converse: observed QM with Bell viola
 
 ### Main Paper
 
-**"The Incompleteness of Observation: Why Quantum Mechanics and General Relativity Cannot Be Unified From Within"**
+**"The Incompleteness of Observation"**
 
-Establishes the QM–embedded observation equivalence (Part I), applies it to the cosmological horizon (Part II), derives the dark-sector concordance as a corollary, and proves the consistency of nested partitions — including the generalized second law and the Page curve — in Appendix B. Predictions include dark energy evolution with ν_OI = (2.45 ± 0.04) × 10⁻³ (§8.1; DESI DR2 multi-model analyses now favor this specific RVM functional form at a level comparable to w₀w_a CDM), Majorana neutrinos with normal mass ordering and Σm_ν near 0.059 eV (DESI DR2+CMB, JUNO precision on sin²θ₁₂), and dark matter phenomenology from galaxies through clusters to the Bullet Cluster (§8.3; first detection of a Keplerian decline in the Milky Way's own rotation curve at ~19 kpc, Jiao et al. 2023).
+Establishes the QM–embedded observation equivalence: under three structural conditions on the hidden sector (C1: non-trivial coupling, C2: slow-bath memory, C3: high-capacity hidden sector), the observer's reduced description is necessarily quantum mechanics, with the conditions both necessary and sufficient. Includes the P-indivisibility theorem, the stochastic-quantum correspondence, the characterization theorem, and Bell violation analysis.
 
 - [`Main.md`](Main.md) — Markdown source
 - [`Main.tex`](Main.tex) — LaTeX source
 - [`Main.pdf`](Main.pdf) — Compiled PDF
 
-### Fundamental Structure
+### Standard Model Paper
 
-**"The Fundamental Structure of the Observational Incompleteness Framework: From Finite Bijection to the Standard Model"**
+**"The Standard Model from a Cubic Lattice"**
 
-Addresses the ontological status of the lattice and which QFT the embedded observer sees. Six structural properties suffice; the wave equation is uniquely selected and produces all inputs for Einstein's equations (seven links, all proved). On a d = 3 lattice it uniquely determines the Standard Model: gauge group, matter content, three generations, the Higgs, chirality, θ̄ = 0, and — through the induced coupling 1/α₀ = 23.25 — all three gauge couplings at M_Z to <0.1%. Primary derivation chain: 29 theorems/lemmas. The reconstruction theorem proves the bidirectional correspondence: observed QM + Bell violations + finite entropy + isotropy ↔ [(S, φ)]/G_sub.
+Applies the framework to a $d = 3$ cubic lattice with the wave equation as substratum dynamics. Center independence, isotropy, and linearity uniquely select the wave equation. The wave equation determines the full SM structure: gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$, three chiral generations, the Higgs as composite, anomaly-free hypercharges, and $\bar\theta = 0$ at all energy scales — primary derivation chain proved end-to-end. Twenty-one quantitative predictions follow with zero free parameters: gauge couplings (all three at $M_Z$ to <0.1%), CKM mixing (Cabibbo angle 0.04%), Koide mass relations (<0.01%), six fermion masses from one input (<1%), PMNS angles (sin²θ₁₂ confirmed by JUNO at 0.14σ), the Higgs mass, and the bottom-to-tau mass ratio.
 
-- [`Fundamental.md`](Fundamental.md) — Markdown source
-- [`Fundamental.tex`](Fundamental.tex) — LaTeX source
-- [`Fundamental.pdf`](Fundamental.pdf) — Compiled PDF
+- [`SM.md`](SM.md) — Markdown source
+- [`SM.tex`](SM.tex) — LaTeX source
+- [`SM.pdf`](SM.pdf) — Compiled PDF
 
-### Quantitative Predictions
+### General Relativity Paper
 
-**"Quantitative Predictions from Observational Incompleteness"**
+**"ℏ, the Bekenstein-Hawking Entropy, and Dynamical Dark Energy from the Cosmological Horizon"**
 
-Presents twenty-one zero-parameter predictions derived from the $d = 3$ cubic lattice. The Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ (0.04%), the Wolfenstein $A = \sqrt{2/3}$ (0.8σ), the Koide angle $\theta_0 = 2/9$ giving $m_e$ and $m_\mu$ from $m_\tau$ to <0.01%, PMNS mixing angles from TBM + Cabibbo corrections (all within 0.5σ, with sin²θ₁₂ confirmed by JUNO at 0.14σ), the Higgs mass from $\lambda(M_{\text{Pl}}) = 0$, and $m_b/m_\tau = 4.28/Z_S(\lambda g_0^2) = 2.36$ (observed 2.352, 0.4%) from Monte Carlo at $\beta = 11.1$ with the matching mass $m_{\text{match}} = \lambda g_0^2$ derived from the product of the Cabibbo angle and the unified coupling. All structural constants trace to $d = 3$: $\pi\sqrt{2}$, $\sqrt{2/3}$, $2/9$, $2/3$, $4/9$, $1/3$, $1/2$. MC simulations at $L = 16$–$64$ confirm chiral condensate formation. A dynamical fermion HMC code for the K=6 lattice has been developed and verified.
+Applies the framework to the cosmological horizon as a causal partition. Derives the emergent action scale $\hbar = c^3 (2 l_p)^2 / (4G)$ from thermal self-consistency, fixes the discreteness scale $\epsilon = 2 l_p$ as the unique simultaneous solution, derives the Bekenstein-Hawking entropy $S = A/(4 l_p^2)$ including the $1/4$ coefficient by direct mode counting (confirmed at 99.999% by GW250114), and dissolves the cosmological constant problem. Predicts dynamical dark energy in running-vacuum form with structural coefficient $\nu_{\text{OI}} = 2.45 \times 10^{-3}$ (DESI DR2 support at 2.8–4.2σ), the ~95% dark sector concordance, and the MOND acceleration scale $a_0 = cH/6$ from entropy displacement (confirmed by Jiao et al. 2023 for the Milky Way's Keplerian decline at ~17 kpc).
 
-- [`Predictions.md`](Predictions.md) — Markdown source
-- [`Predictions.tex`](Predictions.tex) — LaTeX source
-- [`Predictions.pdf`](Predictions.pdf) — Compiled PDF
+- [`GR.md`](GR.md) — Markdown source
+- [`GR.tex`](GR.tex) — LaTeX source
+- [`GR.pdf`](GR.pdf) — Compiled PDF
+
+### Substratum Paper
+
+**"The Substratum Construction: Reconstruction, the Substratum Gauge Group, and the QM-GR Synthesis"**
+
+Develops the substratum-level structural results that make the SM and GR derivations a single construction. The reconstruction theorem (Theorem 23) establishes that observed physics — quantum mechanics with Bell violations, finite boundary entropy, and spatial isotropy — uniquely determines the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$ at the lattice level, with the SM gauge group, three generations, anomaly-free hypercharges, and $\bar\theta = 0$ as forced retrodictions. The substratum gauge group $\mathcal{G}_{\text{sub}}$ (Theorem 24) has four families of generators and projects through the trace-out onto the SM gauge group as the visible-sector shadow of the substratum's symmetry. Argues that quantum mechanics and general relativity are not two theories awaiting unification but two projections of the same finite deterministic construction — the QM-GR incompatibility dissolved as a category error rather than solved as a technical problem.
+
+- [`Substratum.md`](Substratum.md) — Markdown source
+- [`Substratum.tex`](Substratum.tex) — LaTeX source
+- [`Substratum.pdf`](Substratum.pdf) — Compiled PDF
 
 ### Explainer
 
@@ -116,23 +127,23 @@ Applies the C1–C3 architecture to biological systems where fast catalytic proc
 
 6. **Standard Model structure.** The wave equation factors into staggered Dirac fermions; center independence mandates the Higgs; K = 2d = 6 from coupling-degree minimization; the cubic group gives multiplicities (3, 2, 1) → SU(3) × SU(2) × U(1); the trace-out makes SU(2) chiral; anomaly cancellation uniquely determines hypercharges and three generations; Higgs quantum numbers (1, 2, +1/2). Primary derivation chain proved end-to-end.
 
-6b. **Gauge coupling prediction.** The fermion-induced coupling gives a universal 1/α₀ = 23.25 at the Planck scale — determined by N_f = 6 and T(R) = 1/2, structural quantities independent of the specific bijection φ. Non-perturbative gauge self-energy corrections (computed from pure-gauge lattice Monte Carlo) and Standard Model RG running reproduce all three gauge couplings at M_Z: 1/α₁ = 59.00, 1/α₂ = 29.57, 1/α₃ = 8.47 — matching observed values to <0.1%. *Status: proposition (Fundamental §9).*
+6b. **Gauge coupling prediction.** The fermion-induced coupling gives a universal 1/α₀ = 23.25 at the Planck scale — determined by N_f = 6 and T(R) = 1/2, structural quantities independent of the specific bijection φ. Non-perturbative gauge self-energy corrections (computed from pure-gauge lattice Monte Carlo) and Standard Model RG running reproduce all three gauge couplings at M_Z: 1/α₁ = 59.00, 1/α₂ = 29.57, 1/α₃ = 8.47 — matching observed values to <0.1%. *Status: proposition (SM §6).*
 
-6c. **Twenty-one quantitative predictions from d = 3.** Beyond the gauge couplings, the cubic lattice structure determines eighteen additional SM parameters with zero free parameters (Predictions Paper): the Cabibbo angle λ = 1/(π√2) (0.04%), the Wolfenstein A = √(2/3) (0.8σ), |V_cb| = √(2/3)/(2π²) (0.4σ), m_d/m_s = 1/(2π²) (~1σ), m_u/m_d = √(2/9) (0.05σ), J = η/(12π⁶) (0.5σ), Koide Q = 2/3 (<0.01%), the Koide angle θ₀ = 2/9 giving m_e and m_μ from m_τ to <0.01%, the down-quark Koide Q_down = (2/3)(1+α_s/π) (0.15%) predicting m_b to 0.9%, three PMNS angles from TBM + Cabibbo corrections (all within 0.5σ; sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080 confirmed by JUNO at 0.14σ), the Higgs mass from λ(M_Pl) = 0 (0.6σ), m_b/m_τ = 4.28/Z_S(λg₀²) = 2.36 from non-perturbative condensate with matching mass m_match = λg₀² (observed 2.352, 0.4%), and m_t = v/√2 from the IR quasi-fixed point y_t = 1 (0.9%). A single mass input (m_s) determines six fermion masses through a structural chain (m_d, m_u, m_b, m_τ, m_e, m_μ), all within 1%. Monte Carlo simulations at L = 16–64 confirm chiral condensate formation. A dynamical fermion HMC for the full K=6 SU(3)×SU(2)×U(1) lattice has been developed and verified, with the fermion force formula numerically validated against all 8 Gell-Mann generators. *Status: observation + MC verification (Predictions Paper).*
+6c. **Twenty-one quantitative predictions from d = 3.** Beyond the gauge couplings, the cubic lattice structure determines eighteen additional SM parameters with zero free parameters (SM §7): the Cabibbo angle λ = 1/(π√2) (0.04%), the Wolfenstein A = √(2/3) (0.8σ), |V_cb| = √(2/3)/(2π²) (0.4σ), m_d/m_s = 1/(2π²) (~1σ), m_u/m_d = √(2/9) (0.05σ), J = η/(12π⁶) (0.5σ), Koide Q = 2/3 (<0.01%), the Koide angle θ₀ = 2/9 giving m_e and m_μ from m_τ to <0.01%, the down-quark Koide Q_down = (2/3)(1+α_s/π) (0.15%) predicting m_b to 0.9%, three PMNS angles from TBM + Cabibbo corrections (all within 0.5σ; sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080 confirmed by JUNO at 0.14σ), the Higgs mass from λ(M_Pl) = 0 (0.6σ), m_b/m_τ = 4.28/Z_S(λg₀²) = 2.36 from non-perturbative condensate with matching mass m_match = λg₀² (observed 2.352, 0.4%), and m_t = v/√2 from the IR quasi-fixed point y_t = 1 (0.9%). A single mass input (m_s) determines six fermion masses through a structural chain (m_d, m_u, m_b, m_τ, m_e, m_μ), all within 1%. Monte Carlo simulations at L = 16–64 confirm chiral condensate formation (SM §7.5). A dynamical fermion HMC for the full K=6 SU(3)×SU(2)×U(1) lattice is in development to provide a first-principles cross-check of the m_b/m_τ prediction. *Status: observation + MC verification (SM §7.5); dynamical HMC in development.*
 
 7. **Strong CP solved.** T-invariance of the wave equation → θ = 0 (theorem). Detailed balance at all time scales (φⁿ is a bijection for every n) → T-invariant Hamiltonian at every energy scale → real Yukawa matrices at every scale → θ̄ = 0 at all energy scales (theorem). No axion needed. The proof bypasses the instanton question entirely.
 
 8. **Dark-sector concordance and dark matter.** The trace-out renders ~95% of ρ_crit invisible to the emergent QFT (theorem — total budget). The structured component — entropy displacement via the Clausius relation and Jacobson mechanism — yields a₀ = cH/6 and v⁴ = GM_B · cH/6 (parameter-free). The simple interpolation ν(y) = (1+√(1+4/y))/2 matches galaxies AND clusters (Coma to <1%). The Bullet Cluster: frozen boundary entropy (τ_relax ~ H⁻¹ ≫ t_collision). CMB acoustic peaks: thermodynamic averaging gives non-oscillating wells identical to CDM. High-z: declining rotation curves confirmed (Genzel+2017); stellar TF no-evolution confirmed (McGaugh+2024, gas fraction compensates); first detection of a Keplerian decline in the Milky Way's own rotation curve at ~19 kpc (Jiao et al. 2023, A&A 678, A208) provides the cleanest local test. Direct dark matter searches continue to return null (LZ Dec 2025, 417 days — most sensitive WIMP search ever), consistent with the framework's prediction that no particle dark matter exists. *Status: theorem (total budget, acceleration scale); interpolation and CMB pending numerical verification.*
 
-9. **Nested partitions and the Page curve.** Sequential and direct trace-outs agree (Theorems B.1–B.4). The generalized second law follows from strong subadditivity (B.6). The Page curve is derived with t_P ≈ 0.646 t_evap (B.7–B.9). Information is never lost. *Status: theorem.*
+9. **Nested partitions and the Page curve.** Sequential and direct trace-outs agree (Theorems A.1–A.4). The generalized second law follows from strong subadditivity (A.6). The Page curve is derived with t_P ≈ 0.646 t_evap (A.7–A.9). Information is never lost. *Status: theorem.*
 
 10. **Arrow of time.** The substratum (S, φ) has no arrow of time — φ and φ⁻¹ are equally valid. Entropy increase is a property of the observer's coarse-grained description: the standard Boltzmann mechanism applied to the partition. Like QM, the Second Law is emergent.
 
 11. **Falsifiable predictions.** ν_OI = (2.45 ± 0.04) × 10⁻³ (DESI DR2 multi-model RVM analyses now favor this functional form at a level comparable to w₀w_a CDM); all three gauge couplings at M_Z to <0.1%; θ̄ = 0 exactly; no SUSY, no fourth generation; Majorana neutrinos with normal ordering and Σm_ν near 0.059 eV (DESI DR2+CMB: Σm_ν < 0.0642 eV with normal ordering preferred and lightest mass bounded at m_l < 0.023 eV — every directly comparable measurement matches the prediction; JUNO sub-percent precision on sin²θ₁₂ confirming the persistent solar/reactor 1.5σ tension); baryonic TF evolves as v⁴ ∝ H(z) (untested); Cabibbo angle λ = 1/(π√2) (confirmed to 0.04%); Wolfenstein A = √(2/3) (confirmed to 0.8σ); m_d/m_s = 1/(2π²) (~1σ); m_u/m_d = √(2/9) (0.05σ); Koide angle θ₀ = 2/9 giving m_e and m_μ to <0.01%; Q_down = (2/3)(1+α_s/π) predicting m_b to 0.9%; PMNS angles from TBM + Cabibbo corrections (sin²θ₁₂ confirmed by JUNO at 0.14σ, all within 0.5σ); m_t = v/√2 from y_t = 1 fixed point (0.9%); m_b/m_τ = 4.28/Z_S(λg₀²) = 2.36 (observed 2.352, 0.4%); six fermion masses from one input (m_s), all within 1%. The conjunction is distinctive to this framework.
 
-12. **The trace-out as Jordan-Chevalley projection.** Over finite fields, the evolution matrix F decomposes as F = F_ss · F_u (semisimple × unipotent). The trace-out extracts the semisimple part and erases the nilpotent monodromy N. The Weil-Deligne conductor f_WD = f_ss(L) + 2 is q-independent and decomposes additively over gauge irreps with multiplicities (3, 2, 1). *Status: theorem (Fundamental, Appendix A).*
+12. **The trace-out as Jordan-Chevalley projection.** Over finite fields, the evolution matrix F decomposes as F = F_ss · F_u (semisimple × unipotent). The trace-out extracts the semisimple part and erases the nilpotent monodromy N. The Weil-Deligne conductor f_WD = f_ss(L) + 2 is q-independent and decomposes additively over gauge irreps with multiplicities (3, 2, 1). *Status: theorem (SM, Appendix A).*
 
-13. **Reconstruction theorem and substratum gauge group.** Observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine [(S, φ)]/G_sub. The gauge group G_sub has four generators: state relabeling, alphabet change, deep-sector enlargement, and graph isomorphism up to statistical isotropy. Whether (S, φ) *is* reality or *describes* reality is provably undecidable — identified as gauge. *Status: theorem (Fundamental, §§10.3–10.4).*
+13. **Reconstruction theorem and substratum gauge group.** Observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine [(S, φ)]/G_sub. The gauge group G_sub has four generators: state relabeling, alphabet change, deep-sector enlargement, and graph isomorphism up to statistical isotropy. Whether (S, φ) *is* reality or *describes* reality is provably undecidable — identified as gauge. *Status: theorem (Substratum, §§3–4).*
 
 14. **Structural preconditions for complexity.** The derived structure guarantees, with no free parameters: orbital algebra and the periodic table (d = 3 + SO(3)), carbon's tetrahedral bonding geometry, the nuclear-atomic scale hierarchy (two independent gauge groups), water's solvent properties (element 8 in d = 3), a thermal window for dynamic chemistry, chiral molecular selection (PVED from the partition), and combinatorial diversity exceeding the autocatalytic threshold by 10⁵⁶. The origin of life is the first molecular C1–C3 system; RNA is the unique molecule satisfying all three conditions simultaneously, making the RNA world a structural prediction. C1–C3 systems are exponential-growth attractors — the transition is inevitable. Darwinian evolution follows from imperfect template replication. The viable parameter fraction is ~16%. Fine-tuning and the anthropic principle dissolve. *Status: structural chain + statistical argument (Complexity Paper).*
 
@@ -147,55 +158,55 @@ The forward derivation and reconstruction theorem establish: (S, φ) determines 
 ```
 (S, φ) — a finite lossless memory with bounded coupling and statistical isotropy
   │
-  ├─→ V (observer) is generic (Fundamental, theorem)
-  ├─→ d = 3 from self-consistency (Fundamental, theorem)
+  ├─→ V (observer) is generic (SM, theorem)
+  ├─→ d = 3 from self-consistency (SM, theorem)
   ├─→ QM emergence (Main, theorem)
-  ├─→ Wave equation uniquely selected (Fundamental, theorem)
-  ├─→ ℏ = c³ε²/(4G), ε = 2l_p (Main, theorem)
-  ├─→ Bekenstein-Hawking entropy with 1/4 (Main, theorem)
-  ├─→ CC dissolution: 10¹²² = S_dS (Main, theorem)
-  ├─→ General relativity (Fundamental §5, seven links — theorem)
-  ├─→ Wave eq. → KG → staggered Dirac fermions (Fundamental, theorem)
-  ├─→ Center independence = chiral symmetry → Higgs (Fundamental, theorem)
-  ├─→ K = 2d = 6 from coupling-degree minimization (Fundamental, theorem)
-  ├─→ Cubic group decomposition (3,2,1) → SU(3)×SU(2)×U(1) (Fundamental, theorem)
-  ├─→ D_LL = 0 → SU(2) chiral, SU(3) vector-like (Fundamental, theorem)
-  ├─→ Anomaly cancellation → unique hypercharges (Fundamental, theorem)
-  ├─→ Cubic symmetry + anomaly uniqueness → 3 SM generations (Fundamental, theorem)
-  ├─→ Higgs quantum numbers (1, 2, +1/2) (Fundamental, theorem)
-  ├─→ θ = 0 from T-invariance (Fundamental, theorem)
-  ├─→ θ̄ = 0 at all energy scales from bijection structure (Fundamental, theorem)
-  ├─→ Trace-out = Jordan-Chevalley projection (Fundamental App. A, theorem)
-  ├─→ Weil-Deligne conductor decomposes over gauge irreps (Fundamental App. A, theorem)
-  ├─→ Dark energy ν_OI = (2.45 ± 0.04)×10⁻³ (Main, proposition)
-  ├─→ Dark-sector concordance (Main, theorem — total budget)
-  ├─→ Dark matter: a₀ = cH/6, v⁴ = GM·cH/6 (Main §8.3, theorem)
-  ├─→ Interpolation ν(y) = (1+√(1+4/y))/2 matches galaxies + clusters (Main §8.3)
-  ├─→ Bullet Cluster: frozen entropy (τ_relax ~ H⁻¹ >> t_collision) (Main §8.3)
-  ├─→ CMB acoustic peaks: thermodynamic averaging → non-oscillating wells = CDM (Main §8.3)
-  ├─→ High-z dark matter: a₀(z) = cH(z)/6, declining RCs (Main §8.3)
-  ├─→ Gauge couplings: 1/α₀ = 23.25 → all three at M_Z (Fundamental §9)
-  ├─→ Cabibbo angle: λ = 1/(π√2) = 0.22508 — BZ corner distance (Predictions)
-  ├─→ Wolfenstein A = √(2/3) — generation-Higgs angle (Predictions)
-  ├─→ m_d/m_s = 1/(2π²) via GST relation (Predictions)
-  ├─→ |V_cb| = √(2/3)/(2π²) (Predictions)
-  ├─→ Jarlskog invariant J = η/(12π⁶) (Predictions)
-  ├─→ Koide Q = 2/3 from Z₃ symmetry of T₁ (Predictions)
-  ├─→ Koide angle θ₀ = C₂/d² = 2/9 → m_e, m_μ from m_τ to <0.01% (Predictions)
-  ├─→ Down-quark Koide Q_down = (2/3)(1+α_s/π) → m_b from m_s to 0.9% (Predictions)
-  ├─→ m_u/m_d = √(2/9) = √θ₀ (0.05σ) (Predictions)
-  ├─→ m_t = v/√2 from IR quasi-fixed point y_t = 1 (0.9%) (Predictions)
-  ├─→ Mass chain: m_s → m_d, m_u, m_b, m_τ, m_e, m_μ (6 masses, all within 1%) (Predictions)
-  ├─→ PMNS angles: TBM from A₄ ⊂ O + Cabibbo corrections (Predictions)
+  ├─→ Wave equation uniquely selected (SM, theorem)
+  ├─→ ℏ = c³ε²/(4G), ε = 2l_p (GR, theorem)
+  ├─→ Bekenstein-Hawking entropy with 1/4 (GR, theorem)
+  ├─→ CC dissolution: 10¹²² = S_dS (GR, theorem)
+  ├─→ General relativity (GR, theorem)
+  ├─→ Wave eq. → KG → staggered Dirac fermions (SM, theorem)
+  ├─→ Center independence = chiral symmetry → Higgs (SM, theorem)
+  ├─→ K = 2d = 6 from coupling-degree minimization (SM, theorem)
+  ├─→ Cubic group decomposition (3,2,1) → SU(3)×SU(2)×U(1) (SM, theorem)
+  ├─→ D_LL = 0 → SU(2) chiral, SU(3) vector-like (SM, theorem)
+  ├─→ Anomaly cancellation → unique hypercharges (SM, theorem)
+  ├─→ Cubic symmetry + anomaly uniqueness → 3 SM generations (SM, theorem)
+  ├─→ Higgs quantum numbers (1, 2, +1/2) (SM, theorem)
+  ├─→ θ = 0 from T-invariance (SM, theorem)
+  ├─→ θ̄ = 0 at all energy scales from bijection structure (SM, theorem)
+  ├─→ Trace-out = Jordan-Chevalley projection (SM Appendix A, theorem)
+  ├─→ Weil-Deligne conductor decomposes over gauge irreps (SM Appendix A, theorem)
+  ├─→ Dark energy ν_OI = (2.45 ± 0.04)×10⁻³ (GR §7.1, proposition)
+  ├─→ Dark-sector concordance (GR §7.2, theorem — total budget)
+  ├─→ Dark matter: a₀ = cH/6, v⁴ = GM·cH/6 (GR §7.3, theorem)
+  ├─→ Interpolation ν(y) = (1+√(1+4/y))/2 matches galaxies + clusters (GR §7.3)
+  ├─→ Bullet Cluster: frozen entropy (τ_relax ~ H⁻¹ >> t_collision) (GR §7.3)
+  ├─→ CMB acoustic peaks: thermodynamic averaging → non-oscillating wells = CDM (GR §7.3)
+  ├─→ High-z dark matter: a₀(z) = cH(z)/6, declining RCs (GR §7.3)
+  ├─→ Gauge couplings: 1/α₀ = 23.25 → all three at M_Z (SM §6)
+  ├─→ Cabibbo angle: λ = 1/(π√2) = 0.22508 — BZ corner distance (SM §7)
+  ├─→ Wolfenstein A = √(2/3) — generation-Higgs angle (SM §7)
+  ├─→ m_d/m_s = 1/(2π²) via GST relation (SM §7)
+  ├─→ |V_cb| = √(2/3)/(2π²) (SM §7)
+  ├─→ Jarlskog invariant J = η/(12π⁶) (SM §7)
+  ├─→ Koide Q = 2/3 from Z₃ symmetry of T₁ (SM §7)
+  ├─→ Koide angle θ₀ = C₂/d² = 2/9 → m_e, m_μ from m_τ to <0.01% (SM §7)
+  ├─→ Down-quark Koide Q_down = (2/3)(1+α_s/π) → m_b from m_s to 0.9% (SM §7)
+  ├─→ m_u/m_d = √(2/9) = √θ₀ (0.05σ) (SM §7)
+  ├─→ m_t = v/√2 from IR quasi-fixed point y_t = 1 (0.9%) (SM §7)
+  ├─→ Mass chain: m_s → m_d, m_u, m_b, m_τ, m_e, m_μ (6 masses, all within 1%) (SM §7)
+  ├─→ PMNS angles: TBM from A₄ ⊂ O + Cabibbo corrections (SM §7)
   ├─→ JUNO confirmation: sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080 vs JUNO 0.3092±0.0087 (0.14σ)
-  ├─→ Higgs mass: λ(M_Pl) = 0 from composite A₁ taste (Predictions)
-  ├─→ Matching mass: m_match = λg₀² = 0.122 (taste-breaking × confinement) (Predictions)
-  ├─→ m_b/m_τ = 4.28/Z_S(λg₀²) = 2.36 (observed 2.352, 0.4%) (Predictions)
-  ├─→ Chiral condensate Σ confirmed at L=16–64 (Predictions)
-  ├─→ Dynamical fermion HMC: K=6 SU(3)×SU(2)×U(1), force verified (Predictions)
-  ├─→ Nested trace-out consistency (Main App. B, theorem)
-  ├─→ Generalized second law (Main App. B, theorem)
-  ├─→ Page curve with t_P ≈ 0.646 t_evap (Main App. B, theorem)
+  ├─→ Higgs mass: λ(M_Pl) = 0 from composite A₁ taste (SM §7)
+  ├─→ Matching mass: m_match = λg₀² = 0.122 (taste-breaking × confinement) (SM §7)
+  ├─→ m_b/m_τ = 4.28/Z_S(λg₀²) = 2.36 (observed 2.352, 0.4%) (SM §7)
+  ├─→ Chiral condensate Σ confirmed at L=16–64 (SM §7)
+  ├─→ Dynamical fermion HMC: K=6 SU(3)×SU(2)×U(1) (in development)
+  ├─→ Nested trace-out consistency (GR Appendix, theorem)
+  ├─→ Generalized second law (GR Appendix, theorem)
+  ├─→ Page curve with t_P ≈ 0.646 t_evap (GR Appendix, theorem)
   ├─→ Structural chain: orbitals → periodic table → carbon bonding → water (Complexity, structural)
   ├─→ Viable parameter fraction ~16% (Complexity, computed)
   ├─→ Chirality: partition → PVED → L-amino acids (Complexity, structural)
@@ -207,13 +218,13 @@ The forward derivation and reconstruction theorem establish: (S, φ) determines 
   ├─→ Alzheimer's/Parkinson's: τ_B disorder of synaptic kinases (Medical Paper)
   ├─→ Epigenetics: chromatin = biological hidden sector, 5-layer memory (Medical Paper)
   ├─→ Genetic disorders: treatment scheduling, inhibitor prevention, gene therapy (Medical Paper)
-  └─→ Arrow of time from coarse-graining (Fundamental, standard Boltzmann)
+  └─→ Arrow of time from coarse-graining (SM §8, standard Boltzmann)
 ```
 
 ### The Gauge Hierarchy
 
 ```
-Level 3 — Substratum gauge group G_sub (Fundamental §10.4, theorem)
+Level 3 — Substratum gauge group G_sub (Substratum §4, theorem)
   │  State relabeling: (S, σ∘φ∘σ⁻¹) ~ (S, φ) for any bijection σ
   │  Alphabet change: ℤ/qℤ → ℤ/q'ℤ, all observables q-independent
   │  Deep-sector enlargement: |C_D| is gauge (may be infinite)
@@ -221,13 +232,13 @@ Level 3 — Substratum gauge group G_sub (Fundamental §10.4, theorem)
   │
   │  [trace-out projects Level 3 onto Level 2]
   │
-Level 2 — SM gauge group SU(3)×SU(2)×U(1) (Fundamental §7, theorem)
+Level 2 — SM gauge group SU(3)×SU(2)×U(1) (SM §4, theorem)
   │  Commutant of coupling matrix M with multiplicities (3,2,1)
   │  Acts on emergent fields within the emergent QFT
   │
   │  [restriction to Hamiltonian projects Level 2 onto Level 1]
   │
-Level 1 — D-gauge H → DHD† (Main §5.3, theorem)
+Level 1 — D-gauge H → DHD† (GR §3.3, theorem)
      Diagonal unitary basis rephasing of emergent Hamiltonian
      Residual freedom after all transition data extracted
 
@@ -245,15 +256,15 @@ Observed QM + Bell violations + finite boundary entropy + spatial isotropy
   │     Gauge: state labeling, alphabet size q, deep-sector size |C_D|
   │
   ├─→ Stage 2: Coupling graph + dynamics selection + filter chain
-  │     → d = 3, wave equation, SM gauge structure, θ̄ = 0 (Fundamental, theorem)
+  │     → d = 3, wave equation, SM gauge structure, θ̄ = 0 (SM, theorem)
   │     Determined: d, K, multiplicities (3,2,1), SM content, discrete symmetries
   │     Gauge: specific graph (only statistical isotropy matters)
   │
   └─→ Stage 3: Thermal self-consistency
-        → ℏ = c³ε²/(4G), ε = 2l_p (Main, theorem)
+        → ℏ = c³ε²/(4G), ε = 2l_p (GR, theorem)
         Determined: ℏ, ε, S_BH, all emergent constants
 
-Output: [(S, φ)]/G_sub uniquely determined (Fundamental §10.3–10.4, theorem)
+Output: [(S, φ)]/G_sub uniquely determined (Substratum §§3–4, theorem)
   The reconstruction map has kernel G_sub — everything outside the
   equivalence class is fixed; everything inside is gauge.
 ```

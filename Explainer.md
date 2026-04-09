@@ -1,8 +1,8 @@
 # The Incompleteness of Observation
 ### Why Physics' Biggest Contradiction Might Not Be a Contradiction at All
-### With Complete Mathematical Detail
+### An Overview of the Observational Incompleteness Framework
 
-**Alex Maybaum — March 2026**
+**Alex Maybaum — April 2026**
 
 ---
 
@@ -36,7 +36,7 @@ The paper formalizes this as a definition:
 
 This single sentence contains no physics. It is weaker than classical mechanics (no continuity, no Hamiltonian, no Lagrangian). A shuffled deck of cards satisfies it. A finite cellular automaton satisfies it. Any finite computation satisfies it. The paper shows that three structural lemmas follow from this definition alone:
 
-**Lemma 1** (Finiteness). *The observer has finitely many distinguishable internal states, so the visible configuration space $\mathcal{C}_V$ is finite, with a discreteness scale $\epsilon$ providing a finite minimal cell volume.* There's a smallest meaningful size ε — you can't resolve anything smaller. This means the configuration space is finite, not continuous. This matters because finite systems have a property infinite systems don't — they must eventually return to their starting state (Poincaré recurrence). In Part I, ε is left unspecified. In Part II, self-consistency forces ε = 2 l_p (twice the Planck length).
+**Lemma 1** (Finiteness). *The observer has finitely many distinguishable internal states, so the visible configuration space $\mathcal{C}_V$ is finite, with a discreteness scale $\epsilon$ providing a finite minimal cell volume.* There's a smallest meaningful size ε — you can't resolve anything smaller. This means the configuration space is finite, not continuous. This matters because finite systems have a property infinite systems don't — they must eventually return to their starting state (Poincaré recurrence). Initially, ε is left unspecified. With the cosmological horizon, self-consistency forces ε = 2 l_p (twice the Planck length).
 
 **Lemma 2** (Causal partition). *An observer is a proper subsystem $V \subsetneq S$. The complement $H = S \setminus V$ is the hidden sector.* The total phase space splits into two pieces:
 
@@ -84,7 +84,7 @@ A fast environment with vast capacity would wash out correlations (Markovian noi
 
 ---
 
-## Partition-Relativity (§1.4)
+## Partition-Relativity
 
 This is the first real proof in the paper, and it's beautifully simple.
 
@@ -111,7 +111,7 @@ Unpacking each symbol:
 
 ---
 
-## Emergent Stochasticity and the Slow-Bath Regime (§§2.1–2.2)
+## Emergent Stochasticity and the Slow-Bath Regime
 
 The total system is deterministic. If you knew both x and h, you'd know the future with certainty. But the observer knows only x. Different hidden states h send the same visible state x to different futures.
 
@@ -125,7 +125,7 @@ This is non-Markovian dynamics. It's the key ingredient that separates quantum m
 
 ---
 
-## The P-Indivisibility Theorem (§2.3)
+## The P-Indivisibility Theorem
 
 **What it claims.** If a deterministic system is split into a visible and hidden sector, and these sectors are genuinely coupled, then the visible sector's behavior *cannot* be a simple memoryless random process. It must exhibit P-indivisibility — a specific kind of built-in memory.
 
@@ -165,7 +165,7 @@ The proof uses almost nothing — just that the dynamics is a bijection on a fin
 
 ---
 
-## The Accessible-Timescale Lemma (§2.3 continued)
+## The Accessible-Timescale Lemma
 
 The recurrence proof shows P-indivisibility exists as a mathematical property. But the recurrence time is absurdly long — for the cosmological case, it's e^(10^122) years. Nobody will ever observe it.
 
@@ -191,7 +191,7 @@ For the cosmological case: τ_S ~ 10^{-15} s, τ_B ~ 10^{17} s. Even after k = 1
 
 ---
 
-## The Coin-and-Die Model (§2.4)
+## The Coin-and-Die Model
 
 The paper builds a concrete toy model to make the mechanism tangible.
 
@@ -270,7 +270,7 @@ Because P-indivisibility without C2 and C3 might only show up at absurd timescal
 
 ---
 
-## The Stochastic-Quantum Correspondence (§3.1 and Appendix A)
+## The Stochastic-Quantum Correspondence
 
 This is the key link. Section 2 proved that the embedded observer's dynamics are P-indivisible. Section 3 shows this is mathematically equivalent to quantum mechanics.
 
@@ -290,13 +290,13 @@ The secondary route, given in Appendix A, uses Stinespring's dilation theorem (1
 
 - **The Born rule** T_ij = |U_ij|² is not an additional postulate — it's the definition of how the stochastic process maps onto the unitary one.
 
-- **The action scale ℏ** enters when converting from the dimensionless unitary to a dimensionful Hamiltonian: Ĥ = iℏ (∂U/∂t) U†. The value of ℏ cannot be determined from the dimensionless transition data alone — it requires additional physical input from the partition geometry (§5).
+- **The action scale ℏ** enters when converting from the dimensionless unitary to a dimensionful Hamiltonian: Ĥ = iℏ (∂U/∂t) U†. The value of ℏ cannot be determined from the dimensionless transition data alone — it requires additional physical input from the partition geometry.
 
 - **Bell inequality violations.** Since the transition matrices for composite systems don't factorize, entangled systems naturally produce correlations that violate Bell inequalities, up to exactly Tsirelson's bound.
 
 ---
 
-## The Phase-Locking Lemma (§3.1 continued)
+## The Phase-Locking Lemma
 
 A potential objection: the relation T_ij = |U_ij|² throws away phase information. Different unitaries could give the same transition probabilities. Does this make the quantum description ambiguous?
 
@@ -326,7 +326,7 @@ The only transformation preserving all double differences is φ_ik → φ_ik + �
 
 ---
 
-## Bell Inequality Violations (§3.2)
+## Bell Inequality Violations
 
 This is the question everyone asks: isn't this ruled out by Bell's theorem?
 
@@ -352,7 +352,7 @@ Two subsystems that interacted during preparation carry a joint transition matri
 
 ---
 
-## The Characterization Theorem (§3.3)
+## The Characterization Theorem
 
 It's not enough to show that embedded observation *produces* QM (sufficiency). The paper shows QM *requires* embedded observation under C1–C3 (necessity). The full logical chain:
 
@@ -385,9 +385,9 @@ Each step uses a standard information-theoretic inequality. The result: if you w
 
 ---
 
-## The Cosmological Application (§4)
+## The Cosmological Application
 
-### 4.1 The Partition
+### The Partition
 
 The cosmological horizon is the boundary beyond which no signal traveling at or below c can ever reach the observer. In a universe with a positive cosmological constant (de Sitter space), this horizon exists for every observer and has a definite, finite area:
 
@@ -397,7 +397,7 @@ where H is the Hubble parameter. This implements Lemma 2 naturally: Γ_V = every
 
 **Why ℏ is the same for all observers:** Different observers have slightly different horizons. But the gap equation ℏ = c³ε²/(4G) depends only on local geometric quantities (c, G, ε) — not on the horizon area or the observer's worldline. So all observers derive the same ℏ.
 
-### 4.2 Verification of the Conditions
+### Verification of the Conditions
 
 **C1 (coupling).** In general relativity's ADM formulation, the bulk Hamiltonian is a sum of constraints that vanish on-shell — meaning the "real" dynamics happens at the boundary. The Hamiltonian and momentum constraints correlate interior and exterior data. This is stronger than just H_int ≠ 0: the constraints enforce correlations that persist on all timescales.
 
@@ -405,17 +405,17 @@ where H is the Hubble parameter. This implements Lemma 2 naturally: Γ_V = every
 
 **C3 (sufficient capacity).** The hidden sector has A/ε² ~ 10¹²² modes (the de Sitter entropy). The visible sector has ~ 10⁸⁰ baryons. No experiment comes close to saturating the hidden sector.
 
-### 4.3 Application
+### Application
 
 With the cosmological horizon satisfying the definition and all conditions, the characterization theorem applies. The observer's reduced description is P-indivisible and therefore equivalent to unitary quantum mechanics. The value of ℏ is determined by the partition geometry — which is what Section 5 derives.
 
 ---
 
-## Where Planck's Constant Comes From (§5)
+## Where Planck's Constant Comes From
 
 Partition-relativity proved that the emergent quantum description is completely and uniquely determined by the partition. This means $\hbar$ cannot be a free parameter — it must be fixed by the geometry of the boundary.
 
-### The Classical Horizon Temperature (§5.1)
+### The Classical Horizon Temperature
 
 **Starting point: Jacobson's identity.** Jacobson (1995) showed that Einstein's field equations follow from applying the first law of thermodynamics δQ = TdS to local causal horizons:
 
@@ -423,7 +423,7 @@ $$dE = \frac{c^2 \kappa}{8\pi G} \, dA$$
 
 where κ is the surface gravity and dA is the change in horizon area. This is a classical gravitational identity — no quantum mechanics involved.
 
-The entropy density is η = 1/ε² — one coupled mode per minimal cell of area ε². This is not an assumption about the number of states per cell: ε is defined as the minimal distinguishable scale (Lemma 1), so each cell of area ε² contributes exactly one boundary mode that couples across the partition. The number of internal states per mode (the alphabet size q) is a gauge freedom with no observable consequences (Fundamental, §4). So dS = dA/ε². From dE = TdS:
+The entropy density is η = 1/ε² — one coupled mode per minimal cell of area ε². This is not an assumption about the number of states per cell: ε is defined as the minimal distinguishable scale (Lemma 1), so each cell of area ε² contributes exactly one boundary mode that couples across the partition. The number of internal states per mode (the alphabet size q) is a gauge freedom with no observable consequences. So dS = dA/ε². From dE = TdS:
 
 $$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G}$$
 
@@ -433,7 +433,7 @@ $$k_B T_{\text{cl}} = \frac{c^3 \epsilon^2 H}{8\pi G}$$
 
 **Critical point: no ℏ appears anywhere.** This temperature is computed from purely classical quantities.
 
-### The Four-Step Derivation (§5.2)
+### The Four-Step Derivation
 
 **Step 1 (Uniqueness).** Partition-relativity guarantees ℏ is determined by the partition geometry. It's not a free parameter.
 
@@ -461,7 +461,7 @@ So ℏ = β c³ε²/G, where β is a dimensionless constant that dimensional ana
 
 $$T_Q = \frac{\hbar \kappa}{2\pi c k_B}$$
 
-The two temperatures are computed independently — $T_{\text{cl}}$ from the classical substratum alone (no QM), $T_Q$ from the emergent QFT alone (no classical substratum details) — but they describe the same physical degrees of freedom: the boundary modes across which the partition is defined. Since the quantum description is derived from the classical one (Part I), and the derivation is exact at the boundary, the two descriptions cannot assign contradictory temperatures. Consistency requires $T_{\text{cl}} = T_Q$:
+The two temperatures are computed independently — $T_{\text{cl}}$ from the classical substratum alone (no QM), $T_Q$ from the emergent QFT alone (no classical substratum details) — but they describe the same physical degrees of freedom: the boundary modes across which the partition is defined. Since the quantum description is derived from the classical one, and the derivation is exact at the boundary, the two descriptions cannot assign contradictory temperatures. Consistency requires $T_{\text{cl}} = T_Q$:
 
 $$\frac{c^2 \epsilon^2 \kappa}{8\pi G} = \frac{\hbar \kappa}{2\pi c}$$
 
@@ -471,13 +471,13 @@ $$\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}$$
 
 This fixes β = 1/4.
 
-**Why this is not circular.** The KMS temperature T_Q contains ℏ as an *unknown*. The classical temperature T_cl contains no ℏ at all. The non-circularity is structural: Part I establishes that a QFT emerges with *some* action scale ℏ; §5 determines *which* ℏ, using the independent classical temperature that Part I neither requires nor produces. If T_cl had depended on the deep hidden-sector volume (it doesn't — the boundary-only lemma excludes it), or if T_Q had been state-dependent (it isn't — the KMS temperature is purely kinematic), the matching wouldn't work. That neither pathology obtains makes the gap equation a genuine determination.
+**Why this is not circular.** The KMS temperature T_Q contains ℏ as an *unknown*. The classical temperature T_cl contains no ℏ at all. The non-circularity is structural: The framework establishes that a QFT emerges with *some* action scale ℏ; the thermal matching argument determines *which* ℏ, using an independent classical temperature that the QM emergence neither requires nor produces. If T_cl had depended on the deep hidden-sector volume (it doesn't — the boundary-only lemma excludes it), or if T_Q had been state-dependent (it isn't — the KMS temperature is purely kinematic), the matching wouldn't work. That neither pathology obtains makes the gap equation a genuine determination.
 
 **Predictive content.** The gap equation relates one free parameter (ε) to one output (ℏ). The predictive content lies not in the relation alone but in its consequences: the specific relationship ℏ = c³ε²/(4G) — rather than any other function of c, G, ε — produces the Bekenstein-Hawking formula with the exact factor 1/4, the CC dissolution with S_dS as the compression ratio, and the RVM parameter ν_OI. Any alternative ℏ(ε) would fail at least one of these checks.
 
 ---
 
-## The D-Gauge Completeness Theorem (§5.3)
+## The D-Gauge Completeness Theorem
 
 **The problem.** The relation T_ij = |U_ij|² discards phase information. Could different Hamiltonians give the same transition probabilities?
 
@@ -499,7 +499,7 @@ The general solution: δ_ik = α_i + β_k — a sum of a row phase and a column 
 
 ---
 
-## The Discreteness Scale (§6)
+## The Discreteness Scale
 
 ### What ε = 2 l_p means
 
@@ -579,17 +579,17 @@ The framework is not just a reinterpretation. It makes specific, falsifiable pre
 
 **Dark energy evolution.** Because the hidden sector's dimensionality changes as the Hubble parameter $H$ evolves (the horizon area is $A = 4\pi c^2/H^2$), the emergent vacuum energy inherits a dependence on $H$. The predicted form matches the Running Vacuum Model: $\Lambda_{\text{eff}} = \Lambda_0 + \nu H^2$. The coefficient $\nu$ is computed from the spectral structure of the horizon: the trace-out compression noise is distributed over $\mathcal{N} = \ln(c/\epsilon H)$ spectral decades. The spectral uniformity ($\alpha = 0$) is not an assumption but follows from the lattice structure: each $\epsilon^2$ boundary cell couples equally to all frequencies (time-translation invariance), each mode carries $\mathcal{O}(1)$ entropy bit (quantum regime), and the mode count is geometric ($A/\epsilon^2$), not field-theoretic. This gives $\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}$ with total uncertainty $\pm 1.8\%$ — a precision prediction, not an order-of-magnitude estimate. The independently testable ratio $\nu/\Omega_\Lambda = 0.00358 \pm 0.00003$ depends only on $\ln(c/\epsilon H_0)$ and is insensitive to the measured values of both $H_0$ and $\Omega_\Lambda$. DESI's 2024–2025 data releases report evidence for evolving dark energy at $2.8\sigma$–$4.2\sigma$, with RVM fits finding $\nu \sim \mathcal{O}(10^{-3})$ — consistent with the prediction. The most recent multi-model analysis (de Cruz Pérez, Gómez-Valent, and Solà Peracaula, March 2026) of DESI DR2 + Planck + supernovae explicitly tests several RVM variants and finds the "flipped RVM" and "RVM with threshold" variants point to significant evidence of dynamical dark energy at a level comparable to the more flexible $w_0w_a$CDM parameterization. In other words: DESI now favors the specific functional form OI predicts, not merely "some kind of dynamical dark energy." DESI Year 5 (~1% precision on $\nu$) provides the decisive test.
 
-**The dark sector as corroboration.** The trace-out that produces quantum mechanics has a gravitational consequence that the paper did not set out to find. The boundary entropy — the $S_{\text{dS}}$ modes traced out to produce the quantum description — has thermal energy that, distributed over the Hubble volume, equals the critical density exactly. A crucial subtlety: this thermal energy is computed entirely from pre-trace-out (classical) quantities — the number of boundary modes, the classical horizon temperature, and the Hubble volume — with no reference to $\hbar$ or the emergent quantum description. This is what distinguishes the boundary entropy's gravitational contribution from the QFT zero-point energy ($\rho_{\text{QFT}} \sim 10^{113}$ J/m³), which exists only *after* the trace-out and is an artifact of the emergent description. The framework denies that the zero-point energy gravitates (this is the CC dissolution of Part II); the boundary entropy's classical thermal energy *does* gravitate, at the scale $\rho_{\text{crit}} \sim 10^{-9}$ J/m³.
+**The dark sector as corroboration.** The trace-out that produces quantum mechanics has a gravitational consequence that the framework was not designed to find. The boundary entropy — the $S_{\text{dS}}$ modes traced out to produce the quantum description — has thermal energy that, distributed over the Hubble volume, equals the critical density exactly. A crucial subtlety: this thermal energy is computed entirely from pre-trace-out (classical) quantities — the number of boundary modes, the classical horizon temperature, and the Hubble volume — with no reference to $\hbar$ or the emergent quantum description. This is what distinguishes the boundary entropy's gravitational contribution from the QFT zero-point energy ($\rho_{\text{QFT}} \sim 10^{113}$ J/m³), which exists only *after* the trace-out and is an artifact of the emergent description. The framework denies that the zero-point energy gravitates (this is the CC dissolution); the boundary entropy's classical thermal energy *does* gravitate, at the scale $\rho_{\text{crit}} \sim 10^{-9}$ J/m³.
 
-The paper proves that this entropy has no operator in the emergent QFT. The baryonic sector — what QFT can account for — is ~5% of $\rho_{\text{crit}}$. The remaining ~95% is the boundary entropy: gravitationally active, invisible to the emergent description, and persistent through P-indivisibility (condition C2). This matches the observed composition of the universe, in which ~95% of the gravitational content has no source in particle physics. The uniform component corresponds to dark energy (handled by Part II's CC dissolution). The structured component — dark matter — arises from matter-induced entropy displacement: baryonic matter displaces boundary entropy via the Clausius relation, the Jacobson mechanism converts the entropy gradient into curvature, yielding the MOND acceleration scale $a_0 = cH/6 \approx 1.2 \times 10^{-10}$ m/s² and the baryonic Tully-Fisher relation $v^4 = GM_B \cdot cH/6$ — both parameter-free (Main, §8.3). That a definition designed to formalize observation also account for the dark sector's total budget and internal structure is independent corroboration that observational incompleteness is capturing real structure.
+The framework proves that this entropy has no operator in the emergent QFT. The baryonic sector — what QFT can account for — is ~5% of $\rho_{\text{crit}}$. The remaining ~95% is the boundary entropy: gravitationally active, invisible to the emergent description, and persistent through P-indivisibility (condition C2). This matches the observed composition of the universe, in which ~95% of the gravitational content has no source in particle physics. The uniform component corresponds to dark energy (handled by the CC dissolution). The structured component — dark matter — arises from matter-induced entropy displacement: baryonic matter displaces boundary entropy via the Clausius relation, the Jacobson mechanism converts the entropy gradient into curvature, yielding the MOND acceleration scale $a_0 = cH/6 \approx 1.2 \times 10^{-10}$ m/s² and the baryonic Tully-Fisher relation $v^4 = GM_B \cdot cH/6$ — both parameter-free. That a definition designed to formalize observation also account for the dark sector's total budget and internal structure is independent corroboration that observational incompleteness is capturing real structure.
 
 **High-redshift dark matter.** Because $a_0(z) = cH(z)/6$ and $H(z)$ increases with redshift, the dark matter phenomenology evolves: $a_0$ is $1.8\times$ larger at $z = 1$, $3.0\times$ at $z = 2$, and $4.6\times$ at $z = 3$. This shrinks the MOND crossover radius, making galaxies more baryon-dominated at high redshift — their rotation curves should decline beyond a smaller radius. Genzel et al. (Nature, 2017) report exactly this: stacked rotation curves at $z = 0.9$–$2.4$ show declining outer velocities at $> 3\sigma$ significance relative to local spirals. The cleanest local test is even more striking: Jiao et al. (*A&A* 678, A208, 2023) detect for the first time a Keplerian decline in the Milky Way's own rotation curve from $\sim 19$ to $\sim 26.5$ kpc using Gaia DR3 kinematics, with the flat rotation curve hypothesis rejected at $3\sigma$. Our own galaxy is now the strongest single piece of evidence for the $H(z)$-dependent crossover prediction at $z = 0$ — the framework predicts the crossover at $r_M \sim 17$ kpc for the Milky Way's baryonic mass, essentially where Jiao et al. observe the transition. The baryonic Tully-Fisher relation also evolves: $v_{\text{flat}} \propto H(z)^{1/4}$, predicting 32% higher velocities at $z = 2$ at fixed baryonic mass. McGaugh et al. (2024) report no evolution in the *stellar* mass TF to $z \sim 2.5$ — but this is actually *predicted* by the framework, because gas fractions at high $z$ are large ($f_{\text{gas}} \sim 50$–$70\%$) and the gas mass omitted from $M_*$ almost exactly compensates the dynamical shift (the cancellation gas fractions — 44% at $z = 1$, 67% at $z = 2$ — match observations). The definitive test is the *baryonic* TF at $z > 1$ with reliable ALMA gas masses. Particle dark matter (NFW halos) predicts flat rotation curves at all redshifts — the observed decline is unexpected in ΛCDM but natural in the OI framework. Direct dark matter searches continue to return null results (LZ Collaboration's 417-day analysis presented December 2025 is the most sensitive WIMP search ever conducted, finding nothing), consistent with the framework's prediction that no particle dark matter exists.
 
-**Cluster scales and the Bullet Cluster.** Galaxy clusters — the hardest test for any MOND-like theory — are addressed by the interpolation between the Newtonian and deep-MOND regimes. The simple interpolation function $g_{\text{total}} = g_B \cdot \nu(g_B/a_0)$ with $\nu(y) = (1 + \sqrt{1+4/y})/2$ matches the Coma cluster to $< 1\%$ in velocity (1260 vs 1270 km/s) and reduces the standard MOND mass shortfall from a factor $\sim 2$ to $\sim 1.0$–$1.5$ for other rich clusters — with the residual attributable to undetected warm-hot intergalactic medium (WHIM). This interpolation is indistinguishable from the deep-MOND limit at galaxy scales (differences $< 0.07$ dex, well within the observed RAR scatter). The Bullet Cluster — where gravitational lensing peaks at the galaxy positions rather than the dominant X-ray gas — is explained by the non-local character of entropy displacement: the boundary entropy relaxation time is $\sim H^{-1} \approx 14$ Gyr, while the collision crossing time is $\sim 0.15$ Gyr. The dark gravity is frozen at the pre-collision configuration (centered on the galaxies, which defined the potential wells for gigayears), not tracking the recently displaced gas. This reproduces the observed lensing morphology and makes a testable prediction: very old post-collision systems should show gradual relaxation of the dark gravity toward the gas distribution (Main, §8.3). The same thermodynamic averaging explains why the entropy displacement reproduces the CMB acoustic peak pattern: oscillating perturbations have zero net entropy displacement per cycle (the Clausius relation involves *net* heat transfer), so only the growing mode is tracked — providing non-oscillating potential wells identical to CDM in the linear regime.
+**Cluster scales and the Bullet Cluster.** Galaxy clusters — the hardest test for any MOND-like theory — are addressed by the interpolation between the Newtonian and deep-MOND regimes. The simple interpolation function $g_{\text{total}} = g_B \cdot \nu(g_B/a_0)$ with $\nu(y) = (1 + \sqrt{1+4/y})/2$ matches the Coma cluster to $< 1\%$ in velocity (1260 vs 1270 km/s) and reduces the standard MOND mass shortfall from a factor $\sim 2$ to $\sim 1.0$–$1.5$ for other rich clusters — with the residual attributable to undetected warm-hot intergalactic medium (WHIM). This interpolation is indistinguishable from the deep-MOND limit at galaxy scales (differences $< 0.07$ dex, well within the observed RAR scatter). The Bullet Cluster — where gravitational lensing peaks at the galaxy positions rather than the dominant X-ray gas — is explained by the non-local character of entropy displacement: the boundary entropy relaxation time is $\sim H^{-1} \approx 14$ Gyr, while the collision crossing time is $\sim 0.15$ Gyr. The dark gravity is frozen at the pre-collision configuration (centered on the galaxies, which defined the potential wells for gigayears), not tracking the recently displaced gas. This reproduces the observed lensing morphology and makes a testable prediction: very old post-collision systems should show gradual relaxation of the dark gravity toward the gas distribution. The same thermodynamic averaging explains why the entropy displacement reproduces the CMB acoustic peak pattern: oscillating perturbations have zero net entropy displacement per cycle (the Clausius relation involves *net* heat transfer), so only the growing mode is tracked — providing non-oscillating potential wells identical to CDM in the linear regime.
 
 **Neutrino predictions and the JUNO + DESI confirmation.** The framework predicts Majorana neutrinos with normal mass ordering and a hierarchical spectrum, with $\Sigma m_\nu$ near the oscillation minimum of 0.059 eV. The DESI DR2 + CMB analysis (Elbers et al., March 2025) reports $\Sigma m_\nu < 0.0642$ eV (95% CL), prefers normal ordering, and bounds the lightest neutrino mass at $m_l < 0.023$ eV — every directly comparable measurement matches the OI prediction. The same analysis finds a $3\sigma$ tension with the lower oscillation limit assuming $\Lambda$CDM, interpreted as "a hint of new physics not necessarily related to neutrinos" — exactly the structural mismatch that the OI dark energy resolves. JUNO first results (November 2025) deliver world-leading precision on $\sin^2\theta_{12} = 0.3092 \pm 0.0087$, matching the OI prediction $1/3 - 1/(4\pi^2) = 0.3080$ at $0.14\sigma$, while confirming the persistent solar/reactor 1.5$\sigma$ tension. The neutrino sector and the dark energy sector are coupled in the framework — both follow from the same lattice structure — so the joint observational support is not independent confirmation of separate effects but a single empirical pattern consistent with the framework's central mechanism.
 
-**Gauge coupling prediction.** The companion paper (Fundamental, §9) extends the derivation chain to the gauge coupling strengths. The fermion-induced coupling gives $1/\alpha_0 = 23.25$ at the Planck scale — a universal value determined by the lattice structure ($N_f = 6$ flavors, $T(R) = 1/2$), not by the specific bijection $\varphi$. Combined with non-perturbative gauge self-energy corrections (from pure-gauge Monte Carlo at the induced coupling) and Standard Model renormalization group running, this reproduces all three SM gauge couplings at $M_Z$: $1/\alpha_1 = 59.00$, $1/\alpha_2 = 29.57$, $1/\alpha_3 = 8.47$ — matching the observed values to $< 0.1\%$.
+**Gauge coupling prediction.** The framework extends the derivation chain to the gauge coupling strengths. The fermion-induced coupling gives $1/\alpha_0 = 23.25$ at the Planck scale — a universal value determined by the lattice structure ($N_f = 6$ flavors, $T(R) = 1/2$), not by the specific bijection $\varphi$. Combined with non-perturbative gauge self-energy corrections (from pure-gauge Monte Carlo at the induced coupling) and Standard Model renormalization group running, this reproduces all three SM gauge couplings at $M_Z$: $1/\alpha_1 = 59.00$, $1/\alpha_2 = 29.57$, $1/\alpha_3 = 8.47$ — matching the observed values to $< 0.1\%$.
 
 **Independent corroboration of the trace-out mechanism.** The framework's central technical move — that integrating out hidden degrees of freedom from a deterministic substrate produces well-defined non-Markovian visible dynamics, which under the Barandes correspondence becomes quantum mechanics — is now established at theorem level in the open systems literature. Brandner (*Phys. Rev. Lett.* **134**, 037101 and companion *Phys. Rev. E* **111**, 014137, January 2025) proves that for autonomous linear evolution equations, integrating out inaccessible degrees of freedom yields well-defined non-Markovian visible dynamics in a controlled weak-memory regime, with explicit error bounds and a convergent perturbation scheme — derived independently for general open systems with no stake in OI being right. Direct experimental demonstrations exist in controlled physical systems: Mehl et al. (PRL 108, 220601, 2012) showed that hidden slow degrees of freedom in a colloidal system produce non-Markovian visible dynamics violating naive Markovian fluctuation theorems; Gröblacher et al. (Nature Communications 6, 7606, 2015) observed non-Markovian Brownian motion in a macroscopic micromechanical oscillator. On the quantum side, Kim (April 2025) shows that monitored quantum systems are formally quantum hidden Markov models with a rigorous correspondence to classical hidden Markov models — the same formal structure as the stochastic-quantum bridge, developed independently in the monitored quantum systems literature. The framework's central technical move is therefore not speculative; it is the standard way physicists now think about open systems with hidden structure, and the mathematical apparatus has been published in the standard literature within the past 12 months.
 
@@ -749,7 +749,7 @@ The universe is not broken. We are observing it from within.
 
 A natural objection to any framework this sweeping is: maybe it only works because it was built to work. Maybe the definition was chosen to produce QM, and the cosmological application was chosen because it fits. A flexible framework that can accommodate anything predicts nothing.
 
-A companion paper ("The Fundamental Structure of the Observational Incompleteness Framework") tests this by asking a question the main paper doesn't address: if you build a concrete system satisfying the definition, does the framework constrain the dynamics? And if so, does the constrained dynamics produce anything beyond QM — something the framework wasn't designed to deliver?
+A natural follow-up question is whether building a concrete system satisfying the definition makes the framework constrain the dynamics: And if so, does the constrained dynamics produce anything beyond QM — something the framework wasn't designed to deliver?
 
 It does, on both counts.
 
@@ -767,7 +767,7 @@ This is what rigidity looks like. A framework that produces QM from one set of a
 
 The rigidity test proves that the wave equation on a lattice produces both QM and GR. But what *is* the lattice? Is the universe literally a grid of cells at the Planck scale? What would the grid be made of? What would it sit in?
 
-A companion paper ("The Fundamental Structure of the Observational Incompleteness Framework") addresses these questions head-on — and also derives the Standard Model's structure from the lattice dynamics. Its answer to the ontology question: the lattice is not a physical object. It is the *coupling structure* of the dynamics — the pattern of which degrees of freedom affect which others.
+The framework addresses these questions head-on, deriving the Standard Model's structure from the lattice dynamics. The answer to the ontology question: the lattice is not a physical object. It is the *coupling structure* of the dynamics — the pattern of which degrees of freedom affect which others.
 
 **The minimal structure.** The paper audits every assumption in the framework and identifies which are necessary for the theorems and which are artifacts of the particular construction. The result: only six structural properties matter — deterministic bijectivity, finite boundary entropy, bounded coupling degree, statistical isotropy, non-trivial partition coupling, and slow-bath capacity. The regular cubic lattice, the specific alphabet size q, the dimensionality d, and even the wave equation are all either derived from these six properties or irrelevant to the predictions. The minimal object is not a lattice. It is a triple: a finite set S, a bijection φ, and a partition V.
 
@@ -775,7 +775,7 @@ A companion paper ("The Fundamental Structure of the Observational Incompletenes
 
 This dissolves the container problem. The lattice doesn't sit in anything. There is no ambient manifold. The coupling graph is an abstract mathematical structure — like a number or a group — and any spatial embedding we draw is a representation for our convenience, not a physical fact. Asking "what does the lattice sit in?" is like asking what the number 7 sits in. It's a category error.
 
-**The alphabet is a gauge freedom.** The companion papers prove every result for any alphabet size q ≥ 2. The gap equation contains no q. The Bekenstein-Hawking formula contains no q. The dispersion relation is valid for any q. No experiment could measure q, even in principle. This makes q a gauge freedom — a choice of mathematical description, like choosing a coordinate system or a gauge for the electromagnetic potential. The physical content is the coupling structure, not the microscopic state space.
+**The alphabet is a gauge freedom.** The framework establishes every result for any alphabet size q ≥ 2. The gap equation contains no q. The Bekenstein-Hawking formula contains no q. The dispersion relation is valid for any q. No experiment could measure q, even in principle. This makes q a gauge freedom — a choice of mathematical description, like choosing a coordinate system or a gauge for the electromagnetic potential. The physical content is the coupling structure, not the microscopic state space.
 
 **Connection to causal set theory.** The bijection's coupling graph, extended in time, generates a causal partial order: event A precedes event B if B is within A's future coupling light cone. This partial order is a causal set in the sense of Bombelli, Lee, Meyer, and Sorkin — the starting point of causal set theory, one of the established approaches to quantum gravity. Causal set theory has always had a specific gap: it postulates a causal order but lacks a deterministic dynamics that produces QM and GR. The OI framework provides exactly this. Sorkin's slogan is "Order + Number = Geometry." The OI version is "Bijection + Locality = QM + GR."
 
@@ -800,15 +800,15 @@ But the central claim stands: the fundamental object is (S, φ) — a finite set
 
 ## Why These Particles?
 
-The first two companion papers establish that the framework produces quantum mechanics and general relativity. But quantum mechanics is a *framework*, not a *theory*. It tells the observer to use Hilbert spaces, unitary evolution, and the Born rule — but it's compatible with infinitely many different quantum field theories. You could have quantum mechanics with an SU(7) gauge group, or with 15 generations of fermions, or with no gauge fields at all. Deriving QM answers the question "what kind of probability does the observer use?" It doesn't answer "what particles exist?" or "what forces act between them?"
+The framework produces both quantum mechanics and general relativity. But quantum mechanics is a *framework*, not a *theory*. It tells the observer to use Hilbert spaces, unitary evolution, and the Born rule — but it's compatible with infinitely many different quantum field theories. You could have quantum mechanics with an SU(7) gauge group, or with 15 generations of fermions, or with no gauge fields at all. Deriving QM answers the question "what kind of probability does the observer use?" It doesn't answer "what particles exist?" or "what forces act between them?"
 
 The Standard Model of particle physics — quarks, leptons, the strong and weak nuclear forces, electromagnetism, the Higgs boson — has been confirmed to extraordinary precision. But its *structure* has always been taken as empirical. We observe three generations, SU(3) × SU(2) × U(1), specific hypercharge assignments, and we accept them as given. Nobody has explained *why* these particles and not others.
 
-The Fundamental Structure paper asks whether the specific lattice dynamics selected by the QM and GR requirements — the wave equation on a d = 3 hypercubic lattice with checkerboard partition — determines which quantum field theory the observer sees. The answer is yes — almost completely.
+A natural question is whether the specific lattice dynamics selected by the QM and GR requirements — the wave equation on a d = 3 hypercubic lattice with checkerboard partition — determines which quantum field theory the observer sees. The answer is yes — almost completely.
 
 **Fermions from the wave equation.** The wave equation selected by the QM requirement (the discrete lattice Klein-Gordon equation) has a well-known mathematical property: it factors into first-order operators called staggered Dirac operators. This factorization, discovered by Susskind in 1977, means the *same dynamics* that produces bosonic waves also describes fermionic matter. Fermions are not added to the framework. They *are* the framework, seen from a different mathematical angle.
 
-The factorization produces a specific structure: on a three-dimensional lattice, the staggered construction yields exactly 4 "tastes" — independent species of fermions. These decompose as 1 + 3 under the cubic symmetry of the lattice: one singlet and one triplet. The triplet count equals the spatial dimension $d = 3$. Since $d = 3$ is derived by the Fundamental Structure paper, the three-generation structure of the Standard Model — the fact that there are three copies of each type of quark and lepton — is traced back to the dimensionality of space.
+The factorization produces a specific structure: on a three-dimensional lattice, the staggered construction yields exactly 4 "tastes" — independent species of fermions. These decompose as 1 + 3 under the cubic symmetry of the lattice: one singlet and one triplet. The triplet count equals the spatial dimension $d = 3$. Since $d = 3$ is derived, the three-generation structure of the Standard Model — the fact that there are three copies of each type of quark and lepton — is traced back to the dimensionality of space.
 
 Numerically, the singlet and triplet are not just distinguished by symmetry — they have quantitatively different coupling strengths. The singlet has coupling $|\mu| = 1$ (the maximum), while the three triplet members each have $|\mu| = 1/3$. The triplet members are exactly degenerate by cubic symmetry, providing a lattice-level origin for "generation symmetry."
 
@@ -842,13 +842,13 @@ The OI framework solves it without new particles. The wave equation is exactly i
 
 **No empirical inputs.** The hypercharge U(1)$_Y$ — traditionally an empirical input — is automatic: any U($n$) gauge group contains a U(1) factor, and anomaly cancellation uniquely determines the hypercharge assignments. The parity violation — also traditionally empirical — follows from the partition's chirality structure. The filter chain from (S, φ) to the Standard Model contains no empirical inputs beyond the framework's two structural properties (bounded coupling and statistical isotropy).
 
-**Where the matter representations come from.** A subtle point: the K = 6 internal space decomposes as a *direct sum* 3 + 2 + 1, but the SM quark doublet Q$_L$ = (3, 2, +1/6) is a *tensor product* representation — it transforms simultaneously under both SU(3) and SU(2). This representation doesn't come from the lattice geometry. It comes from the *observer's existence*: the observer genericity theorem (proved in the Fundamental Structure paper) guarantees that any observer has a self-consistent quantum description. A self-consistent chiral QFT requires anomaly cancellation. Anomaly cancellation with SU(3) × SU(2) × U(1) uniquely determines the matter content per generation: Q$_L$, u$_R$, d$_R$, L$_L$, e$_R$ with specific hypercharges. The lattice gives the gauge group and the generation count; the observer's self-consistency gives the representations. Three degenerate tastes then give three copies — three generations.
+**Where the matter representations come from.** A subtle point: the K = 6 internal space decomposes as a *direct sum* 3 + 2 + 1, but the SM quark doublet Q$_L$ = (3, 2, +1/6) is a *tensor product* representation — it transforms simultaneously under both SU(3) and SU(2). This representation doesn't come from the lattice geometry. It comes from the *observer's existence*: the observer genericity theorem guarantees that any observer has a self-consistent quantum description. A self-consistent chiral QFT requires anomaly cancellation. Anomaly cancellation with SU(3) × SU(2) × U(1) uniquely determines the matter content per generation: Q$_L$, u$_R$, d$_R$, L$_L$, e$_R$ with specific hypercharges. The lattice gives the gauge group and the generation count; the observer's self-consistency gives the representations. Three degenerate tastes then give three copies — three generations.
 
-**What the framework does not determine.** The coupling matrix $M$ has three independent eigenvalues ($\mu_c$, $\mu_w$, $\mu_y$), constrained by the max-speed condition to have $\mu_y = 1$. The remaining two eigenvalues set the strong and weak coupling strengths at the lattice scale. These, along with the Yukawa couplings (which determine fermion masses and mixing angles) and the Higgs potential parameters, are properties of the specific bijection $\varphi$ — the specific "universe" the observer inhabits. The Fundamental Structure paper determines the *form* of the laws but not the *constants*. However, the universal induced coupling $1/\alpha_0 = 23.25$ IS structural — it depends on $N_f = 6$ and $T(R) = 1/2$, both determined by the lattice, not on the eigenvalues of $M$. Combined with non-perturbative gauge self-energy corrections and SM RG running, this reproduces all three observed gauge couplings at $M_Z$ (Fundamental, §9). The companion Predictions paper extends this further: the $d = 3$ lattice geometry determines twenty-one SM parameters — including fermion mass ratios, CKM and PMNS mixing angles, and the Higgs mass — with zero free parameters, all matching observation.
+**What the framework does not determine.** The coupling matrix $M$ has three independent eigenvalues ($\mu_c$, $\mu_w$, $\mu_y$), constrained by the max-speed condition to have $\mu_y = 1$. The remaining two eigenvalues set the strong and weak coupling strengths at the lattice scale. These, along with the Yukawa couplings (which determine fermion masses and mixing angles) and the Higgs potential parameters, are properties of the specific bijection $\varphi$ — the specific "universe" the observer inhabits. The framework determines the *form* of the laws but not the *constants*. However, the universal induced coupling $1/\alpha_0 = 23.25$ IS structural — it depends on $N_f = 6$ and $T(R) = 1/2$, both determined by the lattice, not on the eigenvalues of $M$. Combined with non-perturbative gauge self-energy corrections and SM RG running, this reproduces all three observed gauge couplings at $M_Z$. The $d = 3$ lattice geometry further determines twenty-one SM parameters — including fermion mass ratios, CKM and PMNS mixing angles, and the Higgs mass — with zero free parameters, all matching observation.
 
-**Predictions.** The Fundamental Structure paper makes seven predictions: (1) no additional gauge groups below the Planck scale; (2) no fundamental scalars beyond the Higgs; (3) no supersymmetric partners; (4) no fourth generation; (5) $\bar{\theta} = 0$ exactly, no axion; (6) the CKM CP-violating phase arises from parity violation, not time-reversal violation; (7) neutrinos are Majorana — the singlet taste is the Higgs sector (not a right-handed neutrino), so neutrinoless double beta decay should be observed. The taste-breaking mechanism (Fundamental, §10.8) further predicts: normal mass ordering ($m_3 > m_2 > m_1$), large PMNS mixing angles (from the structural mismatch between Dirac and Majorana mass matrices under the cubic group), and a hierarchical spectrum with $\Sigma m_\nu$ near the oscillation minimum ($\approx 0.059$ eV). DESI DR2+CMB data ($\Sigma m_\nu < 0.064$ eV, normal ordering preferred) are consistent with all of these.
+**Predictions.** The framework makes seven predictions: (1) no additional gauge groups below the Planck scale; (2) no fundamental scalars beyond the Higgs; (3) no supersymmetric partners; (4) no fourth generation; (5) $\bar{\theta} = 0$ exactly, no axion; (6) the CKM CP-violating phase arises from parity violation, not time-reversal violation; (7) neutrinos are Majorana — the singlet taste is the Higgs sector (not a right-handed neutrino), so neutrinoless double beta decay should be observed. The taste-breaking mechanism further predicts: normal mass ordering ($m_3 > m_2 > m_1$), large PMNS mixing angles (from the structural mismatch between Dirac and Majorana mass matrices under the cubic group), and a hierarchical spectrum with $\Sigma m_\nu$ near the oscillation minimum ($\approx 0.059$ eV). DESI DR2+CMB data ($\Sigma m_\nu < 0.064$ eV, normal ordering preferred) are consistent with all of these.
 
-Combined with the earlier papers' predictions — dark energy evolution with $\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}$, dark matter from galaxies through clusters to the Bullet Cluster, gauge couplings at $M_Z$ — and the Predictions paper's twenty-one zero-parameter quantitative predictions (including $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ confirmed by JUNO at $0.14\sigma$), the framework makes a suite of falsifiable predictions that no competing theory makes jointly.
+Combined with the framework's predictions — dark energy evolution with $\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}$, dark matter from galaxies through clusters to the Bullet Cluster, gauge couplings at $M_Z$ — and the twenty-one zero-parameter quantitative predictions (including $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ confirmed by JUNO at $0.14\sigma$), the framework makes a suite of falsifiable predictions that no competing theory makes jointly.
 
 ---
 
@@ -856,13 +856,13 @@ Combined with the earlier papers' predictions — dark energy evolution with $\n
 
 The framework now covers the three pillars of modern physics and their consequences:
 
-| Pillar | What is derived | Source paper |
-|--------|----------------|--------------|
-| **Quantum mechanics** | Emerges from embedded observation | Main paper |
-| **General relativity** | Emerges from lattice dynamics passing 7 checks | Fundamental Structure paper |
-| **Standard Model structure** | SU(3) × SU(2) × U(1), 3 generations, Higgs, chiral coupling, θ̄ = 0 | Fundamental Structure paper |
-| **Structural foundations** | $d = 3$, coupling graph ontology, $q$-gauge, background independence | Fundamental Structure paper |
-| **Chemistry → life** | Orbitals, periodic table, carbon, water, chirality, autocatalysis, origin of life, evolution | Complexity paper |
+| Pillar | What is derived |
+|--------|-----------------|
+| **Quantum mechanics** | Emerges from embedded observation |
+| **General relativity** | Emerges from lattice dynamics passing 7 checks |
+| **Standard Model structure** | SU(3) × SU(2) × U(1), 3 generations, Higgs, chiral coupling, θ̄ = 0 |
+| **Structural foundations** | $d = 3$, coupling graph ontology, $q$-gauge, background independence |
+| **Chemistry → life** | Orbitals, periodic table, carbon, water, chirality, autocatalysis, origin of life, evolution |
 
 The starting point for all of it: a finite set, a bijection, and a partition.
 
@@ -878,7 +878,7 @@ The papers derive what (S, φ) *produces*. But what kind of thing *is* it?
 
 ### Storage and memory
 
-S is the set of all distinguishable states. Its physical meaning is *finite capacity*: there are |S| configurations that can be told apart, carrying log₂|S| bits of information. The finiteness is not a regularization — it's load-bearing. Finite sets recur (φ^N = id), recurrence produces P-indivisibility, and P-indivisibility produces quantum mechanics. Strictly, only the visible sector and boundary layer need to be finite — the deep hidden sector may be infinite, because the accessible-timescale backflow lemma (Main, §2.3) establishes P-indivisibility without recurrence, and the boundary-only dependence lemma (Main, §5.2) ensures the deep sector's contribution is suppressed by $\tau_S/\tau_B \sim 10^{-32}$.
+S is the set of all distinguishable states. Its physical meaning is *finite capacity*: there are |S| configurations that can be told apart, carrying log₂|S| bits of information. The finiteness is not a regularization — it's load-bearing. Finite sets recur (φ^N = id), recurrence produces P-indivisibility, and P-indivisibility produces quantum mechanics. Strictly, only the visible sector and boundary layer need to be finite — the deep hidden sector may be infinite, because the accessible-timescale backflow lemma establishes P-indivisibility without recurrence, and the boundary-only dependence lemma ensures the deep sector's contribution is suppressed by $\tau_S/\tau_B \sim 10^{-32}$.
 
 φ is a bijection: every state has exactly one predecessor and exactly one successor. Its physical meaning is *perfect memory*. Information is never created, never destroyed. The past is always recoverable from the present, because φ⁻¹ exists. A non-bijective map would send two states to the same successor, erasing the distinction between them. φ preserves all distinctions, permanently.
 
@@ -892,7 +892,7 @@ An immediate objection: "Memory made of *what*?" In everyday life, memory requir
 
 ### Computation from within
 
-A Turing machine has a tape (storage), a head (read/write access), and a transition function (update rule). Under effective finiteness — where the visible sector and boundary layer are finite but the deep hidden sector may be infinite (Main, §9.6) — the correspondence between (S, φ, V) and a reversible Turing machine is not an analogy. It is structural.
+A Turing machine has a tape (storage), a head (read/write access), and a transition function (update rule). Under effective finiteness — where the visible sector and boundary layer are finite but the deep hidden sector may be infinite — the correspondence between (S, φ, V) and a reversible Turing machine is not an analogy. It is structural.
 
 The visible sector V is the head: a finite-state subsystem with bounded local coupling. The hidden sector H is the tape: a memory register that stores correlations written by past interactions. φ is a reversible transition function: no erasure, no halting, no information loss. The conditions C1–C3 characterize this architecture: C1 (coupling) is the read/write mechanism. C2 (slow bath) says the tape retains its contents between head operations. C3 (capacity) says the tape is large enough to store the full interaction history.
 
@@ -956,7 +956,7 @@ The forward direction: start from (S, φ) and derive physics. That's the program
 
 If you observe quantum mechanics with Bell violations on a finite system, the characterization theorem forces you into some (S, φ, V) — there must be a deterministic system with a partition. If your physics includes Einstein gravity via the thermodynamic route, the dynamics selection theorem pins the wave equation — it's the unique dynamics consistent with QM emergence, isotropy, and linearity. If you see SU(3) × SU(2) × U(1) with three generations, the gauge structure pins K = 6 with multiplicities (3, 2, 1) — the cubic group decomposition is unique. If θ̄ = 0, the dynamics is T-invariant. If ℏ has the specific value c³ε²/(4G), the gap equation pins ε = 2l_p. And d = 3 is the unique self-consistent dimension.
 
-Chain all of these together and you get: the observed physics determines a unique equivalence class [(S, φ)] — a finite set with a bijection, pinned up to the substratum gauge group $\mathcal{G}_{\text{sub}}$ (Fundamental, §10.4). This gauge group has four generators: state relabeling (permuting the elements of S while conjugating φ), alphabet change (replacing ℤ/qℤ with any ℤ/q'ℤ), deep-sector enlargement (the cardinality of the deep hidden sector beyond the boundary layer is unobservable — it may even be infinite), and graph isomorphism up to statistical isotropy (any bounded-degree graph with d = 3 polynomial growth and statistical isotropy is gauge-equivalent to ℤ³). The reconstruction theorem proves this list is complete — $\mathcal{G}_{\text{sub}}$ is the kernel of the reconstruction map.
+Chain all of these together and you get: the observed physics determines a unique equivalence class [(S, φ)] — a finite set with a bijection, pinned up to the substratum gauge group $\mathcal{G}_{\text{sub}}$. This gauge group has four generators: state relabeling (permuting the elements of S while conjugating φ), alphabet change (replacing ℤ/qℤ with any ℤ/q'ℤ), deep-sector enlargement (the cardinality of the deep hidden sector beyond the boundary layer is unobservable — it may even be infinite), and graph isomorphism up to statistical isotropy (any bounded-degree graph with d = 3 polynomial growth and statistical isotropy is gauge-equivalent to ℤ³). The reconstruction theorem proves this list is complete — $\mathcal{G}_{\text{sub}}$ is the kernel of the reconstruction map.
 
 This is exactly how physics always works. In general relativity, measurements determine an equivalence class of spacetime metrics modulo diffeomorphisms — not a unique coordinate system. In gauge theory, experiments determine an equivalence class of connections modulo gauge transformations — not a unique field configuration. Here, the observed physics determines an equivalence class of finite bijections modulo the OI gauge freedoms — not a unique (S, φ).
 
@@ -972,45 +972,45 @@ And the incompleteness family extends one step further: Gödel showed that proof
 
 ---
 
-*This is a companion overview to "The Incompleteness of Observation" (Maybaum, March 2026), which presents the formal arguments with detailed derivations; and "The Fundamental Structure of the Observational Incompleteness Framework: From Finite Bijection to the Standard Model" (Maybaum, 2026), which addresses the ontological status of the lattice, derives general relativity from the lattice dynamics, and derives the Standard Model's gauge group, matter content, and chiral structure. The philosophical lineage section draws on a systematic analysis mapping the paper's claims against the major traditions in Western, Eastern, and contemporary philosophy of science.*
+*This is an overview of the Observational Incompleteness framework, summarizing the main arguments without the formal proofs and detailed derivations of the technical literature. The philosophical lineage section draws on a systematic analysis mapping the framework's claims against the major traditions in Western, Eastern, and contemporary philosophy of science.*
 
 
 ---
 
 ## Appendix: Mathematical Summary Tables
 
-### Sections 1–2: What Each Piece Does
+### What Each Piece Does
 
 | Component | What it establishes | What it uses |
 |---|---|---|
 | Definition + Lemmas 1–3 | The physical setup (no QM assumed) | Nothing — these are starting points |
-| Partition-relativity (§1.4) | Emergent description depends only on partition | Definition, Lemmas 2, 3 |
-| Emergent stochasticity (§2.1) | Determinism looks random to embedded observer | Definition, Lemmas 2, 3 |
-| P-indivisibility proof (§2.3) | The stochastic process is non-Markovian | Definition, Lemma 1 + C1 |
-| Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1 + C2 + C3 |
-| Coin-and-die model (§2.4) | Concrete demonstration of all mechanisms | Definition + all conditions |
-| Stochastic-quantum correspondence (§3.1) | P-indivisibility = quantum mechanics | Barandes [10,11] or Stinespring (Appendix A) |
-| Necessity proof (§3.3) | QM *requires* C1, C2, C3 | Contrapositives of sufficiency |
+| Partition-relativity | Emergent description depends only on partition | Definition, Lemmas 2, 3 |
+| Emergent stochasticity | Determinism looks random to embedded observer | Definition, Lemmas 2, 3 |
+| P-indivisibility proof | The stochastic process is non-Markovian | Definition, Lemma 1 + C1 |
+| Accessible-timescale lemma | Non-Markovianity is observable, not just formal | C1 + C2 + C3 |
+| Coin-and-die model | Concrete demonstration of all mechanisms | Definition + all conditions |
+| Stochastic-quantum correspondence | P-indivisibility = quantum mechanics | Barandes [10,11] or Stinespring (Appendix A) |
+| Necessity proof | QM *requires* C1, C2, C3 | Contrapositives of sufficiency |
 
-### Sections 3–6: The Logical Flow
+### The Logical Flow
 
 | Step | What it establishes | Key equation |
 |---|---|---|
-| §3.1: Stochastic-quantum correspondence | P-indivisibility = QM | T_ij = \|U_ij\|² |
-| §3.1: Phase-locking | Quantum Hamiltonian is unique | Fourier analysis of T_ij(t) |
-| §3.2: Bell analysis | Framework evades Bell's theorem | Outcome independence violated, parameter independence preserved |
-| §3.3: Necessity of C1 | QM requires coupling | No coupling → permutation → P-divisible |
-| §3.3: Necessity of C2 | QM requires slow bath | Fast bath → Markov → P-divisible |
-| §3.3: Necessity of C3 | QM requires capacity | I ≤ log₂ m bounds memory |
-| §3.3: Characterization theorem | QM ⟺ C1+C2+C3 | Biconditional |
-| §4: Cosmological horizon | The universe satisfies the definition | C1 ✓, C2 ✓, C3 ✓ |
-| §5.1: Classical temperature | T_cl = c²ε²κ/(8πGk_B) | No ℏ |
-| §5.2 Step 1: Uniqueness | ℏ is determined, not free | Partition-relativity |
-| §5.2 Step 2: Boundary-only | ℏ depends only on c, G, ε | Deep sector frozen |
-| §5.2 Step 3: Dimensional analysis | ℏ = β c³ε²/G | Unique combination |
-| §5.2 Step 4: Thermal matching | T_cl = T_Q fixes β = 1/4 | ℏ = c³ε²/(4G) |
-| §5.3: D-gauge theorem | No phase ambiguity | Double-difference condition |
-| §6: Self-consistency | ε = 2 l_p, S_BH = A/(4l_p²) | ε² = 4ℏG/c³ |
+| Stochastic-quantum correspondence | P-indivisibility = QM | T_ij = \|U_ij\|² |
+| Phase-locking | Quantum Hamiltonian is unique | Fourier analysis of T_ij(t) |
+| Bell analysis | Framework evades Bell's theorem | Outcome independence violated, parameter independence preserved |
+| Necessity of C1 | QM requires coupling | No coupling → permutation → P-divisible |
+| Necessity of C2 | QM requires slow bath | Fast bath → Markov → P-divisible |
+| Necessity of C3 | QM requires capacity | I ≤ log₂ m bounds memory |
+| Characterization theorem | QM ⟺ C1+C2+C3 | Biconditional |
+| Cosmological horizon | The universe satisfies the definition | C1 ✓, C2 ✓, C3 ✓ |
+| Classical temperature | T_cl = c²ε²κ/(8πGk_B) | No ℏ |
+| Uniqueness | ℏ is determined, not free | Partition-relativity |
+| Boundary-only | ℏ depends only on c, G, ε | Deep sector frozen |
+| Dimensional analysis | ℏ = β c³ε²/G | Unique combination |
+| Thermal matching | T_cl = T_Q fixes β = 1/4 | ℏ = c³ε²/(4G) |
+| D-gauge theorem | No phase ambiguity | Double-difference condition |
+| Self-consistency | ε = 2 l_p, S_BH = A/(4l_p²) | ε² = 4ℏG/c³ |
 
 The chain from definition to ℏ:
 
@@ -1024,11 +1024,11 @@ Every link is either a proof or a calculation. No link requires quantum mechanic
 
 **1. The gap equation is a gap equation, not a derivation from nothing.**
 
-The framework has one free parameter (ε). The gap equation relates ε to ℏ. You need to know one to determine the other. The predictive content lies not in the gap equation alone but in its consequences: the specific relationship ℏ = c³ε²/(4G) — rather than any other function of c, G, ε — produces the Bekenstein-Hawking formula with the exact factor 1/4 (§6), the CC dissolution with S_dS as the compression ratio (§7.3), and the RVM parameter ν_OI (§8.1). Any alternative ℏ(ε) would fail at least one of these checks. The situation is analogous to deriving the Schwarzschild metric with M as a free parameter: the derivation has genuine content (the functional form) even though one input is not determined from within.
+The framework has one free parameter (ε). The gap equation relates ε to ℏ. You need to know one to determine the other. The predictive content lies not in the gap equation alone but in its consequences: the specific relationship ℏ = c³ε²/(4G) — rather than any other function of c, G, ε — produces the Bekenstein-Hawking formula with the exact factor 1/4, the CC dissolution with S_dS as the compression ratio, and the RVM parameter ν_OI. Any alternative ℏ(ε) would fail at least one of these checks. The situation is analogous to deriving the Schwarzschild metric with M as a free parameter: the derivation has genuine content (the functional form) even though one input is not determined from within.
 
 **2. The KMS condition on the lattice.**
 
-The thermal matching in Step 4 uses the KMS condition, which is proved for continuum QFT on curved spacetime. The emergent QFT from Part I is lattice-regularized with cutoff ε. Thermal periodicity on a lattice has corrections of order (εκ/c)². For the cosmological horizon: εκ/c = εH/c ~ 10⁻⁶¹, so corrections are ~ 10⁻¹²². Negligible, but a lattice-native proof of the KMS condition would strengthen the argument.
+The thermal matching in Step 4 uses the KMS condition, which is proved for continuum QFT on curved spacetime. The emergent QFT is lattice-regularized with cutoff ε. Thermal periodicity on a lattice has corrections of order (εκ/c)². For the cosmological horizon: εκ/c = εH/c ~ 10⁻⁶¹, so corrections are ~ 10⁻¹²². Negligible, but a lattice-native proof of the KMS condition would strengthen the argument.
 
 **3. The D-gauge theorem requires genericity.**
 
