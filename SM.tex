@@ -98,9 +98,9 @@ independent two-loop staggered vacuum-polarization calculation
 (consistent at \(\sim 1\sigma\)), and a \(C_2\)-dependent threshold
 extracted from pure-gauge Monte Carlo plaquette measurements at the OI
 couplings \(\beta_2 = 7.4\) and \(\beta_3 = 11.1\), reproduces all three
-SM couplings at \(M_Z\) via standard SM renormalization group running
---- a one-parameter consistency test, with the SU(2) and SU(3) entries
-reproduced to \(0.1\%\) and \(0.3\%\) respectively. Quantitative
+SM couplings at \(M_Z\) via standard SM renormalization group running,
+with the SU(2) and SU(3) entries predicted to \(0.1\%\) and \(0.3\%\)
+respectively. Quantitative
 predictions for SM observables include the Cabibbo angle
 \(\lambda = 1/(\pi\sqrt{2})\) to \(0.04\%\), the Wolfenstein
 \(A = \sqrt{2/3}\) to \(0.8\sigma\), the Koide angle \(\theta_0 = 2/9\)
@@ -161,7 +161,9 @@ hypercharges, the trace-out makes \(\mathrm{SU}(2)\) chiral while
 the underlying bijection forces \(\bar\theta = 0\) at all energy scales
 --- the strong CP problem is dissolved at the kinematic level rather
 than being addressed by an axion. The gauge coupling values at \(M_Z\)
-follow quantitatively from a one-parameter consistency test (§6).
+follow quantitatively from a one-parameter chain whose single free
+parameter \(\delta_0\) is independently computed from the two-loop
+staggered vacuum polarization (§6).
 
 The status of these results admits a useful three-tier classification.
 
@@ -186,10 +188,10 @@ independence, chirality from the trace-out, the unique anomaly-free
 hypercharges, three generations from cubic symmetry, one Higgs doublet,
 and \(\bar\theta = 0\) at all scales. Each step is proved; the chain
 runs through twenty-nine theorems and lemmas. The gauge coupling
-prediction extends the chain quantitatively as a one-parameter
-consistency test, with the structural input \(1/\alpha_0 = 23.25\)
-doubly constrained by an independent two-loop computation and by the
-U(1) row of the prediction table.
+prediction extends the chain quantitatively, with a structural input
+\(1/\alpha_0 = 23.25\) (one-loop vacuum polarization, analytic) and a
+single free threshold \(\delta_0\) doubly constrained by an independent
+two-loop computation and by the U(1) row of the prediction table.
 
 \textbf{Tier 3 --- Redundant confirmations.} Asymptotic freedom
 requiring \(N_c \geq 3\), the minimal chiral group constraint, and the
@@ -1523,11 +1525,7 @@ observed M\_Z couplings. With \(1/\alpha_0\) structural and \(\delta_0\)
 constrained by U(1), the SU(2) and SU(3) entries in the table are
 predictions of the chain MC plaquette \(\to\) lattice-to-MS-bar matching
 \(\to\) SM RG running, with no further adjustable parameters. They match
-observation at \(<0.1\%\) and \(0.3\%\) respectively. The framework's
-gauge coupling result is best characterized as a one-parameter
-consistency test: the fact that a single value of \(\delta_0\) (within
-\(1\sigma\) of the 2-loop calculation) reproduces all three couplings is
-the substantive content.
+observation at \(<0.1\%\) and \(0.3\%\) respectively.
 
 \hypertarget{what-is-structural-and-what-is-solution-specific}{%
 \subsubsection{6.4 What is structural and what is
@@ -1614,12 +1612,6 @@ physical lattice measurements (\(\langle P \rangle_{SU(2)} = 0.783\) at
 \(\beta_3 = 11.1\), from which \(A\) and \(B\) are extracted). The SU(2)
 and SU(3) M\_Z values are then predictions of the chain with no further
 adjustable parameters.
-
-A direct first-principles simulation of the OI-induced theory itself ---
-replacing the pure-gauge MC + scheme conversion currently in use ---
-would provide an independent cross-check of \((A, B)\) and is in
-development as an optional sharpening step. This work is not required
-for the §6.3 result as presented.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2334,7 +2326,7 @@ all three PMNS angles within \(0.5\sigma\) --- with
 \(\sin^2\theta_{12}\) confirmed by JUNO in November 2025 at
 \(0.14\sigma\) --- six fermion masses from a single empirical input to
 better than \(1\%\), and the SM gauge couplings at \(M_Z\) to \(0.1\%\)
-and \(0.3\%\) via a one-parameter consistency test. The strong CP
+and \(0.3\%\). The strong CP
 problem is dissolved at the kinematic level: \(\bar\theta = 0\) exactly
 at all energy scales, with no axion required.
 
@@ -2559,13 +2551,6 @@ performed using a custom C implementation. Specifically:
   \(L = 32\) measurements. The chiral condensate \(\Sigma \approx 0.20\)
   is the linear extrapolation in the volume-converged region
   (\(mL \gtrsim 3\)).
-\item
-  The dynamical fermion HMC infrastructure for the full \(K = 6\),
-  \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) lattice
-  has been developed and is in active use; gauge-only HMC is verified
-  for all three groups, and the staggered fermion force has been
-  numerically validated against the analytic form for all eight
-  Gell-Mann generators.
 \end{itemize}
 
 The source code, gauge configurations at the OI couplings
