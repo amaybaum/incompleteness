@@ -1,67 +1,17 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-%
-\documentclass[
-]{article}
-\usepackage{amsmath,amssymb}
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math} % this also loads fontspec
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-\usepackage{lmodern}
-\ifPDFTeX\else
-  % xetex/luatex font selection
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{xcolor}
-\usepackage{longtable,booktabs,array}
-\usepackage{calc} % for calculating minipage widths
-% Correct order of tables after \paragraph or \subparagraph
-\usepackage{etoolbox}
-\makeatletter
-\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
-\makeatother
-% Allow footnotes in longtable head/foot
-\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
-\makesavenoteenv{longtable}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
-\hypersetup{
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
 
-\author{}
-\date{}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{calc}
+\usepackage{longtable,booktabs,array}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 \begin{document}
 
@@ -100,16 +50,16 @@ extracted from pure-gauge Monte Carlo plaquette measurements at the OI
 couplings \(\beta_2 = 7.4\) and \(\beta_3 = 11.1\), reproduces all three
 SM couplings at \(M_Z\) via standard SM renormalization group running,
 with the SU(2) and SU(3) entries predicted to \(0.1\%\) and \(0.3\%\)
-respectively. Quantitative
-predictions for SM observables include the Cabibbo angle
-\(\lambda = 1/(\pi\sqrt{2})\) to \(0.04\%\), the Wolfenstein
-\(A = \sqrt{2/3}\) to \(0.8\sigma\), the Koide angle \(\theta_0 = 2/9\)
-to \(0.02\%\), all three PMNS angles within \(0.5\sigma\) --- with
-\(\sin^2\theta_{12}\) confirmed by JUNO at \(0.14\sigma\) --- six
-fermion masses from a single empirical input to better than \(1\%\), and
-the top mass from the IR quasi-fixed point \(y_t = 1\) to \(0.9\%\). All
-predictions are forced by the cubic-lattice geometry and contain no
-parameters fit to the predicted quantities.
+respectively. Quantitative predictions for SM observables include the
+Cabibbo angle \(\lambda = 1/(\pi\sqrt{2})\) to \(0.04\%\), the
+Wolfenstein \(A = \sqrt{2/3}\) to \(0.8\sigma\), the Koide angle
+\(\theta_0 = 2/9\) to \(0.02\%\), all three PMNS angles within
+\(0.5\sigma\) --- with \(\sin^2\theta_{12}\) confirmed by JUNO at
+\(0.14\sigma\) --- six fermion masses from a single empirical input to
+better than \(1\%\), and the top mass from the IR quasi-fixed point
+\(y_t = 1\) to \(0.9\%\). All predictions are forced by the
+cubic-lattice geometry and contain no parameters fit to the predicted
+quantities.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1029,41 +979,88 @@ triplet pairs γʲ (vector) with −iΣ\_j (spin generator): J = 1/2.
 \textbf{Corollary} (Spin-statistics from the lattice). Singlet → spin-0
 → boson (Higgs). Triplet → spin-1/2 → fermion (quarks and leptons).
 
-\textbf{Theorem 10} (Three Standard Model generations). \emph{The three
-triplet staggered tastes, each producing a spin-1/2 Dirac fermion with K
-= 6 internal components, constitute three complete SM generations with
-the anomaly-cancelling representations.}
+\textbf{Theorem 10} (Three degenerate fermion sectors). \emph{Given the
+SM matter content as input, the three triplet staggered tastes provide
+three degenerate spin-1/2 sectors related by cubic symmetry, consistent
+with three SM generations. Anomaly cancellation (Theorem 15) serves as a
+uniqueness check on the matter assignment, not as a derivation of the
+gauge representations from lattice structure.}
 
 \emph{Proof.} (i) Three spin-1/2 sectors and one spin-0 sector (Theorem
-9). (ii) Anomaly cancellation (Theorem 15 below) uniquely determines the
-matter representations per generation. No alternative anomaly-free
-assignment exists {[}16{]}. (iii) The three sectors are related by cubic
-symmetry (O permutes spatial axes). (iv) Three degenerate sectors, each
-with unique anomaly-cancelling representations, constitute three
-complete SM generations. \(\square\)
+9). (ii) The three sectors are related by cubic symmetry (O permutes
+spatial axes), hence degenerate. (iii) Theorem 15 below shows that,
+given a chiral \(SU(3) \times SU(2) \times U(1)\) gauge structure, the
+SM matter content is the unique anomaly-free assignment with the
+observed family pattern {[}16{]}. The framework therefore accommodates
+three SM generations as a consistent assignment to the three degenerate
+sectors; the assignment itself is taken as phenomenological input.
+\(\square\)
 
-\textbf{Theorem 11} (Higgs sector). \emph{The singlet taste produces
-spin-0 excitations with quantum numbers
-\((\mathbf{1}, \mathbf{2}, +\tfrac{1}{2})\) --- exactly the Higgs
-doublet.}
+\emph{Scope.} This theorem does \textbf{not} derive the SM gauge
+representations of the matter fields from the taste decomposition.
+Whether such a derivation exists is open; see §4.7.X.
+
+\textbf{Theorem 11} (Higgs sector, consistency). \emph{Given a Higgs
+doublet \((\mathbf{1}, \mathbf{2}, +\tfrac{1}{2})\) in the SM, the
+singlet taste provides a spin-0 sector whose \(E\) projection is
+consistent with hosting it; the \(T_1\) and \(A_1\) projections do not
+admit Yukawa couplings to the SM fermion doublets and play no role in
+the low-energy theory.}
 
 \emph{Proof.} The singlet taste is spin-0 (Theorem 9a) and decomposes
 under the gauge group as
 \(T_1(\mathbf{3}) \oplus E(\mathbf{2}) \oplus A_1(\mathbf{1})\) (Theorem
-7). Of these three projections, only \(E(\mathbf{2})\) admits
-gauge-invariant Yukawa couplings to the SM fermion doublets: the
-up-quark Yukawa \(\bar Q_L \cdot \Phi \cdot u_R\) requires
-\(\Phi \sim (\mathbf{1}, \mathbf{2}, +\tfrac{1}{2})\), ruling out the
-\(T_1\) projection on color grounds and the \(A_1\) projection on weak
-grounds. The hypercharge \(+\tfrac{1}{2}\) is forced by the bilinear
-\(\bar Q_L u_R\) and is consistent with anomaly cancellation (Theorem
-14). The \(T_1\) and \(A_1\) projections of the singlet taste admit no
-Yukawa couplings to the fermion sector and do not enter the low-energy
-SM as additional Higgs-like fields. \(\square\)
+7). Of these three projections, only \(E(\mathbf{2})\) admits a
+gauge-invariant Yukawa coupling of the form
+\(\bar Q_L \cdot \Phi \cdot u_R\): the \(T_1\) projection is excluded on
+color grounds and the \(A_1\) projection on weak grounds. The \(E\)
+projection is therefore the natural host for the SM Higgs doublet.
+\(\square\)
 
-\emph{Consequences.} Exactly one Higgs doublet (one singlet taste). No
-ν\_R: the singlet taste produces the Higgs, not a fourth generation.
-Neutrinos are Majorana (Weinberg operator).
+\emph{Scope.} This theorem does \textbf{not} derive the existence of a
+Higgs doublet, nor its hypercharge, from lattice structure. The Higgs
+doublet is taken as phenomenological input; the singlet taste is shown
+to accommodate it.
+
+\emph{Consequences.} The framework accommodates exactly one Higgs
+doublet via the singlet taste, consistent with the SM. The neutrino mass
+mechanism is not fixed by the lattice structure and is left open.
+
+\hypertarget{x-open-issues-the-fermion-embedding-question}{%
+\paragraph{4.7.X Open issues: the fermion embedding
+question}\label{x-open-issues-the-fermion-embedding-question}}
+
+The framework as written derives the gauge group
+\(SU(3) \times SU(2) \times U(1)\) from the commutant construction
+(Theorems 5, 7, 14) and uses anomaly cancellation (Theorem 15) as a
+uniqueness check on the SM matter assignment, given a chiral \(SU(2)\)
+structure. It does \textbf{not} derive the SM matter representations,
+the Higgs representation, or the hypercharge assignments from lattice
+structure. The framework's claim on the fermion sector is therefore:
+\emph{the SM gauge group is forced by first principles; the SM matter
+content is the unique anomaly-free completion of that gauge structure
+with the observed family pattern.} This is weaker than ``the SM is
+forced by first principles'' and the difference matters.
+
+Whether a stronger derivation exists --- via a geometric embedding of
+(taste × sublattice × spinor) indices into SM gauge representations such
+that \(Q_L = (\mathbf{3}, \mathbf{2}, +\tfrac{1}{6})\) emerges as an
+irreducible tensor-product representation --- is open. One specific
+candidate construction (extending \(V_K\) by an O-equivariant taste
+factor and redefining the gauge group as the commutant of an extended
+operator) is ruled out: \(O\) has no irreps of dimension \(> 3\), so no
+O-equivariant operator on \(V_K \otimes V_\text{taste}\) admits a
+6-dimensional irreducible eigenspace with the required tensor-product
+structure. Other constructions --- breaking O-equivariance on the taste
+factor, replacing the commutant definition with a bimodule construction,
+or placing fermions outside the gauge-defining carrier space --- are not
+ruled out, but none has been produced.
+
+The neutrino mass mechanism (Dirac vs.~Majorana, presence or absence of
+\(\nu_R\)) is not fixed by the lattice structure as currently understood
+and is left open. The absolute number of generations beyond ``three
+degenerate triplet-taste sectors'' is similarly not derived; the match
+to three SM generations is via assignment, not derivation.
 
 \textbf{Theorem 12} (Partition = spinor decomposition). \emph{The OI
 checkerboard partition coincides with the staggered spinor
@@ -1417,7 +1414,7 @@ The expansion parameter for the \(C_2\)-dependent threshold is
 \(C_2 \cdot g_0^2 = C_2 \times 4\pi\alpha_0 = 1.08\) (SU(2)) and
 \(1.62\) (SU(3)) --- both \(\mathcal{O}(1)\). Finite-order perturbation
 theory converges too slowly: using known Wilson-action plaquette
-coefficients, 3-loop PT explains only \$\sim\$26\% of the threshold at
+coefficients, 3-loop PT explains only $\sim$26\% of the threshold at
 SU(3). The all-orders result is obtained from pure-gauge Monte Carlo
 simulation at the induced coupling \(\beta = 2N_c/g_0^2\). At SU(3) with
 \(\beta = 11.1\), the plaquette expectation value
@@ -1439,7 +1436,7 @@ The four components:
   exact).
 \item
   \(\delta_0 = 10.0\): the \(C_2\)-independent threshold, corresponding
-  to a two-loop VP coefficient \(c \approx 10\) (a \$\sim\$43\%
+  to a two-loop VP coefficient \(c \approx 10\) (a $\sim$43\%
   correction over one loop). Numerical computation of the two-loop
   staggered VP with the induced gauge propagator
   \(D(p) = 1/(p^2_{\text{lat}} \cdot \Pi_s)\) --- an 8-dimensional
@@ -2326,9 +2323,9 @@ all three PMNS angles within \(0.5\sigma\) --- with
 \(\sin^2\theta_{12}\) confirmed by JUNO in November 2025 at
 \(0.14\sigma\) --- six fermion masses from a single empirical input to
 better than \(1\%\), and the SM gauge couplings at \(M_Z\) to \(0.1\%\)
-and \(0.3\%\). The strong CP
-problem is dissolved at the kinematic level: \(\bar\theta = 0\) exactly
-at all energy scales, with no axion required.
+and \(0.3\%\). The strong CP problem is dissolved at the kinematic
+level: \(\bar\theta = 0\) exactly at all energy scales, with no axion
+required.
 
 The framework is sharply falsifiable by experiments now in progress or
 under construction. JUNO will reach sub-percent precision on
@@ -2553,11 +2550,17 @@ performed using a custom C implementation. Specifically:
   (\(mL \gtrsim 3\)).
 \end{itemize}
 
-The source code, gauge configurations at the OI couplings
-\(\beta_2 = 7.4\) and \(\beta_3 = 11.1\), and the \(Z_S(m)\) measurement
-outputs underlying the §7.5 prediction are available from the author on
-request. A public release with a permanent DOI is planned in conjunction
-with the journal version of this paper.
+The source code under \texttt{oi\_lattice\_code/}, together with the run
+drivers and analysis scripts, is archived on Zenodo with concept DOI
+\href{https://doi.org/10.5281/zenodo.19060318}{10.5281/zenodo.19060318}
+(the version of record for this paper is 1.4.4,
+\href{https://doi.org/10.5281/zenodo.19482992}{10.5281/zenodo.19482992})
+and is also available on GitHub at
+\url{https://github.com/amaybaum/incompleteness}. The code is released
+under the MIT License. Gauge configurations at the OI couplings
+\(\beta_2 = 7.4\) and \(\beta_3 = 11.1\), and the raw \(Z_S(m)\)
+measurement outputs underlying the §7.5 prediction, are available from
+the author on request.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2671,5 +2674,4 @@ events with a single reconstructed top quark,'' (2024).
 A. Zhou, ``The fate of hints: updated global analysis of three-flavor
 neutrino oscillations,'' \emph{JHEP} \textbf{09}, 178 (2020); NuFIT 6.0
 update (2024).
-
 \end{document}
