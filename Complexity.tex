@@ -3,7 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  11pt,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -16,14 +15,14 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-
+\usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
-  
+  \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
@@ -51,31 +50,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{amsmath,amssymb,mathtools}
-\usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{enumitem}
-\usepackage[T1]{fontenc}
-
-% Fix for \square command
-\providecommand{\square}{\ensuremath{\Box}}
-
-% Better paragraph spacing
-\setlength{\parskip}{0.5em}
-\setlength{\parindent}{0em}
-
-% Table column width fix
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
-
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue,
-  urlcolor=blue,
-  citecolor=blue
-}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -86,12 +60,10 @@
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{The Structural Preconditions for Complexity}
-\author{Alex Maybaum}
-\date{April 2026}
+\author{}
+\date{}
 
 \begin{document}
-\maketitle
 
 \hypertarget{structural-consequences-of-observational-incompleteness}{%
 \section{Structural Consequences of Observational
@@ -102,7 +74,7 @@ Incompleteness}\label{structural-consequences-of-observational-incompleteness}}
 Computation}\label{from-chemistry-to-computation}}
 
 \textbf{Author:} Alex Maybaum\\
-\textbf{Date:} March 2026\\
+\textbf{Date:} April 2026\\
 \textbf{Status:} DRAFT PRE-PRINT\\
 \textbf{Classification:} Theoretical Physics / Foundations /
 Astrobiology
@@ -198,7 +170,7 @@ quantum materials with designed C1--C3 architectures.
 \subsubsection{2.1 From (S, φ) to
 orbitals}\label{from-s-ux3c6-to-orbitals}}
 
-The framework derives d = 3 {[}2, §6{]} from four independent
+The framework derives d = 3 {[}2, §3.2{]} from four independent
 self-consistency filters (propagating gravity, stable matter, the dark
 sector concordance, and renormalizability). In three spatial dimensions,
 the rotation group is SO(3), whose irreducible representations are
@@ -220,8 +192,8 @@ into the nucleus, and the quantum Hamiltonian is unbounded below.
 table}\label{from-orbitals-to-the-periodic-table}}
 
 The framework derives spin-1/2 fermions from the staggered structure on
-the d = 3 lattice {[}2, §7.2{]}. The spin-statistics theorem --- a
-consequence of the emergent QFT's Lorentz invariance {[}2, §5{]} ---
+the d = 3 lattice {[}2, §4.2{]}. The spin-statistics theorem --- a
+consequence of the emergent QFT's Lorentz invariance {[}2, §3.1{]} ---
 gives the Pauli exclusion principle: each orbital holds at most 2
 electrons (spin up and spin down). The shell capacities follow:
 
@@ -259,29 +231,29 @@ chain}\label{beyond-carbon-the-extended-structural-chain}}
 Four additional structural results extend the chain beyond orbital
 chemistry.
 
-\textbf{Matter-antimatter asymmetry.} Three generations {[}2, §7.7{]}
+\textbf{Matter-antimatter asymmetry.} Three generations {[}2, §4.7{]}
 give the CKM matrix with a physical CP-violating phase --- one of the
 three Sakharov conditions for baryogenesis {[}5{]}. The partition breaks
-P {[}2, §7.8, Theorem 13{]}. Combined with CP violation, baryogenesis is
+P {[}2, §4.8, Theorem 13{]}. Combined with CP violation, baryogenesis is
 structurally possible. Without three generations, the CKM matrix has no
 CP-violating phase and the standard electroweak baryogenesis mechanism
 does not operate.
 
-\textbf{Mass hierarchy.} The Higgs mechanism {[}2, §7.3{]} gives fermion
+\textbf{Mass hierarchy.} The Higgs mechanism {[}2, §4.7{]} gives fermion
 masses through Yukawa couplings to a single doublet. The taste-breaking
-mechanism {[}2, §7.7{]} produces generation-dependent couplings
+mechanism {[}2, §4.7{]} produces generation-dependent couplings
 generically, ensuring different generations have different masses. This
 guarantees the existence of light fermions (electron, u and d quarks)
 --- not as a coincidence, but as a structural feature of the staggered
 lattice.
 
-\textbf{Nuclear binding.} SU(3) color confinement {[}2, §7.6{]} produces
+\textbf{Nuclear binding.} SU(3) color confinement {[}2, §4.6{]} produces
 bound hadrons. The existence of multi-nucleon bound states (nuclei)
 requires specific parameter values (§3), but the \emph{mechanism} ---
 color confinement binding quarks into hadrons, residual strong force
 binding hadrons into nuclei --- is structural.
 
-\textbf{Chiral chemistry.} Chiral SU(2) {[}2, §7.8{]} produces
+\textbf{Chiral chemistry.} Chiral SU(2) {[}2, §4.8{]} produces
 electroweak parity violation in all weak processes. This propagates to
 molecular physics as a parity-violating energy difference between
 mirror-image molecules (§4).
@@ -291,7 +263,7 @@ mirror-image molecules (§4).
 
 The framework derives two independent gauge groups --- SU(3) and U(1)
 --- with independent coupling strengths corresponding to independent
-eigenvalues of the coupling matrix M {[}2, §7.6{]}. This guarantees two
+eigenvalues of the coupling matrix M {[}2, §4.6{]}. This guarantees two
 widely separated energy scales:
 
 \[E_{\text{nuclear}} \sim \Lambda_{\text{QCD}} \sim \text{MeV}, \qquad E_{\text{atomic}} \sim \alpha^2 m_e c^2 \sim \text{eV}\]
@@ -304,7 +276,7 @@ from having two independent gauge groups. The universal induced coupling
 determined by \(N_f = 6\) and the Dynkin index, not by the eigenvalues
 of \(M\) --- and the framework reproduces all three SM gauge couplings
 at \(M_Z\) through non-perturbative gauge self-energy corrections and RG
-running {[}2, §9{]}. This separation has a profound consequence: nuclei
+running {[}2, §6{]}. This separation has a profound consequence: nuclei
 are stable against chemical reactions. Chemistry rearranges electrons
 (eV) without touching nuclei (MeV). Atoms are permanent building blocks
 that can be assembled, disassembled, and reassembled without being
@@ -492,7 +464,7 @@ violation}\label{from-the-partition-to-parity-violation}}
 
 The OI partition breaks parity: the trace-out over the hidden sector
 treats left-handed and right-handed spinor components asymmetrically
-(\(D_{LL} = 0\), \(D_{RR} \neq 0\)) {[}2, §7.8, Theorem 13{]}. This is
+(\(D_{LL} = 0\), \(D_{RR} \neq 0\)) {[}2, §4.8, Theorem 13{]}. This is
 structural --- any observer in any (S, φ) sees a chiral weak force. The
 result: the W and Z bosons couple only to left-handed fermions, and
 parity is maximally violated in all weak processes.
@@ -570,7 +542,7 @@ Status
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-1 & Partition breaks P & Theorem {[}2, §7.8{]} \\
+1 & Partition breaks P & Theorem {[}2, §4.8{]} \\
 2 & SU(2)\_L → electroweak PV & Structural consequence \\
 3 & Electroweak PV → PVED & Known physics {[}11, 12{]} \\
 4 & Statistical fluctuation + directional bias → homochirality &
@@ -595,10 +567,10 @@ parameter fraction is \(\mathcal{O}(10\%)\), not
 \(\mathcal{O}(10^{-50})\). The apparent fine-tuning was dominated by
 structural variation that the framework proves doesn't exist.
 
-The substratum gauge group \(\mathcal{G}_{\text{sub}}\) (Fundamental,
-§10.4) makes this precise. The structural chain of §2 --- \(d = 3\),
-orbitals, the periodic table, carbon's tetrahedral bonding, water, the
-thermal window, chirality --- is invariant under every generator of
+The substratum gauge group \(\mathcal{G}_{\text{sub}}\) {[}33, §4{]}
+makes this precise. The structural chain of §2 --- \(d = 3\), orbitals,
+the periodic table, carbon's tetrahedral bonding, water, the thermal
+window, chirality --- is invariant under every generator of
 \(\mathcal{G}_{\text{sub}}\): state relabeling, alphabet change,
 deep-sector enlargement, and graph isomorphism up to statistical
 isotropy. These preconditions for complexity are not contingent features
@@ -616,18 +588,18 @@ principle}\label{the-dissolution-of-the-anthropic-principle}}
 The anthropic principle assumes there is an ensemble of possible
 universes from which observation selects. The framework removes the
 ensemble: the structure is the only structure consistent with embedded
-observation (characterization theorem {[}1, §3.3{]}; reconstruction
-theorem {[}2, §10.3{]}). The preconditions for organic chemistry ---
+observation (characterization theorem {[}1, §3.4{]}; reconstruction
+theorem {[}33, §3{]}). The preconditions for organic chemistry ---
 atoms, carbon bonding geometry, the scale hierarchy, water, the thermal
 window, chiral selection --- are structural (§2). The parameters have a
 viable fraction of \(\mathcal{O}(10\%)\) (§3). There is nothing for
 observation to select, because there is nothing that could have been
 otherwise.
 
-The completeness of \(\mathcal{G}_{\text{sub}}\) (Fundamental, Theorem
-24) closes this argument: the four generators are the \emph{complete}
-set of transformations that leave observables invariant. No finer
-distinction between substrata is empirically accessible. The structural
+The completeness of \(\mathcal{G}_{\text{sub}}\) {[}33, Theorem 24{]}
+closes this argument: the four generators are the \emph{complete} set of
+transformations that leave observables invariant. No finer distinction
+between substrata is empirically accessible. The structural
 preconditions for complexity are therefore as immutable as the gauge
 group itself --- they are not drawn from an ensemble but fixed by the
 equivalence class.
@@ -723,14 +695,13 @@ cycling}\label{self-replication-as-read-write-cycling}}
 read-write cycling: the observer reads the visible sector and writes
 correlations into the hidden sector through the coupling \(H_{VB}\); the
 hidden sector stores those writes and returns them on subsequent reads;
-the resulting statistics are quantum mechanics {[}1, §10.2 of
-Fundamental{]}. Template replication is the same structural pattern at
-the molecular level: a polymer reads its own sequence (through
-complementary hydrogen bond pairing) and writes a copy (through
-catalytic polymerization). Self-replication is not a special biological
-capability --- it is molecular read-write cycling, the chemical
-instantiation of the same information-theoretic pattern that produces
-quantum mechanics.
+the resulting statistics are quantum mechanics {[}33, §2{]}. Template
+replication is the same structural pattern at the molecular level: a
+polymer reads its own sequence (through complementary hydrogen bond
+pairing) and writes a copy (through catalytic polymerization).
+Self-replication is not a special biological capability --- it is
+molecular read-write cycling, the chemical instantiation of the same
+information-theoretic pattern that produces quantum mechanics.
 
 \textbf{Von Neumann's threshold.} Von Neumann's self-reproducing
 automaton theorem {[}20{]} establishes that in any computational system
@@ -955,7 +926,7 @@ derived crystal geometry.
 
 \emph{Semiconductors.} For Group IV elements (4 valence electrons per
 atom), the Pauli exclusion principle (derived --- spin-statistics from
-staggered fermions {[}2, §7.2{]}) exactly fills the valence band and
+staggered fermions {[}2, §4.2{]}) exactly fills the valence band and
 leaves the conduction band empty. The band gap for silicon
 (\textasciitilde1.1 eV) sits in the thermal sweet spot:
 \(E_{\text{gap}} / kT \sim 40\) at room temperature. Large enough that
@@ -1014,14 +985,14 @@ theorem \\
 
 The chain from (S, φ) to a universal computer is structural --- given
 someone to build it. That is the same contingent step (general
-intelligence) identified in §5.7. The reconstruction theorem {[}2,
-§10.3{]} implies that a sufficiently sophisticated observer can discover
+intelligence) identified in §5.7. The reconstruction theorem {[}33,
+§3{]} implies that a sufficiently sophisticated observer can discover
 (S, φ) --- and an observer that understands its own substrate can build
 computational devices exploiting it.
 
 \textbf{The self-referential loop.} AI is an embedded observer building
 another embedded observer within the same (S, φ). The characterization
-theorem {[}1, §3.3{]} applies to the new observer. It sees the same QM,
+theorem {[}1, §3.4{]} applies to the new observer. It sees the same QM,
 the same ℏ, the same SM, the same dark sector. Not because it is limited
 by human design, but because the physics is structural --- determined by
 the partition, not by the observer's complexity. A superintelligent AI
@@ -1112,7 +1083,7 @@ identifies but does not resolve.
 
 The structural chain derives everything from (S, φ) --- physics,
 chemistry, life, intelligence, AI. But it does not derive (S, φ) itself.
-The reconstruction theorem {[}2, §10.3{]} establishes:
+The reconstruction theorem {[}33, §3{]} establishes:
 
 \[\text{Observed physics} \quad \longleftrightarrow \quad [(S, \varphi)] / \sim\]
 
@@ -1150,9 +1121,9 @@ Mathematical Universe Hypothesis {[}7{]} asserts that all consistent
 mathematical structures are equally real. The OI framework says
 something more specific: among all mathematical structures, only those
 containing embedded observers are \emph{observable from within}. The
-characterization theorem {[}1, §3.3{]} identifies which structures
+characterization theorem {[}1, §3.4{]} identifies which structures
 contain embedded observers: exactly those of the form (S, φ) with
-conditions C1--C3. The reconstruction theorem {[}2, §10.3{]} identifies
+conditions C1--C3. The reconstruction theorem {[}33, §3{]} identifies
 what those observers see: exactly our physics.
 
 There is no ensemble of equally real structures from which observation
@@ -1221,7 +1192,7 @@ warm, wet, noisy conditions?'' The framework reframes this. QM is not a
 fragile state that biology must protect from decoherence. QM is the
 \emph{necessary description} of any subsystem coupled to a slow,
 high-capacity hidden sector (the characterization theorem {[}1,
-§3.3{]}). If biological subsystems satisfy C1--C3 internally, their
+§3.4{]}). If biological subsystems satisfy C1--C3 internally, their
 dynamics is necessarily P-indivisible --- not because evolution
 engineered quantum coherence, but because the coupling architecture
 mandates it.
@@ -1847,12 +1818,9 @@ the publication.
 \hypertarget{references}{%
 \subsection{References}\label{references}}
 
-{[}1{]} A. Maybaum, ``The Incompleteness of Observation,'' submitted
-(2026).
+{[}1{]} A. Maybaum, ``The Incompleteness of Observation,'' (2026).
 
-{[}2{]} A. Maybaum, ``The Fundamental Structure of the Observational
-Incompleteness Framework: From Finite Bijection to the Standard Model,''
-submitted (2026).
+{[}2{]} A. Maybaum, ``The Standard Model from a Cubic Lattice,'' (2026).
 
 {[}3{]} P. Ehrenfest, ``In what way does it become manifest in the
 fundamental laws of physics that space has three dimensions?''
@@ -1968,6 +1936,9 @@ a continuous sum of exponential decays,'' \emph{Phys. Rev.~B}
 
 {[}32{]} M. Mojzsis, G. Arrhenius, K. D. McKeegan, T. M. Harrison, A. P.
 Nutman, and C. R. L. Friend, ``Evidence for life on Earth before 3,800
-million years ago,'' \emph{Nature} \textbf{384}, 55 (1996).
+million years ago,'' \emph{Nature} \textbf{384}, 55 (1996). {[}33{]} A.
+Maybaum, ``The Substratum Construction: Reconstruction, the Substratum
+Gauge Group, and the Synthesis of Quantum Mechanics with General
+Relativity,'' (2026).
 
 \end{document}

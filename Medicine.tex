@@ -3,7 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  11pt,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -16,14 +15,14 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-
+\usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
-  
+  \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
@@ -51,31 +50,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{amsmath,amssymb,mathtools}
-\usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{enumitem}
-\usepackage[T1]{fontenc}
-
-% Fix for \square command
-\providecommand{\square}{\ensuremath{\Box}}
-
-% Better paragraph spacing
-\setlength{\parskip}{0.5em}
-\setlength{\parindent}{0em}
-
-% Table column width fix
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
-
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue,
-  urlcolor=blue,
-  citecolor=blue
-}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -86,12 +60,10 @@
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{Non-Markovian Dynamics in Biology and Medicine: Molecular Memory as a Therapeutic Target}
-\author{Alex Maybaum}
-\date{April 2026}
+\author{}
+\date{}
 
 \begin{document}
-\maketitle
 
 \hypertarget{non-markovian-dynamics-in-biology-and-medicine}{%
 \section{Non-Markovian Dynamics in Biology and
@@ -102,22 +74,21 @@ Medicine}\label{non-markovian-dynamics-in-biology-and-medicine}}
 Mechanisms and Therapeutic
 Design}\label{molecular-memory-as-a-unifying-framework-for-disease-mechanisms-and-therapeutic-design}}
 
-\hypertarget{alex-maybaum}{%
-\subsubsection{Alex Maybaum}\label{alex-maybaum}}
-
-\hypertarget{april-2026}{%
-\subsubsection{April 2026}\label{april-2026}}
+\textbf{Author:} Alex Maybaum\\
+\textbf{Date:} April 2026\\
+\textbf{Status:} DRAFT PRE-PRINT\\
+\textbf{Classification:} Theoretical Biology / Pharmacology
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{abstract}{%
 \subsection{Abstract}\label{abstract}}
 
-The Observational Incompleteness (OI) framework {[}1, 2{]} proves that
-any fast subsystem coupled to a slow, high-capacity hidden sector
-exhibits P-indivisible (non-Markovian) dynamics --- history-dependent
-transition probabilities arising from information stored in the hidden
-sector and returned on subsequent interactions. Originally developed for
+The Observational Incompleteness (OI) framework {[}1{]} proves that any
+fast subsystem coupled to a slow, high-capacity hidden sector exhibits
+P-indivisible (non-Markovian) dynamics --- history-dependent transition
+probabilities arising from information stored in the hidden sector and
+returned on subsequent interactions. Originally developed for
 fundamental physics, the theorem's conditions (C1--C3) are
 scale-independent and apply to any system with the appropriate
 architecture. We identify biological systems --- from single enzymes
@@ -166,8 +137,8 @@ chemotherapy efficacy), it is accommodated by adding internal states to
 the Markov model --- often many states, without a unifying principle for
 when they are needed or how many to include.
 
-The Observational Incompleteness (OI) framework {[}1, 2{]} provides such
-a principle. Originally developed for fundamental physics --- where it
+The Observational Incompleteness (OI) framework {[}1{]} provides such a
+principle. Originally developed for fundamental physics --- where it
 proves that quantum mechanics is the necessary description of any
 embedded observer with partial access to a deterministic system --- the
 framework's core theorem is abstract and scale-independent. It
@@ -187,7 +158,7 @@ correlations from past interactions across many fast events.
 states than the fast subsystem, providing sufficient room to store the
 full interaction history without saturation.
 
-When C1--C3 are satisfied, the characterization theorem {[}1, §3.3{]}
+When C1--C3 are satisfied, the characterization theorem {[}1, §3.4{]}
 proves that the fast subsystem's dynamics is P-indivisible: transition
 probabilities at time \(t\) depend on the system's history, stored in
 the hidden sector's state and returned through the coupling. The
@@ -238,8 +209,8 @@ on the prior history.
 
 \textbf{Sequential phosphorylation.} For Chk1 specifically,
 phosphorylation at S317 must precede phosphorylation at S345 --- the
-second event is conditional on the first (Bhatt et al.~2008). This is a
-direct non-Markovian signature: the probability of the second
+second event is conditional on the first (Wilsker et al.~2008). This is
+a direct non-Markovian signature: the probability of the second
 modification depends on history, not just the current state.
 
 \textbf{Conformational hysteresis.} Proteins occupy multiple distinct
@@ -1219,56 +1190,69 @@ publication.
 \hypertarget{references}{%
 \subsection{References}\label{references}}
 
-{[}1{]} A. Maybaum, ``The Incompleteness of Observation,'' preprint
-(2026).
+{[}1{]} A. Maybaum, ``The Incompleteness of Observation,'' (2026).
 
-{[}2{]} A. Maybaum, ``The Fundamental Structure of the Observational
-Incompleteness Framework: From Finite Bijection to the Standard Model,''
-preprint (2026).
-
-{[}3{]} J. Gunawardena, ``A linear framework for time-scale separation
+{[}2{]} J. Gunawardena, ``A linear framework for time-scale separation
 in nonlinear biochemical systems,'' \emph{PLoS ONE} \textbf{7}, e36321
 (2012).
 
-{[}4{]} K. K. Bhatt et al., ``Essential function of Chk1 can be
+{[}3{]} K. K. Bhatt et al., ``Essential function of Chk1 can be
 uncoupled from DNA damage checkpoint and replication control,''
 \emph{PNAS} \textbf{105}, 20752 (2008).
 
-{[}5{]} L. A. Parsels et al., ``Gemcitabine sensitization by Chk1
+{[}4{]} L. A. Parsels et al., ``Gemcitabine sensitization by Chk1
 inhibition correlates with inhibition of a Rad51 DNA damage response in
 pancreatic cancer cells,'' \emph{Mol. Cancer Ther.} \textbf{8}, 45
 (2009).
 
-{[}6{]} L. L. Blazer et al., ``Reversible, allosteric small-molecule
+{[}5{]} L. L. Blazer et al., ``Reversible, allosteric small-molecule
 inhibitors of regulator of G protein signaling proteins,'' \emph{Mol.
 Pharmacol.} \textbf{78}, 524 (2010).
 
-{[}7{]} B. P. English et al., ``Ever-fluctuating single enzyme
+{[}6{]} B. P. English et al., ``Ever-fluctuating single enzyme
 molecules: Michaelis-Menten equation revisited,'' \emph{Nature Chemical
 Biology} \textbf{2}, 87 (2006).
 
-{[}8{]} L. Edman and R. Rigler, ``Memory landscapes of single-enzyme
+{[}7{]} L. Edman and R. Rigler, ``Memory landscapes of single-enzyme
 molecules,'' \emph{PNAS} \textbf{97}, 8266 (2000).
 
-{[}9{]} R. E. Joseph et al., ``Allosteric communication in BTK,''
+{[}8{]} R. E. Joseph et al., ``Allosteric communication in BTK,''
 \emph{eLife} \textbf{9}, e60470 (2020).
 
-{[}10{]} A. Taldaev et al., ``A kinetic view of imatinib resistance in
+{[}9{]} A. Taldaev et al., ``A kinetic view of imatinib resistance in
 chronic myeloid leukemia,'' \emph{PNAS} \textbf{118}, e2106566118
 (2021).
 
-{[}11{]} S. Horvath, ``DNA methylation age of human tissues and cell
+{[}10{]} S. Horvath, ``DNA methylation age of human tissues and cell
 types,'' \emph{Genome Biol.} \textbf{14}, R115 (2013).
 
-{[}12{]} Y. Lu et al., ``Reprogramming to recover youthful epigenetic
+{[}11{]} Y. Lu et al., ``Reprogramming to recover youthful epigenetic
 information and restore vision,'' \emph{Nature} \textbf{588}, 124
 (2020).
 
-{[}13{]} H. X. Chao et al., ``Evidence that the human cell cycle is a
+{[}12{]} H. X. Chao et al., ``Evidence that the human cell cycle is a
 series of uncoupled, memoryless phases,'' \emph{Mol. Syst. Biol.}
 \textbf{15}, e8604 (2019).
 
-{[}14{]} K. K. Bhatt et al., ``Chk1-S is a splice variant and endogenous
+{[}13{]} K. K. Bhatt et al., ``Chk1-S is a splice variant and endogenous
 inhibitor of Chk1,'' \emph{PNAS} \textbf{109}, 197 (2012).
+
+{[}14{]} H. P. Lu, L. Xun, X. S. Xie, ``Single-molecule enzymatic
+dynamics,'' \emph{Science} \textbf{282}, 1877 (1998).
+
+{[}15{]} H. X. Chao, C. E. Poovey, A. A. Privette, G. D. Grant, H. Y.
+Chao, J. G. Cook, J. E. Purvis, ``Orchestration of DNA damage checkpoint
+dynamics across the human cell cycle,'' \emph{Cell Systems} \textbf{5},
+445 (2017).
+
+{[}16{]} S. Chakraborty, E. Ahler, J. J. Simon, L. Fang, Z. E. Potter,
+K. A. Sitko, J. J. Stephany, M. Guttman, D. M. Fowler, D. J. Maly,
+``Profiling of drug resistance in Src kinase at scale uncovers a
+regulatory network coupling autoinhibition and catalytic domain
+dynamics,'' \emph{Cell Chemical Biology} \textbf{31}, 207 (2024).
+
+{[}17{]} D. Wilsker, E. Petermann, T. Helleday, F. Bunz, ``Essential
+function of Chk1 can be uncoupled from DNA damage checkpoint and
+replication control,'' \emph{PNAS} \textbf{105}, 20752 (2008).
 
 \end{document}
