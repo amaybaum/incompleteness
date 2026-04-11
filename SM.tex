@@ -13,8 +13,7 @@
 \setlength{\parindent}{0pt}
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-\begin{document}
-
+egin{document}
 \hypertarget{the-standard-model-from-a-cubic-lattice}{%
 \section{The Standard Model from a Cubic
 Lattice}\label{the-standard-model-from-a-cubic-lattice}}
@@ -333,7 +332,7 @@ On the structural reading, the container problem does not arise. The
 coupling graph is defined by the bijection φ, not by embedding in a
 manifold. Two sites are neighbors because φ couples them --- because the
 state at one affects the future of the other. This is a dynamical fact,
-not a spatial one. Locality is defined by the dynamics, and space
+not a spatial margin. Locality is defined by the dynamics, and space
 emerges from locality. At no point does anything need to be ``inside''
 anything else. The relationship is analogous to a social network: two
 people are ``connected'' not because they occupy adjacent points in
@@ -1179,6 +1178,61 @@ fail. Anomaly cancellation working out, with the unique SM values, is
 independent evidence that the lattice-scale chirality identified in step
 (i) is the correct physical chirality at IR scales.
 
+\hypertarget{evasion-of-nielsenninomiya}{%
+\subsubsection{4.8.4 Evasion of
+Nielsen--Ninomiya}\label{evasion-of-nielsenninomiya}}
+
+The Nielsen--Ninomiya theorem forbids a single Weyl fermion on the
+lattice under four hypotheses: (NN1) \textbf{locality} of the action
+(couplings decay faster than any power of separation), (NN2)
+\textbf{hermiticity} of the lattice Hamiltonian, (NN3)
+\textbf{translation invariance} under the lattice group, and (NN4) the
+action is a \textbf{bilinear in fermionic fields carrying a definite,
+conserved chirality charge} \(U(1)_\chi\). Under NN1--NN4 the spectrum
+is forced to contain equal numbers of left- and right-handed Weyl modes
+--- the doubling phenomenon --- so a chiral gauge theory cannot be
+regulated on a lattice in the conventional sense.
+
+OI manifestly satisfies NN1--NN3. The wave equation is nearest-neighbor
+(NN1, range exactly \(\epsilon\)); the bijection \(\varphi\) is real and
+the dynamics is \(T\)-invariant, so the induced operator is hermitian
+(NN2); and \((S,\varphi)/\mathcal{G}_{\text{sub}}\) is invariant under
+the cubic translation group (NN3). Were NN4 also to apply, OI would
+inherit the no-go conclusion and chiral SU(2) would be impossible. It
+does not apply, and the reason is structural rather than evasive.
+
+NN4 presupposes that the \textbf{fundamental} degrees of freedom are
+Grassmann fields \(\psi(x)\) entering the action bilinearly, with
+chirality \(\gamma_5\) defined ab initio on those fields. In OI the
+fundamental object is a \emph{real scalar bijection}
+\(\varphi: S \to S\) governed by the lattice wave equation. There are no
+fermions at the bijection level, no Grassmann variables, no
+\(\gamma_5\), and consequently no \(U(1)_\chi\) on which an obstruction
+could be formulated. Dirac structure is \emph{derived}: Theorem 2
+(Susskind) shows \(D_{\text{st}}^2 = -\tfrac14\Box_{\text{lat}}\), so
+staggered Dirac fermions appear as a \emph{factorization} of the scalar
+wave operator, not as fields posited by an action principle. Theorem 12
+then identifies the staggered spinor decomposition with the bipartite
+checkerboard partition of the lattice. Chirality only crystallizes in
+the third step, Theorem 13: the Schur-complement trace-out of the odd
+(right-handed) sublattice produces an effective theory whose external
+legs are uniformly left-handed, with \(D_{LL}=D_{RR}=0\) enforced by
+sublattice parity.
+
+The NN premise therefore \textbf{fails to apply} at the level on which
+OI is defined --- it is not violated within its scope of applicability.
+NN1--NN4 are conditions on lattice fermionic actions; the OI fundamental
+action is bosonic. By the time fermions and chirality exist as derived
+structures (post-Theorems 2, 12, 13), the trace-out has already broken
+the bilinear-fermionic-action setting that NN4 requires. The
+doubler-inversion remark of §4.8 makes the dual point from the opposite
+direction: the ``wrong-chirality'' doublers that NN forces upon a
+fermionic lattice action become, in OI, the physical generations
+(Theorem 9), so the very modes the no-go theorem treats as obstructions
+are reinterpreted as observed matter content. NN is not circumvented by
+a clever fermion formulation; it is bypassed because OI never enters its
+hypothesis space.
+
 \hypertarget{anomaly-cancellation-and-hypercharges}{%
 \subsubsection{4.9 Anomaly cancellation and
 hypercharges}\label{anomaly-cancellation-and-hypercharges}}
@@ -1414,7 +1468,7 @@ The expansion parameter for the \(C_2\)-dependent threshold is
 \(C_2 \cdot g_0^2 = C_2 \times 4\pi\alpha_0 = 1.08\) (SU(2)) and
 \(1.62\) (SU(3)) --- both \(\mathcal{O}(1)\). Finite-order perturbation
 theory converges too slowly: using known Wilson-action plaquette
-coefficients, 3-loop PT explains only $\sim$26\% of the threshold at
+coefficients, 3-loop PT explains only \$\sim\$26\% of the threshold at
 SU(3). The all-orders result is obtained from pure-gauge Monte Carlo
 simulation at the induced coupling \(\beta = 2N_c/g_0^2\). At SU(3) with
 \(\beta = 11.1\), the plaquette expectation value
@@ -1436,7 +1490,7 @@ The four components:
   exact).
 \item
   \(\delta_0 = 10.0\): the \(C_2\)-independent threshold, corresponding
-  to a two-loop VP coefficient \(c \approx 10\) (a $\sim$43\%
+  to a two-loop VP coefficient \(c \approx 10\) (a \$\sim\$43\%
   correction over one loop). Numerical computation of the two-loop
   staggered VP with the induced gauge propagator
   \(D(p) = 1/(p^2_{\text{lat}} \cdot \Pi_s)\) --- an 8-dimensional
@@ -2148,7 +2202,7 @@ and preserves phase-space volume. The hidden sector has spectral gap Δ =
 time. The C2 necessity proof {[}Main, §3.4{]} establishes that
 \(\Delta \tau_S \gg 1\) drives the system to Markovianity; for any
 Hamiltonian hidden sector, \(\Delta \tau_S = 0 \ll 1\) --- maximally in
-the slow-bath regime (\(\tau_B \to \infty\), the strongest possible
+the slow bath regime (\(\tau_B \to \infty\), the strongest possible
 satisfaction of \(\tau_S \ll \tau_B\)), regardless of partition
 geometry.
 
@@ -2674,4 +2728,4 @@ events with a single reconstructed top quark,'' (2024).
 A. Zhou, ``The fate of hints: updated global analysis of three-flavor
 neutrino oscillations,'' \emph{JHEP} \textbf{09}, 178 (2020); NuFIT 6.0
 update (2024).
-\end{document}
+nd{document}
