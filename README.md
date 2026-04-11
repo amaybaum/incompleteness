@@ -17,7 +17,7 @@ A lossless memory is a system whose states evolve by a reversible rule: every st
 
 ### The problem
 
-Physics has two foundational theories — quantum mechanics (QM) and general relativity (GR) — that are individually precise and mutually inconsistent. When both are used to compute the energy density of empty space, they disagree by a factor of 10¹²². The standard assumption is that one or both theories contain an error. This framework argues otherwise: neither is wrong, and the discrepancy is a necessary consequence of observation from within.
+Physics has two foundational theories — quantum mechanics (QM) and general relativity (GR) — that are individually precise and resist unification. The sharpest symptom is the cosmological constant problem: quantum field theory's natural estimate of the vacuum energy density exceeds the observationally allowed value of Λ in GR by a factor of ~10¹²². GR itself makes no prediction for the vacuum energy density; the discrepancy lies between the QFT estimate and the cosmological bound on Λ, and standard treatments assume one or both ingredients contain an error. This framework argues otherwise: neither is wrong, and the gap is a necessary consequence of observation from within.
 
 ### The starting point
 
