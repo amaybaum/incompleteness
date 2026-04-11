@@ -1,57 +1,16 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-%
-\documentclass[
-]{article}
-\usepackage{amsmath,amssymb}
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math} % this also loads fontspec
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-\usepackage{lmodern}
-\ifPDFTeX\else
-  % xetex/luatex font selection
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
-\hypersetup{
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
 
-\author{}
-\date{}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{longtable,booktabs,array}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 \begin{document}
 
@@ -86,9 +45,11 @@ mechanics with Bell violations, finite boundary entropy, and spatial
 isotropy --- uniquely determines the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the lattice level, with
 the Standard Model gauge group
-\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\), three
-chiral generations, anomaly-free hypercharges, and \(\bar\theta = 0\) as
-forced retrodictions; and (ii) the \emph{substratum gauge group}
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) and
+\(\bar\theta = 0\) as forced retrodictions, and the anomaly-free
+hypercharge assignment forced once the observed family pattern is given
+(fermion embedding and absolute generation count remain open; see {[}SM,
+§4.7.X{]}); and (ii) the \emph{substratum gauge group}
 \(\mathcal{G}_{\text{sub}}\) (Theorem 24), with four explicit families
 of generators that exhaust all transformations preserving the
 framework's structural inputs. The Standard Model gauge group is the
@@ -372,10 +333,12 @@ structure.}
 
 \emph{Derivation.} The coupling graph gives d = 3 ({[}SM, §3.2{]}).
 Center independence + isotropy + linearity uniquely select the wave
-equation ({[}SM, §4.1{]}). The wave equation determines the full SM
+equation ({[}SM, §4.1{]}). The wave equation determines the SM gauge
 structure: K = 2d = 6 (Theorem 6), cubic decomposition (3,2,1) (Theorem
 7), local gauge invariance ({[}SM, §3.1{]}), staggered species → three
-generations + one Higgs (Theorems 8--11), partition-spinor
+degenerate triplet-taste sectors, assigned to three generations, with
+the Higgs sector per Theorem 11 (Theorems 8--11; fermion embedding and
+absolute generation count open, see {[}SM, §4.7.X{]}), partition-spinor
 identification (Theorem 12), chirality (Theorem 13), anomaly
 cancellation (Theorems 14--15), T-invariance → θ̄ = 0 (Theorems 17--21).
 
@@ -402,9 +365,12 @@ bijection of bounded coupling degree and statistical isotropy, with d =
 \(\square\)
 
 The theorem starts from empirical inputs (QM, Bell violations, finite
-entropy, isotropy) and derives the framework. The SM gauge structure,
-three generations, one Higgs, θ̄ = 0, and the Bekenstein-Hawking formula
-are retrodictions --- derived, not assumed.
+entropy, isotropy) and derives the framework. The SM gauge structure, θ̄
+= 0, and the Bekenstein-Hawking formula are retrodictions --- derived,
+not assumed. The match to three SM generations is by assignment to the
+three triplet-taste sectors rather than derivation, and the fermion
+embedding into SM gauge representations remains open (see {[}SM,
+§4.7.X{]}).
 
 \textbf{Remark} (Evidential weight of the reconstruction). The
 reconstruction uniquely derives
@@ -890,16 +856,18 @@ construction. The reconstruction theorem establishes that observed
 quantum mechanics with Bell violations, finite boundary entropy, and
 spatial isotropy uniquely determine the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the lattice level, with
-the Standard Model gauge group, three chiral generations, anomaly-free
-hypercharges, and \(\bar\theta = 0\) as forced retrodictions. The
-substratum gauge group identifies the kernel of this inverse map and
-shows that the Standard Model gauge group is its visible-sector shadow.
-Together, these two results establish that the framework's emergence of
-quantum mechanics {[}Main{]}, its derivation of the Standard Model
-{[}SM{]}, and its derivation of the gravitational sector {[}GR{]} are
-not three independent applications of the same trace-out machinery but
-three projections of one object --- the bijection \((S, \varphi)\) ---
-viewed at different levels of description.
+the Standard Model gauge group and \(\bar\theta = 0\) as forced
+retrodictions, and the anomaly-free hypercharge assignment forced once
+the observed family pattern is given (fermion embedding and absolute
+generation count remain open; see {[}SM, §4.7.X{]}). The substratum
+gauge group identifies the kernel of this inverse map and shows that the
+Standard Model gauge group is its visible-sector shadow. Together, these
+two results establish that the framework's emergence of quantum
+mechanics {[}Main{]}, its derivation of the Standard Model {[}SM{]}, and
+its derivation of the gravitational sector {[}GR{]} are not three
+independent applications of the same trace-out machinery but three
+projections of one object --- the bijection \((S, \varphi)\) --- viewed
+at different levels of description.
 
 The synthesis claim that follows is not a unification of quantum
 mechanics and general relativity in the traditional sense. The
@@ -971,5 +939,4 @@ Phys. D} \textbf{26}, 1743013 (2017).
 
 {[}GR{]} A. Maybaum, ``ℏ, the Bekenstein-Hawking Entropy, and Dynamical
 Dark Energy from the Cosmological Horizon,'' (2026).
-
 \end{document}
