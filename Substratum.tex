@@ -1,16 +1,66 @@
-\documentclass[11pt]{article}
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  11pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{fontspec}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% lmodern disabled
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% microtype disabled
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
 \usepackage[margin=1in]{geometry}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{fontspec}
-
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{graphicx}
+\usepackage{calc}
 \usepackage{longtable,booktabs,array}
-\usepackage{hyperref}
 \usepackage{xcolor}
-\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\AtBeginDocument{\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}}
 \setlength{\parskip}{0.5\baselineskip}
 \setlength{\parindent}{0pt}
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
 
 \begin{document}
 
@@ -48,8 +98,9 @@ the Standard Model gauge group
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) and
 \(\bar\theta = 0\) as forced retrodictions, and the anomaly-free
 hypercharge assignment forced once the observed family pattern is given
-(fermion embedding and absolute generation count remain open; see {[}SM,
-§4.7.X{]}); and (ii) the \emph{substratum gauge group}
+(fermion embedding closed via the link-carrier construction, with the
+absolute generation count locked at exactly three by coupling-degree
+minimality); and (ii) the \emph{substratum gauge group}
 \(\mathcal{G}_{\text{sub}}\) (Theorem 24), with four explicit families
 of generators that exhaust all transformations preserving the
 framework's structural inputs. The Standard Model gauge group is the
@@ -188,11 +239,11 @@ sections matter.
 
 \hypertarget{the-physical-interpretation-of-s-ux3c6}{%
 \subsection{2. The Physical Interpretation of (S,
-φ)}\label{the-physical-interpretation-of-s-ux3c6}}
+$\varphi$)}\label{the-physical-interpretation-of-s-ux3c6}}
 
 \textbf{Storage and memory.} S is the set of all distinguishable states:
-\emph{finite capacity}. φ is a bijection: \emph{perfect memory} ---
-information is never created or destroyed. Together, (S, φ) is a finite
+\emph{finite capacity}. $\varphi$ is a bijection: \emph{perfect memory} ---
+information is never created or destroyed. Together, (S, $\varphi$) is a finite
 lossless memory. The partition V defines the observer's \emph{access}
 --- both read and write. The observer reads the visible sector
 (measuring x) and writes to the hidden sector (each visible-sector
@@ -211,29 +262,49 @@ and partially cancels or reinforces the transition probabilities.
 The \(10^{122}\) CC discrepancy is the compression ratio between total
 storage and readable storage. The dark sector is the gravitational
 effect of the unreadable storage. The Bekenstein-Hawking entropy is the
-storage capacity of the partition boundary. The action scale ℏ is the
+storage capacity of the partition boundary. The action scale $\hbar$ is the
 conversion factor between storage geometry and read-write statistics.
 
-\textbf{The substrate objection.} ``What is the memory made of?'' (S, φ)
+\textbf{Remark (the domain of the substratum dynamics).} The wave
+equation of {[}SM §4.1{]} --- the unique second-order reversible
+nearest-neighbor dynamics compatible with center independence, isotropy,
+and linearity --- is defined on the full substratum \((S, \varphi)\),
+not on the visible sector alone. Both visible and hidden sectors run the
+same wave equation; the partition \(V\) imposes an observer-access
+structure on this common dynamics but does not change it. This
+convention makes three pieces of the framework consistent: (i) the
+trace-out of {[}Main{]} proceeds by marginalizing over the hidden
+sector's substratum degrees of freedom, which requires those degrees of
+freedom to have a well-defined dynamics; (ii) the nested trace-out of
+{[}GR §8.4{]} extends the construction to a deep hidden sector by
+running the same wave equation at all levels; (iii) the link-carrier
+construction of {[}SM §4.7.1.2{]} places matter on links that span
+visible and hidden sublattices --- which makes sense only because both
+sublattices are governed by the same dynamics. The full-substratum wave
+equation is therefore the common dynamical input to all three companion
+papers, with each applying a different projection map to extract
+observer-level physics.
+
+\textbf{The substrate objection.} ``What is the memory made of?'' (S, $\varphi$)
 is a \emph{complete description} of reality --- it determines all
-observables. Space, time, matter, and energy are derived from (S, φ), so
-they cannot appear in its definition without circularity. Whether (S, φ)
+observables. Space, time, matter, and energy are derived from (S, $\varphi$), so
+they cannot appear in its definition without circularity. Whether (S, $\varphi$)
 \emph{is} reality or \emph{describes} reality is provably undecidable by
 any measurement (reconstruction theorem below).
 
 \textbf{Relation to computation.} A Turing machine has a tape (storage),
 a head (partial read/write access), and a transition function (update
 rule). The correspondence is suggestive: S is the tape, V is the head's
-access window, φ is the transition function. But three differences are
+access window, $\varphi$ is the transition function. But three differences are
 physically significant. First, a Turing machine's tape is potentially
 infinite; S is finite --- finiteness is essential for the recurrence
 proof of P-indivisibility and QM, though the effective finiteness result
 ({[}GR, §8.4{]}) shows the deep hidden sector may be infinite without
 affecting the observable physics. Second, a Turing machine is generally
-irreversible (it can erase, overwrite, and halt); φ is a bijection ---
+irreversible (it can erase, overwrite, and halt); $\varphi$ is a bijection ---
 nothing is erased, nothing is created, there is no halting. Third, a
-Turing machine computes an \emph{extrinsic function} (input → output for
-an external user); (S, φ) computes no extrinsic function --- it is a
+Turing machine computes an \emph{extrinsic function} (input $\rightarrow$ output for
+an external user); (S, $\varphi$) computes no extrinsic function --- it is a
 closed permutation that cycles through states and returns. The
 appearance of dynamics, probability, particles, and forces is entirely
 the observer's perspective --- what the permutation looks like through
@@ -248,14 +319,14 @@ difference is a specialization, not an opposition: reversible Turing
 machines (Bennett, Fredkin-Toffoli) are a well-studied subclass. The
 third difference --- extrinsic vs.~intrinsic --- is the one that does
 physical work. The mapping is then structural: V is the head, H is the
-tape, φ is a reversible transition function, and C1--C3 characterize the
+tape, $\varphi$ is a reversible transition function, and C1--C3 characterize the
 architecture. The framework extends Turing's question: instead of asking
 what a machine can compute for an external observer, it asks what
 computation looks like to a component of the machine --- and proves the
 answer is quantum mechanics.
 
-\textbf{The arrow of time.} The substratum has no arrow of time --- φ
-and φ⁻¹ are equally valid. Entropy increase is a property of the
+\textbf{The arrow of time.} The substratum has no arrow of time --- $\varphi$
+and $\varphi$$^-$$^1$ are equally valid. Entropy increase is a property of the
 observer's coarse-grained description: the standard Boltzmann mechanism
 applied to the partition.
 
@@ -302,10 +373,10 @@ other uniquely up to gauge.
 \subsection{3. The Reconstruction
 Theorem}\label{the-reconstruction-theorem}}
 
-The forward direction --- from (S, φ) to observed physics --- is
+The forward direction --- from (S, $\varphi$) to observed physics --- is
 established by {[}SM, §§3.1, 4--5{]} and the companion paper {[}Main{]}.
 The converse question is whether the observed physics uniquely
-determines (S, φ). The reconstruction proceeds in three stages.
+determines (S, $\varphi$). The reconstruction proceeds in three stages.
 
 \textbf{Stage 1: From observed QM to deterministic embedding.}
 
@@ -323,7 +394,7 @@ set {[}Main, §3.2{]}. Bell violations require non-trivial coupling (C1).
 The characterization theorem {[}Main, §3.4{]} requires slow-bath memory
 (C2) and sufficient capacity (C3).
 
-\emph{Output:} The observed QM arises from some (S, φ, V) satisfying
+\emph{Output:} The observed QM arises from some (S, $\varphi$, V) satisfying
 C1--C3. \emph{Status:} Theorem.
 
 \textbf{Stage 2: From the embedding to the dynamics and gauge
@@ -335,12 +406,14 @@ structure.}
 Center independence + isotropy + linearity uniquely select the wave
 equation ({[}SM, §4.1{]}). The wave equation determines the SM gauge
 structure: K = 2d = 6 (Theorem 6), cubic decomposition (3,2,1) (Theorem
-7), local gauge invariance ({[}SM, §3.1{]}), staggered species → three
+7), local gauge invariance ({[}SM, §3.1{]}), staggered species $\rightarrow$ three
 degenerate triplet-taste sectors, assigned to three generations, with
-the Higgs sector per Theorem 11 (Theorems 8--11; fermion embedding and
-absolute generation count open, see {[}SM, §4.7.X{]}), partition-spinor
-identification (Theorem 12), chirality (Theorem 13), anomaly
-cancellation (Theorems 14--15), T-invariance → θ̄ = 0 (Theorems 17--21).
+the Higgs sector per Theorem 11 (Theorems 8--11; fermion embedding
+closed via the link-carrier construction, with the absolute generation
+count locked at exactly three by coupling-degree minimality),
+partition-spinor identification (Theorem 12), chirality (Theorem 13),
+anomaly cancellation (Theorems 14--15), T-invariance $\rightarrow$ $\theta$̄ = 0 (Theorems
+17--21).
 
 \emph{Output:} Dynamics, dimension, gauge group, matter content, and
 discrete symmetries are all derived. The SM structure is a retrodiction
@@ -351,7 +424,7 @@ level.
 
 \emph{No additional input.} The gap equation from thermal
 self-consistency {[}GR, §3{]} gives \(\hbar = c^3 \epsilon^2 / (4G)\)
-with ε = 2 l\_p.~\emph{Status:} Theorem.
+with $\varepsilon$ = 2 l\_p.~\emph{Status:} Theorem.
 
 \textbf{Theorem 23} (Layered reconstruction). \emph{Observed quantum
 mechanics with Bell violations and finite boundary entropy, together
@@ -361,16 +434,20 @@ bijection of bounded coupling degree and statistical isotropy, with d =
 3, K = 6, coupling matrix eigenvalue multiplicities (3, 2, 1),
 \(\bar{\theta} = 0\), and \(\hbar = c^3 \epsilon^2/(4G)\).}
 
-\emph{Proof.} Stage 1 ⇒ Stage 2 ⇒ Stage 3, as detailed above.
+\emph{Proof.} Stage 1 $\Rightarrow$ Stage 2 $\Rightarrow$ Stage 3, as detailed above.
 \(\square\)
 
 The theorem starts from empirical inputs (QM, Bell violations, finite
-entropy, isotropy) and derives the framework. The SM gauge structure, θ̄
+entropy, isotropy) and derives the framework. The SM gauge structure, $\theta$̄
 = 0, and the Bekenstein-Hawking formula are retrodictions --- derived,
-not assumed. The match to three SM generations is by assignment to the
-three triplet-taste sectors rather than derivation, and the fermion
-embedding into SM gauge representations remains open (see {[}SM,
-§4.7.X{]}).
+not assumed. The match to three SM generations follows from cubic
+symmetry (three degenerate \(T_1\)-taste sectors); the fermion embedding
+into SM gauge representations is closed by the link-carrier construction
+(SM §4.7.1.2), with anomaly cancellation fixing the hypercharges
+uniquely. The absolute generation count is locked at exactly three by
+coupling-degree minimality: the uniqueness of the \(K = 2d = 6\)
+minimizer (Theorem 6) forces exactly three spin-1/2 staggered tastes as
+a derived consequence (SM §4.7.1.2, Step 3).
 
 \textbf{Remark} (Evidential weight of the reconstruction). The
 reconstruction uniquely derives
@@ -531,7 +608,7 @@ the standard sense, derived from the substratum through the trace-out.
 
 \hypertarget{synthesis-qm-and-gr-as-projections-of-s-ux3c6}{%
 \subsection{5. Synthesis: QM and GR as Projections of (S,
-φ)}\label{synthesis-qm-and-gr-as-projections-of-s-ux3c6}}
+$\varphi$)}\label{synthesis-qm-and-gr-as-projections-of-s-ux3c6}}
 
 The reconstruction theorem (§3) establishes that observed physics ---
 quantum mechanics with Bell violations, finite boundary entropy, and
@@ -788,7 +865,7 @@ reality.
 \subsubsection{6.1 Structural realism}\label{structural-realism}}
 
 The structural reading aligns with ontic structural realism but does not
-require it. What the framework proves is that (S, φ) is a \emph{complete
+require it. What the framework proves is that (S, $\varphi$) is a \emph{complete
 description} of reality up to gauge equivalence (the reconstruction
 theorem, §3). Whether the structure \emph{is} reality (the OSR
 commitment) or \emph{describes} a reality that exists independently is a
@@ -801,10 +878,10 @@ with bounded coupling.
 \subsubsection{6.2 The ontological
 hierarchy}\label{the-ontological-hierarchy}}
 
-The triple (S, φ, V) generates every concept in fundamental physics, not
+The triple (S, $\varphi$, V) generates every concept in fundamental physics, not
 as independent substances but as different aspects of the same
-structure. \textbf{Space} is the coupling structure of φ --- the graph
-G\_φ determined by which degrees of freedom affect which others ({[}SM,
+structure. \textbf{Space} is the coupling structure of $\varphi$ --- the graph
+G\_$\varphi$ determined by which degrees of freedom affect which others ({[}SM,
 §2.4{]}). \textbf{Matter} is the state --- localized patterns that
 propagate through the coupling graph. \textbf{Energy} is the rate of
 change under iteration. \textbf{Time} is the iteration itself.
@@ -813,7 +890,7 @@ the visible sector. \textbf{General relativity} is the thermodynamic
 limit of the coupling structure. \textbf{Conservation laws} are
 emergent: energy conservation (Noether) is what information conservation
 (bijectivity) looks like in the emergent quantum description. None of
-these are independent entities; they are descriptions of (S, φ, V) at
+these are independent entities; they are descriptions of (S, $\varphi$, V) at
 different scales.
 
 \hypertarget{the-measurement-problem}{%
@@ -821,14 +898,14 @@ different scales.
 problem}\label{the-measurement-problem}}
 
 On the structural reading, the measurement problem is dissolved. The
-wave function is not a component of (S, φ, V) --- it is a derived
+wave function is not a component of (S, $\varphi$, V) --- it is a derived
 object. Since it is derived, not fundamental, asking ``does it
 collapse?'' is asking about the behavior of a compression artifact. In
 the double-slit experiment, the particle traverses a single slit in the
 deterministic substratum. In Wigner's friend, the Friend has a definite
 outcome; Wigner's superposition reflects his epistemic deficit.
 
-Branching is forbidden by the rigidity of φ. A fixed bijection on a
+Branching is forbidden by the rigidity of $\varphi$. A fixed bijection on a
 finite set has exactly one trajectory from any initial state. There is
 no point at which the trajectory splits. The appearance of branching in
 the emergent quantum description reflects the observer's uncertainty
@@ -836,7 +913,7 @@ about which trajectory they are on (because they cannot see the hidden
 sector), not a physical splitting of worlds.
 
 Non-locality in Bell correlations is explained by the coupling graph
-G\_φ. Two visible sites prepared in a joint state (entangled) have
+G\_$\varphi$. Two visible sites prepared in a joint state (entangled) have
 correlated hidden-sector configurations --- a consequence of the joint
 P-indivisible dynamics at preparation {[}Main, §3.3{]}. The correlations
 are mediated by the coupling graph, not by any superluminal influence.
@@ -858,13 +935,14 @@ spatial isotropy uniquely determine the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the lattice level, with
 the Standard Model gauge group and \(\bar\theta = 0\) as forced
 retrodictions, and the anomaly-free hypercharge assignment forced once
-the observed family pattern is given (fermion embedding and absolute
-generation count remain open; see {[}SM, §4.7.X{]}). The substratum
-gauge group identifies the kernel of this inverse map and shows that the
-Standard Model gauge group is its visible-sector shadow. Together, these
-two results establish that the framework's emergence of quantum
-mechanics {[}Main{]}, its derivation of the Standard Model {[}SM{]}, and
-its derivation of the gravitational sector {[}GR{]} are not three
+the observed family pattern is given (fermion embedding closed via the
+link-carrier construction, with the absolute generation count locked at
+exactly three by coupling-degree minimality). The substratum gauge group
+identifies the kernel of this inverse map and shows that the Standard
+Model gauge group is its visible-sector shadow. Together, these two
+results establish that the framework's emergence of quantum mechanics
+{[}Main{]}, its derivation of the Standard Model {[}SM{]}, and its
+derivation of the gravitational sector {[}GR{]} are not three
 independent applications of the same trace-out machinery but three
 projections of one object --- the bijection \((S, \varphi)\) --- viewed
 at different levels of description.
@@ -937,6 +1015,7 @@ Phys. D} \textbf{26}, 1743013 (2017).
 {[}SM{]} A. Maybaum, ``The Standard Model from a Cubic Lattice,''
 (2026).
 
-{[}GR{]} A. Maybaum, ``ℏ, the Bekenstein-Hawking Entropy, and Dynamical
+{[}GR{]} A. Maybaum, ``$\hbar$, the Bekenstein-Hawking Entropy, and Dynamical
 Dark Energy from the Cosmological Horizon,'' (2026).
+
 \end{document}
