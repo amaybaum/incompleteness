@@ -19,6 +19,42 @@ A lossless memory is a system whose states evolve by a reversible rule: every st
 
 Physics has two foundational theories — quantum mechanics (QM) and general relativity (GR) — that are individually precise and resist unification. The sharpest symptom is the cosmological constant problem: quantum field theory's natural estimate of the vacuum energy density exceeds the observationally allowed value of Λ in GR by a factor of ~10¹²². GR itself makes no prediction for the vacuum energy density; the discrepancy lies between the QFT estimate and the cosmological bound on Λ, and standard treatments assume one or both ingredients contain an error. This framework argues otherwise: neither is wrong, and the gap is a necessary consequence of observation from within.
 
+### Addressing common concerns
+
+Readers approaching the framework from quantum mechanics as a fundamental theory will encounter several claims that initially appear to conflict with established results. Each has a specific technical resolution; this section states the concerns plainly and points to where they are resolved.
+
+**Q: Why reformulate QM at all? It works fine as a fundamental theory.**
+
+Taken as fundamental, QM leaves the measurement problem unresolved, is incompatible with GR in a quantitatively sharp way (the 10¹²² CC hierarchy), and postulates rather than derives its own structure — Hilbert space, the Born rule, and unitarity all appear as axioms. The framework derives QM as the necessary description of a finite embedded observer of a deterministic substrate (Main §§4–6), recovering every quantum prediction while making the above issues tractable. It is a reformulation that adds explanatory power at no predictive cost: the Schrödinger equation, Born rule, and Bell violations all emerge as theorems from the conditions C1–C3 on the hidden sector.
+
+**Q: Doesn't this revive local hidden variables, which Bell's theorem rules out?**
+
+No. The framework's substratum (S, φ) is not a local hidden variable in Bell's sense. Bell's theorem assumes a *Markovian* conditional independence between measurement outcomes and hidden variables; OI's hidden sector violates this through P-indivisibility — the hidden sector retains correlations over the entire observation interval. Brandner (*Phys. Rev. Lett.* **134**, 037101, 2025) established at theorem level that this non-Markovian dynamics is the unique mechanism that reproduces quantum statistics without either nonlocality or superdeterminism. Bell violations are recovered as structural consequences of P-indivisibility, not explained away.
+
+**Q: If the dynamics is classical and deterministic, how do you get the Born rule?**
+
+Measurement is the observer's read-write cycle on the partition V: reads from the visible sector produce classical outcomes, writes to the hidden sector imprint correlations that persist via the slow-bath condition (C2). The Born rule is the equilibrium distribution of this cycle — not an additional postulate, but the unique stable statistics of indistinguishable-state averaging under P-indivisibility. Interference is write-then-read across hidden modes: information deposited in earlier transitions modifies the probabilities of later ones. See Main §§4–6 for the derivation, and Substratum §2 for the interpretive picture.
+
+**Q: Doesn't Nielsen–Ninomiya forbid chiral fermions on a lattice?**
+
+NN forbids them under four specific premises, the load-bearing one being NN4: that the action is *bilinear in fermionic fields carrying a conserved chirality charge*. OI's fundamental action is bosonic (the bijection φ); fermions and chirality are derived post-trace-out, by which point NN4 no longer applies. The theorem is not evaded by a clever fermion formulation — it simply does not enter the hypothesis space. The "unwanted" doublers that NN forces upon any bilinear lattice fermion action become, in OI, the three physical generations: the T₁ triplet of the 6-link wave-equation decomposition. See SM §4.8.1.
+
+**Q: How can the 10¹²² CC hierarchy dissolve by reinterpretation alone?**
+
+Jacobson's thermodynamic derivation of Einstein's equations shows that gravity responds to *coarse-grained* information content, which on a finite-partition horizon is exactly the observer-accessible part. The 10¹²² gap between the naive vacuum-energy estimate and the observed Λ is therefore not a miscalculation but the compression ratio between the substratum's total information content and what the observer can read. The same mechanism produces the Bekenstein-Hawking coefficient S = A/(4 l_p²) (confirmed by GW250114 at 99.999%) and the structural dark-energy coefficient ν_OI = 2.45 × 10⁻³ (preferred by DESI DR2 at 2.8–4.2σ). See GR §§6–7.
+
+**Q: Generating the SM gauge group and three generations from a cubic lattice sounds ad-hoc.**
+
+The lattice is not a physical crystal — it is the coupling graph of φ, an equivalence class of structural data. Alphabet size q is a gauge freedom (different q give identical observables); d = 3 is the *uniquely self-consistent* dimension (four independent filters on the wave equation); coupling-degree minimality forces K = 2d = 6 link directions at each site. The cubic group O acting on 6 link directions has a unique irrep decomposition T₁ ⊕ E ⊕ A₁, and the commutant of the resulting coupling matrix M is precisely SU(3) × SU(2) × U(1) with three generations. Neither the gauge group nor the generation count is a free parameter; both follow from the character table of O. See SM §§3.2, 4.6, 4.7.
+
+**Q: How is black-hole information preserved?**
+
+The Page curve is derived at theorem level from the framework's nested trace-out (t_P ≈ 0.646 t_evap, Appendix A of GR). Information moves from the visible sector to the hidden sector as the black hole evaporates; it is never lost from (S, φ). The generalized second law follows from strong subadditivity applied to the nested partition. See GR Appendix A.
+
+---
+
+**What does not dissolve.** The absolute scale of fermion masses (m_s), CP-violating phases, the charm-mass anomaly, and the residual electroweak hierarchy remain explicit inputs or open questions, as noted inline in [SM] §7.6 and §8.3. The framework resolves concerns specifically arising from treating QM as fundamental; it does not eliminate every open question in particle physics.
+
 ### The starting point
 
 The framework begins with a single empirical fact — *observation occurs* — formalized as a definition: an observation is a triple (S, φ, V) consisting of a total system, a deterministic dynamics, and an embedded observer. No quantum postulates appear. Three structural lemmas follow (finiteness, causal partition, unique measure), from which quantum mechanics emerges under three conditions on the hidden sector.
@@ -33,7 +69,7 @@ The theorem becomes physics at the cosmological horizon — the boundary beyond 
 
 ### The emergent structure
 
-The dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures. The lattice is the coupling graph of φ, the alphabet size is a gauge freedom, d = 3 is the unique self-consistent dimension, and the observer is generic. The wave equation on a d = 3 lattice determines the Standard Model's gauge group and the unique anomaly-free matter assignment with the generation count locked at exactly three, together with discrete symmetries and — through the universal induced coupling 1/α₀ = 23.25 — all three gauge coupling strengths at M_Z, with the primary derivation chain proved end-to-end (29 theorems/lemmas). The lattice geometry further determines twenty-one quantitative SM observables — gauge couplings, CKM mixing, charged lepton masses, PMNS angles (with sin²θ₁₂ confirmed by JUNO at 0.14σ), the Higgs quartic at the compositeness scale, and the bottom-to-tau mass ratio — all matching observation. Approximately fourteen of these are strictly parameter-free structural predictions; two follow from a gauge-coupling chain with one constrained parameter; five form a one-input mass chain rooted at a single empirical mass scale; the remainder involve explicit empirical or phenomenological inputs identified inline in [SM] §7.6. No parameters are fit to the predicted quantities.
+The dynamics uniquely selected by the QM requirement also produces all inputs for general relativity — seven independent checks, zero failures (the seven being: (i) emergent action scale ℏ = c³ε²/(4G); (ii) discreteness scale ε = 2l_p uniquely self-consistent; (iii) Bekenstein-Hawking coefficient A/(4l_p²), confirmed by GW250114 at 99.999%; (iv) dissolution of the cosmological constant problem; (v) dark energy structural coefficient ν_OI = 2.45 × 10⁻³, preferred by DESI DR2 at 2.8–4.2σ; (vi) dark sector fraction Ω_dark ≈ 95% matching observation; (vii) MOND acceleration scale a₀ = cH/6, confirmed by Jiao et al. 2023 — see [GR] §7.4 for the full comparison table). The lattice is the coupling graph of φ, the alphabet size is a gauge freedom, d = 3 is the unique self-consistent dimension, and the observer is generic. The wave equation on a d = 3 lattice determines the Standard Model's gauge group and the unique anomaly-free matter assignment with the generation count locked at exactly three, together with discrete symmetries and — through the universal induced coupling 1/α₀ = 23.25 — all three gauge coupling strengths at M_Z, with the primary derivation chain proved end-to-end (29 theorems/lemmas). The lattice geometry further determines twenty-one quantitative SM observables — gauge couplings, CKM mixing, charged lepton masses, PMNS angles (with sin²θ₁₂ confirmed by JUNO at 0.14σ), the Higgs quartic at the compositeness scale, and the bottom-to-tau mass ratio — all matching observation. Approximately fourteen of these are strictly parameter-free structural predictions; two follow from a gauge-coupling chain with one constrained parameter; five form a one-input mass chain rooted at a single empirical mass scale; the remainder involve explicit empirical or phenomenological inputs identified inline in [SM] §7.6. No parameters are fit to the predicted quantities.
 
 ### Two types of inaccessibility
 
