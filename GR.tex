@@ -3,6 +3,7 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
+  11pt,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -11,20 +12,17 @@
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math} % this also loads fontspec
+  \usepackage{fontspec}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-\usepackage{lmodern}
+% lmodern disabled
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
+% microtype disabled
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
   \IfFileExists{parskip.sty}{%
@@ -36,6 +34,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -50,6 +49,16 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{calc}
+\usepackage{longtable,booktabs,array}
+\usepackage{xcolor}
+\AtBeginDocument{\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}}
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -66,7 +75,7 @@
 \begin{document}
 
 \hypertarget{ux210f-the-bekenstein-hawking-entropy-and-dynamical-dark-energy-from-the-cosmological-horizon}{%
-\section{ℏ, the Bekenstein-Hawking Entropy, and Dynamical Dark Energy
+\section{$\hbar$, the Bekenstein-Hawking Entropy, and Dynamical Dark Energy
 from the Cosmological
 Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-dynamical-dark-energy-from-the-cosmological-horizon}}
 
@@ -201,7 +210,7 @@ energy, the dark sector, and dark matter, with a summary table in §7.4.
 §8 discusses scope, the status of the discreteness scale, vacuum energy
 and the Higgs potential, and the framework's falsifiability conditions.
 §9 concludes. The cubic-lattice realization of the substratum --- which
-fixes the Standard Model structure via the wave equation --- is
+fixes the Standard Model gauge structure via the wave equation --- is
 developed in a companion paper {[}SM{]} and is independent of the GR
 results presented here. The reconstruction theorem and the synthesis
 claim that quantum mechanics and general relativity descend as different
@@ -880,7 +889,7 @@ Expanding \(\Lambda_{\text{eff}}(H)\):
 This is the Running Vacuum Model {[}10, 11{]}. The \(S_{\text{dS}}\)
 horizon modes span frequencies \(\omega_{\text{IR}} = H\) to
 \(\omega_{\text{UV}} = c/\epsilon\). The spectral density of boundary
-entropy is uniform in \(\ln\omega\): each ε² boundary cell is one degree
+entropy is uniform in \(\ln\omega\): each $\varepsilon$$^2$ boundary cell is one degree
 of freedom that couples to the bulk at all frequencies (time-translation
 invariance of the wave equation), and each mode carries
 \(\mathcal{O}(1)\) entropy bit (quantum regime:
@@ -925,8 +934,8 @@ The leading correction to uniformity is
 at \(\omega \sim H\) and \(\omega \sim c/\epsilon\). For a spectral
 density \(\propto \omega^\alpha\) with \(\alpha \neq 0\), the effective
 \(\mathcal{N}\) changes dramatically: \(\alpha = +0.1\) gives
-\(\mathcal{N} \sim 10^7\) (ν undetectable), \(\alpha = -0.1\) gives
-\(\mathcal{N} \sim 10\) (ν \(\sim 0.03\), ruled out). The lattice
+\(\mathcal{N} \sim 10^7\) ($\nu$ undetectable), \(\alpha = -0.1\) gives
+\(\mathcal{N} \sim 10\) ($\nu$ \(\sim 0.03\), ruled out). The lattice
 arguments above constrain \(\alpha = 0\) to within
 \(\mathcal{O}(1/\mathcal{N})\), reducing the systematic from a factor of
 \(\sim 3\) (the range \(1\)--\(5 \times 10^{-3}\)) to \(\pm 1.4\%\).
@@ -1142,7 +1151,7 @@ spherical redistribution in de Sitter (\(1/6\)), gives:
 
 This is the MOND critical acceleration --- derived, not fitted.
 (Milgrom's empirical value:
-\(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/s².)
+\(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/s$^2$.)
 
 \textbf{Step 3: The deep-MOND regime.} For baryonic acceleration
 \(\ll a_0\), the displaced entropy dominates. The Jacobson mechanism
@@ -1222,7 +1231,7 @@ This prediction is borne out by the data. Genzel et al.~{[}21, 22{]}
 report stacked rotation curves for massive star-forming galaxies at
 \(z = 0.9\text{–}2.4\) showing a declining outer velocity at
 \(> 3\sigma\) significance relative to local spirals --- consistent with
-the OI prediction. In ΛCDM, flat rotation curves from NFW halos are
+the OI prediction. In $\Lambda$CDM, flat rotation curves from NFW halos are
 expected at all redshifts; explaining the Genzel data requires
 anomalously low halo concentrations or baryon-dominated inner regions.
 The cleanest local test is Jiao et al.~{[}23{]}, who detect for the
@@ -1289,12 +1298,12 @@ tests:
   scatter (at fixed \(z\)), and the scatter does not correlate with halo
   properties. Current SPARC data {[}20{]} show remarkably small RAR
   scatter (\(\sim 0.13\) dex), consistent with OI but requiring
-  fine-tuning in ΛCDM.
+  fine-tuning in $\Lambda$CDM.
 \end{enumerate}
 
 \textbf{Falsifiability.} The entropy displacement account would be
 falsified by: (a) detection of dark matter particles accounting for
-\$\sim\$27\% of \(\rho_{\text{crit}}\); (b) high-redshift rotation
+\(\sim\)27\% of \(\rho_{\text{crit}}\); (b) high-redshift rotation
 curves inconsistent with the predicted \(H(z)\) dependence ---
 specifically, if galaxies at \(z > 2\) show flat rotation curves at
 \(r > r_M(z)\); (c) baryonic Tully-Fisher violations exceeding baryonic
@@ -1350,7 +1359,7 @@ dark matter predicts no such relaxation.
 
 \textbf{CMB acoustic peaks.} The CMB power spectrum provides the most
 precise test of the dark matter paradigm: the odd/even peak height
-asymmetry requires a non-oscillating gravitational source (CDM in ΛCDM)
+asymmetry requires a non-oscillating gravitational source (CDM in $\Lambda$CDM)
 that provides potential wells for the photon-baryon fluid to oscillate
 in. The entropy displacement satisfies this requirement through the same
 thermodynamic averaging that resolves the Bullet Cluster. The Clausius
@@ -1374,7 +1383,7 @@ has the same source term as CDM. The CMB power spectrum --- which
 depends on \(\Omega_b/\Omega_m\) (peak ratios), the growth of
 perturbations before recombination (peak heights), the sound horizon
 \(r_s\) (peak positions), and the damping scale (high-\(\ell\)
-suppression) --- is therefore predicted to match ΛCDM at linear order. A
+suppression) --- is therefore predicted to match $\Lambda$CDM at linear order. A
 definitive confirmation requires running a modified Boltzmann code
 (CLASS or CAMB) with entropy displacement replacing CDM; the prediction
 is agreement with Planck data to within current uncertainties.
@@ -1422,7 +1431,7 @@ DESI DR2 & \(2.8\)--\(4.2\sigma\) preference \\
 Dark sector fraction & \(\Omega_{\text{dark}} \approx 95\%\) &
 \(\Omega_{\text{CDM}} + \Omega_\Lambda \approx 95\%\) & consistent \\
 MOND acceleration scale & \(a_0 = cH/6 \approx 1.2 \times 10^{-10}\)
-m/s² & \(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/s² & exact \\
+m/s$^2$ & \(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/s$^2$ & exact \\
 Baryonic Tully-Fisher & \(v^4 = G M_B \cdot cH/6\) & SPARC data & within
 \(0.13\) dex RAR scatter \\
 Rotation curve crossover & \(r_M = \sqrt{6 G M_B/(cH)}\) & Milky Way:
@@ -1453,8 +1462,8 @@ that do not (§8.3), and the framework's assumptions, limitations, and
 falsifiability conditions (§8.4). The foundational emergent QM result is
 treated as established in {[}Main{]} and not re-derived here. The
 cubic-lattice realization of the substratum --- which determines the
-Standard Model structure via the wave equation --- is independent of the
-present results and is developed in {[}SM{]}. The reconstruction
+Standard Model gauge structure via the wave equation --- is independent
+of the present results and is developed in {[}SM{]}. The reconstruction
 theorem, the substratum gauge group, and the synthesis claim that
 quantum mechanics and general relativity descend as different
 projections of the same \((S, \varphi)\) are developed in
