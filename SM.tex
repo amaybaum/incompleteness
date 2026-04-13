@@ -1028,8 +1028,11 @@ either by identified physical role or by derived absence:
   basis (§8.4).
 \item
   \(T_2\): appears in \(\text{Sym}^2(T_1) = A_1 \oplus E \oplus T_2\)
-  and \textbf{controls PMNS mixing angles} via the neutrino mass matrix
-  decomposition (§8.4).
+  and \textbf{controls the off-diagonal structure} of the neutrino mass
+  matrix (§8.4); the resulting mixing angles enter the structural PMNS
+  prediction of §7.3, where TBM (from cubic-group representation theory)
+  plus \(U\)-parity-graded charged-lepton corrections at scale
+  \(\lambda\) give all three angles.
 \item
   \(A_2\): the pseudoscalar/sign representation; does not appear in the
   6-link decomposition (\(n(A_2) = 0\) in the character calculation
@@ -2577,18 +2580,21 @@ power-counting in the taste-decomposed Coleman--Weinberg potential: the
 leading correction to the scalar density for the OI framework's
 specific-taste projection (where SM fermions correspond to specific
 staggered tastes, not the taste-singlet average) is
-\(\Pi^{(\lambda)}(m) \sim \lambda \cdot g_0^2 \cdot \Sigma/m\),
+
+\[\Pi^{(\lambda)}(m) \sim \lambda \cdot g_0^2 \cdot \Sigma/m,\]
+
 combining a single taste-breaking insertion (\(\lambda\), tree-level
 vertex), one gauge exchange (\(g_0^2\), one-loop), and one
 chiral-condensate insertion (\(\Sigma\), IR enhancement). The matching
 scale where this becomes \(O(1)\) is
 \(m_{\text{match}} = \lambda \cdot g_0^2 \cdot \Sigma_{\text{eff}}\)
 with \(\Sigma_{\text{eff}}\) an \(O(1)\) coefficient in lattice units.
+
 The taste-singlet projection vanishes at \(O(\lambda)\) by tracelessness
-(\(\sum_t \delta_t = 0\)), which would give \(O(\lambda^2)\) corrections
-instead --- the framework's specific-taste assignment is essential to
-obtain the linear-\(\lambda\) scaling. Among natural dimensional
-combinations of \(\lambda\) and \(g_0\) (including
+(\(\sum_t \delta_t = 0\)), giving \(O(\lambda^2)\) corrections instead
+--- the framework's specific-taste assignment for SM fermions is
+essential to obtain the linear-\(\lambda\) scaling. Among natural
+dimensional combinations of \(\lambda\) and \(g_0\) (including
 \(\lambda \cdot g_0\), \(\lambda^2 g_0^2\), \(\sqrt{\lambda g_0^2}\)),
 only \(\lambda \cdot g_0^2\) is consistent with the MC-measured
 \(Z_S(m_{\text{match}}) = 1.813\) that reproduces \(m_b/m_\tau\) to
@@ -2921,10 +2927,15 @@ compared to CKM angles, as predicted.
 
 \textbf{Solution-specific properties (Tier 3).} The absolute mass scale
 (set by \(\Lambda_{\text{seesaw}}\)), the ratio
-\(\Delta m^2_{32}/\Delta m^2_{21} \approx 33\) (set by \(a/b\)), the
-specific PMNS angles (set by the \(T_2\) component of \(\delta M\)), and
-the CP-violating phase \(\delta_{CP}\) are all properties of the
-particular \(\varphi\) --- not predictions of the equivalence class.
+\(\Delta m^2_{32}/\Delta m^2_{21} \approx 33\) (set by the relative
+magnitudes of the \(E\)-component parameters \(a/b\)), and the
+CP-violating phase \(\delta_{CP}\) (which corresponds to the
+unconstrained free parameter \(b_{12} - b_{13}\) in the \(O(\lambda^2)\)
+charged-lepton structure of §7.3) are properties of the particular
+\(\varphi\). The PMNS \emph{angles} themselves are structural (§7.3):
+TBM from cubic-group representation theory plus \(U\)-parity-graded
+corrections from the charged-lepton sector, with the Cabibbo angle
+\(\lambda\) as the structural scale.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
