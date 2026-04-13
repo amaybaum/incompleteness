@@ -1,6 +1,7 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   11pt,
@@ -12,17 +13,23 @@
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{fontspec} % this also loads fontspec
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern disabled
+
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% microtype disabled
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
   \IfFileExists{parskip.sty}{%
@@ -49,16 +56,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{fontspec}
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{graphicx}
-\usepackage{calc}
-\usepackage{longtable,booktabs,array}
-\usepackage{xcolor}
-\AtBeginDocument{\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}}
-\setlength{\parskip}{0.5\baselineskip}
-\setlength{\parindent}{0pt}
-\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -66,7 +63,11 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  hidelinks,
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 
 \author{}
@@ -74,6 +75,11 @@
 
 \begin{document}
 
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
 \hypertarget{the-standard-model-from-a-cubic-lattice}{%
 \section{The Standard Model from a Cubic
 Lattice}\label{the-standard-model-from-a-cubic-lattice}}
@@ -243,7 +249,7 @@ are artifacts of the particular construction chosen.
 
 \textbf{Deterministic bijectivity.} The P-indivisibility proof {[}Main,
 §2.3{]} requires a bijection on a finite set: bijectivity guarantees
-recurrence ($\varphi$\^{}N = id), and recurrence produces the non-monotonic
+recurrence (φ\^{}N = id), and recurrence produces the non-monotonic
 distinguishability that defines P-indivisibility. The entire framework
 rests on QM emerging from marginalizing deterministic dynamics --- if
 the dynamics were already stochastic, there would be nothing to derive.
@@ -255,7 +261,7 @@ determinism on a finite set; it is not the only way.
 
 \textbf{Finite boundary entropy.} The gap equation {[}GR, §3{]} requires
 a finite number of degrees of freedom across the partition boundary: S =
-A/$\varepsilon$$^2$. This follows from the holographic entropy bound {[}1{]} applied to
+A/ε². This follows from the holographic entropy bound {[}1{]} applied to
 any finite-area surface, not from lattice structure. What matters is
 that the boundary carries finitely many modes --- not that the bulk is a
 lattice.
@@ -289,8 +295,8 @@ require}\label{what-the-theorems-do-not-require}}
 
 A \emph{regular lattice}. Any bounded-degree graph with statistical
 isotropy suffices. A \emph{specific alphabet size q}. All proofs work
-for any q $\geq$ 2; no prediction depends on q. A \emph{specific
-dimensionality d}. The proofs work for any d $\geq$ 1; self-consistency
+for any q ≥ 2; no prediction depends on q. A \emph{specific
+dimensionality d}. The proofs work for any d ≥ 1; self-consistency
 selects d = 3 (§3.2). The \emph{wave equation}. It is derived from
 center independence, isotropy, and linearity (§4.1), each of which
 follows from the structural properties listed above.
@@ -304,8 +310,8 @@ bounded-degree graph with statistical isotropy, partitioned into visible
 and hidden sectors satisfying C1--C3. Everything else --- the regular
 lattice, the alphabet, the dimensionality, the wave equation, quantum
 mechanics, general relativity --- is either derived or irrelevant. The
-minimal object is the triple (S, $\varphi$, V): a finite set S, a bijection $\varphi$: S
-$\rightarrow$ S with bounded-degree coupling, and a partition V $\subset$ S of the degrees
+minimal object is the triple (S, φ, V): a finite set S, a bijection φ: S
+→ S with bounded-degree coupling, and a partition V ⊂ S of the degrees
 of freedom into visible and hidden sectors.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -314,16 +320,16 @@ of freedom into visible and hidden sectors.
 \subsubsection{2.4 Definition and the factorization
 problem}\label{definition-and-the-factorization-problem}}
 
-Let S = S$_1$ × S$_2$ × \ldots{} × S\_N be a product of finite sets (the local
-state spaces), and let $\varphi$: S $\rightarrow$ S be a bijection. The \emph{coupling
-graph} G\_$\varphi$ is the undirected graph on vertices \{1, \ldots, N\} where i
-and j are connected if the i-th component of $\varphi$(s) depends on the j-th
-component of s for at least one state s $\in$ S. The coupling graph is not
-an additional structure imposed on the system --- it is read off from $\varphi$.
+Let S = S₁ × S₂ × \ldots{} × S\_N be a product of finite sets (the local
+state spaces), and let φ: S → S be a bijection. The \emph{coupling
+graph} G\_φ is the undirected graph on vertices \{1, \ldots, N\} where i
+and j are connected if the i-th component of φ(s) depends on the j-th
+component of s for at least one state s ∈ S. The coupling graph is not
+an additional structure imposed on the system --- it is read off from φ.
 
 What determines the product decomposition? An abstract finite set S does
 not come with a canonical factorization. The answer is that the
-factorization is determined by $\varphi$ itself, as the one that \emph{minimizes
+factorization is determined by φ itself, as the one that \emph{minimizes
 the coupling degree}. For the wave equation, numerical verification
 confirms this: the natural spatial factorization is the \emph{unique
 minimizer} of coupling degree --- 0\% of random factorizations achieve
@@ -364,7 +370,7 @@ therefore a property of the equivalence class
 structure}\label{space-as-coupling-structure}}
 
 Every ``spatial'' property used in the derivation chain is a property of
-G\_$\varphi$. The \emph{area} of a region V is the number of edges crossing from
+G\_φ. The \emph{area} of a region V is the number of edges crossing from
 V to its complement. The \emph{dimension} is extracted from the causal
 partial order via the Myrheim-Meyer estimator {[}2{]}. The \emph{area
 law} follows from the spatial Markov property on any graph with range-1
@@ -390,8 +396,8 @@ not a name for a thing.
 The most common objection to discrete models of spacetime is the
 container problem: if space is a lattice, what does the lattice sit in?
 On the structural reading, the container problem does not arise. The
-coupling graph is defined by the bijection $\varphi$, not by embedding in a
-manifold. Two sites are neighbors because $\varphi$ couples them --- because the
+coupling graph is defined by the bijection φ, not by embedding in a
+manifold. Two sites are neighbors because φ couples them --- because the
 state at one affects the future of the other. This is a dynamical fact,
 not a spatial margin. Locality is defined by the dynamics, and space
 emerges from locality. At no point does anything need to be ``inside''
@@ -407,18 +413,18 @@ the interactions, not by geography.
 freedom}\label{the-alphabet-as-gauge-freedom}}
 
 Every prediction of the OI framework is independent of the alphabet size
-q. The gap equation $\hbar$ = c$^3$$\varepsilon$$^2$/(4G) contains no q. The Bekenstein-Hawking
+q. The gap equation ℏ = c³ε²/(4G) contains no q. The Bekenstein-Hawking
 formula contains no q. The dispersion relation, area law,
 P-indivisibility, center independence, and Einstein's equations are all
 q-independent. Numerical confirmation: on a 1D ring of L = 40 sites, the
 wave equation produces significant P-indivisibility at every q tested
 from 2 to 64. No experiment, even in principle, could measure q.
 
-Two systems (S, $\varphi$) and (S', $\varphi$') with different alphabet sizes q and q'
+Two systems (S, φ) and (S', φ') with different alphabet sizes q and q'
 are \emph{physically equivalent} if they produce the same emergent
 transition probabilities. The analogy to electromagnetic gauge
-invariance is precise: the gauge potential A\_$\mu$ is not physical; the
-field strength F\_$\mu$$\nu$ is. In the OI framework, the mod-q state space is
+invariance is precise: the gauge potential A\_μ is not physical; the
+field strength F\_μν is. In the OI framework, the mod-q state space is
 not physical; the coupling structure and its emergent consequences are.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -434,12 +440,12 @@ independence}\label{background-independence}}
 The companion paper {[}Main{]} treats the coupling graph as fixed. In
 general relativity, the spacetime geometry is dynamical. If space is the
 coupling graph, background independence requires the graph to evolve
-with the state: s(t+1) = $\varphi$\_\{s(t)\}(s(t)), where each $\varphi$\_s is a
-bijection but G\_\{$\varphi$\_s\} varies with s.
+with the state: s(t+1) = φ\_\{s(t)\}(s(t)), where each φ\_s is a
+bijection but G\_\{φ\_s\} varies with s.
 
 \textbf{Bijectivity is automatic.} The wave equation is second-order:
 x\_i(t+1) = f(neighbors of i at time t) − x\_i(t−1) mod q. The
-phase-space map F: (x(t−1), x(t)) $\rightarrow$ (x(t), x(t+1)) has an explicit
+phase-space map F: (x(t−1), x(t)) → (x(t), x(t+1)) has an explicit
 inverse that uses x(t) to determine which graph to apply. Bijectivity of
 the phase-space map is automatic for any second-order reversible
 dynamics, regardless of whether the coupling is state-dependent. The
@@ -456,8 +462,8 @@ Under these constraints: the area law holds, center independence is
 preserved, the gap equation is unchanged, and the dynamics selection
 theorem applies at each step.
 
-\textbf{Explicit construction.} On a ring of L $\geq$ 4 sites with alphabet
-$\mathbb{Z}$/q$\mathbb{Z}$, define the right-neighbor assignment \(R(i, x) = i+2 \bmod L\) if
+\textbf{Explicit construction.} On a ring of L ≥ 4 sites with alphabet
+ℤ/qℤ, define the right-neighbor assignment \(R(i, x) = i+2 \bmod L\) if
 \(x_{(i+1) \bmod L} = 0\), and \(R(i, x) = i+1 \bmod L\) otherwise, with
 left neighbor \(L(i) = i - 1 \bmod L\) fixed. The dynamics is
 \(x_i(t+1) = (x_{L(i)}(t) + x_{R(i,x(t))}(t) - x_i(t-1)) \bmod q\). This
@@ -618,7 +624,7 @@ particular field's vacuum entanglement.
 \hypertarget{why-d-3}{%
 \subsubsection{3.2 Why d = 3}\label{why-d-3}}
 
-The theorems work for any d $\geq$ 1. Four independent self-consistency
+The theorems work for any d ≥ 1. Four independent self-consistency
 filters converge on d = 3.
 
 \textbf{The concordance calculation.} In d spatial dimensions, the
@@ -626,12 +632,12 @@ boundary entropy ratio is:
 
 \[\frac{\rho_s}{\rho_{\text{crit}}} = \frac{2}{d-1}\]
 
-This equals unity only for d = 3. For d = 2: overclosure. For d $\geq$ 4:
+This equals unity only for d = 3. For d = 2: overclosure. For d ≥ 4:
 gravitational deficit with no source.
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
-d & $\rho$\_s / $\rho$\_crit & Status \\
+d & ρ\_s / ρ\_crit & Status \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
@@ -641,19 +647,19 @@ d & $\rho$\_s / $\rho$\_crit & Status \\
 4 & 2/3 & Deficit \\
 \end{longtable}
 
-\textbf{Propagating gravity requires d $\geq$ 3.} The Weyl tensor vanishes
-for d $\leq$ 2. The Jacobson derivation requires propagating gravitational
+\textbf{Propagating gravity requires d ≥ 3.} The Weyl tensor vanishes
+for d ≤ 2. The Jacobson derivation requires propagating gravitational
 degrees of freedom.
 
-\textbf{Stable matter requires d $\leq$ 3.} The Coulomb potential in d
-dimensions gives unstable atoms for d $\geq$ 4 (Ehrenfest {[}10{]}).
-Gravitational orbits are unstable for d $\geq$ 4 {[}11{]}. Without stable
+\textbf{Stable matter requires d ≤ 3.} The Coulomb potential in d
+dimensions gives unstable atoms for d ≥ 4 (Ehrenfest {[}10{]}).
+Gravitational orbits are unstable for d ≥ 4 {[}11{]}. Without stable
 matter, no observers exist to define the partition.
 
 \textbf{Renormalizability requires d = 3.} The Yang-Mills coupling has
 mass dimension {[}g{]} = (3−d)/2; dimensionless only for d = 3.
 
-\textbf{The intersection} of d $\geq$ 3, d $\leq$ 3, the concordance, and
+\textbf{The intersection} of d ≥ 3, d ≤ 3, the concordance, and
 renormalizability is d = 3 uniquely.
 
 \textbf{Integer dimension is derived, not presupposed.} The
@@ -720,15 +726,15 @@ symmetries (§§4.7--4.12).
 \subsubsection{4.1 The wave equation as lattice
 Klein-Gordon}\label{the-wave-equation-as-lattice-klein-gordon}}
 
-The OI lattice is a d-dimensional hypercubic lattice $\Lambda$ = $\mathbb{Z}$\^{}d with
-spacing $\varepsilon$ = 2 l\_p.~The dynamics on this lattice is not a free choice
+The OI lattice is a d-dimensional hypercubic lattice Λ = ℤ\^{}d with
+spacing ε = 2 l\_p.~The dynamics on this lattice is not a free choice
 --- it is uniquely determined by three requirements.
 
 \textbf{Theorem} (Dynamics selection). \emph{Among all second-order
 reversible nearest-neighbor dynamics on a d-dimensional lattice of
 alphabet size q, the requirements of (i) center independence, (ii)
 spatial isotropy, and (iii) linearity uniquely select the discrete wave
-equation. This holds for any q $\geq$ 2 and d $\geq$ 1.}
+equation. This holds for any q ≥ 2 and d ≥ 1.}
 
 \emph{Proof.} The update function has the form
 \(x_i(t+1) = (f(\text{neighbors of } i \text{ at time } t) - x_i(t-1)) \bmod q\).
@@ -798,8 +804,8 @@ vanishing of the lattice mass term.}
 
 \emph{Proof.} The general linear update is
 \(\phi(n, t+1) = \alpha\,\phi(n,t) + \beta[\phi(n-1,t) + \phi(n+1,t)] + \gamma\,\phi(n,t-1)\).
-Reversibility: $\gamma$ = −1. Center independence: $\alpha$ = 0. Isotropy + unit
-speed: $\beta$ = 1. The d'Alembertian
+Reversibility: γ = −1. Center independence: α = 0. Isotropy + unit
+speed: β = 1. The d'Alembertian
 \(\Box_{\text{lat}}\phi = -\alpha\,\phi = 0\): massless KG. \(\square\)
 
 \hypertarget{factorization-into-dirac-operators}{%
@@ -826,8 +832,8 @@ Conversely, center independence gives \(D_{\text{st}}\chi = 0\),
 invariant under \(\chi \to \varepsilon\chi\) (chiral symmetry).
 \(\square\)
 
-\textbf{The chain:} P-indivisibility $\rightarrow$ center independence $\rightarrow$ chiral
-symmetry $\rightarrow$ Higgs mechanism {[}13, 14{]}. One algebraic condition ($\alpha$ = 0)
+\textbf{The chain:} P-indivisibility → center independence → chiral
+symmetry → Higgs mechanism {[}13, 14{]}. One algebraic condition (α = 0)
 produces quantum mechanics, chiral fermions, and the Higgs boson.
 
 \hypertarget{multi-component-dynamics-and-gauge-structure}{%
@@ -893,31 +899,31 @@ physics).}
 \(\mathbb{Z}^d\) updates the K-component vector at site \textbf{n} using
 exactly 2d independent spatial inputs:
 \(\{\boldsymbol{\phi}(\mathbf{n} \pm \hat{e}_j, t)\}_{j=1}^d\). Define
-the \emph{internal coupling degree} $\delta$(K) as the maximum number of
+the \emph{internal coupling degree} δ(K) as the maximum number of
 spatial input channels on which any single component's update depends.
 
-\emph{Step 1 (K = 2d achieves $\delta$ = 1).} With K = 2d, assign component
+\emph{Step 1 (K = 2d achieves δ = 1).} With K = 2d, assign component
 \(a\) to link direction
 \(a \in \{\pm\hat{e}_1, \ldots, \pm\hat{e}_d\}\). If M is diagonal in
 this basis, then
 \(\phi_a(\mathbf{n}, t+1) = \mu_a \cdot \phi_a(\mathbf{n} + \hat{e}_{j(a)}, t) - \phi_a(\mathbf{n}, t-1)\):
-each component depends on exactly one spatial input. Therefore $\delta$(2d) =
+each component depends on exactly one spatial input. Therefore δ(2d) =
 1.
 
-\emph{Step 2 (K \textless{} 2d forces $\delta$ $\geq$ 2).} By the pigeonhole
+\emph{Step 2 (K \textless{} 2d forces δ ≥ 2).} By the pigeonhole
 principle, at least one component must receive contributions from
 \(\lceil 2d/K \rceil \geq 2\) spatial input channels. These channels
-carry independent data from distinct neighboring sites, so $\delta$(K) $\geq$ 2.
+carry independent data from distinct neighboring sites, so δ(K) ≥ 2.
 
-\emph{Step 3 (K \textgreater{} 2d forces $\delta$ $\geq$ 2).} With K \textgreater{}
+\emph{Step 3 (K \textgreater{} 2d forces δ ≥ 2).} With K \textgreater{}
 2d components each required to have \(\delta \geq 1\) but only 2d
 distinct spatial channels available, by pigeonhole at least two
 components share a channel. Two components depending on the same single
 channel and on no others would be linearly dependent dynamical
 variables, contradicting independence; at least one of them must
-therefore couple to a second channel, so $\delta$(K) $\geq$ 2.
+therefore couple to a second channel, so δ(K) ≥ 2.
 
-\emph{Uniqueness.} Steps 1--3 show $\delta$ = 1 iff K = 2d.
+\emph{Uniqueness.} Steps 1--3 show δ = 1 iff K = 2d.
 
 \emph{Extension to general graphs.} For a bounded-degree graph \(G\)
 with polynomial growth exponent \(d\) and statistical isotropy: (i)
@@ -959,8 +965,8 @@ of M are (3, 2, 1), giving gauge group
 \(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1) \supset \mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\).}
 
 \emph{Proof.} Characters at each conjugacy class of O (24 elements): E:
-$\chi$ = 6; 8C$_3$: $\chi$ = 0; 3C$_2$: $\chi$ = 2; 6C$_2$': $\chi$ = 0; 6C$_4$: $\chi$ = 2. Character inner
-products give n(A$_1$) = 1, n(E) = 1, n(T$_1$) = 1, with n(A$_2$) = n(T$_2$) = 0. By
+χ = 6; 8C₃: χ = 0; 3C₂: χ = 2; 6C₂': χ = 0; 6C₄: χ = 2. Character inner
+products give n(A₁) = 1, n(E) = 1, n(T₁) = 1, with n(A₂) = n(T₂) = 0. By
 Schur's lemma and isotropy,
 \(M = \mathrm{diag}(\mu_c I_3, \mu_w I_2, \mu_y)\). \(\square\)
 
@@ -972,9 +978,9 @@ the same 6D space on which the coupling matrix
 fixes the multiplicities of \(M\)'s eigenspaces uniquely; there is no
 freedom in ``which 6D rep'' is meant.
 
-The max-speed constraint requires $\mu$\_y = 1 (the A$_1$ mode propagates at
-the lattice speed of light). The physical identifications: T$_1$ (spatial
-vector) $\rightarrow$ color, E (quadrupole) $\rightarrow$ weak isospin, A$_1$ (scalar) $\rightarrow$
+The max-speed constraint requires μ\_y = 1 (the A₁ mode propagates at
+the lattice speed of light). The physical identifications: T₁ (spatial
+vector) → color, E (quadrupole) → weak isospin, A₁ (scalar) →
 hypercharge. Local gauge invariance follows from background independence
 (§3.1).
 
@@ -1073,8 +1079,8 @@ triplet tastes.}
 
 \emph{Proof.} The 2\^{}d = 8 BZ corners pair into 4 taste pairs under
 \(\boldsymbol{\eta} \leftrightarrow \mathbf{1} - \boldsymbol{\eta}\).
-The pair \{(0,0,0), (1,1,1)\} is O-invariant (singlet A$_1$). The three
-axis-aligned pairs form irreducible T$_1$. \(\square\)
+The pair \{(0,0,0), (1,1,1)\} is O-invariant (singlet A₁). The three
+axis-aligned pairs form irreducible T₁. \(\square\)
 
 \textbf{Theorem 8b} (Taste coupling structure). \emph{On the d = 3
 lattice with the normalized wave equation, each BZ corner
@@ -1097,13 +1103,13 @@ symmetry (\(O\) permutes spatial axes), hence identical. \(\square\)
 taste produces a spin-0 field. (b) The triplet taste produces spin-1/2
 fields.}
 
-\emph{Proof.} (a) The singlet pairs $\Gamma$(0,0,0) = I$_4$ (scalar) and $\Gamma$(1,1,1)
-= $\gamma$$^1$$\gamma$$^2$$\gamma$$^3$ (pseudoscalar), both SO(3)-invariant: J = 0. (b) The j-th
-triplet pairs $\gamma$$^j$ (vector) with −i$\Sigma$\_j (spin generator): J = 1/2.
+\emph{Proof.} (a) The singlet pairs Γ(0,0,0) = I₄ (scalar) and Γ(1,1,1)
+= γ¹γ²γ³ (pseudoscalar), both SO(3)-invariant: J = 0. (b) The j-th
+triplet pairs γʲ (vector) with −iΣ\_j (spin generator): J = 1/2.
 \(\square\)
 
-\textbf{Corollary} (Spin-statistics from the lattice). Singlet $\rightarrow$ spin-0
-$\rightarrow$ boson (Higgs). Triplet $\rightarrow$ spin-1/2 $\rightarrow$ fermion (quarks and leptons).
+\textbf{Corollary} (Spin-statistics from the lattice). Singlet → spin-0
+→ boson (Higgs). Triplet → spin-1/2 → fermion (quarks and leptons).
 
 \textbf{Theorem 10} (Three degenerate fermion sectors). \emph{The three
 triplet staggered tastes provide three degenerate spin-1/2 sectors
@@ -1543,8 +1549,8 @@ left-handed. (v) \emph{SU(3) vector-like; SU(2) chiral.} The chirality
 projection \(P_L\) acts on the spin/sublattice index and commutes with
 the internal (K-component) index. SU(3) acts on internal \(T_1(3)\)
 components: both L and R carry color, so the trace-out preserves color
-coupling $\rightarrow$ \textbf{vector-like}. SU(2) acts on internal \(E(2)\)
-components, but the effective coupling has only L external legs $\rightarrow$
+coupling → \textbf{vector-like}. SU(2) acts on internal \(E(2)\)
+components, but the effective coupling has only L external legs →
 \textbf{chiral}. \(\square\)
 
 \textbf{Remark (chirality without a continuum limit).} In standard
@@ -1713,17 +1719,17 @@ while preserving \(\mathrm{SU}(3)_c\) is
 \(H = (\mathbf{1}, \mathbf{2}, +\tfrac{1}{2})\).
 
 The hierarchy problem is dissolved: in the OI framework, the QFT is
-emergent. The Higgs mass is set by eigenvalues of M (properties of $\varphi$),
+emergent. The Higgs mass is set by eigenvalues of M (properties of φ),
 not by radiative corrections.
 
 \hypertarget{the-filter-chain}{%
 \subsubsection{4.12 The filter chain}\label{the-filter-chain}}
 
-The complete derivation from (S, $\varphi$) to the Standard Model is laid out
-across §§3--5. The primary chain is proved end-to-end: wave equation $\rightarrow$
-KG $\rightarrow$ staggered fermions $\rightarrow$ chiral symmetry $\rightarrow$ K = 2d = 6 $\rightarrow$ cubic
-decomposition (3,2,1) $\rightarrow$ local gauge invariance $\rightarrow$ anomaly cancellation $\rightarrow$
-chirality $\rightarrow$ three generations $\rightarrow$ one Higgs $\rightarrow$ $\theta$̄ = 0. Redundant
+The complete derivation from (S, φ) to the Standard Model is laid out
+across §§3--5. The primary chain is proved end-to-end: wave equation →
+KG → staggered fermions → chiral symmetry → K = 2d = 6 → cubic
+decomposition (3,2,1) → local gauge invariance → anomaly cancellation →
+chirality → three generations → one Higgs → θ̄ = 0. Redundant
 second-route confirmations (asymptotic freedom, minimal N\_c, minimal
 chiral group) are at proposition level and provide independent checks.
 
@@ -1737,21 +1743,21 @@ chiral group) are at proposition level and provide independent checks.
 equation}\label{t-invariance-of-the-wave-equation}}
 
 \textbf{Theorem 17.} \emph{The discrete wave equation is invariant under
-time reversal T: $\varphi$(n, t) $\rightarrow$ $\varphi$(n, −t).}
+time reversal T: φ(n, t) → φ(n, −t).}
 
-\emph{Proof.} Under T, define $\psi$(n, t) = $\varphi$(n, −t). Substitution gives
-$\psi$(n, t+1) = $\psi$(n−1, t) + $\psi$(n+1, t) − $\psi$(n, t−1): the same wave equation.
+\emph{Proof.} Under T, define ψ(n, t) = φ(n, −t). Substitution gives
+ψ(n, t+1) = ψ(n−1, t) + ψ(n+1, t) − ψ(n, t−1): the same wave equation.
 \(\square\)
 
 The checkerboard partition marginalizes over spatial sites, not temporal
 data. It preserves T while breaking P (§4.8).
 
 \hypertarget{ux3b8-0}{%
-\subsubsection{5.2 $\theta$ = 0}\label{ux3b8-0}}
+\subsubsection{5.2 θ = 0}\label{ux3b8-0}}
 
-\textbf{Theorem 18.} \emph{The QCD $\theta$-parameter vanishes: $\theta$ = 0.}
+\textbf{Theorem 18.} \emph{The QCD θ-parameter vanishes: θ = 0.}
 
-\emph{Proof.} The $\theta$-term
+\emph{Proof.} The θ-term
 \(\mathcal{L}_\theta = (\theta/32\pi^2) \mathrm{Tr}(F \tilde{F})\) is
 T-odd: \(\mathrm{Tr}(F\tilde{F}) = 2\,\mathbf{E} \cdot \mathbf{B}\), and
 under T, \(\mathbf{E} \to \mathbf{E}\), \(\mathbf{B} \to -\mathbf{B}\).
@@ -1760,7 +1766,7 @@ Lagrangian inherits T-invariance because the partition is spatial, so
 time reversal commutes with the visible/hidden projection. \(\square\)
 
 \hypertarget{detailed-balance-and-ux3b8-0}{%
-\subsubsection{5.3 Detailed balance and $\theta$̄ =
+\subsubsection{5.3 Detailed balance and θ̄ =
 0}\label{detailed-balance-and-ux3b8-0}}
 
 \textbf{Theorem 19} (Detailed balance). \emph{For a spatial partition
@@ -1768,7 +1774,7 @@ time reversal commutes with the visible/hidden projection. \(\square\)
 the visible-sector transition probabilities satisfy \(T_{ij} = T_{ji}\)
 for all i, j.}
 
-\emph{Proof.} The full dynamics $\varphi$ is a bijection, and T-invariance
+\emph{Proof.} The full dynamics φ is a bijection, and T-invariance
 (Theorem 17) gives
 \(\varphi^{-1} = \mathcal{T} \circ \varphi \circ \mathcal{T}\). For each
 hidden state h with \(\pi_V(\varphi(i, h)) = j\), let
@@ -1777,7 +1783,7 @@ hidden state h with \(\pi_V(\varphi(i, h)) = j\), let
 \(\mathcal{T}\) preserves the visible/hidden classification. The map
 \(h \mapsto h'\) is an injection from
 \(\{h : \pi_V(\varphi(i,h)) = j\}\) into
-\(\{h' : \pi_V(\varphi(j,h')) = i\}\). Since $\varphi$ is a bijection on a
+\(\{h' : \pi_V(\varphi(j,h')) = i\}\). Since φ is a bijection on a
 finite set, the injection is a bijection between sets of equal
 cardinality. Dividing by \(|\mathcal{C}_H|\): \(T_{ij} = T_{ji}\).
 \(\square\)
@@ -1799,7 +1805,7 @@ a suitable anti-unitary \(\hat{\Theta}\), which gives
 \(\bar{\theta} = \theta + \arg\det(Y_u Y_d) = 0\), and the vanishing
 persists to all infrared scales.}
 
-\emph{Proof.} \textbf{Step 1:} Since $\varphi$ is a bijection, \(\varphi^n\) is
+\emph{Proof.} \textbf{Step 1:} Since φ is a bijection, \(\varphi^n\) is
 a bijection for every n.~Applying the counting argument of Theorem 19 to
 \(\varphi^n\): \(T_{ij}(n) = T_{ji}(n)\) for all n.~(Verified
 numerically: T-violation is exactly zero for L = 4, 6, q = 2, 3, 5, and
@@ -1811,7 +1817,7 @@ Hamiltonian is T-invariant at every time scale.
 
 \textbf{Step 3:} T-invariant Yukawa couplings at each scale are
 simultaneously real in an appropriate basis {[}10, §6.3{]}. Real Yukawa
-matrices have \(\arg\det(Y_u Y_d) = 0\). Combined with $\theta$ = 0 (Theorem
+matrices have \(\arg\det(Y_u Y_d) = 0\). Combined with θ = 0 (Theorem
 18): \(\bar{\theta} = 0\) at every scale. \(\square\)
 
 \emph{Remark.} This proof bypasses the instanton question. T-invariance
@@ -1882,7 +1888,7 @@ The expansion parameter for the \(C_2\)-dependent threshold is
 \(C_2 \cdot g_0^2 = C_2 \times 4\pi\alpha_0 = 1.08\) (SU(2)) and
 \(1.62\) (SU(3)) --- both \(\mathcal{O}(1)\). Finite-order perturbation
 theory converges too slowly: using known Wilson-action plaquette
-coefficients, 3-loop PT explains only \(\sim\)26\% of the threshold at
+coefficients, 3-loop PT explains only \$\sim\$26\% of the threshold at
 SU(3). The all-orders result is obtained from pure-gauge Monte Carlo
 simulation at the induced coupling \(\beta = 2N_c/g_0^2\). At SU(3) with
 \(\beta = 11.1\), the plaquette expectation value
@@ -1904,7 +1910,7 @@ The four components:
   exact).
 \item
   \(\delta_0 = 10.0\): the \(C_2\)-independent threshold, corresponding
-  to a two-loop VP coefficient \(c \approx 10\) (a \(\sim\)43\%
+  to a two-loop VP coefficient \(c \approx 10\) (a \$\sim\$43\%
   correction over one loop). Numerical computation of the two-loop
   staggered VP with the induced gauge propagator
   \(D(p) = 1/(p^2_{\text{lat}} \cdot \Pi_s)\) --- an 8-dimensional
@@ -2238,9 +2244,9 @@ Match to \(\theta_0 = 0.22227\)
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\(C_2 / d^2 = 2/9\) & \(0.22222\) & \(\mathbf{0.02\%}\) $\checkmark$ \\
+\(C_2 / d^2 = 2/9\) & \(0.22222\) & \(\mathbf{0.02\%}\) ✓ \\
 \(\dim(E)/\dim(T_1\otimes T_1) = 2/9\) & \(0.22222\) &
-\(\mathbf{0.02\%}\) $\checkmark$ \\
+\(\mathbf{0.02\%}\) ✓ \\
 \(C_2 / (d(d+1)) = 2/12\) & \(0.16667\) & \(25\%\) off \\
 \(l / d^2 = 1/9\) & \(0.11111\) & \(50\%\) off \\
 \(\dim(T_2)/\dim(T_1\otimes T_1) = 3/9\) & \(0.33333\) & \(50\%\) off \\
@@ -2410,14 +2416,13 @@ Tribimaximal (TBM) mixing --- \(\sin^2\theta_{12} = 1/3\),
 \(A_4 \subset O\) {[}23{]}. The deviations from TBM are controlled by
 three structural ingredients: (i) the overall scale
 \(\lambda^2 = 1/(2\pi^2)\), the squared Cabibbo angle; (ii) the sum rule
-\(2\Delta_{12} + \Delta_{23} = 0\) following from an \(A_4 \subset O\)
-residual-symmetry pattern (explicit derivation in progress; consistent
-with the \(\mathbb{Z}_3\) subgroup that also produces the Koide
-\(Q = 2/3\) relation preserved at \(O(\lambda)\)); and (iii) the ratio
+\(2\Delta_{12} + \Delta_{23} = 0\) following from a \(U\)-parity grading
+(\(\mu\)-\(\tau\) exchange antisymmetry) of the charged-lepton
+perturbation, derived below; and (iii) the ratio
 \(\Delta_{13}/\Delta_{23} = A^4 = 4/9\) following from the Wolfenstein
 \(A = \sqrt{2/3}\) of §7.1 via a second-order projection onto the Higgs
-democratic direction (explicit derivation in progress). These three
-ingredients determine the PMNS corrections:
+democratic direction. These three ingredients determine the PMNS
+corrections:
 
 \[\sin^2\theta_{12} = \frac{1}{3} - \frac{1}{4\pi^2} = 0.3080\]
 
@@ -2467,23 +2472,35 @@ mixing. Squaring gives
 ratio \(\Delta_{13}/\Delta_{23} = A^4\) follows immediately with
 \(\Delta_{23} = \lambda^2\) by convention.
 
-The remaining prefactors \((-1/2, +1)\) on the solar and atmospheric
-corrections satisfy the sum rule \(2\Delta_{12} + \Delta_{23} = 0\),
-equivalent to \(2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6\)
-(observed: \(1.164 \pm 0.021\)). This rule does \textbf{not} match the
-standard TM1
-(\(\sin^2\theta_{12} + \sin^2\theta_{13}/\cos^2\theta_{13} = 1/3\)) or
-TM2 (\(\cos^2\theta_{13}\sin^2\theta_{12} = 1/3\)) partial-TBM patterns
---- both fail by \(\gtrsim 1\%\) at the framework's values. The \(1:2\)
-ratio between solar and atmospheric corrections therefore corresponds to
-a distinct residual subgroup of \(A_4 \subset O\) preserved in the
-charged-lepton mass matrix (candidates include \(\mathbb{Z}_2^{SU}\)
-where \(SU\) is the third Klein-4 element, or partial \(\mathbb{Z}_3^T\)
-breaking). Explicit identification of the responsible residual is
-pending; the present section therefore presents the solar and
-atmospheric corrections as structurally-motivated, while the reactor
-angle has a clean first-principles derivation via
-\(\sin\theta_{13} = A^2 \lambda\).
+\textbf{Derivation of the sum rule from \(U\)-parity.} The
+charged-lepton rotation in the AF basis admits the expansion
+\(V_\ell = \exp(\lambda A_1 + \lambda^2 A_2 + O(\lambda^3))\) with
+\(A_n\) antisymmetric. Three framework constraints --- vanishing
+\(O(\lambda)\) contributions to both \(\Delta_{12}\) and \(\Delta_{23}\)
+(pushing these deviations to \(O(\lambda^2)\)), plus the correct
+\(\sin^2\theta_{13} = 4\lambda^2/9\) coefficient --- uniquely determine
+
+\[A_1 = \frac{\sqrt{2}}{3}\big(E_{12} - E_{13}\big),\]
+
+where
+\((E_{ij})_{kl} = \delta_{ik}\delta_{jl} - \delta_{il}\delta_{jk}\).
+Geometrically, \(A_1\) is a rotation by angle \(A^2 = 2/3\) around the
+axis \((e_2 + e_3)/\sqrt{2}\), reproducing
+\(\sin\theta_{13} = A^2\lambda\) as above. The structural property is
+that \(A_1\) is purely \emph{\(U\)-odd} under the \(\mu\)-\(\tau\)
+exchange generator of \(S_4 \supset A_4\): \(U A_1 U^{-1} = -A_1\). This
+transforms in the odd-parity irrep of \(S_4/A_4\) and corresponds to a
+\(\mu\)-\(\tau\)-antisymmetric perturbation of the charged-lepton mass
+matrix. At \(O(\lambda^2)\), the \(U\)-parity decomposition of \(A_2\)
+into \(U\)-even \(\propto (E_{12} + E_{13})\) and \(U\)-odd
+\(\propto E_{23}\) parts produces the constraints
+\(b_{12} + b_{13} = 3/4\) and \(b_{23} = 1\), which satisfy the sum-rule
+relation \(b_{23} = (4/3)(b_{12} + b_{13})\) exactly. The observed
+\(2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6\) (observed:
+\(1.164 \pm 0.021\)) therefore follows from the \(U\)-parity structure
+rather than from TM1 or TM2 partial-TBM patterns (both of which fail by
+\(\gtrsim 1\%\) at the framework's values). Detailed derivation in the
+companion note \texttt{A1\_Closure.md}.
 
 \hypertarget{the-higgs-mass}{%
 \subsubsection{7.4 The Higgs mass}\label{the-higgs-mass}}
@@ -2647,9 +2664,9 @@ MeV & 0.006\% & \textbf{M} (\(m_\tau\)) \\
 \(m_u/m_d\) & \(\sqrt{2/9}\) & 0.4714 & 0.474 ± 0.056 & \(0.05\sigma\) &
 \textbf{S} \\
 \(\sin^2\theta_{12}\) & \(1/3 - 1/(4\pi^2)\) & 0.3080 & 0.3092 ± 0.0087
-(JUNO) & \(0.14\sigma\) & \textbf{S}† \\
+(JUNO) & \(0.14\sigma\) & \textbf{S} \\
 \(\sin^2\theta_{23}\) & \(1/2 + 1/(2\pi^2)\) & 0.5507 & 0.546 ± 0.021 &
-\(0.2\sigma\) & \textbf{S}† \\
+\(0.2\sigma\) & \textbf{S} \\
 \(\sin^2\theta_{13}\) & \(4/(18\pi^2)\) & 0.02252 & 0.02220 ± 0.00068 &
 \(0.5\sigma\) & \textbf{S} \\
 \(\lambda(M_{\text{Pl}}) = 0\) & composite Higgs & 0 &
@@ -2663,15 +2680,7 @@ MeV & 0.006\% & \textbf{M} (\(m_\tau\)) \\
 0.3 & 0.9\% & \textbf{S} \\
 \end{longtable}
 
-Footnotes: - \textbf{†} Solar (\(\sin^2\theta_{12}\)) and atmospheric
-(\(\sin^2\theta_{23}\)) prefactors satisfy the sum rule
-\(2\Delta_{12}+\Delta_{23}=0\) (a non-standard partial-TBM pattern,
-distinct from TM1/TM2), which reduces them to one scale \(\lambda^2\);
-explicit derivation of this rule from the specific \(A_4 \subset O\)
-residual preserved in the charged-lepton mass matrix is in progress
-(§7.3). The reactor angle \(\sin^2\theta_{13}\) has a clean structural
-derivation via \(\sin\theta_{13} = A^2\lambda\) (squared Higgs
-projection times Cabibbo). - \textbf{‡} Uses the matching-scale ansatz
+Footnotes: - \textbf{‡} Uses the matching-scale ansatz
 \(m_{\text{match}} = \lambda \cdot g_0^2\) motivated in §7.5; rigorous
 derivation pending.
 
@@ -2716,7 +2725,7 @@ are developed in {[}Substratum{]}.
 \subsubsection{8.1 Structural realism}\label{structural-realism}}
 
 The structural reading aligns with ontic structural realism but does not
-require it. What the framework proves is that (S, $\varphi$) is a \emph{complete
+require it. What the framework proves is that (S, φ) is a \emph{complete
 description} of reality up to gauge equivalence (the reconstruction
 theorem, developed in {[}Substratum{]}). Whether the structure \emph{is}
 reality (the OSR commitment) or \emph{describes} a reality that exists
@@ -2728,18 +2737,18 @@ bijection on a finite set with bounded coupling.
 \hypertarget{observer-genericity}{%
 \subsubsection{8.2 Observer genericity}\label{observer-genericity}}
 
-\textbf{Theorem 22} (Genericity of observers). \emph{Let $\varphi$ be the wave
+\textbf{Theorem 22} (Genericity of observers). \emph{Let φ be the wave
 equation (or any energy-conserving dynamics) on a connected
-bounded-degree coupling graph with diameter D $\geq$ 4. Then for any
+bounded-degree coupling graph with diameter D ≥ 4. Then for any
 connected subgraph V with \(|V| \leq N/3\), the partition (V, H)
 satisfies C1--C3.}
 
 \emph{Proof.} C1: \(G_\varphi\) is connected and V is a proper subgraph,
-so $\partial$V $\neq$ $\emptyset$. The wave equation couples nearest neighbors; any edge in $\partial$V
+so ∂V ≠ ∅. The wave equation couples nearest neighbors; any edge in ∂V
 produces non-trivial dynamical coupling.
 
 C2: the wave equation is a Hamiltonian system --- it conserves energy
-and preserves phase-space volume. The hidden sector has spectral gap $\Delta$ =
+and preserves phase-space volume. The hidden sector has spectral gap Δ =
 0: correlations persist indefinitely, not just until some relaxation
 time. The C2 necessity proof {[}Main, §3.4{]} establishes that
 \(\Delta \tau_S \gg 1\) drives the system to Markovianity; for any
@@ -2783,34 +2792,34 @@ The framework's predictions fall into two categories, and the
 distinction matters for assessing their status.
 
 \textbf{Structural predictions} are properties of the equivalence class
-{[}(S, $\varphi$){]}/\(\mathcal{G}_{\text{sub}}\) --- they hold for every
+{[}(S, φ){]}/\(\mathcal{G}_{\text{sub}}\) --- they hold for every
 bijection satisfying the six structural properties. These include: SU(3)
 × SU(2) × U(1) with multiplicities (3, 2, 1), three chiral generations
 with identical gauge quantum numbers, one Higgs doublet (1, 2, +1/2),
 unique hypercharges from anomaly cancellation, \(\bar{\theta} = 0\) at
-all energy scales, $\hbar$ = c$^3$$\varepsilon$$^2$/(4G), the Bekenstein-Hawking formula, and
+all energy scales, ℏ = c³ε²/(4G), the Bekenstein-Hawking formula, and
 the universal induced coupling \(1/\alpha_0 = 23.25\) (§6.1). These are
-theorems. They do not depend on which specific $\varphi$ describes our universe.
+theorems. They do not depend on which specific φ describes our universe.
 
 \textbf{Solution-specific properties} are determined by the particular
-bijection $\varphi$ within the equivalence class. These include: gauge couplings
-(set by the eigenvalues $\mu$\_c, $\mu$\_w of M), fermion masses (set by
-taste-breaking in $\varphi$ at \(\mathcal{O}(\epsilon^2)\)), and mixing
-parameters (set by the Yukawa structure of $\varphi$). These are analogous to
+bijection φ within the equivalence class. These include: gauge couplings
+(set by the eigenvalues μ\_c, μ\_w of M), fermion masses (set by
+taste-breaking in φ at \(\mathcal{O}(\epsilon^2)\)), and mixing
+parameters (set by the Yukawa structure of φ). These are analogous to
 the mass \(M\) in the Schwarzschild solution: GR derives the functional
 form of the metric but does not predict which \(M\) describes a
 particular black hole. The OI framework derives the SM's structure but
-does not predict which $\varphi$ describes our universe.
+does not predict which φ describes our universe.
 
 The ``mass hierarchy'' --- the five-order-of-magnitude spread of fermion
 masses --- falls in the second category. It is not a gap in the
 framework; it is a property of the specific solution. The framework
 makes the correct structural prediction: three generations with
 \emph{identical} gauge quantum numbers (from cubic symmetry) but
-\emph{non-degenerate} masses (because the specific $\varphi$ breaks the cubic
+\emph{non-degenerate} masses (because the specific φ breaks the cubic
 symmetry through its Yukawa structure). The hierarchy problem proper ---
 why the Higgs mass is so much lighter than the Planck scale --- is
-dissolved: the Higgs mass is an eigenvalue of M (a property of $\varphi$), not a
+dissolved: the Higgs mass is an eigenvalue of M (a property of φ), not a
 radiative correction within the emergent QFT (§4.11).
 
 \textbf{Remaining open problems.} (i) \emph{Lattice-continuum
@@ -2993,7 +3002,7 @@ nilpotent part is automatically killed. \(\square\)
 decomposition)}\label{theorem-a.2-jordan-chevalley-decomposition}}
 
 \emph{Define \(N = (F^L - I)/L \bmod q\). Then: (i) N is nilpotent with
-N$^2$ = 0 and rank(N) = 2. (ii) \(F_u = I + N\) is unipotent with
+N² = 0 and rank(N) = 2. (ii) \(F_u = I + N\) is unipotent with
 \(F_u^q = I\). (iii) \(F_{\mathrm{ss}} = F \cdot (I - N)\) is semisimple
 with \(F_{\mathrm{ss}}^L = I\). (iv) \(F = F_{\mathrm{ss}} \cdot F_u\)
 and \([F_{\mathrm{ss}}, N] = 0\).}
@@ -3164,7 +3173,7 @@ the author on request.
 
 {[}Main{]} A. Maybaum, ``The Incompleteness of Observation,'' (2026).
 
-{[}GR{]} A. Maybaum, ``$\hbar$, the Bekenstein-Hawking Entropy, and Dynamical
+{[}GR{]} A. Maybaum, ``ℏ, the Bekenstein-Hawking Entropy, and Dynamical
 Dark Energy from the Cosmological Horizon,'' (2026).
 
 {[}Substratum{]} A. Maybaum, ``The Substratum Construction:
