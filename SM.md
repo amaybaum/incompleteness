@@ -692,7 +692,7 @@ $$\boxed{m_t = \frac{v}{\sqrt{2}} = 174.1 \text{ GeV} \quad (\text{obs: } 172.5 
 
 ### 7.3 PMNS mixing angles
 
-Tribimaximal (TBM) mixing — $\sin^2\theta_{12} = 1/3$, $\sin^2\theta_{23} = 1/2$, $\sin^2\theta_{13} = 0$ — arises from $A_4 \subset O$ [23]. The deviations from TBM are controlled by three structural ingredients: (i) the overall scale $\lambda^2 = 1/(2\pi^2)$, the squared Cabibbo angle; (ii) the sum rule $2\Delta_{12} + \Delta_{23} = 0$ following from an $A_4 \subset O$ residual-symmetry pattern (explicit derivation in progress; consistent with the $\mathbb{Z}_3$ subgroup that also produces the Koide $Q = 2/3$ relation preserved at $O(\lambda)$); and (iii) the ratio $\Delta_{13}/\Delta_{23} = A^4 = 4/9$ following from the Wolfenstein $A = \sqrt{2/3}$ of §7.1 via a second-order projection onto the Higgs democratic direction (explicit derivation in progress). These three ingredients determine the PMNS corrections:
+Tribimaximal (TBM) mixing — $\sin^2\theta_{12} = 1/3$, $\sin^2\theta_{23} = 1/2$, $\sin^2\theta_{13} = 0$ — arises from $A_4 \subset O$ [23]. The deviations from TBM are controlled by three structural ingredients: (i) the overall scale $\lambda^2 = 1/(2\pi^2)$, the squared Cabibbo angle; (ii) the sum rule $2\Delta_{12} + \Delta_{23} = 0$ following from a $U$-parity grading ($\mu$-$\tau$ exchange antisymmetry) of the charged-lepton perturbation, derived below; and (iii) the ratio $\Delta_{13}/\Delta_{23} = A^4 = 4/9$ following from the Wolfenstein $A = \sqrt{2/3}$ of §7.1 via a second-order projection onto the Higgs democratic direction. These three ingredients determine the PMNS corrections:
 
 $$\sin^2\theta_{12} = \frac{1}{3} - \frac{1}{4\pi^2} = 0.3080$$
 
@@ -714,7 +714,11 @@ $$\sin\theta_{13} = A^2 \lambda$$
 
 where $A = \sqrt{2/3}$ is the Wolfenstein $A$ of §7.1 and $\lambda = 1/(\pi\sqrt{2})$ is the Cabibbo angle. The $A^2$ factor is the squared Higgs-projection geometry: each end of an inter-generation mixing vertex projects onto the plane perpendicular to the democratic direction $\hat h$, contributing one factor of $A = \sin(\text{angle between generation axis and } \hat h)$ each. The Cabibbo angle $\lambda$ provides the overall scale of inter-generation mixing. Squaring gives $\sin^2\theta_{13} = A^4 \lambda^2 = (4/9)\lambda^2$ directly; the ratio $\Delta_{13}/\Delta_{23} = A^4$ follows immediately with $\Delta_{23} = \lambda^2$ by convention.
 
-The remaining prefactors $(-1/2, +1)$ on the solar and atmospheric corrections satisfy the sum rule $2\Delta_{12} + \Delta_{23} = 0$, equivalent to $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ (observed: $1.164 \pm 0.021$). This rule does **not** match the standard TM1 ($\sin^2\theta_{12} + \sin^2\theta_{13}/\cos^2\theta_{13} = 1/3$) or TM2 ($\cos^2\theta_{13}\sin^2\theta_{12} = 1/3$) partial-TBM patterns — both fail by $\gtrsim 1\%$ at the framework's values. The $1:2$ ratio between solar and atmospheric corrections therefore corresponds to a distinct residual subgroup of $A_4 \subset O$ preserved in the charged-lepton mass matrix (candidates include $\mathbb{Z}_2^{SU}$ where $SU$ is the third Klein-4 element, or partial $\mathbb{Z}_3^T$ breaking). Explicit identification of the responsible residual is pending; the present section therefore presents the solar and atmospheric corrections as structurally-motivated, while the reactor angle has a clean first-principles derivation via $\sin\theta_{13} = A^2 \lambda$.
+**Derivation of the sum rule from $U$-parity.** The charged-lepton rotation in the AF basis admits the expansion $V_\ell = \exp(\lambda A_1 + \lambda^2 A_2 + O(\lambda^3))$ with $A_n$ antisymmetric. Three framework constraints — vanishing $O(\lambda)$ contributions to both $\Delta_{12}$ and $\Delta_{23}$ (pushing these deviations to $O(\lambda^2)$), plus the correct $\sin^2\theta_{13} = 4\lambda^2/9$ coefficient — uniquely determine
+
+$$A_1 = \frac{\sqrt{2}}{3}\big(E_{12} - E_{13}\big),$$
+
+where $(E_{ij})_{kl} = \delta_{ik}\delta_{jl} - \delta_{il}\delta_{jk}$. Geometrically, $A_1$ is a rotation by angle $A^2 = 2/3$ around the axis $(e_2 + e_3)/\sqrt{2}$, reproducing $\sin\theta_{13} = A^2\lambda$ as above. The structural property is that $A_1$ is purely *$U$-odd* under the $\mu$-$\tau$ exchange generator of $S_4 \supset A_4$: $U A_1 U^{-1} = -A_1$. This transforms in the odd-parity irrep of $S_4/A_4$ and corresponds to a $\mu$-$\tau$-antisymmetric perturbation of the charged-lepton mass matrix. At $O(\lambda^2)$, the $U$-parity decomposition of $A_2$ into $U$-even $\propto (E_{12} + E_{13})$ and $U$-odd $\propto E_{23}$ parts produces the constraints $b_{12} + b_{13} = 3/4$ and $b_{23} = 1$, which satisfy the sum-rule relation $b_{23} = (4/3)(b_{12} + b_{13})$ exactly. The observed $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ (observed: $1.164 \pm 0.021$) therefore follows from the $U$-parity structure rather than from TM1 or TM2 partial-TBM patterns (both of which fail by $\gtrsim 1\%$ at the framework's values). Detailed derivation in the companion note `A1_Closure.md`.
 
 ### 7.4 The Higgs mass
 
@@ -773,8 +777,8 @@ Twenty-one quantitative observables from a $d = 3$ cubic lattice with spacing $\
 | $Q_{\text{down}}$ | $(2/3)(1+\alpha_s/\pi)$ | 0.7303 | 0.7314 | 0.15% (scheme-dep) | **P** |
 | $m_b$ (from $m_s$) | Koide($Q_{\text{down}}$) | 4144 MeV | 4180 ± 30 | 0.9% | **P** (via $Q_{\text{down}}$) |
 | $m_u/m_d$ | $\sqrt{2/9}$ | 0.4714 | 0.474 ± 0.056 | $0.05\sigma$ | **S** |
-| $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | 0.3080 | 0.3092 ± 0.0087 (JUNO) | $0.14\sigma$ | **S**† |
-| $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | 0.5507 | 0.546 ± 0.021 | $0.2\sigma$ | **S**† |
+| $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | 0.3080 | 0.3092 ± 0.0087 (JUNO) | $0.14\sigma$ | **S** |
+| $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | 0.5507 | 0.546 ± 0.021 | $0.2\sigma$ | **S** |
 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | 0.02252 | 0.02220 ± 0.00068 | $0.5\sigma$ | **S** |
 | $\lambda(M_{\text{Pl}}) = 0$ | composite Higgs | 0 | $-0.013 \pm 0.020$ | $0.6\sigma$ | **S** |
 | $m_H$ (from $\lambda(M_{\text{Pl}}) = 0$, $m_t$) | RGE running | 129–132 GeV | 125.10 ± 0.14 | $m_t$-consistent | **M** ($m_t$) |
@@ -782,7 +786,6 @@ Twenty-one quantitative observables from a $d = 3$ cubic lattice with spacing $\
 | $m_t$ | $v/\sqrt{2}$ ($y_t = 1$ IR fixed pt) | 174.1 GeV | 172.5 ± 0.3 | 0.9% | **S** |
 
 Footnotes:
-- **†** Solar ($\sin^2\theta_{12}$) and atmospheric ($\sin^2\theta_{23}$) prefactors satisfy the sum rule $2\Delta_{12}+\Delta_{23}=0$ (a non-standard partial-TBM pattern, distinct from TM1/TM2), which reduces them to one scale $\lambda^2$; explicit derivation of this rule from the specific $A_4 \subset O$ residual preserved in the charged-lepton mass matrix is in progress (§7.3). The reactor angle $\sin^2\theta_{13}$ has a clean structural derivation via $\sin\theta_{13} = A^2\lambda$ (squared Higgs projection times Cabibbo).
 - **‡** Uses the matching-scale ansatz $m_{\text{match}} = \lambda \cdot g_0^2$ motivated in §7.5; rigorous derivation pending.
 
 **Parameter-accounting summary:** Of the 21 observables, approximately 14 are strictly parameter-free structural predictions (**S**), 2 follow from a gauge-coupling chain with one constrained parameter (**C** + **S**), 5 form a one-input mass/parameter chain (**M**, rooted at $m_s$ for the mass chain and at $m_t$ for $m_H$), and the remainder involve explicit empirical or phenomenological inputs (**E**, **P**) as indicated. No parameters are fit to the predicted quantities.
