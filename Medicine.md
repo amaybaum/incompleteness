@@ -12,7 +12,7 @@
 
 The Observational Incompleteness (OI) framework [1] proves that any fast subsystem coupled to a slow, high-capacity hidden sector exhibits P-indivisible (non-Markovian) dynamics — history-dependent transition probabilities arising from information stored in the hidden sector and returned on subsequent interactions. Originally developed for fundamental physics, the theorem's conditions (C1–C3) are scale-independent and apply to any system with the appropriate architecture. We identify biological systems — from single enzymes through signaling cascades to the epigenome — as natural instantiations of this architecture. The fast catalytic process (enzyme active site, ion channel gating, kinase phosphorylation) is coupled (C1) to slow conformational or post-translational modification dynamics (C2) with exponentially large state spaces (C3), producing history-dependent behavior that standard Markovian models cannot capture.
 
-We develop this structural observation into a unified framework for seven medical domains: cancer pharmacology (checkpoint kinase memory and schedule-dependent sensitization), neurodegeneration (Alzheimer's and Parkinson's as disorders of molecular memory timescale), antibiotic resistance (persister cells as SOS memory accumulation), immunotherapy (T cell exhaustion as accumulated TCR signaling memory), cardiac pharmacology (use-dependent ion channel block as gating memory), and autoimmune disease (disproportionate efficacy of partial JAK inhibition as memory disruption), and the treatment management of genetic disorders (replacement therapy scheduling, inhibitor prevention, gene therapy durability). In each case, the framework identifies a specific therapeutic axis — **memory asymmetry** between disease and normal tissue — that is pharmacologically distinct from standard catalytic inhibition and predicts wider therapeutic windows. We extend the analysis to epigenetic regulation, identifying the chromatin state as the biological hidden sector with a hierarchical memory architecture spanning minutes (histone acetylation) to generations (DNA methylation). Twenty-six testable predictions are presented, each distinguishing the non-Markovian framework from standard Markovian pharmacology. Several predictions are already supported by existing data; the remainder are experimentally accessible with current techniques.
+We develop this structural observation into a unified framework for seven medical domains: cancer pharmacology (checkpoint kinase memory and schedule-dependent sensitization), neurodegeneration (Alzheimer's, Parkinson's, and PTSD as disorders of molecular memory timescale, with reconsolidation paradigms and low-intensity focused ultrasound as the first directly $\tau_B$-targeted therapeutic modality), antibiotic resistance (persister cells as SOS memory accumulation), immunotherapy (T cell exhaustion as accumulated TCR signaling memory), cardiac pharmacology (use-dependent ion channel block as gating memory), and autoimmune disease (disproportionate efficacy of partial JAK inhibition as memory disruption), and the treatment management of genetic disorders (replacement therapy scheduling, inhibitor prevention, gene therapy durability). In each case, the framework identifies a specific therapeutic axis — **memory asymmetry** between disease and normal tissue — that is pharmacologically distinct from standard catalytic inhibition and predicts wider therapeutic windows. We extend the analysis to epigenetic regulation, identifying the chromatin state as the biological hidden sector with a hierarchical memory architecture spanning minutes (histone acetylation) to generations (DNA methylation), and further upward through synaptic, circuit, systems, and cortical layers in the nervous system. The framework's central derivations — the necessarily reconstructive nature of memory access, the structural requirement of finite $\tau_B$ at every layer for functional dynamics, and the layer-specific reconsolidation window — provide unified accounts of phenomena previously treated as contingent features of biological memory. Twenty-nine main testable predictions (with three additional layer-specific PTSD/LIFU sub-predictions in neurodegeneration) are presented, each distinguishing the non-Markovian framework from standard Markovian pharmacology. Several predictions are already supported by existing data; the remainder are experimentally accessible with current techniques.
 
 ---
 
@@ -54,16 +54,56 @@ The OI prediction requires that an enzyme's activity history is physically encod
 
 The strength of the non-Markovian correction is set by $\tau_S / \tau_B$. When this ratio is very small (e.g., $10^{-12}$ for enzyme active site electronics vs. scaffold motions), the correction per event is tiny but accumulates. When the ratio approaches 1 (e.g., for allosteric sites where regulatory dynamics is comparable to the catalytic cycle), non-Markovian effects dominate and Markovian models give qualitatively wrong predictions.
 
+The memory hierarchy spans many decades of timescale. At the molecular level:
+
 | Memory mechanism | Write operation | Storage medium | $\tau_B$ | C1–C3 role |
 |---|---|---|---|---|
-| Multisite PTM | Phosphorylation | Modification pattern ($2^N$ states) | Min–hrs | C3 |
-| Sequential phosphorylation | Ordered modification | Conformational accessibility | Minutes | C2 + C3 |
 | Conformational hysteresis | Ligand binding | Oligomeric/regulatory state | $\mu$s–ms | C2 |
+| Sequential phosphorylation | Ordered modification | Conformational accessibility | Minutes | C2 + C3 |
+| Multisite PTM | Phosphorylation | Modification pattern ($2^N$ states) | Min–hrs | C3 |
 | Chromatin marks | $\gamma$H2AX, methylation | Histone modification state | Hrs–days | C2 + C3 |
+| DNA methylation | Methyltransferase activity | CpG state | Months–generations | C2 + C3 |
+
+In multicellular tissues — particularly the nervous system — the same C1–C3 architecture extends upward through additional layers, each treating the layer below as its hidden sector:
+
+| Memory layer | Substrate | $\tau_B$ |
+|---|---|---|
+| Synaptic | LTP/LTD weight changes (AMPA trafficking) | hr–days |
+| Circuit | Engram-cell ensembles, recurrent dynamics | days–months |
+| Systems | Hippocampal–cortical consolidation dialogue | months–years |
+| Cortical | Distributed semantic representation | years–decades |
+
+The hierarchical structure means that a perturbation at one layer (a drug, a disease process) can have effects propagating upward through layers with progressively longer $\tau_B$. The clinical timecourse of memory-related diseases — and the schedule-dependence of memory-targeted drugs — reflects this layered architecture.
 
 ### 2.3 The core therapeutic principle
 
 In disease contexts, the framework identifies a specific therapeutic axis: **memory asymmetry**. When a disease process depends on non-Markovian signaling dynamics that the corresponding normal tissue does not depend on (or depends on differently), therapies can target the *memory structure* rather than the *catalytic function*. This is pharmacologically distinct from standard inhibition and predicts wider therapeutic windows because the target (memory dependence) is more disease-specific than the target (catalytic activity).
+
+### 2.4 Reconstructive consequences of memory access
+
+A direct consequence of the framework's core mechanism: *every act of accessing a memory necessarily alters the substrate that stores it.* Observation of a coupled hidden sector cannot be passive — the visible-sector readout requires interaction with the hidden sector, and this interaction back-acts on the hidden state. The re-stored trace is therefore a function of both the original hidden state and the present visible-sector context at the moment of access.
+
+This is the framework's derivation of the *reconstructive nature of recall* — a phenomenon long established in cognitive science but typically treated as a contingent feature of biological memory. The framework makes it structural: any C1–C3 memory system must exhibit constructive re-storage on access. Pure address-store memory (where access leaves the substrate unchanged) is incompatible with C1–C3.
+
+**Clinical consequence: the reconsolidation paradigm.** When a memory is recalled, the recalled trace becomes labile and must be re-stored. The window during which it is labile provides a therapeutic opportunity. A drug given during the recall window writes into the re-storage process, modifying the future content of the memory. Propranolol given during recall of a traumatic memory selectively blocks the noradrenergic component of re-encoding, reducing the emotional valence of subsequent retrievals — a result well-established in PTSD trials (Brunet et al., reviewed extensively).
+
+The framework predicts that this approach generalizes: any memory layer with a measurable $\tau_B$ should have a corresponding "reconsolidation window" during which targeted intervention can rewrite the memory at that layer without affecting memories already consolidated to slower layers. The selectivity is not coincidental — it follows from the layered architecture of §2.2.
+
+### 2.5 Forgetting as functional necessity
+
+Standard accounts treat forgetting as a failure of memory. The framework reframes it: *finite $\tau_B$ at every layer is structurally required.* A system with infinite $\tau_B$ at every layer would be unable to discriminate present from past — it would have no temporal structure, no "now," no capacity to register change. Such a system is not a memory device; it is a frozen state.
+
+The brain operates in the parameter regime where each layer's $\tau_B$ is matched to that layer's functional role. Pattern separation requires fast forgetting at the molecular layer; generalization requires consolidation transfer from fast to slow layers; fear extinction and mood regulation require active erasure at intermediate layers.
+
+**Clinical consequence: memory disorders are $\tau_B$ disorders.** From the framework's perspective, the relevant clinical question for any memory-related condition is not "is the memory intact or damaged?" but "which layer's $\tau_B$ has shifted, and in which direction?" This reframes:
+
+- **Excessive retention** (PTSD, OCD intrusive thoughts, depressive rumination) → $\tau_B$ too long at the affected layer
+- **Failure of new encoding** (anterograde amnesia, attention deficits) → $\tau_B$ too short, or write-rate too low
+- **Selective loss of old content** (retrograde amnesia, semantic dementia) → loss of substrate at affected layer
+- **Failure of cross-layer transfer** (Korsakoff's syndrome, sleep-deprivation-induced consolidation failure) → disruption of layer-coupling mechanisms
+- **Mixed pattern** (normal aging, Alzheimer's) → $\tau_B$ shifts at multiple layers in opposite directions
+
+The therapeutic axis follows directly: $\tau_B$-normalizing interventions targeting the specific affected layer, rather than broad-spectrum receptor pharmacology.
 
 ---
 
@@ -122,6 +162,49 @@ Neurodegenerative disease involves pathological alteration of $\tau_B$ in synapt
 **$\tau_B$-normalizing drugs.** Instead of targeting the misfolded proteins themselves (which has largely failed clinically), target the *altered memory timescale* of signaling kinases. A drug that restores $\tau_B$ to its normal value could preserve synaptic function without clearing aggregates.
 
 **Testable prediction:** Measure CaMKII conformational dynamics (by FRET or HDX-MS) in neurons exposed to A$\beta$ oligomers vs. controls. The framework predicts that A$\beta$ shifts $\tau_B$ of CaMKII's regulatory domain. A compound that reverses this $\tau_B$ shift should rescue synaptic plasticity (measurable by LTP induction) independently of A$\beta$ clearance.
+
+### 4.5 PTSD as $\tau_B$ pathology with reconsolidation as therapy
+
+PTSD involves abnormally persistent and intrusive memory of traumatic events. From the framework's perspective, this is a representative case of *failure of $\tau_B$ to be appropriately finite* at the relevant memory layer — the trauma-encoded trace persists at a layer where it should have decayed and continues to drive visible-sector dynamics (intrusive re-experiencing, hyperarousal).
+
+The clinical efficacy of the reconsolidation paradigm — recalling a traumatic memory under propranolol blockade reduces its later emotional valence — is directly framework-predicted (§2.4). The mechanism is structural: recall opens the memory to obligatory re-storage, and pharmacologically blocking the noradrenergic re-encoding selectively erases the emotional content while preserving the declarative trace.
+
+**Predictions for further development:**
+
+- The same approach should generalize to other layers. Targeting memory layers slower than noradrenergic emotional encoding (e.g., the cortical-layer trace itself) would require longer-acting interventions during longer reconsolidation windows.
+- The optimal interval between reconsolidation-and-blockade sessions should match the targeted layer's $\tau_B$. Single-session protocols are likely sub-optimal for memories that have consolidated to slower layers.
+- Layer-selective drugs (currently lacking) would substantially improve efficacy. Propranolol works because noradrenergic encoding has a specific molecular substrate; analogous compounds for other encoding modalities are not yet available.
+
+### 4.6 Direct mechanical access via low-intensity focused ultrasound
+
+Standard pharmacology writes to *chemical* degrees of freedom (receptor occupancy, phosphorylation state). It cannot directly access the conformational and mechanical dynamics that constitute $\tau_B$ at the molecular layer. Low-intensity focused ultrasound (LIFU) is the first therapeutic modality that *directly* perturbs these mechanical degrees of freedom: acoustic radiation force acts on mechanosensitive ion channels (Piezo1, TRAAK, TRP family) and on membrane conformational states without requiring receptor binding.
+
+This makes LIFU structurally aligned with the framework in a way pharmacology is not. It is a *$\tau_B$-writer* rather than a catalytic inhibitor.
+
+**Clinical evidence consistent with the framework:**
+
+- The 2025 Korean trial (Ye et al., J. Neurosurgery) showed cognitive improvement in Alzheimer's patients from focused ultrasound BBB opening *without* concurrent drug administration. This is unexpected on the amyloid hypothesis but framework-consistent if ultrasound directly normalizes molecular-memory substrate dynamics (e.g., CaMKII regulatory-domain kinetics) independent of amyloid clearance.
+- LIFU has shown reversible neuromodulation effects in the anterior limb of the internal capsule (depression target), consistent with direct perturbation of axonal conduction via mechanosensitive K2P channels at the nodes of Ranvier.
+
+**Framework-specific predictions for LIFU (extension-level):**
+
+- Pulse repetition frequency should match characteristic molecular $\tau_B$ values of the target substrate. CaMKII intervention should use minute-scale to hour-scale pulse trains, not continuous sonication.
+- Schedule dependence should follow the same $\tau_B$-matched-interval logic as drug scheduling (§3.3, §5.3). Current LIFU protocols use month-scale intervals, which the framework predicts is too slow for molecular-layer targeting.
+- Therapeutic window should be biphasic: low intensity for $\tau_B$ normalization, high intensity for non-specific mechanical damage. The window between is framework-predicted to be narrow.
+
+These predictions are not currently how LIFU parameters are selected clinically (parameters are largely empirical). Framework-informed trials would systematically scan PRF and intensity against measured molecular $\tau_B$ values.
+
+### 4.7 The brain memory hierarchy (extension)
+
+The five-layer extension introduced in §2.2 — synaptic, circuit, systems, cortical — applies most directly to the brain. Each layer is the hidden sector for the layer above; each layer has its own $\tau_B$ inherited from but coarse-grained relative to the layer below.
+
+This hierarchical picture provides natural framework-level interpretations of several established neuroscience phenomena:
+
+- **Long-term potentiation** is the canonical example of cross-layer information transfer. A fast input (Ca²⁺ transient) writes to a fast molecular memory (CaMKII), which writes to synaptic-layer state (AMPA receptor density), which writes to slower structural state (spine enlargement), which eventually writes to the slowest available layer (gene expression and protein synthesis). Each transition is information transfer between hidden-sector layers.
+- **Sleep consolidation** is the period during which the systems-layer $\tau_B$ becomes accessible. Waking input dominates the cortex; sleep allows the natural relaxation dynamics of the slow hidden sector to proceed. The replay events documented in slow-wave sleep and REM are the framework-required mechanism for inter-layer transfer.
+- **Phenomenology of remembering across timescales** — recent memories with rich sensory detail, medium-age memories with preserved event structure but fading sensory content, old memories with semantic gist but reconstructed episodic detail — maps onto the layered $\tau_B$ architecture quantitatively.
+
+These are *extensions* of the framework's primary content (molecular memory and disease pharmacology) rather than independent derivations. They provide a coherent interpretive frame for brain memory phenomena without claiming the framework derives the specific phenomenology of episodic recall, the hippocampal indexing role, or working memory as distinct from long-term storage. These remain biological and cognitive-science questions outside the framework's current scope.
 
 ---
 
@@ -300,6 +383,12 @@ The following predictions are specific to the non-Markovian framework and are *n
 **Prediction 7:** Reversing the $\tau_B$ shift rescues LTP independently of A$\beta$ clearance. *Test:* Treat A$\beta$-exposed neurons with a CaMKII conformational modulator; measure LTP induction.
 
 **Prediction 8:** Normal aging shows gradual increase in CaMKII $\tau_B$, correlating with synaptic rigidity. *Test:* Measure CaMKII regulatory domain dynamics as a function of age in animal models.
+
+**Prediction 8a:** PTSD reconsolidation efficacy is layer-specific. Propranolol-during-recall blocks emotional re-encoding (noradrenergic substrate); analogous compounds for other encoding modalities should produce dissociable effects on different memory components. *Test:* Compare cognitive vs. emotional vs. sensory components of PTSD memory after layer-targeted reconsolidation interventions.
+
+**Prediction 8b:** LIFU pulse repetition frequency matched to molecular $\tau_B$ produces stronger neuromodulation than empirically-chosen PRF. *Test:* Systematically scan PRF in animal models against measured CaMKII (or other target) $\tau_B$; predict response peak at PRF matching 1/$\tau_B$.
+
+**Prediction 8c:** LIFU-only intervention (no antibody) in early Alzheimer's produces cognitive benefit proportional to $\tau_B$ normalization, measurable by post-LIFU CaMKII conformational dynamics. *Test:* The 2025 Korean trial design extended with mechanistic assays.
 
 ### 11.3 Antibiotic resistance
 
