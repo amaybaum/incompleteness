@@ -12,7 +12,7 @@
 
 The Observational Incompleteness (OI) framework [1] proves that any fast subsystem coupled to a slow, high-capacity hidden sector exhibits P-indivisible (non-Markovian) dynamics — history-dependent transition probabilities arising from information stored in the hidden sector and returned on subsequent interactions. Originally developed for fundamental physics, the theorem's conditions (C1–C3) are scale-independent and apply to any system with the appropriate architecture. We identify biological systems — from single enzymes through signaling cascades to the epigenome — as natural instantiations of this architecture. The fast catalytic process (enzyme active site, ion channel gating, kinase phosphorylation) is coupled (C1) to slow conformational or post-translational modification dynamics (C2) with exponentially large state spaces (C3), producing history-dependent behavior that standard Markovian models cannot capture.
 
-We develop this structural observation into a unified framework for seven medical domains: cancer pharmacology (checkpoint kinase memory and schedule-dependent sensitization), neurodegeneration (Alzheimer's and Parkinson's as disorders of molecular memory timescale), antibiotic resistance (persister cells as SOS memory accumulation), immunotherapy (T cell exhaustion as accumulated TCR signaling memory), cardiac pharmacology (use-dependent ion channel block as gating memory), and autoimmune disease (disproportionate efficacy of partial JAK inhibition as memory disruption), and the treatment management of genetic disorders (replacement therapy scheduling, inhibitor prevention, gene therapy durability). In each case, the framework identifies a specific therapeutic axis — **memory asymmetry** between disease and normal tissue — that is pharmacologically distinct from standard catalytic inhibition and predicts wider therapeutic windows. We extend the analysis to epigenetic regulation, identifying the chromatin state as the biological hidden sector with a hierarchical memory architecture spanning minutes (histone acetylation) to generations (DNA methylation). Twenty-six testable predictions are presented, each distinguishing the non-Markovian framework from standard Markovian pharmacology. Several predictions are already supported by existing data; the remainder are experimentally accessible with current techniques.
+We develop this structural observation into a unified framework for five medical domains: cancer pharmacology (checkpoint kinase memory and schedule-dependent sensitization), neurodegeneration (Alzheimer's, Parkinson's, and PTSD as disorders of molecular memory timescale, with reconsolidation paradigms and low-intensity focused ultrasound as the first directly $\tau_B$-targeted therapeutic modality), antibiotic resistance (persister cells as SOS memory accumulation), immunotherapy (T cell exhaustion as accumulated TCR signaling memory), and autoimmune disease (disproportionate efficacy of partial JAK inhibition as memory disruption). In each case, the framework identifies a specific therapeutic axis — **memory asymmetry** between disease and normal tissue — that is pharmacologically distinct from standard catalytic inhibition and predicts wider therapeutic windows. We extend the analysis to epigenetic regulation, identifying the chromatin state as the biological hidden sector with a hierarchical memory architecture spanning minutes (histone acetylation) to generations (DNA methylation), and further upward through synaptic, circuit, and systems layers in the nervous system. The framework's central derivations — the necessarily reconstructive nature of memory access, the structural requirement of finite $\tau_B$ at every layer for functional dynamics, and the layer-specific reconsolidation window — provide unified accounts of phenomena previously treated as contingent features of biological memory. Testable predictions are presented for each domain, distinguishing the non-Markovian framework from standard Markovian pharmacology. Several are already supported by existing data; the remainder are experimentally accessible with current techniques.
 
 ---
 
@@ -32,7 +32,7 @@ When C1–C3 are satisfied, the characterization theorem [1, §3.4] proves that 
 
 The biological relevance is immediate. Enzymes, kinases, ion channels, and receptors are composed of a fast catalytic domain coupled to slow regulatory domains, post-translational modification (PTM) sites, and conformational degrees of freedom. The catalytic cycle operates on nanosecond-to-microsecond timescales; the regulatory domain's conformational changes persist for microseconds to milliseconds; PTM patterns persist for minutes to hours; chromatin modifications persist for days to generations. At every scale, C1–C3 are satisfied, and the theorem predicts non-Markovian dynamics.
 
-This paper develops the medical implications of this observation across six domains, identifies a unifying therapeutic principle (memory asymmetry), and presents twenty-six testable predictions that distinguish the non-Markovian framework from standard Markovian pharmacology.
+This paper develops the medical implications of this observation across five domains, identifies a unifying therapeutic principle (memory asymmetry), and presents testable predictions that distinguish the non-Markovian framework from standard Markovian pharmacology.
 
 ---
 
@@ -54,16 +54,56 @@ The OI prediction requires that an enzyme's activity history is physically encod
 
 The strength of the non-Markovian correction is set by $\tau_S / \tau_B$. When this ratio is very small (e.g., $10^{-12}$ for enzyme active site electronics vs. scaffold motions), the correction per event is tiny but accumulates. When the ratio approaches 1 (e.g., for allosteric sites where regulatory dynamics is comparable to the catalytic cycle), non-Markovian effects dominate and Markovian models give qualitatively wrong predictions.
 
+The memory hierarchy spans many decades of timescale. At the molecular level:
+
 | Memory mechanism | Write operation | Storage medium | $\tau_B$ | C1–C3 role |
 |---|---|---|---|---|
-| Multisite PTM | Phosphorylation | Modification pattern ($2^N$ states) | Min–hrs | C3 |
-| Sequential phosphorylation | Ordered modification | Conformational accessibility | Minutes | C2 + C3 |
 | Conformational hysteresis | Ligand binding | Oligomeric/regulatory state | $\mu$s–ms | C2 |
+| Sequential phosphorylation | Ordered modification | Conformational accessibility | Minutes | C2 + C3 |
+| Multisite PTM | Phosphorylation | Modification pattern ($2^N$ states) | Min–hrs | C3 |
 | Chromatin marks | $\gamma$H2AX, methylation | Histone modification state | Hrs–days | C2 + C3 |
+| DNA methylation | Methyltransferase activity | CpG state | Months–generations | C2 + C3 |
+
+In multicellular tissues — particularly the nervous system — the same C1–C3 architecture extends upward through additional layers, each treating the layer below as its hidden sector:
+
+| Memory layer | Substrate | $\tau_B$ |
+|---|---|---|
+| Synaptic | LTP/LTD weight changes (AMPA trafficking) | hr–days |
+| Circuit | Engram-cell ensembles, recurrent dynamics | days–months |
+| Systems | Hippocampal–cortical consolidation dialogue | months–years |
+| Cortical | Distributed semantic representation | years–decades |
+
+The hierarchical structure means that a perturbation at one layer (a drug, a disease process) can have effects propagating upward through layers with progressively longer $\tau_B$. The clinical timecourse of memory-related diseases — and the schedule-dependence of memory-targeted drugs — reflects this layered architecture.
 
 ### 2.3 The core therapeutic principle
 
 In disease contexts, the framework identifies a specific therapeutic axis: **memory asymmetry**. When a disease process depends on non-Markovian signaling dynamics that the corresponding normal tissue does not depend on (or depends on differently), therapies can target the *memory structure* rather than the *catalytic function*. This is pharmacologically distinct from standard inhibition and predicts wider therapeutic windows because the target (memory dependence) is more disease-specific than the target (catalytic activity).
+
+### 2.4 Reconstructive consequences of memory access
+
+A direct consequence of the framework's core mechanism: *every act of accessing a memory necessarily alters the substrate that stores it.* Observation of a coupled hidden sector cannot be passive — the visible-sector readout requires interaction with the hidden sector, and this interaction back-acts on the hidden state. The re-stored trace is therefore a function of both the original hidden state and the present visible-sector context at the moment of access.
+
+This is the framework's derivation of the *reconstructive nature of recall* — a phenomenon long established in cognitive science but typically treated as a contingent feature of biological memory. The framework makes it structural: any C1–C3 memory system must exhibit constructive re-storage on access. Pure address-store memory (where access leaves the substrate unchanged) is incompatible with C1–C3.
+
+**Clinical consequence: the reconsolidation paradigm.** When a memory is recalled, the recalled trace becomes labile and must be re-stored. The window during which it is labile provides a therapeutic opportunity. A drug given during the recall window writes into the re-storage process, modifying the future content of the memory. Propranolol given during recall of a traumatic memory selectively blocks the noradrenergic component of re-encoding, reducing the emotional valence of subsequent retrievals — a result well-established in PTSD trials (Brunet et al., reviewed extensively).
+
+The framework predicts that this approach generalizes: any memory layer with a measurable $\tau_B$ should have a corresponding "reconsolidation window" during which targeted intervention can rewrite the memory at that layer without affecting memories already consolidated to slower layers. The selectivity is not coincidental — it follows from the layered architecture of §2.2.
+
+### 2.5 Forgetting as functional necessity
+
+Standard accounts treat forgetting as a failure of memory. The framework reframes it: *finite $\tau_B$ at every layer is structurally required.* A system with infinite $\tau_B$ at every layer would be unable to discriminate present from past — it would have no temporal structure, no "now," no capacity to register change. Such a system is not a memory device; it is a frozen state.
+
+The brain operates in the parameter regime where each layer's $\tau_B$ is matched to that layer's functional role. Pattern separation requires fast forgetting at the molecular layer; generalization requires consolidation transfer from fast to slow layers; fear extinction and mood regulation require active erasure at intermediate layers.
+
+**Clinical consequence: memory disorders are $\tau_B$ disorders.** From the framework's perspective, the relevant clinical question for any memory-related condition is not "is the memory intact or damaged?" but "which layer's $\tau_B$ has shifted, and in which direction?" This reframes:
+
+- **Excessive retention** (PTSD, OCD intrusive thoughts, depressive rumination) → $\tau_B$ too long at the affected layer
+- **Failure of new encoding** (anterograde amnesia, attention deficits) → $\tau_B$ too short, or write-rate too low
+- **Selective loss of old content** (retrograde amnesia, semantic dementia) → loss of substrate at affected layer
+- **Failure of cross-layer transfer** (Korsakoff's syndrome, sleep-deprivation-induced consolidation failure) → disruption of layer-coupling mechanisms
+- **Mixed pattern** (normal aging, Alzheimer's) → $\tau_B$ shifts at multiple layers in opposite directions
+
+The therapeutic axis follows directly: $\tau_B$-normalizing interventions targeting the specific affected layer, rather than broad-spectrum receptor pharmacology.
 
 ---
 
@@ -123,6 +163,49 @@ Neurodegenerative disease involves pathological alteration of $\tau_B$ in synapt
 
 **Testable prediction:** Measure CaMKII conformational dynamics (by FRET or HDX-MS) in neurons exposed to A$\beta$ oligomers vs. controls. The framework predicts that A$\beta$ shifts $\tau_B$ of CaMKII's regulatory domain. A compound that reverses this $\tau_B$ shift should rescue synaptic plasticity (measurable by LTP induction) independently of A$\beta$ clearance.
 
+### 4.5 PTSD as $\tau_B$ pathology with reconsolidation as therapy
+
+PTSD involves abnormally persistent and intrusive memory of traumatic events. From the framework's perspective, this is a representative case of *failure of $\tau_B$ to be appropriately finite* at the relevant memory layer — the trauma-encoded trace persists at a layer where it should have decayed and continues to drive visible-sector dynamics (intrusive re-experiencing, hyperarousal).
+
+The clinical efficacy of the reconsolidation paradigm — recalling a traumatic memory under propranolol blockade reduces its later emotional valence — is directly framework-predicted (§2.4). The mechanism is structural: recall opens the memory to obligatory re-storage, and pharmacologically blocking the noradrenergic re-encoding selectively erases the emotional content while preserving the declarative trace.
+
+**Predictions for further development:**
+
+- The same approach should generalize to other layers. Targeting memory layers slower than noradrenergic emotional encoding (e.g., the cortical-layer trace itself) would require longer-acting interventions during longer reconsolidation windows.
+- The optimal interval between reconsolidation-and-blockade sessions should match the targeted layer's $\tau_B$. Single-session protocols are likely sub-optimal for memories that have consolidated to slower layers.
+- Layer-selective drugs (currently lacking) would substantially improve efficacy. Propranolol works because noradrenergic encoding has a specific molecular substrate; analogous compounds for other encoding modalities are not yet available.
+
+### 4.6 Direct mechanical access via low-intensity focused ultrasound
+
+Standard pharmacology writes to *chemical* degrees of freedom (receptor occupancy, phosphorylation state). It cannot directly access the conformational and mechanical dynamics that constitute $\tau_B$ at the molecular layer. Low-intensity focused ultrasound (LIFU) is the first therapeutic modality that *directly* perturbs these mechanical degrees of freedom: acoustic radiation force acts on mechanosensitive ion channels (Piezo1, TRAAK, TRP family) and on membrane conformational states without requiring receptor binding.
+
+This makes LIFU structurally aligned with the framework in a way pharmacology is not. It is a *$\tau_B$-writer* rather than a catalytic inhibitor.
+
+**Clinical evidence consistent with the framework:**
+
+- The 2025 Korean trial (Ye et al., J. Neurosurgery) showed cognitive improvement in Alzheimer's patients from focused ultrasound BBB opening *without* concurrent drug administration. This is unexpected on the amyloid hypothesis but framework-consistent if ultrasound directly normalizes molecular-memory substrate dynamics (e.g., CaMKII regulatory-domain kinetics) independent of amyloid clearance.
+- LIFU has shown reversible neuromodulation effects in the anterior limb of the internal capsule (depression target), consistent with direct perturbation of axonal conduction via mechanosensitive K2P channels at the nodes of Ranvier.
+
+**Framework-specific predictions for LIFU (extension-level):**
+
+- Pulse repetition frequency should match characteristic molecular $\tau_B$ values of the target substrate. CaMKII intervention should use minute-scale to hour-scale pulse trains, not continuous sonication.
+- Schedule dependence should follow the same $\tau_B$-matched-interval logic as drug scheduling (§3.3, §5.3). Current LIFU protocols use month-scale intervals, which the framework predicts is too slow for molecular-layer targeting.
+- Therapeutic window should be biphasic: low intensity for $\tau_B$ normalization, high intensity for non-specific mechanical damage. The window between is framework-predicted to be narrow.
+
+These predictions are not currently how LIFU parameters are selected clinically (parameters are largely empirical). Framework-informed trials would systematically scan PRF and intensity against measured molecular $\tau_B$ values.
+
+### 4.7 The brain memory hierarchy (extension)
+
+The five-layer extension introduced in §2.2 — synaptic, circuit, systems, cortical — applies most directly to the brain. Each layer is the hidden sector for the layer above; each layer has its own $\tau_B$ inherited from but coarse-grained relative to the layer below.
+
+This hierarchical picture provides natural framework-level interpretations of several established neuroscience phenomena:
+
+- **Long-term potentiation** is the canonical example of cross-layer information transfer. A fast input (Ca²⁺ transient) writes to a fast molecular memory (CaMKII), which writes to synaptic-layer state (AMPA receptor density), which writes to slower structural state (spine enlargement), which eventually writes to the slowest available layer (gene expression and protein synthesis). Each transition is information transfer between hidden-sector layers.
+- **Sleep consolidation** is the period during which the systems-layer $\tau_B$ becomes accessible. Waking input dominates the cortex; sleep allows the natural relaxation dynamics of the slow hidden sector to proceed. The replay events documented in slow-wave sleep and REM are the framework-required mechanism for inter-layer transfer.
+- **Phenomenology of remembering across timescales** — recent memories with rich sensory detail, medium-age memories with preserved event structure but fading sensory content, old memories with semantic gist but reconstructed episodic detail — maps onto the layered $\tau_B$ architecture quantitatively.
+
+These are *extensions* of the framework's primary content (molecular memory and disease pharmacology) rather than independent derivations. They provide a coherent interpretive frame for brain memory phenomena without claiming the framework derives the specific phenomenology of episodic recall, the hippocampal indexing role, or working memory as distinct from long-term storage. These remain biological and cognitive-science questions outside the framework's current scope.
+
 ---
 
 ## 5. Antibiotic Resistance
@@ -165,39 +248,25 @@ T cell exhaustion begins as accumulated non-Markovian memory in the TCR signalin
 
 **Memory erasure + checkpoint inhibition.** PD-1 inhibitors release the inhibitory brake but do not erase accumulated TCR signaling memory. Combining PD-1 inhibitor with a "memory eraser" — a drug that accelerates conformational relaxation of TCR signaling kinases (decreasing $\tau_B$) — should rescue T cell function more effectively than PD-1 inhibitor alone.
 
----
+## 7. Autoimmune Disease
 
-## 7. Cardiac Pharmacology
-
-### 7.1 Use-dependent block as non-Markovian channel dynamics
-
-Antiarrhythmic drugs show use-dependent block — efficacy depends on heart rate, not just plasma concentration. Voltage-gated ion channels (hERG, Nav1.5, Cav1.2) satisfy C1–C3: the pore domain (fast gating, $\sim \mu$s) is coupled to voltage-sensing and regulatory domains with slow inactivation timescales ($\sim 100$ ms to seconds) and multiple inactivation states (C3).
-
-### 7.2 Therapeutic implication
-
-**Heart-rate-adapted dosing.** Antiarrhythmic dosing should be adapted to the patient's *heart rate pattern*, which determines the channel memory state. A patient with persistent tachycardia has channels in a different memory state than a patient with intermittent tachycardia. For drugs with strong use-dependence (flecainide, lidocaine), this could substantially improve the therapeutic window by avoiding pro-arrhythmic effects at high heart rates.
-
----
-
-## 8. Autoimmune Disease
-
-### 8.1 Disproportionate efficacy of partial JAK inhibition
+### 7.1 Disproportionate efficacy of partial JAK inhibition
 
 JAK inhibitors (tofacitinib, baricitinib) show a nonlinear dose-response: $50\%$ reduction in JAK activity produces $> 80\%$ reduction in disease activity. JAK kinases have a pseudokinase domain (JH2) that regulates the kinase domain (JH1), satisfying C1–C3.
 
-### 8.2 The OI prediction
+### 7.2 The OI prediction
 
 Partial inhibition disrupts the *memory structure* of JAK signaling without fully blocking transduction. The pathological signaling in autoimmune disease involves accumulated PTM/conformational memory from chronic cytokine stimulation. Partial inhibition erases this memory faster than it blocks acute signaling, producing disproportionate reduction in the chronic (memory-dependent) disease component.
 
-### 8.3 Therapeutic implication
+### 7.3 Therapeutic implication
 
 **Memory-selective JAK modulation.** Drugs that selectively accelerate JH2 conformational relaxation — erasing accumulated inflammatory memory without blocking acute immune responses — would predict wider therapeutic windows than current JAK inhibitors: disease activity reduced while acute immune competence is preserved.
 
 ---
 
-## 9. Epigenetics as the Biological Hidden Sector
+## 8. Epigenetics as the Biological Hidden Sector
 
-### 9.1 The C1–C3 architecture of chromatin
+### 8.1 The C1–C3 architecture of chromatin
 
 Epigenetic regulation satisfies C1–C3 exactly. The transcriptional machinery (visible sector) is coupled (C1) to the chromatin state (hidden sector), which changes slowly relative to transcription (C2) and has astronomically large capacity (C3: $\sim 2^{28 \times 10^6}$ possible CpG methylation patterns).
 
@@ -211,77 +280,19 @@ The chromatin hidden sector operates at multiple nested timescales:
 | 4 | Chromatin compaction | Cell generations | Permanent silencing |
 | 5 (slowest) | Germline methylation | Transgenerational | Intergenerational memory |
 
-### 9.2 Cancer as pathological epigenetic memory
+### 8.2 Cancer as pathological epigenetic memory
 
 Cancer is, in OI language, a disease of the epigenetic hidden sector. The malignant transcriptional program is maintained by aberrant epigenetic memory — stable patterns of methylation and histone modifications that lock the cell into a proliferative program. Disrupting the memory *structure* (the stability of the hidden sector) is predicted to be more selective than disrupting the memory *content* (reactivating specific genes).
 
-### 9.3 Aging as memory accumulation
+### 8.3 Aging as memory accumulation
 
 The epigenetic clock (Horvath 2013) quantifies progressive accumulation of methylation marks associated with declining function. In OI language, aging is memory accumulation in the slowest epigenetic layers beyond the cell's ability to maintain homeostasis. Partial reprogramming (transient Yamanaka factor expression) erases recent epigenetic memory while preserving deeper developmental identity — the framework predicts a critical pulse duration matching $\tau_B$ of aging-associated marks.
 
----
-
-## 10. Genetic Disorders: Non-Markovian Treatment Management
-
-### 10.1 The boundary of the framework
-
-Pure loss-of-function genetic disorders — hemophilia (absent Factor VIII/IX), cystic fibrosis (absent/misfolded CFTR), PKU (deficient phenylalanine hydroxylase), Tay-Sachs (absent hexosaminidase A) — are not memory diseases. The core problem is that a protein is missing or non-functional. There is no $\tau_B$ to normalize when the protein does not exist. The framework does not claim otherwise.
-
-However, the *management* of genetic disorders — replacement therapy scheduling, immune responses to replacement proteins, gene therapy durability, and compensatory pathway dynamics — involves non-Markovian dynamics at every level. The framework's contribution is to these surrounding problems.
-
-### 10.2 Coagulation cascade memory and factor replacement
-
-The clotting cascade (intrinsic and extrinsic pathways converging at Factor X $\to$ thrombin $\to$ fibrin) is a multi-kinase signaling cascade with C1–C3 architecture. Thrombin activates Factor V and Factor VIII (positive feedback), while antithrombin and TFPI provide negative feedback on different timescales. The cascade has memory: prior subthreshold activation primes it for faster response to subsequent triggers.
-
-In hemophilia patients receiving replacement factor, the cascade operates in a partially-reconstituted state where the memory dynamics differ from normal. The framework predicts that the *timing* of replacement factor dosing relative to the cascade's memory state matters — not just the trough factor level. A patient who bleeds and partially activates the cascade before receiving factor concentrate is in a different memory state than a patient receiving prophylactic factor on schedule.
-
-**Prediction:** Non-Markovian dosing that accounts for the cascade memory state (recent bleeding events, prior subthreshold activation) should reduce breakthrough bleeding rates compared to standard pharmacokinetic-based dosing at equivalent total factor consumption. *Test:* Correlate breakthrough bleeding frequency with the interval between the most recent cascade activation event and the next scheduled prophylactic dose — OI predicts this interval matters; standard PK models predict only trough level matters.
-
-### 10.3 Inhibitor development as immune memory
-
-Approximately 30% of severe hemophilia A patients develop inhibitory antibodies against replacement Factor VIII — the most serious complication in hemophilia management. This is squarely within the framework's territory. The immune system's response to repeated Factor VIII exposure is non-Markovian: each infusion writes information into the B cell and T cell memory compartments through the same TCR/BCR signaling cascades described in §6.
-
-Inhibitor development is not random — it depends on the patient's exposure history, the timing and intensity of prior infusions, and concurrent immune status. The same architecture applies to immune reactions against enzyme replacement therapy in lysosomal storage diseases (Gaucher, Fabry, Pompe) and against gene therapy vectors (anti-AAV antibodies).
-
-**Prediction:** Inhibitor risk correlates with the *schedule* of factor exposure (which determines immune memory state), not just cumulative dose. Specifically, initial exposure regimens with intervals tuned to the $\tau_B$ of the relevant B cell memory compartment should show lower inhibitor rates than standard intensive prophylaxis schedules. *Test:* Compare inhibitor development rates in patients started on different prophylaxis schedules (daily low-dose vs. twice-weekly standard-dose) at equivalent cumulative factor exposure over the first year.
-
-Immune tolerance induction (ITI) — frequent high-dose factor infusion to overcome inhibitors — works by overwriting pathological immune memory. The framework predicts that ITI success depends on matching the infusion schedule to $\tau_B$ of the relevant B cell memory compartment, and that optimized ITI schedules calculated from measured B cell memory kinetics would show higher success rates.
-
-### 10.4 Gene therapy durability as epigenetic memory
-
-Gene therapies for hemophilia (Hemgenix for Factor IX, Roctavian for Factor VIII) deliver functional gene copies via AAV vectors. The clinical challenge is variable and sometimes declining transgene expression across patients. The framework's epigenetics analysis (§9) is directly relevant: the transgene's expression level is determined by the chromatin state at the integration site — which layer of the epigenetic hidden sector it occupies.
-
-If the transgene integrates into a region with high-$\tau_B$ silencing marks (stable DNA methylation, compact heterochromatin), expression will be silenced over time. If it integrates into a region with low-$\tau_B$ activating marks (histone acetylation), expression will be maintained but variable.
-
-**Prediction:** Transgene expression durability correlates with the epigenetic $\tau_B$ at the integration site — measurable by chromatin accessibility (ATAC-seq) and histone mark stability at the locus. Combining gene therapy with targeted epigenetic modifiers that stabilize activating marks at the transgene locus (increasing local $\tau_B$ of activating marks without affecting other loci) should improve long-term expression. *Test:* In animal models of hemophilia gene therapy, measure expression decline rate alongside integration-site-specific chromatin dynamics. Sites with higher $\tau_B$ of activating marks should show slower expression decline.
-
-### 10.5 Compensatory pathway memory
-
-In many genetic disorders, compensatory pathways develop over time and partially mask the deficiency. In spinal muscular atrophy (SMA), for example, SMN2 partially compensates for lost SMN1 — but the degree of compensation is variable and depends on the patient's developmental history. In sickle cell disease, fetal hemoglobin (HbF) reactivation provides partial compensation, with levels influenced by the patient's prior erythropoietic history and epigenetic state.
-
-These compensatory responses are non-Markovian: their current strength depends on the cumulative history of demands placed on them, stored in the epigenetic and signaling memory of the relevant cell populations. The framework predicts that interventions to boost compensatory pathways (HbF inducers in sickle cell, SMN2 upregulators in SMA) would be more effective if timed to the memory state of the compensatory system — analogous to the memory-priming strategy in cancer pharmacology (§3.3).
-
-### 10.6 The general principle
-
-For genetic disorders, the framework's contribution is not to the genetic defect itself but to three categories of treatment challenge:
-
-| Treatment challenge | C1–C3 system | OI prediction |
-|---|---|---|
-| Replacement therapy scheduling | Coagulation cascade / metabolic pathway | Timing relative to cascade memory state improves efficacy |
-| Immune reactions to therapy | TCR/BCR signaling cascades | Inhibitor risk depends on exposure *schedule*, not just dose |
-| Gene therapy durability | Chromatin state at integration site | Expression correlates with local epigenetic $\tau_B$ |
-| Compensatory pathway optimization | Epigenetic regulation of backup genes | Compensation strength depends on developmental history |
-| Enzyme replacement therapy tolerance | B cell memory compartment | Tolerance induction schedule matches immune $\tau_B$ |
-
-The honest summary: genetic disorders are not memory diseases. But the treatments for genetic disorders operate through biological systems that are memory systems. Optimizing these treatments for the non-Markovian dynamics of the underlying biology is a distinct and testable therapeutic strategy.
-
----
-
-## 11. Distinguishing Predictions
+## 9. Distinguishing Predictions
 
 The following predictions are specific to the non-Markovian framework and are *not* predicted by standard Markovian pharmacology. Each identifies a concrete experiment where the two frameworks give opposite answers.
 
-### 11.1 Cancer
+### 9.1 Cancer
 
 **Prediction 1:** Resistance mutations to regulatory-domain-targeting Chk1 inhibitors cluster in regions that alter the *slowest conformational modes* ($\tau_B$), not $k_{\text{cat}}$ or $K_m$. *Test:* Measure catalytic parameters and conformational dynamics for resistance mutants. Standard models predict correlated changes; OI predicts uncorrelated changes.
 
@@ -293,7 +304,7 @@ The following predictions are specific to the non-Markovian framework and are *n
 
 **Prediction 5:** Single-molecule Chk1 turnover waiting times follow a stretched-exponential distribution $P(t) \sim \exp(-(t/\tau)^\beta)$ with $\beta < 1$. *Test:* Single-molecule fluorescence assay. Standard models predict $\beta = 1$ (exponential); OI predicts $\beta < 1$ with value calculable from $\tau_S / \tau_B$.
 
-### 11.2 Neurodegeneration
+### 9.2 Neurodegeneration
 
 **Prediction 6:** A$\beta$ oligomers shift CaMKII's regulatory domain $\tau_B$, measurable by FRET or HDX-MS. *Test:* Compare CaMKII conformational dynamics in A$\beta$-exposed vs. control neurons.
 
@@ -301,67 +312,61 @@ The following predictions are specific to the non-Markovian framework and are *n
 
 **Prediction 8:** Normal aging shows gradual increase in CaMKII $\tau_B$, correlating with synaptic rigidity. *Test:* Measure CaMKII regulatory domain dynamics as a function of age in animal models.
 
-### 11.3 Antibiotic resistance
+**Prediction 8a:** PTSD reconsolidation efficacy is layer-specific. Propranolol-during-recall blocks emotional re-encoding (noradrenergic substrate); analogous compounds for other encoding modalities should produce dissociable effects on different memory components. *Test:* Compare cognitive vs. emotional vs. sensory components of PTSD memory after layer-targeted reconsolidation interventions.
+
+**Prediction 8b:** LIFU pulse repetition frequency matched to molecular $\tau_B$ produces stronger neuromodulation than empirically-chosen PRF. *Test:* Systematically scan PRF in animal models against measured CaMKII (or other target) $\tau_B$; predict response peak at PRF matching 1/$\tau_B$.
+
+**Prediction 8c:** LIFU-only intervention (no antibody) in early Alzheimer's produces cognitive benefit proportional to $\tau_B$ normalization, measurable by post-LIFU CaMKII conformational dynamics. *Test:* The 2025 Korean trial design extended with mechanistic assays.
+
+### 9.3 Antibiotic resistance
 
 **Prediction 9:** Pulsed antibiotic dosing with interval $\approx \tau_B$ of RecA filament dynamics outperforms continuous dosing and pulsing at intervals $\ll \tau_B$ or $\gg \tau_B$. *Test:* Measure persister fraction under different pulsing intervals.
 
 **Prediction 10:** RecA filament length/conformation at the time of the second antibiotic pulse predicts survival probability. *Test:* Single-cell imaging of RecA-GFP filaments during pulsed antibiotic treatment.
 
-### 11.4 Immunotherapy
+### 9.4 Immunotherapy
 
 **Prediction 11:** Temporal correlations between successive calcium flux events in repeatedly stimulated T cells are positive and decay on $\tau_B$ of TCR signaling kinases. *Test:* Time-lapse calcium imaging under repeated anti-CD3 stimulation.
 
 **Prediction 12:** A kinase regulatory domain "accelerator" (increasing Lck SH2 flexibility) delays functional exhaustion markers (PD-1, Tim-3, LAG-3) in ex vivo exhaustion assays.
 
-### 11.5 Cardiac pharmacology
+### 9.5 Autoimmune disease
 
-**Prediction 13:** Antiarrhythmic drug efficacy at fixed plasma concentration differs between patients with persistent vs. intermittent tachycardia, beyond what Markovian models predict. *Test:* Correlate drug efficacy with heart rate pattern history, not just current rate.
+**Prediction 13:** Partial JAK inhibition reverses chronic cytokine-induced gene expression changes more effectively than proportional reduction in acute STAT phosphorylation. *Test:* Compare chronic vs. acute transcriptional effects of partial vs. full JAK inhibition.
 
-### 11.6 Autoimmune disease
+### 9.6 Epigenetics
 
-**Prediction 14:** Partial JAK inhibition reverses chronic cytokine-induced gene expression changes more effectively than proportional reduction in acute STAT phosphorylation. *Test:* Compare chronic vs. acute transcriptional effects of partial vs. full JAK inhibition.
+**Prediction 14:** Gene expression autocorrelation across cell divisions correlates with $\tau_B$ of the dominant epigenetic mark: methylation-regulated genes show stronger memory than histone-regulated genes.
 
-### 11.7 Epigenetics
+**Prediction 15:** DNMT inhibitor efficacy correlates with methylation entropy (memory stability), not methylation level.
 
-**Prediction 15:** Gene expression autocorrelation across cell divisions correlates with $\tau_B$ of the dominant epigenetic mark: methylation-regulated genes show stronger memory than histone-regulated genes.
+**Prediction 16:** Pulsed DNMT inhibitor administration achieves equivalent tumor response at lower toxicity than continuous administration (by allowing normal tissue memory to recover between pulses).
 
-**Prediction 16:** DNMT inhibitor efficacy correlates with methylation entropy (memory stability), not methylation level.
+**Prediction 17:** During iPSC reprogramming, epigenetic marks are erased in order of increasing $\tau_B$: acetylation first, then methylation, then DNA methylation.
 
-**Prediction 17:** Pulsed DNMT inhibitor administration achieves equivalent tumor response at lower toxicity than continuous administration (by allowing normal tissue memory to recover between pulses).
+**Prediction 18:** Partial reprogramming (Yamanaka factor pulse) shows a critical duration: methylation age decreases smoothly with pulse length, while cell-type identity remains stable up to a sharp threshold corresponding to $\tau_B$ of developmental memory.
 
-**Prediction 18:** During iPSC reprogramming, epigenetic marks are erased in order of increasing $\tau_B$: acetylation first, then methylation, then DNA methylation.
+### 9.7 Allosteric pharmacology
 
-**Prediction 19:** Partial reprogramming (Yamanaka factor pulse) shows a critical duration: methylation age decreases smoothly with pulse length, while cell-type identity remains stable up to a sharp threshold corresponding to $\tau_B$ of developmental memory.
+**Prediction 19:** RGS4 allosteric inhibitor selectivity across RGS family members correlates with B-site conformational dynamics ($\tau_B$), not sequence identity. *Test:* Plot IC$_{50}$ against B-site flexibility (from MD simulation) vs. sequence identity.
 
-### 11.8 Allosteric pharmacology
+**Prediction 20:** Different active-site inhibitors of the same kinase produce different effects on distant regulatory domains because each writes different conformational information into the memory structure.
 
-**Prediction 20:** RGS4 allosteric inhibitor selectivity across RGS family members correlates with B-site conformational dynamics ($\tau_B$), not sequence identity. *Test:* Plot IC$_{50}$ against B-site flexibility (from MD simulation) vs. sequence identity.
+### 9.8 Drug resistance
 
-**Prediction 21:** Different active-site inhibitors of the same kinase produce different effects on distant regulatory domains because each writes different conformational information into the memory structure.
+**Prediction 21:** Resistance mutations far from the active site work by altering the *memory capacity* (C3) or *memory timescale* (C2) of the enzyme, not by blocking catalysis. *Test:* Normal mode analysis of resistance mutants — OI predicts changes in slowest modes, not catalytic modes.
 
-### 11.9 Drug resistance
-
-**Prediction 22:** Resistance mutations far from the active site work by altering the *memory capacity* (C3) or *memory timescale* (C2) of the enzyme, not by blocking catalysis. *Test:* Normal mode analysis of resistance mutants — OI predicts changes in slowest modes, not catalytic modes.
-
-**Prediction 23:** Drug selectivity among family members (RGS, BTK, Abl) correlates with conformational dynamics, not binding-site sequence. Existing data on BTK inhibitor-specific regulatory effects (Joseph et al. 2020) and RGS4 selectivity (Blazer et al. 2010) already support this prediction.
-
-### 11.10 Genetic disorder treatment
-
-**Prediction 24:** In hemophilia patients on prophylaxis, breakthrough bleeding frequency correlates with the interval between the most recent cascade activation event and the next prophylactic dose — not just trough factor level. *Test:* Track bleed timing relative to prior subthreshold activations via thrombin generation assays.
-
-**Prediction 25:** Inhibitor development rates in hemophilia A correlate with the *schedule* of initial Factor VIII exposure (which determines immune memory state), not just cumulative dose. *Test:* Compare inhibitor rates between daily low-dose vs. twice-weekly standard-dose prophylaxis at equivalent cumulative factor exposure.
-
-**Prediction 26:** Gene therapy transgene expression durability correlates with epigenetic $\tau_B$ at the integration site. *Test:* In animal models, correlate expression decline rate with integration-site chromatin dynamics measured by ATAC-seq and histone mark stability.
+**Prediction 22:** Drug selectivity among family members (RGS, BTK, Abl) correlates with conformational dynamics, not binding-site sequence. Existing data on BTK inhibitor-specific regulatory effects (Joseph et al. 2020) and RGS4 selectivity (Blazer et al. 2010) already support this prediction.
 
 ---
 
-## 12. Existing Evidence
+## 10. Existing Evidence
 
 Several predictions are already supported by published data:
 
-**Resistance through dynamics, not catalysis (Prediction 22).** Taldaev et al. (PNAS, 2021) identified an Abl kinase imatinib-resistance mutation that preserves drug binding affinity but increases conformational dynamics — altering $\tau_B$, not $K_d$. The BTK T316A mutation (Joseph et al., eLife, 2020) causes resistance by shifting the conformational ensemble, not by blocking drug binding. Deep mutational scanning of Src (Chakraborty et al. 2024) found that 25–45% of resistance mutations for each inhibitor were unique to that inhibitor's conformational binding mode.
+**Resistance through dynamics, not catalysis (Prediction 21).** Taldaev et al. (PNAS, 2021) identified an Abl kinase imatinib-resistance mutation that preserves drug binding affinity but increases conformational dynamics — altering $\tau_B$, not $K_d$. The BTK T316A mutation (Joseph et al., eLife, 2020) causes resistance by shifting the conformational ensemble, not by blocking drug binding. Deep mutational scanning of Src (Chakraborty et al. 2024) found that 25–45% of resistance mutations for each inhibitor were unique to that inhibitor's conformational binding mode.
 
-**Selectivity through dynamics, not sequence (Prediction 23).** RGS4 allosteric inhibitor selectivity does not correlate with B-site sequence conservation (Blazer et al. 2010). Five different BTK active-site inhibitors produce five qualitatively different effects on distant regulatory domains of the *same* protein (Joseph et al. 2020).
+**Selectivity through dynamics, not sequence (Prediction 22).** RGS4 allosteric inhibitor selectivity does not correlate with B-site sequence conservation (Blazer et al. 2010). Five different BTK active-site inhibitors produce five qualitatively different effects on distant regulatory domains of the *same* protein (Joseph et al. 2020).
 
 **History-dependent checkpoint responses (Prediction 2).** Single-cell checkpoint tracking (Chao et al., Cell Systems, 2017) found that responses depend on the cell's exact cell cycle position, requiring "commitment points" modeled as additional Markov states — the OI interpretation is that these are continuous conformational memory, not discrete states.
 
@@ -369,9 +374,9 @@ Several predictions are already supported by published data:
 
 ---
 
-## 13. Discussion
+## 11. Discussion
 
-### 13.1 The unifying principle
+### 11.1 The unifying principle
 
 Every application follows the same logic: (1) a disease process involves a signaling molecule with C1–C3 architecture; (2) the disease state involves pathological accumulation or alteration of non-Markovian memory; (3) current drugs target catalytic function; (4) the framework identifies memory structure as a pharmacologically distinct target; (5) memory-targeted therapy predicts wider therapeutic windows because the memory asymmetry between disease and normal tissue is more specific than the catalytic asymmetry.
 
@@ -382,23 +387,19 @@ Every application follows the same logic: (1) a disease process involves a signa
 | Parkinson's | LRRK2 $\tau_B$ shift by $\alpha$-syn | Protein aggregates | $\tau_B$ normalization |
 | Antibiotic resistance | SOS/RecA filament memory | Bacterial growth | RecA memory timescale |
 | T cell exhaustion | TCR kinase PTM accumulation | PD-1 brake | TCR kinase $\tau_B$ |
-| Cardiac arrhythmia | Ion channel slow inactivation | Channel block | Heart-rate-adapted dosing |
 | Autoimmune disease | JAK-STAT memory | JAK catalysis | JH2 conformational relaxation |
 | Cancer (epigenetic) | Aberrant methylation/histone marks | Gene reactivation | Memory stability ($\tau_B$) |
 | Aging | Epigenetic clock accumulation | Symptom management | $\tau_B$-selective erasure |
-| Hemophilia (treatment) | Coagulation cascade memory | PK-based factor dosing | Cascade memory-state dosing |
-| Genetic disorders (immune) | B/T cell memory from replacement therapy | Dose reduction | Exposure schedule matching immune $\tau_B$ |
-| Gene therapy durability | Chromatin state at transgene locus | Dose escalation | Epigenetic $\tau_B$ stabilization at locus |
 
-### 13.2 Implications for drug discovery
+### 11.2 Implications for drug discovery
 
 The framework identifies a new class of drug targets — conformational memory timescale — that current screening assays do not measure. A "memory-targeted" drug screen would assay temporal correlations in enzyme activity, not steady-state kinetic parameters. This requires single-molecule or single-cell time-series measurements, which are technically mature but not routinely used in drug discovery.
 
-### 13.3 Implications for clinical trial design
+### 11.3 Implications for clinical trial design
 
 Two predictions are immediately testable with existing drugs and standard clinical infrastructure: (1) memory-selective scheduling of gemcitabine + Chk1 inhibitor (modified dosing protocol, no new drugs); (2) inter-fraction HDAC inhibitor for radiation adaptive response erasure (standard radiation biology experiment). Both could be evaluated in Phase I/II settings with minimal additional cost.
 
-### 13.4 Connection to fundamental physics
+### 11.4 Connection to fundamental physics
 
 The mathematical structure underlying these predictions is identical to the theorem that derives quantum mechanics from embedded observation [1]. The C1–C3 conditions that produce non-Markovian enzyme dynamics are the same conditions that produce quantum mechanics at the cosmological scale. The read-write cycle of a kinase interacting with its regulatory domain is structurally isomorphic to the read-write cycle of an observer interacting with the hidden sector across the cosmological horizon. This connection is not metaphorical — the characterization theorem applies to any system satisfying C1–C3, regardless of scale. The biological instantiations are classical (no quantum coherence is required or invoked), but the mathematical architecture is the same.
 
