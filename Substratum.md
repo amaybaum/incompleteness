@@ -53,47 +53,167 @@ The precise OI analog of the halting problem is: *can the observer determine the
 
 ## 3. The Reconstruction Theorem
 
-The forward direction — from (S, φ) to observed physics — is established by [SM, §§3.1, 4–5] and the companion paper [Main]. The converse question is whether the observed physics uniquely determines (S, φ). The reconstruction proceeds in three stages.
+The forward direction — from $(S, \varphi)$ to observed physics — is established by [SM §§3.1, 4–5] and the companion paper [Main]. The converse question is whether the observed physics uniquely determines $(S, \varphi)$. The reconstruction proceeds in three stages, each taking specified inputs and producing specified outputs with an explicit uniqueness claim. The composite theorem (Theorem 23) then aggregates the stages.
 
-**Stage 1: From observed QM to deterministic embedding.**
+### 3.1 Inputs to the reconstruction
 
-*Empirical input:* Unitary quantum mechanics with Bell violations, on a configuration space with finite entropy bounded by a finite-area surface.
+The reconstruction takes two kinds of inputs: empirical observations and structural assumptions. Being explicit about both is essential to the uniqueness claim.
 
-The finite-entropy condition has independent justification from holographic bounds [1, 2]. The cosmological horizon has finite area; the bound applies.
+**Empirical inputs** (facts about the observed universe):
 
-*Derivation.* Any CPTP quantum channel on a finite-dimensional Hilbert space admits a Stinespring dilation as a bijection on a finite set [Main, §3.2]. Bell violations require non-trivial coupling (C1). The characterization theorem [Main, §3.4] requires slow-bath memory (C2) and sufficient capacity (C3).
+(E1) **Unitary quantum mechanics.** The observed physics is quantum mechanical: states are vectors in a complex Hilbert space, time evolution is unitary, observables are self-adjoint operators, measurement outcomes follow the Born rule.
 
-*Output:* The observed QM arises from some (S, φ, V) satisfying C1–C3. *Status:* Theorem.
+(E2) **Bell violations.** The observed correlations violate Bell inequalities, ruling out local hidden-variable theories with factorizable distributions.
 
-**Stage 2: From the embedding to the dynamics and gauge structure.**
+(E3) **Finite boundary entropy.** The entropy of any bounded region is finite and scales as the area of its boundary. This is supported by holographic bounds [1, 2]; the cosmological horizon has finite area so the bound applies.
 
-*Additional empirical input:* Spatial isotropy.
+(E4) **Spatial isotropy.** Observed physics is rotationally invariant; no spatial direction is preferred.
 
-*Derivation.* The coupling graph gives d = 3 ([SM, §3.2]). Center independence + isotropy + linearity uniquely select the wave equation ([SM, §4.1]). The wave equation determines the SM gauge structure: K = 2d = 6 (Theorem 6), cubic decomposition (3,2,1) (Theorem 7), local gauge invariance ([SM, §3.1]), staggered species → three degenerate triplet-taste sectors, assigned to three generations, with the Higgs sector per Theorem 11 (Theorems 8–11; fermion embedding closed via the link-carrier construction, with the absolute generation count locked at exactly three by coupling-degree minimality), partition-spinor identification (Theorem 12), chirality (Theorem 13), anomaly cancellation (Theorems 14–15), T-invariance → θ̄ = 0 (Theorems 17–21).
+**Structural assumptions** (restrictions on the class of candidate substrates $(S, \varphi)$):
 
-*Output:* Dynamics, dimension, gauge group, matter content, and discrete symmetries are all derived. The SM structure is a retrodiction checked against observation. *Status:* Theorem at the lattice level.
+(A1) **Finiteness.** The configuration space $S$ is finite. (Follows from E3 + the holographic bound interpreted as Hilbert-space dimension cutoff $\dim \mathcal{H} \leq e^{A/4}$.)
 
-**Stage 3: From the dynamics to the emergent constants.**
+(A2) **Determinism.** $\varphi: S \to S$ is a bijection (deterministic, reversible dynamics).
 
-*No additional input.* The gap equation from thermal self-consistency [GR, §3] gives $\hbar = c^3 \epsilon^2 / (4G)$ with ε = 2 l_p. *Status:* Theorem.
+(A3) **Bounded coupling degree.** Each site is coupled to a bounded number of neighbors in $\varphi$'s action. (Required for locality and the emergence of a coupling graph with well-defined dimension.)
 
-**Theorem 23** (Layered reconstruction). *Observed quantum mechanics with Bell violations and finite boundary entropy, together with spatial isotropy, uniquely determine — at the lattice level — the equivalence class $[(S, \varphi)]/\!\sim$: a finite set with a bijection of bounded coupling degree and statistical isotropy, with d = 3, K = 6, coupling matrix eigenvalue multiplicities (3, 2, 1), $\bar{\theta} = 0$, and $\hbar = c^3 \epsilon^2/(4G)$.*
+(A4) **Center independence.** The dynamics $\varphi$ does not depend on a choice of "center" site; equivalently, $\varphi$ commutes with lattice translations up to gauge. (Required to derive the wave equation in Stage 2.)
 
-*Proof.* Stage 1 ⇒ Stage 2 ⇒ Stage 3, as detailed above. $\square$
+(A5) **Linearity.** The wave equation for $\varphi$ is linear. (Required to obtain the specific gauge structure in Stage 2; nonlinear alternatives are not ruled out but would require a separate derivation.)
 
-The theorem starts from empirical inputs (QM, Bell violations, finite entropy, isotropy) and derives the framework. The SM gauge structure, θ̄ = 0, and the Bekenstein-Hawking formula are retrodictions — derived, not assumed. The match to three SM generations follows from cubic symmetry (three degenerate $T_1$-taste sectors); the fermion embedding into SM gauge representations is closed by the link-carrier construction (SM §4.7.1.2), with anomaly cancellation fixing the hypercharges uniquely. The absolute generation count is locked at exactly three by coupling-degree minimality: the uniqueness of the $K = 2d = 6$ minimizer (Theorem 6) forces exactly three spin-1/2 staggered tastes as a derived consequence (SM §4.7.1.2, Step 3).
+(A6) **Background independence.** The dynamics is invariant under local transformations of internal indices, promoting the global commutant symmetry to local gauge invariance ([SM §3.1]).
 
-**Remark** (Evidential weight of the reconstruction). The reconstruction uniquely derives $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$ with multiplicities $(3, 2, 1)$, three chiral generations, one Higgs doublet $(1, 2, +1/2)$, unique hypercharges, and $\bar{\theta} = 0$. Because the derivation is unique — no free parameters, no model-building choices, no landscape of alternatives — every independent experimental confirmation of the Standard Model's gauge structure is retroactive evidence for the derivation chain that produces it. The Standard Model is the most precisely tested mathematical structure in the history of science ($g - 2$ of the electron confirmed to $10^{-12}$, electroweak precision observables to $10^{-5}$, QCD cross-sections across decades of energy). This experimental record transfers in full to the framework, because uniqueness of the derivation makes the relationship between evidence and theory transitive: data confirms structure, structure is uniquely derived, therefore data confirms the derivation.
+The theorem's uniqueness claim holds under E1–E4 **and** A1–A6 jointly; removing any of A3–A6 either requires new derivations or weakens the uniqueness.
 
-**Remark** (Scope). The reconstruction establishes uniqueness within the class of finite deterministic systems with bounded coupling. It does not exclude intrinsically continuum or stochastic alternatives.
+**Critical dependencies.** Theorem 23's proof relies on the following prior theorems, whose individual correctness is assumed:
 
-**Remark** (Continuum extension). The lattice-level predictions are the framework's primary claims — the lattice is the fundamental description, not an approximation to a continuum theory. The structural results (gauge group, representations, generation count, $\bar{\theta} = 0$) are algebraic/topological properties of the lattice theory and are exact. Quantitative observables (scattering amplitudes, mass ratios) are compared to experiment through continuum perturbation theory; the lattice-continuum discrepancy at any experimentally accessible energy $E$ is suppressed by $(E\epsilon/\hbar c)^2 = (E/M_{\text{Pl}})^2$, which is $\sim 10^{-32}$ at LHC energies. The rigorous proof that lattice Yang-Mills defines a continuum limit with a mass gap (a Clay Millennium Prize problem) is an open problem in mathematics, but it is not required by the OI framework: the lattice theory is complete, and its predictions are lattice-exact.
+- [Main §3.2] Stinespring dilation for finite-dim CPTP channels
+- [Main §3.4] Characterization theorem (Bell violation ⇒ C1, QM ⇒ C2 + C3)
+- [SM §3.2] Coupling-graph dimension → d = 3
+- [SM §4.1] Center independence + isotropy + linearity → wave equation
+- [SM Theorems 5–15] Gauge group, generations, hypercharges derivation chain
+- [SM Theorems 17–21] T-invariance → $\bar\theta = 0$
+- [GR §3] Gap equation from thermal self-consistency → $\hbar = c^3 \epsilon^2 / (4G)$
+
+Theorem 23's confidence is bounded above by the minimum confidence in these dependencies.
+
+### 3.2 Stage 1: Observed QM → deterministic embedding with C1–C3
+
+**Inputs:** E1 (unitary QM), E2 (Bell violations), E3 (finite boundary entropy), A1 (finiteness), A2 (determinism).
+
+**Output:** There exists a triple $(S, \varphi, V)$ with $S$ finite, $\varphi$ a bijection on $S$, and $V \subset S$ a distinguished subset such that:
+- The observed quantum dynamics is the reduced description obtained by tracing out $S \setminus V$ from the deterministic evolution under $\varphi$.
+- The triple satisfies C1 (non-trivial coupling), C2 (slow-bath memory), and C3 (high hidden-sector capacity).
+
+**Derivation.** Any CPTP quantum channel on a finite-dimensional Hilbert space admits a Stinespring dilation as unitary evolution on a larger Hilbert space [Main §3.2]. Finiteness of $\dim \mathcal{H}$ is justified by E3 (boundary entropy bound). The dilation extends to a bijection on a finite configuration space by the standard embedding [Main §3.2, Lemma]. Bell violations (E2) are incompatible with a factorizable distribution and hence require non-trivial coupling between visible and hidden sectors (C1). The characterization theorem [Main §3.4] establishes that any QM dynamics (E1) arising from deterministic evolution with trace-out necessarily satisfies C2 (slow-bath memory is required for the non-Markovian returns that produce quantum interference) and C3 (high hidden-sector capacity is required for the visible sector to have sufficient entropy to support observed states).
+
+**Uniqueness at Stage 1.** The triple $(S, \varphi, V)$ is uniquely determined by the observations up to the equivalences:
+- Stinespring ambiguity: different dilations producing the same channel differ by unitary rotations on the hidden sector, which are absorbed into $\mathcal{G}_{\text{sub}}$ (Theorem 24).
+- Hidden-sector basis choice: relabeling of hidden states is gauge (generator (i) of $\mathcal{G}_{\text{sub}}$).
+- Deep-sector enlargement: additional hidden degrees of freedom with $\tau_B^D \gg \tau_S$ leave observations unchanged (generator (iii) of $\mathcal{G}_{\text{sub}}$).
+
+**Status:** Theorem.
+
+### 3.3 Stage 2: Embedding + isotropy → specific lattice + gauge structure
+
+**Inputs:** Stage 1 output + E4 (spatial isotropy) + A3 (bounded coupling) + A4 (center independence) + A5 (linearity) + A6 (background independence).
+
+**Output:** The substratum is a $d = 3$ cubic lattice bijection with:
+- $K = 2d = 6$ internal components per site
+- Coupling matrix eigenvalue multiplicities $(3, 2, 1)$
+- Gauge group $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$
+- Three generations of chiral fermions in the SM representations
+- One Higgs doublet $(\mathbf{1}, \mathbf{2}, +1/2)$
+- Anomaly-free hypercharges $(Y_Q, Y_u, Y_d, Y_L, Y_e) = (1/6, 2/3, -1/3, -1/2, -1)$
+- $\bar\theta = 0$ exactly
+
+**Derivation.**
+
+(a) *Dimension.* The coupling graph inherited from Stage 1 has polynomial growth exponent $d$. Spatial isotropy (E4) plus bounded coupling (A3) restricts $d$ to the values admitting regular isotropic lattices. Self-consistency of the derivation chain (Myrheim-Meyer condition, anomaly structure, chirality) further restricts to $d = 3$ ([SM §3.2]).
+
+(b) *Wave equation.* Center independence (A4), isotropy (E4), and linearity (A5) uniquely select the wave equation ([SM §4.1, Theorem]): the unique second-order linear dynamics on a lattice that is translation-invariant, isotropic, and reversible.
+
+(c) *Internal components.* Coupling-degree minimization applied to the wave equation gives $K = 2d = 6$ uniquely (Theorem 6). This locks the absolute generation count at three (three spin-1/2 staggered tastes emerge from the $K = 6$ minimum).
+
+(d) *Gauge group.* Cubic-group decomposition of the $K = 6$ components gives multiplicities $(3, 2, 1)$ (Theorem 7). Background independence (A6) promotes the commutant $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$ from global to local gauge invariance ([SM §3.1]).
+
+(e) *Matter content.* Staggered reduction gives three degenerate spin-1/2 sectors (Theorems 8–10). Fermion embedding is completed via the link-carrier construction ([SM §4.7.1.2]). Partition-spinor identification (Theorem 12) and trace-out (Theorem 13) give chirality. Anomaly cancellation (Theorems 14–15) uniquely fixes the hypercharges.
+
+(f) *Discrete symmetries.* T-invariance of the bijection $\varphi$ combined with detailed balance in the emergent Hamiltonian forces $\bar\theta = 0$ at all energy scales (Theorems 17–21).
+
+**Uniqueness at Stage 2.** Each step (a)–(f) is an *if-and-only-if*: the stated structure is the unique consistent choice given the inputs. The full chain is therefore a composition of unique selections, so the output is unique up to $\mathcal{G}_{\text{sub}}$.
+
+**Status:** Theorem at the lattice level.
+
+### 3.4 Stage 3: Dynamics → emergent fundamental constants
+
+**Inputs:** Stage 2 output.
+
+**Output:** The emergent value of $\hbar$ is $\hbar = c^3 \epsilon^2 / (4G)$ with $\epsilon = 2 l_p$, where $l_p$ is the Planck length.
+
+**Derivation.** The gap equation from thermal self-consistency of the boundary layer ([GR §3]) gives the stated relation. The derivation uses: existence of thermal equilibrium at the boundary layer (a consequence of the C1–C3 dynamics from Stage 1), the boundary-only dependence lemma ([GR §3.2]), detailed balance (consequence of $\varphi$ being a bijection). No new structural assumptions beyond Stages 1–2.
+
+**Uniqueness at Stage 3.** The gap equation admits a unique solution under the stated inputs ([GR §3, Theorem]).
+
+**Status:** Theorem.
+
+### 3.5 The composite theorem
+
+**Lemma 23.0** (Uniqueness preservation). *Let $(S_1, \varphi_1)$ and $(S_2, \varphi_2)$ both be reconstructions of the same observed physics (E1–E4) satisfying the structural assumptions (A1–A6). Then $(S_1, \varphi_1)$ and $(S_2, \varphi_2)$ are in the same equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$.*
+
+*Proof.* By Stage 1, each $(S_i, \varphi_i, V_i)$ is a C1–C3 embedding of the observed QM. By the Stinespring uniqueness and the $\mathcal{G}_{\text{sub}}$ identification of Stage 1, the two embeddings are related by generators (i) and (iii) of $\mathcal{G}_{\text{sub}}$ (state relabeling and deep-sector enlargement).
+
+By Stage 2, each triple is placed on a $d = 3$ cubic lattice with $K = 6$ and the specific gauge structure. Any two lattices satisfying A3–A6 and having the observed isotropy (E4) are related by generator (iv) of $\mathcal{G}_{\text{sub}}$ (graph isomorphism up to statistical isotropy). The alphabet size freedom is generator (ii).
+
+By Stage 3, each triple produces $\hbar = c^3 \epsilon^2 / (4G)$. The constant is the same in both reconstructions.
+
+Therefore $(S_1, \varphi_1)$ and $(S_2, \varphi_2)$ are related by the composition of generators (i)–(iv) of $\mathcal{G}_{\text{sub}}$, and hence are in the same equivalence class. $\square$
+
+**Theorem 23** (Layered reconstruction). *Let E1–E4 (empirical inputs: QM with Bell violations, finite boundary entropy, spatial isotropy) and A1–A6 (structural assumptions: finiteness, determinism, bounded coupling degree, center independence, linearity, background independence) hold. Then the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$ is uniquely determined: a finite set with a bijection of bounded coupling degree and statistical isotropy, with $d = 3$, $K = 6$, coupling matrix eigenvalue multiplicities $(3, 2, 1)$, gauge group $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$, three chiral generations, one Higgs doublet, anomaly-free hypercharges, $\bar\theta = 0$, and $\hbar = c^3 \epsilon^2/(4G)$.*
+
+*Proof.*
+
+(1) Stage 1 (§3.2) establishes existence and uniqueness (up to $\mathcal{G}_{\text{sub}}$) of a C1–C3 embedding from E1–E3 + A1–A2.
+
+(2) Stage 2 (§3.3) takes the Stage 1 output plus E4 + A3–A6 and derives the specific lattice, dimension, gauge group, matter content, and discrete symmetries, with uniqueness at each step.
+
+(3) Stage 3 (§3.4) takes the Stage 2 output and derives the emergent constant $\hbar$, with uniqueness.
+
+(4) Lemma 23.0 establishes that any two reconstructions consistent with the inputs are in the same equivalence class, completing the uniqueness claim.
+
+The existence direction is the composition of Stages 1–3. The uniqueness direction is Lemma 23.0. Together they establish the bidirectional correspondence. $\square$
+
+### 3.6 Remarks
+
+**Remark** (Evidential weight of the reconstruction). The reconstruction uniquely derives $\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)$ with multiplicities $(3, 2, 1)$, three chiral generations, one Higgs doublet $(1, 2, +1/2)$, unique hypercharges, and $\bar\theta = 0$. Because the derivation is unique — no free parameters, no model-building choices, no landscape of alternatives — every independent experimental confirmation of the Standard Model's gauge structure is retroactive evidence for the derivation chain that produces it. The Standard Model is the most precisely tested mathematical structure in the history of science ($g - 2$ of the electron confirmed to $10^{-12}$, electroweak precision observables to $10^{-5}$, QCD cross-sections across decades of energy). This experimental record transfers in full to the framework, because uniqueness of the derivation makes the relationship between evidence and theory transitive: data confirms structure, structure is uniquely derived, therefore data confirms the derivation.
+
+**Remark** (Scope of uniqueness). The theorem establishes uniqueness within the class of candidate substrates satisfying A1–A6. It does **not** exclude:
+
+- Intrinsically continuum theories (violate A1)
+- Intrinsically stochastic theories (violate A2)
+- Theories with unbounded coupling degree (violate A3)
+- Theories violating center independence, linearity, or background independence (violate A4–A6)
+
+The framework's claim is that within the class of finite deterministic bounded-coupling systems with the structural assumptions, the substratum is unique. A separate argument would be required to rule out alternatives outside this class. The framework's defense of A1–A6 (in [SM §2] and elsewhere) is that they are natural given the empirical inputs E1–E4, but this defense is itself an argument, not a theorem.
+
+**Remark** (Hypothesis dependencies). Each structural assumption can in principle be weakened or replaced:
+
+- A1 (finiteness) is supported by E3; alternative would be an effective-finiteness argument with continuum UV completion, which the framework does not develop.
+- A2 (determinism) is the key ontological commitment; stochastic alternatives would produce different reconstructions.
+- A3 (bounded coupling) is conventional for physical systems; long-range couplings would give different dimensional structure.
+- A4 (center independence) rules out preferred-frame theories.
+- A5 (linearity) is the strongest restriction; nonlinear wave equations on finite lattices are a separate class.
+- A6 (background independence) is standard for gauge theories.
+
+Weakening any $A_i$ does not merely enlarge the equivalence class; it potentially produces *different* reconstructions that may not agree with observation. The framework's claim is that E1–E4 + A1–A6 is a consistent set of inputs producing our observed physics; alternative input sets are not investigated.
+
+**Remark** (Continuum extension). The lattice-level predictions are the framework's primary claims — the lattice is the fundamental description, not an approximation to a continuum theory. The structural results (gauge group, representations, generation count, $\bar\theta = 0$) are algebraic/topological properties of the lattice theory and are exact. Quantitative observables (scattering amplitudes, mass ratios) are compared to experiment through continuum perturbation theory; the lattice-continuum discrepancy at any experimentally accessible energy $E$ is suppressed by $(E\epsilon/\hbar c)^2 = (E/M_{\text{Pl}})^2$, which is $\sim 10^{-32}$ at LHC energies. The rigorous proof that lattice Yang-Mills defines a continuum limit with a mass gap (a Clay Millennium Prize problem) is an open problem in mathematics, but it is not required by the OI framework: the lattice theory is complete, and its predictions are lattice-exact.
 
 The reconstruction establishes a bidirectional correspondence:
 
-$$\text{Observed physics (QM + Bell + finite entropy + isotropy)} \quad \longleftrightarrow \quad [(S, \varphi)] / \sim$$
+$$\text{Observed physics (E1–E4)} \; + \; \text{Structural assumptions (A1–A6)} \quad \longleftrightarrow \quad [(S, \varphi)] / \mathcal{G}_{\text{sub}}$$
 
-The mathematical structure and the physics determine each other up to gauge equivalence. The distinction between "mathematics describes reality" and "mathematics is reality" has no empirical content — it is itself gauge. This reframes Wigner's puzzle: the "unreasonable effectiveness" of mathematics is a theorem, not a mystery.
+The mathematical structure and the physics determine each other up to gauge equivalence, given the structural assumptions. The distinction between "mathematics describes reality" and "mathematics is reality" has no empirical content — it is itself gauge, provably undecidable by measurement (cf. Theorem 24). This reframes Wigner's puzzle: the "unreasonable effectiveness" of mathematics is a theorem modulo the structural assumptions, not a mystery.
 
 ---
 
