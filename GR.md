@@ -370,7 +370,7 @@ This section discusses four interpretive consequences of the derivations in §§
 
 ### 8.1 Scope
 
-The characterization theorem is a full equivalence: QM $\iff$ embedded observation under (C1)–(C3). The theorem does not identify which physical systems satisfy the conditions (empirical) nor derive $\hbar$ for specific systems (requires Part II). Universality in our universe follows from the shared causal partition defined by null geodesics.
+The characterization theorem is a full equivalence: QM $\iff$ embedded observation under (C1)–(C3), conditional on the hidden sector satisfying the eigenstate thermalization hypothesis (ETH) for the C2 ⇐ direction (see [Main, §3.4]). The C1 and C3 necessity directions are unconditional. For the cosmological horizon application, ETH holds for any generic chaotic hidden sector — the horizon complement is such a system — so the full equivalence applies in our universe. The theorem does not identify which physical systems satisfy the conditions (empirical) nor derive $\hbar$ for specific systems (requires Part II). Universality in our universe follows from the shared causal partition defined by null geodesics.
 
 ### 8.2 The status of the discreteness scale
 

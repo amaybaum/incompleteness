@@ -1,6 +1,7 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   11pt,
@@ -12,17 +13,23 @@
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{fontspec}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern disabled
+
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% microtype disabled
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
   \IfFileExists{parskip.sty}{%
@@ -49,16 +56,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{fontspec}
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{graphicx}
-\usepackage{calc}
-\usepackage{longtable,booktabs,array}
-\usepackage{xcolor}
-\AtBeginDocument{\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}}
-\setlength{\parskip}{0.5\baselineskip}
-\setlength{\parindent}{0pt}
-\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -66,7 +63,11 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  hidelinks,
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 
 \author{}
@@ -74,8 +75,13 @@
 
 \begin{document}
 
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
 \hypertarget{ux210f-the-bekenstein-hawking-entropy-and-dynamical-dark-energy-from-the-cosmological-horizon}{%
-\section{$\hbar$, the Bekenstein-Hawking Entropy, and Dynamical Dark Energy
+\section{ℏ, the Bekenstein-Hawking Entropy, and Dynamical Dark Energy
 from the Cosmological
 Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-dynamical-dark-energy-from-the-cosmological-horizon}}
 
@@ -889,7 +895,7 @@ Expanding \(\Lambda_{\text{eff}}(H)\):
 This is the Running Vacuum Model {[}10, 11{]}. The \(S_{\text{dS}}\)
 horizon modes span frequencies \(\omega_{\text{IR}} = H\) to
 \(\omega_{\text{UV}} = c/\epsilon\). The spectral density of boundary
-entropy is uniform in \(\ln\omega\): each $\varepsilon$$^2$ boundary cell is one degree
+entropy is uniform in \(\ln\omega\): each ε² boundary cell is one degree
 of freedom that couples to the bulk at all frequencies (time-translation
 invariance of the wave equation), and each mode carries
 \(\mathcal{O}(1)\) entropy bit (quantum regime:
@@ -934,8 +940,8 @@ The leading correction to uniformity is
 at \(\omega \sim H\) and \(\omega \sim c/\epsilon\). For a spectral
 density \(\propto \omega^\alpha\) with \(\alpha \neq 0\), the effective
 \(\mathcal{N}\) changes dramatically: \(\alpha = +0.1\) gives
-\(\mathcal{N} \sim 10^7\) ($\nu$ undetectable), \(\alpha = -0.1\) gives
-\(\mathcal{N} \sim 10\) ($\nu$ \(\sim 0.03\), ruled out). The lattice
+\(\mathcal{N} \sim 10^7\) (ν undetectable), \(\alpha = -0.1\) gives
+\(\mathcal{N} \sim 10\) (ν \(\sim 0.03\), ruled out). The lattice
 arguments above constrain \(\alpha = 0\) to within
 \(\mathcal{O}(1/\mathcal{N})\), reducing the systematic from a factor of
 \(\sim 3\) (the range \(1\)--\(5 \times 10^{-3}\)) to \(\pm 1.4\%\).
@@ -1151,7 +1157,7 @@ spherical redistribution in de Sitter (\(1/6\)), gives:
 
 This is the MOND critical acceleration --- derived, not fitted.
 (Milgrom's empirical value:
-\(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/s$^2$.)
+\(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/s².)
 
 \textbf{Step 3: The deep-MOND regime.} For baryonic acceleration
 \(\ll a_0\), the displaced entropy dominates. The Jacobson mechanism
@@ -1231,7 +1237,7 @@ This prediction is borne out by the data. Genzel et al.~{[}21, 22{]}
 report stacked rotation curves for massive star-forming galaxies at
 \(z = 0.9\text{–}2.4\) showing a declining outer velocity at
 \(> 3\sigma\) significance relative to local spirals --- consistent with
-the OI prediction. In $\Lambda$CDM, flat rotation curves from NFW halos are
+the OI prediction. In ΛCDM, flat rotation curves from NFW halos are
 expected at all redshifts; explaining the Genzel data requires
 anomalously low halo concentrations or baryon-dominated inner regions.
 The cleanest local test is Jiao et al.~{[}23{]}, who detect for the
@@ -1298,12 +1304,12 @@ tests:
   scatter (at fixed \(z\)), and the scatter does not correlate with halo
   properties. Current SPARC data {[}20{]} show remarkably small RAR
   scatter (\(\sim 0.13\) dex), consistent with OI but requiring
-  fine-tuning in $\Lambda$CDM.
+  fine-tuning in ΛCDM.
 \end{enumerate}
 
 \textbf{Falsifiability.} The entropy displacement account would be
 falsified by: (a) detection of dark matter particles accounting for
-\(\sim\)27\% of \(\rho_{\text{crit}}\); (b) high-redshift rotation
+\$\sim\$27\% of \(\rho_{\text{crit}}\); (b) high-redshift rotation
 curves inconsistent with the predicted \(H(z)\) dependence ---
 specifically, if galaxies at \(z > 2\) show flat rotation curves at
 \(r > r_M(z)\); (c) baryonic Tully-Fisher violations exceeding baryonic
@@ -1359,7 +1365,7 @@ dark matter predicts no such relaxation.
 
 \textbf{CMB acoustic peaks.} The CMB power spectrum provides the most
 precise test of the dark matter paradigm: the odd/even peak height
-asymmetry requires a non-oscillating gravitational source (CDM in $\Lambda$CDM)
+asymmetry requires a non-oscillating gravitational source (CDM in ΛCDM)
 that provides potential wells for the photon-baryon fluid to oscillate
 in. The entropy displacement satisfies this requirement through the same
 thermodynamic averaging that resolves the Bullet Cluster. The Clausius
@@ -1383,7 +1389,7 @@ has the same source term as CDM. The CMB power spectrum --- which
 depends on \(\Omega_b/\Omega_m\) (peak ratios), the growth of
 perturbations before recombination (peak heights), the sound horizon
 \(r_s\) (peak positions), and the damping scale (high-\(\ell\)
-suppression) --- is therefore predicted to match $\Lambda$CDM at linear order. A
+suppression) --- is therefore predicted to match ΛCDM at linear order. A
 definitive confirmation requires running a modified Boltzmann code
 (CLASS or CAMB) with entropy displacement replacing CDM; the prediction
 is agreement with Planck data to within current uncertainties.
@@ -1431,7 +1437,7 @@ DESI DR2 & \(2.8\)--\(4.2\sigma\) preference \\
 Dark sector fraction & \(\Omega_{\text{dark}} \approx 95\%\) &
 \(\Omega_{\text{CDM}} + \Omega_\Lambda \approx 95\%\) & consistent \\
 MOND acceleration scale & \(a_0 = cH/6 \approx 1.2 \times 10^{-10}\)
-m/s$^2$ & \(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/s$^2$ & exact \\
+m/s² & \(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/s² & exact \\
 Baryonic Tully-Fisher & \(v^4 = G M_B \cdot cH/6\) & SPARC data & within
 \(0.13\) dex RAR scatter \\
 Rotation curve crossover & \(r_M = \sqrt{6 G M_B/(cH)}\) & Milky Way:
@@ -1473,10 +1479,16 @@ projections of the same \((S, \varphi)\) are developed in
 \subsubsection{8.1 Scope}\label{scope}}
 
 The characterization theorem is a full equivalence: QM \(\iff\) embedded
-observation under (C1)--(C3). The theorem does not identify which
-physical systems satisfy the conditions (empirical) nor derive \(\hbar\)
-for specific systems (requires Part II). Universality in our universe
-follows from the shared causal partition defined by null geodesics.
+observation under (C1)--(C3), conditional on the hidden sector
+satisfying the eigenstate thermalization hypothesis (ETH) for the C2 ⇐
+direction (see {[}Main, §3.4{]}). The C1 and C3 necessity directions are
+unconditional. For the cosmological horizon application, ETH holds for
+any generic chaotic hidden sector --- the horizon complement is such a
+system --- so the full equivalence applies in our universe. The theorem
+does not identify which physical systems satisfy the conditions
+(empirical) nor derive \(\hbar\) for specific systems (requires Part
+II). Universality in our universe follows from the shared causal
+partition defined by null geodesics.
 
 \hypertarget{the-status-of-the-discreteness-scale}{%
 \subsubsection{8.2 The status of the discreteness

@@ -748,13 +748,19 @@ The matching scale where lattice dynamics connects to the perturbative Yukawa de
 
 $$m_{\text{match}} = \lambda \times g_0^2 = \frac{1}{\pi\sqrt{2}} \times \frac{4\pi}{23.25} = \frac{4}{23.25\sqrt{2}} = 0.1217$$
 
-Physically, $\lambda$ controls inter-generation mixing (taste-breaking) while $g_0^2$ controls the non-perturbative condensate (confinement). The matching scale is identified by power-counting in the taste-decomposed Coleman–Weinberg potential: the leading correction to the scalar density for the OI framework's specific-taste projection (where SM fermions correspond to specific staggered tastes, not the taste-singlet average) is
+Physically, $\lambda$ controls inter-generation mixing (taste-breaking) while $g_0^2$ controls the non-perturbative condensate (confinement). The matching scale is derived in the taste-decomposed Coleman–Weinberg potential by tracing three ingredients through the framework's existing structure:
 
-$$\Pi^{(\lambda)}(m) \sim \lambda \cdot g_0^2 \cdot \Sigma/m,$$
+(i) The b-quark is identified with the democratic eigenstate $\hat{h} = (|e_1\rangle + |e_2\rangle + |e_3\rangle)/\sqrt{3}$ of the cubic-symmetric taste-breaking operator (this follows from the §7.1 Wolfenstein $A = \sqrt{2/3}$ identification and the §7.2 Koide derivation, both of which place the heaviest fermion along $\hat{h}$).
 
-combining a single taste-breaking insertion ($\lambda$, tree-level vertex), one gauge exchange ($g_0^2$, one-loop), and one chiral-condensate insertion ($\Sigma$, IR enhancement). The matching scale where this becomes $O(1)$ is $m_{\text{match}} = \lambda \cdot g_0^2 \cdot \Sigma_{\text{eff}}$ with $\Sigma_{\text{eff}}$ an $O(1)$ coefficient in lattice units.
+(ii) The taste-breaking operator in the X-corner basis has the cubic-symmetric form $M_{\text{taste}} = m_{\text{off}} \cdot (J - I)$ (after trace removal), giving the diagonal element in the b-quark eigenstate $c_{bb} = \langle b | M_{\text{taste}} | b \rangle = 2 m_{\text{off}}$.
 
-The taste-singlet projection vanishes at $O(\lambda)$ by tracelessness ($\sum_t \delta_t = 0$), giving $O(\lambda^2)$ corrections instead — the framework's specific-taste assignment for SM fermions is essential to obtain the linear-$\lambda$ scaling. Among natural dimensional combinations of $\lambda$ and $g_0$ (including $\lambda \cdot g_0$, $\lambda^2 g_0^2$, $\sqrt{\lambda g_0^2}$), only $\lambda \cdot g_0^2$ is consistent with the MC-measured $Z_S(m_{\text{match}}) = 1.813$ that reproduces $m_b/m_\tau$ to $0.4\%$. The parametric dependence is rigorous; the $O(1)$ coefficient is absorbed into the lattice convention. Detailed derivation in companion note `B2_Closure.md`.
+(iii) The off-diagonal element $m_{\text{off}}$ is identified with the BZ-distance geometric primitive of §7.1: $m_{\text{off}} = 1/|X_i - X_j| = \lambda$.
+
+Combining these gives $c_{bb} = 2\lambda$. The scalar density self-energy takes the form $\Pi_{\text{taste}}(m) = K \cdot c_{bb} \cdot g_0^2 \cdot \Sigma/m$ for some loop kinematic coefficient $K$, and matching at the natural condensate-scale threshold $T = \Sigma$ gives $m_{\text{match}} = 2K \lambda \cdot g_0^2$.
+
+The framework's prediction $m_{\text{match}} = \lambda \cdot g_0^2$ therefore requires $K = 1/2$. The most likely source is the standard 1/2 prefactor in the staggered fermion action, which propagates through the one-loop calculation. Explicit verification of this within the OI lattice setup has not been performed; this is the residual gap in the derivation chain.
+
+MC consistency check: the empirical matching scale extracted from the Monte Carlo data is $m_{\text{match}}^{\text{MC}} = 0.1234 \pm 0.0002$, which agrees with the predicted $\lambda \cdot g_0^2 = 0.1217$ within 1.4% (compatible with NLO truncation of the leading-order chain above). Alternative choices of coefficient — e.g., $K = 1$ giving $m_{\text{match}} = 2\lambda g_0^2 \approx 0.24$ — are strongly excluded by the MC data (would give $m_b/m_\tau \approx 3.17$ vs. observed 2.35). Detailed derivation in companion note `B2_Closure.md` §6.
 
 **The prediction.**
 
@@ -792,7 +798,7 @@ Twenty-one quantitative observables from a $d = 3$ cubic lattice with spacing $\
 | $m_t$ | $v/\sqrt{2}$ ($y_t = 1$ IR fixed pt) | 174.1 GeV | 172.5 ± 0.3 | 0.9% | **S** |
 
 Footnotes:
-- **‡** The matching scale $m_{\text{match}} = \lambda \cdot g_0^2$ is identified by power-counting in the taste-decomposed Coleman–Weinberg potential (§7.5): the unique combination of leading taste-breaking ($\lambda$, from specific-taste projection where SM fermions correspond to specific staggered tastes) and leading condensate enhancement ($g_0^2 \cdot \Sigma/m$). The parametric dependence is rigorous; an $O(1)$ overall coefficient is absorbed into the lattice convention. Full first-principles calculation of this coefficient remains open.
+- **‡** The matching scale $m_{\text{match}} = \lambda \cdot g_0^2$ is structurally derived in the taste-decomposed Coleman–Weinberg potential (§7.5): the b-quark is identified with the democratic eigenstate $\hat{h}$ of the cubic-symmetric taste-breaking operator (from §7.1, §7.2 representation theory), giving diagonal taste-breaking $c_{bb} = 2\lambda$. Combining with the natural matching condition at condensate scale $\Sigma$ and a loop kinematic coefficient $K$, the prediction $m_{\text{match}} = \lambda g_0^2$ requires $K = 1/2$, most likely from the standard staggered-action normalization. Explicit verification of this factor within the OI lattice setup is the residual gap. The MC-extracted value $m_{\text{match}}^{\text{MC}} = 0.1234 \pm 0.0002$ agrees with the derived $\lambda g_0^2 = 0.1217$ within 1.4% (NLO truncation); alternative coefficients giving $m_{\text{match}} = 2\lambda g_0^2$ are excluded at ~35% discrepancy from observation.
 
 **Parameter-accounting summary:** Of the 21 observables, approximately 14 are strictly parameter-free structural predictions (**S**), 2 follow from a gauge-coupling chain with one constrained parameter (**C** + **S**), 5 form a one-input mass/parameter chain (**M**, rooted at $m_s$ for the mass chain and at $m_t$ for $m_H$), and the remainder involve explicit empirical or phenomenological inputs (**E**, **P**) as indicated. No parameters are fit to the predicted quantities.
 
