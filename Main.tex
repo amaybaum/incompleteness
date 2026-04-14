@@ -1,8 +1,10 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
+  11pt,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -15,9 +17,12 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-\usepackage{lmodern}
+
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setsansfont[]{DejaVu Sans}
+  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -36,6 +41,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -57,7 +63,11 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  hidelinks,
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 
 \author{}
@@ -65,6 +75,11 @@
 
 \begin{document}
 
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
 \hypertarget{the-incompleteness-of-observation}{%
 \section{THE INCOMPLETENESS OF
 OBSERVATION}\label{the-incompleteness-of-observation}}
@@ -580,6 +595,48 @@ For continuous-time dynamics \(\varphi_t\), Stone's theorem on
 \(\mathcal{H}\) yields \(U_t = e^{-i\hat{H}t}\) for Hermitian
 \(\hat{H}\).
 
+\textbf{Lemma (Reverse direction: CPTP → bijection).} \emph{Any CPTP
+channel \(\Phi\) on a finite-dimensional Hilbert space
+\(\mathcal{H}_V = \mathbb{C}^n\) admits, for any \(\varepsilon > 0\), a
+realization as marginalization of a permutation-unitary bijection on a
+larger finite configuration space: there exist finite sets
+\(\mathcal{C}_V\), \(\mathcal{C}_H\) and a bijection
+\(\varphi: \mathcal{C}_V \times \mathcal{C}_H \to \mathcal{C}_V \times \mathcal{C}_H\)
+such that the induced channel \(\Phi_\varphi\) via partial trace (as
+constructed in the forward direction) satisfies
+\(\|\Phi - \Phi_\varphi\|_\diamond \leq \varepsilon\), where
+\(\|\cdot\|_\diamond\) is the diamond norm.}
+
+\emph{Proof.} Stinespring's theorem {[}15{]} gives a Hilbert-space
+isometry \(V: \mathcal{H}_V \to \mathcal{H}_V \otimes \mathcal{H}_H\)
+and a unitary \(U\) on \(\mathcal{H}_V \otimes \mathcal{H}_H\) extending
+\(V\), with
+\(\Phi(\rho) = \mathrm{Tr}_H[U(\rho \otimes \rho_0)U^\dagger]\) for some
+fixed \(\rho_0 \in \mathcal{S}(\mathcal{H}_H)\). By Solovay--Kitaev
+{[}28{]} (or any standard universal-gate-set density result), for any
+\(\varepsilon > 0\) there exists a permutation-unitary \(U_\varphi\) on
+a possibly enlarged \(\mathcal{H}_V \otimes \mathcal{H}_H'\) with
+\(\|U - U_\varphi\| \leq \varepsilon\) in operator norm. The enlarged
+space corresponds to a finite set
+\(\mathcal{C}_V \times \mathcal{C}_H'\) via the canonical basis
+identification (Setup paragraph), and \(U_\varphi\) corresponds to a
+bijection \(\varphi\). Error propagation through partial trace gives
+\(\|\Phi - \Phi_\varphi\|_\diamond \leq 2\varepsilon\). Replacing
+\(\varepsilon\) with \(\varepsilon/2\) in the initial approximation
+gives the claim. \(\square\)
+
+\emph{Remark.} This Lemma establishes that any CPTP channel on
+finite-dimensional Hilbert space can be approximated to arbitrary
+precision by a bijection on a finite configuration space. The finiteness
+of \(\mathcal{H}_V\) follows from the holographic bound
+\(\dim \mathcal{H} \leq e^{A/4}\) applied to any bounded region. This is
+the reverse direction invoked by {[}Substratum, Theorem 23, Stage 1{]}:
+observed finite-dim CPTP dynamics can always be realized as the
+visible-sector projection of a finite-bijection substrate. The forward
+direction (bijection → CPTP) is the preceding Permutation Unitarity
+Lemma; together they establish the bidirectional correspondence between
+finite CPTP channels and finite bijections (up to arbitrary precision).
+
 \textbf{The quantum channel.} The observer's ignorance of the hidden
 sector (Lemma 3) corresponds to \(\rho_H = I_m/m\). The visible-sector
 quantum channel is
@@ -748,20 +805,22 @@ P-indivisible iff \(T\) is not a permutation matrix.}
 \(\Lambda(k_2, k_1) = T^{(k_2-k_1)}\) is a valid stochastic matrix for
 all \(k_2 > k_1\) \(\Rightarrow\) P-divisible. \(\square\)
 
-\textbf{Theorem (C2 necessity).} \emph{In the fast-bath regime
-(\(\tau_B \ll \tau_S\)), the hidden sector dephases to its diagonal
-ensemble between coupling events, so the marginal dynamics on
+\textbf{Theorem (C2 necessity, conditional on ETH).} \emph{Assume the
+hidden-sector Hamiltonian \(H_H\) satisfies the eigenstate
+thermalization hypothesis (ETH) {[}17, 18{]}. Then in the fast-bath
+regime (\(\tau_B \ll \tau_S\)), the hidden sector dephases to its
+diagonal ensemble between coupling events, so the marginal dynamics on
 \(\mathcal{C}_V\) is Markovian on accessible timescales
 (\(T^{(k)} = T^k\)) and hence P-divisible. Contrapositively, observable
-P-indivisibility requires \(\tau_S \ll \tau_B\).}
+P-indivisibility in an ETH hidden sector requires
+\(\tau_S \ll \tau_B\).}
 
 \emph{Proof.} Between coupling events (separated by \(\tau_S\)), the
 hidden sector evolves under its own Hamiltonian \(H_H\). The substratum
 dynamics is reversible, so there is no relaxation in the strict sense
 --- finite-dimensional Hamiltonian flow has purely imaginary spectrum
 and Poincaré recurrence at \(t_R\) exponentially large in the system
-size. What does occur, for any chaotic many-body \(H_H\) satisfying the
-eigenstate thermalization hypothesis (ETH), is \emph{dephasing}:
+size. What does occur, under the ETH assumption, is \emph{dephasing}:
 starting from any distribution \(\mu_H(\cdot | x_i)\) conditioned on the
 previous visible state, the off-diagonal matrix elements in the energy
 basis decay on the timescale \(\tau_B \sim \hbar / \Delta E\), where
@@ -792,6 +851,24 @@ to general Hamiltonian flow replaces the collision-model picture with
 the full ETH/dephasing condition; the relevant machinery for chaotic
 open quantum systems in the weak-memory regime is established in {[}3,
 8, 17, 18{]}. \(\square\)
+
+\textbf{Remark (Status of ETH).} \emph{The eigenstate thermalization
+hypothesis is a well-supported conjecture, not a theorem, for generic
+chaotic many-body Hamiltonians. It is proved for specific models (random
+matrix ensembles, certain integrable-chaotic transitions) and supported
+by extensive numerical evidence across many systems {[}17, 18{]}. For
+the OI framework's hidden sector --- the cosmological-horizon
+complement, a generic chaotic many-body system --- ETH is the standard
+assumption. The C2 necessity direction is therefore conditional on ETH;
+relaxations or failures of ETH would require a separate argument. The C1
+and C3 necessity theorems do not depend on ETH.}
+
+\textbf{Remark (Consequence for the characterization theorem).}
+\emph{The full biconditional (i) ⇔ (ii) ⇔ (iii) of the characterization
+theorem below is similarly conditional on ETH for the (ii) ⇒ (iii)
+direction specifically. The other directions --- (i) ⇔ (ii) from {[}11,
+12{]}; (iii) ⇒ (ii) from §2.3; C1 and C3 necessity from their own proofs
+--- are unconditional.}
 
 \textbf{Theorem (C3 necessity).} \emph{Let \(m = |\mathcal{C}_H|\). The
 non-Markovian mutual information satisfies:}
@@ -825,8 +902,13 @@ dynamics, and the Born rule. Additional quantum-mechanical structures
 visible-sector subsystems, state update, and the measurement formalism
 --- are addressed in the remarks following the theorem.
 
-\textbf{Characterization theorem.} \emph{For \(|\mathcal{C}_V| \geq 2\),
-the following are equivalent:}
+\textbf{Characterization theorem.} \emph{Let \(\mathcal{S}\) be a
+stochastic process on a finite configuration space \(\mathcal{C}_V\)
+with \(|\mathcal{C}_V| \geq 2\), and consider dynamics on accessible
+timescales \(t \ll t_R\) where \(t_R\) is the Poincaré recurrence time
+of any realizing substrate. Assume the hidden sector of any candidate
+realization satisfies ETH {[}17, 18{]}. Then the following are
+equivalent:}
 
 \emph{(i) \(\mathcal{S}\) is mathematically equivalent to unitarily
 evolving QM (in the sense of the preceding definition).}
@@ -837,8 +919,8 @@ formal Poincaré recurrence time.}
 
 \emph{(iii) \(\mathcal{S}\) arises from marginalizing a deterministic
 bijection on \(\mathcal{C}_V \times \mathcal{C}_H\) with (C1)
-non-trivial coupling, (C2) slow-bath memory, and (C3) sufficient
-capacity.}
+non-trivial coupling, (C2) slow-bath memory (\(\tau_S \ll \tau_B\)), and
+(C3) sufficient capacity.}
 
 \emph{Proof.} (i) \(\iff\) (ii): Barandes {[}11, 12{]}, on accessible
 timescales by construction (the equivalence is formulated for the
