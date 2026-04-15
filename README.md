@@ -215,7 +215,7 @@ The full mass scan that produces the cubic interpolation reported in §7.5 requi
 
 **License.** All source code under `oi_lattice_code/` is released under the MIT License — see [`LICENSE`](LICENSE) at the repository root. The accompanying papers are research manuscripts and are not licensed under MIT; cite the relevant paper if you use the framework or its results, and cite this repository if you use or adapt the lattice utilities.
 
-**Citation / archive.** The source code and accompanying papers are archived on Zenodo with concept DOI [10.5281/zenodo.19060318](https://doi.org/10.5281/zenodo.19060318), which always resolves to the latest version. The current version (1.4.4) has the specific DOI [10.5281/zenodo.19482992](https://doi.org/10.5281/zenodo.19482992).
+**Citation / archive.** The source code and accompanying papers are archived on Zenodo with concept DOI [10.5281/zenodo.19060318](https://doi.org/10.5281/zenodo.19060318), which always resolves to the latest version.
 
 ## Key Results
 
