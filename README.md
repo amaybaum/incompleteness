@@ -77,7 +77,7 @@ The framework identifies a distinction between quantities that are *undecidable*
 
 ### The reconstruction and the incompleteness family
 
-The reconstruction theorem establishes the converse: observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine the equivalence class [(S, φ)]/G_sub — proving that the mathematical description and the physics are informationally equivalent up to gauge. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement. The framework belongs to a family of results where self-reference under finite resources produces rigid structure: Gödel (a formal system cannot prove all truths about itself), Turing (a computer cannot decide all questions about its own behavior), OI (an embedded observer cannot access the complete state). In each case, the structural impossibility determines the form of what the system produces instead.
+The reconstruction theorem establishes the converse: observed QM with Bell violations, finite boundary entropy, and spatial isotropy, together with the framework's structural assumptions (finiteness, determinism, bounded coupling, center independence, linearity, background independence), uniquely determine the equivalence class [(S, φ)]/G_sub — proving that the mathematical description and the physics are informationally equivalent up to gauge within this structural class. Whether (S, φ) *is* reality or *describes* reality is provably undecidable by any measurement. The framework belongs to a family of results where self-reference under finite resources produces rigid structure: Gödel (a formal system cannot prove all truths about itself), Turing (a computer cannot decide all questions about its own behavior), OI (an embedded observer cannot access the complete state). In each case, the structural impossibility determines the form of what the system produces instead.
 
 ## Contents
 
@@ -115,7 +115,7 @@ Applies the framework to the cosmological horizon as a causal partition. Derives
 
 **"The Substratum Construction: Reconstruction, the Substratum Gauge Group, and the QM-GR Synthesis"**
 
-Develops the substratum-level structural results that make the SM and GR derivations a single construction. The reconstruction theorem (Theorem 23) establishes that observed physics — quantum mechanics with Bell violations, finite boundary entropy, and spatial isotropy — uniquely determines the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$ at the lattice level, with the SM gauge group and $\bar\theta = 0$ as forced retrodictions, and the anomaly-free hypercharge assignment forced once the observed family pattern is given (fermion embedding closed by the link-carrier construction, with the absolute generation count locked at exactly three by coupling-degree minimality). The substratum gauge group $\mathcal{G}_{\text{sub}}$ (Theorem 24) has four families of generators and projects through the trace-out onto the SM gauge group as the visible-sector shadow of the substratum's symmetry. Argues that quantum mechanics and general relativity are not two theories awaiting unification but two projections of the same finite deterministic construction — the QM-GR incompatibility dissolved as a category error rather than solved as a technical problem.
+Develops the substratum-level structural results that make the SM and GR derivations a single construction. The reconstruction theorem (Theorem 23) establishes that observed physics — quantum mechanics with Bell violations, finite boundary entropy, and spatial isotropy — together with the framework's structural assumptions (finiteness, determinism, bounded coupling, center independence, linearity, background independence), uniquely determines the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$ at the lattice level, with the SM gauge group and $\bar\theta = 0$ as forced retrodictions, and the anomaly-free hypercharge assignment forced once the observed family pattern is given (fermion embedding closed by the link-carrier construction, with the absolute generation count locked at exactly three by coupling-degree minimality). The substratum gauge group $\mathcal{G}_{\text{sub}}$ (Theorem 24) has four families of generators, all of which preserve observables, and projects through the trace-out onto the SM gauge group as the visible-sector shadow of the substratum's symmetry. Argues that quantum mechanics and general relativity are not two theories awaiting unification but two projections of the same finite deterministic construction — the QM-GR incompatibility dissolved as a category error rather than solved as a technical problem.
 
 - [`Substratum.md`](Substratum.md) — Markdown source
 - [`Substratum.tex`](Substratum.tex) — LaTeX source
@@ -247,7 +247,7 @@ The full mass scan that produces the cubic interpolation reported in §7.5 requi
 
 12. **The trace-out as Jordan-Chevalley projection.** Over finite fields, the evolution matrix F decomposes as F = F_ss · F_u (semisimple × unipotent). The trace-out extracts the semisimple part and erases the nilpotent monodromy N. The Weil-Deligne conductor f_WD = f_ss(L) + 2 is q-independent and decomposes additively over gauge irreps with multiplicities (3, 2, 1). *Status: theorem (SM, Appendix A).*
 
-13. **Reconstruction theorem and substratum gauge group.** Observed QM with Bell violations, finite boundary entropy, and spatial isotropy uniquely determine [(S, φ)]/G_sub. The gauge group G_sub has four generators: state relabeling, alphabet change, deep-sector enlargement, and graph isomorphism up to statistical isotropy. Whether (S, φ) *is* reality or *describes* reality is provably undecidable — identified as gauge. *Status: theorem (Substratum, §§3–4).*
+13. **Reconstruction theorem and substratum gauge group.** Observed QM with Bell violations, finite boundary entropy, and spatial isotropy, together with the framework's structural assumptions (A1–A6), uniquely determine [(S, φ)]/G_sub. The gauge group G_sub has (at least) four families of generators: state relabeling, alphabet change, deep-sector enlargement, and graph isomorphism up to statistical isotropy. Whether (S, φ) *is* reality or *describes* reality is provably undecidable — identified as gauge. *Status: theorem (Substratum, §§3–4).*
 
 14. **Structural preconditions for complexity.** The derived structure guarantees, with no free parameters: orbital algebra and the periodic table (d = 3 + SO(3)), carbon's tetrahedral bonding geometry, the nuclear-atomic scale hierarchy (two independent gauge groups), water's solvent properties (element 8 in d = 3), a thermal window for dynamic chemistry, chiral molecular selection (PVED from the partition), and combinatorial diversity exceeding the autocatalytic threshold by 10⁵⁶. The origin of life is the first molecular C1–C3 system; RNA is the unique molecule satisfying all three conditions simultaneously, making the RNA world a structural prediction. C1–C3 systems are exponential-growth attractors — the transition is inevitable. Darwinian evolution follows from imperfect template replication. The viable parameter fraction is ~16%. Fine-tuning and the anthropic principle dissolve. *Status: structural chain + statistical argument (Complexity Paper).*
 
@@ -255,7 +255,7 @@ The full mass scan that produces the cubic interpolation reported in §7.5 requi
 
 ## The Bidirectional Correspondence
 
-The forward derivation and reconstruction theorem establish: (S, φ) determines observed physics, and observed physics uniquely determines [(S, φ)]/G_sub. The diagrams below show both directions.
+The forward derivation and reconstruction theorem establish: (S, φ) determines observed physics, and observed physics together with structural assumptions A1–A6 uniquely determines [(S, φ)]/G_sub. The diagrams below show both directions.
 
 ### Forward: From (S, φ) to Observed Physics
 
@@ -349,13 +349,15 @@ Level 1 — D-gauge H → DHD† (GR §3.3, theorem)
      Diagonal unitary basis rephasing of emergent Hamiltonian
      Residual freedom after all transition data extracted
 
-G_sub is the kernel of the reconstruction map: Level 3 ⊃ Level 2 ⊃ Level 1
+G_sub contains (at least) the kernel of the reconstruction map: Level 3 ⊃ Level 2 ⊃ Level 1
 ```
 
 ### Reverse: From Observed Physics to [(S, φ)]/G_sub
 
 ```
 Observed QM + Bell violations + finite boundary entropy + spatial isotropy
+  + structural assumptions: finiteness, determinism, bounded coupling,
+    center independence, linearity, background independence (A1–A6)
   │
   ├─→ Stage 1: Stinespring dilation + characterization theorem
   │     → deterministic embedding (S, φ, V) with C1–C3 (Main, theorem)
@@ -372,8 +374,8 @@ Observed QM + Bell violations + finite boundary entropy + spatial isotropy
         Determined: ℏ, ε, S_BH, all emergent constants
 
 Output: [(S, φ)]/G_sub uniquely determined (Substratum §§3–4, theorem)
-  The reconstruction map has kernel G_sub — everything outside the
-  equivalence class is fixed; everything inside is gauge.
+  The four generator families of G_sub span the equivalence relation;
+  everything outside the equivalence class is fixed by E1–E4 + A1–A6.
 ```
 
 ## Contact
