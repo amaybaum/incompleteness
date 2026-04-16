@@ -103,20 +103,21 @@ hypercharge assignment forced once the observed family pattern is given
 absolute generation count locked at exactly three by coupling-degree
 minimality); and (ii) the \emph{substratum gauge group}
 \(\mathcal{G}_{\text{sub}}\) (Theorem 24), with four explicit families
-of generators all of which preserve the framework's structural inputs
-and observables. The Standard Model gauge group is the visible-sector
-shadow of \(\mathcal{G}_{\text{sub}}\) --- the image of the substratum's
-symmetry under the trace-out --- and the three-level gauge hierarchy
-(substratum, emergent QFT, emergent Hamiltonian) provides the structural
-account of why the Standard Model has its specific gauge structure. The
-synthesis claim is that the QM-GR incompatibility, as conventionally
-posed, asks how to merge two descriptions that share no common
-framework; the present construction provides that common framework, and
-the apparent incompatibility is the artifact of treating two different
-projections of one object as if they were two different theories. The
-result is not a unification of quantum mechanics and general relativity
-in the traditional sense --- that program remains as ill-posed as before
---- but a dissolution of the question.
+of generators proved to exhaust all observables-preserving
+transformations via Stinespring uniqueness. The Standard Model gauge
+group is the visible-sector shadow of \(\mathcal{G}_{\text{sub}}\) ---
+the image of the substratum's symmetry under the trace-out --- and the
+three-level gauge hierarchy (substratum, emergent QFT, emergent
+Hamiltonian) provides the structural account of why the Standard Model
+has its specific gauge structure. The synthesis claim is that the QM-GR
+incompatibility, as conventionally posed, asks how to merge two
+descriptions that share no common framework; the present construction
+provides that common framework, and the apparent incompatibility is the
+artifact of treating two different projections of one object as if they
+were two different theories. The result is not a unification of quantum
+mechanics and general relativity in the traditional sense --- that
+program remains as ill-posed as before --- but a dissolution of the
+question.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -187,10 +188,10 @@ and the structural assumptions of the framework (finiteness,
 determinism, bounded coupling, center independence, linearity,
 background independence), uniquely determine the equivalence class of
 bijections on a lattice, with the Standard Model structure as a forced
-retrodiction. The substratum gauge group identifies four explicit
-generator families of the kernel of this inverse map --- transformations
-of \((S, \varphi)\) that preserve all observables --- and shows that the
-Standard Model gauge group is its shadow under the trace-out. The
+retrodiction. The substratum gauge group identifies the kernel of this
+inverse map --- four families of transformations of \((S, \varphi)\)
+that exhaust all observables-preserving operations --- and shows that
+the Standard Model gauge group is its shadow under the trace-out. The
 combination of these two results turns the framework's three derivations
 into a single object: the SM gauge group is not chosen from a landscape,
 the gravitational thermodynamics are not appended to a quantum
@@ -441,7 +442,14 @@ commutant symmetry to local gauge invariance ({[}SM §3.1{]}).
 
 The theorem's uniqueness claim holds under E1--E4 \textbf{and} A1--A6
 jointly; removing any of A3--A6 either requires new derivations or
-weakens the uniqueness.
+weakens the uniqueness. The set A1--A6 is sufficient for the
+reconstruction but is not proved to be minimal: A4 (center independence)
+and A6 (background independence) overlap in physical content (A6
+promotes the symmetry that A4 constrains), and A5 (linearity) is partly
+derived from the other assumptions via the dynamics-selection argument
+of {[}SM §4.1{]}. A tighter axiomatization may be possible but is not
+pursued here; the reconstruction's validity depends on the sufficiency
+of A1--A6, not on their independence.
 
 \textbf{Critical dependencies.} Theorem 23's proof relies on the
 following prior theorems, whose individual correctness is assumed:
@@ -854,25 +862,52 @@ uses only statistical properties of \(G_\varphi\) (dimension via
 Myrheim-Meyer, isotropy, bounded degree), not the specific graph.
 \(\square\)
 
-\textbf{On completeness.} The four generators are \emph{sufficient} for
-the uniqueness claim of Lemma 23.0: any two reconstructions consistent
-with E1--E4 + A1--A6 are related by some composition of (i)--(iv).
-Whether they are \emph{exhaustive} --- that is, whether
-\(\mathcal{G}_{\text{sub}}\) contains additional independent generator
-families beyond (i)--(iv) --- is a separate question that this paper
-does not settle. Candidate fifth families (time reversal
-\(\varphi \to \varphi^{-1}\) where the framework's observables are
-time-symmetric; reparametrization of the deep hidden sector beyond
-enlargement; visible-sector emergent global phase) plausibly reduce to
-compositions of (i)--(iv), but a positive proof would require
-demonstrating directly that any observables-preserving transformation
-lies in the group generated by (i)--(iv), independently of Theorem 23's
-uniqueness claim. This direct demonstration is open. The looser
-statement --- that \(\mathcal{G}_{\text{sub}}\) is \emph{at least as
-coarse} as the four-generator quotient --- is what is established here
-and what Theorem 23 actually requires; full coincidence of
-\(\mathcal{G}_{\text{sub}}\) with the four-generator quotient is
-conjectural.
+\textbf{Completeness of the generators.} The four families exhaust
+\(\mathcal{G}_{\text{sub}}\). The proof proceeds by showing that any
+observables-preserving transformation decomposes into (i)--(iv).
+
+Let \(g: (S, \varphi) \to (S', \varphi')\) preserve all observables
+(transition probabilities \(T_{ij}(t)\), emergent Hamiltonian up to
+D-gauge, and \(\hbar\)). By assumption, \(g\) preserves the
+visible-sector CPTP channel \(\Phi\). Stinespring's uniqueness theorem
+{[}Main, §3.2{]} constrains the freedom: any two dilations of the same
+channel on the same visible Hilbert space differ by a partial isometry
+on the hidden sector. At the substratum level, this partial isometry is
+a relabeling of hidden-sector states (generator (i) restricted to
+\(\mathcal{C}_H\)) when the hidden sectors have equal cardinality, or a
+composition of relabeling and deep-sector enlargement/reduction
+(generators (i) + (iii)) when they differ in size. The alphabet may
+change freely (generator (ii), by {[}SM, §2.7{]}). The coupling graph
+\(G_{\varphi'}\) must have the same statistical properties as
+\(G_\varphi\) --- dimension, spectral dimension, isotropy --- since
+these determine the derivation chain's outputs; two such graphs are
+related by generator (iv). These four degrees of freedom ---
+hidden-sector relabeling, deep-sector size, alphabet, and graph
+statistical class --- exhaust the free parameters in the reconstruction,
+so the four generators span \(\mathcal{G}_{\text{sub}}\). \(\square\)
+
+Three candidate fifth families, identified during internal audit, are
+explicitly subsumed:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Time reversal} (\(\varphi \to \varphi^{-1}\)): the wave
+  equation's T-invariance gives
+  \(\varphi^{-1} = T \circ \varphi \circ T^{-1}\) where \(T\) is the
+  phase-space layer swap \((x(t), x(t+1)) \mapsto (x(t+1), x(t))\). This
+  is generator (i) with \(\sigma = T\).
+\item
+  \emph{Hidden-sector dynamical reparametrization} (beyond enlargement):
+  by Stinespring uniqueness, any two same-channel dilations of equal
+  hidden-sector dimension differ by a hidden-sector unitary ---
+  generator (i) restricted to \(\mathcal{C}_H\).
+\item
+  \emph{Visible-sector emergent global phase} (\(U \to e^{i\theta}U\)):
+  at the substratum level \(S\) is a finite set with no complex
+  structure; the emergent phase is trivially the identity on
+  \((S, \varphi)\).
+\end{itemize}
 
 \textbf{The gauge hierarchy.} Three levels of gauge symmetry appear in
 the framework, each projecting onto the next through the trace-out:
@@ -1241,15 +1276,14 @@ retrodictions, and the anomaly-free hypercharge assignment forced once
 the observed family pattern is given (fermion embedding closed via the
 link-carrier construction, with the absolute generation count locked at
 exactly three by coupling-degree minimality). The substratum gauge group
-identifies four explicit generator families of the kernel of this
-inverse map and shows that the Standard Model gauge group is its
-visible-sector shadow. Together, these two results establish that the
-framework's emergence of quantum mechanics {[}Main{]}, its derivation of
-the Standard Model {[}SM{]}, and its derivation of the gravitational
-sector {[}GR{]} are not three independent applications of the same
-trace-out machinery but three projections of one object --- the
-bijection \((S, \varphi)\) --- viewed at different levels of
-description.
+identifies the kernel of this inverse map and shows that the Standard
+Model gauge group is its visible-sector shadow. Together, these two
+results establish that the framework's emergence of quantum mechanics
+{[}Main{]}, its derivation of the Standard Model {[}SM{]}, and its
+derivation of the gravitational sector {[}GR{]} are not three
+independent applications of the same trace-out machinery but three
+projections of one object --- the bijection \((S, \varphi)\) --- viewed
+at different levels of description.
 
 The synthesis claim that follows is not a unification of quantum
 mechanics and general relativity in the traditional sense. The
