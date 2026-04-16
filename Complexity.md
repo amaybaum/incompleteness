@@ -197,7 +197,7 @@ The substratum gauge group $\mathcal{G}_{\text{sub}}$ [33, §4] makes this preci
 
 The anthropic principle assumes there is an ensemble of possible universes from which observation selects. The framework removes the ensemble: the structure is the only structure consistent with embedded observation (characterization theorem [1, §3.4]; reconstruction theorem [33, §3]). The preconditions for organic chemistry — atoms, carbon bonding geometry, the scale hierarchy, water, the thermal window, chiral selection — are structural (§2). The parameters have a viable fraction of $\mathcal{O}(10\%)$ (§3). There is nothing for observation to select, because there is nothing that could have been otherwise.
 
-The completeness of $\mathcal{G}_{\text{sub}}$ [33, Theorem 24] closes this argument: the four generators are the *complete* set of transformations that leave observables invariant. No finer distinction between substrata is empirically accessible. The structural preconditions for complexity are therefore as immutable as the gauge group itself — they are not drawn from an ensemble but fixed by the equivalence class.
+The four generators of $\mathcal{G}_{\text{sub}}$ [33, Theorem 24] make this precise: all four preserve observables, and the reconstruction theorem establishes that any two substrata consistent with the observed physics and the framework's structural assumptions lie in the same equivalence class under their composition. The structural preconditions for complexity are therefore as immutable as the gauge group itself — they are not drawn from an ensemble but fixed by the equivalence class.
 
 ### 5.3 The autocatalytic argument
 
