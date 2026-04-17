@@ -87,8 +87,9 @@ The theorem's uniqueness claim holds under E1–E4 **and** A1–A6 jointly; remo
 
 **Critical dependencies.** Theorem 23's proof relies on the following prior theorems, whose individual correctness is assumed:
 
-- [Main §3.2] Stinespring dilation for finite-dim CPTP channels
-- [Main §3.4] Characterization theorem (Bell violation ⇒ C1, QM ⇒ C2 + C3)
+- [Main §2.3] P-indivisibility of the marginalized stochastic process (Bell violations → P-indivisibility)
+- [Main §3.2] Forward Stinespring dilation (bijection → CPTP channel) and reverse-direction lemma (stochastic process → bijection)
+- [Main §3.4] Characterization theorem (Bell violation ⇒ C1, QM ⇒ C2 + C3, conditional on ETH for C2)
 - [SM §3.2] Coupling-graph dimension → d = 3
 - [SM §4.1] Center independence + isotropy + linearity → wave equation
 - [SM Theorems 5–15] Gauge group, generations, hypercharges derivation chain
@@ -105,7 +106,7 @@ Theorem 23's confidence is bounded above by the minimum confidence in these depe
 - The observed quantum dynamics is the reduced description obtained by tracing out $S \setminus V$ from the deterministic evolution under $\varphi$.
 - The triple satisfies C1 (non-trivial coupling), C2 (slow-bath memory), and C3 (high hidden-sector capacity).
 
-**Derivation.** Any CPTP quantum channel on a finite-dimensional Hilbert space admits a Stinespring dilation as unitary evolution on a larger Hilbert space [Main §3.2]. Finiteness of $\dim \mathcal{H}$ is justified by E3 (boundary entropy bound). The dilation extends to a bijection on a finite configuration space by the standard embedding [Main §3.2, Lemma]. Bell violations (E2) are incompatible with a factorizable distribution and hence require non-trivial coupling between visible and hidden sectors (C1). The characterization theorem [Main §3.4] establishes that any QM dynamics (E1) arising from deterministic evolution with trace-out necessarily satisfies C2 (slow-bath memory is required for the non-Markovian returns that produce quantum interference) and C3 (high hidden-sector capacity is required for the visible sector to have sufficient entropy to support observed states).
+**Derivation.** The observed quantum dynamics provides, for each choice of computational basis in the visible sector, a family of transition probabilities $T_{ij}(t)$ between basis states — the Born-rule matrix elements of the unitary evolution. These form a stochastic process on the finite visible configuration space (finiteness of $\mathcal{C}_V$ follows from E3, the boundary entropy bound). Bell violations (E2) are incompatible with a factorizable hidden-variable distribution and hence imply the stochastic process is P-indivisible: at intermediate times no valid stochastic matrix $\Lambda$ satisfies $T(t_2, 0) = \Lambda \, T(t_1, 0)$ ([Main §2.3]). By the reverse-direction lemma at the stochastic-process level ([Main §3.2]), any such P-indivisible process on a finite configuration space admits a realization as marginalization of a deterministic bijection $\varphi$ on an enlarged finite space $\mathcal{C}_V \times \mathcal{C}_H$ with uniform prior on $\mathcal{C}_H$. This delivers the triple $(S, \varphi, V)$ with $S = \mathcal{C}_V \times \mathcal{C}_H$ and $V = \mathcal{C}_V$. Non-permutation $T(t)$ (forced by Bell violations) gives C1. The characterization theorem [Main §3.4] establishes that the resulting dynamics, conditional on ETH in the hidden sector, necessarily satisfies C2 (slow-bath memory is required for the non-Markovian returns that produce quantum interference) and C3 (high hidden-sector capacity is required for the data-processing bound to accommodate observed information backflow).
 
 **Uniqueness at Stage 1.** The triple $(S, \varphi, V)$ is uniquely determined by the observations up to the equivalences:
 - Stinespring ambiguity: different dilations producing the same channel differ by unitary rotations on the hidden sector, which are absorbed into $\mathcal{G}_{\text{sub}}$ (Theorem 24).

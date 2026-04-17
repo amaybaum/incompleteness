@@ -106,9 +106,9 @@ The recurrence argument establishes P-indivisibility in principle. The following
 
 **Lemma (Accessible-timescale backflow).** *Under (C1)–(C3) with $\tau_S \ll \tau_B$, the non-Markovian mutual information $I(X_{<t}; X_{>t} \mid X_t)$ is $\mathcal{O}(1)$ for observation windows $t \sim k\tau_S$ with $k\tau_S \ll \tau_B$.*
 
-*Proof.* The coupling $H_{\text{int}}$ transfers visible-sector information to the hidden sector at each interaction, at rate $\sim 1/\tau_S$. Between interactions, the hidden sector evolves under $H_H$ with spectral gap $\Delta \sim 1/\tau_B$. The decay of correlations stored in the hidden sector is governed by $e^{-\Delta \tau_S}$. When $\tau_S \ll \tau_B$, $\Delta \tau_S \ll 1$, so the decay per visible-sector transition is $1 - e^{-\Delta \tau_S} \approx \Delta \tau_S \ll 1$: correlations survive each step essentially intact. After $k$ transitions spanning a time $k\tau_S \ll \tau_B$, the cumulative decay is $e^{-k\Delta\tau_S} \approx 1 - k\Delta\tau_S$, which remains close to unity. The hidden sector therefore retains $\sim k$ bits of visible-sector history over this window, and the $(k+1)$-th transition reads back stored correlations through $H_{\text{int}}$, producing history-dependent transition probabilities — i.e., information backflow. More precisely, the mutual information satisfies:
+*Proof.* The coupling $H_{\text{int}}$ transfers visible-sector information to the hidden sector at each interaction, at rate $\sim 1/\tau_S$. Between interactions, the hidden sector evolves under $H_H$; under the ETH assumption on $H_H$, the effective dephasing rate of correlations conditional on the previous visible state is $\sim 1/\tau_B$. The decay of correlations stored in the hidden sector is governed by $e^{-\tau_S/\tau_B}$. When $\tau_S \ll \tau_B$, $\tau_S/\tau_B \ll 1$, so the decay per visible-sector transition is $1 - e^{-\tau_S/\tau_B} \approx \tau_S/\tau_B \ll 1$: correlations survive each step essentially intact. After $k$ transitions spanning a time $k\tau_S \ll \tau_B$, the cumulative decay is $e^{-k\tau_S/\tau_B} \approx 1 - k\tau_S/\tau_B$, which remains close to unity. The hidden sector therefore retains $\sim k$ bits of visible-sector history over this window, and the $(k+1)$-th transition reads back stored correlations through $H_{\text{int}}$, producing history-dependent transition probabilities — i.e., information backflow. More precisely, the mutual information satisfies:
 
-$$I(X_{<t}; X_{>t} \mid X_t) \geq I_0(1 - k\Delta\tau_S) = I_0\left(1 - \frac{k\tau_S}{\tau_B}\right)$$
+$$I(X_{<t}; X_{>t} \mid X_t) \geq I_0\left(1 - \frac{k\tau_S}{\tau_B}\right)$$
 
 where $I_0 > 0$ is the single-step information transfer from (C1). For $k\tau_S \ll \tau_B$, this remains $\mathcal{O}(I_0)$ — comparable to the single-step coupling strength, not exponentially suppressed. The bound saturates (C3): the maximum storable history is $\log_2 m$ bits (§3.4), so persistent backflow over $K$ transitions requires $m \geq 2^K$, which is amply satisfied when $N_H \gg N_V$. $\square$
 
@@ -182,11 +182,11 @@ An independent derivation of the emergent quantum description uses only Stinespr
 
 For continuous-time dynamics $\varphi_t$, Stone's theorem on $\mathcal{H}$ yields $U_t = e^{-i\hat{H}t}$ for Hermitian $\hat{H}$.
 
-**Lemma (Reverse direction: CPTP → bijection).** *Any CPTP channel $\Phi$ on a finite-dimensional Hilbert space $\mathcal{H}_V = \mathbb{C}^n$ admits, for any $\varepsilon > 0$, a realization as marginalization of a permutation-unitary bijection on a larger finite configuration space: there exist finite sets $\mathcal{C}_V$, $\mathcal{C}_H$ and a bijection $\varphi: \mathcal{C}_V \times \mathcal{C}_H \to \mathcal{C}_V \times \mathcal{C}_H$ such that the induced channel $\Phi_\varphi$ via partial trace (as constructed in the forward direction) satisfies $\|\Phi - \Phi_\varphi\|_\diamond \leq \varepsilon$, where $\|\cdot\|_\diamond$ is the diamond norm.*
+**Lemma (Reverse direction: stochastic process → bijection).** *Let $\mathcal{S}$ be a stochastic process on a finite configuration space $\mathcal{C}_V$ with $|\mathcal{C}_V| = n$, specified by a finite family of $k$-step transition matrices $\{T(k)\}_{k=1}^K$. Then there exist a finite set $\mathcal{C}_H$ and a bijection $\varphi: \mathcal{C}_V \times \mathcal{C}_H \to \mathcal{C}_V \times \mathcal{C}_H$ such that the $k$-step marginalization of $\varphi^k$ with uniform prior on $\mathcal{C}_H$ reproduces $T(k)$ (exactly for rational transition probabilities; to arbitrary precision otherwise) for all $k \leq K$.*
 
-*Proof.* Stinespring's theorem [15] gives a Hilbert-space isometry $V: \mathcal{H}_V \to \mathcal{H}_V \otimes \mathcal{H}_H$ and a unitary $U$ on $\mathcal{H}_V \otimes \mathcal{H}_H$ extending $V$, with $\Phi(\rho) = \mathrm{Tr}_H[U(\rho \otimes \rho_0)U^\dagger]$ for some fixed $\rho_0 \in \mathcal{S}(\mathcal{H}_H)$. By Solovay–Kitaev [28] (or any standard universal-gate-set density result), for any $\varepsilon > 0$ there exists a permutation-unitary $U_\varphi$ on a possibly enlarged $\mathcal{H}_V \otimes \mathcal{H}_H'$ with $\|U - U_\varphi\| \leq \varepsilon$ in operator norm. The enlarged space corresponds to a finite set $\mathcal{C}_V \times \mathcal{C}_H'$ via the canonical basis identification (Setup paragraph), and $U_\varphi$ corresponds to a bijection $\varphi$. Error propagation through partial trace gives $\|\Phi - \Phi_\varphi\|_\diamond \leq 2\varepsilon$. Replacing $\varepsilon$ with $\varepsilon/2$ in the initial approximation gives the claim. $\square$
+*Proof.* Each $T(k)$ arising as a marginal of a bijection with uniform prior is doubly-stochastic: row sums are $1$ by normalisation of the prior, column sums are $1$ because $\varphi^k$ is a bijection. By Birkhoff–von Neumann, $T(k) = \sum_\sigma p_\sigma^{(k)} \Pi_\sigma$ is a convex combination of permutation matrices with rational weights (after rational approximation, if required). Take $\mathcal{C}_H$ large enough to encode, via a standard history-dilation construction, the joint choices of permutations at each of the $K$ time steps; the resulting joint dynamics is a bijection by construction and its $k$-step marginal reproduces $T(k)$. This is the classical substrate of the unitary dilation in [11, 12]. $\square$
 
-*Remark.* This Lemma establishes that any CPTP channel on finite-dimensional Hilbert space can be approximated to arbitrary precision by a bijection on a finite configuration space. The finiteness of $\mathcal{H}_V$ follows from the holographic bound $\dim \mathcal{H} \leq e^{A/4}$ applied to any bounded region. This is the reverse direction invoked by [Substratum, Theorem 23, Stage 1]: observed finite-dim CPTP dynamics can always be realized as the visible-sector projection of a finite-bijection substrate. The forward direction (bijection → CPTP) is the preceding Permutation Unitarity Lemma; together they establish the bidirectional correspondence between finite CPTP channels and finite bijections (up to arbitrary precision).
+*Remark.* This establishes bidirectional correspondence at the stochastic-process level: every stochastic process on $\mathcal{C}_V$ arises as marginalization of a permutation-bijection on $\mathcal{C}_V \times \mathcal{C}_H$ with uniform prior. It is not a correspondence at the full CPTP-channel level — a permutation-unitary with uniform ancilla maps basis-state inputs to diagonal outputs, so coherence-creating channels have no such direct realisation. This is the appropriate scope for the characterization theorem (§3.4), which is formulated in terms of transition probabilities. The holographic bound $\dim \mathcal{H} \leq e^{A/4}$ bounds the size of the emergent $\mathcal{H}_V$ for any bounded region. This is the reverse direction invoked by [Substratum, Theorem 23, Stage 1].
 
 **The quantum channel.** The observer's ignorance of the hidden sector (Lemma 3) corresponds to $\rho_H = I_m/m$. The visible-sector quantum channel is
 
@@ -401,7 +401,7 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [20] S. Gröblacher, A. Trubarov, N. Prigge, G. D. Cole, M. Aspelmeyer, and J. Eisert, "Observation of non-Markovian micromechanical Brownian motion," *Nature Communications* **6**, 7606 (2015).
 
 
-[21] S. W. P. Kim, "Measurement-induced phase transitions in quantum inference problems and quantum hidden Markov models," arXiv:2504.08888 (2025).
+[21] S. W. P. Kim, C. von Keyserlingk, and A. Lamacraft, "Measurement-induced phase transitions in quantum inference problems and quantum hidden Markov models," arXiv:2504.08888 (2025).
 
 
 [22] J. Doukas, "On the emergence of quantum mechanics from stochastic processes," arXiv:2602.22095 (2026).
@@ -410,7 +410,7 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [23] J. S. Bell, "On the Einstein Podolsky Rosen paradox," *Physics Physique Fizika* **1**, 195–200 (1964).
 
 
-[24] J. A. Barandes, S. Hasan, and J. Kagan, "The CHSH Game, Tsirelson's Bound, and Causal Locality," arXiv:2512.18105 (2025).
+[24] J. A. Barandes, M. Hasan, and D. Kagan, "The CHSH Game, Tsirelson's Bound, and Causal Locality," arXiv:2512.18105 (2025).
 
 
 [25] A. Fine, "Hidden Variables, Joint Probability, and the Bell Inequalities," *Phys. Rev. Lett.* **48**, 291 (1982).
@@ -422,7 +422,7 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [27] B. S. Cirel'son, "Quantum generalizations of Bell's inequality," *Lett. Math. Phys.* **4**, 93–100 (1980).
 
 
-[28] H. C. Bäcker, S. Milz, and K. Modi, "Operational discrimination of classical and quantum memory in non-Markovian processes," (2023).
+[28] C. Bäcker, K. Beyer, and W. T. Strunz, "Local disclosure of quantum memory in non-Markovian dynamics," *Phys. Rev. Lett.* **132**, 060402 (2024); arXiv:2310.01205.
 
 
-[29] B. Yosifov et al., "Distinguishing classical and quantum memory in collision models with controllable correlations," (2025).
+[29] A. Yosifov, A. Iyer, V. Vedral, and J. Sun, "On the emergence of quantum memory in non-Markovian dynamics," arXiv:2507.21907 (2025).

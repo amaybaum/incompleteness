@@ -663,10 +663,10 @@ The entropy of the radiation at the Page time is $S_{\text{rad}}(t_P) = n_B(0) \
 [24] N. Bao, S. M. Carroll, and A. Singh, "The Hilbert space of quantum gravity is locally finite-dimensional," *Int. J. Mod. Phys. D* **26**, 1743013 (2017).
 
 
-[25] H. C. Bäcker, S. Milz, and K. Modi, "Operational discrimination of classical and quantum memory in non-Markovian processes," (2023).
+[25] C. Bäcker, K. Beyer, and W. T. Strunz, "Local disclosure of quantum memory in non-Markovian dynamics," *Phys. Rev. Lett.* **132**, 060402 (2024); arXiv:2310.01205.
 
 
-[26] B. Yosifov et al., "Distinguishing classical and quantum memory in collision models with controllable correlations," (2025).
+[26] A. Yosifov, A. Iyer, V. Vedral, and J. Sun, "On the emergence of quantum memory in non-Markovian dynamics," arXiv:2507.21907 (2025).
 
 
 [27] S. Popescu, A. J. Short, and A. Winter, "Entanglement and the foundations of statistical mechanics," *Nature Physics* **2**, 754–758 (2006).
