@@ -17,12 +17,8 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
-  \setsansfont[]{DejaVu Sans}
-  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -61,7 +57,69 @@
 \fi
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
+% Render Unicode symbols that appear in text mode but aren't in the default serif font
+\ifLuaTeX
+  \usepackage{newunicodechar}
+  \newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+  \newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+  \newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+  \newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+  \newunicodechar{→}{\ensuremath{\rightarrow}}
+  \newunicodechar{←}{\ensuremath{\leftarrow}}
+  \newunicodechar{≲}{\ensuremath{\lesssim}}
+  \newunicodechar{≳}{\ensuremath{\gtrsim}}
+  \newunicodechar{∼}{\ensuremath{\sim}}
+  \newunicodechar{ℏ}{\ensuremath{\hbar}}
+  \newunicodechar{ε}{\ensuremath{\varepsilon}}
+  \newunicodechar{ν}{\ensuremath{\nu}}
+  \newunicodechar{φ}{\ensuremath{\varphi}}
+  \newunicodechar{σ}{\ensuremath{\sigma}}
+  \newunicodechar{θ}{\ensuremath{\theta}}
+  \newunicodechar{λ}{\ensuremath{\lambda}}
+  \newunicodechar{μ}{\ensuremath{\mu}}
+  \newunicodechar{ρ}{\ensuremath{\rho}}
+  \newunicodechar{τ}{\ensuremath{\tau}}
+  \newunicodechar{π}{\ensuremath{\pi}}
+  \newunicodechar{Δ}{\ensuremath{\Delta}}
+  \newunicodechar{Γ}{\ensuremath{\Gamma}}
+  \newunicodechar{Λ}{\ensuremath{\Lambda}}
+  \newunicodechar{Σ}{\ensuremath{\Sigma}}
+  \newunicodechar{Ω}{\ensuremath{\Omega}}
+  \newunicodechar{Φ}{\ensuremath{\Phi}}
+  \newunicodechar{⁻}{\ensuremath{{}^{-}}}
+  \newunicodechar{⁺}{\ensuremath{{}^{+}}}
+\else\ifXeTeX
+  \usepackage{newunicodechar}
+  \newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+  \newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+  \newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+  \newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+  \newunicodechar{→}{\ensuremath{\rightarrow}}
+  \newunicodechar{←}{\ensuremath{\leftarrow}}
+  \newunicodechar{≲}{\ensuremath{\lesssim}}
+  \newunicodechar{≳}{\ensuremath{\gtrsim}}
+  \newunicodechar{∼}{\ensuremath{\sim}}
+  \newunicodechar{ℏ}{\ensuremath{\hbar}}
+  \newunicodechar{ε}{\ensuremath{\varepsilon}}
+  \newunicodechar{ν}{\ensuremath{\nu}}
+  \newunicodechar{φ}{\ensuremath{\varphi}}
+  \newunicodechar{σ}{\ensuremath{\sigma}}
+  \newunicodechar{θ}{\ensuremath{\theta}}
+  \newunicodechar{λ}{\ensuremath{\lambda}}
+  \newunicodechar{μ}{\ensuremath{\mu}}
+  \newunicodechar{ρ}{\ensuremath{\rho}}
+  \newunicodechar{τ}{\ensuremath{\tau}}
+  \newunicodechar{π}{\ensuremath{\pi}}
+  \newunicodechar{Δ}{\ensuremath{\Delta}}
+  \newunicodechar{Γ}{\ensuremath{\Gamma}}
+  \newunicodechar{Λ}{\ensuremath{\Lambda}}
+  \newunicodechar{Σ}{\ensuremath{\Sigma}}
+  \newunicodechar{Ω}{\ensuremath{\Omega}}
+  \newunicodechar{Φ}{\ensuremath{\Phi}}
+  \newunicodechar{⁻}{\ensuremath{{}^{-}}}
+  \newunicodechar{⁺}{\ensuremath{{}^{+}}}
+\fi\fi
+
 \hypersetup{
   colorlinks=true,
   linkcolor={blue},
@@ -2232,12 +2290,12 @@ Milky Way rotation curve,'' \emph{Astronomy \& Astrophysics}
 quantum gravity is locally finite-dimensional,'' \emph{Int. J. Mod.
 Phys. D} \textbf{26}, 1743013 (2017).
 
-{[}25{]} H. C. Bäcker, S. Milz, and K. Modi, ``Operational
-discrimination of classical and quantum memory in non-Markovian
-processes,'' (2023).
+{[}25{]} C. Bäcker, K. Beyer, and W. T. Strunz, ``Local disclosure of
+quantum memory in non-Markovian dynamics,'' \emph{Phys. Rev.~Lett.}
+\textbf{132}, 060402 (2024); arXiv:2310.01205.
 
-{[}26{]} B. Yosifov et al., ``Distinguishing classical and quantum
-memory in collision models with controllable correlations,'' (2025).
+{[}26{]} A. Yosifov, A. Iyer, V. Vedral, and J. Sun, ``On the emergence
+of quantum memory in non-Markovian dynamics,'' arXiv:2507.21907 (2025).
 
 {[}27{]} S. Popescu, A. J. Short, and A. Winter, ``Entanglement and the
 foundations of statistical mechanics,'' \emph{Nature Physics}

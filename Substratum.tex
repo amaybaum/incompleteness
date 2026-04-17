@@ -1,7 +1,7 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-% xcolor driver fix applied
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   11pt,
@@ -17,12 +17,8 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
-  \setsansfont[]{DejaVu Sans}
-  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -40,7 +36,7 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\usepackage{xcolor}
 \usepackage[margin=1in]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
@@ -51,7 +47,69 @@
 \fi
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
+% Render Unicode symbols that appear in text mode but aren't in the default serif font
+\ifLuaTeX
+  \usepackage{newunicodechar}
+  \newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+  \newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+  \newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+  \newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+  \newunicodechar{→}{\ensuremath{\rightarrow}}
+  \newunicodechar{←}{\ensuremath{\leftarrow}}
+  \newunicodechar{≲}{\ensuremath{\lesssim}}
+  \newunicodechar{≳}{\ensuremath{\gtrsim}}
+  \newunicodechar{∼}{\ensuremath{\sim}}
+  \newunicodechar{ℏ}{\ensuremath{\hbar}}
+  \newunicodechar{ε}{\ensuremath{\varepsilon}}
+  \newunicodechar{ν}{\ensuremath{\nu}}
+  \newunicodechar{φ}{\ensuremath{\varphi}}
+  \newunicodechar{σ}{\ensuremath{\sigma}}
+  \newunicodechar{θ}{\ensuremath{\theta}}
+  \newunicodechar{λ}{\ensuremath{\lambda}}
+  \newunicodechar{μ}{\ensuremath{\mu}}
+  \newunicodechar{ρ}{\ensuremath{\rho}}
+  \newunicodechar{τ}{\ensuremath{\tau}}
+  \newunicodechar{π}{\ensuremath{\pi}}
+  \newunicodechar{Δ}{\ensuremath{\Delta}}
+  \newunicodechar{Γ}{\ensuremath{\Gamma}}
+  \newunicodechar{Λ}{\ensuremath{\Lambda}}
+  \newunicodechar{Σ}{\ensuremath{\Sigma}}
+  \newunicodechar{Ω}{\ensuremath{\Omega}}
+  \newunicodechar{Φ}{\ensuremath{\Phi}}
+  \newunicodechar{⁻}{\ensuremath{{}^{-}}}
+  \newunicodechar{⁺}{\ensuremath{{}^{+}}}
+\else\ifXeTeX
+  \usepackage{newunicodechar}
+  \newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+  \newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+  \newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+  \newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+  \newunicodechar{→}{\ensuremath{\rightarrow}}
+  \newunicodechar{←}{\ensuremath{\leftarrow}}
+  \newunicodechar{≲}{\ensuremath{\lesssim}}
+  \newunicodechar{≳}{\ensuremath{\gtrsim}}
+  \newunicodechar{∼}{\ensuremath{\sim}}
+  \newunicodechar{ℏ}{\ensuremath{\hbar}}
+  \newunicodechar{ε}{\ensuremath{\varepsilon}}
+  \newunicodechar{ν}{\ensuremath{\nu}}
+  \newunicodechar{φ}{\ensuremath{\varphi}}
+  \newunicodechar{σ}{\ensuremath{\sigma}}
+  \newunicodechar{θ}{\ensuremath{\theta}}
+  \newunicodechar{λ}{\ensuremath{\lambda}}
+  \newunicodechar{μ}{\ensuremath{\mu}}
+  \newunicodechar{ρ}{\ensuremath{\rho}}
+  \newunicodechar{τ}{\ensuremath{\tau}}
+  \newunicodechar{π}{\ensuremath{\pi}}
+  \newunicodechar{Δ}{\ensuremath{\Delta}}
+  \newunicodechar{Γ}{\ensuremath{\Gamma}}
+  \newunicodechar{Λ}{\ensuremath{\Lambda}}
+  \newunicodechar{Σ}{\ensuremath{\Sigma}}
+  \newunicodechar{Ω}{\ensuremath{\Omega}}
+  \newunicodechar{Φ}{\ensuremath{\Phi}}
+  \newunicodechar{⁻}{\ensuremath{{}^{-}}}
+  \newunicodechar{⁺}{\ensuremath{{}^{+}}}
+\fi\fi
+
 \hypersetup{
   colorlinks=true,
   linkcolor={blue},
@@ -62,7 +120,14 @@
 
 \author{}
 \date{}
+
 \begin{document}
+
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
 \hypertarget{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}{%
 \section{The Substratum Construction: Reconstruction, the Substratum
 Gauge Group, and the QM-GR
@@ -457,10 +522,14 @@ following prior theorems, whose individual correctness is assumed:
 \begin{itemize}
 \tightlist
 \item
-  {[}Main §3.2{]} Stinespring dilation for finite-dim CPTP channels
+  {[}Main §2.3{]} P-indivisibility of the marginalized stochastic
+  process (Bell violations → P-indivisibility)
+\item
+  {[}Main §3.2{]} Forward Stinespring dilation (bijection → CPTP
+  channel) and reverse-direction lemma (stochastic process → bijection)
 \item
   {[}Main §3.4{]} Characterization theorem (Bell violation ⇒ C1, QM ⇒ C2
-  + C3)
+  + C3, conditional on ETH for C2)
 \item
   {[}SM §3.2{]} Coupling-graph dimension → d = 3
 \item
@@ -494,19 +563,30 @@ deterministic evolution under \(\varphi\). - The triple satisfies C1
 (non-trivial coupling), C2 (slow-bath memory), and C3 (high
 hidden-sector capacity).
 
-\textbf{Derivation.} Any CPTP quantum channel on a finite-dimensional
-Hilbert space admits a Stinespring dilation as unitary evolution on a
-larger Hilbert space {[}Main §3.2{]}. Finiteness of \(\dim \mathcal{H}\)
-is justified by E3 (boundary entropy bound). The dilation extends to a
-bijection on a finite configuration space by the standard embedding
-{[}Main §3.2, Lemma{]}. Bell violations (E2) are incompatible with a
-factorizable distribution and hence require non-trivial coupling between
-visible and hidden sectors (C1). The characterization theorem {[}Main
-§3.4{]} establishes that any QM dynamics (E1) arising from deterministic
-evolution with trace-out necessarily satisfies C2 (slow-bath memory is
-required for the non-Markovian returns that produce quantum
-interference) and C3 (high hidden-sector capacity is required for the
-visible sector to have sufficient entropy to support observed states).
+\textbf{Derivation.} The observed quantum dynamics provides, for each
+choice of computational basis in the visible sector, a family of
+transition probabilities \(T_{ij}(t)\) between basis states --- the
+Born-rule matrix elements of the unitary evolution. These form a
+stochastic process on the finite visible configuration space (finiteness
+of \(\mathcal{C}_V\) follows from E3, the boundary entropy bound). Bell
+violations (E2) are incompatible with a factorizable hidden-variable
+distribution and hence imply the stochastic process is P-indivisible: at
+intermediate times no valid stochastic matrix \(\Lambda\) satisfies
+\(T(t_2, 0) = \Lambda \, T(t_1, 0)\) ({[}Main §2.3{]}). By the
+reverse-direction lemma at the stochastic-process level ({[}Main
+§3.2{]}), any such P-indivisible process on a finite configuration space
+admits a realization as marginalization of a deterministic bijection
+\(\varphi\) on an enlarged finite space
+\(\mathcal{C}_V \times \mathcal{C}_H\) with uniform prior on
+\(\mathcal{C}_H\). This delivers the triple \((S, \varphi, V)\) with
+\(S = \mathcal{C}_V \times \mathcal{C}_H\) and \(V = \mathcal{C}_V\).
+Non-permutation \(T(t)\) (forced by Bell violations) gives C1. The
+characterization theorem {[}Main §3.4{]} establishes that the resulting
+dynamics, conditional on ETH in the hidden sector, necessarily satisfies
+C2 (slow-bath memory is required for the non-Markovian returns that
+produce quantum interference) and C3 (high hidden-sector capacity is
+required for the data-processing bound to accommodate observed
+information backflow).
 
 \textbf{Uniqueness at Stage 1.} The triple \((S, \varphi, V)\) is
 uniquely determined by the observations up to the equivalences: -
@@ -1355,4 +1435,5 @@ Phys. D} \textbf{26}, 1743013 (2017).
 
 {[}GR{]} A. Maybaum, ``ℏ, the Bekenstein-Hawking Entropy, and Dynamical
 Dark Energy from the Cosmological Horizon,'' (2026).
+
 \end{document}
