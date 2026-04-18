@@ -57,7 +57,7 @@
 \fi
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-% Render Unicode symbols that appear in text mode but aren't in the default serif font
+% Render Unicode symbols in text mode
 \ifLuaTeX
   \usepackage{newunicodechar}
   \newunicodechar{↔}{\ensuremath{\leftrightarrow}}
@@ -204,8 +204,7 @@ high-capacity hidden sector on a finite-dimensional configuration space
 --- must describe the visible sector using P-indivisible stochastic
 dynamics, mathematically equivalent to unitary quantum mechanics. The
 converse also holds: any quantum system, realized as a deterministic
-dilation with a hidden sector obeying the eigenstate thermalization
-hypothesis, requires non-trivial coupling, slow-bath memory, and
+dilation, requires non-trivial coupling, slow-bath memory, and
 sufficient hidden-sector capacity. The Schrödinger equation, Born rule,
 and Bell violations emerge as structural consequences requiring no
 independent quantum postulates.
@@ -260,15 +259,10 @@ follow.
 \textbf{Lemma 1} (Finiteness). \emph{The observer has finitely many
 distinguishable internal states, so the visible configuration space
 \(\mathcal{C}_V\) is finite, with a discreteness scale \(\epsilon\)
-providing a finite minimal cell volume.} This is a structural postulate
-about the observer, motivated by the fact that a finite-memory observer
-can register only finitely many outcomes and by holographic entropy
-bounds {[}2{]} that independently predict a finite Hilbert-space
-dimension for any bounded region. Strict classical field theory would
-permit infinitely many modes on a finite boundary; the finiteness
-assumed here is at least as strong as a UV cutoff and is taken as part
-of the definition of embedded observation rather than derived from
-outside physics.
+providing a finite minimal cell volume.} Any observer bounded by a
+finite-area surface can couple to only finitely many modes across that
+boundary; independent support comes from holographic entropy bounds
+{[}2{]}.
 
 \textbf{Lemma 2} (Causal partition). \emph{The observer is a proper
 subsystem: \(V \subsetneq S\). The complement \(H = S \setminus V\) is
@@ -320,10 +314,8 @@ appreciably perturb the hidden sector's state on timescales
 \textbf{Theorem statement.} Under Lemmas 1--3 and (C1)--(C3), the
 embedded observer's reduced description is mathematically equivalent to
 unitarily evolving quantum mechanics (defined precisely in §3.4). The
-conditions are not merely sufficient but \emph{necessary} (§3.4) ---
-unconditionally for (C1) and (C3), and conditionally on the eigenstate
-thermalization hypothesis (ETH) in the hidden sector for (C2) ---
-establishing full equivalence within this scope.
+conditions are not merely sufficient but \emph{necessary} (§3.4),
+establishing full equivalence.
 
 \hypertarget{partition-relativity}{%
 \subsubsection{1.4 Partition-Relativity}\label{partition-relativity}}
@@ -462,11 +454,12 @@ windows \(t \sim k\tau_S\) with \(k\tau_S \ll \tau_B\).}
 \emph{Proof.} The coupling \(H_{\text{int}}\) transfers visible-sector
 information to the hidden sector at each interaction, at rate
 \(\sim 1/\tau_S\). Between interactions, the hidden sector evolves under
-\(H_H\); under the ETH assumption on \(H_H\), the effective dephasing
-rate of correlations conditional on the previous visible state is
-\(\sim 1/\tau_B\). The decay of correlations stored in the hidden sector
-is governed by \(e^{-\tau_S/\tau_B}\). When \(\tau_S \ll \tau_B\),
-\(\tau_S/\tau_B \ll 1\), so the decay per visible-sector transition is
+its own Hamiltonian \(H_H\); under the ETH assumption on \(H_H\), the
+effective dephasing rate of correlations conditional on the previous
+visible state is \(\sim 1/\tau_B\). The decay of correlations stored in
+the hidden sector is governed by \(e^{-\tau_S/\tau_B}\). When
+\(\tau_S \ll \tau_B\), \(\tau_S/\tau_B \ll 1\), so the decay per
+visible-sector transition is
 \(1 - e^{-\tau_S/\tau_B} \approx \tau_S/\tau_B \ll 1\): correlations
 survive each step essentially intact. After \(k\) transitions spanning a
 time \(k\tau_S \ll \tau_B\), the cumulative decay is
@@ -666,20 +659,14 @@ invariance. Any degeneracy in \(H_{\text{tot}}\) that relies on
 correlations between visible and hidden sectors --- which includes all
 degeneracies associated with symmetries the partition breaks --- is
 lifted in \(\hat{H}_{\text{eff}}\). The residual degeneracies of
-\(\hat{H}_{\text{eff}}\) fall into two classes: continuous symmetries
-acting entirely within the visible sector that commute with the
-trace-out --- precisely the gauge symmetries of the emergent
-description, which correspond to physically equivalent states and do not
-affect the phase-locking argument (it operates on gauge-inequivalent
-transition data); and discrete residual symmetries (e.g.~reflections
-internal to \(V\) surviving the trace-out) which would produce
-finite-order degeneracies, are lifted generically by any perturbation of
-the partition boundary, and in the surviving cases yield \(H\) up to a
-finite permutation of eigenlabels that is physically inert.
-\(\hat{H}_{\text{eff}}\) therefore satisfies G1--G3 not by typicality in
-an abstract ensemble but because the partition itself acts as a
-symmetry-breaking mechanism, with any residual discrete ambiguity
-absorbed into gauge equivalence.
+\(\hat{H}_{\text{eff}}\) are those associated with symmetries acting
+entirely within the visible sector that commute with the trace-out:
+precisely the gauge symmetries of the emergent description. Gauge
+degeneracies correspond to physically equivalent states and do not
+affect the phase-locking argument, which operates on gauge-inequivalent
+transition data. \(\hat{H}_{\text{eff}}\) therefore satisfies G1--G3 not
+by typicality in an abstract ensemble, but because the partition itself
+acts as a symmetry-breaking mechanism.
 
 \hypertarget{independent-derivation-via-stinespring-dilation}{%
 \subsubsection{3.2 Independent Derivation via Stinespring
@@ -890,16 +877,15 @@ structure without fine-tuning.
 coupling neighborhoods on \(G_\varphi\). The spatial Markov property of
 range-1 dynamics (the area-law lemma: for spatially local bijections,
 the mutual information between two regions depends only on their shared
-boundary; stated and proved in {[}SM §3.2{]}) makes \(V_A\) and \(V_B\)
-conditionally independent given boundary data. Alice's measurement
-setting \(a\) determines which function she evaluates on \(V_A\); it
-does not alter the transition probabilities for \(V_B\), which depend
-only on \(V_B\)'s local coupling neighborhood. Hence
-\(P(x_B \mid a, b) = P(x_B \mid b)\) --- parameter independence holds
-structurally for all bounded-degree graph topologies with range-1
-coupling, with no fine-tuning of the hidden-variable distribution.
-Combined with the outcome-independence violation from stochastic
-entanglement, this gives the precise Jarrett decomposition.
+boundary) makes \(V_A\) and \(V_B\) conditionally independent given
+boundary data. Alice's measurement setting \(a\) determines which
+function she evaluates on \(V_A\); it does not alter the transition
+probabilities for \(V_B\), which depend only on \(V_B\)'s local coupling
+neighborhood. Hence \(P(x_B \mid a, b) = P(x_B \mid b)\) --- parameter
+independence holds structurally for all bounded-degree graph topologies
+with range-1 coupling, with no fine-tuning of the hidden-variable
+distribution. Combined with the outcome-independence violation from
+stochastic entanglement, this gives the precise Jarrett decomposition.
 
 \hypertarget{the-characterization-theorem-necessity-of-the-conditions}{%
 \subsubsection{3.4 The Characterization Theorem: Necessity of the
@@ -1004,24 +990,19 @@ requires \(m \geq n\). Sustained information backflow at rate
 window, of which the framework's qualitative (C3) (``hidden sector large
 enough'') is a conservative restatement. \(\square\)
 
-\textbf{Definition (unitarily evolving QM at the transition-probability
-level).} A stochastic process \(\mathcal{S}\) on a finite configuration
-space \(\mathcal{C}_V = \{x_1, \ldots, x_n\}\) is \emph{mathematically
-equivalent to unitarily evolving quantum mechanics at the
-transition-probability level} if there exists a Hilbert space
-\(\mathcal{H}_V\) of dimension \(\leq n^3\), a Hermitian operator
-\(\hat{H}\) on \(\mathcal{H}_V\), and a unitary family
+\textbf{Definition (unitarily evolving QM).} A stochastic process
+\(\mathcal{S}\) on a finite configuration space
+\(\mathcal{C}_V = \{x_1, \ldots, x_n\}\) is \emph{mathematically
+equivalent to unitarily evolving quantum mechanics} if there exists a
+Hilbert space \(\mathcal{H}_V\) of dimension \(\leq n^3\), a Hermitian
+operator \(\hat{H}\) on \(\mathcal{H}_V\), and a unitary family
 \(U(t) = e^{-i\hat{H}t}\) such that \(T_{ij}(t) = |U_{ij}(t)|^2\) for
-all \(i, j, t\) --- i.e., computational-basis transition probabilities
-are exactly Born-rule probabilities. This definition captures the
-Hilbert space, unitary dynamics, and the Born rule for transitions
-between the classical-basis states \(\mathcal{C}_V\) inherits from the
-partition. Additional quantum-mechanical structures --- superposition
-inputs, entangled initial states, sequential-measurement state update,
-and multi-particle structure --- are addressed in the remarks following
-the theorem, where they are shown to emerge from the Stinespring
-construction of §3.2 rather than requiring independent postulates, but
-their derivation lies outside the scope of the equivalence proved below.
+all \(i, j, t\) --- i.e., transition probabilities are exactly Born-rule
+probabilities. This definition captures the Hilbert space, unitary
+dynamics, and the Born rule. Additional quantum-mechanical structures
+--- the tensor product decomposition for spatially separated
+visible-sector subsystems, state update, and the measurement formalism
+--- are addressed in the remarks following the theorem.
 
 \textbf{Characterization theorem.} \emph{Let \(\mathcal{S}\) be a
 stochastic process on a finite configuration space \(\mathcal{C}_V\)
@@ -1032,8 +1013,7 @@ realization satisfies ETH {[}17, 18{]}. Then the following are
 equivalent:}
 
 \emph{(i) \(\mathcal{S}\) is mathematically equivalent to unitarily
-evolving QM at the transition-probability level (in the sense of the
-preceding definition).}
+evolving QM (in the sense of the preceding definition).}
 
 \emph{(ii) \(\mathcal{S}\) is P-indivisible on accessible timescales ---
 i.e., information backflow occurs at \(t \ll t_R\), not merely at the
@@ -1074,14 +1054,13 @@ product is therefore given by the construction, not postulated.
 Spatially separated subsystems within the visible sector --- e.g., two
 laboratories --- correspond to subsets \(V_A, V_B \subset V\) with
 disjoint coupling neighborhoods on the coupling graph. The spatial
-Markov property of range-1 dynamics (the area-law lemma; {[}SM §3.2{]})
-guarantees conditional independence:
-\(\rho_{AB} = \rho_A \otimes \rho_B\) conditioned on boundary data. The
-emergent Hilbert space inherits the factorization
-\(\mathcal{H}_{V_A} \otimes \mathcal{H}_{V_B}\) from the locality of the
-coupling graph, with entanglement between \(A\) and \(B\) arising from
-shared boundary history --- precisely the stochastic entanglement of
-{[}11, 24{]}.
+Markov property of range-1 dynamics (the area-law lemma) guarantees
+conditional independence: \(\rho_{AB} = \rho_A \otimes \rho_B\)
+conditioned on boundary data. The emergent Hilbert space inherits the
+factorization \(\mathcal{H}_{V_A} \otimes \mathcal{H}_{V_B}\) from the
+locality of the coupling graph, with entanglement between \(A\) and
+\(B\) arising from shared boundary history --- precisely the stochastic
+entanglement of {[}11, 24{]}.
 
 \emph{(iii) State update, measurement, and multi-time predictions.}
 Projective measurement in the emergent description corresponds to
@@ -1153,15 +1132,10 @@ defined by null geodesics.
 \subsubsection{4.3 The Status of the Discreteness
 Scale}\label{the-status-of-the-discreteness-scale}}
 
-\(\epsilon\) is a structural postulate of the framework, not a derived
-consequence. It does not smuggle in \emph{quantum-mechanical} content
-specifically --- the framework makes no use of \(\hbar\), wavefunctions,
-or amplitudes at the level of Lemma 1 --- but it does assert a UV cutoff
-that is stronger than classical field theory would provide. The cutoff
-is motivated by the empirical observability of finite outcomes and by
-holographic entropy bounds {[}2{]}, and the framework takes it as the
-minimum structural content needed to formalise embedded observation on a
-world with finite-area boundaries.
+\(\epsilon\) does not smuggle in a quantum assumption. Lemma 1 requires
+finite-dimensionality, motivated by the classical fact that finite-area
+boundaries admit finitely many modes. Holographic entropy bounds {[}2{]}
+provide independent, non-quantum motivation.
 
 \hypertarget{relation-to-prior-work}{%
 \subsubsection{4.4 Relation to Prior
@@ -1232,10 +1206,8 @@ stochastic-quantum correspondence, the observer's description is
 necessarily quantum mechanics. Continuous-time transition data resolves
 all gauge freedom. The Schrödinger equation, Born rule, and Bell
 violations are structural consequences. The characterization theorem
-establishes that the conditions are necessary --- (C1) and (C3)
-unconditionally, (C2) conditionally on ETH in the hidden sector --- so
-that QM and embedded observation under (C1)--(C3) are equivalent within
-this scope.
+establishes that the conditions are necessary: QM and embedded
+observation under (C1)--(C3) are equivalent.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
