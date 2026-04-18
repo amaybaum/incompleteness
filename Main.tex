@@ -454,23 +454,21 @@ windows \(t \sim k\tau_S\) with \(k\tau_S \ll \tau_B\).}
 \emph{Proof.} The coupling \(H_{\text{int}}\) transfers visible-sector
 information to the hidden sector at each interaction, at rate
 \(\sim 1/\tau_S\). Between interactions, the hidden sector evolves under
-its own Hamiltonian \(H_H\); under the ETH assumption on \(H_H\), the
-effective dephasing rate of correlations conditional on the previous
-visible state is \(\sim 1/\tau_B\). The decay of correlations stored in
-the hidden sector is governed by \(e^{-\tau_S/\tau_B}\). When
-\(\tau_S \ll \tau_B\), \(\tau_S/\tau_B \ll 1\), so the decay per
-visible-sector transition is
-\(1 - e^{-\tau_S/\tau_B} \approx \tau_S/\tau_B \ll 1\): correlations
+\(H_H\) with spectral gap \(\Delta \sim 1/\tau_B\). The decay of
+correlations stored in the hidden sector is governed by
+\(e^{-\Delta \tau_S}\). When \(\tau_S \ll \tau_B\),
+\(\Delta \tau_S \ll 1\), so the decay per visible-sector transition is
+\(1 - e^{-\Delta \tau_S} \approx \Delta \tau_S \ll 1\): correlations
 survive each step essentially intact. After \(k\) transitions spanning a
 time \(k\tau_S \ll \tau_B\), the cumulative decay is
-\(e^{-k\tau_S/\tau_B} \approx 1 - k\tau_S/\tau_B\), which remains close
-to unity. The hidden sector therefore retains \(\sim k\) bits of
+\(e^{-k\Delta\tau_S} \approx 1 - k\Delta\tau_S\), which remains close to
+unity. The hidden sector therefore retains \(\sim k\) bits of
 visible-sector history over this window, and the \((k+1)\)-th transition
 reads back stored correlations through \(H_{\text{int}}\), producing
 history-dependent transition probabilities --- i.e., information
 backflow. More precisely, the mutual information satisfies:
 
-\[I(X_{<t}; X_{>t} \mid X_t) \geq I_0\left(1 - \frac{k\tau_S}{\tau_B}\right)\]
+\[I(X_{<t}; X_{>t} \mid X_t) \geq I_0(1 - k\Delta\tau_S) = I_0\left(1 - \frac{k\tau_S}{\tau_B}\right)\]
 
 where \(I_0 > 0\) is the single-step information transfer from (C1). For
 \(k\tau_S \ll \tau_B\), this remains \(\mathcal{O}(I_0)\) --- comparable
