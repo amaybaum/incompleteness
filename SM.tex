@@ -1,7 +1,7 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-% xcolor driver fix applied
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   11pt,
@@ -17,12 +17,8 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern removed
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
-  \setsansfont[]{DejaVu Sans}
-  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -40,7 +36,7 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\usepackage{xcolor}
 \usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
@@ -61,7 +57,111 @@
 \fi
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
+% Render Unicode symbols that appear in text mode but aren't in the default serif font
+\ifLuaTeX
+  \usepackage{newunicodechar}
+  \newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+  \newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+  \newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+  \newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+  \newunicodechar{→}{\ensuremath{\rightarrow}}
+  \newunicodechar{←}{\ensuremath{\leftarrow}}
+  \newunicodechar{≲}{\ensuremath{\lesssim}}
+  \newunicodechar{≳}{\ensuremath{\gtrsim}}
+  \newunicodechar{∼}{\ensuremath{\sim}}
+  \newunicodechar{≤}{\ensuremath{\leq}}
+  \newunicodechar{≥}{\ensuremath{\geq}}
+  \newunicodechar{≠}{\ensuremath{\neq}}
+  \newunicodechar{∈}{\ensuremath{\in}}
+  \newunicodechar{⊂}{\ensuremath{\subset}}
+  \newunicodechar{∅}{\ensuremath{\emptyset}}
+  \newunicodechar{∂}{\ensuremath{\partial}}
+  \newunicodechar{ℏ}{\ensuremath{\hbar}}
+  \newunicodechar{ℤ}{\ensuremath{\mathbb{Z}}}
+  \newunicodechar{α}{\ensuremath{\alpha}}
+  \newunicodechar{β}{\ensuremath{\beta}}
+  \newunicodechar{γ}{\ensuremath{\gamma}}
+  \newunicodechar{δ}{\ensuremath{\delta}}
+  \newunicodechar{ε}{\ensuremath{\varepsilon}}
+  \newunicodechar{θ}{\ensuremath{\theta}}
+  \newunicodechar{λ}{\ensuremath{\lambda}}
+  \newunicodechar{μ}{\ensuremath{\mu}}
+  \newunicodechar{ν}{\ensuremath{\nu}}
+  \newunicodechar{π}{\ensuremath{\pi}}
+  \newunicodechar{ρ}{\ensuremath{\rho}}
+  \newunicodechar{σ}{\ensuremath{\sigma}}
+  \newunicodechar{τ}{\ensuremath{\tau}}
+  \newunicodechar{φ}{\ensuremath{\varphi}}
+  \newunicodechar{χ}{\ensuremath{\chi}}
+  \newunicodechar{ψ}{\ensuremath{\psi}}
+  \newunicodechar{Γ}{\ensuremath{\Gamma}}
+  \newunicodechar{Δ}{\ensuremath{\Delta}}
+  \newunicodechar{Λ}{\ensuremath{\Lambda}}
+  \newunicodechar{Σ}{\ensuremath{\Sigma}}
+  \newunicodechar{Φ}{\ensuremath{\Phi}}
+  \newunicodechar{Ω}{\ensuremath{\Omega}}
+  \newunicodechar{₁}{\ensuremath{{}_{1}}}
+  \newunicodechar{₂}{\ensuremath{{}_{2}}}
+  \newunicodechar{₃}{\ensuremath{{}_{3}}}
+  \newunicodechar{₄}{\ensuremath{{}_{4}}}
+  \newunicodechar{⁻}{\ensuremath{{}^{-}}}
+  \newunicodechar{⁺}{\ensuremath{{}^{+}}}
+  \newunicodechar{ʲ}{\ensuremath{{}^{j}}}
+  \newunicodechar{✓}{\ensuremath{\checkmark}}
+  \newunicodechar{✗}{\ensuremath{\times}}
+\else\ifXeTeX
+  \usepackage{newunicodechar}
+  \newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+  \newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+  \newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+  \newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+  \newunicodechar{→}{\ensuremath{\rightarrow}}
+  \newunicodechar{←}{\ensuremath{\leftarrow}}
+  \newunicodechar{≲}{\ensuremath{\lesssim}}
+  \newunicodechar{≳}{\ensuremath{\gtrsim}}
+  \newunicodechar{∼}{\ensuremath{\sim}}
+  \newunicodechar{≤}{\ensuremath{\leq}}
+  \newunicodechar{≥}{\ensuremath{\geq}}
+  \newunicodechar{≠}{\ensuremath{\neq}}
+  \newunicodechar{∈}{\ensuremath{\in}}
+  \newunicodechar{⊂}{\ensuremath{\subset}}
+  \newunicodechar{∅}{\ensuremath{\emptyset}}
+  \newunicodechar{∂}{\ensuremath{\partial}}
+  \newunicodechar{ℏ}{\ensuremath{\hbar}}
+  \newunicodechar{ℤ}{\ensuremath{\mathbb{Z}}}
+  \newunicodechar{α}{\ensuremath{\alpha}}
+  \newunicodechar{β}{\ensuremath{\beta}}
+  \newunicodechar{γ}{\ensuremath{\gamma}}
+  \newunicodechar{δ}{\ensuremath{\delta}}
+  \newunicodechar{ε}{\ensuremath{\varepsilon}}
+  \newunicodechar{θ}{\ensuremath{\theta}}
+  \newunicodechar{λ}{\ensuremath{\lambda}}
+  \newunicodechar{μ}{\ensuremath{\mu}}
+  \newunicodechar{ν}{\ensuremath{\nu}}
+  \newunicodechar{π}{\ensuremath{\pi}}
+  \newunicodechar{ρ}{\ensuremath{\rho}}
+  \newunicodechar{σ}{\ensuremath{\sigma}}
+  \newunicodechar{τ}{\ensuremath{\tau}}
+  \newunicodechar{φ}{\ensuremath{\varphi}}
+  \newunicodechar{χ}{\ensuremath{\chi}}
+  \newunicodechar{ψ}{\ensuremath{\psi}}
+  \newunicodechar{Γ}{\ensuremath{\Gamma}}
+  \newunicodechar{Δ}{\ensuremath{\Delta}}
+  \newunicodechar{Λ}{\ensuremath{\Lambda}}
+  \newunicodechar{Σ}{\ensuremath{\Sigma}}
+  \newunicodechar{Φ}{\ensuremath{\Phi}}
+  \newunicodechar{Ω}{\ensuremath{\Omega}}
+  \newunicodechar{₁}{\ensuremath{{}_{1}}}
+  \newunicodechar{₂}{\ensuremath{{}_{2}}}
+  \newunicodechar{₃}{\ensuremath{{}_{3}}}
+  \newunicodechar{₄}{\ensuremath{{}_{4}}}
+  \newunicodechar{⁻}{\ensuremath{{}^{-}}}
+  \newunicodechar{⁺}{\ensuremath{{}^{+}}}
+  \newunicodechar{ʲ}{\ensuremath{{}^{j}}}
+  \newunicodechar{✓}{\ensuremath{\checkmark}}
+  \newunicodechar{✗}{\ensuremath{\times}}
+\fi\fi
+
 \hypersetup{
   colorlinks=true,
   linkcolor={blue},
@@ -72,7 +172,14 @@
 
 \author{}
 \date{}
+
 \begin{document}
+
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
 \hypertarget{the-standard-model-from-a-cubic-lattice}{%
 \section{The Standard Model from a Cubic
 Lattice}\label{the-standard-model-from-a-cubic-lattice}}
@@ -2947,13 +3054,19 @@ so ∂V ≠ ∅. The wave equation couples nearest neighbors; any edge in ∂V
 produces non-trivial dynamical coupling.
 
 C2: the wave equation is a Hamiltonian system --- it conserves energy
-and preserves phase-space volume. The hidden sector has spectral gap Δ =
-0: correlations persist indefinitely, not just until some relaxation
-time. The C2 necessity proof {[}Main, §3.4{]} establishes that
-\(\Delta \tau_S \gg 1\) drives the system to Markovianity; for any
-Hamiltonian hidden sector, \(\Delta \tau_S = 0 \ll 1\) --- maximally in
-the slow bath regime (\(\tau_B \to \infty\), the strongest possible
-satisfaction of \(\tau_S \ll \tau_B\)), regardless of partition
+and preserves phase-space volume. In a closed finite-dimensional
+Hamiltonian system no true relaxation occurs (the spectrum is purely
+imaginary); what sets the memory timescale is the \emph{dephasing} rate
+of hidden-sector correlations under ETH, not a decay rate from a
+spectral gap. The C2 necessity proof {[}Main, §3.4{]} establishes that
+fast hidden-sector dephasing (small \(\tau_B\)) drives the marginal
+dynamics toward Markovianity on accessible timescales, while slow
+dephasing (large \(\tau_B\)) preserves the non-Markovian returns that
+produce P-indivisibility. For the cubic-lattice substratum with a
+cosmological-horizon partition, the hidden-sector dephasing time
+\(\tau_B\) is set by cosmological scales while laboratory \(\tau_S\) is
+many orders of magnitude shorter, placing the system deep in the
+slow-bath regime (\(\tau_S \ll \tau_B\)) regardless of partition
 geometry.
 
 C3: \(|H| = N - |V| \geq 2N/3\). The hidden-sector configuration space
@@ -3469,4 +3582,5 @@ events with a single reconstructed top quark,'' (2024).
 A. Zhou, ``The fate of hints: updated global analysis of three-flavor
 neutrino oscillations,'' \emph{JHEP} \textbf{09}, 178 (2020); NuFIT 6.0
 update (2024).
+
 \end{document}
