@@ -23,13 +23,13 @@ This paper answers in the affirmative. The wave equation on a $d = 3$ cubic latt
 
 The status of these results admits a useful three-tier classification.
 
-**Tier 1 — Structural foundations.** The minimal mathematical object is established (a finite set with a deterministic bijection of bounded coupling degree, partitioned into visible and hidden sectors), and the spatial dimension $d = 3$ is shown to be the unique self-consistent dimension by four independent filters: the boundary entropy concordance $\rho_s/\rho_{\text{crit}} = 2/(d-1)$ (which equals unity only for $d = 3$), propagating gravity ($d \geq 3$), stable matter ($d \leq 3$), and renormalizability of the Yang-Mills coupling ($d = 3$). These results are theorems about the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$; they do not depend on which specific dynamics is selected.
+**Tier 1 — Structural foundations.** The minimal mathematical object is established (a finite set with a deterministic bijection of bounded coupling degree, partitioned into visible and hidden sectors), and the spatial dimension $d = 3$ is shown to be the unique self-consistent dimension by three independent filters: propagating gravity ($d \geq 3$), stable matter ($d \leq 3$), and the boundary entropy concordance $\rho_s/\rho_{\text{crit}} = 2/(d-1)$ (which equals unity only for $d = 3$). Renormalizability of the emergent Yang-Mills coupling at $d = 3$ is a downstream consequence rather than an independent filter (§3.2). These results are theorems about the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$; they do not depend on which specific dynamics is selected.
 
 **Tier 2 — The primary derivation chain.** Center independence, spatial isotropy, and linearity uniquely select the wave equation. The wave equation determines staggered Dirac fermions, $K = 2d = 6$ from coupling-degree minimization, multiplicities $(3, 2, 1)$ from the cubic rotation group, local gauge invariance from background independence, chirality from the trace-out, the unique anomaly-free hypercharges, three generations from cubic symmetry, one Higgs doublet, and $\bar\theta = 0$ at all scales. Each step is proved; the chain runs through twenty-nine theorems and lemmas. The gauge coupling prediction extends the chain quantitatively, with a structural input $1/\alpha_0 = 23.25$ (one-loop staggered vacuum polarization, analytic) and a universal threshold $\delta_0 = 10.0$ (empirically fixed by the U(1) row, consistent with the two-loop staggered VP computation $\delta_0^{(2L)} = 8.0 \pm 2$ plus natural three-loop convergence range). Deriving the $C_2$-dependent threshold from first-principles lattice PT is an open computational task.
 
 **Tier 3 — Redundant confirmations.** Asymptotic freedom requiring $N_c \geq 3$, the minimal chiral group constraint, and the Jordan-Chevalley projection (Appendix A) provide independent second-route checks on the Tier 2 results without being load-bearing in the primary chain.
 
-The paper is organized as follows. §2 sets out the minimal structure on which the framework's results depend. §3 establishes background independence and derives $d = 3$ from the four self-consistency filters. §4 develops the emergent quantum field theory through the bottom-up, gauge-emergence, and top-down chains. §5 derives $\bar\theta = 0$ from $T$-invariance and detailed balance. §6 extends the chain quantitatively through the gauge coupling prediction. §7 collects the quantitative predictions for the CKM matrix, the lepton sector, the fermion mass chain, the PMNS angles, and the Higgs mass. §8 discusses structural realism, observer genericity, the structural-vs-bijection-level distinction, and the neutrino sector. §9 concludes. The cosmological application of the same framework — derivation of $\hbar$, the Bekenstein-Hawking area law, and dynamical dark energy — is developed in [GR]. The substratum-level reconstruction theorem, the substratum gauge group, and the synthesis claim that quantum mechanics and general relativity descend as different projections of the same $(S, \varphi)$ are developed in [Substratum].
+The paper is organized as follows. §2 sets out the minimal structure on which the framework's results depend. §3 establishes background independence and derives $d = 3$ from the three self-consistency filters. §4 develops the emergent quantum field theory through the bottom-up, gauge-emergence, and top-down chains. §5 derives $\bar\theta = 0$ from $T$-invariance and detailed balance. §6 extends the chain quantitatively through the gauge coupling prediction. §7 collects the quantitative predictions for the CKM matrix, the lepton sector, the fermion mass chain, the PMNS angles, and the Higgs mass. §8 discusses structural realism, observer genericity, the structural-vs-bijection-level distinction, and the neutrino sector. §9 concludes. The cosmological application of the same framework — derivation of $\hbar$, the Bekenstein-Hawking area law, and dynamical dark energy — is developed in [GR]. The substratum-level reconstruction theorem, the substratum gauge group, and the synthesis claim that quantum mechanics and general relativity descend as different projections of the same $(S, \varphi)$ are developed in [Substratum].
 
 
 ---
@@ -148,9 +148,15 @@ For the cosmological horizon, $\varepsilon\kappa/c = 2l_P \cdot H/c \sim 10^{-61
 
 ### 3.2 Why d = 3
 
-The theorems work for any d ≥ 1. Four independent self-consistency filters converge on d = 3.
+The theorems work for any d ≥ 1. Three independent self-consistency filters converge on d = 3.
 
-**The concordance calculation.** In d spatial dimensions, the boundary entropy ratio is:
+**Propagating gravity requires d ≥ 3.** The Weyl tensor vanishes for d ≤ 2. The Jacobson derivation requires propagating gravitational degrees of freedom.
+
+**Stable matter requires d ≤ 3.** The Coulomb potential in d dimensions gives unstable atoms for d ≥ 4 (Ehrenfest [10]; the non-existence of normalisable bound states of the d-dimensional Coulomb Hamiltonian for d ≥ 4 is the corresponding quantum-mechanical statement). Gravitational orbits are unstable for d ≥ 4 [11]. Without stable matter, no observers exist to define the partition.
+
+The intersection of d ≥ 3 and d ≤ 3 is d = 3, already uniquely. The remaining filter is a further consistency check rather than a logically independent constraint.
+
+**Boundary-entropy concordance (d = 3 gives $\rho_s = \rho_{\text{crit}}$).** In d spatial dimensions, the boundary entropy ratio is:
 
 $$\frac{\rho_s}{\rho_{\text{crit}}} = \frac{2}{d-1}$$
 
@@ -162,21 +168,19 @@ This equals unity only for d = 3. For d = 2: overclosure. For d ≥ 4: gravitati
 | **3** | **1** | **Exact concordance** |
 | 4 | 2/3 | Deficit |
 
-**Propagating gravity requires d ≥ 3.** The Weyl tensor vanishes for d ≤ 2. The Jacobson derivation requires propagating gravitational degrees of freedom.
+The d = 3 case is derived explicitly in [GR §7.2] from the Friedmann equation, shell theorem, and horizon-mode counting. The general-d formula is obtained by running the same construction with Friedmann in d spatial dimensions, $H^2 = 16\pi G_d \rho / [d(d-1)]$.
 
-**Stable matter requires d ≤ 3.** The Coulomb potential in d dimensions gives unstable atoms for d ≥ 4 (Ehrenfest [10]). Gravitational orbits are unstable for d ≥ 4 [11]. Without stable matter, no observers exist to define the partition.
+**Downstream consequence: renormalizability at d = 3.** At the selected d = 3, the emergent Yang-Mills gauge theory (derived in §4.4–§4.6) has dimensionless coupling: $[g] = (3-d)/2 = 0$. The emergent QFT is therefore renormalizable in 3+1 dimensions. This is a property of the derived structure at d = 3, not an independent filter on d: at d ≠ 3, the coupling-degree minimizer would give a different $K = 2d$, the rotation-group decomposition of $2d$ link directions would give different multiplicities, and the resulting gauge theory would have a different operator structure — so asking whether "that" Yang-Mills is renormalizable at that d is not a d-independent question.
 
-**Renormalizability requires d = 3.** The Yang-Mills coupling has mass dimension [g] = (3−d)/2; dimensionless only for d = 3.
-
-**The intersection** of d ≥ 3, d ≤ 3, the concordance, and renormalizability is d = 3 uniquely.
+**The intersection** of the three filters — d ≥ 3, d ≤ 3, and d = 3 concordance — is d = 3 uniquely. Removing the concordance filter still gives d = 3 from the other two; adding concordance sharpens to a consistency check that the framework passes exactly rather than by a numerical coincidence.
 
 **Integer dimension is derived, not presupposed.** The self-consistency argument might appear to presuppose that the coupling graph has a well-defined integer dimension. In fact, every bounded-degree graph falls into one of three growth classes: exponential ($|B(r)| \sim k^r$), fractal ($|B(r)| \sim r^\alpha$ with non-integer $\alpha$), or integer-polynomial ($|B(r)| \sim r^d$ with integer $d$). Self-consistency excludes the first two.
 
-*Exponential growth* fails because the wave equation on such graphs does not produce Lorentz-invariant dispersion (the spectral gap doesn't close correctly), so Jacobson's derivation of Einstein's equations fails. Additionally, $d_{\text{eff}} \to \infty$ is incompatible with stable matter ($d \leq 3$) and renormalizability ($d = 3$).
+*Exponential growth* fails because the wave equation on such graphs does not produce Lorentz-invariant dispersion (the spectral gap doesn't close correctly), so Jacobson's derivation of Einstein's equations fails. Additionally, $d_{\text{eff}} \to \infty$ is incompatible with stable matter ($d \leq 3$).
 
 *Fractal growth* fails because Jacobson's argument requires the Raychaudhuri equation, which requires geodesic congruences on a manifold — fractal spaces don't support them. The staggered fermion decomposition requires a hypercubic BZ structure ($\eta \in \{0,1\}^d$), which doesn't exist on fractal graphs. The cubic group decomposition of $2d$ link directions — which constrains the gauge structure (§4.6) — requires cubic lattice symmetry, absent in fractals.
 
-Only *integer-polynomial growth* survives. By Gromov's theorem (finitely generated groups of polynomial growth are virtually nilpotent) and statistical isotropy, the graph is quasi-isometric to $\mathbb{Z}^d$ for integer $d$. The four filters then select $d = 3$.
+Only *integer-polynomial growth* survives. By Gromov's theorem (finitely generated groups of polynomial growth are virtually nilpotent) and statistical isotropy, the graph is quasi-isometric to $\mathbb{Z}^d$ for integer $d$. The three filters then select $d = 3$.
 
 **Corollary** ($d = 3$ is necessary, not contingent). *Any bijection whose coupling graph has $d \neq 3$ produces internal contradictions in its emergent description. The coupling graph dimension is not a free parameter or a property of a specific $\varphi$ — it is the unique value compatible with self-consistency.*
 

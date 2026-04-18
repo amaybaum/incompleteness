@@ -258,6 +258,12 @@ Four clarifications are essential for what follows.
 
 *Algebraic status.* The coincidence $\rho_s = \rho_{\text{crit}}$ is an algebraic consequence of the Friedmann equation and the self-consistency relation $\hbar = c^3\epsilon^2/(4G)$; it is not an independent physical input.
 
+*General $d$.* Running the same construction in $d$ spatial dimensions: the horizon is a $(d-1)$-sphere of area $A_{d-1} = [2\pi^{d/2}/\Gamma(d/2)] r_H^{d-1}$; the Hubble volume is $V_d = [\pi^{d/2}/\Gamma(d/2+1)] r_H^d = A_{d-1} r_H / d$; the classical horizon temperature $T_{\rm cl} \propto H$ is dimension-independent (Gibbons–Hawking); and the Friedmann equation in $d$ spatial dimensions is $H^2 = [16\pi G_d/(d(d-1))]\rho$. The boundary entropy is $S = A_{d-1}/\epsilon^{d-1}$ (one mode per $\epsilon^{d-1}$ cell) and the gap equation fixes $\hbar = c^3\epsilon^{d-1}/[2(d-1)G_d]$ by the same thermal self-consistency argument as at $d=3$. Collecting the geometric factors in $\rho_s = S\,k_B T_{\rm cl}/V_d$ and dividing by $\rho_{\rm crit}$ gives
+
+$$\frac{\rho_s}{\rho_{\rm crit}} = \frac{2}{d-1}$$
+
+— unity only at $d=3$. This is the general-$d$ formula cited in [SM §3.2] as the boundary-entropy filter selecting $d=3$.
+
 *(ii) Invisibility.* The argument has two logically distinct components.
 
 *(ii-a) Construction-level invisibility (from Part I alone).* The boundary modes comprising $S_{\text{dS}}$ are hidden-sector degrees of freedom — the variables traced out to produce the quantum description. By the trace-out structure, no hidden-sector degree of freedom maps to an operator on $\mathcal{H}_V$. This is a theorem of Part I, independent of any gravitational content: the hidden sector is invisible to the emergent description by construction.
