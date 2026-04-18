@@ -330,6 +330,8 @@ Laboratory tests of the characterization theorem may be possible in tabletop sys
 
 **The general theorem.** Under a single definition — observation is a proper subsystem of a deterministic whole — and conditions (C1)–(C3), the P-indivisibility of reduced dynamics is proved: any bijective dynamics on a finite system with non-trivial coupling necessarily produces P-indivisible stochastic dynamics. By the stochastic-quantum correspondence, the observer's description is necessarily quantum mechanics. Continuous-time transition data resolves all gauge freedom. The Schrödinger equation, Born rule, and Bell violations are structural consequences. The characterization theorem establishes that the conditions are necessary: QM and embedded observation under (C1)–(C3) are equivalent.
 
+**The quantitative content.** The cubic-lattice realisation of this framework [SM] produces thirteen parameter-free structural retrodictions spanning the Standard Model's flavour sector. Two of these — the Koide mass relation $Q = 2/3$ and the Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ — test structurally independent features of the lattice (Casimir eigenvalue structure and one-loop lattice integrals respectively), match observation to one part in $10^5$ and $0.04\%$, and have joint probability under a conservative uniform-range null of approximately $10^{-8}$ (SM §7.7). The framework's numerical content is therefore concentrated rather than diffuse: any account that attributes the quantitative successes to chance must absorb a factor of $\sim 10^8$.
+
 ---
 
 ## ACKNOWLEDGEMENTS
