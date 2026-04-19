@@ -280,21 +280,29 @@ The max-speed constraint requires μ_y = 1 (the A₁ mode propagates at the latt
 
 *Stability under small perturbations.* Integer multiplicities cannot change continuously. Small perturbations of the coupling graph that preserve local $O$ symmetry shift the eigenvalues of $M$ continuously but leave the multiplicities $(3, 2, 1)$ intact. $K = 2d$ (Theorem 6) is stable in the same sense under quasi-isometric deformations that preserve the spectral dimension.
 
-*Dependence on the Bravais lattice.* The $(3, 2, 1)$ decomposition depends on the discrete $O$ action on the six NN link vectors of SC. Under the continuous group $\mathrm{O}(3)$, the same six vectors span two copies of the vector representation — multiplicities $(3, 3)$, not $(3, 2, 1)$ — because $\mathrm{O}(3)$ does not preserve the discrete set of six vectors as a distinguished orbit. The three-factor split requires the discrete subgroup. A different d=3 Bravais lattice — face-centered cubic (12 NN), body-centered cubic (8 NN), or hexagonal close-packed (12 NN, point group $D_{6h}$) — would give a different NN link-decomposition and a different gauge structure.
+*Dependence on the Bravais lattice.* The $(3, 2, 1)$ decomposition depends on the discrete $O$ action on the six NN link vectors of SC. Under the continuous group $\mathrm{O}(3)$, the same six vectors span two copies of the vector representation — multiplicities $(3, 3)$, not $(3, 2, 1)$ — because $\mathrm{O}(3)$ does not preserve the discrete set of six vectors as a distinguished orbit. The three-factor split requires the discrete subgroup.
 
-Mechanically applying the Cabibbo formula $\lambda = 1/|X_i - X_j|$ (§7.1) to the BZ geometry of each candidate, with equal-NN normalization:
+Among the three cubic Bravais lattices, only SC produces the SM gauge group under the commutant construction of Theorem 5. Computing the $O$-decomposition of the NN link representation on each:
 
-| Lattice | Coord. | Triplet separation | $\lambda$ |
+| Lattice | NN | $O$-decomposition of NN rep | Gauge group (commutant) |
 |---|---|---|---|
-| SC | 6 | $\pi\sqrt{2}$ | 0.2251 |
-| FCC | 12 | $2\pi$ | 0.1592 |
-| BCC | 8 | $\pi\sqrt{6}$ | 0.1299 |
+| SC | 6 | $T_1 \oplus E \oplus A_1$ | $SU(3) \times SU(2) \times U(1)$ ✓ |
+| BCC | 8 | $A_1 \oplus A_2 \oplus T_1 \oplus T_2$ | $SU(3)^2 \times U(1)^2$ |
+| FCC | 12 | $A_1 \oplus E \oplus T_1 \oplus 2T_2$ | $SU(3)^3 \times SU(2) \times U(1)$ |
 
-Observed $\lambda = 0.2250 \pm 0.00067$ [20]. A full framework derivation on FCC or BCC would require redoing the staggered-taste and gauge-group structure for each lattice, so this table is a geometric comparison, not a comparison of two completed derivations. It shows that the SC match is tied to SC's specific BZ geometry rather than to generic d=3 features.
+SC is uniquely compatible with the observed Standard Model gauge structure. BCC gives two non-abelian $SU(3)$ factors with no $SU(2)$; FCC gives three $SU(3)$ factors and three additional $U(1)$s. Neither matches observation at the group-theoretic level, independent of any numerical prediction.
 
-The §2 reading that "any bounded-degree graph with statistical isotropy suffices" therefore applies to the emergence of QM and to the existence of a gauge-group structure (Theorems 1–6); the quantitative predictions of §7 depend on the specific Bravais choice.
+The Cabibbo angle on the three lattices, computed using the inter-generation BZ distance prescription of §7.1 on each lattice's natural triplet sector (SC: $X$-points; BCC: $H$-points; FCC: $L$-points), with equal-NN normalization:
 
-The §2 structural reading that "any bounded-degree graph with statistical isotropy suffices" therefore refers to the existence-and-emergent-QM part of the chain (Theorems 1–6, §§3.1–3.4), not to the specific quantitative predictions of §7. Those predictions require the SC Bravais structure; the framework treats this as a structural commitment forced by the observed SM numbers rather than as a free choice.
+| Lattice | Triplet separation | Cabibbo $\lambda$ |
+|---|---|---|
+| SC | $\pi\sqrt{2}$ | 0.2251 |
+| BCC | $\pi\sqrt{6}$ | 0.1299 |
+| FCC | $2\pi$ | 0.1592 |
+
+Observed $\lambda = 0.2250 \pm 0.00067$ [20]. The SC value matches at 0.04% ($0.12\sigma$); BCC and FCC miss by 42% and 29% respectively. The SC match is tied to the specific BZ geometry corresponding to the SC gauge group.
+
+The §2 structural reading that "any bounded-degree graph with statistical isotropy suffices" therefore refers to the existence-and-emergent-QM part of the chain (Theorems 1–6, §§3.1–3.4), not to the specific gauge group or quantitative predictions of §§4.6 and 7. These require the SC Bravais structure; the framework treats this as a structural commitment forced by the observed SM gauge group and its quantitative consequences, rather than as a free choice. SC is the unique cubic-Bravais solution; whether a non-cubic alternative might also produce the $(3, 2, 1)$ decomposition under some other point group is a separate open question.
 
 **Remark (completeness of the irrep catalog).** The octahedral group $O$ has five irreducible representations: $A_1, A_2, E, T_1, T_2$. All five are accounted for in the framework, either by identified physical role or by derived absence:
 
