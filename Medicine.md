@@ -32,7 +32,7 @@ When C1–C3 are satisfied, the characterization theorem [1, §3.4] proves that 
 
 The biological relevance is immediate. Enzymes, kinases, ion channels, and receptors are composed of a fast catalytic domain coupled to slow regulatory domains, post-translational modification (PTM) sites, and conformational degrees of freedom. The catalytic cycle operates on nanosecond-to-microsecond timescales; the regulatory domain's conformational changes persist for microseconds to milliseconds; PTM patterns persist for minutes to hours; chromatin modifications persist for days to generations. At every scale, C1–C3 are satisfied, and the theorem predicts non-Markovian dynamics.
 
-This paper develops the medical implications of this observation across six domains, identifies a unifying therapeutic principle (memory asymmetry), and presents twenty-six testable predictions that distinguish the non-Markovian framework from standard Markovian pharmacology.
+This paper develops the medical implications of this observation across seven domains, identifies a unifying therapeutic principle (memory asymmetry), and presents twenty-nine testable predictions that distinguish the non-Markovian framework from standard Markovian pharmacology.
 
 ---
 
