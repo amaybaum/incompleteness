@@ -30,7 +30,7 @@ This paper traces the consequences. §2 establishes the structural chain from (S
 
 ### 2.1 From (S, φ) to orbitals
 
-The framework derives d = 3 [2, §3.2] from four independent self-consistency filters (propagating gravity, stable matter, the dark sector concordance, and renormalizability). In three spatial dimensions, the rotation group is SO(3), whose irreducible representations are labeled by angular momentum quantum number $l = 0, 1, 2, 3, \ldots$ with $(2l+1)$ states each. These are the atomic orbitals: s ($l = 0$, spherical, 1 orientation), p ($l = 1$, dumbbell, 3 orientations), d ($l = 2$, 5 orientations), f ($l = 3$, 7 orientations).
+The framework derives d = 3 [2, §3.2] from three independent self-consistency filters (propagating gravity, stable matter, and the boundary entropy concordance), with renormalizability of the emergent Yang-Mills coupling as a downstream consequence rather than an independent filter. In three spatial dimensions, the rotation group is SO(3), whose irreducible representations are labeled by angular momentum quantum number $l = 0, 1, 2, 3, \ldots$ with $(2l+1)$ states each. These are the atomic orbitals: s ($l = 0$, spherical, 1 orientation), p ($l = 1$, dumbbell, 3 orientations), d ($l = 2$, 5 orientations), f ($l = 3$, 7 orientations).
 
 This is the *only* orbital algebra consistent with embedded observation. In $d = 2$, angular momentum has a single component — only circular harmonics exist, with no three-dimensional bonding geometry. In $d \geq 4$, the Coulomb potential $V(r) \sim r^{2-d}$ does not support stable bound states [3, 4]: classical orbits spiral into the nucleus, and the quantum Hamiltonian is unbounded below.
 

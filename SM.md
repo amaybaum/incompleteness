@@ -523,7 +523,7 @@ $$\frac{1}{\alpha_i(M_Z)} = \underbrace{23.25}_{1/\alpha_0} + \underbrace{10.0}_
 
 The four components:
 
-- $1/\alpha_0 = 23.25$: computed structurally (one-loop staggered vacuum polarization, §6.1). Analytically verified from the lattice integral $\Pi_s(0) = \int d^4q\,[\cos^2(q_\mu)/D(q) - \cos^2(q_\mu)\sin^2(q_\mu)/D(q)^2]$ with $D(q) = \sum_\nu \sin^2(q_\nu) + m^2$, spatial average over $\mu = 1, 2, 3$; converges to $\Pi_s \to 0.308$ as the grid refines, giving $1/\alpha_0 = 6 \cdot 0.308 \cdot 4\pi = 23.25$ on a robust plateau $m \in [0.001, 0.05]$.
+- $1/\alpha_0 = 23.25$: computed structurally (one-loop staggered vacuum polarization, §6.1). Analytically verified from the lattice integral $\Pi_s(0) = \int d^4q\,[\cos^2(q_\mu)/D(q) - \cos^2(q_\mu)\sin^2(q_\mu)/D(q)^2]$ with $D(q) = \sum_\nu \sin^2(q_\nu) + m^2$, spatial average over $\mu = 1, 2, 3$; converges to $\Pi_s \to 0.3084$ as the grid refines, giving $1/\alpha_0 = 6 \cdot 0.3084 \cdot 4\pi = 23.25$ on a robust plateau $m \in [0.001, 0.05]$.
 
 - $\delta_0 = 10.0$: the $C_2$-independent threshold. The 2-loop staggered VP computation with the induced gauge propagator $D(p) = 1/(p^2_{\text{lat}} \cdot \Pi_s)$ — an 8-dimensional lattice integral evaluated on $N^4$ grids up to $N = 12$ with Richardson extrapolation — gives $\delta_0^{(2L)} = 8.0 \pm 2$ from the four contributions: self-energy insertion ($+3.9$), vertex correction ($+2.7$, by Ward identity), momentum-dependent $\Pi_s$ correction ($+0.8$), and sails (crossed) diagram ($+0.63$, computed directly and N-independent to 5 digits across $N = 6, 8, 10, 12$). The required value $\delta_0 = 10.0$ exceeds this by $\Delta = 2.0$, consistent with the natural 3-loop range:
 
