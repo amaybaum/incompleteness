@@ -429,7 +429,10 @@ underlying space is a lattice, a graph, or something else.
 require}\label{what-the-theorems-do-not-require}}
 
 A \emph{regular lattice}. Any bounded-degree graph with statistical
-isotropy suffices. A \emph{specific alphabet size q}. All proofs work
+isotropy suffices for emergent QM and the gauge-group existence theorem;
+the \emph{specific} Bravais structure (simple cubic vs.~FCC/BCC/HCP) is
+separately required for the quantitative predictions of §7 and is
+addressed in §4.6. A \emph{specific alphabet size q}. All proofs work
 for any q ≥ 2; no prediction depends on q. A \emph{specific
 dimensionality d}. The proofs work for any d ≥ 1; self-consistency
 selects d = 3 (§3.2). The \emph{wave equation}. It is derived from
@@ -1142,27 +1145,115 @@ vector) → color, E (quadrupole) → weak isospin, A₁ (scalar) →
 hypercharge. Local gauge invariance follows from background independence
 (§3.1).
 
-\textbf{Remark (robustness under statistical isotropy).} Theorem 7 uses
-the character table of the octahedral group \(O\), the exact symmetry of
-the cubic lattice. The structural reading of §2 claims that any
-bounded-degree graph with statistical isotropy suffices. The robustness
-follows from Theorem 6's general proof and two additional observations.
-First, §3.2 establishes that the coupling graph is quasi-isometric to
-\(\mathbb{Z}^3\) (Gromov's theorem + statistical isotropy + integer
-polynomial growth). The relevant representation theory is that of the
-large-scale rotation group \(O(3)\); the decomposition of the 2d = 6
-link directions into irreducible representations has multiplicities
-\((3, 2, 1)\) determined by the topology of \(d = 3\) rotations, not by
-the precision of the lattice symmetry. Second, the gauge group is a
-discrete structure: the eigenvalue multiplicities of \(M\) are integers,
-and Theorem 5 maps integer multiplicities to unitary group factors.
-Small perturbations of the graph --- breaking exact \(O\) symmetry to
-statistical isotropy --- perturb the eigenvalues of \(M\) continuously
-but cannot change integer multiplicities without crossing a
-codimension-1 boundary in parameter space. Both \(K = 2d\) (Theorem 6)
-and the \((3, 2, 1)\) decomposition are therefore topologically stable
-under all deformations within the equivalence class
-\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\).
+\textbf{Remark (robustness and cubic specificity).} Theorem 7 uses the
+character table of the octahedral group \(O\), the exact symmetry of the
+simple cubic (SC) lattice. The decomposition
+\(6 = T_1 \oplus E \oplus A_1\) has a two-part robustness structure that
+is worth making explicit, because one half is often over-stated and the
+other half is worth owning as a positive predictive commitment.
+
+\emph{What is robust.} The \emph{integer} multiplicities \((3, 2, 1)\)
+are topologically stable against small continuous perturbations of the
+coupling graph that preserve local \(O\) symmetry. The eigenvalue
+multiplicities of \(M\) are integers, and Theorem 5 maps integer
+multiplicities to unitary group factors. Small perturbations ---
+breaking \emph{exact} \(O\) symmetry to \emph{statistical} \(O\)
+symmetry of the kind one would find on a bounded-degree random graph
+approximating \(\mathbb{Z}^3\) at large scales --- perturb the
+eigenvalues of \(M\) continuously but cannot change integer
+multiplicities without crossing a codimension-1 boundary in parameter
+space. Likewise, \(K = 2d\) (Theorem 6) is integer-stable under
+quasi-isometric deformations that preserve the spectral dimension.
+
+\emph{What is not robust: the Bravais-lattice commitment.} The
+\((3, 2, 1)\) decomposition is specific to the discrete \(O\) action on
+the six NN link vectors \(\{\pm\hat e_j\}\) of the simple cubic lattice.
+Under the \emph{continuous} rotation group \(\mathrm{O}(3)\), the same
+six vectors span a representation equivalent to two copies of the vector
+representation --- decomposition \(\mathbf{3} \oplus \mathbf{3}\),
+multiplicities \((3, 3)\) --- because \(\mathrm{O}(3)\) does not
+preserve the discrete set \(\{\pm\hat e_j\}\) as a distinguished orbit.
+The \(E\) and \(A_1\) factors emerge only because
+\(O \subset \mathrm{O}(3)\) acts discretely on these specific six
+vectors. An alternative d=3 Bravais lattice with a different NN
+coordination --- face-centered cubic (FCC, 12 NN), body-centered cubic
+(BCC, 8 NN), or hexagonal close-packed (HCP, 12 NN with \(D_{6h}\) point
+group) --- would produce a different link-decomposition, different
+multiplicities, and therefore a different gauge group. The framework's
+commitment to SC is not framing decoration; it is load-bearing at the
+predictive level.
+
+\emph{Concrete demonstration: the Cabibbo angle.} The prescription of
+§7.1 --- \(\lambda = 1/|X_i - X_j|\) where \(X_j\) are the three \(T_1\)
+BZ corners in the same (reciprocal-space) units --- extends to any
+Bravais lattice. Using natural units in which the nearest-neighbor
+spatial distance equals unity on each lattice (so that the spatial wave
+equation has equal propagation speed across lattice types), the
+corresponding calculation on the three natural candidate Bravais
+lattices gives:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1667}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Lattice
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Point group
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Coord. no.
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Triplet separation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cabibbo \(\lambda\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+vs.~observed
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{SC} & \(O_h\) & 6 & \(\pi\sqrt{2}\) & \(\mathbf{0.2251}\) &
+\(0.04\%\) (\(0.12\sigma\)) \\
+FCC & \(O_h\) & 12 & \(2\pi\) & \(0.1592\) & 29\% off (\(98\sigma\)) \\
+BCC & \(O_h\) & 8 & \(\pi\sqrt{6}\) & \(0.1299\) & 42\% off
+(\(142\sigma\)) \\
+\end{longtable}
+
+Observed \(\lambda = 0.2250 \pm 0.00067\) {[}20{]}. The SC prediction
+matches; the FCC and BCC predictions from the same prescription miss by
+tens of σ. HCP would differ further still because its point group
+(\(D_{6h}\), 24 elements) has a genuinely different irrep structure from
+\(O_h\). The 22 quantitative observables of §7 --- built on \(\lambda\),
+on the \(T_1\)-Casimir Koide angle \(\theta_0 = C_2/d^2 = 2/9\), on the
+\(A_4 \subset O\) TBM baseline of PMNS, and on the \(K = 2d = 6\)
+coupling-degree minimum --- are all specific to SC in the same way.
+
+\emph{The cubic commitment as a falsifiability feature.} The framework
+does not claim robustness against the choice of d=3 Bravais lattice; it
+claims SC. A reader who finds \(\lambda = 0.2250\) mysterious on SC must
+also find FCC and BCC's \(0.1592\) and \(0.1299\) mysterious in their
+own terms, and must explain why observation lands on the SC value. The
+cubic specificity is therefore a positive predictive differentiator
+rather than a hidden assumption: the framework's 22 structural
+retrodictions distinguish SC from FCC/BCC/HCP at high confidence, and
+the framework would be straightforwardly falsified if any cosmological
+or high-energy observation required a non-SC Bravais structure (e.g.,
+FCC-specific discrete-symmetry signatures in cosmic-ray anisotropies, or
+predictions from cubic-specific SM parameters drifting outside the SC
+prediction as experimental precision sharpens).
+
+The §2 structural reading that ``any bounded-degree graph with
+statistical isotropy suffices'' therefore refers to the
+existence-and-emergent-QM part of the chain (Theorems 1--6, §§3.1--3.4),
+not to the specific quantitative predictions of §7. Those predictions
+require the SC Bravais structure; the framework treats this as a
+structural commitment forced by the observed SM numbers rather than as a
+free choice.
 
 \textbf{Remark (completeness of the irrep catalog).} The octahedral
 group \(O\) has five irreducible representations:
