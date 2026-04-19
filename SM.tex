@@ -429,8 +429,10 @@ underlying space is a lattice, a graph, or something else.
 require}\label{what-the-theorems-do-not-require}}
 
 A \emph{regular lattice}. Any bounded-degree graph with statistical
-isotropy suffices. A \emph{specific alphabet size q}. All proofs work
-for any q ≥ 2; no prediction depends on q. A \emph{specific
+isotropy suffices for emergent QM and for the gauge-group structure; the
+quantitative predictions of §7 additionally depend on the specific
+Bravais lattice (see §4.6). A \emph{specific alphabet size q}. All
+proofs work for any q ≥ 2; no prediction depends on q. A \emph{specific
 dimensionality d}. The proofs work for any d ≥ 1; self-consistency
 selects d = 3 (§3.2). The \emph{wave equation}. It is derived from
 center independence, isotropy, and linearity (§4.1), each of which
@@ -1142,27 +1144,64 @@ vector) → color, E (quadrupole) → weak isospin, A₁ (scalar) →
 hypercharge. Local gauge invariance follows from background independence
 (§3.1).
 
-\textbf{Remark (robustness under statistical isotropy).} Theorem 7 uses
+\textbf{Remark (robustness and the cubic commitment).} Theorem 7 uses
 the character table of the octahedral group \(O\), the exact symmetry of
-the cubic lattice. The structural reading of §2 claims that any
-bounded-degree graph with statistical isotropy suffices. The robustness
-follows from Theorem 6's general proof and two additional observations.
-First, §3.2 establishes that the coupling graph is quasi-isometric to
-\(\mathbb{Z}^3\) (Gromov's theorem + statistical isotropy + integer
-polynomial growth). The relevant representation theory is that of the
-large-scale rotation group \(O(3)\); the decomposition of the 2d = 6
-link directions into irreducible representations has multiplicities
-\((3, 2, 1)\) determined by the topology of \(d = 3\) rotations, not by
-the precision of the lattice symmetry. Second, the gauge group is a
-discrete structure: the eigenvalue multiplicities of \(M\) are integers,
-and Theorem 5 maps integer multiplicities to unitary group factors.
-Small perturbations of the graph --- breaking exact \(O\) symmetry to
-statistical isotropy --- perturb the eigenvalues of \(M\) continuously
-but cannot change integer multiplicities without crossing a
-codimension-1 boundary in parameter space. Both \(K = 2d\) (Theorem 6)
-and the \((3, 2, 1)\) decomposition are therefore topologically stable
-under all deformations within the equivalence class
-\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\).
+the simple cubic (SC) lattice.
+
+\emph{Stability under small perturbations.} Integer multiplicities
+cannot change continuously. Small perturbations of the coupling graph
+that preserve local \(O\) symmetry shift the eigenvalues of \(M\)
+continuously but leave the multiplicities \((3, 2, 1)\) intact.
+\(K = 2d\) (Theorem 6) is stable in the same sense under quasi-isometric
+deformations that preserve the spectral dimension.
+
+\emph{Dependence on the Bravais lattice.} The \((3, 2, 1)\)
+decomposition depends on the discrete \(O\) action on the six NN link
+vectors of SC. Under the continuous group \(\mathrm{O}(3)\), the same
+six vectors span two copies of the vector representation ---
+multiplicities \((3, 3)\), not \((3, 2, 1)\) --- because
+\(\mathrm{O}(3)\) does not preserve the discrete set of six vectors as a
+distinguished orbit. The three-factor split requires the discrete
+subgroup. A different d=3 Bravais lattice --- face-centered cubic (12
+NN), body-centered cubic (8 NN), or hexagonal close-packed (12 NN, point
+group \(D_{6h}\)) --- would give a different NN link-decomposition and a
+different gauge structure.
+
+Mechanically applying the Cabibbo formula \(\lambda = 1/|X_i - X_j|\)
+(§7.1) to the BZ geometry of each candidate, with equal-NN
+normalization:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Lattice & Coord. & Triplet separation & \(\lambda\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+SC & 6 & \(\pi\sqrt{2}\) & 0.2251 \\
+FCC & 12 & \(2\pi\) & 0.1592 \\
+BCC & 8 & \(\pi\sqrt{6}\) & 0.1299 \\
+\end{longtable}
+
+Observed \(\lambda = 0.2250 \pm 0.00067\) {[}20{]}. A full framework
+derivation on FCC or BCC would require redoing the staggered-taste and
+gauge-group structure for each lattice, so this table is a geometric
+comparison, not a comparison of two completed derivations. It shows that
+the SC match is tied to SC's specific BZ geometry rather than to generic
+d=3 features.
+
+The §2 reading that ``any bounded-degree graph with statistical isotropy
+suffices'' therefore applies to the emergence of QM and to the existence
+of a gauge-group structure (Theorems 1--6); the quantitative predictions
+of §7 depend on the specific Bravais choice.
+
+The §2 structural reading that ``any bounded-degree graph with
+statistical isotropy suffices'' therefore refers to the
+existence-and-emergent-QM part of the chain (Theorems 1--6, §§3.1--3.4),
+not to the specific quantitative predictions of §7. Those predictions
+require the SC Bravais structure; the framework treats this as a
+structural commitment forced by the observed SM numbers rather than as a
+free choice.
 
 \textbf{Remark (completeness of the irrep catalog).} The octahedral
 group \(O\) has five irreducible representations:
