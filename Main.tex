@@ -19,6 +19,8 @@
 % \usepackage{lmodern} % removed
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -52,145 +54,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-% XeLaTeX header for OI framework build pipeline
-% pandoc→xelatex with extended unicode char-map and DejaVu mono for box-drawing
-
-\usepackage{fontspec}
-\usepackage{unicode-math}
-\usepackage{newunicodechar}
-
-% Main fonts — Latin Modern (text + math), DejaVu Sans Mono for code
-% DejaVu Sans Mono has U+2500 series box-drawing characters used in framework diagrams
-\setmainfont{Latin Modern Roman}
-\setsansfont{Latin Modern Sans}
-\setmonofont{DejaVu Sans Mono}[Scale=0.85]
-\setmathfont{Latin Modern Math}
-
-% Extra math packages
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{mathtools}
-
-% Table support
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-
-% URL handling — allow line breaks in long URLs
-\usepackage{xurl}
-
-% Paragraph spacing
-\setlength{\parskip}{0.5em}
-\setlength{\parindent}{0pt}
-
-% Extended Unicode character map — substitute problematic text-mode chars
-% with math-mode equivalents. Only needed for chars not in Latin Modern Roman.
-% Box-drawing chars (U+2500 range) work natively via DejaVu Sans Mono in code blocks.
-
-% Greek lowercase (may appear in prose, not just math)
-\newunicodechar{α}{\ensuremath{\alpha}}
-\newunicodechar{β}{\ensuremath{\beta}}
-\newunicodechar{γ}{\ensuremath{\gamma}}
-\newunicodechar{δ}{\ensuremath{\delta}}
-\newunicodechar{ε}{\ensuremath{\epsilon}}
-\newunicodechar{η}{\ensuremath{\eta}}
-\newunicodechar{θ}{\ensuremath{\theta}}
-\newunicodechar{κ}{\ensuremath{\kappa}}
-\newunicodechar{λ}{\ensuremath{\lambda}}
-\newunicodechar{μ}{\ensuremath{\mu}}
-\newunicodechar{ν}{\ensuremath{\nu}}
-\newunicodechar{π}{\ensuremath{\pi}}
-\newunicodechar{ρ}{\ensuremath{\rho}}
-\newunicodechar{σ}{\ensuremath{\sigma}}
-\newunicodechar{τ}{\ensuremath{\tau}}
-\newunicodechar{φ}{\ensuremath{\varphi}}
-\newunicodechar{χ}{\ensuremath{\chi}}
-\newunicodechar{ψ}{\ensuremath{\psi}}
-\newunicodechar{ω}{\ensuremath{\omega}}
-
-% Greek uppercase
-\newunicodechar{Γ}{\ensuremath{\Gamma}}
-\newunicodechar{Δ}{\ensuremath{\Delta}}
-\newunicodechar{Λ}{\ensuremath{\Lambda}}
-\newunicodechar{Σ}{\ensuremath{\Sigma}}
-\newunicodechar{Ω}{\ensuremath{\Omega}}
-
-% Common math/physics symbols
-\newunicodechar{ℏ}{\ensuremath{\hbar}}
-\newunicodechar{ℤ}{\ensuremath{\mathbb{Z}}}
-\newunicodechar{∅}{\ensuremath{\emptyset}}
-\newunicodechar{∂}{\ensuremath{\partial}}
-\newunicodechar{∈}{\ensuremath{\in}}
-\newunicodechar{∘}{\ensuremath{\circ}}
-\newunicodechar{√}{\ensuremath{\sqrt{}}}
-\newunicodechar{∝}{\ensuremath{\propto}}
-
-% Relations
-\newunicodechar{≤}{\ensuremath{\leq}}
-\newunicodechar{≥}{\ensuremath{\geq}}
-\newunicodechar{≠}{\ensuremath{\neq}}
-\newunicodechar{≈}{\ensuremath{\approx}}
-\newunicodechar{≪}{\ensuremath{\ll}}
-\newunicodechar{≫}{\ensuremath{\gg}}
-\newunicodechar{⊂}{\ensuremath{\subset}}
-\newunicodechar{⊃}{\ensuremath{\supset}}
-\newunicodechar{⊕}{\ensuremath{\oplus}}
-
-% Arrows
-\newunicodechar{→}{\ensuremath{\to}}
-\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
-\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
-\newunicodechar{⇐}{\ensuremath{\Leftarrow}}
-\newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
-\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
-\newunicodechar{⟺}{\ensuremath{\Longleftrightarrow}}
-
-% Brackets
-\newunicodechar{⟨}{\ensuremath{\langle}}
-\newunicodechar{⟩}{\ensuremath{\rangle}}
-
-% Operators
-\newunicodechar{×}{\ensuremath{\times}}
-\newunicodechar{−}{\ensuremath{-}}
-
-% Superscripts (may appear in prose when pandoc doesn't wrap in math mode)
-\newunicodechar{⁰}{\ensuremath{^{0}}}
-\newunicodechar{¹}{\ensuremath{^{1}}}
-\newunicodechar{²}{\ensuremath{^{2}}}
-\newunicodechar{³}{\ensuremath{^{3}}}
-\newunicodechar{⁴}{\ensuremath{^{4}}}
-\newunicodechar{⁵}{\ensuremath{^{5}}}
-\newunicodechar{⁶}{\ensuremath{^{6}}}
-\newunicodechar{⁷}{\ensuremath{^{7}}}
-\newunicodechar{⁸}{\ensuremath{^{8}}}
-\newunicodechar{⁺}{\ensuremath{^{+}}}
-\newunicodechar{⁻}{\ensuremath{^{-}}}
-
-% Subscripts
-\newunicodechar{₀}{\ensuremath{_{0}}}
-\newunicodechar{₁}{\ensuremath{_{1}}}
-\newunicodechar{₂}{\ensuremath{_{2}}}
-\newunicodechar{₃}{\ensuremath{_{3}}}
-\newunicodechar{₄}{\ensuremath{_{4}}}
-\newunicodechar{₈}{\ensuremath{_{8}}}
-
-% Decorative / non-math
-\newunicodechar{✓}{\ensuremath{\checkmark}}
-\newunicodechar{✗}{\ensuremath{\times}}
-
-% Relax hbox overfull warnings (long URLs and math-heavy text)
-\sloppy
-\hbadness=10000
-
-% Allow hyperref to work well with Unicode
-\usepackage{hyperref}
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue!50!black,
-  citecolor=blue!50!black,
-  urlcolor=blue!60!black,
-  breaklinks=true
-}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -1196,6 +1059,98 @@ while the structural ontology commitment is physical.
 Laboratory tests of the characterization theorem may be possible in
 tabletop systems where the hidden sector capacity is tunable.
 
+\hypertarget{structural-exclusion-of-equilibrium-phase-observers}{%
+\subsubsection{4.6 Structural Exclusion of Equilibrium-Phase
+Observers}\label{structural-exclusion-of-equilibrium-phase-observers}}
+
+An immediate corollary of (C1)--(C3) is a structural selection rule on
+where in a finite bijective \((S, \varphi)\) observers can exist. The
+rule replaces a postulate often imported from elsewhere --- the ``past
+hypothesis'' of low initial entropy --- with a theorem derived from the
+framework's own definitions.
+
+\textbf{Setup.} Let \(V\) be a partition with hidden sector
+\(B = S \setminus V\). Define the coupling-graph neighborhood
+\(\Sigma_{\text{loc}}(V)\) as the subset of \(S\) reached from \(V\) by
+at most \(\tau_S / \Delta t\) steps of \(\varphi\), where \(\Delta t\)
+is the update step. Let \(\tau_{\text{mix}}(\Sigma)\) denote the mixing
+time of \(\varphi\) restricted to any \(\varphi\)-invariant subsystem
+\(\Sigma\), set by the spectral gap of the transfer operator on
+\(\Sigma\).
+
+\textbf{Theorem (structural observer selection).} For any partition
+\(V\) of bounded coupling-graph diameter, \[
+\tau_B(V) \leq \tau_{\text{mix}}(\Sigma_{\text{loc}}(V)) + O(\varepsilon),
+\] where \(\varepsilon\) absorbs typical-set and finite-size
+corrections. In particular, if \(\Sigma_{\text{loc}}(V)\) is in its
+local equilibrium macrostate in the sense of canonical typicality
+{[}31{]}, \(\tau_B(V)\) is bounded by the local thermal decorrelation
+time.
+
+\emph{Proof.} Correlations between a \(V\)-localized observable \(f\)
+and a \(B\)-localized observable \(g\) at time \(t\) require information
+to propagate from \(V\) to \(B\) at time \(0\) and back to influence the
+\(V\)-correlated component of \(g\) at time \(t\). By the bounded
+coupling degree of \(\varphi\), this round trip stays within
+\(\Sigma_{\text{loc}}(V)\) for \(t \leq \tau_S\). The spectral gap of
+\(\varphi|_{\Sigma_{\text{loc}}}\) --- which on an equilibrium
+microstate of \(\mu|_{\Sigma_{\text{loc}}}\) sets the local thermal
+decorrelation rate --- bounds the decay of such correlations
+exponentially at rate \(1/\tau_{\text{mix}}\). Hence
+\(\tau_B(V) \leq \tau_{\text{mix}}(\Sigma_{\text{loc}}) + O(\varepsilon)\).
+\(\square\)
+
+\textbf{Corollary (anti-Boltzmann-brain).} A Boltzmann brain is by
+construction a local fluctuation within a neighborhood
+\(\Sigma_{\text{loc}}\) that is itself in local thermal equilibrium ---
+that is what ``fluctuation from equilibrium'' means. Applying the
+theorem: \(\tau_B(V_{\text{BB}})\) is bounded by the local thermal
+decorrelation time \(\sim \hbar/(k_B T_{\text{local}})\), which is at
+most \(\sim 10^{-12}\) s for any temperature warm enough to support
+structured matter. Any finite-information observer has \(\tau_S\)
+bounded below by its own internal processing time --- for biological or
+synthetic BBs of any currently-envisioned type,
+\(\tau_S \gtrsim 10^{-6}\) s. Condition (C2), \(\tau_S \ll \tau_B\),
+therefore fails by at least six orders of magnitude for any BB. Since QM
+emergence under the framework requires (C2) as a necessary condition
+(§3.4), Boltzmann-brain observers do not see emergent QM; they are not
+observers in the sense the framework's definitions require. The
+exclusion is structural, not measure-theoretic --- it follows from the
+incompatibility of (C2) with local equilibrium, not from arguments about
+the ratio of BBs to ``ordinary'' observers in an anthropic sample.
+
+\textbf{Corollary (past-hypothesis replacement).} For \((S, \varphi)\)
+in its typical orbit phase --- equivalently, in its equilibrium
+macrostate --- canonical typicality {[}31{]} implies every local
+subsystem is also in its local equilibrium. By the theorem,
+\(\tau_B(V)\) is bounded by the local \(\tau_{\text{mix}}\) for every
+bounded-diameter partition \(V\). No partition supports (C2). The
+framework's observers therefore exist only in the non-equilibrium phase
+of \((S, \varphi)\). The low-entropy initial condition commonly imported
+as a ``past hypothesis'' to select observer-compatible configurations is
+replaced here by a structural selection rule: observers exist where
+(C1)--(C3) are satisfiable, and (C1)--(C3) are not satisfiable in the
+equilibrium phase.
+
+\textbf{Scope.} The theorem uses only bounded coupling, finiteness of
+\(S\), and the canonical-typicality result {[}31{]}; no new axioms are
+introduced. Three scope notes. (i) \emph{Locality of \(V\).} The theorem
+assumes \(V\) has bounded coupling-graph diameter. Adversarially
+non-local partitions --- cherry-picking distant subsystems that happen
+to be correlated --- are excluded by the bounded coupling degree of
+\(\varphi\) and the finite response time of any physical observer. (ii)
+\emph{Ergodicity.} The argument assumes the spectral gap on typical
+orbits of \(\varphi\), which follows from statistical isotropy and
+bounded-coupling regularity; pathological non-ergodic \(\varphi\) (many
+short orbits) is excluded by the structural assumptions already in
+force. (iii) \emph{The cosmological realization.} The de Sitter horizon
+is thermal in the static-patch sense at Hawking temperature, but the
+globally expanding system is not in equilibrium with respect to any
+static-observer partition. The horizon's expansion sets
+\(\tau_B \sim H^{-1}\) structurally, not thermally, which is the
+OI-native mechanism making human-timescale laboratory observation
+compatible with (C2); {[}GR, §§5--7{]} develops this quantitatively.
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{conclusion}{%
@@ -1334,5 +1289,9 @@ of quantum memory in non-Markovian dynamics,'' arXiv:2507.21907 (2025).
 {[}30{]} R. Gangwar and U. Sen, ``Genuine and Non-Genuine Quantum
 Non-Markovianity: A Unified Information-Theoretic Review,''
 arXiv:2603.28277 (2026).
+
+{[}31{]} S. Goldstein, J. L. Lebowitz, R. Tumulka, and N. Zanghì,
+``Canonical Typicality,'' \emph{Phys. Rev.~Lett.} \textbf{96}, 050403
+(2006); arXiv:cond-mat/0511091.
 
 \end{document}
