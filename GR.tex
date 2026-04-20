@@ -606,24 +606,17 @@ with \emph{some} action scale \(\hbar\); §3 determines \emph{which}
 \(\hbar\), using the independent classical temperature that Part I
 neither requires nor produces.
 
-\textbf{Non-circularity of the entropy density.} The claim
-\(\eta = 1/\epsilon^2\) --- one mode per minimal cell --- may appear to
-pre-bake the area-entropy proportionality. To see why it does not,
-consider the counterfactual: suppose the classical entropy density were
-\(\eta = \alpha/\epsilon^2\) for arbitrary \(\alpha > 0\). Then
-\(T_{\text{cl}} = \alpha c^2 \epsilon^2 \kappa / (8\pi G k_B)\), and
-thermal matching gives \(\hbar = \alpha c^3 \epsilon^2 / (4G)\). The
-Bekenstein-Hawking entropy becomes \(S = A / (4\alpha^{-1} l_p^2)\),
-which reproduces the observed \(1/4\) factor only for \(\alpha = 1\).
-Thus \(\alpha = 1\) is a non-trivial constraint --- it says that each
-minimal cell contributes exactly one boundary mode, not a fractional or
-multiple contribution. This is the physical content of the \(q\)-gauge
-theorem: the alphabet size \(q\) (the number of internal states per
-cell) is observationally irrelevant, so what counts is the number of
-\emph{cells}, not the number of \emph{states}. The counting
-\(\eta = 1/\epsilon^2\) is not an assumption about mode density but a
-consequence of \(\epsilon\) being defined as the minimal distinguishable
-scale (Lemma 1) combined with the irrelevance of sub-cell structure.
+\textbf{The counting \(\eta = 1/\epsilon^2\) is definitional.} Given
+that \(\epsilon\) is the minimal distinguishable scale (Lemma 1), ``one
+boundary mode per cell of area \(\epsilon^2\)'' is what ``minimal''
+means: a cell finer than \(\epsilon\) would subdivide the minimal scale,
+while counting fewer modes would require a distinction below
+\(\epsilon\) to group them. The \(q\)-gauge theorem (alphabet size is
+observationally irrelevant) settles that what counts is the number of
+\emph{cells}, not the number of internal states per cell.
+\(\eta = 1/\epsilon^2\) is therefore not an independent physical ansatz
+about mode density but a consequence of the definition of \(\epsilon\)
+combined with the irrelevance of sub-cell structure.
 
 The predictive content lies not in the gap equation alone but in its
 consequences. The specific relationship \(\hbar = c^3\epsilon^2/(4G)\)
@@ -1191,9 +1184,18 @@ distributing over \(V_H = 4\pi c^3/(3H^3)\):
 
 \[\rho_s = \frac{E_s}{V_H} = \frac{A}{\epsilon^2} \cdot \frac{c^3 \epsilon^2 H}{8\pi G} \cdot \frac{3H^3}{4\pi c^3} = \frac{3c^2 H^2}{8\pi G} = \rho_{\text{crit}}\]
 
-This identity, which Verlinde {[}20{]} assumes, is here derived.
+The identity \(\rho_s = \rho_{\text{crit}}\) is a consequence of
+Jacobson's Clausius relation applied to the de Sitter horizon. Verlinde
+{[}20{]} takes the identity as a premise; the present framework grounds
+it in the Clausius relation of the underlying classical substratum,
+using the boundary-mode counting fixed in §3.1. The factor
+\(\epsilon^2\) cancels between \(S_{\text{dS}} \propto 1/\epsilon^2\)
+and \(T_{\text{cl}} \propto \epsilon^2\), so the result is independent
+of the specific value of \(\epsilon\): what the identity actually uses
+is Jacobson's \(dE = (c^2\kappa/8\pi G)\,dA\) plus an area-law entropy
+plus the Friedmann volume.
 
-Four clarifications are essential for what follows.
+Three clarifications are essential for what follows.
 
 \emph{Classical, not emergent.} The calculation above uses only
 pre-trace-out quantities: the number of boundary modes
@@ -1225,11 +1227,6 @@ deforms the horizon geometry, redistributing the boundary entropy. The
 gravitational effect of this redistribution on bulk observers is most
 easily computed using the uniform-medium equivalence: the deformed
 boundary is equivalent to a non-uniform effective bulk source.
-
-\emph{Algebraic status.} The coincidence \(\rho_s = \rho_{\text{crit}}\)
-is an algebraic consequence of the Friedmann equation and the
-self-consistency relation \(\hbar = c^3\epsilon^2/(4G)\); it is not an
-independent physical input.
 
 \emph{General \(d\).} Running the same construction in \(d\) spatial
 dimensions: the horizon is a \((d-1)\)-sphere of area
