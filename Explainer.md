@@ -473,7 +473,7 @@ This fixes β = 1/4.
 
 **Why this is not circular.** The KMS temperature T_Q contains ℏ as an *unknown*. The classical temperature T_cl contains no ℏ at all. The non-circularity is structural: Part I establishes that a QFT emerges with *some* action scale ℏ; §5 determines *which* ℏ, using the independent classical temperature that Part I neither requires nor produces. If T_cl had depended on the deep hidden-sector volume (it doesn't — the boundary-only lemma excludes it), or if T_Q had been state-dependent (it isn't — the KMS temperature is purely kinematic), the matching wouldn't work. That neither pathology obtains makes the gap equation a genuine determination.
 
-**Predictive content.** The gap equation relates one free parameter (ε) to one output (ℏ). The predictive content lies not in the relation alone but in its consequences: the specific relationship ℏ = c³ε²/(4G) — rather than any other function of c, G, ε — produces the Bekenstein-Hawking formula with the exact factor 1/4, the CC dissolution with S_dS as the compression ratio, and the Type II running-vacuum form of the dark energy. Any alternative ℏ(ε) would fail at least one of these checks.
+**Predictive content.** The gap equation relates one free parameter (ε) to one output (ℏ), but the derivation has genuine content because it picks out the specific relationship ℏ = c³ε²/(4G) — rather than any other function of c, G, ε — as the one that produces the Bekenstein-Hawking factor 1/4 (§6), the CC dissolution (§7.3), and the Type II RVM dark-energy form (§8.1) simultaneously. Any alternative ℏ(ε) would fail at least one check. See Appendix item 1 for the detailed discussion.
 
 ---
 
