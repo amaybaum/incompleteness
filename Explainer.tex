@@ -52,9 +52,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-% XeLaTeX header for OI framework build pipeline
-% pandoc→xelatex with extended unicode char-map and DejaVu mono for box-drawing
-
 \usepackage{fontspec}
 \usepackage{unicode-math}
 \usepackage{newunicodechar}
@@ -178,19 +175,26 @@
 \newunicodechar{✓}{\ensuremath{\checkmark}}
 \newunicodechar{✗}{\ensuremath{\times}}
 
-% Relax hbox overfull warnings (long URLs and math-heavy text)
-\sloppy
-\hbadness=10000
-
-% Allow hyperref to work well with Unicode
-\usepackage{hyperref}
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue!50!black,
-  citecolor=blue!50!black,
-  urlcolor=blue!60!black,
-  breaklinks=true
-}
+% Additional chars discovered in session 8 audit pass
+\newunicodechar{∼}{\ensuremath{\sim}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{†}{\ensuremath{\dagger}}
+\newunicodechar{‡}{\ensuremath{\ddagger}}
+\newunicodechar{…}{\ensuremath{\ldots}}
+\newunicodechar{𝒩}{\ensuremath{\mathcal{N}}}
+\newunicodechar{ⁿ}{\ensuremath{^{n}}}
+\newunicodechar{°}{\ensuremath{^{\circ}}}
+\newunicodechar{±}{\ensuremath{\pm}}
+\newunicodechar{·}{\ensuremath{\cdot}}
+\newunicodechar{½}{\ensuremath{\tfrac{1}{2}}}
+% Box-drawing (for README.md's ASCII-art prediction tree)
+\newunicodechar{─}{-}
+\newunicodechar{│}{|}
+\newunicodechar{└}{\textbackslash}
+\newunicodechar{├}{|}
+% Additional chars discovered in session 8 compile pass
+\newunicodechar{ʲ}{\ensuremath{^{j}}}
+\newunicodechar{Ḣ}{\ensuremath{\dot{H}}}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -1209,8 +1213,9 @@ equation a genuine determination.
 alone but in its consequences: the specific relationship ℏ = c³ε²/(4G)
 --- rather than any other function of c, G, ε --- produces the
 Bekenstein-Hawking formula with the exact factor 1/4, the CC dissolution
-with S\_dS as the compression ratio, and the RVM parameter ν\_OI. Any
-alternative ℏ(ε) would fail at least one of these checks.
+with S\_dS as the compression ratio, and the Type II running-vacuum form
+of the dark energy. Any alternative ℏ(ε) would fail at least one of
+these checks.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1452,38 +1457,36 @@ dimensionality changes as the Hubble parameter \(H\) evolves (the
 horizon area is \(A = 4\pi c^2/H^2\)), the emergent vacuum energy
 inherits a dependence on \(H\). The predicted form matches the Running
 Vacuum Model: \(\Lambda_{\text{eff}} = \Lambda_0 + \nu H^2\). The
-coefficient \(\nu\) is computed from the spectral structure of the
-horizon: the trace-out compression noise is distributed over
-\(\mathcal{N} = \ln(c/\epsilon H)\) spectral decades. The spectral
-uniformity (\(\alpha = 0\)) is not an assumption but follows from the
-lattice structure: each \(\epsilon^2\) boundary cell couples equally to
-all frequencies (time-translation invariance), each mode carries
-\(\mathcal{O}(1)\) entropy bit (quantum regime), and the mode count is
-geometric (\(A/\epsilon^2\)), not field-theoretic. This gives
-\(\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}\) with total
-uncertainty \(\pm 1.8\%\) --- a precision prediction, not an
-order-of-magnitude estimate. The independently testable ratio
-\(\nu/\Omega_\Lambda = 0.00358 \pm 0.00003\) depends only on
-\(\ln(c/\epsilon H_0)\) and is insensitive to the measured values of
-both \(H_0\) and \(\Omega_\Lambda\). DESI's 2024--2025 data releases
-report evidence for evolving dark energy at
-\(2.8\sigma\)--\(4.2\sigma\), with RVM fits finding
-\(\nu \sim \mathcal{O}(10^{-3})\) --- consistent with the prediction.
-The most recent multi-model analysis (de Cruz Pérez, Gómez-Valent, and
-Solà Peracaula, March 2026) of DESI DR2 + Planck + supernovae explicitly
-tests several RVM variants and finds the ``flipped RVM'' and ``RVM with
-threshold'' variants point to significant evidence of dynamical dark
-energy at a level comparable to the more flexible \(w_0w_a\)CDM
-parameterization. In other words: DESI now favors the running-vacuum
-functional form OI predicts, not merely ``some kind of dynamical dark
-energy.'' The 2026 analysis, however, runs only Type I RVM
-implementations (where matter exchanges energy with vacuum via dark
-matter); OI corresponds to Type II (matter locally conserved, \(G(H)\)
-mildly running --- see the GR companion paper, §7.1), so a direct Type
-II fit to DESI DR2 would be the decisive variant-specific comparison and
-does not yet exist in the published literature. DESI Year 5
-(\textasciitilde1\% precision on \(\nu\)) provides the decisive
-long-term test.
+framework's \emph{structural} commitments --- boundary entropy depends
+on \(H\), matter is conserved in the trace-out, and Bianchi consistency
+then forces \(G(H)\) to run in tandem with \(\rho_\Lambda(H)\) --- fix
+the Type II RVM functional form. What they do not yet uniquely determine
+is the coefficient \(\nu\), which requires completing the dark-energy /
+dark-matter split analysis of the companion GR paper §7.3 at the level
+of a theorem. A framework-internal dimensional argument (GR §7.1) gives
+\(|\nu| \sim \Omega_B/\mathcal{N}_0 \sim 3 \times 10^{-4}\) with
+negative sign (past dark energy smaller than present, because the
+matter-induced structured fraction of boundary entropy shrinks as
+baryons dilute). A direct test is provided by Bertini, Novaes, von
+Marttens, and Shapiro (arXiv:2509.24026), who fit a
+renormalization-group-corrected \(\Lambda\)CDM model --- structurally
+equivalent to Type II RVM at leading order, with both \(G(\mu)\) and
+\(\Lambda(\mu)\) running and matter conserved --- against Planck 2018 +
+DESI DR2 + DES-Y5 and report \(\nu = -(2.5 \pm 1.3) \times 10^{-4}\).
+This agrees with the qualitative framework prediction at better than
+\(1\sigma\) in both sign and order of magnitude. Earlier iterations of
+the OI papers (through v1.6.4) proposed a specific value
+\(\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}\) derived from a
+spectral-uniformity ansatz; that coefficient was in \(\sim 20\sigma\)
+tension with the Bertini direct fit and has been retracted (GR §7.1,
+April 2026), because audit of the derivation revealed that the leap from
+``each boundary cell couples to all frequencies'' (justified by
+time-translation invariance) to ``each frequency decade carries
+\(1/\mathcal{N}\) of the vacuum energy'' (unjustified) was doing all the
+quantitative work. The \emph{structural} prediction --- Type II
+dynamical DE in running-vacuum form --- stands and is now supported by
+Bertini's direct fit. DESI Year 5 (\textasciitilde1\% precision on
+\(\nu\)) provides the decisive long-term test.
 
 \textbf{The dark sector as corroboration.} The trace-out that produces
 quantum mechanics has a gravitational consequence that the paper did not
@@ -2545,12 +2548,12 @@ oscillation minimum (\(\approx 0.059\) eV). DESI DR2+CMB data
 (\(\Sigma m_\nu < 0.064\) eV, normal ordering preferred) are consistent
 with all of these.
 
-Combined with the earlier papers' predictions --- dark energy evolution
-with \(\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}\), dark matter
-from galaxies through clusters to the Bullet Cluster, gauge couplings at
-\(M_Z\) --- and the Predictions paper's twenty-two zero-parameter
-quantitative predictions (including
-\(\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)\) confirmed by JUNO at
+Combined with the earlier papers' predictions --- dynamical dark energy
+in Type II RVM form with \(|\nu| \sim 10^{-4}\) (negative, consistent
+with Bertini 2025 at \(<1\sigma\)), dark matter from galaxies through
+clusters to the Bullet Cluster, gauge couplings at \(M_Z\) --- and the
+Predictions paper's twenty-two zero-parameter quantitative predictions
+(including \(\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)\) confirmed by JUNO at
 \(0.14\sigma\)), the framework makes a suite of falsifiable predictions
 that no competing theory makes jointly.
 
@@ -3097,11 +3100,11 @@ lies not in the gap equation alone but in its consequences: the specific
 relationship ℏ = c³ε²/(4G) --- rather than any other function of c, G, ε
 --- produces the Bekenstein-Hawking formula with the exact factor 1/4
 (§6), the CC dissolution with S\_dS as the compression ratio (§7.3), and
-the RVM parameter ν\_OI (§8.1). Any alternative ℏ(ε) would fail at least
-one of these checks. The situation is analogous to deriving the
-Schwarzschild metric with M as a free parameter: the derivation has
-genuine content (the functional form) even though one input is not
-determined from within.
+the Type II running-vacuum form of the dark energy (§8.1). Any
+alternative ℏ(ε) would fail at least one of these checks. The situation
+is analogous to deriving the Schwarzschild metric with M as a free
+parameter: the derivation has genuine content (the functional form) even
+though one input is not determined from within.
 
 \textbf{2. The KMS condition on the lattice.}
 

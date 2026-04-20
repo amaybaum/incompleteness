@@ -52,9 +52,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-% XeLaTeX header for OI framework build pipeline
-% pandoc→xelatex with extended unicode char-map and DejaVu mono for box-drawing
-
 \usepackage{fontspec}
 \usepackage{unicode-math}
 \usepackage{newunicodechar}
@@ -178,19 +175,26 @@
 \newunicodechar{✓}{\ensuremath{\checkmark}}
 \newunicodechar{✗}{\ensuremath{\times}}
 
-% Relax hbox overfull warnings (long URLs and math-heavy text)
-\sloppy
-\hbadness=10000
-
-% Allow hyperref to work well with Unicode
-\usepackage{hyperref}
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue!50!black,
-  citecolor=blue!50!black,
-  urlcolor=blue!60!black,
-  breaklinks=true
-}
+% Additional chars discovered in session 8 audit pass
+\newunicodechar{∼}{\ensuremath{\sim}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{†}{\ensuremath{\dagger}}
+\newunicodechar{‡}{\ensuremath{\ddagger}}
+\newunicodechar{…}{\ensuremath{\ldots}}
+\newunicodechar{𝒩}{\ensuremath{\mathcal{N}}}
+\newunicodechar{ⁿ}{\ensuremath{^{n}}}
+\newunicodechar{°}{\ensuremath{^{\circ}}}
+\newunicodechar{±}{\ensuremath{\pm}}
+\newunicodechar{·}{\ensuremath{\cdot}}
+\newunicodechar{½}{\ensuremath{\tfrac{1}{2}}}
+% Box-drawing (for README.md's ASCII-art prediction tree)
+\newunicodechar{─}{-}
+\newunicodechar{│}{|}
+\newunicodechar{└}{\textbackslash}
+\newunicodechar{├}{|}
+% Additional chars discovered in session 8 compile pass
+\newunicodechar{ʲ}{\ensuremath{^{j}}}
+\newunicodechar{Ḣ}{\ensuremath{\dot{H}}}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -234,23 +238,23 @@ distinct descriptions rather than commensurable quantities whose
 \(10^{122}\) ratio requires cancellation. The recent LIGO/Virgo/KAGRA
 observation GW250114 (September 2025) confirms the black-hole area law
 at \(99.999\%\) confidence. The framework predicts dynamical dark energy
-in running-vacuum form with a structural coefficient
-\(\nu_{\text{OI}} = 2.45 \times 10^{-3}\), currently supported by DESI
-DR2 at \(2.8\)--\(4.2\sigma\) depending on the parameterization; a
-\textasciitilde{}\(95\%\) dark sector corollary in which the apparent
-invisible matter is a structural feature of the embedded observer's
-description rather than a new particle species; and a MOND-like
-acceleration scale \(a_0 = cH/6\) from entropy displacement at the
-cosmological boundary, reproducing the baryonic Tully-Fisher relation
-and predicting Keplerian decline of galactic rotation curves at radii
-exceeding \(r_M = \sqrt{6 G M_B/(cH)}\) --- the last confirmed by Jiao
-et al.~(2023) in the Milky Way at \(\sim 17\) kpc. The \(H(z)\)
-dependence of \(a_0\) predicts systematically more baryon-dominated
-rotation curves at high redshift, consistent with Genzel et al.'s
-detection of declining outer velocities at \(z = 0.9\)--\(2.4\). All
-results follow from partition geometry alone and are independent of the
-specific substratum dynamics, treated in a separate companion paper
-{[}SM{]}.
+in Type II running-vacuum form with coefficient \(|\nu| \sim 10^{-4}\)
+and negative sign --- consistent with the Bertini et al.~(2025)
+RG-corrected \(\Lambda\)CDM fit to DESI DR2 + DES-Y5 + Planck 2018 at
+better than \(1\sigma\); a \textasciitilde{}\(95\%\) dark sector
+corollary in which the apparent invisible matter is a structural feature
+of the embedded observer's description rather than a new particle
+species; and a MOND-like acceleration scale \(a_0 = cH/6\) from entropy
+displacement at the cosmological boundary, reproducing the baryonic
+Tully-Fisher relation and predicting Keplerian decline of galactic
+rotation curves at radii exceeding \(r_M = \sqrt{6 G M_B/(cH)}\) --- the
+last confirmed by Jiao et al.~(2023) in the Milky Way at \(\sim 17\)
+kpc. The \(H(z)\) dependence of \(a_0\) predicts systematically more
+baryon-dominated rotation curves at high redshift, consistent with
+Genzel et al.'s detection of declining outer velocities at
+\(z = 0.9\)--\(2.4\). All results follow from partition geometry alone
+and are independent of the specific substratum dynamics, treated in a
+separate companion paper {[}SM{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -295,31 +299,32 @@ distinct objects rather than commensurable quantities whose \(10^{122}\)
 ratio requires cancellation (§6).
 
 The framework's empirical content is developed in §7. Dynamical dark
-energy emerges in running-vacuum form with a single structural
-coefficient \(\nu_{\text{OI}} = 2.45 \times 10^{-3}\), currently
-supported by DESI DR2 at the \(2.8\)--\(4.2\sigma\) level (depending on
-the dark-energy parameterization adopted). The dark-sector corollary
-predicts that \textasciitilde95\% of the gravitational budget of the
-universe is invisible to the emergent QFT without requiring new
-fundamental particles --- a concordance rather than a puzzle. The
-acceleration scale \(a_0 = cH/6\) emerges from entropy displacement at
-the cosmological boundary, reproducing the MOND phenomenology in the
-deep-modified regime and predicting Keplerian decline at radii exceeding
-\(r_M = \sqrt{6 G M_B/(cH)}\); the latter is confirmed by the Jiao et
-al.~(2023) detection of a Keplerian decline in the Milky Way rotation
-curve at \(\sim 17\) kpc. The \(H(z)\) dependence of \(a_0\) predicts
-systematically more baryon-dominated rotation curves at high redshift,
-consistent with the declining outer velocities observed at
-\(z = 0.9\)--\(2.4\) by Genzel et al.
+energy emerges in Type II running-vacuum form, with the coefficient of
+the \(H^2\) running constrained to \(|\nu| \sim 10^{-4}\) with negative
+sign by a framework-internal dimensional argument --- consistent with
+the direct Bertini et al.~(2025) fit of an RG-corrected \(\Lambda\)CDM
+model to DESI DR2 + DES-Y5 + Planck 2018 at better than \(1\sigma\). The
+dark-sector corollary predicts that \textasciitilde95\% of the
+gravitational budget of the universe is invisible to the emergent QFT
+without requiring new fundamental particles --- a concordance rather
+than a puzzle. The acceleration scale \(a_0 = cH/6\) emerges from
+entropy displacement at the cosmological boundary, reproducing the MOND
+phenomenology in the deep-modified regime and predicting Keplerian
+decline at radii exceeding \(r_M = \sqrt{6 G M_B/(cH)}\); the latter is
+confirmed by the Jiao et al.~(2023) detection of a Keplerian decline in
+the Milky Way rotation curve at \(\sim 17\) kpc. The \(H(z)\) dependence
+of \(a_0\) predicts systematically more baryon-dominated rotation curves
+at high redshift, consistent with the declining outer velocities
+observed at \(z = 0.9\)--\(2.4\) by Genzel et al.
 
 Three epistemic tiers are worth distinguishing before the technical
 development begins. \textbf{Tier 1} comprises the results that follow
 from partition geometry alone --- the derivation of \(\hbar\), the BH
-area law with the \(1/4\) coefficient, the CC dissolution, and the
-structural coefficient \(\nu_{\text{OI}} = 2.45 \times 10^{-3}\). These
-do not depend on the specific substratum dynamics and would hold for any
-finite deterministic system satisfying the three structural conditions
-at its cosmological horizon. \textbf{Tier 2} comprises the dark-sector
+area law with the \(1/4\) coefficient, the CC dissolution, and the Type
+II running-vacuum functional form of the dark energy. These do not
+depend on the specific substratum dynamics and would hold for any finite
+deterministic system satisfying the three structural conditions at its
+cosmological horizon. \textbf{Tier 2} comprises the dark-sector
 phenomenology: the \textasciitilde95\% invisible matter fraction, the
 MOND acceleration scale, and the rotation-curve crossover. These follow
 from the thermodynamic Clausius relation applied to the boundary
@@ -625,10 +630,10 @@ consequences. The specific relationship \(\hbar = c^3\epsilon^2/(4G)\)
 --- rather than any other function of \(c\), \(G\), \(\epsilon\) ---
 produces: the Bekenstein-Hawking formula with the exact factor \(1/4\)
 (§5), the CC dissolution with \(S_{\text{dS}}\) as the compression ratio
-(§6.3), and the RVM parameter \(\nu_{\text{OI}}\) (§7.1). Any
-alternative \(\hbar(\epsilon)\) would fail at least one of these checks.
-The situation is analogous to deriving the Schwarzschild metric with
-\(M\) as a free parameter: the derivation has genuine content (the
+(§6.3), and the Type II running-vacuum form of the dark energy (§7.1).
+Any alternative \(\hbar(\epsilon)\) would fail at least one of these
+checks. The situation is analogous to deriving the Schwarzschild metric
+with \(M\) as a free parameter: the derivation has genuine content (the
 functional form) even though one input is not determined from within.
 
 Jacobson's original derivation {[}1{]} uses \(\hbar\)-containing forms;
@@ -853,8 +858,8 @@ that the emergent description assigns zero-point energy
 \(\sim \hbar\omega/2\) per mode with UV cutoff at \(\epsilon^{-1}\) ---
 a property shared by any lattice QFT with local couplings, regardless of
 gauge group or matter content. The framework's predictions in Part II
-(\(\hbar\), \(S_{\text{dS}}\), \(\nu_{\text{OI}}\)) depend on partition
-geometry, not on the emergent field content.
+(\(\hbar\), \(S_{\text{dS}}\), the Type II RVM form of the dark energy)
+depend on partition geometry, not on the emergent field content.
 
 \textbf{Classical substratum} (what geometric measurements probe): The
 horizon has classical thermal equilibrium. By the Friedmann equation,
@@ -927,21 +932,24 @@ by partition geometry rather than treated as a free parameter (§3.2);
 (4) the dark-sector concordance --- \textasciitilde95\% of
 \(\rho_{\text{crit}}\) is invisible to QFT, matching the observed dark
 sector (§7.2); (5) dark energy in running-vacuum form, favoured by DESI
-DR2 at 2.8--4.2σ pending a direct Type II variant-specific fit (§7.1);
-(6) the MOND acceleration scale \(a_0 = cH/6\) and the baryonic
-Tully-Fisher relation, derived from entropy displacement (§7.3); (7) the
-SM gauge group with its coupling strengths, reproduced to \(< 0.1\%\) at
-\(M_Z\); (8) declining rotation curves at high redshift, confirmed by
-Genzel et al.~(§7.3); (9) \(\bar{\theta} = 0\) at all energy scales;
-(10) galaxy cluster masses matched by the simple interpolation function
-(§7.3); (11) the Bullet Cluster lensing morphology reproduced by frozen
-boundary entropy (§7.3). Quantum-first orderings produce the
-\(10^{122}\) discrepancy, have no natural account of the dark sector,
-and treat \(\hbar\) and the \(1/4\) factor as unexplained inputs. The
-cumulative case is not a single tiebreaker but a pattern: every
-quantitative output of the geometry-first ordering is consistent with
-observation; the central quantitative output of the quantum-first
-ordering is the worst prediction in physics.
+DR2 at 2.8--4.2σ and consistent in sign and order of magnitude with the
+Bertini et al.~(2025) direct RG-corrected \(\Lambda\)CDM fit
+(structurally equivalent to the framework's Type II prediction at
+leading order) at better than \(1\sigma\) {[}15{]} (§7.1); (6) the MOND
+acceleration scale \(a_0 = cH/6\) and the baryonic Tully-Fisher
+relation, derived from entropy displacement (§7.3); (7) the SM gauge
+group with its coupling strengths, reproduced to \(< 0.1\%\) at \(M_Z\);
+(8) declining rotation curves at high redshift, confirmed by Genzel et
+al.~(§7.3); (9) \(\bar{\theta} = 0\) at all energy scales; (10) galaxy
+cluster masses matched by the simple interpolation function (§7.3); (11)
+the Bullet Cluster lensing morphology reproduced by frozen boundary
+entropy (§7.3). Quantum-first orderings produce the \(10^{122}\)
+discrepancy, have no natural account of the dark sector, and treat
+\(\hbar\) and the \(1/4\) factor as unexplained inputs. The cumulative
+case is not a single tiebreaker but a pattern: every quantitative output
+of the geometry-first ordering is consistent with observation; the
+central quantitative output of the quantum-first ordering is the worst
+prediction in physics.
 
 \textbf{The classical vacuum energy scale.} The framework does not
 explain \emph{why} \(\rho \sim H^2/G\); this is set by initial
@@ -1013,110 +1021,143 @@ expects.
 form}\label{dark-energy-evolution-in-running-vacuum-form}}
 
 \(\hbar\) is \(H\)-independent (§3.2), but the emergent vacuum energy is
-a state-level quantity depending on the hidden sector's volume.
-Expanding \(\Lambda_{\text{eff}}(H)\):
+a state-level quantity depending on the hidden sector's volume. Any
+smooth \(\rho_\Lambda(H)\) admits the Taylor expansion
 
-\[\Lambda_{\text{eff}}(H) = \Lambda_0 + \frac{3\nu_{\text{OI}}}{8\pi G}(H^2 - H_0^2) + \mathcal{O}((H^2 - H_0^2)^2)\]
+\[\Lambda_{\text{eff}}(H) = \Lambda_0 + \frac{3\nu}{8\pi G}(H^2 - H_0^2) + \mathcal{O}((H^2 - H_0^2)^2)\]
 
-This is the Running Vacuum Model {[}10, 11{]}. The \(S_{\text{dS}}\)
-horizon modes span frequencies \(\omega_{\text{IR}} = H\) to
-\(\omega_{\text{UV}} = c/\epsilon\). The spectral density of boundary
-entropy is uniform in \(\ln\omega\): each ε² boundary cell is one degree
-of freedom that couples to the bulk at all frequencies (time-translation
-invariance of the wave equation), and each mode carries
-\(\mathcal{O}(1)\) entropy bit (quantum regime:
-\(\omega \gg T_{\text{dS}}\) for all modes). The number of independent
-spectral channels is \(\mathcal{N}(H) = \ln(c/\epsilon H)\). Each
-carries fraction \(1/\mathcal{N}\) of the total gravitating vacuum
-energy, so \(\rho_\Lambda \propto 1/\mathcal{N}\). Taylor-expanding:
+This is the Running Vacuum Model {[}10, 11{]}. The framework forces this
+structural form through three architectural commitments: (i) the
+boundary entropy \(S_{\text{dS}} = A/\epsilon^2\) depends on \(H\) via
+\(A = 4\pi c^2/H^2\), so the emergent vacuum energy inherits an
+\(H\)-dependence; (ii) matter is conserved in the trace-out ontology
+(§7.2), which forbids direct vacuum--matter energy exchange; (iii)
+Bianchi consistency with matter conservation then forces \(G(H)\) to run
+in tandem with \(\rho_\Lambda(H)\) {[}11{]}. The functional form is
+therefore a structural prediction: the framework commits to Type II RVM.
 
-\[\boxed{\nu_{\text{OI}} = \frac{\Omega_\Lambda}{2\,\ln(c/\epsilon H_0)} = (2.45 \pm 0.04) \times 10^{-3}}\]
+\textbf{Type II identification.} The architecture just described places
+the framework in the \emph{Type II} class of RVM implementations
+{[}11{]}. Matter is locally conserved, \(G(H)\) runs mildly with cosmic
+expansion, and the Bianchi identity is preserved by the combined running
+of \(\rho_{\rm vac}(H)\) and \(G(H)\). By contrast, \emph{Type I} RVM
+implementations assume \(G = G_N\) fixed and introduce a direct
+vacuum--DM exchange term \(Q = 3\nu H \rho_{\rm dm}\); these are
+physically distinct models sharing the same functional form for
+\(\rho_{\rm vac}(H)\).
 
-With \(\epsilon = 2\,l_p\), \(H_0 = 67.4\) km/s/Mpc,
-\(\Omega_\Lambda = 0.685\). The uncertainty has two components:
-parametric (\(\pm 0.03 \times 10^{-3}\) from \(H_0\) and
-\(\Omega_\Lambda\), at \(1.0\%\)) and systematic
-(\(\pm 0.04 \times 10^{-3}\) from \(\mathcal{O}(1/\mathcal{N})\) edge
-corrections, at \(1.4\%\)), combined \(\pm 1.8\%\). Independently
-testable ratio:
-\(\nu_{\text{OI}} / \Omega_\Lambda = 0.00358 \pm 0.00003\).
+\textbf{What the framework determines about \(\nu\).} The architecture
+above fixes the functional form but not the coefficient. A rigorous
+derivation of \(\nu\) requires completing §7.3's dark-energy /
+dark-matter split analysis --- specifically, the \(H\)-dependence of the
+uniform-vs-structured partition of boundary entropy --- which has not
+been done at the level of a theorem. What the foundations \emph{do}
+determine are:
 
-\textbf{Why the spectral density is uniform.} The conformal assumption
-(\(\alpha = 0\), uniform spectral density in \(\ln\omega\)) is not a
-modeling choice --- it follows from the lattice structure. Three
-independent arguments converge: (i) \emph{Time-translation invariance.}
-The wave equation is autonomous --- the coupling between a boundary cell
-and the bulk does not prefer any frequency. Each cell contributes
-equally to every frequency decade. (ii) \emph{Entropy saturation.} All
-boundary modes have
-\(\omega \gg T_{\text{dS}} = \hbar H/(2\pi c k_B) \sim 10^{-33}\) eV
-(the de Sitter temperature). In this quantum regime, each mode carries
-\(\mathcal{O}(1)\) entropy bit, independent of frequency. The total
-entropy \(S_{\text{dS}} = A/\epsilon^2\) distributes uniformly across
-\(\mathcal{N} = 140\) frequency decades: \(S_{\text{dS}}/\mathcal{N}\)
-per decade. (iii) \emph{Geometric mode counting.} The boundary modes are
-geometric (\(A/\epsilon^2\) cells), not field-theoretic. The SM field
-content --- which fields are active at each energy scale --- affects the
-internal structure of each channel but not the channel count. The mode
-count per decade is set by the lattice geometry, which is
-frequency-independent.
+\begin{itemize}
+\tightlist
+\item
+  \(\rho_s(H) = 3c^2 H^2/(8\pi G) = \rho_{\rm crit}(H)\) exactly, from
+  the gap equation combined with classical-horizon thermodynamics
+  (§7.2). The total gravitating boundary energy tracks the critical
+  density at every \(H\) as an identity, not a prediction.
+\item
+  \(S_{\rm struct}/S_{\rm total} = \Omega_B(H)\), from the
+  Clausius-relation entropy-displacement argument of §7.3. The
+  structured (matter-associated) fraction of boundary entropy equals the
+  baryon fraction at each epoch.
+\item
+  What is \emph{not} fixed: how the non-baryonic \((1 - \Omega_B)\)
+  fraction further subdivides into the cosmological-constant-like
+  (uniform) and dark-matter-like (structured) components as a function
+  of \(H\). That subdivision determines \(\nu\).
+\end{itemize}
 
-The leading correction to uniformity is
-\(\mathcal{O}(1/\mathcal{N}) \approx 0.7\%\), arising from edge effects
-at \(\omega \sim H\) and \(\omega \sim c/\epsilon\). For a spectral
-density \(\propto \omega^\alpha\) with \(\alpha \neq 0\), the effective
-\(\mathcal{N}\) changes dramatically: \(\alpha = +0.1\) gives
-\(\mathcal{N} \sim 10^7\) (ν undetectable), \(\alpha = -0.1\) gives
-\(\mathcal{N} \sim 10\) (ν \(\sim 0.03\), ruled out). The lattice
-arguments above constrain \(\alpha = 0\) to within
-\(\mathcal{O}(1/\mathcal{N})\), reducing the systematic from a factor of
-\(\sim 3\) (the range \(1\)--\(5 \times 10^{-3}\)) to \(\pm 1.4\%\).
+\textbf{Best-effort qualitative prediction.} The natural
+framework-internal small parameters available for a correction
+coefficient are \(\Omega_B \approx 0.05\),
+\(1/\mathcal{N}_0 = 1/\ln(c/\epsilon H_0) \approx 1/140\), and
+combinations thereof. A dimensional argument --- that \(\nu\)
+parameterizes a correction involving both baryonic back-reaction on the
+boundary entropy (\(\Omega_B\)) and spectral dilution over the available
+frequency decades (\(1/\mathcal{N}_0\)) --- gives
 
-\textbf{Type II identification.} The derivation above places the
-framework in the \emph{Type II} class of RVM implementations {[}11{]}.
-In the Type II structure, matter is locally conserved and the effective
-gravitational coupling \(G(H)\) runs mildly with cosmic expansion; the
-Bianchi identity is preserved by the combined running of
-\(\rho_{\rm vac}(H)\) and \(G(H)\). This is the structure implied by
-§7.1's horizon-mode derivation and §7.2's dark-sector corollary ---
-where matter-boundary interaction is purely gravitational via the
-metric, not via a direct source term exchange with cold dark matter. The
-sign \(\nu_{\rm OI} > 0\) corresponds in Type II to \(G\)
-\emph{increasing} with cosmic expansion (per Bianchi consistency). By
-contrast, \emph{Type I} RVM implementations assume \(G = G_N\) fixed and
-introduce a direct vacuum-DM exchange term \(Q = 3\nu H \rho_{\rm dm}\);
-these are physically distinct models sharing the same functional form
-for \(\rho_{\rm vac}(H)\).
+\[|\nu| \sim \Omega_B / \mathcal{N}_0 \sim 3 \times 10^{-4}\]
 
-DESI data {[}12, 13{]} report evolving dark energy at
-\(2.8\sigma\)--\(4.2\sigma\). The most recent multi-variant analysis
-{[}14{]} of DESI DR2 + Planck PR4 + supernovae explicitly tests several
-RVM variants, finding the ``flipped RVM'' and ``RVM with threshold''
-point to significant evidence of dynamical dark energy at a level
-comparable to the more flexible \(w_0w_a\)CDM parameterization --- DESI
-favours the specific running-vacuum functional form this framework
-predicts. The 2026 analysis in {[}14{]}, however, runs only Type I
-implementations (where matter exchanges energy with vacuum via DM); Type
-I fits return \(|\nu| \sim 10^{-3}\) with variant-dependent sign,
-broadly in the expected magnitude range but not a direct test of OI's
-Type II prediction. Pre-DR2 Type II RVM fits {[}11{]} give \(|\nu|\) of
-order \(10^{-3}\) consistent with \(\nu_{\rm OI} = 2.45 \times 10^{-3}\)
-in sign and order of magnitude. A direct Type II fit to DESI DR2 would
-be the decisive comparison and does not yet exist in the literature.
-DESI Year 5 (\(\sim 1\%\) precision on \(\nu\)) provides the decisive
-long-term test.
+The \emph{sign} follows from the direction of the displacement. As the
+universe expands,
+\(\Omega_B(H) = \Omega_B^{(0)}(H_0/H)^2 [(H/H_0)^2 - \Omega_\Lambda]/\Omega_m\)
+decreases from \(\sim 0.16\) in matter domination to \(\sim 0.05\)
+today, so the uniform (cosmological-constant-like) fraction of boundary
+entropy grows over cosmic time. Past dark energy is therefore smaller
+than present dark energy, which translates to \(\nu < 0\) in the
+Friedmann coefficient. Combined qualitative prediction:
+\(\nu \sim -3 \times 10^{-4}\), with factor-of-a-few uncertainty
+absorbed into the un-derived DE/DM split dynamics.
 
-\textbf{Coupled neutrino test.} The same dataset that constrains
-\(\nu_{\text{OI}}\) also constrains the neutrino sector. The DESI DR2 +
-CMB analysis {[}15{]} finds \(\Sigma m_\nu < 0.0642\) eV (95\% CL)
-assuming \(\Lambda\)CDM, prefers normal mass ordering, and bounds the
-lightest neutrino mass at \(m_l < 0.023\) eV --- all three results match
-the OI predictions of normal ordering with \(\Sigma m_\nu\) near the
+\textbf{Observational status.} DESI data {[}12, 13{]} report evolving
+dark energy at \(2.8\sigma\)--\(4.2\sigma\). The 2026 multi-variant
+analysis {[}14{]} of DESI DR2 + Planck PR4 + supernovae tests several
+Type I RVM variants (vacuum--DM exchange), finding the ``flipped RVM''
+and ``RVM with threshold'' variants preferred over \(\Lambda\)CDM at a
+level comparable to the more flexible \(w_0w_a\)CDM parameterization ---
+the running-vacuum functional form this framework predicts is favoured
+by the data at the qualitative level, though the Type I variants tested
+are not a direct test of OI's Type II prediction.
+
+A direct Type-II-equivalent test is provided by Bertini, Novaes, von
+Marttens, and Shapiro (arXiv:2509.24026) {[}15{]}, who fit a
+renormalization-group-corrected \(\Lambda\)CDM model --- structurally
+equivalent to Type II RVM at leading order in \(\nu\), with both
+\(G(\mu)\) and \(\Lambda(\mu)\) running and matter conserved --- against
+Planck 2018 + DESI DR2 + DES-Y5, reporting
+
+\[\nu^{\rm Bertini} = -(2.5 \pm 1.3) \times 10^{-4}\]
+
+with the \(\Lambda\)CDM limit at the \(2\sigma\) boundary of the
+posterior. This agrees with the qualitative prediction above in both
+sign and order of magnitude at better than \(1\sigma\). An earlier
+pre-DESI canonical RVM fit by Gómez-Valent and Solà {[}16{]} returned
+\(\nu = (1.34 \pm 0.38) \times 10^{-3}\) with \(3.5\sigma\) preference
+over \(\Lambda\)CDM --- positive sign and an order larger in magnitude;
+the migration from this value to Bertini's as the data improved from
+pre-DESI to DESI DR2 is itself informative. DESI Year 5 (\(\sim 1\%\)
+precision on \(\nu\)) provides the decisive test: the framework predicts
+\(|\nu|\) of order \(10^{-4}\) with negative sign, falsifiable at
+\(> 3\sigma\) by either \(\nu > +1.5 \times 10^{-4}\) or
+\(|\nu| > 10^{-3}\).
+
+\textbf{Retraction note.} Earlier versions of this paper (through
+v1.6.4) proposed a specific coefficient
+\(\nu_{\rm OI} = \Omega_\Lambda/(2\mathcal{N}_0) = 2.45 \times 10^{-3}\)
+derived from a spectral-uniformity ansatz in which each of
+\(\mathcal{N} = \ln(c/\epsilon H)\) frequency decades was taken to carry
+a \(1/\mathcal{N}\) fraction of the total gravitating vacuum energy.
+That coefficient is in \(\sim 20\sigma\) face-value tension with
+Bertini's 2025 Type-II-equivalent fit, including a sign disagreement
+that the ansatz structurally forces (\(\nu > 0\) from
+\(\Omega_\Lambda > 0\)) but which the data disfavours at
+\(\sim 2\sigma\). Audit of the ansatz reveals that the leap from ``each
+boundary cell couples to all frequencies'' (justified by
+time-translation invariance) to ``each frequency decade carries
+\(1/\mathcal{N}\) of the vacuum energy'' (not justified) was doing all
+the quantitative work. The \(1.8\%\) uncertainty formerly attached to
+\(2.45 \times 10^{-3}\) captured arithmetic but not ansatz uncertainty.
+The structural prediction (Type II RVM in the sign-and-magnitude sense
+above) is retained; the specific magnitude is retracted pending a
+rigorous derivation.
+
+\textbf{Coupled neutrino test.} The same dataset that constrains \(\nu\)
+also constrains the neutrino sector. The DESI DR2 + CMB analysis
+{[}17{]} finds \(\Sigma m_\nu < 0.0642\) eV (95\% CL) assuming
+\(\Lambda\)CDM, prefers normal mass ordering, and bounds the lightest
+neutrino mass at \(m_l < 0.023\) eV --- all three results match the OI
+predictions of normal ordering with \(\Sigma m_\nu\) near the
 oscillation minimum of 0.059 eV. The same analysis finds a \(3\sigma\)
 tension with the lower oscillation limit assuming \(\Lambda\)CDM,
 interpreted as ``a hint of new physics not necessarily related to
 neutrinos'' --- exactly the structural mismatch that the RVM dark energy
-resolves. JUNO first results {[}16, 17{]} confirm the world-leading
+resolves. JUNO first results {[}18, 19{]} confirm the world-leading
 precision on \(\sin^2\theta_{12} = 0.3092 \pm 0.0087\) and
 \(\delta m^2 = (7.48 \pm 0.10) \times 10^{-5}\) eV\(^2\), with the
 solar/reactor 1.5\(\sigma\) tension persisting. The neutrino sector
@@ -1150,7 +1191,7 @@ distributing over \(V_H = 4\pi c^3/(3H^3)\):
 
 \[\rho_s = \frac{E_s}{V_H} = \frac{A}{\epsilon^2} \cdot \frac{c^3 \epsilon^2 H}{8\pi G} \cdot \frac{3H^3}{4\pi c^3} = \frac{3c^2 H^2}{8\pi G} = \rho_{\text{crit}}\]
 
-This identity, which Verlinde {[}18{]} assumes, is here derived.
+This identity, which Verlinde {[}20{]} assumes, is here derived.
 
 Four clarifications are essential for what follows.
 
@@ -1253,7 +1294,7 @@ the gravitational content has no source in particle physics. \(\square\)
 corollary's prediction is that no particle dark matter exists --- the
 dark sector is the trace-out, not a missing particle species. The
 strongest current constraint is the LZ Collaboration's 417-day analysis
-(December 2025) {[}19{]}, which is the most sensitive WIMP search ever
+(December 2025) {[}21{]}, which is the most sensitive WIMP search ever
 conducted and reports null results across the 3--9 GeV range, extending
 world-leading constraints from XENONnT and PandaX-4T to lower mass. The
 continued failure to detect particle dark matter across multiple decades
@@ -1268,7 +1309,7 @@ horizon geometry, redistributing the boundary entropy. This displacement
 persists because \(\tau_B \gtrsim 1/H\) (condition C2): the
 hidden-sector modes carrying the redistributed entropy do not thermalize
 back to the unperturbed configuration on sub-Hubble timescales. Verlinde
-{[}18{]} identifies this as a ``memory effect'' from the
+{[}20{]} identifies this as a ``memory effect'' from the
 non-thermalization of de Sitter states at sub-Hubble scales. In the
 present framework, this non-thermalization is not assumed but derived:
 it is P-indivisibility operating in the gravitational sector, with (C2)
@@ -1375,7 +1416,7 @@ which is equivalent to \(g_{\text{total}} = g_B \cdot \nu(g_B/a_0)\)
 with \(\nu(y) = (1 + \sqrt{1 + 4/y})/2\) --- the ``simple'' MOND
 interpolation function corresponding to \(\mu(x) = x/(1+x)\). This form
 matches the empirical radial acceleration relation (McGaugh et
-al.~{[}20{]}) to \(< 0.1\) dex across all galaxy-relevant accelerations.
+al.~{[}22{]}) to \(< 0.1\) dex across all galaxy-relevant accelerations.
 
 \textbf{Epistemic status.} Steps 1--3 are Tier 2: the displacement
 formula follows from the Clausius relation applied to the boundary
@@ -1399,14 +1440,14 @@ Since \(r_M\) shrinks with increasing \(z\), high-redshift galaxies are
 systematically more baryon-dominated --- their rotation curves decline
 at smaller radii.
 
-This prediction is borne out by the data. Genzel et al.~{[}21, 22{]}
+This prediction is borne out by the data. Genzel et al.~{[}23, 24{]}
 report stacked rotation curves for massive star-forming galaxies at
 \(z = 0.9\text{–}2.4\) showing a declining outer velocity at
 \(> 3\sigma\) significance relative to local spirals --- consistent with
 the OI prediction. In ΛCDM, flat rotation curves from NFW halos are
 expected at all redshifts; explaining the Genzel data requires
 anomalously low halo concentrations or baryon-dominated inner regions.
-The cleanest local test is Jiao et al.~{[}23{]}, who detect for the
+The cleanest local test is Jiao et al.~{[}25{]}, who detect for the
 first time a Keplerian decline in the Milky Way's own rotation curve
 from \(\sim 19\) to \(\sim 26.5\) kpc using Gaia DR3 kinematics, with
 the flat rotation curve hypothesis rejected at \(3\sigma\). Our own
@@ -1468,7 +1509,7 @@ tests:
   and \(H(z)\) --- no halo-specific parameters. This predicts: the
   radial acceleration relation (RAR) at fixed \(g_B\) has zero intrinsic
   scatter (at fixed \(z\)), and the scatter does not correlate with halo
-  properties. Current SPARC data {[}20{]} show remarkably small RAR
+  properties. Current SPARC data {[}22{]} show remarkably small RAR
   scatter (\(\sim 0.13\) dex), consistent with OI but requiring
   fine-tuning in ΛCDM.
 \end{enumerate}
@@ -1598,8 +1639,9 @@ BH entropy coefficient & \(S_{BH} = A / (4 l_p^2)\) & GW250114 area law
 & \(99.999\%\) \\
 Cosmological constant & \(\rho_\Lambda \sim H^2/G\) & observed value &
 no discrepancy \\
-Dark energy coefficient & \(\nu_{\text{OI}} = 2.45 \times 10^{-3}\) &
-DESI DR2 & \(2.8\)--\(4.2\sigma\) preference \\
+Dark energy coefficient (structural) & \(|\nu| \sim 10^{-4}\), sign
+negative (Type II RVM) & Bertini 2025 fit to DESI DR2 + DES-Y5 + Planck
+& consistent at \(< 1\sigma\) \\
 Dark sector fraction & \(\Omega_{\text{dark}} \approx 95\%\) &
 \(\Omega_{\text{CDM}} + \Omega_\Lambda \approx 95\%\) & consistent \\
 MOND acceleration scale & \(a_0 = cH/6 \approx 1.2 \times 10^{-10}\)
@@ -1612,13 +1654,24 @@ High-\(z\) rotation curves & More baryon-dominated with \(z\) & Genzel
 et al.~\(z = 0.9\)--\(2.4\) & consistent at \(> 3\sigma\) \\
 \end{longtable}
 
-The structural coefficient \(\nu_{\text{OI}} = 2.45 \times 10^{-3}\) is
-the single most distinctive prediction: it is both specific (a number to
-three decimal places) and testable by current and near-future surveys.
-The falsification path is clear: if DESI Year 5 and successor surveys
-rule out dynamical dark energy in running-vacuum form at this
-coefficient, the framework's Part II is falsified as a gravitational
-theory.
+The prediction of Type II running-vacuum dark energy with
+\(|\nu| \sim 10^{-4}\) and negative sign is the gravitational sector's
+most distinctive output: the structural form is forced by
+boundary-entropy architecture (§7.1), the sign follows from the
+direction in which the matter-induced structured fraction of boundary
+entropy evolves with cosmic time, and the magnitude follows from the
+framework-internal combination
+\(\Omega_B/\mathcal{N}_0 \sim 3 \times 10^{-4}\) on a dimensional
+argument. The prediction agrees with the Bertini et al.~(2025) direct
+RG-corrected \(\Lambda\)CDM fit to DESI DR2 + DES-Y5 + Planck 2018
+{[}15{]} at better than \(1\sigma\) in both sign and order of magnitude.
+The falsification path is explicit: DESI Year 5 returning
+\(\nu > +1.5 \times 10^{-4}\) or \(|\nu| > 10^{-3}\) at high confidence
+would rule out the framework's Type II RVM prediction and falsify Part
+II as a gravitational theory. A full first-principles derivation of the
+magnitude --- upgrading the dimensional argument to a theorem ---
+requires completing the dark-energy / dark-matter split analysis of §7.3
+and is flagged as an open technical item.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1664,7 +1717,7 @@ scale}\label{the-status-of-the-discreteness-scale}}
 finite-dimensionality, motivated by the classical fact that finite-area
 boundaries admit finitely many modes. The result \(\epsilon = 2\,l_p\)
 is a \emph{consequence} of self-consistency (§4). Holographic entropy
-bounds {[}24{]} provide independent, non-quantum motivation.
+bounds {[}26{]} provide independent, non-quantum motivation.
 
 \hypertarget{vacuum-energy-relative-effects-and-the-higgs-potential}{%
 \subsubsection{8.3 Vacuum energy: relative effects and the Higgs
@@ -1740,7 +1793,7 @@ P-indivisibility proof uses finiteness via the recurrence argument
 (\(\varphi^N = \text{id}\)). The deep-sector cardinality corollary
 (§3.2) establishes that only \(\mathcal{C}_V\) and \(\mathcal{C}_B\)
 need be finite --- both guaranteed by holographic entropy bounds
-{[}24{]} independently of the de Sitter finite-dimensionality conjecture
+{[}26{]} independently of the de Sitter finite-dimensionality conjecture
 --- while the deep sector \(\mathcal{C}_D\) may be infinite. The
 accessible-timescale backflow lemma ({[}Main, §2.3{]}) provides a second
 route to P-indivisibility that is independent of \(|\mathcal{C}_H|\).
@@ -1772,17 +1825,19 @@ failure of both the stochastic-quantum correspondence and the
 Stinespring construction for the class of processes generated here --- a
 possibility excluded by the independent proofs in {[}Main, §3.1{]} and
 Appendix A. The \emph{cosmological application} would be falsified by
-definitive absence of dark energy evolution in RVM form at
-\(\nu_{\text{OI}}\). The \emph{dark-sector concordance} (§7.2) would be
-falsified by detection of dark matter particles accounting for the full
-structured dark sector, or by evidence that the dark sector's
-gravitational effects are unrelated to the cosmological boundary
-geometry.
+definitive absence of dark energy evolution in Type II RVM form, or by a
+high-confidence measurement of \(\nu > +1.5 \times 10^{-4}\) (wrong sign
+and outside the framework's dimensional estimate) or \(|\nu| > 10^{-3}\)
+(an order of magnitude larger than the qualitative prediction). The
+\emph{dark-sector concordance} (§7.2) would be falsified by detection of
+dark matter particles accounting for the full structured dark sector, or
+by evidence that the dark sector's gravitational effects are unrelated
+to the cosmological boundary geometry.
 
 \textbf{A near-term mechanism-side test.} A more tractable falsification
 target is provided by the recently developed operational distinction
-between classical and quantum memory in non-Markovian processes {[}25,
-26{]}. Some non-Markovian quantum dynamics can be simulated using only
+between classical and quantum memory in non-Markovian processes {[}27,
+28{]}. Some non-Markovian quantum dynamics can be simulated using only
 classical stored information, while others require genuinely quantum
 memory in the environment, with the dividing line set by entanglement
 structure of the channel's Choi state. The framework predicts that all
@@ -1861,7 +1916,7 @@ of mass and greybody factors), and the Page value is recovered for all
 but an exponentially negligible fraction (\(\sim e^{-10^{77}}\) for
 \(30 M_\odot\)) of initial conditions --- proved from bijectivity (cycle
 decomposition on the finite energy shell) and Popescu-Short-Winter
-typicality {[}27{]}, without assuming ergodicity. The greybody factor is
+typicality {[}29{]}, without assuming ergodicity. The greybody factor is
 solution-specific.
 
 Laboratory tests of the characterization theorem may be possible in
@@ -1890,24 +1945,25 @@ levels of description that refer to incommensurable objects, not a
 failure of cancellation.
 
 The empirical payoff is the set of predictions in §7. Dynamical dark
-energy in running-vacuum form with
-\(\nu_{\text{OI}} = 2.45 \times 10^{-3}\) is the most distinctive:
-currently supported by DESI DR2 at \(2.8\)--\(4.2\sigma\), falsifiable
-by DESI Year 5 and subsequent stage-IV surveys. The dark-sector
-corollary explains \textasciitilde95\% of the gravitational budget of
-the universe without new fundamental particles, and the absence of
-direct dark-matter detection at the LZ and XENONnT experiments is
-interpreted within the framework as a structural consequence rather than
-a null result to be explained away. The MOND phenomenology emerges from
-entropy displacement at the cosmological boundary with \(a_0 = cH/6\),
-reproducing the baryonic Tully-Fisher relation and predicting Keplerian
-decline at \(r > r_M\) --- the latter confirmed by the Jiao et
-al.~(2023) detection of a Keplerian decline in the Milky Way's own
-rotation curve at \(\sim 17\) kpc. The \(H(z)\) scaling of \(a_0\)
-predicts systematically more baryon-dominated rotation curves at high
-redshift, consistent with Genzel et al.'s detection of declining outer
-velocities at \(z = 0.9\)--\(2.4\) and testable at higher precision by
-JWST and ELT kinematics.
+energy in Type II running-vacuum form with \(|\nu| \sim 10^{-4}\) and
+negative sign is the most distinctive gravitational-sector prediction:
+consistent at better than \(1\sigma\) with the Bertini et al.~(2025)
+direct fit to DESI DR2 + DES-Y5 + Planck 2018 {[}15{]}, falsifiable by
+DESI Year 5 and subsequent stage-IV surveys at the \(3\sigma\) level.
+The dark-sector corollary explains \textasciitilde95\% of the
+gravitational budget of the universe without new fundamental particles,
+and the absence of direct dark-matter detection at the LZ and XENONnT
+experiments is interpreted within the framework as a structural
+consequence rather than a null result to be explained away. The MOND
+phenomenology emerges from entropy displacement at the cosmological
+boundary with \(a_0 = cH/6\), reproducing the baryonic Tully-Fisher
+relation and predicting Keplerian decline at \(r > r_M\) --- the latter
+confirmed by the Jiao et al.~(2023) detection of a Keplerian decline in
+the Milky Way's own rotation curve at \(\sim 17\) kpc. The \(H(z)\)
+scaling of \(a_0\) predicts systematically more baryon-dominated
+rotation curves at high redshift, consistent with Genzel et al.'s
+detection of declining outer velocities at \(z = 0.9\)--\(2.4\) and
+testable at higher precision by JWST and ELT kinematics.
 
 The foundational framework developed in {[}Main{]} and the cubic-lattice
 realization developed in {[}SM{]} are complementary to the present work:
@@ -1985,7 +2041,7 @@ trace-outs). \emph{Let \(\Phi_V^{\text{dir}}\) and
 produced by the direct and sequential procedures respectively. Then
 \(\Phi_V^{\text{dir}} = \Phi_V^{\text{seq}}\).}
 
-\emph{Proof.} By the Stinespring dilation theorem {[}28, 29{]},
+\emph{Proof.} By the Stinespring dilation theorem {[}30, 31{]},
 \(\varphi\) defines a unitary \(U_\varphi\) on
 \(\mathcal{H} = \mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D\).
 The direct channel is
@@ -2136,7 +2192,7 @@ respectively.
   \(\mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D\) in a
   pure state \(|\Psi\rangle\) (the total state is deterministic, hence
   pure conditioned on the initial state), the strong subadditivity of
-  von Neumann entropy {[}29{]} gives:
+  von Neumann entropy {[}31{]} gives:
 \end{enumerate}
 
 \[S(\rho_{VB}) + S(\rho_{BD}) \geq S(\rho_B) + S(\rho_{VBD})\]
@@ -2207,7 +2263,7 @@ leading order. The correction is
 \(\varphi\) on the energy shell
 \(\Sigma_E \subset \mathcal{H}_B \otimes \mathcal{H}_R\), the
 time-averaged entanglement entropy of the radiation equals the Page
-value {[}30{]}:}
+value {[}32{]}:}
 
 \[\overline{S(\rho_R)} = S_{\text{Page}}(d_B, d_R) + \mathcal{O}(\epsilon)\]
 
@@ -2228,7 +2284,7 @@ observable \(f\) is exact:
 
 \[\overline{f}_{C_j} = \frac{1}{L_j} \sum_{s \in C_j} f(s)\]
 
-By Popescu-Short-Winter {[}27{]}, the set of atypical states --- those
+By Popescu-Short-Winter {[}29{]}, the set of atypical states --- those
 with
 \(|S(\text{Tr}_B |\psi\rangle\langle\psi|) - S_{\text{Page}}| > \epsilon\)
 --- has measure at most \(\eta = e^{-c \, d_{\min} \, \epsilon^2}\) on
@@ -2360,64 +2416,72 @@ Rev.~D} \textbf{112}, 083515 (2025); arXiv:2503.14738.
 ``Dynamical Dark Energy models in light of the latest observations,''
 arXiv:2512.20616 (2025).
 
-{[}15{]} DESI Collaboration: W. Elbers et al., ``Constraints on Neutrino
+{[}15{]} N. R. Bertini, M. H. Novaes, R. von Marttens, and I. L.
+Shapiro, ``Renormalization group corrections to ΛCDM model and
+observational consequences for H₀ tension,'' arXiv:2509.24026 (2025).
+
+{[}16{]} A. Gómez-Valent and J. Solà Peracaula, ``Relaxing the
+σ₈-tension through running vacuum in the Universe,'' \emph{Mon. Not.
+Roy. Astron. Soc.} \textbf{478}, 126--145 (2018); arXiv:1801.08501.
+
+{[}17{]} DESI Collaboration: W. Elbers et al., ``Constraints on Neutrino
 Physics from DESI DR2 BAO and DR1 Full Shape,'' arXiv:2503.14744 (2025).
 
-{[}16{]} JUNO Collaboration: A. Abusleme et al., ``First measurement of
+{[}18{]} JUNO Collaboration: A. Abusleme et al., ``First measurement of
 reactor neutrino oscillations at JUNO,'' arXiv:2511.14593 (2025).
 
-{[}17{]} F. Capozzi et al., ``Updated bounds on the (1,2) neutrino
+{[}19{]} F. Capozzi et al., ``Updated bounds on the (1,2) neutrino
 oscillation parameters after first JUNO results,'' arXiv:2511.21650
 (2025).
 
-{[}18{]} E. P. Verlinde, ``Emergent Gravity and the Dark Universe,''
+{[}20{]} E. P. Verlinde, ``Emergent Gravity and the Dark Universe,''
 \emph{SciPost Phys.} \textbf{2}, 016 (2017); arXiv:1611.02269.
 
-{[}19{]} LZ Collaboration: J. Aalbers et al., ``Dark matter search
+{[}21{]} LZ Collaboration: J. Aalbers et al., ``Dark matter search
 results from 4.2 tonne-years of exposure of the LUX-ZEPLIN (LZ)
 experiment,'' (2025); 417-day analysis presented at SURF, December 2025.
 
-{[}20{]} S. S. McGaugh, F. Lelli, and J. M. Schombert, ``Radial
+{[}22{]} S. S. McGaugh, F. Lelli, and J. M. Schombert, ``Radial
 acceleration relation in rotationally supported galaxies,'' \emph{Phys.
 Rev.~Lett.} \textbf{117}, 201101 (2016).
 
-{[}21{]} R. Genzel et al., ``Strongly baryon-dominated disk galaxies at
+{[}23{]} R. Genzel et al., ``Strongly baryon-dominated disk galaxies at
 the peak of galaxy formation ten billion years ago,'' \emph{Nature}
 \textbf{543}, 397--401 (2017).
 
-{[}22{]} R. Genzel et al., ``Rotation curves in z \textasciitilde{} 1--2
+{[}24{]} R. Genzel et al., ``Rotation curves in z \textasciitilde{} 1--2
 star-forming disks: evidence for cored dark matter distributions,''
 \emph{Astrophys. J.} \textbf{902}, 98 (2020).
 
-{[}23{]} Y. Jiao et al., ``Detection of the Keplerian decline in the
+{[}25{]} Y. Jiao et al., ``Detection of the Keplerian decline in the
 Milky Way rotation curve,'' \emph{Astronomy \& Astrophysics}
 \textbf{678}, A208 (2023).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-{[}24{]} N. Bao, S. M. Carroll, and A. Singh, ``The Hilbert space of
+{[}26{]} N. Bao, S. M. Carroll, and A. Singh, ``The Hilbert space of
 quantum gravity is locally finite-dimensional,'' \emph{Int. J. Mod.
 Phys. D} \textbf{26}, 1743013 (2017).
 
-{[}25{]} C. Bäcker, K. Beyer, and W. T. Strunz, ``Local disclosure of
+{[}27{]} C. Bäcker, K. Beyer, and W. T. Strunz, ``Local disclosure of
 quantum memory in non-Markovian dynamics,'' \emph{Phys. Rev.~Lett.}
 \textbf{132}, 060402 (2024); arXiv:2310.01205.
 
-{[}26{]} A. Yosifov, A. Iyer, V. Vedral, and J. Sun, ``On the emergence
+{[}28{]} A. Yosifov, A. Iyer, V. Vedral, and J. Sun, ``On the emergence
 of quantum memory in non-Markovian dynamics,'' arXiv:2507.21907 (2025).
 
-{[}27{]} S. Popescu, A. J. Short, and A. Winter, ``Entanglement and the
+{[}29{]} S. Popescu, A. J. Short, and A. Winter, ``Entanglement and the
 foundations of statistical mechanics,'' \emph{Nature Physics}
 \textbf{2}, 754--758 (2006).
 
-{[}28{]} W. F. Stinespring, ``Positive functions on C\emph{-algebras,''
+{[}30{]} W. F. Stinespring, ``Positive functions on C\emph{-algebras,''
 }Proc. Amer. Math. Soc.* \textbf{6}, 211--216 (1955).
 
-{[}29{]} M. A. Nielsen and I. L. Chuang, \emph{Quantum Computation and
+{[}31{]} M. A. Nielsen and I. L. Chuang, \emph{Quantum Computation and
 Quantum Information} (Cambridge University Press, 10th anniversary
 edition, 2010).
 
-{[}30{]} D. N. Page, ``Average entropy of a subsystem,'' \emph{Phys.
+{[}32{]} D. N. Page, ``Average entropy of a subsystem,'' \emph{Phys.
 Rev.~Lett.} \textbf{71}, 1291 (1993).
 
 \end{document}

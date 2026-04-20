@@ -52,9 +52,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-% XeLaTeX header for OI framework build pipeline
-% pandoc→xelatex with extended unicode char-map and DejaVu mono for box-drawing
-
 \usepackage{fontspec}
 \usepackage{unicode-math}
 \usepackage{newunicodechar}
@@ -178,19 +175,26 @@
 \newunicodechar{✓}{\ensuremath{\checkmark}}
 \newunicodechar{✗}{\ensuremath{\times}}
 
-% Relax hbox overfull warnings (long URLs and math-heavy text)
-\sloppy
-\hbadness=10000
-
-% Allow hyperref to work well with Unicode
-\usepackage{hyperref}
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue!50!black,
-  citecolor=blue!50!black,
-  urlcolor=blue!60!black,
-  breaklinks=true
-}
+% Additional chars discovered in session 8 audit pass
+\newunicodechar{∼}{\ensuremath{\sim}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{†}{\ensuremath{\dagger}}
+\newunicodechar{‡}{\ensuremath{\ddagger}}
+\newunicodechar{…}{\ensuremath{\ldots}}
+\newunicodechar{𝒩}{\ensuremath{\mathcal{N}}}
+\newunicodechar{ⁿ}{\ensuremath{^{n}}}
+\newunicodechar{°}{\ensuremath{^{\circ}}}
+\newunicodechar{±}{\ensuremath{\pm}}
+\newunicodechar{·}{\ensuremath{\cdot}}
+\newunicodechar{½}{\ensuremath{\tfrac{1}{2}}}
+% Box-drawing (for README.md's ASCII-art prediction tree)
+\newunicodechar{─}{-}
+\newunicodechar{│}{|}
+\newunicodechar{└}{\textbackslash}
+\newunicodechar{├}{|}
+% Additional chars discovered in session 8 compile pass
+\newunicodechar{ʲ}{\ensuremath{^{j}}}
+\newunicodechar{Ḣ}{\ensuremath{\dot{H}}}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -3475,10 +3479,11 @@ The cosmological application of the same framework --- including the
 derivation of \(\hbar\) from the cosmological horizon, the
 Bekenstein-Hawking area law including the \(1/4\) coefficient, the
 dissolution of the cosmological constant problem, and the prediction of
-dynamical dark energy in the running vacuum form with
-\(\nu_{\text{OI}} = 2.45 \times 10^{-3}\) --- is developed in {[}GR{]}.
-The substratum-level reconstruction theorem, the substratum gauge group,
-and the synthesis claim that quantum mechanics and general relativity
+dynamical dark energy in Type II running-vacuum form with coefficient
+\(|\nu| \sim 10^{-4}\) and negative sign (consistent with the Bertini et
+al.~2025 direct DESI-DR2-era fit) --- is developed in {[}GR{]}. The
+substratum-level reconstruction theorem, the substratum gauge group, and
+the synthesis claim that quantum mechanics and general relativity
 descend as different projections of the same \((S, \varphi)\) are
 developed in {[}Substratum{]}. Together, the four-paper sequence makes a
 single claim: the Standard Model and general relativity are not two

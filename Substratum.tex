@@ -16,7 +16,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern} % removed
+% \usepackage{lmodern} % removed (xelatex uses fontspec)
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -42,9 +42,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-% XeLaTeX header for OI framework build pipeline
-% pandoc→xelatex with extended unicode char-map and DejaVu mono for box-drawing
-
 \usepackage{fontspec}
 \usepackage{unicode-math}
 \usepackage{newunicodechar}
@@ -168,19 +165,23 @@
 \newunicodechar{✓}{\ensuremath{\checkmark}}
 \newunicodechar{✗}{\ensuremath{\times}}
 
-% Relax hbox overfull warnings (long URLs and math-heavy text)
-\sloppy
-\hbadness=10000
-
-% Allow hyperref to work well with Unicode
-\usepackage{hyperref}
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue!50!black,
-  citecolor=blue!50!black,
-  urlcolor=blue!60!black,
-  breaklinks=true
-}
+% Additional chars discovered in session 8 audit pass
+\newunicodechar{∼}{\ensuremath{\sim}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{†}{\ensuremath{\dagger}}
+\newunicodechar{‡}{\ensuremath{\ddagger}}
+\newunicodechar{…}{\ensuremath{\ldots}}
+\newunicodechar{𝒩}{\ensuremath{\mathcal{N}}}
+\newunicodechar{ⁿ}{\ensuremath{^{n}}}
+\newunicodechar{°}{\ensuremath{^{\circ}}}
+\newunicodechar{±}{\ensuremath{\pm}}
+\newunicodechar{·}{\ensuremath{\cdot}}
+\newunicodechar{½}{\ensuremath{\tfrac{1}{2}}}
+% Box-drawing (for README.md's ASCII-art prediction tree)
+\newunicodechar{─}{-}
+\newunicodechar{│}{|}
+\newunicodechar{└}{\textbackslash}
+\newunicodechar{├}{|}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -1198,12 +1199,12 @@ problem by identifying the quantum vacuum energy and the effective
 \(\Lambda\) as properties of logically distinct levels of description
 rather than commensurable quantities whose \(10^{122}\) ratio requires
 cancellation ({[}GR, §6{]}). The framework predicts dynamical dark
-energy in running-vacuum form with a structural coefficient
-\(\nu_{\text{OI}} = 2.45 \times 10^{-3}\), currently supported by DESI
-DR2 at \(2.8\)--\(4.2\sigma\), a \textasciitilde{}\(95\%\) dark sector
-corollary as a structural feature rather than a new particle species,
-and a MOND acceleration scale \(a_0 = cH/6\) from entropy displacement
-at the boundary ({[}GR, §7{]}).
+energy in Type II running-vacuum form with coefficient
+\(|\nu| \sim 10^{-4}\) and negative sign, consistent with the Bertini et
+al.~(2025) direct DESI-DR2-era fit at better than \(1\sigma\); a
+\textasciitilde{}\(95\%\) dark sector corollary as a structural feature
+rather than a new particle species; and a MOND acceleration scale
+\(a_0 = cH/6\) from entropy displacement at the boundary ({[}GR, §7{]}).
 
 The two projections share the same source (\((S, \varphi)\)), the same
 trace-out machinery (marginalization over the hidden sector under
@@ -1325,8 +1326,8 @@ phenomena that conventional QFT plus GR cannot reproduce --- most of
 thermodynamics, the broad shape of dark energy phenomenology) are also
 recovered by other approaches. The framework's empirical content is
 concentrated in {[}SM{]} (the SM derivation, twenty-two quantitative
-predictions) and in the specific GR-side predictions of {[}GR{]} (RVM
-dark energy at \(\nu_{\text{OI}} = 2.45 \times 10^{-3}\), MOND
+predictions) and in the specific GR-side predictions of {[}GR{]} (Type
+II RVM dark energy with \(|\nu| \sim 10^{-4}\) and negative sign, MOND
 \(a_0 = cH/6\), dark sector concordance), which collectively distinguish
 the framework from standard \(\Lambda\)CDM plus the Standard Model.
 
@@ -1539,21 +1540,21 @@ framework --- only the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) is. The framework predicts
 the structural features of the Standard Model and the gravitational
 sector but not the specific values of (for example) the lightest fermion
-mass or the specific value of \(\nu_{\text{OI}}\) beyond the
-leading-order calculation. These are properties of the particular
-bijection, analogous to the mass of the sun in general relativity.
-Second, the \emph{trans-Planckian regime} --- the regime in which the
-lattice spacing \(\epsilon = 2 l_p\) is not small compared to the
-relevant length scale --- lies outside the framework's leading-order
-results. The framework presents the lattice as fundamental, not as a
-regulator approximating a continuum theory, and so does not need a
-continuum limit in the standard sense; but the corrections to the
-leading-order results in the regime where the partition geometry varies
-on lattice scales are an open question. Third, the \emph{initial
-conditions} --- the specific configuration of the bijection at any given
-time --- are likewise not determined by the framework. The framework
-establishes which structures emerge from the bijection but not which
-microstate the universe is currently in.
+mass or the specific numerical value of the Type II RVM coefficient
+\(\nu\) beyond its dimensional order of magnitude and sign. These are
+properties of the particular bijection, analogous to the mass of the sun
+in general relativity. Second, the \emph{trans-Planckian regime} --- the
+regime in which the lattice spacing \(\epsilon = 2 l_p\) is not small
+compared to the relevant length scale --- lies outside the framework's
+leading-order results. The framework presents the lattice as
+fundamental, not as a regulator approximating a continuum theory, and so
+does not need a continuum limit in the standard sense; but the
+corrections to the leading-order results in the regime where the
+partition geometry varies on lattice scales are an open question. Third,
+the \emph{initial conditions} --- the specific configuration of the
+bijection at any given time --- are likewise not determined by the
+framework. The framework establishes which structures emerge from the
+bijection but not which microstate the universe is currently in.
 
 These open problems are framed within the construction rather than
 against it. Each is sharply formulated and admits a definite (if
