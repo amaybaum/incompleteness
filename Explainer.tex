@@ -19,6 +19,8 @@
 % \usepackage{lmodern} % removed
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -52,149 +54,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{fontspec}
-\usepackage{unicode-math}
-\usepackage{newunicodechar}
-
-% Main fonts — Latin Modern (text + math), DejaVu Sans Mono for code
-% DejaVu Sans Mono has U+2500 series box-drawing characters used in framework diagrams
-\setmainfont{Latin Modern Roman}
-\setsansfont{Latin Modern Sans}
-\setmonofont{DejaVu Sans Mono}[Scale=0.85]
-\setmathfont{Latin Modern Math}
-
-% Extra math packages
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{mathtools}
-
-% Table support
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-
-% URL handling — allow line breaks in long URLs
-\usepackage{xurl}
-
-% Paragraph spacing
-\setlength{\parskip}{0.5em}
-\setlength{\parindent}{0pt}
-
-% Extended Unicode character map — substitute problematic text-mode chars
-% with math-mode equivalents. Only needed for chars not in Latin Modern Roman.
-% Box-drawing chars (U+2500 range) work natively via DejaVu Sans Mono in code blocks.
-
-% Greek lowercase (may appear in prose, not just math)
-\newunicodechar{α}{\ensuremath{\alpha}}
-\newunicodechar{β}{\ensuremath{\beta}}
-\newunicodechar{γ}{\ensuremath{\gamma}}
-\newunicodechar{δ}{\ensuremath{\delta}}
-\newunicodechar{ε}{\ensuremath{\epsilon}}
-\newunicodechar{η}{\ensuremath{\eta}}
-\newunicodechar{θ}{\ensuremath{\theta}}
-\newunicodechar{κ}{\ensuremath{\kappa}}
-\newunicodechar{λ}{\ensuremath{\lambda}}
-\newunicodechar{μ}{\ensuremath{\mu}}
-\newunicodechar{ν}{\ensuremath{\nu}}
-\newunicodechar{π}{\ensuremath{\pi}}
-\newunicodechar{ρ}{\ensuremath{\rho}}
-\newunicodechar{σ}{\ensuremath{\sigma}}
-\newunicodechar{τ}{\ensuremath{\tau}}
-\newunicodechar{φ}{\ensuremath{\varphi}}
-\newunicodechar{χ}{\ensuremath{\chi}}
-\newunicodechar{ψ}{\ensuremath{\psi}}
-\newunicodechar{ω}{\ensuremath{\omega}}
-
-% Greek uppercase
-\newunicodechar{Γ}{\ensuremath{\Gamma}}
-\newunicodechar{Δ}{\ensuremath{\Delta}}
-\newunicodechar{Λ}{\ensuremath{\Lambda}}
-\newunicodechar{Σ}{\ensuremath{\Sigma}}
-\newunicodechar{Ω}{\ensuremath{\Omega}}
-
-% Common math/physics symbols
-\newunicodechar{ℏ}{\ensuremath{\hbar}}
-\newunicodechar{ℤ}{\ensuremath{\mathbb{Z}}}
-\newunicodechar{∅}{\ensuremath{\emptyset}}
-\newunicodechar{∂}{\ensuremath{\partial}}
-\newunicodechar{∈}{\ensuremath{\in}}
-\newunicodechar{∘}{\ensuremath{\circ}}
-\newunicodechar{√}{\ensuremath{\sqrt{}}}
-\newunicodechar{∝}{\ensuremath{\propto}}
-
-% Relations
-\newunicodechar{≤}{\ensuremath{\leq}}
-\newunicodechar{≥}{\ensuremath{\geq}}
-\newunicodechar{≠}{\ensuremath{\neq}}
-\newunicodechar{≈}{\ensuremath{\approx}}
-\newunicodechar{≪}{\ensuremath{\ll}}
-\newunicodechar{≫}{\ensuremath{\gg}}
-\newunicodechar{⊂}{\ensuremath{\subset}}
-\newunicodechar{⊃}{\ensuremath{\supset}}
-\newunicodechar{⊕}{\ensuremath{\oplus}}
-
-% Arrows
-\newunicodechar{→}{\ensuremath{\to}}
-\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
-\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
-\newunicodechar{⇐}{\ensuremath{\Leftarrow}}
-\newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
-\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
-\newunicodechar{⟺}{\ensuremath{\Longleftrightarrow}}
-
-% Brackets
-\newunicodechar{⟨}{\ensuremath{\langle}}
-\newunicodechar{⟩}{\ensuremath{\rangle}}
-
-% Operators
-\newunicodechar{×}{\ensuremath{\times}}
-\newunicodechar{−}{\ensuremath{-}}
-
-% Superscripts (may appear in prose when pandoc doesn't wrap in math mode)
-\newunicodechar{⁰}{\ensuremath{^{0}}}
-\newunicodechar{¹}{\ensuremath{^{1}}}
-\newunicodechar{²}{\ensuremath{^{2}}}
-\newunicodechar{³}{\ensuremath{^{3}}}
-\newunicodechar{⁴}{\ensuremath{^{4}}}
-\newunicodechar{⁵}{\ensuremath{^{5}}}
-\newunicodechar{⁶}{\ensuremath{^{6}}}
-\newunicodechar{⁷}{\ensuremath{^{7}}}
-\newunicodechar{⁸}{\ensuremath{^{8}}}
-\newunicodechar{⁺}{\ensuremath{^{+}}}
-\newunicodechar{⁻}{\ensuremath{^{-}}}
-
-% Subscripts
-\newunicodechar{₀}{\ensuremath{_{0}}}
-\newunicodechar{₁}{\ensuremath{_{1}}}
-\newunicodechar{₂}{\ensuremath{_{2}}}
-\newunicodechar{₃}{\ensuremath{_{3}}}
-\newunicodechar{₄}{\ensuremath{_{4}}}
-\newunicodechar{₈}{\ensuremath{_{8}}}
-
-% Decorative / non-math
-\newunicodechar{✓}{\ensuremath{\checkmark}}
-\newunicodechar{✗}{\ensuremath{\times}}
-
-% Additional chars discovered in session 8 audit pass
-\newunicodechar{∼}{\ensuremath{\sim}}
-\newunicodechar{≡}{\ensuremath{\equiv}}
-\newunicodechar{†}{\ensuremath{\dagger}}
-\newunicodechar{‡}{\ensuremath{\ddagger}}
-\newunicodechar{…}{\ensuremath{\ldots}}
-\newunicodechar{𝒩}{\ensuremath{\mathcal{N}}}
-\newunicodechar{ⁿ}{\ensuremath{^{n}}}
-\newunicodechar{°}{\ensuremath{^{\circ}}}
-\newunicodechar{±}{\ensuremath{\pm}}
-\newunicodechar{·}{\ensuremath{\cdot}}
-\newunicodechar{½}{\ensuremath{\tfrac{1}{2}}}
-% Box-drawing (for README.md's ASCII-art prediction tree)
-\newunicodechar{─}{-}
-\newunicodechar{│}{|}
-\newunicodechar{└}{\textbackslash}
-\newunicodechar{├}{|}
-% Additional chars discovered in session 8 compile pass
-\newunicodechar{ʲ}{\ensuremath{^{j}}}
-\newunicodechar{Ḣ}{\ensuremath{\dot{H}}}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -1460,25 +1319,26 @@ Vacuum Model: \(\Lambda_{\text{eff}} = \Lambda_0 + \nu H^2\). The
 framework's \emph{structural} commitments --- boundary entropy depends
 on \(H\), matter is conserved in the trace-out, and Bianchi consistency
 then forces \(G(H)\) to run in tandem with \(\rho_\Lambda(H)\) --- fix
-the Type II RVM functional form. The coefficient \(\nu\) is grounded on
-two independent routes. A framework-internal dimensional argument (GR
-§7.1) gives \(|\nu| \sim \Omega_B/\mathcal{N}_0 \sim 3 \times 10^{-4}\).
-An independent cross-check uses the standard Shapiro-Solà β-function
-formula for the vacuum-energy running coefficient in QFT on curved
-spacetime: at OI's UV cutoff \(\epsilon = 2 l_p\) (determined by the gap
-equation), the heavy-mass scale is \(M_{\rm UV} \sim M_{\rm Pl}\), and
-SM-content computations in the literature give \(|\nu| \sim 10^{-4}\) to
-\(10^{-3}\). Both routes agree at order of magnitude. The sign is not
-uniquely fixed by OI's current architecture --- it depends on
-boson/fermion balance in the β-function sum, and partial cancellation
-between these is what gives the observed small magnitude. A direct test
-is provided by Bertini, Novaes, von Marttens, and Shapiro
-(arXiv:2509.24026), who fit a renormalization-group-corrected
-\(\Lambda\)CDM model --- structurally equivalent to Type II RVM at
-leading order, with both \(G(\mu)\) and \(\Lambda(\mu)\) running and
-matter conserved --- against Planck 2018 + DESI DR2 + DES-Y5 and report
-\(\nu = -(2.5 \pm 1.3) \times 10^{-4}\). This agrees with the framework
-prediction at better than \(1\sigma\) in order of magnitude. Earlier
+the Type II RVM functional form. The \emph{magnitude} of \(\nu\) is not
+currently derivable from OI architecture at theorem level. Two
+within-framework estimates bracket its expected scale. The emergent-QFT
+calculation, applying standard curved-spacetime running to SM fields at
+their physical masses on the derived classical background, yields
+\(|\nu_{\rm emergent\ QFT}| \sim (M_{\rm SM}/M_{\rm Pl})^2 \sim 10^{-32}\)
+--- observationally indistinguishable from zero. A framework-internal
+dimensional argument (GR §7.1) built from OI's own small parameters
+gives \(|\nu| \sim \Omega_B/\mathcal{N}_0 \sim 3 \times 10^{-4}\).
+Closing the gap between these would require a substratum-level
+contribution to \(H^2\) running beyond what emergent QFT captures ---
+new formalism for gravitational back-reaction from a classical discrete
+substratum that OI does not yet have. A direct test is provided by
+Bertini, Novaes, von Marttens, and Shapiro (arXiv:2509.24026), who fit a
+renormalization-group-corrected \(\Lambda\)CDM model --- structurally
+equivalent to Type II RVM at leading order, with both \(G(\mu)\) and
+\(\Lambda(\mu)\) running and matter conserved --- against Planck 2018 +
+DESI DR2 + DES-Y5, reporting \(\nu = -(2.5 \pm 1.3) \times 10^{-4}\),
+consistent with zero at \(2\sigma\). Both the emergent-QFT estimate and
+the dimensional argument are consistent with this measurement. Earlier
 iterations of the OI papers (through v1.6.4) proposed a specific value
 \(\nu_{\text{OI}} = (2.45 \pm 0.04) \times 10^{-3}\) derived from a
 spectral-uniformity ansatz; that coefficient was in \(\sim 20\sigma\)
@@ -1488,9 +1348,9 @@ April 2026), because audit of the derivation revealed that the leap from
 time-translation invariance) to ``each frequency decade carries
 \(1/\mathcal{N}\) of the vacuum energy'' (unjustified) was doing all the
 quantitative work. The \emph{structural} prediction --- Type II
-dynamical DE in running-vacuum form --- stands and is now supported by
-Bertini's direct fit. DESI Year 5 (\textasciitilde1\% precision on
-\(\nu\)) provides the decisive long-term test.
+dynamical DE in running-vacuum form --- stands. DESI Year 5
+(\(\sim 1\%\) precision on \(\nu\)) will decisively discriminate between
+the emergent-QFT and dimensional-argument estimates.
 
 \textbf{The dark sector as corroboration.} The trace-out that produces
 quantum mechanics has a gravitational consequence that the paper did not
