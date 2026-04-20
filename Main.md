@@ -324,6 +324,26 @@ Witten's Type II algebra program achieves finite entropy without finite-dimensio
 
 Laboratory tests of the characterization theorem may be possible in tabletop systems where the hidden sector capacity is tunable.
 
+### 4.6 Structural Exclusion of Equilibrium-Phase Observers
+
+An immediate corollary of (C1)–(C3) is a structural selection rule on where in a finite bijective $(S, \varphi)$ observers can exist. The rule replaces a postulate often imported from elsewhere — the "past hypothesis" of low initial entropy — with a theorem derived from the framework's own definitions.
+
+**Setup.** Let $V$ be a partition with hidden sector $B = S \setminus V$. Define the coupling-graph neighborhood $\Sigma_{\text{loc}}(V)$ as the subset of $S$ reached from $V$ by at most $\tau_S / \Delta t$ steps of $\varphi$, where $\Delta t$ is the update step. Let $\tau_{\text{mix}}(\Sigma)$ denote the mixing time of $\varphi$ restricted to any $\varphi$-invariant subsystem $\Sigma$, set by the spectral gap of the transfer operator on $\Sigma$.
+
+**Theorem (structural observer selection).** For any partition $V$ of bounded coupling-graph diameter,
+$$
+\tau_B(V) \leq \tau_{\text{mix}}(\Sigma_{\text{loc}}(V)) + O(\varepsilon),
+$$
+where $\varepsilon$ absorbs typical-set and finite-size corrections. In particular, if $\Sigma_{\text{loc}}(V)$ is in its local equilibrium macrostate in the sense of canonical typicality [31], $\tau_B(V)$ is bounded by the local thermal decorrelation time.
+
+*Proof.* Correlations between a $V$-localized observable $f$ and a $B$-localized observable $g$ at time $t$ require information to propagate from $V$ to $B$ at time $0$ and back to influence the $V$-correlated component of $g$ at time $t$. By the bounded coupling degree of $\varphi$, this round trip stays within $\Sigma_{\text{loc}}(V)$ for $t \leq \tau_S$. The spectral gap of $\varphi|_{\Sigma_{\text{loc}}}$ — which on an equilibrium microstate of $\mu|_{\Sigma_{\text{loc}}}$ sets the local thermal decorrelation rate — bounds the decay of such correlations exponentially at rate $1/\tau_{\text{mix}}$. Hence $\tau_B(V) \leq \tau_{\text{mix}}(\Sigma_{\text{loc}}) + O(\varepsilon)$. $\square$
+
+**Corollary (anti-Boltzmann-brain).** A Boltzmann brain is by construction a local fluctuation within a neighborhood $\Sigma_{\text{loc}}$ that is itself in local thermal equilibrium — that is what "fluctuation from equilibrium" means. Applying the theorem: $\tau_B(V_{\text{BB}})$ is bounded by the local thermal decorrelation time $\sim \hbar/(k_B T_{\text{local}})$, which is at most $\sim 10^{-12}$ s for any temperature warm enough to support structured matter. Any finite-information observer has $\tau_S$ bounded below by its own internal processing time — for biological or synthetic BBs of any currently-envisioned type, $\tau_S \gtrsim 10^{-6}$ s. Condition (C2), $\tau_S \ll \tau_B$, therefore fails by at least six orders of magnitude for any BB. Since QM emergence under the framework requires (C2) as a necessary condition (§3.4), Boltzmann-brain observers do not see emergent QM; they are not observers in the sense the framework's definitions require. The exclusion is structural, not measure-theoretic — it follows from the incompatibility of (C2) with local equilibrium, not from arguments about the ratio of BBs to "ordinary" observers in an anthropic sample.
+
+**Corollary (past-hypothesis replacement).** For $(S, \varphi)$ in its typical orbit phase — equivalently, in its equilibrium macrostate — canonical typicality [31] implies every local subsystem is also in its local equilibrium. By the theorem, $\tau_B(V)$ is bounded by the local $\tau_{\text{mix}}$ for every bounded-diameter partition $V$. No partition supports (C2). The framework's observers therefore exist only in the non-equilibrium phase of $(S, \varphi)$. The low-entropy initial condition commonly imported as a "past hypothesis" to select observer-compatible configurations is replaced here by a structural selection rule: observers exist where (C1)–(C3) are satisfiable, and (C1)–(C3) are not satisfiable in the equilibrium phase.
+
+**Scope.** The theorem uses only bounded coupling, finiteness of $S$, and the canonical-typicality result [31]; no new axioms are introduced. Three scope notes. (i) *Locality of $V$.* The theorem assumes $V$ has bounded coupling-graph diameter. Adversarially non-local partitions — cherry-picking distant subsystems that happen to be correlated — are excluded by the bounded coupling degree of $\varphi$ and the finite response time of any physical observer. (ii) *Ergodicity.* The argument assumes the spectral gap on typical orbits of $\varphi$, which follows from statistical isotropy and bounded-coupling regularity; pathological non-ergodic $\varphi$ (many short orbits) is excluded by the structural assumptions already in force. (iii) *The cosmological realization.* The de Sitter horizon is thermal in the static-patch sense at Hawking temperature, but the globally expanding system is not in equilibrium with respect to any static-observer partition. The horizon's expansion sets $\tau_B \sim H^{-1}$ structurally, not thermally, which is the OI-native mechanism making human-timescale laboratory observation compatible with (C2); [GR, §§5–7] develops this quantitatively.
+
 ---
 
 ## 5. CONCLUSION
@@ -428,3 +448,5 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [29] A. Yosifov, A. Iyer, V. Vedral, and J. Sun, "On the emergence of quantum memory in non-Markovian dynamics," arXiv:2507.21907 (2025).
 
 [30] R. Gangwar and U. Sen, "Genuine and Non-Genuine Quantum Non-Markovianity: A Unified Information-Theoretic Review," arXiv:2603.28277 (2026).
+
+[31] S. Goldstein, J. L. Lebowitz, R. Tumulka, and N. Zanghì, "Canonical Typicality," *Phys. Rev. Lett.* **96**, 050403 (2006); arXiv:cond-mat/0511091.
