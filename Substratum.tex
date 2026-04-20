@@ -16,7 +16,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern} % removed (xelatex uses fontspec)
+% \usepackage{lmodern} % removed
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -182,6 +182,9 @@
 \newunicodechar{│}{|}
 \newunicodechar{└}{\textbackslash}
 \newunicodechar{├}{|}
+% Additional chars discovered in session 8 compile pass
+\newunicodechar{ʲ}{\ensuremath{^{j}}}
+\newunicodechar{Ḣ}{\ensuremath{\dot{H}}}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -1200,11 +1203,11 @@ problem by identifying the quantum vacuum energy and the effective
 rather than commensurable quantities whose \(10^{122}\) ratio requires
 cancellation ({[}GR, §6{]}). The framework predicts dynamical dark
 energy in Type II running-vacuum form with coefficient
-\(|\nu| \sim 10^{-4}\) and negative sign, consistent with the Bertini et
-al.~(2025) direct DESI-DR2-era fit at better than \(1\sigma\); a
-\textasciitilde{}\(95\%\) dark sector corollary as a structural feature
-rather than a new particle species; and a MOND acceleration scale
-\(a_0 = cH/6\) from entropy displacement at the boundary ({[}GR, §7{]}).
+\(|\nu| \sim 10^{-4}\), consistent with the Bertini et al.~(2025) direct
+DESI-DR2-era fit at better than \(1\sigma\); a \textasciitilde{}\(95\%\)
+dark sector corollary as a structural feature rather than a new particle
+species; and a MOND acceleration scale \(a_0 = cH/6\) from entropy
+displacement at the boundary ({[}GR, §7{]}).
 
 The two projections share the same source (\((S, \varphi)\)), the same
 trace-out machinery (marginalization over the hidden sector under
@@ -1327,9 +1330,9 @@ thermodynamics, the broad shape of dark energy phenomenology) are also
 recovered by other approaches. The framework's empirical content is
 concentrated in {[}SM{]} (the SM derivation, twenty-two quantitative
 predictions) and in the specific GR-side predictions of {[}GR{]} (Type
-II RVM dark energy with \(|\nu| \sim 10^{-4}\) and negative sign, MOND
-\(a_0 = cH/6\), dark sector concordance), which collectively distinguish
-the framework from standard \(\Lambda\)CDM plus the Standard Model.
+II RVM dark energy with \(|\nu| \sim 10^{-4}\), MOND \(a_0 = cH/6\),
+dark sector concordance), which collectively distinguish the framework
+from standard \(\Lambda\)CDM plus the Standard Model.
 
 What the synthesis claim \emph{does} establish is that those two papers
 are not independent. The same construction that produces the SM in
