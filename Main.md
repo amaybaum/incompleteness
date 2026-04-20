@@ -300,6 +300,8 @@ The degrees of freedom involved in quantum experiments — photons, electrons, s
 
 In the double-slit experiment, the particle traverses a single slit in the deterministic substratum. The interference pattern arises because opening or closing the second slit changes the boundary conditions of the transition matrix, altering the distribution of detection events. A which-path detector at one slit couples the trajectory to additional visible-sector degrees of freedom, changing the transition matrix and eliminating the interference terms. In Wigner's friend, the Friend has a definite outcome; Wigner's superposition reflects his epistemic deficit. The Everettian measure problem dissolves: the system evolves as a single reality; "branches" are features of the compressed description. The Born rule, often treated as an independent postulate, is derived: it is the equilibrium distribution of the indivisible stochastic process (§3.1), not an additional assumption.
 
+The framework's broader metaphysical stance — ontic structural realism applied to the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$, with the wave function, Hilbert space, and emergent gauge structure understood as features of representations rather than of the structural object itself — is developed in [Substratum, §§1.1, 6.1].
+
 ### 4.2 Scope
 
 The characterization theorem is a full equivalence: QM $\iff$ embedded observation under (C1)–(C3). The theorem does not identify which physical systems satisfy the conditions; this is an empirical question. Universality in our universe follows from the shared causal partition defined by null geodesics.
