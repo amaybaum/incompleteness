@@ -9,7 +9,7 @@
 
 ## Abstract
 
-The Standard Model arises uniquely from a finite bijection on a $d = 3$ cubic lattice governed by the lattice wave equation. The foundational result that quantum mechanics emerges as the necessary description of any embedded observer under structural conditions C1–C3 is established in a companion paper [Main]; here we show that the cubic-lattice realization of those conditions determines the gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$, three chiral generations, the Higgs as a composite scalar in the singlet staggered taste, anomaly cancellation with the observed hypercharges, the absolute generation count locked at exactly three by coupling-degree minimization, and $\bar\theta = 0$ to all energy scales — each step proved end-to-end as a chain of theorems on the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$. The gauge coupling strengths follow quantitatively: the structural induced coupling $1/\alpha_0 = 23.25$ (computed analytically from the one-loop staggered vacuum polarization), combined with a universal threshold $\delta_0 = 10.0$ (determined by the U(1) row and consistent with the two-loop staggered VP computation $8.0 \pm 2$ plus natural three-loop corrections) and a $C_2$-dependent threshold parameterized by a logarithmic resummation, reproduces all three SM couplings at $M_Z$ via standard SM renormalization group running. The structural predictions are the specific value $1/\alpha_0 = 23.25$, the universality of $\delta_0$ across gauge groups, and the consistency of the two-loop VP computation with the empirically determined $\delta_0$. Deriving the $C_2$-dependent threshold parameters from first-principles lattice perturbation theory is an open computational task that would upgrade the SU(2) and SU(3) couplings from retrodictions to strict predictions. Quantitative predictions for SM observables include the Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ to $0.04\%$, the Wolfenstein $A = \sqrt{2/3}$ to $0.8\sigma$, the Koide angle $\theta_0 = 2/9$ to $0.02\%$, all three PMNS angles within $0.5\sigma$ — with $\sin^2\theta_{12}$ confirmed by the post-JUNO global fit at $0.07\sigma$ — six fermion masses from a single empirical input to better than $1\%$, and the top mass from the IR quasi-fixed point $y_t = 1$ to $0.9\%$. All predictions are forced by the cubic-lattice geometry and contain no parameters fit to the predicted quantities.
+The Standard Model arises uniquely from a finite bijection on a $d = 3$ cubic lattice governed by the lattice wave equation. The foundational result that quantum mechanics emerges as the necessary description of any embedded observer under structural conditions C1–C3 is established in a companion paper [Main]; here we show that the cubic-lattice realization of those conditions determines the gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$, three chiral generations, the Higgs as a composite scalar in the singlet staggered taste, anomaly cancellation with the observed hypercharges, the absolute generation count locked at exactly three by coupling-degree minimization, and $\bar\theta = 0$ to all energy scales — each step proved end-to-end as a chain of theorems on the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$. The gauge coupling strengths follow quantitatively: the structural induced coupling $1/\alpha_0 = 23.25$ (computed analytically from the one-loop staggered vacuum polarization), combined with a universal threshold $\delta_0 = 10.0$ (determined by the U(1) row and consistent with the two-loop staggered VP computation $8.0 \pm 2$ plus natural three-loop corrections) and a $C_2$-dependent threshold parameterized by a logarithmic resummation, reproduces all three SM couplings at $M_Z$ via standard SM renormalization group running. The structural predictions are the specific value $1/\alpha_0 = 23.25$, the universality of $\delta_0$ across gauge groups, and the consistency of the two-loop VP computation with the empirically determined $\delta_0$. Deriving the $C_2$-dependent threshold parameters from first-principles lattice perturbation theory is an open computational task that would upgrade the SU(2) and SU(3) couplings from retrodictions to strict predictions. Quantitative predictions for SM observables include the Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ to $0.04\%$, the Wolfenstein $A = \sqrt{2/3}$ to $0.23\sigma$, the Koide angle $\theta_0 = 2/9$ to $0.02\%$, all three PMNS angles within $1.1\sigma$ — with $\sin^2\theta_{12}$ confirmed by the post-JUNO global fit at $0.07\sigma$ — six fermion masses from a single empirical input to better than $1\%$, and the top mass from the IR quasi-fixed point $y_t = 1$ to $0.9\%$. All predictions are forced by the cubic-lattice geometry and contain no parameters fit to the predicted quantities.
 
 ---
 
@@ -640,7 +640,7 @@ The Gatto–Sartori–Tonin relation [21] $\sin\theta_C \approx \sqrt{m_d/m_s}$ 
 
 $$\boxed{\frac{m_d}{m_s} = \lambda^2 = \frac{1}{2\pi^2} = 0.05066}$$
 
-Observed [20]: $m_d/m_s = 0.050 \pm 0.007$. Match: $0.1\sigma$.
+Observed [20]: $m_d/m_s = 0.0503 \pm 0.0007$ (FLAG 2024 Nf=2+1+1). Match: $0.56\sigma$.
 
 **The Jarlskog invariant.**
 
@@ -752,8 +752,8 @@ $$\sin^2\theta_{13} = \frac{4}{9} \cdot \frac{1}{2\pi^2} = \frac{4}{18\pi^2} = 0
 | Angle | Predicted | Observed | Match |
 |-------|-----------|----------|-------|
 | $\sin^2\theta_{12}$ | 0.3080 | 0.3085 ± 0.0073 (post-JUNO global fit [27]) | $0.07\sigma$ |
-| $\sin^2\theta_{23}$ | 0.5507 | 0.546 ± 0.021 | $0.2\sigma$ |
-| $\sin^2\theta_{13}$ | 0.02252 | 0.02220 ± 0.00068 | $0.5\sigma$ |
+| $\sin^2\theta_{23}$ | 0.5507 | 0.561$^{+0.012}_{-0.015}$ (NuFIT 6.0, NO) | $0.74\sigma$ |
+| $\sin^2\theta_{13}$ | 0.02252 | 0.02195 ± 0.00056 (NuFIT 6.0, NO) | $1.02\sigma$ |
 
 **Experimental confirmation (JUNO).** The Jiangmen Underground Neutrino Observatory reported its first measurement of reactor neutrino oscillations in November 2025 [24], achieving the world's most precise determination of $\sin^2\theta_{12}$: $0.3092 \pm 0.0087$ (a factor of 1.6 improvement over all previous measurements combined). The OI prediction $1/3 - 1/(4\pi^2) = 0.3080$ matches this measurement at $0.14\sigma$. The updated global fit including JUNO data gives $\sin^2\theta_{12} = 0.3085 \pm 0.0073$ [27], matching the prediction at $0.07\sigma$. As JUNO accumulates data over its 30-year design lifetime, the error bar is projected to reach $\pm 0.0014$, testing the prediction at sub-percent precision.
 
@@ -845,20 +845,20 @@ Twenty-two quantitative observables from a $d = 3$ cubic lattice with spacing $\
 | $1/\alpha_2(M_Z)$ | lattice + RGE | 29.57 | 29.57 | $< 0.1\%$ | **R**† |
 | $1/\alpha_3(M_Z)$ | lattice + RGE | 8.47  | 8.47  | $< 0.1\%$ | **R**† |
 | $\lambda$ (Cabibbo) | $1/(\pi\sqrt{2})$ | 0.2251 | 0.2250 ± 0.0007 | 0.04% | **S** |
-| $A$ (Wolfenstein) | $\sqrt{2/3}$ | 0.8165 | 0.826 ± 0.012 | $0.8\sigma$ | **S** |
-| $m_d/m_s$ | $1/(2\pi^2)$ | 0.0507 | 0.050 ± 0.007 | $\sim 1\sigma$ | **S** (via GST) |
-| $\|V_{cb}\|$ | $\sqrt{2/3}/(2\pi^2)$ | 0.0414 | 0.0408 ± 0.0014 | $0.4\sigma$ | **S** |
-| $J$ (Jarlskog) | $\eta/(12\pi^6)$ | $3.02 \times 10^{-5}$ | $(3.08 \pm 0.13) \times 10^{-5}$ | $0.5\sigma$ | **E** (empirical $\eta$) |
+| $A$ (Wolfenstein) | $\sqrt{2/3}$ | 0.8165 | 0.811 ± 0.024 | $0.23\sigma$ | **S** |
+| $m_d/m_s$ | $1/(2\pi^2)$ | 0.0507 | 0.0503 ± 0.0007 | $0.56\sigma$ | **S** (via GST) |
+| $\|V_{cb}\|$ | $\sqrt{2/3}/(2\pi^2)$ | 0.0414 | 0.0411 ± 0.0012 | $0.22\sigma$ | **S** |
+| $J$ (Jarlskog) | $\eta/(12\pi^6)$ | $3.02 \times 10^{-5}$ | $(3.00 \pm 0.12) \times 10^{-5}$ | $0.17\sigma$ | **E** (empirical $\eta$) |
 | Koide $Q$ | $2/3$ | 0.66667 | 0.66666 | $< 0.01\%$ | **S** |
 | Koide angle $\theta_0$ | $C_2/d^2 = 2/9$ | 0.22222 | 0.22227 | 0.02% | **S** |
 | $m_e$ (from $m_\tau$) | $\theta_0 = 2/9$ | 0.51096 MeV | 0.51100 MeV | 0.007% | **M** ($m_\tau$) |
 | $m_\mu$ (from $m_\tau$) | $\theta_0 = 2/9$ | 105.652 MeV | 105.658 MeV | 0.006% | **M** ($m_\tau$) |
 | $Q_{\text{down}}$ | $(2/3)(1+\alpha_s/\pi)$ | 0.7303 | 0.7314 | 0.15% (scheme-dep) | **P** |
 | $m_b$ (from $m_s$) | Koide($Q_{\text{down}}$) | 4144 MeV | 4180 ± 30 | 0.9% | **P** (via $Q_{\text{down}}$) |
-| $m_u/m_d$ | $\sqrt{2/9}$ | 0.4714 | 0.474 ± 0.056 | $0.05\sigma$ | **S** |
+| $m_u/m_d$ | $\sqrt{2/9}$ | 0.4714 | 0.465 ± 0.024 | $0.27\sigma$ | **S** |
 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | 0.3080 | 0.3092 ± 0.0087 (JUNO) | $0.14\sigma$ | **S** |
-| $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | 0.5507 | 0.546 ± 0.021 | $0.2\sigma$ | **S** |
-| $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | 0.02252 | 0.02220 ± 0.00068 | $0.5\sigma$ | **S** |
+| $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | 0.5507 | 0.561$^{+0.012}_{-0.015}$ (NuFIT 6.0, NO) | $0.74\sigma$ | **S** |
+| $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | 0.02252 | 0.02195 ± 0.00056 (NuFIT 6.0, NO) | $1.02\sigma$ | **S** |
 | $\lambda(M_{\text{Pl}}) = 0$ | composite Higgs | 0 | $-0.013 \pm 0.020$ | $0.6\sigma$ | **S** |
 | $m_H$ (from $\lambda(M_{\text{Pl}}) = 0$, $m_t$) | RGE running | 129–132 GeV | 125.10 ± 0.14 | $m_t$-consistent | **M** ($m_t$) |
 | $m_b/m_\tau$ | $4.28/Z_S(\lambda g_0^2)$ | 2.361 | 2.352 | $0.5\sigma$ | **S**‡ |
@@ -962,7 +962,7 @@ The staggered fermion construction gives 4 tastes decomposing as $1(A_1) + 3(T_1
 
 ## 9. Conclusion
 
-This paper has shown that the Standard Model's gauge group, matter content, and discrete symmetries are determined by a finite bijection on a $d = 3$ cubic lattice — itself uniquely selected among self-consistent finite deterministic systems — through the lattice wave equation and a chain of theorems running from center independence to anomaly cancellation. The chain is proved end-to-end. Where it makes contact with measured numbers, the agreement is striking: the Cabibbo angle from a single Brillouin-zone distance to $0.04\%$, the Koide angle from the cubic-group quadratic Casimir to $0.02\%$, the down-to-strange mass ratio $m_d/m_s = 1/(2\pi^2)$ at $0.1\sigma$, all three PMNS angles within $0.5\sigma$ — with $\sin^2\theta_{12}$ confirmed by JUNO in November 2025 at $0.14\sigma$ — six fermion masses from a single empirical input to better than $1\%$, and the SM gauge couplings at $M_Z$ to $0.1\%$ and $0.3\%$. The strong CP problem is dissolved at the kinematic level: $\bar\theta = 0$ exactly at all energy scales, with no axion required.
+This paper has shown that the Standard Model's gauge group, matter content, and discrete symmetries are determined by a finite bijection on a $d = 3$ cubic lattice — itself uniquely selected among self-consistent finite deterministic systems — through the lattice wave equation and a chain of theorems running from center independence to anomaly cancellation. The chain is proved end-to-end. Where it makes contact with measured numbers, the agreement is striking: the Cabibbo angle from a single Brillouin-zone distance to $0.04\%$, the Koide angle from the cubic-group quadratic Casimir to $0.02\%$, the down-to-strange mass ratio $m_d/m_s = 1/(2\pi^2)$ at $0.56\sigma$, all three PMNS angles within $1.1\sigma$ — with $\sin^2\theta_{12}$ confirmed by JUNO in November 2025 at $0.14\sigma$ — six fermion masses from a single empirical input to better than $1\%$, and the SM gauge couplings at $M_Z$ to $0.1\%$ and $0.3\%$. The strong CP problem is dissolved at the kinematic level: $\bar\theta = 0$ exactly at all energy scales, with no axion required.
 
 The framework is sharply falsifiable by experiments now in progress or under construction. JUNO will reach sub-percent precision on $\sin^2\theta_{12}$ over its 30-year design lifetime, testing the prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ at the level required to distinguish it from competing tribimaximal variants. The n2EDM experiment at PSI is targeting neutron EDM sensitivity at $10^{-27}\,e\cdot\text{cm}$; the framework predicts exactly zero. Neutrinoless double beta decay searches will test the Majorana-neutrino prediction. The continuing absence of any new gauge bosons, fundamental scalars, or supersymmetric partners at the LHC and its successors corroborates structural predictions of the framework, which forbids all such states. A direct first-principles lattice simulation of the OI-induced gauge theory, replacing the pure-gauge Monte Carlo plus scheme conversion currently used in §6, would provide an additional cross-check on the gauge coupling chain and is in development.
 
