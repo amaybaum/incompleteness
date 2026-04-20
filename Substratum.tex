@@ -19,6 +19,8 @@
 % \usepackage{lmodern} % removed
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -42,149 +44,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\usepackage{fontspec}
-\usepackage{unicode-math}
-\usepackage{newunicodechar}
-
-% Main fonts — Latin Modern (text + math), DejaVu Sans Mono for code
-% DejaVu Sans Mono has U+2500 series box-drawing characters used in framework diagrams
-\setmainfont{Latin Modern Roman}
-\setsansfont{Latin Modern Sans}
-\setmonofont{DejaVu Sans Mono}[Scale=0.85]
-\setmathfont{Latin Modern Math}
-
-% Extra math packages
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{mathtools}
-
-% Table support
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-
-% URL handling — allow line breaks in long URLs
-\usepackage{xurl}
-
-% Paragraph spacing
-\setlength{\parskip}{0.5em}
-\setlength{\parindent}{0pt}
-
-% Extended Unicode character map — substitute problematic text-mode chars
-% with math-mode equivalents. Only needed for chars not in Latin Modern Roman.
-% Box-drawing chars (U+2500 range) work natively via DejaVu Sans Mono in code blocks.
-
-% Greek lowercase (may appear in prose, not just math)
-\newunicodechar{α}{\ensuremath{\alpha}}
-\newunicodechar{β}{\ensuremath{\beta}}
-\newunicodechar{γ}{\ensuremath{\gamma}}
-\newunicodechar{δ}{\ensuremath{\delta}}
-\newunicodechar{ε}{\ensuremath{\epsilon}}
-\newunicodechar{η}{\ensuremath{\eta}}
-\newunicodechar{θ}{\ensuremath{\theta}}
-\newunicodechar{κ}{\ensuremath{\kappa}}
-\newunicodechar{λ}{\ensuremath{\lambda}}
-\newunicodechar{μ}{\ensuremath{\mu}}
-\newunicodechar{ν}{\ensuremath{\nu}}
-\newunicodechar{π}{\ensuremath{\pi}}
-\newunicodechar{ρ}{\ensuremath{\rho}}
-\newunicodechar{σ}{\ensuremath{\sigma}}
-\newunicodechar{τ}{\ensuremath{\tau}}
-\newunicodechar{φ}{\ensuremath{\varphi}}
-\newunicodechar{χ}{\ensuremath{\chi}}
-\newunicodechar{ψ}{\ensuremath{\psi}}
-\newunicodechar{ω}{\ensuremath{\omega}}
-
-% Greek uppercase
-\newunicodechar{Γ}{\ensuremath{\Gamma}}
-\newunicodechar{Δ}{\ensuremath{\Delta}}
-\newunicodechar{Λ}{\ensuremath{\Lambda}}
-\newunicodechar{Σ}{\ensuremath{\Sigma}}
-\newunicodechar{Ω}{\ensuremath{\Omega}}
-
-% Common math/physics symbols
-\newunicodechar{ℏ}{\ensuremath{\hbar}}
-\newunicodechar{ℤ}{\ensuremath{\mathbb{Z}}}
-\newunicodechar{∅}{\ensuremath{\emptyset}}
-\newunicodechar{∂}{\ensuremath{\partial}}
-\newunicodechar{∈}{\ensuremath{\in}}
-\newunicodechar{∘}{\ensuremath{\circ}}
-\newunicodechar{√}{\ensuremath{\sqrt{}}}
-\newunicodechar{∝}{\ensuremath{\propto}}
-
-% Relations
-\newunicodechar{≤}{\ensuremath{\leq}}
-\newunicodechar{≥}{\ensuremath{\geq}}
-\newunicodechar{≠}{\ensuremath{\neq}}
-\newunicodechar{≈}{\ensuremath{\approx}}
-\newunicodechar{≪}{\ensuremath{\ll}}
-\newunicodechar{≫}{\ensuremath{\gg}}
-\newunicodechar{⊂}{\ensuremath{\subset}}
-\newunicodechar{⊃}{\ensuremath{\supset}}
-\newunicodechar{⊕}{\ensuremath{\oplus}}
-
-% Arrows
-\newunicodechar{→}{\ensuremath{\to}}
-\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
-\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
-\newunicodechar{⇐}{\ensuremath{\Leftarrow}}
-\newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
-\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
-\newunicodechar{⟺}{\ensuremath{\Longleftrightarrow}}
-
-% Brackets
-\newunicodechar{⟨}{\ensuremath{\langle}}
-\newunicodechar{⟩}{\ensuremath{\rangle}}
-
-% Operators
-\newunicodechar{×}{\ensuremath{\times}}
-\newunicodechar{−}{\ensuremath{-}}
-
-% Superscripts (may appear in prose when pandoc doesn't wrap in math mode)
-\newunicodechar{⁰}{\ensuremath{^{0}}}
-\newunicodechar{¹}{\ensuremath{^{1}}}
-\newunicodechar{²}{\ensuremath{^{2}}}
-\newunicodechar{³}{\ensuremath{^{3}}}
-\newunicodechar{⁴}{\ensuremath{^{4}}}
-\newunicodechar{⁵}{\ensuremath{^{5}}}
-\newunicodechar{⁶}{\ensuremath{^{6}}}
-\newunicodechar{⁷}{\ensuremath{^{7}}}
-\newunicodechar{⁸}{\ensuremath{^{8}}}
-\newunicodechar{⁺}{\ensuremath{^{+}}}
-\newunicodechar{⁻}{\ensuremath{^{-}}}
-
-% Subscripts
-\newunicodechar{₀}{\ensuremath{_{0}}}
-\newunicodechar{₁}{\ensuremath{_{1}}}
-\newunicodechar{₂}{\ensuremath{_{2}}}
-\newunicodechar{₃}{\ensuremath{_{3}}}
-\newunicodechar{₄}{\ensuremath{_{4}}}
-\newunicodechar{₈}{\ensuremath{_{8}}}
-
-% Decorative / non-math
-\newunicodechar{✓}{\ensuremath{\checkmark}}
-\newunicodechar{✗}{\ensuremath{\times}}
-
-% Additional chars discovered in session 8 audit pass
-\newunicodechar{∼}{\ensuremath{\sim}}
-\newunicodechar{≡}{\ensuremath{\equiv}}
-\newunicodechar{†}{\ensuremath{\dagger}}
-\newunicodechar{‡}{\ensuremath{\ddagger}}
-\newunicodechar{…}{\ensuremath{\ldots}}
-\newunicodechar{𝒩}{\ensuremath{\mathcal{N}}}
-\newunicodechar{ⁿ}{\ensuremath{^{n}}}
-\newunicodechar{°}{\ensuremath{^{\circ}}}
-\newunicodechar{±}{\ensuremath{\pm}}
-\newunicodechar{·}{\ensuremath{\cdot}}
-\newunicodechar{½}{\ensuremath{\tfrac{1}{2}}}
-% Box-drawing (for README.md's ASCII-art prediction tree)
-\newunicodechar{─}{-}
-\newunicodechar{│}{|}
-\newunicodechar{└}{\textbackslash}
-\newunicodechar{├}{|}
-% Additional chars discovered in session 8 compile pass
-\newunicodechar{ʲ}{\ensuremath{^{j}}}
-\newunicodechar{Ḣ}{\ensuremath{\dot{H}}}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -508,9 +367,15 @@ computation looks like to a component of the machine --- and proves the
 answer is quantum mechanics.
 
 \textbf{The arrow of time.} The substratum has no arrow of time --- φ
-and φ⁻¹ are equally valid. Entropy increase is a property of the
-observer's coarse-grained description: the standard Boltzmann mechanism
-applied to the partition.
+and φ⁻¹ are equally valid. Observers satisfying C1--C3 are nonetheless
+structurally restricted to the non-equilibrium phase of
+\((S, \varphi)\): the theorem in {[}Main, §4.6{]} shows that
+\(\tau_B(V)\) is bounded by the local mixing time on equilibrium
+microstates, so C2 fails there. This replaces the low-entropy ``past
+hypothesis'' with a structural observer-selection rule and excludes
+Boltzmann brains structurally rather than anthropically. Entropy
+increase is then emergent as a coarse-grained description of the
+non-equilibrium dynamics observers necessarily see.
 
 \textbf{The incompleteness family.} The framework's central result
 belongs to a family of impossibility-with-structure theorems. Gödel: a
