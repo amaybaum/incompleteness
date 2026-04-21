@@ -356,7 +356,7 @@ For genetic disorders, the framework's contribution is not to the genetic defect
 | Compensatory pathway optimization | Epigenetic regulation of backup genes | Compensation strength depends on developmental history |
 | Enzyme replacement therapy tolerance | B cell memory compartment | Tolerance induction schedule matches immune $\tau_B$ |
 
-The honest summary: genetic disorders are not memory diseases. But the treatments for genetic disorders operate through biological systems that are memory systems. Optimizing these treatments for the non-Markovian dynamics of the underlying biology is a distinct and testable therapeutic strategy.
+The summary: genetic disorders are not memory diseases. But the treatments for genetic disorders operate through biological systems that are memory systems. Optimizing these treatments for the non-Markovian dynamics of the underlying biology is a distinct and testable therapeutic strategy.
 
 ---
 

@@ -398,7 +398,7 @@ The Type II running-vacuum form for dark energy is the gravitational sector's mo
 
 ## 8. Discussion
 
-This section discusses four interpretive consequences of the derivations in §§2–7: the scope of the framework's claims (§8.1), the epistemic status of the discreteness scale $\epsilon = 2\,l_p$ (§8.2), the distinction between vacuum-energy shifts that gravitate (Casimir forces, particle masses, the Higgs vacuum shift) and absolute zero-point sums that do not (§8.3), and the framework's assumptions, limitations, and falsifiability conditions (§8.4). The foundational emergent QM result is treated as established in [Main] and not re-derived here. The cubic-lattice realization of the substratum — which determines the Standard Model gauge structure via the wave equation — is independent of the present results and is developed in [SM]. The reconstruction theorem, the substratum gauge group, and the synthesis claim that quantum mechanics and general relativity descend as different projections of the same $(S, \varphi)$ are developed in [Substratum].
+The foundational emergent QM result is treated as established in [Main] and not re-derived here. The cubic-lattice realization of the substratum — which determines the Standard Model gauge structure via the wave equation — is independent of the present results and is developed in [SM]. The reconstruction theorem, the substratum gauge group, and the synthesis claim that quantum mechanics and general relativity descend as different projections of the same $(S, \varphi)$ are developed in [Substratum].
 
 ### 8.1 Scope
 
