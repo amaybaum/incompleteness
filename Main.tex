@@ -23,6 +23,7 @@
   \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
+\usepackage[margin=1in]{geometry}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
   \usepackage[]{microtype}
@@ -39,7 +40,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -1046,7 +1046,16 @@ entanglement-structure protocols of {[}28, 29{]} --- would falsify the
 framework's foundational ontology. This is a current-technology test
 whose experimental tools are under active development; a recent unified
 review {[}30{]} surveys the rapidly evolving classical-vs-quantum memory
-distinction in open-system dynamics.
+distinction in open-system dynamics. The claim is sharpest in the
+\emph{C2-marginal regime} (\(\tau_S \sim \tau_B\) rather than
+\(\tau_S \ll \tau_B\)), where non-Markovianity is \(\mathcal{O}(1)\)
+rather than suppressed. Candidate physical realizations ---
+strongly-driven superconducting qubits with two-level-system baths,
+biological electron transport with vibrational coupling, spin-boson
+dynamics at strong coupling --- are the systems where the
+classical-memory simulability commitment is most stringently tested, and
+where emerging experimental and theoretical tools {[}28, 29, 30{]} are
+converging on the classical-vs-quantum memory distinction.
 
 \emph{Theorem-level falsifiability.} The characterization theorem itself
 would be falsified by a failure of both the stochastic-quantum
