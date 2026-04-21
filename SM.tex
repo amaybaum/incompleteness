@@ -23,6 +23,7 @@
   \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
+\usepackage[margin=1in]{geometry}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
   \usepackage[]{microtype}
@@ -39,7 +40,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -1936,39 +1936,84 @@ structure, holding at every time scale without perturbative or
 non-perturbative approximation. The RG flow cannot generate T-violation
 because the underlying bijection structure forbids it at every scale.
 
-\emph{Remark (scope: \(\bar\theta\) versus flavor-basis CP violation).}
-Theorem 21 establishes \(\bar\theta = 0\), which is the \emph{static}
-CP-odd combination \(\theta + \arg\det(Y_u Y_d)\) --- the quantity
-coupling to QCD instantons and generating a neutron electric dipole
-moment. It does \emph{not} forbid the CKM and PMNS CP-violating phases
-that are observed in flavor-changing processes. The distinction is that
-\(\bar\theta\) is a property of the determinant \(\det(Y_u Y_d)\), while
-CKM CP violation (encoded in the Jarlskog invariant
-\(J \approx 3 \times 10^{-5}\)) arises from the \emph{basis mismatch}
-between the up-type and down-type Yukawa mass eigenstates. T-invariant
-Yukawas are simultaneously real in some basis --- specifically, each
-Yukawa matrix is real in its own mass basis --- but the up-type and
-down-type mass bases generically differ by a unitary transformation, and
-when this transformation has complex entries that cannot be absorbed by
-field redefinitions, the resulting CKM matrix contains an irreducible
-CP-violating phase. This is the standard SM picture {[}16, §6.3{]}: real
-mass-basis Yukawas plus a basis mismatch are together compatible with a
-nonzero Jarlskog. The framework's T-invariance at the substrate level
-forces each Yukawa to be individually diagonalizable to real form
-(fixing \(\bar\theta = 0\)), but does not force the two mass bases to
-coincide. The basis mismatch is a solution-specific property of the
-particular bijection \(\varphi\), analogous to the absolute scale of
-fermion masses (§7.6) and the specific eigenvalues of the Yukawa
-matrices: the framework derives the structural form but does not predict
-the basis-alignment parameters. The CKM and PMNS CP phases are therefore
-compatible with --- though not derived from --- the framework's
-structural commitments, and are listed as solution-specific inputs in
-§8.3 and in the pre-registered falsification conditions ({[}Substratum,
-§6.4, ``what does not falsify''{]}).
+\emph{Remark (scope of Theorem 21).} The vanishing of \(\bar\theta\)
+does not extend to the flavor-sector CP-violating phases observed in CKM
+and PMNS mixing. These phases arise from a distinct structural source
+and are treated as solution-specific inputs; see §5.4 for the scope
+distinction and its pre-registration.
 
 \textbf{Prediction:} \(\bar{\theta} = 0\) exactly. No axion needed.
 Neutron EDM should be exactly zero (current bound:
 \(|d_n| < 1.8 \times 10^{-26}\;e\cdot\text{cm}\) {[}19{]}).
+
+\hypertarget{scope-flavor-sector-cp-violation-as-solution-specific-input}{%
+\subsubsection{5.4 Scope: flavor-sector CP violation as
+solution-specific
+input}\label{scope-flavor-sector-cp-violation-as-solution-specific-input}}
+
+Theorem 21 establishes \(\bar\theta = 0\), the \emph{static} CP-odd
+combination \(\theta + \arg\det(Y_u Y_d)\) --- the quantity that couples
+to QCD instantons and would generate a neutron electric dipole moment.
+The theorem does \emph{not} forbid the CKM and PMNS CP-violating phases
+observed in flavor-changing processes. This subsection delineates the
+scope of the \(\bar\theta = 0\) result and makes explicit that the
+framework treats flavor-sector CP phases as solution-specific inputs
+rather than framework-level predictions.
+
+\textbf{The distinction.} \(\bar\theta\) is a property of
+\(\det(Y_u Y_d)\): it depends only on the products of Yukawa eigenvalues
+and vanishes whenever each Yukawa matrix is individually diagonalizable
+to real form. CKM CP violation, by contrast, is encoded in the Jarlskog
+invariant \(J \approx 3 \times 10^{-5}\) and arises from the \emph{basis
+mismatch} between the up-type and down-type Yukawa mass eigenstates.
+T-invariant Yukawas are simultaneously real in some basis ---
+specifically, each Yukawa matrix is real in its own mass basis --- but
+the up-type and down-type mass bases generically differ by a unitary
+transformation, and when that transformation has complex entries that
+cannot be absorbed by field redefinitions, the resulting CKM matrix
+contains an irreducible CP-violating phase. This is the standard SM
+picture {[}16, §6.3{]}: real mass-basis Yukawas plus a basis mismatch
+are together compatible with a nonzero Jarlskog.
+
+\textbf{What the framework does and does not derive.} T-invariance at
+the substrate level (Theorem 17) plus detailed balance (Theorem 19)
+forces each Yukawa matrix to be individually diagonalizable to real
+form, fixing \(\bar\theta = 0\) as a theorem at every energy scale. It
+does \emph{not} force the up-type and down-type mass bases to coincide.
+The basis-alignment unitary is a solution-specific property of the
+particular bijection \(\varphi\), analogous to the absolute scale of
+fermion masses (§7.6) and the specific eigenvalues of the Yukawa
+matrices: the framework derives the structural form of the Yukawa sector
+but does not predict the basis-alignment parameters. The CKM and PMNS
+CP-violating phases are therefore compatible with --- though not derived
+from --- the framework's structural commitments.
+
+\textbf{Pre-registration.} Flavor-sector CP phases are listed as
+solution-specific inputs in §8.3 and in the pre-registered falsification
+conditions ({[}Substratum, §6.4, ``what does not falsify''{]}). They
+join the absolute fermion mass scale \(m_s\) and the specific neutrino
+Yukawa eigenvalues in the class of quantities the framework treats as
+properties of the particular \(\varphi\). The framework makes no
+commitment to any specific value of \(\delta_{\text{CKM}}\),
+\(\delta_{\text{PMNS}}\), the Jarlskog \(J\), or the Wolfenstein
+parameters \((\rho, \eta)\), and the measurement of these quantities
+does not bear on the framework's structural status. This is the honest
+scope boundary of the \(\bar\theta = 0\) result.
+
+\textbf{Attempted structural derivation retired.} A framework-internal
+derivation of the CKM phase via a hypothesized T-parity assignment on
+link-carrier orientations was investigated and ruled out. The relevant
+obstacle is that the substrate-level T-symmetry of Theorem 17 is
+stronger than the physical Dirac-level T-symmetry --- M is real at the
+substrate level, and the complex structure of the emergent Yukawas comes
+from the γ-matrix representation of the staggered-to-Dirac
+reconstruction (which is fixed) rather than from any
+orientation-dependent feature of the lattice. Producing the CKM phase as
+a structural prediction would require extending the framework's
+axiomatization with new structural commitments not present in A1--A6.
+Such an extension is outside the scope of the current construction and
+is noted as a potential direction for future research alongside the
+rigorous ν-derivation (Substratum §7).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3229,7 +3274,7 @@ mass eigenstates, which is itself a property of φ). The CP phases are
 explicitly compatible with Theorem 21: the theorem establishes
 \(\bar\theta = 0\) (the determinant-phase combination) but does not
 constrain the basis-alignment structure that produces the Jarlskog
-invariant (see remark following Theorem 21 Step 3). These are analogous
+invariant (see §5.4 for the full scope statement). These are analogous
 to the mass \(M\) in the Schwarzschild solution: GR derives the
 functional form of the metric but does not predict which \(M\) describes
 a particular black hole. The OI framework derives the SM's structure but
