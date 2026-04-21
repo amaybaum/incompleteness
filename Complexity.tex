@@ -23,6 +23,7 @@
   \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
+\usepackage[margin=1in]{geometry}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
   \usepackage[]{microtype}
@@ -39,7 +40,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -281,11 +281,10 @@ from having two independent gauge groups. The universal induced coupling
 determined by \(N_f = 6\) and the Dynkin index, not by the eigenvalues
 of \(M\) --- and the framework reproduces all three SM gauge couplings
 at \(M_Z\) through non-perturbative gauge self-energy corrections and RG
-running {[}2, §6{]}. This separation has a profound consequence: nuclei
-are stable against chemical reactions. Chemistry rearranges electrons
-(eV) without touching nuclei (MeV). Atoms are permanent building blocks
-that can be assembled, disassembled, and reassembled without being
-destroyed.
+running {[}2, §6{]}. This separation has a consequence: nuclei are
+stable against chemical reactions. Chemistry rearranges electrons (eV)
+without touching nuclei (MeV). Atoms are permanent building blocks that
+can be assembled, disassembled, and reassembled without being destroyed.
 
 \hypertarget{water}{%
 \subsubsection{2.6 Water}\label{water}}
@@ -1333,7 +1332,7 @@ catalytic cycle statistics). The medical implications (allosteric
 temporal correlations, resistance as memory-structure alteration) are
 consequences of the prediction but have not been independently tested.
 
-The honest summary: the framework predicts that enzyme kinetics is
+The summary: the framework predicts that enzyme kinetics is
 non-Markovian for the same structural reason that cosmological
 observation is quantum-mechanical. The prediction is consistent with
 existing evidence and makes specific testable claims. Whether the
@@ -1712,11 +1711,11 @@ slow bath (C2) the framework identifies. White et al.~{[}27{]} performed
 the first full multi-time quantum process tomography on superconducting
 processors and found non-Markovian noise present in all cases measured,
 with a significant fraction originating from genuine quantum
-correlations across time. Most strikingly, Burkard and collaborators
-{[}28{]} found that QAOA algorithm performance \emph{improves} as the
-noise correlation time increases at fixed local error probability ---
-direct evidence that correlated noise is a resource, not merely an
-obstacle, exactly as §8.7 predicts.
+correlations across time. Notably, Burkard and collaborators {[}28{]}
+found that QAOA algorithm performance \emph{improves} as the noise
+correlation time increases at fixed local error probability --- direct
+evidence that correlated noise is a resource, not merely an obstacle,
+exactly as §8.7 predicts.
 
 \textbf{Single-molecule enzymology.} Edman and Rigler {[}29{]} directly
 measured ``memory landscapes'' of single horseradish peroxidase
