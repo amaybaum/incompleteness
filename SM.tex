@@ -139,17 +139,31 @@ bijection on a \(d = 3\) cubic lattice --- with the primary chain proved
 end-to-end as a sequence of theorems and the quantitative predictions
 matching observation with no parameters fit to the predicted quantities.
 
-The construction rests on a foundational result established in a
-companion paper {[}Main{]}: an observer embedded in a deterministic
-system whose hidden sector is coupled, slow, and high-capacity
-(conditions C1--C3) necessarily describes the visible sector using
-quantum mechanics, and these conditions are necessary as well as
-sufficient. The proof identifies the wave function, the Born rule, and
-unitary evolution as projections of a deterministic substratum dynamics
-under the embedded observer's epistemic constraints. We treat that
-result as established and ask the second question that the construction
-leaves open: does the lattice structure on which the construction rests
-determine \emph{which} quantum field theory the embedded observer sees?
+\textbf{Prerequisites.} This paper treats as established the following
+result from a companion work {[}Main{]}: an observer embedded in a
+deterministic bijection on a finite configuration space, coupled to a
+hidden sector that is non-trivial (condition C1), slow (C2:
+\(\tau_S \ll \tau_B\)), and high-capacity (C3: \(N_H \gg N_V\)),
+necessarily describes the visible sector using unitarily evolving
+quantum mechanics; the three conditions are necessary as well as
+sufficient. The technical bridge from P-indivisible classical stochastic
+processes on finite configuration spaces to unitary quantum evolution on
+finite Hilbert spaces is Barandes' stochastic-quantum correspondence
+{[}28, 29{]}, used as the companion paper's primary tool. We take the
+characterization theorem and the stochastic-quantum bridge as inputs and
+address the question they leave open: given that quantum mechanics is
+the observer's necessary description under C1--C3, what quantum field
+theory does the observer see when the substratum dynamics is the wave
+equation on a \(d = 3\) cubic lattice?
+
+The present paper reproves none of {[}Main{]}'s foundational results.
+Where a theorem below invokes a specific input --- the P-indivisibility
+of reduced dynamics on finite bijections (used in §2.1), the Born rule
+\(T_{ij}(t) = |U_{ij}(t)|^2\) (used in §5's detailed-balance chain), or
+the C2-necessity argument (used in §8.2's genericity theorem) --- the
+invocation is stated as a known result and the reader is directed to
+{[}Main{]} for the proof. The SM-derivation chain developed here depends
+on these inputs but is otherwise self-contained.
 
 This paper answers in the affirmative. The wave equation on a \(d = 3\)
 cubic lattice --- itself uniquely selected among second-order reversible
@@ -241,21 +255,17 @@ in {[}Substratum{]}.
 \subsubsection{2.1 What the theorems
 require}\label{what-the-theorems-require}}
 
-Each assumption in the companion paper {[}Main{]} does specific work.
-The question is which assumptions are essential to the results and which
-are artifacts of the particular construction chosen.
-
-\textbf{Deterministic bijectivity.} The P-indivisibility proof {[}Main,
-§2.3{]} requires a bijection on a finite set: bijectivity guarantees
-recurrence (φ\^{}N = id), and recurrence produces the non-monotonic
-distinguishability that defines P-indivisibility. The entire framework
-rests on QM emerging from marginalizing deterministic dynamics --- if
-the dynamics were already stochastic, there would be nothing to derive.
-Determinism is the core of the framework and cannot be weakened.
-However, determinism does not require a lattice. A continuous
-Hamiltonian system on a compact phase space is also deterministic and
-bijective (by Liouville's theorem). The lattice is one way to implement
-determinism on a finite set; it is not the only way.
+\textbf{Deterministic bijectivity.} The P-indivisibility result used
+below (see Prerequisites) requires a bijection on a finite set:
+bijectivity guarantees recurrence (φ\^{}N = id), and recurrence produces
+the non-monotonic distinguishability that defines P-indivisibility. The
+entire framework rests on QM emerging from marginalizing deterministic
+dynamics --- if the dynamics were already stochastic, there would be
+nothing to derive. Determinism is the core of the framework and cannot
+be weakened. However, determinism does not require a lattice. A
+continuous Hamiltonian system on a compact phase space is also
+deterministic and bijective (by Liouville's theorem). The lattice is one
+way to implement determinism on a finite set; it is not the only way.
 
 \textbf{Finite boundary entropy.} The gap equation {[}GR, §3{]} requires
 a finite number of degrees of freedom across the partition boundary: S =
@@ -1888,11 +1898,12 @@ cardinality. Dividing by \(|\mathcal{C}_H|\): \(T_{ij} = T_{ji}\).
 satisfies \([\hat{H}_{\text{eff}}, \hat{\Theta}] = 0\) where
 \(\hat{\Theta}\) is the anti-unitary time-reversal operator.}
 
-\emph{Proof.} The Born rule gives \(T_{ij}(t) = |U_{ij}(t)|^2\) {[}Main,
-§3.1{]}. Combined with \(T_{ij} = T_{ji}\): \(|U_{ij}|^2 = |U_{ji}|^2\)
-for all i, j, t. This symmetry of the transition amplitudes, by Wigner's
-theorem, implies \(U(t) = \hat{\Theta}\,U(t)^*\,\hat{\Theta}^{-1}\) for
-a suitable anti-unitary \(\hat{\Theta}\), which gives
+\emph{Proof.} The Born rule gives \(T_{ij}(t) = |U_{ij}(t)|^2\)
+(Prerequisites; Barandes correspondence {[}28, 29{]}). Combined with
+\(T_{ij} = T_{ji}\): \(|U_{ij}|^2 = |U_{ji}|^2\) for all i, j, t. This
+symmetry of the transition amplitudes, by Wigner's theorem, implies
+\(U(t) = \hat{\Theta}\,U(t)^*\,\hat{\Theta}^{-1}\) for a suitable
+anti-unitary \(\hat{\Theta}\), which gives
 \([\hat{H}_{\text{eff}}, \hat{\Theta}] = 0\). \(\square\)
 
 \textbf{Theorem 21} (\(\bar{\theta} = 0\) at all energy scales).
@@ -3709,5 +3720,11 @@ events with a single reconstructed top quark,'' (2024).
 {[}27{]} F. Capozzi, E. Lisi, F. Marcone, A. Marrone, and A. Palazzo,
 ``Updated bounds on the (1,2) neutrino oscillation parameters after
 first JUNO results,'' arXiv:2511.21650 (2025).
+
+{[}28{]} J. A. Barandes, ``The Stochastic-Quantum Correspondence,''
+\emph{Foundations of Physics} \textbf{53}, 82 (2023); arXiv:2302.10778.
+
+{[}29{]} J. A. Barandes, ``The Stochastic-Quantum Theorem,''
+arXiv:2309.03085 (2023).
 
 \end{document}

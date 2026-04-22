@@ -15,7 +15,11 @@ Applied to the cosmological horizon as a causal partition, the embedded-observat
 
 ## 1. Introduction
 
-The cosmological observables that most resist explanation within standard physics — the value of $\hbar$, the Bekenstein-Hawking area law, the $10^{122}$ cosmological constant problem, the accelerated expansion, the ~95% dark sector, and the MOND-like behavior of galactic rotation curves — are treated here as consequences of a single structural fact: the cosmological horizon partitions the degrees of freedom of any sub-$c$ observer into a visible sector and a causally inaccessible hidden sector. A companion paper [Main] establishes that an observer embedded in a deterministic system whose hidden sector is coupled, slow, and high-capacity necessarily describes the visible sector using quantum mechanics, and that these conditions are necessary as well as sufficient. The cosmological horizon satisfies all three conditions: causal coupling via the Einstein constraint equations, a slow-bath timescale of order the Hubble time $\tau_B \sim 10^{17}$ s, and a hidden-sector capacity of order $S_{\text{dS}} \sim 10^{122}$ modes. We apply the framework to this case and derive its consequences for gravitation and cosmology.
+The cosmological observables that most resist explanation within standard physics — the value of $\hbar$, the Bekenstein-Hawking area law, the $10^{122}$ cosmological constant problem, the accelerated expansion, the ~95% dark sector, and the MOND-like behavior of galactic rotation curves — are treated here as consequences of a single structural fact: the cosmological horizon partitions the degrees of freedom of any sub-$c$ observer into a visible sector and a causally inaccessible hidden sector.
+
+**Prerequisites.** This paper takes as established the following results from a companion work [Main]: (i) an observer embedded in a deterministic bijection on a finite configuration space, coupled to a hidden sector that is non-trivial (C1), slow (C2: $\tau_S \ll \tau_B$), and high-capacity (C3: $N_H \gg N_V$), necessarily describes the visible sector using unitarily evolving quantum mechanics, and C1–C3 are necessary as well as sufficient (conditional on the eigenstate thermalization hypothesis for the C2 $\Leftarrow$ direction); (ii) the emergent description is uniquely determined by the partition, with any parameters of the emergent theory depending only on the partition boundary's geometric and thermodynamic properties (partition-relativity); (iii) the emergent transition probabilities $T_{ij}(t)$ uniquely determine the emergent Hamiltonian up to a diagonal-unitary D-gauge, via the phase-locking lemma applied to continuous-time sampling. The technical bridge from P-indivisible classical stochastic processes on finite configuration spaces to unitary quantum evolution on finite Hilbert spaces is Barandes' stochastic-quantum correspondence [35, 36], used as the companion paper's primary tool. We treat these results as inputs and apply them to the cosmological horizon. The cosmological horizon satisfies all three structural conditions: causal coupling via the Einstein constraint equations (C1), a slow-bath timescale of order the Hubble time $\tau_B \sim 10^{17}$ s (C2), and a hidden-sector capacity of order $S_{\text{dS}} \sim 10^{122}$ modes (C3). The ETH condition for C2 necessity holds for the horizon complement (a generic chaotic many-body system), so the full equivalence applies in our universe.
+
+The present paper reproves none of [Main]'s foundational results. Where a theorem below invokes a specific input — partition-relativity (§3.1), the emergent-description determination by transition probabilities (§3.2–§3.3), or the P-indivisibility/recurrence argument (§3.2 deep-sector lemma; §8 theorem requirements) — the invocation is stated as a known result and the reader is directed to [Main] for the proof.
 
 The results are as follows. The emergent action scale $\hbar = c^3 \epsilon^2 / (4G)$ is determined by thermal self-consistency between the classical horizon temperature (computed from the Jacobson thermodynamic argument with no quantum input) and the Euclidean KMS period of the emergent QFT on the same horizon (§3). The discreteness scale $\epsilon = 2\,l_p$ is then fixed as the unique simultaneous solution of the action-scale relation and the definition of the Planck length (§4). The Bekenstein-Hawking entropy follows directly by mode counting, with the $1/4$ coefficient derived rather than assumed as the ratio $2\pi/8\pi$ between the Euclidean KMS period and the Jacobson prefactor (§5); the recent LIGO/Virgo/KAGRA observation GW250114 confirms the area law at $99.999\%$ confidence. The cosmological constant problem is dissolved by identifying the emergent quantum vacuum energy of order $M_{\text{Pl}}^4$ and the effective cosmological constant of order $H^2/G$ as properties of logically distinct objects rather than commensurable quantities whose $10^{122}$ ratio requires cancellation (§6).
 
@@ -63,7 +67,7 @@ For de Sitter ($\kappa = cH$): $k_B T_{\text{cl}} = c^3 \epsilon^2 H / (8\pi G)$
 
 ### 3.2 The emergent action scale
 
-**Step 1: Uniqueness.** By partition-relativity ([Main, §1.4]), $\hbar$ is derived, not free.
+**Step 1: Uniqueness.** By partition-relativity (Prerequisites), $\hbar$ is derived, not free.
 
 **Step 2: $\hbar$ is structural, not volumetric.**
 
@@ -89,7 +93,7 @@ where $\varphi_t^{VB}$ is the flow restricted to $V \times B$ with $D$ frozen. T
 
 $$T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|} \sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]}_{T^{(B)}_{ij}(t)} + \mathcal{O}(t/\tau_B) \qquad \square$$
 
-The correction is $\mathcal{O}(t/\tau_B) \sim 10^{-32}$ for laboratory processes. Since $T_{ij}(t)$ determines the emergent quantum description ([Main, §3.1]), and $T^{(B)}_{ij}(t)$ depends only on the $V$-$B$ dynamics — which are characterized by the boundary geometry ($A$, $\epsilon$, $\kappa$) and the constants $c$, $G$ appearing in the classical Hamiltonian — the emergent action scale $\hbar$ inherits boundary-only dependence.
+The correction is $\mathcal{O}(t/\tau_B) \sim 10^{-32}$ for laboratory processes. Since $T_{ij}(t)$ determines the emergent quantum description (Prerequisites; Barandes correspondence [35, 36]), and $T^{(B)}_{ij}(t)$ depends only on the $V$-$B$ dynamics — which are characterized by the boundary geometry ($A$, $\epsilon$, $\kappa$) and the constants $c$, $G$ appearing in the classical Hamiltonian — the emergent action scale $\hbar$ inherits boundary-only dependence.
 
 **Corollary (deep-sector cardinality is gauge).** *No observable of the emergent description — no transition probability, emergent Hamiltonian eigenvalue, or scattering amplitude — depends on the cardinality $|\mathcal{C}_D|$ of the deep hidden sector. Systems with the same $\mathcal{C}_V \times \mathcal{C}_B$ dynamics produce the same emergent physics to within $\mathcal{O}(\tau_S/\tau_B)$, whether $|\mathcal{C}_D|$ is finite, countably infinite, or uncountably infinite.*
 
@@ -119,7 +123,7 @@ Jacobson's original derivation [1] uses $\hbar$-containing forms; this paper doe
 
 ### 3.3 Gauge-fixing and the dimensional obstruction
 
-Steps 1–2 establish that $\hbar$ depends only on boundary quantities; Step 4 will fix its value via thermal matching. A prior question must be addressed: does the transition-probability data $\{T_{ij}(t)\}$ determine the emergent Hamiltonian uniquely, or does residual gauge freedom leave $\hbar$ underdetermined? The following theorem, completing the phase-locking argument of [Main, §3.1], shows the gauge freedom is physically trivial.
+Steps 1–2 establish that $\hbar$ depends only on boundary quantities; Step 4 will fix its value via thermal matching. A prior question must be addressed: does the transition-probability data $\{T_{ij}(t)\}$ determine the emergent Hamiltonian uniquely, or does residual gauge freedom leave $\hbar$ underdetermined? The following theorem, completing the phase-locking argument (Prerequisites), shows the gauge freedom is physically trivial.
 
 **Theorem (D-gauge completeness).** *Let $U(t) = e^{-iHt}$ with non-degenerate eigenvalues and non-vanishing configuration-basis overlaps. If $|U'_{ij}(t)|^2 = |U_{ij}(t)|^2$ for all $i, j, t$, then $H' = DHD^\dagger$ for a time-independent diagonal unitary $D$.*
 
@@ -720,3 +724,9 @@ The entropy of the radiation at the Page time is $S_{\text{rad}}(t_P) = n_B(0) \
 [33] I. L. Shapiro and J. Solà, "Scaling behavior of the cosmological constant: interface between quantum field theory and cosmology," *JHEP* **02**, 006 (2002); arXiv:hep-th/0012227.
 
 [34] C. Moreno-Pulido and J. Solà Peracaula, "Running vacuum in QFT in FLRW spacetime: the dynamics of ρ_vac(H) from the quantized matter fields," *Eur. Phys. J. C* **83**, 637 (2023); arXiv:2302.04807.
+
+
+[35] J. A. Barandes, "The Stochastic-Quantum Correspondence," *Foundations of Physics* **53**, 82 (2023); arXiv:2302.10778.
+
+
+[36] J. A. Barandes, "The Stochastic-Quantum Theorem," arXiv:2309.03085 (2023).
