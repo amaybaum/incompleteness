@@ -507,6 +507,34 @@ hidden-sector degrees of freedom absorbed into the Liouville
 marginalization. The resulting process lives on the discrete
 configuration space of Lemma 1.
 
+\textbf{Continuous spectra and the finite-substratum commitment.} Lemma
+1 fixes the visible configuration space as finite, and the Barandes
+correspondence as applied here produces an emergent Hilbert space of
+finite dimension. Standard quantum mechanics makes heavy use of
+continuous-spectrum observables --- position on \(\mathbb{R}^3\),
+momentum, continuous-spectrum scattering --- which strictly require
+infinite-dimensional Hilbert spaces and unbounded self-adjoint
+operators. The framework's position on this is that continuous spectra
+are the infrared limit of the discrete spectrum produced by Lemma 1, not
+a deeper reality that the framework fails to capture. The quantitative
+separation is extreme: for a visible sector bounded by the cosmological
+horizon with discreteness scale \(\epsilon = 2 l_p\), the number of
+distinguishable positions is
+\(|\mathcal{C}_V| \sim (L_H/\epsilon)^3 \sim 10^{183}\), and the
+holographic bound on emergent Hilbert-space dimension is
+\(e^{S_{\text{dS}}} = e^{10^{122}}\). The discretization error
+separating this finite-dimensional structure from a continuum
+approximation is
+\(\lesssim 1/\sqrt{\dim \mathcal{H}} \sim e^{-10^{121}}\) per eigenvalue
+--- operationally zero at any accessible resolution. Deviations from
+continuum QM at scale \(E\) share the \((E/M_{\text{Pl}})^2\) scaling
+that controls Lorentz-invariance violation (Substratum §6.4) and
+trans-Planckian corrections (SM §8.3); no independent
+continuous-spectrum prediction is needed or claimed. Calvo {[}13{]}
+extends the Barandes correspondence to countable-infinite dimensions for
+completeness, but the finite-dim correspondence is the load-bearing one
+for the framework --- every result in §2--§3 runs on Lemma 1 directly.
+
 Three features emerge. The Schrödinger equation arises from the
 differentiability of \(U(t)\). The Born rule is the equilibrium
 distribution of the indivisible process {[}11, 12{]}. The action scale
@@ -1007,13 +1035,66 @@ opening or closing the second slit changes the boundary conditions of
 the transition matrix, altering the distribution of detection events. A
 which-path detector at one slit couples the trajectory to additional
 visible-sector degrees of freedom, changing the transition matrix and
-eliminating the interference terms. In Wigner's friend, the Friend has a
-definite outcome; Wigner's superposition reflects his epistemic deficit.
-The Everettian measure problem dissolves: the system evolves as a single
-reality; ``branches'' are features of the compressed description. The
-Born rule, often treated as an independent postulate, is derived: it is
-the equilibrium distribution of the indivisible stochastic process
-(§3.1), not an additional assumption.
+eliminating the interference terms. The Everettian measure problem
+dissolves: the system evolves as a single reality; ``branches'' are
+features of the compressed description. The Born rule, often treated as
+an independent postulate, is derived: it is the equilibrium distribution
+of the indivisible stochastic process (§3.1), not an additional
+assumption.
+
+\textbf{Observer covariance and nested observers.} The framework treats
+the observer partition \(V \subsetneq S\) as a choice, not an absolute.
+Different partitions correspond to different observers; each partition
+satisfying the characterization conditions produces its own
+C1--C3-quantum description of the remaining degrees of freedom. This is
+not a multiplicity of incompatible physics --- it is a covariance
+property of the framework under observer-partition choice, which
+resolves the standard nested-observer paradoxes.
+
+Consider the Wigner's-friend setup: two disjoint partitions
+\(V_W, V_F \subset S\) (Wigner and Friend) with
+\(V_W \cup V_F \subsetneq S\), and shared external hidden sector
+\(H = S \setminus (V_W \cup V_F)\). The framework assigns three
+descriptions, all derived from the same \(\varphi\) by the same
+trace-out procedure:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Friend's description.} Trace over
+  \(S \setminus V_F = V_W \cup H\). Under C1--C3 applied to
+  \((V_F, S \setminus V_F)\), Friend's reduced description is
+  quantum-mechanical. Friend observes definite outcomes in her visible
+  sector, including any system she measures.
+\item
+  \textbf{Wigner's description.} Trace over
+  \(S \setminus V_W = V_F \cup H\). Friend is part of Wigner's hidden
+  sector. Under C1--C3 applied to \((V_W, S \setminus V_W)\), Wigner's
+  reduced description is also quantum-mechanical. Wigner does not see a
+  definite Friend-outcome within his own description --- Friend's state
+  is traced out.
+\item
+  \textbf{Joint description.} The marginal transition matrix
+  \(T_{WF}(\alpha, \beta \to \alpha', \beta') = |\{h \in H : \pi_{V_W \cup V_F}(\varphi(\alpha, \beta, h)) = (\alpha', \beta')\}|/|H|\)
+  exists and is unique given \(\varphi\). Its marginals reproduce
+  Wigner's \(T_W\) and Friend's \(T_F\) respectively.
+\end{itemize}
+
+The three descriptions are simultaneous rather than competing. Friend's
+claim that she has a definite outcome, and Wigner's description of
+Friend as a traced-out subsystem, are statements in different reduced
+descriptions, not conflicting claims about the substratum state. At the
+substratum level, Friend, Wigner, and the system all have definite
+configurations; neither Friend nor Wigner has epistemic access to the
+complete state, and this epistemic limitation produces their respective
+quantum descriptions through the same mechanism in §2--§3. The apparent
+``paradox'' dissolves into a covariance property: observer identity is
+partition-gauge, not absolute, and framework predictions are covariant
+under choice of observer partition. No-go theorems assuming a single
+universal quantum description (such as Frauchiger--Renner) do not apply,
+because the framework provides multiple simultaneous reduced
+descriptions, each internally consistent with respect to its own
+partition, with all derived from the same deterministic substratum.
 
 \hypertarget{scope}{%
 \subsubsection{4.2 Scope}\label{scope}}
