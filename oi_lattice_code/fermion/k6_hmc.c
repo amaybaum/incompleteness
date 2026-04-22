@@ -7,7 +7,9 @@
  *   Phase 3: Production runs scanning mass
  *
  * Compile: gcc -O3 -fopenmp -o k6_hmc k6_hmc_v2.c -lm
- * Usage:   ./k6_hmc [L] [mass] [N_traj] [N_therm] [outfile]
+ * Usage:   ./k6_hmc [L] [mass] [N_traj] [N_therm] [outfile] [nstep] [tau]
+ *          Defaults: L=6 mass=0.10 N_traj=50 N_therm=10 outfile=hmc_out.dat
+ *                    nstep=1 tau=0.005 (production values: ~58% acc at L=6)
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,8 +37,41 @@ static Cx cxconj(Cx a){return cx(a.re,-a.im);}
 static Cx cxscl(Cx a,double s){return cx(a.re*s,a.im*s);}
 static double cxabs2(Cx a){return a.re*a.re+a.im*a.im;}
 
-static unsigned int rng_seed;
-static double drand01(void){rng_seed=rng_seed*1103515245u+12345u;return(double)(rng_seed>>1)/((double)(1u<<31));}
+/* xoshiro256++ PRNG — production-quality replacement for the LCG.
+ * Period 2^256 - 1, passes BigCrush, 1.36ns per output.
+ * Reference: https://prng.di.unimi.it/
+ * State seeded via SplitMix64 from a single 64-bit seed. */
+#include <stdint.h>
+static uint64_t rng_state[4];
+
+static inline uint64_t rotl64(uint64_t x, int k) { return (x << k) | (x >> (64 - k)); }
+static uint64_t rng_next(void) {
+    const uint64_t result = rotl64(rng_state[0] + rng_state[3], 23) + rng_state[0];
+    const uint64_t t = rng_state[1] << 17;
+    rng_state[2] ^= rng_state[0];
+    rng_state[3] ^= rng_state[1];
+    rng_state[1] ^= rng_state[2];
+    rng_state[0] ^= rng_state[3];
+    rng_state[2] ^= t;
+    rng_state[3] = rotl64(rng_state[3], 45);
+    return result;
+}
+static void rng_seed(uint64_t seed) {
+    /* SplitMix64 to spread a single seed into the 4-word xoshiro state */
+    for (int i = 0; i < 4; i++) {
+        seed += 0x9E3779B97F4A7C15ULL;
+        uint64_t z = seed;
+        z = (z ^ (z >> 30)) * 0xBF58476D1CE4E5B9ULL;
+        z = (z ^ (z >> 27)) * 0x94D049BB133111EBULL;
+        rng_state[i] = z ^ (z >> 31);
+    }
+    /* Discard a few outputs to avoid any low-bit correlation from the seed */
+    for (int i = 0; i < 16; i++) rng_next();
+}
+static double drand01(void) {
+    /* 53-bit double in [0, 1). Standard technique: take top 53 bits, divide by 2^53 */
+    return (rng_next() >> 11) * (1.0 / 9007199254740992.0);
+}
 static double gauss01(void){double u=drand01(),v=drand01();while(u<1e-15)u=drand01();return sqrt(-2*log(u))*cos(2*M_PI*v);}
 
 static int L,VOL;
@@ -481,10 +516,16 @@ int main(int argc,char **argv){
     int Ntraj=(argc>3)?atoi(argv[3]):50;
     int Nthm=(argc>4)?atoi(argv[4]):10;
     const char *outf=(argc>5)?argv[5]:"hmc_out.dat";
-    int nstep=1; double tau=0.008;
+    /* Integrator: nstep leapfrog substeps of length tau, total trajectory length = nstep*tau.
+     * Defaults (nstep=1, tau=0.005) are the production values used for the L=32 Z_S mass scan
+     * in SM §7.5, giving ~58% acceptance at L=6. Override via CLI args 6 and 7 if needed:
+     * at larger L or smaller mass, reducing tau (or increasing nstep at fixed nstep*tau) may
+     * be required to keep acceptance above ~50%. */
+    int nstep=(argc>6)?atoi(argv[6]):1;
+    double tau=(argc>7)?atof(argv[7]):0.005;
     VOL=L*L*L;
     double b3=11.1,b2=7.4,b1=3.7;
-    rng_seed=(unsigned int)time(NULL);
+    rng_seed((uint64_t)time(NULL));
     time_t T0=time(NULL);char tb[64];
 
     /* Allocate */

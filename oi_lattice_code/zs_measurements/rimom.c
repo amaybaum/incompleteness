@@ -219,19 +219,16 @@ int main(int argc, char **argv) {
     printf("\n================================================================\n");
     printf("Z_S(mu) vs momentum scale (L=%d, %d configs)\n", L, ncfg);
     printf("================================================================\n");
-    printf("  %6s %6s %8s %8s %10s\n", "|p|^2", "n_mom", "S_int/S0", "Z_S", "4.08/Z_S");
+    printf("  %6s %6s %8s %8s %10s\n", "|p|^2", "n_mom", "S_int/S0", "Z_S", "4.28*ratio");
     
     for(int b=0; b<nbins && b<=3*L; b++) {
         if(ratio_count[b] > 0) {
             double avg_ratio = ratio_sum[b] / ratio_count[b];
-            double ZS = 1.0 / avg_ratio;  /* Z_S = S_free/S_int */
-            /* Wait: if S_int < S_free (mass suppressed), ratio < 1, Z_S > 1 */
-            /* Z_S as defined for the Yukawa: Z_S = <pbp>_int/<pbp>_free */
-            /* In momentum space: <pbp> = (1/V) sum_p S(p) */
-            /* So Z_S(condensate) = sum_p S_int(p) / sum_p S_free(p) */
-            /* But Z_S at specific p: Z_S(p) = S_int(p)/S_free(p) */
-            /* For matching: Yukawa ~ 1/Z_S, so m_b/m_tau = 4.08 * avg_ratio */
-            double pred = 4.08 * avg_ratio;
+            double ZS = 1.0 / avg_ratio;          /* Z_S = S_free/S_int */
+            /* m_b/m_tau = R_SM / Z_S, where R_SM = 4.28 is the 2-loop RGE factor
+             * from M_Pl to M_Z for the SM (SM.md §7.5, line 844).
+             * Since avg_ratio = S_int/S_free = 1/Z_S, 4.28 * avg_ratio = 4.28/Z_S. */
+            double pred = 4.28 * avg_ratio;
             double phat = sqrt(b) * 2*M_PI/L;
             if(b <= 12) {
                 printf("  %6d %6d %8.4f %8.4f %10.3f\n",
@@ -240,21 +237,24 @@ int main(int argc, char **argv) {
         }
     }
     
-    /* Also compute the all-momenta condensate ratio for comparison */
-    double pbp_int=0, pbp_free=0;
-    for(int b=0;b<nbins;b++) {
+    /* All-momenta Z_S as a single number for comparison to k6_hmc.c's condensate.
+     * Note: the RI-MOM cross-check is most useful at SPECIFIC |p|^2 bins
+     * (especially |p|^2=5 at L=16 — see past session data), not the
+     * all-momenta average, which includes BZ corners where staggered taste-
+     * breaking makes the ratio scheme-dependent. */
+    double avg_ratio_all = 0; int nb_used = 0;
+    for(int b=1; b<nbins; b++) {  /* skip b=0 (zero mode) */
         if(ratio_count[b]>0 && bin_count[b]>0) {
-            pbp_int += (ratio_sum[b]/ratio_count[b]) * (free_bin[b]/bin_count[b]) * bin_count[b];
-            pbp_free += (free_bin[b]/bin_count[b]) * bin_count[b];
+            avg_ratio_all += ratio_sum[b]/ratio_count[b];
+            nb_used++;
         }
     }
-    double ZS_all = pbp_int / pbp_free;
-    printf("\n  All-momenta condensate: Z_S = %.4f → 4.08/Z_S = %.3f\n",
-           1.0/ZS_all, 4.08/ZS_all*ZS_all);
-    /* Hmm, this is confusing. Let me just print the ratio */
-    printf("  All-momenta S_int/S_free = %.4f → m_b/m_tau = %.3f\n",
-           ZS_all, 4.08/( 1.0/ZS_all));
+    if(nb_used>0) avg_ratio_all /= nb_used;
+    double ZS_all = (avg_ratio_all>0) ? 1.0/avg_ratio_all : 0;
+    printf("\n  All-|p| average ratio S_int/S_free = %.4f  →  Z_S = %.3f  →  m_b/m_tau = %.3f\n",
+           avg_ratio_all, ZS_all, 4.28 * avg_ratio_all);
     printf("  Observed: 2.352\n");
+    printf("  Note: this cross-check is most diagnostic at |p|^2=5 (24 momenta, away from zero and BZ corner).\n");
     
     free(U);free(Sp0_re);free(Sp0_im);free(Sp_re);free(Sp_im);
     free(free_bin);free(bin_count);free(ratio_sum);free(ratio_count);

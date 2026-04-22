@@ -187,19 +187,19 @@ int main(int argc, char **argv) {
             double t1_avg = ZS_sum[1]/(c+1);
             double t1_err = (c>0) ? sqrt((ZS_sum2[1]/(c+1) - t1_avg*t1_avg)/c) : 0;
             printf("  Cfg %3d: T1=%.4f  <T1>=%.4f±%.4f  → m_b/m_τ=%.3f±%.3f\n",
-                   c+1, ZS[1], t1_avg, t1_err, 4.08*t1_avg, 4.08*t1_err);
+                   c+1, ZS[1], t1_avg, t1_err, 4.28*t1_avg, 4.28*t1_err);
         }
     }
     
     printf("\n================================================================\n");
     printf("RESULTS (L=%d, m=%.3f, %d configs, %d sep)\n", L, mass, ncfg, nsep);
     printf("================================================================\n");
-    printf("  %-12s  S_int/S_free    err      4.08*ratio    err\n", "Taste");
+    printf("  %-12s  S_int/S_free    err      4.28*ratio    err\n", "Taste");
     for(int t=0;t<5;t++) {
         double avg = ZS_sum[t]/ncfg;
         double err = (ncfg>1) ? sqrt((ZS_sum2[t]/ncfg - avg*avg)/(ncfg-1)) : 0;
         printf("  %-12s  %.4f       ±%.4f    %.3f       ±%.3f\n",
-               labels[t], avg, err, 4.08*avg, 4.08*err);
+               labels[t], avg, err, 4.28*avg, 4.28*err);
     }
     printf("  Observed:                              2.352\n");
     printf("\n  Key: T1 is where the 3 physical generations live.\n");

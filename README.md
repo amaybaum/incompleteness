@@ -171,8 +171,7 @@ oi_lattice_code/
 │   ├── oi_su2_hmc.c                SU(2) OI-induced gauge HMC
 │   ├── oi_u1_hmc.c                 Compact U(1) OI-induced HMC
 │   ├── oi_sm_hmc.c                 Full SU(3)×SU(2)×U(1) OI-induced HMC
-│   ├── two_loop_vp.c               Two-loop staggered vacuum polarization
-│   └── two_loop_vp.py              Python integration helper
+│   └── two_loop_vp.py              Two-loop staggered VP (SE+VC, sails, Π_s(p) correction)
 ├── fermion/
 │   └── k6_hmc.c                    K=6 dynamical staggered HMC; the Z_S(m) workhorse
 ├── effective_potential/            Higgs / Coleman-Weinberg variants
@@ -185,9 +184,15 @@ oi_lattice_code/
 │   ├── taste_irrep.c               Z_S decomposed by O(3) irrep (A₁/T₁/T₂/A₂)
 │   └── ward_chiral.c               L/R sublattice parity (Ward identity)
 └── scripts/                        Run drivers and Python analysis
+    ├── analyze_zs.py               Extract Z_S(m) from k6_hmc output; cubic interpolation
+    ├── zs_crosscheck.py            Unified driver for the three Z_S cross-check schemes
+    ├── run_cep_scan.sh             Drive CEP h-scan across Higgs background values
+    ├── run_higgs_scan.sh           Drive dynamical-Higgs κ-scan
+    ├── analyze_cep.py              Analyze CEP h-scan output
+    └── analyze_higgs.py            Analyze dynamical-Higgs κ-scan output
 ```
 
-**What each piece does.** `gauge/` contains the perturbative two-loop staggered vacuum-polarization computation ($\text{two\_loop\_vp.c}$) used for the $\delta_0$ threshold in §6.2, plus a pure-gauge Wilson plaquette utility ($\text{metropolis\_plaquette.c}$) retained as a non-perturbative cross-check of the gauge sector dynamics. The $\text{oi\_*\_hmc.c}$ files are exploratory OI-induced gauge HMC for SU(3), SU(2), U(1), and the full SM product group; these are development/diagnostic code and are *not* inputs to any published number — see SM §6.5 for why the Haar-measure OI-induced theory confines and cannot be used directly for the gauge coupling derivation. `fermion/k6_hmc.c` is the dynamical staggered fermion HMC used to compute $Z_S(m)$ on SU(3) backgrounds at $\beta_3 = 11.1$ across 30 mass points and three volumes; the published $Z_S(0.122) = 1.813 \pm 0.001$ is the cubic interpolant of the $L = 32$ ensemble. `effective_potential/` contains four genuinely different attacks on the Higgs / electroweak-scale problem (sector-decomposed CW, constraint effective potential, taste-decomposed CW, dynamical Higgs doublet). `zs_measurements/` contains three independent Z_S extraction schemes used as cross-checks.
+**What each piece does.** `gauge/` contains the perturbative two-loop staggered vacuum-polarization computation (`two_loop_vp.py`) used for the $\delta_0$ threshold in §6.2, plus a pure-gauge Wilson plaquette utility (`metropolis_plaquette.c`) retained as a non-perturbative cross-check of the gauge sector dynamics. The Python version implements SE+VC (via a Ward-identity 3× approximation — individual diagrams are IR-divergent, only their Ward-combined sum is finite), computes the sails diagram directly (N-independent to 5 digits across N=6,8,10,12), and includes a ×1.12 analytical estimate for the momentum-dependent $\Pi_s(p)$ correction; assembled result δ₀^(2L) = 8.0 ± 2 matches the SM §6.2 audit trail. A direct computation of the $\Pi_s(p)$ correction at finite fermion mass is obstructed by the same 16 staggered zero modes that dominate the existing ratio — a proper implementation requires regulator-matching across topologies, an open technical item. The $\text{oi\_*\_hmc.c}$ files are exploratory OI-induced gauge HMC for SU(3), SU(2), U(1), and the full SM product group; these are development/diagnostic code and are *not* inputs to any published number — see SM §6.5 for why the Haar-measure OI-induced theory confines and cannot be used directly for the gauge coupling derivation. `fermion/k6_hmc.c` is the dynamical staggered fermion HMC used to compute $Z_S(m)$ on SU(3) backgrounds at $\beta_3 = 11.1$ across 30 mass points and three volumes; the published $Z_S(0.122) = 1.813 \pm 0.001$ is the cubic interpolant of the $L = 32$ ensemble, extracted via `scripts/analyze_zs.py`. `effective_potential/` contains four genuinely different attacks on the Higgs / electroweak-scale problem (sector-decomposed CW, constraint effective potential, taste-decomposed CW, dynamical Higgs doublet). `zs_measurements/` contains three independent Z_S extraction schemes used as cross-checks; `scripts/zs_crosscheck.py` runs them at matched $(L, m, \beta)$ and reports cross-scheme scatter as a systematic-error indicator.
 
 **Build.** All C files are single-file with no external dependencies beyond a C99 compiler with libm and (for some files) OpenMP. Each file's header documents its compile line and command-line usage.
 
@@ -205,17 +210,35 @@ On macOS with libomp via homebrew, replace `-fopenmp` with `-Xpreprocessor -fope
 ```
 Each run takes ~1 minute on a single core. The utility was validated against literature reference values at SU(2) β=2.3 (gives 0.609 vs lit ≈ 0.605), SU(2) β=20 (0.962 vs ≈ 0.96), SU(3) β=5.7 (0.560 vs ≈ 0.55), and SU(3) β=6.0 (0.596 vs ≈ 0.594). The §6.2 gauge coupling derivation does not depend on these plaquette values — they are retained as non-perturbative cross-checks of the pure-gauge sector dynamics.
 
+**Quick-start: reproducing $\delta_0^{(2L)} = 8.0 \pm 2$ (§6.2 audit trail).**
+```bash
+python3 oi_lattice_code/gauge/two_loop_vp.py
+```
+Runs in a few minutes, outputting δ₀(SE+VC via Ward 3×) grid convergence, the computed sails contribution, and the Π_s(p) correction estimate. Assembled result matches the SM §6.2 audit trail.
+
 **Quick-start: reproducing $Z_S(0.122) = 1.813$.**
 ```bash
+# HMC at the target mass (single point) — defaults: nstep=1, tau=0.005, ~58% acceptance at L=6
 ./k6_hmc 32 0.122 50 200 zs_L32_m0p122.dat
+# Full mass scan + cubic interpolation
+for m in 0.005 0.010 0.020 0.050 0.080 0.100 0.122 0.150 0.200 0.300 0.500; do
+    ./k6_hmc 32 $m 50 200 "zs_L32_m$(printf '%04d' $(echo "$m*1000" | bc | cut -d. -f1)).dat"
+done
+python3 oi_lattice_code/scripts/analyze_zs.py -L 32 -m 0.122 zs_L32_m*.dat
 ```
-The full mass scan that produces the cubic interpolation reported in §7.5 requires running the same command across the 30 mass points from $m = 0.005$ to $0.50$, then fitting a cubic in the volume-converged region ($mL \gtrsim 3$).
+`analyze_zs.py` computes the free-theory $\langle\bar\psi\psi\rangle$ analytically with matched regulator, divides to get $Z_S(m)$, and cubic-interpolates to the target mass in the volume-converged region ($mL \gtrsim 3$). Integrator parameters `nstep` and `tau` can be overridden as CLI arguments 6 and 7: at larger $L$ or smaller $m$, reducing `tau` (or increasing `nstep` at fixed `nstep*tau`) may be needed to keep acceptance above ~50%.
+
+**Quick-start: Z_S cross-check across three independent schemes.**
+```bash
+python3 oi_lattice_code/scripts/zs_crosscheck.py --run -L 16 -m 0.20 -ncfg 50 -nthm 100 -beta 11.1
+```
+Runs `rimom.c`, `taste_irrep.c`, and `ward_chiral.c` at the same (L, m, β) and reports Z_S in the diagnostic channel of each (rimom at |p|²=5, taste_irrep T₁, ward_chiral L-sector), plus cross-scheme scatter as a systematic-error indicator.
 
 **Status — read this before running.**
 
-1. **Open computational task: first-principles $(A, B)$ derivation.** The $C_2$-dependent threshold in §6.2 is parameterized by the log form $A \cdot \ln(1 + B \cdot C_2 g_0^2)$ with $(A, B) = (8.3, 5.59)$. In the current formulation, these parameters are determined by matching to the observed SU(2) and SU(3) couplings at $M_Z$ (given the structurally computed $1/\alpha_0 = 23.25$ and the empirically fixed $\delta_0 = 10.02$ from the U(1) row). Deriving $(A, B)$ directly from a two-loop lattice PT computation of the $C_2$-dependent threshold in the induced gauge theory — with proper IR subtraction and renormalization — would upgrade the SU(2) and SU(3) entries from retrodictions to strict first-principles predictions. `two_loop_vp.c` reproduces the $\delta_0$ contribution but does not currently compute the $C_2$-dependent piece.
+1. **Open computational task: first-principles $(A, B)$ derivation.** The $C_2$-dependent threshold in §6.2 is parameterized by the log form $A \cdot \ln(1 + B \cdot C_2 g_0^2)$ with $(A, B) = (8.3, 5.59)$. In the current formulation, these parameters are determined by matching to the observed SU(2) and SU(3) couplings at $M_Z$ (given the structurally computed $1/\alpha_0 = 23.25$ and the empirically fixed $\delta_0 = 10.02$ from the U(1) row). Deriving $(A, B)$ directly from a two-loop lattice PT computation of the $C_2$-dependent threshold in the induced gauge theory — with proper IR subtraction and renormalization — would upgrade the SU(2) and SU(3) entries from retrodictions to strict first-principles predictions. `two_loop_vp.py` computes the $C_2$-independent $\delta_0$ contribution but does not currently compute the $C_2$-dependent piece; the proper prerequisite is implementing the induced 3-gluon and 4-gluon vertices as fermion-triangle and fermion-box lattice integrals (see SM §6.3 (iii) and associated audit notes).
 
-2. **The OI-induced confined-phase issue.** As discussed in SM §6.5, running `oi_su3_hmc.c` (or any of the `oi_*_hmc.c` variants) with the Haar measure on the gauge group produces a confined phase $\langle P \rangle \to 0$ — an artifact of using the wrong measure. The actual OI gauge measure is the discrete pushforward of the uniform measure on $(\mathbb{Z}/q\mathbb{Z})^{K \times N}$, not Haar. The perturbative-regime values used for the SM coupling derivation come from the matched two-loop calculation in `two_loop_vp.c`, not from running `oi_*_hmc.c` directly.
+2. **The OI-induced confined-phase issue.** As discussed in SM §6.5, running `oi_su3_hmc.c` (or any of the `oi_*_hmc.c` variants) with the Haar measure on the gauge group produces a confined phase $\langle P \rangle \to 0$ — an artifact of using the wrong measure. The actual OI gauge measure is the discrete pushforward of the uniform measure on $(\mathbb{Z}/q\mathbb{Z})^{K \times N}$, not Haar. The perturbative-regime values used for the SM coupling derivation come from the matched two-loop calculation in `two_loop_vp.py`, not from running `oi_*_hmc.c` directly.
 
 3. **Research-grade defaults.** CG tolerances are 1e-10 to 1e-12 across files. The published $Z_S(0.122) = 1.813 \pm 0.001$ quotes statistical error from the $L = 32$ ensemble; systematic errors from finite volume and finite trajectory length are not exhaustively quantified. No regression test suite is included.
 

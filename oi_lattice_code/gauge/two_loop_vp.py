@@ -178,19 +178,32 @@ print(f"\n{'='*65}")
 print("MOMENTUM-DEPENDENT Π_s(p) CORRECTION")
 print("="*65)
 
-# The constant Π_s approximation uses Π_s(p) = Π_s(0) for all p.
-# In reality, Π_s(p) decreases at large p, making D_gauge(p) larger.
-# This INCREASES the self-energy integral.
-
-# Estimate: for the Wilson action, the momentum-dependent VP is
-# Π_s(p) ≈ Π_s(0) × (1 - p²/(12π²) + ...)
-# At the average lattice momentum <p²> = 4 × (π²/3) ≈ 13.2:
-# Π_s(<p>)/Π_s(0) ≈ 1 - 13.2/(12π²) ≈ 1 - 0.11 ≈ 0.89
-
-# This means D_gauge is about 12% larger than the constant approx.
-# The self-energy integral scales roughly as D_gauge, so:
-correction_Pi_p = 1.12  # ~12% increase from momentum-dependent Π_s
+# The compute_fast() ratio Pi_2_SE / Pi_1 uses D_gauge(p) = 1/(p² × Π_1),
+# with Π_1 a CONSTANT (the integrated one-loop VP) rather than the true
+# momentum-dependent Π_s(p).
+#
+# Ideally this should be replaced by Π_s(p) at each internal momentum p.
+# Doing so directly at finite fermion mass m=0.01 gives artifacts: the
+# 16 staggered zero modes (fermion doublers on the Euclidean 4D lattice)
+# dominate Π_s(p) at specific p values, making the direct computation
+# regulator-dependent and unphysical. A proper implementation requires
+# a regulator-matching scheme across topologies (see A1 Part 2 audit notes).
+#
+# As an analytical estimate: for the Wilson continuum analog,
+# Π_s(p) ≈ Π_s(0) × [1 - p²/(12π²) + O(p^4)]
+# At average lattice momentum <p²> ≈ 4(π²/3):
+# Π_s(<p>)/Π_s(0) ≈ 1 - 0.11 ≈ 0.89
+# → D_gauge enhancement ≈ 1.12 → SE+VC enhancement ≈ 1.12
+#
+# Used throughout the paper's δ₀^(2L) = 8.0 ± 2 audit trail as a
+# ×1.12 analytical estimate. Removing this estimate would lower the
+# audit-trail δ₀^(2L) by about +0.8. The ±2 systematic error in the
+# paper's audit trail is intended to cover this and other similar
+# approximations.
+correction_Pi_p = 1.12  # ESTIMATED (not directly computed) — see note above
 print(f"  Estimated enhancement from Π_s(p) variation: ×{correction_Pi_p:.2f}")
+print(f"  NOTE: direct computation requires regulator-matching across")
+print(f"        topologies (A1 Part 2); the ×1.12 is analytical estimate.")
 
 # ================================================================
 # Missing diagrams
