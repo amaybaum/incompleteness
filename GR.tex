@@ -129,17 +129,42 @@ expansion, the \textasciitilde95\% dark sector, and the MOND-like
 behavior of galactic rotation curves --- are treated here as
 consequences of a single structural fact: the cosmological horizon
 partitions the degrees of freedom of any sub-\(c\) observer into a
-visible sector and a causally inaccessible hidden sector. A companion
-paper {[}Main{]} establishes that an observer embedded in a
-deterministic system whose hidden sector is coupled, slow, and
-high-capacity necessarily describes the visible sector using quantum
-mechanics, and that these conditions are necessary as well as
-sufficient. The cosmological horizon satisfies all three conditions:
-causal coupling via the Einstein constraint equations, a slow-bath
-timescale of order the Hubble time \(\tau_B \sim 10^{17}\) s, and a
-hidden-sector capacity of order \(S_{\text{dS}} \sim 10^{122}\) modes.
-We apply the framework to this case and derive its consequences for
-gravitation and cosmology.
+visible sector and a causally inaccessible hidden sector.
+
+\textbf{Prerequisites.} This paper takes as established the following
+results from a companion work {[}Main{]}: (i) an observer embedded in a
+deterministic bijection on a finite configuration space, coupled to a
+hidden sector that is non-trivial (C1), slow (C2:
+\(\tau_S \ll \tau_B\)), and high-capacity (C3: \(N_H \gg N_V\)),
+necessarily describes the visible sector using unitarily evolving
+quantum mechanics, and C1--C3 are necessary as well as sufficient
+(conditional on the eigenstate thermalization hypothesis for the C2
+\(\Leftarrow\) direction); (ii) the emergent description is uniquely
+determined by the partition, with any parameters of the emergent theory
+depending only on the partition boundary's geometric and thermodynamic
+properties (partition-relativity); (iii) the emergent transition
+probabilities \(T_{ij}(t)\) uniquely determine the emergent Hamiltonian
+up to a diagonal-unitary D-gauge, via the phase-locking lemma applied to
+continuous-time sampling. The technical bridge from P-indivisible
+classical stochastic processes on finite configuration spaces to unitary
+quantum evolution on finite Hilbert spaces is Barandes'
+stochastic-quantum correspondence {[}35, 36{]}, used as the companion
+paper's primary tool. We treat these results as inputs and apply them to
+the cosmological horizon. The cosmological horizon satisfies all three
+structural conditions: causal coupling via the Einstein constraint
+equations (C1), a slow-bath timescale of order the Hubble time
+\(\tau_B \sim 10^{17}\) s (C2), and a hidden-sector capacity of order
+\(S_{\text{dS}} \sim 10^{122}\) modes (C3). The ETH condition for C2
+necessity holds for the horizon complement (a generic chaotic many-body
+system), so the full equivalence applies in our universe.
+
+The present paper reproves none of {[}Main{]}'s foundational results.
+Where a theorem below invokes a specific input --- partition-relativity
+(§3.1), the emergent-description determination by transition
+probabilities (§3.2--§3.3), or the P-indivisibility/recurrence argument
+(§3.2 deep-sector lemma; §8 theorem requirements) --- the invocation is
+stated as a known result and the reader is directed to {[}Main{]} for
+the proof.
 
 The results are as follows. The emergent action scale
 \(\hbar = c^3 \epsilon^2 / (4G)\) is determined by thermal
@@ -306,7 +331,7 @@ appears.
 \subsubsection{3.2 The emergent action
 scale}\label{the-emergent-action-scale}}
 
-\textbf{Step 1: Uniqueness.} By partition-relativity ({[}Main, §1.4{]}),
+\textbf{Step 1: Uniqueness.} By partition-relativity (Prerequisites),
 \(\hbar\) is derived, not free.
 
 \textbf{Step 2: \(\hbar\) is structural, not volumetric.}
@@ -364,11 +389,12 @@ identical terms at leading order:
 
 The correction is \(\mathcal{O}(t/\tau_B) \sim 10^{-32}\) for laboratory
 processes. Since \(T_{ij}(t)\) determines the emergent quantum
-description ({[}Main, §3.1{]}), and \(T^{(B)}_{ij}(t)\) depends only on
-the \(V\)-\(B\) dynamics --- which are characterized by the boundary
-geometry (\(A\), \(\epsilon\), \(\kappa\)) and the constants \(c\),
-\(G\) appearing in the classical Hamiltonian --- the emergent action
-scale \(\hbar\) inherits boundary-only dependence.
+description (Prerequisites; Barandes correspondence {[}35, 36{]}), and
+\(T^{(B)}_{ij}(t)\) depends only on the \(V\)-\(B\) dynamics --- which
+are characterized by the boundary geometry (\(A\), \(\epsilon\),
+\(\kappa\)) and the constants \(c\), \(G\) appearing in the classical
+Hamiltonian --- the emergent action scale \(\hbar\) inherits
+boundary-only dependence.
 
 \textbf{Corollary (deep-sector cardinality is gauge).} \emph{No
 observable of the emergent description --- no transition probability,
@@ -524,8 +550,8 @@ Step 4 will fix its value via thermal matching. A prior question must be
 addressed: does the transition-probability data \(\{T_{ij}(t)\}\)
 determine the emergent Hamiltonian uniquely, or does residual gauge
 freedom leave \(\hbar\) underdetermined? The following theorem,
-completing the phase-locking argument of {[}Main, §3.1{]}, shows the
-gauge freedom is physically trivial.
+completing the phase-locking argument (Prerequisites), shows the gauge
+freedom is physically trivial.
 
 \textbf{Theorem (D-gauge completeness).} \emph{Let \(U(t) = e^{-iHt}\)
 with non-degenerate eigenvalues and non-vanishing configuration-basis
@@ -2419,5 +2445,11 @@ cosmology,'' \emph{JHEP} \textbf{02}, 006 (2002); arXiv:hep-th/0012227.
 in FLRW spacetime: the dynamics of ρ\_vac(H) from the quantized matter
 fields,'' \emph{Eur. Phys. J. C} \textbf{83}, 637 (2023);
 arXiv:2302.04807.
+
+{[}35{]} J. A. Barandes, ``The Stochastic-Quantum Correspondence,''
+\emph{Foundations of Physics} \textbf{53}, 82 (2023); arXiv:2302.10778.
+
+{[}36{]} J. A. Barandes, ``The Stochastic-Quantum Theorem,''
+arXiv:2309.03085 (2023).
 
 \end{document}
