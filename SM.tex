@@ -2112,13 +2112,10 @@ The four components:
   the current formulation, \(A\) and \(B\) are determined by matching to
   the observed SU(2) and SU(3) couplings at \(M_Z\), given the
   structurally computed \(1/\alpha_0\) and the empirically fixed
-  \(\delta_0\). A first-principles derivation of the leading coefficient
-  \(A \cdot B\) from 2-loop lattice perturbation theory in the induced
-  gauge theory (§6.2.1) gives \(A \cdot B = 48.0 \pm 1.5\), consistent
-  with the fitted value \(46.4\) at the \(\sim 3\%\) level. This
-  upgrades the SU(2) and SU(3) entries from retrodictions to
-  first-principles predictions at \(\sim 3\%\) precision. Separating
-  \(A\) from \(B\) individually remains an open task.
+  \(\delta_0\). The leading coefficient \(A \cdot B\) is independently
+  derived from 2-loop lattice perturbation theory in the induced gauge
+  theory (§6.2.1), giving \(A \cdot B = 48.0 \pm 1.5\) against the
+  fitted \(46.4\). Separating \(A\) from \(B\) individually is open.
 \item
   SM RG running: the one-loop \(\beta\)-function coefficients
   \(b_1 = 41/10\), \(b_2 = -19/6\), \(b_3 = -7\) over
@@ -2197,15 +2194,14 @@ Shanks acceleration, level 4 (last term) & \(47.9\) \\
 
 The spread across estimators is \(\sim 2\), dominated by the linear
 \(1/N^2\) fit lying slightly higher than the Shanks family. The Shanks
-iterates (levels 2, 3, 4) are stable at \(47.9\), capturing the
-subleading-\(1/N^2\) corrections that the naive linear fit misses.
-Taking the iterated-Shanks consensus as central and the
-Shanks-vs-\(1/N^2\) spread as uncertainty:
+iterates (levels 2, 3, 4) are stable at \(47.9\), capturing
+subleading-\(1/N^2\) corrections not included in the linear fit. Taking
+the iterated-Shanks consensus as central and the Shanks-vs-\(1/N^2\)
+spread as uncertainty:
 
-\[\boxed{A \cdot B = 48.0 \pm 1.5 \quad (\pm 3\%)}\]
+\[A \cdot B = 48.0 \pm 1.5 \quad (\pm 3\%)\]
 
-against the fitted value \(A \cdot B = 46.4\), agreement at the \(3\%\)
-level.
+against the fitted value \(A \cdot B = 46.4\).
 
 \textbf{Uncertainty budget.}
 
@@ -2254,13 +2250,11 @@ minutes on a single CPU core at \(N \leq 40\). The implementation
 code repository referenced in §8.
 
 \textbf{Open work.} Separating \(A\) from \(B\) individually requires
-computing the next-order coefficient of \((C_2 g_0^2)^2\) in the
-expansion of the gauge self-energy --- a substantial additional
-calculation and a direct test of whether the log-resum functional form
-\(A \ln(1 + B \cdot C_2 g_0^2)\) is quantitatively accurate beyond the
-leading linear term. Including the F\(^3\) subleading piece of the
-induced \(\Gamma_3\) via \(c_{F^3}\) would further reduce the current
-\(\pm 5\%\) systematic uncertainty on \(A \cdot B\).
+the next-order coefficient of \((C_2 g_0^2)^2\) in the expansion of the
+gauge self-energy, which would also test the log-resum functional form
+beyond its leading linear term. Including the F\(^3\) subleading piece
+of the induced \(\Gamma_3\) via \(c_{F^3}\) would reduce the \(\pm 5\%\)
+systematic component of the uncertainty on \(A \cdot B\).
 
 \hypertarget{the-prediction}{%
 \subsubsection{6.3 The prediction}\label{the-prediction}}
@@ -2337,11 +2331,10 @@ from \(1/(1-\Sigma)\) to the logarithm is not derived in the current
 work; the log form should be read as a constrained parameterization
 consistent with the resummation structure, not as a derived result. The
 leading coefficient \(A \cdot B\) (the \((C_2 g_0^2)^1\) term in the
-expansion) has been computed from 2-loop lattice PT in the induced gauge
-theory (§6.2.1), giving \(A \cdot B = 48.0 \pm 1.5\) in agreement with
-the fitted \(46.4\) at the \(3\%\) level. Separating \(A\) from \(B\)
-requires computing the next-order \((C_2 g_0^2)^2\) coefficient and is
-left for future work.
+expansion) is computed from 2-loop lattice PT in the induced gauge
+theory (§6.2.1), giving \(A \cdot B = 48.0 \pm 1.5\) against the fitted
+\(46.4\). Separating \(A\) from \(B\) requires computing the next-order
+\((C_2 g_0^2)^2\) coefficient and is left for future work.
 
 \textbf{(iv) Consistency check with the 2-loop VP.} The U(1) row fixes
 \(\delta_0 = 10.02\) from observation, given (i). The 2-loop staggered
@@ -2362,14 +2355,11 @@ an independent prediction.
 together with the consistency check of (iv). SU(2) and SU(3) use two
 additional fitted parameters (\(A\), \(B\)) against two additional
 observables; their structural content is carried by the universality
-constraint (ii) and the log-form constraint (iii). The SU(2) and SU(3)
-rows, as originally fit, were retrodictions. The product \(A \cdot B\)
-(the leading coefficient in the \(C_2 g_0^2\) expansion) is now computed
-from 2-loop lattice PT in the induced gauge theory (§6.2.1, giving
-\(A \cdot B = 48.0 \pm 1.5\)), agreeing with the fit (\(46.4\)) at the
-\(\sim 3\%\) level. This upgrades the SU(2) and SU(3) entries to
-first-principles predictions at \(\sim 3\%\) precision. Separating \(A\)
-from \(B\) individually remains open.
+constraint (ii) and the log-form constraint (iii). The product
+\(A \cdot B\) (the leading coefficient in the \(C_2 g_0^2\) expansion)
+is independently derived in §6.2.1 from 2-loop lattice PT in the induced
+gauge theory, giving \(A \cdot B = 48.0 \pm 1.5\) against the fit
+\(46.4\). Separating \(A\) from \(B\) individually is open.
 
 \hypertarget{what-is-structural-and-what-is-solution-specific}{%
 \subsubsection{6.4 What is structural and what is
@@ -2454,14 +2444,13 @@ consistent with the 2-loop VP computation \(8.0 \pm 2\) plus natural
 three-loop corrections), and the \(C_2\)-dependent threshold parameters
 \((A, B) = (8.3, 5.59)\) (matched to the observed SU(2) and SU(3)
 couplings at \(M_Z\), with the product \(A \cdot B = 46.4\)
-independently computed from first principles at
-\(A \cdot B = 48.0 \pm 1.5\); see §6.2.1). The structural predictions in
-this sector are: (i) the specific value \(1/\alpha_0 = 23.25\), (ii) the
-universality of \(\delta_0\) across gauge groups, (iii) the consistency
-of the 2-loop VP computation with the empirically determined
-\(\delta_0\), and (iv) the first-principles determination of
-\(A \cdot B\) agreeing with the fitted value at the \(\sim 3\%\) level.
-Separating \(A\) from \(B\) individually remains an open task.
+independently derived at \(A \cdot B = 48.0 \pm 1.5\); see §6.2.1). The
+structural predictions in this sector are: (i) the specific value
+\(1/\alpha_0 = 23.25\), (ii) the universality of \(\delta_0\) across
+gauge groups, (iii) the consistency of the 2-loop VP computation with
+the empirically determined \(\delta_0\), and (iv) the independent
+derivation of \(A \cdot B\) agreeing with the fitted value to
+\(\sim 3\%\). Separating \(A\) from \(B\) individually is open.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
