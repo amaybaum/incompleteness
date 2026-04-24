@@ -97,23 +97,6 @@ Central: **A·B = 48.0 ± 1.5**.
 | `topologies.py` | Γ_3 diagram topologies (for induced 3-gluon vertex calc) |
 | `gamma3.py` | Full induced Γ_3 vertex from fermion triangle (used in c_F3 work) |
 
-### Earlier-session / exploratory (not needed for main result)
-
-The `c1_*.py` files (c1_analyze, c1_chunk*, etc.) were for the earlier
-`c_F3` extraction work (F³ Wilson coefficient of induced Γ_3, which
-equals `−0.034` and is a subleading contribution to A·B). These are
-self-contained and independent of the main A·B pipeline.
-
-`ward*.py`, `crosscheck_2pt.py`, `diagnose_ward.py`, `pi2.py`, 
-`bubble_self_energy.py`, `quick_diag.py`, `tensors.py` are from
-intermediate sessions (Ward identity verification, early diagnostics).
-
-### Session documentation
-
-`SESSION_2026-04-23*_SUMMARY.md` chronicle how the calculation was developed
-across multiple working sessions. The breakthrough is in
-**`SESSION_2026-04-23g_SUMMARY.md`**.
-
 ## Conventions
 
 - Brillouin zone: `(−π, π]`, not `[0, 2π)`. Critical for any expression
@@ -192,16 +175,22 @@ define `Π_s` with different formulas:
 - **Text**: `Π_s = ∫[cos²/D − cos²·sin²/D²]` → converges to 0.308
 - **Code**: `Pi_1 = V2/D²` → gives ~40 at N=16, m=0.05
 
-My calculation follows the TEXT convention (matching 1/α_0 = 23.25).
+The calculation in `reproduce_AB.py` follows the TEXT convention (matching 1/α_0 = 23.25).
 The code's `Pi_1` is internally used as `D_gauge = 1/(p²·Pi_1)` but
 does NOT equal the Π_s that appears in 1/α_0 = 24π·Π_s.
 
-See `PI_S_CONVENTION_NOTE.md` for details. This doesn't invalidate
-either calculation, but it's worth verifying internal consistency
-in the paper.
+The prior `two_loop_vp.py` "$\delta_0^{(2L)} = 8.0 \pm 2$" result is held
+in reserve pending a rebuilt calculation with the TEXT convention. This
+doesn't invalidate either calculation, but it's worth verifying internal
+consistency in the paper.
 
 ## Dependencies
 
 - Python 3.8+
 - NumPy
 - No other dependencies (intentionally minimal)
+
+## Supporting code for §6.2.1 systematics
+
+- **`tadpole_wilson_v4g.py`**, **`reproduce_AB_with_wilson_tadpole.py`** — Wilson-action $V_{4g}$ tadpole correction to A·B (leading effect ≈ +3.3%, informing the ±4–5% systematic in SM §6.2.1).
+- **`bubble_with_F3.py`** — Propagation of the $F^3$ Wilson coefficient correction through the bubble (informs the ±1.5% systematic bound in SM §6.2.1).
