@@ -99,8 +99,7 @@ strengths follow quantitatively: the structural induced coupling
 \(1/\alpha_0 = 23.25\) (computed analytically from the one-loop
 staggered vacuum polarization), combined with a universal threshold
 \(\delta_0 = 10.0\) (determined by the U(1) row and consistent with the
-two-loop staggered VP computation \(8.0 \pm 2\) plus natural three-loop
-corrections) and a \(C_2\)-dependent threshold parameterized by a
+2-loop staggered VP computation has been audited and held in reserve pending a rebuilt calculation) and a \(C_2\)-dependent threshold parameterized by a
 logarithmic resummation, reproduces all three SM couplings at \(M_Z\)
 via standard SM renormalization group running. The structural
 predictions are the specific value \(1/\alpha_0 = 23.25\), the
@@ -215,9 +214,7 @@ runs through twenty-nine theorems and lemmas. The gauge coupling
 prediction extends the chain quantitatively, with a structural input
 \(1/\alpha_0 = 23.25\) (one-loop staggered vacuum polarization,
 analytic) and a universal threshold \(\delta_0 = 10.0\) (empirically
-fixed by the U(1) row, consistent with the two-loop staggered VP
-computation \(\delta_0^{(2L)} = 8.0 \pm 2\) plus natural three-loop
-convergence range). Deriving the \(C_2\)-dependent threshold from
+fixed by the U(1) row; a prior 2-loop staggered VP implementation has been audited and held in reserve pending a rebuilt calculation). Deriving the \(C_2\)-dependent threshold from
 first-principles lattice PT is an open computational task.
 
 \textbf{Tier 3 --- Redundant confirmations.} Asymptotic freedom
@@ -2107,6 +2104,30 @@ The four components:
   \(1/\alpha_0 = 23.25\) and SM RG running. This empirical determination
   is consistent with the natural 3-loop expectation (order of
   magnitude).
+
+  \emph{Numerical observation.} The empirically-fixed value
+  \(\delta_0 = 10.02\) coincides to \(0.2\%\) with the
+  hypercharge-squared trace \(\mathrm{Tr}[Y^2] = 10\) of three
+  generations of SM fermions in standard convention (\(Q = T_3 + Y\)):
+  \(Q_L\) contributes \(6 \cdot (1/6)^2 = 1/6\), \(u_R\) contributes
+  \(3 \cdot (2/3)^2 = 4/3\), \(d_R\) contributes
+  \(3 \cdot (1/3)^2 = 1/3\), \(L_L\) contributes
+  \(2 \cdot (1/2)^2 = 1/2\), \(e_R\) contributes \(1 \cdot 1^2 = 1\),
+  summing to \(10/3\) per generation, or \(10\) for three generations.
+  The analogous group-theoretic sums for the other two factors are
+  \(\sum_R T(R) = 6\) for both SU(2) and SU(3) (with matter in
+  fundamentals, three generations), coinciding with \(N_f = 6\) (the
+  internal-component count from \(K = 2d\)). A naive group-specific
+  interpretation \(\delta_0^{U(1)} = \mathrm{Tr}[Y^2]\),
+  \(\delta_0^{SU(N)} = \sum_R T(R)\) is ruled out within the paper's
+  framework: it would require \((A, B)\) yielding \(A \cdot B \approx
+  90\), inconsistent with the independently-derived
+  \(A \cdot B = 48 \pm 1.5\) (§6.2.1). The universal \(\delta_0 = 10.02\)
+  is therefore required by self-consistency of the framework; whether
+  the precise \(\mathrm{Tr}[Y^2] = 10\) coincidence for the U(1) row is
+  a numerical accident or reflects higher-order structural physics
+  (beyond the scope of the 1-loop-derived \(A \cdot B\)) is an open
+  question deferred to future work.
 \item
   \(A \cdot \ln(1 + B \cdot C_2 g_0^2)\) with \((A, B) = (8.3, 5.59)\):
   the resummed gauge self-energy contribution. The logarithmic form is
@@ -2266,11 +2287,25 @@ code repository referenced in §8.
 
 \textbf{Open work.} Separating \(A\) from \(B\) individually requires
 the next-order coefficient of \((C_2 g_0^2)^2\) in the expansion of the
-gauge self-energy, which would also test the log-resum functional form
-beyond its leading linear term. The F\(^3\) correction has been
-propagated (see uncertainty bullet above); the remaining systematic
-component is dominated by lattice \(V_{4g}\) cos-factor corrections,
-whose inclusion would reduce the \(\pm 4\)--\(5\%\) residual systematic.
+gauge self-energy. In the OI induced theory, this coefficient is
+structurally suppressed at strict 2-loop: the \(C_A^2\) channel
+receives only negligible Faddeev-Popov ghost contributions, with
+induced 3- and 4-gluon vertices first appearing at 3-loop order (no
+tree-level gauge self-interactions exist in the induced theory). A
+clean separation of \(A\) from \(B\) therefore requires 3-loop lattice
+perturbation theory or non-perturbative methods, both beyond the
+current scope. Under the one-parameter constraint \(A \cdot B = 48\)
+alone (§6.2.1), fitting the remaining freedom to the observed SU(2)
+and SU(3) couplings gives \((A, B) \approx (8.07, 5.95)\),
+numerically close to the suggestive structural hypothesis
+\((A, B) = (\dim \mathrm{adj}\,\mathrm{SU}(3), N_f) = (8, 6)\) --- both
+consistent with the unconstrained fit \((8.3, 5.59)\) within the
+\(\pm 3\%\) systematic uncertainty on \(A \cdot B\). No rigorous
+derivation of individual \(A\) and \(B\) is yet available. The
+F\(^3\) correction has been propagated (see uncertainty bullet above);
+the remaining systematic component is dominated by lattice
+\(V_{4g}\) cos-factor corrections, whose inclusion would reduce the
+\(\pm 4\)--\(5\%\) residual systematic.
 
 \hypertarget{the-prediction}{%
 \subsubsection{6.3 The prediction}\label{the-prediction}}
@@ -2353,18 +2388,14 @@ theory (§6.2.1), giving \(A \cdot B = 48.0 \pm 1.5\) against the fitted
 \((C_2 g_0^2)^2\) coefficient and is left for future work.
 
 \textbf{(iv) Consistency check with the 2-loop VP.} The U(1) row fixes
-\(\delta_0 = 10.02\) from observation, given (i). The 2-loop staggered
-VP computation from first principles (§6.2, four-diagram calculation)
-gives \(\delta_0^{(2L)} = 8.0 \pm 2\). These overlap within the 1σ error
-bar. The consistency is weak --- the error bar accommodates values in
-roughly \([6, 10]\) --- but it is not trivial: a 2-loop result at
-\(\sim 15\) or \(\sim 3\) would have falsified the structural picture.
-Under the standard assumption that 3-loop corrections contribute a
-further \(20\%\)--\(30\%\) of the 2-loop value, the natural convergence
-range is \(9.6\)--\(10.4\), which brackets the empirical \(10.02\) more
-tightly. This latter statement rests on a power-counting estimate of an
-uncomputed quantity and should be treated as supportive rather than as
-an independent prediction.
+\(\delta_0 = 10.02\) from observation, given (i). A first-principles
+2-loop staggered VP computation was implemented as a cross-check; an
+audit (see `PI_S_CONVENTION_AUDIT.md`) found that the original
+implementation used a scheme-locked \(\Pi_s\) convention. A rebuilt
+calculation is in progress. The consistency of the rebuilt 2-loop value
+with empirical \(\delta_0\) is an open question and is held in reserve;
+the U(1)-row determination is the primary source of \(\delta_0\) in the
+current framework.
 
 \textbf{Status of the rows.} U(1) uses one fitted parameter
 (\(\delta_0\)) against one observable; the structural content is (i)
@@ -3174,14 +3205,14 @@ Footnotes:
   entries are retrodictions using the \(C_2\)-dependent threshold
   parameterization \((A, B) = (8.3, 5.59)\) matched to the observed
   couplings. The structural input \(1/\alpha_0 = 23.25\) is computed
-  analytically from the one-loop staggered vacuum polarization. The
-  two-loop staggered VP gives \(\delta_0^{(2L)} = 8.0 \pm 2\) from first
-  principles, with the natural 3-loop convergence range
-  \(9.6\)--\(10.4\) bracketing the empirically determined value. The
-  structural predictions in this sector are: (i) the specific value
-  \(1/\alpha_0 = 23.25\), (ii) the universality of \(\delta_0\) across
-  gauge groups, and (iii) the consistency of the 2-loop VP computation
-  with the empirically determined \(\delta_0\). Deriving \((A, B)\) from
+  analytically from the one-loop staggered vacuum polarization. A
+  first-principles 2-loop staggered VP calculation is in progress; a
+  prior implementation has been audited and held in reserve pending
+  rebuild. The structural predictions in this sector are: (i) the
+  specific value \(1/\alpha_0 = 23.25\), (ii) the universality of
+  \(\delta_0\) across gauge groups, and (iii) the 1-loop analytic
+  derivation of \(A \cdot B = 48.0 \pm 1.5\) agreeing with the fitted
+  \(46.4\) to \(\sim 3\%\). Deriving \((A, B)\) individually from
   first-principles lattice perturbation theory would upgrade the SU(2)
   and SU(3) entries from retrodictions (\textbf{R}) to strict
   predictions (\textbf{S}).
