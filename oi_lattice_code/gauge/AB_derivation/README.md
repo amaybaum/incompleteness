@@ -175,13 +175,14 @@ define `Π_s` with different formulas:
 - **Text**: `Π_s = ∫[cos²/D − cos²·sin²/D²]` → converges to 0.308
 - **Code**: `Pi_1 = V2/D²` → gives ~40 at N=16, m=0.05
 
-My calculation follows the TEXT convention (matching 1/α_0 = 23.25).
+The calculation in `reproduce_AB.py` follows the TEXT convention (matching 1/α_0 = 23.25).
 The code's `Pi_1` is internally used as `D_gauge = 1/(p²·Pi_1)` but
 does NOT equal the Π_s that appears in 1/α_0 = 24π·Π_s.
 
-See `PI_S_CONVENTION_AUDIT.md` for a detailed convention audit, which found that the code's $\Pi_s$ differs from the text's and produces a scheme-locked IR-regulator-dependent ratio. The prior `two_loop_vp.py` "$\delta_0^{(2L)} = 8.0 \pm 2$" result is held in reserve pending a rebuilt calculation; the `two_loop_rebuild/` subdirectory contains a from-scratch reimplementation (6 of 7 topologies). This doesn't invalidate
-either calculation, but it's worth verifying internal consistency
-in the paper.
+The prior `two_loop_vp.py` "$\delta_0^{(2L)} = 8.0 \pm 2$" result is held
+in reserve pending a rebuilt calculation with the TEXT convention. This
+doesn't invalidate either calculation, but it's worth verifying internal
+consistency in the paper.
 
 ## Dependencies
 
@@ -189,16 +190,7 @@ in the paper.
 - NumPy
 - No other dependencies (intentionally minimal)
 
-## Audit and rebuild content
+## Supporting code for §6.2.1 systematics
 
-The following files/subdirectories support the audit of the prior 2-loop VP computation and the ongoing rebuild:
-
-### Documentation
-- **`PI_S_CONVENTION_AUDIT.md`** — Detailed audit of the $\Pi_s$ convention mismatch between paper text and `two_loop_vp.py` code. Shows the code's scalar exhibits ~7× IR-regulator dependence across $m \in [0.01, 0.20]$, characteristic of a scheme-locked quantity. Referenced from SM §6.2.
-
-### Code
 - **`tadpole_wilson_v4g.py`**, **`reproduce_AB_with_wilson_tadpole.py`** — Wilson-action $V_{4g}$ tadpole correction to A·B (leading effect ≈ +3.3%, informing the ±4–5% systematic in SM §6.2.1).
 - **`bubble_with_F3.py`** — Propagation of the $F^3$ Wilson coefficient correction through the bubble (informs the ±1.5% systematic bound in SM §6.2.1).
-
-### two_loop_rebuild/ subdirectory
-From-scratch reimplementation of the 2-loop staggered VP (6/7 topologies); code files plus a short README. Rebuilt total at N=8, m=0.05 differs from the prior "8 ± 2"; held in reserve pending further work. The empirical δ_0 = 10.02 from the U(1) row remains the primary source of δ_0 in the current paper (SM §6.2).
