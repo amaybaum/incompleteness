@@ -1,6 +1,6 @@
 """
-sails_correction.py — Path B, Step 6: sails / crossed-gluon topology
-contribution to 2-loop gauge self-energy.
+sails_correction.py — Sails (crossed-gluon) topology contribution to the
+2-loop gauge self-energy.
 
 Topology: fermion loop with 4 vertices in cyclic order E1(μ), I1(α),
 E2(μ), I2(α). The internal gauge line "crosses" between external legs.
@@ -186,7 +186,7 @@ def compute_sails(N, m, pi_s_val=None):
 
 def main():
     print("=" * 72)
-    print("Path B Step 6: Sails / crossed-gluon topology")
+    print("Sails / crossed-gluon topology")
     print("=" * 72)
     print()
     print("Formula: δΠ^sails = -∫∫ cos(q_μ) cos((q+k)_μ) Σ_α cos²((q+k/2)_α)")
@@ -195,10 +195,7 @@ def main():
     print()
     print("Computed with explicit 4x4 γ matrices (Hermitian Euclidean rep).")
     print()
-    print("Running total from sessions k-r (N=8, m=0.05): +21.58")
-    print("Expected sails contribution: ~-10 to -15 (raw units).")
-    print()
-    
+
     # Start with N=4 for correctness, then scale up
     for N, m in [(4, 0.05), (6, 0.05)]:
         print(f"--- N = {N}, m = {m} ---")

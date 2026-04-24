@@ -1,8 +1,7 @@
 """
-vector_SE_insertion.py — Path B, Step 3: numerical test of vector
-Σ_f^V SE insertion at p=0.
+vector_SE_insertion.py — Vector Σ_f^V SE insertion contribution at p=0.
 
-Derivation in PATH_B_STEP_3.md. Formula:
+Formula:
 
   v_α(q) = Σ_ν ⟨cos²(q_ν+p_ν/2) · (2 s'_ν δ_{να} - s'_α) / (D' p̂² Π_s)⟩_p
          = 2 J^c(α, α; q) - Σ_ν J^c(α, ν; q)
@@ -62,22 +61,14 @@ def compute_vector_v(N, m, pi_s_val=None):
     q_flat = q_grid.reshape(-1, 4)  # (N^4, 4)
 
     for iq, q in enumerate(q_flat):
-        # qp = q + p, with periodicity handled via addition mod 2π (BZ)
-        # But we just use q_component + p_component directly (cos/sin are periodic)
         qp = q[None, None, None, None, :] + p_grid  # (N,N,N,N,4)
 
         sqp = np.sin(qp)      # sin(q+p)_α for each α (N,N,N,N,4)
-        cqp_half = np.cos(qp / 2)  # cos((q+p)_α/2)  — wait we want cos²(q_α + p_α/2) from vertex
-        # Vertex factor: cos((q+p)_μ/2)·cos((q+p)_μ/2)... 
-        # Actually in session k's form: cos²(q_ν + p_ν/2). Let me re-check.
-        # From PATH_B_STEP_3.md: cos²((q_β+p_β/2))... hmm wait from session k formula:
-        # "Σ_ν ∫ cos²(q_ν + p_ν/2) ..." — the argument is (q_ν + p_ν/2), NOT (q+p)_ν/2.
-        # These are different: q_ν + p_ν/2 vs (q_ν + p_ν)/2.
-        # Session k's vertex convention: momentum at the gluon vertex is q_ν + p_ν/2
-        # (the AVERAGE of the two fermion momenta in and out).
-        # Let me use that:
+        # Vertex factor: cos²(q_ν + p_ν/2)  (argument is q_ν + p_ν/2,
+        # not (q_ν + p_ν)/2 — the momentum at the gluon vertex is the
+        # average of incoming and outgoing fermion momenta.)
         cos2_q_plus_p_half = np.cos(q[None,None,None,None,:] + p_grid / 2) ** 2
-        # (N,N,N,N,4) — index last is ν
+        # (N,N,N,N,4) — last index is ν
 
         D_qp = (sqp ** 2).sum(axis=-1) + m ** 2  # (N,N,N,N)
 
@@ -161,12 +152,10 @@ def compute_SE_V_insertion_at_p0(N, m, pi_s_val=None):
 
 def main():
     print("=" * 72)
-    print("Path B Step 3: Vector SE insertion numerical test")
+    print("Vector SE insertion numerical test")
     print("=" * 72)
     print()
     print("Formula: δ(bubble)^V(q, p=0) integrated over q, summed over μ")
-    print("Expected: O(10-100) in magnitude, possibly opposite sign to scalar.")
-    print("Session k scalar result: δ_0^(SE,S) ≈ 56-60.")
     print()
 
     # Start with small N to verify implementation
@@ -174,15 +163,8 @@ def main():
         print(f"N = {N}, m = {m}:")
         pi_s = compute_pi_s(N, m)
         val = compute_SE_V_insertion_at_p0(N, m, pi_s)
-        # Convert to δ_0-like quantity: overall normalization matches session k.
-        # Session k's δ_0^(SE,S) formula (from reproduce_AB.py pattern):
-        #   δ_0 = conversion_factor · integral
-        # For comparison, just show raw integrand value here.
         print(f"  Π_s = {pi_s:.4f}")
         print(f"  Raw SE-V integrand (summed over μ, averaged over q): {val:+.4e}")
-        # Convert to δ_0-like via dimensional analysis: multiply by
-        #  (something like 24π/Π_s · Π_s²) to match session k convention.
-        # For now, just display raw.
         print()
 
 

@@ -17,7 +17,7 @@ The rebuild produced partial results (6 of 7 topologies computed) that differ su
 
 ## Conversion
 
-Raw lattice integrands → δ_0 units via `δ_0 = 5.8125 · raw / Π_s = (23.25/4) · raw / Π_s`, verified against the session-k scalar-bubble-SE piece to 3-digit agreement.
+Raw lattice integrands → δ_0 units via `δ_0 = 5.8125 · raw / Π_s = (23.25/4) · raw / Π_s`.
 
 ## Results at N=8, m=0.05 (δ_0 units)
 

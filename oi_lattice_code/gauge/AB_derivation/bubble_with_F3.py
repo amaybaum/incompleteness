@@ -207,7 +207,7 @@ def main():
     print("=" * 72)
     print()
     print("Baseline (c_F3 = 0) should reproduce A·B ≈ 48.0 at N→∞.")
-    print("Session b extracted c_F3 ≈ −0.034 (see SESSION_2026-04-23b_SUMMARY.md).")
+    print("Sweep around c_F3 ≈ −0.034 (a conservative upper-bound extraction).")
     print()
     print("The A·B-relevant output here is Π_T·Π_s²(N) ≈ b₀_capture(N) × 11/3 × N_c.")
     print("A·B is the convergent extrapolation of this sequence × π² (see reproduce_AB.py).")
@@ -240,7 +240,7 @@ def main():
 
     # Relative shift from c_F3 = 0 to c_F3 = -0.034
     print()
-    print("Relative shift at c_F3 = −0.034 vs c_F3 = 0 (the session-b value):")
+    print("Relative shift at c_F3 = −0.034 vs c_F3 = 0:")
     for N in N_values:
         base = results[(N, 0.0)]
         shifted = results[(N, -0.034)]

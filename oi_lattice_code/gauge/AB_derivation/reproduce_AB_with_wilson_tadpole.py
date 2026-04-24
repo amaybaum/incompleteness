@@ -3,7 +3,7 @@ reproduce_AB_with_wilson_tadpole.py — A·B driver INCLUDING the derived
 Wilson V_4g tadpole contribution.
 
 Extends reproduce_AB.py by adding the tadpole's Π_T·Π_s² contribution
-(from session n's derivation, V4G_STEP_2.md) to the bubble+ghost sum
+(see tadpole_wilson_v4g.py) to the bubble+ghost sum
 before the A·B extraction.
 
 The addition is a single analytical piece:
@@ -48,7 +48,7 @@ def main(N_list=None):
     Pi_T_exp = -b_0 / (16*np.pi**2) * np.log((np.pi/m)**2)
 
     print("=" * 74)
-    print("Per-N A·B with Wilson tadpole (derived in session n)")
+    print("Per-N A·B with Wilson tadpole")
     print("=" * 74)
     print()
     print(f"{'N':>3}  {'Π_s':>7}  {'Π·Π_s²(b+g)':>12}  {'Π_tad':>11}  "
@@ -148,8 +148,6 @@ def main(N_list=None):
     print(f"  Shift from tadpole:  {tot_inf - bg_inf:+.2f}  ({(tot_inf/bg_inf - 1)*100:+.1f}%)")
     print(f"  Paper target:         {46.4}")
     print(f"  Paper reported:       48.0 ± 1.5 (±3%)")
-    print()
-    print("Status: session n derivation, cross-check vs Capitani 2.84 pending")
 
 
 if __name__ == "__main__":

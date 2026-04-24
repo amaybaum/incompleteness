@@ -1,15 +1,12 @@
 """
-scalar_bubble_SE.py — Cross-check: compute scalar bubble SE in SAME
-raw-integrand normalization as vector_SE_insertion.py and
+scalar_bubble_SE.py — Scalar bubble SE contribution in raw-integrand units,
+matching the normalization used by vector_SE_insertion.py and
 seagull_SE_insertion.py.
 
-Session k reported "+60 δ_0 units" but that's not directly comparable
-to our raw integrand normalization in sessions p, q, r.
-
-Formula from PATH_B_STEP_2.md (session k):
+Integrand:
   δ(bubble)^S_μ(q, p=0) = 8m · cos²(q_μ) · Σ_f^S(q) · [1/D² − 4 s_μ²/D³]
 
-This reuses Σ_f^S already computed in seagull_SE_insertion.py.
+Reuses Σ_f^S from seagull_SE_insertion.compute_scalar_Sigma_f.
 """
 import numpy as np
 import os
@@ -30,13 +27,13 @@ def compute_scalar_bubble_SE(N, m, pi_s_val=None, Sigma_S=None):
         pi_s_val = compute_pi_s(N, m)
     if Sigma_S is None:
         Sigma_S = compute_scalar_Sigma_f(N, m, pi_s_val)
-    
+
     q_grid = build_grid(N)
     sq = np.sin(q_grid)
     D_q = (sq ** 2).sum(axis=-1) + m ** 2
     mask = D_q > 1e-10
     D_q_safe = np.where(mask, D_q, 1.0)
-    
+
     total = 0.0
     for mu in range(4):
         cos2_qmu = np.cos(q_grid[..., mu]) ** 2
@@ -44,24 +41,16 @@ def compute_scalar_bubble_SE(N, m, pi_s_val=None, Sigma_S=None):
         bracket = 1.0 / (D_q_safe ** 2) - 4 * sqmu_sq / (D_q_safe ** 3)
         integrand = 8.0 * m * cos2_qmu * Sigma_S * bracket * mask
         total += integrand.mean()
-    
+
     return total
 
 
 def main():
     print("=" * 72)
-    print("Cross-check: scalar bubble SE in raw-integrand units")
+    print("Scalar bubble SE in raw-integrand units")
     print("=" * 72)
     print()
-    print("Session k reported δ_0^(SE,S) ≈ 60 at N=8, m=0.05")
-    print("This code computes the same quantity in the SAME raw normalization")
-    print("as vector_SE_insertion (session p), seagull (q), vertex (r).")
-    print()
-    print("If this matches session p/q/r scale (-0.16 for vector),")
-    print("then the raw scalar bubble SE should be SMALL too.")
-    print("'+60' in δ_0 units is after a different normalization factor.")
-    print()
-    
+
     for N, m in [(6, 0.05), (6, 0.10), (8, 0.05), (8, 0.10)]:
         t0 = time.time()
         pi_s = compute_pi_s(N, m)

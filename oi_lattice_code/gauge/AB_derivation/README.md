@@ -97,23 +97,6 @@ Central: **A·B = 48.0 ± 1.5**.
 | `topologies.py` | Γ_3 diagram topologies (for induced 3-gluon vertex calc) |
 | `gamma3.py` | Full induced Γ_3 vertex from fermion triangle (used in c_F3 work) |
 
-### Earlier-session / exploratory (not needed for main result)
-
-The `c1_*.py` files (c1_analyze, c1_chunk*, etc.) were for the earlier
-`c_F3` extraction work (F³ Wilson coefficient of induced Γ_3, which
-equals `−0.034` and is a subleading contribution to A·B). These are
-self-contained and independent of the main A·B pipeline.
-
-`ward*.py`, `crosscheck_2pt.py`, `diagnose_ward.py`, `pi2.py`, 
-`bubble_self_energy.py`, `quick_diag.py`, `tensors.py` are from
-intermediate sessions (Ward identity verification, early diagnostics).
-
-### Session documentation
-
-`SESSION_2026-04-23*_SUMMARY.md` chronicle how the calculation was developed
-across multiple working sessions. The breakthrough is in
-**`SESSION_2026-04-23g_SUMMARY.md`**.
-
 ## Conventions
 
 - Brillouin zone: `(−π, π]`, not `[0, 2π)`. Critical for any expression
@@ -196,7 +179,7 @@ My calculation follows the TEXT convention (matching 1/α_0 = 23.25).
 The code's `Pi_1` is internally used as `D_gauge = 1/(p²·Pi_1)` but
 does NOT equal the Π_s that appears in 1/α_0 = 24π·Π_s.
 
-See `PI_S_CONVENTION_AUDIT.md` for a detailed convention audit (April 2026), which found that the code's $\Pi_s$ differs from the text's and produces a scheme-locked IR-regulator-dependent ratio. The prior `two_loop_vp.py` "$\delta_0^{(2L)} = 8.0 \pm 2$" result is held in reserve pending a rebuilt calculation; the `two_loop_rebuild/` subdirectory contains a from-scratch Path B implementation (6 of 7 topologies). This doesn't invalidate
+See `PI_S_CONVENTION_AUDIT.md` for a detailed convention audit, which found that the code's $\Pi_s$ differs from the text's and produces a scheme-locked IR-regulator-dependent ratio. The prior `two_loop_vp.py` "$\delta_0^{(2L)} = 8.0 \pm 2$" result is held in reserve pending a rebuilt calculation; the `two_loop_rebuild/` subdirectory contains a from-scratch reimplementation (6 of 7 topologies). This doesn't invalidate
 either calculation, but it's worth verifying internal consistency
 in the paper.
 
@@ -206,9 +189,9 @@ in the paper.
 - NumPy
 - No other dependencies (intentionally minimal)
 
-## April 2026 additions
+## Audit and rebuild content
 
-The following files/subdirectories were added after an audit of the 2-loop VP computation:
+The following files/subdirectories support the audit of the prior 2-loop VP computation and the ongoing rebuild:
 
 ### Documentation
 - **`PI_S_CONVENTION_AUDIT.md`** — Detailed audit of the $\Pi_s$ convention mismatch between paper text and `two_loop_vp.py` code. Shows the code's scalar exhibits ~7× IR-regulator dependence across $m \in [0.01, 0.20]$, characteristic of a scheme-locked quantity. Referenced from SM §6.2.
@@ -218,4 +201,4 @@ The following files/subdirectories were added after an audit of the 2-loop VP co
 - **`bubble_with_F3.py`** — Propagation of the $F^3$ Wilson coefficient correction through the bubble (informs the ±1.5% systematic bound in SM §6.2.1).
 
 ### two_loop_rebuild/ subdirectory
-From-scratch rebuild of the 2-loop staggered VP (6/7 topologies); code files plus a short README. Rebuilt total: δ_0^(2L) ≈ +72 in δ_0 units at N=8, m=0.05, differing from the prior "8 ± 2". **Held in reserve** — the empirical δ_0 = 10.02 from the U(1) row remains the primary source of δ_0 in the current paper (SM §6.2).
+From-scratch reimplementation of the 2-loop staggered VP (6/7 topologies); code files plus a short README. Rebuilt total at N=8, m=0.05 differs from the prior "8 ± 2"; held in reserve pending further work. The empirical δ_0 = 10.02 from the U(1) row remains the primary source of δ_0 in the current paper (SM §6.2).

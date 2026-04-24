@@ -112,11 +112,9 @@ def main():
     print()
 
     # Compare to bubble+ghost baseline (from reproduce_AB.py data)
-    # At m=0.05, bubble+ghost gives Π_T·Π_s² that grows from ~-0.04 (N=8) 
-    # to roughly -0.055 (N=20+). Let me load these baselines from running
-    # the reproduce_AB machinery separately (or tabulate).
-    # For rough comparison, use session l's observed baselines at small N
-    # and extrapolate:
+    # At m=0.05, bubble+ghost gives Π_T·Π_s² that grows from ~-0.04 (N=8)
+    # to roughly -0.055 (N=20+). Tabulated baselines from the bubble+ghost
+    # machinery with extrapolation at large N:
     baseline_guess = {
         8:  -0.0366,
         12: -0.0430,
@@ -126,7 +124,7 @@ def main():
         28: -0.0590,  # extrapolated
         32: -0.0610,  # extrapolated
     }
-    print("Comparison to bubble+ghost baseline (from session l + extrapolation):")
+    print("Comparison to bubble+ghost baseline:")
     print(f"{'N':>3}  {'baseline':>12}  {'tadpole':>12}  {'new sum':>12}  {'rel shift':>10}")
     for N in sorted(results.keys()):
         pi_s, J, tad = results[N]

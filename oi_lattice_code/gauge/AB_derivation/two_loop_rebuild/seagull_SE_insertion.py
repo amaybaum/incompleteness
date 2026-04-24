@@ -1,8 +1,8 @@
 """
-seagull_SE_insertion.py — Path B, Step 4: scalar + vector SE insertions
-on the SEAGULL topology (not bubble).
+seagull_SE_insertion.py — Scalar + vector SE insertions on the SEAGULL
+topology (not the bubble).
 
-Derivations in PATH_B_STEP_4.md. Formulas at p=0:
+Formulas at p=0:
 
   Scalar: δ(seagull)^S(q, μ) = -8m · cos²(q_μ) · s_μ²/D² · Σ_f^S(q)
   Vector: δ(seagull)^V(q, μ) = -4·cos²(q_μ)/D² · [D v_μ s_μ - 2(v·s_q) s_μ²]
@@ -122,7 +122,7 @@ def compute_seagull_SE_vector(N, m, pi_s_val=None, v=None):
 
 def main():
     print("=" * 72)
-    print("Path B Step 4: Seagull SE insertion (scalar + vector)")
+    print("Seagull SE insertion (scalar + vector)")
     print("=" * 72)
     print()
     print("Formulas:")

@@ -1,8 +1,8 @@
 """
-vertex_correction.py — Path B, Step 5: 1-loop vertex correction contribution
-to the 2-loop gauge self-energy.
+vertex_correction.py — 1-loop vertex correction contribution to the
+2-loop gauge self-energy.
 
-Derivation in PATH_B_STEP_5.md. Corrected vertex at p=0:
+Corrected vertex at p=0:
 
   V^(1,1)_μ(q,q) = A_μ(q) · 𝟙 + Σ_α B_μ,α(q) · γ_α
 
@@ -145,7 +145,6 @@ def compute_vertex_correction_contribution(N, m, pi_s_val=None):
         # Real piece (B coefficient) — comparable to bubble/seagull real parts:
         # 2 · cos(q_μ) · cos(q_μ) · (4 D_q B_μ,μ - 8 s_{q,μ} B·s_q) / D_q²
         # where the outer cos(q_μ) comes from the outer bubble's SECOND vertex factor.
-        # But session p/q code had cos²(q_μ) baked into the bubble structure.
         # For the vertex-corrected bubble, one vertex is V^(1,1) (already has its cos
         # in the A, B integrals) and the other is tree-level (with its cos(q_μ)).
         # So the outer factor is cos(q_μ), not cos²(q_μ).
@@ -170,14 +169,12 @@ def compute_vertex_correction_contribution(N, m, pi_s_val=None):
 
 def main():
     print("=" * 72)
-    print("Path B Step 5: Vertex correction numerical test")
+    print("Vertex correction numerical test")
     print("=" * 72)
     print()
-    print("Ward-identity prediction: vertex ≈ -(bubble-SE + seagull-SE)")
-    print("Bubble+seagull vector at N=8, m=0.05: -0.183")
-    print("Expected vertex at N=8, m=0.05: ~ +0.18 (opposite sign)")
+    print("Ward-identity check: vertex ≈ -(bubble-SE + seagull-SE)")
     print()
-    
+
     for N, m in [(6, 0.05), (8, 0.05)]:
         print(f"--- N = {N}, m = {m} ---")
         t0 = time.time()
