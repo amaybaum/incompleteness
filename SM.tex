@@ -98,8 +98,8 @@ proved end-to-end as a chain of theorems on the equivalence class
 strengths follow quantitatively: the structural induced coupling
 \(1/\alpha_0 = 23.25\) (computed analytically from the one-loop
 staggered vacuum polarization), combined with a universal threshold
-\(\delta_0 = 10.0\) (determined by the U(1) row; a prior 2-loop
-staggered VP computation has been audited and held in reserve pending a rebuilt calculation) and a \(C_2\)-dependent threshold parameterized by a
+\(\delta_0 = 10.0\) (determined by the U(1) row; a 2-loop
+staggered VP rebuild indicates \(\delta_0\) is not reproduced by strict 2-loop PT and is accordingly treated as empirical input --- see \S6.2) and a \(C_2\)-dependent threshold parameterized by a
 logarithmic resummation, reproduces all three SM couplings at \(M_Z\)
 via standard SM renormalization group running. The structural
 predictions are the specific value \(1/\alpha_0 = 23.25\), the
@@ -214,7 +214,7 @@ runs through twenty-nine theorems and lemmas. The gauge coupling
 prediction extends the chain quantitatively, with a structural input
 \(1/\alpha_0 = 23.25\) (one-loop staggered vacuum polarization,
 analytic) and a universal threshold \(\delta_0 = 10.0\) (empirically
-fixed by the U(1) row; a prior 2-loop staggered VP implementation has been audited and held in reserve pending a rebuilt calculation). Deriving the \(C_2\)-dependent threshold from
+fixed by the U(1) row; a 2-loop staggered VP rebuild indicates \(\delta_0\) is not reproduced by strict 2-loop PT and is accordingly treated as empirical input --- see \S6.2). Deriving the \(C_2\)-dependent threshold from
 first-principles lattice PT is an open computational task.
 
 \textbf{Tier 3 --- Redundant confirmations.} Asymptotic freedom
@@ -2055,6 +2055,16 @@ resummation of the gauge self-energy:
 
 \[\frac{1}{\alpha_i(M_Z)} = \underbrace{23.25}_{1/\alpha_0} + \underbrace{10.0}_{\delta_0} + \underbrace{8.3 \cdot \ln\!\left(1 + 5.59 \cdot C_2 g_0^2\right)}_{\text{resummed gauge self-energy}} + \underbrace{\frac{b_i}{2\pi}\ln\frac{M_{\text{Pl}}}{M_Z}}_{\text{SM RG running}}\]
 
+Above \(M_{\text{Pl}}\), the OI induced theory has no tree-level gauge
+action --- gauge dynamics arise entirely from the fermion determinant
+--- so its \(\beta\)-function differs at 2-loop and beyond from the
+standard SM running below the matching scale. The threshold function
+structurally absorbs this discontinuity at \(M_{\text{Pl}}\), which is
+why the matching formula has the form shown rather than continuous
+running across the scale. This reflects the substratum-vs-emergent split
+(group structural at the substratum; couplings emergent through the
+fermion determinant).
+
 The four components:
 
 \begin{itemize}
@@ -2071,15 +2081,24 @@ The four components:
   \(\delta_0 = 10.0\): the \(C_2\)-independent threshold. In the current
   formulation, \(\delta_0\) is determined empirically by the U(1) row
   (see below). A 2-loop staggered VP computation was implemented as a
-  consistency check; on audit, the
-  numerical scalar used as the induced-propagator denominator in that
-  implementation is not the \(\Pi_s\) defined above, and the resulting ratio
-  exhibits strong IR-regulator dependence (factor \(\sim 7\) variation
-  across \(m \in [0.01, 0.20]\)) characteristic of a scheme-locked
-  quantity rather than a physical \(\delta(1/\alpha)\) shift. The 2-loop
-  result is therefore held in reserve pending a rebuilt calculation with
-  the correct \(\Pi_s\) convention. A natural 3-loop bound provides the
-  structural plausibility check:
+  consistency check, and subsequently rebuilt from first principles
+  (scalar and vector self-energy insertions, vertex correction,
+  sails/crossed-gluon, and ghost 2-loop) using the \(\Pi_s\) convention
+  above, with the conversion
+  \(\delta_0 = (1/\alpha_0) \cdot (\delta\Pi_s^{(2L)}/\Pi_s)\) tied to
+  \(1/\alpha_0 = 24\pi \cdot \Pi_s\). Large-\(N\) scans of the dominant
+  scalar-bubble SE piece across \(N = 6, 8, 10, 12, 14, 16\) at
+  \(m = 0.05\) show its raw integrand falls as \(1/N^{3.09}\) with
+  per-point residuals below \(6\%\), consistent with continuum-limit
+  value zero; the apparent ``plateau'' at intermediate \(N\) is a
+  finite-\(N\) coincidence. The assembled 2-loop sum at \(N = 8\) of
+  approximately \(+72\) in \(\delta_0\) units is therefore a
+  finite-\(N\) artifact, and strict 2-loop lattice PT in OI does not
+  reproduce the empirical \(\delta_0 \approx 10\). We therefore treat
+  \(\delta_0\) as a universal-row matching parameter determined by the
+  U(1) threshold (below), analogous to how Standard Model input
+  parameters are fixed by observation rather than derived. A natural
+  3-loop bound provides the structural plausibility check:
 
   \emph{3-loop bound.} The non-perturbative coupling at the staggered VP
   scale gives an effective expansion parameter
@@ -2287,17 +2306,28 @@ code repository referenced in §8.
 \textbf{Open work.} Separating \(A\) from \(B\) individually requires
 the next-order coefficient of \((C_2 g_0^2)^2\) in the expansion of the
 gauge self-energy. In the OI induced theory, this coefficient is
-structurally suppressed at strict 2-loop: the \(C_A^2\) channel
-receives only negligible Faddeev-Popov ghost contributions, with
-induced 3- and 4-gluon vertices first appearing at 3-loop order (no
-tree-level gauge self-interactions exist in the induced theory). A
+structurally suppressed at strict 2-loop across all color channels. The
+\(C_A^2\) channel receives only negligible Faddeev-Popov ghost
+contributions, verified numerically at approximately \(0.2\%\) of
+\(A \cdot B\) via a direct 2-loop ghost self-energy computation. The
+mixed \(C_A \cdot C_F \cdot T_F \cdot N_f\) channel, arising from
+crossed-topology fermion-line diagrams (vertex correction, sails), also
+approaches zero at continuum limit: large-\(N\) scans of the
+vertex-correction integrand show values decreasing as
+\(1/N^{\sim 5}\) (raw: \(9.96, 2.59, 0.64, 0.046\) at
+\(N = 6, 8, 10, 12\)), consistent with Ward-identity cancellation
+against the bubble/seagull self-energy pieces. Induced 3- and 4-gluon
+vertices first appear at 3-loop order (no tree-level gauge
+self-interactions exist in the induced theory). A
 clean separation of \(A\) from \(B\) therefore requires 3-loop lattice
 perturbation theory or non-perturbative methods, both beyond the
 current scope. Under the one-parameter constraint \(A \cdot B = 48\)
 alone (§6.2.1), fitting the remaining freedom to the observed SU(2)
 and SU(3) couplings gives \((A, B) \approx (8.07, 5.95)\),
 numerically close to the suggestive structural hypothesis
-\((A, B) = (\dim \mathrm{adj}\,\mathrm{SU}(3), N_f) = (8, 6)\) --- both
+\((A, B) = (\dim \mathrm{adj}\,\mathrm{SU}(3), N_f) = (8, 6)\), which is
+the unique decomposition of \(A \cdot B = 48\) within the natural family
+of \((\dim \mathrm{adj}\, G, N_f^k)\) structural forms --- both
 consistent with the unconstrained fit \((8.3, 5.59)\) within the
 \(\pm 3\%\) systematic uncertainty on \(A \cdot B\). No rigorous
 derivation of individual \(A\) and \(B\) is yet available. The
@@ -2484,8 +2514,7 @@ The chain in §6.3 reproduces all three SM gauge couplings at \(M_Z\)
 through the structural input \(1/\alpha_0 = 23.25\) (computed
 analytically from the one-loop staggered VP, §6.1), the universal
 threshold \(\delta_0 = 10.02\) (empirically fixed by the U(1) row; a
-prior 2-loop VP implementation has been audited and is held in reserve
-pending a rebuilt calculation), and the \(C_2\)-dependent
+2-loop VP rebuild indicates \(\delta_0\) is not reproduced by strict 2-loop PT and is accordingly treated as empirical input), and the \(C_2\)-dependent
 threshold parameters \((A, B) = (8.3, 5.59)\) (matched to the observed
 SU(2) and SU(3) couplings at \(M_Z\), with the product
 \(A \cdot B = 46.4\) independently derived at
@@ -3201,9 +3230,10 @@ Footnotes:
   entries are retrodictions using the \(C_2\)-dependent threshold
   parameterization \((A, B) = (8.3, 5.59)\) matched to the observed
   couplings. The structural input \(1/\alpha_0 = 23.25\) is computed
-  analytically from the one-loop staggered vacuum polarization. A prior
-  2-loop staggered VP implementation has been audited and held in
-  reserve pending a rebuilt calculation. The structural predictions in
+  analytically from the one-loop staggered vacuum polarization. A 2-loop
+  staggered VP rebuild indicates \(\delta_0\) is not reproduced by
+  strict 2-loop PT and is accordingly treated as empirical input (see
+  §6.2). The structural predictions in
   this sector are: (i) the
   specific value \(1/\alpha_0 = 23.25\), (ii) the universality of
   \(\delta_0\) across gauge groups, and (iii) the 1-loop analytic
