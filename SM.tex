@@ -25,7 +25,7 @@
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
+  \usepackage[expansion=false]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
@@ -2272,7 +2272,8 @@ against the fitted value \(A \cdot B = 46.4\).
   integration without a normalization-matching step. The dominant
   remaining subleading contribution is lattice \(V_{4g}\) cos-factor
   corrections to the tadpole's \(p^2\)-coefficient (absent in the
-  continuum \(V_{4g}\) used here), estimated at \(\pm 4\)--\(5\%\).
+  continuum \(V_{4g}\) used here), bracketed at \(\sim 3\)--\(12\%\)
+  (see Open work in §6.2.1).
 \item
   Convention and gauge-fixing prescription in the induced theory:
   \(\pm 2\%\), bounded by the standard-QCD cross-check's \(100\%\)
@@ -2281,8 +2282,12 @@ against the fitted value \(A \cdot B = 46.4\).
 
 The combined uncertainty is dominated by the extrapolation
 (statistical-like, \(\pm 3\%\)). Including estimated subleading
-contributions gives a total uncertainty \(\lesssim 6\%\), within which
-the computed value and the fitted value agree.
+contributions gives a total uncertainty \(\lesssim 6\%\) at the lower
+end of the \(V_{4g}\) bracket (under which the computed value and the
+fitted value agree); the upper end of the bracket would widen the
+combined uncertainty correspondingly. The headline value
+\(A \cdot B = 48.0 \pm 1.5\) refers to the extrapolation-only
+uncertainty.
 
 \textbf{Methodological notes.} The Wilson-plaquette 3-gluon vertex is
 the leading piece of the full induced \(\Gamma_3\); the full induced
@@ -2291,8 +2296,9 @@ vertex is transverse by Ward identity (verified numerically at
 the ghost contribution to restore transversality. The tadpole with
 continuum \(V_{4g}\) contributes only to the gauge-violating mass term
 and does not enter \(\Pi_T\) at leading order; lattice \(V_{4g}\)
-cos-factor corrections would contribute at the \(\sim 5\%\) level and
-are currently subsumed into the systematic uncertainty. The OI framework
+cos-factor corrections contribute to \(\Pi_T\) at the few-percent level
+and are currently subsumed into the systematic uncertainty (see Open
+work below). The OI framework
 has no formal Lagrangian gauge-fixing (the gauge field is induced rather
 than independent), but the induced propagator being a scalar in color
 and Lorentz is consistent with effective Feynman gauge, which the ghost
@@ -2332,9 +2338,28 @@ consistent with the unconstrained fit \((8.3, 5.59)\) within the
 \(\pm 3\%\) systematic uncertainty on \(A \cdot B\). No rigorous
 derivation of individual \(A\) and \(B\) is yet available. The
 F\(^3\) correction has been propagated (see uncertainty bullet above);
-the remaining systematic component is dominated by lattice
-\(V_{4g}\) cos-factor corrections, whose inclusion would reduce the
-\(\pm 4\)--\(5\%\) residual systematic.
+the remaining systematic component is dominated by lattice \(V_{4g}\)
+cos-factor corrections. Two independent derivations of the lattice
+\(V_{4g}\) tadpole contribution have been carried out --- one based on
+Wilson-extension of the continuum pair-topology decomposition, the other
+on per-topology Lorentz structure following Peskin Eq.~16.6 with Wilson
+cosines per Capitani Eq.~5.28. They differ structurally in the placement
+of cosine factors and yield \(\Pi_T\) contributions whose magnitudes
+differ by a factor \(\sim 14\) at the integrand level (traced
+analytically to the \(2 \cos(p_\mu) \sum_\gamma \cos(k_\gamma)\) piece
+present in the per-topology form but absent from the simpler
+pair-topology form). The corresponding shift on \(A \cdot B\) is
+bracketed at \(\sim 3\)--\(12\%\) depending on which form is normalized
+correctly; both are honest derivations and neither matches the textbook
+continuum tadpole formula directly at \(p = 0\). Closing this ambiguity
+requires either a verified reference Wilson \(V_{4g}\) implementation or
+a fully-worked textbook 1-loop lattice Yang-Mills gluon self-energy
+computation as an external anchor; both are beyond current scope. The
+\(\pm 4\)--\(5\%\) residual systematic quoted above accommodates the
+lower end of this bracket; the upper end (\(\sim 12\%\)) would widen the
+systematic correspondingly. The headline value \(A \cdot B = 48.0 \pm
+1.5\), derived from extrapolation of the two-loop gauge self-energy, is
+independent of this \(V_{4g}\) subleading correction.
 
 \hypertarget{the-prediction}{%
 \subsubsection{6.3 The prediction}\label{the-prediction}}
