@@ -1,6 +1,11 @@
 """
-Streaming version of run_one.py — uses streaming_bubble + streaming_ghost +
-streaming_qcd to compute A·B at large N within memory constraints.
+Driver: compute A·B(N) at user-specified N values using the streaming
+bubble, ghost, and QCD-cross-check implementations. Caches each
+completed N to ab_results.json so partial progress survives interruption.
+
+Usage:
+    python3 run_streaming.py 44 48      # specific N values
+    python3 run_streaming.py            # default sequence
 """
 import time, sys, json, os
 sys.path.insert(0, '.')

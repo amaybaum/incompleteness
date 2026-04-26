@@ -1,12 +1,15 @@
 """
-c_F3 F³ refinement: extract sensitivity dA·B / dc_F3 in continuum limit.
+c_F3 F³ refinement: sweep c_F3 over a 5-point grid at multiple N values
+and extract the continuum-limit sensitivity dA·B/dc_F3.
 
 Sweeps c_F3 ∈ {-0.1, -0.034, 0, +0.034, +0.1} at N ∈ {16, 24, 32, 40, 48}
-and extracts the slope of Π_T·Π_s² vs c_F3, then propagates the
-±0.034 uncertainty in c_F3 (the conservative bound from the framework's
-analytical estimate) to a systematic on A·B.
+and fits the slope of A·B vs c_F3 at each N, then extrapolates the slope
+to N → ∞ via 1/N² fits over multiple sub-ranges. Combines with
+analytical c_F3 estimates (continuum 1-loop and conservative N_f=6 bound)
+to report the F³ systematic on A·B.
 
-The README's current bound is ±1.5%; this session aims for ±0.5%.
+Caches each (N, c_F3) pair to f3_sweep_results.json so partial progress
+survives interruption.
 """
 import time, json, os, sys
 import numpy as np
@@ -35,11 +38,10 @@ else:
 c_F3_values = [-0.1, -0.034, 0.0, +0.034, +0.1]
 N_values = [16, 24, 32, 40, 48]
 
-# Convert intercept (Π_T·Π_s²) to A·B at each (N, c_F3) using the same formula 
-# as in run_streaming.py:
+# Convert intercept (Π_T·Π_s²) to A·B at each (N, c_F3):
 #   A·B(N) = 4π · |intercept|/Π_s² / capture / (1/(6·Π_s)) = 24π · |intercept| / (Π_s · capture)
-# capture is c_F3-independent (it's from std QCD, not the OI bubble), so we 
-# compute it once per N from session 11's cache or recompute with streaming_qcd.
+# The capture factor is c_F3-independent (it's from std QCD, not the OI bubble),
+# so we read it from ab_results.json when available, else compute via streaming_qcd.
 
 def compute_AB(intercept, pi_s, capture):
     Pi_T_OI = abs(intercept) / pi_s**2
@@ -48,7 +50,7 @@ def compute_AB(intercept, pi_s, capture):
     return delta / g0_sq
 
 
-# Reuse session 11's capture values where available
+# Capture values: read from ab_results.json when available
 ab_results_path = "ab_results.json"
 ab_baseline = {}
 if os.path.exists(ab_results_path):
@@ -139,8 +141,7 @@ if len(Ns_with_slopes) >= 3:
     slope_inf = coef[1]
     print(f"\n  → Continuum slope: dA·B/dc_F3 ≈ {slope_inf:.3f}")
     
-    # Continuum A·B baseline (Shanks-3 from session 11/12 was 47.5-48.0, with V_4g 48.9 ± 0.3)
-    AB_central = 48.0  # paper's value
+    AB_central = 48.0  # paper's central A·B value
     # Conservative c_F3 bound from analytical: ±0.034
     c_F3_bound = 0.034
     delta_AB = abs(slope_inf) * c_F3_bound
@@ -148,5 +149,4 @@ if len(Ns_with_slopes) >= 3:
     print(f"  c_F3 bound (analytical): ±{c_F3_bound}")
     print(f"  ΔA·B at c_F3 = ±{c_F3_bound}: ±{delta_AB:.3f}")
     print(f"  Relative systematic on A·B: ±{rel_systematic:.2f}%")
-    print(f"\n  README's current systematic: ±1.5%")
-    print(f"  Achieved this session:        ±{rel_systematic:.2f}%")
+    print(f"  README systematic baseline: ±1.5%")

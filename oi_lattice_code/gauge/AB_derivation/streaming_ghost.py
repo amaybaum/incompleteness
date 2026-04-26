@@ -1,5 +1,9 @@
 """
-Streaming version of compute_ghost_sigma_at_p. Same memory pattern fix.
+Memory-efficient ghost self-energy at finite external momentum.
+
+Streams the loop momentum in chunks to keep peak memory bounded.
+Supports both the standard 1/k̂² propagator and the OI-induced
+1/(k̂²·Π_s) propagator via the `use_induced` flag.
 """
 import numpy as np
 import os, sys

@@ -1,16 +1,14 @@
 """
-A·B precision push: extend the N≤40 result to N=44 (and N=48 if affordable).
+Driver: compute A·B(N) at user-specified N values using the
+non-streaming (full-tensor) implementation. Caches each completed N
+to ab_results.json so partial progress survives interruption.
 
-Procedure (per AB_derivation/README.md):
-1. At each N: compute Π_s(N), capture(N), and intercept of small-p fit
-2. A·B(N) = 4π · |intercept|/Π_s² / capture / (1/(6·Π_s)) 
-3. Extrapolate via Shanks acceleration + 1/N² fit
+Suitable for N ≲ 40 within ordinary memory budgets; for larger N use
+run_streaming.py.
 
-This script picks up from N=28 (already verified in timing test, AB=33.3) and
-runs N=32, 36, 40, 44, then 48 if affordable. Records timing for each step
-so subsequent runs can be planned.
-
-Output: AB_at_N dict written to disk for offline processing if interrupted.
+Usage:
+    python3 run_one.py 32 36 40      # specific N values
+    python3 run_one.py               # default sequence
 """
 import time, sys, json, os
 sys.path.insert(0, '.')

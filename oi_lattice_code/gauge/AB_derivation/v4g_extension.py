@@ -1,22 +1,14 @@
 """
-V_4g step 4: extension and analytical verification.
+V_4g tadpole: J(N) extension and propagation through A·B.
 
-Two parts:
+Computes J(N) = ⟨cos(k_μ)/k̂²⟩ over a range of lattice sizes,
+extrapolates to J(∞), propagates the V_4g tadpole correction
+Π_T^tad·Π_s² = -(Π_s/4)·J through to A·B at each N where ab_results.json
+provides the bubble+ghost baseline, and reports the corrected
+extrapolation.
 
-(A) Extend tadpole_wilson_v4g.py to higher N (44, 48, 56) using the same 
-    streaming-style memory pattern as session 11. Confirm J(N→∞) extrapolation.
-
-(B) Analytical sign/magnitude verification: cross-check the Wilson V_4g 
-    formula against an independent computation by computing the same 
-    tadpole topology in a different gauge / signature and verifying 
-    consistency.
-
-The current formula (tadpole_wilson_v4g.py):
+Tadpole formula:
     Π_T^tad·Π_s² / C_2 = -(Π_s/4) · ⟨cos(k_μ)/k̂²⟩
-
-Sign is "provisional pending Capitani cross-check." Effect on A·B is
-~+3.3% (constructive with bubble+ghost), informing the ±4-5% systematic
-in SM §6.2.1.
 """
 import numpy as np
 import time, json, os, sys
@@ -77,10 +69,10 @@ def compute_PiT_tad_streaming(N, m, pi_s_val=None, batch_size=None):
     return -(pi_s_val/4.0) * J_avg, J_avg, J0, J1
 
 
-# === Part A: J(N) at higher N ===
+# === J(N) at extended N ===
 
 print("="*72)
-print("Part A: J(N) = <cos(k_μ)/k̂²> at extended N")
+print("J(N) = <cos(k_μ)/k̂²> at extended N")
 print("="*72)
 
 m = 0.05
@@ -112,7 +104,7 @@ for N in [8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 56]:
     with open(RESULTS_FILE, 'w') as f:
         json.dump(results, f, indent=2)
 
-# === Part A: Extrapolation analysis ===
+# === Extrapolation analysis ===
 print()
 print("="*72)
 print("J(N) → J(∞) extrapolation")
@@ -135,23 +127,22 @@ Ns_3 = np.array(Ns[-3:], dtype=float)
 J_inf = np.polyfit(1.0/Ns_3**2, Js[-3:], 1)[1]
 print(f"\nBest estimate: J(∞) = {J_inf:.6f}")
 
-# === Part B: Propagate through A·B ===
+# === Propagate J through A·B ===
 print()
 print("="*72)
 print("Propagation through A·B: shift from including V_4g tadpole")
 print("="*72)
 
-# Need bubble+ghost baseline at same N values for a proper combined extrapolation
-# For now, use the estimates from session 11 (ab_results.json)
+# Bubble+ghost baseline at matching N values comes from ab_results.json
 ab_baseline = {}
 if os.path.exists('ab_results.json'):
     with open('ab_results.json') as f:
         ab_results = json.load(f)
-    # Extract intercept (which is Pi_T·Π_s²) for matching N's
+    # Extract intercept (= Π_T·Π_s²) for matching N's
     for k, v in ab_results.items():
         ab_baseline[int(k)] = v.get('intercept', None)
 
-print(f"\nIntercept (Π_T·Π_s²) from session 11 + V_4g tadpole correction:")
+print(f"\nIntercept (Π_T·Π_s²) bubble+ghost vs V_4g tadpole correction:")
 print(f"{'N':>4} {'baseline':>14} {'V_4g tadpole':>14} {'new sum':>14} {'rel shift':>10}")
 for N in sorted(set(Ns).intersection(ab_baseline.keys())):
     base = ab_baseline[N]
@@ -161,7 +152,7 @@ for N in sorted(set(Ns).intersection(ab_baseline.keys())):
     rel = (tad / abs(base)) * 100
     print(f"{N:>4} {base:>+14.6e} {tad:>+14.6e} {new_sum:>+14.6e} {rel:>+9.2f}%")
 
-# === Part B continuum estimate ===
+# === Continuum-limit estimate ===
 print()
 print("Continuum-limit estimate of V_4g tadpole correction to A·B:")
 
@@ -191,10 +182,10 @@ delta_AB = 24*np.pi * abs(PiT_tad_inf) / 0.3084
 print(f"  δ(A·B) ≈ 24π·|Π_T^tad·Π_s²|/Π_s = {delta_AB:.3f}")
 print(f"  Relative shift: {delta_AB/48*100:.1f}% on A·B = 48")
 
-# === Part C: Sign verification — cross-check using BZ symmetry ===
+# === Sign / sanity checks via BZ symmetry ===
 print()
 print("="*72)
-print("Part C: Sign / sanity check via symmetry-based cross-checks")
+print("Sign / sanity checks via symmetry-based cross-checks")
 print("="*72)
 
 # Cross-check 1: J(N) should equal <cos(k_μ)/k̂²> for ANY direction μ.
@@ -260,10 +251,10 @@ print(f"  Negative contributions: {n_neg} (sum = {sum_neg:.4f})")
 print(f"  Net (pos+neg): {(sum_pos+sum_neg)/(N**4):.6f} (vs J = {results['12']['J']:.6f})")
 print(f"  Conclusion: J > 0 because near k=0, cos(k) ≈ 1 dominates the integrand.")
 
-# === Part D: Scaling with N — is the 1/N² fit clean? ===
+# === Scaling check: J(N) - J(∞) vs 1/N² ===
 print()
 print("="*72)
-print("Part D: J(N) - J(∞) vs 1/N² (test of asymptotic regime)")
+print("J(N) - J(∞) vs 1/N² (test of asymptotic regime)")
 print("="*72)
 print(f"\n{'N':>4} {'J(N)':>10} {'J(N)-J(∞)':>12} {'×N²':>10}")
 for N in Ns:

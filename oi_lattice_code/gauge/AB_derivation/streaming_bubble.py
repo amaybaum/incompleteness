@@ -1,13 +1,11 @@
 """
-Memory-efficient drop-in replacement for compute_bubble_at_p and 
-compute_ghost_sigma_at_p that streams the k-loop in chunks instead of
-materializing the full (Npts, 4, 4, 4) vertex tensors.
+Memory-efficient OI gauge bubble at finite external momentum.
 
-Memory: O(BATCH × 4 × 4 × 4) = O(BATCH × 64) instead of O(N⁴ × 64).
-For N=48 with BATCH=10000, that's 640K entries (5 MB) instead of 5.3M × 64 = 2.7 GB.
-
-The math is identical to bubble_at_finite_p.py and qcd_crosscheck.py — only the
-loop structure changes.
+Streams the loop momentum k in chunks of `batch_size` lattice points
+to keep peak memory bounded by O(batch_size × 64) rather than
+O(N⁴ × 64). Functionally equivalent to the full materialized
+computation; kept separate for clarity and so callers can pick the
+implementation appropriate for their N.
 """
 import numpy as np
 import os, sys

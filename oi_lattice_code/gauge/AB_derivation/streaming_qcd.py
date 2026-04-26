@@ -1,5 +1,9 @@
 """
-Streaming version of bubble_standard_qcd, ghost_standard_qcd, and compute_Pi_T_qcd.
+Memory-efficient standard-QCD bubble + ghost transverse self-energy.
+
+Provides the standard-1/k̂² counterparts to streaming_bubble and
+streaming_ghost, used as the "capture" reference against which the
+OI-induced result is normalized.
 """
 import numpy as np
 import os, sys

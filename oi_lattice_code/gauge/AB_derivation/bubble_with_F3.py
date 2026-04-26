@@ -24,7 +24,6 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from paper_pi_s import compute_pi_s
 from yang_mills_lattice import V_3g_ym, p_hat
-# Note: K_F3 is inlined below (lines 81-94 of original) rather than imported
 from ghost_self_energy import compute_ghost_sigma_at_p
 from p_extrapolation import extract_PiT_times_pis2, small_p_fit
 

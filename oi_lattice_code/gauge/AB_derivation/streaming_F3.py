@@ -1,8 +1,8 @@
 """
-Streaming version of bubble_with_F3.compute_bubble_at_p_with_F3.
-Same pattern as streaming_bubble.py — batch the k-loop to keep memory bounded.
+Memory-efficient OI bubble with c_F3 · F³ vertex correction.
 
-The F³ piece is identical to the original; just batched.
+Combines the Wilson-plaquette 3-gluon kernel with the continuum F³
+kernel (weighted by c_F3) and streams the loop momentum in chunks.
 """
 import numpy as np
 import os
