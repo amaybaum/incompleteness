@@ -3,7 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  11pt,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -19,11 +18,8 @@
 % \usepackage{lmodern} % removed
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
-  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
-\usepackage[margin=1in]{geometry}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
   \usepackage[]{microtype}
@@ -527,13 +523,13 @@ separating this finite-dimensional structure from a continuum
 approximation is
 \(\lesssim 1/\sqrt{\dim \mathcal{H}} \sim e^{-10^{121}}\) per eigenvalue
 --- operationally zero at any accessible resolution. Deviations from
-continuum QM at scale \(E\) share the \((E/M_{\text{Pl}})^2\) scaling
-that controls Lorentz-invariance violation (Substratum §6.4) and
-trans-Planckian corrections (SM §8.3); no independent
-continuous-spectrum prediction is needed or claimed. Calvo {[}13{]}
-extends the Barandes correspondence to countable-infinite dimensions for
-completeness, but the finite-dim correspondence is the load-bearing one
-for the framework --- every result in §2--§3 runs on Lemma 1 directly.
+continuum QM at scale \(E\) are suppressed by \((E/M_{\text{Pl}})^2\),
+the same scaling that controls Lorentz-invariance violation and
+trans-Planckian corrections; no independent continuous-spectrum
+prediction is needed or claimed. Calvo {[}13{]} extends the Barandes
+correspondence to countable-infinite dimensions for completeness, but
+the finite-dim correspondence is the load-bearing one for the framework
+--- every result in §2--§3 runs on Lemma 1 directly.
 
 Three features emerge. The Schrödinger equation arises from the
 differentiability of \(U(t)\). The Born rule is the equilibrium
@@ -660,8 +656,7 @@ directions. It is \emph{not} a full CPTP-channel correspondence ---
 channels that create coherences from diagonal inputs have no
 permutation-unitary realisation with uniform ancilla. For the
 characterization theorem (§3.4), which is stated in terms of transition
-probabilities, this is the appropriate scope. The reverse direction here
-is what {[}Substratum, Theorem 23, Stage 1{]} invokes.
+probabilities, this is the appropriate scope.
 
 \textbf{The quantum channel.} The observer's ignorance of the hidden
 sector (Lemma 3) corresponds to \(\rho_H = I_m/m\). The visible-sector
@@ -1308,7 +1303,7 @@ globally expanding system is not in equilibrium with respect to any
 static-observer partition. The horizon's expansion sets
 \(\tau_B \sim H^{-1}\) structurally, not thermally, which is the
 OI-native mechanism making human-timescale laboratory observation
-compatible with (C2); {[}GR, §§5--7{]} develops this quantitatively.
+compatible with (C2).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
