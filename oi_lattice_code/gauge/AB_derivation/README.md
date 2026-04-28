@@ -210,19 +210,9 @@ only appear starting at 3-loop in the induced theory. The strict-2-loop
 calculation shown here therefore confirms structural suppression at the
 expected order of magnitude, and does not (and cannot) reproduce −128.
 
-**Methodology note** (added 2026-04-28): an earlier line in this README
-described "Separate A from B" as "a 2-loop calculation in the induced
-theory". That phrasing was misleading: the relevant `(C_2·g_0²)²`
-coefficient at strict 2-loop is structurally suppressed (per SM.md
-§6.2.1) and the log-resum-form coefficient −A·B²/2 = −128 requires
-3-loop or non-perturbative methods. The corrected item #3 above states
-the position consistently with SM.md.
-
 ### Strict-2-loop infrastructure files
 
-The 9-topology calculation lives in a separate working area
-(`oi_lattice_code/gauge/c2_strict_2loop/` once promoted from
-session-23 staging):
+The 9-topology calculation lives in `../c2_strict_2loop/`:
 
 | File | Purpose |
 |------|---------|
