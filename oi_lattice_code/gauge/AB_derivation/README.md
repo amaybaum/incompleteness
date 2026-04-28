@@ -159,13 +159,83 @@ and propagating the c_F3 result into the bubble integration.
    include its `p²` contribution to the tadpole. Expected to shift
    result by 5-10%.
 
-3. **Separate A from B** — requires computing the `(C_2·g_0²)²` coefficient
-   and testing whether the log-resum form `A·ln(1+B·C_2·g_0²)` is exact.
-   This is a 2-loop calculation in the induced theory, substantially
-   more expensive.
+3. **Separate A from B** — requires the next-order coefficient of
+   `(C_2·g_0²)²` in the resummed gauge self-energy. In the OI induced
+   theory, this coefficient is **structurally suppressed at strict 2-loop
+   across all color channels**, because no tree-level gauge self-interactions
+   exist in the induced theory and induced 3- and 4-gluon vertices first
+   appear at 3-loop order. A clean separation therefore requires 3-loop
+   lattice perturbation theory or non-perturbative methods, both beyond
+   the current scope. See SM.md §6.2.1 (Open work paragraph) for the
+   structural argument. The strict-2-loop 9-topology sum has been computed
+   directly at N=6,8,10,12 as a quantitative consistency check on the
+   structural-suppression claim — see "Strict 2-loop (C_2·g_0²)² check"
+   below.
 
 4. **Add `c_F3`-induced F³ contribution** to the effective 3-gluon vertex,
    beyond the Wilson-plaquette leading piece.
+
+## Strict 2-loop (C_2·g_0²)² check
+
+The 9-topology 1PI 2-loop sum in the induced gauge theory was computed
+at N=6,8,10,12 (m_reg=0.2, m_f=0.05, p²→0 extrapolation via λ=1,2,3) to
+provide a quantitative consistency check on the structural-suppression
+claim of SM.md §6.2.1.
+
+Topologies (T = gluon, G = ghost): T1a kite, T1b vertex correction,
+T1c V_4g bubble, T1d V_4g tadpole, T1e V_4g triple-line, G_a ghost
+square, G_b ghost vertex correction, G_c ghost triangle, G_d V_4g ghost
+bubble.
+
+**Result (std-QCD-equivalent sum, no extra Π_s rescaling):**
+
+| N  | Π_s(m=0.05) | Σ_topologies Π_T_std (sum) |
+|----|-------------|----------------------------|
+|  6 | 5.226       | −0.274 |
+|  8 | 1.853       | −0.101 |
+| 10 | 0.935       | −0.061 |
+| 12 | 0.607       | −0.044 |
+
+The sequence is smooth, monotone-decreasing in magnitude, and converges
+toward small values — quantitatively consistent with the paper's claim
+that the strict-2-loop coefficient is structurally suppressed (the C_A²
+ghost channel alone is estimated at ~0.2% of A·B = ~0.1 in §6.2.1; our
+total is the same order of magnitude, decreasing further with N).
+
+**This is NOT a test of the log-resum coefficient c_2 = −A·B²/2 = −128.**
+That coefficient cannot be obtained from strict 2-loop in OI by the
+framework's own structure: the geometric series 1/(1−Σ) that builds up
+to the log-form requires gauge self-couplings to iterate, and these
+only appear starting at 3-loop in the induced theory. The strict-2-loop
+calculation shown here therefore confirms structural suppression at the
+expected order of magnitude, and does not (and cannot) reproduce −128.
+
+### Strict-2-loop infrastructure files
+
+The 9-topology calculation lives in `../c2_strict_2loop/`:
+
+| File | Purpose |
+|------|---------|
+| `T1a_kite.py` ... `T1e_V4g_triple_line.py` | The 5 gluon topologies, numpy implementations |
+| `G_a_ghost_square.py` ... `G_d_V4g_ghost_bubble.py` | The 4 ghost topologies |
+| `c_lib/kite_T1a.c`, `vertex_T1b.c`, `ghost_G[abc].c` | C+OpenMP single-call implementations |
+| `c_lib/kite_T1a_chunked.c`, `vertex_T1b_chunked.c` | Chunked variants for N≥12 batch execution (bash-tool-timeout-resilient) |
+| `c_topology_wrapper.py` | Python wrapper dispatching numpy or C per topology |
+| `A5_OI_p_extrapolation.py` | p²→0 extrapolation (λ=1,2,3) at fixed N |
+| `n12_driver.py` | Persistent-state task-graph runner. Survives bash-tool timeouts and container restarts. Reusable architecture for any future long-running N-scan. |
+
+### Reproducing the strict-2-loop check
+
+```bash
+# Single N (e.g., N=10), single λ — fast smoke test:
+python3 c_topology_wrapper.py  # smoke test
+python3 -c "from A5_OI_p_extrapolation import run_N_scan; run_N_scan(N_list=[6,8,10], m_reg=0.2, m_f=0.05)"
+
+# N=12 via persistent-state driver (~150 minutes wall-clock, survives interruption):
+python3 n12_driver.py 99999  # drive to completion
+python3 n12_driver.py status  # check progress
+python3 n12_driver.py aggregate  # finalize when done
+```
 
 ## Notes on the paper's text-vs-code convention
 
@@ -188,7 +258,8 @@ consistency in the paper.
 
 - Python 3.8+
 - NumPy
-- No other dependencies (intentionally minimal)
+- C compiler (gcc with OpenMP) for chunked binaries in `c_lib/`. Optional:
+  the calculation can run in pure numpy at lower N (≤ 8) without compilation.
 
 ## Supporting code for §6.2.1 systematics
 
