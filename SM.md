@@ -862,6 +862,8 @@ $$\tfrac{4}{3} = 2A^2 = 2\sin^2\!\bigl(\angle(e_i, \hat{h})\bigr),$$
 
 where $A = \sqrt{2/3}$ is the off-democratic projection of any generation axis (§7.1). The factor decomposes as a *partner-count $\times$ per-partner projection*: the $U$-even combination $E_{12}+E_{13}$ couples generation $e_1$ to its two partners $\{e_2, e_3\}$, each contributing factor $A^2$ from the $\hat h$-perpendicular projection geometry — total $2 \times A^2 = 4/3$. The dominant $U$-odd combination $E_{23}$ couples $e_2$ to its single partner $e_3$, with no analogous multiplicity, giving relative weight $1$. The same projection geometry produces $\sin\theta_{13} = A^2\lambda$ at $O(\lambda)$ via a single-vertex projection. A complete first-principles derivation of $b_{23} = (4/3)(b_{12}+b_{13})$ from explicit lattice perturbation theory on the cubic-lattice Yukawa structure remains an open task; the relation is presented here as a structural input supported by the geometric argument above and tested by the empirical sum rule.
 
+**Status under emergent quantum mechanics.** In standard effective field theory, where quantum mechanics is taken as fundamental, the $U$-even and dominant $U$-odd second-order coefficients $b_{12}+b_{13}$ and $b_{23}$ are independent Wilson coefficients of distinct cubic-invariant operators. No EFT-level symmetry relates them, so a relation such as $b_{23} = (4/3)(b_{12}+b_{13})$ would be empirically discovered rather than predicted. In the OI framework, however, quantum mechanics is itself emergent — a tool for describing the marginal statistics of an embedded observer over a deterministic substrate (companion paper [Main]). This places OI in the broader research program of emergent QM developed by 't Hooft [30] (cellular automaton interpretation), Adler [31] (trace dynamics from matrix models), and Barandes [28] (stochastic-quantum correspondence). In any such framework, EFT Wilson coefficients are not independent inputs but derived quantities arising from substrate-level mode counting, and constraints among them — like the $4/3$ relation — are *expected* whenever multiple EFT operators share a common substrate-level origin. The geometric factorization $4/3 = 2 \times A^2$ is consistent with such a substrate-level partner-count $\times$ projection origin; promoting this from a structural identification to a derivation is the open task referenced above.
+
 The observed $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ (observed: $1.178 \pm 0.020$ using post-JUNO global fit and NuFIT 6.0 atmospheric) therefore follows from the cubic-lattice structure conditional on the relation above, distinguishing it from TM1 or TM2 partial-TBM patterns (which do not produce this combination as an exact sum rule).
 
 ### 7.4 The Higgs mass
@@ -1230,3 +1232,9 @@ The source code under `oi_lattice_code/`, together with the run drivers and anal
 
 
 [29] J. A. Barandes, "The Stochastic-Quantum Theorem," arXiv:2309.03085 (2023).
+
+
+[30] G. 't Hooft, *The Cellular Automaton Interpretation of Quantum Mechanics*, Fundamental Theories of Physics, vol. 185 (Springer, 2016); arXiv:1405.1548.
+
+
+[31] S. L. Adler, *Quantum Theory as an Emergent Phenomenon: The Statistical Mechanics of Matrix Models as the Precursor of Quantum Field Theory* (Cambridge University Press, 2004).
