@@ -178,6 +178,12 @@ where A = √(2/3) is the off-democratic projection of any generation axis (Sec.
 
 In standard effective field theory, the U-even and dominant U-odd coefficients b₁₂+b₁₃ and b₂₃ would be independent Wilson coefficients. The structural relation b₂₃ = (4/3)(b₁₂+b₁₃) is more naturally accommodated in frameworks where quantum mechanics is itself an emergent phenomenon arising from a deeper deterministic structure ['t Hooft 2016; Adler 2004; Barandes 2023], since EFT coefficients can then be related by substrate-level mechanisms even absent a protecting EFT symmetry. The factorization 4/3 = 2 × A² is consistent with this picture; whether it follows rigorously from the cubic-lattice realization of [Maybaum 2026] is the open task referenced above.
 
+We can sharpen the open task. In the AF basis (charged leptons diagonal at LO), second-order perturbative diagonalization of M_ℓ M_ℓ† generates contributions to the A₂ coefficients from cross-terms involving A₁. Direct computation shows that the framework's choice A₁ = (√2/3)(E₁₂ − E₁₃) produces a hierarchy-independent cross-term contribution b₂₃^cross = −1/9 in the m_e² → 0 limit, while b₁₂ and b₁₃ receive no analogous cross-term contribution. Cond. 2 at the observable level then translates to a relation on the substrate's direct second-order corrections:
+
+**b₂₃^sub = (4/3)(b₁₂^sub + b₁₃^sub) + 1/9**
+
+The +1/9 augmentation is forced by A₁'s perturbative structure; deriving the substrate corrections that satisfy this from the cubic-lattice Yukawa is the quantitative open task.
+
 We treat Condition 2 as a structural input to the present analysis and quote our predictions *conditional* on it. The angle predictions of Sec. 3.5 and the sum rule below thus stand or fall with Condition 2: empirical agreement at 0.07σ on sin²θ₁₂ is, in this sense, a nontrivial test of Condition 2 itself.
 
 At the angle level, this is equivalent to
