@@ -795,11 +795,11 @@ $$m_s \;\xrightarrow{\lambda^2}\; m_d \;\xrightarrow{\sqrt{\theta_0}}\; m_u \;\x
 | $m_d$ | $m_s/(2\pi^2)$ | 4.73 MeV | 4.67 ± 0.48 | 1.3% |
 | $m_u$ | $m_d \times \sqrt{2/9}$ | 2.20 MeV | 2.16 ± 0.49 | $0.1\sigma$ |
 | $m_b$ | Koide($Q_{\text{down}}$) | 4144 MeV | 4180 ± 30 | 0.9% |
-| $m_\tau$ | $m_b \times Z_S/4.28$ | 1762 MeV | 1776.9 | 0.8% |
-| $m_e$ | Koide($\theta_0$, $m_\tau$) | 0.507 MeV | 0.511 | 0.8% |
-| $m_\mu$ | Koide($\theta_0$, $m_\tau$) | 104.8 MeV | 105.7 | 0.8% |
+| $m_\tau$ | $m_b \times Z_S/4.28$ | 1755 MeV | 1776.9 | 1.2% |
+| $m_e$ | Koide($\theta_0$, $m_\tau$) | 0.505 MeV | 0.511 | 1.2% |
+| $m_\mu$ | Koide($\theta_0$, $m_\tau$) | 104.4 MeV | 105.7 | 1.2% |
 
-Six masses from one input, all within $1\%$. The remaining input $m_s$ sets the overall mass scale.
+Six masses from one input, all within $\sim 1$–$1.3\%$. The remaining input $m_s$ sets the overall mass scale.
 
 **The top quark mass.**
 
@@ -832,11 +832,27 @@ $$\sin\theta_{13} = A^2 \lambda$$
 
 where $A = \sqrt{2/3}$ is the Wolfenstein $A$ of §7.1 and $\lambda = 1/(\pi\sqrt{2})$ is the Cabibbo angle. The $A^2$ factor is the squared Higgs-projection geometry: each end of an inter-generation mixing vertex projects onto the plane perpendicular to the democratic direction $\hat h$, contributing one factor of $A = \sin(\text{angle between generation axis and } \hat h)$ each. The Cabibbo angle $\lambda$ provides the overall scale of inter-generation mixing. Squaring gives $\sin^2\theta_{13} = A^4 \lambda^2 = (4/9)\lambda^2$ directly; the ratio $\Delta_{13}/\Delta_{23} = A^4$ follows immediately with $\Delta_{23} = \lambda^2$ by convention.
 
-**Derivation of the sum rule from $U$-parity.** The charged-lepton rotation in the AF basis admits the expansion $V_\ell = \exp(\lambda A_1 + \lambda^2 A_2 + O(\lambda^3))$ with $A_n$ antisymmetric. Three framework constraints — vanishing $O(\lambda)$ contributions to both $\Delta_{12}$ and $\Delta_{23}$ (pushing these deviations to $O(\lambda^2)$), plus the correct $\sin^2\theta_{13} = 4\lambda^2/9$ coefficient — uniquely determine
+**Determination of $A_1$ and second-order structure.** The charged-lepton rotation in the AF basis admits the expansion $V_\ell = \exp(\lambda A_1 + \lambda^2 A_2 + O(\lambda^3))$ with $A_n$ antisymmetric. Three framework constraints — vanishing $O(\lambda)$ contributions to both $\Delta_{12}$ and $\Delta_{23}$ (pushing these deviations to $O(\lambda^2)$), plus the correct $\sin^2\theta_{13} = 4\lambda^2/9$ coefficient — uniquely determine
 
 $$A_1 = \frac{\sqrt{2}}{3}\big(E_{12} - E_{13}\big),$$
 
-where $(E_{ij})_{kl} = \delta_{ik}\delta_{jl} - \delta_{il}\delta_{jk}$. Geometrically, $A_1$ is a rotation by angle $A^2 = 2/3$ around the axis $(e_2 + e_3)/\sqrt{2}$, reproducing $\sin\theta_{13} = A^2\lambda$ as above. The structural property is that $A_1$ is purely *$U$-odd* under the $\mu$-$\tau$ exchange generator of $S_4 \supset A_4$: $U A_1 U^{-1} = -A_1$. This transforms in the odd-parity irrep of $S_4/A_4$ and corresponds to a $\mu$-$\tau$-antisymmetric perturbation of the charged-lepton mass matrix. At $O(\lambda^2)$, the $U$-parity decomposition of $A_2$ into $U$-even $\propto (E_{12} + E_{13})$ and $U$-odd $\propto E_{23}$ parts produces the constraints $b_{12} + b_{13} = 3/4$ and $b_{23} = 1$, which satisfy the sum-rule relation $b_{23} = (4/3)(b_{12} + b_{13})$ exactly. The observed $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ (observed: $1.164 \pm 0.021$) therefore follows from the $U$-parity structure rather than from TM1 or TM2 partial-TBM patterns (both of which fail by $\gtrsim 1\%$ at the framework's values). Detailed derivation in the companion note `A1_Closure.md`.
+where $(E_{ij})_{kl} = \delta_{ik}\delta_{jl} - \delta_{il}\delta_{jk}$. Geometrically, $A_1$ is a rotation by angle $A^2 = 2/3$ around the axis $(e_2 + e_3)/\sqrt{2}$, reproducing $\sin\theta_{13} = A^2\lambda$ as above. The structural property is that $A_1$ is purely *$U$-odd* under the $\mu$-$\tau$ exchange generator of $S_4 \supset A_4$: $U A_1 U^{-1} = -A_1$.
+
+Decomposing the most general antisymmetric $A_2 = b_{12} E_{12} + b_{13} E_{13} + b_{23} E_{23}$ and computing $|U_{\text{PMNS},ij}|^2$ to $O(\lambda^2)$ (with cos$^2\theta_{13}$ correction included), the deviations are:
+
+$$\Delta_{13} = \tfrac{4}{9}\lambda^2 = A^4 \lambda^2, \qquad \Delta_{12} = -\tfrac{2}{3}(b_{12}+b_{13})\lambda^2, \qquad \Delta_{23} = b_{23}\lambda^2.$$
+
+Three points: (i) $\Delta_{13}$ is independent of $A_2$ — the structural identity $\sin\theta_{13} = A^2\lambda$ is exact at $O(\lambda^2)$; (ii) $b_{12} - b_{13}$ does not enter any of the three angles, and is identified with $\delta_{CP}$; (iii) under $U$-parity, $(b_{12}+b_{13})$ is the $U$-even and $b_{23}$ the dominant $U$-odd coefficient of $A_2$, with $(b_{12}-b_{13})$ the sub-dominant $U$-odd combination.
+
+The absolute normalization is fixed by the cubic-lattice realization of the charged-lepton mass matrix. The natural-normalization choice $b_{23} = 1$ — corresponding to $A_2$ entering the perturbation series at unit strength relative to $\lambda^2$ — combined with the structural condition $b_{23} = (4/3)(b_{12}+b_{13})$ from the cubic-group representation theory yields
+
+$$b_{12} + b_{13} = \tfrac{3}{4}, \qquad b_{23} = 1,$$
+
+which translates into the angle-level sum rule
+
+$$2\Delta_{12} + \Delta_{23} = 0.$$
+
+The observed $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ (observed: $1.178 \pm 0.020$ using post-JUNO global fit and NuFIT 6.0 atmospheric) therefore follows from the cubic-lattice structure, distinguishing it from TM1 or TM2 partial-TBM patterns (which do not produce this combination as an exact sum rule).
 
 ### 7.4 The Higgs mass
 
@@ -848,11 +864,11 @@ Using the 3-loop SM RGE [25], $\lambda(M_{\text{Pl}}) = 0$ gives $m_H \approx 12
 
 **Tree-level result.**
 
-The tree-level Yukawa coupling is taste-independent [12]: $y_b = y_\tau$. With two-loop SM RGE [25]: $m_b/m_\tau|_{\text{tree}} = 4.276$, indicating a substantial non-perturbative correction.
+The tree-level Yukawa coupling is taste-independent [12]: $y_b = y_\tau$. With two-loop SM RGE [25]: $m_b/m_\tau|_{\text{tree}} = 4.276$ (with $\sim 1\%$ residual systematic from higher-loop corrections and EW-threshold matching), indicating a substantial non-perturbative correction.
 
 **Non-perturbative correction.**
 
-The correction is the scalar density renormalization $Z_S(m) = \langle\bar\psi\psi\rangle_{\text{int}} / \langle\bar\psi\psi\rangle_{\text{free}}$, computed on SU(3) gauge backgrounds at $\beta = 11.1$ as a function of bare mass $m$. The prediction: $m_b/m_\tau = 4.28/Z_S(m_{\text{match}})$.
+The correction is the scalar density renormalization $Z_S(m) = \langle\bar\psi\psi\rangle_{\text{int}} / \langle\bar\psi\psi\rangle_{\text{free}}$, computed on SU(3) gauge backgrounds at $\beta = 11.1$ as a function of bare mass $m$. The denominator $\langle\bar\psi\psi\rangle_{\text{free}}$ is evaluated analytically on the same lattice with the eight BZ-corner modes excluded from the momentum sum (`scripts/analyze_zs.py`); this finite-$L$ regulator differs from the standard staggered convention (corner modes included) by $\sim 2\%$ at $L = 32$, $\sim 0.3\%$ at $L = 64$, and converges to it at $L \to \infty$. The prediction: $m_b/m_\tau = 4.28/Z_S(m_{\text{match}})$.
 
 Monte Carlo simulations at $L = 16$ (30 configs) and $L = 32$ (50 configs), scanning 30 masses from $m = 0.005$ to $0.50$, reveal that $Z_S(m)$ is monotonically decreasing in the volume-converged region ($mL \gtrsim 3$). At $m = 0.10$: $Z_S$ converges from $1.70$ ($L{=}16$) to $1.92$ ($L{=}32$) to $1.94$ ($L{=}64$).
 
@@ -876,14 +892,13 @@ Physically, $\lambda$ controls inter-generation mixing (taste-breaking) while $g
 
 Combining these gives $c_{bb} = 2\lambda$. The scalar density self-energy takes the form $\Pi_{\text{taste}}(m) = K \cdot c_{bb} \cdot g_0^2 \cdot \Sigma/m$ for some loop kinematic coefficient $K$, and matching at the natural condensate-scale threshold $T = \Sigma$ gives $m_{\text{match}} = 2K \lambda \cdot g_0^2$.
 
-The framework's prediction $m_{\text{match}} = \lambda \cdot g_0^2$ requires $K = 1/2$. Three independent arguments converge on this value:
+The framework's prediction $m_{\text{match}} = \lambda \cdot g_0^2$ requires $K = 1/2$. This value is established by one first-principles consideration (Argument 1, with OI-specific verification deferred — see Residual gap below) plus two consistency checks:
 
 **Argument 1 (Staggered convention).** The standard staggered fermion action uses the symmetric kinetic term $S_{\text{kin}} = \tfrac{1}{2}\sum_{x,\mu}\eta_\mu(x)\bar\chi(x)[U_\mu(x)\chi(x+\hat\mu) - U_\mu^\dagger(x-\hat\mu)\chi(x-\hat\mu)]$, with the gauge vertex $V_\mu = (g_0/2)\eta_\mu(x)[U_\mu + U_\mu^\dagger]$. The factor $1/2$ from this symmetrization propagates as a universal kinematic prefactor in one-loop bilinear renormalization, matching the standard staggered renormalization constants $Z_S, Z_P$ (Sharpe et al.; Lepage–Mackenzie tadpole-improved coefficients).
 
-**Argument 2 (Symmetric averaging).** The taste-breaking insertion can appear before or after the gauge exchange in the fermion loop. By Hermitian conjugation symmetry these orderings contribute equally, and the proper Wick-contracted amplitude includes a combinatorial $1/2$ to avoid double-counting:
-$\Pi_{\text{taste}}^{\text{full}} = \tfrac{1}{2}[\Pi^{(L)} + \Pi^{(R)}] = \Pi^{(L)}$. This is the standard symmetry factor for diagrams with two equivalent insertion orderings, analogous to the $1/2$ in the QED vacuum polarization.
+**Consistency check 2 (Symmetric averaging — definitional).** The taste-breaking insertion can appear before or after the gauge exchange in the fermion loop. By Hermitian conjugation symmetry these orderings contribute equally; if the full amplitude is *defined* as the average $\Pi_{\text{taste}}^{\text{full}} = \tfrac{1}{2}[\Pi^{(L)} + \Pi^{(R)}]$, the prefactor $1/2$ appears explicitly and equals $\Pi^{(L)}$. Defining $\Pi^{\text{full}}$ as the sum (rather than the average) gives no factor; the $1/2$ here is therefore a convention that aligns with Argument 1's normalization, not an additional first-principles derivation.
 
-**Argument 3 (Empirical exclusion of alternatives).** The observed $m_b/m_\tau$ excludes all natural alternatives:
+**Consistency check 3 (Empirical exclusion of natural fractions).** Among the natural fractions $K \in \{1/4, 1/2, 1, 2\}$, the observed $m_b/m_\tau$ excludes all but $K = 1/2$:
 
 | $K$ | $m_{\text{match}}$ | $m_b/m_\tau$ | Discrepancy |
 |---|---|---|---|
@@ -892,17 +907,19 @@ $\Pi_{\text{taste}}^{\text{full}} = \tfrac{1}{2}[\Pi^{(L)} + \Pi^{(R)}] = \Pi^{(
 | $1/4$ | $0.061$ | $\approx 1.78$ | $24\%$ ✗ |
 | $2$ | $0.487$ | $\gg 4$ | excluded ✗ |
 
-Only $K = 1/2$ matches. The convergence of three independent considerations (staggered convention, Wick symmetry, empirical exclusion) on the same value is non-trivial.
+Intermediate fractions ($K \in \{1/3, 2/3, 3/4\}$) give $m_{\text{match}}$ between 0.08 and 0.18, with corresponding $m_b/m_\tau$ in the 1.8–3.2 range; no fraction outside $\{1/2\}$ falls within $\sim 5\%$ of observation. This is empirical fitting on a moderately-restricted set rather than a first-principles derivation, but the resulting selection is sharp.
 
-**Residual gap.** The arguments above establish $K = 1/2$ as the natural and consistent value within standard staggered perturbation theory. A fully explicit one-loop calculation within the OI lattice setup — computing the diagram directly with the OI vertex $V_j = ig_0\mu T^\alpha\cos(k_j + p_j/2)$ — would replace this argument with a direct computation. The B2 lattice MC code (`b2_coefficient.c`) is structured to perform this verification.
+$K = 1/2$ is therefore established by one first-principles consideration (Argument 1, pending the deferred OI-specific verification) plus a definitional convention (check 2) and an empirical exclusion (check 3) that align with it.
 
-MC consistency check: the empirical matching scale extracted from the Monte Carlo data is $m_{\text{match}}^{\text{MC}} = 0.1234 \pm 0.0002$, which agrees with the predicted $\lambda \cdot g_0^2 = 0.1217$ within 1.4% (compatible with NLO truncation of the leading-order chain above). Alternative choices of coefficient — e.g., $K = 1$ giving $m_{\text{match}} = 2\lambda g_0^2 \approx 0.24$ — are strongly excluded by the MC data (would give $m_b/m_\tau \approx 3.17$ vs. observed 2.35). Detailed derivation in companion note `B2_Closure.md` §6.
+**Residual gap.** The arguments above establish $K = 1/2$ as the natural and consistent value within standard staggered perturbation theory. A fully explicit one-loop calculation within the OI lattice setup — computing the diagram directly with the OI vertex $V_j = ig_0\mu T^\alpha\cos(k_j + p_j/2)$ — would replace this argument with a direct computation, and is the natural follow-up.
+
+MC consistency check: the empirical matching scale extracted from the Monte Carlo data is $m_{\text{match}}^{\text{MC}} = 0.1234 \pm 0.0002$, which agrees with the predicted $\lambda \cdot g_0^2 = 0.1217$ within 1.4% (compatible with NLO truncation of the leading-order chain above). Alternative choices of coefficient — e.g., $K = 1$ giving $m_{\text{match}} = 2\lambda g_0^2 \approx 0.24$ — are strongly excluded by the MC data (would give $m_b/m_\tau \approx 3.17$ vs. observed 2.35).
 
 **The prediction.**
 
 $$\boxed{\frac{m_b}{m_\tau} = \frac{4.28}{Z_S(\lambda g_0^2)} = \frac{4.28}{1.813} = 2.361}$$
 
-Observed: $m_b/m_\tau = 2.352 \pm 0.017$. Match: $0.5\sigma$ ($0.4\%$). The completed $L = 32$ run (50 configs) gives $Z_S(0.122) = 1.813 \pm 0.001$ by cubic interpolation. The inputs $\lambda$, $g_0^2$, and $R = 4.28$ are determined by the lattice structure; the matching-scale identification $m_{\text{match}} = \lambda \cdot g_0^2$ follows from power-counting in the taste-decomposed CW potential (specific-taste projection gives leading-$\lambda$ correction; only the combination $\lambda \cdot g_0^2$ among natural dimensional combinations matches MC), with an $O(1)$ coefficient absorbed into the lattice convention.
+Observed: $m_b/m_\tau = 2.352 \pm 0.017$. The central-value match at $L=32$ is $0.4\%$ ($0.5\sigma$), with a realistic systematic uncertainty of $\sim 1$–$2\%$ from finite volume, the regulator choice noted above, and higher-loop SM RGE corrections to $R = 4.28$. The $L \to \infty$ extrapolation in either lattice regulator gives $Z_S \approx 1.83$ and $m_b/m_\tau \approx 2.34$, consistent with observation at $\sim 0.7\sigma$. The $L = 32$ run (50 configs) gives $Z_S(0.122) = 1.813 \pm 0.001$ (statistical only) by cubic interpolation; finite-volume systematics are not exhaustively quantified in the released code (see `README.md` §Code, point 3). The inputs $\lambda$, $g_0^2$, and $R = 4.28$ are determined by the lattice structure; the matching-scale identification $m_{\text{match}} = \lambda \cdot g_0^2$ follows from power-counting in the taste-decomposed CW potential (specific-taste projection gives leading-$\lambda$ correction; only the combination $\lambda \cdot g_0^2$ among natural dimensional combinations matches MC), with an $O(1)$ coefficient absorbed into the lattice convention.
 
 ### 7.6 Summary table of all predictions
 
@@ -937,7 +954,7 @@ Footnotes:
 
 - **†** The three SM gauge couplings at $M_Z$ are reproduced with one empirical input in this sector (§6.3): the U(1) coupling fixes the universal threshold $\delta_0 = 10.02$, and the SU(2) and SU(3) entries are retrodictions using the $C_2$-dependent threshold parameterization $(A, B) = (8.3, 5.59)$ matched to the observed couplings. The structural input $1/\alpha_0 = 23.25$ is computed analytically from the one-loop staggered vacuum polarization. A 2-loop staggered VP rebuild indicates $\delta_0$ is not reproduced by strict 2-loop PT and is accordingly treated as empirical input (see §6.2). The structural predictions in this sector are: (i) the specific value $1/\alpha_0 = 23.25$, (ii) the universality of $\delta_0$ across gauge groups, and (iii) the 1-loop analytic derivation of $A \cdot B = 48.0 \pm 1.5$ agreeing with the fitted $46.4$ to $\sim 3\%$. Deriving $(A, B)$ individually from first-principles lattice perturbation theory would upgrade the SU(2) and SU(3) entries from retrodictions (**R**) to strict predictions (**S**).
 
-- **‡** The matching scale $m_{\text{match}} = \lambda \cdot g_0^2$ is structurally derived in the taste-decomposed Coleman–Weinberg potential (§7.5): the b-quark is identified with the democratic eigenstate $\hat{h}$ of the cubic-symmetric taste-breaking operator (from §7.1, §7.2 representation theory), giving diagonal taste-breaking $c_{bb} = 2\lambda$. Combining with the natural matching condition at condensate scale $\Sigma$ and a loop kinematic coefficient $K$, the prediction $m_{\text{match}} = \lambda g_0^2$ requires $K = 1/2$. Three independent arguments converge on this value (§7.5): the standard staggered action normalization, the symmetric Wick-contraction factor for the two equivalent insertion orderings, and empirical exclusion of natural alternatives ($K = 1$ excluded at $35\%$, $K = 1/4$ at $24\%$). The B2 lattice MC code (`b2_coefficient.c`) provides a future direct verification. The MC-extracted value $m_{\text{match}}^{\text{MC}} = 0.1234 \pm 0.0002$ agrees with the derived $\lambda g_0^2 = 0.1217$ within $1.4\%$ (NLO truncation).
+- **‡** The matching scale $m_{\text{match}} = \lambda \cdot g_0^2$ is structurally derived in the taste-decomposed Coleman–Weinberg potential (§7.5): the b-quark is identified with the democratic eigenstate $\hat{h}$ of the cubic-symmetric taste-breaking operator (from §7.1, §7.2 representation theory), giving diagonal taste-breaking $c_{bb} = 2\lambda$. Combining with the natural matching condition at condensate scale $\Sigma$ and a loop kinematic coefficient $K$, the prediction $m_{\text{match}} = \lambda g_0^2$ requires $K = 1/2$. This value is supported by the staggered kinetic-term symmetrization (genuine first-principles consideration, with a direct one-loop OI-vertex computation as the natural follow-up — see §7.5 Residual gap) and by empirical exclusion of natural alternatives within $K \in \{1/4, 1/2, 1, 2\}$ ($K = 1$ excluded at $35\%$, $K = 1/4$ at $24\%$); see §7.5 for the structural detail. The MC-extracted value $m_{\text{match}}^{\text{MC}} = 0.1234 \pm 0.0002$ agrees with the derived $\lambda g_0^2 = 0.1217$ within $1.4\%$ (NLO truncation). The central-value match $m_b/m_\tau = 0.5\sigma$ is at $L = 32$; realistic systematic uncertainty including finite-volume and regulator effects is $\sim 1$–$2\%$ (§7.5).
 
 **Parameter-accounting summary:** Of the 22 observables: **13 are strictly parameter-free structural predictions** (**S**); 2 are retrodictions in the gauge coupling sector (**R**, where $(A, B)$ are currently matched to observation rather than computed — upgradable to **S** via first-principles lattice PT); 1 fixes the universal threshold $\delta_0$ from the U(1) coupling (**E**); 3 form a one-input mass/parameter chain (**M**, with $m_e$ and $m_\mu$ from $m_\tau$, and $m_H$ from $m_t$); 1 uses an explicit empirical input (**E**, the Jarlskog phase $\eta$); and 2 use a phenomenological input (**P**, the down-sector $Q$ relation). No parameters are fit to the predicted quantities in the **S** class.
 

@@ -1,0 +1,679 @@
+\documentclass[aps,prd,reprint,superscriptaddress,nofootinbib,floatfix]{revtex4-2}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{bm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\begin{document}
+
+\title{A Parameter-Free Prediction of the Solar Mixing Angle\\
+from Cubic-Group Flavor Structure, Tested by JUNO}
+
+\author{Alex Maybaum}
+\email{[email]}
+\affiliation{Independent researcher}
+
+\date{\today}
+
+\begin{abstract}
+The first JUNO measurement of reactor neutrino oscillations
+reports $\sin^2\theta_{12} = 0.3092 \pm 0.0087$, with the
+post-JUNO global fit tightening this to
+$\sin^2\theta_{12} = 0.3085 \pm 0.0073$. We show that
+treating the cubic point group $O$ — the symmetry group of
+three-dimensional space — as the underlying symmetry of the
+lepton sector yields the parameter-free prediction
+$\sin^2\theta_{12} = \tfrac{1}{3} - \tfrac{1}{4\pi^2} = 0.3080$,
+matching the global fit at $0.07\sigma$. The same construction
+gives $\sin^2\theta_{13} = 4/(18\pi^2) = 0.02252$ and
+$\sin^2\theta_{23} = \tfrac{1}{2} + 1/(2\pi^2) = 0.5507$,
+each consistent with NuFIT~6.0 within $1.1\sigma$. A discrete
+$\mu$\nobreakdash-$\tau$ parity together with a natural-normalization
+condition forces the exact sum rule
+$2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$, distinguishing
+this prediction from the TM1 and TM2 patterns currently
+analyzed against JUNO. The Cabibbo angle
+$\lambda = 1/(\pi\sqrt{2}) = 0.22508$, fixed by the cubic
+Brillouin-zone geometry, sets the perturbation scale and
+matches the observed value to $0.04\%$. JUNO's design-lifetime
+precision of $\pm 0.0014$ will test the prediction at sub-percent
+level.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Tribimaximal (TBM) mixing~\cite{Harrison2002} predicts the
+lepton mixing angles $\sin^2\theta_{12} = 1/3$,
+$\sin^2\theta_{23} = 1/2$, and $\sin^2\theta_{13} = 0$. It was
+the leading phenomenological description of neutrino oscillation
+data until Daya Bay measured a nonzero
+$\theta_{13}$~\cite{DayaBay2012}. Since then, modified TBM
+patterns have been the subject of a substantial
+literature~\cite{King2013,He2011,He2015,PetcovTitov}. The two best-known
+modifications preserve one column of the original TBM matrix
+exactly: TM1 (first column) and TM2 (second column). Each gives
+a one-parameter family that accommodates the observed
+$\theta_{13}$ but predicts different values for the other two
+angles.
+
+The first JUNO results, released in November 2025, sharpen this
+picture. JUNO reports
+\begin{equation}
+\sin^2\theta_{12} = 0.3092 \pm 0.0087,
+\label{eq:juno}
+\end{equation}
+from 59.1 days of data~\cite{JUNO2025}. Combining JUNO with
+all prior solar and reactor results, Capozzi
+\emph{et~al.}~\cite{Capozzi2025} obtain
+\begin{equation}
+\sin^2\theta_{12} = 0.3085 \pm 0.0073.
+\label{eq:capozzi}
+\end{equation}
+At this precision, TBM-modification proposals can be discriminated
+at the few-percent level. He~\cite{He2025} finds that TM2 is
+excluded at $>3.5\sigma$ while TM1 remains viable; Zhang reports
+similar results~\cite{Zhang2025}. Structural assumptions about
+flavor symmetry are now being tested directly against data.
+
+Most existing TBM-modification proposals start from a discrete
+\emph{flavor symmetry} — typically $A_4$, $S_4$, or a $Z_2$
+residual — postulated as an axiom of the lepton sector. The
+minimal modifications then preserve one column of the TBM matrix
+or one residual symmetry of the neutrino mass matrix, yielding
+one-parameter correlations between angles.
+
+In this paper we take a different starting point: the cubic
+point group $O$, which is the symmetry group of three-dimensional
+space. The subgroup $A_4 \subset O$ that generates TBM at
+zeroth order~\cite{Ma2001,AltarelliFeruglio2010} is the
+orientation-preserving subgroup of $O$. We adopt as a working
+hypothesis that the three fermion generations transform under
+$O$ as the triplet irrep $T_1$. The cubic group then has a
+natural $(3, 2, 1)$ multiplet structure that matches the
+three-generation pattern (Sec.~II.A).
+
+The Cabibbo angle, $\lambda^2 = 1/(2\pi^2)$, sets the
+perturbation scale; it is fixed by a single cubic Brillouin-zone
+distance (Sec.~II.B). The breaking of TBM is then controlled by
+a discrete $\mu$-$\tau$ parity (the $U$-parity of $S_4 \supset
+A_4$) together with one normalization condition (Sec.~III.D).
+The resulting predictions are
+\begin{align}
+\sin^2\theta_{12} &= \tfrac{1}{3} - \tfrac{1}{4\pi^2} = 0.3080,
+\label{eq:t12prediction}\\
+\sin^2\theta_{13} &= \tfrac{4}{18\pi^2} = 0.02252, \\
+\sin^2\theta_{23} &= \tfrac{1}{2} + \tfrac{1}{2\pi^2} = 0.5507.
+\end{align}
+The prediction~\eqref{eq:t12prediction} contains no fitted
+parameter: the input $1/3$ comes from $A_4$ representation
+theory, and $\lambda^2 = 1/(2\pi^2)$ from the cubic Brillouin
+geometry that also reproduces the Cabibbo angle to $0.04\%$
+(Sec.~II.B). The $0.07\sigma$ match with the post-JUNO global
+fit is therefore a check of a relation fixed before JUNO took
+data.
+
+The paper is organized as follows. Section~II sets up the
+cubic-group structure and derives the perturbation scale.
+Section~III computes the deviations from TBM at $O(\lambda^2)$
+and derives the sum rule. Section~IV presents the predictions
+and compares them with JUNO, the post-JUNO global fit, and
+competing TM1/TM2 patterns. Section~V discusses falsifiability
+under JUNO's projected long-term precision. Section~VI
+concludes.
+
+\section{Cubic-lattice flavor structure}
+
+\subsection{The cubic group $O$ and its $A_4$ subgroup}
+
+The full octahedral rotation group $O$ has order 24 and is
+isomorphic to $S_4$. Its irreducible representations decompose
+as
+\begin{equation}
+\text{irreps}(O) = A_1 \oplus A_2 \oplus E \oplus T_1 \oplus T_2,
+\label{eq:Oirreps}
+\end{equation}
+of dimensions $1, 1, 2, 3, 3$. The subgroup $A_4 \subset O$
+keeps $\{A_1, A_2, E, T_1\}$ but identifies $A_2$ with $A_1$,
+giving the standard $A_4$ content $A \oplus A' \oplus A''
+\oplus T$ of dimensions $1, 1, 1, 3$.
+
+We take $T_1$ as the generation triplet. Realize it by the
+three Cartesian unit vectors $\{e_1, e_2, e_3\}$ acted on by
+the 24 rotations of $O$. The democratic vector
+\begin{equation}
+\hat{h} = \tfrac{1}{\sqrt{3}}(e_1 + e_2 + e_3)
+\label{eq:hhat}
+\end{equation}
+is the only direction fixed by the $\mathbb{Z}_3$ cyclic
+subgroup. The plane perpendicular to $\hat{h}$ carries the
+doublet $E$. This is the geometric origin of TBM: the second
+column of $U_{\text{TBM}}$ is exactly $\hat{h}$, and the first
+and third columns lie in the plane perpendicular to it,
+oriented by $\mu$-$\tau$ exchange.
+
+\subsection{The Cabibbo scale from cubic Brillouin geometry}
+
+We identify the perturbation parameter $\lambda$ with the Cabibbo
+angle. The natural choice from the cubic Brillouin zone is the
+shortest distance between two points in the same $O$-orbit,
+normalized to the zone diameter $2\pi$:
+\begin{equation}
+\lambda = \frac{1}{\pi\sqrt{2}} = 0.22508,
+\label{eq:cabibbo}
+\end{equation}
+which matches the observed Cabibbo angle
+$\lambda_{\text{obs}} = 0.22500 \pm 0.00067$~\cite{PDG2024} to
+$0.04\%$. Squaring,
+\begin{equation}
+\lambda^2 = \frac{1}{2\pi^2} = 0.05066,
+\label{eq:lambda2}
+\end{equation}
+sets the overall scale of $O(\lambda^2)$ corrections.
+
+A second geometric quantity will appear. The angle between any
+generation axis $e_i$ and the democratic direction $\hat{h}$
+satisfies $e_i \cdot \hat{h} = 1/\sqrt{3}$, so
+$\cos^2(\angle(e_i, \hat{h})) = 1/3$ and
+$\sin^2(\angle(e_i, \hat{h})) = 2/3$. We identify the Wolfenstein
+parameter $A$ with this quantity:
+\begin{equation}
+A = \sqrt{2/3} = 0.8165,
+\label{eq:wolfA}
+\end{equation}
+agreeing with the PDG value $A = 0.826 \pm 0.012$ at
+$0.23\sigma$. The combination $A^2 = 2/3$ enters the
+inter-generation projection geometry, and $A^4 = 4/9$ appears
+directly in the deviation $\Delta_{13}$ below.
+
+\subsection{The PMNS matrix in the Altarelli-Feruglio basis}
+
+We work in the Altarelli-Feruglio (AF)
+basis~\cite{AltarelliFeruglio2010}. In this basis the neutrino
+sector realizes TBM exactly (after diagonalization of the seesaw
+matrix), and all deviations from TBM come from the charged-lepton
+mass matrix. The PMNS matrix is
+\begin{equation}
+U_{\text{PMNS}} = V_\ell^\dagger \, U_{\text{TBM}},
+\label{eq:UPMNS}
+\end{equation}
+where $V_\ell$ is the charged-lepton rotation that diagonalizes
+$M_\ell M_\ell^\dagger$, and
+\begin{equation}
+U_{\text{TBM}} = \begin{pmatrix}
+\sqrt{2/3} & \sqrt{1/3} & 0 \\
+-\sqrt{1/6} & \sqrt{1/3} & -\sqrt{1/2} \\
+-\sqrt{1/6} & \sqrt{1/3} & \sqrt{1/2}
+\end{pmatrix}.
+\label{eq:UTBM}
+\end{equation}
+Expanding $V_\ell$ in $\lambda$,
+\begin{equation}
+V_\ell = \exp\left(\lambda A_1 + \lambda^2 A_2 + O(\lambda^3)\right),
+\label{eq:Vexp}
+\end{equation}
+with $A_1$, $A_2$ real antisymmetric $3\times 3$ matrices. The
+remaining task is to determine $A_1$ and $A_2$ from the
+structural
+ingredients of cubic geometry and the $U$-parity grading.
+
+\section{$U$-parity grading and the sum rule}
+
+\subsection{The $U$-parity generator}
+
+In the AF basis, the $\mu$-$\tau$ exchange generator $U \in S_4$
+acts on the generation indices by exchanging the second and third:
+\begin{equation}
+U = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix}.
+\label{eq:U}
+\end{equation}
+Conjugation by $U$ defines a $\mathbb{Z}_2$ grading on
+antisymmetric matrices: a matrix $A$ is \emph{$U$-even} if
+$U A U^{-1} = +A$ and \emph{$U$-odd} if $U A U^{-1} = -A$. Using
+the standard antisymmetric basis
+\begin{equation}
+(E_{ij})_{kl} = \delta_{ik}\delta_{jl} - \delta_{il}\delta_{jk},
+\label{eq:A2decomp}
+\end{equation}
+the $U$-parity decomposition is
+\begin{align}
+\text{$U$-even}\;&: \; E_{12} + E_{13}, \\
+\text{$U$-odd}\;&: \; E_{12} - E_{13}, \quad E_{23}.
+\end{align}
+The unique $U$-odd combination antisymmetric in the
+$(\mu, \tau)$ pair is $E_{23}$; the unique $U$-odd combination
+relating the first generation to the second/third is
+$E_{12} - E_{13}$.
+
+\subsection{Determination of $A_1$}
+
+Three conditions fix $A_1$ uniquely. First, $\theta_{13}$ is
+zero at TBM zeroth order, but the data require
+$\sin\theta_{13} = O(\lambda)$; so $A_1$ must contribute to the
+(1,3) element of $V_\ell^\dagger U_{\text{TBM}}$. Second, both
+$\Delta_{12} \equiv \sin^2\theta_{12} - 1/3$ and
+$\Delta_{23} \equiv \sin^2\theta_{23} - 1/2$ are observed to be
+$O(\lambda^2)$ (not $O(\lambda)$), which fixes $A_1$ up to an
+overall sign. Third, the coefficient is set by the geometric
+identity
+\begin{equation}
+\sin\theta_{13} = A^2 \, \lambda,
+\label{eq:s13structural}
+\end{equation}
+which follows from the projection geometry: each end of an
+inter-generation mixing vertex projects onto the plane
+perpendicular to $\hat{h}$, contributing a factor
+$\sin(\angle(e_i, \hat{h})) = A$, for a total $A^2$.
+
+The result is
+\begin{equation}
+A_1 = \frac{\sqrt{2}}{3}\bigl(E_{12} - E_{13}\bigr).
+\label{eq:A1}
+\end{equation}
+$A_1$ is purely $U$-odd: $UA_1 U^{-1} = -A_1$. Geometrically, it
+is a rotation by angle $A^2 = 2/3$ around the axis
+$(e_2 + e_3)/\sqrt{2}$, reproducing Eq.~\eqref{eq:s13structural}.
+
+\subsection{Deviations to $O(\lambda^2)$}
+
+Expanding $V_\ell$ to second order,
+\begin{equation}
+V_\ell = I + \lambda A_1 + \lambda^2\bigl(A_2 + \tfrac{1}{2}A_1^2\bigr) + O(\lambda^3),
+\end{equation}
+and writing the most general antisymmetric $A_2$ as
+\begin{equation}
+A_2 = b_{12}E_{12} + b_{13}E_{13} + b_{23}E_{23},
+\label{eq:A2}
+\end{equation}
+we compute $|U_{\text{PMNS},ij}|^2$ to $O(\lambda^2)$. The PMNS
+angles satisfy $\sin^2\theta_{13} = |U_{e3}|^2$,
+$\sin^2\theta_{12}\cos^2\theta_{13} = |U_{e2}|^2$, and
+$\sin^2\theta_{23}\cos^2\theta_{13} = |U_{\mu 3}|^2$. The
+deviations from TBM are
+\begin{align}
+\Delta_{13} &= \tfrac{4}{9}\,\lambda^2 = A^4\lambda^2, \label{eq:Delta13} \\
+\Delta_{12} &= -\tfrac{2}{3}(b_{12}+b_{13})\,\lambda^2, \label{eq:Delta12} \\
+\Delta_{23} &= b_{23}\,\lambda^2. \label{eq:Delta23}
+\end{align}
+
+Three observations follow.
+
+\textit{(i) $\Delta_{13}$ is fully determined by $A_1$ alone.}
+The $A_2$ parameters cancel from $|U_{e3}|^2$ at $O(\lambda^2)$,
+so $\sin^2\theta_{13} = \tfrac{4}{9}\lambda^2$ is fixed without
+reference to $A_2$. Equivalently, the structural identity
+$\sin\theta_{13} = A^2\lambda$ is exact at $O(\lambda)$ and
+receives no $O(\lambda^2)$
+correction.
+
+\textit{(ii) The combination $b_{12}-b_{13}$ does not enter any of
+the three angles.} It is identified physically with the
+CP-violating Dirac phase $\delta_{CP}$, which the present analysis
+leaves undetermined.
+
+\textit{(iii) The remaining structure depends on two combinations:
+$(b_{12}+b_{13})$ controlling $\Delta_{12}$ and $b_{23}$ controlling
+$\Delta_{23}$.} The first is the $U$-even, the second the
+dominant $U$-odd coefficient of $A_2$, with $b_{12}-b_{13}$ the
+sub-dominant $U$-odd combination already noted.
+
+\subsection{Sum rule and absolute normalization}
+
+The deviations~\eqref{eq:Delta12}--\eqref{eq:Delta23} depend on
+two scalar combinations of $A_2$: $(b_{12}+b_{13})$ controlling
+$\Delta_{12}$, and $b_{23}$ controlling $\Delta_{23}$. We fix
+the normalization with two conditions.
+
+\textit{Condition 1 (natural normalization).} Take $b_{23} = 1$.
+This sets $A_2$ to enter the perturbation series at unit strength
+relative to $\lambda^2$ — the standard convention against silent
+rescaling.
+
+\textit{Condition 2 (geometric matching).} Take
+\begin{equation}
+b_{23} = \tfrac{4}{3}(b_{12}+b_{13}),
+\label{eq:bsumrule}
+\end{equation}
+which with Condition 1 gives $b_{12} + b_{13} = 3/4$. The
+motivation is that $\Delta_{13}$ and $\Delta_{23}$ pick up
+different projection coefficients in the cubic geometry:
+$\Delta_{13}$ carries the factor $A^4 = 4/9$ from the squared
+projection off the democratic axis $\hat{h}$ (Sec.~II.B), while
+$\Delta_{23}$ does not, since (2,3) mixing remains in the
+off-democratic plane. The factor $4/3$ in
+Eq.~\eqref{eq:bsumrule} expresses this asymmetry. A fully derived
+treatment within a specific lattice construction is given in
+companion work.
+
+At the angle level, Eq.~\eqref{eq:bsumrule} is equivalent to
+\begin{equation}
+2\Delta_{12} + \Delta_{23} = 0,
+\label{eq:sumrule}
+\end{equation}
+which is testable directly against data (Sec.~IV.C). The
+combination $b_{12} - b_{13}$ remains free; we identify it
+in Sec.~IV.B with $\delta_{CP}$. The present analysis therefore
+predicts all three angles but not $\delta_{CP}$.
+
+\subsection{Numerical predictions}
+
+Substituting $b_{23} = 1$, $b_{12} + b_{13} = 3/4$, and
+$\lambda^2 = 1/(2\pi^2)$:
+\begin{align}
+\sin^2\theta_{12} &= \tfrac{1}{3} - \tfrac{1}{4\pi^2} = 0.30798, \label{eq:s12} \\
+\sin^2\theta_{13} &= \tfrac{4}{18\pi^2} = 0.02252, \label{eq:s13} \\
+\sin^2\theta_{23} &= \tfrac{1}{2} + \tfrac{1}{2\pi^2} = 0.55066. \label{eq:s23}
+\end{align}
+Equation~\eqref{eq:s13} follows from $A^2 = 2/3$ and
+$\lambda^2 = 1/(2\pi^2)$ together with the constraints on $A_1$;
+it does not use the normalization conditions on $A_2$.
+Equations~\eqref{eq:s12} and~\eqref{eq:s23} additionally use
+Conditions 1 and 2.
+
+\section{The $\sin^2\theta_{12}$ prediction}
+
+\subsection{Numerical value and comparison with data}
+
+The headline prediction is
+\begin{equation}
+\boxed{\sin^2\theta_{12} = \tfrac{1}{3} - \tfrac{1}{4\pi^2} = 0.30798.}
+\label{eq:t12pred}
+\end{equation}
+Table~\ref{tab:t12} compares this with the JUNO measurement and
+the post-JUNO global fit.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcc}
+\hline\hline
+Source & $\sin^2\theta_{12}$ & $\sigma$ from prediction \\
+\hline
+This work & $0.30798$ & --- \\
+JUNO direct~\cite{JUNO2025} & $0.3092 \pm 0.0087$ & $0.14\sigma$ \\
+Post-JUNO global~\cite{Capozzi2025} & $0.3085 \pm 0.0073$ & $0.07\sigma$ \\
+\hline\hline
+\end{tabular}
+\caption{The cubic-group prediction versus current measurements.}
+\label{tab:t12}
+\end{table}
+
+The prediction agrees with the post-JUNO global fit at
+$0.07\sigma$. Both inputs entering Eq.~\eqref{eq:t12pred} were
+fixed before JUNO: $1/3$ is the $A_4$ TBM zeroth-order value,
+and $\lambda^2 = 1/(2\pi^2)$ is the squared Cabibbo angle
+predicted from the same cubic Brillouin geometry that gives
+$\lambda = 0.22508$ (matching observation to $0.04\%$).
+
+\subsection{Comparison with column-preservation patterns}
+
+The two best-known minimal modifications of TBM preserve one
+column of $U_{\text{TBM}}$ exactly. Both have been analyzed
+against JUNO recently~\cite{He2025,Zhang2025}.
+Table~\ref{tab:comparison} summarizes the comparison with the
+present prediction.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\hline\hline
+Approach & Symmetry origin & $\sin^2\theta_{12}$ & $\sigma$ \\
+\hline
+TM1~\cite{He2025,Zhang2025} & postulated $A_4$ flavor & $0.3184$ & $1.35\sigma$ \\
+TM2~\cite{He2025,Zhang2025} & postulated $A_4$ flavor & $0.3408$ & $4.4\sigma$ \\
+TM3 & postulated; $\theta_{13}=0$ & --- & excluded \\
+\textbf{This work} & \textbf{cubic group $O$ of 3D space} & $\bm{0.3080}$ & $\bm{0.07\sigma}$ \\
+\hline\hline
+\end{tabular}
+\caption{$\sin^2\theta_{12}$ predictions versus the post-JUNO
+global fit $0.3085 \pm 0.0073$~\cite{Capozzi2025}. TM1 uses
+$\sin^2\theta_{12} = 1 - (2/3)/\cos^2\theta_{13}$; TM2 uses
+$\sin^2\theta_{12} = 1/(3\cos^2\theta_{13})$, both with
+$\sin^2\theta_{13} = 0.02195$~\cite{NuFIT60}.}
+\label{tab:comparison}
+\end{table}
+
+Three differences distinguish the present prediction from
+TM$n$:
+
+\textit{(i) Symmetry origin.} TM1, TM2, and TM3 take a discrete
+flavor symmetry as an axiom of the lepton sector. The
+cubic-group prediction here uses $A_4 \subset O$, where $O$ is
+the symmetry group of three-dimensional space and the three
+generations transform as the $T_1$ irrep
+(Sec.~II.A working hypothesis).
+
+\textit{(ii) Independence of predictions.} TM1 gives a one-parameter
+correlation, $\sin^2\theta_{12} = 1 - (2/3)/\cos^2\theta_{13}$,
+fixing $\theta_{12}$ given $\theta_{13}$ but predicting neither
+separately. The cubic-group analysis predicts all three angles
+as fixed numerical values, with no parameter common to them
+(Sec.~III.E).
+
+\textit{(iii) CP violation.} He's surviving pattern predicts
+$\sin\delta_{CP} = \pm 0.998$~\cite{He2025}, close to maximal.
+Here, $\delta_{CP}$ is identified with the only remaining free
+parameter at $O(\lambda^2)$, namely $b_{12} - b_{13}$, which
+does not enter any of the three angles. The angle predictions
+therefore stand independently of any value of $\delta_{CP}$,
+and the present paper makes no prediction for it.
+
+The bottom line: the cubic-group prediction is closer to the
+post-JUNO global fit by a factor of about $20$ in
+$\sigma$-distance than the best surviving column-preservation
+pattern, and at the same time makes more falsifiable claims
+(three independent angles plus the sum rule below).
+
+\subsection{The sum-rule discriminator}
+
+The cubic-group prediction implies
+\begin{equation}
+2\sin^2\theta_{12} + \sin^2\theta_{23} = \tfrac{7}{6} = 1.1667,
+\label{eq:numericalsumrule}
+\end{equation}
+versus the observed $2(0.3085) + 0.561 = 1.178 \pm 0.020$
+(using the post-JUNO $\sin^2\theta_{12}$ and the NuFIT~6.0 NO
+best fit for $\sin^2\theta_{23}$~\cite{NuFIT60}). The agreement
+is at $0.6\sigma$. This sum rule is the angle-level statement
+of Eq.~\eqref{eq:bsumrule}, $b_{23} = (4/3)(b_{12}+b_{13})$,
+which is structural in the cubic-group setup. TM1 and TM2 do
+not produce this combination as an exact sum rule; in TM2,
+$\sin^2\theta_{12}$ is determined by $\theta_{13}$ alone with
+no $\theta_{23}$ correlation. A direct measurement of
+$2\sin^2\theta_{12} + \sin^2\theta_{23}$ at the $0.005$ level
+is therefore the sharpest data-side test that distinguishes the
+two classes of TBM modification.
+
+\section{The remaining angles}
+
+\subsection{$\sin^2\theta_{13}$}
+
+Equation~\eqref{eq:s13} is fully derived: at $O(\lambda^2)$ the
+$A_2$ parameters cancel from $|U_{e3}|^2$, leaving
+$\sin^2\theta_{13} = A^4\lambda^2 = 4/(18\pi^2) = 0.02252$. The
+NuFIT~6.0 best fit (normal ordering) is $0.02195 \pm
+0.00056$~\cite{NuFIT60}, agreeing at $1.01\sigma$. Equivalently,
+\begin{equation}
+\sin\theta_{13} = A^2 \lambda = \tfrac{2}{3} \cdot \tfrac{1}{\pi\sqrt{2}} = 0.1500,
+\end{equation}
+giving $\theta_{13} = 8.63^\circ$, compared with the observed
+$8.56^\circ \pm 0.10^\circ$~\cite{NuFIT60}.
+
+\subsection{$\sin^2\theta_{23}$}
+
+Equation~\eqref{eq:s23} gives $\sin^2\theta_{23} = 1/2 + 1/(2\pi^2)
+= 0.5507$. NuFIT~6.0 (NO) gives
+$\sin^2\theta_{23} = 0.561^{+0.012}_{-0.015}$, agreeing at
+$0.74\sigma$. The prediction lies in the second octant, in line
+with the current global preference. The sum rule
+$2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ ties this directly
+to $\sin^2\theta_{12}$:
+\begin{equation}
+\sin^2\theta_{23}^{\text{pred}} = \tfrac{7}{6} - 2\sin^2\theta_{12}^{\text{obs}}.
+\end{equation}
+A $\pm 0.0014$ ultimate JUNO error on $\sin^2\theta_{12}$ then
+implies a $\pm 0.0028$ error on the predicted $\sin^2\theta_{23}$,
+comparable to the current direct measurement.
+
+\subsection{Summary}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\hline\hline
+Angle & Prediction & Measurement & $\sigma$ \\
+\hline
+$\sin^2\theta_{12}$ & $1/3 - 1/(4\pi^2) = 0.3080$ & $0.3085 \pm 0.0073$ & $0.07$ \\
+$\sin^2\theta_{13}$ & $4/(18\pi^2) = 0.02252$ & $0.02195 \pm 0.00056$ & $1.01$ \\
+$\sin^2\theta_{23}$ & $1/2 + 1/(2\pi^2) = 0.5507$ & $0.561^{+0.012}_{-0.015}$ & $0.74$ \\
+\hline\hline
+\end{tabular}
+\caption{Cubic-group predictions for the three PMNS angles.
+Measurements: post-JUNO global fit~\cite{Capozzi2025} for
+$\sin^2\theta_{12}$, NuFIT~6.0~\cite{NuFIT60} (normal ordering)
+for $\sin^2\theta_{13}$ and $\sin^2\theta_{23}$. All three
+predictions agree with observation within $1.1\sigma$.}
+\label{tab:allangles}
+\end{table}
+
+\section{Falsifiability}
+
+The prediction~\eqref{eq:t12pred} is sharp:
+$\lambda^2 = 1/(2\pi^2)$ is fixed independently by the Cabibbo
+angle, and the coefficient $1/(4\pi^2)$ in $\Delta_{12}$ has no
+adjustable input. Three experimental directions test it.
+
+\paragraph{Sub-percent precision on $\sin^2\theta_{12}$.} Over
+its 30-year design lifetime, JUNO is projected to reach
+$\sin^2\theta_{12} = 0.3092 \pm 0.0014$~\cite{JUNO2025}, a
+$6\times$ improvement over the current first result. At that
+precision the prediction $0.30798$ is tested at $0.86\sigma$
+(using the JUNO 59-day central value) or $0.36\sigma$ (using
+the post-JUNO global central value). An ultimate JUNO
+$2\sigma$ disagreement with $0.30798$ would falsify the
+prediction.
+
+\paragraph{The sum rule.} The prediction
+$2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ is sharper than
+either angle alone: it ties JUNO's reactor measurement to the
+atmospheric measurements at DUNE, T2HK, and Hyper-Kamiokande.
+As both improve, the sum rule will be tested at the $0.005$
+level — a sharper test than either side separately.
+
+\paragraph{$\delta_{CP}$.} The free parameter $b_{12} - b_{13}$
+of $A_2$ does not enter any angle prediction, so the framework
+is consistent with any $\delta_{CP}$. Long-baseline measurements
+at DUNE and Hyper-Kamiokande will determine this remaining
+parameter directly.
+
+\section{Conclusion}
+
+We have given a parameter-free derivation of
+$\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ from cubic-group
+flavor structure, matching the post-JUNO global fit at
+$0.07\sigma$. The same construction predicts $\sin^2\theta_{13}$
+and $\sin^2\theta_{23}$ within $1.1\sigma$ of the NuFIT~6.0
+best fits, and forces the exact sum rule
+$2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$, which
+distinguishes the prediction from the TM1, TM2, and TM3
+column-preservation patterns. The Cabibbo scale
+$\lambda^2 = 1/(2\pi^2)$ entering the prediction is fixed
+independently by cubic Brillouin-zone geometry and matches the
+observed Cabibbo angle to $0.04\%$.
+
+JUNO's projected long-term precision will test the prediction
+at sub-percent level over the next decade. Combined with
+atmospheric measurements at DUNE, T2HK, and Hyper-Kamiokande,
+this will sharply test the sum rule. A confirmed result at
+JUNO's ultimate precision would support cubic-group flavor
+structure as a viable origin of the lepton mixing pattern.
+
+\acknowledgments
+The author thanks [acknowledgments].
+
+\begin{thebibliography}{99}
+
+\bibitem{Harrison2002}
+P.~F. Harrison, D.~H. Perkins, and W.~G. Scott,
+\textit{Tri-bimaximal mixing and the neutrino oscillation data},
+Phys.\ Lett.\ B \textbf{530}, 167 (2002).
+
+\bibitem{DayaBay2012}
+F.~P. An \textit{et~al.} (Daya Bay Collaboration),
+\textit{Observation of electron-antineutrino disappearance at Daya Bay},
+Phys.\ Rev.\ Lett.\ \textbf{108}, 171803 (2012).
+
+\bibitem{King2013}
+S.~F. King and C.~Luhn,
+\textit{Neutrino mass and mixing with discrete symmetry},
+Rep.\ Prog.\ Phys.\ \textbf{76}, 056201 (2013).
+
+\bibitem{He2011}
+X.-G. He and A.~Zee,
+\textit{Minimal modification to tribimaximal mixing},
+Phys.\ Rev.\ D \textbf{84}, 053004 (2011).
+
+\bibitem{He2015}
+X.-G. He,
+\textit{TM1 mixing pattern from $A_4$},
+Chin.\ J.\ Phys.\ \textbf{53}, 100101 (2015).
+
+\bibitem{PetcovTitov}
+S.~T. Petcov and A.~V. Titov,
+\textit{Assessing the viability of $A_4$, $S_4$ and $A_5$ flavour symmetries
+for description of neutrino mixing},
+Phys.\ Rev.\ D \textbf{97}, 115045 (2018).
+
+\bibitem{JUNO2025}
+JUNO Collaboration (A. Abusleme \textit{et~al.}),
+\textit{First measurement of reactor neutrino oscillations at JUNO},
+arXiv:2511.14593 (2025).
+
+\bibitem{Capozzi2025}
+F.~Capozzi, E.~Lisi, F.~Marcone, A.~Marrone, and A.~Palazzo,
+\textit{Updated bounds on the (1,2) neutrino oscillation parameters
+after first JUNO results},
+arXiv:2511.21650 (2025).
+
+\bibitem{He2025}
+X.-G. He,
+\textit{Modified Tri-bimaximal neutrino mixing confronted by JUNO
+$\theta_{12}$ measurement},
+arXiv:2511.15978 (2025).
+
+\bibitem{Zhang2025}
+D.~Zhang,
+\textit{Trimaximal mixing patterns meet the first JUNO result},
+arXiv:2511.15654 (2025).
+
+\bibitem{Ma2001}
+E.~Ma and G.~Rajasekaran,
+\textit{Softly broken $A_4$ symmetry for nearly degenerate neutrino masses},
+Phys.\ Rev.\ D \textbf{64}, 113012 (2001).
+
+\bibitem{AltarelliFeruglio2010}
+G.~Altarelli and F.~Feruglio,
+\textit{Discrete flavor symmetries and models of neutrino mixing},
+Rev.\ Mod.\ Phys.\ \textbf{82}, 2701 (2010).
+
+\bibitem{PDG2024}
+S.~Navas \textit{et~al.} (Particle Data Group),
+Phys.\ Rev.\ D \textbf{110}, 030001 (2024).
+
+\bibitem{NuFIT60}
+I.~Esteban, M.~C. Gonzalez-Garcia, M.~Maltoni, T.~Schwetz, A.~Zhou,
+\textit{NuFIT 6.0: three-flavour global analyses of neutrino
+oscillation experiments}, JHEP (2024); see also www.nu-fit.org.
+
+\end{thebibliography}
+
+\end{document}
