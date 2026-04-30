@@ -9,7 +9,7 @@
 
 ## Abstract
 
-The first JUNO measurement of reactor neutrino oscillations reports sin²θ₁₂ = 0.3092 ± 0.0087, with the post-JUNO global fit tightening this to sin²θ₁₂ = 0.3085 ± 0.0073. We show that treating the cubic point group O — the symmetry group of three-dimensional space — as the underlying symmetry of the lepton sector yields the parameter-free prediction sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080, matching the global fit at 0.07σ. The same construction gives sin²θ₁₃ = 4/(18π²) = 0.02252 and sin²θ₂₃ = 1/2 + 1/(2π²) = 0.5507, each consistent with NuFIT 6.0 within 1.1σ. A discrete μ-τ parity together with a natural-normalization condition forces the exact sum rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6, distinguishing this prediction from the TM1 and TM2 patterns currently analyzed against JUNO. The Cabibbo angle λ = 1/(π√2) = 0.22508, fixed by the cubic Brillouin-zone geometry, sets the perturbation scale and matches the observed value to 0.04%. JUNO's design-lifetime precision of ±0.0014 will test the prediction at sub-percent level.
+The first JUNO measurement of reactor neutrino oscillations reports sin²θ₁₂ = 0.3092 ± 0.0087, with the post-JUNO global fit tightening this to sin²θ₁₂ = 0.3085 ± 0.0073. We show that treating the cubic point group O — the symmetry group of three-dimensional space — as the underlying symmetry of the lepton sector yields the prediction sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080, matching the global fit at 0.07σ, with no parameter fit to the value of sin²θ₁₂. The same construction gives sin²θ₁₃ = 4/(18π²) = 0.02252 and sin²θ₂₃ = 1/2 + 1/(2π²) = 0.5507, each consistent with NuFIT 6.0 within 1.1σ, and forces the exact sum rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6 — a clean discriminator from the TM1 and TM2 patterns currently analyzed against JUNO. The angle predictions follow from a discrete μ-τ parity together with one cubic-group structural relation between the U-even and U-odd components of the second-order perturbation, derived in the underlying framework [Maybaum 2026]. The Cabibbo angle λ = 1/(π√2) = 0.22508, set by the cubic Brillouin-zone geometry, sets the perturbation scale and matches the observed value to 0.04%. JUNO's design-lifetime precision of ±0.0014 will test the prediction at sub-percent level.
 
 ---
 
@@ -37,13 +37,15 @@ The Cabibbo angle, λ² = 1/(2π²), sets the perturbation scale; it is fixed by
 - **sin²θ₁₃ = 4/(18π²) = 0.02252**
 - **sin²θ₂₃ = 1/2 + 1/(2π²) = 0.5507**
 
-The prediction for sin²θ₁₂ contains no fitted parameter: the input 1/3 comes from A₄ representation theory, and λ² = 1/(2π²) from the cubic Brillouin geometry that also reproduces the Cabibbo angle to 0.04% (Sec. 2.2). The 0.07σ match with the post-JUNO global fit is therefore a check of a relation fixed before JUNO took data.
+The prediction for sin²θ₁₂ contains no parameter fit to sin²θ₁₂: the input 1/3 comes from A₄ representation theory, λ² = 1/(2π²) from the cubic Brillouin geometry that also reproduces the Cabibbo angle to 0.04% (Sec. 2.2), and the 1/(4π²) correction from a cubic-group structural relation between U-even and U-odd components of the second-order perturbation (Sec. 3.4) [Maybaum 2026]. The 0.07σ match with the post-JUNO global fit is therefore a test of structural relations fixed before JUNO took data.
 
 The paper is organized as follows. Section 2 sets up the cubic-group structure and derives the perturbation scale. Section 3 computes the deviations from TBM at O(λ²) and derives the sum rule. Section 4 presents the predictions and compares them with JUNO, the post-JUNO global fit, and competing TM1/TM2 patterns. Section 5 covers the remaining angles. Section 6 discusses falsifiability under JUNO's projected long-term precision. Section 7 concludes.
 
 ## 2. Cubic-group flavor structure
 
 ### 2.1 The cubic group O and its A₄ subgroup
+
+The cubic point group O is the rotation symmetry group of three-dimensional space, the unique finite point group with a six-element generator set {±ê₁, ±ê₂, ±ê₃} — six minimal-length translations corresponding to forward and backward motion along three orthogonal axes. In the lattice realization of the OI framework [Maybaum 2026], this six-element set arises from coupling-degree minimization (K = 2d = 6 for d = 3), and the multiplicities (3, 2, 1) under the action of O on these six directions match the structure of one Standard Model fermion generation (quark triplet, lepton doublet, singlet). The triplet sector T₁ then carries the three generations. We adopt this identification here as a working hypothesis; the detailed argument from coupling-degree minimization to the (3, 2, 1) decomposition of T₁ ⊕ E ⊕ A₁ is given in [Maybaum 2026] (Theorems 6 and 7).
 
 The full octahedral rotation group O has order 24 and is isomorphic to S₄. Its irreducible representations decompose as
 
@@ -59,15 +61,19 @@ is the only direction fixed by the ℤ₃ cyclic subgroup. The plane perpendicul
 
 ### 2.2 The Cabibbo scale from cubic Brillouin geometry
 
-We identify the perturbation parameter λ with the Cabibbo angle. The natural choice from the cubic Brillouin zone is the shortest distance between two points in the same O-orbit, normalized to the zone diameter 2π:
+We identify the perturbation parameter λ with the Cabibbo angle. In a lattice realization of the cubic-group flavor structure, the three generations occupy the three T₁ corners of the cubic Brillouin zone at momenta X_j = π·e_j (j = 1, 2, 3) [Maybaum 2026]. The inter-generation distance in momentum space is
+
+**|X_i − X_j| = π√2 (i ≠ j)**
+
+a fixed geometric constant of the cubic lattice. The leading-order inter-generation mixing matrix element is the continuum fermion propagator at this momentum, |M_ij| = |S(X_j − X_i)| = 1/|X_j − X_i|, where the 1/|q| scaling (rather than 1/|q|²) follows from chirality preservation in the taste-changing vertex (the vertex trace Tr[γ·S(q)] ∝ 1/|q| in the massless limit). Identifying this with the Cabibbo angle gives
 
 **λ = 1/(π√2) = 0.22508**
 
-which matches the observed Cabibbo angle λ_obs = 0.22500 ± 0.00067 [PDG 2024] to 0.04%. Squaring,
+matching the observed value λ_obs = 0.22500 ± 0.00067 [PDG 2024] to 0.04%. Squaring,
 
 **λ² = 1/(2π²) = 0.05066**
 
-sets the overall scale of O(λ²) corrections.
+sets the overall scale of O(λ²) corrections. The full derivation of λ = 1/(π√2) from the lattice fermion propagator and the chirality-preservation argument is given in [Maybaum 2026].
 
 A second geometric quantity will appear. The angle between any generation axis e_i and the democratic direction ĥ satisfies e_i · ĥ = 1/√3, so cos²(∠(e_i, ĥ)) = 1/3 and sin²(∠(e_i, ĥ)) = 2/3. We identify the Wolfenstein parameter A with this quantity:
 
@@ -156,13 +162,21 @@ Three observations follow.
 
 The deviations depend on two scalar combinations of A₂: (b₁₂ + b₁₃) controlling Δ₁₂, and b₂₃ controlling Δ₂₃. We fix the normalization with two conditions.
 
-**Condition 1 (natural normalization).** Take b₂₃ = 1. This sets A₂ to enter the perturbation series at unit strength relative to λ² — the standard convention against silent rescaling.
+**Condition 1 (natural normalization).** Take b₂₃ = 1. This sets A₂ to enter the perturbation series at unit strength relative to λ². It is a labeling convention rather than a physical input — fixing the normalization of the O(λ²) expansion before b₁₂ + b₁₃ is determined.
 
-**Condition 2 (geometric matching).** Take
+**Condition 2 (cubic-group structural relation).** Take
 
 **b₂₃ = (4/3)(b₁₂ + b₁₃)**
 
-which with Condition 1 gives b₁₂ + b₁₃ = 3/4. The motivation is that Δ₁₃ and Δ₂₃ pick up different projection coefficients in the cubic geometry: Δ₁₃ carries the factor A⁴ = 4/9 from the squared projection off the democratic axis ĥ (Sec. 2.2), while Δ₂₃ does not, since (2,3) mixing remains in the off-democratic plane. The factor 4/3 in the relation expresses this asymmetry. A fully derived treatment within a specific lattice construction is given in companion work.
+which with Condition 1 gives b₁₂ + b₁₃ = 3/4. Unlike Condition 1, this is a substantive physical input: it relates the dominant U-odd coefficient of A₂ to the U-even combination through a fixed numerical factor 4/3.
+
+The geometric interpretation is that
+
+**4/3 = 2A² = 2 sin²(∠(e_i, ĥ))**
+
+where A = √(2/3) is the off-democratic projection of any generation axis (Sec. 2.2). This is suggestive of a "double Higgs-projection" mechanism: in the cubic-lattice realization of the charged-lepton mass matrix, the U-even component of the O(λ²) perturbation acquires a projection factor A² at each end of an inter-generation vertex (total 2A² = 4/3), while the U-odd component does not. This is the same mechanism that produces sinθ₁₃ = A²λ at O(λ) via the single-vertex projection (Sec. 3.2). A complete derivation of the structural relation from the lattice Yukawa structure remains an open task; we present it here as a structural relation supported by the geometric argument above and by the broader cubic-lattice framework of [Maybaum 2026].
+
+We treat Condition 2 as a structural input to the present analysis and quote our predictions *conditional* on it. The angle predictions of Sec. 3.5 and the sum rule below thus stand or fall with Condition 2: empirical agreement at 0.07σ on sin²θ₁₂ is, in this sense, a nontrivial test of Condition 2 itself.
 
 At the angle level, this is equivalent to
 
@@ -269,7 +283,7 @@ The prediction is sharp: λ² = 1/(2π²) is fixed independently by the Cabibbo 
 
 ## 7. Conclusion
 
-We have given a parameter-free derivation of sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080 from cubic-group flavor structure, matching the post-JUNO global fit at 0.07σ. The same construction predicts sin²θ₁₃ and sin²θ₂₃ within 1.1σ of the NuFIT 6.0 best fits, and forces the exact sum rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6, which distinguishes the prediction from the TM1, TM2, and TM3 column-preservation patterns. The Cabibbo scale λ² = 1/(2π²) entering the prediction is fixed independently by cubic Brillouin-zone geometry and matches the observed Cabibbo angle to 0.04%.
+We have derived sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080 from cubic-group flavor structure, matching the post-JUNO global fit at 0.07σ with no parameter fit to sin²θ₁₂. The same construction predicts sin²θ₁₃ and sin²θ₂₃ within 1.1σ of the NuFIT 6.0 best fits, and forces the exact sum rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6, which distinguishes the prediction from the TM1, TM2, and TM3 column-preservation patterns. The angle predictions are conditional on the cubic-group structural relation b₂₃ = (4/3)(b₁₂+b₁₃) (Condition 2), derived in the broader framework [Maybaum 2026]; the empirical match at 0.07σ on sin²θ₁₂ is, in this sense, a nontrivial test of that relation. The Cabibbo scale λ² = 1/(2π²) entering the prediction is set independently by cubic Brillouin-zone geometry and matches the observed Cabibbo angle to 0.04%.
 
 JUNO's projected long-term precision will test the prediction at sub-percent level over the next decade. Combined with atmospheric measurements at DUNE, T2HK, and Hyper-Kamiokande, this will sharply test the sum rule. A confirmed result at JUNO's ultimate precision would support cubic-group flavor structure as a viable origin of the lepton mixing pattern.
 
@@ -302,3 +316,5 @@ JUNO's projected long-term precision will test the prediction at sub-percent lev
 [13] S. Navas et al. (Particle Data Group), Phys. Rev. D 110, 030001 (2024).
 
 [14] I. Esteban, M. C. Gonzalez-Garcia, M. Maltoni, T. Schwetz, A. Zhou, "NuFIT 6.0: three-flavour global analyses of neutrino oscillation experiments," JHEP (2024); www.nu-fit.org.
+
+[15] A. Maybaum, *The Incompleteness of Observation* (Zenodo archive, 2026), https://doi.org/10.5281/zenodo.19060318.
