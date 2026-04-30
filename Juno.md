@@ -176,6 +176,8 @@ The geometric interpretation is that
 
 where A = √(2/3) is the off-democratic projection of any generation axis (Sec. 2.2). The factor decomposes as a *partner-count × per-partner projection*: the U-even combination E₁₂+E₁₃ couples generation e₁ to its two partners {e₂, e₃}, each contributing factor A² from the ĥ-perpendicular projection geometry — total 2 × A² = 4/3. The dominant U-odd combination E₂₃ couples e₂ to its single partner e₃, with no analogous multiplicity, giving relative weight 1. The same projection geometry produces sinθ₁₃ = A²λ at O(λ) via a single-vertex projection (Sec. 3.2). A complete derivation of the structural relation from the lattice Yukawa structure remains an open task; we present it here as a structural relation supported by the geometric argument above and by the broader cubic-lattice framework of [Maybaum 2026].
 
+In standard effective field theory, the U-even and dominant U-odd coefficients b₁₂+b₁₃ and b₂₃ would be independent Wilson coefficients. The structural relation b₂₃ = (4/3)(b₁₂+b₁₃) is more naturally accommodated in frameworks where quantum mechanics is itself an emergent phenomenon arising from a deeper deterministic structure ['t Hooft 2016; Adler 2004; Barandes 2023], since EFT coefficients can then be related by substrate-level mechanisms even absent a protecting EFT symmetry. The factorization 4/3 = 2 × A² is consistent with this picture; whether it follows rigorously from the cubic-lattice realization of [Maybaum 2026] is the open task referenced above.
+
 We treat Condition 2 as a structural input to the present analysis and quote our predictions *conditional* on it. The angle predictions of Sec. 3.5 and the sum rule below thus stand or fall with Condition 2: empirical agreement at 0.07σ on sin²θ₁₂ is, in this sense, a nontrivial test of Condition 2 itself.
 
 At the angle level, this is equivalent to
@@ -317,4 +319,10 @@ JUNO's projected long-term precision will test the prediction at sub-percent lev
 
 [14] I. Esteban, M. C. Gonzalez-Garcia, M. Maltoni, T. Schwetz, A. Zhou, "NuFIT 6.0: three-flavour global analyses of neutrino oscillation experiments," JHEP (2024); www.nu-fit.org.
 
-[15] A. Maybaum, *The Incompleteness of Observation* (Zenodo archive, 2026), https://doi.org/10.5281/zenodo.19060318.
+[15] G. 't Hooft, *The Cellular Automaton Interpretation of Quantum Mechanics*, Fundamental Theories of Physics, vol. 185 (Springer, 2016); arXiv:1405.1548.
+
+[16] S. L. Adler, *Quantum Theory as an Emergent Phenomenon: The Statistical Mechanics of Matrix Models as the Precursor of Quantum Field Theory* (Cambridge University Press, 2004).
+
+[17] J. A. Barandes, "The Stochastic-Quantum Correspondence," arXiv:2302.10778 (2023).
+
+[18] A. Maybaum, *The Incompleteness of Observation* (Zenodo archive, 2026), https://doi.org/10.5281/zenodo.19060318.
