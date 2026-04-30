@@ -810,7 +810,7 @@ $$\boxed{m_t = \frac{v}{\sqrt{2}} = 174.1 \text{ GeV} \quad (\text{obs: } 172.5 
 
 ### 7.3 PMNS mixing angles
 
-Tribimaximal (TBM) mixing — $\sin^2\theta_{12} = 1/3$, $\sin^2\theta_{23} = 1/2$, $\sin^2\theta_{13} = 0$ — arises from $A_4 \subset O$ [23]. The deviations from TBM are controlled by three structural ingredients: (i) the overall scale $\lambda^2 = 1/(2\pi^2)$, the squared Cabibbo angle; (ii) the sum rule $2\Delta_{12} + \Delta_{23} = 0$ following from a $U$-parity grading ($\mu$-$\tau$ exchange antisymmetry) of the charged-lepton perturbation, derived below; and (iii) the ratio $\Delta_{13}/\Delta_{23} = A^4 = 4/9$ following from the Wolfenstein $A = \sqrt{2/3}$ of §7.1 via a second-order projection onto the Higgs democratic direction. These three ingredients determine the PMNS corrections:
+Tribimaximal (TBM) mixing — $\sin^2\theta_{12} = 1/3$, $\sin^2\theta_{23} = 1/2$, $\sin^2\theta_{13} = 0$ — arises from $A_4 \subset O$ [23]. The deviations from TBM are controlled by three structural ingredients: (i) the overall scale $\lambda^2 = 1/(2\pi^2)$, the squared Cabibbo angle; (ii) the sum rule $2\Delta_{12} + \Delta_{23} = 0$ associated with a $U$-parity grading ($\mu$-$\tau$ exchange antisymmetry) of the charged-lepton perturbation and motivated by the projection geometry below; and (iii) the ratio $\Delta_{13}/\Delta_{23} = A^4 = 4/9$ following from the Wolfenstein $A = \sqrt{2/3}$ of §7.1 via a second-order projection onto the Higgs democratic direction. These three ingredients determine the PMNS corrections:
 
 $$\sin^2\theta_{12} = \frac{1}{3} - \frac{1}{4\pi^2} = 0.3080$$
 
@@ -844,7 +844,11 @@ $$\Delta_{13} = \tfrac{4}{9}\lambda^2 = A^4 \lambda^2, \qquad \Delta_{12} = -\tf
 
 Three points: (i) $\Delta_{13}$ is independent of $A_2$ — the structural identity $\sin\theta_{13} = A^2\lambda$ is exact at $O(\lambda^2)$; (ii) $b_{12} - b_{13}$ does not enter any of the three angles, and is identified with $\delta_{CP}$; (iii) under $U$-parity, $(b_{12}+b_{13})$ is the $U$-even and $b_{23}$ the dominant $U$-odd coefficient of $A_2$, with $(b_{12}-b_{13})$ the sub-dominant $U$-odd combination.
 
-The absolute normalization is fixed by the cubic-lattice realization of the charged-lepton mass matrix. The natural-normalization choice $b_{23} = 1$ — corresponding to $A_2$ entering the perturbation series at unit strength relative to $\lambda^2$ — combined with the structural condition $b_{23} = (4/3)(b_{12}+b_{13})$ from the cubic-group representation theory yields
+The absolute normalization is fixed by the cubic-lattice realization of the charged-lepton mass matrix. The natural-normalization choice $b_{23} = 1$ — corresponding to $A_2$ entering the perturbation series at unit strength relative to $\lambda^2$ — combined with the structural relation
+
+$$b_{23} = \tfrac{4}{3}(b_{12}+b_{13})$$
+
+between the dominant $U$-odd coefficient and the $U$-even combination yields
 
 $$b_{12} + b_{13} = \tfrac{3}{4}, \qquad b_{23} = 1,$$
 
@@ -852,7 +856,13 @@ which translates into the angle-level sum rule
 
 $$2\Delta_{12} + \Delta_{23} = 0.$$
 
-The observed $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ (observed: $1.178 \pm 0.020$ using post-JUNO global fit and NuFIT 6.0 atmospheric) therefore follows from the cubic-lattice structure, distinguishing it from TM1 or TM2 partial-TBM patterns (which do not produce this combination as an exact sum rule).
+**Geometric interpretation of the $4/3$ factor.** The numerical factor in the structural relation admits a geometric interpretation:
+
+$$\tfrac{4}{3} = 2A^2 = 2\sin^2\!\bigl(\angle(e_i, \hat{h})\bigr),$$
+
+where $A = \sqrt{2/3}$ is the off-democratic projection of any generation axis (§7.1). The factor decomposes as a *partner-count $\times$ per-partner projection*: the $U$-even combination $E_{12}+E_{13}$ couples generation $e_1$ to its two partners $\{e_2, e_3\}$, each contributing factor $A^2$ from the $\hat h$-perpendicular projection geometry — total $2 \times A^2 = 4/3$. The dominant $U$-odd combination $E_{23}$ couples $e_2$ to its single partner $e_3$, with no analogous multiplicity, giving relative weight $1$. The same projection geometry produces $\sin\theta_{13} = A^2\lambda$ at $O(\lambda)$ via a single-vertex projection. A complete first-principles derivation of $b_{23} = (4/3)(b_{12}+b_{13})$ from explicit lattice perturbation theory on the cubic-lattice Yukawa structure remains an open task; the relation is presented here as a structural input supported by the geometric argument above and tested by the empirical sum rule.
+
+The observed $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ (observed: $1.178 \pm 0.020$ using post-JUNO global fit and NuFIT 6.0 atmospheric) therefore follows from the cubic-lattice structure conditional on the relation above, distinguishing it from TM1 or TM2 partial-TBM patterns (which do not produce this combination as an exact sum rule).
 
 ### 7.4 The Higgs mass
 
