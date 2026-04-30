@@ -832,11 +832,27 @@ $$\sin\theta_{13} = A^2 \lambda$$
 
 where $A = \sqrt{2/3}$ is the Wolfenstein $A$ of §7.1 and $\lambda = 1/(\pi\sqrt{2})$ is the Cabibbo angle. The $A^2$ factor is the squared Higgs-projection geometry: each end of an inter-generation mixing vertex projects onto the plane perpendicular to the democratic direction $\hat h$, contributing one factor of $A = \sin(\text{angle between generation axis and } \hat h)$ each. The Cabibbo angle $\lambda$ provides the overall scale of inter-generation mixing. Squaring gives $\sin^2\theta_{13} = A^4 \lambda^2 = (4/9)\lambda^2$ directly; the ratio $\Delta_{13}/\Delta_{23} = A^4$ follows immediately with $\Delta_{23} = \lambda^2$ by convention.
 
-**Derivation of the sum rule from $U$-parity.** The charged-lepton rotation in the AF basis admits the expansion $V_\ell = \exp(\lambda A_1 + \lambda^2 A_2 + O(\lambda^3))$ with $A_n$ antisymmetric. Three framework constraints — vanishing $O(\lambda)$ contributions to both $\Delta_{12}$ and $\Delta_{23}$ (pushing these deviations to $O(\lambda^2)$), plus the correct $\sin^2\theta_{13} = 4\lambda^2/9$ coefficient — uniquely determine
+**Determination of $A_1$ and second-order structure.** The charged-lepton rotation in the AF basis admits the expansion $V_\ell = \exp(\lambda A_1 + \lambda^2 A_2 + O(\lambda^3))$ with $A_n$ antisymmetric. Three framework constraints — vanishing $O(\lambda)$ contributions to both $\Delta_{12}$ and $\Delta_{23}$ (pushing these deviations to $O(\lambda^2)$), plus the correct $\sin^2\theta_{13} = 4\lambda^2/9$ coefficient — uniquely determine
 
 $$A_1 = \frac{\sqrt{2}}{3}\big(E_{12} - E_{13}\big),$$
 
-where $(E_{ij})_{kl} = \delta_{ik}\delta_{jl} - \delta_{il}\delta_{jk}$. Geometrically, $A_1$ is a rotation by angle $A^2 = 2/3$ around the axis $(e_2 + e_3)/\sqrt{2}$, reproducing $\sin\theta_{13} = A^2\lambda$ as above. The structural property is that $A_1$ is purely *$U$-odd* under the $\mu$-$\tau$ exchange generator of $S_4 \supset A_4$: $U A_1 U^{-1} = -A_1$. This transforms in the odd-parity irrep of $S_4/A_4$ and corresponds to a $\mu$-$\tau$-antisymmetric perturbation of the charged-lepton mass matrix. At $O(\lambda^2)$, the $U$-parity decomposition of $A_2$ into $U$-even $\propto (E_{12} + E_{13})$ and $U$-odd $\propto E_{23}$ parts produces the constraints $b_{12} + b_{13} = 3/4$ and $b_{23} = 1$, which satisfy the sum-rule relation $b_{23} = (4/3)(b_{12} + b_{13})$ exactly. The observed $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ (observed: $1.164 \pm 0.021$) therefore follows from the $U$-parity structure rather than from TM1 or TM2 partial-TBM patterns (both of which fail by $\gtrsim 1\%$ at the framework's values).
+where $(E_{ij})_{kl} = \delta_{ik}\delta_{jl} - \delta_{il}\delta_{jk}$. Geometrically, $A_1$ is a rotation by angle $A^2 = 2/3$ around the axis $(e_2 + e_3)/\sqrt{2}$, reproducing $\sin\theta_{13} = A^2\lambda$ as above. The structural property is that $A_1$ is purely *$U$-odd* under the $\mu$-$\tau$ exchange generator of $S_4 \supset A_4$: $U A_1 U^{-1} = -A_1$.
+
+Decomposing the most general antisymmetric $A_2 = b_{12} E_{12} + b_{13} E_{13} + b_{23} E_{23}$ and computing $|U_{\text{PMNS},ij}|^2$ to $O(\lambda^2)$ (with cos$^2\theta_{13}$ correction included), the deviations are:
+
+$$\Delta_{13} = \tfrac{4}{9}\lambda^2 = A^4 \lambda^2, \qquad \Delta_{12} = -\tfrac{2}{3}(b_{12}+b_{13})\lambda^2, \qquad \Delta_{23} = b_{23}\lambda^2.$$
+
+Three points: (i) $\Delta_{13}$ is independent of $A_2$ — the structural identity $\sin\theta_{13} = A^2\lambda$ is exact at $O(\lambda^2)$; (ii) $b_{12} - b_{13}$ does not enter any of the three angles, and is identified with $\delta_{CP}$; (iii) under $U$-parity, $(b_{12}+b_{13})$ is the $U$-even and $b_{23}$ the dominant $U$-odd coefficient of $A_2$, with $(b_{12}-b_{13})$ the sub-dominant $U$-odd combination.
+
+The absolute normalization is fixed by the cubic-lattice realization of the charged-lepton mass matrix. The natural-normalization choice $b_{23} = 1$ — corresponding to $A_2$ entering the perturbation series at unit strength relative to $\lambda^2$ — combined with the structural condition $b_{23} = (4/3)(b_{12}+b_{13})$ from the cubic-group representation theory yields
+
+$$b_{12} + b_{13} = \tfrac{3}{4}, \qquad b_{23} = 1,$$
+
+which translates into the angle-level sum rule
+
+$$2\Delta_{12} + \Delta_{23} = 0.$$
+
+The observed $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ (observed: $1.178 \pm 0.020$ using post-JUNO global fit and NuFIT 6.0 atmospheric) therefore follows from the cubic-lattice structure, distinguishing it from TM1 or TM2 partial-TBM patterns (which do not produce this combination as an exact sum rule).
 
 ### 7.4 The Higgs mass
 
