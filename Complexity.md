@@ -24,6 +24,17 @@ The OI framework [1, 2] challenges the premise. The companion papers prove that 
 
 This paper traces the consequences. §2 establishes the structural chain from (S, φ) to the full preconditions for organic chemistry — orbital structure, the periodic table, carbon's bonding geometry, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window for dynamic chemistry. §3 estimates the viable fraction of the parameter space using existing literature. §4 derives the chirality chain from the partition to biological homochirality. §5 extends the chain through autocatalytic networks, template replication, the origin of life (identified as the first molecular C1–C3 system), Darwinian evolution, information processing, and artificial intelligence, identifying the one contingent step and the structural limits on all embedded observers. §6 addresses the existence question. §7 applies C1–C3 to biological systems, predicting non-Markovian enzyme kinetics with implications for drug design. §8 identifies where OI corrections reach engineering relevance — quantum computing, quantum sensing, and precision metrology — and proposes three engineering frontiers: engineered partitions (the bath as programmable memory), non-Markovian quantum computation (P-indivisible gate sequences), and quantum materials with designed C1–C3 architectures.
 
+**Note on v1.10.0 (audit-revised edition).** This revision applies findings from the framework's internal derivation audit. The substantive changes:
+
+- **§2.2:** Expanded the spin-statistics step to acknowledge the theorem's preconditions (Lorentz invariance, microcausality, vacuum stability) inherited from [SM §3.1] — making the chain "spin-1/2 from staggered tastes → Pauli" walk explicitly.
+- **§2.4 mass hierarchy:** Weakened the "ensuring different generations have different masses" claim to "structurally permitting a mass hierarchy"; the *scale* of light fermion masses is parametric.
+- **§3.3 viable fraction:** The "correlations enlarge the viable region" claim is reframed as illustrative rather than rigorous; the implicit prior on parameter space (orders-of-magnitude available per parameter) is explicitly acknowledged. The 16% figure is honestly classified as an order-of-magnitude indicator.
+- **§4.3 chirality amplification:** The "PVED magnitude is irrelevant — only its sign matters" claim is corrected. The PVED magnitude does matter when compared to statistical fluctuations in prebiotic pools; the bridge from PVED sign to biological homochirality requires additional amplification mechanisms whose details remain partially open in origins-of-life research. The framework's structural result is the sign; the bridge is honestly classified as open.
+- **§4.4:** Correspondingly weakened from "biological homochirality is traced to (S, φ)" to "the sign of the molecular PV energy difference is fixed by the partition; biological homochirality plausibly inherits this sign through amplification mechanisms whose details remain partially open."
+- **§2.7, §8.11:** Minor editorial clarifications. §2.7 cross-references §3 for the parametric question of liquid existence. §8.11 clarifies that the universal $H \approx 0.79$ observation is an empirical pattern + consistency check rather than a parameter-free framework prediction; the $H(C3)$ derivation is flagged as an open research question.
+
+The structural chain (§2) and the §3 viable parameter space argument are unchanged in substance. The §5–§8 application content is unchanged. No fatal gaps were identified by the audit (audit document collection in companion repository: `COMPLEXITY_AUDIT_SESSION1.md`).
+
 ---
 
 ## 2. The Structural Chain
@@ -36,7 +47,7 @@ This is the *only* orbital algebra consistent with embedded observation. In $d =
 
 ### 2.2 From orbitals to the periodic table
 
-The framework derives spin-1/2 fermions from the staggered structure on the d = 3 lattice [2, §4.2]. The spin-statistics theorem — a consequence of the emergent QFT's Lorentz invariance [2, §3.1] — gives the Pauli exclusion principle: each orbital holds at most 2 electrons (spin up and spin down). The shell capacities follow:
+The framework derives spin-1/2 fermions from the staggered structure on the d = 3 lattice [2, §4.2]. The emergent QFT inherits Lorentz invariance, microcausality, and a stable vacuum from the underlying emergent field-theory construction [2, §3.1] — these are the conditions of the spin-statistics theorem (Streater–Wightman). The theorem then gives the Pauli exclusion principle: each orbital holds at most 2 electrons (spin up and spin down). The shell capacities follow:
 
 $$s: 2, \quad p: 6, \quad d: 10, \quad f: 14$$
 
@@ -58,7 +69,7 @@ Four additional structural results extend the chain beyond orbital chemistry.
 
 **Matter-antimatter asymmetry.** Three generations [2, §4.7] give the CKM matrix with a physical CP-violating phase — one of the three Sakharov conditions for baryogenesis [5]. The partition breaks P [2, §4.8, Theorem 13]. Combined with CP violation, baryogenesis is structurally possible. Without three generations, the CKM matrix has no CP-violating phase and the standard electroweak baryogenesis mechanism does not operate.
 
-**Mass hierarchy.** The Higgs mechanism [2, §4.7] gives fermion masses through Yukawa couplings to a single doublet. The taste-breaking mechanism [2, §4.7] produces generation-dependent couplings generically, ensuring different generations have different masses. This guarantees the existence of light fermions (electron, u and d quarks) — not as a coincidence, but as a structural feature of the staggered lattice.
+**Mass hierarchy.** The Higgs mechanism [2, §4.7] gives fermion masses through Yukawa couplings to a single doublet. The taste-breaking mechanism [2, §4.7] produces generation-dependent couplings generically, structurally permitting a mass hierarchy with light fermions (electron, u and d quarks). The existence of *some* mass hierarchy is structural — the staggered lattice's coupling matrix has eigenvalues at different scales. The specific *scale* of light fermion masses relative to the QCD scale, and whether the lightest fermions fall in the chemistry-viable range, is parametric (§3 handles the viable range).
 
 **Nuclear binding.** SU(3) color confinement [2, §4.6] produces bound hadrons. The existence of multi-nucleon bound states (nuclei) requires specific parameter values (§3), but the *mechanism* — color confinement binding quarks into hadrons, residual strong force binding hadrons into nuclei — is structural.
 
@@ -82,7 +93,7 @@ The *possibility* of a molecule with these properties is structural: element 8's
 
 ### 2.7 The thermal window
 
-For chemistry to support complexity, a thermal window must exist where bond energies (~1–5 eV) $\gg kT$ (bonds are stable), $kT > E_{\text{activation}}$ (reactions proceed), and a liquid solvent exists. The scale hierarchy (§2.5) guarantees that $E_{\text{bond}} / E_{\text{thermal}} \gg 1$ at any temperature where a liquid exists — chemistry is inherently *stable but dynamic* in any universe with two independent gauge groups and the derived orbital structure.
+For chemistry to support complexity, a thermal window must exist where bond energies (~1–5 eV) $\gg kT$ (bonds are stable), $kT > E_{\text{activation}}$ (reactions proceed), and a liquid solvent exists. The scale hierarchy (§2.5) guarantees that $E_{\text{bond}} / E_{\text{thermal}} \gg 1$ at any temperature where a liquid exists — chemistry is inherently *stable but dynamic* in any universe with two independent gauge groups and the derived orbital structure. (See §3 for the parametric question of which temperature ranges actually have a liquid phase in our universe.)
 
 ### 2.8 Summary of the structural chain
 
@@ -137,9 +148,13 @@ The four critical parameters span roughly:
 | $m_d - m_u$ | factor of ~5 within ~10 available | ~50% |
 | $\alpha_s$ | factor of ~1.6 within ~2 available | ~80% |
 
-The joint viable fraction, treating the parameters as independent (a conservative assumption — correlations generally enlarge the viable region), is roughly:
+The joint viable fraction, treating the parameters as independent for illustrative purposes, is roughly:
 
 $$f_{\text{viable}} \sim 0.6 \times 0.65 \times 0.5 \times 0.8 \approx 16\%$$
+
+Genuine correlations between these parameters in the SM (e.g., $\alpha_s$ and the strong CP scale, or $\alpha$ and $m_e/m_p$ via QED corrections) could enlarge or shrink this fraction; a fully rigorous joint estimate would require a coupled analysis. The independent estimate is offered as an order-of-magnitude indicator: the viable fraction is $\mathcal{O}(10\%)$, not $\mathcal{O}(10^{-50})$.
+
+The "log-fraction" computation depends on a choice of "available range" for each parameter — the orders-of-magnitude window over which the parameter could conceivably vary while keeping other framework structure intact. The values used above (3–6 orders per parameter) follow standard fine-tuning literature [6, 7, 8, 9, 10] but are not derived from the framework. Different reasonable priors give similar order-of-magnitude results (the viable fraction stays in the 5–30% range), but the precise number is not parameter-free.
 
 This is a rough estimate, but the order of magnitude is robust: the viable fraction is $\mathcal{O}(10\%)$, not $\mathcal{O}(10^{-50})$. The remaining 14 SM parameters (heavy quark masses, lepton masses, mixing angles) are less constrained — they affect the details of nuclear and atomic physics but not the existence of carbon chemistry.
 
@@ -169,11 +184,11 @@ The energy difference $10^{-17} \, kT$ is far too small to directly select one h
 
 Three mechanisms are experimentally demonstrated. Autocatalytic amplification (the Soai reaction [13]) amplifies $ee \sim 10^{-5}$ to $> 99\%$. Crystallization (Viedma ripening [14]) drives racemic crystal mixtures to homochirality from small initial biases. Chiral polymerization with cross-inhibition [15] amplifies small monomer $ee$ to polymer homochirality.
 
-The gap between $10^{-17}$ (PVED) and $10^{-5}$ (Soai threshold) is 12 orders of magnitude. The resolution: the PVED does not need to provide the full $ee$. In a small prebiotic pool of $N$ chiral molecules, random statistical fluctuations produce $ee \sim 1/\sqrt{N}$. For $N \sim 10^6$ (a microdroplet), statistical $ee \sim 10^{-3}$ — within the Viedma threshold. The PVED's role is not to *produce* the excess but to *bias its direction*: in each independent pool, the fluctuation is random in magnitude, but the PVED tips the direction toward L. Over many pools, L-dominant outcomes outnumber D-dominant outcomes. The magnitude of the PVED is irrelevant — only its sign matters, and the sign is derived.
+The gap between $10^{-17}$ (PVED) and $10^{-5}$ (Soai threshold) is 12 orders of magnitude, and bridging it from PVED alone is non-trivial. In a small prebiotic pool of $N$ chiral molecules, random statistical fluctuations produce $ee \sim 1/\sqrt{N}$. For $N \sim 10^6$ (a microdroplet), statistical $ee \sim 10^{-3}$ — within the Viedma threshold. The PVED's structural role is to fix the *sign* of the energy difference between L and D enantiomers; how this sign propagates to biological homochirality through the amplification mechanisms cited above is an active research question in origins-of-life. With current PVED magnitude ($\sim 10^{-17}$ ee) versus statistical fluctuations in prebiotic pools ($\sim 10^{-3}$ ee for $N \sim 10^6$ monomers), a single-pool calculation gives an L-preference probability of only $\sim 10^{-14}$ above 50%. Delivering global biological homochirality from this requires either (i) cross-pool selection mechanisms that propagate small per-pool L-biases globally, or (ii) extended timescales of prebiotic chemistry with cumulative bias amplification, or (iii) other mechanisms not yet fully characterized in the literature [13, 14, 15]. The framework's structural result is the *sign* of the PVED; the bridge to biological homochirality requires additional empirical mechanisms that remain partially open.
 
 ### 4.4 The structural conclusion
 
-If the amplification chain is robust — and every step is either derived, known physics, or experimentally demonstrated — then biological homochirality is traced to (S, φ). The handedness of every amino acid in every protein in every organism is a consequence of the partition structure that produces quantum mechanics.
+If the amplification chain is robust — and every step is either derived, known physics, or experimentally demonstrated — then the *sign* of the molecular parity-violating energy difference is fixed by the partition (Theorem 13 of [SM §4.8]); biological homochirality plausibly inherits this sign through amplification mechanisms whose details remain partially open in origins-of-life research (§4.3). The handedness of every amino acid in every protein in every organism is *consistent* with the structural sign result; whether it is *uniquely traceable* to (S, φ) depends on which amplification mechanism actually operated in Earth's prebiotic chemistry.
 
 | Step | Content | Status |
 |------|---------|--------|
@@ -549,7 +564,7 @@ The framework's predictions about non-Markovian effects are not speculative — 
 
 ### 8.11 Cross-domain observation: universal memory strength in single-entity systems
 
-The non-Markovian dynamics documented in §8.10 is conventionally quantified by domain-specific measures. These can be converted to the Hurst exponent $H$ ($H = 0.5$: Markovian; $H > 0.5$: persistent memory) via $H \approx 1 - \beta/2$ for stretched exponential processes and $H = (1 + \alpha)/2$ for $1/f^\alpha$ noise.
+The non-Markovian dynamics documented in §8.10 is conventionally quantified by domain-specific measures. These can be converted to the Hurst exponent $H$ ($H = 0.5$: Markovian; $H > 0.5$: persistent memory) via $H \approx 1 - \beta/2$ for stretched exponential processes and $H = (1 + \alpha)/2$ for $1/f^\alpha$ noise. A striking empirical observation, consistent with the framework's prediction of P-indivisibility wherever C1–C3 are satisfied, is that single-entity systems show universal $H \approx 0.79 \pm 0.03$ (excluding myoglobin's deeper-hierarchy outlier). The derivation of $H(C3)$ from the characterization theorem's dependence on hidden-sector dimension — which would convert this empirical observation into a parameter-free framework prediction — is an open research question.
 
 A known objection to universality claims is that any ensemble of many independent exponentially relaxing modes with a broad rate distribution generically produces $H \approx 0.7$–$0.8$ [31]. This superposition argument applies to bulk/aggregate measurements (glasses, financial markets, river flows, EEG) where many components are averaged. It does *not* apply to single-molecule and single-system measurements, where there is no ensemble to superpose. Non-exponential kinetics in a single molecule must arise from the molecule's internal dynamics — specifically, from coupling between the observed process and slow internal degrees of freedom (C1–C3).
 

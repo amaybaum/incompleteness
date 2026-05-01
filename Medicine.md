@@ -34,6 +34,27 @@ The biological relevance is immediate. Enzymes, kinases, ion channels, and recep
 
 This paper develops the medical implications of this observation across seven domains, identifies a unifying therapeutic principle (memory asymmetry), and presents twenty-nine testable predictions that distinguish the non-Markovian framework from standard Markovian pharmacology.
 
+**Note on v1.10.0 (audit-revised edition).** This revision applies findings from a lightweight scope-classification check (audit document `MEDICINE_SCOPE_CHECK.md`). The substantive changes:
+
+- **§1.1 (new):** Brief classification key distinguishing framework-structural (F), biological-identification (B), therapeutic-prediction (P), and empirically-supported (E) claims throughout the paper.
+- **§2.4:** Added one sentence clarifying that reconstructive memory access follows from C1's bidirectionality.
+- **§2.5:** Clarified the structural-vs-functional distinction in "finite $\tau_B$ is required" — formally C1–C3 are satisfiable with arbitrary $\tau_B$, but functional memory operation requires finite $\tau_B$.
+- **§11.1:** Brief scope note that violation of a prediction in a system not actually satisfying C1–C3 falsifies the B-claim for that system, not the framework.
+- **§13.4:** Acknowledged that the *qualitative* P-indivisibility claim inherits Main's rigorous characterization theorem, while *quantitative* information-backflow rates inherit Main v1.10.0's reclassification of the accessible-timescale backflow lemma as semi-rigorous estimate.
+
+The 29 predictions of §11 are unchanged. The §10.1 boundary statement (loss-of-function genetic disorders are NOT memory diseases; framework does not claim otherwise) is unchanged. No fatal classification problems were identified.
+
+### 1.1 Note on classification
+
+Throughout this paper, claims fall into one of four types:
+
+- **F (Framework structural).** Follows directly from the characterization theorem [1, §3.4] given C1–C3 — applies to any system regardless of biological details.
+- **B (Biological identification).** An empirical claim that a specific biological system (Chk1, CaMKII, RecA, TCR cascade, ion channels, JAK kinases, chromatin) satisfies C1–C3. Supported by structural biology and biochemistry data, not derived from the framework.
+- **P (Therapeutic prediction).** A consequence of F + B — what follows if the biological system actually satisfies C1–C3 and the framework's structural theorem applies. These are the twenty-nine testable predictions of §11.
+- **E (Empirically supported).** A subset of F + B + P claims with existing literature support; flagged in §12.
+
+The framework's primary contribution to biology and medicine is the F-claim (the structural theorem) plus a unified language for B-claims (C1–C3 satisfaction in specific systems). The P-claims are framework-derived only conditional on the corresponding B-claims. Falsification of a P-claim in a system that does not satisfy C1–C3 does not falsify the framework — it falsifies the B-claim for that system.
+
 ---
 
 ## 2. The Enzyme as a Read-Write System
@@ -81,7 +102,7 @@ In disease contexts, the framework identifies a specific therapeutic axis: **mem
 
 ### 2.4 Reconstructive consequences of memory access
 
-A direct consequence of the framework's core mechanism: *every act of accessing a memory necessarily alters the substrate that stores it.* Observation of a coupled hidden sector cannot be passive — the visible-sector readout requires interaction with the hidden sector, and this interaction back-acts on the hidden state. The re-stored trace is therefore a function of both the original hidden state and the present visible-sector context at the moment of access.
+A direct consequence of the framework's core mechanism: *every act of accessing a memory necessarily alters the substrate that stores it.* Observation of a coupled hidden sector cannot be passive — the visible-sector readout requires interaction with the hidden sector, and this interaction back-acts on the hidden state. The re-stored trace is therefore a function of both the original hidden state and the present visible-sector context at the moment of access. (The back-action is an immediate consequence of C1 being bidirectional: if the visible-sector readout requires coupling to the hidden sector at all, that coupling acts in both directions, and the readback necessarily disturbs the bath. Pure address-store memory — where the readout is a one-way map from substrate to readout — would require unidirectional coupling, which violates C1.)
 
 This is the framework's derivation of the *reconstructive nature of recall* — a phenomenon long established in cognitive science but typically treated as a contingent feature of biological memory. The framework makes it structural: any C1–C3 memory system must exhibit constructive re-storage on access. Pure address-store memory (where access leaves the substrate unchanged) is incompatible with C1–C3.
 
@@ -91,7 +112,7 @@ The framework predicts that this approach generalizes: any memory layer with a m
 
 ### 2.5 Forgetting as functional necessity
 
-Standard accounts treat forgetting as a failure of memory. The framework reframes it: *finite $\tau_B$ at every layer is structurally required.* A system with infinite $\tau_B$ at every layer would be unable to discriminate present from past — it would have no temporal structure, no "now," no capacity to register change. Such a system is not a memory device; it is a frozen state.
+Standard accounts treat forgetting as a failure of memory. The framework reframes it: *finite $\tau_B$ at every layer is required for functional memory operation.* While C1–C3 are formally satisfied for any positive $\tau_B$ (including arbitrarily large values), a memory system with infinite $\tau_B$ at every layer would be unable to discriminate present from past — it would have no temporal structure, no "now," no capacity to register change. Such a system is not a memory device; it is a frozen state. The structural C1–C3 conditions enable non-Markovian dynamics; the functional requirement of finite $\tau_B$ at the relevant layer is what makes biological memory operate as memory.
 
 The brain operates in the parameter regime where each layer's $\tau_B$ is matched to that layer's functional role. Pattern separation requires fast forgetting at the molecular layer; generalization requires consolidation transfer from fast to slow layers; fear extinction and mood regulation require active erasure at intermediate layers.
 
@@ -376,6 +397,8 @@ The following predictions are specific to the non-Markovian framework and are *n
 
 **Prediction 5:** Single-molecule Chk1 turnover waiting times follow a stretched-exponential distribution $P(t) \sim \exp(-(t/\tau)^\beta)$ with $\beta < 1$. *Test:* Single-molecule fluorescence assay. Standard models predict $\beta = 1$ (exponential); OI predicts $\beta < 1$ with value calculable from $\tau_S / \tau_B$.
 
+**Scope of these predictions.** Each prediction follows from the framework's F-claim (P-indivisibility from C1–C3) conditional on the corresponding B-claim (the system in question satisfies C1–C3). Violation of a prediction in a system that does not in fact satisfy C1–C3 — for example, an enzyme whose regulatory domain dynamics are not actually slow relative to the catalytic cycle — would falsify the B-claim for that system, not the framework. This is in contrast to framework-level predictions ([Substratum §6.4 Class A and B-S]), which depend only on the structural theorem and falsify the framework directly.
+
 ### 11.2 Neurodegeneration
 
 **Prediction 6:** A$\beta$ oligomers shift CaMKII's regulatory domain $\tau_B$, measurable by FRET or HDX-MS. *Test:* Compare CaMKII conformational dynamics in A$\beta$-exposed vs. control neurons.
@@ -489,7 +512,7 @@ Two predictions are immediately testable with existing drugs and standard clinic
 
 ### 13.4 Connection to fundamental physics
 
-The mathematical structure underlying these predictions is identical to the theorem that derives quantum mechanics from embedded observation [1]. The C1–C3 conditions that produce non-Markovian enzyme dynamics are the same conditions that produce quantum mechanics at the cosmological scale. The read-write cycle of a kinase interacting with its regulatory domain is structurally isomorphic to the read-write cycle of an observer interacting with the hidden sector across the cosmological horizon. This connection is not metaphorical — the characterization theorem applies to any system satisfying C1–C3, regardless of scale. The biological instantiations are classical (no quantum coherence is required or invoked), but the mathematical architecture is the same.
+The mathematical structure underlying these predictions is identical to the theorem that derives quantum mechanics from embedded observation [1]. The C1–C3 conditions that produce non-Markovian enzyme dynamics are the same conditions that produce quantum mechanics at the cosmological scale. The read-write cycle of a kinase interacting with its regulatory domain is structurally isomorphic to the read-write cycle of an observer interacting with the hidden sector across the cosmological horizon. This connection is not metaphorical — the characterization theorem applies to any system satisfying C1–C3, regardless of scale. (The qualitative claim — that C1–C3 systems exhibit P-indivisibility — inherits the rigorous status of the characterization theorem [1, §3.4]. The *quantitative bound* on information backflow rates inherits the semi-rigorous status of Main's accessible-timescale backflow lemma [1, §2.3, v1.10.0]: the structure of the bound is rigorous, but specific constants are not exhaustively bounded. For Medicine's predictions, this means qualitative non-Markovian behavior is rigorously framework-predicted; precise quantitative information-backflow rates are semi-rigorous estimates.) The biological instantiations are classical (no quantum coherence is required or invoked), but the mathematical architecture is the same.
 
 ---
 

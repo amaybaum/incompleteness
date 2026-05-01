@@ -29,7 +29,7 @@ At this precision, TBM-modification proposals can be discriminated at the few-pe
 
 Most existing TBM-modification proposals start from a discrete *flavor symmetry* — typically A₄, S₄, or a Z₂ residual — postulated as an axiom of the lepton sector. The minimal modifications then preserve one column of the TBM matrix or one residual symmetry of the neutrino mass matrix, yielding one-parameter correlations between angles.
 
-In this paper we take a different starting point: the cubic point group O, which is the symmetry group of three-dimensional space. The subgroup A₄ ⊂ O that generates TBM at zeroth order [Ma-Rajasekaran 2001; Altarelli-Feruglio 2010] is the orientation-preserving subgroup of O. We adopt as a working hypothesis that the three fermion generations transform under O as the triplet irrep T₁. The cubic group then has a natural (3, 2, 1) multiplet structure that matches the three-generation pattern (Sec. 2.1).
+In this paper we take a different starting point: the cubic point group O, which is the symmetry group of three-dimensional space. The subgroup A₄ ⊂ O that generates TBM at zeroth order [Ma-Rajasekaran 2001; Altarelli-Feruglio 2010] is the orientation-preserving subgroup of O. We adopt as a working hypothesis that the three fermion generations transform under O as the triplet irrep T₁. The cubic group then has a natural (3, 2, 1) multiplet structure that matches the three-generation pattern (Sec. 2.1). In the broader cubic-lattice framework of [Maybaum 2026], the simple cubic Bravais lattice in d=3 is shown to be the unique three-dimensional Bravais lattice consistent with the SU(3) × SU(2) × U(1) gauge structure and the observed Cabibbo angle (Theorem 7b, v1.10.0); the present analysis takes the T₁ generation identification as input and works out its predictive consequences for the lepton sector.
 
 The Cabibbo angle, λ² = 1/(2π²), sets the perturbation scale; it is fixed by a single cubic Brillouin-zone distance (Sec. 2.2). The breaking of TBM is then controlled by a discrete μ-τ parity (the U-parity of S₄ ⊃ A₄) together with one normalization condition (Sec. 3.4). The resulting predictions are:
 
@@ -41,11 +41,21 @@ The prediction for sin²θ₁₂ contains no parameter fit to sin²θ₁₂: the
 
 The paper is organized as follows. Section 2 sets up the cubic-group structure and derives the perturbation scale. Section 3 computes the deviations from TBM at O(λ²) and derives the sum rule. Section 4 presents the predictions and compares them with JUNO, the post-JUNO global fit, and competing TM1/TM2 patterns. Section 5 covers the remaining angles. Section 6 discusses falsifiability under JUNO's projected long-term precision. Section 7 concludes.
 
+**Note on v1.10.0 (audit-revised edition).** This revision applies findings from the framework's internal derivation audit and cascades the relevant SM v1.10.0 reclassifications. The substantive changes:
+
+- **§2.1, §1:** Updated the T₁ generation-identification language to reference the v1.10.0 promotion of Theorem 7b (Bravais-lattice uniqueness — the simple cubic Bravais lattice in d=3 is the unique three-dimensional Bravais lattice consistent with the SU(3) × SU(2) × U(1) gauge structure and the observed Cabibbo angle).
+- **§2.2:** Tightened the 1/|q| chirality argument and added explicit cross-reference to [Maybaum 2026, §7.1] and Direction 8 (the framework's audit-tracked research direction for the explicit chirality verification of the taste-changing vertex). The Cabibbo derivation λ = 1/(π√2) is now noted as classified **L** (layered conditional) in the v1.10.0 SM, pending Direction 8 closure; the empirical match to 0.04% provides strong support pending closure.
+- **§3.2:** Reordered the derivation of A₁ to make the logical structure explicit — sinθ₁₃ = A²λ is the structural input (from the projection geometry of §2.2) that fixes A₁'s overall coefficient, not a derived consequence of A₁.
+- **§3.3, §3.4:** Tightened the δ_CP identification language: b₁₂ − b₁₃ is now described as *naturally* identified with δ_CP (since it is the only remaining O(λ²) free parameter that does not enter any of the three angles) rather than directly identified.
+- **§3.4:** Added a paragraph placing Conditions 1 and 2 within the framework's four-layer classification [Maybaum 2026, §8.3]: Condition 1 is a Layer 0 normalization choice; Condition 2 is a Layer 2(a) operator-level structural relation. Closure of the lattice-Yukawa derivation of Condition 2 would convert sin²θ₁₂ from **C** (conditional) to **S** (unconditional structural) in the v1.10.0 SM-audit framework.
+
+The empirical predictions and their matches are unchanged. The headline result (sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080 matching the post-JUNO global fit at 0.07σ) is unchanged. No fatal gaps were identified by the audit (audit document `JUNO_DERIVATION_AUDIT.md`).
+
 ## 2. Cubic-group flavor structure
 
 ### 2.1 The cubic group O and its A₄ subgroup
 
-The cubic point group O is the rotation symmetry group of three-dimensional space, the unique finite point group with a six-element generator set {±ê₁, ±ê₂, ±ê₃} — six minimal-length translations corresponding to forward and backward motion along three orthogonal axes. In the lattice realization of the OI framework, this six-element set arises from coupling-degree minimization (K = 2d = 6 for d = 3), and the multiplicities (3, 2, 1) under the action of O on these six directions match the structure of one Standard Model fermion generation (quark triplet, lepton doublet, singlet). The triplet sector T₁ then carries the three generations. We adopt this identification here as a working hypothesis; the detailed argument from coupling-degree minimization to the (3, 2, 1) decomposition of T₁ ⊕ E ⊕ A₁ is given in [Maybaum 2026] (Theorems 6 and 7).
+The cubic point group O is the rotation symmetry group of three-dimensional space, the unique finite point group with a six-element generator set {±ê₁, ±ê₂, ±ê₃} — six minimal-length translations corresponding to forward and backward motion along three orthogonal axes. In the lattice realization of the OI framework, this six-element set arises from coupling-degree minimization (K = 2d = 6 for d = 3), and the multiplicities (3, 2, 1) under the action of O on these six directions match the structure of one Standard Model fermion generation (quark triplet, lepton doublet, singlet). The triplet sector T₁ then carries the three generations. We adopt this identification here as a working hypothesis for the present analysis; the detailed argument from coupling-degree minimization (Theorem 6) and Bravais-lattice uniqueness (Theorem 7b, v1.10.0) to the (3, 2, 1) decomposition of T₁ ⊕ E ⊕ A₁ is given in [Maybaum 2026, §§4.5–4.6].
 
 The full octahedral rotation group O has order 24 and is isomorphic to S₄. Its irreducible representations decompose as
 
@@ -65,7 +75,7 @@ We identify the perturbation parameter λ with the Cabibbo angle. In a lattice r
 
 **|X_i − X_j| = π√2 (i ≠ j)**
 
-a fixed geometric constant of the cubic lattice. The leading-order inter-generation mixing matrix element is the continuum fermion propagator at this momentum, |M_ij| = |S(X_j − X_i)| = 1/|X_j − X_i|, where the 1/|q| scaling (rather than 1/|q|²) follows from chirality preservation in the taste-changing vertex (the vertex trace Tr[γ·S(q)] ∝ 1/|q| in the massless limit). Identifying this with the Cabibbo angle gives
+a fixed geometric constant of the cubic lattice. The leading-order inter-generation mixing matrix element is the continuum fermion propagator at this momentum, |M_ij| = |S(X_j − X_i)| = 1/|X_j − X_i|. The 1/|q| scaling (rather than 1/|q|²) is structural: in the massless limit, the chirality-preserving component of the fermion propagator at momentum q reduces to S(q) = γ·q/q², and the taste-changing vertex's Dirac trace contracts this to a magnitude of order 1/|q| rather than the full propagator's 1/|q|². The detailed derivation — a Layer 1 structural form per the four-layer framework of [Maybaum 2026, §8.3], with the explicit chirality verification of the taste-changing vertex's spinor structure as Direction 8 in the framework's audit-tracked research directions — is given in [Maybaum 2026, §7.1]. Identifying the matrix element with the Cabibbo angle gives
 
 **λ = 1/(π√2) = 0.22508**
 
@@ -73,7 +83,7 @@ matching the observed value λ_obs = 0.22500 ± 0.00067 [PDG 2024] to 0.04%. Squ
 
 **λ² = 1/(2π²) = 0.05066**
 
-sets the overall scale of O(λ²) corrections. The full derivation of λ = 1/(π√2) from the lattice fermion propagator and the chirality-preservation argument is given in [Maybaum 2026].
+sets the overall scale of O(λ²) corrections. The full derivation of λ = 1/(π√2) from the lattice fermion propagator and the chirality-preservation argument is given in [Maybaum 2026, §7.1]. This derivation is classified **L** (layered conditional, Tier 2) in the v1.10.0 audit-revised SM, pending the Direction 8 closure of the explicit chirality verification mentioned above. The empirical match to 0.04% provides strong support pending closure.
 
 A second geometric quantity will appear. The angle between any generation axis e_i and the democratic direction ĥ satisfies e_i · ĥ = 1/√3, so cos²(∠(e_i, ĥ)) = 1/3 and sin²(∠(e_i, ĥ)) = 2/3. We identify the Wolfenstein parameter A with this quantity:
 
@@ -122,17 +132,19 @@ The unique U-odd combination antisymmetric in (μ, τ) is E₂₃; the unique U-
 
 ### 3.2 Determination of A₁
 
-Three conditions fix A₁ uniquely. First, θ₁₃ is zero at TBM zeroth order, but the data require sinθ₁₃ = O(λ); so A₁ must contribute to the (1,3) element of V_ℓ† U_TBM. Second, both Δ₁₂ ≡ sin²θ₁₂ − 1/3 and Δ₂₃ ≡ sin²θ₂₃ − 1/2 are observed to be O(λ²) (not O(λ)), which fixes A₁ up to an overall sign. Third, the coefficient is set by the geometric identity
+A₁ is fixed by three structural conditions plus the projection geometry of §2.2.
+
+The data require sinθ₁₃ = O(λ) (since θ₁₃ ≠ 0), forcing A₁ to contribute to the (1,3) element of V_ℓ† U_TBM. The observation that both Δ₁₂ ≡ sin²θ₁₂ − 1/3 and Δ₂₃ ≡ sin²θ₂₃ − 1/2 are O(λ²) (not O(λ)) further constrains A₁'s structure. The remaining input is geometric: each end of an inter-generation mixing vertex projects onto the plane perpendicular to ĥ, contributing a factor sin(∠(e_i, ĥ)) = A from the off-democratic projection (Sec. 2.2). For a single-vertex inter-generation transition, the total projection factor is A² (one factor per vertex end). Identifying this projection geometry with the leading O(λ) contribution to U_e3 gives the structural identity
 
 **sinθ₁₃ = A²λ**
 
-which follows from the projection geometry: each end of an inter-generation mixing vertex projects onto the plane perpendicular to ĥ, contributing a factor sin(∠(e_i, ĥ)) = A, for a total A².
+(at O(λ); A₂ contributes only at O(λ²) and cancels from |U_e3|² as shown in §3.3 below). This is the structural input — not a derived consequence — that fixes A₁'s overall coefficient up to sign.
 
 The result is
 
 **A₁ = (√2/3)(E₁₂ − E₁₃)**
 
-A₁ is purely U-odd: UA₁U⁻¹ = −A₁. Geometrically, it is a rotation by angle A² = 2/3 around the axis (e₂ + e₃)/√2, reproducing the structural identity above.
+A₁ is purely U-odd: UA₁U⁻¹ = −A₁. Geometrically, it is a rotation by angle A² = 2/3 around the axis (e₂ + e₃)/√2, which reproduces sinθ₁₃ = A²λ as required.
 
 ### 3.3 Deviations to O(λ²)
 
@@ -154,7 +166,7 @@ Three observations follow.
 
 **(i) Δ₁₃ is fully determined by A₁ alone.** The A₂ parameters cancel from |U_e3|² at O(λ²), so sin²θ₁₃ = (4/9)λ² is fixed without reference to A₂. Equivalently, the structural identity sinθ₁₃ = A²λ is exact at O(λ) and receives no O(λ²) correction.
 
-**(ii) The combination b₁₂ − b₁₃ does not enter any of the three angles.** It is identified physically with the CP-violating Dirac phase δ_CP, which the present analysis leaves undetermined.
+**(ii) The combination b₁₂ − b₁₃ does not enter any of the three angles.** It is naturally identified with the CP-violating Dirac phase δ_CP, since it is the only remaining free parameter at O(λ²) that does not enter the angles. The present analysis leaves δ_CP undetermined.
 
 **(iii) The remaining structure depends on two combinations:** (b₁₂ + b₁₃) controlling Δ₁₂ and b₂₃ controlling Δ₂₃. The first is the U-even, the second the dominant U-odd coefficient of A₂, with b₁₂ − b₁₃ the sub-dominant U-odd combination.
 
@@ -186,11 +198,13 @@ The +1/9 augmentation is forced by A₁'s perturbative structure; deriving the s
 
 We treat Condition 2 as a structural input to the present analysis and quote our predictions *conditional* on it. The angle predictions of Sec. 3.5 and the sum rule below thus stand or fall with Condition 2: empirical agreement at 0.07σ on sin²θ₁₂ is, in this sense, a nontrivial test of Condition 2 itself.
 
+**Within the framework's four-layer classification** [Maybaum 2026, §8.3], Condition 1 is a Layer 0 normalization choice (a labeling convention with no physical content), while Condition 2 is a Layer 2(a) operator-level structural relation between Wilson-coefficient combinations of A₂. The factorization 4/3 = 2 × A² is structurally motivated by the projection geometry of §2.2 (Layer 1 structural form) but its derivation from the lattice Yukawa structure as a fixed numerical relation rather than an operator-level free parameter is the Layer 2(a) gap. Closure of this gap would convert the prediction sin²θ₁₂ = 1/3 − 1/(4π²) from a conditional (**C**) classification to an unconditional structural (**S**) classification in the v1.10.0 SM audit-revised framework.
+
 At the angle level, this is equivalent to
 
 **2Δ₁₂ + Δ₂₃ = 0**
 
-which is testable directly against data (Sec. 4.3). The combination b₁₂ − b₁₃ remains free; we identify it in Sec. 4.2 with δ_CP. The present analysis therefore predicts all three angles but not δ_CP.
+which is testable directly against data (Sec. 4.3). The combination b₁₂ − b₁₃ remains free; we identify it in Sec. 4.2 with δ_CP (the natural identification, since it is the only remaining O(λ²) free parameter that does not enter any of the three angles). The present analysis therefore predicts all three angles but not δ_CP.
 
 ### 3.5 Numerical predictions
 
