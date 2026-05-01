@@ -33,7 +33,7 @@ matching the post-JUNO global fit at **0.07σ** with no parameter fit to sin²θ
 
 **2sin²θ₁₂ + sin²θ₂₃ = 7/6**
 
-which distinguishes the present prediction from the TM1, TM2, and TM3 column-preservation patterns at JUNO precision. Both inputs to sin²θ₁₂ — the zeroth-order value 1/3 from A₄ representation theory and the perturbation scale λ² = 1/(2π²) — were fixed before JUNO took data.
+which distinguishes the present prediction from the TM1, TM2, and TM3 column-preservation patterns at JUNO precision. Both inputs to sin²θ₁₂ are independently motivated: the zeroth-order value 1/3 is the A₄ TBM result, and the perturbation scale λ² = 1/(2π²) is the squared Cabibbo angle, fixed independently by the cubic Brillouin geometry (matching the observed λ to 0.04%).
 
 ### 1.2 Where the prediction comes from
 
@@ -253,7 +253,7 @@ Comparison with current measurements:
 | JUNO direct | 0.3092 ± 0.0087 | 0.14σ |
 | Post-JUNO global | 0.3085 ± 0.0073 | 0.07σ |
 
-The prediction agrees with the post-JUNO global fit at 0.07σ. Both inputs entering the prediction were fixed before JUNO: 1/3 is the A₄ TBM zeroth-order value, and λ² = 1/(2π²) is the squared Cabibbo angle predicted from the same cubic Brillouin geometry that gives λ = 0.22508 (matching observation to 0.04%).
+The prediction agrees with the post-JUNO global fit at 0.07σ. Both inputs entering the prediction are independently motivated: 1/3 is the A₄ TBM zeroth-order value, and λ² = 1/(2π²) is the squared Cabibbo angle, fixed independently by the cubic Brillouin geometry (matching the observed λ = 0.22508 to 0.04%).
 
 ### 4.2 Comparison with column-preservation patterns
 

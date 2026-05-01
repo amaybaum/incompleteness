@@ -34,7 +34,7 @@ The framework belongs to a family of results where self-reference under finite r
 
 ## JUNO confirmation
 
-The framework's prediction, fixed before JUNO took data, is
+The framework's prediction, with no parameters fit to $\sin^2\theta_{12}$, is
 
 $$\sin^2\theta_{12} = \frac{1}{3} - \frac{1}{4\pi^2} = 0.3080$$
 
