@@ -3291,9 +3291,34 @@ fermion action uses the symmetric kinetic term
 with the gauge vertex
 \(V_\mu = (g_0/2)\eta_\mu(x)[U_\mu + U_\mu^\dagger]\). The factor
 \(1/2\) from this symmetrization propagates as a universal kinematic
-prefactor in one-loop bilinear renormalization, matching the standard
-staggered renormalization constants \(Z_S, Z_P\) (Sharpe et al.;
-Lepage--Mackenzie tadpole-improved coefficients).
+prefactor in one-loop bilinear renormalization. This is established in
+the canonical staggered perturbation theory references: Patel \& Sharpe
+{[}33{]} derive the standard one-gluon vertex
+\(V_\mu \propto -ig\cos(q'_\mu + k_\mu/2)(\gamma_\mu \otimes 1)\) (their
+Eq. 17) --- the same form as the OI vertex
+\(V_j = ig_0\mu T^\alpha\cos(k_j + p_j/2)\) --- and the two-gluon
+(tadpole) vertex with explicit factor \(-i\tfrac{1}{2}g^2\) (their Eq.
+18) tracing directly to the symmetrization. The full one-loop
+renormalization of staggered scalar density bilinears computed there and
+in subsequent work {[}Constantinou-Costa-Panagopoulos and others{]}
+shows the \(1/2\) propagating consistently through to the
+renormalization coefficients \(Z_S, Z_P\).
+
+The key point: \textbf{OI uses the standard staggered convention for the
+vertex normalization}, not a different one. The OI's taste-decomposed
+Coleman-Weinberg construction inherits the same one-loop kinematic
+structure as standard staggered \(Z_S\) calculations, including the
+\(1/2\) prefactor. The OI's K = 1/2 is therefore not an independent OI
+prediction but the value forced by the staggered convention OI uses;
+verifying it explicitly within OI amounts to checking that no
+OI-specific modification (e.g., the matching mass \(\mu\) insertion in
+the vertex) breaks the inheritance from standard staggered. The
+structural argument is: same vertex form (cited from Patel-Sharpe Eq.
+17), same symmetrization (cited from Patel-Sharpe action setup), same
+loop kinematic structure → same K. The matching mass \(\mu\) enters the
+OI calculation as an overall factor (it sets the scale at which the
+matching is performed, not the dimensionless loop coefficient), so it
+does not modify K.
 
 \textbf{Consistency check 2 (Symmetric averaging --- definitional).} The
 taste-breaking insertion can appear before or after the gauge exchange
@@ -3336,12 +3361,21 @@ consideration (Argument 1, pending the deferred OI-specific
 verification) plus a definitional convention (check 2) and an empirical
 exclusion (check 3) that align with it.
 
-\textbf{Residual gap.} The arguments above establish \(K = 1/2\) as the
-natural and consistent value within standard staggered perturbation
-theory. A fully explicit one-loop calculation within the OI lattice
-setup --- computing the diagram directly with the OI vertex
-\(V_j = ig_0\mu T^\alpha\cos(k_j + p_j/2)\) --- would replace this
-argument with a direct computation, and is the natural follow-up.
+\textbf{Residual gap.} With Argument 1 reframed as inheritance from the
+standard staggered convention rather than independent OI derivation, the
+structural support for \(K = 1/2\) is substantially strengthened: K =
+1/2 is the value forced by the staggered vertex normalization OI uses,
+established in published staggered perturbation theory {[}33{]}, and the
+matching mass \(\mu\) enters as an overall scale rather than modifying
+the dimensionless loop coefficient. The remaining gap is verifying
+explicitly that the OI's specific taste-decomposed Coleman-Weinberg
+construction reproduces the standard staggered calculation at the
+relevant level of detail (no convention drift, no missing diagram). A
+fully explicit one-loop calculation within the OI lattice setup ---
+computing the diagram directly with the OI vertex
+\(V_j = ig_0\mu T^\alpha\cos(k_j + p_j/2)\) and confirming it reduces to
+the standard staggered \(Z_S\) structure --- would close this gap
+definitively.
 
 MC consistency check: the empirical matching scale extracted from the
 Monte Carlo data is
@@ -4184,5 +4218,9 @@ Field Theory} (Cambridge University Press, 2004).
 Davies, and E. Follana (HPQCD), ``Taste-Changing in Staggered Quarks,''
 \emph{Nucl. Phys. Proc. Suppl.} \textbf{119}, 446 (2003);
 arXiv:hep-lat/0209152.
+
+{[}33{]} A. Patel and S. R. Sharpe, ``Perturbative Corrections for
+Staggered Fermion Bilinears,'' \emph{Nucl. Phys. B} \textbf{395}, 701
+(1993); arXiv:hep-lat/9210039.
 
 \end{document}
