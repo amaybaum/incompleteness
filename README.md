@@ -54,7 +54,7 @@ The framework produces parameter-free predictions across multiple domains. A rep
 | Higgs quartic $\lambda(M_{\rm Pl}) = 0$ | structural | $0.6\sigma$ vs measured |
 | Dark sector fraction | $\sim 95\%$ | matches $\Omega_{\rm CDM} + \Omega_\Lambda$ |
 
-Each prediction's full derivation chain and audit-revised classification (structural / conditional / layered conditional) is documented in the relevant paper. See SM §7.6 and Substratum §6.4 for the full classification, and the audit document collection for per-prediction provenance.
+Each prediction's full derivation chain and classification (structural / conditional / layered conditional) is documented in the relevant paper. See SM §7.6 and Substratum §6.4 for the full classification.
 
 ---
 
@@ -116,55 +116,7 @@ Each prediction's full derivation chain and audit-revised classification (struct
 
 ### Lattice Monte Carlo code
 
-Source code for the lattice computations reported in SM §§6–7 (gauge-coupling thresholds, scalar-density renormalization $Z_S$, dynamical fermion HMC, Higgs effective potential) lives in [`oi_lattice_code/`](oi_lattice_code/). See `oi_lattice_code/README.md` for build instructions and per-file documentation.
-
-```bash
-gcc -O3 -o metropolis_plaquette oi_lattice_code/gauge/metropolis_plaquette.c -lm
-gcc -O3 -fopenmp -o k6_hmc oi_lattice_code/fermion/k6_hmc.c -lm
-```
-
-On macOS with libomp via homebrew, replace `-fopenmp` with `-Xpreprocessor -fopenmp -I$(brew --prefix libomp)/include -L$(brew --prefix libomp)/lib -lomp`. Files without `omp.h` (`metropolis_plaquette.c`, `oi_*.c`, `rimom.c`, `taste_irrep.c`, `ward_chiral.c`) build without the OpenMP flag.
-
-**Quick-start: Wilson plaquette cross-check.**
-```bash
-./metropolis_plaquette 2 4 7.4  1000 2000 2 10 0.2    # SU(2) at β=7.4 on 4⁴
-./metropolis_plaquette 3 4 11.1 1000 2000 2 10 0.2    # SU(3) at β=11.1 on 4⁴
-```
-Each run takes ~1 minute on a single core. The utility was validated against literature reference values: SU(2) β=2.3 (gives 0.609 vs lit ≈ 0.605), SU(2) β=20 (0.962 vs ≈ 0.96), SU(3) β=5.7 (0.560 vs ≈ 0.55), SU(3) β=6.0 (0.596 vs ≈ 0.594). The §6.2 derivation does not depend on these plaquette values — they are non-perturbative cross-checks of the pure-gauge sector.
-
-**Quick-start: legacy $\delta_0^{(2L)}$ implementation (held in reserve).**
-```bash
-python3 oi_lattice_code/gauge/two_loop_vp.py
-```
-Runs in a few minutes, outputting $\delta_0$ (SE+VC via Ward 3×) grid convergence, the sails contribution, and the $\Pi_s(p)$ correction estimate. On audit, this implementation was found to use a scheme-locked $\Pi_s$ convention; the "$8.0 \pm 2$" result is held in reserve pending a rebuilt calculation. $\delta_0 = 10.02$ is empirically fixed by the U(1) row (SM §6.2).
-
-**Quick-start: reproducing $Z_S(0.122) = 1.813$.**
-```bash
-# HMC at the target mass — defaults: nstep=1, tau=0.005, ~58% acceptance at L=6
-./k6_hmc 32 0.122 50 200 zs_L32_m0p122.dat
-# Full mass scan + cubic interpolation
-for m in 0.005 0.010 0.020 0.050 0.080 0.100 0.122 0.150 0.200 0.300 0.500; do
-    ./k6_hmc 32 $m 50 200 "zs_L32_m$(printf '%04d' $(echo "$m*1000" | bc | cut -d. -f1)).dat"
-done
-python3 oi_lattice_code/scripts/analyze_zs.py -L 32 -m 0.122 zs_L32_m*.dat
-```
-`analyze_zs.py` computes the free-theory $\langle\bar\psi\psi\rangle$ analytically with matched regulator, divides to get $Z_S(m)$, and cubic-interpolates to the target mass in the volume-converged region ($mL \gtrsim 3$). Integrator parameters `nstep` and `tau` can be overridden as CLI arguments 6 and 7: at larger $L$ or smaller $m$, reducing `tau` (or increasing `nstep` at fixed `nstep*tau`) may be needed to keep acceptance above ~50%.
-
-**Quick-start: Z_S cross-check across three independent schemes.**
-```bash
-python3 oi_lattice_code/scripts/zs_crosscheck.py --run -L 16 -m 0.20 -ncfg 50 -nthm 100 -beta 11.1
-```
-Runs `rimom.c`, `taste_irrep.c`, and `ward_chiral.c` at the same $(L, m, \beta)$ and reports $Z_S$ in the diagnostic channel of each (rimom at $|p|^2 = 5$, taste_irrep $T_1$, ward_chiral L-sector), plus cross-scheme scatter as a systematic-error indicator.
-
-**Status — read this before running.**
-
-1. **First-principles $A \cdot B$ derivation (partial).** The $C_2$-dependent threshold in §6.2 is parameterized by the log form $A \cdot \ln(1 + B \cdot C_2 g_0^2)$ with $(A, B) = (8.3, 5.59)$. The leading coefficient — the product $A \cdot B$ multiplying $C_2 g_0^2$ at linear order — is independently derived via 1-loop lattice PT in the induced gauge theory, giving $A \cdot B = 48.0 \pm 1.5$ (±3%) against the fitted $46.4$ (SM §6.2.1). Implementation in `oi_lattice_code/gauge/AB_derivation/`. Separating $A$ from $B$ individually is open — it requires either the next-order $(C_2 g_0^2)^2$ coefficient (full 2-loop in the induced theory) or a scan over effective coupling (varying the fermion mass $m$) to fit the log-resum form directly.
-
-2. **The OI-induced confined-phase issue.** As discussed in SM §6.5, running `oi_su3_hmc.c` (or any of the `oi_*_hmc.c` variants) with the Haar measure on the gauge group produces a confined phase $\langle P \rangle \to 0$ — an artifact of using the wrong measure. The actual OI gauge measure is the discrete pushforward of the uniform measure on $(\mathbb{Z}/q\mathbb{Z})^{K \times N}$, not Haar. The perturbative-regime values used for the SM coupling derivation come from the matched two-loop calculation in `two_loop_vp.py`, not from running `oi_*_hmc.c` directly.
-
-3. **Research-grade defaults.** CG tolerances are 1e-10 to 1e-12 across files. The published $Z_S(0.122) = 1.813 \pm 0.001$ quotes statistical error from the $L = 32$ ensemble; systematic errors from finite volume and finite trajectory length are not exhaustively quantified. No regression test suite is included.
-
-**Provenance.** Two files present in the development tree were removed during cleanup before this release. `oi_hmc.c` had a sign bug in the kinetic-energy computation (`K -=` instead of `K +=` for the squared anti-Hermitian momentum), making the molecular-dynamics integrator incorrect; the fix is in `oi_su3_hmc.c`, which is the canonical SU(3) OI-induced HMC source. `taste_proj.c` performed a binary in-vs-out-of-reduced-BZ split for the taste-projected $Z_S$; it is subsumed by `taste_irrep.c`, which decomposes the same data into all four O(3) irreps plus the all-tastes total.
+Source code for the lattice computations reported in SM §§6–7 (gauge-coupling thresholds, scalar-density renormalization $Z_S$, dynamical fermion HMC, Higgs effective potential) lives in [`oi_lattice_code/`](oi_lattice_code/). See `oi_lattice_code/README.md` for build instructions, per-file documentation, and reproduction recipes.
 
 **License.** All source code under `oi_lattice_code/` is released under the MIT License — see [`LICENSE`](LICENSE). The accompanying papers are research manuscripts and are not licensed under MIT; cite the relevant paper if you use the framework or its results, and cite this repository if you use or adapt the lattice utilities.
 
@@ -180,7 +132,7 @@ Runs `rimom.c`, `taste_irrep.c`, and `ward_chiral.c` at the same $(L, m, \beta)$
 | 4 | Cosmological constant dissolution: $10^{122}$ ratio = $S_{\rm dS}$ compression ratio | theorem | GR §6 |
 | 5 | Wave equation uniquely selected; produces all inputs for Einstein's equations | theorem | SM §3 + GR §3 |
 | 6 | SM gauge group SU(3)×SU(2)×U(1), 3 generations, hypercharges, $\bar\theta = 0$ | theorem | SM §§4, 5 |
-| 7 | Twenty-two SM observables match observation across CKM, mass, PMNS sectors | structural + audit-classified | SM §7 |
+| 7 | Twenty-two SM observables match observation across CKM, mass, PMNS sectors | structural + classified | SM §7 |
 | 8 | Dark sector $\sim 95\%$, $a_0 = cH/6$, Bullet Cluster, CMB peaks | theorem (total budget); layered (specific magnitudes) | GR §7 |
 | 9 | Page curve from nested trace-out, $t_P \approx 0.646\, t_{\rm evap}$ | theorem | GR Appendix A |
 | 10 | Observer selection theorem: C1–C3 systems exist only out of equilibrium → arrow of time, no Boltzmann brains | theorem | Main §4.6 |
@@ -188,7 +140,7 @@ Runs `rimom.c`, `taste_irrep.c`, and `ward_chiral.c` at the same $(L, m, \beta)$
 | 12 | Structural preconditions for organic chemistry, RNA world as first molecular C1–C3, viable parameter fraction $\sim 16\%$ | structural chain + statistical | Complexity |
 | 13 | Non-Markovian dynamics in biology, memory asymmetry as therapeutic axis, 29 testable predictions | predictions | Medicine |
 
-The audit-revised classification (structural / conditional / layered conditional pending active research directions) for the SM observables is documented in SM §7.6, with the framework-level falsification structure in Substratum §6.4.
+The classification (structural / conditional / layered conditional pending open derivations) for the SM observables is documented in SM §7.6, with the framework-level falsification structure in Substratum §6.4.
 
 ## The Bidirectional Correspondence
 

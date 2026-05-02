@@ -22,24 +22,6 @@ An observer embedded in a deterministic universe cannot access the complete stat
 
 Prior work (QBism, relational QM, 't Hooft's cellular automaton [1]) takes observer-dependence as an interpretive starting point or derives it from specific microphysical models. This framework differs by identifying *necessary and sufficient conditions* under which any embedded observer in any deterministic system necessarily sees quantum mechanics — and proving these are the *only* conditions under which QM arises from a deterministic embedding.
 
-**Note on v1.10.0 (audit-revised edition).** This revision applies findings from the framework's internal derivation audit. The substantive changes in [Main]:
-
-- **§3.3 and §3.4 cross-references.** Two invocations of "the area-law lemma" — for parameter independence in Bell scenarios (§3.3) and tensor factorization of visible-sector subsystems (§3.4 Remark (ii)) — now cite [SM, §3.1] explicitly and identify the specific intermediate result invoked (the spatial Markov property $V° \perp V^c \mid \partial V$). A footnote acknowledges the cross-document architecture (the lemma is proved in [SM] but the proof's level of generality applies to [Main]'s foundational level without requiring [SM]'s specific cubic-lattice substrate).
-
-- **Lemma 1 (Finiteness) reclassification.** The "finite-area surface admits finitely many modes" intuition is now explicitly identified as physical motivation for the holographic entropy bound [2], with the formal finiteness conclusion attributed to [2] rather than presented as an independent argument.
-
-- **Lemma 3 (Determinism and unique measure) clarification.** The discrete-substratum counting measure is distinguished from the observer-level emergent Liouville measure on continuum phase space. The continuum identification is the natural measure on the continuum description an observer constructs from the finite substratum, not a property of $(S, \varphi)$ itself.
-
-- **§1.4 partition-relativity smooth-prior assumption** is now flagged as an explicit input to the embedded-observer's epistemic specification (rather than a parenthetical aside). The framework's intended applications all satisfy it.
-
-- **§2.3 continuous-time P-indivisibility** explicitly distinguishes the in-principle Poincaré-recurrence-based result (auxiliary support, recurrence times astronomically long) from the observable-timescale information-backflow result (load-bearing, established by the accessible-timescale lemma).
-
-- **§2.3 accessible-timescale backflow lemma** acknowledges semi-rigorous status: the structure (spectral-gap suppression of bath decoherence over fast visible-sector dynamics) is rigorous, but specific constants are not exhaustively bounded. The framework's stochastic-quantum equivalence draws its rigorous content from PI-3 + necessity arguments, not from PI-4's quantitative bound.
-
-- **§3.1 phase-locking lemma** downgrades the partition-symmetry-breaking upgrade from a "structural argument" to "physical motivation"; the lemma's formal status rests on the measure-zero genericity argument, which is sufficient for the framework's purposes.
-
-The 12 theorems and lemmas in [Main] are unchanged in content; the audit refines language and classification. No fatal gaps were identified across the framework-wide audit (16 sessions, 0 fatal gaps; see audit document collection).
-
 ### 1.2 The Starting Point
 
 The framework begins with a single empirical fact that cannot be doubted: *observation occurs*. An observer records distinguishable outcomes of interactions with a system not wholly under the observer's control. This is the cogito of Descartes made precise — not as philosophy, but as a mathematical constraint.

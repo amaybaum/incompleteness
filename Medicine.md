@@ -34,16 +34,6 @@ The biological relevance is immediate. Enzymes, kinases, ion channels, and recep
 
 This paper develops the medical implications of this observation across seven domains, identifies a unifying therapeutic principle (memory asymmetry), and presents twenty-nine testable predictions that distinguish the non-Markovian framework from standard Markovian pharmacology.
 
-**Note on v1.10.0 (audit-revised edition).** This revision applies findings from a lightweight scope-classification check (audit document `MEDICINE_SCOPE_CHECK.md`). The substantive changes:
-
-- **§1.1 (new):** Brief classification key distinguishing framework-structural (F), biological-identification (B), therapeutic-prediction (P), and empirically-supported (E) claims throughout the paper.
-- **§2.4:** Added one sentence clarifying that reconstructive memory access follows from C1's bidirectionality.
-- **§2.5:** Clarified the structural-vs-functional distinction in "finite $\tau_B$ is required" — formally C1–C3 are satisfiable with arbitrary $\tau_B$, but functional memory operation requires finite $\tau_B$.
-- **§11.1:** Brief scope note that violation of a prediction in a system not actually satisfying C1–C3 falsifies the B-claim for that system, not the framework.
-- **§13.4:** Acknowledged that the *qualitative* P-indivisibility claim inherits Main's rigorous characterization theorem, while *quantitative* information-backflow rates inherit Main v1.10.0's reclassification of the accessible-timescale backflow lemma as semi-rigorous estimate.
-
-The 29 predictions of §11 are unchanged. The §10.1 boundary statement (loss-of-function genetic disorders are NOT memory diseases; framework does not claim otherwise) is unchanged. No fatal classification problems were identified.
-
 ### 1.1 Note on classification
 
 Throughout this paper, claims fall into one of four types:
@@ -512,7 +502,7 @@ Two predictions are immediately testable with existing drugs and standard clinic
 
 ### 13.4 Connection to fundamental physics
 
-The mathematical structure underlying these predictions is identical to the theorem that derives quantum mechanics from embedded observation [1]. The C1–C3 conditions that produce non-Markovian enzyme dynamics are the same conditions that produce quantum mechanics at the cosmological scale. The read-write cycle of a kinase interacting with its regulatory domain is structurally isomorphic to the read-write cycle of an observer interacting with the hidden sector across the cosmological horizon. This connection is not metaphorical — the characterization theorem applies to any system satisfying C1–C3, regardless of scale. (The qualitative claim — that C1–C3 systems exhibit P-indivisibility — inherits the rigorous status of the characterization theorem [1, §3.4]. The *quantitative bound* on information backflow rates inherits the semi-rigorous status of Main's accessible-timescale backflow lemma [1, §2.3, v1.10.0]: the structure of the bound is rigorous, but specific constants are not exhaustively bounded. For Medicine's predictions, this means qualitative non-Markovian behavior is rigorously framework-predicted; precise quantitative information-backflow rates are semi-rigorous estimates.) The biological instantiations are classical (no quantum coherence is required or invoked), but the mathematical architecture is the same.
+The mathematical structure underlying these predictions is identical to the theorem that derives quantum mechanics from embedded observation [1]. The C1–C3 conditions that produce non-Markovian enzyme dynamics are the same conditions that produce quantum mechanics at the cosmological scale. The read-write cycle of a kinase interacting with its regulatory domain is structurally isomorphic to the read-write cycle of an observer interacting with the hidden sector across the cosmological horizon. This connection is not metaphorical — the characterization theorem applies to any system satisfying C1–C3, regardless of scale. (The qualitative claim — that C1–C3 systems exhibit P-indivisibility — inherits the rigorous status of the characterization theorem [1, §3.4]. The *quantitative bound* on information backflow rates inherits the semi-rigorous status of Main's accessible-timescale backflow lemma [1, §2.3]: the structure of the bound is rigorous, but specific constants are not exhaustively bounded. For Medicine's predictions, this means qualitative non-Markovian behavior is rigorously framework-predicted; precise quantitative information-backflow rates are semi-rigorous estimates.) The biological instantiations are classical (no quantum coherence is required or invoked), but the mathematical architecture is the same.
 
 ---
 
