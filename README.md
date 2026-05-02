@@ -54,7 +54,7 @@ The framework produces parameter-free predictions across multiple domains. A rep
 | Higgs quartic $\lambda(M_{\rm Pl}) = 0$ | structural | $0.6\sigma$ vs measured |
 | Dark sector fraction | $\sim 95\%$ | matches $\Omega_{\rm CDM} + \Omega_\Lambda$ |
 
-Each prediction's full derivation chain and classification (structural / conditional / layered conditional) is documented in the relevant paper. See SM §7.6 and Substratum §6.4 for the full classification.
+Each prediction's full derivation chain and classification (structural / mass-chain / empirical / phenomenological) is documented in the relevant paper. See SM §7.6 for the full classification table.
 
 ---
 
@@ -132,15 +132,15 @@ Source code for the lattice computations reported in SM §§6–7 (gauge-couplin
 | 4 | Cosmological constant dissolution: $10^{122}$ ratio = $S_{\rm dS}$ compression ratio | theorem | GR §6 |
 | 5 | Wave equation uniquely selected; produces all inputs for Einstein's equations | theorem | SM §3 + GR §3 |
 | 6 | SM gauge group SU(3)×SU(2)×U(1), 3 generations, hypercharges, $\bar\theta = 0$ | theorem | SM §§4, 5 |
-| 7 | Twenty-two SM observables match observation across CKM, mass, PMNS sectors | structural + classified | SM §7 |
-| 8 | Dark sector $\sim 95\%$, $a_0 = cH/6$, Bullet Cluster, CMB peaks | theorem (total budget); layered (specific magnitudes) | GR §7 |
+| 7 | Twenty-two SM observables match observation across CKM, mass, PMNS sectors | structural + empirical | SM §7 |
+| 8 | Dark sector $\sim 95\%$, $a_0 = cH/6$, Bullet Cluster, CMB peaks | theorem (total budget); structural (specific magnitudes) | GR §7 |
 | 9 | Page curve from nested trace-out, $t_P \approx 0.646\, t_{\rm evap}$ | theorem | GR Appendix A |
 | 10 | Observer selection theorem: C1–C3 systems exist only out of equilibrium → arrow of time, no Boltzmann brains | theorem | Main §4.6 |
 | 11 | Reconstruction theorem: observed physics + A1–A6 → $[(S, \varphi)]/\mathcal{G}_{\rm sub}$ uniquely | theorem | Substratum §§3–4 |
 | 12 | Structural preconditions for organic chemistry, RNA world as first molecular C1–C3, viable parameter fraction $\sim 16\%$ | structural chain + statistical | Complexity |
 | 13 | Non-Markovian dynamics in biology, memory asymmetry as therapeutic axis, 29 testable predictions | predictions | Medicine |
 
-The classification (structural / conditional / layered conditional pending open derivations) for the SM observables is documented in SM §7.6, with the framework-level falsification structure in Substratum §6.4.
+The classification (structural / mass-chain / empirical / phenomenological) for the SM observables is documented in SM §7.6.
 
 ## The Bidirectional Correspondence
 

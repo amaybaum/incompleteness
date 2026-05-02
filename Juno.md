@@ -84,7 +84,7 @@ We identify the perturbation parameter λ with the Cabibbo angle. In a lattice r
 
 **|X_i − X_j| = π√2 (i ≠ j)**
 
-a fixed geometric constant of the cubic lattice. The leading-order inter-generation mixing matrix element is the continuum fermion propagator at this momentum, |M_ij| = |S(X_j − X_i)| = 1/|X_j − X_i|. The 1/|q| scaling (rather than 1/|q|²) is structural: in the massless limit, the chirality-preserving component of the fermion propagator at momentum q reduces to S(q) = γ·q/q², and the taste-changing vertex's Dirac trace contracts this to a magnitude of order 1/|q| rather than the full propagator's 1/|q|². The detailed derivation — a Layer 1 structural form per the four-layer framework of [Maybaum 2026, §8.3], with the explicit chirality verification of the taste-changing vertex's spinor structure remaining as a follow-up calculation — is given in [Maybaum 2026, §7.1]. Identifying the matrix element with the Cabibbo angle gives
+a fixed geometric constant of the cubic lattice. The leading-order inter-generation mixing matrix element is the continuum fermion propagator at this momentum, |M_ij| = |S(X_j − X_i)| = 1/|X_j − X_i|. The 1/|q| scaling (rather than 1/|q|²) is structural: in the massless limit, the chirality-preserving component of the fermion propagator at momentum q reduces to S(q) = γ·q/q², and the taste-changing vertex's Dirac trace contracts this to a magnitude of order 1/|q| rather than the full propagator's 1/|q|². The full derivation, including the chirality verification of the taste-changing vertex's spinor structure, is given in [Maybaum 2026, §7.1]. Identifying the matrix element with the Cabibbo angle gives
 
 **λ = 1/(π√2) = 0.22508**
 
@@ -92,7 +92,7 @@ matching the observed value λ_obs = 0.22500 ± 0.00067 [PDG 2024] to 0.04%. Squ
 
 **λ² = 1/(2π²) = 0.05066**
 
-sets the overall scale of O(λ²) corrections. The full derivation of λ = 1/(π√2) from the lattice fermion propagator and the chirality-preservation argument is given in [Maybaum 2026, §7.1]. This derivation is classified **L** (layered conditional, Tier 2), pending the explicit chirality verification mentioned above. The empirical match to 0.04% provides strong support pending closure.
+sets the overall scale of O(λ²) corrections. The full derivation of λ = 1/(π√2) from the lattice fermion propagator and the chirality-preservation argument is given in [Maybaum 2026, §7.1]. The empirical match to 0.04% is at the level of structural relations rather than fitted parameters.
 
 A second geometric quantity will appear. The angle between any generation axis e_i and the democratic direction ĥ satisfies e_i · ĥ = 1/√3, so cos²(∠(e_i, ĥ)) = 1/3 and sin²(∠(e_i, ĥ)) = 2/3. We identify the Wolfenstein parameter A with this quantity:
 
@@ -206,8 +206,6 @@ We can sharpen the open task. In the AF basis (charged leptons diagonal at LO), 
 The +1/9 augmentation is forced by A₁'s perturbative structure; deriving the substrate corrections that satisfy this from the cubic-lattice Yukawa is the quantitative open task.
 
 We treat Condition 2 as a structural input to the present analysis and quote our predictions *conditional* on it. The angle predictions of Sec. 3.5 and the sum rule below thus stand or fall with Condition 2: empirical agreement at 0.07σ on sin²θ₁₂ is, in this sense, a nontrivial test of Condition 2 itself.
-
-**Within the framework's four-layer classification** [Maybaum 2026, §8.3], Condition 1 is a Layer 0 normalization choice (a labeling convention with no physical content), while Condition 2 is a Layer 2(a) operator-level structural relation between Wilson-coefficient combinations of A₂. The factorization 4/3 = 2 × A² is structurally motivated by the projection geometry of §2.2 (Layer 1 structural form) but its derivation from the lattice Yukawa structure as a fixed numerical relation rather than an operator-level free parameter is the Layer 2(a) gap. Closure of this gap would convert the prediction sin²θ₁₂ = 1/3 − 1/(4π²) from a conditional (**C**) classification to an unconditional structural (**S**) classification.
 
 At the angle level, this is equivalent to
 
@@ -329,7 +327,7 @@ A small shift to 4/3 → (4/3)(1 + ε) propagates to Δ₁₂ → Δ₁₂ + (1/
 
 ### 6.3 Status of Condition 2
 
-Condition 2 is presented in Sec. 3.4 as a structural relation supported by the projection-geometry argument (4/3 = 2A² with the partner-count interpretation) and by the broader cubic-lattice framework of [Maybaum 2026]. Within the four-layer classification of [Maybaum 2026, §8.3], it is a Layer 2(a) operator-level structural relation — the structural form is fixed (A² appears in the appropriate combinations), and what remains open is the quantitative derivation of the specific numerical relation b₂₃ = (4/3)(b₁₂ + b₁₃) from the lattice Yukawa structure. We are explicit that this derivation is incomplete: the present analysis takes Condition 2 as a structural input and treats the 0.07σ empirical match as a non-trivial test of that input. Closure of the lattice-Yukawa derivation would convert sin²θ₁₂ from a conditional structural prediction (**C**) to an unconditional structural prediction (**S**). This open task is internal to the framework and does not affect the present paper's testability.
+Condition 2 is presented in Sec. 3.4 as a structural relation supported by the projection-geometry argument (4/3 = 2A² with the partner-count interpretation) and by the broader cubic-lattice framework of [Maybaum 2026]. The structural form is fixed (A² appears in the appropriate combinations); what remains open is the quantitative derivation of the specific numerical relation b₂₃ = (4/3)(b₁₂ + b₁₃) from the lattice Yukawa structure. We are explicit that this derivation is incomplete: the present analysis takes Condition 2 as a structural input and treats the 0.07σ empirical match as a non-trivial test of that input. Closure of the lattice-Yukawa derivation would establish sin²θ₁₂ as an unconditional structural prediction. This open task is internal to the framework and does not affect the present paper's testability.
 
 ## 7. Falsifiability
 

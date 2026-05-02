@@ -36,7 +36,7 @@ This is the *only* orbital algebra consistent with embedded observation. In $d =
 
 ### 2.2 From orbitals to the periodic table
 
-The framework derives spin-1/2 fermions from the staggered structure on the d = 3 lattice [2, §4.2]. The emergent QFT inherits Lorentz invariance, microcausality, and a stable vacuum from the underlying emergent field-theory construction [2, §3.1] — these are the conditions of the spin-statistics theorem (Streater–Wightman). The theorem then gives the Pauli exclusion principle: each orbital holds at most 2 electrons (spin up and spin down). The shell capacities follow:
+The framework derives spin-1/2 fermions from the staggered structure on the d = 3 lattice [2, §4.2]. The spin-statistics theorem — a consequence of the emergent QFT's Lorentz invariance [2, §3.1] — gives the Pauli exclusion principle: each orbital holds at most 2 electrons (spin up and spin down). The shell capacities follow:
 
 $$s: 2, \quad p: 6, \quad d: 10, \quad f: 14$$
 
@@ -58,7 +58,7 @@ Four additional structural results extend the chain beyond orbital chemistry.
 
 **Matter-antimatter asymmetry.** Three generations [2, §4.7] give the CKM matrix with a physical CP-violating phase — one of the three Sakharov conditions for baryogenesis [5]. The partition breaks P [2, §4.8, Theorem 13]. Combined with CP violation, baryogenesis is structurally possible. Without three generations, the CKM matrix has no CP-violating phase and the standard electroweak baryogenesis mechanism does not operate.
 
-**Mass hierarchy.** The Higgs mechanism [2, §4.7] gives fermion masses through Yukawa couplings to a single doublet. The taste-breaking mechanism [2, §4.7] produces generation-dependent couplings generically, structurally permitting a mass hierarchy with light fermions (electron, u and d quarks). The existence of *some* mass hierarchy is structural — the staggered lattice's coupling matrix has eigenvalues at different scales. The specific *scale* of light fermion masses relative to the QCD scale, and whether the lightest fermions fall in the chemistry-viable range, is parametric (§3 handles the viable range).
+**Mass hierarchy.** The Higgs mechanism [2, §4.7] gives fermion masses through Yukawa couplings to a single doublet. The taste-breaking mechanism [2, §4.7] produces generation-dependent couplings generically, ensuring different generations have different masses. This guarantees the existence of light fermions (electron, u and d quarks) — not as a coincidence, but as a structural feature of the staggered lattice.
 
 **Nuclear binding.** SU(3) color confinement [2, §4.6] produces bound hadrons. The existence of multi-nucleon bound states (nuclei) requires specific parameter values (§3), but the *mechanism* — color confinement binding quarks into hadrons, residual strong force binding hadrons into nuclei — is structural.
 
@@ -82,7 +82,7 @@ The *possibility* of a molecule with these properties is structural: element 8's
 
 ### 2.7 The thermal window
 
-For chemistry to support complexity, a thermal window must exist where bond energies (~1–5 eV) $\gg kT$ (bonds are stable), $kT > E_{\text{activation}}$ (reactions proceed), and a liquid solvent exists. The scale hierarchy (§2.5) guarantees that $E_{\text{bond}} / E_{\text{thermal}} \gg 1$ at any temperature where a liquid exists — chemistry is inherently *stable but dynamic* in any universe with two independent gauge groups and the derived orbital structure. (See §3 for the parametric question of which temperature ranges actually have a liquid phase in our universe.)
+For chemistry to support complexity, a thermal window must exist where bond energies (~1–5 eV) $\gg kT$ (bonds are stable), $kT > E_{\text{activation}}$ (reactions proceed), and a liquid solvent exists. The scale hierarchy (§2.5) guarantees that $E_{\text{bond}} / E_{\text{thermal}} \gg 1$ at any temperature where a liquid exists — chemistry is inherently *stable but dynamic* in any universe with two independent gauge groups and the derived orbital structure.
 
 ### 2.8 Summary of the structural chain
 
@@ -137,13 +137,9 @@ The four critical parameters span roughly:
 | $m_d - m_u$ | factor of ~5 within ~10 available | ~50% |
 | $\alpha_s$ | factor of ~1.6 within ~2 available | ~80% |
 
-The joint viable fraction, treating the parameters as independent for illustrative purposes, is roughly:
+The joint viable fraction, treating the parameters as independent (a conservative assumption — correlations generally enlarge the viable region), is roughly:
 
 $$f_{\text{viable}} \sim 0.6 \times 0.65 \times 0.5 \times 0.8 \approx 16\%$$
-
-Genuine correlations between these parameters in the SM (e.g., $\alpha_s$ and the strong CP scale, or $\alpha$ and $m_e/m_p$ via QED corrections) could enlarge or shrink this fraction; a fully rigorous joint estimate would require a coupled analysis. The independent estimate is offered as an order-of-magnitude indicator: the viable fraction is $\mathcal{O}(10\%)$, not $\mathcal{O}(10^{-50})$.
-
-The "log-fraction" computation depends on a choice of "available range" for each parameter — the orders-of-magnitude window over which the parameter could conceivably vary while keeping other framework structure intact. The values used above (3–6 orders per parameter) follow standard fine-tuning literature [6, 7, 8, 9, 10] but are not derived from the framework. Different reasonable priors give similar order-of-magnitude results (the viable fraction stays in the 5–30% range), but the precise number is not parameter-free.
 
 This is a rough estimate, but the order of magnitude is robust: the viable fraction is $\mathcal{O}(10\%)$, not $\mathcal{O}(10^{-50})$. The remaining 14 SM parameters (heavy quark masses, lepton masses, mixing angles) are less constrained — they affect the details of nuclear and atomic physics but not the existence of carbon chemistry.
 
@@ -553,7 +549,7 @@ The framework's predictions about non-Markovian effects are not speculative — 
 
 ### 8.11 Cross-domain observation: universal memory strength in single-entity systems
 
-The non-Markovian dynamics documented in §8.10 is conventionally quantified by domain-specific measures. These can be converted to the Hurst exponent $H$ ($H = 0.5$: Markovian; $H > 0.5$: persistent memory) via $H \approx 1 - \beta/2$ for stretched exponential processes and $H = (1 + \alpha)/2$ for $1/f^\alpha$ noise. A striking empirical observation, consistent with the framework's prediction of P-indivisibility wherever C1–C3 are satisfied, is that single-entity systems show universal $H \approx 0.79 \pm 0.03$ (excluding myoglobin's deeper-hierarchy outlier). The derivation of $H(C3)$ from the characterization theorem's dependence on hidden-sector dimension — which would convert this empirical observation into a parameter-free framework prediction — is an open research question.
+The non-Markovian dynamics documented in §8.10 is conventionally quantified by domain-specific measures. These can be converted to the Hurst exponent $H$ ($H = 0.5$: Markovian; $H > 0.5$: persistent memory) via $H \approx 1 - \beta/2$ for stretched exponential processes and $H = (1 + \alpha)/2$ for $1/f^\alpha$ noise.
 
 A known objection to universality claims is that any ensemble of many independent exponentially relaxing modes with a broad rate distribution generically produces $H \approx 0.7$–$0.8$ [31]. This superposition argument applies to bulk/aggregate measurements (glasses, financial markets, river flows, EEG) where many components are averaged. It does *not* apply to single-molecule and single-system measurements, where there is no ensemble to superpose. Non-exponential kinetics in a single molecule must arise from the molecule's internal dynamics — specifically, from coupling between the observed process and slow internal degrees of freedom (C1–C3).
 

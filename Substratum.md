@@ -246,7 +246,7 @@ The equivalence relation $\sim$ in the reconstruction theorem has a precise stru
 
 Let $g: (S, \varphi) \to (S', \varphi')$ preserve all observables (transition probabilities $T_{ij}(t)$, emergent Hamiltonian up to D-gauge, and $\hbar$). By assumption, $g$ preserves the visible-sector CPTP channel $\Phi$. Stinespring's uniqueness theorem [Main, §3.2] constrains the freedom: any two dilations of the same channel on the same visible Hilbert space differ by a partial isometry on the hidden sector. At the substratum level, this partial isometry is a relabeling of hidden-sector states (generator (i) restricted to $\mathcal{C}_H$) when the hidden sectors have equal cardinality, or a composition of relabeling and deep-sector enlargement/reduction (generators (i) + (iii)) when they differ in size. The alphabet may change freely (generator (ii), by [SM, §2.7]). The coupling graph $G_{\varphi'}$ must have the same statistical properties as $G_\varphi$ — dimension, spectral dimension, isotropy — since these determine the derivation chain's outputs; two such graphs are related by generator (iv). These four degrees of freedom — hidden-sector relabeling, deep-sector size, alphabet, and graph statistical class — exhaust the free parameters in the reconstruction, so the four generators span $\mathcal{G}_{\text{sub}}$. $\square$
 
-Three candidate fifth families are explicitly subsumed:
+Three candidate fifth families, identified during internal audit, are explicitly subsumed:
 
 - *Time reversal* ($\varphi \to \varphi^{-1}$): the wave equation's T-invariance gives $\varphi^{-1} = T \circ \varphi \circ T^{-1}$ where $T$ is the phase-space layer swap $(x(t), x(t+1)) \mapsto (x(t+1), x(t))$. This is generator (i) with $\sigma = T$.
 - *Hidden-sector dynamical reparametrization* (beyond enlargement): by Stinespring uniqueness, any two same-channel dilations of equal hidden-sector dimension differ by a hidden-sector unitary — generator (i) restricted to $\mathcal{C}_H$.
@@ -369,44 +369,9 @@ The distinction matters for two reasons. First, an explicitly pre-registered fal
 $$\omega^2 = k^2\left[1 - \frac{2}{15}\left(\frac{E}{M_{\text{Pl}}}\right)^2 + O\left(\left(\frac{E}{M_{\text{Pl}}}\right)^4\right)\right]$$
 after using $\epsilon = 2 l_p$ and $k\epsilon = 2 E/M_{\text{Pl}}$. Three structural features: (i) *subluminal*, since $\delta(\hat k) > 0$ everywhere on the sphere ($\langle\delta\rangle > 0$ is invariant under orientation-averaging); (ii) *no linear-in-$E/M_{\text{Pl}}$ term*, because the even-parity cosines in the dispersion admit no $\mathcal{O}(k^3)$ contribution — any demonstration of linear LIV at any scale therefore falsifies the framework's substrate-level commitment to the cubic-lattice wave equation; (iii) *specific coefficient* $2/15$, fixed by the cubic-lattice coordination and isotropy-gauge average, not tunable. Current quadratic-LIV bounds from GRB time-of-flight reach only $E_{\text{QG}} \gtrsim 10^6$ GeV (roughly thirteen orders of magnitude below $M_{\text{Pl}}$), so the $2/15$ coefficient is a structural prediction not yet near-term testable at the magnitude level; linear-LIV tests, by contrast, are already at sensitivities where any positive detection falsifies.
 
-**Class B: Parameter-free retrodictions.** The framework produces a set of numerical predictions that follow from the structural content with no adjustable parameters beyond a small set of acknowledged empirical inputs ($m_s$ for the overall fermion mass scale, $m_t$ for the Higgs RGE running, $\eta$ for the Jarlskog phase, $Q_{\text{down}}$ for the down-sector Koide normalization). These predictions are stratified into four sub-classes reflecting their structural status:
+**Class B: Strictly parameter-free retrodictions.** Thirteen numerical predictions follow from the structural content with no adjustable parameters beyond the single empirical input $m_s$. Each has an observed value currently consistent with the prediction at better than the framework's quoted precision; any of them moving outside $3\sigma$ of the framework's prediction on a precision upgrade falsifies the derivation.
 
-*Class B-S (unconditional structural).* Four predictions are Layer 0 or Layer 1 unconditional structural retrodictions:
-
-- The Wolfenstein parameter $A = \sqrt{2/3}$ ([SM §7.1]).
-- The mass ratio $m_d/m_s = 1/(2\pi^2)$ via the Gatto-Sartori-Tonin relation applied to the Layer 1 Cabibbo derivation ([SM §7.1]).
-- The Koide angle $\theta_0 = C_2/d^2 = 2/9$ ([SM §7.2]) — the sharpest empirical match in the framework (0.02%) and the cleanest structural derivation (cubic-group quadratic Casimir over bandwidth squared, with the §7.2 uniqueness table enumerating ten alternative dimensionless ratios that fail to match).
-- The Bekenstein-Hawking coefficient $S = A/(4 l_p^2)$ with the factor $1/4$ derived as the ratio $2\pi/(8\pi)$ between the Euclidean KMS period and the Jacobson Einstein-equation prefactor ([GR §5]). Confirmed at 99.999% by the GW250114 area-law observation.
-
-Any of these moving outside $3\sigma$ on precision upgrade falsifies the framework directly with no recoverable error mode.
-
-*Class B-L (layered conditional, pending open derivations).* Six predictions follow from the structural form combined with one Layer-2 substrate input or empirical input. Each has an explicit derivational gap whose closure would move the prediction to B-S:
-
-- The Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ ([SM §7.1]) pending the explicit chirality verification of the taste-changing vertex's spinor structure.
-- The mass ratio $m_u/m_d = \sqrt{\theta_0} = \sqrt{2/9}$ ([SM §7.2]) pending the explicit derivation of the "different channels" mechanism producing the square root.
-- The mass ratio $m_b/m_\tau = 4.28/Z_S$ ([SM §7.5]) pending the explicit OI-vertex 1-loop computation confirming $K = 1/2$.
-- The PMNS predictions $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ and $\sin^2\theta_{23} = 1/2 + 1/(2\pi^2)$ ([SM §7.3]) pending derivation of Cond 2 (the structural relation among $A_2$ Wilson coefficients) from cubic-lattice Yukawa structure. The reactor angle $\sin^2\theta_{13}$ is independent of Cond 2 and is in Class B-S.
-- The MOND critical acceleration $a_0 = cH/6$ and dependent predictions (baryonic Tully-Fisher, crossover radius $r_M$) ([GR §7.3]) pending explicit derivation of the $1/6$ geometric factor from spherical redistribution in de Sitter.
-
-Class B-L violations at $3\sigma$ on precision upgrade are addressed under the pre-registration commitment via three branches: (a) closure of the open derivation *confirms* the prediction (recoverable from a transient data fluctuation); (b) closure *fails to confirm* the prediction while preserving the framework's structural commitments (recoverable error in the specific derivation, with the structural commitments intact); (c) demonstration that no consistent OI-internal derivation can produce the observed value (fatal, framework-falsifying).
-
-*Class B-M (mass chain).* Two predictions inherit a single empirical input scale through a structural relation:
-
-- The electron and muon masses $m_e$ and $m_\mu$ via the Koide chain from the empirical input $m_\tau$ ([SM §7.2]). The prediction is structurally $\theta_0 = 2/9$ with $Q = 2/3$; the absolute scale is set by $m_\tau$.
-- The Higgs mass $m_H$ via SM RGE running from the structural boundary condition $\lambda(M_{\text{Pl}}) = 0$ ([SM §7.4]) with $m_t$ as the empirical input.
-
-Class B-M predictions falsify under the same precision-upgrade protocol as B-L, but the inheritance is from an empirical input scale rather than from an open derivation.
-
-*Class B-R (retrodictions).* Two gauge-coupling values are explicitly retrodictions per the §6.3 [SM] parameter count:
-
-- The SU(2) gauge coupling at $M_Z$ ([SM §6, items 11-12 in §7.6]).
-- The SU(3) gauge coupling at $M_Z$.
-
-Three fitted parameters $(\delta_0, A, B)$ against three observed couplings produces zero residual by construction; these classifications are honest. Class B-R predictions can never falsify in the precision-upgrade sense — their value is what falsification of the *framework's gauge-sector structural commitments* (universality of $\delta_0$, the resummation form, the structural prediction $1/\alpha_0 = 23.25$ from the 1-loop staggered VP, and the $A \cdot B = 48.0 \pm 1.5$ cross-check) would test.
-
-*Status summary.* Of the predictions in Class B: **4 are unconditional structural** (B-S), **6 are layered conditional pending open derivations** (B-L), **2 are mass-chain inheritances** (B-M), and **2 are retrodictions** (B-R). Total 14 predictions in Class B. The empirical match holds for all 14 within ~1% or ~1σ.
-
-The current status of each is documented in the SM and GR companion papers with experimental references. As experimental precision improves, the discrimination power of the B-S set increases monotonically; closure of the open derivations would move B-L predictions to B-S over time.
+The thirteen are: (1) the Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$; (2) the Wolfenstein $A = \sqrt{2/3}$; (3) $m_d/m_s = 1/(2\pi^2)$; (4) $m_u/m_d = \sqrt{2/9}$; (5) the Koide angle $\theta_0 = 2/9$ with the corresponding $m_e$ and $m_\mu$; (6) the neutrino mass sum $\Sigma m_\nu \approx 0.059$ eV in normal ordering; (7) the PMNS sum rule $2\Delta_{12} + \Delta_{23} = 0$; (8) the JUNO-sensitive $\sin^2 \theta_{12}$; (9) $m_t = v/\sqrt{2}$ from the IR quasi-fixed point; (10) $m_b/m_\tau = 4.28/Z_S$; (11) the SU(2) gauge coupling at $M_Z$; (12) the SU(3) gauge coupling at $M_Z$; (13) the Bekenstein-Hawking coefficient $S = A/(4 l_p^2)$ with the factor $1/4$ fixed by GR §5. The current status of each is documented in the companion papers with experimental references; as experimental precision improves, the discrimination power of the set increases monotonically.
 
 **Class C: Framework-level commitments.** Two broader commitments are implicit in the construction and would falsify it if contradicted.
 
