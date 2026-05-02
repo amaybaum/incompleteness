@@ -695,7 +695,11 @@ $$\boxed{\lambda = \frac{1}{\pi\sqrt{2}} = 0.22508}$$
 
 Observed [20]: $\lambda = 0.22500 \pm 0.00067$. Match: $0.12\sigma$ ($0.04\%$).
 
-The mixing matrix element between generations $i$ and $j$ is the continuum fermion propagator at the inter-generation momentum: $|M_{ij}| = |S(X_j - X_i)| = 1/|X_j - X_i| = 1/(\pi\sqrt{2})$. The $1/|q|$ form (not $1/|q|^2$) arises because the taste-changing transition preserves chirality: the vertex trace $\text{Tr}[\gamma \cdot S(q)] \propto 1/|q|$ in the massless limit. The $1/|q|^2$ form gives $\lambda^2 = m_d/m_s$ — the GST relation follows as a corollary (self-energy requires two propagator insertions). The observer's continuum theory has no BZ periodicity, so the propagator at $|q| = \pi\sqrt{2}$ is smooth.
+The mixing matrix element between generations $i$ and $j$ is the continuum fermion propagator at the inter-generation momentum: $|M_{ij}| = |S(X_j - X_i)| = 1/|X_j - X_i| = 1/(\pi\sqrt{2})$. The $1/|q|$ form (not $1/|q|^2$) arises because the taste-changing transition preserves chirality.
+
+**Chirality preservation of the taste-changing vertex.** This is established in the staggered fermion literature. Mason et al. [32] show explicitly that taste-changing transitions in staggered quarks have spinor structure given by a combination of $\gamma_\mu$ and $\gamma_{5\mu} = \gamma_5\gamma_\mu$ (their Section 2.1: "Each quark line has an odd number of gamma-matrices and therefore the spinor structure must be a combination of $\gamma_\mu$, $\gamma_{5\mu}$"). Both $\gamma_\mu$ (vector current) and $\gamma_5\gamma_\mu$ (axial current) commute with the projection operators $P_{L,R} = (1 \mp \gamma_5)/2$ in the standard sense — they map $L \to L$ and $R \to R$ rather than $L \leftrightarrow R$ — so any combination of them is chirality-preserving. This is also forced by the unbroken $U(1)_\epsilon$ chiral symmetry of the staggered formulation: a chirality-flipping inter-generation vertex would require an explicit mass insertion violating $U(1)_\epsilon$, which is forbidden in the massless limit.
+
+In the massless limit, the chirality-preserving propagator structure $\gamma \cdot q / q^2$ contracted with the chirality-preserving vertex gives $\text{Tr}[\gamma \cdot S(q)] \propto 1/|q|$. Hence $|M_{ij}| \propto 1/|X_j - X_i|$ rather than $1/|X_j - X_i|^2$. The $1/|q|^2$ form (chirality-flipping with mass insertion) gives $\lambda^2 = m_d/m_s$ — the GST relation [21] follows as a corollary (self-energy requires two propagator insertions, so the down-strange mass ratio inherits the squared scaling). The observer's continuum theory has no BZ periodicity, so the propagator at $|q| = \pi\sqrt{2}$ is smooth.
 
 **The Wolfenstein $A$ parameter.**
 
@@ -786,7 +790,9 @@ The Koide angle $\theta_0 = C_2/d^2 = 2/9$ determines the inter-generation hiera
 
 $$\boxed{\frac{m_u}{m_d} = \sqrt{\theta_0} = \sqrt{2/9} = 0.4714}$$
 
-The PDG value [20] is $m_u/m_d = 0.474 \pm 0.056$. Match: $0.05\sigma$. Both arise from the same quadratic Casimir $C_2 = 2$ of the $T_1$ representation, acting in different channels.
+The PDG value [20] is $m_u/m_d = 0.474 \pm 0.056$. Match: $0.05\sigma$. Both arise from the same quadratic Casimir $C_2 = 2$ of the $T_1$ representation, acting in different channels: the inter-generation hierarchy enters at the *eigenvalue* level (Koide angle parametrizing the three masses in the $T_1$ representation, where $\theta_0 = C_2/d^2$ enters the eigenvalue formula directly through second-order energy-level structure), while the intra-doublet $m_u/m_d$ ratio enters at the *amplitude* level (mass matrix element between the up and down components within a doublet, where the same $C_2$ Casimir appears at first order). The square root reflects the standard QM relation between first-order amplitudes and second-order eigenvalue shifts: if a perturbation contributes to an eigenvalue at $\mathcal{O}(V^2)$ but to an amplitude at $\mathcal{O}(V)$, then ratios at the amplitude level scale as the square root of ratios at the eigenvalue level.
+
+The explicit derivation of the amplitude-level formula from the cubic-lattice Yukawa structure remains an open OI-specific calculation (related to Direction 10's K=1/2 derivation). The structural square-root relation is supported by the empirical match at $0.05\sigma$ but is not yet derived to theorem grade from first principles.
 
 **The mass chain: six masses from one input.**
 
@@ -1248,3 +1254,5 @@ The source code under `oi_lattice_code/`, together with the run drivers and anal
 
 
 [31] S. L. Adler, *Quantum Theory as an Emergent Phenomenon: The Statistical Mechanics of Matrix Models as the Precursor of Quantum Field Theory* (Cambridge University Press, 2004).
+
+[32] Q. Mason, P. Lepage, P. Mackenzie, H. Trottier, J. Hein, C. Davies, and E. Follana (HPQCD), "Taste-Changing in Staggered Quarks," *Nucl. Phys. Proc. Suppl.* **119**, 446 (2003); arXiv:hep-lat/0209152.
