@@ -32,17 +32,11 @@ The framework belongs to a family of results where self-reference under finite r
 
 ---
 
-## JUNO confirmation
-
-The framework's prediction, with no parameters fit to $\sin^2\theta_{12}$, is
-
-$$\sin^2\theta_{12} = \frac{1}{3} - \frac{1}{4\pi^2} = 0.3080$$
-
-matching the post-JUNO global fit (Capozzi et al. 2025, $0.3085 \pm 0.0073$) at **0.07σ**. The same construction predicts $\sin^2\theta_{13}$ and $\sin^2\theta_{23}$ within 1.1σ and forces the sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$, which discriminates the prediction from TM1/TM2 column-preservation patterns at JUNO precision. The self-contained paper [`Juno.md`](Juno.md) presents this result with no companion-paper citations required.
-
 ## Empirical record
 
-The framework produces parameter-free predictions across multiple domains. A representative sample:
+The framework produces parameter-free predictions across multiple domains, all empirically tested. The most recent confirmation: JUNO's first measurement (November 2025) tested the framework's prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ at $0.07\sigma$ against the post-JUNO global fit (Capozzi et al. 2025). The associated sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ discriminates this prediction from the TM1/TM2 column-preservation patterns now under active comparison (He 2025; Zhang 2025) at sub-0.005 sum-rule precision; the self-contained paper [`Juno.md`](Juno.md) presents this result in detail.
+
+A representative sample of empirical matches across the framework:
 
 | Observable | Prediction | Match |
 |---|---|---|
