@@ -15,9 +15,10 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern} % removed
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -793,18 +794,22 @@ structure without fine-tuning.
 
 \textbf{Parameter independence from spatial locality.} Let \(V_A\) and
 \(V_B\) be space-like separated visible-sector subsystems with disjoint
-coupling neighborhoods on \(G_\varphi\). The spatial Markov property of
-range-1 dynamics (the area-law lemma: for spatially local bijections,
-the mutual information between two regions depends only on their shared
-boundary) makes \(V_A\) and \(V_B\) conditionally independent given
-boundary data. Alice's measurement setting \(a\) determines which
-function she evaluates on \(V_A\); it does not alter the transition
-probabilities for \(V_B\), which depend only on \(V_B\)'s local coupling
-neighborhood. Hence \(P(x_B \mid a, b) = P(x_B \mid b)\) --- parameter
-independence holds structurally for all bounded-degree graph topologies
-with range-1 coupling, with no fine-tuning of the hidden-variable
-distribution. Combined with the outcome-independence violation from
-stochastic entanglement, this gives the precise Jarrett decomposition.
+coupling neighborhoods on \(G_\varphi\). By range-1 coupling on the
+bounded-degree coupling graph (Lemma 1), the dynamics has the
+\emph{spatial Markov property}: for any region \(V\) with interior
+\(V°\), boundary \(\partial V\), and exterior \(V^c\), the next-step
+state at sites in \(V°\) depends only on current-step values within
+\(V \cup \partial V\), so \(V° \perp V^c \mid \partial V\) in the joint
+distribution. Applied to \(V_A\) and \(V_B\) with disjoint coupling
+neighborhoods, this makes them conditionally independent given boundary
+data. Alice's measurement setting \(a\) determines which function she
+evaluates on \(V_A\); it does not alter the transition probabilities for
+\(V_B\), which depend only on \(V_B\)'s local coupling neighborhood.
+Hence \(P(x_B \mid a, b) = P(x_B \mid b)\) --- parameter independence
+holds structurally for all bounded-degree graph topologies with range-1
+coupling, with no fine-tuning of the hidden-variable distribution.
+Combined with the outcome-independence violation from stochastic
+entanglement, this gives the precise Jarrett decomposition.
 
 \hypertarget{the-characterization-theorem-necessity-of-the-conditions}{%
 \subsubsection{3.4 The Characterization Theorem: Necessity of the
@@ -973,13 +978,13 @@ product is therefore given by the construction, not postulated.
 Spatially separated subsystems within the visible sector --- e.g., two
 laboratories --- correspond to subsets \(V_A, V_B \subset V\) with
 disjoint coupling neighborhoods on the coupling graph. The spatial
-Markov property of range-1 dynamics (the area-law lemma) guarantees
-conditional independence: \(\rho_{AB} = \rho_A \otimes \rho_B\)
-conditioned on boundary data. The emergent Hilbert space inherits the
-factorization \(\mathcal{H}_{V_A} \otimes \mathcal{H}_{V_B}\) from the
-locality of the coupling graph, with entanglement between \(A\) and
-\(B\) arising from shared boundary history --- precisely the stochastic
-entanglement of {[}11, 24{]}.
+Markov property of range-1 dynamics (§3.3 above) guarantees conditional
+independence: \(\rho_{AB} = \rho_A \otimes \rho_B\) conditioned on
+boundary data. The emergent Hilbert space inherits the factorization
+\(\mathcal{H}_{V_A} \otimes \mathcal{H}_{V_B}\) from the locality of the
+coupling graph, with entanglement between \(A\) and \(B\) arising from
+shared boundary history --- precisely the stochastic entanglement of
+{[}11, 24{]}.
 
 \emph{(iii) State update, measurement, and multi-time predictions.}
 Projective measurement in the emergent description corresponds to

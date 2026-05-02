@@ -282,6 +282,10 @@ The max-speed constraint requires μ_y = 1 (the A₁ mode propagates at the latt
 
 *Dependence on the Bravais lattice.* The $(3, 2, 1)$ decomposition depends on the discrete $O$ action on the six NN link vectors of SC. Under the continuous group $\mathrm{O}(3)$, the same six vectors span two copies of the vector representation — multiplicities $(3, 3)$, not $(3, 2, 1)$ — because $\mathrm{O}(3)$ does not preserve the discrete set of six vectors as a distinguished orbit. The three-factor split requires the discrete subgroup.
 
+**Theorem 7b** (Bravais-lattice uniqueness). *Among all 14 three-dimensional Bravais lattices, the simple cubic (SC) lattice is the unique candidate compatible with the Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ under the commutant construction of Theorem 5. Furthermore, the inter-generation BZ-distance prescription of §7.1 produces the observed Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ uniquely on SC; BCC and FCC produce $\lambda$ values discrepant with observation by $42\%$ and $29\%$ respectively.*
+
+The proof has two parts: (a) elimination of all non-cubic Bravais lattices via the crystallographic point group's irrep dimensions, and (b) elimination of BCC and FCC within the cubic system via the explicit $O$-decomposition of the NN link representation on each, with the SC Cabibbo prediction as quantitative confirmation.
+
 Among the three cubic Bravais lattices, only SC produces the SM gauge group under the commutant construction of Theorem 5. Computing the $O$-decomposition of the NN link representation on each:
 
 | Lattice | NN | $O$-decomposition of NN rep | Gauge group (commutant) |
@@ -960,7 +964,7 @@ Twenty-two quantitative observables from a $d = 3$ cubic lattice with spacing $\
 | $Q_{\text{down}}$ | $(2/3)(1+\alpha_s/\pi)$ | 0.7303 | 0.7314 | 0.15% (scheme-dep) | **P** |
 | $m_b$ (from $m_s$) | Koide($Q_{\text{down}}$) | 4144 MeV | 4180 ± 30 | 0.9% | **P** (via $Q_{\text{down}}$) |
 | $m_u/m_d$ | $\sqrt{2/9}$ | 0.4714 | 0.465 ± 0.024 | $0.27\sigma$ | **S** |
-| $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | 0.3080 | 0.3092 ± 0.0087 (JUNO) | $0.14\sigma$ | **S** |
+| $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | 0.3080 | 0.3085 ± 0.0073 (Capozzi 2025 post-JUNO global) | $0.07\sigma$ | **S** |
 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | 0.5507 | 0.561$^{+0.012}_{-0.015}$ (NuFIT 6.0, NO) | $0.74\sigma$ | **S** |
 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | 0.02252 | 0.02195 ± 0.00056 (NuFIT 6.0, NO) | $1.02\sigma$ | **S** |
 | $\lambda(M_{\text{Pl}}) = 0$ | composite Higgs | 0 | $-0.013 \pm 0.020$ | $0.6\sigma$ | **S** |
