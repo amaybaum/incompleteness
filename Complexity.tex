@@ -3,7 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  11pt,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -16,14 +15,12 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern} % removed
 \ifPDFTeX\else
   % xetex/luatex font selection
   \setmainfont[]{DejaVu Serif}
   \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
-\usepackage[margin=1in]{geometry}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
   \usepackage[]{microtype}
@@ -197,10 +194,12 @@ into the nucleus, and the quantum Hamiltonian is unbounded below.
 table}\label{from-orbitals-to-the-periodic-table}}
 
 The framework derives spin-1/2 fermions from the staggered structure on
-the d = 3 lattice {[}2, §4.2{]}. The spin-statistics theorem --- a
-consequence of the emergent QFT's Lorentz invariance {[}2, §3.1{]} ---
-gives the Pauli exclusion principle: each orbital holds at most 2
-electrons (spin up and spin down). The shell capacities follow:
+the d = 3 lattice {[}2, §4.2{]}. The emergent QFT inherits Lorentz
+invariance, microcausality, and a stable vacuum from the underlying
+emergent field-theory construction {[}2, §3.1{]} --- these are the
+conditions of the spin-statistics theorem (Streater--Wightman). The
+theorem then gives the Pauli exclusion principle: each orbital holds at
+most 2 electrons (spin up and spin down). The shell capacities follow:
 
 \[s: 2, \quad p: 6, \quad d: 10, \quad f: 14\]
 
@@ -247,10 +246,13 @@ does not operate.
 \textbf{Mass hierarchy.} The Higgs mechanism {[}2, §4.7{]} gives fermion
 masses through Yukawa couplings to a single doublet. The taste-breaking
 mechanism {[}2, §4.7{]} produces generation-dependent couplings
-generically, ensuring different generations have different masses. This
-guarantees the existence of light fermions (electron, u and d quarks)
---- not as a coincidence, but as a structural feature of the staggered
-lattice.
+generically, structurally permitting a mass hierarchy with light
+fermions (electron, u and d quarks). The existence of \emph{some} mass
+hierarchy is structural --- the staggered lattice's coupling matrix has
+eigenvalues at different scales. The specific \emph{scale} of light
+fermion masses relative to the QCD scale, and whether the lightest
+fermions fall in the chemistry-viable range, is parametric (§3 handles
+the viable range).
 
 \textbf{Nuclear binding.} SU(3) color confinement {[}2, §4.6{]} produces
 bound hadrons. The existence of multi-nucleon bound states (nuclei)
@@ -320,7 +322,8 @@ exists. The scale hierarchy (§2.5) guarantees that
 \(E_{\text{bond}} / E_{\text{thermal}} \gg 1\) at any temperature where
 a liquid exists --- chemistry is inherently \emph{stable but dynamic} in
 any universe with two independent gauge groups and the derived orbital
-structure.
+structure. (See §3 for the parametric question of which temperature
+ranges actually have a liquid phase in our universe.)
 
 \hypertarget{summary-of-the-structural-chain}{%
 \subsubsection{2.8 Summary of the structural
@@ -433,11 +436,26 @@ available & \textasciitilde50\% \\
 available & \textasciitilde80\% \\
 \end{longtable}
 
-The joint viable fraction, treating the parameters as independent (a
-conservative assumption --- correlations generally enlarge the viable
-region), is roughly:
+The joint viable fraction, treating the parameters as independent for
+illustrative purposes, is roughly:
 
 \[f_{\text{viable}} \sim 0.6 \times 0.65 \times 0.5 \times 0.8 \approx 16\%\]
+
+Genuine correlations between these parameters in the SM (e.g.,
+\(\alpha_s\) and the strong CP scale, or \(\alpha\) and \(m_e/m_p\) via
+QED corrections) could enlarge or shrink this fraction; a fully rigorous
+joint estimate would require a coupled analysis. The independent
+estimate is offered as an order-of-magnitude indicator: the viable
+fraction is \(\mathcal{O}(10\%)\), not \(\mathcal{O}(10^{-50})\).
+
+The ``log-fraction'' computation depends on a choice of ``available
+range'' for each parameter --- the orders-of-magnitude window over which
+the parameter could conceivably vary while keeping other framework
+structure intact. The values used above (3--6 orders per parameter)
+follow standard fine-tuning literature {[}6, 7, 8, 9, 10{]} but are not
+derived from the framework. Different reasonable priors give similar
+order-of-magnitude results (the viable fraction stays in the 5--30\%
+range), but the precise number is not parameter-free.
 
 This is a rough estimate, but the order of magnitude is robust: the
 viable fraction is \(\mathcal{O}(10\%)\), not \(\mathcal{O}(10^{-50})\).
@@ -509,26 +527,40 @@ polymerization with cross-inhibition {[}15{]} amplifies small monomer
 \(ee\) to polymer homochirality.
 
 The gap between \(10^{-17}\) (PVED) and \(10^{-5}\) (Soai threshold) is
-12 orders of magnitude. The resolution: the PVED does not need to
-provide the full \(ee\). In a small prebiotic pool of \(N\) chiral
-molecules, random statistical fluctuations produce
-\(ee \sim 1/\sqrt{N}\). For \(N \sim 10^6\) (a microdroplet),
-statistical \(ee \sim 10^{-3}\) --- within the Viedma threshold. The
-PVED's role is not to \emph{produce} the excess but to \emph{bias its
-direction}: in each independent pool, the fluctuation is random in
-magnitude, but the PVED tips the direction toward L. Over many pools,
-L-dominant outcomes outnumber D-dominant outcomes. The magnitude of the
-PVED is irrelevant --- only its sign matters, and the sign is derived.
+12 orders of magnitude, and bridging it from PVED alone is non-trivial.
+In a small prebiotic pool of \(N\) chiral molecules, random statistical
+fluctuations produce \(ee \sim 1/\sqrt{N}\). For \(N \sim 10^6\) (a
+microdroplet), statistical \(ee \sim 10^{-3}\) --- within the Viedma
+threshold. The PVED's structural role is to fix the \emph{sign} of the
+energy difference between L and D enantiomers; how this sign propagates
+to biological homochirality through the amplification mechanisms cited
+above is an active research question in origins-of-life. With current
+PVED magnitude (\(\sim 10^{-17}\) ee) versus statistical fluctuations in
+prebiotic pools (\(\sim 10^{-3}\) ee for \(N \sim 10^6\) monomers), a
+single-pool calculation gives an L-preference probability of only
+\(\sim 10^{-14}\) above 50\%. Delivering global biological homochirality
+from this requires either (i) cross-pool selection mechanisms that
+propagate small per-pool L-biases globally, or (ii) extended timescales
+of prebiotic chemistry with cumulative bias amplification, or (iii)
+other mechanisms not yet fully characterized in the literature {[}13,
+14, 15{]}. The framework's structural result is the \emph{sign} of the
+PVED; the bridge to biological homochirality requires additional
+empirical mechanisms that remain partially open.
 
 \hypertarget{the-structural-conclusion}{%
 \subsubsection{4.4 The structural
 conclusion}\label{the-structural-conclusion}}
 
 If the amplification chain is robust --- and every step is either
-derived, known physics, or experimentally demonstrated --- then
-biological homochirality is traced to (S, φ). The handedness of every
-amino acid in every protein in every organism is a consequence of the
-partition structure that produces quantum mechanics.
+derived, known physics, or experimentally demonstrated --- then the
+\emph{sign} of the molecular parity-violating energy difference is fixed
+by the partition (Theorem 13 of {[}SM §4.8{]}); biological homochirality
+plausibly inherits this sign through amplification mechanisms whose
+details remain partially open in origins-of-life research (§4.3). The
+handedness of every amino acid in every protein in every organism is
+\emph{consistent} with the structural sign result; whether it is
+\emph{uniquely traceable} to (S, φ) depends on which amplification
+mechanism actually operated in Earth's prebiotic chemistry.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2609}}
@@ -1750,7 +1782,15 @@ The non-Markovian dynamics documented in §8.10 is conventionally
 quantified by domain-specific measures. These can be converted to the
 Hurst exponent \(H\) (\(H = 0.5\): Markovian; \(H > 0.5\): persistent
 memory) via \(H \approx 1 - \beta/2\) for stretched exponential
-processes and \(H = (1 + \alpha)/2\) for \(1/f^\alpha\) noise.
+processes and \(H = (1 + \alpha)/2\) for \(1/f^\alpha\) noise. A
+striking empirical observation, consistent with the framework's
+prediction of P-indivisibility wherever C1--C3 are satisfied, is that
+single-entity systems show universal \(H \approx 0.79 \pm 0.03\)
+(excluding myoglobin's deeper-hierarchy outlier). The derivation of
+\(H(C3)\) from the characterization theorem's dependence on
+hidden-sector dimension --- which would convert this empirical
+observation into a parameter-free framework prediction --- is an open
+research question.
 
 A known objection to universality claims is that any ensemble of many
 independent exponentially relaxing modes with a broad rate distribution

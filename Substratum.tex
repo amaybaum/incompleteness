@@ -1,7 +1,6 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
 ]{article}
@@ -16,7 +15,6 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern not available locally
 \ifPDFTeX\else
   % xetex/luatex font selection
   \setmainfont[]{DejaVu Serif}
@@ -39,7 +37,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -51,11 +48,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  colorlinks=true,
-  linkcolor={blue},
-  filecolor={Maroon},
-  citecolor={Blue},
-  urlcolor={Blue},
+  hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
 \author{}
@@ -954,8 +947,7 @@ hidden-sector relabeling, deep-sector size, alphabet, and graph
 statistical class --- exhaust the free parameters in the reconstruction,
 so the four generators span \(\mathcal{G}_{\text{sub}}\). \(\square\)
 
-Three candidate fifth families, identified during internal audit, are
-explicitly subsumed:
+Three candidate fifth families are explicitly subsumed:
 
 \begin{itemize}
 \tightlist
@@ -1551,27 +1543,133 @@ reconstruction if violated.
   already at sensitivities where any positive detection falsifies.
 \end{itemize}
 
-\textbf{Class B: Strictly parameter-free retrodictions.} Thirteen
-numerical predictions follow from the structural content with no
-adjustable parameters beyond the single empirical input \(m_s\). Each
-has an observed value currently consistent with the prediction at better
-than the framework's quoted precision; any of them moving outside
-\(3\sigma\) of the framework's prediction on a precision upgrade
-falsifies the derivation.
+\textbf{Class B: Parameter-free retrodictions.} The framework produces a
+set of numerical predictions that follow from the structural content
+with no adjustable parameters beyond a small set of acknowledged
+empirical inputs (\(m_s\) for the overall fermion mass scale, \(m_t\)
+for the Higgs RGE running, \(\eta\) for the Jarlskog phase,
+\(Q_{\text{down}}\) for the down-sector Koide normalization). These
+predictions are stratified into four sub-classes reflecting their
+structural status:
 
-The thirteen are: (1) the Cabibbo angle \(\lambda = 1/(\pi\sqrt{2})\);
-(2) the Wolfenstein \(A = \sqrt{2/3}\); (3) \(m_d/m_s = 1/(2\pi^2)\);
-(4) \(m_u/m_d = \sqrt{2/9}\); (5) the Koide angle \(\theta_0 = 2/9\)
-with the corresponding \(m_e\) and \(m_\mu\); (6) the neutrino mass sum
-\(\Sigma m_\nu \approx 0.059\) eV in normal ordering; (7) the PMNS sum
-rule \(2\Delta_{12} + \Delta_{23} = 0\); (8) the JUNO-sensitive
-\(\sin^2 \theta_{12}\); (9) \(m_t = v/\sqrt{2}\) from the IR quasi-fixed
-point; (10) \(m_b/m_\tau = 4.28/Z_S\); (11) the SU(2) gauge coupling at
-\(M_Z\); (12) the SU(3) gauge coupling at \(M_Z\); (13) the
-Bekenstein-Hawking coefficient \(S = A/(4 l_p^2)\) with the factor
-\(1/4\) fixed by GR §5. The current status of each is documented in the
-companion papers with experimental references; as experimental precision
-improves, the discrimination power of the set increases monotonically.
+\emph{Class B-S (unconditional structural).} Four predictions are Layer
+0 or Layer 1 unconditional structural retrodictions:
+
+\begin{itemize}
+\tightlist
+\item
+  The Wolfenstein parameter \(A = \sqrt{2/3}\) ({[}SM §7.1{]}).
+\item
+  The mass ratio \(m_d/m_s = 1/(2\pi^2)\) via the Gatto-Sartori-Tonin
+  relation applied to the Layer 1 Cabibbo derivation ({[}SM §7.1{]}).
+\item
+  The Koide angle \(\theta_0 = C_2/d^2 = 2/9\) ({[}SM §7.2{]}) --- the
+  sharpest empirical match in the framework (0.02\%) and the cleanest
+  structural derivation (cubic-group quadratic Casimir over bandwidth
+  squared, with the §7.2 uniqueness table enumerating ten alternative
+  dimensionless ratios that fail to match).
+\item
+  The Bekenstein-Hawking coefficient \(S = A/(4 l_p^2)\) with the factor
+  \(1/4\) derived as the ratio \(2\pi/(8\pi)\) between the Euclidean KMS
+  period and the Jacobson Einstein-equation prefactor ({[}GR §5{]}).
+  Confirmed at 99.999\% by the GW250114 area-law observation.
+\end{itemize}
+
+Any of these moving outside \(3\sigma\) on precision upgrade falsifies
+the framework directly with no recoverable error mode.
+
+\emph{Class B-L (layered conditional, pending open derivations).} Six
+predictions follow from the structural form combined with one Layer-2
+substrate input or empirical input. Each has an explicit derivational
+gap whose closure would move the prediction to B-S:
+
+\begin{itemize}
+\tightlist
+\item
+  The Cabibbo angle \(\lambda = 1/(\pi\sqrt{2})\) ({[}SM §7.1{]})
+  pending the explicit chirality verification of the taste-changing
+  vertex's spinor structure.
+\item
+  The mass ratio \(m_u/m_d = \sqrt{\theta_0} = \sqrt{2/9}\) ({[}SM
+  §7.2{]}) pending the explicit derivation of the ``different channels''
+  mechanism producing the square root.
+\item
+  The mass ratio \(m_b/m_\tau = 4.28/Z_S\) ({[}SM §7.5{]}) pending the
+  explicit OI-vertex 1-loop computation confirming \(K = 1/2\).
+\item
+  The PMNS predictions \(\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)\) and
+  \(\sin^2\theta_{23} = 1/2 + 1/(2\pi^2)\) ({[}SM §7.3{]}) pending
+  derivation of Cond 2 (the structural relation among \(A_2\) Wilson
+  coefficients) from cubic-lattice Yukawa structure. The reactor angle
+  \(\sin^2\theta_{13}\) is independent of Cond 2 and is in Class B-S.
+\item
+  The MOND critical acceleration \(a_0 = cH/6\) and dependent
+  predictions (baryonic Tully-Fisher, crossover radius \(r_M\)) ({[}GR
+  §7.3{]}) pending explicit derivation of the \(1/6\) geometric factor
+  from spherical redistribution in de Sitter.
+\end{itemize}
+
+Class B-L violations at \(3\sigma\) on precision upgrade are addressed
+under the pre-registration commitment via three branches: (a) closure of
+the open derivation \emph{confirms} the prediction (recoverable from a
+transient data fluctuation); (b) closure \emph{fails to confirm} the
+prediction while preserving the framework's structural commitments
+(recoverable error in the specific derivation, with the structural
+commitments intact); (c) demonstration that no consistent OI-internal
+derivation can produce the observed value (fatal, framework-falsifying).
+
+\emph{Class B-M (mass chain).} Two predictions inherit a single
+empirical input scale through a structural relation:
+
+\begin{itemize}
+\tightlist
+\item
+  The electron and muon masses \(m_e\) and \(m_\mu\) via the Koide chain
+  from the empirical input \(m_\tau\) ({[}SM §7.2{]}). The prediction is
+  structurally \(\theta_0 = 2/9\) with \(Q = 2/3\); the absolute scale
+  is set by \(m_\tau\).
+\item
+  The Higgs mass \(m_H\) via SM RGE running from the structural boundary
+  condition \(\lambda(M_{\text{Pl}}) = 0\) ({[}SM §7.4{]}) with \(m_t\)
+  as the empirical input.
+\end{itemize}
+
+Class B-M predictions falsify under the same precision-upgrade protocol
+as B-L, but the inheritance is from an empirical input scale rather than
+from an open derivation.
+
+\emph{Class B-R (retrodictions).} Two gauge-coupling values are
+explicitly retrodictions per the §6.3 {[}SM{]} parameter count:
+
+\begin{itemize}
+\tightlist
+\item
+  The SU(2) gauge coupling at \(M_Z\) ({[}SM §6, items 11-12 in
+  §7.6{]}).
+\item
+  The SU(3) gauge coupling at \(M_Z\).
+\end{itemize}
+
+Three fitted parameters \((\delta_0, A, B)\) against three observed
+couplings produces zero residual by construction; these classifications
+are honest. Class B-R predictions can never falsify in the
+precision-upgrade sense --- their value is what falsification of the
+\emph{framework's gauge-sector structural commitments} (universality of
+\(\delta_0\), the resummation form, the structural prediction
+\(1/\alpha_0 = 23.25\) from the 1-loop staggered VP, and the
+\(A \cdot B = 48.0 \pm 1.5\) cross-check) would test.
+
+\emph{Status summary.} Of the predictions in Class B: \textbf{4 are
+unconditional structural} (B-S), \textbf{6 are layered conditional
+pending open derivations} (B-L), \textbf{2 are mass-chain inheritances}
+(B-M), and \textbf{2 are retrodictions} (B-R). Total 14 predictions in
+Class B. The empirical match holds for all 14 within \textasciitilde1\%
+or \textasciitilde1σ.
+
+The current status of each is documented in the SM and GR companion
+papers with experimental references. As experimental precision improves,
+the discrimination power of the B-S set increases monotonically; closure
+of the open derivations would move B-L predictions to B-S over time.
 
 \textbf{Class C: Framework-level commitments.} Two broader commitments
 are implicit in the construction and would falsify it if contradicted.

@@ -3,7 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  11pt,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -16,9 +15,10 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern} % removed
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -37,7 +37,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -52,145 +51,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-% XeLaTeX header for OI framework build pipeline
-% pandoc→xelatex with extended unicode char-map and DejaVu mono for box-drawing
-
-\usepackage{fontspec}
-\usepackage{unicode-math}
-\usepackage{newunicodechar}
-
-% Main fonts — Latin Modern (text + math), DejaVu Sans Mono for code
-% DejaVu Sans Mono has U+2500 series box-drawing characters used in framework diagrams
-\setmainfont{Latin Modern Roman}
-\setsansfont{Latin Modern Sans}
-\setmonofont{DejaVu Sans Mono}[Scale=0.85]
-\setmathfont{Latin Modern Math}
-
-% Extra math packages
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{mathtools}
-
-% Table support
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-
-% URL handling — allow line breaks in long URLs
-\usepackage{xurl}
-
-% Paragraph spacing
-\setlength{\parskip}{0.5em}
-\setlength{\parindent}{0pt}
-
-% Extended Unicode character map — substitute problematic text-mode chars
-% with math-mode equivalents. Only needed for chars not in Latin Modern Roman.
-% Box-drawing chars (U+2500 range) work natively via DejaVu Sans Mono in code blocks.
-
-% Greek lowercase (may appear in prose, not just math)
-\newunicodechar{α}{\ensuremath{\alpha}}
-\newunicodechar{β}{\ensuremath{\beta}}
-\newunicodechar{γ}{\ensuremath{\gamma}}
-\newunicodechar{δ}{\ensuremath{\delta}}
-\newunicodechar{ε}{\ensuremath{\epsilon}}
-\newunicodechar{η}{\ensuremath{\eta}}
-\newunicodechar{θ}{\ensuremath{\theta}}
-\newunicodechar{κ}{\ensuremath{\kappa}}
-\newunicodechar{λ}{\ensuremath{\lambda}}
-\newunicodechar{μ}{\ensuremath{\mu}}
-\newunicodechar{ν}{\ensuremath{\nu}}
-\newunicodechar{π}{\ensuremath{\pi}}
-\newunicodechar{ρ}{\ensuremath{\rho}}
-\newunicodechar{σ}{\ensuremath{\sigma}}
-\newunicodechar{τ}{\ensuremath{\tau}}
-\newunicodechar{φ}{\ensuremath{\varphi}}
-\newunicodechar{χ}{\ensuremath{\chi}}
-\newunicodechar{ψ}{\ensuremath{\psi}}
-\newunicodechar{ω}{\ensuremath{\omega}}
-
-% Greek uppercase
-\newunicodechar{Γ}{\ensuremath{\Gamma}}
-\newunicodechar{Δ}{\ensuremath{\Delta}}
-\newunicodechar{Λ}{\ensuremath{\Lambda}}
-\newunicodechar{Σ}{\ensuremath{\Sigma}}
-\newunicodechar{Ω}{\ensuremath{\Omega}}
-
-% Common math/physics symbols
-\newunicodechar{ℏ}{\ensuremath{\hbar}}
-\newunicodechar{ℤ}{\ensuremath{\mathbb{Z}}}
-\newunicodechar{∅}{\ensuremath{\emptyset}}
-\newunicodechar{∂}{\ensuremath{\partial}}
-\newunicodechar{∈}{\ensuremath{\in}}
-\newunicodechar{∘}{\ensuremath{\circ}}
-\newunicodechar{√}{\ensuremath{\sqrt{}}}
-\newunicodechar{∝}{\ensuremath{\propto}}
-
-% Relations
-\newunicodechar{≤}{\ensuremath{\leq}}
-\newunicodechar{≥}{\ensuremath{\geq}}
-\newunicodechar{≠}{\ensuremath{\neq}}
-\newunicodechar{≈}{\ensuremath{\approx}}
-\newunicodechar{≪}{\ensuremath{\ll}}
-\newunicodechar{≫}{\ensuremath{\gg}}
-\newunicodechar{⊂}{\ensuremath{\subset}}
-\newunicodechar{⊃}{\ensuremath{\supset}}
-\newunicodechar{⊕}{\ensuremath{\oplus}}
-
-% Arrows
-\newunicodechar{→}{\ensuremath{\to}}
-\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
-\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
-\newunicodechar{⇐}{\ensuremath{\Leftarrow}}
-\newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
-\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
-\newunicodechar{⟺}{\ensuremath{\Longleftrightarrow}}
-
-% Brackets
-\newunicodechar{⟨}{\ensuremath{\langle}}
-\newunicodechar{⟩}{\ensuremath{\rangle}}
-
-% Operators
-\newunicodechar{×}{\ensuremath{\times}}
-\newunicodechar{−}{\ensuremath{-}}
-
-% Superscripts (may appear in prose when pandoc doesn't wrap in math mode)
-\newunicodechar{⁰}{\ensuremath{^{0}}}
-\newunicodechar{¹}{\ensuremath{^{1}}}
-\newunicodechar{²}{\ensuremath{^{2}}}
-\newunicodechar{³}{\ensuremath{^{3}}}
-\newunicodechar{⁴}{\ensuremath{^{4}}}
-\newunicodechar{⁵}{\ensuremath{^{5}}}
-\newunicodechar{⁶}{\ensuremath{^{6}}}
-\newunicodechar{⁷}{\ensuremath{^{7}}}
-\newunicodechar{⁸}{\ensuremath{^{8}}}
-\newunicodechar{⁺}{\ensuremath{^{+}}}
-\newunicodechar{⁻}{\ensuremath{^{-}}}
-
-% Subscripts
-\newunicodechar{₀}{\ensuremath{_{0}}}
-\newunicodechar{₁}{\ensuremath{_{1}}}
-\newunicodechar{₂}{\ensuremath{_{2}}}
-\newunicodechar{₃}{\ensuremath{_{3}}}
-\newunicodechar{₄}{\ensuremath{_{4}}}
-\newunicodechar{₈}{\ensuremath{_{8}}}
-
-% Decorative / non-math
-\newunicodechar{✓}{\ensuremath{\checkmark}}
-\newunicodechar{✗}{\ensuremath{\times}}
-
-% Relax hbox overfull warnings (long URLs and math-heavy text)
-\sloppy
-\hbadness=10000
-
-% Allow hyperref to work well with Unicode
-\usepackage{hyperref}
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue!50!black,
-  citecolor=blue!50!black,
-  urlcolor=blue!60!black,
-  breaklinks=true
-}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -332,6 +192,41 @@ asymmetry), and presents twenty-nine testable predictions that
 distinguish the non-Markovian framework from standard Markovian
 pharmacology.
 
+\hypertarget{note-on-classification}{%
+\subsubsection{1.1 Note on
+classification}\label{note-on-classification}}
+
+Throughout this paper, claims fall into one of four types:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{F (Framework structural).} Follows directly from the
+  characterization theorem {[}1, §3.4{]} given C1--C3 --- applies to any
+  system regardless of biological details.
+\item
+  \textbf{B (Biological identification).} An empirical claim that a
+  specific biological system (Chk1, CaMKII, RecA, TCR cascade, ion
+  channels, JAK kinases, chromatin) satisfies C1--C3. Supported by
+  structural biology and biochemistry data, not derived from the
+  framework.
+\item
+  \textbf{P (Therapeutic prediction).} A consequence of F + B --- what
+  follows if the biological system actually satisfies C1--C3 and the
+  framework's structural theorem applies. These are the twenty-nine
+  testable predictions of §11.
+\item
+  \textbf{E (Empirically supported).} A subset of F + B + P claims with
+  existing literature support; flagged in §12.
+\end{itemize}
+
+The framework's primary contribution to biology and medicine is the
+F-claim (the structural theorem) plus a unified language for B-claims
+(C1--C3 satisfaction in specific systems). The P-claims are
+framework-derived only conditional on the corresponding B-claims.
+Falsification of a P-claim in a system that does not satisfy C1--C3 does
+not falsify the framework --- it falsifies the B-claim for that system.
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{the-enzyme-as-a-read-write-system}{%
@@ -471,7 +366,13 @@ Observation of a coupled hidden sector cannot be passive --- the
 visible-sector readout requires interaction with the hidden sector, and
 this interaction back-acts on the hidden state. The re-stored trace is
 therefore a function of both the original hidden state and the present
-visible-sector context at the moment of access.
+visible-sector context at the moment of access. (The back-action is an
+immediate consequence of C1 being bidirectional: if the visible-sector
+readout requires coupling to the hidden sector at all, that coupling
+acts in both directions, and the readback necessarily disturbs the bath.
+Pure address-store memory --- where the readout is a one-way map from
+substrate to readout --- would require unidirectional coupling, which
+violates C1.)
 
 This is the framework's derivation of the \emph{reconstructive nature of
 recall} --- a phenomenon long established in cognitive science but
@@ -502,11 +403,16 @@ it follows from the layered architecture of §2.2.
 necessity}\label{forgetting-as-functional-necessity}}
 
 Standard accounts treat forgetting as a failure of memory. The framework
-reframes it: \emph{finite \(\tau_B\) at every layer is structurally
-required.} A system with infinite \(\tau_B\) at every layer would be
-unable to discriminate present from past --- it would have no temporal
-structure, no ``now,'' no capacity to register change. Such a system is
-not a memory device; it is a frozen state.
+reframes it: \emph{finite \(\tau_B\) at every layer is required for
+functional memory operation.} While C1--C3 are formally satisfied for
+any positive \(\tau_B\) (including arbitrarily large values), a memory
+system with infinite \(\tau_B\) at every layer would be unable to
+discriminate present from past --- it would have no temporal structure,
+no ``now,'' no capacity to register change. Such a system is not a
+memory device; it is a frozen state. The structural C1--C3 conditions
+enable non-Markovian dynamics; the functional requirement of finite
+\(\tau_B\) at the relevant layer is what makes biological memory operate
+as memory.
 
 The brain operates in the parameter regime where each layer's \(\tau_B\)
 is matched to that layer's functional role. Pattern separation requires
@@ -1307,6 +1213,17 @@ Single-molecule fluorescence assay. Standard models predict
 \(\beta = 1\) (exponential); OI predicts \(\beta < 1\) with value
 calculable from \(\tau_S / \tau_B\).
 
+\textbf{Scope of these predictions.} Each prediction follows from the
+framework's F-claim (P-indivisibility from C1--C3) conditional on the
+corresponding B-claim (the system in question satisfies C1--C3).
+Violation of a prediction in a system that does not in fact satisfy
+C1--C3 --- for example, an enzyme whose regulatory domain dynamics are
+not actually slow relative to the catalytic cycle --- would falsify the
+B-claim for that system, not the framework. This is in contrast to
+framework-level predictions ({[}Substratum §6.4 Class A and B-S{]}),
+which depend only on the structural theorem and falsify the framework
+directly.
+
 \hypertarget{neurodegeneration-1}{%
 \subsubsection{11.2 Neurodegeneration}\label{neurodegeneration-1}}
 
@@ -1599,9 +1516,17 @@ its regulatory domain is structurally isomorphic to the read-write cycle
 of an observer interacting with the hidden sector across the
 cosmological horizon. This connection is not metaphorical --- the
 characterization theorem applies to any system satisfying C1--C3,
-regardless of scale. The biological instantiations are classical (no
-quantum coherence is required or invoked), but the mathematical
-architecture is the same.
+regardless of scale. (The qualitative claim --- that C1--C3 systems
+exhibit P-indivisibility --- inherits the rigorous status of the
+characterization theorem {[}1, §3.4{]}. The \emph{quantitative bound} on
+information backflow rates inherits the semi-rigorous status of Main's
+accessible-timescale backflow lemma {[}1, §2.3{]}: the structure of the
+bound is rigorous, but specific constants are not exhaustively bounded.
+For Medicine's predictions, this means qualitative non-Markovian
+behavior is rigorously framework-predicted; precise quantitative
+information-backflow rates are semi-rigorous estimates.) The biological
+instantiations are classical (no quantum coherence is required or
+invoked), but the mathematical architecture is the same.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
