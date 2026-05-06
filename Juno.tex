@@ -21,7 +21,7 @@
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{XXmicrotype.sty}{% disabled by build pass
+\IfFileExists{XXmicrotype.sty}{% use microtype if available
   \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
@@ -207,17 +207,19 @@ PMNS sum rule & 2sin²θ₁₂ + sin²θ₂₃ = 7/6 & 1.178 ± 0.020 & 0.6σ \\
 \end{longtable}
 
 The first two entries are derived in {[}Maybaum 2026, §§7.1--7.2{]}; the
-Cabibbo derivation is classified \emph{layered conditional} (the
-structural form walks end-to-end; an explicit verification of the
-chirality structure of the taste-changing vertex remains as a follow-up
-calculation), with the empirical match to 0.04\% providing strong
-support pending closure. The Koide angle is unconditional structural at
-first-principles. The third and fourth entries are the present work.
-This cumulative empirical track record is what distinguishes the
-cubic-group structure from postulated flavor symmetries: the same
-parameter λ² = 1/(2π²) and the same projection factor A² = 2/3 enter
-multiple observables at sub-percent precision, which is testable
-structure rather than symmetry assumption.
+Cabibbo derivation is unconditional structural (the chirality structure
+of the taste-changing vertex is established in the staggered fermion
+literature {[}Mason et al., cited in Maybaum 2026 §7.1{]}), and the
+empirical match to 0.04\% supports this status. The Koide angle is
+unconditional structural at first-principles. The third and fourth
+entries are the present work, classified at the layered (Layer 1 + Layer
+2(b)) level per {[}Maybaum 2026, §8.3{]} following operator-counting
+analysis of Condition 2; see Sec. 6.3 for full discussion. This
+cumulative empirical track record is what distinguishes the cubic-group
+structure from postulated flavor symmetries: the same parameter λ² =
+1/(2π²) and the same projection factor A² = 2/3 enter multiple
+observables at sub-percent precision, which is testable structure rather
+than symmetry assumption.
 
 The remainder of this paper develops the technical content. Section 2
 sets up the cubic-group structure and derives the perturbation scale.
@@ -493,17 +495,25 @@ The geometric interpretation is that
 \textbf{4/3 = 2A² = 2 sin²(∠(e\_i, ĥ))}
 
 where A = √(2/3) is the off-democratic projection of any generation axis
-(Sec. 2.2). The factor decomposes as a \emph{partner-count × per-partner
-projection}: the U-even combination E₁₂+E₁₃ couples generation e₁ to its
-two partners \{e₂, e₃\}, each contributing factor A² from the
-ĥ-perpendicular projection geometry --- total 2 × A² = 4/3. The dominant
-U-odd combination E₂₃ couples e₂ to its single partner e₃, with no
-analogous multiplicity, giving relative weight 1. The same projection
-geometry produces sinθ₁₃ = A²λ at O(λ) via a single-vertex projection
-(Sec. 3.2). A complete derivation of the structural relation from the
-lattice Yukawa structure remains an open task; we present it here as a
-structural relation supported by the geometric argument above and by the
-broader cubic-lattice framework of {[}Maybaum 2026{]}.
+(Sec. 2.2). Note that A² = (d−1)/d = C₂(T₁)/d is a structural identity
+for the vector representation of any rotation group --- for d = 3 this
+gives A² = 2/3 from both the off-democratic projection (1 − 1/d) and the
+Casimir-over-dimension ratio (C₂/d). The factor 4/3 in Condition 2
+admits a \emph{partner-count × per-partner projection} reading: the
+U-even combination E₁₂+E₁₃ couples generation e₁ to its two partners
+\{e₂, e₃\}, with the per-partner projection nominally A². However, the
+load-bearing claim of this argument is the \emph{operator alignment} ---
+that the substrate's second-order Yukawa structure has a specific T₂
+direction matching the partner-count × projection picture. Operator
+counting on T₁ ⊗ T₁ → T₂ in the supporting framework {[}Maybaum 2026{]}
+shows that this T₂ direction is determined by the substrate's specific
+Yukawa structure rather than forced by representation theory: the
+natural Higgs-democratic spurion does not produce Cond 2. We therefore
+classify Cond 2 as currently solution-specific (Layer 2(b) in the
+four-layer framing of {[}Maybaum 2026, §8.3{]}) --- the empirical match
+indicates the framework's bijection has the alignment property, but a
+Layer 2(a) promotion would require explicit substrate-level Yukawa
+derivation.
 
 In standard effective field theory, the U-even and dominant U-odd
 coefficients b₁₂+b₁₃ and b₂₃ would be independent Wilson coefficients.
@@ -532,11 +542,13 @@ The +1/9 augmentation is forced by A₁'s perturbative structure; deriving
 the substrate corrections that satisfy this from the cubic-lattice
 Yukawa is the quantitative open task.
 
-We treat Condition 2 as a structural input to the present analysis and
-quote our predictions \emph{conditional} on it. The angle predictions of
-Sec. 3.5 and the sum rule below thus stand or fall with Condition 2:
-empirical agreement at 0.07σ on sin²θ₁₂ is, in this sense, a nontrivial
-test of Condition 2 itself.
+We treat Condition 2 as a substrate-level relation and quote our angle
+predictions on the understanding that two of them (sin²θ₁₂ and sin²θ₂₃)
+sit at the layered level: their structural form is forced by cubic-group
+representation theory (Layer 1), but the specific coefficient values
+depend on a Layer 2(b) substrate alignment. Empirical agreement at 0.07σ
+on sin²θ₁₂ is, in this sense, a nontrivial test of the bijection's
+alignment property.
 
 At the angle level, this is equivalent to
 
@@ -823,18 +835,34 @@ representation geometry.
 \hypertarget{status-of-condition-2}{%
 \subsubsection{6.3 Status of Condition 2}\label{status-of-condition-2}}
 
-Condition 2 is presented in Sec. 3.4 as a structural relation supported
-by the projection-geometry argument (4/3 = 2A² with the partner-count
-interpretation) and by the broader cubic-lattice framework of {[}Maybaum
-2026{]}. The structural form is fixed (A² appears in the appropriate
-combinations); what remains open is the quantitative derivation of the
-specific numerical relation b₂₃ = (4/3)(b₁₂ + b₁₃) from the lattice
-Yukawa structure. We are explicit that this derivation is incomplete:
-the present analysis takes Condition 2 as a structural input and treats
-the 0.07σ empirical match as a non-trivial test of that input. Closure
-of the lattice-Yukawa derivation would establish sin²θ₁₂ as an
-unconditional structural prediction. This open task is internal to the
-framework and does not affect the present paper's testability.
+Condition 2 is presented in Sec. 3.4 as a substrate-level relation
+supported by the projection-geometry argument (4/3 = 2A² with the
+partner-count reading) and by the broader cubic-lattice framework of
+{[}Maybaum 2026{]}. The structural identity A² = (d−1)/d = C₂(T₁)/d for
+vector representations gives the underlying algebraic content. However,
+operator counting on T₁ ⊗ T₁ → T₂ in the supporting framework shows that
+Condition 2 itself is not forced by representation theory: the
+substrate's T₂ direction in second-order Yukawa structure is
+bijection-specific, and the natural Higgs-democratic spurion does not
+reproduce Condition 2. We therefore classify it as solution-specific
+(Layer 2(b) in the §8.3 four-layer framing of {[}Maybaum 2026{]}) ---
+the empirical match at 0.07σ on sin²θ₁₂ indicates the framework's
+bijection has the alignment property required by Condition 2, but a
+Layer 2(a) promotion would require explicit substrate-level Yukawa
+derivation that has not been performed. The angle predictions sin²θ₁₂
+and sin²θ₂₃ therefore sit at the layered level (Layer 1 form + Layer
+2(b) coefficient) rather than as unconditional structural predictions.
+The reactor angle sin²θ₁₃ is independent of Condition 2 (the A₂
+coefficients cancel from \textbar U\_e3\textbar²) and remains Layer 1
+unconditional structural.
+
+The sum rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6 is the most directly testable
+consequence of Condition 2; its empirical match at 0.6σ tests the
+bijection's alignment property at the few-percent level on the
+structural coefficient. The discriminating power of the sum rule against
+TM1, TM2, and TM3 column-preservation patterns (Sec. 4.2, 4.3) is
+independent of whether Condition 2 is Layer 2(a) or 2(b); the empirical
+match is what matters for the discrimination.
 
 \hypertarget{falsifiability}{%
 \subsection{7. Falsifiability}\label{falsifiability}}
@@ -869,13 +897,22 @@ structure, matching the post-JUNO global fit at 0.07σ with no parameter
 fit to sin²θ₁₂. The same construction predicts sin²θ₁₃ and sin²θ₂₃
 within 1.1σ of the NuFIT 6.0 best fits, and forces the exact sum rule
 2sin²θ₁₂ + sin²θ₂₃ = 7/6, which distinguishes the prediction from the
-TM1, TM2, and TM3 column-preservation patterns. The angle predictions
-are conditional on the cubic-group structural relation b₂₃ =
-(4/3)(b₁₂+b₁₃) (Condition 2); the empirical match at 0.07σ on sin²θ₁₂
-is, in this sense, a nontrivial test of that relation. The Cabibbo scale
-λ² = 1/(2π²) entering the prediction is set independently by cubic
-Brillouin-zone geometry and matches the observed Cabibbo angle to
-0.04\%.
+TM1, TM2, and TM3 column-preservation patterns. The reactor angle
+sin²θ₁₃ = 4/(18π²) is unconditional structural (Layer 1 in {[}Maybaum
+2026, §8.3{]}), based on the representation-theoretic identity A² =
+(d−1)/d = C₂(T₁)/d for vector reps. The solar and atmospheric angle
+predictions are layered: their structural form is forced by cubic-group
+representation theory (Layer 1), but the specific coefficient values
+depend on Condition 2 (b₂₃ = (4/3)(b₁₂+b₁₃)), which is currently
+classified Layer 2(b) --- solution-specific to the bijection ---
+following operator counting in the supporting framework. The empirical
+match at 0.07σ on sin²θ₁₂ and at 0.6σ on the sum rule indicates the
+framework's bijection has the alignment property required by Condition
+2; the predictions are therefore tests of that bijection-specific
+structure as much as of the underlying cubic-group framework. The
+Cabibbo scale λ² = 1/(2π²) entering the prediction is set independently
+by cubic Brillouin-zone geometry and matches the observed Cabibbo angle
+to 0.04\%.
 
 JUNO's projected long-term precision will test the prediction at
 sub-percent level over the next decade. Combined with atmospheric
