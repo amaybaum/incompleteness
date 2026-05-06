@@ -15,14 +15,13 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
+% \usepackage{lmodern} (commented for build)
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
-  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
+\IfFileExists{XXmicrotype.sty}{% disabled by build pass
   \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
@@ -1131,6 +1130,15 @@ factors in \(\rho_s = S\,k_B T_{\rm cl}/V_d\) and dividing by
 --- unity only at \(d=3\). This is the general-\(d\) formula cited in
 {[}SM §3.2{]} as the boundary-entropy filter selecting \(d=3\).
 
+This boundary-entropy filter is one of three independent \(d=3\)
+selectors in the framework: (i) substratum coupling-degree minimization
+(SM Theorem 6, \(K = 2d\) gives \(K=6\)); (ii) Bravais-lattice
+uniqueness for the SM gauge group (SM Theorem 7b); (iii) the present
+boundary-entropy filter. The three derive \(d=3\) from very different
+physical considerations (substrate dynamics, crystallographic
+representation theory, cosmological boundary thermodynamics). The
+convergence is structurally significant.
+
 \emph{(ii) Invisibility.} The argument has two logically distinct
 components.
 
@@ -1416,11 +1424,12 @@ tests:
   (concentration and mass). In the OI framework, the dark matter effect
   at radius \(r\) depends only on the enclosed baryonic mass \(M_B(<r)\)
   and \(H(z)\) --- no halo-specific parameters. This predicts: the
-  radial acceleration relation (RAR) at fixed \(g_B\) has zero intrinsic
-  scatter (at fixed \(z\)), and the scatter does not correlate with halo
-  properties. Current SPARC data {[}22{]} show remarkably small RAR
-  scatter (\(\sim 0.13\) dex), consistent with OI but requiring
-  fine-tuning in ΛCDM.
+  radial acceleration relation (RAR) at fixed \(g_B\) has zero
+  \emph{intrinsic} scatter (at fixed \(z\)) --- observational scatter is
+  set by measurement uncertainties --- and the \emph{intrinsic} scatter
+  does not correlate with halo properties. Current SPARC data {[}22{]}
+  show remarkably small RAR scatter (\(\sim 0.13\) dex), consistent with
+  OI but requiring fine-tuning in ΛCDM.
 \end{enumerate}
 
 \textbf{Falsifiability.} The entropy displacement account would be
@@ -1464,8 +1473,11 @@ gas is --- contradicting observations. The OI framework resolves this
 through the non-local character of entropy displacement. The dark
 gravity arises from boundary entropy redistribution at the cosmological
 horizon, and the horizon's response time is
-\(\tau_{\text{relax}} \sim H^{-1} \approx 14\) Gyr. The collision
-crossing time is
+\(\tau_{\text{relax}} \sim H^{-1} \approx 14\) Gyr. The relaxation
+timescale identification (\(\tau_{\text{relax}} \sim 1/H\)) is itself a
+Tier 2 derived quantity from the de Sitter boundary's response to
+perturbations; specific calculations of mode-by-mode relaxation are
+deferred to a substratum-level analysis. The collision crossing time is
 \(t_{\text{cross}} \sim 720\,\text{kpc}/4700\,\text{km/s} \approx 0.15\)
 Gyr --- only \(1\%\) of the relaxation time. The entropy displacement is
 therefore \emph{frozen} at the pre-collision configuration, centered on

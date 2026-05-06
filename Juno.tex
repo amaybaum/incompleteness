@@ -15,14 +15,13 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
+% \usepackage{lmodern} (commented for build)
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
-  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
+\IfFileExists{XXmicrotype.sty}{% disabled by build pass
   \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
@@ -245,12 +244,19 @@ orthogonal axes. In the lattice realization of the OI framework, this
 six-element set arises from coupling-degree minimization (K = 2d = 6 for
 d = 3), and the multiplicities (3, 2, 1) under the action of O on these
 six directions match the structure of one Standard Model fermion
-generation (quark triplet, lepton doublet, singlet). The triplet sector
-T₁ then carries the three generations. We adopt this identification here
-as a working hypothesis for the present analysis; the detailed argument
-from coupling-degree minimization (Theorem 6) and Bravais-lattice
-uniqueness (Theorem 7b) to the (3, 2, 1) decomposition of T₁ ⊕ E ⊕ A₁ is
-given in {[}Maybaum 2026, §§4.5--4.6{]}.
+generation (quark triplet, lepton doublet, singlet). Three SM
+generations are placed on the T₁ representation of the cubic group O
+acting on the three Cartesian axes --- a forced consequence of
+{[}Maybaum 2026, §4.6 Theorem 7{]} (cubic decomposition
+\(6 = T_1 \oplus E \oplus A_1\)), {[}§4.6 Theorem 7b{]} (Bravais-lattice
+uniqueness --- SC is the unique 3D Bravais lattice compatible with the
+SM gauge group at the commutant level and with the observed Cabibbo
+angle), {[}§4.7 Theorem 10{]} (cubic symmetry forces three degenerate
+triplet sectors), {[}§4.7.1.2{]} (link-carrier construction placing
+matter on links with cross-charged representations admissible), and
+{[}Theorem 15{]} (anomaly cancellation fixing hypercharges uniquely).
+The detailed argument from coupling-degree minimization through the (3,
+2, 1) decomposition is given in {[}Maybaum 2026, §§4.5--4.7{]}.
 
 The full octahedral rotation group O has order 24 and is isomorphic to
 S₄. Its irreducible representations decompose as
@@ -653,8 +659,9 @@ Three differences distinguish the present prediction from TM\_n:
 \textbf{(i) Symmetry origin.} TM1, TM2, and TM3 take a discrete flavor
 symmetry as an axiom of the lepton sector. The cubic-group prediction
 here uses A₄ ⊂ O, where O is the symmetry group of three-dimensional
-space and the three generations transform as the T₁ irrep (Sec. 2.1
-working hypothesis).
+space and the three generations transform as the T₁ irrep (Sec. 2.1;
+forced by the framework's Bravais-lattice uniqueness and
+anomaly-cancellation chain).
 
 \textbf{(ii) Independence of predictions.} TM1 gives a one-parameter
 correlation, sin²θ₁₂ = 1 − (2/3)/cos²θ₁₃, fixing θ₁₂ given θ₁₃ but

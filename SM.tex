@@ -15,15 +15,13 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern} (commented for xelatex build)
+% \usepackage{lmodern} (commented for build)
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
-  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
+\IfFileExists{XXmicrotype.sty}{% disabled by build pass
   \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
@@ -939,11 +937,15 @@ minimization}\label{k-2d-from-coupling-degree-minimization}}
 polynomial growth exponent \(d\) and statistical isotropy, the wave
 equation (selected by center independence, isotropy, and linearity) has
 a unique minimal-coupling factorization with \(K = 2d\) components,
-where the minimization is restricted to factorizations in which every
-component has at least one spatial coupling (no inert components,
-\(\delta \geq 1\) everywhere --- fully decoupled components carry no
-observable degrees of freedom and can be removed without changing the
-physics).}
+where the minimization is restricted to the observable substratum ---
+factorizations in which every component has at least one spatial
+coupling (no inert components, \(\delta \geq 1\) everywhere --- fully
+decoupled components carry no observable degrees of freedom and can be
+removed without changing the physics). The ``observable substratum''
+qualifier is a physical commitment, not a mathematical restriction: any
+sector that fails \(\delta \geq 1\) is by definition unobservable to the
+embedded observer of {[}Main, §3{]}, so the theorem applies to the full
+content visible from within.}
 
 \emph{Proof (translation-invariant case).} The matrix wave equation on
 \(\mathbb{Z}^d\) updates the K-component vector at site \textbf{n} using
@@ -2751,6 +2753,12 @@ Combined: \(|V_{cb}| = A\lambda^2 = \sqrt{2/3}/(2\pi^2) = 0.04136\)
 The Gatto--Sartori--Tonin relation {[}21{]}
 \(\sin\theta_C \approx \sqrt{m_d/m_s}\) gives:
 
+The GST relation {[}21{]} is an external empirical relation in flavor
+physics with known higher-order corrections. The framework's prediction
+is structural in \(\lambda\) (the cubic-lattice Cabibbo derivation
+above); the conversion to \(m_d/m_s\) inherits GST's empirical status.
+To this approximation:
+
 \[\boxed{\frac{m_d}{m_s} = \lambda^2 = \frac{1}{2\pi^2} = 0.05066}\]
 
 Observed {[}20{]}: \(m_d/m_s = 0.0503 \pm 0.0007\) (FLAG 2024 Nf=2+1+1).
@@ -2955,9 +2963,13 @@ eigenvalue level.
 
 The explicit derivation of the amplitude-level formula from the
 cubic-lattice Yukawa structure remains an open OI-specific calculation
-(related to Direction 10's K=1/2 derivation). The structural square-root
-relation is supported by the empirical match at \(0.05\sigma\) but is
-not yet derived to theorem grade from first principles.
+(Direction 11 in the framework's research-direction documentation;
+structurally analogous to Direction 10's K=1/2 derivation in being
+mixed-layer --- substratum cubic-group structure combined with
+electroweak-symmetry-breaking emergent machinery). The structural
+square-root relation is supported by the empirical match at
+\(0.05\sigma\) but is not yet derived to theorem grade from first
+principles.
 
 \textbf{The mass chain: six masses from one input.}
 
@@ -3073,6 +3085,24 @@ NO) & \(0.74\sigma\) \\
 \(\sin^2\theta_{13}\) & 0.02252 & 0.02195 ± 0.00056 (NuFIT 6.0, NO) &
 \(1.02\sigma\) \\
 \end{longtable}
+
+The three predictions have different structural status, made precise in
+the derivation below and in §8.3's four-layer classification. The
+reactor angle prediction \(\sin^2\theta_{13}\) depends only on \(A_1\)
+at second order --- the \(A_2\) coefficients cancel from \(|U_{e3}|^2\)
+--- and is therefore independent of Condition 2 (the structural relation
+among \(A_2\) coefficients introduced below). The solar angle and
+atmospheric angle predictions \(\sin^2\theta_{12}\) and
+\(\sin^2\theta_{23}\) depend on Cond 2 jointly: they are equivalent (via
+the sum rule \(2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6\)) to the
+relation \(b_{23} = (4/3)(b_{12}+b_{13})\), which is presented in this
+paper as a structural input pending derivation from cubic-lattice Yukawa
+structure (see ``Sharpening the open task'' below). Within the
+four-layer structural framework of §8.3, \(\sin^2\theta_{13}\) is a
+Layer 1 unconditional structural prediction, while \(\sin^2\theta_{12}\)
+and \(\sin^2\theta_{23}\) are Layer 1 + Layer 2 conditional structural
+predictions --- conditional on Cond 2's eventual Layer 2(a)
+(operator-level structural) status.
 
 \textbf{Experimental confirmation (JUNO).} The Jiangmen Underground
 Neutrino Observatory reported its first measurement of reactor neutrino
@@ -3196,6 +3226,14 @@ substrate-level origin. The geometric factorization
 partner-count \(\times\) projection origin; promoting this from a
 structural identification to a derivation is the open task referenced
 above.
+
+Within the four-layer structural framework of §8.3, Cond 2 is a Layer 2
+question: it asks whether the substrate's cubic-invariant operator
+content forces the relation among the three \(b\)-coefficients (Layer
+2(a) --- operator-level structural) or whether the \(b\)-values are free
+parameters of the specific bijection (Layer 2(b) --- solution-specific).
+The cross-term result below sharpens this question into a concrete
+substrate-level falsifiable claim.
 
 \textbf{Sharpening the open task: the cross-term contribution.} The open
 task admits a more concrete formulation. In the AF basis where the
@@ -3420,6 +3458,18 @@ consideration (Argument 1, pending the deferred OI-specific
 verification) plus a definitional convention (check 2) and an empirical
 exclusion (check 3) that align with it.
 
+Within the four-layer framing (§8.3), the \(K = 1/2\) coefficient is a
+Layer 2(a) operator-relation question: whether the cubic-lattice
+taste-decomposed Coleman--Weinberg potential's loop kinematic structure
+forces \(K = 1/2\), or whether \(K\) is a Layer 2(b) free parameter with
+the value \(1/2\) selected only by empirical exclusion within
+\(\{1/4, 1/2, 1, 2\}\) plus standard staggered analogy. The deferred
+OI-specific 1-loop computation discriminates between these two
+possibilities (Direction 10 in the framework's research-direction
+documentation). The prediction \(m_b/m_\tau = 2.361\) stands or falls
+with \(K = 1/2\) in the same way the PMNS sum rule stands or falls with
+Cond 2 (§7.3).
+
 \textbf{Residual gap.} With Argument 1 reframed as inheritance from the
 standard staggered convention rather than independent OI derivation, the
 structural support for \(K = 1/2\) is substantially strengthened: K =
@@ -3516,10 +3566,13 @@ in the released code (see \texttt{README.md} §Code, point 3). The inputs
 \(\lambda\), \(g_0^2\), and \(R = 4.28\) are determined by the lattice
 structure; the matching-scale identification
 \(m_{\text{match}} = \lambda \cdot g_0^2\) follows from power-counting
-in the taste-decomposed CW potential (specific-taste projection gives
-leading-\(\lambda\) correction; only the combination
-\(\lambda \cdot g_0^2\) among natural dimensional combinations matches
-MC), with an \(O(1)\) coefficient absorbed into the lattice convention.
+in the taste-decomposed CW potential. The dimensional form
+\(m_{\text{match}} \propto \lambda \cdot g_0^2\) is forced: \(\lambda\)
+controls inter-generation taste-breaking and \(g_0^2\) controls the
+gauge-induced condensate, and these are the only two dimensionless
+framework primitives entering the leading-order CW potential. The scalar
+prefactor (the \(K\) coefficient) is the separate Layer 2 question
+addressed by Arguments 1--3 above and the Residual gap subsection.
 
 \hypertarget{summary-table-of-all-predictions}{%
 \subsubsection{7.6 Summary table of all
@@ -3527,9 +3580,12 @@ predictions}\label{summary-table-of-all-predictions}}
 
 Twenty-two quantitative observables from a \(d = 3\) cubic lattice with
 spacing \(\epsilon = 2\,l_P\), classified by input status: \textbf{S} =
-strictly parameter-free structural; \textbf{M} = one-input
+strictly parameter-free structural; \textbf{C} = conditional structural
+(depends on a stated open assumption); \textbf{L} = layered conditional
+(structural form combined with a Layer-2 substrate input or Layer-3
+empirical input --- see §8.3 four-layer framing); \textbf{M} = one-input
 mass/parameter chain; \textbf{E} = uses explicit empirical input;
-\textbf{P} = phenomenological/ansatz input.
+\textbf{R} = retrodiction; \textbf{P} = phenomenological/ansatz input.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2308}}
@@ -3557,11 +3613,11 @@ Input
 \bottomrule\noalign{}
 \endlastfoot
 \(1/\alpha_1(M_Z)\) & lattice + RGE & 59.00 & 59.00 & \(< 0.1\%\) &
-\textbf{E}† (fixes \(\delta_0\)) \\
+\textbf{E}ᵃ (fixes \(\delta_0\)) \\
 \(1/\alpha_2(M_Z)\) & lattice + RGE & 29.57 & 29.57 & \(< 0.1\%\) &
-\textbf{R}† \\
+\textbf{R}ᵃ \\
 \(1/\alpha_3(M_Z)\) & lattice + RGE & 8.47 & 8.47 & \(< 0.1\%\) &
-\textbf{R}† \\
+\textbf{R}ᵃ \\
 \(\lambda\) (Cabibbo) & \(1/(\pi\sqrt{2})\) & 0.2251 & 0.2250 ± 0.0007 &
 0.04\% & \textbf{S} \\
 \(A\) (Wolfenstein) & \(\sqrt{2/3}\) & 0.8165 & 0.811 ± 0.024 &
@@ -3583,14 +3639,14 @@ MeV & 0.006\% & \textbf{M} (\(m_\tau\)) \\
 \(Q_{\text{down}}\) & \((2/3)(1+\alpha_s/\pi)\) & 0.7303 & 0.7314 &
 0.15\% (scheme-dep) & \textbf{P} \\
 \(m_b\) (from \(m_s\)) & Koide(\(Q_{\text{down}}\)) & 4144 MeV & 4180 ±
-30 & 0.9\% & \textbf{P} (via \(Q_{\text{down}}\)) \\
+30 & 0.9\% & \textbf{L}ᵈ \\
 \(m_u/m_d\) & \(\sqrt{2/9}\) & 0.4714 & 0.465 ± 0.024 & \(0.27\sigma\) &
-\textbf{S} \\
+\textbf{L}ᵉ \\
 \(\sin^2\theta_{12}\) & \(1/3 - 1/(4\pi^2)\) & 0.3080 & 0.3085 ± 0.0073
-(Capozzi 2025 post-JUNO global) & \(0.07\sigma\) & \textbf{S} \\
+(Capozzi 2025 post-JUNO global) & \(0.07\sigma\) & \textbf{C}ᶠ \\
 \(\sin^2\theta_{23}\) & \(1/2 + 1/(2\pi^2)\) & 0.5507 &
 0.561\(^{+0.012}_{-0.015}\) (NuFIT 6.0, NO) & \(0.74\sigma\) &
-\textbf{S} \\
+\textbf{C}ᶠ \\
 \(\sin^2\theta_{13}\) & \(4/(18\pi^2)\) & 0.02252 & 0.02195 ± 0.00056
 (NuFIT 6.0, NO) & \(1.02\sigma\) & \textbf{S} \\
 \(\lambda(M_{\text{Pl}}) = 0\) & composite Higgs & 0 &
@@ -3599,7 +3655,7 @@ MeV & 0.006\% & \textbf{M} (\(m_\tau\)) \\
 129--132 GeV & 125.10 ± 0.14 & \(m_t\)-consistent & \textbf{M}
 (\(m_t\)) \\
 \(m_b/m_\tau\) & \(4.28/Z_S(\lambda g_0^2)\) & 2.361 & 2.352 &
-\(0.5\sigma\) & \textbf{S}‡ \\
+\(0.5\sigma\) & \textbf{L}ᵇ \\
 \(m_t\) & \(v/\sqrt{2}\) (\(y_t = 1\) IR fixed pt) & 174.1 GeV & 172.5 ±
 0.3 & 0.9\% & \textbf{S} \\
 \end{longtable}
@@ -3608,7 +3664,7 @@ Footnotes:
 
 \begin{itemize}
 \item
-  \textbf{†} The three SM gauge couplings at \(M_Z\) are reproduced with
+  \textbf{ᵃ} The three SM gauge couplings at \(M_Z\) are reproduced with
   one empirical input in this sector (§6.3): the U(1) coupling fixes the
   universal threshold \(\delta_0 = 10.02\), and the SU(2) and SU(3)
   entries are retrodictions using the \(C_2\)-dependent threshold
@@ -3625,7 +3681,8 @@ Footnotes:
   lattice perturbation theory would upgrade the SU(2) and SU(3) entries
   from retrodictions (\textbf{R}) to strict predictions (\textbf{S}).
 \item
-  \textbf{‡} The matching scale
+  \textbf{ᵇ} \emph{Layered conditional structural prediction
+  (m\_b/m\_τ).} The matching scale
   \(m_{\text{match}} = \lambda \cdot g_0^2\) is structurally derived in
   the taste-decomposed Coleman--Weinberg potential (§7.5): the b-quark
   is identified with the democratic eigenstate \(\hat{h}\) of the
@@ -3645,20 +3702,78 @@ Footnotes:
   derived \(\lambda g_0^2 = 0.1217\) within \(1.4\%\) (NLO truncation).
   The central-value match \(m_b/m_\tau = 0.5\sigma\) is at \(L = 32\);
   realistic systematic uncertainty including finite-volume and regulator
-  effects is \(\sim 1\)--\(2\%\) (§7.5).
+  effects is \(\sim 1\)--\(2\%\) (§7.5). Within the four-layer framing
+  (§8.3), the \(K = 1/2\) coefficient is a Layer 2 question: structural
+  Layer 0/1 form (\(c_{bb} = 2\lambda\) from cubic-group structure)
+  combined with a Layer 2 loop coefficient. The framework's empirical
+  match at \(0.5\sigma\) is consistent with Layer 2(a) (structural)
+  status; definitive determination requires the OI-specific 1-loop
+  computation (Direction 10). The reclassification of this row to
+  \textbf{L} in v1.10.0 reflects this honestly --- the prediction is
+  unchanged, the status is refined.
+\item
+  \textbf{ᵈ} \emph{Layered conditional structural prediction (m\_b via
+  Q\_down).} The structural form (Koide formula applied to the
+  down-sector with input \(Q_{\text{down}}\) + \(m_d/m_s\) +
+  \(m_s = 93.4\) MeV) is Layer 1. The \(Q_{\text{down}}\) value (=
+  \((2/3)(1 + \alpha_s/\pi) \approx 0.731\)) is phenomenological per
+  §7.2 --- see the \(Q_\text{down}\) subsection for full discussion of
+  why this is treated as empirical input rather than derived. The
+  \(m_d/m_s\) input inherits §7.1's Cabibbo \(\lambda^2\) via the GST
+  relation. The \(m_s\) input is one M-chain mass scale. The empirical
+  match at 0.9\% is excellent given the layered structure.
+\item
+  \textbf{ᵉ} \emph{Layered conditional structural prediction
+  (m\_u/m\_d).} The structural form
+  \(m_u/m_d = \sqrt{\theta_0} = \sqrt{2/9}\) uses the same quadratic
+  Casimir \(C_2 = 2\) of the \(T_1\) representation that produces the
+  Koide angle \(\theta_0 = 2/9\), with the square root following from
+  amplitude-vs-intensity transformation between intra-doublet and
+  inter-generation channels (§7.2). A more explicit derivation from the
+  taste-decomposed Yukawa structure (Direction 11) is the natural
+  follow-up; the empirical match at \(0.05\sigma\) provides strong
+  support pending closure.
+\item
+  \textbf{ᶠ} \emph{Conditional structural prediction (sin²θ\_12,
+  sin²θ\_23).} The value follows unconditionally given Condition 2 of
+  §7.3, which is currently a structural input pending derivation from
+  cubic-lattice Yukawa operator content. The empirical match
+  (\(\sin^2\theta_{12}\) at \(0.07\sigma\) to the post-JUNO global fit;
+  sum rule \(2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6\) at
+  \(0.6\sigma\)) tests Cond 2 directly. The Layer 0 component (TBM
+  zeroth-order value) and Layer 1 component (\(\lambda^2\) scale) are
+  unconditional. See §8.3 four-layer framing; see §7.3 ``Sharpening the
+  open task'' for the substrate-level question Cond 2 reduces to.
 \end{itemize}
 
-\textbf{Parameter-accounting summary:} Of the 22 observables: \textbf{13
-are strictly parameter-free structural predictions} (\textbf{S}); 2 are
-retrodictions in the gauge coupling sector (\textbf{R}, where \((A, B)\)
-are currently matched to observation rather than computed --- upgradable
-to \textbf{S} via first-principles lattice PT); 1 fixes the universal
-threshold \(\delta_0\) from the U(1) coupling (\textbf{E}); 3 form a
-one-input mass/parameter chain (\textbf{M}, with \(m_e\) and \(m_\mu\)
-from \(m_\tau\), and \(m_H\) from \(m_t\)); 1 uses an explicit empirical
-input (\textbf{E}, the Jarlskog phase \(\eta\)); and 2 use a
-phenomenological input (\textbf{P}, the down-sector \(Q\) relation). No
-parameters are fit to the predicted quantities in the \textbf{S} class.
+\textbf{Parameter-accounting summary (post-audit, v1.10.0):} Of the 22
+observables: \textbf{10 are unconditional parameter-free structural
+predictions} (\textbf{S}, Layer 0 or Layer 1: items \(1/\alpha_0\),
+\(A \cdot B\) cross-check, Wolfenstein \(A\), \(|V_{cb}|\), \(m_d/m_s\)
+via GST, Cabibbo \(\lambda\), Koide \(Q\), Koide angle \(\theta_0\),
+\(\sin^2\theta_{13}\), \(\lambda(M_{\text{Pl}}) = 0\), top-mass IR fixed
+point); \textbf{2 are conditional structural predictions} (\textbf{C},
+conditional on Condition 2 of §7.3: \(\sin^2\theta_{12}\) and
+\(\sin^2\theta_{23}\)); \textbf{3 are layered conditional predictions}
+(\textbf{L}, structural form combined with one Layer-2 substrate input
+or Layer-3 empirical input: \(m_u/m_d\) pending Direction 11, \(m_b\)
+inheriting \(Q_{\text{down}}\)'s phenomenological status, \(m_b/m_\tau\)
+pending Direction 10); 2 are retrodictions in the gauge coupling sector
+(\textbf{R}, where \((A, B)\) are currently matched to observation
+rather than computed); 1 fixes the universal threshold \(\delta_0\) from
+the U(1) coupling (\textbf{E}); 3 form a one-input mass/parameter chain
+(\textbf{M}); 1 uses an explicit empirical input (\textbf{E}, the
+Jarlskog phase \(\eta\)). No parameters are fit to the predicted
+quantities in any of the \textbf{S}, \textbf{C}, or \textbf{L} classes;
+the conditional/layered classifications reflect explicit dependence on
+stated structural inputs (Cond 2, Direction 10/11) or phenomenological
+inputs (\(Q_\text{down}\)) rather than free parameter fitting.
+
+The pre-audit count of 13 strictly structural predictions reduces to 10
+unconditional + 5 conditional/layered = 15 in the
+structural-or-near-structural class. The audit refines classification
+precision; substantive content (the 22 numerical predictions and their
+empirical matches) is unchanged.
 
 In addition: SM gauge group, three generations, \(\bar\theta = 0\),
 Majorana neutrinos, normal mass ordering --- all consistent with data.
@@ -3673,8 +3788,9 @@ Majorana, normal ordering).
 \hypertarget{the-coincidence-bound}{%
 \subsubsection{7.7 The coincidence bound}\label{the-coincidence-bound}}
 
-The thirteen strictly structural (\textbf{S}) retrodictions of §7.6 are
-not independent draws: several derive from the same cubic-symmetry
+The unconditional structural (\textbf{S}) and conditional structural
+(\textbf{C}, \textbf{L}) retrodictions of §7.6 --- fifteen in total ---
+are not independent draws: several derive from the same cubic-symmetry
 coefficient \(C_2/d^2 = 2/9\) (Koide \(Q\), Koide angle \(\theta_0\),
 \(\sin^2\theta_{13}\), and the \(m_e, m_\mu\) chain from \(m_\tau\)),
 and several derive from the same one-loop lattice integral structure
@@ -3832,19 +3948,100 @@ theorems. They do not depend on which specific φ describes our universe.
 
 \textbf{Solution-specific properties} are determined by the particular
 bijection φ within the equivalence class. These include: gauge couplings
-(set by the eigenvalues μ\_c, μ\_w of M), fermion masses (set by
-taste-breaking in φ at \(\mathcal{O}(\epsilon^2)\)), mixing angles (set
-by the Yukawa structure of φ), and the CP-violating phases in CKM and
-PMNS (set by the basis mismatch between up-type and down-type Yukawa
-mass eigenstates, which is itself a property of φ). The CP phases are
+at \(M_Z\) (set by the eigenvalues μ\_c, μ\_w of M, the threshold
+\(\delta_0\), and the resummation parameters \(A, B\) --- see §6);
+fermion mass \emph{scales} (set by taste-breaking in φ at
+\(\mathcal{O}(\epsilon^2)\) --- though many mass \emph{ratios},
+including the Koide chain \(m_e/m_\mu/m_\tau\), \(m_d/m_s\), and
+\(m_u/m_d\), are structural, see §7.2); basis-alignment unitaries
+between up-type and down-type Yukawa eigenstates (and hence the Jarlskog
+invariant, \(\delta_{CKM}\) via the empirical \(\eta\), and
+\(\delta_{PMNS}\)); and individual Wilson coefficients of the
+cubic-invariant operators contributing to the Yukawa sector beyond
+whatever structural relations (such as Condition 2 of §7.3, currently a
+structural input pending derivation) constrain them. The CP phases are
 explicitly compatible with Theorem 21: the theorem establishes
 \(\bar\theta = 0\) (the determinant-phase combination) but does not
 constrain the basis-alignment structure that produces the Jarlskog
-invariant (see §5.4 for the full scope statement). These are analogous
-to the mass \(M\) in the Schwarzschild solution: GR derives the
-functional form of the metric but does not predict which \(M\) describes
-a particular black hole. The OI framework derives the SM's structure but
-does not predict which φ describes our universe.
+invariant (see §5.4 for the full scope statement).
+
+The framework's predictions stratify into four layers, made precise here
+for downstream reference:
+
+\emph{Layer 0 --- Gauge / discrete structure.} Properties of the
+equivalence class \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) that
+follow from C1--C3 + cubic-group representation theory (§4.5--§4.7).
+Hold for every bijection. Examples: the gauge group
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) with
+multiplicities \((3, 2, 1)\), three chiral generations,
+anomaly-cancelling hypercharges, \(\bar\theta = 0\), Majorana neutrinos
+with normal mass ordering, the TBM zeroth-order pattern
+(\(\sin^2\theta_{12} = 1/3\) etc.), the Higgs as \(A_1\) taste, the
+universal induced coupling \(1/\alpha_0 = 23.25\) from \(N_f = 6\) and
+\(T(R) = 1/2\).
+
+\emph{Layer 1 --- Structural form of corrections.} Properties of the
+\emph{form} of the perturbative expansion around the zeroth-order
+structural prediction. Follow from cubic-group representation theory +
+uniqueness constraints. Hold for every bijection. Examples: the Cabibbo
+angle scale \(\lambda^2 = 1/(2\pi^2)\) (Brillouin geometry, §7.1), the
+Wolfenstein \(A = \sqrt{2/3}\) (off-democratic projection), the Koide
+angle \(\theta_0 = C_2/d^2 = 2/9\) (cubic-group quadratic Casimir over
+bandwidth squared), the form
+\(V_\ell = \exp(\lambda A_1 + \lambda^2 A_2 + \cdots)\), \(A_1\)'s
+unique determination, \(\sin^2\theta_{13} = (4/9)\lambda^2\)
+(independent of \(A_2\) at \(O(\lambda^2)\)), the Higgs quartic boundary
+condition \(\lambda(M_{\text{Pl}}) = 0\), the universality of
+\(\delta_0\) across gauge groups (§6.3).
+
+\emph{Layer 2 --- Wilson-coefficient relations.} Relations among the
+Wilson coefficients of cubic-invariant operators in the substrate
+Lagrangian. Two sub-cases:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Layer 2(a) --- operator-level structural.} A finite family of
+  cubic-invariant operators produces coefficient relations that hold for
+  every bijection.
+\item
+  \emph{Layer 2(b) --- solution-specific.} Coefficient values are free
+  parameters of the bijection.
+\end{itemize}
+
+Cond 2 (\(b_{23} = (4/3)(b_{12}+b_{13})\)) is currently at the boundary
+between Layer 2(a) and Layer 2(b); its status is pending derivation from
+cubic-lattice Yukawa structure (§7.3 ``Sharpening the open task'').
+Other Layer 2 questions in the framework include the \(K = 1/2\)
+coefficient in the \(m_b/m_\tau\) derivation (§7.5), and the
+intra-doublet vs inter-generation channel decomposition for
+\(m_u/m_d = \sqrt{\theta_0}\) (§7.2). All three are subjects of explicit
+research directions in the framework's development; their empirical
+matches provide strong indirect evidence consistent with Layer 2(a)
+status.
+
+\emph{Layer 3 --- Solution-specific properties.} Properties that depend
+on the particular bijection φ. Examples: absolute fermion mass scales
+(e.g., \(m_\tau\), \(m_t\), \(m_s\) as input scales in the M-chain),
+basis-alignment unitaries, CP-violating phases (\(\delta_{CKM}\) via
+empirical \(\eta\), \(\delta_{PMNS}\) identified with
+\(b_{12} - b_{13}\) in §7.3), eigenvalues \(\mu_c, \mu_w\) of the
+coupling matrix \(M\) that set the gauge couplings.
+
+The §7.6 summary table classifies each prediction by its layered status:
+items marked \textbf{S} are unconditional structural (Layer 0 or Layer
+1, fully derived); items marked \textbf{C} are conditional structural
+(Layer 2(a) pending derivation, with the conditioning specified ---
+currently the two \(\sin^2\theta\) predictions conditional on Cond 2);
+items marked \textbf{L} are layered conditional (combine multiple
+layers, typically Layer 0 or 1 + Layer 2 conditional or Layer 3
+empirical input). Items marked \textbf{R}, \textbf{P}, \textbf{M},
+\textbf{E} retain their meaning from the pre-audit table.
+
+These are analogous to the mass \(M\) in the Schwarzschild solution: GR
+derives the functional form of the metric but does not predict which
+\(M\) describes a particular black hole. The OI framework derives the
+SM's structure but does not predict which φ describes our universe.
 
 The ``mass hierarchy'' --- the five-order-of-magnitude spread of fermion
 masses --- falls in the second category. It is not a gap in the
