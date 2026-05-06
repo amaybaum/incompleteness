@@ -15,15 +15,13 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern} (commented for xelatex build)
+% \usepackage{lmodern} (commented for build)
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
-  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
+\IfFileExists{XXmicrotype.sty}{% disabled by build pass
   \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
@@ -1553,11 +1551,18 @@ for the Higgs RGE running, \(\eta\) for the Jarlskog phase,
 predictions are stratified into four sub-classes reflecting their
 structural status:
 
-\emph{Class B-S (unconditional structural).} Four predictions are Layer
-0 or Layer 1 unconditional structural retrodictions:
+\emph{Class B-S (unconditional structural).} Six predictions are Layer 0
+or Layer 1 unconditional structural retrodictions:
 
 \begin{itemize}
 \tightlist
+\item
+  The Cabibbo angle \(\lambda = 1/(\pi\sqrt{2})\) ({[}SM §7.1{]}) ---
+  the chirality verification of the taste-changing vertex's spinor
+  structure is closed via Mason et al.~(HPQCD, hep-lat/0209152),
+  establishing that taste-changing transitions in staggered quarks have
+  spinor structure given by a combination of \(\gamma_\mu\) and
+  \(\gamma_{5\mu}\) (both chirality-preserving).
 \item
   The Wolfenstein parameter \(A = \sqrt{2/3}\) ({[}SM §7.1{]}).
 \item
@@ -1574,12 +1579,19 @@ structural status:
   \(1/4\) derived as the ratio \(2\pi/(8\pi)\) between the Euclidean KMS
   period and the Jacobson Einstein-equation prefactor ({[}GR §5{]}).
   Confirmed at 99.999\% by the GW250114 area-law observation.
+\item
+  The MOND critical acceleration \(a_0 = cH/6\) ({[}GR §7.3{]}) --- the
+  \(1/6\) geometric factor is closed via Verlinde 2016 (eq. 1.7) as
+  \((d-3)/[(d-2)(d-1)] = 1/6\) in \(d = 4\), with OI providing the
+  structural grounding (volume-law entropy mechanism derived from
+  condition C2 rather than postulated). Dependent predictions (baryonic
+  Tully-Fisher, crossover radius \(r_M\)) inherit B-S status.
 \end{itemize}
 
 Any of these moving outside \(3\sigma\) on precision upgrade falsifies
 the framework directly with no recoverable error mode.
 
-\emph{Class B-L (layered conditional, pending open derivations).} Six
+\emph{Class B-L (layered conditional, pending open derivations).} Three
 predictions follow from the structural form combined with one Layer-2
 substrate input or empirical input. Each has an explicit derivational
 gap whose closure would move the prediction to B-S:
@@ -1587,13 +1599,12 @@ gap whose closure would move the prediction to B-S:
 \begin{itemize}
 \tightlist
 \item
-  The Cabibbo angle \(\lambda = 1/(\pi\sqrt{2})\) ({[}SM §7.1{]})
-  pending the explicit chirality verification of the taste-changing
-  vertex's spinor structure.
-\item
   The mass ratio \(m_u/m_d = \sqrt{\theta_0} = \sqrt{2/9}\) ({[}SM
   §7.2{]}) pending the explicit derivation of the ``different channels''
-  mechanism producing the square root.
+  mechanism producing the square root, structurally analogous to the
+  open OI-vertex 1-loop derivation for \(K = 1/2\) ({[}SM §7.5{]}) in
+  being mixed-layer --- substratum cubic-group structure combined with
+  electroweak-symmetry-breaking emergent machinery.
 \item
   The mass ratio \(m_b/m_\tau = 4.28/Z_S\) ({[}SM §7.5{]}) pending the
   explicit OI-vertex 1-loop computation confirming \(K = 1/2\), together
@@ -1604,18 +1615,15 @@ gap whose closure would move the prediction to B-S:
   \(\cos^2\) symmetrization producing \(K = 1/2\) is
   dimension-independent and structurally robust; the four bridges are
   derivation gaps inherited by the other §7 mass-cluster predictions
-  that share the SχPT machinery.
+  that share the SχPT machinery. The closure path is the two-loop SχPT
+  calculation specializing Panagopoulos--Spanoudes 2017 to the OI
+  cubic-group setting.
 \item
   The PMNS predictions \(\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)\) and
   \(\sin^2\theta_{23} = 1/2 + 1/(2\pi^2)\) ({[}SM §7.3{]}) pending
   derivation of Cond 2 (the structural relation among \(A_2\) Wilson
   coefficients) from cubic-lattice Yukawa structure. The reactor angle
   \(\sin^2\theta_{13}\) is independent of Cond 2 and is in Class B-S.
-\item
-  The MOND critical acceleration \(a_0 = cH/6\) and dependent
-  predictions (baryonic Tully-Fisher, crossover radius \(r_M\)) ({[}GR
-  §7.3{]}) pending explicit derivation of the \(1/6\) geometric factor
-  from spherical redistribution in de Sitter.
 \end{itemize}
 
 Class B-L violations at \(3\sigma\) on precision upgrade are addressed
