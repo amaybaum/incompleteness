@@ -22,7 +22,7 @@
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{XXmicrotype.sty}{% disabled by build pass
-  \usepackage[]{microtype}
+  \usepackage[expansion=false,protrusion=false]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
@@ -66,7 +66,7 @@
 \begin{document}
 
 \hypertarget{ux210f-the-bekenstein-hawking-entropy-and-dynamical-dark-energy-from-the-cosmological-horizon}{%
-\section{ℏ, the Bekenstein-Hawking Entropy, and Dynamical Dark Energy
+\section{$\hbar$, the Bekenstein-Hawking Entropy, and Dynamical Dark Energy
 from the Cosmological
 Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-dynamical-dark-energy-from-the-cosmological-horizon}}
 
@@ -288,7 +288,7 @@ No laboratory process saturates the hidden sector. \textbf{Satisfied.}
 
 Lemma 1 is now a consequence of partition geometry: the horizon has
 finite area \(A = 4\pi c^2/H^2\), bounding coupled modes to
-\(A/\epsilon^2 < \infty\). The Part I theorem applies: the observer's
+\(A/\epsilon^2 < \in fty\). The Part I theorem applies: the observer's
 reduced description is P-indivisible and, by Barandes' correspondence,
 equivalent to unitary QM with \(\hbar\) determined by the partition
 boundary.
@@ -381,7 +381,7 @@ where \(\varphi_t^{VB}\) is the flow restricted to \(V \times B\) with
 \(D\) frozen. The \(d\)-sum then contributes \(|\mathcal{C}_D|\)
 identical terms at leading order:
 
-\[T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|} \sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]}_{T^{(B)}_{ij}(t)} + \mathcal{O}(t/\tau_B) \qquad \square\]
+\[T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|} \sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]}_{T^{(B)ij}(t)} + \mathcal{O}(t/\tau_B) \qquad \square\]
 
 The correction is \(\mathcal{O}(t/\tau_B) \sim 10^{-32}\) for laboratory
 processes. Since \(T_{ij}(t)\) determines the emergent quantum
@@ -711,7 +711,7 @@ emergent Hilbert space decomposes as
 QFT with UV cutoff at \(\epsilon = 2\,l_p\). The tensor product
 structure follows from the spatial product structure of the classical
 configuration space
-\(\mathcal{C}_V = \mathcal{C}_1 \times \cdots \times \mathcal{C}_N\)
+\(\mathcal{C}_V = \mathcal{C}_1 \times \cdot s \times \mathcal{C}_N\)
 (one factor per cell), which is not required by Lemma 1 but is a
 consequence of spatial locality in the classical substratum: each cell's
 configuration is a local degree of freedom.
@@ -819,7 +819,7 @@ by partition geometry rather than treated as a free parameter (§3.2);
 (4) the dark-sector concordance --- \textasciitilde95\% of
 \(\rho_{\text{crit}}\) is invisible to QFT, matching the observed dark
 sector (§7.2); (5) dark energy in running-vacuum form, favoured by DESI
-DR2 at 2.8--4.2σ and consistent at \(2\sigma\) with the Bertini et
+DR2 at 2.8--4.$2\sigma$ and consistent at \(2\sigma\) with the Bertini et
 al.~(2025) direct RG-corrected \(\Lambda\)CDM fit (structurally
 equivalent to the framework's Type II prediction at leading order) ---
 Bertini being itself consistent with zero, matching the framework's
@@ -965,7 +965,7 @@ determine are:
 \textbf{Magnitude at theorem level.} The self-consistent emergent-QFT
 calculation gives the \(H^2\) coefficient directly. In OI the matter
 fields and the curved-spacetime background are both emergent from the
-classical discrete substratum; the Shapiro-Solà β-function formula
+classical discrete substratum; the Shapiro-Solà $\beta$-function formula
 {[}33, 34{]} for the vacuum-energy running coefficient
 
 \[\nu = \frac{1}{48\pi^2}\sum_i a_i \frac{M_i^2}{M_{\rm Pl}^2}\]
@@ -1259,7 +1259,7 @@ universe (\(d = 4\)):
 
 This is the MOND critical acceleration --- derived, not fitted.
 (Milgrom's empirical value:
-\(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/s².) The factor 1/6
+\(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/$s^{2}$.) The factor 1/6
 thus has dimensional origin: it is structurally fixed by \(d = 4\)
 together with the volume-vs-area entropy interplay.
 
@@ -1352,9 +1352,9 @@ Keplerian-like rotation curves. Since \(r_M\) shrinks with increasing
 
 This prediction is borne out by the data. Genzel et al.~{[}23, 24{]}
 report stacked rotation curves for massive star-forming galaxies at
-\(z = 0.9\text{–}2.4\) showing a declining outer velocity at
+\(z = 0.9\text{--}2.4\) showing a declining outer velocity at
 \(> 3\sigma\) significance relative to local spirals --- consistent with
-the OI prediction. In ΛCDM, flat rotation curves from NFW halos are
+the OI prediction. In $\Lambda CDM$, flat rotation curves from NFW halos are
 expected at all redshifts; explaining the Genzel data requires
 anomalously low halo concentrations or baryon-dominated inner regions.
 The cleanest local test is Jiao et al.~{[}25{]}, who detect for the
@@ -1374,7 +1374,7 @@ evolution in the Tully-Fisher relation out to \(z \sim 2.5\), seemingly
 contradicting \(v^4 \propto H(z)\). However, this comparison uses
 \emph{stellar} mass \(M_*\), not baryonic mass
 \(M_B = M_*/(1-f_{\text{gas}})\). At high redshift, gas fractions are
-large (\(f_{\text{gas}} \sim 50\text{–}70\%\) at \(z \sim 2\); Tacconi
+large (\(f_{\text{gas}} \sim 50\text{--}70\%\) at \(z \sim 2\); Tacconi
 et al.~2018). The OI-predicted shift in the baryonic TF
 (\(\Delta\log M_B = \log(H_0/H(z)) = -0.48\) dex at \(z = 2\)) is almost
 exactly compensated by the gas mass not included in \(M_*\): the
@@ -1429,12 +1429,12 @@ tests:
   set by measurement uncertainties --- and the \emph{intrinsic} scatter
   does not correlate with halo properties. Current SPARC data {[}22{]}
   show remarkably small RAR scatter (\(\sim 0.13\) dex), consistent with
-  OI but requiring fine-tuning in ΛCDM.
+  OI but requiring fine-tuning in $\Lambda CDM$.
 \end{enumerate}
 
 \textbf{Falsifiability.} The entropy displacement account would be
 falsified by: (a) detection of dark matter particles accounting for
-\$\sim\$27\% of \(\rho_{\text{crit}}\); (b) high-redshift rotation
+$\sim$\$27\% of \(\rho_{\text{crit}}\); (b) high-redshift rotation
 curves inconsistent with the predicted \(H(z)\) dependence ---
 specifically, if galaxies at \(z > 2\) show flat rotation curves at
 \(r > r_M(z)\); (c) baryonic Tully-Fisher violations exceeding baryonic
@@ -1493,7 +1493,7 @@ dark matter predicts no such relaxation.
 
 \textbf{CMB acoustic peaks.} The CMB power spectrum provides the most
 precise test of the dark matter paradigm: the odd/even peak height
-asymmetry requires a non-oscillating gravitational source (CDM in ΛCDM)
+asymmetry requires a non-oscillating gravitational source (CDM in $\Lambda CDM$)
 that provides potential wells for the photon-baryon fluid to oscillate
 in. The entropy displacement satisfies this requirement through the same
 thermodynamic averaging that resolves the Bullet Cluster. The Clausius
@@ -1517,7 +1517,7 @@ has the same source term as CDM. The CMB power spectrum --- which
 depends on \(\Omega_b/\Omega_m\) (peak ratios), the growth of
 perturbations before recombination (peak heights), the sound horizon
 \(r_s\) (peak positions), and the damping scale (high-\(\ell\)
-suppression) --- is therefore predicted to match ΛCDM at linear order. A
+suppression) --- is therefore predicted to match $\Lambda CDM$ at linear order. A
 direct CLASS comparison (2026-04-26) confirms this: with the framework's
 Type II RVM at \(\nu = 10^{-4}\) (the Bertini 2025 1\(\sigma\) high end)
 encoded via CLASS's CLP fluid dark-energy module, the four acoustic peak
@@ -1558,7 +1558,7 @@ Match
 \bottomrule\noalign{}
 \endlastfoot
 Emergent action scale & \(\hbar = c^3 (2 l_p)^2 / (4G)\) &
-\(\hbar_{\text{obs}} = 1.055 \times 10^{-34}\) J·s & structural \\
+\(\hbar_{\text{obs}} = 1.055 \times 10^{-34}\) J$\cdot$s & structural \\
 Discreteness scale & \(\epsilon = 2\,l_p\) & Planck length &
 structural \\
 BH entropy coefficient & \(S_{BH} = A / (4 l_p^2)\) & GW250114 area law
@@ -1572,7 +1572,7 @@ consistent at \(2\sigma\) (Bertini consistent with zero) \\
 Dark sector fraction & \(\Omega_{\text{dark}} \approx 95\%\) &
 \(\Omega_{\text{CDM}} + \Omega_\Lambda \approx 95\%\) & consistent \\
 MOND acceleration scale & \(a_0 = cH/6 \approx 1.2 \times 10^{-10}\)
-m/s² & \(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/s² & exact \\
+m/$s^{2}$ & \(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/$s^{2}$ & exact \\
 Baryonic Tully-Fisher & \(v^4 = G M_B \cdot cH/6\) & SPARC data & within
 \(0.13\) dex RAR scatter \\
 Rotation curve crossover & \(r_M = \sqrt{6 G M_B/(cH)}\) & Milky Way:
@@ -1626,7 +1626,7 @@ same \((S, \varphi)\) are developed in {[}Substratum{]}.
 
 The characterization theorem is a full equivalence: QM \(\iff\) embedded
 observation under (C1)--(C3), conditional on the hidden sector
-satisfying the eigenstate thermalization hypothesis (ETH) for the C2 ⇐
+satisfying the eigenstate thermalization hypothesis (ETH) for the C2 $\Leftarrow$
 direction (see {[}Main, §3.4{]}). The C1 and C3 necessity directions are
 unconditional. For the cosmological horizon application, ETH holds for
 any generic chaotic hidden sector --- the horizon complement is such a
@@ -2343,7 +2343,7 @@ A} \textbf{380}, 20210182 (2022).
 
 {[}11{]} J. Solà Peracaula, A. Gómez-Valent, J. de Cruz Pérez, and C.
 Moreno-Pulido, ``Running Vacuum in the Universe: Phenomenological Status
-in Light of the Latest Observations, and Its Impact on the σ₈ and H₀
+in Light of the Latest Observations, and Its Impact on the $\sigma_{8}$ and $H_{0}$
 Tensions,'' \emph{Universe} \textbf{9}, 262 (2023); arXiv:2304.11157.
 
 {[}12{]} DESI Collaboration, ``DESI 2024 VI: Cosmological Constraints
@@ -2358,11 +2358,11 @@ Rev.~D} \textbf{112}, 083515 (2025); arXiv:2503.14738.
 arXiv:2512.20616 (2025).
 
 {[}15{]} N. R. Bertini, M. H. Novaes, R. von Marttens, and I. L.
-Shapiro, ``Renormalization group corrections to ΛCDM model and
-observational consequences for H₀ tension,'' arXiv:2509.24026 (2025).
+Shapiro, ``Renormalization group corrections to $\Lambda CDM$ model and
+observational consequences for $H_{0}$ tension,'' arXiv:2509.24026 (2025).
 
 {[}16{]} A. Gómez-Valent and J. Solà Peracaula, ``Relaxing the
-σ₈-tension through running vacuum in the Universe,'' \emph{Mon. Not.
+$\sigma_{8}$-tension through running vacuum in the Universe,'' \emph{Mon. Not.
 Roy. Astron. Soc.} \textbf{478}, 126--145 (2018); arXiv:1801.08501.
 
 {[}17{]} DESI Collaboration: W. Elbers et al., ``Constraints on Neutrino
@@ -2430,7 +2430,7 @@ cosmological constant: interface between quantum field theory and
 cosmology,'' \emph{JHEP} \textbf{02}, 006 (2002); arXiv:hep-th/0012227.
 
 {[}34{]} C. Moreno-Pulido and J. Solà Peracaula, ``Running vacuum in QFT
-in FLRW spacetime: the dynamics of ρ\_vac(H) from the quantized matter
+in FLRW spacetime: the dynamics of $\rho$\_vac(H) from the quantized matter
 fields,'' \emph{Eur. Phys. J. C} \textbf{83}, 637 (2023);
 arXiv:2302.04807.
 
