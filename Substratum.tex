@@ -22,7 +22,7 @@
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{XXmicrotype.sty}{% disabled by build pass
-  \usepackage[]{microtype}
+  \usepackage[expansion=false,protrusion=false]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
@@ -283,11 +283,11 @@ develops the structural and explanatory consequences; {[}SM{]} and
 
 \hypertarget{the-physical-interpretation-of-s-ux3c6}{%
 \subsection{2. The Physical Interpretation of (S,
-φ)}\label{the-physical-interpretation-of-s-ux3c6}}
+$\phi$)}\label{the-physical-interpretation-of-s-ux3c6}}
 
 \textbf{Storage and memory.} S is the set of all distinguishable states:
-\emph{finite capacity}. φ is a bijection: \emph{perfect memory} ---
-information is never created or destroyed. Together, (S, φ) is a finite
+\emph{finite capacity}. $\phi$ is a bijection: \emph{perfect memory} ---
+information is never created or destroyed. Together, (S, $\phi$) is a finite
 lossless memory. The partition V defines the observer's \emph{access}
 --- both read and write. The observer reads the visible sector
 (measuring x) and writes to the hidden sector (each visible-sector
@@ -306,7 +306,7 @@ and partially cancels or reinforces the transition probabilities.
 The \(10^{122}\) CC discrepancy is the compression ratio between total
 storage and readable storage. The dark sector is the gravitational
 effect of the unreadable storage. The Bekenstein-Hawking entropy is the
-storage capacity of the partition boundary. The action scale ℏ is the
+storage capacity of the partition boundary. The action scale $\hbar$ is the
 conversion factor between storage geometry and read-write statistics.
 
 \textbf{Remark (the domain of the substratum dynamics).} The wave
@@ -329,26 +329,26 @@ equation is therefore the common dynamical input to all three companion
 papers, with each applying a different projection map to extract
 observer-level physics.
 
-\textbf{The substrate objection.} ``What is the memory made of?'' (S, φ)
+\textbf{The substrate objection.} ``What is the memory made of?'' (S, $\phi$)
 is a \emph{complete description} of reality --- it determines all
-observables. Space, time, matter, and energy are derived from (S, φ), so
-they cannot appear in its definition without circularity. Whether (S, φ)
+observables. Space, time, matter, and energy are derived from (S, $\phi$), so
+they cannot appear in its definition without circularity. Whether (S, $\phi$)
 \emph{is} reality or \emph{describes} reality is provably undecidable by
 any measurement (reconstruction theorem below).
 
 \textbf{Relation to computation.} A Turing machine has a tape (storage),
 a head (partial read/write access), and a transition function (update
 rule). The correspondence is suggestive: S is the tape, V is the head's
-access window, φ is the transition function. But three differences are
+access window, $\phi$ is the transition function. But three differences are
 physically significant. First, a Turing machine's tape is potentially
 infinite; S is finite --- finiteness is essential for the recurrence
 proof of P-indivisibility and QM, though the effective finiteness result
 ({[}GR, §8.4{]}) shows the deep hidden sector may be infinite without
 affecting the observable physics. Second, a Turing machine is generally
-irreversible (it can erase, overwrite, and halt); φ is a bijection ---
+irreversible (it can erase, overwrite, and halt); $\phi$ is a bijection ---
 nothing is erased, nothing is created, there is no halting. Third, a
-Turing machine computes an \emph{extrinsic function} (input → output for
-an external user); (S, φ) computes no extrinsic function --- it is a
+Turing machine computes an \emph{extrinsic function} (input $\to$ output for
+an external user); (S, $\phi$) computes no extrinsic function --- it is a
 closed permutation that cycles through states and returns. The
 appearance of dynamics, probability, particles, and forces is entirely
 the observer's perspective --- what the permutation looks like through
@@ -363,14 +363,14 @@ difference is a specialization, not an opposition: reversible Turing
 machines (Bennett, Fredkin-Toffoli) are a well-studied subclass. The
 third difference --- extrinsic vs.~intrinsic --- is the one that does
 physical work. The mapping is then structural: V is the head, H is the
-tape, φ is a reversible transition function, and C1--C3 characterize the
+tape, $\phi$ is a reversible transition function, and C1--C3 characterize the
 architecture. The framework extends Turing's question: instead of asking
 what a machine can compute for an external observer, it asks what
 computation looks like to a component of the machine --- and proves the
 answer is quantum mechanics.
 
-\textbf{The arrow of time.} The substratum has no arrow of time --- φ
-and φ⁻¹ are equally valid. Observers satisfying C1--C3 are nonetheless
+\textbf{The arrow of time.} The substratum has no arrow of time --- $\phi$
+and $\phi^{-1}$ are equally valid. Observers satisfying C1--C3 are nonetheless
 structurally restricted to the non-equilibrium phase of
 \((S, \varphi)\): the theorem in {[}Main, §4.6{]} shows that
 \(\tau_B(V)\) is bounded by the local mixing time on equilibrium
@@ -503,25 +503,25 @@ following prior theorems, whose individual correctness is assumed:
 \tightlist
 \item
   {[}Main §2.3{]} P-indivisibility of the marginalized stochastic
-  process (Bell violations → P-indivisibility)
+  process (Bell violations $\to$ P-indivisibility)
 \item
-  {[}Main §3.2{]} Forward Stinespring dilation (bijection → CPTP
-  channel) and reverse-direction lemma (stochastic process → bijection)
+  {[}Main §3.2{]} Forward Stinespring dilation (bijection $\to$ CPTP
+  channel) and reverse-direction lemma (stochastic process $\to$ bijection)
 \item
-  {[}Main §3.4{]} Characterization theorem (Bell violation ⇒ C1, QM ⇒ C2
+  {[}Main §3.4{]} Characterization theorem (Bell violation $\Rightarrow$ C1, QM $\Rightarrow$ C2
   + C3, conditional on ETH for C2)
 \item
-  {[}SM §3.2{]} Coupling-graph dimension → d = 3
+  {[}SM §3.2{]} Coupling-graph dimension $\to$ d = 3
 \item
-  {[}SM §4.1{]} Center independence + isotropy + linearity → wave
+  {[}SM §4.1{]} Center independence + isotropy + linearity $\to$ wave
   equation
 \item
   {[}SM Theorems 5--15{]} Gauge group, generations, hypercharges
   derivation chain
 \item
-  {[}SM Theorems 17--21{]} T-invariance → \(\bar\theta = 0\)
+  {[}SM Theorems 17--21{]} T-invariance $\to$ \(\bar\theta = 0\)
 \item
-  {[}GR §3{]} Gap equation from thermal self-consistency →
+  {[}GR §3{]} Gap equation from thermal self-consistency $\to$
   \(\hbar = c^3 \epsilon^2 / (4G)\)
 \end{itemize}
 
@@ -529,7 +529,7 @@ Theorem 23's confidence is bounded above by the minimum confidence in
 these dependencies.
 
 \hypertarget{stage-1-observed-qm-deterministic-embedding-with-c1c3}{%
-\subsubsection{3.2 Stage 1: Observed QM → deterministic embedding with
+\subsubsection{3.2 Stage 1: Observed QM $\to$ deterministic embedding with
 C1--C3}\label{stage-1-observed-qm-deterministic-embedding-with-c1c3}}
 
 \textbf{Inputs:} E1 (unitary QM), E2 (Bell violations), E3 (finite
@@ -582,7 +582,7 @@ observations unchanged (generator (iii) of
 \textbf{Status:} Theorem.
 
 \hypertarget{stage-2-embedding-isotropy-specific-lattice-gauge-structure}{%
-\subsubsection{3.3 Stage 2: Embedding + isotropy → specific lattice +
+\subsubsection{3.3 Stage 2: Embedding + isotropy $\to$ specific lattice +
 gauge
 structure}\label{stage-2-embedding-isotropy-specific-lattice-gauge-structure}}
 
@@ -648,7 +648,7 @@ unique selections, so the output is unique up to
 \textbf{Status:} Theorem at the lattice level.
 
 \hypertarget{stage-3-dynamics-emergent-fundamental-constants}{%
-\subsubsection{3.4 Stage 3: Dynamics → emergent fundamental
+\subsubsection{3.4 Stage 3: Dynamics $\to$ emergent fundamental
 constants}\label{stage-3-dynamics-emergent-fundamental-constants}}
 
 \textbf{Inputs:} Stage 2 output.
@@ -852,7 +852,7 @@ against data.
 
 The reconstruction establishes a bidirectional correspondence:
 
-\[\text{Observed physics (E1–E4)} \; + \; \text{Structural assumptions (A1–A6)} \quad \longleftrightarrow \quad [(S, \varphi)] / \mathcal{G}_{\text{sub}}\]
+\[\text{Observed physics (E1--E4)} \; + \; \text{Structural assumptions (A1--A6)} \quad \longleftrightarrow \quad [(S, \varphi)] / \mathcal{G}_{\text{sub}}\]
 
 The mathematical structure and the physics determine each other up to
 gauge equivalence, given the structural assumptions. The distinction
@@ -1004,7 +1004,7 @@ the standard sense, derived from the substratum through the trace-out.
 
 \hypertarget{synthesis-three-projections-of-s-ux3c6}{%
 \subsection{5. Synthesis: Three Projections of (S,
-φ)}\label{synthesis-three-projections-of-s-ux3c6}}
+$\phi$)}\label{synthesis-three-projections-of-s-ux3c6}}
 
 The reconstruction theorem (§3) establishes that observed physics ---
 quantum mechanics with Bell violations, finite boundary entropy, and
@@ -1076,7 +1076,7 @@ cancellation ({[}GR, §6{]}). The framework predicts dynamical dark
 energy in Type II running-vacuum functional form as a structural
 prediction (magnitude not derived at theorem level), consistent with the
 Bertini et al.~(2025) direct DESI-DR2-era fit at \(2\sigma\) (which is
-consistent with the ΛCDM limit); a \textasciitilde{}\(95\%\) dark sector
+consistent with the $\Lambda CDM$ limit); a \textasciitilde{}\(95\%\) dark sector
 corollary as a structural feature rather than a new particle species;
 and a MOND acceleration scale \(a_0 = cH/6\) from entropy displacement
 at the boundary ({[}GR, §7{]}).
@@ -1401,10 +1401,10 @@ reconstruction theorem.
 \subsubsection{6.2 The ontological
 hierarchy}\label{the-ontological-hierarchy}}
 
-The triple (S, φ, V) generates every concept in fundamental physics, not
+The triple (S, $\phi$, V) generates every concept in fundamental physics, not
 as independent substances but as different aspects of the same
-structure. \textbf{Space} is the coupling structure of φ --- the graph
-G\_φ determined by which degrees of freedom affect which others ({[}SM,
+structure. \textbf{Space} is the coupling structure of $\phi$ --- the graph
+G\_$\phi$ determined by which degrees of freedom affect which others ({[}SM,
 §2.4{]}). \textbf{Matter} is the state --- localized patterns that
 propagate through the coupling graph. \textbf{Energy} is the rate of
 change under iteration. \textbf{Time} is the iteration itself.
@@ -1413,7 +1413,7 @@ the visible sector. \textbf{General relativity} is the thermodynamic
 limit of the coupling structure. \textbf{Conservation laws} are
 emergent: energy conservation (Noether) is what information conservation
 (bijectivity) looks like in the emergent quantum description. None of
-these are independent entities; they are descriptions of (S, φ, V) at
+these are independent entities; they are descriptions of (S, $\phi$, V) at
 different scales.
 
 \hypertarget{the-measurement-problem}{%
@@ -1421,14 +1421,14 @@ different scales.
 problem}\label{the-measurement-problem}}
 
 On the structural reading, the measurement problem is dissolved. The
-wave function is not a component of (S, φ, V) --- it is a derived
+wave function is not a component of (S, $\phi$, V) --- it is a derived
 object. Since it is derived, not fundamental, asking ``does it
 collapse?'' is asking about the behavior of a compression artifact. In
 the double-slit experiment, the particle traverses a single slit in the
 deterministic substratum. In Wigner's friend, the Friend has a definite
 outcome; Wigner's superposition reflects his epistemic deficit.
 
-Branching is forbidden by the rigidity of φ. A fixed bijection on a
+Branching is forbidden by the rigidity of $\phi$. A fixed bijection on a
 finite set has exactly one trajectory from any initial state. There is
 no point at which the trajectory splits. The appearance of branching in
 the emergent quantum description reflects the observer's uncertainty
@@ -1436,7 +1436,7 @@ about which trajectory they are on (because they cannot see the hidden
 sector), not a physical splitting of worlds.
 
 Non-locality in Bell correlations is explained by the coupling graph
-G\_φ. Two visible sites prepared in a joint state (entangled) have
+G\_$\phi$. Two visible sites prepared in a joint state (entangled) have
 correlated hidden-sector configurations --- a consequence of the joint
 P-indivisible dynamics at preparation {[}Main, §3.3{]}. The correlations
 are mediated by the coupling graph, not by any superluminal influence.
@@ -1480,7 +1480,7 @@ reconstruction if violated.
   exclude experimental systematics, falsifies the framework's
   T-symmetric substrate commitment.
 \item
-  \emph{Gauge group SU(3) × SU(2) × U(1) exactly.} Any observation of a
+  \emph{Gauge group SU(3) $\times$ SU(2) $\times$ U(1) exactly.} Any observation of a
   stable beyond-Standard-Model gauge structure --- an additional \(Z'\)
   interpretable as a new gauge boson rather than a composite resonance,
   stable exotic matter transforming under a novel gauge group, or any
@@ -1608,14 +1608,14 @@ gap whose closure would move the prediction to B-S:
 \item
   The mass ratio \(m_b/m_\tau = 4.28/Z_S\) ({[}SM §7.5{]}) pending the
   explicit OI-vertex 1-loop computation confirming \(K = 1/2\), together
-  with four bridge gaps in the SχPT inheritance ({[}SM §7.5{]}): the
-  substratum measure reduction under Theorem 2, the 3D MC vs 4D SχPT
+  with four bridge gaps in the $S\chi PT$ inheritance ({[}SM §7.5{]}): the
+  substratum measure reduction under Theorem 2, the 3D MC vs 4D $S\chi PT$
   dimensional bridge, the 3D BZ vs 4D Dirac taste-structure equivalence,
   and the 3D vs 4D parity identification of chirality. The per-vertex
   \(\cos^2\) symmetrization producing \(K = 1/2\) is
   dimension-independent and structurally robust; the four bridges are
   derivation gaps inherited by the other §7 mass-cluster predictions
-  that share the SχPT machinery. The closure path is the two-loop SχPT
+  that share the $S\chi PT$ machinery. The closure path is the two-loop $S\chi PT$
   calculation specializing Panagopoulos--Spanoudes 2017 to the OI
   cubic-group setting.
 \item
@@ -1681,7 +1681,7 @@ unconditional structural} (B-S), \textbf{6 are layered conditional
 pending open derivations} (B-L), \textbf{2 are mass-chain inheritances}
 (B-M), and \textbf{2 are retrodictions} (B-R). Total 14 predictions in
 Class B. The empirical match holds for all 14 within \textasciitilde1\%
-or \textasciitilde1σ.
+or $\sim 1\sigma$.
 
 The current status of each is documented in the SM and GR companion
 papers with experimental references. As experimental precision improves,
@@ -1900,7 +1900,7 @@ Phys. D} \textbf{26}, 1743013 (2017).
 {[}SM{]} A. Maybaum, ``The Standard Model from a Cubic Lattice,''
 (2026).
 
-{[}GR{]} A. Maybaum, ``ℏ, the Bekenstein-Hawking Entropy, and Dynamical
+{[}GR{]} A. Maybaum, ``$\hbar$, the Bekenstein-Hawking Entropy, and Dynamical
 Dark Energy from the Cosmological Horizon,'' (2026).
 
 \end{document}
