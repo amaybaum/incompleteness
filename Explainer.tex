@@ -15,10 +15,9 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
+% \usepackage{lmodern} (commented for build)
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
-  \setmonofont[]{DejaVu Sans Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -1019,7 +1018,7 @@ of c, G, and $\epsilon$ with dimensions of action:
 
 \[[\hbar] = \frac{[c]^3 \, [\epsilon]^2}{[G]} = \text{kg$\cdot$m}^2/\text{s} \quad \checkmark\]
 
-So $\hbar = \beta c^{3} \epsilon^{2}/G$, where $\beta$ is a dimensionless constant that dimensional
+So $\hbar$ = $\beta c^{3}\epsilon^{2}/G$, where $\beta$ is a dimensionless constant that dimensional
 analysis alone can't fix.
 
 \textbf{Step 4 (Thermal self-consistency).} We have two independent
@@ -1777,6 +1776,46 @@ pre-collision configuration --- centered on the galaxies, not the
 recently displaced gas. The observed lensing morphology follows without
 collisionless particles (see \emph{Cluster scales and the Bullet
 Cluster} above).
+
+\textbf{``How does this relate to recent mainstream work on observers in
+physics?''} A substantial body of work since 2022 has independently
+arrived at the foundational claim that observation cannot be treated as
+external to physics --- the same starting point as this framework,
+reached by different routes. Chandrasekaran, Longo, Penington, and
+Witten (CLPW, 2022) showed that adding an observer to quantum field
+theory in a gravitational subregion produces a finite well-defined
+entropy where previously there was none. Maldacena (2024) showed that an
+unphysical phase in the de Sitter partition function --- long understood
+to obstruct a clean thermodynamic interpretation of the cosmological
+horizon --- cancels exactly when an observer with a clock is properly
+incorporated. Harlow, Usatyuk, and Zhao (2025) and the AAIL construction
+(2025) showed that the dimension of the Hilbert space of quantum gravity
+in a closed universe is determined by the observer's degrees of freedom
+rather than being an independent parameter. Slagle and Preskill (2022)
+explicitly constructed a model in which quantum mechanics emerges at the
+boundary of a classical lattice with stochastic dynamics in an extra
+spatial dimension --- a logical demonstration that QM-from-classical is
+achievable.
+
+The framework here converges with these programs on the foundational
+substance --- observation matters; the algebra of observables depends on
+the observer; the partition between observer and observed is physically
+meaningful --- while reaching that conclusion through a different route.
+CLPW, Maldacena, and HUZ all add observer degrees of freedom \emph{to}
+an existing quantum-gravitational formalism. The framework here goes the
+other direction: it starts with a deterministic substratum and a
+partition (the observer and the rest), and derives both quantum
+mechanics and the gravitational sector as consequences of that
+structural setup. There is no extra spatial dimension as in
+Slagle-Preskill, and no fundamental stochasticity. The substratum is
+finite and deterministic; the observer's incomplete access to it is what
+produces the appearance of quantum behavior. Among emergent-QM programs
+the framework is distinguished by carrying twenty-two structural
+quantitative predictions to data --- a comparable empirical record is
+not currently produced by the alternatives. The convergence on
+observer-essentiality from many independent directions is encouraging
+context; the framework's empirical record is what makes the case
+specifically for this realization.
 
 \textbf{``Why does gravity `see' the classical vacuum energy and not the
 quantum one?''} Because the spacetime metric exists at the classical
@@ -2973,7 +3012,7 @@ C2 $\checkmark$, C3 $\checkmark$ \\
 Partition-relativity \\
 §5.2 Step 2: Boundary-only & $\hbar$ depends only on c, G, $\epsilon$ & Deep sector
 frozen \\
-§5.2 Step 3: Dimensional analysis & $\hbar = \beta c^{3} \epsilon^{2}/G$ & Unique combination \\
+§5.2 Step 3: Dimensional analysis & $\hbar$ = $\beta c^{3}\epsilon^{2}/G$ & Unique combination \\
 §5.2 Step 4: Thermal matching & T\_cl = T\_Q fixes $\beta$ = 1/4 & $\hbar$ =
 $c^{3}\epsilon^{2}/(4G)$ \\
 §5.3: D-gauge theorem & No phase ambiguity & Double-difference
