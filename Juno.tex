@@ -21,8 +21,8 @@
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{XXmicrotype.sty}{% use microtype if available
-  \usepackage[]{microtype}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[expansion=false,protrusion=false]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
@@ -81,23 +81,22 @@ Neutrino Phenomenology
 \hypertarget{abstract}{%
 \subsection{Abstract}\label{abstract}}
 
-We derive the parameter-free prediction $\sin^{2}\theta_{12}$ = 1/3 $-$ 1/($4\pi^{2}$) =
-0.3080 from cubic-group flavor structure, with no parameter fit to the
-value of $\sin^{2}\theta_{12}$. The first JUNO measurement of reactor neutrino
-oscillations reports $\sin^{2}\theta_{12}$ = 0.3092 ± 0.0087, with the post-JUNO
-global fit tightening this to $\sin^{2}\theta_{12}$ = 0.3085 ± 0.0073, matching the
-prediction at 0.$07\sigma$. The same construction gives
-$\sin^{2}\theta_{13}$ = 4/($18\pi^{2}$) = 0.02252 and $\sin^{2}\theta_{23}$ = 1/2 + 1/($2\pi^{2}$) = 0.5507, each
-consistent with NuFIT 6.0 {[}14{]} within 1.$1\sigma$, and forces the exact
-sum rule 2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$ = 7/6 --- a clean discriminator from the
-TM1 and TM2 patterns currently analyzed against JUNO. The angle
-predictions follow from a discrete $\mu$-$\tau$ parity together with one
-cubic-group structural relation between the U-even and U-odd
-components of the second-order perturbation. The Cabibbo angle
-$\lambda$ = 1/($\pi\sqrt{2}$) = 0.22508, set by the cubic Brillouin-zone geometry, sets
-the perturbation scale and matches the observed value to 0.04\%.
-JUNO's design-lifetime precision of ±0.0014 will test the prediction
-at sub-percent level.
+We derive the parameter-free prediction $\sin^{2}\theta_{12}$ = 1/3 $-$ 1/($4\pi^{2}$) = 0.3080
+from cubic-group flavor structure, with no parameter fit to the value of
+$\sin^{2}\theta_{12}$. The first JUNO measurement of reactor neutrino oscillations
+reports $\sin^{2}\theta_{12}$ = 0.3092 $\pm$ 0.0087, with the post-JUNO global fit
+tightening this to $\sin^{2}\theta_{12}$ = 0.3085 $\pm$ 0.0073, matching the prediction at
+0.$07\sigma$. The same construction gives $\sin^{2}\theta_{13}$ = 4/($18\pi^{2}$) = 0.02252 and
+$\sin^{2}\theta_{23}$ = 1/2 + 1/($2\pi^{2}$) = 0.5507, each consistent with NuFIT 6.0
+{[}14{]} within 1.$1\sigma$, and forces the exact sum rule 2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$ =
+7/6 --- a clean discriminator from the TM1 and TM2 patterns currently
+analyzed against JUNO. The angle predictions follow from a discrete $\mu$-$\tau$
+parity together with one cubic-group structural relation between the
+U-even and U-odd components of the second-order perturbation. The
+Cabibbo angle $\lambda$ = 1/($\pi\sqrt{2}$) = 0.22508, set by the cubic Brillouin-zone
+geometry, sets the perturbation scale and matches the observed value to
+0.04\%. JUNO's design-lifetime precision of $\pm$0.0014 will test the
+prediction at sub-percent level.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -107,14 +106,15 @@ at sub-percent level.
 \hypertarget{the-result}{%
 \subsubsection{1.1 The result}\label{the-result}}
 
-The first JUNO measurement of reactor neutrino oscillations {[}7{]} reports
+The first JUNO measurement of reactor neutrino oscillations {[}7{]}
+reports
 
-\textbf{$\sin^{2}\theta_{12}$ = 0.3092 ± 0.0087}
+\textbf{$\sin^{2}\theta_{12}$ = 0.3092 $\pm$ 0.0087}
 
 from 59.1 days of data. The post-JUNO global fit of Capozzi \emph{et
 al.} {[}8{]} tightens this to
 
-\textbf{$\sin^{2}\theta_{12}$ = 0.3085 ± 0.0073}.
+\textbf{$\sin^{2}\theta_{12}$ = 0.3085 $\pm$ 0.0073}.
 
 We show that taking the cubic point group O --- the rotation symmetry
 group of three-dimensional space --- as the underlying flavor structure
@@ -124,7 +124,8 @@ of the lepton sector yields the prediction
 
 matching the post-JUNO global fit at \textbf{0.$07\sigma$} with no parameter
 fit to $\sin^{2}\theta_{12}$. The same construction predicts $\sin^{2}\theta_{13}$ and $\sin^{2}\theta_{23}$
-within 1.$1\sigma$ of the NuFIT 6.0 {[}14{]} best fits and forces the exact sum rule
+within 1.$1\sigma$ of the NuFIT 6.0 best fits {[}14{]} and forces the exact sum
+rule
 
 \textbf{2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$ = 7/6}
 
@@ -143,8 +144,8 @@ The structure is constrained by two ingredients. First, the perturbation
 scale $\lambda^{2}$ = 1/($2\pi^{2}$) is not a fitted parameter: it is the squared Cabibbo
 angle, fixed by a single cubic Brillouin-zone distance (Sec. 2.2).
 Numerically $\lambda$ = 1/($\pi\sqrt{2}$) = 0.22508, agreeing with the observed Cabibbo
-value 0.22500 ± 0.00067 {[}13{]} to 0.04\%. Second, the deviations
-from tribimaximal (TBM) mixing at O($\lambda^{2}$) are controlled by a discrete $\mu$-$\tau$
+value 0.22500 $\pm$ 0.00067 {[}13{]} to 0.04\%. Second, the deviations from
+tribimaximal (TBM) mixing at O($\lambda^{2}$) are controlled by a discrete $\mu$-$\tau$
 parity (the U-parity of $S_{4}\supset A_{4}$) together with one cubic-group
 structural relation between the U-even and U-odd components of the
 second-order perturbation (Sec. 3.4). The structural relation fixes the
@@ -169,13 +170,13 @@ relations rather than fitted parameters.
 
 The cubic-group structure used here is not a postulated flavor symmetry.
 It is the rotation symmetry group of three-dimensional space, realized
-in a lattice-based framework {[}18{]} in which the simple
-cubic Bravais lattice in d=3 is shown to be the unique three-dimensional
-Bravais lattice consistent with the SU(3) $\times$ SU(2) $\times$ U(1) gauge structure
-and the observed Cabibbo angle (Theorem 7b). The same cubic structure
-that produces the 1/($4\pi^{2}$) correction here also produces a number of
-related quantitative predictions across the flavor sector, all
-empirically tested:
+in a lattice-based framework {[}18{]} in which the simple cubic Bravais
+lattice in d=3 is shown to be the unique three-dimensional Bravais
+lattice consistent with the SU(3) $\times$ SU(2) $\times$ U(1) gauge structure and the
+observed Cabibbo angle (Theorem 7b). The same cubic structure that
+produces the 1/($4\pi^{2}$) correction here also produces a number of related
+quantitative predictions across the flavor sector, all empirically
+tested:
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
@@ -196,29 +197,55 @@ Match
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Cabibbo angle $\lambda$ & 1/($\pi\sqrt{2}$) = 0.22508 & 0.22500 ± 0.00067 {[}13{]} &
+Cabibbo angle $\lambda$ & 1/($\pi\sqrt{2}$) = 0.22508 & 0.22500 $\pm$ 0.00067 {[}13{]} &
 0.04\% \\
-Koide angle $\theta_{0}$ (charged leptons) & $C_{2}/d^{2}$ = 2/9 & 0.222204 ± 0.000010
+Koide angle $\theta_{0}$ (charged leptons) & $C_{2}/d^{2}$ = 2/9 & 0.222204 $\pm$ 0.000010
 {[}13{]} & 0.02\% \\
-Solar mixing $\sin^{2}\theta_{12}$ (this work) & 1/3 $-$ 1/($4\pi^{2}$) = 0.30798 & 0.3085 ±
+Solar mixing $\sin^{2}\theta_{12}$ (this work) & 1/3 $-$ 1/($4\pi^{2}$) = 0.30798 & 0.3085 $\pm$
 0.0073 {[}8{]} & 0.$07\sigma$ \\
-PMNS sum rule & 2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$ = 7/6 & 1.178 ± 0.020 & 0.$6\sigma$ \\
+PMNS sum rule & 2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$ = 7/6 & 1.178 $\pm$ 0.020 & 0.$6\sigma$ \\
 \end{longtable}
 
-The first two entries are derived in {[}18, §§7.1--7.2{]}; the
-Cabibbo derivation is unconditional structural (the chirality structure
-of the taste-changing vertex is established in the staggered fermion
-literature {[}18, §7.1, citing Mason et al.{]}), and the
-empirical match to 0.04\% supports this status. The Koide angle is
-unconditional structural at first-principles. The third and fourth
-entries are the present work, classified at the layered (Layer 1 + Layer
-2(b)) level per {[}18, §8.3{]} following operator-counting
-analysis of Condition 2; see Sec. 6.3 for full discussion. This
-cumulative empirical track record is what distinguishes the cubic-group
-structure from postulated flavor symmetries: the same parameter $\lambda^{2}$ =
-1/($2\pi^{2}$) and the same projection factor $A^{2}$ = 2/3 enter multiple
-observables at sub-percent precision, which is testable structure rather
-than symmetry assumption.
+The first two entries are derived in {[}18, §§7.1--7.2{]}; the Cabibbo
+derivation is unconditional structural (the chirality structure of the
+taste-changing vertex is established in the staggered fermion literature
+{[}18, §7.1, citing Mason et al.{]}), and the empirical match to 0.04\%
+supports this status. The Koide angle is unconditional structural at
+first-principles. The third and fourth entries are the present work,
+classified at the layered level (Layer 1 form combined with the Layer
+2(a)-tractable Condition 2 coefficient) per {[}18, §8.3{]}; see Sec. 6.3
+for full discussion. This cumulative empirical track record is what
+distinguishes the cubic-group structure from postulated flavor
+symmetries: the same parameter $\lambda^{2}$ = 1/($2\pi^{2}$) and the same projection
+factor $A^{2}$ = 2/3 enter multiple observables at sub-percent precision,
+which is testable structure rather than symmetry assumption.
+
+\hypertarget{position-in-the-broader-literature}{%
+\subsubsection{1.4 Position in the broader
+literature}\label{position-in-the-broader-literature}}
+
+The lattice-based framework in which the cubic-group structure is
+realized {[}18{]} is one of several recent constructions in which
+observer-essentiality plays a foundational role. Chandrasekaran, Longo,
+Penington, and Witten {[}19{]} established that incorporating an
+observer promotes the von Neumann algebra of QFT observables in a
+gravitational subregion from type III to type II, with a well-defined
+entropy. Maldacena {[}20{]} showed that an observer-with-clock cancels
+the unphysical phase of the de Sitter sphere partition function. Harlow,
+Usatyuk, and Zhao {[}21{]} argued that the closed-universe Hilbert space
+dimension is determined by the observer's degrees of freedom. Slagle and
+Preskill {[}22{]} constructed boundary quantum mechanics from a
+classical bulk lattice model with stochastic dynamics, demonstrating the
+logical possibility of QM-from-classical at the cost of an exponentially
+long extra spatial dimension. The framework underlying this paper
+differs from these constructions in being deterministic at the
+substratum level (no stochastic dynamics, no extra spatial dimension),
+and in producing the cubic-group flavor structure used here as a
+structural consequence rather than an input. The convergence with the
+post-2022 mainstream observer-emergent literature on the foundational
+observer-essentiality move is supportive context for the present
+prediction; the prediction itself stands or falls on its empirical match
+with JUNO, which is the focus of this paper.
 
 The remainder of this paper develops the technical content. Section 2
 sets up the cubic-group structure and derives the perturbation scale.
@@ -228,33 +255,6 @@ the post-JUNO global fit, and competing TM1/TM2 patterns. Section 5
 covers the remaining angles. Section 6 addresses robustness. Section 7
 discusses falsifiability under JUNO's projected long-term precision.
 Section 8 concludes.
-
-\hypertarget{position-in-the-broader-literature}{%
-\subsubsection{1.4 Position in the broader literature}\label{position-in-the-broader-literature}}
-
-The lattice-based framework in which the cubic-group structure is
-realized {[}18{]} is one of several recent constructions in which
-observer-essentiality plays a foundational role. Chandrasekaran, Longo,
-Penington, and Witten {[}19{]} established that incorporating an
-observer promotes the von Neumann algebra of QFT observables in a
-gravitational subregion from type III to type II, with a well-defined
-entropy. Maldacena {[}20{]} showed that an observer-with-clock cancels
-the unphysical phase of the de Sitter sphere partition function.
-Harlow, Usatyuk, and Zhao {[}21{]} argued that the closed-universe
-Hilbert space dimension is determined by the observer's degrees of
-freedom. Slagle and Preskill {[}22{]} constructed boundary quantum
-mechanics from a classical bulk lattice model with stochastic
-dynamics, demonstrating the logical possibility of QM-from-classical
-at the cost of an exponentially long extra spatial dimension. The
-framework underlying this paper differs from these constructions in
-being deterministic at the substratum level (no stochastic dynamics,
-no extra spatial dimension), and in producing the cubic-group flavor
-structure used here as a structural consequence rather than an input.
-The convergence with the post-2022 mainstream observer-emergent
-literature on the foundational observer-essentiality move is
-supportive context for the present prediction; the prediction itself
-stands or falls on its empirical match with JUNO, which is the focus
-of this paper.
 
 \hypertarget{cubic-group-flavor-structure}{%
 \subsection{2. Cubic-group flavor
@@ -266,7 +266,7 @@ subgroup}\label{the-cubic-group-o-and-its-aux2084-subgroup}}
 
 The cubic point group O is the rotation symmetry group of
 three-dimensional space, the unique finite point group with a
-six-element generator set \{±$\hat{e}_{1}$, ±$\hat{e}_{2}$, ±$\hat{e}_{3}$\} --- six minimal-length
+six-element generator set \{$\pm\hat{e}_{1}$, $\pm\hat{e}_{2}$, $\pm\hat{e}_{3}$\} --- six minimal-length
 translations corresponding to forward and backward motion along three
 orthogonal axes. In the lattice realization of the OI framework, this
 six-element set arises from coupling-degree minimization (K = 2d = 6 for
@@ -274,17 +274,17 @@ d = 3), and the multiplicities (3, 2, 1) under the action of O on these
 six directions match the structure of one Standard Model fermion
 generation (quark triplet, lepton doublet, singlet). Three SM
 generations are placed on the $T_{1}$ representation of the cubic group O
-acting on the three Cartesian axes --- a forced consequence of
-{[}18, §4.6 Theorem 7{]} (cubic decomposition
-\(6 = T_1 \oplus E \oplus A_1\)), {[}18, §4.6 Theorem 7b{]} (Bravais-lattice
-uniqueness --- SC is the unique 3D Bravais lattice compatible with the
-SM gauge group at the commutant level and with the observed Cabibbo
-angle), {[}18, §4.7 Theorem 10{]} (cubic symmetry forces three degenerate
-triplet sectors), {[}18, §4.7.1.2{]} (link-carrier construction placing
-matter on links with cross-charged representations admissible), and
-{[}18, Theorem 15{]} (anomaly cancellation fixing hypercharges uniquely).
-The detailed argument from coupling-degree minimization through the (3,
-2, 1) decomposition is given in {[}18, §§4.5--4.7{]}.
+acting on the three Cartesian axes --- a forced consequence of {[}18,
+§4.6 Theorem 7{]} (cubic decomposition \(6 = T_1 \oplus E \oplus A_1\)),
+{[}18, §4.6 Theorem 7b{]} (Bravais-lattice uniqueness --- SC is the
+unique 3D Bravais lattice compatible with the SM gauge group at the
+commutant level and with the observed Cabibbo angle), {[}18, §4.7
+Theorem 10{]} (cubic symmetry forces three degenerate triplet sectors),
+{[}18, §4.7.1.2{]} (link-carrier construction placing matter on links
+with cross-charged representations admissible), and {[}18, Theorem 15{]}
+(anomaly cancellation fixing hypercharges uniquely). The detailed
+argument from coupling-degree minimization through the (3, 2, 1)
+decomposition is given in {[}18, §§4.5--4.7{]}.
 
 The full octahedral rotation group O has order 24 and is isomorphic to
 $S_{4}$. Its irreducible representations decompose as
@@ -301,7 +301,7 @@ democratic vector
 
 \textbf{$\hat{h}$ = (1/$\sqrt{3}$)($e_{1}$ + $e_{2}$ + $e_{3}$)}
 
-is the only direction fixed by the $\mathbb{Z}$$_{3}$ cyclic subgroup. The plane
+is the only direction fixed by the $\mathbb{Z}_{3}$ cyclic subgroup. The plane
 perpendicular to $\hat{h}$ carries the doublet E. This is the geometric origin
 of TBM: the second column of U\_TBM is exactly $\hat{h}$, and the first and
 third columns lie in the plane perpendicular to it, oriented by $\mu$-$\tau$
@@ -330,30 +330,30 @@ taste-changing vertex's Dirac trace contracts this to a magnitude of
 order 1/\textbar q\textbar{} rather than the full propagator's
 1/$|q|^{2}$. The full derivation, including the chirality
 verification of the taste-changing vertex's spinor structure, is given
-in {[}18, §7.1{]}. Identifying the matrix element with the
-Cabibbo angle gives
+in {[}18, §7.1{]}. Identifying the matrix element with the Cabibbo angle
+gives
 
 \textbf{$\lambda$ = 1/($\pi\sqrt{2}$) = 0.22508}
 
-matching the observed value $\lambda$\_obs = 0.22500 ± 0.00067 {[}13{]} to
+matching the observed value $\lambda$\_obs = 0.22500 $\pm$ 0.00067 {[}13{]} to
 0.04\%. Squaring,
 
 \textbf{$\lambda^{2}$ = 1/($2\pi^{2}$) = 0.05066}
 
 sets the overall scale of O($\lambda^{2}$) corrections. The full derivation of $\lambda$ =
 1/($\pi\sqrt{2}$) from the lattice fermion propagator and the
-chirality-preservation argument is given in {[}18, §7.1{]}.
-The empirical match to 0.04\% is at the level of structural relations
-rather than fitted parameters.
+chirality-preservation argument is given in {[}18, §7.1{]}. The
+empirical match to 0.04\% is at the level of structural relations rather
+than fitted parameters.
 
 A second geometric quantity will appear. The angle between any
-generation axis e\_i and the democratic direction $\hat{h}$ satisfies e\_i $\cdot$ $\hat{h}$ =
+generation axis e\_i and the democratic direction $\hat{h}$ satisfies e\_i $\cdot\hat{h}$ =
 1/$\sqrt{3}$, so $\cos^{2}$($\angle$(e\_i, $\hat{h}$)) = 1/3 and $\sin^{2}$($\angle$(e\_i, $\hat{h}$)) = 2/3. We identify
 the Wolfenstein parameter A with this quantity:
 
 \textbf{A = $\sqrt{2/3}$ = 0.8165}
 
-agreeing with the PDG value A = 0.826 ± 0.012 at 0.$23\sigma$. The combination
+agreeing with the PDG value A = 0.826 $\pm$ 0.012 at 0.$23\sigma$. The combination
 $A^{2}$ = 2/3 enters the inter-generation projection geometry, and $A^{4}$ = 4/9
 appears directly in the deviation $\Delta_{13}$ below.
 
@@ -361,17 +361,18 @@ appears directly in the deviation $\Delta_{13}$ below.
 \subsubsection{2.3 The PMNS matrix in the Altarelli-Feruglio
 basis}\label{the-pmns-matrix-in-the-altarelli-feruglio-basis}}
 
-We work in the Altarelli-Feruglio (AF) basis {[}12{]}. In this basis the neutrino sector realizes TBM exactly (after
-diagonalization of the seesaw matrix), and all deviations from TBM come
-from the charged-lepton mass matrix. The PMNS matrix is
+We work in the Altarelli-Feruglio (AF) basis {[}12{]}. In this basis the
+neutrino sector realizes TBM exactly (after diagonalization of the
+seesaw matrix), and all deviations from TBM come from the charged-lepton
+mass matrix. The PMNS matrix is
 
-\textbf{U\_PMNS = V\_$\ell$$^{\dagger}\cdot$ U\_TBM}
+\textbf{U\_PMNS = V\_$\ell^{\dagger}\cdot$ U\_TBM}
 
-where V\_$\ell$ is the charged-lepton rotation that diagonalizes M\_$\ell$ M\_$\ell$$^{\dagger}$,
+where V\_$\ell$ is the charged-lepton rotation that diagonalizes M\_$\ell$ M\_$\ell^{\dagger}$,
 and
 
 \[
-U_{\rm TBM} = \begin{pmatrix} \sqrt{2/3} & \sqrt{1/3} & 0 \\ -\sqrt{1/6} & \sqrt{1/3} & -\sqrt{1/2} \\ -\sqrt{1/6} & \sqrt{1/3} & \sqrt{1/2} \end{pmatrix}
+U_{\rm TBM}   = P0
 \]
 
 Expanding V\_$\ell$ in $\lambda$,
@@ -394,11 +395,11 @@ In the AF basis, the $\mu$-$\tau$ exchange generator U $\in S_{4}$ acts on the
 generation indices by exchanging the second and third:
 
 \[
-U = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix}
+U   = P1
 \]
 
-Conjugation by U defines a $\mathbb{Z}$$_{2}$ grading on antisymmetric matrices: A is
-\textbf{U-even} if UAU$^{-1}$ = +A, \textbf{U-odd} if UAU$^{-1}$ = $-$A. With
+Conjugation by U defines a $\mathbb{Z}_{2}$ grading on antisymmetric matrices: A is
+\textbf{U-even} if $UAU^{-1}$ = +A, \textbf{U-odd} if $UAU^{-1}$ = $-$A. With
 (E\_\{ij\})\emph{\{kl\} = $\delta$}\{ik\}$\delta$\_\{jl\} $-\delta$\_\{il\}$\delta$\_\{jk\}, the
 decomposition is:
 
@@ -420,9 +421,8 @@ $E_{12}-E_{13}$.
 $A_{1}$ is fixed by three structural conditions plus the projection geometry
 of §2.2.
 
-The data require $\sin\theta_{13}$ = O($\lambda$) (since $\theta_{13}$ $\neq$ 0), forcing $A_{1}$ to contribute
-to the (1,3) element of V\_$\ell$$^{\dagger}$ U\_TBM. The observation that both $\Delta_{12} \equiv$
-$\sin^{2}\theta_{12}-$ 1/3 and $\Delta_{23} \equiv$ $\sin^{2}\theta_{23}-$ 1/2 are O($\lambda^{2}$) (not O($\lambda$)) further
+The data require $\sin\theta_{13}$ = O($\lambda$) (since $\theta_{13}\neq$ 0), forcing $A_{1}$ to contribute
+to the (1,3) element of V\_$\ell^{\dagger}$ U\_TBM. The observation that both $\Delta_{12}\equiv\sin^{2}\theta_{12}-$ 1/3 and $\Delta_{23}\equiv\sin^{2}\theta_{23}-$ 1/2 are O($\lambda^{2}$) (not O($\lambda$)) further
 constrains $A_{1}'s$ structure. The remaining input is geometric: each end of
 an inter-generation mixing vertex projects onto the plane perpendicular
 to $\hat{h}$, contributing a factor sin($\angle$(e\_i, $\hat{h}$)) = A from the off-democratic
@@ -442,7 +442,7 @@ The result is
 
 \textbf{$A_{1}$ = ($\sqrt{2}/3$)($E_{12}-E_{13}$)}
 
-$A_{1}$ is purely U-odd: $UA_{1}U$$^{-1}$ = $-A_{1}$. Geometrically, it is a rotation by
+$A_{1}$ is purely U-odd: $UA_{1}U^{-1}$ = $-A_{1}$. Geometrically, it is a rotation by
 angle $A^{2}$ = 2/3 around the axis ($e_{2}$ + $e_{3}$)/$\sqrt{2}$, which reproduces $\sin\theta_{13}$ =
 $A^{2}\lambda$ as required.
 
@@ -451,7 +451,7 @@ $A^{2}\lambda$ as required.
 
 Expanding V\_$\ell$ to second order,
 
-\textbf{V\_$\ell$ = I + $\lambda A_{1}$ + $\lambda^{2}$($A_{2}$ + 1/2$A_{1}^{2}$) + O($\lambda^{3}$)}
+\textbf{V\_$\ell$ = I + $\lambda A_{1}$ + $\lambda^{2}$($A_{2}$ + $1/2A_{1}^{2}$) + O($\lambda^{3}$)}
 
 and writing the most general antisymmetric $A_{2}$ as
 
@@ -460,7 +460,10 @@ and writing the most general antisymmetric $A_{2}$ as
 we compute $|U_PMNS,ij|^{2}$ to O($\lambda^{2}$). The PMNS angles
 satisfy $\sin^{2}\theta_{13}$ = $|U_e3|^{2}$, $\sin^{2}\theta_{12}\cos^{2}\theta_{13}$ =
 $|U_e2|^{2}$, and $\sin^{2}\theta_{23}\cos^{2}\theta_{13}$ = $|U_\mu 3|^{2}$.
-The deviations from TBM are:
+Direct computation (taking V\_$\ell$\^{}T = exp(-($\lambda A_{1}$+$\lambda^{2}A_{2}$)) acting on the
+columns of U\_TBM, using the explicit form $A_{1}^{2}$ = diag(-4/9, -2/9, -2/9)
++ (2/9)($e_{2}\otimes e_{3}$ + $e_{3}\otimes e_{2}$) for $A_{1}$ = ($\sqrt{2}/3$)($E_{12}- E_{13}$)) gives the deviations
+from TBM:
 
 \begin{itemize}
 \tightlist
@@ -484,10 +487,13 @@ angles.} It is naturally identified with the CP-violating Dirac phase
 $\delta$\_CP, since it is the only remaining free parameter at O($\lambda^{2}$) that does
 not enter the angles. The present analysis leaves $\delta$\_CP undetermined.
 
-\textbf{(iii) The remaining structure depends on two combinations:} ($b_{12}$
-+ $b_{13}$) controlling $\Delta_{12}$ and $b_{23}$ controlling $\Delta_{23}$. The first is the U-even,
-the second the dominant U-odd coefficient of $A_{2}$, with $b_{12}-b_{13}$ the
-sub-dominant U-odd combination.
+\textbf{(iii) $\Delta_{23}$ depends only on $b_{23}$, not on the U-even combination.}
+The explicit calculation gives $|U_\mu 3|^{2}$ = $1/2$ + $\lambda^{2}$($b_{23}-$
+2/9) before the $\cos^{2}\theta_{13}$ dressing; after dressing, $\sin^{2}\theta_{23}$ = $1/2$ + $\lambda^{2}b_{23}$
+exactly. The U-even combination ($b_{12}$+$b_{13}$) does not contribute to $\Delta_{23}$ at
+O($\lambda^{2}$): the contributions that would enter through the (V\_$\ell$\^{}T)$_{2}\nu$
+matrix elements all arise at O($\lambda^{3}$) or higher in the calculation of
+$|U_\mu 3|^{2}$.
 
 \hypertarget{sum-rule-and-absolute-normalization}{%
 \subsubsection{3.4 Sum rule and absolute
@@ -511,43 +517,88 @@ is a substantive physical input: it relates the dominant U-odd
 coefficient of $A_{2}$ to the U-even combination through a fixed numerical
 factor 4/3.
 
-The geometric interpretation is that
+\textbf{Equivalence with TBM sum rule preservation.} Combining the
+explicit results $\Delta_{12}$ = $-$(2/3)($b_{12}$+$b_{13}$)$\lambda^{2}$ and $\Delta_{23}$ = $b_{23}\lambda^{2}$ from §3.3:
+
+\textbf{$2\Delta_{12}$ + $\Delta_{23}$ = ($b_{23}-$ (4/3)($b_{12}$+$b_{13}$)) $\lambda^{2}$}
+
+Hence Cond 2 is \emph{equivalent} to the statement that the TBM sum rule
+2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$ = 7/6 --- which holds at zeroth order from cubic
+geometry, since 2(1/d) + 1/(d$-$1) = (3d$-$2)/(d(d$-$1)) = 7/6 for d = 3 ---
+continues to hold at O($\lambda^{2}$). The Wilson-coefficient relation and the
+angle-level sum rule are the same content under different
+normalizations.
+
+\textbf{Structural protection of the sum rule by $A_{1}$ alone (Layer 1).}
+With $A_{2}$ = 0, direct calculation gives 2$|U_e2|^{2}$ +
+$|U_\mu 3|^{2}$ = 7/6 + $\lambda^{2}${[}$-$14/27{]} + ($\cos^{2}\theta_{13}$ corrections).
+Dividing by $\cos^{2}\theta_{13}$ = 1 $-$ (4/9)$\lambda^{2}$ (which itself follows from $\sin^{2}\theta_{13}$ =
+$A^{4}\lambda^{2}$, a Layer 1 quantity) precisely cancels the $-$14/27 offset:
+
+**(2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$)\textbar\_\{$A_{2}$=0\} = 7/6 + O($\lambda^{4}$)**
+
+--- that is, the sum rule is preserved by $A_{1}$ alone at all orders up to
+$\lambda^{2}$. This cancellation is non-trivial and specific to $A_{1}'s$ Layer 1-forced
+form: the magnitude ($\sqrt{2}/3$) is fixed by $\sin\theta_{13}$ = $A^{2}\lambda$ (§3.2), and the
+U-odd character is fixed by the requirement $\Delta_{12}$, $\Delta_{23}$ = O($\lambda^{2}$) rather than
+O($\lambda$). With those two constraints, the cancellation between the $-$14/27
+contribution from $A_{1}^{2}$-induced shifts and the +14/27 contribution from
+the $\cos^{2}\theta_{13}$ dressing is automatic. The TBM sum rule is therefore
+\emph{structurally protected} against $A_{1}'s$ perturbation by cubic
+geometry alone --- no substrate input required for this component.
+
+Cond 2 reduces to the question of whether $A_{2}$ preserves the sum rule it
+was protected for under $A_{1}$, or breaks it. The answer depends on the
+substrate's specific b coefficients.
+
+\textbf{The factor 4/3.} Cond 2's specific numerical coefficient admits
+the structural reading
 
 \textbf{4/3 = $2A^{2}$ = 2 $\sin^{2}$($\angle$(e\_i, $\hat{h}$))}
 
 where A = $\sqrt{2/3}$ is the off-democratic projection of any generation axis
-(Sec. 2.2). Note that $A^{2}$ = (d$-$1)/d = $C_{2}(T_{1})/d$ is a structural identity
-for the vector representation of any rotation group --- for d = 3 this
-gives $A^{2}$ = 2/3 from both the off-democratic projection (1 $-$ 1/d) and the
-Casimir-over-dimension ratio ($C_{2}/d$). The factor 4/3 in Condition 2
+(Sec. 2.2). The identity $A^{2}$ = (d$-$1)/d = $C_{2}(T_{1})/d$ for d = 3 makes this a
+representation-theoretic quantity rather than a numerical coincidence:
+it is the squared off-democratic projection for the vector
+representation of any rotation group. The factor 4/3 in Condition 2
 admits a \emph{partner-count $\times$ per-partner projection} reading: the
 U-even combination $E_{12}$+$E_{13}$ couples generation $e_{1}$ to its two partners
 \{$e_{2}$, $e_{3}$\}, with the per-partner projection nominally $A^{2}$. However, the
 load-bearing claim of this argument is the \emph{operator alignment} ---
 that the substrate's second-order Yukawa structure has a specific $T_{2}$
 direction matching the partner-count $\times$ projection picture. Operator
-counting on $T_{1}\otimes T_{1}\to T_{2}$ in the supporting framework {[}18{]}
-shows that this $T_{2}$ direction is determined by the substrate's specific
-Yukawa structure rather than forced by representation theory: the
-natural Higgs-democratic spurion does not produce Cond 2. We therefore
-classify Cond 2 as currently solution-specific (Layer 2(b) in the
-four-layer framing of {[}18, §8.3{]}) --- the empirical match
-indicates the framework's bijection has the alignment property, but a
-Layer 2(a) promotion would require explicit substrate-level Yukawa
-derivation.
+counting on $T_{1}\otimes T_{1}\to T_{2}$ in the supporting framework {[}18{]} shows that
+this $T_{2}$ direction is determined by the substrate's specific Yukawa
+structure rather than forced by representation theory: the natural
+Higgs-democratic spurion does not produce Cond 2.
+
+\textbf{Layer status of Cond 2 after this analysis.} The decomposition
+produced above changes the layer status of the prediction. The $A_{1}$
+component is Layer 1: the sum rule is structurally protected against
+$A_{1}'s$ perturbation by cubic geometry, with no substrate input. The $A_{2}$
+component reduces to a sharply specified open question --- \emph{why
+does $b_{23}/$($b_{12}$+$b_{13}$) take exactly the value 4/3 = $2A^{2}$?} --- which is Layer
+2(a)-tractable rather than the prior Layer 2(b) ``arbitrary $T_{2}$ direction
+alignment'' formulation. The residual question concerns a single
+numerical ratio with a structural reading rather than a generic
+direction in $T_{2}$-space; substrate calculations targeting this specific
+ratio admit definite outcomes. The empirical match at 0.$07\sigma$ on $\sin^{2}\theta_{12}$
+tests this specific structural feature --- Cond 2 with its 4/3
+coefficient --- rather than testing generic Layer 2(b) alignment.
 
 In standard effective field theory, the U-even and dominant U-odd
 coefficients $b_{12}$+$b_{13}$ and $b_{23}$ would be independent Wilson coefficients.
 The structural relation $b_{23}$ = (4/3)($b_{12}$+$b_{13}$) is more naturally
 accommodated in frameworks where quantum mechanics is itself an emergent
-phenomenon arising from a deeper deterministic structure {[}15, 16, 17{]}, since EFT coefficients can then be
-related by substrate-level mechanisms even absent a protecting EFT
-symmetry. The factorization 4/3 = 2 $\times A^{2}$ is consistent with this
-picture; whether it follows rigorously from the cubic-lattice
-realization of {[}18{]} is the open task referenced above.
+phenomenon arising from a deeper deterministic structure {[}15, 16,
+17{]}, since EFT coefficients can then be related by substrate-level
+mechanisms even absent a protecting EFT symmetry. The factorization 4/3
+= $2A^{2}$ is consistent with this picture; whether it follows rigorously
+from the cubic-lattice realization of {[}18{]} is the open task
+referenced above.
 
-We can sharpen the open task. In the AF basis (charged leptons diagonal
-at LO), second-order perturbative diagonalization of M\_$\ell$ M\_$\ell$$^{\dagger}$
+\textbf{Sharpened open task.} In the AF basis (charged leptons diagonal
+at LO), second-order perturbative diagonalization of M\_$\ell$ M\_$\ell^{\dagger}$
 generates contributions to the $A_{2}$ coefficients from cross-terms
 involving $A_{1}$. Direct computation shows that the framework's choice $A_{1}$ =
 ($\sqrt{2}/3$)($E_{12}-E_{13}$) produces a hierarchy-independent cross-term
@@ -560,17 +611,22 @@ second-order corrections:
 
 The +1/9 augmentation is forced by $A_{1}'s$ perturbative structure; deriving
 the substrate corrections that satisfy this from the cubic-lattice
-Yukawa is the quantitative open task.
+Yukawa is the quantitative open task. The ratio
+$b_{23}$\textsuperscript{sub/($b_{12}$}sub+$b_{13}$\^{}sub) at leading order in the
+hierarchy m\_e/m\_$\tau$ takes the value 4/3 = 4(d$-$1)/(2d), and the sharp
+version of the question is whether a one-loop staggered-fermion
+calculation on the cubic lattice produces this specific ratio from the
+$C_{2}(T_{1})$ Casimir structure.
 
 We treat Condition 2 as a substrate-level relation and quote our angle
-predictions on the understanding that two of them ($\sin^{2}\theta_{12}$ and $\sin^{2}\theta_{23}$)
-sit at the layered level: their structural form is forced by cubic-group
-representation theory (Layer 1), but the specific coefficient values
-depend on a Layer 2(b) substrate alignment. Empirical agreement at 0.$07\sigma$
-on $\sin^{2}\theta_{12}$ is, in this sense, a nontrivial test of the bijection's
-alignment property.
+predictions on the understanding that the predictions sit at the layered
+level: their structural form is forced by cubic-group representation
+theory and the Layer 1 closure above, but the specific 4/3 coefficient
+depends on a Layer 2(a)-tractable substrate computation that has not
+been completed. Empirical agreement at 0.$07\sigma$ on $\sin^{2}\theta_{12}$ is, in this
+sense, a nontrivial test of the substrate's specific operator structure.
 
-At the angle level, this is equivalent to
+At the angle level, Condition 2 is equivalent to
 
 \textbf{$2\Delta_{12}$ + $\Delta_{23}$ = 0}
 
@@ -622,8 +678,8 @@ Source & $\sin^{2}\theta_{12}$ & $\sigma$ from prediction \\
 \bottomrule\noalign{}
 \endlastfoot
 This work & 0.30798 & --- \\
-JUNO direct & 0.3092 ± 0.0087 & 0.$14\sigma$ \\
-Post-JUNO global & 0.3085 ± 0.0073 & 0.$07\sigma$ \\
+JUNO direct & 0.3092 $\pm$ 0.0087 & 0.$14\sigma$ \\
+Post-JUNO global & 0.3085 $\pm$ 0.0073 & 0.$07\sigma$ \\
 \end{longtable}
 
 The prediction agrees with the post-JUNO global fit at 0.$07\sigma$. Both
@@ -636,20 +692,21 @@ observed $\lambda$ = 0.22508 to 0.04\%).
 \subsubsection{4.2 Comparison with column-preservation
 patterns}\label{comparison-with-column-preservation-patterns}}
 
-Tribimaximal mixing {[}1{]} was the leading phenomenological
-description of neutrino oscillation data until Daya Bay measured a
-nonzero $\theta_{13}$ {[}2{]}. Since then, modified TBM patterns have
-been the subject of a substantial literature {[}3, 4, 5, 6{]}. The two best-known modifications
-preserve one column of the original TBM matrix exactly: TM1 (first
-column) and TM2 (second column). Each gives a one-parameter family that
-accommodates the observed $\theta_{13}$ but predicts different values for the
-other two angles. Most existing TBM-modification proposals start from a
-discrete \emph{flavor symmetry} --- typically $A_{4}$, $S_{4}$, or a $Z_{2}$ residual
---- postulated as an axiom of the lepton sector. The minimal
+Tribimaximal mixing {[}1{]} was the leading phenomenological description
+of neutrino oscillation data until Daya Bay measured a nonzero $\theta_{13}$
+{[}2{]}. Since then, modified TBM patterns have been the subject of a
+substantial literature {[}3, 4, 5, 6{]}. The two best-known
+modifications preserve one column of the original TBM matrix exactly:
+TM1 (first column) and TM2 (second column). Each gives a one-parameter
+family that accommodates the observed $\theta_{13}$ but predicts different values
+for the other two angles. Most existing TBM-modification proposals start
+from a discrete \emph{flavor symmetry} --- typically $A_{4}$, $S_{4}$, or a $Z_{2}$
+residual --- postulated as an axiom of the lepton sector. The minimal
 modifications then preserve one column of the TBM matrix or one residual
 symmetry of the neutrino mass matrix, yielding one-parameter
-correlations between angles. Post-JUNO, He {[}9{]} finds that TM2
-is excluded at \textgreater3.$5\sigma$ while TM1 remains viable; Zhang {[}10{]} reports similar results.
+correlations between angles. Post-JUNO, He {[}9{]} finds that TM2 is
+excluded at \textgreater3.$5\sigma$ while TM1 remains viable; Zhang {[}10{]}
+reports similar results.
 
 Comparison summary:
 
@@ -679,7 +736,7 @@ TM3 & postulated; $\theta_{13}$ = 0 & --- & excluded \\
 \textbf{0.3080} & \textbf{0.$07\sigma$} \\
 \end{longtable}
 
-(Comparing against post-JUNO global fit 0.3085 ± 0.0073. TM1 uses
+(Comparing against post-JUNO global fit 0.3085 $\pm$ 0.0073. TM1 uses
 $\sin^{2}\theta_{12}$ = 1 $-$ (2/3)/$\cos^{2}\theta_{13}$; TM2 uses $\sin^{2}\theta_{12}$ = 1/(3$\cos^{2}\theta_{13}$); both with
 $\sin^{2}\theta_{13}$ = 0.02195.)
 
@@ -699,7 +756,7 @@ three angles as fixed numerical values, with no parameter common to them
 (Sec. 3.5).
 
 \textbf{(iii) CP violation.} He's surviving pattern predicts sin $\delta$\_CP =
-±0.998, close to maximal. Here, $\delta$\_CP is identified with the only
+$\pm$0.998, close to maximal. Here, $\delta$\_CP is identified with the only
 remaining free parameter at O($\lambda^{2}$), namely $b_{12}-b_{13}$, which does not
 enter any of the three angles. The angle predictions therefore stand
 independently of any value of $\delta$\_CP, and the present paper makes no
@@ -718,7 +775,7 @@ The cubic-group prediction implies
 
 \textbf{2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$ = 7/6 = 1.1667}
 
-versus the observed 2(0.3085) + 0.561 = 1.178 ± 0.020 (using the
+versus the observed 2(0.3085) + 0.561 = 1.178 $\pm$ 0.020 (using the
 post-JUNO $\sin^{2}\theta_{12}$ and the NuFIT 6.0 NO best fit for $\sin^{2}\theta_{23}$). The
 agreement is at 0.$6\sigma$. This sum rule is the angle-level statement of $b_{23}$
 = (4/3)($b_{12}$ + $b_{13}$), which is structural in the cubic-group setup. TM1
@@ -736,24 +793,24 @@ modification.
 
 The formula for $\sin^{2}\theta_{13}$ is fully derived: at O($\lambda^{2}$) the $A_{2}$ parameters
 cancel from $|U_e3|^{2}$, leaving $\sin^{2}\theta_{13}$ = $A^{4}\lambda^{2}$ = 4/($18\pi^{2}$) =
-0.02252. The NuFIT 6.0 best fit (normal ordering) is 0.02195 ± 0.00056,
+0.02252. The NuFIT 6.0 best fit (normal ordering) is 0.02195 $\pm$ 0.00056,
 agreeing at 1.$01\sigma$. Equivalently,
 
 \textbf{$\sin\theta_{13}$ = $A^{2}\lambda$ = (2/3) $\cdot$ 1/($\pi\sqrt{2}$) = 0.1500}
 
-giving $\theta_{13}$ = 8.63°, compared with the observed 8.56° ± 0.10°.
+giving $\theta_{13}$ = 8.63$^{\circ}$, compared with the observed 8.56$^{\circ}$ $\pm$ 0.10$^{\circ}$.
 
 \hypertarget{sinuxb2ux3b8ux2082ux2083}{%
 \subsubsection{5.2 $\sin^{2}\theta_{23}$}\label{sinuxb2ux3b8ux2082ux2083}}
 
 The formula gives $\sin^{2}\theta_{23}$ = 1/2 + 1/($2\pi^{2}$) = 0.5507. NuFIT 6.0 (NO) gives
-$\sin^{2}\theta_{23}$ = 0.561$^{+}$$^{0}\cdot ^{012}$$_{-}$$_{0}$.$_{015}$, agreeing at 0.$74\sigma$. The prediction lies in
+$\sin^{2}\theta_{23}$ = 0.$561^{+0}\cdot ^{012}_{-0}$.$_{015}$, agreeing at 0.$74\sigma$. The prediction lies in
 the second octant, in line with the current global preference. The sum
 rule 2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$ = 7/6 ties this directly to $\sin^{2}\theta_{12}$:
 
 \textbf{$\sin^{2}\theta_{23}$ = 7/6 $-$ 2$\sin^{2}\theta_{12}$}
 
-A ±0.0014 ultimate JUNO error on $\sin^{2}\theta_{12}$ then implies a ±0.0028 error on
+A $\pm$0.0014 ultimate JUNO error on $\sin^{2}\theta_{12}$ then implies a $\pm$0.0028 error on
 the predicted $\sin^{2}\theta_{23}$, comparable to the current direct measurement.
 
 \hypertarget{summary}{%
@@ -766,9 +823,9 @@ Angle & Prediction & Measurement & $\sigma$ \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-$\sin^{2}\theta_{12}$ & 1/3 $-$ 1/($4\pi^{2}$) = 0.3080 & 0.3085 ± 0.0073 & 0.07 \\
-$\sin^{2}\theta_{13}$ & 4/($18\pi^{2}$) = 0.02252 & 0.02195 ± 0.00056 & 1.01 \\
-$\sin^{2}\theta_{23}$ & 1/2 + 1/($2\pi^{2}$) = 0.5507 & 0.561$^{+}$$^{0}\cdot ^{012}$$_{-}$$_{0}$.$_{015}$ & 0.74 \\
+$\sin^{2}\theta_{12}$ & 1/3 $-$ 1/($4\pi^{2}$) = 0.3080 & 0.3085 $\pm$ 0.0073 & 0.07 \\
+$\sin^{2}\theta_{13}$ & 4/($18\pi^{2}$) = 0.02252 & 0.02195 $\pm$ 0.00056 & 1.01 \\
+$\sin^{2}\theta_{23}$ & 1/2 + 1/($2\pi^{2}$) = 0.5507 & 0.$561^{+0}\cdot ^{012}_{-0}$.$_{015}$ & 0.74 \\
 \end{longtable}
 
 All three predictions agree with observation within 1.$1\sigma$.
@@ -806,17 +863,17 @@ Match
 \bottomrule\noalign{}
 \endlastfoot
 Cabibbo angle & Brillouin distance $\pi\sqrt{2}$; chirality 1/\textbar q\textbar{}
-& $\lambda$ = 1/($\pi\sqrt{2}$) = 0.22508 & 0.22500 ± 0.00067 & 0.04\% \\
+& $\lambda$ = 1/($\pi\sqrt{2}$) = 0.22508 & 0.22500 $\pm$ 0.00067 & 0.04\% \\
 Koide angle (charged leptons) & $C_{2}/d^{2}$ for cubic group & $\theta_{0}$ = 2/9 =
-0.22222 & 0.222204 ± 0.000010 & 0.02\% \\
+0.22222 & 0.222204 $\pm$ 0.000010 & 0.02\% \\
 Solar mixing $\sin^{2}\theta_{12}$ (this work) & $A_{4}$ representation 1/3 + Cond 2 cubic
-relation & 1/3 $-$ 1/($4\pi^{2}$) = 0.30798 & 0.3085 ± 0.0073 & 0.$07\sigma$ \\
+relation & 1/3 $-$ 1/($4\pi^{2}$) = 0.30798 & 0.3085 $\pm$ 0.0073 & 0.$07\sigma$ \\
 PMNS sum rule (this work) & Cond 2 cubic relation & 2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$ =
-7/6 & 1.178 ± 0.020 & 0.$6\sigma$ \\
+7/6 & 1.178 $\pm$ 0.020 & 0.$6\sigma$ \\
 Reactor mixing $\sin^{2}\theta_{13}$ (this work) & $A^{2} \lambda$ projection geometry & 4/($18\pi^{2}$)
-= 0.02252 & 0.02195 ± 0.00056 & 1.$01\sigma$ \\
+= 0.02252 & 0.02195 $\pm$ 0.00056 & 1.$01\sigma$ \\
 Atmospheric mixing $\sin^{2}\theta_{23}$ (this work) & Cond 2 + sum rule & 1/2 +
-1/($2\pi^{2}$) = 0.55066 & 0.561$^{+}$$^{0}\cdot ^{012}$$_{-}$$_{0}$.$_{015}$ & 0.$74\sigma$ \\
+1/($2\pi^{2}$) = 0.55066 & 0.$561^{+0}\cdot ^{012}_{-0}$.$_{015}$ & 0.$74\sigma$ \\
 \end{longtable}
 
 Two structural parameters appear repeatedly: $\lambda^{2}$ = 1/($2\pi^{2}$), the squared
@@ -842,8 +899,8 @@ A small shift to 4/3 $\to$ (4/3)(1 + $\epsilon$) propagates to $\Delta_{12}\to\D
 (1/2)$\cdot\epsilon\cdot \Delta_{23}$ at first order in $\epsilon$. With $\Delta_{23}\approx$ 1/($2\pi^{2}$) $\approx$ 0.05, a fractional
 shift $\epsilon$ = 0.10 (a 10\% shift in Cond 2's structural coefficient) gives a
 shift in $\sin^{2}\theta_{12}$ of \textasciitilde0.0025 --- comparable to JUNO's
-ultimate-precision uncertainty of ±0.0014 and roughly half of JUNO's
-first-result uncertainty of ±0.0087. The current 0.$07\sigma$ agreement
+ultimate-precision uncertainty of $\pm$0.0014 and roughly half of JUNO's
+first-result uncertainty of $\pm$0.0087. The current 0.$07\sigma$ agreement
 therefore tests Cond 2 at the few-percent level on its structural
 coefficient --- a non-trivial test, since 4/3 is precisely $2A^{2}$ where $A^{2}$
 = 2/3 is the projection factor independently fixed by the cubic
@@ -852,39 +909,33 @@ representation geometry.
 \hypertarget{status-of-condition-2}{%
 \subsubsection{6.3 Status of Condition 2}\label{status-of-condition-2}}
 
-Condition 2 is presented in Sec. 3.4 as a substrate-level relation
-supported by the projection-geometry argument (4/3 = $2A^{2}$ with the
-partner-count reading) and by the broader cubic-lattice framework of
-{[}18{]}. The structural identity $A^{2}$ = (d$-$1)/d = $C_{2}(T_{1})/d$ for
-vector representations gives the underlying algebraic content. However,
-operator counting on $T_{1}\otimes T_{1}\to T_{2}$ in the supporting framework shows that
-Condition 2 itself is not forced by representation theory: the
-substrate's $T_{2}$ direction in second-order Yukawa structure is
-bijection-specific, and the natural Higgs-democratic spurion does not
-reproduce Condition 2. We therefore classify it as solution-specific
-(Layer 2(b) in the §8.3 four-layer framing of {[}18{]}) ---
-the empirical match at 0.$07\sigma$ on $\sin^{2}\theta_{12}$ indicates the framework's
-bijection has the alignment property required by Condition 2, but a
-Layer 2(a) promotion would require explicit substrate-level Yukawa
-derivation that has not been performed. The angle predictions $\sin^{2}\theta_{12}$
-and $\sin^{2}\theta_{23}$ therefore sit at the layered level (Layer 1 form + Layer
-2(b) coefficient) rather than as unconditional structural predictions.
-The reactor angle $\sin^{2}\theta_{13}$ is independent of Condition 2 (the $A_{2}$
-coefficients cancel from $|U_e3|^{2}$) and remains Layer 1
-unconditional structural.
+Condition 2 admits the structural decomposition into two parts
+established in Sec. 3.4: an $A_{1}$ component closed at Layer 1 (the TBM sum
+rule is structurally protected against the $A_{1}$ perturbation by the
+$\cos^{2}\theta_{13}$ dressing alone, requiring no substrate input), and an $A_{2}$
+component reducing to the sharp question why $b_{23}/$($b_{12}$+$b_{13}$) takes the
+specific value 4/3 = $2A^{2}$ in the framework's bijection. The reactor angle
+$\sin^{2}\theta_{13}$ is independent of Condition 2 (the $A_{2}$ coefficients cancel from
+$|U_e3|^{2}$) and remains Layer 1 unconditional structural.
+The angle predictions $\sin^{2}\theta_{12}$ and $\sin^{2}\theta_{23}$ are layered: their structural
+form is forced by cubic-group representation theory and the Layer 1
+closure of the $A_{1}$ component, while the specific 4/3 coefficient is a
+Layer 2(a)-tractable open question --- sharply specified rather than a
+generic Layer 2(b) ``alignment in $T_{2}$-space'' --- concerning a single
+numerical ratio with the structural reading 4(d$-$1)/(2d) for d = 3.
 
-\textbf{Positive support for Layer 2(b) classification.} Beyond operator
-counting, an explicit substrate calculation in {[}18, §7.3{]}
-confirms the classification: for the natural cubic-symmetric staggered
-Yukawa structure on $T_{1}$ BZ corners, both the leading and subleading
-channels produce equal off-diagonal Y$^{(}$$^{2}$$^{)}$ entries by cubic symmetry,
-failing Condition 2 by a hierarchy factor \textasciitilde17. The
-framework's bijection therefore has structure beyond the natural
+\textbf{Positive support for the Layer 2 classification.} Beyond the
+structural decomposition, an explicit substrate calculation in {[}18,
+§7.3{]} confirms that Condition 2 is not satisfied by the natural form
+of the substrate Yukawa structure: for the natural cubic-symmetric
+staggered Yukawa structure on $T_{1}$ BZ corners, both the leading and
+subleading channels produce equal off-diagonal $Y^{(2)}$ entries by cubic
+symmetry, failing Condition 2 by a hierarchy factor \textasciitilde17.
+The framework's bijection therefore has structure beyond the natural
 cubic-symmetric form --- Condition 2's empirical match indicates the
 bijection introduces direction-dependent corrections that the natural
-form lacks. The 0.$07\sigma$ match is therefore a tighter test of the
-bijection's specific $T_{2}$-channel alignment than generic Layer 2(b)
-classification suggests.
+form lacks. The 0.$07\sigma$ match is therefore a test of the bijection's
+specific $T_{2}$-channel alignment.
 
 \textbf{Cubic-group consistency test.} The PMNS sum rule via Condition 2
 is one observable in a six-prediction simultaneous-match cluster derived
@@ -892,29 +943,32 @@ from the structural identity $A^{2}$ = $C_{2}/d$ on the d=3 cubic lattice. The
 other five are Wolfenstein A (1.2\%), $\sin^{2}\theta_{13}$ (0.4\%), Koide $\theta_{0}$
 (0.02\%), m\_u/m\_d (0.6\%), and \textbar V\_cb\textbar{} (0.$4\sigma$). All
 six match observation at sub-percent or sub-$\sigma$ precision simultaneously
-{[}18, §7.7{]}. This places the sum rule's 0.$6\sigma$ match in a
-broader pattern of cubic-group structural consistency across the
-framework.
+{[}18, §7.7{]}. This places the sum rule's 0.$6\sigma$ match in a broader
+pattern of cubic-group structural consistency across the framework.
 
-\textbf{Discretization-determined Layer 2(b).} Condition 2 is
-therefore not a free parameter to be fit, but a derivable consequence
-of the lattice's discretization scheme. The bijection space in
-{[}18{]} is constrained by linear dynamics, T-invariance,
-P-indivisibility, and cycle ergodicity, leaving a discretization-scheme
-freedom (field quantization, lattice size, timestep, boundary
-conditions, rounding rule) rather than abstract permutation freedom.
-Layer 2(b) coefficients including Condition 2's $T_{2}$-direction alignment
-are \emph{discretization-determined}, not independent Wilson
-coefficients. The 0.$07\sigma$ empirical match at $\sin^{2}\theta_{12}$ and 0.$6\sigma$ at the sum
-rule are tests of this discretization scheme.
+\textbf{Discretization-determined Layer 2.} Condition 2 is therefore not
+a free parameter to be fit, but a derivable consequence of the lattice's
+discretization scheme. The bijection space in {[}18{]} is constrained by
+linear dynamics, T-invariance, P-indivisibility, and cycle ergodicity,
+leaving a discretization-scheme freedom (field quantization, lattice
+size, timestep, boundary conditions, rounding rule) rather than abstract
+permutation freedom. The specific 4/3 = $2A^{2}$ coefficient required by
+Condition 2 is \emph{discretization-determined}, not an independent
+Wilson coefficient. The Layer 2(a) promotion path is concrete: a
+one-loop staggered-fermion calculation on the cubic lattice that
+produces the $b_{23}/$($b_{12}$+$b_{13}$) = 4/3 ratio from the $C_{2}(T_{1})$ Casimir structure
+would close Condition 2 to Layer 2(a). The 0.$07\sigma$ empirical match at
+$\sin^{2}\theta_{12}$ and 0.$6\sigma$ at the sum rule are tests of this discretization scheme
+--- the predictions follow from the bijection's substrate structure
+rather than from independently adjusted Wilson coefficients.
 
 The sum rule 2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$ = 7/6 is the most directly testable
 consequence of Condition 2; its empirical match at 0.$6\sigma$ tests the
 bijection's alignment property at the few-percent level on the
 structural coefficient. The discriminating power of the sum rule against
 TM1, TM2, and TM3 column-preservation patterns (Sec. 4.2, 4.3) is
-independent of whether Condition 2 is Layer 2(a) or 2(b); the empirical
-match is what matters for the discrimination.
+independent of the Layer 2(a) vs 2(b) status of Condition 2; the
+empirical match is what matters for the discrimination.
 
 \hypertarget{falsifiability}{%
 \subsection{7. Falsifiability}\label{falsifiability}}
@@ -924,7 +978,7 @@ Cabibbo angle, and the coefficient 1/($4\pi^{2}$) in $\Delta_{12}$ has no adjust
 input. Three experimental directions test it.
 
 \textbf{Sub-percent precision on $\sin^{2}\theta_{12}$.} Over its 30-year design
-lifetime, JUNO is projected to reach $\sin^{2}\theta_{12}$ = 0.3092 ± 0.0014, a 6$\times$
+lifetime, JUNO is projected to reach $\sin^{2}\theta_{12}$ = 0.3092 $\pm$ 0.0014, a 6$\times$
 improvement over the current first result. At that precision the
 prediction 0.30798 is tested at 0.$86\sigma$ (using the JUNO 59-day central
 value) or 0.$36\sigma$ (using the post-JUNO global central value). An ultimate
@@ -947,23 +1001,25 @@ this remaining parameter directly.
 We have derived $\sin^{2}\theta_{12}$ = 1/3 $-$ 1/($4\pi^{2}$) = 0.3080 from cubic-group flavor
 structure, matching the post-JUNO global fit at 0.$07\sigma$ with no parameter
 fit to $\sin^{2}\theta_{12}$. The same construction predicts $\sin^{2}\theta_{13}$ and $\sin^{2}\theta_{23}$
-within 1.$1\sigma$ of the NuFIT 6.0 {[}14{]} best fits, and forces the exact sum rule
-2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$ = 7/6, which distinguishes the prediction from the
-TM1, TM2, and TM3 column-preservation patterns. The reactor angle
-$\sin^{2}\theta_{13}$ = 4/($18\pi^{2}$) is unconditional structural (Layer 1 in {[}18, §8.3{]}), based on the representation-theoretic identity $A^{2}$ =
-(d$-$1)/d = $C_{2}(T_{1})/d$ for vector reps. The solar and atmospheric angle
-predictions are layered: their structural form is forced by cubic-group
-representation theory (Layer 1), but the specific coefficient values
-depend on Condition 2 ($b_{23}$ = (4/3)($b_{12}$+$b_{13}$)), which is currently
-classified Layer 2(b) --- solution-specific to the bijection ---
-following operator counting in the supporting framework. The empirical
-match at 0.$07\sigma$ on $\sin^{2}\theta_{12}$ and at 0.$6\sigma$ on the sum rule indicates the
-framework's bijection has the alignment property required by Condition
-2; the predictions are therefore tests of that bijection-specific
-structure as much as of the underlying cubic-group framework. The
-Cabibbo scale $\lambda^{2}$ = 1/($2\pi^{2}$) entering the prediction is set independently
-by cubic Brillouin-zone geometry and matches the observed Cabibbo angle
-to 0.04\%.
+within 1.$1\sigma$ of the NuFIT 6.0 best fits {[}14{]}, and forces the exact
+sum rule 2$\sin^{2}\theta_{12}$ + $\sin^{2}\theta_{23}$ = 7/6, which distinguishes the prediction
+from the TM1, TM2, and TM3 column-preservation patterns. The reactor
+angle $\sin^{2}\theta_{13}$ = 4/($18\pi^{2}$) is unconditional structural (Layer 1 in {[}18,
+§8.3{]}), based on the representation-theoretic identity $A^{2}$ = (d$-$1)/d =
+$C_{2}(T_{1})/d$ for vector reps. The solar and atmospheric angle predictions
+are layered: their structural form is forced by cubic-group
+representation theory and the Layer 1 closure of the $A_{1}$ component (Sec.
+3.4), while the specific 4/3 coefficient in Condition 2 ($b_{23}$ =
+(4/3)($b_{12}$+$b_{13}$)) is a Layer 2(a)-tractable open question --- sharply
+specified as the substrate ratio
+$b_{23}$\textsuperscript{sub/($b_{12}$}sub+$b_{13}$\^{}sub) at leading order in the
+m\_e/m\_$\tau$ hierarchy. The empirical match at 0.$07\sigma$ on $\sin^{2}\theta_{12}$ and at 0.$6\sigma$
+on the sum rule indicates the framework's bijection has the alignment
+property required by Condition 2; the predictions are therefore tests of
+the bijection's specific structure as much as of the underlying
+cubic-group framework. The Cabibbo scale $\lambda^{2}$ = 1/($2\pi^{2}$) entering the
+prediction is set independently by cubic Brillouin-zone geometry and
+matches the observed Cabibbo angle to 0.04\%.
 
 JUNO's projected long-term precision will test the prediction at
 sub-percent level over the next decade. Combined with atmospheric
@@ -975,13 +1031,13 @@ mixing pattern.
 \hypertarget{acknowledgments}{%
 \subsection{Acknowledgments}\label{acknowledgments}}
 
-The author thanks the JUNO Collaboration for the rapid public release
-of their first oscillation results, and F. Capozzi, E. Lisi, F.
-Marcone, A. Marrone, and A. Palazzo for the prompt post-JUNO global
-fit that enabled the present comparison. Discussions with the broader
+The author thanks the JUNO Collaboration for the rapid public release of
+their first oscillation results, and F. Capozzi, E. Lisi, F. Marcone, A.
+Marrone, and A. Palazzo for the prompt post-JUNO global fit that enabled
+the present comparison. Discussions with the broader
 emergent-quantum-mechanics community have informed the framework's
-positioning relative to existing approaches; specific intellectual
-debts are recorded in the references and in the underlying framework
+positioning relative to existing approaches; specific intellectual debts
+are recorded in the references and in the underlying framework
 documentation {[}18{]}.
 
 \hypertarget{references}{%
