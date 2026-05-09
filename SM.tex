@@ -4634,36 +4634,60 @@ therefore a meaningful test within structural clusters; the cubic-group
 
 \textbf{Over-determination of the Layer 2 cluster.} The
 discretization-determined character above has a quantitative consequence
-under continuum-limit irrelevance of most discretization parameters: in
-the continuum / large-\(L\) limit relevant for physical predictions,
-\(L \to \infty\) removes lattice-size dependence, \(\tau \to 0\) removes
-timestep dependence, and boundary conditions become irrelevant for bulk
-observables. The surviving discretization parameters number at most a
-few --- primarily the rounding rule (which determines the effective
-non-linearity supporting cycle ergodicity per §4.2 \emph{Remark}),
-possibly a field-quantization granularity. The Layer 2 quantities the
+under continuum-limit irrelevance of most discretization parameters. Of
+the discretization-scheme choices listed above, \(L \to \infty\) removes
+lattice-size dependence, \(\tau \to 0\) removes timestep dependence (the
+lattice spacing \(\varepsilon = 2 l_p\) is itself structurally fixed by
+the thermal self-consistency of {[}GR §3-4{]}, so \(\tau = \varepsilon/c\)
+is not a free parameter), and boundary conditions become irrelevant for
+bulk observables. The field-quantization granularity is gauge under
+\(\mathcal{G}_{\rm sub}\) --- different granularities producing identical
+observables when the coupling structure is preserved (the \(q\)-gauge
+theorem, {[}GR §3.2{]}) --- and is therefore not a physical parameter.
+The remaining parameter is the rounding rule, which determines the
+effective non-linearity supporting cycle ergodicity (per §4.2
+\emph{Remark}). Under the natural assumption of orbit-level
+Markovian-equivalence, the rounding rule contributes one effective
+continuum parameter (the variance of its orbit-level noise) by
+central-limit-style reasoning; higher moments correspond to
+higher-derivative or higher-power operators that are RG-irrelevant in
+the IR continuum limit, and a non-zero mean would constitute a relevant
+linear-in-field tadpole that would spoil the wave-equation dynamics and
+is therefore structurally excluded. The Markovian-equivalence assumption
+has been numerically tested at small lattice (cubic
+\(L \in \{4, 6, 8, 12\}\), quantization
+\(N_{\text{levels}} \in \{100, 500\}\), time series of length
+\(T = 5000\)): the integrated autocorrelation time of the rounding noise
+is \(\tau_{\rm int} = 0.50 \pm 0.03\) across all tested parameters,
+indistinguishable from the white-noise value \(\tau_{\rm int} = 0.5\),
+and a sanity-check synthesis with AR(1) noise at correlation
+\(\phi = 0.5, 0.9\) correctly recovered the predicted
+\(\tau_{\rm int} = 1.5, 9.5\) --- so the test is sensitive to
+non-Markovian behavior if present. Non-Markovian generalizations ---
+long-range autocorrelation, field-dependent rounding, or site-dependent
+structure --- can add up to two further parameters, bracketing the total
+count at one (natural) to three (generic). The Layer 2 quantities the
 framework currently identifies --- the Cond 2 ratio
 \(b_{23}/(b_{12}+b_{13}) = 4(d-1)/(2d) = 4/3\) (§7.3), the D11 alignment
 producing \(m_u/m_d = \sqrt{\theta_0}\) (§7.2), the \(K_S\) subleading
 contribution to \(m_b/m_\tau\) (§7.5), and the \(\delta_0\) universal
 threshold (§6.2) --- constitute at least four numerical Layer 2 inputs.
-Under the discretization-determined interpretation combined with
-continuum irrelevance, these four are determined by at most a few
-surviving parameters; the system is \emph{over-determined}. Mutual
-consistency among the four empirical matches --- Cond 2 at
-\(0.07\sigma\) on the post-JUNO \(\sin^2\theta_{12}\) global fit,
-\(m_u/m_d\) at \(0.05\sigma\), \(K_S\) at \(9\sigma\) from zero with
-empirical value \(0.0072\), \(\delta_0 = 10.02\) matching
-\(\text{Tr}[Y^2] = 10\) at \(0.2\%\) --- is therefore a non-trivial test
-of the Layer 2 interpretation: the framework predicts these are not
-independent, so functional consistency confirms the
-discretization-determined structure while inconsistency would localize a
-specific structural failure. Making the consistency check quantitative
---- computing each Layer 2 quantity as an explicit function of the same
-rounding-rule parameter set --- requires substrate-loop calculations
-beyond the current scope; the over-determination structure itself is a
-structural prediction, falsifiable in principle once that calculation is
-performed.
+The system is therefore over-determined four-to-one in the natural
+Markovian-equivalent setting, and at worst four-to-three under generic
+non-Markovian extensions. Mutual consistency among the four empirical
+matches --- Cond 2 at \(0.07\sigma\) on the post-JUNO
+\(\sin^2\theta_{12}\) global fit, \(m_u/m_d\) at \(0.05\sigma\), \(K_S\)
+at \(9\sigma\) from zero with empirical value \(0.0072\),
+\(\delta_0 = 10.02\) matching \(\text{Tr}[Y^2] = 10\) at \(0.2\%\) --- is
+therefore a non-trivial test of the Layer 2 interpretation: the
+framework predicts these are not independent, so functional consistency
+confirms the discretization-determined structure while inconsistency
+would localize a specific structural failure. Making the consistency
+check quantitative --- computing each Layer 2 quantity as an explicit
+function of the same rounding-rule parameter set --- requires
+substrate-loop calculations beyond the current scope; the
+over-determination structure itself is a structural prediction,
+falsifiable in principle once that calculation is performed.
 
 \textbf{Selection problem.} The framework characterizes a constrained
 class of substratum bijections (above) and derives empirical predictions
