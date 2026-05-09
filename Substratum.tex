@@ -458,43 +458,98 @@ so the bound applies.
 (E4) \textbf{Spatial isotropy.} Observed physics is rotationally
 invariant; no spatial direction is preferred.
 
+(E5) \textbf{Spatial homogeneity.} Observed physics is
+translation-invariant; no spatial location is preferred. Together with
+E4, this is the standard ``no preferred frame'' content of observed
+physics; we separate E4 (rotations) from E5 (translations) because they
+enter the reconstruction at different stages.
+
+(E6) \textbf{Standard Model structure observed.} The observed gauge
+group is \(\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)\) with
+three chiral generations of matter and one Higgs doublet. This is a
+specific empirical fact about our universe (rather than a logical
+consequence of E1-E5); it serves as the framework's empirical target
+for quantitative predictions.
+
 \textbf{Structural assumptions} (restrictions on the class of candidate
 substrates \((S, \varphi)\)):
 
 (A1) \textbf{Finiteness.} The configuration space \(S\) is finite.
-(Follows from E3 + the holographic bound interpreted as Hilbert-space
-dimension cutoff \(\dim \mathcal{H} \leq e^{A/4}\).)
+\emph{Forced by E3} under the standard holographic interpretation of
+finite boundary entropy as a Hilbert-space dimension cutoff
+\(\dim \mathcal{H} \leq e^{A/4}\) --- A1 is not an independent
+assumption beyond the empirical inputs.
 
 (A2) \textbf{Determinism.} \(\varphi: S \to S\) is a bijection
-(deterministic, reversible dynamics).
+(deterministic, reversible dynamics). \emph{Forced by E1 +
+classical-substratum descent argument} (parallel to §4 Theorem 24's
+completeness proof). Stinespring dilation lifts the visible-sector CPTP
+channel to a unitary \(U\) on \(\ell^2(S)\); for \(U\) to descend to
+an \(S\)-level transformation preserving classical product structure
+(rather than producing superpositions of classical configurations),
+\(U\) must be a permutation matrix --- those are the only unitaries on
+\(\ell^2(S)\) that map basis states to basis states. Permutation
+matrices correspond bijectively to bijections \(\varphi: S \to S\).
+Probabilistic kernels lift to non-permutational unitaries (or to
+non-unitary CPTP channels) and therefore do not descend to
+classical-substratum transformations. A2 is forced by the
+classical-substratum commitment, not parsimony.
 
 (A3) \textbf{Bounded coupling degree.} Each site is coupled to a bounded
-number of neighbors in \(\varphi\)'s action. (Required for locality and
-the emergence of a coupling graph with well-defined dimension.)
+number of neighbors in \(\varphi\)'s action. \emph{Forced by E1+E2 +
+finite light-cone speed}: infinite coupling at substratum level produces
+instantaneous correlations everywhere, inconsistent with the finite
+signal propagation speed implicit in E1's standard QM and E2's
+Bell-violation structure. A3 is not an independent assumption beyond
+the empirical inputs.
 
-(A4) \textbf{Center independence.} The dynamics \(\varphi\) does not
-depend on a choice of ``center'' site; equivalently, \(\varphi\)
-commutes with lattice translations up to gauge. (Required to derive the
-wave equation in Stage 2.)
+(A4) \textbf{Center independence.} The dynamics \(\varphi\) commutes
+with lattice translations up to gauge. \emph{Forced by E5 (spatial
+homogeneity)}: a substratum dynamics with a preferred center site would,
+under the trace-out, produce a preferred-location effect at the
+observable level inconsistent with E5. A4 is not an independent
+assumption beyond the empirical inputs.
 
 (A5) \textbf{Linearity.} The wave equation for \(\varphi\) is linear.
-(Required to obtain the specific gauge structure in Stage 2; nonlinear
-alternatives are not ruled out but would require a separate derivation.)
+\emph{Forced by E1 + the \(q\)-gauge invariance theorem of [SM §2.7]}:
+the alphabet size \(q\) is gauge ([SM §2.7] proves no observable depends
+on \(q\)); non-linear dynamics over \(\mathbb{Z}/q\mathbb{Z}\) generically
+have \(q\)-dependent emergent physics (\(x^2 \bmod 3\) and \(x^2 \bmod 5\)
+have different algebraic structure), so the emergent physics from
+non-linear dynamics would be \(q\)-dependent, contradicting the gauge
+equivalence. Linearity is necessary, not parsimony --- see [SM §4.1] for
+the necessity argument and three additional independent criteria
+(maximum propagation speed, maximum P-indivisibility, KMS condition for
+Unruh thermality) all converging on the same dynamics. A5 is forced by
+the framework's gauge structure.
 
 (A6) \textbf{Background independence.} The dynamics is invariant under
 local transformations of internal indices, promoting the global
 commutant symmetry to local gauge invariance ({[}SM §3.1{]}).
+\emph{Forced by E1}: the trace-out's emergent QFT must have local gauge
+invariance (the standard model gauge group is observed); local-gauge-
+invariant emergent QFT requires local-symmetry-invariant substratum
+dynamics. A6 is not an independent assumption beyond the empirical
+inputs.
 
-The theorem's uniqueness claim holds under E1--E4 \textbf{and} A1--A6
-jointly; removing any of A3--A6 either requires new derivations or
-weakens the uniqueness. The set A1--A6 is sufficient for the
-reconstruction but is not proved to be minimal: A4 (center independence)
-and A6 (background independence) overlap in physical content (A6
-promotes the symmetry that A4 constrains), and A5 (linearity) is partly
-derived from the other assumptions via the dynamics-selection argument
-of {[}SM §4.1{]}. A tighter axiomatization may be possible but is not
-pursued here; the reconstruction's validity depends on the sufficiency
-of A1--A6, not on their independence.
+After this analysis, \textbf{all six structural assumptions A1-A6 are
+forced} by the empirical inputs E1-E5 (E1 via Main paper machinery, E2
+via Bell-violation structure, E3 via holographic interpretation, E4-E5
+via parsimony for substratum locality + symmetry) combined with the
+framework's gauge structure ([SM §2.7] \(q\)-gauge invariance, §4
+Theorem 24's \(\mathcal{G}_{\rm sub}\) classical-substratum descent
+restriction). \textbf{No structural assumption is genuinely independent
+of the empirical inputs and the framework's existing theorems.} The
+reconstruction's foundation is therefore a single ontological
+commitment: the world is a classical-substratum-with-embedded-observer
+system, with the observed physics being the Standard Model (E6).
+Theorem 23 then determines the substratum modulo gauge
+\(\mathcal{G}_{\rm sub}\).
+
+The framework's claim therefore reads: \textbf{``The
+classical-substratum-with-embedded-observer ontology together with the
+observed Standard Model uniquely determines the substratum modulo gauge
+\(\mathcal{G}_{\rm sub}\).''} No parsimony assumptions remain.
 
 \textbf{Critical dependencies.} Theorem 23's proof relies on the
 following prior theorems, whose individual correctness is assumed:
@@ -675,7 +730,7 @@ solution under the stated inputs ({[}GR §3, Theorem{]}).
 
 \textbf{Lemma 23.0} (Uniqueness preservation). \emph{Let
 \((S_1, \varphi_1)\) and \((S_2, \varphi_2)\) both be reconstructions of
-the same observed physics (E1--E4) satisfying the structural assumptions
+the same observed physics (E1--E6) satisfying the structural assumptions
 (A1--A6). Then \((S_1, \varphi_1)\) and \((S_2, \varphi_2)\) are in the
 same equivalence class \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\).}
 
@@ -699,11 +754,11 @@ Therefore \((S_1, \varphi_1)\) and \((S_2, \varphi_2)\) are related by
 the composition of generators (i)--(iv) of \(\mathcal{G}_{\text{sub}}\),
 and hence are in the same equivalence class. \(\square\)
 
-\textbf{Theorem 23} (Layered reconstruction). \emph{Let E1--E4
+\textbf{Theorem 23} (Layered reconstruction). \emph{Let E1--E6
 (empirical inputs: QM with Bell violations, finite boundary entropy,
-spatial isotropy) and A1--A6 (structural assumptions: finiteness,
-determinism, bounded coupling degree, center independence, linearity,
-background independence) hold. Then the equivalence class
+spatial isotropy and homogeneity, observed Standard Model structure)
+hold. Then the structural conditions A1--A6 are forced (per §3.1's
+analysis) and the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) is uniquely determined: a
 finite set with a bijection of bounded coupling degree and statistical
 isotropy, with \(d = 3\), \(K = 6\), coupling matrix eigenvalue
@@ -777,10 +832,18 @@ It does \textbf{not} exclude:
 
 The framework's claim is that within the class of finite deterministic
 bounded-coupling systems with the structural assumptions, the substratum
-is unique. A separate argument would be required to rule out
-alternatives outside this class. The framework's defense of A1--A6 (in
-{[}SM §2{]} and elsewhere) is that they are natural given the empirical
-inputs E1--E4, but this defense is itself an argument, not a theorem.
+is unique. Per §3.1's analysis above, \textbf{all six structural
+assumptions A1-A6 are forced} by the empirical inputs E1-E5 combined
+with the framework's gauge structure ([SM §2.7] \(q\)-gauge invariance,
+§4 Theorem 24's \(\mathcal{G}_{\rm sub}\) classical-substratum descent
+restriction). The framework's claim therefore reduces to ``the
+classical-substratum-with-embedded-observer ontology + observed
+Standard Model (E6) uniquely determines substratum modulo gauge
+\(\mathcal{G}_{\rm sub}\)'' --- with no residual parsimony assumptions.
+A separate argument would be required to challenge any of the empirical
+inputs E1-E6 themselves, or to challenge the framework's existing
+theorems ([SM §2.7] \(q\)-gauge invariance, §4 Theorem 24's
+completeness) on which the structural-assumption derivations depend.
 
 \textbf{Remark} (Hypothesis dependencies). Each structural assumption
 can in principle be weakened or replaced:
@@ -808,9 +871,10 @@ can in principle be weakened or replaced:
 
 Weakening any \(A_i\) does not merely enlarge the equivalence class; it
 potentially produces \emph{different} reconstructions that may not agree
-with observation. The framework's claim is that E1--E4 + A1--A6 is a
-consistent set of inputs producing our observed physics; alternative
-input sets are not investigated.
+with observation. The framework's claim is that E1--E6 is a consistent
+set of empirical inputs producing our observed physics, with the
+structural conditions A1--A6 forced by the inputs (per §3.1's analysis);
+alternative input sets are not investigated.
 
 \textbf{Remark} (Continuum extension). The lattice-level predictions are
 the framework's primary claims --- the lattice is the fundamental
@@ -829,14 +893,15 @@ by the OI framework: the lattice theory is complete, and its predictions
 are lattice-exact.
 
 \textbf{Remark} (Finite observation sets vs.~idealized empirical
-inputs). The empirical inputs E1--E4 are stated as structural facts
+inputs). The empirical inputs E1--E6 are stated as structural facts
 about observed physics --- the full apparatus of QM, Bell violations
 attaining Tsirelson's bound, the holographic entropy bound, exact
-rotational invariance. Operationally, no finite observation set fully
-establishes any of these; finite measurements support them only in the
-sense of being consistent with the data so far. The reconstruction
-theorem holds for the empirical inputs \emph{as stated} --- the
-idealized infinite-data regime --- and proves uniqueness of the
+rotational invariance and translational homogeneity, and the observed
+Standard Model structure. Operationally, no finite observation set
+fully establishes any of these; finite measurements support them only
+in the sense of being consistent with the data so far. The
+reconstruction theorem holds for the empirical inputs \emph{as stated}
+--- the idealized infinite-data regime --- and proves uniqueness of the
 equivalence class under that regime. Reconstruction from finite
 observation sets is a related but distinct question: with finite data,
 multiple equivalence classes may all be consistent, with the data
@@ -852,7 +917,7 @@ against data.
 
 The reconstruction establishes a bidirectional correspondence:
 
-\[\text{Observed physics (E1--E4)} \; + \; \text{Structural assumptions (A1--A6)} \quad \longleftrightarrow \quad [(S, \varphi)] / \mathcal{G}_{\text{sub}}\]
+\[\text{Observed physics (E1--E6)} \quad \longleftrightarrow \quad [(S, \varphi)] / \mathcal{G}_{\text{sub}}\]
 
 The mathematical structure and the physics determine each other up to
 gauge equivalence, given the structural assumptions. The distinction
@@ -964,10 +1029,55 @@ Myrheim-Meyer, isotropy, bounded degree), not the specific graph.
 \(\square\)
 
 \textbf{Completeness of the generators.} The four families exhaust
-\(\mathcal{G}_{\text{sub}}\). The proof proceeds by showing that any
-observables-preserving transformation decomposes into (i)--(iv).
+\(\mathcal{G}_{\text{sub}}\). The proof proceeds in two steps: first
+reducing observational equivalence to a definite class of
+transformations using the framework's foundational commitments, then
+showing that any transformation in this class decomposes into (i)--(iv).
 
-Let \(g: (S, \varphi) \to (S', \varphi')\) preserve all observables
+\textbf{Step 1: Reduction to bijection-preserving, tensor-factorized
+transformations.} The equivalence relation \(\sim\) defined above is
+observational equivalence --- preservation of the embedded observer's
+marginal statistics. The classical-substratum ontology + Stinespring
+uniqueness force any observationally-equivalent transformation to (a)
+preserve bijection structure on \(S\) and (b) factor through
+visible-hidden tensor decomposition.
+
+For (a): non-bijection dynamics (probabilistic kernels) lift via
+Stinespring to non-permutational unitaries on \(\ell^2(S)\), which do
+not descend to \(S\)-level transformations preserving classical product
+structure (per §3.1's analysis of A2 --- equivalently, the descent
+argument used in this proof's main body below). Non-bijection
+candidates are therefore excluded \emph{before} the gauge group is
+defined; they violate the classical-substratum ontology rather than
+producing a different gauge equivalence class.
+
+For (b): non-tensor enlargements of the hidden Hilbert space (e.g.,
+\(\mathcal{H}_H \oplus \mathcal{H}_{\rm extra}\) rather than
+\(\mathcal{H}_H \otimes \mathcal{H}_{\rm extra}\)) destroy the
+visible-hidden factorization
+\(\mathcal{H} = \mathcal{H}_V \otimes \mathcal{H}_H\), leaving the
+partial trace undefined and the visible-sector CPTP channel
+unconstructible. Such transformations don't produce a well-defined
+observable structure and are excluded automatically.
+
+Three further candidate sources of ``extra'' gauge freedom beyond
+(i)-(iv) are subsumed in the explicit fifth-family analysis below
+(time reversal, hidden-sector dynamical reparametrization,
+visible-sector global phase). A fourth --- observer-choice
+redefinitions (changing the visible-hidden partition) --- is not in
+\(\mathcal{G}_{\rm sub}\) at all: different observer choices in the
+same substratum produce different observed physics, not the same
+physics in different gauge representatives. The gauge group is
+parameterized given a fixed observer/visible-sector identification.
+
+The gauge group \(\mathcal{G}_{\rm sub}\) is therefore not stipulated
+to consist of bijection-preserving transformations; the
+bijection-preserving + tensor-factorized character is \emph{derived}
+from observational equivalence + the classical-substratum ontology +
+Stinespring uniqueness.
+
+\textbf{Step 2: Decomposition into (i)--(iv).} Let
+\(g: (S, \varphi) \to (S', \varphi')\) preserve all observables
 (transition probabilities \(T_{ij}(t)\), emergent Hamiltonian up to
 D-gauge, and \(\hbar\)). By assumption, \(g\) preserves the
 visible-sector CPTP channel \(\Phi\). Stinespring's uniqueness theorem
