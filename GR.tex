@@ -1005,14 +1005,29 @@ A potential additional contribution from the substratum mode count is
 constrained by the boundary architecture established in §3.1 and §5:
 boundary modes are catalogued by spatial location alone (one degree of
 freedom per cell of area \(\epsilon^2\)), with no inherent frequency
-assignment. Under the natural 2D dispersion
-\(dN/d\omega \propto \omega\), modes concentrate near the UV cutoff and
-contribute a fraction \((H\epsilon)^2 \sim 10^{-122}\) at horizon
-frequency, well below the emergent-QFT magnitude. Absent additional
-substratum structure giving log-uniform boundary-mode distribution at
-the cosmological horizon, the framework's prediction reduces to
-\(|\nu| \approx |\nu_{\rm QFT}|\) --- observationally indistinguishable
-from zero at all foreseeable precision, including DESI Year 5.
+assignment from the spatial counting alone. The dynamical dispersion
+\(\omega(\mathbf{k})\) on this 2D spatial lattice reduces to
+\(\omega = c|\mathbf{k}|\) at sub-cutoff wavenumbers
+\(|\mathbf{k}| \ll 1/\epsilon\) --- the requirement for the trace-out's
+emergent QFT to reproduce 2D continuum field theory at long wavelengths
+(§6.1) --- and the standard density of states
+\(dN/d\omega \propto \omega\) follows. At the cosmological horizon
+frequency \(\omega \sim H \ll c/\epsilon\), mode contributions are
+suppressed by the spatial-vs-temporal scale ratio
+\((H\epsilon)^2 \sim 10^{-122}\), well below the emergent-QFT magnitude.
+This suppression is robust against UV-cutoff dispersion details (van
+Hove singularities at the band edge change \(\mathcal{O}(1)\) factors
+but not the scale ratio at \(\omega \sim H\)), so the framework's
+prediction \(|\nu| \approx |\nu_{\rm QFT}|\) is structural rather than
+dispersion-specific. A measurement \(|\nu| \sim 10^{-4}\) would require
+a \emph{structurally different} mode architecture --- modes evenly
+distributed in \(\log \omega\) from \(H\) to the cutoff, rather than
+dynamically derived from spatial-lattice dispersion --- and would
+falsify the spatial-lattice mode-counting architecture, not the
+dispersion choice within it. The framework's prediction therefore
+reduces to \(|\nu| \approx |\nu_{\rm QFT}|\) --- observationally
+indistinguishable from zero at all foreseeable precision, including
+DESI Year 5.
 
 \textbf{Observational status.} DESI data {[}12, 13{]} report evolving
 dark energy at \(2.8\sigma\)--\(4.2\sigma\). The 2026 multi-variant
@@ -1519,24 +1534,29 @@ instantaneous baryonic distribution, the lensing should peak where the
 gas is --- contradicting observations. The OI framework resolves this
 through the non-local character of entropy displacement. The dark
 gravity arises from boundary entropy redistribution at the cosmological
-horizon, and the horizon's response time is
-\(\tau_{\text{relax}} \sim H^{-1} \approx 14\) Gyr. The relaxation
-timescale identification (\(\tau_{\text{relax}} \sim 1/H\)) is itself a
-Tier 2 derived quantity from the de Sitter boundary's response to
-perturbations; specific calculations of mode-by-mode relaxation are
-deferred to a substratum-level analysis. The collision crossing time is
+horizon, and the horizon's response time is bounded below by the
+substratum boundary timescale,
+\(\tau_{\text{relax}} \geq \tau_B \gtrsim 1/H \approx 14\) Gyr. This
+lower bound follows directly from condition C2 (boundary slow): the
+hidden-sector modes carrying the redistributed entropy cannot
+thermalize back to equilibrium faster than \(\tau_B\), the timescale on
+which boundary correlations decohere. The Bullet Cluster argument uses
+only this lower bound --- that \(\tau_{\text{relax}} \gg 0.15\) Gyr
+collision time --- so a more precise mode-by-mode calculation of
+\(\tau_{\text{relax}}\) is not required. The collision crossing time is
 \(t_{\text{cross}} \sim 720\,\text{kpc}/4700\,\text{km/s} \approx 0.15\)
-Gyr --- only \(1\%\) of the relaxation time. The entropy displacement is
-therefore \emph{frozen} at the pre-collision configuration, centered on
-the galaxy concentrations (which defined the gravitational potential
-wells for gigayears before the collision). The gas moved during the
-collision; the boundary entropy did not. This reproduces the observed
-morphology: lensing peaks at the galaxy positions, gas peak between them
---- without invoking collisionless particles. The mechanism makes a
-testable prediction: for very old post-collision systems
-(\(t_{\text{since}} \gg 1\) Gyr), the dark gravity should gradually
-relax toward the gas distribution on timescale \(\sim H^{-1}\). Particle
-dark matter predicts no such relaxation.
+Gyr --- only \(\sim 1\%\) of the lower-bound relaxation time. The entropy
+displacement is therefore \emph{frozen} at the pre-collision
+configuration, centered on the galaxy concentrations (which defined the
+gravitational potential wells for gigayears before the collision). The
+gas moved during the collision; the boundary entropy did not. This
+reproduces the observed morphology: lensing peaks at the galaxy
+positions, gas peak between them --- without invoking collisionless
+particles. The mechanism makes a testable prediction: for very old
+post-collision systems (\(t_{\text{since}} \gg 1\) Gyr), the dark
+gravity should gradually relax toward the gas distribution on timescale
+of order \(\tau_B \gtrsim 1/H\). Particle dark matter predicts no such
+relaxation.
 
 \textbf{CMB acoustic peaks.} The CMB power spectrum provides the most
 precise test of the dark matter paradigm: the odd/even peak height
@@ -1639,20 +1659,23 @@ given at theorem level by the self-consistent emergent-QFT calculation:
 indistinguishable from zero. Substratum contributions beyond this are
 constrained by the boundary mode count of §3.1 and §5, which catalogues
 modes by spatial location with no inherent frequency assignment; the
-natural 2D field-theoretic distribution concentrates modes near the UV
-cutoff and contributes \(|\nu|_{\rm substratum}\) well below
-\(|\nu_{\rm QFT}|\). The framework's theorem-level prediction is
+dynamical dispersion on the 2D spatial lattice is fixed by emergent-QFT
+recovery at long wavelengths (§7.1), giving the standard
+\(dN/d\omega \propto \omega\) density of states which contributes
+\(|\nu|_{\rm substratum}\) at scale \((H\epsilon)^2 \sim 10^{-122}\)
+--- well below \(|\nu_{\rm QFT}|\) and robust against UV-cutoff
+dispersion details. The framework's theorem-level prediction is
 therefore \(|\nu| \approx |\nu_{\rm QFT}|\), observationally
 indistinguishable from zero. The Bertini et al.~(2025) measurement
 \(\nu = -(2.5 \pm 1.3) \times 10^{-4}\) is consistent with this
 prediction at \(2\sigma\), where Bertini is itself consistent with zero.
 DESI Year 5 (\(\sim 1\%\) precision on \(\nu\)) provides the decisive
 empirical test: a null confirms the prediction; a high-confidence
-detection at the \(10^{-4}\) level would require additional substratum
-structure (specifically, log-uniform mode-per-decade distribution at the
-cosmological horizon) not currently derivable from §3-§5. The functional
-form (Type II RVM) is structurally protected and is the framework's
-pre-registered prediction.
+detection at the \(10^{-4}\) level would require a structurally
+different mode-counting architecture (modes per logarithmic frequency
+decade rather than per spatial cell) not derivable from §3-§5. The
+functional form (Type II RVM) is structurally protected and is the
+framework's pre-registered prediction.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1806,8 +1829,9 @@ of strong \(w(z)\) variation incompatible with
 \(w = -1 + \mathcal{O}(\nu)\). The theorem-level magnitude prediction
 \(|\nu| \approx |\nu_{\rm QFT}| \sim 10^{-32}\) admits a stratified
 falsification structure: a measurement \(|\nu| \gtrsim 10^{-4}\) at high
-significance would require log-uniform boundary-mode spectral structure
-beyond §3-§5; a measurement \(|\nu| > 10^{-3}\) at high significance
+significance would require a structurally different mode-counting
+architecture (modes per logarithmic frequency decade rather than per
+spatial cell) beyond §3-§5; a measurement \(|\nu| > 10^{-3}\) at high significance
 would constitute a structural challenge to the magnitude prediction
 without falsifying the Type II functional form itself. The
 \emph{dark-sector concordance} (§7.2) would be falsified by detection of
