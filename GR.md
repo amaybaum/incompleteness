@@ -564,7 +564,7 @@ Since $\rho_{VBD} = |\Psi\rangle\langle\Psi|$ is pure, $S(\rho_{VBD}) = 0$. Thus
 
 **Setup.** A black hole with initial horizon area $A_0$ evaporates. The partition boundary at the black hole horizon moves: modes transition from $B$ (interior) to $R$ (radiation, a subsystem of $V$) as the horizon shrinks. Define $n_B(t) = A_{\text{BH}}(t) / (4\,l_p^2)$ (the number of boundary modes at the BH horizon) and $n_R(t) = n_B(0) - n_B(t)$ (the number of emitted radiation modes). Conservation: $n_B(t) + n_R(t) = n_B(0) = S_{\text{BH}}(0)$.
 
-The trans-cosmological sector $D$ is frozen on evaporation timescales ($\tau_{\text{evap}} \ll \tau_B^D$), so by Theorem A.5 the relevant dynamics is the bipartite system $B \cup R$ with $D$ decoupled at leading order.
+The trans-cosmological sector $D$ is frozen at each instant on substratum-observation timescales ($\tau_S \ll \tau_B^D$), so by Theorem A.5 the bipartite system $B \cup R$ describes the relevant dynamics at each time with $D$ decoupled at leading order. This bipartite description applies *locally* throughout evaporation: even when $\tau_{\text{evap}} \gg \tau_B^D$ (as for stellar-mass BHs, where $\tau_{\text{evap}} \sim 10^{78}$ s and $\tau_B^D \sim 10^{17}$ s), $\rho_{BR}(t)$ is approximately pure at each time $t$ with corrections $\mathcal{O}(\tau_S/\tau_B^D) \sim 10^{-32}$.
 
 **Theorem A.7** (Effective bipartite pure state). *On timescales $t \ll \tau_B^D$, the joint state of $B$ and $R$ is effectively pure: $\rho_{BR} = |\psi(t)\rangle\langle\psi(t)| + \mathcal{O}(\tau_S / \tau_B^D)$, where $|\psi(t)\rangle \in \mathcal{H}_B(t) \otimes \mathcal{H}_R(t)$.*
 
