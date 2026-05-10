@@ -196,7 +196,7 @@ For continuous-time dynamics $\varphi_t$, Stone's theorem on $\mathcal{H}$ yield
 
 *Proof.* Any marginal of a bijection with uniform prior is a doubly stochastic matrix, and by Birkhoff–von Neumann is a convex combination of permutation matrices. A bijection on $\mathcal{C}_V \times \mathcal{C}_H$ realising the required mixture is obtained by letting $\mathcal{C}_H$ enumerate the permutations; for multi-step processes, the construction extends by history dilation. $\square$
 
-*Remark.* This is the correspondence at the stochastic-process level: bijection $\leftrightarrow$ stochastic matrix via marginalization, both directions. It is *not* a full CPTP-channel correspondence — channels that create coherences from diagonal inputs have no permutation-unitary realisation with uniform ancilla. For the characterization theorem (§3.4), which is stated in terms of transition probabilities, this is the appropriate scope.
+*Remark.* This is the correspondence at the stochastic-process level: bijection ↔ stochastic matrix via marginalization, both directions. It is *not* a full CPTP-channel correspondence — channels that create coherences from diagonal inputs have no permutation-unitary realisation with uniform ancilla. For the characterization theorem (§3.4), which is stated in terms of transition probabilities, this is the appropriate scope.
 
 **The quantum channel.** The observer's ignorance of the hidden sector (Lemma 3) corresponds to $\rho_H = I_m/m$. The visible-sector quantum channel is
 
@@ -264,7 +264,7 @@ Contrapositively: observable P-indivisibility requires $\tau_S \lesssim \tau_B$ 
 
 **Remark (Status of ETH).** *The eigenstate thermalization hypothesis is a well-supported conjecture, not a theorem, for generic chaotic many-body Hamiltonians. It is proved for specific models (random matrix ensembles, certain integrable-chaotic transitions) and supported by extensive numerical evidence across many systems [17, 18]. For the OI framework's hidden sector — the cosmological-horizon complement, a generic chaotic many-body system — ETH is the standard assumption. The C2 necessity direction is therefore conditional on ETH; relaxations or failures of ETH would require a separate argument. The C1 and C3 necessity theorems do not depend on ETH.*
 
-**Remark (Consequence for the characterization theorem).** *The full biconditional (i) $\Leftrightarrow$ (ii) $\Leftrightarrow$ (iii) of the characterization theorem below is similarly conditional on ETH for the (ii) $\Rightarrow$ (iii) direction specifically. The other directions — (i) $\Leftrightarrow$ (ii) from [11, 12]; (iii) $\Rightarrow$ (ii) from §2.3; C1 and C3 necessity from their own proofs — are unconditional.*
+**Remark (Consequence for the characterization theorem).** *The full biconditional (i) ⇔ (ii) ⇔ (iii) of the characterization theorem below is similarly conditional on ETH for the (ii) ⇒ (iii) direction specifically. The other directions — (i) ⇔ (ii) from [11, 12]; (iii) ⇒ (ii) from §2.3; C1 and C3 necessity from their own proofs — are unconditional.*
 
 **Theorem (C3 necessity).** *Let $m = |\mathcal{C}_H|$. The non-Markovian mutual information satisfies:*
 
