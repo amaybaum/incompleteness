@@ -5,14 +5,13 @@
 **Status:** DRAFT PRE-PRINT
 **Classification:** Theoretical Physics / Foundations
 
-This repository develops a single framework across four papers, with two companion papers on the relationship to other unification programs:
+This repository develops a single framework across four core papers, with one companion paper on the framework's hierarchical structural realism and its relationship to other unification programs:
 
 - **Main** — establishes the equivalence between embedded observation and quantum mechanics
 - **SM** — derives the Standard Model from a $d = 3$ cubic lattice
 - **GR** — derives the gravitational sector from the cosmological horizon
 - **Substratum** — ties these into a single construction at the substratum level
-- **Synthesis** *(canonical synthesis)* — articulates the framework's two-dimensional hierarchical structure: an observation hierarchy (Levels A-D, depth axis) and a gauge hierarchy (Levels G1-G4, breadth axis), with their orthogonality and the multi-level structural realism that follows
-- **Extensions** *(cross-framework companion)* — develops the relationship between OI and other unification programs: Part I establishes that OI and string theory are not equivalent at the substratum level; Part II formalizes universality classes of embedded observers; Part III provides the cross-framework synthesis through partial-trace observational features
+- **Structure** *(companion paper)* — articulates the framework's two-dimensional hierarchical structure (an observation hierarchy A–D × a gauge hierarchy G1–G4, with multi-level structural realism), and develops the framework's relationship to broader unification programs through universality classes of embedded observers and a four-feature audit characterizing the OI–string relationship at the partial-trace observational level
 
 A self-contained paper, **Juno**, presents the prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$, recently confirmed by JUNO at $0.07\sigma$ against the post-JUNO global fit. See [`Juno.md`](Juno.md).
 
@@ -98,7 +97,7 @@ Each prediction's full derivation chain and classification (structural / mass-ch
 
 - **[`SM`](SM.md)** — derives the Standard Model from a $d=3$ cubic lattice. SU(3)×SU(2)×U(1), three generations, $\bar\theta=0$, twenty-two quantitative observables. ([`.tex`](SM.tex), [`.pdf`](SM.pdf))
 
-- **[`GR`](GR.md)** — derives $\hbar$, the Bekenstein-Hawking entropy with the $1/4$ coefficient (confirmed by GW250114), the cosmological constant dissolution, and the dark sector phenomenology including $a_0 = cH/6$ from the cosmological horizon. ([`.tex`](GR.tex), [`.pdf`](GR.pdf))
+- **[`GR`](GR.md)** — derives $\hbar$, the Bekenstein-Hawking entropy with the $1/4$ coefficient (confirmed by GW250114), the cosmological constant dissolution, and the dark sector phenomenology including $a_0 = cH/6$ from the cosmological horizon. The Tier 1 results ($\hbar$, area law, CC dissolution, Type II RVM functional form) are formalized at the universality-class level: they hold for any horizon-bounded embedded-observer system satisfying the structural conditions S1-S4, with OI providing one specific realization (§8.5). ([`.tex`](GR.tex), [`.pdf`](GR.pdf))
 
 - **[`Substratum`](Substratum.md)** — develops the reconstruction theorem and the substratum gauge group; argues QM, GR, and the arrow of time are three projections of the same finite deterministic construction. ([`.tex`](Substratum.tex), [`.pdf`](Substratum.pdf))
 
@@ -166,17 +165,22 @@ The forward derivation and reconstruction theorem together establish that the fr
        └── Molecular C1–C3 → non-Markovian pharmacology (Medicine)
 ```
 
-**Three-level gauge hierarchy.** The framework's gauge structure is layered:
+**Four-level gauge hierarchy.** The framework's gauge structure is layered (per [`Structure`](Structure.md) §2.2):
 
 ```
-Level 3: Substratum gauge group 𝒢_sub (Substratum §4)
-         {state relabeling, alphabet change, deep-sector size, graph isomorphism}
+Level G4: Universality-class equivalence (Structure §9)
+          {algebra-channel *-isomorphism with channel intertwining;
+           broader than 𝒢_sub, includes substrata not related by 𝒢_sub
+           that produce the same algebra-channel pair}
+                │ restriction to OI's structural class (A1–A6)
+Level G3: Substratum gauge group 𝒢_sub (Substratum §4)
+          {state relabeling, alphabet change, deep-sector size, graph isomorphism}
                 │ trace-out
-Level 2: SM gauge group SU(3)×SU(2)×U(1) (SM §4)
-         {commutant of coupling matrix M with multiplicities (3,2,1)}
+Level G2: SM gauge group SU(3)×SU(2)×U(1) (SM §4)
+          {commutant of coupling matrix M with multiplicities (3,2,1)}
                 │ Hamiltonian restriction
-Level 1: D-gauge H ↦ DHD† (GR §3.3)
-         {diagonal unitary basis rephasing of emergent Hamiltonian}
+Level G1: D-gauge H ↦ DHD† (GR §3.3)
+          {diagonal unitary basis rephasing of emergent Hamiltonian}
 ```
 
 **Reverse — three stages.** From observed physics back to the substratum equivalence class:
