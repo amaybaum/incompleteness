@@ -26,6 +26,8 @@ Prior work (QBism, relational QM, 't Hooft's cellular automaton [1]) takes obser
 
 The framework begins with a single empirical fact that cannot be doubted: *observation occurs*. An observer records distinguishable outcomes of interactions with a system not wholly under the observer's control. This is the cogito of Descartes made precise — not as philosophy, but as a mathematical constraint.
 
+The axiom has structural content beyond contingent occurrence. The framework's later development (the substratum gauge group of [Substratum §4], the universality classes of [Structure §9], and the observer-admission distinction of [Structure §9.6]) establishes that "observation occurs" is a structural fact about the framework's domain, not a fact about whether someone happens to be looking. Substrata that do not admit embedded observers exist as mathematical objects with dynamics; they do not produce physics in the framework's sense. The axiom commits to our universe being in the observer-admitting subset of substrata — substrata whose bijection structure satisfies the conditions C1-C3 below for some partition. The full articulation of this structural content is in the companion paper [Structure], which situates the axiom as the most foundational level of a four-level hierarchy.
+
 We ask: what is the minimal mathematical structure consistent with this fact?
 
 **Definition.** An *observation* is a triple $(S, \varphi, V)$: a total system $S$, a dynamics $\varphi: S \to S$, and an observer $V \subsetneq S$ — a proper subsystem with finitely many distinguishable internal states, coupled to the complement $H = S \setminus V$ through $\varphi$.

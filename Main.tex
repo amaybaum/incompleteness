@@ -22,7 +22,7 @@
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[expansion=false,protrusion=false]{microtype}
+  \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
@@ -126,18 +126,33 @@ outcomes of interactions with a system not wholly under the observer's
 control. This is the cogito of Descartes made precise --- not as
 philosophy, but as a mathematical constraint.
 
+The axiom has structural content beyond contingent occurrence. The
+framework's later development (the substratum gauge group of
+{[}Substratum §4{]}, the universality classes of {[}Structure §9{]}, and
+the observer-admission distinction of {[}Structure §9.6{]}) establishes
+that ``observation occurs'' is a structural fact about the framework's
+domain, not a fact about whether someone happens to be looking.
+Substrata that do not admit embedded observers exist as mathematical
+objects with dynamics; they do not produce physics in the framework's
+sense. The axiom commits to our universe being in the observer-admitting
+subset of substrata --- substrata whose bijection structure satisfies
+the conditions C1-C3 below for some partition. The full articulation of
+this structural content is in the companion paper {[}Structure{]}, which
+situates the axiom as the most foundational level of a four-level
+hierarchy.
+
 We ask: what is the minimal mathematical structure consistent with this
 fact?
 
 \textbf{Definition.} An \emph{observation} is a triple
 \((S, \varphi, V)\): a total system \(S\), a dynamics
-\(\varphi: S \to S\), and an observer \(V \subset neq S\) --- a proper
+\(\varphi: S \to S\), and an observer \(V \subsetneq S\) --- a proper
 subsystem with finitely many distinguishable internal states, coupled to
 the complement \(H = S \setminus V\) through \(\varphi\).
 
 This definition formalizes three features implicit in the concept of
 observation: there is a whole (\(S\)), the observer is not the whole
-(\(V \subset neq S\)), and the observer registers changes (coupling
+(\(V \subsetneq S\)), and the observer registers changes (coupling
 through \(\varphi\)). From this definition, three structural properties
 follow.
 
@@ -150,7 +165,7 @@ boundary; independent support comes from holographic entropy bounds
 {[}2{]}.
 
 \textbf{Lemma 2} (Causal partition). \emph{The observer is a proper
-subsystem: \(V \subset neq S\). The complement \(H = S \setminus V\) is
+subsystem: \(V \subsetneq S\). The complement \(H = S \setminus V\) is
 the hidden sector.} This partition is not a modeling choice but the
 definition of embedded observation: an observer that could access all of
 \(S\) would have nothing external to observe. The product decomposition
@@ -218,7 +233,7 @@ prior, recovering Liouville on a phase-space band; singular invariant
 measures are excluded by Lemma 3.) Letting \(\pi_V\) denote projection
 onto the visible sector, the marginalized transition probabilities
 
-\[T_{ij}(t_2, t_1) = \in t_{\Gamma_H} \delta_{x_j}[\pi_V(\phi_{t_2-t_1}(x_i, h))] \, d\mu(h)\]
+\[T_{ij}(t_2, t_1) = \int_{\Gamma_H} \delta_{x_j}[\pi_V(\phi_{t_2-t_1}(x_i, h))] \, d\mu(h)\]
 
 are therefore uniquely determined by three inputs: dynamics
 (\(\phi_t\)), partition (\(\Gamma_V, \Gamma_H\)), and measure (\(\mu\)).
@@ -310,7 +325,7 @@ total. The fraction failing the precondition is therefore
 \[P_{\text{perm}}(n_V, n_H) = \frac{n_V!\,(n_H!)^{n_V}}{(n_V n_H)!}, \quad n_V := |\mathcal{C}_V|,\ n_H := |\mathcal{C}_H|.\]
 
 Stirling's approximation gives the asymptotic decay
-\(\log P_{\text{perm}} \sim -n_V n_H \log n_V\) as \(n_H \to \in fty\)
+\(\log P_{\text{perm}} \sim -n_V n_H \log n_V\) as \(n_H \to \infty\)
 with \(n_V\) fixed --- equivalently,
 \(P_{\text{perm}} \sim n_V^{-n_V n_H}\). For any \(n_V \geq 2\), the
 fraction of bijections failing C1 at the \(T\)-level decays
@@ -412,7 +427,7 @@ Visible sector: \(x \in \{0, 1\}\). Hidden sector:
 satisfying (C1)--(C3). Since \(\sigma^2 = \text{id}\): at \(t = 1\), two
 of six hidden states flip \(x\), giving
 
-\[T(1,0) = P0\]
+\[T(1,0) = \begin{pmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{pmatrix}\]
 
 At \(t = 2\) (\(\sigma^2 = \text{id}\)): \(T(2,0) = I\). A Markov chain
 would predict continued mixing:
@@ -420,7 +435,7 @@ would predict continued mixing:
 The actual dynamics show complete \emph{un-mixing}. Computing the
 intermediate propagator:
 
-\[\Lambda(2,1) = T(2,0) \cdot [T(1,0)]^{-1} = P1\]
+\[\Lambda(2,1) = T(2,0) \cdot [T(1,0)]^{-1} = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}\]
 
 Negative entries --- no valid stochastic matrix exists.
 \textbf{P-indivisible.} \(\square\)
@@ -651,7 +666,7 @@ multi-step processes, the construction extends by history dilation.
 \(\square\)
 
 \emph{Remark.} This is the correspondence at the stochastic-process
-level: bijection $\leftrightarrow$ stochastic matrix via marginalization, both
+level: bijection ↔ stochastic matrix via marginalization, both
 directions. It is \emph{not} a full CPTP-channel correspondence ---
 channels that create coherences from diagonal inputs have no
 permutation-unitary realisation with uniform ancilla. For the
@@ -796,9 +811,9 @@ structure without fine-tuning.
 coupling neighborhoods on \(G_\varphi\). By range-1 coupling on the
 bounded-degree coupling graph (Lemma 1), the dynamics has the
 \emph{spatial Markov property}: for any region \(V\) with interior
-\(V^{\circ}\), boundary \(\partial V\), and exterior \(V^c\), the next-step
-state at sites in \(V^{\circ}\) depends only on current-step values within
-\(V \cup \partial V\), so \(V^{\circ} \perp V^c \mid \partial V\) in the joint
+\(V°\), boundary \(\partial V\), and exterior \(V^c\), the next-step
+state at sites in \(V°\) depends only on current-step values within
+\(V \cup \partial V\), so \(V° \perp V^c \mid \partial V\) in the joint
 distribution. Applied to \(V_A\) and \(V_B\) with disjoint coupling
 neighborhoods, this makes them conditionally independent given boundary
 data. Alice's measurement setting \(a\) determines which function she
@@ -889,10 +904,10 @@ relaxations or failures of ETH would require a separate argument. The C1
 and C3 necessity theorems do not depend on ETH.}
 
 \textbf{Remark (Consequence for the characterization theorem).}
-\emph{The full biconditional (i) $\Leftrightarrow$ (ii) $\Leftrightarrow$ (iii) of the characterization
-theorem below is similarly conditional on ETH for the (ii) $\Rightarrow$ (iii)
-direction specifically. The other directions --- (i) $\Leftrightarrow$ (ii) from {[}11,
-12{]}; (iii) $\Rightarrow$ (ii) from §2.3; C1 and C3 necessity from their own proofs
+\emph{The full biconditional (i) ⇔ (ii) ⇔ (iii) of the characterization
+theorem below is similarly conditional on ETH for the (ii) ⇒ (iii)
+direction specifically. The other directions --- (i) ⇔ (ii) from {[}11,
+12{]}; (iii) ⇒ (ii) from §2.3; C1 and C3 necessity from their own proofs
 --- are unconditional.}
 
 \textbf{Theorem (C3 necessity).} \emph{Let \(m = |\mathcal{C}_H|\). The
@@ -1042,7 +1057,7 @@ of the indivisible stochastic process (§3.1), not an additional
 assumption.
 
 \textbf{Observer covariance and nested observers.} The framework treats
-the observer partition \(V \subset neq S\) as a choice, not an absolute.
+the observer partition \(V \subsetneq S\) as a choice, not an absolute.
 Different partitions correspond to different observers; each partition
 satisfying the characterization conditions produces its own
 C1--C3-quantum description of the remaining degrees of freedom. This is
@@ -1052,7 +1067,7 @@ resolves the standard nested-observer paradoxes.
 
 Consider the Wigner's-friend setup: two disjoint partitions
 \(V_W, V_F \subset S\) (Wigner and Friend) with
-\(V_W \cup V_F \subset neq S\), and shared external hidden sector
+\(V_W \cup V_F \subsetneq S\), and shared external hidden sector
 \(H = S \setminus (V_W \cup V_F)\). The framework assigns three
 descriptions, all derived from the same \(\varphi\) by the same
 trace-out procedure:
@@ -1169,7 +1184,7 @@ claim of the present framework --- that observation cannot be treated as
 an external operation on physics --- while differing in mechanism.
 \textbf{Chandrasekaran, Longo, Penington, and Witten {[}35{]}} showed
 that adding an observer to QFT in a gravitational subregion promotes the
-von Neumann algebra of observables from type III to type II\(_\in fty\),
+von Neumann algebra of observables from type III to type II\(_\infty\),
 with a well-defined trace and entropy; Witten {[}36{]} extended the
 construction to de Sitter space. \textbf{Maldacena's recent dS
 observer-cancellation {[}37{]}} demonstrates that the unphysical phase

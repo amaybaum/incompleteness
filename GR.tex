@@ -22,7 +22,7 @@
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[expansion=false,protrusion=false]{microtype}
+  \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \makeatletter
@@ -66,7 +66,7 @@
 \begin{document}
 
 \hypertarget{ux210f-the-bekenstein-hawking-entropy-and-dynamical-dark-energy-from-the-cosmological-horizon}{%
-\section{$\hbar$, the Bekenstein-Hawking Entropy, and Dynamical Dark Energy
+\section{ℏ, the Bekenstein-Hawking Entropy, and Dynamical Dark Energy
 from the Cosmological
 Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-dynamical-dark-energy-from-the-cosmological-horizon}}
 
@@ -220,6 +220,23 @@ greybody factor for Hawking radiation, and the specific microscopic
 realization of the substratum --- which depend on the particular
 bijection \(\varphi\) and are addressed in the companion paper {[}SM{]}.
 
+The tier system maps to the framework's broader hierarchical structure
+articulated in {[}Structure §2{]}. \emph{Tier 1} --- the derivation of
+\(\hbar\), the area law, the CC dissolution, and the Type II RVM
+functional form --- operates at Level C × Level G4: these results hold
+for any partial-trace observational system on a horizon-like causal
+partition, not specifically for OI's cubic-lattice substratum. They are
+universality-class-level structural results. \emph{Tier 2} --- the
+dark-sector phenomenology --- sits at Level D × Levels G1--G2, deriving
+from the thermodynamic Clausius relation applied to the specific
+boundary reservoir of OI's universality-class representative. \emph{Tier
+3} --- solution-specific quantities --- is at the bijection-specific
+level below Level D, depending on the particular \(\varphi\) within
+\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\). This stratification
+clarifies what a Tier 1 result claims: not ``OI predicts \(\hbar\)
+uniquely'' but ``any horizon-bounded embedded-observer system gets this
+\(\hbar\), and OI provides one specific realization.''
+
 The paper is organized as follows. §2 identifies the cosmological
 horizon as a causal partition and verifies the structural conditions. §3
 derives the emergent action scale \(\hbar\) in four steps: the classical
@@ -288,7 +305,7 @@ No laboratory process saturates the hidden sector. \textbf{Satisfied.}
 
 Lemma 1 is now a consequence of partition geometry: the horizon has
 finite area \(A = 4\pi c^2/H^2\), bounding coupled modes to
-\(A/\epsilon^2 < \in fty\). The Part I theorem applies: the observer's
+\(A/\epsilon^2 < \infty\). The Part I theorem applies: the observer's
 reduced description is P-indivisible and, by Barandes' correspondence,
 equivalent to unitary QM with \(\hbar\) determined by the partition
 boundary.
@@ -381,7 +398,7 @@ where \(\varphi_t^{VB}\) is the flow restricted to \(V \times B\) with
 \(D\) frozen. The \(d\)-sum then contributes \(|\mathcal{C}_D|\)
 identical terms at leading order:
 
-\[T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|} \sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]}_{T^{(B)ij}(t)} + \mathcal{O}(t/\tau_B) \qquad \square\]
+\[T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|} \sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]}_{T^{(B)}_{ij}(t)} + \mathcal{O}(t/\tau_B) \qquad \square\]
 
 The correction is \(\mathcal{O}(t/\tau_B) \sim 10^{-32}\) for laboratory
 processes. Since \(T_{ij}(t)\) determines the emergent quantum
@@ -711,7 +728,7 @@ emergent Hilbert space decomposes as
 QFT with UV cutoff at \(\epsilon = 2\,l_p\). The tensor product
 structure follows from the spatial product structure of the classical
 configuration space
-\(\mathcal{C}_V = \mathcal{C}_1 \times \cdot s \times \mathcal{C}_N\)
+\(\mathcal{C}_V = \mathcal{C}_1 \times \cdots \times \mathcal{C}_N\)
 (one factor per cell), which is not required by Lemma 1 but is a
 consequence of spatial locality in the classical substratum: each cell's
 configuration is a local degree of freedom.
@@ -819,7 +836,7 @@ by partition geometry rather than treated as a free parameter (§3.2);
 (4) the dark-sector concordance --- \textasciitilde95\% of
 \(\rho_{\text{crit}}\) is invisible to QFT, matching the observed dark
 sector (§7.2); (5) dark energy in running-vacuum form, favoured by DESI
-DR2 at 2.8--4.$2\sigma$ and consistent at \(2\sigma\) with the Bertini et
+DR2 at 2.8--4.2σ and consistent at \(2\sigma\) with the Bertini et
 al.~(2025) direct RG-corrected \(\Lambda\)CDM fit (structurally
 equivalent to the framework's Type II prediction at leading order) ---
 Bertini being itself consistent with zero, matching the framework's
@@ -987,7 +1004,7 @@ determine are:
 \textbf{Magnitude at theorem level.} The self-consistent emergent-QFT
 calculation gives the \(H^2\) coefficient directly. In OI the matter
 fields and the curved-spacetime background are both emergent from the
-classical discrete substratum; the Shapiro-Solà $\beta$-function formula
+classical discrete substratum; the Shapiro-Solà β-function formula
 {[}33, 34{]} for the vacuum-energy running coefficient
 
 \[\nu = \frac{1}{48\pi^2}\sum_i a_i \frac{M_i^2}{M_{\rm Pl}^2}\]
@@ -1005,29 +1022,14 @@ A potential additional contribution from the substratum mode count is
 constrained by the boundary architecture established in §3.1 and §5:
 boundary modes are catalogued by spatial location alone (one degree of
 freedom per cell of area \(\epsilon^2\)), with no inherent frequency
-assignment from the spatial counting alone. The dynamical dispersion
-\(\omega(\mathbf{k})\) on this 2D spatial lattice reduces to
-\(\omega = c|\mathbf{k}|\) at sub-cutoff wavenumbers
-\(|\mathbf{k}| \ll 1/\epsilon\) --- the requirement for the trace-out's
-emergent QFT to reproduce 2D continuum field theory at long wavelengths
-(§6.1) --- and the standard density of states
-\(dN/d\omega \propto \omega\) follows. At the cosmological horizon
-frequency \(\omega \sim H \ll c/\epsilon\), mode contributions are
-suppressed by the spatial-vs-temporal scale ratio
-\((H\epsilon)^2 \sim 10^{-122}\), well below the emergent-QFT magnitude.
-This suppression is robust against UV-cutoff dispersion details (van
-Hove singularities at the band edge change \(\mathcal{O}(1)\) factors
-but not the scale ratio at \(\omega \sim H\)), so the framework's
-prediction \(|\nu| \approx |\nu_{\rm QFT}|\) is structural rather than
-dispersion-specific. A measurement \(|\nu| \sim 10^{-4}\) would require
-a structurally different mode architecture --- modes evenly
-distributed in \(\log \omega\) from \(H\) to the cutoff, rather than
-dynamically derived from spatial-lattice dispersion --- and would
-falsify the spatial-lattice mode-counting architecture, not the
-dispersion choice within it. The framework's prediction therefore
-reduces to \(|\nu| \approx |\nu_{\rm QFT}|\) --- observationally
-indistinguishable from zero at all foreseeable precision, including
-DESI Year 5.
+assignment. Under the natural 2D dispersion
+\(dN/d\omega \propto \omega\), modes concentrate near the UV cutoff and
+contribute a fraction \((H\epsilon)^2 \sim 10^{-122}\) at horizon
+frequency, well below the emergent-QFT magnitude. Absent additional
+substratum structure giving log-uniform boundary-mode distribution at
+the cosmological horizon, the framework's prediction reduces to
+\(|\nu| \approx |\nu_{\rm QFT}|\) --- observationally indistinguishable
+from zero at all foreseeable precision, including DESI Year 5.
 
 \textbf{Observational status.} DESI data {[}12, 13{]} report evolving
 dark energy at \(2.8\sigma\)--\(4.2\sigma\). The 2026 multi-variant
@@ -1321,7 +1323,7 @@ universe (\(d = 4\)):
 
 This is the MOND critical acceleration --- derived, not fitted.
 (Milgrom's empirical value:
-\(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/$s^{2}$.) The factor 1/6
+\(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/s².) The factor 1/6
 thus has dimensional origin: it is structurally fixed by \(d = 4\)
 together with the volume-vs-area entropy interplay.
 
@@ -1414,9 +1416,9 @@ Keplerian-like rotation curves. Since \(r_M\) shrinks with increasing
 
 This prediction is borne out by the data. Genzel et al.~{[}23, 24{]}
 report stacked rotation curves for massive star-forming galaxies at
-\(z = 0.9\text{--}2.4\) showing a declining outer velocity at
+\(z = 0.9\text{–}2.4\) showing a declining outer velocity at
 \(> 3\sigma\) significance relative to local spirals --- consistent with
-the OI prediction. In $\Lambda CDM$, flat rotation curves from NFW halos are
+the OI prediction. In ΛCDM, flat rotation curves from NFW halos are
 expected at all redshifts; explaining the Genzel data requires
 anomalously low halo concentrations or baryon-dominated inner regions.
 The cleanest local test is Jiao et al.~{[}25{]}, who detect for the
@@ -1436,7 +1438,7 @@ evolution in the Tully-Fisher relation out to \(z \sim 2.5\), seemingly
 contradicting \(v^4 \propto H(z)\). However, this comparison uses
 \emph{stellar} mass \(M_*\), not baryonic mass
 \(M_B = M_*/(1-f_{\text{gas}})\). At high redshift, gas fractions are
-large (\(f_{\text{gas}} \sim 50\text{--}70\%\) at \(z \sim 2\); Tacconi
+large (\(f_{\text{gas}} \sim 50\text{–}70\%\) at \(z \sim 2\); Tacconi
 et al.~2018). The OI-predicted shift in the baryonic TF
 (\(\Delta\log M_B = \log(H_0/H(z)) = -0.48\) dex at \(z = 2\)) is almost
 exactly compensated by the gas mass not included in \(M_*\): the
@@ -1491,12 +1493,12 @@ tests:
   set by measurement uncertainties --- and the \emph{intrinsic} scatter
   does not correlate with halo properties. Current SPARC data {[}22{]}
   show remarkably small RAR scatter (\(\sim 0.13\) dex), consistent with
-  OI but requiring fine-tuning in $\Lambda CDM$.
+  OI but requiring fine-tuning in ΛCDM.
 \end{enumerate}
 
 \textbf{Falsifiability.} The entropy displacement account would be
 falsified by: (a) detection of dark matter particles accounting for
-$\sim$\$27\% of \(\rho_{\text{crit}}\); (b) high-redshift rotation
+\$\sim\$27\% of \(\rho_{\text{crit}}\); (b) high-redshift rotation
 curves inconsistent with the predicted \(H(z)\) dependence ---
 specifically, if galaxies at \(z > 2\) show flat rotation curves at
 \(r > r_M(z)\); (c) baryonic Tully-Fisher violations exceeding baryonic
@@ -1534,33 +1536,28 @@ instantaneous baryonic distribution, the lensing should peak where the
 gas is --- contradicting observations. The OI framework resolves this
 through the non-local character of entropy displacement. The dark
 gravity arises from boundary entropy redistribution at the cosmological
-horizon, and the horizon's response time is bounded below by the
-substratum boundary timescale,
-\(\tau_{\text{relax}} \geq \tau_B \gtrsim 1/H \approx 14\) Gyr. This
-lower bound follows directly from condition C2 (boundary slow): the
-hidden-sector modes carrying the redistributed entropy cannot
-thermalize back to equilibrium faster than \(\tau_B\), the timescale on
-which boundary correlations decohere. The Bullet Cluster argument uses
-only this lower bound --- that \(\tau_{\text{relax}} \gg 0.15\) Gyr
-collision time --- so a more precise mode-by-mode calculation of
-\(\tau_{\text{relax}}\) is not required. The collision crossing time is
+horizon, and the horizon's response time is
+\(\tau_{\text{relax}} \sim H^{-1} \approx 14\) Gyr. The relaxation
+timescale identification (\(\tau_{\text{relax}} \sim 1/H\)) is itself a
+Tier 2 derived quantity from the de Sitter boundary's response to
+perturbations; specific calculations of mode-by-mode relaxation are
+deferred to a substratum-level analysis. The collision crossing time is
 \(t_{\text{cross}} \sim 720\,\text{kpc}/4700\,\text{km/s} \approx 0.15\)
-Gyr --- only \(\sim 1\%\) of the lower-bound relaxation time. The entropy
-displacement is therefore \emph{frozen} at the pre-collision
-configuration, centered on the galaxy concentrations (which defined the
-gravitational potential wells for gigayears before the collision). The
-gas moved during the collision; the boundary entropy did not. This
-reproduces the observed morphology: lensing peaks at the galaxy
-positions, gas peak between them --- without invoking collisionless
-particles. The mechanism makes a testable prediction: for very old
-post-collision systems (\(t_{\text{since}} \gg 1\) Gyr), the dark
-gravity should gradually relax toward the gas distribution on timescale
-of order \(\tau_B \gtrsim 1/H\). Particle dark matter predicts no such
-relaxation.
+Gyr --- only \(1\%\) of the relaxation time. The entropy displacement is
+therefore \emph{frozen} at the pre-collision configuration, centered on
+the galaxy concentrations (which defined the gravitational potential
+wells for gigayears before the collision). The gas moved during the
+collision; the boundary entropy did not. This reproduces the observed
+morphology: lensing peaks at the galaxy positions, gas peak between them
+--- without invoking collisionless particles. The mechanism makes a
+testable prediction: for very old post-collision systems
+(\(t_{\text{since}} \gg 1\) Gyr), the dark gravity should gradually
+relax toward the gas distribution on timescale \(\sim H^{-1}\). Particle
+dark matter predicts no such relaxation.
 
 \textbf{CMB acoustic peaks.} The CMB power spectrum provides the most
 precise test of the dark matter paradigm: the odd/even peak height
-asymmetry requires a non-oscillating gravitational source (CDM in $\Lambda CDM$)
+asymmetry requires a non-oscillating gravitational source (CDM in ΛCDM)
 that provides potential wells for the photon-baryon fluid to oscillate
 in. The entropy displacement satisfies this requirement through the same
 thermodynamic averaging that resolves the Bullet Cluster. The Clausius
@@ -1584,7 +1581,7 @@ has the same source term as CDM. The CMB power spectrum --- which
 depends on \(\Omega_b/\Omega_m\) (peak ratios), the growth of
 perturbations before recombination (peak heights), the sound horizon
 \(r_s\) (peak positions), and the damping scale (high-\(\ell\)
-suppression) --- is therefore predicted to match $\Lambda CDM$ at linear order. A
+suppression) --- is therefore predicted to match ΛCDM at linear order. A
 direct CLASS comparison (2026-04-26) confirms this: with the framework's
 Type II RVM at \(\nu = 10^{-4}\) (the Bertini 2025 1\(\sigma\) high end)
 encoded via CLASS's CLP fluid dark-energy module, the four acoustic peak
@@ -1625,7 +1622,7 @@ Match
 \bottomrule\noalign{}
 \endlastfoot
 Emergent action scale & \(\hbar = c^3 (2 l_p)^2 / (4G)\) &
-\(\hbar_{\text{obs}} = 1.055 \times 10^{-34}\) J$\cdot$s & structural \\
+\(\hbar_{\text{obs}} = 1.055 \times 10^{-34}\) J·s & structural \\
 Discreteness scale & \(\epsilon = 2\,l_p\) & Planck length &
 structural \\
 BH entropy coefficient & \(S_{BH} = A / (4 l_p^2)\) & GW250114 area law
@@ -1639,7 +1636,7 @@ consistent at \(2\sigma\) (Bertini consistent with zero) \\
 Dark sector fraction & \(\Omega_{\text{dark}} \approx 95\%\) &
 \(\Omega_{\text{CDM}} + \Omega_\Lambda \approx 95\%\) & consistent \\
 MOND acceleration scale & \(a_0 = cH/6 \approx 1.2 \times 10^{-10}\)
-m/$s^{2}$ & \(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/$s^{2}$ & exact \\
+m/s² & \(a_0^{\text{obs}} \approx 1.2 \times 10^{-10}\) m/s² & exact \\
 Baryonic Tully-Fisher & \(v^4 = G M_B \cdot cH/6\) & SPARC data & within
 \(0.13\) dex RAR scatter \\
 Rotation curve crossover & \(r_M = \sqrt{6 G M_B/(cH)}\) & Milky Way:
@@ -1659,23 +1656,20 @@ given at theorem level by the self-consistent emergent-QFT calculation:
 indistinguishable from zero. Substratum contributions beyond this are
 constrained by the boundary mode count of §3.1 and §5, which catalogues
 modes by spatial location with no inherent frequency assignment; the
-dynamical dispersion on the 2D spatial lattice is fixed by emergent-QFT
-recovery at long wavelengths (§7.1), giving the standard
-\(dN/d\omega \propto \omega\) density of states which contributes
-\(|\nu|_{\rm substratum}\) at scale \((H\epsilon)^2 \sim 10^{-122}\)
---- well below \(|\nu_{\rm QFT}|\) and robust against UV-cutoff
-dispersion details. The framework's theorem-level prediction is
+natural 2D field-theoretic distribution concentrates modes near the UV
+cutoff and contributes \(|\nu|_{\rm substratum}\) well below
+\(|\nu_{\rm QFT}|\). The framework's theorem-level prediction is
 therefore \(|\nu| \approx |\nu_{\rm QFT}|\), observationally
 indistinguishable from zero. The Bertini et al.~(2025) measurement
 \(\nu = -(2.5 \pm 1.3) \times 10^{-4}\) is consistent with this
 prediction at \(2\sigma\), where Bertini is itself consistent with zero.
 DESI Year 5 (\(\sim 1\%\) precision on \(\nu\)) provides the decisive
 empirical test: a null confirms the prediction; a high-confidence
-detection at the \(10^{-4}\) level would require a structurally
-different mode-counting architecture (modes per logarithmic frequency
-decade rather than per spatial cell) not derivable from §3-§5. The
-functional form (Type II RVM) is structurally protected and is the
-framework's pre-registered prediction.
+detection at the \(10^{-4}\) level would require additional substratum
+structure (specifically, log-uniform mode-per-decade distribution at the
+cosmological horizon) not currently derivable from §3-§5. The functional
+form (Type II RVM) is structurally protected and is the framework's
+pre-registered prediction.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1696,7 +1690,7 @@ same \((S, \varphi)\) are developed in {[}Substratum{]}.
 
 The characterization theorem is a full equivalence: QM \(\iff\) embedded
 observation under (C1)--(C3), conditional on the hidden sector
-satisfying the eigenstate thermalization hypothesis (ETH) for the C2 $\Leftarrow$
+satisfying the eigenstate thermalization hypothesis (ETH) for the C2 ⇐
 direction (see {[}Main, §3.4{]}). The C1 and C3 necessity directions are
 unconditional. For the cosmological horizon application, ETH holds for
 any generic chaotic hidden sector --- the horizon complement is such a
@@ -1829,15 +1823,28 @@ of strong \(w(z)\) variation incompatible with
 \(w = -1 + \mathcal{O}(\nu)\). The theorem-level magnitude prediction
 \(|\nu| \approx |\nu_{\rm QFT}| \sim 10^{-32}\) admits a stratified
 falsification structure: a measurement \(|\nu| \gtrsim 10^{-4}\) at high
-significance would require a structurally different mode-counting
-architecture (modes per logarithmic frequency decade rather than per
-spatial cell) beyond §3-§5; a measurement \(|\nu| > 10^{-3}\) at high significance
+significance would require log-uniform boundary-mode spectral structure
+beyond §3-§5; a measurement \(|\nu| > 10^{-3}\) at high significance
 would constitute a structural challenge to the magnitude prediction
 without falsifying the Type II functional form itself. The
 \emph{dark-sector concordance} (§7.2) would be falsified by detection of
 dark matter particles accounting for the full structured dark sector, or
 by evidence that the dark sector's gravitational effects are unrelated
 to the cosmological boundary geometry.
+
+The falsifiability content is stratified by hierarchy level (per
+{[}Structure §2.4{]}). The Type II RVM functional form is a Tier 1 /
+Level C × Level G4 prediction --- its falsification would refute the
+universality-class structural-realism claim that any horizon-bounded
+embedded-observer system produces this form, not specifically OI's
+cubic-lattice substratum. The dark-sector concordance is a Tier 2 /
+Level D × Levels G1--G2 prediction --- falsification would refute OI's
+specific universality-class representative without necessarily refuting
+the broader Tier 1 framing. The functional-form vs.~magnitude prediction
+(e.g., \(|\nu|\) at \(10^{-3}\) vs.~\(|\nu| \sim 10^{-32}\)) tracks this
+stratification: functional-form falsification operates at the
+universality-class level, magnitude falsification at the
+specific-representative level.
 
 \textbf{A near-term mechanism-side test.} A more tractable falsification
 target is provided by the recently developed operational distinction
@@ -1926,6 +1933,173 @@ solution-specific.
 
 Laboratory tests of the characterization theorem may be possible in
 analogue gravity systems where the hidden sector capacity is tunable.
+
+\hypertarget{universality-class-character-of-tier-1-results}{%
+\subsubsection{8.5 Universality-class character of Tier 1
+results}\label{universality-class-character-of-tier-1-results}}
+
+§1 distinguished Tier 1 results --- the derivation of \(\hbar\), the
+discreteness scale \(\epsilon = 2\,l_p\), the Bekenstein-Hawking area
+law with the \(1/4\) coefficient, the dissolution of the cosmological
+constant problem, and the Type II running-vacuum functional form of dark
+energy --- as following from partition geometry alone, not from specific
+substratum dynamics. This section makes that universality claim explicit
+and identifies what structural conditions any candidate substratum must
+satisfy for the Tier 1 results to apply.
+
+\textbf{The universality claim.} Let \(\mathcal{S}\) be any finite
+deterministic substratum (not necessarily OI's cubic lattice) admitting
+a partition into a visible sector \(V\) and hidden sector \(H\) at a
+cosmological-horizon-like causal boundary, satisfying {[}Main{]}'s
+structural conditions C1 (non-trivial coupling), C2 (slow bath:
+\(\tau_S \ll \tau_B\)), and C3 (high capacity: \(N_H \gg N_V\)). Then
+the following Tier 1 results follow from partition geometry and thermal
+self-consistency alone:
+
+(T1.1) \emph{Emergent action scale.} \(\hbar = c^3 \epsilon^2 / (4G)\),
+where \(\epsilon\) is the partition's discreteness scale.
+
+(T1.2) \emph{Discreteness scale.} \(\epsilon = 2\,l_p\) exactly, fixed
+by the simultaneous solution of the action-scale relation and the
+definition of the Planck length.
+
+(T1.3) \emph{Area law.} The boundary entropy is \(S = A/(4\,l_p^2)\),
+with the \(1/4\) coefficient fixed as the exact ratio \(2\pi/8\pi\)
+between the Euclidean KMS period and Jacobson's Einstein-equation
+prefactor.
+
+(T1.4) \emph{Cosmological constant dissolution.} The emergent quantum
+vacuum energy (\(\sim M_{\rm Pl}^4\)) and the effective cosmological
+constant (\(\sim H^2/G\)) refer to logically distinct objects across two
+levels of description; the \(10^{122}\) ratio is a compression ratio,
+not a failure of cancellation.
+
+(T1.5) \emph{Type II running-vacuum functional form.} Dark energy
+density obeys
+\(\rho_\Lambda(H) = \rho_\Lambda^0 + \nu (H^2 - H_0^2) M_{\rm Pl}^2 / (8\pi)\)
+with \(\nu\) controlled by the boundary mode count, with theorem-level
+magnitude
+\(|\nu| \approx |\nu_{\rm QFT}| \sim (M_{\rm SM}/M_{\rm Pl})^2 \sim 10^{-32}\).
+
+\textbf{What the derivations actually depend on.} Reviewing §3--§7:
+
+\begin{itemize}
+\item
+  The \emph{\(\hbar\) derivation} (§3) uses: the classical horizon
+  temperature from the Jacobson thermodynamic argument (depends only on
+  classical horizon geometry); the Euclidean KMS period of the emergent
+  QFT on the horizon (depends only on the partial-trace structure of the
+  channel and the horizon's discreteness scale); thermal
+  self-consistency requiring agreement between the two (depends on the
+  consistency of emergent QFT with classical thermodynamics at the
+  horizon). None of these depends on OI's specific cubic-lattice
+  structure; they depend on the existence of a cosmological-horizon
+  partition, the C1-C3 conditions, and the Stinespring/partial-trace
+  machinery {[}Main §3{]}.
+\item
+  The \emph{discreteness scale fixing} (§4) is purely algebraic:
+  rearranging the \(\hbar\) relation gives
+  \(\epsilon^2 = 4 \hbar G/c^3 = 4 l_p^2\). Independent of substratum
+  dynamics.
+\item
+  The \emph{area law derivation} (§5) uses: the boundary mode count
+  \(N_{\rm modes} = A/\epsilon^2\) (depends only on the boundary's
+  geometric area and the discreteness scale); the identification of mode
+  count with entropy via the partial-trace structure. Independent of
+  substratum dynamics beyond the C1-C3 conditions.
+\item
+  The \emph{CC dissolution} (§6) uses: the structural distinction
+  between the emergent quantum vacuum energy (a property of the emergent
+  QFT description) and the effective cosmological constant (a property
+  of the classical substratum's gravitational dynamics). The distinction
+  is structural --- it follows from the two-level description
+  architecture of any embedded-observer system, not from OI's specific
+  substratum.
+\item
+  The \emph{Type II RVM functional form} (§7.1) uses: boundary entropy
+  as bookkeeping degree of freedom in the gap equation; the Clausius
+  relation \(\delta Q = T \delta S\) at the horizon; the fact that
+  boundary entropy is finite and depends on \(H\) via
+  \(A \propto H^{-2}\). The functional form \(\rho_\Lambda \propto H^2\)
+  follows from the gap equation's structure, which depends on the
+  cosmological-horizon geometry but not on OI's specific substratum.
+\end{itemize}
+
+\textbf{Sufficient structural conditions.} The Tier 1 results require
+the following structural conditions on the substratum:
+
+(\emph{S1}) \emph{Cosmological-horizon partition.} The substratum admits
+a partition \(V\) at a causal horizon with timescale
+\(\tau_B \sim H^{-1}\) and information capacity
+\(S_{\rm dS} \sim 10^{122}\).
+
+(\emph{S2}) \emph{C1--C3 satisfied.} The partition has substantial
+coupling (C1), slow-bath structure (C2), and high capacity (C3), per
+{[}Main §3{]}.
+
+(\emph{S3}) \emph{Finite discreteness.} The substratum has a finite
+discreteness scale \(\epsilon\) that admits identification with the
+boundary's mode-counting unit. {[}Main §3{]}'s Lemma 1 establishes
+finite-dimensionality from C1-C3; here we additionally require that the
+discreteness scale appears in the boundary mode count.
+
+(\emph{S4}) \emph{Stinespring/partial-trace structure.} The
+visible-sector dynamics is generated by partial trace of
+substratum-level dynamics over the hidden sector, with the trace
+producing a CPTP channel admitting Stinespring dilation {[}Main §3.2{]}.
+
+These conditions are weaker than OI's full structural conditions A1--A6:
+A1 (finiteness) implies S3 with finite \(\epsilon\); A6 (background
+independence) is required for the SM gauge-group derivation but not for
+the Tier 1 results; A2-A5 (determinism, bounded coupling, center
+independence, linearity) are required for OI's specific
+universality-class representative but not for the
+universality-class-level Tier 1 claims. A substratum satisfying S1-S4
+but violating some of A2-A5 (e.g., a substratum with stochastic
+dynamics, or with nonlinear evolution) would still produce
+\(\hbar = c^3 \epsilon^2/(4G)\), the area law with \(1/4\) coefficient,
+the CC dissolution, and the Type II RVM functional form, provided the
+partial-trace machinery and thermal self-consistency hold.
+
+\textbf{Theorem-level statement.} The Tier 1 universality claim can be
+stated as a theorem at the level of the framework's hierarchical
+structure (per {[}Structure §2{]}):
+
+\emph{Theorem (Tier 1 universality).} For any substratum \(\mathcal{S}\)
+satisfying S1--S4, the Tier 1 results T1.1--T1.5 follow with the same
+numerical content as derived in this paper for OI's specific substratum.
+
+The proof is the §3--§7 derivations themselves, with the observation
+that each step depends only on S1--S4 and not on OI's specific
+structural conditions A2--A5. A formal proof at the level of explicit
+theorem-style presentation has not been written out in this paper; the
+present section establishes the proof's content by identifying the
+structural conditions required at each step. Writing out the formal
+theorem explicitly is follow-up work; the universality claim is
+established at the level of structural-condition identification.
+
+\textbf{Empirical implication.} The Tier 1 universality has substantial
+empirical content. The GW250114 confirmation of the area law at
+\(99.999\%\) confidence is a confirmation of a Level C × Level G4
+(universality-class-level) structural-realism claim, not specifically of
+OI's cubic-lattice substratum. Any substratum satisfying S1-S4 would
+produce the area law; GW250114 confirms that physics is in a
+universality class admitting the area law, not that physics is
+specifically OI's representative within that class. Conversely, the
+dark-sector concordance (§7.2), the MOND-like phenomenology (§7.3), and
+the rotation-curve crossover (§7.3) depend on OI's specific gap-equation
+solution and are Level D × Levels G1--G2 predictions; their empirical
+confirmation would support OI's specific universality-class
+representative.
+
+The stratification clarifies what would falsify what: a measured
+deviation from the area law (e.g., an \(A/4\) coefficient differing from
+\(1/4\) by more than the GW250114 precision allows) would falsify the
+universality-class claim; a measured deviation from the dark-sector
+phenomenology would falsify OI's specific representative without
+necessarily refuting the universality class. The framework's empirical
+content thus operates at multiple hierarchy levels, with falsifiability
+stratified accordingly.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2247,16 +2421,10 @@ at the BH horizon) and \(n_R(t) = n_B(0) - n_B(t)\) (the number of
 emitted radiation modes). Conservation:
 \(n_B(t) + n_R(t) = n_B(0) = S_{\text{BH}}(0)\).
 
-The trans-cosmological sector \(D\) is frozen at each instant on
-substratum-observation timescales (\(\tau_S \ll \tau_B^D\)), so by
-Theorem A.5 the bipartite system \(B \cup R\) describes the relevant
-dynamics at each time with \(D\) decoupled at leading order. This
-bipartite description applies \emph{locally} throughout evaporation:
-even when \(\tau_{\text{evap}} \gg \tau_B^D\) (as for stellar-mass BHs,
-where \(\tau_{\text{evap}} \sim 10^{78}\) s and
-\(\tau_B^D \sim 10^{17}\) s), \(\rho_{BR}(t)\) is approximately pure at
-each time \(t\) with corrections
-\(\mathcal{O}(\tau_S/\tau_B^D) \sim 10^{-32}\).
+The trans-cosmological sector \(D\) is frozen on evaporation timescales
+(\(\tau_{\text{evap}} \ll \tau_B^D\)), so by Theorem A.5 the relevant
+dynamics is the bipartite system \(B \cup R\) with \(D\) decoupled at
+leading order.
 
 \textbf{Theorem A.7} (Effective bipartite pure state). \emph{On
 timescales \(t \ll \tau_B^D\), the joint state of \(B\) and \(R\) is
@@ -2386,7 +2554,7 @@ ergodicity assumption, and no gravitational path integral. The
 construction, to the post-Page-time regime in which the BH boundary
 modes form the smaller subsystem; the ``replica wormhole'' geometries
 appear to correspond to the substratum's cycle structure on the energy
-shell. This suggested correspondence --- replica wormholes $\leftrightarrow$ substratum
+shell. This suggested correspondence --- replica wormholes ↔ substratum
 cycles --- is conjectural at this stage; making it precise would require
 constructing the gravitational path integral as an effective description
 of the substratum dynamics in the appropriate limit. What the present
@@ -2460,7 +2628,7 @@ A} \textbf{380}, 20210182 (2022).
 
 {[}11{]} J. Solà Peracaula, A. Gómez-Valent, J. de Cruz Pérez, and C.
 Moreno-Pulido, ``Running Vacuum in the Universe: Phenomenological Status
-in Light of the Latest Observations, and Its Impact on the $\sigma_{8}$ and $H_{0}$
+in Light of the Latest Observations, and Its Impact on the σ₈ and H₀
 Tensions,'' \emph{Universe} \textbf{9}, 262 (2023); arXiv:2304.11157.
 
 {[}12{]} DESI Collaboration, ``DESI 2024 VI: Cosmological Constraints
@@ -2475,11 +2643,11 @@ Rev.~D} \textbf{112}, 083515 (2025); arXiv:2503.14738.
 arXiv:2512.20616 (2025).
 
 {[}15{]} N. R. Bertini, M. H. Novaes, R. von Marttens, and I. L.
-Shapiro, ``Renormalization group corrections to $\Lambda CDM$ model and
-observational consequences for $H_{0}$ tension,'' arXiv:2509.24026 (2025).
+Shapiro, ``Renormalization group corrections to ΛCDM model and
+observational consequences for H₀ tension,'' arXiv:2509.24026 (2025).
 
 {[}16{]} A. Gómez-Valent and J. Solà Peracaula, ``Relaxing the
-$\sigma_{8}$-tension through running vacuum in the Universe,'' \emph{Mon. Not.
+σ₈-tension through running vacuum in the Universe,'' \emph{Mon. Not.
 Roy. Astron. Soc.} \textbf{478}, 126--145 (2018); arXiv:1801.08501.
 
 {[}17{]} DESI Collaboration: W. Elbers et al., ``Constraints on Neutrino
@@ -2547,7 +2715,7 @@ cosmological constant: interface between quantum field theory and
 cosmology,'' \emph{JHEP} \textbf{02}, 006 (2002); arXiv:hep-th/0012227.
 
 {[}34{]} C. Moreno-Pulido and J. Solà Peracaula, ``Running vacuum in QFT
-in FLRW spacetime: the dynamics of $\rho$\_vac(H) from the quantized matter
+in FLRW spacetime: the dynamics of ρ\_vac(H) from the quantized matter
 fields,'' \emph{Eur. Phys. J. C} \textbf{83}, 637 (2023);
 arXiv:2302.04807.
 
