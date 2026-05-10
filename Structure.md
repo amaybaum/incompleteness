@@ -1,8 +1,9 @@
-# Structure
+# Hierarchical Structural Realism and Universality Classes of Embedded Observers
 
-**Author:** Alex Maybaum
-**Status:** Working draft, May 9, 2026
-**Companion to:** [Main], [SM], [GR], [Substratum]
+**Author:** Alex Maybaum  
+**Date:** May 2026  
+**Status:** DRAFT PRE-PRINT  
+**Classification:** Theoretical Physics / Foundations / Philosophy of Physics  
 **Target venues:** Journal of High Energy Physics (JHEP), Foundations of Physics, Studies in History and Philosophy of Modern Physics
 
 ---
@@ -899,7 +900,7 @@ This is a more refined picture than the §7.1 framing of "OI and string theory a
 
 ## Acknowledgments
 
-This work builds on the four-paper sequence [Main, SM, GR, Substratum]. It consolidates content originally developed across three separate documents: a canonical articulation of the framework's two-dimensional hierarchical structure (now §2), a technical analysis of the OI-string substratum-level relationship (now Part I), and a programmatic framework of universality classes of embedded observers (now Part II), with cross-framework synthesis in Part III. The proposal investigated in Part I was raised in discussion with [collaborator/AI-assisted analysis, depending on author preference]. Errors and speculative content are the author's responsibility.
+This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Substratum]. It consolidates content originally developed across three separate documents: a canonical articulation of the framework's two-dimensional hierarchical structure (now §2), a technical analysis of the OI-string substratum-level relationship (now Part I), and a programmatic framework of universality classes of embedded observers (now Part II), with cross-framework synthesis in Part III. The proposal investigated in Part I was raised in discussion with [collaborator/AI-assisted analysis, depending on author preference]. Errors and speculative content are the author's responsibility.
 
 ## References
 

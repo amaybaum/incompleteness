@@ -15,7 +15,8 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern} (commented for build)
+% \usepackage{lmodern} (commented; using unicode-fix)
+\input{unicode-fix}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -866,7 +867,7 @@ The substratum is real-valued and, on linear dynamics with energy
 conservation, has a stationary distribution that is Gaussian on energy
 shell at large \(L\) (sphere-Gaussian projection theorem). The
 substratum two-point function is then
-\(\langle \varphi(x)\varphi(y) \rangle = \Box_{\text{lat}}^{-1}_{xy}\).
+\(\langle \varphi(x)\varphi(y) \rangle = [\Box_{\text{lat}}^{-1}]_{xy}\).
 The standard MC code (cf.~§7.5) does not use Grassmann variables
 directly; it uses the \emph{pseudofermion} representation, in which
 fermion determinants are rewritten as bosonic Gaussian integrals over
@@ -2154,7 +2155,7 @@ The expansion parameter for the \(C_2\)-dependent threshold is
 \(C_2 \cdot g_0^2 = C_2 \times 4\pi\alpha_0 = 1.08\) (SU(2)) and
 \(1.62\) (SU(3)) --- both \(\mathcal{O}(1)\). Finite-order perturbation
 theory converges too slowly: using known Wilson-action plaquette
-coefficients, 3-loop PT explains only \$\sim\$26\% of the threshold at
+coefficients, 3-loop PT explains only $\sim$26\% of the threshold at
 SU(3). The all-orders result is well parameterized by a geometric-series
 resummation of the gauge self-energy:
 
@@ -4943,13 +4944,16 @@ consistent with the Bertini et al.~2025 direct DESI-DR2-era fit at
 reconstruction theorem, the substratum gauge group, and the synthesis
 claim that quantum mechanics, general relativity, and the arrow of time
 descend as three projections of the same \((S, \varphi)\) are developed
-in {[}Substratum{]}. Together, the four-paper sequence makes a single
-claim: the Standard Model, general relativity, and the arrow of time are
-three projections of one finite deterministic construction --- the
-visible-sector projection developed here, the boundary-level
-thermodynamic limit developed in the GR companion paper, and the
-horizon-clock-plus-observer-selection projection developed in
-{[}Substratum §5.4{]}.
+in {[}Substratum{]}. Together, this four-paper synthesis ({[}Main{]},
+{[}SM{]}, {[}GR{]}, {[}Substratum{]}) makes a single claim: the Standard
+Model, general relativity, and the arrow of time are three projections
+of one finite deterministic construction --- the visible-sector
+projection developed here, the boundary-level thermodynamic limit
+developed in {[}GR{]}, and the horizon-clock-plus-observer-selection
+projection developed in {[}Substratum §5.4{]}. The fifth core paper
+{[}Structure{]} articulates the framework's two-dimensional hierarchical
+structural realism and develops its relationship to other unification
+programs through universality classes of embedded observers.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
