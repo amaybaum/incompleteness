@@ -11,7 +11,7 @@ This repository develops a single framework across five core papers:
 - **SM** — derives the Standard Model from a $d = 3$ cubic lattice
 - **GR** — derives the gravitational sector from the cosmological horizon
 - **Substratum** — ties these into a single construction at the substratum level
-- **Structure** — articulates the framework's two-dimensional hierarchical structure (an observation hierarchy A–D × a gauge hierarchy G1–G4, with multi-level structural realism), and develops the framework's relationship to broader unification programs through universality classes of embedded observers, a four-feature audit characterizing the OI–string relationship at the partial-trace observational level, and per-condition structural analysis extending to LQG, causal sets, and asymptotic safety
+- **Structure** — develops the framework's hierarchical structural realism and universality classes of embedded observers
 
 A self-contained paper, **Juno**, presents the prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$, recently confirmed by JUNO at $0.07\sigma$ against the post-JUNO global fit. See [`Juno.md`](Juno.md).
 
