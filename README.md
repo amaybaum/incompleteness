@@ -5,12 +5,13 @@
 **Status:** DRAFT PRE-PRINT
 **Classification:** Theoretical Physics / Foundations
 
-This repository develops a single framework across four papers:
+This repository develops a single framework across five core papers:
 
 - **Main** — establishes the equivalence between embedded observation and quantum mechanics
 - **SM** — derives the Standard Model from a $d = 3$ cubic lattice
 - **GR** — derives the gravitational sector from the cosmological horizon
 - **Substratum** — ties these into a single construction at the substratum level
+- **Structure** — develops the framework's hierarchical structural realism and universality classes of embedded observers
 
 A self-contained paper, **Juno**, presents the prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$, recently confirmed by JUNO at $0.07\sigma$ against the post-JUNO global fit. See [`Juno.md`](Juno.md).
 
@@ -62,6 +63,8 @@ Each prediction's full derivation chain and classification (structural / mass-ch
 
 **Position relative to mainstream observer-emergent physics.** The framework's foundational claim — that observation is not external to physics — has been independently arrived at by several mainstream programs since 2022, with results that converge on the central observer-essentiality move while differing in mechanism. CLPW 2022 (JHEP 02:082) showed that adding an observer to QFT in a gravitational subregion promotes the von Neumann algebra from type III to type II$_\infty$. Maldacena 2024 (arXiv:2412.14014) demonstrated that the de Sitter sphere partition function's unphysical phase cancels exactly when an observer-with-clock is incorporated. Harlow-Usatyuk-Zhao (JHEP 02:108) and the AAIL construction (arXiv:2501.04305) argue that the closed-universe Hilbert-space dimension is determined by the observer's degrees of freedom. Slagle-Preskill 2022 (Phys. Rev. A 108:012217) constructed boundary quantum mechanics from a classical lattice model with stochastic dynamics. The present framework converges on the foundational substance — observation is not external; the algebra of observables depends on the observer; the partition structure carries physical content — while differing in mechanism: it is the unique member of this convergence in which the observer-essentiality content derives from a finite *deterministic* substratum (no extra spatial dimensions, no fundamental stochasticity), and produces a quantitative empirical record (twenty-two structural retrodictions) that the comparison programs do not currently match. The convergence is supportive context for the framework's central claims; the empirical record is what distinguishes it. Full positioning is developed in [`Main`](Main.md) §4.4.
 
+**Hierarchical structure and universality classes.** The [`Structure`](Structure.md) paper articulates the framework's two-dimensional structural realism and extends it to comparison with other unification programs. The framework operates on a two-dimensional hierarchy: an observation axis (Level A axiom; Level B observer-admission; Level C universality classes; Level D OI's specific representative) and an orthogonal gauge axis (Level G1 D-gauge; Level G2 SM gauge group; Level G3 substratum gauge group $\mathcal{G}_{\rm sub}$; Level G4 universality-class equivalence). Different empirical predictions live at different intersections; falsifiability is stratified accordingly. Within this structure, the paper develops the framework's relationship to string theory: OI and string theory are not equivalent at the substratum level (OI's structural conditions A2 determinism and A5 linearity fail for matrix-model formulations), but share structural features at the partial-trace observation level (Born rule, channel-level unitarity, non-Markovian marginal, commutant gauge-invariance pattern). The intersection between the frameworks lives at a precisely-characterized level: the structural features of partial-trace observation, independent of substratum-level machinery. The framework's predictions live at multiple levels of universality — partial-trace features (most universal, shared across all embedded-observer systems), gauge-group structure (intermediate, shared across SM-reproducing classes), and OI-specific predictions like the Cabibbo angle $1/(\pi\sqrt{2})$ (most class-specific, real for OI's universality-class representative). The methodological reframing: fundamental physics as identifying the universality class of our universe through observational features, with substratum descriptions being framework-specific representations.
+
 ---
 
 ## Frequently asked questions
@@ -94,9 +97,11 @@ Each prediction's full derivation chain and classification (structural / mass-ch
 
 - **[`SM`](SM.md)** — derives the Standard Model from a $d=3$ cubic lattice. SU(3)×SU(2)×U(1), three generations, $\bar\theta=0$, twenty-two quantitative observables. ([`.tex`](SM.tex), [`.pdf`](SM.pdf))
 
-- **[`GR`](GR.md)** — derives $\hbar$, the Bekenstein-Hawking entropy with the $1/4$ coefficient (confirmed by GW250114), the cosmological constant dissolution, and the dark sector phenomenology including $a_0 = cH/6$ from the cosmological horizon. ([`.tex`](GR.tex), [`.pdf`](GR.pdf))
+- **[`GR`](GR.md)** — derives $\hbar$, the Bekenstein-Hawking entropy with the $1/4$ coefficient (confirmed by GW250114), the cosmological constant dissolution, and the dark sector phenomenology including $a_0 = cH/6$ from the cosmological horizon. The Tier 1 results ($\hbar$, area law, CC dissolution, Type II RVM functional form) are formalized at the universality-class level: they hold for any horizon-bounded embedded-observer system satisfying the structural conditions S1-S4, with OI providing one specific realization (§8.5). ([`.tex`](GR.tex), [`.pdf`](GR.pdf))
 
 - **[`Substratum`](Substratum.md)** — develops the reconstruction theorem and the substratum gauge group; argues QM, GR, and the arrow of time are three projections of the same finite deterministic construction. ([`.tex`](Substratum.tex), [`.pdf`](Substratum.pdf))
+
+- **[`Structure`](Structure.md)** — articulates the framework's two-dimensional hierarchical structure (§2: observation hierarchy A-D × gauge hierarchy G1-G4, multi-level structural realism, prediction stratification) and develops the framework's relationship to broader unification programs in three parts. Part I (§§3-7) examines whether SM-reproducing string compactifications are gauge-equivalent representatives of OI's substratum equivalence class, with negative outcome — matrix-model formulations fail OI's structural conditions A2 (determinism) and A5 (linearity). Part II (§§8-13) develops the broader framework of universality classes of embedded observers — equivalence classes of substratum-with-observer systems under partial-trace observational equivalence, broader than OI's gauge group $\mathcal{G}_{\rm sub}$ — with the algebraic formalization adopted as principal and the observer-admission distinction formalized; §13 develops seven open research questions, including per-condition A1–A6 analysis of LQG, causal sets, and asymptotic safety against OI's structural conditions, finding that A2 (determinism) is the most discriminating condition across candidate programs. Part III (§14) provides a four-feature audit (Born rule, channel-level unitarity, P-indivisibility, commutant gauge-invariance) characterizing the OI-string universality-class relationship: three features transport directly, with holographic Schwinger-Keldysh providing direct analog of OI's P-indivisibility and AdS/CFT bulk reconstruction providing direct analog of OI's Stinespring lift; the fourth transports as a pattern but not as a specific output. ([`.tex`](Structure.tex), [`.pdf`](Structure.pdf))
 
 ### Focused presentation
 
@@ -158,17 +163,22 @@ The forward derivation and reconstruction theorem together establish that the fr
        └── Molecular C1–C3 → non-Markovian pharmacology (Medicine)
 ```
 
-**Three-level gauge hierarchy.** The framework's gauge structure is layered:
+**Four-level gauge hierarchy.** The framework's gauge structure is layered (per [`Structure`](Structure.md) §2.2):
 
 ```
-Level 3: Substratum gauge group 𝒢_sub (Substratum §4)
-         {state relabeling, alphabet change, deep-sector size, graph isomorphism}
+Level G4: Universality-class equivalence (Structure §9)
+          {algebra-channel *-isomorphism with channel intertwining;
+           broader than 𝒢_sub, includes substrata not related by 𝒢_sub
+           that produce the same algebra-channel pair}
+                │ restriction to OI's structural class (A1–A6)
+Level G3: Substratum gauge group 𝒢_sub (Substratum §4)
+          {state relabeling, alphabet change, deep-sector size, graph isomorphism}
                 │ trace-out
-Level 2: SM gauge group SU(3)×SU(2)×U(1) (SM §4)
-         {commutant of coupling matrix M with multiplicities (3,2,1)}
+Level G2: SM gauge group SU(3)×SU(2)×U(1) (SM §4)
+          {commutant of coupling matrix M with multiplicities (3,2,1)}
                 │ Hamiltonian restriction
-Level 1: D-gauge H ↦ DHD† (GR §3.3)
-         {diagonal unitary basis rephasing of emergent Hamiltonian}
+Level G1: D-gauge H ↦ DHD† (GR §3.3)
+          {diagonal unitary basis rephasing of emergent Hamiltonian}
 ```
 
 **Reverse — three stages.** From observed physics back to the substratum equivalence class:
