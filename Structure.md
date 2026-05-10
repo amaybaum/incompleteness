@@ -331,7 +331,7 @@ This conclusion is structural rather than technical. Matrix models are the most 
 
 ### 6.8 What can be salvaged
 
-The negative conclusion in §7.7 admits four partial recoveries, ordered from most to least plausible.
+The negative conclusion in §7.8 admits four partial recoveries, ordered from most to least plausible.
 
 **(i) Different bridge.** Matrix models are not the only finite-dimensional formulation of string theory. Alternative bridges include: (a) the AdS/CFT correspondence, where the boundary CFT lives on a finite-dimensional spacetime that may be discretized while preserving the bulk string content; (b) tensor-network reformulations of matrix models [TensorNetworkMatrix2024], which translate continuous matrix dynamics into discrete tensor structures; (c) causal dynamical triangulations [Loll2019], a discretization scheme for quantum gravity with manifestly finite configuration space and combinatorial dynamics. Each of these admits independent investigation of A1–A6 compatibility, and the equivalence-class reading might hold for one of them even if it fails for matrix models. This paper does not pursue these alternatives in detail; we flag them as open directions.
 
@@ -353,7 +353,7 @@ This negative result is the central technical finding of this paper. Section 6 d
 
 ## 7. Implications and discussion
 
-The structural analysis of §6 establishes that matrix-model formulations of string theory do not satisfy OI's structural conditions A1–A6 in their standard formulation, with the failures at A2 (determinism / bijection) and A5 (linearity) reflecting structural commitments rather than discretization artifacts. The equivalence-class proposal of §1.3 — that SM-reproducing string compactifications are gauge-equivalent representatives of OI's $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$ — therefore does not hold for matrix models as currently understood. This section discusses the implications of this negative result, the partial recoveries identified in §7.8, and the open directions left by the analysis.
+The structural analysis of §6 establishes that matrix-model formulations of string theory do not satisfy OI's structural conditions A1–A6 in their standard formulation, with the failures at A2 (determinism / bijection) and A5 (linearity) reflecting structural commitments rather than discretization artifacts. The equivalence-class proposal of §1.3 — that SM-reproducing string compactifications are gauge-equivalent representatives of OI's $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$ — therefore does not hold for matrix models as currently understood. This section discusses the implications of this negative result, the partial recoveries identified in §7.6, and the open directions left by the analysis.
 
 ### 7.1 OI and string theory as independent programs
 
@@ -363,7 +363,7 @@ This independence has methodological consequences. A successful prediction of OI
 
 The independence is also informative about the foundational landscape of fundamental physics. OI and string theory are two of several active programs (alongside loop quantum gravity, causal sets, asymptotic safety, and others) that propose substratum descriptions for the SM. The structural divergence between OI and string theory at A2 and A5 indicates that these are deep ontological choices, not technical details: a substratum framework either commits to deterministic-bijection / linear-wave-equation structure (OI's choice, with the foundational economy this implies) or to path-integral / gauge-Yang-Mills structure (string theory's choice, with the gravitational-unification this provides). The choice cannot be made on technical grounds alone; it requires foundational arguments.
 
-A consequence of the structural divergence is that both programs cannot be foundational descriptions of the same physics simultaneously. If both are taken as candidate substratum descriptions of the Standard Model, then at most one of the two is correct as currently formulated; the other requires modification. Three resolutions are possible: (a) OI is correct as described and string theory needs modification toward classical-substratum dynamics; (b) string theory is correct as described and OI's reconstruction theorem captures features of a specific compactification rather than foundational structure; (c) both require modification toward a deeper framework from which both emerge as different limits or different aspects. The current empirical and theoretical evidence does not select definitively among these resolutions. The independence claim is therefore not a stable end-state but a provisional characterization of the current state of evidence; the productive direction for future work is to identify which resolution obtains, through continued empirical testing of each framework's predictions, peer-review validation of internal consistency, and investigation of whether the partial recoveries identified in §7.8 can rescue equivalence-class structure.
+A consequence of the structural divergence is that both programs cannot be foundational descriptions of the same physics simultaneously. If both are taken as candidate substratum descriptions of the Standard Model, then at most one of the two is correct as currently formulated; the other requires modification. Three resolutions are possible: (a) OI is correct as described and string theory needs modification toward classical-substratum dynamics; (b) string theory is correct as described and OI's reconstruction theorem captures features of a specific compactification rather than foundational structure; (c) both require modification toward a deeper framework from which both emerge as different limits or different aspects. The current empirical and theoretical evidence does not select definitively among these resolutions. The independence claim is therefore not a stable end-state but a provisional characterization of the current state of evidence; the productive direction for future work is to identify which resolution obtains, through continued empirical testing of each framework's predictions, peer-review validation of internal consistency, and investigation of whether the partial recoveries identified in §7.6 can rescue equivalence-class structure.
 
 ### 7.2 The string landscape multiplicity problem is not dissolved by OI's gauge group
 
@@ -389,9 +389,47 @@ This limitation does not, however, diminish OI's own computational tractability.
 
 The swampland program [Vafa2005, OoguriVafa2007, Palti2019, Lehnert2025] aims to identify which low-energy effective field theories admit consistent UV completion in quantum gravity, by formulating conjectures (Weak Gravity, de Sitter, AdS Distance, Cobordism, etc.) that consistent EFTs must satisfy. The program's success would be a constructive characterization of the SM-reproducing subset of the landscape.
 
-OI's reconstruction theorem provides an alternative characterization of the same SM-reproducing target, but through different methodology: OI derives the SM from the embedded-observer ontology, whereas the swampland program identifies which UV completions are compatible with consistent quantum gravity. The two characterizations are independent in the sense established by §6, but they may agree on which low-energy effective theories are admissible.
+OI's reconstruction theorem provides an alternative characterization of the same SM-reproducing target, but through different methodology: OI derives the SM from the embedded-observer ontology, whereas the swampland program identifies which UV completions are compatible with consistent quantum gravity. The two characterizations are independent in the sense established by §6, but they may agree on which low-energy effective theories are admissible. This section examines OI's compatibility with the major swampland conjectures, identifying both the consistency results and the cross-validation pathways the conjectures provide for OI's specific predictions.
 
-A productive direction for future work is to ask whether OI's SM derivation is consistent with the swampland conjectures. If OI's emergent QFT (after the trace-out and large-$N_S$ continuum limit) satisfies the Weak Gravity Conjecture, the de Sitter Conjecture, and the other established swampland constraints, this provides cross-validation: the same SM-reproducing target is independently consistent with both quantum-gravity-consistent string theory and the embedded-observer reconstruction. We do not pursue this analysis here but flag it as an open direction.
+#### 7.5.1 Weak Gravity Conjecture
+
+The Weak Gravity Conjecture [ArkaniHamedMotlNicolisVafa2007] states that any consistent quantum-gravity EFT containing a $U(1)$ gauge field must contain a particle whose charge-to-mass ratio in Planck units is $\geq 1$ — equivalently, gravity is the weakest force.
+
+OI's emergent QFT contains the SM gauge structure $SU(3) \times SU(2) \times U(1)$ with the standard charged-particle spectrum. The lightest electrically charged particle is the electron, with charge-to-mass ratio $q/m \sim 10^{21}$ in Planck units — vastly exceeding the WGC threshold. The conjecture is satisfied robustly by OI's emergent QFT for the standard $U(1)$ gauge sector.
+
+The neutrino sector provides a sharper test. [IbañezMartinLozanoValenzuela2017] uses the WGC applied to a $U(1)_{B-L}$ gauge field to constrain neutrino-sector physics: if neutrinos are Dirac, the WGC requires a tower of charged states with masses below the electroweak scale, which has not been observed; if neutrinos are Majorana, the WGC constraint is satisfied via the Majorana mass term itself. OI's [SM §8.4] predicts Majorana neutrinos, putting OI's prediction in the WGC-allowed region. The cross-validation pathway is direct: WGC + observed neutrino phenomenology → Majorana neutrinos; OI → Majorana neutrinos. Both routes converge on the same prediction through structurally distinct reasoning.
+
+#### 7.5.2 de Sitter Conjecture
+
+The de Sitter Conjecture [ObiedOoguriSpodyneikoVafa2018] in its refined form [OoguriPaltiShiuVafa2019] states that the scalar potential $V$ of a consistent quantum-gravity EFT satisfies $|\nabla V|/V \geq c \sim O(1)$ at any de Sitter critical point, OR $\min(\text{Hess}\,V) \leq -c'/M_P^2 V$, where $c, c'$ are positive $O(1)$ constants. The conjecture forbids stable de Sitter vacua and is in tension with the standard $\Lambda$CDM cosmology with a positive cosmological constant.
+
+OI's [GR §7] predicts dynamical dark energy through Type II running-vacuum (RVM) form rather than a fixed cosmological constant, with the parameter $\nu$ encoding the running and the framework's structural prediction $|\nu| \sim 10^{-32}$. Type II RVM is parametrically away from a static de Sitter vacuum: the cosmological "constant" runs with the Hubble rate, and the late-universe phase is asymptotically de Sitter in the limit $H \to 0$ but not strictly so at any finite time. The dynamical character is consistent with the de Sitter Conjecture's structural content; the small predicted $|\nu|$ value is consistent with the empirical near-$\Lambda$CDM behavior. Strict static de Sitter would violate the conjecture; dynamical near-de Sitter satisfies it.
+
+The recent DESI DR2 results, rejecting the cosmological constant at $2.8\sigma$–$4.2\sigma$ in extended cosmological models with potential phantom crossing [DESI_DR2_2025], provide independent empirical pressure on static dark-energy models — the same direction the de Sitter Conjecture pushes. OI's framework is consistent with both: its dynamical-dark-energy prediction lives in the parameter region the conjecture and the data jointly favor.
+
+#### 7.5.3 Distance Conjecture
+
+The Distance Conjecture [OoguriVafa2007] states that as one moves to large distance in the moduli space of a consistent quantum-gravity EFT, an infinite tower of states becomes light, with masses scaling exponentially with the distance traveled.
+
+OI's framework has no fundamental moduli: the substratum bijection is fixed, and the emergent QFT's parameters are derived from the cubic-lattice structure rather than being moduli to be selected. The Distance Conjecture is therefore satisfied trivially in a degenerate sense — there is no moduli space to traverse.
+
+This is a structural difference between OI and string-theoretic frameworks. In string theory, the landscape's structure is the moduli space of compactifications; the Distance Conjecture provides a non-trivial constraint on EFTs derived from that moduli space. In OI's framework, the analog of the moduli space is the universality-class structure of Part II — different substrata in different universality classes are not connected by continuous moduli but by structural-class membership. The conjecture's content does not directly transport, but a weakened analog might apply: substrata "far" from OI's class in the universality-class space might be connected to OI's class only through transitions involving infinite towers of states. This is speculative and open.
+
+#### 7.5.4 AdS Distance Conjecture
+
+The AdS Distance Conjecture [LustPaltiVafa2019] states that AdS minima of consistent quantum-gravity EFTs are accompanied by an infinite tower of states becoming light, with masses scaling with the AdS radius. The conjecture excludes scale-separated AdS vacua in the strict sense.
+
+OI's emergent QFT does not predict an AdS minimum: the cosmological structure is positive-cosmological-constant (de Sitter-like), with the small $|\nu|$ deviation per §7.5.2. The AdS Distance Conjecture is therefore not directly applicable to OI's framework. If a sub-cluster of observer-admitting compactifications reproduced OI's predictions but admitted an AdS minimum, the conjecture would constrain that sub-cluster — but this would be a constraint within the universality-class space, not on OI itself.
+
+#### 7.5.5 Cross-validation pathways
+
+The swampland conjectures collectively define a region of EFT parameter space compatible with consistent quantum gravity. OI's emergent QFT lives within this region across the conjectures examined (WGC, dS, Distance, AdS Distance). This is non-trivial cross-validation: OI's structural predictions (Majorana neutrinos, dynamical dark energy via Type II RVM, no fundamental moduli, no AdS minimum) align with the swampland-allowed region without being designed for it.
+
+The cross-validation operates at the level of structural prediction, not numerical agreement. OI predicts Majorana neutrinos because the substratum's structural conditions force lepton-number violation; the WGC predicts Majorana neutrinos because Dirac neutrinos require an unobserved tower of states. Both routes converge on the same prediction through different reasoning. Similar structural convergence operates for dark energy: OI predicts running cosmological constant from the GR cluster; the de Sitter Conjecture forbids static de Sitter vacua. Both favor dynamical dark energy.
+
+The pathway provides empirical leverage. If LEGEND-1000 [LEGEND2024] confirms Majorana neutrinos, both OI and the WGC-derived prediction are confirmed. If DESI Year 5 strengthens the rejection of the cosmological constant, both OI's Type II RVM prediction and the de Sitter Conjecture are favored. The empirical tests are joint tests of OI and the swampland-favored EFT structure — confirmation supports both; refutation challenges both.
+
+This section does not resolve whether OI's specific predictions can be derived from swampland reasoning, or whether swampland-consistent EFTs uniquely determine OI's universality class. Those are open questions. What this section establishes is that OI's framework is consistent with the major swampland conjectures examined, and that cross-validation pathways exist for OI's structural predictions through swampland-derived constraints.
 
 ### 7.6 Partial recoveries and what would be required to revisit the equivalence-class reading
 
@@ -399,11 +437,80 @@ A productive direction for future work is to ask whether OI's SM derivation is c
 
 The two most consequential — emergent features and shared invariants — are not in competition. They address structurally distinct questions: the first treats OI as a candidate foundational description from which string-theoretic content emerges; the second treats observation itself as the locus where different substratum descriptions are forced into agreement. Both extend OI's structural-realism stance — that what is real is invariant structure, not specific representatives — to the comparison with other unification programs.
 
-### 7.7 What this paper has established
+### 7.7 Recovery (ii) developed: emergent string-theoretic features from OI's substratum
+
+Recovery (ii) of §7.6 — that OI's substratum produces emergent string-theoretic features at appropriate emergent scales — is the most consequential of the five partial recoveries if it holds. This section develops what is currently tractable in this direction, distinguishing structural features of string theory that plausibly emerge from OI's substratum from features that do not, with honest scoping of which features are open research questions.
+
+The structural barrier identified in §6 (A2 and A5 violations in matrix-model formulations) does not preclude this recovery. The barrier operates at the level of substratum descriptions: OI's substratum is deterministic-bijection-on-cubic-lattice; matrix models' substrata are Hermitian-matrix-path-integral. These differ as substratum descriptions. However, emergent-scale physics derived from each substratum can have shared features, in the same way that two different microscopic theories can share long-distance behavior through RG universality. The question is which string-theoretic features are robust at the emergent scale and which are tied specifically to string-theoretic substratum content.
+
+#### 7.7.1 Horizon holography vs full AdS/CFT
+
+The strongest emergence claim is for *horizon holography* — the Bekenstein-Hawking $A/4$ area law and the holographic information bound. OI's [GR §5] derives the $A/4$ coefficient from the substratum's thermal self-consistency at the cosmological-horizon scale, with the entropy density emerging as a partial-trace invariant of the embedded-observer marginal. The derivation does not appeal to specific string-theoretic content; it invokes only the framework's structural features (the trace-out, the cosmological-horizon information capacity, the thermal equilibrium of the hidden sector). The $A/4$ coefficient transports to OI from the partial-trace structure, not from string-theoretic content.
+
+This produces a structural feature shared with string-theoretic horizon physics: any horizon entropy in OI's framework is bounded by $A/4$, and the holographic principle (information content of a region bounded by area, not volume) holds. The shared feature is at the level of the partial-trace observational structure, consistent with §14.2's transport assessment for channel-level unitarity. Recent confirmation comes from GW250114 [GW250114], where the Bekenstein-Hawking coefficient $1/4$ was confirmed at $99.999\%$ confidence — applying both to OI's derivation and to string-theoretic microscopic-state-counting derivations [StromingerVafa1996].
+
+The harder question is whether OI produces *full AdS/CFT-style holography* — bulk-boundary correspondence with specific dictionary between bulk fields and boundary operators. Here the answer is more nuanced. OI's cosmological structure is positive-$\Lambda$ (de Sitter-like), not anti-de Sitter; the cosmological horizon is a de Sitter horizon, not an AdS boundary. The bulk-boundary correspondence in standard AdS/CFT relies on the asymptotic AdS structure to define boundary operators uniquely, and this asymptotic structure is absent in OI's framework.
+
+Two possible directions for emergence remain open:
+
+- *de Sitter holography.* Work on de Sitter holography [StromingerDS2001] develops bulk-boundary correspondence for de Sitter spacetime with a CFT defined on the asymptotic past or future de Sitter boundary. OI's cosmological structure is asymptotically de Sitter (under the framework's $|\nu| \sim 10^{-32}$ Type II RVM), so de Sitter holography would be the natural framework. Whether OI's substratum produces a specific de Sitter holographic dictionary — bulk graviton fields ↔ boundary CFT operators with specific scaling dimensions — is open. The structural features (asymptotic de Sitter, finite horizon entropy, holographic bound) are present; the specific dictionary requires further analysis.
+
+- *Approximate AdS in deep IR.* In some limits, de Sitter spacetime admits approximate AdS structure (e.g., near the horizon, in certain coordinate patches). Whether OI's framework produces an effective AdS region with corresponding effective AdS/CFT structure is similarly open.
+
+The honest assessment: OI naturally produces horizon holography (the $A/4$ entropy law and the holographic bound) but does not naturally produce full AdS/CFT-style correspondence as an emergent feature. The former is a structural consequence of the partial-trace observational structure; the latter requires specific compactification-dependent content that OI's substratum does not directly provide.
+
+#### 7.7.2 Graviton modes from long-distance dynamics
+
+OI's [GR §3–§5] derives linearized Einstein gravity from the partial-trace structure of the substratum bijection at the cosmological-horizon scale. The mechanism: the substratum's coherent excitations include long-wavelength fluctuations of the visible-sector metric, which are the emergent graviton modes. The framework reproduces the standard GR structure at the macroscopic level with Type II RVM corrections, including the linearized-graviton sector with the right propagator structure (massless spin-2 modes, transverse-traceless polarization, lightlike propagation).
+
+This emergence is structurally analogous to the string-theoretic graviton emergence: in both frameworks, gravitons arise as collective modes of the substratum dynamics. In string theory, the graviton is a closed-string vibrational mode with worldsheet $\sigma$-model structure. In OI, the graviton is an emergent collective mode of the substratum's coherent excitations on the cubic lattice, derived through the partial-trace-and-coarse-grain procedure.
+
+The *structural similarity* is at the level of the IR effective theory: both frameworks produce massless spin-2 modes coupled to the stress-energy tensor in the linearized limit, satisfying the equivalence principle and gauge-invariance under linearized diffeomorphisms. This is what physicists mean by "the emergent low-energy theory contains gravitons."
+
+The *structural difference* is at the UV completion. In string theory, the graviton is a fundamental string mode with worldsheet origin; in OI, the graviton is an emergent collective mode with no string-mode interpretation. The differences become important at high energies — string-scale corrections to graviton propagators in string theory vs Planck-scale corrections from substratum-level lattice structure in OI; the existence of an infinite Regge tower of massive string modes vs OI's finite-but-large substratum modes. These UV differences are testable in principle but typically inaccessible at current and near-future energy scales.
+
+The recovery (ii) claim is supported for graviton-mode emergence: OI produces emergent graviton modes with the structural features that string-theoretic graviton modes share — namely the IR effective-theory content. The framework does not produce the specifically string-theoretic UV completion (worldsheet structure, infinite massive tower) but produces the universally-required IR structure that any successful emergent-graviton framework must reproduce.
+
+#### 7.7.3 T-duality and S-duality analogs
+
+T-duality in string theory is the equivalence of closed-string theories on a circle of radius $R$ and radius $\alpha'/R$, with momentum modes ↔ winding modes. The duality requires a string-mode structure with both momentum and winding quantum numbers, neither of which has a direct analog in OI's substratum.
+
+OI's substratum has lattice-momentum modes (excitations with definite lattice wavevector), but no winding modes (no extended objects winding around compact dimensions). The cubic lattice is the physical spatial structure, not a compactification. T-duality therefore has no clean analog in OI's framework: the duality-pair structure (momentum ↔ winding) is absent because winding modes are absent.
+
+A weakened analog might exist at the universality-class level. If two SM-reproducing universality classes have algebra-channel pairs related by a specific symmetry — say, an automorphism that exchanges high-momentum and low-momentum content — this would be a T-duality-like feature at the universality-class level rather than the substratum level. Whether such a structure exists in OI's universality-class framework is open. The honest assessment: T-duality at the substratum level has no analog; T-duality-like features at the universality-class level are speculative.
+
+S-duality in string theory is the equivalence of strong-coupling and weak-coupling descriptions in certain string theories (most cleanly in type IIB). The duality maps the string coupling $g_s \to 1/g_s$, exchanging fundamental strings with D1-branes (and other extended objects) under the duality.
+
+OI's framework has emergent gauge couplings derived from the substratum structure. Whether there is a structural S-duality-like feature — e.g., a duality between a strong-coupling regime where the visible-sector EFT description breaks down and a weak-coupling regime in a different visible-sector EFT description — is an open question. The substratum-level dynamics is fixed (the bijection on the cubic lattice), so there is no direct analog of varying the string coupling. The visible-sector EFT couplings can be varied continuously, but whether the strong-coupling limit maps onto a different weak-coupling EFT description is not established.
+
+The honest assessment: S-duality analogs in OI are speculative. Some structural features of S-duality (the existence of dual descriptions of the same observable physics through different regime variables) might transport to OI's universality-class framework, but no specific S-duality-like map has been identified.
+
+#### 7.7.4 Synthesis: what emerges and what does not
+
+Recovery (ii) develops with the following pattern:
+
+| Feature | Emerges from OI? | Caveat |
+|---|---|---|
+| Horizon holography ($A/4$ law, holographic bound) | Yes | Structural consequence of partial-trace observation |
+| Bulk-boundary correspondence (full AdS/CFT) | No | OI is dS, not AdS; de Sitter holography open |
+| Linearized graviton modes | Yes | IR effective theory shared with string theory |
+| String UV completion (worldsheet, Regge tower) | No | OI's UV is lattice substratum, structurally different |
+| T-duality | No | No winding modes in OI substratum |
+| S-duality | Speculative | Universality-class-level analogs open |
+
+The pattern: OI naturally produces the *IR effective theory* and the *structural observational features* of string-theoretic frameworks (horizon holography, graviton modes, holographic bound), but does not produce the *specifically string-theoretic UV content* (string worldsheet, Regge tower, T-duality, AdS/CFT bulk-boundary dictionary). The IR content transports because it is a feature of the partial-trace observational structure; the UV content does not transport because it is specific to string-theoretic substratum content that OI's substratum does not produce.
+
+This refines the §6 negative result. OI and string theory share the IR effective theory at the partial-trace observational level (recovery (v)), and emergent structural features that follow from the partial-trace structure (the horizon-holography component of recovery (ii)), but they differ on string-theoretic UV content. The partial recovery via (ii) succeeds for the IR features and the horizon-holography component; it does not succeed for the full string-theoretic UV content.
+
+The implication for the §1.4 equivalence-class proposal: the proposal does not hold at the substratum level (per §6), and it does not hold at the level of string-theoretic UV content (per the negative parts of this section), but it does hold at the level of IR effective theory and partial-trace observational features (per the positive parts of this section and §14). Recovery (ii) is therefore a partial recovery in the precise sense: it identifies which features transport — the structural features of partial-trace observation (Born rule, channel-level unitarity, non-Markovian marginal, horizon holography, linearized graviton modes) and the IR effective theory — but not the substratum-specific UV content.
+
+The work that remains: a rigorous derivation of de Sitter holographic dictionary from OI's substratum (§7.7.1); a quantitative comparison of OI's and string-theoretic graviton-propagator UV corrections (§7.7.2); identification or exclusion of universality-class-level T- and S-duality analogs (§7.7.3). These are the natural follow-up directions to this recovery's development.
+
+### 7.8 What this paper has established
 
 This paper articulates the equivalence-class proposal precisely (§1.4), resolves it in the negative for matrix models (§6 establishes A2 and A5 fail in ways reflecting structural commitments rather than discretization artifacts), and identifies five partial recoveries as research directions (§6.8 + §7.6). The negative result is informative: OI and string theory are not gauge-equivalent at the substratum level, not in a foundational-versus-effective hierarchy at any obvious level, and not in a derivable relationship as currently formulated. Their relationship must be sought either at the level of emergent-scale physics (recovery (ii)) or at the level of observational invariants both frameworks must respect (recovery (v)). The §14 four-feature audit develops the second direction: three of four observational features transport directly between frameworks, characterizing the partial-trace observational level as where the intersection lives.
 
-### 7.8 Observer admission and the structure of the landscape
+### 7.9 Observer admission and the structure of the landscape
 
 Part II §9.6 formalizes a structural distinction between *observer-admitting* substrata — those that admit a partition satisfying C1–C3 — and *observer-lacking* substrata, where no such partition exists. The distinction operates at the level of the substratum's bijection structure, prior to any observer being instantiated. This section examines how the distinction reframes the relationship between OI and the string landscape.
 
@@ -609,7 +716,7 @@ We illustrate the universality-class definition with three examples.
 
 **Example 1: OI's class.** OI's substratum is a finite deterministic bijection on a $d=3$ cubic lattice with $K=6$ internal components. The dilation is the Stinespring lift of the visible-sector CPTP channel; the visible-sector algebra is the emergent QFT operator algebra. The universality class containing OI's substratum is the class of substrata producing the same algebra-channel pair — by OI's reconstruction theorem, this includes all $\mathcal{G}_{\rm sub}$-related substrata (relabelings, alphabet changes, deep-sector enlargements, graph statistical-class equivalents). Whether the class extends beyond $\mathcal{G}_{\rm sub}$ depends on whether non-OI-class substrata produce the same algebra-channel pair. All members of this class are observer-admitting per §9.6.
 
-**Example 2: String-theoretic class.** A string-theoretic substratum (e.g., type IIA on a specific Calabi-Yau threefold with specific fluxes) produces a low-energy effective field theory. The dilation is the full string-theoretic structure (worldsheet plus target space, or matrix-model structure plus large-$N$ limit); the visible-sector algebra is the four-dimensional effective field theory operator algebra. The universality class is the class of substrata producing the same algebra-channel pair through string-theoretic emergence. Observer-admission is a non-trivial constraint: not all string compactifications are observer-admitting, as developed in §7.8.
+**Example 2: String-theoretic class.** A string-theoretic substratum (e.g., type IIA on a specific Calabi-Yau threefold with specific fluxes) produces a low-energy effective field theory. The dilation is the full string-theoretic structure (worldsheet plus target space, or matrix-model structure plus large-$N$ limit); the visible-sector algebra is the four-dimensional effective field theory operator algebra. The universality class is the class of substrata producing the same algebra-channel pair through string-theoretic emergence. Observer-admission is a non-trivial constraint: not all string compactifications are observer-admitting, as developed in §7.9.
 
 **Example 3: Cross-class candidate.** A class candidate is the union: substrata that produce the SM gauge group + three generations + SM-like Yukawa structure through any mechanism (OI's cubic-lattice derivation, string-theoretic compactification, possibly LQG-style structures, causal-set structures, or asymptotic-safety–derived structures with appropriate matter-emergence). This class is characterized by the observable target (the SM at low energies) rather than by the substratum mechanism. All members are observer-admitting (the SM-reproducing constraint forces observer-admission, since reproducing the SM requires producing the observed cosmological structure within which we are observers). Part I (§§3-7) establishes that, at the level of partial-trace observational features, OI and string theory are members of this candidate cross-class; §13.1.4 extends the per-condition analysis to LQG, causal sets, and asymptotic safety, finding that all three fail OI's A1–A6 (so are outside OI's specific class) but may share the partial-trace observational features class with OI and string theory. The question is whether the cross-class is well-defined and what additional features characterize it.
 
@@ -758,6 +865,64 @@ This is consistent with OI's main paper's foundational stance but extends it. Wh
 
 This places OI's main paper in a broader context. The "observation occurs" axiom has implications beyond OI's framework — it implies the partial-trace observational features in any framework respecting the axiom. OI's specific predictions are features of OI's specific universality-class representative, with the universal features being shared with any other framework respecting the observation axiom.
 
+### 12.4 Predictions stratified by hierarchy level
+
+The framework's predictions live at distinct levels of the hierarchy developed in §2 and characterized through Parts I–III. Empirical confirmation or refutation has different meaning depending on which level a prediction belongs to: a partial-trace-level prediction confirmed supports any framework with embedded observers; a representative-specific prediction confirmed supports the specific substratum representative. This section consolidates the framework's empirical content, stratified by level, with the empirical status as of this writing.
+
+**Level 1: Partial-trace observational features.** Universal across frameworks producing observation through partial-trace structure on quantum states. Predictions of any embedded-observer framework respecting the structural features identified in §14.
+
+| Feature | Empirical status | Reference |
+|---|---|---|
+| Born rule (probability $|\langle a | \rho \rangle|^2$) | Confirmed at $10^{-3}$–$10^{-4}$ | [Sinha2010, Söllner2012, Kanthak2025] |
+| Channel-level unitarity (Stinespring dilation) | Standard QM, theorem-level | [Stinespring1955, Barandes2026] |
+| Non-Markovian marginal (P-indivisibility) | Confirmed in colloidal, micromechanical, metrology | [Mehl2012, Groeblacher2015, QECNonMarkovian2025] |
+| Holographic bound ($S \leq A/4$) | Confirmed by GW250114 at $99.999\%$ | [GW250114] |
+| Bekenstein-Hawking $1/4$ coefficient | Confirmed (gravitational + horizon settings) | [GW250114, GR §5] |
+
+Level 1 confirmations support OI but do not distinguish OI from alternative frameworks producing the same partial-trace structure (string theory, holographic models, hidden-degree-of-freedom open quantum systems). All such confirmations are joint confirmations of the universal level.
+
+**Level 2: Gauge-group-target features.** Shared by any framework producing SM gauge structure. OI shares this level with SM-reproducing string compactifications and any other program reaching the SM target.
+
+| Feature | Empirical status | Reference |
+|---|---|---|
+| $SU(3) \times SU(2) \times U(1)$ gauge structure | Confirmed (full SM) | [PDG] |
+| Three chiral generations | Confirmed | [PDG] |
+| Anomaly cancellation across generations | Confirmed | [PDG] |
+| Renormalizable Yang-Mills + Higgs sector | Confirmed | [PDG] |
+
+Level 2 confirmations are confirmations of the gauge-group-target level but do not distinguish OI from other SM-reproducing frameworks. They establish shared structure without identifying the specific universality class.
+
+**Level 3: OI universality class.** Predictions that follow from OI's algebra-channel pair (§10.4) and would hold for any substratum in OI's universality class. Other substrata producing the same algebra-channel pair would share these predictions.
+
+| Feature | Empirical status | Reference |
+|---|---|---|
+| Cubic-lattice-forced higher-dim operators | Indirect (via specific predictions below) | [SM §10] |
+| Type II RVM dynamical dark energy | DESI DR2 $2.8\sigma$–$4.2\sigma$ rejection of static $\Lambda$ | [DESI_DR2_2025, GR §7] |
+| MOND scale $a_0 = cH/6$ | Tully-Fisher relation; ongoing tests | [GR §10] |
+| Holographic $A/4$ at cosmological horizon | Confirmed by Bekenstein-Hawking transport | [GR §5] |
+
+Level 3 confirmations are confirmations of OI's universality class but not of OI's specific representative. A substratum in the same universality class through different mechanism (e.g., a string compactification realizing the same algebra-channel pair) would share these predictions.
+
+**Level 4: OI representative-specific.** Predictions specific to OI's substratum representative. Confirmation supports OI's specific substratum; refutation challenges OI but not necessarily the broader universality class.
+
+| Feature | Empirical status | Reference |
+|---|---|---|
+| Cabibbo angle $\sin\theta_C = 1/(\pi\sqrt{2}) \approx 0.2251$ | Confirmed at $0.04\sigma$ | [SM §7.2] |
+| Koide ratio $Q = 2/3$ | Confirmed at $0.02\%$ | [SM §7.3] |
+| JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | Predicted; testable at JUNO 2026+ | [Juno] |
+| Higgs structural ratio $A = \sqrt{2/3}$ | Consistent with current data | [SM §7.4] |
+| 22 SM parameters all $< 1\sigma$ | All within experimental bounds | [SM §7.5] |
+| Majorana neutrinos, normal ordering | Awaiting LEGEND-1000 sensitivity | [SM §8.4, LEGEND2024] |
+| $|\nu| \sim 10^{-32}$ in Type II RVM | Consistent with DESI DR2 $\nu \approx 0$ at $2\sigma$ | [GR §7, Bertini2025] |
+
+Level 4 confirmations are confirmations of OI's specific representative — the strongest support the framework can receive. The framework's six historical predictions (Cabibbo, Koide, JUNO, Higgs, BH coefficient, MOND scale) are all consistent with current data; the awaiting tests (Majorana confirmation at LEGEND-1000, JUNO measurement, DESI Year 5 $\nu$ tightening) will discriminate further.
+
+**Empirical strategy.** The stratification clarifies what each test does. A Born rule test at $10^{-5}$ precision confirms Level 1 (any embedded-observer framework respecting the partial-trace structure). A LEGEND-1000 Majorana confirmation supports Level 4 (OI's specific neutrino-sector prediction) but also supports broader frameworks predicting Majorana (e.g., type-I seesaw extensions, swampland-derived predictions per §7.5.1). A precise JUNO measurement of $\sin^2\theta_{12}$ tests Level 4 directly: confirmation at OI's value $1/3 - 1/(4\pi^2)$ is OI-specific. A DESI Year 5 measurement of $\nu$ tests Level 3: confirmation of small running supports OI's universality class without necessarily distinguishing OI from other Type II RVM frameworks.
+
+The most discriminating tests for OI's specific predictions live at Level 4. The strongest confirmations of the framework's foundational stance live at Level 1. The intermediate levels — gauge-group target and universality class — are where shared content with other frameworks lives, with confirmations supporting structural features that any framework reaching the same level shares.
+
+This stratification refines the §12.1 structural-realism position: *what is real is invariant structure*, with realist commitment appropriately calibrated to the level of structure. Level 1 confirmations support universal structural commitments; Level 4 confirmations support specific-representative commitments. The framework's empirical content lives across all four levels, with each level's confirmations carrying different weight for different aspects of the framework's claims.
+
 ---
 
 ## 13. Open questions and limits
@@ -844,7 +1009,6 @@ The universality-class framework is closely related to a planned methodology pap
 
 ---
 
-
 ---
 
 # Part III: Cross-Framework Synthesis
@@ -930,7 +1094,7 @@ This conclusion has implications for the universality-class question developed i
 
 The cross-framework analysis of §14.1–14.5 establishes that recovery (v) — shared observational invariants — has substantive content for the structural features of partial-trace observation, with refinement at the level of substratum-symmetry-dependent features.
 
-This refines the conclusion of §7.7 and §14.5: OI and string theory are not equivalent at the substratum level (per §6), and they do not share *all* observational features (per §14.4 caveat), but they do share the structural features that follow from the partial-trace operation itself (per §14.1–14.3 and the pattern-transport in §14.4). The intersection is at a precisely-characterized level: the observable consequences of partial-trace operations on quantum states, independent of the specific substratum producing those states.
+This refines the conclusion of §7.8 and §14.5: OI and string theory are not equivalent at the substratum level (per §6), and they do not share *all* observational features (per §14.4 caveat), but they do share the structural features that follow from the partial-trace operation itself (per §14.1–14.3 and the pattern-transport in §14.4). The intersection is at a precisely-characterized level: the observable consequences of partial-trace operations on quantum states, independent of the specific substratum producing those states.
 
 This intersection is non-trivial. It means: any framework that produces observable physics through partial-trace observation on a quantum state automatically inherits the Born rule, channel-level unitarity, non-Markovian marginal, and commutant gauge-invariance pattern. OI and string theory do this through different substratum-level machinery; the observational consequences agree because partial-trace observation has structural features that are substratum-independent.
 
@@ -939,6 +1103,70 @@ The constructive content of recovery (v) is therefore: **partial-trace observati
 What does not transport — the specific gauge group, the specific particle content, the specific predictions — is what distinguishes substratum descriptions empirically. OI's predictions for the Cabibbo angle and Koide ratio are features of OI's specific substratum-symmetry derivation; string theory's compactifications would need to reproduce these as features of specific compactification choices. The two frameworks agree on the *kind* of physics observation produces; they differ on the *specific content*.
 
 This is a more refined picture than the §7.1 framing of "OI and string theory as independent programs." They are independent at the substratum level, share structural features at the partial-trace level, and may or may not converge at the specific-content level depending on which compactifications string theory can realize as SM-reproducing. The recovery (v) analysis identifies precisely where the intersection lives: at the level of partial-trace structural features, not above and not below.
+
+### 14.7 Loop quantum gravity: four-feature audit
+
+The §14.1–14.6 audit was conducted for OI vs string theory. The same four features admit similar audit for other quantum-gravity / unification programs identified in §13.1.4. This section and the next two perform the audit for loop quantum gravity, causal sets, and asymptotic safety. The aim is the cross-program characterization of where the partial-trace observational features hold.
+
+**Born rule.** Loop quantum gravity (LQG) [RovelliSmolin1990, Thiemann2007] uses standard quantum mechanics throughout: spin-network states form a Hilbert space with inner products, observables are operators on this Hilbert space, and probabilities are computed via the standard Born rule on spin-network projection operators. The Born rule transports without modification.
+
+**Channel-level unitarity.** LQG dynamics is implemented through spin-foam path integrals [EPRL2008, FreidelKrasnov2008] that produce transition amplitudes between spin-network states. The spin-foam amplitude is unitary at the level of the full path integral; effective dynamics on visible-sector observables (e.g., on smeared geometric observables averaging over Planck-scale spin-network structure) is CPTP, with the unitarity recovered at the spin-foam level via Stinespring-style dilation. Channel-level unitarity transports, with the dilation living in the spin-foam path integral rather than the OI substratum bijection.
+
+**P-indivisibility.** Spin-foam dynamics on visible-sector observables, after integrating over hidden internal-edge data, plausibly produces non-Markovian effective dynamics. The mechanism is structurally similar to OI's trace-out: the visible-sector marginal carries memory of substratum-level dynamics through correlations established in earlier spin-foam evolution. However, this has not been established as rigorously for LQG as for OI/holography. The transport is plausible but requires technical work to establish the non-Markovian visible-sector dynamics formally; this is the most underdeveloped of the four features for LQG.
+
+**Commutant gauge-invariance.** LQG has natural gauge invariance via the Ashtekar-connection variable's $SU(2)$ gauge structure plus diffeomorphism invariance. Observable physics is determined by the commutant of the diffeomorphism + gauge group action on the spin-network Hilbert space. The commutant gauge-invariance pattern transports; the specific gauge group is $SU(2)$ at the substratum level (different from OI's $SU(3) \times SU(2) \times U(1)$ from cubic-group commutant). LQG must reach the SM gauge structure through additional matter-coupling structure rather than through commutant alone.
+
+**LQG transport summary.** Three of four features transport directly (Born rule, channel-level unitarity, commutant gauge-invariance pattern). The fourth (P-indivisibility) is plausibly present but requires further technical development to confirm. LQG is therefore in the same partial-trace-features universality class as OI for three features, with the fourth open.
+
+### 14.8 Causal sets: four-feature audit
+
+Causal set theory [BombelliEtAl1987, Sorkin2003] takes the substratum to be a discrete, locally finite partially ordered set with sequential growth dynamics. The structural setup differs from OI in that the substratum dynamics is fundamentally stochastic (sequential growth via classical or quantum sequential growth) rather than deterministic.
+
+**Born rule.** Classical sequential growth (CSG) [RideoutSorkin1999] is fundamentally classical-stochastic, not quantum. The Born rule does not directly arise. Quantum sequential growth (QSG) [DowkerSurya2020] adapts the framework to produce quantum probabilities through quantum measure theory. Whether QSG produces the standard Born rule or a generalization (with potentially observable higher-order interference terms) is an open technical question. Transport: open / uncertain. The current status is that the framework is structurally compatible with the Born rule but does not derive it as cleanly as OI's stochastic-quantum correspondence [Barandes2026].
+
+**Channel-level unitarity.** CSG sequential growth lacks a clean unitary lift at the substratum level — the dynamics is fundamentally stochastic. QSG's quantum-measure formulation can be reformulated through a CPTP channel structure with appropriate dilation, but the Stinespring dilation is structurally different from OI's (the dilation acts on a different Hilbert space, with different microcausality properties). Transport: structurally yes, but the dilation mechanism differs.
+
+**P-indivisibility.** Causal set dynamics produces non-Markovian effective dynamics on coarse-grained observables when integrating over fine-grained causal structure. The non-Markovianity is structurally similar to OI's: substratum-level correlations across the partial order produce visible-sector non-Markovianity. Transport: plausibly yes, with structural similarity to OI's mechanism.
+
+**Commutant gauge-invariance.** Causal sets are intrinsically diffeomorphism-invariant: the causal-order structure determines the manifold up to volume measure, and any continuous diffeomorphism preserves the order. Observable physics is determined by order-invariant quantities. The commutant gauge-invariance pattern transports, but the gauge group is the trivial diffeomorphism group rather than a Yang-Mills structure. Causal sets must reach SM gauge structure through additional matter content, similar to LQG.
+
+**Causal sets transport summary.** Two of four features transport directly (P-indivisibility, commutant gauge-invariance pattern). Two are structurally compatible but require non-trivial work to establish (Born rule via QSG, channel-level unitarity via different dilation). Causal sets are therefore in a related but structurally distinct universality class from OI; the relationship merits further analysis.
+
+### 14.9 Asymptotic safety: four-feature audit
+
+Asymptotic safety [Weinberg1979, Reuter1998, ReuterSaueressig2019] proposes that quantum gravity is non-perturbatively renormalizable through a non-trivial UV fixed point of the renormalization group. The framework operates within standard QFT machinery with non-perturbative RG analysis.
+
+**Born rule.** Standard QFT machinery is used throughout; the Born rule is built in via the standard quantum-mechanical formalism. Transport: yes, without modification.
+
+**Channel-level unitarity.** Standard QFT unitarity is inherited at the level of the asymptotic-safety effective action. The visible-sector effective dynamics — derived by integrating out high-momentum modes in the RG flow — is CPTP, with the dilation living at higher RG scales. Channel-level unitarity transports.
+
+**P-indivisibility.** Effective non-Markovian dynamics arise when integrating over high-momentum modes in the RG flow; the visible-sector effective dynamics carries memory of integrated-out modes through non-local effective interactions. The structural mechanism is closely similar to OI's (visible-hidden split, trace-out producing non-Markovian visible dynamics) with the visible-hidden split operating in momentum space rather than spatial-substratum space. Transport: yes, with structural similarity strong.
+
+**Commutant gauge-invariance.** Asymptotic safety preserves gauge-invariance of the effective action under the RG flow via Ward identities. Observable physics is determined by gauge-invariant effective operators. The commutant gauge-invariance pattern transports; the specific gauge group is whatever Yang-Mills structure is included in the matter content (typically the SM gauge group, in matter-included formulations).
+
+**Asymptotic safety transport summary.** All four features transport directly. Asymptotic safety is in the same partial-trace-features universality class as OI for all four features, with structural mechanisms close to OI's (the visible-hidden split is in momentum space rather than spatial substratum, but structurally similar). This is the strongest cross-program transport identified.
+
+### 14.10 Cross-program synthesis
+
+The four-feature audit across OI, string theory, LQG, causal sets, and asymptotic safety produces the following pattern:
+
+| Program | Born rule | Unitarity | P-indivisibility | Commutant gauge |
+|---|---|---|---|---|
+| String theory | Yes | Yes | Yes (holographic SK) | Pattern; specific differs |
+| OI | Yes (derived) | Yes | Yes (derived) | $SU(3)\times SU(2)\times U(1)$ |
+| LQG | Yes | Yes | Plausibly | Pattern; specific differs |
+| Causal sets | Open (QSG) | Structurally | Plausibly | Pattern; trivial gauge |
+| Asymptotic safety | Yes | Yes | Yes | Pattern; specific differs |
+
+Three observations:
+
+*The partial-trace observational features are remarkably robust.* The Born rule, channel-level unitarity, and P-indivisibility (non-Markovian marginal) transport across nearly all programs. This supports §15.3's claim that the partial-trace-level features are universality-class invariants — they appear in any framework respecting the partial-trace observational structure, regardless of substratum content.
+
+*The commutant gauge-invariance pattern transports universally; the specific gauge group does not.* All five programs produce gauge-invariant observable physics through commutant restriction or analog mechanism, but each reaches the SM gauge group through different routes (cubic-group commutant in OI; brane-stack arrangements in string theory; matter-content addition in LQG, causal sets, and asymptotic safety). The specific SM gauge group is universality-class-specific within the broader gauge-invariance-pattern level.
+
+*Asymptotic safety has the closest mechanism-level similarity to OI*. Its visible-hidden split via momentum-space RG flow is structurally closest to OI's spatial-substratum trace-out. Both produce non-Markovian visible dynamics through the same architectural pattern (unitary on the dilation, CPTP on visible). This suggests asymptotic safety and OI may be more closely related than either is to string theory or LQG, and may share more universality-class structure.
+
+The cross-program audit refines §13.1.4's per-condition A1–A6 analysis by identifying which observational features are shared even where the structural conditions differ. The pattern is consistent: programs that satisfy A1, A3, A4, A6 (existence, coarse-graining, hidden sector, background independence) and reach the SM target produce the partial-trace observational features regardless of whether they satisfy A2 (determinism) and A5 (linearity). This supports the §14 framing: the partial-trace observational features are invariants of embedded observation, forced by the structural conditions A1, A3, A4, A6 plus the SM target, and largely independent of the A2/A5 substratum-content choices that distinguish the programs.
 
 ---
 
@@ -1022,6 +1250,8 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [AmmonEtAl2025] M. Ammon, M. Heller, J. Virrueta et al., "A Holographic prescription for generalized Schwinger-Keldysh contours" (October 2025). arXiv:2510.03404.
 
+[ArkaniHamedMotlNicolisVafa2007] N. Arkani-Hamed, L. Motl, A. Nicolis, C. Vafa, "The String Landscape, Black Holes and Gravity as the Weakest Force", JHEP 06, 060 (2007). arXiv:hep-th/0601001.
+
 [Barandes2023] J. A. Barandes, "The Stochastic-Quantum Correspondence" (2023, revised 2025). arXiv:2302.10778.
 
 [Barandes2025] J. A. Barandes, "Quantum Systems as Indivisible Stochastic Processes" (July 2025). arXiv:2507.21192.
@@ -1034,6 +1264,8 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [BFSS1996] T. Banks, W. Fischler, S. Shenker, L. Susskind, "M-theory as a Matrix Model: A Conjecture", Phys. Rev. D 55, 5112-5128 (1997). arXiv:hep-th/9610043.
 
+[BombelliEtAl1987] L. Bombelli, J. Lee, D. Meyer, R. Sorkin, "Space-time as a causal set", Phys. Rev. Lett. 59, 521-524 (1987).
+
 [Brandner2025a] K. Brandner, "Theorem on weak-memory regime for non-Markovian linear dynamics", Phys. Rev. Lett. 134, 037101 (2025); companion Phys. Rev. E 111, 014137 (2025).
 
 [BrandnerMeyer2025] H. Meyer, K. Brandner, "Weak-Memory Dynamics in Discrete Time" (October 2025). arXiv:2510.26325.
@@ -1044,9 +1276,17 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [DESI_DR2_2025] DESI Collaboration, "Cosmology in Extended Parameter Space with DESI Data Release 2 Baryon Acoustic Oscillations: A 2σ+ Detection of Nonzero Neutrino Masses" (2025). arXiv:2504.15340.
 
+[DowkerSurya2020] F. Dowker, S. Surya, "Quantum sequential growth in causal set theory", in *The Routledge Handbook of the Philosophy and Science of Causation*, Routledge (2020).
+
+[EPRL2008] J. Engle, E. Livine, R. Pereira, C. Rovelli, "LQG vertex with finite Immirzi parameter", Nucl. Phys. B 799, 136-149 (2008). arXiv:0711.0146.
+
+[FreidelKrasnov2008] L. Freidel, K. Krasnov, "A new spin foam model for 4d gravity", Class. Quantum Grav. 25, 125018 (2008). arXiv:0708.1595.
+
 [GR] A. Maybaum, "General Relativity from the Substratum" (2026).
 
 [Groeblacher2015] S. Gröblacher et al., "Observation of non-Markovian micromechanical Brownian motion", Nature Communications 6, 7606 (2015).
+
+[GW250114] LIGO Scientific Collaboration, Virgo Collaboration, KAGRA Collaboration, "GW250114: Observation of black hole entropy area law" (September 2025).
 
 [Hardy2001] L. Hardy, "Quantum Theory From Five Reasonable Axioms", arXiv:quant-ph/0101012 (2001).
 
@@ -1060,6 +1300,8 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [IKKT1996] N. Ishibashi, H. Kawai, Y. Kitazawa, A. Tsuchiya, "A Large-N Reduced Model as Superstring", Nucl. Phys. B 498, 467-491 (1997). arXiv:hep-th/9612115.
 
+[Juno] A. Maybaum, "JUNO solar mixing angle prediction from cubic-lattice substratum: $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$" (2026).
+
 [Kanthak2025] S. Kanthak, J. Pahl, D. Reiche, M. Krutzik, "Proposal for a Bose–Einstein Condensate Based Test of Born's Rule Using Light–Pulse Atom Interferometry", Advanced Quantum Technologies 8, 2400436 (2025).
 
 [LabuschagneMajewski2025] L. E. Labuschagne, W. A. Majewski, "A Von Neumann Algebraic Approach to Quantum Theory on Curved Spacetime" (August 2025). arXiv:2503.14107.
@@ -1069,6 +1311,8 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 [Lehnert2025] K. Lehnert, "Hitchhiker's Guide to the Swampland" (2025). arXiv:2509.02632.
 
 [Lunt2025] O. Lunt et al., "Emergent random matrix universality in quantum operator dynamics" (April 2025). arXiv:2504.18311.
+
+[LustPaltiVafa2019] D. Lüst, E. Palti, C. Vafa, "AdS and the Swampland", Phys. Lett. B 797, 134867 (2019). arXiv:1906.05225.
 
 [Mackey1963] G. W. Mackey, *Mathematical Foundations of Quantum Mechanics* (Benjamin, 1963).
 
@@ -1080,13 +1324,23 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [MSW2024] F. Marchesano, G. Shiu, T. Weigand, "The Standard Model from String Theory: What Have We Learned?", Annual Review of Nuclear and Particle Science 74, 113-140 (2024). arXiv:2401.01939.
 
+[ObiedOoguriSpodyneikoVafa2018] G. Obied, H. Ooguri, L. Spodyneiko, C. Vafa, "De Sitter Space and the Swampland" (2018). arXiv:1806.08362.
+
+[OoguriPaltiShiuVafa2019] H. Ooguri, E. Palti, G. Shiu, C. Vafa, "Distance and de Sitter Conjectures on the Swampland", Phys. Lett. B 788, 180-184 (2019). arXiv:1810.05506.
+
 [OoguriVafa2007] H. Ooguri, C. Vafa, "On the Geometry of the String Landscape and the Swampland", Nucl. Phys. B 766, 21-33 (2007). arXiv:hep-th/0605264.
 
 [Palti2019] E. Palti, "The Swampland: Introduction and Review", Fortsch. Phys. 67, 1900037 (2019). arXiv:1903.06239.
 
+[PDG] R. L. Workman et al. (Particle Data Group), "Review of Particle Physics", Prog. Theor. Exp. Phys. 2022, 083C01 (2022) and 2024 update.
+
 [QECNonMarkovian2025] "Quantum Error-Corrected Non-Markovian Metrology", PRX Quantum (August 2025). DOI: 10.1103/wfyl-wtz3.
 
 [RandomStinespring2025] "Random Stinespring superchannel: converting channel queries into dilation isometry queries" (December 2025). arXiv:2512.20599.
+
+[ReuterSaueressig2019] M. Reuter, F. Saueressig, *Quantum Gravity and the Functional Renormalization Group: The Road towards Asymptotic Safety*, Cambridge University Press (2019).
+
+[RovelliSmolin1990] C. Rovelli, L. Smolin, "Loop space representation of quantum general relativity", Nucl. Phys. B 331, 80-152 (1990).
 
 [Sinha2010] U. Sinha, C. Couteau, T. Jennewein, R. Laflamme, G. Weihs, "Ruling Out Multi-Order Interference in Quantum Mechanics", Science 329, 418-421 (2010).
 
@@ -1094,13 +1348,19 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [Söllner2012] I. Söllner, B. Gschösser, P. Mai, B. Pressl, Z. Vörös, G. Weihs, "Testing Born's Rule in Quantum Mechanics for Three Mutually Exclusive Events", Foundations of Physics 42, 742-751 (2012). arXiv:1201.0195.
 
+[Sorkin2003] R. D. Sorkin, "Causal Sets: Discrete Gravity" (Lectures on Quantum Gravity, Valdivia, Chile, 2002), arXiv:gr-qc/0309009 (2003).
+
 [Stinespring1955] W. F. Stinespring, "Positive functions on C*-algebras", Proceedings of the American Mathematical Society 6, 211-216 (1955).
+
+[StromingerDS2001] A. Strominger, "The dS/CFT correspondence", JHEP 0110, 034 (2001). arXiv:hep-th/0106113.
 
 [StromingerVafa1996] A. Strominger, C. Vafa, "Microscopic Origin of the Bekenstein-Hawking Entropy", Phys. Lett. B 379, 99-104 (1996). arXiv:hep-th/9601029.
 
 [Substratum] A. Maybaum, "The Substratum Construction: Reconstruction, the Substratum Gauge Group, and the QM-GR Synthesis" (2026). Zenodo DOI 10.5281/zenodo.19060318.
 
 [Susskind2003] L. Susskind, "The Anthropic Landscape of String Theory", arXiv:hep-th/0302219 (2003).
+
+[Thiemann2007] T. Thiemann, *Modern Canonical Quantum General Relativity*, Cambridge Monographs on Mathematical Physics, Cambridge University Press (2007).
 
 [TomizukaTakeda2026] R. Tomizuka, T. Takeda, "Emergence of Non-Markovian Classical-Quantum Dynamics from Decoherence" (April 2026). arXiv:2604.06891.
 
@@ -1116,18 +1376,9 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [Loll2019] R. Loll, "Quantum Gravity from Causal Dynamical Triangulations: A Review", Class. Quant. Grav. 37, 013002 (2020). arXiv:1905.08669.
 
-[Rovelli2004] C. Rovelli, "Quantum Gravity", Cambridge University Press (2004).
-
-[AshtekarLewandowski2004] A. Ashtekar, J. Lewandowski, "Background Independent Quantum Gravity: A Status Report", Class. Quant. Grav. 21, R53 (2004). arXiv:gr-qc/0404018.
-
-[BombelliLeeMeyerSorkin1987] L. Bombelli, J. Lee, D. Meyer, R. Sorkin, "Space-Time as a Causal Set", Phys. Rev. Lett. 59, 521 (1987).
-
 [RideoutSorkin1999] D. P. Rideout, R. D. Sorkin, "A Classical Sequential Growth Dynamics for Causal Sets", Phys. Rev. D 61, 024002 (2000). arXiv:gr-qc/9904062.
-
-[Surya2019] S. Surya, "The Causal Set Approach to Quantum Gravity", Living Rev. Rel. 22, 5 (2019). arXiv:1903.11544.
 
 [Weinberg1979] S. Weinberg, "Ultraviolet Divergences in Quantum Theories of Gravitation", in *General Relativity: An Einstein Centenary Survey*, eds. S. W. Hawking, W. Israel, Cambridge University Press (1979), 790-831.
 
 [Reuter1998] M. Reuter, "Nonperturbative evolution equation for quantum gravity", Phys. Rev. D 57, 971 (1998). arXiv:hep-th/9605030.
 
-[Eichhorn2018] A. Eichhorn, "An asymptotically safe guide to quantum gravity and matter", Front. Astron. Space Sci. 5, 47 (2019). arXiv:1810.07615.
