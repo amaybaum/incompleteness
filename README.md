@@ -2,7 +2,6 @@
 
 **Author:** Alex Maybaum
 **Date:** May 2026
-**Status:** v2.3.0
 **Classification:** Theoretical Physics / Foundations
 
 This repository develops a single framework across five core papers:
