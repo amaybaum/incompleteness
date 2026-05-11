@@ -1386,6 +1386,26 @@ Honest characterization: the framework structurally implements (a). For (b), the
 
 **Status.** The composite-Higgs chiral protection mechanism is *structurally identified* in OI's framework through the singlet-taste chiral symmetry breaking. A fully rigorous derivation — explicit identification of the broken global symmetry's generators, identification of the Higgs as a specific Goldstone direction in the coset, computation of the explicit-breaking corrections to the Higgs mass — is open work. The structural pattern is identified; the theorem-level derivation is deferred.
 
+**Sharpened scope: what is derived versus what remains open.** The §B.2.81–105 investigation produced a sharper articulation of the framework's hierarchy-problem boundary than the prior treatment. The honest scope is:
+
+| Component | Status in framework | Confidence level |
+|---|---|---|
+| Singlet-taste chiral symmetry at the substratum level | Derived (Theorem 13, bipartite checkerboard) | High |
+| Spontaneous breaking by Higgs vev in emergent EFT | Structurally implied; explicit derivation open | Moderate-high |
+| Higgs as order parameter in $E$-projection of singlet taste | Derived (Theorem 11) | High |
+| Goldstone bound: $\delta m_H^2 \lesssim g^2 f^2 / (16\pi^2)$ per coupling | Structural implication; sign of bound established by Goldstone's theorem | Moderate-high |
+| Cutoff insensitivity: no $O(M_{\mathrm{Pl}}^2)$ corrections to $m_H^2$ | **Structurally derived** through above chain | High |
+| Compositeness scale $f \sim M_{\mathrm{Pl}}$ in OI | Structurally forced (no intermediate scale, [Structure §13.3] Q10) | High |
+| Higgs vev value $v \sim 246$ GeV | Tier 3 / solution-specific (not derived from structure) | n/a — input |
+| Ratio $v / f \sim 10^{-17}$ as a structural quantity | **Open** — framework currently does not derive this | (open) |
+| Higgs mass value $m_H \sim 125$ GeV given $v$ | Tier 2 — follows from $\lambda(M_{\mathrm{Pl}}) = 0$ + RG running ([§7.4]) | High |
+
+The boundary between the derived and the open is therefore: *the framework derives why $m_H$ is not at the cutoff* (chiral protection ensures cutoff-insensitivity), but *does not derive why $v$ is at the electroweak scale rather than at the compositeness scale*. The first is the substantive content of the hierarchy problem in standard SM phenomenology — the question of why quantum corrections don't push $m_H$ to the cutoff despite the absence of a protecting symmetry — and the framework provides a structural answer to that question. The second is a residual question about the Higgs vev's specific magnitude, which the framework treats as Tier 3 alongside other solution-specific parameters.
+
+**Distinguishing claim.** The framework's partial resolution is *substantively different* from "no resolution" in the following testable sense. Standard SM without chiral protection predicts $\delta m_H^2 \sim M_{\mathrm{Pl}}^2 / (16\pi^2) \sim 10^{37}$ GeV$^2$ from quadratically-divergent loop corrections, requiring fine-tuning of the bare Higgs mass to $\sim 34$ decimal places to obtain $m_H^2 \sim (125\,\text{GeV})^2$. OI's chiral protection mechanism, if correctly implemented, predicts $\delta m_H^2 \sim g^2 f^2 / (16\pi^2)$ from explicit-breaking corrections only, with no quadratic-divergence dependence on the cutoff. The two predictions differ by a factor of $\sim (f/v)^2 g^{-2} \sim 10^{34}$ in the size of the required fine-tuning — *that is the empirical content of "partial resolution" versus "no resolution"*. The framework's claim is that the Higgs mass does not require 34 decimal places of fine-tuning to be at the electroweak scale; it requires only as much fine-tuning as the Higgs vev's specific value itself (Tier 3 input). This is a structurally substantive claim even though it does not derive $v$ from structure.
+
+**Path to full resolution.** Closing the open part (b) would require either (i) deriving $v \ll f$ from substratum structure through a mechanism currently not in the framework — speculative candidates include trace-out-induced fractional-power suppression with operator-dimension-dependent scaling, flagged for offline investigation but not committed to as structural content; or (ii) showing that the Tier 3 status of $v$ is the framework's correct answer — *some* parameters must be solution-specific in any finite-bijection framework, and $v$ may legitimately be one of them, with the framework's responsibility being to identify which parameters are structural and which are not, rather than to derive every parameter from structure. The framework's current commitment is (ii): $v$ is a solution-specific parameter set by the specific bijection $\varphi$, alongside CP phases, generation-specific Yukawa magnitudes, and other parameters whose values are not forced by the structural derivation chain.
+
 
 ---
 
