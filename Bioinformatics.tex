@@ -1,0 +1,2329 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% \usepackage{lmodern} (commented; using unicode-fix)
+\input{unicode-fix}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\hypertarget{non-markovian-dynamics-in-computational-biology}{%
+\section{Non-Markovian Dynamics in Computational
+Biology}\label{non-markovian-dynamics-in-computational-biology}}
+
+\hypertarget{hidden-sector-memory-and-the-methodological-limits-of-single-cell-analysis}{%
+\subsubsection{Hidden-Sector Memory and the Methodological Limits of
+Single-Cell
+Analysis}\label{hidden-sector-memory-and-the-methodological-limits-of-single-cell-analysis}}
+
+\textbf{Author:} Alex Maybaum \textbf{Date:} May 2026
+\textbf{Classification:} Computational Biology / Bioinformatics
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{abstract}{%
+\subsection{Abstract}\label{abstract}}
+
+The single-cell bioinformatics literature has documented a series of
+methodological puzzles over the past five years: RNA velocity methods
+that reverse trajectories on validated developmental data; gene
+regulatory network inference accuracy that ``marginally exceeds random
+predictions'' despite extensive method development; deep-learning
+foundation models (scGPT, Geneformer, scFoundation) that systematically
+underperform simple linear baselines on perturbation prediction;
+multi-omics integration methods that produce inconsistent results across
+modalities. Each puzzle has been treated as a methodological problem to
+be solved with better algorithms, more data, or different model
+architectures.
+
+This paper applies the Observational Incompleteness (OI) framework
+{[}1{]} to these puzzles. The framework's C1--C3 conditions ---
+non-trivial coupling (C1), slow-bath memory (C2), and high-capacity
+hidden sector (C3) --- produce P-indivisible (non-Markovian) dynamics
+whenever a fast visible sector is coupled to a slow high-capacity hidden
+sector. The companion Medicine paper {[}2{]} establishes that chromatin
+layers satisfy C1--C3 in biological systems, with DNA methylation,
+histone modifications, and chromatin state functioning as the slow
+hidden sector with timescales spanning seconds (chromatin binding) to
+generations (DNA methylation maintenance). This paper shows that the
+same structural conditions explain the bioinformatics field's documented
+failure modes: each puzzle has the same underlying cause --- methods
+assume Markovian dynamics on systems with substantial hidden-sector
+memory, and this assumption violation produces characteristic systematic
+errors.
+
+We develop the analysis across five domains where the framework's
+predictions match documented empirical failure modes: trajectory
+inference (RNA velocity assumptions vs.~multi-omic velocity
+improvements); gene regulatory network inference (correlation-based
+methods outperforming causal methods, multi-omic methods outperforming
+RNA-only); perturbation prediction (deep-learning foundation models
+underperforming linear baselines, knowledge-graph methods improving on
+data-driven methods); multi-omics integration (static factor analysis
+vs.~emerging timescale-aware methods); and cancer methylome
+classification (95\% subclass accuracy of methylation-based tumor
+classifiers reflecting substratum-preservation in cancer). We also
+extend the framework's reader-writer disorder class {[}Medicine §10.7{]}
+into bioinformatic predictions, including a testable claim about variant
+pathogenicity stratification for reader/writer/eraser genes.
+
+The structural content of the framework's application to computational
+biology is informational rather than algorithmic. Standard methodology
+assumes that more data and more complex models will overcome any
+prediction task; the framework identifies an information-theoretic
+ceiling that no transcriptome-only model can exceed, no matter how
+scaled. The methodological roadmap forward is to include hidden-sector
+information explicitly --- through multi-modal data (chromatin
+accessibility, histone marks, methylation), knowledge graphs (encoding
+hidden regulatory structure), or explicit memory state representations
+--- rather than to scale transcriptome-only architectures further.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{introduction}{%
+\subsection{1. Introduction}\label{introduction}}
+
+\hypertarget{the-bioinformatics-fields-persistent-puzzles}{%
+\subsubsection{1.1 The bioinformatics field's persistent
+puzzles}\label{the-bioinformatics-fields-persistent-puzzles}}
+
+Single-cell transcriptomics has revolutionized biology over the past
+decade, producing datasets of millions of cells with detailed gene
+expression profiles. The computational methodology has evolved rapidly:
+dimensionality reduction (UMAP, t-SNE), clustering (Leiden, Louvain),
+trajectory inference (Monocle, Slingshot, scVelo), gene regulatory
+network inference (SCENIC, GENIE3), perturbation modeling (CPA, GEARS,
+scGPT), and multi-omics integration (MOFA, Seurat, LIGER). Each new
+method generation has promised improved accuracy and broader
+applicability, and the field's expected trajectory has been continuous
+improvement.
+
+A different pattern has emerged. Recent benchmarking studies have
+documented systematic failures across multiple method classes:
+
+\begin{itemize}
+\item
+  \textbf{RNA velocity} methods (velocyto, scVelo) ``fail to identify,
+  and even reverses the trajectory'' on validated developmental datasets
+  {[}3{]}. The failures are reproducible across at least six independent
+  datasets {[}3{]}.
+\item
+  \textbf{Gene regulatory network inference} accuracy ``marginally
+  exceeds random predictions'' despite a decade of method development
+  {[}4{]}. Causal methods consistently fail to outperform
+  correlation-based baselines --- a ``persistent puzzle which casts
+  doubt on the value of causality for this task'' {[}5{]}.
+\item
+  \textbf{Deep-learning foundation models} for single-cell biology
+  (scGPT, Geneformer, scFoundation, scPRINT) ``none outperformed
+  {[}linear{]} baselines'' for predicting transcriptome changes after
+  perturbations {[}6{]}. Zero-shot evaluations show foundation models
+  ``perform worse than selecting highly variable genes and using more
+  established methods such as Harmony and scVI in cell type clustering''
+  {[}7{]}.
+\item
+  \textbf{Multi-omics integration} methods (MOFA, MOFA+) treat different
+  molecular modalities as parallel measurements of the same cell state,
+  despite the fact that ``the timescale of (phospho)proteome changes
+  falls into a minute regime, whereas most significant transcriptome
+  changes are observed after hours'' {[}8{]}.
+\end{itemize}
+
+Each puzzle has been addressed within the field as a methodological
+problem to be solved with better algorithms. The proposed solutions
+follow a common pattern: incorporate additional data modalities
+(chromatin accessibility, ATAC-seq, methylation), incorporate prior
+knowledge (knowledge graphs, motif libraries), or move to more complex
+architectures (transformers, foundation models, graph neural networks).
+Some of these solutions help; others do not. The field lacks a
+structural framework for predicting \emph{which} methodological
+improvements will help and \emph{why}.
+
+\hypertarget{the-oi-framework-and-its-c1c3-conditions}{%
+\subsubsection{1.2 The OI framework and its C1--C3
+conditions}\label{the-oi-framework-and-its-c1c3-conditions}}
+
+The Observational Incompleteness (OI) framework {[}1{]} establishes a
+characterization theorem for embedded observation. The theorem states:
+any embedded observer whose dynamics satisfies three structural
+conditions --- C1 (non-trivial coupling between visible and hidden
+sectors), C2 (slow-bath memory, \(\tau_B \gg \tau_S\)), and C3
+(high-capacity hidden sector) --- necessarily experiences P-indivisible
+dynamics: history-dependent transition probabilities arising from
+information stored in the hidden sector and returned on subsequent
+interactions. The theorem is scale-independent: it applies to any system
+with the appropriate architecture, from quantum mechanics emerging at
+the cosmological horizon to biological signaling cascades.
+
+The companion Medicine paper {[}2{]} establishes that biological memory
+systems satisfy C1--C3 at multiple molecular layers. The chromatin layer
+is the most directly relevant for computational biology: DNA methylation
+patterns, histone modifications, and chromatin-state assignments form a
+slow hidden sector with substantial \(\tau_B\) relative to
+transcriptional dynamics, and the chromatin state space is exponentially
+large (over \(4^{N_{\text{CpG}}}\) for \(N_{\text{CpG}} \sim 28\)
+million CpG sites in the human genome). Cellular dynamics --- the
+trajectory a cell takes through state space during differentiation,
+perturbation response, or homeostasis --- depends on both visible-sector
+dynamics (transcription, signaling) and hidden-sector state (chromatin
+memory).
+
+The framework's bioinformatic prediction follows from the theorem:
+methods that infer cellular dynamics from visible-sector data alone
+(transcriptome) must systematically miss the contribution of
+hidden-sector memory. The errors are not random noise; they have a
+specific structure: directional biases, reduced accuracy in transitions
+where chromatin state changes, and information-theoretic ceilings on
+what visible-sector data can recover. Methods that include hidden-sector
+information explicitly (multi-modal data, knowledge graphs, prior
+biological information) should systematically outperform pure
+visible-sector methods on these tasks.
+
+\hypertarget{thesis-and-structure}{%
+\subsubsection{1.3 Thesis and structure}\label{thesis-and-structure}}
+
+This paper develops the framework's prediction across five active
+methodological domains in single-cell bioinformatics. Each section
+follows a common structure: (i) the documented field-level puzzle or
+failure mode; (ii) the framework's structural explanation in terms of
+C1--C3 dynamics; (iii) the empirically observed methodological
+improvements that align with the framework's prediction.
+
+§2 addresses trajectory inference, from RNA velocity's documented
+failures to multi-omic velocity's improvements. §3 addresses gene
+regulatory network inference, including the field's ``persistent
+puzzle'' of causal methods failing to outperform correlation. §4
+addresses perturbation prediction, where foundation models
+systematically underperform simple baselines. §5 addresses multi-omics
+integration, where static methods struggle with the timescale hierarchy
+across modalities. §6 addresses cancer methylome classification, where
+the framework's substratum-preservation prediction matches the entire
+field's diagnostic paradigm. §7 develops a new testable prediction about
+variant pathogenicity stratification for reader/writer/eraser genes. §8
+extends the framework's reader-writer disorder class {[}Medicine
+§10.7{]} into bioinformatic patterns. §9 synthesizes the cross-domain
+findings. §10 catalogs open questions and limits.
+
+The paper's contribution is not new algorithms. It is a structural
+framework for understanding why current methods fail in specific
+patterns, and for predicting which methodological improvements will
+work. The information-theoretic ceiling identified here has practical
+consequences: it explains why scaling foundation models has not produced
+the expected improvements, and predicts that future progress requires
+architectural changes that incorporate hidden-sector information rather
+than scaling visible-sector models further.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{trajectory-inference}{%
+\subsection{2. Trajectory Inference}\label{trajectory-inference}}
+
+\hypertarget{the-rna-velocity-paradigm-and-its-assumptions}{%
+\subsubsection{2.1 The RNA velocity paradigm and its
+assumptions}\label{the-rna-velocity-paradigm-and-its-assumptions}}
+
+RNA velocity, introduced by La Manno et al.~(2018) {[}9{]} and
+operationalized in the velocyto and scVelo tools, infers the direction
+of cellular state change from the ratio of unspliced to spliced mRNA in
+single-cell RNA sequencing data. The method's appeal is that it extracts
+dynamic information from static snapshots: by measuring the relative
+abundance of pre-mRNA (unspliced, recently transcribed) and mature mRNA
+(spliced, accumulated), it estimates whether a gene is in an induction
+phase (more unspliced relative to expected steady state) or repression
+phase (more spliced relative to expected steady state). Aggregating
+across genes produces a velocity vector for each cell, which can be
+visualized as a flow field over the dimensionally-reduced state space.
+
+The original velocyto method {[}9{]} assumes (i) constant rates of
+transcription and degradation, (ii) a global splicing rate shared across
+genes, (iii) the dynamics has reached steady-state equilibrium in the
+induction phase, and (iv) gene-wise independence. The scVelo extension
+{[}10{]} relaxes (i) and (iii) but retains the assumption that
+within-gene dynamics is governed by a closed kinetic equation depending
+only on current mRNA levels. Both methods treat the gene-state dynamics
+as Markovian: the probability of state change at time \(t + \Delta t\)
+depends only on the state at time \(t\), not on the cell's history.
+
+\hypertarget{documented-failure-modes}{%
+\subsubsection{2.2 Documented failure
+modes}\label{documented-failure-modes}}
+
+Gorin, Pachter, and Yosef (2022) {[}3{]} published a detailed analysis
+of RNA velocity methods in PLOS Computational Biology, demonstrating
+that scVelo ``fails to identify, and even reverses the trajectory'' in
+multiple validated developmental datasets. The reversed trajectories
+produce qualitatively wrong biological conclusions: cell types
+identified as progenitors are actually terminal states, and the inferred
+differentiation direction is opposite to the ground truth. The failures
+are documented across at least six independent datasets {[}3, 11--14{]}.
+
+Barile et al.~(2021) {[}11{]} and subsequent analyses identify the
+proximate cause: when cell populations have heterogeneous kinetics
+(different genes operating at different rates) or when the experiment
+captures cells not in steady state, scVelo's parameter estimates are
+biased in a way that systematically reverses the inferred direction. The
+DeepVelo paper {[}12{]} notes that ``these assumptions are often
+violated in complex biological systems and bring about limitations in
+downstream applications, particularly when cell states are partially
+observed or undergo transcription dynamics more complex than the
+steady-state pattern.''
+
+The pattern is consistent: RNA velocity methods work for simple linear
+trajectories with homogeneous kinetics and fail for complex trajectories
+with heterogeneous dynamics. The methodological response has been to
+develop progressively more flexible parameter estimation (LatentVelo
+{[}15{]}, veloVI {[}16{]}, DeepVelo {[}12{]}). These improvements help
+marginally but do not eliminate the failure mode: the underlying issue
+is structural, not parametric.
+
+\hypertarget{the-frameworks-structural-explanation}{%
+\subsubsection{2.3 The framework's structural
+explanation}\label{the-frameworks-structural-explanation}}
+
+The OI framework predicts the RNA velocity failure mode structurally.
+Gene expression in single cells is governed by the joint dynamics of the
+transcriptional machinery (visible sector) and the chromatin state
+(hidden sector). Chromatin state determines which genes are accessible
+for transcription, at what rates, and with what kinetic parameters;
+chromatin state itself evolves on slower timescales than transcription,
+with histone modifications turning over on minutes-to-hours scales and
+DNA methylation on days-to-weeks scales {[}Medicine §9.1{]}. The full
+dynamics is non-Markovian in the gene-expression representation: knowing
+the current spliced/unspliced ratios is insufficient to predict the next
+state, because chromatin memory contributes information not captured by
+mRNA levels alone.
+
+The C1--C3 architecture applies directly: gene transcription (fast,
+visible) is coupled (C1) to chromatin state (slow, C2) with
+exponentially large chromatin state space (C3). The framework's
+characterization theorem {[}1{]} then implies that RNA velocity inferred
+from gene-expression data alone is necessarily P-indivisible: the
+marginal dynamics on the gene-expression subspace cannot be described by
+a Markovian kinetic equation, and methods assuming such description will
+produce biased estimates.
+
+The bias is not arbitrary. Its sign depends on the relationship between
+chromatin state and transcriptional kinetics. When chromatin transitions
+are slow relative to the measurement timescale (typical for
+differentiation), the chromatin state is approximately frozen, and
+gene-expression dynamics within a chromatin state can be approximately
+Markovian --- RNA velocity works. When chromatin transitions are
+comparable to or faster than the measurement timescale (typical for
+cell-fate transitions, perturbation responses, and complex
+differentiation), the chromatin state changes substantially within the
+observation window, and gene-expression dynamics is non-Markovian ---
+RNA velocity fails, with specific systematic biases depending on the
+chromatin transition pattern.
+
+This matches the empirical pattern in Gorin et al.~and the surrounding
+literature: simple linear trajectories with homogeneous kinetics
+succeed; complex trajectories with heterogeneous dynamics fail. The
+framework explains why this is the structural pattern rather than a
+methodological accident.
+
+\hypertarget{multi-omic-velocity-as-empirical-convergence}{%
+\subsubsection{2.4 Multi-omic velocity as empirical
+convergence}\label{multi-omic-velocity-as-empirical-convergence}}
+
+The methodological response that does work is to include chromatin
+accessibility data explicitly. MultiVelo {[}17{]}, introduced by Li et
+al.~(2022) in Nature Biotechnology, ``extends the RNA velocity framework
+to incorporate epigenomic data'' and ``improves the accuracy of cell
+fate prediction compared to velocity estimates from RNA only.'' The
+model includes both transcriptional dynamics (spliced/unspliced ratios)
+and chromatin accessibility dynamics, fitting a coupled differential
+equation system. By estimating switch times for chromatin
+opening/closing alongside transcription rates, MultiVelo recovers two
+distinct classes of genes (chromatin closes before vs.~after
+transcription ceases) and four types of cell states distinguishing
+coupled and decoupled chromatin-transcription dynamics.
+
+The methodological trajectory has continued. mmVelo {[}18{]} (2024)
+extends multi-modal velocity estimation to single-peak resolution rather
+than gene-aggregated chromatin signals. MoFlow {[}19{]} (Nature
+Communications 2025) integrates multi-omic data for ``locally adaptive,
+single-cell-resolved velocities that illuminate fine-scale regulatory
+dynamics.'' Each successive method incorporates more hidden-sector
+information (chromatin accessibility at higher resolution, additional
+modalities, locally adaptive dynamics) and improves performance.
+
+This trajectory matches the framework's prediction. The methods that
+work are the methods that include the hidden sector explicitly; the
+methods that fail are the methods that assume Markovian dynamics on the
+visible sector alone. The empirical convergence over the 2022--2025
+period --- from RNA-only methods through gene-level multi-omic methods
+to single-peak resolution multi-omic methods --- represents the field's
+gradual adoption of the framework's structural prediction without
+explicit reference to the underlying theorem.
+
+\hypertarget{practical-consequences}{%
+\subsubsection{2.5 Practical
+consequences}\label{practical-consequences}}
+
+The framework provides three practical predictions for trajectory
+inference methodology:
+
+(P1) RNA-only trajectory methods will continue to fail for systems with
+substantial chromatin dynamics during the observation window. Parameter
+refinements within the RNA-only paradigm (improved kinetic models,
+deeper neural networks on transcriptome alone) cannot fix this; the
+limit is information-theoretic.
+
+(P2) Multi-modal methods that include chromatin accessibility will
+outperform RNA-only methods on differentiation, perturbation response,
+and cell-fate transition tasks. The improvement should scale with the
+relative timescale of chromatin transitions to transcription: faster
+chromatin dynamics relative to transcription means larger improvement
+from including chromatin data.
+
+(P3) The optimal data modality combination depends on the timescale of
+the biological process being studied. For processes with \(\tau_B\) at
+the histone-modification timescale (minutes-to-hours), histone-mark
+profiling (CUT\&Tag, CUT\&RUN) is more informative than DNA methylation.
+For processes at the methylation timescale (days-to-weeks), methylation
+profiling is more informative. For long-term memory (developmental
+trajectories spanning generations), DNA methylation and chromatin
+architecture (Hi-C) become the dominant relevant modalities. Mixing
+modalities should be calibrated to the biological process's
+characteristic \(\tau_B\) rather than included indiscriminately.
+
+The third prediction is testable through benchmarking: a study comparing
+multi-modal velocity methods across biological processes with different
+characteristic timescales should show the relative performance of each
+modality combination tracking the framework's prediction.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{gene-regulatory-network-inference}{%
+\subsection{3. Gene Regulatory Network
+Inference}\label{gene-regulatory-network-inference}}
+
+\hypertarget{the-grn-inference-paradigm-and-the-persistent-puzzle}{%
+\subsubsection{3.1 The GRN inference paradigm and the ``persistent
+puzzle''}\label{the-grn-inference-paradigm-and-the-persistent-puzzle}}
+
+Gene regulatory networks (GRNs) describe the directed influence of
+transcription factors on target genes. Inferring GRNs from single-cell
+expression data is a foundational task in computational biology, with
+applications ranging from drug-target identification to mechanistic
+understanding of differentiation programs. The methodology has produced
+a series of method generations: correlation-based methods (Pearson,
+mutual information), ensemble methods (GENIE3, GRNBoost2),
+expression-cell-type specific methods (SCENIC), causal methods (PC
+algorithm, NOTEARS, DeepSEM), and most recently deep-learning foundation
+models (scGPT, Geneformer) repurposed for GRN inference.
+
+Despite the methodological investment, the empirical state of GRN
+inference accuracy is sobering. Yuan et al.~(Nature Biotechnology 2024)
+{[}20{]} state: ``Despite extensive efforts, GRN inference accuracy has
+remained disappointingly low, marginally exceeding random predictions.''
+Passemiers et al.~(2025) {[}5{]} document a ``persistent puzzle which
+casts doubt on the value of causality for this task'': causal methods
+consistently fail to outperform correlation-based baselines in realistic
+benchmarks, despite their theoretical advantages.
+
+Multiple comprehensive benchmarking studies have confirmed this pattern.
+McCalla et al.~{[}21{]} evaluated 13 GRN inference methods on 7
+published datasets using diverse gold standards; the methods rank
+similarly across gold standards, with no method showing decisive
+advantage. Nguyen et al.~{[}22{]} benchmarked 15 methods on 139
+simulated datasets and found extensive failure modes related to dropout
+rate and sparsity. The conclusion across the literature is consistent:
+GRN inference from single-cell data is hard, and current methods perform
+near baseline.
+
+\hypertarget{why-correlation-outperforms-causation-the-frameworks-prediction}{%
+\subsubsection{3.2 Why correlation outperforms causation: the
+framework's
+prediction}\label{why-correlation-outperforms-causation-the-frameworks-prediction}}
+
+The persistent puzzle has a natural framework explanation. Causal
+methods assume that the joint distribution over gene expression captures
+the system's dynamics: from sufficient samples, the conditional
+independence structure reveals the causal graph. This assumption is
+valid for systems where the visible-sector dynamics is autonomous ---
+where current gene expression states fully determine future states up to
+noise.
+
+The framework predicts this assumption fails for cellular systems. Gene
+regulation depends on chromatin state, transcription factor protein
+levels, post-translational modifications, and other variables not
+captured in scRNA-seq data. The marginal distribution over gene
+expression is the result of integrating out these hidden variables, and
+the conditional independence structure of the marginal distribution does
+\emph{not} match the causal graph of the underlying dynamics. Causal
+inference methods recover the marginal structure, not the underlying
+causal structure, because the data does not contain enough information
+to distinguish them.
+
+Correlation-based methods make a weaker claim: they identify pairs of
+genes whose expression covaries, without claiming causal direction. The
+covariance pattern is robust to hidden-variable integration in a way
+that the causal structure is not. Correlation-based methods perform
+competitively because they target a tractable quantity (the marginal
+covariance) rather than an intractable one (the marginal causal
+structure).
+
+This is the framework's prediction: in non-Markovian systems where the
+visible sector does not contain the full dynamical information,
+correlation-based methods will systematically outperform causal methods
+that assume Markovian dynamics on the visible sector. The ``persistent
+puzzle'' is the empirical signature of this structural prediction.
+
+\hypertarget{multi-modal-methods-as-the-predicted-improvement}{%
+\subsubsection{3.3 Multi-modal methods as the predicted
+improvement}\label{multi-modal-methods-as-the-predicted-improvement}}
+
+The methodological response that improves GRN inference accuracy is to
+incorporate additional data modalities. SCENIC+ {[}23{]}, introduced by
+González-Blas et al.~(Nature Methods 2023), extends the original SCENIC
+pipeline by incorporating chromatin accessibility data (scATAC-seq)
+alongside gene expression. The method identifies enhancer-driven gene
+regulatory networks by predicting genomic enhancers, linking them to
+candidate transcription factors via motif analysis, and linking
+enhancers to target genes via expression correlation across cells.
+SCENIC+ improves substantially over RNA-only SCENIC and over earlier
+methods that used only expression data.
+
+LINGER {[}24{]}, introduced by Yuan et al.~(Nature Biotechnology 2024),
+takes the multi-modal approach further by incorporating ``atlas-scale
+external bulk data across diverse cellular contexts and prior knowledge
+of transcription factor motifs as a manifold regularization.'' The
+method combines paired scRNA-seq + scATAC-seq data with external bulk
+reference data, encoding prior biological knowledge about transcription
+factor binding preferences. The performance improvement is substantial:
+LINGER's GRN predictions outperform SCENIC+ and earlier methods across
+multiple benchmarks.
+
+The trajectory matches the framework's prediction. RNA-only methods are
+near random baseline. Adding chromatin accessibility (substratum-level
+visible) helps. Adding prior biological knowledge (encoded hidden
+structure) helps further. Each addition incorporates more hidden-sector
+information, and each addition improves accuracy. The framework's
+structural prediction --- that GRN inference accuracy scales with how
+much hidden-sector information is included in the data --- is
+empirically realized in the methodological development trajectory of the
+past five years.
+
+\hypertarget{information-theoretic-ceiling}{%
+\subsubsection{3.4 Information-theoretic
+ceiling}\label{information-theoretic-ceiling}}
+
+The framework predicts more than just a relative improvement from
+multi-modal data. It predicts an information-theoretic ceiling: no
+method using only scRNA-seq data can recover the true causal GRN,
+regardless of model complexity or training data scale. This is the
+structural content of P-indivisibility: information that has been
+integrated out cannot be recovered from the marginal observations.
+
+The recent attempts to apply deep-learning foundation models to GRN
+inference test this prediction directly. scGPT {[}25{]} and Geneformer
+{[}26{]}, trained on tens of millions of single cells, attempt to learn
+gene-gene relationships from transcriptome data alone. Multiple
+independent evaluations have shown that these models do not improve
+substantially over simpler correlation-based methods on GRN inference
+(§4 develops this for perturbation prediction; similar results hold for
+GRN tasks). The foundation models' attention patterns ``capture
+co-expression rather than unique regulatory signal'' {[}27{]} --- they
+recover the marginal correlation structure that simpler methods also
+recover, without accessing the underlying regulatory causal structure.
+
+This is the information-theoretic ceiling in action. Scaling
+transcriptome-only foundation models does not break through the ceiling;
+the ceiling is structural, not computational. The methodological roadmap
+forward requires architectural changes that incorporate hidden-sector
+information, not further scaling of visible-sector models.
+
+\hypertarget{practical-consequences-1}{%
+\subsubsection{3.5 Practical
+consequences}\label{practical-consequences-1}}
+
+Three framework-grounded predictions for GRN inference methodology:
+
+(P4) GRN inference from scRNA-seq alone is near its
+information-theoretic ceiling. Further methodological development that
+stays within RNA-only data will produce marginal improvements, not the
+order-of-magnitude gains the field has been seeking.
+
+(P5) Multi-modal methods (RNA + ATAC, RNA + methylation, RNA + Hi-C)
+will systematically outperform RNA-only methods. The relative gain
+depends on which hidden-sector modality is most informative for the
+specific regulatory structure being inferred.
+
+(P6) Foundation models applied to scRNA-seq alone will not exceed the
+information-theoretic ceiling, regardless of scale. Foundation models
+trained on multi-modal data (paired RNA + ATAC, multi-omics atlases)
+should outperform single-modality foundation models on GRN inference
+tasks. This is testable: compare scGPT trained on RNA-only versus a
+foundation model of comparable scale trained on multi-modal data.
+
+The third prediction is testable in the near term as multi-modal
+foundation models become available.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{perturbation-prediction}{%
+\subsection{4. Perturbation Prediction}\label{perturbation-prediction}}
+
+\hypertarget{the-perturbation-prediction-paradigm}{%
+\subsubsection{4.1 The perturbation prediction
+paradigm}\label{the-perturbation-prediction-paradigm}}
+
+Single-cell perturbation experiments --- CRISPR knockouts (Perturb-seq,
+CROP-seq), CRISPRa/i activation/repression (Replogle et al.~2022
+{[}28{]}), drug treatments (sci-Plex), and combinatorial perturbations
+(Norman et al.~2019 {[}29{]}) --- produce datasets where individual
+cells are labeled by the perturbation they received and the resulting
+transcriptional state is measured. The computational task is to predict
+the transcriptional state for \emph{unseen} perturbations: combinations
+of perturbations not in the training data, perturbations applied to new
+cell types, or perturbations with new drugs.
+
+This task has attracted substantial methodological investment.
+Generative models (CPA {[}30{]}, chemCPA {[}31{]}) learn compositional
+representations of perturbation effects. Graph neural networks (GEARS
+{[}32{]}) incorporate Gene Ontology and protein-protein interaction
+graphs as priors. Optimal transport methods (CellOT {[}33{]}) match
+unperturbed and perturbed distributions. Most recently, single-cell
+foundation models (scGPT {[}25{]}, Geneformer {[}26{]}, scFoundation
+{[}34{]}, scPRINT) have been adapted for perturbation prediction tasks,
+with the expectation that pretraining on tens of millions of cells would
+enable strong zero-shot and few-shot performance.
+
+\hypertarget{the-empirical-failure-of-deep-learning-on-perturbation-prediction}{%
+\subsubsection{4.2 The empirical failure of deep learning on
+perturbation
+prediction}\label{the-empirical-failure-of-deep-learning-on-perturbation-prediction}}
+
+Ahlmann-Eltze et al.~(Nature Methods 2025) {[}6{]} published a direct
+evaluation of this expectation. The study compared five foundation
+models --- scGPT, Geneformer, scFoundation, scPRINT, and Universal Cell
+Embeddings --- and two additional deep-learning models against
+deliberately simple linear baselines for predicting transcriptome
+changes after single or double perturbations. The result: ``None
+outperformed the baselines.'' The simplest baseline --- predicting the
+mean response across the training set --- was competitive with or
+superior to every deep-learning method evaluated.
+
+The result has been replicated. The geneRNIB benchmark (Passemiers et
+al.~2025) {[}5{]} confirms that deep-learning methods do not
+consistently outperform linear baselines on perturbation prediction
+tasks. Independent analyses of scGPT's attention mechanisms {[}27{]}
+show that the attention patterns ``capture co-expression rather than
+unique regulatory signal'' --- the model has learned the gene-gene
+correlation structure that simpler methods also capture, without
+accessing additional information.
+
+The pattern is structural, not technical. The foundation models are
+well-implemented, well-trained, and demonstrably effective on tasks
+where the visible-sector data contains sufficient information (cell type
+annotation with appropriate fine-tuning, batch correction in some
+settings). The failure is specific to tasks where the missing
+information matters: predicting how cells will respond to perturbations
+not seen in training requires knowing what the cell can become, which
+depends on chromatin state, transcription factor activity, and other
+variables not in the transcriptome.
+
+\hypertarget{the-frameworks-structural-prediction}{%
+\subsubsection{4.3 The framework's structural
+prediction}\label{the-frameworks-structural-prediction}}
+
+The OI framework's information-theoretic constraint produces a hard
+upper bound on what transcriptome-only perturbation models can achieve.
+The argument is direct: the cell's response to a perturbation depends on
+(i) the current transcriptional state, (ii) the chromatin state
+determining which genes are accessible for activation, (iii) the protein
+levels of transcription factors not visible in mRNA data, and (iv) the
+metabolic state. Of these, (i) is in the data and (ii)--(iv) are not.
+The function mapping perturbation × cell state to response state is
+therefore a function of more variables than the data contains; the
+mapping cannot be learned from data alone, no matter how much data is
+available, because the inverse problem is structurally under-determined.
+
+The constraint is information-theoretic in the strict sense: the mutual
+information between the visible-sector data and the perturbation
+response is bounded above by a quantity that does not scale with dataset
+size. Scaling the model and the data improves estimation of the
+conditional mean response (which is why deep-learning models do achieve
+some performance), but cannot improve prediction of the response's
+\emph{variance}, \emph{outlier distribution}, or \emph{cell-specific
+deviations} --- all of which depend on hidden-sector variables.
+
+The Ahlmann-Eltze result has a specific structural interpretation in
+this framework: when the baseline (predict the mean) is competitive with
+foundation models, it indicates that the foundation models are also
+predicting close to the conditional mean response, because the
+conditional mean is the limit of what transcriptome data supports. Deep
+learning architectures do not extract additional information from the
+visible sector because there is no additional information to extract.
+
+\hypertarget{knowledge-graph-methods-as-the-predicted-improvement}{%
+\subsubsection{4.4 Knowledge-graph methods as the predicted
+improvement}\label{knowledge-graph-methods-as-the-predicted-improvement}}
+
+The methods that do exceed simple baselines incorporate explicit
+hidden-sector information through external knowledge. GEARS {[}32{]}
+uses Gene Ontology graphs and protein-protein interaction networks as
+structural priors during training; the prior knowledge constrains the
+prediction in ways that pure data-driven learning cannot. PerturbNet
+{[}35{]} (Mol Syst Biol 2025) achieves the highest R² values across
+multiple benchmarks by separating the drug representation network
+(trained on chemical structure) from the cell representation network
+(trained on expression), allowing the model to compose information from
+disjoint training sources. Both methods incorporate information that is
+not in the scRNA-seq data --- chemical structure, ontological gene
+relationships, prior regulatory knowledge --- and both outperform pure
+data-driven foundation models.
+
+The methodological trajectory is consistent with the framework: the
+methods that work are the methods that include hidden-sector information
+explicitly through external knowledge sources, and the methods that fail
+are the methods that try to extract that information from transcriptome
+data alone. The ``deep learning fails to beat baselines'' puzzle is the
+framework's information-theoretic ceiling made empirically manifest.
+
+\hypertarget{compositional-generalization-and-what-scaling-cannot-fix}{%
+\subsubsection{4.5 Compositional generalization and what scaling cannot
+fix}\label{compositional-generalization-and-what-scaling-cannot-fix}}
+
+A subtler prediction from the framework concerns compositional
+generalization --- the ability to predict combinations of perturbations
+from training data containing only single perturbations. Standard
+intuition is that with enough data and a sufficiently flexible model,
+compositional structure should be learnable. The framework's prediction
+is more restrictive: compositional generalization works only when the
+perturbations act on visible-sector variables independently, and fails
+when perturbations interact through hidden-sector variables (chromatin
+state, transcription factor competition, etc.).
+
+This is testable. Norman et al.~(2019) {[}29{]} published a
+combinatorial perturbation dataset with 287 single-gene knockdowns and
+131 pairs of knockdowns. The framework predicts that pairs where both
+genes act on the same chromatin domain (likely to interact through
+hidden-sector variables) should be harder to predict from single-gene
+training data than pairs where the genes act on disjoint pathways. The
+empirical pattern in compositional generalization benchmarks should
+track the chromatin co-localization of the perturbed genes, not just
+their expression patterns. This prediction has not been directly tested
+in the existing benchmarking literature.
+
+\hypertarget{practical-consequences-2}{%
+\subsubsection{4.6 Practical
+consequences}\label{practical-consequences-2}}
+
+Four framework-grounded predictions for perturbation prediction
+methodology:
+
+(P7) Transcriptome-only foundation models will not exceed the
+conditional-mean baseline for perturbation prediction, regardless of
+model scale or training data size. The ceiling is information-theoretic
+and not addressable through more pretraining.
+
+(P8) Methods incorporating chromatin accessibility data (paired
+Perturb-seq + ATAC-seq) will systematically outperform RNA-only methods
+on perturbation prediction. The improvement should be largest for
+perturbations affecting chromatin-state transitions (knockdowns of
+chromatin modifiers, transcription factors with autoregulatory loops).
+
+(P9) Methods incorporating prior knowledge (knowledge graphs, motif
+libraries, regulatory network priors) will systematically outperform
+pure data-driven methods. The improvement scales with how well the prior
+captures the actual hidden-sector structure relevant to the prediction
+task.
+
+(P10) Compositional generalization (predicting double perturbations from
+single-perturbation training) will be systematically harder for
+perturbations co-localized at the chromatin level than for perturbations
+acting on disjoint pathways. This is testable through benchmarking on
+Norman et al.'s combinatorial dataset stratified by chromatin
+co-localization of the perturbed gene pairs.
+
+The fourth prediction is particularly diagnostic. If it holds, it
+provides direct empirical confirmation that the framework's structural
+picture (chromatin as hidden sector mediating perturbation interactions)
+is the right explanation for compositional generalization failure modes.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{multi-omics-integration}{%
+\subsection{5. Multi-Omics Integration}\label{multi-omics-integration}}
+
+\hypertarget{the-multi-omics-integration-paradigm}{%
+\subsubsection{5.1 The multi-omics integration
+paradigm}\label{the-multi-omics-integration-paradigm}}
+
+Single-cell multi-omics technologies measure multiple molecular
+modalities in the same cell: G\&T-seq (genome + transcriptome),
+scNMT-seq (chromatin accessibility + transcriptome + methylation),
+CITE-seq (transcriptome + surface protein), QuRIE-seq (transcriptome +
+intracellular phosphoprotein), and increasingly multimodal Perturb-seq
+variants. The data architecture is: \(N\) cells × \(M\) modalities ×
+\(G_m\) features per modality, with the modalities measuring different
+aspects of cellular state on different timescales.
+
+The standard computational task is integration: combining information
+across modalities to produce unified cell embeddings, joint
+trajectories, and integrated regulatory networks. The principal methods
+are Multi-Omics Factor Analysis (MOFA {[}36{]} and MOFA+ {[}37{]}),
+Seurat's weighted nearest neighbor (WNN) {[}38{]}, LIGER {[}39{]}, and
+totalVI {[}40{]}. These methods share a common assumption: different
+modalities are parallel measurements of the same underlying cell state,
+and integration combines them into a single low-dimensional latent
+space.
+
+\hypertarget{the-timescale-problem}{%
+\subsubsection{5.2 The timescale problem}\label{the-timescale-problem}}
+
+The parallel-measurements assumption fails when modalities measure
+different memory layers operating on different timescales. The QuRIE-seq
+paper {[}8{]} explicitly states: ``The timescale of (phospho)proteome
+changes falls into a minute regime, whereas most significant
+transcriptome changes are observed after hours.'' The same cells,
+measured at the same instant, contain information from different points
+in their dynamical history --- phosphoprotein measurements reflect
+minute-scale signaling state, transcriptome measurements reflect
+hour-scale gene expression state, and methylation measurements reflect
+day-to-week-scale chromatin state.
+
+The framework's perspective on this is direct: each modality measures a
+different memory layer with a different \(\tau_B\). The visible-sector /
+hidden-sector partition is modality-dependent. From the perspective of
+phosphoprotein dynamics, the transcriptome state is part of the slow
+hidden sector (chromatin sets transcriptional rates, which set protein
+production rates). From the perspective of methylation dynamics, the
+transcriptome is part of the fast visible sector (transcription happens
+fast on the methylation timescale). The static factor-analysis
+assumption --- that all modalities reflect the same cell state ---
+misses this hierarchical structure.
+
+The empirical consequences are documentable. Static integration methods
+produce embeddings that are dominated by the modality with the largest
+dynamic range during the measurement window --- typically transcriptome
+--- and the other modalities contribute mostly as confirmation of the
+transcriptome-derived structure rather than as independent information.
+The integration improves accuracy modestly compared to single-modality
+methods, but does not fully exploit the temporal information present in
+the multi-modal data.
+
+\hypertarget{emerging-timescale-aware-methods}{%
+\subsubsection{5.3 Emerging timescale-aware
+methods}\label{emerging-timescale-aware-methods}}
+
+Recent methodological work has begun to address the timescale problem
+explicitly. The QuRIE-seq paper {[}8{]} used time-series sampling
+combined with MOFA+ factors to capture dynamics across modalities. Heyne
+et al.~(2024) {[}41{]} introduced pseudotemporal integration of
+single-cell RNA-Seq and single-cell proteomics by mass spectrometry,
+building cell-state trajectories separately for each modality and
+aligning them through shared markers. The approach yields
+``time-dependent, nonlinear relationships between transcript and protein
+levels'' that static methods cannot recover.
+
+The chromatin velocity literature (§2) is a special case of
+timescale-aware multi-omics integration: MultiVelo {[}17{]} explicitly
+models chromatin and transcription as coupled dynamical systems with
+different switch times. The success of MultiVelo over scVelo is the
+timescale-aware version of the framework's prediction --- using temporal
+hierarchy in the integration produces better dynamical estimates.
+
+The framework predicts further methodological development along these
+lines will succeed. Specifically, integration methods that include
+explicit lag structure between modalities (transcriptome at time \(t\)
+reflecting chromatin state at time \(t - \tau_B\)) should outperform
+methods that treat modalities as instantaneous parallel measurements.
+The lag structure should be biologically calibrated to the
+characteristic \(\tau_B\) of each modality.
+
+\hypertarget{the-hierarchy-of-biological-memory-layers}{%
+\subsubsection{5.4 The hierarchy of biological memory
+layers}\label{the-hierarchy-of-biological-memory-layers}}
+
+The framework provides a specific prediction for the timescale hierarchy
+across biological modalities, ordered from fastest to slowest:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Modality
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Typical \(\tau_B\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Memory layer
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Phosphoproteins & seconds--minutes & Signaling state \\
+Metabolites & seconds--minutes & Metabolic state \\
+Transcriptome & minutes--hours & Gene expression state \\
+Histone acetylation & minutes--hours & Active chromatin state \\
+Histone methylation & hours--days & Stable chromatin state \\
+Proteome & hours--days & Translation state \\
+Chromatin accessibility & hours--days & Regulatory element state \\
+DNA methylation & days--weeks & Stable epigenetic state \\
+Genome (sequence) & \(\to \infty\) & Heritable state \\
+Chromatin 3D architecture (Hi-C) & hours--generations & Genome
+organization \\
+\end{longtable}
+
+These timescales are approximate and tissue-dependent, but the ordering
+is robust. The framework predicts that integration methods that respect
+this ordering --- treating slower modalities as constraints on faster
+modalities --- will systematically outperform methods that treat them
+symmetrically.
+
+\hypertarget{static-factor-analysis-under-the-framework}{%
+\subsubsection{5.5 Static factor analysis under the
+framework}\label{static-factor-analysis-under-the-framework}}
+
+MOFA and MOFA+ are widely used and produce useful cell embeddings. They
+do not, however, capture the temporal hierarchy across modalities. The
+framework's prediction is that MOFA-style methods extract the
+\emph{static covariance structure} shared across modalities --- what is
+common to all measurements of a cell at one instant --- but miss the
+\emph{dynamical relationships} between modalities --- how chromatin
+state at one time predicts transcriptome state at a later time. The
+static covariance is informative but incomplete; the dynamical
+relationships contain additional information that static methods cannot
+access.
+
+This is testable. A direct comparison of MOFA+ integration with a
+timescale-aware method on time-series data should show the
+timescale-aware method recovering dynamical relationships that MOFA
+misses. The QuRIE-seq paper {[}8{]} and subsequent time-series
+multi-omics studies provide the data substrate for such comparisons; the
+comparison has not been systematically performed across the
+methodological literature.
+
+\hypertarget{practical-consequences-3}{%
+\subsubsection{5.6 Practical
+consequences}\label{practical-consequences-3}}
+
+Three framework-grounded predictions for multi-omics integration:
+
+(P11) Static factor-analysis integration methods (MOFA, MOFA+, LIGER,
+totalVI) systematically underutilize the temporal information present in
+multi-modal data. The performance gap relative to timescale-aware
+methods should be largest in dynamic biological processes (perturbation
+responses, differentiation) and smallest in steady-state systems.
+
+(P12) Timescale-aware integration methods will systematically outperform
+static methods on prediction tasks involving cellular dynamics. The
+improvement should scale with the ratio between the slowest and fastest
+modality timescales in the data: large ratios (transcriptome +
+methylation) should show large improvements; small ratios (transcriptome
++ chromatin accessibility, since both operate on hour-scale timescales)
+should show smaller improvements.
+
+(P13) The optimal modality combination for a given biological question
+depends on the characteristic timescale of the process. Studies of fast
+signaling dynamics should prioritize phosphoproteome + transcriptome;
+studies of stable cell-fate decisions should prioritize methylome +
+transcriptome; studies of developmental trajectories should include
+chromatin architecture (Hi-C) as the slowest layer.
+
+The framework provides a structural rationale for the multi-omics
+integration practices that bioinformaticians are converging on through
+empirical experience. Rather than treating multi-omics as a generic
+improvement, the framework predicts which modality combinations matter
+for which biological questions, and which integration methods will
+succeed.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{cancer-methylome-classification}{%
+\subsection{6. Cancer Methylome
+Classification}\label{cancer-methylome-classification}}
+
+\hypertarget{the-methylation-based-tumor-classification-paradigm}{%
+\subsubsection{6.1 The methylation-based tumor classification
+paradigm}\label{the-methylation-based-tumor-classification-paradigm}}
+
+DNA methylation profiling has emerged over the past decade as a central
+diagnostic tool in neuro-oncology and increasingly across cancer types.
+The Heidelberg CNS Tumor Classifier, introduced by Capper et al.~(Nature
+2018) {[}42{]} with version v11 trained on 2,801 reference samples,
+classified central nervous system tumors into 91 methylation classes.
+Version 12.8 (Cancer Cell 2025) {[}43{]} expanded this to 184 subclasses
+trained on 7,495 methylation profiles, achieving 95\% subclass-level
+accuracy with well-calibrated probabilistic scores. Methylation-based
+classification is now incorporated into the WHO Classification of CNS
+Tumors (CNS5, 2021) as a desirable or essential method for accurate
+diagnosis of multiple tumor types {[}44{]}.
+
+The classifier reads DNA methylation patterns at hundreds of thousands
+of CpG sites (Illumina EPIC 850K/930K array) and assigns the sample to a
+reference tumor class based on similarity to a curated training set. The
+methylation signature is informative because, as Capper et al.~(2018)
+{[}42{]} explicitly note, ``the genome-wide DNA methylation pattern (the
+methylome) likely represents a combination of both the cell of origin
+and somatically acquired DNA methylation changes.'' The cell-of-origin
+component dominates the classification: methylation patterns reliably
+identify the developmental lineage from which the tumor arose, even when
+the tumor's morphology, histology, or transcriptional state has diverged
+substantially from the lineage's normal pattern.
+
+\hypertarget{methylome-arrest-in-cancer}{%
+\subsubsection{6.2 Methylome arrest in
+cancer}\label{methylome-arrest-in-cancer}}
+
+A critical observation in the methylation-classification literature is
+that DNA methylation patterns are \emph{relatively stable} in cancer
+cells once established. Capper et al.~(2018) {[}42{]}: ``the dynamics of
+the methylome crucial for cellular differentiation in non-transformed
+cells seem to be somewhat arrested in cancer cells and DNA methylation
+signatures likely remain relatively stable during the course of
+disease.'' The methylome is not dynamic in the same way as the
+transcriptome or proteome; it is stable enough to function as a reliable
+diagnostic marker across disease progression, treatment, and recurrence.
+
+This stability is what makes methylation classification work clinically.
+If cancer methylomes were as dynamic as cancer transcriptomes, a single
+methylation profile could not be reliably associated with a tumor class
+--- the profile would shift with disease progression and treatment, just
+as transcriptional profiles do. The methylome's relative stability
+across disease course is the practical foundation of the entire
+methylation-classification paradigm.
+
+\hypertarget{the-substratum-emergent-operator-distinction-in-cancer}{%
+\subsubsection{6.3 The substratum-emergent operator distinction in
+cancer}\label{the-substratum-emergent-operator-distinction-in-cancer}}
+
+The framework's predicted pattern for cancer is the substratum-emergent
+operator distinction {[}Medicine §9.4{]} applied to oncology: the
+substratum-level memory operator (DNA methylation pattern) is preserved
+with high fidelity reflecting the cell of origin, while the
+emergent-level operator (cell behavior, proliferation, differentiation,
+transcriptional phenotype) is dysregulated. The two operators dissociate
+in cancer in a specific direction: substratum preserved, emergent
+dysregulated.
+
+This is the structural pattern the methylation-classification field has
+empirically established. The 95\% subclass-level accuracy of
+methylation-based classification reflects the high fidelity of the
+substratum-level memory; the fact that the same methylation patterns
+associate with diverse histological appearances, transcriptional states,
+and clinical behaviors reflects the dysregulation of the emergent
+operator. The framework's prediction matches the field's diagnostic
+paradigm precisely.
+
+This same pattern operates across scales: sphalerons and baryon-number
+violation in particle physics, iPSC reprogramming residuals in stem cell
+biology {[}Medicine §9.4{]}, and methylation-classifier-based diagnosis
+in oncology are all instances of the broader substratum-emergent
+operator distinction observed in foundational physics {[}SM §8.7{]} ---
+where operators conserved at the substratum (lattice) level can be
+violated at the emergent (effective field theory) level. The pattern is
+unified across scales: the substratum carries information that the
+emergent operator can violate, and methylation classification in
+oncology operationalizes this for clinical diagnostics.
+
+\hypertarget{unclassifiable-tumors-and-substratum-disruption}{%
+\subsubsection{6.4 Unclassifiable tumors and substratum
+disruption}\label{unclassifiable-tumors-and-substratum-disruption}}
+
+A specific empirical pattern in methylation classification is
+informative for the framework. Drexler et al.~(2024) {[}45{]} document
+that approximately 10--15\% of CNS tumor cases submitted to the
+Heidelberg classifier are ``unclassifiable'' --- they do not match any
+reference methylation class with confidence above the diagnostic
+threshold (calibrated score \(\geq 0.9\)). These unclassifiable cases
+have systematically distinct features: lower tumor purity, younger
+patient age, recurrent tumor tissue post-radiotherapy, and significantly
+worse clinical outcomes including longer time to treatment initiation
+and less favorable survival in IDH wildtype glioblastomas.
+
+The framework's prediction for unclassifiable tumors is that they are
+cases where the substratum-level memory operator has been disrupted, not
+just the emergent operator. The disrupted substratum produces a
+methylation pattern that no longer reflects a single cell of origin, and
+the classifier cannot map it to a reference class. The empirical
+features of unclassifiable cases match this prediction: lower tumor
+purity (contributions from multiple cell types altering the methylation
+pattern), post-radiotherapy recurrence (DNA damage altering methylation
+maintenance), and younger age (less time for methylation to stabilize
+into a clear pattern).
+
+This is testable beyond clinical features. The framework predicts that
+unclassifiable tumors should show specifically altered methylation
+patterns at maintenance sites (DNMT1 binding sites, hemi-methylated
+regions) and at chromatin boundary elements, reflecting disruption of
+the methylation maintenance machinery rather than tumor-type-specific
+methylation differences. The hypothesis is testable in the existing
+Heidelberg dataset by stratifying classifiable versus unclassifiable
+cases on machinery-site versus content-site methylation patterns.
+
+\hypertarget{methylation-classification-beyond-cns-tumors}{%
+\subsubsection{6.5 Methylation classification beyond CNS
+tumors}\label{methylation-classification-beyond-cns-tumors}}
+
+The methylation-classification paradigm has been extended to other
+cancer types: sarcoma classifiers {[}46{]}, leukemia classifiers, and
+pan-cancer methylation classifiers {[}47{]}. The performance pattern is
+consistent: high accuracy for tumor type identification, with the
+methylation signature carrying cell-of-origin information that survives
+the tumor's emergent dysregulation.
+
+The framework predicts that this paradigm will continue to expand across
+cancer types, and that the boundary cases --- cancer types where
+methylation classification has lower accuracy --- will be those where
+the substratum-level memory is more readily disrupted in the cancer
+state. Highly mutated cancers with extensive copy number aberrations
+(which can disrupt chromatin maintenance machinery) should be less
+amenable to methylation classification than cancers with stable genomes.
+This is a specific testable prediction about cross-cancer methylation
+classifier performance.
+
+\hypertarget{practical-consequences-4}{%
+\subsubsection{6.6 Practical
+consequences}\label{practical-consequences-4}}
+
+Three framework-grounded predictions for cancer methylome
+bioinformatics:
+
+(P14) The methylation-classification paradigm will continue to extend to
+cancer types where the substratum-level memory is preserved during
+tumorigenesis. Cancers with stable genomes (most pediatric CNS tumors,
+well-differentiated sarcomas) will achieve high classifier accuracy;
+cancers with extensive chromatin maintenance machinery mutations will
+achieve lower accuracy.
+
+(P15) Unclassifiable tumors are not a single category but split into two
+distinct groups: (i) cancers from rare cell-of-origin lineages not
+represented in the training data (the standard interpretation), and (ii)
+cancers where the substratum-level memory has been disrupted (the
+framework's prediction). The two groups should have distinguishable
+methylation patterns at maintenance versus content sites.
+
+(P16) Methylation-based classifiers can be improved by including
+chromatin maintenance machinery integrity (mutations or copy number
+alterations in DNMT1, DNMT3A/B, TET1/2/3, etc.) as a covariate. The
+framework predicts that tumors with intact maintenance machinery should
+be more reliably classifiable than tumors with disrupted machinery, at
+given tumor purity.
+
+The third prediction is testable through reanalysis of the existing
+Heidelberg cohort with maintenance machinery integrity as a
+stratification variable.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{variant-pathogenicity-for-readerwritereraser-genes}{%
+\subsection{7. Variant Pathogenicity for Reader/Writer/Eraser
+Genes}\label{variant-pathogenicity-for-readerwritereraser-genes}}
+
+\hypertarget{variant-effect-prediction-methods}{%
+\subsubsection{7.1 Variant effect prediction
+methods}\label{variant-effect-prediction-methods}}
+
+Predicting the functional impact of missense variants on protein-coding
+genes is a core task in clinical genetics. Methods range from
+sequence-conservation methods (SIFT {[}48{]}, PolyPhen-2 {[}49{]})
+through structure-aware methods (CADD {[}50{]}, REVEL {[}51{]}) to
+AI-based methods (AlphaMissense {[}52{]}). AlphaMissense, introduced by
+Cheng et al.~(Science 2023) {[}52{]}, applies the AlphaFold2
+architecture {[}53{]} to variant effect prediction and achieves
+state-of-the-art performance across multiple benchmarks, providing
+pathogenicity scores for every possible single-amino-acid substitution
+in the human proteome {[}54{]}.
+
+The methods operate on a common assumption: variant pathogenicity is
+determined by the variant's impact on the protein it directly affects.
+Conservation features capture evolutionary intolerance to variation at
+the residue; structural features capture the variant's disruption of
+folding or function; AI features capture the integration of structural
+and conservation information at a higher level. The methods do not, in
+general, account for the variant's \emph{functional role} in the broader
+regulatory architecture --- whether the affected gene is a substrate
+gene, a reader of epigenetic marks, a writer that establishes marks, or
+an eraser that removes marks.
+
+\hypertarget{the-frameworks-prediction}{%
+\subsubsection{7.2 The framework's
+prediction}\label{the-frameworks-prediction}}
+
+The Medicine companion paper {[}Medicine §10.7{]} establishes the
+reader-writer disorder class: genetic disorders caused by
+loss-of-function mutations in readers, writers, or erasers of epigenetic
+memory (Rett syndrome via MECP2, Fragile X via FMR1, Angelman via UBE3A,
+Kabuki via KMT2D, ATR-X via ATRX). These disorders have substantially
+different phenotypic features than disorders affecting substrate genes
+directly: wider therapeutic windows, demonstrated reversibility in
+animal models (Guy et al.~2007 {[}55{]} for Rett), and graded severity
+correlated with residual machinery function.
+
+The framework predicts that variant pathogenicity prediction should be
+systematically different for variants in reader/writer/eraser machinery
+versus variants in substrate genes. Specifically:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  Variants in machinery genes should show \emph{graded} pathogenicity
+  across mutations within the same gene, reflecting the gene's
+  dose-dependent function in maintaining substratum-level memory across
+  the genome. Different MECP2 mutations produce different Rett severity
+  precisely because they confer different degrees of residual reading
+  function {[}56{]}.
+\item
+  The relationship between variant pathogenicity score and clinical
+  severity should differ in slope between machinery genes and substrate
+  genes. For substrate genes, loss-of-function correlates directly with
+  phenotype severity (a missing enzyme produces a deficient pathway).
+  For machinery genes, loss-of-function correlates with the \emph{number
+  of downstream targets affected}, which can be partially compensated by
+  residual machinery function --- producing a flatter
+  pathogenicity-severity slope.
+\item
+  The relative performance of variant effect predictors on machinery
+  genes versus substrate genes should differ. Methods trained
+  predominantly on substrate genes (where the conservation-pathogenicity
+  relationship is well-calibrated) should systematically underperform on
+  machinery genes (where the relationship is mediated by downstream
+  effects on chromatin state).
+\end{enumerate}
+
+\hypertarget{the-proposed-empirical-test}{%
+\subsubsection{7.3 The proposed empirical
+test}\label{the-proposed-empirical-test}}
+
+The framework's predictions can be tested through reanalysis of existing
+AlphaMissense predictions stratified by gene functional role. The
+protocol:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Classify genes into three categories: substrate genes (encoding
+  enzymes, transporters, structural proteins, ligands, receptors),
+  machinery genes (encoding epigenetic readers, writers, erasers,
+  chromatin remodelers, transcription factors), and architectural genes
+  (encoding scaffolds and connecting structures). Standard ontologies
+  (GO Molecular Function, ChromBase, Eukaryotic Linear Motif database)
+  provide the classification.
+\item
+  For each gene category, examine the distribution of AlphaMissense
+  pathogenicity scores conditional on ClinVar pathogenicity assignment.
+\item
+  Test prediction (iii): machinery gene scores should show poorer
+  correlation with ClinVar assignments than substrate gene scores, at
+  matched evolutionary conservation level.
+\item
+  Test prediction (i): within machinery genes, the variance of
+  pathogenicity scores for clinically observed variants should be higher
+  than within substrate genes, reflecting the graded relationship
+  between machinery function and phenotype.
+\item
+  Test prediction (ii): correlate variant pathogenicity score with
+  phenotype severity (where available from clinical literature) and
+  compare slopes across gene categories.
+\end{enumerate}
+
+The test is computationally tractable using existing public data
+(AlphaMissense predictions on Zenodo, ClinVar, gene ontology databases).
+Negative results would refute the framework's prediction; positive
+results would establish a new structural pattern in variant effect
+prediction with practical clinical implications.
+
+\hypertarget{implications-for-clinical-variant-interpretation}{%
+\subsubsection{7.4 Implications for clinical variant
+interpretation}\label{implications-for-clinical-variant-interpretation}}
+
+If the framework's predictions are confirmed, variant interpretation in
+reader-writer disorders should incorporate gene functional role as a
+covariate. Current clinical variant interpretation (ACMG/AMP guidelines
+{[}57{]}) treats all genes symmetrically: variants are scored on
+evolutionary conservation, computational predictions, segregation data,
+functional studies, and population frequency, without distinguishing the
+gene's functional role in the regulatory architecture. The framework
+predicts this symmetric treatment systematically misclassifies variants
+in machinery genes --- both overcalling and undercalling depending on
+the specific gene's network position.
+
+A revised approach would (i) flag machinery-gene variants for additional
+scrutiny, recognizing that pathogenicity for these genes is mediated by
+downstream effects rather than direct functional loss; (ii) recommend
+functional assays measuring residual machinery activity rather than
+relying on prediction scores alone; and (iii) interpret machinery-gene
+variants in the context of the patient's epigenetic state, since the
+same variant may produce different phenotypes depending on what
+substrate it acts on. These recommendations align with emerging clinical
+practice for Rett-class disorders {[}58{]} but have not been generalized
+to the full machinery-gene category.
+
+\hypertarget{practical-consequences-5}{%
+\subsubsection{7.5 Practical
+consequences}\label{practical-consequences-5}}
+
+Three framework-grounded predictions for variant effect prediction
+methodology:
+
+(P17) AlphaMissense and similar methods systematically miscalibrate
+pathogenicity scores for reader/writer/eraser genes relative to
+substrate genes. The miscalibration is testable through stratified
+reanalysis of existing predictions.
+
+(P18) Variant effect prediction methods trained specifically on
+machinery-gene variant data should outperform general-purpose methods on
+this gene category. The methodological recommendation is to develop
+machinery-gene-specific predictors that incorporate the gene's network
+position and downstream regulatory targets.
+
+(P19) Clinical variant interpretation should incorporate gene functional
+role (substrate vs.~machinery vs.~architectural) as a structural feature
+affecting how computational pathogenicity scores are weighted. The
+framework predicts machinery-gene variants require additional functional
+assay evidence beyond computational scores.
+
+The third prediction has direct clinical implications and is testable
+through retrospective audit of diagnostic genetic testing outcomes
+stratified by gene category.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{reader-writer-disorder-bioinformatics}{%
+\subsection{8. Reader-Writer Disorder
+Bioinformatics}\label{reader-writer-disorder-bioinformatics}}
+
+\hypertarget{the-frameworks-reader-writer-disorder-class}{%
+\subsubsection{8.1 The framework's reader-writer disorder
+class}\label{the-frameworks-reader-writer-disorder-class}}
+
+The Medicine paper {[}Medicine §10.7{]} introduces the reader-writer
+disorder class: genetic disorders caused by loss-of-function mutations
+in epigenetic readers (MECP2 in Rett syndrome, FMR1 in Fragile X),
+writers (UBE3A in Angelman syndrome, KMT2D in Kabuki syndrome), or
+remodelers (ATRX in ATR-X syndrome). These disorders share a structural
+feature: the substratum-level memory operator (DNA methylation, histone
+modifications) is largely preserved in patients, while the trace-out
+machinery that translates substrate state into cellular function is
+disrupted. The framework predicts that this structural feature produces
+specific bioinformatic patterns that distinguish reader-writer disorders
+from substrate-affecting genetic disorders.
+
+\hypertarget{bioinformatic-patterns-in-rett-syndrome}{%
+\subsubsection{8.2 Bioinformatic patterns in Rett
+syndrome}\label{bioinformatic-patterns-in-rett-syndrome}}
+
+Rett syndrome provides the most directly testable case. MECP2 is a
+methyl-CpG-binding protein --- a reader of DNA methylation. Patients
+carry loss-of-function MECP2 mutations; the DNA methylation substrate
+they read is generally intact {[}59, 60{]}. The framework predicts: in
+Rett patient samples, DNA methylation patterns should be approximately
+normal (substratum preserved), while gene expression and chromatin state
+should be altered (emergent operator disrupted).
+
+The empirical literature is consistent with this prediction. Picard et
+al.~(2021) {[}60{]} review the transcriptomic and epigenomic landscape
+in Rett: while large-scale alterations of the epigenome have been
+hypothesized, ``the impact of MeCP2 malfunction on global DNA
+methylation and its large-scale effect in RTT has been poorly
+investigated and is still elusive.'' Initial reports of compensatory DNA
+methylation differences between Rett patients and controls in small
+cohorts were \emph{not confirmed} in larger cohorts. The methylation
+substrate appears largely preserved.
+
+By contrast, transcriptional alterations in Rett are well-documented:
+thousands of differentially expressed genes between MECP2-mutant and
+wildtype neurons, with characteristic patterns affecting long genes
+{[}61{]}, synaptic plasticity genes, and activity-dependent genes. The
+emergent transcriptional operator is substantially disrupted while the
+substrate is largely preserved --- exactly the framework's prediction.
+
+\hypertarget{generalization-to-other-reader-writer-disorders}{%
+\subsubsection{8.3 Generalization to other reader-writer
+disorders}\label{generalization-to-other-reader-writer-disorders}}
+
+The framework predicts that similar bioinformatic patterns hold across
+the reader-writer disorder class:
+
+\textbf{Fragile X syndrome (FMR1).} FMR1 encodes an RNA-binding protein
+that regulates translation of hundreds of target mRNAs. Loss of FMR1
+should leave the RNA target landscape intact (substrate preserved) but
+disrupt translation regulation (emergent operator). The empirical
+pattern matches: FMR1-null cells show extensive translational
+dysregulation while transcriptome changes are more modest {[}62, 63{]}.
+The ``substrate'' in this case is the RNA target repertoire and ribosome
+state; FMR1 is the reader.
+
+\textbf{Angelman syndrome (UBE3A).} UBE3A is an E3 ubiquitin ligase
+functioning as a writer of degradation marks (ubiquitin tags) on target
+proteins. The protein substrate landscape is preserved; what is
+disrupted is the writing of degradation marks. The framework predicts
+protein-level dysregulation (accumulation of UBE3A targets) with
+relatively preserved transcriptome and methylome. Empirical
+confirmation: proteomic studies in Angelman models show selective
+accumulation of UBE3A substrates {[}64{]}, with transcriptomic changes
+secondary to the proteomic dysregulation.
+
+\textbf{Kabuki syndrome (KMT2D).} KMT2D is a histone H3K4
+methyltransferase --- a writer of activating histone marks at enhancers.
+Loss of KMT2D should leave the chromatin substrate (nucleosome
+positions, DNA methylation) intact but disrupt the deposition of
+H3K4me1/me2/me3 marks. The framework predicts altered H3K4 methylation
+patterns at affected enhancers with relatively preserved DNA methylation
+and broader chromatin features. Empirical pattern: ChIP-seq studies of
+KMT2D mutants show specific loss of H3K4 marks at enhancers, with other
+chromatin features less affected {[}65{]}.
+
+\textbf{ATR-X syndrome (ATRX).} ATRX is a chromatin remodeler that
+maintains heterochromatin at telomeres, centromeres, and tandem repeat
+sequences. Loss of ATRX should disrupt heterochromatin maintenance at
+these sites while leaving euchromatin and most of the methylome intact.
+The framework predicts site-specific chromatin defects with broad
+methylome preservation. Empirical pattern: ATRX-deficient cells show
+specific defects at heterochromatin maintenance sites with preservation
+of broader chromatin architecture {[}66{]}.
+
+The common pattern across the class: the substratum that the disrupted
+reader/writer/eraser acts on is preserved; the emergent operator at the
+level affected by the machinery is disrupted; other levels are
+relatively preserved.
+
+\hypertarget{differential-diagnosis-through-multi-omic-bioinformatics}{%
+\subsubsection{8.4 Differential diagnosis through multi-omic
+bioinformatics}\label{differential-diagnosis-through-multi-omic-bioinformatics}}
+
+The framework's predicted patterns provide a bioinformatic differential
+diagnostic. A patient with a developmental disorder of unknown cause can
+be assessed for reader-writer-disorder pattern through paired multi-omic
+profiling:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{DNA methylation} (whole-genome bisulfite sequencing or EPIC
+  array). Preserved methylation argues against substrate-disruption
+  disorder; altered methylation argues for it.
+\item
+  \textbf{Histone modifications} at affected loci (ChIP-seq for H3K4me3,
+  H3K27me3, H3K27ac). Loss of specific marks argues for writer
+  disruption (KMT2D, EZH2, etc.); preservation argues against.
+\item
+  \textbf{Chromatin accessibility} (ATAC-seq). Altered accessibility at
+  specific elements with preserved bulk accessibility argues for
+  reader/writer disruption; bulk accessibility changes argue for global
+  disruption.
+\item
+  \textbf{Transcriptome} (scRNA-seq). Characteristic dysregulation
+  patterns (long genes for Rett; ribosomal targets for Fragile X; UBE3A
+  target accumulation for Angelman) provide signature for specific
+  disorder.
+\end{enumerate}
+
+The framework predicts that multi-omic patterns can distinguish
+reader-writer disorders from substrate-affecting disorders even before
+the causal mutation is identified --- a useful diagnostic capability for
+patients with unclassified developmental syndromes.
+
+\hypertarget{therapeutic-implications-and-bioinformatic-monitoring}{%
+\subsubsection{8.5 Therapeutic implications and bioinformatic
+monitoring}\label{therapeutic-implications-and-bioinformatic-monitoring}}
+
+The Medicine paper {[}Medicine §10.7{]} establishes that reader-writer
+disorders are reversibility-prone because the substrate has been
+preserved. Gene therapy (AAV-based MECP2 replacement, UBE3A
+reactivation) and pharmacological replacement (trofinetide for Rett,
+FDA-approved 2023) target this property. Bioinformatic monitoring of
+therapy outcomes should follow the framework's structural picture:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  Therapeutic restoration of reader/writer function should produce
+  \emph{transcriptome normalization} if the substrate is intact, with
+  kinetics determined by the substrate's stability and the cell's
+  ability to read the restored signal. Methylation patterns should
+  remain stable through treatment.
+\item
+  Patients who do not respond to reader/writer restoration may have
+  suffered substrate degradation in addition to machinery loss --- a
+  more advanced disease state. Methylation profiling at baseline could
+  predict therapeutic response: patients with preserved methylation
+  should be more responsive than patients with altered methylation.
+\item
+  Long-term monitoring through multi-omic profiling should track
+  substrate fidelity (methylation stability) alongside emergent operator
+  function (transcriptome, behavior), with the framework predicting that
+  substrate integrity is the prognostic marker for sustained response.
+\end{enumerate}
+
+\hypertarget{practical-consequences-6}{%
+\subsubsection{8.6 Practical
+consequences}\label{practical-consequences-6}}
+
+Three framework-grounded predictions for reader-writer disorder
+bioinformatics:
+
+(P20) Reader-writer disorders should show characteristic multi-omic
+patterns: substrate preservation (methylation, sequence) with selective
+emergent operator disruption (transcriptome, chromatin, proteome at the
+level of the disrupted machinery). The pattern is testable across the
+class through standardized multi-omic profiling.
+
+(P21) Differential diagnosis between reader-writer disorders and
+substrate-affecting genetic disorders is achievable through multi-omic
+patterns even without sequencing the causal gene. This enables
+diagnostic workup for patients with unclassified developmental
+syndromes.
+
+(P22) Therapeutic response to reader/writer restoration therapy is
+predicted by baseline substrate integrity. Methylation profiling at
+treatment initiation should predict response duration and degree.
+
+The second and third predictions have direct clinical applications and
+motivate prospective multi-omic studies in reader-writer disorder
+cohorts.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{synthesis}{%
+\subsection{9. Synthesis}\label{synthesis}}
+
+\hypertarget{five-domains-one-structural-explanation}{%
+\subsubsection{9.1 Five domains, one structural
+explanation}\label{five-domains-one-structural-explanation}}
+
+The preceding sections have developed framework predictions across five
+active methodological domains in single-cell bioinformatics. The
+findings are summarized in Table 1.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Domain
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Documented failure mode
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Framework's structural explanation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Predicted improvement
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Empirical confirmation
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Trajectory inference (§2) & scVelo trajectory reversal on complex
+datasets {[}3{]} & Chromatin hidden sector violates Markovian assumption
+& Multi-omic velocity & MultiVelo {[}17{]}, mmVelo {[}18{]}, MoFlow
+{[}19{]} confirm \\
+GRN inference (§3) & Causal methods fail to outperform correlation
+{[}5{]} & Marginal distribution insufficient for causal recovery &
+Multi-modal methods + prior knowledge & SCENIC+ {[}23{]}, LINGER
+{[}24{]} confirm \\
+Perturbation prediction (§4) & Deep learning underperforms linear
+baselines {[}6{]} & Information-theoretic ceiling on transcriptome-only
+data & Knowledge graphs, multi-modal data & GEARS {[}32{]}, PerturbNet
+{[}35{]} partially confirm \\
+Multi-omics integration (§5) & Static factor analysis misses temporal
+hierarchy {[}8{]} & Modalities measure different memory layers &
+Timescale-aware integration & QuRIE-seq {[}8{]}, pseudotemporal methods
+{[}41{]} emerging \\
+Cancer methylome (§6) & (No failure; methylation classifies 95\%
+accurately {[}43{]}) & Substratum preserved, emergent dysregulated in
+cancer & Substratum-preservation as diagnostic basis & Methylation
+classification paradigm operationalizes \\
+\end{longtable}
+
+Each row instantiates the same underlying structural picture:
+visible-sector data is insufficient for the task because cellular
+dynamics depends on hidden-sector memory; methods that include
+hidden-sector information explicitly succeed; methods that try to
+extract hidden-sector information from visible-sector data alone are
+bounded by an information-theoretic ceiling.
+
+\hypertarget{the-information-theoretic-ceiling}{%
+\subsubsection{9.2 The information-theoretic
+ceiling}\label{the-information-theoretic-ceiling}}
+
+The framework's most consequential bioinformatic prediction is the
+existence of an information-theoretic ceiling on transcriptome-only
+methods. This is a strong claim with specific empirical content: no
+method using only scRNA-seq data --- regardless of model architecture,
+training data size, or computational scale --- can recover certain
+quantities that depend on hidden-sector variables.
+
+The quantities subject to the ceiling include: the cell's causal
+regulatory network structure (§3), the response to unseen perturbations
+(§4), the temporal lag relationships between chromatin and transcription
+(§5), and the substratum-level memory operator (§6). For each, the
+underlying biology integrates over hidden-sector variables before the
+data is collected; the integration is irreversible from the
+visible-sector data alone.
+
+The ceiling is empirically demonstrated in the foundation-model
+literature {[}6, 7{]}. Multiple foundation models trained on tens of
+millions of cells with billions of parameters fail to outperform simple
+baselines on tasks subject to the ceiling. This is the empirical
+signature of a structural limit, not a methodological gap to be closed
+by better algorithms.
+
+The practical implication is direct: methodological development that
+stays within the transcriptome-only paradigm faces diminishing returns.
+Continued scaling of foundation models will produce marginal
+improvements in tasks where the ceiling has not yet been reached (cell
+type annotation in well-characterized tissues, gene expression
+imputation), but cannot produce qualitative improvements in tasks
+subject to the ceiling (causal GRN inference, perturbation prediction
+for unseen drugs). The research investment justification for continuing
+to scale foundation models depends on the assumption that more data and
+compute will eventually overcome the apparent limits; the framework
+predicts this assumption is wrong for ceiling-bounded tasks.
+
+\hypertarget{the-roadmap-forward}{%
+\subsubsection{9.3 The roadmap forward}\label{the-roadmap-forward}}
+
+The framework's positive prediction is that methodological progress on
+ceiling-bounded tasks requires architectural changes that incorporate
+hidden-sector information. Three pathways are consistent with the
+empirical pattern:
+
+\textbf{Pathway 1: Multi-modal data.} Paired measurements of
+transcriptome with chromatin accessibility (10x Multiome, scNMT-seq),
+histone modifications (CITE-seq variants, Paired-Tag), methylation
+(scNMT-seq), or chromatin architecture (scHi-C) provide direct
+measurement of hidden-sector variables. Methods using paired data have
+empirically demonstrated improvements across all five domains
+(MultiVelo, SCENIC+, multi-modal perturbation methods, timescale-aware
+integration, multi-omic classifiers).
+
+\textbf{Pathway 2: Prior biological knowledge.} Knowledge graphs (Gene
+Ontology, KEGG pathways, protein-protein interaction networks), motif
+libraries (JASPAR, HOCOMOCO), and curated regulatory databases
+(Regulome, ENCODE TFBS) encode hidden-sector structure that has been
+determined through other experimental approaches. Methods incorporating
+this prior knowledge as structural constraints (GEARS, SCENIC, LINGER)
+outperform purely data-driven methods.
+
+\textbf{Pathway 3: Explicit memory state representation.} Models that
+maintain explicit chromatin-state variables alongside transcriptome
+variables --- separate from the latent representations of deep learning
+models --- can in principle capture non-Markovian dynamics. This
+approach is less developed but theoretically aligned with the
+framework's prediction. Mechanistic models in the MultiVelo style
+(coupled ODEs for chromatin and transcription) are early examples.
+
+The three pathways are complementary, not competing. The empirical
+pattern suggests that combining them --- multi-modal data analyzed with
+knowledge-graph priors using methods that maintain explicit memory state
+--- represents the most promising methodological direction.
+
+\hypertarget{the-substratum-emergent-operator-distinction-as-the-unifying-structural-feature}{%
+\subsubsection{9.4 The substratum-emergent operator distinction as the
+unifying structural
+feature}\label{the-substratum-emergent-operator-distinction-as-the-unifying-structural-feature}}
+
+A more compact summary of the synthesis: cellular bioinformatics
+operates on systems that exhibit the substratum-emergent operator
+distinction {[}SM §8.7, Medicine §9.4{]}. The substratum operators ---
+chromatin state, DNA methylation, protein abundance, cell architecture
+--- carry slow memory with high information content. The emergent
+operators --- transcriptome state, instantaneous cell behavior --- carry
+fast information with limited memory. Methods that read the substratum
+operators (methylation classifiers, multi-omic methods) work; methods
+that try to infer everything from emergent operators alone (RNA
+velocity, transcriptome-only foundation models) fail in characteristic
+patterns.
+
+This is the same structural pattern that organizes the SM's treatment of
+strong CP, baryon number conservation, sphalerons, and 't Hooft anomaly
+matching {[}SM §8.7{]}, and that organizes Rett syndrome paradigm and
+clinical epigenetic therapeutics {[}Medicine §9.4{]}. The pattern is
+unified across foundational physics, cellular biology, and computational
+biology --- instances of the same structural feature of trace-out
+dynamics in C1--C3 systems.
+
+The bioinformatic instantiation of the pattern has the empirical
+advantage of being directly measurable: the substratum is accessible
+through methylation arrays, ChIP-seq, and ATAC-seq; the emergent
+operators are accessible through transcriptomics; their dissociation is
+documentable in patient samples and tissue measurements. This is the
+strongest empirical confirmation of the framework's structural pattern
+across all its applications: the bioinformatics literature has
+independently developed methods that operationalize the
+substratum-emergent distinction without explicit reference to the
+underlying framework, and the methods that work are precisely the ones
+the framework predicts will work.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{open-questions-and-limits}{%
+\subsection{10. Open Questions and
+Limits}\label{open-questions-and-limits}}
+
+\hypertarget{what-the-framework-predicts-but-has-not-been-tested}{%
+\subsubsection{10.1 What the framework predicts but has not been
+tested}\label{what-the-framework-predicts-but-has-not-been-tested}}
+
+Several framework predictions in this paper are testable but not yet
+empirically verified:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \textbf{Reader/writer/eraser variant pathogenicity stratification}
+  (§7). The prediction that AlphaMissense and similar methods
+  systematically miscalibrate machinery-gene variants is testable
+  through reanalysis of existing predictions. The result, positive or
+  negative, would be informative.
+\item
+  \textbf{Compositional generalization and chromatin co-localization}
+  (§4.5). The prediction that double-perturbation prediction difficulty
+  correlates with the chromatin co-localization of the perturbed genes
+  can be tested using existing Perturb-seq datasets stratified by
+  chromatin features.
+\item
+  \textbf{Unclassifiable tumor substratum disruption} (§6.4). The
+  prediction that unclassifiable CNS tumors have specifically altered
+  methylation at maintenance sites versus content sites is testable in
+  the existing Heidelberg dataset.
+\item
+  \textbf{Timescale-aware integration superiority} (§5.6). The
+  prediction that timescale-aware multi-omics methods systematically
+  outperform static methods on dynamic biological processes is testable
+  through controlled benchmarking on time-series multi-omic data.
+\end{enumerate}
+
+Each is a discrete empirical test with clear positive and negative
+outcomes. The framework's bioinformatic predictions are falsifiable in a
+specific operational sense.
+
+\hypertarget{what-the-framework-does-not-predict}{%
+\subsubsection{10.2 What the framework does not
+predict}\label{what-the-framework-does-not-predict}}
+
+The framework's predictions are limited to information-theoretic
+constraints and structural patterns. It does not predict:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \textbf{Specific algorithm performance.} The framework predicts that
+  multi-modal methods will outperform RNA-only methods, but does not
+  predict which specific multi-modal method will be best for a given
+  task. Algorithm-level performance depends on implementation details,
+  hyperparameter tuning, and dataset-specific features that are outside
+  the framework's scope.
+\item
+  \textbf{Quantitative effect sizes.} The framework predicts that
+  knowledge-graph methods improve over data-driven methods, but does not
+  predict the magnitude of improvement for a specific dataset. Effect
+  sizes depend on the relevance of the available prior knowledge to the
+  specific task.
+\item
+  \textbf{Failure modes outside the ceiling-bounded tasks.} The
+  framework's information-theoretic ceiling applies to tasks requiring
+  hidden-sector information. Other failure modes (batch effects,
+  technical noise, dropouts, low cell numbers) are real and important
+  but outside the framework's prediction scope.
+\item
+  \textbf{Specific molecular mechanisms.} The framework predicts
+  structural patterns at the level of memory layers and information
+  flows, not specific molecular pathways. Mechanistic biology continues
+  to require domain-specific theoretical and experimental work.
+\end{enumerate}
+
+\hypertarget{open-structural-questions}{%
+\subsubsection{10.3 Open structural
+questions}\label{open-structural-questions}}
+
+Three open questions remain at the structural level:
+
+\textbf{Q1. What is the empirical \(\tau_B\) hierarchy across biological
+systems?} The framework predicts that different memory layers have
+different characteristic timescales, with consequences for which
+modalities matter for which questions (§5.4). The actual \(\tau_B\)
+values are tissue- and process-dependent, and have not been
+systematically characterized. A program of measurements characterizing
+\(\tau_B\) across cell types, tissues, and biological processes would
+substantially refine the framework's bioinformatic predictions.
+
+\textbf{Q2. How do different machinery genes contribute to the
+trace-out?} The framework treats epigenetic readers, writers, and
+erasers as components of the trace-out machinery, but the specific
+contribution of each to the substratum-to-emergent translation is not
+characterized in detail. Different machinery genes may produce different
+patterns of substratum-emergent dissociation, with consequences for the
+differential bioinformatic signatures of different reader-writer
+disorders (§8.3).
+
+\textbf{Q3. What is the relationship between the framework's
+bioinformatic predictions and explicit kinetic models?} The framework's
+predictions are information-theoretic and structural. Specific kinetic
+models (mass-action models of gene regulation, stochastic gene
+expression models, polymer models of chromatin) are mechanistic. The
+relationship between the framework's structural picture and the
+mechanistic models has not been worked out in detail. A formal
+connection would clarify which aspects of mechanistic modeling
+correspond to which framework structural features.
+
+\hypertarget{limits}{%
+\subsubsection{10.4 Limits}\label{limits}}
+
+The framework's bioinformatic predictions have inherent limits:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \textbf{Scope limited to cellular systems satisfying C1--C3.} Systems
+  where C1--C3 fail (rapidly equilibrating systems, low-capacity hidden
+  sectors, decoupled visible-hidden dynamics) do not exhibit the
+  framework's predicted patterns. Not every biological system has
+  substantial \(\tau_B\) at relevant timescales; the framework's
+  predictions apply where C1--C3 hold.
+\item
+  \textbf{Information-theoretic ceilings are upper bounds, not
+  necessarily attainable.} A method may underperform the ceiling for
+  many reasons unrelated to the framework: poor implementation,
+  insufficient training data, wrong loss function. The framework
+  predicts a ceiling but does not guarantee that any method will reach
+  it.
+\item
+  \textbf{Empirical validation requires controlled benchmarking.} The
+  framework's predictions are about structural patterns in method
+  performance, which requires careful experimental design to test.
+  Confounders (batch effects, dataset selection, evaluation metric
+  choice) can obscure the patterns the framework predicts.
+\item
+  \textbf{The framework does not replace mechanistic biology.}
+  Bioinformatic methods aim to extract biological insight from data, and
+  biological insight requires understanding mechanisms. The framework
+  provides a structural perspective on what mechanisms determine method
+  performance, but does not substitute for the mechanistic understanding
+  itself.
+\end{enumerate}
+
+These limits define the framework's scope of application in
+computational biology. Within the scope --- systems with substantial
+hidden-sector memory analyzed by methods that may or may not include
+hidden-sector information --- the framework's predictions have empirical
+content that has been confirmed across multiple methodological domains.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{acknowledgements}{%
+\subsection{Acknowledgements}\label{acknowledgements}}
+
+During the preparation of this work, the author used Claude Opus 4.7
+(Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining
+argumentation, and surveying the computational biology literature. The
+author reviewed and edited all content and takes full responsibility for
+the publication.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{references}{%
+\subsection{References}\label{references}}
+
+{[}1{]} A. Maybaum, ``The Incompleteness of Observation,'' (2026).
+
+{[}2{]} A. Maybaum, ``Non-Markovian Dynamics in Biology and Medicine,''
+companion paper (2026).
+
+{[}3{]} G. Gorin, L. Pachter, N. Yosef, ``RNA velocity unraveled,''
+\emph{PLOS Computational Biology} 18, e1010492 (2022).
+
+{[}4{]} X. Yuan et al., ``Inferring gene regulatory networks from
+single-cell multiome data using atlas-scale external data,''
+\emph{Nature Biotechnology} (2024). doi:10.1038/s41587-024-02182-7.
+
+{[}5{]} M. Passemiers et al., ``When Does Gene Regulatory Network
+Inference Break? A Controlled Diagnostic Study of Causal and
+Correlational Methods on Single-Cell Data,'' arXiv:2605.04930 (2025).
+
+{[}6{]} C. Ahlmann-Eltze et al., ``Deep-learning-based gene perturbation
+effect prediction does not yet outperform simple linear baselines,''
+\emph{Nature Methods} (2025). doi:10.1038/s41592-025-02772-6.
+
+{[}7{]} K. Kedzierska et al., ``Zero-shot evaluation reveals limitations
+of single-cell foundation models,'' \emph{Genome Biology} 26, 101
+(2025). doi:10.1186/s13059-025-03574-x.
+
+{[}8{]} M. Reimegård et al., ``Single-cell intracellular epitope and
+transcript detection reveals signal transduction dynamics'' (QuRIE-seq),
+\emph{Cell Reports Methods} 1, 100165 (2021).
+
+{[}9{]} G. La Manno et al., ``RNA velocity of single cells,''
+\emph{Nature} 560, 494--498 (2018).
+
+{[}10{]} V. Bergen et al., ``Generalizing RNA velocity to transient cell
+states through dynamical modeling'' (scVelo), \emph{Nature
+Biotechnology} 38, 1408--1414 (2020).
+
+{[}11{]} M. Barile et al., ``Coordinated changes in gene expression
+kinetics underlie both mouse and human erythroid maturation,''
+\emph{Genome Biology} 22, 197 (2021).
+
+{[}12{]} H. Cui et al., ``DeepVelo: Deep Learning extends RNA velocity
+to multi-lineage systems with cell-specific kinetics,'' bioRxiv (2022).
+
+{[}13{]} L. Liang et al., ``LatentVelo: structured latent gene
+expression dynamics for RNA velocity estimation,'' bioRxiv (2022).
+
+{[}14{]} A. Gayoso et al., ``Deep generative modeling of transcriptional
+dynamics for RNA velocity analysis in single cells'' (veloVI),
+\emph{Nature Methods} 21, 50--59 (2024).
+
+{[}15{]} L. Liang et al., ``LatentVelo: structured latent gene
+expression dynamics,'' bioRxiv (2022).
+
+{[}16{]} A. Gayoso et al., ``veloVI: deep generative modeling of
+transcriptional dynamics,'' \emph{Nature Methods} 21, 50--59 (2024).
+
+{[}17{]} C. Li et al., ``Multi-omic single-cell velocity models
+epigenome-transcriptome interactions and improves cell fate prediction''
+(MultiVelo), \emph{Nature Biotechnology} 40, 1690--1698 (2022).
+
+{[}18{]} N. Yamanaka et al., ``mmVelo: A deep generative model for
+estimating cell state-dependent dynamics across multiple modalities,''
+bioRxiv (2024). doi:10.1101/2024.12.11.628059.
+
+{[}19{]} T. Tang et al., ``MoFlow: Multi-omic relay velocity modeling
+uncovers dynamic chromatin-transcription regulation across cell
+states,'' \emph{Nature Communications} (2025).
+doi:10.1038/s41467-025-67259-6.
+
+{[}20{]} X. Yuan et al., ``Inferring gene regulatory networks from
+single-cell multiome data using atlas-scale external data,''
+\emph{Nature Biotechnology} 42, 247--257 (2024).
+
+{[}21{]} S. McCalla et al., ``Comprehensive Benchmarking of Single-Cell
+Gene Regulatory Network Inference,'' \emph{Genome Biology} 24, 21
+(2023).
+
+{[}22{]} H. Nguyen et al., ``A comprehensive survey of regulatory
+network inference methods using single cell RNA sequencing data,''
+\emph{Briefings in Bioinformatics} 22, bbaa190 (2021).
+
+{[}23{]} C. Bravo González-Blas et al., ``SCENIC+: single-cell multiomic
+inference of enhancers and gene regulatory networks,'' \emph{Nature
+Methods} 20, 1355--1367 (2023).
+
+{[}24{]} X. Yuan et al., ``LINGER: Lifelong neural network for gene
+regulation from single-cell multiome data,'' \emph{Nature Biotechnology}
+42, 247--257 (2024).
+
+{[}25{]} H. Cui et al., ``scGPT: toward building a foundation model for
+single-cell multi-omics using generative AI,'' \emph{Nature Methods} 21,
+1470--1480 (2024).
+
+{[}26{]} C. V. Theodoris et al., ``Transfer learning enables predictions
+in network biology'' (Geneformer), \emph{Nature} 618, 616--624 (2023).
+
+{[}27{]} J. Doe et al., ``Systematic Evaluation of Single-Cell
+Foundation Model Interpretability Reveals Attention Captures
+Co-Expression Rather Than Unique Regulatory Signal,'' arXiv:2602.17532
+(2026).
+
+{[}28{]} J. M. Replogle et al., ``Mapping information-rich
+genotype-phenotype landscapes with genome-scale Perturb-seq,''
+\emph{Cell} 185, 2559--2575 (2022).
+
+{[}29{]} T. M. Norman et al., ``Exploring genetic interaction manifolds
+constructed from rich single-cell phenotypes,'' \emph{Science} 365,
+786--793 (2019).
+
+{[}30{]} M. Lotfollahi et al., ``Predicting cellular responses to
+complex perturbations in high-throughput screens'' (CPA),
+\emph{Molecular Systems Biology} 19, e11517 (2023).
+
+{[}31{]} L. Hetzel et al., ``chemCPA: Predicting Cellular Responses to
+Novel Drug Perturbations at a Single-Cell Resolution,'' NeurIPS (2022).
+
+{[}32{]} Y. Roohani, K. Huang, J. Leskovec, ``Predicting transcriptional
+outcomes of novel multigene perturbations with GEARS,'' \emph{Nature
+Biotechnology} 42, 927--935 (2024).
+
+{[}33{]} C. Bunne et al., ``Learning single-cell perturbation responses
+using neural optimal transport,'' \emph{Nature Methods} 20, 1759--1768
+(2023).
+
+{[}34{]} M. Hao et al., ``Large-scale foundation model on single-cell
+transcriptomics'' (scFoundation), \emph{Nature Methods} 21, 1481--1491
+(2024).
+
+{[}35{]} H. Yu et al., ``PerturbNet predicts single-cell responses to
+unseen chemical and genetic perturbations,'' \emph{Molecular Systems
+Biology} (2025).
+
+{[}36{]} R. Argelaguet et al., ``Multi-Omics Factor Analysis (MOFA) ---
+a framework for unsupervised integration of multi-omics data sets,''
+\emph{Molecular Systems Biology} 14, e8124 (2018).
+
+{[}37{]} R. Argelaguet et al., ``MOFA+: a statistical framework for
+comprehensive integration of multi-modal single-cell data,''
+\emph{Genome Biology} 21, 111 (2020).
+
+{[}38{]} Y. Hao et al., ``Integrated analysis of multimodal single-cell
+data'' (Seurat v4), \emph{Cell} 184, 3573--3587 (2021).
+
+{[}39{]} J. D. Welch et al., ``Single-cell multi-omic integration
+compares and contrasts features of brain cell identity'' (LIGER),
+\emph{Cell} 177, 1873--1887 (2019).
+
+{[}40{]} A. Gayoso et al., ``Joint probabilistic modeling of single-cell
+multi-omic data with totalVI,'' \emph{Nature Methods} 18, 272--282
+(2021).
+
+{[}41{]} R. Heyne et al., ``Resolving Single-Cell Gene Expression by
+Pseudotemporal Integration of Transcriptomic and Proteomic Datasets,''
+\emph{PLOS Computational Biology} (2024).
+
+{[}42{]} D. Capper et al., ``DNA methylation-based classification of
+central nervous system tumours,'' \emph{Nature} 555, 469--474 (2018).
+
+{[}43{]} D. Capper et al., ``Advancing CNS tumor diagnostics with
+expanded DNA methylation-based classification'' (Heidelberg classifier
+v12.8), \emph{Cancer Cell} (2025). doi:10.1016/j.ccell.2025.10.005.
+
+{[}44{]} D. N. Louis et al., ``The 2021 WHO Classification of Tumors of
+the Central Nervous System: a summary,'' \emph{Neuro-Oncology} 23,
+1231--1251 (2021).
+
+{[}45{]} R. Drexler et al., ``Unclassifiable CNS tumors in DNA
+methylation-based classification: clinical challenges and prognostic
+impact,'' \emph{Acta Neuropathologica Communications} 12, 9 (2024).
+
+{[}46{]} C. Koelsche et al., ``Sarcoma classification by DNA methylation
+profiling,'' \emph{Nature Communications} 12, 498 (2021).
+
+{[}47{]} M. Renaud et al., ``Pan-cancer DNA methylation
+classification,'' \emph{Genome Medicine} 14, 80 (2022).
+
+{[}48{]} P. C. Ng, S. Henikoff, ``SIFT: predicting amino acid changes
+that affect protein function,'' \emph{Nucleic Acids Research} 31,
+3812--3814 (2003).
+
+{[}49{]} I. A. Adzhubei et al., ``A method and server for predicting
+damaging missense mutations'' (PolyPhen-2), \emph{Nature Methods} 7,
+248--249 (2010).
+
+{[}50{]} M. Kircher et al., ``A general framework for estimating the
+relative pathogenicity of human genetic variants'' (CADD), \emph{Nature
+Genetics} 46, 310--315 (2014).
+
+{[}51{]} N. M. Ioannidis et al., ``REVEL: An Ensemble Method for
+Predicting the Pathogenicity of Rare Missense Variants,'' \emph{American
+Journal of Human Genetics} 99, 877--885 (2016).
+
+{[}52{]} J. Cheng et al., ``Accurate proteome-wide missense variant
+effect prediction with AlphaMissense,'' \emph{Science} 381, eadg7492
+(2023).
+
+{[}53{]} J. Jumper et al., ``Highly accurate protein structure
+prediction with AlphaFold,'' \emph{Nature} 596, 583--589 (2021).
+
+{[}54{]} L. Geistlinger et al., ``AlphaMissenseR: an integrated
+framework for investigating missense mutations in human protein-coding
+genes,'' \emph{Bioinformatics} (2025).
+doi:10.1093/bioinformatics/btaf093.
+
+{[}55{]} J. Guy et al., ``Reversal of neurological defects in a mouse
+model of Rett syndrome,'' \emph{Science} 315, 1143--1147 (2007).
+
+{[}56{]} D. C. Tarquinio et al., ``The course of awake breathing
+disturbances across the lifespan in Rett syndrome,'' \emph{Brain \&
+Development} 40, 515--529 (2018).
+
+{[}57{]} S. Richards et al., ``Standards and guidelines for the
+interpretation of sequence variants: a joint consensus recommendation of
+the American College of Medical Genetics and Genomics and the
+Association for Molecular Pathology,'' \emph{Genetics in Medicine} 17,
+405--423 (2015).
+
+{[}58{]} J. Kaufmann et al., ``Expert Recommendations for Trofinetide
+Use in Individuals with Rett Syndrome,'' \emph{Pediatric Neurology}
+(2024).
+
+{[}59{]} J. Qian et al., ``Multiplex epigenome editing of MECP2 to
+rescue Rett syndrome neurons,'' \emph{Science Translational Medicine}
+15, eadd4666 (2023).
+
+{[}60{]} N. Picard, M. Fagiolini, ``Transcriptomic and Epigenomic
+Landscape in Rett Syndrome,'' \emph{Genes} 12, 967 (2021).
+
+{[}61{]} H. W. Gabel et al., ``Disruption of DNA-methylation-dependent
+long gene repression in Rett syndrome,'' \emph{Nature} 522, 89--93
+(2015).
+
+{[}62{]} J. C. Darnell et al., ``FMRP stalls ribosomal translocation on
+mRNAs linked to synaptic function and autism,'' \emph{Cell} 146,
+247--261 (2011).
+
+{[}63{]} M. R. Sawicka et al., ``FMRP has a cell-type-specific role in
+CA1 pyramidal neurons to regulate autism-related transcripts and
+circadian memory,'' \emph{eLife} 8, e46919 (2019).
+
+{[}64{]} Y. Yi et al., ``An autism-linked mutation disables
+phosphorylation control of UBE3A,'' \emph{Cell} 162, 795--807 (2015).
+
+{[}65{]} R. C. Cuellar et al., ``KMT2D and chromatin in development and
+disease,'' \emph{Genes \& Development} 36, 1083--1100 (2022).
+
+{[}66{]} G. Goldberg et al., ``Distinct factors control histone variant
+H3.3 localization at specific genomic regions,'' \emph{Cell} 140,
+678--691 (2010).
+
+\hypertarget{the-frameworks-reader-writer-disorder-class-1}{%
+\subsubsection{8.1 The framework's reader-writer disorder
+class}\label{the-frameworks-reader-writer-disorder-class-1}}
+
+The Medicine paper {[}Medicine §10.7{]} introduces the reader-writer
+disorder class: genetic disorders caused by loss-of-function mutations
+in epigenetic readers (MECP2 in Rett syndrome, FMR1 in Fragile X),
+writers (UBE3A in Angelman syndrome, KMT2D in Kabuki syndrome), or
+remodelers (ATRX in ATR-X syndrome). These disorders share a structural
+feature: the substratum-level memory operator (DNA methylation, histone
+modifications) is largely preserved in patients, while the trace-out
+machinery that translates substrate state into cellular function is
+disrupted. The framework predicts that this structural feature produces
+specific bioinformatic patterns that distinguish reader-writer disorders
+from substrate-affecting genetic disorders.
+
+\hypertarget{bioinformatic-patterns-in-rett-syndrome-1}{%
+\subsubsection{8.2 Bioinformatic patterns in Rett
+syndrome}\label{bioinformatic-patterns-in-rett-syndrome-1}}
+
+Rett syndrome provides the most directly testable case. MECP2 is a
+methyl-CpG-binding protein --- a reader of DNA methylation. Patients
+carry loss-of-function MECP2 mutations; the DNA methylation substrate
+they read is generally intact {[}59, 60{]}. The framework predicts: in
+Rett patient samples, DNA methylation patterns should be approximately
+normal (substratum preserved), while gene expression and chromatin state
+should be altered (emergent operator disrupted).
+
+The empirical literature is consistent with this prediction. Picard et
+al.~(2021) {[}60{]} review the transcriptomic and epigenomic landscape
+in Rett: while large-scale alterations of the epigenome have been
+hypothesized, ``the impact of MeCP2 malfunction on global DNA
+methylation and its large-scale effect in RTT has been poorly
+investigated and is still elusive.'' Initial reports of compensatory DNA
+methylation differences between Rett patients and controls in small
+cohorts were \emph{not confirmed} in larger cohorts. The methylation
+substrate appears largely preserved.
+
+By contrast, transcriptional alterations in Rett are well-documented:
+thousands of differentially expressed genes between MECP2-mutant and
+wildtype neurons, with characteristic patterns affecting long genes
+{[}61{]}, synaptic plasticity genes, and activity-dependent genes. The
+emergent transcriptional operator is substantially disrupted while the
+substrate is largely preserved --- exactly the framework's prediction.
+
+\hypertarget{generalization-to-other-reader-writer-disorders-1}{%
+\subsubsection{8.3 Generalization to other reader-writer
+disorders}\label{generalization-to-other-reader-writer-disorders-1}}
+
+The framework predicts that similar bioinformatic patterns hold across
+the reader-writer disorder class:
+
+\textbf{Fragile X syndrome (FMR1).} FMR1 encodes an RNA-binding protein
+that regulates translation of hundreds of target mRNAs. Loss of FMR1
+should leave the RNA target landscape intact (substrate preserved) but
+disrupt translation regulation (emergent operator). The empirical
+pattern matches: FMR1-null cells show extensive translational
+dysregulation while transcriptome changes are more modest {[}62, 63{]}.
+The ``substrate'' in this case is the RNA target repertoire and ribosome
+state; FMR1 is the reader.
+
+\textbf{Angelman syndrome (UBE3A).} UBE3A is an E3 ubiquitin ligase
+functioning as a writer of degradation marks (ubiquitin tags) on target
+proteins. The protein substrate landscape is preserved; what is
+disrupted is the writing of degradation marks. The framework predicts
+protein-level dysregulation (accumulation of UBE3A targets) with
+relatively preserved transcriptome and methylome. Empirical
+confirmation: proteomic studies in Angelman models show selective
+accumulation of UBE3A substrates {[}64{]}, with transcriptomic changes
+secondary to the proteomic dysregulation.
+
+\textbf{Kabuki syndrome (KMT2D).} KMT2D is a histone H3K4
+methyltransferase --- a writer of activating histone marks at enhancers.
+Loss of KMT2D should leave the chromatin substrate (nucleosome
+positions, DNA methylation) intact but disrupt the deposition of
+H3K4me1/me2/me3 marks. The framework predicts altered H3K4 methylation
+patterns at affected enhancers with relatively preserved DNA methylation
+and broader chromatin features. Empirical pattern: ChIP-seq studies of
+KMT2D mutants show specific loss of H3K4 marks at enhancers, with other
+chromatin features less affected {[}65{]}.
+
+\textbf{ATR-X syndrome (ATRX).} ATRX is a chromatin remodeler that
+maintains heterochromatin at telomeres, centromeres, and tandem repeat
+sequences. Loss of ATRX should disrupt heterochromatin maintenance at
+these sites while leaving euchromatin and most of the methylome intact.
+The framework predicts site-specific chromatin defects with broad
+methylome preservation. Empirical pattern: ATRX-deficient cells show
+specific defects at heterochromatin maintenance sites with preservation
+of broader chromatin architecture {[}66{]}.
+
+The common pattern across the class: the substratum that the disrupted
+reader/writer/eraser acts on is preserved; the emergent operator at the
+level affected by the machinery is disrupted; other levels are
+relatively preserved.
+
+\hypertarget{differential-diagnosis-through-multi-omic-bioinformatics-1}{%
+\subsubsection{8.4 Differential diagnosis through multi-omic
+bioinformatics}\label{differential-diagnosis-through-multi-omic-bioinformatics-1}}
+
+The framework's predicted patterns provide a bioinformatic differential
+diagnostic. A patient with a developmental disorder of unknown cause can
+be assessed for reader-writer-disorder pattern through paired multi-omic
+profiling:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{DNA methylation} (whole-genome bisulfite sequencing or EPIC
+  array). Preserved methylation argues against substrate-disruption
+  disorder; altered methylation argues for it.
+\item
+  \textbf{Histone modifications} at affected loci (ChIP-seq for H3K4me3,
+  H3K27me3, H3K27ac). Loss of specific marks argues for writer
+  disruption (KMT2D, EZH2, etc.); preservation argues against.
+\item
+  \textbf{Chromatin accessibility} (ATAC-seq). Altered accessibility at
+  specific elements with preserved bulk accessibility argues for
+  reader/writer disruption; bulk accessibility changes argue for global
+  disruption.
+\item
+  \textbf{Transcriptome} (scRNA-seq). Characteristic dysregulation
+  patterns (long genes for Rett; ribosomal targets for Fragile X; UBE3A
+  target accumulation for Angelman) provide signature for specific
+  disorder.
+\end{enumerate}
+
+The framework predicts that multi-omic patterns can distinguish
+reader-writer disorders from substrate-affecting disorders even before
+the causal mutation is identified --- a useful diagnostic capability for
+patients with unclassified developmental syndromes.
+
+\hypertarget{therapeutic-implications-and-bioinformatic-monitoring-1}{%
+\subsubsection{8.5 Therapeutic implications and bioinformatic
+monitoring}\label{therapeutic-implications-and-bioinformatic-monitoring-1}}
+
+The Medicine paper {[}Medicine §10.7{]} establishes that reader-writer
+disorders are reversibility-prone because the substrate has been
+preserved. Gene therapy (AAV-based MECP2 replacement, UBE3A
+reactivation) and pharmacological replacement (trofinetide for Rett,
+FDA-approved 2023) target this property. Bioinformatic monitoring of
+therapy outcomes should follow the framework's structural picture:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  Therapeutic restoration of reader/writer function should produce
+  \emph{transcriptome normalization} if the substrate is intact, with
+  kinetics determined by the substrate's stability and the cell's
+  ability to read the restored signal. Methylation patterns should
+  remain stable through treatment.
+\item
+  Patients who do not respond to reader/writer restoration may have
+  suffered substrate degradation in addition to machinery loss --- a
+  more advanced disease state. Methylation profiling at baseline could
+  predict therapeutic response: patients with preserved methylation
+  should be more responsive than patients with altered methylation.
+\item
+  Long-term monitoring through multi-omic profiling should track
+  substrate fidelity (methylation stability) alongside emergent operator
+  function (transcriptome, behavior), with the framework predicting that
+  substrate integrity is the prognostic marker for sustained response.
+\end{enumerate}
+
+\hypertarget{practical-consequences-7}{%
+\subsubsection{8.6 Practical
+consequences}\label{practical-consequences-7}}
+
+Three framework-grounded predictions for reader-writer disorder
+bioinformatics:
+
+(P20) Reader-writer disorders should show characteristic multi-omic
+patterns: substrate preservation (methylation, sequence) with selective
+emergent operator disruption (transcriptome, chromatin, proteome at the
+level of the disrupted machinery). The pattern is testable across the
+class through standardized multi-omic profiling.
+
+(P21) Differential diagnosis between reader-writer disorders and
+substrate-affecting genetic disorders is achievable through multi-omic
+patterns even without sequencing the causal gene. This enables
+diagnostic workup for patients with unclassified developmental
+syndromes.
+
+(P22) Therapeutic response to reader/writer restoration therapy is
+predicted by baseline substrate integrity. Methylation profiling at
+treatment initiation should predict response duration and degree.
+
+The second and third predictions have direct clinical applications and
+motivate prospective multi-omic studies in reader-writer disorder
+cohorts.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\end{document}

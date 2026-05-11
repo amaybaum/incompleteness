@@ -114,6 +114,8 @@ Each prediction's full derivation chain and classification (structural / mass-ch
 
 - **[`Medicine`](Medicine.md)** — applies C1–C3 to enzyme kinetics, identifies *memory asymmetry* as a therapeutic axis, presents 29 testable predictions across cancer, neurodegeneration, antibiotic resistance, and other domains. ([`.tex`](Medicine.tex), [`.pdf`](Medicine.pdf))
 
+- **[`Bioinformatics`](Bioinformatics.md)** — applies C1–C3 to computational biology methodology, explaining documented failure modes in trajectory inference, gene regulatory network inference, perturbation prediction, and multi-omics integration through the information-theoretic ceiling of transcriptome-only methods. 22 testable predictions for methodological development. ([`.tex`](Bioinformatics.tex), [`.pdf`](Bioinformatics.pdf))
+
 ### Lattice Monte Carlo code
 
 Source code for the lattice computations reported in SM §§6–7 (gauge-coupling thresholds, scalar-density renormalization $Z_S$, dynamical fermion HMC, Higgs effective potential) lives in [`oi_lattice_code/`](oi_lattice_code/). See `oi_lattice_code/README.md` for build instructions, per-file documentation, and reproduction recipes.
@@ -141,6 +143,7 @@ Source code for the lattice computations reported in SM §§6–7 (gauge-couplin
 | 13 | Substratum-level $B$ conservation + sphaleron emergence in emergent EFT (substratum-emergent operator distinction) | theorem | SM §8.7 |
 | 14 | Structural preconditions for organic chemistry, RNA world as first molecular C1–C3, viable parameter fraction $\sim 16\%$ | structural chain + statistical | Complexity |
 | 15 | Non-Markovian dynamics in biology, memory asymmetry as therapeutic axis, 29 testable predictions | predictions | Medicine |
+| 16 | Information-theoretic ceiling on transcriptome-only bioinformatic methods, 22 testable predictions across single-cell analysis | predictions | Bioinformatics |
 
 The classification (structural / mass-chain / empirical / phenomenological) for the SM observables is documented in SM §7.6.
 
@@ -163,7 +166,8 @@ The forward derivation and reconstruction theorem together establish that the fr
        ├── Page curve with t_P ≈ 0.646 t_evap (GR Appendix A)
        ├── Observer selection → arrow of time, no Boltzmann brains (Main §4.6)
        ├── Structural preconditions for organic chemistry, RNA world (Complexity)
-       └── Molecular C1–C3 → non-Markovian pharmacology (Medicine)
+       ├── Molecular C1–C3 → non-Markovian pharmacology (Medicine)
+       └── Non-Markovian dynamics in computational biology methods (Bioinformatics)
 ```
 
 **Four-level gauge hierarchy.** The framework's gauge structure is layered (per [`Structure`](Structure.md) §2.2):

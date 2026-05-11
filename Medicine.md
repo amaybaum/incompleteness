@@ -551,6 +551,8 @@ The *substratum-emergent operator distinction* developed in the companion SM pap
 
 The *unified naturalness pattern* developed in [SM §8.8] extends to biology in the form developed in §9.1: biological "fine-tuning" of $\tau_B / \tau_S$ ratios at memory layers is structurally required by C1–C3 rather than evolutionarily contingent. The same mechanism that dissolves strong CP, hierarchy, and cosmological-constant naturalness problems in physics — substratum-level structural constraints forcing specific values of emergent parameters — operates at the biological memory layers.
 
+The same structural picture applied to computational analysis methods is developed in the companion Bioinformatics paper [18], which addresses non-Markovian dynamics in single-cell trajectory inference, gene regulatory network inference, perturbation prediction, multi-omics integration, and cancer methylome classification. The framework's reader-writer disorder class (§10.7) extends into specific bioinformatic patterns there.
+
 ---
 
 ## Acknowledgements
@@ -595,3 +597,5 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [16] S. Chakraborty, E. Ahler, J. J. Simon, L. Fang, Z. E. Potter, K. A. Sitko, J. J. Stephany, M. Guttman, D. M. Fowler, D. J. Maly, "Profiling of drug resistance in Src kinase at scale uncovers a regulatory network coupling autoinhibition and catalytic domain dynamics," *Cell Chemical Biology* **31**, 207 (2024).
 
 [17] D. Wilsker, E. Petermann, T. Helleday, F. Bunz, "Essential function of Chk1 can be uncoupled from DNA damage checkpoint and replication control," *PNAS* **105**, 20752 (2008).
+
+[18] A. Maybaum, "Non-Markovian Dynamics in Computational Biology," companion paper (2026).
