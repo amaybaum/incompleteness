@@ -900,9 +900,10 @@ Level 2 confirmations are confirmations of the gauge-group-target level but do n
 | Type II RVM dynamical dark energy | DESI DR2 $2.8\sigma$–$4.2\sigma$ rejection of static $\Lambda$ | [DESI_DR2_2025, GR §7] |
 | MOND scale $a_0 = cH/6$ | Tully-Fisher relation; ongoing tests | [GR §10] |
 | Holographic $A/4$ at cosmological horizon | Confirmed by Bekenstein-Hawking transport | [GR §5] |
-| No GUT-mechanism proton decay ($\tau_p \sim 10^{45}$ yr) | Consistent with current Super-K bounds | [SM §6.7, §8.7] |
-| No GUT-mechanism magnetic monopoles | Consistent with non-detection | [SM §6.7] |
-| No GUT-chain cosmic strings | Consistent with CMB / GW non-detection | [SM §6.7] |
+| No GUT-mechanism proton decay ($\tau_p \sim 10^{45}$ yr) | Super-K bounds at $\tau_p > 2.4 \times 10^{34}$ yr already exclude minimal SU(5); favors no-GUT class | [SuperK2020_proton, SM §6.7, §8.7] |
+| No GUT-mechanism magnetic monopoles | GUT-scale monopoles undetected cosmologically; consistent with OI without inflation invocation | [MoEDAL2024, SM §6.7] |
+| No GUT-chain cosmic strings | NANOGrav 15-year data disfavors stable cosmic-string interpretation | [NANOGravStrings2023, SM §6.7] |
+| Non-unification of $\alpha_3, \alpha_2, \alpha_1$ below $M_{\text{Pl}}$ | Pure SM running confirmed; SUSY-GUT scenarios under LHC pressure ($M_{\text{SUSY}} \gtrsim 3$ TeV with split-SUSY tuning) | [LHC_SUSY_2025, SM §6.4, §6.7] |
 
 Level 3 confirmations are confirmations of OI's universality class but not of OI's specific representative. A substratum in the same universality class through different mechanism (e.g., a string compactification realizing the same algebra-channel pair) would share these predictions. Note that the no-GUT predictions (proton decay, monopoles, cosmic strings) are shared with the broader "SM all the way to Planck" universality class containing OI; what distinguishes OI structurally is the *reason* the framework belongs to that class — the cubic-commutant gauge-emergence mechanism (per [SM §6.7]).
 
@@ -941,6 +942,10 @@ The framework predicts that no grand-unified gauge structure exists at any energ
 This prediction is structurally distinct from string-theoretic frameworks, which traverse intermediate large gauge groups (heterotic $E_8$ chains, F-theory $\mathrm{SU}(5)$, type IIA Pati-Salam) en route to the SM. The OI-distinguishing content is layer (C) plus the universal $1/\alpha_0 = 23.25$ value: the three SM gauge couplings emerge from a *single* substratum quantity, not from independent compactification moduli.
 
 The no-GUT prediction's empirical consequences are catalogued at Level 3 in §12.4: proton lifetime $\tau_p \sim 10^{45}$ years, no GUT-mechanism monopoles, no GUT-chain cosmic strings. None of these uniquely identify OI; they identify the broader "SM all the way to Planck" universality class to which OI belongs. The unique-to-OI content is the structural reason the framework belongs to this class (the cubic-commutant gauge-emergence mechanism plus the induced-gauge-theory structure forcing the universal $1/\alpha_0$).
+
+**Empirical-lean assessment.** The current empirical state moderately favors the no-GUT universality class over standard GUT scenarios across multiple discriminators. Super-Kamiokande proton-decay bounds [SuperK2020_proton, SuperK2024_eta] at $\tau_p(p \to e^+\pi^0) > 2.4 \times 10^{34}$ years and $\tau_p(p \to \nu K^+) > 5.9 \times 10^{33}$ years already exclude minimal $SU(5)$ GUT and constrain the broader supersymmetric SU(5) parameter space [SUSY_GUT_Bourilkov2015]. LHC searches have pushed natural-SUSY parameter space to $M_{\mathrm{SUSY}} \gtrsim 3$ TeV [LHC_SUSY_2025], with the surviving SUSY-GUT scenarios requiring split-SUSY-style tuning that sacrifices the original hierarchy-problem motivation. NANOGrav 15-year pulsar timing data [NANOGravStrings2023] disfavors stable cosmic-string interpretations of the observed stochastic gravitational-wave background, with the signal preferentially explained by supermassive black-hole binary populations. Cosmological searches have found no GUT-scale magnetic monopoles, consistent with OI's prediction without requiring inflation as a dilution mechanism (inflation may still be motivated by horizon and flatness considerations, but the monopole problem is structurally absent in OI).
+
+No single observation sharply distinguishes OI from all GUT-class scenarios — split-SUSY and topologically-suppressed F-theory models retain partial viability against current data. But the cumulative pattern across discriminators is a real empirical lean toward the no-GUT class containing OI, not merely consistency. The decisive future tests are Hyper-Kamiokande's projected $\tau_p \sim 10^{35}$ year sensitivity for $p \to e^+\pi^0$ [HyperK_TDR2018] and DUNE's $\sim 6.5 \times 10^{34}$ year sensitivity for $p \to K^+\nu$, plus continued LHC SUSY exclusion. Both will further sharpen the empirical position over the next decade.
 
 ---
 
@@ -1349,6 +1354,8 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [HolographicSK2024] Y. Bu et al., "Holographic Schwinger-Keldysh field theory of SU(2) diffusion" (2024). arXiv:2205.00195.
 
+[HyperK_TDR2018] K. Abe et al. (Hyper-Kamiokande Collaboration), "Hyper-Kamiokande Design Report", arXiv:1805.04163 (2018).
+
 [IbañezMartinLozanoValenzuela2017] L. E. Ibáñez, V. Martin-Lozano, I. Valenzuela, "Constraining Neutrino Masses, the Cosmological Constant and BSM Physics from the Weak Gravity Conjecture", JHEP 11, 066 (2017). arXiv:1706.05392.
 
 [IKKT1996] N. Ishibashi, H. Kawai, Y. Kitazawa, A. Tsuchiya, "A Large-N Reduced Model as Superstring", Nucl. Phys. B 498, 467-491 (1997). arXiv:hep-th/9612115.
@@ -1363,6 +1370,8 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [Lehnert2025] K. Lehnert, "Hitchhiker's Guide to the Swampland" (2025). arXiv:2509.02632.
 
+[LHC_SUSY_2025] "The LHC has ruled out Supersymmetry – really?" (May 2025). arXiv:2505.11251.
+
 [Lunt2025] O. Lunt et al., "Emergent random matrix universality in quantum operator dynamics" (April 2025). arXiv:2504.18311.
 
 [LustPaltiVafa2019] D. Lüst, E. Palti, C. Vafa, "AdS and the Swampland", Phys. Lett. B 797, 134867 (2019). arXiv:1906.05225.
@@ -1375,7 +1384,11 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [Mehl2012] J. Mehl, B. Lander, C. Bechinger, V. Blickle, U. Seifert, "Role of hidden slow degrees of freedom in the fluctuation theorem", Phys. Rev. Lett. 108, 220601 (2012).
 
+[MoEDAL2024] B. Acharya et al. (MoEDAL Collaboration), "Magnetic monopole search with the full MoEDAL trapping detector in 13 TeV pp collisions", Eur. Phys. J. C (2024) and ATLAS Collaboration, "Search for magnetic monopoles and stable high-electric-charge objects in 13 TeV proton-proton collisions" (2024).
+
 [MSW2024] F. Marchesano, G. Shiu, T. Weigand, "The Standard Model from String Theory: What Have We Learned?", Annual Review of Nuclear and Particle Science 74, 113-140 (2024). arXiv:2401.01939.
+
+[NANOGravStrings2023] A. Eichhorn, R. R. Lino dos Santos, J. L. Miqueleto, "From quantum gravity to gravitational waves through cosmic strings" (2023). arXiv:2306.17718. Plus NANOGrav Collaboration analyses constraining cosmic-string interpretations of the 15-year stochastic gravitational-wave background.
 
 [ObiedOoguriSpodyneikoVafa2018] G. Obied, H. Ooguri, L. Spodyneiko, C. Vafa, "De Sitter Space and the Swampland" (2018). arXiv:1806.08362.
 
@@ -1410,6 +1423,12 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 [StromingerVafa1996] A. Strominger, C. Vafa, "Microscopic Origin of the Bekenstein-Hawking Entropy", Phys. Lett. B 379, 99-104 (1996). arXiv:hep-th/9601029.
 
 [Substratum] A. Maybaum, "The Substratum Construction: Reconstruction, the Substratum Gauge Group, and the QM-GR Synthesis" (2026). Zenodo DOI 10.5281/zenodo.19060318.
+
+[SuperK2020_proton] Super-Kamiokande Collaboration, "Search for proton decay via $p \to e^+\pi^0$ and $p \to \mu^+\pi^0$ with an enlarged fiducial volume in Super-Kamiokande I-IV" (2020). arXiv:2010.16098.
+
+[SuperK2024_eta] Super-Kamiokande Collaboration, "Search for proton decay via $p \to e^+\eta$ and $p \to \mu^+\eta$ with a 0.37 Mton-year exposure of Super-Kamiokande", Phys. Rev. D 110, 112011 (2024). arXiv:2409.19633.
+
+[SUSY_GUT_Bourilkov2015] D. Bourilkov, "Strong Coupling Running, Gauge Coupling Unification and the Scale of New Physics" (2015). arXiv:1508.04176.
 
 [Susskind2003] L. Susskind, "The Anthropic Landscape of String Theory", arXiv:hep-th/0302219 (2003).
 
