@@ -302,6 +302,43 @@ Cancer is, in OI language, a disease of the epigenetic hidden sector. The malign
 
 The epigenetic clock (Horvath 2013) quantifies progressive accumulation of methylation marks associated with declining function. In OI language, aging is memory accumulation in the slowest epigenetic layers beyond the cell's ability to maintain homeostasis. Partial reprogramming (transient Yamanaka factor expression) erases recent epigenetic memory while preserving deeper developmental identity — the framework predicts a critical pulse duration matching $\tau_B$ of aging-associated marks.
 
+### 9.4 The substratum-emergent operator distinction at chromatin
+
+The companion paper's treatment of the Standard Model identifies a *substratum-emergent operator distinction* [SM §8.7]: operators that look identical at the emergent level can have distinct conservation properties depending on whether they act at the substratum (substrate) level or at the emergent (coarse-grained, observable) level. The canonical example: baryon number is exactly conserved at the OI substratum level (a property of the bilinear, block-diagonal lattice dynamics) but is violated at the emergent level through sphaleron processes that have no substratum analog.
+
+This distinction has a direct biological analog at the chromatin layer, which is empirically established by current biomedical literature. The two operators are:
+
+- **Substratum-level memory operator**: the molecular pattern of DNA methylation, histone modifications, and chromatin-state assignments. This is a directly measurable molecular substrate.
+- **Emergent-level memory operator**: the gene expression program, the transcriptional phenotype, the cellular function readout. This is what cells display and what clinical phenotypes measure.
+
+The two operators are related by the trace-out, which here is the cell's signal-transduction and transcription machinery integrating fast molecular fluctuations into slower cellular response. Critically, the operators can dissociate: **substrate-level memory can be preserved while the emergent-level operator is disrupted, and vice versa**.
+
+Three lines of empirical evidence confirm this distinction operates in biology:
+
+(i) *iPSC reprogramming residuals* (Lin et al. 2024, doi:10.3389/fcell.2024.1306530). When somatic cells are reprogrammed to induced pluripotent stem cells, the cellular phenotype changes (now pluripotent) while substantial residual epigenetic memory of the source cell type persists. The substrate-level operator retains source-cell-type information; the emergent-level operator (cell identity) has flipped. The two operators are dissociated. The framework predicts this should be a structural feature of any reprogramming protocol, not a contingent reprogramming limitation.
+
+(ii) *Bivalent chromatin states* (Bernstein et al. 2006; reviewed in Voigt-Tee-Reinberg 2013). Embryonic stem cells maintain "bivalent" chromatin at lineage-control genes — simultaneous presence of activating H3K4me3 and repressive H3K27me3 marks. The substrate-level operators (the two mark types) coexist with definite conservation properties at the molecular level; the emergent-level operator (gene expression) is held at zero by their balanced presence. This is a *multi-operator substratum* structure with poised emergent output — exactly the kind of substratum-emergent operator structure characterized in [SM §8.7], realized empirically at the chromatin level.
+
+(iii) *Multi-timescale chromatin dynamics* (Stasevich et al. 2014; Hayashi-Takagi et al. 2023). Single-molecule and single-cell measurements directly observe distinct dynamics on subsecond and minutes timescales for the same histone modifications on the same nucleosomes. Histone acetylation modulates transcriptional burst frequency rather than burst size (Nicolas-Phillips et al. 2018), a stochastic-emergent-output pattern consistent with the framework's prediction that emergent operators have specific functional relationships to substratum operators rather than being identical to them.
+
+These three phenomena instantiate a single structural pattern — the substratum-emergent operator distinction from [SM §8.7] — at the chromatin level. The pattern is the same one that organizes the SM's treatment of strong CP, baryon number, sphalerons, and anomaly matching; at the chromatin layer it organizes methylation maintenance, bivalent poised states, and transcriptional burst dynamics.
+
+### 9.5 Reader, writer, and eraser pharmacology as the operational substratum-emergent axis
+
+Current epigenetic therapeutics are organized along three axes — drugs targeting **writers** (DNA methyltransferase inhibitors like 5-azacytidine, decitabine), **erasers** (histone deacetylase inhibitors like vorinostat, romidepsin), and **readers** (BET bromodomain inhibitors like JQ1, ZEN-3694, BI 894999). This three-axis organization is the substratum-emergent operator distinction made operational at the drug-development level: the substratum-level memory operator at chromatin is constructed and maintained by readers, writers, and erasers as the molecular machinery, and pharmacology can target any of these three functional roles independently.
+
+This three-axis organization follows structurally from the operator distinction: any therapeutic approach to a substratum-emergent operator pair must target the substratum maintenance machinery (writers and erasers, which establish and remove substrate marks) or the substratum-to-emergent translation machinery (readers, which couple substrate state to downstream function). The three axes correspond to the three distinct functional roles in maintaining a substratum-emergent operator pair.
+
+**Combination synergy with scheduling sensitivity.** The framework predicts that combinations across the reader/writer/eraser axes should show specific compositional advantages, with scheduling determined by the underlying substratum-level $\tau_B$ at each operator. Current clinical evidence:
+
+- *Writer + reader* combination (p300/CBP HAT inhibitor + BET inhibitor) shows synergistic anti-tumor effects in NUT carcinoma (Bauer et al. 2020; Marek et al. 2022, doi:10.1186/s40478-022-01373-0).
+- *Eraser + reader* combination (HDAC inhibitor + BET inhibitor) is under clinical investigation in NUT carcinoma and other contexts.
+- *Writer + eraser* combination (DNMT inhibitor + HDAC inhibitor) shows synergy preclinically and clinical activity in MDS/AML, with **scheduling as a critical variable** — multiple Phase II trials have addressed sequencing and timing as primary endpoints rather than dose-finding alone (Quintás-Cardama et al. 2011, doi:10.4155/fmc.11.13; Garcia-Manero et al. NCT01305499).
+
+The clinical pattern — synergy exists, scheduling matters substantially, global mark changes don't deterministically predict clinical response — is consistent with the framework's prediction that the *timing* of substratum modifications relative to read-back cycles determines emergent response, exactly as the reconsolidation-window paradigm of §2.4 implies. Within the framework, the open scheduling questions in the literature have a structural resolution: optimal combination scheduling should be set by the $\tau_B$ of each substratum operator (DNMT effects persist on the methylation timescale, $\tau_B \sim$ days; HDAC effects persist on the acetylation timescale, $\tau_B \sim$ minutes-hours; reader-targeted effects on the chromatin-binding timescale, $\tau_B \sim$ seconds-minutes). Optimal sequencing aligns the fast operator's modification with the slow operator's read-back window.
+
+This is a substantive prediction: empirical optimization of combination scheduling should converge on $\tau_B$-matched intervals between agents acting on different timescales, not on dose-response or maximum-tolerated-dose optimization alone.
+
 ---
 
 ## 10. Genetic Disorders: Non-Markovian Treatment Management
@@ -357,6 +394,25 @@ For genetic disorders, the framework's contribution is not to the genetic defect
 | Enzyme replacement therapy tolerance | B cell memory compartment | Tolerance induction schedule matches immune $\tau_B$ |
 
 The summary: genetic disorders are not memory diseases. But the treatments for genetic disorders operate through biological systems that are memory systems. Optimizing these treatments for the non-Markovian dynamics of the underlying biology is a distinct and testable therapeutic strategy.
+
+### 10.7 Reader-writer disorders as substratum-emergent operator disruption
+
+A specific class of genetic disorders falls within the framework's scope of memory diseases rather than the §10.1 surrounding-treatment category. These are disorders caused by loss-of-function mutations in the *readers, writers, or erasers* of epigenetic memory rather than disorders of the substrate itself. In framework language, these are disorders of the substratum-to-emergent translation machinery, not disorders of the substratum.
+
+**Rett syndrome as the paradigm.** Rett syndrome is caused by loss-of-function mutations in *MECP2*, a methyl-CpG-binding protein — a *reader* of DNA methylation. The DNA methylation substrate (the molecular memory substratum) is intact in Rett patients; what is lost is the protein that translates substrate state into downstream cellular function. Within the substratum-emergent operator framework of §9.4, Rett syndrome instantiates the dissociation: substratum-level memory operator preserved, emergent-level operator disrupted because the trace-out machinery (MECP2) is defective.
+
+The framework predicts that phenotypes from such disorders should be reversible by restoration of the missing reader/writer, because the underlying substrate is preserved and the trace-out is what was broken. This is empirically confirmed for Rett by mouse genetic reactivation studies: Guy et al. (2007, *Science* 315:1143-1147) demonstrated that re-expression of endogenous *Mecp2* in adult mutant mice reverses neurological phenotype, even in animals with significant established pathology. Long-term potentiation in the hippocampus is restored; soma size normalizes; synaptic structures recover.
+
+**Generalization.** The same structural logic applies to other monogenic disorders affecting epigenetic reader/writer/eraser machinery, even though clinical convention typically treats them as developmental and irreversible:
+
+- *Fragile X syndrome* (FMR1 protein loss, mRNA-binding reader): substrate (RNA target landscape) is preserved; loss is in the reader. Reactivation strategies are now in clinical trials.
+- *Angelman syndrome* (UBE3A ubiquitin ligase loss, a writer of degradation marks): paternal allele substrate is preserved; loss is in the writer of one parental imprint. UBE3A reactivation via antisense oligonucleotides is in clinical investigation.
+- *Kabuki syndrome* (KMT2D writer disruption, histone H3K4 methyltransferase): substrate landscape is preserved; loss is in the writer. Phenotypic plasticity in mouse models supports the reversibility prediction.
+- *ATR-X syndrome* (ATRX chromatin remodeler disruption): substrate is preserved; loss is in machinery that reads chromatin state. Variable severity correlates with residual ATRX function, consistent with emergent operator output being graded by reader/writer machinery function.
+
+**Therapeutic principle.** For reader-writer disorders, the structural therapeutic axis is *restoration of the missing reader/writer* rather than substrate modification or symptomatic management. Gene therapy (AAV-based MECP2 replacement in Rett; UBE3A reactivation in Angelman) and direct pharmacological replacement (trofinetide for Rett, FDA-approved 2023) target this axis. The framework predicts that the therapeutic window is wider than for substrate-modifying interventions, and that response correlates with timing of intervention relative to substrate state at each affected locus. The Rett mouse model results — phenotypic reversal in adult animals, not just in juveniles — are consistent with this wide therapeutic window.
+
+Reader-writer disorders therefore are memory disorders in the framework's sense (substratum preserved, emergent operator disrupted), distinct from other genetic disorders where the defect interacts with memory systems only through treatment (§10.1–§10.6).
 
 ---
 
@@ -490,6 +546,10 @@ Two predictions are immediately testable with existing drugs and standard clinic
 ### 13.4 Connection to fundamental physics
 
 The mathematical structure underlying these predictions is identical to the theorem that derives quantum mechanics from embedded observation [1]. The C1–C3 conditions that produce non-Markovian enzyme dynamics are the same conditions that produce quantum mechanics at the cosmological scale. The read-write cycle of a kinase interacting with its regulatory domain is structurally isomorphic to the read-write cycle of an observer interacting with the hidden sector across the cosmological horizon. This connection is not metaphorical — the characterization theorem applies to any system satisfying C1–C3, regardless of scale. The biological instantiations are classical (no quantum coherence is required or invoked), but the mathematical architecture is the same.
+
+The *substratum-emergent operator distinction* developed in the companion SM paper [SM §8.7] has a direct biological analog at the chromatin layer (§9.4). In the SM context, the distinction identifies operators that are exactly conserved at the substratum (bilinear lattice) level but violated at the emergent EFT level through non-perturbative mechanisms — the canonical example is baryon-number conservation. At the chromatin layer, the same structural distinction identifies operators that operate on the molecular substrate (DNA methylation, histone modifications, chromatin state) versus operators that operate on the emergent cellular phenotype (gene expression, cell identity, behavior). The two operators can dissociate, with iPSC reprogramming residuals, bivalent chromatin states, and Rett-class reader-writer disorders all being instances of this dissociation. The same mathematical pattern characterizes fundamental physics and chromatin biology — not by analogy, but as instances of the same structural feature of trace-out dynamics.
+
+The *unified naturalness pattern* developed in [SM §8.8] extends to biology in the form developed in §9.1: biological "fine-tuning" of $\tau_B / \tau_S$ ratios at memory layers is structurally required by C1–C3 rather than evolutionarily contingent. The same mechanism that dissolves strong CP, hierarchy, and cosmological-constant naturalness problems in physics — substratum-level structural constraints forcing specific values of emergent parameters — operates at the biological memory layers.
 
 ---
 
