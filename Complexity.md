@@ -418,11 +418,13 @@ The protein scaffold is a slow bath. Correlations written into the scaffold duri
 
 ### 7.4 Existing evidence
 
-**Single-molecule enzyme kinetics.** Individual enzyme molecules show fluctuating catalytic rates with correlations persisting for milliseconds to seconds (English et al. 2006 [21]; Lu et al. 1998 [22]) — precisely the signature of a slow bath modulating active site dynamics.
+**Single-molecule enzyme kinetics.** Individual enzyme molecules show fluctuating catalytic rates with correlations persisting for milliseconds to seconds (English et al. 2006 [21]; Lu et al. 1998 [22]) — precisely the signature of a slow bath modulating active site dynamics. The multi-timescale structure has been characterized at single-molecule resolution for T4 Lysozyme [34], where three distinct conformational states with ns-to-ms exchange times have been resolved, each playing a different role in the catalytic cycle.
 
-**Dispersed kinetics.** Many enzymes show stretched-exponential waiting-time distributions rather than the single-exponential predicted by Markovian theory — generic in P-indivisible systems.
+**Dispersed kinetics.** Many enzymes show stretched-exponential waiting-time distributions rather than the single-exponential predicted by Markovian theory — generic in P-indivisible systems. The trace-out structure has been formalized within the single-molecule biophysics literature [35]: low-dimensional projections of high-dimensional molecular dynamics generically exhibit memory effects and produce non-Markov processes, independent of the specific dynamical model.
 
-**Quantum coherence in photosynthesis.** Long-lived coherence in the FMO complex (Engel et al. 2007 [23]) dissolves under the OI reframing: the protein scaffold is a slow bath (C2), so coherence is maintained *because* the environment is slow, not despite it.
+**Photosynthetic energy transfer.** Long-lived coherences in the FMO complex were first reported by Engel et al. [23]. Subsequent work (Duan et al. 2017 [36]; Cao-Plenio 2025 [37]) has refined the interpretation: the long-lived coherences are vibronic — superpositions of electronic exciton states with the protein's vibrational environment — rather than purely electronic. Purely electronic coherences dephase within ~240 fs; the picosecond-scale coherences observed in 2D spectra arise from coupling between the electronic states and the slow vibrational protein scaffold. This is the C1–C3 structure operating: the protein scaffold (slow bath, C2) mixes with the electronic transitions at FMO chromophores (fast, visible) to produce coherences that persist for $\sim \tau_B$ rather than $\tau_S$. The picosecond coherence timescales correspond to vibrational mode periods of the protein scaffold, consistent with the framework's prediction that protein-scale C1–C3 systems exhibit dynamics on the slow-bath timescale.
+
+**Cryptochrome radical-pair magnetoreception.** Avian magnetic compass orientation operates through cryptochrome radical pairs in the retinal photoreceptors. Radiofrequency fields at the electron Larmor frequency disrupt magnetic orientation in migratory birds (Wiltschko-Wiltschko 2019 [38]), diagnostically confirming radical pair mechanism. The crucial radical pairs have millisecond lifetimes [39]. Millisecond coherence in a protein-embedded quantum system at warm physiological conditions sits at the upper end of the protein conformational $\tau_B$ range identified in §7.2. The avian compass is therefore an operating biological quantum sensor with coherence times the framework predicts as structurally required by C1–C3 inside protein scaffolds.
 
 **Conformationally gated tunneling.** Hydrogen tunneling in enzymes shows temperature-independent kinetic isotope effects [24] — inconsistent with transition state theory but consistent with quantum tunneling modulated by slow conformational dynamics (C2).
 
@@ -541,7 +543,7 @@ The engineering gains from P-indivisible design are not incremental corrections.
 
 The framework's predictions about non-Markovian effects are not speculative — they are corroborated by existing experimental data across multiple domains. The literature has been documenting these effects for over two decades without a unifying structural explanation. The OI framework provides one: wherever C1–C3 are satisfied, P-indivisibility is mandatory.
 
-**Superconducting qubits.** Agarwal et al. [26] found that purely Markovian noise models cannot reproduce experimental data from driven superconducting qubits. The non-Markovian dynamics arises from two-level system (TLS) interactions in the substrate — precisely the slow bath (C2) the framework identifies. White et al. [27] performed the first full multi-time quantum process tomography on superconducting processors and found non-Markovian noise present in all cases measured, with a significant fraction originating from genuine quantum correlations across time. Notably, Burkard and collaborators [28] found that QAOA algorithm performance *improves* as the noise correlation time increases at fixed local error probability — direct evidence that correlated noise is a resource, not merely an obstacle, exactly as §8.7 predicts.
+**Superconducting qubits.** Agarwal et al. [26] found that purely Markovian noise models cannot reproduce experimental data from driven superconducting qubits. The non-Markovian dynamics arises from two-level system (TLS) interactions in the substrate — precisely the slow bath (C2) the framework identifies. White et al. [27] performed the first full multi-time quantum process tomography on superconducting processors and found non-Markovian noise present in all cases measured, with a significant fraction originating from genuine quantum correlations across time. Notably, Burkard and collaborators [28] found that QAOA algorithm performance *improves* as the noise correlation time increases at fixed local error probability — direct evidence that correlated noise is a resource, not merely an obstacle, exactly as §8.7 predicts. More recent work has begun to operationalize this resource: Puviani et al. (Phys. Rev. Lett. 2025) [40] used reinforcement learning to train recurrent neural networks providing quantum error correction schemes based on memory — responding to the full history of measurement outcomes rather than only the most recent one — and demonstrated that these non-Markovian feedback schemes significantly outperform standard Markovian strategies. Mandayam and collaborators [41] developed Petz-recovery-map QEC schemes adapted to non-Markovian noise, with the non-Markovian-adapted Petz map outperforming standard stabilizer codes. The transition from documenting non-Markovian noise as a problem (Agarwal, White) to engineering it as a resource (Burkard, Puviani, Mandayam) is the empirical realization of §8.7's structural prediction.
 
 **Single-molecule enzymology.** Edman and Rigler [29] directly measured "memory landscapes" of single horseradish peroxidase molecules, extracting non-Markovian behavior from the catalytic cycle. The enzyme's activity fluctuates over timescales from milliseconds to seconds — the signature of a slow conformational bath (C2) modulating the active site's electronic dynamics. Kou and Xie [30] showed that slow conformational interconversion produces memory effects in successive enzymatic turnover times: the waiting time for turnover $k+1$ is correlated with the waiting time for turnover $k$, with correlation strength decaying on the conformational timescale. This is precisely the information backflow predicted by the accessible-timescale lemma [1, §2.3] applied to the protein system.
 
@@ -643,4 +645,21 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 
 [32] M. Mojzsis, G. Arrhenius, K. D. McKeegan, T. M. Harrison, A. P. Nutman, and C. R. L. Friend, "Evidence for life on Earth before 3,800 million years ago," *Nature* **384**, 55 (1996).
 [33] A. Maybaum, "The Substratum Construction: Reconstruction, the Substratum Gauge Group, and the Synthesis of Quantum Mechanics with General Relativity," (2026).
+
+[34] H. Sanabria et al., "Resolving dynamics and function of transient states in single enzyme molecules," *Nature Communications* **11**, 1231 (2020).
+
+[35] A. M. Berezhkovskii and D. E. Makarov, "Memory effects and static disorder reduce information in single-molecule signals," bioRxiv 2022.01.13.476256 (2022).
+
+[36] H.-G. Duan et al., "Nature does not rely on long-lived electronic quantum coherence for photosynthetic energy transfer," *Proc. Natl. Acad. Sci. USA* **114**, 8493 (2017).
+
+[37] E. Cao and M. B. Plenio, "Full microscopic simulations uncover persistent quantum effects in primary photosynthesis," *Science Advances* (2025). doi:10.1126/sciadv.ady6751.
+
+[38] R. Wiltschko and W. Wiltschko, "Magnetoreception in birds," *Journal of the Royal Society Interface* **16**, 20190295 (2019).
+
+[39] M. Liedvogel et al., "Chemical magnetoreception: Bird cryptochrome 1a is excited by blue light and forms long-lived radical-pairs," *PLoS ONE* **2**, e1106 (2007).
+
+[40] M. Puviani, S. Borah, R. Zen, J. Olle, and F. Marquardt, "Non-Markovian feedback for optimized quantum error correction," *Phys. Rev. Lett.* (2025); arXiv:2312.07391.
+
+[41] D. Biswas, S. Utagi, and P. Mandayam, "Noise-adapted quantum error correction for non-Markovian noise," arXiv:2411.09637 (2024).
+
 
