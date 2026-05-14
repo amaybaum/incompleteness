@@ -1,7 +1,7 @@
 # The Incompleteness of Observation
 
-**Author:** Alex Maybaum
-**Date:** May 2026
+**Author:** Alex Maybaum  
+**Date:** May 2026  
 **Classification:** Theoretical Physics / Foundations
 
 This repository develops a single framework across five core papers:
