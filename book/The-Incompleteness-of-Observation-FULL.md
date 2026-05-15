@@ -28,7 +28,7 @@
 
 \vspace{1cm}
 
-{\small Companion technical papers:\\\textit{The Incompleteness Framework}, version 2.0.6\\Zenodo DOI: 10.5281/zenodo.19060318}
+{\small Companion technical papers:\\\textit{The Incompleteness Framework}\\Zenodo DOI: 10.5281/zenodo.19060318}
 
 \vspace{2cm}
 
@@ -51,7 +51,7 @@
 
 All rights reserved.
 
-This is a working manuscript representing the first complete draft of *The Incompleteness of Observation: A Unified Framework from Quantum Mechanics to Computational Biology*. The framework's authoritative technical content is in the companion papers at incompleteness-2.0.6 (Zenodo DOI 10.5281/zenodo.19060318). For framework-internal derivations, the technical papers should be consulted as the primary references.
+This is a working manuscript representing the first complete draft of *The Incompleteness of Observation: A Unified Framework from Quantum Mechanics to Computational Biology*. The framework's authoritative technical content is in the companion papers (Zenodo DOI 10.5281/zenodo.19060318). For framework-internal derivations, the technical papers should be consulted as the primary references.
 
 Citation: Maybaum, A. (2026). *The Incompleteness of Observation: A Unified Framework from Quantum Mechanics to Computational Biology*. Working manuscript.
 
@@ -240,7 +240,7 @@ The framework developed in this book rests on the work of many physicists, mathe
 
 **Quantum information and computing.** The framework's content in computational complexity draws on the foundational work of Bernstein, Vazirani, Bennett, Brassard, and the broader BQP literature. The framework's engineering content engages the work of the superconducting qubit community (with Wilen et al., McEwen et al., and Google Quantum AI providing the empirical foundations for correlated noise structure) and the NV-center quantum sensing community. The BEC analogue-gravity experimental program developed by Jeff Steinhauer and collaborators provides the cleanest near-term test of the framework's foundational content.
 
-**The framework's working repository.** The framework's content has been developed in technical-paper form over the past several years, with the version 2.0.6 release at DOI 10.5281/zenodo.19060318 representing the current state. The repository's collaborators and reviewers — too numerous to name individually — have contributed substantially to the framework's refinement.
+**The framework's working repository.** The framework's content has been developed in technical-paper form over the past several years, with the release at DOI 10.5281/zenodo.19060318 representing the current state. The repository's collaborators and reviewers — too numerous to name individually — have contributed substantially to the framework's refinement.
 
 **Personal acknowledgments.** [Author's personal acknowledgments — colleagues, family, institutional support, funding sources — to be added.]
 
@@ -383,7 +383,7 @@ The book makes one foundational commitment — that observation occurs — and d
 # Chapter 1
 # Embedded Observation and the Characterization Theorem
 
-*Source: framework repo Main.md (v2.0.6). Chapter draft v0.4 (Passes 1-2 of 3, compressed register).*
+*Source: framework repo Main.md. Chapter draft v0.4 (Passes 1-2 of 3, compressed register).*
 
 ---
 
@@ -712,7 +712,7 @@ The remainder of this part of the book develops the substratum, the structural r
 # Chapter 2
 # The Substratum
 
-*Source: framework repo Substratum.md (v2.0.6) + Main.md §4. Chapter draft v0.1 (Pass 1 of 3).*
+*Source: framework repo Substratum.md + Main.md §4. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -954,7 +954,7 @@ The framework's claim, made precise across these chapters, is that a single star
 # Chapter 3
 # Hierarchical Structural Realism
 
-*Source: framework repo Structure.md (v2.0.6) + Explainer.md philosophical-lineage material. Chapter draft v0.1 (Pass 1 of 3).*
+*Source: framework repo Structure.md + Explainer.md philosophical-lineage material. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -1364,7 +1364,7 @@ The methodology developed in this chapter is not unique to the framework. The si
 # Chapter 5
 # The Emergence of Gauge Structure
 
-*Source: framework repo `SM.md` (v2.0.6) §§2-4 + §4.8-4.9. Chapter draft v0.1 (Pass 1 of 3).*
+*Source: framework repo `SM.md` §§2-4 + §4.8-4.9. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -1569,7 +1569,7 @@ Chapter 6 develops the specific quantitative content this gauge structure produc
 # Chapter 6
 # The Matter Content and Quantitative Predictions
 
-*Source: framework repo `SM.md` §§4.7, 5, 6, 7 (v2.0.6). Chapter draft v0.1 (Pass 1 of 3).*
+*Source: framework repo `SM.md` §§4.7, 5, 6, 7. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -1877,7 +1877,7 @@ The framework's empirical record in fundamental physics, developed across Chapte
 # Chapter 7
 # The Gravitational Sector
 
-*Source: framework repo `GR.md` (v2.0.6). Chapter draft v0.1 (Pass 1 of 3).*
+*Source: framework repo `GR.md`. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -2192,7 +2192,7 @@ The framework's content in fundamental physics, developed across Chapters 5 thro
 # Chapter 8
 # JUNO and the Neutrino Sector
 
-*Source: framework repo `Juno.md` (v2.0.6). Chapter draft v0.1 (Pass 1 of 3).*
+*Source: framework repo `Juno.md`. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -6477,7 +6477,7 @@ This bibliography lists the works cited in the book, organized by topical area. 
 
 ## Framework-internal citations
 
-Maybaum, A. (2026). *The Incompleteness Framework*, version 2.0.6. Zenodo. DOI: 10.5281/zenodo.19060318. [Repository containing the framework's full technical content: Main.md (central theorem and emergent quantum mechanics), Substratum.md (substratum construction and reconstruction theorem), Structure.md (structural realism), SM.md (Standard Model derivation), GR.md (gravitational sector), Complexity.md (chemistry through evolution cascade), Juno.md (neutrino sector predictions), BEC_Experiment.md (BEC analogue-gravity experimental design), Medicine.md, Epigenetics.md, Bioinformatics.md, Evolution.md (applied content), Beyond.md (forward predictions), Open.md (resolved and open problems), Explainer.md (accessible introduction), Objections.md (referee-response material).]
+Maybaum, A. (2026). *The Incompleteness Framework*. Zenodo. DOI: 10.5281/zenodo.19060318. [Repository containing the framework's full technical content: Main.md (central theorem and emergent quantum mechanics), Substratum.md (substratum construction and reconstruction theorem), Structure.md (structural realism), SM.md (Standard Model derivation), GR.md (gravitational sector), Complexity.md (chemistry through evolution cascade), Juno.md (neutrino sector predictions), BEC_Experiment.md (BEC analogue-gravity experimental design), Medicine.md, Epigenetics.md, Bioinformatics.md, Evolution.md (applied content), Beyond.md (forward predictions), Open.md (resolved and open problems), Explainer.md (accessible introduction), Objections.md (referee-response material).]
 
 ---
 
@@ -6501,7 +6501,7 @@ Frauchiger, D., & Renner, R. (2018). Quantum theory cannot consistently describe
 
 Kochen, S., & Specker, E. P. (1967). The problem of hidden variables in quantum mechanics. *Journal of Mathematics and Mechanics* 17: 59-87.
 
-Maybaum, A. (2024). [Framework-internal corroboration of the stochastic-quantum bridge via independent route. See framework repository v2.0.6, Main.md §3.]
+Maybaum, A. (2024). [Framework-internal corroboration of the stochastic-quantum bridge via independent route. See framework repository, Main.md §3.]
 
 Pusey, M. F., Barrett, J., & Rudolph, T. (2012). On the reality of the quantum state. *Nature Physics* 8: 475-478.
 
@@ -6777,7 +6777,7 @@ This bibliography reflects the state of citations as of the manuscript's first c
 
 *Framework-internal collaborator references:* Two entries (Diakonakou-Wallace 2024 and Wallden 2024) reference independent corroborations of the Barandes correspondence developed by external collaborators. These references depend on collaborators' publication status and require coordination with those collaborators on appropriate citation form.
 
-The framework's own technical companion papers (Main.md, SM.md, GR.md, and others in the `incompleteness-2.0.6` Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for all framework-internal derivations and should be consulted for full technical detail. Page-level cross-citation between book and companion papers will be added in the final cross-referencing pass.
+The framework's own technical companion papers (Main.md, SM.md, GR.md, and others in the Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for all framework-internal derivations and should be consulted for full technical detail. Page-level cross-citation between book and companion papers will be added in the final cross-referencing pass.
 
 A final editorial pass on the bibliography is therefore needed before publication. The pending entries do not affect the manuscript's scientific content — every cited work has been read by the author and integrated into the manuscript's argument — but they need bibliographic detail verified for production-grade citation accuracy.
 
