@@ -1,9 +1,11 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   11pt,
+  letterpaper,
 ]{report}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -16,7 +18,8 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern removed
+% lmodern unavailable; using xelatex defaults
+\input{unicode-fix}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -59,7 +62,11 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  hidelinks,
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
 \author{}
@@ -67,6 +74,11 @@
 
 \begin{document}
 
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
 \thispagestyle{empty}
 
 \vspace*{2cm}
@@ -20326,140 +20338,123 @@ dynamics. The conventional candidates --- electroweak baryogenesis, GUT
 baryogenesis, leptogenesis through heavy right-handed neutrinos, and
 various extensions --- have not been confirmed empirically.
 
-\textbf{Framework status.} Open with a quantitative shortfall, but with
-a specific framework-internal mechanism identified for closing it. The
-framework's structural predictions provide ingredients for leptogenesis
-via the Weinberg operator \((c_{ij}/\Lambda) L_i L_j H H\): Majorana
-neutrinos (Chapter 6 §6.7), large PMNS phases, and hierarchical masses.
-The operator mediates \(\Delta L = 2\) scattering in thermal equilibrium
-at \(T > 10^{14}\) GeV and decouples at \(T_{\text{dec}} \sim 10^{14}\)
-GeV, above the flavor threshold.
+\textbf{Framework status.} Open. The framework's structural commitments
+--- Majorana neutrinos via the Weinberg operator (Chapter 6 §6.7), no
+right-handed neutrinos (no GUT scale, the framework's no-GUT structural
+commitment), and exact substratum T-invariance constraining emergent CP
+violation to the CKM and PMNS sectors --- give standard SM-EFT
+leptogenesis machinery as the available mechanism. The calculation
+produces a quantitative shortfall, and no working closure mechanism
+within the framework's structural commitments has yet been identified.
 
-A precise calculation reveals a quantitative shortfall. The total
-unflavored CP asymmetry vanishes by CPT plus unitarity
-(\(\sum_\alpha \epsilon_\alpha = 0\)), and the surviving flavored
-asymmetry from thermal corrections is suppressed by
-\(y_\tau^2 \sim 5 \times 10^{-5}\), yielding
+\textbf{The quantitative shortfall.} The total unflavored CP asymmetry
+vanishes by CPT plus unitarity (\(\sum_\alpha \epsilon_\alpha = 0\)),
+and the surviving flavored asymmetry from thermal corrections is
+suppressed by \(y_\tau^2 \sim 5 \times 10^{-5}\), yielding
 \(\eta_B \sim 4 \times 10^{-11}\) --- approximately \(15 \times\) below
-the observed value of \(6.1 \times 10^{-10}\).
+the observed value of \(6.1 \times 10^{-10}\). This is the same
+shortfall faced by any framework with Majorana neutrinos but no heavy
+right-handed neutrinos: the Weinberg operator alone, without a UV
+completion providing additional CP-violating phases, cannot produce
+sufficient baryon asymmetry through standard leptogenesis.
 
-This shortfall is the same problem faced by any framework with Majorana
-neutrinos but no heavy right-handed neutrinos: the Weinberg operator
-alone, without a UV completion providing additional CP-violating phases,
-cannot produce sufficient baryon asymmetry. The framework's emergent
-T-invariance (which resolves the strong CP problem, §19.2.7) constrains
-CP violation \emph{at the emergent level} to the CKM and PMNS sectors,
-preventing new sources from appearing in the continuum SM effective
-theory.
+The framework's emergent T-invariance (which resolves the strong CP
+problem, §19.2.7) constrains CP violation \emph{at the emergent level}
+to the CKM and PMNS sectors, preventing new sources from appearing in
+the continuum SM effective theory. This rules out the simplest
+extensions (additional CP-violating operators introduced by hand at the
+emergent scale).
 
-\textbf{The substratum-emergent distinction applied to baryon number.}
-The framework's distinctive structural commitment is that operators at
-the substratum level and operators at the emergent level can be
-functionally distinct (Chapter 6 §6.3, Chapter 16 §16.10). Two operators
-that are identical at the emergent level can have different substratum
-content. The framework's resolution of the strong CP problem (§19.2.7)
-relies on this distinction: the emergent T-invariance is consistent with
-substratum-level structure that \emph{would} produce a \(\bar\theta\) at
-the emergent level if mapped naively.
+\textbf{Why a substratum-level instanton mechanism does not work.} An
+earlier framework draft proposed that substratum-level instanton-like
+processes at the lattice cutoff \(\epsilon = 2 l_p\) with action
+\(S \sim O(1)\) could provide the factor-15 amplification beyond
+standard sphaleron physics. That proposal does not hold: the substratum
+dynamics is the deterministic linear bijection
+\(\phi(n, t+1) = \phi(n-1, t) + \phi(n+1, t) - \phi(n, t-1) \bmod q\)
+(Chapter 5 §5.1 / SM §4.1 Theorem 1), which has no Euclidean action
+functional. The substratum is a deterministic update rule on a finite
+configuration space, not a path-integral system; the concept of
+``Euclidean instanton action on the substratum'' is type-mismatched with
+what the substratum is.
 
-Applied to baryon number, the framework's content is: the
-substratum-level baryon-number operator may have anomalies under the
-substratum's gauge equivalence \(\mathcal{G}_{\text{sub}}\) that don't
-appear under the emergent \(\mathrm{SU}(2)_L\). The standard SM gives
-\(B+L\) violation through electroweak instantons (suppressed by
-\(e^{-2\pi/\alpha_W} \sim 10^{-160}\) at low energies); the
-substratum-emergent operator distinction predicts \emph{additional}
-baryon-number-violating processes at the substratum level whose
-suppression is not set by \(\alpha_W\) but by the substratum's lattice
-cutoff scale \(\epsilon = 2 l_p\).
+The standard topological structure that produces \(B+L\) violation in
+the SM enters through the \emph{induced gauge action}
+\(S_{\text{eff}}[U] = -N_f \ln\det(D^\dagger D)\) that emerges after the
+fermion-determinant trace-out (Chapter 5 §5.4, SM §8.7). This induced
+action does have non-trivial topology via the Atiyah-Singer index
+theorem applied to the lattice Dirac operator, and it produces the
+standard electroweak sphaleron physics in the emergent EFT --- but at
+the \emph{emergent} level, governed by \(\alpha_W\), not at the
+substratum level. SM §8.7 establishes that substratum-level baryon
+number is conserved at the bilinear perturbative level (forced by the
+block-diagonal coupling matrix structure of Theorem 7), with
+non-perturbative \(B+L\) violation entering only through the emergent
+fermion-determinant topology. The earlier substratum-instanton proposal
+would have contradicted SM §8.7's substratum-level conservation; the
+proposal is retracted.
 
-\textbf{The mechanism.} Substratum-level instanton-like processes at the
-lattice cutoff have action \(S \sim O(1)\) in natural units (the lattice
-spacing sets the action's natural scale), not
-\(S = 2\pi/\alpha_W \sim 200\). The suppression factor is therefore
-\(e^{-O(1)} \sim 10^{-1}\) rather than \(e^{-200} \sim 10^{-87}\) for
-the EW instanton at any given temperature. The substratum-level
-processes contribute additional baryon-number-violating events without
-the exponential suppression that makes standard EW instantons
-negligible.
+\textbf{Candidate direction for future investigation.} The framework's
+distinctive structural feature is that quantum mechanics emerges from a
+deterministic substratum via the trace-out construction (Chapter 3
+§3.2), with unitarity not exact but approximate --- Main §3.2 derives
+\(d\Phi_t/dt|_{t=0}(\rho_V) = -i[\hat{H}_{\text{eff}}, \rho_V] + \mathcal{D}(\rho_V)\)
+where \(\mathcal{D} \sim \mathcal{O}(\tau_S/\tau_B)\) is the leading
+non-unitary correction from condition C2 (slow bath).
 
-The framework's structural prediction is therefore: total baryon-number
-violation is the sum of the standard EW instanton contribution
-(negligible at temperatures relevant for baryogenesis) and the
-substratum-level contribution (operative at temperatures near
-\(T \sim 1/\epsilon \sim 10^{19}\) GeV). The substratum-level processes
-are out of equilibrium at the very early universe and become inoperative
-below the lattice cutoff. The framework's content matches the three
-Sakharov conditions: baryon number violation (substratum-level
-instantons), CP violation (CKM phase plus substratum-level phases that
-don't appear in the emergent SM), out-of-equilibrium dynamics
-(substratum-level processes freeze out as the universe cools below
-\(T \sim 1/\epsilon\)).
+The CPT-plus-unitarity argument that forces
+\(\sum_\alpha \epsilon_\alpha = 0\) in standard leptogenesis assumes
+exact unitarity. If the framework's emergent unitarity has finite-cutoff
+corrections at temperatures relevant for leptogenesis
+(\(T \sim 10^{14}\) GeV, several orders of magnitude below the
+substratum cutoff but not asymptotically so), the cancellation could be
+lifted by an amount proportional to \(\mathcal{D}\). A back-of-envelope
+estimate suggests closing the factor-15 gap would require
+\(\mathcal{D} \sim 10^{-3}\) at \(T \sim 10^{14}\) GeV, corresponding to
+a bath timescale \(\tau_B^{-1} \sim 10^{11}\) GeV --- within an order of
+magnitude of the Weinberg-operator cutoff \(\Lambda \sim 10^{14}\) GeV
+that gives the observed neutrino masses, but not exactly matching it.
 
-\textbf{Quantitative content.} The factor of 15 needed to close the gap
-between the Weinberg-operator prediction
-(\(\eta_B \sim 4 \times 10^{-11}\)) and the observed value
-(\(\eta_B = 6.1 \times 10^{-10}\)) is within the range that
-substratum-level instanton processes plausibly produce. The required
-amplification is modest in the framework's terms: \(e^{-O(1)}\)
-suppression rather than \(e^{-2\pi/\alpha_W}\) suppression means the
-substratum-level contribution can be many orders of magnitude larger
-than the standard EW instanton contribution, with the specific magnitude
-depending on the lattice's structural details.
+Three gating sub-questions determine whether this mechanism is viable:
+(a) the high-temperature scaling of \(\tau_B\) in the framework
+(currently developed only at observable scales where
+\(\tau_S/\tau_B \to 0\) asymptotically); (b) whether the trace-out level
+\(\mathcal{D}\) propagates through the construction chain to a
+CP-asymmetry-relevant lifting at the SM-EFT level; and (c) whether
+\(\mathcal{D} \sim 10^{-3}\) at \(T \sim 10^{14}\) GeV is consistent
+with independent constraints on non-unitarity at high energy. None of
+these have been resolved.
 
-\textbf{Technical content required.} A full derivation requires four
-pieces of substratum-level analysis that the framework's existing
-technical content does not yet provide:
+\textbf{Honest assessment.} Baryogenesis is a genuine open problem
+within the framework's current structural commitments. The
+substratum-emergent operator distinction (§19.2.7 strong CP, §6.3
+chromatin biology, SM §8.7 ten non-perturbative features mapping) is a
+well-established framework feature, but its application to baryogenesis
+through substratum-level instantons does not type-check against the
+framework's actual substratum structure. The QM-emergence candidate
+mechanism (trace-out non-unitarity at leptogenesis temperatures) is
+type-coherent with the framework's structure but is currently at the
+level of a heuristic magnitude estimate with three open sub-questions,
+not a derived mechanism.
 
-\begin{enumerate}
-\def\labelenumi{(\roman{enumi})}
-\item
-  \emph{Explicit substratum-level baryon-number operator.} The
-  substratum-level operator must be constructed from the staggered
-  cubic-lattice fermion structure (Chapter 6 §6.2), with explicit
-  content showing how the emergent baryon-number operator emerges from
-  it under the trace-out.
-\item
-  \emph{Anomaly structure under \(\mathcal{G}_{\text{sub}}\).} The
-  commutator of the substratum-level baryon-number operator with the
-  substratum's gauge equivalence operators (cubic rotation group \(O\),
-  chirality, flavor structure) must be computed. Anomalies present under
-  \(\mathcal{G}_{\text{sub}}\) that don't reduce to the emergent
-  \(\mathrm{SU}(2)_L\) anomaly are the source of additional
-  baryon-number violation.
-\item
-  \emph{Substratum-level instanton action.} The Euclidean instanton-like
-  configurations of \(\varphi\) at the lattice cutoff must be
-  characterized, with their action and CP-violating phase content
-  computed.
-\item
-  \emph{Baryogenesis yield calculation.} The standard baryogenesis
-  Boltzmann equations must be extended to include the substratum-level
-  processes, with the early-universe rates and freeze-out temperature
-  derived from the framework's structural commitments.
-\end{enumerate}
+Three outcomes remain open: (i) the QM-emergence candidate succeeds
+quantitatively, providing a framework-internal baryogenesis prediction;
+(ii) the QM-emergence candidate gives partial closure with a residual
+gap of identified structural source; (iii) the QM-emergence candidate
+fails and the framework must either accept baryogenesis as unsolved
+alongside the Hubble tension and inflation, admit right-handed neutrinos
+(breaking the no-GUT commitment), or identify a new structural input.
+All three outcomes are pre-registered as acceptable per the framework's
+outcome-pre-registration discipline (§A.13 fifth refinement); the
+negative outcome is informative because it sharply constrains the
+framework's available baryogenesis mechanisms.
 
-These calculations have not been performed. The framework's commitments
-are consistent with substratum-level processes producing the missing
-factor of 15, but the explicit calculation is research-paper work ---
-likely a substantial technical paper (30-50 pages) producing a specific
-quantitative prediction for \(\eta_B\) that can be compared against
-observation.
-
-\textbf{Assessment.} Baryogenesis is a genuine open problem, but the
-framework identifies a specific technical mechanism for closing the
-quantitative gap. The framework's substratum-emergent operator
-distinction, applied to baryon number, predicts additional
-baryon-number-violating processes at the substratum scale that are not
-captured by the continuum SM effective theory. The mechanism is
-consistent with the framework's other commitments (T-invariance at the
-emergent level resolves strong CP; substratum-level T-breaking provides
-baryogenesis-relevant phases) and the required quantitative
-amplification is within the natural range of substratum-level instanton
-effects. The framework's pre-registration for this open problem is
-therefore: the quantitative gap should be closeable through the
-substratum-emergent distinction applied to baryon number, with the
-explicit calculation deferred to follow-up technical work.
+The framework's pre-registration for this open problem is therefore:
+baryogenesis remains open; no working mechanism has been derived within
+current structural commitments; one candidate direction (QM-emergence
+via trace-out non-unitarity) is under investigation with three explicit
+gating sub-questions. This is not a positive prediction but an honest
+characterization of the framework's current baryogenesis state.
 
 \hypertarget{inflation-and-initial-conditions}{%
 \subsection{19.3.4 Inflation and initial
