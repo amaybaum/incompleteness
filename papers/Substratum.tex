@@ -3,6 +3,8 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
+  11pt,
+  letterpaper,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -15,7 +17,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern} (commented; using unicode-fix)
+% lmodern unavailable
 \input{unicode-fix}
 \ifPDFTeX\else
   % xetex/luatex font selection
@@ -37,6 +39,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -263,6 +266,19 @@ specific bijection --- commits to features the framework's own gauge
 group identifies as unobservable. A weaker claim --- pure explanatory
 economy without ontic commitment --- undersells what the uniqueness
 theorem actually establishes.
+
+Stated at its most distilled, the framework's foundational commitment
+--- what {[}Main §1.2{]} gives as ``observation occurs'' --- is itself
+structured: it is two axioms. The first, that tokened differentiation
+occurs, is indubitable and conceptually primitive. The second, that
+differentiation recurs --- across more than one domain, minimally
+configuration and time --- is a substantive posit: not indubitable, not
+derivable from the first (a no-go result establishes this), though
+presupposing it. The commitment is single in the sense that the two
+axioms invoke one principle; it is, in count, two, and the second is the
+framework's one non-evidential foundational posit. Part I of the
+companion paper \emph{Physics Modulo Gauge} itemizes what the first
+axiom forces as lemmas and what the second adds.
 
 The structural-realism commitment operates at multiple levels. Within
 OI's specific universality class, the framework's theorems license
@@ -1354,6 +1370,18 @@ with the horizon growth that the accelerating phase produces. The third
 projection has the same form as the first two: a feature of how the
 embedded observer sees \((S, \varphi)\) from inside, rather than a
 feature of \((S, \varphi)\) itself.
+
+A distinction should be kept in view here. The \emph{existence} of the
+temporal domain --- that differentiation recurs, that there is more than
+one moment at all --- is not a projection of \((S, \varphi)\) but the
+framework's second foundational axiom (the recurrence axiom of the
+two-axiom observation base; see {[}Main §1.2{]} and Part I of the
+companion paper \emph{Physics Modulo Gauge}). What is a projection, and
+what this section derives, is the \emph{arrow} --- the directedness of
+time within that domain. The framework derives the arrow; it posits the
+existence of the domain. Conflating the two would overstate what the
+projection delivers: §5.4 produces directedness, not the bare existence
+of succession.
 
 \textbf{Horizon growth as the structural clock.} The framework's primary
 arrow is the cosmological horizon entropy

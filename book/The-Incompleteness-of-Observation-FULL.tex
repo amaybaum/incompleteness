@@ -1,7 +1,6 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   11pt,
@@ -62,11 +61,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  colorlinks=true,
-  linkcolor={blue},
-  filecolor={Maroon},
-  citecolor={Blue},
-  urlcolor={Blue},
+  hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
 \author{}
@@ -1358,6 +1353,30 @@ The framework begins from one fact: \emph{observation occurs}. An
 observer records distinguishable outcomes of interactions with a system
 not wholly under its own control. This is the \emph{cogito} of Descartes
 made mathematical --- the empirical fact that cannot be doubted.
+
+That one fact, looked at closely, is really two. The thing that
+genuinely cannot be doubted is thin: there is differentiated content ---
+some this-rather-than-that. Call this the first axiom. It is genuinely
+indubitable, because to doubt it is already to tell one thing from
+another, which is an instance of it. But notice what a single such fact
+does \emph{not} contain: time. A single differentiated content is like a
+photograph --- a frozen frame can be full of difference, light here and
+dark there, without anything in it being before or after anything else.
+To get from the photograph to a \emph{movie} --- to a world with
+succession, change, one moment after another --- something must be
+added: that the differentiation \emph{recurs}, that it is instantiated
+more than once over. Call this the second axiom. It cannot be squeezed
+out of the first; a frozen frame, however rich, never amounts to a
+sequence of frames. The framework therefore rests not on one fact but on
+two: one that cannot be doubted, and one that must be assumed. This is a
+strength, not a hedge. A foundation that can point to its single assumed
+ingredient --- and that comes with a theorem showing the assumed
+ingredient genuinely cannot be derived from the indubitable one --- is
+sturdier than a foundation whose assumptions are scattered, unnamed,
+through a definition. The technical development of this two-axiom
+structure, and the no-go theorem behind it, is given in Part I of the
+companion paper \emph{Physics Modulo Gauge}; the chapters that follow
+build on the structure without further reference to it.
 
 \textbf{Definition.} An \emph{observation} is a triple
 \((S, \varphi, V)\): a total system \(S\), a deterministic dynamics
@@ -4762,6 +4781,40 @@ can produce the content that multi-commitment foundations produce by
 direct positing. The framework's claim is that they can; Parts II--IV
 develop this claim with the specific quantitative content.
 
+A further comparison with string theory is worth drawing, because it
+clarifies what the single foundational commitment is and is not. String
+theory's landscape --- the vast space of consistent vacua, among which
+the observed one is often held to be fixed by anthropic selection --- is
+sometimes proposed as a model for how a theory can be general in its
+laws yet specific in what we observe. It is tempting to ask whether the
+framework's foundational commitment is similarly a selected feature: one
+option among many, picked out in our case because only some options
+permit observers. The answer sharpens what the commitment is. The
+framework does have a ``general, then selected'' structure --- but it
+lives \emph{downstream} of the foundational commitment, not at it. The
+emergent description is gauge: it depends on the partition, with the
+substratum gauge group identifying which structure is observable; and
+the partition that supports an observer is then selected, by the
+structural observer-selection theorem of Chapter 1, as one of those
+meeting the embedding conditions. This is the framework's counterpart of
+``general law, particular vacuum,'' and unlike the landscape it is
+derived --- a constructively classified gauge structure and a selection
+theorem, rather than a posited space of vacua and an anthropic measure
+that has resisted rigorous definition. What this structure does
+\emph{not} reach is the foundational commitment itself. The commitment,
+distilled, is two axioms: that tokened differentiation occurs, and that
+it recurs (Chapter 1). Neither can be a landscape variable, because a
+landscape is a space of differentiated, temporally-extended worlds ---
+it presupposes both axioms in order to have points at all. Anthropic
+selection picks among worlds; it cannot pick whether there is a world of
+the relevant kind, since the selection apparatus, a measure over
+possibilities, already requires the temporal domain it would be invoked
+to explain. The ``gauge in general, specific in our case'' intuition is
+therefore correct and is realized in the framework --- at the level of
+partitions and emergent descriptions, one level below the two axioms,
+which are what must hold for there to be a space of possibilities to
+select within.
+
 \hypertarget{classification-of-claims-by-derivational-rigor}{%
 \section{4.3 Classification of claims by derivational
 rigor}\label{classification-of-claims-by-derivational-rigor}}
@@ -5494,6 +5547,16 @@ its classification and every structural commitment carrying its
 falsification condition. What this discipline produces, when applied to
 the foundational premise that observation occurs, is the content
 developed in the remaining chapters of the book.
+
+The methodological posture sketched in this chapter is developed at
+length, for a philosophy-of-physics readership, in a companion paper ---
+\emph{Physics Modulo Gauge} --- which treats the two-axiom foundational
+commitment, constructive structural realism, the per-theorem evasion of
+the no-go results of quantum foundations, and ``physics modulo gauge''
+as a general methodology. That paper is a companion to the framework's
+technical sequence rather than part of this book; readers concerned
+specifically with the framework's methodology and its relation to the
+foundations-of-physics literature will find it the natural next text.
 
 \clearpage
 
