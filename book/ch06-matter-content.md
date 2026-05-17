@@ -1,8 +1,6 @@
 # Chapter 6
 # The Matter Content and Quantitative Predictions
 
-*Source: framework repo `SM.md` §§4.7, 5, 6, 7 (v2.0.6). Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 6.1 What this chapter develops

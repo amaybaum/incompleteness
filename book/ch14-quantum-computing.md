@@ -1,8 +1,6 @@
 # Chapter 14
 # Quantum Computing
 
-*Source: framework repo `BQP.md` (BQP characterization theorem, Extended Church-Turing Thesis as theorem, BPP-BQP gap). Chapter draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## 14.1 What this chapter develops

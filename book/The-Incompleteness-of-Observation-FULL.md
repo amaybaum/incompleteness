@@ -257,8 +257,6 @@ The framework developed in this book rests on the work of many physicists, mathe
 
 # Introduction
 
-*Source: framework repo Main.md, Substratum.md, SM.md, GR.md, Explainer.md, OI_MASTER.md. Draft v0.1.*
-
 ---
 
 ## 0.1 Two physics, or two projections?
@@ -383,8 +381,6 @@ The book makes one foundational commitment — that observation occurs — and d
 # Chapter 1
 # Embedded Observation and the Characterization Theorem
 
-*Source: framework repo Main.md. Chapter draft v0.4 (Passes 1-2 of 3, compressed register).*
-
 ---
 
 ## 1.1 The problem and the theorem
@@ -399,7 +395,9 @@ The proof develops in seven stages, with a structural commentary in §1.10 exami
 
 ## 1.2 The starting point
 
-The framework begins from one fact: *observation occurs*. An observer records distinguishable outcomes of interactions with a system not wholly under its own control. This is the *cogito* of Descartes made mathematical — the empirical fact that cannot be doubted.
+The framework begins from a starting point usually put in two words: *observation occurs*. An observer records distinguishable outcomes of interactions with a system not wholly under its own control. This is the *cogito* of Descartes made mathematical — the framework's one concession to a foundation outside its own theorems.
+
+That starting point, looked at closely, is really two things. The thing that genuinely cannot be doubted is thin: there is differentiated content — some this-rather-than-that. Call this the first axiom. It is genuinely indubitable, because to doubt it is already to tell one thing from another, which is an instance of it. But notice what a single such fact does *not* contain: time. A single differentiated content is like a photograph — a frozen frame can be full of difference, light here and dark there, without anything in it being before or after anything else. To get from the photograph to a *movie* — to a world with succession, change, one moment after another — something must be added: that the differentiation *recurs*, that it is instantiated more than once over. Call this the second axiom. It cannot be squeezed out of the first; a frozen frame, however rich, never amounts to a sequence of frames. The framework therefore rests not on one fact but on two: one that cannot be doubted, and one that must be assumed. This is a strength, not a hedge. A foundation that can point to its single assumed ingredient — and that comes with a theorem showing the assumed ingredient genuinely cannot be derived from the indubitable one — is sturdier than a foundation whose assumptions are scattered, unnamed, through a definition. The technical development of this two-axiom structure, and the no-go theorem behind it, is given in Part I of the companion paper *Physics Modulo Gauge*; the chapters that follow build on the structure without further reference to it.
 
 **Definition.** An *observation* is a triple $(S, \varphi, V)$: a total system $S$, a deterministic dynamics $\varphi: S \to S$, and an observer $V \subsetneq S$ — a proper subsystem with finitely many distinguishable internal states, coupled to the complement $H = S \setminus V$ through $\varphi$.
 
@@ -712,8 +710,6 @@ The remainder of this part of the book develops the substratum, the structural r
 # Chapter 2
 # The Substratum
 
-*Source: framework repo Substratum.md + Main.md §4. Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 2.1 What this chapter constructs
@@ -910,7 +906,7 @@ Applied to the cosmological horizon as a causal partition, the boundary-thermody
 
 The cosmological horizon entropy provides a structural clock. Every observer in the accelerating phase agrees that $S_{\text{dS}}$ increases — the monotonicity is a feature of the causal partition rather than of any local frame — and other arrows of time align with this structural clock through a cascade. The thermodynamic arrow descends from Jacobson's coupling between boundary entropy and matter entropy. The memory arrow descends from the slow-bath condition C2, which preserves correlations forward along the clock rather than backward. The measurement arrow — the observer records past outcomes and prepares future states — descends from the memory arrow. The chain grounds in one structural fact (horizon growth in the accelerating phase) and one structural constraint (C1–C3 observer selection). No independent past-hypothesis axiom is required, and Boltzmann brains are excluded structurally rather than anthropically.
 
-The framework's content here is precise: it derives a monotonic parameter along observer worldlines and four aligned arrows of time. What it does not derive is the convention of which direction along the horizon-clock parameter to call "future." The two directions are gauge-equivalent at the substrate level ($\varphi \leftrightarrow \varphi^{-1}$), and the observer's choice of convention is residual freedom. The framework derives the existence of a monotonic parameter; the labeling is an observer-imposed convention. CP violation in CKM and kaon/B systems is a flavor-basis feature of the specific bijection $\varphi$ rather than a consequence of the time-arrow cascade — the framework treats flavor-sector CP phases as solution-specific inputs that do not affect the cascade's structural content.
+The framework's content here is precise: it derives a monotonic parameter along observer worldlines and four aligned arrows of time. What it does not derive is the convention of which direction along the horizon-clock parameter to call "future." The two directions are gauge-equivalent at the substrate level ($\varphi \leftrightarrow \varphi^{-1}$), and the observer's choice of convention is residual freedom. The framework derives the existence of a monotonic parameter; the labeling is an observer-imposed convention. There is one further qualification worth stating: a monotonic parameter is monotonic with respect to an *ordering* of the worldline's moments, and the framework's foundational treatment axiomatizes that there is more than one moment while leaving the ordering of moments as a separate, open question. The derivation here is therefore conditional on that ordering — it establishes that ordered moments yield a directed parameter, not that directedness arises from the substratum with no assumption about ordering at all. CP violation in CKM and kaon/B systems is a flavor-basis feature of the specific bijection $\varphi$ rather than a consequence of the time-arrow cascade — the framework treats flavor-sector CP phases as solution-specific inputs that do not affect the cascade's structural content.
 
 **The common structure.** The three projections share three features. They apply to the same substratum $(S, \varphi)$. They use the same trace-out machinery — marginalization over the hidden sector under conditions C1–C3. They produce derived rather than fundamental structures: nothing in quantum mechanics, general relativity, or the arrow of time is a feature of $(S, \varphi)$ in itself; each is a feature of how the embedded observer sees the substratum from inside. The differences among the three projections are entirely in which structure of the embedded observer's description they extract. The visible-sector projection works on the bulk dynamics and produces emergent quantum mechanics with the Standard Model as its specific content. The boundary-thermodynamic projection works on the classical thermal data at the partition boundary and produces general relativity with its gravitational and cosmological predictions. The horizon-clock projection works on the horizon-growth parameter along observer worldlines and produces the cascade of emergent arrows.
 
@@ -953,8 +949,6 @@ The framework's claim, made precise across these chapters, is that a single star
 
 # Chapter 3
 # Hierarchical Structural Realism
-
-*Source: framework repo Structure.md + Explainer.md philosophical-lineage material. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -1160,15 +1154,13 @@ The framework's hierarchical structure is what makes the framework different fro
 # Chapter 4
 # Methodology
 
-*Source: framework repo `OI_MASTER.md` §A (methodology) + `Substratum.md` §6.4 (pre-registered falsification). Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 4.1 What this chapter develops
 
 The framework's content, developed in Chapters 1 through 3, rests on a specific methodological discipline. The discipline is not the framework's content; it is how the framework's content is produced, audited, and made available for evaluation. Different methodological choices would produce different frameworks even from the same starting commitments. The choices made here are worth articulating explicitly, because they distinguish the framework from other unification programs that begin from different methodological commitments and reach different conclusions.
 
-Four methodological commitments organize the framework's program. First, the framework operates from *a single foundational commitment* — that observation occurs — and derives the rest as theorems. Other foundational physics programs commit to multiple primitives (string theory commits to extended one-dimensional objects, supersymmetry, and a specific dimensional structure; loop quantum gravity commits to a graph-theoretic discrete geometry and a specific quantization procedure). The framework's discipline is to commit to as little as possible at the foundational level and derive as much as possible from the minimal commitment. The methodological cost is steeper derivations; the methodological benefit is fewer adjustable parameters and a cleaner audit trail.
+Four methodological commitments organize the framework's program. First, the framework operates from *a single foundational commitment* — the starting point that observation occurs — and derives the rest as theorems. That commitment is itself structured: examined closely (Chapter 1), it resolves into two axioms — that tokened differentiation occurs, and that it recurs — thematically one principle but, in honest count, two posits, one indubitable and one substantive. "Single foundational commitment" names the discipline of taking only this one starting point from outside the theorems, not a claim that the starting point is a single indivisible fact. Other foundational physics programs commit to multiple primitives (string theory commits to extended one-dimensional objects, supersymmetry, and a specific dimensional structure; loop quantum gravity commits to a graph-theoretic discrete geometry and a specific quantization procedure). The framework's discipline is to commit to as little as possible at the foundational level and derive as much as possible from the minimal commitment. The methodological cost is steeper derivations; the methodological benefit is fewer adjustable parameters and a cleaner audit trail.
 
 Second, the framework *classifies its claims by derivational rigor* using an explicit scheme. Strictly parameter-free structural predictions are labeled S; conditional structural predictions that depend on a stated open assumption are C; layered conditional predictions awaiting closure are L; retrodictions fitted to observation are R; predictions taking a phenomenological input are P; predictions inheriting from a mass-chain input are M; predictions explicitly using an empirical input are E. Every prediction the framework makes carries an explicit classification, with the strongest claims reserved for S-class derivations and weaker claims honestly labeled. The discipline of this classification — refusing to overstate rigor — is part of what makes the framework's empirical record evaluable.
 
@@ -1193,6 +1185,8 @@ The cost of the discipline is that some natural extensions of the framework requ
 A useful diagnostic for the discipline is what the framework does *not* commit to. The framework does not commit to a specific interpretation of probability beyond standard Kolmogorov probability. The framework does not commit to a specific resolution of the measurement problem beyond the algorithmic-reading developed in Chapter 1. The framework does not commit to specific values of free parameters in the emergent quantum field theory beyond what the reconstruction theorem forces. The framework does not commit to a specific cosmological history beyond the structural arrow of horizon growth in the $\Lambda$-dominated phase. These non-commitments are part of the foundational economy: each additional commitment would expand the framework's claims, and the discipline is to make only those commitments that the foundational premise plus its derivations require.
 
 The single-foundational-commitment pattern distinguishes the framework from broader unification programs in a specific way. String theory commits to extended one-dimensional objects as the fundamental entities, plus supersymmetry, plus extra dimensions, plus a specific moduli structure. Loop quantum gravity commits to a graph-theoretic discrete geometry, plus a specific quantization procedure, plus a specific representation theory of the spatial diffeomorphism group. Causal sets commit to a Lorentz-invariant discrete causal structure, plus a specific dynamics for set growth. Each of these is a multi-commitment foundation, with each commitment adding to the framework's content. The framework here is a single-commitment foundation, with all content derived from the one premise plus its structural lemmas. Whether this is a methodological virtue or a methodological constraint depends on whether the derivations actually close — whether single-commitment foundations can produce the content that multi-commitment foundations produce by direct positing. The framework's claim is that they can; Parts II–IV develop this claim with the specific quantitative content.
+
+A further comparison with string theory is worth drawing, because it clarifies what the single foundational commitment is and is not. String theory's landscape — the vast space of consistent vacua, among which the observed one is often held to be fixed by anthropic selection — is sometimes proposed as a model for how a theory can be general in its laws yet specific in what we observe. It is tempting to ask whether the framework's foundational commitment is similarly a selected feature: one option among many, picked out in our case because only some options permit observers. The answer sharpens what the commitment is. The framework does have a "general, then selected" structure — but it lives *downstream* of the foundational commitment, not at it. The emergent description is gauge: it depends on the partition, with the substratum gauge group identifying which structure is observable; and the partition that supports an observer is then selected, by the structural observer-selection theorem of Chapter 1, as one of those meeting the embedding conditions. This is the framework's counterpart of "general law, particular vacuum," and unlike the landscape it is derived — a constructively classified gauge structure and a selection theorem, rather than a posited space of vacua and an anthropic measure that has resisted rigorous definition. What this structure does *not* reach is the foundational commitment itself. The commitment, distilled, is two axioms: that tokened differentiation occurs, and that it recurs (Chapter 1). Neither can be a landscape variable, because a landscape is a space of differentiated, temporally-extended worlds — it presupposes both axioms in order to have points at all. Anthropic selection picks among worlds; it cannot pick whether there is a world of the relevant kind, since the selection apparatus, a measure over possibilities, already requires the temporal domain it would be invoked to explain. The "gauge in general, specific in our case" intuition is therefore correct and is realized in the framework — at the level of partitions and emergent descriptions, one level below the two axioms, which are what must hold for there to be a space of possibilities to select within.
 
 ## 4.3 Classification of claims by derivational rigor
 
@@ -1346,7 +1340,9 @@ Parts II and III apply the methodology to the framework's specific empirical con
 
 Parts III and IV develop the framework's reach into structural cascades and applied scientific fields, with the methodological classifications carrying through to the more applied content. The framework's predictions in chemistry, biology, neuroscience, and quantum engineering are not all S-class — many are P-class or E-class, with empirical inputs from the relevant scientific fields entering the derivation chain. The classification scheme developed here makes the rigor of each prediction explicit, so that readers approaching the framework from biology or medicine can evaluate the framework's claims against the appropriate empirical standards in those fields.
 
-The methodology developed in this chapter is not unique to the framework. The single-foundational-commitment pattern is a general principle of theory construction, the claim-classification scheme is a general standard for empirical evaluation, the per-theorem no-go evasion procedure is a general method for analyzing structural results, and the pre-registered falsification discipline is a general epistemological standard. The framework's contribution is to apply this methodology systematically rather than selectively, with every prediction carrying its classification and every structural commitment carrying its falsification condition. What this discipline produces, when applied to the foundational premise that observation occurs, is the content developed in the remaining chapters of the book.
+The methodology developed in this chapter is not unique to the framework. The single-foundational-commitment pattern is a general principle of theory construction, the claim-classification scheme is a general standard for empirical evaluation, the per-theorem no-go evasion procedure is a general method for analyzing structural results, and the pre-registered falsification discipline is a general epistemological standard. The framework's contribution is to apply this methodology systematically rather than selectively, with every prediction carrying its classification and every structural commitment carrying its falsification condition. What this discipline produces, when applied to the framework's foundational starting point — the two-axiom observation base — is the content developed in the remaining chapters of the book.
+
+The methodological posture sketched in this chapter is developed at length, for a philosophy-of-physics readership, in a companion paper — *Physics Modulo Gauge* — which treats the two-axiom foundational commitment, constructive structural realism, the per-theorem evasion of the no-go results of quantum foundations, and "physics modulo gauge" as a general methodology. That paper is a companion to the framework's technical sequence rather than part of this book; readers concerned specifically with the framework's methodology and its relation to the foundations-of-physics literature will find it the natural next text.
 
 
 
@@ -1363,8 +1359,6 @@ The methodology developed in this chapter is not unique to the framework. The si
 
 # Chapter 5
 # The Emergence of Gauge Structure
-
-*Source: framework repo `SM.md` §§2-4 + §4.8-4.9. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -1568,8 +1562,6 @@ Chapter 6 develops the specific quantitative content this gauge structure produc
 
 # Chapter 6
 # The Matter Content and Quantitative Predictions
-
-*Source: framework repo `SM.md` §§4.7, 5, 6, 7. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -1876,8 +1868,6 @@ The framework's empirical record in fundamental physics, developed across Chapte
 
 # Chapter 7
 # The Gravitational Sector
-
-*Source: framework repo `GR.md`. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -2192,8 +2182,6 @@ The framework's content in fundamental physics, developed across Chapters 5 thro
 # Chapter 8
 # JUNO and the Neutrino Sector
 
-*Source: framework repo `Juno.md`. Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 8.1 What this chapter develops
@@ -2463,8 +2451,6 @@ The framework's empirical content in fundamental physics is at the strongest evi
 
 # Chapter 9
 # Universality Classes and External Convergence
-
-*Source: framework repo `Structure.md` Part II + `BEC_Experiment.md` §6.3 + `Future_Research.md`. Chapter draft v0.1 (Pass 1 of 2).*
 
 ---
 
@@ -2798,8 +2784,6 @@ The framework's content from Chapter 5 through Chapter 8 — concentrated at the
 # Chapter 10
 # Chemistry
 
-*Source: framework repo `Complexity.md` §§2-4 (chemistry derivation chain, viable parameter space, chirality). Chapter draft v0.1 (Pass 1 of 2).*
-
 ---
 
 ## 10.1 What this chapter develops
@@ -3013,8 +2997,6 @@ The framework's content on fine-tuning and anthropics is therefore a substantive
 
 # Chapter 11
 # The Origin of Life
-
-*Source: framework repo `Complexity.md` §§5.3-5.6 (autocatalytic argument, von Neumann's threshold, template replication, C1-C3 at the molecular scale). Chapter draft v0.1 (Pass 1 of 1).*
 
 ---
 
@@ -3241,8 +3223,6 @@ The empirical confirmations of the framework's content are concordance: laborato
 
 # Chapter 12
 # Evolution, Intelligence, and Self-Reference
-
-*Source: framework repo `Complexity.md` §§5.7-5.8 + `Evolution.md` §2 (visible/hidden partition in evolution at three scales). Chapter draft v0.1 (Pass 1 of 1).*
 
 ---
 
@@ -3496,8 +3476,6 @@ The framework's reach in this chapter spans from molecular biology to AI to the 
 # Chapter 13
 # Quantum Biology
 
-*Source: framework repo `Complexity.md` §7 (C1-C3 in proteins, enzyme kinetics, drug design implications) + `Beyond.md` §2 (partially-quantum regime in biology) + biology examples (photosynthesis, magnetoreception). Chapter draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## 13.1 What this chapter develops
@@ -3681,8 +3659,6 @@ The framework's content from this chapter onward shifts from cascade derivations
 
 # Chapter 14
 # Quantum Computing
-
-*Source: framework repo `BQP.md` (BQP characterization theorem, Extended Church-Turing Thesis as theorem, BPP-BQP gap). Chapter draft v0.1 (Pass 1 of 1).*
 
 ---
 
@@ -3879,8 +3855,6 @@ The chapter's content is therefore the framework's positive contribution to comp
 
 # Chapter 15
 # Quantum Engineering — Hardware, Software, and the BEC Experiment
-
-*Source: framework repo `Complexity.md` §8 (TLS noise engineering, error correction, coherence extension, sensing, engineered partitions) + `Beyond.md` §2 (partially-quantum regime in engineering) + `BEC_Experiment.md` (BEC analogue-gravity experimental design). Chapter draft v0.1 (Pass 1 of 2).*
 
 ---
 
@@ -4153,8 +4127,6 @@ The framework's empirical reach across Chapters 13-17 is concentrated at the app
 
 # Chapter 16
 # Medicine
-
-*Source: framework repo `Medicine.md` (full, including §§9-10 chromatin material) + `Epigenetics.md` (eight predictions on epigenetics as biological hidden sector, memory-hierarchy framing, epigenetic drugs as memory erasers, cellular reprogramming as memory reset). Chapter draft v0.1 (Pass 1 of 2).*
 
 ---
 
@@ -4508,8 +4480,6 @@ The framework's reach from Chapter 13's quantum biology through Chapter 15's qua
 # Chapter 17
 # Bioinformatics
 
-*Source: framework repo `Bioinformatics.md` (full) + `Evolution.md` §3 (empirical confirmations: molecular clock overdispersion, rate autocorrelation, LTEE power-law fitness trajectory, punctuated equilibrium). Chapter draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## 17.1 What this chapter develops
@@ -4749,8 +4719,6 @@ The framework's content from the substratum-level structural axioms of Chapter 1
 
 # Chapter 18
 # Beyond Quantum Mechanics and General Relativity
-
-*Source: framework repo `Beyond.md` (not yet in Zenodo release) plus new material on cosmic spatial topology and consciousness. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -5108,8 +5076,6 @@ The chapter is honest about what it does not address. The hard problem of consci
 # Chapter 19
 # Resolved and Open Problems in Fundamental Physics
 
-*Source: framework repo `Open.md` (not yet in Zenodo release). Chapter draft v0.1 (Pass 1 of 2).*
-
 ---
 
 ## 19.1 What this chapter develops
@@ -5384,8 +5350,6 @@ The book's content concludes here. The framework's empirical record (Chapters 5-
 # Appendix A
 # Prediction Status Table
 
-*Source: framework repo `OI_MASTER.md` §B.3 (SM/gravitational/neutrino prediction status table) + propagation across `SM.md`, `GR.md`, `Juno.md`, `Medicine.md`, `Bioinformatics.md`, `Evolution.md`, `BEC_Experiment.md`, `Beyond.md`, `Open.md`. Appendix draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## A.1 What this appendix provides
@@ -5614,8 +5578,6 @@ The framework's distinctive epistemic position is that it provides *structural f
 
 # Appendix B
 # Mathematical Derivations
-
-*Source: framework repo `Main.md` §3.2 (Stinespring derivation), `SM.md` Appendix A (Jordan-Chevalley projection), `SM.md` §4.9 Theorem 15 (anomaly cancellation), `GR.md` §3 (gap equation for $\hbar$), `Main.md` §§1-2 (lemma chain). Appendix draft v0.1 (Pass 1 of 1).*
 
 ---
 
@@ -5977,8 +5939,6 @@ The combined derivations constitute the framework's full mathematical content as
 
 # Appendix C
 # Common Objections and Framework Responses
-
-*Source: framework repo `Objections.md` + broader content on no-go theorems (PBR, Frauchiger-Renner, Colbeck-Renner, Bong-Wiseman), computational implementability (Wolpert), substratum-emergent operator distinction objections, and relationship to standard interpretations (MWI, Bohmian, QBism). Appendix draft v0.1 (Pass 1 of 2).*
 
 ---
 

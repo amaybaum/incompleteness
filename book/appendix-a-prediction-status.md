@@ -1,8 +1,6 @@
 # Appendix A
 # Prediction Status Table
 
-*Source: framework repo `OI_MASTER.md` §B.3 (SM/gravitational/neutrino prediction status table) + propagation across `SM.md`, `GR.md`, `Juno.md`, `Medicine.md`, `Bioinformatics.md`, `Evolution.md`, `BEC_Experiment.md`, `Beyond.md`, `Open.md`. Appendix draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## A.1 What this appendix provides

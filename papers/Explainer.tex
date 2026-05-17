@@ -3,6 +3,8 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
+  11pt,
+  letterpaper,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -15,7 +17,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern} (commented; using unicode-fix)
+% lmodern unavailable
 \input{unicode-fix}
 \ifPDFTeX\else
   % xetex/luatex font selection
@@ -37,6 +39,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -149,6 +152,22 @@ mechanics (no continuity, no Hamiltonian, no Lagrangian). A shuffled
 deck of cards satisfies it. A finite cellular automaton satisfies it.
 Any finite computation satisfies it. The paper shows that three
 structural lemmas follow from this definition alone:
+
+\emph{A note on ``exactly one.''} The framework's foundational work has
+since looked harder at what ``observation occurs'' actually assumes, and
+found it is most honestly stated as \textbf{two} axioms rather than one.
+The first --- that a distinction occurs, that there is some
+this-rather-than-that --- genuinely cannot be doubted. The second ---
+that the distinction \emph{recurs}, that there is more than one moment
+--- is a real further assumption: a single frozen instant, however full
+of difference, contains no time, and time cannot be squeezed out of
+difference alone. The framework assumes both, and a no-go result shows
+the second does not follow from the first. This is a strength rather
+than a hedge: the foundation can point to exactly which single
+ingredient is assumed rather than indubitable. The companion paper
+\emph{Physics Modulo Gauge} develops this in full, as its Part I; for
+the purposes of this overview, ``observation occurs'' can be read as
+that two-part foundation, and nothing below depends on the refinement.
 
 \textbf{Lemma 1} (Finiteness). \emph{The observer has finitely many
 distinguishable internal states, so the visible configuration space

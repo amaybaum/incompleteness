@@ -1,8 +1,6 @@
 # Chapter 16
 # Medicine
 
-*Source: framework repo `Medicine.md` (full, including §§9-10 chromatin material) + `Epigenetics.md` (eight predictions on epigenetics as biological hidden sector, memory-hierarchy framing, epigenetic drugs as memory erasers, cellular reprogramming as memory reset). Chapter draft v0.1 (Pass 1 of 2).*
-
 ---
 
 ## 16.1 What this chapter develops

@@ -1,8 +1,6 @@
 # Chapter 13
 # Quantum Biology
 
-*Source: framework repo `Complexity.md` §7 (C1-C3 in proteins, enzyme kinetics, drug design implications) + `Beyond.md` §2 (partially-quantum regime in biology) + biology examples (photosynthesis, magnetoreception). Chapter draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## 13.1 What this chapter develops

@@ -1,8 +1,6 @@
 # Chapter 17
 # Bioinformatics
 
-*Source: framework repo `Bioinformatics.md` (full) + `Evolution.md` §3 (empirical confirmations: molecular clock overdispersion, rate autocorrelation, LTEE power-law fitness trajectory, punctuated equilibrium). Chapter draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## 17.1 What this chapter develops

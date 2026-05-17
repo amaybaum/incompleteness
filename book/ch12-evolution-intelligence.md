@@ -1,8 +1,6 @@
 # Chapter 12
 # Evolution, Intelligence, and Self-Reference
 
-*Source: framework repo `Complexity.md` §§5.7-5.8 + `Evolution.md` §2 (visible/hidden partition in evolution at three scales). Chapter draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## 12.1 What this chapter develops

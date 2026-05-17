@@ -1,8 +1,6 @@
 # Chapter 5
 # The Emergence of Gauge Structure
 
-*Source: framework repo `SM.md` (v2.0.6) §§2-4 + §4.8-4.9. Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 5.1 What this chapter develops

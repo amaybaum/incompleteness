@@ -3,6 +3,8 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
+  11pt,
+  letterpaper,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -15,7 +17,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern} (commented; using unicode-fix)
+% lmodern unavailable
 \input{unicode-fix}
 \ifPDFTeX\else
   % xetex/luatex font selection
@@ -37,6 +39,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -121,11 +124,14 @@ which QM arises from a deterministic embedding.
 \hypertarget{the-starting-point}{%
 \subsubsection{1.2 The Starting Point}\label{the-starting-point}}
 
-The framework begins with a single empirical fact that cannot be
-doubted: \emph{observation occurs}. An observer records distinguishable
-outcomes of interactions with a system not wholly under the observer's
-control. This is the cogito of Descartes made precise --- not as
-philosophy, but as a mathematical constraint.
+The framework begins from a starting point usually stated in two words:
+\emph{observation occurs}. An observer records distinguishable outcomes
+of interactions with a system not wholly under the observer's control.
+This is the cogito of Descartes made precise --- not as philosophy, but
+as a mathematical constraint. As §1.2 makes explicit, that starting
+point is not a single indubitable fact but resolves into two axioms, one
+indubitable and one a substantive posit; the two-word phrase is the
+informal name for the pair.
 
 The axiom has structural content beyond contingent occurrence. Substrata
 that do not admit embedded observers exist as mathematical objects with
@@ -135,6 +141,31 @@ subset of substrata --- substrata whose bijection structure satisfies
 the conditions C1--C3 below for some partition. This is a structural
 commitment about the framework's domain, not a contingent fact about
 whether someone happens to be looking.
+
+The phrase ``observation occurs'' can be stated with more precision than
+a single undifferentiated axiom. Distilled, it is \emph{two axioms}.
+\textbf{Axiom 1} is the evidential floor: tokened differentiation occurs
+--- concrete differentiated content is instantiated; there is some
+this-not-that. It is indubitable, since to doubt it is to register a
+distinction, and conceptually primitive. From Axiom 1, by analysis of
+the words ``occurs'' and ``tokened,'' the relational structure, the
+locus, the proper-part decomposition \(V \subsetneq S\), the existence
+of a dynamics, determinism, finiteness per moment, and bijectivity all
+follow as lemmas --- they are not independent assumptions. One thing
+does not follow: that the differentiation \emph{recurs} --- that there
+is more than one moment for the dynamics to act across. This is
+\textbf{Axiom 2}: differentiation recurs, the temporal domain being the
+minimal such recurrence. Axiom 2 presupposes Axiom 1 (there is no
+recurrence of differentiation without differentiation) but is not
+derivable from it; a no-go result establishes the non-derivability. The
+framework's foundation is therefore most honestly described not as a
+single axiom but as a \emph{two-axiom observation base}: one indubitable
+claim, and one substantive posit that the first does not yield. The two
+invoke a single principle --- tokened differentiation --- and are
+thematically one; they are numerically two. The Definition and Lemmas
+below unpack this structure; Part I of the companion paper \emph{Physics
+Modulo Gauge} develops the distillation, the lemma recoveries, and the
+no-go in full.
 
 We ask: what is the minimal mathematical structure consistent with this
 fact?

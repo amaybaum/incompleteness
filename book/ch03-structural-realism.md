@@ -1,8 +1,6 @@
 # Chapter 3
 # Hierarchical Structural Realism
 
-*Source: framework repo Structure.md (v2.0.6) + Explainer.md philosophical-lineage material. Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 3.1 What this chapter develops

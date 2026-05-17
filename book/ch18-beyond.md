@@ -1,8 +1,6 @@
 # Chapter 18
 # Beyond Quantum Mechanics and General Relativity
 
-*Source: framework repo `Beyond.md` (not yet in Zenodo release) plus new material on cosmic spatial topology and consciousness. Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 18.1 What this chapter develops

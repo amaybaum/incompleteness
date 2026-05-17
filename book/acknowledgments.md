@@ -16,7 +16,7 @@ The framework developed in this book rests on the work of many physicists, mathe
 
 **Quantum information and computing.** The framework's content in computational complexity draws on the foundational work of Bernstein, Vazirani, Bennett, Brassard, and the broader BQP literature. The framework's engineering content engages the work of the superconducting qubit community (with Wilen et al., McEwen et al., and Google Quantum AI providing the empirical foundations for correlated noise structure) and the NV-center quantum sensing community. The BEC analogue-gravity experimental program developed by Jeff Steinhauer and collaborators provides the cleanest near-term test of the framework's foundational content.
 
-**The framework's working repository.** The framework's content has been developed in technical-paper form over the past several years, with the version 2.0.6 release at DOI 10.5281/zenodo.19060318 representing the current state. The repository's collaborators and reviewers — too numerous to name individually — have contributed substantially to the framework's refinement.
+**The framework's working repository.** The framework's content has been developed in technical-paper form over the past several years, with the release at DOI 10.5281/zenodo.19060318 representing the current state. The repository's collaborators and reviewers — too numerous to name individually — have contributed substantially to the framework's refinement.
 
 **Personal acknowledgments.** [Author's personal acknowledgments — colleagues, family, institutional support, funding sources — to be added.]
 

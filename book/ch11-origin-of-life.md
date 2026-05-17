@@ -1,8 +1,6 @@
 # Chapter 11
 # The Origin of Life
 
-*Source: framework repo `Complexity.md` §§5.3-5.6 (autocatalytic argument, von Neumann's threshold, template replication, C1-C3 at the molecular scale). Chapter draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## 11.1 What this chapter develops

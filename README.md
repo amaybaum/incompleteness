@@ -123,6 +123,12 @@ All research papers live in [`papers/`](papers/).
 
 - **[`Juno`](papers/Juno.md)** — self-contained presentation of the JUNO-confirmed prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$, matching the post-JUNO global fit at 0.07σ. Narrowly scoped to PMNS phenomenology with no companion-paper citations required. ([`.tex`](papers/Juno.tex), [`.pdf`](papers/Juno.pdf))
 
+### Foundations and methodology
+
+*Developmental draft. This document articulates the framework's foundational commitment and methodological posture; it is preprint-stage and under active development, and is catalogued here as such.*
+
+- **[`Methodology`](papers/Methodology.md)** — *Physics Modulo Gauge*: articulates the framework's methodology for a philosophy-of-physics readership, in four parts. **Part I** — the foundational treatment — distills the framework's foundational commitment into the *two-axiom observation base*: Axiom 1 (tokened differentiation occurs — indubitable, conceptually primitive) and Axiom 2 (differentiation recurs — a substantive posit, not derivable from Axiom 1 though presupposing it), with relationality, the proper-part structure, the existence of a dynamics, determinism, finiteness, and bijectivity recovered as lemmas of Axiom 1, and a no-go result that the recurrence of differentiation is not derivable from differentiation alone. **Parts II–IV** develop constructive structural realism via the reconstruction and gauge-classification theorems; the per-theorem evasion of the no-go results of quantum foundations through a single architectural feature; and "physics modulo gauge" as a general methodology. Companion to the core papers, not a replacement. Developmental draft. ([`.tex`](papers/Methodology.tex), [`.pdf`](papers/Methodology.pdf))
+
 ### Companion documents
 
 - **[`Explainer`](papers/Explainer.md)** — full-argument overview with detailed proof walkthroughs, observational confrontation, and FAQ. ([`.tex`](papers/Explainer.tex), [`.pdf`](papers/Explainer.pdf))

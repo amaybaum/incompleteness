@@ -1,7 +1,5 @@
 # Introduction
 
-*Source: framework repo Main.md, Substratum.md, SM.md, GR.md, Explainer.md, OI_MASTER.md. Draft v0.1.*
-
 ---
 
 ## 0.1 Two physics, or two projections?
