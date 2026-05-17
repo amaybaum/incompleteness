@@ -1,8 +1,6 @@
 # Chapter 10
 # Chemistry
 
-*Source: framework repo `Complexity.md` §§2-4 (chemistry derivation chain, viable parameter space, chirality). Chapter draft v0.1 (Pass 1 of 2).*
-
 ---
 
 ## 10.1 What this chapter develops

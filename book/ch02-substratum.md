@@ -1,8 +1,6 @@
 # Chapter 2
 # The Substratum
 
-*Source: framework repo Substratum.md (v2.0.6) + Main.md §4. Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 2.1 What this chapter constructs

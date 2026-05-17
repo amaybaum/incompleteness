@@ -1,8 +1,6 @@
 # Chapter 15
 # Quantum Engineering — Hardware, Software, and the BEC Experiment
 
-*Source: framework repo `Complexity.md` §8 (TLS noise engineering, error correction, coherence extension, sensing, engineered partitions) + `Beyond.md` §2 (partially-quantum regime in engineering) + `BEC_Experiment.md` (BEC analogue-gravity experimental design). Chapter draft v0.1 (Pass 1 of 2).*
-
 ---
 
 ## 15.1 What this chapter develops

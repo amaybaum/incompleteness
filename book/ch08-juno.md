@@ -1,8 +1,6 @@
 # Chapter 8
 # JUNO and the Neutrino Sector
 
-*Source: framework repo `Juno.md` (v2.0.6). Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 8.1 What this chapter develops

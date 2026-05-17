@@ -1,8 +1,6 @@
 # Appendix C
 # Common Objections and Framework Responses
 
-*Source: framework repo `Objections.md` + broader content on no-go theorems (PBR, Frauchiger-Renner, Colbeck-Renner, Bong-Wiseman), computational implementability (Wolpert), substratum-emergent operator distinction objections, and relationship to standard interpretations (MWI, Bohmian, QBism). Appendix draft v0.1 (Pass 1 of 2).*
-
 ---
 
 ## C.1 What this appendix develops

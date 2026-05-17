@@ -1,8 +1,6 @@
 # Appendix B
 # Mathematical Derivations
 
-*Source: framework repo `Main.md` §3.2 (Stinespring derivation), `SM.md` Appendix A (Jordan-Chevalley projection), `SM.md` §4.9 Theorem 15 (anomaly cancellation), `GR.md` §3 (gap equation for $\hbar$), `Main.md` §§1-2 (lemma chain). Appendix draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## B.1 What this appendix develops

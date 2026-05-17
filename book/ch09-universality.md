@@ -1,8 +1,6 @@
 # Chapter 9
 # Universality Classes and External Convergence
 
-*Source: framework repo `Structure.md` Part II + `BEC_Experiment.md` §6.3 + `Future_Research.md`. Chapter draft v0.1 (Pass 1 of 2).*
-
 ---
 
 ## 9.1 What this chapter develops

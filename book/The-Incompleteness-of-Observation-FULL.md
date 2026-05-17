@@ -257,8 +257,6 @@ The framework developed in this book rests on the work of many physicists, mathe
 
 # Introduction
 
-*Source: framework repo Main.md, Substratum.md, SM.md, GR.md, Explainer.md, OI_MASTER.md. Draft v0.1.*
-
 ---
 
 ## 0.1 Two physics, or two projections?
@@ -382,8 +380,6 @@ The book makes one foundational commitment — that observation occurs — and d
 
 # Chapter 1
 # Embedded Observation and the Characterization Theorem
-
-*Source: framework repo Main.md. Chapter draft v0.4 (Passes 1-2 of 3, compressed register).*
 
 ---
 
@@ -714,8 +710,6 @@ The remainder of this part of the book develops the substratum, the structural r
 # Chapter 2
 # The Substratum
 
-*Source: framework repo Substratum.md + Main.md §4. Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 2.1 What this chapter constructs
@@ -956,8 +950,6 @@ The framework's claim, made precise across these chapters, is that a single star
 # Chapter 3
 # Hierarchical Structural Realism
 
-*Source: framework repo Structure.md + Explainer.md philosophical-lineage material. Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 3.1 What this chapter develops
@@ -1161,8 +1153,6 @@ The framework's hierarchical structure is what makes the framework different fro
 
 # Chapter 4
 # Methodology
-
-*Source: framework repo `OI_MASTER.md` §A (methodology) + `Substratum.md` §6.4 (pre-registered falsification). Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -1370,8 +1360,6 @@ The methodological posture sketched in this chapter is developed at length, for 
 # Chapter 5
 # The Emergence of Gauge Structure
 
-*Source: framework repo `SM.md` §§2-4 + §4.8-4.9. Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 5.1 What this chapter develops
@@ -1574,8 +1562,6 @@ Chapter 6 develops the specific quantitative content this gauge structure produc
 
 # Chapter 6
 # The Matter Content and Quantitative Predictions
-
-*Source: framework repo `SM.md` §§4.7, 5, 6, 7. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -1882,8 +1868,6 @@ The framework's empirical record in fundamental physics, developed across Chapte
 
 # Chapter 7
 # The Gravitational Sector
-
-*Source: framework repo `GR.md`. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -2198,8 +2182,6 @@ The framework's content in fundamental physics, developed across Chapters 5 thro
 # Chapter 8
 # JUNO and the Neutrino Sector
 
-*Source: framework repo `Juno.md`. Chapter draft v0.1 (Pass 1 of 3).*
-
 ---
 
 ## 8.1 What this chapter develops
@@ -2469,8 +2451,6 @@ The framework's empirical content in fundamental physics is at the strongest evi
 
 # Chapter 9
 # Universality Classes and External Convergence
-
-*Source: framework repo `Structure.md` Part II + `BEC_Experiment.md` §6.3 + `Future_Research.md`. Chapter draft v0.1 (Pass 1 of 2).*
 
 ---
 
@@ -2804,8 +2784,6 @@ The framework's content from Chapter 5 through Chapter 8 — concentrated at the
 # Chapter 10
 # Chemistry
 
-*Source: framework repo `Complexity.md` §§2-4 (chemistry derivation chain, viable parameter space, chirality). Chapter draft v0.1 (Pass 1 of 2).*
-
 ---
 
 ## 10.1 What this chapter develops
@@ -3019,8 +2997,6 @@ The framework's content on fine-tuning and anthropics is therefore a substantive
 
 # Chapter 11
 # The Origin of Life
-
-*Source: framework repo `Complexity.md` §§5.3-5.6 (autocatalytic argument, von Neumann's threshold, template replication, C1-C3 at the molecular scale). Chapter draft v0.1 (Pass 1 of 1).*
 
 ---
 
@@ -3247,8 +3223,6 @@ The empirical confirmations of the framework's content are concordance: laborato
 
 # Chapter 12
 # Evolution, Intelligence, and Self-Reference
-
-*Source: framework repo `Complexity.md` §§5.7-5.8 + `Evolution.md` §2 (visible/hidden partition in evolution at three scales). Chapter draft v0.1 (Pass 1 of 1).*
 
 ---
 
@@ -3502,8 +3476,6 @@ The framework's reach in this chapter spans from molecular biology to AI to the 
 # Chapter 13
 # Quantum Biology
 
-*Source: framework repo `Complexity.md` §7 (C1-C3 in proteins, enzyme kinetics, drug design implications) + `Beyond.md` §2 (partially-quantum regime in biology) + biology examples (photosynthesis, magnetoreception). Chapter draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## 13.1 What this chapter develops
@@ -3687,8 +3659,6 @@ The framework's content from this chapter onward shifts from cascade derivations
 
 # Chapter 14
 # Quantum Computing
-
-*Source: framework repo `BQP.md` (BQP characterization theorem, Extended Church-Turing Thesis as theorem, BPP-BQP gap). Chapter draft v0.1 (Pass 1 of 1).*
 
 ---
 
@@ -3885,8 +3855,6 @@ The chapter's content is therefore the framework's positive contribution to comp
 
 # Chapter 15
 # Quantum Engineering — Hardware, Software, and the BEC Experiment
-
-*Source: framework repo `Complexity.md` §8 (TLS noise engineering, error correction, coherence extension, sensing, engineered partitions) + `Beyond.md` §2 (partially-quantum regime in engineering) + `BEC_Experiment.md` (BEC analogue-gravity experimental design). Chapter draft v0.1 (Pass 1 of 2).*
 
 ---
 
@@ -4159,8 +4127,6 @@ The framework's empirical reach across Chapters 13-17 is concentrated at the app
 
 # Chapter 16
 # Medicine
-
-*Source: framework repo `Medicine.md` (full, including §§9-10 chromatin material) + `Epigenetics.md` (eight predictions on epigenetics as biological hidden sector, memory-hierarchy framing, epigenetic drugs as memory erasers, cellular reprogramming as memory reset). Chapter draft v0.1 (Pass 1 of 2).*
 
 ---
 
@@ -4514,8 +4480,6 @@ The framework's reach from Chapter 13's quantum biology through Chapter 15's qua
 # Chapter 17
 # Bioinformatics
 
-*Source: framework repo `Bioinformatics.md` (full) + `Evolution.md` §3 (empirical confirmations: molecular clock overdispersion, rate autocorrelation, LTEE power-law fitness trajectory, punctuated equilibrium). Chapter draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## 17.1 What this chapter develops
@@ -4755,8 +4719,6 @@ The framework's content from the substratum-level structural axioms of Chapter 1
 
 # Chapter 18
 # Beyond Quantum Mechanics and General Relativity
-
-*Source: framework repo `Beyond.md` (not yet in Zenodo release) plus new material on cosmic spatial topology and consciousness. Chapter draft v0.1 (Pass 1 of 3).*
 
 ---
 
@@ -5114,8 +5076,6 @@ The chapter is honest about what it does not address. The hard problem of consci
 # Chapter 19
 # Resolved and Open Problems in Fundamental Physics
 
-*Source: framework repo `Open.md` (not yet in Zenodo release). Chapter draft v0.1 (Pass 1 of 2).*
-
 ---
 
 ## 19.1 What this chapter develops
@@ -5390,8 +5350,6 @@ The book's content concludes here. The framework's empirical record (Chapters 5-
 # Appendix A
 # Prediction Status Table
 
-*Source: framework repo `OI_MASTER.md` §B.3 (SM/gravitational/neutrino prediction status table) + propagation across `SM.md`, `GR.md`, `Juno.md`, `Medicine.md`, `Bioinformatics.md`, `Evolution.md`, `BEC_Experiment.md`, `Beyond.md`, `Open.md`. Appendix draft v0.1 (Pass 1 of 1).*
-
 ---
 
 ## A.1 What this appendix provides
@@ -5620,8 +5578,6 @@ The framework's distinctive epistemic position is that it provides *structural f
 
 # Appendix B
 # Mathematical Derivations
-
-*Source: framework repo `Main.md` §3.2 (Stinespring derivation), `SM.md` Appendix A (Jordan-Chevalley projection), `SM.md` §4.9 Theorem 15 (anomaly cancellation), `GR.md` §3 (gap equation for $\hbar$), `Main.md` §§1-2 (lemma chain). Appendix draft v0.1 (Pass 1 of 1).*
 
 ---
 
@@ -5983,8 +5939,6 @@ The combined derivations constitute the framework's full mathematical content as
 
 # Appendix C
 # Common Objections and Framework Responses
-
-*Source: framework repo `Objections.md` + broader content on no-go theorems (PBR, Frauchiger-Renner, Colbeck-Renner, Bong-Wiseman), computational implementability (Wolpert), substratum-emergent operator distinction objections, and relationship to standard interpretations (MWI, Bohmian, QBism). Appendix draft v0.1 (Pass 1 of 2).*
 
 ---
 

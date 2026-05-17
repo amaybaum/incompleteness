@@ -24,7 +24,7 @@ Prior work (QBism, relational QM, 't Hooft's cellular automaton [1]) takes obser
 
 ### 1.2 The Starting Point
 
-The framework begins with a single empirical fact that cannot be doubted: *observation occurs*. An observer records distinguishable outcomes of interactions with a system not wholly under the observer's control. This is the cogito of Descartes made precise — not as philosophy, but as a mathematical constraint.
+The framework begins from a starting point usually stated in three words: *observation occurs*. An observer records distinguishable outcomes of interactions with a system not wholly under the observer's control. This is the cogito of Descartes made precise — not as philosophy, but as a mathematical constraint. As §1.2 makes explicit, that starting point is not a single indubitable fact but resolves into two axioms, one indubitable and one a substantive posit; the three-word phrase is the informal name for the pair.
 
 The axiom has structural content beyond contingent occurrence. Substrata that do not admit embedded observers exist as mathematical objects with dynamics; they do not produce physics in the present framework's sense. The axiom thus commits to our universe being in the observer-admitting subset of substrata — substrata whose bijection structure satisfies the conditions C1–C3 below for some partition. This is a structural commitment about the framework's domain, not a contingent fact about whether someone happens to be looking.
 
