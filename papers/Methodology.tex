@@ -4,8 +4,7 @@
 %
 \documentclass[
   11pt,
-  letterpaper,
-]{article}
+  letterpaper]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
 \ifPDFTeX
@@ -18,7 +17,6 @@
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 % lmodern unavailable; using xelatex defaults
-\input{unicode-fix}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -92,22 +90,26 @@ structures consistent with the empirical inputs is uniquely determined,
 and the residual gauge freedom is explicitly classified, converting
 ontic structural realism from a programmatic position into a
 constructively demonstrated one. Third, the framework's relation to the
-no-go theorems of quantum foundations --- Bell, Kochen--Specker,
-Page--Wootters-style results, Frauchiger--Renner --- is not piecemeal
-evasion but a single structural feature: each theorem assumes at the
-hidden-variable level a property that, in the framework, holds only at
-the observable level, and the trace-out construction is what mediates
-the two. Fourth, these combine into a general methodological proposal
---- that the well-posed question for fundamental physics is not ``what
-is fundamental?'' but ``what is the equivalence class of structures
-producing observations, and what are its representatives?'' ---
-\emph{physics modulo gauge}. The paper develops each commitment and
+no-go theorems of quantum foundations --- Bell, Kochen--Specker, the
+Pusey--Barrett--Rudolph reality theorems, Frauchiger--Renner --- is not
+piecemeal evasion but a single structural feature: each theorem assumes
+at the hidden-variable level a property that, in the framework, holds
+only at the observable level, and the trace-out construction is what
+mediates the two. Fourth, these combine into a general methodological
+proposal --- that the well-posed question for fundamental physics is not
+``what is fundamental?'' but ``what is the equivalence class of
+structures producing observations, and what are its representatives?''
+--- \emph{physics modulo gauge}. The paper develops each commitment and
 argues that, taken together, they constitute a replicable methodology
 rather than features peculiar to one framework. We are explicit
 throughout about developmental status: the foundational distillation of
 Part I is recent and is offered for scrutiny; the structural results of
-Parts II--III are summarized from the framework's technical papers and
-stated at the fidelity of faithful synthesis.
+Part II are summarized from the framework's technical papers at the
+fidelity of faithful synthesis; and Part III's four no-go cases are all
+developed results --- two (Bell, Frauchiger--Renner) summarized from the
+framework's technical papers, two (Kochen--Specker,
+Pusey--Barrett--Rudolph) developed in this paper as chains of reasoning
+on results those papers already establish.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -122,12 +124,12 @@ This is a paper about method. The Incompleteness framework is a body of
 physics --- it makes quantitative, parameter-free retrodictions across
 the Standard Model, derives the Bekenstein--Hawking entropy coefficient,
 and predicts a specific value for the JUNO neutrino measurement --- and
-that physics is developed in a sequence of technical papers to which
-this one is a companion. The present paper does not re-derive any of it.
-It asks a different question: \emph{what is the framework's
-methodology}, and is that methodology defensible and replicable
-independently of whether the framework's particular physical claims
-survive?
+that physics is developed in a sequence of technical papers ---
+{[}Main{]}, {[}SM{]}, {[}Substratum{]}, {[}GR{]} --- to which this one
+is a companion. The present paper does not re-derive any of it. It asks
+a different question: \emph{what is the framework's methodology}, and is
+that methodology defensible and replicable independently of whether the
+framework's particular physical claims survive?
 
 The question is worth separating because the framework's methodological
 posture is unusual in ways that a reader assessing the physics might not
@@ -203,15 +205,20 @@ once}\label{developmental-status-stated-once}}
 The four parts differ in maturity, and it is more honest to say so here
 than to qualify every paragraph. Part I is a recent distillation; its
 central no-go claim has been stress-tested but not yet refereed, and it
-is presented for exactly that scrutiny. Parts II and III summarize
-structural results --- uniqueness and gauge-classification theorems, and
-the no-go analysis --- established in the framework's technical papers;
-this paper states them at the fidelity of faithful synthesis and a
-reader who needs the theorem statements themselves should consult those
-papers. Part IV is a methodological proposal and is argued as such, not
-asserted. None of this paper's content is a derivation of physics; all
-of it concerns how the framework's physics is organized, and the claims
-of this paper stand or fall as methodology.
+is presented for exactly that scrutiny. Part II summarizes structural
+results --- the uniqueness and gauge-classification theorems ---
+established in the framework's technical papers, at the fidelity of
+faithful synthesis; a reader who needs the theorem statements themselves
+should consult those papers. Part III's no-go analysis treats four
+cases, all of them developed results: two --- Bell and
+Frauchiger--Renner --- established in the framework's technical papers,
+and two --- Kochen--Specker and Pusey--Barrett--Rudolph --- developed in
+this paper (Section 14), each as a chain of reasoning running on results
+the technical papers already establish. Part IV is a methodological
+proposal and is argued as such, not asserted. None of this paper's
+content is a derivation of physics; all of it concerns how the
+framework's physics is organized, and the claims of this paper stand or
+fall as methodology.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -324,14 +331,15 @@ it}\label{the-distinction-primitive-lineage-and-the-divergence-from-it}}
 
 Taking distinction as the primitive is not new, and the note should be
 explicit about its lineage. The major precedent is George
-Spencer-Brown's \emph{Laws of Form} (1969), which takes distinction as
-the irreducible starting point --- ``we cannot make an indication
-without drawing a distinction,'' and so ``the form of distinction'' is
-taken ``for the form'' itself. Spencer-Brown treats distinction as a
-proto-operation prior to all calculation and all representation: one
-cannot even compute \(1+1\) without first distinguishing the symbols.
-The note's Axiom 1 is, in its core, the same recognition --- that
-differentiation is the floor beneath which analysis does not reach.
+Spencer-Brown's \emph{Laws of Form} {[}SpencerBrown{]}, which takes
+distinction as the irreducible starting point --- ``we cannot make an
+indication without drawing a distinction,'' and so ``the form of
+distinction'' is taken ``for the form'' itself. Spencer-Brown treats
+distinction as a proto-operation prior to all calculation and all
+representation: one cannot even compute \(1+1\) without first
+distinguishing the symbols. The note's Axiom 1 is, in its core, the same
+recognition --- that differentiation is the floor beneath which analysis
+does not reach.
 
 But there is a deliberate and load-bearing divergence, and stating it
 precisely is part of what Axiom 1 contributes. Spencer-Brown's
@@ -732,43 +740,43 @@ existing literature on temporal succession. That literature both
 corroborates the result and sharpens the distinction of Section 5.1.
 
 \emph{Corroboration --- Whitrow.} G. J. Whitrow, in \emph{The Natural
-Philosophy of Time}, surveyed the causal theorists' attempts to define
-temporal succession --- the ordering of events by ``before'' and
-``after'' --- and found that they failed because they ``tacitly invoked
-the very temporal order to be defined.'' Whitrow's verdict on
-Reichenbach's mark method, among the most ingenious such attempts, was
-the same. He concluded that ``before'' and ``after'' must be accepted as
-elementary. ``Tacitly invoked'' is precisely the diagnosis of Section
-5.2: the attempts smuggle. That a major figure in the philosophy of time
-reached the same finding by independent survey is evidence the
-obstruction is real and not an artifact of this note's particular six
-framings.
+Philosophy of Time} {[}Whitrow{]}, surveyed the causal theorists'
+attempts to define temporal succession --- the ordering of events by
+``before'' and ``after'' --- and found that they failed because they
+``tacitly invoked the very temporal order to be defined.'' Whitrow's
+verdict on Reichenbach's mark method, among the most ingenious such
+attempts, was the same. He concluded that ``before'' and ``after'' must
+be accepted as elementary. ``Tacitly invoked'' is precisely the
+diagnosis of Section 5.2: the attempts smuggle. That a major figure in
+the philosophy of time reached the same finding by independent survey is
+evidence the obstruction is real and not an artifact of this note's
+particular six framings.
 
 \emph{The ordering question may be tractable --- and that does not touch
 the no-go.} It would overstate the result to claim the \emph{ordering}
-relation cannot be reductively defined. A recent account (Wassermann,
-``A reductive account of `before'\,'') proposes deriving ``before'' from
-a timeless ``existence asymmetry'' on the set of an object's realized
-states --- a genuine candidate for answering the ordering question
-non-circularly. But the construction begins from \(M_X\), the set of an
-object's actually-realized states. A set of multiple states of one
-persisting object is already a temporal domain: one object, many states,
-is exactly domain multiplicity. The account derives the \emph{ordering}
-of those states; it assumes the \emph{multiplicity}. This is not a
-criticism of the account --- it answers the ordering question, which is
-the question it set out to answer. It is an illustration of the Section
-5.1 distinction: even the most sophisticated reductive account of
-``before'' takes the multiplicity as its starting set and cannot, by its
-own construction, derive it.
+relation cannot be reductively defined. A recent account (Wassermann
+{[}Wassermann{]}) proposes deriving ``before'' from a timeless
+``existence asymmetry'' on the set of an object's realized states --- a
+genuine candidate for answering the ordering question non-circularly.
+But the construction begins from \(M_X\), the set of an object's
+actually-realized states. A set of multiple states of one persisting
+object is already a temporal domain: one object, many states, is exactly
+domain multiplicity. The account derives the \emph{ordering} of those
+states; it assumes the \emph{multiplicity}. This is not a criticism of
+the account --- it answers the ordering question, which is the question
+it set out to answer. It is an illustration of the Section 5.1
+distinction: even the most sophisticated reductive account of ``before''
+takes the multiplicity as its starting set and cannot, by its own
+construction, derive it.
 
 \emph{The same pattern in physics.} The timeless approaches to quantum
 gravity exhibit the identical structure. Barbour's timeless physics
-takes ``possible configurations of the universe and a law'' as
-fundamental and derives time --- but the configuration space, the
-multiplicity of possible instants, is primitive; what is derived is the
-ordering and the arrow. The Wheeler-DeWitt equation is timeless and time
-is recovered semiclassically --- but on a space of geometries given at
-the outset. Even recent attempts to derive time from quantum
+{[}Barbour{]} takes ``possible configurations of the universe and a
+law'' as fundamental and derives time --- but the configuration space,
+the multiplicity of possible instants, is primitive; what is derived is
+the ordering and the arrow. The Wheeler-DeWitt equation is timeless and
+time is recovered semiclassically --- but on a space of geometries given
+at the outset. Even recent attempts to derive time from quantum
 entanglement have been observed to ``use time in the set-up.'' Across
 both literatures --- philosophy of time and the physics of timeless
 approaches --- the same result holds: accounts derive the ordering of
@@ -779,36 +787,37 @@ reached independently, not one that any known account answers.
 
 \emph{Difference and repetition --- Deleuze.} The pairing of this note's
 two axioms --- differentiation, and its recurrence --- is the explicit
-subject of Deleuze's \emph{Difference and Repetition}, the major modern
-treatment of the difference/repetition pair. The engagement matters
-because Deleuze's account of repetition is, at first sight, in tension
-with this note's Axiom 2. Deleuze insists repetition is ``difference
-without a concept'' --- \emph{not} the recurrence of the same but the
-production of novelty; and he ties repetition to the synthesis of time,
-citing Hume's observation that a repeated series (AB, AB, AB\ldots)
-itself produces something new, a habit, an expectation. One might read
-this as a claim that recurrence is not a primitive but a synthesis, and
-that time is its product --- which would make Axiom 2 a derived
-structure rather than an axiom. It does not. Deleuze's syntheses operate
-on an \emph{already-given manifold} of instants: the AB,AB series
-already has its multiple terms; the passive synthesis of habit contracts
-a succession that is already there. What Deleuze derives --- habit,
-expectation, the directedness from past through present to future --- is
-temporal \emph{ordering and arrow}, the Section 5.1 ordering level. He
-does not derive, and does not claim to derive, the bare existence of
-more than one instant. Deleuzian repetition therefore stands with
-Wassermann and Barbour: it presupposes the multiplicity and works upon
-it. It corroborates the no-go rather than threatening it. Two points of
-contrast are worth stating plainly. First, this note uses ``recurs'' in
-Axiom 2 in a deliberately thinner sense than Deleuze's ``repetition'':
-Axiom 2 asserts only that differentiation is instantiated more than once
-over, taking no position on whether the recurrence reproduces the same
-or produces novelty --- that richer question is downstream of the bare
-domain-existence Axiom 2 asserts. Second, where Deleuze makes difference
-the sole ontological primitive and repetition a synthesis, this note
-finds two posits, not one, precisely because --- as Section 5.2
-establishes --- the recurrence cannot be synthesized from the difference
-without a premise that already contains it.
+subject of Deleuze's \emph{Difference and Repetition} {[}Deleuze{]}, the
+major modern treatment of the difference/repetition pair. The engagement
+matters because Deleuze's account of repetition is, at first sight, in
+tension with this note's Axiom 2. Deleuze insists repetition is
+``difference without a concept'' --- \emph{not} the recurrence of the
+same but the production of novelty; and he ties repetition to the
+synthesis of time, citing Hume's observation that a repeated series (AB,
+AB, AB\ldots) itself produces something new, a habit, an expectation.
+One might read this as a claim that recurrence is not a primitive but a
+synthesis, and that time is its product --- which would make Axiom 2 a
+derived structure rather than an axiom. It does not. Deleuze's syntheses
+operate on an \emph{already-given manifold} of instants: the AB,AB
+series already has its multiple terms; the passive synthesis of habit
+contracts a succession that is already there. What Deleuze derives ---
+habit, expectation, the directedness from past through present to future
+--- is temporal \emph{ordering and arrow}, the Section 5.1 ordering
+level. He does not derive, and does not claim to derive, the bare
+existence of more than one instant. Deleuzian repetition therefore
+stands with Wassermann and Barbour: it presupposes the multiplicity and
+works upon it. It corroborates the no-go rather than threatening it. Two
+points of contrast are worth stating plainly. First, this note uses
+``recurs'' in Axiom 2 in a deliberately thinner sense than Deleuze's
+``repetition'': Axiom 2 asserts only that differentiation is
+instantiated more than once over, taking no position on whether the
+recurrence reproduces the same or produces novelty --- that richer
+question is downstream of the bare domain-existence Axiom 2 asserts.
+Second, where Deleuze makes difference the sole ontological primitive
+and repetition a synthesis, this note finds two posits, not one,
+precisely because --- as Section 5.2 establishes --- the recurrence
+cannot be synthesized from the difference without a premise that already
+contains it.
 
 \hypertarget{the-status-of-succession-a-second-axiom}{%
 \subsubsection{5.4 The status of succession --- a second
@@ -1297,13 +1306,13 @@ reconstruction theorem addresses the converse. It asks whether observed
 physics determines the construction, and answers that it determines it
 uniquely, up to a gauge equivalence that the next section classifies.
 
-Stated as faithful synthesis of the framework's substratum paper: given
-empirical inputs E1--E7 --- quantum mechanics with Bell-inequality
-violations attaining the Tsirelson bound, finite boundary entropy,
-spatial isotropy, propagating gravity, stable matter, boundary-entropy
-concordance --- and structural assumptions A1--A6 --- finiteness,
-determinism, bounded coupling degree, center independence, linearity,
-background independence --- the equivalence class
+Stated as faithful synthesis of the framework's substratum paper
+{[}Substratum{]}: given empirical inputs E1--E7 --- quantum mechanics
+with Bell-inequality violations attaining the Tsirelson bound, finite
+boundary entropy, spatial isotropy, propagating gravity, stable matter,
+boundary-entropy concordance --- and structural assumptions A1--A6 ---
+finiteness, determinism, bounded coupling degree, center independence,
+linearity, background independence --- the equivalence class
 \([(S,\varphi)]/\mathcal{G}_{\text{sub}}\) is uniquely determined. The
 reconstruction yields, as forced outputs rather than fitted parameters,
 a finite set with a bijection of bounded coupling degree and statistical
@@ -1499,12 +1508,13 @@ RESULTS}\label{part-iii-per-theorem-evasion-of-no-go-results}}
 that its relation to the no-go theorems of quantum foundations is
 governed by a single structural feature rather than by four separate
 escapes. The Bell and Wigner's-friend analyses summarized here are
-established in the framework's Main paper; the unifying account --- that
-each theorem assumes at the hidden-variable level a property the
-framework grants only at the observable level --- is the present paper's
-synthesis of those analyses, and the Kochen--Specker and reality-theorem
-cases are presented as the synthesis predicts them rather than as fully
-developed in the technical papers. The status is flagged accordingly.}
+established in the framework's Main paper; the Kochen--Specker and
+reality-theorem cases are developed in this part, each as a chain of
+reasoning running on results the technical papers already establish. The
+unifying account --- that the framework's two-level, trace-out
+architecture is what each theorem's assumption runs aground on --- is
+the present paper's synthesis, and the developmental status of each case
+is flagged accordingly.}
 
 \hypertarget{the-no-go-theorems-as-a-family}{%
 \subsection{13. THE NO-GO THEOREMS AS A
@@ -1512,14 +1522,14 @@ FAMILY}\label{the-no-go-theorems-as-a-family}}
 
 A deterministic-substratum account of quantum mechanics must answer to
 the no-go theorems of quantum foundations. These results --- Bell's
-theorem, the Kochen--Specker theorem, the reality theorems in the
-Pusey--Barrett--Rudolph family, the Frauchiger--Renner theorem --- each
-show that some intuitively natural class of accounts of quantum
-mechanics cannot reproduce its predictions. A framework that posits a
-deterministic substratum underneath quantum mechanics is, on its face,
-exactly the kind of account these theorems constrain, and a reader
-encountering such a framework is right to ask, immediately, how it
-survives them.
+theorem {[}Bell{]}, the Kochen--Specker theorem {[}KochenSpecker{]}, the
+reality theorems in the Pusey--Barrett--Rudolph family {[}PBR{]}, the
+Frauchiger--Renner theorem {[}FrauchigerRenner{]} --- each show that
+some intuitively natural class of accounts of quantum mechanics cannot
+reproduce its predictions. A framework that posits a deterministic
+substratum underneath quantum mechanics is, on its face, exactly the
+kind of account these theorems constrain, and a reader encountering such
+a framework is right to ask, immediately, how it survives them.
 
 The framework's answer could in principle be piecemeal: a separate
 manoeuvre for each theorem, each manoeuvre exploiting whatever
@@ -1537,40 +1547,54 @@ some property --- locality and factorizability, or noncontextuality, or
 a form of state-realism, or the universality of a single quantum
 description --- and shows that no account having that property at the
 level of its hidden or underlying variables can reproduce quantum
-mechanics. In the framework, the property in question does hold --- but
-at the level of the \emph{observable emergent description}, not at the
-level of the hidden substratum. The substratum is the hidden-variable
-level the theorems quantify over, and at that level the assumed property
-fails; the emergent quantum description is where the property holds, and
-that level is not a hidden-variable account at all but quantum mechanics
-itself. The trace-out construction --- the marginalization of the
-deterministic substratum dynamics over the unobserved hidden sector,
-which is what produces the emergent quantum description in the first
-place --- is precisely the operation that separates the two levels. So
-the framework's relation to the whole family of theorems is mediated by
-the one piece of machinery already at its core. Each theorem identifies
-a property; the trace-out is what places that property at the observable
-level and denies it to the substratum; and the theorem's ``no account
-can do this'' is met by ``the substratum does not have the property the
-theorem forbids, and the level that has it is not a hidden-variable
-account.''
+mechanics. The framework has two levels of description --- a hidden
+deterministic substratum and an emergent quantum description --- joined
+by the trace-out, the marginalization of the substratum dynamics over
+the unobserved hidden sector that produces the emergent description in
+the first place. The framework's relation to the whole family of
+theorems is mediated by that one piece of machinery, already at its
+core, and fixed before any no-go theorem is considered.
+
+The trace-out separates the two levels, and that separation is what each
+theorem's assumption runs aground on --- though not in identical form
+for all four, and the differences are worth stating precisely rather
+than smoothing over. For three of the theorems the pattern is the same:
+the assumed property --- Bell's factorizability, Frauchiger--Renner's
+single universal description, PBR's preparation-independence --- holds
+at the emergent level, where it is unobjectionable because that level
+simply is quantum mechanics, and fails at the substratum level, where
+the theorem needed it. For the fourth, Kochen--Specker, the property ---
+a noncontextual valuation of the observables --- holds at \emph{neither}
+level: the emergent level is quantum mechanics, which by
+Kochen--Specker's own content has no noncontextual valuation, and the
+substratum level has a definite configuration that is not a valuation of
+the emergent observables at all. What the four cases share is therefore
+not a single ``emergent-yes, substratum-no'' template but the
+architecture itself: the trace-out, by interposing a partition-dependent
+marginalization between substratum and emergent observable, is what
+makes the noncontextual valuation unavailable in the KS case and what
+places the property at the emergent level only in the other three. One
+architecture; four manifestations of working within it. The theorem's
+``no account can do this'' is met, in each case, by locating exactly
+where the framework's two-level structure declines to supply the object
+the theorem's assumption is about.
 
 \hypertarget{the-four-cases}{%
 \subsection{14. THE FOUR CASES}\label{the-four-cases}}
 
 \emph{A status note, stated before the cases and not buried within them.
-Two of the four cases below --- Bell and Frauchiger--Renner --- are
-developed in the framework's technical papers, and are summarized here
-faithfully. The other two --- Kochen--Specker and the
-Pusey--Barrett--Rudolph reality theorems --- are} not \emph{worked out
-in the framework's technical papers as of this writing. They are
-presented here as the unifying account of Section 13 predicts they must
-go: each is an argument this paper proposes, not a result the framework
-has established. A reader, and especially a referee, should treat the
-Bell and Frauchiger--Renner subsections as reportage and the
-Kochen--Specker and PBR subsections as conjecture --- well-motivated by
-the single structural feature, but conjecture. The completion of the
-latter two is identified as work outstanding (Section 15).}
+All four cases below are developed results, not conjectures. Two ---
+Bell and Frauchiger--Renner --- are developed in the framework's Main
+paper and are summarized here faithfully. The other two ---
+Kochen--Specker and the Pusey--Barrett--Rudolph reality theorems --- are
+developed in this section, each as a chain of reasoning that runs
+entirely on results already established in the framework's technical
+papers: the Kochen--Specker case on the framework's equivalence with
+quantum mechanics (Main paper), and the PBR case on that equivalence
+together with the spatial-Markov and tensor-product structure of Main
+§3.3--3.4. A reader, and especially a referee, may treat all four
+subsections as developed; the two developed here are flagged case by
+case so the referee can check the chain.}
 
 \textbf{Bell's theorem.} Bell's theorem shows that no local
 hidden-variable theory with a factorizable joint distribution can
@@ -1631,66 +1655,81 @@ about. \emph{(Established: framework Main paper.)}
 noncontextual hidden-variable assignment --- one assigning every
 observable a definite value independent of which compatible set of
 observables is measured alongside it --- can reproduce quantum
-mechanics. Presented as the Section 13 synthesis predicts, the
-framework's relation to it is the following. The framework does assign
-the substratum a definite configuration; the question is whether the
-values of emergent observables are noncontextual functions of that
-configuration. They are not, and for a structural reason already in the
-construction: an emergent observable's value is produced by the
-trace-out, and the trace-out is taken with respect to a partition. Which
-emergent observables are jointly defined depends on the partition; the
-value an observable takes is a feature of the reduced description, not a
-partition-independent function of the substratum configuration.
-Contextuality, in the framework, is the partition-dependence of the
-emergent description --- the same partition-relativity that Part II
-identified as gauge and that the Frauchiger--Renner case turns on. The
-hidden level, the substratum configuration, is definite; but it is not a
-\emph{noncontextual value assignment to emergent observables}, because
-emergent observables are not functions of it independent of partition.
-The property Kochen--Specker forbids --- noncontextual hidden values ---
-is one the framework does not claim: its hidden level is a substratum
-configuration, not a context-free valuation of the observables the
-theorem concerns.
+mechanics. The framework's relation to it is established by a short
+argument on a result the framework already has. The framework reproduces
+quantum mechanics: the Main paper's characterization theorem is a full
+equivalence between the embedded-observer reduced description and
+unitary quantum mechanics. Kochen--Specker is a theorem \emph{about}
+quantum mechanics --- it states that the observable algebra of quantum
+theory in dimension three or higher admits no noncontextual value
+assignment. Any account that reproduces quantum mechanics therefore
+reproduces a structure with no noncontextual valuation; the framework's
+valuation of the emergent observables is necessarily contextual, on pain
+of contradicting the framework's own equivalence theorem. Contextuality
+is thus not a property the framework must be argued into --- it is
+forced by the equivalence.
 
-This case is flagged as the synthesis predicts rather than as the
-technical papers develop in detail; a full treatment, making the
-partition-dependence of emergent-observable valuation precise and
-confirming it has the structure Kochen--Specker contextuality requires,
-is identified work, not completed work. \emph{(Conjecture: proposed by
-this paper, not established in the framework's technical papers.)}
+What the framework adds is the \emph{account} of that contextuality, and
+here the Section 13 architecture does the work. An emergent observable's
+value is produced by the trace-out, and the trace-out is taken with
+respect to a partition; measuring a compatible set of observables is a
+specific apparatus coupling, and the framework models a measurement
+context as exactly such a coupling-and-partition configuration (the
+double-slit treatment of Main §3.4 is the worked instance: a detector
+couples the system to additional visible-sector degrees of freedom and
+thereby changes the transition matrix). Which emergent observables are
+jointly defined, and the value each takes, are features of the reduced
+description fixed by that partition --- not partition-independent
+functions of the substratum configuration. Contextuality, in the
+framework, \emph{is} the partition-dependence of emergent valuation: the
+same partition-relativity Part II identified as gauge. The framework
+need not reconstruct the Kochen--Specker colouring obstruction itself;
+that obstruction is inherited intact with quantum mechanics. The
+framework is a deterministic hidden-variable theory whose hidden level
+is a definite substratum configuration but whose emergent valuation is
+contextual --- precisely the kind of hidden-variable theory
+Kochen--Specker leaves open. \emph{(Established: this paper, on the Main
+paper's equivalence theorem.)}
 
 \textbf{The reality theorems (Pusey--Barrett--Rudolph family).} The PBR
 theorem shows that, given a natural assumption about how independently
-prepared systems combine, the quantum state cannot be a mere probability
-distribution over deeper states of reality --- it must be ontic, in
-correspondence with the real state, rather than epistemic. A
-deterministic-substratum framework is naturally read as making the
-quantum state epistemic: the state is the observer's representation of
-their incomplete knowledge of the substratum configuration. Presented as
-the synthesis predicts, the framework's relation to PBR turns on the
-same level distinction. The quantum state in the framework is epistemic
-with respect to the \emph{substratum} --- it encodes incomplete
-knowledge of the hidden configuration. But the framework's emergent
-quantum description is the genuine article of quantum mechanics, and the
-quantum state functions ontically \emph{within} that emergent
-description, where it is the complete specification the emergent
-dynamics acts on. PBR's assumption --- the preparation-independence
-condition on how systems combine --- is a condition on the
-hidden-variable level; the framework's hidden level is the substratum,
-whose joint structure is, as the Bell case already established,
-non-factorizable, so independently prepared systems do not combine in
-the product manner PBR's assumption requires. The state is epistemic
-toward the substratum and ontic within the emergent theory, and PBR's
-combining assumption is denied at the substratum level by the same
-non-factorizability that meets Bell's theorem.
+prepared systems combine --- the Preparation Independence Postulate,
+that the joint ontic-state distribution of two separately prepared
+systems is the product of the single-system distributions --- the
+quantum state cannot be a mere probability distribution over deeper
+states of reality, but must be ontic. A deterministic-substratum
+framework is naturally read as making the quantum state epistemic: the
+state is the observer's representation of incomplete knowledge of the
+substratum configuration. The framework's relation to PBR turns on the
+same level distinction as the other cases, and is established on results
+the Main paper already contains.
 
-This case, too, is presented as the synthesis predicts rather than as
-fully developed; the precise claim --- that PBR preparation-independence
-is exactly the factorizability the framework's substratum already lacks
---- is a structural identification the present paper proposes and that
-the technical papers would need to confirm in detail. \emph{(Conjecture:
-proposed by this paper, not established in the framework's technical
-papers.)}
+The preparation-independence the postulate requires is
+\emph{unconditional} product independence. The framework provides
+product structure for separated systems --- but conditionally, not
+unconditionally. By the spatial Markov property of the bounded-degree,
+range-one coupling graph (Main §3.3), space-like separated subsystems
+with disjoint coupling neighbourhoods are independent \emph{given
+boundary data}; correspondingly the emergent description factorizes,
+\(\mathcal{H}_{V_A} \otimes \mathcal{H}_{V_B}\) with
+\(\rho_{AB} = \rho_A \otimes \rho_B\), but --- as Main §3.4 states
+explicitly --- only conditioned on boundary data, with the systems'
+correlation arising from shared boundary history. Conditional
+independence given a non-trivial shared variable is precisely \emph{not}
+the unconditional product independence the Preparation Independence
+Postulate asserts; it is a common-cause structure, and the common cause
+--- co-embedding in one substratum, with shared boundary data --- is
+present at preparation and requires no interaction between the systems.
+PBR's no-go applies to models that satisfy the postulate; the framework
+is not one. The trace-out is again the mediator: marginalizing the
+shared boundary data is exactly what carries the emergent conditional
+factorization into substratum non-factorization. Note that this argument
+does not depend on classifying the framework as ψ-epistemic in PBR's
+single-level sense --- PBR constrains models that are ψ-epistemic
+\emph{and} postulate-satisfying, and the framework's failure of the
+postulate places it outside the theorem's scope regardless.
+\emph{(Established: this paper, on the Main paper's equivalence theorem
+and the spatial-Markov and tensor-product structure of Main §3.3--3.4.)}
 
 \hypertarget{why-the-unification-is-not-ad-hoc}{%
 \subsection{15. WHY THE UNIFICATION IS NOT AD
@@ -1705,17 +1744,22 @@ not apply, and the reason is structural rather than rhetorical.
 The four cases are not four chosen assumptions. They are four
 manifestations of one feature: the framework has two levels of
 description, a hidden deterministic substratum and an emergent quantum
-description, related by the trace-out, and the no-go theorems'
-assumptions are properties that hold at the emergent level and fail at
-the substratum level. Bell's factorizability, Frauchiger--Renner's
-universal description, Kochen--Specker's noncontextual valuation, PBR's
-preparation-independence --- in each case the framework places the
-property at the emergent level, where it is unobjectionable because the
-emergent level simply is quantum mechanics, and denies it at the
-substratum level, where the theorem needed it. The framework did not
-select four assumptions to break. It has one architecture --- two levels
-and a trace-out --- and that architecture, fixed before any no-go
-theorem is considered, determines the response to all of them at once.
+description, related by the trace-out, and each no-go theorem's
+assumption runs aground on the separation that trace-out enforces. In
+three cases --- Bell's factorizability, Frauchiger--Renner's universal
+description, PBR's preparation-independence --- the property holds at
+the emergent level, where it is unobjectionable because that level
+simply is quantum mechanics, and fails at the substratum level, where
+the theorem needed it. In the fourth --- Kochen--Specker's noncontextual
+valuation --- the property holds at neither level, because the trace-out
+interposes a partition-dependent step that makes a noncontextual
+valuation of the emergent observables unavailable in principle (Section
+13). The common factor is not a single ``emergent-yes, substratum-no''
+slogan applied four times; it is the architecture --- two levels and a
+trace-out --- that, fixed before any no-go theorem is considered,
+determines the response to all of them at once. The framework did not
+select four assumptions to break; it has one structure, and the four
+responses are four things that structure does.
 
 The test of non-ad-hocness is whether the response to the theorems was
 available before the theorems were examined, or constructed afterward to
@@ -1732,17 +1776,17 @@ viewed four times.
 
 The honest status, restated: the Bell and Frauchiger--Renner cases are
 developed in the framework's Main paper and summarized here faithfully;
-the Kochen--Specker and PBR cases are presented as the unifying
-synthesis predicts they must go, and their full technical development
---- confirming in detail that KS contextuality is the
-partition-dependence of emergent valuation, and that PBR
-preparation-independence is the substratum non-factorizability --- is
-identified rather than completed work. The methodological claim of Part
-III is robust to this: the claim is that the framework's relation to the
-no-go family is governed by one architectural feature, and that claim is
-exhibited already by the two cases the technical papers develop. The
-remaining two cases are where the synthesis predicts the same feature
-will be found.
+the Kochen--Specker and PBR cases are developed in Section 14 of this
+paper, each as a chain of reasoning that runs on results the framework's
+technical papers already establish --- the equivalence with quantum
+mechanics for the Kochen--Specker case, and that equivalence together
+with the spatial-Markov and tensor-product structure of Main §3.3--3.4
+for the PBR case. All four cases are thus developed results rather than
+conjectures, though two are developed here rather than in the technical
+papers, and a reader is invited to check those two chains directly. The
+methodological claim of Part III stands on all four: the framework's
+relation to the no-go family is governed by one architectural feature,
+and each of the four cases exhibits it.
 
 \hypertarget{part-iv-physics-modulo-gauge}{%
 \section{PART IV --- PHYSICS MODULO
@@ -1953,8 +1997,140 @@ horizon, in the same spirit in which Part I left the succession no-go
 open to a derivation that has not been found. The methodology is offered
 for use and for criticism, not asserted as proven.
 
+\hypertarget{gauge-freedom-and-observational-incompleteness}{%
+\subsection{19. GAUGE FREEDOM AND OBSERVATIONAL
+INCOMPLETENESS}\label{gauge-freedom-and-observational-incompleteness}}
+
+\emph{This section is the most recent addition to the paper and the
+least settled; it is developmental even by the standards of the rest,
+and is offered as a proposal for scrutiny. It connects the methodology
+of Parts II--IV to the framework's core physical thesis --- the
+incompleteness of observation --- and argues the two are, on a precisely
+delimited class, one principle.}
+
+The framework takes its name from a thesis in physics: that an observer,
+being a proper part of the system it observes, cannot fully resolve that
+system --- the trace-out over the unobserved remainder destroys
+information that no embedded observer can recover. Observational
+incompleteness, so stated, sounds like a limitation: a deficit, a wall
+past which the observer cannot see. Parts II through IV have been about
+something that sounds quite different --- gauge freedom, the
+\emph{surplus} in a description, the respects in which distinct
+representations say the same thing. A deficit and a surplus appear to be
+opposites. This section argues they are not --- that on a precisely
+identified class of cases, gauge freedom and observational
+incompleteness are the same fact seen from two sides, and that
+recognizing this is what lets the methodology of physics modulo gauge
+connect to the framework's foundational physics rather than sit beside
+it.
+
+Begin with the apparent opposition, because dissolving it is the crux.
+Gauge freedom is descriptive redundancy: two representations, no
+observable difference, the surplus discardable. Observational
+incompleteness is missing information: a real system, an embedded
+observer, a fact the observer cannot reach. Surplus versus deficit. But
+ask \emph{why} a gauge difference is surplus. The state-relabelings of
+the framework's substratum gauge group are surplus precisely because no
+observation distinguishes the relabeled substrata. The redundancy is not
+a free-standing fact about the representation; it is \emph{constituted
+by} the observer's inability to tell the representatives apart. ``There
+is surplus structure here'' and ``the embedded observer cannot access
+this difference'' are not opposed claims --- they are one situation,
+described from the representation side and from the observer side. The
+surplus \emph{is} an inaccessibility; the inaccessibility \emph{is} what
+makes it surplus.
+
+This identification must be delimited, because not every observational
+incompleteness is gauge, and the cases that are not are as instructive
+as the cases that are. Consider two ways the framework's embedded
+observer fails to have a fact.
+
+In the first, there is no fact to have. The exact extent of the hidden
+sector, the labels on substratum states, the question of whether the
+underlying contrast is tenseless or temporal (the subject of this
+paper's foundational Part I) --- for each of these, the framework's own
+gauge classification establishes that \emph{no observable depends on the
+answer}. There is not a hidden truth the observer is failing to reach;
+there is no truth there to reach, because a difference that no
+observation could ever register is not a difference in fact. Call this
+\textbf{gauge incompleteness}: the observer's picture is incomplete in
+the bookkeeping sense that a question can be posed, but the
+incompleteness is empty, because the question has no answer-bearing
+content. This species of incompleteness \emph{is} gauge freedom --- the
+name records the identification, which is a result and not a
+stipulation.
+
+In the second, there is a definite fact, and the observer still cannot
+reach it. The observer's own future state, under the deterministic
+substratum dynamics, is fixed --- there is a fact of the matter about
+it. But to compute that future the observer would need to be a system at
+least as large as the whole of which it is a proper part, and it is not;
+it is \(V \subsetneq S\). Here the incompleteness is genuine and the
+missing item is a real fact, withheld not by the absence of content but
+by the observer's finite computational reach. Call this
+\textbf{computational incompleteness}. It is \emph{not} gauge --- a
+larger computer, still inside the same physics, could reach the fact;
+nothing about it is surplus.
+
+The distinction between these two species is, as far as we are aware,
+not drawn in the existing literature on observational limitation, and
+drawing it is part of this section's contribution. With it in place, the
+identification can be stated exactly. \emph{Gauge freedom is identical
+to gauge incompleteness --- the species of observational incompleteness
+in which the inaccessible question has no answer-bearing content.} It is
+not identical to computational incompleteness. ``Physics modulo gauge,''
+the methodology, and ``observational incompleteness,'' the physics, name
+one principle restricted to the gauge-incompleteness species: the
+methodology-side name and the physics-side name of the same fact.
+
+One objection must be met head-on, because it is the natural one for a
+reader versed in the philosophy of gauge theories. It will be said that
+``surplus structure'' is contested --- that there is a body of work
+(Nguyen, Teh, and Wells {[}NguyenTehWells{]}) arguing surplus structure
+is not eliminable but essential, and that an identification of gauge
+with a \emph{species of incompleteness} cannot be cleaner than the
+contested notion it leans on. The reply is that the contest is real but
+does not touch this identification, and the reason is a distinction
+drawn by Bradley and Weatherall {[}BradleyWeatherall{]}: ``surplus
+structure'' carries two nearly opposite senses. In one ---
+\emph{formulational} surplus --- the structure is what a theory needs in
+order to be written as a local field theory; this is the sense in which
+surplus is essential, and the Nguyen--Teh--Wells result concerns it. In
+the other --- \emph{interpretational} surplus --- the structure is
+descriptive redundancy with no fact of the matter as to which
+representative obtains. The framework's gauge --- the substratum gauge
+group, classified by the gauge-classification theorem, with the
+equivalence class taken as what is real --- is interpretational surplus,
+unambiguously: the theorem classifies transformations that preserve
+every observable. The ``surplus is essential'' result lives in the
+formulational sense and does not transfer. The identification of gauge
+with gauge incompleteness inherits no controversy it has not earned; it
+concerns interpretational surplus, and for that sense the ``no fact of
+the matter'' characterization is exactly standard.
+
+There is a consequence of this identification that is worth stating in
+closing, because it is the point at which the paper's methodology turns
+back on the paper's own first part. If gauge freedom is the
+gauge-incompleteness species of observational incompleteness, then
+physics modulo gauge --- the methodology --- is a methodology \emph{for
+working in the presence of observational incompleteness}. And
+observational incompleteness, in this framework, is not a special
+circumstance; it is the condition of any embedded observer, which is to
+say of any observer at all. The methodology is then not a special
+technique for a special class of theories. It is the general form that
+honest physics takes once it is admitted that the physicist is inside
+the system. Part I found that the framework's own foundation, examined
+closely, has a feature --- whether the underlying contrast is tenseless
+or temporal --- that is gauge: a question the framework can pose and
+that no observation it could ever make will answer. That the framework's
+\emph{own foundational description} contains gauge incompleteness is not
+an embarrassment to be hidden. It is the methodology applying to itself,
+exactly as it should, if the methodology is correct: the physicist is
+inside the system even when the system in question is the physicist's
+own foundation.
+
 \hypertarget{conclusion}{%
-\subsection{19. CONCLUSION}\label{conclusion}}
+\subsection{20. CONCLUSION}\label{conclusion}}
 
 This paper has articulated the methodology of the Incompleteness
 framework through four commitments, and it is worth stating, in closing,
@@ -1972,7 +2148,12 @@ foundations is one architectural feature --- two levels and a trace-out
 --- and not four separate escapes. Part IV drew these together into
 physics modulo gauge: the proposal that the well-posed question for
 fundamental physics is the equivalence class and its representatives,
-not a single crowned fundamental.
+not a single crowned fundamental. Section 19, finally, identified that
+gauge freedom is one species of the framework's own foundational thesis
+--- observational incompleteness --- so that the methodology and the
+physics are, on that species, one principle, and the methodology is
+revealed as the general form physics takes for an observer inside the
+system it describes.
 
 The unifying thread is a single discipline: track precisely the
 distinction between what is committed and what is not. At the
@@ -1999,13 +2180,17 @@ they conclude about the physics. We have marked, throughout, where the
 paper's claims are developmental: the foundational distillation of Part
 I is recent and offered for scrutiny; the structural theorems of Part II
 are summarized from the technical papers at the fidelity of faithful
-synthesis; two of the four no-go cases in Part III are presented as the
-synthesis predicts rather than as fully developed; and the generality of
-the Part IV methodology is offered as a proposal, not a result. What is
-not developmental is the discipline itself --- track what is committed,
-distinguish it from what is not --- and the claim that, applied to the
-foundations of physics, that discipline is what the framework's
-methodology consists in.
+synthesis; the four no-go cases in Part III are all developed results,
+two of them developed in this paper rather than in the technical papers
+and flagged for the referee accordingly; the generality of the Part IV
+methodology is offered as a proposal, not a result; and the
+identification of gauge freedom with the gauge-incompleteness species of
+observational incompleteness, in Section 19, is the most recent and
+least settled material in the paper, offered explicitly as a proposal
+for scrutiny. What is not developmental is the discipline itself ---
+track what is committed, distinguish it from what is not --- and the
+claim that, applied to the foundations of physics, that discipline is
+what the framework's methodology consists in.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2015,8 +2200,8 @@ methodology consists in.
 This paper articulates, for a philosophy-of-physics readership, the
 methodological posture developed across the Incompleteness framework's
 technical papers. Part I develops the framework's foundational
-commitment; Parts II and III summarize structural results established in
-the framework's substratum and main papers.
+commitment; Parts II and III draw on structural results from the
+framework's substratum and main papers.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2044,6 +2229,10 @@ Revolution in Physics.} Oxford University Press.
 
 {[}Bell{]} Bell, J. S. (1964). ``On the Einstein Podolsky Rosen
 Paradox.'' \emph{Physics Physique Fizika} 1, 195--200.
+
+{[}BradleyWeatherall{]} Bradley, C., and Weatherall, J. O. (2020). ``On
+Representational Redundancy, Surplus Structure, and the Hole Argument.''
+\emph{Foundations of Physics} 50(4), 270--293.
 
 {[}Deleuze{]} Deleuze, G. (1968). \emph{Différence et répétition.}
 Presses Universitaires de France. English: \emph{Difference and
@@ -2089,6 +2278,10 @@ Philosophy of Science.}
 
 {[}McTaggart{]} McTaggart, J. M. E. (1908). ``The Unreality of Time.''
 \emph{Mind} 17, 457--474.
+
+{[}NguyenTehWells{]} Nguyen, J., Teh, N. J., and Wells, L. (2020). ``Why
+Surplus Structure Is Not Superfluous.'' \emph{British Journal for the
+Philosophy of Science} 71(2), 665--695.
 
 {[}PBR{]} Pusey, M. F., Barrett, J., and Rudolph, T. (2012). ``On the
 reality of the quantum state.'' \emph{Nature Physics} 8, 475--478.

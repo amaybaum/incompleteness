@@ -1071,7 +1071,7 @@ The universality-class framework has limits worth flagging.
 
 ### 13.5 Relationship to the methodology paper
 
-The universality-class framework is closely related to a planned methodology paper articulating OI's overall posture for philosophy-of-physics venues. The methodology paper would cover the broader posture (constructive structural realism, single-foundational-commitment derivation, per-theorem no-go evasion, "physics modulo gauge" reframing); the universality-class framework provides the technical machinery for the structural-realism component when applied to comparison with other unification programs. The two contributions are companions: the methodology paper situates OI's posture in the philosophy-of-physics literature; the universality-class framework provides one technical articulation of what that posture entails.
+The universality-class framework is closely related to a planned methodology paper articulating OI's overall posture for philosophy-of-physics venues. The methodology paper would cover the broader posture (constructive structural realism, single-foundational-commitment derivation, the architecture-level engagement with the no-go results of quantum foundations, "physics modulo gauge" reframing); the universality-class framework provides the technical machinery for the structural-realism component when applied to comparison with other unification programs. The two contributions are companions: the methodology paper situates OI's posture in the philosophy-of-physics literature; the universality-class framework provides one technical articulation of what that posture entails.
 
 ---
 

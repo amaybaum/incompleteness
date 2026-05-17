@@ -4,8 +4,7 @@
 %
 \documentclass[
   11pt,
-  letterpaper,
-]{report}
+  letterpaper]{report}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
 \ifPDFTeX
@@ -18,7 +17,6 @@
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 % lmodern unavailable; using xelatex defaults
-\input{unicode-fix}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -69,6 +67,10 @@
 
 \begin{document}
 
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
 \thispagestyle{empty}
 
 \vspace*{2cm}
@@ -1127,9 +1129,9 @@ framework's hierarchical structural realism, including its evasion of
 Bell, Kochen-Specker, and PBR-type no-go theorems through identification
 of which descriptive level each assumption fails at. Chapter 4
 articulates the framework's methodology --- the
-single-foundational-commitment derivation pattern, the per-theorem
-evasion of no-go results, the classification of claims by derivational
-rigor.
+single-foundational-commitment derivation pattern, the
+architecture-level engagement with the no-go results, the classification
+of claims by derivational rigor.
 
 \textbf{Part II --- Physics.} Chapters 5--9 develop the framework's
 quantitative predictions in fundamental physics. Chapter 5 derives the
@@ -2551,13 +2553,13 @@ theorems through identification of which descriptive level each
 assumption fails at, and its parallels to the broader intellectual
 landscape of incompleteness results from Gödel through Wolpert. Chapter
 4 develops the methodological posture --- the
-single-foundational-commitment derivation pattern, the per-theorem
-evasion of no-go results, the classification of claims by derivational
-rigor --- that organizes the framework's program as a whole. The
-remaining chapters trace the framework's predictions through particle
-physics, gravity, cosmology, the structural cascade from atoms to
-intelligence, and the framework's reach into chemistry, biology,
-medicine, and quantum engineering.
+single-foundational-commitment derivation pattern, the
+architecture-level engagement with the no-go results, the classification
+of claims by derivational rigor --- that organizes the framework's
+program as a whole. The remaining chapters trace the framework's
+predictions through particle physics, gravity, cosmology, the structural
+cascade from atoms to intelligence, and the framework's reach into
+chemistry, biology, medicine, and quantum engineering.
 
 The remainder of this part of the book develops the substratum, the
 structural realism, and the methodology in detail. Part II turns to the
@@ -3535,15 +3537,16 @@ developed in detail.
 Chapter 4 articulates the framework's methodological discipline. The
 single-foundational-commitment derivation pattern --- that the framework
 starts from one premise (observation occurs) and derives the rest as
-theorems --- is examined as a methodological standard. The per-theorem
-evasion of no-go results is developed: rather than evading Bell,
-Kochen-Specker, and PBR with a single trick, the framework identifies
-which assumption of each theorem fails at which descriptive level. The
-classification of claims by derivational rigor --- theorems,
-derivations, structural retrodictions, and informed speculation ---
-organizes the framework's program by epistemic status. The framework's
-pre-registration of falsification conditions is discussed as a
-methodological commitment.
+theorems --- is examined as a methodological standard. The
+architecture-level engagement with the no-go results is developed:
+rather than evading Bell, Kochen-Specker, and PBR with four separate
+tricks, the framework meets all of them with one structural feature ---
+the two-level substratum-emergent architecture --- and verifies the
+match for each theorem. The classification of claims by derivational
+rigor --- theorems, derivations, structural retrodictions, and informed
+speculation --- organizes the framework's program by epistemic status.
+The framework's pre-registration of falsification conditions is
+discussed as a methodological commitment.
 
 Parts II and III then develop the framework's quantitative consequences.
 Chapter 5 develops the Standard Model gauge group from the cubic-lattice
@@ -3630,16 +3633,18 @@ realism claim --- the Chapter 2 commitment to
 \([(S, \varphi)] / \mathcal{G}_{\text{sub}}\) --- is what the hierarchy
 locates at a specific intersection.
 
-The chapter has three pieces of work. §§3.2--3.3 develop the observation
+The chapter has four pieces of work. §§3.2--3.3 develop the observation
 axis and the observer-admission distinction that the framework's third
 level introduces. §§3.4--3.5 develop the gauge axis, its orthogonality
 with the observation axis, and the resulting multi-level structural
-realism with its stratified predictions. §§3.6--3.7 develop the
-framework's relationship to the contemporary no-go theorem literature
-and to the older philosophical lineage of incompleteness-and-perspective
-accounts. §3.8 closes the chapter and points forward to Chapter 4's
-methodology and to Chapter 9's universality and cross-framework
-analysis.
+realism with its stratified predictions. §3.6 identifies gauge freedom
+with observational incompleteness on a precisely delimited part of its
+range, distinguishing the two species of incompleteness this produces.
+§§3.7--3.8 develop the framework's relationship to the contemporary
+no-go theorem literature and to the older philosophical lineage of
+incompleteness-and-perspective accounts. §3.9 closes the chapter and
+points forward to Chapter 4's methodology and to Chapter 9's
+universality and cross-framework analysis.
 
 \hypertarget{the-observation-axis}{%
 \section{3.2 The observation axis}\label{the-observation-axis}}
@@ -4204,8 +4209,132 @@ would falsify which level of the framework's commitments.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{gauge-freedom-and-observational-incompleteness}{%
+\section{3.6 Gauge freedom and observational
+incompleteness}\label{gauge-freedom-and-observational-incompleteness}}
+
+The two axes developed so far invite a question the chapter has not yet
+answered directly. The gauge axis catalogues what is \emph{not}
+observable --- degrees of freedom that can be transformed without
+changing anything an embedded observer could record. The framework as a
+whole is named for \emph{observational incompleteness} --- the embedded
+observer's inability to resolve the substratum it is part of. These two
+notions have been running alongside each other for three chapters. It is
+worth asking whether they are the same thing.
+
+The answer is that they are the same thing, on a precisely identifiable
+part of their range --- and seeing exactly where they coincide, and
+where they do not, sharpens both.
+
+\textbf{The apparent opposition.} At first glance gauge freedom and
+observational incompleteness look like opposites. Gauge freedom is
+\emph{surplus}: the description carries more structure than the physics,
+and the gauge quotient throws the excess away losing nothing.
+Observational incompleteness sounds like a \emph{deficit}: the observer
+has \emph{less} than the whole story, missing what the trace-out over
+the hidden sector destroys. Surplus and deficit do not obviously belong
+together --- one is too much representation, the other too little
+access.
+
+The opposition dissolves on inspection. Consider why a gauge degree of
+freedom counts as surplus in the first place. The substratum gauge group
+\(\mathcal{G}_{\text{sub}}\) contains, among its four families,
+hidden-sector relabeling: permute the labels on the hidden-sector states
+and every visible observable is unchanged. The labels are surplus ---
+but they are surplus \emph{because no observation distinguishes the
+relabelled substrata}. The redundancy is not a free-standing fact about
+the notation; it is constituted by the embedded observer's inability to
+tell the relabelled versions apart. ``The description has surplus
+structure'' and ``the observer cannot access the difference'' are not
+opposed claims. They are one fact, stated once from the side of the
+representation and once from the side of the observer. Gauge freedom
+\emph{is} a form of observational incompleteness: it is the
+incompleteness whose missing piece turns out to be no piece at all.
+
+\textbf{Two species of incompleteness.} This identification cannot be
+the whole story, though, because not every observational incompleteness
+is gauge. The framework's substratum is deterministic; an observer's own
+future states are fixed by the bijection \(\varphi\). There is a
+definite fact about what the observer will record at the next step. Yet
+the embedded observer cannot compute that fact --- to do so it would
+need to simulate the forward iteration of \(\varphi\) on the whole of
+\(S\), and the observer is a proper part of \(S\), not a system large
+enough to contain a model of the whole. Here the inaccessible thing
+genuinely \emph{is} a fact: a larger computer, one not embedded as a
+proper part, could reach it. This incompleteness is not surplus. Nothing
+is being quotiented away; a real and definite fact is simply out of the
+finite observer's reach.
+
+So observational incompleteness comes in two species, and the framework
+should name them apart:
+
+\emph{Gauge incompleteness} is the species where the inaccessible
+``fact'' is no fact at all --- where there is, demonstrably, nothing of
+the matter to be had. Hidden-sector relabelings, the alphabet freedom,
+the deep-sector enlargement: each is a difference that makes no
+difference to any observer whatsoever, not merely to this one. Gauge
+incompleteness is identical to gauge freedom. The two terms --- ``gauge
+freedom'' and ``gauge incompleteness'' --- name one principle from two
+directions: the methodology's term for the structure that can be
+transformed freely, and the framework's term for the corresponding blind
+spot in the embedded observer's picture.
+
+\emph{Computational incompleteness} is the species where there is a
+definite fact, unreachable by this observer for a specifically
+computational reason: the observer is not a system large enough to
+compute it. The observer's own deterministic future is the cleanest
+case. Computational incompleteness is \emph{not} gauge --- the fact is
+real, and the inaccessibility is a feature of the observer's finite
+embedding rather than an absence of content.
+
+The distinction matters because conflating the two would make
+``incompleteness'' incoherent. If every incompleteness were gauge,
+``incompleteness'' would be a misnomer --- one cannot be incomplete
+about what is not there. If every incompleteness were a hidden real
+fact, the framework could not say, as it does, that the choice of
+substratum representative within \(\mathcal{G}_{\text{sub}}\) has no
+fact of the matter. The two species are both genuine, and they are
+different.
+
+\textbf{Where the identification sits in the hierarchy.} Gauge
+incompleteness is the blind spot associated with the gauge axis: G1
+through G4 each define a layer of it. Hidden-sector relabeling is gauge
+incompleteness at Level G3; the diagonal-unitary D-gauge is gauge
+incompleteness at Level G1; universality-class equivalence is gauge
+incompleteness at Level G4. Computational incompleteness is not on the
+gauge axis at all --- it is a limit set by the observer's finite size
+relative to \(S\), and it would remain even if the gauge freedom were
+somehow entirely fixed. The two species are independent in just the way
+the two axes of this chapter are: one can have either without the other.
+
+\textbf{A consequence worth stating.} The framework's methodology ---
+developed in Chapter 4 and at length in the companion paper
+\emph{Physics Modulo Gauge} --- holds that physics determines its
+content only up to gauge, and that this is the complete and correct form
+of the answer rather than a limitation. The identification of this
+section says that ``physics modulo gauge'' and ``observational
+incompleteness'' are, on the gauge-incompleteness species, two names for
+one principle. The methodology is not something brought to the framework
+from outside; it is the framework's own central thesis --- that an
+embedded observer's account of reality is structurally incomplete ---
+read from the methodological side. The incompleteness the framework is
+named for and the gauge freedom the methodology is built on are the same
+fact, seen from two directions.
+
+This identification is recent within the framework's development, and
+the companion paper flags it as the least-settled of its contributions;
+it is included here because it follows directly from the two axes this
+chapter has built, and because it answers the standing question of how
+the book's title concept and its gauge structure relate. The reader
+inclined to treat it cautiously should treat it as a proposal the
+framework's structure invites rather than as a load-bearing result the
+rest of the book depends on --- nothing in the empirical chapters rests
+on it.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
 \hypertarget{no-go-theorems-at-different-descriptive-levels}{%
-\section{3.6 No-go theorems at different descriptive
+\section{3.7 No-go theorems at different descriptive
 levels}\label{no-go-theorems-at-different-descriptive-levels}}
 
 The framework is a hidden-variable theory in the literal sense: there is
@@ -4218,12 +4347,15 @@ Pusey-Barrett-Rudolph theorem (2012), the Frauchiger-Renner theorem
 structural conditions. The framework must therefore explain how it
 evades each of these results, and what it costs to do so.
 
-The framework's evasion pattern is not a single trick repeated across
-the no-go theorems. Each theorem identifies a different structural
-property of would-be hidden-variable accounts, and the framework
-satisfies each property at one level of the observation hierarchy while
-violating it at another. The hierarchical structure of the framework is
-what enables this systematic evasion.
+The framework's engagement with these theorems is not a single trick
+repeated, nor four separate tricks. Each theorem identifies a different
+structural property of would-be hidden-variable accounts, and one
+architectural feature --- the two-level substratum-emergent structure
+joined by the trace-out --- is what answers all of them: for three of
+the four, the property holds at the emergent level and fails at the
+substratum level; for Kochen-Specker, as developed below, it holds at
+neither. The hierarchical structure of the framework is what makes this
+single engagement possible.
 
 \textbf{Bell's theorem.} Bell's theorem rules out local hidden-variable
 theories satisfying factorizability:
@@ -4260,24 +4392,46 @@ matching quantum mechanics must be contextual: the hidden variable's
 outcome on a given observable depends on which other observables are
 co-measured.
 
-The framework's evasion is structural. At the substratum level, the
-bijection \(\varphi\) has definite states at every moment --- the
-substratum is non-contextual in the elementary sense that \(\varphi\)'s
-state at time \(t\) is what it is, independent of any measurement
-procedure. At the emergent level, the observer's description is
-contextual: which observables are measured together determines which
-partitions of the configuration space are relevant for computing the
-marginalized transition probabilities. The contextuality is a property
-of the marginalization procedure, not of the underlying substratum.
+The framework's evasion is structural, and it is worth stating
+precisely, because the Kochen-Specker case does not fit the same
+``property-at-one-level'' template as Bell. A noncontextual valuation is
+an assignment of definite values to the emergent \emph{observables} that
+is independent of measurement context. The framework reproduces quantum
+mechanics (the characterization theorem of Chapter 1), and
+Kochen-Specker is a theorem about quantum mechanics itself: the
+observable algebra of quantum theory in dimension three or higher admits
+no noncontextual valuation. Any account reproducing quantum mechanics
+therefore reproduces a structure in which no noncontextual valuation of
+the observables exists. So the property Kochen-Specker forbids does not
+hold at the emergent level --- and it does not hold at the substratum
+level either, because the substratum carries a definite configuration,
+not a valuation of the emergent observables at all. The framework's
+contextuality is therefore not ``noncontextual below, contextual
+above''; it is forced by the framework's own equivalence with quantum
+mechanics, and what the framework supplies is the \emph{account} of it:
+an emergent observable's value is produced by the trace-out, the
+trace-out is taken with respect to a partition, and measuring a set of
+compatible observables is a specific apparatus coupling --- a specific
+partition. Which observables are jointly defined, and the value each
+takes, are features of the reduced description fixed by that partition,
+not partition-independent functions of the substratum configuration.
+Contextuality, in the framework, is the partition-dependence of emergent
+valuation.
 
-In hierarchy language: Kochen-Specker non-contextuality is a property at
-Level G2 × Level D, where observables are defined as operators on the
-emergent Hilbert space. The substratum at Level D is non-contextual
-(definite states at definite times), but the emergent observable
-structure at Level G2 is contextual (different partitions produce
-different marginalized statistics). The framework's hierarchical
-structure allows non-contextuality at one level and contextuality at the
-level immediately above it.
+In hierarchy language: Kochen-Specker non-contextuality concerns the
+emergent observable structure at Level G2 × Level D. That structure is
+contextual --- different partitions produce different marginalized
+statistics --- because the framework reproduces quantum mechanics and
+quantum mechanics has no noncontextual valuation. The Level D substratum
+carries definite states, but a definite substratum configuration is not
+a valuation of the emergent observables, so it neither supplies nor
+contradicts a noncontextual valuation. The framework does not exhibit
+``non-contextuality below, contextuality above''; it inherits the
+Kochen-Specker obstruction with quantum mechanics and locates its source
+in the partition-dependence of the trace-out. This is the one no-go case
+where the framework's response is not a property placed at one level and
+denied at another, but a property unavailable at every level --- a
+difference §3.7's closing paragraph returns to.
 
 \textbf{Pusey-Barrett-Rudolph (PBR).} The PBR theorem rules out
 ``epistemic'' interpretations of the wave function: under reasonable
@@ -4286,26 +4440,46 @@ incomplete knowledge of an underlying ontic state, because pure states
 with non-zero overlap would be indistinguishable in any consistent ontic
 model. The wave function must, in some sense, be ontologically real.
 
-The framework's evasion identifies the PBR assumption that fails. PBR
-requires that the underlying ontic state space factorize across
-independently prepared subsystems: the ontic state of a joint
-preparation of two systems is a Cartesian product of the ontic states of
-the individual systems. The framework's substratum does not satisfy
-this. Two systems prepared ``independently'' share hidden-sector
-correlations through their joint embedding in the same configuration
-space; the hidden sectors are not independent of each other because they
-are parts of the same \((S, \varphi)\). The factorization assumption
+The framework's evasion identifies the PBR assumption that fails. PBR's
+Preparation Independence Postulate requires \emph{unconditional} product
+independence: the joint ontic-state distribution of two separately
+prepared systems is the product of the single-system distributions. The
+framework provides product structure for separated systems --- but
+conditionally, not unconditionally. By the spatial Markov property of
+the bounded-degree, range-one coupling graph (Chapter 1; Main §3.3),
+space-like separated subsystems with disjoint coupling neighbourhoods
+are independent \emph{given boundary data}, and the emergent description
+factorizes accordingly, but only conditioned on that boundary data, with
+the systems' correlation arising from shared boundary history (Main
+§3.4). Conditional independence given a non-trivial shared variable is
+precisely not the unconditional product independence the postulate
+asserts --- it is a common-cause structure, and the common cause is
+co-embedding in one substratum, present at preparation and requiring no
+interaction between the systems. The factorization assumption PBR needs
 fails at the substratum level, and the PBR conclusion does not apply.
+The argument runs entirely on results already established for the
+framework --- the equivalence with quantum mechanics and the
+spatial-Markov and tensor-product structure of Main §§3.3--3.4 --- and
+does not depend on the P-indivisibility that carries the Bell case,
+which concerns interacting systems rather than independently prepared
+ones.
 
 The wave function in the framework is exactly what PBR would call
 ``epistemic'': it is the observer's compressed description of incomplete
 data, with no ontic status independent of the observer's epistemic
 situation. The PBR theorem does not rule this out because the
-joint-system factorization assumption it requires fails at the
-framework's substratum level. In hierarchy language: PBR's
-joint-factorization is a property at Level D × Level G3, and the
-framework's substratum at this level explicitly violates it through
-shared hidden-sector structure across visible-sector subsystems.
+Preparation Independence Postulate it requires fails for the framework.
+In hierarchy language: PBR's preparation independence is a property at
+Level D × Level G3; the framework's substratum at this level supplies
+only conditional factorization given shared boundary data, not the
+unconditional product independence the postulate asserts. The trace-out
+is the mediator --- marginalizing the shared boundary data is what
+carries the emergent conditional factorization into substratum
+non-factorization. Note that this engagement does not depend on
+classifying the framework as \(\psi\)-epistemic in PBR's single-level
+sense: PBR constrains models that are \(\psi\)-epistemic \emph{and}
+postulate-satisfying, and the framework's failure of the postulate
+places it outside the theorem's scope regardless.
 
 \textbf{Frauchiger-Renner.} The Frauchiger-Renner theorem identifies a
 consistency problem in quantum mechanics when observers are themselves
@@ -4336,32 +4510,47 @@ emergent-level quantum mechanics describes only marginally. The
 hierarchical structure makes the violation systematic rather than ad
 hoc.
 
-\textbf{The common pattern.} The framework's evasions of Bell,
-Kochen-Specker, PBR, and Frauchiger-Renner share a common structure.
-Each no-go theorem combines a feature that holds at the substratum level
-with a feature that holds at the emergent level, deriving inconsistency
-from their conjunction. The framework's hierarchical structure separates
-these features by descriptive level, satisfying each at the level where
-it naturally holds and violating each at the level where it fails. The
-evasions are not tricks: they are structural consequences of the
-framework's two-axis hierarchy, with the specific level at which each
-no-go theorem's assumption fails identified by the framework's general
-structure.
+\textbf{The common pattern.} The framework's engagements with Bell,
+Kochen-Specker, PBR, and Frauchiger-Renner share a common source --- but
+the shared factor is the architecture itself, the two-level
+substratum-emergent structure joined by the trace-out, not a single
+slogan applied four times. For three of the theorems the pattern is
+uniform: the assumed property --- Bell's factorizability, PBR's
+preparation independence, Frauchiger-Renner's universal description ---
+holds at the emergent level, where it is unobjectionable because that
+level simply is quantum mechanics, and fails at the substratum level,
+where the theorem needed it. For Kochen-Specker the pattern is
+different: the assumed property, a noncontextual valuation of the
+observables, holds at \emph{neither} level, because the framework
+reproduces quantum mechanics and quantum mechanics has no such
+valuation. What unifies the four is not ``satisfied below, violated
+above'' but the trace-out: by interposing a partition-dependent
+marginalization between substratum and emergent observable, it is what
+makes the noncontextual valuation unavailable in the Kochen-Specker case
+and what places the property at the emergent level only in the other
+three. One architecture; four manifestations of working within it. The
+engagements are not tricks: they are structural consequences of the
+framework's two-axis hierarchy, fixed before any no-go theorem is
+considered.
 
-Chapter 4 develops this evasion pattern as a methodological principle.
-The pattern is: identify which of the no-go theorem's assumptions
-corresponds to which level of the framework's hierarchy; verify that the
-framework satisfies the assumption at the level where it holds and
-violates it at the level where it fails; verify that the framework's
-predictions match quantum mechanics' predictions in the regime where the
-no-go theorem applies; check that the violations do not produce
-signatures the no-go theorem's empirical content rules out (e.g.,
-superluminal signaling for Bell). The per-theorem evasion of no-go
-results is the framework's general methodological response to the no-go
-literature.
+Chapter 4 develops this as a methodological principle. The framework's
+response to the no-go literature is one architectural feature --- the
+two-level substratum-emergent structure joined by the trace-out ---
+fixed before any theorem is considered; what is done per theorem is the
+\emph{verification} that the architecture answers it. That verification:
+locate where the theorem's assumption meets the two-level structure;
+confirm that the framework reproduces quantum mechanics' predictions in
+the regime the theorem covers; and check that the framework produces no
+signature the theorem's empirical content rules out (e.g., superluminal
+signaling for Bell). For three of the four theorems the assumption holds
+at the emergent level and fails at the substratum; for Kochen-Specker it
+holds at neither, contextuality being forced by the framework's
+equivalence with quantum mechanics. The architecture-level engagement,
+verified theorem by theorem, is the framework's general methodological
+response to the no-go literature.
 
 \hypertarget{the-philosophical-lineage}{%
-\section{3.7 The philosophical
+\section{3.8 The philosophical
 lineage}\label{the-philosophical-lineage}}
 
 The framework's structural-realism position has antecedents older than
@@ -4522,26 +4711,29 @@ pursuing structural realism about observation; they are doing so from
 different directions.
 
 \hypertarget{what-follows-1}{%
-\section{3.8 What follows}\label{what-follows-1}}
+\section{3.9 What follows}\label{what-follows-1}}
 
 The hierarchical structure developed in this chapter --- the observation
 axis A through D, the gauge axis G1 through G4, the orthogonality
 between them, the stratified predictions at the various intersections,
-the systematic no-go evasion through level identification, the
-philosophical lineage tracing back through Spinoza and Cusa --- provides
-the framework's full structural-realism position. Chapter 2's commitment
-to \([(S, \varphi)] / \mathcal{G}_{\text{sub}}\) is now located at a
+the identification of gauge freedom with observational incompleteness on
+the gauge-incompleteness species, the engagement with the no-go theorems
+through one architectural feature, the philosophical lineage tracing
+back through Spinoza and Cusa --- provides the framework's full
+structural-realism position. Chapter 2's commitment to
+\([(S, \varphi)] / \mathcal{G}_{\text{sub}}\) is now located at a
 specific intersection (Level D × Level G3) within a broader structure,
 with weaker realism claims at broader intersections and stronger claims
 unavailable.
 
 Chapter 4 develops the framework's methodology: the
-single-foundational-commitment derivation pattern, the per-theorem no-go
-evasion as a systematic methodological principle, the classification of
-claims by derivational rigor, the framework's pre-registration of
-falsification conditions. The methodology chapter takes the structural
-realism developed here as input and articulates the methodological
-discipline the framework's program follows.
+single-foundational-commitment derivation pattern, the
+architecture-level no-go engagement as a systematic methodological
+principle, the classification of claims by derivational rigor, the
+framework's pre-registration of falsification conditions. The
+methodology chapter takes the structural realism developed here as input
+and articulates the methodological discipline the framework's program
+follows.
 
 Chapter 9 develops the universality-class structure and the framework's
 relationship to alternative unification programs --- string theory, loop
@@ -4636,18 +4828,20 @@ derivations and weaker claims honestly labeled. The discipline of this
 classification --- refusing to overstate rigor --- is part of what makes
 the framework's empirical record evaluable.
 
-Third, the framework \emph{evades no-go theorems systematically rather
-than tactically}. Each major no-go theorem in the foundations literature
-(Bell, Kochen-Specker, PBR, Frauchiger-Renner) identifies a structural
-property of would-be hidden-variable theories that fails for quantum
-mechanics. The framework's evasion of each is not a separate trick but
-an instance of a general principle: identify which level of the
-framework's two-axis hierarchy the no-go theorem's assumption
-corresponds to, verify that the framework satisfies the assumption at
-that level, and verify that the corresponding feature fails at the level
-where it must fail to reproduce quantum predictions. Chapter 3 §3.6
-developed the evasion pattern in technical detail; this chapter develops
-it as a methodological principle.
+Third, the framework \emph{engages the no-go theorems through one
+architectural feature rather than tactically}. Each major no-go theorem
+in the foundations literature (Bell, Kochen-Specker, PBR,
+Frauchiger-Renner) identifies a structural property of would-be
+hidden-variable theories that fails for quantum mechanics. The
+framework's engagement with each is not a separate trick but a
+manifestation of one structure: the two-level substratum-emergent
+architecture joined by the trace-out. For three of the four theorems the
+assumed property holds at the emergent level and fails at the substratum
+level; for Kochen-Specker it holds at neither, the framework's
+contextuality being forced by its equivalence with quantum mechanics.
+Chapter 3 §3.7 developed this in technical detail; this chapter develops
+it as a methodological principle --- one architecture, with the match to
+each theorem verified case by case.
 
 Fourth, the framework \emph{pre-registers its falsification conditions}.
 A framework that derives rather than posits must be willing to specify
@@ -4978,9 +5172,9 @@ record against the framework's structural commitments.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{per-theorem-evasion-of-no-go-results}{%
-\section{4.4 Per-theorem evasion of no-go
-results}\label{per-theorem-evasion-of-no-go-results}}
+\hypertarget{engaging-the-no-go-results-through-one-architecture}{%
+\section{4.4 Engaging the no-go results through one
+architecture}\label{engaging-the-no-go-results-through-one-architecture}}
 
 The framework is a hidden-variable theory in the literal sense: there is
 a deterministic substratum with definite states, and the observer's
@@ -4988,9 +5182,9 @@ stochastic description is obtained by marginalizing over what they
 cannot see. The twentieth-century foundations literature contains a
 series of no-go theorems ruling out hidden-variable theories satisfying
 various structural conditions. The framework must explain how it evades
-each of these results. Chapter 3 §3.6 developed the technical content of
-the evasions; this section develops the methodological principle that
-organizes them.
+each of these results. Chapter 3 §3.7 developed the technical content of
+the engagement; this section develops the methodological principle that
+organizes it.
 
 The principle is straightforward to state. Each no-go theorem identifies
 a structural property of would-be hidden-variable theories and proves
@@ -5013,33 +5207,46 @@ First, identify the theorem's structural assumption. Bell's theorem
 assumes factorizability
 \(P(a, b \mid x, y, \lambda) = P(a \mid x, \lambda) \cdot P(b \mid y, \lambda)\).
 Kochen-Specker assumes non-contextual value assignments. PBR assumes
-joint-system factorization of the underlying ontic state space.
-Frauchiger-Renner assumes the universal applicability of quantum
-mechanics across nested observer-modeling.
+preparation independence --- that independently prepared systems have a
+product joint ontic-state distribution. Frauchiger-Renner assumes the
+universal applicability of quantum mechanics across nested
+observer-modeling.
 
 Second, identify the level of the framework's hierarchy where the
 assumption sits. Bell's factorizability is a property at Level G3 ×
 Level D, where the joint transition matrix between visible-sector
 subsystems is defined. Kochen-Specker non-contextuality is a property at
 Level G2 × Level D, where observables are defined as operators on the
-emergent Hilbert space. PBR factorization is a property at Level D ×
-Level G3, where the substratum's joint-system structure is specified.
-Frauchiger-Renner universal applicability is a claim at Level G2 × Level
-D applied to substratum-level objects.
+emergent Hilbert space. PBR preparation independence is a property at
+Level D × Level G3, where the substratum's joint-system structure is
+specified. Frauchiger-Renner universal applicability is a claim at Level
+G2 × Level D applied to substratum-level objects.
 
-Third, verify that the framework satisfies the assumption at the level
-where it naturally holds and violates it at the level where it fails.
-Bell's parameter-independence (one Jarrett component of factorizability)
-is preserved at the substratum level by spatial locality;
-outcome-independence (the other component) is violated at the emergent
-level by P-indivisibility. Kochen-Specker's non-contextuality holds at
-the substratum level (definite states at definite times); contextuality
-emerges at the operator level through the marginalization procedure.
-PBR's joint factorization fails at the substratum level (subsystems
-share hidden-sector correlations through embedding in the same
-configuration space). Frauchiger-Renner's universal applicability fails
-because the substratum-level and emergent-level descriptions are
-incommensurable in the relevant sense.
+Third, locate where the framework's two-level structure declines to
+supply the object the assumption is about. For three of the four
+theorems this takes the same form. Bell's parameter-independence (one
+Jarrett component of factorizability) is preserved at the substratum
+level by spatial locality; outcome-independence (the other component) is
+violated at the emergent level by P-indivisibility. PBR's preparation
+independence --- the postulate that independently prepared systems have
+a product joint ontic-state distribution --- fails because the framework
+supplies only \emph{conditional} independence given shared boundary data
+(the spatial Markov property of the coupling graph), not the
+unconditional product independence the postulate requires.
+Frauchiger-Renner's universal applicability fails because the
+substratum-level and emergent-level descriptions are incommensurable in
+the relevant sense. The fourth theorem, Kochen-Specker, does not fit
+this ``satisfied below, violated above'' form: its assumed property, a
+noncontextual valuation of the observables, holds at neither level ---
+the framework reproduces quantum mechanics, which by Kochen-Specker's
+own content admits no noncontextual valuation, and the substratum
+carries a definite configuration that is not a valuation of the emergent
+observables at all. The framework's contextuality is forced by its
+equivalence with quantum mechanics, and what the framework adds is the
+account: contextuality is the partition-dependence of the trace-out. The
+common factor across all four is therefore the architecture --- two
+levels and a trace-out --- not a single property-placement move
+repeated.
 
 Fourth, verify that the framework's predictions match quantum mechanics
 in the regime where the no-go theorem applies, without producing
@@ -5055,33 +5262,42 @@ outcome statistics in observer-modeling scenarios; the framework
 predicts exactly the same statistics, with the appearance of
 inconsistency being an artifact of conflating descriptive levels.
 
-\textbf{Methodological cost.} The procedure is expensive. Each no-go
-theorem must be analyzed individually, with the hierarchy-level
-identification and the property-by-property verification done separately
-for each. The framework cannot evade the entire no-go literature with a
-single trick. As new no-go theorems are published --- the literature
-continues to grow --- each must be subjected to the same procedure, with
-the framework's evasion verified rather than assumed.
+\textbf{One architecture, verified per theorem.} Two things must be held
+apart here, because they pull in opposite directions and both are true.
+The framework's \emph{response} to the no-go literature is not
+piecemeal: it is one architectural feature --- two levels of description
+joined by the trace-out --- fixed before any no-go theorem is examined,
+and the four cases are four manifestations of working within it rather
+than four separately chosen escapes. But the \emph{verification} that
+the architecture in fact answers a given theorem is per-theorem work:
+each theorem's assumption must be located against the two-level
+structure, and the match checked. The unity is in the response; the
+labor is in the checking. As new no-go theorems are published --- the
+literature continues to grow --- each must be checked against the same
+architecture, with the framework's engagement verified rather than
+assumed.
 
-This is a genuine methodological cost, not a rhetorical disadvantage. A
-framework that evaded all no-go theorems with one move (e.g., by
-adopting superdeterminism, where the hidden-variable distribution is
-fine-tuned to experimenter choices) would have lower per-theorem
-methodological cost but would face a different problem: the fine-tuning
-itself becomes a structural commitment, and the framework's foundational
-economy is compromised. The framework here pays the per-theorem cost in
-exchange for a cleaner foundational structure with no fine-tuning of
-hidden-variable distributions to detector settings.
+This per-theorem verification is a genuine discipline, not a rhetorical
+disadvantage. A framework that claimed to evade all no-go theorems with
+one move (e.g., by adopting superdeterminism, where the hidden-variable
+distribution is fine-tuned to experimenter choices) would skip the
+checking but would face a different problem: the fine-tuning itself
+becomes a structural commitment, and the framework's foundational
+economy is compromised. The framework here does the per-theorem checking
+in exchange for a cleaner foundational structure with no fine-tuning of
+hidden-variable distributions to detector settings --- and the checking,
+in each case so far, finds the same architecture already sufficient.
 
-\textbf{Methodological benefit.} The benefit of the per-theorem evasion
-is that the framework's structural reading of each no-go theorem is
-\emph{informative}. Identifying which assumption fails at which level
-explains \emph{why} quantum mechanics has the features the no-go
-theorems identify, not just that it does. Bell's outcome-independence
-violation is informative about the structure of the substratum's joint
-dynamics. Kochen-Specker's contextuality is informative about the
-marginalization procedure. PBR's joint-factorization failure is
-informative about the substratum's non-separable structure.
+\textbf{Methodological benefit.} The benefit of the architecture-level
+engagement is that the framework's structural reading of each no-go
+theorem is \emph{informative}. Identifying how each assumption meets the
+two-level structure explains \emph{why} quantum mechanics has the
+features the no-go theorems identify, not just that it does. Bell's
+outcome-independence violation is informative about the structure of the
+substratum's joint dynamics. Kochen-Specker's contextuality is
+informative about the partition-dependence of the trace-out. PBR's
+preparation-independence failure is informative about the conditional,
+common-cause structure of separated subsystems sharing boundary data.
 Frauchiger-Renner's inconsistency-paradox is informative about the
 levels of the framework's hierarchy.
 
@@ -5107,15 +5323,18 @@ analyzed here exhaust the load-bearing twentieth-century results in the
 foundations literature; recent results (Wood-Spekkens 2015 on
 fine-tuning, Cavalcanti-Lal 2014 on causal structure, Colbeck-Renner
 2017 on no-extension theorems) have been analyzed in detail in the
-framework's technical papers and admit the same per-theorem evasion
-through hierarchy levels. The procedure is not a guarantee of future
-evasion but a discipline for analyzing each new theorem as it arrives.
+framework's technical papers and admit the same architecture-level
+engagement, verified case by case against the two-level structure. The
+procedure is not a guarantee of future evasion but a discipline for
+analyzing each new theorem as it arrives.
 
-The per-theorem evasion is the framework's general methodological
-response to the no-go literature. It is more expensive than a single
-trick but produces a richer structural account, with each no-go theorem
-identifying a specific feature of the substratum-to-emergent
-architecture rather than serving as an obstacle to be circumvented.
+The architecture-level engagement, verified theorem by theorem, is the
+framework's general methodological response to the no-go literature. It
+is more demanding than claiming a single trick, but produces a richer
+structural account: each no-go theorem identifies a specific feature of
+the substratum-to-emergent architecture rather than serving as an
+obstacle to be circumvented, and the architecture answering all of them
+is one structure, not four.
 
 \hypertarget{pre-registered-falsification-conditions}{%
 \section{4.5 Pre-registered falsification
@@ -5484,16 +5703,16 @@ determining which side of the line each putative prediction falls on.
 
 The methodological discipline developed in this chapter --- the
 single-foundational-commitment pattern, the claim classification by
-derivational rigor, the per-theorem evasion of no-go results, the
-pre-registered falsification conditions and their complement of
-deliberate silences --- provides the framework with a discipline that
-organizes its program as a research program rather than as a single bold
-conjecture. The discipline is part of the framework's content, not
-separate from it: the structural commitments developed in Chapters 1
-through 3 and the empirical predictions developed in Parts II through IV
-are produced under this discipline, with the discipline determining what
-the predictions are, how they are classified, and what their
-falsification status is.
+derivational rigor, the architecture-level engagement with the no-go
+results, the pre-registered falsification conditions and their
+complement of deliberate silences --- provides the framework with a
+discipline that organizes its program as a research program rather than
+as a single bold conjecture. The discipline is part of the framework's
+content, not separate from it: the structural commitments developed in
+Chapters 1 through 3 and the empirical predictions developed in Parts II
+through IV are produced under this discipline, with the discipline
+determining what the predictions are, how they are classified, and what
+their falsification status is.
 
 Parts II and III apply the methodology to the framework's specific
 empirical content in fundamental physics. Chapters 5 and 6 develop the
@@ -5519,9 +5738,9 @@ neutrino prediction as an L-class prediction matched at \(0.07\sigma\),
 with the closure of the lepton-sector mixing-matrix derivation as the
 open direction whose completion would move the prediction to S-class.
 Chapter 9 develops the universality-class structure and the framework's
-relationship to alternative unification programs, with the no-go evasion
-procedure from §4.4 applied to the analysis of cross-framework
-structural relationships.
+relationship to alternative unification programs, with the
+architecture-level no-go engagement from §4.4 applied to the analysis of
+cross-framework structural relationships.
 
 Parts III and IV develop the framework's reach into structural cascades
 and applied scientific fields, with the methodological classifications
@@ -5537,8 +5756,8 @@ appropriate empirical standards in those fields.
 The methodology developed in this chapter is not unique to the
 framework. The single-foundational-commitment pattern is a general
 principle of theory construction, the claim-classification scheme is a
-general standard for empirical evaluation, the per-theorem no-go evasion
-procedure is a general method for analyzing structural results, and the
+general standard for empirical evaluation, the architecture-level no-go
+engagement is a general method for analyzing structural results, and the
 pre-registered falsification discipline is a general epistemological
 standard. The framework's contribution is to apply this methodology
 systematically rather than selectively, with every prediction carrying
@@ -5551,12 +5770,13 @@ of the book.
 The methodological posture sketched in this chapter is developed at
 length, for a philosophy-of-physics readership, in a companion paper ---
 \emph{Physics Modulo Gauge} --- which treats the two-axiom foundational
-commitment, constructive structural realism, the per-theorem evasion of
-the no-go results of quantum foundations, and ``physics modulo gauge''
-as a general methodology. That paper is a companion to the framework's
-technical sequence rather than part of this book; readers concerned
-specifically with the framework's methodology and its relation to the
-foundations-of-physics literature will find it the natural next text.
+commitment, constructive structural realism, the engagement with the
+no-go results of quantum foundations through a single architectural
+feature, and ``physics modulo gauge'' as a general methodology. That
+paper is a companion to the framework's technical sequence rather than
+part of this book; readers concerned specifically with the framework's
+methodology and its relation to the foundations-of-physics literature
+will find it the natural next text.
 
 \clearpage
 
@@ -22547,15 +22767,26 @@ constraints, with several natural \(\psi\)-epistemic models ruled out.
 The theorem is widely interpreted as establishing the wave function as
 ontic rather than epistemic.
 
-The framework's response: the PBR theorem assumes a specific
-factorization condition (preparation independence) that the framework's
-P-indivisible dynamics violates. The framework's wave function is
-\(\psi\)-epistemic --- it represents incomplete information about the
-substratum --- but the framework does not satisfy PBR's preparation
-independence assumption because P-indivisible dynamics produces
-correlations between preparations that are themselves separated. The PBR
-result therefore does not rule out the framework's \(\psi\)-epistemic
-content.
+The framework's response: the PBR theorem assumes preparation
+independence --- that two independently prepared systems have a product
+joint ontic-state distribution --- and the framework does not satisfy
+it. The reason is \emph{not} P-indivisibility, which is the mechanism
+for the Bell case and concerns systems that interact; PBR concerns
+systems prepared separately, without interaction. The reason is that the
+framework supplies only \emph{conditional} product structure. By the
+spatial Markov property of the coupling graph (Chapter 1), space-like
+separated subsystems are independent given boundary data, and the
+emergent description factorizes conditioned on that data --- but
+conditional independence given a shared variable is a common-cause
+structure, not the unconditional product independence PBR's postulate
+asserts. The shared variable is co-embedding in one substratum, present
+at preparation. The framework's wave function is \(\psi\)-epistemic ---
+it represents incomplete information about the substratum --- and
+because the framework fails PBR's preparation independence, the PBR
+result does not rule out that \(\psi\)-epistemic content. The engagement
+does not turn on classifying the framework as \(\psi\)-epistemic in
+PBR's single-level sense: failing the postulate places the framework
+outside the theorem's scope regardless.
 
 This is a substantive engagement with PBR: the framework's reading is
 that the wave function is epistemic at the emergent level (a bookkeeping
@@ -22660,13 +22891,15 @@ conclusions applying at one level (typically emergent) while the
 framework's content operates at another (the substratum).
 
 This is not a generic dodge. Each engagement is specific: PBR's
-preparation independence is violated by P-indivisible dynamics;
-Frauchiger-Renner's superposition-of-observers is dissolved by the
-substratum's observer-independence; Colbeck-Renner's predictive-power
-assumptions are satisfied at the regimes they cover; Bong-Wiseman's
-absoluteness is preserved at the substratum while observer-relativity
-emerges at the emergent level. The framework's content is consistent
-with the no-go theorems' empirical content (the framework reproduces all
+preparation independence fails because the framework supplies only
+conditional product structure given shared boundary data, not the
+unconditional independence the postulate asserts; Frauchiger-Renner's
+superposition-of-observers is dissolved by the substratum's
+observer-independence; Colbeck-Renner's predictive-power assumptions are
+satisfied at the regimes they cover; Bong-Wiseman's absoluteness is
+preserved at the substratum while observer-relativity emerges at the
+emergent level. The framework's content is consistent with the no-go
+theorems' empirical content (the framework reproduces all
 quantum-mechanical predictions) while providing structural foundations
 that the no-go theorems do not address.
 
