@@ -16,7 +16,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern suppressed (conflicts with unicode-math under xelatex)
+% lmodern suppressed
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -182,9 +182,9 @@ framework's content is a mathematical derivation: given the foundational
 commitment plus three structural conditions, quantum mechanics follows
 as a theorem.
 
-The framework's value depends on what follows from this reversal. The
-book documents what follows. The cosmological constant discrepancy of
-\(10^{122}\) orders of magnitude --- conventionally the worst
+The framework's value depends on what follows from this reversal --- and
+the book documents exactly that. The cosmological constant discrepancy
+of \(10^{122}\) orders of magnitude --- conventionally the worst
 quantitative prediction in physics --- becomes a calculable compression
 ratio. The Standard Model gauge group
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\), the three
@@ -244,11 +244,11 @@ Several major problems in fundamental physics are scope limits within
 the framework's content: the flavor problem (the specific values of
 fermion masses and CKM mixing parameters), baryogenesis (the specific
 baryon-to-photon ratio --- solution-specific, downstream of the
-framework's flavor-sector CP input), inflation and the cosmological
-initial conditions, the Hubble tension, and the cosmological initial
-state. Chapter 19 develops the framework's position on these open
-problems systematically. The framework provides structural answers where
-it can and identifies its scope limits where it cannot.
+framework's flavor-sector CP input), inflation, the Hubble tension, and
+the cosmological initial conditions. Chapter 19 develops the framework's
+position on these open problems systematically. The framework provides
+structural answers where it can and identifies its scope limits where it
+cannot.
 
 A note on terminology. The phrase ``the framework's content'' appears
 throughout the book to distinguish the framework's claims from claims
@@ -289,8 +289,6 @@ and to judge for themselves.
 --- Alex Maybaum 2026
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\clearpage
 
 \hypertarget{readers-guide}{%
 \chapter{Reader's Guide}\label{readers-guide}}
@@ -501,9 +499,8 @@ as a reference when terminology is unfamiliar.
 \textbf{Bibliography.} Located at the end of the back matter. Organized
 by topical area for ease of navigation. Cite using the author-year
 convention used in the text. The framework's own technical companion
-papers (Main.md, SM.md, GR.md, and others in the Zenodo release at DOI
-10.5281/zenodo.19060318) are the primary references for
-framework-internal derivations.
+papers (available in the Zenodo release at DOI 10.5281/zenodo.19060318)
+are the primary references for framework-internal derivations.
 
 \hypertarget{what-to-skip-on-a-first-reading}{%
 \section{What to skip on a first
@@ -562,8 +559,6 @@ for evaluation. The empirical evaluation depends on experiments now
 being done and on those forthcoming.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\clearpage
 
 \hypertarget{acknowledgments}{%
 \chapter{Acknowledgments}\label{acknowledgments}}
@@ -683,8 +678,6 @@ role is to make the framework's content accessible.
 --- Alex Maybaum
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\clearpage
 
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
@@ -849,8 +842,8 @@ trying to describe.
 
 The thought experiment captures the framework's central move. Quantum
 mechanics is reframed from a statement about reality to a statement
-about the observer's relationship to reality. The mathematics is the
-same; what it represents is different. The wave function is not the
+about the observer's relationship to reality. The mathematics is
+unchanged; what it represents is different. The wave function is not the
 universe's state; it is the experimenter's compressed description of
 what they cannot see. The Born rule is not a postulate about fundamental
 indeterminism; it is the probability assignment that any embedded
@@ -902,7 +895,7 @@ conditions for some partition.
 
 Quantum mechanics is, in this picture, the unique self-consistent
 algorithm for making predictions from incomplete data on accessible
-timescales under C1--C3. It is what computation looks like when one is a
+timescales under C1-C3. It is what computation looks like when one is a
 component of the machine doing the computing. The reframing has
 structural consequences. The \(10^{122}\) vacuum-energy discrepancy is
 not a fine-tuning failure but the compression ratio between the
@@ -1121,22 +1114,21 @@ The book has four parts.
 
 \textbf{Part I --- Foundations.} Chapters 1--4 develop the framework's
 mathematical core. Chapter 1 proves the central theorem: under the three
-structural conditions C1--C3, any embedded observer's reduced
-description is mathematically equivalent to unitarily evolving quantum
-mechanics. The proof is constructive (the Barandes correspondence and
-the Stinespring dilation provide explicit constructions) and includes
-the characterization theorem establishing necessity. Chapter 2
-constructs the substratum --- the finite deterministic bijection
-\((S, \varphi)\) --- and proves the reconstruction theorem: observed
-physics together with structural assumptions uniquely determines the
-substratum up to a precise gauge equivalence. Chapter 3 develops the
-framework's hierarchical structural realism, including its evasion of
-Bell, Kochen-Specker, and PBR-type no-go theorems through identification
-of which descriptive level each assumption fails at. Chapter 4
-articulates the framework's methodology --- the
-single-foundational-commitment derivation pattern, the
-architecture-level engagement with the no-go results, the classification
-of claims by derivational rigor.
+structural conditions C1-C3, any embedded observer's reduced description
+is mathematically equivalent to unitarily evolving quantum mechanics.
+The proof is constructive (the Barandes correspondence and the
+Stinespring dilation provide explicit constructions) and includes the
+characterization theorem establishing necessity. Chapter 2 constructs
+the substratum --- the finite deterministic bijection \((S, \varphi)\)
+--- and proves the reconstruction theorem: observed physics together
+with structural assumptions uniquely determines the substratum up to a
+precise gauge equivalence. Chapter 3 develops the framework's
+hierarchical structural realism, including its evasion of Bell,
+Kochen-Specker, and PBR-type no-go theorems through identification of
+which descriptive level each assumption fails at. Chapter 4 articulates
+the framework's methodology --- the single-foundational-commitment
+derivation pattern, the architecture-level engagement with the no-go
+results, the classification of claims by derivational rigor.
 
 \textbf{Part II --- Physics.} Chapters 5--9 develop the framework's
 quantitative predictions in fundamental physics. Chapter 5 derives the
@@ -1172,42 +1164,41 @@ identifying the contingent and structural steps along the cascade.
 \textbf{Part IV --- Applications.} Chapters 13--19 develop the
 framework's reach into working scientific fields. Chapter 13 addresses
 quantum biology: non-Markovian enzyme kinetics in proteins,
-photosynthesis as energy transfer through C1--C3 architectures,
+photosynthesis as energy transfer through C1-C3 architectures,
 magnetoreception via cryptochrome radical-pair dynamics, and enzyme
 catalysis with conformational landscapes acting as \(\tau_B\)-scale
 memory. Chapter 14 develops quantum computing: BQP is identified as the
 unique computational class accessible to embedded observers satisfying
-C1--C3, with the lower bound (the emergent quantum mechanics provides
-the BQP toolkit) and upper bound (the quantum description is
-informationally complete for the embedded observer) jointly
-characterizing the class. The Extended Church-Turing Thesis is reframed
-from empirical conjecture to theorem of the framework, with any
-super-BQP demonstration providing falsification. Chapter 15 develops
-quantum engineering: superconducting qubit dynamics as the canonical
-engineered C1--C3 system with \(\tau_S/\tau_B \sim 10^{-3}\),
-P-indivisible noise structure producing correlated errors over
-\(\sim 10^3\) gates, correlation-aware decoders reducing fault-tolerant
-overhead by 3--10×, coherence extension with engineered baths by up to
-10×, quantum sensing improvements up to \(10^3 \times\), and the BEC
-analogue-gravity experiment as the framework's cleanest near-term test
-of the BQP characterization theorem at the foundational level. Chapter
-16 develops medical applications across cancer pharmacology,
-neurodegeneration, antibiotic resistance, immunotherapy, cardiac
-pharmacology, and autoimmune disease, with an explicit second half on
-epigenetics as biological hidden sector --- the substratum-emergent
-operator dissociation at chromatin with reader/writer/eraser
-pharmacology axis, epigenetic drugs as memory erasers, cellular
-reprogramming as memory reset, the memory hierarchy from DNA methylation
-through chromatin architecture, and the wider therapeutic window
-prediction for reader-writer disorders confirmed empirically for Rett
-syndrome. Chapter 17 develops the bioinformatics consequences of the
-framework's structural constraints on biological information processing,
-with empirical confirmations from single-cell methodology and from the
-evolutionary-biology literature (molecular clock overdispersion, rate
-autocorrelation across the tree of life, LTEE power-law fitness
-trajectory). Chapter 18 develops the framework's distinctive forward
-predictions: Born-rule transient violations testable by CMB
-non-Gaussianity, the quantum-classical boundary with observable
+C1-C3, with the lower bound (the emergent quantum mechanics provides the
+BQP toolkit) and upper bound (the quantum description is informationally
+complete for the embedded observer) jointly characterizing the class.
+The Extended Church-Turing Thesis is reframed from empirical conjecture
+to theorem of the framework, with any super-BQP demonstration providing
+falsification. Chapter 15 develops quantum engineering: superconducting
+qubit dynamics as the canonical engineered C1-C3 system with
+\(\tau_S/\tau_B \sim 10^{-3}\), P-indivisible noise structure producing
+correlated errors over \(\sim 10^3\) gates, correlation-aware decoders
+reducing fault-tolerant overhead by 3--10×, coherence extension with
+engineered baths by up to 10×, quantum sensing improvements up to
+\(10^3 \times\), and the BEC analogue-gravity experiment as the
+framework's cleanest near-term test of the BQP characterization theorem
+at the foundational level. Chapter 16 develops medical applications
+across cancer pharmacology, neurodegeneration, antibiotic resistance,
+immunotherapy, cardiac pharmacology, and autoimmune disease, with an
+explicit second half on epigenetics as biological hidden sector --- the
+substratum-emergent operator dissociation at chromatin with
+reader/writer/eraser pharmacology axis, epigenetic drugs as memory
+erasers, cellular reprogramming as memory reset, the memory hierarchy
+from DNA methylation through chromatin architecture, and the wider
+therapeutic window prediction for reader-writer disorders confirmed
+empirically for Rett syndrome. Chapter 17 develops the bioinformatics
+consequences of the framework's structural constraints on biological
+information processing, with empirical confirmations from single-cell
+methodology and from the evolutionary-biology literature (molecular
+clock overdispersion, rate autocorrelation across the tree of life, LTEE
+power-law fitness trajectory). Chapter 18 develops the framework's
+distinctive forward predictions: Born-rule transient violations testable
+by CMB non-Gaussianity, the quantum-classical boundary with observable
 signatures, the epistemic character of quantum randomness, the quantum
 gravity dissolution as cumulative case (combining the CC dissolution, BH
 information paradox resolution, and non-renormalizability dissolution as
@@ -1217,7 +1208,7 @@ emergent from partition initial conditions, the framework's silence on
 global cosmic spatial topology with engagement of Levin's
 compact-universe proposal, and a substantive position on consciousness
 --- the framework's mathematical operation of observation (partition
-with C1--C3 structure) is a necessary but not sufficient condition for
+with C1-C3 structure) is a necessary but not sufficient condition for
 consciousness, with the hard problem proper explicitly outside the
 framework's scope. Chapter 19 closes the book with a systematic
 inventory of the framework's content against the major open problems of
@@ -1272,13 +1263,6 @@ being made and forthcoming. The book's role is to make the structure of
 the framework, the chain of its derivations, and the specific content of
 its predictions available for evaluation.
 
-\clearpage
-
-\hypertarget{part-i-foundations}{%
-\chapter{Part I --- Foundations}\label{part-i-foundations}}
-
-\clearpage
-
 \hypertarget{chapter-1}{%
 \chapter{Chapter 1}\label{chapter-1}}
 
@@ -1321,31 +1305,31 @@ rule, and the quantum measurement formalism emerge as structural
 consequences of the marginalization, requiring no additional postulates.
 The conditions are necessary as well as sufficient: any system
 equivalent to unitarily evolving quantum mechanics arises from
-marginalization of a deterministic bijection satisfying C1--C3 for some
+marginalization of a deterministic bijection satisfying C1-C3 for some
 partition.}
 
 The proof develops in seven stages, with a structural commentary in
 §1.10 examining what physics emerges when each of the three conditions
 fails. §1.2 states the framework's definition of observation and
 extracts three structural lemmas from it. §1.3 introduces the three
-conditions C1--C3, anchoring each in the physical situation of
-laboratory observers in our universe. §1.4 proves that the partition
-uniquely determines the emergent description, establishing
-partition-relativity as a structural feature rather than a free
-parameter. §1.5 proves that under C1--C3 the marginalized stochastic
-process is P-indivisible --- a precise non-Markovian property that
-captures the structural difference between embedded-observer dynamics
-and classical thermal noise. §1.6 establishes the two independent routes
-from P-indivisibility to unitary quantum mechanics: the Barandes
-stochastic-quantum correspondence and the Stinespring dilation. §1.7
-develops the framework's account of Bell-inequality violations as a
-structural consequence of P-indivisible joint dynamics. §1.8 establishes
-necessity through the characterization theorem. §1.9 closes by stating
-what the theorem says --- quantum mechanics as the unique
-self-consistent decompression algorithm for predictions from incomplete
-data under C1--C3. §1.10 develops the three structural limits --- what
-happens when each of C1, C2, C3 fails --- as commentary on what kind of
-observer the framework's conditions jointly characterize.
+conditions C1-C3, anchoring each in the physical situation of laboratory
+observers in our universe. §1.4 proves that the partition uniquely
+determines the emergent description, establishing partition-relativity
+as a structural feature rather than a free parameter. §1.5 proves that
+under C1-C3 the marginalized stochastic process is P-indivisible --- a
+precise non-Markovian property that captures the structural difference
+between embedded-observer dynamics and classical thermal noise. §1.6
+establishes the two independent routes from P-indivisibility to unitary
+quantum mechanics: the Barandes stochastic-quantum correspondence and
+the Stinespring dilation. §1.7 develops the framework's account of
+Bell-inequality violations as a structural consequence of P-indivisible
+joint dynamics. §1.8 establishes necessity through the characterization
+theorem. §1.9 closes by stating what the theorem says: quantum mechanics
+as the unique self-consistent decompression algorithm for predictions
+from incomplete data under C1-C3. §1.10 develops the three structural
+limits --- what happens when each of C1, C2, C3 fails --- as commentary
+on what kind of observer the framework's conditions jointly
+characterize.
 
 \hypertarget{the-starting-point}{%
 \section{1.2 The starting point}\label{the-starting-point}}
@@ -1356,29 +1340,29 @@ of interactions with a system not wholly under its own control. This is
 the \emph{cogito} of Descartes made mathematical --- the framework's one
 concession to a foundation outside its own theorems.
 
-That starting point, looked at closely, is really two things. The thing
-that genuinely cannot be doubted is thin: there is differentiated
-content --- some this-rather-than-that. Call this the first axiom. It is
-genuinely indubitable, because to doubt it is already to tell one thing
-from another, which is an instance of it. But notice what a single such
-fact does \emph{not} contain: time. A single differentiated content is
-like a photograph --- a frozen frame can be full of difference, light
-here and dark there, without anything in it being before or after
-anything else. To get from the photograph to a \emph{movie} --- to a
-world with succession, change, one moment after another --- something
-must be added: that the differentiation \emph{recurs}, that it is
-instantiated more than once over. Call this the second axiom. It cannot
-be squeezed out of the first; a frozen frame, however rich, never
-amounts to a sequence of frames. The framework therefore rests not on
-one fact but on two: one that cannot be doubted, and one that must be
-assumed. This is a strength, not a hedge. A foundation that can point to
-its single assumed ingredient --- and that comes with a theorem showing
-the assumed ingredient genuinely cannot be derived from the indubitable
-one --- is sturdier than a foundation whose assumptions are scattered,
-unnamed, through a definition. The technical development of this
-two-axiom structure, and the no-go theorem behind it, is given in Part I
-of the companion paper \emph{Physics Modulo Gauge}; the chapters that
-follow build on the structure without further reference to it.
+That starting point, examined closely, is two things. What genuinely
+cannot be doubted is thin: there is differentiated content --- some
+this-rather-than-that. Call this the first axiom. It is genuinely
+indubitable, because to doubt it is already to tell one thing from
+another, which is an instance of it. But notice what a single such fact
+does \emph{not} contain: time. A single differentiated content is like a
+photograph --- a frozen frame can be full of difference, light here and
+dark there, without anything in it being before or after anything else.
+To get from the photograph to a \emph{movie} --- to a world with
+succession, change, one moment after another --- something must be
+added: that the differentiation \emph{recurs}, that it is instantiated
+more than once. Call this the second axiom. It cannot be squeezed out of
+the first; a frozen frame, however rich, never amounts to a sequence of
+frames. The framework therefore rests not on one fact but on two: one
+that cannot be doubted, and one that must be assumed. This is a
+strength, not a hedge. A foundation that can point to its single assumed
+ingredient --- and that comes with a theorem showing the assumed
+ingredient genuinely cannot be derived from the indubitable one --- is
+sturdier than a foundation whose assumptions are scattered, unnamed,
+through a definition. The technical development of this two-axiom
+structure, and the no-go theorem behind it, is given in Part I of the
+companion paper \emph{Physics Modulo Gauge}; the chapters that follow
+build on the structure without further reference to it.
 
 \textbf{Definition.} An \emph{observation} is a triple
 \((S, \varphi, V)\): a total system \(S\), a deterministic dynamics
@@ -1407,7 +1391,7 @@ correlations enter only through \(H_{\text{int}}\).}
 
 \(\Gamma_V\) is the visible sector; \(\Gamma_H\) is the hidden sector;
 \(H_{\text{int}}\) couples them. The decomposition is not a modeling
-choice but the definition of embedded observation: an observer with
+choice but the very definition of embedded observation: an observer with
 access to all of \(S\) would have nothing external to observe.
 
 \textbf{Lemma 3 (Determinism and unique measure).} \emph{\(\varphi\) is
@@ -1768,9 +1752,9 @@ transpositions and satisfies \(\sigma^2 = \mathrm{id}\).
 
 Verify the three conditions: C1 holds because die values \(h = 1, 2\)
 couple to coin flips while \(h = 3, 4, 5, 6\) do not --- non-trivial
-coupling. C2 holds trivially with \(\tau_S/\tau_B = 1/2\) from the fact
-that \(\sigma^2 = \mathrm{id}\) gives recurrence at \(N = 2\). C3 holds
-with six hidden states against two visible states.
+coupling. C2 holds trivially with \(\tau_S/\tau_B = 1/2\), since
+\(\sigma^2 = \mathrm{id}\) gives recurrence at \(N = 2\). C3 holds with
+six hidden states against two visible states.
 
 Compute the one-step transition matrix starting from \(x = 0\) (Heads)
 with the die uniformly distributed. The dynamics sends
@@ -2003,7 +1987,7 @@ richer structural information (the tensor product, the channel-level
 CP-indivisibility, the Lindblad-form generator, the suppression of
 dissipation by \(\tau_S/\tau_B\)). Both routes agree on the observable
 transition data. The agreement means the emergence of quantum mechanics
-from embedded observation under C1--C3 does not rest on any single
+from embedded observation under C1-C3 does not rest on any single
 technical result: if one were to discover an error in Barandes'
 construction, the Stinespring route from textbook quantum information
 would establish the same conclusion through different mathematics. The
@@ -2073,11 +2057,11 @@ tensor, within which no-signaling follows from marginalization structure
 without fine-tuning.
 
 The P-indivisibility theorem and the two routes establish sufficiency:
-C1--C3 imply quantum mechanics. The remaining question is necessity.
-Does every system equivalent to unitarily evolving quantum mechanics
-arise from a deterministic bijection satisfying C1--C3 for some
-partition? §1.8 establishes that it does --- the characterization
-theorem closes the biconditional.
+C1-C3 imply quantum mechanics. The remaining question is necessity. Does
+every system equivalent to unitarily evolving quantum mechanics arise
+from a deterministic bijection satisfying C1-C3 for some partition? §1.8
+establishes that it does --- the characterization theorem closes the
+biconditional.
 
 \hypertarget{the-characterization-theorem}{%
 \section{1.8 The characterization
@@ -2085,9 +2069,9 @@ theorem}\label{the-characterization-theorem}}
 
 The Barandes correspondence already establishes that quantum mechanics
 is equivalent to P-indivisibility {[}4, 5{]}; §1.5 established that
-C1--C3 imply P-indivisibility. Necessity requires the converse: that
-P-indivisibility implies C1--C3 for any underlying dilation. The
-argument is three separate proofs, one for each condition.
+C1-C3 imply P-indivisibility. Necessity requires the converse: that
+P-indivisibility implies C1-C3 for any underlying dilation. The argument
+is three separate proofs, one for each condition.
 
 \textbf{Necessity of C1.} If \(T\) is a permutation matrix, then \(T^k\)
 is a permutation for all \(k\), and the candidate intermediate
@@ -2223,7 +2207,7 @@ bijection on \(\mathcal{C}_V \times \mathcal{C}_H\) satisfying (C1),
 (C2), and (C3) for some partition.} \(\square\)
 
 Quantum mechanics is not merely \emph{compatible with} embedded
-observation under C1--C3. It is equivalent to it.
+observation under C1-C3. It is equivalent to it.
 
 The characterization establishes Hilbert space, unitary dynamics, and
 Born-rule transition probabilities. The further structures of
@@ -2245,7 +2229,7 @@ postulates.
 An observer inside the universe receives incomplete data --- the visible
 sector only. The characterization theorem proves that there is exactly
 one self-consistent algorithm for making predictions from this
-incomplete data on accessible timescales under C1--C3. That algorithm is
+incomplete data on accessible timescales under C1-C3. That algorithm is
 quantum mechanics.
 
 Everything in quantum mechanics is a feature of this algorithm, not a
@@ -2572,8 +2556,6 @@ framework's quantitative physics. Part III traces the cascade from
 substratum to chemistry, biology, and intelligence. Part IV develops the
 framework's reach into working scientific fields.
 
-\clearpage
-
 \hypertarget{chapter-2}{%
 \chapter{Chapter 2}\label{chapter-2}}
 
@@ -2587,7 +2569,7 @@ framework's reach into working scientific fields.
 constructs}\label{what-this-chapter-constructs}}
 
 Chapter 1 established that any observer embedded in a finite
-deterministic system, satisfying conditions C1--C3 on what lies outside
+deterministic system, satisfying conditions C1-C3 on what lies outside
 their access, must use quantum mechanics. The theorem treated the
 underlying deterministic system \((S, \varphi)\) as a given input --- a
 finite configuration space and a bijection on it --- and analyzed what
@@ -2598,9 +2580,8 @@ Two questions need separation. The first is whether the observed physics
 determines \((S, \varphi)\) uniquely. If many different bijections
 produced the same observables, the substratum would be underdetermined
 and the framework would have no concrete object to describe. The second
-question is, when \((S, \varphi)\) is determined, what symmetries does
-it have --- what transformations of the substratum leave all observables
-unchanged.
+is what symmetries \((S, \varphi)\) has, once it is determined --- what
+transformations of the substratum leave all observables unchanged.
 
 The chapter answers both. §2.4 develops the \emph{reconstruction
 theorem}: observed physics --- quantum mechanics with Bell violations,
@@ -2911,7 +2892,7 @@ Bell-violation content E2, the boundary-entropy bound E3, and the
 finiteness and determinism assumptions A1, A2. Chapter 1's
 characterization theorem (§1.8) supplies the construction: any system
 equivalent to unitarily evolving quantum mechanics arises from
-marginalization of a deterministic bijection satisfying C1--C3 for some
+marginalization of a deterministic bijection satisfying C1-C3 for some
 partition. Bell violations force C1 (non-trivial coupling); the unitary
 structure of QM forces C2 and C3 (conditional on ETH for C2). The output
 of Stage 1 is a triple \((S, \varphi, V)\) with \(S\) finite,
@@ -3293,10 +3274,10 @@ emergent structure as the observer sees the substratum from inside.
 \textbf{The visible-sector projection: quantum mechanics.} Chapter 1
 developed this projection in detail. The embedded observer's compressed
 description of the visible sector, obtained by tracing out the hidden
-sector under conditions C1--C3, is mathematically equivalent to
-unitarily evolving quantum mechanics. The Hilbert space, the Schrödinger
-equation, the Born rule, and Bell-inequality violations all emerge from
-the marginalization, with no additional postulates. Applied to the
+sector under conditions C1-C3, is mathematically equivalent to unitarily
+evolving quantum mechanics. The Hilbert space, the Schrödinger equation,
+the Born rule, and Bell-inequality violations all emerge from the
+marginalization, with no additional postulates. Applied to the
 substratum constructed in this chapter --- a \(d = 3\) cubic lattice
 with \(K = 6\) internal components and the wave equation as substratum
 dynamics --- the visible-sector projection produces the Standard Model:
@@ -3345,7 +3326,7 @@ slow-bath condition --- picks out one direction along the observer's
 worldline as the direction in which the hidden sector's correlations
 with the visible sector's past are preserved. The structural
 observer-selection theorem developed in Chapter 1's appendix material
-restricts observers satisfying C1--C3 to the non-equilibrium phase of
+restricts observers satisfying C1-C3 to the non-equilibrium phase of
 \((S, \varphi)\); in the \(\Lambda\)-dominated cosmological phase, this
 phase is the one in which the horizon entropy
 \(S_{\text{dS}}(t) = A(t)/(4\ell_P^2)\) is monotonically increasing.
@@ -3361,7 +3342,7 @@ which preserves correlations forward along the clock rather than
 backward. The measurement arrow --- the observer records past outcomes
 and prepares future states --- descends from the memory arrow. The chain
 grounds in one structural fact (horizon growth in the accelerating
-phase) and one structural constraint (C1--C3 observer selection). No
+phase) and one structural constraint (C1-C3 observer selection). No
 independent past-hypothesis axiom is required, and Boltzmann brains are
 excluded structurally rather than anthropically.
 
@@ -3389,11 +3370,11 @@ the cascade's structural content.
 \textbf{The common structure.} The three projections share three
 features. They apply to the same substratum \((S, \varphi)\). They use
 the same trace-out machinery --- marginalization over the hidden sector
-under conditions C1--C3. They produce derived rather than fundamental
+under conditions C1-C3. They produce derived rather than fundamental
 structures: nothing in quantum mechanics, general relativity, or the
 arrow of time is a feature of \((S, \varphi)\) in itself; each is a
 feature of how the embedded observer sees the substratum from inside.
-The differences among the three projections are entirely in which
+The differences among the three projections lie entirely in which
 structure of the embedded observer's description they extract. The
 visible-sector projection works on the bulk dynamics and produces
 emergent quantum mechanics with the Standard Model as its specific
@@ -3406,7 +3387,7 @@ worldlines and produces the cascade of emergent arrows.
 The shared structure is not metaphor or analogy. The same lattice that
 gives the Standard Model gauge group as the commutant of the coupling
 matrix gives the Bekenstein-Hawking entropy as the boundary mode count.
-The conditions C1--C3 that produce P-indivisibility for the
+The conditions C1-C3 that produce P-indivisibility for the
 visible-sector projection produce the slow-bath observer selection for
 the horizon-clock projection. The substratum gauge group
 \(\mathcal{G}_{\text{sub}}\) that controls the reconstruction theorem's
@@ -3470,9 +3451,9 @@ under coupling to the bulk. Quantum mechanics describes the statistical
 projection: the visible-sector dynamics under marginalization over the
 hidden sector, the P-indivisible transition probabilities, the unitary
 evolution that captures the non-Markovian structure. The two are related
-by a definite procedure (the trace-out under conditions C1--C3), with
-the substratum gauge group controlling the equivalences. The question
-``how do we unify them?'' is dissolved rather than answered.
+by a definite procedure (the trace-out under conditions C1-C3), with the
+substratum gauge group controlling the equivalences. The question ``how
+do we unify them?'' is dissolved rather than answered.
 
 This is not the same as saying that quantum mechanics is more
 fundamental than general relativity, or vice versa. Both are emergent.
@@ -3586,8 +3567,6 @@ inputs. The book's role is to make this chain of derivations available
 for evaluation against the experimental record now being assembled and
 forthcoming.
 
-\clearpage
-
 \hypertarget{chapter-3}{%
 \chapter{Chapter 3}\label{chapter-3}}
 
@@ -3695,13 +3674,13 @@ separation), and C3 (sufficient hidden-sector capacity) --- that are
 necessary for a substratum's bijection \(\varphi\) to support an
 embedded observer. A substratum \((S, \varphi)\) is
 \emph{observer-admitting} if there exists a partition \(V \subset S\)
-such that the triple \((S, \varphi, V)\) satisfies C1--C3; it is
+such that the triple \((S, \varphi, V)\) satisfies C1-C3; it is
 \emph{observer-lacking} otherwise.
 
 The distinction is structural rather than empirical. A finite cellular
 automaton with a deterministic update rule may or may not admit an
 embedded observer, depending on whether its dynamics support the
-slow-mixing, sufficient-capacity, coupled-subsystem structure C1--C3
+slow-mixing, sufficient-capacity, coupled-subsystem structure C1-C3
 require. Random permutations on finite sets typically lack this
 structure: their cycle decompositions are wrong for the slow-bath
 condition, their internal correlations are wrong for the capacity
@@ -3731,7 +3710,7 @@ by the existence of observers, and which are contingent.
 The structural-anthropic content of Level B is independent of the
 specific universality class the universe belongs to. Any candidate
 substratum, regardless of dimension, gauge structure, or matter content,
-must satisfy C1--C3 to admit observers. The Level B commitment is
+must satisfy C1-C3 to admit observers. The Level B commitment is
 therefore broader than any specific physics: it applies to OI's
 cubic-lattice substratum, to string-theoretic compactifications insofar
 as they admit embedded observers, to any future candidate fundamental
@@ -3814,7 +3793,7 @@ enough to produce specific numerical predictions.
 
 The relationship between Levels D and C deserves a separate remark. The
 structural conditions A1--A6 that define Level D are not the same as the
-observer-admission conditions C1--C3 that define Level B. C1--C3 are
+observer-admission conditions C1-C3 that define Level B. C1-C3 are
 conditions for \emph{any} embedded observer to exist; A1--A6 are
 conditions for membership in OI's \emph{specific} universality class
 within the observer-admitting subset. Some A's relate to but are
@@ -3864,7 +3843,7 @@ parameter values by the conditioning on observer existence.
 The observer-admission reading at Level B sharpens this in two ways.
 First, it identifies which substratum features must be present for
 observers to exist at all, prior to questions about specific parameter
-values. The C1--C3 conditions are structural features of a substratum's
+values. The C1-C3 conditions are structural features of a substratum's
 dynamics: not values of free parameters but properties of the
 bijection's behavior. A substratum either admits observers or it does
 not; the question is binary at the structural level, before any
@@ -4234,7 +4213,7 @@ where they do not, sharpens both.
 \textbf{The apparent opposition.} At first glance gauge freedom and
 observational incompleteness look like opposites. Gauge freedom is
 \emph{surplus}: the description carries more structure than the physics,
-and the gauge quotient throws the excess away losing nothing.
+and the gauge quotient throws the excess away, losing nothing.
 Observational incompleteness sounds like a \emph{deficit}: the observer
 has \emph{less} than the whole story, missing what the trace-out over
 the hidden sector destroys. Surplus and deficit do not obviously belong
@@ -4776,8 +4755,6 @@ its most universal. The book's role is to develop these levels with the
 technical and empirical content that distinguishes one level from
 another.
 
-\clearpage
-
 \hypertarget{chapter-4}{%
 \chapter{Chapter 4}\label{chapter-4}}
 
@@ -4880,7 +4857,7 @@ records distinguishable outcomes of interactions with a system not
 wholly under the observer's control. This is the only commitment the
 framework takes from outside its own theorems. Every other content ---
 the lemmas of finiteness and causal partition and determinism, the
-conditions C1--C3 for embedded observers, the central theorem that
+conditions C1-C3 for embedded observers, the central theorem that
 quantum mechanics emerges under those conditions, the reconstruction
 theorem from observed physics back to the substratum, the Standard Model
 derivation from the cubic-group decomposition, the gravitational sector
@@ -5107,7 +5084,7 @@ S-class prediction can be at any of the four layers, and a Layer-1
 prediction can be S, C, L, R, P, M, or E class.
 
 \emph{Layer 0} covers gauge structure: which gauge groups exist, which
-representations appear, structural constraints from C1--C3. The Standard
+representations appear, structural constraints from C1-C3. The Standard
 Model gauge group
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) is Layer
 0. The three-generation count is Layer 0.
@@ -5491,7 +5468,7 @@ contradicted.
 \emph{Classical-memory simulability of any genuinely quantum process.}
 The characterization theorem developed in Chapter 1 §1.8 establishes
 that quantum mechanics is the description produced by an embedded
-observer satisfying C1--C3 on a deterministic substratum with bounded
+observer satisfying C1-C3 on a deterministic substratum with bounded
 classical hidden-sector memory. This implies that every process the
 framework calls quantum admits a classical-memory simulation at
 appropriate scale. The commitment is specific: non-Markovian models are
@@ -5613,7 +5590,7 @@ the structure of the dynamics --- the wave equation, the bijection, the
 partition --- from which evolution proceeds. The state at any particular
 cosmic time, including the time-zero conditions, is not a framework
 output. The framework is compatible with any cosmic-history that
-produces a C1--C3-satisfying observer-admitting regime by the time the
+produces a C1-C3-satisfying observer-admitting regime by the time the
 cosmological horizon stabilizes. Specific cosmological initial-condition
 observations bear on the framework only at the boundary where they would
 or would not produce the observer-admitting regime; within that boundary
@@ -5642,10 +5619,10 @@ sector derivations in Chapter 6 operate on a stable causal partition
 with \(\tau_B \sim H^{-1}\) --- the cosmological horizon as a partition
 between observer-accessible and observer-inaccessible regions. The
 pre-horizon era --- before such a partition stabilizes --- has no
-observer in the framework's sense, because the C1--C3 conditions for
+observer in the framework's sense, because the C1-C3 conditions for
 embedded observation are not satisfied. The framework's only commitment
 in this regime is a boundary condition on deeper theories: any
-successful pre-horizon dynamics must produce a C1--C3-satisfying regime
+successful pre-horizon dynamics must produce a C1-C3-satisfying regime
 by the time a horizon stabilizes. The framework makes no prediction for
 the dynamics of the pre-horizon era itself; that domain belongs to
 whatever deeper theory describes the pre-horizon transition.
@@ -5682,7 +5659,7 @@ construction, inaccessible to that observer.
 
 These silences are structural rather than methodological. They follow
 from the characterization theorem's identification of quantum mechanics
-with embedded observation under C1--C3, and from the observer-selection
+with embedded observation under C1-C3, and from the observer-selection
 theorem's restriction of observers to the non-equilibrium phase. The
 framework's silence on these regimes is not a gap in its content but a
 feature of its structural commitments: it is committed to the regime
@@ -5778,13 +5755,6 @@ part of this book; readers concerned specifically with the framework's
 methodology and its relation to the foundations-of-physics literature
 will find it the natural next text.
 
-\clearpage
-
-\hypertarget{part-ii-physics}{%
-\chapter{Part II --- Physics}\label{part-ii-physics}}
-
-\clearpage
-
 \hypertarget{chapter-5}{%
 \chapter{Chapter 5}\label{chapter-5}}
 
@@ -5799,7 +5769,7 @@ Structure}\label{the-emergence-of-gauge-structure}}
 develops}\label{what-this-chapter-develops-2}}
 
 Part I established that any observer embedded in a finite deterministic
-universe under conditions C1--C3 must use a mathematical formalism
+universe under conditions C1-C3 must use a mathematical formalism
 equivalent to unitarily evolving quantum mechanics; that observed
 physics together with structural assumptions uniquely determines a
 substratum \((S, \varphi)\) up to the gauge equivalence
@@ -5878,7 +5848,7 @@ finite set \(S\), a deterministic bijection \(\varphi: S \to S\), and a
 partition of \(S\) into visible and hidden sectors. The lemmas of
 Chapter 1 extracted three structural features from this minimal object
 --- finiteness, causal partition, determinism --- and the conditions
-C1--C3 identified when an embedded observer can exist. This section
+C1-C3 identified when an embedded observer can exist. This section
 develops two further structural features of the minimal object that the
 Standard Model derivation requires.
 
@@ -6712,8 +6682,6 @@ fermion masses from a single empirical input matched to better than
 Higgs mass from the boundary condition \(\lambda(M_{\text{Pl}}) = 0\)
 matched to \(0.9\%\). The framework's quantitative empirical record
 outside cosmology is concentrated in Chapter 6.
-
-\clearpage
 
 \hypertarget{chapter-6}{%
 \chapter{Chapter 6}\label{chapter-6}}
@@ -7964,8 +7932,6 @@ intersection of the hierarchical structural realism developed in Chapter
 representative, with substantial empirical support and pre-registered
 falsifiability. The structural and methodological commitments of Part I
 are made quantitatively precise here.
-
-\clearpage
 
 \hypertarget{chapter-7}{%
 \chapter{Chapter 7}\label{chapter-7}}
@@ -9322,8 +9288,6 @@ medicine, bioinformatics, and the framework's forward predictions.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
 \hypertarget{chapter-8}{%
 \chapter{Chapter 8}\label{chapter-8}}
 
@@ -10317,8 +10281,6 @@ through chemistry, life, and intelligence in Part III, and the
 applications and forward predictions in Part IV.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\clearpage
 
 \hypertarget{chapter-9}{%
 \chapter{Chapter 9}\label{chapter-9}}
@@ -11509,13 +11471,6 @@ domains where the framework operates.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
-\hypertarget{part-iii-emergence}{%
-\chapter{Part III --- Emergence}\label{part-iii-emergence}}
-
-\clearpage
-
 \hypertarget{chapter-10}{%
 \chapter{Chapter 10}\label{chapter-10}}
 
@@ -12333,8 +12288,6 @@ content's downstream consequences for life.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
 \hypertarget{chapter-11}{%
 \chapter{Chapter 11}\label{chapter-11}}
 
@@ -13148,8 +13101,6 @@ on which the subsequent biology chapters build.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
 \hypertarget{chapter-12}{%
 \chapter{Chapter 12}\label{chapter-12}}
 
@@ -13186,17 +13137,16 @@ organizational complexity.
 
 Eight pieces occupy the chapter.
 
-Section 12.2 develops evolution as a multi-scale C1-C3 system. Following
-Evolution.md §2, the framework's structural account of evolution
-identifies three distinct C1-C3 partitions operating at different
-scales: the protein conformational landscape (the fast subsystem is the
-protein's active configuration, the slow subsystem is the broader
-conformational landscape), the epigenome (the fast subsystem is gene
-expression, the slow subsystem is chromatin state), and the constructed
-ecological niche (the fast subsystem is organism behavior, the slow
-subsystem is the modified environment passed to descendants). Each scale
-produces non-Markovian dynamics in the corresponding emergent
-description.
+Section 12.2 develops evolution as a multi-scale C1-C3 system. The
+framework's structural account of evolution identifies three distinct
+C1-C3 partitions operating at different scales: the protein
+conformational landscape (the fast subsystem is the protein's active
+configuration, the slow subsystem is the broader conformational
+landscape), the epigenome (the fast subsystem is gene expression, the
+slow subsystem is chromatin state), and the constructed ecological niche
+(the fast subsystem is organism behavior, the slow subsystem is the
+modified environment passed to descendants). Each scale produces
+non-Markovian dynamics in the corresponding emergent description.
 
 Section 12.3 develops information processing as fitness-enhancing in any
 environment with the framework's thermal window. Selection generically
@@ -13990,13 +13940,6 @@ medicine (Chapter 16), and bioinformatics (Chapter 17).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
-\hypertarget{part-iv-applications}{%
-\chapter{Part IV --- Applications}\label{part-iv-applications}}
-
-\clearpage
-
 \hypertarget{chapter-13}{%
 \chapter{Chapter 13}\label{chapter-13}}
 
@@ -14735,8 +14678,6 @@ foundational example that the subsequent chapters build on.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
 \hypertarget{chapter-14}{%
 \chapter{Chapter 14}\label{chapter-14}}
 
@@ -15400,8 +15341,6 @@ empirical exposure in computational complexity is principally negative
 falsification target --- but the structural content is substantial.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\clearpage
 
 \hypertarget{chapter-15}{%
 \chapter{Chapter 15}\label{chapter-15}}
@@ -16350,8 +16289,6 @@ specific quantitative predictions across multiple engineering domains.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
 \hypertarget{chapter-16}{%
 \chapter{Chapter 16}\label{chapter-16}}
 
@@ -16542,8 +16479,8 @@ corresponding normal tissue does not depend on (or depends on
 differently), therapies can target the \emph{memory structure} rather
 than the \emph{catalytic function}. This is pharmacologically distinct
 from standard inhibition and predicts \emph{wider therapeutic windows}
-because the target (memory dependence) is more disease-specific than the
-target (catalytic activity).
+because memory dependence is more disease-specific than catalytic
+activity.
 
 The memory-asymmetry principle organizes the chapter's content across
 the disease domains in §§16.3-16.12. Each disease's pharmacology is
@@ -17555,8 +17492,6 @@ strongest cases for content beyond fundamental physics.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
 \hypertarget{chapter-17}{%
 \chapter{Chapter 17}\label{chapter-17}}
 
@@ -18204,7 +18139,7 @@ high-neutrality regions of the landscape, reducing memory effects).
 
 The empirical record matches this prediction. \(R(t) \approx 5\) for
 mammalian amino acid substitutions (Gillespie 1989, Cutler 2000).
-\(R(t) \approx 1.6\)-\(2.6\) for \emph{Drosophila} (Wang et al.~2010,
+\(R(t) \approx 1.6\)-\(2.6\) for \emph{Drosophila} (Zeng et al.~1998,
 Bedford and Hartl 2008). \(R(t)\) is inversely correlated with effective
 population size across yeast, \emph{Drosophila}, and mammals (Bedford
 and Hartl 2008) --- precisely as the framework predicts. Synonymous
@@ -18456,8 +18391,6 @@ many, with the structural commitments at the substratum level being
 load-bearing for the framework's reach in each.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\clearpage
 
 \hypertarget{chapter-18}{%
 \chapter{Chapter 18}\label{chapter-18}}
@@ -19963,8 +19896,6 @@ empirical reach explicit.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
 \hypertarget{chapter-19}{%
 \chapter{Chapter 19}\label{chapter-19}}
 
@@ -20902,8 +20833,6 @@ them is the framework's future research program.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
 \hypertarget{appendix-a}{%
 \chapter{Appendix A}\label{appendix-a}}
 
@@ -21639,8 +21568,6 @@ content.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
 \hypertarget{appendix-b}{%
 \chapter{Appendix B}\label{appendix-b}}
 
@@ -21726,7 +21653,7 @@ but compressed derivations.
 \section{B.2 The Stinespring construction for emergent quantum
 mechanics}\label{b.2-the-stinespring-construction-for-emergent-quantum-mechanics}}
 
-\emph{Main-text reference: Chapter 1 §1.7-1.9. Source: Main.md §3.2.}
+\emph{Main-text reference: Chapter 1 §1.7-1.9.}
 
 The framework's emergent quantum mechanics derives from the substratum's
 deterministic bijection through a Stinespring dilation applied to the
@@ -21859,8 +21786,7 @@ evolution and structurally non-Markovian corrections at
 \section{B.3 The trace-out as a Jordan-Chevalley
 projection}\label{b.3-the-trace-out-as-a-jordan-chevalley-projection}}
 
-\emph{Main-text reference: Chapter 5 §5.4-5.6. Source: SM.md Appendix
-A.}
+\emph{Main-text reference: Chapter 5 §5.4-5.6.}
 
 The framework's content on the Standard Model gauge structure relies on
 a precise algebraic property of the trace-out operation: it extracts the
@@ -22009,7 +21935,7 @@ structure.
 \section{\texorpdfstring{B.4 The gap equation for
 \(\hbar\)}{B.4 The gap equation for \textbackslash hbar}}\label{b.4-the-gap-equation-for-hbar}}
 
-\emph{Main-text reference: Chapter 7 §7.3. Source: GR.md §3.}
+\emph{Main-text reference: Chapter 7 §7.3.}
 
 The framework derives Planck's constant \(\hbar\) as the unique
 self-consistent value matching the classical horizon temperature to the
@@ -22145,7 +22071,7 @@ quantity (temperature), not between two quantities that both assume
 \section{B.5 Anomaly cancellation and unique
 hypercharges}\label{b.5-anomaly-cancellation-and-unique-hypercharges}}
 
-\emph{Main-text reference: Chapter 6 §6.7. Source: SM.md Theorem 15.}
+\emph{Main-text reference: Chapter 6 §6.7.}
 
 The framework's content on the Standard Model matter content derives the
 unique hypercharge assignment from the six anomaly conditions of
@@ -22266,7 +22192,7 @@ framework.
 \section{B.6 Gauge-theoretic
 derivations}\label{b.6-gauge-theoretic-derivations}}
 
-\emph{Main-text reference: Chapter 5 §5.3-5.5. Source: SM.md §§3.2-4.2.}
+\emph{Main-text reference: Chapter 5 §5.3-5.5.}
 
 Two key gauge-theoretic results from Chapter 5 are presented here with
 full derivation: the coupling-degree minimization fixing \(K = 2d = 6\)
@@ -22397,7 +22323,7 @@ spatial dimensionality \(d = 3\).
 \section{B.7 The lemma chain for emergent quantum
 mechanics}\label{b.7-the-lemma-chain-for-emergent-quantum-mechanics}}
 
-\emph{Main-text reference: Chapter 1 §§1.5-1.9. Source: Main.md §§1-3.}
+\emph{Main-text reference: Chapter 1 §§1.5-1.9.}
 
 The framework's characterization theorem (emergent quantum mechanics
 from C1-C3) relies on a chain of intermediate lemmas. This appendix
@@ -22547,8 +22473,6 @@ therefore a complete technical reference for readers requiring the
 framework's mathematical content at full detail.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\clearpage
 
 \hypertarget{appendix-c}{%
 \chapter{Appendix C}\label{appendix-c}}
@@ -23734,8 +23658,6 @@ characteristic of one reader audience.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
 \hypertarget{glossary}{%
 \chapter{Glossary}\label{glossary}}
 
@@ -24294,8 +24216,6 @@ patterns reflecting source cell type) persists. Discussed in Chapter 16
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\clearpage
-
 \hypertarget{bibliography}{%
 \chapter{Bibliography}\label{bibliography}}
 
@@ -24459,8 +24379,13 @@ Tentative evidence for Planck-scale structure at black hole horizons.
 Bekenstein, J. D. (1981). Universal upper bound on the entropy-to-energy
 ratio for bounded systems. \emph{Physical Review D} 23: 287-298.
 
-Bertini, S., et al.~(2025). {[}Bullet Cluster post-collision dynamics.
-Citation pending verification.{]}
+Bertini, S., et al.~(2025). {[}Bullet Cluster post-collision dynamics /
+DESI-era dark-energy-equation-of-state measurement. Citation pending
+verification: no 2025 paper with lead author ``Bertini'' on either topic
+could be located in arXiv or NASA ADS. The in-text DESI-era
+equation-of-state value ν = -(2.5 ± 1.3)×10⁻⁴ should be reconciled with
+the DESI DR2 cosmology paper (see DESI Collaboration 2025 above) or the
+intended source confirmed by the author.{]}
 
 Bousso, R. (1999). A covariant entropy conjecture. \emph{Journal of High
 Energy Physics} 7: 4.
@@ -24487,9 +24412,9 @@ Danielson, D., Satishchandran, G., \& Wald, R. M. (2022). Black holes
 decohere quantum superpositions. \emph{International Journal of Modern
 Physics D} 31: 2241003.
 
-DESI Collaboration (2024-2025). Dark Energy Spectroscopic Instrument
-Year 2 results: dark energy equation of state. {[}Citation pending
-specific paper identification.{]}
+DESI Collaboration (2025). DESI DR2 results II: Measurements of baryon
+acoustic oscillations and cosmological constraints. \emph{Physical
+Review D} 112: 083515. arXiv:2503.14738.
 
 Genzel, R., Förster Schreiber, N. M., Übler, H., Lang, P., Naab, T.,
 Bender, R., et al.~(2017). Strongly baryon-dominated disk galaxies at
@@ -24542,8 +24467,12 @@ Chatziioannou, K., Cardoso, V., Khanna, G., \& Van Den Broeck, C.
 characterizing gravitational wave echoes. \emph{Physical Review D} 98:
 024023. arXiv:1804.04877.
 
-Verlinde, E. P. (2024). {[}Recent work on emergent gravity. Citation
-pending verification.{]}
+Verlinde, E. P. (2017). Emergent gravity and the dark universe.
+\emph{SciPost Physics} 2: 016. arXiv:1611.02269. {[}Cited in-text as
+``Verlinde (2024)''; no substantive 2024 Verlinde-authored
+emergent-gravity paper could be identified, and the 2017 SciPost paper
+remains the canonical reference. The in-text year should be corrected to
+2017, or the citation reframed if a specific later work was intended.{]}
 
 Westerweck, J., Nielsen, A. B., Fischer-Birnholtz, O., Cabero, M.,
 Capano, C., Dent, T., Krishnan, B., Meadors, G., \& Nitz, A. H. (2018).
@@ -24619,15 +24548,20 @@ Tao, Q., Tamura, K., U. Mello, B., \& Kumar, S. (2019). Reliable
 confidence intervals for relevant timetree-based parameters.
 \emph{Molecular Biology and Evolution} 36: 811-824.
 
-Wang, H.-Y., Tang, H., Shen, C.-K. J., \& Wu, C.-I. (2010).
-{[}Drosophila molecular clock overdispersion. Citation pending
-verification of specific paper.{]}
-
 Wiltschko, R., \& Wiltschko, W. (2019). Magnetoreception in birds.
 \emph{Journal of the Royal Society Interface} 16: 20190295.
 
 Wiser, M. J., Ribeck, N., \& Lenski, R. E. (2013). Long-term dynamics of
 adaptation in asexual populations. \emph{Science} 342: 1364-1367.
+
+Zeng, L.-W., Comeron, J. M., Chen, B., \& Kreitman, M. (1998). The
+molecular clock revisited: the rate of synonymous vs.~replacement change
+in \emph{Drosophila}. \emph{Genetica} 102/103: 369-382. DOI:
+10.1023/A:1017035109224. {[}Source of the \emph{Drosophila}
+dispersion-index range R(t) ≈ 1.6-2.6 cited in the text; previously
+attributed in-text to a ``Wang et al.~(2010)'' entry that could not be
+located. The 1.6-2.6 range traces to this paper via Bedford \& Hartl
+(2008).{]}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -24636,7 +24570,12 @@ adaptation in asexual populations. \emph{Science} 342: 1364-1367.
 biology}\label{medicine-pharmacology-and-clinical-biology}}
 
 Bauer, K., et al.~(2020). {[}p300/CBP HAT + BET inhibitor combinations
-in NUT carcinoma. Citation pending verification.{]}
+in NUT carcinoma. Citation pending verification: no NUT-carcinoma paper
+with lead author ``Bauer'' could be located. The 2020 NUT-carcinoma
+papers on this drug combination are Morrison-Smith et al.~(2020),
+\emph{Molecular Cancer Therapeutics} 19: 1406-1414, and the A-485 study
+by Sun et al.~(2020) in \emph{Oncogene} 39: 4770-4783. The intended
+reference should be confirmed by the author.{]}
 
 Bernstein, B. E., Mikkelsen, T. S., Xie, X., Kamal, M., Huebert, D. J.,
 Cuff, J., et al.~(2006). A bivalent chromatin structure marks key
@@ -24652,8 +24591,14 @@ Cherayil, B. J., Kou, S. C., \& Xie, X. S. (2006). Ever-fluctuating
 single enzyme molecules: Michaelis-Menten equation revisited.
 \emph{Nature Chemical Biology} 2: 87-94.
 
-Garcia-Manero, G., NCT01305499. {[}Clinical trial: DNMT + HDAC
-combination in MDS/AML. Citation pending verification of publication.{]}
+Garcia-Manero, G., NCT01305499. {[}Clinical trial: hypomethylating-agent
++ HDAC-inhibitor combination in AML. Citation pending verification:
+trial NCT01305499 is a phase 2 study of azacitidine combined with the
+HDAC inhibitor \emph{entinostat} (sequential vs.~overlapping schedules)
+in older AML patients --- not the azacitidine+vorinostat combination. No
+dedicated primary journal publication of NCT01305499's results could be
+located; the author should confirm the intended trial and its
+publication, or cite the trial registry record directly.{]}
 
 Guy, J., Gan, J., Selfridge, J., Cobb, S., \& Bird, A. (2007). Reversal
 of neurological defects in a mouse model of Rett syndrome.
@@ -24671,7 +24616,13 @@ pluripotent stem cells. \emph{Frontiers in Cell and Developmental
 Biology} 12: 1306530. DOI: 10.3389/fcell.2024.1306530.
 
 Marek, M., et al.~(2022). {[}p300/CBP HAT + BET inhibitor synergy in NUT
-carcinoma. Citation pending verification.{]}
+carcinoma. Citation pending verification: no NUT-carcinoma paper with
+lead author ``Marek'' could be located. The most likely intended 2022
+reference is Tontsch-Grunt, U., et al.~(2022), Therapeutic impact of BET
+inhibitor BI 894999 treatment: backtranslation from the clinic,
+\emph{British Journal of Cancer} 127: 577-586, which studies BI 894999
+combined with the p300/CBP inhibitor CCS1477 in NUT carcinoma. To be
+confirmed by the author.{]}
 
 Nicolas, D., Phillips, N. E., \& Naef, F. (2018). What shapes eukaryotic
 transcriptional bursting? \emph{Molecular BioSystems} 14: 1623-1629.
@@ -24699,10 +24650,14 @@ function of Chk1 can be uncoupled from DNA damage checkpoint and
 replication control. \emph{Proceedings of the National Academy of
 Sciences USA} 105: 20752-20757.
 
-Ye, J. H., et al.~(2025). Focused ultrasound blood-brain-barrier opening
-improves cognition in Alzheimer's patients. \emph{Journal of
-Neurosurgery}. {[}Korean trial, 2025 publication; citation pending
-verification.{]}
+Ye, B. S., Chang, K. W., Kang, S., Jeon, S., \& Chang, J. W. (2025).
+Repetitive and extensive focused ultrasound-mediated bilateral frontal
+blood-brain barrier opening for Alzheimer's disease. \emph{Journal of
+Neurosurgery} 142: 1263-1272. DOI: 10.3171/2024.8.JNS24989. {[}Korean
+trial NCT06158789; previously entered as ``Ye, J. H.'' --- the lead
+author is Byoung Seok Ye. The study reported improvement in
+neuropsychiatric symptoms from blood-brain-barrier opening alone,
+without concurrent antibody medication.{]}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -24740,8 +24695,11 @@ Cui, H., Wang, C., Maan, H., Pang, K., Luo, F., Duan, N., \& Wang, B.
 (2023). scGPT: toward building a foundation model for single-cell
 multi-omics using generative AI. \emph{Nature Methods} (2024).
 
-Drexler, R., et al.~(2024). {[}Unclassifiable CNS tumors in DKFZ
-methylome classifier. Citation pending verification.{]}
+Drexler, R., Brembach, F., Sauvigny, J., Ricklefs, F. L., Eckhardt, A.,
+Bode, H., Gempt, J., Lamszus, K., Westphal, M., Schüller, U., \& Mohme,
+M. (2024). Unclassifiable CNS tumors in DNA methylation-based
+classification: clinical challenges and prognostic impact. \emph{Acta
+Neuropathologica Communications} 12: 9. DOI: 10.1186/s40478-024-01728-9.
 
 Gorin, G., Fang, M., Chari, T., \& Pachter, L. (2022). RNA velocity
 unraveled. \emph{PLOS Computational Biology} 18: e1010492.
@@ -24749,9 +24707,14 @@ unraveled. \emph{PLOS Computational Biology} 18: e1010492.
 Hayashi-Takagi, A., et al.~(2023). {[}Multi-timescale chromatin
 dynamics. Citation pending verification.{]}
 
-Hummer, G., \& Szabo, A. (various dates). {[}Trace-out structure in
-enzyme kinetics. Series of papers cited collectively; specific citations
-pending verification.{]}
+Hummer, G., \& Szabo, A. (2001). Free energy reconstruction from
+nonequilibrium single-molecule pulling experiments. \emph{Proceedings of
+the National Academy of Sciences USA} 98: 3658-3661. DOI:
+10.1073/pnas.071034098. {[}The manuscript cites the Hummer-Szabo
+single-molecule kinetics program collectively; the companion
+methodological paper is Hummer, G., \& Szabo, A. (2010), Free energy
+profiles from single-molecule pulling experiments, \emph{PNAS} 107:
+21441-21446, DOI: 10.1073/pnas.1015661107.{]}
 
 Kedzierska, K. Z., Crawford, L., Amini, A. P., \& Lu, A. X. (2024).
 Assessing the limits of zero-shot foundation models in single-cell
@@ -24797,8 +24760,11 @@ reverse-engineering assessment and methods: The DREAM of high-throughput
 pathway inference. \emph{Annals of the New York Academy of Sciences}
 1115: 1-22. DOI: 10.1196/annals.1407.021.
 
-Tedesco, M., et al.~(2022). {[}Chromatin velocity / multi-omic velocity.
-Citation pending verification.{]}
+Tedesco, M., Giannese, F., Lazarević, D., Giansanti, V., Rosano, D.,
+Monzani, S., et al.~(2022). Chromatin Velocity reveals epigenetic
+dynamics by single-cell profiling of heterochromatin and euchromatin.
+\emph{Nature Biotechnology} 40: 235-244. DOI:
+10.1038/s41587-021-01031-1.
 
 Theodoris, C. V., Xiao, L., Chopra, A., Chaffin, M. D., Sayed, Z. R. A.,
 Hill, M. C., et al.~(2023). Transfer learning enables predictions in
@@ -24810,8 +24776,13 @@ network biology. \emph{Nature} 618: 616-624.
 \section{Quantum biology and biological information
 processing}\label{quantum-biology-and-biological-information-processing}}
 
-Cao, J., \& Plenio, M. B. (2025). {[}Vibronic coherences in
-photosynthesis. Citation pending verification.{]}
+Cao, J., Cogdell, R. J., Coker, D. F., Duan, H.-G., Hauer, J.,
+Kleinekathöfer, U., et al.~(2020). Quantum biology revisited.
+\emph{Science Advances} 6: eaaz4888. DOI: 10.1126/sciadv.aaz4888.
+{[}Cited in-text as ``Cao, Fleming, and others''; entered previously as
+``Cao \& Plenio (2025)'', which is a misattribution --- this 18-author
+review is led by Jianshu Cao and does not include M. B. Plenio. The
+in-text reference and year should be corrected accordingly.{]}
 
 Cha, Y., Murray, C. J., \& Klinman, J. P. (1989). Hydrogen tunneling in
 enzyme reactions. \emph{Science} 243: 1325-1330.
@@ -24835,8 +24806,11 @@ Manolopoulos, D. E., Mouritsen, H., \& Hore, P. J. (2016). The quantum
 needle of the avian magnetic compass. \emph{Proceedings of the National
 Academy of Sciences USA} 113: 4634-4639.
 
-Hiscock, H. G., et al.~(2019). {[}Subsequent work on radical-pair
-coherence in cryptochrome. Citation pending verification.{]}
+Hiscock, H. G., Hiscock, T. W., Kattnig, D. R., Scrivener, T., Lewis, A.
+M., Manolopoulos, D. E., \& Hore, P. J. (2019). Navigating at night:
+fundamental limits on the sensitivity of radical pair magnetoreception
+under dim light. \emph{Quarterly Reviews of Biophysics} 52: e9. DOI:
+10.1017/S0033583519000076.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -24963,46 +24937,39 @@ Google Scholar, or PhilPapers, and are flagged ``pending verification''
 with the most plausible intended references noted in their entries; both
 require confirmation from the author.
 
-\emph{Remaining entries marked ``pending verification'':} approximately
-15 entries reference works whose precise bibliographic details require
-further verification. These fall into three categories:
+\emph{Remaining entries marked ``pending verification'':} a May 2026
+verification pass resolved the large majority of previously incomplete
+entries. The following were fully resolved with verified bibliographic
+detail: the DESI DR2 cosmology paper (\emph{Phys. Rev.~D} 112: 083515),
+Verlinde's emergent-gravity paper (\emph{SciPost Physics} 2: 016, 2017),
+the Tedesco et al.~chromatin-velocity paper (\emph{Nat. Biotechnol.} 40:
+235-244), the Cao et al.~``Quantum biology revisited'' review
+(\emph{Science Advances} 6: eaaz4888), the Hiscock et
+al.~magnetoreception paper (\emph{Quarterly Reviews of Biophysics} 52:
+e9), the Drexler et al.~CNS-tumor-classification paper (\emph{Acta
+Neuropathol. Commun.} 12: 9), the Ye et al.~focused-ultrasound
+Alzheimer's trial (\emph{J. Neurosurg.} 142: 1263-1272), and the
+Hummer-Szabo single-molecule kinetics references (\emph{PNAS} 98:
+3658-3661 and 107: 21441-21446). The verification pass also corrected
+several misattributions: the \emph{Drosophila} dispersion-index range
+R(t) ≈ 1.6-2.6 traces to Zeng et al.~(1998, \emph{Genetica} 102/103:
+369-382), not a ``Wang et al.~(2010)'' paper; the photosynthesis review
+is led by J. Cao and does not include M. B. Plenio; and the Korean
+focused-ultrasound trial's lead author is B. S. Ye, not ``J. H. Ye''. A
+small number of entries remain genuinely unresolved and are flagged in
+place: ``Bauer et al.~(2020)'' and ``Marek et al.~(2022)'' on
+NUT-carcinoma drug combinations and ``Pyhel et al.~(2024)'' on
+knowledge-graph perturbation methods could not be matched to any located
+paper (likely transcription errors, with the most plausible intended
+references named in-entry); ``Hayashi-Takagi et al.~(2023)'' on
+chromatin dynamics lacks sufficient context to disambiguate; the
+Garcia-Manero trial NCT01305499 is correctly identified as an
+azacitidine+entinostat study but has no locatable dedicated primary
+publication; and ``Diakonakou-Wallace (2024)'' and ``Wallden (2024)''
+remain dependent on external collaborators' publication status.
 
-\emph{Multi-author paper series:} Several entries reference series of
-papers by the same author group (Hummer \& Szabo on enzyme kinetics;
-Wächtershäuser iron-sulfur world program; Hiscock et al.~cryptochrome
-work; the Cao \& Plenio vibronic coherence literature). For these, the
-manuscript text cites the author group's contribution rather than a
-specific paper. A final-pass decision is needed on whether to cite the
-most representative paper of each series or to list the full series
-chronologically.
-
-\emph{Clinical trial citations:} Several pharmaceutical/clinical
-citations (Garcia-Manero NCT01305499 on DNMT+HDAC combinations in
-MDS/AML; Bauer 2020 and Marek 2022 on p300/CBP HAT + BET inhibitor
-combinations in NUT carcinoma; the Korean LIFU trial Ye et al.~2025)
-reference clinical work whose primary publication may be different from
-the manuscript's text reference. Verification requires consulting
-clinicaltrials.gov and the relevant journal portfolios.
-
-\emph{Recent specialty works:} Several 2024-2026 citations (Drexler et
-al.~on unclassifiable CNS tumors in the DKFZ methylome classifier; Pyhel
-et al.~on knowledge-graph methods for perturbation prediction; Tedesco
-et al.~on chromatin velocity; Wang et al.~2010 on \emph{Drosophila}
-molecular clock overdispersion; Bertini et al.~2025 on Bullet Cluster
-post-collision dynamics; Verlinde 2024 on emergent gravity) reference
-specialty literature whose final publication details should be verified
-at the time of book publication.
-
-\emph{Framework-internal collaborator references:} Two entries
-(Diakonakou-Wallace 2024 and Wallden 2024) reference independent
-corroborations of the Barandes correspondence developed by external
-collaborators. These references depend on collaborators' publication
-status and require coordination with those collaborators on appropriate
-citation form.
-
-The framework's own technical companion papers (Main.md, SM.md, GR.md,
-and others in the \texttt{incompleteness-2.0.6} Zenodo release at DOI
-10.5281/zenodo.19060318) are the primary references for all
+The framework's own technical companion papers (in the Zenodo release at
+DOI 10.5281/zenodo.19060318) are the primary references for all
 framework-internal derivations and should be consulted for full
 technical detail. Page-level cross-citation between book and companion
 papers will be added in the final cross-referencing pass.
@@ -25014,5 +24981,213 @@ integrated into the manuscript's argument --- but they need
 bibliographic detail verified for production-grade citation accuracy.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{index}{%
+\chapter{Index}\label{index}}
+
+\emph{Page numbers refer to the print edition. Entries marked with a
+page range span a continuous discussion; comma-separated numbers
+indicate distinct treatments.}
+
+\hypertarget{concepts-and-topics}{%
+\section{Concepts and topics}\label{concepts-and-topics}}
+
+\textbf{A}
+
+arrow of time, 47, 56, 58, 68, 78, 310, 312, 320
+
+\textbf{B}
+
+Bell inequalities, 91, 153, 305, 364-365, 381, 383, 388\\
+BQP (bounded-error quantum polynomial time), 224, 240, 243, 246, 250,
+265, 346, 384\\
+Bullet Cluster, 324, 391, 401
+
+\textbf{C}
+
+chemistry, emergence of, 185, 193, 214, 219\\
+coherence, quantum, 36-37, 43, 231, 251, 256, 351, 388\\
+\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\emph{vibronic},
+232, 235, 237, 343, 388, 401\\
+computational irreducibility, 99, 105, 118, 155, 332-333, 358-359
+
+\textbf{D}
+
+decoherence, 36, 180, 183, 231, 256, 260, 303, 392\\
+\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\emph{gravitationally
+induced}, 170, 181-183, 185, 251, 261, 383\\
+\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\emph{from
+horizons}, 170, 180-182, 185, 251, 261, 383\\
+DSW (Danielson-Satishchandran-Wald) effect, 170, 180, 182-183, 185, 261,
+383, 401
+
+\textbf{E}
+
+epigenetic clock, 275, 394, 399, 401\\
+evolution, molecular, 281, 284, 293, 295-296, 319, 393-394
+
+\textbf{F}
+
+falsifiability, 60, 85, 110, 146, 229, 246, 261, 344
+
+\textbf{G}
+
+gauge structure, 52, 68, 84, 95, 110, 130, 192, 356\\
+gene regulatory networks, 284-288, 295-296, 395\\
+gravitational waves, echoes, 143, 299, 308, 319, 345, 377, 391, 399\\
+gravity, emergent, 308, 392, 402
+
+\textbf{H}
+
+holographic principle, 183-184, 390, 402
+
+\textbf{I}
+
+incompleteness of observation, 44, 49, 72, 77, 214, 302, 312, 388
+
+\textbf{J}
+
+JUNO experiment, 57, 96, 139, 161, 167, 281, 342, 387
+
+\textbf{K}
+
+Kochen-Specker theorem, 45, 60, 73, 75-76, 82, 88-89
+
+\textbf{M}
+
+MOND (modified Newtonian dynamics), 57, 91, 146, 149, 172, 177, 324, 376
+
+\textbf{N}
+
+neutrino mass ordering, 91, 125, 127, 146, 164-165, 176, 387
+
+\textbf{O}
+
+origin of life, 185, 198, 200, 210-211, 220, 377, 393
+
+\textbf{P}
+
+PBR (Pusey-Barrett-Rudolph) theorem, 45, 60, 75, 82, 89, 363, 366, 399
+
+\textbf{Q}
+
+quantum biology, 61, 224, 227, 231, 234, 236, 281, 397\\
+quantum computing, 61, 237, 240, 242, 252, 254, 382, 398\\
+quantum error correction, 242, 248, 250, 252-254, 261-262
+
+\textbf{R}
+
+radical-pair mechanism, 211, 227, 229, 233, 236, 343, 394, 399\\
+reconstruction theorem, 47, 50, 54, 58, 63, 83, 222, 332\\
+running-vacuum model, 92, 133, 144, 149, 308, 329, 342, 346
+
+\textbf{S}
+
+structural realism, 45, 56, 77, 96, 151, 170, 176, 187\\
+substratum, 30, 68, 103, 141, 188, 277, 311, 358\\
+\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\emph{finite
+deterministic}, 43, 77, 133, 170, 173, 183, 239, 332\\
+\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\emph{bijection},
+29, 51, 87, 115, 170, 192, 311, 352
+
+\textbf{T}
+
+topology of the universe, 310, 391, 402
+
+\textbf{U}
+
+unitarity, 30, 40, 59, 80, 142, 306, 351, 381\\
+universality, 60, 69, 96, 143, 173, 182, 222, 261
+
+\hypertarget{names}{%
+\section{Names}\label{names}}
+
+\textbf{A}
+
+Afshordi, N., 309, 391, 399, 403
+
+\textbf{B}
+
+Barandes, J. A., 35, 37, 363, 368, 387, 390\\
+Bekenstein, J. D., 29, 66, 114, 147, 180, 341
+
+\textbf{C}
+
+Cao, J., 232, 397, 399-400, 403\\
+Cornish, N. J., 314, 391, 399, 403
+
+\textbf{D}
+
+Danielson, D., 170, 180, 261, 383, 391, 401
+
+\textbf{F}
+
+Fleming, G. R., 231-232, 397, 403
+
+\textbf{G}
+
+Gralla, S. E., 181, 392, 399, 403
+
+\textbf{H}
+
+Hawking, S. W., 29, 79, 133, 171, 306, 342\\
+Horvath, S., 275, 394, 399, 403\\
+Hummer, G., 396, 399, 403
+
+\textbf{K}
+
+Komatsu, E., 314, 391, 399, 403
+
+\textbf{M}
+
+Maldacena, J., 60, 64, 143, 183, 185, 399
+
+\textbf{P}
+
+Penington, G., 64, 79, 141, 170, 182, 399\\
+Preskill, J., 79, 170, 183, 185, 390, 399\\
+Pusey, M. F., 73, 75, 365, 390, 399, 402
+
+\textbf{S}
+
+Satishchandran, G., 170, 180, 261, 383, 391, 401\\
+Slagle, K., 79, 170, 183, 185, 390, 399\\
+Spergel, D. N., 314, 391, 399, 403\\
+Starkman, G. D., 314, 391, 399, 403\\
+Szabo, A., 396, 399, 403
+
+\textbf{V}
+
+Verlinde, E. P., 181, 376, 392, 399, 404
+
+\textbf{W}
+
+Wald, R. M., 170, 180, 261, 383, 391, 401\\
+Witten, E., 64, 79, 143, 170, 182, 391
+
+\hypertarget{symbols-and-notation}{%
+\section{Symbols and notation}\label{symbols-and-notation}}
+
+\emph{Each entry gives the symbol, its meaning, and where it is
+introduced.}
+
+\((S, \varphi)\) --- the substratum: a finite set \(S\) with
+deterministic bijection \(\varphi\) (p.~30)\\
+\(\varphi\) --- substratum update map (finite deterministic bijection)
+(p.~29)\\
+\(\tau_S\) --- substratum time scale (fundamental update interval)
+(Introduction; Ch. 4)\\
+\(\tau_B\) --- boundary (observable) time scale (Introduction; Ch. 4)\\
+\(l_p\) --- Planck length (p.~53)\\
+\(\hbar\) --- reduced Planck constant (emergent in the framework)
+(p.~31)\\
+\(a_0\) --- MOND acceleration scale, \(a_0 = cH/6\) (p.~57)\\
+\(\nu\) --- running-vacuum parameter (p.~404)\\
+\(T_1\) --- qubit energy-relaxation time; also the three-dimensional
+gauge component (p.~30)\\
+\(\mathcal{O}(\tau_S/\tau_B)\) --- framework correction scale to
+standard kinetics (p.~236)\\
+\(\Delta t\) --- gravitational-wave echo delay (p.~299)\\
+\(r_+\) --- outer horizon radius (p.~308)
 
 \end{document}
