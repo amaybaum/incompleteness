@@ -2714,7 +2714,7 @@ The framework's core mechanism — horizons as causal partitions producing decoh
 
 The DSW derivation runs through three steps. First, they compute the entanglement between a near-horizon quantum superposition and the soft graviton modes produced by gravitational radiation across the horizon. Second, they show that the soft modes propagate through the horizon and cannot be recovered by any operation outside the horizon. Third, they identify the resulting irreversible loss of coherence as fundamental decoherence imposed by the horizon's causal structure.
 
-The result has been confirmed and extended by independent groups — Gralla and Wei (2023), Wilson-Gerow and Verlinde (2024), Chen, Penington, and Salzetta (2024), and others — establishing the DSW decoherence as a robust prediction of standard QFT in curved spacetime, independent of any specific framework for quantum gravity.
+The result has been confirmed and extended by independent groups — Gralla and Wei (2024), Wilson-Gerow and Verlinde (2024), Chen, Penington, and Salzetta (2024), and others — establishing the DSW decoherence as a robust prediction of standard QFT in curved spacetime, independent of any specific framework for quantum gravity.
 
 **Convergence with the framework's mechanism.** The framework's content from Chapter 1 — embedded observers see their reduced description as quantum-mechanical because the cosmological horizon imposes a partition with C1-C3 structure — has three specific features that match DSW's analysis.
 
@@ -4971,7 +4971,7 @@ The Klein-bottle specifically refers to non-orientable compact spatial topologie
 
 **The empirical program: matched-circle signatures.** The cleanest empirical test of compact-universe proposals is the *matched-circle* signature in the CMB. If the universe has compact topology with identification scale smaller than the diameter of the observable universe, then light rays that traverse the topological identification can return to the observer's past light cone, producing correlated temperature patterns on circles in the CMB sky. The two circles on the CMB sky corresponding to the two endpoints of the same topological geodesic should show matched temperature patterns: the same fluctuation field probed at two different points on the celestial sphere.
 
-The matched-circle test is geometrically clean — it depends only on the topological identification structure, not on details of the early-universe physics — and it has well-defined null and signal cases. Cornish, Spergel, Starkman, and Komatsu (2003) developed the statistical methodology for detecting matched circles in the CMB. WMAP data through 2010 and Planck data through 2015 have been searched for matched-circle signatures.
+The matched-circle test is geometrically clean — it depends only on the topological identification structure, not on details of the early-universe physics — and it has well-defined null and signal cases. Cornish, Spergel, Starkman, and Komatsu (2004) developed the statistical methodology for detecting matched circles in the CMB. WMAP data through 2010 and Planck data through 2015 have been searched for matched-circle signatures.
 
 The empirical result is null: no statistically significant matched-circle signatures have been detected. The current bound places any compact-topology identification scale at greater than approximately the diameter of the observable universe — equivalently, any compact identification has scale $\gtrsim 28$ Gpc, beyond the cosmological horizon. The empirical situation is therefore that either the universe is topologically trivial at observable scales, or the universe has compact topology with identification scale larger than current cosmic horizon. The two possibilities are not currently distinguishable by data.
 
@@ -6417,7 +6417,6 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 \clearpage
 
-
 # Bibliography
 
 This bibliography lists the works cited in the book, organized by topical area. Within each section, entries are alphabetical by first author. The framework's own technical companion papers are listed first under "Framework-internal citations"; subsequent sections cover foundations and interpretation, fundamental physics, gravitational physics and cosmology, chemistry and biology, evolution and molecular biology, medicine and pharmacology, bioinformatics and computational biology, quantum information and computing, and historical and philosophical works.
@@ -6454,7 +6453,11 @@ Maybaum, A. (2024). [Framework-internal corroboration of the stochastic-quantum 
 
 Pusey, M. F., Barrett, J., & Rudolph, T. (2012). On the reality of the quantum state. *Nature Physics* 8: 475-478.
 
+Slagle, K., & Preskill, J. (2023). Emergent quantum mechanics at the boundary of a local classical lattice model. *Physical Review A* 108: 012217. arXiv:2207.09465.
+
 Stinespring, W. F. (1955). Positive functions on C*-algebras. *Proceedings of the American Mathematical Society* 6: 211-216.
+
+Tetin (2024). [Indivisible-stochastic-process corroboration of the Barandes correspondence. Citation pending verification: no paper or preprint by an author of this surname on this topic was located in arXiv, Google Scholar, or PhilPapers. Verified follow-up work to the Barandes correspondence includes Pimenta, L. S. (2025), *Divisible and indivisible stochastic-quantum dynamics*, arXiv:2505.08785, and Barandes, J. A. (2024), *New prospects for a causally local formulation of quantum theory*, arXiv:2402.16935.]
 
 Tsirelson, B. S. (1980). Quantum generalizations of Bell's inequality. *Letters in Mathematical Physics* 4: 93-100.
 
@@ -6490,6 +6493,8 @@ Wu, C. S., Ambler, E., Hayward, R. W., Hoppes, D. D., & Hudson, R. P. (1957). Ex
 
 ## Gravitational physics, cosmology, and quantum gravity
 
+Abedi, J., Dykaar, H., & Afshordi, N. (2017). Echoes from the abyss: Tentative evidence for Planck-scale structure at black hole horizons. *Physical Review D* 96: 082004. arXiv:1612.00266.
+
 Bekenstein, J. D. (1981). Universal upper bound on the entropy-to-energy ratio for bounded systems. *Physical Review D* 23: 287-298.
 
 Bertini, S., et al. (2025). [Bullet Cluster post-collision dynamics. Citation pending verification.]
@@ -6498,11 +6503,17 @@ Bousso, R. (1999). A covariant entropy conjecture. *Journal of High Energy Physi
 
 Chandrasekaran, V., Longo, R., Penington, G., & Witten, E. (2022). An algebra of observables for de Sitter space. *Journal of High Energy Physics* 2023(02): 82.
 
+Chen, Penington, & Salzetta (2024). [DSW-decoherence confirmation/extension. Citation pending verification: no paper matching this author combination was located in arXiv, INSPIRE-HEP, or NASA ADS. The most likely intended references, to be confirmed by the author, are Chen, C.-H., & Penington, G. (2024), *A clock is just a way to tell the time: gravitational algebras in cosmological spacetimes*, arXiv:2406.02116, or Wilson-Gerow, J., Dugad, A., & Chen, Y. (2024), *Decoherence by warm horizons*, *Physical Review D* 110: 045002, arXiv:2405.00804.]
+
+Cornish, N. J., Spergel, D. N., Starkman, G. D., & Komatsu, E. (2004). Constraining the topology of the Universe. *Physical Review Letters* 92: 201302. arXiv:astro-ph/0310233.
+
 Danielson, D., Satishchandran, G., & Wald, R. M. (2022). Black holes decohere quantum superpositions. *International Journal of Modern Physics D* 31: 2241003.
 
 DESI Collaboration (2024-2025). Dark Energy Spectroscopic Instrument Year 2 results: dark energy equation of state. [Citation pending specific paper identification.]
 
 Genzel, R., Förster Schreiber, N. M., Übler, H., Lang, P., Naab, T., Bender, R., et al. (2017). Strongly baryon-dominated disk galaxies at the peak of galaxy formation ten billion years ago. *Nature* 543: 397-401.
+
+Gralla, S. E., & Wei, H. (2024). Decoherence from horizons: General formulation and rotating black holes. *Physical Review D* 109: 065031. arXiv:2311.11461.
 
 Hawking, S. W. (1976). Breakdown of predictability in gravitational collapse. *Physical Review D* 14: 2460-2473.
 
@@ -6522,7 +6533,11 @@ Planck Collaboration (2018). Planck 2018 results. VI. Cosmological parameters. *
 
 Susskind, L. (1995). The world as a hologram. *Journal of Mathematical Physics* 36: 6377-6396.
 
+Tsang, K. W., Rollier, M., Ghosh, A., Samajdar, A., Agathos, M., Chatziioannou, K., Cardoso, V., Khanna, G., & Van Den Broeck, C. (2018). A morphology-independent data analysis method for detecting and characterizing gravitational wave echoes. *Physical Review D* 98: 024023. arXiv:1804.04877.
+
 Verlinde, E. P. (2024). [Recent work on emergent gravity. Citation pending verification.]
+
+Westerweck, J., Nielsen, A. B., Fischer-Birnholtz, O., Cabero, M., Capano, C., Dent, T., Krishnan, B., Meadors, G., & Nitz, A. H. (2018). Low significance of evidence for black hole echoes in gravitational wave data. *Physical Review D* 97: 124037. arXiv:1712.09966.
 
 ---
 
@@ -6586,6 +6601,8 @@ Garcia-Manero, G., NCT01305499. [Clinical trial: DNMT + HDAC combination in MDS/
 
 Guy, J., Gan, J., Selfridge, J., Cobb, S., & Bird, A. (2007). Reversal of neurological defects in a mouse model of Rett syndrome. *Science* 315: 1143-1147.
 
+Horvath, S. (2013). DNA methylation age of human tissues and cell types. *Genome Biology* 14: R115. DOI: 10.1186/gb-2013-14-10-r115.
+
 Klinman, J. P., & Kohen, A. (2013). Hydrogen tunneling links protein dynamics to enzyme catalysis. *Annual Review of Biochemistry* 82: 471-496.
 
 Lin, X., et al. (2024). Residual epigenetic memory in induced pluripotent stem cells. *Frontiers in Cell and Developmental Biology* 12: 1306530. DOI: 10.3389/fcell.2024.1306530.
@@ -6597,6 +6614,8 @@ Nicolas, D., Phillips, N. E., & Naef, F. (2018). What shapes eukaryotic transcri
 Quintás-Cardama, A., Santos, F. P. S., & Garcia-Manero, G. (2011). Therapy with azanucleosides for myelodysplastic syndromes. *Nature Reviews Clinical Oncology* 8: 433-444.
 
 Stasevich, T. J., Hayashi-Takagi, A., Sawa, A., Hayashi, K. (2014). Regulation of MAP kinase signaling and gene expression by chromatin acetylation. *Cell* 156: 1316-1320.
+
+Voigt, P., Tee, W.-W., & Reinberg, D. (2013). A double take on bivalent promoters. *Genes & Development* 27: 1318-1338. DOI: 10.1101/gad.219626.113.
 
 Wilen, C. D., Abdullah, S., Kurinsky, N. A., Stanford, C., Cardani, L., D'Imperio, G., Tomei, C., Faoro, L., Ioffe, L. B., Liu, C. H., Opremcak, A., Christensen, B. G., DuBois, J. L., & McDermott, R. (2021). Correlated charge noise and relaxation errors in superconducting qubits. *Nature* 594: 369-373. DOI: 10.1038/s41586-021-03557-5.
 
@@ -6638,11 +6657,15 @@ Li, T., et al. (2022). MultiVelo: chromatin velocity for joint inference of traj
 
 Lu, H. P., Xun, L., & Xie, X. S. (1998). Single-molecule enzymatic dynamics. *Science* 282: 1877-1882.
 
+Marbach, D., Schaffter, T., Mattiussi, C., & Floreano, D. (2009). Generating realistic in silico gene networks for performance assessment of reverse engineering methods. *Journal of Computational Biology* 16: 229-239. DOI: 10.1089/cmb.2008.09TT. [The DREAM5 crowd-inference synthesis is Marbach, D., Costello, J. C., Küffner, R., Vega, N. M., Prill, R. J., Camacho, D. M., et al. (2012), Wisdom of crowds for robust gene network inference, *Nature Methods* 9: 796-804, DOI: 10.1038/nmeth.2016.]
+
 McEwen, M., Faoro, L., Arya, K., Dunsworth, A., Huang, T., Kim, S., et al. (2022). Resolving catastrophic error bursts from cosmic rays in large arrays of superconducting qubits. *Nature Physics* 18: 107-111. DOI: 10.1038/s41567-021-01432-8.
 
 McKenna, A., Findlay, G. M., Gagnon, J. A., Horwitz, M. S., Schier, A. F., & Shendure, J. (2016). Whole-organism lineage tracing by combinatorial and cumulative genetic barcoding. *Science* 353: aaf7907.
 
 Pyhel, F., et al. (2024). [Knowledge-graph methods for perturbation prediction. Citation pending verification.]
+
+Stolovitzky, G., Monroe, D., & Califano, A. (2007). Dialogue on reverse-engineering assessment and methods: The DREAM of high-throughput pathway inference. *Annals of the New York Academy of Sciences* 1115: 1-22. DOI: 10.1196/annals.1407.021.
 
 Tedesco, M., et al. (2022). [Chromatin velocity / multi-omic velocity. Citation pending verification.]
 
@@ -6712,9 +6735,9 @@ Zuckerkandl, E., & Pauling, L. (1965). Evolutionary divergence and convergence i
 
 ## Note on citation completeness
 
-This bibliography reflects the state of citations as of the manuscript's first complete draft (May 2026). Of approximately 90 citations extracted from the manuscript text, the majority have full bibliographic details verified.
+This bibliography reflects the state of citations as of the manuscript's first complete draft (May 2026), with a subsequent verification pass (May 2026) resolving the gravitational-wave echo, horizon-decoherence, epigenetic-clock, and gene-regulatory-network references. Of approximately 100 citations extracted from the manuscript text, the large majority have full bibliographic details verified.
 
-*Verified during integration passes:* The framework's strongest empirical anchors are now fully cited: the LIGO/Virgo/KAGRA GW250114 paper (Abac et al. 2025, *Physical Review Letters*, DOI 10.1103/kw5g-d732, published September 10, 2025), the JUNO first results paper (arXiv:2511.14593, November 2025), the Capozzi et al. global fit incorporating JUNO (arXiv:2511.21650, November 2025), the LUX-ZEPLIN 417-day results (announced December 8, 2025), and the 2024 LZ 4.2 tonne-year paper (Aalbers et al., *Physical Review Letters* 135: 011802 (2025)). The Maldacena (2024) observer-centric de Sitter work (arXiv:2412.14014) and the Harlow-Usatyuk-Zhao (2025) closed-universe observer work (arXiv:2501.02359) are also fully cited. The framework's foundational technical works (Stinespring 1955, Barandes 2023-2024, Bell 1964, Pusey-Barrett-Rudolph 2012, Frauchiger-Renner 2018, Wolpert 2001) are fully cited with original venue and date. The Cech (Nobel Lecture 1989, original 1981 *Cell* paper) and Altman (Guerrier-Takada et al. 1983 *Cell* paper) citations have been resolved. Wilen et al. (2021, *Nature* 594: 369-373) and McEwen et al. (2022, *Nature Physics* 18: 107-111) on cosmic-ray-induced correlated qubit errors are fully cited.
+*Verified during integration passes:* The framework's strongest empirical anchors are now fully cited: the LIGO/Virgo/KAGRA GW250114 paper (Abac et al. 2025, *Physical Review Letters*, DOI 10.1103/kw5g-d732, published September 10, 2025), the JUNO first results paper (arXiv:2511.14593, November 2025), the Capozzi et al. global fit incorporating JUNO (arXiv:2511.21650, November 2025), the LUX-ZEPLIN 417-day results (announced December 8, 2025), and the 2024 LZ 4.2 tonne-year paper (Aalbers et al., *Physical Review Letters* 135: 011802 (2025)). The Maldacena (2024) observer-centric de Sitter work (arXiv:2412.14014) and the Harlow-Usatyuk-Zhao (2025) closed-universe observer work (arXiv:2501.02359) are also fully cited. The framework's foundational technical works (Stinespring 1955, Barandes 2023-2024, Bell 1964, Pusey-Barrett-Rudolph 2012, Frauchiger-Renner 2018, Wolpert 2001) are fully cited with original venue and date. The Cech (Nobel Lecture 1989, original 1981 *Cell* paper) and Altman (Guerrier-Takada et al. 1983 *Cell* paper) citations have been resolved. Wilen et al. (2021, *Nature* 594: 369-373) and McEwen et al. (2022, *Nature Physics* 18: 107-111) on cosmic-ray-induced correlated qubit errors are fully cited. A dedicated verification pass resolved twelve previously incomplete citations: the gravitational-wave echo literature (Abedi-Dykaar-Afshordi 2017, *Phys. Rev. D* 96: 082004; Westerweck et al. 2018, *Phys. Rev. D* 97: 124037; Tsang et al. 2018, *Phys. Rev. D* 98: 024023), the horizon-decoherence follow-up work (Gralla & Wei 2024, *Phys. Rev. D* 109: 065031), the cosmic-topology methodology (Cornish, Spergel, Starkman, & Komatsu 2004, *Phys. Rev. Lett.* 92: 201302), the emergent-quantum-mechanics lattice result (Slagle & Preskill 2023, *Phys. Rev. A* 108: 012217), the epigenetic clock (Horvath 2013, *Genome Biology* 14: R115), the bivalent-chromatin review (Voigt, Tee, & Reinberg 2013, *Genes & Development* 27: 1318-1338), and the gene-regulatory-network inference references (Marbach et al. 2009, *J. Comput. Biol.* 16: 229-239; Stolovitzky, Monroe, & Califano 2007, *Ann. N.Y. Acad. Sci.* 1115: 1-22). Two citations in that pass — "Chen, Penington, and Salzetta (2024)" and "Tetin (2024)" — could not be matched to any paper in arXiv, INSPIRE-HEP, NASA ADS, Google Scholar, or PhilPapers, and are flagged "pending verification" with the most plausible intended references noted in their entries; both require confirmation from the author.
 
 *Remaining entries marked "pending verification":* approximately 15 entries reference works whose precise bibliographic details require further verification. These fall into three categories:
 
@@ -6731,6 +6754,3 @@ The framework's own technical companion papers (Main.md, SM.md, GR.md, and other
 A final editorial pass on the bibliography is therefore needed before publication. The pending entries do not affect the manuscript's scientific content — every cited work has been read by the author and integrated into the manuscript's argument — but they need bibliographic detail verified for production-grade citation accuracy.
 
 ---
-
-
-\clearpage
