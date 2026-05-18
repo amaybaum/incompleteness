@@ -6,7 +6,7 @@ This bibliography lists the works cited in the book, organized by topical area. 
 
 ## Framework-internal citations
 
-Maybaum, A. (2026). *The Incompleteness Framework*, version 2.0.6. Zenodo. DOI: 10.5281/zenodo.19060318. [Repository containing the framework's full technical content: Main.md (central theorem and emergent quantum mechanics), Substratum.md (substratum construction and reconstruction theorem), Structure.md (structural realism), SM.md (Standard Model derivation), GR.md (gravitational sector), Complexity.md (chemistry through evolution cascade), Juno.md (neutrino sector predictions), BEC_Experiment.md (BEC analogue-gravity experimental design), Medicine.md, Epigenetics.md, Bioinformatics.md, Evolution.md (applied content), Beyond.md (forward predictions), Open.md (resolved and open problems), Explainer.md (accessible introduction), Objections.md (referee-response material).]
+Maybaum, A. (2026). *The Incompleteness Framework*. Zenodo, concept DOI: 10.5281/zenodo.19060318 (resolves to the current release). [Repository containing the framework's full technical content: the core papers — Main (central theorem and emergent quantum mechanics), Substratum (substratum construction and reconstruction theorem), Structure (structural realism), SM (Standard Model derivation), GR (gravitational sector) — together with the focused presentation Juno (neutrino-sector prediction), the methodology paper Physics Modulo Gauge, and the companion documents Explainer, Complexity, Medicine, and Bioinformatics.]
 
 ---
 
@@ -30,7 +30,7 @@ Frauchiger, D., & Renner, R. (2018). Quantum theory cannot consistently describe
 
 Kochen, S., & Specker, E. P. (1967). The problem of hidden variables in quantum mechanics. *Journal of Mathematics and Mechanics* 17: 59-87.
 
-Maybaum, A. (2024). [Framework-internal corroboration of the stochastic-quantum bridge via independent route. See framework repository v2.0.6, Main.md §3.]
+Maybaum, A. (2024). [Framework-internal corroboration of the stochastic-quantum bridge via independent route. See the framework repository, Main §3; Zenodo concept DOI 10.5281/zenodo.19060318.]
 
 Pusey, M. F., Barrett, J., & Rudolph, T. (2012). On the reality of the quantum state. *Nature Physics* 8: 475-478.
 

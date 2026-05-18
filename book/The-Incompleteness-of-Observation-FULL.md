@@ -44,7 +44,6 @@
 
 
 \clearpage
-
 # Copyright
 
 © 2026 Alex Maybaum
@@ -64,6 +63,10 @@ No part of this work may be reproduced or distributed without the author's permi
 
 \clearpage
 
+
+\clearpage
+
+
 # Dedication
 
 *[Author's dedication to be added.]*
@@ -74,6 +77,10 @@ No part of this work may be reproduced or distributed without the author's permi
 
 
 \clearpage
+
+
+\clearpage
+
 
 # Preface
 
@@ -91,7 +98,7 @@ The book is intended to make the framework's structure, derivation chains, and s
 
 A note on prerequisites. The technical chapters of Parts I and II require working familiarity with quantum mechanics, general relativity, and group theory. The applied chapters of Parts III and IV assume the technical content as derived results and add domain-specific background as needed. The Introduction and the closing chapters can be read by anyone with general scientific background; the technical content can be consulted as needed when specific claims become load-bearing for an argument. A glossary at the end of the back matter provides definitions for the framework's distinctive terminology and the major technical terms used throughout.
 
-A note on completeness. The framework is not a theory of everything. Several major problems in fundamental physics remain open within the framework's content: the flavor problem (the specific values of fermion masses and CKM mixing parameters), baryogenesis (the specific baryon-to-photon ratio), inflation and the cosmological initial conditions, the Hubble tension, and the cosmological initial state. Chapter 19 develops the framework's position on these open problems systematically. The framework provides structural answers where it can and identifies its scope limits where it cannot.
+A note on completeness. The framework is not a theory of everything. Several major problems in fundamental physics are scope limits within the framework's content: the flavor problem (the specific values of fermion masses and CKM mixing parameters), baryogenesis (the specific baryon-to-photon ratio — solution-specific, downstream of the framework's flavor-sector CP input), inflation and the cosmological initial conditions, the Hubble tension, and the cosmological initial state. Chapter 19 develops the framework's position on these open problems systematically. The framework provides structural answers where it can and identifies its scope limits where it cannot.
 
 A note on terminology. The phrase "the framework's content" appears throughout the book to distinguish the framework's claims from claims made by standard physics or by other unification programs. The phrase is technical: the framework's content is what follows from the framework's commitments through derivation, as distinct from interpretive readings of those derivations or speculative extensions. Where the framework's content overlaps with standard physics (e.g., the Standard Model's gauge structure), the overlap is noted; where the framework's content extends beyond standard physics (e.g., the Born rule's transient violations in the very early universe), the extension is identified.
 
@@ -105,9 +112,8 @@ The position the book argues will strike many readers as too ambitious. The fram
 ---
 
 
-
-
 \clearpage
+
 
 # Reader's Guide
 
@@ -218,9 +224,8 @@ The framework is unfinished in its empirical exposure but complete in its struct
 ---
 
 
-
-
 \clearpage
+
 
 # Acknowledgments
 
@@ -251,9 +256,8 @@ The framework developed in this book rests on the work of many physicists, mathe
 ---
 
 
-
-
 \clearpage
+
 
 # Introduction
 
@@ -357,7 +361,7 @@ The book has four parts.
 
 **Part III — Emergence.** Chapters 10–12 trace the structural cascade from the substratum to chemistry, biology, evolution, and intelligence. Chapter 10 derives chemistry from substratum-level electromagnetic structure. Chapter 11 develops the origin-of-life problem in terms of the framework's structural conditions for autocatalysis and template replication. Chapter 12 traces evolution to neural computation to semiconductors to general-purpose computation, identifying the contingent and structural steps along the cascade.
 
-**Part IV — Applications.** Chapters 13–19 develop the framework's reach into working scientific fields. Chapter 13 addresses quantum biology: non-Markovian enzyme kinetics in proteins, photosynthesis as energy transfer through C1–C3 architectures, magnetoreception via cryptochrome radical-pair dynamics, and enzyme catalysis with conformational landscapes acting as $\tau_B$-scale memory. Chapter 14 develops quantum computing: BQP is identified as the unique computational class accessible to embedded observers satisfying C1–C3, with the lower bound (the emergent quantum mechanics provides the BQP toolkit) and upper bound (the quantum description is informationally complete for the embedded observer) jointly characterizing the class. The Extended Church-Turing Thesis is reframed from empirical conjecture to theorem of the framework, with any super-BQP demonstration providing falsification. Chapter 15 develops quantum engineering: superconducting qubit dynamics as the canonical engineered C1–C3 system with $\tau_S/\tau_B \sim 10^{-3}$, P-indivisible noise structure producing correlated errors over $\sim 10^3$ gates, correlation-aware decoders reducing fault-tolerant overhead by 3–10×, coherence extension with engineered baths by up to 10×, quantum sensing improvements up to $10^3 \times$, and the BEC analogue-gravity experiment as the framework's cleanest near-term test of the BQP characterization theorem at the foundational level. Chapter 16 develops medical applications across cancer pharmacology, neurodegeneration, antibiotic resistance, immunotherapy, cardiac pharmacology, and autoimmune disease, with an explicit second half on epigenetics as biological hidden sector — the substratum-emergent operator dissociation at chromatin with reader/writer/eraser pharmacology axis, epigenetic drugs as memory erasers, cellular reprogramming as memory reset, the memory hierarchy from DNA methylation through chromatin architecture, and the wider therapeutic window prediction for reader-writer disorders confirmed empirically for Rett syndrome. Chapter 17 develops the bioinformatics consequences of the framework's structural constraints on biological information processing, with empirical confirmations from single-cell methodology and from the evolutionary-biology literature (molecular clock overdispersion, rate autocorrelation across the tree of life, LTEE power-law fitness trajectory). Chapter 18 develops the framework's distinctive forward predictions: Born-rule transient violations testable by CMB non-Gaussianity, the quantum-classical boundary with observable signatures, the epistemic character of quantum randomness, the quantum gravity dissolution as cumulative case (combining the CC dissolution, BH information paradox resolution, and non-renormalizability dissolution as three components of one structural resolution), gravitational wave echoes at $\Delta t = (r_+/c)\ln(r_+/2l_p)$, the arrow of time as emergent from partition initial conditions, the framework's silence on global cosmic spatial topology with engagement of Levin's compact-universe proposal, and a substantive position on consciousness — the framework's mathematical operation of observation (partition with C1–C3 structure) is a necessary but not sufficient condition for consciousness, with the hard problem proper explicitly outside the framework's scope. Chapter 19 closes the book with a systematic inventory of the framework's content against the major open problems of fundamental physics — twelve problems resolved or dissolved by the framework (quantum gravity, the cosmological constant, dark matter, dark energy, the measurement problem, black hole information, strong CP, hierarchy, gauge group origin, generation puzzle, dark sector budget, Born rule origin), and five that remain genuinely open (the flavor problem, baryogenesis, inflation and initial conditions, the Hubble tension, the cosmological initial state).
+**Part IV — Applications.** Chapters 13–19 develop the framework's reach into working scientific fields. Chapter 13 addresses quantum biology: non-Markovian enzyme kinetics in proteins, photosynthesis as energy transfer through C1–C3 architectures, magnetoreception via cryptochrome radical-pair dynamics, and enzyme catalysis with conformational landscapes acting as $\tau_B$-scale memory. Chapter 14 develops quantum computing: BQP is identified as the unique computational class accessible to embedded observers satisfying C1–C3, with the lower bound (the emergent quantum mechanics provides the BQP toolkit) and upper bound (the quantum description is informationally complete for the embedded observer) jointly characterizing the class. The Extended Church-Turing Thesis is reframed from empirical conjecture to theorem of the framework, with any super-BQP demonstration providing falsification. Chapter 15 develops quantum engineering: superconducting qubit dynamics as the canonical engineered C1–C3 system with $\tau_S/\tau_B \sim 10^{-3}$, P-indivisible noise structure producing correlated errors over $\sim 10^3$ gates, correlation-aware decoders reducing fault-tolerant overhead by 3–10×, coherence extension with engineered baths by up to 10×, quantum sensing improvements up to $10^3 \times$, and the BEC analogue-gravity experiment as the framework's cleanest near-term test of the BQP characterization theorem at the foundational level. Chapter 16 develops medical applications across cancer pharmacology, neurodegeneration, antibiotic resistance, immunotherapy, cardiac pharmacology, and autoimmune disease, with an explicit second half on epigenetics as biological hidden sector — the substratum-emergent operator dissociation at chromatin with reader/writer/eraser pharmacology axis, epigenetic drugs as memory erasers, cellular reprogramming as memory reset, the memory hierarchy from DNA methylation through chromatin architecture, and the wider therapeutic window prediction for reader-writer disorders confirmed empirically for Rett syndrome. Chapter 17 develops the bioinformatics consequences of the framework's structural constraints on biological information processing, with empirical confirmations from single-cell methodology and from the evolutionary-biology literature (molecular clock overdispersion, rate autocorrelation across the tree of life, LTEE power-law fitness trajectory). Chapter 18 develops the framework's distinctive forward predictions: Born-rule transient violations testable by CMB non-Gaussianity, the quantum-classical boundary with observable signatures, the epistemic character of quantum randomness, the quantum gravity dissolution as cumulative case (combining the CC dissolution, BH information paradox resolution, and non-renormalizability dissolution as three components of one structural resolution), gravitational wave echoes at $\Delta t = (r_+/c)\ln(r_+/2l_p)$, the arrow of time as emergent from partition initial conditions, the framework's silence on global cosmic spatial topology with engagement of Levin's compact-universe proposal, and a substantive position on consciousness — the framework's mathematical operation of observation (partition with C1–C3 structure) is a necessary but not sufficient condition for consciousness, with the hard problem proper explicitly outside the framework's scope. Chapter 19 closes the book with a systematic inventory of the framework's content against the major open problems of fundamental physics — twelve problems resolved or dissolved by the framework (quantum gravity, the cosmological constant, dark matter, dark energy, the measurement problem, black hole information, strong CP, hierarchy, gauge group origin, generation puzzle, dark sector budget, Born rule origin), and five scope limits where the framework does not provide a derived value (the flavor problem; baryogenesis — solution-specific, the baryon asymmetry inheriting the input status of the framework's flavor-sector CP phases; inflation and initial conditions; the Hubble tension; the cosmological initial state).
 
 The book's technical density varies. Chapters 1, 2, 5, 6, and 7 contain the framework's core mathematical content and are demanding; they require working familiarity with quantum mechanics, general relativity, and group theory. Chapters 3, 4, and 9 are more accessible — philosophical and methodological, with formal content present but not load-bearing. Chapters 10–19 are accessible to readers with general scientific background and assume the technical content of Parts I and II as derived results rather than as content to be re-developed.
 
@@ -366,17 +370,14 @@ Readers approaching the book with different interests will find different readin
 The book makes one foundational commitment — that observation occurs — and develops the consequences. The consequences are extensive. They include the structure of quantum mechanics, the dynamics of general relativity, the gauge group and matter content of the Standard Model, the composition of the cosmological dark sector, the structural conditions for chemistry and life, and the framework's reach into specific contemporary problems in biology and medicine. Whether the framework is correct is an empirical question that will be settled by the predictions developed throughout the book against measurements now being made and forthcoming. The book's role is to make the structure of the framework, the chain of its derivations, and the specific content of its predictions available for evaluation.
 
 
-
-
 \clearpage
+
 
 # Part I — Foundations
 
-\clearpage
-
-
 
 \clearpage
+
 
 # Chapter 1
 # Embedded Observation and the Characterization Theorem
@@ -703,9 +704,8 @@ The substratum that the framework's algorithm operates on is constructed concret
 The remainder of this part of the book develops the substratum, the structural realism, and the methodology in detail. Part II turns to the framework's quantitative physics. Part III traces the cascade from substratum to chemistry, biology, and intelligence. Part IV develops the framework's reach into working scientific fields.
 
 
-
-
 \clearpage
+
 
 # Chapter 2
 # The Substratum
@@ -943,9 +943,8 @@ The cascade through chemistry, biology, evolution, and intelligence in Chapters 
 The framework's claim, made precise across these chapters, is that a single starting commitment — that observation occurs — combined with the lemmas extracted from this commitment and the conditions identified for embedded observers in our universe, produces a substratum that is forced to have a specific architecture, with quantum mechanics, general relativity, the Standard Model, and the cosmological dark sector all forced consequences of the architecture rather than separate empirical inputs. The book's role is to make this chain of derivations available for evaluation against the experimental record now being assembled and forthcoming.
 
 
-
-
 \clearpage
+
 
 # Chapter 3
 # Hierarchical Structural Realism
@@ -960,7 +959,7 @@ That argument is correct but incomplete. The framework's structural-realism posi
 
 This chapter develops the framework's structural realism in its full hierarchical form. The structural-realism position operates on a two-dimensional hierarchy: an *observation axis* running from the framework's foundational empirical commitment to its specific predictive content, and an orthogonal *gauge axis* running from narrow gauge equivalences within the emergent quantum mechanics to broad equivalences across structural classes of embedded observers. Different empirical predictions live at different intersections of these axes; falsifiability is stratified accordingly; and the framework's strongest realism claim — the Chapter 2 commitment to $[(S, \varphi)] / \mathcal{G}_{\text{sub}}$ — is what the hierarchy locates at a specific intersection.
 
-The chapter has four pieces of work. §§3.2–3.3 develop the observation axis and the observer-admission distinction that the framework's third level introduces. §§3.4–3.5 develop the gauge axis, its orthogonality with the observation axis, and the resulting multi-level structural realism with its stratified predictions. §3.6 identifies gauge freedom with observational incompleteness on a precisely delimited part of its range, distinguishing the two species of incompleteness this produces. §§3.7–3.8 develop the framework's relationship to the contemporary no-go theorem literature and to the older philosophical lineage of incompleteness-and-perspective accounts. §3.9 closes the chapter and points forward to Chapter 4's methodology and to Chapter 9's universality and cross-framework analysis.
+The chapter has four pieces of work. §§3.2–3.3 develop the observation axis and the observer-admission distinction that the framework's third level introduces. §§3.4–3.5 develop the gauge axis, its orthogonality with the observation axis, and the resulting multi-level structural realism with its stratified predictions. §3.6 identifies gauge freedom with observational incompleteness on a precisely delimited part of its range, distinguishing the two species of incompleteness this produces. §§3.7–3.8 develop the framework's relationship to the contemporary no-go theorem literature and to the older philosophical lineage of incompleteness-and-perspective accounts. §3.9 closes the chapter and points forward to Chapter 4's methodology and to Chapter 8's universality and cross-framework analysis.
 
 ## 3.2 The observation axis
 
@@ -1168,16 +1167,15 @@ The hierarchical structure developed in this chapter — the observation axis A 
 
 Chapter 4 develops the framework's methodology: the single-foundational-commitment derivation pattern, the architecture-level no-go engagement as a systematic methodological principle, the classification of claims by derivational rigor, the framework's pre-registration of falsification conditions. The methodology chapter takes the structural realism developed here as input and articulates the methodological discipline the framework's program follows.
 
-Chapter 9 develops the universality-class structure and the framework's relationship to alternative unification programs — string theory, loop quantum gravity, causal sets, asymptotic safety — at the Level C × Level G4 intersection. The OI-string relationship in particular receives extended treatment there, with the four-feature audit (Born rule, channel-level unitarity, P-indivisibility, commutant gauge-invariance) characterizing the cross-framework universality-class membership and identifying what transports between the two programs and what does not. The negative technical result on substratum-level equivalence (that string-theoretic matrix models fail OI's A2 and A5) and the positive result on universality-class equivalence are both developed there.
+Chapter 8 develops the universality-class structure and the framework's relationship to alternative unification programs — string theory, loop quantum gravity, causal sets, asymptotic safety — at the Level C × Level G4 intersection. The OI-string relationship in particular receives extended treatment there, with the four-feature audit (Born rule, channel-level unitarity, P-indivisibility, commutant gauge-invariance) characterizing the cross-framework universality-class membership and identifying what transports between the two programs and what does not. The negative technical result on substratum-level equivalence (that string-theoretic matrix models fail OI's A2 and A5) and the positive result on universality-class equivalence are both developed there.
 
 Parts II–IV develop the framework's empirical content at the various levels identified in this chapter. The Level G3 × Level D predictions — the twenty-two Standard Model retrodictions, the JUNO neutrino-mixing angle, the Bekenstein-Hawking $1/4$ factor, the MOND acceleration scale, the dark-sector predictions — are developed quantitatively. The Level G2 × Level D structural commitments — the Standard Model gauge group, the three-generation structure, the anomaly-free hypercharges — are developed as derivations from the cubic-group commutant. The Level G4 × Level C universal features — the Born rule, channel unitarity, P-indivisibility, the commutant restriction pattern — are taken as given content of the framework's foundational theorems.
 
 The framework's hierarchical structure is what makes the framework different from a single bold claim about reality. It is a coordinated set of claims at different levels of generality, with different empirical predictions, different falsifiability conditions, and different philosophical commitments at each level. The framework's strongest realism — at Level D × Level G3 — is also its narrowest. The framework's broadest realism — at Level C × Level G4 — is also its most universal. The book's role is to develop these levels with the technical and empirical content that distinguishes one level from another.
 
 
-
-
 \clearpage
+
 
 # Chapter 4
 # Methodology
@@ -1206,7 +1204,7 @@ The methodological discipline of single-foundational-commitment derivation opera
 
 The framework's content satisfies this discipline imperfectly but explicitly. The structural assumptions A1–A6 identified in Chapter 2's reconstruction theorem (finiteness, determinism, bounded coupling, center independence, linearity, background independence) are not derivable from the foundational premise; they are restrictions on the class of substrata the reconstruction considers. The discipline requires acknowledging this honestly: the framework's uniqueness is *within* the class defined by A1–A6, not absolute. Alternatives outside this class would require separate derivations. The framework's defense of A1–A6 is an argument from the empirical inputs of physics, not a derivation from the foundational premise — A1 is supported by the holographic entropy bound, A2 by the structural requirement that observer records not be erasable, A3–A6 by the empirical content of the observed gauge structure. The honest acknowledgement is that the framework rests on the foundational premise *plus* the structural assumptions, with the assumptions identified explicitly so that any reader can evaluate them.
 
-The benefit of the discipline is a clean audit trail. Every prediction the framework makes can be traced back through the chain of theorems to either the foundational premise or to one of the explicitly-acknowledged structural assumptions. The Cabibbo angle $1/(\pi\sqrt{2})$ traces back through the cubic-group decomposition (Chapter 5), to the cubic-symmetric coupling matrix (the substratum's wave equation), to the wave equation's uniqueness given A4–A6 (Chapter 2), to the underlying bijection structure (Chapter 1). The Bekenstein-Hawking $1/4$ coefficient traces through boundary mode counting (Chapter 7), to the thermal-self-consistency gap equation, to the substratum's bijection structure (Chapter 2), to the embedded-observer construction (Chapter 1). The chain of derivation is explicit at each step, and any link in the chain that turns out to be incorrect propagates predictably to the downstream predictions.
+The benefit of the discipline is a clean audit trail. Every prediction the framework makes can be traced back through the chain of theorems to either the foundational premise or to one of the explicitly-acknowledged structural assumptions. The Cabibbo angle $1/(\pi\sqrt{2})$ traces back through the cubic-group decomposition (Chapter 5), to the cubic-symmetric coupling matrix (the substratum's wave equation), to the wave equation's uniqueness given A4–A6 (Chapter 2), to the underlying bijection structure (Chapter 1). The Bekenstein-Hawking $1/4$ coefficient traces through boundary mode counting (Chapter 6), to the thermal-self-consistency gap equation, to the substratum's bijection structure (Chapter 2), to the embedded-observer construction (Chapter 1). The chain of derivation is explicit at each step, and any link in the chain that turns out to be incorrect propagates predictably to the downstream predictions.
 
 The cost of the discipline is that some natural extensions of the framework require derivational work that has not yet been done. The framework currently treats CP-violating phases in CKM and PMNS as solution-specific inputs rather than as derivations; the cosmological initial conditions are taken as given rather than derived; the specific values of fermion masses depend on one empirical input (the strange-quark mass) rather than being derived from the substratum alone. These are not failures of the framework but acknowledged scope limits. The methodological discipline distinguishes between "the framework predicts X" (X follows from the foundational premise plus the structural assumptions) and "the framework is consistent with X but does not predict it" (X is solution-specific or depends on inputs the framework has not yet derived).
 
@@ -1248,7 +1246,7 @@ A framework that derives rather than posits must be honest about how rigorous ea
 
 The framework's predictions span the four layers. Layer 0 and Layer 1 predictions are the framework's most distinctive content, because they involve only the substratum's structural features and no specific solution-level inputs. Layer 2(a) predictions are nearly as distinctive but conditional on the operator structure. Layer 2(b) and Layer 3 predictions involve more solution-specific content and are accordingly less distinctive — they would differ for different bijections within the same equivalence class.
 
-**The substratum / emergent / mixed architectural classification.** A third axis classifies each load-bearing element of a calculation by where it sits in the substratum-to-emergent architecture. *Substratum* elements operate on the bijection $(S, \varphi)$ on the cubic lattice with its coupling matrix; predictions at this level are pure structural ratios from geometry and representation theory. *Emergent* elements operate on the unitary quantum field theory after the trace-out: induced gauge couplings, renormalization-group running, Coleman-Weinberg potentials, $Z$-factors; predictions at this level are perturbation-theory and RG outputs. *Mixed* elements involve QFT machinery in the derivation but with specific substratum-level inputs constraining the output — the most typical case for the framework's quantitative predictions in Chapter 6.
+**The substratum / emergent / mixed architectural classification.** A third axis classifies each load-bearing element of a calculation by where it sits in the substratum-to-emergent architecture. *Substratum* elements operate on the bijection $(S, \varphi)$ on the cubic lattice with its coupling matrix; predictions at this level are pure structural ratios from geometry and representation theory. *Emergent* elements operate on the unitary quantum field theory after the trace-out: induced gauge couplings, renormalization-group running, Coleman-Weinberg potentials, $Z$-factors; predictions at this level are perturbation-theory and RG outputs. *Mixed* elements involve QFT machinery in the derivation but with specific substratum-level inputs constraining the output — the most typical case for the framework's quantitative predictions in Chapter 5.
 
 The framework's general rule is *group structural, couplings emergent*. The gauge group is determined at the substratum level by the cubic-group commutant; the gauge couplings at the $Z$ pole are determined at the emergent level by RG running from the lattice-determined Planck-scale coupling.
 
@@ -1310,7 +1308,7 @@ The conditions are organized into three classes. Class A identifies structural t
 
 *Class B-S (unconditional structural).* These are layer-0 or layer-1 retrodictions with no open assumptions in their derivation. Examples include the Cabibbo angle $1/(\pi\sqrt{2})$ from a single Brillouin-zone distance, the Wolfenstein parameter $A = \sqrt{2/3}$ from the same structural source, the mass ratio $m_d/m_s = 1/(2\pi^2)$ via the Gatto-Sartori-Tonin relation, the Koide angle $\theta_0 = 2/9$ from a cubic-group quadratic Casimir (matched to $0.02\%$, the sharpest empirical agreement in the framework), the Bekenstein-Hawking coefficient $A/(4\ell_P^2)$ confirmed at $99.999\%$ by GW250114, and the MOND critical acceleration $cH/6$ from the boundary entropy-displacement mechanism. Any of these moving outside $3\sigma$ on precision upgrade falsifies the framework with no recoverable error mode beyond computational mistakes in the specific derivation.
 
-*Class B-L (layered conditional, pending open derivations).* These predictions follow from the structural form combined with one Layer-2 substrate input or empirical input, with a specific active research direction whose closure would move the prediction to B-S status. The JUNO neutrino-mixing prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ matched at $0.07\sigma$ is B-L pending closure of the mixing-matrix derivation in the lepton sector. Other B-L predictions exist throughout Chapter 8's quantitative content.
+*Class B-L (layered conditional, pending open derivations).* These predictions follow from the structural form combined with one Layer-2 substrate input or empirical input, with a specific active research direction whose closure would move the prediction to B-S status. The JUNO neutrino-mixing prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ matched at $0.07\sigma$ is B-L pending closure of the mixing-matrix derivation in the lepton sector. Other B-L predictions exist throughout Chapter 7's quantitative content.
 
 *Class B-M (mass-chain inheritance).* These predictions inherit their empirical match from a single upstream empirical input. The Higgs mass $m_H$ via Standard Model RGE running from the boundary condition $\lambda(M_{\text{Pl}}) = 0$, with $m_t$ as the empirical input, is B-M. Class B-M predictions falsify under the same precision-upgrade protocol as B-L, but the inheritance is from an empirical input scale rather than from an open derivation.
 
@@ -1322,7 +1320,7 @@ The Class B split is, in honest summary: four predictions are unconditional stru
 
 *Classical-memory simulability of any genuinely quantum process.* The characterization theorem developed in Chapter 1 §1.8 establishes that quantum mechanics is the description produced by an embedded observer satisfying C1–C3 on a deterministic substratum with bounded classical hidden-sector memory. This implies that every process the framework calls quantum admits a classical-memory simulation at appropriate scale. The commitment is specific: non-Markovian models are permitted and expected (they are how the hidden-sector correlation persistence manifests), but they must be realizable by finite classical memory. A process whose non-Markovianity is provably supra-classical falsifies the framework at the characterization-theorem level.
 
-*The dark sector as entropy-displacement, not as a novel particle content.* The framework's account of dark energy as a Type II running-vacuum functional form and dark matter as frozen boundary entropy, developed in Chapter 7, is incompatible with the direct detection of a WIMP interpretable as a fundamental particle with Standard-Model-like interactions and no entropy-displacement signature. A confirmed WIMP with such properties falsifies the framework's dark-sector account while leaving the rest of the structure intact — it would require abandoning the boundary-entropy derivation and either identifying an error in it or accepting that the framework's dark-sector story is wrong even as other derivations survive.
+*The dark sector as entropy-displacement, not as a novel particle content.* The framework's account of dark energy as a Type II running-vacuum functional form and dark matter as frozen boundary entropy, developed in Chapter 6, is incompatible with the direct detection of a WIMP interpretable as a fundamental particle with Standard-Model-like interactions and no entropy-displacement signature. A confirmed WIMP with such properties falsifies the framework's dark-sector account while leaving the rest of the structure intact — it would require abandoning the boundary-entropy derivation and either identifying an error in it or accepting that the framework's dark-sector story is wrong even as other derivations survive.
 
 **The cosmological commitment.** The dark energy sector is subtler than the strict Class A through C taxonomy allows. The framework commits to the Type II running-vacuum functional form, with magnitude given at theorem level by $|\nu_{\text{QFT}}| \sim (M_{\text{SM}}/M_{\text{Pl}})^2 \sim 10^{-32}$, observationally indistinguishable from $\Lambda$CDM. The falsification band is stratified: a DESI Year 5 measurement of $|\nu| \gtrsim 10^{-4}$ at high significance would require additional substratum structure not currently in the framework but would not refute the Type II functional form; a measurement of $\nu$ with high-significance positive sign would falsify the Type II functional form itself, which is a structural commitment. The first outcome is a refinement within the current bracket; the second is a structural falsification.
 
@@ -1350,7 +1348,7 @@ The specific microstate $\varphi$ within the equivalence class is solution-speci
 
 **Regimes of deliberate silence.** Beyond solution-specific properties, three regimes lie outside the framework's predictive scope by structural construction. These are regimes where the framework's foundational structure does not produce predictions, not because the framework is silent by choice but because the structural conditions for predictions to be defined do not hold.
 
-*The pre-horizon early universe.* The framework's gravitational sector derivations in Chapter 7 operate on a stable causal partition with $\tau_B \sim H^{-1}$ — the cosmological horizon as a partition between observer-accessible and observer-inaccessible regions. The pre-horizon era — before such a partition stabilizes — has no observer in the framework's sense, because the C1–C3 conditions for embedded observation are not satisfied. The framework's only commitment in this regime is a boundary condition on deeper theories: any successful pre-horizon dynamics must produce a C1–C3-satisfying regime by the time a horizon stabilizes. The framework makes no prediction for the dynamics of the pre-horizon era itself; that domain belongs to whatever deeper theory describes the pre-horizon transition.
+*The pre-horizon early universe.* The framework's gravitational sector derivations in Chapter 6 operate on a stable causal partition with $\tau_B \sim H^{-1}$ — the cosmological horizon as a partition between observer-accessible and observer-inaccessible regions. The pre-horizon era — before such a partition stabilizes — has no observer in the framework's sense, because the C1–C3 conditions for embedded observation are not satisfied. The framework's only commitment in this regime is a boundary condition on deeper theories: any successful pre-horizon dynamics must produce a C1–C3-satisfying regime by the time a horizon stabilizes. The framework makes no prediction for the dynamics of the pre-horizon era itself; that domain belongs to whatever deeper theory describes the pre-horizon transition.
 
 *The equilibrium phase of $(S, \varphi)$.* Chapter 1's central theorem requires C1, C2, and C3 to be satisfied. The slow-bath condition C2 fails at substratum equilibrium: at equilibrium, the hidden sector has thermalized completely, and there are no slow modes to provide the timescale separation that produces P-indivisibility. The structural observer-selection theorem developed at Main §4.6 restricts observers to the non-equilibrium phase of the substratum's dynamics. The equilibrium phase is observer-free by structural argument, and the framework makes no prediction for what happens in this regime — there is no observer to whom a prediction could be addressed. This is the framework's account of why Boltzmann brains do not appear in observed physics: not because they are rare random fluctuations that happen not to occur, but because the equilibrium phase that would produce them is structurally observer-free.
 
@@ -1362,9 +1360,9 @@ These silences are structural rather than methodological. They follow from the c
 
 ## 4.7 What follows
 
-The methodological discipline developed in this chapter — the single-foundational-commitment pattern, the claim classification by derivational rigor, the architecture-level engagement with the no-go results, the pre-registered falsification conditions and their complement of deliberate silences — provides the framework with a discipline that organizes its program as a research program rather than as a single bold conjecture. The discipline is part of the framework's content, not separate from it: the structural commitments developed in Chapters 1 through 3 and the empirical predictions developed in Parts II through IV are produced under this discipline, with the discipline determining what the predictions are, how they are classified, and what their falsification status is.
+The methodological discipline developed in this chapter — the single-foundational-commitment pattern, the claim classification by derivational rigor, the architecture-level engagement with the no-go results, verified theorem by theorem, the pre-registered falsification conditions and their complement of deliberate silences — provides the framework with a discipline that organizes its program as a research program rather than as a single bold conjecture. The discipline is part of the framework's content, not separate from it: the structural commitments developed in Chapters 1 through 3 and the empirical predictions developed in Parts II through IV are produced under this discipline, with the discipline determining what the predictions are, how they are classified, and what their falsification status is.
 
-Parts II and III apply the methodology to the framework's specific empirical content in fundamental physics. Chapters 5 and 6 develop the Standard Model derivation, with the twenty-two parameter-free retrodictions classified across the S, C, L, R, M, and E categories developed here. Chapter 5 covers the gauge-structure derivation (the cubic-group commutant, chirality from the trace-out, anomaly-free hypercharges); Chapter 6 covers the matter content and quantitative predictions (three generations, the composite Higgs, $\bar\theta = 0$, gauge couplings, and the twenty-two retrodictions themselves). The four-layer framing locates each retrodiction in the substratum-to-emergent stack, with Layer 0 and Layer 1 predictions (gauge group, generation count, Cabibbo, Koide, Wolfenstein) carrying the framework's strongest structural commitments and Layer 2 and Layer 3 predictions (mass ratios within specific operator structures, scale-setting predictions) carrying more solution-specific content. Chapter 7 develops the gravitational sector with the Bekenstein-Hawking $1/4$ coefficient, the value of $\hbar$ from horizon thermodynamics, and the dissolution of the cosmological constant problem; these are all S-class predictions at the substratum-emergent boundary, with explicit falsification conditions identified in §4.5. Chapter 8 develops the JUNO neutrino prediction as an L-class prediction matched at $0.07\sigma$, with the closure of the lepton-sector mixing-matrix derivation as the open direction whose completion would move the prediction to S-class. Chapter 9 develops the universality-class structure and the framework's relationship to alternative unification programs, with the architecture-level no-go engagement from §4.4 applied to the analysis of cross-framework structural relationships.
+Parts II and III apply the methodology to the framework's specific empirical content in fundamental physics. Chapter 5 develops the Standard Model derivation, with the twenty-two parameter-free retrodictions classified across the S, C, L, R, M, and E categories developed here. The four-layer framing locates each retrodiction in the substratum-to-emergent stack, with Layer 0 and Layer 1 predictions (gauge group, generation count, Cabibbo, Koide, Wolfenstein) carrying the framework's strongest structural commitments and Layer 2 and Layer 3 predictions (mass ratios within specific operator structures, scale-setting predictions) carrying more solution-specific content. Chapter 6 develops the gravitational sector with the Bekenstein-Hawking $1/4$ coefficient, the value of $\hbar$ from horizon thermodynamics, and the dissolution of the cosmological constant problem; these are all S-class predictions at the substratum-emergent boundary, with explicit falsification conditions identified in §4.5. Chapter 7 develops the JUNO neutrino prediction as an L-class prediction matched at $0.07\sigma$, with the closure of the lepton-sector mixing-matrix derivation as the open direction whose completion would move the prediction to S-class. Chapter 8 develops the universality-class structure and the framework's relationship to alternative unification programs, with the architecture-level no-go engagement from §4.4 applied to the analysis of cross-framework structural relationships.
 
 Parts III and IV develop the framework's reach into structural cascades and applied scientific fields, with the methodological classifications carrying through to the more applied content. The framework's predictions in chemistry, biology, neuroscience, and quantum engineering are not all S-class — many are P-class or E-class, with empirical inputs from the relevant scientific fields entering the derivation chain. The classification scheme developed here makes the rigor of each prediction explicit, so that readers approaching the framework from biology or medicine can evaluate the framework's claims against the appropriate empirical standards in those fields.
 
@@ -1373,17 +1371,14 @@ The methodology developed in this chapter is not unique to the framework. The si
 The methodological posture sketched in this chapter is developed at length, for a philosophy-of-physics readership, in a companion paper — *Physics Modulo Gauge* — which treats the two-axiom foundational commitment, constructive structural realism, the engagement with the no-go results of quantum foundations through a single architectural feature, and "physics modulo gauge" as a general methodology. That paper is a companion to the framework's technical sequence rather than part of this book; readers concerned specifically with the framework's methodology and its relation to the foundations-of-physics literature will find it the natural next text.
 
 
-
-
 \clearpage
+
 
 # Part II — Physics
 
-\clearpage
-
-
 
 \clearpage
+
 
 # Chapter 5
 # The Emergence of Gauge Structure
@@ -1584,9 +1579,8 @@ The chapter's content sits at Level 0 of the four-layer framing developed in Cha
 Chapter 6 develops the specific quantitative content this gauge structure produces. The matter content is derived: three chiral fermion generations from the staggered taste structure of the wave equation, one composite Higgs doublet from the singlet staggered taste, with the absolute generation count locked at three by coupling-degree minimization. The strong-CP problem is resolved structurally: $\bar\theta = 0$ at all energy scales follows from T-invariance of the substratum bijection combined with detailed balance, requiring no axion. The gauge couplings at the $Z$ pole follow from a one-parameter chain whose structural inputs include the analytic one-loop staggered vacuum polarization $1/\alpha_0 = 23.25$ and the cubic-group structure of the matter content. The twenty-two parameter-free quantitative retrodictions developed there include the Cabibbo angle $1/(\pi\sqrt{2})$ matched to $0.04\%$, the Koide relation $2/9$ matched to $0.02\%$, the six fermion masses from a single empirical input matched to better than $1\%$, all three PMNS mixing angles within $1.1\sigma$, and the Higgs mass from the boundary condition $\lambda(M_{\text{Pl}}) = 0$ matched to $0.9\%$. The framework's quantitative empirical record outside cosmology is concentrated in Chapter 6.
 
 
-
-
 \clearpage
+
 
 # Chapter 6
 # The Matter Content and Quantitative Predictions
@@ -1889,10 +1883,8 @@ Chapter 8 develops the JUNO prediction in detail, as a focused case study of the
 The framework's empirical record in fundamental physics, developed across Chapters 5 through 9, is concentrated at the Level G3 × Level D intersection of the hierarchical structural realism developed in Chapter 3 — class-specific predictions of the cubic-lattice substratum representative, with substantial empirical support and pre-registered falsifiability. The structural and methodological commitments of Part I are made quantitatively precise here.
 
 
-
-
-
 \clearpage
+
 
 # Chapter 7
 # The Gravitational Sector
@@ -2203,9 +2195,8 @@ The framework's content in fundamental physics, developed across Chapters 5 thro
 ---
 
 
-
-
 \clearpage
+
 
 # Chapter 8
 # JUNO and the Neutrino Sector
@@ -2473,9 +2464,8 @@ The framework's empirical content in fundamental physics is at the strongest evi
 ---
 
 
-
-
 \clearpage
+
 
 # Chapter 9
 # Universality Classes and External Convergence
@@ -2797,17 +2787,14 @@ The framework's content from Chapter 5 through Chapter 8 — concentrated at the
 ---
 
 
-
-
 \clearpage
+
 
 # Part III — Emergence
 
-\clearpage
-
-
 
 \clearpage
+
 
 # Chapter 10
 # Chemistry
@@ -3019,9 +3006,8 @@ The framework's content on fine-tuning and anthropics is therefore a substantive
 ---
 
 
-
-
 \clearpage
+
 
 # Chapter 11
 # The Origin of Life
@@ -3245,9 +3231,8 @@ The empirical confirmations of the framework's content are concordance: laborato
 ---
 
 
-
-
 \clearpage
+
 
 # Chapter 12
 # Evolution, Intelligence, and Self-Reference
@@ -3489,17 +3474,14 @@ The framework's reach in this chapter spans from molecular biology to AI to the 
 ---
 
 
-
-
 \clearpage
+
 
 # Part IV — Applications
 
-\clearpage
-
-
 
 \clearpage
+
 
 # Chapter 13
 # Quantum Biology
@@ -3681,9 +3663,8 @@ The framework's content from this chapter onward shifts from cascade derivations
 ---
 
 
-
-
 \clearpage
+
 
 # Chapter 14
 # Quantum Computing
@@ -3877,9 +3858,8 @@ The chapter's content is therefore the framework's positive contribution to comp
 ---
 
 
-
-
 \clearpage
+
 
 # Chapter 15
 # Quantum Engineering — Hardware, Software, and the BEC Experiment
@@ -4149,9 +4129,8 @@ The framework's empirical reach across Chapters 13-17 is concentrated at the app
 ---
 
 
-
-
 \clearpage
+
 
 # Chapter 16
 # Medicine
@@ -4501,9 +4480,8 @@ The framework's reach from Chapter 13's quantum biology through Chapter 15's qua
 ---
 
 
-
-
 \clearpage
+
 
 # Chapter 17
 # Bioinformatics
@@ -4741,9 +4719,8 @@ The framework's content from the substratum-level structural axioms of Chapter 1
 ---
 
 
-
-
 \clearpage
+
 
 # Chapter 18
 # Beyond Quantum Mechanics and General Relativity
@@ -5086,7 +5063,7 @@ This chapter has developed the framework's distinctive forward content beyond st
 
 *Framework's scope limits.* Cosmic spatial topology (§18.9) is not predicted by the framework; the framework is consistent with Levin's compact-universe proposal and the trivial $\mathbb{R}^3$ alternative equally. The hard problem of consciousness (§18.10) is explicitly outside the framework's scope; the framework provides necessary-condition content on consciousness but does not bridge the explanatory gap from structural to phenomenal facts. The framework's content in this category is honest acknowledgment of what the framework does not address.
 
-**Forward pointers.** Chapter 19 develops the framework's content against the standard list of open problems in fundamental physics. The chapter is a systematic inventory: twelve problems the framework resolves or dissolves (quantum gravity in three components, the cosmological constant, dark matter, dark energy, the measurement problem, BH information, strong CP, hierarchy, gauge group origin, generation puzzle, dark sector budget, Born rule origin) and five problems the framework does not resolve (the flavor problem with structured open task, baryogenesis, inflation and initial conditions, the Hubble tension, the cosmological initial state). Each entry cross-references where in the book the relevant content is developed, with Chapter 19 functioning as a reference resource for readers wanting to understand how the framework positions itself relative to the recognized hard problems of fundamental physics.
+**Forward pointers.** Chapter 19 develops the framework's content against the standard list of open problems in fundamental physics. The chapter is a systematic inventory: twelve problems the framework resolves or dissolves (quantum gravity in three components, the cosmological constant, dark matter, dark energy, the measurement problem, BH information, strong CP, hierarchy, gauge group origin, generation puzzle, dark sector budget, Born rule origin) and five scope limits where the framework does not provide a derived value (the flavor problem with structured open task; baryogenesis, which §19.3.3 reclassifies as solution-specific — the baryon asymmetry is downstream of the framework's flavor-sector CP input; inflation and initial conditions; the Hubble tension; the cosmological initial state). Each entry cross-references where in the book the relevant content is developed, with Chapter 19 functioning as a reference resource for readers wanting to understand how the framework positions itself relative to the recognized hard problems of fundamental physics.
 
 **Cumulative case.** The framework's content across the empirical chapters (5-17) and this forward-predictions chapter (18) forms a cumulative case for the framework's structural commitments. Twenty-two parameter-free Standard Model predictions match observation. Fourteen gravitational-sector predictions match observation. Seven neutrino-sector predictions match observation. The framework's content in biology (Chapters 11-13 and 16-17) makes specific predictions that align with the empirical record across non-Markovian dynamics, evolutionary signatures, and clinical pharmacology. The forward content of this chapter extends the framework's reach to phenomena standard physics has no specific commitments on — Born-rule equilibrium, partially-quantum regimes, computational ceilings, gravitational wave echoes, the arrow of time, consciousness as structural necessary condition.
 
@@ -5097,9 +5074,8 @@ The chapter is honest about what it does not address. The hard problem of consci
 ---
 
 
-
-
 \clearpage
+
 
 # Chapter 19
 # Resolved and Open Problems in Fundamental Physics
@@ -5112,7 +5088,7 @@ The framework's content across the empirical chapters (5 through 17) and the for
 
 The inventory has two parts. Section 19.2 develops twelve problems the framework resolves or dissolves: the quantum gravity problem, the cosmological constant discrepancy, the nature of dark matter and dark energy, the measurement problem, the black hole information paradox, the strong CP problem, the hierarchy problem, the origin of the gauge group, the generation puzzle, the dark sector budget, and the origin of the Born rule. Each entry pairs the standard status of the problem (how it is conventionally formulated) with the framework's status (how the framework engages it), with a cross-reference to the chapter and section where the relevant content is developed.
 
-Section 19.3 develops five problems the framework does *not* resolve. The fermion mass hierarchy (flavor problem) has a defined research program with initial computational results and three tractable open targets, but the full quantitative content has not yet been derived. The Hubble tension is *potentially* addressable through $\nu_{\text{OI}}$ but at the framework's predicted magnitude the effect is too small to explain the observed tension. Baryogenesis faces a quantitative shortfall: the framework's structural ingredients yield $\eta_B$ approximately one order of magnitude below the observed value. Inflation and initial conditions are *not addressed*: the framework derives the Standard Model structure but does not address the very early universe's dynamics, with three possibilities outlined but none developed. The initial state of $(S, \varphi)$ is partially gauge (within the reconstruction theorem's equivalence class) and partially the framework's irreducible mystery (why this equivalence class rather than another).
+Section 19.3 develops five problems the framework does *not* resolve. The fermion mass hierarchy (flavor problem) has a defined research program with initial computational results and three tractable open targets, but the full quantitative content has not yet been derived. The Hubble tension is *potentially* addressable through $\nu_{\text{OI}}$ but at the framework's predicted magnitude the effect is too small to explain the observed tension. Baryogenesis is solution-specific: the framework provides standard leptogenesis ingredients but the baryon asymmetry is downstream of the flavor-sector CP phases the framework inputs rather than derives, so $\eta_B$ inherits that input status (§19.3.3). Inflation and initial conditions are *not addressed*: the framework derives the Standard Model structure but does not address the very early universe's dynamics, with three possibilities outlined but none developed. The initial state of $(S, \varphi)$ is partially gauge (within the reconstruction theorem's equivalence class) and partially the framework's irreducible mystery (why this equivalence class rather than another).
 
 Section 19.4 closes the chapter with a summary table and a note on what the framework does *not address*: specific experimental anomalies (muon $g-2$, $B$-physics, $W$ mass) at scales where the framework's $\mathcal{O}(\epsilon^2 E^2)$ corrections are unobservable, condensed matter and many-body phenomena that are problems within the derived QFT rather than at the framework level, and the framework's principled scope limit on the hard problem of consciousness (developed in Chapter 18 §18.10).
 
@@ -5270,27 +5246,17 @@ The $\nu H^2$ term acts as a small additional dark energy component at late time
 
 **Standard status.** The observed baryon-to-photon ratio $\eta = (6.1 \pm 0.2) \times 10^{-10}$ requires a mechanism to produce a matter-antimatter asymmetry satisfying Sakharov's three conditions: baryon number violation, C and CP violation, and out-of-equilibrium dynamics. The conventional candidates — electroweak baryogenesis, GUT baryogenesis, leptogenesis through heavy right-handed neutrinos, and various extensions — have not been confirmed empirically.
 
-**Framework status.** Open. The framework's structural commitments — Majorana neutrinos via the Weinberg operator (Chapter 6 §6.7), no right-handed neutrinos (no GUT scale, the framework's no-GUT structural commitment), and exact substratum T-invariance constraining emergent CP violation to the CKM and PMNS sectors — give standard SM-EFT leptogenesis machinery as the available mechanism. The calculation produces a quantitative shortfall, and no working closure mechanism within the framework's structural commitments has yet been identified.
+**Framework status.** Solution-specific. The framework does not derive the baryon-to-photon ratio and does not carry an obligation to — for the same structural reason it does not derive the CKM phase. This status is the conclusion of a sustained investigation; the reasoning is given below, because an earlier draft of this section proposed a mechanism that subsequent analysis retracted, and the honest record of that retraction is part of the framework's content.
 
-**The quantitative shortfall.** The total unflavored CP asymmetry vanishes by CPT plus unitarity ($\sum_\alpha \epsilon_\alpha = 0$), and the surviving flavored asymmetry from thermal corrections is suppressed by $y_\tau^2 \sim 5 \times 10^{-5}$, yielding $\eta_B \sim 4 \times 10^{-11}$ — approximately $15 \times$ below the observed value of $6.1 \times 10^{-10}$. This is the same shortfall faced by any framework with Majorana neutrinos but no heavy right-handed neutrinos: the Weinberg operator alone, without a UV completion providing additional CP-violating phases, cannot produce sufficient baryon asymmetry through standard leptogenesis.
+**The framework provides standard leptogenesis ingredients, with a shortfall.** The framework's structural predictions provide ingredients for leptogenesis via the Weinberg operator $(c_{ij}/\Lambda) L_i L_j H H$: Majorana neutrinos (Chapter 6 §6.7), large PMNS phases, and hierarchical masses. The operator mediates $\Delta L = 2$ scattering in thermal equilibrium at $T > 10^{14}$ GeV. A precise calculation reveals a quantitative shortfall: the total unflavored CP asymmetry vanishes by CPT plus unitarity ($\sum_\alpha \epsilon_\alpha = 0$), and the surviving flavored asymmetry from thermal corrections is suppressed by $y_\tau^2 \sim 5 \times 10^{-5}$, yielding $\eta_B \sim 4 \times 10^{-11}$ — approximately $15\times$ below the observed value of $6.1 \times 10^{-10}$. This is the same shortfall faced by any framework with Majorana neutrinos but no heavy right-handed neutrinos: the Weinberg operator alone, without a UV completion providing additional CP-violating phases, cannot produce sufficient baryon asymmetry.
 
-The framework's emergent T-invariance (which resolves the strong CP problem, §19.2.7) constrains CP violation *at the emergent level* to the CKM and PMNS sectors, preventing new sources from appearing in the continuum SM effective theory. This rules out the simplest extensions (additional CP-violating operators introduced by hand at the emergent scale).
+**A retracted mechanism.** An earlier treatment proposed closing the factor-15 gap with *substratum-level instanton-like processes* — configurations of the bijection $\varphi$ at the lattice cutoff with action $S \sim O(1)$, giving a suppression $e^{-O(1)}$ rather than the electroweak $e^{-2\pi/\alpha_W}$. This mechanism is **retracted**, and the reason is structural rather than quantitative. The substratum has no Euclidean action functional: it is the deterministic linear bijection of the wave-equation update rule (Chapter 2), not a path-integral system. "Substratum-level instantons with action $S \sim O(1)$" is therefore type-mismatched with what the substratum is — there is no action whose minima would constitute instantons. The correct picture is the one Chapter 6's treatment of baryon number already gives: substratum-level $B$ is conserved at the bilinear level, and non-perturbative $B+L$ violation enters through the *emergent* fermion-determinant topology governed by standard sphaleron physics. There is no additional substratum-level baryon-number-violating channel.
 
-**Why a substratum-level instanton mechanism does not work.** An earlier framework draft proposed that substratum-level instanton-like processes at the lattice cutoff $\epsilon = 2 l_p$ with action $S \sim O(1)$ could provide the factor-15 amplification beyond standard sphaleron physics. That proposal does not hold: the substratum dynamics is the deterministic linear bijection $\phi(n, t+1) = \phi(n-1, t) + \phi(n+1, t) - \phi(n, t-1) \bmod q$ (Chapter 5 §5.1 / SM §4.1 Theorem 1), which has no Euclidean action functional. The substratum is a deterministic update rule on a finite configuration space, not a path-integral system; the concept of "Euclidean instanton action on the substratum" is type-mismatched with what the substratum is.
+**Why baryogenesis is solution-specific.** With the retracted mechanism removed, the framework's relation to baryogenesis is settled by a commitment the framework makes elsewhere and independently. The substratum is T-symmetric — this is load-bearing for the resolution of the strong CP problem ($\bar\theta = 0$, §19.2.7). Observed CP violation in the CKM and PMNS sectors is, in the framework, a flavor-basis feature of the *specific bijection* $(S, \varphi)$ — not a derived quantity. The framework makes no prediction of $\delta_{\text{CKM}}$, $\delta_{\text{PMNS}}$, or the Wolfenstein $(\rho, \eta)$; these are treated as solution-specific inputs, in the same category as the framework's choice of discretization scheme.
 
-The standard topological structure that produces $B+L$ violation in the SM enters through the *induced gauge action* $S_{\text{eff}}[U] = -N_f \ln\det(D^\dagger D)$ that emerges after the fermion-determinant trace-out (Chapter 5 §5.4, SM §8.7). This induced action does have non-trivial topology via the Atiyah-Singer index theorem applied to the lattice Dirac operator, and it produces the standard electroweak sphaleron physics in the emergent EFT — but at the *emergent* level, governed by $\alpha_W$, not at the substratum level. SM §8.7 establishes that substratum-level baryon number is conserved at the bilinear perturbative level (forced by the block-diagonal coupling matrix structure of Theorem 7), with non-perturbative $B+L$ violation entering only through the emergent fermion-determinant topology. The earlier substratum-instanton proposal would have contradicted SM §8.7's substratum-level conservation; the proposal is retracted.
+The baryon asymmetry inherits this status. Sakharov's second condition is CP violation, and the only CP violation available to the framework is exactly the flavor-sector CP it treats as a solution-specific input. A quantity downstream of an input is itself an input: $\eta_B$ is no more derivable, within the framework's current commitments, than $\delta_{\text{CKM}}$ is. Demanding that the framework dynamically *generate* $\eta_B$ from a symmetric initial condition holds it to a standard it does not adopt for the CP phases $\eta_B$ depends on. The "factor-15 open problem" framing was an artifact of that inconsistency.
 
-**Candidate direction for future investigation.** The framework's distinctive structural feature is that quantum mechanics emerges from a deterministic substratum via the trace-out construction (Chapter 3 §3.2), with unitarity not exact but approximate — Main §3.2 derives $d\Phi_t/dt|_{t=0}(\rho_V) = -i[\hat{H}_{\text{eff}}, \rho_V] + \mathcal{D}(\rho_V)$ where $\mathcal{D} \sim \mathcal{O}(\tau_S/\tau_B)$ is the leading non-unitary correction from condition C2 (slow bath).
-
-The CPT-plus-unitarity argument that forces $\sum_\alpha \epsilon_\alpha = 0$ in standard leptogenesis assumes exact unitarity. If the framework's emergent unitarity has finite-cutoff corrections at temperatures relevant for leptogenesis ($T \sim 10^{14}$ GeV, several orders of magnitude below the substratum cutoff but not asymptotically so), the cancellation could be lifted by an amount proportional to $\mathcal{D}$. A back-of-envelope estimate suggests closing the factor-15 gap would require $\mathcal{D} \sim 10^{-3}$ at $T \sim 10^{14}$ GeV, corresponding to a bath timescale $\tau_B^{-1} \sim 10^{11}$ GeV — within an order of magnitude of the Weinberg-operator cutoff $\Lambda \sim 10^{14}$ GeV that gives the observed neutrino masses, but not exactly matching it.
-
-Three gating sub-questions determine whether this mechanism is viable: (a) the high-temperature scaling of $\tau_B$ in the framework (currently developed only at observable scales where $\tau_S/\tau_B \to 0$ asymptotically); (b) whether the trace-out level $\mathcal{D}$ propagates through the construction chain to a CP-asymmetry-relevant lifting at the SM-EFT level; and (c) whether $\mathcal{D} \sim 10^{-3}$ at $T \sim 10^{14}$ GeV is consistent with independent constraints on non-unitarity at high energy. None of these have been resolved.
-
-**Honest assessment.** Baryogenesis is a genuine open problem within the framework's current structural commitments. The substratum-emergent operator distinction (§19.2.7 strong CP, §6.3 chromatin biology, SM §8.7 ten non-perturbative features mapping) is a well-established framework feature, but its application to baryogenesis through substratum-level instantons does not type-check against the framework's actual substratum structure. The QM-emergence candidate mechanism (trace-out non-unitarity at leptogenesis temperatures) is type-coherent with the framework's structure but is currently at the level of a heuristic magnitude estimate with three open sub-questions, not a derived mechanism.
-
-Three outcomes remain open: (i) the QM-emergence candidate succeeds quantitatively, providing a framework-internal baryogenesis prediction; (ii) the QM-emergence candidate gives partial closure with a residual gap of identified structural source; (iii) the QM-emergence candidate fails and the framework must either accept baryogenesis as unsolved alongside the Hubble tension and inflation, admit right-handed neutrinos (breaking the no-GUT commitment), or identify a new structural input. All three outcomes are pre-registered as acceptable per the framework's outcome-pre-registration discipline (§A.13 fifth refinement); the negative outcome is informative because it sharply constrains the framework's available baryogenesis mechanisms.
-
-The framework's pre-registration for this open problem is therefore: baryogenesis remains open; no working mechanism has been derived within current structural commitments; one candidate direction (QM-emergence via trace-out non-unitarity) is under investigation with three explicit gating sub-questions. This is not a positive prediction but an honest characterization of the framework's current baryogenesis state.
+**Assessment.** Baryogenesis is *solution-specific*, not a quantitative gap awaiting a mechanism. The framework's structural ingredients (sphaleron $B+L$ violation, the out-of-equilibrium expanding early universe, the CKM/PMNS CP phases) are consistent with the observed $\eta_B$; what the framework does not do is derive its value, because that value is downstream of CP phases the framework inputs rather than derives. This is a reclassification that restores internal consistency — the framework no longer carries baryogenesis as an unmet derivation obligation while simultaneously inputting $\delta_{\text{CKM}}$ — and it is honest about its limits: it is not a closure. It does not produce $\eta_B = 6.1 \times 10^{-10}$ from first principles, and a reader may fairly regard a framework that derives the Cabibbo angle but inputs the baryon asymmetry as incomplete in scope. The framework's position is that this incompleteness is shared, explicit, and located precisely: it is the flavor-sector CP input, named once and inherited wherever CP violation is needed.
 
 ### 19.3.4 Inflation and initial conditions
 
@@ -5342,7 +5308,7 @@ The framework's content against the standard list of open problems in fundamenta
 | Born rule origin | Independent postulate | Derived (read-write equilibrium) | Ch 1, Ch 18 §18.2 |
 | **Flavor problem** | **13 free parameters** | **Open (research program, $m_b/m_\tau$ off by 45%)** | §19.3.1 |
 | **Hubble tension** | **$> 5\sigma$ disagreement** | **Open ($\nu_{\text{OI}}$ too small)** | §19.3.2 |
-| **Baryogenesis** | **Sakharov conditions** | **Open ($\eta_B$ off by 15×)** | §19.3.3 |
+| **Baryogenesis** | **Sakharov conditions** | **Solution-specific ($\eta_B$ inherits flavor-CP input status)** | §19.3.3 |
 | **Inflation** | **Inflaton not derived** | **Open (three possibilities, none developed)** | §19.3.4 |
 | **Initial state** | **Framework-specific** | **Partially gauge, partially irreducible** | §19.3.5 |
 
@@ -5362,18 +5328,17 @@ Beyond the resolved and open problems above, the framework does not address seve
 
 **The framework's epistemic position.** The cumulative record of resolved problems across Chapters 5 through 18 is substantial: twenty-two parameter-free Standard Model predictions, fourteen gravitational-sector predictions, seven neutrino-sector predictions, and the dissolutions of the quantum gravity problem in three components. The framework's evidential standard — preregistered structural predictions matching observation at the current empirical precision — is met across multiple sectors of physics with a uniformity that distinguishes it from frameworks tuned to fit specific empirical targets.
 
-The open problems are also substantial. The flavor problem is the framework's largest single open theoretical task. The Hubble tension is not addressed by the framework's $\nu_{\text{OI}}$ prediction. Baryogenesis faces a quantitative shortfall. Inflation is not derived. The initial-state question is partially gauge and partially the framework's irreducible mystery.
+The open problems are also substantial. The flavor problem is the framework's largest single open theoretical task. The Hubble tension is not addressed by the framework's $\nu_{\text{OI}}$ prediction. Baryogenesis is solution-specific — the baryon asymmetry inherits the input status of the framework's flavor-sector CP phases. Inflation is not derived. The initial-state question is partially gauge and partially the framework's irreducible mystery.
 
 The chapter's purpose is to make the framework's record on standard open problems explicit. The framework's content is neither a complete theory of fundamental physics (the open problems above remain genuinely open) nor an unfocused collection of predictions; it is a structural framework that resolves a substantial fraction of the recognized hard problems of physics through a small set of structural commitments, with the resolutions cross-referenced to specific empirical content developed in earlier chapters. The remaining open problems indicate where the framework's reach stops at current development, with concrete prospects for closing several of them through further calculation within the framework's existing structural commitments.
 
-The book's content concludes here. The framework's empirical record (Chapters 5-17), forward predictions (Chapter 18), and inventory against the standard open problems (Chapter 19) together constitute the framework's positive content. The remaining open problems — flavor, Hubble tension, baryogenesis, inflation, initial state — are pre-registered as the framework's current scope limits. Closing them is the framework's future research program.
+The book's content concludes here. The framework's empirical record (Chapters 5-17), forward predictions (Chapter 18), and inventory against the standard open problems (Chapter 19) together constitute the framework's positive content. The remaining scope limits — the flavor problem, the Hubble tension, baryogenesis (solution-specific: $\eta_B$ inherits the flavor-sector CP input), inflation, and the initial state — are pre-registered as the framework's current boundaries. Closing them is the framework's future research program.
 
 ---
 
 
-
-
 \clearpage
+
 
 # Appendix A
 # Prediction Status Table
@@ -5591,7 +5556,7 @@ The framework's cumulative empirical record can be summarized as follows.
 
 **Domains where framework has substantial content but no current empirical match.** The framework's content in computational complexity (BQP theorem, Chapter 14), evolutionary biology Hurst exponent (F12), and the broader reader-writer disorder class beyond Rett (F9, F10, F11) has not yet been specifically tested against the framework's predictions. These are testable predictions awaiting empirical engagement rather than predictions matching established data.
 
-**Where the framework has no current content.** Five fundamental physics problems remain genuinely open from the framework's perspective: the fermion mass hierarchy in detail (flavor problem), baryogenesis specifics, inflation and initial conditions, the Hubble tension's specific resolution, and the cosmological initial state. These are explicitly identified as outside the framework's current reach in Chapter 19.
+**Where the framework has no current content.** Five fundamental physics problems are scope limits from the framework's perspective — places where it does not provide a derived value: the fermion mass hierarchy in detail (flavor problem), baryogenesis (solution-specific — the baryon asymmetry inherits the input status of the framework's flavor-sector CP phases, §19.3.3), inflation and initial conditions, the Hubble tension's specific resolution, and the cosmological initial state. These are explicitly characterized in Chapter 19.
 
 **Cumulative assessment.** The framework's empirical record consists of approximately fifty separate prediction-data matches across multiple domains: twenty-two Standard Model predictions matching at approximately 1% or 1$\sigma$, fourteen gravitational sector predictions matching observation, seven neutrino sector predictions including the 0.07$\sigma$ JUNO confirmation, fourteen biology/medicine predictions including the Rett wider-window confirmation, plus four pre-registered forward predictions specifically distinguished from standard accounts. The framework's value is therefore demonstrated by cumulative empirical content across multiple domains rather than concentrated in any single empirical claim.
 
@@ -5600,9 +5565,8 @@ The framework's distinctive epistemic position is that it provides *structural f
 ---
 
 
-
-
 \clearpage
+
 
 # Appendix B
 # Mathematical Derivations
@@ -5961,9 +5925,8 @@ The combined derivations constitute the framework's full mathematical content as
 ---
 
 
-
-
 \clearpage
+
 
 # Appendix C
 # Common Objections and Framework Responses
@@ -6273,7 +6236,7 @@ The appendix has engaged twelve clusters of objections to the framework's conten
 
 *The flavor problem.* Chapter 19 §19.3 identifies the detailed structure of the CKM and PMNS matrices as open. The framework's content predicts gross structural features (gauge group, generation count, broad mixing-angle structure) but not the specific values of all twelve Yukawa couplings.
 
-*The baryogenesis specifics.* The framework's content addresses the substratum-emergent operator distinction for baryon number but does not derive the specific baryon asymmetry of the universe ($n_B / n_\gamma \approx 6 \times 10^{-10}$) from first principles.
+*The baryon asymmetry.* The framework does not derive the specific baryon-to-photon ratio ($n_B / n_\gamma \approx 6 \times 10^{-10}$) from first principles. This is not a gap awaiting a mechanism: the framework's relation to baryogenesis is solution-specific (§19.3.3). The baryon asymmetry is downstream of the flavor-sector CP phases ($\delta_{\rm CKM}$, $\delta_{\rm PMNS}$), which the framework treats as solution-specific inputs rather than derived quantities; $\eta_B$ inherits that input status. The framework is internally consistent on this point — it does not claim to derive $\eta_B$ while inputting $\delta_{\rm CKM}$ — but it is, by the same token, incomplete in scope on the baryon asymmetry, and says so.
 
 These are genuine limits of the framework's reach. The framework does not pretend to address them; they are explicitly identified as open problems or out-of-scope concerns.
 
@@ -6289,16 +6252,15 @@ These dissolutions are *substantive content* of the framework. The framework's r
 
 **The framework's epistemic position summarized.** The framework is a structural framework with substantive empirical content. It engages standard interpretations of QM, established no-go theorems, established results in effective field theory, and established methodological concerns through specific technical responses. It makes specific empirical predictions that have been tested and confirmed (JUNO, GW250114, Rett) and that can be tested in the future (BEC, gravitational wave echoes, variant pathogenicity). Its structural commitments are coherent across multiple domains, with the substratum-emergent operator distinction providing a unifying principle across fundamental physics and biology.
 
-Where the framework's reach has genuine limits (consciousness, initial conditions, flavor problem, baryogenesis specifics), the limits are explicitly identified. Where apparent puzzles turn out to be category errors (cosmological constant, measurement problem, quantum-gravity unification), the dissolutions are substantive content rather than evasions.
+Where the framework's reach has genuine limits (consciousness, initial conditions, flavor problem, the baryon asymmetry), the limits are explicitly identified. Where apparent puzzles turn out to be category errors (cosmological constant, measurement problem, quantum-gravity unification), the dissolutions are substantive content rather than evasions.
 
 The appendix's value is therefore as a reference resource for readers approaching the framework from different starting points. Readers familiar with Bell's theorem and the no-go theorems should find §§C.2-C.3 directly useful. Readers familiar with effective field theory should find §§C.9 directly useful. Readers familiar with standard interpretations should find §C.8 directly useful. Readers concerned about credentials, scope, or ambition should find §C.12 directly useful. The appendix is intended to be navigable rather than read straight through, with each section engaging the specific cluster of concerns characteristic of one reader audience.
 
 ---
 
 
-
-
 \clearpage
+
 
 # Glossary
 
@@ -6453,9 +6415,8 @@ This glossary defines the framework's distinctive terminology and the technical 
 ---
 
 
-
-
 \clearpage
+
 
 # Bibliography
 
@@ -6465,7 +6426,7 @@ This bibliography lists the works cited in the book, organized by topical area. 
 
 ## Framework-internal citations
 
-Maybaum, A. (2026). *The Incompleteness Framework*. Zenodo. DOI: 10.5281/zenodo.19060318. [Repository containing the framework's full technical content: Main.md (central theorem and emergent quantum mechanics), Substratum.md (substratum construction and reconstruction theorem), Structure.md (structural realism), SM.md (Standard Model derivation), GR.md (gravitational sector), Complexity.md (chemistry through evolution cascade), Juno.md (neutrino sector predictions), BEC_Experiment.md (BEC analogue-gravity experimental design), Medicine.md, Epigenetics.md, Bioinformatics.md, Evolution.md (applied content), Beyond.md (forward predictions), Open.md (resolved and open problems), Explainer.md (accessible introduction), Objections.md (referee-response material).]
+Maybaum, A. (2026). *The Incompleteness Framework*. Zenodo, concept DOI: 10.5281/zenodo.19060318 (resolves to the current release). [Repository containing the framework's full technical content: the core papers — Main (central theorem and emergent quantum mechanics), Substratum (substratum construction and reconstruction theorem), Structure (structural realism), SM (Standard Model derivation), GR (gravitational sector) — together with the focused presentation Juno (neutrino-sector prediction), the methodology paper Physics Modulo Gauge, and the companion documents Explainer, Complexity, Medicine, and Bioinformatics.]
 
 ---
 
@@ -6489,7 +6450,7 @@ Frauchiger, D., & Renner, R. (2018). Quantum theory cannot consistently describe
 
 Kochen, S., & Specker, E. P. (1967). The problem of hidden variables in quantum mechanics. *Journal of Mathematics and Mechanics* 17: 59-87.
 
-Maybaum, A. (2024). [Framework-internal corroboration of the stochastic-quantum bridge via independent route. See framework repository, Main.md §3.]
+Maybaum, A. (2024). [Framework-internal corroboration of the stochastic-quantum bridge via independent route. See the framework repository, Main §3; Zenodo concept DOI 10.5281/zenodo.19060318.]
 
 Pusey, M. F., Barrett, J., & Rudolph, T. (2012). On the reality of the quantum state. *Nature Physics* 8: 475-478.
 
@@ -6765,369 +6726,11 @@ This bibliography reflects the state of citations as of the manuscript's first c
 
 *Framework-internal collaborator references:* Two entries (Diakonakou-Wallace 2024 and Wallden 2024) reference independent corroborations of the Barandes correspondence developed by external collaborators. These references depend on collaborators' publication status and require coordination with those collaborators on appropriate citation form.
 
-The framework's own technical companion papers (Main.md, SM.md, GR.md, and others in the Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for all framework-internal derivations and should be consulted for full technical detail. Page-level cross-citation between book and companion papers will be added in the final cross-referencing pass.
+The framework's own technical companion papers (Main.md, SM.md, GR.md, and others in the `incompleteness-2.0.6` Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for all framework-internal derivations and should be consulted for full technical detail. Page-level cross-citation between book and companion papers will be added in the final cross-referencing pass.
 
 A final editorial pass on the bibliography is therefore needed before publication. The pending entries do not affect the manuscript's scientific content — every cited work has been read by the author and integrated into the manuscript's argument — but they need bibliographic detail verified for production-grade citation accuracy.
 
 ---
 
 
-
-
 \clearpage
-
-# Index
-
-This index provides section-level references for the framework's distinctive terminology, technical concepts, key empirical anchors, historical figures, and methodological commitments. Section references are of the form §X.Y for chapter X section Y, or §A.Y, §B.Y, §C.Y for appendix sections. For full definitions of framework-specific terms, see the Glossary; for citation details on referenced works, see the Bibliography.
-
----
-
-## A
-
-**Anomaly cancellation**: §0.6, §2.4, §5.1, §5.6, §5.7, §6.1, §8.7, §9.2, §9.4, §16.10, §19.2, §B.5
-
-**Anthropic principle**: §2.6, §3.2, §3.3, §5.3, §10.1, §10.8, §18.8, §18.9, §19.2
-
-**Artificial intelligence**: §12.1, §12.7
-
-**Autocatalysis**: §10.7, §11.1, §11.2, §11.3, §11.5, §11.6, §11.8, §12.4
-
-**Axiom 2 (Finiteness)**: §C.1, §C.6
-
-
-## B
-
-**Barandes correspondence**: §0.6, §1.1, §1.6, §1.7, §1.8, §6.3, §C.1, §C.4, §C.12
-
-**BEC analogue-gravity experiment**: §0.6, §1.10, §9.1, §9.7, §9.9, §13.9, §14.8, §15.1, §15.7, §15.8, §15.9, §A.5, §A.6, §C.11
-
-**Bekenstein bound**: §7.9, §A.4, §C.6
-
-**Bekenstein-Hawking entropy**: §0.1, §0.3, §0.5, §0.6, §1.3, §1.4, §2.2, §2.4, §2.6, §2.7, §2.8, §3.2, §3.5, §3.8, §4.2, §4.3, §4.5, §4.7, §5.2, §6.1, §6.8, §7.1, §7.3, §7.5, §7.6, §7.7, §7.10, §9.1, §9.2, §9.3, §9.6, §9.9, §14.6, §17.10, §18.5, §18.6, §18.7, §A.2, §A.4, §A.6, §C.11
-
-**Bell's theorem**: §1.6, §1.7, §3.6, §4.4, §18.4, §C.1, §C.2, §C.3, §C.13
-
-**Bell-inequality violations**: §0.1, §0.2, §0.3, §1.1, §1.3, §1.7, §1.10, §2.6, §4.5, §C.5
-
-**Birkhoff-von Neumann theorem**: §B.2
-
-**Black hole information paradox**: §0.6, §7.1, §7.6, §9.3, §18.1, §18.5, §18.11, §19.1, §19.2, §19.4
-
-**Bohmian mechanics**: §0.1, §18.2, §19.2, §C.1, §C.2, §C.8
-
-**Bong-Wiseman theorem**: §C.1, §C.3
-
-**Born rule**: §0.2, §0.3, §0.6, §1.1, §1.9, §1.10, §2.2, §2.4, §2.6, §3.2, §3.5, §3.8, §6.3, §11.4, §14.3, §14.8, §18.1, §18.2, §18.8, §18.11, §19.1, §19.2, §19.4, §A.5, §B.1, §B.2, §C.3, §C.6, §C.8
-
-**BQP complexity class**: §0.6, §12.8, §13.9, §14.1, §14.2, §14.3, §14.4, §14.5, §14.6, §14.7, §14.8, §15.1, §15.8, §15.9, §16.1, §18.1, §18.11, §A.6, §C.7
-
-
-## C
-
-**C1 (coupling condition)**: §0.2, §0.3, §0.6, §1.1, §1.3, §1.5, §1.6, §1.7, §1.8, §1.9, §1.10, §2.1, §2.4, §2.6, §2.7, §3.2, §3.3, §4.2, §4.3, §4.5, §4.6, §5.1, §5.2, §7.1, §7.2, §7.10, §9.1, §9.2, §9.3, §9.4, §9.7, §9.9, §10.8, §11.1, §11.3, §11.4, §11.5, §11.6, §11.7, §11.8, §12.1, §12.2, §12.3, §12.4, §12.5, §12.6, §12.8, §13.1, §13.2, §13.3, §13.4, §13.5, §13.6, §13.7, §13.8, §13.9, §14.1, §14.2, §14.3, §14.4, §14.5, §14.6, §14.7, §14.8, §15.1, §15.2, §15.3, §15.6, §16.1, §16.2, §16.3, §16.4, §16.5, §16.6, §16.7, §16.8, §16.9, §17.9, §18.1, §18.3, §18.7, §18.8, §18.10, §19.2, §A.4, §B.1, §B.2, §B.7, §C.4, §C.5, §C.8, §C.12
-
-**C2 (slow-bath timescale)**: §0.2, §0.3, §1.1, §1.3, §1.5, §1.6, §1.8, §1.10, §2.2, §2.4, §2.6, §3.2, §3.3, §4.6, §7.1, §7.2, §9.3, §11.1, §11.3, §11.4, §11.6, §11.7, §12.2, §12.4, §13.1, §13.3, §14.5, §15.2, §15.3, §15.5, §15.8, §16.2, §16.3, §16.4, §16.6, §16.9, §17.9, §18.2, §18.3, §18.10, §19.2, §A.4, §B.2, §B.7, §C.5
-
-**C3 (hidden-sector capacity)**: §0.2, §0.3, §0.6, §1.1, §1.3, §1.5, §1.6, §1.7, §1.8, §1.9, §1.10, §2.1, §2.4, §2.6, §2.7, §3.2, §3.3, §4.2, §4.3, §4.5, §4.6, §5.1, §5.2, §7.1, §7.2, §7.10, §9.1, §9.2, §9.3, §9.4, §9.7, §9.9, §10.8, §11.1, §11.3, §11.4, §11.5, §11.6, §11.7, §11.8, §12.1, §12.2, §12.3, §12.4, §12.5, §12.6, §12.8, §13.1, §13.2, §13.3, §13.4, §13.5, §13.6, §13.7, §13.8, §13.9, §14.1, §14.2, §14.3, §14.4, §14.5, §14.6, §14.7, §14.8, §15.1, §15.2, §15.3, §15.6, §15.7, §15.8, §15.9, §16.1, §16.2, §16.3, §16.4, §16.5, §16.6, §16.7, §16.8, §16.9, §17.9, §17.10, §18.1, §18.3, §18.7, §18.8, §18.10, §19.2, §A.4, §B.1, §B.2, §B.7, §C.3, §C.4, §C.5, §C.8, §C.11, §C.12
-
-**Cabibbo angle**: §0.5, §0.6, §3.2, §3.5, §4.2, §4.3, §4.5, §4.7, §5.1, §5.5, §5.7, §6.1, §6.5, §6.6, §6.7, §6.8, §8.1, §8.3, §8.4, §8.6, §8.7, §8.8, §8.10, §9.1, §9.2, §9.4, §9.9, §19.3, §A.2, §A.3, §A.4, §C.11
-
-**CaMKII**: §16.1, §16.4, §16.13
-
-**Carbon (in chemistry)**: §10.1, §10.2, §10.3, §10.5, §10.6, §10.7, §10.8, §11.2, §11.5, §11.6, §11.8, §12.5
-
-**Characterization theorem**: §0.2, §0.6, §1.1, §1.3, §1.7, §1.8, §1.9, §1.10, §2.4, §4.5, §4.6, §11.1, §11.6, §12.8, §13.2, §13.9, §14.1, §14.3, §14.4, §14.5, §14.6, §14.8, §15.1, §15.8, §19.2, §B.1, §B.2, §B.7, §C.1, §C.2, §C.4, §C.5, §C.6, §C.12
-
-**Chirality**: §0.6, §2.4, §2.8, §4.7, §5.1, §5.6, §6.5, §10.1, §10.3, §10.7, §10.8, §11.1, §18.9, §B.5
-
-**Chk1 (checkpoint kinase 1)**: §16.1, §16.2, §16.3, §16.4, §16.13, §A.4
-
-**Chromatin**: §0.5, §0.6, §12.1, §12.2, §12.6, §13.2, §13.9, §15.9, §16.1, §16.3, §16.9, §16.10, §16.11, §16.12, §16.13, §17.1, §17.2, §17.3, §17.4, §17.6, §17.7, §17.8, §17.10, §A.4, §C.9
-
-**CHSH inequality**: §4.5, §18.4, §C.2
-
-**CKM matrix**: §0.3, §0.5, §2.6, §4.2, §4.3, §4.6, §6.3, §6.5, §6.7, §10.1, §10.3, §19.2, §19.3, §C.13
-
-**Colbeck-Renner theorem**: §4.4, §C.1, §C.3
-
-**Cosmological constant problem**: §0.1, §0.3, §0.6, §2.4, §2.6, §2.8, §3.3, §3.7, §4.7, §6.8, §7.1, §7.3, §7.6, §7.7, §7.8, §7.10, §9.1, §9.2, §9.3, §10.8, §18.1, §18.5, §18.8, §18.11, §19.1, §19.2, §19.4, §C.11, §C.12, §C.13
-
-**Cosmological horizon**: §0.3, §0.5, §1.3, §1.10, §2.4, §2.6, §4.6, §7.1, §7.2, §7.3, §7.5, §7.6, §7.7, §7.8, §7.9, §7.10, §9.1, §9.2, §9.3, §9.6, §9.7, §9.8, §9.9, §11.6, §12.8, §14.1, §14.6, §18.5, §18.8, §18.9, §18.10, §19.2, §C.2, §C.6, §C.10
-
-**Cryptochrome**: §0.6, §13.1, §13.5, §A.4
-
-**Cubic decomposition**: §5.5, §5.6, §6.4, §7.1, §8.3, §9.2, §9.4, §19.4
-
-**Cusa, Nicholas of**: §0.4, §2.8, §3.7, §3.8
-
-
-## D
-
-**Dark energy**: §0.1, §0.3, §0.5, §0.6, §4.5, §7.3, §7.8, §7.10, §8.1, §8.9, §8.10, §10.8, §18.11, §19.1, §19.2, §19.3, §A.5
-
-**Dark matter**: §0.3, §0.5, §0.6, §2.6, §4.5, §6.8, §7.8, §9.3, §18.10, §18.11, §19.1, §19.2
-
-**Decoherence**: §1.6, §1.10, §9.1, §9.7, §9.8, §9.9, §13.4, §15.1, §15.2, §15.5, §15.6, §15.7, §15.8, §18.3
-
-**DESI (Dark Energy Spectroscopic Instrument)**: §0.5, §4.5, §4.6, §7.8, §7.10, §8.1, §8.6, §8.9, §8.10, §9.4, §19.2, §A.4, §A.5, §A.6
-
-**DKFZ methylome classifier**: §16.12, §17.7, §A.4
-
-**DNA methylation**: §0.6, §12.2, §16.1, §16.2, §16.9, §16.10, §16.11, §16.12, §17.1, §17.2, §17.6, §17.7, §17.10, §C.9, §C.11
-
-**DSW horizon decoherence**: §9.1, §9.7, §9.8, §9.9, §15.1, §15.8
-
-
-## E
-
-**Embedded observer**: §0.2, §0.6, §1.1, §1.4, §1.6, §1.10, §2.4, §2.6, §2.7, §2.8, §3.1, §3.2, §3.4, §3.5, §3.7, §4.2, §4.5, §4.6, §5.2, §5.3, §5.4, §5.6, §6.2, §7.7, §9.2, §9.3, §9.7, §9.8, §11.1, §11.4, §11.6, §12.1, §12.7, §12.8, §13.1, §13.2, §14.1, §14.2, §14.3, §14.4, §14.5, §14.6, §14.7, §14.8, §15.1, §18.3, §18.4, §18.5, §18.7, §18.8, §19.2, §B.3, §B.7, §C.3, §C.7, §C.8, §C.13
-
-**Enzyme catalysis**: §0.6, §10.2, §13.1, §13.2, §13.3, §13.7, §13.9
-
-**Epigenetics**: §0.6, §12.1, §12.2, §15.9, §16.1, §16.9, §16.10, §16.13, §17.1, §17.6, §17.9
-
-**Evolutionary capacitance**: §17.9, §A.4
-
-**Extended Church-Turing Thesis**: §0.6, §14.1, §14.6, §14.8, §15.1
-
-
-## F
-
-**Falsification conditions**: §0.6, §2.8, §3.1, §3.5, §3.8, §4.1, §4.3, §4.5, §4.6, §4.7, §6.2, §6.3, §6.7, §6.8, §7.5, §7.6, §7.8, §7.10, §8.7, §8.8, §8.10, §12.8, §13.2, §13.6, §13.7, §13.9, §14.1, §14.2, §14.4, §14.6, §14.8, §15.1, §15.4, §15.6, §15.7, §15.8, §15.9, §18.6, §18.7, §18.11, §A.1, §A.5, §A.6, §C.6, §C.12
-
-**Fine-tuning**: §0.1, §0.3, §1.7, §3.6, §4.4, §6.2, §6.7, §7.7, §7.10, §10.1, §10.8, §11.1, §18.5, §18.8, §19.2
-
-**FMO complex**: §13.4, §A.4
-
-**Foundation models (bioinformatics)**: §17.1, §17.2, §17.5, §17.10
-
-**Frauchiger-Renner theorem**: §3.6, §4.1, §4.4, §C.1, §C.3
-
-
-## G
-
-**Gap equation (for hbar)**: §2.4, §4.2, §5.2, §7.3, §7.4, §7.5, §7.10, §9.2, §9.3, §B.1, §B.4, §B.7, §C.1, §C.10
-
-**Gauge group SU(3)xSU(2)xU(1)**: §0.1, §0.3, §0.6, §2.1, §2.3, §2.4, §2.5, §2.6, §2.7, §2.8, §3.1, §3.2, §3.4, §3.5, §3.8, §4.3, §4.5, §4.6, §4.7, §5.1, §5.2, §5.3, §5.4, §5.5, §5.6, §5.7, §6.4, §6.7, §6.8, §7.1, §7.10, §8.3, §8.7, §9.2, §9.4, §9.5, §10.1, §10.4, §10.5, §12.5, §14.5, §18.1, §18.9, §18.11, §19.1, §19.2, §A.3, §B.3, §B.6, §B.7, §C.11, §C.13
-
-**Gene regulatory networks**: §17.1, §17.2, §17.4, §17.10
-
-**General intelligence**: §11.8, §12.1, §12.5, §12.6, §12.7, §12.8
-
-**Generations (three)**: §4.7, §5.6, §6.2, §6.6, §8.3, §8.5, §8.7, §9.2, §9.6, §10.1, §19.2, §19.3
-
-**God's-eye view (limit case)**: §1.10
-
-**GW250114 (binary black hole merger)**: §0.5, §2.6, §3.5, §4.5, §6.8, §7.1, §7.5, §7.10, §9.2, §9.3, §9.6, §17.10, §18.6, §A.4, §A.6, §C.11, §C.12, §C.13
-
-**Gödel's incompleteness theorems**: §0.4, §1.10, §2.1, §2.3, §3.7, §12.1, §12.8
-
-
-## H
-
-**Hawking radiation**: §0.1, §0.3, §0.5, §0.6, §1.3, §1.4, §2.2, §2.4, §2.6, §2.7, §2.8, §3.2, §3.5, §3.8, §4.2, §4.3, §4.5, §4.7, §5.2, §6.1, §6.8, §7.1, §7.3, §7.5, §7.6, §7.7, §7.10, §9.1, §9.2, §9.3, §9.6, §9.9, §14.6, §15.8, §17.10, §18.5, §18.6, §18.7, §19.2, §19.4, §A.2, §A.4, §A.6, §C.6, §C.11
-
-**Hidden sector**: §0.2, §0.3, §0.6, §1.1, §1.2, §1.3, §1.5, §1.6, §1.8, §1.9, §1.10, §2.2, §2.3, §2.4, §2.5, §2.6, §2.7, §3.2, §3.3, §3.4, §3.6, §4.6, §5.2, §5.6, §7.2, §7.3, §7.6, §7.7, §7.9, §9.3, §9.7, §11.1, §11.4, §11.6, §12.2, §12.4, §12.8, §13.3, §13.4, §13.5, §13.8, §14.4, §15.1, §15.2, §15.3, §15.5, §15.7, §15.8, §15.9, §16.1, §16.2, §16.3, §16.9, §17.9, §18.2, §18.3, §18.4, §18.7, §18.8, §18.10, §19.2, §19.3, §B.1, §B.2, §B.3, §B.4, §B.7, §C.2, §C.5, §C.8
-
-**Higgs (composite scalar)**: §0.3, §0.5, §0.6, §2.4, §2.6, §2.8, §3.2, §3.5, §4.5, §4.7, §5.1, §5.4, §5.7, §6.1, §6.2, §6.5, §6.6, §6.7, §6.8, §10.1, §10.3, §19.2, §19.3, §19.4, §C.11
-
-**Histone modifications**: §12.2, §16.1, §16.2, §16.3, §16.9, §16.10, §16.12, §17.2, §17.4, §17.6
-
-**Homochirality**: §10.1, §10.3, §10.7, §10.8, §11.1
-
-**Hsp90 (evolutionary capacitor)**: §17.9, §A.4
-
-**Hydrogen bonding**: §10.5, §10.6
-
-**Hydrothermal vents**: §11.1, §11.3
-
-**Hypercharge assignments**: §0.1, §0.3, §0.6, §2.4, §2.6, §2.8, §3.2, §3.5, §3.8, §4.7, §5.1, §5.5, §5.6, §5.7, §6.1, §6.2, §6.4, §19.2, §B.1, §B.5, §B.6, §B.7
-
-
-## I
-
-**Information backflow**: §1.5, §1.8, §1.10, §2.2, §13.4, §13.6, §15.1, §15.2, §15.5, §15.6, §15.7, §16.3, §17.9, §18.10, §A.4, §B.2, §C.5
-
-**iPSC reprogramming**: §16.10, §A.4, §C.9
-
-
-## J
-
-**Jordan-Chevalley decomposition**: §B.1, §B.3, §B.7
-
-**JUNO experiment**: §0.1, §0.5, §0.6, §2.6, §2.7, §2.8, §3.2, §3.5, §3.8, §4.5, §4.7, §6.1, §6.7, §6.8, §7.5, §7.10, §8.1, §8.2, §8.6, §8.7, §8.8, §8.9, §8.10, §9.1, §9.2, §9.4, §9.9, §10.1, §16.1, §16.13, §17.10, §18.1, §18.9, §18.10, §A.4, §A.6, §C.11, §C.12, §C.13
-
-
-## K
-
-**Kauffman threshold**: §11.1, §11.2
-
-**Knowledge graphs**: §17.1, §17.10
-
-**Kochen-Specker theorem**: §0.6, §1.10, §2.8, §3.6, §4.1, §4.4
-
-**Koide relation**: §0.5, §0.6, §3.2, §3.5, §4.3, §4.5, §4.7, §5.1, §5.7, §6.1, §6.5, §6.6, §6.7, §6.8, §8.1, §8.3, §8.6, §8.7, §9.2, §9.4, §19.3, §A.2, §A.3, §A.4, §A.6, §C.11
-
-
-## L
-
-**Laplace's demon**: §1.10
-
-**LIGO/Virgo/KAGRA**: §0.1, §0.5, §2.4, §5.3, §7.1, §7.5, §18.1, §18.6, §18.11, §A.5
-
-**LTEE (Lenski long-term evolution)**: §0.6, §16.13, §17.1, §17.9, §17.10, §18.10, §A.4
-
-**LUX-ZEPLIN dark matter search**: §0.1
-
-
-## M
-
-**Magnetoreception**: §0.6, §11.8, §13.1, §13.2, §13.5, §13.7, §13.9
-
-**Major evolutionary transitions**: §12.1, §12.4
-
-**Many-worlds interpretation (MWI)**: §0.1, §18.2, §19.2, §C.1, §C.8
-
-**Memory asymmetry (in medicine)**: §16.1, §16.2, §16.13
-
-**Miller-Urey synthesis**: §11.1, §11.3
-
-**Molecular clock**: §0.6, §16.13, §17.1, §17.9, §17.10, §18.10
-
-**MOND (Modified Newtonian Dynamics)**: §0.3, §0.5, §2.6, §3.2, §3.5, §3.8, §4.5, §6.8, §7.1, §7.9, §7.10, §9.2, §9.3, §9.4, §18.5, §19.2, §A.4, §C.11
-
-
-## N
-
-**Non-Markovian dynamics**: §0.5, §0.6, §1.1, §1.4, §1.5, §1.6, §1.8, §1.10, §2.7, §3.5, §4.5, §9.3, §9.7, §11.1, §11.4, §11.6, §12.1, §12.2, §12.4, §13.1, §13.2, §13.3, §13.4, §13.5, §13.6, §13.8, §14.1, §14.3, §14.8, §15.1, §15.2, §15.3, §15.5, §15.6, §15.7, §15.8, §15.9, §16.1, §16.2, §16.3, §16.4, §16.6, §16.7, §16.8, §16.9, §16.13, §17.1, §17.9, §17.10, §18.1, §18.3, §18.7, §18.10, §18.11, §A.5, §B.2, §C.2, §C.3, §C.4, §C.8
-
-**NV centers (diamond)**: §15.1, §15.2, §15.5, §15.6, §15.7, §15.9
-
-
-## O
-
-**Origin of life**: §9.9, §10.8, §11.1, §11.4, §11.7, §11.8, §12.1, §12.6, §13.1, §C.12
-
-
-## P
-
-**P-indivisibility**: §0.6, §1.1, §1.3, §1.4, §1.5, §1.6, §1.7, §1.8, §1.10, §2.2, §2.3, §2.6, §2.7, §3.2, §3.5, §3.6, §3.8, §4.4, §4.5, §4.6, §5.2, §5.4, §9.3, §9.7, §12.8, §13.1, §13.4, §13.7, §15.1, §15.2, §15.3, §15.4, §15.5, §15.8, §17.9, §18.3, §18.7, §19.2, §B.1, §B.2, §B.7, §C.1, §C.2, §C.3, §C.4, §C.5
-
-**Page curve**: §7.1, §7.6, §9.3, §18.5, §19.2, §19.4, §A.4
-
-**Partially-quantum regime**: §1.10, §9.7, §13.1, §13.2, §13.3, §13.4, §13.6, §13.7, §13.9, §15.1, §15.7, §15.8, §15.9, §18.1, §18.3, §18.11, §19.4, §A.5, §A.6, §C.3
-
-**Partition-relativity**: §1.1, §1.3, §7.3, §9.8, §B.1, §C.4, §C.10
-
-**Penrose, Roger**: §18.4, §18.10
-
-**Persister cells (antibiotic resistance)**: §16.1, §16.5, §16.13, §A.5
-
-**Photosynthesis**: §0.6, §11.8, §13.1, §13.2, §13.4, §13.7, §13.9, §A.4
-
-**Planck collaboration**: §7.8, §8.9, §18.9, §19.2
-
-**Planck constant (derivation)**: §0.3, §0.6, §1.4, §1.6, §1.8, §2.2, §2.4, §2.5, §2.6, §2.8, §3.4, §4.7, §5.2, §6.8, §7.1, §7.2, §7.3, §7.4, §7.6, §7.7, §7.9, §7.10, §9.1, §9.2, §9.3, §12.8, §18.5, §19.2, §A.4, §B.1, §B.4, §B.7, §C.1, §C.10
-
-**PMNS matrix**: §0.6, §2.6, §4.2, §4.6, §5.1, §5.7, §6.1, §6.3, §6.5, §6.7, §8.1, §8.3, §8.4, §8.6, §8.7, §8.9, §9.2, §9.4, §19.3, §A.4, §C.13
-
-**Punctuated equilibrium**: §17.1, §17.9, §17.10
-
-**Pusey-Barrett-Rudolph (PBR) theorem**: §3.6, §C.3
-
-
-## Q
-
-**QBism**: §0.4, §2.8, §18.2, §19.2, §C.1, §C.8
-
-**Quantum error correction**: §14.3, §14.5, §14.8, §15.1, §15.2, §15.3, §15.4, §15.8, §15.9, §A.5
-
-**Quantum gravity dissolution**: §0.1, §0.6, §3.7, §3.8, §4.1, §4.2, §9.1, §9.5, §9.7, §9.8, §9.9, §14.4, §18.1, §18.5, §18.7, §18.11, §19.1, §19.2, §19.4
-
-**Quantum sensing**: §0.6, §15.1, §15.6, §15.8
-
-
-## R
-
-**Read-write cycle**: §2.2, §2.3, §9.3, §11.1, §11.4, §11.7, §15.2, §15.5, §16.2, §18.1, §18.2, §19.2, §19.4
-
-**Reader/writer/eraser pharmacology**: §0.6, §16.11, §16.12, §17.1, §17.8, §17.10, §A.5, §C.11
-
-**Rett syndrome**: §0.5, §0.6, §16.1, §16.9, §16.12, §16.13, §A.1, §A.4, §C.1
-
-**Ribozymes**: §11.5, §11.7, §11.8
-
-**RNA velocity (bioinformatics)**: §17.3
-
-**RNA world**: §11.1, §11.7
-
-
-## S
-
-**Self-reference**: §0.4, §1.10, §2.3, §3.7, §9.9, §10.8, §11.8, §12.1, §12.8, §C.7
-
-**Spinoza, Baruch**: §0.4, §2.8, §3.7, §3.8
-
-**Staggered fermion structure**: §0.6, §2.4, §3.2, §4.3, §4.5, §5.1, §5.3, §5.4, §5.6, §5.7, §6.1, §6.2, §6.4, §6.5, §6.6, §6.7, §6.8, §7.1, §8.5, §10.2, §10.3, §10.7, §18.9, §19.2, §19.3, §B.6
-
-**Standard Model**: §0.1, §0.3, §0.5, §0.6, §1.9, §2.1, §2.4, §2.5, §2.6, §2.7, §2.8, §3.1, §3.2, §3.4, §3.5, §3.8, §4.2, §4.3, §4.5, §4.7, §5.1, §5.2, §5.4, §5.5, §5.6, §5.7, §6.1, §6.2, §6.3, §6.4, §6.5, §6.6, §6.7, §6.8, §7.1, §7.2, §7.5, §7.8, §7.10, §8.3, §8.7, §8.8, §8.10, §9.1, §9.2, §9.4, §9.5, §9.6, §9.9, §10.1, §10.4, §12.8, §16.10, §17.10, §18.1, §18.5, §18.9, §18.11, §19.1, §19.2, §19.3, §19.4, §A.1, §A.4, §A.6, §B.1, §B.3, §B.5, §B.6, §B.7, §C.1, §C.11
-
-**Stinespring dilation**: §0.6, §1.1, §1.6, §1.7, §1.8, §2.4, §2.5, §3.4, §13.7, §18.3, §B.1, §B.2, §B.7, §C.4, §C.12
-
-**Structural realism (hierarchical)**: §0.6, §1.10, §2.1, §2.5, §2.8, §3.1, §3.2, §3.7, §3.8, §6.8, §7.1, §7.10, §9.1, §9.2, §9.4, §9.9, §10.1
-
-**Substratum**: §0.3, §0.4, §0.5, §0.6, §1.6, §1.7, §1.8, §1.9, §1.10, §2.1, §2.2, §2.3, §2.4, §2.5, §2.6, §2.7, §2.8, §3.1, §3.2, §3.3, §3.4, §3.5, §3.6, §3.7, §3.8, §4.1, §4.2, §4.3, §4.4, §4.5, §4.6, §4.7, §5.1, §5.2, §5.3, §5.4, §5.5, §5.6, §5.7, §6.1, §6.2, §6.3, §6.4, §6.5, §6.6, §6.7, §6.8, §7.1, §7.3, §7.4, §7.6, §7.7, §7.8, §7.9, §7.10, §8.3, §8.7, §8.9, §9.1, §9.2, §9.3, §9.4, §9.5, §9.6, §9.7, §9.8, §9.9, §10.1, §10.2, §10.3, §10.4, §10.6, §10.7, §10.8, §11.1, §11.3, §12.1, §12.2, §12.4, §12.8, §13.1, §13.9, §14.1, §14.2, §14.4, §14.5, §14.6, §14.7, §14.8, §15.9, §16.1, §16.9, §16.10, §16.11, §16.12, §16.13, §17.1, §17.2, §17.3, §17.4, §17.5, §17.7, §17.8, §17.10, §18.1, §18.2, §18.4, §18.5, §18.6, §18.7, §18.8, §18.9, §18.10, §19.2, §19.3, §A.1, §A.2, §A.3, §A.4, §A.5, §A.6, §B.1, §B.2, §B.4, §B.6, §B.7, §C.1, §C.2, §C.3, §C.4, §C.5, §C.6, §C.7, §C.8, §C.9, §C.10, §C.11, §C.13
-
-**Substratum-emergent operator distinction**: §0.6, §4.7, §9.1, §9.8, §12.2, §13.9, §16.1, §16.9, §16.10, §16.11, §16.12, §16.13, §17.2, §17.7, §18.1, §18.5, §18.8, §19.2, §A.5, §A.6, §C.1, §C.2, §C.3, §C.4, §C.8, §C.9, §C.13
-
-**Superconducting qubits**: §0.6, §14.5, §15.1, §15.2, §15.3, §15.4, §15.5, §15.7, §15.9, §A.5
-
-
-## T
-
-**T-cell exhaustion**: §16.1, §16.6, §16.13
-
-**Tier 1 (universality class)**: §7.1, §7.5, §7.10, §8.10, §9.1, §9.2, §9.3, §9.4, §9.6, §9.9, §10.1
-
-**Tier 2 (broader structural)**: §7.1, §7.9, §7.10, §9.1, §9.2, §9.3, §9.4, §9.6, §10.1, §10.4, §19.3
-
-**Tier 3 (solution-specific)**: §7.1, §7.9, §7.10, §9.1, §9.2, §9.3, §9.4, §9.6, §9.7, §9.8, §9.9, §10.3, §10.8, §C.5
-
-**TLS (two-level systems)**: §15.1, §15.2, §15.3, §15.4, §15.7, §15.9
-
-**Trace-out**: §0.4, §0.6, §1.3, §1.10, §2.4, §2.5, §2.6, §2.7, §2.8, §3.2, §3.4, §4.3, §4.6, §4.7, §5.1, §5.6, §5.7, §6.1, §7.4, §7.6, §7.7, §7.8, §7.9, §9.8, §10.1, §10.7, §16.10, §18.1, §18.5, §18.8, §18.9, §18.10, §19.2, §19.3, §A.4, §B.1, §B.3, §B.7, §C.9, §C.13
-
-**Tsirelson bound**: §1.7, §4.4, §4.5, §18.4, §C.2
-
-**Turing's halting problem**: §0.4, §0.6, §1.10, §2.1, §2.3, §3.7, §12.1, §12.7, §12.8, §14.1, §14.2, §14.4, §14.6, §14.8, §15.1
-
-
-## U
-
-**Universality class**: §3.2, §3.4, §3.5, §6.8, §7.1, §7.9, §7.10, §8.10, §9.2, §9.3, §9.4, §9.5, §9.6, §9.7, §10.1, §10.8, §14.2, §14.3, §14.5, §14.6, §14.8
-
-
-## V
-
-**Vibronic coherence**: §13.4, §13.7, §13.9
-
-**Visible sector**: §0.3, §1.1, §1.2, §1.3, §1.4, §1.5, §1.6, §1.8, §1.9, §1.10, §2.2, §2.6, §2.7, §5.1, §5.6, §6.3, §7.2, §7.6, §9.3, §9.7, §9.8, §11.1, §11.4, §12.8, §13.3, §13.4, §13.5, §14.1, §14.3, §14.4, §14.7, §15.5, §16.9, §17.9, §18.2, §18.7, §18.8, §19.2, §19.3, §B.2, §B.4, §B.7, §C.9
-
-
-## W
-
-**Water (as biological solvent)**: §10.1, §10.4, §10.5, §10.6, §10.8, §11.2, §11.3, §13.3
-
-**Wave function (interpretation)**: §0.2, §0.3, §1.9, §1.10, §2.7, §3.6, §9.8, §18.2, §18.3, §19.2, §C.3, §C.8
-
-**Wolpert's theorem**: §0.4, §1.10, §7.7, §C.1, §C.7
-
-
-## Y
-
-**Yamanaka factors**: §16.9, §16.10
-
-
----
-
-
