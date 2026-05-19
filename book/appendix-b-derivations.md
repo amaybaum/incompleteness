@@ -25,7 +25,7 @@ The appendix's content is *complete derivations*, not exposition. Each derivatio
 
 ## B.2 The Stinespring construction for emergent quantum mechanics
 
-*Main-text reference: Chapter 1 §1.7-1.9. Source: Main.md §3.2.*
+*Main-text reference: Chapter 1 §1.7-1.9.*
 
 The framework's emergent quantum mechanics derives from the substratum's deterministic bijection through a Stinespring dilation applied to the partial trace over the hidden sector. The construction uses only textbook operator algebra from the 1950s, with no reference to recent stochastic-quantum correspondence results.
 
@@ -71,7 +71,7 @@ The construction is complete: the substratum's deterministic bijection produces 
 
 ## B.3 The trace-out as a Jordan-Chevalley projection
 
-*Main-text reference: Chapter 5 §5.4-5.6. Source: SM.md Appendix A.*
+*Main-text reference: Chapter 5 §5.4-5.6.*
 
 The framework's content on the Standard Model gauge structure relies on a precise algebraic property of the trace-out operation: it extracts the semisimple part of the evolution matrix's Jordan-Chevalley decomposition and erases the nilpotent monodromy. This appendix gives the full derivation for the scalar wave equation on a ring of $L$ sites over $\mathbb{F}_q$; the multi-component extension incorporating the gauge group follows by additive decomposition.
 
@@ -134,7 +134,7 @@ extracting the semisimple part, encoding it via magnitudes rather than orders, a
 
 ## B.4 The gap equation for $\hbar$
 
-*Main-text reference: Chapter 7 §7.3. Source: GR.md §3.*
+*Main-text reference: Chapter 7 §7.3.*
 
 The framework derives Planck's constant $\hbar$ as the unique self-consistent value matching the classical horizon temperature to the KMS temperature of the emergent quantum field theory. The derivation has four steps; each step is presented with its full content.
 
@@ -188,7 +188,7 @@ The KMS periodicity is a *geometric* condition (Euclidean smoothness at the hori
 
 ## B.5 Anomaly cancellation and unique hypercharges
 
-*Main-text reference: Chapter 6 §6.7. Source: SM.md Theorem 15.*
+*Main-text reference: Chapter 6 §6.7.*
 
 The framework's content on the Standard Model matter content derives the unique hypercharge assignment from the six anomaly conditions of $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. The derivation establishes that the observed hypercharges are not phenomenological inputs but the unique anomaly-free completion of the framework's gauge structure.
 
@@ -249,7 +249,7 @@ Proton charge: $q_p = 2 q_u + q_d = 2(2/3) + (-1/3) = 4/3 - 1/3 = 1$. Electron c
 
 ## B.6 Gauge-theoretic derivations
 
-*Main-text reference: Chapter 5 §5.3-5.5. Source: SM.md §§3.2-4.2.*
+*Main-text reference: Chapter 5 §5.3-5.5.*
 
 Two key gauge-theoretic results from Chapter 5 are presented here with full derivation: the coupling-degree minimization fixing $K = 2d = 6$ internal components per site, and the cubic-rotation-group decomposition fixing the eigenvalue multiplicities at $(3, 2, 1)$.
 
@@ -302,7 +302,7 @@ The cumulative derivation produces the full Standard Model gauge structure with 
 
 ## B.7 The lemma chain for emergent quantum mechanics
 
-*Main-text reference: Chapter 1 §§1.5-1.9. Source: Main.md §§1-3.*
+*Main-text reference: Chapter 1 §§1.5-1.9.*
 
 The framework's characterization theorem (emergent quantum mechanics from C1-C3) relies on a chain of intermediate lemmas. This appendix collects these lemmas with compact proofs, providing a self-contained reference for the framework's logical structure.
 

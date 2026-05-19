@@ -81,14 +81,13 @@ No part of this work may be reproduced or distributed without the author's permi
 
 \clearpage
 
-
 # Preface
 
 This book argues a heterodox position: that quantum mechanics is not fundamental but emergent, derivable from a deterministic substratum through three structural conditions that any laboratory observer in our universe satisfies. The argument is constructive — explicit derivations replace philosophical assertion — and the empirical record now exists to constrain the framework's content quantitatively. The book is the integrated synthesis of work developed in technical papers over the past several years, organized into a single derivation chain from the framework's foundational commitment to its specific quantitative predictions across multiple sectors of physics, chemistry, biology, and medicine.
 
 The heterodox character of the position bears emphasis. The standard reading of quantum mechanics treats the wave function, the Schrödinger equation, and the Born rule as foundational — the basic objects of physics from which everything else follows. The framework reverses this ordering. It treats observation as foundational, the structural conditions of observation as derived consequences, and quantum mechanics as the dynamics that any observer satisfying those structural conditions must use. This reversal is not a matter of interpretive preference. The framework's content is a mathematical derivation: given the foundational commitment plus three structural conditions, quantum mechanics follows as a theorem.
 
-The framework's value depends on what follows from this reversal. The book documents what follows. The cosmological constant discrepancy of $10^{122}$ orders of magnitude — conventionally the worst quantitative prediction in physics — becomes a calculable compression ratio. The Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$, the three matter generations, and the anomaly-free hypercharges become theorems rather than empirical inputs. The Bekenstein-Hawking factor of $1/4$ in black-hole entropy becomes a derivation. Twenty-two Standard Model observables, fourteen gravitational predictions, and seven neutrino predictions follow as parameter-free retrodictions. The JUNO neutrino mixing angle is matched at $0.07\sigma$ from a prediction made before the measurement. The Bekenstein-Hawking area law is confirmed at $99.999\%$ confidence by the LIGO/Virgo/KAGRA observation of GW250114 in September 2025. The wider therapeutic window prediction for reader-writer disorders is confirmed empirically in Rett syndrome by Guy et al. 2007.
+The framework's value depends on what follows from this reversal — and the book documents exactly that. The cosmological constant discrepancy of $10^{122}$ orders of magnitude — conventionally the worst quantitative prediction in physics — becomes a calculable compression ratio. The Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$, the three matter generations, and the anomaly-free hypercharges become theorems rather than empirical inputs. The Bekenstein-Hawking factor of $1/4$ in black-hole entropy becomes a derivation. Twenty-two Standard Model observables, fourteen gravitational predictions, and seven neutrino predictions follow as parameter-free retrodictions. The JUNO neutrino mixing angle is matched at $0.07\sigma$ from a prediction made before the measurement. The Bekenstein-Hawking area law is confirmed at $99.999\%$ confidence by the LIGO/Virgo/KAGRA observation of GW250114 in September 2025. The wider therapeutic window prediction for reader-writer disorders is confirmed empirically in Rett syndrome by Guy et al. 2007.
 
 These are not interpretive achievements; they are quantitative empirical content. The framework is therefore neither a metaphysical reframing of standard physics nor a speculative alternative to it. It is a derivation chain from one foundational commitment to specific quantitative predictions, with substantial empirical content already in place and additional content awaiting near-term experimental tests.
 
@@ -98,7 +97,7 @@ The book is intended to make the framework's structure, derivation chains, and s
 
 A note on prerequisites. The technical chapters of Parts I and II require working familiarity with quantum mechanics, general relativity, and group theory. The applied chapters of Parts III and IV assume the technical content as derived results and add domain-specific background as needed. The Introduction and the closing chapters can be read by anyone with general scientific background; the technical content can be consulted as needed when specific claims become load-bearing for an argument. A glossary at the end of the back matter provides definitions for the framework's distinctive terminology and the major technical terms used throughout.
 
-A note on completeness. The framework is not a theory of everything. Several major problems in fundamental physics are scope limits within the framework's content: the flavor problem (the specific values of fermion masses and CKM mixing parameters), baryogenesis (the specific baryon-to-photon ratio — solution-specific, downstream of the framework's flavor-sector CP input), inflation and the cosmological initial conditions, the Hubble tension, and the cosmological initial state. Chapter 19 develops the framework's position on these open problems systematically. The framework provides structural answers where it can and identifies its scope limits where it cannot.
+A note on completeness. The framework is not a theory of everything. Several major problems in fundamental physics are scope limits within the framework's content: the flavor problem (the specific values of fermion masses and CKM mixing parameters), baryogenesis (the specific baryon-to-photon ratio — solution-specific, downstream of the framework's flavor-sector CP input), inflation, the Hubble tension, and the cosmological initial conditions. Chapter 19 develops the framework's position on these open problems systematically. The framework provides structural answers where it can and identifies its scope limits where it cannot.
 
 A note on terminology. The phrase "the framework's content" appears throughout the book to distinguish the framework's claims from claims made by standard physics or by other unification programs. The phrase is technical: the framework's content is what follows from the framework's commitments through derivation, as distinct from interpretive readings of those derivations or speculative extensions. Where the framework's content overlaps with standard physics (e.g., the Standard Model's gauge structure), the overlap is noted; where the framework's content extends beyond standard physics (e.g., the Born rule's transient violations in the very early universe), the extension is identified.
 
@@ -110,10 +109,6 @@ The position the book argues will strike many readers as too ambitious. The fram
    2026
 
 ---
-
-
-\clearpage
-
 
 # Reader's Guide
 
@@ -199,7 +194,7 @@ The three appendices serve different purposes and can be consulted independently
 
 **Glossary.** Located at the end of the back matter. Defines the framework's distinctive terminology (C1-C3, P-indivisibility, substratum, partition-relativity, etc.) and the major technical concepts used throughout the book. Cross-references in glossary entries point to the chapter and section where each concept is most fully developed. Use as a reference when terminology is unfamiliar.
 
-**Bibliography.** Located at the end of the back matter. Organized by topical area for ease of navigation. Cite using the author-year convention used in the text. The framework's own technical companion papers (Main.md, SM.md, GR.md, and others in the Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for framework-internal derivations.
+**Bibliography.** Located at the end of the back matter. Organized by topical area for ease of navigation. Cite using the author-year convention used in the text. The framework's own technical companion papers (available in the Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for framework-internal derivations.
 
 ## What to skip on a first reading
 
@@ -222,10 +217,6 @@ Readers finding any chapter too dense should not hesitate to skip ahead and retu
 The framework is unfinished in its empirical exposure but complete in its structural content. The book makes the structural content available for evaluation. The empirical evaluation depends on experiments now being done and on those forthcoming.
 
 ---
-
-
-\clearpage
-
 
 # Acknowledgments
 
@@ -254,10 +245,6 @@ The framework developed in this book rests on the work of many physicists, mathe
 — Alex Maybaum
 
 ---
-
-
-\clearpage
-
 
 # Introduction
 
@@ -299,7 +286,7 @@ These three features — coupling, slow-bath separation, large capacity — are 
 
 The framework's central theorem says: an experimenter in this situation cannot describe the physics inside the room using classical mechanics, even if classical mechanics is what governs the underlying reality. They must use a formalism mathematically equivalent to quantum mechanics — with wave functions, superpositions, Born-rule probabilities, and Bell-inequality violations. This is not because reality is intrinsically uncertain. It is because the experimenter's situation — coupled to a slow, vast outside they cannot directly access — forces them into a specific kind of compressed bookkeeping. Quantum mechanics is what classical physics looks like when you are inside the system you are trying to describe.
 
-The thought experiment captures the framework's central move. Quantum mechanics is reframed from a statement about reality to a statement about the observer's relationship to reality. The mathematics is the same; what it represents is different. The wave function is not the universe's state; it is the experimenter's compressed description of what they cannot see. The Born rule is not a postulate about fundamental indeterminism; it is the probability assignment that any embedded experimenter must use given C1-C3. Bell-inequality violations do not require nonlocality; they emerge from the specific way correlations propagate through the unobserved outside under C1-C3.
+The thought experiment captures the framework's central move. Quantum mechanics is reframed from a statement about reality to a statement about the observer's relationship to reality. The mathematics is unchanged; what it represents is different. The wave function is not the universe's state; it is the experimenter's compressed description of what they cannot see. The Born rule is not a postulate about fundamental indeterminism; it is the probability assignment that any embedded experimenter must use given C1-C3. Bell-inequality violations do not require nonlocality; they emerge from the specific way correlations propagate through the unobserved outside under C1-C3.
 
 The chapters that follow make this thought experiment precise. The room becomes a partition of the universe into visible and hidden sectors. The experimenter becomes a mathematical observer. The three features become the three structural conditions. The "compressed bookkeeping" becomes the framework's characterization theorem — a proof that the embedded observer's reduced description is mathematically equivalent to unitary quantum mechanics, and that this equivalence is not merely consistent with quantum mechanics but is required. Quantum mechanics, in the framework's content, is what any sufficiently complete account of observation must produce.
 
@@ -311,7 +298,7 @@ The claim that quantum mechanics is not fundamental can be made precise. The fra
 
 The three conditions are not exotic. They are the actual physical conditions of laboratory observers in our universe, satisfied by enormous margins. The first condition (C1) requires non-trivial coupling between what the observer can see and what they cannot — satisfied because the cosmological horizon is not a static wall, and stress-energy conservation forces correlations across it. The second condition (C2) requires that the hidden sector evolve much more slowly than the visible sector — satisfied with a ratio of approximately $10^{-32}$ between laboratory timescales and the Hubble time. The third condition (C3) requires the hidden sector to have far more degrees of freedom than the visible sector — satisfied with $10^{122}$ degrees of freedom on the cosmological horizon against at most $10^{50}$ in any laboratory apparatus. The framework proves these conditions are not merely sufficient for quantum mechanics to emerge; they are necessary. Any system equivalent to unitarily evolving quantum mechanics arises from marginalization of a deterministic system satisfying these three conditions for some partition.
 
-Quantum mechanics is, in this picture, the unique self-consistent algorithm for making predictions from incomplete data on accessible timescales under C1–C3. It is what computation looks like when one is a component of the machine doing the computing. The reframing has structural consequences. The $10^{122}$ vacuum-energy discrepancy is not a fine-tuning failure but the compression ratio between the universe's total degrees of freedom and the visible ones — quantum field theory and general relativity are measuring two different things, not two different values of the same thing. The roughly $95\%$ of cosmic energy density attributed to dark matter and dark energy is the gravitational signature of the same hidden degrees of freedom, structured (dark matter) and uniform (dark energy). These are theorems within the framework, developed in Part II.
+Quantum mechanics is, in this picture, the unique self-consistent algorithm for making predictions from incomplete data on accessible timescales under C1-C3. It is what computation looks like when one is a component of the machine doing the computing. The reframing has structural consequences. The $10^{122}$ vacuum-energy discrepancy is not a fine-tuning failure but the compression ratio between the universe's total degrees of freedom and the visible ones — quantum field theory and general relativity are measuring two different things, not two different values of the same thing. The roughly $95\%$ of cosmic energy density attributed to dark matter and dark energy is the gravitational signature of the same hidden degrees of freedom, structured (dark matter) and uniform (dark energy). These are theorems within the framework, developed in Part II.
 
 The framework reaches further than dissolving the cosmological constant problem. From the same starting definition — *observation occurs* — combined with a small set of structural assumptions about the substratum (finiteness, determinism, bounded coupling, center independence, linearity, background independence), the framework derives the Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ as the unique commutant of a cubic-symmetric coupling matrix; three chiral fermion generations; one Higgs doublet; anomaly-free hypercharges; and $\bar\theta = 0$ at all energy scales. The classical thermodynamics at the cosmological horizon yields the Bekenstein-Hawking entropy with the correct $1/4$ coefficient, the value of $\hbar$, and the MOND acceleration scale $a_0 = cH/6$. The same construction reaches into chemistry, biology, and quantum engineering, where the framework's structural conditions identify the regimes in which complex matter, life, and technology become possible. Part III develops this cascade.
 
@@ -355,29 +342,19 @@ No competing framework produces this collection of results from a single startin
 
 The book has four parts.
 
-**Part I — Foundations.** Chapters 1–4 develop the framework's mathematical core. Chapter 1 proves the central theorem: under the three structural conditions C1–C3, any embedded observer's reduced description is mathematically equivalent to unitarily evolving quantum mechanics. The proof is constructive (the Barandes correspondence and the Stinespring dilation provide explicit constructions) and includes the characterization theorem establishing necessity. Chapter 2 constructs the substratum — the finite deterministic bijection $(S, \varphi)$ — and proves the reconstruction theorem: observed physics together with structural assumptions uniquely determines the substratum up to a precise gauge equivalence. Chapter 3 develops the framework's hierarchical structural realism, including its evasion of Bell, Kochen-Specker, and PBR-type no-go theorems through identification of which descriptive level each assumption fails at. Chapter 4 articulates the framework's methodology — the single-foundational-commitment derivation pattern, the architecture-level engagement with the no-go results, the classification of claims by derivational rigor.
+**Part I — Foundations.** Chapters 1–4 develop the framework's mathematical core. Chapter 1 proves the central theorem: under the three structural conditions C1-C3, any embedded observer's reduced description is mathematically equivalent to unitarily evolving quantum mechanics. The proof is constructive (the Barandes correspondence and the Stinespring dilation provide explicit constructions) and includes the characterization theorem establishing necessity. Chapter 2 constructs the substratum — the finite deterministic bijection $(S, \varphi)$ — and proves the reconstruction theorem: observed physics together with structural assumptions uniquely determines the substratum up to a precise gauge equivalence. Chapter 3 develops the framework's hierarchical structural realism, including its evasion of Bell, Kochen-Specker, and PBR-type no-go theorems through identification of which descriptive level each assumption fails at. Chapter 4 articulates the framework's methodology — the single-foundational-commitment derivation pattern, the architecture-level engagement with the no-go results, the classification of claims by derivational rigor.
 
 **Part II — Physics.** Chapters 5–9 develop the framework's quantitative predictions in fundamental physics. Chapter 5 derives the Standard Model gauge group from the cubic-lattice substratum: the wave equation, coupling-degree minimization giving $K = 2d = 6$ internal components per site, the cubic-group decomposition with multiplicities $(3, 2, 1)$, the gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ as the pointwise commutant, chirality from the trace-out, and anomaly cancellation forcing the observed hypercharges. Chapter 6 develops the matter content and quantitative predictions: three chiral fermion generations from staggered taste structure, one composite Higgs, $\bar\theta = 0$ from T-invariance of the substratum, the gauge-coupling derivation with the structural no-GUT prediction, and the twenty-two parameter-free retrodictions including the Cabibbo angle, the Koide relation, the six fermion masses from one empirical input, and all three PMNS angles. Chapter 7 develops the gravitational sector: the Bekenstein-Hawking $1/4$ factor as theorem, the value of $\hbar$ from horizon thermodynamics, the dissolution of the cosmological constant problem. Chapter 8 develops the JUNO neutrino prediction in detail. Chapter 9 discusses universality, the relationship to other unification programs, and the framework's empirical scope.
 
 **Part III — Emergence.** Chapters 10–12 trace the structural cascade from the substratum to chemistry, biology, evolution, and intelligence. Chapter 10 derives chemistry from substratum-level electromagnetic structure. Chapter 11 develops the origin-of-life problem in terms of the framework's structural conditions for autocatalysis and template replication. Chapter 12 traces evolution to neural computation to semiconductors to general-purpose computation, identifying the contingent and structural steps along the cascade.
 
-**Part IV — Applications.** Chapters 13–19 develop the framework's reach into working scientific fields. Chapter 13 addresses quantum biology: non-Markovian enzyme kinetics in proteins, photosynthesis as energy transfer through C1–C3 architectures, magnetoreception via cryptochrome radical-pair dynamics, and enzyme catalysis with conformational landscapes acting as $\tau_B$-scale memory. Chapter 14 develops quantum computing: BQP is identified as the unique computational class accessible to embedded observers satisfying C1–C3, with the lower bound (the emergent quantum mechanics provides the BQP toolkit) and upper bound (the quantum description is informationally complete for the embedded observer) jointly characterizing the class. The Extended Church-Turing Thesis is reframed from empirical conjecture to theorem of the framework, with any super-BQP demonstration providing falsification. Chapter 15 develops quantum engineering: superconducting qubit dynamics as the canonical engineered C1–C3 system with $\tau_S/\tau_B \sim 10^{-3}$, P-indivisible noise structure producing correlated errors over $\sim 10^3$ gates, correlation-aware decoders reducing fault-tolerant overhead by 3–10×, coherence extension with engineered baths by up to 10×, quantum sensing improvements up to $10^3 \times$, and the BEC analogue-gravity experiment as the framework's cleanest near-term test of the BQP characterization theorem at the foundational level. Chapter 16 develops medical applications across cancer pharmacology, neurodegeneration, antibiotic resistance, immunotherapy, cardiac pharmacology, and autoimmune disease, with an explicit second half on epigenetics as biological hidden sector — the substratum-emergent operator dissociation at chromatin with reader/writer/eraser pharmacology axis, epigenetic drugs as memory erasers, cellular reprogramming as memory reset, the memory hierarchy from DNA methylation through chromatin architecture, and the wider therapeutic window prediction for reader-writer disorders confirmed empirically for Rett syndrome. Chapter 17 develops the bioinformatics consequences of the framework's structural constraints on biological information processing, with empirical confirmations from single-cell methodology and from the evolutionary-biology literature (molecular clock overdispersion, rate autocorrelation across the tree of life, LTEE power-law fitness trajectory). Chapter 18 develops the framework's distinctive forward predictions: Born-rule transient violations testable by CMB non-Gaussianity, the quantum-classical boundary with observable signatures, the epistemic character of quantum randomness, the quantum gravity dissolution as cumulative case (combining the CC dissolution, BH information paradox resolution, and non-renormalizability dissolution as three components of one structural resolution), gravitational wave echoes at $\Delta t = (r_+/c)\ln(r_+/2l_p)$, the arrow of time as emergent from partition initial conditions, the framework's silence on global cosmic spatial topology with engagement of Levin's compact-universe proposal, and a substantive position on consciousness — the framework's mathematical operation of observation (partition with C1–C3 structure) is a necessary but not sufficient condition for consciousness, with the hard problem proper explicitly outside the framework's scope. Chapter 19 closes the book with a systematic inventory of the framework's content against the major open problems of fundamental physics — twelve problems resolved or dissolved by the framework (quantum gravity, the cosmological constant, dark matter, dark energy, the measurement problem, black hole information, strong CP, hierarchy, gauge group origin, generation puzzle, dark sector budget, Born rule origin), and five scope limits where the framework does not provide a derived value (the flavor problem; baryogenesis — solution-specific, the baryon asymmetry inheriting the input status of the framework's flavor-sector CP phases; inflation and initial conditions; the Hubble tension; the cosmological initial state).
+**Part IV — Applications.** Chapters 13–19 develop the framework's reach into working scientific fields. Chapter 13 addresses quantum biology: non-Markovian enzyme kinetics in proteins, photosynthesis as energy transfer through C1-C3 architectures, magnetoreception via cryptochrome radical-pair dynamics, and enzyme catalysis with conformational landscapes acting as $\tau_B$-scale memory. Chapter 14 develops quantum computing: BQP is identified as the unique computational class accessible to embedded observers satisfying C1-C3, with the lower bound (the emergent quantum mechanics provides the BQP toolkit) and upper bound (the quantum description is informationally complete for the embedded observer) jointly characterizing the class. The Extended Church-Turing Thesis is reframed from empirical conjecture to theorem of the framework, with any super-BQP demonstration providing falsification. Chapter 15 develops quantum engineering: superconducting qubit dynamics as the canonical engineered C1-C3 system with $\tau_S/\tau_B \sim 10^{-3}$, P-indivisible noise structure producing correlated errors over $\sim 10^3$ gates, correlation-aware decoders reducing fault-tolerant overhead by 3–10×, coherence extension with engineered baths by up to 10×, quantum sensing improvements up to $10^3 \times$, and the BEC analogue-gravity experiment as the framework's cleanest near-term test of the BQP characterization theorem at the foundational level. Chapter 16 develops medical applications across cancer pharmacology, neurodegeneration, antibiotic resistance, immunotherapy, cardiac pharmacology, and autoimmune disease, with an explicit second half on epigenetics as biological hidden sector — the substratum-emergent operator dissociation at chromatin with reader/writer/eraser pharmacology axis, epigenetic drugs as memory erasers, cellular reprogramming as memory reset, the memory hierarchy from DNA methylation through chromatin architecture, and the wider therapeutic window prediction for reader-writer disorders confirmed empirically for Rett syndrome. Chapter 17 develops the bioinformatics consequences of the framework's structural constraints on biological information processing, with empirical confirmations from single-cell methodology and from the evolutionary-biology literature (molecular clock overdispersion, rate autocorrelation across the tree of life, LTEE power-law fitness trajectory). Chapter 18 develops the framework's distinctive forward predictions: Born-rule transient violations testable by CMB non-Gaussianity, the quantum-classical boundary with observable signatures, the epistemic character of quantum randomness, the quantum gravity dissolution as cumulative case (combining the CC dissolution, BH information paradox resolution, and non-renormalizability dissolution as three components of one structural resolution), gravitational wave echoes at $\Delta t = (r_+/c)\ln(r_+/2l_p)$, the arrow of time as emergent from partition initial conditions, the framework's silence on global cosmic spatial topology with engagement of Levin's compact-universe proposal, and a substantive position on consciousness — the framework's mathematical operation of observation (partition with C1-C3 structure) is a necessary but not sufficient condition for consciousness, with the hard problem proper explicitly outside the framework's scope. Chapter 19 closes the book with a systematic inventory of the framework's content against the major open problems of fundamental physics — twelve problems resolved or dissolved by the framework (quantum gravity, the cosmological constant, dark matter, dark energy, the measurement problem, black hole information, strong CP, hierarchy, gauge group origin, generation puzzle, dark sector budget, Born rule origin), and five scope limits where the framework does not provide a derived value (the flavor problem; baryogenesis — solution-specific, the baryon asymmetry inheriting the input status of the framework's flavor-sector CP phases; inflation and initial conditions; the Hubble tension; the cosmological initial state).
 
 The book's technical density varies. Chapters 1, 2, 5, 6, and 7 contain the framework's core mathematical content and are demanding; they require working familiarity with quantum mechanics, general relativity, and group theory. Chapters 3, 4, and 9 are more accessible — philosophical and methodological, with formal content present but not load-bearing. Chapters 10–19 are accessible to readers with general scientific background and assume the technical content of Parts I and II as derived results rather than as content to be re-developed.
 
 Readers approaching the book with different interests will find different reading paths useful. Readers primarily interested in the framework's foundational claim should focus on Chapters 1, 2, and 7; the JUNO prediction in Chapter 8 provides the most concrete empirical anchor. Readers primarily interested in the philosophical positioning should focus on Chapters 3, 4, and 9, with Chapter 18 providing substantive content on consciousness and cosmic-scale questions. Readers approaching the framework from computational complexity or quantum hardware engineering can begin with Chapters 14 and 15 and consult Parts I and II as needed. Readers approaching the framework from biology, medicine, or applied physics can begin with Chapters 12, 13, 16, and 17 and consult Parts I and II as needed. Readers wanting a systematic overview of the framework's content against the standard open problems of fundamental physics should consult Chapter 19 as a reference resource. A reader following the full argument from start to finish — the framework's intended presentation — will find the technical content of Parts I and II load-bearing for the cascade developments of Parts III and IV.
 
 The book makes one foundational commitment — that observation occurs — and develops the consequences. The consequences are extensive. They include the structure of quantum mechanics, the dynamics of general relativity, the gauge group and matter content of the Standard Model, the composition of the cosmological dark sector, the structural conditions for chemistry and life, and the framework's reach into specific contemporary problems in biology and medicine. Whether the framework is correct is an empirical question that will be settled by the predictions developed throughout the book against measurements now being made and forthcoming. The book's role is to make the structure of the framework, the chain of its derivations, and the specific content of its predictions available for evaluation.
-
-
-\clearpage
-
-
-# Part I — Foundations
-
-
-\clearpage
-
 
 # Chapter 1
 # Embedded Observation and the Characterization Theorem
@@ -390,15 +367,15 @@ The Introduction stated the framework's central claim: any observer embedded in 
 
 The starting point is the empirical fact of observation. An observer records distinguishable outcomes of interactions with a system not wholly under their control; that the recording occurs is the one premise the framework takes from outside its own theorems. From this premise, together with three lemmas extracting its formal content, the chapter derives the conditions under which the observer's description must be quantum-mechanical and proves a characterization theorem stating that these conditions are not merely sufficient for quantum mechanics to emerge but necessary.
 
-**Central Theorem.** *Let $(S, \varphi, V)$ be an embedded observation — a finite total system $S$, a deterministic bijection $\varphi: S \to S$, and an observer $V \subsetneq S$ with the visible sector and hidden sector coupled through $\varphi$. Under three structural conditions on the partition — non-trivial coupling (C1), slow-bath timescale separation (C2), and sufficient hidden-sector capacity (C3) — the embedded observer's reduced description of the visible sector is mathematically equivalent to unitarily evolving quantum mechanics. The Hilbert space, the Schrödinger equation, the Born rule, and the quantum measurement formalism emerge as structural consequences of the marginalization, requiring no additional postulates. The conditions are necessary as well as sufficient: any system equivalent to unitarily evolving quantum mechanics arises from marginalization of a deterministic bijection satisfying C1–C3 for some partition.*
+**Central Theorem.** *Let $(S, \varphi, V)$ be an embedded observation — a finite total system $S$, a deterministic bijection $\varphi: S \to S$, and an observer $V \subsetneq S$ with the visible sector and hidden sector coupled through $\varphi$. Under three structural conditions on the partition — non-trivial coupling (C1), slow-bath timescale separation (C2), and sufficient hidden-sector capacity (C3) — the embedded observer's reduced description of the visible sector is mathematically equivalent to unitarily evolving quantum mechanics. The Hilbert space, the Schrödinger equation, the Born rule, and the quantum measurement formalism emerge as structural consequences of the marginalization, requiring no additional postulates. The conditions are necessary as well as sufficient: any system equivalent to unitarily evolving quantum mechanics arises from marginalization of a deterministic bijection satisfying C1-C3 for some partition.*
 
-The proof develops in seven stages, with a structural commentary in §1.10 examining what physics emerges when each of the three conditions fails. §1.2 states the framework's definition of observation and extracts three structural lemmas from it. §1.3 introduces the three conditions C1–C3, anchoring each in the physical situation of laboratory observers in our universe. §1.4 proves that the partition uniquely determines the emergent description, establishing partition-relativity as a structural feature rather than a free parameter. §1.5 proves that under C1–C3 the marginalized stochastic process is P-indivisible — a precise non-Markovian property that captures the structural difference between embedded-observer dynamics and classical thermal noise. §1.6 establishes the two independent routes from P-indivisibility to unitary quantum mechanics: the Barandes stochastic-quantum correspondence and the Stinespring dilation. §1.7 develops the framework's account of Bell-inequality violations as a structural consequence of P-indivisible joint dynamics. §1.8 establishes necessity through the characterization theorem. §1.9 closes by stating what the theorem says — quantum mechanics as the unique self-consistent decompression algorithm for predictions from incomplete data under C1–C3. §1.10 develops the three structural limits — what happens when each of C1, C2, C3 fails — as commentary on what kind of observer the framework's conditions jointly characterize.
+The proof develops in seven stages, with a structural commentary in §1.10 examining what physics emerges when each of the three conditions fails. §1.2 states the framework's definition of observation and extracts three structural lemmas from it. §1.3 introduces the three conditions C1-C3, anchoring each in the physical situation of laboratory observers in our universe. §1.4 proves that the partition uniquely determines the emergent description, establishing partition-relativity as a structural feature rather than a free parameter. §1.5 proves that under C1-C3 the marginalized stochastic process is P-indivisible — a precise non-Markovian property that captures the structural difference between embedded-observer dynamics and classical thermal noise. §1.6 establishes the two independent routes from P-indivisibility to unitary quantum mechanics: the Barandes stochastic-quantum correspondence and the Stinespring dilation. §1.7 develops the framework's account of Bell-inequality violations as a structural consequence of P-indivisible joint dynamics. §1.8 establishes necessity through the characterization theorem. §1.9 closes by stating what the theorem says: quantum mechanics as the unique self-consistent decompression algorithm for predictions from incomplete data under C1-C3. §1.10 develops the three structural limits — what happens when each of C1, C2, C3 fails — as commentary on what kind of observer the framework's conditions jointly characterize.
 
 ## 1.2 The starting point
 
 The framework begins from a starting point usually put in two words: *observation occurs*. An observer records distinguishable outcomes of interactions with a system not wholly under its own control. This is the *cogito* of Descartes made mathematical — the framework's one concession to a foundation outside its own theorems.
 
-That starting point, looked at closely, is really two things. The thing that genuinely cannot be doubted is thin: there is differentiated content — some this-rather-than-that. Call this the first axiom. It is genuinely indubitable, because to doubt it is already to tell one thing from another, which is an instance of it. But notice what a single such fact does *not* contain: time. A single differentiated content is like a photograph — a frozen frame can be full of difference, light here and dark there, without anything in it being before or after anything else. To get from the photograph to a *movie* — to a world with succession, change, one moment after another — something must be added: that the differentiation *recurs*, that it is instantiated more than once over. Call this the second axiom. It cannot be squeezed out of the first; a frozen frame, however rich, never amounts to a sequence of frames. The framework therefore rests not on one fact but on two: one that cannot be doubted, and one that must be assumed. This is a strength, not a hedge. A foundation that can point to its single assumed ingredient — and that comes with a theorem showing the assumed ingredient genuinely cannot be derived from the indubitable one — is sturdier than a foundation whose assumptions are scattered, unnamed, through a definition. The technical development of this two-axiom structure, and the no-go theorem behind it, is given in Part I of the companion paper *Physics Modulo Gauge*; the chapters that follow build on the structure without further reference to it.
+That starting point, examined closely, is two things. What genuinely cannot be doubted is thin: there is differentiated content — some this-rather-than-that. Call this the first axiom. It is genuinely indubitable, because to doubt it is already to tell one thing from another, which is an instance of it. But notice what a single such fact does *not* contain: time. A single differentiated content is like a photograph — a frozen frame can be full of difference, light here and dark there, without anything in it being before or after anything else. To get from the photograph to a *movie* — to a world with succession, change, one moment after another — something must be added: that the differentiation *recurs*, that it is instantiated more than once. Call this the second axiom. It cannot be squeezed out of the first; a frozen frame, however rich, never amounts to a sequence of frames. The framework therefore rests not on one fact but on two: one that cannot be doubted, and one that must be assumed. This is a strength, not a hedge. A foundation that can point to its single assumed ingredient — and that comes with a theorem showing the assumed ingredient genuinely cannot be derived from the indubitable one — is sturdier than a foundation whose assumptions are scattered, unnamed, through a definition. The technical development of this two-axiom structure, and the no-go theorem behind it, is given in Part I of the companion paper *Physics Modulo Gauge*; the chapters that follow build on the structure without further reference to it.
 
 **Definition.** An *observation* is a triple $(S, \varphi, V)$: a total system $S$, a deterministic dynamics $\varphi: S \to S$, and an observer $V \subsetneq S$ — a proper subsystem with finitely many distinguishable internal states, coupled to the complement $H = S \setminus V$ through $\varphi$.
 
@@ -410,7 +387,7 @@ Any observer bounded by a finite-area surface couples to only finitely many mode
 
 **Lemma 2 (Causal partition).** *The phase space decomposes as $\Gamma = \Gamma_V \times \Gamma_H$, with $H_{\text{tot}} = H_V + H_H + H_{\text{int}}$. Cross-partition correlations enter only through $H_{\text{int}}$.*
 
-$\Gamma_V$ is the visible sector; $\Gamma_H$ is the hidden sector; $H_{\text{int}}$ couples them. The decomposition is not a modeling choice but the definition of embedded observation: an observer with access to all of $S$ would have nothing external to observe.
+$\Gamma_V$ is the visible sector; $\Gamma_H$ is the hidden sector; $H_{\text{int}}$ couples them. The decomposition is not a modeling choice but the very definition of embedded observation: an observer with access to all of $S$ would have nothing external to observe.
 
 **Lemma 3 (Determinism and unique measure).** *$\varphi$ is a bijection on $S$. The counting measure is the unique $\varphi$-invariant measure, becoming the Liouville measure on $\Gamma$ in the continuum limit:*
 $$\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\} \equiv \mathcal{L}\rho.$$
@@ -509,7 +486,7 @@ The combination of C1, C2, and C3 therefore produces accessible-timescale P-indi
 $$\sigma = (0{,}1 \leftrightarrow 1{,}1)\,(0{,}2 \leftrightarrow 1{,}2)\,(0{,}3 \leftrightarrow 0{,}4)\,(0{,}5 \leftrightarrow 0{,}6)\,(1{,}3 \leftrightarrow 1{,}4)\,(1{,}5 \leftrightarrow 1{,}6).$$
 Each pair $(\cdot \leftrightarrow \cdot)$ is a transposition that swaps two total states; all six swaps together are independent (act on distinct states), so the full dynamics is a product of disjoint transpositions and satisfies $\sigma^2 = \mathrm{id}$.
 
-Verify the three conditions: C1 holds because die values $h = 1, 2$ couple to coin flips while $h = 3, 4, 5, 6$ do not — non-trivial coupling. C2 holds trivially with $\tau_S/\tau_B = 1/2$ from the fact that $\sigma^2 = \mathrm{id}$ gives recurrence at $N = 2$. C3 holds with six hidden states against two visible states.
+Verify the three conditions: C1 holds because die values $h = 1, 2$ couple to coin flips while $h = 3, 4, 5, 6$ do not — non-trivial coupling. C2 holds trivially with $\tau_S/\tau_B = 1/2$, since $\sigma^2 = \mathrm{id}$ gives recurrence at $N = 2$. C3 holds with six hidden states against two visible states.
 
 Compute the one-step transition matrix starting from $x = 0$ (Heads) with the die uniformly distributed. The dynamics sends $(0, 1) \to (1, 1)$ and $(0, 2) \to (1, 2)$ — Heads becomes Tails for these die values. It sends $(0, 3) \to (0, 4)$, $(0, 4) \to (0, 3)$, $(0, 5) \to (0, 6)$, $(0, 6) \to (0, 5)$ — Heads stays Heads for these die values, though the die value changes within the hidden sector. So $P(0 \to 0) = 4/6 = 2/3$ and $P(0 \to 1) = 2/6 = 1/3$. Symmetric reasoning for $x = 1$ gives
 $$T(1, 0) = \begin{pmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{pmatrix}.$$
@@ -559,7 +536,7 @@ the standard Lindblad form with effective Hamiltonian $\hat{H}_{\text{eff}}$ and
 
 The tensor-product structure for spatially separated subsystems within the visible sector — two laboratories, two detectors, two regions of space — follows separately from the locality of the underlying coupling graph rather than from the Stinespring construction itself. If two visible-sector subsystems $V_A$ and $V_B$ have disjoint coupling neighborhoods on the coupling graph, the spatial Markov property holds: $V_A^\circ \perp V_B^\circ \mid \partial(V_A \cup V_B)$, where the conditional independence is with respect to the joint distribution generated by the substratum dynamics. The emergent Hilbert space inherits the factorization $\mathcal{H}_{V_A} \otimes \mathcal{H}_{V_B}$ from the locality of the coupling graph, with entanglement between $V_A$ and $V_B$ arising from shared boundary history rather than from instantaneous joint properties.
 
-The two routes are not redundant. The Barandes correspondence applies to any P-indivisible stochastic process, whether or not its underlying dilation is specified; it is the more general result. The Stinespring route requires the dilation to be specified explicitly but delivers richer structural information (the tensor product, the channel-level CP-indivisibility, the Lindblad-form generator, the suppression of dissipation by $\tau_S/\tau_B$). Both routes agree on the observable transition data. The agreement means the emergence of quantum mechanics from embedded observation under C1–C3 does not rest on any single technical result: if one were to discover an error in Barandes' construction, the Stinespring route from textbook quantum information would establish the same conclusion through different mathematics. The two-route structure is the framework's hedge against single-point failure in the foundational technical machinery.
+The two routes are not redundant. The Barandes correspondence applies to any P-indivisible stochastic process, whether or not its underlying dilation is specified; it is the more general result. The Stinespring route requires the dilation to be specified explicitly but delivers richer structural information (the tensor product, the channel-level CP-indivisibility, the Lindblad-form generator, the suppression of dissipation by $\tau_S/\tau_B$). Both routes agree on the observable transition data. The agreement means the emergence of quantum mechanics from embedded observation under C1-C3 does not rest on any single technical result: if one were to discover an error in Barandes' construction, the Stinespring route from textbook quantum information would establish the same conclusion through different mathematics. The two-route structure is the framework's hedge against single-point failure in the foundational technical machinery.
 
 With unitary quantum mechanics established as the necessary description of the embedded observer's marginalized dynamics, the chapter's next technical question is whether the framework reproduces the specific non-classical correlations that distinguish quantum mechanics from classical hidden-variable theories. The decisive test is Bell's theorem, which proves that no local hidden-variable theory satisfying a specific factorizability condition can reproduce the correlations of quantum mechanics, and the experimental confirmation since Aspect's 1982 measurements that quantum correlations actually violate Bell's inequalities at their predicted quantum bound. Whether and how the framework — itself a hidden-variable theory in the literal sense, with definite states at the substratum level — passes this test is the subject of §1.7.
 
@@ -575,11 +552,11 @@ Parameter independence follows from spatial locality: if detectors $A$ and $B$ h
 
 The maximum violation the framework allows is exactly Tsirelson's bound $2\sqrt{2}$, the quantum maximum. Barandes-Hasan-Kagan [12] prove this directly from the stochastic-quantum correspondence; it also follows from the Stinespring route via Tsirelson's operator-norm argument applied to the emergent unitary description. The framework predicts continued quantum-bound violations, no signature of local hidden-variable theories or super-quantum correlations. The Wood-Spekkens fine-tuning objection (2015) assumes DAG causal structure with Markov factorization; P-indivisible processes violate the Markov condition on any DAG, so the appropriate formalism is the process tensor, within which no-signaling follows from marginalization structure without fine-tuning.
 
-The P-indivisibility theorem and the two routes establish sufficiency: C1–C3 imply quantum mechanics. The remaining question is necessity. Does every system equivalent to unitarily evolving quantum mechanics arise from a deterministic bijection satisfying C1–C3 for some partition? §1.8 establishes that it does — the characterization theorem closes the biconditional.
+The P-indivisibility theorem and the two routes establish sufficiency: C1-C3 imply quantum mechanics. The remaining question is necessity. Does every system equivalent to unitarily evolving quantum mechanics arise from a deterministic bijection satisfying C1-C3 for some partition? §1.8 establishes that it does — the characterization theorem closes the biconditional.
 
 ## 1.8 The characterization theorem
 
-The Barandes correspondence already establishes that quantum mechanics is equivalent to P-indivisibility [4, 5]; §1.5 established that C1–C3 imply P-indivisibility. Necessity requires the converse: that P-indivisibility implies C1–C3 for any underlying dilation. The argument is three separate proofs, one for each condition.
+The Barandes correspondence already establishes that quantum mechanics is equivalent to P-indivisibility [4, 5]; §1.5 established that C1-C3 imply P-indivisibility. Necessity requires the converse: that P-indivisibility implies C1-C3 for any underlying dilation. The argument is three separate proofs, one for each condition.
 
 **Necessity of C1.** If $T$ is a permutation matrix, then $T^k$ is a permutation for all $k$, and the candidate intermediate propagator $\Lambda(k_2, k_1) = T^{k_2 - k_1}$ is a valid stochastic matrix for any $k_2 > k_1$. The process is P-divisible. Contrapositively, P-indivisibility requires $T$ not to be a permutation — equivalent to non-trivial coupling.
 
@@ -619,13 +596,13 @@ The three necessity arguments combine into the chapter's central result.
 
 *(iii) $\mathcal{S}$ arises from marginalizing a deterministic bijection on $\mathcal{C}_V \times \mathcal{C}_H$ satisfying (C1), (C2), and (C3) for some partition.* $\square$
 
-Quantum mechanics is not merely *compatible with* embedded observation under C1–C3. It is equivalent to it.
+Quantum mechanics is not merely *compatible with* embedded observation under C1-C3. It is equivalent to it.
 
 The characterization establishes Hilbert space, unitary dynamics, and Born-rule transition probabilities. The further structures of operational quantum mechanics follow without independent postulates. The visible-hidden tensor product comes from the Stinespring construction. The tensor product for spatially separated visible-sector subsystems follows from the spatial Markov property of range-1 coupling on the underlying graph. Projective measurement corresponds to Bayesian conditioning on the substratum followed by re-marginalization — the Lüders rule $\rho \to P_k \rho P_k / \mathrm{Tr}(P_k \rho)$ is the quantum transcription of this classical update. Multi-time correlation functions, weak values, and Leggett-Garg inequalities are standard calculations within the delivered formalism, requiring no additional postulates.
 
 ## 1.9 What the theorem says
 
-An observer inside the universe receives incomplete data — the visible sector only. The characterization theorem proves that there is exactly one self-consistent algorithm for making predictions from this incomplete data on accessible timescales under C1–C3. That algorithm is quantum mechanics.
+An observer inside the universe receives incomplete data — the visible sector only. The characterization theorem proves that there is exactly one self-consistent algorithm for making predictions from this incomplete data on accessible timescales under C1-C3. That algorithm is quantum mechanics.
 
 Everything in quantum mechanics is a feature of this algorithm, not a feature of the underlying reality. The wave function is the algorithm's internal state — the bookkeeping device that tracks what the observer knows and what they do not. Complex amplitudes are the algorithm's arithmetic — the specific number system the reconstruction requires. Interference is what happens when the algorithm combines two incomplete pathways and their bookkeeping entries partially cancel. Entanglement is the algorithm's encoding of correlations written into the hidden sector during preparation and not yet read back. The Born rule is the algorithm's output format — the conversion of internal state into predictions the observer can check against measurement.
 
@@ -703,10 +680,6 @@ The substratum that the framework's algorithm operates on is constructed concret
 
 The remainder of this part of the book develops the substratum, the structural realism, and the methodology in detail. Part II turns to the framework's quantitative physics. Part III traces the cascade from substratum to chemistry, biology, and intelligence. Part IV develops the framework's reach into working scientific fields.
 
-
-\clearpage
-
-
 # Chapter 2
 # The Substratum
 
@@ -714,9 +687,9 @@ The remainder of this part of the book develops the substratum, the structural r
 
 ## 2.1 What this chapter constructs
 
-Chapter 1 established that any observer embedded in a finite deterministic system, satisfying conditions C1–C3 on what lies outside their access, must use quantum mechanics. The theorem treated the underlying deterministic system $(S, \varphi)$ as a given input — a finite configuration space and a bijection on it — and analyzed what the observer's marginalized description looks like. This chapter takes up the question deferred there: what is $(S, \varphi)$?
+Chapter 1 established that any observer embedded in a finite deterministic system, satisfying conditions C1-C3 on what lies outside their access, must use quantum mechanics. The theorem treated the underlying deterministic system $(S, \varphi)$ as a given input — a finite configuration space and a bijection on it — and analyzed what the observer's marginalized description looks like. This chapter takes up the question deferred there: what is $(S, \varphi)$?
 
-Two questions need separation. The first is whether the observed physics determines $(S, \varphi)$ uniquely. If many different bijections produced the same observables, the substratum would be underdetermined and the framework would have no concrete object to describe. The second question is, when $(S, \varphi)$ is determined, what symmetries does it have — what transformations of the substratum leave all observables unchanged.
+Two questions need separation. The first is whether the observed physics determines $(S, \varphi)$ uniquely. If many different bijections produced the same observables, the substratum would be underdetermined and the framework would have no concrete object to describe. The second is what symmetries $(S, \varphi)$ has, once it is determined — what transformations of the substratum leave all observables unchanged.
 
 The chapter answers both. §2.4 develops the *reconstruction theorem*: observed physics — quantum mechanics with Bell violations, finite boundary entropy, spatial isotropy — together with six structural assumptions uniquely determines $(S, \varphi)$ up to a precise gauge equivalence, with the Standard Model gauge group emerging as a forced consequence. §2.5 characterizes the gauge equivalence itself through the *substratum gauge group* $\mathcal{G}_{\text{sub}}$, identifying four families of generators that exhaust all observables-preserving transformations of the substratum. §2.6 then shows that quantum mechanics, general relativity, and the arrow of time are three projections of the same construction; §2.7 explains why this dissolves the apparent QM–GR incompatibility rather than resolving it.
 
@@ -798,7 +771,7 @@ The inputs E5, E6, E7 each provide an independent dimensional constraint. Propag
 
 The reconstruction theorem's claim is that under the conjunction E1–E7 and A1–A6, the equivalence class $[(S, \varphi)] / \mathcal{G}_{\text{sub}}$ is uniquely determined, with the Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$, three chiral fermion generations, one Higgs doublet, anomaly-free hypercharges, $\bar\theta = 0$, and $\hbar = c^3 \epsilon^2 / (4G)$ all forced consequences. The reconstruction proceeds in three stages, with each stage taking specified inputs and producing specified outputs.
 
-**Stage 1: From observed quantum mechanics to a deterministic embedding.** The inputs are the quantum-mechanical content E1, the Bell-violation content E2, the boundary-entropy bound E3, and the finiteness and determinism assumptions A1, A2. Chapter 1's characterization theorem (§1.8) supplies the construction: any system equivalent to unitarily evolving quantum mechanics arises from marginalization of a deterministic bijection satisfying C1–C3 for some partition. Bell violations force C1 (non-trivial coupling); the unitary structure of QM forces C2 and C3 (conditional on ETH for C2). The output of Stage 1 is a triple $(S, \varphi, V)$ with $S$ finite, $\varphi$ a bijection, and $V \subset S$ the visible-sector partition, with the observed quantum dynamics reproduced as the marginalization of $\varphi$ over the hidden sector $H = S \setminus V$.
+**Stage 1: From observed quantum mechanics to a deterministic embedding.** The inputs are the quantum-mechanical content E1, the Bell-violation content E2, the boundary-entropy bound E3, and the finiteness and determinism assumptions A1, A2. Chapter 1's characterization theorem (§1.8) supplies the construction: any system equivalent to unitarily evolving quantum mechanics arises from marginalization of a deterministic bijection satisfying C1-C3 for some partition. Bell violations force C1 (non-trivial coupling); the unitary structure of QM forces C2 and C3 (conditional on ETH for C2). The output of Stage 1 is a triple $(S, \varphi, V)$ with $S$ finite, $\varphi$ a bijection, and $V \subset S$ the visible-sector partition, with the observed quantum dynamics reproduced as the marginalization of $\varphi$ over the hidden sector $H = S \setminus V$.
 
 Uniqueness at Stage 1 follows from the Stinespring uniqueness theorem [Chapter 1, §1.6]. Any two dilations of the same quantum channel on the same visible Hilbert space differ by a partial isometry on the hidden sector — a transformation that, at the substratum level, is a relabeling of hidden-sector states. This freedom is part of the gauge group $\mathcal{G}_{\text{sub}}$ that §2.5 will characterize explicitly. Up to that gauge, Stage 1's output is unique.
 
@@ -896,21 +869,21 @@ The reconstruction theorem and the substratum gauge group have established what 
 
 The framework's claim is that quantum mechanics, general relativity, and the arrow of time are not three independent theories. They are three projections of the same finite deterministic construction. Each projection applies the same trace-out machinery to the same $(S, \varphi)$ along a different axis, and each produces a distinct emergent structure as the observer sees the substratum from inside.
 
-**The visible-sector projection: quantum mechanics.** Chapter 1 developed this projection in detail. The embedded observer's compressed description of the visible sector, obtained by tracing out the hidden sector under conditions C1–C3, is mathematically equivalent to unitarily evolving quantum mechanics. The Hilbert space, the Schrödinger equation, the Born rule, and Bell-inequality violations all emerge from the marginalization, with no additional postulates. Applied to the substratum constructed in this chapter — a $d = 3$ cubic lattice with $K = 6$ internal components and the wave equation as substratum dynamics — the visible-sector projection produces the Standard Model: the gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ as the commutant of the cubic-symmetric coupling matrix, three chiral fermion generations, one composite Higgs, anomaly-free hypercharges, and $\bar\theta = 0$. Chapters 5 and 6 develop the Standard Model derivation; Chapter 8 develops the specific JUNO neutrino prediction that confirms the framework's PMNS-angle calculation at $0.07\sigma$.
+**The visible-sector projection: quantum mechanics.** Chapter 1 developed this projection in detail. The embedded observer's compressed description of the visible sector, obtained by tracing out the hidden sector under conditions C1-C3, is mathematically equivalent to unitarily evolving quantum mechanics. The Hilbert space, the Schrödinger equation, the Born rule, and Bell-inequality violations all emerge from the marginalization, with no additional postulates. Applied to the substratum constructed in this chapter — a $d = 3$ cubic lattice with $K = 6$ internal components and the wave equation as substratum dynamics — the visible-sector projection produces the Standard Model: the gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ as the commutant of the cubic-symmetric coupling matrix, three chiral fermion generations, one composite Higgs, anomaly-free hypercharges, and $\bar\theta = 0$. Chapters 5 and 6 develop the Standard Model derivation; Chapter 8 develops the specific JUNO neutrino prediction that confirms the framework's PMNS-angle calculation at $0.07\sigma$.
 
 **The boundary-thermodynamic projection: general relativity.** A second projection takes the same substratum but applies the trace-out machinery to the partition boundary rather than to the bulk. The boundary of the visible sector — the surface across which the coupling $H_{\text{int}}$ acts — carries its own thermodynamic structure: a temperature set by the boundary's classical surface gravity, an entropy set by the number of boundary modes, and a dynamical evolution set by the coupling between boundary and bulk. Jacobson's thermodynamic argument applied to local causal horizons yields Einstein's equations as the Clausius relation $dE = T \, dS$ at the boundary.
 
 Applied to the cosmological horizon as a causal partition, the boundary-thermodynamic projection produces general relativity with quantitative predictions. The emergent action scale $\hbar = c^3 (2 \ell_P)^2 / (4G)$ follows from thermal self-consistency at the boundary layer. The Bekenstein-Hawking entropy $S = A/(4 \ell_P^2)$ with the specific $1/4$ coefficient follows from direct mode counting on the boundary surface — confirmed at $99.999\%$ confidence by GW250114 in September 2025. The cosmological constant problem dissolves: the quantum vacuum energy and the effective $\Lambda$ are properties of logically distinct levels of description rather than commensurable quantities whose $10^{122}$ ratio requires cancellation. The structured component of the boundary entropy produces dark matter phenomenology with MOND acceleration scale $a_0 = cH/6 = 1.2 \times 10^{-10}$ m/s². Chapter 7 develops each of these.
 
-**The horizon-clock projection: the arrow of time.** A third projection applies the trace-out machinery to the horizon-growth parameter along an observer worldline. The substratum is time-symmetric: $\varphi$ and $\varphi^{-1}$ are equally valid as forward-time maps, and there is no preferred direction at the substratum level. Observers, however, are not symmetric under this exchange. Condition C2 — the slow-bath condition — picks out one direction along the observer's worldline as the direction in which the hidden sector's correlations with the visible sector's past are preserved. The structural observer-selection theorem developed in Chapter 1's appendix material restricts observers satisfying C1–C3 to the non-equilibrium phase of $(S, \varphi)$; in the $\Lambda$-dominated cosmological phase, this phase is the one in which the horizon entropy $S_{\text{dS}}(t) = A(t)/(4\ell_P^2)$ is monotonically increasing.
+**The horizon-clock projection: the arrow of time.** A third projection applies the trace-out machinery to the horizon-growth parameter along an observer worldline. The substratum is time-symmetric: $\varphi$ and $\varphi^{-1}$ are equally valid as forward-time maps, and there is no preferred direction at the substratum level. Observers, however, are not symmetric under this exchange. Condition C2 — the slow-bath condition — picks out one direction along the observer's worldline as the direction in which the hidden sector's correlations with the visible sector's past are preserved. The structural observer-selection theorem developed in Chapter 1's appendix material restricts observers satisfying C1-C3 to the non-equilibrium phase of $(S, \varphi)$; in the $\Lambda$-dominated cosmological phase, this phase is the one in which the horizon entropy $S_{\text{dS}}(t) = A(t)/(4\ell_P^2)$ is monotonically increasing.
 
-The cosmological horizon entropy provides a structural clock. Every observer in the accelerating phase agrees that $S_{\text{dS}}$ increases — the monotonicity is a feature of the causal partition rather than of any local frame — and other arrows of time align with this structural clock through a cascade. The thermodynamic arrow descends from Jacobson's coupling between boundary entropy and matter entropy. The memory arrow descends from the slow-bath condition C2, which preserves correlations forward along the clock rather than backward. The measurement arrow — the observer records past outcomes and prepares future states — descends from the memory arrow. The chain grounds in one structural fact (horizon growth in the accelerating phase) and one structural constraint (C1–C3 observer selection). No independent past-hypothesis axiom is required, and Boltzmann brains are excluded structurally rather than anthropically.
+The cosmological horizon entropy provides a structural clock. Every observer in the accelerating phase agrees that $S_{\text{dS}}$ increases — the monotonicity is a feature of the causal partition rather than of any local frame — and other arrows of time align with this structural clock through a cascade. The thermodynamic arrow descends from Jacobson's coupling between boundary entropy and matter entropy. The memory arrow descends from the slow-bath condition C2, which preserves correlations forward along the clock rather than backward. The measurement arrow — the observer records past outcomes and prepares future states — descends from the memory arrow. The chain grounds in one structural fact (horizon growth in the accelerating phase) and one structural constraint (C1-C3 observer selection). No independent past-hypothesis axiom is required, and Boltzmann brains are excluded structurally rather than anthropically.
 
 The framework's content here is precise: it derives a monotonic parameter along observer worldlines and four aligned arrows of time. What it does not derive is the convention of which direction along the horizon-clock parameter to call "future." The two directions are gauge-equivalent at the substrate level ($\varphi \leftrightarrow \varphi^{-1}$), and the observer's choice of convention is residual freedom. The framework derives the existence of a monotonic parameter; the labeling is an observer-imposed convention. There is one further qualification worth stating: a monotonic parameter is monotonic with respect to an *ordering* of the worldline's moments, and the framework's foundational treatment axiomatizes that there is more than one moment while leaving the ordering of moments as a separate, open question. The derivation here is therefore conditional on that ordering — it establishes that ordered moments yield a directed parameter, not that directedness arises from the substratum with no assumption about ordering at all. CP violation in CKM and kaon/B systems is a flavor-basis feature of the specific bijection $\varphi$ rather than a consequence of the time-arrow cascade — the framework treats flavor-sector CP phases as solution-specific inputs that do not affect the cascade's structural content.
 
-**The common structure.** The three projections share three features. They apply to the same substratum $(S, \varphi)$. They use the same trace-out machinery — marginalization over the hidden sector under conditions C1–C3. They produce derived rather than fundamental structures: nothing in quantum mechanics, general relativity, or the arrow of time is a feature of $(S, \varphi)$ in itself; each is a feature of how the embedded observer sees the substratum from inside. The differences among the three projections are entirely in which structure of the embedded observer's description they extract. The visible-sector projection works on the bulk dynamics and produces emergent quantum mechanics with the Standard Model as its specific content. The boundary-thermodynamic projection works on the classical thermal data at the partition boundary and produces general relativity with its gravitational and cosmological predictions. The horizon-clock projection works on the horizon-growth parameter along observer worldlines and produces the cascade of emergent arrows.
+**The common structure.** The three projections share three features. They apply to the same substratum $(S, \varphi)$. They use the same trace-out machinery — marginalization over the hidden sector under conditions C1-C3. They produce derived rather than fundamental structures: nothing in quantum mechanics, general relativity, or the arrow of time is a feature of $(S, \varphi)$ in itself; each is a feature of how the embedded observer sees the substratum from inside. The differences among the three projections lie entirely in which structure of the embedded observer's description they extract. The visible-sector projection works on the bulk dynamics and produces emergent quantum mechanics with the Standard Model as its specific content. The boundary-thermodynamic projection works on the classical thermal data at the partition boundary and produces general relativity with its gravitational and cosmological predictions. The horizon-clock projection works on the horizon-growth parameter along observer worldlines and produces the cascade of emergent arrows.
 
-The shared structure is not metaphor or analogy. The same lattice that gives the Standard Model gauge group as the commutant of the coupling matrix gives the Bekenstein-Hawking entropy as the boundary mode count. The conditions C1–C3 that produce P-indivisibility for the visible-sector projection produce the slow-bath observer selection for the horizon-clock projection. The substratum gauge group $\mathcal{G}_{\text{sub}}$ that controls the reconstruction theorem's uniqueness controls the gauge equivalences in all three projections. The framework's claim is that the three projections are co-derived from a single construction, not three separate applications of similar machinery.
+The shared structure is not metaphor or analogy. The same lattice that gives the Standard Model gauge group as the commutant of the coupling matrix gives the Bekenstein-Hawking entropy as the boundary mode count. The conditions C1-C3 that produce P-indivisibility for the visible-sector projection produce the slow-bath observer selection for the horizon-clock projection. The substratum gauge group $\mathcal{G}_{\text{sub}}$ that controls the reconstruction theorem's uniqueness controls the gauge equivalences in all three projections. The framework's claim is that the three projections are co-derived from a single construction, not three separate applications of similar machinery.
 
 ## 2.7 The QM-GR incompatibility as a category error
 
@@ -920,7 +893,7 @@ The framework's claim is that quantum mechanics and general relativity are not t
 
 The structural analogy that captures the relationship most clearly is the relationship between thermodynamics and statistical mechanics. Thermodynamics deals with pressure, temperature, and entropy. Statistical mechanics deals with particle positions, momenta, and microstate counting. These are not two competing theories of the same gas, and the question "how do we unify thermodynamics and statistical mechanics?" is not a coherent question. They describe different things about the same system. The relationship between them is one of projection — statistical mechanics produces thermodynamic quantities by averaging over microstates — rather than unification. Asking how to unify thermodynamics and statistical mechanics into a deeper theory mistakes the structure of their relationship.
 
-The relationship between quantum mechanics and general relativity in the framework is structurally identical. General relativity describes the thermodynamic projection of $(S, \varphi)$: the boundary geometry, the surface gravity, the entropy, the dynamical evolution of the partition under coupling to the bulk. Quantum mechanics describes the statistical projection: the visible-sector dynamics under marginalization over the hidden sector, the P-indivisible transition probabilities, the unitary evolution that captures the non-Markovian structure. The two are related by a definite procedure (the trace-out under conditions C1–C3), with the substratum gauge group controlling the equivalences. The question "how do we unify them?" is dissolved rather than answered.
+The relationship between quantum mechanics and general relativity in the framework is structurally identical. General relativity describes the thermodynamic projection of $(S, \varphi)$: the boundary geometry, the surface gravity, the entropy, the dynamical evolution of the partition under coupling to the bulk. Quantum mechanics describes the statistical projection: the visible-sector dynamics under marginalization over the hidden sector, the P-indivisible transition probabilities, the unitary evolution that captures the non-Markovian structure. The two are related by a definite procedure (the trace-out under conditions C1-C3), with the substratum gauge group controlling the equivalences. The question "how do we unify them?" is dissolved rather than answered.
 
 This is not the same as saying that quantum mechanics is more fundamental than general relativity, or vice versa. Both are emergent. Both depend on the trace-out and the partition. Both are derived structures rather than features of the underlying reality. The fundamental object is $(S, \varphi)$ — a finite set with a deterministic bijection on it — and neither quantum mechanics nor general relativity is a feature of $(S, \varphi)$ itself. They are features of how an embedded observer or a horizon-bounded thermodynamic regime sees $(S, \varphi)$ from inside.
 
@@ -941,10 +914,6 @@ Parts II and III then develop the framework's quantitative consequences. Chapter
 The cascade through chemistry, biology, evolution, and intelligence in Chapters 10–12 takes the structural results of Parts I and II as derived inputs and develops their consequences for the structural conditions under which complex matter, life, and intelligence become possible. The applications in Chapters 13–17 develop the framework's reach into working scientific fields: quantum biology, quantum computing and engineering, medicine, bioinformatics.
 
 The framework's claim, made precise across these chapters, is that a single starting commitment — that observation occurs — combined with the lemmas extracted from this commitment and the conditions identified for embedded observers in our universe, produces a substratum that is forced to have a specific architecture, with quantum mechanics, general relativity, the Standard Model, and the cosmological dark sector all forced consequences of the architecture rather than separate empirical inputs. The book's role is to make this chain of derivations available for evaluation against the experimental record now being assembled and forthcoming.
-
-
-\clearpage
-
 
 # Chapter 3
 # Hierarchical Structural Realism
@@ -969,13 +938,13 @@ The framework's content nests in four levels of increasing specificity along an 
 
 Level A is shared with the broader observer-essentiality program in contemporary foundations of physics. The work of Chandrasekaran, Longo, Penington, and Witten on observer-incorporated entropy in de Sitter space (2022), Maldacena's analysis of observer's-clock dependence in cosmological partition functions (2024), and Harlow, Usatyuk, and Zhao on observer-dependent Hilbert spaces in closed universes (2025) all start from analogous commitments. The framework's distinguishing feature at Level A is not the commitment itself but what is derived from it: a finite deterministic substratum without extra dimensions, without intrinsic stochasticity, and without additional postulates beyond those identified in Chapter 1's structural lemmas.
 
-**Level B: observer admission.** Not every conceivable substratum admits embedded observation. Chapter 1 identified three structural conditions — C1 (non-trivial coupling), C2 (slow-bath timescale separation), and C3 (sufficient hidden-sector capacity) — that are necessary for a substratum's bijection $\varphi$ to support an embedded observer. A substratum $(S, \varphi)$ is *observer-admitting* if there exists a partition $V \subset S$ such that the triple $(S, \varphi, V)$ satisfies C1–C3; it is *observer-lacking* otherwise.
+**Level B: observer admission.** Not every conceivable substratum admits embedded observation. Chapter 1 identified three structural conditions — C1 (non-trivial coupling), C2 (slow-bath timescale separation), and C3 (sufficient hidden-sector capacity) — that are necessary for a substratum's bijection $\varphi$ to support an embedded observer. A substratum $(S, \varphi)$ is *observer-admitting* if there exists a partition $V \subset S$ such that the triple $(S, \varphi, V)$ satisfies C1-C3; it is *observer-lacking* otherwise.
 
-The distinction is structural rather than empirical. A finite cellular automaton with a deterministic update rule may or may not admit an embedded observer, depending on whether its dynamics support the slow-mixing, sufficient-capacity, coupled-subsystem structure C1–C3 require. Random permutations on finite sets typically lack this structure: their cycle decompositions are wrong for the slow-bath condition, their internal correlations are wrong for the capacity condition, or their coupling is too uniform or too sparse for the non-trivial-coupling condition. The space of substrata is structurally partitioned into the observer-admitting subset, which can support embedded observers, and the observer-lacking subset, which cannot.
+The distinction is structural rather than empirical. A finite cellular automaton with a deterministic update rule may or may not admit an embedded observer, depending on whether its dynamics support the slow-mixing, sufficient-capacity, coupled-subsystem structure C1-C3 require. Random permutations on finite sets typically lack this structure: their cycle decompositions are wrong for the slow-bath condition, their internal correlations are wrong for the capacity condition, or their coupling is too uniform or too sparse for the non-trivial-coupling condition. The space of substrata is structurally partitioned into the observer-admitting subset, which can support embedded observers, and the observer-lacking subset, which cannot.
 
 Level B commits to a structural-anthropic reading that sharpens the conventional anthropic principle. Standard anthropic reasoning treats fundamental parameters as contingent and explained by selection: we observe a universe with parameters compatible with us because we could not observe a universe without them. The Level B reading is sharper. Observer-lacking substrata are not candidates for "our universe" at all — they are mathematical objects of a different kind, lacking the observer-extraction structure that would make the question "what would observers in this universe see?" coherent. Within the observer-admitting subset, anthropic reasoning operates as usual; across the observer-admitting / observer-lacking boundary, the question of why we observe a universe with our particular features becomes the question of why a universe must be observer-admitting at all. The framework's answer is partly tautological — we are observers, so the universe we observe must admit observers — but the tautology is informative: it identifies which structural features of a candidate universe are forced by the existence of observers, and which are contingent.
 
-The structural-anthropic content of Level B is independent of the specific universality class the universe belongs to. Any candidate substratum, regardless of dimension, gauge structure, or matter content, must satisfy C1–C3 to admit observers. The Level B commitment is therefore broader than any specific physics: it applies to OI's cubic-lattice substratum, to string-theoretic compactifications insofar as they admit embedded observers, to any future candidate fundamental theory, and to mathematical structures that may or may not correspond to physical universes.
+The structural-anthropic content of Level B is independent of the specific universality class the universe belongs to. Any candidate substratum, regardless of dimension, gauge structure, or matter content, must satisfy C1-C3 to admit observers. The Level B commitment is therefore broader than any specific physics: it applies to OI's cubic-lattice substratum, to string-theoretic compactifications insofar as they admit embedded observers, to any future candidate fundamental theory, and to mathematical structures that may or may not correspond to physical universes.
 
 **Level C: universality classes.** Within the observer-admitting subset, equivalence classes arise from the partial-trace observational features that any embedded observer produces. Two substratum-with-observer systems are *observationally equivalent* if their algebra-channel pairs — the algebra of visible-sector observables together with the quantum channel induced by the partial trace over the hidden sector — are isomorphic in a precise sense that preserves both the algebraic structure and the channel's dynamical content. A *universality class* is an equivalence class under this observational equivalence.
 
@@ -989,7 +958,7 @@ Level C commits to a structural realism at the class level: the universality cla
 
 Level D is where the framework's twenty-two parameter-free quantitative predictions live: the Cabibbo angle $1/(\pi\sqrt{2})$, the Koide relation $2/9$, the gauge-coupling-running calculation giving the three SM coupling constants at the $Z$ pole, the six fermion masses derived from one empirical input, the Higgs quartic coupling from cubic-group representation theory, the Bekenstein-Hawking $1/4$ factor, the MOND acceleration scale $cH/6$, and the JUNO neutrino-mixing prediction. The empirical content that distinguishes OI from other observer-admitting frameworks is concentrated at Level D, because Level D is where the structural commitments become specific enough to produce specific numerical predictions.
 
-The relationship between Levels D and C deserves a separate remark. The structural conditions A1–A6 that define Level D are not the same as the observer-admission conditions C1–C3 that define Level B. C1–C3 are conditions for *any* embedded observer to exist; A1–A6 are conditions for membership in OI's *specific* universality class within the observer-admitting subset. Some A's relate to but are distinct from C's: A1 (finiteness of the configuration space) is related to but distinct from C3 (sufficient hidden-sector capacity). A2 (determinism via bijection) selects deterministic-substratum members of a universality class, but observers can in principle exist on stochastic dynamics that satisfy the partial-trace observational features differently. A3–A6 (bounded coupling, center independence, linearity, background independence) are pure class-specific conditions, required for OI's specific gauge-structure derivation but not necessary for observer admission. The Level D commitment selects a specific universality class within the observer-admitting subset, with both the empirical inputs of physics and the framework's choice of structural assumptions playing a role in the selection.
+The relationship between Levels D and C deserves a separate remark. The structural conditions A1–A6 that define Level D are not the same as the observer-admission conditions C1-C3 that define Level B. C1-C3 are conditions for *any* embedded observer to exist; A1–A6 are conditions for membership in OI's *specific* universality class within the observer-admitting subset. Some A's relate to but are distinct from C's: A1 (finiteness of the configuration space) is related to but distinct from C3 (sufficient hidden-sector capacity). A2 (determinism via bijection) selects deterministic-substratum members of a universality class, but observers can in principle exist on stochastic dynamics that satisfy the partial-trace observational features differently. A3–A6 (bounded coupling, center independence, linearity, background independence) are pure class-specific conditions, required for OI's specific gauge-structure derivation but not necessary for observer admission. The Level D commitment selects a specific universality class within the observer-admitting subset, with both the empirical inputs of physics and the framework's choice of structural assumptions playing a role in the selection.
 
 **The hierarchy nests.** Each deeper level is a more specific commitment, with Level A $\supset$ Level B $\supset$ Level C $\supset$ Level D. Level A says only that observation occurs; Level B adds that the substratum's bijection structure must support observers; Level C adds the observational-equivalence structure that groups observer-admitting substrata into universality classes; Level D adds the framework's specific structural assumptions and selects the cubic-lattice substratum. The framework commits to all four levels simultaneously, with content at each level being more universal (broader levels) or more class-specific (deeper levels).
 
@@ -999,7 +968,7 @@ The observer-admission distinction at Level B deserves more sustained developmen
 
 Standard anthropic reasoning operates on fundamental parameters. The cosmological constant, the masses of the fermions, the strengths of the four forces — these are observed to lie in narrow ranges compatible with the existence of observers, and the anthropic principle explains this by selection: a universe with different parameters would not contain observers to make the observation. The reasoning is conditional. It takes the existence of observers as given and explains the observed parameter values by the conditioning on observer existence.
 
-The observer-admission reading at Level B sharpens this in two ways. First, it identifies which substratum features must be present for observers to exist at all, prior to questions about specific parameter values. The C1–C3 conditions are structural features of a substratum's dynamics: not values of free parameters but properties of the bijection's behavior. A substratum either admits observers or it does not; the question is binary at the structural level, before any parameter values are specified. Second, the observer-admission reading provides a more concrete account of what "selection" means. The standard anthropic principle is sometimes criticized as tautological — observers observe universes with observers in them — but this criticism misses the structural content. Observer-lacking substrata are not failed candidates that happened not to produce observers; they are structurally different mathematical objects, lacking the dynamical features that would make embedded observation possible.
+The observer-admission reading at Level B sharpens this in two ways. First, it identifies which substratum features must be present for observers to exist at all, prior to questions about specific parameter values. The C1-C3 conditions are structural features of a substratum's dynamics: not values of free parameters but properties of the bijection's behavior. A substratum either admits observers or it does not; the question is binary at the structural level, before any parameter values are specified. Second, the observer-admission reading provides a more concrete account of what "selection" means. The standard anthropic principle is sometimes criticized as tautological — observers observe universes with observers in them — but this criticism misses the structural content. Observer-lacking substrata are not failed candidates that happened not to produce observers; they are structurally different mathematical objects, lacking the dynamical features that would make embedded observation possible.
 
 A concrete example clarifies the structural distinction. Consider two finite cellular automata with the same configuration space size but different transition rules. The first has a Glauber dynamics on an Ising lattice at high temperature: fast mixing, short correlation times, no slow modes. The second has a topological phase-protected dynamics: slow modes from non-local order parameters, long correlation times in those modes, sufficient capacity in the topological sector. Both are well-defined deterministic systems on the same configuration space. The first fails C2 because its hidden sector has no slow modes; the second satisfies C1, C2, C3 with appropriate partition choice. The first is observer-lacking; the second is observer-admitting. The distinction is structural — a property of the dynamics, not of the parameter values within a given dynamics — and applies prior to any specific universality-class commitment.
 
@@ -1079,7 +1048,7 @@ The two axes developed so far invite a question the chapter has not yet answered
 
 The answer is that they are the same thing, on a precisely identifiable part of their range — and seeing exactly where they coincide, and where they do not, sharpens both.
 
-**The apparent opposition.** At first glance gauge freedom and observational incompleteness look like opposites. Gauge freedom is *surplus*: the description carries more structure than the physics, and the gauge quotient throws the excess away losing nothing. Observational incompleteness sounds like a *deficit*: the observer has *less* than the whole story, missing what the trace-out over the hidden sector destroys. Surplus and deficit do not obviously belong together — one is too much representation, the other too little access.
+**The apparent opposition.** At first glance gauge freedom and observational incompleteness look like opposites. Gauge freedom is *surplus*: the description carries more structure than the physics, and the gauge quotient throws the excess away, losing nothing. Observational incompleteness sounds like a *deficit*: the observer has *less* than the whole story, missing what the trace-out over the hidden sector destroys. Surplus and deficit do not obviously belong together — one is too much representation, the other too little access.
 
 The opposition dissolves on inspection. Consider why a gauge degree of freedom counts as surplus in the first place. The substratum gauge group $\mathcal{G}_{\text{sub}}$ contains, among its four families, hidden-sector relabeling: permute the labels on the hidden-sector states and every visible observable is unchanged. The labels are surplus — but they are surplus *because no observation distinguishes the relabelled substrata*. The redundancy is not a free-standing fact about the notation; it is constituted by the embedded observer's inability to tell the relabelled versions apart. "The description has surplus structure" and "the observer cannot access the difference" are not opposed claims. They are one fact, stated once from the side of the representation and once from the side of the observer. Gauge freedom *is* a form of observational incompleteness: it is the incompleteness whose missing piece turns out to be no piece at all.
 
@@ -1173,10 +1142,6 @@ Parts II–IV develop the framework's empirical content at the various levels id
 
 The framework's hierarchical structure is what makes the framework different from a single bold claim about reality. It is a coordinated set of claims at different levels of generality, with different empirical predictions, different falsifiability conditions, and different philosophical commitments at each level. The framework's strongest realism — at Level D × Level G3 — is also its narrowest. The framework's broadest realism — at Level C × Level G4 — is also its most universal. The book's role is to develop these levels with the technical and empirical content that distinguishes one level from another.
 
-
-\clearpage
-
-
 # Chapter 4
 # Methodology
 
@@ -1198,7 +1163,7 @@ The chapter has three pieces of work. §4.2 develops the single-foundational-com
 
 ## 4.2 The single-foundational-commitment pattern
 
-The framework begins from one premise. Observation occurs: an observer records distinguishable outcomes of interactions with a system not wholly under the observer's control. This is the only commitment the framework takes from outside its own theorems. Every other content — the lemmas of finiteness and causal partition and determinism, the conditions C1–C3 for embedded observers, the central theorem that quantum mechanics emerges under those conditions, the reconstruction theorem from observed physics back to the substratum, the Standard Model derivation from the cubic-group decomposition, the gravitational sector from horizon thermodynamics — is derived from the foundational premise plus its structural consequences.
+The framework begins from one premise. Observation occurs: an observer records distinguishable outcomes of interactions with a system not wholly under the observer's control. This is the only commitment the framework takes from outside its own theorems. Every other content — the lemmas of finiteness and causal partition and determinism, the conditions C1-C3 for embedded observers, the central theorem that quantum mechanics emerges under those conditions, the reconstruction theorem from observed physics back to the substratum, the Standard Model derivation from the cubic-group decomposition, the gravitational sector from horizon thermodynamics — is derived from the foundational premise plus its structural consequences.
 
 The methodological discipline of single-foundational-commitment derivation operates as a constraint at every step of the framework's construction. When a new structural feature is needed, the framework must derive it from existing content rather than add it as a new premise. When a new prediction is sought, the framework must trace its derivation back to the foundational commitment through some chain of theorems and identifications. When a new structural assumption appears necessary, the discipline forces an explicit accounting: either the assumption is itself derivable from the foundational premise (in which case it is a theorem, not an assumption), or it is a new commitment that needs to be acknowledged as such (in which case the framework's foundational economy has been compromised).
 
@@ -1234,7 +1199,7 @@ A framework that derives rather than posits must be honest about how rigorous ea
 
 **The four-layer framing.** Orthogonal to the S/C/L/R/P/M/E classification is a four-layer framing that locates predictions within the substratum-to-emergent stack. The two axes are independent: an S-class prediction can be at any of the four layers, and a Layer-1 prediction can be S, C, L, R, P, M, or E class.
 
-*Layer 0* covers gauge structure: which gauge groups exist, which representations appear, structural constraints from C1–C3. The Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ is Layer 0. The three-generation count is Layer 0.
+*Layer 0* covers gauge structure: which gauge groups exist, which representations appear, structural constraints from C1-C3. The Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ is Layer 0. The three-generation count is Layer 0.
 
 *Layer 1* covers structural form: predictions from pure substratum geometry or representation theory, with no operator-relation inputs. The Cabibbo angle $1/(\pi\sqrt{2})$ is Layer 1: it follows from a Brillouin-zone distance. The Wolfenstein parameter $A = \sqrt{2/3}$ is Layer 1. The Koide angle $\theta_0 = 2/9$ is Layer 1.
 
@@ -1318,7 +1283,7 @@ The Class B split is, in honest summary: four predictions are unconditional stru
 
 **Class C — framework-level commitments.** Two broader commitments are implicit in the construction and would falsify it if contradicted.
 
-*Classical-memory simulability of any genuinely quantum process.* The characterization theorem developed in Chapter 1 §1.8 establishes that quantum mechanics is the description produced by an embedded observer satisfying C1–C3 on a deterministic substratum with bounded classical hidden-sector memory. This implies that every process the framework calls quantum admits a classical-memory simulation at appropriate scale. The commitment is specific: non-Markovian models are permitted and expected (they are how the hidden-sector correlation persistence manifests), but they must be realizable by finite classical memory. A process whose non-Markovianity is provably supra-classical falsifies the framework at the characterization-theorem level.
+*Classical-memory simulability of any genuinely quantum process.* The characterization theorem developed in Chapter 1 §1.8 establishes that quantum mechanics is the description produced by an embedded observer satisfying C1-C3 on a deterministic substratum with bounded classical hidden-sector memory. This implies that every process the framework calls quantum admits a classical-memory simulation at appropriate scale. The commitment is specific: non-Markovian models are permitted and expected (they are how the hidden-sector correlation persistence manifests), but they must be realizable by finite classical memory. A process whose non-Markovianity is provably supra-classical falsifies the framework at the characterization-theorem level.
 
 *The dark sector as entropy-displacement, not as a novel particle content.* The framework's account of dark energy as a Type II running-vacuum functional form and dark matter as frozen boundary entropy, developed in Chapter 6, is incompatible with the direct detection of a WIMP interpretable as a fundamental particle with Standard-Model-like interactions and no entropy-displacement signature. A confirmed WIMP with such properties falsifies the framework's dark-sector account while leaving the rest of the structure intact — it would require abandoning the boundary-entropy derivation and either identifying an error in it or accepting that the framework's dark-sector story is wrong even as other derivations survive.
 
@@ -1342,19 +1307,19 @@ The CP-violating phases in CKM and PMNS are solution-specific. The framework der
 
 The numerical value of the Type II running-vacuum coefficient $\nu$ within the stratified falsification band is solution-specific. The framework predicts the *functional form* (Type II RVM) as a structural commitment, with the magnitude $|\nu_{\text{QFT}}| \sim (M_{\text{SM}}/M_{\text{Pl}})^2 \sim 10^{-32}$ at theorem level from the emergent-QFT calculation. The Bertini et al. (2025) DESI-era measurement $\nu = -(2.5 \pm 1.3) \times 10^{-4}$ is consistent with both the framework's theorem-level value and with $\Lambda$CDM, lying within the predictive bracket. A DESI Year 5 measurement that landed anywhere within the bracket — including values much larger than the theorem-level prediction but with the correct Type II sign — would not falsify; the structural commitment is to the functional form, not to the specific numerical value within the bracket.
 
-Cosmic initial conditions are solution-specific. The framework derives the structure of the dynamics — the wave equation, the bijection, the partition — from which evolution proceeds. The state at any particular cosmic time, including the time-zero conditions, is not a framework output. The framework is compatible with any cosmic-history that produces a C1–C3-satisfying observer-admitting regime by the time the cosmological horizon stabilizes. Specific cosmological initial-condition observations bear on the framework only at the boundary where they would or would not produce the observer-admitting regime; within that boundary they are solution-specific.
+Cosmic initial conditions are solution-specific. The framework derives the structure of the dynamics — the wave equation, the bijection, the partition — from which evolution proceeds. The state at any particular cosmic time, including the time-zero conditions, is not a framework output. The framework is compatible with any cosmic-history that produces a C1-C3-satisfying observer-admitting regime by the time the cosmological horizon stabilizes. Specific cosmological initial-condition observations bear on the framework only at the boundary where they would or would not produce the observer-admitting regime; within that boundary they are solution-specific.
 
 The specific microstate $\varphi$ within the equivalence class is solution-specific *and* gauge. Chapter 2's substratum gauge group $\mathcal{G}_{\text{sub}}$ classifies different representatives within an equivalence class as observably indistinguishable. The question "which specific bijection $\varphi$ is our universe's substratum?" therefore has no empirical content — every representative produces identical observables. A future putative measurement that purported to distinguish different gauge representatives would, if confirmed, refute the substratum gauge group's completeness, but no such measurement is conceivable in principle within the framework's structure.
 
 **Regimes of deliberate silence.** Beyond solution-specific properties, three regimes lie outside the framework's predictive scope by structural construction. These are regimes where the framework's foundational structure does not produce predictions, not because the framework is silent by choice but because the structural conditions for predictions to be defined do not hold.
 
-*The pre-horizon early universe.* The framework's gravitational sector derivations in Chapter 6 operate on a stable causal partition with $\tau_B \sim H^{-1}$ — the cosmological horizon as a partition between observer-accessible and observer-inaccessible regions. The pre-horizon era — before such a partition stabilizes — has no observer in the framework's sense, because the C1–C3 conditions for embedded observation are not satisfied. The framework's only commitment in this regime is a boundary condition on deeper theories: any successful pre-horizon dynamics must produce a C1–C3-satisfying regime by the time a horizon stabilizes. The framework makes no prediction for the dynamics of the pre-horizon era itself; that domain belongs to whatever deeper theory describes the pre-horizon transition.
+*The pre-horizon early universe.* The framework's gravitational sector derivations in Chapter 6 operate on a stable causal partition with $\tau_B \sim H^{-1}$ — the cosmological horizon as a partition between observer-accessible and observer-inaccessible regions. The pre-horizon era — before such a partition stabilizes — has no observer in the framework's sense, because the C1-C3 conditions for embedded observation are not satisfied. The framework's only commitment in this regime is a boundary condition on deeper theories: any successful pre-horizon dynamics must produce a C1-C3-satisfying regime by the time a horizon stabilizes. The framework makes no prediction for the dynamics of the pre-horizon era itself; that domain belongs to whatever deeper theory describes the pre-horizon transition.
 
 *The equilibrium phase of $(S, \varphi)$.* Chapter 1's central theorem requires C1, C2, and C3 to be satisfied. The slow-bath condition C2 fails at substratum equilibrium: at equilibrium, the hidden sector has thermalized completely, and there are no slow modes to provide the timescale separation that produces P-indivisibility. The structural observer-selection theorem developed at Main §4.6 restricts observers to the non-equilibrium phase of the substratum's dynamics. The equilibrium phase is observer-free by structural argument, and the framework makes no prediction for what happens in this regime — there is no observer to whom a prediction could be addressed. This is the framework's account of why Boltzmann brains do not appear in observed physics: not because they are rare random fluctuations that happen not to occur, but because the equilibrium phase that would produce them is structurally observer-free.
 
 *Regions beyond the observer's causal horizon.* For any observer with a finite cosmological horizon, regions beyond that horizon are part of the observer's hidden sector. They are addressed in the framework only through boundary effects — the area-law entropy at the horizon surface, which encodes the gravitational signature of the hidden-sector content. The framework takes no observer-independent position on the *internal content* of these regions. Whether the universe beyond an observer's horizon contains fields configured differently, contains different gauge structures, or contains anything at all in the observer's conceptual vocabulary, is not a question the framework's structure can address. The framework's account is that the trace-out over what lies beyond the horizon produces the observer's quantum-mechanical description; the content traced over is, by construction, inaccessible to that observer.
 
-These silences are structural rather than methodological. They follow from the characterization theorem's identification of quantum mechanics with embedded observation under C1–C3, and from the observer-selection theorem's restriction of observers to the non-equilibrium phase. The framework's silence on these regimes is not a gap in its content but a feature of its structural commitments: it is committed to the regime where embedded observers exist and the regime is non-equilibrium; it is not committed to regimes where these conditions fail.
+These silences are structural rather than methodological. They follow from the characterization theorem's identification of quantum mechanics with embedded observation under C1-C3, and from the observer-selection theorem's restriction of observers to the non-equilibrium phase. The framework's silence on these regimes is not a gap in its content but a feature of its structural commitments: it is committed to the regime where embedded observers exist and the regime is non-equilibrium; it is not committed to regimes where these conditions fail.
 
 **What this section is not.** The articulation of what does not falsify is not a list of escape routes. The framework's structural commitments — the Class A theorems, the Class B retrodictions, the Class C broader commitments — are pre-registered as falsifiable, and the author's commitment is to treat their violation as framework-falsifying rather than as an opportunity for post-hoc revision. The solution-specific properties and the regimes of deliberate silence are not categories into which falsifying observations can be reclassified after the fact. They are explicit acknowledgments of where the framework's commitments end and where the framework's structure has no predictive content. The line between them is drawn before the relevant observations are made, with the structural derivation determining which side of the line each putative prediction falls on.
 
@@ -1370,16 +1335,6 @@ The methodology developed in this chapter is not unique to the framework. The si
 
 The methodological posture sketched in this chapter is developed at length, for a philosophy-of-physics readership, in a companion paper — *Physics Modulo Gauge* — which treats the two-axiom foundational commitment, constructive structural realism, the engagement with the no-go results of quantum foundations through a single architectural feature, and "physics modulo gauge" as a general methodology. That paper is a companion to the framework's technical sequence rather than part of this book; readers concerned specifically with the framework's methodology and its relation to the foundations-of-physics literature will find it the natural next text.
 
-
-\clearpage
-
-
-# Part II — Physics
-
-
-\clearpage
-
-
 # Chapter 5
 # The Emergence of Gauge Structure
 
@@ -1387,7 +1342,7 @@ The methodological posture sketched in this chapter is developed at length, for 
 
 ## 5.1 What this chapter develops
 
-Part I established that any observer embedded in a finite deterministic universe under conditions C1–C3 must use a mathematical formalism equivalent to unitarily evolving quantum mechanics; that observed physics together with structural assumptions uniquely determines a substratum $(S, \varphi)$ up to the gauge equivalence $\mathcal{G}_{\text{sub}}$; and that the framework's structural-realism position operates on a two-dimensional hierarchy with stratified empirical commitments. The remaining question is what specific physics the substratum produces. This chapter and the next answer that question for the visible sector — the Standard Model of particle physics.
+Part I established that any observer embedded in a finite deterministic universe under conditions C1-C3 must use a mathematical formalism equivalent to unitarily evolving quantum mechanics; that observed physics together with structural assumptions uniquely determines a substratum $(S, \varphi)$ up to the gauge equivalence $\mathcal{G}_{\text{sub}}$; and that the framework's structural-realism position operates on a two-dimensional hierarchy with stratified empirical commitments. The remaining question is what specific physics the substratum produces. This chapter and the next answer that question for the visible sector — the Standard Model of particle physics.
 
 The derivation has two natural phases, and the book treats each in its own chapter. The first phase, the present chapter, establishes *what gauge structure emerges* from the cubic-lattice substratum: the wave equation, the multi-component dynamics, the cubic-group decomposition with eigenvalue multiplicities $(3, 2, 1)$, the Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ as the pointwise commutant, the chirality of the trace-out, and the anomaly cancellation that forces the observed hypercharges. The second phase, Chapter 6, establishes *what specific quantitative content* this gauge structure produces: three chiral fermion generations, one composite Higgs doublet, $\bar\theta = 0$ at all energy scales, gauge couplings, and the twenty-two parameter-free retrodictions including the Cabibbo angle, the Koide relation, fermion masses, and PMNS mixing angles.
 
@@ -1399,7 +1354,7 @@ The chapter takes as input the framework's prior content. The quantum-mechanical
 
 ## 5.2 The minimal substratum and the wave equation
 
-The framework's content rests on a minimal mathematical structure: a finite set $S$, a deterministic bijection $\varphi: S \to S$, and a partition of $S$ into visible and hidden sectors. The lemmas of Chapter 1 extracted three structural features from this minimal object — finiteness, causal partition, determinism — and the conditions C1–C3 identified when an embedded observer can exist. This section develops two further structural features of the minimal object that the Standard Model derivation requires.
+The framework's content rests on a minimal mathematical structure: a finite set $S$, a deterministic bijection $\varphi: S \to S$, and a partition of $S$ into visible and hidden sectors. The lemmas of Chapter 1 extracted three structural features from this minimal object — finiteness, causal partition, determinism — and the conditions C1-C3 identified when an embedded observer can exist. This section develops two further structural features of the minimal object that the Standard Model derivation requires.
 
 **The factorization problem.** Let $S$ be a finite set with $|S| = q^N$ for some $q \geq 2$ and integer $N$. There are many ways to write $S$ as a Cartesian product $S = S_1 \times S_2 \times \cdots \times S_N$ with $|S_k| = q$ for each $k$. Different factorizations correspond to different choices of which elementary degrees of freedom to identify as "local" — different bases in which to decompose the configuration space. The factorization is not given by the set $S$ itself; it must be determined by some additional structure.
 
@@ -1577,10 +1532,6 @@ The chapter has established the gauge structure of the Standard Model from the c
 The chapter's content sits at Level 0 of the four-layer framing developed in Chapter 4 — gauge structure derived from substratum-level representation theory — and is correspondingly unconditional S-class structural in the framework's claim-classification scheme. The gauge group is not fitted to observation; it is forced. The hypercharges are not chosen from a continuum of possibilities; they are determined by anomaly cancellation. Falsification of either would refute the framework directly: any stable beyond-Standard-Model gauge structure, any departure of the hypercharges from the values derived here, would violate the framework's Class A structural commitments developed in Chapter 4 §4.5.
 
 Chapter 6 develops the specific quantitative content this gauge structure produces. The matter content is derived: three chiral fermion generations from the staggered taste structure of the wave equation, one composite Higgs doublet from the singlet staggered taste, with the absolute generation count locked at three by coupling-degree minimization. The strong-CP problem is resolved structurally: $\bar\theta = 0$ at all energy scales follows from T-invariance of the substratum bijection combined with detailed balance, requiring no axion. The gauge couplings at the $Z$ pole follow from a one-parameter chain whose structural inputs include the analytic one-loop staggered vacuum polarization $1/\alpha_0 = 23.25$ and the cubic-group structure of the matter content. The twenty-two parameter-free quantitative retrodictions developed there include the Cabibbo angle $1/(\pi\sqrt{2})$ matched to $0.04\%$, the Koide relation $2/9$ matched to $0.02\%$, the six fermion masses from a single empirical input matched to better than $1\%$, all three PMNS mixing angles within $1.1\sigma$, and the Higgs mass from the boundary condition $\lambda(M_{\text{Pl}}) = 0$ matched to $0.9\%$. The framework's quantitative empirical record outside cosmology is concentrated in Chapter 6.
-
-
-\clearpage
-
 
 # Chapter 6
 # The Matter Content and Quantitative Predictions
@@ -1881,10 +1832,6 @@ The empirical record is striking. Across twenty-two predictions, agreement with 
 Chapter 8 develops the JUNO prediction in detail, as a focused case study of the framework's most empirically confirmed Layer 1-plus-Layer-2(a) prediction. The November 2025 measurement and its discrimination from the TM1/TM2 alternatives are presented with the experimental context that this chapter abbreviated. Chapter 9 develops universality classes and the framework's relationship to alternative unification programs, with the OI-string analysis at the matrix-model level and the framework's structural commitment to no grand unified theory developed against the broader landscape of unification proposals.
 
 The framework's empirical record in fundamental physics, developed across Chapters 5 through 9, is concentrated at the Level G3 × Level D intersection of the hierarchical structural realism developed in Chapter 3 — class-specific predictions of the cubic-lattice substratum representative, with substantial empirical support and pre-registered falsifiability. The structural and methodological commitments of Part I are made quantitatively precise here.
-
-
-\clearpage
-
 
 # Chapter 7
 # The Gravitational Sector
@@ -2194,10 +2141,6 @@ The framework's content in fundamental physics, developed across Chapters 5 thro
 
 ---
 
-
-\clearpage
-
-
 # Chapter 8
 # JUNO and the Neutrino Sector
 
@@ -2462,10 +2405,6 @@ The methodological discipline of Chapter 4 §4.6 places the preregistered-predic
 The framework's empirical content in fundamental physics is at the strongest evidential standard the field admits: parameter-free structural predictions, made before the relevant measurements, matching observation at the current experimental precision. The JUNO confirmation is the chapter's empirical anchor — the framework's commitment to cubic-group representation theory in the lepton sector, tested at $0.07\sigma$ on a parameter-free prediction. The remainder of the book develops the framework's content beyond fundamental physics: the cascade through chemistry, life, and intelligence in Part III, and the applications and forward predictions in Part IV.
 
 ---
-
-
-\clearpage
-
 
 # Chapter 9
 # Universality Classes and External Convergence
@@ -2786,16 +2725,6 @@ The framework's content from Chapter 5 through Chapter 8 — concentrated at the
 
 ---
 
-
-\clearpage
-
-
-# Part III — Emergence
-
-
-\clearpage
-
-
 # Chapter 10
 # Chemistry
 
@@ -3004,10 +2933,6 @@ The framework's content on fine-tuning and anthropics is therefore a substantive
 **Forward pointers.** Chapter 11 develops the framework's content on the origin of life: how the framework's chemistry-supporting commitments propagate further through the emergence cascade to produce self-replicating molecular systems. Chapter 12 develops evolution, intelligence, and self-reference. Chapter 13 develops the framework's content in quantum biology, where the framework's C1-C3 structural conditions apply directly to biological systems at the molecular scale. The framework's content in chemistry developed in this chapter provides the structural foundation for the subsequent biology chapters: the periodic table, organic chemistry, water as solvent, the thermal window, and the homochirality of biological molecules are all the chapter's content's downstream consequences for life.
 
 ---
-
-
-\clearpage
-
 
 # Chapter 11
 # The Origin of Life
@@ -3230,10 +3155,6 @@ The empirical confirmations of the framework's content are concordance: laborato
 
 ---
 
-
-\clearpage
-
-
 # Chapter 12
 # Evolution, Intelligence, and Self-Reference
 
@@ -3247,7 +3168,7 @@ This chapter develops the next stages of the cascade: evolution, intelligence, a
 
 Eight pieces occupy the chapter.
 
-Section 12.2 develops evolution as a multi-scale C1-C3 system. Following Evolution.md §2, the framework's structural account of evolution identifies three distinct C1-C3 partitions operating at different scales: the protein conformational landscape (the fast subsystem is the protein's active configuration, the slow subsystem is the broader conformational landscape), the epigenome (the fast subsystem is gene expression, the slow subsystem is chromatin state), and the constructed ecological niche (the fast subsystem is organism behavior, the slow subsystem is the modified environment passed to descendants). Each scale produces non-Markovian dynamics in the corresponding emergent description.
+Section 12.2 develops evolution as a multi-scale C1-C3 system. The framework's structural account of evolution identifies three distinct C1-C3 partitions operating at different scales: the protein conformational landscape (the fast subsystem is the protein's active configuration, the slow subsystem is the broader conformational landscape), the epigenome (the fast subsystem is gene expression, the slow subsystem is chromatin state), and the constructed ecological niche (the fast subsystem is organism behavior, the slow subsystem is the modified environment passed to descendants). Each scale produces non-Markovian dynamics in the corresponding emergent description.
 
 Section 12.3 develops information processing as fitness-enhancing in any environment with the framework's thermal window. Selection generically favors organisms that respond to environmental information; the framework's structural commitments at the chemistry level guarantee fluctuating environments where information processing has selective value. Section 12.4 develops major evolutionary transitions — the moments where previously independent units become integrated into higher-level entities — as repeated applications of the same C1-C3 structural mechanism that produces emergent quantum mechanics at the cosmological scale.
 
@@ -3473,16 +3394,6 @@ The framework's reach in this chapter spans from molecular biology to AI to the 
 
 ---
 
-
-\clearpage
-
-
-# Part IV — Applications
-
-
-\clearpage
-
-
 # Chapter 13
 # Quantum Biology
 
@@ -3661,10 +3572,6 @@ The framework's content in quantum biology unifies several apparently disparate 
 The framework's content from this chapter onward shifts from cascade derivations to specific empirical applications: how the framework's structural commitments at the chemistry and biology levels produce specific predictions about quantum computing platforms, engineered quantum systems, clinical pharmacology, and bioinformatics methodology. The chapter's content on the protein C1-C3 architecture provides the foundational example that the subsequent chapters build on.
 
 ---
-
-
-\clearpage
-
 
 # Chapter 14
 # Quantum Computing
@@ -3856,10 +3763,6 @@ Chapter 18 §§18.2-18.4 developed the foundational content connecting the frame
 The chapter's content is therefore the framework's positive contribution to computational complexity theory: a structural characterization of BQP as the unique class accessible to embedded observers, with the ECT reframed from empirical conjecture to theorem and the BPP-BQP gap interpreted as the cost of partial observation. The framework's empirical exposure in computational complexity is principally negative — the prediction of no super-BQP computation provides a sharp falsification target — but the structural content is substantial.
 
 ---
-
-
-\clearpage
-
 
 # Chapter 15
 # Quantum Engineering — Hardware, Software, and the BEC Experiment
@@ -4128,10 +4031,6 @@ The framework's empirical reach across Chapters 13-17 is concentrated at the app
 
 ---
 
-
-\clearpage
-
-
 # Chapter 16
 # Medicine
 
@@ -4181,7 +4080,7 @@ In multicellular tissues — particularly the nervous system — the same C1-C3 
 
 The hierarchical structure means that a perturbation at one layer (a drug, a disease process) can have effects propagating upward through layers with progressively longer $\tau_B$. The clinical time-course of memory-related diseases — and the schedule-dependence of memory-targeted drugs — reflects this layered architecture.
 
-**The core therapeutic principle.** The framework identifies a specific therapeutic axis: *memory asymmetry*. When a disease process depends on non-Markovian signaling dynamics that the corresponding normal tissue does not depend on (or depends on differently), therapies can target the *memory structure* rather than the *catalytic function*. This is pharmacologically distinct from standard inhibition and predicts *wider therapeutic windows* because the target (memory dependence) is more disease-specific than the target (catalytic activity).
+**The core therapeutic principle.** The framework identifies a specific therapeutic axis: *memory asymmetry*. When a disease process depends on non-Markovian signaling dynamics that the corresponding normal tissue does not depend on (or depends on differently), therapies can target the *memory structure* rather than the *catalytic function*. This is pharmacologically distinct from standard inhibition and predicts *wider therapeutic windows* because memory dependence is more disease-specific than catalytic activity.
 
 The memory-asymmetry principle organizes the chapter's content across the disease domains in §§16.3-16.12. Each disease's pharmacology is reframed in terms of the relevant C1-C3 architecture; each therapeutic intervention is reframed in terms of its effect on the architecture's memory dynamics; each distinguishing prediction follows from this reframing.
 
@@ -4479,10 +4378,6 @@ The framework's reach from Chapter 13's quantum biology through Chapter 15's qua
 
 ---
 
-
-\clearpage
-
-
 # Chapter 17
 # Bioinformatics
 
@@ -4652,7 +4547,7 @@ The framework's predictions for non-Markovianity in molecular evolution data are
 
 The framework's prediction: if substitution dynamics is P-indivisible (the framework's structural mechanism for non-Markovianity), then $R(t)$ must exceed 1. The degree of overdispersion should increase with the strength of C1 coupling (how strongly the conformational landscape modulates substitution rates) and decrease with effective population size $N_e$ (because large $N_e$ keeps the population in high-neutrality regions of the landscape, reducing memory effects).
 
-The empirical record matches this prediction. $R(t) \approx 5$ for mammalian amino acid substitutions (Gillespie 1989, Cutler 2000). $R(t) \approx 1.6$-$2.6$ for *Drosophila* (Wang et al. 2010, Bedford and Hartl 2008). $R(t)$ is inversely correlated with effective population size across yeast, *Drosophila*, and mammals (Bedford and Hartl 2008) — precisely as the framework predicts. Synonymous substitutions show less overdispersion than nonsynonymous substitutions, consistent with weaker C1 coupling for synonymous changes (which do not alter the conformational landscape).
+The empirical record matches this prediction. $R(t) \approx 5$ for mammalian amino acid substitutions (Gillespie 1989, Cutler 2000). $R(t) \approx 1.6$-$2.6$ for *Drosophila* (Zeng et al. 1998, Bedford and Hartl 2008). $R(t)$ is inversely correlated with effective population size across yeast, *Drosophila*, and mammals (Bedford and Hartl 2008) — precisely as the framework predicts. Synonymous substitutions show less overdispersion than nonsynonymous substitutions, consistent with weaker C1 coupling for synonymous changes (which do not alter the conformational landscape).
 
 The Bedford-Hartl linear relationship $R(t) = 1 + M/\omega$ is consistent with a negative binomial distribution arising from gamma-distributed rates — the expected distribution for a process with persistent temporal rate variation (memory). The framework's structural prediction matches the empirically-derived distributional form.
 
@@ -4717,10 +4612,6 @@ The framework's reach across Chapters 13-17 — quantum biology, quantum computi
 The framework's content from the substratum-level structural axioms of Chapter 1 through the emergence cascade of Chapters 10-12 and the applied chapters of 13-17, with the closing forward predictions and open problems inventory of Chapters 18-19, constitutes a complete structural framework with empirical exposure across physics, chemistry, biology, computing, engineering, and medicine. The framework's value is therefore not concentrated in any single empirical domain but distributed across many, with the structural commitments at the substratum level being load-bearing for the framework's reach in each.
 
 ---
-
-
-\clearpage
-
 
 # Chapter 18
 # Beyond Quantum Mechanics and General Relativity
@@ -5073,10 +4964,6 @@ The chapter is honest about what it does not address. The hard problem of consci
 
 ---
 
-
-\clearpage
-
-
 # Chapter 19
 # Resolved and Open Problems in Fundamental Physics
 
@@ -5336,10 +5223,6 @@ The book's content concludes here. The framework's empirical record (Chapters 5-
 
 ---
 
-
-\clearpage
-
-
 # Appendix A
 # Prediction Status Table
 
@@ -5564,10 +5447,6 @@ The framework's distinctive epistemic position is that it provides *structural f
 
 ---
 
-
-\clearpage
-
-
 # Appendix B
 # Mathematical Derivations
 
@@ -5595,7 +5474,7 @@ The appendix's content is *complete derivations*, not exposition. Each derivatio
 
 ## B.2 The Stinespring construction for emergent quantum mechanics
 
-*Main-text reference: Chapter 1 §1.7-1.9. Source: Main.md §3.2.*
+*Main-text reference: Chapter 1 §1.7-1.9.*
 
 The framework's emergent quantum mechanics derives from the substratum's deterministic bijection through a Stinespring dilation applied to the partial trace over the hidden sector. The construction uses only textbook operator algebra from the 1950s, with no reference to recent stochastic-quantum correspondence results.
 
@@ -5641,7 +5520,7 @@ The construction is complete: the substratum's deterministic bijection produces 
 
 ## B.3 The trace-out as a Jordan-Chevalley projection
 
-*Main-text reference: Chapter 5 §5.4-5.6. Source: SM.md Appendix A.*
+*Main-text reference: Chapter 5 §5.4-5.6.*
 
 The framework's content on the Standard Model gauge structure relies on a precise algebraic property of the trace-out operation: it extracts the semisimple part of the evolution matrix's Jordan-Chevalley decomposition and erases the nilpotent monodromy. This appendix gives the full derivation for the scalar wave equation on a ring of $L$ sites over $\mathbb{F}_q$; the multi-component extension incorporating the gauge group follows by additive decomposition.
 
@@ -5704,7 +5583,7 @@ extracting the semisimple part, encoding it via magnitudes rather than orders, a
 
 ## B.4 The gap equation for $\hbar$
 
-*Main-text reference: Chapter 7 §7.3. Source: GR.md §3.*
+*Main-text reference: Chapter 7 §7.3.*
 
 The framework derives Planck's constant $\hbar$ as the unique self-consistent value matching the classical horizon temperature to the KMS temperature of the emergent quantum field theory. The derivation has four steps; each step is presented with its full content.
 
@@ -5758,7 +5637,7 @@ The KMS periodicity is a *geometric* condition (Euclidean smoothness at the hori
 
 ## B.5 Anomaly cancellation and unique hypercharges
 
-*Main-text reference: Chapter 6 §6.7. Source: SM.md Theorem 15.*
+*Main-text reference: Chapter 6 §6.7.*
 
 The framework's content on the Standard Model matter content derives the unique hypercharge assignment from the six anomaly conditions of $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. The derivation establishes that the observed hypercharges are not phenomenological inputs but the unique anomaly-free completion of the framework's gauge structure.
 
@@ -5819,7 +5698,7 @@ Proton charge: $q_p = 2 q_u + q_d = 2(2/3) + (-1/3) = 4/3 - 1/3 = 1$. Electron c
 
 ## B.6 Gauge-theoretic derivations
 
-*Main-text reference: Chapter 5 §5.3-5.5. Source: SM.md §§3.2-4.2.*
+*Main-text reference: Chapter 5 §5.3-5.5.*
 
 Two key gauge-theoretic results from Chapter 5 are presented here with full derivation: the coupling-degree minimization fixing $K = 2d = 6$ internal components per site, and the cubic-rotation-group decomposition fixing the eigenvalue multiplicities at $(3, 2, 1)$.
 
@@ -5872,7 +5751,7 @@ The cumulative derivation produces the full Standard Model gauge structure with 
 
 ## B.7 The lemma chain for emergent quantum mechanics
 
-*Main-text reference: Chapter 1 §§1.5-1.9. Source: Main.md §§1-3.*
+*Main-text reference: Chapter 1 §§1.5-1.9.*
 
 The framework's characterization theorem (emergent quantum mechanics from C1-C3) relies on a chain of intermediate lemmas. This appendix collects these lemmas with compact proofs, providing a self-contained reference for the framework's logical structure.
 
@@ -5923,10 +5802,6 @@ The biconditional is the framework's main characterization result. $\square$
 The combined derivations constitute the framework's full mathematical content as a derivation chain from the substratum-level structural commitments to the Standard Model, the gravitational sector, and the empirical predictions across the framework's domains. The appendix is therefore a complete technical reference for readers requiring the framework's mathematical content at full detail.
 
 ---
-
-
-\clearpage
-
 
 # Appendix C
 # Common Objections and Framework Responses
@@ -6258,10 +6133,6 @@ The appendix's value is therefore as a reference resource for readers approachin
 
 ---
 
-
-\clearpage
-
-
 # Glossary
 
 This glossary defines the framework's distinctive terminology and the technical vocabulary used throughout the book. Entries are organized alphabetically. Cross-references to chapter and appendix sections point to where each concept is most fully developed.
@@ -6414,9 +6285,6 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 ---
 
-
-\clearpage
-
 # Bibliography
 
 This bibliography lists the works cited in the book, organized by topical area. Within each section, entries are alphabetical by first author. The framework's own technical companion papers are listed first under "Framework-internal citations"; subsequent sections cover foundations and interpretation, fundamental physics, gravitational physics and cosmology, chemistry and biology, evolution and molecular biology, medicine and pharmacology, bioinformatics and computational biology, quantum information and computing, and historical and philosophical works.
@@ -6497,7 +6365,7 @@ Abedi, J., Dykaar, H., & Afshordi, N. (2017). Echoes from the abyss: Tentative e
 
 Bekenstein, J. D. (1981). Universal upper bound on the entropy-to-energy ratio for bounded systems. *Physical Review D* 23: 287-298.
 
-Bertini, S., et al. (2025). [Bullet Cluster post-collision dynamics. Citation pending verification.]
+Bertini, S., et al. (2025). [Bullet Cluster post-collision dynamics / DESI-era dark-energy-equation-of-state measurement. Citation pending verification: no 2025 paper with lead author "Bertini" on either topic could be located in arXiv or NASA ADS. The in-text DESI-era equation-of-state value ν = -(2.5 ± 1.3)×10⁻⁴ should be reconciled with the DESI DR2 cosmology paper (see DESI Collaboration 2025 above) or the intended source confirmed by the author.]
 
 Bousso, R. (1999). A covariant entropy conjecture. *Journal of High Energy Physics* 7: 4.
 
@@ -6509,7 +6377,7 @@ Cornish, N. J., Spergel, D. N., Starkman, G. D., & Komatsu, E. (2004). Constrain
 
 Danielson, D., Satishchandran, G., & Wald, R. M. (2022). Black holes decohere quantum superpositions. *International Journal of Modern Physics D* 31: 2241003.
 
-DESI Collaboration (2024-2025). Dark Energy Spectroscopic Instrument Year 2 results: dark energy equation of state. [Citation pending specific paper identification.]
+DESI Collaboration (2025). DESI DR2 results II: Measurements of baryon acoustic oscillations and cosmological constraints. *Physical Review D* 112: 083515. arXiv:2503.14738.
 
 Genzel, R., Förster Schreiber, N. M., Übler, H., Lang, P., Naab, T., Bender, R., et al. (2017). Strongly baryon-dominated disk galaxies at the peak of galaxy formation ten billion years ago. *Nature* 543: 397-401.
 
@@ -6535,7 +6403,7 @@ Susskind, L. (1995). The world as a hologram. *Journal of Mathematical Physics* 
 
 Tsang, K. W., Rollier, M., Ghosh, A., Samajdar, A., Agathos, M., Chatziioannou, K., Cardoso, V., Khanna, G., & Van Den Broeck, C. (2018). A morphology-independent data analysis method for detecting and characterizing gravitational wave echoes. *Physical Review D* 98: 024023. arXiv:1804.04877.
 
-Verlinde, E. P. (2024). [Recent work on emergent gravity. Citation pending verification.]
+Verlinde, E. P. (2017). Emergent gravity and the dark universe. *SciPost Physics* 2: 016. arXiv:1611.02269. [Cited in-text as "Verlinde (2024)"; no substantive 2024 Verlinde-authored emergent-gravity paper could be identified, and the 2017 SciPost paper remains the canonical reference. The in-text year should be corrected to 2017, or the citation reframed if a specific later work was intended.]
 
 Westerweck, J., Nielsen, A. B., Fischer-Birnholtz, O., Cabero, M., Capano, C., Dent, T., Krishnan, B., Meadors, G., & Nitz, A. H. (2018). Low significance of evidence for black hole echoes in gravitational wave data. *Physical Review D* 97: 124037. arXiv:1712.09966.
 
@@ -6579,17 +6447,17 @@ Rutherford, S. L., & Lindquist, S. (1998). Hsp90 as a capacitor for morphologica
 
 Tao, Q., Tamura, K., U. Mello, B., & Kumar, S. (2019). Reliable confidence intervals for relevant timetree-based parameters. *Molecular Biology and Evolution* 36: 811-824.
 
-Wang, H.-Y., Tang, H., Shen, C.-K. J., & Wu, C.-I. (2010). [Drosophila molecular clock overdispersion. Citation pending verification of specific paper.]
-
 Wiltschko, R., & Wiltschko, W. (2019). Magnetoreception in birds. *Journal of the Royal Society Interface* 16: 20190295.
 
 Wiser, M. J., Ribeck, N., & Lenski, R. E. (2013). Long-term dynamics of adaptation in asexual populations. *Science* 342: 1364-1367.
+
+Zeng, L.-W., Comeron, J. M., Chen, B., & Kreitman, M. (1998). The molecular clock revisited: the rate of synonymous vs. replacement change in *Drosophila*. *Genetica* 102/103: 369-382. DOI: 10.1023/A:1017035109224. [Source of the *Drosophila* dispersion-index range R(t) ≈ 1.6-2.6 cited in the text; previously attributed in-text to a "Wang et al. (2010)" entry that could not be located. The 1.6-2.6 range traces to this paper via Bedford & Hartl (2008).]
 
 ---
 
 ## Medicine, pharmacology, and clinical biology
 
-Bauer, K., et al. (2020). [p300/CBP HAT + BET inhibitor combinations in NUT carcinoma. Citation pending verification.]
+Bauer, K., et al. (2020). [p300/CBP HAT + BET inhibitor combinations in NUT carcinoma. Citation pending verification: no NUT-carcinoma paper with lead author "Bauer" could be located. The 2020 NUT-carcinoma papers on this drug combination are Morrison-Smith et al. (2020), *Molecular Cancer Therapeutics* 19: 1406-1414, and the A-485 study by Sun et al. (2020) in *Oncogene* 39: 4770-4783. The intended reference should be confirmed by the author.]
 
 Bernstein, B. E., Mikkelsen, T. S., Xie, X., Kamal, M., Huebert, D. J., Cuff, J., et al. (2006). A bivalent chromatin structure marks key developmental genes in embryonic stem cells. *Cell* 125: 315-326.
 
@@ -6597,7 +6465,7 @@ Cuddapah, V. A., Pillai, R. B., Shekar, K. V., Lane, J. B., Motil, K. J., Skinne
 
 English, B. P., Min, W., van Oijen, A. M., Lee, K. T., Luo, G., Sun, H., Cherayil, B. J., Kou, S. C., & Xie, X. S. (2006). Ever-fluctuating single enzyme molecules: Michaelis-Menten equation revisited. *Nature Chemical Biology* 2: 87-94.
 
-Garcia-Manero, G., NCT01305499. [Clinical trial: DNMT + HDAC combination in MDS/AML. Citation pending verification of publication.]
+Garcia-Manero, G., NCT01305499. [Clinical trial: hypomethylating-agent + HDAC-inhibitor combination in AML. Citation pending verification: trial NCT01305499 is a phase 2 study of azacitidine combined with the HDAC inhibitor *entinostat* (sequential vs. overlapping schedules) in older AML patients — not the azacitidine+vorinostat combination. No dedicated primary journal publication of NCT01305499's results could be located; the author should confirm the intended trial and its publication, or cite the trial registry record directly.]
 
 Guy, J., Gan, J., Selfridge, J., Cobb, S., & Bird, A. (2007). Reversal of neurological defects in a mouse model of Rett syndrome. *Science* 315: 1143-1147.
 
@@ -6607,7 +6475,7 @@ Klinman, J. P., & Kohen, A. (2013). Hydrogen tunneling links protein dynamics to
 
 Lin, X., et al. (2024). Residual epigenetic memory in induced pluripotent stem cells. *Frontiers in Cell and Developmental Biology* 12: 1306530. DOI: 10.3389/fcell.2024.1306530.
 
-Marek, M., et al. (2022). [p300/CBP HAT + BET inhibitor synergy in NUT carcinoma. Citation pending verification.]
+Marek, M., et al. (2022). [p300/CBP HAT + BET inhibitor synergy in NUT carcinoma. Citation pending verification: no NUT-carcinoma paper with lead author "Marek" could be located. The most likely intended 2022 reference is Tontsch-Grunt, U., et al. (2022), Therapeutic impact of BET inhibitor BI 894999 treatment: backtranslation from the clinic, *British Journal of Cancer* 127: 577-586, which studies BI 894999 combined with the p300/CBP inhibitor CCS1477 in NUT carcinoma. To be confirmed by the author.]
 
 Nicolas, D., Phillips, N. E., & Naef, F. (2018). What shapes eukaryotic transcriptional bursting? *Molecular BioSystems* 14: 1623-1629.
 
@@ -6621,7 +6489,7 @@ Wilen, C. D., Abdullah, S., Kurinsky, N. A., Stanford, C., Cardani, L., D'Imperi
 
 Wilsker, D., Petermann, E., Helleday, T., & Bunz, F. (2008). Essential function of Chk1 can be uncoupled from DNA damage checkpoint and replication control. *Proceedings of the National Academy of Sciences USA* 105: 20752-20757.
 
-Ye, J. H., et al. (2025). Focused ultrasound blood-brain-barrier opening improves cognition in Alzheimer's patients. *Journal of Neurosurgery*. [Korean trial, 2025 publication; citation pending verification.]
+Ye, B. S., Chang, K. W., Kang, S., Jeon, S., & Chang, J. W. (2025). Repetitive and extensive focused ultrasound-mediated bilateral frontal blood-brain barrier opening for Alzheimer's disease. *Journal of Neurosurgery* 142: 1263-1272. DOI: 10.3171/2024.8.JNS24989. [Korean trial NCT06158789; previously entered as "Ye, J. H." — the lead author is Byoung Seok Ye. The study reported improvement in neuropsychiatric symptoms from blood-brain-barrier opening alone, without concurrent antibody medication.]
 
 ---
 
@@ -6639,13 +6507,13 @@ Csendes, G., Petenei, A., Heitz, A., Boldog, D., Bencze, A., Mádai, M., Megyeri
 
 Cui, H., Wang, C., Maan, H., Pang, K., Luo, F., Duan, N., & Wang, B. (2023). scGPT: toward building a foundation model for single-cell multi-omics using generative AI. *Nature Methods* (2024).
 
-Drexler, R., et al. (2024). [Unclassifiable CNS tumors in DKFZ methylome classifier. Citation pending verification.]
+Drexler, R., Brembach, F., Sauvigny, J., Ricklefs, F. L., Eckhardt, A., Bode, H., Gempt, J., Lamszus, K., Westphal, M., Schüller, U., & Mohme, M. (2024). Unclassifiable CNS tumors in DNA methylation-based classification: clinical challenges and prognostic impact. *Acta Neuropathologica Communications* 12: 9. DOI: 10.1186/s40478-024-01728-9.
 
 Gorin, G., Fang, M., Chari, T., & Pachter, L. (2022). RNA velocity unraveled. *PLOS Computational Biology* 18: e1010492.
 
 Hayashi-Takagi, A., et al. (2023). [Multi-timescale chromatin dynamics. Citation pending verification.]
 
-Hummer, G., & Szabo, A. (various dates). [Trace-out structure in enzyme kinetics. Series of papers cited collectively; specific citations pending verification.]
+Hummer, G., & Szabo, A. (2001). Free energy reconstruction from nonequilibrium single-molecule pulling experiments. *Proceedings of the National Academy of Sciences USA* 98: 3658-3661. DOI: 10.1073/pnas.071034098. [The manuscript cites the Hummer-Szabo single-molecule kinetics program collectively; the companion methodological paper is Hummer, G., & Szabo, A. (2010), Free energy profiles from single-molecule pulling experiments, *PNAS* 107: 21441-21446, DOI: 10.1073/pnas.1015661107.]
 
 Kedzierska, K. Z., Crawford, L., Amini, A. P., & Lu, A. X. (2024). Assessing the limits of zero-shot foundation models in single-cell biology. *bioRxiv*. DOI: 10.1101/2023.10.16.561085.
 
@@ -6667,7 +6535,7 @@ Pyhel, F., et al. (2024). [Knowledge-graph methods for perturbation prediction. 
 
 Stolovitzky, G., Monroe, D., & Califano, A. (2007). Dialogue on reverse-engineering assessment and methods: The DREAM of high-throughput pathway inference. *Annals of the New York Academy of Sciences* 1115: 1-22. DOI: 10.1196/annals.1407.021.
 
-Tedesco, M., et al. (2022). [Chromatin velocity / multi-omic velocity. Citation pending verification.]
+Tedesco, M., Giannese, F., Lazarević, D., Giansanti, V., Rosano, D., Monzani, S., et al. (2022). Chromatin Velocity reveals epigenetic dynamics by single-cell profiling of heterochromatin and euchromatin. *Nature Biotechnology* 40: 235-244. DOI: 10.1038/s41587-021-01031-1.
 
 Theodoris, C. V., Xiao, L., Chopra, A., Chaffin, M. D., Sayed, Z. R. A., Hill, M. C., et al. (2023). Transfer learning enables predictions in network biology. *Nature* 618: 616-624.
 
@@ -6675,7 +6543,7 @@ Theodoris, C. V., Xiao, L., Chopra, A., Chaffin, M. D., Sayed, Z. R. A., Hill, M
 
 ## Quantum biology and biological information processing
 
-Cao, J., & Plenio, M. B. (2025). [Vibronic coherences in photosynthesis. Citation pending verification.]
+Cao, J., Cogdell, R. J., Coker, D. F., Duan, H.-G., Hauer, J., Kleinekathöfer, U., et al. (2020). Quantum biology revisited. *Science Advances* 6: eaaz4888. DOI: 10.1126/sciadv.aaz4888. [Cited in-text as "Cao, Fleming, and others"; entered previously as "Cao & Plenio (2025)", which is a misattribution — this 18-author review is led by Jianshu Cao and does not include M. B. Plenio. The in-text reference and year should be corrected accordingly.]
 
 Cha, Y., Murray, C. J., & Klinman, J. P. (1989). Hydrogen tunneling in enzyme reactions. *Science* 243: 1325-1330.
 
@@ -6687,7 +6555,7 @@ Gunawardena, J. (2012). A linear framework for time-scale separation in nonlinea
 
 Hiscock, H. G., Worster, S., Kattnig, D. R., Steers, C., Jin, Y., Manolopoulos, D. E., Mouritsen, H., & Hore, P. J. (2016). The quantum needle of the avian magnetic compass. *Proceedings of the National Academy of Sciences USA* 113: 4634-4639.
 
-Hiscock, H. G., et al. (2019). [Subsequent work on radical-pair coherence in cryptochrome. Citation pending verification.]
+Hiscock, H. G., Hiscock, T. W., Kattnig, D. R., Scrivener, T., Lewis, A. M., Manolopoulos, D. E., & Hore, P. J. (2019). Navigating at night: fundamental limits on the sensitivity of radical pair magnetoreception under dim light. *Quarterly Reviews of Biophysics* 52: e9. DOI: 10.1017/S0033583519000076.
 
 ---
 
@@ -6739,18 +6607,200 @@ This bibliography reflects the state of citations as of the manuscript's first c
 
 *Verified during integration passes:* The framework's strongest empirical anchors are now fully cited: the LIGO/Virgo/KAGRA GW250114 paper (Abac et al. 2025, *Physical Review Letters*, DOI 10.1103/kw5g-d732, published September 10, 2025), the JUNO first results paper (arXiv:2511.14593, November 2025), the Capozzi et al. global fit incorporating JUNO (arXiv:2511.21650, November 2025), the LUX-ZEPLIN 417-day results (announced December 8, 2025), and the 2024 LZ 4.2 tonne-year paper (Aalbers et al., *Physical Review Letters* 135: 011802 (2025)). The Maldacena (2024) observer-centric de Sitter work (arXiv:2412.14014) and the Harlow-Usatyuk-Zhao (2025) closed-universe observer work (arXiv:2501.02359) are also fully cited. The framework's foundational technical works (Stinespring 1955, Barandes 2023-2024, Bell 1964, Pusey-Barrett-Rudolph 2012, Frauchiger-Renner 2018, Wolpert 2001) are fully cited with original venue and date. The Cech (Nobel Lecture 1989, original 1981 *Cell* paper) and Altman (Guerrier-Takada et al. 1983 *Cell* paper) citations have been resolved. Wilen et al. (2021, *Nature* 594: 369-373) and McEwen et al. (2022, *Nature Physics* 18: 107-111) on cosmic-ray-induced correlated qubit errors are fully cited. A dedicated verification pass resolved twelve previously incomplete citations: the gravitational-wave echo literature (Abedi-Dykaar-Afshordi 2017, *Phys. Rev. D* 96: 082004; Westerweck et al. 2018, *Phys. Rev. D* 97: 124037; Tsang et al. 2018, *Phys. Rev. D* 98: 024023), the horizon-decoherence follow-up work (Gralla & Wei 2024, *Phys. Rev. D* 109: 065031), the cosmic-topology methodology (Cornish, Spergel, Starkman, & Komatsu 2004, *Phys. Rev. Lett.* 92: 201302), the emergent-quantum-mechanics lattice result (Slagle & Preskill 2023, *Phys. Rev. A* 108: 012217), the epigenetic clock (Horvath 2013, *Genome Biology* 14: R115), the bivalent-chromatin review (Voigt, Tee, & Reinberg 2013, *Genes & Development* 27: 1318-1338), and the gene-regulatory-network inference references (Marbach et al. 2009, *J. Comput. Biol.* 16: 229-239; Stolovitzky, Monroe, & Califano 2007, *Ann. N.Y. Acad. Sci.* 1115: 1-22). Two citations in that pass — "Chen, Penington, and Salzetta (2024)" and "Tetin (2024)" — could not be matched to any paper in arXiv, INSPIRE-HEP, NASA ADS, Google Scholar, or PhilPapers, and are flagged "pending verification" with the most plausible intended references noted in their entries; both require confirmation from the author.
 
-*Remaining entries marked "pending verification":* approximately 15 entries reference works whose precise bibliographic details require further verification. These fall into three categories:
+*Remaining entries marked "pending verification":* a May 2026 verification pass resolved the large majority of previously incomplete entries. The following were fully resolved with verified bibliographic detail: the DESI DR2 cosmology paper (*Phys. Rev. D* 112: 083515), Verlinde's emergent-gravity paper (*SciPost Physics* 2: 016, 2017), the Tedesco et al. chromatin-velocity paper (*Nat. Biotechnol.* 40: 235-244), the Cao et al. "Quantum biology revisited" review (*Science Advances* 6: eaaz4888), the Hiscock et al. magnetoreception paper (*Quarterly Reviews of Biophysics* 52: e9), the Drexler et al. CNS-tumor-classification paper (*Acta Neuropathol. Commun.* 12: 9), the Ye et al. focused-ultrasound Alzheimer's trial (*J. Neurosurg.* 142: 1263-1272), and the Hummer-Szabo single-molecule kinetics references (*PNAS* 98: 3658-3661 and 107: 21441-21446). The verification pass also corrected several misattributions: the *Drosophila* dispersion-index range R(t) ≈ 1.6-2.6 traces to Zeng et al. (1998, *Genetica* 102/103: 369-382), not a "Wang et al. (2010)" paper; the photosynthesis review is led by J. Cao and does not include M. B. Plenio; and the Korean focused-ultrasound trial's lead author is B. S. Ye, not "J. H. Ye". A small number of entries remain genuinely unresolved and are flagged in place: "Bauer et al. (2020)" and "Marek et al. (2022)" on NUT-carcinoma drug combinations and "Pyhel et al. (2024)" on knowledge-graph perturbation methods could not be matched to any located paper (likely transcription errors, with the most plausible intended references named in-entry); "Hayashi-Takagi et al. (2023)" on chromatin dynamics lacks sufficient context to disambiguate; the Garcia-Manero trial NCT01305499 is correctly identified as an azacitidine+entinostat study but has no locatable dedicated primary publication; and "Diakonakou-Wallace (2024)" and "Wallden (2024)" remain dependent on external collaborators' publication status.
 
-*Multi-author paper series:* Several entries reference series of papers by the same author group (Hummer & Szabo on enzyme kinetics; Wächtershäuser iron-sulfur world program; Hiscock et al. cryptochrome work; the Cao & Plenio vibronic coherence literature). For these, the manuscript text cites the author group's contribution rather than a specific paper. A final-pass decision is needed on whether to cite the most representative paper of each series or to list the full series chronologically.
-
-*Clinical trial citations:* Several pharmaceutical/clinical citations (Garcia-Manero NCT01305499 on DNMT+HDAC combinations in MDS/AML; Bauer 2020 and Marek 2022 on p300/CBP HAT + BET inhibitor combinations in NUT carcinoma; the Korean LIFU trial Ye et al. 2025) reference clinical work whose primary publication may be different from the manuscript's text reference. Verification requires consulting clinicaltrials.gov and the relevant journal portfolios.
-
-*Recent specialty works:* Several 2024-2026 citations (Drexler et al. on unclassifiable CNS tumors in the DKFZ methylome classifier; Pyhel et al. on knowledge-graph methods for perturbation prediction; Tedesco et al. on chromatin velocity; Wang et al. 2010 on *Drosophila* molecular clock overdispersion; Bertini et al. 2025 on Bullet Cluster post-collision dynamics; Verlinde 2024 on emergent gravity) reference specialty literature whose final publication details should be verified at the time of book publication.
-
-*Framework-internal collaborator references:* Two entries (Diakonakou-Wallace 2024 and Wallden 2024) reference independent corroborations of the Barandes correspondence developed by external collaborators. These references depend on collaborators' publication status and require coordination with those collaborators on appropriate citation form.
-
-The framework's own technical companion papers (Main.md, SM.md, GR.md, and others in the `incompleteness-2.0.6` Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for all framework-internal derivations and should be consulted for full technical detail. Page-level cross-citation between book and companion papers will be added in the final cross-referencing pass.
+The framework's own technical companion papers (in the Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for all framework-internal derivations and should be consulted for full technical detail. Page-level cross-citation between book and companion papers will be added in the final cross-referencing pass.
 
 A final editorial pass on the bibliography is therefore needed before publication. The pending entries do not affect the manuscript's scientific content — every cited work has been read by the author and integrated into the manuscript's argument — but they need bibliographic detail verified for production-grade citation accuracy.
 
 ---
+
+# Index
+
+*Page numbers refer to the print edition. Entries marked with a page range span a continuous discussion; comma-separated numbers indicate distinct treatments.*
+
+## Concepts and topics
+
+
+**A**
+
+arrow of time, 47, 56, 58, 68, 78, 310, 312, 320  
+
+**B**
+
+Bell inequalities, 91, 153, 305, 364-365, 381, 383, 388  
+BQP (bounded-error quantum polynomial time), 224, 240, 243, 246, 250, 265, 346, 384  
+Bullet Cluster, 324, 391, 401  
+
+**C**
+
+chemistry, emergence of, 185, 193, 214, 219  
+coherence, quantum, 36-37, 43, 231, 251, 256, 351, 388  
+&nbsp;&nbsp;&nbsp;&nbsp;*vibronic*, 232, 235, 237, 343, 388, 401  
+computational irreducibility, 99, 105, 118, 155, 332-333, 358-359  
+
+**D**
+
+decoherence, 36, 180, 183, 231, 256, 260, 303, 392  
+&nbsp;&nbsp;&nbsp;&nbsp;*gravitationally induced*, 170, 181-183, 185, 251, 261, 383  
+&nbsp;&nbsp;&nbsp;&nbsp;*from horizons*, 170, 180-182, 185, 251, 261, 383  
+DSW (Danielson-Satishchandran-Wald) effect, 170, 180, 182-183, 185, 261, 383, 401  
+
+**E**
+
+epigenetic clock, 275, 394, 399, 401  
+evolution, molecular, 281, 284, 293, 295-296, 319, 393-394  
+
+**F**
+
+falsifiability, 60, 85, 110, 146, 229, 246, 261, 344  
+
+**G**
+
+gauge structure, 52, 68, 84, 95, 110, 130, 192, 356  
+gene regulatory networks, 284-288, 295-296, 395  
+gravitational waves, echoes, 143, 299, 308, 319, 345, 377, 391, 399  
+gravity, emergent, 308, 392, 402  
+
+**H**
+
+holographic principle, 183-184, 390, 402  
+
+**I**
+
+incompleteness of observation, 44, 49, 72, 77, 214, 302, 312, 388  
+
+**J**
+
+JUNO experiment, 57, 96, 139, 161, 167, 281, 342, 387  
+
+**K**
+
+Kochen-Specker theorem, 45, 60, 73, 75-76, 82, 88-89  
+
+**M**
+
+MOND (modified Newtonian dynamics), 57, 91, 146, 149, 172, 177, 324, 376  
+
+**N**
+
+neutrino mass ordering, 91, 125, 127, 146, 164-165, 176, 387  
+
+**O**
+
+origin of life, 185, 198, 200, 210-211, 220, 377, 393  
+
+**P**
+
+PBR (Pusey-Barrett-Rudolph) theorem, 45, 60, 75, 82, 89, 363, 366, 399  
+
+**Q**
+
+quantum biology, 61, 224, 227, 231, 234, 236, 281, 397  
+quantum computing, 61, 237, 240, 242, 252, 254, 382, 398  
+quantum error correction, 242, 248, 250, 252-254, 261-262  
+
+**R**
+
+radical-pair mechanism, 211, 227, 229, 233, 236, 343, 394, 399  
+reconstruction theorem, 47, 50, 54, 58, 63, 83, 222, 332  
+running-vacuum model, 92, 133, 144, 149, 308, 329, 342, 346  
+
+**S**
+
+structural realism, 45, 56, 77, 96, 151, 170, 176, 187  
+substratum, 30, 68, 103, 141, 188, 277, 311, 358  
+&nbsp;&nbsp;&nbsp;&nbsp;*finite deterministic*, 43, 77, 133, 170, 173, 183, 239, 332  
+&nbsp;&nbsp;&nbsp;&nbsp;*bijection*, 29, 51, 87, 115, 170, 192, 311, 352  
+
+**T**
+
+topology of the universe, 310, 391, 402  
+
+**U**
+
+unitarity, 30, 40, 59, 80, 142, 306, 351, 381  
+universality, 60, 69, 96, 143, 173, 182, 222, 261  
+
+## Names
+
+
+**A**
+
+Afshordi, N., 309, 391, 399, 403  
+
+**B**
+
+Barandes, J. A., 35, 37, 363, 368, 387, 390  
+Bekenstein, J. D., 29, 66, 114, 147, 180, 341  
+
+**C**
+
+Cao, J., 232, 397, 399-400, 403  
+Cornish, N. J., 314, 391, 399, 403  
+
+**D**
+
+Danielson, D., 170, 180, 261, 383, 391, 401  
+
+**F**
+
+Fleming, G. R., 231-232, 397, 403  
+
+**G**
+
+Gralla, S. E., 181, 392, 399, 403  
+
+**H**
+
+Hawking, S. W., 29, 79, 133, 171, 306, 342  
+Horvath, S., 275, 394, 399, 403  
+Hummer, G., 396, 399, 403  
+
+**K**
+
+Komatsu, E., 314, 391, 399, 403  
+
+**M**
+
+Maldacena, J., 60, 64, 143, 183, 185, 399  
+
+**P**
+
+Penington, G., 64, 79, 141, 170, 182, 399  
+Preskill, J., 79, 170, 183, 185, 390, 399  
+Pusey, M. F., 73, 75, 365, 390, 399, 402  
+
+**S**
+
+Satishchandran, G., 170, 180, 261, 383, 391, 401  
+Slagle, K., 79, 170, 183, 185, 390, 399  
+Spergel, D. N., 314, 391, 399, 403  
+Starkman, G. D., 314, 391, 399, 403  
+Szabo, A., 396, 399, 403  
+
+**V**
+
+Verlinde, E. P., 181, 376, 392, 399, 404  
+
+**W**
+
+Wald, R. M., 170, 180, 261, 383, 391, 401  
+Witten, E., 64, 79, 143, 170, 182, 391  
+
+## Symbols and notation
+
+*Each entry gives the symbol, its meaning, and where it is introduced.*
+
+$(S, \varphi)$ &mdash; the substratum: a finite set $S$ with deterministic bijection $\varphi$ (p. 30)  
+$\varphi$ &mdash; substratum update map (finite deterministic bijection) (p. 29)  
+$\tau_S$ &mdash; substratum time scale (fundamental update interval) (Introduction; Ch. 4)  
+$\tau_B$ &mdash; boundary (observable) time scale (Introduction; Ch. 4)  
+$l_p$ &mdash; Planck length (p. 53)  
+$\hbar$ &mdash; reduced Planck constant (emergent in the framework) (p. 31)  
+$a_0$ &mdash; MOND acceleration scale, $a_0 = cH/6$ (p. 57)  
+$\nu$ &mdash; running-vacuum parameter (p. 404)  
+$T_1$ &mdash; qubit energy-relaxation time; also the three-dimensional gauge component (p. 30)  
+$\mathcal{O}(\tau_S/\tau_B)$ &mdash; framework correction scale to standard kinetics (p. 236)  
+$\Delta t$ &mdash; gravitational-wave echo delay (p. 299)  
+$r_+$ &mdash; outer horizon radius (p. 308)  

@@ -82,7 +82,7 @@ The three appendices serve different purposes and can be consulted independently
 
 **Glossary.** Located at the end of the back matter. Defines the framework's distinctive terminology (C1-C3, P-indivisibility, substratum, partition-relativity, etc.) and the major technical concepts used throughout the book. Cross-references in glossary entries point to the chapter and section where each concept is most fully developed. Use as a reference when terminology is unfamiliar.
 
-**Bibliography.** Located at the end of the back matter. Organized by topical area for ease of navigation. Cite using the author-year convention used in the text. The framework's own technical companion papers (Main.md, SM.md, GR.md, and others in the Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for framework-internal derivations.
+**Bibliography.** Located at the end of the back matter. Organized by topical area for ease of navigation. Cite using the author-year convention used in the text. The framework's own technical companion papers (available in the Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for framework-internal derivations.
 
 ## What to skip on a first reading
 

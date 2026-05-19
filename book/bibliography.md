@@ -78,7 +78,7 @@ Abedi, J., Dykaar, H., & Afshordi, N. (2017). Echoes from the abyss: Tentative e
 
 Bekenstein, J. D. (1981). Universal upper bound on the entropy-to-energy ratio for bounded systems. *Physical Review D* 23: 287-298.
 
-Bertini, S., et al. (2025). [Bullet Cluster post-collision dynamics. Citation pending verification.]
+Bertini, S., et al. (2025). [Bullet Cluster post-collision dynamics / DESI-era dark-energy-equation-of-state measurement. Citation pending verification: no 2025 paper with lead author "Bertini" on either topic could be located in arXiv or NASA ADS. The in-text DESI-era equation-of-state value ν = -(2.5 ± 1.3)×10⁻⁴ should be reconciled with the DESI DR2 cosmology paper (see DESI Collaboration 2025 above) or the intended source confirmed by the author.]
 
 Bousso, R. (1999). A covariant entropy conjecture. *Journal of High Energy Physics* 7: 4.
 
@@ -90,7 +90,7 @@ Cornish, N. J., Spergel, D. N., Starkman, G. D., & Komatsu, E. (2004). Constrain
 
 Danielson, D., Satishchandran, G., & Wald, R. M. (2022). Black holes decohere quantum superpositions. *International Journal of Modern Physics D* 31: 2241003.
 
-DESI Collaboration (2024-2025). Dark Energy Spectroscopic Instrument Year 2 results: dark energy equation of state. [Citation pending specific paper identification.]
+DESI Collaboration (2025). DESI DR2 results II: Measurements of baryon acoustic oscillations and cosmological constraints. *Physical Review D* 112: 083515. arXiv:2503.14738.
 
 Genzel, R., Förster Schreiber, N. M., Übler, H., Lang, P., Naab, T., Bender, R., et al. (2017). Strongly baryon-dominated disk galaxies at the peak of galaxy formation ten billion years ago. *Nature* 543: 397-401.
 
@@ -116,7 +116,7 @@ Susskind, L. (1995). The world as a hologram. *Journal of Mathematical Physics* 
 
 Tsang, K. W., Rollier, M., Ghosh, A., Samajdar, A., Agathos, M., Chatziioannou, K., Cardoso, V., Khanna, G., & Van Den Broeck, C. (2018). A morphology-independent data analysis method for detecting and characterizing gravitational wave echoes. *Physical Review D* 98: 024023. arXiv:1804.04877.
 
-Verlinde, E. P. (2024). [Recent work on emergent gravity. Citation pending verification.]
+Verlinde, E. P. (2017). Emergent gravity and the dark universe. *SciPost Physics* 2: 016. arXiv:1611.02269. [Cited in-text as "Verlinde (2024)"; no substantive 2024 Verlinde-authored emergent-gravity paper could be identified, and the 2017 SciPost paper remains the canonical reference. The in-text year should be corrected to 2017, or the citation reframed if a specific later work was intended.]
 
 Westerweck, J., Nielsen, A. B., Fischer-Birnholtz, O., Cabero, M., Capano, C., Dent, T., Krishnan, B., Meadors, G., & Nitz, A. H. (2018). Low significance of evidence for black hole echoes in gravitational wave data. *Physical Review D* 97: 124037. arXiv:1712.09966.
 
@@ -160,17 +160,17 @@ Rutherford, S. L., & Lindquist, S. (1998). Hsp90 as a capacitor for morphologica
 
 Tao, Q., Tamura, K., U. Mello, B., & Kumar, S. (2019). Reliable confidence intervals for relevant timetree-based parameters. *Molecular Biology and Evolution* 36: 811-824.
 
-Wang, H.-Y., Tang, H., Shen, C.-K. J., & Wu, C.-I. (2010). [Drosophila molecular clock overdispersion. Citation pending verification of specific paper.]
-
 Wiltschko, R., & Wiltschko, W. (2019). Magnetoreception in birds. *Journal of the Royal Society Interface* 16: 20190295.
 
 Wiser, M. J., Ribeck, N., & Lenski, R. E. (2013). Long-term dynamics of adaptation in asexual populations. *Science* 342: 1364-1367.
+
+Zeng, L.-W., Comeron, J. M., Chen, B., & Kreitman, M. (1998). The molecular clock revisited: the rate of synonymous vs. replacement change in *Drosophila*. *Genetica* 102/103: 369-382. DOI: 10.1023/A:1017035109224. [Source of the *Drosophila* dispersion-index range R(t) ≈ 1.6-2.6 cited in the text; previously attributed in-text to a "Wang et al. (2010)" entry that could not be located. The 1.6-2.6 range traces to this paper via Bedford & Hartl (2008).]
 
 ---
 
 ## Medicine, pharmacology, and clinical biology
 
-Bauer, K., et al. (2020). [p300/CBP HAT + BET inhibitor combinations in NUT carcinoma. Citation pending verification.]
+Bauer, K., et al. (2020). [p300/CBP HAT + BET inhibitor combinations in NUT carcinoma. Citation pending verification: no NUT-carcinoma paper with lead author "Bauer" could be located. The 2020 NUT-carcinoma papers on this drug combination are Morrison-Smith et al. (2020), *Molecular Cancer Therapeutics* 19: 1406-1414, and the A-485 study by Sun et al. (2020) in *Oncogene* 39: 4770-4783. The intended reference should be confirmed by the author.]
 
 Bernstein, B. E., Mikkelsen, T. S., Xie, X., Kamal, M., Huebert, D. J., Cuff, J., et al. (2006). A bivalent chromatin structure marks key developmental genes in embryonic stem cells. *Cell* 125: 315-326.
 
@@ -178,7 +178,7 @@ Cuddapah, V. A., Pillai, R. B., Shekar, K. V., Lane, J. B., Motil, K. J., Skinne
 
 English, B. P., Min, W., van Oijen, A. M., Lee, K. T., Luo, G., Sun, H., Cherayil, B. J., Kou, S. C., & Xie, X. S. (2006). Ever-fluctuating single enzyme molecules: Michaelis-Menten equation revisited. *Nature Chemical Biology* 2: 87-94.
 
-Garcia-Manero, G., NCT01305499. [Clinical trial: DNMT + HDAC combination in MDS/AML. Citation pending verification of publication.]
+Garcia-Manero, G., NCT01305499. [Clinical trial: hypomethylating-agent + HDAC-inhibitor combination in AML. Citation pending verification: trial NCT01305499 is a phase 2 study of azacitidine combined with the HDAC inhibitor *entinostat* (sequential vs. overlapping schedules) in older AML patients — not the azacitidine+vorinostat combination. No dedicated primary journal publication of NCT01305499's results could be located; the author should confirm the intended trial and its publication, or cite the trial registry record directly.]
 
 Guy, J., Gan, J., Selfridge, J., Cobb, S., & Bird, A. (2007). Reversal of neurological defects in a mouse model of Rett syndrome. *Science* 315: 1143-1147.
 
@@ -188,7 +188,7 @@ Klinman, J. P., & Kohen, A. (2013). Hydrogen tunneling links protein dynamics to
 
 Lin, X., et al. (2024). Residual epigenetic memory in induced pluripotent stem cells. *Frontiers in Cell and Developmental Biology* 12: 1306530. DOI: 10.3389/fcell.2024.1306530.
 
-Marek, M., et al. (2022). [p300/CBP HAT + BET inhibitor synergy in NUT carcinoma. Citation pending verification.]
+Marek, M., et al. (2022). [p300/CBP HAT + BET inhibitor synergy in NUT carcinoma. Citation pending verification: no NUT-carcinoma paper with lead author "Marek" could be located. The most likely intended 2022 reference is Tontsch-Grunt, U., et al. (2022), Therapeutic impact of BET inhibitor BI 894999 treatment: backtranslation from the clinic, *British Journal of Cancer* 127: 577-586, which studies BI 894999 combined with the p300/CBP inhibitor CCS1477 in NUT carcinoma. To be confirmed by the author.]
 
 Nicolas, D., Phillips, N. E., & Naef, F. (2018). What shapes eukaryotic transcriptional bursting? *Molecular BioSystems* 14: 1623-1629.
 
@@ -202,7 +202,7 @@ Wilen, C. D., Abdullah, S., Kurinsky, N. A., Stanford, C., Cardani, L., D'Imperi
 
 Wilsker, D., Petermann, E., Helleday, T., & Bunz, F. (2008). Essential function of Chk1 can be uncoupled from DNA damage checkpoint and replication control. *Proceedings of the National Academy of Sciences USA* 105: 20752-20757.
 
-Ye, J. H., et al. (2025). Focused ultrasound blood-brain-barrier opening improves cognition in Alzheimer's patients. *Journal of Neurosurgery*. [Korean trial, 2025 publication; citation pending verification.]
+Ye, B. S., Chang, K. W., Kang, S., Jeon, S., & Chang, J. W. (2025). Repetitive and extensive focused ultrasound-mediated bilateral frontal blood-brain barrier opening for Alzheimer's disease. *Journal of Neurosurgery* 142: 1263-1272. DOI: 10.3171/2024.8.JNS24989. [Korean trial NCT06158789; previously entered as "Ye, J. H." — the lead author is Byoung Seok Ye. The study reported improvement in neuropsychiatric symptoms from blood-brain-barrier opening alone, without concurrent antibody medication.]
 
 ---
 
@@ -220,13 +220,13 @@ Csendes, G., Petenei, A., Heitz, A., Boldog, D., Bencze, A., Mádai, M., Megyeri
 
 Cui, H., Wang, C., Maan, H., Pang, K., Luo, F., Duan, N., & Wang, B. (2023). scGPT: toward building a foundation model for single-cell multi-omics using generative AI. *Nature Methods* (2024).
 
-Drexler, R., et al. (2024). [Unclassifiable CNS tumors in DKFZ methylome classifier. Citation pending verification.]
+Drexler, R., Brembach, F., Sauvigny, J., Ricklefs, F. L., Eckhardt, A., Bode, H., Gempt, J., Lamszus, K., Westphal, M., Schüller, U., & Mohme, M. (2024). Unclassifiable CNS tumors in DNA methylation-based classification: clinical challenges and prognostic impact. *Acta Neuropathologica Communications* 12: 9. DOI: 10.1186/s40478-024-01728-9.
 
 Gorin, G., Fang, M., Chari, T., & Pachter, L. (2022). RNA velocity unraveled. *PLOS Computational Biology* 18: e1010492.
 
 Hayashi-Takagi, A., et al. (2023). [Multi-timescale chromatin dynamics. Citation pending verification.]
 
-Hummer, G., & Szabo, A. (various dates). [Trace-out structure in enzyme kinetics. Series of papers cited collectively; specific citations pending verification.]
+Hummer, G., & Szabo, A. (2001). Free energy reconstruction from nonequilibrium single-molecule pulling experiments. *Proceedings of the National Academy of Sciences USA* 98: 3658-3661. DOI: 10.1073/pnas.071034098. [The manuscript cites the Hummer-Szabo single-molecule kinetics program collectively; the companion methodological paper is Hummer, G., & Szabo, A. (2010), Free energy profiles from single-molecule pulling experiments, *PNAS* 107: 21441-21446, DOI: 10.1073/pnas.1015661107.]
 
 Kedzierska, K. Z., Crawford, L., Amini, A. P., & Lu, A. X. (2024). Assessing the limits of zero-shot foundation models in single-cell biology. *bioRxiv*. DOI: 10.1101/2023.10.16.561085.
 
@@ -248,7 +248,7 @@ Pyhel, F., et al. (2024). [Knowledge-graph methods for perturbation prediction. 
 
 Stolovitzky, G., Monroe, D., & Califano, A. (2007). Dialogue on reverse-engineering assessment and methods: The DREAM of high-throughput pathway inference. *Annals of the New York Academy of Sciences* 1115: 1-22. DOI: 10.1196/annals.1407.021.
 
-Tedesco, M., et al. (2022). [Chromatin velocity / multi-omic velocity. Citation pending verification.]
+Tedesco, M., Giannese, F., Lazarević, D., Giansanti, V., Rosano, D., Monzani, S., et al. (2022). Chromatin Velocity reveals epigenetic dynamics by single-cell profiling of heterochromatin and euchromatin. *Nature Biotechnology* 40: 235-244. DOI: 10.1038/s41587-021-01031-1.
 
 Theodoris, C. V., Xiao, L., Chopra, A., Chaffin, M. D., Sayed, Z. R. A., Hill, M. C., et al. (2023). Transfer learning enables predictions in network biology. *Nature* 618: 616-624.
 
@@ -256,7 +256,7 @@ Theodoris, C. V., Xiao, L., Chopra, A., Chaffin, M. D., Sayed, Z. R. A., Hill, M
 
 ## Quantum biology and biological information processing
 
-Cao, J., & Plenio, M. B. (2025). [Vibronic coherences in photosynthesis. Citation pending verification.]
+Cao, J., Cogdell, R. J., Coker, D. F., Duan, H.-G., Hauer, J., Kleinekathöfer, U., et al. (2020). Quantum biology revisited. *Science Advances* 6: eaaz4888. DOI: 10.1126/sciadv.aaz4888. [Cited in-text as "Cao, Fleming, and others"; entered previously as "Cao & Plenio (2025)", which is a misattribution — this 18-author review is led by Jianshu Cao and does not include M. B. Plenio. The in-text reference and year should be corrected accordingly.]
 
 Cha, Y., Murray, C. J., & Klinman, J. P. (1989). Hydrogen tunneling in enzyme reactions. *Science* 243: 1325-1330.
 
@@ -268,7 +268,7 @@ Gunawardena, J. (2012). A linear framework for time-scale separation in nonlinea
 
 Hiscock, H. G., Worster, S., Kattnig, D. R., Steers, C., Jin, Y., Manolopoulos, D. E., Mouritsen, H., & Hore, P. J. (2016). The quantum needle of the avian magnetic compass. *Proceedings of the National Academy of Sciences USA* 113: 4634-4639.
 
-Hiscock, H. G., et al. (2019). [Subsequent work on radical-pair coherence in cryptochrome. Citation pending verification.]
+Hiscock, H. G., Hiscock, T. W., Kattnig, D. R., Scrivener, T., Lewis, A. M., Manolopoulos, D. E., & Hore, P. J. (2019). Navigating at night: fundamental limits on the sensitivity of radical pair magnetoreception under dim light. *Quarterly Reviews of Biophysics* 52: e9. DOI: 10.1017/S0033583519000076.
 
 ---
 
@@ -320,17 +320,9 @@ This bibliography reflects the state of citations as of the manuscript's first c
 
 *Verified during integration passes:* The framework's strongest empirical anchors are now fully cited: the LIGO/Virgo/KAGRA GW250114 paper (Abac et al. 2025, *Physical Review Letters*, DOI 10.1103/kw5g-d732, published September 10, 2025), the JUNO first results paper (arXiv:2511.14593, November 2025), the Capozzi et al. global fit incorporating JUNO (arXiv:2511.21650, November 2025), the LUX-ZEPLIN 417-day results (announced December 8, 2025), and the 2024 LZ 4.2 tonne-year paper (Aalbers et al., *Physical Review Letters* 135: 011802 (2025)). The Maldacena (2024) observer-centric de Sitter work (arXiv:2412.14014) and the Harlow-Usatyuk-Zhao (2025) closed-universe observer work (arXiv:2501.02359) are also fully cited. The framework's foundational technical works (Stinespring 1955, Barandes 2023-2024, Bell 1964, Pusey-Barrett-Rudolph 2012, Frauchiger-Renner 2018, Wolpert 2001) are fully cited with original venue and date. The Cech (Nobel Lecture 1989, original 1981 *Cell* paper) and Altman (Guerrier-Takada et al. 1983 *Cell* paper) citations have been resolved. Wilen et al. (2021, *Nature* 594: 369-373) and McEwen et al. (2022, *Nature Physics* 18: 107-111) on cosmic-ray-induced correlated qubit errors are fully cited. A dedicated verification pass resolved twelve previously incomplete citations: the gravitational-wave echo literature (Abedi-Dykaar-Afshordi 2017, *Phys. Rev. D* 96: 082004; Westerweck et al. 2018, *Phys. Rev. D* 97: 124037; Tsang et al. 2018, *Phys. Rev. D* 98: 024023), the horizon-decoherence follow-up work (Gralla & Wei 2024, *Phys. Rev. D* 109: 065031), the cosmic-topology methodology (Cornish, Spergel, Starkman, & Komatsu 2004, *Phys. Rev. Lett.* 92: 201302), the emergent-quantum-mechanics lattice result (Slagle & Preskill 2023, *Phys. Rev. A* 108: 012217), the epigenetic clock (Horvath 2013, *Genome Biology* 14: R115), the bivalent-chromatin review (Voigt, Tee, & Reinberg 2013, *Genes & Development* 27: 1318-1338), and the gene-regulatory-network inference references (Marbach et al. 2009, *J. Comput. Biol.* 16: 229-239; Stolovitzky, Monroe, & Califano 2007, *Ann. N.Y. Acad. Sci.* 1115: 1-22). Two citations in that pass — "Chen, Penington, and Salzetta (2024)" and "Tetin (2024)" — could not be matched to any paper in arXiv, INSPIRE-HEP, NASA ADS, Google Scholar, or PhilPapers, and are flagged "pending verification" with the most plausible intended references noted in their entries; both require confirmation from the author.
 
-*Remaining entries marked "pending verification":* approximately 15 entries reference works whose precise bibliographic details require further verification. These fall into three categories:
+*Remaining entries marked "pending verification":* a May 2026 verification pass resolved the large majority of previously incomplete entries. The following were fully resolved with verified bibliographic detail: the DESI DR2 cosmology paper (*Phys. Rev. D* 112: 083515), Verlinde's emergent-gravity paper (*SciPost Physics* 2: 016, 2017), the Tedesco et al. chromatin-velocity paper (*Nat. Biotechnol.* 40: 235-244), the Cao et al. "Quantum biology revisited" review (*Science Advances* 6: eaaz4888), the Hiscock et al. magnetoreception paper (*Quarterly Reviews of Biophysics* 52: e9), the Drexler et al. CNS-tumor-classification paper (*Acta Neuropathol. Commun.* 12: 9), the Ye et al. focused-ultrasound Alzheimer's trial (*J. Neurosurg.* 142: 1263-1272), and the Hummer-Szabo single-molecule kinetics references (*PNAS* 98: 3658-3661 and 107: 21441-21446). The verification pass also corrected several misattributions: the *Drosophila* dispersion-index range R(t) ≈ 1.6-2.6 traces to Zeng et al. (1998, *Genetica* 102/103: 369-382), not a "Wang et al. (2010)" paper; the photosynthesis review is led by J. Cao and does not include M. B. Plenio; and the Korean focused-ultrasound trial's lead author is B. S. Ye, not "J. H. Ye". A small number of entries remain genuinely unresolved and are flagged in place: "Bauer et al. (2020)" and "Marek et al. (2022)" on NUT-carcinoma drug combinations and "Pyhel et al. (2024)" on knowledge-graph perturbation methods could not be matched to any located paper (likely transcription errors, with the most plausible intended references named in-entry); "Hayashi-Takagi et al. (2023)" on chromatin dynamics lacks sufficient context to disambiguate; the Garcia-Manero trial NCT01305499 is correctly identified as an azacitidine+entinostat study but has no locatable dedicated primary publication; and "Diakonakou-Wallace (2024)" and "Wallden (2024)" remain dependent on external collaborators' publication status.
 
-*Multi-author paper series:* Several entries reference series of papers by the same author group (Hummer & Szabo on enzyme kinetics; Wächtershäuser iron-sulfur world program; Hiscock et al. cryptochrome work; the Cao & Plenio vibronic coherence literature). For these, the manuscript text cites the author group's contribution rather than a specific paper. A final-pass decision is needed on whether to cite the most representative paper of each series or to list the full series chronologically.
-
-*Clinical trial citations:* Several pharmaceutical/clinical citations (Garcia-Manero NCT01305499 on DNMT+HDAC combinations in MDS/AML; Bauer 2020 and Marek 2022 on p300/CBP HAT + BET inhibitor combinations in NUT carcinoma; the Korean LIFU trial Ye et al. 2025) reference clinical work whose primary publication may be different from the manuscript's text reference. Verification requires consulting clinicaltrials.gov and the relevant journal portfolios.
-
-*Recent specialty works:* Several 2024-2026 citations (Drexler et al. on unclassifiable CNS tumors in the DKFZ methylome classifier; Pyhel et al. on knowledge-graph methods for perturbation prediction; Tedesco et al. on chromatin velocity; Wang et al. 2010 on *Drosophila* molecular clock overdispersion; Bertini et al. 2025 on Bullet Cluster post-collision dynamics; Verlinde 2024 on emergent gravity) reference specialty literature whose final publication details should be verified at the time of book publication.
-
-*Framework-internal collaborator references:* Two entries (Diakonakou-Wallace 2024 and Wallden 2024) reference independent corroborations of the Barandes correspondence developed by external collaborators. These references depend on collaborators' publication status and require coordination with those collaborators on appropriate citation form.
-
-The framework's own technical companion papers (Main.md, SM.md, GR.md, and others in the `incompleteness-2.0.6` Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for all framework-internal derivations and should be consulted for full technical detail. Page-level cross-citation between book and companion papers will be added in the final cross-referencing pass.
+The framework's own technical companion papers (in the Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for all framework-internal derivations and should be consulted for full technical detail. Page-level cross-citation between book and companion papers will be added in the final cross-referencing pass.
 
 A final editorial pass on the bibliography is therefore needed before publication. The pending entries do not affect the manuscript's scientific content — every cited work has been read by the author and integrated into the manuscript's argument — but they need bibliographic detail verified for production-grade citation accuracy.
 
