@@ -7,169 +7,169 @@
 
 **A**
 
-arrow of time, 47, 56, 58, 68, 78, 310, 312, 320  
+arrow of time, 48, 57, 59, 69, 79, 311, 313, 321  
 
 **B**
 
-Bell inequalities, 91, 153, 305, 364-365, 381, 383, 388  
-BQP (bounded-error quantum polynomial time), 224, 240, 243, 246, 250, 265, 346, 384  
-Bullet Cluster, 324, 391, 401  
+Bell inequalities, 92, 154, 306, 365-366, 382, 384, 389  
+BQP (bounded-error quantum polynomial time), 225, 241, 244, 247, 251, 266, 347, 385  
+Bullet Cluster, 325, 392, 402  
 
 **C**
 
-chemistry, emergence of, 185, 193, 214, 219  
-coherence, quantum, 36-37, 43, 231, 251, 256, 351, 388  
-&nbsp;&nbsp;&nbsp;&nbsp;*vibronic*, 232, 235, 237, 343, 388, 401  
-computational irreducibility, 99, 105, 118, 155, 332-333, 358-359  
+chemistry, emergence of, 186, 194, 215, 220  
+coherence, quantum, 37, 43, 232-233, 256, 263, 352, 389  
+&nbsp;&nbsp;&nbsp;&nbsp;*vibronic*, 233, 236, 238, 344, 389, 402  
+computational irreducibility, 100, 106, 119, 156, 333-334, 359-360  
 
 **D**
 
-decoherence, 36, 180, 183, 231, 256, 260, 303, 392  
-&nbsp;&nbsp;&nbsp;&nbsp;*gravitationally induced*, 170, 181-183, 185, 251, 261, 383  
-&nbsp;&nbsp;&nbsp;&nbsp;*from horizons*, 170, 180-182, 185, 251, 261, 383  
-DSW (Danielson-Satishchandran-Wald) effect, 170, 180, 182-183, 185, 261, 383, 401  
+decoherence, 37, 181, 184, 232, 257, 261, 304, 393  
+&nbsp;&nbsp;&nbsp;&nbsp;*gravitationally induced*, 171, 182-184, 186, 252, 262, 384  
+&nbsp;&nbsp;&nbsp;&nbsp;*from horizons*, 171, 181-183, 186, 252, 262, 384  
+DSW (Danielson-Satishchandran-Wald) effect, 171, 181, 183-184, 186, 262, 384, 402  
 
 **E**
 
-epigenetic clock, 275, 394, 399, 401  
-evolution, molecular, 281, 284, 293, 295-296, 319, 393-394  
+epigenetic clock, 276, 395, 400, 402  
+evolution, molecular, 282, 285, 294, 296-297, 320, 394-395  
 
 **F**
 
-falsifiability, 60, 85, 110, 146, 229, 246, 261, 344  
+falsifiability, 61, 86, 111, 147, 230, 247, 262, 345  
 
 **G**
 
-gauge structure, 52, 68, 84, 95, 110, 130, 192, 356  
-gene regulatory networks, 284-288, 295-296, 395  
-gravitational waves, echoes, 143, 299, 308, 319, 345, 377, 391, 399  
-gravity, emergent, 308, 392, 402  
+gauge structure, 53, 69, 85, 96, 111, 131, 193, 357  
+gene regulatory networks, 285-289, 296-297, 396  
+gravitational waves, echoes, 144, 300, 309, 320, 346, 378, 392, 400  
+gravity, emergent, 309, 393, 403  
 
 **H**
 
-holographic principle, 183-184, 390, 402  
+holographic principle, 184-185, 391, 403  
 
 **I**
 
-incompleteness of observation, 44, 49, 72, 77, 214, 302, 312, 388  
+incompleteness of observation, 44, 50, 73, 78, 215, 303, 313, 389  
 
 **J**
 
-JUNO experiment, 57, 96, 139, 161, 167, 281, 342, 387  
+JUNO experiment, 58, 97, 140, 162, 168, 282, 343, 388  
 
 **K**
 
-Kochen-Specker theorem, 45, 60, 73, 75-76, 82, 88-89  
+Kochen-Specker theorem, 45, 61, 74, 76-77, 83, 89-90  
 
 **M**
 
-MOND (modified Newtonian dynamics), 57, 91, 146, 149, 172, 177, 324, 376  
+MOND (modified Newtonian dynamics), 58, 92, 147, 150, 173, 178, 325, 377  
 
 **N**
 
-neutrino mass ordering, 91, 125, 127, 146, 164-165, 176, 387  
+neutrino mass ordering, 92, 126, 128, 147, 165-166, 177, 388  
 
 **O**
 
-origin of life, 185, 198, 200, 210-211, 220, 377, 393  
+origin of life, 186, 199, 201, 211-212, 221, 378, 394  
 
 **P**
 
-PBR (Pusey-Barrett-Rudolph) theorem, 45, 60, 75, 82, 89, 363, 366, 399  
+PBR (Pusey-Barrett-Rudolph) theorem, 45, 61, 76, 83, 90, 364, 367, 400  
 
 **Q**
 
-quantum biology, 61, 224, 227, 231, 234, 236, 281, 397  
-quantum computing, 61, 237, 240, 242, 252, 254, 382, 398  
-quantum error correction, 242, 248, 250, 252-254, 261-262  
+quantum biology, 62, 225, 228, 232, 235, 237, 282, 398  
+quantum computing, 62, 238, 241, 243, 253, 255, 383, 399  
+quantum error correction, 243, 249, 251, 253-255, 262-263  
 
 **R**
 
-radical-pair mechanism, 211, 227, 229, 233, 236, 343, 394, 399  
-reconstruction theorem, 47, 50, 54, 58, 63, 83, 222, 332  
-running-vacuum model, 92, 133, 144, 149, 308, 329, 342, 346  
+radical-pair mechanism, 212, 228, 230, 234, 237, 344, 395, 400  
+reconstruction theorem, 48, 51, 55, 59, 64, 84, 223, 333  
+running-vacuum model, 93, 134, 145, 150, 309, 330, 343, 347  
 
 **S**
 
-structural realism, 45, 56, 77, 96, 151, 170, 176, 187  
-substratum, 30, 68, 103, 141, 188, 277, 311, 358  
-&nbsp;&nbsp;&nbsp;&nbsp;*finite deterministic*, 43, 77, 133, 170, 173, 183, 239, 332  
-&nbsp;&nbsp;&nbsp;&nbsp;*bijection*, 29, 51, 87, 115, 170, 192, 311, 352  
+structural realism, 45, 48, 66, 80, 134, 171, 177, 188  
+substratum, 30, 68, 103, 142, 189, 277, 312, 359  
+&nbsp;&nbsp;&nbsp;&nbsp;*finite deterministic*, 44, 78, 134, 171, 174, 184, 240, 333  
+&nbsp;&nbsp;&nbsp;&nbsp;*bijection*, 29, 52, 88, 116, 171, 193, 312, 353  
 
 **T**
 
-topology of the universe, 310, 391, 402  
+topology of the universe, 311, 392, 403  
 
 **U**
 
-unitarity, 30, 40, 59, 80, 142, 306, 351, 381  
-universality, 60, 69, 96, 143, 173, 182, 222, 261  
+unitarity, 31, 41, 60, 81, 143, 307, 352, 382  
+universality, 61, 70, 97, 144, 174, 183, 223, 262  
 
 ## Names
 
 
 **A**
 
-Afshordi, N., 309, 391, 399, 403  
+Afshordi, N., 310, 392, 400, 404  
 
 **B**
 
-Barandes, J. A., 35, 37, 363, 368, 387, 390  
-Bekenstein, J. D., 29, 66, 114, 147, 180, 341  
+Barandes, J. A., 35, 37, 118, 369, 382, 391  
+Bekenstein, J. D., 30, 72, 131, 148, 181, 342  
 
 **C**
 
-Cao, J., 232, 397, 399-400, 403  
-Cornish, N. J., 314, 391, 399, 403  
+Cao, J., 233, 398, 400-401, 404  
+Cornish, N. J., 315, 392, 400, 404  
 
 **D**
 
-Danielson, D., 170, 180, 261, 383, 391, 401  
+Danielson, D., 171, 181, 262, 384, 392, 402  
 
 **F**
 
-Fleming, G. R., 231-232, 397, 403  
+Fleming, G. R., 232-233, 398, 404  
 
 **G**
 
-Gralla, S. E., 181, 392, 399, 403  
+Gralla, S. E., 182, 393, 400, 404  
 
 **H**
 
-Hawking, S. W., 29, 79, 133, 171, 306, 342  
-Horvath, S., 275, 394, 399, 403  
-Hummer, G., 396, 399, 403  
+Hawking, S. W., 30, 80, 134, 172, 307, 343  
+Horvath, S., 276, 395, 400, 404  
+Hummer, G., 397, 400, 404  
 
 **K**
 
-Komatsu, E., 314, 391, 399, 403  
+Komatsu, E., 315, 392, 400, 404  
 
 **M**
 
-Maldacena, J., 60, 64, 143, 183, 185, 399  
+Maldacena, J., 61, 65, 144, 184, 186, 400  
 
 **P**
 
-Penington, G., 64, 79, 141, 170, 182, 399  
-Preskill, J., 79, 170, 183, 185, 390, 399  
-Pusey, M. F., 73, 75, 365, 390, 399, 402  
+Penington, G., 65, 80, 142, 171, 183, 400  
+Preskill, J., 80, 171, 184, 186, 391, 400  
+Pusey, M. F., 74, 76, 366, 391, 400, 403  
 
 **S**
 
-Satishchandran, G., 170, 180, 261, 383, 391, 401  
-Slagle, K., 79, 170, 183, 185, 390, 399  
-Spergel, D. N., 314, 391, 399, 403  
-Starkman, G. D., 314, 391, 399, 403  
-Szabo, A., 396, 399, 403  
+Satishchandran, G., 171, 181, 262, 384, 392, 402  
+Slagle, K., 80, 171, 184, 186, 391, 400  
+Spergel, D. N., 315, 392, 400, 404  
+Starkman, G. D., 315, 392, 400, 404  
+Szabo, A., 397, 400, 404  
 
 **V**
 
-Verlinde, E. P., 181, 376, 392, 399, 404  
+Verlinde, E. P., 182, 377, 393, 400, 405  
 
 **W**
 
-Wald, R. M., 170, 180, 261, 383, 391, 401  
-Witten, E., 64, 79, 143, 170, 182, 391  
+Wald, R. M., 171, 181, 262, 384, 392, 402  
+Witten, E., 65, 80, 144, 171, 183, 392  
 
 ## Symbols and notation
 
@@ -179,11 +179,11 @@ $(S, \varphi)$ &mdash; the substratum: a finite set $S$ with deterministic bijec
 $\varphi$ &mdash; substratum update map (finite deterministic bijection) (p. 29)  
 $\tau_S$ &mdash; substratum time scale (fundamental update interval) (Introduction; Ch. 4)  
 $\tau_B$ &mdash; boundary (observable) time scale (Introduction; Ch. 4)  
-$l_p$ &mdash; Planck length (p. 53)  
+$l_p$ &mdash; Planck length (p. 54)  
 $\hbar$ &mdash; reduced Planck constant (emergent in the framework) (p. 31)  
-$a_0$ &mdash; MOND acceleration scale, $a_0 = cH/6$ (p. 57)  
-$\nu$ &mdash; running-vacuum parameter (p. 404)  
+$a_0$ &mdash; MOND acceleration scale, $a_0 = cH/6$ (p. 58)  
+$\nu$ &mdash; running-vacuum parameter (p. 405)  
 $T_1$ &mdash; qubit energy-relaxation time; also the three-dimensional gauge component (p. 30)  
-$\mathcal{O}(\tau_S/\tau_B)$ &mdash; framework correction scale to standard kinetics (p. 236)  
-$\Delta t$ &mdash; gravitational-wave echo delay (p. 299)  
-$r_+$ &mdash; outer horizon radius (p. 308)  
+$\mathcal{O}(\tau_S/\tau_B)$ &mdash; framework correction scale to standard kinetics (p. 237)  
+$\Delta t$ &mdash; gravitational-wave echo delay (p. 300)  
+$r_+$ &mdash; outer horizon radius (p. 309)  
