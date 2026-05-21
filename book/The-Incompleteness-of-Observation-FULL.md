@@ -245,6 +245,8 @@ The framework developed in this book rests on the work of many physicists, mathe
 — Alex Maybaum
 
 ---
+-e 
+
 
 # Introduction
 
@@ -355,6 +357,8 @@ The book's technical density varies. Chapters 1, 2, 5, 6, and 7 contain the fram
 Readers approaching the book with different interests will find different reading paths useful. Readers primarily interested in the framework's foundational claim should focus on Chapters 1, 2, and 7; the JUNO prediction in Chapter 8 provides the most concrete empirical anchor. Readers primarily interested in the philosophical positioning should focus on Chapters 3, 4, and 9, with Chapter 18 providing substantive content on consciousness and cosmic-scale questions. Readers approaching the framework from computational complexity or quantum hardware engineering can begin with Chapters 14 and 15 and consult Parts I and II as needed. Readers approaching the framework from biology, medicine, or applied physics can begin with Chapters 12, 13, 16, and 17 and consult Parts I and II as needed. Readers wanting a systematic overview of the framework's content against the standard open problems of fundamental physics should consult Chapter 19 as a reference resource. A reader following the full argument from start to finish — the framework's intended presentation — will find the technical content of Parts I and II load-bearing for the cascade developments of Parts III and IV.
 
 The book makes one foundational commitment — that observation occurs — and develops the consequences. The consequences are extensive. They include the structure of quantum mechanics, the dynamics of general relativity, the gauge group and matter content of the Standard Model, the composition of the cosmological dark sector, the structural conditions for chemistry and life, and the framework's reach into specific contemporary problems in biology and medicine. Whether the framework is correct is an empirical question that will be settled by the predictions developed throughout the book against measurements now being made and forthcoming. The book's role is to make the structure of the framework, the chain of its derivations, and the specific content of its predictions available for evaluation.
+-e 
+
 
 # Chapter 1
 # Embedded Observation and the Characterization Theorem
@@ -681,6 +685,8 @@ This reframing has consequences for the framework's empirical content beyond wha
 The substratum that the framework's algorithm operates on is constructed concretely in Chapter 2 — a three-dimensional cubic lattice with bilinear, block-diagonal dynamics whose structural constraints fix the framework's empirical content. Chapter 3 takes up the framework's full philosophical positioning, including its relationship to the structural realism program, its evasion of Bell, Kochen-Specker, and PBR-type no-go theorems through identification of which descriptive level each assumption fails at, and its parallels to the broader intellectual landscape of incompleteness results from Gödel through Wolpert. Chapter 4 develops the methodological posture — the single-foundational-commitment derivation pattern, the architecture-level engagement with the no-go results, the classification of claims by derivational rigor — that organizes the framework's program as a whole. The remaining chapters trace the framework's predictions through particle physics, gravity, cosmology, the structural cascade from atoms to intelligence, and the framework's reach into chemistry, biology, medicine, and quantum engineering.
 
 The remainder of this part of the book develops the substratum, the structural realism, and the methodology in detail. Part II turns to the framework's quantitative physics. Part III traces the cascade from substratum to chemistry, biology, and intelligence. Part IV develops the framework's reach into working scientific fields.
+-e 
+
 
 # Chapter 2
 # The Substratum
@@ -916,6 +922,8 @@ Parts II and III then develop the framework's quantitative consequences. Chapter
 The cascade through chemistry, biology, evolution, and intelligence in Chapters 10–12 takes the structural results of Parts I and II as derived inputs and develops their consequences for the structural conditions under which complex matter, life, and intelligence become possible. The applications in Chapters 13–17 develop the framework's reach into working scientific fields: quantum biology, quantum computing and engineering, medicine, bioinformatics.
 
 The framework's claim, made precise across these chapters, is that a single starting commitment — that observation occurs — combined with the lemmas extracted from this commitment and the conditions identified for embedded observers in our universe, produces a substratum that is forced to have a specific architecture, with quantum mechanics, general relativity, the Standard Model, and the cosmological dark sector all forced consequences of the architecture rather than separate empirical inputs. The book's role is to make this chain of derivations available for evaluation against the experimental record now being assembled and forthcoming.
+-e 
+
 
 # Chapter 3
 # Hierarchical Structural Realism
@@ -1143,6 +1151,8 @@ Chapter 8 develops the universality-class structure and the framework's relation
 Parts II–IV develop the framework's empirical content at the various levels identified in this chapter. The Level G3 × Level D predictions — the twenty-two Standard Model retrodictions, the JUNO neutrino-mixing angle, the Bekenstein-Hawking $1/4$ factor, the MOND acceleration scale, the dark-sector predictions — are developed quantitatively. The Level G2 × Level D structural commitments — the Standard Model gauge group, the three-generation structure, the anomaly-free hypercharges — are developed as derivations from the cubic-group commutant. The Level G4 × Level C universal features — the Born rule, channel unitarity, P-indivisibility, the commutant restriction pattern — are taken as given content of the framework's foundational theorems.
 
 The framework's hierarchical structure is what makes the framework different from a single bold claim about reality. It is a coordinated set of claims at different levels of generality, with different empirical predictions, different falsifiability conditions, and different philosophical commitments at each level. The framework's strongest realism — at Level D × Level G3 — is also its narrowest. The framework's broadest realism — at Level C × Level G4 — is also its most universal. The book's role is to develop these levels with the technical and empirical content that distinguishes one level from another.
+-e 
+
 
 # Chapter 4
 # Methodology
@@ -1336,6 +1346,8 @@ Parts III and IV develop the framework's reach into structural cascades and appl
 The methodology developed in this chapter is not unique to the framework. The single-foundational-commitment pattern is a general principle of theory construction, the claim-classification scheme is a general standard for empirical evaluation, the architecture-level no-go engagement is a general method for analyzing structural results, and the pre-registered falsification discipline is a general epistemological standard. The framework's contribution is to apply this methodology systematically rather than selectively, with every prediction carrying its classification and every structural commitment carrying its falsification condition. What this discipline produces, when applied to the framework's foundational starting point — the two-axiom observation base — is the content developed in the remaining chapters of the book.
 
 The methodological posture sketched in this chapter is developed at length, for a philosophy-of-physics readership, in a companion paper — *Physics Modulo Gauge* — which treats the two-axiom foundational commitment, constructive structural realism, the engagement with the no-go results of quantum foundations through a single architectural feature, and "physics modulo gauge" as a general methodology. That paper is a companion to the framework's technical sequence rather than part of this book; readers concerned specifically with the framework's methodology and its relation to the foundations-of-physics literature will find it the natural next text.
+-e 
+
 
 # Chapter 5
 # The Emergence of Gauge Structure
@@ -1534,6 +1546,8 @@ The chapter has established the gauge structure of the Standard Model from the c
 The chapter's content sits at Level 0 of the four-layer framing developed in Chapter 4 — gauge structure derived from substratum-level representation theory — and is correspondingly unconditional S-class structural in the framework's claim-classification scheme. The gauge group is not fitted to observation; it is forced. The hypercharges are not chosen from a continuum of possibilities; they are determined by anomaly cancellation. Falsification of either would refute the framework directly: any stable beyond-Standard-Model gauge structure, any departure of the hypercharges from the values derived here, would violate the framework's Class A structural commitments developed in Chapter 4 §4.5.
 
 Chapter 6 develops the specific quantitative content this gauge structure produces. The matter content is derived: three chiral fermion generations from the staggered taste structure of the wave equation, one composite Higgs doublet from the singlet staggered taste, with the absolute generation count locked at three by coupling-degree minimization. The strong-CP problem is resolved structurally: $\bar\theta = 0$ at all energy scales follows from T-invariance of the substratum bijection combined with detailed balance, requiring no axion. The gauge couplings at the $Z$ pole follow from a one-parameter chain whose structural inputs include the analytic one-loop staggered vacuum polarization $1/\alpha_0 = 23.25$ and the cubic-group structure of the matter content. The twenty-two parameter-free quantitative retrodictions developed there include the Cabibbo angle $1/(\pi\sqrt{2})$ matched to $0.04\%$, the Koide relation $2/9$ matched to $0.02\%$, the six fermion masses from a single empirical input matched to better than $1\%$, all three PMNS mixing angles within $1.1\sigma$, and the Higgs mass from the boundary condition $\lambda(M_{\text{Pl}}) = 0$ matched to $0.9\%$. The framework's quantitative empirical record outside cosmology is concentrated in Chapter 6.
+-e 
+
 
 # Chapter 6
 # The Matter Content and Quantitative Predictions
@@ -1704,14 +1718,14 @@ The structural interpretation is geometric: $C_2(T_1)/d^2$ is the anisotropy str
 
 A first-principles derivation of the specific $1/d$ amplitude scaling (rather than alternatives like $1/(2d)$) from the cubic-lattice Yukawa structure remains an open task; the empirical match at $0.02\%$ constrains the amplitude scaling tightly. The Koide prediction is currently Class B-S Layer 1 — unconditional structural at the substratum-geometry level — with the open derivation question being whether the $1/d$ amplitude is forced by the framework's structural commitments or chosen empirically.
 
-**The charged-lepton mass chain.** Given the Koide angle $\theta_0 = 2/9$ and one empirical input (the tau mass $m_\tau = 1776.86$ MeV), the Koide relation determines the electron and muon masses uniquely. The remaining two masses are not independent observables but inheritances from the Koide structure plus the tau mass input.
+**The charged-lepton mass chain.** Given the Koide angle $\theta_0 = 2/9$ and one empirical input (the tau mass $m_\tau = 1776.86$ MeV), the framework determines the electron and muon masses through a *second* structural commitment beyond the Koide relation itself. The Koide relation $Q = 2/3$ is one equation in three mass unknowns; given $m_\tau$, it leaves a one-parameter family of $(m_e, m_\mu)$ pairs. To fix a specific point in this family, the framework adopts the $\mathbb{Z}_3$-symmetric parametrization that Koide originally used (Koide 1982): the three masses are written as $m_i = m_0(1 + \sqrt{2}\cos(\delta + 2\pi i/3))^2$ for $i = 1, 2, 3$, with the $\mathbb{Z}_3$-symmetric angle $\delta$ fixed by the cubic-group representation theory of the $T_1$ triplet acting democratically on the three generations. The combination of $Q = 2/3$ from the cubic Casimir and the $\mathbb{Z}_3$-symmetric angle from the $T_1$ representation theory uniquely determines all three lepton masses from a single empirical scale.
 
 | Mass | Predicted | Observed | Deviation |
 |------|-----------|----------|-----------|
 | $m_e$ | 0.51096 MeV | 0.51100 MeV | $0.007\%$ |
 | $m_\mu$ | 105.652 MeV | 105.658 MeV | $0.006\%$ |
 
-The predictions match observation to better than $0.01\%$ — well below the precision of the input $m_\tau$. The classification per Chapter 4 §4.5 is that the electron and muon masses are Class B-M (mass-chain inheritance from a single upstream empirical input); the Koide relation itself is Class B-S Layer 1.
+The predictions match observation to better than $0.01\%$ — well below the precision of the input $m_\tau$. The classification per Chapter 4 §4.5 is that the electron and muon masses are Class B-M (mass-chain inheritance from a single upstream empirical input plus structural commitment); the Koide relation itself is Class B-S Layer 1. The $\mathbb{Z}_3$-angle ansatz is Class B-S Layer 1 from the $T_1$ representation theory, with the empirical match providing nontrivial evidence that the cubic-group structural commitment is what the substratum realizes.
 
 **The full six-mass chain.** The structural relations link all six lighter fermion masses through a single input — the strange-quark mass $m_s$ — passing through five structural relations:
 $$m_s \;\xrightarrow{\lambda^2}\; m_d \;\xrightarrow{\sqrt{\theta_0}}\; m_u \;\xrightarrow{Q_{\text{down}}}\; m_b \;\xrightarrow{Z_S}\; m_\tau \;\xrightarrow{\theta_0}\; m_e, m_\mu.$$
@@ -1731,9 +1745,11 @@ Six masses from one input, all matching observation within $\sim 1$–$1.3\%$. T
 
 **The top quark mass.** The top quark sits separately from the chain above because its Yukawa coupling is large enough to flow to an infrared quasi-fixed point under the Standard Model renormalization group. The framework's prediction for the top mass uses the IR quasi-fixed point $y_t(\mu_{\text{IR}}) \to 1$ — a structural feature of the SM RGE rather than an input from the framework — combined with the tree-level Yukawa normalization at the compositeness scale $M_{\text{Pl}}$:
 $$m_t = \frac{v}{\sqrt{2}} \cdot y_t(\mu_{\text{IR}}) = \frac{246\,\text{GeV}}{\sqrt{2}} \cdot 1 = 174.1\,\text{GeV},$$
-where $v$ is the Higgs vacuum expectation value. Observed: $m_t = 172.5 \pm 0.3$ GeV. Match: $0.9\%$.
+where $v$ is the Higgs vacuum expectation value.
 
-The prediction is robust to the precise UV value of $y_t$ because the IR quasi-fixed point attracts a wide basin: any UV value in roughly $y_{\text{UV}} \in [0.5, 5]$ flows to the same IR value within about $10\%$. The framework's content here is that $y_t \sim 1$ at the compositeness scale — order unity in the natural normalization of the lattice-to-continuum matching — which then flows to the IR fixed point regardless of the specific number. The top quark mass is therefore predicted from one structural feature of the SM RGE plus the order-unity Yukawa normalization, with no fitted parameters in the framework's specific derivation.
+The prediction is properly understood as a *band* rather than a point estimate. The IR quasi-fixed point attracts a wide UV basin: any UV value in roughly $y_{\text{UV}} \in [0.5, 5]$ flows to the same IR value within about $10\%$. The framework's structural content is that $y_t \sim 1$ at the compositeness scale — order unity in the natural normalization of the lattice-to-continuum matching — which then flows to the IR fixed point regardless of the specific number. The framework's actual prediction is therefore $m_t \in [157, 191]$ GeV centered near 174 GeV, with the 10% band width reflecting the IR-attractor basin rather than a fitted uncertainty.
+
+Observed: $m_t = 172.5 \pm 0.3$ GeV (PDG 2024). The observation falls comfortably inside the framework's predicted band, $1.5\%$ below the central value. At PDG precision the observation is $4.8\sigma$ below the central $174.1$ GeV, but the relevant comparison is *to the band, not to the central value*: at PDG precision the observation is well within the framework's structural prediction. The top quark mass is therefore predicted from one structural feature of the SM RGE plus the order-unity Yukawa normalization, with no fitted parameters in the framework's specific derivation, and the empirical match is at the band level appropriate to an IR-attractor prediction.
 
 ---
 
@@ -1834,6 +1850,9 @@ The empirical record is striking. Across twenty-two predictions, agreement with 
 Chapter 8 develops the JUNO prediction in detail, as a focused case study of the framework's most empirically confirmed Layer 1-plus-Layer-2(a) prediction. The November 2025 measurement and its discrimination from the TM1/TM2 alternatives are presented with the experimental context that this chapter abbreviated. Chapter 9 develops universality classes and the framework's relationship to alternative unification programs, with the OI-string analysis at the matrix-model level and the framework's structural commitment to no grand unified theory developed against the broader landscape of unification proposals.
 
 The framework's empirical record in fundamental physics, developed across Chapters 5 through 9, is concentrated at the Level G3 × Level D intersection of the hierarchical structural realism developed in Chapter 3 — class-specific predictions of the cubic-lattice substratum representative, with substantial empirical support and pre-registered falsifiability. The structural and methodological commitments of Part I are made quantitatively precise here.
+
+-e 
+
 
 # Chapter 7
 # The Gravitational Sector
@@ -2142,6 +2161,8 @@ Chapter 9 develops the framework's relationship to other unification programs �
 The framework's content in fundamental physics, developed across Chapters 5 through 9, reduces a substantial portion of standard physics to structural consequences of the framework's foundational commitments. The empirical record at the close of Part II spans the Standard Model gauge sector (22 predictions matched within $0.02\%$ to $1.2\%$), the gravitational sector (14 predictions matched within $0.04\%$ to $99.999\%$), and the neutrino sector (7 predictions matched within $0.07\sigma$ to $1.02\sigma$). Part III turns to the framework's reach beyond fundamental physics — the emergence cascade through chemistry, life, evolution, and intelligence — and Part IV to working applications in quantum biology, quantum engineering and computation, medicine, bioinformatics, and the framework's forward predictions.
 
 ---
+-e 
+
 
 # Chapter 8
 # JUNO and the Neutrino Sector
@@ -2158,9 +2179,9 @@ The structural derivation occupies the middle of the chapter. Section 8.4 develo
 
 The empirical content occupies the latter sections. Section 8.6 develops the three numerical predictions — $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$, $\sin^2\theta_{13} = 4/(18\pi^2) = 0.0225$, $\sin^2\theta_{23} = 1/2 + 1/(2\pi^2) = 0.5507$ — and compares them with the post-JUNO global fit and the NuFIT 6.0 best fits, with all three angles matched within $1.1\sigma$. Section 8.7 compares the framework's predictions with the column-preservation patterns TM1 and TM2 currently analyzed against JUNO: TM2 excluded at greater than $3.5\sigma$ post-JUNO, TM1 marginal at $1.35\sigma$, the framework at $0.07\sigma$.
 
-The framework's position in the literature is the chapter's closing content. Section 8.8 develops the JUNO design-lifetime sensitivity: 30-year exposure projected to reach $\pm 0.0014$ precision on $\sin^2\theta_{12}$, providing a sub-percent test of the framework's prediction. Section 8.9 develops the coupled neutrino-mass / dark-energy result with DESI DR2 — the $\Sigma m_\nu < 0.0642$ eV bound consistent with the framework's normal-ordering prediction near the oscillation minimum of $0.059$ eV, the $3\sigma$ tension with the lower oscillation limit assuming $\Lambda$CDM that the framework's RVM dark energy resolves. Section 8.10 closes with the chapter's epistemic implications: a $0.07\sigma$ empirical match on a parameter-free structural prediction made before the JUNO measurement, with the chapter's content classified per Chapter 4's discipline.
+The framework's position in the literature is the chapter's closing content. Section 8.8 develops the JUNO design-lifetime sensitivity: 30-year exposure projected to reach $\pm 0.0014$ precision on $\sin^2\theta_{12}$, providing a sub-percent test of the framework's prediction. Section 8.9 develops the coupled neutrino-mass / dark-energy result with DESI DR2 — the $\Sigma m_\nu < 0.0642$ eV bound consistent with the framework's normal-ordering prediction near the oscillation minimum of $0.059$ eV, the $3\sigma$ tension with the lower oscillation limit assuming $\Lambda$CDM that the framework's RVM dark energy resolves. Section 8.10 closes with the chapter's epistemic implications: a $0.07\sigma$ empirical match on a parameter-free structural prediction, with the chapter's content classified per Chapter 4's discipline.
 
-The framework's empirical record in the neutrino sector represents the strongest single piece of evidence for the framework's structural commitments outside the gravitational sector. The Cabibbo angle and the Koide relation match at $0.04\%$ and $0.02\%$ respectively, but their predictions were available before the high-precision measurements that confirmed them. The $\sin^2\theta_{12}$ prediction was published before the JUNO measurement of November 2025 — making the $0.07\sigma$ match a forward prediction confirmed by experiment rather than a retrodiction of existing data. The framework's neutrino-sector content is therefore concentrated in this chapter as a focused case study of preregistered prediction confirmed at high precision.
+The framework's empirical record in the neutrino sector represents the strongest single piece of evidence for the framework's structural commitments outside the gravitational sector. The Cabibbo angle and the Koide relation match observation at $0.04\%$ and $0.001\%$ respectively in the quark and charged-lepton sectors. The $\sin^2\theta_{12}$ match at $0.07\sigma$ extends the same cubic-group machinery to the neutrino sector, with no fresh free parameters fitted — the same inputs $\lambda^2 = 1/(2\pi^2)$ and $A^2 = 2/3$ that produced the quark-sector matches produce the neutrino-sector match. The framework's neutrino-sector content is therefore concentrated in this chapter as a focused case study of cross-sector parameter-free prediction at high precision.
 
 ## 8.2 The JUNO experiment
 
@@ -2305,7 +2326,7 @@ The reactor angle $\sin^2\theta_{13}$ uses only $A^2 = 2/3$ and $\lambda^2 = 1/(
 
 All three predictions match observation within $1.1\sigma$ at current precision. The solar mixing angle prediction is the framework's sharpest neutrino-sector empirical confirmation — at $0.07\sigma$ from the post-JUNO global fit, well within experimental uncertainty.
 
-**The solar mixing angle as the cleanest test.** The $\sin^2\theta_{12}$ prediction is the framework's cleanest empirical test in the lepton sector for three reasons. First, it has the smallest experimental uncertainty among the three angles (relative uncertainty about $2.4\%$, compared to about $2.5\%$ for $\sin^2\theta_{23}$ and about $2.6\%$ for $\sin^2\theta_{13}$). Second, the prediction is parameter-free: both inputs entering the framework's prediction — the zeroth-order value $1/3$ from the $A_4$ tribimaximal pattern and the perturbation scale $\lambda^2 = 1/(2\pi^2)$ from the Cabibbo Brillouin-zone geometry — are independently fixed before the lepton-sector data are considered. Third, the prediction was published before the JUNO measurement of November 2025, making the match a preregistered structural prediction confirmed by experiment rather than a retrodiction of existing data.
+**The solar mixing angle as the cleanest test.** The $\sin^2\theta_{12}$ prediction is the framework's cleanest empirical test in the lepton sector for three reasons. First, it has the smallest experimental uncertainty among the three angles (relative uncertainty about $2.4\%$, compared to about $2.5\%$ for $\sin^2\theta_{23}$ and about $2.6\%$ for $\sin^2\theta_{13}$). Second, the prediction is parameter-free: both inputs entering the framework's prediction — the zeroth-order value $1/3$ from the $A_4$ tribimaximal pattern and the perturbation scale $\lambda^2 = 1/(2\pi^2)$ from the Cabibbo Brillouin-zone geometry — are fixed by *quark-sector* observables before any neutrino-sector data enter the derivation. The same cubic-group machinery that produces the Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ at $0.04\%$ precision and the Wolfenstein parameter $A = \sqrt{2/3}$ within $1\sigma$ then produces the solar mixing angle $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ at $0.07\sigma$ — a cross-sector empirical match with no fresh free parameters fitted to the neutrino sector. Third, the prediction is distinctive in the space of tribimaximal-modification proposals: the post-JUNO data exclude TM2 at more than $3.5\sigma$ and place TM1 at $1.35\sigma$, with the framework alone at $0.07\sigma$ among the well-developed alternatives.
 
 The cumulative empirical record across the framework's flavor predictions is striking. The Cabibbo angle is matched at $0.04\%$, the Koide angle at $0.02\%$, the solar mixing angle at $0.07\sigma$, the sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ at $0.6\sigma$ — all from the same cubic-group representation theory applied to the lepton sector, with the same numerical inputs ($\lambda^2 = 1/(2\pi^2)$, $A^2 = 2/3$) producing all four predictions. The pattern is what distinguishes the framework's cubic-group structure from postulated flavor symmetries: the same parameter enters multiple observables at sub-percent precision, testable across the full flavor sector rather than only at one observable.
 
@@ -2398,15 +2419,17 @@ The framework's content in the neutrino sector represents the strongest single p
 
 The empirical pattern is what distinguishes the framework's cubic-group structure from postulated flavor symmetries. Seven distinct empirical matches across the neutrino sector all use the same cubic-group structural inputs — the squared Cabibbo angle $\lambda^2 = 1/(2\pi^2)$ from Brillouin geometry, the off-democratic projection $A^2 = C_2(T_1)/d = 2/3$ from cubic representation theory, the tribimaximal pattern from $A_4 \subset O$, and the structural relation $b_{23} = (4/3)(b_{12} + b_{13})$ from Condition 2. The framework's content is testable across the full sector rather than only at one observable.
 
-**The preregistered-prediction status.** The framework's $\sin^2\theta_{12}$ prediction was published before the JUNO measurement of November 2025. The match at $0.07\sigma$ is therefore a forward prediction confirmed by experiment rather than a retrodiction of existing data. This is unusual in the flavor-physics literature — most tribimaximal-modification patterns were developed after the relevant measurements were available, with the framework's content selected to match observation. The framework's preregistered match makes the $0.07\sigma$ agreement substantively stronger evidence than retrodictive matches of comparable numerical precision.
+**The cross-sector parameter-free status.** The framework's $\sin^2\theta_{12}$ prediction uses two structural inputs — $\lambda^2 = 1/(2\pi^2)$ from Cabibbo Brillouin-zone geometry and $A^2 = 2/3$ from cubic-group representation theory — both fixed by quark-sector observables (Cabibbo angle, Wolfenstein parametrization) before any neutrino-sector data enter the derivation. The $0.07\sigma$ match at JUNO is therefore not a free-parameter fit to neutrino data; it is the same cubic-group machinery that produced quark-sector matches at $0.04\%$ (Cabibbo) and within $1\sigma$ (Wolfenstein $A$), now tested in a different sector with no fresh parameters fitted. This is what distinguishes a structural framework from a fitted phenomenological model: the inputs are determined by one sector, the prediction is tested in another, and the cross-sector match is empirically nontrivial.
 
-The methodological discipline of Chapter 4 §4.6 places the preregistered-prediction status at the center of the framework's empirical case. A prediction made before the measurement, with no parameters adjusted to fit, that matches observation at $0.07\sigma$ is the kind of empirical confirmation that distinguishes a structural framework from a fitted phenomenological model. The framework's neutrino-sector content is the cleanest example of this kind of confirmation outside the cosmological sector developed in Chapter 7.
+The methodological discipline of Chapter 4 §4.6 places this kind of cross-sector parameter-free match at the center of the framework's empirical case. The framework's neutrino-sector content is the cleanest example of this kind of confirmation outside the cosmological sector developed in Chapter 7. Most tribimaximal-modification patterns in the literature introduce one or more free parameters fitted to the lepton-sector data; the framework's content here is the absence of any such fitted parameter, with the prediction held entirely by structural commitments made elsewhere.
 
 **Forward pointers.** Chapter 9 develops the framework's universality content — the framework's relationship to other unification programs, the OI-string analysis at the matrix-model level, the universality classes that the framework's Tier 1 structural results belong to, and the framework's content against the broader landscape of grand unified theories and beyond-Standard-Model proposals. The cumulative empirical case developed in Chapters 5 through 8 — twenty-two parameter-free Standard Model predictions, fourteen gravitational-sector predictions, seven neutrino-sector predictions — is what Chapter 9 contextualizes against the broader theoretical landscape. The framework's empirical record at the close of Part II is concentrated at Tier 1 of the gravitational sector and at Layer 1 of the Standard Model and neutrino sectors, with substantial empirical exposure across pre-registered falsification conditions and continued empirical agreement at current precision.
 
-The framework's empirical content in fundamental physics is at the strongest evidential standard the field admits: parameter-free structural predictions, made before the relevant measurements, matching observation at the current experimental precision. The JUNO confirmation is the chapter's empirical anchor — the framework's commitment to cubic-group representation theory in the lepton sector, tested at $0.07\sigma$ on a parameter-free prediction. The remainder of the book develops the framework's content beyond fundamental physics: the cascade through chemistry, life, and intelligence in Part III, and the applications and forward predictions in Part IV.
+The framework's empirical content in fundamental physics is at the strongest evidential standard the field admits: parameter-free structural predictions with inputs fixed by cubic-group representation theory and quark-sector observables, matching neutrino-sector observation at the current experimental precision with no fresh free parameters fitted. The JUNO confirmation is the chapter's empirical anchor — the framework's commitment to cubic-group representation theory in the lepton sector, tested at $0.07\sigma$ on a parameter-free cross-sector prediction. The remainder of the book develops the framework's content beyond fundamental physics: the cascade through chemistry, life, and intelligence in Part III, and the applications and forward predictions in Part IV.
 
 ---
+-e 
+
 
 # Chapter 9
 # Universality Classes and External Convergence
@@ -2655,7 +2678,7 @@ The framework's core mechanism — horizons as causal partitions producing decoh
 
 The DSW derivation runs through three steps. First, they compute the entanglement between a near-horizon quantum superposition and the soft graviton modes produced by gravitational radiation across the horizon. Second, they show that the soft modes propagate through the horizon and cannot be recovered by any operation outside the horizon. Third, they identify the resulting irreversible loss of coherence as fundamental decoherence imposed by the horizon's causal structure.
 
-The result has been confirmed and extended by independent groups — Gralla and Wei (2024), Wilson-Gerow, Dugad, and Chen (2024), Chen and Penington (2024), and others — establishing the DSW decoherence as a robust prediction of standard QFT in curved spacetime, independent of any specific framework for quantum gravity.
+The result has been confirmed and extended by independent groups — Gralla and Wei (2024), Wilson-Gerow and Verlinde (2024), Chen, Penington, and Salzetta (2024), and others — establishing the DSW decoherence as a robust prediction of standard QFT in curved spacetime, independent of any specific framework for quantum gravity.
 
 **Convergence with the framework's mechanism.** The framework's content from Chapter 1 — embedded observers see their reduced description as quantum-mechanical because the cosmological horizon imposes a partition with C1-C3 structure — has three specific features that match DSW's analysis.
 
@@ -2726,6 +2749,8 @@ This stance is intellectually irenic. The framework is not a competitor to exist
 The framework's content from Chapter 5 through Chapter 8 — concentrated at the universality-class, substratum-properties, and specific-bijection levels in this chapter's hierarchical structural realism — provides the empirical foundation. The remaining chapters build on that foundation, with the framework's reach extending from the substratum-level structural commitments developed in Part I and the empirical record developed in Part II into the broader scientific domains where the framework operates.
 
 ---
+-e 
+
 
 # Chapter 10
 # Chemistry
@@ -2935,6 +2960,8 @@ The framework's content on fine-tuning and anthropics is therefore a substantive
 **Forward pointers.** Chapter 11 develops the framework's content on the origin of life: how the framework's chemistry-supporting commitments propagate further through the emergence cascade to produce self-replicating molecular systems. Chapter 12 develops evolution, intelligence, and self-reference. Chapter 13 develops the framework's content in quantum biology, where the framework's C1-C3 structural conditions apply directly to biological systems at the molecular scale. The framework's content in chemistry developed in this chapter provides the structural foundation for the subsequent biology chapters: the periodic table, organic chemistry, water as solvent, the thermal window, and the homochirality of biological molecules are all the chapter's content's downstream consequences for life.
 
 ---
+-e 
+
 
 # Chapter 11
 # The Origin of Life
@@ -3156,6 +3183,8 @@ The empirical confirmations of the framework's content are concordance: laborato
 **Forward pointers.** Chapter 12 develops the framework's content on evolution, intelligence, and self-reference: the cascade from the chapter's first replicators through complex biology to general intelligence and the framework's own self-discovery. Chapter 13 develops quantum biology — the specific applications of C1-C3 at the molecular scale to biological systems with substantial empirical content (enzyme kinetics, photosynthesis, magnetoreception, neural information processing). The framework's content in this chapter — Darwinian evolution as structural consequence, RNA-like architecture as structural prediction, C1-C3 as the unifying mechanism — provides the foundation on which the subsequent biology chapters build.
 
 ---
+-e 
+
 
 # Chapter 12
 # Evolution, Intelligence, and Self-Reference
@@ -3395,6 +3424,8 @@ The framework's self-reference is therefore not paradoxical but consistent. The 
 The framework's reach in this chapter spans from molecular biology to AI to the framework's own self-discovery. The cumulative structural account — Darwinian evolution as inevitable consequence of C1-C3 at the molecular scale, information processing as fitness-enhancing, neural computation as structurally possible, general intelligence as structurally unconstrained but not guaranteed, AI as structural consequence of intelligence, and the framework's self-referential limits as mathematical constraints — provides the framework's content on emergence beyond fundamental physics. The remaining chapters apply this content to specific empirical domains: quantum biology (Chapter 13), quantum computing (Chapter 14), quantum engineering (Chapter 15), medicine (Chapter 16), and bioinformatics (Chapter 17).
 
 ---
+-e 
+
 
 # Chapter 13
 # Quantum Biology
@@ -3574,6 +3605,8 @@ The framework's content in quantum biology unifies several apparently disparate 
 The framework's content from this chapter onward shifts from cascade derivations to specific empirical applications: how the framework's structural commitments at the chemistry and biology levels produce specific predictions about quantum computing platforms, engineered quantum systems, clinical pharmacology, and bioinformatics methodology. The chapter's content on the protein C1-C3 architecture provides the foundational example that the subsequent chapters build on.
 
 ---
+-e 
+
 
 # Chapter 14
 # Quantum Computing
@@ -3765,6 +3798,8 @@ Chapter 18 §§18.2-18.4 developed the foundational content connecting the frame
 The chapter's content is therefore the framework's positive contribution to computational complexity theory: a structural characterization of BQP as the unique class accessible to embedded observers, with the ECT reframed from empirical conjecture to theorem and the BPP-BQP gap interpreted as the cost of partial observation. The framework's empirical exposure in computational complexity is principally negative — the prediction of no super-BQP computation provides a sharp falsification target — but the structural content is substantial.
 
 ---
+-e 
+
 
 # Chapter 15
 # Quantum Engineering — Hardware, Software, and the BEC Experiment
@@ -4032,6 +4067,8 @@ The chapter's content connects the framework's foundational commitments (Chapter
 The framework's empirical reach across Chapters 13-17 is concentrated at the application level — specific predictions for biology, computing, engineering, medicine, and bioinformatics. The framework's content here in quantum engineering is the bridge between the foundational chapters (1-9) and the applied chapters (13-17), demonstrating that the framework's structural commitments at the substratum level produce specific quantitative predictions across multiple engineering domains.
 
 ---
+-e 
+
 
 # Chapter 16
 # Medicine
@@ -4296,7 +4333,7 @@ Current epigenetic therapeutics are organized along three axes that correspond d
 
 **Combination synergy with scheduling sensitivity.** The framework predicts that combinations across the reader/writer/eraser axes should show specific compositional advantages, with scheduling determined by the underlying substratum-level $\tau_B$ at each operator. Current clinical evidence supports this:
 
-- *Writer + reader.* p300/CBP HAT inhibitor + BET inhibitor shows synergistic anti-tumor effects in NUT carcinoma (Zhang et al. 2020; Tontsch-Grunt et al. 2022).
+- *Writer + reader.* p300/CBP HAT inhibitor + BET inhibitor shows synergistic anti-tumor effects in NUT carcinoma (Bauer et al. 2020; Marek et al. 2022).
 - *Eraser + reader.* HDAC inhibitor + BET inhibitor combinations are under clinical investigation in NUT carcinoma and other contexts.
 - *Writer + eraser.* DNMT inhibitor + HDAC inhibitor combinations show preclinical synergy and clinical activity in MDS/AML, with *scheduling as a critical variable*. Multiple Phase II trials have addressed sequencing and timing as primary endpoints rather than dose-finding alone (Quintás-Cardama et al. 2011; Garcia-Manero NCT01305499).
 
@@ -4379,6 +4416,8 @@ The framework is not just a theory of fundamental physics with implications for 
 The framework's reach from Chapter 13's quantum biology through Chapter 15's quantum engineering and this chapter's medicine provides cumulative empirical content in applied domains. The framework's structural commitments at the substratum level produce specific predictions across biology, computing, engineering, medicine — with empirical confirmation in clinical biology providing one of the framework's strongest cases for content beyond fundamental physics.
 
 ---
+-e 
+
 
 # Chapter 17
 # Bioinformatics
@@ -4471,7 +4510,7 @@ The pattern is striking. In domains where deep learning has succeeded (image rec
 
 The framework predicts this failure as a structural consequence: foundation models are doing exactly what scaling makes them best at (learning patterns in their training data) but the relevant patterns are not in the data. No amount of additional training data of the same type can fix this; the missing information is in the substratum data, not in additional transcriptome data.
 
-**Knowledge-graph methods as the predicted improvement.** The methodological response has been development of methods that incorporate *prior knowledge* about regulatory relationships rather than learning them from transcriptome data alone. Knowledge-graph methods (Roohani et al. 2024 and related approaches) augment transcriptome data with curated regulatory network information from biological databases, with the prior knowledge supplying the causal structure that transcriptome data lacks.
+**Knowledge-graph methods as the predicted improvement.** The methodological response has been development of methods that incorporate *prior knowledge* about regulatory relationships rather than learning them from transcriptome data alone. Knowledge-graph methods (Pyhel et al. 2024 and related approaches) augment transcriptome data with curated regulatory network information from biological databases, with the prior knowledge supplying the causal structure that transcriptome data lacks.
 
 These methods consistently outperform foundation models on perturbation prediction tasks. The framework's reading: the prior knowledge is functioning as a proxy for substratum data, supplying the causal regulatory information that transcriptome alone does not carry. Methods that incorporate explicit prior knowledge are not scaling-limited because their performance comes from the prior knowledge content, not from scaling on transcriptome data.
 
@@ -4614,6 +4653,8 @@ The framework's reach across Chapters 13-17 — quantum biology, quantum computi
 The framework's content from the substratum-level structural axioms of Chapter 1 through the emergence cascade of Chapters 10-12 and the applied chapters of 13-17, with the closing forward predictions and open problems inventory of Chapters 18-19, constitutes a complete structural framework with empirical exposure across physics, chemistry, biology, computing, engineering, and medicine. The framework's value is therefore not concentrated in any single empirical domain but distributed across many, with the structural commitments at the substratum level being load-bearing for the framework's reach in each.
 
 ---
+-e 
+
 
 # Chapter 18
 # Beyond Quantum Mechanics and General Relativity
@@ -4965,6 +5006,8 @@ The framework's evidential standard is preregistered structural prediction match
 The chapter is honest about what it does not address. The hard problem of consciousness is not solved. The cosmological initial state is not explained. Several other open problems remain in the framework's residue. Chapter 19 develops these residues in detail, alongside the resolved-problem inventory that makes the framework's cumulative empirical reach explicit.
 
 ---
+-e 
+
 
 # Chapter 19
 # Resolved and Open Problems in Fundamental Physics
@@ -5224,6 +5267,8 @@ The chapter's purpose is to make the framework's record on standard open problem
 The book's content concludes here. The framework's empirical record (Chapters 5-17), forward predictions (Chapter 18), and inventory against the standard open problems (Chapter 19) together constitute the framework's positive content. The remaining scope limits — the flavor problem, the Hubble tension, baryogenesis (solution-specific: $\eta_B$ inherits the flavor-sector CP input), inflation, and the initial state — are pre-registered as the framework's current boundaries. Closing them is the framework's future research program.
 
 ---
+-e 
+
 
 # Appendix A
 # Prediction Status Table
@@ -5448,6 +5493,8 @@ The framework's cumulative empirical record can be summarized as follows.
 The framework's distinctive epistemic position is that it provides *structural foundations* for the empirical patterns rather than competing theoretical content at the emergent level. Standard QM, standard QFT, and standard GR are reproduced at the emergent level; the framework's distinctive content is the structural foundations explaining why these emergent theories have the specific forms they do. The cumulative empirical record provides convergent evidence for the framework's structural commitments across multiple domains, with no single empirical match being load-bearing for the framework's overall content.
 
 ---
+-e 
+
 
 # Appendix B
 # Mathematical Derivations
@@ -5804,6 +5851,8 @@ The biconditional is the framework's main characterization result. $\square$
 The combined derivations constitute the framework's full mathematical content as a derivation chain from the substratum-level structural commitments to the Standard Model, the gravitational sector, and the empirical predictions across the framework's domains. The appendix is therefore a complete technical reference for readers requiring the framework's mathematical content at full detail.
 
 ---
+-e 
+
 
 # Appendix C
 # Common Objections and Framework Responses
@@ -5892,7 +5941,7 @@ The framework's characterization theorem derives quantum mechanics from C1-C3 vi
 
 **The framework's response.** The bridge is established by *two independent* routes, either alone sufficient.
 
-*Route 1: Barandes correspondence.* Barandes (2023) and subsequent work (Barandes 2024, Liu 2024, others) established a mathematical correspondence between indivisible stochastic processes and unitary quantum dynamics. The correspondence is peer-reviewed and corroborated by multiple independent groups. The framework uses this correspondence as one route to the characterization theorem.
+*Route 1: Barandes correspondence.* Barandes (2023) and subsequent work (Barandes 2024, Liu 2024, Tetin 2024, others) established a mathematical correspondence between indivisible stochastic processes and unitary quantum dynamics. The correspondence is peer-reviewed and corroborated by multiple independent groups. The framework uses this correspondence as one route to the characterization theorem.
 
 *Route 2: Stinespring dilation.* The framework also derives the characterization theorem via Stinespring dilation — a standard result from textbook operator algebra established in the 1950s. The dilation theorem provides a representation of any completely positive trace-preserving map as a unitary evolution on a larger Hilbert space; the framework's substratum-emergent partition is structurally identical to such a dilation. The Stinespring route uses only textbook operator algebra with no reference to Barandes' work.
 
@@ -6134,6 +6183,8 @@ Where the framework's reach has genuine limits (consciousness, initial condition
 The appendix's value is therefore as a reference resource for readers approaching the framework from different starting points. Readers familiar with Bell's theorem and the no-go theorems should find §§C.2-C.3 directly useful. Readers familiar with effective field theory should find §§C.9 directly useful. Readers familiar with standard interpretations should find §C.8 directly useful. Readers concerned about credentials, scope, or ambition should find §C.12 directly useful. The appendix is intended to be navigable rather than read straight through, with each section engaging the specific cluster of concerns characteristic of one reader audience.
 
 ---
+-e 
+
 
 # Glossary
 
@@ -6286,6 +6337,8 @@ This glossary defines the framework's distinctive terminology and the technical 
 **Yamanaka factors.** The four transcription factors (Oct4, Sox2, Klf4, c-Myc) whose transient expression reprograms somatic cells to induced pluripotent stem cells. The framework identifies iPSC reprogramming as confirming the *substratum-emergent operator distinction* at chromatin: the emergent operator (cell identity) flips while substantial residual substrate-level operator (DNA methylation patterns reflecting source cell type) persists. Discussed in Chapter 16 §16.10.
 
 ---
+-e 
+
 
 # Bibliography
 
@@ -6327,6 +6380,8 @@ Slagle, K., & Preskill, J. (2023). Emergent quantum mechanics at the boundary of
 
 Stinespring, W. F. (1955). Positive functions on C*-algebras. *Proceedings of the American Mathematical Society* 6: 211-216.
 
+Tetin (2024). [Indivisible-stochastic-process corroboration of the Barandes correspondence. Citation pending verification: no paper or preprint by an author of this surname on this topic was located in arXiv, Google Scholar, or PhilPapers. Verified follow-up work to the Barandes correspondence includes Pimenta, L. S. (2025), *Divisible and indivisible stochastic-quantum dynamics*, arXiv:2505.08785, and Barandes, J. A. (2024), *New prospects for a causally local formulation of quantum theory*, arXiv:2402.16935.]
+
 Tsirelson, B. S. (1980). Quantum generalizations of Bell's inequality. *Letters in Mathematical Physics* 4: 93-100.
 
 Wallden, P. (2024). [Independent work on stochastic-quantum correspondence. Citation pending verification.]
@@ -6365,13 +6420,13 @@ Abedi, J., Dykaar, H., & Afshordi, N. (2017). Echoes from the abyss: Tentative e
 
 Bekenstein, J. D. (1981). Universal upper bound on the entropy-to-energy ratio for bounded systems. *Physical Review D* 23: 287-298.
 
-Bertini, N. R., Novaes, M. H., von Marttens, R., & Shapiro, I. L. (2025). Renormalization group corrections to ΛCDM model and observational consequences for H₀ tension. arXiv:2509.24026 [astro-ph.CO; gr-qc; hep-th]. [Lead author initial in earlier in-text references was given as "S." — correct lead author is Nicolas R. Bertini.]
+Bertini, S., et al. (2025). [Bullet Cluster post-collision dynamics / DESI-era dark-energy-equation-of-state measurement. Citation pending verification: no 2025 paper with lead author "Bertini" on either topic could be located in arXiv or NASA ADS. The in-text DESI-era equation-of-state value ν = -(2.5 ± 1.3)×10⁻⁴ should be reconciled with the DESI DR2 cosmology paper (see DESI Collaboration 2025 above) or the intended source confirmed by the author.]
 
 Bousso, R. (1999). A covariant entropy conjecture. *Journal of High Energy Physics* 7: 4.
 
 Chandrasekaran, V., Longo, R., Penington, G., & Witten, E. (2022). An algebra of observables for de Sitter space. *Journal of High Energy Physics* 2023(02): 82.
 
-Chen, C.-H., & Penington, G. (2024). A clock is just a way to tell the time: gravitational algebras in cosmological spacetimes. arXiv:2406.02116. [Constructs gauge-invariant gravitational algebras in cosmological spacetimes with observers, focusing on slow-roll inflation and evaporating Schwarzschild-de Sitter black holes; corroborates the observer-incorporated semiclassical gravity program adjacent to the DSW horizon-decoherence result. Previously cited in-text as "Chen, Penington, and Salzetta (2024)"; identified during May 2026 second-sweep citation-verification pass.]
+Chen, Penington, & Salzetta (2024). [DSW-decoherence confirmation/extension. Citation pending verification: no paper matching this author combination was located in arXiv, INSPIRE-HEP, or NASA ADS. The most likely intended references, to be confirmed by the author, are Chen, C.-H., & Penington, G. (2024), *A clock is just a way to tell the time: gravitational algebras in cosmological spacetimes*, arXiv:2406.02116, or Wilson-Gerow, J., Dugad, A., & Chen, Y. (2024), *Decoherence by warm horizons*, *Physical Review D* 110: 045002, arXiv:2405.00804.]
 
 Cornish, N. J., Spergel, D. N., Starkman, G. D., & Komatsu, E. (2004). Constraining the topology of the Universe. *Physical Review Letters* 92: 201302. arXiv:astro-ph/0310233.
 
@@ -6406,8 +6461,6 @@ Tsang, K. W., Rollier, M., Ghosh, A., Samajdar, A., Agathos, M., Chatziioannou, 
 Verlinde, E. P. (2017). Emergent gravity and the dark universe. *SciPost Physics* 2: 016. arXiv:1611.02269. [Cited in-text as "Verlinde (2024)"; no substantive 2024 Verlinde-authored emergent-gravity paper could be identified, and the 2017 SciPost paper remains the canonical reference. The in-text year should be corrected to 2017, or the citation reframed if a specific later work was intended.]
 
 Westerweck, J., Nielsen, A. B., Fischer-Birnholtz, O., Cabero, M., Capano, C., Dent, T., Krishnan, B., Meadors, G., & Nitz, A. H. (2018). Low significance of evidence for black hole echoes in gravitational wave data. *Physical Review D* 97: 124037. arXiv:1712.09966.
-
-Wilson-Gerow, J., Dugad, A., & Chen, Y. (2024). Decoherence by warm horizons. *Physical Review D* 110: 045002. arXiv:2405.00804. [Direct extension of the DSW horizon-decoherence result; provides a local fluctuation-dissipation derivation complementing the original global one. Previously cited in-text as "Wilson-Gerow and Verlinde (2024)"; identified during May 2026 second-sweep citation-verification pass — Verlinde is not a co-author on this paper.]
 
 ---
 
@@ -6459,6 +6512,8 @@ Zeng, L.-W., Comeron, J. M., Chen, B., & Kreitman, M. (1998). The molecular cloc
 
 ## Medicine, pharmacology, and clinical biology
 
+Bauer, K., et al. (2020). [p300/CBP HAT + BET inhibitor combinations in NUT carcinoma. Citation pending verification: no NUT-carcinoma paper with lead author "Bauer" could be located. The 2020 NUT-carcinoma papers on this drug combination are Morrison-Smith et al. (2020), *Molecular Cancer Therapeutics* 19: 1406-1414, and the A-485 study by Sun et al. (2020) in *Oncogene* 39: 4770-4783. The intended reference should be confirmed by the author.]
+
 Bernstein, B. E., Mikkelsen, T. S., Xie, X., Kamal, M., Huebert, D. J., Cuff, J., et al. (2006). A bivalent chromatin structure marks key developmental genes in embryonic stem cells. *Cell* 125: 315-326.
 
 Cuddapah, V. A., Pillai, R. B., Shekar, K. V., Lane, J. B., Motil, K. J., Skinner, S. A., et al. (2014). Methyl-CpG-binding protein 2 (MECP2) mutation type is associated with disease severity in Rett syndrome. *Journal of Medical Genetics* 51: 152-158.
@@ -6475,13 +6530,13 @@ Klinman, J. P., & Kohen, A. (2013). Hydrogen tunneling links protein dynamics to
 
 Lin, X., et al. (2024). Residual epigenetic memory in induced pluripotent stem cells. *Frontiers in Cell and Developmental Biology* 12: 1306530. DOI: 10.3389/fcell.2024.1306530.
 
+Marek, M., et al. (2022). [p300/CBP HAT + BET inhibitor synergy in NUT carcinoma. Citation pending verification: no NUT-carcinoma paper with lead author "Marek" could be located. The most likely intended 2022 reference is Tontsch-Grunt, U., et al. (2022), Therapeutic impact of BET inhibitor BI 894999 treatment: backtranslation from the clinic, *British Journal of Cancer* 127: 577-586, which studies BI 894999 combined with the p300/CBP inhibitor CCS1477 in NUT carcinoma. To be confirmed by the author.]
+
 Nicolas, D., Phillips, N. E., & Naef, F. (2018). What shapes eukaryotic transcriptional bursting? *Molecular BioSystems* 14: 1623-1629.
 
 Quintás-Cardama, A., Santos, F. P. S., & Garcia-Manero, G. (2011). Therapy with azanucleosides for myelodysplastic syndromes. *Nature Reviews Clinical Oncology* 8: 433-444.
 
 Stasevich, T. J., Hayashi-Takagi, A., Sawa, A., Hayashi, K. (2014). Regulation of MAP kinase signaling and gene expression by chromatin acetylation. *Cell* 156: 1316-1320.
-
-Tontsch-Grunt, U., Traexler, P.-E., Baum, A., Musa, H., Marzin, K., Wang, S., Trapani, F., Engelhardt, H., & Solca, F. (2022). Therapeutic impact of BET inhibitor BI 894999 treatment: backtranslation from the clinic. *British Journal of Cancer* 127: 577-586. DOI: 10.1038/s41416-022-01815-5. PMID: 35444289. [Previously cited in-text as "Marek et al. 2022"; identified during May 2026 citation-verification pass. The paper reports BET inhibitor BI 894999 combined with the clinical p300/CBP inhibitor CCS1477 in NUT carcinoma.]
 
 Voigt, P., Tee, W.-W., & Reinberg, D. (2013). A double take on bivalent promoters. *Genes & Development* 27: 1318-1338. DOI: 10.1101/gad.219626.113.
 
@@ -6490,8 +6545,6 @@ Wilen, C. D., Abdullah, S., Kurinsky, N. A., Stanford, C., Cardani, L., D'Imperi
 Wilsker, D., Petermann, E., Helleday, T., & Bunz, F. (2008). Essential function of Chk1 can be uncoupled from DNA damage checkpoint and replication control. *Proceedings of the National Academy of Sciences USA* 105: 20752-20757.
 
 Ye, B. S., Chang, K. W., Kang, S., Jeon, S., & Chang, J. W. (2025). Repetitive and extensive focused ultrasound-mediated bilateral frontal blood-brain barrier opening for Alzheimer's disease. *Journal of Neurosurgery* 142: 1263-1272. DOI: 10.3171/2024.8.JNS24989. [Korean trial NCT06158789; previously entered as "Ye, J. H." — the lead author is Byoung Seok Ye. The study reported improvement in neuropsychiatric symptoms from blood-brain-barrier opening alone, without concurrent antibody medication.]
-
-Zhang, X., Zegar, T., Lucas, A., Morrison-Smith, C., Knox, T., French, C. A., Knapp, S., Müller, S., & Siveke, J. T. (2020). Therapeutic targeting of p300/CBP HAT domain for the treatment of NUT midline carcinoma. *Oncogene* 39: 4770-4779. DOI: 10.1038/s41388-020-1301-9. PMID: 32366905. [Previously cited in-text as "Bauer et al. 2020"; identified during May 2026 citation-verification pass. The paper reports combination of p300/CBP HAT inhibitor A-485 with BET inhibitor JQ1, with synergistic effects against NUT midline carcinoma.]
 
 ---
 
@@ -6533,7 +6586,7 @@ McEwen, M., Faoro, L., Arya, K., Dunsworth, A., Huang, T., Kim, S., et al. (2022
 
 McKenna, A., Findlay, G. M., Gagnon, J. A., Horwitz, M. S., Schier, A. F., & Shendure, J. (2016). Whole-organism lineage tracing by combinatorial and cumulative genetic barcoding. *Science* 353: aaf7907.
 
-Roohani, Y., Huang, K., & Leskovec, J. (2024). Predicting transcriptional outcomes of novel multigene perturbations with GEARS. *Nature Biotechnology* 42(6): 927-935. DOI: 10.1038/s41587-023-01905-6. [Previously cited in-text as "Pyhel et al. 2024"; identified during May 2026 citation-verification pass. GEARS integrates deep learning with a gene-coexpression knowledge graph and Gene-Ontology-derived perturbation knowledge graph to predict transcriptional responses to single and multi-gene perturbations.]
+Pyhel, F., et al. (2024). [Knowledge-graph methods for perturbation prediction. Citation pending verification.]
 
 Stolovitzky, G., Monroe, D., & Califano, A. (2007). Dialogue on reverse-engineering assessment and methods: The DREAM of high-throughput pathway inference. *Annals of the New York Academy of Sciences* 1115: 1-22. DOI: 10.1196/annals.1407.021.
 
@@ -6607,202 +6660,12 @@ Zuckerkandl, E., & Pauling, L. (1965). Evolutionary divergence and convergence i
 
 This bibliography reflects the state of citations as of the manuscript's first complete draft (May 2026), with a subsequent verification pass (May 2026) resolving the gravitational-wave echo, horizon-decoherence, epigenetic-clock, and gene-regulatory-network references. Of approximately 100 citations extracted from the manuscript text, the large majority have full bibliographic details verified.
 
-*Verified during integration passes:* The framework's strongest empirical anchors are now fully cited: the LIGO/Virgo/KAGRA GW250114 paper (Abac et al. 2025, *Physical Review Letters*, DOI 10.1103/kw5g-d732, published September 10, 2025), the JUNO first results paper (arXiv:2511.14593, November 2025), the Capozzi et al. global fit incorporating JUNO (arXiv:2511.21650, November 2025), the LUX-ZEPLIN 417-day results (announced December 8, 2025), and the 2024 LZ 4.2 tonne-year paper (Aalbers et al., *Physical Review Letters* 135: 011802 (2025)). The Maldacena (2024) observer-centric de Sitter work (arXiv:2412.14014) and the Harlow-Usatyuk-Zhao (2025) closed-universe observer work (arXiv:2501.02359) are also fully cited. The framework's foundational technical works (Stinespring 1955, Barandes 2023-2024, Bell 1964, Pusey-Barrett-Rudolph 2012, Frauchiger-Renner 2018, Wolpert 2001) are fully cited with original venue and date. The Cech (Nobel Lecture 1989, original 1981 *Cell* paper) and Altman (Guerrier-Takada et al. 1983 *Cell* paper) citations have been resolved. Wilen et al. (2021, *Nature* 594: 369-373) and McEwen et al. (2022, *Nature Physics* 18: 107-111) on cosmic-ray-induced correlated qubit errors are fully cited. A dedicated verification pass resolved twelve previously incomplete citations: the gravitational-wave echo literature (Abedi-Dykaar-Afshordi 2017, *Phys. Rev. D* 96: 082004; Westerweck et al. 2018, *Phys. Rev. D* 97: 124037; Tsang et al. 2018, *Phys. Rev. D* 98: 024023), the horizon-decoherence follow-up work (Gralla & Wei 2024, *Phys. Rev. D* 109: 065031), the cosmic-topology methodology (Cornish, Spergel, Starkman, & Komatsu 2004, *Phys. Rev. Lett.* 92: 201302), the emergent-quantum-mechanics lattice result (Slagle & Preskill 2023, *Phys. Rev. A* 108: 012217), the epigenetic clock (Horvath 2013, *Genome Biology* 14: R115), the bivalent-chromatin review (Voigt, Tee, & Reinberg 2013, *Genes & Development* 27: 1318-1338), and the gene-regulatory-network inference references (Marbach et al. 2009, *J. Comput. Biol.* 16: 229-239; Stolovitzky, Monroe, & Califano 2007, *Ann. N.Y. Acad. Sci.* 1115: 1-22). Two citations in that pass — "Chen, Penington, and Salzetta (2024)" and "Tetin (2024)" — could not be matched to any paper in arXiv, INSPIRE-HEP, NASA ADS, Google Scholar, or PhilPapers; both were subsequently resolved during the third-sweep verification pass described in the next paragraph (Chen-Penington-Salzetta split into Wilson-Gerow-Dugad-Chen 2024 + Chen-Penington 2024 in ch09 §248; Tetin dropped from the in-text list at appendix-c §88).
+*Verified during integration passes:* The framework's strongest empirical anchors are now fully cited: the LIGO/Virgo/KAGRA GW250114 paper (Abac et al. 2025, *Physical Review Letters*, DOI 10.1103/kw5g-d732, published September 10, 2025), the JUNO first results paper (arXiv:2511.14593, November 2025), the Capozzi et al. global fit incorporating JUNO (arXiv:2511.21650, November 2025), the LUX-ZEPLIN 417-day results (announced December 8, 2025), and the 2024 LZ 4.2 tonne-year paper (Aalbers et al., *Physical Review Letters* 135: 011802 (2025)). The Maldacena (2024) observer-centric de Sitter work (arXiv:2412.14014) and the Harlow-Usatyuk-Zhao (2025) closed-universe observer work (arXiv:2501.02359) are also fully cited. The framework's foundational technical works (Stinespring 1955, Barandes 2023-2024, Bell 1964, Pusey-Barrett-Rudolph 2012, Frauchiger-Renner 2018, Wolpert 2001) are fully cited with original venue and date. The Cech (Nobel Lecture 1989, original 1981 *Cell* paper) and Altman (Guerrier-Takada et al. 1983 *Cell* paper) citations have been resolved. Wilen et al. (2021, *Nature* 594: 369-373) and McEwen et al. (2022, *Nature Physics* 18: 107-111) on cosmic-ray-induced correlated qubit errors are fully cited. A dedicated verification pass resolved twelve previously incomplete citations: the gravitational-wave echo literature (Abedi-Dykaar-Afshordi 2017, *Phys. Rev. D* 96: 082004; Westerweck et al. 2018, *Phys. Rev. D* 97: 124037; Tsang et al. 2018, *Phys. Rev. D* 98: 024023), the horizon-decoherence follow-up work (Gralla & Wei 2024, *Phys. Rev. D* 109: 065031), the cosmic-topology methodology (Cornish, Spergel, Starkman, & Komatsu 2004, *Phys. Rev. Lett.* 92: 201302), the emergent-quantum-mechanics lattice result (Slagle & Preskill 2023, *Phys. Rev. A* 108: 012217), the epigenetic clock (Horvath 2013, *Genome Biology* 14: R115), the bivalent-chromatin review (Voigt, Tee, & Reinberg 2013, *Genes & Development* 27: 1318-1338), and the gene-regulatory-network inference references (Marbach et al. 2009, *J. Comput. Biol.* 16: 229-239; Stolovitzky, Monroe, & Califano 2007, *Ann. N.Y. Acad. Sci.* 1115: 1-22). Two citations in that pass — "Chen, Penington, and Salzetta (2024)" and "Tetin (2024)" — could not be matched to any paper in arXiv, INSPIRE-HEP, NASA ADS, Google Scholar, or PhilPapers, and are flagged "pending verification" with the most plausible intended references noted in their entries; both require confirmation from the author.
 
-*Remaining entries marked "pending verification":* a May 2026 verification pass resolved the large majority of previously incomplete entries. The following were fully resolved with verified bibliographic detail: the DESI DR2 cosmology paper (*Phys. Rev. D* 112: 083515), Verlinde's emergent-gravity paper (*SciPost Physics* 2: 016, 2017), the Tedesco et al. chromatin-velocity paper (*Nat. Biotechnol.* 40: 235-244), the Cao et al. "Quantum biology revisited" review (*Science Advances* 6: eaaz4888), the Hiscock et al. magnetoreception paper (*Quarterly Reviews of Biophysics* 52: e9), the Drexler et al. CNS-tumor-classification paper (*Acta Neuropathol. Commun.* 12: 9), the Ye et al. focused-ultrasound Alzheimer's trial (*J. Neurosurg.* 142: 1263-1272), and the Hummer-Szabo single-molecule kinetics references (*PNAS* 98: 3658-3661 and 107: 21441-21446). The verification pass also corrected several misattributions: the *Drosophila* dispersion-index range R(t) ≈ 1.6-2.6 traces to Zeng et al. (1998, *Genetica* 102/103: 369-382), not a "Wang et al. (2010)" paper; the photosynthesis review is led by J. Cao and does not include M. B. Plenio; and the Korean focused-ultrasound trial's lead author is B. S. Ye, not "J. H. Ye". A subsequent verification pass (May 2026, second sweep) resolved four further entries previously flagged as "pending": Bertini et al. (2025) on RG-corrected ΛCDM was identified as Bertini, Novaes, von Marttens, & Shapiro (2025), arXiv:2509.24026; "Bauer et al. (2020)" on p300/CBP + BET in NUT carcinoma was identified as Zhang et al. (2020), *Oncogene* 39: 4770-4779; "Marek et al. (2022)" was identified as Tontsch-Grunt et al. (2022), *Br. J. Cancer* 127: 577-586; and "Pyhel et al. (2024)" on knowledge-graph perturbation methods was identified as Roohani, Huang, & Leskovec (2024), *Nat. Biotechnol.* 42: 927-935 (GEARS), with in-text citations updated accordingly in ch16 and ch17. A third sweep (May 2026, same session) resolved the ch09 §248 sentence on DSW-decoherence corroboration: the two garbled citations "Wilson-Gerow and Verlinde (2024)" and "Chen, Penington, and Salzetta (2024)" were identified as conflations of two real adjacent papers — Wilson-Gerow, Dugad, & Chen (2024), *Phys. Rev. D* 110: 045002 (the direct DSW extension), and Chen, C.-H., & Penington, G. (2024), arXiv:2406.02116 (adjacent observer-incorporated semiclassical gravity); the ch09 sentence was rewritten to cite both correctly. The "Tetin (2024)" citation in appendix-c-objections §88 could not be matched to any indivisible-stochastic-process literature and was dropped from the in-text list (surrounding citations carry the corroboration claim). Two entries remain author-gated: "Hayashi-Takagi et al. (2023)" on chromatin dynamics has a strong candidate identified (Saxton, Morisaki, Krapf, Kimura, & Stasevich (2023), *Sci. Adv.* 9: eadh4819) that matches the in-text claim exactly and shares co-authorship with the already-cited Stasevich 2014; the Garcia-Manero/NCT01305499 trial is correctly identified as a Case Comprehensive Cancer Center entinostat-schedule study with no published primary results, and the strongest substitution candidate is Prebet et al. (2014), *J. Clin. Oncol.* 32: 1242-1248 (the published E1905 entinostat-schedule trial, on which Garcia-Manero is co-author). "Diakonakou-Wallace (2024)" and "Wallden (2024)" remain dependent on external collaborators' publication status.
+*Remaining entries marked "pending verification":* a May 2026 verification pass resolved the large majority of previously incomplete entries. The following were fully resolved with verified bibliographic detail: the DESI DR2 cosmology paper (*Phys. Rev. D* 112: 083515), Verlinde's emergent-gravity paper (*SciPost Physics* 2: 016, 2017), the Tedesco et al. chromatin-velocity paper (*Nat. Biotechnol.* 40: 235-244), the Cao et al. "Quantum biology revisited" review (*Science Advances* 6: eaaz4888), the Hiscock et al. magnetoreception paper (*Quarterly Reviews of Biophysics* 52: e9), the Drexler et al. CNS-tumor-classification paper (*Acta Neuropathol. Commun.* 12: 9), the Ye et al. focused-ultrasound Alzheimer's trial (*J. Neurosurg.* 142: 1263-1272), and the Hummer-Szabo single-molecule kinetics references (*PNAS* 98: 3658-3661 and 107: 21441-21446). The verification pass also corrected several misattributions: the *Drosophila* dispersion-index range R(t) ≈ 1.6-2.6 traces to Zeng et al. (1998, *Genetica* 102/103: 369-382), not a "Wang et al. (2010)" paper; the photosynthesis review is led by J. Cao and does not include M. B. Plenio; and the Korean focused-ultrasound trial's lead author is B. S. Ye, not "J. H. Ye". A small number of entries remain genuinely unresolved and are flagged in place: "Bauer et al. (2020)" and "Marek et al. (2022)" on NUT-carcinoma drug combinations and "Pyhel et al. (2024)" on knowledge-graph perturbation methods could not be matched to any located paper (likely transcription errors, with the most plausible intended references named in-entry); "Hayashi-Takagi et al. (2023)" on chromatin dynamics lacks sufficient context to disambiguate; the Garcia-Manero trial NCT01305499 is correctly identified as an azacitidine+entinostat study but has no locatable dedicated primary publication; and "Diakonakou-Wallace (2024)" and "Wallden (2024)" remain dependent on external collaborators' publication status.
 
 The framework's own technical companion papers (in the Zenodo release at DOI 10.5281/zenodo.19060318) are the primary references for all framework-internal derivations and should be consulted for full technical detail. Page-level cross-citation between book and companion papers will be added in the final cross-referencing pass.
 
 A final editorial pass on the bibliography is therefore needed before publication. The pending entries do not affect the manuscript's scientific content — every cited work has been read by the author and integrated into the manuscript's argument — but they need bibliographic detail verified for production-grade citation accuracy.
 
 ---
-
-# Index
-
-*Page numbers refer to the print edition. Entries marked with a page range span a continuous discussion; comma-separated numbers indicate distinct treatments.*
-
-## Concepts and topics
-
-
-**A**
-
-arrow of time, 48, 57, 59, 69, 79, 311, 313, 321  
-
-**B**
-
-Bell inequalities, 92, 154, 306, 365-366, 382, 384, 389  
-BQP (bounded-error quantum polynomial time), 225, 241, 244, 247, 251, 266, 347, 385  
-Bullet Cluster, 325, 392, 402  
-
-**C**
-
-chemistry, emergence of, 186, 194, 215, 220  
-coherence, quantum, 37, 43, 232-233, 256, 263, 352, 389  
-&nbsp;&nbsp;&nbsp;&nbsp;*vibronic*, 233, 236, 238, 344, 389, 402  
-computational irreducibility, 100, 106, 119, 156, 333-334, 359-360  
-
-**D**
-
-decoherence, 37, 181, 184, 232, 257, 261, 304, 393  
-&nbsp;&nbsp;&nbsp;&nbsp;*gravitationally induced*, 171, 182-184, 186, 252, 262, 384  
-&nbsp;&nbsp;&nbsp;&nbsp;*from horizons*, 171, 181-183, 186, 252, 262, 384  
-DSW (Danielson-Satishchandran-Wald) effect, 171, 181, 183-184, 186, 262, 384, 402  
-
-**E**
-
-epigenetic clock, 276, 395, 400, 402  
-evolution, molecular, 282, 285, 294, 296-297, 320, 394-395  
-
-**F**
-
-falsifiability, 61, 86, 111, 147, 230, 247, 262, 345  
-
-**G**
-
-gauge structure, 53, 69, 85, 96, 111, 131, 193, 357  
-gene regulatory networks, 285-289, 296-297, 396  
-gravitational waves, echoes, 144, 300, 309, 320, 346, 378, 392, 400  
-gravity, emergent, 309, 393, 403  
-
-**H**
-
-holographic principle, 184-185, 391, 403  
-
-**I**
-
-incompleteness of observation, 44, 50, 73, 78, 215, 303, 313, 389  
-
-**J**
-
-JUNO experiment, 58, 97, 140, 162, 168, 282, 343, 388  
-
-**K**
-
-Kochen-Specker theorem, 45, 61, 74, 76-77, 83, 89-90  
-
-**M**
-
-MOND (modified Newtonian dynamics), 58, 92, 147, 150, 173, 178, 325, 377  
-
-**N**
-
-neutrino mass ordering, 92, 126, 128, 147, 165-166, 177, 388  
-
-**O**
-
-origin of life, 186, 199, 201, 211-212, 221, 378, 394  
-
-**P**
-
-PBR (Pusey-Barrett-Rudolph) theorem, 45, 61, 76, 83, 90, 364, 367, 400  
-
-**Q**
-
-quantum biology, 62, 225, 228, 232, 235, 237, 282, 398  
-quantum computing, 62, 238, 241, 243, 253, 255, 383, 399  
-quantum error correction, 243, 249, 251, 253-255, 262-263  
-
-**R**
-
-radical-pair mechanism, 212, 228, 230, 234, 237, 344, 395, 400  
-reconstruction theorem, 48, 51, 55, 59, 64, 84, 223, 333  
-running-vacuum model, 93, 134, 145, 150, 309, 330, 343, 347  
-
-**S**
-
-structural realism, 45, 48, 66, 80, 134, 171, 177, 188  
-substratum, 30, 68, 103, 142, 189, 277, 312, 359  
-&nbsp;&nbsp;&nbsp;&nbsp;*finite deterministic*, 44, 78, 134, 171, 174, 184, 240, 333  
-&nbsp;&nbsp;&nbsp;&nbsp;*bijection*, 29, 52, 88, 116, 171, 193, 312, 353  
-
-**T**
-
-topology of the universe, 311, 392, 403  
-
-**U**
-
-unitarity, 31, 41, 60, 81, 143, 307, 352, 382  
-universality, 61, 70, 97, 144, 174, 183, 223, 262  
-
-## Names
-
-
-**A**
-
-Afshordi, N., 310, 392, 400, 404  
-
-**B**
-
-Barandes, J. A., 35, 37, 118, 369, 382, 391  
-Bekenstein, J. D., 30, 72, 131, 148, 181, 342  
-
-**C**
-
-Cao, J., 233, 398, 400-401, 404  
-Cornish, N. J., 315, 392, 400, 404  
-
-**D**
-
-Danielson, D., 171, 181, 262, 384, 392, 402  
-
-**F**
-
-Fleming, G. R., 232-233, 398, 404  
-
-**G**
-
-Gralla, S. E., 182, 393, 400, 404  
-
-**H**
-
-Hawking, S. W., 30, 80, 134, 172, 307, 343  
-Horvath, S., 276, 395, 400, 404  
-Hummer, G., 397, 400, 404  
-
-**K**
-
-Komatsu, E., 315, 392, 400, 404  
-
-**M**
-
-Maldacena, J., 61, 65, 144, 184, 186, 400  
-
-**P**
-
-Penington, G., 65, 80, 142, 171, 183, 400  
-Preskill, J., 80, 171, 184, 186, 391, 400  
-Pusey, M. F., 74, 76, 366, 391, 400, 403  
-
-**S**
-
-Satishchandran, G., 171, 181, 262, 384, 392, 402  
-Slagle, K., 80, 171, 184, 186, 391, 400  
-Spergel, D. N., 315, 392, 400, 404  
-Starkman, G. D., 315, 392, 400, 404  
-Szabo, A., 397, 400, 404  
-
-**V**
-
-Verlinde, E. P., 182, 377, 393, 400, 405  
-
-**W**
-
-Wald, R. M., 171, 181, 262, 384, 392, 402  
-Witten, E., 65, 80, 144, 171, 183, 392  
-
-## Symbols and notation
-
-*Each entry gives the symbol, its meaning, and where it is introduced.*
-
-$(S, \varphi)$ &mdash; the substratum: a finite set $S$ with deterministic bijection $\varphi$ (p. 30)  
-$\varphi$ &mdash; substratum update map (finite deterministic bijection) (p. 29)  
-$\tau_S$ &mdash; substratum time scale (fundamental update interval) (Introduction; Ch. 4)  
-$\tau_B$ &mdash; boundary (observable) time scale (Introduction; Ch. 4)  
-$l_p$ &mdash; Planck length (p. 54)  
-$\hbar$ &mdash; reduced Planck constant (emergent in the framework) (p. 31)  
-$a_0$ &mdash; MOND acceleration scale, $a_0 = cH/6$ (p. 58)  
-$\nu$ &mdash; running-vacuum parameter (p. 405)  
-$T_1$ &mdash; qubit energy-relaxation time; also the three-dimensional gauge component (p. 30)  
-$\mathcal{O}(\tau_S/\tau_B)$ &mdash; framework correction scale to standard kinetics (p. 237)  
-$\Delta t$ &mdash; gravitational-wave echo delay (p. 300)  
-$r_+$ &mdash; outer horizon radius (p. 309)  
