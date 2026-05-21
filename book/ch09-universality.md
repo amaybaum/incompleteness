@@ -245,7 +245,7 @@ The framework's core mechanism — horizons as causal partitions producing decoh
 
 The DSW derivation runs through three steps. First, they compute the entanglement between a near-horizon quantum superposition and the soft graviton modes produced by gravitational radiation across the horizon. Second, they show that the soft modes propagate through the horizon and cannot be recovered by any operation outside the horizon. Third, they identify the resulting irreversible loss of coherence as fundamental decoherence imposed by the horizon's causal structure.
 
-The result has been confirmed and extended by independent groups — Gralla and Wei (2024), Wilson-Gerow and Verlinde (2024), Chen, Penington, and Salzetta (2024), and others — establishing the DSW decoherence as a robust prediction of standard QFT in curved spacetime, independent of any specific framework for quantum gravity.
+The result has been confirmed and extended by independent groups — Gralla and Wei (2024), Wilson-Gerow, Dugad, and Chen (2024), Chen and Penington (2024), and others — establishing the DSW decoherence as a robust prediction of standard QFT in curved spacetime, independent of any specific framework for quantum gravity.
 
 **Convergence with the framework's mechanism.** The framework's content from Chapter 1 — embedded observers see their reduced description as quantum-mechanical because the cosmological horizon imposes a partition with C1-C3 structure — has three specific features that match DSW's analysis.
 

@@ -85,7 +85,7 @@ The framework's characterization theorem derives quantum mechanics from C1-C3 vi
 
 **The framework's response.** The bridge is established by *two independent* routes, either alone sufficient.
 
-*Route 1: Barandes correspondence.* Barandes (2023) and subsequent work (Barandes 2024, Liu 2024, Tetin 2024, others) established a mathematical correspondence between indivisible stochastic processes and unitary quantum dynamics. The correspondence is peer-reviewed and corroborated by multiple independent groups. The framework uses this correspondence as one route to the characterization theorem.
+*Route 1: Barandes correspondence.* Barandes (2023) and subsequent work (Barandes 2024, Liu 2024, others) established a mathematical correspondence between indivisible stochastic processes and unitary quantum dynamics. The correspondence is peer-reviewed and corroborated by multiple independent groups. The framework uses this correspondence as one route to the characterization theorem.
 
 *Route 2: Stinespring dilation.* The framework also derives the characterization theorem via Stinespring dilation — a standard result from textbook operator algebra established in the 1950s. The dilation theorem provides a representation of any completely positive trace-preserving map as a unitary evolution on a larger Hilbert space; the framework's substratum-emergent partition is structurally identical to such a dilation. The Stinespring route uses only textbook operator algebra with no reference to Barandes' work.
 
