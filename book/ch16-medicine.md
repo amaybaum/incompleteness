@@ -261,7 +261,7 @@ Current epigenetic therapeutics are organized along three axes that correspond d
 
 **Combination synergy with scheduling sensitivity.** The framework predicts that combinations across the reader/writer/eraser axes should show specific compositional advantages, with scheduling determined by the underlying substratum-level $\tau_B$ at each operator. Current clinical evidence supports this:
 
-- *Writer + reader.* p300/CBP HAT inhibitor + BET inhibitor shows synergistic anti-tumor effects in NUT carcinoma (Bauer et al. 2020; Marek et al. 2022).
+- *Writer + reader.* p300/CBP HAT inhibitor + BET inhibitor shows synergistic anti-tumor effects in NUT carcinoma (Zhang et al. 2020; Tontsch-Grunt et al. 2022).
 - *Eraser + reader.* HDAC inhibitor + BET inhibitor combinations are under clinical investigation in NUT carcinoma and other contexts.
 - *Writer + eraser.* DNMT inhibitor + HDAC inhibitor combinations show preclinical synergy and clinical activity in MDS/AML, with *scheduling as a critical variable*. Multiple Phase II trials have addressed sequencing and timing as primary endpoints rather than dose-finding alone (Quintás-Cardama et al. 2011; Garcia-Manero NCT01305499).
 
