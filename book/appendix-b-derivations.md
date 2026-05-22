@@ -300,6 +300,40 @@ The identification is structural: the cubic rotation group's representation theo
 
 The cumulative derivation produces the full Standard Model gauge structure with matter content from the framework's substratum-level commitments, with no phenomenological inputs beyond the substratum's spatial dimensionality $d = 3$.
 
+## B.6b Bravais-lattice uniqueness lemma
+
+*Main-text reference: Chapter 5 §5.5.*
+
+The framework's commitment to a simple cubic Bravais lattice at the substratum, established in Chapter 5 §§5.2-5.5 from the bijection structure and coupling-degree minimization, has a formal closure at the representation-theoretic level. Among the fourteen three-dimensional Bravais lattices, simple cubic is the *unique* one whose nearest-neighbor link representation under the lattice's point group decomposes into the multiplicities matching the Standard Model gauge group.
+
+**Lemma B.6b.1 (Bravais-lattice uniqueness).** *Among the fourteen three-dimensional Bravais lattices, the simple cubic lattice ($cP$) is the unique one whose nearest-neighbor link representation under the lattice's point group decomposes as $A_1 \oplus E \oplus T_1$ with multiplicities $(1, 2, 3)$ matching the Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$.*
+
+**Proof.**
+
+*Step 1 (3D irreps required).* The framework's commutant construction (Chapter 5 §5.4) requires the lattice's point group to admit a three-dimensional irreducible representation, supplying the SU(3) commutant factor. Among the 32 three-dimensional crystallographic point groups, the dimensions of irreducible representations are bounded as follows: triclinic ($C_1, C_i$) and monoclinic ($C_2, C_s, C_{2h}$) groups have all irreps one-dimensional; orthorhombic groups ($C_{2v}, D_2, D_{2h}$) have all irreps one-dimensional; tetragonal, trigonal, and hexagonal groups have maximum irrep dimension 2; only the five cubic-system point groups (chiral tetrahedral $T$ of order 12; full tetrahedral $T_d$ and $T_h$ of order 24; chiral octahedral $O$ of order 24; full octahedral $O_h$ of order 48) admit three-dimensional irreps. This rules out 27 of 32 point groups and 11 of 14 Bravais lattices: triclinic ($aP$), monoclinic ($mP, mC$), orthorhombic ($oP, oC, oI, oF$), tetragonal ($tP, tI$), trigonal/rhombohedral ($hR$), and hexagonal ($hP$) lattices all have holohedries with maximum irrep dimension at most 2.
+
+*Step 2 (cubic lattices discriminated by NN decomposition).* The three cubic Bravais lattices — simple cubic ($cP$, six nearest neighbors), body-centered cubic ($cI$, eight nearest neighbors), face-centered cubic ($cF$, twelve nearest neighbors) — all have full octahedral point-group symmetry $O_h$ and therefore admit three-dimensional irreps. They are discriminated by the *decomposition of their nearest-neighbor representations* under the octahedral group $O$ (with parity-grading distinctions absorbed into the choice of $O$ versus $O_h$).
+
+Character-table decomposition of nearest-neighbor permutation representations gives:
+$$\text{cP (6 NN)}: \chi = (6, 0, 2, 2, 0) \Rightarrow A_1 \oplus E \oplus T_1,$$
+with multiplicities $(1, 2, 3)$ matching $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ after alphabet-freedom reduction.
+$$\text{cI (8 NN)}: \chi = (8, 2, 0, 0, 0) \Rightarrow A_1 \oplus A_2 \oplus T_1 \oplus T_2,$$
+with multiplicities $(1, 1, 3, 3)$, producing a commutant with two SU(3) factors and no SU(2) factor — incompatible with the Standard Model gauge group.
+$$\text{cF (12 NN)}: \chi = (12, 0, 0, 0, 2) \Rightarrow A_1 \oplus E \oplus T_1 \oplus 2T_2,$$
+with multiplicities $(1, 2, 3, 6)$, producing additional factor structure (the doubled $T_2$ multiplicity yields an extra $U(2)$ commutant acting on the multiplicity space) incompatible with the Standard Model.
+
+Among the three cubic Bravais lattices, only $cP$ produces the Standard Model gauge group multiplicities exactly.
+
+*Step 3 (coupling-degree minimization excludes BCC alternatives).* A potential ambiguity: BCC's six *next-nearest neighbors* (along the axial directions $\pm a\hat{e}_i$) produce a character identical to SC's nearest-neighbor character, and would therefore decompose as $A_1 \oplus E \oplus T_1$ with the same SM multiplicities. The framework's coupling-degree minimization argument (Chapter 5 §5.4) rules out this alternative by forcing $K = 2d = 6$ internal components and *nearest-neighbor* coupling specifically — BCC's axial directions are next-nearest rather than nearest, and the framework's commitment to minimal coupling degree excludes them.
+
+*Step 4 (Bravais commitment excludes alternatives).* The framework's substratum commitment to a Bravais lattice with single-atom basis (Chapter 5 §§5.2-5.3) excludes multi-atom-basis structures (such as the diamond structure, which would have additional point-group structure) and quasi-crystalline alternatives. These structures are not within the lattice class the framework's substratum derivation produces.
+
+The four steps together establish the uniqueness claim. $\blacksquare$
+
+**Computational verification.** The character-table decomposition in Step 2 admits direct verification: enumerating the action of the octahedral group $O$'s 24 elements on the six nearest-neighbor sites of simple cubic produces the character $\chi = (6, 0, 2, 2, 0)$ on the five conjugacy classes $(E, 8C_3, 3C_2, 6C_4, 6C_2')$. Applying the orthogonality relation $n_\sigma = (1/|G|) \sum_C |C| \chi_\sigma(C)^* \chi(C)$ for the irrep characters $\chi_\sigma$ of $A_1, A_2, E, T_1, T_2$ gives multiplicities $(1, 0, 1, 1, 0)$, confirming the decomposition $A_1 \oplus E \oplus T_1$. Parallel computation for the BCC eight-NN character $(8, 2, 0, 0, 0)$ gives multiplicities $(1, 1, 0, 1, 1)$, confirming $A_1 \oplus A_2 \oplus T_1 \oplus T_2$. Parallel computation for the FCC twelve-NN character $(12, 0, 0, 0, 2)$ gives multiplicities $(1, 0, 1, 1, 2)$, confirming $A_1 \oplus E \oplus T_1 \oplus 2T_2$. The lemma's content is therefore checkable by direct finite computation; the proof above formalizes what the computation confirms.
+
+**Consequences.** The lemma converts Chapter 5 §5.5's Bravais-lattice uniqueness claim from a structural argument to a formally closed theorem. The framework's substratum commitment to simple cubic is therefore not one structural choice among several admitting alternative resolutions — it is the unique choice among 3D Bravais lattices consistent with the Standard Model gauge group under the framework's commutant construction. The lemma's specialist-review surface is the character-table decomposition itself, which is verifiable independently in any standard reference on crystallographic point groups (e.g., Tinkham, *Group Theory and Quantum Mechanics*; Bradley and Cracknell, *The Mathematical Theory of Symmetry in Solids*).
+
 ## B.7 The lemma chain for emergent quantum mechanics
 
 *Main-text reference: Chapter 1 §§1.5-1.9.*

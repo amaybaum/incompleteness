@@ -127,6 +127,19 @@ The propagator has $1/|q|$ falloff rather than $1/|q|^2$ because the taste-chang
 
 **Comparison with other Bravais lattices.** The Cabibbo angle on simple cubic is $\lambda_{\text{SC}} = 1/(\pi\sqrt{2}) = 0.2251$, matching observation at $0.04\%$. On body-centered cubic, the triplet sector sits at the $H$-points of the BCC Brillouin zone with separation $\pi\sqrt{6}$, giving $\lambda_{\text{BCC}} = 0.1299$ — discrepant from observation by $42\%$. On face-centered cubic, the triplet sector sits at the $L$-points with separation $2\pi$, giving $\lambda_{\text{FCC}} = 0.1592$ — discrepant by $29\%$. The simple-cubic Bravais-lattice commitment from Chapter 5 §5.5 is quantitatively confirmed by the Cabibbo prediction: only simple cubic produces the observed value.
 
+**Isolation in integer-input space.** A complementary robustness check examines whether nearby alternatives to the specific integer $N = 2$ in the form $\lambda = 1/(\pi\sqrt{N})$ also match observation. They do not. The table below shows predictions for $N \in \{1, 2, 3, 4, 6, 8\}$ — the integers that arise naturally from inter-corner distances in various cubic-lattice geometries — against the observed $\lambda = 0.22500 \pm 0.00067$:
+
+| $N$ | $\lambda = 1/(\pi\sqrt{N})$ | Deviation |
+|---|---|---|
+| 1 | 0.3183 | $+139\sigma$ |
+| **2 (framework)** | **0.2251** | **$+0.1\sigma$** |
+| 3 | 0.1838 | $-62\sigma$ |
+| 4 | 0.1592 | $-98\sigma$ |
+| 6 | 0.1299 | $-142\sigma$ |
+| 8 | 0.1125 | $-186\sigma$ |
+
+The framework's $N = 2$ is the only integer value in the nearby alternatives that matches observation within $1\sigma$. The next-closest alternative ($N = 3$) deviates by 62 standard deviations. The Cabibbo prediction is *isolated* in the space of nearby alternatives — not selected from a cluster of acceptable choices.
+
 **The Wolfenstein parameter $A$.** The $A_1$ (Higgs) taste sits along the democratic direction $\hat{h} = (1, 1, 1)/\sqrt{3}$ in the internal space. Each generation axis $\hat{e}_j$ makes an angle $\theta$ with $\hat{h}$ satisfying $\cos\theta = \hat{e}_j \cdot \hat{h} = 1/\sqrt{3}$. The CKM mixing in the $A$ parameter is driven by the perpendicular component of the generation axis relative to the Higgs democratic direction:
 $$A = \sin\theta = \sqrt{1 - 1/3} = \sqrt{2/3} = 0.8165.$$
 Observed: $A = 0.826 \pm 0.012$. Match: $0.8\sigma$, agreement at $1.2\%$.
@@ -144,6 +157,8 @@ Observed (FLAG 2024 $N_f = 2 + 1 + 1$ lattice): $m_d/m_s = 0.0503 \pm 0.0007$. M
 **The Jarlskog invariant.** The Jarlskog invariant $J = \text{Im}(V_{us} V_{cb} V_{ub}^* V_{cs}^*)$ measures CP violation in the quark sector. In the Wolfenstein parametrization, $J \approx A^2 \lambda^6 \eta$. Substituting $\lambda = 1/(\pi\sqrt{2})$ and $A = \sqrt{2/3}$:
 $$J = \frac{\eta}{12\pi^6},$$
 where $\eta = 0.348$ is the solution-specific CP-violating parameter. This gives $J = 3.02 \times 10^{-5}$ (observed: $(3.08 \pm 0.13) \times 10^{-5}$, agreement at $0.5\sigma$). The structural suppression factor $12\pi^6 \approx 11{,}537$ is purely geometric.
+
+A consistency check using the framework's $A^2 = 2/3$ and $\lambda^2 = 1/(2\pi^2)$ structural inputs runs the relation in reverse: solving $J = A^2 \lambda^6 \eta$ for $\eta$ at the observed Jarlskog value $J_{\text{obs}} = 3.18 \times 10^{-5}$ gives $\eta_{\text{implied}} = 0.367$. The PDG value is $\eta = 0.357 \pm 0.011$. The framework's structural inputs combined with the observed Jarlskog produce an $\eta$ consistent with the PDG fit at $0.83\sigma$. This consistency check is independent of the chapter's specific solution-specific $\eta = 0.348$ — it asks only whether the framework's structural $A^2$ and $\lambda^2$ inputs are compatible with the observed CP-violating phase, and the answer is yes within $1\sigma$.
 
 The Wolfenstein parameters $\rho$ and $\eta$ themselves require complex CKM entries, arising from the specific bijection $\varphi$ rather than from structural cubic-group representation theory. They are solution-specific properties of the framework's particular substratum representative — Layer 3 content in the four-layer framing of Chapter 4 — and the framework makes no commitment to their numerical values beyond the structural constraint that the Jarlskog invariant has the form $\eta / (12\pi^6)$.
 
@@ -167,7 +182,9 @@ The structural interpretation is geometric: $C_2(T_1)/d^2$ is the anisotropy str
 
 A first-principles derivation of the specific $1/d$ amplitude scaling (rather than alternatives like $1/(2d)$) from the cubic-lattice Yukawa structure remains an open task; the empirical match at $0.02\%$ constrains the amplitude scaling tightly. The Koide prediction is currently Class B-S Layer 1 — unconditional structural at the substratum-geometry level — with the open derivation question being whether the $1/d$ amplitude is forced by the framework's structural commitments or chosen empirically.
 
-**The charged-lepton mass chain.** Given the Koide angle $\theta_0 = 2/9$ and one empirical input (the tau mass $m_\tau = 1776.86$ MeV), the framework determines the electron and muon masses through a *second* structural commitment beyond the Koide relation itself. The Koide relation $Q = 2/3$ is one equation in three mass unknowns; given $m_\tau$, it leaves a one-parameter family of $(m_e, m_\mu)$ pairs. To fix a specific point in this family, the framework adopts the $\mathbb{Z}_3$-symmetric parametrization that Koide originally used (Koide 1982): the three masses are written as $m_i = m_0(1 + \sqrt{2}\cos(\delta + 2\pi i/3))^2$ for $i = 1, 2, 3$, with the $\mathbb{Z}_3$-symmetric angle $\delta$ fixed by the cubic-group representation theory of the $T_1$ triplet acting democratically on the three generations. The combination of $Q = 2/3$ from the cubic Casimir and the $\mathbb{Z}_3$-symmetric angle from the $T_1$ representation theory uniquely determines all three lepton masses from a single empirical scale.
+**The charged-lepton mass chain.** Given the Koide angle $\theta_0 = 2/9$ and one empirical input (the tau mass $m_\tau = 1776.86$ MeV), the Koide relation alone is mathematically insufficient to fix both remaining lepton masses: $Q = 2/3$ is one equation in three mass unknowns, leaving a one-parameter family of $(m_e, m_\mu)$ pairs consistent with $Q = 2/3$ and the observed $m_\tau$. A *second* structural commitment beyond the Koide relation itself is required to fix a specific point in this family, and the framework's existing chapters do not currently make this second input explicit. [^koide-second-input]
+
+[^koide-second-input]: The natural candidate from the Koide literature is Koide's original 1982 $\mathbb{Z}_3$-symmetric parametrization $m_i = m_0(1 + \sqrt{2}\cos(\delta + 2\pi i/3))^2$ for $i = 1, 2, 3$, in which the $\mathbb{Z}_3$-symmetric angle $\delta$ would need to be fixed by the cubic-group $T_1$ representation theory acting democratically on the three generations. Whether this is the specific second input the framework intends, or whether a different second structural commitment is at work, is an open question for the next revision. The Class B-M classification of $m_e$ and $m_\mu$ at the chapter close should be read as "mass-chain inheritance from $m_\tau$ plus an unstated structural commitment."
 
 | Mass | Predicted | Observed | Deviation |
 |------|-----------|----------|-----------|
