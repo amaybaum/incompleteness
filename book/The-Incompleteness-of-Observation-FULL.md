@@ -218,7 +218,6 @@ The framework is unfinished in its empirical exposure but complete in its struct
 
 ---
 
--e 
 
 
 # Acknowledgments
@@ -248,7 +247,6 @@ The framework developed in this book rests on the work of many physicists, mathe
 — Alex Maybaum
 
 ---
--e 
 
 
 # Introduction
@@ -360,7 +358,6 @@ The book's technical density varies. Chapters 1, 2, 5, 6, and 7 contain the fram
 Readers approaching the book with different interests will find different reading paths useful. Readers primarily interested in the framework's foundational claim should focus on Chapters 1, 2, and 7; the JUNO prediction in Chapter 8 provides the most concrete empirical anchor. Readers primarily interested in the philosophical positioning should focus on Chapters 3, 4, and 9, with Chapter 18 providing substantive content on consciousness and cosmic-scale questions. Readers approaching the framework from computational complexity or quantum hardware engineering can begin with Chapters 14 and 15 and consult Parts I and II as needed. Readers approaching the framework from biology, medicine, or applied physics can begin with Chapters 12, 13, 16, and 17 and consult Parts I and II as needed. Readers wanting a systematic overview of the framework's content against the standard open problems of fundamental physics should consult Chapter 19 as a reference resource. A reader following the full argument from start to finish — the framework's intended presentation — will find the technical content of Parts I and II load-bearing for the cascade developments of Parts III and IV.
 
 The book makes one foundational commitment — that observation occurs — and develops the consequences. The consequences are extensive. They include the structure of quantum mechanics, the dynamics of general relativity, the gauge group and matter content of the Standard Model, the composition of the cosmological dark sector, the structural conditions for chemistry and life, and the framework's reach into specific contemporary problems in biology and medicine. Whether the framework is correct is an empirical question that will be settled by the predictions developed throughout the book against measurements now being made and forthcoming. The book's role is to make the structure of the framework, the chain of its derivations, and the specific content of its predictions available for evaluation.
--e 
 
 
 # Chapter 1
@@ -688,7 +685,6 @@ This reframing has consequences for the framework's empirical content beyond wha
 The substratum that the framework's algorithm operates on is constructed concretely in Chapter 2 — a three-dimensional cubic lattice with bilinear, block-diagonal dynamics whose structural constraints fix the framework's empirical content. Chapter 3 takes up the framework's full philosophical positioning, including its relationship to the structural realism program, its evasion of Bell, Kochen-Specker, and PBR-type no-go theorems through identification of which descriptive level each assumption fails at, and its parallels to the broader intellectual landscape of incompleteness results from Gödel through Wolpert. Chapter 4 develops the methodological posture — the single-foundational-commitment derivation pattern, the architecture-level engagement with the no-go results, the classification of claims by derivational rigor — that organizes the framework's program as a whole. The remaining chapters trace the framework's predictions through particle physics, gravity, cosmology, the structural cascade from atoms to intelligence, and the framework's reach into chemistry, biology, medicine, and quantum engineering.
 
 The remainder of this part of the book develops the substratum, the structural realism, and the methodology in detail. Part II turns to the framework's quantitative physics. Part III traces the cascade from substratum to chemistry, biology, and intelligence. Part IV develops the framework's reach into working scientific fields.
--e 
 
 
 # Chapter 2
@@ -925,7 +921,6 @@ Parts II and III then develop the framework's quantitative consequences. Chapter
 The cascade through chemistry, biology, evolution, and intelligence in Chapters 10–12 takes the structural results of Parts I and II as derived inputs and develops their consequences for the structural conditions under which complex matter, life, and intelligence become possible. The applications in Chapters 13–17 develop the framework's reach into working scientific fields: quantum biology, quantum computing and engineering, medicine, bioinformatics.
 
 The framework's claim, made precise across these chapters, is that a single starting commitment — that observation occurs — combined with the lemmas extracted from this commitment and the conditions identified for embedded observers in our universe, produces a substratum that is forced to have a specific architecture, with quantum mechanics, general relativity, the Standard Model, and the cosmological dark sector all forced consequences of the architecture rather than separate empirical inputs. The book's role is to make this chain of derivations available for evaluation against the experimental record now being assembled and forthcoming.
--e 
 
 
 # Chapter 3
@@ -1154,7 +1149,6 @@ Chapter 8 develops the universality-class structure and the framework's relation
 Parts II–IV develop the framework's empirical content at the various levels identified in this chapter. The Level G3 × Level D predictions — the twenty-two Standard Model retrodictions, the JUNO neutrino-mixing angle, the Bekenstein-Hawking $1/4$ factor, the MOND acceleration scale, the dark-sector predictions — are developed quantitatively. The Level G2 × Level D structural commitments — the Standard Model gauge group, the three-generation structure, the anomaly-free hypercharges — are developed as derivations from the cubic-group commutant. The Level G4 × Level C universal features — the Born rule, channel unitarity, P-indivisibility, the commutant restriction pattern — are taken as given content of the framework's foundational theorems.
 
 The framework's hierarchical structure is what makes the framework different from a single bold claim about reality. It is a coordinated set of claims at different levels of generality, with different empirical predictions, different falsifiability conditions, and different philosophical commitments at each level. The framework's strongest realism — at Level D × Level G3 — is also its narrowest. The framework's broadest realism — at Level C × Level G4 — is also its most universal. The book's role is to develop these levels with the technical and empirical content that distinguishes one level from another.
--e 
 
 
 # Chapter 4
@@ -1349,7 +1343,6 @@ Parts III and IV develop the framework's reach into structural cascades and appl
 The methodology developed in this chapter is not unique to the framework. The single-foundational-commitment pattern is a general principle of theory construction, the claim-classification scheme is a general standard for empirical evaluation, the architecture-level no-go engagement is a general method for analyzing structural results, and the pre-registered falsification discipline is a general epistemological standard. The framework's contribution is to apply this methodology systematically rather than selectively, with every prediction carrying its classification and every structural commitment carrying its falsification condition. What this discipline produces, when applied to the framework's foundational starting point — the two-axiom observation base — is the content developed in the remaining chapters of the book.
 
 The methodological posture sketched in this chapter is developed at length, for a philosophy-of-physics readership, in a companion paper — *Physics Modulo Gauge* — which treats the two-axiom foundational commitment, constructive structural realism, the engagement with the no-go results of quantum foundations through a single architectural feature, and "physics modulo gauge" as a general methodology. That paper is a companion to the framework's technical sequence rather than part of this book; readers concerned specifically with the framework's methodology and its relation to the foundations-of-physics literature will find it the natural next text.
--e 
 
 
 # Chapter 5
@@ -1551,7 +1544,6 @@ The chapter has established the gauge structure of the Standard Model from the c
 The chapter's content sits at Level 0 of the four-layer framing developed in Chapter 4 — gauge structure derived from substratum-level representation theory — and is correspondingly unconditional S-class structural in the framework's claim-classification scheme. The gauge group is not fitted to observation; it is forced. The hypercharges are not chosen from a continuum of possibilities; they are determined by anomaly cancellation. Falsification of either would refute the framework directly: any stable beyond-Standard-Model gauge structure, any departure of the hypercharges from the values derived here, would violate the framework's Class A structural commitments developed in Chapter 4 §4.5.
 
 Chapter 6 develops the specific quantitative content this gauge structure produces. The matter content is derived: three chiral fermion generations from the staggered taste structure of the wave equation, one composite Higgs doublet from the singlet staggered taste, with the absolute generation count locked at three by coupling-degree minimization. The strong-CP problem is resolved structurally: $\bar\theta = 0$ at all energy scales follows from T-invariance of the substratum bijection combined with detailed balance, requiring no axion. The gauge couplings at the $Z$ pole follow from a one-parameter chain whose structural inputs include the analytic one-loop staggered vacuum polarization $1/\alpha_0 = 23.25$ and the cubic-group structure of the matter content. The twenty-two parameter-free quantitative retrodictions developed there include the Cabibbo angle $1/(\pi\sqrt{2})$ matched to $0.04\%$, the Koide relation $2/9$ matched to $0.02\%$, the six fermion masses from a single empirical input matched to better than $1\%$, all three PMNS mixing angles within $1.1\sigma$, and the Higgs mass from the boundary condition $\lambda(M_{\text{Pl}}) = 0$ matched to $0.9\%$. The framework's quantitative empirical record outside cosmology is concentrated in Chapter 6.
--e 
 
 
 # Chapter 6
@@ -1873,7 +1865,6 @@ Chapter 8 develops the JUNO prediction in detail, as a focused case study of the
 
 The framework's empirical record in fundamental physics, developed across Chapters 5 through 9, is concentrated at the Level G3 × Level D intersection of the hierarchical structural realism developed in Chapter 3 — class-specific predictions of the cubic-lattice substratum representative, with substantial empirical support and pre-registered falsifiability. The structural and methodological commitments of Part I are made quantitatively precise here.
 
--e 
 
 
 # Chapter 7
@@ -2183,7 +2174,6 @@ Chapter 9 develops the framework's relationship to other unification programs �
 The framework's content in fundamental physics, developed across Chapters 5 through 9, reduces a substantial portion of standard physics to structural consequences of the framework's foundational commitments. The empirical record at the close of Part II spans the Standard Model gauge sector (22 predictions matched within $0.02\%$ to $1.2\%$), the gravitational sector (14 predictions matched within $0.04\%$ to $99.999\%$), and the neutrino sector (7 predictions matched within $0.07\sigma$ to $1.02\sigma$). Part III turns to the framework's reach beyond fundamental physics — the emergence cascade through chemistry, life, evolution, and intelligence — and Part IV to working applications in quantum biology, quantum engineering and computation, medicine, bioinformatics, and the framework's forward predictions.
 
 ---
--e 
 
 
 # Chapter 8
@@ -2462,7 +2452,6 @@ The methodological discipline of Chapter 4 §4.6 places this kind of cross-secto
 The framework's empirical content in fundamental physics is at the strongest evidential standard the field admits: parameter-free structural predictions with inputs fixed by cubic-group representation theory and quark-sector observables, matching neutrino-sector observation at the current experimental precision with no fresh free parameters fitted. The JUNO confirmation is the chapter's empirical anchor — the framework's commitment to cubic-group representation theory in the lepton sector, tested at $0.07\sigma$ on a parameter-free cross-sector prediction. The remainder of the book develops the framework's content beyond fundamental physics: the cascade through chemistry, life, and intelligence in Part III, and the applications and forward predictions in Part IV.
 
 ---
--e 
 
 
 # Chapter 9
@@ -2797,7 +2786,6 @@ This stance is intellectually irenic. The framework is not a competitor to exist
 The framework's content from Chapter 5 through Chapter 8 — concentrated at the universality-class, substratum-properties, and specific-bijection levels in this chapter's hierarchical structural realism — provides the empirical foundation. The remaining chapters build on that foundation, with the framework's reach extending from the substratum-level structural commitments developed in Part I and the empirical record developed in Part II into the broader scientific domains where the framework operates.
 
 ---
--e 
 
 
 # Chapter 10
@@ -3008,7 +2996,6 @@ The framework's content on fine-tuning and anthropics is therefore a substantive
 **Forward pointers.** Chapter 11 develops the framework's content on the origin of life: how the framework's chemistry-supporting commitments propagate further through the emergence cascade to produce self-replicating molecular systems. Chapter 12 develops evolution, intelligence, and self-reference. Chapter 13 develops the framework's content in quantum biology, where the framework's C1-C3 structural conditions apply directly to biological systems at the molecular scale. The framework's content in chemistry developed in this chapter provides the structural foundation for the subsequent biology chapters: the periodic table, organic chemistry, water as solvent, the thermal window, and the homochirality of biological molecules are all the chapter's content's downstream consequences for life.
 
 ---
--e 
 
 
 # Chapter 11
@@ -3231,7 +3218,6 @@ The empirical confirmations of the framework's content are concordance: laborato
 **Forward pointers.** Chapter 12 develops the framework's content on evolution, intelligence, and self-reference: the cascade from the chapter's first replicators through complex biology to general intelligence and the framework's own self-discovery. Chapter 13 develops quantum biology — the specific applications of C1-C3 at the molecular scale to biological systems with substantial empirical content (enzyme kinetics, photosynthesis, magnetoreception, neural information processing). The framework's content in this chapter — Darwinian evolution as structural consequence, RNA-like architecture as structural prediction, C1-C3 as the unifying mechanism — provides the foundation on which the subsequent biology chapters build.
 
 ---
--e 
 
 
 # Chapter 12
@@ -3472,7 +3458,6 @@ The framework's self-reference is therefore not paradoxical but consistent. The 
 The framework's reach in this chapter spans from molecular biology to AI to the framework's own self-discovery. The cumulative structural account — Darwinian evolution as inevitable consequence of C1-C3 at the molecular scale, information processing as fitness-enhancing, neural computation as structurally possible, general intelligence as structurally unconstrained but not guaranteed, AI as structural consequence of intelligence, and the framework's self-referential limits as mathematical constraints — provides the framework's content on emergence beyond fundamental physics. The remaining chapters apply this content to specific empirical domains: quantum biology (Chapter 13), quantum computing (Chapter 14), quantum engineering (Chapter 15), medicine (Chapter 16), and bioinformatics (Chapter 17).
 
 ---
--e 
 
 
 # Chapter 13
@@ -3653,7 +3638,6 @@ The framework's content in quantum biology unifies several apparently disparate 
 The framework's content from this chapter onward shifts from cascade derivations to specific empirical applications: how the framework's structural commitments at the chemistry and biology levels produce specific predictions about quantum computing platforms, engineered quantum systems, clinical pharmacology, and bioinformatics methodology. The chapter's content on the protein C1-C3 architecture provides the foundational example that the subsequent chapters build on.
 
 ---
--e 
 
 
 # Chapter 14
@@ -3846,7 +3830,6 @@ Chapter 18 §§18.2-18.4 developed the foundational content connecting the frame
 The chapter's content is therefore the framework's positive contribution to computational complexity theory: a structural characterization of BQP as the unique class accessible to embedded observers, with the ECT reframed from empirical conjecture to theorem and the BPP-BQP gap interpreted as the cost of partial observation. The framework's empirical exposure in computational complexity is principally negative — the prediction of no super-BQP computation provides a sharp falsification target — but the structural content is substantial.
 
 ---
--e 
 
 
 # Chapter 15
@@ -4115,7 +4098,6 @@ The chapter's content connects the framework's foundational commitments (Chapter
 The framework's empirical reach across Chapters 13-17 is concentrated at the application level — specific predictions for biology, computing, engineering, medicine, and bioinformatics. The framework's content here in quantum engineering is the bridge between the foundational chapters (1-9) and the applied chapters (13-17), demonstrating that the framework's structural commitments at the substratum level produce specific quantitative predictions across multiple engineering domains.
 
 ---
--e 
 
 
 # Chapter 16
@@ -4464,7 +4446,6 @@ The framework is not just a theory of fundamental physics with implications for 
 The framework's reach from Chapter 13's quantum biology through Chapter 15's quantum engineering and this chapter's medicine provides cumulative empirical content in applied domains. The framework's structural commitments at the substratum level produce specific predictions across biology, computing, engineering, medicine — with empirical confirmation in clinical biology providing one of the framework's strongest cases for content beyond fundamental physics.
 
 ---
--e 
 
 
 # Chapter 17
@@ -4701,7 +4682,6 @@ The framework's reach across Chapters 13-17 — quantum biology, quantum computi
 The framework's content from the substratum-level structural axioms of Chapter 1 through the emergence cascade of Chapters 10-12 and the applied chapters of 13-17, with the closing forward predictions and open problems inventory of Chapters 18-19, constitutes a complete structural framework with empirical exposure across physics, chemistry, biology, computing, engineering, and medicine. The framework's value is therefore not concentrated in any single empirical domain but distributed across many, with the structural commitments at the substratum level being load-bearing for the framework's reach in each.
 
 ---
--e 
 
 
 # Chapter 18
@@ -5054,7 +5034,6 @@ The framework's evidential standard is preregistered structural prediction match
 The chapter is honest about what it does not address. The hard problem of consciousness is not solved. The cosmological initial state is not explained. Several other open problems remain in the framework's residue. Chapter 19 develops these residues in detail, alongside the resolved-problem inventory that makes the framework's cumulative empirical reach explicit.
 
 ---
--e 
 
 
 # Chapter 19
@@ -5315,7 +5294,6 @@ The chapter's purpose is to make the framework's record on standard open problem
 The book's content concludes here. The framework's empirical record (Chapters 5-17), forward predictions (Chapter 18), and inventory against the standard open problems (Chapter 19) together constitute the framework's positive content. The remaining scope limits — the flavor problem, the Hubble tension, baryogenesis (solution-specific: $\eta_B$ inherits the flavor-sector CP input), inflation, and the initial state — are pre-registered as the framework's current boundaries. Closing them is the framework's future research program.
 
 ---
--e 
 
 
 # Appendix A
@@ -5541,7 +5519,6 @@ The framework's cumulative empirical record can be summarized as follows.
 The framework's distinctive epistemic position is that it provides *structural foundations* for the empirical patterns rather than competing theoretical content at the emergent level. Standard QM, standard QFT, and standard GR are reproduced at the emergent level; the framework's distinctive content is the structural foundations explaining why these emergent theories have the specific forms they do. The cumulative empirical record provides convergent evidence for the framework's structural commitments across multiple domains, with no single empirical match being load-bearing for the framework's overall content.
 
 ---
--e 
 
 
 # Appendix B
@@ -5933,7 +5910,6 @@ The biconditional is the framework's main characterization result. $\square$
 The combined derivations constitute the framework's full mathematical content as a derivation chain from the substratum-level structural commitments to the Standard Model, the gravitational sector, and the empirical predictions across the framework's domains. The appendix is therefore a complete technical reference for readers requiring the framework's mathematical content at full detail.
 
 ---
--e 
 
 
 # Appendix C
@@ -6265,7 +6241,6 @@ Where the framework's reach has genuine limits (consciousness, initial condition
 The appendix's value is therefore as a reference resource for readers approaching the framework from different starting points. Readers familiar with Bell's theorem and the no-go theorems should find §§C.2-C.3 directly useful. Readers familiar with effective field theory should find §§C.9 directly useful. Readers familiar with standard interpretations should find §C.8 directly useful. Readers concerned about credentials, scope, or ambition should find §C.12 directly useful. The appendix is intended to be navigable rather than read straight through, with each section engaging the specific cluster of concerns characteristic of one reader audience.
 
 ---
--e 
 
 
 # Glossary
@@ -6419,7 +6394,6 @@ This glossary defines the framework's distinctive terminology and the technical 
 **Yamanaka factors.** The four transcription factors (Oct4, Sox2, Klf4, c-Myc) whose transient expression reprograms somatic cells to induced pluripotent stem cells. The framework identifies iPSC reprogramming as confirming the *substratum-emergent operator distinction* at chromatin: the emergent operator (cell identity) flips while substantial residual substrate-level operator (DNA methylation patterns reflecting source cell type) persists. Discussed in Chapter 16 §16.10.
 
 ---
--e 
 
 
 # Bibliography
