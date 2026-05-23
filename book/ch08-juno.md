@@ -149,7 +149,7 @@ The sum rule is therefore *structurally protected* against $A_1$'s perturbation 
 
 The empirical match at $0.07\sigma$ on $\sin^2\theta_{12}$ provides genuine evidence about the specific bijection $\varphi$. This is the same form of empirical evidence the framework relies on for other Layer 2(b) content (mass hierarchy match through the Koide structure, the existence of three generations with hierarchical masses).
 
-The substrate-level open task is correctly scoped: it asks whether the specific staggered-Yukawa structure on the cubic lattice produces $A_2$ in the sum-rule-preserving subspace for a given bijection. This is a tractable lattice-perturbation-theory question, but it should not be confused with Layer 1 substratum geometry — the directionality is Layer 2(b) by construction.
+The open derivational task is correctly scoped: it asks whether the specific staggered-Yukawa structure on the cubic lattice (in the emergent post-trace-out description; the substratum proper has no Lagrangian per Ch02 §2.5) produces $A_2$ in the sum-rule-preserving subspace for a given bijection. This is a tractable lattice-perturbation-theory question for the *magnitude* content (Layer 2(a)), but the directionality remains Layer 2(b) by construction — fixed by the empirical mass-ordering bijection, not derivable from substrate alone in any framework consistent with $\mathcal{G}_{\text{sub}}$-invariance.
 
 ## 8.6 The three numerical predictions
 
