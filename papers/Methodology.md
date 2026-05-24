@@ -528,7 +528,7 @@ The unification has a verifiable consequence. If the architectural pattern is ri
 
 ## 25. THE OPERATIONAL AUDITS
 
-*Status: the audits themselves are developed in the framework's technical record (the OI_MASTER document maintained alongside the technical papers); their methodological reading as systematic application of §22 to the framework's own content is the present part's synthesis.*
+*Status: the audits themselves are developed in the framework's technical record; their methodological reading as systematic application of §22 to the framework's own content is the present part's synthesis.*
 
 The §22 gauge-invariance no-go is methodologically empty if not applied. A framework that proves a no-go theorem about substrate-only computation and then continues to claim quantities are substrate-derivable when they are in fact bijection-specific would have stated a result without using it. The framework's technical record applies the §22 result to its own content through systematic audits, which is part of what the operational methodology of this part means by "operational."
 
