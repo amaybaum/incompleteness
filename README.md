@@ -143,7 +143,7 @@ All research papers live in [`papers/`](papers/).
 
 ### Lattice Monte Carlo code
 
-Source code for the lattice computations reported in SM §§6–7 (gauge-coupling thresholds, scalar-density renormalization $Z_S$, dynamical fermion HMC, Higgs effective potential) lives in [`papers/oi_lattice_code/`](papers/oi_lattice_code/). See `papers/oi_lattice_code/README.md` for build instructions, per-file documentation, and reproduction recipes.
+Source code for the lattice computations reported in SM §§6–7 (gauge-coupling thresholds, scalar-density renormalization $Z_S$, dynamical fermion HMC, Higgs effective potential) lives in [`papers/oi_lattice_code/`](papers/oi_lattice_code/). See the per-subdirectory README files (e.g., `gauge/AB_derivation/README.md`, `gauge/c2_strict_2loop/README.md`) for build instructions and reproduction recipes.
 
 ### Book manuscript
 
