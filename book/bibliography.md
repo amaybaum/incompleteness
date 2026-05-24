@@ -306,6 +306,8 @@ Cusa, N. of (1440). *De docta ignorantia* (*On Learned Ignorance*).
 
 Cusa, N. of (1453). *De visione Dei* (*On the Vision of God*).
 
+Deutsch, D. (2011). *The Beginning of Infinity: Explanations That Transform the World*. Viking Press.
+
 Penrose, R. (2004). *The Road to Reality: A Complete Guide to the Laws of the Universe*. Jonathan Cape.
 
 Spinoza, B. (1677). *Ethica, Ordine Geometrico Demonstrata* (*Ethics, Demonstrated in Geometrical Order*).
