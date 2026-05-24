@@ -8,8 +8,8 @@
  *   (b) Order of W (LCM of cycle lengths)
  *   (c) Largest cycle, smallest cycle, mean cycle length
  *
- * Per PHASE_1_SPEC_cycle_number_theory.md, the 1D test is decisive for
- * H1 (cycle produces framework rationals) vs H3 (no connection).
+ * The 1D test is decisive for H1 (cycle produces framework rationals)
+ * vs H3 (no connection).
  */
 
 #include <stdio.h>
