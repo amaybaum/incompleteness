@@ -23,7 +23,7 @@ Section A.6 closes with a discussion of the framework's epistemic position based
 
 ## A.2 Classification scheme
 
-The framework classifies each prediction by its structural status, using a seven-category scheme designed to make the *epistemic content* of each prediction explicit. The scheme is described in detail in `OI_MASTER.md` §A.2; this section provides the working summary.
+The framework classifies each prediction by its structural status, using a seven-category scheme designed to make the *epistemic content* of each prediction explicit.
 
 **S — Structural prediction.** The framework's content fully determines the prediction's content from substratum-level commitments. The prediction's value emerges from the framework's structural foundations without empirical input beyond what is required to identify which physical system the framework describes. Examples: $\sin^2\theta_{13} = 4/(18\pi^2)$, the Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$, the Bekenstein-Hawking coefficient $1/4$. S-class predictions provide the framework's strongest evidence — they are *first-principles derivations* from structural commitments.
 
