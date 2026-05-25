@@ -22,9 +22,10 @@ The full file list is in [Contents](#contents).
 
 ```
 incompleteness/
-├── papers/                    Eleven research papers (.md, .tex, .pdf) + lattice Monte Carlo code
+├── papers/                    Twelve research papers (.md, .tex, .pdf) + lattice Monte Carlo code
 │   ├── Main, SM, GR, Substratum, Structure   (core papers)
 │   ├── Juno                                  (focused presentation)
+│   ├── Methodology                           (foundations / philosophy of physics)
 │   ├── Explainer, Complexity, Computation, Medicine, Bioinformatics  (companion documents)
 │   └── oi_lattice_code/                      (source code for SM §§6–7 lattice computations)
 ├── book/                      Book manuscript: 20 chapters, 4 parts, full back matter

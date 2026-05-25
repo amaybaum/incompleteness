@@ -111,7 +111,7 @@ The full compiled manuscript:
 
 ## Relationship to the research papers
 
-This book draws on eleven technical papers in the companion [`../papers/`](../papers/) directory: **Main**, **SM**, **GR**, **Substratum**, **Structure** (core), **Juno** (focused case study), and **Explainer**, **Complexity**, **Computation**, **Medicine**, **Bioinformatics** (companion documents). The papers are the primary technical record; the book integrates them into a single narrative with expanded exposition, methodology, common-objection responses, glossary, and bibliography. Each chapter integrates one or more papers — readers wanting the original technical treatment should consult the corresponding paper.
+This book draws on twelve technical papers in the companion [`../papers/`](../papers/) directory: **Main**, **SM**, **GR**, **Substratum**, **Structure** (core), **Juno** (focused case study), **Methodology** (foundations and philosophy of physics), and **Explainer**, **Complexity**, **Computation**, **Medicine**, **Bioinformatics** (companion documents). The papers are the primary technical record; the book integrates them into a single narrative with expanded exposition, methodology, common-objection responses, glossary, and bibliography. Each chapter integrates one or more papers — readers wanting the original technical treatment should consult the corresponding paper.
 
 ---
 
