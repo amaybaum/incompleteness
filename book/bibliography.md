@@ -270,6 +270,8 @@ Hiscock, H. G., Hiscock, T. W., Kattnig, D. R., Scrivener, T., Lewis, A. M., Man
 
 Aaronson, S. (2005). Quantum computing, postselection, and probabilistic polynomial-time. *Proceedings of the Royal Society A* 461: 3473-3482.
 
+Aaronson, S. (2005). NP-complete problems and physical reality. *ACM SIGACT News* 36(1): 30-52. [Aaronson2005b]
+
 Bennett, C. H., Bernstein, E., Brassard, G., & Vazirani, U. (1997). Strengths and weaknesses of quantum computing. *SIAM Journal on Computing* 26: 1510-1523. [Original BQP bounds.]
 
 Bernstein, E., & Vazirani, U. (1997). Quantum complexity theory. *SIAM Journal on Computing* 26: 1411-1473. [Original definition of BQP.]

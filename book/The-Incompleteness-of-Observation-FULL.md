@@ -3699,7 +3699,7 @@ The framework's content across Chapters 5 through 13 has established a substanti
 
 This chapter develops the framework's characterization of computational power available to embedded observers. The central result is the *BQP characterization theorem*: BQP (bounded-error quantum polynomial time) is the unique computational class accessible to any finite deterministic system satisfying the framework's structural conditions C1-C3. The theorem has two directions. The *lower bound* establishes that any embedded observer satisfying C1-C3 has access to BQP computational resources — the emergent quantum mechanics provides state preparation, a universal gate set, and Born-rule measurement, the full toolkit for BQP computation. The *upper bound* establishes that no embedded observer exceeds BQP — the quantum description is informationally complete for the embedded observer, with no operation on the visible sector extracting information beyond the quantum state.
 
-Eight pieces occupy the chapter.
+Nine pieces occupy the chapter.
 
 Section 14.2 develops the chapter's framing: the framework's content in computational complexity is at the foundational level rather than the algorithm-design level. The framework does not produce new quantum algorithms; it characterizes the *ceiling* on what embedded observers can compute. Section 14.3 develops the lower bound: BQP is available to any embedded observer satisfying C1-C3. The argument runs through the framework's emergent quantum mechanics from Chapter 1, with state preparation, gate application, and measurement all derivable from the framework's structural conditions.
 
@@ -3707,7 +3707,7 @@ Section 14.4 develops the upper bound: BQP cannot be exceeded. The argument runs
 
 Section 14.6 develops the Extended Church-Turing Thesis (ECT) as a *theorem* of the framework. The ECT — that any physically realizable computation can be efficiently simulated by a quantum computer — is conventionally treated as an empirical conjecture about physical reality. The framework's content reframes the ECT as a derived result: every physical observer is embedded (the cosmological horizon provides the partition), every embedded observer has access to BQP and nothing beyond, therefore every physical computation is in BQP. The reframing changes the ECT's epistemic status from conjecture to theorem.
 
-Section 14.7 develops the BPP-BQP gap: quantum advantage is real but is *a feature of partial observation* rather than of the universe being fundamentally quantum. An embedded observer who ignores the quantum structure of the reduced description (treating measurements as classical samples) operates at BPP; one who exploits the quantum structure (interference, entanglement, adaptive measurement) operates at BQP. The gap between the two is the cost of not recognizing the partition's structure. Section 14.8 develops the chapter's falsification conditions and connections to broader complexity theory, with closing forward pointers to Chapter 15's engineering content and Chapter 18's foundational content.
+Section 14.7 develops the BPP-BQP gap: quantum advantage is real but is *a feature of partial observation* rather than of the universe being fundamentally quantum. An embedded observer who ignores the quantum structure of the reduced description (treating measurements as classical samples) operates at BPP; one who exploits the quantum structure (interference, entanglement, adaptive measurement) operates at BQP. The gap between the two is the cost of not recognizing the partition's structure. Section 14.8 develops the framework's neutrality on the P vs NP question: the BQP characterization identifies the ceiling, while leaving the internal structure of complexity classes within that ceiling — including P vs NP — to standard complexity theory. Section 14.9 develops the chapter's falsification conditions and connections to broader complexity theory, with closing forward pointers to Chapter 15's engineering content and Chapter 18's foundational content.
 
 The chapter's content is foundational rather than algorithmic. The framework's contribution to quantum computing is structural: a characterization of the computational ceiling that emerges from the framework's commitments at the substratum level, with the BQP class identified as the unique class accessible to embedded observers. The empirical content is principally negative: the framework predicts that no super-BQP computation is possible on any physically realizable hardware, with any demonstrated super-BQP capability constituting a falsification of the framework.
 
@@ -3853,17 +3853,41 @@ This reading has substantive consequences for foundational questions. The framew
 
 **Implications for quantum-computing development.** The framework's reading has practical consequences for quantum-computing engineering. If quantum advantage reflects the observer's exploitation of partition structure rather than fundamentally quantum reality, then quantum-computing hardware should be designed to optimize the partition's properties — making the framework's C1-C3 architecture explicit and tunable rather than treating the environment as noise to be minimized. Chapter 15 develops this design philosophy in detail.
 
-## 14.8 Chapter close
+## 14.8 Internal structure of BQP and the P vs NP question
+
+The BQP characterization theorem identifies the *ceiling* on computational capability for embedded observers but takes no position on the internal structure of complexity classes inside that ceiling. The relationship between P, NP, and BQP — and in particular the status of the P vs NP question itself — admits a precise reading in the framework's terms: the framework's structural commitments are consistent with either answer to the P vs NP question, and the locus of falsification for the framework's computational content sits at the BQP boundary rather than at any internal boundary within BQP.
+
+**The location of P vs NP within the framework.** The framework's BQP characterization places P and NP inside BQP: every problem in P is in BQP (trivially, since BQP contains BPP and BPP contains P), and every problem in NP whose witness can be verified efficiently has its verification problem in BQP as well. The conventional inclusion chain $\mathrm{P} \subseteq \mathrm{NP} \subseteq \mathrm{PH} \subseteq \mathrm{PSPACE}$, with BQP situated somewhere within PSPACE and conjectured to contain BPP strictly, is unmodified by the framework's content. The framework's contribution is at a different level: it identifies BQP as the *outermost* class accessible to embedded observers, leaving the inclusion relationships among interior classes — including P vs NP — to standard complexity theory.
+
+**The neutrality result.** The framework's commitments do not entail either P = NP or P ≠ NP. Two cases:
+
+*Case 1: P ≠ NP* (the conventional expectation). The framework's BQP ceiling is unchanged: P and NP are both inside BQP, and no efficient general solution exists for NP-complete problems. Quantum advantage (Shor's algorithm and related results) places specific NP problems inside BQP without placing all of NP inside P, consistent with the standard conjecture.
+
+*Case 2: P = NP* (the surprising case). A polynomial-time algorithm for an NP-complete problem operates on a classical Turing machine; its outputs are in P, and by inclusion in BQP. The framework's BQP ceiling is unchanged: the new algorithm provides additional computational reach for embedded observers but does not exceed BQP. The framework would not be falsified by this discovery.
+
+Both cases sit inside the framework's BQP ceiling. The framework's empirical exposure on P vs NP is zero: no observation an embedded observer could make would distinguish the two cases at the level of the framework's commitments.
+
+**Relation to Methodology §19's gauge / computational incompleteness distinction.** The §19 distinction is worth applying carefully here. P vs NP is a determinate mathematical question with a definite answer — the abstract fact about whether a polynomial-time algorithm for SAT exists is either true or false, even though we do not know which. The question is not vacuous in the gauge sense (it has answer-bearing content). What the framework's content adds is that the determinate mathematical answer, whichever it is, is *physics-invariant* relative to the framework: the same empirical content (BQP as the ceiling) is consistent with both answers. This is weaker than gauge — not "no fact of the matter" but "the fact carries no consequence for the framework's empirical claims." The framework is uncommitted on P vs NP, and a mathematical proof of either answer would leave the framework's empirical predictions unchanged.
+
+**Position relative to Aaronson's physical-principle approach.** Aaronson [Aaronson2005b] has argued that the physical universe respects the principle that NP-complete problems are not solvable in polynomial time on physically realizable hardware — that P ≠ NP holds with the status of a physical principle. The framework is stronger and weaker than this position in different directions. *Stronger:* the framework commits to BQP exactly as the embedded-observer ceiling, where Aaronson's principle leaves the ceiling between P and BQP underdetermined. *Weaker:* the framework declines to commit to P ≠ NP itself, where Aaronson's principle entails it. The framework's empirical exposure is concentrated at the BQP boundary — where super-BQP capability would falsify it — and is zero at the P vs NP boundary, where neither answer constitutes empirical evidence about the framework's commitments.
+
+**Implication for proof strategies.** The framework's neutrality on P vs NP has a methodological consequence for foundational arguments about complexity classes. A proof strategy for P ≠ NP that runs through the BQP characterization theorem cannot work, because the framework's commitments are equally compatible with either answer. Conversely, a proof of P = NP (should one ever be produced) would not falsify the framework. The framework offers leverage only on the BQP-boundary question — the question the BQP characterization theorem and the Extended Church-Turing Thesis as theorem address directly. This fits the broader Gödel-Turing-OI pattern of Chapter 12 §12.8: each member of the family identifies a structural limit at the *boundary* of accessibility (provability from within a formal system, computability by self-referential machines, observability through partition-mediated access, physical computation by embedded observers) and is silent on the internal structure of what falls inside that boundary. P vs NP lives in the internal structure of BQP and is therefore outside the framework's locus of contribution.
+
+The division of labor is the appropriate one between the framework and complexity theory. The framework's content is a structural theorem about the computational ceiling for embedded observers; standard complexity theory's content is about the internal structure of the classes inside that ceiling. The two are complementary rather than competing.
+
+## 14.9 Chapter close
 
 The framework's content in this chapter establishes BQP as the unique computational class accessible to embedded observers in the framework's universality class. The characterization theorem combines a lower bound (BQP is available to any embedded observer satisfying C1-C3) with an upper bound (BQP cannot be exceeded by any embedded observer), with the combination producing BQP as the exact ceiling on computational capability.
 
-**Three principal results.**
+**Four principal results.**
 
 *The BQP characterization theorem* (§14.5): BQP is the unique computational class accessible to embedded observers satisfying C1-C3.
 
 *The Extended Church-Turing Thesis as theorem* (§14.6): every physical computation is in BQP, derived from the embedding and BQP characterization rather than postulated as an empirical conjecture.
 
 *The BPP-BQP gap as cost of partial observation* (§14.7): quantum advantage is real but reflects the embedded observer's exploitation of partition structure rather than the universe's fundamentally quantum nature.
+
+*Framework neutrality on P vs NP* (§14.8): the framework's empirical content is consistent with either answer to the P vs NP question; the locus of falsification sits at the BQP boundary, not at any boundary internal to BQP.
 
 **Falsification conditions.** The framework's content makes specific falsifiable predictions:
 
@@ -6759,6 +6783,8 @@ Hiscock, H. G., Hiscock, T. W., Kattnig, D. R., Scrivener, T., Lewis, A. M., Man
 ## Quantum information, computing, and complexity
 
 Aaronson, S. (2005). Quantum computing, postselection, and probabilistic polynomial-time. *Proceedings of the Royal Society A* 461: 3473-3482.
+
+Aaronson, S. (2005). NP-complete problems and physical reality. *ACM SIGACT News* 36(1): 30-52. [Aaronson2005b]
 
 Bennett, C. H., Bernstein, E., Brassard, G., & Vazirani, U. (1997). Strengths and weaknesses of quantum computing. *SIAM Journal on Computing* 26: 1510-1523. [Original BQP bounds.]
 

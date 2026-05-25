@@ -18,9 +18,9 @@
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 % lmodern unavailable; using xelatex defaults
-\input{unicode-fix}
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -54,6 +54,7 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\input{unicode-fix}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -92,12 +93,13 @@ sin²θ₂₃ = 1/2 + 1/(2π²) = 0.5507, each consistent with NuFIT 6.0
 {[}14{]} within 1.1σ, and forces the exact sum rule 2sin²θ₁₂ + sin²θ₂₃ =
 7/6 --- a clean discriminator from the TM1 and TM2 patterns currently
 analyzed against JUNO. The angle predictions follow from a discrete μ-τ
-parity together with one cubic-group structural relation between the
-U-even and U-odd components of the second-order perturbation. The
-Cabibbo angle λ = 1/(π√2) = 0.22508, set by the cubic Brillouin-zone
-geometry, sets the perturbation scale and matches the observed value to
-0.04\%. JUNO's design-lifetime precision of ±0.0014 will test the
-prediction at sub-percent level.
+parity together with one Wilson-coefficient relation (Condition 2)
+between the U-even and U-odd components of the second-order
+perturbation, with the specific value 4/3 = 2A² admitting the structural
+reading 4(d−1)/(2d) for d = 3. The Cabibbo angle λ = 1/(π√2) = 0.22508,
+set by the cubic Brillouin-zone geometry, sets the perturbation scale
+and matches the observed value to 0.04\%. JUNO's design-lifetime
+precision of ±0.0014 will test the prediction at sub-percent level.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -147,11 +149,12 @@ angle, fixed by a single cubic Brillouin-zone distance (Sec. 2.2).
 Numerically λ = 1/(π√2) = 0.22508, agreeing with the observed Cabibbo
 value 0.22500 ± 0.00067 {[}13{]} to 0.04\%. Second, the deviations from
 tribimaximal (TBM) mixing at O(λ²) are controlled by a discrete μ-τ
-parity (the U-parity of S₄ ⊃ A₄) together with one cubic-group
-structural relation between the U-even and U-odd components of the
-second-order perturbation (Sec. 3.4). The structural relation fixes the
-coefficient of the 1/(4π²) correction; without further inputs, the angle
-predictions are
+parity (the U-parity of S₄ ⊃ A₄) together with one Wilson-coefficient
+relation between the U-even and U-odd components of the second-order
+perturbation --- \emph{Condition 2}, with the specific value b₂₃ =
+(4/3)(b₁₂+b₁₃) admitting the structural reading 4/3 = 2A² = 4(d−1)/(2d)
+for d = 3 (Sec. 3.4). Condition 2 fixes the coefficient of the 1/(4π²)
+correction; without further inputs, the angle predictions are
 
 \begin{itemize}
 \tightlist
@@ -163,8 +166,9 @@ predictions are
   \textbf{sin²θ₂₃ = 1/2 + 1/(2π²) = 0.55066}
 \end{itemize}
 
-The 0.07σ match with the post-JUNO global fit therefore tests structural
-relations rather than fitted parameters.
+The 0.07σ match with the post-JUNO global fit therefore tests Condition
+2 --- a sharply specified structural relation --- rather than fitted
+parameters.
 
 \hypertarget{the-empirical-context}{%
 \subsubsection{1.3 The empirical context}\label{the-empirical-context}}
@@ -696,26 +700,40 @@ derive them:
   parameters of the bijection.
 \end{itemize}
 
-The \emph{diagnostic} for distinguishing 2(a)-tractable from 2(b) is
-whether the relevant ratio reduces to a representation-theoretic
-identity, or instead requires alignment between distinct operators that
-is not forced by the cubic structure. The identity A² = (d−1)/d =
-C₂(T₁)/d for d = 3, for instance, is a structural identity that makes
-sin²θ₁₃ = A⁴λ² Layer 1, even though the derivation passes through PMNS
-matrix-element products.
+The \emph{diagnostic} for distinguishing 2(a)-tractable from generic
+2(b) is whether the residual question reduces to a \emph{sharply
+specified} numerical target --- a single coefficient ratio with a
+representation-theoretic reading, testable by definite substrate
+calculations --- rather than a generic direction in operator space. A
+2(a)-tractable question may still have bijection-specific content; the
+label refers to the sharpness of the verification path, not to
+representation-theoretic forcing. The identity A² = (d−1)/d = C₂(T₁)/d
+for d = 3, by contrast, is forced by representation theory and makes
+sin²θ₁₃ = A⁴λ² Layer 1.
 
 \textbf{Layer status of Condition 2.} The A₁ component is Layer 1:
 structurally protected against the A₁ perturbation by cubic geometry, no
-substrate input required. The A₂ component reduces to a sharply
-specified open question --- \emph{why does b₂₃/(b₁₂+b₁₃) take exactly
-the value 4/3 = 2A²?} --- which is Layer 2(a)-tractable rather than
-Layer 2(b). It concerns a single numerical ratio with a structural
-reading (4(d−1)/(2d) for d = 3), not a generic direction in T₂-space; a
-one-loop staggered-fermion calculation on the cubic lattice that
-produces this ratio from the C₂(T₁) Casimir structure would close it to
-Layer 2(a). The 0.07σ empirical match at sin²θ₁₂ tests this specific
-structural feature --- Condition 2 with its 4/3 coefficient --- rather
-than testing generic Layer 2(b) alignment.
+substrate input required. The A₂ component reduces to the sharply
+specified question --- \emph{why does b₂₃/(b₁₂+b₁₃) take exactly the
+value 4/3 = 2A²?} --- concerning a single numerical ratio with the
+structural reading 4(d−1)/(2d) for d = 3. We label this \emph{Layer
+2(a)-tractable} in the sense that the residual question is sharply
+specified and admits definite outcomes from concrete one-loop
+staggered-fermion calculations on the cubic lattice testing whether the
+C₂(T₁) Casimir structure produces this specific coefficient. We do not
+claim the answer is forced by representation theory alone: a direct
+substrate calculation in {[}18, §7.3{]} establishes that the natural
+cubic-symmetric Higgs-democratic spurion does not produce the 4/3 ratio
+(instead giving b₁₂:b₁₃:b₂₃ ≈ 17:1:1 in the heavy-quark hierarchy, off
+by a factor of \textasciitilde24 from the required 4/3), and the
+relation requires substrate amplitudes with non-natural scaling
+δM\_\{ij\}\^{}sub ∝ m\_\{max(i,j)\} plus a channel-specific enhancement
+factor K₂₃/K₁₂ ≈ 2.8. The substantive content is therefore
+bijection-specific (Layer 2(b) in the strict-classification sense), with
+a sharply specified Layer 2(a)-tractable verification path. The 0.07σ
+empirical match at sin²θ₁₂ confirms the bijection has the required
+alignment structure; analytical closure pending the substrate one-loop
+calculation.
 
 In standard effective field theory, the U-even and dominant U-odd
 coefficients b₁₂+b₁₃ and b₂₃ would be independent Wilson coefficients.
@@ -1057,16 +1075,17 @@ Condition 2 admits the structural decomposition into two parts
 established in Sec. 3.4: an A₁ component closed at Layer 1 (the TBM sum
 rule is structurally protected against the A₁ perturbation by the
 cos²θ₁₃ dressing alone, requiring no substrate input), and an A₂
-component reducing to the sharp question why b₂₃/(b₁₂+b₁₃) takes the
-specific value 4/3 = 2A² in the framework's bijection. The reactor angle
-sin²θ₁₃ is independent of Condition 2 (the A₂ coefficients cancel from
-\textbar U\_e3\textbar²) and remains Layer 1 unconditional structural.
-The angle predictions sin²θ₁₂ and sin²θ₂₃ are layered: their structural
-form is forced by cubic-group representation theory and the Layer 1
-closure of the A₁ component, while the specific 4/3 coefficient is a
-Layer 2(a)-tractable open question --- sharply specified rather than a
-generic Layer 2(b) ``alignment in T₂-space'' --- concerning a single
-numerical ratio with the structural reading 4(d−1)/(2d) for d = 3.
+component reducing to the sharply specified question why b₂₃/(b₁₂+b₁₃)
+takes the specific value 4/3 = 2A² in the framework's bijection. The
+reactor angle sin²θ₁₃ is independent of Condition 2 (the A₂ coefficients
+cancel from \textbar U\_e3\textbar²) and remains Layer 1 unconditional
+structural. The angle predictions sin²θ₁₂ and sin²θ₂₃ are layered: their
+structural form is forced by cubic-group representation theory and the
+Layer 1 closure of the A₁ component, while the specific 4/3 coefficient
+is bijection-specific content (Layer 2(b) in strict classification) with
+a sharply specified Layer 2(a)-tractable verification path --- a single
+numerical ratio with the structural reading 4(d−1)/(2d) for d = 3,
+testable by substrate calculations targeting this specific coefficient.
 
 \textbf{Positive support for the Layer 2 classification.} Beyond the
 structural decomposition, an explicit substrate calculation in {[}18,
@@ -1090,21 +1109,23 @@ six match observation at sub-percent or sub-σ precision simultaneously
 {[}18, §7.7{]}. This places the sum rule's 0.6σ match in a broader
 pattern of cubic-group structural consistency across the framework.
 
-\textbf{Discretization-determined Layer 2.} Condition 2 is therefore not
-a free parameter to be fit, but a derivable consequence of the lattice's
-discretization scheme. The bijection space in {[}18{]} is constrained by
-linear dynamics, T-invariance, P-indivisibility, and cycle ergodicity,
-leaving a discretization-scheme freedom (field quantization, lattice
-size, timestep, boundary conditions, rounding rule) rather than abstract
-permutation freedom. The specific 4/3 = 2A² coefficient required by
-Condition 2 is \emph{discretization-determined}, not an independent
-Wilson coefficient. The Layer 2(a) promotion path is concrete: a
-one-loop staggered-fermion calculation on the cubic lattice that
-produces the b₂₃/(b₁₂+b₁₃) = 4/3 ratio from the C₂(T₁) Casimir structure
-would close Condition 2 to Layer 2(a). The 0.07σ empirical match at
-sin²θ₁₂ and 0.6σ at the sum rule are tests of this discretization scheme
---- the predictions follow from the bijection's substrate structure
-rather than from independently adjusted Wilson coefficients.
+\textbf{Status of the 4/3 coefficient.} The bijection space in {[}18{]}
+is constrained by linear dynamics, T-invariance, P-indivisibility, and
+cycle ergodicity, leaving a discretization-scheme freedom (field
+quantization, lattice size, timestep, boundary conditions, rounding
+rule) rather than abstract permutation freedom. Whether the specific 4/3
+= 2A² coefficient required by Condition 2 follows from substrate
+dynamics is the Layer 2(a)-tractable verification path: a one-loop
+staggered-fermion calculation on the cubic lattice testing whether the
+C₂(T₁) Casimir structure produces the b₂₃/(b₁₂+b₁₃) = 4/3 ratio. The
+audit referenced in Sec. 3.4 establishes that the natural
+cubic-symmetric Higgs-democratic spurion does not produce the ratio (off
+by \textasciitilde24×), so the substrate calculation is testing whether
+the bijection's non-natural amplitude structure aligns with the 4/3
+coefficient rather than testing a representation-theoretic identity. The
+0.07σ empirical match at sin²θ₁₂ and 0.6σ at the sum rule indicate the
+bijection has the required alignment; the analytical closure path is the
+staggered one-loop calculation referenced above.
 
 The sum rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6 is the most directly testable
 consequence of Condition 2; its empirical match at 0.6σ tests the
@@ -1154,8 +1175,8 @@ C₂(T₁)/d for vector reps. The solar and atmospheric angle predictions
 are layered: their structural form is forced by cubic-group
 representation theory and the Layer 1 closure of the A₁ component (Sec.
 3.4), while the specific 4/3 coefficient in Condition 2 (b₂₃ =
-(4/3)(b₁₂+b₁₃)) is a Layer 2(a)-tractable open question --- sharply
-specified as the substrate ratio
+(4/3)(b₁₂+b₁₃)) is bijection-specific content with a sharply specified
+Layer 2(a)-tractable verification path --- the substrate ratio
 b₂₃\textsuperscript{sub/(b₁₂}sub+b₁₃\^{}sub) at leading order in the
 m\_e/m\_τ hierarchy. The empirical match at 0.07σ on sin²θ₁₂ and at 0.6σ
 on the sum rule indicates the framework's bijection has the alignment
