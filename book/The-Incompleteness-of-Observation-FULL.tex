@@ -15325,7 +15325,7 @@ that no embedded observer exceeds BQP --- the quantum description is
 informationally complete for the embedded observer, with no operation on
 the visible sector extracting information beyond the quantum state.
 
-Nine pieces occupy the chapter.
+Ten pieces occupy the chapter.
 
 Section 14.2 develops the chapter's framing: the framework's content in
 computational complexity is at the foundational level rather than the
@@ -15366,10 +15366,18 @@ partition's structure. Section 14.8 develops the framework's neutrality
 on the P vs NP question: the BQP characterization identifies the
 ceiling, while leaving the internal structure of complexity classes
 within that ceiling --- including P vs NP --- to standard complexity
-theory. Section 14.9 develops the chapter's falsification conditions and
-connections to broader complexity theory, with closing forward pointers
-to Chapter 15's engineering content and Chapter 18's foundational
-content.
+theory; the silence on P vs NP is shown to fit a broader
+boundary-characterization pattern across the Gödel-Turing-OI-Deutsch
+incompleteness family. Section 14.9 develops three research directions
+opened by the framework's specific substratum structure for
+complexity-theoretic refinements \emph{within} the BQP ceiling
+(geometric structure on the substratum lattice; BQP-BPP gap correlated
+with problem globality and a refined hidden-subgroup-problem /
+gauge-group conjecture; gauge equivalence as a possible physical account
+of polynomial-time reducibility). Section 14.10 develops the chapter's
+falsification conditions and connections to broader complexity theory,
+with closing forward pointers to Chapter 15's engineering content and
+Chapter 18's foundational content.
 
 The chapter's content is foundational rather than algorithmic. The
 framework's contribution to quantum computing is structural: a
@@ -16049,15 +16057,70 @@ commitments are equally compatible with either answer. Conversely, a
 proof of P = NP (should one ever be produced) would not falsify the
 framework. The framework offers leverage only on the BQP-boundary
 question --- the question the BQP characterization theorem and the
-Extended Church-Turing Thesis as theorem address directly. This fits the
-broader Gödel-Turing-OI pattern of Chapter 12 §12.8: each member of the
-family identifies a structural limit at the \emph{boundary} of
-accessibility (provability from within a formal system, computability by
-self-referential machines, observability through partition-mediated
-access, physical computation by embedded observers) and is silent on the
-internal structure of what falls inside that boundary. P vs NP lives in
-the internal structure of BQP and is therefore outside the framework's
-locus of contribution.
+Extended Church-Turing Thesis as theorem address directly.
+
+\textbf{The boundary-characterization pattern across the
+Gödel-Turing-OI-Deutsch family.} The framework's silence on P vs NP fits
+a structural pattern that runs across the entire incompleteness family
+identified in Chapter 12 §12.8. Each of the four members establishes a
+structural limit at the \emph{boundary} of access from inside a system,
+and each is silent on the \emph{internal organization} of what falls
+within the accessible domain. The pattern is not coincidence --- it
+reflects a common feature of structural-incompleteness frameworks. Each
+identifies a \emph{mode of access} and characterizes its limits; the
+internal complexity of what is accessible is a different question
+requiring tools internal to the relevant domain.
+
+Concretely:
+
+\begin{itemize}
+\item
+  \emph{Gödel} sets a boundary at provability from within a consistent
+  recursively-axiomatizable formal system. Gödel's incompleteness
+  theorems are about what crosses that boundary (true statements that
+  are not provable). They are silent on the internal organization of the
+  provable --- which provable statements are interesting, useful, or
+  important is not a question Gödel's theorems answer.
+\item
+  \emph{Turing} sets a boundary at computability by a Turing machine.
+  The halting problem statement is about what crosses that boundary
+  (instances whose halting cannot be decided). Turing's theorems are
+  silent on the internal organization of the computable --- which
+  decidable problems are tractable, which are intractable, is not a
+  question Turing's theorems answer.
+\item
+  \emph{OI} sets a boundary at embedded observability of the substratum
+  (the hidden-sector state \(h\), the cosmological horizon, the
+  substratum representative). The OI incompleteness statements are about
+  what crosses that boundary. They are silent on the internal
+  organization of the observable --- which physical phenomena have
+  particular structure within the framework's accessible domain is
+  content of a different kind, addressed by the framework's specific
+  structural commitments (gauge group, generations, partition
+  architecture) rather than by the incompleteness statement itself.
+\item
+  \emph{Deutsch} sets a boundary at universal explanation in the
+  constructor-theoretic sense. Deutsch's universality-of-explanation is
+  about what crosses that boundary (explanations attainable by
+  sufficient knowledge-creation). It is silent on which problems within
+  explanatory reach get solved in which order, by which methods.
+\end{itemize}
+
+P vs NP lies in the internal structure of the computable (within
+Turing's domain) and in the internal structure of BQP (within OI's
+domain). It is therefore outside the locus of contribution of \emph{any}
+of these structural-incompleteness frameworks, not just OI. The unifying
+observation: structural-incompleteness frameworks characterize the
+\emph{boundary} of a domain of access; the \emph{internal complexity} of
+what is accessible is a separate question, requiring tools internal to
+the relevant complexity theory. Internal-complexity questions like P vs
+NP require complexity-theoretic tools (proof-system lower bounds,
+geometric complexity theory, circuit complexity, and similar), not
+incompleteness frameworks.
+
+The framework's silence on P vs NP is therefore \emph{not} an
+idiosyncrasy of OI --- it is the same kind of silence Gödel and Turing
+exhibit on the same question, for the same structural reason.
 
 The division of labor is the appropriate one between the framework and
 complexity theory. The framework's content is a structural theorem about
@@ -16065,8 +16128,151 @@ the computational ceiling for embedded observers; standard complexity
 theory's content is about the internal structure of the classes inside
 that ceiling. The two are complementary rather than competing.
 
+\hypertarget{beyond-axioms-research-directions-opened-by-the-substratum-structure}{%
+\section{14.9 Beyond axioms: research directions opened by the
+substratum
+structure}\label{beyond-axioms-research-directions-opened-by-the-substratum-structure}}
+
+The structural-silence result of §14.8 identifies a negative content:
+physical-substrate axioms do not bridge to asymptotic complexity-class
+content. This should not be read as foreclosing all framework-relative
+complexity-theoretic content. The framework's structural commitments
+suggest content not at the \emph{universal} P vs NP boundary but at
+framework-relative \emph{conditional} boundaries within the BQP ceiling.
+These are research directions where the framework's specific substratum
+structure (cubic lattice, gauge group, partition structure) does provide
+content.
+
+We sketch three such directions, each of which is a framework-relative
+refinement rather than a universal complexity-theoretic claim. The
+framework predicts none of them as new theorems; each is offered as a
+structurally motivated conjecture inviting complexity-theoretic
+investigation. The companion paper {[}Computation, §7{]} develops these
+in more detail and is the canonical reference for the research-direction
+content.
+
+\hypertarget{geometric-structure-on-the-substratum-lattice}{%
+\subsection{14.9.1 Geometric structure on the substratum
+lattice}\label{geometric-structure-on-the-substratum-lattice}}
+
+NP-complete problems vary in the extent to which their constraint
+structure can be embedded into the substratum's cubic lattice geometry.
+Problems with locally-bounded constraint structure on
+cubic-lattice-embeddable graphs (planar 3-SAT, lattice-Ising models,
+certain graph problems) admit natural substratum representations;
+problems whose constraints require highly nonlocal couplings do not. The
+framework's conjecture in this direction is that lattice-local
+NP-complete problems admit \emph{physical solution protocols} whose
+complexity reflects the locality structure --- specifically, that
+physical implementation of such protocols incurs no overhead beyond the
+local-constraint structure, while nonlocal protocols incur overhead
+proportional to the nonlocality. This is not P vs NP; it is a refinement
+of how \emph{implementation cost} on the framework's substratum varies
+with problem geometry. It connects to existing complexity-theoretic work
+on planar variants of NP-complete problems and on local Hamiltonian
+complexity. The framework's contribution is to suggest the substratum's
+cubic geometry as a structural reason for the implementation-cost
+differential, not to deliver new bounds.
+
+\hypertarget{the-bqp-bpp-gap-and-problem-globality-with-the-hidden-subgroup-problem-refinement}{%
+\subsection{14.9.2 The BQP-BPP gap and problem globality, with the
+hidden-subgroup-problem
+refinement}\label{the-bqp-bpp-gap-and-problem-globality-with-the-hidden-subgroup-problem-refinement}}
+
+Existing complexity-theoretic evidence suggests that the BQP-BPP gap is
+largest for problems with strong global structure (factoring, discrete
+log, hidden-subgroup problems) and smallest for problems with primarily
+local structure (where classical heuristics often perform well). The
+framework's partition architecture suggests a structural reason for this
+correlation: BQP advantage derives from exploiting hidden-sector
+correlations that are induced by nonlocal substratum couplings, and
+nonlocal substratum couplings are precisely what global problem
+structure requires. The base conjecture is that the BQP-BPP gap
+correlates structurally with the \emph{globality} of the problem's
+hidden-sector dependence, with locally-structured problems exhibiting
+little gap and globally-structured problems exhibiting maximal gap.
+
+The conjecture admits a sharpening that connects directly to the
+framework's specific gauge structure. The known exponential BQP
+advantages concentrate on the \emph{hidden-subgroup problem} (HSP) and
+its variants: factoring (Shor's algorithm via HSP on
+\(\mathbb{Z}^*_N\)), discrete log (HSP on cyclic groups), Simon's
+problem (HSP on \(\mathbb{Z}_2^n\)), and the abelian HSP family more
+broadly. Nonabelian HSP cases remain open, with some efficient quantum
+algorithms known and many cases still classically intractable; problems
+outside HSP entirely tend to have at most polynomial quantum speedup
+(Grover-style amplitude amplification). The framework's substratum has a
+specific gauge group structure:
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)/\mathbb{Z}_6\)
+from the reconstruction theorem (Chapter 5). The natural refined
+conjecture is that BQP advantage is maximized precisely for problems
+whose hidden structure is \emph{gauge-group-like} --- problems reducible
+to HSP on representations of the framework's gauge group or its abelian
+subgroups --- and is suppressed for problems whose hidden structure is
+alien to that group decomposition. This is a structural reading of why
+BQP-BPP gaps concentrate where they do: the substratum's hidden-sector
+correlations are gauge-group-structured, and quantum algorithms that
+exploit those correlations naturally fit problems with matching
+hidden-group structure.
+
+Three concrete checks would test this refinement: (1) the known
+exponential-BQP-advantage problems should all map to HSP-on-gauge-group
+structure; (2) the structural boundary between abelian and nonabelian
+HSP cases should correspond to a meaningful distinction in how the
+substratum's gauge factors are accessed; (3) new BQP-advantage problems
+should be most discoverable by looking for hidden structures matching
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\)
+representations. None of these is established by the framework; each is
+a conjecture inviting complexity-theoretic investigation. The
+framework's contribution is to suggest the structural reason behind the
+empirical concentration of BQP advantage on HSP-style problems, not to
+deliver new complexity-class results.
+
+\hypertarget{gauge-equivalence-and-complexity-theoretic-reductions}{%
+\subsection{14.9.3 Gauge equivalence and complexity-theoretic
+reductions}\label{gauge-equivalence-and-complexity-theoretic-reductions}}
+
+The framework's substratum gauge group \(\mathcal{G}_{\text{sub}}\)
+partitions the space of bijections into equivalence classes; the gauge
+group includes state relabeling, alphabet change, deep-sector
+enlargement, and graph isomorphism up to statistical isotropy
+(Substratum §4). A natural question is whether
+\(\mathcal{G}_{\text{sub}}\) has an image in the space of
+polynomial-time reductions among NP-complete problems. If gauge
+equivalence at the substratum level corresponds (in some precise sense)
+to polynomial-time reducibility at the algorithm level, the framework's
+gauge structure would provide a \emph{physical} account of why
+NP-complete problems are reducible to each other. This is speculative
+--- the correspondence has not been made precise --- but the structural
+similarity is suggestive: gauge equivalence is ``no observable
+distinction'' at the substratum level, and polynomial-time reducibility
+is ``no complexity distinction'' at the algorithm level. Both are
+equivalence relations on otherwise distinct structures.
+
+\hypertarget{conditions-and-the-right-kind-of-research-question}{%
+\subsection{14.9.4 Conditions and the right kind of research
+question}\label{conditions-and-the-right-kind-of-research-question}}
+
+The pattern across the three directions is that the framework's specific
+structure suggests \emph{conditional} complexity-theoretic claims ---
+claims of the form ``for problems satisfying condition \(X\)
+(lattice-locality, global structure, gauge-equivalence to another
+problem), the framework's structure suggests a specific
+complexity-theoretic behavior.'' This is the appropriate level at which
+the framework engages complexity theory: not by attempting to bridge to
+universal questions like P vs NP, but by suggesting how the framework's
+specific substratum architecture refines the internal landscape of BQP.
+
+These conditional refinements are not predictions of the framework in
+the sense of the framework's quantitative SM observables (Chapter 6);
+they are research directions opened by the framework's substratum
+structure. Some may be productive, others may not. The framework's
+contribution is to identify them as natural questions given its
+structure, not to resolve them. Specialist investigation in complexity
+theory is the appropriate way to develop or refute each direction.
+
 \hypertarget{chapter-close-1}{%
-\section{14.9 Chapter close}\label{chapter-close-1}}
+\section{14.10 Chapter close}\label{chapter-close-1}}
 
 The framework's content in this chapter establishes BQP as the unique
 computational class accessible to embedded observers in the framework's
@@ -16093,7 +16299,23 @@ nature.
 \emph{Framework neutrality on P vs NP} (§14.8): the framework's
 empirical content is consistent with either answer to the P vs NP
 question; the locus of falsification sits at the BQP boundary, not at
-any boundary internal to BQP.
+any boundary internal to BQP. The silence on P vs NP fits a broader
+pattern across the Gödel-Turing-OI-Deutsch incompleteness family:
+structural-incompleteness frameworks characterize boundaries of access
+and are silent on the internal structure of what falls within them.
+
+\textbf{Three research directions opened by the substratum structure}
+(§14.9): geometric structure on the substratum lattice (cost
+differential for lattice-local versus nonlocal NP-complete problems);
+the BQP-BPP gap correlating with problem globality, with a refined
+conjecture that BQP advantage is maximized for problems whose hidden
+structure matches the framework's gauge group
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)/\mathbb{Z}_6\);
+gauge equivalence at the substratum level as a possible physical account
+of polynomial-time reducibility at the algorithm level. These are
+conjectures inviting complexity-theoretic investigation, not framework
+predictions. The companion paper {[}Computation{]} develops them as the
+canonical reference.
 
 \textbf{Falsification conditions.} The framework's content makes
 specific falsifiable predictions:
