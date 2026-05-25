@@ -78,21 +78,23 @@ The framework's twenty-two Standard Model predictions form the core empirical re
 | 9 | Jarlskog $J$ | $\eta/(12\pi^6)$ | E | 2(b) | Empirical $\eta$ | Ch 6 §6.4 |
 | 10 | Koide $Q$ | $2/3$ | S | 1 | **0.02%** | Ch 6 §6.5 |
 | 11 | Koide $\theta_0$ | $C_2/d^2 = 2/9$ | S | 1 | Within 1% | Ch 6 §6.5 |
-| 12 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(b) | **0.07$\sigma$ JUNO** | Ch 8 |
+| 12 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(a)-tract.ᶠ | **0.07$\sigma$ JUNO** | Ch 8 |
 | 13 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | S | 1 | Within 1% | Ch 8 |
-| 14 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(b) | Within 1$\sigma$ | Ch 8 |
+| 14 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(a)-tract.ᶠ | Within 1$\sigma$ | Ch 8 |
 | 15 | $m_e, m_\mu$ via Koide | from $m_\tau$ | M | 3 | Mass-chain inheritance | Ch 6 §6.5 |
 | 16 | $m_b/m_\tau$ | $4.28/Z_S(\lambda g_0^2) = 2.361$ | L | 2(a) | 0.4% (0.5$\sigma$ at L=32) | Ch 6 §6.6 |
 | 17 | $m_u/m_d$ | $\sqrt{2/9}$ | L | 1+2(b) | Within 1$\sigma$ | Ch 6 §6.6 |
 | 18 | $\Sigma m_\nu$ | ~0.059 eV | S | 1 | Within 1$\sigma$ | Ch 8 |
-| 19 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(b) | $1.178 \pm 0.020$ confirmed | Ch 8 |
+| 19 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(a)-tract.ᶠ | $1.178 \pm 0.020$ confirmed | Ch 8 |
 | 20 | $m_t$ via IR fixed point | $v/\sqrt{2}$ | M | 3 | Within 1$\sigma$ | Ch 6 §6.7 |
 | 21 | $m_b$ via $Q_{\text{down}}$ | derived | L | 2(b) | Within 1$\sigma$ | Ch 6 §6.7 |
 | 22 | $\lambda(M_{\text{Pl}}) = 0$ | structural | S | 1 | **0.6$\sigma$** | Ch 6 §6.8 |
 | 23 | MOND acceleration $a_0$ | $cH/6$ | S | 0/1 | Within 0.5% | Ch 7 §7.8 |
 | 24 | Bekenstein-Hawking entropy | $S = A/(4 l_p^2)$ | S | 1 | **99.999% GW250114** | Ch 7 §7.5 |
 
-**Summary statistics.** Counts: 13 unconditional S + 6 L + 2 M + 1 R + 1 P + 1 E. Total: 24. The C class is currently empty. Every prediction within approximately 1% or 1$\sigma$ of observation.
+**Summary statistics.** Counts: 13 unconditional S + 6 L + 2 M + 1 R + 2 E. Total: 24. The C class is currently empty (the Cond 2 prediction that previously occupied C was reclassified following the §B.2.2 audit). The P class is currently empty. Every prediction within approximately 1% or 1$\sigma$ of observation.
+
+**ᶠ** *Layer 2(a)-tractable (sin²θ_12, sin²θ_23, PMNS sum rule).* The Layer 1 component is structurally protected against the $A_1$ perturbation by the cosines-dressing of the TBM sum rule (cubic geometry alone). The remaining Layer 2(a)-tractable component is the $A_2$ Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3 = 4(d-1)/(2d)$, equivalent to the substrate-level relation $b_{23}^\text{sub} = (4/3)(b_{12}^\text{sub}+b_{13}^\text{sub}) + 1/9$. The "Layer 2(a)-tractable" label has the specific meaning that the residual question is *sharply specified* and admits definite outcomes from one-loop substrate calculations. It does *not* mean the answer is forced by representation theory alone — the May 6, 2026 audit (§B.2.2) established that the natural Higgs-democratic spurion does not produce this ratio (instead giving $b_{12}:b_{13}:b_{23} \approx 17:1:1$ in the heavy-quark hierarchy, off by factor ~24 from the required 4/3), and the relation requires substrate amplitudes with the non-natural scaling $\delta M_{ij}^\text{sub} \propto m_{\max(i,j)}$ plus a channel-specific enhancement factor $K_{23}/K_{12} \approx 2.8$. The substantive content is bijection-specific (Layer 2(b) in the strict-classification sense) with a sharply specified Layer 2(a)-tractable verification path. The empirical match at 0.07$\sigma$ (JUNO) and 0.6$\sigma$ (sum rule) confirms the bijection has the required structure; analytical closure pending the substrate one-loop calculation.
 
 **Distinctive empirical content.** Three predictions stand out as the framework's strongest empirical content. (i) JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ at **0.07$\sigma$** against the post-JUNO global fit — a *pre-registered* prediction made before the JUNO measurement and confirmed at sub-$\sigma$ precision. (ii) GW250114 Bekenstein-Hawking coefficient $1/4$ at **99.999%** consistency — pre-registered prediction confirmed at the gravitational wave strain peak. (iii) Koide $Q = 2/3$ at **0.02%** — the sharpest framework prediction across all 24, matching observation at four-significant-figure precision.
 
@@ -117,7 +119,7 @@ The framework's gravitational predictions match general relativistic predictions
 | G13 | Lorentz violation | $O(\epsilon^2/c^2)$ | S | 0 | Below current limits | Ch 7 §7.4 |
 | G14 | Boundary entropy | $\rho_s = \rho_{\text{crit}}$ | S | 1 | Exact | Ch 7 §7.9 |
 
-**Summary statistics.** Counts: 12 S + 1 L + 1 mixed. Total: 14. Cumulative empirical match at observational precision for all entries within current experimental capability.
+**Summary statistics.** Counts: 13 S + 1 L. Total: 14. The G6 MOND prediction has dual Layer 0/1 status (the discreteness scale at Layer 0 plus the mode-counting at Layer 1). Cumulative empirical match at observational precision for all entries within current experimental capability.
 
 **Distinctive content.** The Bekenstein-Hawking coefficient $1/4$ at 99.999% consistency with GW250114 (entry G4) is the framework's strongest gravitational empirical content. The MOND acceleration $a_0 = cH/6$ at 0.5% (entry G6) provides independent confirmation through a non-gravitational-wave channel. The Running Vacuum Model coefficient $\nu_{\text{OI}}$ (entry G8) provides forward-looking exposure to DESI data over the next 2-3 years.
 
@@ -127,15 +129,17 @@ The neutrino sector provides the framework's strongest pre-registered empirical 
 
 | # | Prediction | Formula | Class | Layer | Empirical match | Chapter |
 |---|-----------|---------|-------|-------|-----------------|---------|
-| N1 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(b) | **0.07$\sigma$ JUNO** | Ch 8 |
+| N1 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(a)-tract. | **0.07$\sigma$ JUNO** | Ch 8 |
 | N2 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | S | 1 | Within 1% | Ch 8 |
-| N3 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(b) | Within 1$\sigma$ | Ch 8 |
+| N3 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(a)-tract. | Within 1$\sigma$ | Ch 8 |
 | N4 | $\Sigma m_\nu$ | ~0.059 eV | S | 1 | Within 1$\sigma$ | Ch 8 |
 | N5 | Normal mass ordering | structural | S | 1 | Confirmed | Ch 8 |
-| N6 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(b) | $1.178 \pm 0.020$ confirmed | Ch 8 |
-| N7 | $\delta_{\text{CP}}$ | structural prediction | L | 2(b) | T2K/NOvA constrainable | Ch 8 |
+| N6 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(a)-tract. | $1.178 \pm 0.020$ confirmed | Ch 8 |
+| N7 | $\delta_{\text{CP}}$ | $b_{12} - b_{13}$ (sub-dominant U-odd) | L | 2(b)ᵍ | T2K/NOvA: bijection-constraining | Ch 8 |
 
-**Summary statistics.** Counts: 4 S + 3 L. Total: 7. The L-class entries are layered because cubic-symmetry coefficient (Layer 2(b)) is required for specific values; the structural form is Layer 1.
+**Summary statistics.** Counts: 3 S + 4 L. Total: 7. The L-class entries divide into two kinds: (i) **sub-σ confirmed predictions** — N1, N3, N6 — whose Layer 1 structural form (TBM zeroth order plus the $\lambda^2$ scale) holds unconditionally and whose specific values follow given the substrate Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3$, classified as Layer 2(a)-tractable per the §7.3 structural decomposition (sharply specified residual question with substantive bijection-specific content; see footnote ᶠ above); (ii) **parameterization-level prediction** — N7 — where the framework identifies $b_{12} - b_{13}$ as the Wilson-coefficient combination controlling $\delta_{CP}$ (a structural-form statement) but the specific value is bijection-specific and the framework "makes no commitment to any specific value of $\delta_{PMNS}$" per SM §6.4 / §7.3 (see footnote ᵍ).
+
+**ᵍ** *Parameterization-level prediction (δ_CP).* The framework identifies $\delta_{CP}$ with the sub-dominant U-odd combination $b_{12} - b_{13}$ in the $A_2$ second-order corrections to the charged-lepton sector (SM §7.3 line 901). This is a structural-form prediction: it specifies how $\delta_{CP}$ enters the framework's parameterization but does not predict its value. The value of $b_{12} - b_{13}$ is bijection-specific (Layer 2(b), property of the particular $\varphi$); the framework "makes no commitment to any specific value of $\delta_{PMNS}$" (SM §6.4 line 546). Future T2K/NOvA measurements constrain the bijection's $b_{12} - b_{13}$ value rather than testing a framework prediction of $\delta_{CP}$ itself. This is qualitatively different from N1/N3/N6, where specific numerical values are predicted and JUNO confirmed sin²θ_12 at 0.07σ.
 
 ### A.4.4 Biology and medicine predictions
 

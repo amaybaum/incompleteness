@@ -18,9 +18,9 @@
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 % lmodern unavailable; using xelatex defaults
-\input{unicode-fix}
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -54,6 +54,7 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\input{unicode-fix}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -3885,20 +3886,21 @@ product is the per-component weight:
 framework's \((d-1)\)-based identity family is internally consistent and
 unified, not a list of independent coincidences.
 
-\textbf{Over-determination of \(n_{\text{gen}} = 3\).} The matching
-condition \(K_{\text{loop}} \cdot (n_{\text{gen}} - 1) = 1\) (forced by
+\textbf{Consistency check on \(n_{\text{gen}} = 3\).} Given the matching
+condition \(K \cdot (n_{\text{gen}} - 1) = 1\) (forced by
 \(m_{\text{match}} = \lambda g_0^2\) with prefactor unity from power
-counting) combined with \(K_{\text{loop}} = 1/2\) (Argument 1, staggered
-convention) forces \(n_{\text{gen}} - 1 = 2\), i.e.,
-\(n_{\text{gen}} = 3\). This is an independent structural argument for
-the framework's three-generation structure, complementing the cubic
-decomposition \(T_1 \oplus E \oplus A_1\) of Theorem 7. For any other
-\(n_{\text{gen}}\) in the discrete enumeration \(\{2, 3, 4, \ldots\}\)
-with \(K_{\text{loop}} = 1/2\) unchanged, the matching condition would
-be inconsistent. The framework's commitment to three generations is
-therefore over-determined: the geometric argument (Theorem 7: \(T_1\)
-has dimension 3) and the operational argument (matching consistency)
-converge on \(n_{\text{gen}} = 3\) from independent mechanisms.
+counting and confirmed by MC at \(1.4\%\)) and the value \(K = 1/2\)
+inherited from the standard staggered \(Z_S\) calculation (Argument 1;
+plausibility evidence pending the explicit one-loop OI derivation),
+\(n_{\text{gen}} - 1 = 2\) --- consistent with the framework's
+three-generation structure. This is a \emph{consistency check} rather
+than an independent over-determination: \(n_{\text{gen}} = 3\) is itself
+fixed independently by the cubic decomposition
+\(T_1 \oplus E \oplus A_1\) (Theorem 7), and the matching consistency
+uses an inherited (not independently derived) value of \(K\). The
+framework's commitment to three generations rests primarily on the cubic
+decomposition; the matching-condition consistency adds a
+self-consistency confirmation rather than an independent forcing.
 
 \textbf{Layer stratification of \(K = 1/2\).} The structural identity
 admits the following decomposition (analogous to §7.3's Cond 2
@@ -3944,18 +3946,19 @@ kinematic prefactor --- addressed by Argument 1 below (inheritance from
 standard staggered) and the Residual gap subsection.
 
 The framework's prediction \(m_{\text{match}} = \lambda \cdot g_0^2\)
-requires \(K = 1/2\). This value is established at Layer 1 by the
-structural identity above, with Layer 2(a)-tractable verification
-provided by:
+requires \(K = 1/2\). Given the algebraic identity
+\(c_{bb} = (n_{\text{gen}}-1)\lambda\) (Layer 1, clean), the matching
+condition \(m_{\text{match}} = K \cdot c_{bb} \cdot g_0^2\) forces
+\(K = 1/(n_{\text{gen}}-1) = 1/2\) as a structural identity whenever the
+matching condition itself holds. The matching condition
+\(m_{\text{match}} = \lambda g_0^2\) is supported by the following
+arguments, MC-verified to \(1.4\%\) precision:
 
 \textbf{Argument 1 (Staggered convention).} The standard staggered
 fermion action uses the symmetric kinetic term
 \(S_{\text{kin}} = \tfrac{1}{2}\sum_{x,\mu}\eta_\mu(x)\bar\chi(x)[U_\mu(x)\chi(x+\hat\mu) - U_\mu^\dagger(x-\hat\mu)\chi(x-\hat\mu)]\),
 with the gauge vertex
-\(V_\mu = (g_0/2)\eta_\mu(x)[U_\mu + U_\mu^\dagger]\). The factor
-\(1/2\) from this symmetrization propagates as a universal kinematic
-prefactor in one-loop bilinear renormalization. This is established in
-the canonical staggered perturbation theory references: Patel \& Sharpe
+\(V_\mu = (g_0/2)\eta_\mu(x)[U_\mu + U_\mu^\dagger]\). Patel \& Sharpe
 {[}33{]} derive the standard one-gluon vertex
 \(V_\mu \propto -ig\cos(q'_\mu + k_\mu/2)(\gamma_\mu \otimes 1)\) (their
 Eq. 17) --- the same form as the OI vertex
@@ -3963,25 +3966,37 @@ Eq. 17) --- the same form as the OI vertex
 (tadpole) vertex with explicit factor \(-i\tfrac{1}{2}g^2\) (their Eq.
 18) tracing directly to the symmetrization. The full one-loop
 renormalization of staggered scalar density bilinears computed there and
-in subsequent work {[}Constantinou-Costa-Panagopoulos and others{]}
-shows the \(1/2\) propagating consistently through to the
-renormalization coefficients \(Z_S, Z_P\).
+in subsequent work {[}Constantinou-Costa-Panagopoulos and others{]} is a
+specific known number consistent with \(K = 1/2\) in the framework's
+decomposition.
 
-The key point: \textbf{OI uses the standard staggered convention for the
-vertex normalization}, not a different one. The OI's taste-decomposed
-Coleman-Weinberg construction inherits the same one-loop kinematic
-structure as standard staggered \(Z_S\) calculations, including the
-\(1/2\) prefactor. The OI's K = 1/2 is therefore not an independent OI
-prediction but the value forced by the staggered convention OI uses;
-verifying it explicitly within OI amounts to checking that no
-OI-specific modification (e.g., the matching mass \(\mu\) insertion in
-the vertex) breaks the inheritance from standard staggered. The
-structural argument is: same vertex form (cited from Patel-Sharpe Eq.
-17), same symmetrization (cited from Patel-Sharpe action setup), same
-loop kinematic structure → same K. The matching mass \(\mu\) enters the
-OI calculation as an overall factor (it sets the scale at which the
-matching is performed, not the dimensionless loop coefficient), so it
-does not modify K.
+\emph{Scope of the inheritance argument.} The algebraic identity
+\(\cos^2(k_\mu/2) = (1 + \cos(k_\mu))/2\) is dimension-independent per
+direction, but its ``\(1/2\)'' content propagates into the lattice
+integral only when the \(\cos(k_\mu)\) residual vanishes by symmetry.
+The relevant symmetry is the \(\pi\)-shift \(k_\mu \to \pi - k_\mu\):
+integrands depending on \(k\) only through \(\sin^2(k_\mu)\) (i.e., the
+staggered fermion propagator) are \(\pi\)-shift symmetric and the
+residual integrates to zero exactly, leaving the \(1/2\) factor;
+integrands involving the lattice gluon propagator
+\(\hat{q}^2 = 4\sum\sin^2(k_\mu/2)\) are \emph{not} \(\pi\)-shift
+symmetric (under the shift, \(\sin^2(k_\mu/2) \to \cos^2(k_\mu/2)\)),
+and the residual does not vanish in isolation. The actual one-loop
+\(Z_S\) integrand involves both fermion and gluon propagators, so the
+simple \(\cos^2 \to 1/2\) algebra does not by itself constitute the
+analytical derivation of \(K = 1/2\); the residual \(\cos(k_\mu)\)
+pieces from the vertex-correction diagram must cancel against analogous
+pieces from the fermion self-energy and tadpole diagrams (presumably via
+the Ward identity that makes \(Z_S^{(1)}\) a well-defined finite number)
+for the published staggered \(Z_S\) to come out at the value it does.
+The inheritance argument therefore reduces to: the published staggered
+\(Z_S^{(1)}\) is a specific number consistent with \(K = 1/2\), and OI
+uses the same vertex, action, and gauge fixing as the published
+calculations, so OI's \(Z_S\) should reproduce the same number. This is
+plausibility evidence, not analytical derivation; the matching mass
+\(\mu\) enters the OI calculation as an overall factor (it sets the
+scale at which the matching is performed, not the dimensionless loop
+coefficient), so it does not modify \(K\) by inspection.
 
 \textbf{Consistency check 2 (Symmetric averaging --- definitional).} The
 taste-breaking insertion can appear before or after the gauge exchange
@@ -4019,50 +4034,65 @@ falls within \(\sim 5\%\) of observation. This is empirical fitting on a
 moderately-restricted set rather than a first-principles derivation, but
 the resulting selection is sharp.
 
-\(K = 1/2\) is therefore established at Layer 1 by the
-representation-theoretic identity \(K = 1/(n_{\text{gen}} - 1)\) (which
-forces \(K = 1/2\) for the framework's required \(n_{\text{gen}} = 3\)),
-with Layer 2(a)-tractable verification provided by Argument 1
-(inheritance from standard staggered convention), Consistency check 2
-(definitional symmetric averaging), and Consistency check 3 (empirical
-exclusion of natural-fraction alternatives).
+\(K = 1/2\) is therefore \emph{consistent with} the algebraic identity
+\(c_{bb} = (n_{\text{gen}}-1)\lambda\) and the matching condition
+\(m_{\text{match}} = \lambda g_0^2\), with the latter MC-verified to
+\(1.4\%\) precision. The Layer 1 content is the algebraic identity for
+\(c_{bb}\); the matching condition has the \emph{form} of a Layer 1
+structural relation (dimensional analysis plus the ``natural threshold''
+convention \(T = \Sigma\)) but the specific dimensionless coefficient is
+currently established by MC rather than by closed-form analytical
+derivation. Argument 1 (inheritance from standard staggered convention),
+Consistency check 2 (definitional symmetric averaging), and Consistency
+check 3 (empirical exclusion of natural-fraction alternatives) provide
+plausibility evidence for the matching condition rather than analytical
+closure.
 
-Within the four-layer framing (§8.3), the \(K = 1/2\) coefficient is now
-Layer 1 closed at the structural-identity level, with the remaining open
-question being the Layer 2(a)-tractable verification that the OI's
-specific taste-decomposed Coleman--Weinberg potential reproduces
-\(K = 1/(n_{\text{gen}} - 1)\) at one loop. This parallels the §7.3 Cond
-2 stratification: both predictions have a Layer 1
-representation-theoretic core (Cond 2's \(4A^2 = 4(d-1)/d\) and D10's
-\(K = 1/(n_{\text{gen}} - 1)\)) plus a Layer 2(a)-tractable
-substrate-loop verification piece. The deferred OI-specific 1-loop
-computation produces useful data either way: confirmation strengthens
-the framework, while a different result would localize the discrepancy
-in the loop kinematic structure rather than the structural identity
-itself.
+Within the four-layer framing (§8.3), the \(K = 1/2\) coefficient is
+best characterized as \emph{MC-verified at 1.4\% precision} with the
+Layer 2(a)-tractable analytical closure pending --- specifically, an
+explicit one-loop calculation on the OI cubic lattice that derives
+\(m_{\text{match}} = \lambda g_0^2\) from the taste-decomposed
+Coleman--Weinberg potential without appealing to MC verification of the
+matching scale. The framework's earlier characterization of ``Layer 1
+closed at the structural-identity level'' overstated the analytical
+content of the \(\cos^2\) symmetrization argument; the corrected
+characterization is that \emph{given} the matching condition
+(MC-verified), \(K = 1/(n_{\text{gen}}-1)\) follows by structural
+identity, but the matching condition itself awaits analytical closure.
+This parallels the §7.3 Cond 2 stratification: both predictions have a
+Layer 1 representation-theoretic \emph{core}
+(\(c_{bb} = (n_{\text{gen}}-1)\lambda\) here; the geometric projection
+structure there) plus a Layer 2(a)-tractable substrate-loop verification
+piece. The deferred OI-specific one-loop computation produces useful
+data either way: confirmation strengthens the framework, while a
+different result would localize the discrepancy in the loop kinematic
+structure rather than the algebraic structural identity.
 
-\textbf{Residual gap.} With Argument 1 reframed as inheritance from the
-standard staggered convention rather than independent OI derivation, the
-structural support for \(K = 1/2\) is substantially strengthened: K =
-1/2 is the value forced by the staggered vertex normalization OI uses,
-established in published staggered perturbation theory {[}33{]}, and the
-matching mass \(\mu\) enters as an overall scale rather than modifying
-the dimensionless loop coefficient. The remaining gap is verifying
-explicitly that the OI's specific taste-decomposed Coleman-Weinberg
-construction reproduces the standard staggered calculation at the
-relevant level of detail (no convention drift, no missing diagram). A
-fully explicit one-loop calculation within the OI lattice setup ---
-computing the diagram directly with the OI vertex
-\(V_j = ig_0\mu T^\alpha\cos(k_j + p_j/2)\) and confirming it reduces to
-the standard staggered \(Z_S\) structure --- would close this gap
-definitively.
+\textbf{Residual gap.} With Argument 1 reframed honestly as plausibility
+evidence rather than independent analytical derivation, the explicit
+analytical task is sharper: a fully explicit one-loop calculation within
+the OI lattice setup --- computing the vertex-correction, fermion
+self-energy, and tadpole diagrams with the OI vertex
+\(V_j = ig_0\mu T^\alpha\cos(k_j + p_j/2)\), combining them via the
+relevant Ward identity, and confirming the result reduces to a value
+consistent with \(K = 1/(n_{\text{gen}}-1)\) --- would close this gap
+definitively. Two intermediate routes are also available: (a) a
+Ward-identity argument establishing analytically that the residual
+\(\cos(k_\mu)\) pieces from the vertex correction cancel against
+analogous pieces in the self-energy and tadpole, which would render the
+\(\cos^2 \to 1/2\) symmetrization heuristic into an actual derivation;
+(b) tighter MC measurement to confirm \(K = 1/2\) at sub-percent
+precision and bound the higher-order corrections explicitly.
 
-The per-vertex \(\cos^2\) symmetrization producing the \(1/2\) factor is
-structurally robust to the 3D-vs-4D dimensional change: the identity
-\(\cos^2(k/2) = (1+\cos(k))/2\) is dimension-independent per direction,
-so the factor \(1/2\) is preserved in OI's spatial-only vertex form.
-Four bridge gaps in the SχPT inheritance are addressed below; their
-current status:
+The per-vertex \(\cos^2\) algebraic identity
+\(\cos^2(k/2) = (1+\cos(k))/2\) is dimension-independent per direction;
+the \(1/2\) constant piece survives any dimensional change. Whether this
+\(1/2\) propagates cleanly through the full one-loop integral depends on
+the \(\pi\)-shift cancellation discussed under ``Scope of the
+inheritance argument'' above --- a question of integral structure rather
+than dimensionality. Four bridge gaps in the SχPT inheritance are
+addressed below; their current status:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -4366,31 +4396,32 @@ Footnotes:
   from retrodictions (\textbf{R}) to strict predictions (\textbf{S}).
 \item
   \textbf{ᵇ} \emph{Layered prediction (m\_b/m\_τ).} The matching scale
-  \(m_{\text{match}} = \lambda \cdot g_0^2\) is structurally derived in
-  the taste-decomposed Coleman--Weinberg potential (§7.5): the b-quark
-  is identified with the democratic eigenstate \(\hat{h}\) of the
+  \(m_{\text{match}} = \lambda \cdot g_0^2\) is partly structural in the
+  taste-decomposed Coleman--Weinberg potential (§7.5): the b-quark is
+  identified with the democratic eigenstate \(\hat{h}\) of the
   cubic-symmetric taste-breaking operator (from §7.1, §7.2
   representation theory), giving diagonal taste-breaking
-  \(c_{bb} = (n_{\text{gen}} - 1) \lambda = 2\lambda\). Combining with
-  the natural matching condition at condensate scale \(\Sigma\) and a
-  loop kinematic coefficient \(K\), the prediction
-  \(m_{\text{match}} = \lambda g_0^2\) requires
-  \(K = 1/(n_{\text{gen}} - 1) = 1/2\) --- a representation-theoretic
-  structural identity (Layer 1 closed) paralleling Wolfenstein
-  \(A^2 = (d-1)/d\). Layer 2(a)-tractable verification: the staggered
-  kinetic-term symmetrization plus empirical exclusion of natural
-  alternatives within \(K \in \{1/4, 1/2, 1, 2\}\) (\(K = 1\) excluded
-  at \(35\%\), \(K = 1/4\) at \(24\%\)); see §7.5 for the structural
-  detail. The MC-extracted value
+  \(c_{bb} = (n_{\text{gen}} - 1) \lambda = 2\lambda\) --- this
+  \(c_{bb}\) algebra is clean Layer 1. Combining with the natural
+  matching condition at condensate scale \(\Sigma\) and a loop kinematic
+  coefficient \(K\), the prediction \(m_{\text{match}} = \lambda g_0^2\)
+  requires \(K = 1/(n_{\text{gen}} - 1) = 1/2\) --- a structural
+  identity that follows by definition \emph{given} the matching
+  condition; the matching condition itself is MC-verified to \(1.4\%\)
+  but the analytical derivation of its specific dimensionless
+  coefficient is the Layer 2(a)-tractable residual (an explicit one-loop
+  calculation on the OI cubic lattice or a Ward-identity argument).
+  Empirical exclusion of natural alternatives within
+  \(K \in \{1/4, 1/2, 1, 2\}\) (\(K = 1\) excluded at \(35\%\),
+  \(K = 1/4\) at \(24\%\)) provides sharp selection within a restricted
+  set; see §7.5 for the structural detail. The MC-extracted value
   \(m_{\text{match}}^{\text{MC}} = 0.1234 \pm 0.0002\) agrees with the
   derived \(\lambda g_0^2 = 0.1217\) within \(1.4\%\) (NLO truncation).
   The central-value match \(m_b/m_\tau = 0.5\sigma\) is at \(L = 32\);
   realistic systematic uncertainty including finite-volume and regulator
   effects is \(\sim 1\)--\(2\%\) (§7.5). Within the four-layer framing
-  (§8.3), \(K = 1/2\) is now Layer 1 closed at the structural-identity
-  level, with the Layer 2(a)-tractable residual being whether the OI's
-  specific taste-decomposed Coleman-Weinberg one-loop calculation
-  reproduces \(K = 1/(n_{\text{gen}} - 1)\) explicitly.
+  (§8.3), the prediction is MC-verified at the matching-condition level
+  with the Layer 2(a)-tractable analytical closure pending.
 \item
   \textbf{ᵈ} \emph{Layered conditional structural prediction (m\_b via
   Q\_down).} The structural form (Koide formula applied to the
@@ -4797,14 +4828,14 @@ intra-doublet vs inter-generation channel decomposition for
 \(m_u/m_d = \sqrt{\theta_0}\) (§7.2) requires alignment between SU(2)
 Yukawa structure and cubic-group \(T_1\) perturbation that is
 bijection-specific (Layer 2(b)). The \(K = 1/2\) coefficient in the
-\(m_b/m_\tau\) derivation (§7.5) is now Layer 1 closed at the
-structural-identity level via \(K = 1/(n_{\text{gen}} - 1)\) --- a
-representation-theoretic identity paralleling Wolfenstein
-\(A^2 = (d-1)/d\), with \(n_{\text{gen}} = 3\) forced by the cubic
-decomposition \(T_1 \oplus E \oplus A_1\) (Theorem 7); the residual
-Layer 2(a)-tractable question is whether the OI's specific
-taste-decomposed Coleman-Weinberg one-loop calculation reproduces this
-kinematic prefactor explicitly.
+\(m_b/m_\tau\) derivation (§7.5) follows by structural identity
+\(K = 1/(n_{\text{gen}} - 1)\) \emph{given} the matching condition
+\(m_{\text{match}} = \lambda g_0^2\) (which is MC-verified to
+\(1.4\%\)); the residual Layer 2(a)-tractable question is whether the
+OI's specific taste-decomposed Coleman-Weinberg one-loop calculation
+derives this matching condition's specific dimensionless coefficient
+from first principles, rather than relying on MC verification of the
+matching scale.
 
 \textbf{Diagnostic for distinguishing Layer 2(a) from 2(b):} When a
 Layer-2-looking ratio reduces to a structural identity for the relevant
