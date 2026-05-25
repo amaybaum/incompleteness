@@ -118,17 +118,25 @@ chosen agnosticism but a structural feature of the framework's axiom
 type; physical-substrate axioms about finite structures do not entail
 asymptotic statements about algorithmic complexity classes without a
 bridging premise that the candidate axioms cannot principled-ly supply.
-The framework's position is stronger than Aaronson's NP-completeness
-physical-principle approach {[}4{]} at the BQP boundary (where the
-framework specifies the ceiling exactly) and weaker at the P vs NP
-boundary (where the framework declines to stipulate). We propose three
-condition-based research directions where the framework's specific
-substratum structure does provide content for complexity-theoretic
-refinements \emph{within} the BQP ceiling: geometric structure on the
-substratum lattice, the BQP-BPP gap and problem globality, and gauge
-equivalence as a possible physical account of polynomial-time
-reducibility. These are framework-relative conjectures inviting
-investigation, not framework predictions.
+This silence fits a broader pattern across the Gödel-Turing-OI
+incompleteness family: each member establishes a structural boundary on
+access (provability, computability, embedded observability, explanation)
+and is silent on the internal organization of what falls within that
+boundary. P vs NP lies in the internal structure of the computable and
+is therefore outside the locus of contribution of any
+structural-incompleteness framework. The OI framework's position is
+stronger than Aaronson's NP-completeness physical-principle approach
+{[}4{]} at the BQP boundary (where the framework specifies the ceiling
+exactly) and weaker at the P vs NP boundary (where the framework
+declines to stipulate). We propose three condition-based research
+directions where the framework's specific substratum structure does
+provide content for complexity-theoretic refinements \emph{within} the
+BQP ceiling: geometric structure on the substratum lattice, the BQP-BPP
+gap and problem globality (with a refined conjecture that BQP advantage
+is maximized for problems whose hidden structure matches the framework's
+gauge group), and gauge equivalence as a possible physical account of
+polynomial-time reducibility. These are framework-relative conjectures
+inviting investigation, not framework predictions.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -173,11 +181,13 @@ as embedded-observer construction, with the partition-level limits
 applying to the constructed observer. §4 states the BQP characterization
 theorem and its consequences for the Extended Church-Turing Thesis and
 the BPP-BQP gap. §5 develops the framework's position on the P vs NP
-question --- neutrality, structural silence, and the relationship to
-Aaronson's physical-principle approach. §6 examines why no obvious
-bridging axiom is available. §7 proposes three condition-based research
-directions for complexity-theoretic refinements within the BQP ceiling.
-§8 summarizes what the framework establishes and what it does not.
+question --- neutrality, structural silence, the unifying
+boundary-characterization pattern across the Gödel-Turing-OI
+incompleteness family, and the relationship to Aaronson's
+physical-principle approach. §6 examines why no obvious bridging axiom
+is available. §7 proposes three condition-based research directions for
+complexity-theoretic refinements within the BQP ceiling. §8 summarizes
+what the framework establishes and what it does not.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -545,8 +555,83 @@ framework's axioms deliver. A foundational program whose axioms
 bridging physical substrate to asymptotic algorithmic structure
 directly.
 
+\hypertarget{the-boundary-characterization-pattern-across-the-guxf6del-turing-oi-family}{%
+\subsubsection{5.5 The boundary-characterization pattern across the
+Gödel-Turing-OI
+family}\label{the-boundary-characterization-pattern-across-the-guxf6del-turing-oi-family}}
+
+The framework's silence on P vs NP fits a broader pattern across the
+incompleteness family identified in {[}1, Ch. 12 §12.8{]}: Gödel's
+incompleteness, Turing's halting result, OI's hidden-sector
+inaccessibility, and Deutsch's universality-of-explanation are all
+\emph{boundary-characterization} results that share a common structural
+feature --- each establishes a structural limit on access from inside a
+system, and each is silent on the internal organization of what falls
+within the accessible domain.
+
+Concretely:
+
+\begin{itemize}
+\item
+  \textbf{Gödel} sets a boundary at \emph{provability from within a
+  consistent recursively-axiomatizable formal system}. Gödel's
+  incompleteness statements are about what crosses that boundary (true
+  statements that do not). They are silent on the internal organization
+  of the provable: which provable statements are interesting, useful, or
+  important is not a question Gödel's theorems address.
+\item
+  \textbf{Turing} sets a boundary at \emph{computability by a Turing
+  machine}. The halting problem statement is about what crosses that
+  boundary (instances whose halting cannot be decided). Turing's
+  theorems are silent on the internal organization of the computable:
+  which decidable problems are tractable, which are intractable, is not
+  a question Turing's theorems answer.
+\item
+  \textbf{OI} sets a boundary at \emph{embedded observability of the
+  substratum} (the hidden-sector state \(h\), the cosmological horizon,
+  the substratum representative). The OI incompleteness statements are
+  about what crosses that boundary. They are silent on the internal
+  organization of the observable: which physical phenomena have
+  particular structure within the framework's accessible domain is
+  content of a different kind, addressed by the framework's specific
+  structural commitments (gauge group, generations, etc.) rather than by
+  the incompleteness statement itself.
+\item
+  \textbf{Deutsch} sets a boundary at \emph{universal explanation} in
+  the constructor-theoretic sense. Deutsch's universality-of-explanation
+  is about what crosses that boundary (explanations attainable by
+  sufficient knowledge-creation). It is silent on which problems within
+  explanatory reach get solved in which order, by which methods.
+\end{itemize}
+
+This shared structure --- establishing a boundary, then silence on the
+interior --- is not an accident of how the four results have been
+developed. It reflects a common feature of structural-incompleteness
+frameworks: each identifies a \emph{mode of access} (provability,
+computability, observability, explanation) and characterizes its limits.
+The internal structure of what falls within that mode of access is a
+different question, requiring tools internal to that domain.
+
+P vs NP lies in the internal structure of the computable (within
+Turing's domain) and in the internal structure of BQP (within OI's
+domain). It is therefore outside the locus of contribution of any of
+these incompleteness frameworks. This is a constraint on what
+structural-incompleteness frameworks can and cannot deliver: they
+characterize boundaries; they do not navigate interiors.
+Internal-complexity questions like P vs NP require complexity-theoretic
+tools (proof-system lower bounds, geometric complexity theory, circuit
+complexity, and similar), not incompleteness frameworks.
+
+The OI framework's silence on P vs NP is therefore \emph{not} an
+idiosyncrasy of OI --- it is the same kind of silence Gödel and Turing
+exhibit on the same question, for the same structural reason. The
+unifying observation: structural-incompleteness frameworks characterize
+the \emph{boundary} of a domain of access; the \emph{internal
+complexity} of what's accessible is a separate question requiring tools
+internal to the relevant complexity theory.
+
 \hypertarget{position-relative-to-aaronsons-physical-principle-approach}{%
-\subsubsection{5.5 Position relative to Aaronson's physical-principle
+\subsubsection{5.6 Position relative to Aaronson's physical-principle
 approach}\label{position-relative-to-aaronsons-physical-principle-approach}}
 
 Aaronson {[}4{]} has argued that the physical universe respects the
@@ -680,10 +765,43 @@ nonlocal substratum couplings are precisely what global problem
 structure requires. The conjecture is that the BQP-BPP gap correlates
 structurally with the \emph{globality} of the problem's hidden-sector
 dependence, with locally-structured problems exhibiting little gap and
-globally-structured problems exhibiting maximal gap. This conjecture is
-potentially testable through specific quantum-algorithm constructions
-and would refine the complexity-theoretic landscape \emph{inside} BQP
-without engaging P vs NP.
+globally-structured problems exhibiting maximal gap.
+
+The conjecture can be sharpened. The known exponential BQP advantages
+concentrate on the \emph{hidden-subgroup problem} (HSP) and its
+variants: factoring (Shor's algorithm via HSP on \(\mathbb{Z}^*_N\)),
+discrete log (HSP on cyclic groups), Simon's problem (HSP on
+\(\mathbb{Z}_2^n\)), and the abelian HSP family more broadly. Nonabelian
+HSP cases remain open, with some efficient quantum algorithms known and
+many cases still classically intractable; problems outside HSP entirely
+tend to have at most polynomial quantum speedup (Grover-style amplitude
+amplification). The framework's substratum has a specific group
+structure: \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\)
+from the reconstruction theorem {[}5, §3{]}. The natural refined
+conjecture is that BQP advantage is maximized precisely for problems
+whose hidden structure is \emph{gauge-group-like} --- problems reducible
+to HSP on representations of the framework's gauge group or its abelian
+subgroups --- and is suppressed for problems whose hidden structure is
+alien to that group decomposition. This is a structural reading of why
+BQP-BPP gaps concentrate where they do: the substratum's hidden-sector
+correlations are gauge-group-structured, and quantum algorithms that
+exploit those correlations naturally fit problems with matching
+hidden-group structure.
+
+This refined conjecture is potentially testable through specific
+quantum-algorithm constructions and the catalog of known BQP-advantage
+problems. Three concrete checks: (1) the known exponential-BQP-advantage
+problems should all map to HSP-on-gauge-group structure; (2) the
+structural boundary between abelian and nonabelian HSP cases should
+correspond to a meaningful distinction in how the substratum's gauge
+factors are accessed; (3) new BQP-advantage problems should be most
+discoverable by looking for hidden structures matching
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\)
+representations. None of these is established by the framework; each is
+a conjecture inviting complexity-theoretic investigation. The
+framework's contribution is to suggest the structural reason behind the
+empirical concentration of BQP advantage on HSP-style problems, not to
+deliver new complexity-class results.
 
 \hypertarget{gauge-equivalence-and-complexity-theoretic-reductions}{%
 \subsubsection{7.3 Gauge equivalence and complexity-theoretic
