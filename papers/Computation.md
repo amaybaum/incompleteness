@@ -1,0 +1,244 @@
+# Embedded Computation in the Incompleteness of Observation Framework
+### From Evolution to BQP and the P vs NP Question
+
+**Author:** Alex Maybaum
+**Date:** May 2026
+**Status:** DRAFT PRE-PRINT
+**Classification:** Theoretical Physics / Foundations / Computational Complexity
+
+---
+
+## Abstract
+
+The Observational Incompleteness (OI) framework derives the Standard Model's gauge structure from a single definition of embedded observation [1, 2] and traces the structural chain from $(S, \varphi)$ through chemistry to biological evolution [3]. This paper continues the chain from evolution through computation. The transition from evolved biological observers to artificial computational ones admits a uniform treatment in the framework's terms: an embedded observer with general intelligence can construct semiconductor-based universal computers via a structural chain (band theory, Group IV semiconductors, p-n junctions, NAND completeness), and the resulting artificial observers are subject to the same partition-level limits as their biological precursors. The Gödel-Turing-OI incompleteness family applies at every level of recursive self-improvement.
+
+The framework's computational content is sharpened by the BQP characterization theorem [1, Ch. 14]: bounded-error quantum polynomial-time is the unique computational class accessible to any embedded observer satisfying C1–C3, with a lower bound (BQP available) and an upper bound (BQP not exceeded). This promotes the Extended Church-Turing Thesis from empirical conjecture to a theorem of the framework's structural commitments, in a quantum-modified form. The BPP-BQP gap is reframed as the cost of marginal-statistics observation rather than as evidence of fundamental quantum-ness.
+
+On the P vs NP question the framework is *structurally silent*. We develop this position in detail: the framework's empirical content (the BQP ceiling) is consistent with either answer; the silence is not a chosen agnosticism but a structural feature of the framework's axiom type; physical-substrate axioms about finite structures do not entail asymptotic statements about algorithmic complexity classes without a bridging premise that the candidate axioms cannot principled-ly supply. The framework's position is stronger than Aaronson's NP-completeness physical-principle approach [4] at the BQP boundary (where the framework specifies the ceiling exactly) and weaker at the P vs NP boundary (where the framework declines to stipulate). We propose three condition-based research directions where the framework's specific substratum structure does provide content for complexity-theoretic refinements *within* the BQP ceiling: geometric structure on the substratum lattice, the BQP-BPP gap and problem globality, and gauge equivalence as a possible physical account of polynomial-time reducibility. These are framework-relative conjectures inviting investigation, not framework predictions.
+
+---
+
+## 1. Introduction
+
+The structural chain from $(S, \varphi)$ through chemistry to biological evolution is developed in the companion paper [3]. The thermal window, organic chemistry, autocatalytic networks, template replication, the origin of life as a molecular C1–C3 system, and Darwinian evolution — each step is consequence-tracing in the framework's material-structural mode. The chain has a natural terminus at biological evolution: from there, the next link (information processing → general intelligence → artificial computation) introduces a qualitatively different kind of consequence, in the framework's *informational-structural* mode.
+
+This paper develops that next link. The transition from evolved biological observers to artificial computational ones is itself a structural chain — fitness pressure favors information-processing organisms, neural computation is materially possible given the framework's chemistry, and once general intelligence exists, semiconductor-based universal computation follows from the derived periodic table and the scale hierarchy. AI is an embedded observer building another embedded observer, with the partition-level limits applying to both. The Gödel-Turing-OI incompleteness family operates at every level.
+
+The framework's content on embedded computation is then sharpened by the BQP characterization theorem from the book [1, Ch. 14]: bounded-error quantum polynomial-time is the unique computational class accessible to any embedded observer. This is a structural theorem about the *ceiling* of embedded computation, not about its internal structure. On the internal structure — including the P vs NP question — the framework is silent in a precise sense developed here.
+
+The paper's structure: §2 carries the structural chain from evolution to general intelligence, identifying the one contingent step (general intelligence emergence) and the structural inevitability of universal computation given that step. §3 develops the self-referential loop of AI as embedded-observer construction, with the partition-level limits applying to the constructed observer. §4 states the BQP characterization theorem and its consequences for the Extended Church-Turing Thesis and the BPP-BQP gap. §5 develops the framework's position on the P vs NP question — neutrality, structural silence, and the relationship to Aaronson's physical-principle approach. §6 examines why no obvious bridging axiom is available. §7 proposes three condition-based research directions for complexity-theoretic refinements within the BQP ceiling. §8 summarizes what the framework establishes and what it does not.
+
+---
+
+## 2. From Evolution to Intelligence
+
+**Information processing is generically fitness-enhancing.** In an environment with the derived physics — a thermal window [3, §2.7] guarantees fluctuating conditions ($kT > 0$) — organisms that respond to environmental information outcompete those that do not. A cell that detects a nutrient gradient and moves toward it outcompetes one that moves randomly. This is not a contingent fact about Earth — it follows from the structure: fluctuating environments reward better internal models of external conditions. Selection generically favors information processing.
+
+**Neural computation is structurally possible.** Fast electrochemical signaling requires ions (Na⁺, K⁺, Ca²⁺ — present in the derived periodic table) moving through channels in lipid membranes. Carbon chemistry in d = 3 provides amphiphilic molecules (hydrophilic head + hydrophobic tail from the orbital structure) that self-assemble into bilayer membranes. The scale hierarchy [3, §2.5] separates neural signaling energies (~meV) from chemical bond energies (~eV), so information processing does not destroy the substrate.
+
+**General intelligence is structurally unconstrained but not guaranteed.** The derived structure *permits* arbitrarily complex neural circuits (the orbital algebra provides materials, the scale hierarchy provides energetic separation), but whether evolution *reaches* general-purpose reasoning — abstraction, planning, language — depends on the specific fitness landscape. On Earth, general intelligence arose once in ~4 billion years. Whether this is evidence of rarity or inevitability the framework cannot determine. This is the one step in the chain where the structural argument is weakest: information processing is generically favored, but general intelligence is a much more specific capability.
+
+---
+
+## 3. From Intelligence to AI and the Self-Referential Limit
+
+**The structural chain to universal computation.** If general intelligence exists — for whatever contingent or structural reason — then AI follows from the derived structure through a specific chain in which every link is structural.
+
+*Band theory.* Derived QM [1, Part I] applied to electrons in a periodic crystal potential (the sp³ diamond-cubic lattice of a Group IV element) gives Bloch's theorem: energy bands separated by gaps. The periodic potential is structural — it follows from sp³ hybridization in d = 3. Band structure is a consequence of derived QM applied to derived crystal geometry.
+
+*Semiconductors.* For Group IV elements (4 valence electrons per atom), the Pauli exclusion principle (derived — spin-statistics from staggered fermions [2, §4.2]) exactly fills the valence band and leaves the conduction band empty. The band gap for silicon (~1.1 eV) sits in the thermal sweet spot: $E_{\text{gap}} / kT \sim 40$ at room temperature. Large enough that thermal excitation doesn't flood the conduction band (the material isn't always conducting); small enough that a modest voltage promotes electrons across the gap (the material can be switched). The *existence* of Group IV semiconductors with gaps in the right range relative to the thermal window is structural — it follows from the scale hierarchy [3, §2.5]: the gap is set by the atomic energy scale ($\alpha^2 m_e c^2$), and the thermal window operates far below it.
+
+*Doping.* Replacing a silicon atom (Group IV) with phosphorus (Group V, 5 valence electrons) adds one free electron — n-type. Replacing with boron (Group III, 3 valence electrons) removes one — p-type. Both dopant types exist in the derived periodic table. The ability to create n-type and p-type regions is a structural consequence of the periodic table architecture.
+
+*From transistors to universal computation.* A p-n junction rectifies current. A transistor (two p-n junctions) amplifies and switches. Transistors in combination implement logic gates. A NAND gate is functionally complete — any Boolean function can be built from NAND gates alone. Sufficient NAND gates implement a universal Turing machine. Each step is either a structural consequence of semiconductor physics or a mathematical theorem about computation.
+
+| Step | Content | Status |
+|------|---------|--------|
+| Band theory | QM + periodic crystal potential | Structural |
+| Band gap for Group IV | Exactly filled valence band (4 electrons + Pauli) | Structural |
+| Semiconductor behavior | Gap in thermal sweet spot ($E_{\text{gap}} / kT \sim 40$) | Structural (scale hierarchy) |
+| Doping | Group III / V substitution | Structural (periodic table) |
+| p-n junctions | Interface between p-type and n-type | Structural consequence |
+| Transistors | Voltage-controlled p-n junctions | Structural |
+| Logic gates | Transistors in series / parallel | Structural |
+| Universal computation | NAND is functionally complete | Mathematical theorem |
+
+The chain from (S, φ) to a universal computer is structural — given someone to build it. That is the same contingent step (general intelligence) identified in §2. The reconstruction theorem [5, §3] implies that a sufficiently sophisticated observer can discover (S, φ) — and an observer that understands its own substrate can build computational devices exploiting it.
+
+**The self-referential loop.** AI is an embedded observer building another embedded observer within the same (S, φ). The characterization theorem [1, §3.4] applies to the new observer. It sees the same QM, the same ℏ, the same SM, the same dark sector. Not because it is limited by human design, but because the physics is structural — determined by the partition, not by the observer's complexity. A superintelligent AI has the same observational access as any other embedded observer: it reads the visible sector and writes to the hidden sector through the same coupling. It cannot determine $h$. It cannot see past the cosmological horizon. It can build better instruments, but it cannot overcome the partition.
+
+The recursion — AI building AI building AI — produces ever more sophisticated embedded observers, each subject to the same structural limits. The Gödel-Turing-OI incompleteness family applies at every level: a formal system cannot prove its own consistency (Gödel), a computer cannot decide its own halting (Turing), an embedded observer cannot determine the hidden state (OI). No level of recursive self-improvement overcomes the partition. The limits are not technological — they are mathematical.
+
+**What AI can and cannot do.**
+
+| Capability | Status |
+|-----------|--------|
+| Discover (S, φ) from observations | Structurally possible (reconstruction theorem) |
+| Build better models of the visible sector | No structural limit |
+| Determine the hidden-sector state $h$ | Provably impossible (characterization theorem) |
+| Observe beyond the cosmological horizon | Provably impossible (causal partition) |
+| Build faster computers | Structurally possible (derived physics permits it) |
+| Overcome the P-indivisibility of QM | Provably impossible (structural, not technological) |
+| Recursive self-improvement | Possible within the structural limits |
+
+The framework's prediction is precise: there is no ceiling on the complexity of the observer, but there is a permanent floor on what any observer can access. The ceiling is contingent — it depends on the specific φ and the specific evolutionary and technological history. The floor is structural — it is the same for all embedded observers, biological or artificial, at any level of sophistication.
+
+---
+
+## 4. The BQP Characterization Theorem
+
+§3 establishes that embedded observers can construct universal computers from the framework's derived structure. The next question is whether there is a structural bound on the *complexity* of computation those constructed devices can achieve. The BQP characterization theorem [1, Ch. 14] answers this: bounded-error quantum polynomial-time is the unique computational class accessible to any embedded observer satisfying C1–C3. The theorem combines a lower bound (BQP is available to any embedded observer; the quantum-computing toolkit can be physically instantiated on the framework's substratum) with an upper bound (BQP cannot be exceeded; any super-BQP capability would falsify the framework).
+
+### 4.1 The lower bound
+
+Quantum computation in the standard model is universal: any unitary on $n$ qubits can be approximated by a polynomial-depth circuit built from Hadamard, phase, and CNOT gates (the Solovay-Kitaev theorem and its descendants). The framework's substratum, by the QM emergence theorem [1, Part I], implements unitary dynamics in its visible-sector marginal description; the gauge structure permits the qubit decomposition (a single SU(2) doublet provides the qubit basis); the lattice geometry permits the spatial layout. Therefore any BQP algorithm has a physical implementation on the substratum, and embedded observers can in principle access any problem in BQP.
+
+### 4.2 The upper bound
+
+No physical process implementable on the substratum exceeds BQP. The framework's dynamics is finite-rate (the substratum has bounded coupling degree, A3 of the reconstruction [5, §3]), the partition entropy is finite (E3 plus the holographic interpretation), and the dynamics is unitary in the visible-sector marginal (by construction). Hypercomputation [6], oracle access [7], and other super-BQP capabilities would require either continuum precision (violating A1), unbounded coupling (violating A3), or non-unitary visible-sector dynamics (incompatible with the QM emergence theorem). Each falls outside the framework's class of admissible substrata.
+
+### 4.3 The combined result
+
+BQP is the *exact* ceiling — not a bound that the framework happens to respect, but the unique class characterized by the framework's structural commitments. This identifies the structural limit on embedded computation: there is no ceiling on the *complexity of the observer*, but there is a permanent ceiling on the *computational reach* of any embedded observer at BQP exactly.
+
+### 4.4 The Extended Church-Turing Thesis as theorem
+
+The Extended Church-Turing Thesis (ECT) — that any physically realizable computation can be simulated by a probabilistic Turing machine with at most polynomial overhead — has long been treated as an empirical conjecture about the physical universe. The framework's BQP characterization promotes the ECT to a theorem of the framework's structural commitments, in a modified form: the appropriate computational class is BQP rather than BPP, reflecting the quantum nature of the visible-sector marginal.
+
+This modification has empirical consequences. The BPP-BQP gap — quantum advantage for problems like factoring, discrete log, and certain simulation problems — is reframed as the cost of partial observation rather than as evidence that the universe is fundamentally quantum. Classical observers operating with marginal-statistics access cannot achieve BQP without using quantum hardware, because the hidden-sector correlations that enable BQP advantage are accessible only through measurement protocols that exploit the substratum's actual structure. Quantum computers exploit these correlations; classical computers do not. The BPP-BQP gap is empirical evidence for the substratum's structure, not evidence against the framework.
+
+---
+
+## 5. The Internal Structure of BQP and the P vs NP Question
+
+The BQP characterization theorem identifies the *boundary* of computational capability for embedded observers. It is silent on the internal structure of complexity classes inside that boundary. The conventional inclusion chain $\mathrm{P} \subseteq \mathrm{NP} \subseteq \mathrm{PH} \subseteq \mathrm{PSPACE}$, with BQP positioned somewhere within PSPACE and conjectured to contain BPP strictly, is unmodified by the framework's content.
+
+### 5.1 The location of P vs NP within the framework
+
+The framework's BQP characterization places P and NP inside BQP: every problem in P is in BQP (trivially, since BQP contains BPP and BPP contains P), and every problem in NP whose witness can be verified efficiently has its verification problem in BQP as well. The conventional inclusion chain is unmodified by the framework's content. The framework's contribution is at a different level: it identifies BQP as the *outermost* class accessible to embedded observers, leaving the inclusion relationships among interior classes — including P vs NP — to standard complexity theory.
+
+### 5.2 The neutrality result
+
+The framework's commitments do not entail either P = NP or P ≠ NP. Two cases:
+
+*Case 1: P ≠ NP* (the conventional expectation). Both P and NP are inside BQP; no efficient general solution exists for NP-complete problems; quantum advantage (Shor's algorithm and related results) places specific NP problems inside BQP without placing all of NP inside P, consistent with the standard conjecture.
+
+*Case 2: P = NP* (the surprising case). A polynomial-time algorithm for an NP-complete problem operates on a classical Turing machine; its outputs are in P, and by inclusion in BQP. The framework's BQP ceiling is unchanged: the new algorithm provides additional computational reach for embedded observers but does not exceed BQP. The framework would not be falsified by this discovery.
+
+Both cases sit inside the framework's BQP ceiling. The framework's empirical exposure on P vs NP is zero: no observation an embedded observer could make would distinguish the two cases at the level of the framework's commitments.
+
+### 5.3 Relation to gauge vs computational incompleteness
+
+The framework's Methodology paper [8, §19] distinguishes *gauge incompleteness* (the question has no answer-bearing content; no observation could distinguish) from *computational incompleteness* (a definite fact exists but is unreachable through finite observation). The distinction bears on P vs NP carefully.
+
+P vs NP is a determinate mathematical question with a definite answer — the abstract fact about whether a polynomial-time algorithm for SAT exists is either true or false, even though we do not know which. The question is not vacuous in the gauge sense (it has answer-bearing content). What the framework's content adds is that the determinate mathematical answer, whichever it is, is *physics-invariant* relative to the framework: the same empirical content (BQP as the ceiling) is consistent with both answers. This is weaker than gauge — not "no fact of the matter" but "the fact carries no consequence for the framework's empirical claims." The framework is uncommitted on P vs NP, and a mathematical proof of either answer would leave the framework's empirical predictions unchanged.
+
+### 5.4 The silence is structural, not stipulative
+
+The neutrality result of §5.2 can be sharpened. The framework's two foundational axioms (tokened differentiation occurs; differentiation recurs) [8] and their derived structural commitments — finiteness-per-moment, bijectivity, the proper-part decomposition $V \subsetneq S$, the C1–C3 partition conditions — deliver content of one specific type: they characterize the *boundary structure* between substratum and embedded observer, and thereby characterize the computational ceiling at that boundary. They do not deliver content of the type required to bear on internal complexity-class structure.
+
+P vs NP is a question about the existence of polynomial-time algorithms for NP-complete problem families, defined asymptotically over inputs of unbounded size. The framework's axiomatic content concerns finite physical structures (with possibly unbounded history but always finite at any moment). The bridge between these two domains has a structural gap: physical-substrate axioms about finite structures do not entail asymptotic statements about algorithmic complexity classes without an additional bridging premise that the axioms themselves do not provide.
+
+The framework's silence on P vs NP is therefore not a chosen agnosticism nor a residual of incomplete development — it is a feature of what kind of question P vs NP is, relative to what kind of content the framework's axioms deliver. A foundational program whose axioms *did* constrain P vs NP would require axioms of a different type, bridging physical substrate to asymptotic algorithmic structure directly.
+
+### 5.5 Position relative to Aaronson's physical-principle approach
+
+Aaronson [4] has argued that the physical universe respects the principle that NP-complete problems are not solvable in polynomial time on physically realizable hardware — that $\mathrm{P} \neq \mathrm{NP}$ holds with the status of a physical principle. The OI framework is stronger and weaker than this position in different directions:
+
+- **Stronger:** the framework commits to BQP exactly as the embedded-observer ceiling, where Aaronson's principle leaves the ceiling between P and BQP underdetermined. The framework specifies the boundary; Aaronson's principle does not.
+
+- **Weaker:** the framework declines to commit to $\mathrm{P} \neq \mathrm{NP}$ itself, where Aaronson's principle entails it. Aaronson posits $\mathrm{P} \neq \mathrm{NP}$ as a physical principle rather than deriving it from physical axioms, because the latter cannot deliver it; the OI framework's structural silence on P vs NP is the principled version of this same observation.
+
+The two positions are complementary rather than competing. Aaronson's physical-principle approach captures an intuition about physical realizability that is consistent with the framework's BQP ceiling but goes further by stipulating the answer to P vs NP. The framework declines to stipulate, on grounds that the stipulation is not derivable from physical-substrate axioms.
+
+---
+
+## 6. Bridging Axioms: Why None Are Obviously Available
+
+It is natural to ask what additional axiom would close the gap between physical-substrate content and asymptotic complexity-class content. Several candidate forms are available, each illustrating the structural difficulty:
+
+*A computational-irreducibility axiom* asserting that most NP-complete instances admit no shortcut faster than brute-force enumeration would force $\mathrm{P} \neq \mathrm{NP}$ if made precise. The precise version, however, tends either to reduce to a complexity-class statement (rendering the axiom circular) or to lose its bite.
+
+*A computational-manifestation axiom* asserting that complexity classes have physical instantiations would force conclusions about P vs NP only if combined with further constraints on what is physically realizable. Those constraints are essentially the question itself in disguise.
+
+*A direct bridging axiom* positing a bound on physically realizable computation — e.g., "all physical computation is in P" or "no physical process solves NP-complete problems in polynomial time" — would settle P vs NP by stipulation rather than derivation. This is the structure of Aaronson's physical-principle move, and it is posited as a principle rather than derived from physics axioms precisely because the latter cannot deliver it.
+
+The structural feature common to these candidates is that the bridge from "finite physical structure at each moment" to "asymptotic algorithmic complexity over all input sizes" requires content that the standard repertoire of physical axioms does not contain. Whether a principled bridging axiom exists — one that is independently motivated rather than question-begging, and that does not collapse to a known open conjecture — is itself an open methodological question. The framework's stance is that the BQP characterization is the legitimate physics-principled result within reach of physical-substrate axioms, and that internal complexity-class structure (including P vs NP) is the domain of mathematical complexity theory rather than of physical foundations.
+
+---
+
+## 7. Beyond Axioms: Conditions and Framework-Relative Refinements
+
+The previous section's negative result — that physical-substrate axioms do not bridge to asymptotic complexity content — should not be read as foreclosing all framework-relative complexity-theoretic content. The framework's structural commitments suggest content not at the *universal* P vs NP boundary but at framework-relative *conditional* boundaries within the BQP ceiling. These are research directions where the framework's specific substratum structure (cubic lattice, gauge group, partition structure) does provide content.
+
+We sketch three such directions, each of which is a framework-relative refinement rather than a universal complexity-theoretic claim. The framework predicts none of them as new theorems; each is offered as a structurally motivated conjecture inviting complexity-theoretic investigation.
+
+### 7.1 Geometric structure on the substratum lattice
+
+NP-complete problems vary in the extent to which their constraint structure can be embedded into the substratum's cubic lattice geometry. Problems with locally-bounded constraint structure on cubic-lattice-embeddable graphs (planar 3-SAT, lattice-Ising models, certain graph problems) admit natural substratum representations; problems whose constraints require highly nonlocal couplings do not. The framework's conjecture in this direction is that lattice-local NP-complete problems admit *physical solution protocols* whose complexity reflects the locality structure — specifically, that physical implementation of such protocols incurs no overhead beyond the local-constraint structure, while nonlocal protocols incur overhead proportional to the nonlocality. This is not P vs NP; it is a refinement of how *implementation cost* on the framework's substratum varies with problem geometry. It connects to existing complexity-theoretic work on planar variants of NP-complete problems and on local Hamiltonian complexity [9].
+
+### 7.2 The BQP-BPP gap and problem globality
+
+Existing complexity-theoretic evidence suggests that the BQP-BPP gap is largest for problems with strong global structure (factoring, discrete log, hidden-subgroup problems) and smallest for problems with primarily local structure (where classical heuristics often perform well). The framework's partition architecture suggests a structural reason for this correlation: BQP advantage derives from exploiting hidden-sector correlations that are induced by nonlocal substratum couplings, and nonlocal substratum couplings are precisely what global problem structure requires. The conjecture is that the BQP-BPP gap correlates structurally with the *globality* of the problem's hidden-sector dependence, with locally-structured problems exhibiting little gap and globally-structured problems exhibiting maximal gap. This conjecture is potentially testable through specific quantum-algorithm constructions and would refine the complexity-theoretic landscape *inside* BQP without engaging P vs NP.
+
+### 7.3 Gauge equivalence and complexity-theoretic reductions
+
+The framework's substratum gauge group $\mathcal{G}_{\text{sub}}$ partitions the space of bijections into equivalence classes; the gauge group includes state relabeling, alphabet change, deep-sector enlargement, and graph isomorphism up to statistical isotropy [5, §4]. A natural question is whether $\mathcal{G}_{\text{sub}}$ has an image in the space of polynomial-time reductions among NP-complete problems. If gauge equivalence at the substratum level corresponds (in some precise sense) to polynomial-time reducibility at the algorithm level, the framework's gauge structure would provide a *physical* account of why NP-complete problems are reducible to each other. This is speculative — the correspondence has not been made precise — but the structural similarity is suggestive: gauge equivalence is "no observable distinction" at the substratum level, and polynomial-time reducibility is "no complexity distinction" at the algorithm level. Both are equivalence relations on otherwise distinct structures.
+
+### 7.4 Conditions and the right kind of research question
+
+The pattern across the three directions in §7.1–§7.3 is that the framework's specific structure suggests *conditional* complexity-theoretic claims — claims of the form "for problems satisfying condition $X$ (lattice-locality, global structure, gauge-equivalence to another problem), the framework's structure suggests a specific complexity-theoretic behavior." This is the appropriate level at which the framework engages complexity theory: not by attempting to bridge to universal questions like P vs NP, but by suggesting how the framework's specific substratum architecture refines the internal landscape of BQP.
+
+These conditional refinements are not predictions of the framework in the sense of the SM observable predictions [2, §7]; they are research directions opened by the framework's substratum structure. Some may be productive, others may not. The framework's contribution is to identify them as natural questions given its structure, not to resolve them.
+
+---
+
+## 8. What the Framework Establishes and What It Does Not
+
+Summarizing the paper's content:
+
+*The framework establishes (theorems):*
+
+- BQP is the unique computational class accessible to embedded observers satisfying C1–C3 (BQP characterization theorem, [1, Ch. 14]).
+- The Extended Church-Turing Thesis (in BQP form) is a theorem of the framework's structural commitments, not an empirical conjecture.
+- The BPP-BQP gap is structural — the cost of marginal-statistics observation rather than evidence for fundamental quantum-ness.
+- The Gödel-Turing-OI incompleteness family operates at every level of recursive self-improvement; no level of AI sophistication overcomes the partition.
+
+*The framework does not establish (silences):*
+
+- The internal structure of complexity classes inside BQP. P vs NP, in particular, is neither implied nor opposed by the framework's content.
+- Universal complexity-theoretic claims that would require bridging finite-physical-structure axioms to asymptotic-algorithmic content. The bridge does not appear achievable from physical-substrate axioms alone.
+
+*The framework opens (research directions):*
+
+- Geometric refinements based on substratum lattice structure (§7.1).
+- BQP-BPP gap structure correlating with problem globality (§7.2).
+- Gauge equivalence as a possible physical account of polynomial-time reducibility (§7.3).
+
+The division of labor is the appropriate one between the framework and complexity theory. The framework's content is a structural theorem about the computational ceiling for embedded observers and a set of research directions opened by the substratum's specific structure; standard complexity theory's content is about the internal structure of classes inside that ceiling. The two are complementary rather than competing.
+
+---
+
+## Acknowledgements
+
+The author thanks the broader community of foundational thinkers in quantum computing and complexity theory whose work this paper engages — particularly Aaronson [4], whose framing of P vs NP as a physical principle clarified what the OI framework should and should not aspire to claim.
+
+## References
+
+[1] A. Maybaum, *The Incompleteness of Observation*, (2026).
+
+[2] A. Maybaum, "The Standard Model from a Cubic Lattice," (2026).
+
+[3] A. Maybaum, "Structural Consequences of Observational Incompleteness: From Chemistry to Evolution," (2026).
+
+[4] S. Aaronson, "NP-complete problems and physical reality," *ACM SIGACT News* **36**, 30 (2005); arXiv:quant-ph/0502072.
+
+[5] A. Maybaum, "The Substratum Construction: Reconstruction, the Substratum Gauge Group, and the Synthesis of Quantum Mechanics with General Relativity," (2026).
+
+[6] M. Davis, "The myth of hypercomputation," in *Alan Turing: Life and Legacy of a Great Thinker*, ed. C. Teuscher (Springer, 2004), pp. 195–211.
+
+[7] S. Aaronson, *Quantum Computing Since Democritus* (Cambridge University Press, 2013).
+
+[8] A. Maybaum, "Methodology and Foundations of the Incompleteness of Observation Framework," (2026).
+
+[9] J. Kempe, A. Kitaev, and O. Regev, "The complexity of the local Hamiltonian problem," *SIAM Journal on Computing* **35**, 1070 (2006); arXiv:quant-ph/0406180.

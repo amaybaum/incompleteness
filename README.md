@@ -22,10 +22,10 @@ The full file list is in [Contents](#contents).
 
 ```
 incompleteness/
-├── papers/                    Ten research papers (.md, .tex, .pdf) + lattice Monte Carlo code
+├── papers/                    Eleven research papers (.md, .tex, .pdf) + lattice Monte Carlo code
 │   ├── Main, SM, GR, Substratum, Structure   (core papers)
 │   ├── Juno                                  (focused presentation)
-│   ├── Explainer, Complexity, Medicine, Bioinformatics  (companion documents)
+│   ├── Explainer, Complexity, Computation, Medicine, Bioinformatics  (companion documents)
 │   └── oi_lattice_code/                      (source code for SM §§6–7 lattice computations)
 ├── book/                      Book manuscript: 20 chapters, 4 parts, full back matter
 └── README.md, LICENSE
@@ -135,7 +135,9 @@ All research papers live in [`papers/`](papers/).
 
 - **[`Explainer`](papers/Explainer.md)** — full-argument overview with detailed proof walkthroughs, observational confrontation, and FAQ. ([`.tex`](papers/Explainer.tex), [`.pdf`](papers/Explainer.pdf))
 
-- **[`Complexity`](papers/Complexity.md)** — traces the structural chain from $(S, \varphi)$ to organic chemistry, the origin of life as a molecular C1–C3 system, and AI as a self-referential closure. ([`.tex`](papers/Complexity.tex), [`.pdf`](papers/Complexity.pdf))
+- **[`Complexity`](papers/Complexity.md)** — traces the structural chain from $(S, \varphi)$ to organic chemistry, the origin of life as a molecular C1–C3 system, and Darwinian evolution. Companion to [`Computation`](papers/Computation.md), which continues the chain from evolution onward. ([`.tex`](papers/Complexity.tex), [`.pdf`](papers/Complexity.pdf))
+
+- **[`Computation`](papers/Computation.md)** — continues the structural chain from evolution through information processing, neural computation, semiconductor physics, and AI as embedded-observer construction. Develops the BQP characterization theorem for embedded observers and the framework's position on the P vs NP question: structural silence with empirical content concentrated at the BQP boundary. Proposes three condition-based research directions for complexity-theoretic refinements within BQP — geometric structure on the substratum lattice, BQP-BPP gap correlated with problem globality, and gauge equivalence as a possible physical account of polynomial-time reducibility. ([`.tex`](papers/Computation.tex), [`.pdf`](papers/Computation.pdf))
 
 - **[`Medicine`](papers/Medicine.md)** — applies C1–C3 to enzyme kinetics, identifies *memory asymmetry* as a therapeutic axis, presents 29 testable predictions across cancer, neurodegeneration, antibiotic resistance, and other domains. ([`.tex`](papers/Medicine.tex), [`.pdf`](papers/Medicine.pdf))
 
@@ -171,8 +173,9 @@ A book-length treatment, **The Incompleteness of Observation: A Unified Framewor
 | 12 | No-GUT structural prediction: $\tau_p \sim 10^{45}$ yr, no GUT-mechanism monopoles, no GUT-chain cosmic strings, non-unification of gauge couplings | structural | SM §6.7 + §8.7 + Structure §12.5 |
 | 13 | Substratum-level $B$ conservation + sphaleron emergence in emergent EFT (substratum-emergent operator distinction) | theorem | SM §8.7 |
 | 14 | Structural preconditions for organic chemistry, RNA world as first molecular C1–C3, viable parameter fraction $\sim 16\%$ | structural chain + statistical | Complexity |
-| 15 | Non-Markovian dynamics in biology, memory asymmetry as therapeutic axis, 29 testable predictions | predictions | Medicine |
-| 16 | Information-theoretic ceiling on transcriptome-only bioinformatic methods, 22 testable predictions across single-cell analysis | predictions | Bioinformatics |
+| 15 | BQP characterization theorem for embedded observers; Extended Church-Turing Thesis as theorem; structural silence on P vs NP; three condition-based research directions for refinements within BQP | theorem (BQP boundary) + research directions | Computation |
+| 16 | Non-Markovian dynamics in biology, memory asymmetry as therapeutic axis, 29 testable predictions | predictions | Medicine |
+| 17 | Information-theoretic ceiling on transcriptome-only bioinformatic methods, 22 testable predictions across single-cell analysis | predictions | Bioinformatics |
 
 The classification (structural / mass-chain / empirical / phenomenological) for the SM observables is documented in SM §7.6.
 
@@ -195,6 +198,7 @@ The forward derivation and reconstruction theorem together establish that the fr
        ├── Page curve with t_P ≈ 0.646 t_evap (GR Appendix A)
        ├── Observer selection → arrow of time, no Boltzmann brains (Main §4.6)
        ├── Structural preconditions for organic chemistry, RNA world (Complexity)
+       ├── BQP characterization for embedded observers; P vs NP structurally silent (Computation)
        ├── Molecular C1–C3 → non-Markovian pharmacology (Medicine)
        └── Non-Markovian dynamics in computational biology methods (Bioinformatics)
 ```
