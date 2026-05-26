@@ -17,9 +17,10 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern suppressed
+% lmodern unavailable; using xelatex defaults
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -43,6 +44,7 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\input{unicode-fix}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -1962,15 +1964,48 @@ structural assumptions, the effectiveness is what the reconstruction
 theorem asserts, and the residual sense of mystery attaches only to the
 structural assumptions themselves, which are stated and finite. The
 question whether mathematics \emph{is} reality or merely
-\emph{describes} it is, in this setting, exhibited as gauge --- the two
-phrasings are related by a transformation that changes no observable, so
-the question of which is correct has the same status as the question of
-which substratum representative is the real one. The measurement
-problem, on this posture, is not solved by adding a mechanism but
-dissolved by noting that the definiteness of outcomes is a feature of
-every partition-relative emergent description, and that the apparent
-conflict between descriptions is the partition-gauge covariance of Part
-III.
+\emph{describes} it is, \emph{for the embedded physical observer},
+exhibited as gauge --- the two phrasings are related by a transformation
+that changes no observable an embedded observer can perform, so the
+question of which is correct has, for physics, the same status as the
+question of which substratum representative is the real one. This is
+gauge \emph{in the framework's specific physics-internal sense}: the
+framework's gauge classification is relative to what an embedded
+observer can measure, not relative to all possible vantage points. The
+framework does not claim the question is absolutely meaningless. Whether
+the question has substantive content in mathematical foundations,
+meta-mathematics, or other modes of inquiry not bound by embedded
+physical observation is a separate matter the framework does not
+address; what the framework establishes is that the question carries no
+empirical weight for physics. A specialist in mathematical foundations
+is free to pursue it; the framework's reconstruction theorem provides,
+modulo gauge, the specific mathematical structure that would be in
+question if it has a positive answer, without committing to whether it
+does. The measurement problem, on this posture, is not solved by adding
+a mechanism but dissolved by noting that the definiteness of outcomes is
+a feature of every partition-relative emergent description, and that the
+apparent conflict between descriptions is the partition-gauge covariance
+of Part III.
+
+A further structural observation, kept brief here because it lies
+outside the framework's primary scope: if a mathematical-foundations
+specialist pursues the question and adopts a Tegmark-style position that
+all mathematical structures have ontological status, the framework's
+reconstruction theorem provides a natural \emph{selection principle}
+within that class. The structures that admit embedded observers
+satisfying the framework's structural conditions (C1--C3 of the
+framework's Main paper, plus the gauge classification developed in Part
+II) form a precisely characterizable sub-class --- the
+``observer-supporting'' structures. This addresses what is sometimes
+called the measure problem for mathematical-universe ontologies: given
+that all mathematical structures are taken to be real, why does our
+universe instantiate the specific structure it does? The framework's
+answer, available to anyone pursuing the question in that direction
+without requiring commitment to the underlying ontology: the structures
+we can observe are precisely the observer-supporting ones, characterized
+as a selection effect. The framework does not commit to a
+mathematical-universe ontology; it provides the selection principle that
+any such ontology would benefit from having if it is pursued.
 
 \hypertarget{the-proposal-as-a-general-methodology}{%
 \subsection{18. THE PROPOSAL AS A GENERAL
