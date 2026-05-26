@@ -4,7 +4,8 @@
 %
 \documentclass[
   11pt,
-  letterpaper]{article}
+  letterpaper,
+]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
 \ifPDFTeX
@@ -16,9 +17,10 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern suppressed
+% lmodern unavailable; using xelatex defaults
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -52,6 +54,7 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\input{unicode-fix}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -2897,14 +2900,22 @@ structure. It's \emph{there} in the dynamics. But the observer, looking
 through the keyhole of the partition, sees only the diagonalizable
 shadow.
 
-So Wigner's puzzle dissolves. Mathematics isn't ``unreasonably
-effective'' at describing physics. Mathematics is the most complete
-description. Physics is the observable part of that description ---
-drawn by someone who can't see the whole thing. The observable part is
-effective because it's a faithful projection --- the semisimple part
-genuinely captures the eigenvalue structure. But it's not the whole
-description. The full mathematical description has structure (the
-nilpotent monodromy) that no physical measurement can reveal.
+So Wigner's puzzle dissolves, for physics. Mathematics isn't
+``unreasonably effective'' at describing physics. Mathematics --- at
+least the part of it that physics tracks --- is the most complete
+description an embedded observer would have access to, with the
+reconstruction theorem guaranteeing the structural content is
+determinate modulo gauge. Physics is the observable part of that
+description --- drawn by someone who can't see the whole thing. The
+observable part is effective because it's a faithful projection --- the
+semisimple part genuinely captures the eigenvalue structure. But it's
+not the whole description. The full mathematical description has
+structure (the nilpotent monodromy) that no physical measurement an
+embedded observer can perform can reveal. Whether mathematics extends
+beyond the structural content that physics tracks, into domains an
+embedded physical observer cannot reach (and that may have substantive
+content in mathematical foundations or meta-mathematics), is a question
+the framework does not address.
 
 But there's a stronger result. The reconstruction theorem proves the
 converse: starting from the observed physics, mathematical consistency
@@ -2966,23 +2977,31 @@ framework identifies the same kind of boundary for the math-physics
 relationship: the physics is the equivalence class {[}(S, φ){]}; the
 ontological status of (S, φ) is gauge. The boundary is a theorem.
 
-This suggests a precise way to understand what physics is. The
-mathematical structure (S, φ) has two parts: the part accessible to an
-embedded observer (the equivalence class, the gauge-invariant content,
-the semisimple spectral data), and the part that isn't (the specific
-representative, the nilpotent monodromy, the choice of q). The first
-part is what we call physics. A better name for it might be
-\emph{observable mathematics} --- the portion of mathematical structure
-that an embedded subsystem with partial read-write access can detect.
+This suggests a precise way to understand what physics is, \emph{from
+the embedded observer's perspective}. The mathematical structure (S, φ)
+has two parts: the part accessible to an embedded observer (the
+equivalence class, the gauge-invariant content, the semisimple spectral
+data), and the part that isn't (the specific representative, the
+nilpotent monodromy, the choice of q). The first part is what we call
+physics. A suggestive name for it might be \emph{observable mathematics}
+--- the portion of mathematical structure that an embedded subsystem
+with partial read-write access can detect.
 
-Under this definition, Wigner's puzzle dissolves to the point of
-tautology. ``Why is mathematics effective at describing physics?''
-becomes ``Why is mathematics effective at describing observable
-mathematics?'' --- which isn't a mystery. It's a definition. Physics is
-the observable part of mathematics. Of course mathematics describes it.
-The unreasonable effectiveness was never unreasonable; it was a category
-error, treating mathematics and physics as separate domains when one is
-a subset of the other.
+Under this definition, Wigner's puzzle dissolves \emph{for physics} to
+the point of tautology. ``Why is mathematics effective at describing
+physics?'' becomes ``Why is the structural content tracked by physics
+effective at describing what an embedded observer detects?'' --- which
+isn't a mystery. It's a structural identification. Within physics, the
+unreasonable effectiveness was never unreasonable; it was a category
+error, treating the structural content of physics and the structural
+content of the mathematics that captures it as separate domains when,
+modulo gauge, they coincide. Whether mathematics in its full scope
+(including content beyond what any embedded physical observer can
+detect) is itself a coherent extension of this identification is a
+question for mathematical foundations, not for physics. The framework
+establishes the physics-side identification; whether the identification
+extends absolutely is a different question the framework does not claim
+to settle.
 
 And the incompleteness family extends one step further: Gödel showed
 that proof can't capture all truth. Turing showed that computation can't
