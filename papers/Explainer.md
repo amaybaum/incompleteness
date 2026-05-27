@@ -288,7 +288,7 @@ The secondary route, given in Appendix A, uses Stinespring's dilation theorem (1
 
 **Where the quantum features come from:**
 
-- **The Schrödinger equation** arises because U(t) is differentiable. Any smooth family of unitary matrices can be written as U(t) = exp(-iHt/ℏ) for some Hermitian matrix H.
+- **The Schrödinger equation** arises because U(t) is differentiable. Any smooth family of unitary matrices can be written as U(t) = exp(-iHt/ℏ) for some Hermitian matrix H. Feynman famously remarked of this equation in Volume III, Lecture 16: "Where did we get that equation from? Nowhere. It is not possible to derive it from anything you know. It came out of the mind of Schrödinger." The derivation above is the answer that wasn't available in 1963. The equation is no longer "from nowhere" — it is the differential form of unitary evolution, and unitary evolution is forced on embedded observers by C1–C3.
 
 - **The Born rule** T_ij = |U_ij|² is not an additional postulate — it's the definition of how the stochastic process maps onto the unitary one.
 
@@ -565,13 +565,17 @@ This track record is itself evidence for the ordering. The question of whether g
 
 ## What Quantum Weirdness Looks Like From Here
 
-If quantum mechanics is an emergent description forced on embedded observers, the standard quantum puzzles acquire straightforward readings.
+Feynman opens his quantum mechanics volume with a famous warning. The double-slit experiment, he writes in Volume III, Lecture 1 of the *Lectures on Physics*, is "a phenomenon which is impossible, absolutely impossible, to explain in any classical way, and which has in it the heart of quantum mechanics. In reality, it contains the only mystery." He goes on: "We cannot make the mystery go away by 'explaining' how it works. We will just tell you how it works."
 
-**The double-slit experiment.** The particle goes through one slit. The interference pattern arises because the transition probabilities are computed by marginalizing over the hidden sector, and the hidden sector includes the field configuration near both slits. Opening or closing the second slit changes the boundary conditions, which changes the marginalization, which changes the pattern. The "wave-like" behavior is the hidden sector's influence shifting when the geometry changes.
+If quantum mechanics is an emergent description forced on embedded observers, the standard quantum puzzles acquire straightforward readings — and the "only mystery" stops being mysterious. It becomes a structural consequence.
+
+**The double-slit experiment.** The particle goes through one slit. The interference pattern arises because the transition probabilities are computed by marginalizing over the hidden sector, and the hidden sector includes the field configuration near both slits. Opening or closing the second slit changes the boundary conditions, which changes the marginalization, which changes the pattern. The "wave-like" behavior is the hidden sector's influence shifting when the geometry changes. The mystery dissolves not into another postulate but into a derivation: this is what marginal statistics look like when paths through the partition are indistinguishable.
 
 **Entanglement.** Two particles prepared together share a joint transition matrix inherited from the trace-out. The correlations are encoded in the structure of the dynamics itself, not in a hidden variable you could integrate over. This is why Bell inequality violations occur: the standard factorization assumption fails for indivisible processes. The framework reproduces quantum correlations exactly up to Tsirelson's bound, without faster-than-light signaling and without superdeterminism.
 
 **The measurement problem.** Measurement produces definite outcomes through the indivisible dynamics. When Wigner can't access his Friend's lab, he traces out its internal degrees of freedom and assigns a superposition. The superposition reflects Wigner's epistemic situation — what *he* can infer — not the Friend's physical state. Branching in the Many-Worlds sense is a feature of the compressed description, not of the underlying reality.
+
+The common thread across the three readings is that what looked like irreducible quantum mystery is the partition's reflection of substratum dynamics. You're embedded in the universe; you don't get the view from nowhere; the description you arrive at is constrained by what marginal access permits. Feynman taught his students that the rules of QM "had to just be accepted." The framework's claim is that the rules don't have to be accepted — they have to be derived, and the derivation makes contact with the fact of embedding. Whether the derivation is correct is a separate question; the empirical predictions that distinguish it from competing accounts are listed below.
 
 ---
 
