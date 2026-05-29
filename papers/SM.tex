@@ -657,9 +657,9 @@ partition''), and a reasonable objection is that this imports a known
 fact about our d = 3 world --- that stable matter exists --- to select d
 = 3, rather than deriving d = 3 from the substratum. If the selection
 rested \emph{only} on this filter, the objection would have force: it
-would be an anthropic selection wearing the costume of a derivation. The
-objection is answered by the third filter, which is purely structural
-and observer-independent. The boundary-entropy concordance below is a
+would be an anthropic selection presented as a derivation. The objection
+is answered by the third filter, which is purely structural and
+observer-independent. The boundary-entropy concordance below is a
 property of the partition geometry alone --- it is computed from the
 Friedmann equation, the shell theorem, and horizon-mode counting ({[}GR
 §7.2{]}), none of which mention observers or matter stability --- and it
@@ -699,6 +699,41 @@ The d = 3 case is derived explicitly in {[}GR §7.2{]} from the Friedmann
 equation, shell theorem, and horizon-mode counting. The general-d
 formula is obtained by running the same construction with Friedmann in d
 spatial dimensions, \(H^2 = 16\pi G_d \rho / [d(d-1)]\).
+
+\emph{Self-contained statement of the concordance ratio.} Because the
+circularity rebuttal above relies on this filter being structural and
+observer-independent, the origin of the ratio
+\(\rho_s/\rho_{\text{crit}} = 2/(d-1)\) is stated here rather than only
+cited. Two densities are compared, both computed from the partition
+geometry alone. (a) The \emph{critical density} is read off the
+\(d\)-dimensional Friedmann equation \(H^2 = 16\pi G_d\,\rho/[d(d-1)]\)
+at spatial flatness, giving
+\(\rho_{\text{crit}} = d(d-1) H^2/(16\pi G_d)\) --- this is the energy
+density at which the spatial sections are flat, a property of the
+gravitational dynamics with no reference to observers or matter content.
+(b) The \emph{boundary (horizon) entropy density} \(\rho_s\) is the
+energy density associated with the horizon-mode count via the
+holographic area law: the number of boundary modes scales as the horizon
+area \(A \sim r_H^{d-1}\), the energy per mode is set by the horizon
+temperature \(T_H \sim 1/r_H\), and dividing the resulting boundary
+energy by the enclosed volume \(V \sim r_H^{d}\) gives
+\(\rho_s \sim r_H^{d-1}\cdot r_H^{-1}/r_H^{d} = r_H^{-2} \sim H^2\) with
+a \(d\)-dependent geometric coefficient. Carrying the coefficients
+(horizon area formula, mode counting, and the Friedmann normalization,
+all in \(d\) spatial dimensions) yields the ratio
+\(\rho_s/\rho_{\text{crit}} = 2/(d-1)\). Neither density uses the
+existence of observers, stable matter, or any anthropic input; both are
+computed from the gravitational dynamics and the holographic mode count,
+which is why this filter is independent of the stable-matter filter and
+answers the circularity objection. \emph{What is imported from
+{[}GR{]}:} the horizon-mode counting and the area-law coefficient are
+derived in {[}GR §3, §7.2{]}; this paragraph states the structure of the
+ratio and its observer-independence but relies on {[}GR{]} for the
+coefficient derivation, which a referee checking the concordance filter
+would verify there. The qualitative result --- that the ratio depends
+only on \(d\) and equals unity solely at \(d=3\) --- does not depend on
+the coefficient details, only on the scaling \(\rho_s \sim H^2\) and
+\(\rho_{\text{crit}}\sim H^2\) with the stated \(d\)-dependence.
 
 \textbf{Downstream consequence: renormalizability at d = 3.} At the
 selected d = 3, the emergent Yang-Mills gauge theory (derived in
@@ -3148,13 +3183,48 @@ factor of four and is excluded by data. The empirical match at
 \(0.02\%\) does not \emph{select} the normalization from a fit; it
 \emph{confirms} a structural commitment that was constrained, before any
 fit, to a discrete choice the framework resolves on geometric grounds.
-The honest residual is that the geometric ground for \(1/d\) over
-\(1/(2d)\) is argued rather than proved from the Yukawa structure;
-closing this is the Layer 2(a)-tractable computation referenced in §7.3,
-and until it is closed the cluster's status is ``structural form forced,
-normalization argued-and-confirmed'' rather than ``normalization
-proved.'' This is a weaker claim than full derivation and a stronger one
-than fitting.
+The geometric ground for \(1/d\) over \(1/(2d)\) is argued rather than
+proved from the Yukawa structure; closing this is the Layer
+2(a)-tractable computation referenced in §7.3. Until it is closed, the
+cluster's status is ``structural form forced, normalization argued and
+empirically confirmed'' rather than ``normalization proved'' --- a
+weaker status than full derivation and a stronger one than parameter
+fitting.
+
+\emph{Specification of the resolving computation.} So that the open task
+is precise rather than gestured, the calculation that would settle
+\(1/d\) vs \(1/(2d)\) is the following, statable as a self-contained
+lattice perturbation-theory problem independent of the rest of the
+framework. Take the staggered fermion action on the \(d=3\) simple-cubic
+lattice with the OI taste structure (the \(T_1\) vector representation
+on the three Cartesian link directions), and introduce the
+flavor-breaking perturbation as the second-order taste-mixing vertex
+induced by the cubic-group-symmetric Yukawa coupling. The quantity to
+compute is the ratio of the off-diagonal second-order self-energy on the
+\(T_1\) representation to the perturbation amplitude squared:
+\[ \mathcal{N} \;=\; \lim_{m\to 0}\; \frac{\Sigma^{(2)}_{T_1,\text{off-diag}}(0)}{\big(g\,\sqrt{C_2}\big)^2}, \]
+where \(\Sigma^{(2)}\) is the one-loop (second-order in the Yukawa)
+taste-off-diagonal self-energy evaluated at zero external momentum,
+computed as the lattice momentum integral over the staggered propagator
+\(D(q)=\sum_\nu \sin^2 q_\nu + m^2\) with the cubic-symmetric taste
+vertices on the \(T_1\) corners. The prediction is that this ratio
+evaluates to \(\mathcal{N} = 1/d^2 = 1/9\) (the framework's \(1/d\)
+amplitude normalization), as against \(1/(2d)^2 = 1/36\) (the \(1/(2d)\)
+alternative). The two candidates differ by a factor of four and are not
+close, so the computation is decisive at modest numerical precision: a
+lattice evaluation of \(\Sigma^{(2)}\) converging to within, say,
+\(20\%\) of either candidate settles the normalization. This is the same
+class of computation as the \(1/\alpha_0 = 23.25\) staggered
+vacuum-polarization integral of §6.1 (which converges on a robust
+plateau), differing only in the vertex structure (taste-off-diagonal
+rather than gauge-current), so it is tractable with the same lattice-PT
+machinery already validated in §6.1. The framework predicts
+\(\mathcal{N} = 1/9\); a specialist running this integral either
+confirms it (upgrading the cluster from ``argued-and-confirmed'' to
+``proved'') or refutes it (falsifying the \(1/d\) normalization and with
+it the \(\theta_0 = 2/9\) value). The computation requires no input not
+already fixed by the lattice geometry, which is what makes it Layer
+2(a)-tractable rather than open-ended.
 
 \textbf{Mass predictions.}
 
@@ -4681,6 +4751,94 @@ standard QM differ. It establishes that the numerical content of
 §7.1--§7.5 is concentrated, not diffuse: the framework makes specific
 commitments, the specific commitments match observation, and the match
 is sharp enough that ``coincidence'' is not an available dismissal.
+
+\hypertarget{forward-predictions-and-the-retrodiction-vs-prediction-distinction}{%
+\subsubsection{7.8 Forward predictions and the
+retrodiction-vs-prediction
+distinction}\label{forward-predictions-and-the-retrodiction-vs-prediction-distinction}}
+
+The coincidence bound of §7.7 quantifies how concentrated the
+framework's \emph{retrodictive} content is. It does not, and cannot,
+address a distinct and more fundamental concern: every quantity in
+§7.1--§7.5 is a known value, and a framework developed with knowledge of
+its targets will tend to reproduce them whether or not its underlying
+structure is correct, because the development process has access to the
+answers. No internal analysis --- no coincidence bound, no audit, no
+re-derivation --- distinguishes ``the structure forced these values''
+from ``the known values guided the construction of the structure.'' Only
+a prediction of a value \emph{not known at construction time} breaks
+this symmetry. This subsection separates the framework's genuinely
+forward content from its retrodictions and states it as such, because
+the forward content is the only part that bears on the
+retrodiction-vs-prediction distinction.
+
+\textbf{The JUNO precedent (a realized forward prediction).} The solar
+mixing angle prediction
+\(\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080\) is the framework's one
+realized forward prediction to date, and its status as \emph{forward}
+rather than retrodictive is a matter of public record. The framework's
+value was fixed by the cubic-group structure independent of the neutrino
+data; the JUNO first oscillation result (June 2025) and the subsequent
+post-JUNO global fit (Capozzi et al.) tightened the experimental central
+value onto \(0.3085 \pm 0.0073\) --- a \(0.07\sigma\) agreement ---
+\emph{after} the structural value was set. The relevant epistemic fact
+is not the smallness of the \(\sigma\)-distance but the temporal order:
+the prediction did not move to meet the data; the data moved to meet a
+prediction whose value was determined by representation theory. This is
+the one place where the post-hoc-selection concern is directly answered
+rather than argued.
+
+\textbf{Registered forward predictions (not yet measured to testing
+precision).} The same construction forces the following, stated here as
+pre-registered commitments whose values are fixed by the framework
+before the measurements that will test them:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{The PMNS sum rule}
+  \(2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6\). Currently confirmed
+  at \(0.6\sigma\) but at the precision of present atmospheric-angle
+  data. A direct measurement of the combination at the \(0.005\) level
+  --- within reach of DUNE and T2HK --- tests this at a precision that
+  no current fit reaches. The framework commits to \(7/6\) exactly; a
+  measured value displaced from \(7/6\) by more than experimental error
+  falsifies the structural relation.
+\item
+  \emph{The atmospheric angle}
+  \(\sin^2\theta_{23} = 1/2 + 1/(2\pi^2) = 0.5507\). The framework
+  commits to a specific octant (\(\theta_{23} > 45°\)) and a specific
+  value. Present data (\(\sim 1.1\sigma\)) does not resolve the octant;
+  DUNE/T2HK will. An ultimate measurement in the lower octant, or
+  displaced from \(0.5507\) beyond error, falsifies the prediction.
+\item
+  \emph{The reactor angle}
+  \(\sin^2\theta_{13} = 4/(18\pi^2) = 0.02252\), unconditional
+  structural (Layer 1). Already consistent with current data; tightening
+  reactor measurements provide a continuing test against a value the
+  framework cannot adjust.
+\item
+  \emph{Continued JUNO precision on} \(\sin^2\theta_{12}\). JUNO's
+  30-year design lifetime projects \(\pm 0.0014\) on
+  \(\sin^2\theta_{12}\), a \(6\times\) improvement. The framework's
+  \(0.30798\) is tested at sub-percent precision against a value it
+  committed to before this precision exists; a \(2\sigma\) ultimate
+  disagreement falsifies it.
+\end{enumerate}
+
+\textbf{Distinction from a parameter-fitted account.} A framework that
+accommodated the known mixing angles by fitting would retain latitude to
+absorb a future measurement that moved against it. The four predictions
+above have no such latitude: they are forced by the same cubic-group
+structure that produces the retrodictions, with no free parameter to
+adjust if the data moves. The retrodiction-vs-prediction concern of §7.7
+is therefore not resolved by the retrodictions themselves; it is
+resolved, to the extent it can be resolved, by the JUNO precedent
+already realized and by the registered predictions above as they are
+measured. The framework's correctness is not internally decidable from
+the known-value matches; it is decidable, in either direction, by the
+forward predictions, which are stated in advance and carry fixed values.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
