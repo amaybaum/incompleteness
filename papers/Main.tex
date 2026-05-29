@@ -4,7 +4,8 @@
 %
 \documentclass[
   11pt,
-  letterpaper]{article}
+  letterpaper,
+]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
 \ifPDFTeX
@@ -16,9 +17,10 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern suppressed
+% lmodern
 \ifPDFTeX\else
   % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -52,6 +54,7 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\input{unicode-fix}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -1067,6 +1070,31 @@ category. The physical content of the unitary is not that of a mere
 mathematical embedding: it is the \emph{specific} Hamiltonian uniquely
 determined by the transition data, arising from the \emph{actual}
 dilation structure of the system (§3.2).
+
+\emph{(v) The single load-bearing external dependency.} The necessity
+direction imports one external result rather than proving it internally:
+the Barandes stochastic-quantum correspondence {[}11, 12{]}, which
+establishes that a P-indivisible stochastic process on a finite
+configuration space and a unitarily-evolving quantum system on a finite
+Hilbert space are the same mathematical object (the ``indivisible'' and
+``unitary'' descriptions are inter-translatable). Everything in the
+necessity direction downstream of this --- the dilation construction,
+the C1/C3 necessity theorems, the ETH-conditional C2 necessity --- is
+the framework's own, but the bridge identifying P-indivisibility with
+quantum structure is Barandes'. This means the necessity direction has a
+clean falsification target distinct from the rest of the framework: if
+the Barandes correspondence were shown to be incomplete or to require
+additional hypotheses beyond P-indivisibility (e.g.~a positivity or
+normalizability condition that not all P-indivisible processes satisfy),
+the necessity direction would inherit those hypotheses and weaken
+accordingly. The framework takes the correspondence as established in
+{[}11, 12{]} and does not reproduce its proof; a referee skeptical of
+the necessity direction should direct that skepticism first at the
+Barandes correspondence, since that is the load-bearing import, and the
+framework's own contributions are conditional on it. The sufficiency
+direction (C1--C3 ⇒ QM) uses the correspondence in the same way but is
+independently supported by the explicit dilation construction of §3.2,
+so a weakening of Barandes would affect necessity more than sufficiency.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
