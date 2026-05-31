@@ -642,22 +642,36 @@ stronger argument applies whenever the partition itself breaks
 symmetries of \(H_{\text{tot}}\). The genericity conditions concern the
 \emph{effective} visible-sector Hamiltonian \(\hat{H}_{\text{eff}}\) ---
 the operator emerging after the trace-out --- not the total Hamiltonian
-\(H_{\text{tot}}\). The trace-out generically breaks the symmetries of
-\(H_{\text{tot}}\) because the partition boundary does not respect them:
-a partition centered on a specific observer breaks translational
-invariance, rotational symmetry about distant points, and boost
-invariance. Any degeneracy in \(H_{\text{tot}}\) that relies on
-correlations between visible and hidden sectors --- which includes all
-degeneracies associated with symmetries the partition breaks --- is
-lifted in \(\hat{H}_{\text{eff}}\). The residual degeneracies of
-\(\hat{H}_{\text{eff}}\) are those associated with symmetries acting
-entirely within the visible sector that commute with the trace-out:
-precisely the gauge symmetries of the emergent description. Gauge
-degeneracies correspond to physically equivalent states and do not
-affect the phase-locking argument, which operates on gauge-inequivalent
-transition data. \(\hat{H}_{\text{eff}}\) therefore satisfies G1--G3 not
-by typicality in an abstract ensemble, but because the partition itself
-acts as a symmetry-breaking mechanism.
+\(H_{\text{tot}}\). The relevant distinction is whether a symmetry of
+\(H_{\text{tot}}\) \emph{preserves the visible/hidden factorization} or
+not. A symmetry that fails to preserve the factorization --- which
+includes the spatial symmetries an observer-centered partition breaks,
+since a partition centered on a specific observer maps boundary visible
+sites to hidden sites under translation, rotation about distant points,
+and boost --- has no well-defined action on the visible factor alone, and
+the degeneracies it protects in \(H_{\text{tot}}\) are lifted in
+\(\hat{H}_{\text{eff}}\). By contrast, a symmetry that \emph{does}
+factorize as \(S_V\otimes S_H\) descends to the visible symmetry \(S_V\)
+of \(\hat{H}_{\text{eff}}\), because the uniform-bath partial trace is
+invariant under any unitary on the hidden factor; such
+factorization-preserving symmetries are not lifted, and the
+visible-internal ones among them --- those acting entirely within the
+visible sector and commuting with the trace-out --- are precisely the
+gauge symmetries of the emergent description. Gauge degeneracies
+correspond to physically equivalent states and do not affect the
+phase-locking argument, which operates on gauge-inequivalent transition
+data. Because the spatial symmetries of an observer-centered partition
+are factorization-breaking, \(\hat{H}_{\text{eff}}\) satisfies G1
+(non-degenerate spectrum) not by typicality in an abstract ensemble but
+because the partition acts as a symmetry-breaking mechanism. Condition G2
+(non-degenerate energy gaps) is not symmetry-protected --- gap
+coincidences are a codimension-one condition rather than a group-theoretic
+one --- so it is not delivered by the partition mechanism and rests on
+genericity directly; G2 holds for generic \(\hat{H}_{\text{eff}}\) but
+should be checked separately for any realization whose total spectrum is
+structured toward equal spacing (for instance a substrate whose dynamics
+is dominated by a single long cycle, giving a near-roots-of-unity
+spectrum).
 
 \hypertarget{independent-derivation-via-stinespring-dilation}{%
 \subsubsection{3.2 Independent Derivation via Stinespring
@@ -765,13 +779,31 @@ quantum signature of non-Markovianity.
 
 \textbf{Approximate unitarity.} On observable timescales
 \(t \ll \tau_B\), the hidden-sector state is approximately frozen
-(conditions (C2)--(C3)). The channel generator decomposes as
-\(d\Phi_t/dt|_{t=0}(\rho_V) = -i[\hat{H}_{\text{eff}}, \rho_V] + \mathcal{D}(\rho_V)\)
-with \(\mathcal{D} \sim \mathcal{O}(\tau_S/\tau_B)\). The leading-order
-dynamics is the Schrödinger equation. The phase-locking lemma (§3.1)
-then determines \(\hat{H}_{\text{eff}}\) uniquely from continuous-time
-transition data, up to the residual diagonal-unitary rephasing freedom
-that is physically trivial (basis convention).
+(conditions (C2)--(C3)). At \(t=0\) the channel generator is exactly
+Hamiltonian, \(d\Phi_t/dt|_{t=0}(\rho_V) = -i[\hat{H}_{\text{eff}}, \rho_V]\)
+with \(\hat{H}_{\text{eff}} = H_V + \mathrm{Tr}_H[V_{\text{int}}(\mathbb{1}\otimes\rho_H)]\)
+the bath-averaged coupling; the dissipative part of the generator vanishes
+at \(t=0\). At finite time the visible channel acquires two distinct
+dissipative contributions, which it is important to separate. (i) Even in
+the strictly frozen-bath limit (\(\tau_B\to\infty\)) the channel is not
+unitary: it is a mixture over the bath ensemble of bath-conditioned visible
+unitaries \(e^{-i(H_V + \langle h|V_{\text{int}}|h\rangle)t}\), which dephases
+by the \emph{spread} of those conditioned Hamiltonians --- a contribution of
+order \(\|V_{\text{int}}\|^2\) (the coupling strength), independent of
+\(\tau_B\). (ii) The correction from the bath's actual motion away from the
+frozen limit enters at order \((\tau_S/\tau_B)^2\). Consequently the dynamics
+is approximately the Schrödinger equation generated by
+\(\hat{H}_{\text{eff}}\) to the extent that \emph{both} the slow-bath
+condition \(\tau_S\ll\tau_B\) \emph{and} a weak-coupling condition (small
+conditioned-Hamiltonian spread, \(\|V_{\text{int}}\|\,\tau_S \ll 1\)) hold;
+the latter is the parameter controlling the leading non-unitarity and is the
+stronger of the two requirements for the cosmological partition. Where these
+hold, the phase-locking lemma (§3.1) determines \(\hat{H}_{\text{eff}}\)
+uniquely from continuous-time transition data, up to the residual
+diagonal-unitary rephasing freedom that is physically trivial (basis
+convention); the residual dissipation \(\mathcal{D}\), if measurable at
+sufficient precision, is a prediction of the framework rather than an
+approximation artifact.
 
 \textbf{Comparison of routes.}
 
