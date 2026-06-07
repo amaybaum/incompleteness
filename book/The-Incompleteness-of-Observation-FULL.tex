@@ -16,7 +16,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern unavailable; using xelatex defaults
+\ifPDFTeX\usepackage{lmodern}\fi
 \ifPDFTeX\else
   % xetex/luatex font selection
   \setmainfont[]{DejaVu Serif}
@@ -53,7 +53,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\input{unicode-fix}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -71,7 +70,7 @@
 \frontmatter
 
 {
-\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{2}
 \tableofcontents
 }
 \mainmatter
@@ -1987,16 +1986,16 @@ different origins. The first is present even in the strictly frozen-bath
 limit: the channel is then a mixture, over the bath ensemble, of
 bath-conditioned visible unitaries, and the spread of those conditioned
 Hamiltonians dephases the visible state by an amount of order the
-coupling strength squared --- independent of \(\tau_B\). The second, from
-the bath's motion away from the frozen limit, is suppressed by
+coupling strength squared --- independent of \(\tau_B\). The second,
+from the bath's motion away from the frozen limit, is suppressed by
 \((\tau_S/\tau_B)^2\). The dynamics is therefore approximately unitary
 Schrödinger evolution to the extent that both the slow-bath condition
 \(\tau_S \ll \tau_B\) and the weak-coupling condition (small
 conditioned-Hamiltonian spread) hold; the latter is the parameter that
 controls the leading non-unitarity. At the cosmological partition both
-are extreme, so \(\mathcal{D}\) is far below detection sensitivity for any
-laboratory measurement; the dissipative corrections, if measurable at
-high enough precision, would be predictions of the framework. The
+are extreme, so \(\mathcal{D}\) is far below detection sensitivity for
+any laboratory measurement; the dissipative corrections, if measurable
+at high enough precision, would be predictions of the framework. The
 continuous-measurement and quantum-trajectory formulations of open
 quantum systems agree with this framework structure on observable
 timescales.
@@ -2984,10 +2983,10 @@ cubic-group representation --- is
 corresponding eigenspaces. Reduction to
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) occurs
 because the overall \(\mathrm{U}(1)\) phase of each block is gauge under
-the alphabet-size freedom in \(\mathcal{G}_{\text{sub}}\) (§2.5 develops
-this). The remaining singlet-block \(\mathrm{U}(1)\) becomes the
-hypercharge \(\mathrm{U}(1)\). Background independence (A6) then
-promotes the global
+amplitude-scale invariance (the field-value-rescaling gauge) in
+\(\mathcal{G}_{\text{sub}}\) (§2.5 develops this). The remaining
+singlet-block \(\mathrm{U}(1)\) becomes the hypercharge
+\(\mathrm{U}(1)\). Background independence (A6) then promotes the global
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) to local
 gauge invariance.
 
@@ -3994,7 +3993,7 @@ multiplicities \((3, 2, 1)\), and the commutant of the cubic-group
 representation on this decomposition is precisely
 \(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\), reducing to
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) after the
-alphabet-freedom \(\mathrm{U}(1)\) phases are stripped. Background
+amplitude-scale-gauge \(\mathrm{U}(1)\) phases are stripped. Background
 independence promotes this global commutant symmetry to local gauge
 invariance, giving the full SM gauge structure of standard quantum field
 theory.
@@ -5447,8 +5446,8 @@ discrete-substrate approaches --- discussed in the Standard Model paper.
 The tree-level prediction and its falsifiers stand regardless; what is
 open is the loop-level protection --- and notably cubic symmetry alone
 does not supply it (it permits power-divergent operator mixing), so the
-relevant question is whether the framework's coarse-graining map acts as a
-sufficient ultraviolet smearing, the mechanism under which
+relevant question is whether the framework's coarse-graining map acts as
+a sufficient ultraviolet smearing, the mechanism under which
 rotational-symmetry restoration is known to hold at all orders.
 
 \textbf{Class B --- parameter-free retrodictions.} The framework
@@ -5875,7 +5874,11 @@ organize the predictions of Chapter 6 by derivational rigor; this
 chapter's content sits at Levels 0 and 1 of the four-layer framing
 (gauge structure, structural form) and is correspondingly unconditional
 S-class structural --- the most rigorous derivation tier in the
-framework's classification.
+framework's classification. (One step in the chain --- the reduction of
+the natural commutant \(\mathrm{U}(n)\) to \(\mathrm{SU}(n)\), §5.5 ---
+is conditional on amplitude-scale gauge invariance, an explicit adjoined
+principle of \(\mathcal{G}_{\text{sub}}\) (§5.2); the cubic
+multiplicities and the anomaly-fixed hypercharges are unconditional.)
 
 The chapter takes as input the framework's prior content. The
 quantum-mechanical emergence theorem of Chapter 1 is invoked where
@@ -6019,16 +6022,24 @@ physical; the coupling structure and its emergent consequences are. This
 is generator (ii) of the substratum gauge group
 \(\mathcal{G}_{\text{sub}}\) developed in Chapter 2 §2.5.
 
-The alphabet-freedom has consequences that recur in the gauge-derivation
-chain. The reduction of the natural commutant
+A second gauge freedom --- \emph{amplitude-scale invariance} --- has
+consequences that recur in the gauge-derivation chain. It is the
+statement that the field value \(\boldsymbol{\phi}\) carries no absolute
+scale: the additive (affine) relabellings
+\(\boldsymbol{\phi} \mapsto \lambda\boldsymbol{\phi}\) of the alphabet
+are gauge. It is \emph{distinct} from the alphabet-\emph{size} freedom
+(generator (ii)) and is an explicit adjoined principle of
+\(\mathcal{G}_{\text{sub}}\) (companion papers, {[}Substratum §4,
+Theorem 24 Remark{]}); results that invoke it are conditional on it. The
+reduction of the natural commutant
 \(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) to the
 Standard Model's
-\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) uses the
-alphabet-freedom argument: the overall \(\mathrm{U}(1)\) phase of each
-block can be absorbed into a global rescaling of the alphabet, which is
-gauge by generator (ii). The Standard Model gauge group is, in this
-sense, what remains of the natural commutant after the gauge degrees of
-freedom have been stripped out.
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) uses it:
+the overall \(\mathrm{U}(1)\) phase of each block can be absorbed into a
+global rescaling of the field value, which is gauge by amplitude-scale
+invariance. The Standard Model gauge group is, in this sense, what
+remains of the natural commutant after the gauge degrees of freedom have
+been stripped out.
 
 \hypertarget{selection-of-d-3}{%
 \section{\texorpdfstring{5.3 Selection of
@@ -6377,20 +6388,20 @@ lattice with \(K = 2d = 6\) internal components.
 commutant \(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) is
 not quite the Standard Model gauge group
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\). The
-reduction is performed by the alphabet-freedom argument developed in
-§5.2: each of the three factors has an overall \(\mathrm{U}(1)\) phase
-that can be absorbed into a global rescaling of the alphabet at the
-relevant component, and global alphabet rescalings are gauge by
-generator (ii) of the substratum gauge group
-\(\mathcal{G}_{\text{sub}}\). The overall \(\mathrm{U}(1)\) of each
-\(\mathrm{U}(n)\) factor is therefore not physical, and the commutant
-reduces to its \(\mathrm{SU}(n)\) subgroup for \(n \geq 2\).
+reduction is performed by the amplitude-scale-invariance argument
+developed in §5.2: each of the three factors has an overall
+\(\mathrm{U}(1)\) phase that can be absorbed into a global rescaling of
+the field value at the relevant component, and global alphabet
+rescalings are gauge by amplitude-scale invariance of the substratum
+gauge group \(\mathcal{G}_{\text{sub}}\). The overall \(\mathrm{U}(1)\)
+of each \(\mathrm{U}(n)\) factor is therefore not physical, and the
+commutant reduces to its \(\mathrm{SU}(n)\) subgroup for \(n \geq 2\).
 
 The reduction proceeds as follows. Writing
 \(\mathrm{U}(3) = \mathrm{SU}(3) \times \mathrm{U}(1)_{\text{color}}\),
 the \(\mathrm{U}(1)_{\text{color}}\) phase is the overall phase of the
-three-component \(T_1\) block and is gauge by alphabet freedom on those
-components. Similarly
+three-component \(T_1\) block and is gauge by amplitude-scale invariance
+on those components. Similarly
 \(\mathrm{U}(2) = \mathrm{SU}(2) \times \mathrm{U}(1)_{\text{weak}}\)
 with the overall phase gauge. The remaining \(\mathrm{U}(1)\) block ---
 the single \(A_1\) component --- has no \(\mathrm{SU}\) subgroup since
@@ -6399,7 +6410,7 @@ physical (it controls the relative phase between the \(A_1\) component
 and the higher-dimensional blocks), and identifies as the hypercharge
 \(\mathrm{U}(1)_Y\).
 
-After the alphabet-freedom reduction, the gauge group is
+After the amplitude-scale reduction, the gauge group is
 \[\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)_Y.\] This is
 the Standard Model gauge group, derived from the cubic-lattice
 substratum with no input beyond the structural commitments of Part I and
@@ -6485,13 +6496,13 @@ plaquette action of lattice gauge theory.
 The framework's derivation of local
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) gauge
 invariance is therefore complete. The gauge group is fixed by the cubic
-decomposition of the six link directions; the alphabet-freedom argument
-reduces \(\mathrm{U}(n)\) to \(\mathrm{SU}(n)\) for \(n \geq 2\);
-background independence promotes the global commutant to a local gauge
-symmetry; the resulting structure is the Wilson plaquette action, with
-the link variables \(M(\mathbf{n}, \hat{e}_j)\) as the gauge
-connections. The Standard Model gauge theory is derived rather than
-postulated, with each step a theorem in the framework's chain.
+decomposition of the six link directions; the amplitude-scale-invariance
+argument reduces \(\mathrm{U}(n)\) to \(\mathrm{SU}(n)\) for
+\(n \geq 2\); background independence promotes the global commutant to a
+local gauge symmetry; the resulting structure is the Wilson plaquette
+action, with the link variables \(M(\mathbf{n}, \hat{e}_j)\) as the
+gauge connections. The Standard Model gauge theory is derived rather
+than postulated, with each step a theorem in the framework's chain.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -6652,11 +6663,12 @@ content; what remains free are the hypercharge assignments
 
 The six anomaly conditions are four independent constraints on these
 five hypercharge unknowns. The remaining one-parameter freedom is the
-overall hypercharge normalization, which the framework fixes by alphabet
-freedom --- the same generator (ii) of \(\mathcal{G}_{\text{sub}}\) that
-reduced \(\mathrm{U}(n)\) to \(\mathrm{SU}(n)\) in §5.5. With the
-normalization fixed, the anomaly conditions uniquely determine the
-hypercharges to the observed Standard Model values:
+overall hypercharge normalization, which the framework fixes by
+amplitude-scale invariance --- the same field-value-rescaling gauge of
+\(\mathcal{G}_{\text{sub}}\) that reduced \(\mathrm{U}(n)\) to
+\(\mathrm{SU}(n)\) in §5.5. With the normalization fixed, the anomaly
+conditions uniquely determine the hypercharges to the observed Standard
+Model values:
 \[Y_Q = \tfrac{1}{6}, \qquad Y_u = \tfrac{2}{3}, \qquad Y_d = -\tfrac{1}{3}, \qquad Y_L = -\tfrac{1}{2}, \qquad Y_e = -1.\]
 
 The framework's derivation of the hypercharges is therefore non-trivial.
@@ -6694,8 +6706,8 @@ from the cubic-lattice substratum. The wave equation factors into
 staggered Dirac fermions through the Susskind decomposition;
 coupling-degree minimization on \(d = 3\) fixes the internal-component
 count at \(K = 6\); the cubic-group decomposition produces eigenvalue
-multiplicities \((3, 2, 1)\); the alphabet-freedom argument reduces the
-natural commutant
+multiplicities \((3, 2, 1)\); the amplitude-scale-invariance argument
+reduces the natural commutant
 \(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) to
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\);
 background independence promotes the global commutant to local gauge
@@ -6711,9 +6723,15 @@ The chapter's content sits at Level 0 of the four-layer framing
 developed in Chapter 4 --- gauge structure derived from substratum-level
 representation theory --- and is correspondingly unconditional S-class
 structural in the framework's claim-classification scheme. The gauge
-group is not fitted to observation; it is forced. The hypercharges are
-not chosen from a continuum of possibilities; they are determined by
-anomaly cancellation. Falsification of either would refute the framework
+group is not fitted to observation; it is forced --- with one qualifier:
+the reduction of the natural commutant \(\mathrm{U}(n)\) to
+\(\mathrm{SU}(n)\) rests on amplitude-scale gauge invariance, an
+explicit adjoined principle of \(\mathcal{G}_{\text{sub}}\) (§5.2), so
+the \(\mathrm{SU}\)-vs-\(\mathrm{U}\) content is forced \emph{given that
+principle} rather than unconditionally; the cubic multiplicities and the
+anomaly-fixed hypercharges are unconditional. The hypercharges are not
+chosen from a continuum of possibilities; they are determined by anomaly
+cancellation. Falsification of either would refute the framework
 directly: any stable beyond-Standard-Model gauge structure, any
 departure of the hypercharges from the values derived here, would
 violate the framework's Class A structural commitments developed in
@@ -6757,15 +6775,19 @@ cubic-lattice substratum. The wave equation factored into staggered
 Dirac fermions through the Susskind decomposition; coupling-degree
 minimization fixed the internal-component count at \(K = 6\); the
 cubic-group decomposition produced eigenvalue multiplicities
-\((3, 2, 1)\); the alphabet-freedom argument reduced the natural
-commutant to
+\((3, 2, 1)\); the amplitude-scale-invariance argument reduced the
+natural commutant to
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\);
 background independence promoted the global commutant to local gauge
 invariance; the trace-out made \(\mathrm{SU}(2)\) chiral while
 \(\mathrm{SU}(3)\) remains vector-like; anomaly cancellation forced the
 observed hypercharges. The gauge sector of the Standard Model is forced
 --- uniquely --- by the structural inputs of Part I and the
-cubic-lattice realization.
+cubic-lattice realization, with the single qualifier that the reduction
+of the natural commutant to
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) is
+conditional on amplitude-scale gauge invariance, an explicit adjoined
+principle (Chapter 5 §5.2).
 
 This chapter develops the specific quantitative content that the gauge
 structure produces. Three pieces of structural derivation come first.
@@ -22994,12 +23016,13 @@ with information backflow at observable timescales.
 (conditions C2-C3). At \(t=0\) the channel generator is exactly
 Hamiltonian,
 \[\frac{d\Phi_t}{dt}\bigg|_{t=0}(\rho_V) = -i[\hat{H}_{\text{eff}}, \rho_V],\]
-with \(\hat{H}_{\text{eff}} = H_V + \mathrm{Tr}_H[V_{\text{int}}(\mathbb{1}\otimes\rho_H)]\);
+with
+\(\hat{H}_{\text{eff}} = H_V + \mathrm{Tr}_H[V_{\text{int}}(\mathbb{1}\otimes\rho_H)]\);
 the dissipative part vanishes at \(t=0\). At finite time the dissipator
 \(\mathcal{D}\) has two contributions: a frozen-bath dephasing of order
 the coupling strength squared (the spread of bath-conditioned visible
-Hamiltonians, independent of \(\tau_B\)), and a bath-motion correction of
-order \((\tau_S/\tau_B)^2\). The dynamics is the Schrödinger equation
+Hamiltonians, independent of \(\tau_B\)), and a bath-motion correction
+of order \((\tau_S/\tau_B)^2\). The dynamics is the Schrödinger equation
 generated by \(\hat{H}_{\text{eff}}\) to leading order provided both the
 slow-bath condition \(\tau_S\ll\tau_B\) and a weak-coupling condition
 (small conditioned-Hamiltonian spread) hold. The phase-locking lemma
