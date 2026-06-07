@@ -764,11 +764,8 @@ doublet \((\mathbf{1}, \mathbf{2}, +1/2)\) - Anomaly-free hypercharges
   \(U(3) \times U(2) \times U(1)\) (the full centralizer in \(GL(V_K)\)
   restricted to unitary transformations). The reduction to
   \(SU(3) \times SU(2) \times U(1)\) occurs because the overall \(U(1)\)
-  phase of each block is gauge under generator (ii) of
-  \(\mathcal{G}_{\text{sub}}\) (alphabet-size freedom \(q\) in §4): a
-  global rescaling of the \(V_3\) block by a phase is indistinguishable
-  from a global rescaling of \(\phi\), which is gauge by
-  alphabet-freedom. The same applies to the \(V_2\) block. The
+  phase of each block is gauge under \emph{amplitude-scale invariance} (Theorem 24, Remark below): a
+  global rescaling of the \(V_3\) block by a phase is indistinguishable from a global rescaling of the field value \(\phi\), which \emph{amplitude-scale invariance} (Theorem 24, Remark below) declares unphysical --- the field-value-scale freedom (the additive-automorphism relabellings of the alphabet), \emph{distinct} from the alphabet-\emph{size} freedom of generator (ii); the two were previously conflated. The same applies to the \(V_2\) block. The
   singlet-block \(U(1)\) survives this stripping (it cannot be absorbed
   into alphabet-freedom because it acts non-trivially on the other
   blocks via the determinant constraint) and becomes the hypercharge
@@ -1156,8 +1153,7 @@ conjugate
 \((S, \sigma \circ \varphi \circ \sigma^{-1}) \sim (S, \varphi)\). The
 transition probabilities depend on the coupling structure of
 \(\varphi\), not on which labels are attached to which states. This is
-an \(|S|!\)-element subgroup --- vastly larger than any gauge group in
-the Standard Model.
+an \(|S|!\)-element subgroup --- vastly larger than any gauge group in the Standard Model. \emph{(Scope.)} The preserved observables here are the coupling-graph invariants of \(G_\varphi\); a site-wise \emph{nonlinear} relabelling of the alphabet preserves \(G_\varphi\) but alters the field-amplitude dispersion \(\omega(k)\) of [SM §4.1], so it preserves observables at the graph level but not the emergent Hamiltonian. The relabellings preserving \(\omega(k)\) as well are exactly the additive-automorphism (affine) ones --- the amplitude-scale subgroup (Remark below).
 
 \emph{(ii) Alphabet change.} Replacing the local state space
 \(\mathbb{Z}/q\mathbb{Z}\) with \(\mathbb{Z}/q'\mathbb{Z}\) for any
@@ -1191,6 +1187,8 @@ dependence lemma gives the result directly. (iv): the derivation chain
 uses only statistical properties of \(G_\varphi\) (dimension via
 Myrheim-Meyer, isotropy, bounded degree), not the specific graph.
 \(\square\)
+
+\textbf{Remark (amplitude-scale gauge --- the field-value-scale freedom).} One freedom invoked elsewhere in the framework is \emph{not} one of (i)--(iv) as stated and is named here as the single authoritative home: \emph{amplitude-scale invariance}, the rescaling of the field value \(\phi \mapsto \lambda\phi\) (for \(\lambda\) a unit) together with shifts \(\phi \mapsto \phi + c\) --- the \textbf{additive-automorphism (affine) relabellings} of the alphabet \(\mathbb{Z}/q\mathbb{Z}\), at fixed \(q\). It is the field-value-scale analogue of the alphabet-\emph{size} freedom (ii), and is the proper subgroup of the site-wise relabellings in (i) that preserves not only the coupling graph but the field-amplitude dispersion \(\omega(k)\) --- i.e. the emergent Hamiltonian. Two derivations invoke it: the linearity equivalence of [SM §4.1] (amplitude-independent dispersion \(\iff\) affine dynamics) and the \(SU(N)\) reduction of Stage 2(d). \emph{Status.} Amplitude-scale gauge is \textbf{not} derivable from (i)--(iv) as written: generator (i) over-counts (its full \(|S|!\) includes dispersion-altering nonlinear relabellings, which would make linearity gauge-non-invariant and so vacate rather than establish it), and generator (ii) is alphabet-\emph{size} only. It is therefore adjoined as an explicit principle, and the results that invoke it are conditional on it. Its motivation is that the alphabet is the cyclic \emph{group} \(\mathbb{Z}/q\mathbb{Z}\), so its additive automorphisms are the natural structure-preserving relabellings; this is weaker than assuming linear dynamics (a nonlinear \(F\) on the group is still a function on it). Whether amplitude-scale gauge is \emph{further} derivable, or whether grounding the gauge group on it begs the linearity it then implies, is the open structural question on the gauge sector --- flagged for external review.
 
 \textbf{Completeness of the generators.} The four families exhaust
 \(\mathcal{G}_{\text{sub}}\). The proof proceeds by showing that any
