@@ -95,11 +95,11 @@ The reconstruction takes two kinds of inputs: empirical observations and structu
 
 (A4) **Center independence.** The dynamics $\varphi$ does not depend on a choice of "center" site; equivalently, $\varphi$ commutes with lattice translations up to gauge. (Required to derive the wave equation in Stage 2.)
 
-(A5) **Linearity.** The wave equation for $\varphi$ is linear. (Required to obtain the specific gauge structure in Stage 2; nonlinear alternatives are not ruled out but would require a separate derivation.)
+(A5) **Linearity.** The wave equation for $\varphi$ is linear. (Equivalent to amplitude-scale gauge invariance — that the field-value scale is unphysical — via the linearity-equivalence lemma of [SM §4.1]; hence necessary *given* that gauge principle and "partly derived" in exactly that sense. Whether the $q$-size gauge freedom of [SM §2.7] entails amplitude-scale gauge is an identified open step; pending it, nonlinear alternatives are excluded precisely to the extent amplitude-scale gauge is assumed, and would otherwise require a separate derivation.)
 
 (A6) **Background independence.** The dynamics is invariant under spatially-varying internal-index transformations that preserve the cubic-symmetric coupling matrix pointwise. The promotion of the resulting global commutant symmetry to local gauge invariance is then a derivation step ([SM §3.1]) — not part of the assumption itself.
 
-The theorem's uniqueness claim holds under E1–E7 **and** A1–A6 jointly; removing any of A3–A6 either requires new derivations or weakens the uniqueness. The set A1–A6 is sufficient for the reconstruction but is not proved to be minimal: A4 (center independence) and A6 (background independence) overlap in physical content (A6 promotes the symmetry that A4 constrains), and A5 (linearity) is partly derived from the other assumptions via the dynamics-selection argument of [SM §4.1]. A tighter axiomatization may be possible but is not pursued here; the reconstruction's validity depends on the sufficiency of A1–A6 and E1–E7, not on their independence. The empirical inputs E5, E6, E7 (propagating gravity, stable matter, boundary-entropy concordance) provide explicit forward filters for $d = 3$ — see Stage 2(a) below.
+The theorem's uniqueness claim holds under E1–E7 **and** A1–A6 jointly; removing any of A3–A6 either requires new derivations or weakens the uniqueness. The set A1–A6 is sufficient for the reconstruction but is not proved to be minimal: A4 (center independence) and A6 (background independence) overlap in physical content (A6 promotes the symmetry that A4 constrains), and A5 (linearity) is equivalent to amplitude-scale gauge invariance via the linearity-equivalence lemma of [SM §4.1], hence partly derived — necessary *given* amplitude-scale gauge, with whether [SM §2.7]'s $q$-size gauge entails it left as an identified open step. A tighter axiomatization may be possible but is not pursued here; the reconstruction's validity depends on the sufficiency of A1–A6 and E1–E7, not on their independence. The empirical inputs E5, E6, E7 (propagating gravity, stable matter, boundary-entropy concordance) provide explicit forward filters for $d = 3$ — see Stage 2(a) below.
 
 **Critical dependencies.** Theorem 23's proof relies on the following prior theorems, whose individual correctness is assumed:
 
@@ -225,7 +225,7 @@ The framework's claim is that within the class of finite deterministic bounded-c
 - A2 (determinism) is the key ontological commitment; stochastic alternatives would produce different reconstructions.
 - A3 (bounded coupling) is conventional for physical systems; long-range couplings would give different dimensional structure.
 - A4 (center independence) rules out preferred-frame theories.
-- A5 (linearity) is the strongest restriction; nonlinear wave equations on finite lattices are a separate class.
+- A5 (linearity) is the strongest restriction; it is equivalent to amplitude-scale gauge invariance (linearity-equivalence lemma, [SM §4.1]), so nonlinear wave equations on finite lattices are the separate class one obtains exactly when that gauge principle is dropped.
 - A6 (background independence) is standard for gauge theories.
 
 Weakening any $A_i$ does not merely enlarge the equivalence class; it potentially produces *different* reconstructions that may not agree with observation. The framework's claim is that E1–E7 + A1–A6 is a consistent set of inputs producing our observed physics; alternative input sets are not investigated.
