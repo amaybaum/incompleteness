@@ -882,6 +882,8 @@ alphabet size q, the requirements of (i) center independence, (ii)
 spatial isotropy, and (iii) linearity uniquely select the discrete wave
 equation. This holds for any q ≥ 2 and d ≥ 1.}
 
+\textbf{Remark (scope).} The nearest-neighbor restriction is an assumption beyond bounded coupling degree (A3): center-independent families with next-nearest-neighbor couplings exist and tune the low-energy speed. Nearest-neighbor is adopted as the minimal-coupling commitment consistent with Theorem 6's factorization; the dispersion --- and the 4/45 coefficient of \S 6.4 --- is conditional on it.
+
 \emph{Proof.} The update function has the form
 \(x_i(t+1) = (f(\text{neighbors of } i \text{ at time } t) - x_i(t-1)) \bmod q\).
 Center independence requires that \(f\) not depend on \(x_i\) itself:
@@ -1037,6 +1039,8 @@ Conversely, center independence gives \(D_{\text{st}}\chi = 0\),
 invariant under \(\chi \to \varepsilon\chi\) (chiral symmetry).
 \(\square\)
 
+\textbf{Remark (scope of the center-dependence--mass identification).} The specific self-term \(C = 2(1-d)\) is not a mass term: it is the diagonal of the massless 4D lattice Laplacian, whose standard 4D staggered factorization has exact chiral symmetry. The hypercubic discretization is excluded not by this lemma but by the generation count --- a 4D taste structure gives \(2^4\) corners and the wrong number of generations (\S 4.7) --- and by \(K = 2d\) with the \((3,2,1)\) decomposition requiring the spatial cubic group (\S 4.5--4.6).
+
 \textbf{The chain:} P-indivisibility → center independence → chiral
 symmetry → Higgs mechanism {[}13, 14{]}. One algebraic condition (α = 0)
 produces quantum mechanics, chiral fermions, and the Higgs boson.
@@ -1071,20 +1075,11 @@ hence \(\cos\omega_a = \mu_a \cos k\). For \(|\mu_a| > 1\), there exist
 real \(k\) with \(|\mu_a \cos k| > 1\), giving complex \(\omega\)
 (exponential growth). \(\square\)
 
-\textbf{Theorem 5} (Gauge group). \emph{The global gauge group is the
-commutant \(G = C_{\mathrm{U}(K)}(M)\). If M has r distinct eigenvalues
-with multiplicities \((n_1, \ldots, n_r)\):
-\(G = \mathrm{U}(n_1) \times \cdots \times \mathrm{U}(n_r)\).}
+\textbf{Theorem 5} (Gauge group, revised). \emph{Let \(\Sigma = \langle \phi\phi^\dagger \rangle\) be the \(O\)-equivariant two-point condensate of the solution; by Schur's lemma \(\Sigma = a\,P_{T_1} + b\,P_E + c\,P_{A_1}\). The global gauge group is the stabilizer \(G = C_{\mathrm{U}(K)}(\Sigma)\). For generic (distinct) block values, \(G = \mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) --- equivalently, the unitary group of the bicommutant of the cubic-group action. The coupling matrix itself is scalar, \(M = \mu I\) (forced jointly by Theorems 6 and 7); the commutant formula of earlier versions applies to \(\Sigma\), not \(M\).}
 
-\emph{Proof.} A global transformation
-\(\boldsymbol{\phi} \to U\boldsymbol{\phi}\) with
-\(U \in \mathrm{U}(K)\) preserves the matrix wave equation iff
-\(UMU^{-1} = M\), i.e., \([U, M] = 0\). By Schur's lemma, the set of
-unitaries commuting with \(M\) decomposes as a product of unitary
-groups, one on each eigenspace. \(\square\)
+\emph{Proof.} With \(M = \mu I\) the matrix wave equation is preserved by every \(U \in \mathrm{U}(K)\): the substratum carries an exact custodial \(\mathrm{U}(6)\), extended to local invariance by the induced-link construction. The gauge group of the emergent theory is the subgroup unbroken by the solution: \(U\) stabilizes the condensate iff \([U, \Sigma] = 0\). By Schur's lemma applied to the equivariant block form of \(\Sigma\), the stabilizer is \(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) at generic block values; the 22 broken generators' link modes acquire masses at the condensate scale and decouple (\S 4.6). \(\square\)
 
-The gauge group and mass spectrum are the same information: modes of
-equal mass share a gauge symmetry.
+The gauge group and condensate block structure are the same information: modes within one condensate block share a gauge symmetry. (With \(M = \mu I\) all substratum modes are massless and share one cone; mass distinctions are state-level.)
 
 \hypertarget{k-2d-from-coupling-degree-minimization}{%
 \subsubsection{4.5 K = 2d from coupling-degree
@@ -1188,6 +1183,9 @@ fixes the multiplicities of \(M\)'s eigenspaces uniquely; there is no
 freedom in ``which 6D rep'' is meant.
 
 The max-speed constraint requires μ\_y = 1 (the A₁ mode propagates at
+
+
+\textbf{Remark (joint consistency of Theorems 4, 6, 7).} Theorem 6's \(\delta = 1\) factorization (coupling diagonal in the link basis) and Theorem 7's equivariant block form are jointly consistent only at \(M = \mu I\): the only \(O\)-equivariant matrices diagonal in the link basis are scalars. The max-speed constraint and the masslessness of the substratum modes (center independence \(\Rightarrow\) chiral symmetry, Theorem 3) then give \(\mu = 1\): all six components propagate at the lattice speed --- one cone, exact. Mass and gauge-group distinctions are properties of the state (the condensate \(\Sigma\) of Theorem 5), not of the update.
 the lattice speed of light). The physical identifications: T₁ (spatial
 vector) → color, E (quadrupole) → weak isospin, A₁ (scalar) →
 hypercharge. Local gauge invariance follows from background independence
@@ -1564,11 +1562,7 @@ diagonal blocks give
 
 The off-diagonal blocks \(\mathrm{Hom}(V_i, V_j)\) for \(i \neq j\)
 would carry cross-charged ``gauge bosons'' mixing different commutant
-factors. These are absent from the Standard Model, and they are
-forbidden here by exactly the same mechanism that makes \(M\)
-block-diagonal in Theorem 5: the commutant of \(M\) does not connect
-distinct eigenspaces, so \(K_{\text{eff}}\) inherits the block structure
-and the off-diagonal Homs vanish identically. The Schur-complement
+factors. These are absent from the Standard Model. The substratum dynamics is locally \(\mathrm{U}(6)\) invariant and does not exclude them; they are removed spontaneously: the \(O\)-equivariant condensate \(\Sigma\) breaks \(\mathrm{U}(6) \to \mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) (Theorem 5, revised), and the 22 cross-charged modes acquire masses at the condensate (lattice) scale by the Higgs mechanism, decoupling from the low-energy spectrum: \(K_{\text{eff}}\) inherits the block structure of the stabilizer, and the off-diagonal Homs are gapped rather than absent. The Schur-complement
 kernel therefore retrodicts the SM gauge boson content cleanly: the
 adjoints of \(\mathrm{SU}(3)\), \(\mathrm{SU}(2)\), and
 \(\mathrm{U}(1)\) together with the corresponding singlets, and nothing
@@ -2229,9 +2223,7 @@ order in \(A_\mu\).
 The induced coupling is computed from the one-loop staggered vacuum
 polarization \(\Pi_s(0)\) --- the lattice momentum integral over the
 fermion bubble with the OI vertex
-\(V_j = i g \mu \, T^\alpha \cos(k_j + p_j/2)\). Since
-\(M = \mu \cdot I_6\) has degenerate eigenvalues (Theorem 5), the Dynkin
-index \(T(R) = 1/2\) per Dirac fermion is the same for all three gauge
+\(V_j = i g \mu \, T^\alpha \cos(k_j + p_j/2)\). Since the coupling matrix is scalar, \(M = \mu \cdot I_6\) (Theorems 6--7 jointly; the gauge group derives from the condensate, Theorem 5 revised), the Dynkin index \(T(R) = 1/2\) per Dirac fermion is the same for all three gauge
 factors. With \(N_f = 6\) (one per internal component), the induced
 coupling is universal:
 
