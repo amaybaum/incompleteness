@@ -97,7 +97,7 @@ Uniqueness at Stage 1 follows from the Stinespring uniqueness theorem [Chapter 1
 
 The dimension argument follows the three-filter convergence described above. By Gromov's theorem combined with statistical isotropy (E4), the coupling graph is quasi-isometric to $\mathbb{Z}^d$ for some integer $d$. The three filters from E5, E6, E7 then force $d = 3$.
 
-The wave equation follows from center independence (A4), isotropy (E4), and linearity (A5). The unique second-order reversible nearest-neighbor dynamics compatible with these constraints has the form $f = \alpha(x_1 + x_2 + \cdots + x_{2d}) \bmod q$, propagating with speed $v = \alpha$. The coupling constant $\alpha$ is fixed by relativistic causality with maximum signal speed $c$ realized at the lattice cutoff.
+The wave equation follows from center independence (A4), isotropy (E4), and linearity (A5), together with the nearest-neighbor restriction (an assumption beyond A3's bounded coupling degree). The unique second-order reversible nearest-neighbor dynamics compatible with these constraints has the form $f = \alpha(x_1 + x_2 + \cdots + x_{2d}) \bmod q$, propagating with speed $v = \alpha$. The coupling constant $\alpha$ is fixed by relativistic causality with maximum signal speed $c$ realized at the lattice cutoff.
 
 The number of internal components per lattice site follows from coupling-degree minimization applied to the wave equation: $K = 2d = 6$ uniquely. This locks the absolute generation count of fermions at three, since three spin-$1/2$ staggered tastes emerge from the $K = 6$ minimum (Chapter 6 develops this).
 
