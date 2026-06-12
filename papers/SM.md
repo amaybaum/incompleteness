@@ -284,13 +284,13 @@ This is the per-site analog of the global factorization principle (§2.4): at th
 
 ### 4.6 Cubic decomposition: multiplicities (3, 2, 1)
 
-**Theorem 7.** *The 2d = 6 nearest-neighbor link directions of the d = 3 cubic lattice decompose under the rotation group O as $6 = T_1(3) \oplus E(2) \oplus A_1(1)$. The eigenvalue multiplicities of M are (3, 2, 1), giving gauge group $\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1) \supset \mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$.*
+**Theorem 7.** *The 2d = 6 nearest-neighbor link directions of the d = 3 cubic lattice decompose under the rotation group O as $6 = T_1(3) \oplus E(2) \oplus A_1(1)$. The equivariant (isotypic) block multiplicities of the internal space are (3, 2, 1); the stabilizer of a generic equivariant condensate is accordingly the gauge group $\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1) \supset \mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$.*
 
-*Proof.* Characters at each conjugacy class of O (24 elements): E: χ = 6; 8C₃: χ = 0; 3C₂: χ = 2; 6C₂': χ = 0; 6C₄: χ = 2. Character inner products give n(A₁) = 1, n(E) = 1, n(T₁) = 1, with n(A₂) = n(T₂) = 0. By Schur's lemma and isotropy, $M = \mathrm{diag}(\mu_c I_3, \mu_w I_2, \mu_y)$. $\square$
+*Proof.* Characters at each conjugacy class of O (24 elements): E: χ = 6; 8C₃: χ = 0; 3C₂: χ = 2; 6C₂': χ = 0; 6C₄: χ = 2. Character inner products give n(A₁) = 1, n(E) = 1, n(T₁) = 1, with n(A₂) = n(T₂) = 0. By Schur's lemma and isotropy, any equivariant operator is block-scalar; in particular the condensate is $\Sigma = \mathrm{diag}(a I_3, b I_2, c)$, while the coupling matrix itself is scalar (Remark below). $\square$
 
 The 6D representation in question is the natural action of $O$ on the six nearest-neighbor link vectors $\{\pm\hat e_1, \pm\hat e_2, \pm\hat e_3\}$ of the cubic lattice — the same 6D space on which the coupling matrix $M(\mathbf{n}, \hat e_j)$ of §4.4 acts. The decomposition therefore fixes the multiplicities of $M$'s eigenspaces uniquely; there is no freedom in "which 6D rep" is meant.
 
-The max-speed constraint requires μ_y = 1 (the A₁ mode propagates at the lattice speed of light). The physical identifications: T₁ (spatial vector) → color, E (quadrupole) → weak isospin, A₁ (scalar) → hypercharge. Local gauge invariance follows from background independence (§3.1).
+The max-speed constraint, applied to the scalar coupling, requires μ = 1: all six modes propagate at the lattice speed of light — one cone, exact. The physical identifications: T₁ (spatial vector) → color, E (quadrupole) → weak isospin, A₁ (scalar) → hypercharge. Local gauge invariance follows from background independence (§3.1).
 
 
 **Remark (joint consistency of Theorems 4, 6, 7).** Theorem 6's $\delta = 1$ factorization (coupling diagonal in the link basis) and Theorem 7's equivariant block form are jointly consistent only at $M = \mu I$: the only $O$-equivariant matrices diagonal in the link basis are scalars. The max-speed constraint and the masslessness of the substratum modes (center independence $\Rightarrow$ chiral symmetry, Theorem 3) then give $\mu = 1$: all six components propagate at the lattice speed — one cone, exact. Mass and gauge-group distinctions are properties of the state (the condensate $\Sigma$ of Theorem 5), not of the update.

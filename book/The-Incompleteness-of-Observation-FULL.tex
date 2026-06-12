@@ -6270,10 +6270,8 @@ The matrix \(M\) is the substratum's sole free parameter at this level.
 Each eigenvalue \(\mu_a\) of \(M\) produces a dispersion relation
 \(\cos\omega_a = \mu_a \cos k\), giving the mass spectrum of the
 emergent excitations. A mode is massless if \(\mu_a = 1\) and massive
-otherwise, with stability requiring \(|\mu_a| \leq 1\). The global gauge
-group of the matrix wave equation is the commutant of \(M\) in
-\(\mathrm{U}(K)\) --- the set of \(K \times K\) unitaries commuting with
-\(M\). By Schur's lemma, this commutant decomposes as a product of
+otherwise, with stability requiring \(|\mu_a| \leq 1\). (In the revised structure the coupling matrix is scalar with \(\mu = 1\): all substratum modes share one massless cone; mass and gauge-group distinctions are carried by the solution's equivariant condensate; see the revised Theorem 5.) The global gauge group is the stabilizer of the solution's equivariant condensate \(\Sigma\) in
+\(\mathrm{U}(K)\) --- the set of \(K \times K\) unitaries commuting with \(\Sigma\) (the coupling matrix itself is scalar; the dynamics carries an exact custodial \(\mathrm{U}(6)\)). By Schur's lemma, this stabilizer decomposes as a product of
 unitary groups, one on each eigenspace of \(M\): if \(M\) has \(r\)
 distinct eigenvalues with multiplicities \((n_1, \ldots, n_r)\), then
 the gauge group is
@@ -23483,8 +23481,7 @@ the internal \(K\)-dimensional vector. The discrete Laplacian on the
 in each of \(\pm \hat{e}_\mu\) direction for each spatial axis \(\mu\)).
 
 For the wave equation to support nontrivial gauge structure ---
-specifically, for the coupling matrix \(M\) to have multiple distinct
-eigenvalues admitting a chiral fermion content --- the internal
+specifically, for the internal space to carry multiple equivariant blocks — the condensate's distinct sectors — admitting a chiral fermion content --- the internal
 dimension \(K\) must be at least \(2d\): one component per direction of
 the discrete Laplacian. This is the coupling-degree minimum: any smaller
 \(K\) cannot accommodate the full set of directional couplings without
@@ -23538,9 +23535,7 @@ states) - \(\mathbf{1} \rightarrow \mathrm{U}(1)\) hypercharge (one
 singlet)
 
 The identification is structural: the cubic rotation group's
-representation theory determines the internal structure, and the
-eigenvalue multiplicities of the coupling matrix's spectrum are the
-dimensions of the Standard Model gauge group factors. \(\square\)
+representation theory determines the internal structure, and the isotypic block multiplicities of the equivariant structure are the dimensions of the Standard Model gauge group factors. \(\square\)
 
 \textbf{The link to gauge invariance.} The commutant of the coupling
 matrix \(M = \text{diag}(\mu_c I_3, \mu_w I_2, 1)\) is the maximal group

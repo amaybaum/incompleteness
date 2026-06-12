@@ -259,7 +259,7 @@ Two key gauge-theoretic results from Chapter 5 are presented here with full deri
 
 *Proof.* The wave equation $x(n, t+1) = \sum_{\hat{e}} x(n + \hat{e}, t) - x(n, t-1) \pmod q$ with $K$ components per site requires the discrete Laplacian to act on the internal $K$-dimensional vector. The discrete Laplacian on the $d$-dimensional cubic lattice involves $2d$ nearest neighbors (one in each of $\pm \hat{e}_\mu$ direction for each spatial axis $\mu$).
 
-For the wave equation to support nontrivial gauge structure — specifically, for the coupling matrix $M$ to have multiple distinct eigenvalues admitting a chiral fermion content — the internal dimension $K$ must be at least $2d$: one component per direction of the discrete Laplacian. This is the coupling-degree minimum: any smaller $K$ cannot accommodate the full set of directional couplings without identifying components across distinct lattice directions, which would impose unphysical symmetry constraints.
+For the wave equation to support nontrivial gauge structure — specifically, for the internal space to carry multiple equivariant blocks — the condensate's distinct sectors — admitting a chiral fermion content — the internal dimension $K$ must be at least $2d$: one component per direction of the discrete Laplacian. This is the coupling-degree minimum: any smaller $K$ cannot accommodate the full set of directional couplings without identifying components across distinct lattice directions, which would impose unphysical symmetry constraints.
 
 For $d = 3$, the minimum is $K = 2d = 6$, giving exactly six internal components per site. This is the framework's prediction. $\square$
 
@@ -280,7 +280,7 @@ The decomposition $\mathbf{6} = T_1 \oplus E \oplus A_1$ produces three eigenval
 - $\mathbf{2} \rightarrow \mathrm{SU}(2)$ weak isospin (two doublet states)
 - $\mathbf{1} \rightarrow \mathrm{U}(1)$ hypercharge (one singlet)
 
-The identification is structural: the cubic rotation group's representation theory determines the internal structure, and the eigenvalue multiplicities of the coupling matrix's spectrum are the dimensions of the Standard Model gauge group factors. $\square$
+The identification is structural: the cubic rotation group's representation theory determines the internal structure, and the isotypic block multiplicities of the equivariant structure are the dimensions of the Standard Model gauge group factors. $\square$
 
 **The link to gauge invariance.** The commutant of the coupling matrix $M = \text{diag}(\mu_c I_3, \mu_w I_2, 1)$ is the maximal group preserving the eigenvalue structure: $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. Background independence — the requirement that the dynamics be invariant under local choices of basis within each eigenspace — promotes this global commutant to local gauge invariance. The result is the emergent $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge theory of the Standard Model.
 
