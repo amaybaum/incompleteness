@@ -195,12 +195,19 @@ Beyond the predictions with current empirical match, the framework makes specifi
 | F11 | Anti-persister antibiotic class | Memory-erasing drugs | Drug screening with regulatory dynamics | Ch 16 §16.5 |
 | F12 | Hurst exponent of substitution rates | $H \approx 0.79 \pm 0.03$ for typical taxa | Existing phylogenetic data | Ch 17 §17.9 |
 
+**Foundations (Lorentz sector).**
+
+| # | Prediction | Quantitative content | Testability | Chapter |
+|---|-----------|---------------------|-------------|---------|
+| F13 | Cross-charged boost-LV decoupling | $\delta c \sim \Delta C_2\,(\alpha_0/4\pi)(M_X/M_{\text{Pl}})^2[c_L\ln(M_{\text{Pl}}/M_X)+c_0]$; quadratic-log *form* established, normalization open | Multi-species LV bounds (form only; reach pending normalization) | SM §125(iii) |
+
 **Falsification conditions.** Each forward prediction has specific falsification conditions developed in the relevant chapter. The framework's content is most distinctively at risk in:
 
 - F1 (BEC analogue-gravity): null result with functional form different from $2r - r^2$ would falsify the framework's structural mechanism for partially-quantum dynamics.
 - F5 (gravitational wave echoes): null result at $\Delta t = (r_+/c)\ln(r_+/2l_p)$ would constrain the framework's substratum-level lattice scale.
 - F6 (DESI running vacuum): DESI Year 5 confirmation of phantom-crossing dark energy would falsify the framework's running vacuum prediction.
 - F9 (variant pathogenicity stratification): demonstration that AlphaMissense performance is uniform across reader/writer/eraser and substrate genes would falsify the substratum-emergent operator distinction at the variant-prediction level.
+- F13 (cross-charged decoupling): observation of an inter-species boost-Lorentz-violation that does *not* decouple with the heavy cross-charged mass — i.e. a non-decoupling (constant or pure-logarithmic) sector-differential limiting-speed difference — would falsify the framework's condensate-stabilizer mechanism for gauge content (Theorem 5, revised), under which the differential is suppressed as $(M_X/M_{\text{Pl}})^2$ up to a logarithm. The *form* of this suppression is established; its normalization (and hence the precise $M_X$ reach) is not yet fixed.
 
 ## A.6 Framework's epistemic position summary
 
