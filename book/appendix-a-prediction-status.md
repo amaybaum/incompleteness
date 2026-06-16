@@ -199,7 +199,7 @@ Beyond the predictions with current empirical match, the framework makes specifi
 
 | # | Prediction | Quantitative content | Testability | Chapter |
 |---|-----------|---------------------|-------------|---------|
-| F13 | Cross-charged boost-LV decoupling | $\delta c \sim \Delta C_2\,(\alpha_0/4\pi)(M_X/M_{\text{Pl}})^2[c_L\ln(M_{\text{Pl}}/M_X)+c_0]$; quadratic-log *form* established, normalization open | Multi-species LV bounds (form only; reach pending normalization) | SM §125(iii) |
+| F13 | Cross-charged boost-LV decoupling | $\delta c \sim \Delta C_2\,(\alpha_0/4\pi)(M_X/M_{\text{Pl}})^2[c_L\ln(M_{\text{Pl}}/M_X)+c_0]$; quadratic-log *form* established; the logarithmic coefficient is now converged at $c_L \approx -9.4 \pm 0.3$ (extrapolated to $N\to\infty$, superseding an earlier under-converged $-7.5 \pm 1$), which tightens the consistency window to $M_X \lesssim 3.9\times10^{9}$ GeV; the overall normalization $\Delta C_2$ remains open, so this is a window conditional on the bijection, not a forward prediction of $M_X$ | Multi-species LV bounds (form + coefficient; full reach pending $\Delta C_2$) | SM §125(iii) |
 
 **Falsification conditions.** Each forward prediction has specific falsification conditions developed in the relevant chapter. The framework's content is most distinctively at risk in:
 
@@ -207,7 +207,7 @@ Beyond the predictions with current empirical match, the framework makes specifi
 - F5 (gravitational wave echoes): null result at $\Delta t = (r_+/c)\ln(r_+/2l_p)$ would constrain the framework's substratum-level lattice scale.
 - F6 (DESI running vacuum): DESI Year 5 confirmation of phantom-crossing dark energy would falsify the framework's running vacuum prediction.
 - F9 (variant pathogenicity stratification): demonstration that AlphaMissense performance is uniform across reader/writer/eraser and substrate genes would falsify the substratum-emergent operator distinction at the variant-prediction level.
-- F13 (cross-charged decoupling): observation of an inter-species boost-Lorentz-violation that does *not* decouple with the heavy cross-charged mass — i.e. a non-decoupling (constant or pure-logarithmic) sector-differential limiting-speed difference — would falsify the framework's condensate-stabilizer mechanism for gauge content (Theorem 5, revised), under which the differential is suppressed as $(M_X/M_{\text{Pl}})^2$ up to a logarithm. The *form* of this suppression is established; its normalization (and hence the precise $M_X$ reach) is not yet fixed.
+- F13 (cross-charged decoupling): observation of an inter-species boost-Lorentz-violation that does *not* decouple with the heavy cross-charged mass — i.e. a non-decoupling (constant or pure-logarithmic) sector-differential limiting-speed difference — would falsify the framework's condensate-stabilizer mechanism for gauge content (Theorem 5, revised), under which the differential is suppressed as $(M_X/M_{\text{Pl}})^2$ up to a logarithm. The *form* of this suppression is established and the logarithmic coefficient is now converged ($c_L \approx -9.4 \pm 0.3$ at $N\to\infty$), giving a consistency window $M_X \lesssim 3.9\times10^{9}$ GeV; the overall normalization $\Delta C_2$ (and hence whether this window is also a forward prediction rather than a bijection-conditional consistency bound) is not yet fixed.
 
 ## A.6 Framework's epistemic position summary
 

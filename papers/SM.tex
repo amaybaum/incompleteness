@@ -3,8 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  11pt,
-  letterpaper,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -17,10 +15,9 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -39,7 +36,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -54,7 +50,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\input{unicode-fix}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -433,7 +428,23 @@ Two systems (S, φ) and (S', φ') with different alphabet sizes q and q'
 are \emph{physically equivalent} if they produce the same emergent
 transition probabilities. The analogy to electromagnetic gauge
 invariance is precise: the gauge potential A\_μ is not physical; the
-field strength F\_μν is. In the OI framework, the mod-q state space is not physical; the coupling structure and its emergent consequences are. Operationally this means the \emph{absolute scale} of the field value is unobservable --- only the coupling structure and emergent transition probabilities are (the discrete analogue of field-normalization redundancy in ordinary field theory). The transformations realizing this are the alphabet's \textbf{additive-group automorphisms} --- the size q, rescalings \(x \mapsto \lambda x\) (for \(\lambda\) a unit), and shifts \(x \mapsto x + c\) --- not arbitrary relabellings of \(\mathbb{Z}/q\mathbb{Z}\). A nonlinear relabelling preserves the orbit structure (hence the transition probabilities under relabelling) but changes the fluctuation dispersion, so it is not a symmetry of the physical observables; the gauge group is the additive-automorphism group, a proper subgroup of all permutations. This amplitude-scale (additive-automorphism) gauge is what the §4.1 linearity argument invokes; whether it is entailed by the q-size statement above, or is an additional principle, is an identified open structural question.
+field strength F\_μν is. In the OI framework, the mod-q state space is
+not physical; the coupling structure and its emergent consequences are.
+Operationally this means the \emph{absolute scale} of the field value is
+unobservable --- only the coupling structure and emergent transition
+probabilities are (the discrete analogue of field-normalization
+redundancy in ordinary field theory). The transformations realizing this
+are the alphabet's \textbf{additive-group automorphisms} --- the size
+\(q\), rescalings \(x \mapsto \lambda x\) (for \(\lambda\) a unit), and
+shifts \(x \mapsto x + c\) --- not arbitrary relabellings of
+\(\mathbb{Z}/q\mathbb{Z}\). A nonlinear relabelling preserves the orbit
+structure (hence the transition probabilities under relabelling) but
+changes the fluctuation dispersion, so it is not a symmetry of the
+physical observables; the gauge group is the additive-automorphism
+group, a proper subgroup of all permutations. This amplitude-scale
+(additive-automorphism) gauge is what the §4.1 linearity argument
+invokes; whether it is entailed by the \(q\)-size statement above, or is
+an additional principle, is an identified open structural question.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -541,53 +552,129 @@ at \(O(k^3)\) in the frequency (equivalently \(O(\varepsilon^2 k^2)\) in
 necessary for emergent Lorentz invariance but is not the full statement,
 and we are explicit about the gap. Three points. (i) \emph{Rotational
 sector.} The leading rotational-symmetry-breaking operator on the cubic
-lattice transforms in a nontrivial representation of the octahedral group
-\(O_h\) (the \(E_g\) irrep of the symmetric rank-2 tensors), so it is
-forbidden in any cubic-invariant action; the lowest \emph{allowed}
+lattice transforms in a nontrivial representation of the octahedral
+group \(O_h\) (the \(E_g\) irrep of the symmetric rank-2 tensors), so it
+is forbidden in any cubic-invariant action; the lowest \emph{allowed}
 anisotropy is the \(O(k^4)\) operator, which is irrelevant by power
 counting (dimension six in \(d=3+1\)). Spatial isotropy at leading order
 is therefore protected by the cubic symmetry already required for the
-gauge derivation (\S4.5), not an independent assumption --- though it
+gauge derivation (§4.5), not an independent assumption --- though it
 remains a statement about the bare action. (ii) \emph{Boost sector.} The
-lattice possesses a preferred frame (the rest frame in which update steps
-are simultaneous), and the lattice dispersion is not boost-invariant at
-the cutoff scale; boost invariance can hold only as an emergent infrared
-property. The deviation of the dispersion surface from boost-invariance
-is \(O(k^4)\) (dimension six, irrelevant) with no lower-order term, so the
-boost sector is, at tree level, in the same position as the rotational
-sector: Lorentz violation is irrelevant and suppressed by
-\((E/M_{\text{Pl}})^2\). (iii) \emph{Radiative stability (open).} The
-tree-level irrelevance of both the rotational and boost Lorentz-violating
-operators does not by itself guarantee emergent Lorentz invariance in the
-interacting theory: radiative corrections can in principle generate a
-lower-dimension (relevant or marginal) Lorentz-violating operator that is
-not Planck-suppressed --- the Lorentz fine-tuning problem familiar from
-effective-field-theory treatments of Planck-scale Lorentz violation. The
-standard field-theoretic resolution (supersymmetric suppression of the
-offending divergences) is not available here, as the framework is not
-supersymmetric. We emphasize that cubic symmetry alone is \emph{not}
-sufficient to protect against this: as is known from lattice field theory
-(Davoudi and Savage, Phys. Rev. D \textbf{86}, 054505), the cubic point
-group permits the renormalization mixing of operators into lower-dimensional
-ones with power-divergent coefficients, so the tree-level forbiddenness of
-the \(E_g\) operator does not by itself extend to a loop-level
-non-renormalization statement. The mechanism by which rotational-symmetry
-restoration is known to hold at all orders is operator \emph{smearing} --- a
-definition of the effective operators that filters ultraviolet modes over a
-physical region --- under which the rotational-violating contributions remain
-suppressed by \(\mathcal{O}(a^2)\) at every order in \(\lambda\phi^4\), and in
-gauge theory provided the gauge fields are likewise smeared. Whether the
-framework's substratum-to-observer coarse-graining map (\S4.7.1.1) realizes a
-sufficient smearing of this type is an open question: the map's role in
-assigning gauge representations is fixed (\S4.7.1.2), but its
-ultraviolet-filtering behavior is not yet characterized, and that
+lattice possesses a preferred frame (the rest frame in which update
+steps are simultaneous), and the lattice dispersion is not
+boost-invariant at the cutoff scale; boost invariance can hold only as
+an emergent infrared property. The deviation of the dispersion surface
+from boost-invariance is \(O(k^4)\) (dimension six, irrelevant) with no
+lower-order term, so the boost sector is, at tree level, in the same
+position as the rotational sector: Lorentz violation is irrelevant and
+suppressed by \((E/M_{\text{Pl}})^2\). (iii) \emph{Radiative stability
+(open).} The tree-level irrelevance of both the rotational and boost
+Lorentz-violating operators does not by itself guarantee emergent
+Lorentz invariance in the interacting theory: radiative corrections can
+in principle generate a lower-dimension (relevant or marginal)
+Lorentz-violating operator that is not Planck-suppressed --- the Lorentz
+fine-tuning problem familiar from effective-field-theory treatments of
+Planck-scale Lorentz violation. The standard field-theoretic resolution
+(supersymmetric suppression of the offending divergences) is not
+available here, as the framework is not supersymmetric. We emphasize
+that cubic symmetry alone is \emph{not} sufficient to protect against
+this: as is known from lattice field theory (Davoudi and Savage, Phys.
+Rev.~D \textbf{86}, 054505), the cubic point group permits the
+renormalization mixing of operators into lower-dimensional ones with
+power-divergent coefficients, so the tree-level forbiddenness of the
+\(E_g\) operator does not by itself extend to a loop-level
+non-renormalization statement. The mechanism by which
+rotational-symmetry restoration is known to hold at all orders is
+operator \emph{smearing} --- a definition of the effective operators
+that filters ultraviolet modes over a physical region --- under which
+the rotational-violating contributions remain suppressed by
+\(\mathcal{O}(a^2)\) at every order in \(\lambda\phi^4\), and in gauge
+theory provided the gauge fields are likewise smeared. Whether the
+framework's substratum-to-observer coarse-graining map (§4.7.1.1)
+realizes a sufficient smearing of this type is an open question: the
+map's role in assigning gauge representations is fixed (§4.7.1.2), but
+its ultraviolet-filtering behavior is not yet characterized, and that
 characterization is precisely what a loop-level protection claim would
 require. Pending it, the emergent-Lorentz claim should be read as:
-relativistic to leading order with no linear violation (established at tree
-level, consistent with the one-loop and two-loop staggered checks of \S6),
-with the radiative stability of that property an open problem --- shared with
-discrete-substrate approaches generally --- whose resolution for this
-framework depends on characterizing the coarse-graining map as a smearing rather than on cubic symmetry alone. A second, structural ingredient is available within the framework itself: at \(M = \mu I\) the substratum dynamics carries an exact custodial \(\mathrm{U}(6)\) relating the gauge sectors (Theorem 5, revised; \S 4.6), broken only spontaneously by the equivariant condensate, so sector-differential Lorentz-violating coefficients admit no independent counterterm at the regulator level. The resulting sector-differential boost-violation is then controlled by the heavy cross-charged mass \(M_X\) generated at the condensate gap: a one-loop lattice computation of the boost-projected self-energy curvature, after absorbing the universal tree-level cone, finds the differential coefficient obeys a quadratic-with-logarithm decoupling law of the form \(\delta c \sim \Delta C_2\,(\alpha_0/4\pi)\,(M_X/M_{\text{Pl}})^2\,[c_L\ln(M_{\text{Pl}}/M_X)+c_0]\) rather than a non-decoupling constant, so the heavy sector decouples as \(M_X\) rises. The decoupling \emph{form} is established (the law survives both a scalar- and a fermion-line check, and fails --- reverting to a non-decoupling logarithm --- precisely when the cone is not absorbed, confirming the absorption is load-bearing); the overall normalization \(\Delta C_2\) and hence the exact \(M_X\) window remains under active investigation and is not claimed here. We situate this in the literature. The radiative Lorentz-fine-tuning problem is general to Planck-scale Lorentz violation (Collins, Perez, Sudarsky, Urrutia, and Vucetich, Phys. Rev. Lett. \textbf{93}, 191301), and its standard field-theoretic resolution --- supersymmetric suppression of the offending divergences --- is unavailable here, as the framework is not supersymmetric. The one non-supersymmetric protection mechanism consistent with the framework's structure is renormalization-group emergence: Lorentz-violating couplings flowing to zero at an infrared-attractive Lorentz-invariant fixed point (Chadha and Nielsen, Nucl. Phys. B \textbf{217}, 125 (1983); Bednik, Pujol\`as, and Sibiryakov, JHEP \textbf{11} (2013) 064). This mechanism is natural in the present setting because the trace-out of [Main] is itself a coarse-graining toward the infrared, and it is the same mechanism on which emergent-quantum-mechanics-from-lattice constructions rely (e.g. arXiv:2207.09465); its documented limitation is that the inter-species velocity flow is only logarithmically fast, leaving a residual fine-tuning against the tightest multi-species bounds. Independently, the causal-set discreteness results (Bombelli, Henson, and Sorkin, \emph{Discreteness without symmetry breaking}) establish that a finite-valency, locally-coupled discrete structure cannot carry exact Lorentz invariance microscopically --- only a random, statistically isotropic structure can, and then only non-locally --- which is consistent with the framework's concession of a preferred lattice frame and reinforces that Lorentz invariance here must be wholly emergent (an infrared property of the coarse-grained theory), never microscopic.
+relativistic to leading order with no linear violation (established at
+tree level, consistent with the one-loop and two-loop staggered checks
+of §6), with the radiative stability of that property an open problem
+--- shared with discrete-substrate approaches generally --- whose
+resolution for this framework depends on characterizing the
+coarse-graining map as a smearing rather than on cubic symmetry alone. A
+second, structural ingredient is available within the framework itself:
+at \(M = \mu I\) the substratum dynamics carries an exact custodial
+\(\mathrm{U}(6)\) relating the gauge sectors (Theorem 5, revised; §4.6),
+broken only spontaneously by the equivariant condensate, so
+sector-differential Lorentz-violating coefficients admit no independent
+counterterm at the regulator level. The resulting sector-differential
+boost-violation is then controlled by the heavy cross-charged mass
+\(M_X\) generated at the condensate gap: a one-loop lattice computation
+of the boost-projected self-energy curvature, after absorbing the
+universal tree-level cone, finds the differential coefficient obeys a
+quadratic-with-logarithm decoupling law of the form
+\(\delta c \sim \Delta C_2\,(\alpha_0/4\pi)\,(M_X/M_{\text{Pl}})^2\,[\,c_L\ln(M_{\text{Pl}}/M_X)+c_0\,]\)
+rather than a non-decoupling constant, so the heavy sector decouples as
+\(M_X\) rises. The decoupling \emph{form} is established (the law
+survives both a scalar- and a fermion-line check, and fails ---
+reverting to a non-decoupling logarithm --- precisely when the cone is
+not absorbed, confirming the absorption is load-bearing); the overall
+normalization \(\Delta C_2\) and hence the exact \(M_X\) window remains
+under active investigation and is not claimed here. We situate this in
+the literature. The radiative Lorentz-fine-tuning problem is general to
+Planck-scale Lorentz violation (Collins, Perez, Sudarsky, Urrutia, and
+Vucetich, Phys. Rev.~Lett. \textbf{93}, 191301), and its standard
+field-theoretic resolution --- supersymmetric suppression of the
+offending divergences --- is unavailable here, as the framework is not
+supersymmetric. The one non-supersymmetric protection mechanism
+consistent with the framework's structure is renormalization-group
+emergence: Lorentz-violating couplings flowing to zero at an
+infrared-attractive Lorentz-invariant fixed point (Chadha and Nielsen,
+Nucl. Phys. B \textbf{217}, 125 (1983); Bednik, Pujolàs, and Sibiryakov,
+JHEP \textbf{11} (2013) 064). This mechanism is natural in the present
+setting because the trace-out of {[}Main{]} is itself a coarse-graining
+toward the infrared, and it is the same mechanism on which
+emergent-quantum-mechanics-from-lattice constructions rely
+(e.g.~arXiv:2207.09465); its documented limitation is that the
+inter-species velocity flow is only logarithmically fast, leaving a
+residual fine-tuning against the tightest multi-species bounds.
+Independently, the causal-set discreteness results (Bombelli, Henson,
+and Sorkin, \emph{Discreteness without symmetry breaking}) establish
+that a finite-valency, locally-coupled discrete structure cannot carry
+exact Lorentz invariance microscopically --- only a random,
+statistically isotropic structure can, and then only non-locally ---
+which is consistent with the framework's concession of a preferred
+lattice frame and reinforces that Lorentz invariance here must be wholly
+emergent (an infrared property of the coarse-grained theory), never
+microscopic.
+
+\emph{Clarification of the protection mechanisms (relationship and
+remaining gap).} Two of the ingredients above are not independent:
+operator smearing is the coarse-graining-toward-the-infrared realization
+of the renormalization-group-emergence mechanism, so the question ``does
+the substratum-to-observer map smear sufficiently?'' and the question
+``does the theory flow to a Lorentz-invariant infrared fixed point?''
+are two descriptions of the same requirement. The custodial
+\(\mathrm{U}(6)\) ingredient is logically separate and stronger where it
+applies: it removes sector-\emph{differential} Lorentz-violating
+counterterms at the regulator level, and the resulting differential
+coefficient obeys the established power-law-with-logarithm decoupling in
+\(M_X\) --- a genuine power-law suppression, not merely the
+logarithmically-slow RG flow. The remaining gap is sharper than
+``radiative stability in general'': the custodial argument controls the
+\emph{sector-differential} (inter-species) boost-violation that the
+multi-species bounds constrain most tightly, but the \emph{overall}
+(sector-common) Lorentz-violating operator in the rotational sector has
+no analogous power-law ally and rests on the smearing/RG-emergence
+mechanism alone, whose inter-species flow is only logarithmically fast.
+The rotational sector is therefore the less-protected of the two
+sub-problems. Finally, the preferred frame conceded in (ii) is not
+free-floating: on identification with the observed universe it is the
+frame in which the substratum update steps are simultaneous, which is
+operationally the cosmic rest frame (the CMB frame); the framework makes
+no claim to derive this identification, but records that the preferred
+frame, if physical, is not an additional tunable structure but the
+cosmological rest frame already present in the data.
 
 \textbf{Lemma} (Lattice Bisognano-Wichmann). \emph{For the wave
 equation, whose low-energy effective theory is Lorentz-invariant, the
@@ -881,7 +968,12 @@ alphabet size q, the requirements of (i) center independence, (ii)
 spatial isotropy, and (iii) linearity uniquely select the discrete wave
 equation. This holds for any q ≥ 2 and d ≥ 1.}
 
-\textbf{Remark (scope).} The nearest-neighbor restriction is an assumption beyond bounded coupling degree (A3): center-independent families with next-nearest-neighbor couplings exist and tune the low-energy speed. Nearest-neighbor is adopted as the minimal-coupling commitment consistent with Theorem 6's factorization; the dispersion --- and the 4/45 coefficient of \S 6.4 --- is conditional on it.
+\textbf{Remark (scope).} The nearest-neighbor restriction is an
+assumption beyond bounded coupling degree (A3): center-independent
+families with next-nearest-neighbor couplings exist and tune the
+low-energy speed. Nearest-neighbor is adopted as the minimal-coupling
+commitment consistent with Theorem 6's factorization; the dispersion ---
+and the 4/45 coefficient of §6.4 --- is conditional on it.
 
 \emph{Proof.} The update function has the form
 \(x_i(t+1) = (f(\text{neighbors of } i \text{ at time } t) - x_i(t-1)) \bmod q\).
@@ -924,17 +1016,38 @@ rotational symmetry, the dynamics has a preferred spatial direction,
 breaking the isotropy that Lorentz invariance demands.
 
 \emph{Linearity is selected by four independent criteria.} First,
-\emph{amplitude-scale gauge invariance} (a sharpening of the \(q\)-gauge principle of §2.7). Linearity is \textbf{equivalent} to the linearized fluctuation dispersion being independent of the background field amplitude: demanding amplitude-independence forces the per-neighbour Jacobian to be constant, hence the update affine, hence (with masslessness fixing the constant) linear. The discrete statement is exact --- \emph{all first finite-differences over \(\mathbb{Z}/q\mathbb{Z}\) are base-point-independent iff the rule is affine as a function} --- replacing the earlier genericity remark (\(x^2 \bmod 3\) vs \(x^2 \bmod 5\)) with an equivalence (Lemma, linearity-equivalence). Linearity is therefore \textbf{necessary given that the field-value (amplitude) scale is gauge} --- equivalently, that the alphabet's additive automorphisms \(x \mapsto \lambda x + c\) are unphysical (operationally: the embedded observer has no access to the absolute field-value scale --- see [Substratum §4, Theorem 24 Remark]). This is a distinct (and stronger) principle than the \(q\)-\emph{size} gauge freedom of §2.7: \(q\)-independence of predictions does not by itself entail invariance under rescaling the field at fixed \(q\). The necessity is conditional on amplitude-scale gauge; whether §2.7's \(q\)-gauge entails it is identified as an open structural question (see §2.7; amplitude-scale gauge is stated authoritatively in [Substratum §4, Theorem 24, Remark]). Second, over \(\mathbb{R}\), nonlinear
-center-independent dynamics have propagation speed \(v < 1\), so
-linearity gives maximum speed. Third, over \(\mathbb{Z}/q\mathbb{Z}\),
-among all linear CI dynamics \(f = \alpha(l + r) \bmod q\) with prime
-\(q \geq 5\), \(\alpha = 1\) uniquely maximizes P-indivisibility.
-Fourth, modified (nonlinear) dispersion relations break the thermality
-of the Unruh effect --- the KMS condition holds only for linear
-dispersion \(\omega = |k|\). Since the Jacobson derivation (§3.1)
-requires thermal equilibrium at horizons, only the wave equation
-supports the full GR chain. All four criteria converge on the same
-dynamics.
+\emph{amplitude-scale gauge invariance} (a sharpening of the \(q\)-gauge
+principle of §2.7). Linearity is \textbf{equivalent} to the linearized
+fluctuation dispersion being independent of the background field
+amplitude: demanding amplitude-independence forces the per-neighbour
+Jacobian to be constant, hence the update affine, hence (with
+masslessness fixing the constant) linear. The discrete statement is
+exact --- \emph{all first finite-differences over
+\(\mathbb{Z}/q\mathbb{Z}\) are base-point-independent iff the rule is
+affine as a function} --- replacing the earlier genericity remark
+(\(x^2 \bmod 3\) vs \(x^2 \bmod 5\)) with an equivalence (Lemma,
+linearity-equivalence). Linearity is therefore \textbf{necessary given
+that the field-value (amplitude) scale is gauge} --- equivalently, that
+the alphabet's additive automorphisms \(x \mapsto \lambda x + c\) are
+unphysical (operationally: the embedded observer has no access to the
+absolute field-value scale --- see {[}Substratum §4, Theorem 24
+Remark{]}). This is a distinct (and stronger) principle than the
+\(q\)-\emph{size} gauge freedom of §2.7: \(q\)-independence of
+predictions does not by itself entail invariance under rescaling the
+field at fixed \(q\). The necessity is conditional on amplitude-scale
+gauge; whether §2.7's \(q\)-gauge entails it is identified as an open
+structural question (see §2.7; amplitude-scale gauge is stated
+authoritatively in {[}Substratum §4, Theorem 24, Remark{]}). Second,
+over \(\mathbb{R}\), nonlinear center-independent dynamics have
+propagation speed \(v < 1\), so linearity gives maximum speed. Third,
+over \(\mathbb{Z}/q\mathbb{Z}\), among all linear CI dynamics
+\(f = \alpha(l + r) \bmod q\) with prime \(q \geq 5\), \(\alpha = 1\)
+uniquely maximizes P-indivisibility. Fourth, modified (nonlinear)
+dispersion relations break the thermality of the Unruh effect --- the
+KMS condition holds only for linear dispersion \(\omega = |k|\). Since
+the Jacobson derivation (§3.1) requires thermal equilibrium at horizons,
+only the wave equation supports the full GR chain. All four criteria
+converge on the same dynamics.
 
 \[\phi(n, t+1) = \phi(n-1, t) + \phi(n+1, t) - \phi(n, t-1)\]
 
@@ -1038,7 +1151,14 @@ Conversely, center independence gives \(D_{\text{st}}\chi = 0\),
 invariant under \(\chi \to \varepsilon\chi\) (chiral symmetry).
 \(\square\)
 
-\textbf{Remark (scope of the center-dependence--mass identification).} The specific self-term \(C = 2(1-d)\) is not a mass term: it is the diagonal of the massless 4D lattice Laplacian, whose standard 4D staggered factorization has exact chiral symmetry. The hypercubic discretization is excluded not by this lemma but by the generation count --- a 4D taste structure gives \(2^4\) corners and the wrong number of generations (\S 4.7) --- and by \(K = 2d\) with the \((3,2,1)\) decomposition requiring the spatial cubic group (\S 4.5--4.6).
+\textbf{Remark (scope of the center-dependence--mass identification).}
+The specific self-term \(C = 2(1-d)\) is not a mass term: it is the
+diagonal of the massless 4D lattice Laplacian, whose standard 4D
+staggered factorization has exact chiral symmetry. The hypercubic
+discretization is excluded not by this lemma but by the generation count
+--- a 4D taste structure gives \(2^4\) corners and the wrong number of
+generations (§4.7) --- and by \(K = 2d\) with the \((3,2,1)\)
+decomposition requiring the spatial cubic group (§4.5--4.6).
 
 \textbf{The chain:} P-indivisibility → center independence → chiral
 symmetry → Higgs mechanism {[}13, 14{]}. One algebraic condition (α = 0)
@@ -1074,11 +1194,33 @@ hence \(\cos\omega_a = \mu_a \cos k\). For \(|\mu_a| > 1\), there exist
 real \(k\) with \(|\mu_a \cos k| > 1\), giving complex \(\omega\)
 (exponential growth). \(\square\)
 
-\textbf{Theorem 5} (Gauge group, revised). \emph{Let \(\Sigma = \langle \phi\phi^\dagger \rangle\) be the \(O\)-equivariant two-point condensate of the solution; by Schur's lemma \(\Sigma = a\,P_{T_1} + b\,P_E + c\,P_{A_1}\). The global gauge group is the stabilizer \(G = C_{\mathrm{U}(K)}(\Sigma)\). For generic (distinct) block values, \(G = \mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) --- equivalently, the unitary group of the bicommutant of the cubic-group action. The coupling matrix itself is scalar, \(M = \mu I\) (forced jointly by Theorems 6 and 7); the commutant formula of earlier versions applies to \(\Sigma\), not \(M\).}
+\textbf{Theorem 5} (Gauge group, revised). \emph{Let
+\(\Sigma = \langle \phi\phi^\dagger \rangle\) be the \(O\)-equivariant
+two-point condensate of the solution; by Schur's lemma
+\(\Sigma = a\,P_{T_1} + b\,P_E + c\,P_{A_1}\). The global gauge group is
+the stabilizer \(G = C_{\mathrm{U}(K)}(\Sigma)\). For generic (distinct)
+block values,
+\(G = \mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) ---
+equivalently, the unitary group of the bicommutant of the cubic-group
+action. The coupling matrix itself is scalar, \(M = \mu I\) (forced
+jointly by Theorems 6 and 7); the commutant formula of earlier versions
+applies to \(\Sigma\), not \(M\).}
 
-\emph{Proof.} With \(M = \mu I\) the matrix wave equation is preserved by every \(U \in \mathrm{U}(K)\): the substratum carries an exact custodial \(\mathrm{U}(6)\), extended to local invariance by the induced-link construction. The gauge group of the emergent theory is the subgroup unbroken by the solution: \(U\) stabilizes the condensate iff \([U, \Sigma] = 0\). By Schur's lemma applied to the equivariant block form of \(\Sigma\), the stabilizer is \(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) at generic block values; the 22 broken generators' link modes acquire masses at the condensate scale and decouple (\S 4.6). \(\square\)
+\emph{Proof.} With \(M = \mu I\) the matrix wave equation is preserved
+by every \(U \in \mathrm{U}(K)\): the substratum carries an exact
+custodial \(\mathrm{U}(6)\), extended to local invariance by the
+induced-link construction. The gauge group of the emergent theory is the
+subgroup unbroken by the solution: \(U\) stabilizes the condensate iff
+\([U, \Sigma] = 0\). By Schur's lemma applied to the equivariant block
+form of \(\Sigma\), the stabilizer is
+\(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) at generic
+block values; the 22 broken generators' link modes acquire masses at the
+condensate scale and decouple (§4.6). \(\square\)
 
-The gauge group and condensate block structure are the same information: modes within one condensate block share a gauge symmetry. (With \(M = \mu I\) all substratum modes are massless and share one cone; mass distinctions are state-level.)
+The gauge group and condensate block structure are the same information:
+modes within one condensate block share a gauge symmetry. (With
+\(M = \mu I\) all substratum modes are massless and share one cone; mass
+distinctions are state-level.)
 
 \hypertarget{k-2d-from-coupling-degree-minimization}{%
 \subsubsection{4.5 K = 2d from coupling-degree
@@ -1163,12 +1305,18 @@ not a selection rule.
 
 \textbf{Theorem 7.} \emph{The 2d = 6 nearest-neighbor link directions of
 the d = 3 cubic lattice decompose under the rotation group O as
-\(6 = T_1(3) \oplus E(2) \oplus A_1(1)\). The equivariant (isotypic) block multiplicities of the internal space are (3, 2, 1); the stabilizer of a generic equivariant condensate is accordingly the gauge group
+\(6 = T_1(3) \oplus E(2) \oplus A_1(1)\). The equivariant (isotypic)
+block multiplicities of the internal space are (3, 2, 1); the stabilizer
+of a generic equivariant condensate is accordingly the gauge group
 \(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1) \supset \mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\).}
 
 \emph{Proof.} Characters at each conjugacy class of O (24 elements): E:
 χ = 6; 8C₃: χ = 0; 3C₂: χ = 2; 6C₂': χ = 0; 6C₄: χ = 2. Character inner
-products give n(A₁) = 1, n(E) = 1, n(T₁) = 1, with n(A₂) = n(T₂) = 0. By Schur's lemma and isotropy, any equivariant operator is block-scalar; in particular the condensate is \(\Sigma = \mathrm{diag}(a I_3, b I_2, c)\), while the coupling matrix itself is scalar (Remark below). \(\square\)
+products give n(A₁) = 1, n(E) = 1, n(T₁) = 1, with n(A₂) = n(T₂) = 0. By
+Schur's lemma and isotropy, any equivariant operator is block-scalar; in
+particular the condensate is
+\(\Sigma = \mathrm{diag}(a I_3, b I_2, c)\), while the coupling matrix
+itself is scalar (Remark below). \(\square\)
 
 The 6D representation in question is the natural action of \(O\) on the
 six nearest-neighbor link vectors
@@ -1178,11 +1326,22 @@ the same 6D space on which the coupling matrix
 fixes the multiplicities of \(M\)'s eigenspaces uniquely; there is no
 freedom in ``which 6D rep'' is meant.
 
-The max-speed constraint, applied to the scalar coupling, requires μ = 1: all six modes propagate at the lattice speed of light --- one cone, exact. The physical identifications: T₁ (spatial
-vector) → color, E (quadrupole) → weak isospin, A₁ (scalar) →
-hypercharge. Local gauge invariance follows from background independence (§3.1).
+The max-speed constraint, applied to the scalar coupling, requires μ =
+1: all six modes propagate at the lattice speed of light --- one cone,
+exact. The physical identifications: T₁ (spatial vector) → color, E
+(quadrupole) → weak isospin, A₁ (scalar) → hypercharge. Local gauge
+invariance follows from background independence (§3.1).
 
-\textbf{Remark (joint consistency of Theorems 4, 6, 7).} Theorem 6's \(\delta = 1\) factorization (coupling diagonal in the link basis) and Theorem 7's equivariant block form are jointly consistent only at \(M = \mu I\): the only \(O\)-equivariant matrices diagonal in the link basis are scalars. The max-speed constraint and the masslessness of the substratum modes (center independence \(\Rightarrow\) chiral symmetry, Theorem 3) then give \(\mu = 1\): all six components propagate at the lattice speed --- one cone, exact. Mass and gauge-group distinctions are properties of the state (the condensate \(\Sigma\) of Theorem 5), not of the update.
+\textbf{Remark (joint consistency of Theorems 4, 6, 7).} Theorem 6's
+\(\delta = 1\) factorization (coupling diagonal in the link basis) and
+Theorem 7's equivariant block form are jointly consistent only at
+\(M = \mu I\): the only \(O\)-equivariant matrices diagonal in the link
+basis are scalars. The max-speed constraint and the masslessness of the
+substratum modes (center independence \(\Rightarrow\) chiral symmetry,
+Theorem 3) then give \(\mu = 1\): all six components propagate at the
+lattice speed --- one cone, exact. Mass and gauge-group distinctions are
+properties of the state (the condensate \(\Sigma\) of Theorem 5), not of
+the update.
 
 \textbf{Remark (robustness and the cubic commitment).} Theorem 7 uses
 the character table of the octahedral group \(O\), the exact symmetry of
@@ -1555,9 +1714,19 @@ diagonal blocks give
 
 The off-diagonal blocks \(\mathrm{Hom}(V_i, V_j)\) for \(i \neq j\)
 would carry cross-charged ``gauge bosons'' mixing different commutant
-factors. These are absent from the Standard Model. The substratum dynamics is locally \(\mathrm{U}(6)\) invariant and does not exclude them; they are removed spontaneously: the \(O\)-equivariant condensate \(\Sigma\) breaks \(\mathrm{U}(6) \to \mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) (Theorem 5, revised), and the 22 cross-charged modes acquire masses at the condensate gap scale \(M_X\) --- set by the equivariant block splittings, a solution-level quantity not fixed at the lattice scale --- by the Higgs mechanism, decoupling from the low-energy spectrum: \(K_{\text{eff}}\) inherits the block structure of the stabilizer, and the off-diagonal Homs are gapped rather than absent. The Schur-complement
-kernel therefore retrodicts the SM gauge boson content cleanly: the
-adjoints of \(\mathrm{SU}(3)\), \(\mathrm{SU}(2)\), and
+factors. These are absent from the Standard Model. The substratum
+dynamics is locally \(\mathrm{U}(6)\) invariant and does not exclude
+them; they are removed spontaneously: the \(O\)-equivariant condensate
+\(\Sigma\) breaks
+\(\mathrm{U}(6) \to \mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\)
+(Theorem 5, revised), and the 22 cross-charged modes acquire masses at
+the condensate gap scale \(M_X\) --- set by the equivariant block
+splittings, a solution-level quantity not fixed at the lattice scale ---
+by the Higgs mechanism, decoupling from the low-energy spectrum:
+\(K_{\text{eff}}\) inherits the block structure of the stabilizer, and
+the off-diagonal Homs are gapped rather than absent. The
+Schur-complement kernel therefore retrodicts the SM gauge boson content
+cleanly: the adjoints of \(\mathrm{SU}(3)\), \(\mathrm{SU}(2)\), and
 \(\mathrm{U}(1)\) together with the corresponding singlets, and nothing
 else.
 
@@ -2216,7 +2385,10 @@ order in \(A_\mu\).
 The induced coupling is computed from the one-loop staggered vacuum
 polarization \(\Pi_s(0)\) --- the lattice momentum integral over the
 fermion bubble with the OI vertex
-\(V_j = i g \mu \, T^\alpha \cos(k_j + p_j/2)\). Since the coupling matrix is scalar, \(M = \mu \cdot I_6\) (Theorems 6--7 jointly; the gauge group derives from the condensate, Theorem 5 revised), the Dynkin index \(T(R) = 1/2\) per Dirac fermion is the same for all three gauge
+\(V_j = i g \mu \, T^\alpha \cos(k_j + p_j/2)\). Since the coupling
+matrix is scalar, \(M = \mu \cdot I_6\) (Theorems 6--7 jointly; the
+gauge group derives from the condensate, Theorem 5 revised), the Dynkin
+index \(T(R) = 1/2\) per Dirac fermion is the same for all three gauge
 factors. With \(N_f = 6\) (one per internal component), the induced
 coupling is universal:
 
@@ -2604,6 +2776,34 @@ lower end of this bracket; the upper end (\(\sim 12\%\)) would widen the
 systematic correspondingly. The headline value
 \(A \cdot B = 48.0 \pm 1.5\), derived from extrapolation of the two-loop
 gauge self-energy, is independent of this \(V_{4g}\) subleading
+correction.
+
+\emph{Resolution of the cosine-placement ambiguity (per-topology
+confirmed).} The structural ambiguity above has been resolved at the
+level of cosine placement by direct comparison against the explicit
+Wilson four-gluon vertex of lattice perturbation theory (Capitani,
+\emph{Lattice Perturbation Theory}, Phys. Rept. \textbf{384} (2003) 71,
+Eq. (5.28), attributed therein to Rothe, \emph{Lattice Gauge Theories:
+An Introduction}, 1997). The vertex's cosine factors carry difference
+arguments spanning all four legs (of the form \(\cos(a(q-s)_\mu/2)\)
+etc.); on the tadpole contraction, where two legs carry the loop
+momentum \(k\) and two the external momentum \(p\), such an argument
+becomes
+\(\cos(a(p\mp k)_\mu/2) = \cos(ap_\mu/2)\cos(ak_\mu/2) + \sin(ap_\mu/2)\sin(ak_\mu/2)\),
+which produces external\(\times\)loop cosine cross-terms at the vertex.
+The lattice four-gluon vertex thus carries loop-momentum cosine
+dependence at the vertex, unlike the fermion seagull (whose tadpole
+vertex depends only on external momentum), so the
+\(2\cos(p_\mu)\sum_\gamma \cos(k_\gamma)\) cross-term is a feature of
+the gauge tadpole rather than a retained artifact. The per-topology form
+retains this cross-term; the pair-topology form omits it. The comparison
+therefore selects the per-topology form at the level of cosine placement
+(not magnitude): on this resolution the residual \(V_{4g}\) systematic
+sits at the upper (\(\sim 12\%\)) end of the bracket above. The exact
+\(A\cdot B\) shift remains to be computed by inserting Eq. (5.28) into
+the tadpole integral in the present \(\Pi_s\)-normalized scheme (a
+finite, well-defined task), but does not affect the headline
+\(A \cdot B = 48.0 \pm 1.5\), which is independent of the \(V_{4g}\)
 correction.
 
 \hypertarget{the-prediction}{%
