@@ -3,8 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  11pt,
-  letterpaper,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -17,10 +15,9 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -39,12 +36,10 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\input{unicode-fix}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -116,7 +111,19 @@ the apparent incompatibility is the artifact of treating two different
 projections of one object as if they were two different theories. The
 result is not a unification of quantum mechanics and general relativity
 in the traditional sense --- that program remains as ill-posed as before
---- but a dissolution of the question.
+--- but a dissolution of the question. Two standing qualifications frame
+the reconstruction's reach and are developed in the body: its uniqueness
+is conditional on the empirical inputs E1--E7 (which include \(d=3\) via
+the §3.3 filters and, through the observed gauge group, the simple-cubic
+Bravais commitment) and on ETH in the hidden sector for the C2 necessity
+step, so the theorem is best read as fixing a \emph{non-tautological
+discrete residue} --- dimension, internal-component count,
+multiplicities, gauge group, generation count, hypercharges,
+\(\bar\theta=0\) --- relative to those inputs, rather than deriving them
+from the bare fact of observation; the precise sense in which this
+residue is forced (and the sense in which the lattice itself is
+empirically selected) is set out in the substantive-content Remark of §3
+and in the three-tier classification of {[}SM §8.3{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -551,7 +558,15 @@ depend on a choice of ``center'' site; equivalently, \(\varphi\)
 commutes with lattice translations up to gauge. (Required to derive the
 wave equation in Stage 2.)
 
-(A5) \textbf{Linearity.} The wave equation for \(\varphi\) is linear. (Equivalent to amplitude-scale gauge invariance --- that the field-value scale is unphysical --- via the linearity-equivalence lemma of {[}SM §4.1{]}; hence necessary \emph{given} that gauge principle and ``partly derived'' in exactly that sense. Whether the \(q\)-size gauge freedom of {[}SM §2.7{]} entails amplitude-scale gauge is an identified open step; pending it, nonlinear alternatives are excluded precisely to the extent amplitude-scale gauge is assumed, and would otherwise require a separate derivation.)
+(A5) \textbf{Linearity.} The wave equation for \(\varphi\) is linear.
+(Equivalent to amplitude-scale gauge invariance --- that the field-value
+scale is unphysical --- via the linearity-equivalence lemma of {[}SM
+§4.1{]}; hence necessary \emph{given} that gauge principle and ``partly
+derived'' in exactly that sense. Whether the \(q\)-size gauge freedom of
+{[}SM §2.7{]} entails amplitude-scale gauge is an identified open step;
+pending it, nonlinear alternatives are excluded precisely to the extent
+amplitude-scale gauge is assumed, and would otherwise require a separate
+derivation.)
 
 (A6) \textbf{Background independence.} The dynamics is invariant under
 spatially-varying internal-index transformations that preserve the
@@ -564,12 +579,16 @@ jointly; removing any of A3--A6 either requires new derivations or
 weakens the uniqueness. The set A1--A6 is sufficient for the
 reconstruction but is not proved to be minimal: A4 (center independence)
 and A6 (background independence) overlap in physical content (A6
-promotes the symmetry that A4 constrains), and A5 (linearity) is equivalent to amplitude-scale gauge invariance via the linearity-equivalence lemma of {[}SM §4.1{]}, hence partly derived --- necessary \emph{given} amplitude-scale gauge, with whether {[}SM §2.7{]}'s \(q\)-size gauge entails it left as an identified open step. A tighter axiomatization may be possible but is not
-pursued here; the reconstruction's validity depends on the sufficiency
-of A1--A6 and E1--E7, not on their independence. The empirical inputs
-E5, E6, E7 (propagating gravity, stable matter, boundary-entropy
-concordance) provide explicit forward filters for \(d = 3\) --- see
-Stage 2(a) below.
+promotes the symmetry that A4 constrains), and A5 (linearity) is
+equivalent to amplitude-scale gauge invariance via the
+linearity-equivalence lemma of {[}SM §4.1{]}, hence partly derived ---
+necessary \emph{given} amplitude-scale gauge, with whether {[}SM
+§2.7{]}'s \(q\)-size gauge entails it left as an identified open step. A
+tighter axiomatization may be possible but is not pursued here; the
+reconstruction's validity depends on the sufficiency of A1--A6 and
+E1--E7, not on their independence. The empirical inputs E5, E6, E7
+(propagating gravity, stable matter, boundary-entropy concordance)
+provide explicit forward filters for \(d = 3\) --- see Stage 2(a) below.
 
 \textbf{Critical dependencies.} Theorem 23's proof relies on the
 following prior theorems, whose individual correctness is assumed:
@@ -743,9 +762,12 @@ doublet \((\mathbf{1}, \mathbf{2}, +1/2)\) - Anomaly-free hypercharges
   filters require.)
 \item
   \emph{Wave equation.} Center independence (A4), isotropy (E4), and
-  linearity (A5) uniquely select, within the nearest-neighbor class (an assumption beyond A3's bounded degree; see the scope remark at [SM \S 4.1]), the wave equation up to a multiplicative coupling constant \(\alpha\) ({[}SM §4.1, Theorem{]}):
-  the unique second-order linear dynamics on a lattice that is
-  translation-invariant, isotropic, and reversible has the form
+  linearity (A5) uniquely select, within the nearest-neighbor class (an
+  assumption beyond A3's bounded degree; see the scope remark at {[}SM
+  §4.1{]}), the wave equation up to a multiplicative coupling constant
+  \(\alpha\) ({[}SM §4.1, Theorem{]}): the unique second-order linear
+  dynamics on a lattice that is translation-invariant, isotropic, and
+  reversible has the form
   \(f = \alpha(x_1 + x_2 + \cdots + x_{2d}) \bmod q\) with propagation
   speed \(v = \alpha\). The constant \(\alpha = 1\) is fixed by
   relativistic causality with maximum signal speed \(c\) realized at the
@@ -757,10 +779,24 @@ doublet \((\mathbf{1}, \mathbf{2}, +1/2)\) - Anomaly-free hypercharges
   tastes emerge from the \(K = 6\) minimum).
 \item
   \emph{Gauge group.} Cubic-group decomposition of the \(K = 6\)
-  components gives multiplicities \((3, 2, 1)\) (Theorem 7). The unitary group of the bicommutant of the cubic-group action on \(V_K = V_3 \oplus V_2 \oplus V_1\) --- equivalently, the stabilizer of any generic \(O\)-equivariant operator on \(V_K\) --- is \(U(3) \times U(2) \times U(1)\). (The strict pointwise commutant of the action is \(U(1)^3\) by Schur's lemma; the gauge group is the unitary group of the block algebra \(\mathrm{Mat}(3) \oplus \mathrm{Mat}(2) \oplus \mathrm{Mat}(1)\) generated by the action.) The reduction to
+  components gives multiplicities \((3, 2, 1)\) (Theorem 7). The unitary
+  group of the bicommutant of the cubic-group action on
+  \(V_K = V_3 \oplus V_2 \oplus V_1\) --- equivalently, the stabilizer
+  of any generic \(O\)-equivariant operator on \(V_K\) --- is
+  \(U(3) \times U(2) \times U(1)\). (The strict pointwise commutant of
+  the action is \(U(1)^3\) by Schur's lemma; the gauge group is the
+  unitary group of the block algebra
+  \(\mathrm{Mat}(3) \oplus \mathrm{Mat}(2) \oplus \mathrm{Mat}(1)\)
+  generated by the action.) The reduction to
   \(SU(3) \times SU(2) \times U(1)\) occurs because the overall \(U(1)\)
-  phase of each block is gauge under \emph{amplitude-scale invariance} (Theorem 24, Remark below): a
-  global rescaling of the \(V_3\) block by a phase is indistinguishable from a global rescaling of the field value \(\phi\), which \emph{amplitude-scale invariance} (Theorem 24, Remark below) declares unphysical --- the field-value-scale freedom (the additive-automorphism relabellings of the alphabet), \emph{distinct} from the alphabet-\emph{size} freedom of generator (ii); the two were previously conflated. The same applies to the \(V_2\) block. The
+  phase of each block is gauge under \emph{amplitude-scale invariance}
+  (Theorem 24, Remark below): a global rescaling of the \(V_3\) block by
+  a phase is indistinguishable from a global rescaling of the field
+  value \(\phi\), which amplitude-scale gauge declares unphysical. (This
+  is the field-value-scale freedom --- the additive-automorphism
+  relabellings of the alphabet --- \emph{distinct} from the
+  alphabet-\emph{size} freedom of generator (ii); the two were
+  previously conflated.) The same applies to the \(V_2\) block. The
   singlet-block \(U(1)\) survives this stripping (it cannot be absorbed
   into alphabet-freedom because it acts non-trivially on the other
   blocks via the determinant constraint) and becomes the hypercharge
@@ -896,18 +932,18 @@ it. The Standard Model is the most precisely tested mathematical
 structure in the history of science (\(g - 2\) of the electron confirmed
 to \(10^{-12}\), electroweak precision observables to \(10^{-5}\), QCD
 cross-sections across decades of energy). This experimental record
-confirms the Standard Model structure; it transfers to the framework only
-to the extent that the derivation is unique, since the transitivity
+confirms the Standard Model structure; it transfers to the framework
+only to the extent that the derivation is unique, since the transitivity
 ``data confirms structure, structure is uniquely derived, therefore data
 confirms the derivation'' is only as strong as its middle premise. That
-premise is conditional on the argued --- not proven --- sufficiency of the
-A1--A6 class (Remark on hypothesis dependencies below) and is established
-operationally by the twenty-two parameter-free retrodictions of {[}SM §7{]}
-(Remark on finite observation sets below), not by the Standard Model
-precision record itself. The precision record is therefore necessary but
-not sufficient evidence for the \emph{uniqueness} of the derivation ---
-which is the framework's distinct claim, and the proper locus of skeptical
-scrutiny.
+premise is conditional on the argued --- not proven --- sufficiency of
+the A1--A6 class (Remark on hypothesis dependencies below) and is
+established operationally by the twenty-two parameter-free retrodictions
+of {[}SM §7{]} (Remark on finite observation sets below), not by the
+Standard Model precision record itself. The precision record is
+therefore necessary but not sufficient evidence for the
+\emph{uniqueness} of the derivation --- which is the framework's
+distinct claim, and the proper locus of skeptical scrutiny.
 
 \textbf{Remark} (Substantive content of the uniqueness claim). A
 reasonable objection to any reconstruction theorem whose answer is an
@@ -948,6 +984,33 @@ would fix nothing specific, whereas this one fixes a particular finite
 list of integers and groups that the framework then matches against the
 observed Standard Model.
 
+\emph{Refinement (which residue is forced, and which is selected).} The
+defense above is correct but must be stated with one further
+distinction, or it over-claims. Of the discrete invariants listed, those
+that are \emph{forced by representation theory given the lattice} ---
+the multiplicities \((3,2,1)\) and the gauge factors, the generation
+count, the hypercharges, \(\bar\theta=0\) --- are non-tautological in
+the full sense: a priori they could have come out otherwise, and the
+octahedral character table fixes them. But two of the listed invariants
+are not forced by the construction in this way: the spatial dimension
+\(d=3\) is selected by the empirical filters E5--E7 (§3.3), and the
+simple-cubic Bravais structure is selected because the observed gauge
+group contains \(\mathrm{SU}(3)\) (Theorem 7b, {[}SM §4.6{]}) --- only
+the cubic crystal system supplies the three-dimensional point-group
+irrep an \(\mathrm{SU}(3)\) factor requires. For these, the inference
+runs from observed physics back to the commitment, so the theorem's
+``uniqueness'' at these joints is uniqueness \emph{relative to the
+observed inputs}, not derivation of them. This does not collapse the
+residue into tautology --- the representation-theoretic consequences
+remain genuine content --- but it locates the boundary precisely: the
+framework forces the consequences of the cubic lattice, and selects the
+cubic lattice from the world. The full three-way classification (forced
+/ empirically selected / definitionally stipulated) is given in {[}SM
+§8.3, \emph{Derivation status: the three tiers}{]}; the honest one-line
+statement of the framework's reach is that it is a maximally tight
+compression of observed physics onto the cubic-lattice commitment, not a
+derivation of physics from the bare fact of observation.
+
 \begin{itemize}
 \tightlist
 \item
@@ -986,7 +1049,11 @@ can in principle be weakened or replaced:
 \item
   A4 (center independence) rules out preferred-frame theories.
 \item
-  A5 (linearity) is the strongest restriction; it is equivalent to amplitude-scale gauge invariance (linearity-equivalence lemma, {[}SM §4.1{]}), so nonlinear wave equations on finite lattices are the separate class one obtains exactly when that gauge principle is dropped.
+  A5 (linearity) is the strongest restriction; it is equivalent to
+  amplitude-scale gauge invariance (linearity-equivalence lemma, {[}SM
+  §4.1{]}), so nonlinear wave equations on finite lattices are the
+  separate class one obtains exactly when that gauge principle is
+  dropped.
 \item
   A6 (background independence) is standard for gauge theories.
 \end{itemize}
@@ -1148,7 +1215,15 @@ conjugate
 \((S, \sigma \circ \varphi \circ \sigma^{-1}) \sim (S, \varphi)\). The
 transition probabilities depend on the coupling structure of
 \(\varphi\), not on which labels are attached to which states. This is
-an \(|S|!\)-element subgroup --- vastly larger than any gauge group in the Standard Model. \emph{(Scope.)} The preserved observables here are the coupling-graph invariants of \(G_\varphi\); a site-wise \emph{nonlinear} relabelling of the alphabet preserves \(G_\varphi\) but alters the field-amplitude dispersion \(\omega(k)\) of [SM §4.1], so it preserves observables at the graph level but not the emergent Hamiltonian. The relabellings preserving \(\omega(k)\) as well are exactly the additive-automorphism (affine) ones --- the amplitude-scale subgroup (Remark below).
+an \(|S|!\)-element subgroup --- vastly larger than any gauge group in
+the Standard Model. \emph{(Scope.)} The preserved observables here are
+the coupling-graph invariants of \(G_\varphi\); a site-wise
+\emph{nonlinear} relabelling of the alphabet preserves \(G_\varphi\) but
+alters the field-amplitude dispersion \(\omega(k)\) of {[}SM §4.1{]}, so
+it preserves observables at the graph level but not the emergent
+Hamiltonian. The relabellings preserving \(\omega(k)\) as well are
+exactly the additive-automorphism (affine) ones --- the amplitude-scale
+subgroup (Remark below).
 
 \emph{(ii) Alphabet change.} Replacing the local state space
 \(\mathbb{Z}/q\mathbb{Z}\) with \(\mathbb{Z}/q'\mathbb{Z}\) for any
@@ -1183,7 +1258,90 @@ uses only statistical properties of \(G_\varphi\) (dimension via
 Myrheim-Meyer, isotropy, bounded degree), not the specific graph.
 \(\square\)
 
-\textbf{Remark (amplitude-scale gauge --- the unobservability of absolute field scale).} One gauge freedom invoked elsewhere is named here as its single authoritative home, and is best stated \emph{operationally}: an embedded observer has no access to the absolute scale of the substratum field value --- only to the emergent transition probabilities and coupling structure (§2.7). This is the discrete analogue of the field-normalization redundancy of ordinary field theory, where rescaling a field changes nothing physical because only correlators, not absolute amplitudes, are observable. It is realized as \emph{amplitude-scale invariance}: the rescalings \(\phi \mapsto \lambda\phi\) (\(\lambda\) a unit) and shifts \(\phi \mapsto \phi + c\) --- the additive-automorphism (affine) relabellings of the alphabet --- leave every observable unchanged. These affine relabellings are exactly the site-wise relabellings that preserve not only the coupling graph but the field-amplitude dispersion \(\omega(k)\) (the emergent Hamiltonian), so amplitude-scale gauge is one instance of the framework's master principle that \emph{observationally indistinguishable transformations are gauge} --- the same principle behind generators (i)--(iv) and the \(q\)-size freedom of §2.7, not an ad hoc addition. Two derivations invoke it: the linearity equivalence of [SM §4.1] (amplitude-independent dispersion \(\iff\) affine dynamics) and the \(SU(N)\) reduction of Stage 2(d). \emph{Status (open, referee-grade).} Amplitude-scale gauge is adjoined as an explicit operational principle: it is not one of (i)--(iv) --- generator (i) over-counts (its full \(|S|!\) includes dispersion-altering nonlinear relabellings, which would vacate rather than establish linearity) and (ii) is alphabet-\emph{size} only --- so the results invoking it are conditional on it. Stated operationally it is \emph{not} viciously circular: the input (absolute amplitude is unobservable) is strictly weaker than the output (additive dynamics), and a nonlinear \(F\) on the same alphabet is a coherent object the principle \emph{excludes} rather than presupposes. The one route that would make linearity \emph{unconditional} --- deriving the unobservability of absolute amplitude from the observer architecture itself --- is by contrast circular: what the embedded observer can resolve through the trace-out is dynamics-dependent (a nonlinear \(F\) induces amplitude-dependent emergent dispersion, which \emph{is} observable), so ``absolute amplitude is unobservable'' already presupposes linearity. Amplitude-scale gauge therefore has the status of an operational input on a par with center independence and isotropy, not a theorem; whether it is independently warranted by the observer architecture is the question flagged for external review.
+\textbf{Remark (amplitude-scale gauge --- the unobservability of
+absolute field scale).} One gauge freedom invoked elsewhere is named
+here as its single authoritative home, and is best stated
+\emph{operationally}: an embedded observer has no access to the absolute
+scale of the substratum field value --- only to the emergent transition
+probabilities and coupling structure (§2.7). This is the discrete
+analogue of the field-normalization redundancy of ordinary field theory,
+where rescaling a field changes nothing physical because only
+correlators, not absolute amplitudes, are observable. It is realized as
+\emph{amplitude-scale invariance}: the rescalings
+\(\phi \mapsto \lambda\phi\) (\(\lambda\) a unit) and shifts
+\(\phi \mapsto \phi + c\) --- the additive-automorphism (affine)
+relabellings of the alphabet --- leave every observable unchanged. These
+affine relabellings are exactly the site-wise relabellings that preserve
+not only the coupling graph but the field-amplitude dispersion
+\(\omega(k)\) (the emergent Hamiltonian), so amplitude-scale gauge is
+one instance of the framework's master principle that
+\emph{observationally indistinguishable transformations are gauge} ---
+the same principle behind generators (i)--(iv) and the \(q\)-size
+freedom of §2.7, not an ad hoc addition. Two derivations invoke it: the
+linearity equivalence of {[}SM §4.1{]} (amplitude-independent dispersion
+\(\iff\) affine dynamics) and the \(SU(N)\) reduction of Stage 2(d)
+above.
+
+\emph{Status (open, referee-grade).} Amplitude-scale gauge is adjoined
+as an explicit operational principle: it is not one of (i)--(iv) ---
+generator (i) over-counts (its full \(|S|!\) includes
+dispersion-altering nonlinear relabellings, which would vacate rather
+than establish linearity) and (ii) is alphabet-\emph{size} only --- so
+the results invoking it are conditional on it. Stated operationally it
+is \emph{not} viciously circular: the input (absolute amplitude is
+unobservable) is strictly weaker than the output (additive dynamics),
+and a nonlinear \(F\) on the same alphabet is a coherent object the
+principle \emph{excludes} rather than presupposes. The one route that
+would make linearity \emph{unconditional} --- deriving the
+unobservability of absolute amplitude from the observer architecture
+itself --- is by contrast circular: what the embedded observer can
+resolve through the trace-out is dynamics-dependent (a nonlinear \(F\)
+induces amplitude-dependent emergent dispersion, which \emph{is}
+observable), so ``absolute amplitude is unobservable'' already
+presupposes linearity. Amplitude-scale gauge therefore has the status of
+an operational input on a par with center independence and isotropy, not
+a theorem; whether it is independently warranted by the observer
+architecture is the question flagged for external review.
+
+\emph{Formalization status of the linearity step (resolved as a
+sharpened axiom, not a closure).} A dedicated audit of this step settles
+its logical status, and the outcome is worth stating precisely because
+it is the prototype for how the framework's ``open'' foundational steps
+resolve. The linearity-equivalence lemma --- \emph{all first
+finite-differences of the update rule over \(\mathbb{Z}/q\mathbb{Z}\)
+are base-point-independent iff the rule is affine as a function} --- has
+been verified exhaustively for \(q \le 6\) in one neighbour-coordinate
+and \(q \le 3\) in two, and on \(2.5\times10^5\) random rules at larger
+\((q,m)\), with zero counterexamples; together with the telescoping
+proof (constant single-coordinate differences force
+\(F(x)=F(0)+\sum_i c_i x_i\), well-defined on the torus since
+\(q c_i \equiv 0\)) this is a complete elementary result, not a
+genericity heuristic. The question of whether the \(q\)-\emph{size}
+gauge freedom of {[}SM §2.7{]} \emph{entails} amplitude-scale gauge
+resolves in the negative, and sharply: the weak reading of §2.7
+(size-independence of predictions) does not reach rescaling at fixed
+\(q\); the strong reading (arbitrary relabellings of
+\(\mathbb{Z}/q\mathbb{Z}\) are gauge) \emph{overshoots} --- a nonlinear
+permutation conjugating a linear rule preserves cycle structure (hence
+emergent transition probabilities up to relabelling) while being
+nonlinear, so it would render a nonlinear rule gauge-equivalent to a
+linear one and thereby \emph{destroy} linearity-necessity rather than
+establish it (verified explicitly on \(\mathbb{Z}/5\mathbb{Z}\)). The
+principled object that delivers exactly what is needed without
+overshooting is the \textbf{additive-automorphism} group
+\(x \mapsto \lambda x + c\) (\(\lambda\) a unit) --- a proper subgroup
+of all permutations that preserves the alphabet's ``+'', hence the
+dispersion. The upshot, in the framework's three-tier classification
+({[}SM §8.3{]}): linearity is \textbf{not} promoted to a forced (Tier-1)
+consequence; it is a Tier-3 \emph{definitional stipulation}, but a
+sharpened one --- the bare assumption ``the dynamics is linear'' is
+replaced by the more primitive and better-motivated assumption ``the
+alphabet's additive automorphisms are gauge,'' from which linearity
+follows as a certified theorem. This is the characteristic resolution
+shape for the framework's foundational gaps: pressing for a proof does
+not close the gap to a derivation but relocates the irreducible
+assumption to a more primitive and more defensible place, and names it
+exactly.
 
 \textbf{Completeness of the generators.} The four families exhaust
 \(\mathcal{G}_{\text{sub}}\). The proof proceeds by showing that any
@@ -2018,8 +2176,10 @@ reconstruction if violated.
   with \(\delta(\hat k) = \frac{1}{24}\sum_i \hat k_i^4 - \frac{1}{72}\)
   evaluated on the rigid \(\mathbb{Z}^3\) representative. The
   rigid-lattice anisotropy (values \(\delta_{[100]} = 1/36\),
-  \(\delta_{[110]} = 1/144\), \(\delta_{[111]} = 0\) --- the dispersion is exactly linear along the body diagonals, \(\omega = k/\sqrt{3}\) to all orders) is \emph{not} a gauge-invariant prediction
-  --- \(\mathcal{G}_{\text{sub}}\) generator (iv) of §4 identifies
+  \(\delta_{[110]} = 1/144\), \(\delta_{[111]} = 0\) --- the dispersion
+  is exactly linear along the body diagonals, \(\omega = k/\sqrt{3}\) to
+  all orders) is \emph{not} a gauge-invariant prediction ---
+  \(\mathcal{G}_{\text{sub}}\) generator (iv) of §4 identifies
   \(\mathbb{Z}^3\) with any bounded-degree random graph of the same
   polynomial growth exponent and statistical isotropy (E4), which has no
   preferred axes. The \emph{orientation-averaged} coefficient

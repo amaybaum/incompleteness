@@ -3,8 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  11pt,
-  letterpaper,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -17,10 +15,9 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -39,7 +36,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -54,7 +50,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\input{unicode-fix}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -92,12 +87,34 @@ An observer embedded in a deterministic universe cannot access the
 complete state. We prove that any such observer --- coupled to a slow,
 high-capacity hidden sector on a finite-dimensional configuration space
 --- must describe the visible sector using P-indivisible stochastic
-dynamics, mathematically equivalent to unitary quantum mechanics. The
-converse also holds: any quantum system, realized as a deterministic
-dilation, requires non-trivial coupling, slow-bath memory, and
-sufficient hidden-sector capacity. The Schrödinger equation, Born rule,
-and Bell violations emerge as structural consequences requiring no
-independent quantum postulates.
+dynamics. The first half of the claim is established here in full:
+marginalizing a deterministic bijection over an inaccessible hidden
+sector yields a generically non-Markovian (P-indivisible) visible
+process, and this is the framework's own contribution. The
+identification of that process with unitary quantum mechanics is
+supplied by the Barandes stochastic-quantum correspondence {[}11, 12{]},
+an external result that we use as a load-bearing dependency rather than
+re-derive: it furnishes a (basis-dependent, non-unique) representation
+of any P-indivisible process on a finite configuration space as a
+unitary system whose transition probabilities are exactly Born-rule
+probabilities. We are explicit that the correspondence delivers the
+kinematic scaffolding and transition statistics of quantum mechanics ---
+complex Hilbert space, unitary evolution, the Born rule --- while
+non-commuting observables, spin, and the tensor-product structure of
+composite systems are introduced as additional structure rather than
+derived from the bare stochastic data (§3.1, scope remark). The converse
+direction (any quantum system, realized as a deterministic dilation,
+requires non-trivial coupling, slow-bath memory, and sufficient
+hidden-sector capacity) holds with the C2 necessity step conditional on
+the eigenstate thermalization hypothesis in the hidden sector (§3.4).
+The Schrödinger equation, Born rule, and Bell violations emerge as
+structural consequences within this representation, requiring no
+independent quantum postulates beyond the correspondence itself. The
+framework's posture is therefore one of \emph{identification} ---
+quantum mechanics as the description of a particular kind of incomplete
+observation --- rather than derivation of quantum mechanics from a
+parameter-free first principle; the distinction is developed in the
+companion {[}Structure{]} and is the proper locus of skeptical scrutiny.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -531,6 +548,45 @@ derivation using only Stinespring's dilation theorem {[}15{]} and
 standard partial-trace properties {[}16{]} is given in §3.2; either
 route alone suffices.
 
+\textbf{Scope of the correspondence (what it does and does not
+deliver).} Because the entire emergence-of-QM claim rests on this
+external result, we state its scope precisely rather than treat it as a
+black-box equivalence. The correspondence is a published theorem
+(Barandes, \emph{Philosophy of Physics} 3(1):8, 2025 {[}11{]}; proof in
+{[}12{]}) and is genuinely load-bearing here, but four scope conditions
+are carried throughout the framework and should be read as standing
+qualifications on every downstream ``QM emerges'' statement. (i)
+\emph{Directionality and non-uniqueness.} The map is many-to-one in both
+directions; the complex matrix \(\Theta\) with
+\(T_{ij}=|\Theta_{ij}|^2\) is guaranteed to exist but is not unique (an
+entrywise phase freedom analogous to a gauge potential), so the
+correspondence does not single out a unique quantum system from a
+stochastic process. (ii) \emph{Scaffolding versus full QM.} The
+stochastic data directly supply only configuration-diagonal random
+variables; non-commuting observables enter as emergent patterns
+(``emergeables''), spin enters by dilating the Hilbert space and
+imposing a rotation representation, and the tensor-product structure of
+composite systems is imported on the Hilbert-space side via the dilation
+rather than read off the stochastic side. The correspondence therefore
+reconstructs the kinematic scaffolding and Born-rule transition
+statistics of quantum mechanics, not the full observable algebra for
+free. (iii) \emph{Restricted process class.} The representation
+\(T_{ij}=|\Theta_{ij}|^2\) imposes substantive structure on the
+admissible processes; in particular Doukas (2026) shows the
+differentiable form forces the first-order rate matrix to vanish,
+excluding ordinary continuous-time Markov chains --- so ``any stochastic
+process'' is narrower than it sounds, and the qualifying regime is
+precisely the indivisible one §2.3 produces, not the generic one. (iv)
+\emph{Reception.} The result is recent and located at the
+physics/philosophy boundary; it has been seriously engaged but not
+independently re-derived in a mainstream physics venue, and the
+strongest interpretive readings (deflation of the wave function, of
+entanglement) are contested philosophical overlays on the mathematical
+core, which is all the framework requires. None of (i)--(iv) undercuts
+the framework's use of the correspondence to obtain Born-rule statistics
+and unitary evolution from the §2.3 process; they bound what may be
+claimed to follow \emph{from} it.
+
 \textbf{Independent corroboration of the trace-out mechanism.} The
 technical move from a deterministic substrate to non-Markovian visible
 dynamics via the trace-out of inaccessible degrees of freedom ---
@@ -648,9 +704,9 @@ not. A symmetry that fails to preserve the factorization --- which
 includes the spatial symmetries an observer-centered partition breaks,
 since a partition centered on a specific observer maps boundary visible
 sites to hidden sites under translation, rotation about distant points,
-and boost --- has no well-defined action on the visible factor alone, and
-the degeneracies it protects in \(H_{\text{tot}}\) are lifted in
-\(\hat{H}_{\text{eff}}\). By contrast, a symmetry that \emph{does}
+and boost --- has no well-defined action on the visible factor alone,
+and the degeneracies it protects in \(H_{\text{tot}}\) are lifted in
+\(\hat{H}_{\text{eff}}\). (By contrast, a symmetry that \emph{does}
 factorize as \(S_V\otimes S_H\) descends to the visible symmetry \(S_V\)
 of \(\hat{H}_{\text{eff}}\), because the uniform-bath partial trace is
 invariant under any unitary on the hidden factor; such
@@ -660,20 +716,21 @@ visible sector and commuting with the trace-out --- are precisely the
 gauge symmetries of the emergent description. Gauge degeneracies
 correspond to physically equivalent states and do not affect the
 phase-locking argument, which operates on gauge-inequivalent transition
-data. Because the spatial symmetries of an observer-centered partition
+data.) Because the spatial symmetries of an observer-centered partition
 are factorization-breaking, \(\hat{H}_{\text{eff}}\) satisfies G1
 (non-degenerate spectrum) not by typicality in an abstract ensemble but
-because the partition acts as a symmetry-breaking mechanism. Condition G2
-(non-degenerate energy gaps) is not symmetry-protected --- gap
-coincidences are a codimension-one condition rather than a group-theoretic
-one --- so it is not delivered by the partition mechanism and rests on
-genericity directly. G2 holds for generic \(\hat{H}_{\text{eff}}\); it can
-fail only on a measure-zero set, and we are not aware of a structural
-feature of the substratum that forces such failure systematically. (In
-particular, single-cycle hidden dynamics does not: although the unitary
-cycle operator has equally-spaced phases on the unit circle, the Hermitian
-effective generator \(\hat{H}_{\text{eff}}\) has real eigenvalues that are
-not equally spaced, and retains non-degenerate gaps after the trace-out.)
+because the partition acts as a symmetry-breaking mechanism. Condition
+G2 (non-degenerate energy gaps) is not symmetry-protected --- gap
+coincidences are a codimension-one condition rather than a
+group-theoretic one --- so it is not delivered by the partition
+mechanism and rests on genericity directly. G2 holds for generic
+\(\hat{H}_{\text{eff}}\); it can fail only on a measure-zero set, and we
+are not aware of a structural feature of the substratum that forces such
+failure systematically. (In particular, single-cycle hidden dynamics
+does not: although the unitary cycle operator has equally-spaced phases
+on the unit circle, the Hermitian effective generator
+\(\hat{H}_{\text{eff}}\) has real eigenvalues that are not equally
+spaced, and retains non-degenerate gaps after the trace-out.)
 
 \hypertarget{independent-derivation-via-stinespring-dilation}{%
 \subsubsection{3.2 Independent Derivation via Stinespring
@@ -782,26 +839,29 @@ quantum signature of non-Markovianity.
 \textbf{Approximate unitarity.} On observable timescales
 \(t \ll \tau_B\), the hidden-sector state is approximately frozen
 (conditions (C2)--(C3)). At \(t=0\) the channel generator is exactly
-Hamiltonian, \(d\Phi_t/dt|_{t=0}(\rho_V) = -i[\hat{H}_{\text{eff}}, \rho_V]\)
-with \(\hat{H}_{\text{eff}} = H_V + \mathrm{Tr}_H[V_{\text{int}}(\mathbb{1}\otimes\rho_H)]\)
-the bath-averaged coupling; the dissipative part of the generator vanishes
-at \(t=0\). At finite time the visible channel acquires two distinct
-dissipative contributions, which it is important to separate. (i) Even in
-the strictly frozen-bath limit (\(\tau_B\to\infty\)) the channel is not
-unitary: it is a mixture over the bath ensemble of bath-conditioned visible
-unitaries \(e^{-i(H_V + \langle h|V_{\text{int}}|h\rangle)t}\), which dephases
-by the \emph{spread} of those conditioned Hamiltonians --- a contribution of
-order \(\|V_{\text{int}}\|^2\) (the coupling strength), independent of
-\(\tau_B\). (ii) The correction from the bath's actual motion away from the
-frozen limit enters at order \((\tau_S/\tau_B)^2\). Consequently the dynamics
-is approximately the Schrödinger equation generated by
-\(\hat{H}_{\text{eff}}\) to the extent that \emph{both} the slow-bath
-condition \(\tau_S\ll\tau_B\) \emph{and} a weak-coupling condition (small
-conditioned-Hamiltonian spread, \(\|V_{\text{int}}\|\,\tau_S \ll 1\)) hold;
-the latter is the parameter controlling the leading non-unitarity and is the
-stronger of the two requirements for the cosmological partition. Where these
-hold, the phase-locking lemma (§3.1) determines \(\hat{H}_{\text{eff}}\)
-uniquely from continuous-time transition data, up to the residual
+Hamiltonian,
+\(d\Phi_t/dt|_{t=0}(\rho_V) = -i[\hat{H}_{\text{eff}}, \rho_V]\) with
+\(\hat{H}_{\text{eff}} = H_V + \mathrm{Tr}_H[V_{\text{int}}(\mathbb{1}\otimes\rho_H)]\)
+the bath-averaged coupling; the dissipative part of the generator
+vanishes at \(t=0\). At finite time the visible channel acquires two
+distinct dissipative contributions, which it is important to separate.
+(i) Even in the strictly frozen-bath limit (\(\tau_B\to\infty\)) the
+channel is not unitary: it is a mixture over the bath ensemble of
+bath-conditioned visible unitaries
+\(e^{-i(H_V + \langle h|V_{\text{int}}|h\rangle)t}\), which dephases by
+the \emph{spread} of those conditioned Hamiltonians --- a contribution
+of order \(\|V_{\text{int}}\|^2\) (the coupling strength), independent
+of \(\tau_B\). (ii) The correction from the bath's actual motion away
+from the frozen limit enters at order \((\tau_S/\tau_B)^2\).
+Consequently the dynamics is approximately the Schrödinger equation
+generated by \(\hat{H}_{\text{eff}}\) to the extent that \emph{both} the
+slow-bath condition \(\tau_S\ll\tau_B\) \emph{and} a weak-coupling
+condition (small conditioned-Hamiltonian spread,
+\(\|V_{\text{int}}\|\,\tau_S \ll 1\)) hold; the latter is the parameter
+controlling the leading non-unitarity and is the stronger of the two
+requirements for the cosmological partition. Where these hold, the
+phase-locking lemma (§3.1) determines \(\hat{H}_{\text{eff}}\) uniquely
+from continuous-time transition data, up to the residual
 diagonal-unitary rephasing freedom that is physically trivial (basis
 convention); the residual dissipation \(\mathcal{D}\), if measurable at
 sufficient precision, is a prediction of the framework rather than an
