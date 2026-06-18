@@ -6,11 +6,13 @@
 
 This repository develops a single framework across five core papers:
 
-- **Main** — establishes the equivalence between embedded observation and quantum mechanics
-- **SM** — derives the Standard Model from a $d = 3$ cubic lattice
+- **Main** — identifies embedded observation with quantum mechanics via the Barandes stochastic-quantum correspondence (the marginalized-bijection → P-indivisible step is the framework's own; the identification with unitary QM is supplied by that external correspondence)
+- **SM** — derives the Standard Model from a $d = 3$ simple-cubic lattice, where the cubic lattice is itself selected by the observed $\mathrm{SU}(3)$ rather than derived (see *Derivation status: the three tiers*, SM §8.3)
 - **GR** — derives the gravitational sector from the cosmological horizon
 - **Substratum** — ties these into a single construction at the substratum level
 - **Structure** — develops the framework's hierarchical structural realism and universality classes of embedded observers
+
+A note on "derives" throughout this repository: the framework forces a large amount of structure *given* its commitments (cubic lattice, wave-equation dynamics, the C1–C3 observer architecture), several of which are empirically selected or definitional rather than derived from first principles. The accurate one-line description is that the framework is a tight *compression* of known physics onto a small set of commitments — a claim about the unity of physics — rather than a derivation of physics from the bare fact of observation. This is developed in book §4.7 and SM §8.3.
 
 A self-contained paper, **Juno**, presents the prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$, recently confirmed by JUNO at $0.07\sigma$ against the post-JUNO global fit. See [`papers/Juno.md`](papers/Juno.md).
 

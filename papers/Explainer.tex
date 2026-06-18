@@ -3,8 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  11pt,
-  letterpaper,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -17,10 +15,9 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern unavailable; using xelatex defaults
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -39,7 +36,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -54,7 +50,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\input{unicode-fix}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -915,6 +910,30 @@ classical substratum. The equivalence between ``classical
 non-Markovian'' and ``quantum'' is not metaphorical --- the theorem
 proves these are the same mathematical category.
 
+\emph{A note on what is proved versus imported, to keep the claim
+honest.} The step from ``embedded observation'' to ``P-indivisible
+(non-Markovian) dynamics'' is the framework's own result. The step from
+``P-indivisible dynamics'' to ``quantum mechanics'' is supplied by an
+external theorem --- the Barandes stochastic-quantum correspondence
+(published in \emph{Philosophy of Physics}, 2025) --- which the
+framework uses rather than re-derives. That correspondence is a genuine
+result, but three things should be carried with it: it is a
+\emph{representation} (the map is not unique); it delivers the
+scaffolding above --- Hilbert space, unitary evolution, the Born rule
+--- while non-commuting observables, spin, and the composite tensor
+structure are introduced via the dilation rather than read directly off
+the stochastic data; and the class of processes it covers is the
+indivisible one (ordinary memoryless Markov chains are excluded). And
+the ``necessity'' direction --- that a quantum system \emph{must} arise
+from this architecture --- holds given an assumption (eigenstate
+thermalization) about the hidden sector. So the accurate headline is
+that the framework \emph{identifies} quantum mechanics with the
+statistics of a particular kind of incomplete observation; it does not
+conjure QM from nothing. This is a reinterpretation of why the quantum
+formalism has the shape it does --- a strong claim --- but a different
+and more defensible one than ``QM derived from a parameter-free
+principle.''
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{the-cosmological-application-4}{%
@@ -1662,6 +1681,22 @@ logic applied to physical systems. Together they form a chain: Gödel
 (physical inference devices cannot completely predict the systems they
 inhabit) → this framework (the specific mechanism is the causal
 partition, and the specific cost is quantum mechanics).
+
+There is also a difference worth stating plainly, because it sets the
+standard the framework should be held to. Gödel's and Turing's results
+are complete proofs from minimal definitions --- they assume only the
+formal system itself and smuggle in nothing about the world. The
+incompleteness here is of the same \emph{architecture} (a limitation
+that follows from observing a system you are part of) but not yet of the
+same \emph{self-containment}: the framework's quantitative results lean
+on commitments that are read from the observed world (that space is
+three-dimensional, that the lattice is cubic) rather than forced by the
+logic of self-inclusion alone. The honest reading is that the framework
+meets the Gödel--Turing standard for the part that is genuinely forced
+--- the limitation theorem and its representation-theoretic consequences
+--- while the empirically-anchored inputs have no counterpart in those
+purely formal results. Naming that boundary is what keeps the analogy a
+structural argument rather than borrowed grandeur.
 
 Hofstadter's \emph{Gödel, Escher, Bach} argues that self-referential
 systems produce genuinely emergent higher levels --- ``strange loops''
@@ -3207,24 +3242,25 @@ specifically: the genericity conditions concern the \emph{effective}
 visible-sector Hamiltonian \(\hat{H}_{\text{eff}}\) (after the
 trace-out), not the total Hamiltonian \(H_{\text{tot}}\). The relevant
 distinction is whether a symmetry of \(H_{\text{tot}}\) preserves the
-visible/hidden factorization. The spatial symmetries an observer-centered
-partition breaks --- translation, rotation about distant points, boost
---- are \emph{factorization-breaking} (they map boundary visible sites to
-hidden sites across the cosmological horizon), so they have no action on
-the visible factor alone and the degeneracies they protect are lifted in
-\(\hat{H}_{\text{eff}}\). Factorization-preserving symmetries
-\(S_V\otimes S_H\), by contrast, descend to a visible symmetry \(S_V\) of
-\(\hat{H}_{\text{eff}}\) (the uniform-bath trace-out is invariant under
-any unitary on the hidden factor); the visible-internal ones among these
-are the gauge symmetries of the emergent QFT, which correspond to
-physically equivalent states and don't affect the phase-locking argument.
-G2 (non-degenerate gaps) is not symmetry-protected and rests on
-genericity directly; it holds for generic \(\hat{H}_{\text{eff}}\) and can
-fail only on a measure-zero set, with no known structural feature of the
-substratum forcing systematic failure (single-cycle hidden dynamics in
-particular does not, since the Hermitian \(\hat{H}_{\text{eff}}\) --- unlike
-the unitary cycle operator's equally-spaced phases --- has unequally-spaced
-real eigenvalues and retains non-degenerate gaps after the trace-out).
+visible/hidden factorization. The spatial symmetries an
+observer-centered partition breaks --- translation, rotation about
+distant points, boost --- are \emph{factorization-breaking} (they map
+boundary visible sites to hidden sites across the cosmological horizon),
+so they have no action on the visible factor alone and the degeneracies
+they protect are lifted in \(\hat{H}_{\text{eff}}\).
+Factorization-preserving symmetries \(S_V\otimes S_H\), by contrast,
+descend to a visible symmetry \(S_V\) of \(\hat{H}_{\text{eff}}\) (the
+uniform-bath trace-out is invariant under any unitary on the hidden
+factor); the visible-internal ones among these are the gauge symmetries
+of the emergent QFT, which correspond to physically equivalent states
+and don't affect the phase-locking argument. G2 (non-degenerate gaps) is
+not symmetry-protected and rests on genericity directly; it holds for
+generic \(\hat{H}_{\text{eff}}\) and can fail only on a measure-zero
+set, with no known structural feature of the substratum forcing
+systematic failure (single-cycle hidden dynamics in particular does not,
+since the Hermitian \(\hat{H}_{\text{eff}}\) --- unlike the unitary
+cycle operator's equally-spaced phases --- has unequally-spaced real
+eigenvalues and retains non-degenerate gaps after the trace-out).
 
 \textbf{4. Why doesn't the deep sector matter?}
 
