@@ -111,7 +111,7 @@ The framework's gravitational predictions match general relativistic predictions
 | G5 | Hawking radiation rate | structural | S | 1 | Within 1% | Ch 7 §7.5 |
 | G6 | MOND acceleration $a_0 = cH/6$ | structural | S | 0/1 | Within 0.5% | Ch 7 §7.8 |
 | G7 | CC dissolution | compression ratio | S | 1 | Structural | Ch 7 §7.7 |
-| G8 | Running vacuum $\nu_{\text{OI}}$ | $\sim 2.45 \times 10^{-3}$ | L | 2(a) | DESI-constrainable | Ch 7 §7.7 |
+| G8 | Running vacuum $\nu_{\text{OI}}$ | functional form Type II RVM (structural); theorem-level magnitude $|\nu| \approx |\nu_{\text{QFT}}| \sim (M_{\text{SM}}/M_{\text{Pl}})^2 \sim 10^{-32}$, indistinguishable from zero | L | 2(a) | DESI Year 5 decisive ($\sim$1% on $\nu$); Bertini 2025 $\nu=-(2.5\pm1.3)\times10^{-4}$ consistent at $2\sigma$ | Ch 7 §7.8 |
 | G9 | Dark sector budget | $\sim 95\%$ | S | 1 | Within 1% | Ch 7 §7.9 |
 | G10 | Strong CP | $\bar\theta = 0$ | S | 1 | $< 10^{-10}$ | Ch 6 §6.3 |
 | G11 | Page curve | nested trace-out | S | 1 | Structural | Ch 7 §7.6 |
