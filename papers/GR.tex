@@ -15,8 +15,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% \usepackage{lmodern} (commented; using unicode-fix)
-\input{unicode-fix}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -1499,7 +1498,7 @@ tests:
 
 \textbf{Falsifiability.} The entropy displacement account would be
 falsified by: (a) detection of dark matter particles accounting for
-$\sim$27\% of \(\rho_{\text{crit}}\); (b) high-redshift rotation
+\$\sim\$27\% of \(\rho_{\text{crit}}\); (b) high-redshift rotation
 curves inconsistent with the predicted \(H(z)\) dependence ---
 specifically, if galaxies at \(z > 2\) show flat rotation curves at
 \(r > r_M(z)\); (c) baryonic Tully-Fisher violations exceeding baryonic
@@ -1671,6 +1670,36 @@ structure (specifically, log-uniform mode-per-decade distribution at the
 cosmological horizon) not currently derivable from §3-§5. The functional
 form (Type II RVM) is structurally protected and is the framework's
 pre-registered prediction.
+
+\emph{Remark (the magnitude question reduces to emergent locality).} The
+choice between the two boundary-mode spectral measures is not an
+independent free parameter: it is the same question as the radiative
+emergent-Lorentz problem ({[}SM §3.1, point iii{]}). The natural 2D
+field-theoretic measure (\(dN/d\omega \propto \omega\), giving
+\(|\nu| \approx |\nu_{\rm QFT}|\)) is the one induced when the
+coarse-grained boundary dynamics inherits the locality of the range-1
+substratum; the log-uniform measure (\(dN/d\ln\omega = {\rm const}\),
+giving \(|\nu| \sim 10^{-4}\)) is not the spectrum of a local field
+theory in any dimension, and would require the coarse-graining to
+generate scale-invariant (non-local) boundary dynamics --- precisely the
+failure mode that would also generate a relevant Lorentz-violating
+operator. The two open questions therefore share one premise: whether
+the substratum-to-observer coarse-graining preserves locality. A
+consequence is that the DESI Year 5 measurement is effectively a test of
+emergent horizon locality, with a built-in cross-check: a detection of
+\(|\nu|\) at the \(10^{-4}\) level would, under this analysis, require
+emergent non-locality, which must independently manifest as Lorentz
+violation --- so a positive \(\nu\) cannot be absorbed as a free
+parameter without a correlated Lorentz-violation signature. This reduces
+the framework's count of independent open vulnerabilities; the magnitude
+of \(\nu\) is forced to \(\approx 0\) conditional on the same emergent
+locality the framework requires for Lorentz invariance, rather than
+being independently open. (The reduction is an argument at the level of
+spectral-measure phase-space counting plus locality inheritance, not yet
+a lattice computation of the boundary spectral measure; it is presented
+as a structural linkage, with the underlying
+coarse-graining-preserves-locality step remaining the open item shared
+with {[}SM §3.1{]}.)
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 

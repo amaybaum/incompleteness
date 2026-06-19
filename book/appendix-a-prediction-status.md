@@ -193,7 +193,7 @@ Beyond the predictions with current empirical match, the framework makes specifi
 | F9 | Variant pathogenicity stratification for reader/writer/eraser | AlphaMissense miscalibration for machinery genes | Reanalysis of existing benchmarks | Ch 17 §17.8 |
 | F10 | $\tau_B$-matched cancer chemotherapy schedules | Memory-priming protocols | Animal models, clinical trials | Ch 16 §16.3 |
 | F11 | Anti-persister antibiotic class | Memory-erasing drugs | Drug screening with regulatory dynamics | Ch 16 §16.5 |
-| F12 | Hurst exponent of substitution rates | $H \approx 0.79 \pm 0.03$ for typical taxa | Existing phylogenetic data | Ch 17 §17.9 |
+| F12 | Hurst exponent of substitution rates | $H \approx 0.79 \pm 0.03$ for typical taxa — *retrodiction, not a forward bet: $H$ is read off existing data, and $H \approx 0.7$–$0.8$ is the generic broad-relaxation value (§8.11 of [Complexity]), so it does not discriminate the framework from a mundane superposition null; only the **derived** capacity-dependence $H(C3)$ would be a genuine test, and that relationship is not yet derived* | Existing phylogenetic data (consistency, not exposure) | Ch 17 §17.9 |
 
 **Foundations (Lorentz sector).**
 
