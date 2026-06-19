@@ -1292,12 +1292,32 @@ with polynomial growth exponent \(d\) and statistical isotropy: (i)
 (ii) the wave equation on \(G\) has \(2d\) independent low-energy
 propagation modes, determined by the spectral dimension \(d_s = d\)
 (from heat kernel asymptotics \(p_t(x,x) \sim t^{-d/2}\) on graphs with
-polynomial growth exponent \(d\)); (iii) the coupling-degree minimizer
-\(K = 2d\) on \(\mathbb{Z}^d\) is stable under quasi-isometric
-deformations, because \(\delta(K)\) depends on the graph only through
-its spectral dimension, which quasi-isometries preserve --- and \(K\) is
-integer-valued, so it cannot change without a discontinuous jump in
-\(d_s\). \(\square\)
+polynomial growth exponent \(d\)); (iii) the minimizer is fixed by the
+\emph{spectral mode count} \(2d_s\), not by the local vertex degree, and
+\(d_s\) is a quasi-isometry invariant. This last point requires care,
+because the \(\mathbb{Z}^d\) proof of Steps 1--3 counts the \(2d\)
+nearest-neighbor link \emph{directions} (the vertex degree), and vertex
+degree is \emph{not} a quasi-isometry invariant --- a bounded-degree
+graph quasi-isometric to \(\mathbb{Z}^d\) may have locally varying
+degree, so ``\$K = \$ number of link directions \(= 2d\)'' does not
+transfer to a general graph by integrality alone. What does transfer is
+the count of independent low-energy propagation channels, which is
+\(2d_s\) (Step ii): the on-diagonal heat-kernel decay exponent ---
+equivalently the long-time return probability of the random walk --- is
+invariant under quasi-isometry for graphs of bounded geometry
+(Pittet--Saloff-Coste; Kanai; Grigor'yan--Telcs), so \(2d_s\) is a
+genuine quasi-isometric invariant whereas the local degree is not. The
+minimal-coupling factorization of the \emph{coarse-grained} low-energy
+dynamics therefore has \(K = 2d_s\) channels regardless of local degree
+fluctuations, which are renormalization-irrelevant. This step is
+consequently conditional on the same premise as the framework's
+emergent-Lorentz claim (§3.1, point iii): that the
+substratum-to-observer coarse-graining preserves the relevant low-energy
+structure. On the simple-cubic lattice --- the case the gauge derivation
+of §4.6 actually uses --- vertex degree and spectral mode count coincide
+(\(2d = 2d_s = 6\)) and Steps 1--3 are a complete proof with no such
+conditionality; the qualification applies only to the general-graph
+generalization. \(\square\)
 
 This is the per-site analog of the global factorization principle
 (§2.4): at the global level, \(S = S_1 \times \cdots \times S_N\) is the
