@@ -3165,18 +3165,18 @@ that content the regular cubic lattice \(\mathbb{Z}^3\) and any
 bounded-degree random graph with \(d = 3\) polynomial growth and
 statistical isotropy are gauge-equivalent, and the reconstruction's
 output specifies the \emph{equivalence class} of such graphs, not the
-specific graph. The \emph{Standard Model gauge group} is the exception:
-its multiplicities \((3,2,1)\) come from the octahedral point group on
-the six link directions, which is not a quasi-isometry invariant, so
-only the spectral mode count \(2d_s = 6\) transfers to a generic
-isotropic graph --- not the cubic decomposition. For the gauge sector,
-therefore, generator (iv) is restricted to orientation- and
-octahedral-structure-preserving isomorphisms, and the simple-cubic
-Bravais type is an empirically-selected input rather than a gauge
-choice. The gauge group itself is a universality-class invariant, shared
-with any Standard-Model-reproducing class through different machinery
-({[}Structure §2.3, §14.4{]}); within OI's class it is realized through
-the cubic-group commutant.
+specific graph. The \emph{Standard Model gauge group} is where this
+crystallography is read out: its multiplicities \((3,2,1)\) come from
+the octahedral point group on the six link directions, which is not a
+quasi-isometry invariant, so only the spectral mode count \(2d_s = 6\)
+transfers to a generic isotropic graph --- not the cubic decomposition.
+For the gauge sector, therefore, generator (iv) is restricted to
+orientation- and octahedral-structure-preserving isomorphisms, and the
+simple-cubic Bravais type is an empirically-selected input rather than a
+gauge choice. The gauge group itself is a universality-class invariant,
+shared with any Standard-Model-reproducing class through different
+machinery ({[}Structure §2.3, §14.4{]}); within OI's class it is
+realized through the cubic-group commutant.
 
 \emph{Proof that each family preserves all inputs to the derivation
 chain.} Generator (i): conjugation preserves the coupling graph
@@ -6588,7 +6588,12 @@ of the precise factor count. The remaining eleven non-cubic Bravais
 lattices belong to crystal systems whose point groups have only one- and
 two-dimensional irreducible representations, supporting no
 three-dimensional irrep --- no \(\mathrm{SU}(3)\) factor available under
-the commutant construction.
+the commutant construction. The tightest form of the argument runs
+through the \(\mathrm{SU}(2)\) rather than the \(\mathrm{SU}(3)\): the
+multiplicity ladder \((3,2,1)\) is the irreducible-degree set
+\(\{1,2,3\}\), and the octahedral group is the unique finite rotation
+group carrying both a genuine 2- and a 3-dimensional irrep (Appendix
+B.6b).
 
 Simple cubic is therefore the unique Bravais-lattice substratum
 compatible with the observed Standard Model gauge group. The framework's
@@ -24133,6 +24138,23 @@ point groups and 11 of 14 Bravais lattices: triclinic (\(aP\)),
 monoclinic (\(mP, mC\)), orthorhombic (\(oP, oC, oI, oF\)), tetragonal
 (\(tP, tI\)), trigonal/rhombohedral (\(hR\)), and hexagonal (\(hP\))
 lattices all have holohedries with maximum irrep dimension at most 2.
+The 3-dimensional-irrep requirement isolates the cubic system but is not
+the tightest constraint, and it is not the binding one: the
+\(\mathrm{SU}(2)\) factor requires a \emph{genuine} 2-dimensional
+irreducible representation, which the chiral and pyritohedral
+tetrahedral groups \(T\) and \(T_h\) --- whose apparent doublet is a
+complex-conjugate pair of 1-dimensional irreps with commutant
+\(\mathrm{U}(1)^2\) rather than \(\mathrm{SU}(2)\) --- do not possess.
+Equivalently, the full multiplicity ladder \((3,2,1)\) is the
+irreducible-degree set \(\{1,2,3\}\), realized among all finite
+subgroups of \(\mathrm{O}(3)\) only by \(S_4 \cong O\): cyclic and
+dihedral groups lack the 3; \(A_4\) lacks a genuine 2; the icosahedral
+group \(A_5\) has 3-dimensional irreps but no 2-dimensional one (and
+carries unwanted 4- and 5-dimensional irreps). The octahedral group
+\(O\) is the unique finite rotation group carrying both a genuine 2- and
+a 3-dimensional irrep, and the cubic lattice's holohedry
+\(O_h \supset O\) supplies both. The binding constraint is therefore the
+\(\mathrm{SU}(2)\), not the \(\mathrm{SU}(3)\).
 
 \emph{Step 2 (cubic lattices discriminated by NN decomposition).} The
 three cubic Bravais lattices --- simple cubic (\(cP\), six nearest
