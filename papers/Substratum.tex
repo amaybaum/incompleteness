@@ -795,14 +795,13 @@ doublet \((\mathbf{1}, \mathbf{2}, +1/2)\) - Anomaly-free hypercharges
   value \(\phi\), which amplitude-scale gauge declares unphysical. (This
   is the field-value-scale freedom --- the additive-automorphism
   relabellings of the alphabet --- \emph{distinct} from the
-  alphabet-\emph{size} freedom of generator (ii); the two were
-  previously conflated.) The same applies to the \(V_2\) block. The
-  singlet-block \(U(1)\) survives this stripping (it cannot be absorbed
-  into alphabet-freedom because it acts non-trivially on the other
-  blocks via the determinant constraint) and becomes the hypercharge
-  \(U(1)\). Background independence (A6) then promotes the remaining
-  global \(SU(3) \times SU(2) \times U(1)\) to local gauge invariance
-  ({[}SM §3.1{]}).
+  alphabet-\emph{size} freedom of generator (ii).) The same applies to
+  the \(V_2\) block. The singlet-block \(U(1)\) survives this stripping
+  (it cannot be absorbed into alphabet-freedom because it acts
+  non-trivially on the other blocks via the determinant constraint) and
+  becomes the hypercharge \(U(1)\). Background independence (A6) then
+  promotes the remaining global \(SU(3) \times SU(2) \times U(1)\) to
+  local gauge invariance ({[}SM §3.1{]}).
 \item
   \emph{Matter content.} Staggered reduction gives three degenerate
   spin-1/2 sectors (Theorems 8--10). Fermion embedding is completed via
@@ -1240,23 +1239,47 @@ not change the emergent description. The boundary-only dependence lemma
 depend only on \(\mathcal{C}_V \times \mathcal{C}_B\). The deep sector
 may be finite of any size, or infinite.
 
-\emph{(iv) Graph isomorphism (up to statistical isotropy).} Two coupling
-graphs \(G_\varphi\) and \(G_{\varphi'}\) that are quasi-isometric with
-the same polynomial growth exponent \(d\), the same spectral properties,
-and the same statistical isotropy at large scales produce the same
-emergent physics. The regular cubic lattice \(\mathbb{Z}^3\) and any
-bounded-degree random graph with \(d = 3\) polynomial growth and
-statistical isotropy are gauge-equivalent.
+\emph{(iv) Graph isomorphism (up to statistical isotropy), with a
+qualification on the gauge sector.} Two coupling graphs \(G_\varphi\)
+and \(G_{\varphi'}\) that are quasi-isometric with the same polynomial
+growth exponent \(d\), the same spectral mode count, and the same
+statistical isotropy at large scales produce the same emergent
+\emph{quantum-mechanical, dimensional, and gravitational} content
+(Theorems 1--6); for this content the regular cubic lattice
+\(\mathbb{Z}^3\) and any bounded-degree random graph with \(d = 3\)
+polynomial growth and statistical isotropy are gauge-equivalent. The
+\emph{gauge-group} content of Stage 2(d) is a partial exception: the
+multiplicities \((3,2,1)\) are fixed by the octahedral point group
+acting on the six link directions (Theorem 7; {[}SM §4.5--4.6{]}), and
+the local point group is \emph{not} a quasi-isometry invariant --- only
+the spectral mode count \(2d_s = 6\) transfers to a generic isotropic
+graph, not the cubic decomposition. For the gauge-group content,
+therefore, the gauge freedom in (iv) is the narrower one of rigid
+orientation together with isomorphisms preserving the cubic (octahedral)
+local structure; the simple-cubic Bravais type itself is an
+empirically-selected input (§3, Refinement below; {[}SM §8.3{]}), not a
+gauge choice. A generic isotropic random graph reproduces the
+emergent-QM content but not the Standard Model gauge group. The gauge
+group itself is a universality-class invariant, shared with any
+Standard-Model-reproducing class through different machinery
+({[}Structure §2.3, §14.4{]}); within OI's class it is realized through
+the cubic-group commutant (§4.6).
 
 \emph{Proof.} Each generator preserves all inputs to the derivation
 chain. (i): conjugation preserves the coupling graph \(G_\varphi\) up to
 relabeling, hence all graph-dependent quantities (area law, dispersion,
 dimension, eigenvalue multiplicities). (ii): {[}SM, §2.7{]} proves
 \(q\)-independence of every prediction. (iii): the boundary-only
-dependence lemma gives the result directly. (iv): the derivation chain
-uses only statistical properties of \(G_\varphi\) (dimension via
-Myrheim-Meyer, isotropy, bounded degree), not the specific graph.
-\(\square\)
+dependence lemma gives the result directly. (iv): the
+emergent-QM/dimension/gravity derivation chain (Theorems 1--6) uses only
+statistical properties of \(G_\varphi\) (dimension via Myrheim-Meyer,
+isotropy, bounded degree), not the specific graph; the gauge-group
+derivation of Stage 2(d) additionally uses the octahedral point-group
+action on the six link directions, which the simple-cubic representative
+supplies and a generic isotropic graph does not, so for that content
+(iv) is restricted to the orientation- and
+octahedral-structure-preserving isomorphisms (see the qualification in
+the statement). \(\square\)
 
 \textbf{Remark (amplitude-scale gauge --- the unobservability of
 absolute field scale).} One gauge freedom invoked elsewhere is named
@@ -1479,11 +1502,17 @@ same \(\{\Phi_t\}\) while differing in their local state-space size
 (alphabet) or in the specific coupling graph realizing the dynamics. The
 alphabet may change freely with no effect on any observable (generator
 (ii), by {[}SM §2.7{]}, which proves \(q\)-independence of every
-prediction). The coupling graph may be replaced by any graph in the same
-statistical class --- same growth dimension, spectral dimension, and
-large-scale isotropy --- since the derivation chain reads only these
-statistical invariants of \(G_\varphi\) (dimension via Myrheim--Meyer,
-isotropy, bounded degree) and never the specific graph (generator (iv)).
+prediction). For the emergent-QM/dimension/gravity content the coupling
+graph may be replaced by any graph in the same statistical class ---
+same growth dimension, spectral dimension, and large-scale isotropy ---
+since that part of the derivation chain reads only these statistical
+invariants of \(G_\varphi\) (dimension via Myrheim--Meyer, isotropy,
+bounded degree) and never the specific graph (generator (iv)). The
+gauge-group content of Stage 2(d) is the exception noted in Theorem
+24(iv): it uses the octahedral point group on the six link directions,
+so there the admissible replacements are restricted to graphs preserving
+that local structure; the simple-cubic type is an empirically-selected
+input.
 
 \emph{Conclusion.} Steps 1--3 enumerate the complete set of
 substratum-level data on which \(\{\Phi_t\}\), \(H\), and \(\hbar\)
@@ -2178,13 +2207,17 @@ reconstruction if violated.
   rigid-lattice anisotropy (values \(\delta_{[100]} = 1/36\),
   \(\delta_{[110]} = 1/144\), \(\delta_{[111]} = 0\) --- the dispersion
   is exactly linear along the body diagonals, \(\omega = k/\sqrt{3}\) to
-  all orders) is \emph{not} a gauge-invariant prediction ---
-  \(\mathcal{G}_{\text{sub}}\) generator (iv) of §4 identifies
-  \(\mathbb{Z}^3\) with any bounded-degree random graph of the same
-  polynomial growth exponent and statistical isotropy (E4), which has no
-  preferred axes. The \emph{orientation-averaged} coefficient
-  \(\langle\delta\rangle = 1/90\) is gauge-invariant; equivalently, the
-  framework predicts the emergent dispersion
+  all orders) is a \emph{physical, direction-dependent} prediction. Its
+  absolute orientation in space is gauge: generator (iv) of §4 gauges
+  the rigid orientation of the cubic representative. The anisotropy
+  \emph{pattern} --- its fourfold \(\ell=4\) cubic-harmonic structure
+  and the direction-differences \(\delta_{[100]}-\delta_{[111]}\) --- is
+  gauge-invariant, since generator (iv) preserves the octahedral
+  structure and does not identify \(\mathbb{Z}^3\) with a generic
+  isotropic graph (which lacks the octahedral structure the gauge group
+  requires, {[}SM §4.5--4.6{]}). The orientation-averaged coefficient
+  \(\langle\delta\rangle = 1/90\) is a direction-summary of this
+  anisotropy, and the framework predicts the emergent dispersion
   \[\omega^2 = k^2\left[1 - \frac{4}{45}\left(\frac{E}{M_{\text{Pl}}}\right)^2 + O\left(\left(\frac{E}{M_{\text{Pl}}}\right)^4\right)\right]\]
   after using \(\epsilon = 2 l_p\) and
   \(k\epsilon = 2 E/M_{\text{Pl}}\). Three structural features: (i)
