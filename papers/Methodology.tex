@@ -3,8 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  11pt,
-  letterpaper,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -17,10 +15,9 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern
+\usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -39,12 +36,10 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\input{unicode-fix}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -113,7 +108,7 @@ and three methodological refinements canonized by the audit experience
 are stated at the generality the methodology requires. The paper
 develops each commitment and argues that, taken together, they
 constitute a replicable methodology rather than features peculiar to one
-framework. We are explicit throughout about developmental status: the
+framework. Developmental status is made explicit throughout: the
 foundational distillation of Part I is recent and is offered for
 scrutiny; the structural results of Part II are summarized from the
 framework's technical papers at the fidelity of faithful synthesis; Part
