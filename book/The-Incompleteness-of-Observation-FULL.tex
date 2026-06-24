@@ -7729,8 +7729,11 @@ whether the \(1/d\) amplitude is forced by the framework's structural
 commitments or chosen empirically. The choice reduces to whether the
 taste-mixing loop carries a time direction (\(d=4\), giving \(1/16\)) or
 not (\(d=3\), giving \(1/9\)); the \(d=3\) substrate-eigenvalue origin
-of the generation masses selects \(1/9\), modulo an unproven
-no-taste-dependent-emergent-contribution step (SM §7.3).
+of the generation masses selects \(1/9\); Schur's lemma on the \(T_1\)
+generations protects this against all taste-blind emergent dressing,
+leaving only a possible loop-level cubic-breaking contribution --- the
+same residual as the emergent-Lorentz radiative-stability question (SM
+§7.3).
 
 \textbf{The charged-lepton mass chain.} Given the Koide angle
 \(\theta_0 = 2/9\) and one empirical input (the tau mass
@@ -22080,8 +22083,11 @@ renormalization-group-emergence (operator-smearing) mechanism, whose
 inter-species flow is only logarithmically fast. This rotational
 sub-problem does not reduce to §19.3.6 (it is a technical
 radiative-stability question rather than a question about the residue's
-content). Closing it requires characterizing the substratum-to-observer
-coarse-graining map as a sufficient smearing (SM §125(iii)).
+content). Closing it requires establishing that the emergent theory
+preserves the octahedral symmetry at loop level: cubic symmetry and
+locality place the rotational violation at dimension six (SM §125(iii),
+§127), so the residual question is loop-level octahedral invariance
+rather than ultraviolet smearing.
 
 \textbf{A framing note on the gauge hierarchy.} Several of the items
 above can be stated in terms of the substratum gauge group
@@ -22227,10 +22233,12 @@ present is the order-one multi-site support of the staggered
 reconstruction, which is far too narrow
 (\(R/\varepsilon = \mathcal{O}(1)\), not \(\gg 1\)) to damp the
 ultraviolet. This is the structural reason the smearing route does not
-obviously protect the rotational sector --- and it is why the available
-computations (static, free-dynamical, and one-loop) lean toward the
-unprotected case rather than the protected one: the incompleteness is
-the wrong \emph{kind} to UV-damp, regardless of its magnitude.
+add ultraviolet damping to the rotational sector --- and it is why the
+available computations (static, free-dynamical, and one-loop) find
+\(R/\varepsilon = \mathcal{O}(1)\) rather than \(R \gg \varepsilon\):
+the incompleteness is the wrong \emph{kind} to UV-damp, regardless of
+its magnitude. Whether the absence of smearing leaves the sector
+\emph{unprotected}, however, depends on the dimension analysis below.
 
 Three of the framework's findings thus share one root. The
 rest-frame-selection lemma (the map selects a timelike direction, no
@@ -22242,24 +22250,31 @@ its magnitude) are three expressions of a single fact:
 about a temporally-evolving hidden state, with purchase on time, boost,
 and state, and structurally silent on space and rotation.} The
 rotational sector is precisely the sector embedded observation cannot
-reach. The valence of this account is unambiguous: it does not rescue
-the rotational sector --- it makes the question structural rather than
-accidental, and it predicts (rather than merely permits) the
-radiatively-unprotected case; if anything it sharpens the naturalness
-cost. What it does provide is a coherent account of the cost: spatial
-Lorentz invariance is the one symmetry embedded observation cannot
-protect, for the same structural reason it selects a rest frame and
-generates quantum mechanics. This is offered as a structural argument
-that \emph{explains} the leaning of the radiative-stability
-computations, not as a proof of them and not as a resolution of the open
-problem; the converged smearing computation (SM §125(iii)) remains the
-quantitative arbiter, and the argument has an identifiable failure point
---- it assumes the visible/hidden partition is a state/sublattice trace
-rather than an effective short-wavelength (momentum-shell) cut, the
-latter of which \emph{would} ultraviolet-damp. The gaplessness of
-\(G_{RR}\) is evidence the partition is not a clean momentum shell,
-consistent with the argument, but that is the seam at which it could
-fail.
+reach. The valence of this account is narrower than it first appears.
+The smearing-width result it establishes --- that observational
+incompleteness adds no ultraviolet spatial smearing, so
+\(R \approx \varepsilon\) --- bears on the \emph{coefficient} of the
+rotational operator, not its \emph{dimension}. The dimension is fixed
+independently, by the octahedral selection rule (the \(E_g\) anisotropy
+is a cubic non-singlet; the lowest invariant anisotropy is \(\ell=4\),
+dimension six) together with locality, and a direct tree-level
+computation confirms the emergent dispersion anisotropy is
+\(\sim(\varepsilon k)^2 = (E/M_{\text{Pl}})^2\). The account therefore
+explains why embedded observation does not \emph{smear} the rotational
+sector, but smearing is not what the sector needs: cubic symmetry and
+locality already place the violation at dimension six,
+Planck-suppressed. What remains genuinely open is the loop-level
+question --- whether the emergent theory preserves the octahedral
+symmetry \emph{exactly}, or whether the emergence introduces an
+octahedral-breaking effect not visible in the bare partition. This has
+an identifiable failure point: it assumes the visible/hidden partition
+acts as a state/sublattice trace that preserves the octahedral symmetry,
+rather than an effective short-wavelength (momentum-shell) cut that
+could both ultraviolet-damp and, if anisotropic, break it. The
+gaplessness of \(G_{RR}\) is evidence the partition is not a clean
+momentum shell; whether it is exactly octahedral-invariant at loop level
+is the seam at which the dimension-six protection could fail, and is the
+arbiter --- not the kernel width.
 
 \hypertarget{chapter-close-summary-table-and-what-the-framework-does-not-address}{%
 \subsection{19.4 Chapter close: summary table and what the framework

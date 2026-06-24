@@ -614,16 +614,27 @@ fine-tuning problem familiar from effective-field-theory treatments of
 Planck-scale Lorentz violation. The standard field-theoretic resolution
 (supersymmetric suppression of the offending divergences) is not
 available here, as the framework is not supersymmetric. Cubic symmetry
-alone is \emph{not} sufficient to protect against this: as is known from
-lattice field theory (Davoudi and Savage, Phys. Rev.~D \textbf{86},
-054505), the cubic point group permits the renormalization mixing of
-operators into lower-dimensional ones with power-divergent coefficients,
-so the tree-level forbiddenness of the \(E_g\) operator does not by
-itself extend to a loop-level non-renormalization statement. The
-mechanism by which rotational-symmetry restoration is known to hold at
-all orders is operator \emph{smearing} --- a definition of the effective
-operators that filters ultraviolet modes over a physical region ---
-under which the rotational-violating contributions remain suppressed by
+must be checked at loop level, not assumed: the lattice-field-theory
+analysis of Davoudi and Savage (Phys. Rev.~D \textbf{86}, 054505) shows
+that on a hyper-cubic lattice the renormalization mixing into
+lower-dimensional operators with power-divergent coefficients is mixing
+among \emph{angular-momentum-covariant} operators of definite \(J\) ---
+an operator-identification effect --- while the genuinely
+rotational-symmetry-violating contributions remain suppressed by
+\(\mathcal{O}(a^2)\) at every order (unconditionally in
+\(\lambda\phi^4\); in gauge theory when the gauge fields are smeared
+comparably to the matter fields). Since the \(E_g\) operator is an
+octahedral non-singlet, its forbiddenness \emph{does} extend to all
+orders for any dynamics that preserves the octahedral symmetry of the
+action and measure --- radiative corrections of an octahedral-invariant
+theory generate only octahedral-invariant operators. The loop-level
+protection of the rotational sector therefore reduces to a single
+question: whether the emergent theory preserves the octahedral symmetry
+exactly (treated in §127 and {[}Ch. 19 §19.3.7{]}). The mechanism by
+which rotational-symmetry restoration is known to hold at all orders is
+operator \emph{smearing} --- a definition of the effective operators
+that filters ultraviolet modes over a physical region --- under which
+the rotational-violating contributions remain suppressed by
 \(\mathcal{O}(a^2)\) at every order in \(\lambda\phi^4\), and in gauge
 theory provided the gauge fields are likewise smeared. Whether the
 framework's substratum-to-observer coarse-graining map (§4.7.1.1)
@@ -705,48 +716,56 @@ in a more precarious position. The rotational operator is a
 custodial-\(\mathrm{U}(6)\) singlet --- it carries spatial indices but
 is a gauge-sector singlet --- so the power-law \((M_X/M_{\text{Pl}})^2\)
 decoupling that suppresses the sector-differential boost violation does
-not apply to it; its only protection is the logarithmically-slow
-renormalization-group flow. Its magnitude then bifurcates on the
-smearing question. If the substratum-to-observer kernel filters
-ultraviolet modes over a region \(R \gg \varepsilon\), the rotational
-mixing stays in dimension \(\geq 6\) operators and the residual is
-\(\sim(E/M_{\text{Pl}})^2\) (negligible at all accessible energies); if
-instead \(R/\varepsilon = \mathcal{O}(1)\) --- which is not excluded,
-since the framework has no continuum limit (\(\varepsilon = 2l_p\) is
-fundamental) and \(R/\varepsilon\) is therefore not parametrically large
-by construction --- then cubic symmetry permits (Davoudi and Savage)
-radiative mixing into a \emph{relevant} dimension \(\leq 4\) rotational
-operator with an unsuppressed coefficient, whose dominant constraint is
-the laboratory clock-comparison and comagnetometer sidereal bounds
-(\(10^{-16}\)--\(10^{-21}\)) and against which the framework would carry
-substantial residual fine-tuning. Which case obtains is set by the
-kernel width \(R/\varepsilon\), a computable but not-yet-computed
-property of the trace-out map. The isotropic UHECR bound is a real
-present-day constraint on the boost-adjacent sector, but the rotational
-sector's exposure is to \emph{laboratory} sidereal experiments and is
-the sharpest open question in the framework's Lorentz sector, not a
-resolved prediction. The differentiating angular signature of any
-residual --- the \(\ell=4\) cubic harmonic aligned to the cosmic rest
-frame ({[}Main §3.5{]}), correlated across species --- is recorded as
-the conditional forward signature F14 ({[}appendix-A §A.5{]}); its
-amplitude is undetermined pending the \(R/\varepsilon\) computation. One
-structural consideration bears on which case is expected. The smearing
-kernel is the traced-out hidden-sector propagator, and a direct
-computation of its position-space width gives \(R \approx \varepsilon\),
-flat as the slow-bath capacity ratio \(\tau_B/\tau_S\) is varied over
-thirty orders of magnitude: the framework's (large) observational
-incompleteness is incompleteness about the hidden \emph{state}, not
-about spatial scale, and a state-average does not damp ultraviolet
-spatial modes. This gives a structural reason to expect
-\(R/\varepsilon = \mathcal{O}(1)\) (the unprotected case) rather than
-\(R \gg \varepsilon\), consistent with the static, free-dynamical, and
-one-loop computations, which all lean that way. The interpretation of
-this --- that the rotational sector is precisely the sector embedded
-observation cannot protect, for the same reason the trace-out selects a
-rest frame and generates quantum mechanics --- is developed in {[}Ch. 19
-§19.3.7{]}. It is a structural argument that explains the leaning of the
-computations, not a substitute for the converged \(R/\varepsilon\)
-calculation, which remains the arbiter.
+not apply to it; its protection is instead the cubic symmetry itself,
+operating at the level of operator \emph{dimension} rather than
+coefficient. The leading rotational-violating operator is the \(E_g\)
+(\(\ell=2\)) anisotropy, an octahedral non-singlet; the lowest
+octahedral-invariant anisotropy is the \(\ell=4\) cubic harmonic,
+dimension six. A direct computation of the emergent tree-level
+dispersion confirms this places the violation at dimension six: the
+fractional anisotropy \([\omega^2(\hat n_1)-\omega^2(\hat n_2)]/|k|^2\)
+scales as \((\varepsilon k)^2 = (E/M_{\text{Pl}})^2\), with no
+dimension-four (\(k\)-independent) term. Whether this survives loops
+reduces, as in §125(iii), to whether the emergent theory preserves the
+octahedral symmetry: octahedral-invariant dynamics cannot generate the
+\(E_g\) operator at any order. This corrects an earlier reading of
+Davoudi and Savage: the power-divergent operator mixing that arises
+without ultraviolet smearing is mixing among
+\emph{angular-momentum-covariant} operators of definite \(J\), not the
+generation of a relevant rotational-violating operator, which they find
+remains suppressed by \(\mathcal{O}(a^2)\) at every order. The kernel
+width \(R/\varepsilon\) therefore sets the \emph{coefficient} of the
+dimension-six rotational operator --- an additional
+\((\varepsilon/R)^2\) suppression when \(R \gg \varepsilon\) --- and not
+its dimension; even \(R/\varepsilon = \mathcal{O}(1)\) leaves the
+rotational violation Planck-suppressed. The differentiating angular
+signature of any residual --- the \(\ell=4\) cubic harmonic aligned to
+the cosmic rest frame ({[}Main §3.5{]}), correlated across species ---
+is recorded as the conditional forward signature F14 ({[}appendix-A
+§A.5{]}); being dimension six, its amplitude is
+\(\sim(E/M_{\text{Pl}})^2\) and unobservable at accessible energies. One
+structural consideration bears on the coefficient. The smearing kernel
+is the traced-out hidden-sector propagator, and a direct computation of
+its position-space width gives \(R \approx \varepsilon\), flat as the
+slow-bath capacity ratio \(\tau_B/\tau_S\) is varied over thirty orders
+of magnitude: the framework's (large) observational incompleteness is
+incompleteness about the hidden \emph{state}, not about spatial scale,
+and a state-average does not damp ultraviolet spatial modes. This fixes
+the dimension-six operator's coefficient at order unity rather than
+further-suppressed, but does not lift it from dimension six, so it is
+not by itself an exposure. The interpretation --- that embedded
+observation does not actively \emph{smear} the rotational sector, for
+the same reason the trace-out selects a rest frame and generates quantum
+mechanics --- is developed in {[}Ch. 19 §19.3.7{]}; on the present
+reading it does not need to, because octahedral symmetry and locality
+already place the violation at dimension six. The open question that
+remains is correspondingly narrower, and is not a sidereal-bound
+fine-tuning: whether the emergence preserves octahedral symmetry
+\emph{exactly} at loop level, or introduces an octahedral-breaking
+effect --- for instance an effective momentum-shell structure in the
+trace-out --- not visible in the octahedral-invariant checkerboard
+partition. That loop-level question, not the kernel width, is the
+arbiter.
 
 \emph{Clarification of the protection mechanisms (relationship and
 remaining gap).} Two of the ingredients above are not independent:
@@ -3651,18 +3670,31 @@ which would carry the time direction and yield \(1/16\). The two
 phrasings are otherwise in tension precisely on the dimensionality, and
 it is the substrate-eigenvalue origin of the masses that resolves it.
 
-The open element is correspondingly sharper: the resolution requires the
-taste-\emph{dependent} part of the generation splitting to reside
-entirely in the \(d = 3\) substrate eigenvalues, with the emergent
-four-dimensional dressing taste-\emph{blind} and so leaving the
-dimensionless angle unchanged. Tree-level taste-independence
-(\(y_b = y_\tau\), Theorem 10) supports the dressing being taste-blind,
-but that \emph{no} taste-dependent four-dimensional contribution enters
-the splitting has not been proved. The status is thus
-``\(\mathcal{N} = 1/9\) forced by the \(d = 3\) substrate-eigenvalue
-origin of the generation masses, modulo the absence of a taste-dependent
-emergent contribution'' --- stronger than ``argued geometrically,''
-weaker than ``derived.''
+The open element is correspondingly sharper, and part of it can now be
+settled directly. The three generations form the irreducible vector
+representation \(T_1\), so by Schur's lemma any cubic-invariant
+(taste-blind) emergent dressing acts on them as a multiple of the
+identity --- an affine map on the mass eigenvalues --- which rescales
+the democratic mass component but leaves the splitting phase
+\(\theta_0\) exactly invariant. The generic four-dimensional Higgs-loop
+mass renormalization is of this taste-blind kind (the tree-level Yukawa
+is generation-independent, Theorem 10, and the Higgs occupies the
+singlet taste), so it provably cannot shift \(\theta_0\); only
+cubic-symmetry-\emph{breaking} structure can. That breaking is the
+substrate coupling-matrix eigenvalue structure (the \(\mu_k\) of \(M\),
+Theorem 4) --- the same substrate-eigenvalue origin the mass mechanism
+uses elsewhere --- so \(\theta_0 = C_2/d^2\) introduces no assumption
+beyond that mechanism. What Schur's lemma does \emph{not} exclude is a
+loop-level cubic-symmetry-breaking emergent operator: cubic symmetry
+alone does not forbid the radiative generation of such an operator (the
+same operator-mixing phenomenon that governs the radiative-stability
+question for emergent Lorentz invariance, §4.5), though none arises at
+leading order. The status is thus ``\(\mathcal{N} = 1/9\) protected by
+representation theory against all taste-blind emergent dressing and
+fixed by the substrate eigenvalue structure, with the sole residual a
+possible loop-level cubic-breaking contribution that is shared with the
+emergent-Lorentz radiative-stability problem rather than specific to the
+flavor sector'' --- closer to ``derived'' than ``argued geometrically.''
 
 \textbf{Mass predictions.}
 
