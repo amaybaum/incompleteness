@@ -15,7 +15,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -55,6 +55,10 @@
 
 \begin{document}
 
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
 \hypertarget{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}{%
 \section{The Substratum Construction: Reconstruction, the Substratum
 Gauge Group, and the QM-GR
@@ -117,13 +121,17 @@ is conditional on the empirical inputs E1--E7 (which include \(d=3\) via
 the §3.3 filters and, through the observed gauge group, the simple-cubic
 Bravais commitment) and on ETH in the hidden sector for the C2 necessity
 step, so the theorem is best read as fixing a \emph{non-tautological
-discrete residue} --- dimension, internal-component count,
-multiplicities, gauge group, generation count, hypercharges,
-\(\bar\theta=0\) --- relative to those inputs, rather than deriving them
-from the bare fact of observation; the precise sense in which this
-residue is forced (and the sense in which the lattice itself is
-empirically selected) is set out in the substantive-content Remark of §3
-and in the three-tier classification of {[}SM §8.3{]}.
+discrete residue} relative to those inputs, rather than deriving it from
+the bare fact of observation --- and within that residue two senses must
+be distinguished (§3 Refinement): the spatial dimension and the
+simple-cubic Bravais type are \emph{empirically selected} (the latter
+because the observed \(\mathrm{SU}(3)\) requires the cubic crystal
+system, so the gauge group is selected-and-reproduced rather than
+independently forced), while the \((3,2,1)\) multiplicities, generation
+count, hypercharges, and \(\bar\theta=0\) are \emph{forced} by the
+octahedral representation theory once that lattice is given; the precise
+statement is set out in the substantive-content Remark of §3 and in the
+three-tier classification of {[}SM §8.3{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -174,13 +182,14 @@ a causal partition, the framework determines
 \(\hbar = c^3 (2 l_p)^2 / (4G)\), the Bekenstein-Hawking entropy with
 the \(1/4\) coefficient, and the dissolution of the cosmological
 constant problem. The Standard Model emerges from the same bijection on
-a cubic lattice with the wave equation as substratum dynamics, with the
-gauge group
-\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\), three
-chiral generations, the Higgs as composite, and \(\bar\theta = 0\) as
-forced consequences {[}SM{]}. The framework's hierarchical structural
-realism and its relationship to other unification programs are developed
-in the fifth core paper {[}Structure{]}.
+a cubic lattice with the wave equation as substratum dynamics: the cubic
+lattice is selected by the observed gauge group (the \(\mathrm{SU}(3)\)
+factor requires the cubic crystal system), and --- given that lattice
+--- three chiral generations, the Higgs as composite, the \((3,2,1)\)
+gauge structure, and \(\bar\theta = 0\) follow as forced consequences
+{[}SM{]}. The framework's hierarchical structural realism and its
+relationship to other unification programs are developed in the fifth
+core paper {[}Structure{]}.
 
 The present paper develops the substratum-level results that make these
 three emergences --- emergent QM in {[}Main{]}, the Standard Model
