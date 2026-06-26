@@ -3447,11 +3447,29 @@ chain (below) and the cross-sector relations (below).
 
 The Koide relation {[}22{]}
 \(Q = (m_e + m_\mu + m_\tau)/(\sqrt{m_e} + \sqrt{m_\mu} + \sqrt{m_\tau})^2 = 2/3\)
-holds to \(0.001\%\). On the OI lattice, \(Q = 2/3\) follows from the
-\(\mathbb{Z}_3\) symmetry of the \(T_1\) representation: cyclic
-permutation of the three BZ corners imposes equal angular spacing in the
-mass parametrization
-\(\sqrt{m_k} = \mu(1 + \sqrt{2}\cos(\theta_0 + 2k\pi/3))\).
+holds to \(0.001\%\). On the OI lattice the masses take the form
+\(\sqrt{m_k} = \mu(1 + A\cos(\theta_0 + 2k\pi/3))\). The
+\(\mathbb{Z}_3\) symmetry of the \(T_1\) representation --- cyclic
+permutation of the three BZ corners --- fixes the \emph{phases} to equal
+angular spacing \(2k\pi/3\); it does not by itself fix the amplitude
+\(A\), and the Koide value \(Q = \tfrac13 + \tfrac{A^2}{6} = 2/3\) is
+the specific statement \(A^2 = 2\). The amplitude shares the angle's
+structural origin: \(A^2 = C_2(T_1) = l(l+1) = 2\), the quadratic
+Casimir of the generation representation, entering at the eigenvalue
+level as the amplitude-squared while the same Casimir fixes the phase
+\(\theta_0 = C_2/d^2\) at the angle level (next paragraph) --- the
+amplitude-versus-eigenvalue correspondence used for \(m_u/m_d\) below.
+Both Koide degrees of freedom thus descend from the single invariant
+\(C_2(T_1) = 2\). The status of the amplitude is that of the angle's
+normalization (below), not stronger: the Casimir form is structural and
+\(A^2 = 2\) matches observation exactly, but it is not yet derived from
+the dynamics --- one-loop perturbative taste-breaking gives
+\(A^2 \approx 0.34\), undershooting \(C_2 = 2\), so establishing that
+the substrate dynamics produces \(A^2 = C_2\) non-perturbatively is an
+open computation ({[}Ch. 19 §19.3.1{]}). The relation is therefore
+``structural form forced, amplitude argued from the Casimir and
+empirically confirmed'' --- the same footing as \(\theta_0\), weaker
+than a full derivation and stronger than a fit.
 
 \textbf{The Koide angle.}
 
@@ -5105,17 +5123,23 @@ Majorana, normal ordering).
 
 The unconditional structural (\textbf{S}) and layered (\textbf{L})
 retrodictions of §7.6 --- fifteen in total --- are not independent
-draws: several derive from the same cubic-symmetry coefficient
-\(C_2/d^2 = 2/9\) (Koide \(Q\), Koide angle \(\theta_0\),
-\(\sin^2\theta_{13}\), and the \(m_e, m_\mu\) chain from \(m_\tau\)),
-and several derive from the same one-loop lattice integral structure
-(Cabibbo \(\lambda\), Wolfenstein \(A\), \(|V_{cb}|\), \(m_d/m_s\)).
-Conservatively treated, the \textbf{S} set contains \emph{two} genuinely
-independent structural predictions at the tightest experimental
-precision: the Koide relation \(Q = 2/3\) (Casimir structure of the
-coupling matrix \(M\)) and the Cabibbo angle
+draws: several derive from the same cubic-group quadratic Casimir
+\(C_2(T_1) = 2\) (the Koide amplitude \(A^2 = C_2\), the Koide angle
+\(\theta_0 = C_2/d^2\), \(\sin^2\theta_{13}\), and the \(m_e, m_\mu\)
+chain from \(m_\tau\)), and several derive from the same one-loop
+lattice integral structure (Cabibbo \(\lambda\), Wolfenstein \(A\),
+\(|V_{cb}|\), \(m_d/m_s\)). Conservatively treated, the \textbf{S} set
+contains \emph{two} structurally independent prediction families at the
+tightest experimental precision: the Casimir family --- anchored by the
+Koide relation \(Q = 2/3\) via \(A^2 = C_2\) --- and the Cabibbo angle
 \(\lambda = 1/(\pi\sqrt{2})\) (one-loop lattice integral on
-\(\mathbb{Z}^3\)).
+\(\mathbb{Z}^3\)). The two are tested by structurally distinct features
+of the lattice (Casimir eigenvalue structure vs.~spatial integral), so
+the joint null below treats them as independent draws. The Casimir
+family carries the dynamical-closure caveat of §7.2 (the amplitude
+\(A^2 = C_2\) is structural and exact but not yet derived from the
+dynamics, which at one loop undershoots), so of the two the Cabibbo
+pillar is the more secure pending that closure.
 
 \textbf{Cubic-group \(T_1\)-Casimir consistency test.} Beyond the
 two-independent-predictions framing, the cubic-group \(T_1\)-Casimir
