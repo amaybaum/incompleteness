@@ -49,7 +49,7 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\setcounter{secnumdepth}{5}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -65,6 +65,10 @@
 
 \begin{document}
 
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
 \hypertarget{hierarchical-structural-realism-and-universality-classes-of-embedded-observers}{%
 \section{Hierarchical Structural Realism and Universality Classes of
 Embedded
@@ -4289,8 +4293,14 @@ trace-out {[}Main §3{]}. The visible-sector density matrix
 \(\rho_V = \text{Tr}_H |\psi\rangle\langle\psi|\) produces probabilities
 for visible-sector observables via \(p(a) = \text{Tr}(\Pi_a \rho_V)\),
 where \(\Pi_a\) is the projector onto outcome \(a\). The Born rule is
-not postulated; it follows from the partial-trace structure of the
-observer's marginal description.
+not postulated as a separate axiom; it follows from the partial-trace
+structure of the observer's marginal description. As with the emergent
+quantum description itself, this is an \emph{identification via the
+Barandes stochastic-quantum correspondence} rather than a parameter-free
+derivation ({[}Main §3.4{]}): the \(|\psi|^2\)-structure enters with
+that correspondence, and OI's specific contribution is to show it is
+forced even for a classical, deterministic substratum via the
+Stinespring lift.
 
 \textbf{String-theoretic analog.} String theory uses standard quantum
 mechanics throughout --- in matrix-model formulations (BFSS, IKKT), in
@@ -4303,10 +4313,12 @@ the boundary CFT or the worldsheet.
 \textbf{Transport assessment.} The Born rule transports
 straightforwardly. Both frameworks use the same partial-trace structure
 to extract probabilities for subsystem observables. The distinction is
-that OI \emph{derives} the Born rule from substratum-level structure
-(classical bijection lifted to Stinespring dilation, traced down to
-observer marginal), while string theory \emph{assumes} the Born rule as
-a feature of its quantum-mechanical apparatus.
+that OI \emph{exhibits the Born rule as forced} by substratum-level
+structure (classical bijection lifted to Stinespring dilation, traced
+down to observer marginal, with the quantum \(|\psi|^2\)-structure
+entering via the Barandes correspondence), while string theory
+\emph{assumes} the Born rule as a feature of its quantum-mechanical
+apparatus.
 
 This is consistent with the shared-invariants reading: the Born rule is
 a structural feature of partial-trace operations on quantum states. Any
