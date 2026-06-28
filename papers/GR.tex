@@ -15,7 +15,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
 \fi
@@ -49,7 +49,7 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\setcounter{secnumdepth}{5}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -65,10 +65,14 @@
 
 \begin{document}
 
-\hypertarget{ux210f-the-bekenstein-hawking-entropy-and-dynamical-dark-energy-from-the-cosmological-horizon}{%
-\section{ℏ, the Bekenstein-Hawking Entropy, and Dynamical Dark Energy
-from the Cosmological
-Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-dynamical-dark-energy-from-the-cosmological-horizon}}
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\hypertarget{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form-of-dark-energy-from-the-cosmological-horizon}{%
+\section{ℏ, the Bekenstein-Hawking Entropy, and the Running-Vacuum Form
+of Dark Energy from the Cosmological
+Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form-of-dark-energy-from-the-cosmological-horizon}}
 
 \textbf{Author:} Alex Maybaum\\
 \textbf{Date:} April 2026\\
@@ -835,14 +839,17 @@ from \(\epsilon = 2\,l_p\) (§5); (3) the value of \(\hbar\), determined
 by partition geometry rather than treated as a free parameter (§3.2);
 (4) the dark-sector concordance --- \textasciitilde95\% of
 \(\rho_{\text{crit}}\) is invisible to QFT, matching the observed dark
-sector (§7.2); (5) dark energy in running-vacuum form, favoured by DESI
-DR2 at 2.8--4.2σ and consistent at \(2\sigma\) with the Bertini et
-al.~(2025) direct RG-corrected \(\Lambda\)CDM fit (structurally
-equivalent to the framework's Type II prediction at leading order) ---
-Bertini being itself consistent with zero, matching the framework's
-theorem-level magnitude prediction
-\(|\nu| \approx |\nu_{\rm QFT}| \sim 10^{-32}\) {[}15{]} (§7.1); (6) the
-MOND acceleration scale \(a_0 = cH/6\) and the baryonic Tully-Fisher
+sector (§7.2); (5) dark energy in running-vacuum form --- the Type II
+functional form forced by boundary-entropy architecture, with
+theorem-level magnitude \(|\nu| \approx |\nu_{\rm QFT}| \sim 10^{-32}\)
+(observationally indistinguishable from \(\Lambda\)CDM), consistent at
+\(2\sigma\) with the Bertini et al.~(2025) RG-corrected \(\Lambda\)CDM
+fit (itself consistent with zero); DESI DR2's preference for evolving
+dark energy favours the running-vacuum \emph{form} over plain
+\(\Lambda\)CDM at the qualitative level, but its phantom-crossing
+\emph{magnitude} is in mild tension (3--4\(\sigma\)) with the
+framework's \(\nu \approx 0\) prediction (\S7.1) {[}15{]}; (6) the MOND
+acceleration scale \(a_0 = cH/6\) and the baryonic Tully-Fisher
 relation, derived from entropy displacement (§7.3); (7) the SM gauge
 group with its coupling strengths, reproduced to \(< 0.1\%\) at \(M_Z\);
 (8) declining rotation curves at high redshift, confirmed by Genzel et

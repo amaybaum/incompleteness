@@ -525,4 +525,4 @@ These open problems are framed within the construction rather than against it. E
 
 [SM] A. Maybaum, "The Standard Model from a Cubic Lattice," (2026).
 
-[GR] A. Maybaum, "ℏ, the Bekenstein-Hawking Entropy, and Dynamical Dark Energy from the Cosmological Horizon," (2026).
+[GR] A. Maybaum, "ℏ, the Bekenstein-Hawking Entropy, and the Running-Vacuum Form of Dark Energy from the Cosmological Horizon," (2026).
