@@ -897,7 +897,7 @@ Level 2 confirmations are confirmations of the gauge-group-target level but do n
 | Feature | Empirical status | Reference |
 |---|---|---|
 | Cubic-lattice-forced higher-dim operators | Indirect (via specific predictions below) | [SM §10] |
-| Type II RVM dynamical dark energy | DESI DR2 $2.8\sigma$–$4.2\sigma$ rejection of static $\Lambda$ | [DESI_DR2_2025, GR §7] |
+| Type II RVM dynamical dark energy | running-vacuum *form* favoured over plain $\Lambda$CDM; $\nu \approx 0$ magnitude consistent with Bertini (2025, itself consistent with zero), in mild tension with DESI DR2's evolving-DE preference | [Bertini2025, DESI_DR2_2025, GR §7] |
 | MOND scale $a_0 = cH/6$ | Tully-Fisher relation; ongoing tests | [GR §10] |
 | Holographic $A/4$ at cosmological horizon | Confirmed by Bekenstein-Hawking transport | [GR §5] |
 | No GUT-mechanism proton decay ($\tau_p \sim 10^{45}$ yr) | Super-K bounds at $\tau_p > 2.4 \times 10^{34}$ yr already exclude minimal SU(5); favors no-GUT class | [SuperK2020_proton, SM §6.7, §8.7] |
