@@ -49,7 +49,7 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -65,10 +65,6 @@
 
 \begin{document}
 
-{
-\setcounter{tocdepth}{3}
-\tableofcontents
-}
 \hypertarget{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form-of-dark-energy-from-the-cosmological-horizon}{%
 \section{ℏ, the Bekenstein-Hawking Entropy, and the Running-Vacuum Form
 of Dark Energy from the Cosmological
@@ -1597,8 +1593,54 @@ amplitudes (TT) match \(\Lambda\)CDM to \(\lesssim 0.02\%\), full-range
 \(0.08\%\), and corresponding \(D_\ell^{EE}\) residuals are similar ---
 all 20--300\(\times\) below cosmic variance and 5--50\(\times\) below
 Planck 2018 binned precision at every \(\ell\) from 2 to 2500.
-\emph{Epistemic status: Tier 2 (verified consequence; CLASS comparison
-2026-04-26).}
+\emph{Epistemic status: Tier 2. The CLASS run verifies the residual RVM
+dark-\textbf{energy} effect on the spectrum (the dark matter is modeled
+as standard CDM, the dark-energy sector as the CLP-fluid RVM); it does
+not by itself test the displacement\(\,\equiv\,\)CDM step, which is the
+analytic result (i)--(iv) above. The temporal half of that equivalence
+--- that a single relaxation kernel reproduces CDM-like growth at
+recombination while keeping the Bullet frozen --- is demonstrated below;
+a direct Boltzmann run implementing the displacement kernel explicitly,
+including its \(k\)-dependence, is the remaining numerical check.}
+
+\textbf{Relaxation kernel: Bullet--CMB consistency.} The
+frozen-displacement account of the Bullet Cluster (slow
+\(\tau_{\text{relax}}\)) and the growing-mode tracking the CMB requires
+(fast response at recombination) are reconciled by a single kernel once
+\(\tau_{\text{relax}}\) is read as the \emph{epoch-local} horizon time
+\(\tau_{\text{relax}}(z) \sim 1/H(z)\) --- the \(\approx 14\) Gyr quoted
+above is its \(z\!\approx\!0\) value, not a fixed constant. Because the
+linear growing mode also evolves on \(\sim 1/H(z)\), the displacement
+relaxation equation
+\(d\delta_E/dt = (\delta_m - \delta_E)/\tau_{\text{relax}}\) becomes, in
+scale-factor form, \(d\delta_E/da = (\delta_m - \delta_E)/a\) ---
+\emph{epoch-independent}, with solution
+\(\delta_E = \tfrac12\,\delta_m + \mathcal{O}(a_{\text{rec}}^2/a)\).
+Thus \(\delta_E \propto a\) tracks the CDM growing mode at every epoch
+with no lag at recombination and no temporal cutoff; the constant ratio
+is absorbed into the calibration
+\(\rho_E \approx \Omega_{\text{CDM}}\rho_{\text{crit}}\) (§7.2). A
+\emph{fixed} \(\tau_{\text{relax}} = 1/H_0\) would instead suppress the
+response by \(H_0/H(z) \sim 1/10\) at \(z = 100\) and distort the peaks
+--- confirming that the epoch-local reading is the correct one
+(numerically verified: \(\delta_E/\delta_m\) constant to \(<0.1\%\)
+across \(z = 1100\to0\) for \(\tau = 1/H(z)\), versus an
+order-of-magnitude lag for \(\tau = 1/H_0\)). The Bullet remains frozen
+for the independent reason that a cluster collision is anomalously fast
+on the cosmic clock:
+\(t_{\text{cross}}/\tau_{\text{relax}}(z\!=\!0.3) \approx 0.15/12 \approx 0.013 \ll 1\).
+The two regimes are therefore controlled by \emph{different} ratios ---
+\(\tau_{\text{relax}}/t_{\text{growth}} \sim \mathcal{O}(1)\) at all
+epochs (tracking) versus
+\(\tau_{\text{relax}}/t_{\text{collision}} \gg 1\) (freezing) --- and do
+not conflict. Since the Jacobson sourcing is spatially local, the
+non-locality is \emph{temporal} (a memory over \(\tau_{\text{relax}}\)),
+not spatial, and imposes no \(k\)-cutoff on the linear growth.
+\emph{Open computation (not an inconsistency):} the \(k\)-dependence of
+the relaxation rate, required for a full mode-by-mode kernel.
+\emph{Epistemic status: Tier 2 (temporal reconciliation verified
+numerically, relaxation\_kernel\_check.py 2026-06-29; \(k\)-dependence
+deferred).}
 
 \hypertarget{summary-of-gr-side-predictions}{%
 \subsubsection{7.4 Summary of GR-side
