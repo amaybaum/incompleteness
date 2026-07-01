@@ -3,6 +3,8 @@
 
 ---
 
+> **Status — conjectural extension.** This chapter applies the core framework to consciousness, and is offered as a *conjecture*, not an established result: no empirical test is proposed; the claim is a structural correspondence between embedded observation — the trace-out of an observer's own inaccessible degrees of freedom — and the character of a bounded first-person perspective, offered as a possibility the framework raises rather than a result it establishes. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
+
 ## 18.1 What this chapter develops
 
 Chapters 5 through 16 developed the framework's content where standard physics and the framework agree at high empirical precision. The Standard Model gauge group, the gravitational sector, the JUNO neutrino prediction, the dark sector phenomenology — all are sectors where the framework reproduces or refines standard predictions, often with sharper structural commitments and parameter-free quantitative agreement. The empirical case for the framework is concentrated in those chapters.

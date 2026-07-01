@@ -20,6 +20,23 @@ A book-length treatment, **The Incompleteness of Observation: A Unified Framewor
 
 The full file list is in [Contents](#contents).
 
+## Status of the material: core vs conjectural extensions
+
+The framework's empirical weight lies in its **physics core**. Its applications to biology, medicine, consciousness, and computational complexity are **conjectural extensions** — they apply the core framework to new domains, are offered as conjectures to be tested rather than established results, and carry no evidential weight for the core, which stands or falls independently on its physics. Each such chapter and paper now opens with an explicit "Status — conjectural extension" banner stating its test-or-break condition.
+
+**Core (physics — where the framework's weight lies):** Main, SM, Structure, Substratum, GR, Methodology, Explainer, Juno, and the corresponding physics chapters.
+
+**Conjectural extensions:**
+
+- **Medicine** (`papers/Medicine.md`, Chapter 16) — structural retrodictions (the Rett-syndrome reversibility of Guy et al. 2007 predates the framework, and is a consistency check rather than a confirmation) plus untested forward predictions.
+- **Bioinformatics / evolutionary biology** (`papers/Bioinformatics.md`, Chapter 17) — explicitly retrodictive; the Hurst-exponent discriminator does not by itself separate the framework from a mundane null.
+- **Quantum computation & complexity** (`papers/Computation.md`, `papers/Complexity.md`, Chapter 14) — the BQP-realization claim is a theoretical conjecture, not a proven correspondence.
+- **Consciousness** (Chapter 18) — a structural correspondence offered as a possibility, with no empirical test proposed.
+
+This tiering mirrors the four-layer derivational classification of book §4.7 and SM §8.3.
+
+
+
 ## Repository layout
 
 ```

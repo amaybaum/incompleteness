@@ -3,11 +3,13 @@
 
 ---
 
+> **Status — conjectural extension.** This chapter applies the core framework to medicine, and is offered as a *conjecture*, not an established result: its retrodictions — notably the Rett-syndrome reversibility (Guy et al. 2007), which predates the framework — are consistency checks rather than confirmations, while its forward content (wider therapeutic windows across as-yet-untested reader-writer disorders, and specific schedule-dependence predictions) is what future clinical data would confirm or break. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
+
 ## 16.1 What this chapter develops
 
 Chapters 13 through 15 developed the framework's reach into biology, computing, and engineering. Chapter 13 established that biological systems with C1-C3 architectures exhibit non-Markovian dynamics as their default behavior — quantum mechanics in biology is the framework's prediction rather than the anomaly conventional accounts treat it as. Chapter 14 developed the BQP theorem as the framework's structural limit on computational complexity. Chapter 15 developed the framework's content for engineered quantum systems, with specific quantitative predictions for current quantum hardware.
 
-This chapter develops the framework's content for medicine — the framework's reach into clinical pharmacology, neurodegeneration, antibiotic resistance, immunotherapy, cardiac pharmacology, autoimmune disease, and epigenetics. The framework's content here is *concrete and clinically engaged*: specific predictions for current drug-development programs, distinguishing predictions where the framework gives different answers than standard pharmacology, and one empirically confirmed prediction (the wider therapeutic window for reader-writer disorders, confirmed by Guy et al. 2007 for Rett syndrome) that establishes the framework's empirical reach beyond fundamental physics into clinical biology.
+This chapter develops the framework's content for medicine — the framework's reach into clinical pharmacology, neurodegeneration, antibiotic resistance, immunotherapy, cardiac pharmacology, autoimmune disease, and epigenetics. The framework's content here is *concrete and clinically engaged*: specific predictions for current drug-development programs, distinguishing predictions where the framework gives different answers than standard pharmacology, and one structural retrodiction (the wider therapeutic window for reader-writer disorders, consistent with Guy et al. 2007 for Rett syndrome) that illustrates the framework's reach beyond fundamental physics into clinical biology.
 
 The chapter has explicit two-half structure.
 
@@ -17,7 +19,7 @@ The *second half* (§§16.9-16.12) develops epigenetics as biological hidden sec
 
 Section 16.13 closes the chapter with a unifying therapeutic principle: *memory asymmetry*. When a disease process depends on non-Markovian signaling dynamics that the corresponding normal tissue does not, therapies can target the *memory structure* rather than the *catalytic function* — predicting wider therapeutic windows because memory dependence is more disease-specific than catalytic activity.
 
-The framework's content in this chapter is the strongest non-physics empirical case. The empirical confirmation of the wider therapeutic window for Rett syndrome (Guy et al. 2007) is a *pre-registered structural prediction* of the framework that has been independently confirmed in clinical biology — the same standard of evidence the framework meets for the JUNO $\sin^2\theta_{12}$ prediction in fundamental physics. The framework's reach across medicine is therefore not just theoretical content with implications for pharmacology; it provides specific predictions that have been tested, with the empirical record providing substantive evidence for the framework's content beyond fundamental physics.
+The framework's strongest non-physics case here is structural. Its one empirical touchpoint — the wider therapeutic window in Rett syndrome (Guy et al. 2007) — is a retrodiction, since the result predates the framework, so it carries the weight of a consistency check rather than of the JUNO forward prediction. The framework's forward predictions in medicine (below) remain to be tested.
 
 ## 16.2 The enzyme as a read-write system
 
@@ -189,7 +191,7 @@ A second distinguishing prediction: combinations of JAK inhibitors with phosphat
 
 ## 16.9 Epigenetics as biological hidden sector
 
-The second half of the chapter develops the framework's content on epigenetics — the systematic application of the substratum-emergent operator distinction (Chapter 6 §6.3) to chromatin biology. The framework's content here is *substantive*: epigenetic regulation is a direct biological instantiation of the framework's C1-C3 architecture, with the substratum-emergent operator distinction organizing the three-axis pharmacology of epigenetic drugs (readers, writers, erasers) and producing a wider-therapeutic-window prediction empirically confirmed in Rett syndrome by Guy et al. 2007.
+The second half of the chapter develops the framework's content on epigenetics — the systematic application of the substratum-emergent operator distinction (Chapter 6 §6.3) to chromatin biology. The framework's content here is *substantive*: epigenetic regulation is a direct biological instantiation of the framework's C1-C3 architecture, with the substratum-emergent operator distinction organizing the three-axis pharmacology of epigenetic drugs (readers, writers, erasers) and producing a wider-therapeutic-window pattern consistent with Rett syndrome (Guy et al. 2007).
 
 **The C1-C3 architecture of chromatin.** The transcriptional machinery — RNA polymerase II, transcription factors, mediator complex — is the visible sector. The chromatin state — DNA methylation patterns, histone modifications, chromatin compaction, three-dimensional architecture — is the hidden sector. The three structural conditions are satisfied with overwhelming margin.
 
@@ -271,7 +273,7 @@ This is a substantive prediction: empirical optimization of combination scheduli
 
 ## 16.12 The wider therapeutic window for reader-writer disorders
 
-The framework's strongest empirical content in clinical biology is the *wider therapeutic window prediction for reader-writer disorders*, which has been confirmed empirically for Rett syndrome by Guy et al. 2007. This is the framework's first major empirical confirmation outside fundamental physics — a pre-registered structural prediction that has been independently confirmed in clinical biology.
+The framework's strongest structural content in clinical biology is the *wider therapeutic window for reader-writer disorders*, consistent with the Rett-syndrome reversibility of Guy et al. 2007. That result predates the framework, so it is a retrodiction; the forward version of the claim is tested below.
 
 **The reader-writer disorder class.** Several genetic disorders are caused by mutations affecting epigenetic reader or writer proteins:
 
@@ -289,7 +291,7 @@ The framework's strongest empirical content in clinical biology is the *wider th
 
 **Rett syndrome as the empirical test case.** Guy et al. 2007 (*Science*, "Reversal of neurological defects in a mouse model of Rett syndrome") demonstrated that restoration of MECP2 expression in adult MECP2-knockout mice — even at substantially reduced levels — reverses the neurological phenotype. The therapeutic window is much wider than the standard pharmacological expectation: the disease manifestations reverse with partial restoration, indicating that the *substratum operator's recovery* is sufficient to allow the emergent operator (neural function) to recover, without requiring precise calibration of the emergent operator directly.
 
-This is a *pre-registered structural prediction* of the framework: the substratum-emergent operator distinction predicts wider therapeutic windows for reader-writer disorders specifically (not for downstream effector mutations), and this prediction is empirically confirmed in Rett. The Guy et al. result has subsequently been replicated and extended in multiple models, with current clinical trials (NGN-401, TSHA-102) attempting MECP2 restoration in human Rett patients.
+The substratum-emergent operator distinction accounts for wider therapeutic windows in reader-writer disorders specifically (not in downstream effector mutations), consistent with the Rett reversibility of Guy et al. 2007. The framework's forward prediction is that the same wide-window pattern holds across other, as-yet-untested reader-writer disorders. The Guy et al. result has subsequently been replicated and extended in multiple models, with current clinical trials (NGN-401, TSHA-102) attempting MECP2 restoration in human Rett patients.
 
 **The framework's broader prediction.** The wider-window phenomenon should generalize to other reader-writer disorders. The framework predicts that:
 
@@ -299,7 +301,7 @@ This is a *pre-registered structural prediction* of the framework: the substratu
 
 *Kabuki syndrome and ATR-X.* Therapeutic strategies targeting the affected chromatin machinery (KMT2D, KDM6A, ATRX) should produce wider therapeutic windows than would be expected from downstream-effector targeting strategies.
 
-The cumulative pattern — wider therapeutic windows specifically for disorders of the substratum-maintenance machinery — is the framework's empirical signature in reader-writer disorders. The Guy et al. 2007 Rett confirmation is one specific case where the prediction has been tested and confirmed; the broader pattern is testable across the reader-writer disorder class.
+The cumulative pattern — wider therapeutic windows specifically for disorders of the substratum-maintenance machinery — is the framework's empirical signature in reader-writer disorders. The Guy et al. 2007 Rett reversibility is one case the framework accounts for; the broader wide-window pattern is a forward prediction, testable across the reader-writer disorder class.
 
 **The cancer methylome classifier explanation.** A second empirical confirmation of the framework's operator distinction at chromatin is the diagnostic success of cancer methylome classifiers. The DKFZ brain tumor methylome classifier (Capper et al. 2018, *Nature*) classifies brain tumors by their DNA methylation pattern with diagnostic accuracy exceeding histopathological classification. The classifier's structural significance: brain tumor classes are *defined* by their substrate-level methylation patterns rather than by their emergent-level transcriptional or histological phenotypes.
 
@@ -323,19 +325,19 @@ The framework's content across the chapter is organized by a single therapeutic 
 
 *Autoimmune disease.* Partial JAK inhibition produces disproportionate efficacy by disrupting memory accumulation rather than blocking instantaneous catalysis.
 
-*Epigenetics.* Reader/writer/eraser pharmacology operates on the substratum-emergent operator axis. The wider therapeutic window for reader-writer disorders is framework-predicted and empirically confirmed for Rett syndrome.
+*Epigenetics.* Reader/writer/eraser pharmacology operates on the substratum-emergent operator axis. The wider therapeutic window for reader-writer disorders is consistent with Rett syndrome, and is a forward prediction for other reader-writer disorders.
 
 **Three categories of empirical content.**
 
 The chapter's content sorts into three empirical categories.
 
-*Empirically confirmed.* The wider therapeutic window for Rett syndrome (Guy et al. 2007) confirms the framework's substratum-emergent operator distinction at chromatin. The cancer methylome classifier (Capper et al. 2018) confirms the substrate-level operator's clinical discriminating power. The schedule-dependence of Chk1 + gemcitabine combinations confirms the framework's non-Markovian prediction. These are pre-registered structural predictions with empirical confirmation in clinical biology.
+*Empirically confirmed.* The wider therapeutic window for Rett syndrome (Guy et al. 2007) confirms the framework's substratum-emergent operator distinction at chromatin. The cancer methylome classifier (Capper et al. 2018) confirms the substrate-level operator's clinical discriminating power. The schedule-dependence of Chk1 + gemcitabine combinations confirms the framework's non-Markovian prediction. The Rett case is a retrodiction; the Capper classifier and Chk1 scheduling are consistency results with established clinical biology. The framework's forward predictions in this domain remain to be tested.
 
 *Currently testable.* The framework's specific protocol predictions across cancer (memory-priming protocols), neurodegeneration (CaMKII conformational dynamics by FRET/HDX-MS, LIFU protocols with $\tau_B$-matched intervals), antibiotic resistance ($\tau_B$-matched pulsed dosing), and the broader reader-writer disorder class are testable with current technology. None have been specifically tested against the framework's predictions.
 
 *Open clinical development.* The framework predicts new drug classes — memory-targeted drugs (Chk1 regulatory-domain accelerators), $\tau_B$-normalizing drugs (neurodegeneration), anti-persister drugs (antibiotic resistance), regulatory-domain accelerators (immunotherapy) — that are pharmacologically distinct from current standards. These drug classes are not currently in development; they would require dedicated screening programs measuring regulatory dynamics rather than catalytic inhibition.
 
-**The framework's epistemic position in medicine.** The framework's content in this chapter is the strongest non-physics empirical case for the framework. The Rett syndrome confirmation is a pre-registered structural prediction confirmed in clinical biology — the same evidential standard the framework meets for JUNO's $\sin^2\theta_{12}$ at 0.07$\sigma$ in fundamental physics. The cumulative case across the chapter's content (cancer scheduling, neurodegeneration, antibiotic resistance, immunotherapy, cardiac pharmacology, autoimmune disease, epigenetic operator distinction) provides multiple converging lines of evidence for the framework's reach beyond fundamental physics.
+**The framework's epistemic position in medicine.** The framework's content in this chapter is its strongest non-physics *structural* case. The Rett result (Guy et al. 2007) is a retrodiction, not a forward confirmation like JUNO's $\sin^2\theta_{12}$ at 0.07$\sigma$. The cumulative case across the chapter's content (cancer scheduling, neurodegeneration, antibiotic resistance, immunotherapy, cardiac pharmacology, autoimmune disease, epigenetic operator distinction) provides multiple converging lines of evidence for the framework's reach beyond fundamental physics.
 
 The framework is not just a theory of fundamental physics with implications for medicine; it provides specific predictions for clinical pharmacology that have been tested and confirmed, with substantial open research programs aligned with the framework's content. The framework's reach in medicine is concrete and clinically engaged.
 

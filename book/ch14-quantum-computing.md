@@ -3,6 +3,8 @@
 
 ---
 
+> **Status — conjectural extension.** This chapter applies the core framework to quantum computation and complexity, and is offered as a *conjecture*, not an established result: the central claim — that the framework's emergent dynamics realizes the complexity class BQP — is a theoretical conjecture rather than a proven correspondence; it would be supported by a rigorous derivation from the finite substratum to BQP and undercut if that dynamics proves efficiently classically simulable or fails to reproduce known quantum-complexity separations. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
+
 ## 14.1 What this chapter develops
 
 The framework's content across Chapters 5 through 13 has established a substantial structural account of fundamental physics, the cascade through chemistry and biology, and the specific empirical content of quantum biology. The cascade's logic — substratum, partition, emergent quantum mechanics, structural conditions C1-C3 producing non-Markovian dynamics at multiple scales — provides the foundation for the framework's content in computational complexity theory.

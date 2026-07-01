@@ -18,6 +18,8 @@ On the P vs NP question the framework is *structurally silent*. We develop this 
 
 ---
 
+> **Status — conjectural extension.** This paper applies the core framework to quantum computation and complexity, and is offered as a *conjecture*, not an established result: the central claim — that the framework's emergent dynamics realizes the complexity class BQP — is a theoretical conjecture rather than a proven correspondence; it would be supported by a rigorous derivation from the finite substratum to BQP and undercut if that dynamics proves efficiently classically simulable or fails to reproduce known quantum-complexity separations. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
+
 ## 1. Introduction
 
 The structural chain from $(S, \varphi)$ through chemistry to biological evolution is developed in the companion paper [3]. The thermal window, organic chemistry, autocatalytic networks, template replication, the origin of life as a molecular C1–C3 system, and Darwinian evolution — each step is consequence-tracing in the framework's material-structural mode. The chain has a natural terminus at biological evolution: from there, the next link (information processing → general intelligence → artificial computation) introduces a qualitatively different kind of consequence, in the framework's *informational-structural* mode.

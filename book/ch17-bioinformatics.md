@@ -3,6 +3,8 @@
 
 ---
 
+> **Status — conjectural extension.** This chapter applies the core framework to bioinformatics and evolutionary biology, and is offered as a *conjecture*, not an established result: the account is explicitly retrodictive — the phenomena predate the framework — and its principal forward discriminator (the Hurst-exponent signature) does not by itself separate the framework from a mundane superposition null, so the conjecture awaits a test that distinguishes it from that baseline. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
+
 ## 17.1 What this chapter develops
 
 Chapter 16 developed the framework's content in medicine — clinical pharmacology, neurodegeneration, antibiotic resistance, immunotherapy, cardiac pharmacology, autoimmune disease, and epigenetics — with the empirically confirmed wider-therapeutic-window prediction for reader-writer disorders providing the framework's strongest non-physics empirical content. The framework's reach into clinical biology is concrete and clinically engaged.

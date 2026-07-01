@@ -16,6 +16,8 @@ We develop this structural observation into a unified framework for seven medica
 
 ---
 
+> **Status — conjectural extension.** This paper applies the core framework to medicine, and is offered as a *conjecture*, not an established result: its retrodictions — notably the Rett-syndrome reversibility (Guy et al. 2007), which predates the framework — are consistency checks rather than confirmations, while its forward content (wider therapeutic windows across as-yet-untested reader-writer disorders, and specific schedule-dependence predictions) is what future clinical data would confirm or break. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
+
 ## 1. Introduction
 
 Standard pharmacological models treat enzyme catalysis, receptor signaling, and ion channel gating as Markovian processes — each event is independent of prior history, and the system's future depends only on its current state. Michaelis-Menten kinetics, Hodgkin-Huxley channel models, and Hill-equation dose-response curves all embed this assumption. When history-dependent behavior is observed (use-dependent drug block, adaptive radiation responses, schedule-dependent chemotherapy efficacy), it is accommodated by adding internal states to the Markov model — often many states, without a unifying principle for when they are needed or how many to include.
