@@ -3,8 +3,6 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-  11pt,
-  letterpaper,
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -17,10 +15,9 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern unavailable; using xelatex defaults
+\usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
-  \setmainfont[]{DejaVu Serif}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -39,7 +36,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -54,7 +50,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\input{unicode-fix}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -130,6 +125,20 @@ identifies a new design space --- engineered C1--C3 architectures --- in
 which the environment is programmable quantum memory rather than noise.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{quote}
+\textbf{Status --- conjectural extension.} This paper applies the core
+framework to quantum computation and complexity, and is offered as a
+\emph{conjecture}, not an established result: the central claim --- that
+the framework's emergent dynamics realizes the complexity class BQP ---
+is a theoretical conjecture rather than a proven correspondence; it
+would be supported by a rigorous derivation from the finite substratum
+to BQP and undercut if that dynamics proves efficiently classically
+simulable or fails to reproduce known quantum-complexity separations. It
+carries no evidential weight for the core framework --- which stands or
+falls independently on its physics --- and should be read as a
+structural possibility to be tested, not as support for the framework.
+\end{quote}
 
 \hypertarget{introduction}{%
 \subsection{1. Introduction}\label{introduction}}

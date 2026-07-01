@@ -18,6 +18,8 @@ The same C1–C3 conditions that produce QM cosmologically are satisfied in prot
 
 ---
 
+> **Status — conjectural extension.** This paper applies the core framework to quantum computation and complexity, and is offered as a *conjecture*, not an established result: the central claim — that the framework's emergent dynamics realizes the complexity class BQP — is a theoretical conjecture rather than a proven correspondence; it would be supported by a rigorous derivation from the finite substratum to BQP and undercut if that dynamics proves efficiently classically simulable or fails to reproduce known quantum-complexity separations. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
+
 ## 1. Introduction
 
 The fine-tuning problem in physics rests on a counterfactual: if the laws of physics or the values of fundamental constants were different, the universe would not permit complex structures, and we would not exist to observe it. The anthropic principle elevates this observation into an explanatory principle — our existence selects the laws from an ensemble of possibilities.

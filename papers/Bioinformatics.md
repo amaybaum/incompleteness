@@ -19,6 +19,8 @@ The structural content of the framework's application to computational biology i
 
 ---
 
+> **Status — conjectural extension.** This paper applies the core framework to bioinformatics and evolutionary biology, and is offered as a *conjecture*, not an established result: the account is explicitly retrodictive — the phenomena predate the framework — and its principal forward discriminator (the Hurst-exponent signature) does not by itself separate the framework from a mundane superposition null, so the conjecture awaits a test that distinguishes it from that baseline. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
+
 ## 1. Introduction
 
 ### 1.1 The bioinformatics field's persistent puzzles
