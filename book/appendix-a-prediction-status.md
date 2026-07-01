@@ -5,7 +5,7 @@
 
 ## A.1 What this appendix provides
 
-The framework has a substantial empirical record across multiple domains. Twenty-two Standard Model observables, fourteen gravitational-sector observables, seven neutrino-sector observables, and one structural biological retrodiction (the wider therapeutic window for Rett syndrome, a phenomenon predating the framework) cumulatively constitute the framework's quantitative match against existing data. This appendix provides a single reference resource for what the framework predicts, how each prediction is classified by structural status, what the current empirical match is, and what open issues remain.
+The framework has a substantial empirical record across multiple domains. Twenty-two Standard Model observables, fourteen gravitational-sector observables, seven neutrino-sector observables, and one structural biological retrodiction (the wider therapeutic window for Rett syndrome) cumulatively constitute the framework's quantitative match against existing data. This appendix provides a single reference resource for what the framework predicts, how each prediction is classified by structural status, what the current empirical match is, and what open issues remain.
 
 The appendix serves two purposes. First, as a *navigational index*: readers wanting to know "what does the framework predict for X" can find each prediction with its location in the book, its formula, its empirical match, and its current status. Second, as an *honest accounting*: predictions that are confirmed appear alongside predictions that are layered (requiring additional verification), parameter-fit (where the framework provides structural form but specific values are empirical), and forward-looking (testable but not yet tested). The reader can therefore assess the framework's empirical record at the level of detail appropriate to their domain of interest.
 
@@ -143,11 +143,11 @@ The neutrino sector provides the framework's strongest pre-registered empirical 
 
 ### A.4.4 Biology and medicine predictions
 
-The framework's empirical content in biology and medicine is concentrated in the wider therapeutic window for reader-writer disorders (consistent retrodictively with the Rett-syndrome reversibility of Guy et al. 2007, which predates the framework) and the cancer methylome classification paradigm. This is structural organization of, and consistency with, established clinical biology rather than confirmed forward prediction.
+The framework's empirical content in biology and medicine is concentrated in the wider therapeutic window for reader-writer disorders (consistent with the Rett-syndrome reversibility of Guy et al. 2007) and the cancer methylome classification paradigm — structural organization of, and consistency with, established clinical biology.
 
 | # | Prediction | Quantitative content | Class | Layer | Empirical match | Chapter |
 |---|-----------|---------------------|-------|-------|-----------------|---------|
-| B1 | Wider therapeutic window for Rett | Substratum-emergent operator dissociation | S | 1 | Retrodiction — consistent with Guy et al. 2007 (predates framework) | Ch 16 §16.12 |
+| B1 | Wider therapeutic window for Rett | Substratum-emergent operator dissociation | S | 1 | Retrodiction (Guy et al. 2007) | Ch 16 §16.12 |
 | B2 | Cancer methylome classifier accuracy | Substratum preserved during tumorigenesis | S | 1 | DKFZ 95%+ accuracy | Ch 17 §17.7 |
 | B3 | Non-Markovian enzyme kinetics | Stretched-exponential waiting times | S | 1 | Multiple enzyme systems | Ch 13 §13.6 |
 | B4 | Vibronic coherences in photosynthesis | Picosecond timescale | S | 1 | FMO confirmed | Ch 13 §13.4 |
@@ -162,7 +162,7 @@ The framework's empirical content in biology and medicine is concentrated in the
 | B13 | iPSC reprogramming residuals | Substratum-emergent dissociation | S | 1 | Lin et al. 2024 confirmed | Ch 16 §16.10 |
 | B14 | Bivalent chromatin states | Multi-operator substratum | S | 1 | Bernstein et al. 2006 confirmed | Ch 16 §16.10 |
 
-**Summary statistics.** Counts: 14 S. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction — the reversibility phenomenon predates the framework, which accounts for it structurally — and belongs in the same category as B6-B10, the retrodictions of established evolutionary biology phenomena that the framework's structural mechanism unifies under a single account. It is not a confirmed forward prediction.
+**Summary statistics.** Counts: 14 S. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction, in the same category as B6-B10 — the framework accounts for phenomena established before it. None is a forward confirmation.
 
 ## A.5 Forward predictions and falsification targets
 
@@ -215,7 +215,7 @@ The *rotational* Lorentz sector is deliberately **not** listed as a forward pred
 
 The framework's cumulative empirical record can be summarized as follows.
 
-**Strongest current evidence.** Two genuine pre-registered confirmations provide the framework's strongest empirical content: JUNO $\sin^2\theta_{12}$ at 0.07$\sigma$ (entry 12 / N1) and GW250114 Bekenstein-Hawking coefficient $1/4$ at 99.999% (entry 24 / G4). Both are structural predictions registered before the empirical data was available and confirmed at high precision. The Rett wider-window result (entry B1) is a strong *retrodiction* — the framework accounts for a phenomenon established in 2007, before the framework — and is not counted among the forward confirmations.
+**Strongest current evidence.** Two pre-registered confirmations provide the framework's strongest empirical content: JUNO $\sin^2\theta_{12}$ at 0.07$\sigma$ (entry 12 / N1) and GW250114 Bekenstein-Hawking coefficient $1/4$ at 99.999% (entry 24 / G4) — both registered before the data and confirmed at high precision. The Rett wider-window result (entry B1) is a retrodiction, not counted among the forward confirmations.
 
 **Most distinctive content.** Two predictions distinguish the framework from standard accounts most sharply: the substratum-emergent operator distinction (with empirical signatures in B1, B2, B13, B14) and the partially-quantum regime $\mathcal{F}(r) = 2r - r^2$ (with empirical exposure in F1). Neither has analog in standard quantum mechanics or effective field theory.
 
@@ -229,7 +229,7 @@ The framework's cumulative empirical record can be summarized as follows.
 
 **Where the framework has no current content.** Five fundamental physics problems are scope limits from the framework's perspective — places where it does not provide a derived value: the fermion mass hierarchy in detail (flavor problem), baryogenesis (solution-specific — the baryon asymmetry inherits the input status of the framework's flavor-sector CP phases, §19.3.3), inflation and initial conditions, the Hubble tension's specific resolution, and the cosmological initial state. These are explicitly characterized in Chapter 19.
 
-**Cumulative assessment.** The framework's empirical record consists of approximately fifty separate prediction-data matches across multiple domains: twenty-two Standard Model predictions matching at approximately 1% or 1$\sigma$, fourteen gravitational sector predictions matching observation, seven neutrino sector predictions including the 0.07$\sigma$ JUNO confirmation, fourteen biology/medicine entries (structural retrodictions and consistency results, including the Rett wider-window retrodiction), plus four pre-registered forward predictions specifically distinguished from standard accounts. The framework's value is therefore demonstrated by cumulative empirical content across multiple domains rather than concentrated in any single empirical claim.
+**Cumulative assessment.** The framework's empirical record consists of approximately fifty separate prediction-data matches across multiple domains: twenty-two Standard Model predictions matching at approximately 1% or 1$\sigma$, fourteen gravitational sector predictions matching observation, seven neutrino sector predictions including the 0.07$\sigma$ JUNO confirmation, fourteen biology/medicine entries (retrodictions and consistency results), plus four pre-registered forward predictions specifically distinguished from standard accounts. The framework's value is therefore demonstrated by cumulative empirical content across multiple domains rather than concentrated in any single empirical claim.
 
 The framework's distinctive epistemic position is that it provides *structural foundations* for the empirical patterns rather than competing theoretical content at the emergent level. Standard QM, standard QFT, and standard GR are reproduced at the emergent level; the framework's distinctive content is the structural foundations explaining why these emergent theories have the specific forms they do. The cumulative empirical record provides convergent evidence for the framework's structural commitments across multiple domains, with no single empirical match being load-bearing for the framework's overall content.
 
