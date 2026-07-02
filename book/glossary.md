@@ -84,7 +84,7 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **Jordan-Chevalley projection.** The algebraic decomposition of an operator into commuting semisimple and nilpotent parts: $F = F_{ss} \cdot F_u$ with $F_u = I + N$ and $N^2 = 0$. The framework's content: the trace-out operation extracts $F_{ss}$ and discards $N$, organizing the emergent description by the representation theory of the partition. Developed in Appendix B §B.3.
 
-**JUNO (Jiangmen Underground Neutrino Observatory).** A reactor neutrino experiment that in November 2025 reported the first world-leading direct measurement of the solar neutrino mixing angle: $\sin^2\theta_{12} = 0.3092 \pm 0.0087$. The framework's prediction $1/3 - 1/(4\pi^2) = 0.3080$ matches this at $0.07\sigma$. The framework's strongest empirical anchor. Discussed in Chapter 8.
+**JUNO (Jiangmen Underground Neutrino Observatory).** A reactor neutrino experiment that in November 2025 reported the first world-leading direct measurement of the solar neutrino mixing angle: $\sin^2\theta_{12} = 0.3092 \pm 0.0087$. The framework's parameter-free value $1/3 - 1/(4\pi^2) = 0.3080$ matches this at $0.07\sigma$ — a retrodiction; JUNO's design-lifetime precision provides the pre-registered forward test. Discussed in Chapter 8.
 
 **Koide relation.** An empirical relation among the three charged-lepton masses: $Q = (m_e + m_\mu + m_\tau)/(\sqrt{m_e} + \sqrt{m_\mu} + \sqrt{m_\tau})^2$. Observed value $Q = 0.666661 \pm 0.000007$. The framework predicts $Q = 2/3$ from cubic-group quadratic Casimir; the match is $0.02\%$. Developed in Chapter 6 §6.6.
 
@@ -108,7 +108,7 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **P-indivisibility.** The framework's central technical concept: a stochastic process is P-indivisible if its transition matrix at time $t_2 > t_1$ cannot be expressed as the composition of the transition matrix at $t_1$ with a positive transition matrix. Equivalently: no Markovian process with intermediate state at $t_1$ can produce the same statistics. P-indivisibility is the framework's structural mechanism for emergent quantum mechanics, and it follows from C1-C3 jointly. Developed in Chapter 1 §1.5 and Appendix B §B.7.
 
-**PMNS (Pontecorvo-Maki-Nakagawa-Sakata) matrix.** The unitary mixing matrix between Standard Model neutrino mass and flavor eigenstates. The framework derives all three PMNS mixing angles from the cubic-group flavor structure, including the JUNO-confirmed solar angle $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$. Discussed in Chapter 8.
+**PMNS (Pontecorvo-Maki-Nakagawa-Sakata) matrix.** The unitary mixing matrix between Standard Model neutrino mass and flavor eigenstates. The framework derives all three PMNS mixing angles from the cubic-group flavor structure, including the solar angle $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$, which matches the JUNO-era global fit at $0.07\sigma$ (a retrodiction). Discussed in Chapter 8.
 
 **Read-write cycle.** The framework's equilibrium dynamics between the visible and hidden sectors of the partition. The observer reads the visible sector, writes correlations into the hidden sector through the partition coupling, and reads back those correlations on subsequent measurements. The cycle produces emergent quantum mechanics at the cosmological scale and heredity at the molecular scale. Defined in Chapter 1 §1.6.
 

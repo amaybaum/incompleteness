@@ -7,7 +7,7 @@
 
 ## Abstract
 
-We derive the parameter-free prediction sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080 from cubic-group flavor structure, with no parameter fit to the value of sin²θ₁₂. The first JUNO measurement of reactor neutrino oscillations reports sin²θ₁₂ = 0.3092 ± 0.0087, with the post-JUNO global fit tightening this to sin²θ₁₂ = 0.3085 ± 0.0073, matching the prediction at 0.07σ. The same construction gives sin²θ₁₃ = 4/(18π²) = 0.02252 and sin²θ₂₃ = 1/2 + 1/(2π²) = 0.5507, each consistent with NuFIT 6.0 [14] within 1.1σ, and forces the exact sum rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6 — a clean discriminator from the TM1 and TM2 patterns currently analyzed against JUNO. The angle predictions follow from a discrete μ-τ parity together with one Wilson-coefficient relation (Condition 2) between the U-even and U-odd components of the second-order perturbation, with the specific value 4/3 = 2A² admitting the structural reading 4(d−1)/(2d) for d = 3. The Cabibbo angle λ = 1/(π√2) = 0.22508, set by the cubic Brillouin-zone geometry, sets the perturbation scale and matches the observed value to 0.04%. JUNO's design-lifetime precision of ±0.0014 will test the prediction at sub-percent level.
+We derive the parameter-free prediction sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080 from cubic-group flavor structure, with no parameter fit to the value of sin²θ₁₂. The derivation postdates JUNO's first results (November 2025); the match reported here is a retrodiction, with no claim of temporal priority. The paper's forward content is the exposure of the exact, freedom-free value to JUNO's design-lifetime precision, together with a sum-rule discriminator against the TM1/TM2 patterns. The first JUNO measurement of reactor neutrino oscillations reports sin²θ₁₂ = 0.3092 ± 0.0087, with the post-JUNO global fit tightening this to sin²θ₁₂ = 0.3085 ± 0.0073, matching the prediction at 0.07σ. The same construction gives sin²θ₁₃ = 4/(18π²) = 0.02252 and sin²θ₂₃ = 1/2 + 1/(2π²) = 0.5507, each consistent with NuFIT 6.0 [14] within 1.1σ, and forces the exact sum rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6 — a clean discriminator from the TM1 and TM2 patterns currently analyzed against JUNO. The angle predictions follow from a discrete μ-τ parity together with one Wilson-coefficient relation (Condition 2) between the U-even and U-odd components of the second-order perturbation, with the specific value 4/3 = 2A² admitting the structural reading 4(d−1)/(2d) for d = 3. The Cabibbo angle λ = 1/(π√2) = 0.22508, set by the cubic Brillouin-zone geometry, sets the perturbation scale and matches the observed value to 0.04%. JUNO's design-lifetime precision of ±0.0014 will test the prediction at sub-percent level.
 
 ---
 
@@ -61,6 +61,19 @@ The first two entries are derived in [18, §§7.1–7.2]; the Cabibbo derivation
 The lattice-based framework in which the cubic-group structure is realized [18] is one of several recent constructions in which observer-essentiality plays a foundational role. Chandrasekaran, Longo, Penington, and Witten [19] established that incorporating an observer promotes the von Neumann algebra of QFT observables in a gravitational subregion from type III to type II, with a well-defined entropy. Maldacena [20] showed that an observer-with-clock cancels the unphysical phase of the de Sitter sphere partition function. Harlow, Usatyuk, and Zhao [21] argued that the closed-universe Hilbert space dimension is determined by the observer's degrees of freedom. Slagle and Preskill [22] constructed boundary quantum mechanics from a classical bulk lattice model with stochastic dynamics, demonstrating the logical possibility of QM-from-classical at the cost of an exponentially long extra spatial dimension. The framework underlying this paper differs from these constructions in being deterministic at the substratum level (no stochastic dynamics, no extra spatial dimension), and in producing the cubic-group flavor structure used here as a structural consequence rather than an input. The convergence with the post-2022 mainstream observer-emergent literature on the foundational observer-essentiality move is supportive context for the present prediction; the prediction itself stands or falls on its empirical match with JUNO, which is the focus of this paper.
 
 The remainder of this paper develops the technical content. Section 2 sets up the cubic-group structure and derives the perturbation scale. Section 3 computes the deviations from TBM at O(λ²) and derives the sum rule. Section 4 presents the predictions and compares them with JUNO, the post-JUNO global fit, and competing TM1/TM2 patterns. Section 5 covers the remaining angles. Section 6 addresses robustness. Section 7 discusses falsifiability under JUNO's projected long-term precision. Section 8 concludes.
+
+### 1.3 Provenance
+
+This derivation was carried out in 2026, after the JUNO first results [7] and the post-JUNO
+global fit [8] appeared. The value was not fitted to the measurement — it is fixed by the
+cubic-group structure with no adjustable freedom — but the match is retrodictive, and this
+paper makes no claim of temporal priority over the data. Its falsifiable forward content is
+threefold: (i) the exact value 0.30798 against JUNO's design-lifetime precision of ±0.0014
+(§8 of the design report; a ~4σ discriminator if the central value holds); (ii) the exact sum
+rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6 against the TM1 and TM2 patterns analyzed in the post-JUNO
+literature [9, 10]; and (iii) the θ₁₃ and θ₂₃ values as global precision sharpens. This places
+the paper within the post-JUNO structural-interpretation literature [9, 10], with its
+provenance stated explicitly.
 
 ## 2. Cubic-group flavor structure
 
