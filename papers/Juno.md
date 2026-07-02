@@ -1,7 +1,7 @@
 # A Neutrino Mixing Sum Rule from Octahedral Flavor Structure: 2 sin²θ₁₂ + sin²θ₂₃ = 7/6
 
 **Author:** Alex Maybaum  
-**Date:** May 2026 (revised July 2026)
+**Date:** July 2026
 
 ---
 
