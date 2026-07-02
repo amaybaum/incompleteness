@@ -90,13 +90,13 @@ The framework's twenty-two Standard Model predictions form the core empirical re
 | 21 | $m_b$ via $Q_{\text{down}}$ | derived | L | 2(b) | Within 1$\sigma$ | Ch 6 §6.7 |
 | 22 | $\lambda(M_{\text{Pl}}) = 0$ | structural | S | 1 | **0.6$\sigma$** | Ch 6 §6.8 |
 | 23 | MOND acceleration $a_0$ | $cH/6$ | S | 0/1 | Within 0.5% | Ch 7 §7.8 |
-| 24 | Bekenstein-Hawking entropy | $S = A/(4 l_p^2)$ | S | 1 | **99.999% GW250114** | Ch 7 §7.5 |
+| 24 | Bekenstein-Hawking entropy | $S = A/(4 l_p^2)$ | S | 1 | derived; no direct test | Ch 7 §7.5 |
 
 **Summary statistics.** Counts: 13 unconditional S + 6 L + 2 M + 1 R + 2 E. Total: 24. The C class is currently empty (the Cond 2 prediction that previously occupied C was reclassified following the §B.2.2 audit). The P class is currently empty. Every prediction within approximately 1% or 1$\sigma$ of observation.
 
 **ᶠ** *Layer 2(a)-tractable (sin²θ_12, sin²θ_23, PMNS sum rule).* The Layer 1 component is structurally protected against the $A_1$ perturbation by the cosines-dressing of the TBM sum rule (cubic geometry alone). The remaining Layer 2(a)-tractable component is the $A_2$ Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3 = 4(d-1)/(2d)$, equivalent to the substrate-level relation $b_{23}^\text{sub} = (4/3)(b_{12}^\text{sub}+b_{13}^\text{sub}) + 1/9$. The "Layer 2(a)-tractable" label has the specific meaning that the residual question is *sharply specified* and admits definite outcomes from one-loop substrate calculations. It does *not* mean the answer is forced by representation theory alone — the May 6, 2026 audit (§B.2.2) established that the natural Higgs-democratic spurion does not produce this ratio (instead giving $b_{12}:b_{13}:b_{23} \approx 17:1:1$ in the heavy-quark hierarchy, off by factor ~24 from the required 4/3), and the relation requires substrate amplitudes with the non-natural scaling $\delta M_{ij}^\text{sub} \propto m_{\max(i,j)}$ plus a channel-specific enhancement factor $K_{23}/K_{12} \approx 2.8$. The substantive content is bijection-specific (Layer 2(b) in the strict-classification sense) with a sharply specified Layer 2(a)-tractable verification path. The empirical match at 0.07$\sigma$ (JUNO) and 0.6$\sigma$ (sum rule) confirms the bijection has the required structure; analytical closure pending the substrate one-loop calculation.
 
-**Distinctive empirical content.** Three predictions stand out as the framework's strongest empirical content. (i) JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ at **0.07$\sigma$** against the post-JUNO global fit — a *pre-registered* prediction made before the JUNO measurement and confirmed at sub-$\sigma$ precision. (ii) GW250114 Bekenstein-Hawking coefficient $1/4$ at **99.999%** consistency — pre-registered prediction confirmed at the gravitational wave strain peak. (iii) Koide $Q = 2/3$ at **0.02%** — the sharpest framework prediction across all 24, matching observation at four-significant-figure precision.
+**Distinctive empirical content.** Three predictions stand out as the framework's strongest empirical content. (i) JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ at **0.07$\sigma$** against the post-JUNO global fit — a *pre-registered* prediction made before the JUNO measurement and confirmed at sub-$\sigma$ precision. (ii) the Milky Way Keplerian decline at the predicted $r_M \sim 17$ kpc — the framework's strongest gravitational empirical content; the Bekenstein-Hawking coefficient is derived but has no direct test (GW250114 constrains the classical area theorem). (iii) Koide $Q = 2/3$ at **0.02%** — the sharpest framework prediction across all 24, matching observation at four-significant-figure precision.
 
 ### A.4.2 Gravitational-sector observables
 
@@ -107,7 +107,7 @@ The framework's gravitational predictions match general relativistic predictions
 | G1 | Discreteness scale | $\epsilon = 2 l_p$ | S | 0 | Structural | Ch 7 §7.4 |
 | G2 | Bekenstein bound | $S_{\text{dS}} \sim 10^{122}$ | S | 0 | Within 1% | Ch 7 §7.4 |
 | G3 | Planck constant from gap eqn | $\hbar$ derived | S | 1 | Structural | Ch 7 §7.4 |
-| G4 | Bekenstein-Hawking coefficient | $1/4$ | S | 1 | **99.999%** | Ch 7 §7.5 |
+| G4 | Bekenstein-Hawking coefficient | $1/4$ | S | 1 | derived; no direct test | Ch 7 §7.5 |
 | G5 | Hawking radiation rate | structural | S | 1 | Within 1% | Ch 7 §7.5 |
 | G6 | MOND acceleration $a_0 = cH/6$ | structural | S | 0/1 | Within 0.5% | Ch 7 §7.8 |
 | G7 | CC dissolution | compression ratio | S | 1 | Structural | Ch 7 §7.7 |
@@ -121,7 +121,7 @@ The framework's gravitational predictions match general relativistic predictions
 
 **Summary statistics.** Counts: 13 S + 1 L. Total: 14. The G6 MOND prediction has dual Layer 0/1 status (the discreteness scale at Layer 0 plus the mode-counting at Layer 1). Cumulative empirical match at observational precision for all entries within current experimental capability.
 
-**Distinctive content.** The Bekenstein-Hawking coefficient $1/4$ at 99.999% consistency with GW250114 (entry G4) is the framework's strongest gravitational empirical content. The MOND acceleration $a_0 = cH/6$ at 0.5% (entry G6) provides independent confirmation through a non-gravitational-wave channel. The Running Vacuum Model coefficient $\nu_{\text{OI}}$ (entry G8) provides forward-looking exposure to DESI data over the next 2-3 years.
+**Distinctive content.** The MOND acceleration $a_0 = cH/6$ at 0.5% (entry G6) is the framework's strongest gravitational empirical content. The Bekenstein-Hawking coefficient (entry G4) is derived but has no direct empirical test: GW250114 constrains the classical area theorem, which the framework preserves, not the entropy coefficient. The Running Vacuum Model coefficient $\nu_{\text{OI}}$ (entry G8) provides forward-looking exposure to DESI data over the next 2-3 years.
 
 ### A.4.3 Neutrino-sector observables
 
@@ -215,7 +215,7 @@ The *rotational* Lorentz sector is deliberately **not** listed as a forward pred
 
 The framework's cumulative empirical record can be summarized as follows.
 
-**Strongest current evidence.** Two pre-registered confirmations provide the framework's strongest empirical content: JUNO $\sin^2\theta_{12}$ at 0.07$\sigma$ (entry 12 / N1) and GW250114 Bekenstein-Hawking coefficient $1/4$ at 99.999% (entry 24 / G4) — both registered before the data and confirmed at high precision. The Rett wider-window result (entry B1) is a retrodiction, not counted among the forward confirmations.
+**Strongest current evidence.** One pre-registered confirmation provides the framework's strongest empirical content: JUNO $\sin^2\theta_{12}$ at 0.07$\sigma$ (entry 12 / N1), registered before the data and confirmed at high precision. The Bekenstein-Hawking coefficient (entry 24 / G4) is derived but has no direct empirical test — GW250114 constrains the classical area theorem, not the coefficient. The Rett wider-window result (entry B1) is a retrodiction, not counted among the forward confirmations.
 
 **Most distinctive content.** Two predictions distinguish the framework from standard accounts most sharply: the substratum-emergent operator distinction (with empirical signatures in B1, B2, B13, B14) and the partially-quantum regime $\mathcal{F}(r) = 2r - r^2$ (with empirical exposure in F1). Neither has analog in standard quantum mechanics or effective field theory.
 

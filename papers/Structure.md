@@ -53,7 +53,7 @@ In a separate program [Main, SM, GR, Substratum], the Incompleteness of Observat
 (iii) *Deep-sector enlargement/reduction.* The hidden sector beyond the boundary layer admits arbitrary cardinality.
 (iv) *Graph isomorphism (up to statistical isotropy).* Coupling graphs sharing dimension, spectral dimension, and statistical isotropy are gauge-equivalent.
 
-The framework's structural-realism stance is that the equivalence class $[(S, \varphi)]/\mathcal{G}_{\rm sub}$ — not any particular substratum representative — is what physics determines. Twenty-two quantitative SM predictions, including Cabibbo angle $1/(\pi\sqrt{2})$ matching observation at $0.05\sigma$, Koide ratio $2/3$ matching at 0.02%, and the Bekenstein-Hawking $1/4$ coefficient confirmed at 99.999% by GW250114, follow as forced consequences of the equivalence class.
+The framework's structural-realism stance is that the equivalence class $[(S, \varphi)]/\mathcal{G}_{\rm sub}$ — not any particular substratum representative — is what physics determines. Twenty-two quantitative SM predictions, including Cabibbo angle $1/(\pi\sqrt{2})$ matching observation at $0.05\sigma$, Koide ratio $2/3$ matching at 0.02%, and the Bekenstein-Hawking $1/4$ coefficient (derived; GW250114 confirms the classical area theorem, the coefficient untested directly), follow as forced consequences of the equivalence class.
 
 ### 1.4 Question 1: the equivalence-class proposal
 
@@ -447,7 +447,7 @@ The structural barrier identified in §6 (A2 and A5 violations in matrix-model f
 
 The strongest emergence claim is for *horizon holography* — the Bekenstein-Hawking $A/4$ area law and the holographic information bound. OI's [GR §5] derives the $A/4$ coefficient from the substratum's thermal self-consistency at the cosmological-horizon scale, with the entropy density emerging as a partial-trace invariant of the embedded-observer marginal. The derivation does not appeal to specific string-theoretic content; it invokes only the framework's structural features (the trace-out, the cosmological-horizon information capacity, the thermal equilibrium of the hidden sector). The $A/4$ coefficient transports to OI from the partial-trace structure, not from string-theoretic content.
 
-This produces a structural feature shared with string-theoretic horizon physics: any horizon entropy in OI's framework is bounded by $A/4$, and the holographic principle (information content of a region bounded by area, not volume) holds. The shared feature is at the level of the partial-trace observational structure, consistent with §14.2's transport assessment for channel-level unitarity. Recent confirmation comes from GW250114 [GW250114], where the Bekenstein-Hawking coefficient $1/4$ was confirmed at $99.999\%$ confidence — applying both to OI's derivation and to string-theoretic microscopic-state-counting derivations [StromingerVafa1996].
+This produces a structural feature shared with string-theoretic horizon physics: any horizon entropy in OI's framework is bounded by $A/4$, and the holographic principle (information content of a region bounded by area, not volume) holds. The shared feature is at the level of the partial-trace observational structure, consistent with §14.2's transport assessment for channel-level unitarity. Recent confirmation comes from GW250114 [GW250114], where Hawking's area theorem was confirmed at $99.999\%$ confidence — a classical-horizon-dynamics result that both OI and string theory preserve; the $1/4$ coefficient itself (derived in OI by mode counting, in string theory by microscopic state counting [StromingerVafa1996]) has no direct empirical test.
 
 The harder question is whether OI produces *full AdS/CFT-style holography* — bulk-boundary correspondence with specific dictionary between bulk fields and boundary operators. Here the answer is more nuanced. OI's cosmological structure is positive-$\Lambda$ (de Sitter-like), not anti-de Sitter; the cosmological horizon is a de Sitter horizon, not an AdS boundary. The bulk-boundary correspondence in standard AdS/CFT relies on the asymptotic AdS structure to define boundary operators uniquely, and this asymptotic structure is absent in OI's framework.
 
@@ -876,7 +876,7 @@ The framework's predictions live at distinct levels of the hierarchy developed i
 | Born rule (probability $|\langle a | \rho \rangle|^2$) | Confirmed at $10^{-3}$–$10^{-4}$ | [Sinha2010, Söllner2012, Kanthak2025] |
 | Channel-level unitarity (Stinespring dilation) | Standard QM, theorem-level | [Stinespring1955, Barandes2026] |
 | Non-Markovian marginal (P-indivisibility) | Confirmed in colloidal, micromechanical, metrology | [Mehl2012, Groeblacher2015, QECNonMarkovian2025] |
-| Holographic bound ($S \leq A/4$) | Confirmed by GW250114 at $99.999\%$ | [GW250114] |
+| Holographic bound ($S \leq A/4$) | GW250114 confirms the classical area theorem; the entropy bound itself is untested directly | [GW250114] |
 | Bekenstein-Hawking $1/4$ coefficient | Confirmed (gravitational + horizon settings) | [GW250114, GR §5] |
 
 Level 1 confirmations support OI but do not distinguish OI from alternative frameworks producing the same partial-trace structure (string theory, holographic models, hidden-degree-of-freedom open quantum systems). All such confirmations are joint confirmations of the universal level.
@@ -1292,7 +1292,7 @@ Direct experimental confirmation applies to the partial-trace-level features ide
 
 **Neutrinoless double-beta decay.** [LEGEND2024] reports LEGEND-200 sensitivity $T_{1/2} > 2.8 \times 10^{26}$ yr at 90% CL on $0\nu\beta\beta$ in $^{76}$Ge (combined with GERDA + Majorana Demonstrator). The framework's [SM §8.4] predicts Majorana neutrinos, so $0\nu\beta\beta$ should be observed; LEGEND-1000 is designed to reach the inverse-ordering range. A positive observation would confirm the framework's neutrino-sector prediction; a null result at LEGEND-1000 sensitivity would constrain the framework. The swampland literature [IbañezMartinLozanoValenzuela2017] independently constrains neutrino-sector parameters via the Weak Gravity Conjecture, providing a cross-validation pathway: the framework's normal-ordering Majorana prediction sits within the WGC-allowed region.
 
-**Black-hole entropy.** GW250114 (LIGO/Virgo/KAGRA, September 2025) confirmed the Bekenstein–Hawking $1/4$ coefficient at $99.999\%$ confidence, as derived in [GR §5]. This is one of the framework's strongest direct empirical confirmations, applying to the cosmological-horizon application of the partial-trace mechanism.
+**Black-hole entropy.** GW250114 (LIGO/Virgo/KAGRA, September 2025) confirmed Hawking's area theorem at $99.999\%$ confidence — classical horizon dynamics the framework preserves; the $1/4$ coefficient derived in [GR §5] has no direct empirical test. The observation is a non-discriminating consistency for the cosmological-horizon application of the partial-trace mechanism.
 
 ### 15.6 What remains under-supported
 
