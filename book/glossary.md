@@ -84,7 +84,7 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **Jordan-Chevalley projection.** The algebraic decomposition of an operator into commuting semisimple and nilpotent parts: $F = F_{ss} \cdot F_u$ with $F_u = I + N$ and $N^2 = 0$. The framework's content: the trace-out operation extracts $F_{ss}$ and discards $N$, organizing the emergent description by the representation theory of the partition. Developed in Appendix B §B.3.
 
-**JUNO (Jiangmen Underground Neutrino Observatory).** A reactor neutrino experiment that in November 2025 reported the first world-leading direct measurement of the solar neutrino mixing angle: $\sin^2\theta_{12} = 0.3092 \pm 0.0087$. The framework's parameter-free value $1/3 - 1/(4\pi^2) = 0.3080$ matches this at $0.07\sigma$ — a retrodiction (the 2026 derivation postdates the measurement); JUNO's design-lifetime precision provides the pre-registered forward test. Discussed in Chapter 8.
+**JUNO (Jiangmen Underground Neutrino Observatory).** A reactor neutrino experiment that in November 2025 reported the first world-leading direct measurement of the solar neutrino mixing angle: $\sin^2\theta_{12} = 0.3092 \pm 0.0087$. The framework's parameter-free value $1/3 - 1/(4\pi^2) = 0.3080$ matches this at $0.07\sigma$ — a retrodiction; JUNO's design-lifetime precision provides the pre-registered forward test. Discussed in Chapter 8.
 
 **Koide relation.** An empirical relation among the three charged-lepton masses: $Q = (m_e + m_\mu + m_\tau)/(\sqrt{m_e} + \sqrt{m_\mu} + \sqrt{m_\tau})^2$. Observed value $Q = 0.666661 \pm 0.000007$. The framework predicts $Q = 2/3$ from cubic-group quadratic Casimir; the match is $0.02\%$. Developed in Chapter 6 §6.6.
 

@@ -22,7 +22,7 @@ This reading path takes approximately 15-25 hours for technical readers.
 
 ## Reading path for empirical content evaluation
 
-Readers approaching the framework with primary interest in evaluating its empirical record — the JUNO retrodictive match (0.07$\sigma$; the derivation postdates the November-2025 measurement), the Standard Model retrodictions, the GW250114 area-theorem consistency, the Rett syndrome retrodiction — should focus on the framework's specific quantitative content.
+Readers approaching the framework with primary interest in evaluating its empirical record — the JUNO retrodictive match (0.07$\sigma$), the Standard Model retrodictions, the GW250114 area-theorem consistency, the Rett syndrome retrodiction — should focus on the framework's specific quantitative content.
 
 **Essential.** Chapter 0 (framing, particularly §0.5 on the empirical record). Chapter 6 (twenty-two Standard Model predictions). Chapter 7 (gravitational sector predictions, particularly §§7.5, 7.9 on Bekenstein-Hawking and MOND). Chapter 8 (JUNO neutrino sector). Chapter 16 (medical predictions, particularly §16.12 on Rett syndrome). Appendix A (prediction status table for systematic reference).
 
