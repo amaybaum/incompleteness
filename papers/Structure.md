@@ -1370,7 +1370,7 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [IKKT1996] N. Ishibashi, H. Kawai, Y. Kitazawa, A. Tsuchiya, "A Large-N Reduced Model as Superstring", Nucl. Phys. B 498, 467-491 (1997). arXiv:hep-th/9612115.
 
-[Juno] A. Maybaum, "JUNO solar mixing angle prediction from cubic-lattice substratum: $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$" (2026).
+[Juno] A. Maybaum, "A Neutrino Mixing Sum Rule from Octahedral Flavor Structure: $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$" (2026).
 
 [Kanthak2025] S. Kanthak, J. Pahl, D. Reiche, M. Krutzik, "Proposal for a Bose–Einstein Condensate Based Test of Born's Rule Using Light–Pulse Atom Interferometry", Advanced Quantum Technologies 8, 2400436 (2025).
 
