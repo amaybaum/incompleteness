@@ -192,7 +192,7 @@ The KMS periodicity is a *geometric* condition (Euclidean smoothness at the hori
 
 The framework's content on the Standard Model matter content derives the unique hypercharge assignment from the six anomaly conditions of $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. The derivation establishes that the observed hypercharges are not phenomenological inputs but the unique anomaly-free completion of the framework's gauge structure.
 
-**Theorem B.5.1 (Unique hypercharges).** *Given $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ with fermions in fundamental or singlet representations, the six anomaly conditions uniquely determine the hypercharges:*
+**Theorem B.5.1 (Unique hypercharges).** *Given $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ with fermions in fundamental or singlet representations, the six anomaly conditions determine the hypercharges uniquely up to the overall normalization and the interchange $Y_u \leftrightarrow Y_d$, the latter fixed by the electric-charge identification $Q_{\text{em}} = T_3 + Y$:*
 $$Y_Q = \frac{1}{6}, \quad Y_u = \frac{2}{3}, \quad Y_d = -\frac{1}{3}, \quad Y_L = -\frac{1}{2}, \quad Y_e = -1$$
 
 *Proof setup.* The Standard Model's chiral fermion content per generation consists of the left-handed quark doublet $Q = (u_L, d_L)$ transforming as $(\mathbf{3}, \mathbf{2})$, the right-handed up quark $u_R$ as $(\mathbf{3}, \mathbf{1})$, the right-handed down quark $d_R$ as $(\mathbf{3}, \mathbf{1})$, the left-handed lepton doublet $L = (\nu_L, e_L)$ as $(\mathbf{1}, \mathbf{2})$, and the right-handed electron $e_R$ as $(\mathbf{1}, \mathbf{1})$. Each carries a hypercharge $Y$ to be determined.
@@ -237,11 +237,11 @@ $$Y_u^3 + Y_d^3 = 7/27$$
 
 Combined with $Y_u + Y_d = 1/3$: using $Y_u^3 + Y_d^3 = (Y_u + Y_d)^3 - 3 Y_u Y_d (Y_u + Y_d)$, we get $7/27 = 1/27 - Y_u Y_d$, so $Y_u Y_d = 1/27 - 7/27 = -6/27 = -2/9$.
 
-The roots of $x^2 - (1/3) x - 2/9 = 0$ are $x = (1/3 \pm \sqrt{1/9 + 8/9})/2 = (1/3 \pm 1)/2$. The two roots are $2/3$ and $-1/3$, identifying $Y_u = 2/3$ and $Y_d = -1/3$.
+The roots of $x^2 - (1/3) x - 2/9 = 0$ are $x = (1/3 \pm \sqrt{1/9 + 8/9})/2 = (1/3 \pm 1)/2$. The two roots are $2/3$ and $-1/3$. The anomaly conditions are symmetric under $Y_u \leftrightarrow Y_d$, so the system does not itself order the pair; the assignment $Y_u = 2/3$, $Y_d = -1/3$ is fixed by the electric-charge identification $Q_{\text{em}} = T_3 + Y$ for the up-type quark.
 
 **Conclusion.** The complete hypercharge assignment is
 $$Y_Q = 1/6, \quad Y_u = 2/3, \quad Y_d = -1/3, \quad Y_L = -1/2, \quad Y_e = -1$$
-uniquely determined by the six anomaly conditions with no free parameters. $\square$
+determined by the six anomaly conditions with no free parameters beyond the overall normalization (fixed above by the neutrality of $\nu_L$) and the $Y_u \leftrightarrow Y_d$ root labeling (fixed by the electric-charge identification). $\square$
 
 **Corollary.** $|q_p| = |q_e|$ is a *theorem*, not a coincidence: proton charge $+1 = 2 Y_u + Y_d + 2 \cdot 1/2 = 4/3 - 1/3 + 1 = 2$... no, let me reorganize.
 
@@ -344,7 +344,7 @@ The framework's identification of three fermion generations with the $T_1$ tripl
 
 **Proof.**
 
-*Step 1 (Available irreps in the 4-taste decomposition).* The Brillouin-zone corners on a $d = 3$ simple cubic lattice number $2^d = 8$ and pair under the corner-conjugation involution $\boldsymbol{\eta} \leftrightarrow \mathbf{1} - \boldsymbol{\eta}$ into 4 taste pairs (Chapter 6 §6.2). Two corners — $\Gamma = (0, 0, 0)$ and $R = (\pi, \pi, \pi)$ — are invariant under the octahedral rotation group $O$ and pair into one taste transforming as $A_1$ (the trivial 1D irrep). The remaining six corners pair into three axis-aligned pairs $(X_j, M_j)$ along the three coordinate directions, transforming under $O$ as the components of the $T_1$ (vector, 3D) irrep. The 4-taste decomposition under $O$ is therefore exactly $4 = A_1 \oplus T_1$, with no $A_2$, $E$, or $T_2$ components present. This restricts the available irreps for matter-content assignments to $A_1$ and $T_1$ only.
+*Step 1 (Available irreps in the 4-taste decomposition).* The Brillouin-zone corners on a $d = 3$ simple cubic lattice number $2^d = 8$ and pair under the corner-conjugation involution $\boldsymbol{\eta} \leftrightarrow \mathbf{1} - \boldsymbol{\eta}$ into 4 taste pairs (Chapter 6 §6.2). Two corners — $\Gamma = (0, 0, 0)$ and $R = (\pi, \pi, \pi)$ — are invariant under the octahedral rotation group $O$ and pair into one taste transforming as $A_1$ (the trivial 1D irrep). The remaining six corners pair into three axis-aligned pairs $(X_j, M_j)$ along the three coordinate directions, transforming under $O$ as the components of the $T_1$ (vector, 3D) irrep through the signed spin-taste matrices $\gamma^j$ (the unsigned pair labels alone carry only $A_1 \oplus E$). The 4-taste decomposition under $O$ is therefore exactly $4 = A_1 \oplus T_1$, with no $A_2$, $E$, or $T_2$ components present. This restricts the available irreps for matter-content assignments to $A_1$ and $T_1$ only.
 
 *Step 2 (Spin-statistics constraint).* The staggered-Dirac reconstruction (Chapter 6 §6.2) assigns Gamma-matrix structure to each Brillouin-zone corner. The $\Gamma$ and $R$ corners pair with $\Gamma$-matrices $\Gamma(\mathbf{0}) = I_4$ (scalar) and $\Gamma(R) = \gamma^1 \gamma^2 \gamma^3$ (pseudoscalar), both $\mathrm{SO}(3)$-invariant, yielding total angular momentum $J = 0$ for the $A_1$ singlet taste. The $j$-th axis-aligned pair $(X_j, M_j)$ has Gamma-matrices $\gamma^j$ (vector) and $-i\Sigma_j$ (spin generator), yielding $J = 1/2$ for each component of the $T_1$ triplet. Spin-statistics from the lattice representation theory therefore forces: bosonic ($J$-integer) fields must reside in the $A_1$ singlet; fermionic ($J$-half-integer) fields must reside in the $T_1$ triplet. Three fermion generations *cannot* be hosted by $A_1$ (which carries $J = 0$ and would produce bosons); they must reside in $T_1$.
 
