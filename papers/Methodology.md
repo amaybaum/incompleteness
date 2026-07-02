@@ -169,7 +169,7 @@ Of rungs 2–8: rung 2 (relationality) and the locus premise collapse into rung 
 
 The claim of this section concerns rung 4 — temporal succession. But "deriving succession" can mean two distinct things, and the no-go applies to one and not the other. The distinction is essential and the rest of this note depends on it.
 
-The first question is the **ordering** question: *given* that there are multiple moments — multiple states of some persisting thing — can the relation "before/after" among them be defined without circularly invoking "before"? This is the problem the philosophy of time has worked on for a century. It is contested but not obviously hopeless: a reductive account of the ordering relation may well be possible (Section 5.3 discusses a recent candidate). The no-go of this note is *not* a claim about the ordering question.
+The first question is the **ordering** question: *given* that there are multiple moments — multiple states of some persisting thing — can the relation "before/after" among them be defined without circularly invoking "before"? This is the problem the philosophy of time has worked on for a century, since McTaggart's classic statement of it [McTaggart]. It is contested but not obviously hopeless: a reductive account of the ordering relation may well be possible (Section 5.3 discusses a recent candidate). The no-go of this note is *not* a claim about the ordering question.
 
 The second question is the **domain-existence** question: is there a temporal domain *at all* — is there more than one moment, more than one state of a persisting thing — and can *that* be derived from a premise which does not already contain it? This is the question the no-go addresses, and the answer is negative.
 
