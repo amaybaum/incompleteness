@@ -178,7 +178,7 @@ The framework's empirical predictions live at specific intersections:
 
 The framework's most distinguishing predictions live at Level G3 × Level D — they are class-specific to OI. Level G2 × Level D predictions are shared with any SM-reproducing class. Level G4 × Level C predictions are essentially structural.
 
-Falsification is stratified accordingly: falsifying a Level G4 × Level C prediction is impossible without contradicting QM itself; falsifying a Level G2 × Level D prediction would refute the entire SM-reproducing universality class; falsifying a Level G3 × Level D prediction would refute OI's specific representative without necessarily refuting the broader universality-class framework. JUNO confirming $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ is a Level G3 × Level D confirmation; GW250114 confirming $A/4$ is a Level G2/G3 × Level D confirmation.
+Falsification is stratified accordingly: falsifying a Level G4 × Level C prediction is impossible without contradicting QM itself; falsifying a Level G2 × Level D prediction would refute the entire SM-reproducing universality class; falsifying a Level G3 × Level D prediction would refute OI's specific representative without necessarily refuting the broader universality-class framework. JUNO confirming $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ is a Level G3 × Level D confirmation; the $A/4$ coefficient is a Level G2/G3 × Level D derivation with no direct empirical test (GW250114 constrains the classical area theorem, not the coefficient).
 
 ### 2.5 Where each level's content lives
 
@@ -405,7 +405,7 @@ The de Sitter Conjecture [ObiedOoguriSpodyneikoVafa2018] in its refined form [Oo
 
 OI's [GR §7] predicts dynamical dark energy through Type II running-vacuum (RVM) form rather than a fixed cosmological constant, with the parameter $\nu$ encoding the running and the framework's structural prediction $|\nu| \sim 10^{-32}$. Type II RVM is parametrically away from a static de Sitter vacuum: the cosmological "constant" runs with the Hubble rate, and the late-universe phase is asymptotically de Sitter in the limit $H \to 0$ but not strictly so at any finite time. The dynamical character is consistent with the de Sitter Conjecture's structural content; the small predicted $|\nu|$ value is consistent with the empirical near-$\Lambda$CDM behavior. Strict static de Sitter would violate the conjecture; dynamical near-de Sitter satisfies it.
 
-The recent DESI DR2 results, rejecting the cosmological constant at $2.8\sigma$–$4.2\sigma$ in extended cosmological models with potential phantom crossing [DESI_DR2_2025], provide independent empirical pressure on static dark-energy models — the same direction the de Sitter Conjecture pushes. OI's framework is consistent with both: its dynamical-dark-energy prediction lives in the parameter region the conjecture and the data jointly favor.
+The recent DESI DR2 results, rejecting the cosmological constant at $2.8\sigma$–$4.2\sigma$ in extended cosmological models with potential phantom crossing [DESI_DR2_2025], provide independent empirical pressure on static dark-energy models — the same direction the de Sitter Conjecture pushes. OI's position relative to this data must be stated carefully, consistent with [GR §6.4, §7.1]: the framework's predicted running $|\nu| \sim 10^{-32}$ is observationally indistinguishable from a cosmological constant, so the DESI phantom-crossing *magnitude* is in 3–4$\sigma$ tension with OI's prediction even though the running-vacuum *form* is favoured qualitatively. The de Sitter Conjecture consistency claim rests on the strict-static distinction — OI is nominally dynamical but observationally $\Lambda$-like — and should be read at that level of strength.
 
 #### 7.5.3 Distance Conjecture
 
@@ -877,7 +877,7 @@ The framework's predictions live at distinct levels of the hierarchy developed i
 | Channel-level unitarity (Stinespring dilation) | Standard QM, theorem-level | [Stinespring1955, Barandes2026] |
 | Non-Markovian marginal (P-indivisibility) | Confirmed in colloidal, micromechanical, metrology | [Mehl2012, Groeblacher2015, QECNonMarkovian2025] |
 | Holographic bound ($S \leq A/4$) | GW250114 confirms the classical area theorem; the entropy bound itself is untested directly | [GW250114] |
-| Bekenstein-Hawking $1/4$ coefficient | Confirmed (gravitational + horizon settings) | [GW250114, GR §5] |
+| Bekenstein-Hawking $1/4$ coefficient | Derived; no direct empirical test (GW250114 constrains the area theorem) | [GR §5, GW250114] |
 
 Level 1 confirmations support OI but do not distinguish OI from alternative frameworks producing the same partial-trace structure (string theory, holographic models, hidden-degree-of-freedom open quantum systems). All such confirmations are joint confirmations of the universal level.
 
@@ -899,7 +899,7 @@ Level 2 confirmations are confirmations of the gauge-group-target level but do n
 | Cubic-lattice-forced higher-dim operators | Indirect (via specific predictions below) | [SM §10] |
 | Type II RVM dynamical dark energy | running-vacuum *form* favoured over plain $\Lambda$CDM; $\nu \approx 0$ magnitude consistent with Bertini (2025, itself consistent with zero), in mild tension with DESI DR2's evolving-DE preference | [Bertini2025, DESI_DR2_2025, GR §7] |
 | MOND scale $a_0 = cH/6$ | Tully-Fisher relation; ongoing tests | [GR §10] |
-| Holographic $A/4$ at cosmological horizon | Confirmed by Bekenstein-Hawking transport | [GR §5] |
+| Holographic $A/4$ at cosmological horizon | Structural (theory-level transport; no direct test) | [GR §5] |
 | No GUT-mechanism proton decay ($\tau_p \sim 10^{45}$ yr) | Super-K bounds at $\tau_p > 2.4 \times 10^{34}$ yr already exclude minimal SU(5); favors no-GUT class | [SuperK2020_proton, SM §6.7, §8.7] |
 | No GUT-mechanism magnetic monopoles | GUT-scale monopoles undetected cosmologically; consistent with OI without inflation invocation | [MoEDAL2024, SM §6.7] |
 | No GUT-chain cosmic strings | NANOGrav 15-year data disfavors stable cosmic-string interpretation | [NANOGravStrings2023, SM §6.7] |
@@ -913,13 +913,13 @@ Level 3 confirmations are confirmations of OI's universality class but not of OI
 |---|---|---|
 | Cabibbo angle $\sin\theta_C = 1/(\pi\sqrt{2}) \approx 0.2251$ | Confirmed at $0.04\sigma$ | [SM §7.2] |
 | Koide ratio $Q = 2/3$ | Confirmed at $0.02\%$ | [SM §7.3] |
-| JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | Predicted; testable at JUNO 2026+ | [Juno] |
+| JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | Confirmed at $0.07\sigma$ (pre-registered; JUNO first results, Nov 2025) | [Juno] |
 | Higgs structural ratio $A = \sqrt{2/3}$ | Consistent with current data | [SM §7.4] |
 | Higgs quartic $\lambda(M_{\text{Pl}}) = 0$ (composite-scalar prediction) | Confirmed at $0.6\sigma$ | [SM §7.4] |
 | 22 SM parameters all $< 1\sigma$ | All within experimental bounds | [SM §7.5] |
 | Majorana neutrinos, normal ordering | Awaiting LEGEND-1000 sensitivity | [SM §8.4, LEGEND2024] |
 | $|\nu| \sim 10^{-32}$ in Type II RVM | Consistent with DESI DR2 $\nu \approx 0$ at $2\sigma$ | [GR §7, Bertini2025] |
-| Universal $1/\alpha_0 = 23.25$ shared origin of three gauge couplings | Confirmed via SM matching at few-percent | [SM §6.1, §6.7] |
+| Universal $1/\alpha_0 = 23.25$ shared origin of three gauge couplings | Retrodictive match at few-percent (chain includes the empirical threshold $\delta_0$; SM §6) | [SM §6.1, §6.7] |
 
 Level 4 confirmations are confirmations of OI's specific representative — the strongest support the framework can receive. The framework's predictions are all consistent with current data; the awaiting tests (Majorana confirmation at LEGEND-1000, JUNO measurement, DESI Year 5 $\nu$ tightening, Hyper-Kamiokande proton-decay bounds) will discriminate further.
 
@@ -1328,7 +1328,7 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [Barrett2007] J. Barrett, "Information processing in generalized probabilistic theories", Phys. Rev. A 75, 032304 (2007). arXiv:quant-ph/0508211.
 
-[Bertini2025] M. Bertini et al., "RG-corrected $\Lambda$CDM fit to DESI DR2 + DES-Y5 + Planck 2018" (2025).
+[Bertini2025] N. R. Bertini, M. H. Novaes, R. von Marttens, I. L. Shapiro, "Renormalization group corrections to $\Lambda$CDM model and observational consequences for $H_0$ tension," arXiv:2509.24026 (2025).
 
 [BFSS1996] T. Banks, W. Fischler, S. Shenker, L. Susskind, "M-theory as a Matrix Model: A Conjecture", Phys. Rev. D 55, 5112-5128 (1997). arXiv:hep-th/9610043.
 
@@ -1354,7 +1354,7 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [Groeblacher2015] S. Gröblacher et al., "Observation of non-Markovian micromechanical Brownian motion", Nature Communications 6, 7606 (2015).
 
-[GW250114] LIGO Scientific Collaboration, Virgo Collaboration, KAGRA Collaboration, "GW250114: Observation of black hole entropy area law" (September 2025).
+[GW250114] LIGO Scientific Collaboration, Virgo Collaboration, KAGRA Collaboration: A. G. Abac et al., "GW250114: Testing Hawking's Area Law and the Kerr Nature of Black Holes," Phys. Rev. Lett. 135, 111403 (2025).
 
 [Hardy2001] L. Hardy, "Quantum Theory From Five Reasonable Axioms", arXiv:quant-ph/0101012 (2001).
 
