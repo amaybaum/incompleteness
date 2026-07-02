@@ -14,7 +14,7 @@ This repository develops a single framework across five core papers:
 
 A note on "derives" throughout this repository: the framework forces a large amount of structure *given* its commitments (cubic lattice, wave-equation dynamics, the C1–C3 observer architecture), several of which are empirically selected or definitional rather than derived from first principles. The accurate one-line description is that the framework is a tight *compression* of known physics onto a small set of commitments — a claim about the unity of physics — rather than a derivation of physics from the bare fact of observation. This is developed in book §4.7 and SM §8.3.
 
-A self-contained paper, **Juno**, presents the prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$, recently confirmed by JUNO at $0.07\sigma$ against the post-JUNO global fit. See [`papers/Juno.md`](papers/Juno.md).
+A self-contained paper, **Juno**, presents the parameter-free value $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ — a retrodiction matching the post-JUNO global fit at $0.07\sigma$, with JUNO's design-lifetime precision providing the pre-registered forward test. See [`papers/Juno.md`](papers/Juno.md).
 
 A book-length treatment, **The Incompleteness of Observation: A Unified Framework from Quantum Mechanics to Computational Biology**, develops the same framework across 20 chapters with expanded exposition and back matter. See [`book/`](book/).
 
@@ -61,7 +61,7 @@ A *lossless memory* is a system whose states evolve by a reversible rule. Every 
 
 The framework begins with a single empirical fact — *observation occurs* — formalized as a definition: an observation is a triple $(S, \varphi, V)$ consisting of a total system, a deterministic dynamics, and an embedded observer. No quantum postulates appear. Three structural lemmas follow (finiteness, causal partition, unique measure), from which quantum mechanics emerges under three conditions on the hidden sector: coupling (C1), slow-bath memory (C2), and high capacity (C3).
 
-The theorem becomes physics at the cosmological horizon, where stress-energy conservation enforces C1, the universe-vs-laboratory timescale ratio enforces C2, and the $\sim 10^{122}$ horizon degrees of freedom enforce C3. From this single realization, the framework derives $\hbar$ from thermal self-consistency, recovers the Bekenstein-Hawking entropy with the $1/4$ factor (confirmed by GW250114 at 99.999%), dissolves the $10^{122}$ cosmological constant discrepancy as the information compression ratio of the trace-out, and produces the dark sector phenomenology including the MOND acceleration scale $a_0 = cH/6$. The lattice realization on $d = 3$ — where $d$ is uniquely self-consistent — selects the SM gauge group, the three-generation pattern, $\bar\theta = 0$, and twenty-two quantitative SM observables. The reconstruction theorem establishes the converse: observed QM, Bell violations, finite boundary entropy, and spatial isotropy together with the framework's structural assumptions uniquely determine $[(S, \varphi)]/\mathcal{G}_{\rm sub}$ — so the mathematical description and the physics are informationally equivalent up to gauge.
+The theorem becomes physics at the cosmological horizon, where stress-energy conservation enforces C1, the universe-vs-laboratory timescale ratio enforces C2, and the $\sim 10^{122}$ horizon degrees of freedom enforce C3. From this single realization, the framework derives $\hbar$ from thermal self-consistency, recovers the Bekenstein-Hawking entropy with the $1/4$ factor (derived; GW250114 confirms the classical area theorem, which the framework preserves), dissolves the $10^{122}$ cosmological constant discrepancy as the information compression ratio of the trace-out, and produces the dark sector phenomenology including the MOND acceleration scale $a_0 = cH/6$. The lattice realization on $d = 3$ — where $d$ is uniquely self-consistent — selects the SM gauge group, the three-generation pattern, $\bar\theta = 0$, and twenty-two quantitative SM observables. The reconstruction theorem establishes the converse: observed QM, Bell violations, finite boundary entropy, and spatial isotropy together with the framework's structural assumptions uniquely determine $[(S, \varphi)]/\mathcal{G}_{\rm sub}$ — so the mathematical description and the physics are informationally equivalent up to gauge.
 
 The framework belongs to a family of results where self-reference under finite resources produces rigid structure: Gödel (a formal system cannot prove all truths about itself), Turing (a computer cannot decide all questions about its own behavior), OI (an embedded observer cannot access the complete state). In each case, structural impossibility determines what the system produces instead.
 
@@ -69,7 +69,7 @@ The framework belongs to a family of results where self-reference under finite r
 
 ## Empirical record
 
-The framework produces parameter-free predictions across multiple domains, all empirically tested. The most recent confirmation: JUNO's first measurement (November 2025) tested the framework's prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ at $0.07\sigma$ against the post-JUNO global fit (Capozzi et al. 2025). The associated sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ discriminates this prediction from the TM1/TM2 column-preservation patterns now under active comparison (He 2025; Zhang 2025) at sub-0.005 sum-rule precision; the self-contained paper [`Juno.md`](papers/Juno.md) presents this result in detail.
+The framework produces parameter-free predictions across multiple domains, all empirically tested. The sharpest single match is retrodictive: JUNO's first measurement (November 2025) agrees at $0.07\sigma$ with the parameter-free value $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$, derived in 2026 after the measurement.3080$ at $0.07\sigma$ against the post-JUNO global fit (Capozzi et al. 2025). The associated sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ discriminates this prediction from the TM1/TM2 column-preservation patterns now under active comparison (He 2025; Zhang 2025) at sub-0.005 sum-rule precision; the self-contained paper [`Juno.md`](papers/Juno.md) presents this result in detail.
 
 A representative sample of empirical matches across the framework (see [`papers/Juno.md`](papers/Juno.md) for the JUNO presentation):
 
@@ -78,7 +78,7 @@ A representative sample of empirical matches across the framework (see [`papers/
 | Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ | $0.22508$ | $0.04\%$ vs PDG 2024 |
 | Koide angle $\theta_0 = C_2/d^2 = 2/9$ | $0.22222$ | $0.02\%$ vs PDG 2024 |
 | Solar mixing $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | $0.3080$ | $0.07\sigma$ vs post-JUNO global fit |
-| Bekenstein-Hawking entropy $S = A/(4 l_p^2)$ | factor $1/4$ derived | $99.999\%$ vs GW250114 |
+| Bekenstein-Hawking entropy $S = A/(4 l_p^2)$ | factor $1/4$ derived | area theorem consistent (GW250114); $1/4$ untested directly |
 | MOND acceleration $a_0 = cH/6$ | $1.2 \times 10^{-10}$ m/s² | <$0.5\%$ vs Milgrom |
 | Higgs quartic $\lambda(M_{\rm Pl}) = 0$ | structural | $0.6\sigma$ vs measured |
 | Dark sector fraction | $\sim 95\%$ | matches $\Omega_{\rm CDM} + \Omega_\Lambda$ |
@@ -135,7 +135,7 @@ All research papers live in [`papers/`](papers/).
 
 - **[`SM`](papers/SM.md)** — derives the Standard Model from a $d=3$ cubic lattice. SU(3)×SU(2)×U(1), three generations, $\bar\theta=0$, twenty-two quantitative observables. ([`.tex`](papers/SM.tex), [`.pdf`](papers/SM.pdf))
 
-- **[`GR`](papers/GR.md)** — derives $\hbar$, the Bekenstein-Hawking entropy with the $1/4$ coefficient (confirmed by GW250114), the cosmological constant dissolution, and the dark sector phenomenology including $a_0 = cH/6$ from the cosmological horizon. The Tier 1 results ($\hbar$, area law, CC dissolution, Type II RVM functional form) are formalized at the universality-class level: they hold for any horizon-bounded embedded-observer system satisfying the structural conditions S1-S4, with OI providing one specific realization (§8.5). ([`.tex`](papers/GR.tex), [`.pdf`](papers/GR.pdf))
+- **[`GR`](papers/GR.md)** — derives $\hbar$, the Bekenstein-Hawking entropy with the $1/4$ coefficient (derived; GW250114 tests the area theorem, not the coefficient), the cosmological constant dissolution, and the dark sector phenomenology including $a_0 = cH/6$ from the cosmological horizon. The Tier 1 results ($\hbar$, area law, CC dissolution, Type II RVM functional form) are formalized at the universality-class level: they hold for any horizon-bounded embedded-observer system satisfying the structural conditions S1-S4, with OI providing one specific realization (§8.5). ([`.tex`](papers/GR.tex), [`.pdf`](papers/GR.pdf))
 
 - **[`Substratum`](papers/Substratum.md)** — develops the reconstruction theorem and the substratum gauge group; argues QM, GR, and the arrow of time are three projections of the same finite deterministic construction. The reconstruction theorem takes empirical inputs E1–E7 (QM with Bell violations; finite boundary entropy; spatial isotropy; propagating gravity; stable matter; boundary-entropy concordance) and structural assumptions A1–A6 to uniquely determine $[(S, \varphi)]/\mathcal{G}_{\rm sub}$, conditional on ETH in the hidden sector for the C2 necessity direction. Three independent forward filters select $d = 3$: propagating gravity ($d \geq 3$), stable matter ($d \leq 3$), boundary-entropy concordance ($d = 3$ exactly). ([`.tex`](papers/Substratum.tex), [`.pdf`](papers/Substratum.pdf))
 
@@ -143,7 +143,7 @@ All research papers live in [`papers/`](papers/).
 
 ### Focused presentation
 
-- **[`Juno`](papers/Juno.md)** — self-contained presentation of the JUNO-confirmed prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$, matching the post-JUNO global fit at 0.07σ. Narrowly scoped to PMNS phenomenology with no companion-paper citations required. ([`.tex`](papers/Juno.tex), [`.pdf`](papers/Juno.pdf))
+- **[`Juno`](papers/Juno.md)** — self-contained presentation of the parameter-free $\sin^2\theta_{12}$ value (a retrodiction with a pre-registered design-lifetime forward test), namely $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$, matching the post-JUNO global fit at 0.07σ. Narrowly scoped to PMNS phenomenology with no companion-paper citations required. ([`.tex`](papers/Juno.tex), [`.pdf`](papers/Juno.pdf))
 
 ### Foundations and methodology
 
@@ -181,7 +181,7 @@ A book-length treatment, **The Incompleteness of Observation: A Unified Framewor
 |---|---|---|---|
 | 1 | QM ⟺ embedded observation under C1–C3 | theorem | Main §3.4 |
 | 2 | $\hbar = c^3 \varepsilon^2/(4G)$ from horizon thermal self-consistency, $\varepsilon = 2 l_p$ uniquely | theorem | GR §§3–4 |
-| 3 | Bekenstein-Hawking entropy with $1/4$ coefficient (GW250114 at 99.999%) | theorem | GR §5 |
+| 3 | Bekenstein-Hawking entropy with $1/4$ coefficient ($1/4$ derived; GW250114 tests the area theorem, not the coefficient) | theorem | GR §5 |
 | 4 | Cosmological constant dissolution: $10^{122}$ ratio = $S_{\rm dS}$ compression ratio | theorem | GR §6 |
 | 5 | Wave equation uniquely selected; produces all inputs for Einstein's equations | theorem | SM §3 + GR §3 |
 | 6 | SM gauge group SU(3)×SU(2)×U(1), 3 generations, hypercharges, $\bar\theta = 0$ | theorem | SM §§4, 5 |
