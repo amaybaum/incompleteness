@@ -178,7 +178,7 @@ The framework's empirical predictions live at specific intersections:
 
 The framework's most distinguishing predictions live at Level G3 × Level D — they are class-specific to OI. Level G2 × Level D predictions are shared with any SM-reproducing class. Level G4 × Level C predictions are essentially structural.
 
-Falsification is stratified accordingly: falsifying a Level G4 × Level C prediction is impossible without contradicting QM itself; falsifying a Level G2 × Level D prediction would refute the entire SM-reproducing universality class; falsifying a Level G3 × Level D prediction would refute OI's specific representative without necessarily refuting the broader universality-class framework. JUNO confirming $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ is a Level G3 × Level D confirmation; the $A/4$ coefficient is a Level G2/G3 × Level D derivation with no direct empirical test (GW250114 constrains the classical area theorem, not the coefficient).
+Falsification is stratified accordingly: falsifying a Level G4 × Level C prediction is impossible without contradicting QM itself; falsifying a Level G2 × Level D prediction would refute the entire SM-reproducing universality class; falsifying a Level G3 × Level D prediction would refute OI's specific representative without necessarily refuting the broader universality-class framework. the JUNO match to $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ is a Level G3 × Level D result (retrodictive; the derivation postdates the measurement); the $A/4$ coefficient is a Level G2/G3 × Level D derivation with no direct empirical test (GW250114 constrains the classical area theorem, not the coefficient).
 
 ### 2.5 Where each level's content lives
 
@@ -913,7 +913,7 @@ Level 3 confirmations are confirmations of OI's universality class but not of OI
 |---|---|---|
 | Cabibbo angle $\sin\theta_C = 1/(\pi\sqrt{2}) \approx 0.2251$ | Confirmed at $0.04\sigma$ | [SM §7.2] |
 | Koide ratio $Q = 2/3$ | Confirmed at $0.02\%$ | [SM §7.3] |
-| JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | Confirmed at $0.07\sigma$ (pre-registered; JUNO first results, Nov 2025) | [Juno] |
+| JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | Retrodictive match at $0.07\sigma$ (derived 2026, post-measurement); exact value gives a pre-registered forward test at JUNO design precision | [Juno] |
 | Higgs structural ratio $A = \sqrt{2/3}$ | Consistent with current data | [SM §7.4] |
 | Higgs quartic $\lambda(M_{\text{Pl}}) = 0$ (composite-scalar prediction) | Confirmed at $0.6\sigma$ | [SM §7.4] |
 | 22 SM parameters all $< 1\sigma$ | All within experimental bounds | [SM §7.5] |
