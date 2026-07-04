@@ -52,7 +52,7 @@ Different observers have different horizon areas (hence different $S_{\text{dS}}
 
 ### 2.3 Application
 
-Lemma 1 is now a consequence of partition geometry: the horizon has finite area $A = 4\pi c^2/H^2$, bounding coupled modes to $A/\epsilon^2 < \infty$. The Part I theorem applies: the observer's reduced description is P-indivisible and, by Barandes' correspondence, equivalent to unitary QM with $\hbar$ determined by the partition boundary.
+Lemma 1 is now a consequence of partition geometry: the horizon has finite area $A = 4\pi c^2/H^2$, bounding coupled modes to $A/\epsilon^2 < \infty$. The Part I theorem applies: the observer's reduced description is P-indivisible and, by either route of [Main, §3], equivalent to unitary QM with $\hbar$ determined by the partition boundary.
 
 
 ---

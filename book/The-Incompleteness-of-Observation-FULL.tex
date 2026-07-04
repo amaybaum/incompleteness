@@ -65,6 +65,10 @@
 
 \begin{document}
 
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
 \thispagestyle{empty}
 
 \vspace*{2cm}
@@ -2041,7 +2045,60 @@ technical result: if one were to discover an error in Barandes'
 construction, the Stinespring route from textbook quantum information
 would establish the same conclusion through different mathematics. The
 two-route structure is the framework's hedge against single-point
-failure in the foundational technical machinery.
+failure in the foundational technical machinery. The division of labor
+is precise: the correspondence is load-bearing only for the necessity
+direction of the characterization theorem (§1.8); every constructive
+claim, including the \(\hbar\) derivation of Chapter 7, survives on the
+Stinespring route alone.
+
+\textbf{An independent route to the same conclusion.} Both routes of
+this section are constructive: they exhibit quantum mechanics as the
+description of the marginalized process. The operational reconstruction
+theorems of Hardy {[}arXiv:quant-ph/0101012 (2001){]}, of Masanes and
+Müller {[}New J. Phys. \textbf{13}, 063001 (2011){]}, and of Chiribella,
+D'Ariano and Perinotti {[}Phys. Rev.~A \textbf{84}, 012311 (2011){]}
+approach quantum mechanics from the opposite direction: they prove that
+among finite-dimensional generalized probabilistic theories, quantum
+theory is the unique one satisfying a short list of operational
+requirements --- tomographic locality, continuous reversibility, and, in
+the informational axiomatization, purification --- stated without
+reference to any substratum, determinism, or hidden sector. Those
+requirements, minus the continuity clause, admit exactly two solutions:
+classical and quantum probability theory. The P-indivisibility theorem
+of §1.5 --- the framework's own contribution --- is precisely the
+certificate that the marginalized process occupies the non-classical
+branch. The remaining load-bearing requirements each have an independent
+origin in the construction rather than being read off the reconstructed
+output: finite dimensionality from the finite configuration space;
+purification exhibited rather than postulated, since every visible mixed
+state arises as the marginal of the deterministic dilation; no-signaling
+from the marginalization structure; continuous reversibility from the
+phase-locked unitary family, exact in the idealized limit and holding at
+finite \(\epsilon\) up to the residual dissipation of order
+\(10^{-32}\), which is a prediction of the framework rather than a
+defect; and tomographic locality from the derived composite
+factorization together with the complex Hilbert space the correspondence
+delivers, so that derivation --- including its open step, the
+unification with the staggered spin structure of chapter 6 --- carries
+load for this requirement as well. Requirements not on this list, such
+as perfect distinguishability and ideal compression, hold in the
+emergent theory only as properties of the output and carry no
+independent weight here. Given the independently sourced features, the
+reconstruction theorems force quantum theory uniquely --- so the
+representation freedom in the correspondence cannot move the emergent
+description outside quantum mechanics; any operational theory with the
+marginalized process's features is quantum mechanics up to the standard
+gauge. The same division holds for the Born rule: alongside the
+constructive derivation, Gleason's theorem {[}J. Math. Mech. \textbf{6},
+885 (1957){]} shows that every noncontextual probability measure on the
+projection lattice of a Hilbert space of dimension three or more has the
+Born form, and the emergent probabilities are noncontextual by
+construction, descending from a single measure over substratum states;
+the envariance and decision-theoretic derivations of Zurek, Deutsch, and
+Wallace are convergent constructive members of the same family. The
+necessity statements add no new mechanism; their force is that the
+operational profile the construction produces has been independently
+proved to admit exactly one theory.
 
 With unitary quantum mechanics established as the necessary description
 of the embedded observer's marginalized dynamics, the chapter's next
@@ -2270,7 +2327,14 @@ Lüders rule \(\rho \to P_k \rho P_k / \mathrm{Tr}(P_k \rho)\) is the
 quantum transcription of this classical update. Multi-time correlation
 functions, weak values, and Leggett-Garg inequalities are standard
 calculations within the delivered formalism, requiring no additional
-postulates.
+postulates. One qualification attaches to the multi-time statement: the
+correspondence is engineered to reproduce two-time transition data,
+which under-determines multi-time joint statistics, whereas the
+substratum fixes a unique multi-time law. Their agreement is supported
+by the same chaotic-mixing argument that secures operational measurement
+independence, and any residual pre-division memory would appear as
+deviations from quantum multi-time predictions --- a falsifiable texture
+of the same standing as the residual dissipation.
 
 \hypertarget{what-the-theorem-says}{%
 \subsection{1.9 What the theorem says}\label{what-the-theorem-says}}
