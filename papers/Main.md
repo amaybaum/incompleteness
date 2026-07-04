@@ -508,6 +508,17 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 
 [29] A. Yosifov, A. Iyer, V. Vedral, and J. Sun, "On the emergence of quantum memory in non-Markovian dynamics," arXiv:2507.21907 (2025).
 
+**Companion papers (this series).**
+
+[Structure] A. Maybaum, "Hierarchical Structural Realism and Universality Classes of Embedded Observers," companion paper (2026).
+
+[GR] A. Maybaum, "ℏ, the Bekenstein-Hawking Entropy, and the Running-Vacuum Form of Dark Energy from the Cosmological Horizon," companion paper (2026).
+
+[Methodology] A. Maybaum, "Physics Modulo Gauge," companion paper (2026).
+
+[Substratum] A. Maybaum, "The Substratum Construction: Reconstruction, the Substratum Gauge Group, and the QM-GR Synthesis," companion paper (2026).
+
+
 [30] R. Gangwar and U. Sen, "Genuine and Non-Genuine Quantum Non-Markovianity: A Unified Information-Theoretic Review," arXiv:2603.28277 (2026).
 
 [31] S. Goldstein, J. L. Lebowitz, R. Tumulka, and N. Zanghì, "Canonical Typicality," *Phys. Rev. Lett.* **96**, 050403 (2006); arXiv:cond-mat/0511091.
