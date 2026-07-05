@@ -144,7 +144,7 @@ The framework's $N = 2$ is the only integer value in the nearby alternatives tha
 
 **The Wolfenstein parameter $A$.** The $A_1$ (Higgs) taste sits along the democratic direction $\hat{h} = (1, 1, 1)/\sqrt{3}$ in the internal space. Each generation axis $\hat{e}_j$ makes an angle $\theta$ with $\hat{h}$ satisfying $\cos\theta = \hat{e}_j \cdot \hat{h} = 1/\sqrt{3}$. The CKM mixing in the $A$ parameter is driven by the perpendicular component of the generation axis relative to the Higgs democratic direction:
 $$A = \sin\theta = \sqrt{1 - 1/3} = \sqrt{2/3} = 0.8165.$$
-Observed: $A = 0.826 \pm 0.012$. Match: $0.8\sigma$, agreement at $1.2\%$.
+Observed: $A = 0.826 \pm 0.012$ (fit-family dependent; central values span $\approx 0.79$–$0.83$ across PDG/CKMfitter/UTfit, the prediction $\sqrt{2/3}=0.8165$ lying inside that spread). Match: $0.8\sigma$, agreement at $1.2\%$.
 
 The combination $|V_{cb}| = A\lambda^2 = \sqrt{2/3}/(2\pi^2) = 0.04136$ (observed: $0.0408 \pm 0.0014$, agreement at $0.4\sigma$) provides a cross-check at the second-order level of the Wolfenstein expansion. Two structural predictions ($\lambda$ and $A$) generate a derived prediction for a third observable ($|V_{cb}|$), with all three matching observation.
 
@@ -225,13 +225,11 @@ The five arrows are structural relations of three different epistemic statuses, 
 
 The chain produces six masses from one empirical scale ($m_s$) plus two structural auxiliary inputs ($Q_{\text{down}}$ as Class P, the residual normalization on $Z_S$ as Class P). The four Layer-1 relations are parameter-free; the two Class P inputs are fitted to observation. Four out of five mass-chain transitions are therefore parameter-free, with the down-sector $Q_{\text{down}}$ closure and the bottom-to-tau residual normalization carrying the auxiliary inputs.
 
-**The top quark mass.** The top quark sits separately from the chain above because its Yukawa coupling is large enough to flow to an infrared quasi-fixed point under the Standard Model renormalization group. The framework's prediction for the top mass uses the IR quasi-fixed point $y_t(\mu_{\text{IR}}) \to 1$ — a structural feature of the SM RGE rather than an input from the framework — combined with the tree-level Yukawa normalization at the compositeness scale $M_{\text{Pl}}$:
-$$m_t = \frac{v}{\sqrt{2}} \cdot y_t(\mu_{\text{IR}}) = \frac{246\,\text{GeV}}{\sqrt{2}} \cdot 1 = 174.1\,\text{GeV},$$
-where $v$ is the Higgs vacuum expectation value.
+**The top quark mass.** The top quark sits separately from the chain above because its Yukawa coupling is large. The weak-scale relation $m_t = v/\sqrt{2}$ with $y_t(m_t) \approx 1$ reproduces the observed mass:
+$$m_t = \frac{v}{\sqrt{2}} = \frac{246\,\text{GeV}}{\sqrt{2}} = 174.1\,\text{GeV},$$
+where $v$ is the Higgs vacuum expectation value, matching the observed $172.5 \pm 0.3$ GeV to $0.9\%$.
 
-The prediction is properly understood as a *band* rather than a point estimate. The IR quasi-fixed point attracts a wide UV basin: any UV value in roughly $y_{\text{UV}} \in [0.5, 5]$ flows to the same IR value within about $10\%$. The framework's structural content is that $y_t \sim 1$ at the compositeness scale — order unity in the natural normalization of the lattice-to-continuum matching — which then flows to the IR fixed point regardless of the specific number. The framework's actual prediction is therefore $m_t \in [157, 191]$ GeV centered near 174 GeV, with the 10% band width reflecting the IR-attractor basin rather than a fitted uncertainty.
-
-Observed: $m_t = 172.5 \pm 0.3$ GeV (PDG 2024). The observation falls comfortably inside the framework's predicted band, $1.5\%$ below the central value. At PDG precision the observation is $4.8\sigma$ below the central $174.1$ GeV, but the relevant comparison is *to the band, not to the central value*: at PDG precision the observation is well within the framework's structural prediction. The top quark mass is therefore predicted from one structural feature of the SM RGE plus the order-unity Yukawa normalization, with no fitted parameters in the framework's specific derivation, and the empirical match is at the band level appropriate to an IR-attractor prediction.
+The mechanism behind this relation is open, and the honest classification is a retrodiction rather than a structural prediction. The natural proposal — a compositeness-scale normalization $y_t(M_{\text{Pl}}) = 1$ carried to low energy by the infrared quasi-fixed point — does not deliver the observed value under one-loop Standard Model running: $y_t(M_{\text{Pl}}) = 1$ flows to $y_t(m_t) \approx 1.19$, giving $m_t \approx 207$ GeV, and the IR quasi-fixed point itself sits at $y_t \approx 1.25$ ($m_t \approx 215$–$220$ GeV), not at unity. The attractor basin $y_{\text{UV}} \in [0.5, 5]$ focuses to $m_t \in [177, 221]$ GeV, a $25\%$ spread. What is empirically exact is the weak-scale statement $y_t(m_t) \approx 1$; the compositeness-scale normalization plus IR attraction does not produce it, and the observed top corresponds to $y_t(M_{\text{Pl}}) \approx 0.4$–$0.5$. The relation is therefore recorded as a retrodiction of the weak-scale $y_t \approx 1$ coincidence, with the structural mechanism an open task; a derivation of $y_t = 1$ at the electroweak matching scale, or of $y_t(M_{\text{Pl}}) \approx 1/2$ (which runs to $\approx 177$ GeV), would close it.
 
 ---
 
@@ -312,7 +310,7 @@ The chapter has developed twenty-two Standard Model retrodictions from the cubic
 | $m_d$ | $m_s/(2\pi^2)$ | $4.73$ MeV | $4.67 \pm 0.48$ | $1.3\%$ | **M** ($m_s$) | C |
 | $m_u$ | $m_d \sqrt{2/9}$ | $2.20$ MeV | $2.16 \pm 0.49$ | $0.1\sigma$ | **L** [e] | **B** |
 | $m_b$ | Koide ($Q_{\text{down}}$) | $4144$ MeV | $4180 \pm 30$ | $0.9\%$ | **L** [d] | E |
-| $m_t$ | $v/\sqrt{2}$ (IR fixed point band) | $174.1$ GeV (band $[157, 191]$) | $172.5 \pm 0.3$ | inside band | **S** | D |
+| $m_t$ | $v/\sqrt{2}$ (weak-scale $y_t \approx 1$; mechanism open) | $174.1$ GeV | $172.5 \pm 0.3$ | $0.9\%$ (R) | inside band | **S** | D |
 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | $0.3080$ | $0.3085 \pm 0.0073$ | $0.07\sigma$ | **L** [f] | **B** |
 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | $0.5507$ | $0.561^{+0.012}_{-0.015}$ | $0.74\sigma$ | **L** [f] | **B** |
 | $\sin^2\theta_{13}$ | $A^4\lambda^2 = 4/(18\pi^2)$ | $0.02252$ | $0.02195 \pm 0.00056$ | $1.02\sigma$ | **S** | **A** |

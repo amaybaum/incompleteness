@@ -520,7 +520,7 @@ The construction works because P-indivisibility means transition probabilities c
 
 The Barandes correspondence makes this informal identification rigorous. Given a P-indivisible $T(t)$, the construction produces an explicit $\hat{H}$ such that $|U_{ij}(t)|^2 = T_{ij}(t)$ exactly. The Schrödinger equation then arises immediately: any smooth one-parameter family of unitaries can be written $U(t) = \exp(-i\hat{H} t / \hbar)$ for some Hermitian generator $\hat{H}$, with the action scale $\hbar$ entering as the conversion factor between the dimensionless unitary and a dimensionful Hamiltonian. The value of $\hbar$ cannot be determined from transition data alone — different choices of action scale produce the same $T(t)$ — but is fixed by the partition geometry, which Chapter 7 develops from horizon thermodynamics.
 
-A residual ambiguity might appear: the relation $T_{ij}(t) = |U_{ij}(t)|^2$ throws away the phase information in $U_{ij}(t)$, and different unitaries could in principle produce the same transition probabilities. The *phase-locking lemma* establishes that this ambiguity has no observable content. Continuous-time transition data is sufficient to determine the Hamiltonian $\hat{H}$ uniquely up to a basis-relabeling gauge that has no physical content. The argument is Fourier extraction: substituting the spectral decomposition $U(t) = V \cdot \mathrm{diag}(e^{-iE_k t}) \cdot V^\dagger$ gives
+(The identity is written here in its simplest form, with the emergent Hilbert space the same dimension as the configuration space. In the general construction the visible transition matrix is the ancilla-marginal of a Born-rule matrix on a larger dilated space; the same-dimension form is the trivial-ancilla special case.) A residual ambiguity might appear: the relation throws away phase information in $U(t)$, and different unitaries could in principle produce the same transition probabilities. The *phase-locking lemma* establishes that this ambiguity has no observable content. Continuous-time transition data is sufficient to determine the Hamiltonian $\hat{H}$ uniquely up to a basis-relabeling gauge that has no physical content. The argument is Fourier extraction: substituting the spectral decomposition $U(t) = V \cdot \mathrm{diag}(e^{-iE_k t}) \cdot V^\dagger$ gives
 $$T_{ij}(t) = \Big|\sum_k V_{ik} e^{-iE_k t} V_{jk}^*\Big|^2 = \sum_{k,l} V_{ik} V_{jk}^* V_{jl} V_{il}^* e^{-i(E_k - E_l) t},$$
 which expands as a sum of oscillating terms at energy-gap frequencies $\omega_{kl} = E_k - E_l$. Under a non-degenerate-gap condition — the energy gaps are all distinct, generically satisfied — the Fourier coefficient at frequency $\omega_{kl}$ extracts the product $V_{ik} V_{jk}^* V_{jl} V_{il}^*$. The collection of all such Fourier coefficients determines the unitary $V$ and the energy levels $E_k$ up to a global phase and a basis-relabeling redundancy, neither of which has observable content. The Hamiltonian is uniquely fixed by the observable transition data.
 
@@ -1705,7 +1705,7 @@ The framework's $N = 2$ is the only integer value in the nearby alternatives tha
 
 **The Wolfenstein parameter $A$.** The $A_1$ (Higgs) taste sits along the democratic direction $\hat{h} = (1, 1, 1)/\sqrt{3}$ in the internal space. Each generation axis $\hat{e}_j$ makes an angle $\theta$ with $\hat{h}$ satisfying $\cos\theta = \hat{e}_j \cdot \hat{h} = 1/\sqrt{3}$. The CKM mixing in the $A$ parameter is driven by the perpendicular component of the generation axis relative to the Higgs democratic direction:
 $$A = \sin\theta = \sqrt{1 - 1/3} = \sqrt{2/3} = 0.8165.$$
-Observed: $A = 0.826 \pm 0.012$. Match: $0.8\sigma$, agreement at $1.2\%$.
+Observed: $A = 0.826 \pm 0.012$ (fit-family dependent; $\approx 0.79$–$0.83$ across PDG/CKMfitter/UTfit, the prediction inside that spread). Match: $0.8\sigma$, agreement at $1.2\%$.
 
 The combination $|V_{cb}| = A\lambda^2 = \sqrt{2/3}/(2\pi^2) = 0.04136$ (observed: $0.0408 \pm 0.0014$, agreement at $0.4\sigma$) provides a cross-check at the second-order level of the Wolfenstein expansion. Two structural predictions ($\lambda$ and $A$) generate a derived prediction for a third observable ($|V_{cb}|$), with all three matching observation.
 
@@ -1786,13 +1786,13 @@ The five arrows are structural relations of three different epistemic statuses, 
 
 The chain produces six masses from one empirical scale ($m_s$) plus two structural auxiliary inputs ($Q_{\text{down}}$ as Class P, the residual normalization on $Z_S$ as Class P). The four Layer-1 relations are parameter-free; the two Class P inputs are fitted to observation. Four out of five mass-chain transitions are therefore parameter-free, with the down-sector $Q_{\text{down}}$ closure and the bottom-to-tau residual normalization carrying the auxiliary inputs.
 
-**The top quark mass.** The top quark sits separately from the chain above because its Yukawa coupling is large enough to flow to an infrared quasi-fixed point under the Standard Model renormalization group. The framework's prediction for the top mass uses the IR quasi-fixed point $y_t(\mu_{\text{IR}}) \to 1$ — a structural feature of the SM RGE rather than an input from the framework — combined with the tree-level Yukawa normalization at the compositeness scale $M_{\text{Pl}}$:
-$$m_t = \frac{v}{\sqrt{2}} \cdot y_t(\mu_{\text{IR}}) = \frac{246\,\text{GeV}}{\sqrt{2}} \cdot 1 = 174.1\,\text{GeV},$$
-where $v$ is the Higgs vacuum expectation value.
+**The top quark mass.** The top quark sits separately from the chain above because its Yukawa coupling is large. The weak-scale relation $m_t = v/\sqrt{2}$ with $y_t(m_t) \approx 1$ reproduces the observed mass:
+$$m_t = \frac{v}{\sqrt{2}} = \frac{246\,\text{GeV}}{\sqrt{2}} = 174.1\,\text{GeV},$$
+where $v$ is the Higgs vacuum expectation value, matching the observed $172.5 \pm 0.3$ GeV to $0.9\%$.
 
-The prediction is properly understood as a *band* rather than a point estimate. The IR quasi-fixed point attracts a wide UV basin: any UV value in roughly $y_{\text{UV}} \in [0.5, 5]$ flows to the same IR value within about $10\%$. The framework's structural content is that $y_t \sim 1$ at the compositeness scale — order unity in the natural normalization of the lattice-to-continuum matching — which then flows to the IR fixed point regardless of the specific number. The framework's actual prediction is therefore $m_t \in [157, 191]$ GeV centered near 174 GeV, with the 10% band width reflecting the IR-attractor basin rather than a fitted uncertainty.
+The mechanism behind this relation is open, and the honest classification is a retrodiction rather than a structural prediction. One-loop Standard Model running does not deliver the observed value from a compositeness-scale normalization $y_t(M_{\text{Pl}}) = 1$: that flows to $y_t(m_t) \approx 1.19$, giving $m_t \approx 207$ GeV, and the IR quasi-fixed point sits at $y_t \approx 1.25$, not unity. The basin $y_{\text{UV}} \in [0.5, 5]$ focuses to $m_t \in [177, 221]$ GeV. The framework's structural content is that $y_t \sim 1$ at the compositeness scale — order unity in the natural normalization of the lattice-to-continuum matching — which then flows to the IR fixed point regardless of the specific number. What is empirically exact is the weak-scale statement $y_t(m_t) \approx 1$; the compositeness-scale normalization plus IR attraction does not produce it, and the observed top corresponds to $y_t(M_{\text{Pl}}) \approx 0.4$–$0.5$. The relation is recorded as a retrodiction of the weak-scale coincidence, mechanism open.
 
-Observed: $m_t = 172.5 \pm 0.3$ GeV (PDG 2024). The observation falls comfortably inside the framework's predicted band, $1.5\%$ below the central value. At PDG precision the observation is $4.8\sigma$ below the central $174.1$ GeV, but the relevant comparison is *to the band, not to the central value*: at PDG precision the observation is well within the framework's structural prediction. The top quark mass is therefore predicted from one structural feature of the SM RGE plus the order-unity Yukawa normalization, with no fitted parameters in the framework's specific derivation, and the empirical match is at the band level appropriate to an IR-attractor prediction.
+The relation $m_t = v/\sqrt{2}$ matches the observation to $0.9\%$, but as a retrodiction of the weak-scale $y_t \approx 1$ coincidence rather than a parameter-free structural prediction; a derivation of $y_t = 1$ at the electroweak matching scale, or of $y_t(M_{\text{Pl}}) \approx 1/2$ (which runs to $\approx 177$ GeV), would close the mechanism.
 
 ---
 
@@ -1859,12 +1859,12 @@ The chapter has developed twenty-two Standard Model retrodictions from the cubic
 | $\alpha_3(M_Z)$ | RG running with $(\delta_0, A, B)$ | $0.118$ | $0.1181 \pm 0.0011$ | fit | **R** [a] | E |
 | $\alpha_2(M_Z)$ | RG running with $(\delta_0, A, B)$ | $0.0339$ | $0.03379 \pm 0.00009$ | fit | **R** [a] | E |
 | $\delta_0$ | U(1) row fit | $10.0$ | $-$ | empirical input | **E** | input |
-| $A \cdot B$ cross-check | independent derivation | $48.0 \pm 1.5$ | $46.4$ (from fit) | $\sim 3\%$ | **S** | **A** |
+| $A \cdot B$ cross-check | independent derivation | $\approx 48$ ($1/N^2$ assumption; inconclusive across finite-size models) | $46.4$ (from fit) | $\sim 3\%$ | **S** | **A** |
 | $\bar\theta$ | T-invariance + detailed balance | $0$ | $\| \bar\theta \| < 10^{-10}$ | $\checkmark$ | **S** | **A** |
 | Cabibbo $\lambda$ | inter-generation BZ distance | $0.2251$ | $0.2250 \pm 0.0007$ | $0.04\%$ | **S** | **A** |
 | Wolfenstein $A$ | off-democratic projection | $\sqrt{2/3} = 0.8165$ | $0.826 \pm 0.012$ | $1.2\%$ | **S** | **A** |
 | $\|V_{cb}\|$ | $A\lambda^2$ | $0.0414$ | $0.0408 \pm 0.0014$ | $0.4\sigma$ | **S** | **A** |
-| $m_d/m_s$ | GST $\lambda^2 = 1/(2\pi^2)$ | $0.0507$ | $0.0503 \pm 0.0007$ | $0.7\%$ | **S** | **A** |
+| $m_d/m_s$ | GST $\lambda^2 = 1/(2\pi^2)$ | $0.0507$ | $0.0503 \pm 0.0007$ | $0.7\%$ | **L** | **A** |
 | Jarlskog $J$ | $\eta/(12\pi^6)$ | $3.02 \times 10^{-5}$ | $(3.08 \pm 0.13) \times 10^{-5}$ | $0.5\sigma$ | **E** ($\eta$) | **B** |
 | Koide $Q$ | cubic $T_1$ structure | $2/3$ | $0.66667$ | $0.001\%$ | **S** | **A** |
 | Koide angle $\theta_0$ | $C_2(T_1)/d^2$ | $2/9$ | $0.22222$ | $0.02\%$ | **S** | **A** |
@@ -1873,7 +1873,7 @@ The chapter has developed twenty-two Standard Model retrodictions from the cubic
 | $m_d$ | $m_s/(2\pi^2)$ | $4.73$ MeV | $4.67 \pm 0.48$ | $1.3\%$ | **M** ($m_s$) | C |
 | $m_u$ | $m_d \sqrt{2/9}$ | $2.20$ MeV | $2.16 \pm 0.49$ | $0.1\sigma$ | **L** [e] | **B** |
 | $m_b$ | Koide ($Q_{\text{down}}$) | $4144$ MeV | $4180 \pm 30$ | $0.9\%$ | **L** [d] | E |
-| $m_t$ | $v/\sqrt{2}$ (IR fixed point band) | $174.1$ GeV (band $[157, 191]$) | $172.5 \pm 0.3$ | inside band | **S** | D |
+| $m_t$ | $v/\sqrt{2}$ (weak-scale $y_t\approx1$; mechanism open) | $174.1$ GeV | $172.5 \pm 0.3$ | $0.9\%$ (R) | **S** | D |
 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | $0.3080$ | $0.3085 \pm 0.0073$ | $0.07\sigma$ | **L** [f] | **B** |
 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | $0.5507$ | $0.561^{+0.012}_{-0.015}$ | $0.74\sigma$ | **L** [f] | **B** |
 | $\sin^2\theta_{13}$ | $A^4\lambda^2 = 4/(18\pi^2)$ | $0.02252$ | $0.02195 \pm 0.00056$ | $1.02\sigma$ | **S** | **A** |
@@ -5554,7 +5554,7 @@ The framework's twenty-two Standard Model predictions form the core empirical re
 | 5 | Cabibbo $\lambda$ | $1/(\pi\sqrt{2})$ | S | 1 | 0.04% | Ch 6 §6.4 |
 | 6 | Wolfenstein $A$ | $\sqrt{2/3}$ | S | 1 | Within 1% | Ch 6 §6.4 |
 | 7 | $\|V_{cb}\|$ | $A\lambda^2$ | S | 1 | Conditional on 5,6 | Ch 6 §6.4 |
-| 8 | $m_d/m_s$ | $\lambda^2$ | S | 1 | Via GST relation | Ch 6 §6.5 |
+| 8 | $m_d/m_s$ | $\lambda^2$ | L | 1 | Via GST relation | Ch 6 §6.5 |
 | 9 | Jarlskog $J$ | $\eta/(12\pi^6)$ | E | 2(b) | Empirical $\eta$ | Ch 6 §6.4 |
 | 10 | Koide $Q$ | $2/3$ | S | 1 | **0.02%** | Ch 6 §6.5 |
 | 11 | Koide $\theta_0$ | $C_2/d^2 = 2/9$ | S | 1 | Within 1% | Ch 6 §6.5 |
@@ -5566,7 +5566,7 @@ The framework's twenty-two Standard Model predictions form the core empirical re
 | 17 | $m_u/m_d$ | $\sqrt{2/9}$ | L | 1+2(b) | Within 1$\sigma$ | Ch 6 §6.6 |
 | 18 | $\Sigma m_\nu$ | ~0.059 eV | S | 1 | Within 1$\sigma$ | Ch 8 |
 | 19 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(a)-tract.ᶠ | $1.178 \pm 0.020$ confirmed | Ch 8 |
-| 20 | $m_t$ via IR fixed point | $v/\sqrt{2}$ | M | 3 | Within 1$\sigma$ | Ch 6 §6.7 |
+| 20 | $m_t$ (weak-scale $y_t\approx1$) | $v/\sqrt{2}$ | R | 3 | 0.9\%; mechanism open | Ch 6 §6.7 |
 | 21 | $m_b$ via $Q_{\text{down}}$ | derived | L | 2(b) | Within 1$\sigma$ | Ch 6 §6.7 |
 | 22 | $\lambda(M_{\text{Pl}}) = 0$ | structural | S | 1 | **0.6$\sigma$** | Ch 6 §6.8 |
 | 23 | MOND acceleration $a_0$ | $cH/6$ | S | 0/1 | Within 0.5% | Ch 7 §7.8 |
@@ -5709,7 +5709,7 @@ The framework's cumulative empirical record can be summarized as follows.
 
 **Where the framework has no current content.** Five fundamental physics problems are scope limits from the framework's perspective — places where it does not provide a derived value: the fermion mass hierarchy in detail (flavor problem), baryogenesis (solution-specific — the baryon asymmetry inherits the input status of the framework's flavor-sector CP phases, §19.3.3), inflation and initial conditions, the Hubble tension's specific resolution, and the cosmological initial state. These are explicitly characterized in Chapter 19.
 
-**Cumulative assessment.** The framework's empirical record consists of approximately fifty separate prediction-data matches across multiple domains: twenty-two Standard Model predictions matching at approximately 1% or 1$\sigma$, fourteen gravitational sector predictions matching observation, seven neutrino sector predictions including the 0.07$\sigma$ JUNO retrodictive match, fourteen biology/medicine entries (retrodictions and consistency results), plus pre-registered forward predictions awaiting data (DESI Y5 $\nu$, the rotational-anisotropy amplitude, BTFR at $z>1$, JUNO design-lifetime precision on the exact $\sin^2\theta_{12}$ value) specifically distinguished from standard accounts. The framework's value is therefore demonstrated by cumulative empirical content across multiple domains rather than concentrated in any single empirical claim.
+**Cumulative assessment.** The framework's empirical record spans multiple domains, and its entries are of unequal evidential weight, classified explicitly above: of the twenty-two Standard Model observables, nine are parameter-free structural retrodictions and the remainder are layered, chained, or fitted; the gravitational-sector and neutrino-sector entries include retrodictions, consistency results, and one definitional fraction, with the $0.07\sigma$ JUNO match the sharpest (a retrodiction — the derivation postdates the November 2025 measurement). Genuinely pre-registered forward content is the smaller set awaiting data (DESI Y5 $\nu$, the rotational-anisotropy amplitude, BTFR at $z>1$, the A2 lattice thresholds, JUNO design-lifetime precision on $\sin^2\theta_{12}$). The empirical case is a broad retrodictive compression across domains, with forward-test exposure concentrated in that smaller pre-registered set.
 
 The framework's distinctive epistemic position is that it provides *structural foundations* for the empirical patterns rather than competing theoretical content at the emergent level. Standard QM, standard QFT, and standard GR are reproduced at the emergent level; the framework's distinctive content is the structural foundations explaining why these emergent theories have the specific forms they do. The cumulative empirical record provides convergent evidence for the framework's structural commitments across multiple domains, with no single empirical match being load-bearing for the framework's overall content.
 

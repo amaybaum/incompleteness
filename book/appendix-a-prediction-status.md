@@ -74,7 +74,7 @@ The framework's twenty-two Standard Model predictions form the core empirical re
 | 5 | Cabibbo $\lambda$ | $1/(\pi\sqrt{2})$ | S | 1 | 0.04% | Ch 6 §6.4 |
 | 6 | Wolfenstein $A$ | $\sqrt{2/3}$ | S | 1 | Within 1% | Ch 6 §6.4 |
 | 7 | $\|V_{cb}\|$ | $A\lambda^2$ | S | 1 | Conditional on 5,6 | Ch 6 §6.4 |
-| 8 | $m_d/m_s$ | $\lambda^2$ | S | 1 | Via GST relation | Ch 6 §6.5 |
+| 8 | $m_d/m_s$ | $\lambda^2$ | L | 1 | Structural $\lambda$; GST empirical | Ch 6 §6.5 |
 | 9 | Jarlskog $J$ | $\eta/(12\pi^6)$ | E | 2(b) | Empirical $\eta$ | Ch 6 §6.4 |
 | 10 | Koide $Q$ | $2/3$ | S | 1 | **0.02%** | Ch 6 §6.5 |
 | 11 | Koide $\theta_0$ | $C_2/d^2 = 2/9$ | S | 1 | Within 1% | Ch 6 §6.5 |
@@ -86,7 +86,7 @@ The framework's twenty-two Standard Model predictions form the core empirical re
 | 17 | $m_u/m_d$ | $\sqrt{2/9}$ | L | 1+2(b) | Within 1$\sigma$ | Ch 6 §6.6 |
 | 18 | $\Sigma m_\nu$ | ~0.059 eV | S | 1 | Within 1$\sigma$ | Ch 8 |
 | 19 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(a)-tract.ᶠ | $1.178 \pm 0.020$ confirmed | Ch 8 |
-| 20 | $m_t$ via IR fixed point | $v/\sqrt{2}$ | M | 3 | Within 1$\sigma$ | Ch 6 §6.7 |
+| 20 | $m_t$ (weak-scale $y_t\approx1$) | $v/\sqrt{2}$ | R | 3 | 0.9\%; mechanism open | Ch 6 §6.7 |
 | 21 | $m_b$ via $Q_{\text{down}}$ | derived | L | 2(b) | Within 1$\sigma$ | Ch 6 §6.7 |
 | 22 | $\lambda(M_{\text{Pl}}) = 0$ | structural | S | 1 | **0.6$\sigma$** | Ch 6 §6.8 |
 | 23 | MOND acceleration $a_0$ | $cH/6$ | S | 0/1 | Within 0.5% | Ch 7 §7.8 |
@@ -229,7 +229,7 @@ The framework's cumulative empirical record can be summarized as follows.
 
 **Where the framework has no current content.** Five fundamental physics problems are scope limits from the framework's perspective — places where it does not provide a derived value: the fermion mass hierarchy in detail (flavor problem), baryogenesis (solution-specific — the baryon asymmetry inherits the input status of the framework's flavor-sector CP phases, §19.3.3), inflation and initial conditions, the Hubble tension's specific resolution, and the cosmological initial state. These are explicitly characterized in Chapter 19.
 
-**Cumulative assessment.** The framework's empirical record consists of approximately fifty separate prediction-data matches across multiple domains: twenty-two Standard Model predictions matching at approximately 1% or 1$\sigma$, fourteen gravitational sector predictions matching observation, seven neutrino sector predictions including the 0.07$\sigma$ JUNO retrodictive match, fourteen biology/medicine entries (retrodictions and consistency results), plus pre-registered forward predictions awaiting data (DESI Y5 $\nu$, the rotational-anisotropy amplitude, BTFR at $z>1$, JUNO design-lifetime precision on the exact $\sin^2\theta_{12}$ value) specifically distinguished from standard accounts. The framework's value is therefore demonstrated by cumulative empirical content across multiple domains rather than concentrated in any single empirical claim.
+**Cumulative assessment.** The framework's empirical record spans multiple domains, and its entries are of unequal evidential weight, classified explicitly above: of the twenty-two Standard Model observables, nine are parameter-free structural retrodictions and the remainder are layered, chained, or fitted; the fourteen gravitational-sector and seven neutrino-sector entries include retrodictions, consistency results, and one definitional fraction, with the $0.07\sigma$ JUNO match the sharpest (a retrodiction — the derivation postdates the November 2025 measurement); the fourteen biology/medicine entries are retrodictions and consistency results. Genuinely pre-registered forward content is the smaller set awaiting data (DESI Y5 $\nu$, the rotational-anisotropy amplitude, BTFR at $z>1$, the A2 lattice thresholds, JUNO design-lifetime precision on the exact $\sin^2\theta_{12}$ value). The framework's empirical case is therefore a broad retrodictive compression across domains, with its forward-test exposure concentrated in that smaller pre-registered set, rather than a single decisive confirmation.
 
 The framework's distinctive epistemic position is that it provides *structural foundations* for the empirical patterns rather than competing theoretical content at the emergent level. Standard QM, standard QFT, and standard GR are reproduced at the emergent level; the framework's distinctive content is the structural foundations explaining why these emergent theories have the specific forms they do. The cumulative empirical record provides convergent evidence for the framework's structural commitments across multiple domains, with no single empirical match being load-bearing for the framework's overall content.
 

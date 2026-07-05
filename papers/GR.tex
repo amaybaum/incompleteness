@@ -344,6 +344,37 @@ For de Sitter (\(\kappa = cH\)):
 \(k_B T_{\text{cl}} = c^3 \epsilon^2 H / (8\pi G)\). No \(\hbar\)
 appears.
 
+\emph{Reconciliation with the internal component count.} The counting
+\(\eta = 1/\epsilon^2\) is one boundary mode per cell, whereas the
+substratum carries \(K = 2d = 6\) internal components per site ({[}SM
+§4.5{]}). The \(q\)-gauge argument above covers the number of internal
+\emph{states} per mode (the alphabet size), not the number of
+components, so the reconciliation is separate: what enters the horizon
+entropy is the number of field degrees of freedom that couple
+\emph{across} the partition through a single boundary (normal-direction)
+link, which is not the same as the number of components carried at a
+site. Three candidate counts are available --- the raw component count
+(\(6\)), the gauge-invariant flux count (one per \((3,2,1)\) block,
+i.e.~\(3\)), and the scalar-field-value count crossing a single link
+(\(1\)) --- and the entropy-relevant one is fixed by the rank of the
+cross-link coupling \(M(\mathbf{n}, \hat e_{\text{normal}})\) restricted
+to the partition surface. The construction takes this count to be \(1\),
+consistent with the single scalar field value transmitted per link; a
+computation of that rank on the OI coupling matrix would confirm it or
+replace it with \(\kappa_m\). The dependence of the downstream results
+on this choice is asymmetric and worth stating: the Bekenstein-Hawking
+coefficient is \emph{independent} of it --- writing
+\(\eta = \kappa_m/\epsilon^2\), the gap equation gives
+\(\hbar = c^3/(4G\eta)\) and \(S = \eta A = A/(4 l_p^2)\) with the
+\(\kappa_m\) cancelling, so the \(1/4\) is a fixed point of the
+construction --- while the discreteness scale carries it as
+\(\epsilon = 2\sqrt{\kappa_m}\, l_p\), so a count \(\kappa_m \neq 1\)
+would rescale \(\epsilon\) and, through it, the lattice cutoff at which
+{[}SM §6{]} defines \(1/\alpha_0\). The reconciliation is therefore a
+determinate open computation whose outcome leaves the entropy law
+untouched and adjusts the discreteness scale and the coupling-sector
+cutoff identification; it is recorded here rather than resolved.
+
 \hypertarget{the-emergent-action-scale}{%
 \subsubsection{3.2 The emergent action
 scale}\label{the-emergent-action-scale}}
@@ -2177,7 +2208,24 @@ magnitude
   horizon). None of these depends on OI's specific cubic-lattice
   structure; they depend on the existence of a cosmological-horizon
   partition, the C1-C3 conditions, and the Stinespring/partial-trace
-  machinery {[}Main §3{]}.
+  machinery {[}Main §3{]}. One further dependency is carried by the KMS
+  step of Step 4 and should be stated: the Euclidean-regularity argument
+  presupposes the emergent theory has local boost structure at the
+  horizon (a bifurcate Killing horizon with a well-defined
+  imaginary-time circle). That prerequisite is the
+  local-boost-invariance of the emergent description --- the same object
+  whose protection is the framework's open Lorentz-sector item in the
+  boost channel ({[}Main §3.5{]}; the custodial normalization and
+  \(M_X\) window, {[}Substratum §6.4{]}). The \(\hbar\) derivation is
+  therefore not parallel to the Lorentz-violation accounting but
+  partially downstream of its boost sector: a failure of emergent local
+  boost invariance at the horizon would propagate to the gap equation,
+  whereas the rotational sector does not enter here (spatial anisotropy
+  does not touch the imaginary-time periodicity). The UV-dispersion
+  robustness handled above (\(\mathcal{O}((\epsilon\kappa/c)^2)\)
+  corrections) is a separate and weaker condition; the boost-structure
+  prerequisite is the load-bearing one and is inherited, not
+  established, in this paper.
 \item
   The \emph{discreteness scale fixing} (§4) is purely algebraic:
   rearranging the \(\hbar\) relation gives

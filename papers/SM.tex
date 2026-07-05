@@ -1321,6 +1321,35 @@ rate several times the value quoted above, so the quoted
 protocol. The qualitative chaos, which is what the ergodicity
 interpretation requires, is robust across protocols.
 
+\emph{The two roles of the dynamics, stated explicitly.} The substratum
+update carries two structurally distinct pieces, and the framework's
+results divide cleanly between them. The \emph{exact} dynamics is the
+linear rule \(f = \sum_{\text{nn}} x - x(t-1)\) over
+\(\mathbb{Z}/q\mathbb{Z}\); the finite-state arithmetic (the mod-\(q\)
+wraparound / threshold-crossing at the alphabet boundary) is a bounded
+nonlinearity that is present in any faithful finite realization but
+vanishes in the continuum/large-\(q\) limit. The \emph{structural} chain
+--- the wave-equation uniqueness (§4.1), the Susskind factorization
+(Theorem 2), the \((3,2,1)\) decomposition and the gauge group (§4.6),
+and the amplitude-scale-gauge argument for linearity (§4.1) --- reads
+only the linear part: it is exact modular-linear algebra and does not
+invoke the threshold nonlinearity. The \emph{ergodic/measure} properties
+--- full-shell sampling for the Gaussianization of §4.2, the chaotic
+mixing underlying operational measurement independence ({[}Main{]}
+§3.3), and the ETH-conditioning of the C2 necessity direction
+({[}Main{]} §3.4) --- read the threshold nonlinearity, which is what
+breaks the integrability of the strictly-linear map (way out (i) above).
+The two are not in tension: they are different features of one object,
+consumed by different parts of the framework, and the ergodic properties
+ride on a bounded correction that leaves the structural
+(continuum-limit) content untouched. The one commitment this makes
+explicit is that the amplitude-scale gauge of §4.1 is exact at the level
+of the structural chain (where the threshold nonlinearity is absent) and
+holds up to the bounded finite-state correction at the level of the
+realized bijection; a full account of how large that correction is on
+each ergodic observable is the open residual the \(\lambda_{\max}\)
+measurement begins to quantify.
+
 \hypertarget{center-independence-and-chiral-symmetry}{%
 \subsubsection{4.3 Center independence and chiral
 symmetry}\label{center-independence-and-chiral-symmetry}}
@@ -1771,7 +1800,22 @@ momentum components. The distinction is representation-theoretically
 real but does not affect diagonal-channel observables: both actions
 induce the same \(S_3\) permutation on the axis label, so the
 generation-channel masses of §7.2 --- and the \(Z_3\)-Fourier amplitude
-extraction built on them --- are insensitive to it.
+extraction built on them --- are insensitive to it. One quantity is
+\emph{not} covered by this insensitivity and should be flagged: the
+Koide amplitude and angle depend on the quadratic Casimir
+\(C_2(T_1) = 2\) (§7.2), and the value of that invariant depends on
+which representation the mass-splitting operator transforms in. The
+insensitivity established here is to the \emph{permutation} structure of
+the diagonal channel; the identification that the mass-splitting
+operator transforms in the signed \(T_1\) (carrying \(C_2 = 2\)) rather
+than in the unsigned \(A_1 \oplus E\) is a separate, load-bearing input
+to the Casimir chain. It is supplied by the identification of the
+generation triplet with the \(\gamma^j\)-carried tastes, and its
+derivation from the substrate mass operator's transformation law is the
+same open task as the amplitude closure of §7.2 (the \(A^2 = C_2\)
+dynamical derivation); the pre-registered \(A^2\) measurement tests both
+together, since a mis-identified carrier would present as a wrong
+amplitude.
 
 \textbf{Theorem 8b} (Taste coupling structure). \emph{On the d = 3
 lattice with the normalized wave equation, each BZ corner
@@ -3271,6 +3315,35 @@ after renormalization. The perturbative calculation (§6.1) works in the
 \(q\)-independent sector and correctly determines the physical coupling.
 The Haar-measure Monte Carlo explored a confined phase that does not
 correspond to the OI framework's gauge measure.
+
+\emph{Status of the induced-measure identification.} The step this
+argument turns on --- that the substratum's uniform measure pushes
+forward to a near-identity (rather than Haar) gauge measure --- is a
+load-bearing commitment whose status should be stated at the rigor level
+of §A.3. The free-sector correspondence (the matter/pseudofermion
+measure equivalence, §4.2 Remark) is established at Level 2; the
+interacting statement used here, that the pushforward under the explicit
+map
+\(\boldsymbol{\phi} \mapsto M(\mathbf{n}, \hat e_j) \in \mathrm{SU}(N)\)
+concentrates near the identity, is not at that level, because the
+explicit map is under-determined at several enumerable joints (the
+real-to-complex step, the unitarization prescription) and the natural
+candidate map
+\(M = \mathrm{polar}(\phi(\mathbf{n})^\dagger \phi(\mathbf{n}+\hat e_j))\)
+has been found numerically to produce a \emph{Haar} (hence confining)
+pushforward, not the near-identity one this section requires. The
+near-identity claim is therefore a conjecture about the correct map, not
+a derived property of the natural candidate; the concentration ``at
+large \(q\)'' holds for an un-centered variant whose canonicity is not
+established. This has a direct consequence for the falsification-capable
+lattice work: the \(A^2\) Monte Carlo and any production gauge-sector
+computation sample a specific induced measure, so their verdict is
+conditional on the measure identification being the near-identity one
+rather than the candidate's Haar --- a dependency that the
+pre-registration of those computations should carry explicitly.
+Resolving which map is correct, and whether its pushforward is
+near-identity or Haar, is the open structural task on which the coupling
+sector's derived-versus-fitted status ultimately rests.
 
 \emph{Note on the dynamical-fermion MC.} A separate set of
 dynamical-fermion HMC simulations is used to extract empirical inputs to
