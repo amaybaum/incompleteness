@@ -114,25 +114,30 @@ is accordingly treated as empirical input --- see §6.2) and a
 reproduces all three SM couplings at \(M_Z\) via standard SM
 renormalization group running. The structural predictions are the
 specific value \(1/\alpha_0 = 23.25\), the universality of \(\delta_0\)
-across gauge groups, and the analytic 1-loop derivation of the
-\(A \cdot B\) coefficient agreeing with the fit. Deriving the
-\(C_2\)-dependent threshold parameters from first-principles lattice
-perturbation theory is an open computational task that would upgrade the
-SU(2) and SU(3) couplings from retrodictions to strict predictions.
-Quantitative predictions for SM observables include the Cabibbo angle
-\(\lambda = 1/(\pi\sqrt{2})\) to \(0.04\%\), the Wolfenstein
-\(A = \sqrt{2/3}\) to \(0.23\sigma\), the Koide angle \(\theta_0 = 2/9\)
-to \(0.02\%\), all three PMNS angles within \(1.1\sigma\) --- with
-\(\sin^2\theta_{12}\) confirmed by the post-JUNO global fit at
-\(0.07\sigma\) --- six fermion masses from a single empirical input to
-better than \(1\%\), and the top mass from the IR quasi-fixed point
-\(y_t = 1\) to \(0.9\%\). These predictions are forced by the
-cubic-lattice geometry and contain no parameters fit to the predicted
-quantities; they are best understood as a tight compression of the
-Standard Model onto the cubic-lattice commitment --- a claim about the
-non-independence of the SM's structural facts --- rather than as a
-derivation of the Standard Model from first principles (see §8.3,
-\emph{Derivation status: the three tiers}).
+across gauge groups, and the analytic 1-loop computation of the
+\(A \cdot B\) coefficient, consistent with the fit under the \(1/N^2\)
+finite-size assumption and inconclusive across finite-size models
+(§6.2.1). Deriving the \(C_2\)-dependent threshold parameters from
+first-principles lattice perturbation theory is an open computational
+task that would upgrade the SU(2) and SU(3) couplings from retrodictions
+to strict predictions. Quantitative predictions for SM observables
+include the Cabibbo angle \(\lambda = 1/(\pi\sqrt{2})\) to \(0.04\%\),
+the Wolfenstein \(A = \sqrt{2/3}\) to \(0.23\sigma\), the Koide angle
+\(\theta_0 = 2/9\) to \(0.02\%\), all three PMNS angles within
+\(1.1\sigma\) --- with \(\sin^2\theta_{12}\) confirmed by the post-JUNO
+global fit at \(0.07\sigma\) --- six fermion masses from a single
+empirical input to better than \(1\%\), and the top mass matching the
+weak-scale relation \(m_t = v/\sqrt{2}\) (\(y_t(m_t) \approx 1\)) to
+\(0.9\%\) --- a retrodiction whose fixed-point mechanism is open:
+one-loop running shows \(y_t(M_{\text{Pl}}) = 1\) yields
+\(m_t \approx 207\) GeV, so the weak-scale coincidence is not delivered
+by the compositeness-scale normalization (§7.2). These predictions are
+forced by the cubic-lattice geometry and contain no parameters fit to
+the predicted quantities; they are best understood as a tight
+compression of the Standard Model onto the cubic-lattice commitment ---
+a claim about the non-independence of the SM's structural facts ---
+rather than as a derivation of the Standard Model from first principles
+(see §8.3, \emph{Derivation status: the three tiers}).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2836,8 +2841,10 @@ The four components:
   structurally computed \(1/\alpha_0\) and the empirically fixed
   \(\delta_0\). The leading coefficient \(A \cdot B\) is independently
   derived from 2-loop lattice perturbation theory in the induced gauge
-  theory (§6.2.1), giving \(A \cdot B = 48.0 \pm 1.5\) against the
-  fitted \(46.4\).
+  theory (§6.2.1), giving \(A \cdot B \approx 48\) under the \(1/N^2\)
+  leading-power assumption, against the fitted \(46.4\); the
+  extrapolation is leading-power-dependent and the comparison
+  inconclusive (§6.2.1).
 \item
   SM RG running: the one-loop \(\beta\)-function coefficients
   \(b_1 = 41/10\), \(b_2 = -19/6\), \(b_3 = -7\) over
@@ -2914,16 +2921,28 @@ Shanks acceleration, level 3 (last term) & \(47.9\) \\
 Shanks acceleration, level 4 (last term) & \(47.9\) \\
 \end{longtable}
 
-The spread across estimators is \(\sim 2\), dominated by the linear
-\(1/N^2\) fit lying slightly higher than the Shanks family. The Shanks
-iterates (levels 2, 3, 4) are stable at \(47.9\), capturing
-subleading-\(1/N^2\) corrections not included in the linear fit. Taking
-the iterated-Shanks consensus as central and the Shanks-vs-\(1/N^2\)
-spread as uncertainty:
-
-\[A \cdot B = 48.0 \pm 1.5 \quad (\pm 3\%)\]
-
-against the fitted value \(A \cdot B = 46.4\).
+The extrapolated value is model-dependent beyond the estimator spread
+above, and the comparison to the fit is conditional on the assumed
+leading finite-size power. Fitting the six data points with a leading
+\(1/N\) correction gives \(A \cdot B(\infty) \approx 61\) and fits the
+sequence an order of magnitude better (rms residual \(0.06\) against
+\(0.67\) for the pure \(1/N^2\) model over all six points); a
+\(1/N^2 + 1/N^3\) model fits best of all (rms \(0.02\)) and gives
+\(\approx 52\). Only the pure-\(1/N^2\) extrapolation and the Shanks
+family (which presupposes near-geometric convergence) land near \(48\);
+the largest computed value is \(41.7\), so every candidate sits
+\(15\)--\(45\%\) above the data's endpoint. The physically motivated
+default for staggered actions is \(O(a^2) = O(1/N^2)\) artifacts, which
+is the ground for preferring the \(48\)-family --- but the
+induced-propagator normalization \(\Pi_s(N)\) and the
+\(b_0^{\text{capture}}(N)\) division can each introduce \(O(1/N)\)
+pieces, and the data in this range in fact prefer a leading \(1/N\)
+term. The comparison against the fitted \(46.4\) is therefore
+\emph{conditional on the \(1/N^2\) leading-power assumption}: under it,
+agreement at the few-percent level; under the better-fitting \(1/N\)
+model, a \(\sim 30\%\) disagreement. The cross-check is
+\textbf{inconclusive pending either substantially larger \(N\) or a
+derivation of the leading finite-size power of the induced theory}.
 
 \textbf{Uncertainty budget.}
 
@@ -3157,8 +3176,10 @@ work; the log form should be read as a constrained parameterization
 consistent with the resummation structure, not as a derived result. The
 leading coefficient \(A \cdot B\) (the \((C_2 g_0^2)^1\) term in the
 expansion) is computed from 2-loop lattice PT in the induced gauge
-theory (§6.2.1), giving \(A \cdot B = 48.0 \pm 1.5\) against the fitted
-\(46.4\). Separating \(A\) from \(B\) requires computing the next-order
+theory (§6.2.1), giving \(A \cdot B \approx 48\) under the \(1/N^2\)
+leading-power assumption, against the fitted \(46.4\); the extrapolation
+is leading-power-dependent and the comparison inconclusive (§6.2.1).
+Separating \(A\) from \(B\) requires computing the next-order
 \((C_2 g_0^2)^2\) coefficient and is left for future work.
 
 \textbf{(iv) Consistency check with the 2-loop VP.} The U(1) row fixes
@@ -3487,6 +3508,37 @@ corollary (self-energy requires two propagator insertions, so the
 down-strange mass ratio inherits the squared scaling). The observer's
 continuum theory has no BZ periodicity, so the propagator at
 \(|q| = \pi\sqrt{2}\) is smooth.
+
+\textbf{Status of the identification (named hypothesis).} The chain
+above contains three links of different strength, and it is important to
+grade them separately. The corner geometry
+(\(|X_i - X_j| = \pi\sqrt{2}\) for adjacent generations) and the
+chirality-forced \(1/|q|\) power (established via the staggered-fermion
+literature) are solid. The load-bearing link is the identification
+itself --- that the dimensionless mixing-matrix element \emph{equals}
+the taste-changing propagator magnitude at the inter-corner momentum, in
+lattice units, with prefactor exactly unity. This is a hypothesis, not a
+derivation: a mixing angle is a property of the relative misalignment of
+two mass matrices, and no derivation from the substrate Yukawa
+diagonalization to ``mixing element = free propagator magnitude,
+coefficient one'' is currently given; the unit prefactor (no coupling,
+wavefunction, or normalization factor) and the selection of the
+adjacent-corner distance (rather than another invariant of the same
+corner set) are commitments of the hypothesis rather than consequences
+of the geometry. The resolving computation is the taste-changing
+two-point function between \(T_1\) corner states with explicit
+external-leg normalization, evaluated on the \(d=3\) staggered lattice
+--- the same machinery class as the \(1/\alpha_0\) integral of §6.1 and
+the \(\mathcal{N}\) integral of §7.2 --- whose output is the
+dimensionless coefficient \(c_\lambda\) in
+\(\lambda = c_\lambda/(\pi\sqrt{2})\). The hypothesis commits to
+\(c_\lambda = 1\); the empirical match at \(0.04\%\) confirms the
+commitment but does not derive it, and a computed \(c_\lambda\) away
+from unity by more than the experimental precision falsifies the
+identification. Until that computation is performed, the Cabibbo
+prediction's status is ``geometry and power forced, identification
+hypothesized and empirically confirmed'' --- the same footing as the
+Koide amplitude, not stronger.
 
 \textbf{The Wolfenstein \(A\) parameter.}
 
@@ -3990,18 +4042,29 @@ generation (Theorem 10 with standard staggered-lattice Yukawa structure
 the normalized wave equation (coefficient \(+1\) on nearest-neighbor
 terms, §4.1), the staggered fermion-to-scalar overlap integral at a
 single site evaluates to an \(O\)-invariant Clebsch-Gordan coefficient
-normalized to unity. For \(y_t\), the IR quasi-fixed point of the SM RGE
-drives \(y_t(\mu_{\text{IR}}) \to 1\) at low energies regardless of the
-UV value, so the top mass prediction is robust to this convention. The
-specific value \(y_t(M_{\text{Pl}}) = 1\) lies well inside the
-IR-attractor basin --- any UV value in roughly
-\(y_{\text{UV}} \in [0.5, 5]\) flows to the same IR within \(\sim 10\%\)
---- so the convention is physically equivalent to ``\(y_t\) is \(O(1)\)
-at the compositeness scale.'' Since all other fermion-mass predictions
-use either the IR fixed point (\(m_t\)), the taste-independence equality
-\(y_b = y_\tau\) (\(m_b/m_\tau\)), or Koide relations referencing
-observed masses, the tree-level Yukawa value does not enter any
-quantitative prediction beyond this attractor-basin constraint:
+normalized to unity. For \(y_t\), the relation between this convention
+and the observed top mass is open rather than closed. Under standard
+one-loop SM running, the IR quasi-fixed point sits at
+\(y_t(m_t) \approx 1.25\) (\(m_t \approx 215\)--\(220\) GeV), not at
+unity; the normalization \(y_t(M_{\text{Pl}}) = 1\) flows down to
+\(y_t(m_t) \approx 1.19\), i.e.~\(m_t \approx 207\) GeV --- a \(20\%\)
+excess over observation --- and the attractor basin
+\(y_{\text{UV}} \in [0.5, 5]\) focuses only to
+\(m_t \approx 177\)--\(221\) GeV, a \(25\%\) spread. The observed top
+corresponds to \(y_t(M_{\text{Pl}}) \approx 0.4\)--\(0.5\), not unity.
+What is empirically exact to \(0.9\%\) is the \emph{weak-scale}
+statement \(y_t(m_t) \approx 1\); the compositeness-scale normalization
+plus IR attraction does not deliver it. A derivation of \(y_t = 1\) at
+the electroweak matching scale specifically --- or of
+\(y_t(M_{\text{Pl}}) \approx 1/2\), which runs to \(\approx 177\) GeV at
+one loop --- would close the gap; neither is currently available. The
+relation \(m_t = v/\sqrt{2}\) is accordingly classified as a
+retrodiction of the known weak-scale \(y_t \approx 1\) coincidence with
+the structural mechanism open (§7.6), not as a parameter-free structural
+prediction. Since all other fermion-mass predictions use either the
+taste-independence equality \(y_b = y_\tau\) (\(m_b/m_\tau\)) or Koide
+relations referencing observed masses, the tree-level Yukawa convention
+does not enter any other quantitative prediction:
 
 \[\boxed{m_t = \frac{v}{\sqrt{2}} = 174.1 \text{ GeV} \quad (\text{obs: } 172.5 \pm 0.3, \; 0.9\%)}\]
 
@@ -5064,14 +5127,14 @@ Input
 \textbf{R}ᵃ \\
 \(\lambda\) (Cabibbo) & \(1/(\pi\sqrt{2})\) & 0.2251 & 0.2250 ± 0.0007 &
 0.04\% & \textbf{S} \\
-\(A\) (Wolfenstein) & \(\sqrt{2/3}\) & 0.8165 & 0.811 ± 0.024 &
-\(0.23\sigma\) & \textbf{S} \\
+\(A\) (Wolfenstein) & \(\sqrt{2/3}\) & 0.8165 & 0.826 ± 0.012ʰ &
+\(0.8\sigma\) & \textbf{S} \\
 \(m_d/m_s\) & \(1/(2\pi^2)\) & 0.0507 & 0.0503 ± 0.0007 & \(0.56\sigma\)
-& \textbf{S} (via GST) \\
-\(\|V_{cb}\|\) & \(\sqrt{2/3}/(2\pi^2)\) & 0.0414 & 0.0411 ± 0.0012 &
-\(0.22\sigma\) & \textbf{S} \\
+& \textbf{L} (structural \(\lambda\); GST empirical) \\
+\(\|V_{cb}\|\) & \(\sqrt{2/3}/(2\pi^2)\) & 0.0414 & 0.0408 ± 0.0014ʰ &
+\(0.4\sigma\) & \textbf{S} \\
 \(J\) (Jarlskog) & \(\eta/(12\pi^6)\) & \(3.02 \times 10^{-5}\) &
-\((3.00 \pm 0.12) \times 10^{-5}\) & \(0.17\sigma\) & \textbf{E}
+\((3.08 \pm 0.13) \times 10^{-5}\)ʰ & \(0.5\sigma\) & \textbf{E}
 (empirical \(\eta\)) \\
 Koide \(Q\) & \(2/3\) & 0.66667 & 0.66666 & \(< 0.01\%\) & \textbf{S} \\
 Koide angle \(\theta_0\) & \(C_2/d^2 = 2/9\) & 0.22222 & 0.22227 &
@@ -5100,8 +5163,8 @@ MeV & 0.006\% & \textbf{M} (\(m_\tau\)) \\
 (\(m_t\)) \\
 \(m_b/m_\tau\) & \(4.28/Z_S(\lambda g_0^2)\) & 2.361 & 2.352 &
 \(0.5\sigma\) & \textbf{L}ᵇ \\
-\(m_t\) & \(v/\sqrt{2}\) (\(y_t = 1\) IR fixed pt) & 174.1 GeV & 172.5 ±
-0.3 & 0.9\% & \textbf{S} \\
+\(m_t\) & \(v/\sqrt{2}\) (weak-scale \(y_t \approx 1\); mechanism open)
+& 174.1 GeV & 172.5 ± 0.3 & 0.9\% & \textbf{R}ᵍ \\
 \end{longtable}
 
 Footnotes:
@@ -5119,9 +5182,12 @@ Footnotes:
   strict 2-loop PT and is accordingly treated as empirical input (see
   §6.2). The structural predictions in this sector are: (i) the specific
   value \(1/\alpha_0 = 23.25\), (ii) the universality of \(\delta_0\)
-  across gauge groups, and (iii) the 1-loop analytic derivation of
-  \(A \cdot B = 48.0 \pm 1.5\) agreeing with the fitted \(46.4\) to
-  \(\sim 3\%\). Deriving \((A, B)\) individually from first-principles
+  across gauge groups, and (iii) the 1-loop analytic computation of
+  \(A \cdot B\), whose extrapolated value is consistent with the fitted
+  \(46.4\) under the \(1/N^2\) leading-power assumption but is
+  leading-power-dependent (range \(\approx 48\)--\(62\) across
+  finite-size models; §6.2.1) and is inconclusive pending larger
+  lattices. Deriving \((A, B)\) individually from first-principles
   lattice perturbation theory would upgrade the SU(2) and SU(3) entries
   from retrodictions (\textbf{R}) to strict predictions (\textbf{S}).
 \item
@@ -5163,6 +5229,29 @@ Footnotes:
   relation. The \(m_s\) input is one M-chain mass scale. The empirical
   match at 0.9\% is excellent given the layered structure.
 \item
+  \textbf{ᵍ} \emph{Retrodiction (m\_t).} One-loop SM running gives an IR
+  quasi-fixed point at \(y_t \approx 1.25\), and the normalization
+  \(y_t(M_{\text{Pl}}) = 1\) flows to \(m_t \approx 207\) GeV; the
+  \(0.9\%\) match is the weak-scale \(y_t(m_t) \approx 1\) coincidence,
+  whose structural derivation is open (§7.2).
+\item
+  \textbf{ʰ} \emph{Data source.} The observed values for \(A\),
+  \(|V_{cb}|\), and \(J\) follow a single global-fit source per
+  observable, quoted in §7.1 and used identically here. The observed
+  Wolfenstein \(A\) is itself fit-family dependent (central values span
+  approximately \(0.79\)--\(0.83\) across PDG, CKMfitter, and UTfit
+  determinations, a spread larger than any single fit's quoted
+  uncertainty); the prediction \(\sqrt{2/3} = 0.8165\) lies inside that
+  spread, so the honest match statement for \(A\) is consistency within
+  the fit-family spread rather than a single-\(\sigma\) figure. The
+  \(J\) entry additionally carries a parametrization caveat: \(\eta\) is
+  extracted by global fits within the Wolfenstein parametrization using
+  the fitted \(A\) and \(\lambda\), so inserting the fitted \(\eta\)
+  alongside the framework's structural \(A\) and \(\lambda\) mixes
+  parametrizations; the \(J\) row tests the combination \(A^2\lambda^6\)
+  only to the extent the extraction of \(\eta\) is insensitive to that
+  mixing.
+\item
   \textbf{ᵉ} \emph{Layered prediction (m\_u/m\_d), Layer 1 + Layer
   2(b).} The structural form \(m_u/m_d = \sqrt{\theta_0} = \sqrt{2/9}\)
   uses the same quadratic Casimir \(C_2 = 2\) of the \(T_1\)
@@ -5202,34 +5291,41 @@ Footnotes:
   ``Positive support: explicit substrate calculation.''
 \end{itemize}
 
-\textbf{Parameter-accounting summary:} Of the 22 observables: \textbf{10
+\textbf{Parameter-accounting summary:} Of the 22 observables: \textbf{9
 are unconditional parameter-free structural predictions} (\textbf{S},
 Layer 0 or Layer 1: items \(1/\alpha_0\), \(A \cdot B\) cross-check,
-Wolfenstein \(A\), \(|V_{cb}|\), \(m_d/m_s\) via GST, Cabibbo
-\(\lambda\), Koide \(Q\), Koide angle \(\theta_0\),
-\(\sin^2\theta_{13}\), \(\lambda(M_{\text{Pl}}) = 0\), top-mass IR fixed
-point); \textbf{5 are layered predictions} (\textbf{L}, Layer 1 form
+Wolfenstein \(A\), \(|V_{cb}|\), Cabibbo \(\lambda\), Koide \(Q\), Koide
+angle \(\theta_0\), \(\sin^2\theta_{13}\),
+\(\lambda(M_{\text{Pl}}) = 0\)); \(m_d/m_s\) is classified \textbf{L}
+because its conversion from the structural \(\lambda\) runs through the
+Gatto--Sartori--Tonin relation, an external empirical relation whose
+status the chain inherits (§7.1); the top mass is classified \textbf{R}
+because one-loop SM running gives \(m_t \approx 207\) GeV from
+\(y_t(M_{\text{Pl}}) = 1\), so the \(0.9\%\) match is a retrodiction of
+the weak-scale \(y_t \approx 1\) coincidence with the mechanism open
+(§7.2); \textbf{6 are layered predictions} (\textbf{L}, Layer 1 form
 combined with one Layer-2 substrate-specific coefficient or Layer-3
-empirical input: \(\sin^2\theta_{12}\) and \(\sin^2\theta_{23}\) via
-Cond 2 (Layer 2(a)-tractable per §7.3 structural decomposition),
-\(m_u/m_d\) via amplitude-vs-eigenvalue alignment (Layer 2(b)), \(m_b\)
-inheriting \(Q_{\text{down}}\)'s phenomenological status, \(m_b/m_\tau\)
-via \(K = 1/(n_{\text{gen}} - 1)\) representation-theoretic identity
-(Layer 1 closed per §7.5) with Layer 2(a)-tractable substrate-loop
-verification residual); 2 are retrodictions in the gauge coupling sector
-(\textbf{R}, where \((A, B)\) are currently matched to observation
-rather than computed); 1 fixes the universal threshold \(\delta_0\) from
-the U(1) coupling (\textbf{E}); 3 form a one-input mass/parameter chain
-(\textbf{M}); 1 uses an explicit empirical input (\textbf{E}, the
-Jarlskog phase \(\eta\)). No parameters are fit to the predicted
-quantities in any of the \textbf{S} or \textbf{L} classes; the layered
-classifications reflect explicit dependence on stated structural inputs
-(Cond 2 of §7.3 --- Layer 2(a)-tractable; the open derivations
+empirical input: \(m_d/m_s\) via GST as above, \(\sin^2\theta_{12}\) and
+\(\sin^2\theta_{23}\) via Cond 2 (Layer 2(a)-tractable per §7.3
+structural decomposition), \(m_u/m_d\) via amplitude-vs-eigenvalue
+alignment (Layer 2(b)), \(m_b\) inheriting \(Q_{\text{down}}\)'s
+phenomenological status, \(m_b/m_\tau\) via
+\(K = 1/(n_{\text{gen}} - 1)\) representation-theoretic identity (Layer
+1 closed per §7.5) with Layer 2(a)-tractable substrate-loop verification
+residual); 3 are retrodictions (\textbf{R}: the SU(2) and SU(3)
+couplings, where \((A, B)\) are matched to observation rather than
+computed, and the top mass per §7.2); 1 fixes the universal threshold
+\(\delta_0\) from the U(1) coupling (\textbf{E}); 3 form a one-input
+mass/parameter chain (\textbf{M}); 1 uses an explicit empirical input
+(\textbf{E}, the Jarlskog phase \(\eta\)). No parameters are fit to the
+predicted quantities in any of the \textbf{S} or \textbf{L} classes; the
+layered classifications reflect explicit dependence on stated structural
+inputs (Cond 2 of §7.3 --- Layer 2(a)-tractable; the open derivations
 referenced in §7.2 and §7.5) or phenomenological inputs
 (\(Q_\text{down}\)) rather than free parameter fitting. The C class
 (conditional structural pending derivation) is currently empty.
 
-In total, 10 unconditional + 5 layered = 15 predictions in the
+In total, 9 unconditional + 6 layered = 15 predictions in the
 structural-or-near-structural class.
 
 In addition: SM gauge group, three generations, \(\bar\theta = 0\),
@@ -5258,12 +5354,15 @@ tightest experimental precision: the Casimir family --- anchored by the
 Koide relation \(Q = 2/3\) via \(A^2 = C_2\) --- and the Cabibbo angle
 \(\lambda = 1/(\pi\sqrt{2})\) (one-loop lattice integral on
 \(\mathbb{Z}^3\)). The two are tested by structurally distinct features
-of the lattice (Casimir eigenvalue structure vs.~spatial integral), so
-the joint null below treats them as independent draws. The Casimir
-family carries the dynamical-closure caveat of §7.2 (the amplitude
-\(A^2 = C_2\) is structural and exact but not yet derived from the
-dynamics, which at one loop undershoots), so of the two the Cabibbo
-pillar is the more secure pending that closure.
+of the lattice (Casimir eigenvalue structure vs.~spatial integral). Each
+family carries an identified open link: the Casimir family carries the
+dynamical-closure caveat of §7.2 (the amplitude \(A^2 = C_2\) is
+structural and exact but not yet derived from the dynamics, which at one
+loop undershoots), and the Cabibbo family carries the
+propagator-identification hypothesis of §7.1 (the identification of the
+mixing element with the unit-normalized taste-changing propagator, named
+there as a hypothesis pending the normalization computation). Neither
+pillar should be ranked above the other pending its respective closure.
 
 \textbf{Cubic-group \(T_1\)-Casimir consistency test.} Beyond the
 two-independent-predictions framing, the cubic-group \(T_1\)-Casimir
@@ -5319,56 +5418,46 @@ through its appearances in \(|V_{cb}|\), \(\sin^2\theta_{13}\), and
 \(C_2/d = 2/3\), tested via the six-observable simultaneous match above.
 Both ingredients are Layer 1.
 
-\textbf{Null hypothesis.} For each retrodiction, treat the observed
-value as an independent uniform draw from a pre-specified natural range;
-compute the probability that the draw falls within the experimental
-window around the framework's predicted value.
+\textbf{On quantifying the joint match, and why no probability is
+quoted.} A joint null probability of the natural form --- each observed
+value treated as an independent uniform draw against a fixed formula ---
+answers the wrong question for this package. The observed values were
+fixed and known before the framework existed --- the Cabibbo angle since
+1963, the Koide relation since 1981 (a celebrated pre-existing empirical
+regularity that the framework explains rather than discovers) --- and
+the structural expressions were identified against them. The correct
+null must therefore account for the multiplicity of candidate structural
+expressions available to any such search, a multiplicity this paper
+itself documents: the normalization analysis of §7.2 enumerates ten
+candidate rational structures of comparable naturalness, the \(K\)
+coefficient of §7.5 is selected within \(\{1/4, 1/2, 1, 2\}\), and the
+\(1/d\)-versus-\(1/(2d)\) and \(d=3\)-versus-\(d=4\) forks each expanded
+the candidate set during the framework's development. With tens of
+natural closed-form candidates per observable, per-mille agreement of
+\emph{some} candidate is not a per-mille-probability event, and
+multiplying per-observable probabilities is not licensed. No honest
+closed-form null is available without an explicit model of the
+expression-search space, which is not attempted here.
 
-\textbf{Koide \(Q = 2/3\).} Cauchy--Schwarz bounds \(Q\) in
-\([1/3, 1]\), giving natural range width \(W_Q = 2/3\). The framework
-prediction matches observation to \(\sigma_Q \sim 10^{-5}\)
-(fractional). Null probability:
-
-\[p_Q = \frac{2\sigma_Q}{W_Q} \approx 3 \times 10^{-5}\]
-
-\textbf{Cabibbo \(\lambda = 1/(\pi\sqrt{2}) = 0.22508\).} Observed
-\(\lambda = 0.2250 \pm 0.0007\). Taking the pre-framework ``small
-mixing'' natural range \([0, 0.5]\) (historically the upper bound
-considered in Cabibbo's 1963 analysis), \(W_\lambda = 0.5\). Null
-probability:
-
-\[p_\lambda = \frac{2\sigma_\lambda}{W_\lambda} \approx 2.8 \times 10^{-3}\]
-
-\textbf{Joint.} The Koide and Cabibbo predictions test structurally
-distinct features of the lattice (Casimir eigenvalue structure
-vs.~spatial integral structure), so independence of the two null draws
-is defensible. The joint probability under the null:
-
-\[\boxed{\; p_{\rm joint} = p_Q \cdot p_\lambda \approx 8 \times 10^{-8} \;}\]
-
-\textbf{Robustness.} The dominant sensitivity is to the Cabibbo natural
-range. Alternative choices give \(p_{\rm joint} \in [10^{-8}, 10^{-7}]\)
-across the defensible span \(W_\lambda \in [0.3, 1.0]\). The Koide range
-is bounded above by Cauchy--Schwarz and not adjustable.
-
-\textbf{Extended bundle.} Including the four weaker independent items
---- \(m_u/m_d = \sqrt{2/9}\) (\(p \approx 0.12\)), the Higgs quartic
-\(\lambda_H(M_{\rm Pl}) = 0\) (\(p \approx 0.10\)), the top mass from
-the \(y_t = 1\) IR fixed point (\(p \approx 0.008\)), and post-grouping
-PMNS contributions --- the joint probability drops to \(\sim 10^{-10}\).
-The tight-bundle statement at \(\sim 10^{-8}\) is the defensible lead
-figure; the extended bundle is a robustness check.
-
-\textbf{What this establishes.} The retrodictive content of the
-framework is not plausibly coincidental: a null hypothesis that
-attributes the numerical matches to chance must absorb a factor of
-\(\sim 10^8\). This does not establish that the framework is correct ---
-alternative frameworks could in principle match the same retrodictions,
-and the bound says nothing about predictions in regimes where OI and
-standard QM differ. It establishes that the numerical content of
-§7.1--§7.5 is concentrated, not diffuse: the framework makes specific
-commitments, the specific commitments match observation, and the match
-is sharp enough that ``coincidence'' is not an available dismissal.
+\textbf{What the retrodictive package supports.} Three statements carry
+the section's content. First, the matches are \emph{concentrated}: the
+two tightest (\(\lambda\) at \(0.04\%\), \(\theta_0\) at \(0.02\%\)) sit
+an order of magnitude or more inside the spacing of their own candidate
+families as enumerated in §7.2, so formula-multiplicity alone does not
+comfortably absorb them --- though this is a qualitative observation,
+not a probability. Second, the six-observable \(C_2/d\)
+simultaneous-consistency table above is a genuine single structural test
+with no per-observable freedom, and it passes; its evidential weight is
+that of one test, as already stated. Third, and decisively, the
+framework's exact, freedom-free forms convert into \emph{pre-registered
+forward} exposure --- the JUNO design-lifetime precision on
+\(\sin^2\theta_{12}\), the DESI Y5 \(\nu\) measurement, the lattice
+thresholds of the \(A^2\) computation --- and it is these forward tests,
+not any retrodictive probability, that carry the framework's empirical
+case. A reader should weight the retrodictive package as a compression
+claim (the Standard Model's flavor structure is expressible in
+cubic-lattice invariants to the stated precisions) and reserve
+confirmation-strength language for the forward set.
 
 \hypertarget{forward-predictions-and-the-retrodiction-vs-prediction-distinction}{%
 \subsubsection{7.8 Forward predictions and the
