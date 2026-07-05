@@ -776,14 +776,13 @@ data. \(H = V \, \text{diag}(E_k) \, V^\dagger\) is unique up to energy
 shift and phase conventions. \(\square\)
 
 \textbf{Scope of the lemma under the ancilla-marginal form, and its
-extension.} As stated, the lemma assumes the strict form
+extension.} The lemma as stated assumes the strict form
 \(T_{ij}(t) = |\langle i|e^{-iHt}|j\rangle|^2\) on an \(n\)-dimensional
-space --- the trivial-ancilla case of the definition in §3.4. The honest
+space --- the trivial-ancilla case of the definition in §3.4. The
 emergent object is the ancilla-marginal (§3.1), and the lemma extends to
-it, in a form that is stronger rather than weaker. Writing
-\(U(t) = e^{-i\hat H t}\) on the dilated space of dimension
-\(D = n\,m_a\) with eigenbasis \(\{|a\rangle\}\) and configuration
-projectors \(P_i\), the marginal takes the exact form
+it in a stronger form. Writing \(U(t) = e^{-i\hat H t}\) on the dilated
+space of dimension \(D = n\,m_a\) with eigenbasis \(\{|a\rangle\}\) and
+configuration projectors \(P_i\), the marginal takes the exact form
 \[T_{ij}(t) = \frac{1}{m_a}\sum_{a,b} e^{-i(E_a - E_b)t}\,\langle a|P_i|b\rangle\,\langle b|P_j|a\rangle,\]
 so under non-degenerate gaps of the \emph{dilated} spectrum, Fourier
 analysis of the continuous-time visible data recovers, for each
@@ -803,15 +802,14 @@ constructive Fourier extraction has been demonstrated end-to-end
 numerically. The marginal data therefore determine --- generically, and
 at least locally --- the \emph{dilated} Hamiltonian and the
 configuration projectors up to an energy shift and diagonal phase
-conventions: more than the original lemma claimed, since the
-reconstruction reaches the dilation rather than only an
-\(n\)-dimensional effective generator. Status is stated precisely: the
+conventions; the reconstruction reaches the dilation itself, not only an
+\(n\)-dimensional effective generator. The status of each component: the
 Fourier structure and its rank-one/gauge properties are exact algebra;
 local uniqueness is established numerically by the nullity computation
 and awaits a written proof (the natural route is a direct analysis of
 the linearized idempotency operator); the genericity conditions
 (G1)--(G3) transfer to the dilated spectrum, gaps, and coherence
-vectors. One caveat carries over sharpened: the idealized permutation
+vectors. One caveat applies in sharpened form: the idealized permutation
 dynamics has dilated eigenphases at roots of unity --- equally spaced,
 hence maximally gap-degenerate --- so the lemma's genericity holds for
 the physical continuous-time dynamics away from that idealized limit,
@@ -1329,17 +1327,16 @@ ancilla-uniform marginal of the dilated Born-rule probabilities:
 \(T_{ij}(t) = \tfrac{1}{m_a}\sum_{k,l} |\langle j,l|\,U(t)\,|i,k\rangle|^2\)
 with \(m_a = \dim \mathcal{H}_{\text{anc}}\). (This is the form the
 correspondence delivers --- the visible matrix is the ancilla-marginal
-of the dilated unistochastic matrix, per the scope statement in §3.1;
-the earlier requirement \(T_{ij}(t) = |U_{ij}(t)|^2\) on visible indices
-is recovered exactly in the trivial-ancilla case \(m_a = 1\) and only
-there, and stating the definition in that form was an over-strong
-compression --- a doubly stochastic marginal need not be unistochastic
-at every \(t\), let alone realized by a single one-parameter unitary
-group on \(\mathcal{H}_V\).) This definition captures the Hilbert space,
-unitary dynamics, and the Born rule. Additional quantum-mechanical
-structures --- the tensor product decomposition for spatially separated
-visible-sector subsystems, state update, and the measurement formalism
---- are addressed in the remarks following the theorem.
+of the dilated unistochastic matrix, per the scope statement in §3.1.
+The strict form \(T_{ij}(t) = |U_{ij}(t)|^2\) on visible indices is the
+trivial-ancilla special case \(m_a = 1\) and only that case: a doubly
+stochastic marginal need not be unistochastic at every \(t\), let alone
+realized by a single one-parameter unitary group on \(\mathcal{H}_V\).)
+This definition captures the Hilbert space, unitary dynamics, and the
+Born rule. Additional quantum-mechanical structures --- the tensor
+product decomposition for spatially separated visible-sector subsystems,
+state update, and the measurement formalism --- are addressed in the
+remarks following the theorem.
 
 \textbf{Characterization theorem.} \emph{Let \(\mathcal{S}\) be a
 stochastic process on a finite configuration space \(\mathcal{C}_V\)
@@ -1863,36 +1860,35 @@ Laboratory tests of the characterization theorem may be possible in
 tabletop systems where the hidden sector capacity is tunable.
 
 \textbf{The posit ledger.} The two-axiom presentation of §1.2 names the
-foundation's primitives; a referee auditing the full argument will count
-more inputs than two, and the complete list is collected here so it is
-countable in one place. The framework's substantive posits, beyond Axiom
-1 (tokened differentiation, indubitable), are: (i) Axiom 2 ---
-recurrence --- owned as a posit with a non-derivability countermodel;
-(ii) finiteness of the \emph{total} state space \(S\) --- Lemma 1
-delivers finiteness of the observer's distinguishable states, and the
-extension to all of \(S\) is the structural assumption A1 of the
-companion substratum construction, consumed here by the recurrence step
-of §2.3 and by §4.6; (iii) the record-preservation and eventual-image
-arguments that ground determinism (Lemma 3) close the hidden-sector
-margin using one \emph{empirical} input --- the observed unitarity of
-quantum dynamics --- and one structural principle, so bijectivity is
-part-empirical rather than a pure lemma; (iv) the measure selection is a
-maximal-entropy principle (``the maximal-entropy invariant measure
-compatible with the observer's records'') --- a standard but substantive
-epistemic postulate, not derived; (v) ETH in the hidden sector,
-conditioning the C2-necessity direction, for a system class (emergent
-descriptions of linear-mod-\(q\) automata) on which the standard ETH
-evidence base is silent --- this is the same open dynamical question as
-the chaotic-mixing suppression invoked for operational measurement
-independence (§3.3) and the typicality selection in (iv), one
-conditional wearing three hats; (vi) spatial isotropy, entering as
-empirical input E4 of the reconstruction; and (vii) linearity of the
-substratum update (A5), equivalent to amplitude-scale gauge invariance
-and owned at that more primitive location. Seven items, of unequal
-weight and mostly independently motivated --- but seven, not two. The
-two-axiom statement remains correct about what is \emph{primitive}; this
-ledger states what is \emph{assumed}, and the framework's claims should
-be read as conditional on the full list.
+foundation's primitives; the full argument consumes more inputs than
+two, and the complete list is collected here so it is countable in one
+place. The framework's substantive posits, beyond Axiom 1 (tokened
+differentiation, indubitable), are: (i) Axiom 2 --- recurrence --- owned
+as a posit with a non-derivability countermodel; (ii) finiteness of the
+\emph{total} state space \(S\) --- Lemma 1 delivers finiteness of the
+observer's distinguishable states, and the extension to all of \(S\) is
+the structural assumption A1 of the companion substratum construction,
+consumed here by the recurrence step of §2.3 and by §4.6; (iii) the
+record-preservation and eventual-image arguments that ground determinism
+(Lemma 3) close the hidden-sector margin using one \emph{empirical}
+input --- the observed unitarity of quantum dynamics --- and one
+structural principle, so bijectivity is part-empirical rather than a
+pure lemma; (iv) the measure selection is a maximal-entropy principle
+(``the maximal-entropy invariant measure compatible with the observer's
+records'') --- a standard but substantive epistemic postulate, not
+derived; (v) ETH in the hidden sector, conditioning the C2-necessity
+direction, for a system class (emergent descriptions of linear-mod-\(q\)
+automata) on which the standard ETH evidence base is silent --- this is
+the same open dynamical question as the chaotic-mixing suppression
+invoked for operational measurement independence (§3.3) and the
+typicality selection in (iv), one conditional wearing three hats; (vi)
+spatial isotropy, entering as empirical input E4 of the reconstruction;
+and (vii) linearity of the substratum update (A5), equivalent to
+amplitude-scale gauge invariance and owned at that more primitive
+location. Seven items, of unequal weight and mostly independently
+motivated. The two-axiom statement remains correct about what is
+\emph{primitive}; this ledger states what is \emph{assumed}, and the
+framework's claims should be read as conditional on the full list.
 
 \hypertarget{structural-exclusion-of-equilibrium-phase-observers}{%
 \subsubsection{4.6 Structural Exclusion of Equilibrium-Phase
