@@ -582,12 +582,13 @@ By Barandes' correspondence {[}11, 12{]}, any P-indivisible stochastic
 process on a finite configuration space of size \(n\) embeds into a
 unitarily evolving quantum system on \(\mathcal{H}\) of dimension
 \(\leq n^3\). P-indivisible transition matrices develop negative entries
-at fine time resolution; the Stinespring dilation theorem guarantees
-\(\exists\) a Hilbert space and unitary \(U(t)\) with
-\(T_{ij}(t) = |U_{ij}(t)|^2\) --- transition probabilities are exactly
-Born-rule probabilities. The proof requires a finite-dimensional
-configuration space (Lemma 1); Calvo {[}13{]} extends the correspondence
-to infinite dimensions, but this is not required here. Pimenta {[}14{]}
+at fine time resolution; the Stinespring dilation theorem guarantees a
+dilated Hilbert space and unitary \(\tilde U(t)\) whose unistochastic
+matrix \(|\tilde U(t)|^2\) marginalizes over the ancilla index to
+\(T_{ij}(t)\) --- transition probabilities are exactly Born-rule
+probabilities. The proof requires a finite-dimensional configuration
+space (Lemma 1); Calvo {[}13{]} extends the correspondence to infinite
+dimensions, but this is not required here. Pimenta {[}14{]}
 distinguishes P-divisible and P-indivisible stochastic-quantum dynamics:
 the correspondence is non-trivial only in the P-indivisible regime,
 which is precisely the regime produced by §2.3. An independent
@@ -801,8 +802,10 @@ Dilation}\label{independent-derivation-via-stinespring-dilation}}
 An independent derivation of the emergent quantum description uses only
 Stinespring's dilation theorem {[}15{]} and standard properties of the
 partial trace {[}16{]}, without invoking the stochastic-quantum
-correspondence of §3.1. The two routes are logically independent; either
-alone suffices.
+correspondence of §3.1. The two routes are independent in their inputs
+and in the results they invoke (the correspondence's own proof also
+proceeds via Stinespring-type dilation, so the shared bedrock is
+Stinespring's 1955 theorem); either alone suffices.
 
 \textbf{Setup.} The finite configuration spaces
 \(\mathcal{C}_V = \{x_1, \ldots, x_n\}\) and
