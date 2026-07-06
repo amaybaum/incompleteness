@@ -192,7 +192,7 @@ The framework's papers carry content at different levels of the two-dimensional 
 
 Different theorems and structural conditions do the load-bearing work at each level: Level A is not a theorem (structural fact); Level B is C1–C3 ([Main §3]) plus Definition 9.9 + Proposition 9.10 + Corollary 9.11 (§9.6); Level C is Definitions 9.1–9.4 + Propositions 9.5–9.7 (§9) plus the four-feature audit (§14); Level D is Theorem 23 (reconstruction) and Theorem 24 (substratum gauge group) ([Substratum §§3-4]) plus A1–A6 + E1–E4. On the gauge axis: G1 is the residual diagonal-unitary equivalence ([GR §3.3]); G2 is the cubic-group commutant theorem ([SM Theorem 7]) plus background independence; G3 is the four-generator characterization (Theorem 24) plus Stinespring uniqueness; G4 is Definition 9.4 plus the algebra-channel structure as the invariant.
 
-The framework's empirical content (twenty-two quantitative predictions, specific cubic-lattice substratum, specific gauge group derivation) is concentrated at Level D × Level G3. The broader levels are where the framework connects to other unification programs and where universality-class structural realism applies — the content of Parts I, II, and III of this paper.
+The framework's empirical content (twenty-two classified quantitative predictions — nine parameter-free structural, the remainder layered, chained, or fitted [SM §7.6] — the specific cubic-lattice substratum, and the specific gauge group derivation) is concentrated at Level D × Level G3. The broader levels are where the framework connects to other unification programs and where universality-class structural realism applies — the content of Parts I, II, and III of this paper.
 
 ---
 
@@ -375,7 +375,7 @@ This is a substantive limitation on OI's reach. A reading of OI as "physics modu
 
 ### 7.3 Cross-attribution of predictions does not follow
 
-The second consequence flagged in §1.3 — that OI's predictions become string-theory predictions through gauge equivalence — likewise does not follow. OI's prediction set (twenty-two quantitative SM relations matching observation at sub-percent precision) is a feature of OI's specific substratum derivation chain, which uses linearity of the wave equation, $q$-gauge invariance, and cubic-group decomposition. None of these is present in matrix models in the form OI requires, so the prediction chain does not transport.
+The second consequence flagged in §1.3 — that OI's predictions become string-theory predictions through gauge equivalence — likewise does not follow. OI's prediction set (twenty-two classified quantitative SM relations, the sharpest matching observation at sub-percent precision) is a feature of OI's specific substratum derivation chain, which uses linearity of the wave equation, $q$-gauge invariance, and cubic-group decomposition. None of these is present in matrix models in the form OI requires, so the prediction chain does not transport.
 
 This means the empirical match of OI's predictions is OI-specific evidence, neither confirmed nor refuted by string-theoretic considerations. If OI's predictions hold up under further experimental scrutiny (DESI Year 5 for the cosmological prediction; JUNO for $\sin^2\theta_{12}$; lattice tests for additional Layer-2(a) predictions), this is evidence for OI's substratum description specifically. If they fail, it's evidence against OI specifically. String theory is not implicated either way through the gauge-equivalence route examined here.
 
@@ -916,7 +916,7 @@ Level 3 confirmations are confirmations of OI's universality class but not of OI
 | JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | Retrodictive match at $0.07\sigma$; exact value gives a pre-registered forward test at JUNO design precision | [Juno] |
 | Higgs structural ratio $A = \sqrt{2/3}$ | Consistent with current data | [SM §7.4] |
 | Higgs quartic $\lambda(M_{\text{Pl}}) = 0$ (composite-scalar prediction) | Confirmed at $0.6\sigma$ | [SM §7.4] |
-| 22 SM parameters all $< 1\sigma$ | All within experimental bounds | [SM §7.5] |
+| 22 SM observables, classified (nine parameter-free structural) | Sharpest entries sub-percent; classes per [SM §7.6] | [SM §7.5] |
 | Majorana neutrinos, normal ordering | Awaiting LEGEND-1000 sensitivity | [SM §8.4, LEGEND2024] |
 | $|\nu| \sim 10^{-32}$ in Type II RVM | Consistent with DESI DR2 $\nu \approx 0$ at $2\sigma$ | [GR §7, Bertini2025] |
 | Universal $1/\alpha_0 = 23.25$ shared origin of three gauge couplings | Retrodictive match at few-percent (chain includes the empirical threshold $\delta_0$; SM §6) | [SM §6.1, §6.7] |
