@@ -95,7 +95,7 @@ The expansion parameter for the group-dependent threshold is $C_2 \cdot g_0^2 = 
 $$\frac{1}{\alpha_i(M_Z)} = \underbrace{23.25}_{1/\alpha_0} + \underbrace{10.0}_{\delta_0} + \underbrace{A \cdot \ln(1 + B \cdot C_2 g_0^2)}_{\text{resummed gauge self-energy}} + \underbrace{\frac{b_i}{2\pi}\ln\frac{M_{\text{Pl}}}{M_Z}}_{\text{SM RG running}},$$
 where $A$ and $B$ are the threshold parameters and $b_i$ is the standard Standard Model beta-function coefficient for each gauge group.
 
-The four components have distinct derivational statuses. The structural input $1/\alpha_0 = 23.25$ is computed analytically from the one-loop staggered vacuum polarization, with no fitted parameters. The universal threshold $\delta_0 = 10.0$ is empirically fixed by the $\mathrm{U}(1)$ row of the matching equations; a two-loop staggered VP rebuild indicates that strict two-loop perturbation theory does not reproduce $\delta_0$, so it is honestly treated as an empirical input rather than a derived value. The $C_2$-dependent threshold parameters $(A, B) = (8.3, 5.59)$ are matched to the $\mathrm{SU}(2)$ and $\mathrm{SU}(3)$ couplings at $M_Z$, with the product $A \cdot B = 46.4$ independently derived structurally at $A \cdot B = 48.0 \pm 1.5$ — a cross-check agreeing with the fit to about $3\%$. The Standard Model RG running below $M_{\text{Pl}}$ is standard.
+The four components have distinct derivational statuses. The structural input $1/\alpha_0 = 23.25$ is computed analytically from the one-loop staggered vacuum polarization, with no fitted parameters. The universal threshold $\delta_0 = 10.0$ is empirically fixed by the $\mathrm{U}(1)$ row of the matching equations; a two-loop staggered VP rebuild indicates that strict two-loop perturbation theory does not reproduce $\delta_0$, so it is honestly treated as an empirical input rather than a derived value. The $C_2$-dependent threshold parameters $(A, B) = (8.3, 5.59)$ are matched to the $\mathrm{SU}(2)$ and $\mathrm{SU}(3)$ couplings at $M_Z$, with the product $A \cdot B = 46.4$ independently computed at $A \cdot B \approx 48$–$62$ depending on the assumed leading finite-size power — a cross-check that agrees with the fit under the $1/N^2$ assumption and is inconclusive across finite-size models. The Standard Model RG running below $M_{\text{Pl}}$ is standard.
 
 The classification per Chapter 4 §4.5 is therefore that the three gauge couplings at $M_Z$ are Class B-R retrodictions: three fitted parameters $(\delta_0, A, B)$ against three observed couplings produces zero residual by construction. The structural content of the framework's gauge-sector account does not lie in matching the three coupling values — that is achieved by the fit. It lies in three structural predictions: (i) the specific value $1/\alpha_0 = 23.25$ from the one-loop staggered VP; (ii) the universality of $\delta_0$ across the three gauge groups (no group-dependent term); (iii) the independent derivation of $A \cdot B$ agreeing with the fitted value at the few-percent level.
 
@@ -301,7 +301,7 @@ The chapter has developed twenty-two Standard Model retrodictions from the cubic
 | Cabibbo $\lambda$ | inter-generation BZ distance | $0.2251$ | $0.2250 \pm 0.0007$ | $0.04\%$ | **S** | **A** |
 | Wolfenstein $A$ | off-democratic projection | $\sqrt{2/3} = 0.8165$ | $0.826 \pm 0.012$ | $1.2\%$ | **S** | **A** |
 | $\|V_{cb}\|$ | $A\lambda^2$ | $0.0414$ | $0.0408 \pm 0.0014$ | $0.4\sigma$ | **S** | **A** |
-| $m_d/m_s$ | GST $\lambda^2 = 1/(2\pi^2)$ | $0.0507$ | $0.0503 \pm 0.0007$ | $0.7\%$ | **S** | **A** |
+| $m_d/m_s$ | GST $\lambda^2 = 1/(2\pi^2)$ | $0.0507$ | $0.0503 \pm 0.0007$ | $0.7\%$ | **L** | **A** |
 | Jarlskog $J$ | $\eta/(12\pi^6)$ | $3.02 \times 10^{-5}$ | $(3.08 \pm 0.13) \times 10^{-5}$ | $0.5\sigma$ | **E** ($\eta$) | **B** |
 | Koide $Q$ | cubic $T_1$ structure | $2/3$ | $0.66667$ | $0.001\%$ | **S** | **A** |
 | Koide angle $\theta_0$ | $C_2(T_1)/d^2$ | $2/9$ | $0.22222$ | $0.02\%$ | **S** | **A** |
@@ -327,7 +327,7 @@ Footnotes: **[a]** The three gauge couplings at $M_Z$ are reproduced with one em
 
 - **Category C — composite of Category A inputs with redundant content:** $m_d = m_s/(2\pi^2)$ — same prediction as $m_d/m_s = \lambda^2$ with $m_s$ plugged in; an internal-consistency check rather than independent test.
 
-- **Category D — band predictions at order-of-magnitude precision:** $m_t$ (IR-attractor band $[157, 191]$ GeV, 20% width — observation at $172.5$ inside the band); $m_H$ (RG-running band $129$-$132$ GeV from $\lambda(M_{\text{Pl}}) = 0$, observation $125.10 \pm 0.14$, $4$-$7$ GeV below the band).
+- **Category D — band predictions at order-of-magnitude precision:** $m_t$ (weak-scale relation $v/\sqrt{2}$ at $0.9\%$; fixed-point mechanism open — §6.7); $m_H$ (RG-running band $129$-$132$ GeV from $\lambda(M_{\text{Pl}}) = 0$, observation $125.10 \pm 0.14$, $4$-$7$ GeV below the band).
 
 - **Category E — fitted using multiple empirical parameters:** $\alpha_3(M_Z)$, $\alpha_2(M_Z)$ (fitted via $(\delta_0, A, B)$, with structural content concentrated in the *form* of the fit rather than the matching values); $m_b$ (uses Class P auxiliary parameter $Q_{\text{down}}$ — see footnote [d]).
 
