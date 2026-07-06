@@ -476,7 +476,7 @@ Class B-M predictions falsify under the same precision-upgrade protocol as B-L, 
 - The SU(2) gauge coupling at $M_Z$ ([SM §6, items 11-12 in §7.6]).
 - The SU(3) gauge coupling at $M_Z$.
 
-Three fitted parameters $(\delta_0, A, B)$ against three observed couplings produces zero residual by construction; these classifications are honest. Class B-R predictions can never falsify in the precision-upgrade sense — their value is what falsification of the *framework's gauge-sector structural commitments* (universality of $\delta_0$, the resummation form, the structural prediction $1/\alpha_0 = 23.25$ from the 1-loop staggered VP, and the $A \cdot B = 48.0 \pm 1.5$ cross-check) would test.
+Three fitted parameters $(\delta_0, A, B)$ against three observed couplings produces zero residual by construction; these classifications are honest. Class B-R predictions can never falsify in the precision-upgrade sense — their value is what falsification of the *framework's gauge-sector structural commitments* (universality of $\delta_0$, the resummation form, the structural prediction $1/\alpha_0 = 23.25$ from the 1-loop staggered VP, and the $A \cdot B$ cross-check ($\approx 48$ under the $1/N^2$ leading-power assumption; inconclusive across finite-size models, [SM §6.2.1])) would test.
 
 *Status summary.* Of the predictions in Class B: **4 are unconditional structural** (B-S), **6 are layered conditional pending open derivations** (B-L), **2 are mass-chain inheritances** (B-M), and **2 are retrodictions** (B-R). Total 14 predictions in Class B. The empirical match holds for all 14 within ~1% or ~1σ.
 

@@ -344,6 +344,35 @@ For de Sitter (\(\kappa = cH\)):
 \(k_B T_{\text{cl}} = c^3 \epsilon^2 H / (8\pi G)\). No \(\hbar\)
 appears.
 
+\emph{Reconciliation with the internal component count.} The counting
+\(\eta = 1/\epsilon^2\) is one boundary mode per cell, whereas the
+substratum carries \(K = 2d = 6\) internal components per site ({[}SM
+§4.5{]}). These are consistent, and the consistency is forced rather
+than assumed, once the components are read as what {[}SM §4.5, Theorem
+6{]} establishes them to be: the \(K = 2d\) components are the \(2d\)
+link directions from a cell, with component \(a\) assigned to link
+direction \(\hat e_a \in \{\pm\hat e_1, \ldots, \pm\hat e_d\}\) and
+coupling only across that one link (the minimal-coupling factorization
+\(\delta = 1\)). A boundary cell on the horizon has exactly one
+outward-normal link crossing the partition; the other \(2d - 1 = 5\)
+link directions are tangential to the boundary surface or inward, and
+carry no cross-partition coupling. The number of components whose
+coupling crosses the horizon per cell is therefore exactly one --- the
+normal link --- so \(\kappa_m = 1\) and \(\eta = 1/\epsilon^2\) follows
+from the link-direction structure, not from a separate mode-counting
+postulate. (The \(q\)-gauge argument settles the orthogonal question of
+states per mode; the component count is settled here by which links are
+normal.) This also confirms \(\epsilon = 2\,l_p\) directly: with
+\(\kappa_m = 1\) the relation \(\epsilon = 2\sqrt{\kappa_m}\,l_p\) gives
+\(\epsilon = 2\,l_p\), and the {[}SM §6{]} cutoff identification is
+unaffected. The Bekenstein-Hawking coefficient is independent of
+\(\kappa_m\) in any case --- writing \(\eta = \kappa_m/\epsilon^2\), the
+gap equation gives \(\hbar = c^3/(4G\eta)\) and
+\(S = \eta A = A/(4l_p^2)\) with \(\kappa_m\) cancelling --- so the
+entropy law is a fixed point of the construction regardless, and the
+component count enters only the discreteness scale, where the
+link-direction structure fixes it at unity.
+
 \hypertarget{the-emergent-action-scale}{%
 \subsubsection{3.2 The emergent action
 scale}\label{the-emergent-action-scale}}
@@ -2177,7 +2206,24 @@ magnitude
   horizon). None of these depends on OI's specific cubic-lattice
   structure; they depend on the existence of a cosmological-horizon
   partition, the C1-C3 conditions, and the Stinespring/partial-trace
-  machinery {[}Main §3{]}.
+  machinery {[}Main §3{]}. One further dependency is carried by the KMS
+  step of Step 4 and should be stated: the Euclidean-regularity argument
+  presupposes the emergent theory has local boost structure at the
+  horizon (a bifurcate Killing horizon with a well-defined
+  imaginary-time circle). That prerequisite is the
+  local-boost-invariance of the emergent description --- the same object
+  whose protection is the framework's open Lorentz-sector item in the
+  boost channel ({[}Main §3.5{]}; the custodial normalization and
+  \(M_X\) window, {[}Substratum §6.4{]}). The \(\hbar\) derivation is
+  therefore not parallel to the Lorentz-violation accounting but
+  partially downstream of its boost sector: a failure of emergent local
+  boost invariance at the horizon would propagate to the gap equation,
+  whereas the rotational sector does not enter here (spatial anisotropy
+  does not touch the imaginary-time periodicity). The UV-dispersion
+  robustness handled above (\(\mathcal{O}((\epsilon\kappa/c)^2)\)
+  corrections) is a separate and weaker condition; the boost-structure
+  prerequisite is the load-bearing one and is inherited, not
+  established, in this paper.
 \item
   The \emph{discreteness scale fixing} (§4) is purely algebraic:
   rearranging the \(\hbar\) relation gives

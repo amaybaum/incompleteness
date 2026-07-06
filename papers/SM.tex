@@ -1321,6 +1321,35 @@ rate several times the value quoted above, so the quoted
 protocol. The qualitative chaos, which is what the ergodicity
 interpretation requires, is robust across protocols.
 
+\emph{The two roles of the dynamics, stated explicitly.} The substratum
+update carries two structurally distinct pieces, and the framework's
+results divide cleanly between them. The \emph{exact} dynamics is the
+linear rule \(f = \sum_{\text{nn}} x - x(t-1)\) over
+\(\mathbb{Z}/q\mathbb{Z}\); the finite-state arithmetic (the mod-\(q\)
+wraparound / threshold-crossing at the alphabet boundary) is a bounded
+nonlinearity that is present in any faithful finite realization but
+vanishes in the continuum/large-\(q\) limit. The \emph{structural} chain
+--- the wave-equation uniqueness (§4.1), the Susskind factorization
+(Theorem 2), the \((3,2,1)\) decomposition and the gauge group (§4.6),
+and the amplitude-scale-gauge argument for linearity (§4.1) --- reads
+only the linear part: it is exact modular-linear algebra and does not
+invoke the threshold nonlinearity. The \emph{ergodic/measure} properties
+--- full-shell sampling for the Gaussianization of §4.2, the chaotic
+mixing underlying operational measurement independence ({[}Main{]}
+§3.3), and the ETH-conditioning of the C2 necessity direction
+({[}Main{]} §3.4) --- read the threshold nonlinearity, which is what
+breaks the integrability of the strictly-linear map (way out (i) above).
+The two are not in tension: they are different features of one object,
+consumed by different parts of the framework, and the ergodic properties
+ride on a bounded correction that leaves the structural
+(continuum-limit) content untouched. The one commitment this makes
+explicit is that the amplitude-scale gauge of §4.1 is exact at the level
+of the structural chain (where the threshold nonlinearity is absent) and
+holds up to the bounded finite-state correction at the level of the
+realized bijection; a full account of how large that correction is on
+each ergodic observable is the open residual the \(\lambda_{\max}\)
+measurement begins to quantify.
+
 \hypertarget{center-independence-and-chiral-symmetry}{%
 \subsubsection{4.3 Center independence and chiral
 symmetry}\label{center-independence-and-chiral-symmetry}}
@@ -1771,7 +1800,22 @@ momentum components. The distinction is representation-theoretically
 real but does not affect diagonal-channel observables: both actions
 induce the same \(S_3\) permutation on the axis label, so the
 generation-channel masses of §7.2 --- and the \(Z_3\)-Fourier amplitude
-extraction built on them --- are insensitive to it.
+extraction built on them --- are insensitive to it. One quantity is
+\emph{not} covered by this insensitivity and should be flagged: the
+Koide amplitude and angle depend on the quadratic Casimir
+\(C_2(T_1) = 2\) (§7.2), and the value of that invariant depends on
+which representation the mass-splitting operator transforms in. The
+insensitivity established here is to the \emph{permutation} structure of
+the diagonal channel; the identification that the mass-splitting
+operator transforms in the signed \(T_1\) (carrying \(C_2 = 2\)) rather
+than in the unsigned \(A_1 \oplus E\) is a separate, load-bearing input
+to the Casimir chain. It is supplied by the identification of the
+generation triplet with the \(\gamma^j\)-carried tastes, and its
+derivation from the substrate mass operator's transformation law is the
+same open task as the amplitude closure of §7.2 (the \(A^2 = C_2\)
+dynamical derivation); the pre-registered \(A^2\) measurement tests both
+together, since a mis-identified carrier would present as a wrong
+amplitude.
 
 \textbf{Theorem 8b} (Taste coupling structure). \emph{On the d = 3
 lattice with the normalized wave equation, each BZ corner
@@ -2982,9 +3026,9 @@ The combined uncertainty is dominated by the extrapolation
 contributions gives a total uncertainty \(\lesssim 6\%\) at the lower
 end of the \(V_{4g}\) bracket (under which the computed value and the
 fitted value agree); the upper end of the bracket would widen the
-combined uncertainty correspondingly. The headline value
-\(A \cdot B = 48.0 \pm 1.5\) refers to the extrapolation-only
-uncertainty.
+combined uncertainty correspondingly. The central extrapolated value
+\(A \cdot B \approx 48\) carries the extrapolation-only uncertainty of
+the \(1/N^2\) model, and is conditional on that leading power (§6.2.1).
 
 \textbf{Methodological notes.} The Wilson-plaquette 3-gluon vertex is
 the leading piece of the full induced \(\Gamma_3\); the full induced
@@ -3067,10 +3111,10 @@ fully-worked textbook 1-loop lattice Yang-Mills gluon self-energy
 computation as an external anchor; both are beyond current scope. The
 \(\pm 4\)--\(5\%\) residual systematic quoted above accommodates the
 lower end of this bracket; the upper end (\(\sim 12\%\)) would widen the
-systematic correspondingly. The headline value
-\(A \cdot B = 48.0 \pm 1.5\), derived from extrapolation of the two-loop
-gauge self-energy, is independent of this \(V_{4g}\) subleading
-correction.
+systematic correspondingly. The central extrapolated value
+\(A \cdot B \approx 48\), derived from \(1/N^2\) extrapolation of the
+two-loop gauge self-energy and conditional on that leading power
+(§6.2.1), is independent of this \(V_{4g}\) subleading correction.
 
 \emph{Resolution of the cosine-placement ambiguity (per-topology
 confirmed).} The structural ambiguity above has been resolved at the
@@ -3096,8 +3140,8 @@ therefore selects the per-topology form at the level of cosine placement
 sits at the upper (\(\sim 12\%\)) end of the bracket above. The exact
 \(A\cdot B\) shift remains to be computed by inserting Eq. (5.28) into
 the tadpole integral in the present \(\Pi_s\)-normalized scheme (a
-finite, well-defined task), but does not affect the headline
-\(A \cdot B = 48.0 \pm 1.5\), which is independent of the \(V_{4g}\)
+finite, well-defined task), but does not affect the central extrapolated
+value \(A \cdot B \approx 48\), which is independent of the \(V_{4g}\)
 correction.
 
 \hypertarget{the-prediction}{%
@@ -3198,8 +3242,9 @@ observables; their structural content is carried by the universality
 constraint (ii) and the log-form constraint (iii). The product
 \(A \cdot B\) (the leading coefficient in the \(C_2 g_0^2\) expansion)
 is independently derived in §6.2.1 from 2-loop lattice PT in the induced
-gauge theory, giving \(A \cdot B = 48.0 \pm 1.5\) against the fit
-\(46.4\).
+gauge theory, giving \(A \cdot B \approx 48\) under the \(1/N^2\)
+leading-power assumption (inconclusive across finite-size models,
+§6.2.1) against the fit \(46.4\).
 
 \hypertarget{what-is-structural-and-what-is-solution-specific}{%
 \subsubsection{6.4 What is structural and what is
@@ -3272,6 +3317,35 @@ after renormalization. The perturbative calculation (§6.1) works in the
 The Haar-measure Monte Carlo explored a confined phase that does not
 correspond to the OI framework's gauge measure.
 
+\emph{Status of the induced-measure identification.} The step this
+argument turns on --- that the substratum's uniform measure pushes
+forward to a near-identity (rather than Haar) gauge measure --- is a
+load-bearing commitment whose status should be stated at the rigor level
+of §A.3. The free-sector correspondence (the matter/pseudofermion
+measure equivalence, §4.2 Remark) is established at Level 2; the
+interacting statement used here, that the pushforward under the explicit
+map
+\(\boldsymbol{\phi} \mapsto M(\mathbf{n}, \hat e_j) \in \mathrm{SU}(N)\)
+concentrates near the identity, is not at that level, because the
+explicit map is under-determined at several enumerable joints (the
+real-to-complex step, the unitarization prescription) and the natural
+candidate map
+\(M = \mathrm{polar}(\phi(\mathbf{n})^\dagger \phi(\mathbf{n}+\hat e_j))\)
+has been found numerically to produce a \emph{Haar} (hence confining)
+pushforward, not the near-identity one this section requires. The
+near-identity claim is therefore a conjecture about the correct map, not
+a derived property of the natural candidate; the concentration ``at
+large \(q\)'' holds for an un-centered variant whose canonicity is not
+established. This has a direct consequence for the falsification-capable
+lattice work: the \(A^2\) Monte Carlo and any production gauge-sector
+computation sample a specific induced measure, so their verdict is
+conditional on the measure identification being the near-identity one
+rather than the candidate's Haar --- a dependency that the
+pre-registration of those computations should carry explicitly.
+Resolving which map is correct, and whether its pushforward is
+near-identity or Haar, is the open structural task on which the coupling
+sector's derived-versus-fitted status ultimately rests.
+
 \emph{Note on the dynamical-fermion MC.} A separate set of
 dynamical-fermion HMC simulations is used to extract empirical inputs to
 the §7.5 mass relations (notably the chiral condensate
@@ -3306,12 +3380,13 @@ threshold \(\delta_0 = 10.02\) (empirically fixed by the U(1) row; a
 2-loop PT and is accordingly treated as empirical input), and the
 \(C_2\)-dependent threshold parameters \((A, B) = (8.3, 5.59)\) (matched
 to the observed SU(2) and SU(3) couplings at \(M_Z\), with the product
-\(A \cdot B = 46.4\) independently derived at
-\(A \cdot B = 48.0 \pm 1.5\); see §6.2.1). The structural predictions in
-this sector are: (i) the specific value \(1/\alpha_0 = 23.25\), (ii) the
-universality of \(\delta_0\) across gauge groups, and (iii) the
-independent derivation of \(A \cdot B\) agreeing with the fitted value
-to \(\sim 3\%\). Separating \(A\) from \(B\) individually is open.
+\(A \cdot B = 46.4\) independently computed at \(\approx 48\) under the
+\(1/N^2\) leading-power assumption, inconclusive across finite-size
+models; see §6.2.1). The structural predictions in this sector are: (i)
+the specific value \(1/\alpha_0 = 23.25\), (ii) the universality of
+\(\delta_0\) across gauge groups, and (iii) the independent derivation
+of \(A \cdot B\) agreeing with the fitted value to \(\sim 3\%\).
+Separating \(A\) from \(B\) individually is open.
 
 \hypertarget{no-gut-structural-prediction-a-three-layer-synthesis}{%
 \subsubsection{6.7 No-GUT structural prediction: a three-layer
@@ -3565,6 +3640,31 @@ identity underlies the structural status of the natural cubic-lattice
 perturbation amplitude \(\sqrt{C_2}/d = \sqrt 2/3\) and the consequent
 Layer 1 prediction of \(\sin^2\theta_{13}\) (§7.3).
 
+\textbf{Where \(A\) is protected and where it is not.} The geometric
+value \(A = \sqrt{2/3}\) is exact --- it is the sine of a fixed lattice
+angle, independent of any bijection or dynamics. Its two downstream
+uses, however, carry different correction status, and the distinction
+determines which comparisons test the geometry alone. In the reactor
+angle, \(A\) enters \emph{protected}: \(\sin\theta_{13} = A^2\lambda\)
+is exact at \(O(\lambda^2)\) because the second-order correction
+\(\Delta_{13}\) is independent of the \(A_2\) generator (§7.3), so that
+prediction tests the geometric \(A\) with no Layer-2 contamination. In
+\(|V_{cb}| = A\lambda^2\), by contrast, \(A\) enters \emph{unprotected}:
+the \((2,3)\) element's leading contribution arises at \(O(\lambda^2)\)
+through the second-order coefficient \(b_{23}\), so identifying the
+measured Wolfenstein \(A\) with the geometric value is a leading-order
+statement whose correction is the same open Layer 2(a)-tractable object
+as the Condition-2 ratio (§7.3, §8.3) --- sharpening the
+\(|V_{cb}|\)-side prediction beyond \(\sqrt{2/3}\) is that derivation,
+not a separate task. The observed deviation,
+\((0.826 - 0.8165)/0.8165 \approx 1.2\%\), is smaller than the natural
+correction scale \(\lambda^2 \approx 5\%\), consistent with a suppressed
+\(b_{23}\) correction; the suppression is observed, not derived. A
+global-fit \(A\) drifting outside \(\sqrt{2/3}\,(1 \pm \lambda^2)\)
+would strain the leading-order identification, while the protected
+\(\sin\theta_{13}\) comparison would remain a clean test of the geometry
+regardless.
+
 \textbf{The down-to-strange mass ratio.}
 
 The Gatto--Sartori--Tonin relation {[}21{]}
@@ -3764,17 +3864,37 @@ factor of four and is excluded by data. The empirical match at
 fit, to a discrete choice the framework resolves on geometric grounds.
 The geometric ground for \(1/d\) over \(1/(2d)\) is argued rather than
 proved from the Yukawa structure; closing this is the Layer
-2(a)-tractable computation referenced in §7.3. Until it is closed, the
-cluster's status is ``structural form forced, normalization argued and
-empirically confirmed'' rather than ``normalization proved'' --- a
-weaker status than full derivation and a stronger one than parameter
-fitting. Closure of the lattice computation specified below would
-promote the \emph{magnitude} normalization to derived; the
-bijection-specific directional content of the flavor structure remains
-Layer 2(b) by construction (it transforms under substratum
-state-relabeling and is not fixed by any substrate-only computation), so
-closure sharpens the magnitude rather than promoting the cluster as a
-whole.
+2(a)-tractable computation referenced in §7.3. One structural component
+of that closure can be stated now. The per-axis weight that controls the
+taste-off-diagonal normalization --- the Brillouin-zone average
+\(w = \langle \sin^2 q_1 / \sum_k \sin^2 q_k \rangle\) that appears in
+the second-order self-energy --- evaluates to exactly \(1/d\), and does
+so as a consequence of cubic symmetry alone: the \(d\) axis-fractions
+are equal by the cubic point group and sum to unity by construction, so
+each equals \(1/d\) independently of the propagator's detailed form
+(verified across the massless staggered weight, the propagator-squared
+self-energy weight, and the Klein-Gordon \(\sin^2(q/2)\) form, all
+giving \(1/d\) to numerical precision). This forces the \emph{per-axis}
+\(1/d\) scaling structurally rather than leaving it to geometric
+analogy, and it is the mechanism behind why \(1/d\) and not \(1/(2d)\):
+the loop's axis-resolved weight is the symmetric fraction \(1/d\), with
+no factor of two available from the axis decomposition. What remains
+genuinely open is the overall coefficient relating this per-axis weight
+to the full perturbation-theory amplitude (the \(m \to 0\) limit of
+\(\mathcal{N}\) below and its prefactor), which the symmetry argument
+does not fix; the residual is therefore the amplitude prefactor, not the
+\(d\)-versus-\(2d\) power, and it is narrower than a free choice between
+\(1/d\) and \(1/(2d)\). Until the prefactor is computed, the cluster's
+status is ``structural form forced, per-axis normalization now
+symmetry-forced, overall amplitude prefactor argued and empirically
+confirmed'' rather than ``normalization proved'' --- a weaker status
+than full derivation and a stronger one than parameter fitting. Closure
+of the lattice computation specified below would promote the
+\emph{magnitude} normalization to derived; the bijection-specific
+directional content of the flavor structure remains Layer 2(b) by
+construction (it transforms under substratum state-relabeling and is not
+fixed by any substrate-only computation), so closure sharpens the
+magnitude rather than promoting the cluster as a whole.
 
 \emph{Specification of the resolving computation.} So that the open task
 is precise rather than gestured, the calculation that would settle
@@ -4210,6 +4330,17 @@ series at unit strength relative to \(\lambda^2\) --- combined with the
 structural relation
 
 \[b_{23} = \tfrac{4}{3}(b_{12}+b_{13})\]
+
+This condition has a direct experiment-facing form: it is equivalent to
+the exact sum rule \(2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6\),
+since
+\(2\Delta_{12} + \Delta_{23} = \lambda^2\,[\,b_{23} - \tfrac{4}{3}(b_{12}+b_{13})\,]\)
+vanishes precisely when the condition holds --- the \(O(\lambda^2)\)
+deviations cancel in that combination and in no simpler one. The sum
+rule is therefore the observable statement of the Condition-2 ratio
+(companion sum-rule paper, §3): a measured violation of \(7/6\) beyond
+\(O(\lambda^4)\) falsifies the ratio directly, independently of how the
+individual angles are attributed.
 
 between the dominant \(U\)-odd coefficient and the \(U\)-even
 combination yields

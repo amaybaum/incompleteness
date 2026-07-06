@@ -95,7 +95,7 @@ The expansion parameter for the group-dependent threshold is $C_2 \cdot g_0^2 = 
 $$\frac{1}{\alpha_i(M_Z)} = \underbrace{23.25}_{1/\alpha_0} + \underbrace{10.0}_{\delta_0} + \underbrace{A \cdot \ln(1 + B \cdot C_2 g_0^2)}_{\text{resummed gauge self-energy}} + \underbrace{\frac{b_i}{2\pi}\ln\frac{M_{\text{Pl}}}{M_Z}}_{\text{SM RG running}},$$
 where $A$ and $B$ are the threshold parameters and $b_i$ is the standard Standard Model beta-function coefficient for each gauge group.
 
-The four components have distinct derivational statuses. The structural input $1/\alpha_0 = 23.25$ is computed analytically from the one-loop staggered vacuum polarization, with no fitted parameters. The universal threshold $\delta_0 = 10.0$ is empirically fixed by the $\mathrm{U}(1)$ row of the matching equations; a two-loop staggered VP rebuild indicates that strict two-loop perturbation theory does not reproduce $\delta_0$, so it is honestly treated as an empirical input rather than a derived value. The $C_2$-dependent threshold parameters $(A, B) = (8.3, 5.59)$ are matched to the $\mathrm{SU}(2)$ and $\mathrm{SU}(3)$ couplings at $M_Z$, with the product $A \cdot B = 46.4$ independently derived structurally at $A \cdot B = 48.0 \pm 1.5$ — a cross-check agreeing with the fit to about $3\%$. The Standard Model RG running below $M_{\text{Pl}}$ is standard.
+The four components have distinct derivational statuses. The structural input $1/\alpha_0 = 23.25$ is computed analytically from the one-loop staggered vacuum polarization, with no fitted parameters. The universal threshold $\delta_0 = 10.0$ is empirically fixed by the $\mathrm{U}(1)$ row of the matching equations; a two-loop staggered VP rebuild indicates that strict two-loop perturbation theory does not reproduce $\delta_0$, so it is honestly treated as an empirical input rather than a derived value. The $C_2$-dependent threshold parameters $(A, B) = (8.3, 5.59)$ are matched to the $\mathrm{SU}(2)$ and $\mathrm{SU}(3)$ couplings at $M_Z$, with the product $A \cdot B = 46.4$ independently computed at $A \cdot B \approx 48$–$62$ depending on the assumed leading finite-size power — a cross-check that agrees with the fit under the $1/N^2$ assumption and is inconclusive across finite-size models. The Standard Model RG running below $M_{\text{Pl}}$ is standard.
 
 The classification per Chapter 4 §4.5 is therefore that the three gauge couplings at $M_Z$ are Class B-R retrodictions: three fitted parameters $(\delta_0, A, B)$ against three observed couplings produces zero residual by construction. The structural content of the framework's gauge-sector account does not lie in matching the three coupling values — that is achieved by the fit. It lies in three structural predictions: (i) the specific value $1/\alpha_0 = 23.25$ from the one-loop staggered VP; (ii) the universality of $\delta_0$ across the three gauge groups (no group-dependent term); (iii) the independent derivation of $A \cdot B$ agreeing with the fitted value at the few-percent level.
 
@@ -144,7 +144,7 @@ The framework's $N = 2$ is the only integer value in the nearby alternatives tha
 
 **The Wolfenstein parameter $A$.** The $A_1$ (Higgs) taste sits along the democratic direction $\hat{h} = (1, 1, 1)/\sqrt{3}$ in the internal space. Each generation axis $\hat{e}_j$ makes an angle $\theta$ with $\hat{h}$ satisfying $\cos\theta = \hat{e}_j \cdot \hat{h} = 1/\sqrt{3}$. The CKM mixing in the $A$ parameter is driven by the perpendicular component of the generation axis relative to the Higgs democratic direction:
 $$A = \sin\theta = \sqrt{1 - 1/3} = \sqrt{2/3} = 0.8165.$$
-Observed: $A = 0.826 \pm 0.012$. Match: $0.8\sigma$, agreement at $1.2\%$.
+Observed: $A = 0.826 \pm 0.012$. Match: $0.8\sigma$, agreement at $1.2\%$. The observed value itself is less settled than the error bar suggests: different global fits place it between roughly $0.79$ and $0.83$, and the prediction sits inside that range. The geometric value is exact, but its two uses differ in status: in the reactor angle $\sin\theta_{13} = A^2\lambda$ it enters protected (the second-order correction cancels, so that comparison tests the geometry alone), while in $|V_{cb}| = A\lambda^2$ it enters through a second-order coefficient whose derivation is open, so the identification with the measured $A$ is leading-order; the observed $1.2\%$ deviation is smaller than the natural $\lambda^2 \approx 5\%$ correction scale, a suppression that is observed rather than derived.
 
 The combination $|V_{cb}| = A\lambda^2 = \sqrt{2/3}/(2\pi^2) = 0.04136$ (observed: $0.0408 \pm 0.0014$, agreement at $0.4\sigma$) provides a cross-check at the second-order level of the Wolfenstein expansion. Two structural predictions ($\lambda$ and $A$) generate a derived prediction for a third observable ($|V_{cb}|$), with all three matching observation.
 
@@ -225,13 +225,11 @@ The five arrows are structural relations of three different epistemic statuses, 
 
 The chain produces six masses from one empirical scale ($m_s$) plus two structural auxiliary inputs ($Q_{\text{down}}$ as Class P, the residual normalization on $Z_S$ as Class P). The four Layer-1 relations are parameter-free; the two Class P inputs are fitted to observation. Four out of five mass-chain transitions are therefore parameter-free, with the down-sector $Q_{\text{down}}$ closure and the bottom-to-tau residual normalization carrying the auxiliary inputs.
 
-**The top quark mass.** The top quark sits separately from the chain above because its Yukawa coupling is large enough to flow to an infrared quasi-fixed point under the Standard Model renormalization group. The framework's prediction for the top mass uses the IR quasi-fixed point $y_t(\mu_{\text{IR}}) \to 1$ — a structural feature of the SM RGE rather than an input from the framework — combined with the tree-level Yukawa normalization at the compositeness scale $M_{\text{Pl}}$:
-$$m_t = \frac{v}{\sqrt{2}} \cdot y_t(\mu_{\text{IR}}) = \frac{246\,\text{GeV}}{\sqrt{2}} \cdot 1 = 174.1\,\text{GeV},$$
-where $v$ is the Higgs vacuum expectation value.
+**The top quark mass.** The top quark sits separately from the chain above because its Yukawa coupling is large. The weak-scale relation $m_t = v/\sqrt{2}$ with $y_t(m_t) \approx 1$ reproduces the observed mass:
+$$m_t = \frac{v}{\sqrt{2}} = \frac{246\,\text{GeV}}{\sqrt{2}} = 174.1\,\text{GeV},$$
+where $v$ is the Higgs vacuum expectation value, matching the observed $172.5 \pm 0.3$ GeV to $0.9\%$.
 
-The prediction is properly understood as a *band* rather than a point estimate. The IR quasi-fixed point attracts a wide UV basin: any UV value in roughly $y_{\text{UV}} \in [0.5, 5]$ flows to the same IR value within about $10\%$. The framework's structural content is that $y_t \sim 1$ at the compositeness scale — order unity in the natural normalization of the lattice-to-continuum matching — which then flows to the IR fixed point regardless of the specific number. The framework's actual prediction is therefore $m_t \in [157, 191]$ GeV centered near 174 GeV, with the 10% band width reflecting the IR-attractor basin rather than a fitted uncertainty.
-
-Observed: $m_t = 172.5 \pm 0.3$ GeV (PDG 2024). The observation falls comfortably inside the framework's predicted band, $1.5\%$ below the central value. At PDG precision the observation is $4.8\sigma$ below the central $174.1$ GeV, but the relevant comparison is *to the band, not to the central value*: at PDG precision the observation is well within the framework's structural prediction. The top quark mass is therefore predicted from one structural feature of the SM RGE plus the order-unity Yukawa normalization, with no fitted parameters in the framework's specific derivation, and the empirical match is at the band level appropriate to an IR-attractor prediction.
+The mechanism behind this relation is open, and the honest classification is a retrodiction rather than a structural prediction. The natural proposal — a compositeness-scale normalization $y_t(M_{\text{Pl}}) = 1$ carried to low energy by the infrared quasi-fixed point — does not deliver the observed value under one-loop Standard Model running: $y_t(M_{\text{Pl}}) = 1$ flows to $y_t(m_t) \approx 1.19$, giving $m_t \approx 207$ GeV, and the IR quasi-fixed point itself sits at $y_t \approx 1.25$ ($m_t \approx 215$–$220$ GeV), not at unity. The attractor basin $y_{\text{UV}} \in [0.5, 5]$ focuses to $m_t \in [177, 221]$ GeV, a $25\%$ spread. What is empirically exact is the weak-scale statement $y_t(m_t) \approx 1$; the compositeness-scale normalization plus IR attraction does not produce it, and the observed top corresponds to $y_t(M_{\text{Pl}}) \approx 0.4$–$0.5$. The relation is therefore recorded as a retrodiction of the weak-scale $y_t \approx 1$ coincidence, with the structural mechanism an open task; a derivation of $y_t = 1$ at the electroweak matching scale, or of $y_t(M_{\text{Pl}}) \approx 1/2$ (which runs to $\approx 177$ GeV), would close it.
 
 ---
 
@@ -298,12 +296,12 @@ The chapter has developed twenty-two Standard Model retrodictions from the cubic
 | $\alpha_3(M_Z)$ | RG running with $(\delta_0, A, B)$ | $0.118$ | $0.1181 \pm 0.0011$ | fit | **R** [a] | E |
 | $\alpha_2(M_Z)$ | RG running with $(\delta_0, A, B)$ | $0.0339$ | $0.03379 \pm 0.00009$ | fit | **R** [a] | E |
 | $\delta_0$ | U(1) row fit | $10.0$ | $-$ | empirical input | **E** | input |
-| $A \cdot B$ cross-check | independent derivation | $48.0 \pm 1.5$ | $46.4$ (from fit) | $\sim 3\%$ | **S** | **A** |
+| $A \cdot B$ cross-check | independent derivation | $\approx 48$–$62$ (leading-power-dependent) | $46.4$ (from fit) | inconclusive | — | **A** |
 | $\bar\theta$ | T-invariance + detailed balance | $0$ | $\| \bar\theta \| < 10^{-10}$ | $\checkmark$ | **S** | **A** |
 | Cabibbo $\lambda$ | inter-generation BZ distance | $0.2251$ | $0.2250 \pm 0.0007$ | $0.04\%$ | **S** | **A** |
 | Wolfenstein $A$ | off-democratic projection | $\sqrt{2/3} = 0.8165$ | $0.826 \pm 0.012$ | $1.2\%$ | **S** | **A** |
 | $\|V_{cb}\|$ | $A\lambda^2$ | $0.0414$ | $0.0408 \pm 0.0014$ | $0.4\sigma$ | **S** | **A** |
-| $m_d/m_s$ | GST $\lambda^2 = 1/(2\pi^2)$ | $0.0507$ | $0.0503 \pm 0.0007$ | $0.7\%$ | **S** | **A** |
+| $m_d/m_s$ | GST $\lambda^2 = 1/(2\pi^2)$ | $0.0507$ | $0.0503 \pm 0.0007$ | $0.7\%$ | **L** | **A** |
 | Jarlskog $J$ | $\eta/(12\pi^6)$ | $3.02 \times 10^{-5}$ | $(3.08 \pm 0.13) \times 10^{-5}$ | $0.5\sigma$ | **E** ($\eta$) | **B** |
 | Koide $Q$ | cubic $T_1$ structure | $2/3$ | $0.66667$ | $0.001\%$ | **S** | **A** |
 | Koide angle $\theta_0$ | $C_2(T_1)/d^2$ | $2/9$ | $0.22222$ | $0.02\%$ | **S** | **A** |
@@ -312,7 +310,7 @@ The chapter has developed twenty-two Standard Model retrodictions from the cubic
 | $m_d$ | $m_s/(2\pi^2)$ | $4.73$ MeV | $4.67 \pm 0.48$ | $1.3\%$ | **M** ($m_s$) | C |
 | $m_u$ | $m_d \sqrt{2/9}$ | $2.20$ MeV | $2.16 \pm 0.49$ | $0.1\sigma$ | **L** [e] | **B** |
 | $m_b$ | Koide ($Q_{\text{down}}$) | $4144$ MeV | $4180 \pm 30$ | $0.9\%$ | **L** [d] | E |
-| $m_t$ | $v/\sqrt{2}$ (IR fixed point band) | $174.1$ GeV (band $[157, 191]$) | $172.5 \pm 0.3$ | inside band | **S** | D |
+| $m_t$ | $v/\sqrt{2}$ (weak-scale $y_t \approx 1$; mechanism open) | $174.1$ GeV | $172.5 \pm 0.3$ | $0.9\%$ | **R** | D |
 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | $0.3080$ | $0.3085 \pm 0.0073$ | $0.07\sigma$ | **L** [f] | **B** |
 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | $0.5507$ | $0.561^{+0.012}_{-0.015}$ | $0.74\sigma$ | **L** [f] | **B** |
 | $\sin^2\theta_{13}$ | $A^4\lambda^2 = 4/(18\pi^2)$ | $0.02252$ | $0.02195 \pm 0.00056$ | $1.02\sigma$ | **S** | **A** |
@@ -329,7 +327,7 @@ Footnotes: **[a]** The three gauge couplings at $M_Z$ are reproduced with one em
 
 - **Category C — composite of Category A inputs with redundant content:** $m_d = m_s/(2\pi^2)$ — same prediction as $m_d/m_s = \lambda^2$ with $m_s$ plugged in; an internal-consistency check rather than independent test.
 
-- **Category D — band predictions at order-of-magnitude precision:** $m_t$ (IR-attractor band $[157, 191]$ GeV, 20% width — observation at $172.5$ inside the band); $m_H$ (RG-running band $129$-$132$ GeV from $\lambda(M_{\text{Pl}}) = 0$, observation $125.10 \pm 0.14$, $4$-$7$ GeV below the band).
+- **Category D — band predictions at order-of-magnitude precision:** $m_t$ (weak-scale relation $v/\sqrt{2}$ at $0.9\%$; fixed-point mechanism open — §6.7); $m_H$ (RG-running band $129$-$132$ GeV from $\lambda(M_{\text{Pl}}) = 0$, observation $125.10 \pm 0.14$, $4$-$7$ GeV below the band).
 
 - **Category E — fitted using multiple empirical parameters:** $\alpha_3(M_Z)$, $\alpha_2(M_Z)$ (fitted via $(\delta_0, A, B)$, with structural content concentrated in the *form* of the fit rather than the matching values); $m_b$ (uses Class P auxiliary parameter $Q_{\text{down}}$ — see footnote [d]).
 

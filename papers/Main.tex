@@ -794,20 +794,36 @@ the original lemma --- one phase per pair, \(D(D-1)/2\) parameters,
 under which \(T(t)\) is exactly invariant --- but the requirement that
 the reconstructed \(P_i\) be orthogonal projectors summing to the
 identity is a nonlinear constraint tying the pairs together, and it
-eliminates precisely the excess: the linearization of the idempotency
-constraints over the pair-phase directions has null space of dimension
-exactly \(D-1\), the diagonal-gauge dimension, in every case tested
-(\((n, m_a) = (3,4), (2,3), (4,2)\), generic \(\hat H\)), and the
-constructive Fourier extraction has been demonstrated end-to-end
-numerically. The marginal data therefore determine --- generically, and
-at least locally --- the \emph{dilated} Hamiltonian and the
-configuration projectors up to an energy shift and diagonal phase
-conventions; the reconstruction reaches the dilation itself, not only an
-\(n\)-dimensional effective generator. The status of each component: the
-Fourier structure and its rank-one/gauge properties are exact algebra;
-local uniqueness is established numerically by the nullity computation
-and awaits a written proof (the natural route is a direct analysis of
-the linearized idempotency operator); the genericity conditions
+eliminates precisely the excess. The reduction can be shown directly.
+Writing a per-pair rephasing as the linearized perturbation
+\(M_i[a,b] \mapsto M_i[a,b](1 + i\theta_{ab})\) with \(\theta\)
+antisymmetric (where \(M_i[a,b] = \langle a|P_i|b\rangle\)), the
+linearized idempotency constraint \(\delta(M_i^2) = \delta(M_i)\) reads
+\(\sum_b (\theta_{ab} + \theta_{bc})\,M_i[a,b]\,M_i[b,c] = \theta_{ac}\,M_i[a,c]\)
+for all \(i, a, c\). The diagonal coboundary
+\(\theta_{ab} = \alpha_a - \alpha_b\) satisfies this identically: its
+left side telescopes to
+\((\alpha_a - \alpha_c)\sum_b M_i[a,b]M_i[b,c] = (\alpha_a - \alpha_c)\,M_i^2[a,c] = (\alpha_a - \alpha_c)\,M_i[a,c]\)
+using \(P_i^2 = P_i\), which is the right side. This exhibits the
+\(D-1\) diagonal-gauge directions (the \(D\) shifts \(\alpha_a\) modulo
+a global constant that acts trivially) as an analytic null space of the
+constraint, for every projector family. That these are the \emph{only}
+null directions --- that the constraint admits no pair-phase deformation
+beyond the coboundary --- is verified numerically: the linearized
+idempotency operator has null space of dimension exactly \(D-1\) for
+generic \(\hat H\) across
+\((n, m_a) = (3,4), (2,3), (4,2), (3,3), (2,4)\), and the constructive
+Fourier extraction has been demonstrated end-to-end. The marginal data
+therefore determine --- generically, and at least locally --- the
+\emph{dilated} Hamiltonian and the configuration projectors up to an
+energy shift and diagonal phase conventions; the reconstruction reaches
+the dilation itself, not only an \(n\)-dimensional effective generator.
+The status of each component: the Fourier structure, its rank-one
+property, and the coboundary null directions are exact algebra; that the
+coboundary \emph{exhausts} the null space is established numerically and
+awaits a written completeness proof (the natural route is that generic
+projector families make the constraint operator's kernel no larger than
+the coboundary, a genericity statement); the genericity conditions
 (G1)--(G3) transfer to the dilated spectrum, gaps, and coherence
 vectors. One caveat applies in sharpened form: the idealized permutation
 dynamics has dilated eigenphases at roots of unity --- equally spaced,
@@ -1886,9 +1902,17 @@ spatial isotropy, entering as empirical input E4 of the reconstruction;
 and (vii) linearity of the substratum update (A5), equivalent to
 amplitude-scale gauge invariance and owned at that more primitive
 location. Seven items, of unequal weight and mostly independently
-motivated. The two-axiom statement remains correct about what is
-\emph{primitive}; this ledger states what is \emph{assumed}, and the
-framework's claims should be read as conditional on the full list.
+motivated. Part I of the companion methodology paper gives the
+complementary view: an eight-rung analysis of the primitive that
+recovers most of these as lemmas of the two-axiom base and isolates
+recurrence (Axiom 2) as the one irreducible non-lemma. The two accounts
+describe one structure --- the rung analysis counts what is
+\emph{recovered}, this ledger counts what is \emph{assumed} --- and
+agree on the substance, including that the determinism recovery closes
+its hidden-sector margin with an empirical input and that finiteness is
+delivered only per-moment. The two-axiom statement remains correct about
+what is \emph{primitive}; this ledger states what is \emph{assumed}, and
+the framework's claims should be read as conditional on the full list.
 
 \hypertarget{structural-exclusion-of-equilibrium-phase-observers}{%
 \subsubsection{4.6 Structural Exclusion of Equilibrium-Phase
