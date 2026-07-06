@@ -17,7 +17,7 @@
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% lmodern unavailable; using xelatex defaults
+\usepackage{lmodern}
 \ifPDFTeX\else
   % xetex/luatex font selection
   \setmainfont[]{DejaVu Serif}
@@ -54,8 +54,7 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\input{unicode-fix}
-
+% Minimal unicode-fix stub
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -231,19 +230,22 @@ PMNS sum rule & 2sin²θ₁₂ + sin²θ₂₃ = 7/6 & 1.178 ± 0.020 & 0.6σ \\
 \end{longtable}
 
 The first two entries are derived in {[}18, §§7.1--7.2{]}; the Cabibbo
-derivation is unconditional structural (the chirality structure of the
-taste-changing vertex is established in the staggered fermion literature
-{[}18, §7.1, citing Mason et al.{]}), and the empirical match to 0.04\%
-supports this status. The Koide angle is unconditional structural at
-first-principles. The third and fourth entries are the present work,
-classified at the layered level (Layer 1 form combined with the Layer
-2(a)-tractable Condition 2 coefficient) per the operational definitions
-in §3.4; see Sec. 6.3 for full discussion. This cumulative empirical
-track record is what distinguishes the cubic-group structure from
-postulated flavor symmetries: the same parameter λ² = 1/(2π²) and the
-same projection factor A² = 2/3 enter multiple observables at
-sub-percent precision, which is testable structure rather than symmetry
-assumption.
+geometry and the chirality-forced 1/\textbar q\textbar{} power are
+unconditional structural (the chirality structure of the taste-changing
+vertex is established in the staggered fermion literature {[}18, §7.1,
+citing Mason et al.{]}), while the identification of the mixing-matrix
+element with the unit-normalized propagator is a stated structural
+hypothesis whose resolving computation is specified in {[}18, §7.1{]},
+and the empirical match to 0.04\% supports this status. The Koide angle
+is unconditional structural at first-principles. The third and fourth
+entries are the present work, classified at the layered level (Layer 1
+form combined with the Layer 2(a)-tractable Condition 2 coefficient) per
+the operational definitions in §3.4; see Sec. 6.3 for full discussion.
+This cumulative empirical track record is what distinguishes the
+cubic-group structure from postulated flavor symmetries: the same
+parameter λ² = 1/(2π²) and the same projection factor A² = 2/3 enter
+multiple observables at sub-percent precision, which is testable
+structure rather than symmetry assumption.
 
 \hypertarget{position-in-the-broader-literature}{%
 \subsubsection{1.4 Position in the broader
@@ -449,9 +451,16 @@ matching the observed value λ\_obs = 0.22500 ± 0.00067 {[}13{]} to
 
 sets the overall scale of O(λ²) corrections. The full derivation of λ =
 1/(π√2) from the lattice fermion propagator and the
-chirality-preservation argument is given in {[}18, §7.1{]}. The
-empirical match to 0.04\% is at the level of structural relations rather
-than fitted parameters.
+chirality-preservation argument is given in {[}18, §7.1{]}. One element
+of the chain is graded separately there: the identification of the
+mixing-matrix element with the unit-normalized propagator (coefficient
+exactly one) is a stated hypothesis rather than a derived consequence,
+with the resolving computation --- the taste-changing two-point function
+with explicit external-leg normalization --- specified in {[}18,
+§7.1{]}; the geometry (π√2) and the 1/\textbar q\textbar{} power are
+forced. The empirical match to 0.04\% confirms the identification at the
+level of structural relations rather than fitted parameters, but does
+not derive its unit coefficient.
 
 A second geometric quantity will appear. The angle between any
 generation axis e\_i and the democratic direction ĥ satisfies e\_i · ĥ =
