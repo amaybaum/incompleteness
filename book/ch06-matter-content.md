@@ -296,7 +296,7 @@ The chapter has developed twenty-two Standard Model retrodictions from the cubic
 | $\alpha_3(M_Z)$ | RG running with $(\delta_0, A, B)$ | $0.118$ | $0.1181 \pm 0.0011$ | fit | **R** [a] | E |
 | $\alpha_2(M_Z)$ | RG running with $(\delta_0, A, B)$ | $0.0339$ | $0.03379 \pm 0.00009$ | fit | **R** [a] | E |
 | $\delta_0$ | U(1) row fit | $10.0$ | $-$ | empirical input | **E** | input |
-| $A \cdot B$ cross-check | independent derivation | $48.0 \pm 1.5$ | $46.4$ (from fit) | $\sim 3\%$ | **S** | **A** |
+| $A \cdot B$ cross-check | independent derivation | $\approx 48$–$62$ (leading-power-dependent) | $46.4$ (from fit) | inconclusive | — | **A** |
 | $\bar\theta$ | T-invariance + detailed balance | $0$ | $\| \bar\theta \| < 10^{-10}$ | $\checkmark$ | **S** | **A** |
 | Cabibbo $\lambda$ | inter-generation BZ distance | $0.2251$ | $0.2250 \pm 0.0007$ | $0.04\%$ | **S** | **A** |
 | Wolfenstein $A$ | off-democratic projection | $\sqrt{2/3} = 0.8165$ | $0.826 \pm 0.012$ | $1.2\%$ | **S** | **A** |
@@ -310,7 +310,7 @@ The chapter has developed twenty-two Standard Model retrodictions from the cubic
 | $m_d$ | $m_s/(2\pi^2)$ | $4.73$ MeV | $4.67 \pm 0.48$ | $1.3\%$ | **M** ($m_s$) | C |
 | $m_u$ | $m_d \sqrt{2/9}$ | $2.20$ MeV | $2.16 \pm 0.49$ | $0.1\sigma$ | **L** [e] | **B** |
 | $m_b$ | Koide ($Q_{\text{down}}$) | $4144$ MeV | $4180 \pm 30$ | $0.9\%$ | **L** [d] | E |
-| $m_t$ | $v/\sqrt{2}$ (weak-scale $y_t \approx 1$; mechanism open) | $174.1$ GeV | $172.5 \pm 0.3$ | $0.9\%$ (R) | inside band | **S** | D |
+| $m_t$ | $v/\sqrt{2}$ (weak-scale $y_t \approx 1$; mechanism open) | $174.1$ GeV | $172.5 \pm 0.3$ | $0.9\%$ | **R** | D |
 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | $0.3080$ | $0.3085 \pm 0.0073$ | $0.07\sigma$ | **L** [f] | **B** |
 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | $0.5507$ | $0.561^{+0.012}_{-0.015}$ | $0.74\sigma$ | **L** [f] | **B** |
 | $\sin^2\theta_{13}$ | $A^4\lambda^2 = 4/(18\pi^2)$ | $0.02252$ | $0.02195 \pm 0.00056$ | $1.02\sigma$ | **S** | **A** |
