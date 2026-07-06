@@ -172,7 +172,7 @@ with unknown dimensionless coefficient $\beta$.
 $$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G}$$
 containing no $\hbar$. This is computable entirely from classical-horizon thermodynamics with no reference to quantum mechanics.
 
-The emergent QFT of the framework's Part I content lives on this classical background, which has a bifurcate Killing horizon with surface gravity $\kappa$. Regularity of the Wick-rotated metric at the horizon requires Euclidean period $\beta = 2\pi c / \kappa$; any QFT on this background — including a lattice-regularized one — must therefore be periodic in imaginary time with the same period, giving a KMS state at temperature
+The emergent QFT of the framework's Part I content lives on this classical background, which has a bifurcate Killing horizon with surface gravity $\kappa$ (the bifurcate structure presupposes emergent local boost invariance at the horizon, a dependency carried in [GR §8.5]). Regularity of the Wick-rotated metric at the horizon requires Euclidean period $\beta = 2\pi c / \kappa$; any QFT on this background — including a lattice-regularized one — must therefore be periodic in imaginary time with the same period, giving a KMS state at temperature
 $$T_Q = \frac{\hbar \kappa}{2\pi c k_B}$$
 with $\hbar$ unknown. This is a theorem *within* the derived QFT, not an external import.
 
@@ -394,6 +394,8 @@ The framework's characterization theorem (emergent quantum mechanics from C1-C3)
 **Lemma B.7.5 (Phase locking).** *The emergent effective Hamiltonian $\hat{H}_{\text{eff}}$ on the visible sector is uniquely determined by the continuous-time transition data $\{T_{ij}(t)\}$, up to the trivial diagonal-unitary rephasing freedom.*
 
 *Proof.* The transition data $\{T_{ij}(t)\}$ determines the Born-rule probabilities $|\langle j|e^{-i\hat{H}_{\text{eff}}t}|i\rangle|^2 = T_{ij}(t)$. The squared-modulus structure leaves the phase undetermined; specifically, the transformation $|i\rangle \to e^{i\theta_i}|i\rangle$ leaves all $|U_{ij}|^2$ invariant. This is the basis-convention freedom — the choice of phase for each basis state — which is physically trivial. Up to this freedom, the dynamics is uniquely determined. $\square$
+
+*Scope.* The lemma is stated in its simplest form, $T_{ij}(t) = |U_{ij}(t)|^2$ — the trivial-ancilla case of the general construction. In the ancilla-marginal form the visible data determine the *dilated* Hamiltonian and the configuration projectors up to an energy shift and the same diagonal-phase freedom; the extension, its Fourier structure, and the constraint analysis that eliminates the larger pair-phase gauge are given in the companion paper ([Main §3.4]).
 
 **Theorem B.7.6 (Characterization theorem).** *Emergent quantum mechanics on the visible sector is equivalent to embedded observation under C1-C3:*
 $$\text{Emergent QM on } V \iff \text{Embedded observation of } (S, \varphi) \text{ with C1-C3 on } (V, H)$$

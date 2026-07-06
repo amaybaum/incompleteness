@@ -405,7 +405,7 @@ The de Sitter Conjecture [ObiedOoguriSpodyneikoVafa2018] in its refined form [Oo
 
 OI's [GR §7] predicts dynamical dark energy through Type II running-vacuum (RVM) form rather than a fixed cosmological constant, with the parameter $\nu$ encoding the running and the framework's structural prediction $|\nu| \sim 10^{-32}$. Type II RVM is parametrically away from a static de Sitter vacuum: the cosmological "constant" runs with the Hubble rate, and the late-universe phase is asymptotically de Sitter in the limit $H \to 0$ but not strictly so at any finite time. The dynamical character is consistent with the de Sitter Conjecture's structural content; the small predicted $|\nu|$ value is consistent with the empirical near-$\Lambda$CDM behavior. Strict static de Sitter would violate the conjecture; dynamical near-de Sitter satisfies it.
 
-The recent DESI DR2 results, rejecting the cosmological constant at $2.8\sigma$–$4.2\sigma$ in extended cosmological models with potential phantom crossing [DESI_DR2_2025], provide independent empirical pressure on static dark-energy models — the same direction the de Sitter Conjecture pushes. OI's position relative to this data must be stated carefully, consistent with [GR §6.4, §7.1]: the framework's predicted running $|\nu| \sim 10^{-32}$ is observationally indistinguishable from a cosmological constant, so the DESI phantom-crossing *magnitude* is in 3–4$\sigma$ tension with OI's prediction even though the running-vacuum *form* is favoured qualitatively. The de Sitter Conjecture consistency claim rests on the strict-static distinction — OI is nominally dynamical but observationally $\Lambda$-like — and should be read at that level of strength.
+The recent DESI DR2 results, rejecting the cosmological constant at $2.8\sigma$–$4.2\sigma$ in extended cosmological models with potential phantom crossing [DESI_DR2_2025], provide independent empirical pressure on static dark-energy models — the same direction the de Sitter Conjecture pushes. OI's position relative to this data must be stated carefully, consistent with [GR §6.2, §7.1]: the framework's predicted running $|\nu| \sim 10^{-32}$ is observationally indistinguishable from a cosmological constant, so the DESI phantom-crossing *magnitude* is in 3–4$\sigma$ tension with OI's prediction even though the running-vacuum *form* is favoured qualitatively. The de Sitter Conjecture consistency claim rests on the strict-static distinction — OI is nominally dynamical but observationally $\Lambda$-like — and should be read at that level of strength.
 
 #### 7.5.3 Distance Conjecture
 
@@ -896,9 +896,9 @@ Level 2 confirmations are confirmations of the gauge-group-target level but do n
 
 | Feature | Empirical status | Reference |
 |---|---|---|
-| Cubic-lattice-forced higher-dim operators | Indirect (via specific predictions below) | [SM §10] |
+| Cubic-lattice-forced higher-dim operators | Indirect (via specific predictions below) | [SM §3.1] |
 | Type II RVM dynamical dark energy | running-vacuum *form* favoured over plain $\Lambda$CDM; $\nu \approx 0$ magnitude consistent with Bertini (2025, itself consistent with zero), in mild tension with DESI DR2's evolving-DE preference | [Bertini2025, DESI_DR2_2025, GR §7] |
-| MOND scale $a_0 = cH/6$ | Tully-Fisher relation; ongoing tests | [GR §10] |
+| MOND scale $a_0 = cH/6$ | Tully-Fisher relation; ongoing tests | [GR §7.3] |
 | Holographic $A/4$ at cosmological horizon | Structural (theory-level transport; no direct test) | [GR §5] |
 | No GUT-mechanism proton decay ($\tau_p \sim 10^{45}$ yr) | Super-K bounds at $\tau_p > 2.4 \times 10^{34}$ yr already exclude minimal SU(5); favors no-GUT class | [SuperK2020_proton, SM §6.7, §8.7] |
 | No GUT-mechanism magnetic monopoles | GUT-scale monopoles undetected cosmologically; consistent with OI without inflation invocation | [MoEDAL2024, SM §6.7] |
