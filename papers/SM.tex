@@ -669,10 +669,76 @@ reverting to a non-decoupling logarithm --- precisely when the cone is
 not absorbed, confirming the absorption is load-bearing); the
 normalization is bounded by the framework's own representation content:
 \(\Delta C_2\) is a difference of total gauge Casimirs across species,
-giving \(\Delta C_2 \in [0.58,\,2.08]\) --- order unity, with the
-vertex-weighted one-loop point value open. With \(\alpha_0 = 1/23.25\)
-and the worst-case \(\Delta C_2\), the resulting ceilings are
-\(M_X \lesssim 9\times10^{7}\) GeV against the tightest
+giving \(\Delta C_2 \in [0.58,\,2.08]\) --- order unity. The
+representation-side point values are now fixed per bound: the
+clock-comparison pair (nucleon--electron, chirality-averaged) gives
+\(\Delta C_2 \approx 0.9\)--\(1.1\) across the two
+\(\mathrm{U}(1)\)-normalization conventions, and the electron
+coefficient --- measured against the \emph{induced} photon, whose boost
+coefficient is the vacuum-polarization-weighted average of the charged
+fermions', \(w_f \propto N_c Q_f^2\) --- gives
+\(\Delta C_2 \approx 0.6\)--\(0.7\). The induced architecture produces
+one structural alignment worth recording: the photon coefficient lies
+within \(\Delta C_2 \lesssim 0.03\) of the loop-weighted species mean (a
+weighted average cannot stray far from itself), so the photon-sector
+channel is suppressed roughly two orders below generic when referenced
+to that mean, with its residual sensitivity confined to the
+absorbed-cone reference definition --- the one place the reference
+choice materially matters, owned by the kernel computation. With the
+computed kernel constants (\(c_L = -9.4\), \(d = -0.88\), superseding
+the order-unity placeholders) and the point values, the tightest ceiling
+refines from the worst-case figures below to
+\(M_X \lesssim 4\times10^{7}\) GeV --- a factor-two class shift that
+leaves the window's decade structure intact. What remains open on the
+normalization side is the absorbed-cone reference (photon channel only);
+the mechanism's remaining quantitative item is the condensate-gap
+determination of \(M_X\) itself.
+
+\emph{Baryon safety of the cross-charged sector, the pinned reference,
+and the closed form of the window.} Three further results complete the
+accounting. First, the cross-charged sector is baryon-safe at the gauge
+level, structurally: all matter carriers are mixed-index objects in
+\(V_K \otimes V_K^*\) (§4.7.1.2), on which the \(\mathrm{U}(6)\) adjoint
+action conserves index flow per block --- baryon number, realized as
+\(V_3\)-flow\(/3\), is conserved identically by all thirty-six
+generators, and the diquark vertices that gauge-mediated proton decay
+requires are absent because they need same-index carriers
+(\(V \otimes V\)), which the framework does not have. The cross-charged
+bosons are Pati--Salam-class vector leptoquarks, not
+\(\mathrm{SU}(5)\)-class \(X/Y\): the \(\mathrm{Hom}(V_3, V_1)\) modes
+carry exactly the \(U_1\) vector-leptoquark quantum numbers
+\((\mathbf{3}, \mathbf{1}, 2/3)\) --- an identity of the forced
+hypercharge assignment, \(Y_Q - Y_L = Y_u = 2/3\), obtained by two
+independent routes. The \(M_X\) floor is therefore leptoquark
+phenomenology rather than proton decay: \(\sim 1.5 \times 10^{6}\) GeV
+(\(K_L \to \mu e\) class) if the cross couplings are
+generation-off-diagonal, \(10^{3}\)--\(10^{4}\) GeV (collider and
+precision) if generation-diagonal --- the generation structure being
+solution-level, like \(M_X\) itself. The refined window is
+\([10^{3}\)--\(10^{6},\ \sim 4 \times 10^{7}]\) GeV: between one and a
+half and four and a half decades. Scope: this argument covers the gauge
+sector; baryon violation through non-gauge operators (the condensate and
+Yukawa sectors, higher-dimension operators) is a separate accounting
+item, not excluded here. Second, the absorbed-cone reference is pinned
+by the framework's own architecture rather than left as a scheme choice:
+spacetime geometry is classical-substratum-level ({[}GR §6.2{]}) and
+takes no emergent-loop corrections, so the gravitational-wave cone
+\emph{is} the tree cone --- gravity-referenced bounds (the GW170817
+class) therefore constrain each species' full coefficient
+(\(\Delta C_2^{\rm eff} = \sum_f w_f C_2^f \approx 1.6\) for the induced
+photon, ceiling \(4 \times 10^{11}\) GeV, still the loosest), while
+matter-matter bounds constrain differences, as computed above. The same
+classical priority of geometry that dissolves the cosmological-constant
+problem pins the Lorentz-violation reference. Third, with \(M_X\)
+classified as solution-level (set by the equivariant block splittings,
+§4.7.1.1, not fixed at the lattice scale), the boost conditional reaches
+its closed form: it is discharged into one solution-level parameter
+confined to a one-and-a-half-to-four-and-a-half-decade window,
+baryon-safe, reference-pinned, and falsifiable from both sides --- the
+same closure the framework accepts for the mass eigenvalues, and the
+terminal state available to it short of Layer 2(b) input. With
+\(\alpha_0 = 1/23.25\) and the worst-case \(\Delta C_2\), the resulting
+ceilings are \(M_X \lesssim 9\times10^{7}\) GeV against the tightest
 (clock-comparison) multi-species bound, \(7.5\times10^{9}\) GeV against
 the electron SME coefficient, and \(1.1\times10^{12}\) GeV against
 photon-sector bounds, while the floor is set by cross-charged
@@ -3640,7 +3706,12 @@ are the emergent continuum fermions --- an emergent-EFT statement by
 necessity rather than by choice --- and the remaining content of the
 resolving computation is the one-loop coefficient: whether the
 cubic-group Yukawa vertex and the taste-eigenprojected,
-residue-normalized external legs multiply to exactly unity.
+residue-normalized external legs multiply to exactly unity. A scoping
+computation of the branch-restricted transfer operator finds it to be
+\((1/\sqrt{3})\) times a unitary --- all four singular values equal
+\(1/\sqrt{3}\), the \((1 - A^2, A^2)\) projection split appearing in the
+transfer's branch structure --- so the gate question takes a sharp form:
+whether the on-shell residue normalization absorbs this factor exactly.
 
 \textbf{The Wolfenstein \(A\) parameter.}
 
@@ -4573,9 +4644,49 @@ relation?} With \(b_{23}^{\text{sub}} = 10/9\) and
 natural normalization, the required substrate matrix-element hierarchy
 is
 \(m_{12}^{(2)} : m_{13}^{(2)} : m_{23}^{(2)} = (3/8)m_\mu^2 : (3/8)m_\tau^2 : (10/9)(m_\tau^2 - m_\mu^2)\)
-(assuming symmetric U-even split). This is concrete, quantitative, and
-falsifiable --- any first-principles substrate calculation of
-\(m_{ij}^{(2)}\) can be tested against this hierarchy.
+(assuming symmetric U-even split).
+
+\emph{Progress on the sharpened task (scoping-level, inputs declared).}
+Three results from the resolving computation's scoping phases bear on
+this formulation. First, the symmetric U-even split assumed above now
+has structural support: the geometric second-order taste channel (two
+single-flip hops through the heavy non-\(T_1\) corners) is exactly
+democratic --- equal coefficients for all three pairs --- as a
+consequence of cubic symmetry, computed over the full range of
+heavy-corner gap assignments. Second, the dressing rule is forced rather
+than chosen: reproducing \(A_1\)'s mass-independent angles requires the
+mass-matrix off-diagonals to carry the column (heavier) mass,
+\(M_{ij} = T_{ij}\, m_j\) --- the taste transition living in the left
+sector --- under which the heavier-mass-squared scaling of the required
+\(m^{(2)}_{ij}\) hierarchy is automatic. Third, with these two results
+the augmented relation reduces to a single condition on the substrate's
+heavy-corner spectrum: the democratic two-hop amplitude must equal
+\(-1/15\) (in the \(m_\mu/m_\tau \to 0\) limit), equivalently
+\(|1/\Delta_S - 1/\Delta_{T_2}| = 1/(30\rho)\), where
+\(\Delta_S, \Delta_{T_2}\) are the singlet- and \(T_2\)-corner gaps and
+\(\rho\) the spin-to-chirality projection. The gaps are not free:
+Theorem 8b fixes the corner-class couplings at
+\(\mu = (1, 1/3, -1/3, -1)\) --- universality-class numbers --- so the
+rest frequencies \(\arccos\mu\) determine \(\Delta_S\) and
+\(\Delta_{T_2}\) outright (with opposite signs: the singlet sits below
+the generation corners, the \(T_2\) class above). The condition then
+fixes the required projection: \(\rho \approx -0.015\) in frequency
+units or \(-0.030\) in mass-squared units --- small rather than order
+unity, satisfiable but not yet derived. The remaining content of
+Condition 2 is thereby a single number: the spin-to-chirality projection
+with proper on-shell normalization --- the same normalization machinery
+as the \(c_\lambda\) residue question of §7.1, on which the two open
+flavor coefficients have now converged. Declared inputs of this
+reduction: the hop model of the taste geometry, the projection \(\rho\),
+and the neglect of the \(O(\lambda^3)\) interference; one convergence
+caveat is recorded --- the \((1,2)\) channel carries a
+hierarchy-enhanced correction \(\lambda^2 m_\tau^2/m_\mu^2 \approx 0.7\)
+at physical \(\lambda\), so its strict-\(\lambda^2\) extraction is the
+least robust of the three. The Layer 2(a) question is thereby reduced,
+not closed: its remaining content is the heavy-corner gap
+determination.This is concrete, quantitative, and falsifiable --- any
+first-principles substrate calculation of \(m_{ij}^{(2)}\) can be tested
+against this hierarchy.
 
 The observed \(2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6\) (observed:
 \(1.178 \pm 0.020\) using post-JUNO global fit and NuFIT 6.0
@@ -6023,9 +6134,15 @@ falsified the cubic commitment and did not.
 \emph{Tier 2 --- empirically selected (the inputs that do the forcing).}
 Several quantities that the chain treats as fixed are in fact pinned by
 observation, not by the substratum: the spatial dimension \(d=3\)
-(selected by the empirical filters E5--E7 of §3.2 --- propagating
-gravity, stable matter, boundary-entropy concordance --- not derived);
-the simple-cubic Bravais structure itself (Theorem 7b selects it
+(argued at self-consistency strength by filters E5--E6 of §3.2 ---
+propagating gravity requires \(d \geq 3\) through the framework's own
+gravitational sector, and the stable matter that Axiom 1's observers
+presuppose excludes \(d \geq 4\) --- with the boundary-entropy
+concordance E7 as a check; the argument's declared exposure is that the
+filters consume \(d\)-dependent emergent physics, so this is a
+self-consistency selection rather than an axiomatic derivation,
+independently anchored empirically by the observed gauge group); the
+simple-cubic Bravais structure itself (Theorem 7b selects it
 \emph{because} an \(\mathrm{SU}(3)\) factor is observed; §4.6); the
 universal threshold \(\delta_0\) (fixed by the U(1) row, §6.2); and the
 absolute mass scales (Tier 3 / solution-specific inputs to the mass
