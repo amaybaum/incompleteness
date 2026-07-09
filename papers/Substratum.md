@@ -87,7 +87,7 @@ The reconstruction takes two kinds of inputs: empirical observations and structu
 
 **Structural assumptions** (restrictions on the class of candidate substrates $(S, \varphi)$):
 
-(A1) **Finiteness.** The configuration space $S$ is finite. (Follows from E3 + the holographic bound interpreted as Hilbert-space dimension cutoff $\dim \mathcal{H} \leq e^{A/4}$.)
+(A1) **Finiteness.** The configuration space $S$ is finite. (Two-part status. E3, with the holographic bound read as a Hilbert-space dimension cutoff $\dim \mathcal{H} \leq e^{A/4}$, bounds what observation reaches: the visible sector and its boundary layer, $\mathcal{C}_V \times \mathcal{C}_B$ — which is also all that the emergent observables depend on, by the boundary-only dependence lemma [GR §3.2]. The extension to all of $S$ is then a gauge choice rather than a further fact: by the deep-sector enlargement freedom (Theorem 24(iii)), the deep hidden sector may be finite of any size, or infinite, without changing the emergent description, and A1 selects the minimal — finite — representative of the equivalence class. The substrate's total cardinality beyond the boundary layer is not an observable question, in the same sense that the uniform vacuum offset is not.)
 
 (A2) **Determinism.** $\varphi: S \to S$ is a bijection (deterministic, reversible dynamics).
 
