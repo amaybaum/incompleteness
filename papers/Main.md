@@ -54,11 +54,11 @@ These properties contain no quantum postulates. The claim is that quantum mechan
 
 ### 1.3 Conditions on the Hidden Sector
 
-**(C1) Non-zero coupling.** $H_{\text{int}} \neq 0$. The coupling is bidirectional.
+**(C1) Non-zero coupling.** $H_{\text{int}} \neq 0$. The coupling is bidirectional. (Status: doubly anchored. Necessity — observed Bell violations force C1, by the characterization theorem of §3.4. Realization — at the cosmological horizon the ADM boundary Hamiltonian and the constraint structure supply a coupling *stronger* than $H_{\text{int}} \neq 0$ [GR §2.2].)
 
-**(C2) Slow-bath timescale separation.** The visible-sector (system) timescale $\tau_S$ is much shorter than the hidden-sector (bath) timescale $\tau_B$: $\tau_S \ll \tau_B$ — the *inverse* of the Markovian regime. The hidden sector evolves on timescales far exceeding those accessible to the observer.
+**(C2) Slow-bath timescale separation.** The visible-sector (system) timescale $\tau_S$ is much shorter than the hidden-sector (bath) timescale $\tau_B$: $\tau_S \ll \tau_B$ — the *inverse* of the Markovian regime. The hidden sector evolves on timescales far exceeding those accessible to the observer. (Status: necessity — observed QM forces C2 by §3.4, conditional on ETH for the hidden sector; ETH's own status, a well-supported conjecture rather than a theorem, is stated at the remark in §3.4. Realization — $\tau_S/\tau_B \sim 10^{-32}$ at the horizon [GR §2.2].)
 
-**(C3) Sufficient capacity.** The number of hidden-sector degrees of freedom $N_H$ exceeds the number of visible-sector degrees of freedom $N_V$ by enough that visible-sector interactions do not appreciably perturb the hidden sector's state on timescales $\ll \tau_B$.
+**(C3) Sufficient capacity.** The number of hidden-sector degrees of freedom $N_H$ exceeds the number of visible-sector degrees of freedom $N_V$ by enough that visible-sector interactions do not appreciably perturb the hidden sector's state on timescales $\ll \tau_B$. (Status: necessity — observed QM forces C3 by §3.4. Realization — $A/\epsilon^2 \sim 10^{122}$ hidden modes against $\sim 10^{80}$ baryons; no laboratory process saturates the hidden sector [GR §2.2].)
 
 **Theorem statement.** Under Lemmas 1–3 and (C1)–(C3), the embedded observer's reduced description is mathematically equivalent to unitarily evolving quantum mechanics (defined precisely in §3.4). The conditions are not merely sufficient but *necessary* (§3.4), establishing full equivalence.
 
