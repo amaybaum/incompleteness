@@ -5571,14 +5571,14 @@ The framework's twenty-two Standard Model predictions form the core empirical re
 | 9 | Jarlskog $J$ | $\eta/(12\pi^6)$ | E | 2(b) | Empirical $\eta$ | Ch 6 §6.4 |
 | 10 | Koide $Q$ | $2/3$ | S | 1 | **0.02%** | Ch 6 §6.5 |
 | 11 | Koide $\theta_0$ | $C_2/d^2 = 2/9$ | S | 1 | Within 1% | Ch 6 §6.5 |
-| 12 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(a)-tract.ᶠ | **0.07$\sigma$ JUNO** | Ch 8 |
+| 12 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(b)ᶠ | **0.07$\sigma$ JUNO** | Ch 8 |
 | 13 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | S | 1 | Within 1% | Ch 8 |
-| 14 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(a)-tract.ᶠ | Within 1$\sigma$ | Ch 8 |
+| 14 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(b)ᶠ | Within 1$\sigma$ | Ch 8 |
 | 15 | $m_e, m_\mu$ via Koide | from $m_\tau$ | M | 3 | Mass-chain inheritance | Ch 6 §6.5 |
 | 16 | $m_b/m_\tau$ | $4.28/Z_S(\lambda g_0^2) = 2.361$ | L | 2(a) | 0.4% (0.5$\sigma$ at L=32) | Ch 6 §6.6 |
 | 17 | $m_u/m_d$ | $\sqrt{2/9}$ | L | 1+2(b) | Within 1$\sigma$ | Ch 6 §6.6 |
 | 18 | $\Sigma m_\nu$ | ~0.059 eV | S | 1 | Within 1$\sigma$ | Ch 8 |
-| 19 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(a)-tract.ᶠ | $1.178 \pm 0.020$ confirmed | Ch 8 |
+| 19 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(b)ᶠ | $1.178 \pm 0.020$ confirmed | Ch 8 |
 | 20 | $m_t$ (weak-scale $y_t\approx1$) | $v/\sqrt{2}$ | R | 3 | 0.9\%; mechanism open | Ch 6 §6.7 |
 | 21 | $m_b$ via $Q_{\text{down}}$ | derived | L | 2(b) | Within 1$\sigma$ | Ch 6 §6.7 |
 | 22 | $\lambda(M_{\text{Pl}}) = 0$ | structural | S | 1 | **0.6$\sigma$** | Ch 6 §6.8 |
@@ -5622,12 +5622,12 @@ The neutrino sector provides the framework's sharpest parameter-free retrodictio
 
 | # | Prediction | Formula | Class | Layer | Empirical match | Chapter |
 |---|-----------|---------|-------|-------|-----------------|---------|
-| N1 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(a)-tract. | **0.07$\sigma$ JUNO** | Ch 8 |
+| N1 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(b) | **0.07$\sigma$ JUNO** | Ch 8 |
 | N2 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | S | 1 | Within 1% | Ch 8 |
-| N3 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(a)-tract. | Within 1$\sigma$ | Ch 8 |
+| N3 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(b) | Within 1$\sigma$ | Ch 8 |
 | N4 | $\Sigma m_\nu$ | ~0.059 eV | S | 1 | Within 1$\sigma$ | Ch 8 |
 | N5 | Normal mass ordering | structural | S | 1 | Confirmed | Ch 8 |
-| N6 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(a)-tract. | $1.178 \pm 0.020$ confirmed | Ch 8 |
+| N6 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(b) | $1.178 \pm 0.020$ confirmed | Ch 8 |
 | N7 | $\delta_{\text{CP}}$ | $b_{12} - b_{13}$ (sub-dominant U-odd) | L | 2(b)ᵍ | T2K/NOvA: bijection-constraining | Ch 8 |
 
 **Summary statistics.** Counts: 3 S + 4 L. Total: 7. The L-class entries divide into two kinds: (i) **sub-σ confirmed predictions** — N1, N3, N6 — whose Layer 1 structural form (TBM zeroth order plus the $\lambda^2$ scale) holds unconditionally and whose specific values follow given the substrate Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3$, classified as Layer 2(b) per the §7.3 routing computation (the second-order derivation route excluded; see footnote ᶠ above); (ii) **parameterization-level prediction** — N7 — where the framework identifies $b_{12} - b_{13}$ as the Wilson-coefficient combination controlling $\delta_{CP}$ (a structural-form statement) but the specific value is bijection-specific and the framework "makes no commitment to any specific value of $\delta_{PMNS}$" per SM §6.4 / §7.3 (see footnote ᵍ).
