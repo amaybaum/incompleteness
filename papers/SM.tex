@@ -4382,7 +4382,7 @@ the substrate ratio \(b_{23}/(b_{12}+b_{13}) = 4/3 = 2A^2\). Within the
 four-layer structural framework of §8.3, \(\sin^2\theta_{13}\) is a
 Layer 1 unconditional structural prediction, while \(\sin^2\theta_{12}\)
 and \(\sin^2\theta_{23}\) are layered predictions: Layer 1 form combined
-with the Layer 2(a)-tractable Cond 2 coefficient.
+with the Layer 2(b) Cond 2 coefficient.
 
 \textbf{Experimental confirmation (JUNO).} The Jiangmen Underground
 Neutrino Observatory reported its first measurement of reactor neutrino
@@ -4697,18 +4697,28 @@ units --- small rather than order unity, satisfiable but not yet
 derived. The remaining content of Condition 2 is thereby a single
 number: the spin-to-chirality projection with proper on-shell
 normalization --- the same machinery as the \(c_\lambda\) computation of
-§7.1. That machinery's first structural result sharpens the situation:
-between same-projection physical legs the two-hop operator is
-\emph{purely spin-flip} (the spin-diagonal channel vanishes
-identically), so the naive chirality routings yield
-\(\rho \in \{0, 1\}\) against the required \(\rho \approx -0.015\) to
-\(-0.03\) --- the condition's derivation now rests entirely on whether
-the left--right sublattice routing of the mass channel (the trace-out's
-chirality assignment) supplies the small overlap factor. That single
-assembly either closes the condition as a derivation or retires the
-substrate chain, leaving the \(7/6\) sum rule as a direct experimental
-test in either case. Declared inputs of this reduction: the hop model of
-the taste geometry, the projection \(\rho\), and the neglect of the
+§7.1. That machinery resolves the question, and the resolution is
+negative --- algebraically, in the same identity class as the §7.1
+result. In the complete \((\gamma_S \otimes \xi_T)\) channel
+decomposition, the two-hop operator is a \emph{single pure monomial}
+(\(\gamma_0\gamma_1\gamma_3\) in the spin slot for the axes-\((1,2)\)
+transfer, times a taste monomial), and a monomial is orthogonal to every
+other channel: its weight in each mass-channel spin structure ---
+scalar, \(\gamma_0\), and both \(\gamma_5\)-graded partners --- vanishes
+identically. The projection \(\rho\) is therefore not small but exactly
+zero, against the required \(-0.015\) to \(-0.03\): the substrate
+dressing chain is retired. Condition 2 accordingly stands as what the
+construction always declared it to be --- a stated condition, with the
+\(7/6\) sum rule as its direct experimental test --- and the
+derivation-mechanism space is now mapped: first-order-squared effects
+are excluded by the spectrum-dominance computation, and the geometric
+second-order route is excluded by monomial orthogonality. One scalar
+route survives the mapping and is recorded without being pursued here:
+the \(O(\lambda^3)\) direct--two-hop interference is spin-scalar (the
+square of the transfer monomial is the identity), a different
+construction that would require its own chain and carries an additional
+factor of \(\lambda\). Declared inputs of this reduction: the hop model
+of the taste geometry, the projection \(\rho\), and the neglect of the
 \(O(\lambda^3)\) interference; one convergence caveat is recorded ---
 the \((1,2)\) channel carries a hierarchy-enhanced correction
 \(\lambda^2 m_\tau^2/m_\mu^2 \approx 0.7\) at physical \(\lambda\), so
@@ -5615,21 +5625,21 @@ the weak-scale \(y_t \approx 1\) coincidence with the mechanism open
 (§7.2); \textbf{6 are layered predictions} (\textbf{L}, Layer 1 form
 combined with one Layer-2 substrate-specific coefficient or Layer-3
 empirical input: \(m_d/m_s\) via GST as above, \(\sin^2\theta_{12}\) and
-\(\sin^2\theta_{23}\) via Cond 2 (Layer 2(a)-tractable per §7.3
-structural decomposition), \(m_u/m_d\) via amplitude-vs-eigenvalue
-alignment (Layer 2(b)), \(m_b\) inheriting \(Q_{\text{down}}\)'s
-phenomenological status, \(m_b/m_\tau\) via
-\(K = 1/(n_{\text{gen}} - 1)\) representation-theoretic identity (Layer
-1 closed per §7.5) with Layer 2(a)-tractable substrate-loop verification
-residual); 3 are retrodictions (\textbf{R}: the SU(2) and SU(3)
-couplings, where \((A, B)\) are matched to observation rather than
-computed, and the top mass per §7.2); 1 fixes the universal threshold
-\(\delta_0\) from the U(1) coupling (\textbf{E}); 3 form a one-input
-mass/parameter chain (\textbf{M}); 1 uses an explicit empirical input
-(\textbf{E}, the Jarlskog phase \(\eta\)). No parameters are fit to the
-predicted quantities in any of the \textbf{S} or \textbf{L} classes; the
-layered classifications reflect explicit dependence on stated structural
-inputs (Cond 2 of §7.3 --- Layer 2(a)-tractable; the open derivations
+\(\sin^2\theta_{23}\) via Cond 2 (Layer 2(b) per the §7.3 routing
+computation), \(m_u/m_d\) via amplitude-vs-eigenvalue alignment (Layer
+2(b)), \(m_b\) inheriting \(Q_{\text{down}}\)'s phenomenological status,
+\(m_b/m_\tau\) via \(K = 1/(n_{\text{gen}} - 1)\)
+representation-theoretic identity (Layer 1 closed per §7.5) with Layer
+2(a)-tractable substrate-loop verification residual); 3 are
+retrodictions (\textbf{R}: the SU(2) and SU(3) couplings, where
+\((A, B)\) are matched to observation rather than computed, and the top
+mass per §7.2); 1 fixes the universal threshold \(\delta_0\) from the
+U(1) coupling (\textbf{E}); 3 form a one-input mass/parameter chain
+(\textbf{M}); 1 uses an explicit empirical input (\textbf{E}, the
+Jarlskog phase \(\eta\)). No parameters are fit to the predicted
+quantities in any of the \textbf{S} or \textbf{L} classes; the layered
+classifications reflect explicit dependence on stated structural inputs
+(Cond 2 of §7.3 --- Layer 2(a)-tractable; the open derivations
 referenced in §7.2 and §7.5) or phenomenological inputs
 (\(Q_\text{down}\)) rather than free parameter fitting. The C class
 (conditional structural pending derivation) is currently empty.
@@ -5978,12 +5988,14 @@ between up-type and down-type Yukawa eigenstates (and hence the Jarlskog
 invariant, \(\delta_{CKM}\) via the empirical \(\eta\), and
 \(\delta_{PMNS}\)); and individual Wilson coefficients of the
 cubic-invariant operators contributing to the Yukawa sector beyond
-whatever structural relations (such as Condition 2 of §7.3, currently a
-structural input pending derivation) constrain them. The CP phases are
-explicitly compatible with Theorem 21: the theorem establishes
-\(\bar\theta = 0\) (the determinant-phase combination) but does not
-constrain the basis-alignment structure that produces the Jarlskog
-invariant (see §5.4 for the full scope statement).
+whatever structural relations (such as Condition 2 of §7.3, a stated
+structural input whose second-order derivation route is excluded by the
+monomial-orthogonality result there, and which the \(7/6\) sum rule
+tests directly) constrain them. The CP phases are explicitly compatible
+with Theorem 21: the theorem establishes \(\bar\theta = 0\) (the
+determinant-phase combination) but does not constrain the
+basis-alignment structure that produces the Jarlskog invariant (see §5.4
+for the full scope statement).
 
 The framework's predictions stratify into four layers, made precise here
 for downstream reference:
@@ -6040,15 +6052,18 @@ Lagrangian. Three sub-cases:
 Cond 2 (\(b_{23} = (4/3)(b_{12}+b_{13})\)) admits the structural
 decomposition of §7.3: an \(A_1\) component closed at Layer 1 (sum rule
 preserved by \(A_1\) alone via \(\cos^2\theta_{13}\) dressing) and an
-\(A_2\) component reducing to the Layer 2(a)-tractable question of why
-\(b_{23}/(b_{12}+b_{13})\) takes the specific value
-\(4(d-1)/(2d) = 4/3\). The natural Higgs-democratic spurion does not
-produce this ratio (the natural form gives
-\(b_{12}:b_{13} = m_\tau/m_\mu \approx 17 : 1\) from Layer 1 mass-matrix
-algebra applied to a generation-democratic substrate Yukawa, per §7.3
-``Positive support''); the closure path is a one-loop staggered
-substrate calculation (§7.3 ``Status of Cond 2''). Similarly, the
-intra-doublet vs inter-generation channel decomposition for
+\(A_2\) component whose ratio
+\(b_{23}/(b_{12}+b_{13}) = 4(d-1)/(2d) = 4/3\) now sits at Layer 2(b):
+the sharply specified substrate calculation that defined its
+2(a)-tractable period has been performed (§7.3) and excludes the
+second-order route, so the ratio is a solution-specific input unless the
+recorded \(O(\lambda^3)\) construction is some day pursued and succeeds.
+The natural Higgs-democratic spurion does not produce this ratio (the
+natural form gives \(b_{12}:b_{13} = m_\tau/m_\mu \approx 17 : 1\) from
+Layer 1 mass-matrix algebra applied to a generation-democratic substrate
+Yukawa, per §7.3 ``Positive support''); the closure path is a one-loop
+staggered substrate calculation (§7.3 ``Status of Cond 2''). Similarly,
+the intra-doublet vs inter-generation channel decomposition for
 \(m_u/m_d = \sqrt{\theta_0}\) (§7.2) requires alignment between SU(2)
 Yukawa structure and cubic-group \(T_1\) perturbation that is
 bijection-specific (Layer 2(b)). The \(K = 1/2\) coefficient in the
@@ -6077,10 +6092,12 @@ intermediate case --- a ratio that reduces to a sharply specified
 structural quantity not yet derived from substrate dynamics, but with
 concrete substrate calculations available to test it --- is Layer
 2(a)-tractable. The Cond 2 ratio
-\(b_{23}/(b_{12}+b_{13}) = 4(d-1)/(2d)\) is the canonical example: the
-structural numerology (squared off-democratic projection of vector reps)
-is sharp, but the derivation from the cubic-lattice substrate Yukawa is
-the open task (§7.3).
+\(b_{23}/(b_{12}+b_{13}) = 4(d-1)/(2d)\) was the canonical example until
+its defining calculation was performed (§7.3) and excluded the
+second-order route --- demoting it to 2(b) and demonstrating the class's
+exit rule in the negative direction; the current 2(a)-tractable
+residents are the D11 mechanism, the D10 \(K\)-value, and the
+\(\delta_0\) threshold questions.3).
 
 \textbf{Sub-classifications of Layer 2(b) by mechanism.} Within Layer
 2(b), the framework distinguishes three mechanisms by which a
@@ -6090,11 +6107,10 @@ selected by the bijection (D11: which \(V_2\)-axis the Higgs condenses
 along determines \(m_u/m_d\)); (ii) \emph{multi-parameter operator
 alignment} --- multiple Wilson coefficients in distinct operator
 channels align in a specific pattern (Cond 2 was the canonical example
-before its §7.3 structural decomposition promoted it to Layer
-2(a)-tractable; sub-classification (ii) currently has no
-Layer-2(b)-resident example, with Cond 2's restructured residual
-question concerning a single sharp ratio rather than multi-parameter
-alignment); (iii) \emph{cross-layer transfer} --- a structural relation
+before its §7.3 structural decomposition; the decomposition's residual
+ratio, briefly Layer 2(a)-tractable, has since been computed and demoted
+to 2(b); sub-classification (ii) currently has no Layer-2(b)-resident
+example); (iii) \emph{cross-layer transfer} --- a structural relation
 transfers between distinct group-theoretic layers (spatial vs internal
 \(T_1\)). The mechanism specificity is informative: single-parameter
 selection constrains the bijection more tightly than generic
@@ -6109,17 +6125,16 @@ is parametrized by \emph{discretization-scheme choices} (field
 quantization, lattice size, timestep, boundary conditions, rounding
 rule), not by abstract permutation freedom. Once the discretization
 scheme is fixed, the bijection is essentially unique. As a consequence,
-Layer 2 coefficients (Cond 2 ratio at 2(a)-tractable status, D11
-mechanism, D10 K-value, \(\delta_0\) threshold --- all at Layer
-2(a)-tractable or 2(b) status) are \emph{all} functions of the same
-underlying discretization choices --- they are not independent. This
-sharpens what Layer 2 means: the framework's empirical matches at
-sub-percent / sub-σ precision (Cond 2 at 0.6σ on the sum rule,
-\(m_u/m_d\) at 0.6\%) are tighter tests of discretization scheme than
-they appear as tests of ``generic bijection alignment.''
-Cross-prediction consistency is therefore a meaningful test within
-structural clusters; the cubic-group \(T_1\)-Casimir cluster of §7.7 is
-one such successful test.
+Layer 2 coefficients (Cond 2 ratio at 2(b) status, D11 mechanism, D10
+K-value, \(\delta_0\) threshold --- all at Layer 2(a)-tractable or 2(b)
+status) are \emph{all} functions of the same underlying discretization
+choices --- they are not independent. This sharpens what Layer 2 means:
+the framework's empirical matches at sub-percent / sub-σ precision (Cond
+2 at 0.6σ on the sum rule, \(m_u/m_d\) at 0.6\%) are tighter tests of
+discretization scheme than they appear as tests of ``generic bijection
+alignment.'' Cross-prediction consistency is therefore a meaningful test
+within structural clusters; the cubic-group \(T_1\)-Casimir cluster of
+§7.7 is one such successful test.
 
 \textbf{Selection problem.} The framework characterizes a constrained
 class of substratum bijections (above) and derives empirical predictions
@@ -6327,7 +6342,9 @@ phenomenological inputs, one-input mass/parameter chains, and explicit
 empirical inputs respectively, as detailed in §7.6. The C class
 (conditional structural pending derivation) is currently empty: Cond 2
 --- the only candidate for C in v1.9.5 --- has been classified Layer
-2(b) following operator counting, moving the dependent predictions to L.
+2(b) following operator counting, moving the dependent predictions to L;
+the §7.3 routing computation subsequently confirmed this classification
+by excluding the second-order derivation route.
 
 These are analogous to the mass \(M\) in the Schwarzschild solution: GR
 derives the functional form of the metric but does not predict which

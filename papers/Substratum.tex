@@ -550,20 +550,47 @@ general-\(d\) form of this ratio is
 substrates \((S, \varphi)\)):
 
 (A1) \textbf{Finiteness.} The configuration space \(S\) is finite.
-(Follows from E3 + the holographic bound interpreted as Hilbert-space
-dimension cutoff \(\dim \mathcal{H} \leq e^{A/4}\).)
+(Two-part status. E3, with the holographic bound read as a Hilbert-space
+dimension cutoff \(\dim \mathcal{H} \leq e^{A/4}\), bounds what
+observation reaches: the visible sector and its boundary layer,
+\(\mathcal{C}_V \times \mathcal{C}_B\) --- which is also all that the
+emergent observables depend on, by the boundary-only dependence lemma
+{[}GR §3.2{]}. The extension to all of \(S\) is then a gauge choice
+rather than a further fact: by the deep-sector enlargement freedom
+(Theorem 24(iii)), the deep hidden sector may be finite of any size, or
+infinite, without changing the emergent description, and A1 selects the
+minimal --- finite --- representative of the equivalence class (made
+precise in the corollary following Theorem 24). The substrate's total
+cardinality beyond the boundary layer is not an observable question, in
+the same sense that the uniform vacuum offset is not.)
 
 (A2) \textbf{Determinism.} \(\varphi: S \to S\) is a bijection
-(deterministic, reversible dynamics).
+(deterministic, reversible dynamics). (Two-part status, per the dilemma
+argument of {[}Main §2.2{]}: a non-injective descent either leaves a
+statistical trace --- excluded by the observed unitarity of quantum
+dynamics --- or leaves none, in which case it is removable, every map on
+a finite set restricting to a bijection on its eventual image, where all
+recurrent registered history lives. Bijectivity for the dynamics
+governing registered history is thus partly structural and partly
+anchored by one empirical input, the observed unitarity; Main's
+honest-accounting ledger records the same division.)
 
 (A3) \textbf{Bounded coupling degree.} Each site is coupled to a bounded
 number of neighbors in \(\varphi\)'s action. (Required for locality and
-the emergence of a coupling graph with well-defined dimension.)
+the emergence of a coupling graph with well-defined dimension. The
+physical content is boundedness itself; the specific degree is gauge ---
+any bounded-degree graph in the quasi-isometry class produces the same
+emergent quantum-mechanical, dimensional, and gravitational content,
+Theorem 24(iv).)
 
 (A4) \textbf{Center independence.} The dynamics \(\varphi\) does not
 depend on a choice of ``center'' site; equivalently, \(\varphi\)
 commutes with lattice translations up to gauge. (Required to derive the
-wave equation in Stage 2.)
+wave equation in Stage 2. Its observational anchor is the homogeneity of
+physical law --- no experiment has found a preferred location in the
+laws --- the cosmological principle's complement to E4's isotropy;
+whether it is independently warranted by the observer architecture
+remains the question flagged in §1.)
 
 (A5) \textbf{Linearity.} The wave equation for \(\varphi\) is linear.
 (Equivalent to amplitude-scale gauge invariance --- that the field-value
@@ -1288,6 +1315,34 @@ supplies and a generic isotropic graph does not, so for that content
 (iv) is restricted to the orientation- and
 octahedral-structure-preserving isomorphisms (see the qualification in
 the statement). \(\square\)
+
+\textbf{Corollary (effective finiteness and gauge-class transfer).}
+Three statements make A1's two-part status precise. \emph{(i) The
+bound.} E3, read as a Hilbert-space dimension cutoff, bounds the
+observationally relevant space:
+\(|\mathcal{C}_V \times \mathcal{C}_B| \leq e^{S_\partial}\) with
+\(S_\partial = A/4\) in Planck units --- for the de Sitter horizon,
+\(e^{10^{122}}\). This dimension-cutoff reading is the interpretive
+premise of A1, and this is the only place it enters. \emph{(ii)
+Boundary-only dependence.} For accessible times \(t \ll \tau_B\),
+\(T_{ij}(t) = T_{ij}^{(B)}(t) + \mathcal{O}(t/\tau_B)\) ({[}GR §3.2{]}),
+so every emergent observable is a functional of
+\(\mathcal{C}_V \times \mathcal{C}_B\) data alone. \emph{(iii)
+Transfer.} Let \(P\) be any statement expressible through
+\(\{T_{ij}(t) : t \ll \tau_B\}\). If \(P\) holds for one member of the
+deep-sector-enlargement orbit of \((S, \varphi)\) under generator (iii),
+it holds for every member, finite or infinite: the enlargement alters
+only \(\mathcal{C}_D\) and its dynamics, subject to
+\(\tau_B^D \gg \tau_S\), leaving \(T^{(B)}\) unchanged, so \(P\)'s truth
+value is constant on the orbit by (ii). In particular, P-indivisibility
+--- established on the minimal finite representative by recurrence
+(\(\varphi^N = \mathrm{id}\), {[}Main §2.3{]}) --- holds on every
+member; on infinite-deep-sector members, where recurrence is
+unavailable, the accessible-timescale backflow lemma ({[}Main §2.3{]})
+establishes the same conclusion without recurrence. The two routes agree
+where both apply and jointly cover the orbit; A1's choice of the finite
+representative is therefore a convenience of proof, not a physical
+restriction. \(\square\)
 
 \textbf{Remark (amplitude-scale gauge --- the unobservability of
 absolute field scale).} One gauge freedom invoked elsewhere is named
