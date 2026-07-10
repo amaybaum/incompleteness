@@ -16,6 +16,8 @@ Barandes, J. A. (2023). The Stochastic-Quantum Correspondence. *arXiv*:2302.1077
 
 Barandes, J. A. (2024). The Stochastic-Quantum Theorem. *arXiv*:2309.03085.
 
+Braunstein, S. L., & Pati, A. K. (2007). Quantum information cannot be completely hidden in correlations: Implications for the black-hole information paradox. *Physical Review Letters* 98: 080502.
+
 Bell, J. S. (1964). On the Einstein-Podolsky-Rosen paradox. *Physics Physique Fizika* 1: 195-200.
 
 Bong, K.-W., Utreras-Alarcón, A., Ghafari, F., Liang, Y.-C., Tischler, N., Cavalcanti, E. G., Pryde, G. J., & Wiseman, H. M. (2020). A strong no-go theorem on the Wigner's friend paradox. *Nature Physics* 16: 1199-1205.
