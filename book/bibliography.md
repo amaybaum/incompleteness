@@ -12,6 +12,10 @@ Maybaum, A. (2026). *The Incompleteness Framework*. Zenodo, concept DOI: 10.5281
 
 ## Foundations of quantum mechanics and interpretation
 
+Arnold, V. I. (1989). *Mathematical Methods of Classical Mechanics* (2nd ed., Graduate Texts in Mathematics 60). Springer-Verlag.
+
+Engel, K.-J., & Nagel, R. (2000). *One-Parameter Semigroups for Linear Evolution Equations* (Graduate Texts in Mathematics 194). Springer-Verlag.
+
 Barandes, J. A. (2023). The Stochastic-Quantum Correspondence. *arXiv*:2302.10778.
 
 Barandes, J. A. (2024). The Stochastic-Quantum Theorem. *arXiv*:2309.03085.
