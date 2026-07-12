@@ -131,6 +131,18 @@ The characterization of §4.3 is exact in the idealized limit $S \to \infty$. Th
 
 ---
 
+### 4.6 The depth axis: residual dissipation, the correction fork, and the box
+
+§4.5 bounded the width of physical computation; the framework also bounds its depth. The residual dissipation $\mathcal{D} \sim \tau_S/\tau_B \sim 10^{-32}$ ([Main], §3.2 and the scope remarks of §3.5) is an isolation-independent deviation from exact unitarity sourced by the cosmological partition itself — a decoherence floor in the Penrose–Diósi genre but with a derived rate, already registered in [Main] as the framework's falsifiable residue. Its computational reading: uncorrected coherent depth is bounded by $\sim 1/\mathcal{D} \sim 10^{32}$ operations at the system's natural clock, however perfect the engineering.
+
+**The correction fork.** Whether quantum error correction erases this wall is an open determination of the construction, not a free choice. If the $\mathcal{D}$-channel satisfies the independence assumptions of the threshold theorem, logical depth is unbounded — the floor sits thirty orders below threshold and is corrected trivially. If the cosmological kernel's correlations violate those assumptions, the depth ceiling survives error correction as a second hard wall. The kernel's correlation structure is in principle computable from the partition; the framework does not adjudicate the fork here, and registers it as an open determination of the same standing as the other structural forks the corpus carries explicitly.
+
+**The box.** With this section the framework bounds all four axes of physical computation from one construction: width (holographic budget, §4.5), depth (residual dissipation, this section), rate (the Margolus–Levitin bound, derivable from the tick structure — derivation queued), and memory (the Bekenstein bound, derivable from the partition — derivation queued). Hypercomputation through spacetime structure is closed as well: Malament–Hogarth constructions require unbounded blueshift and effectively infinite state space, unavailable on a finite lattice with $e^{S}$ states. The account of physical computation is therefore a complete box, with each face carrying either a derived number or a queued derivation from the same primitives.
+
+**Near-term texture.** The same partition machinery predicts P-indivisible device noise at the engineered-bath level ([Complexity §8.2]); its syndrome-level signature — an exploitable temporal kernel in detection-event time series, distinguishable from classical drift by divisibility tests — is testable on already-public fault-tolerance datasets, and the sharpened prediction is stated there.
+
+---
+
 ## 5. The Internal Structure of BQP and the P vs NP Question
 
 The BQP characterization theorem identifies the *boundary* of computational capability for embedded observers. It is silent on the internal structure of complexity classes inside that boundary. The conventional inclusion chain $\mathrm{P} \subseteq \mathrm{NP} \subseteq \mathrm{PH} \subseteq \mathrm{PSPACE}$, with BQP positioned somewhere within PSPACE and conjectured to contain BPP strictly, is unmodified by the framework's content.
