@@ -111,6 +111,26 @@ This modification has empirical consequences. The BPP-BQP gap — quantum advant
 
 ---
 
+### 4.5 The finite-substratum refinement: a ceiling above BQP's floor
+
+The characterization of §4.3 is exact in the idealized limit $S \to \infty$. The framework, however, asserts that $S$ is finite — the holographic bound caps the substratum resources available to any physical computation. This subsection states the finite-size consequence, which is a theorem-grade commitment of the corpus as it stands rather than an optional strengthening.
+
+**The forced position.** Any interpretation with a finite classical substratum faces a standard trilemma [7]: either (I) quantum computation encounters a scale ceiling; or (II) the tasks exhibiting quantum advantage possess hidden classical algorithms; or (III) the substratum commands resources exponential in the number of emergent qubits. The framework closes (III) by construction: the holographic bound is a structural commitment. It closes (II) by theorem: the substratum measure is the unique $\varphi$-invariant maximal-entropy measure ([Main], Lemma 3 and posit (iv) of the posit ledger), which carries no planted information — a polynomial-resource local reversible dynamics seeded from a maximal-entropy measure is a classical sampler, and escape by conspiracy would require a planted measure contradicting the uniqueness clause; independently, Theorem 24 of [Substratum §4] classifies the specific microstate as gauge, provably without empirical content, whereas extractable task answers would be empirical content. What remains is (I): the ceiling is not adopted here; it is entailed.
+
+**The scale.** The substratum budget for a computation of wall-time $T$ is bounded by the holographic patch: $\mathrm{bits}(T) = \pi (cT)^2/l_p^2$ degrees of freedom updating at most once per $t_p$ [10]. This gives $\sim 10^{145}$ operations for a day-scale computation, $\sim 10^{157}$ for thirty years, and $\sim 2 \times 10^{183}$ at the absolute horizon scale. A computation whose output statistics require classical sampling resources exceeding the budget cannot have those statistics realized by the substratum. The ceiling therefore sits at $n^* = \log_2(\mathrm{budget})$: approximately 480 (day), 520 (decades), 610 (absolute) *full-fidelity, sampling-hard* logical qubits — the operative quantity being fidelity-weighted classical simulation cost, not qubit count.
+
+**What survives and what fails.** The binding variable is the classical cost of the specific task. Factoring is subexponential classically (RSA-2048 $\sim 2^{117}$, RSA-4096 $\sim 2^{156}$, both far inside budget): Shor's algorithm at all cryptographically relevant sizes is unaffected, with the crossover near $\sim 86$-kilobit keys. Clifford circuits are classically simulable and hence unconstrained at any scale. What the ceiling forbids is full-fidelity realization of genuinely exponential-cost tasks — random-circuit sampling and generic highly entangled simulation — beyond $n^* \sim 500$–$600$.
+
+**The signature.** The prediction is qualitatively unlike any conventional noise model: fidelity should track the classical simulation cost of the circuit rather than its size, with degradation onsetting in (for example) T-count beyond the budget scale while structurally comparable Clifford-dominated circuits remain clean. Hardware, on the standard account, is blind to circuit semantics; hardness-correlated failure at fixed gate quality is therefore a discriminating signature. It is separable from the non-Markovian per-gate correction of [Complexity §8.2], which is task-independent bath physics: the two effects constitute distinct walls with distinct scalings.
+
+**Falsification.** Current experiments sit roughly 390 doublings below the ceiling (fidelity-weighted hardness $\sim 2^{95}$ against a day-scale budget of $2^{482}$); nothing yet probes it. Fault-tolerant machines at $\sim 10^3$ logical qubits enter the test zone. Clean absence of hardness-correlated degradation on sampling-hard circuits at that scale — full-fidelity performance where the budget forbids it — falsifies the finite classical substratum itself: unlike the framework's other gates, this one reaches [Main].
+
+**Corollary (entanglement dimension).** The same budget caps the entanglement dimension available to any physical Bell-type experiment at $2^{S_{\mathrm{patch}}}$: correlations requiring strictly infinite-dimensional (commuting-operator) strategies, whose existence is implied by MIP$^*$=RE, are physically unrealizable in-framework. The framework thereby takes a definite side on the physical Tsirelson question: realizable correlations are those approximable by finite-dimensional strategies.
+
+**Conditions.** The statement is conditional on: standard complexity conjectures (no polynomial classical algorithms for the sampling tasks; non-collapse of the polynomial hierarchy); the declared posits (iv)–(v) of the ledger ([Main]), which are what certify the absence of planted structure; the budget arithmetic at order-of-magnitude precision (the exponent is robust; prefactors are not); and the full-fidelity qualification, since the constraint binds fidelity-weighted cost, so low-fidelity demonstrations do not approach it.
+
+---
+
 ## 5. The Internal Structure of BQP and the P vs NP Question
 
 The BQP characterization theorem identifies the *boundary* of computational capability for embedded observers. It is silent on the internal structure of complexity classes inside that boundary. The conventional inclusion chain $\mathrm{P} \subseteq \mathrm{NP} \subseteq \mathrm{PH} \subseteq \mathrm{PSPACE}$, with BQP positioned somewhere within PSPACE and conjectured to contain BPP strictly, is unmodified by the framework's content.
@@ -280,3 +300,5 @@ The author thanks the broader community of foundational thinkers in quantum comp
 [8] A. Maybaum, "Methodology and Foundations of the Incompleteness of Observation Framework," (2026).
 
 [9] J. Kempe, A. Kitaev, and O. Regev, "The complexity of the local Hamiltonian problem," *SIAM Journal on Computing* **35**, 1070 (2006); arXiv:quant-ph/0406180.
+
+[10] S. Lloyd, "Computational capacity of the universe," *Phys. Rev. Lett.* **88**, 237901 (2002); arXiv:quant-ph/0110141.
