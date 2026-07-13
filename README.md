@@ -183,7 +183,7 @@ A book-length treatment, **The Incompleteness of Observation: A Unified Framewor
 | 2 | $\hbar = c^3 \varepsilon^2/(4G)$ from horizon thermal self-consistency, $\varepsilon = 2 l_p$ uniquely | theorem (boost prerequisite discharged to the falsifiable $M_X$ window) | GR §§3–4, §8.5 |
 | 3 | Bekenstein-Hawking entropy with $1/4$ coefficient ($1/4$ derived; GW250114 tests the area theorem, not the coefficient) | theorem | GR §5 |
 | 4 | Cosmological constant dissolution: $10^{122}$ ratio = $S_{\rm dS}$ compression ratio | theorem | GR §6 |
-| 5 | Wave equation uniquely selected; produces all inputs for Einstein's equations | theorem | SM §3 + GR §3 |
+| 5 | Wave equation uniquely selected; produces the matter and light-cone inputs for Einstein's equations (the smooth manifold's emergence from the discrete substratum is a separate, open kinematic question — GR §8.7) | theorem | SM §3 + GR §3, §8.7 |
 | 6 | SM gauge group SU(3)×SU(2)×U(1), 3 generations, hypercharges, $\bar\theta = 0$ | theorem | SM §§4, 5 |
 | 7 | Twenty-two SM observables match observation across CKM, mass, PMNS sectors | structural + empirical | SM §7 |
 | 8 | Dark sector $\sim 95\%$, $a_0 = cH/6$, Bullet Cluster, CMB peaks | theorem (total budget); structural (specific magnitudes) | GR §7 |
