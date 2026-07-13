@@ -1102,6 +1102,21 @@ relevant states) by tens of orders of magnitude.
 All three conditions are satisfied. The characterization theorem
 predicts: the active site's reduced dynamics is P-indivisible.
 
+A scope note is essential here. The characterization theorem is proved
+for a \emph{closed, reversible} substratum (a bijection on a finite
+configuration space; {[}Main{]} §2.3). An enzyme and its scaffold are
+neither closed nor reversible --- the scaffold thermalizes with solvent,
+and phase-space volume contracts as heat leaves --- so the
+enzyme-over-scaffold trace-out is not itself an instance of the theorem.
+What transfers rigorously is the model-independent consequence (below):
+coupling to a slow, high-capacity sector yields non-Markovian,
+history-dependent dynamics. Genuine P-indivisibility is a property of
+the \emph{closed substratum} of which the enzyme is a partition; its
+observable magnitude at the molecular scale is not established here. The
+predictions of §7.3--§7.4 should therefore be read as tests of molecular
+\emph{memory}, consistent with the framework, rather than as isolating
+P-indivisibility from classical conformational memory.
+
 \hypertarget{the-prediction}{%
 \subsubsection{7.3 The prediction}\label{the-prediction}}
 
@@ -1725,10 +1740,16 @@ generically produces \(H \approx 0.7\)--\(0.8\) {[}31{]}. This
 superposition argument applies to bulk/aggregate measurements (glasses,
 financial markets, river flows, EEG) where many components are averaged.
 It does \emph{not} apply to single-molecule and single-system
-measurements, where there is no ensemble to superpose. Non-exponential
-kinetics in a single molecule must arise from the molecule's internal
-dynamics --- specifically, from coupling between the observed process
-and slow internal degrees of freedom (C1--C3).
+measurements, where there is no ensemble to superpose. But the
+single-entity restriction excludes only the \emph{superposition}
+explanation: non-exponential single-molecule kinetics still arises from
+coupling to slow internal degrees of freedom --- and classical dynamic
+disorder (the fluctuating-enzyme picture; Zwanzig 1990; Lu et al.~1998)
+is exactly such a single-entity, intrinsic mechanism, one the
+framework's own §7.4 notes is model-independent. This is the C1--C3
+architecture in the weak (grade-ii, memory) sense of the §7.2 scope
+note; it is consistent with --- but does not isolate --- the framework's
+distinctive P-indivisibility.
 
 Restricting to single-entity measurements where superposition is
 excluded by construction:
@@ -1773,21 +1794,37 @@ Ion channel (membrane-coupled) & Single-channel recording &
 
 For the four enzymes and the qubit --- all with ``typical'' C3 capacity
 (conformational state spaces of \(\sim 10^2\)--\(10^4\) states) ---
-\(H = 0.79 \pm 0.03\). The superposition objection is excluded: these
-are individual molecules or devices, not ensembles. The memory is
-intrinsic, arising from coupling to a slow internal hidden sector
-(protein scaffold conformational dynamics for enzymes, TLS bath for the
-qubit).
+\(H = 0.79 \pm 0.03\). Two qualifications keep this honest. First, \(H\)
+here is not an independent measurement: it is the measured stretched/1-f
+exponent rescaled by the conversions stated above (\(H = 1 - \beta/2\),
+\(H = (1+\alpha)/2\)), so ``universal \(H = 0.79 \pm 0.03\)'' is
+equivalent to ``these selected systems have \(\beta \approx 0.42\),'' a
+known range for single-molecule dispersed kinetics --- the regularity is
+inherited from the selection, not discovered across it. Second, the
+superposition objection is excluded, but the classical dynamic-disorder
+mechanism is not: the memory is intrinsic to each single entity, and
+arises from coupling to a slow internal hidden sector (protein scaffold
+conformational dynamics for enzymes, TLS bath for the qubit), which is a
+grade-ii signature reproduced by classical (divisible) fluctuating-rate
+models. It is therefore a consistency observation, not a distinguishing
+test of P-indivisibility.
 
 The myoglobin outlier (\(H = 0.95\)) has an anomalously deep
 conformational hierarchy --- Frauenfelder's ``protein energy landscape''
 involves \(\sim 10^6\)--\(10^9\) conformational substates organized in a
 fractal-like tier structure, far exceeding typical enzyme C3 capacity.
 This suggests \(H\) increases with C3: typical capacity gives
-\(H \approx 0.8\); deep capacity gives \(H \to 1\). The predicted
-relationship \(H(C3)\) --- derivable in principle from the
-characterization theorem's dependence on hidden-sector dimension --- is
-a quantitative test.
+\(H \approx 0.8\); deep capacity gives \(H \to 1\). The genuinely
+distinctive content of this section is not the single-system value
+(degenerate, above) but this \emph{cross-substrate} law \(H(C3)\) ---
+the claim that one memory-strength relation holds across an enzyme, a
+qubit, and an ion channel, which per-system classical models do not
+unify. As stated, however, it is derived only ``in principle'' from the
+characterization theorem's dependence on hidden-sector dimension, and it
+is fit in-sample (the single deep point, myoglobin, motivates it). The
+operative test is therefore out-of-sample: measure \(H\) on systems of
+independently known hidden-sector dimension and check the predicted
+\(H(C3)\).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 

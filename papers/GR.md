@@ -523,6 +523,12 @@ The stratification clarifies what would falsify what: a measured violation of th
 
 ---
 
+### 8.6 Relation to other entropic and emergent-gravity programs
+
+The thermodynamic derivation of §3–§5 places this framework within a broader program that treats gravity as entropic or emergent rather than fundamental. Jacobson's equation-of-state derivation [1] is the direct antecedent used here; Verlinde's entropic-force account [50] and Padmanabhan's thermodynamic-aspects program [51] reach Einstein-level dynamics from horizon thermodynamics and holographic equipartition, sharing with this framework both the entropic premise and a holographic/boundary counting of degrees of freedom. More recently, Bianconi's *gravity from entropy* [52] derives modified Einstein equations from an action built on the quantum relative entropy between the spacetime metric and a matter-induced metric, reproducing the low-energy Einstein equations and an emergent positive cosmological constant *without* invoking horizon entropy or holography. The existence of this last route is worth stating plainly: "gravity from entropy" does not uniquely select the horizon/holographic architecture used here, so this framework's Jacobson–Bekenstein route is a specific commitment among alternatives rather than the only entropic path to Einstein dynamics. What this framework adds to the landscape is not the entropic premise — which it shares — but the discrete substratum beneath the thermodynamics ([Main]; [SM]) and the quantitative consequences specific to it (the fixed $1/4$ coefficient, $\epsilon = 2\,l_p$, and the running-vacuum coefficient of §7).
+
+A qualitative convergence is worth noting without overstating it: entropic and emergent-gravity programs generically yield a *dynamical* dark-energy sector rather than a bare constant $\Lambda$ — the running vacuum of §7.1 here, and the always-positive G-field term of [52]. This convergence is at the level of the qualitative form (dark energy as a derived, non-constant feature) only; it does not transfer magnitude, sign, or mechanism between programs, which differ substantially. The sign and $\sim 10^{-32}$ magnitude of the running-vacuum coefficient predicted here (§7.1) are specific to this construction — not corroborated by, nor inherited from, the neighbouring programs.
+
 ## 9. Conclusion
 
 The cosmological horizon realizes the embedded-observation framework of [Main], and the consequences for the gravitational sector are sharp. The emergent action scale $\hbar = c^3 (2\,l_p)^2 / (4G)$ is determined by thermal self-consistency between the classical horizon temperature and the Euclidean periodicity of the emergent QFT, as a gap equation with $\epsilon$ the one free geometric input (§4). The Bekenstein-Hawking entropy $S = A/(4 l_p^2)$ is derived by direct mode counting, with the $1/4$ coefficient fixed as the ratio between the Euclidean KMS period and the Jacobson prefactor — a structural constant, not an empirical fit. The GW250114 observation of September 2025 confirms Hawking's area theorem at $99.999\%$ confidence — classical horizon dynamics the framework preserves; the derived $1/4$ coefficient has no direct empirical test. The cosmological constant problem is dissolved: the $10^{122}$ ratio between the quantum vacuum energy and the effective $\Lambda$ is the compression ratio between two levels of description that refer to incommensurable objects, not a failure of cancellation.
@@ -831,3 +837,9 @@ The convergence is structural: both approaches require *something* to play the r
 [48] C. Yang, J.-D. Pan, X. Zhang, "Prospective sensitivity of CTAO on detection of evaporating primordial black holes," *JCAP* **09** (2025) 004; arXiv:2504.17478.
 
 [49] C. Moreno-Pulido, J. Solà Peracaula and S. Cheraghchi, "Running vacuum in QFT in FLRW spacetime: the dynamics of $\rho_{\rm vac}(H)$ from the quantized matter fields," arXiv:2301.05205.
+
+[50] E. P. Verlinde, "On the Origin of Gravity and the Laws of Newton," *JHEP* **04** (2011) 029; arXiv:1001.0785.
+
+[51] T. Padmanabhan, "Thermodynamical Aspects of Gravity: New insights," *Rep. Prog. Phys.* **73** (2010) 046901; arXiv:0911.5004.
+
+[52] G. Bianconi, "Gravity from entropy," *Phys. Rev. D* **111**, 066001 (2025); arXiv:2408.14391.
