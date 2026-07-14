@@ -3468,17 +3468,26 @@ with the deviation from unity vanishing as the field strength while
 remaining strictly positive. The identification's \emph{kinematic} half
 --- which measure, and which map --- is thereby raised to theorem level.
 The measure is fixed by the sphere-Gaussian projection of §4.2. The map
-is fixed by a uniqueness statement: under the principle that the induced
-connection be a homomorphism of the matter field's additive
-\((\mathbb{Z}/q\mathbb{Z})\) structure --- the structure the wave
-equation actually evolves --- the exponential is the \emph{unique} map
+is fixed by a uniqueness statement grounded in the framework's own gauge
+principle. The physical gauge is the alphabet's additive-automorphism
+group --- not arbitrary relabellings of \(\mathbb{Z}/q\mathbb{Z}\),
+since a nonlinear relabelling changes the fluctuation dispersion and so
+is not a symmetry of the observables --- so the induced connection must
+be a homomorphism of the matter field's additive
+\((\mathbb{Z}/q\mathbb{Z})\) structure, the structure the wave equation
+evolves. Under that requirement the exponential is the \emph{unique} map
 up to the choice of generator (the homomorphisms
 \(\mathbb{Z}/q\mathbb{Z} \to \mathrm{U}(1)\) being exactly the \(q\)-th
 roots of unity), and the polar candidate, a function of the
 multiplicative bilinear \(\phi^\dagger\phi\) rather than the additive
-difference, is excluded because it is not such a homomorphism. The
-substantive residual is now the \emph{dynamical} statement, that the
-interacting measure --- the smooth pushforward reweighted by
+difference, is excluded because it is not such a homomorphism. The same
+map is selected independently by the continuum limit: \(q\) is a
+resolution parameter, so a sensible \(q \to \infty\) limit is required,
+and the exponential's rescaled connection \((q/2\pi)\log M\) tends to
+the continuum gauge field \(q\)-independently, whereas the polar/Haar
+map is confining at every \(q\) with no such limit. The substantive
+residual is now the \emph{dynamical} statement, that the interacting
+measure --- the smooth pushforward reweighted by
 \(\det(D^\dagger D)^{N_f}\) --- retains this near-identity
 concentration. Because that reweighting is extensive, it does not follow
 from the classical pushforward result and must be checked directly.
@@ -3492,15 +3501,21 @@ interacting measure retains the classical near-identity concentration
 (the determinant renormalizing only the coefficient, and mildly ordering
 rather than disordering at small \(q\); the fermion tadpole moreover
 vanishes, so the identity is a stationary configuration). This is
-numerical evidence at small volume, in two dimensions, for
-\(\mathrm{SU}(2)\); it does not exclude a non-perturbative first-order
-transition to a confining vacuum (none appears at large \(q\), the
-weak-coupling side), and confirmation at physical parameters --- three
-dimensions, the full gauge group --- remains open. Two lesser residuals
-remain: the abelian row's field strength enters as a loop
-(vacuum-polarization) rather than a classical effect; and, separately,
-whether the near-identity measure additionally carries the chiral
-condensate the \(A^2\) amplitude requires (§7.5) is not settled here.
+numerical evidence at small-to-moderate volume, checked both in two
+dimensions for \(\mathrm{SU}(2)\) and in four dimensions for
+\(\mathrm{SU}(3)\) --- the physical dimension and non-abelian factor ---
+where the reweighted and classical \(\langle 1-P\rangle\) agree to
+sub-percent level across \(q\); it does not exclude a non-perturbative
+first-order transition to a confining vacuum (none appears at large
+\(q\), the weak-coupling side), and confirmation at production volume
+remains open. The abelian row is not a further gap: its classical field
+strength is identically zero (the gradient connection is pure gauge),
+but this is immaterial, since in the induced theory every coupling is
+the fermion vacuum polarization --- nonzero for \(\mathrm{U}(1)\) as for
+the non-abelian factors --- not a classical field strength. The one
+residual that remains separate is whether the near-identity measure
+additionally carries the chiral condensate the \(A^2\) amplitude
+requires (§7.5), which is not settled here.
 
 \emph{Note on the dynamical-fermion MC.} A separate set of
 dynamical-fermion HMC simulations is used to extract empirical inputs to
