@@ -3465,16 +3465,30 @@ is recovered only on the (inconsistent) independent-uniform field. This
 has been checked numerically for \(\mathrm{SU}(2)\) and
 \(\mathrm{SU}(3)\): \(\langle P \rangle \to 1\) as \(q \to \infty\),
 with the deviation from unity vanishing as the field strength while
-remaining strictly positive. The identification is thereby advanced from
-open conjecture to a candidate resolution, but is \emph{not} closed at
-the rigor level of §A.3: it rests on a canonicity argument for the
-exponential map rather than a uniqueness theorem, is exhibited for the
-classical induced measure rather than proved for the interacting theory
-to all orders, and leaves the abelian row's field strength as a loop
-(vacuum-polarization) rather than a classical effect. Whether the
-near-identity measure additionally carries the chiral condensate the
-\(A^2\) amplitude requires (§7.5) is a separate question, not settled
-here.
+remaining strictly positive. The identification's \emph{kinematic} half
+--- which measure, and which map --- is thereby raised to theorem level.
+The measure is fixed by the sphere-Gaussian projection of §4.2. The map
+is fixed by a uniqueness statement: under the principle that the induced
+connection be a homomorphism of the matter field's additive
+\((\mathbb{Z}/q\mathbb{Z})\) structure --- the structure the wave
+equation actually evolves --- the exponential is the \emph{unique} map
+up to the choice of generator (the homomorphisms
+\(\mathbb{Z}/q\mathbb{Z} \to \mathrm{U}(1)\) being exactly the \(q\)-th
+roots of unity), and the polar candidate, a function of the
+multiplicative bilinear \(\phi^\dagger\phi\) rather than the additive
+difference, is excluded because it is not such a homomorphism. The
+substantive residual is now the \emph{dynamical} statement, that the
+interacting measure --- the smooth pushforward reweighted by
+\(\det(D^\dagger D)^{N_f}\) --- retains this near-identity
+concentration. Because that reweighting is extensive, it does not follow
+from the classical pushforward result; it is favoured by the
+determinant's suppression of near-zero Dirac modes, which orders the
+configuration toward the identity, and it is of the kind established
+numerically rather than analytically, as confinement is. Two lesser
+residuals remain: the abelian row's field strength enters as a loop
+(vacuum-polarization) rather than a classical effect; and, separately,
+whether the near-identity measure additionally carries the chiral
+condensate the \(A^2\) amplitude requires (§7.5) is not settled here.
 
 \emph{Note on the dynamical-fermion MC.} A separate set of
 dynamical-fermion HMC simulations is used to extract empirical inputs to
