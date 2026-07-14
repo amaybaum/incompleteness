@@ -49,7 +49,7 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -3435,6 +3435,46 @@ pre-registration of those computations should carry explicitly.
 Resolving which map is correct, and whether its pushforward is
 near-identity or Haar, is the open structural task on which the coupling
 sector's derived-versus-fitted status ultimately rests.
+
+\emph{A candidate resolution.} The under-determination isolated above
+lives at two enumerable joints --- the amplitude of the matter measure
+and the map prescription --- and both admit a natural resolution, set
+down here for scrutiny as a candidate rather than asserted as closed.
+First, the measure feeding the pushforward is the uniform measure
+\emph{on the energy shell}, not the independent-uniform measure on
+\((\mathbb{Z}/q\mathbb{Z})^{K \times N}\): by the sphere-Gaussian
+projection of §4.2 the on-shell measure is the smooth Gaussian with
+covariance \([\Box_{\text{lat}}^{-1}]_{xy}\) --- the same
+\(O(1)\)-amplitude field the pseudofermion equivalence already requires
+--- so the two readings of ``uniform'' give opposite physics, and only
+the on-shell/smooth one is consistent with §4.2. Second, the canonical
+map from the \(\mathbb{Z}/q\mathbb{Z}\)-valued matter data to the group
+is the exponential
+\(M(\mathbf{n}, \hat e_j) = \exp\!\big(\tfrac{2\pi i}{q}\,\mathrm{Lie}\,[\phi(\mathbf{n}+\hat e_j) - \phi(\mathbf{n})]\big)\)
+--- the composite of the canonical roots-of-unity homomorphism
+\(\mathbb{Z}/q\mathbb{Z} \to \mathrm{U}(1)\) with the Lie exponential
+\(\mathfrak{g} \to G\) --- which respects the \(2\pi/q\) scale that the
+scale-invariant polar decomposition
+(\(\mathrm{polar}(cA) = \mathrm{polar}(A)\)) discards; this is why the
+polar candidate returns Haar irrespective of amplitude. On the smooth
+\(\Box^{-1}\) field the exponential map yields a \emph{near-identity}
+pushforward carrying weak, non-zero, octahedrally-equivariant
+non-abelian field strength --- the \(\beta_{\text{eff}} \sim \ln q\)
+regime this section requires --- while the polar candidate's Haar result
+is recovered only on the (inconsistent) independent-uniform field. This
+has been checked numerically for \(\mathrm{SU}(2)\) and
+\(\mathrm{SU}(3)\): \(\langle P \rangle \to 1\) as \(q \to \infty\),
+with the deviation from unity vanishing as the field strength while
+remaining strictly positive. The identification is thereby advanced from
+open conjecture to a candidate resolution, but is \emph{not} closed at
+the rigor level of §A.3: it rests on a canonicity argument for the
+exponential map rather than a uniqueness theorem, is exhibited for the
+classical induced measure rather than proved for the interacting theory
+to all orders, and leaves the abelian row's field strength as a loop
+(vacuum-polarization) rather than a classical effect. Whether the
+near-identity measure additionally carries the chiral condensate the
+\(A^2\) amplitude requires (§7.5) is a separate question, not settled
+here.
 
 \emph{Note on the dynamical-fermion MC.} A separate set of
 dynamical-fermion HMC simulations is used to extract empirical inputs to
