@@ -214,6 +214,8 @@ The existence direction is the composition of Stages 1–3. The uniqueness direc
 
 
 
+The structural assumptions A1–A6 exclude several broad classes of theory from the outset:
+
 - Intrinsically continuum theories (violate A1)
 - Intrinsically stochastic theories (violate A2)
 - Theories with unbounded coupling degree (violate A3)
