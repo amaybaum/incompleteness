@@ -3490,32 +3490,38 @@ residual is now the \emph{dynamical} statement, that the interacting
 measure --- the smooth pushforward reweighted by
 \(\det(D^\dagger D)^{N_f}\) --- retains this near-identity
 concentration. Because that reweighting is extensive, it does not follow
-from the classical pushforward result and must be checked directly.
-Reweighting the smooth-field ensemble by \(\det(D^\dagger D)^{N_f}\) ---
-with the connection built as the field gradient, as above --- indicates
-that near-identity survives: the determinant's effect on the plaquette's
-deviation from unity falls \emph{relative} to the classical
-near-identity peaking as \(q\) grows, the reweighted and unreweighted
-\(\langle 1-P\rangle\) coinciding in the large-\(q\) limit, so the
-interacting measure retains the classical near-identity concentration
-(the determinant renormalizing only the coefficient, and mildly ordering
-rather than disordering at small \(q\); the fermion tadpole moreover
-vanishes, so the identity is a stationary configuration). This is
-numerical evidence at small-to-moderate volume, checked both in two
-dimensions for \(\mathrm{SU}(2)\) and in four dimensions for
-\(\mathrm{SU}(3)\) --- the physical dimension and non-abelian factor ---
-where the reweighted and classical \(\langle 1-P\rangle\) agree to
-sub-percent level across \(q\); it does not exclude a non-perturbative
-first-order transition to a confining vacuum (none appears at large
-\(q\), the weak-coupling side), and confirmation at production volume
-remains open. The abelian row is not a further gap: its classical field
-strength is identically zero (the gradient connection is pure gauge),
-but this is immaterial, since in the induced theory every coupling is
-the fermion vacuum polarization --- nonzero for \(\mathrm{U}(1)\) as for
-the non-abelian factors --- not a classical field strength. The one
-residual that remains separate is whether the near-identity measure
+from the classical pushforward result and must be argued directly. It
+does follow from a free-energy comparison. The links are unitary, so the
+staggered spectrum is bounded and \(|\ln\det(D^\dagger D)|\) is bounded
+by \(cN\) with \(c = O(1)\) \emph{independent of \(q\)}: the
+determinant's total influence on the measure is extensive but
+\(q\)-blind. The prior, by contrast, is not: disordering the links
+requires field differences of order \(q\), which the on-shell Gaussian
+penalizes by \(\sim Nq^2/\pi^2\). The determinant therefore cannot pull
+the field out of the near-identity region once \(q\) exceeds an \(O(1)\)
+threshold --- numerically \(q \gtrsim 9\) at \(N = 4^4\), \(m = 0.1\),
+\(N_f = 6\) --- and at the physical alphabet size the prior wins by a
+factor \(\sim q^2\). The determinant moreover does not oppose the
+identity in the first place: at the same parameters
+\(\ln\det(D^\dagger D)\) is \(+260\) at \(U = I\) against \(-85\) on
+Haar-random links, so it \emph{reinforces} the near-identity
+concentration rather than competing with it, which is why the
+Haar-measure confinement of the induced theory reported above is a
+statement about the gauge entropy of the Haar measure, absent here, and
+not about the determinant. The residual is the rigor of the comparison
+rather than its direction: the constants are measured at one small
+volume and mass, and a first-order transition at intermediate \(q\) is
+not excluded, though none appears. Whether the near-identity measure
 additionally carries the chiral condensate the \(A^2\) amplitude
-requires (§7.5), which is not settled here.
+requires (§7.5) is a separate question, not settled here. The abelian
+row is not a further gap: its classical field strength is identically
+zero (the gradient connection is pure gauge), but this is immaterial,
+since in the induced theory every coupling is the fermion vacuum
+polarization --- nonzero for \(\mathrm{U}(1)\) as for the non-abelian
+factors --- not a classical field strength. The one residual that
+remains separate is whether the near-identity measure additionally
+carries the chiral condensate the \(A^2\) amplitude requires (§7.5),
+which is not settled here.
 
 \emph{Note on the dynamical-fermion MC.} A separate set of
 dynamical-fermion HMC simulations is used to extract empirical inputs to
