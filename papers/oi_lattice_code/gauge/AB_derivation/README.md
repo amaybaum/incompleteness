@@ -11,8 +11,14 @@ vs **A·B = 46.4** (paper's fit to observed SU(2)/SU(3) couplings at M_Z).
 
 **Agreement: within 3% at central value.**
 
-This upgrades the SU(2) and SU(3) entries in SM.md §6.3 from **retrodictions**
-to **first-principles predictions** at ~3% precision.
+Deriving A·B from first principles upgrades an **input** to the threshold, not
+the couplings themselves. The SU(2) and SU(3) entries in SM.md §6.3 remain
+**retrodictions**: δ₀ and the full `C_2`-dependent threshold parameterization are
+still empirical (δ₀ is treated as empirical input — see SM.md §6.2). Per SM.md §12,
+deriving the `C_2`-dependent threshold parameters from first-principles lattice PT
+is the open computational task that would upgrade the SU(2) and SU(3) couplings
+from retrodictions to strict predictions. What is established here is the structural
+prediction that A·B ≈ 48, consistent with the fit to ~3%.
 
 ## Quick reproduction
 
@@ -249,10 +255,14 @@ The calculation in `reproduce_AB.py` follows the TEXT convention (matching 1/α_
 The code's `Pi_1` is internally used as `D_gauge = 1/(p²·Pi_1)` but
 does NOT equal the Π_s that appears in 1/α_0 = 24π·Π_s.
 
-The prior `two_loop_vp.py` "$\delta_0^{(2L)} = 8.0 \pm 2$" result is held
-in reserve pending a rebuilt calculation with the TEXT convention. This
-doesn't invalidate either calculation, but it's worth verifying internal
-consistency in the paper.
+The prior `two_loop_vp.py` "$\delta_0^{(2L)} = 8.0 \pm 2$" result (computed in the
+`Pi_1` convention) has been superseded. The δ₀ calculation has since been rebuilt
+from first principles in the TEXT convention (`Π_s`, with the conversion
+`δ_0 = (1/α_0)·(δΠ_s^{(2L)}/Π_s)` tied to `1/α_0 = 24π·Π_s`) in
+`../c2_strict_2loop/`. The rebuilt result: the dominant scalar-bubble piece falls
+as `1/N^{3.09}` and vanishes in the continuum limit, so strict 2-loop lattice PT
+does **not** reproduce the empirical `δ_0 ≈ 10`, which is accordingly treated as
+empirical input fixed by the U(1) row. See SM.md §6.2 for the current statement.
 
 ## Dependencies
 
