@@ -331,7 +331,7 @@ This conclusion is structural rather than technical. Matrix models are the most 
 
 ### 6.8 What can be salvaged
 
-The negative conclusion in §7.8 admits four partial recoveries, ordered from most to least plausible.
+The negative conclusion in §7.8 admits five partial recoveries, ordered from most to least plausible.
 
 **(i) Different bridge.** Matrix models are not the only finite-dimensional formulation of string theory. Alternative bridges include: (a) the AdS/CFT correspondence, where the boundary CFT lives on a finite-dimensional spacetime that may be discretized while preserving the bulk string content; (b) tensor-network reformulations of matrix models [TensorNetworkMatrix2024], which translate continuous matrix dynamics into discrete tensor structures; (c) causal dynamical triangulations [Loll2019], a discretization scheme for quantum gravity with manifestly finite configuration space and combinatorial dynamics. Each of these admits independent investigation of A1–A6 compatibility, and the equivalence-class reading might hold for one of them even if it fails for matrix models. This paper does not pursue these alternatives in detail; they remain open directions.
 
