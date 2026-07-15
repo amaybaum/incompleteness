@@ -3393,12 +3393,24 @@ matter field
 \(\boldsymbol{\phi} \in (\mathbb{Z}/q\mathbb{Z})^{K \times N}\) (§3.1).
 The induced measure is the pushforward of the uniform measure on
 \((\mathbb{Z}/q\mathbb{Z})^{K \times N}\), which concentrates gauge
-configurations near the identity at large \(q\): the fraction of
-non-trivial link values scales as \(1/q\), giving an effective
-\(\beta_{\text{eff}} \sim \ln q\). Direct simulation of the 1D
-state-dependent coupling (§3.1, explicit construction) confirms that the
-wave equation creates no gauge correlations beyond random matter, but
-the \((\mathbb{Z}/q\mathbb{Z})\) constraint itself acts as an effective
+configurations near the identity at large \(q\). The rate depends on
+which reading of ``uniform'' is taken. Counting non-trivial link values,
+whose fraction scales as \(1/q\), gives
+\(\beta_{\text{eff}} \sim \ln q\); but that counting presumes the
+site-independent field, whereas the on-shell measure is the smooth
+\(\Box^{-1}\) field of §4.2, for which the exponential map's \(2\pi/q\)
+amplitude gives \(1 - \langle P\rangle \sim q^{-4}\) and hence
+\(\beta_{\text{eff}} \sim q^4\) (verified numerically for
+\(\mathrm{SU}(3)\) over \(q = 20\)--\(200\), and consistent with the
+plaquette-matching of §6.6). Since \(q\) is gauge (§2.7) and the
+physical coupling is \(q\)-independent after renormalization, neither
+form is load-bearing --- \(\beta = 11.1\) below is fixed by
+\(\alpha_0\), not by \(q\) --- but the two differ by orders of magnitude
+in where they place a given \(\beta_{\text{eff}}\), and only the second
+is consistent with §4.2. Direct simulation of the 1D state-dependent
+coupling (§3.1, explicit construction) confirms that the wave equation
+creates no gauge correlations beyond random matter, but the
+\((\mathbb{Z}/q\mathbb{Z})\) constraint itself acts as an effective
 gauge kinetic term.
 
 Since \(q\) is gauge (§2.7), the physical coupling is \(q\)-independent
@@ -3556,14 +3568,16 @@ within \(0.4\)--\(0.9\%\) across the full range from strong coupling
 \(\beta = 11.1\) itself: the induced action is Wilson-universal for this
 observable at the coupling the mass relations use, so the induced
 measure inherits the standard-measure \(Z_S\). The same matching locates
-\(\beta = 11.1\) at \(q \approx 11\) rather than at exponentially large
-\(q\) --- the physical alphabet is small, and the \(q \to \infty\) limit
-is the free theory, not the physical point. Two caveats bound this: the
-check is at one volume, one mass, and modest statistics, so universality
-at the production parameters (\(m \approx 0.12\), \(L = 32\)--\(64\)) is
-inferred rather than demonstrated; and the located \(q\) is contingent
-on the field-amplitude normalization of §4.2. Characterizing the
-residual \(O(1/\beta)\) versus \(O(1/q)\) corrections remains open.
+\(\beta = 11.1\) at \(q \approx 11\), rather than at the exponentially
+large value a \(\beta_{\text{eff}} \sim \ln q\) reading would place it;
+since \(q\) is gauge (§2.7) this fixes where the correspondence sits in
+the parameterization, not a physical alphabet size. Two caveats bound
+this: the check is at one volume, one mass, and modest statistics, so
+universality at the production parameters (\(m \approx 0.12\),
+\(L = 32\)--\(64\)) is inferred rather than demonstrated; and the
+located \(q\) is contingent on the field-amplitude normalization of
+§4.2. Characterizing the residual \(O(1/\beta)\) versus \(O(1/q)\)
+corrections remains open.
 
 \hypertarget{status-of-the-calculation}{%
 \subsubsection{6.6 Status of the
