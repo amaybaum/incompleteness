@@ -1,11 +1,10 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+%
 \documentclass[
 ]{article}
-\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -36,8 +35,8 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
+\usepackage{xcolor}
 \usepackage{longtable,booktabs,array}
-\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -50,6 +49,7 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % unicode-fix.tex — render raw-Unicode symbols that the Latin Modern *text* font
 % lacks, using Computer Modern math/text equivalents. This keeps the established
 % Computer Modern look while filling the glyphs xelatex would otherwise drop.
@@ -71,6 +71,28 @@
 \newunicodechar{φ}{\ensuremath{\varphi}}
 \newunicodechar{χ}{\ensuremath{\chi}}
 \newunicodechar{ψ}{\ensuremath{\psi}}
+\newunicodechar{η}{\ensuremath{\eta}}
+\newunicodechar{κ}{\ensuremath{\kappa}}
+\newunicodechar{λ}{\ensuremath{\lambda}}
+\newunicodechar{π}{\ensuremath{\pi}}
+\newunicodechar{ω}{\ensuremath{\omega}}
+\newunicodechar{Ḣ}{\ensuremath{\dot H}}
+\newunicodechar{≪}{\ensuremath{\ll}}
+\newunicodechar{≫}{\ensuremath{\gg}}
+\newunicodechar{⟺}{\ensuremath{\Longleftrightarrow}}
+\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
+\newunicodechar{⟨}{\ensuremath{\langle}}
+\newunicodechar{⟩}{\ensuremath{\rangle}}
+\newunicodechar{⁰}{\textsuperscript{0}}
+\newunicodechar{¹}{\textsuperscript{1}}
+\newunicodechar{²}{\textsuperscript{2}}
+\newunicodechar{³}{\textsuperscript{3}}
+\newunicodechar{⁴}{\textsuperscript{4}}
+\newunicodechar{⁵}{\textsuperscript{5}}
+\newunicodechar{⁶}{\textsuperscript{6}}
+\newunicodechar{⁷}{\textsuperscript{7}}
+\newunicodechar{⁸}{\textsuperscript{8}}
+\newunicodechar{⁹}{\textsuperscript{9}}
 % --- Relations / operators -> math ---
 \newunicodechar{↔}{\ensuremath{\leftrightarrow}}
 \newunicodechar{⇐}{\ensuremath{\Leftarrow}}
@@ -108,13 +130,12 @@
 % --- Checkmarks ---
 \newunicodechar{✓}{\ding{51}}
 \newunicodechar{✗}{\ding{55}}
-\usepackage{bookmark}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
-% fallback for those not using the hyperref driver hyperxmp:
-\makeatletter
-\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
-\makeatother
 \hypersetup{
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
@@ -172,7 +193,8 @@
 
 \clearpage
 
-\section{Copyright}\label{copyright}
+\hypertarget{copyright}{%
+\section{Copyright}\label{copyright}}
 
 © 2026 Alex Maybaum
 
@@ -200,7 +222,8 @@ copyright law.
 
 \clearpage
 
-\section{Dedication}\label{dedication}
+\hypertarget{dedication}{%
+\section{Dedication}\label{dedication}}
 
 \emph{{[}Author's dedication to be added.{]}}
 
@@ -210,7 +233,8 @@ copyright law.
 
 \clearpage
 
-\section{Preface}\label{preface}
+\hypertarget{preface}{%
+\section{Preface}\label{preface}}
 
 This book argues a heterodox position: that quantum mechanics is not
 fundamental but emergent, derivable from a deterministic substratum
@@ -352,7 +376,8 @@ and to judge for themselves.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Reader's Guide}\label{readers-guide}
+\hypertarget{readers-guide}{%
+\section{Reader's Guide}\label{readers-guide}}
 
 The book has four parts and three appendices, organized around the
 framework's derivation chain from foundational commitment to applied
@@ -360,7 +385,8 @@ predictions. Different readers approach the framework with different
 interests, technical backgrounds, and goals. This guide suggests reading
 paths for several common situations.
 
-\subsection{The complete reading path}\label{the-complete-reading-path}
+\hypertarget{the-complete-reading-path}{%
+\subsection{The complete reading path}\label{the-complete-reading-path}}
 
 Readers approaching the book from start to finish --- the framework's
 intended presentation --- will find the technical content of Parts I and
@@ -378,8 +404,9 @@ Estimated reading time for the complete path: approximately 50-80 hours
 for technical readers, longer for readers consulting the appendices and
 external references extensively.
 
+\hypertarget{reading-path-for-foundational-interest}{%
 \subsection{Reading path for foundational
-interest}\label{reading-path-for-foundational-interest}
+interest}\label{reading-path-for-foundational-interest}}
 
 Readers primarily interested in the framework's foundational claim ---
 that quantum mechanics is derivable from a deterministic substratum
@@ -405,8 +432,9 @@ against open problems.
 
 This reading path takes approximately 15-25 hours for technical readers.
 
+\hypertarget{reading-path-for-empirical-content-evaluation}{%
 \subsection{Reading path for empirical content
-evaluation}\label{reading-path-for-empirical-content-evaluation}
+evaluation}\label{reading-path-for-empirical-content-evaluation}}
 
 Readers approaching the framework with primary interest in evaluating
 its empirical record --- the JUNO retrodictive match (0.07\(\sigma\)),
@@ -434,8 +462,9 @@ empirical.
 
 This reading path takes approximately 10-15 hours for technical readers.
 
+\hypertarget{reading-path-for-philosophical-positioning}{%
 \subsection{Reading path for philosophical
-positioning}\label{reading-path-for-philosophical-positioning}
+positioning}\label{reading-path-for-philosophical-positioning}}
 
 Readers approaching the framework from philosophy of physics, philosophy
 of science, or the foundations community should focus on the framework's
@@ -459,8 +488,9 @@ evaluation.
 
 This reading path takes approximately 15-25 hours.
 
+\hypertarget{reading-path-for-biology-and-medicine}{%
 \subsection{Reading path for biology and
-medicine}\label{reading-path-for-biology-and-medicine}
+medicine}\label{reading-path-for-biology-and-medicine}}
 
 Readers approaching the framework from biology, medicine, or applied
 biological sciences can begin with the applied content and consult the
@@ -483,8 +513,9 @@ framework's structural commitments at the molecular scale.
 
 This reading path takes approximately 15-25 hours.
 
+\hypertarget{reading-path-for-computational-complexity-and-quantum-information}{%
 \subsection{Reading path for computational complexity and quantum
-information}\label{reading-path-for-computational-complexity-and-quantum-information}
+information}\label{reading-path-for-computational-complexity-and-quantum-information}}
 
 Readers approaching the framework from computer science, quantum
 information, or quantum hardware engineering can focus on the
@@ -507,7 +538,8 @@ empirical record but are not load-bearing for the computational content.
 
 This reading path takes approximately 10-15 hours.
 
-\subsection{How to use the appendices}\label{how-to-use-the-appendices}
+\hypertarget{how-to-use-the-appendices}{%
+\subsection{How to use the appendices}\label{how-to-use-the-appendices}}
 
 The three appendices serve different purposes and can be consulted
 independently.
@@ -541,8 +573,9 @@ framework's epistemic status, and meta-objections about scope and
 credentials. Use as a reference resource for skeptical readers or for
 engaging the framework against specific objections.
 
+\hypertarget{how-to-use-the-glossary-and-bibliography}{%
 \subsection{How to use the glossary and
-bibliography}\label{how-to-use-the-glossary-and-bibliography}
+bibliography}\label{how-to-use-the-glossary-and-bibliography}}
 
 \textbf{Glossary.} Located at the end of the back matter. Defines the
 framework's distinctive terminology (C1-C3, P-indivisibility,
@@ -557,8 +590,9 @@ convention used in the text. The framework's own technical companion
 papers (available in the Zenodo release at DOI 10.5281/zenodo.19060318)
 are the primary references for framework-internal derivations.
 
+\hypertarget{what-to-skip-on-a-first-reading}{%
 \subsection{What to skip on a first
-reading}\label{what-to-skip-on-a-first-reading}
+reading}\label{what-to-skip-on-a-first-reading}}
 
 Several sections are structurally optional on a first reading, even
 within the complete reading path.
@@ -590,7 +624,8 @@ within the complete reading path.
 These sections add depth to the framework's content but are not
 load-bearing for the main argument.
 
-\subsection{A note on density}\label{a-note-on-density}
+\hypertarget{a-note-on-density}{%
+\subsection{A note on density}\label{a-note-on-density}}
 
 The framework is the work of a single author developed primarily in
 technical-paper form. The book represents the integrated treatment for a
@@ -613,7 +648,8 @@ being done and on those forthcoming.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Acknowledgments}\label{acknowledgments}
+\hypertarget{acknowledgments}{%
+\section{Acknowledgments}\label{acknowledgments}}
 
 The framework developed in this book rests on the work of many
 physicists, mathematicians, biologists, and philosophers whose
@@ -731,12 +767,14 @@ role is to make the framework's content accessible.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Introduction}\label{introduction}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{two-physics-or-two-projections}{%
 \subsection{0.1 Two physics, or two
-projections?}\label{two-physics-or-two-projections}
+projections?}\label{two-physics-or-two-projections}}
 
 Physics has two fundamental theories. Quantum mechanics describes the
 microscopic world --- atoms, particles, photons, the interactions of
@@ -844,8 +882,9 @@ outside the observer's access, quantum mechanics is derived as a
 theorem. The chapters that follow develop this derivation and trace its
 consequences.
 
+\hypertarget{an-informal-thought-experiment}{%
 \subsection{0.2 An informal thought
-experiment}\label{an-informal-thought-experiment}
+experiment}\label{an-informal-thought-experiment}}
 
 Before stating the framework's central claim formally, consider a
 thought experiment that captures the structural idea.
@@ -919,8 +958,9 @@ with quantum mechanics but is required. Quantum mechanics, in the
 framework's content, is what any sufficiently complete account of
 observation must produce.
 
+\hypertarget{the-frameworks-central-claim}{%
 \subsection{0.3 The framework's central
-claim}\label{the-frameworks-central-claim}
+claim}\label{the-frameworks-central-claim}}
 
 The claim that quantum mechanics is not fundamental can be made precise.
 The framework developed in this book proves that any observer embedded
@@ -1004,8 +1044,9 @@ sector's qualitative composition are forced consequences. Part I makes
 the claim precise; Parts II--IV develop its consequences and tests its
 predictions.
 
+\hypertarget{the-intellectual-context}{%
 \subsection{0.4 The intellectual
-context}\label{the-intellectual-context}
+context}\label{the-intellectual-context}}
 
 The framework's central claim --- that any observer embedded in a
 deterministic universe must use quantum mechanics --- belongs to a
@@ -1088,7 +1129,8 @@ knowledge derived from observation inherits observational limits as its
 lower bound (developed in Chapter 12 §12.8). The framework's full
 philosophical positioning is developed in Chapter 3.
 
-\subsection{0.5 The empirical record}\label{the-empirical-record}
+\hypertarget{the-empirical-record}{%
+\subsection{0.5 The empirical record}\label{the-empirical-record}}
 
 The framework's claims are unusual; the evidence for them is specific.
 The empirical record consists of three components: retrodictions of
@@ -1186,7 +1228,8 @@ MOND scale \(a_0 = cH/6\) as a parameter-free prediction, and the JUNO
 the single statement that observation occurs and three structural
 conditions on the partition.
 
-\subsection{0.6 The book's structure}\label{the-books-structure}
+\hypertarget{the-books-structure}{%
+\subsection{0.6 The book's structure}\label{the-books-structure}}
 
 The book has four parts.
 
@@ -1341,15 +1384,18 @@ being made and forthcoming. The book's role is to make the structure of
 the framework, the chain of its derivations, and the specific content of
 its predictions available for evaluation.
 
-\section{Chapter 1}\label{chapter-1}
+\hypertarget{chapter-1}{%
+\section{Chapter 1}\label{chapter-1}}
 
+\hypertarget{embedded-observation-and-the-characterization-theorem}{%
 \section{Embedded Observation and the Characterization
-Theorem}\label{embedded-observation-and-the-characterization-theorem}
+Theorem}\label{embedded-observation-and-the-characterization-theorem}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-problem-and-the-theorem}{%
 \subsection{1.1 The problem and the
-theorem}\label{the-problem-and-the-theorem}
+theorem}\label{the-problem-and-the-theorem}}
 
 The Introduction stated the framework's central claim: any observer
 embedded in a finite deterministic universe, satisfying three structural
@@ -1406,7 +1452,8 @@ limits --- what happens when each of C1, C2, C3 fails --- as commentary
 on what kind of observer the framework's conditions jointly
 characterize.
 
-\subsection{1.2 The starting point}\label{the-starting-point}
+\hypertarget{the-starting-point}{%
+\subsection{1.2 The starting point}\label{the-starting-point}}
 
 The framework begins from a starting point usually put in two words:
 \emph{observation occurs}. An observer records distinguishable outcomes
@@ -1522,8 +1569,9 @@ not the assumption but what emerges from it.
 These lemmas contain no quantum postulates. Quantum mechanics emerges
 under three further conditions.
 
+\hypertarget{the-observers-blind-spot}{%
 \subsection{1.3 The observer's blind
-spot}\label{the-observers-blind-spot}
+spot}\label{the-observers-blind-spot}}
 
 Light travels at finite speed; the universe has finite age. Every
 observer therefore has a horizon --- a boundary beyond which no signal
@@ -1640,7 +1688,8 @@ unitary quantum mechanics (§1.6), Bell-inequality violations (§1.7), the
 characterization theorem closing the biconditional (§1.8), and the
 algorithmic reading of what the theorem establishes (§1.9).
 
-\subsection{1.4 Partition-relativity}\label{partition-relativity}
+\hypertarget{partition-relativity}{%
+\subsection{1.4 Partition-relativity}\label{partition-relativity}}
 
 The marginalized transition probabilities of the previous section depend
 on three inputs: the dynamics, the partition, and the measure. The
@@ -1684,7 +1733,8 @@ has a name in the open-systems literature: P-indivisibility. The two
 sections following establish that P-indivisibility is mathematically
 equivalent to quantum mechanics.
 
-\subsection{1.5 P-indivisibility}\label{p-indivisibility}
+\hypertarget{p-indivisibility}{%
+\subsection{1.5 P-indivisibility}\label{p-indivisibility}}
 
 The central technical result of the chapter is that the marginalized
 process is P-indivisible whenever the underlying bijection has
@@ -1922,8 +1972,9 @@ visible. The combination of the three conditions produces the
 information backflow that, as the next section will establish, is
 mathematically quantum.
 
+\hypertarget{the-two-routes-to-quantum-mechanics}{%
 \subsection{1.6 The two routes to quantum
-mechanics}\label{the-two-routes-to-quantum-mechanics}
+mechanics}\label{the-two-routes-to-quantum-mechanics}}
 
 P-indivisible stochastic processes are not merely \emph{like} quantum
 mechanics. They are mathematically identical to it. Two independent
@@ -2189,8 +2240,9 @@ framework --- itself a hidden-variable theory in the literal sense, with
 definite states at the substratum level --- passes this test is the
 subject of §1.7.
 
+\hypertarget{bell-inequality-violations}{%
 \subsection{1.7 Bell-inequality
-violations}\label{bell-inequality-violations}
+violations}\label{bell-inequality-violations}}
 
 The framework is a hidden-variable theory: there is a deterministic
 substratum with definite states, and the observer's stochastic
@@ -2243,8 +2295,9 @@ from a deterministic bijection satisfying C1-C3 for some partition? §1.8
 establishes that it does --- the characterization theorem closes the
 biconditional.
 
+\hypertarget{the-characterization-theorem}{%
 \subsection{1.8 The characterization
-theorem}\label{the-characterization-theorem}
+theorem}\label{the-characterization-theorem}}
 
 The Barandes correspondence already establishes that quantum mechanics
 is equivalent to P-indivisibility {[}4, 5{]}; §1.5 established that
@@ -2409,7 +2462,8 @@ independence, and any residual pre-division memory would appear as
 deviations from quantum multi-time predictions --- a falsifiable texture
 of the same standing as the residual dissipation.
 
-\subsection{1.9 What the theorem says}\label{what-the-theorem-says}
+\hypertarget{what-the-theorem-says}{%
+\subsection{1.9 What the theorem says}\label{what-the-theorem-says}}
 
 An observer inside the universe receives incomplete data --- the visible
 sector only. The characterization theorem proves that there is exactly
@@ -2445,8 +2499,9 @@ what the decompression algorithm produces when the observer's incomplete
 data comes from a relativistic system. Chapters 5 and 6 develop these
 consequences for the Standard Model.
 
+\hypertarget{the-three-structural-limits}{%
 \subsection{1.10 The three structural
-limits}\label{the-three-structural-limits}
+limits}\label{the-three-structural-limits}}
 
 The characterization theorem establishes C1, C2, and C3 as jointly
 necessary for emergent quantum mechanics. Each condition's failure was
@@ -2647,12 +2702,11 @@ observer is structurally limited.''
 
 The three failure modes are structurally distinct.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1774}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1774}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3065}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3387}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1774}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1774}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3065}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3387}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Condition
@@ -2672,7 +2726,6 @@ C2 & Timescale separation & Markovian stochastic & Thermalized
 observer \\
 C3 & Capacity hierarchy & No observation & Coextensive with system \\
 \end{longtable}
-}
 
 Each tells us something different about why our situation produces
 quantum mechanics. C1 failure reveals that classical mechanics is what
@@ -2742,14 +2795,17 @@ framework's quantitative physics. Part III traces the cascade from
 substratum to chemistry, biology, and intelligence. Part IV develops the
 framework's reach into working scientific fields.
 
-\section{Chapter 2}\label{chapter-2}
+\hypertarget{chapter-2}{%
+\section{Chapter 2}\label{chapter-2}}
 
-\section{The Substratum}\label{the-substratum}
+\hypertarget{the-substratum}{%
+\section{The Substratum}\label{the-substratum}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-constructs}{%
 \subsection{2.1 What this chapter
-constructs}\label{what-this-chapter-constructs}
+constructs}\label{what-this-chapter-constructs}}
 
 Chapter 1 established that any observer embedded in a finite
 deterministic system, satisfying conditions C1-C3 on what lies outside
@@ -2799,8 +2855,9 @@ structural realism position in its full hierarchical form, including its
 operation across structural classes and its relationship to the broader
 philosophical literature.
 
+\hypertarget{the-substratum-as-a-finite-lossless-memory}{%
 \subsection{2.2 The substratum as a finite lossless
-memory}\label{the-substratum-as-a-finite-lossless-memory}
+memory}\label{the-substratum-as-a-finite-lossless-memory}}
 
 The framework's central object is a triple. \(S\) is a finite set whose
 elements are the distinguishable total states. \(\varphi: S \to S\) is a
@@ -2859,8 +2916,9 @@ not change the dynamics itself. Both sectors are governed by the same
 underlying rule; the only difference is which states the observer can
 read.
 
+\hypertarget{what-the-substratum-is-and-is-not}{%
 \subsection{2.3 What the substratum is and is
-not}\label{what-the-substratum-is-and-is-not}
+not}\label{what-the-substratum-is-and-is-not}}
 
 The substrate objection asks an obvious question: what is the memory
 made of? What physical stuff implements the configuration
@@ -2954,8 +3012,9 @@ observed physics plus structural assumptions, up to the gauge group's
 action --- and the gauge group is exactly the set of transformations the
 observer cannot detect.
 
+\hypertarget{the-reconstruction-theorem}{%
 \subsection{2.4 The reconstruction
-theorem}\label{the-reconstruction-theorem}
+theorem}\label{the-reconstruction-theorem}}
 
 Chapter 1 took the substratum \((S, \varphi)\) as input and derived
 quantum mechanics from it. The converse direction --- from observed
@@ -3248,8 +3307,9 @@ showing they exhaust the freedom in the reconstruction.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-substratum-gauge-group}{%
 \subsection{2.5 The substratum gauge
-group}\label{the-substratum-gauge-group}
+group}\label{the-substratum-gauge-group}}
 
 The reconstruction theorem identifies
 \([(S, \varphi)] / \mathcal{G}_{\text{sub}}\) as the framework's central
@@ -3466,7 +3526,8 @@ same construction.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{2.6 The three projections}\label{the-three-projections}
+\hypertarget{the-three-projections}{%
+\subsection{2.6 The three projections}\label{the-three-projections}}
 
 The reconstruction theorem and the substratum gauge group have
 established what \((S, \varphi)\) is and what equivalences leave its
@@ -3609,8 +3670,9 @@ framework's claim is that the three projections are co-derived from a
 single construction, not three separate applications of similar
 machinery.
 
+\hypertarget{the-qm-gr-incompatibility-as-a-category-error}{%
 \subsection{2.7 The QM-GR incompatibility as a category
-error}\label{the-qm-gr-incompatibility-as-a-category-error}
+error}\label{the-qm-gr-incompatibility-as-a-category-error}}
 
 The conventional formulation of the QM-GR unification problem treats
 quantum mechanics and general relativity as two competing theories in
@@ -3707,7 +3769,8 @@ entropy as the boundary mode count. The framework's derivations across
 Chapters 5, 6, and 7 are not separate applications of similar machinery;
 they are co-derived consequences of a single construction.
 
-\subsection{2.8 What follows}\label{what-follows}
+\hypertarget{what-follows}{%
+\subsection{2.8 What follows}\label{what-follows}}
 
 The reconstruction theorem and the substratum gauge group establish the
 substratum side of the framework. The three projections establish its
@@ -3779,15 +3842,18 @@ inputs. The book's role is to make this chain of derivations available
 for evaluation against the experimental record now being assembled and
 forthcoming.
 
-\section{Chapter 3}\label{chapter-3}
+\hypertarget{chapter-3}{%
+\section{Chapter 3}\label{chapter-3}}
 
+\hypertarget{hierarchical-structural-realism}{%
 \section{Hierarchical Structural
-Realism}\label{hierarchical-structural-realism}
+Realism}\label{hierarchical-structural-realism}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops}{%
 \subsection{3.1 What this chapter
-develops}\label{what-this-chapter-develops}
+develops}\label{what-this-chapter-develops}}
 
 Chapter 2 established the framework's metaphysical commitment as ontic
 structural realism on the equivalence class
@@ -3839,7 +3905,8 @@ incompleteness-and-perspective accounts. §3.9 closes the chapter and
 points forward to Chapter 4's methodology and to Chapter 8's
 universality and cross-framework analysis.
 
-\subsection{3.2 The observation axis}\label{the-observation-axis}
+\hypertarget{the-observation-axis}{%
+\subsection{3.2 The observation axis}\label{the-observation-axis}}
 
 The framework's content nests in four levels of increasing specificity
 along an axis I will call the \emph{observation axis}. Each deeper level
@@ -4030,8 +4097,9 @@ cubic-lattice substratum. The framework commits to all four levels
 simultaneously, with content at each level being more universal (broader
 levels) or more class-specific (deeper levels).
 
+\hypertarget{the-observer-admission-distinction-in-more-detail}{%
 \subsection{3.3 The observer-admission distinction in more
-detail}\label{the-observer-admission-distinction-in-more-detail}
+detail}\label{the-observer-admission-distinction-in-more-detail}}
 
 The observer-admission distinction at Level B deserves more sustained
 development than the previous section allowed. It is the framework's
@@ -4123,7 +4191,8 @@ structural content is rich.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{3.4 The gauge axis}\label{the-gauge-axis}
+\hypertarget{the-gauge-axis}{%
+\subsection{3.4 The gauge axis}\label{the-gauge-axis}}
 
 The framework's gauge structure runs along an axis orthogonal to the
 observation axis. Where the observation axis is about scope --- which
@@ -4258,8 +4327,9 @@ framework commits to all four levels of gauge simultaneously, with
 different levels of gauge being relevant to different questions about
 the substratum and its emergent physics.
 
+\hypertarget{orthogonality-multi-level-realism-and-stratified-predictions}{%
 \subsection{3.5 Orthogonality, multi-level realism, and stratified
-predictions}\label{orthogonality-multi-level-realism-and-stratified-predictions}
+predictions}\label{orthogonality-multi-level-realism-and-stratified-predictions}}
 
 The two hierarchies --- observation axis and gauge axis --- are
 orthogonal. The observation axis is about scope: which substrata fall
@@ -4402,8 +4472,9 @@ would falsify which level of the framework's commitments.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{gauge-freedom-and-observational-incompleteness}{%
 \subsection{3.6 Gauge freedom and observational
-incompleteness}\label{gauge-freedom-and-observational-incompleteness}
+incompleteness}\label{gauge-freedom-and-observational-incompleteness}}
 
 The two axes developed so far invite a question the chapter has not yet
 answered directly. The gauge axis catalogues what is \emph{not}
@@ -4525,8 +4596,9 @@ on it.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{no-go-theorems-at-different-descriptive-levels}{%
 \subsection{3.7 No-go theorems at different descriptive
-levels}\label{no-go-theorems-at-different-descriptive-levels}
+levels}\label{no-go-theorems-at-different-descriptive-levels}}
 
 The framework is a hidden-variable theory in the literal sense: there is
 a deterministic substratum with definite states, and the observer's
@@ -4740,8 +4812,9 @@ equivalence with quantum mechanics. The architecture-level engagement,
 verified theorem by theorem, is the framework's general methodological
 response to the no-go literature.
 
+\hypertarget{the-philosophical-lineage}{%
 \subsection{3.8 The philosophical
-lineage}\label{the-philosophical-lineage}
+lineage}\label{the-philosophical-lineage}}
 
 The framework's structural-realism position has antecedents older than
 quantum mechanics and broader than the contemporary observer-dependence
@@ -4900,7 +4973,8 @@ quantum mechanics arises from observer-embeddedness. Both projects are
 pursuing structural realism about observation; they are doing so from
 different directions.
 
-\subsection{3.9 What follows}\label{what-follows-1}
+\hypertarget{what-follows-1}{%
+\subsection{3.9 What follows}\label{what-follows-1}}
 
 The hierarchical structure developed in this chapter --- the observation
 axis A through D, the gauge axis G1 through G4, the orthogonality
@@ -4960,14 +5034,17 @@ its most universal. The book's role is to develop these levels with the
 technical and empirical content that distinguishes one level from
 another.
 
-\section{Chapter 4}\label{chapter-4}
+\hypertarget{chapter-4}{%
+\section{Chapter 4}\label{chapter-4}}
 
-\section{Methodology}\label{methodology}
+\hypertarget{methodology}{%
+\section{Methodology}\label{methodology}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops-1}{%
 \subsection{4.1 What this chapter
-develops}\label{what-this-chapter-develops-1}
+develops}\label{what-this-chapter-develops-1}}
 
 The framework's content, developed in Chapters 1 through 3, rests on a
 specific methodological discipline. The discipline is not the
@@ -5050,8 +5127,9 @@ the boundaries of what does not falsify the framework. §4.7 closes the
 chapter with a forward pointer to Parts II--IV, where the methodology is
 applied to the framework's specific empirical content.
 
+\hypertarget{the-single-foundational-commitment-pattern}{%
 \subsection{4.2 The single-foundational-commitment
-pattern}\label{the-single-foundational-commitment-pattern}
+pattern}\label{the-single-foundational-commitment-pattern}}
 
 The framework begins from one premise. Observation occurs: an observer
 records distinguishable outcomes of interactions with a system not
@@ -5191,8 +5269,9 @@ partitions and emergent descriptions, one level below the two axioms,
 which are what must hold for there to be a space of possibilities to
 select within.
 
+\hypertarget{classification-of-claims-by-derivational-rigor}{%
 \subsection{4.3 Classification of claims by derivational
-rigor}\label{classification-of-claims-by-derivational-rigor}
+rigor}\label{classification-of-claims-by-derivational-rigor}}
 
 A framework that derives rather than posits must be honest about how
 rigorous each derivation actually is. The framework's discipline is to
@@ -5357,8 +5436,9 @@ record against the framework's structural commitments.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{engaging-the-no-go-results-through-one-architecture}{%
 \subsection{4.4 Engaging the no-go results through one
-architecture}\label{engaging-the-no-go-results-through-one-architecture}
+architecture}\label{engaging-the-no-go-results-through-one-architecture}}
 
 The framework is a hidden-variable theory in the literal sense: there is
 a deterministic substratum with definite states, and the observer's
@@ -5520,8 +5600,9 @@ the substratum-to-emergent architecture rather than serving as an
 obstacle to be circumvented, and the architecture answering all of them
 is one structure, not four.
 
+\hypertarget{pre-registered-falsification-conditions}{%
 \subsection{4.5 Pre-registered falsification
-conditions}\label{pre-registered-falsification-conditions}
+conditions}\label{pre-registered-falsification-conditions}}
 
 A framework that derives rather than posits must be willing to specify
 what would invalidate the derivation. The framework's discipline is to
@@ -5758,8 +5839,9 @@ to enforce.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-does-not-falsify-and-regimes-of-deliberate-silence}{%
 \subsection{4.6 What does not falsify and regimes of deliberate
-silence}\label{what-does-not-falsify-and-regimes-of-deliberate-silence}
+silence}\label{what-does-not-falsify-and-regimes-of-deliberate-silence}}
 
 The framework's pre-registered falsification conditions define what
 would refute the framework's structural commitments. The complement of
@@ -5919,8 +6001,9 @@ no predictive content. The line between them is drawn before the
 relevant observations are made, with the structural derivation
 determining which side of the line each putative prediction falls on.
 
+\hypertarget{what-the-framework-derives-and-what-it-compresses}{%
 \subsection{4.7 What the framework derives, and what it
-compresses}\label{what-the-framework-derives-and-what-it-compresses}
+compresses}\label{what-the-framework-derives-and-what-it-compresses}}
 
 A framework that advertises ``the Standard Model, gravity, and quantum
 mechanics from a single object'' invites a sharp question, and the
@@ -6011,7 +6094,8 @@ are observers, but as a demonstration that an enormous amount of what we
 observe coheres as the shadow of one finite construction --- with the
 construction's own starting points held up honestly to the light.
 
-\subsection{4.8 What follows}\label{what-follows-2}
+\hypertarget{what-follows-2}{%
+\subsection{4.8 What follows}\label{what-follows-2}}
 
 The methodological discipline developed in this chapter --- the
 single-foundational-commitment pattern, the claim classification by
@@ -6085,15 +6169,18 @@ part of this book; readers concerned specifically with the framework's
 methodology and its relation to the foundations-of-physics literature
 will find it the natural next text.
 
-\section{Chapter 5}\label{chapter-5}
+\hypertarget{chapter-5}{%
+\section{Chapter 5}\label{chapter-5}}
 
+\hypertarget{the-emergence-of-gauge-structure}{%
 \section{The Emergence of Gauge
-Structure}\label{the-emergence-of-gauge-structure}
+Structure}\label{the-emergence-of-gauge-structure}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops-2}{%
 \subsection{5.1 What this chapter
-develops}\label{what-this-chapter-develops-2}
+develops}\label{what-this-chapter-develops-2}}
 
 Part I established that any observer embedded in a finite deterministic
 universe under conditions C1-C3 must use a mathematical formalism
@@ -6174,8 +6261,9 @@ derivational chain from the cubic-lattice substratum to the Standard
 Model gauge group --- the framework's specific structural claim about
 \emph{why} physics has the gauge symmetries it has.
 
+\hypertarget{the-minimal-substratum-and-the-wave-equation}{%
 \subsection{5.2 The minimal substratum and the wave
-equation}\label{the-minimal-substratum-and-the-wave-equation}
+equation}\label{the-minimal-substratum-and-the-wave-equation}}
 
 The framework's content rests on a minimal mathematical structure: a
 finite set \(S\), a deterministic bijection \(\varphi: S \to S\), and a
@@ -6329,8 +6417,9 @@ invariance. The Standard Model gauge group is, in this sense, what
 remains of the natural commutant after the gauge degrees of freedom have
 been stripped out.
 
+\hypertarget{selection-of-d-3}{%
 \subsection{\texorpdfstring{5.3 Selection of
-\(d = 3\)}{5.3 Selection of d = 3}}\label{selection-of-d-3}
+\(d = 3\)}{5.3 Selection of d = 3}}\label{selection-of-d-3}}
 
 The framework's structural lemmas operate at any integer dimension
 \(d \geq 1\). The wave equation, the coupling-degree minimization, the
@@ -6458,8 +6547,9 @@ structural commitments rather than independent of them.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-emergent-qft-factorization-and-multi-component-dynamics}{%
 \subsection{5.4 The emergent QFT: factorization and multi-component
-dynamics}\label{the-emergent-qft-factorization-and-multi-component-dynamics}
+dynamics}\label{the-emergent-qft-factorization-and-multi-component-dynamics}}
 
 The wave equation on a three-dimensional cubic lattice, established as
 the unique substratum dynamics in §§5.2--5.3, has further structure that
@@ -6610,8 +6700,9 @@ components per lattice site. The structure of the coupling matrix \(M\)
 on this six-dimensional internal space is the next step in the
 gauge-emergence chain.
 
+\hypertarget{the-cubic-decomposition-and-the-standard-model-gauge-group}{%
 \subsection{5.5 The cubic decomposition and the Standard Model gauge
-group}\label{the-cubic-decomposition-and-the-standard-model-gauge-group}
+group}\label{the-cubic-decomposition-and-the-standard-model-gauge-group}}
 
 The matrix wave equation with \(K = 6\) internal components per site has
 the coupling matrix \(M\) acting on a six-dimensional internal space.
@@ -6805,8 +6896,9 @@ than postulated, with each step a theorem in the framework's chain.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{chirality-anomaly-cancellation-and-hypercharges}{%
 \subsection{5.6 Chirality, anomaly cancellation, and
-hypercharges}\label{chirality-anomaly-cancellation-and-hypercharges}
+hypercharges}\label{chirality-anomaly-cancellation-and-hypercharges}}
 
 The gauge structure derived in §5.5 --- local
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) from the
@@ -6998,7 +7090,8 @@ electron charge magnitudes --- observed to fantastic precision in atomic
 neutrality measurements --- is a theorem of the framework, not a
 parameter fixed by observation.
 
-\subsection{5.7 What follows}\label{what-follows-3}
+\hypertarget{what-follows-3}{%
+\subsection{5.7 What follows}\label{what-follows-3}}
 
 The chapter has established the gauge structure of the Standard Model
 from the cubic-lattice substratum. The wave equation factors into
@@ -7057,15 +7150,18 @@ condition \(\lambda(M_{\text{Pl}}) = 0\) matched to \(0.9\%\). The
 framework's quantitative empirical record outside cosmology is
 concentrated in Chapter 6.
 
-\section{Chapter 6}\label{chapter-6}
+\hypertarget{chapter-6}{%
+\section{Chapter 6}\label{chapter-6}}
 
+\hypertarget{the-matter-content-and-quantitative-predictions}{%
 \section{The Matter Content and Quantitative
-Predictions}\label{the-matter-content-and-quantitative-predictions}
+Predictions}\label{the-matter-content-and-quantitative-predictions}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops-3}{%
 \subsection{6.1 What this chapter
-develops}\label{what-this-chapter-develops-3}
+develops}\label{what-this-chapter-develops-3}}
 
 Chapter 5 derived the gauge structure of the Standard Model from the
 cubic-lattice substratum. The wave equation factored into staggered
@@ -7152,8 +7248,9 @@ ones that most distinguish OI from other observer-admitting frameworks
 --- live at Layer 1 and at the Level G3 × Level D intersection of the
 hierarchy developed in Chapter 3.
 
+\hypertarget{three-generations-and-the-composite-higgs}{%
 \subsection{6.2 Three generations and the composite
-Higgs}\label{three-generations-and-the-composite-higgs}
+Higgs}\label{three-generations-and-the-composite-higgs}}
 
 The wave equation on the cubic lattice has staggered Dirac structure, as
 Chapter 5 established. The staggered decomposition produces
@@ -7311,8 +7408,9 @@ framework's general pattern: structural commitments at the level of the
 equivalence class; solution-specific inputs at the level of the specific
 representative.
 
+\hypertarget{the-strong-cp-problem-and-bartheta-0}{%
 \subsection{\texorpdfstring{6.3 The strong-CP problem and
-\(\bar\theta = 0\)}{6.3 The strong-CP problem and \textbackslash bar\textbackslash theta = 0}}\label{the-strong-cp-problem-and-bartheta-0}
+\(\bar\theta = 0\)}{6.3 The strong-CP problem and \textbackslash bar\textbackslash theta = 0}}\label{the-strong-cp-problem-and-bartheta-0}}
 
 The strong-CP problem is one of the Standard Model's most persistent
 puzzles. Quantum chromodynamics admits a CP-violating term
@@ -7455,8 +7553,9 @@ framework's structural status.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{gauge-couplings-and-the-no-gut-prediction}{%
 \subsection{6.4 Gauge couplings and the no-GUT
-prediction}\label{gauge-couplings-and-the-no-gut-prediction}
+prediction}\label{gauge-couplings-and-the-no-gut-prediction}}
 
 The Standard Model has three gauge couplings: \(\alpha_3\) for color,
 \(\alpha_2\) for weak isospin, \(\alpha_1\) for hypercharge, measured at
@@ -7629,8 +7728,9 @@ relation. The framework's matching of \(\alpha_3, \alpha_2, \alpha_1\)
 at \(M_Z\) through the universal-induced-coupling chain confirms this
 structural prediction at the few-percent level.
 
+\hypertarget{the-cabibbo-angle-and-ckm-structure}{%
 \subsection{6.5 The Cabibbo angle and CKM
-structure}\label{the-cabibbo-angle-and-ckm-structure}
+structure}\label{the-cabibbo-angle-and-ckm-structure}}
 
 The Cabibbo--Kobayashi--Maskawa (CKM) matrix parametrizes the
 misalignment between the mass eigenstates and the weak interaction
@@ -7695,7 +7795,6 @@ observation. They do not. The table below shows predictions for
 from inter-corner distances in various cubic-lattice geometries ---
 against the observed \(\lambda = 0.22500 \pm 0.00067\):
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
 \(N\) & \(\lambda = 1/(\pi\sqrt{N})\) & Deviation \\
@@ -7710,7 +7809,6 @@ against the observed \(\lambda = 0.22500 \pm 0.00067\):
 6 & 0.1299 & \(-142\sigma\) \\
 8 & 0.1125 & \(-186\sigma\) \\
 \end{longtable}
-}
 
 The framework's \(N = 2\) is the only integer value in the nearby
 alternatives that matches observation within \(1\sigma\). The
@@ -7806,8 +7904,9 @@ representative --- Layer 3 content in the four-layer framing of Chapter
 beyond the structural constraint that the Jarlskog invariant has the
 form \(\eta / (12\pi^6)\).
 
+\hypertarget{the-koide-relation-and-the-lepton-mass-chain}{%
 \subsection{6.6 The Koide relation and the lepton mass
-chain}\label{the-koide-relation-and-the-lepton-mass-chain}
+chain}\label{the-koide-relation-and-the-lepton-mass-chain}}
 
 The Koide relation is a numerical regularity among the three
 charged-lepton masses observed in 1981:
@@ -7922,13 +8021,12 @@ gauge-invariance constraint of Chapter 2 §2.5.
 Combined with \(Q = 2/3\) and the empirical \(m_\tau\), this second
 commitment determines all three charged-lepton masses:
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1277}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1915}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2340}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2128}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2340}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1277}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1915}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2340}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2128}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2340}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Mass
@@ -7950,7 +8048,6 @@ Deviation
 \(m_\mu\) & Koide closure with \(m_e\), \(m_\tau\) & \(105.74\) MeV &
 \(105.66\) & \(0.07\%\) \\
 \end{longtable}
-}
 
 Both predictions match observation at the percent level. The implied
 \(m_\mu/m_\tau = 0.0595\) from Koide closure agrees with observation
@@ -8050,14 +8147,13 @@ perturbation theory in the emergent description --- is open. The
 sector-identification content (which \(Q\) values attach to down-quarks
 vs charged-leptons) is bijection-specific per Chapter 2 §2.5.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1200}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1400}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2200}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1400}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1200}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1800}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1400}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2200}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1400}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Mass
@@ -8089,7 +8185,6 @@ Match
 \(m_\mu\) & Koide closure & Layer 1 & \(105.74\) MeV & \(105.66\) &
 \(0.07\%\) \\
 \end{longtable}
-}
 
 The chain produces six masses from one empirical scale (\(m_s\)) plus
 two structural auxiliary inputs (\(Q_{\text{down}}\) as Class P, the
@@ -8136,7 +8231,8 @@ would close the mechanism.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{6.7 PMNS mixing angles}\label{pmns-mixing-angles}
+\hypertarget{pmns-mixing-angles}{%
+\subsection{6.7 PMNS mixing angles}\label{pmns-mixing-angles}}
 
 The PMNS matrix parametrizes the misalignment between neutrino mass
 eigenstates and flavor eigenstates, analogous to the CKM matrix in the
@@ -8211,12 +8307,11 @@ give the three angles:
 These can be compared with the experimental values from the post-JUNO
 global fit and from NuFIT 6.0 (normal mass ordering).
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3143}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2857}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2000}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3143}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2857}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2000}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Angle
@@ -8238,7 +8333,6 @@ global fit) & \(0.07\sigma\) \\
 \(\sin^2\theta_{13}\) & \(0.02252\) & \(0.02195 \pm 0.00056\) (NuFIT 6.0
 NO) & \(1.02\sigma\) \\
 \end{longtable}
-}
 
 All three angles match observation within about \(1\sigma\). The match
 for \(\sin^2\theta_{12}\) at \(0.07\sigma\) is unusually close, made
@@ -8365,8 +8459,9 @@ The framework's structural derivation of \(\lambda(M_{\text{Pl}}) = 0\)
 thus provides a substratum-level account of what an active beyond-SM
 literature has been postulating as a boundary condition.
 
+\hypertarget{summary-table-and-chapter-close}{%
 \subsection{6.8 Summary table and chapter
-close}\label{summary-table-and-chapter-close}
+close}\label{summary-table-and-chapter-close}}
 
 The chapter has developed twenty-two Standard Model retrodictions from
 the cubic-lattice substratum, with the structural status of each made
@@ -8377,15 +8472,14 @@ Chapter 4 §4.5 (S/L/R/E/M), and the \textbf{Cat} column gives the
 \emph{independent-evidence status} per the categorization developed
 below (A/B/C/D/E).
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1864}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1356}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1864}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1695}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1186}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1186}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0847}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1864}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1356}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1864}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1695}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1186}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1186}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0847}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Observable
@@ -8461,7 +8555,6 @@ Koide angle \(\theta_0\) & \(C_2(T_1)/d^2\) & \(2/9\) & \(0.22222\) &
 \(129\text{-}132\) GeV (band) & \(125.10 \pm 0.14\) & \(m_t\)-consistent
 & \textbf{M} (\(m_t\)) & D \\
 \end{longtable}
-}
 
 Footnotes: \textbf{{[}a{]}} The three gauge couplings at \(M_Z\) are
 reproduced with one empirical input (\(\delta_0\)) and two fitted
@@ -8700,14 +8793,17 @@ representative, with substantial empirical support and pre-registered
 falsifiability. The structural and methodological commitments of Part I
 are made quantitatively precise here.
 
-\section{Chapter 7}\label{chapter-7}
+\hypertarget{chapter-7}{%
+\section{Chapter 7}\label{chapter-7}}
 
-\section{The Gravitational Sector}\label{the-gravitational-sector}
+\hypertarget{the-gravitational-sector}{%
+\section{The Gravitational Sector}\label{the-gravitational-sector}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops-4}{%
 \subsection{7.1 What this chapter
-develops}\label{what-this-chapter-develops-4}
+develops}\label{what-this-chapter-develops-4}}
 
 Chapters 5 and 6 developed the framework's content in the Standard Model
 sector: the gauge group
@@ -8811,8 +8907,9 @@ concentrated at Tiers 1 and 2 --- is therefore not a record of the
 cubic-lattice substratum but a record of the framework's broader
 structural commitments at the boundary scale.
 
+\hypertarget{the-cosmological-horizon-as-causal-partition}{%
 \subsection{7.2 The cosmological horizon as causal
-partition}\label{the-cosmological-horizon-as-causal-partition}
+partition}\label{the-cosmological-horizon-as-causal-partition}}
 
 The cosmological horizon implements the framework's causal partition at
 the largest physical scale accessible to any sub-\(c\) observer. The
@@ -8883,8 +8980,9 @@ hypothesis required for the C2 necessity direction holds for the horizon
 complement (a generic chaotic many-body system), so the full equivalence
 applies in our universe.
 
+\hypertarget{the-emergent-action-scale-hbar}{%
 \subsection{\texorpdfstring{7.3 The emergent action scale
-\(\hbar\)}{7.3 The emergent action scale \textbackslash hbar}}\label{the-emergent-action-scale-hbar}
+\(\hbar\)}{7.3 The emergent action scale \textbackslash hbar}}\label{the-emergent-action-scale-hbar}}
 
 The most distinctive content of the framework's gravitational sector is
 the derivation of Planck's constant \(\hbar\) as an emergent quantity
@@ -9109,8 +9207,9 @@ prediction, not used as an input.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{self-consistency-and-the-discreteness-scale}{%
 \subsection{7.4 Self-consistency and the discreteness
-scale}\label{self-consistency-and-the-discreteness-scale}
+scale}\label{self-consistency-and-the-discreteness-scale}}
 
 The gap equation \(\hbar = c^3 \epsilon^2 / (4G)\) from Section 7.3
 takes \(\epsilon\) as a free geometric parameter --- the discreteness
@@ -9162,8 +9261,9 @@ is a derived quantity, not a free parameter --- but the derivation
 requires accepting the gap equation as the substratum's structural
 commitment rather than \(\hbar\) as a fundamental constant.
 
+\hypertarget{the-bekenstein-hawking-entropy}{%
 \subsection{7.5 The Bekenstein-Hawking
-entropy}\label{the-bekenstein-hawking-entropy}
+entropy}\label{the-bekenstein-hawking-entropy}}
 
 The Bekenstein-Hawking entropy \(S = A / (4\, l_p^2)\) assigns each
 horizon a thermodynamic entropy proportional to its area, with the
@@ -9264,8 +9364,9 @@ test --- GW250114 constrains the classical area theorem, not the entropy
 normalization --- so the framework's strongest gravitational empirical
 anchor is the \(a_0 = cH/6\) rotation-curve family (Sections 7.8--7.9).
 
+\hypertarget{the-page-curve-and-the-information-paradox}{%
 \subsection{7.6 The Page curve and the information
-paradox}\label{the-page-curve-and-the-information-paradox}
+paradox}\label{the-page-curve-and-the-information-paradox}}
 
 The framework's content in the Bekenstein-Hawking sector extends beyond
 the area-law coefficient to the \emph{dynamics} of black hole
@@ -9483,8 +9584,9 @@ content is therefore consistent with the current theoretical and
 target for any future empirical or theoretical work on the information
 paradox.
 
+\hypertarget{dissolution-of-the-cosmological-constant-problem}{%
 \subsection{7.7 Dissolution of the cosmological constant
-problem}\label{dissolution-of-the-cosmological-constant-problem}
+problem}\label{dissolution-of-the-cosmological-constant-problem}}
 
 The cosmological constant problem is conventionally described as the
 worst quantitative discrepancy in physics. Quantum field theory predicts
@@ -9642,8 +9744,9 @@ inflationary dynamics or other initial-conditions mechanisms.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{dark-energy-in-running-vacuum-form}{%
 \subsection{7.8 Dark energy in running-vacuum
-form}\label{dark-energy-in-running-vacuum-form}
+form}\label{dark-energy-in-running-vacuum-form}}
 
 The framework's content in the dark-energy sector is structural rather
 than quantitative. Section 7.7 established that the emergent quantum
@@ -9743,7 +9846,16 @@ near the UV cutoff and contribute a fraction
 emergent-QFT magnitude. Absent additional substratum structure giving a
 log-uniform boundary-mode distribution at the cosmological horizon, the
 framework's prediction reduces to \(|\nu| \approx |\nu_{\text{QFT}}|\),
-observationally indistinguishable from zero.
+observationally indistinguishable from zero. That absence has since been
+computed rather than assumed: extracting the boundary spectral measure
+directly from the substratum wave equation (an exact
+surface-Green's-function computation, Section 19.3.7) yields a
+power-suppressed local distribution ---
+\(dN/d\omega \propto \omega^{4}\), with the two-dimensional
+\(\propto \omega\) above an upper bound on the infrared weight ---
+stable over thirty orders of magnitude in the slow-bath ratio, with the
+log-uniform distribution appearing nowhere; the interacting extension of
+that computation is the remaining residual.
 
 \textbf{Observational status.} The empirical situation in late 2025 and
 early 2026 has evolved substantially with the DESI Data Release 2
@@ -9811,8 +9923,9 @@ support is therefore not independent confirmation of separate effects
 but a single empirical pattern consistent with the framework's central
 mechanism.
 
+\hypertarget{the-dark-sector-and-the-mond-acceleration-scale}{%
 \subsection{7.9 The dark sector and the MOND acceleration
-scale}\label{the-dark-sector-and-the-mond-acceleration-scale}
+scale}\label{the-dark-sector-and-the-mond-acceleration-scale}}
 
 The framework's content in the dark-matter sector is structural rather
 than particulate. The conventional cold-dark-matter paradigm postulates
@@ -9982,8 +10095,9 @@ Tier 2 --- universal across bijections in the framework's universality
 class. The transition steepness is Tier 3 --- bijection-specific, with
 the simple MOND interpolation as the framework's natural default.
 
+\hypertarget{summary-of-gravitational-predictions-and-chapter-close}{%
 \subsection{7.10 Summary of gravitational predictions and chapter
-close}\label{summary-of-gravitational-predictions-and-chapter-close}
+close}\label{summary-of-gravitational-predictions-and-chapter-close}}
 
 The framework's content in the gravitational sector reduces a
 substantial portion of standard physics --- the value of Planck's
@@ -9998,13 +10112,12 @@ classifications and current observational status.
 
 \textbf{Summary table.}
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2444}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2444}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2222}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1556}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1333}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2444}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2444}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2222}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1556}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Observable
@@ -10053,7 +10166,6 @@ consistent & 2 \\
 No GUT-mediated proton decay & \(\tau_p \sim 10^{45}\)--\(10^{46}\) yr &
 \(\tau_p > 10^{34}\) yr & consistent & 1 \\
 \end{longtable}
-}
 
 The tier system per Section 7.1: Tier 1 results follow from partition
 geometry alone and hold for any embedded-observer system satisfying
@@ -10156,15 +10268,18 @@ medicine, bioinformatics, and the framework's forward predictions.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Chapter 8}\label{chapter-8}
+\hypertarget{chapter-8}{%
+\section{Chapter 8}\label{chapter-8}}
 
+\hypertarget{juno-and-the-neutrino-sector}{%
 \section{JUNO and the Neutrino
-Sector}\label{juno-and-the-neutrino-sector}
+Sector}\label{juno-and-the-neutrino-sector}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops-5}{%
 \subsection{8.1 What this chapter
-develops}\label{what-this-chapter-develops-5}
+develops}\label{what-this-chapter-develops-5}}
 
 Chapter 6 §6.7 introduced the framework's predictions for the three PMNS
 mixing angles and identified the solar mixing angle
@@ -10242,7 +10357,8 @@ neutrino-sector match. The framework's neutrino-sector content is
 therefore concentrated in this chapter as a focused case study of
 cross-sector parameter-free prediction at high precision.
 
-\subsection{8.2 The JUNO experiment}\label{the-juno-experiment}
+\hypertarget{the-juno-experiment}{%
+\subsection{8.2 The JUNO experiment}\label{the-juno-experiment}}
 
 The Jiangmen Underground Neutrino Observatory (JUNO) is a multipurpose
 neutrino experiment located 700 meters underground in Jiangmen, southern
@@ -10303,8 +10419,9 @@ is, where it comes from structurally, and how it compares with
 alternative theoretical proposals currently being analyzed against the
 JUNO data.
 
+\hypertarget{the-cubic-group-flavor-structure}{%
 \subsection{8.3 The cubic-group flavor
-structure}\label{the-cubic-group-flavor-structure}
+structure}\label{the-cubic-group-flavor-structure}}
 
 The framework's prediction for the PMNS angles follows from the cubic
 point group \(O\) --- the rotation symmetry group of three-dimensional
@@ -10420,7 +10537,8 @@ multiple observables with all of them matching observation.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{8.4 The U-parity grading}\label{the-u-parity-grading}
+\hypertarget{the-u-parity-grading}{%
+\subsection{8.4 The U-parity grading}\label{the-u-parity-grading}}
 
 The framework's PMNS structure beyond tribimaximal mixing develops
 through a \(\mu\)-\(\tau\) exchange parity --- a discrete
@@ -10530,8 +10648,9 @@ depends only on \(b_{23}\), not on the \(U\)-even combination
 second-order corrections in a way that the standard
 effective-field-theory parametrization does not.
 
+\hypertarget{the-sum-rule-and-structural-relation}{%
 \subsection{8.5 The sum rule and structural
-relation}\label{the-sum-rule-and-structural-relation}
+relation}\label{the-sum-rule-and-structural-relation}}
 
 The deviations \(\Delta_{12}\) and \(\Delta_{23}\) depend on two
 independent scalar combinations of the \(A_2\) Wilson coefficients: the
@@ -10693,8 +10812,9 @@ lattice-perturbation-theory question for the \emph{magnitude} content
 substrate alone in any framework consistent with
 \(\mathcal{G}_{\text{sub}}\)-invariance.
 
+\hypertarget{the-three-numerical-predictions}{%
 \subsection{8.6 The three numerical
-predictions}\label{the-three-numerical-predictions}
+predictions}\label{the-three-numerical-predictions}}
 
 Substituting Condition 1 (\(b_{23} = 1\)), Condition 2
 (\(b_{12} + b_{13} = 3/4\)), and the Cabibbo scale
@@ -10721,12 +10841,11 @@ table below. The post-JUNO global fit incorporates the November 2025
 JUNO measurement; the NuFIT 6.0 best fits use the full
 neutrino-oscillation data set under the normal mass ordering convention.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3143}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2857}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2000}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3143}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2857}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2000}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Angle
@@ -10748,7 +10867,6 @@ global fit) & \(0.07\sigma\) \\
 \(\sin^2\theta_{13}\) & \(0.02252\) & \(0.02195 \pm 0.00056\) (NuFIT
 6.0, NO) & \(1.02\sigma\) \\
 \end{longtable}
-}
 
 All three predictions match observation within \(1.1\sigma\) at current
 precision. The solar mixing angle value is the framework's sharpest
@@ -10811,8 +10929,9 @@ neutrino-mass / dark-energy result with DESI DR2 (Section 8.9).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{comparison-with-tm1tm2-column-preservation-patterns}{%
 \subsection{8.7 Comparison with TM1/TM2 column-preservation
-patterns}\label{comparison-with-tm1tm2-column-preservation-patterns}
+patterns}\label{comparison-with-tm1tm2-column-preservation-patterns}}
 
 Tribimaximal mixing was the leading phenomenological description of
 neutrino oscillation data until Daya Bay measured a non-zero
@@ -10828,12 +10947,11 @@ He and by Zhang find that TM2 is excluded at greater than \(3.5\sigma\)
 while TM1 remains marginally viable. The framework's prediction sits
 well below both alternatives in tension with the post-JUNO global fit:
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2286}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3286}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2286}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3286}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Approach
@@ -10854,7 +10972,6 @@ TM3 & postulated; \(\theta_{13} = 0\) & --- & excluded \\
 \textbf{This work} & \textbf{cubic group \(O\) of 3D space} &
 \textbf{\(0.3080\)} & \textbf{\(0.07\sigma\)} \\
 \end{longtable}
-}
 
 (Comparing against the post-JUNO global fit
 \(\sin^2\theta_{12} = 0.3085 \pm 0.0073\). TM1 uses
@@ -10943,8 +11060,9 @@ substratum side appears as the empirical flavor structure on the
 phenomenological side --- testable across the full flavor sector rather
 than only at one observable.
 
+\hypertarget{juno-design-lifetime-sensitivity-and-falsification}{%
 \subsection{8.8 JUNO design-lifetime sensitivity and
-falsification}\label{juno-design-lifetime-sensitivity-and-falsification}
+falsification}\label{juno-design-lifetime-sensitivity-and-falsification}}
 
 JUNO's design lifetime is 30 years of physics operations. The
 collaboration projects that the experiment will achieve approximately
@@ -11044,8 +11162,9 @@ confirmed. The framework's neutrino-sector content has more empirical
 exposure per prediction than any other sector outside the gravitational
 confirmations of Chapter 7.
 
+\hypertarget{the-coupled-desi-dr2-result}{%
 \subsection{8.9 The coupled DESI DR2
-result}\label{the-coupled-desi-dr2-result}
+result}\label{the-coupled-desi-dr2-result}}
 
 The framework's neutrino-sector predictions extend beyond the PMNS
 mixing angles to include commitments on the neutrino mass spectrum.
@@ -11121,9 +11240,10 @@ scale, and the coupled dark-energy / mass-bound resolution. Each tests a
 distinct framework commitment; the joint coherence across all of them is
 the framework's strongest non-cosmological empirical case.
 
+\hypertarget{chapter-close-the-frameworks-empirical-record-in-the-neutrino-sector}{%
 \subsection{8.10 Chapter close: the framework's empirical record in the
 neutrino
-sector}\label{chapter-close-the-frameworks-empirical-record-in-the-neutrino-sector}
+sector}\label{chapter-close-the-frameworks-empirical-record-in-the-neutrino-sector}}
 
 The framework's content in the neutrino sector represents the strongest
 single piece of evidence for the framework's structural commitments
@@ -11225,15 +11345,18 @@ applications and forward predictions in Part IV.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Chapter 9}\label{chapter-9}
+\hypertarget{chapter-9}{%
+\section{Chapter 9}\label{chapter-9}}
 
+\hypertarget{universality-classes-and-external-convergence}{%
 \section{Universality Classes and External
-Convergence}\label{universality-classes-and-external-convergence}
+Convergence}\label{universality-classes-and-external-convergence}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops-6}{%
 \subsection{9.1 What this chapter
-develops}\label{what-this-chapter-develops-6}
+develops}\label{what-this-chapter-develops-6}}
 
 Chapters 5 through 8 developed the framework's empirical record in
 fundamental physics: twenty-two classified Standard Model retrodictions
@@ -11334,8 +11457,9 @@ framework claims at which level, with the universality-class character
 of the strongest empirical predictions being one of the framework's
 distinctive features.
 
+\hypertarget{the-frameworks-hierarchical-structural-realism}{%
 \subsection{9.2 The framework's hierarchical structural
-realism}\label{the-frameworks-hierarchical-structural-realism}
+realism}\label{the-frameworks-hierarchical-structural-realism}}
 
 The framework operates simultaneously at multiple levels of abstraction.
 Chapter 3 §3.4 introduced the hierarchical structural realism that
@@ -11474,11 +11598,10 @@ substratum-specific choices.
 \textbf{Predictions stratified by hierarchy level.} The empirical record
 of Chapters 5-8, organized by hierarchy level, summarizes as follows.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3617}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2766}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3617}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3617}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2766}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3617}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Hierarchy level
@@ -11503,7 +11626,6 @@ across 22 predictions \\
 Level G3 (open) & Bottom-to-tau mass ratio, Koide angle's structural
 origin, \(\delta_{\text{CP}}\) & Open research program \\
 \end{longtable}
-}
 
 The framework's empirical exposure is therefore distributed across the
 hierarchy, with the strongest confirmations at the universality-class
@@ -11513,8 +11635,9 @@ hierarchical structural realism meaningful: different levels are tested
 with different empirical evidence, and the framework's content at each
 level is constrained by the corresponding empirical record.
 
+\hypertarget{tier-1-results-as-universality-class-content}{%
 \subsection{9.3 Tier 1 results as universality-class
-content}\label{tier-1-results-as-universality-class-content}
+content}\label{tier-1-results-as-universality-class-content}}
 
 The framework's strongest empirical predictions are concentrated at the
 universality-class level (Level G4 in §9.2's hierarchy, Tier 1 in
@@ -11662,11 +11785,10 @@ requiring the specific cubic-lattice realization.
 \textbf{The framework's empirical exposure at Tier 1.} The cumulative
 empirical record at Tier 1 summarizes as follows.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3654}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3269}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3077}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3654}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3269}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3077}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Tier 1 prediction
@@ -11691,7 +11813,6 @@ concordance & Ch 7 §7.9 \\
 No dark matter particle & XENON, LUX, etc. null & Ch 7 §7.9 \\
 No GUT-mediated proton decay & \(\tau_p > 10^{34}\) yr & Ch 6 §6.4 \\
 \end{longtable}
-}
 
 Eight Tier 1 predictions tested against current empirical evidence, with
 all eight either confirmed at high precision (Bekenstein-Hawking, area
@@ -11708,8 +11829,9 @@ bijection-specific levels.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{tier-2-and-tier-3-stratification}{%
 \subsection{9.4 Tier 2 and Tier 3
-stratification}\label{tier-2-and-tier-3-stratification}
+stratification}\label{tier-2-and-tier-3-stratification}}
 
 The framework's empirical content beyond Tier 1 stratifies into two
 further tiers, with the empirical exposure shifting from
@@ -11739,11 +11861,10 @@ regardless of how the specific bijection breaks the cubic symmetry.
 
 The empirical record at Tier 2 summarizes as follows.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3654}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3269}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3077}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3654}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3269}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3077}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Tier 2 prediction
@@ -11768,7 +11889,6 @@ relation & Ch 7 §7.9 \\
 al.~(high-\(z\)) & Ch 7 §7.9 \\
 Mass ordering (normal) & DESI DR2 + CMB preference & Ch 8 §8.9 \\
 \end{longtable}
-}
 
 Seven Tier 2 predictions tested against current empirical evidence, with
 all seven either confirmed at high precision or consistent with the
@@ -11795,11 +11915,10 @@ bijection's properties beyond the general cubic-symmetry commitments.
 
 The empirical record at Tier 3 summarizes as follows.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3654}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3269}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3077}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3654}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3269}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3077}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Tier 3 prediction
@@ -11826,7 +11945,6 @@ Three gauge couplings at \(M_Z\) & \(< 0.1\%\) & Ch 6 §6.4 \\
 MOND interpolation ``simple'' function & \(< 0.1\) dex match & Ch 7
 §7.9 \\
 \end{longtable}
-}
 
 The framework's empirical exposure at Tier 3 is similarly substantial
 --- eight specific bijection-dependent predictions matched at
@@ -11855,8 +11973,9 @@ constraint. The framework's content is robust at the universality-class
 level (Tier 1) while remaining empirically specific at the bijection
 level (Tier 3).
 
+\hypertarget{the-frameworks-relationship-to-string-theory}{%
 \subsection{9.5 The framework's relationship to string
-theory}\label{the-frameworks-relationship-to-string-theory}
+theory}\label{the-frameworks-relationship-to-string-theory}}
 
 The framework and string theory both aim to provide a structural account
 of fundamental physics that goes beyond the Standard Model and general
@@ -11979,8 +12098,9 @@ Neither recovery is currently developed in detail; both are open
 theoretical tasks that the framework's structural commitments make
 tractable in principle.
 
+\hypertarget{the-string-landscape-multiplicity-problem}{%
 \subsection{9.6 The string landscape multiplicity
-problem}\label{the-string-landscape-multiplicity-problem}
+problem}\label{the-string-landscape-multiplicity-problem}}
 
 The string landscape --- the multiplicity of possible compactifications
 of string theory, each producing different low-energy physics --- is the
@@ -12066,8 +12186,9 @@ and the framework's content provides answers at a different level.
 Whether the two programs converge or diverge is a matter for detailed
 analysis on a case-by-case basis.
 
+\hypertarget{b-foundational-programs-claiming-parameter-free-sm-retrodictions}{%
 \subsection{9.6b Foundational programs claiming parameter-free SM
-retrodictions}\label{b-foundational-programs-claiming-parameter-free-sm-retrodictions}
+retrodictions}\label{b-foundational-programs-claiming-parameter-free-sm-retrodictions}}
 
 A small group of foundational programs, distinct from string theory's
 compactification approach, claim parameter-free derivation of Standard
@@ -12146,8 +12267,9 @@ versus hidden flexibility) determining whether the framework follows
 Beck into mainstream-skeptical reception or instead achieves the
 recognition that its cumulative empirical record would warrant.
 
+\hypertarget{c-a-gravitational-sector-sibling-conformal-gravity}{%
 \subsection{9.6c A gravitational-sector sibling: conformal
-gravity}\label{c-a-gravitational-sector-sibling-conformal-gravity}
+gravity}\label{c-a-gravitational-sector-sibling-conformal-gravity}}
 
 The comparison class of §9.6b --- programs claiming structural Standard
 Model content --- has a gravitational-sector counterpart: programs
@@ -12288,8 +12410,9 @@ scrutiny and known wounds; this framework's broader claims are
 unreviewed, and their breadth is a promissory asset that external review
 and the framework's own gate computations will either convert or void.
 
+\hypertarget{the-danielson-satishchandran-wald-external-convergence}{%
 \subsection{9.7 The Danielson-Satishchandran-Wald external
-convergence}\label{the-danielson-satishchandran-wald-external-convergence}
+convergence}\label{the-danielson-satishchandran-wald-external-convergence}}
 
 The framework's core mechanism --- horizons as causal partitions
 producing decoherence in the visible sector --- has received independent
@@ -12417,8 +12540,9 @@ substratum content alone provides: the universality-class content is
 converged-upon by mainstream physics, with the framework being one
 specific realization within that universality class.
 
+\hypertarget{adjacent-observer-emergent-literature}{%
 \subsection{9.8 Adjacent observer-emergent
-literature}\label{adjacent-observer-emergent-literature}
+literature}\label{adjacent-observer-emergent-literature}}
 
 Beyond the DSW convergence on horizon decoherence, the framework's
 content engages a broader recent literature on observer-emergent
@@ -12533,8 +12657,9 @@ Tier 3 predictions) is distinctive; the universality-class content
 impose decoherence, reduced descriptions are observer-relative) is
 converged-upon by multiple independent programs in mainstream physics.
 
+\hypertarget{chapter-close-the-frameworks-position-in-the-broader-landscape}{%
 \subsection{9.9 Chapter close: the framework's position in the broader
-landscape}\label{chapter-close-the-frameworks-position-in-the-broader-landscape}
+landscape}\label{chapter-close-the-frameworks-position-in-the-broader-landscape}}
 
 The framework's content across Chapters 5 through 8 establishes a
 substantial empirical record at high precision: twenty-two classified
@@ -12641,14 +12766,17 @@ domains where the framework operates.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Chapter 10}\label{chapter-10}
+\hypertarget{chapter-10}{%
+\section{Chapter 10}\label{chapter-10}}
 
-\section{Chemistry}\label{chemistry}
+\hypertarget{chemistry}{%
+\section{Chemistry}\label{chemistry}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops-7}{%
 \subsection{10.1 What this chapter
-develops}\label{what-this-chapter-develops-7}
+develops}\label{what-this-chapter-develops-7}}
 
 The framework's empirical content in Chapters 5 through 9 concentrates
 in fundamental physics. The chapters develop the framework's derivation
@@ -12731,8 +12859,9 @@ window for liquid-phase chemistry, why molecular homochirality. The
 chapter's value is in providing structural foundations for chemistry
 that standard accounts treat as empirical input.
 
+\hypertarget{the-structural-chain-from-substratum-to-orbital-chemistry}{%
 \subsection{10.2 The structural chain from substratum to orbital
-chemistry}\label{the-structural-chain-from-substratum-to-orbital-chemistry}
+chemistry}\label{the-structural-chain-from-substratum-to-orbital-chemistry}}
 
 The framework's emergence cascade from the substratum to chemistry runs
 through five structural steps. Each step is either a theorem from
@@ -12915,8 +13044,9 @@ been empirically established over the past century. The value of the
 framework's content here is the structural account of why chemistry has
 the architecture it does.
 
+\hypertarget{beyond-carbon-four-additional-structural-results}{%
 \subsection{10.3 Beyond carbon: four additional structural
-results}\label{beyond-carbon-four-additional-structural-results}
+results}\label{beyond-carbon-four-additional-structural-results}}
 
 The framework's chemistry derivation extends beyond carbon's bonding
 geometry to four additional structural results that propagate the
@@ -13002,8 +13132,9 @@ form. Section 10.6 develops the chirality chain in detail and the
 amplification mechanisms that turn this small energy difference into the
 homochirality of biological systems.
 
+\hypertarget{the-scale-hierarchy-and-the-permanence-of-atoms}{%
 \subsection{10.4 The scale hierarchy and the permanence of
-atoms}\label{the-scale-hierarchy-and-the-permanence-of-atoms}
+atoms}\label{the-scale-hierarchy-and-the-permanence-of-atoms}}
 
 The framework derives two independent gauge groups --- SU(3) and U(1)
 --- with independent coupling strengths corresponding to independent
@@ -13060,8 +13191,9 @@ scale hierarchy through the stability of all atomic and molecular
 species at room temperature --- is therefore a Tier 2 confirmation of
 the framework's structural commitments.
 
+\hypertarget{the-thermal-window-for-chemistry}{%
 \subsection{10.5 The thermal window for
-chemistry}\label{the-thermal-window-for-chemistry}
+chemistry}\label{the-thermal-window-for-chemistry}}
 
 Chemistry as we know it requires specific thermal conditions: bond
 energies must exceed thermal fluctuation energies (so bonds are stable),
@@ -13125,8 +13257,9 @@ chemistry-supporting thermal window; the specific window's location
 requires the full parameter content of the framework's specific
 bijection.
 
+\hypertarget{water-as-biological-solvent}{%
 \subsection{10.6 Water as biological
-solvent}\label{water-as-biological-solvent}
+solvent}\label{water-as-biological-solvent}}
 
 Water occupies a distinguished position in biology that the framework's
 structural derivation can account for. Every known living system uses
@@ -13226,7 +13359,8 @@ structure commits to water's hydrogen-bonding network with all its
 biology-supporting properties. The framework's reach from the substratum
 to liquid water is a single derivation chain with no empirical inputs.
 
-\subsection{10.7 The chirality chain}\label{the-chirality-chain}
+\hypertarget{the-chirality-chain}{%
+\subsection{10.7 The chirality chain}\label{the-chirality-chain}}
 
 The framework's commitment to chiral SU(2) (Chapter 5 §5.6) produces
 electroweak parity violation. This commitment propagates from the
@@ -13332,8 +13466,9 @@ physics to produce a specific empirical prediction about biological
 systems --- a prediction that is empirically confirmed by the universal
 homochirality of life on Earth.
 
+\hypertarget{fine-tuning-and-the-anthropic-principle}{%
 \subsection{10.8 Fine-tuning and the anthropic
-principle}\label{fine-tuning-and-the-anthropic-principle}
+principle}\label{fine-tuning-and-the-anthropic-principle}}
 
 The framework's content on chemistry has implications for two
 interpretive questions that have been central to physics discussions for
@@ -13453,14 +13588,17 @@ content's downstream consequences for life.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Chapter 11}\label{chapter-11}
+\hypertarget{chapter-11}{%
+\section{Chapter 11}\label{chapter-11}}
 
-\section{The Origin of Life}\label{the-origin-of-life}
+\hypertarget{the-origin-of-life}{%
+\section{The Origin of Life}\label{the-origin-of-life}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops-8}{%
 \subsection{11.1 What this chapter
-develops}\label{what-this-chapter-develops-8}
+develops}\label{what-this-chapter-develops-8}}
 
 Chapter 10 developed the framework's content in chemistry: the
 structural chain from substratum to orbital chemistry, the scale
@@ -13558,8 +13696,9 @@ predictions --- the path from prebiotic chemistry to the first
 self-replicator depends on parametric details the framework's structural
 commitments do not constrain.
 
+\hypertarget{the-autocatalytic-argument}{%
 \subsection{11.2 The autocatalytic
-argument}\label{the-autocatalytic-argument}
+argument}\label{the-autocatalytic-argument}}
 
 The first structural step from chemistry to life is the emergence of
 \emph{autocatalytic networks}: sets of molecules in which each member
@@ -13648,8 +13787,9 @@ The framework's prediction --- that autocatalytic chemistry is the
 expected outcome of organic chemistry within the thermal window --- is
 consistent with this empirical record.
 
+\hypertarget{prebiotic-chemistry-pathways}{%
 \subsection{11.3 Prebiotic chemistry
-pathways}\label{prebiotic-chemistry-pathways}
+pathways}\label{prebiotic-chemistry-pathways}}
 
 Between the framework's structural prediction (autocatalysis is
 statistically expected) and the framework's molecular prediction
@@ -13777,8 +13917,9 @@ from simple precursors to the first C1-C3 chemistry depends on the
 parametric content of the relevant environment; the structural
 expectation is robust.
 
+\hypertarget{self-replication-as-read-write-cycling}{%
 \subsection{11.4 Self-replication as read-write
-cycling}\label{self-replication-as-read-write-cycling}
+cycling}\label{self-replication-as-read-write-cycling}}
 
 The framework's emergent quantum mechanics in Chapter 1 derives the
 read-write cycle as the equilibrium dynamics between visible and hidden
@@ -13853,8 +13994,9 @@ memory, no heredity. When a molecular system first satisfies C1-C3
 simultaneously, its dynamics becomes non-Markovian, and the resulting
 heredity makes evolution possible.
 
+\hypertarget{from-template-replication-to-evolution}{%
 \subsection{11.5 From template replication to
-evolution}\label{from-template-replication-to-evolution}
+evolution}\label{from-template-replication-to-evolution}}
 
 Template replication --- a molecular system copying its own sequence
 into new molecules of the same type --- is the chemistry-level mechanism
@@ -13897,11 +14039,10 @@ substrate for the next catalytic cycle.
 capabilities is structurally available in the framework's chemistry.
 Their intersection produces template replication:
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3600}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3200}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3200}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3600}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3200}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3200}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Element
@@ -13925,7 +14066,6 @@ Selection & Competition for finite resources & Inevitable \\
 Darwinian evolution & Replication + variation + selection &
 Consequence \\
 \end{longtable}
-}
 
 Each row follows from the preceding rows. No row requires contingent
 facts about our universe beyond the derived chemistry. Darwinian
@@ -13978,8 +14118,9 @@ provides the structural account; the specific historical content is the
 subject of the historical sciences (paleontology, geochemistry,
 comparative biology).
 
+\hypertarget{c1-c3-at-the-molecular-scale}{%
 \subsection{11.6 C1-C3 at the molecular
-scale}\label{c1-c3-at-the-molecular-scale}
+scale}\label{c1-c3-at-the-molecular-scale}}
 
 The framework's characterization theorem from Chapter 1 establishes that
 any embedded observer's reduced description is necessarily non-Markovian
@@ -14084,8 +14225,9 @@ suitable chemical environment and the establishment of C1-C3. The
 Earth's specific timescale is parametric; the existence of a non-zero
 gap is structural.
 
+\hypertarget{rna-as-the-unique-single-molecule-c1-c3-system}{%
 \subsection{11.7 RNA as the unique single-molecule C1-C3
-system}\label{rna-as-the-unique-single-molecule-c1-c3-system}
+system}\label{rna-as-the-unique-single-molecule-c1-c3-system}}
 
 The framework's structural prediction is that the simplest realization
 of C1-C3 at the molecular scale uses \emph{one molecular family}
@@ -14173,8 +14315,9 @@ Both stages are within the framework's structural class ---
 implementations of C1-C3 at the molecular scale --- with the specific
 molecular details parametric.
 
+\hypertarget{what-remains-genuinely-open}{%
 \subsection{11.8 What remains genuinely
-open}\label{what-remains-genuinely-open}
+open}\label{what-remains-genuinely-open}}
 
 The framework's structural content on the origin of life is substantive
 but limited. The chapter has established that Darwinian evolution is the
@@ -14258,15 +14401,18 @@ on which the subsequent biology chapters build.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Chapter 12}\label{chapter-12}
+\hypertarget{chapter-12}{%
+\section{Chapter 12}\label{chapter-12}}
 
+\hypertarget{evolution-intelligence-and-self-reference}{%
 \section{Evolution, Intelligence, and
-Self-Reference}\label{evolution-intelligence-and-self-reference}
+Self-Reference}\label{evolution-intelligence-and-self-reference}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops-9}{%
 \subsection{12.1 What this chapter
-develops}\label{what-this-chapter-develops-9}
+develops}\label{what-this-chapter-develops-9}}
 
 Chapter 11 established the framework's structural account of the origin
 of life: Darwinian evolution as the inevitable dynamics of imperfect
@@ -14356,8 +14502,9 @@ self-discovery. The framework's reach is therefore not just to physics,
 chemistry, and biology but to the conditions for any embedded observer
 to discover the structural content of its own embedding.
 
+\hypertarget{evolution-as-a-multi-scale-c1-c3-system}{%
 \subsection{12.2 Evolution as a multi-scale C1-C3
-system}\label{evolution-as-a-multi-scale-c1-c3-system}
+system}\label{evolution-as-a-multi-scale-c1-c3-system}}
 
 Chapter 11 established C1-C3 at the molecular scale, producing the
 heredity that makes evolution possible. The framework's content extends
@@ -14466,8 +14613,9 @@ evolutionary biology (history-dependent fitness landscapes) is
 consistent with this structural prediction. Chapters 13, 16, and 17
 develop the empirical content at each scale.
 
+\hypertarget{information-processing-as-fitness-enhancing}{%
 \subsection{12.3 Information processing as
-fitness-enhancing}\label{information-processing-as-fitness-enhancing}
+fitness-enhancing}\label{information-processing-as-fitness-enhancing}}
 
 The framework's structural content produces a specific prediction about
 the relationship between information processing and selection. In any
@@ -14526,8 +14674,9 @@ ceiling: it does not specify how sophisticated the information
 processing can become, what specific computational capabilities evolve,
 or whether evolution reaches general-purpose reasoning.
 
+\hypertarget{major-evolutionary-transitions}{%
 \subsection{12.4 Major evolutionary
-transitions}\label{major-evolutionary-transitions}
+transitions}\label{major-evolutionary-transitions}}
 
 Beyond the structural account of evolution at the molecular and
 population level, evolutionary biology has identified a small number of
@@ -14647,8 +14796,9 @@ specific transition timelines, the specific evolutionary trajectories).
 The framework provides the structural foundations; the historical
 sciences provide the specific content.
 
+\hypertarget{neural-computation-as-structurally-possible}{%
 \subsection{12.5 Neural computation as structurally
-possible}\label{neural-computation-as-structurally-possible}
+possible}\label{neural-computation-as-structurally-possible}}
 
 The framework's commitments produce the materials and energetic
 conditions for neural computation. Three structural features are
@@ -14715,9 +14865,10 @@ becomes. The next section addresses this --- the structural prediction
 of \emph{general intelligence} is much weaker than the structural
 prediction of neural computation.
 
+\hypertarget{general-intelligence-as-structurally-unconstrained-but-not-guaranteed}{%
 \subsection{12.6 General intelligence as structurally unconstrained but
 not
-guaranteed}\label{general-intelligence-as-structurally-unconstrained-but-not-guaranteed}
+guaranteed}\label{general-intelligence-as-structurally-unconstrained-but-not-guaranteed}}
 
 The framework's content on general intelligence is the chapter's
 clearest scope limit. The framework's structural commitments produce the
@@ -14815,8 +14966,9 @@ framework's stance --- capability structural, occurrence uncertain ---
 is the position most consistent with the framework's structural
 commitments and the available evidence.
 
+\hypertarget{the-chain-from-intelligence-to-ai}{%
 \subsection{12.7 The chain from intelligence to
-AI}\label{the-chain-from-intelligence-to-ai}
+AI}\label{the-chain-from-intelligence-to-ai}}
 
 If general intelligence exists --- for whatever contingent or structural
 reason --- then artificial intelligence follows from the derived
@@ -14879,11 +15031,10 @@ chain after the chemistry is fixed.
 
 \textbf{The structural chain summarized.}
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2609}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3913}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3478}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2609}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3913}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3478}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Step
@@ -14909,7 +15060,6 @@ Logic gates & Transistors in series / parallel & Structural \\
 Universal computation & NAND is functionally complete & Mathematical
 theorem \\
 \end{longtable}
-}
 
 The cumulative chain from \((S, \varphi)\) to a universal computer is
 structural --- \emph{given someone to build it}. The contingent step is
@@ -14937,8 +15087,9 @@ development, scientific institutions, engineering choices), but the
 \emph{existence} of AI as an outcome is structurally determined once
 general intelligence exists.
 
+\hypertarget{the-self-referential-loop-and-structural-limits}{%
 \subsection{12.8 The self-referential loop and structural
-limits}\label{the-self-referential-loop-and-structural-limits}
+limits}\label{the-self-referential-loop-and-structural-limits}}
 
 AI is an embedded observer building another embedded observer within the
 same \((S, \varphi)\). The framework's characterization theorem (Chapter
@@ -15072,8 +15223,8 @@ apparent ontology one level down. This is consistent with the broader
 pattern: the substratum-emergent distinction dissolves several classical
 interpretive puzzles in quantum foundations (Bell, Kochen-Specker,
 Pusey-Barrett-Rudolph, Frauchiger-Renner; see
-\hyperref[methodology]{Methodology} Part III and Appendix C of this
-volume) by relocating the contested structure from substratum to
+\protect\hyperlink{methodology}{Methodology} Part III and Appendix C of
+this volume) by relocating the contested structure from substratum to
 emergent description. The framework's divergence from MWI is therefore
 not disagreement at the epistemic-status level --- where OI and BoI
 align --- but a diagnosis: MWI is reading at the wrong level of the
@@ -15083,10 +15234,9 @@ substrate-emergent architecture.
 precise inventory of what arbitrarily sophisticated AI can and cannot
 achieve.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5789}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4211}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5789}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4211}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Capability
@@ -15113,7 +15263,6 @@ theorem) \\
 Achieve consciousness in the phenomenal sense & Not addressed (Ch 18
 §18.10) \\
 \end{longtable}
-}
 
 The framework's content places several capabilities in the ``provably
 impossible'' column --- not as engineering challenges but as
@@ -15168,14 +15317,17 @@ medicine (Chapter 16), and bioinformatics (Chapter 17).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Chapter 13}\label{chapter-13}
+\hypertarget{chapter-13}{%
+\section{Chapter 13}\label{chapter-13}}
 
-\section{Quantum Biology}\label{quantum-biology}
+\hypertarget{quantum-biology}{%
+\section{Quantum Biology}\label{quantum-biology}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops-10}{%
 \subsection{13.1 What this chapter
-develops}\label{what-this-chapter-develops-10}
+develops}\label{what-this-chapter-develops-10}}
 
 The framework's content across Chapters 10-12 established the structural
 cascade from substratum to biology: chemistry as theorem about embedded
@@ -15263,8 +15415,9 @@ The chapter's value is in providing structural foundations for quantum
 biology that connect apparently disparate biological phenomena to the
 framework's universality-class commitments.
 
+\hypertarget{the-frameworks-reframing-of-quantum-biology}{%
 \subsection{13.2 The framework's reframing of quantum
-biology}\label{the-frameworks-reframing-of-quantum-biology}
+biology}\label{the-frameworks-reframing-of-quantum-biology}}
 
 The conventional treatment of quantum biology has a particular
 structure. Quantum mechanics is treated as the \emph{exception} in
@@ -15342,7 +15495,8 @@ regime versus standard quantum-decohered behavior. The empirical
 accessibility makes the framework's content in quantum biology subject
 to direct experimental falsification.
 
-\subsection{13.3 C1-C3 in proteins}\label{c1-c3-in-proteins}
+\hypertarget{c1-c3-in-proteins}{%
+\subsection{13.3 C1-C3 in proteins}\label{c1-c3-in-proteins}}
 
 The canonical biological implementation of the framework's structural
 conditions is the protein conformational landscape. Proteins are the
@@ -15449,8 +15603,9 @@ quantitative discrimination from competing accounts (purely classical
 memory effects, purely quantum-coherent dynamics) requires further
 empirical work.
 
+\hypertarget{photosynthesis-as-energy-transfer-through-c1-c3-architectures}{%
 \subsection{13.4 Photosynthesis as energy transfer through C1-C3
-architectures}\label{photosynthesis-as-energy-transfer-through-c1-c3-architectures}
+architectures}\label{photosynthesis-as-energy-transfer-through-c1-c3-architectures}}
 
 Photosynthetic light-harvesting complexes provide the most-studied
 empirical case of quantum biology. Two-dimensional electronic
@@ -15523,8 +15678,9 @@ would distinguish the framework's reading from purely quantum-coherent
 or purely classical alternatives. The framework's content here is
 therefore empirically engaged rather than purely interpretive.
 
+\hypertarget{magnetoreception-via-cryptochrome-radical-pairs}{%
 \subsection{13.5 Magnetoreception via cryptochrome radical
-pairs}\label{magnetoreception-via-cryptochrome-radical-pairs}
+pairs}\label{magnetoreception-via-cryptochrome-radical-pairs}}
 
 The avian magnetic compass --- the mechanism by which migratory birds
 sense the geomagnetic field for navigation --- provides a second
@@ -15616,8 +15772,9 @@ should reflect the framework's nuclear-spin-bath capacity. The
 framework's content provides structural foundations for the radical-pair
 mechanism that connect it to broader principles of quantum biology.
 
+\hypertarget{enzyme-catalysis-as-the-frameworks-clearest-test-case}{%
 \subsection{13.6 Enzyme catalysis as the framework's clearest test
-case}\label{enzyme-catalysis-as-the-frameworks-clearest-test-case}
+case}\label{enzyme-catalysis-as-the-frameworks-clearest-test-case}}
 
 Enzyme catalysis is the framework's most direct empirical test bed in
 quantum biology. Single-enzyme experiments --- pioneered by Sunney Xie
@@ -15697,8 +15854,9 @@ conformational landscapes. The framework's content here is therefore
 empirically actionable, with the partially-quantum prediction being the
 framework's distinctive falsification target.
 
+\hypertarget{the-partially-quantum-regime-in-biology}{%
 \subsection{13.7 The partially-quantum regime in
-biology}\label{the-partially-quantum-regime-in-biology}
+biology}\label{the-partially-quantum-regime-in-biology}}
 
 The framework's content on quantum biology includes a structurally
 distinct prediction: biological C1-C3 systems sit in the
@@ -15773,8 +15931,9 @@ falsifiable, and quantitatively specific --- the kind of empirical
 commitment that distinguishes a structural framework from a
 phenomenological account.
 
+\hypertarget{implications-for-drug-design}{%
 \subsection{13.8 Implications for drug
-design}\label{implications-for-drug-design}
+design}\label{implications-for-drug-design}}
 
 The framework's content on quantum biology has practical consequences
 for drug discovery and clinical pharmacology. Standard drug design
@@ -15836,7 +15995,8 @@ use. The framework's content provides a structural basis for predicting
 when corrections matter rather than just empirically discovering them
 case by case.
 
-\subsection{13.9 Chapter close}\label{chapter-close}
+\hypertarget{chapter-close}{%
+\subsection{13.9 Chapter close}\label{chapter-close}}
 
 The framework's content in quantum biology unifies several apparently
 disparate phenomena --- photosynthetic exciton transfer,
@@ -15898,9 +16058,11 @@ foundational example that the subsequent chapters build on.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Chapter 14}\label{chapter-14}
+\hypertarget{chapter-14}{%
+\section{Chapter 14}\label{chapter-14}}
 
-\section{Quantum Computing}\label{quantum-computing}
+\hypertarget{quantum-computing}{%
+\section{Quantum Computing}\label{quantum-computing}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -15918,8 +16080,9 @@ falls independently on its physics --- and should be read as a
 structural possibility to be tested, not as support for the framework.
 \end{quote}
 
+\hypertarget{what-this-chapter-develops-11}{%
 \subsection{14.1 What this chapter
-develops}\label{what-this-chapter-develops-11}
+develops}\label{what-this-chapter-develops-11}}
 
 The framework's content across Chapters 5 through 13 has established a
 substantial structural account of fundamental physics, the cascade
@@ -16007,8 +16170,9 @@ no super-BQP computation is possible on any physically realizable
 hardware, with any demonstrated super-BQP capability constituting a
 falsification of the framework.
 
+\hypertarget{the-frameworks-content-in-computational-complexity}{%
 \subsection{14.2 The framework's content in computational
-complexity}\label{the-frameworks-content-in-computational-complexity}
+complexity}\label{the-frameworks-content-in-computational-complexity}}
 
 The framework's content in computational complexity operates at a
 specific level of abstraction. The framework does \emph{not} derive new
@@ -16083,8 +16247,9 @@ level --- a structural account of why BQP is the relevant complexity
 class, with empirical predictions that distinguish the framework from
 alternative accounts of computational complexity in physical systems.
 
+\hypertarget{bqp-is-available-the-lower-bound}{%
 \subsection{14.3 BQP is available: the lower
-bound}\label{bqp-is-available-the-lower-bound}
+bound}\label{bqp-is-available-the-lower-bound}}
 
 The lower bound of the BQP characterization theorem establishes that any
 embedded observer satisfying C1-C3 has access to BQP computational
@@ -16172,8 +16337,9 @@ contingent capability that some embedded observers happen to have but a
 This is a structural feature of the framework's universality class ---
 any member of the class has access to BQP.
 
+\hypertarget{bqp-cannot-be-exceeded-the-upper-bound}{%
 \subsection{14.4 BQP cannot be exceeded: the upper
-bound}\label{bqp-cannot-be-exceeded-the-upper-bound}
+bound}\label{bqp-cannot-be-exceeded-the-upper-bound}}
 
 The upper bound of the BQP characterization theorem establishes that no
 embedded observer exceeds BQP. The argument runs through
@@ -16280,8 +16446,9 @@ commitments. The framework therefore makes a sharp empirical prediction:
 no super-BQP computation is possible on any physically realizable
 hardware compatible with the framework's commitments.
 
+\hypertarget{the-bqp-characterization-theorem}{%
 \subsection{14.5 The BQP characterization
-theorem}\label{the-bqp-characterization-theorem}
+theorem}\label{the-bqp-characterization-theorem}}
 
 Combining the lower bound (BQP is available, §14.3) with the upper bound
 (BQP cannot be exceeded, §14.4) yields the BQP characterization theorem.
@@ -16341,8 +16508,9 @@ observers, with the result holding at the structural level of the
 framework's universality-class commitments rather than at the
 specific-implementation level.
 
+\hypertarget{the-extended-church-turing-thesis-as-a-theorem}{%
 \subsection{14.6 The Extended Church-Turing Thesis as a
-theorem}\label{the-extended-church-turing-thesis-as-a-theorem}
+theorem}\label{the-extended-church-turing-thesis-as-a-theorem}}
 
 The Extended Church-Turing Thesis (ECT) asserts that any physically
 realizable computation can be efficiently simulated by a quantum Turing
@@ -16439,8 +16607,9 @@ framework's other empirical content (Chapters 5-13) providing the
 supporting evidence for the framework's structural commitments that make
 the theorem follow.
 
+\hypertarget{the-bpp-bqp-gap-as-cost-of-partial-observation}{%
 \subsection{14.7 The BPP-BQP gap as cost of partial
-observation}\label{the-bpp-bqp-gap-as-cost-of-partial-observation}
+observation}\label{the-bpp-bqp-gap-as-cost-of-partial-observation}}
 
 Quantum advantage --- the gap between classical (BPP) and quantum (BQP)
 computational complexity --- is one of the central topics in quantum
@@ -16518,8 +16687,9 @@ partition's properties --- making the framework's C1-C3 architecture
 explicit and tunable rather than treating the environment as noise to be
 minimized. Chapter 15 develops this design philosophy in detail.
 
+\hypertarget{internal-structure-of-bqp-and-the-p-vs-np-question}{%
 \subsection{14.8 Internal structure of BQP and the P vs NP
-question}\label{internal-structure-of-bqp-and-the-p-vs-np-question}
+question}\label{internal-structure-of-bqp-and-the-p-vs-np-question}}
 
 The BQP characterization theorem identifies the \emph{ceiling} on
 computational capability for embedded observers but takes no position on
@@ -16739,9 +16909,10 @@ the computational ceiling for embedded observers; standard complexity
 theory's content is about the internal structure of the classes inside
 that ceiling. The two are complementary rather than competing.
 
+\hypertarget{beyond-axioms-research-directions-opened-by-the-substratum-structure}{%
 \subsection{14.9 Beyond axioms: research directions opened by the
 substratum
-structure}\label{beyond-axioms-research-directions-opened-by-the-substratum-structure}
+structure}\label{beyond-axioms-research-directions-opened-by-the-substratum-structure}}
 
 The structural-silence result of §14.8 identifies a negative content:
 physical-substrate axioms do not bridge to asymptotic complexity-class
@@ -16761,8 +16932,9 @@ investigation. The companion paper {[}Computation, §7{]} develops these
 in more detail and is the canonical reference for the research-direction
 content.
 
+\hypertarget{geometric-structure-on-the-substratum-lattice}{%
 \subsubsection{14.9.1 Geometric structure on the substratum
-lattice}\label{geometric-structure-on-the-substratum-lattice}
+lattice}\label{geometric-structure-on-the-substratum-lattice}}
 
 NP-complete problems vary in the extent to which their constraint
 structure can be embedded into the substratum's cubic lattice geometry.
@@ -16783,9 +16955,10 @@ complexity. The framework's contribution is to suggest the substratum's
 cubic geometry as a structural reason for the implementation-cost
 differential, not to deliver new bounds.
 
+\hypertarget{the-bqp-bpp-gap-hidden-group-structure-and-the-mathrmsu2-compatibility-refinement}{%
 \subsubsection{\texorpdfstring{14.9.2 The BQP-BPP gap, hidden group
 structure, and the \(\mathrm{SU}(2)\)-compatibility
-refinement}{14.9.2 The BQP-BPP gap, hidden group structure, and the \textbackslash mathrm\{SU\}(2)-compatibility refinement}}\label{the-bqp-bpp-gap-hidden-group-structure-and-the-mathrmsu2-compatibility-refinement}
+refinement}{14.9.2 The BQP-BPP gap, hidden group structure, and the \textbackslash mathrm\{SU\}(2)-compatibility refinement}}\label{the-bqp-bpp-gap-hidden-group-structure-and-the-mathrmsu2-compatibility-refinement}}
 
 Existing complexity-theoretic evidence suggests that the BQP-BPP gap is
 largest for problems with strong global structure (factoring, discrete
@@ -16888,8 +17061,9 @@ structures it concentrates on, with this contribution rooted in the
 framework's existing QM emergence theorem rather than introduced as new
 content.
 
+\hypertarget{gauge-equivalence-and-complexity-theoretic-reductions}{%
 \subsubsection{14.9.3 Gauge equivalence and complexity-theoretic
-reductions}\label{gauge-equivalence-and-complexity-theoretic-reductions}
+reductions}\label{gauge-equivalence-and-complexity-theoretic-reductions}}
 
 The framework's substratum gauge group \(\mathcal{G}_{\text{sub}}\)
 partitions the space of bijections into equivalence classes; the gauge
@@ -16908,8 +17082,9 @@ distinction'' at the substratum level, and polynomial-time reducibility
 is ``no complexity distinction'' at the algorithm level. Both are
 equivalence relations on otherwise distinct structures.
 
+\hypertarget{conditions-and-the-right-kind-of-research-question}{%
 \subsubsection{14.9.4 Conditions and the right kind of research
-question}\label{conditions-and-the-right-kind-of-research-question}
+question}\label{conditions-and-the-right-kind-of-research-question}}
 
 The pattern across the three directions is that the framework's specific
 structure suggests \emph{conditional} complexity-theoretic claims ---
@@ -16929,7 +17104,8 @@ contribution is to identify them as natural questions given its
 structure, not to resolve them. Specialist investigation in complexity
 theory is the appropriate way to develop or refute each direction.
 
-\subsection{14.10 Chapter close}\label{chapter-close-1}
+\hypertarget{chapter-close-1}{%
+\subsection{14.10 Chapter close}\label{chapter-close-1}}
 
 The framework's content in this chapter establishes BQP as the unique
 computational class accessible to embedded observers in the framework's
@@ -17064,15 +17240,18 @@ number or a queued derivation, none negotiable.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Chapter 15}\label{chapter-15}
+\hypertarget{chapter-15}{%
+\section{Chapter 15}\label{chapter-15}}
 
+\hypertarget{quantum-engineering-hardware-software-and-the-bec-experiment}{%
 \section{Quantum Engineering --- Hardware, Software, and the BEC
-Experiment}\label{quantum-engineering-hardware-software-and-the-bec-experiment}
+Experiment}\label{quantum-engineering-hardware-software-and-the-bec-experiment}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops-12}{%
 \subsection{15.1 What this chapter
-develops}\label{what-this-chapter-develops-12}
+develops}\label{what-this-chapter-develops-12}}
 
 Chapter 14 established the framework's content in computational
 complexity theory: BQP as the unique computational class accessible to
@@ -17148,8 +17327,9 @@ into engineering is therefore not isolated but is part of a broader
 convergence in mainstream physics on horizon decoherence as a
 fundamental phenomenon.
 
+\hypertarget{the-environment-as-programmable-quantum-memory}{%
 \subsection{15.2 The environment as programmable quantum
-memory}\label{the-environment-as-programmable-quantum-memory}
+memory}\label{the-environment-as-programmable-quantum-memory}}
 
 Standard quantum engineering treats the environment as an adversary:
 decoherence destroys quantum information, and the goal is to isolate
@@ -17202,12 +17382,11 @@ cosmological case.
 \textbf{The cumulative pattern.} The framework's predictions across the
 engineered quantum systems summarize as follows.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1379}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2414}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2931}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3276}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1379}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2414}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2931}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3276}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Domain
@@ -17234,7 +17413,6 @@ measurable \\
 Engineered baths & Designed coupling & up to \(10^{-1}\) & Future
 architectures \\
 \end{longtable}
-}
 
 The corrections grow as \(\tau_S/\tau_B\) increases --- equivalently, as
 the hidden sector's timescale approaches the system's timescale. The
@@ -17249,8 +17427,9 @@ The remaining sections develop the framework's specific engineering
 content at each of these scales, with concrete numerical predictions for
 current and near-future quantum hardware platforms.
 
+\hypertarget{superconducting-qubits-and-tls-noise}{%
 \subsection{15.3 Superconducting qubits and TLS
-noise}\label{superconducting-qubits-and-tls-noise}
+noise}\label{superconducting-qubits-and-tls-noise}}
 
 Superconducting qubits --- transmons, fluxonium, and similar
 architectures --- are the leading commercial platform for quantum
@@ -17346,8 +17525,9 @@ patterns). The framework's reading is that these are not isolated
 phenomena but generic signatures of the C1-C3 architecture inherent in
 the transmon-TLS system.
 
+\hypertarget{correlation-aware-error-correction}{%
 \subsection{15.4 Correlation-aware error
-correction}\label{correlation-aware-error-correction}
+correction}\label{correlation-aware-error-correction}}
 
 The framework's prediction of P-indivisible noise in superconducting
 qubits has direct implications for quantum error correction. Standard
@@ -17411,8 +17591,9 @@ literature. The framework's prediction therefore stands as a
 pre-registered empirical target for the next generation of
 quantum-error-correction research.
 
+\hypertarget{coherence-extension-through-engineered-baths}{%
 \subsection{15.5 Coherence extension through engineered
-baths}\label{coherence-extension-through-engineered-baths}
+baths}\label{coherence-extension-through-engineered-baths}}
 
 Standard quantum hardware aims to minimize environmental coupling to
 maximize coherence time. The framework's content suggests the opposite
@@ -17488,8 +17669,9 @@ uptake depends on whether early demonstrations of the framework's
 predicted coherence extension are achieved at sufficient scale to be
 competitive with continued isolation improvements.
 
+\hypertarget{quantum-sensing-with-nv-centers}{%
 \subsection{15.6 Quantum sensing with NV
-centers}\label{quantum-sensing-with-nv-centers}
+centers}\label{quantum-sensing-with-nv-centers}}
 
 Nitrogen-vacancy (NV) centers in diamond are the leading platform for
 room-temperature quantum sensing --- magnetic field measurement,
@@ -17568,8 +17750,9 @@ protocols do not improve integrated sensitivity by factors exceeding
 predicted backflow effects are too small or too thermally averaged to be
 exploited.
 
+\hypertarget{the-partially-quantum-regime-in-engineered-systems}{%
 \subsection{15.7 The partially-quantum regime in engineered
-systems}\label{the-partially-quantum-regime-in-engineered-systems}
+systems}\label{the-partially-quantum-regime-in-engineered-systems}}
 
 Beyond the corrections to fully-quantum behavior at large
 \(\tau_B/\tau_S\) (developed in §§15.3-15.6), the framework predicts a
@@ -17682,8 +17865,9 @@ as the framework's cleanest near-term test of these predictions.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-bec-analogue-gravity-experiment}{%
 \subsection{15.8 The BEC analogue-gravity
-experiment}\label{the-bec-analogue-gravity-experiment}
+experiment}\label{the-bec-analogue-gravity-experiment}}
 
 The framework's cleanest near-term test of the BQP characterization
 theorem at the foundational level is the Bose-Einstein condensate (BEC)
@@ -17901,7 +18085,8 @@ independent controls, robust statistical accessibility, and clear
 falsification conditions. The framework's empirical exposure in
 engineered quantum systems is concentrated here.
 
-\subsection{15.9 Chapter close}\label{chapter-close-2}
+\hypertarget{chapter-close-2}{%
+\subsection{15.9 Chapter close}\label{chapter-close-2}}
 
 The framework's content in quantum engineering is concrete and
 empirically accessible. The chapter has developed five specific
@@ -18002,9 +18187,11 @@ specific quantitative predictions across multiple engineering domains.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Chapter 16}\label{chapter-16}
+\hypertarget{chapter-16}{%
+\section{Chapter 16}\label{chapter-16}}
 
-\section{Medicine}\label{medicine}
+\hypertarget{medicine}{%
+\section{Medicine}\label{medicine}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -18022,8 +18209,9 @@ physics --- and should be read as a structural possibility to be tested,
 not as support for the framework.
 \end{quote}
 
+\hypertarget{what-this-chapter-develops-13}{%
 \subsection{16.1 What this chapter
-develops}\label{what-this-chapter-develops-13}
+develops}\label{what-this-chapter-develops-13}}
 
 Chapters 13 through 15 developed the framework's reach into biology,
 computing, and engineering. Chapter 13 established that biological
@@ -18092,8 +18280,9 @@ framework, so it carries the weight of a consistency check rather than
 of the JUNO forward prediction. The framework's forward predictions in
 medicine (below) remain to be tested.
 
+\hypertarget{the-enzyme-as-a-read-write-system}{%
 \subsection{16.2 The enzyme as a read-write
-system}\label{the-enzyme-as-a-read-write-system}
+system}\label{the-enzyme-as-a-read-write-system}}
 
 Before developing specific disease domains, the chapter establishes the
 framework's structural account of enzymes as read-write systems. The
@@ -18141,13 +18330,12 @@ modifications (\(\gamma\)H2AX, H4K20me) that persist for hours to days
 many decades of biological timescale, with each scale satisfying C1-C3
 with its own characteristic \(\tau_B\).
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Memory mechanism
@@ -18175,7 +18363,6 @@ state & Hrs-days & C2 + C3 \\
 DNA methylation & Methyltransferase activity & CpG state &
 Months-generations & C2 + C3 \\
 \end{longtable}
-}
 
 In multicellular tissues --- particularly the nervous system --- the
 same C1-C3 architecture extends upward through additional layers, each
@@ -18209,7 +18396,8 @@ intervention is reframed in terms of its effect on the architecture's
 memory dynamics; each distinguishing prediction follows from this
 reframing.
 
-\subsection{16.3 Cancer pharmacology}\label{cancer-pharmacology}
+\hypertarget{cancer-pharmacology}{%
+\subsection{16.3 Cancer pharmacology}\label{cancer-pharmacology}}
 
 Cancer is, in the framework's reading, a disease of altered memory
 dynamics at multiple scales. DNA damage response kinases (Chk1, ATR,
@@ -18299,7 +18487,8 @@ protocol predictions are testable in animal models and clinical trials
 with current technology; the framework predicts substantive improvements
 in therapeutic index over current scheduling.
 
-\subsection{16.4 Neurodegeneration}\label{neurodegeneration}
+\hypertarget{neurodegeneration}{%
+\subsection{16.4 Neurodegeneration}\label{neurodegeneration}}
 
 Neurodegenerative disease --- Alzheimer's, Parkinson's, Huntington's,
 and related conditions --- has resisted three decades of pharmacological
@@ -18437,7 +18626,8 @@ clinically (parameters are largely empirical). Framework-informed trials
 would systematically scan pulse repetition frequency and intensity
 against measured molecular \(\tau_B\) values.
 
-\subsection{16.5 Antibiotic resistance}\label{antibiotic-resistance}
+\hypertarget{antibiotic-resistance}{%
+\subsection{16.5 Antibiotic resistance}\label{antibiotic-resistance}}
 
 Antibiotic resistance presents an apparent puzzle for conventional
 pharmacology: bacteria that have never been exposed to an antibiotic can
@@ -18510,8 +18700,9 @@ outcomes in chronic infections. The framework predicts specific drug
 combinations from the memory architecture of bacterial signaling
 networks.
 
+\hypertarget{immunotherapy-and-t-cell-exhaustion}{%
 \subsection{16.6 Immunotherapy and T-cell
-exhaustion}\label{immunotherapy-and-t-cell-exhaustion}
+exhaustion}\label{immunotherapy-and-t-cell-exhaustion}}
 
 T-cell exhaustion --- the progressive loss of T-cell effector function
 during chronic antigen exposure --- is the dominant clinical limitation
@@ -18562,7 +18753,8 @@ The framework predicts that screening compound libraries against
 measured regulatory-domain dynamics (rather than catalytic inhibition)
 would identify a new class of immuno-oncology agents.
 
-\subsection{16.7 Cardiac pharmacology}\label{cardiac-pharmacology}
+\hypertarget{cardiac-pharmacology}{%
+\subsection{16.7 Cardiac pharmacology}\label{cardiac-pharmacology}}
 
 Cardiac antiarrhythmic drugs exhibit \emph{use-dependent block}: the
 drug's binding to the sodium or calcium channel depends on the channel's
@@ -18626,7 +18818,8 @@ produce frequency-selective effects beyond simple additivity. The
 framework predicts specific combinations and dosing for arrhythmias at
 different cycle lengths.
 
-\subsection{16.8 Autoimmune disease}\label{autoimmune-disease}
+\hypertarget{autoimmune-disease}{%
+\subsection{16.8 Autoimmune disease}\label{autoimmune-disease}}
 
 Autoimmune disease --- rheumatoid arthritis, lupus, psoriasis,
 inflammatory bowel disease --- involves chronic activation of cytokine
@@ -18680,8 +18873,9 @@ to standard pharmacology screens that focus on catalytic inhibition.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{epigenetics-as-biological-hidden-sector}{%
 \subsection{16.9 Epigenetics as biological hidden
-sector}\label{epigenetics-as-biological-hidden-sector}
+sector}\label{epigenetics-as-biological-hidden-sector}}
 
 The second half of the chapter develops the framework's content on
 epigenetics --- the systematic application of the substratum-emergent
@@ -18714,11 +18908,10 @@ proximity with promoters).
 slower than individual transcription events. The hierarchy is
 multi-scale:
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Mechanism
@@ -18738,7 +18931,6 @@ Chromatin compaction & Cell generations & \(\sim 10^{-6}\) \\
 CTCF/cohesin loops & Hours to cell generations & \(\sim 10^{-3}\) to
 \(10^{-6}\) \\
 \end{longtable}
-}
 
 The framework predicts a \emph{hierarchy of memory strength}: genes
 regulated primarily by DNA methylation should show the strongest
@@ -18791,8 +18983,9 @@ identity. The framework predicts a critical pulse duration matching
 while preserving identity; longer pulses cross the threshold and erase
 developmental identity.
 
+\hypertarget{the-substratum-emergent-operator-distinction-at-chromatin}{%
 \subsection{16.10 The substratum-emergent operator distinction at
-chromatin}\label{the-substratum-emergent-operator-distinction-at-chromatin}
+chromatin}\label{the-substratum-emergent-operator-distinction-at-chromatin}}
 
 The framework's distinctive content in epigenetics is the
 substratum-emergent operator distinction applied at the chromatin level.
@@ -18893,8 +19086,9 @@ produces fundamental physics conservation laws and dissociations) and at
 the chromatin scale (where it produces biological reprogramming,
 bivalent poised states, and multi-timescale dynamics).
 
+\hypertarget{reader-writer-and-eraser-pharmacology}{%
 \subsection{16.11 Reader, writer, and eraser
-pharmacology}\label{reader-writer-and-eraser-pharmacology}
+pharmacology}\label{reader-writer-and-eraser-pharmacology}}
 
 Current epigenetic therapeutics are organized along three axes that
 correspond directly to the framework's substratum-emergent operator
@@ -18979,8 +19173,9 @@ scheduling should converge on \(\tau_B\)-matched intervals between
 agents acting on different timescales, not on dose-response or
 maximum-tolerated-dose optimization alone.
 
+\hypertarget{the-wider-therapeutic-window-for-reader-writer-disorders}{%
 \subsection{16.12 The wider therapeutic window for reader-writer
-disorders}\label{the-wider-therapeutic-window-for-reader-writer-disorders}
+disorders}\label{the-wider-therapeutic-window-for-reader-writer-disorders}}
 
 The framework's strongest structural content in clinical biology is the
 \emph{wider therapeutic window for reader-writer disorders}, consistent
@@ -19089,8 +19284,9 @@ operators at the same loci. The empirical success of the methylome
 classifier is therefore a confirmation of the operator distinction's
 clinical relevance.
 
+\hypertarget{chapter-close-memory-asymmetry-as-unifying-principle}{%
 \subsection{16.13 Chapter close: memory asymmetry as unifying
-principle}\label{chapter-close-memory-asymmetry-as-unifying-principle}
+principle}\label{chapter-close-memory-asymmetry-as-unifying-principle}}
 
 The framework's content across the chapter is organized by a single
 therapeutic principle: \emph{memory asymmetry}. When a disease process
@@ -19202,9 +19398,11 @@ strongest cases for content beyond fundamental physics.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Chapter 17}\label{chapter-17}
+\hypertarget{chapter-17}{%
+\section{Chapter 17}\label{chapter-17}}
 
-\section{Bioinformatics}\label{bioinformatics}
+\hypertarget{bioinformatics}{%
+\section{Bioinformatics}\label{bioinformatics}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -19222,8 +19420,9 @@ read as a structural possibility to be tested, not as support for the
 framework.
 \end{quote}
 
+\hypertarget{what-this-chapter-develops-14}{%
 \subsection{17.1 What this chapter
-develops}\label{what-this-chapter-develops-14}
+develops}\label{what-this-chapter-develops-14}}
 
 Chapter 16 developed the framework's content in medicine --- clinical
 pharmacology, neurodegeneration, antibiotic resistance, immunotherapy,
@@ -19301,8 +19500,9 @@ record across the chapter's methodological domains provides convergent
 support for both: failures where the framework predicts limits,
 successes where the framework predicts success.
 
+\hypertarget{the-information-theoretic-ceiling-on-transcriptome-only-methods}{%
 \subsection{17.2 The information-theoretic ceiling on transcriptome-only
-methods}\label{the-information-theoretic-ceiling-on-transcriptome-only-methods}
+methods}\label{the-information-theoretic-ceiling-on-transcriptome-only-methods}}
 
 The framework's structural commitment to the substratum-emergent
 operator distinction has a specific consequence in bioinformatics:
@@ -19375,8 +19575,9 @@ to outperform simple baselines on tasks requiring substratum information
 inference). The next four sections develop this pattern across specific
 methodological domains.
 
+\hypertarget{trajectory-inference-and-the-rna-velocity-paradigm}{%
 \subsection{17.3 Trajectory inference and the RNA velocity
-paradigm}\label{trajectory-inference-and-the-rna-velocity-paradigm}
+paradigm}\label{trajectory-inference-and-the-rna-velocity-paradigm}}
 
 Trajectory inference methods attempt to reconstruct cell-state
 transitions from single-cell snapshot data. RNA velocity (La Manno et
@@ -19435,8 +19636,9 @@ included to obtain accurate trajectory inference. The framework provides
 the structural reason: chromatin is the substratum operator carrying
 memory information that the emergent transcriptome operator does not.
 
+\hypertarget{gene-regulatory-network-inference}{%
 \subsection{17.4 Gene regulatory network
-inference}\label{gene-regulatory-network-inference}
+inference}\label{gene-regulatory-network-inference}}
 
 Gene regulatory network (GRN) inference attempts to reconstruct the
 causal regulatory architecture of cells from expression data. The
@@ -19507,8 +19709,9 @@ pattern of methodological improvement should follow this
 information-theoretic structure rather than being driven by
 architectural sophistication.
 
+\hypertarget{perturbation-prediction-and-the-failure-of-scaling}{%
 \subsection{17.5 Perturbation prediction and the failure of
-scaling}\label{perturbation-prediction-and-the-failure-of-scaling}
+scaling}\label{perturbation-prediction-and-the-failure-of-scaling}}
 
 Perturbation prediction is the bioinformatics task of predicting
 cellular response to genetic, chemical, or environmental perturbations
@@ -19596,8 +19799,9 @@ success (with prior knowledge supplying the missing substratum content);
 compositional generalization is structurally impossible for
 transcriptome-only methods.
 
+\hypertarget{multi-omics-integration-and-timescale-aware-methods}{%
 \subsection{17.6 Multi-omics integration and timescale-aware
-methods}\label{multi-omics-integration-and-timescale-aware-methods}
+methods}\label{multi-omics-integration-and-timescale-aware-methods}}
 
 Multi-omics integration combines transcriptome data with other molecular
 measurements --- proteome, epigenome, metabolome, single-cell chromatin
@@ -19649,8 +19853,9 @@ methods on tasks requiring memory information, with the magnitude of
 improvement correlated with the importance of memory for the specific
 task.
 
+\hypertarget{cancer-methylome-classification-as-positive-prediction}{%
 \subsection{17.7 Cancer methylome classification as positive
-prediction}\label{cancer-methylome-classification-as-positive-prediction}
+prediction}\label{cancer-methylome-classification-as-positive-prediction}}
 
 While the previous sections developed the framework's \emph{negative}
 predictions (where transcriptome-only methods fail), cancer methylome
@@ -19731,8 +19936,9 @@ methylation differences. The hypothesis is testable in the existing DKFZ
 dataset by stratifying classifiable vs unclassifiable cases on
 machinery-site vs content-site methylation patterns.
 
+\hypertarget{variant-pathogenicity-for-readerwritereraser-genes}{%
 \subsection{17.8 Variant pathogenicity for reader/writer/eraser
-genes}\label{variant-pathogenicity-for-readerwritereraser-genes}
+genes}\label{variant-pathogenicity-for-readerwritereraser-genes}}
 
 Predicting the functional impact of missense variants is a core task in
 clinical genetics. Methods range from sequence-conservation methods
@@ -19823,8 +20029,9 @@ variant-interpretation guidelines for reader-writer disorders are
 systematically miscalibrated; framework-aligned recalibration would
 improve diagnostic and prognostic accuracy.
 
+\hypertarget{empirical-confirmations-in-evolutionary-biology}{%
 \subsection{17.9 Empirical confirmations in evolutionary
-biology}\label{empirical-confirmations-in-evolutionary-biology}
+biology}\label{empirical-confirmations-in-evolutionary-biology}}
 
 The framework's predictions for non-Markovianity in molecular evolution
 data are \emph{already-empirically-established phenomena}. The framework
@@ -20010,8 +20217,9 @@ of a single structural mechanism, with quantitative cross-relationships
 overdispersion magnitude) that should be empirically related in
 framework-specific ways.
 
+\hypertarget{chapter-close-the-structural-roadmap-forward}{%
 \subsection{17.10 Chapter close: the structural roadmap
-forward}\label{chapter-close-the-structural-roadmap-forward}
+forward}\label{chapter-close-the-structural-roadmap-forward}}
 
 The framework's content in bioinformatics has two cumulative dimensions:
 the structural ceiling on transcriptome-only methods that explains
@@ -20127,10 +20335,12 @@ load-bearing for the framework's reach in each.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Chapter 18}\label{chapter-18}
+\hypertarget{chapter-18}{%
+\section{Chapter 18}\label{chapter-18}}
 
+\hypertarget{beyond-quantum-mechanics-and-general-relativity}{%
 \section{Beyond Quantum Mechanics and General
-Relativity}\label{beyond-quantum-mechanics-and-general-relativity}
+Relativity}\label{beyond-quantum-mechanics-and-general-relativity}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -20147,8 +20357,9 @@ falls independently on its physics --- and should be read as a
 structural possibility to be tested, not as support for the framework.
 \end{quote}
 
+\hypertarget{what-this-chapter-develops-15}{%
 \subsection{18.1 What this chapter
-develops}\label{what-this-chapter-develops-15}
+develops}\label{what-this-chapter-develops-15}}
 
 Chapters 5 through 16 developed the framework's content where standard
 physics and the framework agree at high empirical precision. The
@@ -20249,8 +20460,9 @@ value here is not the empirical record (which is what Chapters 5-17
 developed) but the structural commitments --- what the framework says
 about the world beyond what current physics tests.
 
+\hypertarget{the-born-rule-as-dynamical-equilibrium}{%
 \subsection{18.2 The Born rule as dynamical
-equilibrium}\label{the-born-rule-as-dynamical-equilibrium}
+equilibrium}\label{the-born-rule-as-dynamical-equilibrium}}
 
 The Born rule --- that the probability of measuring a quantum system in
 state \(|x\rangle\) given wave function \(|\psi\rangle\) is
@@ -20378,9 +20590,10 @@ incompleteness rather than fundamental indeterminism. The late-time
 corrections are the structural signature of this underlying determinism,
 suppressed but not eliminated.
 
+\hypertarget{the-quantum-classical-boundary-and-the-partially-quantum-regime}{%
 \subsection{18.3 The quantum-classical boundary and the
 partially-quantum
-regime}\label{the-quantum-classical-boundary-and-the-partially-quantum-regime}
+regime}\label{the-quantum-classical-boundary-and-the-partially-quantum-regime}}
 
 The quantum-classical boundary is one of the most pragmatically
 important features of physics and one of the most foundationally
@@ -20455,11 +20668,10 @@ is expected to occur: in systems where the hidden sector has
 intermediate capacity and timescale separation. The table below
 summarizes the predicted regimes for several systems:
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2286}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2286}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2286}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.5429}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2286}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 System
@@ -20481,7 +20693,6 @@ Histone modification dynamics & \(\sim 10^{-3}\) to \(10^{-1}\) & Weakly
 quantum \\
 Small-molecule reactions & \(\sim 1\) & Classical \\
 \end{longtable}
-}
 
 The framework's content is not ``quantum effects in biology'' ---
 standard quantum mechanics allows quantum effects at any scale, and the
@@ -20517,8 +20728,9 @@ but a testable one, with experimental targets in the biological sciences
 that the framework's quantum-biology chapter (Chapter 13) develops in
 detail.
 
+\hypertarget{the-epistemic-character-of-quantum-randomness}{%
 \subsection{18.4 The epistemic character of quantum
-randomness}\label{the-epistemic-character-of-quantum-randomness}
+randomness}\label{the-epistemic-character-of-quantum-randomness}}
 
 The framework's commitment to a deterministic substratum has a striking
 consequence for the foundations of quantum mechanics: quantum randomness
@@ -20638,8 +20850,9 @@ conceptual record is substantial.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-quantum-gravity-dissolution-as-cumulative-case}{%
 \subsection{18.5 The quantum gravity dissolution as cumulative
-case}\label{the-quantum-gravity-dissolution-as-cumulative-case}
+case}\label{the-quantum-gravity-dissolution-as-cumulative-case}}
 
 The framework's content on the quantum gravity problem extends beyond
 the individual dissolutions developed in Chapter 7 to a structural
@@ -20789,8 +21002,9 @@ concordance, the value of \(\hbar\) from partition geometry, the
 running-vacuum dark-energy form, the MOND acceleration scale, and the
 gravitational wave echoes developed in the next section.
 
+\hypertarget{gravitational-wave-echoes}{%
 \subsection{18.6 Gravitational wave
-echoes}\label{gravitational-wave-echoes}
+echoes}\label{gravitational-wave-echoes}}
 
 The framework's commitment to the discreteness scale
 \(\epsilon = 2 l_p\) produces a forward empirical signature:
@@ -20890,8 +21104,9 @@ the arrow of time, cosmic topology, and consciousness --- that test the
 framework at scales and levels distinct from the direct empirical
 exposure of the gravitational and quantum sectors.
 
+\hypertarget{finite-information-and-poincaruxe9-recurrence}{%
 \subsection{18.7 Finite information and Poincaré
-recurrence}\label{finite-information-and-poincaruxe9-recurrence}
+recurrence}\label{finite-information-and-poincaruxe9-recurrence}}
 
 The framework's commitment to a finite substratum has structural
 consequences that extend beyond the empirical predictions of fundamental
@@ -20999,7 +21214,8 @@ replacing \(|S| < \infty\) with \(|S| = \infty\) --- would break the
 logical chain and require a different account of how quantum mechanics
 emerges from substratum dynamics.
 
-\subsection{18.8 The arrow of time}\label{the-arrow-of-time}
+\hypertarget{the-arrow-of-time}{%
+\subsection{18.8 The arrow of time}\label{the-arrow-of-time}}
 
 The framework's substratum dynamics is given by the bijection
 \(\varphi: S \to S\). The bijection has \emph{no arrow of time}. Both
@@ -21133,7 +21349,9 @@ not at the level of substratum dynamics.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{18.9 Cosmic spatial topology}\label{cosmic-spatial-topology}
+\hypertarget{cosmic-spatial-topology}{%
+\subsection{18.9 Cosmic spatial
+topology}\label{cosmic-spatial-topology}}
 
 The framework's structural commitments determine the \emph{local}
 structure of the substratum but are silent on its \emph{global}
@@ -21297,8 +21515,9 @@ non-orientability-chirality interaction that requires further
 calculation. The framework's structural unity does not extend to global
 topology, and the framework is honest about this scope.
 
+\hypertarget{the-frameworks-position-on-consciousness}{%
 \subsection{18.10 The framework's position on
-consciousness}\label{the-frameworks-position-on-consciousness}
+consciousness}\label{the-frameworks-position-on-consciousness}}
 
 The framework's mathematical object --- the partition with C1-C3
 structure --- defines an \emph{observer} in a structural sense. The
@@ -21532,7 +21751,8 @@ dissolved by the framework. The framework's value in consciousness
 research is structural --- what makes a system the kind of system that
 \emph{could} be conscious --- rather than phenomenal.
 
-\subsection{18.11 Chapter close}\label{chapter-close-3}
+\hypertarget{chapter-close-3}{%
+\subsection{18.11 Chapter close}\label{chapter-close-3}}
 
 This chapter has developed the framework's distinctive forward content
 beyond standard quantum mechanics and general relativity. The empirical
@@ -21635,15 +21855,18 @@ empirical reach explicit.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Chapter 19}\label{chapter-19}
+\hypertarget{chapter-19}{%
+\section{Chapter 19}\label{chapter-19}}
 
+\hypertarget{resolved-and-open-problems-in-fundamental-physics}{%
 \section{Resolved and Open Problems in Fundamental
-Physics}\label{resolved-and-open-problems-in-fundamental-physics}
+Physics}\label{resolved-and-open-problems-in-fundamental-physics}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-this-chapter-develops-16}{%
 \subsection{19.1 What this chapter
-develops}\label{what-this-chapter-develops-16}
+develops}\label{what-this-chapter-develops-16}}
 
 The framework's content across the empirical chapters (5 through 17) and
 the forward-predictions chapter (18) constitutes a substantial body of
@@ -21715,14 +21938,16 @@ address a problem at all, the inventory acknowledges this rather than
 overstating the framework's reach. The closing summary table makes the
 distribution of statuses explicit.
 
-\subsection{19.2 Problems resolved}\label{problems-resolved}
+\hypertarget{problems-resolved}{%
+\subsection{19.2 Problems resolved}\label{problems-resolved}}
 
 This section develops the twelve problems the framework resolves or
 dissolves, with each entry pairing the standard formulation against the
 framework's status and a cross-reference.
 
+\hypertarget{the-quantum-gravity-problem}{%
 \subsubsection{19.2.1 The quantum gravity
-problem}\label{the-quantum-gravity-problem}
+problem}\label{the-quantum-gravity-problem}}
 
 \textbf{Standard status.} The central problem of theoretical physics.
 Quantum mechanics and general relativity are individually precise and
@@ -21758,8 +21983,9 @@ dissolution are developed in Chapter 7 §7.7 (cosmological constant),
 Chapter 7 §7.6 (black hole information), and Chapter 18 §18.5
 (non-renormalizability and cumulative case).
 
+\hypertarget{the-cosmological-constant-problem}{%
 \subsubsection{19.2.2 The cosmological constant
-problem}\label{the-cosmological-constant-problem}
+problem}\label{the-cosmological-constant-problem}}
 
 \textbf{Standard status.} The worst quantitative discrepancy in physics.
 Quantum field theory predicts a vacuum energy of order
@@ -21785,8 +22011,9 @@ to different levels of description with no cancellation required.
 
 \emph{Developed in:} Chapter 7 §7.7.
 
+\hypertarget{the-nature-of-dark-matter}{%
 \subsubsection{19.2.3 The nature of dark
-matter}\label{the-nature-of-dark-matter}
+matter}\label{the-nature-of-dark-matter}}
 
 \textbf{Standard status.} Approximately \(27\%\) of the universe's
 energy budget is in a form that clusters gravitationally but does not
@@ -21826,8 +22053,9 @@ velocities.
 
 \emph{Developed in:} Chapter 7 §7.9.
 
+\hypertarget{the-nature-of-dark-energy}{%
 \subsubsection{19.2.4 The nature of dark
-energy}\label{the-nature-of-dark-energy}
+energy}\label{the-nature-of-dark-energy}}
 
 \textbf{Standard status.} Approximately \(68\%\) of the energy budget
 drives the universe's accelerated expansion. Whether dark energy is a
@@ -21855,8 +22083,9 @@ crossing.
 
 \emph{Developed in:} Chapter 7 §7.8.
 
+\hypertarget{the-measurement-problem}{%
 \subsubsection{19.2.5 The measurement
-problem}\label{the-measurement-problem}
+problem}\label{the-measurement-problem}}
 
 \textbf{Standard status.} What constitutes a measurement? Why does
 wave-function collapse occur? Why does the classical world appear
@@ -21881,8 +22110,9 @@ whose evolution requires explanation.
 \emph{Developed in:} Chapter 1, with related content in Chapter 18
 §§18.2 and 18.4.
 
+\hypertarget{the-black-hole-information-paradox}{%
 \subsubsection{19.2.6 The black hole information
-paradox}\label{the-black-hole-information-paradox}
+paradox}\label{the-black-hole-information-paradox}}
 
 \textbf{Standard status.} Does black hole evaporation destroy
 information? Hawking's 1975 semiclassical calculation produces thermal
@@ -21912,8 +22142,9 @@ substratum dynamics in the appropriate limit.
 
 \emph{Developed in:} Chapter 7 §7.6.
 
+\hypertarget{the-strong-cp-problem}{%
 \subsubsection{19.2.7 The strong CP
-problem}\label{the-strong-cp-problem}
+problem}\label{the-strong-cp-problem}}
 
 \textbf{Standard status.} Why is the QCD vacuum angle
 \(\bar\theta < 10^{-10}\)? Naively, \(\bar\theta\) should be
@@ -21937,8 +22168,9 @@ framework.
 
 \emph{Developed in:} Chapter 6 §6.3.
 
+\hypertarget{the-hierarchy-problem}{%
 \subsubsection{19.2.8 The hierarchy
-problem}\label{the-hierarchy-problem}
+problem}\label{the-hierarchy-problem}}
 
 \textbf{Standard status.} Why is the Higgs mass (\(\sim 125\) GeV) so
 much lighter than the Planck mass (\(\sim 10^{19}\) GeV)? Radiative
@@ -21974,8 +22206,9 @@ as parameters in a renormalizable Lagrangian.
 
 \emph{Developed in:} Chapter 6 §6.6.
 
+\hypertarget{the-origin-of-the-gauge-group}{%
 \subsubsection{19.2.9 The origin of the gauge
-group}\label{the-origin-of-the-gauge-group}
+group}\label{the-origin-of-the-gauge-group}}
 
 \textbf{Standard status.} Why
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\)? Why these
@@ -22001,8 +22234,9 @@ and the framework's structural axioms.
 \emph{Developed in:} Chapter 5 (gauge structure) and Chapter 6 (matter
 content and quantitative predictions).
 
+\hypertarget{the-generation-puzzle}{%
 \subsubsection{19.2.10 The generation
-puzzle}\label{the-generation-puzzle}
+puzzle}\label{the-generation-puzzle}}
 
 \textbf{Standard status.} Why three generations? Why do all three have
 identical gauge quantum numbers but hierarchical masses spanning roughly
@@ -22032,8 +22266,9 @@ in §19.3.1 (the flavor problem).
 \emph{Developed in:} Chapter 6 §§6.5 and 6.6, with the flavor open
 problem at §19.3.1 below.
 
+\hypertarget{the-dark-sector-budget}{%
 \subsubsection{19.2.11 The dark sector
-budget}\label{the-dark-sector-budget}
+budget}\label{the-dark-sector-budget}}
 
 \textbf{Standard status.} Why is the universe approximately \(5\%\)
 baryonic, \(27\%\) dark matter, and \(68\%\) dark energy? No
@@ -22063,8 +22298,9 @@ structural prediction.
 
 \emph{Developed in:} Chapter 7 §7.9.
 
+\hypertarget{the-origin-of-the-born-rule}{%
 \subsubsection{19.2.12 The origin of the Born
-rule}\label{the-origin-of-the-born-rule}
+rule}\label{the-origin-of-the-born-rule}}
 
 \textbf{Standard status.} The Born rule --- that the probability of
 measuring quantum state \(|x\rangle\) given wave function
@@ -22100,15 +22336,17 @@ non-Gaussianity searches over the next decade.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{problems-open-within-the-framework}{%
 \subsection{19.3 Problems open within the
-framework}\label{problems-open-within-the-framework}
+framework}\label{problems-open-within-the-framework}}
 
 This section develops the five problems the framework does not fully
 resolve. Each entry pairs the standard formulation, the framework's
 current status, an assessment of what remains open, and a note on the
 prospects for closing the open question.
 
-\subsubsection{19.3.1 The flavor problem}\label{the-flavor-problem}
+\hypertarget{the-flavor-problem}{%
+\subsubsection{19.3.1 The flavor problem}\label{the-flavor-problem}}
 
 \textbf{Standard status.} Why do fermion masses span five orders of
 magnitude, with \(m_e/m_t \sim 3 \times 10^{-6}\)? Why the specific
@@ -22213,7 +22451,8 @@ with the framework's observational-incompleteness commitment. The Layer
 computational paths; the bijection-specific parameters are
 pre-registered as outside the framework's substrate-derivable scope.
 
-\subsubsection{19.3.2 The Hubble tension}\label{the-hubble-tension}
+\hypertarget{the-hubble-tension}{%
+\subsubsection{19.3.2 The Hubble tension}\label{the-hubble-tension}}
 
 \textbf{Standard status.} The Hubble constant measured from the CMB
 (Planck: \(H_0 = 67.4 \pm 0.5\) km/s/Mpc) disagrees with the local
@@ -22246,7 +22485,8 @@ specific claim on the Hubble tension's resolution and explicitly does
 not contribute to its understanding beyond noting that the framework's
 predicted \(\nu\) is too small to be the responsible mechanism.
 
-\subsubsection{19.3.3 Baryogenesis}\label{baryogenesis}
+\hypertarget{baryogenesis}{%
+\subsubsection{19.3.3 Baryogenesis}\label{baryogenesis}}
 
 \textbf{Standard status.} The observed baryon-to-photon ratio
 \(\eta = (6.1 \pm 0.2) \times 10^{-10}\) requires a mechanism to produce
@@ -22340,8 +22580,9 @@ in scope. The framework's position is that this incompleteness is
 shared, explicit, and located precisely: it is the flavor-sector CP
 input, named once and inherited wherever CP violation is needed.
 
+\hypertarget{inflation-and-initial-conditions}{%
 \subsubsection{19.3.4 Inflation and initial
-conditions}\label{inflation-and-initial-conditions}
+conditions}\label{inflation-and-initial-conditions}}
 
 \textbf{Standard status.} The horizon problem (why is the CMB isotropic
 across causally disconnected regions?) and the flatness problem (why is
@@ -22394,8 +22635,9 @@ position. Pre-registered: the framework's content on the very early
 universe is one of the framework's most substantial scope limits in
 fundamental physics.
 
+\hypertarget{the-initial-state-of-s-varphi}{%
 \subsubsection{\texorpdfstring{19.3.5 The initial state of
-\((S, \varphi)\)}{19.3.5 The initial state of (S, \textbackslash varphi)}}\label{the-initial-state-of-s-varphi}
+\((S, \varphi)\)}{19.3.5 The initial state of (S, \textbackslash varphi)}}\label{the-initial-state-of-s-varphi}}
 
 \textbf{Standard status.} Not applicable in the conventional sense ---
 this is a framework-specific question. Why does the universe have the
@@ -22441,8 +22683,9 @@ axioms as minimal and as structural as possible (deterministic
 bijectivity on a finite set, no further commitments), leaving the
 existence question as an explicit acknowledgment of where physics ends.
 
+\hypertarget{is-the-discrete-structural-residue-genuinely-non-tautological}{%
 \subsubsection{19.3.6 Is the discrete structural residue genuinely
-non-tautological?}\label{is-the-discrete-structural-residue-genuinely-non-tautological}
+non-tautological?}\label{is-the-discrete-structural-residue-genuinely-non-tautological}}
 
 \textbf{Standard status.} A framework-specific meta-question. The
 reconstruction theorem sends the empirical and structural axioms to a
@@ -22515,9 +22758,10 @@ classification is developed in full in {[}SM §8.3{]} and {[}Substratum
 §3, Refinement{]}; its bearing on the framework's foundational claim is
 drawn out in {[}Structure §13.4, Limit 4{]}.)
 
+\hypertarget{radiative-stability-of-emergent-lorentz-invariance-rotational-sector}{%
 \subsubsection{19.3.7 Radiative stability of emergent Lorentz invariance
 (rotational
-sector)}\label{radiative-stability-of-emergent-lorentz-invariance-rotational-sector}
+sector)}\label{radiative-stability-of-emergent-lorentz-invariance-rotational-sector}}
 
 Two results bear on this question. A symmetric-integration argument
 shows that an exactly \(O_h\)-invariant action, measure, and
@@ -22603,14 +22847,24 @@ locality?'' is the single most consequential open technical question ---
 its resolution would discharge all three at once, and conversely a
 failure (emergent non-locality) would show up simultaneously as
 rotational Lorentz violation, a non-null \(\nu\), and a breakdown of the
-general-graph mode count. This is presented as an observed structural
-linkage with the reductions shown, not as a proven theorem; each
-individual reduction is an argument at the level of the relevant
-effective-theory or spectral-measure analysis rather than a completed
-computation, and the shared premise itself remains the open item. It is
-noted here because it reorganizes the open-problem surface: the entries
-are not orthogonal, and effort directed at the coarse-graining map is
-leveraged across all three.
+general-graph mode count. The shared premise has now been computed for
+the linear (reconstruction-selected) map: an exact
+surface-Green's-function extraction of the coarse-graining map's
+boundary spectral measure --- the half-space trace-out of the substratum
+wave equation itself, not a Gaussian effective model --- yields a
+power-suppressed local exponent (\(dN/d\omega \propto \omega^{4}\), with
+the effective one-mode-per-cell 2D measure, \(\propto \omega\), an upper
+bound on the infrared weight), invariant over thirty orders of magnitude
+in the slow-bath ratio and under generic quenched deformation, with the
+log-uniform measure appearing nowhere. The three reductions are thereby
+conditionally discharged at that grade --- locality preserved, \(\nu\)
+on the null branch a fortiori, the \(K=2d\) mode-count premise stable
+--- with one named residual: the computation is of the linear map, and
+its interacting (condensate-dressed) extension is the remaining step.
+The linkage retains its organizing value in reverse: a failure at the
+interacting level would still have to manifest simultaneously as
+rotational Lorentz violation, a non-null \(\nu\), and a mode-count
+breakdown --- one falsifiable correlate, not three independent risks.
 
 \textbf{Why these particular features are inputs: constitution versus
 consequence.} A natural question is why the open and input items cluster
@@ -22760,21 +23014,21 @@ dimension-six rotational protection and the dimension-four boost
 exposure are two faces of one structural fact rather than independent
 assumptions.
 
+\hypertarget{chapter-close-summary-table-and-what-the-framework-does-not-address}{%
 \subsection{19.4 Chapter close: summary table and what the framework
 does not
-address}\label{chapter-close-summary-table-and-what-the-framework-does-not-address}
+address}\label{chapter-close-summary-table-and-what-the-framework-does-not-address}}
 
 The framework's content against the standard list of open problems in
 fundamental physics summarizes as follows.
 
 \textbf{Summary table.}
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1579}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2807}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3158}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2456}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1579}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2807}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3158}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2456}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Problem
@@ -22827,7 +23081,6 @@ possibilities, none developed)} & §19.3.4 \\
 \textbf{Initial state} & \textbf{Framework-specific} & \textbf{Partially
 gauge, partially irreducible} & §19.3.5 \\
 \end{longtable}
-}
 
 The empirical record summarized above places the framework in a
 substantive position relative to the standard hard problems of
@@ -22975,14 +23228,17 @@ them is the framework's future research program.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Appendix A}\label{appendix-a}
+\hypertarget{appendix-a}{%
+\section{Appendix A}\label{appendix-a}}
 
-\section{Prediction Status Table}\label{prediction-status-table}
+\hypertarget{prediction-status-table}{%
+\section{Prediction Status Table}\label{prediction-status-table}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{a.1-what-this-appendix-provides}{%
 \subsection{A.1 What this appendix
-provides}\label{a.1-what-this-appendix-provides}
+provides}\label{a.1-what-this-appendix-provides}}
 
 The framework has a substantial empirical record across multiple
 domains. Twenty-two Standard Model observables, fourteen
@@ -23038,7 +23294,8 @@ provide the strongest evidence, which are most distinctive of the
 framework relative to standard accounts, and which open issues are most
 consequential for the framework's overall content.
 
-\subsection{A.2 Classification scheme}\label{a.2-classification-scheme}
+\hypertarget{a.2-classification-scheme}{%
+\subsection{A.2 Classification scheme}\label{a.2-classification-scheme}}
 
 The framework classifies each prediction by its structural status, using
 a seven-category scheme designed to make the \emph{epistemic content} of
@@ -23112,8 +23369,9 @@ evidential content explicit at the prediction level, allowing the reader
 to assess which predictions provide the strongest support for the
 framework's structural commitments.
 
+\hypertarget{a.3-four-layer-descriptive-framing}{%
 \subsection{A.3 Four-layer descriptive
-framing}\label{a.3-four-layer-descriptive-framing}
+framing}\label{a.3-four-layer-descriptive-framing}}
 
 The framework's predictions are organized at four levels of descriptive
 abstraction, with each level having specific evidential content and
@@ -23166,31 +23424,32 @@ content mixes with structural content). The classification scheme makes
 these distinctions explicit, allowing the reader to assess the
 framework's evidential weight at the appropriate level.
 
+\hypertarget{a.4-master-prediction-tables}{%
 \subsection{A.4 Master prediction
-tables}\label{a.4-master-prediction-tables}
+tables}\label{a.4-master-prediction-tables}}
 
 This section provides the master tables of the framework's predictions,
 organized by domain. Each entry includes prediction number, formula or
 quantitative content, structural classification, layer, empirical match,
 and chapter cross-reference for further detail.
 
+\hypertarget{a.4.1-standard-model-observables}{%
 \subsubsection{A.4.1 Standard Model
-observables}\label{a.4.1-standard-model-observables}
+observables}\label{a.4.1-standard-model-observables}}
 
 The framework's twenty-two Standard Model predictions form the core
 empirical record. All twenty-two predictions match observation within
 approximately 1\% or approximately 1\(\sigma\) --- the cumulative
 empirical content is substantial.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0476}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1746}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1111}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1111}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.2698}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0476}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1746}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.2698}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
@@ -23259,7 +23518,6 @@ inheritance & Ch 6 §6.5 \\
 24 & Bekenstein-Hawking entropy & \(S = A/(4 l_p^2)\) & S & 1 & derived;
 no direct test & Ch 7 §7.5 \\
 \end{longtable}
-}
 
 \textbf{Summary statistics.} Counts: 13 unconditional S + 6 L + 2 M + 1
 R + 2 E. Total: 24. The C class is currently empty (the Cond 2
@@ -23308,22 +23566,22 @@ Koide \(Q = 2/3\) at \textbf{0.02\%} --- the sharpest framework
 prediction across all 24, matching observation at
 four-significant-figure precision.
 
+\hypertarget{a.4.2-gravitational-sector-observables}{%
 \subsubsection{A.4.2 Gravitational-sector
-observables}\label{a.4.2-gravitational-sector-observables}
+observables}\label{a.4.2-gravitational-sector-observables}}
 
 The framework's gravitational predictions match general relativistic
 predictions at the emergent level while making distinctive structural
 predictions about the gravitational sector's origin and parameters.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0476}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1746}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1111}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1111}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.2698}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0476}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1746}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.2698}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
@@ -23376,7 +23634,6 @@ limits & Ch 7 §7.4 \\
 G14 & Boundary entropy & \(\rho_s = \rho_{\text{crit}}\) & S & 1 & Exact
 & Ch 7 §7.9 \\
 \end{longtable}
-}
 
 \textbf{Summary statistics.} Counts: 13 S + 1 L. Total: 14. The G6 MOND
 prediction has dual Layer 0/1 status (the discreteness scale at Layer 0
@@ -23392,8 +23649,9 @@ theorem, which the framework preserves, not the entropy coefficient. The
 Running Vacuum Model coefficient \(\nu_{\text{OI}}\) (entry G8) provides
 forward-looking exposure to DESI data over the next 2-3 years.
 
+\hypertarget{a.4.3-neutrino-sector-observables}{%
 \subsubsection{A.4.3 Neutrino-sector
-observables}\label{a.4.3-neutrino-sector-observables}
+observables}\label{a.4.3-neutrino-sector-observables}}
 
 The neutrino sector provides the framework's sharpest parameter-free
 retrodiction. The JUNO measurement of \(\sin^2\theta_{12}\) at
@@ -23401,15 +23659,14 @@ retrodiction. The JUNO measurement of \(\sin^2\theta_{12}\) at
 retrodictive match whose exact form converts JUNO's design-lifetime
 precision into the framework's cleanest pre-registered forward test.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0476}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1746}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1111}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1111}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.2698}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0476}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1746}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.2698}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
@@ -23444,7 +23701,6 @@ N6 & PMNS sum rule & \(2\Delta_{12} + \Delta_{23} = 0\) & L & 1+2(b) &
 N7 & \(\delta_{\text{CP}}\) & \(b_{12} - b_{13}\) (sub-dominant U-odd) &
 L & 2(b)ᵍ & T2K/NOvA: bijection-constraining & Ch 8 \\
 \end{longtable}
-}
 
 \textbf{Summary statistics.} Counts: 3 S + 4 L. Total: 7. The L-class
 entries divide into two kinds: (i) \textbf{sub-σ confirmed predictions}
@@ -23475,8 +23731,9 @@ itself. This is qualitatively different from N1/N3/N6, where specific
 numerical values are fixed with no freedom and the JUNO-era fit matches
 sin²θ\_12 at 0.07σ (retrodictively).
 
+\hypertarget{a.4.4-biology-and-medicine-predictions}{%
 \subsubsection{A.4.4 Biology and medicine
-predictions}\label{a.4.4-biology-and-medicine-predictions}
+predictions}\label{a.4.4-biology-and-medicine-predictions}}
 
 The framework's empirical content in biology and medicine is
 concentrated in the wider therapeutic window for reader-writer disorders
@@ -23484,15 +23741,14 @@ concentrated in the wider therapeutic window for reader-writer disorders
 the cancer methylome classification paradigm --- structural organization
 of, and consistency with, established clinical biology.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0400}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1467}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.2800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0933}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0933}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.2267}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1200}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0400}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1467}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.2800}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0933}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0933}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.2267}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1200}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
@@ -23542,15 +23798,15 @@ S & 1 & Lin et al.~2024 confirmed & Ch 16 §16.10 \\
 B14 & Bivalent chromatin states & Multi-operator substratum & S & 1 &
 Bernstein et al.~2006 confirmed & Ch 16 §16.10 \\
 \end{longtable}
-}
 
 \textbf{Summary statistics.} Counts: 14 S. B1 (Rett syndrome wider
 therapeutic window, Guy et al.~2007) is a retrodiction, in the same
 category as B6-B10 --- the framework accounts for phenomena established
 before it. None is a forward confirmation.
 
+\hypertarget{a.5-forward-predictions-and-falsification-targets}{%
 \subsection{A.5 Forward predictions and falsification
-targets}\label{a.5-forward-predictions-and-falsification-targets}
+targets}\label{a.5-forward-predictions-and-falsification-targets}}
 
 Beyond the predictions with current empirical match, the framework makes
 specific forward-looking predictions that are testable but not yet
@@ -23559,13 +23815,12 @@ several years of experimental research.
 
 \textbf{Quantum engineering.}
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0526}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1930}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.3684}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2281}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1579}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0526}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1930}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3684}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2281}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1579}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
@@ -23592,17 +23847,15 @@ improvement & Current NV platforms & Ch 15 §15.6 \\
 F4 & Engineered-bath coherence extension & Up to 10× \(T_2\) extension &
 Spin chain / NV / trapped ion platforms & Ch 15 §15.5 \\
 \end{longtable}
-}
 
 \textbf{Cosmology and gravity.}
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0526}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1930}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.3684}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2281}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1579}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0526}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1930}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3684}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2281}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1579}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
@@ -23628,17 +23881,15 @@ LiteBIRD, future CMB-S4 & Ch 18 §18.2 \\
 F8 & Cosmic recurrence & \(\sim e^{e^{10^{122}}}\) timescale & Logically
 falsifiable only & Ch 18 §18.7 \\
 \end{longtable}
-}
 
 \textbf{Biology and medicine.}
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0526}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1930}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.3684}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2281}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1579}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0526}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1930}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3684}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2281}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1579}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
@@ -23671,17 +23922,15 @@ discriminate the framework from a mundane superposition null; only the
 and that relationship is not yet derived} & Existing phylogenetic data
 (consistency, not exposure) & Ch 17 §17.9 \\
 \end{longtable}
-}
 
 \textbf{Foundations (Lorentz sector).}
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0526}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1930}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.3684}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2281}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1579}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0526}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1930}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3684}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2281}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1579}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
@@ -23714,7 +23963,6 @@ open, so this is a window conditional on the bijection, not a forward
 prediction of \(M_X\) & Multi-species LV bounds (form + coefficient;
 full reach pending \(\Delta C_2\)) & SM §125(iii) \\
 \end{longtable}
-}
 
 The \emph{rotational} Lorentz sector is deliberately \textbf{not} listed
 as a forward prediction. Unlike the boost sector (F13), the rotational
@@ -23770,8 +24018,9 @@ framework's content is most distinctively at risk in:
   not yet fixed.
 \end{itemize}
 
+\hypertarget{a.6-frameworks-epistemic-position-summary}{%
 \subsection{A.6 Framework's epistemic position
-summary}\label{a.6-frameworks-epistemic-position-summary}
+summary}\label{a.6-frameworks-epistemic-position-summary}}
 
 The framework's cumulative empirical record can be summarized as
 follows.
@@ -23859,14 +24108,17 @@ content.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Appendix B}\label{appendix-b}
+\hypertarget{appendix-b}{%
+\section{Appendix B}\label{appendix-b}}
 
-\section{Mathematical Derivations}\label{mathematical-derivations}
+\hypertarget{mathematical-derivations}{%
+\section{Mathematical Derivations}\label{mathematical-derivations}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{b.1-what-this-appendix-develops}{%
 \subsection{B.1 What this appendix
-develops}\label{b.1-what-this-appendix-develops}
+develops}\label{b.1-what-this-appendix-develops}}
 
 The main chapters of the book develop the framework's content with
 proofs sketched at the level required for the chapter argument's logical
@@ -23937,8 +24189,9 @@ derivation. The appendix is designed for readers wanting full technical
 content; the main chapters give the same results with motivating context
 but compressed derivations.
 
+\hypertarget{b.2-the-stinespring-construction-for-emergent-quantum-mechanics}{%
 \subsection{B.2 The Stinespring construction for emergent quantum
-mechanics}\label{b.2-the-stinespring-construction-for-emergent-quantum-mechanics}
+mechanics}\label{b.2-the-stinespring-construction-for-emergent-quantum-mechanics}}
 
 \emph{Main-text reference: Chapter 1 §1.7-1.9.}
 
@@ -24077,8 +24330,9 @@ through the Stinespring dilation, with leading-order Schrödinger
 evolution and structurally non-Markovian corrections at
 \(\mathcal{O}(\tau_S/\tau_B)\).
 
+\hypertarget{b.3-the-trace-out-as-a-jordan-chevalley-projection}{%
 \subsection{B.3 The trace-out as a Jordan-Chevalley
-projection}\label{b.3-the-trace-out-as-a-jordan-chevalley-projection}
+projection}\label{b.3-the-trace-out-as-a-jordan-chevalley-projection}}
 
 \emph{Main-text reference: Chapter 5 §5.4-5.6.}
 
@@ -24151,12 +24405,11 @@ dividing \(L\).}
 \(\bar{\mathbb{F}}_q\) are isomorphic to those in \(\mathbb{C}\), so
 their orders match. \(\square\)
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3571}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2143}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2143}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2143}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3571}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \(L\)
@@ -24177,7 +24430,6 @@ their orders match. \(\square\)
 10 & 106 & 108 & 7.50 \\
 12 & 130 & 132 & 9.00 \\
 \end{longtable}
-}
 
 Both \(\mathfrak{f}_{\text{ss}}\) and \(\text{NM}^2\) are
 \(q\)-independent encodings of the same semisimple eigenvalue data ---
@@ -24227,8 +24479,9 @@ the observer sees only the diagonalizable spectral data, projected by
 the trace-out and organized by the gauge group's representation
 structure.
 
+\hypertarget{b.4-the-gap-equation-for-hbar}{%
 \subsection{\texorpdfstring{B.4 The gap equation for
-\(\hbar\)}{B.4 The gap equation for \textbackslash hbar}}\label{b.4-the-gap-equation-for-hbar}
+\(\hbar\)}{B.4 The gap equation for \textbackslash hbar}}\label{b.4-the-gap-equation-for-hbar}}
 
 \emph{Main-text reference: Chapter 7 §7.3.}
 
@@ -24363,8 +24616,9 @@ is therefore between a geometric quantity (periodicity) and an emergent
 quantity (temperature), not between two quantities that both assume
 \(\hbar\).
 
+\hypertarget{b.5-anomaly-cancellation-and-unique-hypercharges}{%
 \subsection{B.5 Anomaly cancellation and unique
-hypercharges}\label{b.5-anomaly-cancellation-and-unique-hypercharges}
+hypercharges}\label{b.5-anomaly-cancellation-and-unique-hypercharges}}
 
 \emph{Main-text reference: Chapter 6 §6.7.}
 
@@ -24492,8 +24746,9 @@ distinctive structural predictions: the proton-electron charge equality,
 which is a free parameter in the Standard Model, is a theorem of the
 framework.
 
+\hypertarget{b.6-gauge-theoretic-derivations}{%
 \subsection{B.6 Gauge-theoretic
-derivations}\label{b.6-gauge-theoretic-derivations}
+derivations}\label{b.6-gauge-theoretic-derivations}}
 
 \emph{Main-text reference: Chapter 5 §5.3-5.5.}
 
@@ -24623,8 +24878,9 @@ structure with matter content from the framework's substratum-level
 commitments, with no phenomenological inputs beyond the substratum's
 spatial dimensionality \(d = 3\).
 
+\hypertarget{b.6b-bravais-lattice-uniqueness-lemma}{%
 \subsection{B.6b Bravais-lattice uniqueness
-lemma}\label{b.6b-bravais-lattice-uniqueness-lemma}
+lemma}\label{b.6b-bravais-lattice-uniqueness-lemma}}
 
 \emph{Main-text reference: Chapter 5 §5.5.}
 
@@ -24761,9 +25017,10 @@ independently in any standard reference on crystallographic point groups
 (e.g., Tinkham, \emph{Group Theory and Quantum Mechanics}; Bradley and
 Cracknell, \emph{The Mathematical Theory of Symmetry in Solids}).
 
+\hypertarget{b.6c-t_1-generation-assignment-uniqueness-lemma}{%
 \subsection{\texorpdfstring{B.6c \(T_1\) generation-assignment
 uniqueness
-lemma}{B.6c T\_1 generation-assignment uniqueness lemma}}\label{b.6c-t_1-generation-assignment-uniqueness-lemma}
+lemma}{B.6c T\_1 generation-assignment uniqueness lemma}}\label{b.6c-t_1-generation-assignment-uniqueness-lemma}}
 
 \emph{Main-text reference: Chapter 6 §6.2.}
 
@@ -24910,8 +25167,9 @@ decomposition → composite Higgs in \(A_1\) + three fermion generations
 in \(T_1\) --- is the unique structure consistent with the substratum's
 commitments and the Standard Model gauge group.
 
+\hypertarget{b.7-the-lemma-chain-for-emergent-quantum-mechanics}{%
 \subsection{B.7 The lemma chain for emergent quantum
-mechanics}\label{b.7-the-lemma-chain-for-emergent-quantum-mechanics}
+mechanics}\label{b.7-the-lemma-chain-for-emergent-quantum-mechanics}}
 
 \emph{Main-text reference: Chapter 1 §§1.5-1.9.}
 
@@ -25100,15 +25358,18 @@ framework's mathematical content at full detail.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Appendix C}\label{appendix-c}
+\hypertarget{appendix-c}{%
+\section{Appendix C}\label{appendix-c}}
 
+\hypertarget{common-objections-and-framework-responses}{%
 \section{Common Objections and Framework
-Responses}\label{common-objections-and-framework-responses}
+Responses}\label{common-objections-and-framework-responses}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{c.1-what-this-appendix-develops}{%
 \subsection{C.1 What this appendix
-develops}\label{c.1-what-this-appendix-develops}
+develops}\label{c.1-what-this-appendix-develops}}
 
 The framework's content is unusual. It combines a substantial empirical
 record (twenty-two classified Standard Model retrodictions --- nine
@@ -25176,9 +25437,10 @@ foundations-of-physics, from quantum information, from interpretive
 philosophy of physics, from cognitive science, or from clinical biology
 should each find their characteristic objections engaged here.
 
+\hypertarget{c.2-bells-theorem-and-the-frameworks-relationship-to-hidden-variable-theories}{%
 \subsection{C.2 Bell's theorem and the framework's relationship to
 hidden-variable
-theories}\label{c.2-bells-theorem-and-the-frameworks-relationship-to-hidden-variable-theories}
+theories}\label{c.2-bells-theorem-and-the-frameworks-relationship-to-hidden-variable-theories}}
 
 The most frequent objection to deterministic-substratum theories is:
 ``Bell's theorem rules out hidden-variable theories. The framework has a
@@ -25258,9 +25520,10 @@ has no analog of the framework's partition structure). The class
 produces quantum correlations through P-indivisibility rather than
 through any of the conventional mechanisms.
 
+\hypertarget{c.3-the-no-go-theorems-pbr-frauchiger-renner-colbeck-renner-bong-wiseman}{%
 \subsection{C.3 The no-go theorems: PBR, Frauchiger-Renner,
 Colbeck-Renner,
-Bong-Wiseman}\label{c.3-the-no-go-theorems-pbr-frauchiger-renner-colbeck-renner-bong-wiseman}
+Bong-Wiseman}\label{c.3-the-no-go-theorems-pbr-frauchiger-renner-colbeck-renner-bong-wiseman}}
 
 Beyond Bell's theorem, a family of more recent no-go theorems further
 constrains the class of ontologies compatible with quantum mechanics.
@@ -25413,8 +25676,9 @@ theorems' empirical content (the framework reproduces all
 quantum-mechanical predictions) while providing structural foundations
 that the no-go theorems do not address.
 
+\hypertarget{c.4-the-stochastic-quantum-bridge-barandes-and-stinespring}{%
 \subsection{C.4 The stochastic-quantum bridge: Barandes and
-Stinespring}\label{c.4-the-stochastic-quantum-bridge-barandes-and-stinespring}
+Stinespring}\label{c.4-the-stochastic-quantum-bridge-barandes-and-stinespring}}
 
 The framework's characterization theorem derives quantum mechanics from
 C1-C3 via a \emph{stochastic-quantum bridge} --- a mathematical
@@ -25470,8 +25734,9 @@ content is therefore robust against multiple lines of foundational
 rejection, not because the bridge is dispensable but because the
 substratum-level content is logically prior to the bridge.
 
+\hypertarget{c.5-the-necessity-direction-of-the-characterization-theorem}{%
 \subsection{C.5 The necessity direction of the characterization
-theorem}\label{c.5-the-necessity-direction-of-the-characterization-theorem}
+theorem}\label{c.5-the-necessity-direction-of-the-characterization-theorem}}
 
 A second frequent foundational objection concerns the \emph{necessity}
 direction of the characterization theorem --- the claim that quantum
@@ -25535,8 +25800,9 @@ makes the characterization theorem a biconditional; the
 substratum-specific content is what the framework's empirical record
 tests directly.
 
+\hypertarget{c.6-finiteness-is-axiom-2-too-strong}{%
 \subsection{C.6 Finiteness: is Axiom 2 too
-strong?}\label{c.6-finiteness-is-axiom-2-too-strong}
+strong?}\label{c.6-finiteness-is-axiom-2-too-strong}}
 
 A third foundational objection concerns the framework's commitment to
 finiteness --- Axiom 2 of the framework states that the substratum is a
@@ -25623,8 +25889,9 @@ commitment in general.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{c.7-computational-implementability-and-wolperts-theorem}{%
 \subsection{C.7 Computational implementability and Wolpert's
-theorem}\label{c.7-computational-implementability-and-wolperts-theorem}
+theorem}\label{c.7-computational-implementability-and-wolperts-theorem}}
 
 A specific class of objections concerns \emph{computational
 implementability}: whether the framework's deterministic substratum can
@@ -25712,8 +25979,9 @@ wants implementation-level content beyond what the framework provides
 will need to look elsewhere; the framework's reach is at the structural
 level.
 
+\hypertarget{c.8-relationship-to-standard-interpretations-mwi-bohmian-qbism}{%
 \subsection{C.8 Relationship to standard interpretations: MWI, Bohmian,
-QBism}\label{c.8-relationship-to-standard-interpretations-mwi-bohmian-qbism}
+QBism}\label{c.8-relationship-to-standard-interpretations-mwi-bohmian-qbism}}
 
 The framework's content overlaps with several standard interpretations
 of quantum mechanics. Readers approaching the framework from MWI,
@@ -25827,9 +26095,10 @@ of the standard positions will find aspects of their preferred
 interpretation in the framework's content while finding the framework's
 distinctive content unfamiliar.
 
+\hypertarget{c.9-the-substratum-emergent-operator-distinction-substantive-or-just-renaming}{%
 \subsection{C.9 The substratum-emergent operator distinction:
 substantive or just
-renaming?}\label{c.9-the-substratum-emergent-operator-distinction-substantive-or-just-renaming}
+renaming?}\label{c.9-the-substratum-emergent-operator-distinction-substantive-or-just-renaming}}
 
 A specific concern raised by readers familiar with effective field
 theory is whether the framework's substratum-emergent operator
@@ -25914,9 +26183,10 @@ applications across physics and biology, rather than a domain-specific
 tool. This generality is itself substantive content beyond the standard
 effective-field-theory distinction.
 
+\hypertarget{c.10-circularity-concerns-the-gap-equation-deriving-hbar}{%
 \subsection{\texorpdfstring{C.10 Circularity concerns: the gap equation
 deriving
-\(\hbar\)}{C.10 Circularity concerns: the gap equation deriving \textbackslash hbar}}\label{c.10-circularity-concerns-the-gap-equation-deriving-hbar}
+\(\hbar\)}{C.10 Circularity concerns: the gap equation deriving \textbackslash hbar}}\label{c.10-circularity-concerns-the-gap-equation-deriving-hbar}}
 
 A specific technical objection concerns the framework's gap equation in
 Chapter 7 §7.4, which derives the Planck constant \(\hbar\) from the
@@ -25991,8 +26261,9 @@ scales. The framework's derivation of \(\hbar\) is therefore consistent
 with the lattice structure rather than requiring strict continuum
 spacetime.
 
+\hypertarget{c.11-the-frameworks-epistemic-status-as-a-structural-framework}{%
 \subsection{C.11 The framework's epistemic status as a structural
-framework}\label{c.11-the-frameworks-epistemic-status-as-a-structural-framework}
+framework}\label{c.11-the-frameworks-epistemic-status-as-a-structural-framework}}
 
 A broader objection concerns the framework's epistemic status: whether
 it should be evaluated as a \emph{physical theory} competing with the
@@ -26074,9 +26345,10 @@ level rather than at the competing-theory level. The foundational level
 is where structural questions are addressed; the framework's empirical
 content at this level is substantial.
 
+\hypertarget{c.11.1-is-the-derivation-gerrymandered-the-selector-motivation-audit}{%
 \subsubsection{C.11.1 Is the derivation gerrymandered? The
 selector-motivation
-audit}\label{c.11.1-is-the-derivation-gerrymandered-the-selector-motivation-audit}
+audit}\label{c.11.1-is-the-derivation-gerrymandered-the-selector-motivation-audit}}
 
 \textbf{The objection.} ``The derivation reaches the Standard Model only
 because its axioms and selection principles were chosen, with hindsight,
@@ -26122,8 +26394,9 @@ open problem (Chapter 19 §19.3.6) and which the framework proposes to
 assess by external calibration against the operational reconstruction
 theorems of quantum theory rather than by further internal argument.
 
+\hypertarget{c.12-meta-objections-credentials-scope-ambition}{%
 \subsection{C.12 Meta-objections: credentials, scope,
-ambition}\label{c.12-meta-objections-credentials-scope-ambition}
+ambition}\label{c.12-meta-objections-credentials-scope-ambition}}
 
 The framework attracts meta-objections about its author, its scope, and
 its ambition. These are not legitimate scientific objections in
@@ -26205,7 +26478,8 @@ derivations), or at the framework-level (the full structural
 commitments). The framework's ambition does not require the reader to
 engage with all of it at once.
 
-\subsection{C.13 Closing remarks}\label{c.13-closing-remarks}
+\hypertarget{c.13-closing-remarks}{%
+\subsection{C.13 Closing remarks}\label{c.13-closing-remarks}}
 
 The appendix has engaged twelve clusters of objections to the
 framework's content. The pattern across responses is consistent: each
@@ -26326,7 +26600,8 @@ characteristic of one reader audience.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Glossary}\label{glossary}
+\hypertarget{glossary}{%
+\section{Glossary}\label{glossary}}
 
 This glossary defines the framework's distinctive terminology and the
 technical vocabulary used throughout the book. Entries are organized
@@ -26886,7 +27161,8 @@ patterns reflecting source cell type) persists. Discussed in Chapter 16
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\section{Bibliography}\label{bibliography}
+\hypertarget{bibliography}{%
+\section{Bibliography}\label{bibliography}}
 
 This bibliography lists the works cited in the book, organized by
 topical area. Within each section, entries are alphabetical by first
@@ -26900,8 +27176,9 @@ philosophical works.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{framework-internal-citations}{%
 \subsection{Framework-internal
-citations}\label{framework-internal-citations}
+citations}\label{framework-internal-citations}}
 
 Maybaum, A. (2026). \emph{The Incompleteness Framework}. Zenodo, concept
 DOI: 10.5281/zenodo.19060318 (resolves to the current release).
@@ -26916,8 +27193,9 @@ Bioinformatics.{]}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{foundations-of-quantum-mechanics-and-interpretation}{%
 \subsection{Foundations of quantum mechanics and
-interpretation}\label{foundations-of-quantum-mechanics-and-interpretation}
+interpretation}\label{foundations-of-quantum-mechanics-and-interpretation}}
 
 Arnold, V. I. (1989). \emph{Mathematical Methods of Classical Mechanics}
 (2nd ed., Graduate Texts in Mathematics 60). Springer-Verlag.
@@ -26982,8 +27260,9 @@ Physics} 17: 033002.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{standard-model-physics-and-particle-phenomenology}{%
 \subsection{Standard Model physics and particle
-phenomenology}\label{standard-model-physics-and-particle-phenomenology}
+phenomenology}\label{standard-model-physics-and-particle-phenomenology}}
 
 't Hooft, G. (1993). Dimensional reduction in quantum gravity.
 \emph{arXiv}:gr-qc/9310026. {[}Origin of the holographic principle.{]}
@@ -27025,8 +27304,9 @@ Wu, C. S., Ambler, E., Hayward, R. W., Hoppes, D. D., \& Hudson, R. P.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{gravitational-physics-cosmology-and-quantum-gravity}{%
 \subsection{Gravitational physics, cosmology, and quantum
-gravity}\label{gravitational-physics-cosmology-and-quantum-gravity}
+gravity}\label{gravitational-physics-cosmology-and-quantum-gravity}}
 
 Abedi, J., Dykaar, H., \& Afshordi, N. (2017). Echoes from the abyss:
 Tentative evidence for Planck-scale structure at black hole horizons.
@@ -27144,8 +27424,9 @@ pass --- Verlinde is not a co-author on this paper.{]}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{chemistry-and-origin-of-life}{%
 \subsection{Chemistry and origin of
-life}\label{chemistry-and-origin-of-life}
+life}\label{chemistry-and-origin-of-life}}
 
 Guerrier-Takada, C., Gardiner, K., Marsh, T., Pace, N., \& Altman, S.
 (1983). The RNA moiety of ribonuclease P is the catalytic subunit of the
@@ -27178,8 +27459,9 @@ Wächtershäuser, G. (1990). Evolution of the first metabolic cycles.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{evolution-and-molecular-biology}{%
 \subsection{Evolution and molecular
-biology}\label{evolution-and-molecular-biology}
+biology}\label{evolution-and-molecular-biology}}
 
 Bedford, T., \& Hartl, D. L. (2008). Overdispersion of the molecular
 clock: temporal variation of gene-specific substitution rates in
@@ -27226,8 +27508,9 @@ located. The 1.6-2.6 range traces to this paper via Bedford \& Hartl
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{medicine-pharmacology-and-clinical-biology}{%
 \subsection{Medicine, pharmacology, and clinical
-biology}\label{medicine-pharmacology-and-clinical-biology}
+biology}\label{medicine-pharmacology-and-clinical-biology}}
 
 Bernstein, B. E., Mikkelsen, T. S., Xie, X., Kamal, M., Huebert, D. J.,
 Cuff, J., et al.~(2006). A bivalent chromatin structure marks key
@@ -27327,8 +27610,9 @@ against NUT midline carcinoma.{]}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{bioinformatics-and-computational-biology}{%
 \subsection{Bioinformatics and computational
-biology}\label{bioinformatics-and-computational-biology}
+biology}\label{bioinformatics-and-computational-biology}}
 
 Bergen, V., Lange, M., Peidli, S., Wolf, F. A., \& Theis, F. J. (2020).
 Generalizing RNA velocity to transient cell states through dynamical
@@ -27445,8 +27729,9 @@ network biology. \emph{Nature} 618: 616-624.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{quantum-biology-and-biological-information-processing}{%
 \subsection{Quantum biology and biological information
-processing}\label{quantum-biology-and-biological-information-processing}
+processing}\label{quantum-biology-and-biological-information-processing}}
 
 Cao, J., Cogdell, R. J., Coker, D. F., Duan, H.-G., Hauer, J.,
 Kleinekathöfer, U., et al.~(2020). Quantum biology revisited.
@@ -27486,8 +27771,9 @@ under dim light. \emph{Quarterly Reviews of Biophysics} 52: e9. DOI:
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{quantum-information-computing-and-complexity}{%
 \subsection{Quantum information, computing, and
-complexity}\label{quantum-information-computing-and-complexity}
+complexity}\label{quantum-information-computing-and-complexity}}
 
 Aaronson, S. (2005). Quantum computing, postselection, and probabilistic
 polynomial-time. \emph{Proceedings of the Royal Society A} 461:
@@ -27516,8 +27802,9 @@ entanglement in an analogue black hole. \emph{Nature Physics} 12:
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{mathematical-foundations-and-computability}{%
 \subsection{Mathematical foundations and
-computability}\label{mathematical-foundations-and-computability}
+computability}\label{mathematical-foundations-and-computability}}
 
 Birkhoff, G. (1946). Three observations on linear algebra.
 \emph{Universidad Nacional de Tucumán Revista Series A} 5: 147-151.
@@ -27538,8 +27825,9 @@ University Press. {[}Birkhoff-von Neumann theorem.{]}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{historical-and-philosophical-works}{%
 \subsection{Historical and philosophical
-works}\label{historical-and-philosophical-works}
+works}\label{historical-and-philosophical-works}}
 
 Cusa, N. of (1440). \emph{De docta ignorantia} (\emph{On Learned
 Ignorance}).
