@@ -1,10 +1,11 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-%
 \documentclass[
 ]{article}
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -35,8 +36,8 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
 \usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -49,13 +50,71 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+% unicode-fix.tex — render raw-Unicode symbols that the Latin Modern *text* font
+% lacks, using Computer Modern math/text equivalents. This keeps the established
+% Computer Modern look while filling the glyphs xelatex would otherwise drop.
+% Included via: pandoc ... --include-in-header=unicode-fix.tex
+\usepackage{newunicodechar}
+\usepackage{pifont}
+% --- Greek letters -> math (Latin Modern Math; consistent with CM body text) ---
+\newunicodechar{α}{\ensuremath{\alpha}}
+\newunicodechar{β}{\ensuremath{\beta}}
+\newunicodechar{γ}{\ensuremath{\gamma}}
+\newunicodechar{δ}{\ensuremath{\delta}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
+\newunicodechar{θ}{\ensuremath{\theta}}
+\newunicodechar{μ}{\ensuremath{\mu}}
+\newunicodechar{ν}{\ensuremath{\nu}}
+\newunicodechar{ρ}{\ensuremath{\rho}}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{τ}{\ensuremath{\tau}}
+\newunicodechar{φ}{\ensuremath{\varphi}}
+\newunicodechar{χ}{\ensuremath{\chi}}
+\newunicodechar{ψ}{\ensuremath{\psi}}
+% --- Relations / operators -> math ---
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{∂}{\ensuremath{\partial}}
+\newunicodechar{∅}{\ensuremath{\varnothing}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{∼}{\ensuremath{\sim}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{⊂}{\ensuremath{\subset}}
+\newunicodechar{⊃}{\ensuremath{\supset}}
+% --- Special ---
+\newunicodechar{ℏ}{\ensuremath{\hbar}}
+\newunicodechar{ℤ}{\ensuremath{\mathbb{Z}}}
+% --- Superscript modifier letters (footnote-style markers) -> text superscript ---
+\newunicodechar{ʰ}{\textsuperscript{h}}
+\newunicodechar{ʲ}{\textsuperscript{j}}
+\newunicodechar{ᵃ}{\textsuperscript{a}}
+\newunicodechar{ᵇ}{\textsuperscript{b}}
+\newunicodechar{ᵈ}{\textsuperscript{d}}
+\newunicodechar{ᵉ}{\textsuperscript{e}}
+\newunicodechar{ᵍ}{\textsuperscript{g}}
+\newunicodechar{ᶠ}{\textsuperscript{f}}
+\newunicodechar{⁻}{\textsuperscript{\ensuremath{-}}}
+% --- Subscript digits -> text subscript ---
+\newunicodechar{₀}{\textsubscript{0}}
+\newunicodechar{₁}{\textsubscript{1}}
+\newunicodechar{₂}{\textsubscript{2}}
+\newunicodechar{₃}{\textsubscript{3}}
+\newunicodechar{₄}{\textsubscript{4}}
+\newunicodechar{₈}{\textsubscript{8}}
+% --- Checkmarks ---
+\newunicodechar{✓}{\ding{51}}
+\newunicodechar{✗}{\ding{55}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
 \hypersetup{
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
@@ -65,10 +124,9 @@
 
 \begin{document}
 
-\hypertarget{hierarchical-structural-realism-and-universality-classes-of-embedded-observers}{%
 \section{Hierarchical Structural Realism and Universality Classes of
 Embedded
-Observers}\label{hierarchical-structural-realism-and-universality-classes-of-embedded-observers}}
+Observers}\label{hierarchical-structural-realism-and-universality-classes-of-embedded-observers}
 
 \textbf{Author:} Alex Maybaum\\
 \textbf{Date:} May 2026\\
@@ -81,8 +139,7 @@ Physics
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{abstract}{%
-\subsection{Abstract}\label{abstract}}
+\subsection{Abstract}\label{abstract}
 
 This paper articulates the structural commitments of the Incompleteness
 of Observation (OI) framework beyond its specific cubic-lattice
@@ -128,11 +185,9 @@ complementary roles within a universality-class structure.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{introduction}{%
-\subsection{1. Introduction}\label{introduction}}
+\subsection{1. Introduction}\label{introduction}
 
-\hypertarget{scope-and-structure}{%
-\subsubsection{1.1 Scope and structure}\label{scope-and-structure}}
+\subsubsection{1.1 Scope and structure}\label{scope-and-structure}
 
 The framework developed in {[}Main, SM, GR, Substratum{]} establishes
 that observed physics is uniquely determined modulo a substratum gauge
@@ -183,9 +238,8 @@ Definitive identification of specific universality classes --- including
 the OI-string cross-class --- requires substantial follow-up work along
 the lines flagged in §§11.2 and §13.1.
 
-\hypertarget{the-string-landscape-as-a-multiplicity-problem}{%
 \subsubsection{1.2 The string landscape as a multiplicity
-problem}\label{the-string-landscape-as-a-multiplicity-problem}}
+problem}\label{the-string-landscape-as-a-multiplicity-problem}
 
 For four decades, string theory has aspired to derive the Standard Model
 from compactification of higher-dimensional spacetime. The state of the
@@ -219,9 +273,7 @@ completion in quantum gravity. These conjectures shrink the apparent
 multiplicity of vacua but do not, in their current form, single out a
 unique SM-reproducing vacuum.
 
-\hypertarget{the-substratum-picture}{%
-\subsubsection{1.3 The substratum
-picture}\label{the-substratum-picture}}
+\subsubsection{1.3 The substratum picture}\label{the-substratum-picture}
 
 In a separate program {[}Main, SM, GR, Substratum{]}, the Incompleteness
 of Observation (OI) framework approaches fundamental physics from a
@@ -272,9 +324,8 @@ matching observation at \(0.05\sigma\), Koide ratio \(2/3\) matching at
 GW250114 confirms the classical area theorem, the coefficient untested
 directly), follow as forced consequences of the equivalence class.
 
-\hypertarget{question-1-the-equivalence-class-proposal}{%
 \subsubsection{1.4 Question 1: the equivalence-class
-proposal}\label{question-1-the-equivalence-class-proposal}}
+proposal}\label{question-1-the-equivalence-class-proposal}
 
 The two pictures describe the same observational target --- SM physics
 --- from very different directions. String theory begins from quantum
@@ -355,10 +406,9 @@ A1-A6 is not obvious and requires technical verification.
 §§3-6 of Part I address these pre-conditions; §7 considers the
 consequences both if they hold and if they fail.
 
-\hypertarget{question-2-why-universality-classes-are-substantively-new}{%
 \subsubsection{1.5 Question 2: why universality classes are
 substantively
-new}\label{question-2-why-universality-classes-are-substantively-new}}
+new}\label{question-2-why-universality-classes-are-substantively-new}
 
 The negative answer to Question 1 (Part I) does not exhaust the
 structural relationship between OI and string theory. OI's
@@ -410,9 +460,8 @@ provides the language for Part III's cross-framework synthesis.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-frameworks-hierarchical-structure}{%
 \subsection{2. The framework's hierarchical
-structure}\label{the-frameworks-hierarchical-structure}}
+structure}\label{the-frameworks-hierarchical-structure}
 
 The framework's structural-realism stance operates on a two-dimensional
 hierarchy. An \emph{observation axis} runs vertically --- from the
@@ -433,9 +482,8 @@ specific levels (Part I at Level D × Level G3; Part II at Level C ×
 Level G4; Part III at the partial-trace observational features sub-class
 within Level C).
 
-\hypertarget{the-observation-hierarchy}{%
 \subsubsection{2.1 The observation
-hierarchy}\label{the-observation-hierarchy}}
+hierarchy}\label{the-observation-hierarchy}
 
 The observation hierarchy nests by inclusion: each deeper level is a
 more specific commitment.
@@ -556,8 +604,7 @@ Bekenstein-Hawking \(A/4\) --- twenty-two structural retrodictions in
 The hierarchy nests: Level A ⊃ Level B ⊃ Level C ⊃ Level D. Each deeper
 level is a more specific commitment.
 
-\hypertarget{the-gauge-hierarchy}{%
-\subsubsection{2.2 The gauge hierarchy}\label{the-gauge-hierarchy}}
+\subsubsection{2.2 The gauge hierarchy}\label{the-gauge-hierarchy}
 
 The gauge hierarchy is the breadth axis: which transformations are
 observable-preserving, with broader levels absorbing more degrees of
@@ -623,9 +670,8 @@ degrees of freedom. The trace-out projects higher levels onto lower:
 trace-out of \(\mathcal{G}_{\rm sub}\) produces the SM gauge group as
 image; restriction to Hamiltonian projects G2 onto G1.
 
-\hypertarget{orthogonality-and-multi-level-structural-realism}{%
 \subsubsection{2.3 Orthogonality and multi-level structural
-realism}\label{orthogonality-and-multi-level-structural-realism}}
+realism}\label{orthogonality-and-multi-level-structural-realism}
 
 The two hierarchies are orthogonal. The observation axis is about scope;
 the gauge axis is about transformations. Levels G1, G2, G3 sit within
@@ -661,9 +707,8 @@ framework commits to all of them simultaneously, with content at each
 level being more class-specific (lower levels) or more class-universal
 (higher levels).
 
-\hypertarget{predictions-stratified-by-hierarchy-level}{%
 \subsubsection{2.4 Predictions stratified by hierarchy
-level}\label{predictions-stratified-by-hierarchy-level}}
+level}\label{predictions-stratified-by-hierarchy-level}
 
 The framework's empirical predictions live at specific intersections:
 
@@ -704,9 +749,8 @@ broader universality-class framework. the JUNO match to
 derivation with no direct empirical test (GW250114 constrains the
 classical area theorem, not the coefficient).
 
-\hypertarget{where-each-levels-content-lives}{%
 \subsubsection{2.5 Where each level's content
-lives}\label{where-each-levels-content-lives}}
+lives}\label{where-each-levels-content-lives}
 
 The framework's papers carry content at different levels of the
 two-dimensional structure:
@@ -754,13 +798,11 @@ realism applies --- the content of Parts I, II, and III of this paper.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{part-i-substratum-level-equivalence-question-1}{%
 \section{Part I: Substratum-Level Equivalence (Question
-1)}\label{part-i-substratum-level-equivalence-question-1}}
+1)}\label{part-i-substratum-level-equivalence-question-1}
 
-\hypertarget{per-generator-analysis-applied-to-string-compactifications}{%
 \subsection{3. Per-generator analysis applied to string
-compactifications}\label{per-generator-analysis-applied-to-string-compactifications}}
+compactifications}\label{per-generator-analysis-applied-to-string-compactifications}
 
 OI's gauge group \(\mathcal{G}_{\rm sub}\) has four explicit generators:
 (i) hidden-sector relabeling, (ii) alphabet change, (iii) deep-sector
@@ -796,9 +838,8 @@ supporting documentation.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{generator-ii-and-the-discrete-to-continuum-bridge}{%
 \subsection{4. Generator (ii) and the discrete-to-continuum
-bridge}\label{generator-ii-and-the-discrete-to-continuum-bridge}}
+bridge}\label{generator-ii-and-the-discrete-to-continuum-bridge}
 
 This section examines the technical bridge between OI's discrete
 substratum (alphabet \(\mathbb{Z}/q\mathbb{Z}\)) and string theory's
@@ -808,10 +849,9 @@ question is whether OI's \(q\)-gauge invariance theorem {[}SM §2.7{]}
 extends to continuum theories, or whether OI's discrete nature is
 essential to the reconstruction.
 
-\hypertarget{the-q-gauge-invariance-theorem-sm-2.7}{%
 \subsubsection{\texorpdfstring{4.1 The \(q\)-gauge invariance theorem
 {[}SM
-§2.7{]}}{4.1 The q-gauge invariance theorem {[}SM §2.7{]}}}\label{the-q-gauge-invariance-theorem-sm-2.7}}
+§2.7{]}}{4.1 The q-gauge invariance theorem {[}SM §2.7{]}}}\label{the-q-gauge-invariance-theorem-sm-2.7}
 
 OI's substratum has local state-space \(\mathbb{Z}/q\mathbb{Z}\) for
 some integer \(q \geq 2\). The \(q\)-gauge invariance theorem {[}SM
@@ -821,8 +861,14 @@ linear. The proof rests on showing that the cubic-group decomposition,
 the wave equation's spectrum, and all derived quantities are independent
 of \(q\) when the dynamics is linear over \(\mathbb{Z}/q\mathbb{Z}\).
 
-This theorem is the cornerstone of OI's claim that A5 (linearity) is
-forced rather than assumed. Non-linear dynamics over
+This theorem underwrites OI's claim that A5 (linearity) is forced rather
+than assumed, but conditionally: the forcing runs through
+\emph{amplitude-scale} gauge (the unobservability of the absolute field
+scale), which {[}Substratum §4, Theorem 24, \emph{Status}{]} classifies
+as an adjoined operational input rather than a theorem ({[}SM §2.7{]})
+--- its independent warrant by the observer architecture being an open,
+referee-grade question. Linearity is therefore forced \emph{given} that
+operational principle, not unconditionally. Non-linear dynamics over
 \(\mathbb{Z}/q\mathbb{Z}\) generically produce \(q\)-dependent
 observable physics (\(x^2 \bmod 3\) and \(x^2 \bmod 5\) have different
 algebraic structure), violating the gauge equivalence. The theorem
@@ -830,9 +876,8 @@ operates within the discrete alphabet structure; it does not address
 whether \(q \to \infty\) limit produces continuum dynamics or what role
 real-valued degrees of freedom play.
 
-\hypertarget{matrix-models-as-candidate-finite-dimensional-representatives}{%
 \subsubsection{4.2 Matrix models as candidate finite-dimensional
-representatives}\label{matrix-models-as-candidate-finite-dimensional-representatives}}
+representatives}\label{matrix-models-as-candidate-finite-dimensional-representatives}
 
 String-theoretic matrix models --- BFSS {[}BFSS1996{]}, IKKT
 {[}IKKT1996{]} --- are finite-dimensional formulations of M-theory and
@@ -869,9 +914,8 @@ remaining structural conditions A2 (deterministic bijection) and A5
 stochastic, and the Yang-Mills commutator-squared interaction remains
 nonlinear at the lattice level.
 
-\hypertarget{possible-bridges-and-their-status}{%
 \subsubsection{4.3 Possible bridges and their
-status}\label{possible-bridges-and-their-status}}
+status}\label{possible-bridges-and-their-status}
 
 Three structural possibilities for the discrete-to-continuum bridge:
 
@@ -919,9 +963,8 @@ does not transport.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{sm-reproducing-compactifications-a-catalogue}{%
 \subsection{5. SM-reproducing compactifications: a
-catalogue}\label{sm-reproducing-compactifications-a-catalogue}}
+catalogue}\label{sm-reproducing-compactifications-a-catalogue}
 
 Three principal classes of string compactifications produce the SM gauge
 group through structurally different mechanisms. \emph{Heterotic}
@@ -960,9 +1003,8 @@ content through structurally different machinery.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{structural-compatibility-a1a6-under-matrix-model-bridges}{%
 \subsection{6. Structural compatibility: A1--A6 under matrix-model
-bridges}\label{structural-compatibility-a1a6-under-matrix-model-bridges}}
+bridges}\label{structural-compatibility-a1a6-under-matrix-model-bridges}
 
 The equivalence-class reading proposed in §1.3 requires that string
 compactifications producing the observed Standard Model be
@@ -990,8 +1032,7 @@ We address each condition in turn, taking the BFSS matrix model as the
 principal example. The conclusions extend to IKKT and to BFSS variants
 with appropriate modifications.
 
-\hypertarget{a1-finiteness}{%
-\subsubsection{6.1 A1 (finiteness)}\label{a1-finiteness}}
+\subsubsection{6.1 A1 (finiteness)}\label{a1-finiteness}
 
 \textbf{Condition.} The configuration space \(S\) is finite.
 
@@ -1018,9 +1059,8 @@ proviso that the continuum and large-\(N\) limits --- which are believed
 to recover string-theoretic content --- produce \(|S| \to \infty\) in a
 manner that may or may not preserve the equivalence-class structure.
 
-\hypertarget{a2-determinism-bijection}{%
 \subsubsection{6.2 A2 (determinism /
-bijection)}\label{a2-determinism-bijection}}
+bijection)}\label{a2-determinism-bijection}
 
 \textbf{Condition.} The substratum dynamics \(\varphi: S \to S\) is a
 deterministic bijection.
@@ -1062,9 +1102,8 @@ model as a classical cellular-automaton dynamics with bijection
 structure, which is not the standard BFSS conjecture and would represent
 a substantial re-foundation rather than a discretization.
 
-\hypertarget{a3-bounded-coupling-degree}{%
 \subsubsection{6.3 A3 (bounded coupling
-degree)}\label{a3-bounded-coupling-degree}}
+degree)}\label{a3-bounded-coupling-degree}
 
 \textbf{Condition.} Each site is coupled to a bounded number of
 neighbors in \(\varphi\)'s action.
@@ -1080,9 +1119,8 @@ value); without independent argument that this reframing is correct
 rather than a definitional convenience, A3 should be regarded as failing
 on the natural reading.
 
-\hypertarget{a4-center-independence}{%
 \subsubsection{6.4 A4 (center
-independence)}\label{a4-center-independence}}
+independence)}\label{a4-center-independence}
 
 \textbf{Status.} Holds. BFSS has manifest invariance under matrix
 translations \(X^i \to X^i + c^i \mathbb{1}\) (the BFSS analog of
@@ -1090,8 +1128,7 @@ spatial translation), and matrix indices \(a, b\) have no preferred
 values; the action is symmetric under index permutations. Both features
 are manifest in the BFSS action.
 
-\hypertarget{a5-linearity}{%
-\subsubsection{6.5 A5 (linearity)}\label{a5-linearity}}
+\subsubsection{6.5 A5 (linearity)}\label{a5-linearity}
 
 \textbf{Condition.} The wave equation governing \(\varphi\) is linear in
 the configuration variables.
@@ -1138,9 +1175,8 @@ natural reading is that matrix models genuinely have nonlinear
 substratum dynamics, in structural disagreement with OI's
 reconstruction.
 
-\hypertarget{a6-background-independence}{%
 \subsubsection{6.6 A6 (background
-independence)}\label{a6-background-independence}}
+independence)}\label{a6-background-independence}
 
 \textbf{Status.} Holds in spirit, conditional on the matrix-spatial
 bridge. BFSS has manifest \(U(N)\) gauge invariance under local matrix
@@ -1153,16 +1189,16 @@ invariance plays the role A6 requires depends on the matrix-spatial
 bridge, established only in specific limits (e.g., the diagonal-matrix
 limit where eigenvalues correspond to D0-brane positions).
 
-\hypertarget{summary-of-a1a6-status}{%
 \subsubsection{6.7 Summary of A1--A6
-status}\label{summary-of-a1a6-status}}
+status}\label{summary-of-a1a6-status}
 
 The tally across A1--A6:
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Condition
@@ -1187,6 +1223,7 @@ structural mismatch \\
 A6 (background independence) & Holds (matrix-gauge) / conditional
 (spatial) & Depends on matrix-spatial bridge \\
 \end{longtable}
+}
 
 The outcome is mixed. Three of six conditions (A4, A6 in spirit, A1 with
 discretization) are compatible with matrix-model structure. Three of six
@@ -1221,10 +1258,9 @@ informative about the relationship between the two programs. OI and
 string theory are not gauge-equivalent in the sense the
 equivalence-class proposal asks.
 
-\hypertarget{what-can-be-salvaged}{%
-\subsubsection{6.8 What can be salvaged}\label{what-can-be-salvaged}}
+\subsubsection{6.8 What can be salvaged}\label{what-can-be-salvaged}
 
-The negative conclusion in §7.8 admits four partial recoveries, ordered
+The negative conclusion in §7.8 admits five partial recoveries, ordered
 from most to least plausible.
 
 \textbf{(i) Different bridge.} Matrix models are not the only
@@ -1245,7 +1281,7 @@ these alternatives in detail; they remain open directions.
 reformulation of the relationship asks not whether string theory's
 substratum-level structures (matrix models) are equivalent to OI's
 substratum, but whether OI's substratum produces string-theoretic
-features at appropriate emergent scales. OI's GR §4 already derives the
+features at appropriate emergent scales. OI's GR §5 already derives the
 Bekenstein-Hawking \(A/4\) entropy through a thermal-self-consistency
 argument that is structurally distinct from string theory's microscopic
 D-brane count {[}StromingerVafa1996{]}, yet produces the same numerical
@@ -1320,8 +1356,7 @@ OI-string relationship from ``two substratum descriptions of physics''
 to ``two realizations of observational invariants that physics
 requires.''
 
-\hypertarget{summary}{%
-\subsubsection{6.9 Summary}\label{summary}}
+\subsubsection{6.9 Summary}\label{summary}
 
 Matrix-model formulations of string theory do not satisfy OI's
 structural conditions A1--A6 in their standard formulation. The failures
@@ -1341,9 +1376,8 @@ investigated.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{implications-and-discussion}{%
 \subsection{7. Implications and
-discussion}\label{implications-and-discussion}}
+discussion}\label{implications-and-discussion}
 
 The structural analysis of §6 establishes that matrix-model formulations
 of string theory do not satisfy OI's structural conditions A1--A6 in
@@ -1357,9 +1391,8 @@ section discusses the implications of this negative result, the partial
 recoveries identified in §7.6, and the open directions left by the
 analysis.
 
-\hypertarget{oi-and-string-theory-as-independent-programs}{%
 \subsubsection{7.1 OI and string theory as independent
-programs}\label{oi-and-string-theory-as-independent-programs}}
+programs}\label{oi-and-string-theory-as-independent-programs}
 
 The most direct implication of §6's analysis is that OI and string
 theory are independent research programs targeting the same
@@ -1412,10 +1445,9 @@ predictions, peer-review validation of internal consistency, and
 investigation of whether the partial recoveries identified in §7.6 can
 rescue equivalence-class structure.
 
-\hypertarget{the-string-landscape-multiplicity-problem-is-not-dissolved-by-ois-gauge-group}{%
 \subsubsection{7.2 The string landscape multiplicity problem is not
 dissolved by OI's gauge
-group}\label{the-string-landscape-multiplicity-problem-is-not-dissolved-by-ois-gauge-group}}
+group}\label{the-string-landscape-multiplicity-problem-is-not-dissolved-by-ois-gauge-group}
 
 The first of the three substantive consequences flagged in §1.3 ---
 dissolution of the string landscape multiplicity problem through OI's
@@ -1443,9 +1475,8 @@ causal sets) are not classified by \(\mathcal{G}_{\text{sub}}\) and may
 belong to different equivalence classes (or no equivalence class, if
 they fail to reproduce the SM).
 
-\hypertarget{cross-attribution-of-predictions-does-not-follow}{%
 \subsubsection{7.3 Cross-attribution of predictions does not
-follow}\label{cross-attribution-of-predictions-does-not-follow}}
+follow}\label{cross-attribution-of-predictions-does-not-follow}
 
 The second consequence flagged in §1.3 --- that OI's predictions become
 string-theory predictions through gauge equivalence --- likewise does
@@ -1466,10 +1497,9 @@ specifically. If they fail, it's evidence against OI specifically.
 String theory is not implicated either way through the gauge-equivalence
 route examined here.
 
-\hypertarget{computational-gateway-via-ois-lattice-does-not-extend-to-string-theory}{%
 \subsubsection{7.4 Computational gateway via OI's lattice does not
 extend to string
-theory}\label{computational-gateway-via-ois-lattice-does-not-extend-to-string-theory}}
+theory}\label{computational-gateway-via-ois-lattice-does-not-extend-to-string-theory}
 
 The third consequence --- OI's computationally-tractable lattice as a
 tool for string-theoretic computations --- also does not follow. Without
@@ -1484,9 +1514,8 @@ substratum without needing to engage string-theoretic structures. The
 framework's empirical successes are independent of string-theoretic
 computation, and that independence is preserved by the negative result.
 
-\hypertarget{connection-to-swampland-conjectures}{%
 \subsubsection{7.5 Connection to swampland
-conjectures}\label{connection-to-swampland-conjectures}}
+conjectures}\label{connection-to-swampland-conjectures}
 
 The swampland program {[}Vafa2005, OoguriVafa2007, Palti2019,
 Lehnert2025{]} aims to identify which low-energy effective field
@@ -1507,9 +1536,7 @@ compatibility with the major swampland conjectures, identifying both the
 consistency results and the cross-validation pathways the conjectures
 provide for OI's specific predictions.
 
-\hypertarget{weak-gravity-conjecture}{%
-\paragraph{7.5.1 Weak Gravity
-Conjecture}\label{weak-gravity-conjecture}}
+\paragraph{7.5.1 Weak Gravity Conjecture}\label{weak-gravity-conjecture}
 
 The Weak Gravity Conjecture {[}ArkaniHamedMotlNicolisVafa2007{]} states
 that any consistent quantum-gravity EFT containing a \(U(1)\) gauge
@@ -1535,8 +1562,7 @@ pathway is direct: WGC + observed neutrino phenomenology → Majorana
 neutrinos; OI → Majorana neutrinos. Both routes converge on the same
 prediction through structurally distinct reasoning.
 
-\hypertarget{de-sitter-conjecture}{%
-\paragraph{7.5.2 de Sitter Conjecture}\label{de-sitter-conjecture}}
+\paragraph{7.5.2 de Sitter Conjecture}\label{de-sitter-conjecture}
 
 The de Sitter Conjecture {[}ObiedOoguriSpodyneikoVafa2018{]} in its
 refined form {[}OoguriPaltiShiuVafa2019{]} states that the scalar
@@ -1575,8 +1601,7 @@ strict-static distinction --- OI is nominally dynamical but
 observationally \(\Lambda\)-like --- and should be read at that level of
 strength.
 
-\hypertarget{distance-conjecture}{%
-\paragraph{7.5.3 Distance Conjecture}\label{distance-conjecture}}
+\paragraph{7.5.3 Distance Conjecture}\label{distance-conjecture}
 
 The Distance Conjecture {[}OoguriVafa2007{]} states that as one moves to
 large distance in the moduli space of a consistent quantum-gravity EFT,
@@ -1602,9 +1627,7 @@ universality-class space might be connected to OI's class only through
 transitions involving infinite towers of states. This is speculative and
 open.
 
-\hypertarget{ads-distance-conjecture}{%
-\paragraph{7.5.4 AdS Distance
-Conjecture}\label{ads-distance-conjecture}}
+\paragraph{7.5.4 AdS Distance Conjecture}\label{ads-distance-conjecture}
 
 The AdS Distance Conjecture {[}LustPaltiVafa2019{]} states that AdS
 minima of consistent quantum-gravity EFTs are accompanied by an infinite
@@ -1620,9 +1643,8 @@ admitted an AdS minimum, the conjecture would constrain that sub-cluster
 --- but this would be a constraint within the universality-class space,
 not on OI itself.
 
-\hypertarget{cross-validation-pathways}{%
 \paragraph{7.5.5 Cross-validation
-pathways}\label{cross-validation-pathways}}
+pathways}\label{cross-validation-pathways}
 
 The swampland conjectures collectively define a region of EFT parameter
 space compatible with consistent quantum gravity. OI's emergent QFT
@@ -1658,15 +1680,14 @@ the major swampland conjectures examined, and that cross-validation
 pathways exist for OI's structural predictions through swampland-derived
 constraints.
 
-\hypertarget{partial-recoveries-and-what-would-be-required-to-revisit-the-equivalence-class-reading}{%
 \subsubsection{7.6 Partial recoveries and what would be required to
 revisit the equivalence-class
-reading}\label{partial-recoveries-and-what-would-be-required-to-revisit-the-equivalence-class-reading}}
+reading}\label{partial-recoveries-and-what-would-be-required-to-revisit-the-equivalence-class-reading}
 
 §6.8 identified five partial recoveries, ordered roughly from most to
 least consequential. \emph{Emergent string-theoretic features from OI's
 substratum} (recovery (ii)) is the most consequential if it holds: OI's
-GR §4 already produces the Bekenstein-Hawking \(A/4\) entropy through
+GR §5 already produces the Bekenstein-Hawking \(A/4\) entropy through
 thermal self-consistency {[}StromingerVafa1996 has the microscopic
 derivation{]}; whether OI similarly produces holographic-duality
 structure analogous to AdS/CFT, graviton modes from long-distance
@@ -1696,10 +1717,9 @@ are forced into agreement. Both extend OI's structural-realism stance
 --- that what is real is invariant structure, not specific
 representatives --- to the comparison with other unification programs.
 
-\hypertarget{recovery-ii-developed-emergent-string-theoretic-features-from-ois-substratum}{%
 \subsubsection{7.7 Recovery (ii) developed: emergent string-theoretic
 features from OI's
-substratum}\label{recovery-ii-developed-emergent-string-theoretic-features-from-ois-substratum}}
+substratum}\label{recovery-ii-developed-emergent-string-theoretic-features-from-ois-substratum}
 
 Recovery (ii) of §7.6 --- that OI's substratum produces emergent
 string-theoretic features at appropriate emergent scales --- is the most
@@ -1720,9 +1740,8 @@ can share long-distance behavior through RG universality. The question
 is which string-theoretic features are robust at the emergent scale and
 which are tied specifically to string-theoretic substratum content.
 
-\hypertarget{horizon-holography-vs-full-adscft}{%
 \paragraph{7.7.1 Horizon holography vs full
-AdS/CFT}\label{horizon-holography-vs-full-adscft}}
+AdS/CFT}\label{horizon-holography-vs-full-adscft}
 
 The strongest emergence claim is for \emph{horizon holography} --- the
 Bekenstein-Hawking \(A/4\) area law and the holographic information
@@ -1788,9 +1807,8 @@ former is a structural consequence of the partial-trace observational
 structure; the latter requires specific compactification-dependent
 content that OI's substratum does not directly provide.
 
-\hypertarget{graviton-modes-from-long-distance-dynamics}{%
 \paragraph{7.7.2 Graviton modes from long-distance
-dynamics}\label{graviton-modes-from-long-distance-dynamics}}
+dynamics}\label{graviton-modes-from-long-distance-dynamics}
 
 OI's {[}GR §3--§5{]} derives linearized Einstein gravity from the
 partial-trace structure of the substratum bijection at the
@@ -1836,9 +1854,8 @@ string-theoretic UV completion (worldsheet structure, infinite massive
 tower) but produces the universally-required IR structure that any
 successful emergent-graviton framework must reproduce.
 
-\hypertarget{t-duality-and-s-duality-analogs}{%
 \paragraph{7.7.3 T-duality and S-duality
-analogs}\label{t-duality-and-s-duality-analogs}}
+analogs}\label{t-duality-and-s-duality-analogs}
 
 T-duality in string theory is the equivalence of closed-string theories
 on a circle of radius \(R\) and radius \(\alpha'/R\), with momentum
@@ -1886,16 +1903,16 @@ the same observable physics through different regime variables) might
 transport to OI's universality-class framework, but no specific
 S-duality-like map has been identified.
 
-\hypertarget{synthesis-what-emerges-and-what-does-not}{%
 \paragraph{7.7.4 Synthesis: what emerges and what does
-not}\label{synthesis-what-emerges-and-what-does-not}}
+not}\label{synthesis-what-emerges-and-what-does-not}
 
 Recovery (ii) develops with the following pattern:
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Feature
@@ -1919,6 +1936,7 @@ substratum, structurally different \\
 T-duality & No & No winding modes in OI substratum \\
 S-duality & Speculative & Universality-class-level analogs open \\
 \end{longtable}
+}
 
 The pattern: OI naturally produces the \emph{IR effective theory} and
 the \emph{structural observational features} of string-theoretic
@@ -1958,9 +1976,8 @@ identification or exclusion of universality-class-level T- and S-duality
 analogs (§7.7.3). These are the natural follow-up directions to this
 recovery's development.
 
-\hypertarget{what-this-paper-has-established}{%
 \subsubsection{7.8 What this paper has
-established}\label{what-this-paper-has-established}}
+established}\label{what-this-paper-has-established}
 
 This paper articulates the equivalence-class proposal precisely (§1.4),
 resolves it in the negative for matrix models (§6 establishes A2 and A5
@@ -1977,9 +1994,8 @@ develops the second direction: three of four observational features
 transport directly between frameworks, characterizing the partial-trace
 observational level as where the intersection lives.
 
-\hypertarget{observer-admission-and-the-structure-of-the-landscape}{%
 \subsubsection{7.9 Observer admission and the structure of the
-landscape}\label{observer-admission-and-the-structure-of-the-landscape}}
+landscape}\label{observer-admission-and-the-structure-of-the-landscape}
 
 Part II §9.6 formalizes a structural distinction between
 \emph{observer-admitting} substrata --- those that admit a partition
@@ -2214,13 +2230,11 @@ subset being structurally smaller --- is a substantive contribution that
 the framework's structural-realism stance makes available to the
 landscape discussion.
 
-\hypertarget{part-ii-universality-classes-of-embedded-observers-question-2}{%
 \section{Part II: Universality Classes of Embedded Observers (Question
-2)}\label{part-ii-universality-classes-of-embedded-observers-question-2}}
+2)}\label{part-ii-universality-classes-of-embedded-observers-question-2}
 
-\hypertarget{formalizing-embedded-observation}{%
 \subsection{8. Formalizing embedded
-observation}\label{formalizing-embedded-observation}}
+observation}\label{formalizing-embedded-observation}
 
 The notion of ``embedded observer'' in OI's framework is informal: an
 observer with finite distinguishable states, embedded in a substratum,
@@ -2231,9 +2245,8 @@ formulation, we need a formalization sufficient to define equivalence
 relations on substratum-with-observer systems. Three candidate
 formalizations are available.
 
-\hypertarget{categorical-formalization}{%
 \subsubsection{8.1 Categorical
-formalization}\label{categorical-formalization}}
+formalization}\label{categorical-formalization}
 
 The categorical approach treats embedded observers as functors
 \(F: \mathbf{Sub} \to \mathbf{Obs}\) from a category of substratum
@@ -2246,9 +2259,8 @@ of \(\mathbf{Sub}\) and \(\mathbf{Obs}\) with their respective morphism
 structures) that has not been worked out in the OI literature. We do not
 pursue it further here.
 
-\hypertarget{operational-formalization}{%
 \subsubsection{8.2 Operational
-formalization}\label{operational-formalization}}
+formalization}\label{operational-formalization}
 
 The operational approach treats embedded observers as operational
 protocols \((\mathcal{P}, \mathcal{M}, p)\) --- preparations,
@@ -2262,9 +2274,8 @@ empiricist --- it does not commit to substratum-level realism --- and
 may sit uneasily with OI's structural-realism stance, which treats the
 equivalence class itself as ontologically real.
 
-\hypertarget{algebraic-formalization}{%
 \subsubsection{8.3 Algebraic
-formalization}\label{algebraic-formalization}}
+formalization}\label{algebraic-formalization}
 
 The algebraic approach treats embedded observers as CPTP channels with
 specific structural features. An embedded observer is characterized by:
@@ -2298,9 +2309,8 @@ the corresponding algebra-channel pair from string-theoretic dynamics,
 which is non-trivial but tractable for matrix-model formulations and
 AdS/CFT.
 
-\hypertarget{choosing-a-formalization}{%
 \subsubsection{8.4 Choosing a
-formalization}\label{choosing-a-formalization}}
+formalization}\label{choosing-a-formalization}
 
 The three formalizations are related but not equivalent. The operational
 formalization is weakest --- it characterizes observers by their data
@@ -2324,12 +2334,10 @@ structure of §8.3.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{universality-classes-of-embedded-observers}{%
 \subsection{9. Universality classes of embedded
-observers}\label{universality-classes-of-embedded-observers}}
+observers}\label{universality-classes-of-embedded-observers}
 
-\hypertarget{formal-definitions}{%
-\subsubsection{9.1 Formal definitions}\label{formal-definitions}}
+\subsubsection{9.1 Formal definitions}\label{formal-definitions}
 
 We adopt the algebraic formalization of §8.4. The following definitions
 make precise the universality-class structure used throughout the rest
@@ -2379,9 +2387,8 @@ framework's purpose: characterizing equivalence at the level of
 observation, independent of the specific substratum machinery producing
 observable physics.
 
-\hypertarget{relation-to-ois-gauge-group-a-proposition}{%
 \subsubsection{9.2 Relation to OI's gauge group: a
-proposition}\label{relation-to-ois-gauge-group-a-proposition}}
+proposition}\label{relation-to-ois-gauge-group-a-proposition}
 
 OI's substratum gauge group \(\mathcal{G}_{\rm sub}\) is a special case
 of observational equivalence. We can state this precisely.
@@ -2423,9 +2430,8 @@ gauge equivalence by potentially including non-OI-class substrata whose
 embedded-observer triples are observationally equivalent through
 different dilation mechanisms.
 
-\hypertarget{many-to-one-structure-of-dilations}{%
 \subsubsection{9.3 Many-to-one structure of
-dilations}\label{many-to-one-structure-of-dilations}}
+dilations}\label{many-to-one-structure-of-dilations}
 
 A structural feature important for the universality-class framework is
 the \emph{many-to-one} relationship between substratum-with-observer
@@ -2471,9 +2477,8 @@ equivalence class modulo \(\mathcal{G}_{\rm sub}\) as ontologically
 real; the universality-class framework treats the embedded-observer
 triple as ontologically real.
 
-\hypertarget{relation-to-ois-gauge-group-refined}{%
 \subsubsection{9.4 Relation to OI's gauge group,
-refined}\label{relation-to-ois-gauge-group-refined}}
+refined}\label{relation-to-ois-gauge-group-refined}
 
 With the formal definitions in place, the relationship between
 universality classes and OI's gauge group can be stated more precisely
@@ -2496,9 +2501,8 @@ description (any specific dilation \((\mathcal{H}_H, U)\) producing the
 triple) being gauge. The two claims agree within OI's structural class
 but differ on the question of cross-class membership.
 
-\hypertarget{structure-of-universality-classes}{%
 \subsubsection{9.5 Structure of universality
-classes}\label{structure-of-universality-classes}}
+classes}\label{structure-of-universality-classes}
 
 Universality classes have internal structure beyond bare equivalence.
 Three structural features:
@@ -2537,9 +2541,8 @@ characterized by SM-reproducing observable target; a still finer
 sub-class characterized by specific predictive content (Cabibbo, Koide,
 etc.).
 
-\hypertarget{observer-admitting-and-observer-lacking-substrata}{%
 \subsubsection{9.6 Observer-admitting and observer-lacking
-substrata}\label{observer-admitting-and-observer-lacking-substrata}}
+substrata}\label{observer-admitting-and-observer-lacking-substrata}
 
 The framework's universality classes are populated by
 \emph{observer-admitting} substrata --- pairs \((S, \varphi)\) that
@@ -2644,8 +2647,7 @@ without observers are structurally distinct kinds of objects;
 observer-admitting substrata are the candidate space for ``physical
 universe''; we are in one of them.
 
-\hypertarget{worked-examples}{%
-\subsubsection{9.7 Worked examples}\label{worked-examples}}
+\subsubsection{9.7 Worked examples}\label{worked-examples}
 
 We illustrate the universality-class definition with three examples.
 
@@ -2692,9 +2694,8 @@ class) but may share the partial-trace observational features class with
 OI and string theory. The question is whether the cross-class is
 well-defined and what additional features characterize it.
 
-\hypertarget{open-does-the-oi-string-cross-class-exist}{%
 \subsubsection{9.8 Open: does the OI-string cross-class
-exist?}\label{open-does-the-oi-string-cross-class-exist}}
+exist?}\label{open-does-the-oi-string-cross-class-exist}
 
 The candidate cross-class of Example 3 is well-defined as a set:
 substrata producing the SM at low energies. The question is whether it
@@ -2730,9 +2731,8 @@ representative --- is open.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{ois-framework-as-a-worked-example}{%
 \subsection{10. OI's framework as a worked
-example}\label{ois-framework-as-a-worked-example}}
+example}\label{ois-framework-as-a-worked-example}
 
 This section uses OI's framework to illustrate how universality classes
 interact with substratum-level structure. The aim is to show that
@@ -2740,9 +2740,8 @@ universality classes are not abstract mathematical curiosities but
 capture the structural content of OI's reconstruction theorem in a more
 general form.
 
-\hypertarget{ois-reconstruction-theorem-in-universality-class-language}{%
 \subsubsection{10.1 OI's reconstruction theorem in universality-class
-language}\label{ois-reconstruction-theorem-in-universality-class-language}}
+language}\label{ois-reconstruction-theorem-in-universality-class-language}
 
 OI's reconstruction theorem (Theorem 23 of {[}Substratum{]}) states that
 the empirical inputs E1-E4 combined with the structural conditions A1-A6
@@ -2760,10 +2759,9 @@ universality class is uniquely populated (modulo
 \(\mathcal{G}_{\rm sub}\)) by substrata satisfying both the
 partial-trace features and the structural conditions.
 
-\hypertarget{what-oi-does-and-does-not-establish-at-the-universality-class-level}{%
 \subsubsection{10.2 What OI does and does not establish at the
 universality-class
-level}\label{what-oi-does-and-does-not-establish-at-the-universality-class-level}}
+level}\label{what-oi-does-and-does-not-establish-at-the-universality-class-level}
 
 OI's reconstruction theorem establishes uniqueness \emph{within} the OI
 universality class --- the class characterized by A1-A6 plus the
@@ -2781,9 +2779,8 @@ exist that produce the same observable physics is an open question; if
 they do, OI's predictions are class-specific rather than
 substratum-level-universal.
 
-\hypertarget{the-structural-realism-implication}{%
 \subsubsection{10.3 The structural-realism
-implication}\label{the-structural-realism-implication}}
+implication}\label{the-structural-realism-implication}
 
 OI's structural-realism claim (per {[}Substratum §1.1{]}) is that what's
 real is the equivalence class modulo \(\mathcal{G}_{\rm sub}\). The
@@ -2808,9 +2805,8 @@ different universality class containing the SM at low energies might
 have different specific predictions or might lack predictive content at
 the corresponding level.
 
-\hypertarget{constructing-ois-algebra-channel-pair}{%
 \subsubsection{10.4 Constructing OI's algebra-channel
-pair}\label{constructing-ois-algebra-channel-pair}}
+pair}\label{constructing-ois-algebra-channel-pair}
 
 The universality-class formalism of §8.3 / §9.1 requires an explicit
 algebra-channel pair to be constructive. We now exhibit the triple
@@ -2935,9 +2931,8 @@ pair as the universality-class invariant of OI's structural class. See
 §15.2 for further discussion of the algebra-channel formalism in
 independent literature.
 
-\hypertarget{status-as-step-1-of-13.1.1s-recipe}{%
 \subsubsection{10.5 Status as Step 1 of §13.1.1's
-recipe}\label{status-as-step-1-of-13.1.1s-recipe}}
+recipe}\label{status-as-step-1-of-13.1.1s-recipe}
 
 The construction of §10.4 completes Step 1 of the four-step
 *-isomorphism recipe of §13.1.1. The remaining three steps remain open
@@ -2983,18 +2978,16 @@ specified compactification.''
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-oi-string-universality-class}{%
 \subsection{11. The OI-string universality
-class}\label{the-oi-string-universality-class}}
+class}\label{the-oi-string-universality-class}
 
 Part III §14 establishes that OI and string theory share structural
 features at the partial-trace observation level. This section examines
 what that establishes about cross-class membership and what additional
 work is needed.
 
-\hypertarget{what-14s-findings-establish}{%
 \subsubsection{11.1 What §14's findings
-establish}\label{what-14s-findings-establish}}
+establish}\label{what-14s-findings-establish}
 
 The §14 four-feature audit shows that the Born rule, channel-level
 unitarity, and P-indivisibility transport directly between OI and
@@ -3016,9 +3009,8 @@ same-universality-class membership at the level of the SM gauge group,
 but the specific dynamics on the SM gauge group (Yukawa couplings,
 CP-violating phases, scale of supersymmetry breaking if any) may differ.
 
-\hypertarget{what-additional-work-is-needed}{%
 \subsubsection{11.2 What additional work is
-needed}\label{what-additional-work-is-needed}}
+needed}\label{what-additional-work-is-needed}
 
 §10.4 completes the explicit construction of OI's algebra-channel pair
 \((\mathcal{H}_V^{\rm OI}, \mathcal{A}_V^{\rm OI}, \Phi^{\rm OI})\) at
@@ -3061,9 +3053,8 @@ Part III §14.5 establishes the structural-features-of-trace-out level;
 the universality-class question requires going further to
 algebra-channel-level comparison against a specified compactification.
 
-\hypertarget{provisional-characterization}{%
 \subsubsection{11.3 Provisional
-characterization}\label{provisional-characterization}}
+characterization}\label{provisional-characterization}
 
 Pending the technical work of §11.2, the OI-string relationship at the
 universality-class level is provisionally:
@@ -3100,12 +3091,10 @@ connection.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{implications}{%
-\subsection{12. Implications}\label{implications}}
+\subsection{12. Implications}\label{implications}
 
-\hypertarget{refined-structural-realism}{%
 \subsubsection{12.1 Refined structural
-realism}\label{refined-structural-realism}}
+realism}\label{refined-structural-realism}
 
 The universality-class framework refines OI's structural-realism stance.
 OI's claim is that what's real is the equivalence class modulo
@@ -3131,9 +3120,8 @@ consistent with OI's structural-realism stance while extending it to
 characterize what is shared with other unification programs and what is
 class-specific.
 
-\hypertarget{methodology-of-fundamental-physics}{%
 \subsubsection{12.2 Methodology of fundamental
-physics}\label{methodology-of-fundamental-physics}}
+physics}\label{methodology-of-fundamental-physics}
 
 The universality-class framework suggests a methodological reframing of
 fundamental physics. Rather than asking ``what is the substratum?'' ---
@@ -3155,9 +3143,8 @@ preserved at the universality-class level: what's real is the
 universality class, not just the operational data, and not the specific
 substratum representative.
 
-\hypertarget{connection-to-ois-main-paper}{%
 \subsubsection{12.3 Connection to OI's main
-paper}\label{connection-to-ois-main-paper}}
+paper}\label{connection-to-ois-main-paper}
 
 OI's main paper takes ``observation occurs'' as the foundational axiom.
 The universality-class framework formalizes this axiom's content:
@@ -3184,9 +3171,8 @@ axiom. OI's specific predictions are features of OI's specific
 universality-class representative, with the universal features being
 shared with any other framework respecting the observation axiom.
 
-\hypertarget{predictions-stratified-by-hierarchy-level-1}{%
 \subsubsection{12.4 Predictions stratified by hierarchy
-level}\label{predictions-stratified-by-hierarchy-level-1}}
+level}\label{predictions-stratified-by-hierarchy-level-1}
 
 The framework's predictions live at distinct levels of the hierarchy
 developed in §2 and characterized through Parts I--III. Empirical
@@ -3203,10 +3189,11 @@ frameworks producing observation through partial-trace structure on
 quantum states. Predictions of any embedded-observer framework
 respecting the structural features identified in §14.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Feature
@@ -3232,6 +3219,7 @@ area theorem; the entropy bound itself is untested directly &
 Bekenstein-Hawking \(1/4\) coefficient & Derived; no direct empirical
 test (GW250114 constrains the area theorem) & {[}GR §5, GW250114{]} \\
 \end{longtable}
+}
 
 Level 1 confirmations support OI but do not distinguish OI from
 alternative frameworks producing the same partial-trace structure
@@ -3243,10 +3231,11 @@ universal level.
 producing SM gauge structure. OI shares this level with SM-reproducing
 string compactifications and any other program reaching the SM target.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Feature
@@ -3265,6 +3254,7 @@ Three chiral generations & Confirmed & {[}PDG{]} \\
 Anomaly cancellation across generations & Confirmed & {[}PDG{]} \\
 Renormalizable Yang-Mills + Higgs sector & Confirmed & {[}PDG{]} \\
 \end{longtable}
+}
 
 Level 2 confirmations are confirmations of the gauge-group-target level
 but do not distinguish OI from other SM-reproducing frameworks. They
@@ -3276,10 +3266,11 @@ OI's algebra-channel pair (§10.4) and would hold for any substratum in
 OI's universality class. Other substrata producing the same
 algebra-channel pair would share these predictions.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Feature
@@ -3316,6 +3307,7 @@ Non-unification of \(\alpha_3, \alpha_2, \alpha_1\) below
 LHC pressure (\(M_{\text{SUSY}} \gtrsim 3\) TeV with split-SUSY tuning)
 & {[}LHC\_SUSY\_2025, SM §6.4, §6.7{]} \\
 \end{longtable}
+}
 
 Level 3 confirmations are confirmations of OI's universality class but
 not of OI's specific representative. A substratum in the same
@@ -3332,10 +3324,11 @@ OI's substratum representative. Confirmation supports OI's specific
 substratum; refutation challenges OI but not necessarily the broader
 universality class.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Feature
@@ -3369,6 +3362,7 @@ Universal \(1/\alpha_0 = 23.25\) shared origin of three gauge couplings
 & Retrodictive match at few-percent (chain includes the empirical
 threshold \(\delta_0\); SM §6) & {[}SM §6.1, §6.7{]} \\
 \end{longtable}
+}
 
 Level 4 confirmations are confirmations of OI's specific representative
 --- the strongest support the framework can receive. The framework's
@@ -3409,9 +3403,8 @@ framework's empirical content lives across all four levels, with each
 level's confirmations carrying different weight for different aspects of
 the framework's claims.
 
-\hypertarget{the-no-gut-structural-prediction}{%
 \subsubsection{12.5 The no-GUT structural
-prediction}\label{the-no-gut-structural-prediction}}
+prediction}\label{the-no-gut-structural-prediction}
 
 The framework predicts that no grand-unified gauge structure exists at
 any energy scale. This prediction has three layers, established jointly
@@ -3507,12 +3500,10 @@ problems requiring four independent solutions.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{open-questions-and-limits}{%
 \subsection{13. Open questions and
-limits}\label{open-questions-and-limits}}
+limits}\label{open-questions-and-limits}
 
-\hypertarget{technical-questions}{%
-\subsubsection{13.1 Technical questions}\label{technical-questions}}
+\subsubsection{13.1 Technical questions}\label{technical-questions}
 
 The main technical open questions:
 
@@ -3533,9 +3524,8 @@ theory's that produce the SM at low energies? (LQG-derived classes,
 causal-set-derived classes, asymptotic-safety classes, etc.) If so, what
 features characterize them?
 
-\hypertarget{q1-developed-what--isomorphism-would-entail}{%
 \subsubsection{13.1.1 Q1 developed: what *-isomorphism would
-entail}\label{q1-developed-what--isomorphism-would-entail}}
+entail}\label{q1-developed-what--isomorphism-would-entail}
 
 To establish whether OI's and a specific string-theoretic
 compactification's algebra-channel pairs are \emph{-isomorphic at the
@@ -3568,9 +3558,8 @@ specific predictions are likely class-specific rather than universal
 across the SM-reproducing landscape --- consistent with the
 structural-realism stance of §12.1.
 
-\hypertarget{converged-comparison-protocol}{%
 \paragraph{13.1.1.1 Converged comparison
-protocol}\label{converged-comparison-protocol}}
+protocol}\label{converged-comparison-protocol}
 
 A specific protocol for executing Steps 2-4 against a chosen
 compactification has been worked out as preparation for offline
@@ -3674,9 +3663,8 @@ rather than being a barrier to algebra-isomorphism. This refines the
 expectation (algebras agree at IR EFT; channels differ at intermediate
 scales).
 
-\hypertarget{q2-developed-criteria-for-prediction-transport}{%
 \subsubsection{13.1.2 Q2 developed: criteria for prediction
-transport}\label{q2-developed-criteria-for-prediction-transport}}
+transport}\label{q2-developed-criteria-for-prediction-transport}
 
 Q2 asks whether OI's specific predictions are universal at the
 universality-class level or specific to OI's representative within the
@@ -3711,10 +3699,9 @@ validating OI's predictions supports OI's specific representative;
 falsifying them would refute that representative without necessarily
 refuting the broader universality-class framework.
 
-\hypertarget{q3-developed-necessary-and-sufficient-features-for-the-partial-trace-observational-class}{%
 \subsubsection{13.1.3 Q3 developed: necessary and sufficient features
 for the partial-trace observational
-class}\label{q3-developed-necessary-and-sufficient-features-for-the-partial-trace-observational-class}}
+class}\label{q3-developed-necessary-and-sufficient-features-for-the-partial-trace-observational-class}
 
 Q3 asks whether the four features of §14 (Born rule, channel-level
 unitarity, P-indivisibility, commutant gauge-invariance pattern) are
@@ -3747,10 +3734,9 @@ qualifications) but not sufficient to determine universality classes
 uniquely; full identification requires the algebra-channel-level work of
 §13.1.1 and §13.1.2.
 
-\hypertarget{q4-developed-other-universality-classes-that-may-produce-the-sm}{%
 \subsubsection{13.1.4 Q4 developed: other universality classes that may
 produce the
-SM}\label{q4-developed-other-universality-classes-that-may-produce-the-sm}}
+SM}\label{q4-developed-other-universality-classes-that-may-produce-the-sm}
 
 Q4 asks whether the SM-reproducing universality class includes substrata
 other than OI's and string theory's. Principal candidates are loop
@@ -3888,8 +3874,7 @@ direction left open is the per-program partial-trace-feature audit: for
 each candidate, does the program's emergence machinery produce all four
 features of §14, and do the algebras agree at SM-reproducing target?
 
-\hypertarget{conceptual-questions}{%
-\subsubsection{13.2 Conceptual questions}\label{conceptual-questions}}
+\subsubsection{13.2 Conceptual questions}\label{conceptual-questions}
 
 \textbf{Q5.} Is the universality-class framework the right level of
 abstraction, or is it too coarse to capture features relevant for
@@ -3908,10 +3893,9 @@ embedded observers and other equivalence classes in fundamental physics
 (e.g., RG universality classes, equivalent QFTs related by dualities,
 holographic correspondence between bulk and boundary descriptions)?
 
-\hypertarget{q5-developed-is-universality-class-abstraction-the-right-level}{%
 \subsubsection{13.2.1 Q5 developed: is universality-class abstraction
 the right
-level?}\label{q5-developed-is-universality-class-abstraction-the-right-level}}
+level?}\label{q5-developed-is-universality-class-abstraction-the-right-level}
 
 Q5 asks whether the universality-class framework is too coarse to
 capture features relevant for fundamental physics --- particularly
@@ -3944,10 +3928,9 @@ live at it}, with framework-specific predictions retaining their status
 as predictions of the specific representative --- in OI's case, of OI's
 universality-class representative within the broader meta-class.
 
-\hypertarget{q6-developed-does-universality-class-framing-weaken-or-strengthen-ois-predictive-content}{%
 \subsubsection{13.2.2 Q6 developed: does universality-class framing
 weaken or strengthen OI's predictive
-content?}\label{q6-developed-does-universality-class-framing-weaken-or-strengthen-ois-predictive-content}}
+content?}\label{q6-developed-does-universality-class-framing-weaken-or-strengthen-ois-predictive-content}
 
 Q6 asks whether the universality-class framing weakens or strengthens
 OI's predictive content --- class-specificity reduces the absolute reach
@@ -3980,10 +3963,9 @@ the right universality class is a sharper target than identifying
 ``the'' theory, and the framework's predictions become diagnostic for
 class membership rather than absolute claims about reality.
 
-\hypertarget{q7-developed-relationship-to-other-equivalence-classes-in-fundamental-physics}{%
 \subsubsection{13.2.3 Q7 developed: relationship to other equivalence
 classes in fundamental
-physics}\label{q7-developed-relationship-to-other-equivalence-classes-in-fundamental-physics}}
+physics}\label{q7-developed-relationship-to-other-equivalence-classes-in-fundamental-physics}
 
 Q7 asks how universality classes of embedded observers relate to other
 equivalence classes prominent in fundamental physics --- RG universality
@@ -4028,9 +4010,8 @@ no RG, duality, or holographic relationship establishes, since those
 relationships operate within frameworks while universality-class
 observational equivalence operates across them.
 
-\hypertarget{open-questions-on-intermediate-scale-physics}{%
 \subsubsection{13.3 Open questions on intermediate-scale
-physics}\label{open-questions-on-intermediate-scale-physics}}
+physics}\label{open-questions-on-intermediate-scale-physics}
 
 The structural investigation of OI's no-GUT prediction (developed in
 {[}SM §6.7{]} and {[}SM §8.7{]}) surfaced several substantive open
@@ -4138,18 +4119,22 @@ mechanism overlooked in the chat-tractable analysis is identified by
 future work, but the chat-tractable conclusion is that no such mechanism
 is currently apparent in the framework's existing structure.
 
-\textbf{Q11.} \emph{Quantitative leptogenesis from OI's RH neutrino
-sector.} The framework's substratum-level baryon-number conservation
-(per {[}SM §8.7{]}) coexists with sphaleron-mediated \(B+L\) violation
-in the emergent EFT, supporting standard cosmological baryogenesis
-through thermal leptogenesis with the framework's predicted Majorana
-neutrino sector. \emph{Open question:} the full quantitative calculation
---- connecting the framework's right-handed neutrino mass scale (Q8) to
-the resulting baryon asymmetry
-\(\eta = n_B/n_\gamma \approx 6 \times 10^{-10}\) via the standard
-washout-factor machinery --- is open. Resolution depends partly on Q8:
-without a structural derivation of the seesaw scale, the leptogenesis
-prediction inherits the same status (Tier 3 / solution-specific).
+\textbf{Q11.} \emph{Quantitative baryogenesis in a spectrum with no
+right-handed neutrino.} The framework's substratum-level baryon-number
+conservation (per {[}SM §8.7{]}) coexists with sphaleron-mediated
+\(B+L\) violation in the emergent EFT. But the OI spectrum contains no
+right-handed neutrino --- anomaly cancellation forces exactly five
+representations per generation and the singlet taste is the Higgs ({[}SM
+§4.9, §8.4{]}) --- so standard type-I thermal leptogenesis, which
+requires heavy right-handed Majorana neutrinos, does not directly apply.
+\emph{Open question:} the full quantitative calculation --- connecting
+whatever ultraviolet physics generates the dimension-5 Weinberg operator
+(the \(\Lambda_{\mathrm{seesaw}}\) scale of Q8) to the resulting baryon
+asymmetry \(\eta = n_B/n_\gamma \approx 6 \times 10^{-10}\) --- is open,
+and the mechanism is not fixed by the framework. Resolution depends
+partly on Q8: without a structural derivation of the Weinberg-operator
+scale, the baryogenesis prediction inherits the same status (Tier 3 /
+solution-specific).
 
 \textbf{Q12.} \emph{Integrated treatment of non-perturbative emergence.}
 {[}SM §8.7{]}'s table of substratum-level structural precursors mapping
@@ -4173,9 +4158,8 @@ needed to resolve standard SM open problems (neutrino masses, hierarchy,
 baryogenesis, non-perturbative completeness) without invoking new
 physics beyond what the framework already commits to.
 
-\hypertarget{limits-of-the-approach}{%
 \subsubsection{13.4 Limits of the
-approach}\label{limits-of-the-approach}}
+approach}\label{limits-of-the-approach}
 
 The universality-class framework has limits worth flagging.
 
@@ -4244,9 +4228,8 @@ to any framework whose foundation is the empirical stance itself --- and
 stating it plainly is what distinguishes a structural-realist
 compression from a claimed derivation of the world from nothing.
 
-\hypertarget{relationship-to-the-methodology-paper}{%
 \subsubsection{13.5 Relationship to the methodology
-paper}\label{relationship-to-the-methodology-paper}}
+paper}\label{relationship-to-the-methodology-paper}
 
 The universality-class framework is closely related to a planned
 methodology paper articulating OI's overall posture for
@@ -4265,13 +4248,11 @@ provides one technical articulation of what that posture entails.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{part-iii-cross-framework-synthesis}{%
 \section{Part III: Cross-Framework
-Synthesis}\label{part-iii-cross-framework-synthesis}}
+Synthesis}\label{part-iii-cross-framework-synthesis}
 
-\hypertarget{cross-framework-derivation-of-observational-structures}{%
 \subsection{14. Cross-framework derivation of observational
-structures}\label{cross-framework-derivation-of-observational-structures}}
+structures}\label{cross-framework-derivation-of-observational-structures}
 
 This section develops the constructive content of recovery (v) ---
 shared observational invariants --- by examining whether structural
@@ -4296,8 +4277,7 @@ both frameworks. If they are, recovery (v) admits constructive
 sharpening; if some don't transport, the framework's universality claims
 must be refined.
 
-\hypertarget{the-born-rule}{%
-\subsubsection{14.1 The Born rule}\label{the-born-rule}}
+\subsubsection{14.1 The Born rule}\label{the-born-rule}
 
 \textbf{OI's framing.} OI derives the Born rule (probability
 \(|\psi|^2\) for measurement outcomes) from the embedded-observer
@@ -4343,9 +4323,8 @@ The Born rule itself is empirically tested at the
 through ultracold-atom platforms {[}Kanthak2025{]} (further discussion
 in §15.5).
 
-\hypertarget{channel-level-unitarity}{%
 \subsubsection{14.2 Channel-level
-unitarity}\label{channel-level-unitarity}}
+unitarity}\label{channel-level-unitarity}
 
 \textbf{OI's framing.} OI's visible-sector dynamics is a CPTP channel
 \(\Phi\) generated by the trace-out of substratum bijection dynamics
@@ -4392,9 +4371,8 @@ produce unitary dilations of CPTP visible-sector channels, but through
 different mechanisms. The shared structural feature is the dilation
 pattern itself, not the specific machinery producing it.
 
-\hypertarget{p-indivisibility-non-markovian-marginal}{%
 \subsubsection{14.3 P-indivisibility (non-Markovian
-marginal)}\label{p-indivisibility-non-markovian-marginal}}
+marginal)}\label{p-indivisibility-non-markovian-marginal}
 
 \textbf{OI's framing.} OI derives Bell violations and contextuality from
 the \emph{non-Markovian} character of the embedded observer's marginal
@@ -4455,9 +4433,8 @@ lemma relies on. The framework's central technical move therefore sits
 within an established theorem-level structure in the open-systems and
 quantum-foundations literatures (§15.1 develops this in detail).
 
-\hypertarget{commutant-gauge-invariance}{%
 \subsubsection{14.4 Commutant
-gauge-invariance}\label{commutant-gauge-invariance}}
+gauge-invariance}\label{commutant-gauge-invariance}
 
 \textbf{OI's framing.} OI's emergent QFT inherits gauge invariance from
 the substratum's commutant structure {[}SM §3.1{]}. Cubic-group
@@ -4512,15 +4489,15 @@ the substratum's symmetry structure. The SM gauge group is forced in
 OI's framework by the cubic-group symmetry; in string theory, it's one
 of many possible commutants.
 
-\hypertarget{synthesis}{%
-\subsubsection{14.5 Synthesis}\label{synthesis}}
+\subsubsection{14.5 Synthesis}\label{synthesis}
 
 The four-feature audit produces a mixed transport pattern:
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Feature
@@ -4544,6 +4521,7 @@ not & OI's cubic-group commutant produces
 \(SU(3) \times SU(2) \times U(1)\) uniquely; string theory's commutants
 are compactification-dependent \\
 \end{longtable}
+}
 
 The first three features transport directly. The fourth transports as a
 \emph{pattern} (gauge invariance via commutant) but not as a
@@ -4578,9 +4556,8 @@ same gauge group via specific brane/flux arrangements. The classes
 intersect on the SM gauge group as a target but reach it through
 different substratum-symmetry mechanisms.
 
-\hypertarget{implications-for-the-oi-string-relationship}{%
 \subsubsection{14.6 Implications for the OI-string
-relationship}\label{implications-for-the-oi-string-relationship}}
+relationship}\label{implications-for-the-oi-string-relationship}
 
 The cross-framework analysis of §14.1--14.5 establishes that recovery
 (v) --- shared observational invariants --- has substantive content for
@@ -4632,9 +4609,8 @@ recovery (v) analysis identifies precisely where the intersection lives:
 at the level of partial-trace structural features, not above and not
 below.
 
-\hypertarget{loop-quantum-gravity-four-feature-audit}{%
 \subsubsection{14.7 Loop quantum gravity: four-feature
-audit}\label{loop-quantum-gravity-four-feature-audit}}
+audit}\label{loop-quantum-gravity-four-feature-audit}
 
 The §14.1--14.6 audit was conducted for OI vs string theory. The same
 four features admit similar audit for other quantum-gravity /
@@ -4689,9 +4665,8 @@ requires further technical development to confirm. LQG is therefore in
 the same partial-trace-features universality class as OI for three
 features, with the fourth open.
 
-\hypertarget{causal-sets-four-feature-audit}{%
 \subsubsection{14.8 Causal sets: four-feature
-audit}\label{causal-sets-four-feature-audit}}
+audit}\label{causal-sets-four-feature-audit}
 
 Causal set theory {[}BombelliEtAl1987, Sorkin2003{]} takes the
 substratum to be a discrete, locally finite partially ordered set with
@@ -4743,9 +4718,8 @@ rule via QSG, channel-level unitarity via different dilation). Causal
 sets are therefore in a related but structurally distinct universality
 class from OI; the relationship merits further analysis.
 
-\hypertarget{asymptotic-safety-four-feature-audit}{%
 \subsubsection{14.9 Asymptotic safety: four-feature
-audit}\label{asymptotic-safety-four-feature-audit}}
+audit}\label{asymptotic-safety-four-feature-audit}
 
 Asymptotic safety {[}Weinberg1979, Reuter1998, ReuterSaueressig2019{]}
 proposes that quantum gravity is non-perturbatively renormalizable
@@ -4787,19 +4761,19 @@ with structural mechanisms close to OI's (the visible-hidden split is in
 momentum space rather than spatial substratum, but structurally
 similar). This is the strongest cross-program transport identified.
 
-\hypertarget{cross-program-synthesis}{%
 \subsubsection{14.10 Cross-program
-synthesis}\label{cross-program-synthesis}}
+synthesis}\label{cross-program-synthesis}
 
 The four-feature audit across OI, string theory, LQG, causal sets, and
 asymptotic safety produces the following pattern:
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Program
@@ -4825,6 +4799,7 @@ Causal sets & Open (QSG) & Structurally & Plausibly & Pattern; trivial
 gauge \\
 Asymptotic safety & Yes & Yes & Yes & Pattern; specific differs \\
 \end{longtable}
+}
 
 Three observations:
 
@@ -4867,9 +4842,8 @@ choices that distinguish the programs.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{theoretical-and-empirical-corroboration}{%
 \subsection{15. Theoretical and empirical
-corroboration}\label{theoretical-and-empirical-corroboration}}
+corroboration}\label{theoretical-and-empirical-corroboration}
 
 The framework's claims are of mixed types. Some are directly empirical
 (the Born rule, channel-level unitarity, non-Markovian marginal
@@ -4883,9 +4857,8 @@ reflects strength of support: §15.1 documents the strongest external
 corroboration (theorem-level results for the framework's central
 technical mechanism); §15.5 acknowledges what remains under-supported.
 
-\hypertarget{the-partial-trace-mechanism}{%
 \subsubsection{15.1 The partial-trace
-mechanism}\label{the-partial-trace-mechanism}}
+mechanism}\label{the-partial-trace-mechanism}
 
 The framework's central technical move --- that visible-sector dynamics
 under trace-out of a hidden sector is generically non-Markovian and
@@ -4948,9 +4921,8 @@ signature non-Markovian behavior. The framework's mechanism is therefore
 not only mathematically rigorous but realizable in current experimental
 quantum-information platforms.
 
-\hypertarget{the-algebra-channel-formalism}{%
 \subsubsection{15.2 The algebra-channel
-formalism}\label{the-algebra-channel-formalism}}
+formalism}\label{the-algebra-channel-formalism}
 
 The §8.3 / §9.1 algebra-channel formalization adopted in this paper
 draws on standard machinery from algebraic quantum field theory (AQFT).
@@ -4983,9 +4955,8 @@ learning and metrology, including channel tomography techniques
 channels via their dilations --- the operational analog of the §13.1.1
 four-step recipe's channel-conjugacy step.
 
-\hypertarget{structural-realism-in-operational-and-dual-theory-contexts}{%
 \subsubsection{15.3 Structural realism in operational and dual-theory
-contexts}\label{structural-realism-in-operational-and-dual-theory-contexts}}
+contexts}\label{structural-realism-in-operational-and-dual-theory-contexts}
 
 The hierarchical structural-realism position developed in §2 and §12 is
 supported by independent work in philosophy of physics that arrives at
@@ -5024,9 +4995,8 @@ converge on similar positions. The universality-class proposal of §9 can
 be read as one technical articulation of common-core realism specialized
 to embedded-observer systems.
 
-\hypertarget{universality-classes-in-adjacent-literatures}{%
 \subsubsection{15.4 Universality classes in adjacent
-literatures}\label{universality-classes-in-adjacent-literatures}}
+literatures}\label{universality-classes-in-adjacent-literatures}
 
 The universality-class framework of §9 is not unique to
 embedded-observer systems; analogous structures appear in dissipative
@@ -5072,8 +5042,7 @@ structure of partial-trace observation. The recent literature provides
 concrete prescriptions making the analog precise, supporting the §14.3
 transport claim.
 
-\hypertarget{empirical-anchors}{%
-\subsubsection{15.5 Empirical anchors}\label{empirical-anchors}}
+\subsubsection{15.5 Empirical anchors}\label{empirical-anchors}
 
 Direct experimental confirmation applies to the partial-trace-level
 features identified in §14 (Born rule, channel-level unitarity,
@@ -5111,9 +5080,10 @@ masses in extended-parameter cosmology. The framework's {[}GR §7{]}
 predicts dynamical dark energy in Type II running-vacuum form as a
 structural prediction; the {[}Bertini2025{]} direct fit to DESI DR2 +
 DES-Y5 + Planck 2018 reports \(\nu = -(2.5 \pm 1.3) \times 10^{-4}\),
-consistent with zero at 2σ and within the framework's structural
-prediction \(|\nu| \sim 10^{-32}\). DESI Year 5 results, expected within
-the publication horizon, will be discriminating.
+consistent with zero at 2σ; the framework's structural prediction
+\(|\nu| \sim 10^{-32}\) is itself indistinguishable from zero at this
+precision, so the two are consistent. DESI Year 5 results, expected
+within the publication horizon, will be discriminating.
 
 \textbf{Neutrinoless double-beta decay.} {[}LEGEND2024{]} reports
 LEGEND-200 sensitivity \(T_{1/2} > 2.8 \times 10^{26}\) yr at 90\% CL on
@@ -5135,9 +5105,8 @@ coefficient derived in {[}GR §5{]} has no direct empirical test. The
 observation is a non-discriminating consistency for the
 cosmological-horizon application of the partial-trace mechanism.
 
-\hypertarget{what-remains-under-supported}{%
 \subsubsection{15.6 What remains
-under-supported}\label{what-remains-under-supported}}
+under-supported}\label{what-remains-under-supported}
 
 Three classes of claims remain without independent support and would
 benefit from focused future work.
@@ -5172,8 +5141,7 @@ SM-reproducing observer-admitting class, which are tested through the
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{acknowledgments}{%
-\subsection{Acknowledgments}\label{acknowledgments}}
+\subsection{Acknowledgments}\label{acknowledgments}
 
 This is the fifth core paper of the OI framework, alongside {[}Main, SM,
 GR, Substratum{]}. It consolidates content originally developed across
@@ -5186,8 +5154,7 @@ investigated in Part I was raised in discussion with
 {[}collaborator/AI-assisted analysis, depending on author preference{]}.
 Errors and speculative content are the author's responsibility.
 
-\hypertarget{references}{%
-\subsection{References}\label{references}}
+\subsection{References}\label{references}
 
 {[}Adlam2022{]} E. Adlam, ``Operational Theories as Structural
 Realism'', Studies in History and Philosophy of Science 91, 113-124

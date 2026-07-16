@@ -1,10 +1,11 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-%
 \documentclass[
 ]{article}
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -35,17 +36,74 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+% unicode-fix.tex — render raw-Unicode symbols that the Latin Modern *text* font
+% lacks, using Computer Modern math/text equivalents. This keeps the established
+% Computer Modern look while filling the glyphs xelatex would otherwise drop.
+% Included via: pandoc ... --include-in-header=unicode-fix.tex
+\usepackage{newunicodechar}
+\usepackage{pifont}
+% --- Greek letters -> math (Latin Modern Math; consistent with CM body text) ---
+\newunicodechar{α}{\ensuremath{\alpha}}
+\newunicodechar{β}{\ensuremath{\beta}}
+\newunicodechar{γ}{\ensuremath{\gamma}}
+\newunicodechar{δ}{\ensuremath{\delta}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
+\newunicodechar{θ}{\ensuremath{\theta}}
+\newunicodechar{μ}{\ensuremath{\mu}}
+\newunicodechar{ν}{\ensuremath{\nu}}
+\newunicodechar{ρ}{\ensuremath{\rho}}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{τ}{\ensuremath{\tau}}
+\newunicodechar{φ}{\ensuremath{\varphi}}
+\newunicodechar{χ}{\ensuremath{\chi}}
+\newunicodechar{ψ}{\ensuremath{\psi}}
+% --- Relations / operators -> math ---
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{∂}{\ensuremath{\partial}}
+\newunicodechar{∅}{\ensuremath{\varnothing}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{∼}{\ensuremath{\sim}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{⊂}{\ensuremath{\subset}}
+\newunicodechar{⊃}{\ensuremath{\supset}}
+% --- Special ---
+\newunicodechar{ℏ}{\ensuremath{\hbar}}
+\newunicodechar{ℤ}{\ensuremath{\mathbb{Z}}}
+% --- Superscript modifier letters (footnote-style markers) -> text superscript ---
+\newunicodechar{ʰ}{\textsuperscript{h}}
+\newunicodechar{ʲ}{\textsuperscript{j}}
+\newunicodechar{ᵃ}{\textsuperscript{a}}
+\newunicodechar{ᵇ}{\textsuperscript{b}}
+\newunicodechar{ᵈ}{\textsuperscript{d}}
+\newunicodechar{ᵉ}{\textsuperscript{e}}
+\newunicodechar{ᵍ}{\textsuperscript{g}}
+\newunicodechar{ᶠ}{\textsuperscript{f}}
+\newunicodechar{⁻}{\textsuperscript{\ensuremath{-}}}
+% --- Subscript digits -> text subscript ---
+\newunicodechar{₀}{\textsubscript{0}}
+\newunicodechar{₁}{\textsubscript{1}}
+\newunicodechar{₂}{\textsubscript{2}}
+\newunicodechar{₃}{\textsubscript{3}}
+\newunicodechar{₄}{\textsubscript{4}}
+\newunicodechar{₈}{\textsubscript{8}}
+% --- Checkmarks ---
+\newunicodechar{✓}{\ding{51}}
+\newunicodechar{✗}{\ding{55}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
 \hypersetup{
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
@@ -55,10 +113,9 @@
 
 \begin{document}
 
-\hypertarget{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}{%
 \section{The Substratum Construction: Reconstruction, the Substratum
 Gauge Group, and the QM-GR
-Synthesis}\label{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}}
+Synthesis}\label{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}
 
 \textbf{Author:} Alex Maybaum\\
 \textbf{Date:} April 2026\\
@@ -67,8 +124,7 @@ Synthesis}\label{the-substratum-construction-reconstruction-the-substratum-gauge
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{abstract}{%
-\subsection{Abstract}\label{abstract}}
+\subsection{Abstract}\label{abstract}
 
 Quantum mechanics and general relativity are conventionally treated as
 two fundamental theories awaiting unification. This paper establishes
@@ -131,8 +187,7 @@ three-tier classification of {[}SM §8.3{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{introduction}{%
-\subsection{1. Introduction}\label{introduction}}
+\subsection{1. Introduction}\label{introduction}
 
 The standard physical picture of the world contains two fundamental
 theories. Quantum mechanics describes the microscopic regime in terms of
@@ -260,9 +315,8 @@ The paper is short by design: the technical content fits in two sections
 (§§3--4) and the rest is the structural and interpretive context that
 shows why those two sections matter.
 
-\hypertarget{the-metaphysical-commitment}{%
 \subsubsection{1.1 The metaphysical
-commitment}\label{the-metaphysical-commitment}}
+commitment}\label{the-metaphysical-commitment}
 
 The framework's primary metaphysical claim is \emph{ontic structural
 realism applied to the equivalence class}
@@ -344,9 +398,8 @@ develops the structural and explanatory consequences; {[}SM{]} and
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-physical-interpretation-of-s-ux3c6}{%
 \subsection{2. The Physical Interpretation of (S,
-φ)}\label{the-physical-interpretation-of-s-ux3c6}}
+φ)}\label{the-physical-interpretation-of-s-ux3c6}
 
 \textbf{Storage and memory.} S is the set of all distinguishable states:
 \emph{finite capacity}. φ is a bijection: \emph{perfect memory} ---
@@ -485,9 +538,8 @@ other uniquely up to gauge.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-reconstruction-theorem}{%
 \subsection{3. The Reconstruction
-Theorem}\label{the-reconstruction-theorem}}
+Theorem}\label{the-reconstruction-theorem}
 
 The forward direction --- from \((S, \varphi)\) to observed physics ---
 is established by {[}SM §§3.1, 4--5{]} and the companion paper
@@ -497,9 +549,8 @@ three stages, each taking specified inputs and producing specified
 outputs with an explicit uniqueness claim. The composite theorem
 (Theorem 23) then aggregates the stages.
 
-\hypertarget{inputs-to-the-reconstruction}{%
 \subsubsection{3.1 Inputs to the
-reconstruction}\label{inputs-to-the-reconstruction}}
+reconstruction}\label{inputs-to-the-reconstruction}
 
 The reconstruction takes two kinds of inputs: empirical observations and
 structural assumptions. Being explicit about both is essential to the
@@ -656,9 +707,8 @@ following prior theorems, whose individual correctness is assumed:
 Theorem 23's confidence is bounded above by the minimum confidence in
 these dependencies.
 
-\hypertarget{stage-1-observed-qm-deterministic-embedding-with-c1c3}{%
 \subsubsection{3.2 Stage 1: Observed QM → deterministic embedding with
-C1--C3}\label{stage-1-observed-qm-deterministic-embedding-with-c1c3}}
+C1--C3}\label{stage-1-observed-qm-deterministic-embedding-with-c1c3}
 
 \textbf{Inputs:} E1 (unitary QM), E2 (Bell violations), E3 (finite
 boundary entropy), A1 (finiteness), A2 (determinism).
@@ -748,10 +798,9 @@ observations unchanged (generator (iii) of
 
 \textbf{Status:} Theorem.
 
-\hypertarget{stage-2-embedding-isotropy-specific-lattice-gauge-structure}{%
 \subsubsection{3.3 Stage 2: Embedding + isotropy → specific lattice +
 gauge
-structure}\label{stage-2-embedding-isotropy-specific-lattice-gauge-structure}}
+structure}\label{stage-2-embedding-isotropy-specific-lattice-gauge-structure}
 
 \textbf{Inputs:} Stage 1 output + E4 (spatial isotropy) + E5
 (propagating gravity) + E6 (stable matter) + E7 (boundary-entropy
@@ -857,9 +906,8 @@ unique selections, so the output is unique up to
 
 \textbf{Status:} Theorem at the lattice level.
 
-\hypertarget{stage-3-dynamics-emergent-fundamental-constants}{%
 \subsubsection{3.4 Stage 3: Dynamics → emergent fundamental
-constants}\label{stage-3-dynamics-emergent-fundamental-constants}}
+constants}\label{stage-3-dynamics-emergent-fundamental-constants}
 
 \textbf{Inputs:} Stage 2 output.
 
@@ -880,8 +928,7 @@ solution under the stated inputs ({[}GR §3, Theorem{]}).
 
 \textbf{Status:} Theorem.
 
-\hypertarget{the-composite-theorem}{%
-\subsubsection{3.5 The composite theorem}\label{the-composite-theorem}}
+\subsubsection{3.5 The composite theorem}\label{the-composite-theorem}
 
 \textbf{Lemma 23.0} (Uniqueness preservation). \emph{Let
 \((S_1, \varphi_1)\) and \((S_2, \varphi_2)\) both be reconstructions of
@@ -949,8 +996,7 @@ The existence direction is the composition of Stages 1--3. The
 uniqueness direction is Lemma 23.0. Together they establish the
 bidirectional correspondence. \(\square\)
 
-\hypertarget{remarks}{%
-\subsubsection{3.6 Remarks}\label{remarks}}
+\subsubsection{3.6 Remarks}\label{remarks}
 
 \textbf{Remark} (Evidential weight of the reconstruction). The
 reconstruction uniquely derives
@@ -1044,6 +1090,9 @@ cubic lattice from the world. The full three-way classification (forced
 statement of the framework's reach is that it is a maximally tight
 compression of observed physics onto the cubic-lattice commitment, not a
 derivation of physics from the bare fact of observation.
+
+The structural assumptions A1--A6 exclude several broad classes of
+theory from the outset:
 
 \begin{itemize}
 \tightlist
@@ -1227,9 +1276,8 @@ the broader ER=EPR program.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-substratum-gauge-group}{%
 \subsection{4. The Substratum Gauge
-Group}\label{the-substratum-gauge-group}}
+Group}\label{the-substratum-gauge-group}
 
 The equivalence relation \(\sim\) in the reconstruction theorem has a
 precise structure. Define: \((S, \varphi) \sim (S', \varphi')\) if the
@@ -1366,7 +1414,9 @@ the same principle behind generators (i)--(iv) and the \(q\)-size
 freedom of §2.7, not an ad hoc addition. Two derivations invoke it: the
 linearity equivalence of {[}SM §4.1{]} (amplitude-independent dispersion
 \(\iff\) affine dynamics) and the \(SU(N)\) reduction of Stage 2(d)
-above.
+above; its status as an operational input rather than a theorem --- and
+the sense in which those two results are conditional on it --- is set
+out in the \emph{Status} note immediately below.
 
 \emph{Status (open, referee-grade).} Amplitude-scale gauge is adjoined
 as an explicit operational principle: it is not one of (i)--(iv) ---
@@ -1675,9 +1725,8 @@ the standard sense, derived from the substratum through the trace-out.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{synthesis-three-projections-of-s-ux3c6}{%
 \subsection{5. Synthesis: Three Projections of (S,
-φ)}\label{synthesis-three-projections-of-s-ux3c6}}
+φ)}\label{synthesis-three-projections-of-s-ux3c6}
 
 The reconstruction theorem (§3) establishes that observed physics ---
 quantum mechanics with Bell violations, finite boundary entropy, and
@@ -1690,8 +1739,7 @@ explicit: quantum mechanics, general relativity, and the arrow of time
 are not three independent theories but three projections of the same
 finite deterministic construction.
 
-\hypertarget{the-three-projections}{%
-\subsubsection{5.1 The three projections}\label{the-three-projections}}
+\subsubsection{5.1 The three projections}\label{the-three-projections}
 
 The framework's derivations apply the same trace-out machinery to the
 same \((S, \varphi)\) along three projections: a visible-sector
@@ -1791,9 +1839,8 @@ exhibits it as the necessary shadow of worldline-centered observation,
 with ordinary momentum conservation holding in the visible sector up to
 corrections of order (length / horizon radius).
 
-\hypertarget{the-qm-gr-incompatibility-as-a-category-error}{%
 \subsubsection{5.2 The QM-GR incompatibility as a category
-error}\label{the-qm-gr-incompatibility-as-a-category-error}}
+error}\label{the-qm-gr-incompatibility-as-a-category-error}
 
 The conventional formulation of the QM-GR unification problem treats
 quantum mechanics and general relativity as two competing theories in
@@ -1847,9 +1894,8 @@ feature of \((S, \varphi)\) itself. They are features of how an embedded
 observer or a horizon-bounded thermodynamic regime sees \((S, \varphi)\)
 from inside.
 
-\hypertarget{the-three-level-hierarchy-made-explicit}{%
 \subsubsection{5.3 The three-level hierarchy made
-explicit}\label{the-three-level-hierarchy-made-explicit}}
+explicit}\label{the-three-level-hierarchy-made-explicit}
 
 The substratum gauge group (§4) provides the structural framework for
 the synthesis claim at the level of the two gauge-bearing projections
@@ -1893,9 +1939,8 @@ equations are not two independent theoretical inputs but two co-derived
 structures, both consequences of the same underlying \((S, \varphi)\)
 and the same trace-out under the same conditions C1--C3.
 
-\hypertarget{the-arrow-of-time-as-a-third-projection}{%
 \subsubsection{5.4 The arrow of time as a third
-projection}\label{the-arrow-of-time-as-a-third-projection}}
+projection}\label{the-arrow-of-time-as-a-third-projection}
 
 After Main §4.6 (structural observer-selection theorem), the arrow of
 time joins quantum mechanics and general relativity as a third emergent
@@ -2014,9 +2059,8 @@ and §6.4 ``what does not falsify'' for the commitment that the framework
 makes no prediction of \(\delta_{\text{CKM}}\),
 \(\delta_{\text{PMNS}}\), or the Wolfenstein \((\rho, \eta)\).
 
-\hypertarget{what-the-synthesis-does-and-does-not-claim}{%
 \subsubsection{5.5 What the synthesis does and does not
-claim}\label{what-the-synthesis-does-and-does-not-claim}}
+claim}\label{what-the-synthesis-does-and-does-not-claim}
 
 The synthesis claim is structural and architectural rather than
 empirical. It does not claim that the framework predicts gravitational
@@ -2053,8 +2097,7 @@ but the unique consequence of the framework's structural inputs.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{discussion}{%
-\subsection{6. Discussion}\label{discussion}}
+\subsection{6. Discussion}\label{discussion}
 
 The reconstruction theorem identifies the question ``is mathematics
 describing reality, or is it reality?'' as gauge in the precise sense
@@ -2072,9 +2115,8 @@ finally, is the empirical counterpart of the methodological discipline
 developed in §§3--5: a framework that derives rather than posits must be
 willing to specify what would invalidate the derivation.
 
-\hypertarget{ontic-structural-realism-on-the-equivalence-class}{%
 \subsubsection{6.1 Ontic structural realism on the equivalence
-class}\label{ontic-structural-realism-on-the-equivalence-class}}
+class}\label{ontic-structural-realism-on-the-equivalence-class}
 
 The metaphysical commitment introduced in §1.1 can now be stated with
 the full technical machinery in place. The framework's claim is ontic
@@ -2191,9 +2233,8 @@ the hierarchical structure is in {[}Structure §2{]}; the
 substratum-class realism developed in this paper is one specific level
 within that broader structure.
 
-\hypertarget{the-ontological-hierarchy}{%
 \subsubsection{6.2 The ontological
-hierarchy}\label{the-ontological-hierarchy}}
+hierarchy}\label{the-ontological-hierarchy}
 
 The triple (S, φ, V) generates every concept in fundamental physics, not
 as independent substances but as different aspects of the same
@@ -2210,9 +2251,8 @@ emergent: energy conservation (Noether) is what information conservation
 these are independent entities; they are descriptions of (S, φ, V) at
 different scales.
 
-\hypertarget{the-measurement-problem}{%
 \subsubsection{6.3 The measurement
-problem}\label{the-measurement-problem}}
+problem}\label{the-measurement-problem}
 
 On the structural reading, the measurement problem is dissolved. The
 wave function is not a component of (S, φ, V) --- it is a derived
@@ -2238,9 +2278,8 @@ The graph structure ensures that the correlations respect the Tsirelson
 bound and violate Bell inequalities without violating parameter
 independence.
 
-\hypertarget{pre-registered-falsification-conditions}{%
 \subsubsection{6.4 Pre-registered falsification
-conditions}\label{pre-registered-falsification-conditions}}
+conditions}\label{pre-registered-falsification-conditions}
 
 The framework's structural content --- the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\), the emergent Standard Model
@@ -2528,21 +2567,23 @@ are implicit in the construction and would falsify it if contradicted.
 
 \textbf{Cosmological commitment.} The dark energy sector is subtler than
 Classes A--C. The framework commits to the Type II running-vacuum
-functional form (GR §7.1), with magnitude given at theorem level by the
-emergent-QFT calculation
-\(|\nu_{\rm QFT}| \sim (M_{\rm SM}/M_{\rm Pl})^2 \sim 10^{-32}\),
-observationally indistinguishable from zero. Substratum contributions
-beyond this are constrained by the boundary mode count of §3-§5, which
-catalogues modes by spatial location alone (one mode per \(\epsilon^2\)
-cell, no inherent frequency assignment --- a count forced by the
-link-direction structure of the \(K = 2d\) components, {[}GR §3.1{]});
-the natural 2D distribution concentrates them near the UV cutoff,
-contributing well below \(|\nu_{\rm QFT}|\). The framework's
-theorem-level magnitude prediction is therefore
-\(|\nu| \approx |\nu_{\rm QFT}|\), with the Bertini et al.~(2025)
-measurement \(\nu = -(2.5 \pm 1.3) \times 10^{-4}\) consistent with this
-prediction at \(2\sigma\), where Bertini is itself consistent with zero.
-The falsification band is correspondingly stratified: a DESI Year 5
+functional form (GR §7.1), with magnitude given by the emergent-QFT
+calculation
+\(|\nu_{\rm QFT}| \sim (M_{\rm SM}/M_{\rm Pl})^2 \sim 10^{-32}\)
+(conditional on the GR §7.3 split, not yet established at theorem
+level), observationally indistinguishable from zero. Substratum
+contributions beyond this are constrained by the boundary mode count of
+§3-§5, which catalogues modes by spatial location alone (one mode per
+\(\epsilon^2\) cell, no inherent frequency assignment --- a count forced
+by the link-direction structure of the \(K = 2d\) components, {[}GR
+§3.1{]}); the natural 2D distribution concentrates them near the UV
+cutoff, contributing well below \(|\nu_{\rm QFT}|\). The framework's
+structural prediction is therefore the Type II functional form, with
+magnitude \(|\nu| \approx |\nu_{\rm QFT}|\) (conditional, per GR §7.1),
+and the Bertini et al.~(2025) measurement
+\(\nu = -(2.5 \pm 1.3) \times 10^{-4}\) consistent with this prediction
+at \(2\sigma\), where Bertini is itself consistent with zero. The
+falsification band is correspondingly stratified: a DESI Year 5
 measurement of \(|\nu| \gtrsim 10^{-4}\) at high significance would
 require additional substratum structure (log-uniform mode-per-decade
 distribution at the cosmological horizon) not currently in §3-§5; a
@@ -2610,8 +2651,7 @@ sharpens the scope of the positive commitments above.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{conclusion}{%
-\subsection{7. Conclusion}\label{conclusion}}
+\subsection{7. Conclusion}\label{conclusion}
 
 The substratum-level results developed in this paper --- the
 reconstruction theorem (Theorem 23) and the substratum gauge group
@@ -2689,8 +2729,7 @@ construction rather than problems with it.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{references}{%
-\subsection{References}\label{references}}
+\subsection{References}\label{references}
 
 {[}1{]} R. Bousso, ``The holographic principle,'' \emph{Rev.~Mod. Phys.}
 \textbf{74}, 825 (2002).
