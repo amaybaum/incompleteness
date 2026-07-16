@@ -68,7 +68,17 @@ xelatex log for `Missing character` warnings.
 
 ## Honesty conventions
 
-- Fixes may only **lower** stated inconsistency, never raise correctness (asymmetry rule). Note "bands
-  unchanged" for pure consistency/methodology edits.
+- **Consistency ≠ correctness — track them separately.** *Consistency* = internal coherence (no
+  contradictions; claims match their stated support). *Correctness* = the estimated probability the
+  framework actually matches reality.
+- **Consistency / honesty edits do not, by themselves, move correctness.** Relabeling a claim adds no new
+  evidence, and matching an already-known value is a *retrodiction* (discounted — already priced into the
+  band) — so a pure cleanup/alignment PR is logged "bands unchanged." Correctness moves only from genuine
+  new confrontation: a *novel* prediction confirmed by new data (↑), a prediction falsified (↓), or a
+  first-principles derivation that closes a previously-open gap (↑) or is excluded (↓).
+- **The asymmetry that does hold:** an honesty *downgrade* — conceding a claimed proof is actually
+  open/conditional — can only hold or lower correctness, never raise it (you don't become more likely-true
+  by admitting you proved less). And consistency work is a *force-multiplier* on the correctness tests, not
+  a direct band-mover. (Full treatment: bundle `01_methodology.md` §A.23.)
 - Prefer *conditional / retrodiction / empirically-anchored / open* over *derived / theorem / proved* when
   the body doesn't fully support the stronger word.
