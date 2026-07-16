@@ -53,7 +53,7 @@ The dissolution has three components developed as a cumulative case in Chapter 1
 
 **Framework status.** Derived in form. The framework predicts that dark energy is the uniform component of the boundary entropy's gravitational effect, with the effective cosmological constant following the Type II Running Vacuum Model:
 $$\Lambda_{\text{eff}}(H) = \Lambda_0 + \frac{3\nu}{8\pi G}(H^2 - H_0^2) + \mathcal{O}((H^2 - H_0^2)^2).$$
-The functional form is structural; the coefficient is at theorem level $|\nu_{\text{OI}}| \sim 10^{-32}$, observationally indistinguishable from zero at any current or planned instrument. The Bertini *et al.* 2025 RG-corrected $\Lambda$CDM fit to Planck 2018 + DESI DR2 + DES-Y5 reports $\nu = -(2.5 \pm 1.3) \times 10^{-4}$, consistent with the framework's prediction at $2\sigma$. DESI Year 5 (2028-2029) will provide a decisive three-way test between the framework's $\nu \approx 0$, intermediate $|\nu| \sim 10^{-4}$, and high-confidence phantom crossing.
+The functional form is structural; the coefficient is bounded at the emergent-QFT scale $|\nu_{\text{OI}}| \sim 10^{-32}$, observationally indistinguishable from zero at any current or planned instrument. The Bertini *et al.* 2025 RG-corrected $\Lambda$CDM fit to Planck 2018 + DESI DR2 + DES-Y5 reports $\nu = -(2.5 \pm 1.3) \times 10^{-4}$, consistent with the framework's prediction at $2\sigma$. DESI Year 5 (2028-2029) will provide a decisive three-way test between the framework's $\nu \approx 0$, intermediate $|\nu| \sim 10^{-4}$, and high-confidence phantom crossing.
 
 *Developed in:* Chapter 7 §7.8.
 
@@ -157,7 +157,7 @@ This section develops the five problems the framework does not fully resolve. Ea
 
 **Standard status.** The Hubble constant measured from the CMB (Planck: $H_0 = 67.4 \pm 0.5$ km/s/Mpc) disagrees with the local distance ladder (SH0ES: $H_0 = 73.0 \pm 1.0$ km/s/Mpc) at greater than $5\sigma$. The disagreement has persisted across multiple measurement systematics, suggesting either an unidentified systematic in one or both methods or new physics modifying the cosmic expansion history.
 
-**Framework status.** Potentially addressable but at the framework's predicted magnitude the effect is too small. The framework predicts evolving dark energy in the Type II Running Vacuum Model with $|\nu_{\text{OI}}| \sim 10^{-32}$ at theorem level, indistinguishable from zero. Quantitatively, in the RVM, the effective $H(z)$ differs from the $\Lambda$CDM prediction at low redshift:
+**Framework status.** Potentially addressable but at the framework's predicted magnitude the effect is too small. The framework predicts evolving dark energy in the Type II Running Vacuum Model with $|\nu_{\text{OI}}| \sim 10^{-32}$ bounded at the emergent-QFT scale, indistinguishable from zero. Quantitatively, in the RVM, the effective $H(z)$ differs from the $\Lambda$CDM prediction at low redshift:
 $$H^2(z) = H_0^2 \left[\Omega_m (1+z)^3 + \Omega_\Lambda + \nu H^2\right].$$
 The $\nu H^2$ term acts as a small additional dark energy component at late times, increasing the inferred $H_0$ relative to the CMB-inferred value. For $\nu \sim 2.5 \times 10^{-3}$ at the upper boundary of the framework's substratum-contribution prediction, the shift would be approximately $\Delta H_0 / H_0 \sim \nu / (1 - \Omega_m) \sim 0.4\%$ — far too small to explain the approximately $8\%$ Hubble tension.
 
