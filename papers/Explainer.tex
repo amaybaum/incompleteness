@@ -1,11 +1,10 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+%
 \documentclass[
 ]{article}
-\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -36,8 +35,8 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
+\usepackage{xcolor}
 \usepackage{longtable,booktabs,array}
-\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -50,6 +49,7 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % unicode-fix.tex — render raw-Unicode symbols that the Latin Modern *text* font
 % lacks, using Computer Modern math/text equivalents. This keeps the established
 % Computer Modern look while filling the glyphs xelatex would otherwise drop.
@@ -131,13 +131,12 @@
 % --- Checkmarks ---
 \newunicodechar{✓}{\ding{51}}
 \newunicodechar{✗}{\ding{55}}
-\usepackage{bookmark}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
-% fallback for those not using the hyperref driver hyperxmp:
-\makeatletter
-\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
-\makeatother
 \hypersetup{
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
@@ -147,22 +146,26 @@
 
 \begin{document}
 
+\hypertarget{the-incompleteness-of-observation}{%
 \section{The Incompleteness of
-Observation}\label{the-incompleteness-of-observation}
+Observation}\label{the-incompleteness-of-observation}}
 
+\hypertarget{why-physics-biggest-contradiction-might-not-be-a-contradiction-at-all}{%
 \subsubsection{Why Physics' Biggest Contradiction Might Not Be a
 Contradiction at
-All}\label{why-physics-biggest-contradiction-might-not-be-a-contradiction-at-all}
+All}\label{why-physics-biggest-contradiction-might-not-be-a-contradiction-at-all}}
 
+\hypertarget{with-complete-mathematical-detail}{%
 \subsubsection{With Complete Mathematical
-Detail}\label{with-complete-mathematical-detail}
+Detail}\label{with-complete-mathematical-detail}}
 
 \textbf{Alex Maybaum --- March 2026}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-worst-prediction-in-physics}{%
 \subsection{The Worst Prediction in
-Physics}\label{the-worst-prediction-in-physics}
+Physics}\label{the-worst-prediction-in-physics}}
 
 Physics has two spectacularly successful theories. Quantum mechanics
 describes the behavior of atoms, particles, and light. General
@@ -197,8 +200,9 @@ through the logic of every major proof, and shows how they connect.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-starting-point-observation-exists}{%
 \subsection{The Starting Point: Observation
-Exists}\label{the-starting-point-observation-exists}
+Exists}\label{the-starting-point-observation-exists}}
 
 Every mathematical proof starts from assumptions, and this framework has
 exactly one. It doesn't mention quantum mechanics. It doesn't mention
@@ -314,7 +318,8 @@ satisfies all three.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{The Observer's Blind Spot}\label{the-observers-blind-spot}
+\hypertarget{the-observers-blind-spot}{%
+\subsection{The Observer's Blind Spot}\label{the-observers-blind-spot}}
 
 Light travels at a finite speed, and the universe has a finite age. Put
 those together and every observer has a horizon --- a boundary beyond
@@ -390,7 +395,9 @@ independent steps.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{Partition-Relativity (§1.4)}\label{partition-relativity-1.4}
+\hypertarget{partition-relativity-1.4}{%
+\subsection{Partition-Relativity
+(§1.4)}\label{partition-relativity-1.4}}
 
 This is the first real proof in the paper, and it's beautifully simple.
 
@@ -452,8 +459,9 @@ choice.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{emergent-stochasticity-and-the-slow-bath-regime-2.12.2}{%
 \subsection{Emergent Stochasticity and the Slow-Bath Regime
-(§§2.1--2.2)}\label{emergent-stochasticity-and-the-slow-bath-regime-2.12.2}
+(§§2.1--2.2)}\label{emergent-stochasticity-and-the-slow-bath-regime-2.12.2}}
 
 The total system is deterministic. If you knew both x and h, you'd know
 the future with certainty. But the observer knows only x. Different
@@ -481,8 +489,9 @@ quantum mechanics from classical stochastic processes.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-p-indivisibility-theorem-2.3}{%
 \subsection{The P-Indivisibility Theorem
-(§2.3)}\label{the-p-indivisibility-theorem-2.3}
+(§2.3)}\label{the-p-indivisibility-theorem-2.3}}
 
 \textbf{What it claims.} If a deterministic system is split into a
 visible and hidden sector, and these sectors are genuinely coupled, then
@@ -559,8 +568,9 @@ non-trivial (C1). It is purely combinatorial.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-accessible-timescale-lemma-2.3-continued}{%
 \subsection{The Accessible-Timescale Lemma (§2.3
-continued)}\label{the-accessible-timescale-lemma-2.3-continued}
+continued)}\label{the-accessible-timescale-lemma-2.3-continued}}
 
 The recurrence proof shows P-indivisibility exists as a mathematical
 property. But the recurrence time is absurdly long --- for the
@@ -604,8 +614,9 @@ timescales.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-coin-and-die-model-2.4}{%
 \subsection{The Coin-and-Die Model
-(§2.4)}\label{the-coin-and-die-model-2.4}
+(§2.4)}\label{the-coin-and-die-model-2.4}}
 
 The paper builds a concrete toy model to make the mechanism tangible.
 
@@ -614,7 +625,6 @@ Hidden: h ∈ \{1, 2, 3, 4, 5, 6\} (a die) - Total: 12 states
 
 \textbf{The permutation σ:}
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
 Input state & Output state & What happens \\
@@ -635,7 +645,6 @@ Input state & Output state & What happens \\
 (1, 5) & (1, 6) & Coin stays, die changes \\
 (1, 6) & (1, 5) & Coin stays, die changes \\
 \end{longtable}
-}
 
 Every swap is a transposition (a ↔ b), so σ² = id (apply twice,
 everything returns).
@@ -710,8 +719,9 @@ correspondence, equivalent to quantum mechanics.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{why-conditions-c2-and-c3-matter-physically}{%
 \subsubsection{Why conditions C2 and C3 matter
-physically}\label{why-conditions-c2-and-c3-matter-physically}
+physically}\label{why-conditions-c2-and-c3-matter-physically}}
 
 The P-indivisibility theorem needs only coupling (C1) and finiteness. So
 why does the paper insist on slow memory (C2) and vast capacity (C3)?
@@ -727,8 +737,9 @@ observationally relevant.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-stochastic-quantum-correspondence-3.1-and-appendix-a}{%
 \subsection{The Stochastic-Quantum Correspondence (§3.1 and Appendix
-A)}\label{the-stochastic-quantum-correspondence-3.1-and-appendix-a}
+A)}\label{the-stochastic-quantum-correspondence-3.1-and-appendix-a}}
 
 This is the key link. Section 2 proved that the embedded observer's
 dynamics are P-indivisible. Section 3 shows this is mathematically
@@ -799,8 +810,9 @@ recent result.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-phase-locking-lemma-3.1-continued}{%
 \subsection{The Phase-Locking Lemma (§3.1
-continued)}\label{the-phase-locking-lemma-3.1-continued}
+continued)}\label{the-phase-locking-lemma-3.1-continued}}
 
 A potential objection: the relation T\_ij = \textbar U\_ij\textbar²
 throws away phase information. Different unitaries could give the same
@@ -846,8 +858,9 @@ relabeling.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{bell-inequality-violations-3.2}{%
 \subsection{Bell Inequality Violations
-(§3.2)}\label{bell-inequality-violations-3.2}
+(§3.2)}\label{bell-inequality-violations-3.2}}
 
 This is the question everyone asks: isn't this ruled out by Bell's
 theorem?
@@ -900,8 +913,9 @@ Tsirelson's bound: 2√2 --- the quantum maximum.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-characterization-theorem-3.3}{%
 \subsection{The Characterization Theorem
-(§3.3)}\label{the-characterization-theorem-3.3}
+(§3.3)}\label{the-characterization-theorem-3.3}}
 
 It's not enough to show that embedded observation \emph{produces} QM
 (sufficiency). The paper shows QM \emph{requires} embedded observation
@@ -1003,10 +1017,12 @@ principle.''
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-cosmological-application-4}{%
 \subsection{The Cosmological Application
-(§4)}\label{the-cosmological-application-4}
+(§4)}\label{the-cosmological-application-4}}
 
-\subsubsection{4.1 The Partition}\label{the-partition}
+\hypertarget{the-partition}{%
+\subsubsection{4.1 The Partition}\label{the-partition}}
 
 The cosmological horizon is the boundary beyond which no signal
 traveling at or below c can ever reach the observer. In a universe with
@@ -1023,8 +1039,9 @@ slightly different horizons. But the gap equation ℏ = c³ε²/(4G) depends
 only on local geometric quantities (c, G, ε) --- not on the horizon area
 or the observer's worldline. So all observers derive the same ℏ.
 
+\hypertarget{verification-of-the-conditions}{%
 \subsubsection{4.2 Verification of the
-Conditions}\label{verification-of-the-conditions}
+Conditions}\label{verification-of-the-conditions}}
 
 \textbf{C1 (coupling).} In general relativity's ADM formulation, the
 bulk Hamiltonian is a sum of constraints that vanish on-shell ---
@@ -1042,7 +1059,8 @@ typical atomic process). The ratio: τ\_S/τ\_B \textasciitilde{} 10⁻³².
 sector has \textasciitilde{} 10⁸⁰ baryons. No experiment comes close to
 saturating the hidden sector.
 
-\subsubsection{4.3 Application}\label{application}
+\hypertarget{application}{%
+\subsubsection{4.3 Application}\label{application}}
 
 With the cosmological horizon satisfying the definition and all
 conditions, the characterization theorem applies. The observer's reduced
@@ -1052,16 +1070,18 @@ which is what Section 5 derives.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{where-plancks-constant-comes-from-5}{%
 \subsection{Where Planck's Constant Comes From
-(§5)}\label{where-plancks-constant-comes-from-5}
+(§5)}\label{where-plancks-constant-comes-from-5}}
 
 Partition-relativity proved that the emergent quantum description is
 completely and uniquely determined by the partition. This means
 \(\hbar\) cannot be a free parameter --- it must be fixed by the
 geometry of the boundary.
 
+\hypertarget{the-classical-horizon-temperature-5.1}{%
 \subsubsection{The Classical Horizon Temperature
-(§5.1)}\label{the-classical-horizon-temperature-5.1}
+(§5.1)}\label{the-classical-horizon-temperature-5.1}}
 
 \textbf{Starting point: Jacobson's identity.} Jacobson (1995) showed
 that Einstein's field equations follow from applying the first law of
@@ -1090,8 +1110,9 @@ For the de Sitter horizon, κ = cH:
 \textbf{Critical point: no ℏ appears anywhere.} This temperature is
 computed from purely classical quantities.
 
+\hypertarget{the-four-step-derivation-5.2}{%
 \subsubsection{The Four-Step Derivation
-(§5.2)}\label{the-four-step-derivation-5.2}
+(§5.2)}\label{the-four-step-derivation-5.2}}
 
 \textbf{Step 1 (Uniqueness).} Partition-relativity guarantees ℏ is
 determined by the partition geometry. It's not a free parameter.
@@ -1188,8 +1209,9 @@ discussion.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-d-gauge-completeness-theorem-5.3}{%
 \subsection{The D-Gauge Completeness Theorem
-(§5.3)}\label{the-d-gauge-completeness-theorem-5.3}
+(§5.3)}\label{the-d-gauge-completeness-theorem-5.3}}
 
 \textbf{The problem.} The relation T\_ij = \textbar U\_ij\textbar²
 discards phase information. Could different Hamiltonians give the same
@@ -1227,9 +1249,12 @@ dimensionful physical input enters the framework.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{The Discreteness Scale (§6)}\label{the-discreteness-scale-6}
+\hypertarget{the-discreteness-scale-6}{%
+\subsection{The Discreteness Scale
+(§6)}\label{the-discreteness-scale-6}}
 
-\subsubsection{What ε = 2 l\_p means}\label{what-ux3b5-2-l_p-means}
+\hypertarget{what-ux3b5-2-l_p-means}{%
+\subsubsection{What ε = 2 l\_p means}\label{what-ux3b5-2-l_p-means}}
 
 Rearranging the gap equation ℏ = c³ε²/(4G):
 
@@ -1248,8 +1273,9 @@ to known constants. The self-consistency condition pins ε to the Planck
 regime but doesn't predict a number that wasn't already implicitly
 known.
 
+\hypertarget{the-bekenstein-hawking-entropy-why-the-14-factor-is-derived}{%
 \subsubsection{The Bekenstein-Hawking Entropy --- Why the 1/4 factor is
-derived}\label{the-bekenstein-hawking-entropy-why-the-14-factor-is-derived}
+derived}\label{the-bekenstein-hawking-entropy-why-the-14-factor-is-derived}}
 
 The number of independent modes on the cosmological horizon is:
 
@@ -1269,8 +1295,9 @@ denominator comes from ε = 2 l\_p.
 constructions specifically designed to produce it. Here it follows from
 the gap equation with no additional input.
 
+\hypertarget{self-consistency-bounds-on-ux3b5}{%
 \subsubsection{Self-consistency bounds on
-ε}\label{self-consistency-bounds-on-ux3b5}
+ε}\label{self-consistency-bounds-on-ux3b5}}
 
 \textbf{If ε² ≪ l\_p²:} Sub-Planckian cells would need further
 subdivision, creating a second trace-out within the first. This would
@@ -1285,7 +1312,8 @@ neither pathology occurs.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{The Two Levels}\label{the-two-levels}
+\hypertarget{the-two-levels}{%
+\subsection{The Two Levels}\label{the-two-levels}}
 
 Now the cosmological constant problem dissolves. But first, a crucial
 link: how does finite-dimensional quantum mechanics become quantum
@@ -1368,12 +1396,19 @@ it has an empirical signature sitting in plain sight: one ordering
 produces the worst prediction in physics and has no solution; the other
 predicts the observed value and explains the discrepancy as a derived
 quantity. That doesn't prove the ordering is correct, but it's existing
-evidence, not a future hope.
+evidence, not a future hope. (Note the division of labor with the
+non-adjudicability result in the gravity paper: two descriptions that
+fit the same observations equally well can never be ranked from inside
+--- that is the factoring argument --- but the two \emph{programs} here
+are not in that situation. One predicts the observed vacuum energy and
+one misses it by \(10^{122}\); predictive asymmetry on accessible data
+is exactly the kind of criterion the factoring argument leaves open.)
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-quantum-weirdness-looks-like-from-here}{%
 \subsection{What Quantum Weirdness Looks Like From
-Here}\label{what-quantum-weirdness-looks-like-from-here}
+Here}\label{what-quantum-weirdness-looks-like-from-here}}
 
 Feynman opens his quantum mechanics volume with a famous warning. The
 double-slit experiment, he writes in Volume III, Lecture 1 of the
@@ -1429,7 +1464,8 @@ distinguish it from competing accounts are listed below.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{Predictions}\label{predictions}
+\hypertarget{predictions}{%
+\subsection{Predictions}\label{predictions}}
 
 The framework is not just a reinterpretation. It makes specific,
 falsifiable predictions --- and, crucially, it makes predictions in
@@ -1646,7 +1682,8 @@ phenomenon: the cost of observing the universe from within.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{Philosophical Lineage}\label{philosophical-lineage}
+\hypertarget{philosophical-lineage}{%
+\subsection{Philosophical Lineage}\label{philosophical-lineage}}
 
 The paper is a physics paper, but its core claims --- that observers
 face irreducible limits, that two irreconcilable descriptions can both
@@ -1656,7 +1693,8 @@ philosophy. A systematic mapping against the major traditions reveals a
 striking pattern: broad support for most of the framework, and
 near-universal resistance to one specific thesis.
 
-\subsubsection{The seven claims}\label{the-seven-claims}
+\hypertarget{the-seven-claims}{%
+\subsubsection{The seven claims}\label{the-seven-claims}}
 
 The framework rests on seven implicit philosophical commitments:
 
@@ -1693,7 +1731,8 @@ Claims 1, 5, 6, and 7 enjoy broad philosophical support across nearly
 every tradition examined. Claim 4 --- that the underlying reality is
 definite --- is the paper's most philosophically isolated thesis.
 
-\subsubsection{The Gödel connection}\label{the-guxf6del-connection}
+\hypertarget{the-guxf6del-connection}{%
+\subsubsection{The Gödel connection}\label{the-guxf6del-connection}}
 
 The analogy between this framework and Gödel's incompleteness theorem is
 not merely metaphorical. Gödel proved that a formal system rich enough
@@ -1797,8 +1836,9 @@ emergent quantum description and the classical substrate assign
 different vacuum energies, and only the substrate's value matches
 observation. The loop has a floor, and the floor matters.
 
+\hypertarget{closest-ancestor-nicholas-of-cusa}{%
 \subsubsection{Closest ancestor: Nicholas of
-Cusa}\label{closest-ancestor-nicholas-of-cusa}
+Cusa}\label{closest-ancestor-nicholas-of-cusa}}
 
 Of all thinkers surveyed, the fifteenth-century cardinal Nicholas of
 Cusa provides the most precise structural alignment. His \emph{docta
@@ -1819,8 +1859,9 @@ this wall not as escaping through it but as \emph{inhabiting the
 boundary} --- compatible with a framework where understanding the limit
 is itself the deepest available insight.
 
+\hypertarget{deepest-ontological-parallel-spinoza}{%
 \subsubsection{Deepest ontological parallel:
-Spinoza}\label{deepest-ontological-parallel-spinoza}
+Spinoza}\label{deepest-ontological-parallel-spinoza}}
 
 Spinoza's attribute theory is arguably the single closest ontological
 parallel. One substance (God/Nature) expresses itself through infinite
@@ -1839,8 +1880,9 @@ adequate knowledge of reality through \emph{scientia intuitiva}
 (intuitive knowledge). The paper's permanent limits directly contradict
 this ambition.
 
+\hypertarget{the-recurring-fault-line-claim-4}{%
 \subsubsection{The recurring fault line: Claim
-4}\label{the-recurring-fault-line-claim-4}
+4}\label{the-recurring-fault-line-claim-4}}
 
 Across every tradition examined, a striking pattern emerges. The claim
 that underlying reality is ``local and definite'' faces resistance from
@@ -1878,7 +1920,8 @@ and Worrall's epistemic structural realism (which posits real but
 unknowable natures behind structures) provide genuine philosophical
 support for Claim 4.
 
-\subsubsection{What's genuinely new}\label{whats-genuinely-new}
+\hypertarget{whats-genuinely-new}{%
+\subsubsection{What's genuinely new}\label{whats-genuinely-new}}
 
 The paper's philosophical lineage is not a single line of descent but a
 mosaic. Its structural epistemology draws from Kant through Wittgenstein
@@ -1902,8 +1945,9 @@ philosophical question.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{frequently-asked-questions}{%
 \subsection{Frequently Asked
-Questions}\label{frequently-asked-questions}
+Questions}\label{frequently-asked-questions}}
 
 \textbf{``Isn't this just another interpretation of quantum
 mechanics?''} No.~Interpretations (Copenhagen, Many-Worlds, Bohmian
@@ -2104,8 +2148,9 @@ unexplained inputs, and has no natural account of the dark sector.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-decompression-algorithm}{%
 \subsection{The Decompression
-Algorithm}\label{the-decompression-algorithm}
+Algorithm}\label{the-decompression-algorithm}}
 
 There is a way to state what the framework means that is sharper than
 anything in the formal paper.
@@ -2134,8 +2179,9 @@ Hamiltonian flow. That's all. The entire apparatus of quantum mechanics
 --- every textbook, every equation, every experiment --- is what the
 decompression algorithm looks like from the inside.
 
+\hypertarget{antimatter-as-algorithmic-artifact}{%
 \subsubsection{Antimatter as algorithmic
-artifact}\label{antimatter-as-algorithmic-artifact}
+artifact}\label{antimatter-as-algorithmic-artifact}}
 
 This reframing changes the understanding of specific phenomena. Consider
 antimatter.
@@ -2176,8 +2222,9 @@ self-consistent.
 In both cases: the substratum has no doubling. The algorithm demands
 one.
 
+\hypertarget{nothing-in-quantum-mechanics-explains-a-fundamental-phenomenon}{%
 \subsubsection{Nothing in quantum mechanics explains a fundamental
-phenomenon}\label{nothing-in-quantum-mechanics-explains-a-fundamental-phenomenon}
+phenomenon}\label{nothing-in-quantum-mechanics-explains-a-fundamental-phenomenon}}
 
 This is the deepest implication of the framework, and it is worth
 stating plainly.
@@ -2250,7 +2297,8 @@ incomplete cosmological data. It is the only one.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{What This Means}\label{what-this-means}
+\hypertarget{what-this-means}{%
+\subsection{What This Means}\label{what-this-means}}
 
 The search for a ``theory of everything'' that unifies quantum mechanics
 and general relativity has assumed that the two theories describe the
@@ -2271,8 +2319,9 @@ The universe is not broken. We are observing it from within.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{corroboration-the-rigidity-test}{%
 \subsection{Corroboration: The Rigidity
-Test}\label{corroboration-the-rigidity-test}
+Test}\label{corroboration-the-rigidity-test}}
 
 A natural objection to any framework this sweeping is: maybe it only
 works because it was built to work. Maybe the definition was chosen to
@@ -2337,7 +2386,8 @@ something real from one that was engineered to fit.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{What Is the Lattice?}\label{what-is-the-lattice}
+\hypertarget{what-is-the-lattice}{%
+\subsection{What Is the Lattice?}\label{what-is-the-lattice}}
 
 The rigidity test proves that the wave equation on a lattice produces
 both QM and GR. But what \emph{is} the lattice? Is the universe
@@ -2474,7 +2524,8 @@ physics are all emergent.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{Why These Particles?}\label{why-these-particles}
+\hypertarget{why-these-particles}{%
+\subsection{Why These Particles?}\label{why-these-particles}}
 
 The first two companion papers establish that the framework produces
 quantum mechanics and general relativity. But quantum mechanics is a
@@ -2697,16 +2748,16 @@ of falsifiable predictions that no competing theory makes jointly.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{The Full Picture}\label{the-full-picture}
+\hypertarget{the-full-picture}{%
+\subsection{The Full Picture}\label{the-full-picture}}
 
 The framework now covers the three pillars of modern physics and their
 consequences:
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2105}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4211}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3684}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2105}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4211}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3684}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Pillar
@@ -2729,7 +2780,6 @@ Higgs, chiral coupling, θ̄ = 0 & SM \\
 \textbf{Chemistry → life} & Orbitals, periodic table, carbon, water,
 chirality, autocatalysis, origin of life, evolution & Complexity \\
 \end{longtable}
-}
 
 The starting point for all of it: a finite set, a bijection, and a
 partition.
@@ -2766,12 +2816,14 @@ Model --- is emergent.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{What Is (S, φ)?}\label{what-is-s-ux3c6}
+\hypertarget{what-is-s-ux3c6}{%
+\subsection{What Is (S, φ)?}\label{what-is-s-ux3c6}}
 
 The papers derive what (S, φ) \emph{produces}. But what kind of thing
 \emph{is} it?
 
-\subsubsection{Storage and memory}\label{storage-and-memory}
+\hypertarget{storage-and-memory}{%
+\subsubsection{Storage and memory}\label{storage-and-memory}}
 
 S is the set of all distinguishable states. Its physical meaning is
 \emph{finite capacity}: there are \textbar S\textbar{} configurations
@@ -2838,7 +2890,8 @@ mathematical description from which everything observable is derived.
 Asking what it's made of presupposes a deeper level that no measurement
 can access --- like asking what the number 7 is made of.
 
-\subsubsection{Computation from within}\label{computation-from-within}
+\hypertarget{computation-from-within}{%
+\subsubsection{Computation from within}\label{computation-from-within}}
 
 A Turing machine has a tape (storage), a head (read/write access), and a
 transition function (update rule). Under effective finiteness --- where
@@ -2882,7 +2935,8 @@ general relativity, the Standard Model --- is what that computation
 looks like to a subsystem embedded within it, observing through a finite
 window.
 
-\subsubsection{The arrow of time}\label{the-arrow-of-time}
+\hypertarget{the-arrow-of-time}{%
+\subsubsection{The arrow of time}\label{the-arrow-of-time}}
 
 If the universe is a finite permutation, it must eventually cycle back:
 φ\^{}N = id for some N. So where does the arrow of time come from? Why
@@ -2940,8 +2994,9 @@ the direction of time is emergent --- a consequence of observing a
 lossless cycle from within, during the phase when such observation is
 structurally possible.
 
+\hypertarget{the-incompleteness-family}{%
 \subsubsection{The incompleteness
-family}\label{the-incompleteness-family}
+family}\label{the-incompleteness-family}}
 
 This places the framework in a family of results where self-reference
 under finite resources produces rigid structure.
@@ -2998,8 +3053,9 @@ knowledge. The framework recasts the physical instance as
 because we can't see the full state. It's the unique, mathematically
 rigid consequence of a reversible computation observed from within.
 
+\hypertarget{why-does-mathematics-describe-physics}{%
 \subsubsection{Why does mathematics describe
-physics?}\label{why-does-mathematics-describe-physics}
+physics?}\label{why-does-mathematics-describe-physics}}
 
 This reframes one of the oldest questions in the philosophy of science.
 
@@ -3183,17 +3239,18 @@ philosophy of science.}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{appendix-mathematical-summary-tables}{%
 \subsection{Appendix: Mathematical Summary
-Tables}\label{appendix-mathematical-summary-tables}
+Tables}\label{appendix-mathematical-summary-tables}}
 
+\hypertarget{sections-12-what-each-piece-does}{%
 \subsubsection{Sections 1--2: What Each Piece
-Does}\label{sections-12-what-each-piece-does}
+Does}\label{sections-12-what-each-piece-does}}
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Component
@@ -3223,16 +3280,15 @@ mechanics & Barandes {[}10,11{]} or Stinespring (Appendix A) \\
 Necessity proof (§3.3) & QM \emph{requires} C1, C2, C3 & Contrapositives
 of sufficiency \\
 \end{longtable}
-}
 
+\hypertarget{sections-36-the-logical-flow}{%
 \subsubsection{Sections 3--6: The Logical
-Flow}\label{sections-36-the-logical-flow}
+Flow}\label{sections-36-the-logical-flow}}
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Step
@@ -3273,7 +3329,6 @@ c³ε²/(4G) \\
 condition \\
 §6: Self-consistency & ε = 2 l\_p, S\_BH = A/(4l\_p²) & ε² = 4ℏG/c³ \\
 \end{longtable}
-}
 
 The chain from definition to ℏ:
 
@@ -3287,8 +3342,9 @@ are determined by steps 4--6.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{appendix-key-mathematical-subtleties}{%
 \subsection{Appendix: Key Mathematical
-Subtleties}\label{appendix-key-mathematical-subtleties}
+Subtleties}\label{appendix-key-mathematical-subtleties}}
 
 \textbf{1. The gap equation is a gap equation, not a derivation from
 nothing.}
