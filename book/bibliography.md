@@ -14,6 +14,8 @@ Maybaum, A. (2026). *The Incompleteness Framework*. Zenodo, concept DOI: 10.5281
 
 Arnold, V. I. (1989). *Mathematical Methods of Classical Mechanics* (2nd ed., Graduate Texts in Mathematics 60). Springer-Verlag.
 
+Breuer, T. (1995). The impossibility of accurate state self-measurements. *Philosophy of Science* 62(2): 197–214.
+
 Engel, K.-J., & Nagel, R. (2000). *One-Parameter Semigroups for Linear Evolution Equations* (Graduate Texts in Mathematics 194). Springer-Verlag.
 
 Barandes, J. A. (2023). The Stochastic-Quantum Correspondence. *arXiv*:2302.10778.
