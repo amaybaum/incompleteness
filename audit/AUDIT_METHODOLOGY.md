@@ -1516,3 +1516,37 @@ PROCEDURE:
 ABUSE-GUARD (load-bearing): "I only edited the one place I was looking at" is precisely the failure this
 rule exists to prevent. An edit to a shared claim is NOT complete until the whole-corpus grep is clean.
 Bands unchanged by logging this (methodology, not a result).
+
+
+## §A.28 Repo minimalism — the burden of proof is on adding, not on omitting
+The repository is public and permanent: anything committed is published, has to be maintained, and will
+be read by someone with no access to the reasoning that put it there. Process artifacts — locks, build
+notes, status markers, bespoke tooling — are cheap to add and expensive to retire, and they accumulate
+against a corpus whose value is the manuscripts and the lattice code.
+
+RULE: before adding a file, establish that (i) the risk it addresses is REAL rather than anticipated,
+verified by a check rather than by argument; (ii) it will still be true after the next change to the
+corpus; and (iii) it cannot instead live in a commit message, in the off-repo working log, or nowhere at
+all. An artifact failing any of the three does not go in. The same test applies to sections, appendices,
+and status notes, not only to new files.
+
+COROLLARY — verify before flagging. A note recording a hazard is not free: it is a CLAIM, and a claim
+that proves false is worse than silence, because it misdirects the next reader and outlives the
+condition it described. Where the check is cheap, run it and REMOVE the hazard rather than document it.
+This is §A.19 (read before concluding) and §A.21 (control a probe before trusting it) applied to the
+repo's own contents.
+
+COROLLARY — tooling earns its place by exactness, not by intent. A checker that guards a real recurring
+failure and is stateless is worth keeping. A checker resting on heuristic matching, covering part of its
+target, and needing maintenance as content changes is not: it reads as coverage while providing
+partial coverage, which is the failure mode it was meant to prevent. Fix the sources so an exact check
+is possible, or omit the check.
+
+ORIGIN. One session added four artifacts — a writer lock, two successive build notes, and a validator
+directory — and withdrew all four. Three had flagged hazards a direct check showed did not exist: no
+concurrent writer materialised, and a substituted LaTeX package proved inert under the engine actually
+in use (identical embedded font sets across a controlled build pair, same page count). The fourth was
+withdrawn as unearned coverage — cross-table matching reached fewer than half its rows, and the checker
+returned different counts on byte-identical inputs until repaired. In each case the artifact was created
+by flagging a risk before establishing the risk was real. Bands unchanged by logging this (methodology,
+not a result).

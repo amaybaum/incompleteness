@@ -147,3 +147,7 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   a direct band-mover. (Full treatment: `audit/AUDIT_METHODOLOGY.md` §A.23.)
 - Prefer *conditional / retrodiction / empirically-anchored / open* over *derived / theorem / proved* when
   the body doesn't fully support the stronger word.
+- **Adding to the repo requires the same burden of proof as a claim (§A.28).** Before committing a file,
+  section, or status note: is the risk it addresses *verified* rather than anticipated, will it still be
+  true after the next change, and can it not live in a commit message or the off-repo log instead? If any
+  answer is no, leave it out. Where a check is cheap, run it and remove the hazard rather than document it.
