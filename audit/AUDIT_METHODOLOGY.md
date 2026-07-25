@@ -664,7 +664,7 @@ calibration outputs the diagnostic protects.
 session-close as provisional pending fresh-context confirmation;
 re-read "modest"-tier findings on fresh context before treating
 their assessment as final; propagate calibration upgrades to
-downstream artifacts (the working register entries, framework-document edits, §C
+downstream artifacts (the register entries, framework-document edits, §C
 handoff narrative). Genuine diminishing returns survive the
 fresh-context re-read; fatigue artifacts do not. The diagnostic
 does not forbid saturation conclusions — it requires that they be
@@ -674,15 +674,12 @@ interruption when calibration is not the load-bearing concern.
 **Within-line vs across-line generalization .**
 Saturation in one investigation line is weak evidence about other
 lines that work different machinery.– worked the
-bijection-characterization neighborhood (the working register + the working register share
-substrate-class machinery); apparent saturation there is essentially
-mute on the holography line, the Lorentz-emergence line, the working register
-(cosmology beyond MOND), the working register (specific predictions framework
-could make but doesn't), the positioning line, and the working register (math
-characterization). When pivoting between open-direction items, or between any
+bijection-characterization neighborhood (both worked the same substrate-class machinery); apparent saturation there is essentially
+mute on the holography line, the Lorentz-emergence line, the cosmology line (beyond MOND), the unmade-predictions line (what the framework
+could predict but doesn't), the positioning line, and the mathematical-characterization line. When pivoting between open-direction items, or between any
 structurally-distinct investigation lines, treat each line's
 saturation status as independent. The "diminishing returns across
-the working register" inference would require investigating multiple open-direction items with
+diminishing-returns-across-the-board" inference would require investigating multiple open-direction items with
 different machinery and seeing low novelty on each — not the same
 neighborhood across two adjacent sessions. *Heuristic:* before
 generalizing a saturation conclusion, identify the specific machinery
@@ -690,7 +687,7 @@ the recent investigations shared and check whether the next candidate
 line shares it.
 
 **Convergence-vs-saturation diagnostic .** A
-the working register (or similar) investigation line *converges* when its original
+An investigation line *converges* when its original
 question targets have been answered at honestly-stated rigor levels
 and remaining gaps are explicitly classified — not when the
 assessing voice judges that "no more is coming." Convergence and
@@ -714,8 +711,7 @@ for.
  what remains, and whether the line is closed-for-now vs paused-
  pending-other-work.
 
-*Origin.* the working register (Lorentz emergence and
-corrections) opened with five listed questions; investigation
+*Origin.* The Lorentz-emergence line (emergence and corrections) opened with five listed questions; investigation
 produced F1 (mechanism), F2 (operator structure), F3 (UHECR
 phenomenology) plus two F3-internal resolution closures (Maccione
 exception via constituent-quark inheritance dominance; traceless
@@ -754,8 +750,7 @@ anisotropy protections both being structural rather than
 coincidental) is consistent with the framework being mostly right
 and apparent tensions arising from naive coefficient estimates
 rather than genuine problems. **One instance is weak evidence —
-flag the pattern but do not generalize until the working register, the working register, or
-similar lines have been run and either confirm or break it.**
+flag the pattern but do not generalize until two or more structurally distinct lines have been run and either confirm or break it.**
 
 ## §A.5 Document-level audit procedure
 
@@ -1347,10 +1342,10 @@ If the old phrase still appears anywhere it shouldn't, that file needs updating.
 **Why pre-judging significance is the trap.** The significance of a result is a property of the result, not of the plan. Predicting "all outcomes will be uninformative" assumes you already understand the structure well enough to know what the computation would reveal — which, for a genuinely open question, is exactly what you do not yet have. The history of the framework's own progress (and of physics generally) is full of computations expected to be routine that exposed unanticipated structure. So a *predicted*-null result is not the same as a *checked*-null result, and the gap between them is where understanding sometimes lives.
 
 **Cost is the governor (not relevance-prediction).** This is not "run everything." It is "do not let an unverifiable relevance-prediction veto a cheap probe with any genuine chance of teaching you something."
-- **Cheap probe, possible upside → just run it.** The cheapest way to learn a computation's significance is usually to run it. piece11 cost seconds.
+- **Cheap probe, possible upside → just run it.** The cheapest way to learn a computation's significance is usually to run it. That probe cost seconds.
 - **Expensive campaign → the relevance case must justify the cost.** A multi-day two-species HMC is not run on a whim; here the burden of arguing it bears on the question is real, because the cost is real. The discipline scales with cost, not with a blanket pre-filter.
 
-**The piece11 episode, correctly read.** Running piece11 was *right*, not a mistake: it was cheap, fully gated (rotational R = machine zero, hypercubic B_phys ≈ zero at both loop orders), and its two-loop trend could in principle have bent sharply toward the sign-flip — which would have been a real signal worth having. The actual error was downstream, in the *interpretation*: framing an uninformative outcome as "removes perturbative comfort for the candidate" inflated a null result into apparent significance. An honest post-hoc reading converts it to its true value: a *checked* fact (the perturbative series shows no trend toward the flip, now verified rather than assumed) that does not settle the non-perturbative question. That is a modest but real gain — and it is the correct way to bank a null.
+**The two-loop trend probe, correctly read.** Running it was *right*, not a mistake: it was cheap, fully gated (rotational R = machine zero, hypercubic B_phys ≈ zero at both loop orders), and its two-loop trend could in principle have bent sharply toward the sign-flip — which would have been a real signal worth having. The actual error was downstream, in the *interpretation*: framing an uninformative outcome as "removes perturbative comfort for the candidate" inflated a null result into apparent significance. An honest post-hoc reading converts it to its true value: a *checked* fact (the perturbative series shows no trend toward the flip, now verified rather than assumed) that does not settle the non-perturbative question. That is a modest but real gain — and it is the correct way to bank a null.
 
 **Where the discipline actually lives: honest interpretation, after the run.** The gate discipline ("trust the gated computations over the narrative") ensures a result is *correct*. §A.16 governs how its *significance* is reported once it is in hand: state plainly what the result does and does not bear on, and resist inflating a null or off-target result into a verdict (the converse of the declare-victory antipattern). A checked null is logged as a checked null — neither discarded as worthless nor dressed up as progress.
 
@@ -1361,7 +1356,7 @@ If the old phrase still appears anywhere it shouldn't, that file needs updating.
 - Do not rule a computation out on a predicted-insignificance basis you cannot verify without running it. A predicted null is not a checked null.
 - Put the discipline on the *interpretation*: report exactly what a result bears on; bank checked nulls honestly (neither inflated nor discarded).
 
-**Methodology amendment recorded.** Applies to all subsequent computational and analytic work in the framework. Supersedes the earlier same-day draft of this section, which framed the lesson as a pre-registration relevance *filter* ("if all outcomes leave the question where it was, do not run it") — that over-rotated toward avoidance and would have wrongly vetoed cheap probes like piece11 whose significance was not actually knowable in advance. The corrected principle: lean toward running; judge significance after; scale caution to cost. Earned from the piece11 episode.
+**Methodology amendment recorded.** Applies to all subsequent computational and analytic work in the framework. Supersedes the earlier same-day draft of this section, which framed the lesson as a pre-registration relevance *filter* ("if all outcomes leave the question where it was, do not run it") — that over-rotated toward avoidance and would have wrongly vetoed cheap probes of that kind whose significance was not actually knowable in advance. The corrected principle: lean toward running; judge significance after; scale caution to cost. Earned from that episode.
 
 
 ## §A.17 Peer review is the verification stage — proceed with development; the only pre-review limitation is on self-assessment (the bands are a proxy until then)
@@ -1418,11 +1413,11 @@ A toy/numerical probe can return a confident but WRONG-SIGNED verdict if it rest
 
 ***
 ## §A.22 A conclusion that shifts a result's VALENCE needs a NEW result behind it — re-narration is not evidence, in either direction
-The recurring failure mode across this audit is not a bias toward optimism or toward pessimism specifically; it is a willingness to MOVE A RESULT'S VALENCE — toward "stronger / vindicated / resolved" or toward "more exposed / falsified / over-claimed" — by RE-NARRATING a fact already in hand, with no new computation, representation-theory result, or external input behind the move. The two directions are the same error in different clothes. Documented instances: the four optimism-toward-good-news episodes of the May arc; thedj k_F "more exposed / ~10^15 tuning / near-falsification" reversion (a worst-case coefficient asserted as settled when it was precisely the uncomputed quantity); andes, where re-examining the arrow/Boltzmann sector produced a fresh "§397 mildly over-claims" finding that dissolved on contact with the already-recorded analysis (the deceptive small Boltzmann brains are structurally excluded by C2; the surviving large fluctuations are veridical observers, hence not the Boltzmann-brain problem at all).
+The recurring failure mode across this audit is not a bias toward optimism or toward pessimism specifically; it is a willingness to MOVE A RESULT'S VALENCE — toward "stronger / vindicated / resolved" or toward "more exposed / falsified / over-claimed" — by RE-NARRATING a fact already in hand, with no new computation, representation-theory result, or external input behind the move. The two directions are the same error in different clothes. Documented instances: the four optimism-toward-good-news episodes of the May arc; the k_F "more exposed / ~10^15 tuning / near-falsification" reversion (a worst-case coefficient asserted as settled when it was precisely the uncomputed quantity); andes, where re-examining the arrow/Boltzmann sector produced a fresh "[Main §4.6] mildly over-claims" finding that dissolved on contact with the already-recorded analysis (the deceptive small Boltzmann brains are structurally excluded by C2; the surviving large fluctuations are veridical observers, hence not the Boltzmann-brain problem at all).
 
 **The tell.** A valence-shifting conclusion whose entire support is a paraphrase of something already known — "this really means the framework is more/less exposed than stated" — with no result dated to the current turn. If the only thing that changed is the framing, the valence must not change.
 
-**Operational form.** Before recording any conclusion that moves a result toward favorable or unfavorable: (i) name the NEW result it rests on (a computation, an exact/symmetry control per §A.21, a checkable rep-theory fact, an external review); (ii) if there is none, hold the valence fixed and record only the structural observation; (iii) apply the SAME scrutiny to a framework-favorable conclusion as to an unfavorable one — favorable results get held to the bad-news standard (as indq), unfavorable ones to the good-news standard; (iv) keep the COST axis (does a signature carry a live empirical price — typically the open, arbiter-gated question) distinct from the STRUCTURAL status (what the fact is — often already settled), and never let a cost claim stand in for a status claim or vice versa.
+**Operational form.** Before recording any conclusion that moves a result toward favorable or unfavorable: (i) name the NEW result it rests on (a computation, an exact/symmetry control per §A.21, a checkable rep-theory fact, an external review); (ii) if there is none, hold the valence fixed and record only the structural observation; (iii) apply the SAME scrutiny to a framework-favorable conclusion as to an unfavorable one — favorable results get held to the bad-news standard (as above), unfavorable ones to the good-news standard; (iv) keep the COST axis (does a signature carry a live empirical price — typically the open, arbiter-gated question) distinct from the STRUCTURAL status (what the fact is — often already settled), and never let a cost claim stand in for a status claim or vice versa.
 
 **Why it binds here.** Internal work cannot raise Correctness and can lower it only via genuine falsification (§A.1, the bands discipline). A re-narrated valence shift therefore either fakes a Correctness gain (favorable direction) or manufactures a falsification the evidence does not support (unfavorable direction); both corrupt the one thing the audit exists to produce — a precisely calibrated map of what is actually derived versus assumed. This is the third member of a set: §A.18 is volume ≠ progress, §A.20 is difficulty ≠ reason to stop, and §A.22 is valence ≠ evidence. Kin to §A.19 (read before concluding) and §A.21 (control a probe's sign before trusting its direction).
 
