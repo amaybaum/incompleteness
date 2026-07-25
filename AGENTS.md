@@ -4,10 +4,19 @@ This repo holds the manuscript for *The Incompleteness of Observation*:
 
 - `papers/` — the technical papers (`SM`, `GR`, `Substratum`, `Structure`, `Main`, …).
 - `book/`   — the book chapters and the consolidated `The-Incompleteness-of-Observation-FULL.*`.
+- `audit/` — `AUDIT_METHODOLOGY.md` only, the self-audit procedure. **Markdown-only: no `.tex`,
+  no `.pdf`.** It is not a
+  journal artifact; it rides along with the repo so that the method the manuscripts were audited
+  under is versioned beside them. It is a *derived* document — the working methodology, operational
+  state, reference cards, session journal, and task queue all live in the project's private records.
+  Do not hand-edit it to record project state, and keep it free of journal citations, work-plan
+  detail, per-cluster confidence figures, and engagement strategy: the repo is public, so anything
+  added here is published whether or not it is typeset.
 
 **`.md` is the source of truth. `.tex` and `.pdf` are generated from it** (pandoc + xelatex) — never
-hand-edit them; regenerate. The fuller working methodology lives outside git in the OI_MASTER bundle
-(`01_methodology.md`, §A); this file is the condensed, repo-enforced subset.
+hand-edit them; regenerate. This applies to `papers/` and `book/`; `audit/` is markdown-only
+and has no build step. This file is the condensed, repo-enforced subset of `AUDIT_METHODOLOGY.md` (§A);
+when they disagree, fix the disagreement in the same commit.
 
 ---
 
@@ -42,6 +51,44 @@ Whenever you change a **claim**, its **classification** (status / layer / tier; 
 
 ---
 
+## RULE — Single writer, locked working copy, quarantine-don't-delete (§A.26)
+
+Added 2026-07-25 after an integrity event: a second uncoordinated writer (most likely a concurrent
+session on a shared container) produced 26 unaccounted files in the gate work area, detected only by a
+filename collision.
+
+1. **One writer at a time.** Before writing to a shared working copy (this checkout or any other working archive), create/verify
+   a lock file — `REPO_LOCK` here, the analogous lock elsewhere — carrying session id + timestamp + scope. If a lock you don't own is present and fresh, do not
+   write — surface to the owner.
+2. **Anomaly ⇒ full sweep, then halt.** Any file you didn't write and can't source to the pristine
+   upload/checkout triggers a complete integrity sweep (working copy vs pristine vs your own logged
+   writes) *before* any further substantive work. Decisive measurements never run over an unresolved
+   provenance anomaly.
+3. **Quarantine, never delete.** Unaccounted artifacts move to `evidence/<event>/` with a hash+mtime
+   manifest, content untouched. They may later be *verified read-only* (replay-matches, internal-claim
+   checks) but are never adopted as data; if their content is right, re-derive it under your own trail
+   and credit the quarantined source for priority.
+4. **Deterministic replay is the integrity primitive.** Checkpoints carry full-precision parameters and
+   observable series; regeneration must replay-match elementwise or the run halts. (This gate caught a
+   real precision defect on 2026-07-25 before it could contaminate a verdict.)
+
+---
+
+## RULE — Status annotations in manuscripts: dated, superseding, manuscript-voice (§A.27)
+
+Empirical or archival status changes reach their manuscript dependents as **dated bracketed status
+notes** — `*[Status note, YYYY-MM-DD: …]*` — appended in place, superseding rather than deleting
+(a correction quotes or summarizes what it replaces). Two constraints, both learned the hard way:
+
+- **Same-session propagation.** An empirical result that bears on a manuscript claim gets its status
+  note in the same session the result is accepted (this is §A.25 applied to results, not just edits).
+- **Manuscript voice only.** No internal-ledger vocabulary (*graded motivated-unverified*,
+  *implementation-unrecovered*), no internal filenames or phase labels, no process jargon a reader
+  cannot resolve. State what is established, for which object, at what precision, and what remains
+  unverified — in the paper's own register. Internal bookkeeping stays in the off-repo working logs.
+
+---
+
 ## Build recipe (regenerating `.tex` / `.pdf`)
 
 Requires `pandoc` + a LaTeX engine with `xelatex` (e.g. `brew install pandoc texlive`).
@@ -64,6 +111,20 @@ equivalents via `newunicodechar`, so xelatex doesn't silently drop them (e.g. a 
 keeping the Computer Modern look. Always pass it with `--include-in-header`. After building, check the
 xelatex log for `Missing character` warnings.
 
+**Horizontal rules: use `***`, never `---`.** A bare `---` line is ambiguous in pandoc's
+markdown — it can be read as a YAML metadata delimiter *or* as a table rule. The latter is the
+dangerous one: it silently typesets the rest of the document into a narrow table column
+(one word per line, headings rendered as literal `##`), inflating one 37-page document to 198
+mostly-blank pages before it was caught. It produces no error. **Check page count and median
+characters-per-page after building any new document**; a plausible page count is part of the
+build, not a nicety. Note `papers/SM.md` (17), `papers/Main.md` (8) and the book (80) still
+contain bare `---` rules that happen to render correctly; switch them to `***` if touched.
+
+**Constrained-environment caveat:** if the build environment lacks a package (e.g. `lmodern.sty` absent,
+no network) and a shim or workaround is used, the resulting PDFs are provisional — flag them (STALE
+note or commit message) and rebuild on the canonical toolchain before any release or DOI deposit.
+The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
+
 ---
 
 ## Honesty conventions
@@ -79,6 +140,6 @@ xelatex log for `Missing character` warnings.
 - **The asymmetry that does hold:** an honesty *downgrade* — conceding a claimed proof is actually
   open/conditional — can only hold or lower correctness, never raise it (you don't become more likely-true
   by admitting you proved less). And consistency work is a *force-multiplier* on the correctness tests, not
-  a direct band-mover. (Full treatment: bundle `01_methodology.md` §A.23.)
+  a direct band-mover. (Full treatment: `audit/AUDIT_METHODOLOGY.md` §A.23.)
 - Prefer *conditional / retrodiction / empirically-anchored / open* over *derived / theorem / proved* when
   the body doesn't fully support the stronger word.
