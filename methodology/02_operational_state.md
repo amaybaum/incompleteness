@@ -1,4 +1,4 @@
-<!-- OI BUNDLE — 02: §B.1–§B.8 operational state & reference. Part of the OI_MASTER bundle (see README.md). Section labels (§A.x,§B.x) preserved. -->
+<!-- methodology/02 — §B.1–§B.8 operational state & reference. Part of the repo methodology set (01–03). §B.2.x markers cite the off-repo session journal. -->
 
 # §B OPERATIONAL STATE (current — updates each session)
 
@@ -21,7 +21,7 @@ The framework documents incorporate the closures and methodology refinements doc
 | README | (unchanged) | no audit-affected references |
 
 **Working documents:**
-- `OI_MASTER.md` — this document (self-contained reference)
+- `methodology/` — this set (01 methodology, 02 operational state, 03 reference docs), the repo-resident reference; the session journal is maintained off-repo
 - `PartB_specification.md` — D10 closure path for collaborator (6 pages, with Manifestation 8 risk note in §3.3)
 
 ## §B.2 Per-cluster confidence
@@ -191,7 +191,7 @@ Layer 2(b) classification.
 
 ### D10 gem-finding findings (instrumental value, May 6 audit)
 
-Compressed catalogue (full table preserved in pre-cleanup OI_MASTER):
+Compressed catalogue (full table preserved in the off-repo project record):
 
 - *Theme 1 (3D↔4D bridges, C1-C5):* substratum measure not yet shown to reduce to Berezin; 3D Euclidean MC vs 4D SχPT (~28% tadpole shift); BZ pairing vs Dirac matrix moves; chirality parity. Documentation gaps; algebraically related; bridge gaps (i)-(iv) in §B.2.8-§B.2.12 partially close these.
 - *Theme 2 (Hybrid PT, C6-C8):* OI's $1/\alpha_0$ hybrid form (4D-prop + 3D-vertex) closes at 1-loop, not at 2-loop; explains $\delta_0$ empirical status.
@@ -210,7 +210,7 @@ The chat-track convergence sweep (§B.2.39) closed the bijection thread at chat-
 
 ### Offline (user-side, external/administrative)
 
-- ~~Re-deposit v2.0.0 + §B.2.36-§B.2.39 propagations to Zenodo~~ **[COMPLETED §B.2.127 era, May 14, 2026]** Concept DOI 10.5281/zenodo.19060318 now resolves to record 20179932 (v2.0.7 deposit). Subsequent propagations through §B.2.124 included in v2.0.7 bundle; framework-repo Zenodo cadence intentionally reduced during book-drafting period per §B.2.124.
+- ~~Re-deposit v2.0.0 + §B.2.36-§B.2.39 propagations to Zenodo~~ **[COMPLETED §B.2.127 era, May 14, 2026]** Concept DOI 10.5281/zenodo.19060318 now resolves to record 20179932 (v2.0.7 deposit). Subsequent propagations through §B.2.124 included in the v2.0.7 release set; framework-repo Zenodo cadence intentionally reduced during book-drafting period per §B.2.124.
 - Submit Juno to Physics Letters B *(in progress as of §B.2.127+ Juno pivot work — journal target under reconsideration: paper grew during pre-emption pass, may now fit PRD Regular Article better than PLB Letter)*
 - ORCID + author email fill in Juno cover letter *(in progress; awaiting author-input values)*
 - ~~Verify [Maybaum 2026] internal section numbers in current sources match Zenodo deposit~~ **[COMPLETED §B.2.127 era, May 14, 2026]** Audit of all [18] citations in Juno.md against v2.0.7 SM.md confirms all 8 section references (§§7.1-7.2, §7.1, §8.3, §4.6, §4.7, §4.7.1.2, §§4.5-4.7, §7.3, §7.7) and all 4 theorem references (Thm 7, 7b, 10, 15) resolve cleanly. Reference [18] currently cites concept DOI 10.5281/zenodo.19060318, which resolves to v2.0.7 — correct as-is.
@@ -281,17 +281,17 @@ The May 6 audit cycle reclassified five SM §7.6 table items (item 13 P → L, i
 ## §B.7 Code/data resources
 
 **Existing infrastructure:**
-- `oi_lattice_code/` — main lattice code
+- `papers/oi_lattice_code/` — main lattice code (in-repo)
 - `pion_correlator.c` — built for D10 (extends `taste_irrep.c`); gives
  $f = 0.30 \pm 0.01$ at quenched L=8
 - `step2_KS_calculation.py` — D10 SχPT pipeline; gives $K_S^\text{pred}
  = 5\times 10^{-4}$ vs empirical $7\times 10^{-3}$
 - `analyze_zs.py` — gives $\Sigma \approx 0.20$, $m_\text{match}^\text{MC}
  = 0.1234$
-- `d10_offline_package.zip` — standalone offline calculation runner
+- standalone offline calculation runner (archived off-repo)
 
 **Investigation artifacts:**
-- `d10_step1/` — pion correlator code + Step 1 analysis
+- pion correlator code + Step 1 analysis (archived off-repo)
 - `d10_session_A1/`, `_A2/`, `_A4/` — L=16, 24, 32 mass scans
 - `d10_candidate1/` through `d10_candidate13/` — gem-finding sessions
 - `d10_part_B/` — Part B prospects analysis (B1 finding)
@@ -733,7 +733,7 @@ retrodictive package shrank (top mass S→R with mechanism open; A·B cross-chec
 m_d/m_s S→L) and gained pre-registered forward exposure (Wolfenstein-A strain criterion
 √(2/3)(1±λ²); sum rule framed as the direct Cond-2 test).
 
-**Manuscript state:** OI_full_audit_merge_2026-07-05.zip (19 files) supersedes all prior artifact
+**Manuscript state:** the consolidated 2026-07-05 full-audit merge (19 files) supersedes all prior artifact
 sets — papers Main 37pp / SM 118pp / GR 50pp, book FULL 495pp + ch00/ch01/ch06/preface/appendix-A
 sources; all builds exit-0, post-install verified.
 
@@ -757,11 +757,11 @@ near-identity, §B.2.248 tension re-surfaced); N1 completeness proof; N5 c_λ; W
 limit; Methodology-§4.5-vs-Main-§2.3 finiteness tension (NEW, §B.2.619ke); external review = gate.
 
 
-## OPEN_PROBLEMS entry (2026-07-25; frozen-rule consequence, PREREGISTRATION_A2_v2)
+## OPEN_PROBLEMS entry (2026-07-25; consequence of the frozen pre-registered rule of 2026-07-20)
 EMPIRICAL NEGATIVE — Z_S universality FAILS on the direct-sampled induced measure.
 Delta Z_S = +2.60% +/- 0.15% at matched <P> (4^4, m = 0.75, archived point), reproducible
 across two independent direct-sampling streams; frozen tolerance 2%. Consequences in force:
 A^2 = 2 and the m_b/m_tau-template mass sector jointly flagged; no retreat to an alternative
 measure without a new theory-side derivation; Phase 1 does not start. Record:
-bundle code/p0_condensate_gate/P0_1E_V2_RESULT.log; spec PREREG_P0.1e_v2_single_writer.
+the full run record and both pre-registration documents are archived in the project's off-repo records (2026-07-25).
 Characterization (not appeal) available: P0.2 second-mass and 8^4 points.

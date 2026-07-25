@@ -4,8 +4,9 @@ This repo holds the manuscript for *The Incompleteness of Observation*:
 
 - `papers/` — the technical papers (`SM`, `GR`, `Substratum`, `Structure`, `Main`, …).
 - `book/`   — the book chapters and the consolidated `The-Incompleteness-of-Observation-FULL.*`.
-- `methodology/` — the OI_MASTER split set (`00_TODO` … `04_journal`), moved into the repo
-  2026-07-25 so the working methodology is versioned with the manuscript it governs.
+- `methodology/` — the project methodology set: `01_methodology` (§A), `02_operational_state` (§B),
+  `03_reference_docs` (§B.9). Self-contained: the session journal, TODO queue, and handoff remain in
+  the project's private working records, and §B.2.x markers in these files cite that off-repo journal.
 
 **`.md` is the source of truth. `.tex` and `.pdf` are generated from it** (pandoc + xelatex) — never
 hand-edit them; regenerate. This file is the condensed, repo-enforced subset of
@@ -50,8 +51,8 @@ Added 2026-07-25 after an integrity event: a second uncoordinated writer (most l
 session on a shared container) produced 26 unaccounted files in the gate work area, detected only by a
 filename collision.
 
-1. **One writer at a time.** Before writing to a shared working copy (bundle or checkout), create/verify
-   `BUNDLE_LOCK` (session id + timestamp + scope). If a lock you don't own is present and fresh, do not
+1. **One writer at a time.** Before writing to a shared working copy (this checkout or any other working archive), create/verify
+   a lock file — `REPO_LOCK` here, the analogous lock elsewhere — carrying session id + timestamp + scope. If a lock you don't own is present and fresh, do not
    write — surface to the owner.
 2. **Anomaly ⇒ full sweep, then halt.** Any file you didn't write and can't source to the pristine
    upload/checkout triggers a complete integrity sweep (working copy vs pristine vs your own logged
@@ -78,7 +79,7 @@ notes** — `*[Status note, YYYY-MM-DD: …]*` — appended in place, supersedin
 - **Manuscript voice only.** No internal-ledger vocabulary (*graded motivated-unverified*,
   *implementation-unrecovered*), no internal filenames or phase labels, no process jargon a reader
   cannot resolve. State what is established, for which object, at what precision, and what remains
-  unverified — in the paper's own register. Internal bookkeeping stays in the bundle logs.
+  unverified — in the paper's own register. Internal bookkeeping stays in the off-repo working logs.
 
 ---
 
@@ -124,6 +125,6 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
 - **The asymmetry that does hold:** an honesty *downgrade* — conceding a claimed proof is actually
   open/conditional — can only hold or lower correctness, never raise it (you don't become more likely-true
   by admitting you proved less). And consistency work is a *force-multiplier* on the correctness tests, not
-  a direct band-mover. (Full treatment: bundle `01_methodology.md` §A.23.)
+  a direct band-mover. (Full treatment: `methodology/01_methodology.md` §A.23.)
 - Prefer *conditional / retrodiction / empirically-anchored / open* over *derived / theorem / proved* when
   the body doesn't fully support the stronger word.

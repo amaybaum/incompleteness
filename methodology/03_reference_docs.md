@@ -1,4 +1,4 @@
-<!-- OI BUNDLE — 03: §B.9 reference docs (code de-embedded to code/). Part of the OI_MASTER bundle (see README.md). Section labels (§A.x,§B.x) preserved. -->
+<!-- methodology/03 — §B.9 reference docs. Part of the repo methodology set (01–03). §B.2.x markers cite the off-repo session journal. -->
 
 ## §B.9 Auxiliary reference documents
 
@@ -6,10 +6,10 @@ This section consolidates the author-facing reference documents, the working pri
 
 ### §B.9.1 OI Differentiator Reference Card
 
-*Source: regenerated May 24, 2026, post-§B.2.186 (consolidated into OI_MASTER from `OI_differentiator_reference.md`).*
+*Source: regenerated May 24, 2026, post-§B.2.186 (consolidated into this reference from `OI_differentiator_reference.md`).*
 
 
-**Author-facing strategic reference.** This card consolidates the framework's distinctive scientific content for use in author decisions about engagement priorities, presentation framing, and falsification-vulnerability analysis. Not intended for external distribution as-is; the underlying analyses live in `OI_MASTER.md`.
+**Author-facing strategic reference.** This card consolidates the framework's distinctive scientific content for use in author decisions about engagement priorities, presentation framing, and falsification-vulnerability analysis. Not intended for external distribution as-is; the underlying analyses live in the off-repo project journal.
 
 **Regenerated:** May 24, 2026, post-§B.2.186 audit-of-audit. Supersedes the pre-§B.2.183 version (which used the stale 21 G1 count). Sources: §B.2.180 (differentiator analysis), §B.2.183 (G1 expansion), §B.2.184 (constraint-structure observation), §B.2.186 (strict-criteria taxonomy).
 
@@ -147,7 +147,7 @@ These caveats are not decoration; they are what makes the card honest. Removing 
 ### §8 What this card is not
 
 - **Not an external claims document.** This is internal author reference; external claims should be written carefully against the actual papers, not against the card's summarization.
-- **Not a substitute for OI_MASTER.** The card is a digest; the underlying analyses, audits, and self-corrections live in §B.2.172 / §B.2.178 / §B.2.180 / §B.2.183 / §B.2.184 / §B.2.186 entries.
+- **Not a substitute for the underlying record.** The card is a digest; the underlying analyses, audits, and self-corrections live in §B.2.172 / §B.2.178 / §B.2.180 / §B.2.183 / §B.2.184 / §B.2.186 entries.
 - **Not a marketing piece.** The framework's communication strategy is "provisional commitment with honest accountability," not "high-impact unification candidate." Presenting the card's content without its caveats overstates what the audits support.
 
 ---
@@ -158,7 +158,7 @@ These caveats are not decoration; they are what makes the card honest. Removing 
 
 ### §B.9.2 Methodology Paper Part V — Phase 1 Specification
 
-*Source: produced May 24, 2026, per §B.2.186 propagation item 4 (consolidated into OI_MASTER from `Methodology_PartV_Phase1_spec.md`).*
+*Source: produced May 24, 2026, per §B.2.186 propagation item 4 (consolidated into this reference from `Methodology_PartV_Phase1_spec.md`).*
 
 **Phase 2 status:** Phase 2 (the actual writeup) was executed in §B.2.187 (same session). This spec is now the pre-registered scope document that Phase 2 was checked against. Retained here as the pre-registration record; the deltas between this spec and the executed Part V are documented in §B.2.187.
 
@@ -167,7 +167,7 @@ These caveats are not decoration; they are what makes the card honest. Removing 
 
 **Status:** Phase 1 spec. **Phase 2 execution (the actual writeup) is deferred to a future session.** Producing this spec on the May 23-24 arc satisfies the §B.5 offline-items entry's reframing per §B.2.186; executing without the spec was the path the §A.13 fifth refinement is designed to block.
 
-**Source content:** §B.2.172, §B.2.173, §B.2.174, §B.2.175, §B.2.176, §B.2.178, §B.2.180, §B.2.181, §B.2.182, §B.2.183, §B.2.184, §B.2.186 in OI_MASTER.md.
+**Source content:** §B.2.172, §B.2.173, §B.2.174, §B.2.175, §B.2.176, §B.2.178, §B.2.180, §B.2.181, §B.2.182, §B.2.183, §B.2.184, §B.2.186 in the project journal (off-repo).md.
 
 **Scope decision:** This is **not a new paper**. It is an extension of the existing `papers/Methodology.md` (*Physics Modulo Gauge: The Methodology of the Incompleteness Framework*, 539 lines, four parts, developmental draft). The existing paper covers *foundational* methodology (two-axiom base, constructive structural realism, per-theorem evasion of no-gos, physics-modulo-gauge proposal). Part V covers *operational* methodology (gauge invariance applied as a working constraint on what is and isn't derivable).
 
@@ -195,9 +195,9 @@ Part V comprises six new sections (§21–§26), inserted between the current §
 
 **§21 — The Operational Question (~3-4 paragraphs).** Frames Part V relative to Parts II–IV. The well-posed question physics modulo gauge identifies is "what does the equivalence class produce, and what are its representatives?" §21 sharpens this to its operational form: given the substratum gauge group $\mathcal{G}_{\text{sub}}$, what substrate computations are determining of observable content, and what are gauge-forbidden? The answer is non-trivial and is what §22–§24 develop.
 
-**§22 — The Gauge-Invariance No-Go (~6-8 paragraphs).** §B.2.173 in OI_MASTER, written for the paper. **Statement:** under $\mathcal{G}_{\text{sub}}$ state-relabeling, no substrate computation can determine bijection-specific quantities (4/3 directionality, CP phases, mass hierarchy assignment). **Proof sketch:** gauge-invariance under relabeling means observables depend only on equivalence-class invariants; bijection-specific quantities require fixing a representative; therefore they are not derivable from substrate-only computation, only from the empirical inputs that select the representative. **Worked examples:** (a) Cond 2 4/3 directionality (which pair-ratio gets the 4/3); (b) CKM CP phase; (c) mass hierarchy assignment within generations. **Status:** developed result, proof complete in OI_MASTER §B.2.173.
+**§22 — The Gauge-Invariance No-Go (~6-8 paragraphs).** §B.2.173 in the project journal (off-repo), written for the paper. **Statement:** under $\mathcal{G}_{\text{sub}}$ state-relabeling, no substrate computation can determine bijection-specific quantities (4/3 directionality, CP phases, mass hierarchy assignment). **Proof sketch:** gauge-invariance under relabeling means observables depend only on equivalence-class invariants; bijection-specific quantities require fixing a representative; therefore they are not derivable from substrate-only computation, only from the empirical inputs that select the representative. **Worked examples:** (a) Cond 2 4/3 directionality (which pair-ratio gets the 4/3); (b) CKM CP phase; (c) mass hierarchy assignment within generations. **Status:** developed result, proof complete in the project journal (off-repo) §B.2.173.
 
-**§23 — The Category-Error Finding (~5-7 paragraphs).** §B.2.174 in OI_MASTER. **Statement:** per Ch02 §2.5 (book) / equivalent in technical papers, there is no substrate-level Lagrangian; "$\mathcal{L}_Y$" is emergent post-trace-out. The substrate is the deterministic bijection $\varphi$, not an action functional. **Implication for §22:** the gauge-invariance no-go is one manifestation of a deeper category structure — substrate-level operations (graph computations, bijection iterations) are categorically distinct from emergent-level operations (Lagrangian field theory, perturbation theory). Searching for "substrate-level Lagrangians" attacks a non-existent target. **Worked example:** the §B.2.164–174 Lagrangian search arc, retired by this finding. **Status:** developed result, type-checking complete in OI_MASTER §B.2.174.
+**§23 — The Category-Error Finding (~5-7 paragraphs).** §B.2.174 in the project journal (off-repo). **Statement:** per Ch02 §2.5 (book) / equivalent in technical papers, there is no substrate-level Lagrangian; "$\mathcal{L}_Y$" is emergent post-trace-out. The substrate is the deterministic bijection $\varphi$, not an action functional. **Implication for §22:** the gauge-invariance no-go is one manifestation of a deeper category structure — substrate-level operations (graph computations, bijection iterations) are categorically distinct from emergent-level operations (Lagrangian field theory, perturbation theory). Searching for "substrate-level Lagrangians" attacks a non-existent target. **Worked example:** the §B.2.164–174 Lagrangian search arc, retired by this finding. **Status:** developed result, type-checking complete in the project journal (off-repo) §B.2.174.
 
 **§24 — The Architectural Pattern: Part III Extended (~4-5 paragraphs).** Connects §22–§23 to Part III's "one architecture, four manifestations" pattern. Part III identifies one architectural feature (substrate/emergent split with trace-out) producing four no-go manifestations. §22–§23 identify the same architectural feature producing two further manifestations at the content level: (a) what's gauge-determinable, (b) what's category-coherent. **The unification claim:** Part III + Part V together give "one architecture, six manifestations." Stated as a thesis: every framework no-go traces to the substrate/emergent architecture, and the architecture is fixed before any no-go is considered.
 
@@ -223,7 +223,7 @@ The author retains the right to expand to 30-50 paragraphs if §22 or §23 requi
 
 ---
 
-### §4 What gets developed in the paper vs cited to OI_MASTER
+### §4 What gets developed in the paper vs cited to the project journal (off-repo)
 
 **Developed in-paper (full statement, proof or proof sketch, worked examples):**
 - §22 gauge-invariance no-go: full statement, proof sketch, three worked examples
@@ -231,7 +231,7 @@ The author retains the right to expand to 30-50 paragraphs if §22 or §23 requi
 - §24 architectural unification: full thesis statement, six-manifestation table
 - §26 (a) verify before recording refinement: statement at general fidelity
 
-**Cited to OI_MASTER (compressed reference; defer to source for detail):**
+**Cited to the project journal (off-repo) (compressed reference; defer to source for detail):**
 - §25 audit findings: cite §B.2.172 and §B.2.178 numerically; do not re-execute the audits in the paper
 - §25 §B.2.186 strict-criteria taxonomy: cite as the post-audit-of-audit reconciliation; do not re-derive
 - §26 (b) recursive scrutiny: cite §B.2.186 as the worked example; treat as provisional pending second instance
@@ -259,12 +259,12 @@ Per §B.2.181, the existing §19 (Gauge Freedom and Observational Incompleteness
 
 ### §6 Pre-registered outcomes — what counts as Phase 2 success / partial success / failure
 
-**Success:** Part V drafted to spec; 25-40 paragraphs across §21–§26; statements and proofs verified against OI_MASTER §B.2.172-186; existing paper's voice and rigor level preserved; status field updated to acknowledge Part V's developmental status; §20 Conclusion updated to reference Part V; submission-readiness gating retained (do not promote out of "Developmental draft" without philosopher's check + bibliography resolution).
+**Success:** Part V drafted to spec; 25-40 paragraphs across §21–§26; statements and proofs verified against the project journal (off-repo) §B.2.172-186; existing paper's voice and rigor level preserved; status field updated to acknowledge Part V's developmental status; §20 Conclusion updated to reference Part V; submission-readiness gating retained (do not promote out of "Developmental draft" without philosopher's check + bibliography resolution).
 
 **Partial success:** §22 + §23 drafted (the two no-go theorems written up); §24–§26 deferred. This delivers the headline content (the two no-go theorems as publishable methodology) without committing to the full extension. Acceptable if the author wants to test reception of the no-go theorems before extending further.
 
 **Failure modes to watch for at writeup:**
-- *Inflation* — Part V grows past 50 paragraphs and starts re-deriving content that should be cited. §B.2.186's discipline applies: cite OI_MASTER, do not re-execute.
+- *Inflation* — Part V grows past 50 paragraphs and starts re-deriving content that should be cited. §B.2.186's discipline applies: cite the project journal, do not re-execute.
 - *Foundation drift* — Part V's claims start depending on the unresolved foundational question (two vs three axioms). Watch for any §22 or §23 step that requires Part I's specific axiom count; if found, flag and defer until the philosopher's check resolves.
 - *Strategic / methodology conflation* — differentiator analysis (§B.2.180) or constraint-structure observation (§B.2.184) starts creeping into Part V. These are strategic content; they belong in the differentiator reference card or in a book chapter, not in the methodology paper.
 
@@ -280,7 +280,7 @@ Before executing Phase 2, the author should decide:
 
 3. **§19 BoI extension order.** Draft §19 extension first (1-2 paragraphs, low risk) or directly attempt Part V? Drafting §19 first lets the author calibrate voice before committing to Part V.
 
-4. **Submission target.** The existing paper does not yet have a stated submission target in OI_MASTER. Part V's content (the operational methodology) sits at the boundary of foundations of physics and philosophy of physics, which constrains the venue choice somewhat but does not determine it. Author decision required; this spec does not propose specific journals.
+4. **Submission target.** The existing paper does not yet have a stated submission target in the project journal (off-repo). Part V's content (the operational methodology) sits at the boundary of foundations of physics and philosophy of physics, which constrains the venue choice somewhat but does not determine it. Author decision required; this spec does not propose specific journals.
 
 5. **Whether to include Part V's audits at all.** Alternative scoping: Part V could be limited to §22 + §23 + §24 (the no-go theorems and their architectural unification), with §25 (audits) and §26 (refinements) deferred entirely. This trades scope for risk reduction and is a defensible choice if the audit-of-audit recursive case (§B.2.186) is felt to need more session instances before canonization.
 
@@ -291,10 +291,10 @@ Before executing Phase 2, the author should decide:
 These are the gating conditions for Phase 2:
 
 - **Author decision on §7 items 1-5.** Without these decisions, the writeup direction is underdetermined.
-- **OI_MASTER §B.2.172-186 stable.** Currently stable as of the May 24 post-§B.2.186 update; should not be revised without re-checking this spec.
+- **the project journal (off-repo) §B.2.172-186 stable.** Currently stable as of the May 24 post-§B.2.186 update; should not be revised without re-checking this spec.
 - **No foundational question revision in flight.** If the philosopher's check on the two-vs-three axioms question is in progress, Phase 2 should wait — Part V's framing depends on Part I being settled.
 
-If all gating conditions are met, Phase 2 (drafting Part V to this spec) is an estimated 2-4 hour session task at the existing paper's voice and rigor level. The §B.2.186-derived discipline of "cite OI_MASTER, do not re-execute" should keep the scope contained.
+If all gating conditions are met, Phase 2 (drafting Part V to this spec) is an estimated 2-4 hour session task at the existing paper's voice and rigor level. The §B.2.186-derived discipline of "cite the project journal, do not re-execute" should keep the scope contained.
 
 ---
 
@@ -316,7 +316,7 @@ If all gating conditions are met, Phase 2 (drafting Part V to this spec) is an e
 4. **A live near-term falsifier** (DESI running-vacuum), which most of the genre lacks — currently running *against* the framework (kept honest: this is an adverse contact, not a pending win).
 5. **An unusually self-adversarial audit culture** (the four-layer forcing-vs-fit ledger, audit-of-audit downgrades, explicit "argued not derived" tags, §A.18 itself). Methodological, not physical — but it is what separates OI from the overclaiming end of the niche.
 
-**The unifying synthesis (what ties #1 and #2 together — §B.2.263).** Separators #1 (inverse ordering) and #2 (reaches the SM) are not two independent features plus a borrowed QM-emergence; they are two consequences of ONE structural move — the EMBEDDED-OBSERVER PARTITION as a shared engine. The same observer-as-proper-subsystem cut that produces QM (marginalize the inaccessible remainder → P-indivisible → unitary) is the partition whose boundary entropy gives the area law and ℏ, whose information-compression ratio is the 10^122 CC gap, and whose factorization-breaking is the (local, non-superdeterministic) Bell evasion. So the distinctiveness is best stated as: *a single structural fact — observer-as-embedded-subsystem — used as the COMMON ORIGIN of QM, the gravitational/thermodynamic sector, and the CC, in an inverted geometry-first ordering, with the SM gauge group falling out of the specific cubic-lattice substratum.* This conjunction (embedded-observer cut as the shared mechanism across all of these) is not found in the neighbours: 't Hooft has determinism-first but no observer-partition doing this work; emergent-gravity programs have the horizon/partition but assume QM; the observer-information CC line has the observer but neither the QM-derivation nor the SM. Two precisions keep it honest: (a) the embedded-observer→QM cylinder is the one still resting on the BORROWED Barandes bridge — the engine's most load-bearing part is imported, not derived, so firming the necessity direction independently is the single highest-value move for the distinctiveness claim; (b) a shared engine means CORRELATED outcomes — one bet wearing several hats, right almost everywhere or wrong almost everywhere, NOT N independent confirmations: distinctive and elegant, but a single point of failure. The referee-proof headline is *reach + inversion + shared engine*, NOT "uniquely dissolves the major problems" (that breadth-from-one-principle is the genre's table stakes). A standing elevator-pitch artifact built on this framing lives in the bundle (OI_elevator_pitch.md). **Dependency-structure refinement (§B.2.264):** the cubic substratum is claimed as DOWNSTREAM, not an input — the wave equation is uniquely selected (center-independence + isotropy + linearity) and the cubic lattice + (3,2,1) multiplicities follow from K=2d minimization. This makes the inputs leaner (stronger hard-to-vary) but RELOCATES the load onto the uniqueness lemmas (wave-equation selection, K=2d, Bravais-lattice uniqueness, generation-assignment), which become the load-bearing floor and the first audit target; and it entangles the forced-cubic with the boost-sector liability (can't be dodged as 'could have chosen otherwise'). Separator #3's 'single simple-cubic commitment' is therefore better read as 'single simple-cubic RESULT' — the joint-forcing claim stands either way. **Audit refinement (§B.2.265):** an adversarial read of the wave-equation uniqueness theorem (SM §4.1) tempers §B.2.264's leanness: the uniqueness holds only *within* second-order + reversible + nearest-neighbor dynamics (three qualifiers the 'three-criteria' headline omits), and LINEARITY is strongly-argued-not-proven (SM §4.1 calls it 'necessary' via a q-gauge genericity argument; Substratum §98/§102 concedes 'nonlinear alternatives are not ruled out' and 'partly derived' — an internal inconsistency to reconcile). Net: the 'no why-cubic knob' is right but the knob is RELOCATED to linearity (the live assumption) + range-1 (stronger than the stated bounded-degree axiom), not removed. The criteria are each well-motivated (center-independence↔QM-screening, isotropy↔Lorentz, linearity↔four convergent arguments), so the lemma holds up better than a pure skeptic fears — but linearity is the softest joint and the first audit target.
+**The unifying synthesis (what ties #1 and #2 together — §B.2.263).** Separators #1 (inverse ordering) and #2 (reaches the SM) are not two independent features plus a borrowed QM-emergence; they are two consequences of ONE structural move — the EMBEDDED-OBSERVER PARTITION as a shared engine. The same observer-as-proper-subsystem cut that produces QM (marginalize the inaccessible remainder → P-indivisible → unitary) is the partition whose boundary entropy gives the area law and ℏ, whose information-compression ratio is the 10^122 CC gap, and whose factorization-breaking is the (local, non-superdeterministic) Bell evasion. So the distinctiveness is best stated as: *a single structural fact — observer-as-embedded-subsystem — used as the COMMON ORIGIN of QM, the gravitational/thermodynamic sector, and the CC, in an inverted geometry-first ordering, with the SM gauge group falling out of the specific cubic-lattice substratum.* This conjunction (embedded-observer cut as the shared mechanism across all of these) is not found in the neighbours: 't Hooft has determinism-first but no observer-partition doing this work; emergent-gravity programs have the horizon/partition but assume QM; the observer-information CC line has the observer but neither the QM-derivation nor the SM. Two precisions keep it honest: (a) the embedded-observer→QM cylinder is the one still resting on the BORROWED Barandes bridge — the engine's most load-bearing part is imported, not derived, so firming the necessity direction independently is the single highest-value move for the distinctiveness claim; (b) a shared engine means CORRELATED outcomes — one bet wearing several hats, right almost everywhere or wrong almost everywhere, NOT N independent confirmations: distinctive and elegant, but a single point of failure. The referee-proof headline is *reach + inversion + shared engine*, NOT "uniquely dissolves the major problems" (that breadth-from-one-principle is the genre's table stakes). A standing elevator-pitch artifact built on this framing lives in the off-repo working records (OI_elevator_pitch.md). **Dependency-structure refinement (§B.2.264):** the cubic substratum is claimed as DOWNSTREAM, not an input — the wave equation is uniquely selected (center-independence + isotropy + linearity) and the cubic lattice + (3,2,1) multiplicities follow from K=2d minimization. This makes the inputs leaner (stronger hard-to-vary) but RELOCATES the load onto the uniqueness lemmas (wave-equation selection, K=2d, Bravais-lattice uniqueness, generation-assignment), which become the load-bearing floor and the first audit target; and it entangles the forced-cubic with the boost-sector liability (can't be dodged as 'could have chosen otherwise'). Separator #3's 'single simple-cubic commitment' is therefore better read as 'single simple-cubic RESULT' — the joint-forcing claim stands either way. **Audit refinement (§B.2.265):** an adversarial read of the wave-equation uniqueness theorem (SM §4.1) tempers §B.2.264's leanness: the uniqueness holds only *within* second-order + reversible + nearest-neighbor dynamics (three qualifiers the 'three-criteria' headline omits), and LINEARITY is strongly-argued-not-proven (SM §4.1 calls it 'necessary' via a q-gauge genericity argument; Substratum §98/§102 concedes 'nonlinear alternatives are not ruled out' and 'partly derived' — an internal inconsistency to reconcile). Net: the 'no why-cubic knob' is right but the knob is RELOCATED to linearity (the live assumption) + range-1 (stronger than the stated bounded-degree axiom), not removed. The criteria are each well-motivated (center-independence↔QM-screening, isotropy↔Lorentz, linearity↔four convergent arguments), so the lemma holds up better than a pure skeptic fears — but linearity is the softest joint and the first audit target.
 
 **What is NOT distinctive (the honest other side):** QM-emergence is largely Barandes + Stinespring (borrowed bridge; OI's own part is the C1–C3 horizon anchoring); the ℏ relation is near-definitional (ℏ=c³ε²/4G with ε=2ℓ_P is the Planck-length identity); the cosmological-constant "dissolution" is in the Padmanabhan/Verlinde lineage; and breadth itself ("dissolves twelve mysteries") is the genre's default move, not a differentiator. (Full per-pillar grading: §B.2.236.)
 
@@ -335,7 +335,7 @@ If all gating conditions are met, Phase 2 (drafting Part V to this spec) is an e
 
 ### §B.9.4 Stage-3 offline boost campaign — run-ladder specification
 
-*Source: consolidated into OI_MASTER from `CAMPAIGN_stage3.md` (June 5, 2026). The engine and runner are embedded in §B.9.6.*
+*Source: consolidated into this reference from `CAMPAIGN_stage3.md` (June 5, 2026). The engine and runner are embedded in §B.9.6.*
 
 # Offline Stage-3 Campaign — runnable specification
 
@@ -382,7 +382,7 @@ A reproduced, continuum-approaching, large-L demonstration that δc/bare-split �
 
 ### §B.9.5 Working priority list (detailed snapshot)
 
-*Source: consolidated into OI_MASTER from `NEXT_STEPS.md` (June 5, 2026). The canonical short form is the current resume marker (latest §B.2.xxxc); this is the fuller working snapshot and must be read together with that marker, which wins on any conflict.*
+*Source: consolidated into this reference from `NEXT_STEPS.md` (June 5, 2026). The canonical short form is the current resume marker (latest §B.2.xxxc); this is the fuller working snapshot and must be read together with that marker, which wins on any conflict.*
 
 # NEXT_STEPS — updated after §B.2.239 (θ₀ reclassified: not turn-key) + §B.2.237/§A.18 (recency corrective) + §B.2.236 (foundational audit)
 
@@ -459,16 +459,16 @@ this as the operational instance of the §A.18 "rebuild from the oldest" rule.
 
 ### §B.9.6 Code appendix — boost-sector lattice engine arc + campaign runner
 
-*De-embedded in the bundle reorganization (§B.2.246): the source files live in `code/` in this bundle (previously embedded verbatim here). Files (all validated; gates passing where stated):*
+*De-embedded in the 2026 record reorganization (§B.2.246): the source files live in the project's off-repo code archive (previously embedded verbatim here). Files (all validated; gates passing where stated):*
 
-- `code/validate_pi_s_6p1.py` — §6.1 validation gate (§B.2.239): reproduces 1/α₀=23.25.
-- `code/hmc_stage1_dispersion_gate.py` — Stage 1: free-field dispersion gate.
-- `code/hmc_stage2a_quenched_demo.py` — Stage 2a: quenched-U(1) demonstrator (gauge-fixing-mandatory lesson).
-- `code/hmc_stage2b_gaugefixed_dispersion.py` — Stage 2b: gauge-fixed dispersion/speed with jackknife.
-- `code/hmc_stage3_twospecies_su2.py` — Stage 3 (DECISIVE ENGINE): two scalar species on confining SU(2); gates passing (§B.2.235).
-- `code/run_stage3_campaign.py` — parameterized offline campaign runner (`--smoke` reproduces §B.2.235).
-- `code/piece11_twoloop_trend.py`, `code/piece12_strong_coupling.py` — earlier perturbative explorations (superseded).
+- `validate_pi_s_6p1.py` — §6.1 validation gate (§B.2.239): reproduces 1/α₀=23.25.
+- `hmc_stage1_dispersion_gate.py` — Stage 1: free-field dispersion gate.
+- `hmc_stage2a_quenched_demo.py` — Stage 2a: quenched-U(1) demonstrator (gauge-fixing-mandatory lesson).
+- `hmc_stage2b_gaugefixed_dispersion.py` — Stage 2b: gauge-fixed dispersion/speed with jackknife.
+- `hmc_stage3_twospecies_su2.py` — Stage 3 (DECISIVE ENGINE): two scalar species on confining SU(2); gates passing (§B.2.235).
+- `run_stage3_campaign.py` — parameterized offline campaign runner (`--smoke` reproduces §B.2.235).
+- `piece11_twoloop_trend.py`, `code/piece12_strong_coupling.py` — earlier perturbative explorations (superseded).
 
-Note: the Substratum manuscript (built with xelatex, not pdflatex; §B.2.245) is kept as a standalone output / in the repo — it is NOT in this bundle.
+Note: the Substratum manuscript (built with xelatex, not pdflatex; §B.2.245) is kept as a standalone output in the repo.
 
 ---

@@ -1,4 +1,4 @@
-<!-- OI BUNDLE — 01: Preamble + §A methodology. Part of the OI_MASTER bundle (see README.md). Section labels (§A.x,§B.x) preserved. -->
+<!-- methodology/01 — Preamble + §A methodology. Part of the repo methodology set (01–03). §A.x/§B.x labels preserved; §B.2.x markers cite the project's session journal, maintained off-repo. -->
 
 # OI Framework — Master Reference
 
@@ -12,7 +12,7 @@ completed audits) and §B.3 (prediction status table).
 
 ## §0 Orientation — how to use this document
 
-This document has three sections at three temporal scales:
+The master reference has three sections at three temporal scales. This repo carries §A (this file) and the current §B state (`02_operational_state.md`, `03_reference_docs.md`); §C and the §B.2 session journal are maintained in the project's private working records, off-repo:
 
 - **§A Methodology** — *stable*. Audit procedure, classification scheme,
  accumulated antipattern lessons. Updates only when methodology learns
@@ -26,7 +26,8 @@ This document has three sections at three temporal scales:
 
 - **§C Handoff** — *latest session*. Rewritten each major session.
  What just happened, current document versions, recommended next session,
- honest limitations, cold-pickup orientation.
+ honest limitations, cold-pickup orientation. Maintained off-repo with the
+ session journal.
 
 **Update protocol:**
 
@@ -36,7 +37,7 @@ This document has three sections at three temporal scales:
 | §B | Prediction status changes, work plan shifts | May 24, 2026 (§B.2.186 + §B.2.187 added; §B.9 added: §B.2.186 adversarial audit of §B.2.183 G1 expansion walked back +1.5pp → +0.3-0.5pp under strict-criteria filter, refined taxonomy to G1 vs mechanism-distinctive vs framing; §B.2.187 propagated four §B.2.184-186-era deferred items to manuscripts — MWI category-error sharpening in ch12, constraint-structure observation in ch19, Methodology §19 BoI extension, Methodology Part V (~28 paragraphs, 6 new sections §21-§26); §B.9 consolidates two previously-standalone auxiliary documents (Differentiator Reference Card as §B.9.1; Methodology Part V Phase 1 spec as §B.9.2) into this master file; §B.5 Methodology Part V item moves from Phase-1-spec-produced to Phase-2-executed; net session-cumulative adjustment +4.5pp → +3.0-3.5pp; eighth self-correction of the May 23-24 arc, recursive case canonizing §A.13 seventh at eight-instance strength. Earlier May 14 arc — May 14, 2026 — preserved in §B.2.125-134 archive; see §B.2.186-187 for full audit and propagation details.) |
 | §C | Each major session | May 24, 2026 (post-§B.2.187 update of the May-24 fresh handoff: probability 37.5–51.5% → 36–50.5%; G1 count 29 → 22-23 effective independent + 5 mechanism-distinctive + 1 framing; §C.4 net adjustment +4.5pp → +3.0-3.5pp; §C.5 auxiliary documents (differentiator card, Methodology Part V Phase 1 spec) consolidated into §B.9 of this document, Methodology Part V executed (paper grew 33pp → 40pp), book updated at 508pp; §C.6 deferred items closed except for author-blocked; `book/index.md` removed from repo. The May-14 §C is preserved at the bottom of the file as historical record.) |
 
-**For cold pickup:** read §C first, then §B.4 (active research directions),
+**For cold pickup:** read §C (off-repo) first, then §B.4 (active research directions),
 then §B.5 (work plan). §A is reference material — consulted as needed,
 not read top-to-bottom.
 
@@ -1484,17 +1485,17 @@ If the old phrase still appears anywhere it shouldn't, that file needs updating.
 
 ## §A.15 Repository scope — manuscript files only (May 31, 2026)
 
-**Rule.** The public repository (`incompleteness-main`) contains **manuscript files only**: the papers (`papers/`), the book (`book/`), the supporting lattice/numerical code that the papers depend on (`papers/oi_lattice_code/`), and standard repo infrastructure (README, LICENSE, .gitignore). Nothing else belongs in the repo.
+**Rule.** The public repository (`incompleteness-main`) contains **manuscript files only**: the papers (`papers/`), the book (`book/`), the supporting lattice/numerical code that the papers depend on (`papers/oi_lattice_code/`), and standard repo infrastructure (README, LICENSE, .gitignore), and — since 2026-07-25 — the methodology set (`methodology/01–03`: §A, §B operational state, §B.9 reference docs), kept self-contained. Nothing else belongs in the repo.
 
 **What this EXCLUDES (and where each lives instead):**
-- **OI_MASTER.md** — the private working/journal document. Never in the repo; it is the operational record across sessions, not a framework artifact. (Correctly absent.)
-- **Working-session findings** — venture screening, geometry-vs-contents analysis, Bell-gate reasoning, realism/epistemics discussions, etc. (§B.2.193–195). These are journal content (OI_MASTER), not repo content.
+- **The session journal, TODO queue, and handoff (§B.2 / §C)** — the private working record across sessions, not a framework artifact; maintained off-repo. (The stable §A/§B layers moved into the repo as `methodology/` on 2026-07-25; the session-scale layers deliberately did not.)
+- **Working-session findings** — venture screening, geometry-vs-contents analysis, Bell-gate reasoning, realism/epistemics discussions, etc. (§B.2.193–195). These are journal content (off-repo), not repo content.
 - **Exploratory / applied-track documents** — e.g. TEMPO_VENTURES.md, the benefit-if-true pipeline. Decoupled applied tracks (§B.2.194) live in their own files outside the repo; per the prior precedent (§C era, May 24) exploratory work belongs in a companion location, not the framework repo.
 - **Audit / verification scaffolding** — e.g. load_bearing_joints_audit_map.md. Internal tools for structuring verification. NOT committed to the repo unless and until (a) their content is corrected and verified against the papers, and (b) a deliberate decision is made to publish them — and even then as a clearly-marked separate document, not mixed into the manuscript. (As of this entry, the audit map is NOT repo-ready: the Joint-1 first-principles pass found it over-states a status the source qualifies; the correction has not yet been applied to the map file itself.)
 
-**Rationale.** The repo is the framework's public, citable face — what a referee, reader, or arXiv submission points to. Mixing in working notes, applied-track exploration, or unverified self-audit scaffolding would (a) dilute the manuscript with non-manuscript material, (b) risk publishing status claims (e.g. an "audit map" label) that the author already knows need correction, and (c) blur the clean separation between *the framework* (repo) and *the work of developing and checking it* (OI_MASTER + companion docs). Keeping the repo manuscript-only keeps the public artifact exactly as authoritative as the papers themselves, no more and no less.
+**Rationale.** The repo is the framework's public, citable face — what a referee, reader, or arXiv submission points to. Mixing in working notes, applied-track exploration, or unverified self-audit scaffolding would (a) dilute the manuscript with non-manuscript material, (b) risk publishing status claims (e.g. an "audit map" label) that the author already knows need correction, and (c) blur the clean separation between *the framework* (repo) and *the work of developing and checking it* (the off-repo working records + companion docs). Keeping the repo manuscript-only keeps the public artifact exactly as authoritative as the papers themselves, no more and no less.
 
-**Consequence for "is the repo updated?" checks.** Most session work is NOT repo-bound by construction — it updates OI_MASTER. A repo update is warranted only when a manuscript file (paper, book, or its code) actually changes. Confirming "the repo is updated" therefore means checking that manuscript edits propagated (per §A.14), NOT that session findings appear in the repo — they should not.
+**Consequence for "is the repo updated?" checks.** Most session work is NOT repo-bound by construction — it updates the off-repo working records. A repo update is warranted only when a manuscript file (paper, book, or its code) actually changes. Confirming "the repo is updated" therefore means checking that manuscript edits propagated (per §A.14), NOT that session findings appear in the repo — they should not.
 
 ## §A.16 Understanding is the aim — run cheap probes that might serve it; judge significance after, not before (June 4, 2026)
 
@@ -1572,7 +1573,7 @@ The framework is large (cross-referenced companion papers — Main, SM, GR, Subs
 
 The size or duration of a problem is not a reason to avoid it, shrink it to fit one session, or treat "the next step is offline/external" as "stop." The framework's hardest open problems — the UV-smearing characterization of the coarse-graining map (§B.2.254), the boost-sector emergent-Lorentz campaign, the Phase-1 confinement run — are genuinely multi-session and partly external. That is a reason to STRUCTURE them, not to defer them indefinitely.
 
-**Methodical decomposition.** Plan a multi-session challenge by: (i) decomposing into PHASES with explicit success/failure GATES — no phase is trusted until its gate passes (§A.16/§A.17); (ii) labelling each phase by where it must run — in-session, offline-batch (§A.13), or external — and not pretending an offline/external phase can be completed in-session; (iii) persisting the plan, the resumable state, and the handoff artifacts (NEXT_STEPS, campaign docs, the bundle marker) so any future session resumes cleanly without re-deriving context; (iv) building freely toward each gate (engines, calibrations, scaffolds) so the offline/external steps are TEED UP, not blocked on missing infrastructure.
+**Methodical decomposition.** Plan a multi-session challenge by: (i) decomposing into PHASES with explicit success/failure GATES — no phase is trusted until its gate passes (§A.16/§A.17); (ii) labelling each phase by where it must run — in-session, offline-batch (§A.13), or external — and not pretending an offline/external phase can be completed in-session; (iii) persisting the plan, the resumable state, and the handoff artifacts (NEXT_STEPS, campaign docs, the off-repo journal's resume marker) so any future session resumes cleanly without re-deriving context; (iv) building freely toward each gate (engines, calibrations, scaffolds) so the offline/external steps are TEED UP, not blocked on missing infrastructure.
 
 **The line that holds simultaneously (with §A.18).** A methodical multi-session plan is NOT itself progress. Decomposing, scaffolding, and persisting a plan are 0pp; the binding constraint moves only when a GATE actually passes (a run completes, a derivation closes, a referee weighs in). Boldness about SCOPE must not become inflation about STATUS. This is the inverse failure mode to §A.18's: §A.18 warns against mistaking volume for progress; §A.20 warns against mistaking a problem's difficulty or scale for a reason to stop. Both errors end in the same place — the binding constraint unmoved — and the correct posture splits the difference: take on the big problem, structure it across sessions, report its status honestly at each gate.
 
