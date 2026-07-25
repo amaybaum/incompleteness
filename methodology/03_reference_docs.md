@@ -2,7 +2,7 @@
 
 ## §B.9 Auxiliary reference documents
 
-This section consolidates the author-facing reference documents, the working priority list, the campaign specification, and the boost-sector code that previously lived as standalone files. **Transfer note (June 5, 2026):** as of §B.2.240 this master is self-contained for hand-off to a future session — it carries the full journal (§B.2.x), the standing methodology (§A), the priorities (§B.9.5), the stage-3 campaign spec (§B.9.4), and the live engine code (§B.9.6). A future session needs only this file. The structure of each consolidated document is preserved.
+This section consolidates the author-facing reference documents, the working priority list, the campaign specification, and the boost-sector code that previously lived as standalone files. **Transfer note:** as of §B.2.240 this master is self-contained for hand-off to a future session — it carries the full journal (§B.2.x), the standing methodology (§A), the priorities (§B.9.5), the stage-3 campaign spec (§B.9.4), and the live engine code (§B.9.6). A future session needs only this file. The structure of each consolidated document is preserved.
 
 ### §B.9.1 OI Differentiator Reference Card
 
@@ -13,8 +13,7 @@ This section consolidates the author-facing reference documents, the working pri
 
 ---
 
-### §1 What counts as what — the strict-criteria taxonomy (§B.2.186)
-
+### §1 What counts as what — the strict-criteria taxonomy
 Three categories of distinctive content, distinguished by what they actually claim:
 
 **G1 — substrate-derivable parameter-free predictions.** Parameter-free, substrate-derivable, quantitatively falsifiable, AND independent of already-counted G1 content (the §B.2.186 criterion (d) for independence). These are the framework's strongest predictive content. **Defensible count: 22-23 effective independent.**
@@ -81,8 +80,7 @@ OI provides parameter-free derivations for quantities the standard account fits 
 
 ---
 
-### §4 The constraint-structure observation (§B.2.184)
-
+### §4 The constraint-structure observation
 This is a fourth dimension beyond G1, mechanism-distinctive, and framing — it captures qualitative depth of explanation rather than count of predictions.
 
 **The observation:** the framework dissolves approximately 12 deep mysteries via one structural feature (substrate/emergent split with trace-out). The list includes: cosmological constant ($10^{122}$), measurement problem, MWI, Bell, KS, PBR, FR, dark sector, hierarchy problem, strong CP, Higgs criticality, absence of GUT signatures.
@@ -299,8 +297,7 @@ If all gating conditions are met, Phase 2 (drafting Part V to this spec) is an e
 ---
 ---
 
-### §B.9.3 Distinctiveness and significance — consolidated standing summary (June 5, 2026)
-
+### §B.9.3 Distinctiveness and significance — consolidated standing summary
 *Consolidates material previously scattered across §B.9.1 (Differentiator Card — the falsification-target inventory), the §B.2 reference-class block, §B.8.6 (positioning vs emergent-QM programs), and §B.2.236 (the differentiated foundational-papers verdict). It duplicates none of them and supersedes none; it is the single findable answer to "what separates OI from its neighbours, and what would it mean if confirmed." Written recency-invariantly per §A.18: anchored on the reference class, distinctiveness stated as real-but-non-uniform, the freshest finding (the SC joint-forcing) held to its actual weight rather than the headline, significance expressed as conditional × probability. It does not move the bands.*
 
 **The recency-invariant anchor (read this first).** The reference class is "foundational programs claiming to derive QED/QCD/GWS/GR from prior structure": ~5–10 active programs (string theory and successors, loop quantum gravity, asymptotic safety, causal set theory, group field theory, Wolfram's hypergraph rewriting, Adler's trace dynamics, possibly Padmanabhan/Verlinde emergent-gravity). The base rate for substantive correctness in this class is low — decades each, none yet established. That anchor does not move with whatever sub-result was worked on most recently, and it is the frame everything below sits inside.

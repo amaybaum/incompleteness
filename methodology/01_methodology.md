@@ -344,7 +344,7 @@ entirely. Closure path: 10+ hours of careful diagrammatic work with
 symbolic algebra (Mathematica/FORM), beyond chat-session scope.
 
 **Manifestation 8 (group-theoretic surface masking bijection-specific
-operator alignment).** Cond 2 Step 5 review (May 6, 2026): the relation
+operator alignment).** Cond 2 Step 5 review: the relation
 $b_{23} = (4/3)(b_{12}+b_{13})$ has the surface form of a Layer 2(a)
 group-theoretic relation — the geometric reading $4/3 = 2A^2$ uses
 $A = \sqrt{2/3}$ (a verified Layer 1 substratum quantity from cubic-
@@ -398,7 +398,7 @@ decomposition is forced by representation theory or relies on an
 operator-alignment assumption. If the latter, it is bijection-specific
 (Layer 2(b)) until explicitly derived from substrate structure.
 
-**Manifestation 8 instances confirmed (May 6, 2026):**
+**Manifestation 8 instances confirmed:**
 - Cond 2 (PMNS sum rule, §B.2.2): same-bijection-alignment hypothesis
  on $T_2$ direction. Demoted to Layer 2(b).
 - D11 ($m_u/m_d = \sqrt{\theta_0}$, §B.2.3): same-perturbation
@@ -432,7 +432,7 @@ independent operators or transfer between sectors are bijection-
 specific until proven otherwise. Use this identity when scanning
 future predictions for Manifestation 8 character.
 
-**Two-layer conflation diagnostic (added §B.2.6, May 6, 2026).**
+**Two-layer conflation diagnostic (§B.2.6).**
 When a derivation invokes "the same X" applied across different
 layers (spatial/internal, structural/effective, etc.), check whether
 X is well-defined at both layers. Example: D11's "same Casimir
@@ -454,7 +454,7 @@ spatial↔internal). Algebraic re-expression of predictions in
 Layer 1 constants is necessary but not sufficient for promotion;
 verify constants enter via their structural mechanisms.
 
-**Rigor-level methodology (added May 6, 2026 per §B.2.10).**
+**Rigor-level methodology (§B.2.10).**
 Closure investigations should produce their proof rigor level
 explicitly. Three levels: Level 1 (verified at explicit equation
 chain, referee-ready), Level 2 (verified up to standard moves of
@@ -487,7 +487,7 @@ pseudofermion correspondence; only the cycle-ergodicity component
 caused gap (i) to be deferred indefinitely when most of it could
 have been addressed earlier.
 
-**Pattern across the May 6, 2026 session arc.** Methodology caught
+**Pattern across the audit sessions.** Methodology caught
 five overstatements: §B.2.9 Gem E (algebraic misidentification),
 §B.2.8 Gem B (closure-completeness overstatement), §B.2.11
 (application of Gem B correction), §B.2.12 ("not chat-tractable"
@@ -515,7 +515,7 @@ beyond the prior §B.2.6/§B.2.7 mechanism sub-classification (single-
 parameter direction selection / multi-parameter operator alignment /
 cross-layer transfer).
 
-**Cross-prediction consistency tests (added §B.2.15, May 6, 2026).**
+**Cross-prediction consistency tests (§B.2.15).**
 The discretization-determined nature of Layer 2(b) values
 (§B.2.14 Gem K) implies cross-prediction consistency. Investigation
 shows this holds *within structural clusters* but not *across
@@ -600,7 +600,7 @@ does not forbid saturation conclusions — it requires that they be
 confirmed rather than asserted, and it does not force session
 interruption when calibration is not the load-bearing concern.
 
-**Within-line vs across-line generalization (added May 7, 2026).**
+**Within-line vs across-line generalization .**
 Saturation in one investigation line is weak evidence about other
 lines that work different machinery. §B.2.14–§B.2.17 worked the
 bijection-characterization neighborhood (§B.8.1 + §B.8.7 share
@@ -618,7 +618,7 @@ generalizing a saturation conclusion, identify the specific machinery
 the recent investigations shared and check whether the next candidate
 line shares it.
 
-**Convergence-vs-saturation diagnostic (added May 7, 2026).** A
+**Convergence-vs-saturation diagnostic .** A
 §B.8 (or similar) investigation line *converges* when its original
 question targets have been answered at honestly-stated rigor levels
 and remaining gaps are explicitly classified — not when the
@@ -644,7 +644,7 @@ for.
  what remains, and whether the line is closed-for-now vs paused-
  pending-other-work.
 
-*Origin (§B.2.18, May 7, 2026).* §B.8.3 (Lorentz emergence and
+*Origin (§B.2.18).* §B.8.3 (Lorentz emergence and
 corrections) opened with five listed questions; investigation
 produced F1 (mechanism), F2 (operator structure), F3 (UHECR
 phenomenology) plus two F3-internal resolution closures (Maccione
@@ -946,8 +946,7 @@ framework is wrong, only that its claims were over-stated.
 - Open tasks reviewed periodically (every 6 months) for independent
  closure.
 
-## §A.10 Terminal vs instrumental value (Part VII addition)
-
+## §A.10 Terminal vs instrumental value
 The audit produces two distinct value functions:
 
 ### Terminal value
@@ -996,7 +995,7 @@ classification update.
 **Gem-finding mode** (Part VII): structured around exposing hidden
 assumptions. Different question per session ("what assumption am I
 implicitly making in step X?"). Different success criterion ("did
-this session reveal a structural blind spot, regardless of whether
+such findings reveal a structural blind spot, regardless of whether
 it helped close the prediction?").
 
 The two modes are not mutually exclusive but prioritized differently:
@@ -1060,8 +1059,7 @@ high-instrumental-yield prediction *before* moving to lower-yield
 predictions:** methodology refinement and assumption-watch markers
 help lower-yield investigations catch their own issues earlier.
 
-## §A.11 Lessons from completed audits (summary, May 2026)
-
+## §A.11 Lessons from completed audits
 Across 17+ audit sessions covering all five primary documents (Main,
 SM, GR, Substratum, Juno) plus two application papers (Complexity,
 Medicine), the audit produced **0 fatal gaps** and **16 substantive
@@ -1294,8 +1292,7 @@ This is a healthy outcome: the framework's strong claims are mostly
 sustained, with explicit conditional flags on the 4-6 predictions where
 the derivation chain genuinely depends on stated open assumptions.
 
-## §A.12 Investigation strategy — DFS preferred over BFS (May 8, 2026)
-
+## §A.12 Investigation strategy — DFS preferred over BFS
 **Decision recorded.** When pursuing gem-finding investigations or other multi-avenue research questions, the default investigation strategy is **depth-first** (DFS): drive a single avenue toward higher closure levels until it is exhausted or genuinely walled, before pivoting to alternative avenues.
 
 This contrasts with breadth-first (BFS): scoping multiple avenues in parallel, achieving partial results in each, and reporting the best overall. BFS produces broader-but-shallower results; DFS produces narrower-but-deeper results.
@@ -1326,8 +1323,7 @@ This contrasts with breadth-first (BFS): scoping multiple avenues in parallel, a
 
 **Methodology amendment recorded.** This applies to all subsequent gem-finding investigations and multi-avenue research questions in the framework.
 
-## §A.13 Offline tasks excluded from chat-track ranking (May 8, 2026; refined same-day)
-
+## §A.13 Offline tasks excluded from chat-track ranking
 **Decision recorded.** Tasks that are external to the chat environment or beyond chat-session feasibility are excluded from chat-track recommendations, prioritization, and confidence-impact assessments. Chat-track output is ranked on its own terms — what chat sessions can produce — without competing against tasks that don't belong on the same ranking axis.
 
 **What "offline" means (refined definition).** "Offline" is defined by feasibility, not by task category. Three classes of tasks are excluded:
@@ -1364,7 +1360,7 @@ These participate in chat-track ranking like any other chat-tractable investigat
 - Exception: if a chat-track recommendation is *prerequisite-blocked* by an offline task (e.g., a chat investigation cannot proceed without a particular external result), that prerequisite is stated once and the chat-track item is deferred or scoped accordingly.
 - Sanity-check / first-pass / small-scale numerical work *promoted from offline*: when a previous classification said "offline lattice-PT computation," ask whether a small-$N$ or first-pass version is feasible in chat. If yes, the chat-track candidate is the small-$N$ first pass, with the full $N \to \infty$ extrapolation remaining offline. This produces a graduated rather than binary online/offline classification.
 
-**Second refinement (May 9, 2026; user-prompted): online-by-default presumption.** Tasks are presumed online (chat-trackable) unless explicitly identified as one of the three offline classes above. The default-classification direction was reversed by this refinement, addressing a recurring pattern in which structural derivations were being classified offline by default — and only re-promoted to online after explicit user prompting (instances: §B.2.38 promoted lattice-PT first passes; this refinement promotes structural derivations).
+**Second refinement : online-by-default presumption.** Tasks are presumed online (chat-trackable) unless explicitly identified as one of the three offline classes above. The default-classification direction was reversed by this refinement, addressing a recurring pattern in which structural derivations were being classified offline by default — and only re-promoted to online after explicit user prompting (instances: §B.2.38 promoted lattice-PT first passes; this refinement promotes structural derivations).
 
 *Operational test.* Before classifying a candidate task as offline, ask: "does this require Mathematica/FORM-scale symbolic computation, multi-day Monte Carlo with full thermalization plus many independent samples, or external system access Claude does not have?" If no to all three, the task is online.
 
@@ -1379,7 +1375,7 @@ These participate in chat-track ranking like any other chat-tractable investigat
 
 *Pattern this refinement addresses.* Default-offline classification of derivations leads to under-using chat scope: a structural derivation gets parked as offline when it would close in 1-2 sessions of focused DFS. Default-online classification matches §A.12's DFS-preferred posture and avoids the recurring offline/online recategorization back-and-forth.
 
-**Third refinement (May 10, 2026; user-prompted): three-phase computational pipeline framing.** The first two refinements established that "online" includes more than initially classified — small-to-medium-$N$ lattice PT, sympy verification, structural derivations, targeted small-lattice HMC. This refinement extends the framing to computational tasks that exceed chat-session feasibility *for execution* but do not exceed chat-session feasibility *for preparation or analysis*. These are split into a three-phase pipeline:
+**Third refinement : three-phase computational pipeline framing.** The first two refinements established that "online" includes more than initially classified — small-to-medium-$N$ lattice PT, sympy verification, structural derivations, targeted small-lattice HMC. This refinement extends the framing to computational tasks that exceed chat-session feasibility *for execution* but do not exceed chat-session feasibility *for preparation or analysis*. These are split into a three-phase pipeline:
 
 - *Phase 1 — online prep (chat-track).* Write the source code, Mathematica/FORM notebook, or lattice driver. Specify diagrams, regularization scheme, parameter scan, expected outputs, runtime envelope, and environment requirements. Pre-register what each result would mean for prediction classification — including both confirmation criteria (e.g., "$K_S = 0.0072 \pm 0.001$ → D10 L → S") and falsification criteria (e.g., "$K_S < 0.005$ → reopen mechanism specificity"). Pre-registration before execution prevents post-hoc rationalization of unexpected outputs.
 
@@ -1408,7 +1404,7 @@ These participate in chat-track ranking like any other chat-tractable investigat
 
 **Methodology amendment recorded.** Applies to all §B.5 work plan formulation, §C handoff orientation, and computational-item classification going forward.
 
-**Fourth refinement (May 11, 2026; user-prompted): pipeline framing applies to research-stage exploration, not just preparation of established pipelines.** §A.13's third refinement framed three-phase pipelines for tasks where Phase 1 is *known to be feasible* and Phase 2 is *known to require specific external resources* (Mathematica/FORM hours, named compute hardware). This refinement extends the framing to **research-stage exploratory calculations** that might be feasible at small scale in chat without yet knowing whether they'll succeed.
+**Fourth refinement : pipeline framing applies to research-stage exploration, not just preparation of established pipelines.** §A.13's third refinement framed three-phase pipelines for tasks where Phase 1 is *known to be feasible* and Phase 2 is *known to require specific external resources* (Mathematica/FORM hours, named compute hardware). This refinement extends the framing to **research-stage exploratory calculations** that might be feasible at small scale in chat without yet knowing whether they'll succeed.
 
 *Pattern this refinement addresses.* In §B.2.107-§B.2.108 the composite-Higgs cluster's Option (a) — derive the trace-out fractional-power mechanism (GEMs 53-54) — was labeled "offline-heavy" without checking against §A.13's established framework. Re-examination revealed that the calculation decomposes naturally into the three-phase pipeline: Phase 1 = small-lattice exact computation specification (chat-tractable), Phase 2 = larger-$L$ stochastic execution (chat-tractable to offline depending on scale), Phase 3 = scaling analysis and framework propagation (chat-tractable). Default-offline classification of exploratory research-stage calculations leads to the same under-using-chat-scope failure that prompted the second refinement, but with a different mechanism: the offline label is being assigned not because the work has been shown to require offline resources, but because the work has not been *scoped* yet and offline is the default for unscoped computational tasks.
 
@@ -1425,7 +1421,7 @@ These participate in chat-track ranking like any other chat-tractable investigat
 
 *Methodology amendment recorded.* Applies to all exploratory-calculation classification going forward.
 
-**Fifth refinement (May 11, 2026; empirically validated by §B.2.111 + §B.2.113): Phase 1 deliverables include explicit measurement-procedure pre-registration.** §A.13's third and fourth refinements established the three-phase pipeline for exploratory calculations and specified that Phase 1 scoping is the prerequisite for offline/online classification. This refinement adds a specific Phase 1 deliverable: **the measurement procedure that connects the calculation's output to the hypothesis must be pre-registered, not deferred.**
+**Fifth refinement (validated by §B.2.111 + §B.2.113): Phase 1 deliverables include explicit measurement-procedure pre-registration.** §A.13's third and fourth refinements established the three-phase pipeline for exploratory calculations and specified that Phase 1 scoping is the prerequisite for offline/online classification. This refinement adds a specific Phase 1 deliverable: **the measurement procedure that connects the calculation's output to the hypothesis must be pre-registered, not deferred.**
 
 *Pattern this refinement addresses.* In §B.2.111 the v1 Phase 1 spec for trace-out fractional-power was nominally complete (lattice size scoped, sampling strategy specified, resource estimates verified) but the v1 *execution* revealed three errors: (1) operators were defined on visible sites only, giving identically zero hidden-state variance by construction; (2) the test was time-evolution of uniform-random states, trivially flat for linear-mod-q dynamics; (3) the measurement strategy conflated dynamical correlation decay with static coupling renormalization. None of these errors were detectable from the v1 spec alone — they only became visible when the code ran and produced uninformative output. The v2 spec written in §B.2.113 explicitly pre-registered: (a) what quantity is computed, (b) what the hypothesis predicts for that quantity, (c) how the prediction translates to numerical outcomes, (d) what classifications (Outcome A/B/C/D) the numerical outcomes map to. The v2 execution then produced cleanly-interpretable results — including refutation of the hypothesis — that the v1 procedure could not have produced.
 
@@ -1450,8 +1446,7 @@ If any of (1)-(4) is missing, the Phase 1 spec is incomplete and the calculation
 
 *Methodology amendment recorded.* Applies to all exploratory-calculation Phase 1 specs going forward.
 
-## §A.14 Propagation-audit pattern across parallel manuscript sources (May 25, 2026)
-
+## §A.14 Propagation-audit pattern across parallel manuscript sources
 **Context.** The framework's book is maintained in two parallel forms: `book/The-Incompleteness-of-Observation-FULL.md` (consolidated complete manuscript) and individual chapter files `book/ch*.md`. These are *parallel sources*, not derived from each other — FULL.md is larger than the sum of chapter files (it includes title page, frontmatter, appendices, etc.) and chapter files are not concatenated to produce it. The same content appears in both whenever a chapter is treated as a standalone artifact.
 
 **Implication for propagation.** When sharpening or modifying content that appears in multiple manuscript locations, edits must be applied to every parallel location independently. The audit pattern that catches all parallels is:
@@ -1482,8 +1477,7 @@ If the old phrase still appears anywhere it shouldn't, that file needs updating.
 
 ---
 
-## §A.15 Repository scope — manuscript files only (May 31, 2026)
-
+## §A.15 Repository scope — manuscript files only
 **Rule.** The public repository (`incompleteness-main`) contains **manuscript files only**: the papers (`papers/`), the book (`book/`), the supporting lattice/numerical code that the papers depend on (`papers/oi_lattice_code/`), and standard repo infrastructure (README, LICENSE, .gitignore), and — since 2026-07-25 — the methodology set (`methodology/01–03`: §A, §B operational state, §B.9 reference docs), kept self-contained. Nothing else belongs in the repo.
 
 **What this EXCLUDES (and where each lives instead):**
@@ -1496,8 +1490,7 @@ If the old phrase still appears anywhere it shouldn't, that file needs updating.
 
 **Consequence for "is the repo updated?" checks.** Most session work is NOT repo-bound by construction — it updates the off-repo working records. A repo update is warranted only when a manuscript file (paper, book, or its code) actually changes. Confirming "the repo is updated" therefore means checking that manuscript edits propagated (per §A.14), NOT that session findings appear in the repo — they should not.
 
-## §A.16 Understanding is the aim — run cheap probes that might serve it; judge significance after, not before (June 4, 2026)
-
+## §A.16 Understanding is the aim — run cheap probes that might serve it; judge significance after, not before
 **Decision recorded.** Understanding of the underlying truth is the terminal aim; computation is instrumental to it (complements §A.10). The operational consequence: **when a computation might increase understanding, the default is to run it and see, not to rule it out in advance.** A pre-emptive judgment that "this can't bear on the question" is itself an unverified theoretical claim — and you frequently do not know a computation's true significance until the result is in hand. Ruling it out beforehand is how genuine surprises get missed.
 
 **Why pre-judging significance is the trap.** The significance of a result is a property of the result, not of the plan. Predicting "all outcomes will be uninformative" assumes you already understand the structure well enough to know what the computation would reveal — which, for a genuinely open question, is exactly what you do not yet have. The history of the framework's own progress (and of physics generally) is full of computations expected to be routine that exposed unanticipated structure. So a *predicted*-null result is not the same as a *checked*-null result, and the gap between them is where understanding sometimes lives.
@@ -1506,7 +1499,7 @@ If the old phrase still appears anywhere it shouldn't, that file needs updating.
 - **Cheap probe, possible upside → just run it.** The cheapest way to learn a computation's significance is usually to run it. piece11 cost seconds.
 - **Expensive campaign → the relevance case must justify the cost.** A multi-day two-species HMC is not run on a whim; here the burden of arguing it bears on the question is real, because the cost is real. The discipline scales with cost, not with a blanket pre-filter.
 
-**The piece11 episode, correctly read (this session, §B.2.232).** Running piece11 was *right*, not a mistake: it was cheap, fully gated (rotational R = machine zero, hypercubic B_phys ≈ zero at both loop orders), and its two-loop trend could in principle have bent sharply toward the sign-flip — which would have been a real signal worth having. The actual error was downstream, in the *interpretation*: framing an uninformative outcome as "removes perturbative comfort for the candidate" inflated a null result into apparent significance. An honest post-hoc reading converts it to its true value: a *checked* fact (the perturbative series shows no trend toward the flip, now verified rather than assumed) that does not settle the non-perturbative question. That is a modest but real gain — and it is the correct way to bank a null.
+**The piece11 episode, correctly read (§B.2.232).** Running piece11 was *right*, not a mistake: it was cheap, fully gated (rotational R = machine zero, hypercubic B_phys ≈ zero at both loop orders), and its two-loop trend could in principle have bent sharply toward the sign-flip — which would have been a real signal worth having. The actual error was downstream, in the *interpretation*: framing an uninformative outcome as "removes perturbative comfort for the candidate" inflated a null result into apparent significance. An honest post-hoc reading converts it to its true value: a *checked* fact (the perturbative series shows no trend toward the flip, now verified rather than assumed) that does not settle the non-perturbative question. That is a modest but real gain — and it is the correct way to bank a null.
 
 **Where the discipline actually lives: honest interpretation, after the run.** The gate discipline ("trust the gated computations over the narrative") ensures a result is *correct*. §A.16 governs how its *significance* is reported once it is in hand: state plainly what the result does and does not bear on, and resist inflating a null or off-target result into a verdict (the converse of the declare-victory antipattern). A checked null is logged as a checked null — neither discarded as worthless nor dressed up as progress.
 
@@ -1519,8 +1512,7 @@ If the old phrase still appears anywhere it shouldn't, that file needs updating.
 
 **Methodology amendment recorded.** Applies to all subsequent computational and analytic work in the framework. Supersedes the earlier same-day draft of this section, which framed the lesson as a pre-registration relevance *filter* ("if all outcomes leave the question where it was, do not run it") — that over-rotated toward avoidance and would have wrongly vetoed cheap probes like piece11 whose significance was not actually knowable in advance. The corrected principle: lean toward running; judge significance after; scale caution to cost. Earned from the piece11 episode (§B.2.232).
 
-## §A.17 Peer review is the verification stage — proceed with development; the only pre-review limitation is on self-assessment (the bands are a proxy until then) (June 4, 2026)
-
+## §A.17 Peer review is the verification stage — proceed with development; the only pre-review limitation is on self-assessment (the bands are a proxy until then)
 **Decision recorded.** Independent verification is the job of *peer review* — the designated external stage that comes after the work exists. Its absence is therefore the NORMAL condition of in-progress, pre-submission work, NOT a constraint on current development. Development proceeds now; you cannot peer-review work that has not yet been done, and waiting for verification before producing internal results inverts the normal scientific order. The lack of independent verification does not limit or gate development.
 
 **The one thing it does limit: self-assessment.** The single quantity the pre-review verification gap genuinely constrains is the confidence bands (consistency 89–93%, correctness 33–47%). Until peer review is possible, the bands are a self-generated *proxy* — a self-consistent internal *ordering* of confidence — not externally calibrated probabilities. They are self-referential: they score internal coherence as judged by the same process that produced the content, and only their relative *moves* (the 0pp bookkeeping) have been tracked with care, never the absolute *level*. Peer review is precisely what converts this proxy into an externally anchored assessment. So: treat the bands as provisional-pending-review, and label them that way in any external-facing artifact — this is honest status-marking, not a brake on the work.
@@ -1542,8 +1534,7 @@ If the old phrase still appears anywhere it shouldn't, that file needs updating.
 
 ---
 
-## §A.18 Guard against the program-scale recency ratchet — rebuild the assessment from the oldest claims, not the latest (June 5, 2026)
-
+## §A.18 Guard against the program-scale recency ratchet — rebuild the assessment from the oldest claims, not the latest
 The session-scale rhythm (log an entry, fold it, update the marker, resume from the marker) has a structural side effect at the *program* scale: the newest thread is always the one in working memory, named, given a confidence line and follow-up targets, while older results settle into unexamined "background." Each marker points the next session back at the most recent thread, deepening it further. The result is a ratchet — recent work accretes elaboration; old load-bearing claims go un-re-audited — that from the inside is indistinguishable from genuine prioritization.
 
 **The fingerprint is already in this document.** The correctness band has wobbled 25-40% → 32-46% → 33-47% → 34-48% → 33-47% in ±1pp steps that each track whichever audit was most recent; the consistency band has been pinned at 89-93% across the entire history. §A.17 already conceded the deeper fact: *only the relative moves were ever tracked with care, never the absolute level.* A number that never moves across dozens of intensive sessions is ambiguous between calibrated and anchored, and the ratchet predicts anchored.
@@ -1556,11 +1547,10 @@ The session-scale rhythm (log an entry, fold it, update the marker, resume from 
 
 ---
 
-## §A.19 Read the whole framework before concluding — the answer is often already elsewhere in it (June 5, 2026)
-
+## §A.19 Read the whole framework before concluding — the answer is often already elsewhere in it
 The framework is large (cross-referenced companion papers — Main, SM, GR, Substratum, Structure, plus the book and applied papers) and its answers are DISTRIBUTED: a question raised in one paper is frequently resolved in another, or in a later remark of the same paper. Before concluding — and ALWAYS before any NEGATIVE or GAP claim ("the framework is silent on / omits / never addresses / contradicts X") — search the full corpus for X and read what it says. A gap found by partial reading is PROVISIONAL until the whole corpus is checked.
 
-**Motivating instance (this session, §B.2.253).** While reading the GR prediction sections, claimed the framework was "silent" on Lorentz violation. It is not: SM.md §3.1 treats it in depth — linear LV forbidden by cubic symmetry (no $O(k^3)$ term), the $-2/15$ quadratic coefficient pre-registered, and the radiative-stability problem flagged honestly and tied to the coarse-graining map. The "silence" was an artifact of not yet having read the right paper; the negative claim was simply wrong and would have mis-stated the assessment.
+**Motivating instance (§B.2.253).** While reading the GR prediction sections, claimed the framework was "silent" on Lorentz violation. It is not: SM.md §3.1 treats it in depth — linear LV forbidden by cubic symmetry (no $O(k^3)$ term), the $-2/15$ quadratic coefficient pre-registered, and the radiative-stability problem flagged honestly and tied to the coarse-graining map. The "silence" was an artifact of not yet having read the right paper; the negative claim was simply wrong and would have mis-stated the assessment.
 
 **Operational form.** "Read the entire framework" is not literally re-reading 1.25 MB before every sentence. It is: (i) for any conclusion the framework plausibly bears on, and unconditionally for a gap/omission/contradiction claim, grep the full manuscript corpus (all companion papers, not just the one in hand) for the relevant terms first; (ii) treat the conclusion as provisional until that search returns; (iii) follow the cross-references — answers routinely live one paper over (LV is in SM, not GR; the coarse-graining map spans SM §3.1 / §4.7.1.1 / §4.7.1.2; the gauge measure spans §6.5 / §7.5 / §4.2).
 
@@ -1568,8 +1558,7 @@ The framework is large (cross-referenced companion papers — Main, SM, GR, Subs
 
 ---
 
-## §A.20 Do not fear multi-session challenges — decompose and plan them methodically, while holding that a plan is not progress (June 5, 2026)
-
+## §A.20 Do not fear multi-session challenges — decompose and plan them methodically, while holding that a plan is not progress
 The size or duration of a problem is not a reason to avoid it, shrink it to fit one session, or treat "the next step is offline/external" as "stop." The framework's hardest open problems — the UV-smearing characterization of the coarse-graining map (§B.2.254), the boost-sector emergent-Lorentz campaign, the Phase-1 confinement run — are genuinely multi-session and partly external. That is a reason to STRUCTURE them, not to defer them indefinitely.
 
 **Methodical decomposition.** Plan a multi-session challenge by: (i) decomposing into PHASES with explicit success/failure GATES — no phase is trusted until its gate passes (§A.16/§A.17); (ii) labelling each phase by where it must run — in-session, offline-batch (§A.13), or external — and not pretending an offline/external phase can be completed in-session; (iii) persisting the plan, the resumable state, and the handoff artifacts (NEXT_STEPS, campaign docs, the off-repo journal's resume marker) so any future session resumes cleanly without re-deriving context; (iv) building freely toward each gate (engines, calibrations, scaffolds) so the offline/external steps are TEED UP, not blocked on missing infrastructure.
@@ -1580,8 +1569,7 @@ The size or duration of a problem is not a reason to avoid it, shrink it to fit 
 
 ---
 
-## §A.21 A numerical probe's SIGN can be an artifact — require an exactness/symmetry control before trusting a probe's direction (June 5, 2026)
-
+## §A.21 A numerical probe's SIGN can be an artifact — require an exactness/symmetry control before trusting a probe's direction
 A toy/numerical probe can return a confident but WRONG-SIGNED verdict if it rests on an unfaithful approximation, and the error can survive several turns of interpretation. Before trusting the DIRECTION of a probe's result (sign, presence/absence of an effect — not just its magnitude), run an exactness or symmetry CONTROL that checks whether the modeled operation preserves what it provably must.
 
 **Motivating instance (§B.2.259→261).** Probe B (§B.2.259) used a STATIC spatial Schur kernel paired with a separate plain time kernel and concluded that the spatial trace-out radiatively induces boost-sector Lorentz violation (η≠0); this drove an adverse lean across two turns (§B.2.259/260). The first-principles check (§B.2.261) showed it was an ARTIFACT: integrating out the hidden sublattice is an EXACT change of variables, so the faithful (worldline) trace-out must preserve the dispersion (c=1) — confirmed analytically and numerically (c²: faithful ≈ 1.0 vs the static approximation's spurious ≈ 2.0). The probe's normalization had hidden a factor-2 distortion, leaving its residue as a fake signal.
@@ -1592,8 +1580,7 @@ A toy/numerical probe can return a confident but WRONG-SIGNED verdict if it rest
 
 ---
 
-## §A.22 A conclusion that shifts a result's VALENCE needs a NEW result behind it — re-narration is not evidence, in either direction (June 26, 2026)
-
+## §A.22 A conclusion that shifts a result's VALENCE needs a NEW result behind it — re-narration is not evidence, in either direction
 The recurring failure mode across this audit is not a bias toward optimism or toward pessimism specifically; it is a willingness to MOVE A RESULT'S VALENCE — toward "stronger / vindicated / resolved" or toward "more exposed / falsified / over-claimed" — by RE-NARRATING a fact already in hand, with no new computation, representation-theory result, or external input behind the move. The two directions are the same error in different clothes. Documented instances: the four optimism-toward-good-news episodes of the May arc; the §B.2.442dj k_F "more exposed / ~10^15 tuning / near-falsification" reversion (a worst-case coefficient asserted as settled when it was precisely the uncomputed quantity); and §B.2.477es, where re-examining the arrow/Boltzmann sector produced a fresh "§397 mildly over-claims" finding that dissolved on contact with the already-recorded analysis (the deceptive small Boltzmann brains are structurally excluded by C2; the surviving large fluctuations are veridical observers, hence not the Boltzmann-brain problem at all).
 
 **The tell.** A valence-shifting conclusion whose entire support is a paraphrase of something already known — "this really means the framework is more/less exposed than stated" — with no result dated to the current turn. If the only thing that changed is the framing, the valence must not change.
@@ -1605,7 +1592,7 @@ The recurring failure mode across this audit is not a bias toward optimism or to
 ---
 
 
-### §A.23 [2026-06-28] Correctness vs consistency: the mechanism, refined
+### §A.23 Correctness vs consistency: the mechanism, refined
 Refinement of the blunt rule "only external review moves correctness". Precise version:
 - A result sits on the CORRECTNESS axis iff it is a NOVEL EMPIRICAL CONFRONTATION: a framework
   output (not fit to the data) compared to an INDEPENDENT measurement. On the CONSISTENCY axis iff
@@ -1620,7 +1607,7 @@ Refinement of the blunt rule "only external review moves correctness". Precise v
 - CEILING on all of them: empirical support raises "consistent with observation", never proves
   existence/uniqueness of the substratum. Bands UNCHANGED by logging this (it is methodology, not a result).
 
-### §A.23.1 [2026-06-28] Guard: the mechanism generalizes, the PROPERTY is per-item
+### §A.23.1 Guard: the mechanism generalizes, the PROPERTY is per-item
 A.23 ("correctness = novel empirical confrontation, any layer; replication banks the axis a result
 already sits on") must NOT be misread as "every replicated simulation moves correctness." The
 discriminator is whether a NOVEL EMPIRICAL CONFRONTATION is in the loop, not whether it is a
@@ -1639,7 +1626,7 @@ simulation or whether it is reviewable.
   work is a FORCE MULTIPLIER on the correctness tests, not a direct band-mover.
 Bands UNCHANGED by logging this (methodology, not a result).
 
-### §A.24 [2026-06-29] OI-aware external comparison (raw vs inferred; checkable, never immunizing)
+### §A.24 OI-aware external comparison (raw vs inferred; checkable, never immunizing)
 When comparing OI to external theoretical/experimental data, account for OI's QM-emergence
 (measurements = trace-out projections, not collapses) and observational incompleteness (embedded
 observer's partial access; the dark/invisible sector is a DESCRIPTION ARTIFACT, not new substance).
@@ -1659,7 +1646,7 @@ PROCEDURE:
    AND REVEAL tensions where OI predicts a deviation in a raw quantity the standard analysis averages out.
 Bands unchanged by logging this (methodology, not a result).
 
-### §A.25 [2026-07-16] Whole-corpus propagation & consistency check (before any status/claim edit lands)
+### §A.25 Whole-corpus propagation & consistency check (before any status/claim edit lands)
 TRIGGER: any edit that changes a CLAIM, its CLASSIFICATION (status/layer/tier; "theorem / derived /
 forced / open / hypothesis / conditional / retrodiction"), or a NUMERIC value.
 MOTIVATION (cross-artifact audit, batches 1-9): the dark-energy "theorem-level" overclaim recurred in
