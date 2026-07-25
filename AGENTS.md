@@ -4,10 +4,12 @@ This repo holds the manuscript for *The Incompleteness of Observation*:
 
 - `papers/` — the technical papers (`SM`, `GR`, `Substratum`, `Structure`, `Main`, …).
 - `book/`   — the book chapters and the consolidated `The-Incompleteness-of-Observation-FULL.*`.
+- `methodology/` — the OI_MASTER split set (`00_TODO` … `04_journal`), moved into the repo
+  2026-07-25 so the working methodology is versioned with the manuscript it governs.
 
 **`.md` is the source of truth. `.tex` and `.pdf` are generated from it** (pandoc + xelatex) — never
-hand-edit them; regenerate. The fuller working methodology lives outside git in the OI_MASTER bundle
-(`01_methodology.md`, §A); this file is the condensed, repo-enforced subset.
+hand-edit them; regenerate. This file is the condensed, repo-enforced subset of
+`methodology/01_methodology.md` (§A); when they disagree, fix the disagreement in the same commit.
 
 ---
 
@@ -42,6 +44,44 @@ Whenever you change a **claim**, its **classification** (status / layer / tier; 
 
 ---
 
+## RULE — Single writer, locked working copy, quarantine-don't-delete (§A.26)
+
+Added 2026-07-25 after an integrity event: a second uncoordinated writer (most likely a concurrent
+session on a shared container) produced 26 unaccounted files in the gate work area, detected only by a
+filename collision.
+
+1. **One writer at a time.** Before writing to a shared working copy (bundle or checkout), create/verify
+   `BUNDLE_LOCK` (session id + timestamp + scope). If a lock you don't own is present and fresh, do not
+   write — surface to the owner.
+2. **Anomaly ⇒ full sweep, then halt.** Any file you didn't write and can't source to the pristine
+   upload/checkout triggers a complete integrity sweep (working copy vs pristine vs your own logged
+   writes) *before* any further substantive work. Decisive measurements never run over an unresolved
+   provenance anomaly.
+3. **Quarantine, never delete.** Unaccounted artifacts move to `evidence/<event>/` with a hash+mtime
+   manifest, content untouched. They may later be *verified read-only* (replay-matches, internal-claim
+   checks) but are never adopted as data; if their content is right, re-derive it under your own trail
+   and credit the quarantined source for priority.
+4. **Deterministic replay is the integrity primitive.** Checkpoints carry full-precision parameters and
+   observable series; regeneration must replay-match elementwise or the run halts. (This gate caught a
+   real precision defect on 2026-07-25 before it could contaminate a verdict.)
+
+---
+
+## RULE — Status annotations in manuscripts: dated, superseding, manuscript-voice (§A.27)
+
+Empirical or archival status changes reach their manuscript dependents as **dated bracketed status
+notes** — `*[Status note, YYYY-MM-DD: …]*` — appended in place, superseding rather than deleting
+(a correction quotes or summarizes what it replaces). Two constraints, both learned the hard way:
+
+- **Same-session propagation.** An empirical result that bears on a manuscript claim gets its status
+  note in the same session the result is accepted (this is §A.25 applied to results, not just edits).
+- **Manuscript voice only.** No internal-ledger vocabulary (*graded motivated-unverified*,
+  *implementation-unrecovered*), no internal filenames or phase labels, no process jargon a reader
+  cannot resolve. State what is established, for which object, at what precision, and what remains
+  unverified — in the paper's own register. Internal bookkeeping stays in the bundle logs.
+
+---
+
 ## Build recipe (regenerating `.tex` / `.pdf`)
 
 Requires `pandoc` + a LaTeX engine with `xelatex` (e.g. `brew install pandoc texlive`).
@@ -63,6 +103,11 @@ pandoc book/The-Incompleteness-of-Observation-FULL.md -s --toc --toc-depth=3 \
 equivalents via `newunicodechar`, so xelatex doesn't silently drop them (e.g. a title's `ℏ`, or `φ`) while
 keeping the Computer Modern look. Always pass it with `--include-in-header`. After building, check the
 xelatex log for `Missing character` warnings.
+
+**Constrained-environment caveat:** if the build environment lacks a package (e.g. `lmodern.sty` absent,
+no network) and a shim or workaround is used, the resulting PDFs are provisional — flag them (STALE
+note or commit message) and rebuild on the canonical toolchain before any release or DOI deposit.
+The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
 
 ---
 
