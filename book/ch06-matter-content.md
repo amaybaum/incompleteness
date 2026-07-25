@@ -231,6 +231,8 @@ where $v$ is the Higgs vacuum expectation value, matching the observed $172.5 \p
 
 The mechanism behind this relation is open, and the honest classification is a retrodiction rather than a structural prediction. The natural proposal — a compositeness-scale normalization $y_t(M_{\text{Pl}}) = 1$ carried to low energy by the infrared quasi-fixed point — does not deliver the observed value under one-loop Standard Model running: $y_t(M_{\text{Pl}}) = 1$ flows to $y_t(m_t) \approx 1.19$, giving $m_t \approx 207$ GeV, and the IR quasi-fixed point itself sits at $y_t \approx 1.25$ ($m_t \approx 215$–$220$ GeV), not at unity. The attractor basin $y_{\text{UV}} \in [0.5, 5]$ focuses to $m_t \in [177, 221]$ GeV, a $25\%$ spread. What is empirically exact is the weak-scale statement $y_t(m_t) \approx 1$; the compositeness-scale normalization plus IR attraction does not produce it, and the observed top corresponds to $y_t(M_{\text{Pl}}) \approx 0.4$–$0.5$. The relation is therefore recorded as a retrodiction of the weak-scale $y_t \approx 1$ coincidence, with the structural mechanism an open task; a derivation of $y_t = 1$ at the electroweak matching scale, or of $y_t(M_{\text{Pl}}) \approx 1/2$ (which runs to $\approx 177$ GeV), would close it.
 
+The relation $m_t = v/\sqrt{2}$ matches the observation to $0.9\%$, but as a retrodiction of the weak-scale $y_t \approx 1$ coincidence rather than a parameter-free structural prediction; a derivation of $y_t = 1$ at the electroweak matching scale, or of $y_t(M_{\text{Pl}}) \approx 1/2$ (which runs to $\approx 177$ GeV), would close the mechanism.
+
 ---
 
 ## 6.7 PMNS mixing angles
@@ -297,10 +299,10 @@ The chapter has developed twenty-two Standard Model retrodictions from the cubic
 | $\alpha_2(M_Z)$ | RG running with $(\delta_0, A, B)$ | $0.0339$ | $0.03379 \pm 0.00009$ | fit | **R** [a] | E |
 | $\delta_0$ | U(1) row fit | $10.0$ | $-$ | empirical input | **E** | input |
 | $A \cdot B$ cross-check | independent derivation | $\approx 48$–$62$ (leading-power-dependent) | $46.4$ (from fit) | inconclusive | — | **A** |
-| $\bar\theta$ | T-invariance + detailed balance | $0$ | $\| \bar\theta \| < 10^{-10}$ | $\checkmark$ | **S** | **A** |
+| $\bar\theta$ | T-invariance + detailed balance | $0$ | $|\bar\theta| < 10^{-10}$ | $\checkmark$ | **S** | **A** |
 | Cabibbo $\lambda$ | inter-generation BZ distance | $0.2251$ | $0.2250 \pm 0.0007$ | $0.04\%$ | **S** | **A** |
 | Wolfenstein $A$ | off-democratic projection | $\sqrt{2/3} = 0.8165$ | $0.826 \pm 0.012$ | $1.2\%$ | **S** | **A** |
-| $\|V_{cb}\|$ | $A\lambda^2$ | $0.0414$ | $0.0408 \pm 0.0014$ | $0.4\sigma$ | **S** | **A** |
+| $|V_{cb}|$ | $A\lambda^2$ | $0.0414$ | $0.0408 \pm 0.0014$ | $0.4\sigma$ | **S** | **A** |
 | $m_d/m_s$ | GST $\lambda^2 = 1/(2\pi^2)$ | $0.0507$ | $0.0503 \pm 0.0007$ | $0.7\%$ | **L** | **A** |
 | Jarlskog $J$ | $\eta/(12\pi^6)$ | $3.02 \times 10^{-5}$ | $(3.08 \pm 0.13) \times 10^{-5}$ | $0.5\sigma$ | **E** ($\eta$) | **B** |
 | Koide $Q$ | cubic $T_1$ structure | $2/3$ | $0.66667$ | $0.001\%$ | **S** | **A** |

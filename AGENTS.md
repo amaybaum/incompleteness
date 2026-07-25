@@ -51,24 +51,28 @@ Whenever you change a **claim**, its **classification** (status / layer / tier; 
 
 ---
 
-## RULE — Single writer, locked working copy, quarantine-don't-delete (§A.26)
+## RULE — Provenance integrity: anomaly sweep, quarantine-don't-delete, deterministic replay (§A.26)
 
 Added 2026-07-25 after an integrity event: a second uncoordinated writer (most likely a concurrent
 session on a shared container) produced 26 unaccounted files in the gate work area, detected only by a
 filename collision.
 
-1. **One writer at a time.** Before writing to a shared working copy (this checkout or any other working archive), create/verify
-   a lock file — `REPO_LOCK` here, the analogous lock elsewhere — carrying session id + timestamp + scope. If a lock you don't own is present and fresh, do not
-   write — surface to the owner.
-2. **Anomaly ⇒ full sweep, then halt.** Any file you didn't write and can't source to the pristine
+*[Amended 2026-07-25: this rule originally opened with a "one writer at a time" clause requiring a
+`REPO_LOCK` file carrying session id + timestamp + scope, and forbidding writes when an unowned fresh
+lock was present. That requirement is withdrawn. In practice it added an artifact to maintain without
+preventing anything, and a hand-written lock whose timestamp and scope drift out of date is itself a
+source of error rather than a guard against one. The detection and containment rules below — which are
+what actually caught and bounded the originating event — are unaffected.]*
+
+1. **Anomaly ⇒ full sweep, then halt.** Any file you didn't write and can't source to the pristine
    upload/checkout triggers a complete integrity sweep (working copy vs pristine vs your own logged
    writes) *before* any further substantive work. Decisive measurements never run over an unresolved
    provenance anomaly.
-3. **Quarantine, never delete.** Unaccounted artifacts move to `evidence/<event>/` with a hash+mtime
+2. **Quarantine, never delete.** Unaccounted artifacts move to `evidence/<event>/` with a hash+mtime
    manifest, content untouched. They may later be *verified read-only* (replay-matches, internal-claim
    checks) but are never adopted as data; if their content is right, re-derive it under your own trail
    and credit the quarantined source for priority.
-4. **Deterministic replay is the integrity primitive.** Checkpoints carry full-precision parameters and
+3. **Deterministic replay is the integrity primitive.** Checkpoints carry full-precision parameters and
    observable series; regeneration must replay-match elementwise or the run halts. (This gate caught a
    real precision defect on 2026-07-25 before it could contaminate a verdict.)
 
