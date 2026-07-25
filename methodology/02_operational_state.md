@@ -22,7 +22,7 @@ The framework documents incorporate the closures and methodology refinements doc
 
 **Working documents:**
 - `methodology/` — this set (01 methodology, 02 operational state, 03 reference docs), the repo-resident reference; the session journal is maintained off-repo
-- `PartB_specification.md` — D10 closure path for collaborator (6 pages, with Manifestation 8 risk note in §3.3)
+- collaborator specification for the D10 closure path (6 pages, with Manifestation 8 risk note in its §3.3; off-repo)
 
 ## §B.2 Per-cluster confidence
 

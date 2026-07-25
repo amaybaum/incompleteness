@@ -6,12 +6,10 @@ This section consolidates the author-facing reference documents, the working pri
 
 ### §B.9.1 OI Differentiator Reference Card
 
-*Source: regenerated May 24, 2026, post-§B.2.186 (consolidated into this reference from `OI_differentiator_reference.md`).*
-
 
 **Author-facing strategic reference.** This card consolidates the framework's distinctive scientific content for use in author decisions about engagement priorities, presentation framing, and falsification-vulnerability analysis. Not intended for external distribution as-is; the underlying analyses live in the off-repo project journal.
 
-**Regenerated:** May 24, 2026, post-§B.2.186 audit-of-audit. Supersedes the pre-§B.2.183 version (which used the stale 21 G1 count). Sources: §B.2.180 (differentiator analysis), §B.2.183 (G1 expansion), §B.2.184 (constraint-structure observation), §B.2.186 (strict-criteria taxonomy).
+**Sources:** §B.2.180 (differentiator analysis), §B.2.183 (G1 expansion), §B.2.184 (constraint-structure observation), §B.2.186 (strict-criteria taxonomy); current as of the §B.2.186 audit-of-audit.
 
 ---
 
@@ -157,8 +155,6 @@ These caveats are not decoration; they are what makes the card honest. Removing 
 ---
 
 ### §B.9.2 Methodology Paper Part V — Phase 1 Specification
-
-*Source: produced May 24, 2026, per §B.2.186 propagation item 4 (consolidated into this reference from `Methodology_PartV_Phase1_spec.md`).*
 
 **Phase 2 status:** Phase 2 (the actual writeup) was executed in §B.2.187 (same session). This spec is now the pre-registered scope document that Phase 2 was checked against. Retained here as the pre-registration record; the deltas between this spec and the executed Part V are documented in §B.2.187.
 
@@ -335,8 +331,6 @@ If all gating conditions are met, Phase 2 (drafting Part V to this spec) is an e
 
 ### §B.9.4 Stage-3 offline boost campaign — run-ladder specification
 
-*Source: consolidated into this reference from `CAMPAIGN_stage3.md` (June 5, 2026). The engine and runner are embedded in §B.9.6.*
-
 # Offline Stage-3 Campaign — runnable specification
 
 **Status:** the engine (`hmc_stage3_twospecies_su2.py`) is built and gate-validated (§B.2.235); the runner (`run_stage3_campaign.py`) drives the first rung from the command line. This document is the run ladder that turns "the engine exists" into "here is what to run." Everything below is **offline (§A.13, multi-day MC)** and every output ships **EXPLORATORY-PENDING-REPRODUCTION (§A.17)**. A single run on one machine is a data point, not the campaign — each headline number must be reproduced on independent seeds and, ideally, independent machines.
@@ -382,7 +376,7 @@ A reproduced, continuum-approaching, large-L demonstration that δc/bare-split �
 
 ### §B.9.5 Working priority list (detailed snapshot)
 
-*Source: consolidated into this reference from `NEXT_STEPS.md` (June 5, 2026). The canonical short form is the current resume marker (latest §B.2.xxxc); this is the fuller working snapshot and must be read together with that marker, which wins on any conflict.*
+*The canonical short form is the current resume marker in the off-repo journal (latest §B.2.xxxc); this is the fuller working snapshot and must be read together with that marker, which wins on any conflict.*
 
 # NEXT_STEPS — updated after §B.2.239 (θ₀ reclassified: not turn-key) + §B.2.237/§A.18 (recency corrective) + §B.2.236 (foundational audit)
 
@@ -459,7 +453,7 @@ this as the operational instance of the §A.18 "rebuild from the oldest" rule.
 
 ### §B.9.6 Code appendix — boost-sector lattice engine arc + campaign runner
 
-*De-embedded in the 2026 record reorganization (§B.2.246): the source files live in the project's off-repo code archive (previously embedded verbatim here). Files (all validated; gates passing where stated):*
+*The source files live in the project's off-repo code archive (§B.2.246). Files (all validated; gates passing where stated):*
 
 - `validate_pi_s_6p1.py` — §6.1 validation gate (§B.2.239): reproduces 1/α₀=23.25.
 - `hmc_stage1_dispersion_gate.py` — Stage 1: free-field dispersion gate.

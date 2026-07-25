@@ -2,11 +2,10 @@
 
 # OI Framework — Master Reference
 
-**Replaces:** `AUDIT_METHODOLOGY.md`, `TODO.md`, `HANDOFF.md` as separate
-files. Self-contained — the audit findings from per-session documents
-(SM Sessions 1-7, GR Sessions 1-4, Substratum Sessions 1-2, Main, Juno,
-Complexity, Medicine) are summarized inline in §A.11 (lessons from
-completed audits) and §B.3 (prediction status table).
+The audit findings from per-session work (SM Sessions 1-7, GR Sessions 1-4,
+Substratum Sessions 1-2, Main, Juno, Complexity, Medicine) are summarized
+inline in §A.11 (lessons from completed audits) and §B.3 (prediction status
+table).
 
 ---
 
@@ -33,9 +32,9 @@ The master reference has three sections at three temporal scales. This repo carr
 
 | Section | Updates when | Last updated |
 |---------|--------------|--------------|
-| §A | Methodology lesson learned (~rare) | June 4, 2026 (§A.17 added then corrected same-session: *peer review is the verification stage — proceed with development; the only pre-review limitation is on self-assessment*. Lack of independent verification is the NORMAL pre-submission condition and does NOT gate development; the one thing it constrains is the confidence bands, which are a self-referential proxy / internal ordering until peer review makes external calibration possible. Exposure spectrum (gates low → structural → impossibility → bands highest) matters FOR review, as a presentation discipline (don't claim a high-exposure result as already-verified), not as a development brake. Supersedes the initial draft, which wrongly converted the calibration caveat into a development brake. Also this session: §A.16 (understanding is the aim — run cheap probes that might serve it; judge significance after), earned from piece11 / §B.2.232. Prior: May 11, 2026 — §A.13 fifth refinement.) |
-| §B | Prediction status changes, work plan shifts | May 24, 2026 (§B.2.186 + §B.2.187 added; §B.9 added: §B.2.186 adversarial audit of §B.2.183 G1 expansion walked back +1.5pp → +0.3-0.5pp under strict-criteria filter, refined taxonomy to G1 vs mechanism-distinctive vs framing; §B.2.187 propagated four §B.2.184-186-era deferred items to manuscripts — MWI category-error sharpening in ch12, constraint-structure observation in ch19, Methodology §19 BoI extension, Methodology Part V (~28 paragraphs, 6 new sections §21-§26); §B.9 consolidates two previously-standalone auxiliary documents (Differentiator Reference Card as §B.9.1; Methodology Part V Phase 1 spec as §B.9.2) into this master file; §B.5 Methodology Part V item moves from Phase-1-spec-produced to Phase-2-executed; net session-cumulative adjustment +4.5pp → +3.0-3.5pp; eighth self-correction of the May 23-24 arc, recursive case canonizing §A.13 seventh at eight-instance strength. Earlier May 14 arc — May 14, 2026 — preserved in §B.2.125-134 archive; see §B.2.186-187 for full audit and propagation details.) |
-| §C | Each major session | May 24, 2026 (post-§B.2.187 update of the May-24 fresh handoff: probability 37.5–51.5% → 36–50.5%; G1 count 29 → 22-23 effective independent + 5 mechanism-distinctive + 1 framing; §C.4 net adjustment +4.5pp → +3.0-3.5pp; §C.5 auxiliary documents (differentiator card, Methodology Part V Phase 1 spec) consolidated into §B.9 of this document, Methodology Part V executed (paper grew 33pp → 40pp), book updated at 508pp; §C.6 deferred items closed except for author-blocked; `book/index.md` removed from repo. The May-14 §C is preserved at the bottom of the file as historical record.) |
+| §A | Methodology lesson learned (~rare) | June 4, 2026 (see §A.16–A.17) |
+| §B | Prediction status changes, work plan shifts | May 24, 2026 (see §B.2.186–187 (journal, off-repo)) |
+| §C | Each major session | May 24, 2026 (maintained off-repo) |
 
 **For cold pickup:** read §C (off-repo) first, then §B.4 (active research directions),
 then §B.5 (work plan). §A is reference material — consulted as needed,
