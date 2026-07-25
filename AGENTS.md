@@ -4,13 +4,19 @@ This repo holds the manuscript for *The Incompleteness of Observation*:
 
 - `papers/` — the technical papers (`SM`, `GR`, `Substratum`, `Structure`, `Main`, …).
 - `book/`   — the book chapters and the consolidated `The-Incompleteness-of-Observation-FULL.*`.
-- `methodology/` — the project methodology set: `01_methodology` (§A), `02_operational_state` (§B),
-  `03_reference_docs` (§B.9). Self-contained: the session journal, TODO queue, and handoff remain in
-  the project's private working records, and §B.2.x markers in these files cite that off-repo journal.
+- `audit/` — `AUDIT_METHODOLOGY.md` only, the self-audit procedure. **Markdown-only: no `.tex`,
+  no `.pdf`.** It is not a
+  journal artifact; it rides along with the repo so that the method the manuscripts were audited
+  under is versioned beside them. It is a *derived* document — the working methodology, operational
+  state, reference cards, session journal, and task queue all live in the project's private records.
+  Do not hand-edit it to record project state, and keep it free of journal citations, work-plan
+  detail, per-cluster confidence figures, and engagement strategy: the repo is public, so anything
+  added here is published whether or not it is typeset.
 
 **`.md` is the source of truth. `.tex` and `.pdf` are generated from it** (pandoc + xelatex) — never
-hand-edit them; regenerate. This file is the condensed, repo-enforced subset of
-`methodology/01_methodology.md` (§A); when they disagree, fix the disagreement in the same commit.
+hand-edit them; regenerate. This applies to `papers/` and `book/`; `audit/` is markdown-only
+and has no build step. This file is the condensed, repo-enforced subset of `AUDIT_METHODOLOGY.md` (§A);
+when they disagree, fix the disagreement in the same commit.
 
 ---
 
@@ -105,6 +111,15 @@ equivalents via `newunicodechar`, so xelatex doesn't silently drop them (e.g. a 
 keeping the Computer Modern look. Always pass it with `--include-in-header`. After building, check the
 xelatex log for `Missing character` warnings.
 
+**Horizontal rules: use `***`, never `---`.** A bare `---` line is ambiguous in pandoc's
+markdown — it can be read as a YAML metadata delimiter *or* as a table rule. The latter is the
+dangerous one: it silently typesets the rest of the document into a narrow table column
+(one word per line, headings rendered as literal `##`), inflating one 37-page document to 198
+mostly-blank pages before it was caught. It produces no error. **Check page count and median
+characters-per-page after building any new document**; a plausible page count is part of the
+build, not a nicety. Note `papers/SM.md` (17), `papers/Main.md` (8) and the book (80) still
+contain bare `---` rules that happen to render correctly; switch them to `***` if touched.
+
 **Constrained-environment caveat:** if the build environment lacks a package (e.g. `lmodern.sty` absent,
 no network) and a shim or workaround is used, the resulting PDFs are provisional — flag them (STALE
 note or commit message) and rebuild on the canonical toolchain before any release or DOI deposit.
@@ -125,6 +140,6 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
 - **The asymmetry that does hold:** an honesty *downgrade* — conceding a claimed proof is actually
   open/conditional — can only hold or lower correctness, never raise it (you don't become more likely-true
   by admitting you proved less). And consistency work is a *force-multiplier* on the correctness tests, not
-  a direct band-mover. (Full treatment: `methodology/01_methodology.md` §A.23.)
+  a direct band-mover. (Full treatment: `audit/AUDIT_METHODOLOGY.md` §A.23.)
 - Prefer *conditional / retrodiction / empirically-anchored / open* over *derived / theorem / proved* when
   the body doesn't fully support the stronger word.
