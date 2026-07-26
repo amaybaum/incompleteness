@@ -646,14 +646,22 @@ box}\label{the-depth-axis-residual-dissipation-the-correction-fork-and-the-box}}
 
 §4.5 bounded the width of physical computation; the framework also
 bounds its depth. The residual dissipation
-\(\mathcal{D} \sim \tau_S/\tau_B \sim 10^{-32}\) ({[}Main{]}, §3.2 and
-the scope remarks of §3.5) is an isolation-independent deviation from
-exact unitarity sourced by the cosmological partition itself --- a
+\(\mathcal{D} \sim (\tau_S/\tau_B)^2 \sim 10^{-64}\) ({[}Main{]}, §3.2
+and the scope remarks of §3.5) is an isolation-independent deviation
+from exact unitarity sourced by the cosmological partition itself --- a
 decoherence floor in the Penrose--Diósi genre but with a derived rate,
 already registered in {[}Main{]} as the framework's falsifiable residue.
 Its computational reading: uncorrected coherent depth is bounded by
-\(\sim 1/\mathcal{D} \sim 10^{32}\) operations at the system's natural
-clock, however perfect the engineering.
+\(\sim 1/\mathcal{D} \sim 10^{64}\) operations at the system's natural
+clock, however perfect the engineering. \emph{{[}Status note,
+2026-07-26: an earlier version of this section carried
+\(\mathcal{D} \sim \tau_S/\tau_B \sim 10^{-32}\) and a
+\(\sim 10^{32}\)-operation depth bound, inheriting a mislabeling in
+{[}Main §3.2{]} since corrected there: the first-order figure is an
+absorbable drift, and the dissipative residue enters at second order.
+The bound remains isolation-independent --- the dominant channel is set
+by the cosmological relaxation time, not by any coupling an apparatus
+controls.{]}}
 
 \textbf{The correction fork, resolved.} Whether quantum error correction
 erases this wall is determined, not open. The \(\mathcal{D}\)-channel is
@@ -662,10 +670,10 @@ computation (correlation time \(\sim\tau_B\), the Hubble-scale bath
 memory) --- so it presents as a temporally static, largely common-mode
 coherent error: the benign class for fault tolerance, handled by
 calibration, dynamical decoupling, and the error correction of
-low-weight coherent errors, and thirty orders below threshold besides.
-The channel therefore satisfies the independence assumptions of the
-threshold theorem, logical depth is unbounded under error correction,
-and the \(\sim 10^{32}\)-operation cap is a property of
+low-weight coherent errors, and some sixty orders below threshold
+besides. The channel therefore satisfies the independence assumptions of
+the threshold theorem, logical depth is unbounded under error
+correction, and the \(\sim 10^{64}\)-operation cap is a property of
 \emph{uncorrected} hardware only. This resolves the fork toward erasure
 --- an honest weakening of the box's depth face, recorded with the same
 prominence as the framework's strengthenings: the depth wall is not a

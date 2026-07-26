@@ -2924,8 +2924,10 @@ Hamiltonian be spatially local with coupling chain
 \(V \leftrightarrow B \leftrightarrow D\) (no direct \(V\)-\(D\)
 coupling). Let \(\tau_B^D\) be the \(D\)-sector timescale and
 \(\tau_B^B\) the \(B\)-sector timescale. On observation timescales
-\(t \ll \min(\tau_B^D, \tau_B^B)\), the dissipative correction to
-unitarity on \(\mathcal{H}_V\) decomposes as:}
+\(t \ll \min(\tau_B^D, \tau_B^B)\), the correction to the frozen-limit
+description on \(\mathcal{H}_V\) --- an absorbable Hermitian drift at
+first order in each timescale ratio, with genuine dissipation entering
+at second order ({[}Main, §3.2{]}) --- decomposes as:}
 
 \[\mathcal{D}_V = \mathcal{D}_V^{(B)} + \mathcal{D}_V^{(D)} + \mathcal{R}\]
 
@@ -2964,8 +2966,11 @@ where \(\varphi_t^{VB}\) is the flow restricted to \(V \times B\) with
   flow \(\varphi_t^{VB}\) is a bijection on
   \(\mathcal{C}_V \times \mathcal{C}_B\) --- the standard Stinespring
   setup with \(B\) as the hidden sector. The emergent dynamics on \(V\)
-  is approximately unitary with dissipator
-  \(\mathcal{D}_V^{(B)} \sim \mathcal{O}(\tau_S / \tau_B^B)\).
+  is approximately unitary, with total departure from the frozen-\(B\)
+  description
+  \(\mathcal{D}_V^{(B)} \sim \mathcal{O}(\tau_S / \tau_B^B)\), of which
+  the non-absorbable (dissipative) part enters at second order ({[}Main,
+  §3.2{]}).
 \item
   \emph{Decomposition of the \(D\)-correction.} The
   \(\mathcal{O}(t / \tau_B^D)\) correction from step (i) has two
@@ -2975,7 +2980,8 @@ where \(\varphi_t^{VB}\) is the flow restricted to \(V \times B\) with
 \emph{Direct:} \(D\)'s back-reaction shifts the boundary modes of \(B\)
 by \(\delta b \sim \mathcal{O}(t / \tau_B^D)\). This propagates through
 \(H_{VB}\) to the visible sector, contributing
-\(\mathcal{D}_V^{(D)} \sim \mathcal{O}(\tau_S / \tau_B^D)\).
+\(\mathcal{D}_V^{(D)} \sim \mathcal{O}(\tau_S / \tau_B^D)\) to the total
+correction (same first-order/second-order split).
 
 \emph{Cross:} The shift \(\delta b\) also modifies the effective
 \(B\)-state against which \(\mathcal{D}_V^{(B)}\) is computed. The
@@ -2998,7 +3004,7 @@ s, \(\tau_B^D \sim 1/H \sim 10^{17}\) s. The three terms:
 \[\|\mathcal{D}_V^{(B)}\| \sim 10^{-12}, \qquad \|\mathcal{D}_V^{(D)}\| \sim 10^{-32}, \qquad \|\mathcal{R}\| \sim 10^{-44}\]
 
 The cross term is negligible by 12 orders of magnitude relative to the
-smaller of the two primary dissipators.
+smaller of the two primary corrections.
 
 \hypertarget{a.6-the-generalized-second-law}{%
 \subsubsection{A.6 The Generalized Second

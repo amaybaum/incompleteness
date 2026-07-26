@@ -673,8 +673,8 @@ interruption when calibration is not the load-bearing concern.
 
 **Within-line vs across-line generalization .**
 Saturation in one investigation line is weak evidence about other
-lines that work different machinery.– worked the
-bijection-characterization neighborhood (both worked the same substrate-class machinery); apparent saturation there is essentially
+lines that work different machinery. Four consecutive session entries worked the
+bijection-characterization neighborhood (the neighborhood's two lines share substrate-class machinery); apparent saturation there is essentially
 mute on the holography line, the Lorentz-emergence line, the cosmology line (beyond MOND), the unmade-predictions line (what the framework
 could predict but doesn't), the positioning line, and the mathematical-characterization line. When pivoting between open-direction items, or between any
 structurally-distinct investigation lines, treat each line's
@@ -750,7 +750,7 @@ anisotropy protections both being structural rather than
 coincidental) is consistent with the framework being mostly right
 and apparent tensions arising from naive coefficient estimates
 rather than genuine problems. **One instance is weak evidence —
-flag the pattern but do not generalize until two or more structurally distinct lines have been run and either confirm or break it.**
+flag the pattern but do not generalize until two or more structurally distinct lines (e.g. the holography line and the Lorentz-emergence line) have been run and either confirm or break it.**
 
 ## §A.5 Document-level audit procedure
 
@@ -1510,6 +1510,56 @@ PROCEDURE:
    survive; state the surviving count.
 ABUSE-GUARD (load-bearing): "I only edited the one place I was looking at" is precisely the failure this
 rule exists to prevent. An edit to a shared claim is NOT complete until the whole-corpus grep is clean.
+Bands unchanged by logging this (methodology, not a result).
+
+
+## §A.26 Provenance integrity — anomaly sweep, quarantine-don't-delete, deterministic replay
+
+Added after an integrity event: a second uncoordinated writer (most likely a concurrent session
+on a shared container) produced 26 unaccounted files in an active work area, detected only by a
+filename collision. The event was bounded and contained by the rules below; a "one writer at a
+time" lock requirement originally attached to this section was later withdrawn as an artifact
+that added maintenance without preventing anything (§A.28 records the withdrawal pattern).
+
+RULE 1 — ANOMALY ⇒ FULL SWEEP, THEN HALT. Any file you did not write and cannot source to the
+pristine upload or checkout triggers a complete integrity sweep — working copy against pristine
+against your own logged writes — *before* any further substantive work. Decisive measurements
+never run over an unresolved provenance anomaly: a verdict computed over data of unknown origin
+is not a verdict.
+
+RULE 2 — QUARANTINE, NEVER DELETE. Unaccounted artifacts move to an evidence directory with a
+hash+mtime manifest, content untouched. They may later be *verified read-only* — replay-matched,
+internal-claim-checked — but are never adopted as data. If their content proves right, re-derive
+it under your own trail and credit the quarantined source for priority. Deletion destroys the
+ability to establish what happened; adoption launders unverified work into the record.
+
+RULE 3 — DETERMINISTIC REPLAY IS THE INTEGRITY PRIMITIVE. Checkpoints carry full-precision
+parameters and observable series; regeneration must replay-match elementwise or the run halts.
+This is the check that distinguishes "same computation" from "similar-looking output," and it
+has caught a real precision defect before it could contaminate a verdict.
+
+Bands unchanged by logging this (methodology, not a result).
+
+
+## §A.27 Status annotations in manuscripts — dated, superseding, manuscript-voice
+
+Empirical or archival status changes reach their manuscript dependents as dated bracketed
+status notes — `*[Status note, YYYY-MM-DD: …]*` — appended in place, superseding rather than
+deleting: a correction quotes or summarizes what it replaces, so the reader can see both the
+prior claim and why it changed. Two constraints, both learned the hard way:
+
+SAME-SESSION PROPAGATION. An empirical result that bears on a manuscript claim gets its status
+note in the same session the result is accepted. This is §A.25 applied to results rather than
+edits: a result held back from its dependents desynchronizes the corpus exactly as an
+unpropagated edit does.
+
+MANUSCRIPT VOICE ONLY. No internal-ledger vocabulary (*graded motivated-unverified*,
+*implementation-unrecovered*), no internal filenames or phase labels, no process jargon a
+reader cannot resolve. State what is established, for which object, at what precision, and what
+remains unverified — in the paper's own register. Internal bookkeeping stays in the off-repo
+working logs. The test: a reader with no access to the project's private records must be able
+to resolve every term in the note.
+
 Bands unchanged by logging this (methodology, not a result).
 
 
