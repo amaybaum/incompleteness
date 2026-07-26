@@ -4,8 +4,8 @@ This repo holds the manuscript for *The Incompleteness of Observation*:
 
 - `papers/` — the technical papers (`SM`, `GR`, `Substratum`, `Structure`, `Main`, …).
 - `book/`   — the book chapters and the consolidated `The-Incompleteness-of-Observation-FULL.*`.
-- `audit/` — `AUDIT_METHODOLOGY.md` only, the self-audit procedure. **Markdown-only: no `.tex`,
-  no `.pdf`.** It is not a
+- `audit/` — the self-audit procedure (`AUDIT_METHODOLOGY.md`) and the canonical build script
+  (`build.sh`). **No `.tex`, no `.pdf`.** `AUDIT_METHODOLOGY.md` is not a
   journal artifact; it rides along with the repo so that the method the manuscripts were audited
   under is versioned beside them. It is a *derived* document — the working methodology, operational
   state, reference cards, session journal, and task queue all live in the project's private records.
@@ -96,6 +96,16 @@ notes** — `*[Status note, YYYY-MM-DD: …]*` — appended in place, supersedin
 ## Build recipe (regenerating `.tex` / `.pdf`)
 
 Requires `pandoc` + a LaTeX engine with `xelatex` (e.g. `brew install pandoc texlive`).
+
+**Use `./audit/build.sh`.** It loops over the sources with the header include written in, so
+the flag cannot be omitted. `./audit/build.sh` builds everything;
+`./audit/build.sh SM GR` builds named papers; `--book` builds only the book. It runs from any
+directory. It reports the *distinct* glyphs xelatex
+dropped, which is what tells you what to add to `unicode-fix.tex`. Five papers were once
+published with artifacts built without the header — the recipe below was correct and was
+simply not followed, which is why the loop exists.
+
+The equivalent commands, for reference:
 
 ```sh
 # Papers (no TOC, no section numbering):
