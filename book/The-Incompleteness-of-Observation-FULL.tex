@@ -2780,6 +2780,115 @@ The three structural limits are therefore not just conceptual content
 but a framework of empirically accessible regimes, with current
 experiments now beginning to probe the marginal-failure boundaries.
 
+\hypertarget{the-card-table-and-the-chessboard}{%
+\subsection{1.11 The card table and the
+chessboard}\label{the-card-table-and-the-chessboard}}
+
+Chess is a game of complete information: every piece stands in the open,
+and in principle the game is exhaustively analyzable --- a sufficiently
+large lookup table settles every position. Poker is a game of incomplete
+information, and that difference is not cosmetic. When von Neumann
+founded game theory he took poker, not chess, as the interesting case,
+precisely because hidden cards force probability into rational play even
+though nothing in the rules is random. The mixed strategy is not
+ignorance dressed up; it is the correct mathematical form of play from
+inside an information set. The framework's claim can be stated in
+exactly these terms: the substratum is a chess game, and physics is the
+rulebook a piece would rationally write from inside it. What this
+section shows is that ordinary poker is not a rich enough interior view
+--- and that the specific way it falls short, and the specific
+modification that repairs it, together reproduce the anatomy of Chapter
+1 in miniature.
+
+Ordinary poker yields only classical probability. Its hidden information
+is a static deal, uncorrelated with the visible play once the cards are
+down, and the resulting odds are divisible: the probability of an
+outcome at showdown is the probability chained through any intermediate
+street, whether or not that street was observed. This is the mathematics
+of ignorance about a definite fact --- the position Einstein hoped
+quantum probability would turn out to occupy. A game that stops here
+illustrates the \emph{premise} of the framework (observation from inside
+a partition) while missing its \emph{content} (that structured
+incompleteness yields quantum, not classical, statistics).
+
+Three modifications close the gap, and they are conditions C1--C3 of
+§1.2 in card form. First, the shuffle between streets is a
+deterministic, reversible permutation of the deck --- a faro shuffle,
+say --- rather than a randomization: bijective dynamics on the full
+state. Second, each street deals burn cards, face down and never shown,
+which the shuffle correlates with the live cards: a hidden sector
+coupled to the visible one (C1), whose configuration persists between
+streets (C2), with capacity to store a record of the visible play (C3).
+Third, revealing a card is an intervention, not a passive glance: a
+revealed card is burned and replaced under a fixed rule, so revelation
+physically breaks the card's correlation with the rest of the deck.
+
+The minimal such game is the coin-and-die model of §1.5 dealt onto a
+table. The player holds one hole card, red or black --- the coin. One
+burn card, red or black, lies face down --- the memory register the die
+provided. The shuffle between streets is the simplest reversible move
+available: hole card and burn card trade places. Then, writing the odds
+that the hole card at showdown matches the hole card as dealt:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+protocol & matching odds \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+one shuffle, then showdown & 1/2 \\
+two shuffles, then showdown & 1 (certain) \\
+two shuffles, odds chained through the unobserved middle & 1/2 \\
+two shuffles with a peek (and forced re-burn) in the middle & 1/2 \\
+\end{longtable}
+
+Each line is checkable by hand --- there are sixteen cases in the
+longest protocol. A single shuffle randomizes the visible card
+completely. Two shuffles return it with certainty: the first swap writes
+the hole card into the burn pile, the second reads it back --- the same
+write-then-read information backflow that §1.5 exhibited in the would-be
+intermediate propagator with negative entries. Chaining the one-street
+odds through the unobserved middle street predicts even money and is
+simply wrong: the process is P-indivisible, and a player who prices
+hands divisibly loses money at a rate equal to the interference term ---
+the deviation has an operational meaning as concrete as a bankroll. And
+peeking at the middle street, which forces the re-burn, makes the
+divisible answer correct again: a division event in the sense of §1.5,
+enacted with cardboard.
+
+The reading this hands the student is the one the framework intends.
+Interference is not a substance; it is the failure of divisibility ---
+the visible history taking a round trip through the hidden sector and
+returning. Phase is not a mysterious internal angle; at this resolution
+it is \emph{where in the hidden sector the visible information currently
+resides}. Measurement does not collapse anything; it intervenes, and the
+intervention severs a correlation that the undisturbed dynamics would
+have used.
+
+The game extends upward. Replace the two-card swap with a linear shuffle
+on ranks modulo \(q\) and the game runs on the same dynamical class as
+the substratum of Chapter 2; the reachable odds tables grow richer, and
+the fact that not every doubly stochastic table can be dealt this way is
+the unistochasticity constraint of §1.6 appearing at the card table. One
+boundary must be stated as plainly as the successes: a card mechanism is
+a local classical toy. It reproduces single-system interference,
+indivisibility, and division events --- the mechanism of this chapter
+--- but no arrangement of cards on a table violates a Bell inequality,
+and the Bell-type correlations of §1.7 belong to the full construction,
+through the level-identification analysis taken up in Chapter 3, not to
+the toy. An illustration that claimed otherwise would be teaching a
+falsehood, and the analogy earns its keep precisely by knowing where it
+ends.
+
+What remains is the pair of views. Turn the deck face up and track every
+permutation, and the game is chess: complete information, deterministic,
+exhaustively analyzable. Sit in the player's seat and the same game is
+poker --- and not the poker of static ignorance, but the modified game
+whose rational odds sheet carries interference terms. Nothing changed
+but the seat. That is the framework's thesis in one gesture: observation
+is what the rest of the board looks like from inside a piece.
+
 The substratum that the framework's algorithm operates on is constructed
 concretely in Chapter 2 --- a three-dimensional cubic lattice with
 bilinear, block-diagonal dynamics whose structural constraints fix the
