@@ -24,7 +24,7 @@ The full file list is in [Contents](#contents).
 
 The framework's empirical weight lies in its **physics core**. Its applications to biology, medicine, consciousness, and computational complexity are **conjectural extensions** — they apply the core framework to new domains, are offered as conjectures to be tested rather than established results, and carry no evidential weight for the core, which stands or falls independently on its physics. Each such chapter and paper now opens with an explicit "Status — conjectural extension" banner stating its test-or-break condition.
 
-**Core (physics — where the framework's weight lies):** Main, SM, Structure, Substratum, GR, Methodology, Explainer, Juno, and the corresponding physics chapters.
+**Core (physics — where the framework's weight lies):** Main, SM, Structure, Substratum, GR, Methodology, Juno, and the corresponding physics chapters. (The Explainer, formerly listed here, is superseded by the book and frozen.)
 
 **Conjectural extensions:**
 
@@ -152,7 +152,7 @@ All research papers live in [`papers/`](papers/).
 
 ### Companion documents
 
-- **[`Explainer`](papers/Explainer.md)** — full-argument overview with detailed proof walkthroughs, observational confrontation, and FAQ. ([`.tex`](papers/Explainer.tex), [`.pdf`](papers/Explainer.pdf))
+- **[`Explainer`](papers/Explainer.md)** — full-argument overview, now **superseded by the book** and frozen at the 2026-07-26 revision (retained for its D-gauge completeness walkthrough and summary tables, pending their book incorporation). ([`.tex`](papers/Explainer.tex), [`.pdf`](papers/Explainer.pdf))
 
 - **[`Complexity`](papers/Complexity.md)** — traces the structural chain from $(S, \varphi)$ to organic chemistry, the origin of life as a molecular C1–C3 system, and Darwinian evolution. Companion to [`Computation`](papers/Computation.md), which continues the chain from evolution onward. ([`.tex`](papers/Complexity.tex), [`.pdf`](papers/Complexity.pdf))
 
