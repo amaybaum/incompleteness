@@ -34,9 +34,19 @@ Clauser, J. F., Horne, M. A., Shimony, A., & Holt, R. A. (1969). Proposed experi
 
 Colbeck, R., & Renner, R. (2011). No extension of quantum theory can have improved predictive power. *Nature Communications* 2: 411.
 
+Dalla Chiara, M. L. (1977). Logical self reference, set theoretical paradoxes and the measurement problem in quantum mechanics. *Journal of Philosophical Logic* 6: 331-347.
+
+de la Peña, L., Cetto, A. M., & Valdés-Hernández, A. (2014). *The Emerging Quantum: The Physics Behind Quantum Mechanics*. Springer.
+
 Einstein, A., Podolsky, B., & Rosen, N. (1935). Can quantum-mechanical description of physical reality be considered complete? *Physical Review* 47: 777-780.
 
 Fine, A. (1982). Hidden variables, joint probability, and the Bell inequalities. *Physical Review Letters* 48: 291-295.
+
+Rössler, O. E. (1998). *Endophysics: The World as an Interface*. World Scientific.
+
+Szangolies, J. (2018). Epistemic horizons and the foundations of quantum mechanics. *Foundations of Physics* 48(12): 1669-1697.
+
+Valdés-Hernández, A., de la Peña, L., & Cetto, A. M. (2011). Bipartite entanglement induced by a common background (zero-point) radiation field. *Foundations of Physics* 41: 843-862.
 
 Frauchiger, D., & Renner, R. (2018). Quantum theory cannot consistently describe the use of itself. *Nature Communications* 9: 3711.
 
