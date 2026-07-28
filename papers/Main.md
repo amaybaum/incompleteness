@@ -18,7 +18,7 @@ An observer embedded in a deterministic universe cannot access the complete stat
 
 ### 1.1 The Problem of Embedded Observation
 
-An observer embedded in a deterministic universe cannot access the complete state: degrees of freedom beyond causal reach are permanently hidden, and the observer's description is obtained by marginalizing over the hidden sector. The question is what this reduction imposes on the form of the observer's physical laws.
+An observer embedded in a deterministic universe cannot access the complete state: degrees of freedom beyond causal reach are permanently hidden, and the observer's description is obtained by marginalizing over the hidden sector. Whether a description obtained this way can be considered complete is the question Einstein, Podolsky, and Rosen posed of quantum mechanics [46]; it returns here with the opposite valence — incompleteness is derived as a structural property of embedded observation, and quantum mechanics is identified as its form. The question is what this reduction imposes on the form of the observer's physical laws.
 
 Prior work (QBism, relational QM, 't Hooft's cellular automaton [1]) takes observer-dependence as an interpretive starting point or derives it from specific microphysical models. This framework differs by identifying *necessary and sufficient conditions* under which any embedded observer in any deterministic system necessarily sees quantum mechanics — and proving these are the *only* conditions under which QM arises from a deterministic embedding.
 
@@ -251,7 +251,7 @@ The Barandes route is more general (any P-indivisible process); the Stinespring 
 
 ### 3.3 Bell Inequality Violations
 
-The framework is a hidden variable theory evading Bell's theorem [23] not by conspiratorial setting-dependence but by violating factorizability of the emergent joint process through P-indivisible joint dynamics — while remaining causally local. (The substratum-level statement, including in what precise sense this is not superdeterminism, is given explicitly below.) Two subsystems interacting at preparation carry a joint transition matrix $T_{QR} \neq T_Q \otimes T_R$. This non-factorizability *is* stochastic entanglement [11, 12, 24]. Since the process is indivisible, no well-defined intermediate conditional probabilities permit Bell's factorization.
+The framework is a hidden variable theory — a deterministic completion of the kind the EPR argument concluded quantum mechanics required [46], with measurement revealing antecedently definite substratum facts — evading Bell's theorem [23] not by conspiratorial setting-dependence but by violating factorizability of the emergent joint process through P-indivisible joint dynamics — while remaining causally local. (The substratum-level statement, including in what precise sense this is not superdeterminism, is given explicitly below.) Two subsystems interacting at preparation carry a joint transition matrix $T_{QR} \neq T_Q \otimes T_R$. This non-factorizability *is* stochastic entanglement [11, 12, 24]. Since the process is indivisible, no well-defined intermediate conditional probabilities permit Bell's factorization.
 
 In the Jarrett decomposition of the emergent process, the framework violates outcome independence while preserving parameter independence and — at the operational level, where it is defined and testable — measurement independence: precisely the class Fine's theorem [25] permits. Barandes, Hasan, and Kagan [24] prove the maximum CHSH correlator is exactly Tsirelson's bound $2\sqrt{2}$, with independent support from Le et al. [26]. The bound also follows from the Stinespring route of §3.2, which establishes full unitary QM on a tensor-product Hilbert space; Tsirelson's original operator-norm argument [27] then yields $|\langle S \rangle| \leq 2\sqrt{2}$; achievability follows because all quantum states, including maximally entangled ones, are realizable in the emergent description.
 
@@ -548,3 +548,5 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [44] V. I. Arnold, *Mathematical Methods of Classical Mechanics*, 2nd ed., Graduate Texts in Mathematics **60** (Springer-Verlag, New York, 1989).
 
 [45] K.-J. Engel and R. Nagel, *One-Parameter Semigroups for Linear Evolution Equations*, Graduate Texts in Mathematics **194** (Springer-Verlag, New York, 2000).
+
+[46] A. Einstein, B. Podolsky, and N. Rosen, "Can quantum-mechanical description of physical reality be considered complete?" *Phys. Rev.* **47**, 777–780 (1935).
