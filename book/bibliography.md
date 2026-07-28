@@ -18,6 +18,8 @@ Breuer, T. (1995). The impossibility of accurate state self-measurements. *Philo
 
 Engel, K.-J., & Nagel, R. (2000). *One-Parameter Semigroups for Linear Evolution Equations* (Graduate Texts in Mathematics 194). Springer-Verlag.
 
+Bacciagaluppi, G., & Valentini, A. (2009). *Quantum Theory at the Crossroads: Reconsidering the 1927 Solvay Conference*. Cambridge University Press.
+
 Barandes, J. A. (2023). The Stochastic-Quantum Correspondence. *arXiv*:2302.10778.
 
 Barandes, J. A. (2024). The Stochastic-Quantum Theorem. *arXiv*:2309.03085.
@@ -31,6 +33,10 @@ Bong, K.-W., Utreras-Alarcón, A., Ghafari, F., Liang, Y.-C., Tischler, N., Cava
 Clauser, J. F., Horne, M. A., Shimony, A., & Holt, R. A. (1969). Proposed experiment to test local hidden-variable theories. *Physical Review Letters* 23: 880-884.
 
 Colbeck, R., & Renner, R. (2011). No extension of quantum theory can have improved predictive power. *Nature Communications* 2: 411.
+
+Einstein, A., Podolsky, B., & Rosen, N. (1935). Can quantum-mechanical description of physical reality be considered complete? *Physical Review* 47: 777-780.
+
+Fine, A. (1982). Hidden variables, joint probability, and the Bell inequalities. *Physical Review Letters* 48: 291-295.
 
 Frauchiger, D., & Renner, R. (2018). Quantum theory cannot consistently describe the use of itself. *Nature Communications* 9: 3711.
 
