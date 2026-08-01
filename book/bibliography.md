@@ -40,9 +40,17 @@ de la Peña, L., Cetto, A. M., & Valdés-Hernández, A. (2014). *The Emerging Qu
 
 Einstein, A., Podolsky, B., & Rosen, N. (1935). Can quantum-mechanical description of physical reality be considered complete? *Physical Review* 47: 777-780.
 
+Fein, Y. Y., Geyer, P., Zwick, P., Kiałka, F., Pedalino, S., Mayor, M., Gerlich, S., and Arndt, M. (2019). Quantum superposition of molecules beyond 25 kDa. *Nature Physics* 15: 1242-1245.
+
 Fine, A. (1982). Hidden variables, joint probability, and the Bell inequalities. *Physical Review Letters* 48: 291-295.
 
+Nimmrichter, S., and Hornberger, K. (2013). Macroscopicity of mechanical quantum superposition states. *Physical Review Letters* 110: 160403.
+
+Pedalino, S., Ramírez-Galindo, B. E., Ferstl, R., Hornberger, K., Arndt, M., and Gerlich, S. (2026). Probing quantum mechanics with nanoparticle matter-wave interferometry. *Nature* 649: 866.
+
 Rössler, O. E. (1998). *Endophysics: The World as an Interface*. World Scientific.
+
+Schrödinger, E. (1935). Die gegenwärtige Situation in der Quantenmechanik. *Die Naturwissenschaften* 23: 807-812, 823-828, 844-849.
 
 Szangolies, J. (2018). Epistemic horizons and the foundations of quantum mechanics. *Foundations of Physics* 48(12): 1669-1697.
 
