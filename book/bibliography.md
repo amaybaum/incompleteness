@@ -50,6 +50,8 @@ Pedalino, S., Ramírez-Galindo, B. E., Ferstl, R., Hornberger, K., Arndt, M., an
 
 Rössler, O. E. (1998). *Endophysics: The World as an Interface*. World Scientific.
 
+Schrödinger, E. (1935). Die gegenwärtige Situation in der Quantenmechanik. *Die Naturwissenschaften* 23: 807-812, 823-828, 844-849.
+
 Szangolies, J. (2018). Epistemic horizons and the foundations of quantum mechanics. *Foundations of Physics* 48(12): 1669-1697.
 
 Valdés-Hernández, A., de la Peña, L., & Cetto, A. M. (2011). Bipartite entanglement induced by a common background (zero-point) radiation field. *Foundations of Physics* 41: 843-862.
