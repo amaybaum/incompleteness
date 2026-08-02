@@ -121,6 +121,29 @@
 % --- Checkmarks ---
 \newunicodechar{✓}{\ding{51}}
 \newunicodechar{✗}{\ding{55}}
+
+% --- added 2026-08-02 after an independent glyph audit ---
+\newunicodechar{ℓ}{\ensuremath{\ell}}
+\newunicodechar{⊕}{\ensuremath{\oplus}}
+\newunicodechar{⊗}{\ensuremath{\otimes}}
+\newunicodechar{∠}{\ensuremath{\angle}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{∝}{\ensuremath{\propto}}
+\newunicodechar{ℝ}{\ensuremath{\mathbb{R}}}
+\newunicodechar{₅}{\ensuremath{_5}}
+\newunicodechar{₋}{\ensuremath{_-}}
+\newunicodechar{⁺}{\ensuremath{^+}}
+\newunicodechar{⁽}{\ensuremath{^(}}
+\newunicodechar{⁾}{\ensuremath{^)}}
+% U+239B..U+23A0: multi-line parenthesis assembly pieces emitted by some
+% converters. There is no sane inline equivalent; map to ordinary delimiters so
+% the notation survives rather than vanishing silently.
+\newunicodechar{⎛}{\ensuremath{\big(}}
+\newunicodechar{⎜}{\ensuremath{\big\vert}}
+\newunicodechar{⎝}{\ensuremath{\big(}}
+\newunicodechar{⎞}{\ensuremath{\big)}}
+\newunicodechar{⎟}{\ensuremath{\big\vert}}
+\newunicodechar{⎠}{\ensuremath{\big)}}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
