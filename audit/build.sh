@@ -88,8 +88,18 @@ fi
 
 echo
 if [ "$missing_total" -gt 0 ]; then
-    echo "note: $missing_total dropped glyph(s) total — add the distinct characters"
-    echo "      listed above to unicode-fix.tex, then rebuild."
+    # A dropped glyph is SILENT DATA LOSS: the PDF is missing notation the
+    # source specified, and every downstream reader sees a hole where a symbol
+    # belongs. Warning-only accounting let `build: OK` ship such a PDF, so this
+    # is a hard failure. Override with ALLOW_MISSING_GLYPHS=1 only when the
+    # drop is understood and accepted.
+    echo "ERROR: $missing_total dropped glyph(s) total — add the distinct characters"
+    echo "       listed above to unicode-fix.tex, then rebuild."
+    if [ "${ALLOW_MISSING_GLYPHS:-0}" = "1" ]; then
+        echo "       (ALLOW_MISSING_GLYPHS=1 set — not failing the build)"
+    else
+        status=1
+    fi
 fi
 [ "$status" -eq 0 ] && echo "build: OK" || echo "build: FAILED"
 exit "$status"
