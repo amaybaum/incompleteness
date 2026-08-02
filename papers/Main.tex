@@ -1120,113 +1120,89 @@ Since \(U_\varphi\) is a permutation,
 \(P(j|i) = m^{-1}\sum_k \delta_{j,\pi_V(\varphi(x_i,h_k))} = T_{ij}\).
 \(\square\)
 
-\textbf{Remark (a withdrawn claim).} Earlier versions asserted that
-condition (C1) --- \(T\) not a permutation --- suffices for \(\Phi\) to
-be non-entanglement-breaking, on the grounds that
-\(\Phi(|i\rangle\langle i|)\) then has rank \(\geq 2\) and some
-off-diagonal input has non-zero image. Both inferences are invalid and
-the conclusion is false. Output rank is unrelated to the
-measure-and-prepare property: the completely depolarizing channel has
-maximal output rank and is entanglement-breaking. For a counterexample
-within the present construction take \(|V|=|H|=2\) and
-\(\varphi(x,h)=(h,x)\). Then \(T_{ij}=1/2\) for all \(i,j\), which is
-not a permutation, yet
-\(\Phi(\rho)=\mathrm{Tr}_H[U_\varphi(\rho\otimes I/2)U_\varphi^\dagger]=I/2\)
-for every \(\rho\) --- a constant channel, manifestly
-measure-and-prepare. Exhaustive enumeration of all bijections on
-\(V\times H\) shows the failure is generic rather than exceptional: for
-\(|V|=|H|=2\) every (C1)-satisfying \(\varphi\) gives an
-entanglement-breaking \(\Phi\), and for \(|V|=2,|H|=3\) this holds for
-\(612\) of \(648\). The property (C1) constrains the \emph{diagonal} of
-\(\Phi\), whereas entanglement-breaking is a statement about
-\(\mathrm{id}\otimes\Phi\) acting on half of an entangled pair; no list
-of single-system matrix elements can decide it.
+\emph{Remark (failure of (C1)).} Condition (C1) does not suffice. For
+\(|V| = |H| = 2\) and \(\varphi(x,h) = (h,x)\) one has \(T_{ij} = 1/2\)
+for all \(i,j\), yet \(\Phi(\rho) = I/2\) identically: a constant
+channel, hence measure-and-prepare. Exhaustive enumeration gives the
+same verdict for every (C1)-satisfying bijection at \(|V| = |H| = 2\),
+and for 612 of 648 at \(|V| = 2\), \(|H| = 3\). The obstruction is
+structural: (C1) constrains the diagonal of \(\Phi\), whereas
+entanglement-breaking is a property of \(\mathrm{id} \otimes \Phi\) and
+is not fixed by the action on single-system inputs. The correct
+criterion is geometric.
 
-What is true, and what the construction actually delivers, is a
-geometric statement.
+\textbf{Definition.} For a visible region \(R \subseteq \Lambda\), the
+inner and outer boundaries are
+\(\partial^{-}R = \{x \in R : \exists\, z \notin R,\ z \sim x\}\) and
+\(\partial^{+}R = \{y \notin R : \exists\, z \in R,\ z \sim y\}\). Write
+\(\kappa = \dim \ker M_{HV}\) and \(w = \mathrm{rank}\, M_{VH}\), where
+\(M_{HV}\) and \(M_{VH}\) are the blocks of the update carrying visible
+input to hidden output and hidden input to visible output.
 
-\textbf{Definition.} Fix a partition with visible region
-\(R\subseteq\Lambda\). Write
-\(\partial^{-}R=\{x\in R:\exists\,z\notin R,\ z\sim x\}\) for the inner
-boundary and \(\partial^{+}R=\{y\notin R:\exists\,z\in R,\ z\sim y\}\)
-for the outer boundary. Call a hidden configuration \emph{recording} if
-the induced map from visible inputs to hidden outputs is injective ---
-that is, if the hidden sector's final state determines which visible
-input occurred.
+\textbf{Lemma (boundary bound).} \emph{For the update of §1.4,
+\(\mathrm{rank}\, M_{HV} \leq |\partial^{+}R|\) and
+\(\mathrm{rank}\, M_{VH} \leq |\partial^{-}R|\).}
 
-\textbf{Lemma (boundary bound).} \emph{For the nearest-neighbour
-reversible update \(u'=Au+v\), \(v'=u\) of §1.4, the hidden output
-depends on the visible input only through \(\partial^{-}R\), and the
-visible output depends on the hidden input only through
-\(\partial^{-}R\). Consequently}
-\[\operatorname{rank}M_{HV}\ \leq\ |\partial^{+}R|,\qquad
-  \operatorname{rank}M_{VH}\ \leq\ |\partial^{-}R| .\]
+\emph{Proof.} For \(y \notin R\) the component \(v'_y = u_y\) is a
+hidden input, and \(u'_y = \sum_{z \sim y} u_z + v_y\) involves a
+visible input only if some \(z \sim y\) lies in \(R\), that is only if
+\(y \in \partial^{+}R\); so \(M_{HV}\) has non-zero rows only among
+\(\{u'_y : y \in \partial^{+}R\}\). Dually, for \(x \in R\) the
+component \(v'_x = u_x\) is a visible input, and \(u'_x\) involves a
+hidden input only if \(x \in \partial^{-}R\). \(\square\)
 
-\emph{Proof.} For \(y\notin R\) the component \(v'_y=u_y\) is a hidden
-input and carries no visible dependence, while
-\(u'_y=\sum_{z\sim y}u_z+v_y\) involves a visible input only if some
-\(z\sim y\) lies in \(R\), i.e.~only if \(y\in\partial^{+}R\). Hence
-\(M_{HV}\) has non-zero rows only among \(\{u'_y:y\in\partial^{+}R\}\).
-Dually, for \(x\in R\) the component \(v'_x=u_x\) is a visible input,
-and \(u'_x\) involves a hidden input only if some \(z\sim x\) lies
-outside \(R\), i.e.~only if \(x\in\partial^{-}R\). \(\square\)
+One update step transports information one lattice site, so the sectors
+resolve one another only across the cut. The argument uses no property
+of the coefficient ring and holds over \(\mathbb{Z}_q\); for a general
+nearest-neighbour bijection it yields the weaker statement that the
+hidden output depends on the visible input only through
+\(\partial^{-}R\).
 
-The content is one-step locality: a single update moves information one
-lattice site, so the two sectors can inspect each other only across the
-cut. The argument uses no property of the coefficient ring, and holds
-verbatim for \(\mathbb{Z}_q\); it also survives non-linearity, since for
-any nearest-neighbour rule the hidden output is a function of the
-visible input restricted to \(\partial^{-}R\).
-
-\textbf{Theorem (coherence criterion).} \emph{Write
-\(\kappa=\dim\ker M_{HV}\) for the number of visible directions
-invisible to the hidden sector, and \(w=\operatorname{rank}M_{VH}\).
-Then \(\Phi\) preserves coherence exactly between visible states
-differing by an element of \(\ker M_{HV}\), and}
-\[\Phi\ \text{is non-entanglement-breaking}\iff w<\kappa .\]
+\textbf{Theorem (coherence criterion).} \emph{\(\Phi\) preserves
+coherence exactly between visible states differing by an element of
+\(\ker M_{HV}\), and \(\Phi\) is not entanglement-breaking if and only
+if \(w < \kappa\).}
 
 \emph{Proof.} \(\Phi(|i\rangle\langle i'|)\) vanishes unless
-\(M_{HV}(i-i')=0\), and on the surviving blocks the output is averaged
-over translations by \(W=\operatorname{im}M_{VH}\). Thus \(\Phi\) is a
-uniform random-Weyl channel over the group generated by the
-\(2^{\,s-\kappa}\) phase operators dual to \(\ker M_{HV}\) and the
-\(2^{w}\) translations in \(W\), where \(s=\dim V\). Because the
-configurations \((0,v_R)\) lie in \(\ker M_{HV}\) --- the hidden output
-does not involve \(v_R\) --- and \(M_{VV}\) carries them onto the full
-\(u'\)-subspace, which contains \(W\), that group is abelian. A uniform
-mixture over an abelian group of Weyl operators is a stabilizer mixture,
-and its Choi state is separable precisely when the group is maximal
-isotropic, i.e.~when \((s-\kappa)+w\geq s\). \(\square\)
+\(M_{HV}(i - i') = 0\), and on the surviving blocks the output is
+averaged over translations by \(W = \mathrm{im}\, M_{VH}\). Hence
+\(\Phi\) is a uniform random-Weyl channel over the group generated by
+the \(2^{\,s-\kappa}\) phase operators dual to \(\ker M_{HV}\) and the
+\(2^{w}\) translations in \(W\), with \(s = \dim V\). The configurations
+\((0, v_R)\) lie in \(\ker M_{HV}\), since the hidden output does not
+involve \(v_R\), and \(M_{VV}\) carries them onto the full
+\(u'\)-subspace, which contains \(W\); the group is therefore abelian. A
+uniform mixture over an abelian group of Weyl operators is a stabilizer
+mixture, separable precisely when the group is maximal isotropic, that
+is when \((s - \kappa) + w \geq s\). \(\square\)
 
-\textbf{Corollary (decoherence is a boundary effect).} \emph{If
-\(|\partial^{-}R|+|\partial^{+}R|<2|R|\) then \(\Phi\) is
-non-entanglement-breaking.} Indeed \(\dim V=2|R|\), so the Lemma gives
-\(w+(\dim V-\kappa)\leq|\partial^{-}R|+|\partial^{+}R|<\dim V\), which
-is \(w<\kappa\). For a \(d\)-dimensional region of linear size \(\ell\)
-one has \(|\partial R|=O(\ell^{d-1})\) against \(2|R|=2\ell^{d}\), so
-the condition holds for every \(\ell>2d\): in \(d=3\), any visible
-region more than roughly six sites across carries coherence.
+\textbf{Corollary.} \emph{If
+\(|\partial^{-}R| + |\partial^{+}R| < 2|R|\) then \(\Phi\) is not
+entanglement-breaking.}
 
-Three features deserve emphasis. First, the criterion contains no
-reference to \(|H|\): a hidden sector of \(10^{122}\) states is no more
-decohering than a small one, because it can still read only the
-boundary. Second, it explains the counterexample above --- the swap has
-no bulk, every visible site lying on the cut, so it decoheres
-completely; the same holds for the one- and two-site regions, which are
-all boundary. Third, the surviving coherence is a bulk quantity while
-the decoherence is an area quantity, the same bookkeeping that governs
-the horizon entropy of Chapter 7.
+\emph{Proof.} \(\dim V = 2|R|\), so the Lemma gives
+\(w + (\dim V - \kappa) \leq |\partial^{-}R| + |\partial^{+}R| < \dim V\).
+\(\square\)
 
-\emph{Status.} The Lemma and Corollary are proved. The Theorem's
-group-size threshold is the standard separability criterion for
-stabilizer mixtures; it has been verified here against Choi-matrix
-ground truth in every configuration tested --- all subspace pairs in
-\(\mathrm{GF}(2)^3\) satisfying the abelian condition, and all
-visible-block partitions of rings up to \(L=10\) --- and the abelian
-condition itself is proved above for the update of §1.4. The extension
-to non-linear nearest-neighbour rules currently rests on the boundary
-factorization alone, which supplies the invisible directions but not yet
-the sufficiency argument.
+\emph{Remark.} For a \(d\)-dimensional region of linear size \(\ell\),
+\(|\partial R| = O(\ell^{d-1})\) against \(2|R| = 2\ell^{d}\), so the
+hypothesis holds whenever \(\ell > 2d\); in \(d = 3\) this is roughly
+six sites across. The criterion carries no dependence on \(|H|\): a
+hidden sector of \(10^{122}\) states is no more decohering than a small
+one, since it reads only the boundary. The counterexample above is the
+degenerate case of the same statement --- under \(\varphi(x,h) = (h,x)\)
+every visible site lies on the cut, and the region has no bulk.
+Coherence is thus a bulk quantity and decoherence an area quantity, the
+accounting that reappears in the horizon entropy of §7.
+
+\emph{Remark (scope).} The Lemma and Corollary are established above.
+The separability threshold invoked in the Theorem is the standard
+criterion for stabilizer mixtures; the abelian hypothesis it requires is
+proved here, while the threshold itself has been checked against
+Choi-matrix ground truth in the configurations tested rather than
+derived. For non-linear nearest-neighbour rules the boundary
+factorization survives, but the sufficiency argument does not yet
+extend.
 
 \textbf{Theorem (CP-indivisibility).} \emph{The P-indivisibility of §2.3
 implies CP-indivisibility of \(\{\Phi_t\}\): there exist
