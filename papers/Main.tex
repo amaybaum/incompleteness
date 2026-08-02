@@ -1167,24 +1167,52 @@ verbatim over \(\mathbb{Z}_q\), and for a general nearest-neighbour
 bijection it yields the weaker conclusion that the hidden output depends
 on the visible input only through \(\partial^{-}R\).
 
-\textbf{Lemma 2 (surviving coherences).}
-\emph{\(\Phi(|i\rangle\langle i'|)\) vanishes unless
-\(M_{HV}(i - i') = 0\), and \(\Phi\) is the uniform mixture
-\(|G|^{-1} \sum_{g \in G} g\,\cdot\,g^{\dagger}\) over an abelian group
-\(G\) of Weyl operators with \(|G| = 2^{\,s - \kappa + w}\).}
+\textbf{Lemma 2 (channel normal form).} \emph{Write \(A = M_{VV}\),
+\(B = M_{VH}\), \(C = M_{HV}\) for the blocks of the update, and
+\(L_{RR}\) for the adjacency of \(\Lambda\) restricted to \(R\). Then:
+(i) \(A\) is invertible, with
+\(A^{-1}(a_u, a_v) = (a_v,\ a_u - L_{RR}\,a_v)\), so the visible block
+alone induces the permutation (Clifford) unitary
+\(V_A|i\rangle = |Ai\rangle\); (ii) \(\Phi(|i\rangle\langle i'|)\)
+vanishes unless \(C(i - i') = 0\); (iii) on the Weyl operators the
+channel acts, with no phase, as}
 
-\emph{Proof.} The hidden outputs of \(i\) and \(i'\) agree for some
-hidden input exactly when \(M_{HV}(i-i') = 0\), and then for every
-hidden input, so the surviving coherences are those at displacements in
-\(\ker M_{HV}\); killing the rest is the uniform mixture over the
-\(2^{\,s-\kappa}\) phase operators dual to \(\ker M_{HV}\). On the
-surviving blocks the output is averaged over translations by
-\(W = \mathrm{im}\, M_{VH}\), a group of \(2^{w}\) translation
-operators. The two families commute: the configurations \((0, v_R)\) lie
-in \(\ker M_{HV}\), since the hidden output does not involve \(v_R\),
-and \(M_{VV}\) carries them onto the whole \(u'\)-subspace, which
-contains \(W\); so \(W\) lies in the image of \(\ker M_{HV}\) and the
-symplectic form between the two families vanishes. \(\square\)
+\[\Phi\!\left(X^{a}Z^{b}\right) = \big[\,Ca = 0\,\big]\,\big[\,B^{T}A^{-T}b = 0\,\big]\; X^{Aa}\,Z^{A^{-T}b},\]
+
+\emph{so that \(\Phi = \mathrm{Ad}_{V_A} \circ \Phi_G\), where
+\(\Phi_G = |G|^{-1} \sum_{g \in G} g\,\cdot\,g^{\dagger}\) is the
+uniform mixture over the group \(G\) of Weyl operators
+\(X^{\alpha}Z^{\beta}\) with \(\alpha \in \mathrm{im}(A^{-1}B)\)
+(translations) and
+\(\beta \in \mathrm{im}\,C^{T} = (\ker M_{HV})^{\perp}\) (phases); (iv)
+\(G\) is abelian, of order \(2^{\,s - \kappa + w}\).}
+
+\emph{Proof.} (i) is the displayed inverse, read off from \(v'_x = u_x\)
+and \(u'_x = (L_{RR}u)_x + v_x\) on \(R\); invertibility of \(A\) is
+what makes \(i \mapsto Ai\) a relabelling. (ii) The hidden outputs of
+\(i\) and \(i'\) agree for some hidden input exactly when
+\(C(i-i') = 0\), and then for every hidden input. (iii) With the hidden
+input uniform,
+\(\Phi(|i\rangle\langle i'|) = [\,C(i-i')=0\,]\ \mathbb{E}_{t \in \mathrm{im}\,B}\, |Ai+t\rangle\langle Ai'+t|\).
+Summing this against
+\(X^{a}Z^{b} = \sum_i (-1)^{b\cdot i}\,|i+a\rangle\langle i|\) and
+substituting \(i \mapsto i - A^{-1}t\) gives the displayed rule: the
+character sum over \(\mathrm{im}\,B\) produces the second indicator and
+cancels every phase. The right-hand side is \(\mathrm{Ad}_{V_A}\)
+applied to the Hilbert--Schmidt-orthogonal projection onto
+\(\mathrm{span}\{X^{a}Z^{b} : Ca = 0,\ B^{T}A^{-T}b = 0\}\), and the
+uniform mixture over the symplectic complement of that index set ---
+which is exactly \(G\) --- is that projection. (iv) An element
+\(X^{\alpha}Z^{\beta}\) with \(\alpha \in \mathrm{im}(A^{-1}B)\),
+\(\beta \in \mathrm{im}\,C^{T}\) commutes with another iff the
+cross-pairings \(\alpha \cdot \beta'\) vanish; over all of \(G\) this is
+the single condition \(C A^{-1} B = 0\), which holds identically for
+this update: \(B\) feeds hidden \(u\) into the visible
+\(u'\)-components, \(A^{-1}\) carries the \(u'\)-subspace onto the
+\(v\)-subspace, and \(C\) reads only the visible \(u\)-components. The
+translation and phase families intersect only in the identity, so
+\(|G| = 2^{\mathrm{rank}\,B}\cdot 2^{\mathrm{rank}\,C} = 2^{\,w + (s-\kappa)}\).
+\(\square\)
 
 \textbf{Theorem (separability threshold).} \emph{Let \(G\) be an abelian
 subgroup of the Weyl group on \(s\) qubits, of order \(2^{t}\) modulo
@@ -1195,19 +1223,26 @@ is entanglement-breaking if and only if \(t = s\).}
 \(\mathbb{F}_2^{2s}\), on which abelian subgroups are exactly the
 isotropic subspaces; isotropy bounds \(t \leq s\). Any isotropic
 subspace of dimension \(t\) is carried to
-\(\langle Z_1, \dots, Z_t \rangle\) by a symplectic transformation, and
-every symplectic transformation is implemented by a Clifford unitary
-\(U\). Hence \(U \Phi_G U^{\dagger}\) is complete dephasing on \(t\)
-qubits tensored with the identity on the remaining \(s - t\). Complete
-dephasing is measure-and-prepare and therefore entanglement-breaking,
-and a tensor product of channels is entanglement-breaking exactly when
-every factor is; the identity on a non-trivial factor is not. Since
+\(\langle Z_1, \dots, Z_t \rangle\) by a symplectic transformation
+(Witt's extension theorem for the symplectic space
+\(\mathbb{F}_2^{2s}\)), and every symplectic transformation is
+implemented by a Clifford unitary \(U\). Hence \(U \Phi_G U^{\dagger}\)
+is complete dephasing on \(t\) qubits tensored with the identity on the
+remaining \(s - t\). Complete dephasing is measure-and-prepare and
+therefore entanglement-breaking, and a tensor product of channels is
+entanglement-breaking exactly when every factor is --- separability of
+the joint Choi state survives the partial trace onto any single factor
+pair, so one entangled factor Choi rules out separability of the whole;
+the identity on a non-trivial factor is not entanglement-breaking. Since
 conjugation by a unitary preserves the property, \(\Phi_G\) is
 entanglement-breaking precisely when \(s - t = 0\). \(\square\)
 
 \textbf{Corollary 1.} \emph{\(\Phi\) is not entanglement-breaking if and
-only if \(w < \kappa\).} Immediate from Lemmas 1--2 and the Theorem,
-with \(t = s - \kappa + w\).
+only if \(w < \kappa\).} Immediate from Lemma 2 and the Theorem with
+\(t = s - \kappa + w\): entanglement breaking is invariant under
+composition with the unitary \(\mathrm{Ad}_{V_A}\), so \(\Phi\) is
+entanglement-breaking exactly when \(\Phi_G\) is, and \(t = s\) reads
+\(w = \kappa\) (Lemma 2 gives \(w \leq \kappa\), matching \(t \leq s\)).
 
 \textbf{Corollary 2.} \emph{If
 \(|\partial^{-}R| + |\partial^{+}R| < 2|R|\) then \(\Phi\) is not
@@ -1240,9 +1275,19 @@ and Clifford arguments carry over to prime \(q\) with \(2^{\bullet}\)
 replaced by \(q^{\bullet}\), while composite \(q\) requires
 module-theoretic treatment of rank and kernel and is not covered. All of
 this concerns the realization displayed above and is not a property of
-arbitrary finite bijections. The enumeration and the boundary bounds are
-reproduced by the deterministic tests in
-\texttt{papers/oi\_lattice\_code/coherence/}.
+arbitrary finite bijections. For a general linear bijection the abelian
+property of Lemma 2(iv) can fail (\(C A^{-1} B \neq 0\)); the mixture is
+then over a non-abelian Weyl family, and entanglement breaking is
+governed by the isotropy of the surviving index set rather than by its
+order alone --- not treated here. The enumeration and the boundary
+bounds are reproduced by the deterministic tests in
+\texttt{papers/oi\_lattice\_code/coherence/}
+(\texttt{coherence\_enumeration.py}); the transfer rule and normal form
+of Lemma 2, the threshold Theorem exhaustively at \(s = 2, 3\), and both
+directions of Corollary 1 --- a negative partial transpose wherever
+\(w < \kappa\), an explicit measure-and-prepare form wherever
+\(w = \kappa\) --- are verified for \(q = 2\) and \(q = 3\) by
+\texttt{coherence\_theorem\_tests.py} in the same directory.
 
 \textbf{Theorem (CP-indivisibility).} \emph{The P-indivisibility of §2.3
 implies CP-indivisibility of \(\{\Phi_t\}\): there exist
