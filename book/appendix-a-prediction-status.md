@@ -61,8 +61,6 @@ The framework's predictions are organized at four levels of descriptive abstract
 
 This section provides the master tables of the framework's predictions, organized by domain. Each entry includes prediction number, formula or quantitative content, structural classification, layer, empirical match, and chapter cross-reference for further detail.
 
-**Authoritative source.** These tables are a reader-facing view of `audit/claim_ledger.json`, which is the single maintained record of every public claim. The ledger carries, per claim, a *status* (established / conditional / open / empirically selected / stipulated / representational / unsupported / refuted) separately from an *evidence kind* (fit / retrodiction / consistency check / conditional prediction / preregistered forward prediction / untested) — a distinction the single-letter class scheme of §A.2 conflates, and the reason a row can read "S" here while the ledger records the claim as conditional. Where this appendix and the ledger disagree, the ledger is authoritative; `audit/check_ledger.py` reports the disagreements. The migration of these tables to generated output is in progress and the class letters below are retained for continuity with earlier releases.
-
 ### A.4.1 Standard Model observables
 
 The framework's twenty-two Standard Model predictions form the core empirical record. All twenty-two predictions match observation within approximately 1% or approximately 1$\sigma$ — the cumulative empirical content is substantial.
@@ -164,7 +162,7 @@ The framework's empirical content in biology and medicine is concentrated in the
 | B13 | iPSC reprogramming residuals | Substratum-emergent dissociation | S | 1 | Lin et al. 2024 confirmed | Ch 16 §16.10 |
 | B14 | Bivalent chromatin states | Multi-operator substratum | S | 1 | Bernstein et al. 2006 confirmed | Ch 16 §16.10 |
 
-**Summary statistics.** Counts: 12 S + 2 C. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction, in the same category as B6-B10 — the framework accounts for phenomena established before it. None is a forward confirmation. B4 and B5 were reclassified from S to C following the withdrawal of the (C1 $\Rightarrow$ coherence) inference: coherence preservation is a property of the specific physical realization, not a consequence of (C1)-(C3), so the framework's content here is the non-Markovian accounting rather than a derivation that coherence survives.
+**Summary statistics.** Counts: 12 S + 2 C. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction, in the same category as B6-B10 — the framework accounts for phenomena established before it. None is a forward confirmation. B4 and B5 are C rather than S because coherence preservation is a property of the specific physical realization and is not implied by (C1)-(C3) (§13.4-13.5): the framework's content in those two rows is the non-Markovian accounting, not a derivation that coherence survives.
 
 ## A.5 Forward predictions and falsification targets
 
