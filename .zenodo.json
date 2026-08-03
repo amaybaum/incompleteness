@@ -1,0 +1,23 @@
+{
+    "upload_type": "publication",
+    "publication_type": "preprint",
+    "title": "The Incompleteness Framework",
+    "creators": [
+        {
+            "name": "Maybaum, Alex"
+        }
+    ],
+    "access_right": "open",
+    "license": "cc-by-4.0",
+    "language": "eng",
+    "keywords": [
+        "foundations of quantum mechanics",
+        "emergent quantum mechanics",
+        "deterministic substratum",
+        "structural realism",
+        "lattice gauge theory",
+        "entanglement-breaking channels",
+        "reproducible research"
+    ],
+    "description": "<p>Snapshot of the working repository for <em>The Incompleteness Framework</em>: a research programme deriving quantum-mechanical structure from the premise that observation is a proper subsystem of a deterministic whole.</p><p>The archive contains three kinds of content, and its root is the repository root, so relative paths cited in the manuscripts (for example <code>papers/oi_lattice_code/coherence/</code>) resolve inside it:</p><ul><li><strong>Technical papers</strong> (<code>papers/</code>) &mdash; the authoritative technical content, including Main (central theorem and emergent quantum mechanics), Substratum, Structure, SM, GR, the focused presentation Juno, the methodology paper Physics Modulo Gauge, and the companion documents Explainer, Complexity, Medicine and Bioinformatics. Sources and built PDFs are both included.</li><li><strong>Book manuscript</strong> (<code>book/</code>) &mdash; <em>The Incompleteness of Observation: A Unified Framework from Quantum Mechanics to Computational Biology</em>, a working draft addressed to a general technical readership. The papers, not the book, are the primary reference for framework-internal derivations.</li><li><strong>Verification code</strong> (<code>papers/oi_lattice_code/</code>) &mdash; lattice Monte Carlo sources, run drivers, analysis scripts, and the deterministic test suites behind claims made in the papers.</li></ul><p><strong>Licensing.</strong> This deposit is mixed content under a single Zenodo license field. The manuscripts are licensed CC-BY-4.0, which is the label shown here; the source code is licensed MIT, per the <code>LICENSE</code> file at the archive root. The <em>Licensing</em> section of <code>README.md</code> is the authoritative statement of scope.</p><p>Version-specific DOIs are minted for each release; the concept DOI resolves to the latest version. Work reproducing a specific claim should cite the version DOI of the release that carries it.</p>"
+}
