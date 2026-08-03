@@ -4158,7 +4158,7 @@ Standard quantum hardware aims to minimize environmental coupling to maximize co
 
 Standard coherence decays as $e^{-t/T_2}$. With information backflow from an engineered bath, coherence partially revives at multiples of $\tau_B$. The revival amplitude per cycle is $\mathcal{O}(\tau_S/\tau_B)$. For natural systems with $\tau_S/\tau_B \sim 10^{-3}$, revival is approximately $0.1\%$ — too small to be useful. For an engineered system with $\tau_S/\tau_B \sim 10^{-1}$ (achievable with a qubit coupled to a short spin chain or resonator array), revival is approximately $10\%$ per cycle.
 
-Over multiple revival cycles before the bath fully relaxes, the effective coherence time extends by a factor of approximately $\tau_B/\tau_S$. Current superconducting qubit $T_2 \sim 100\,\mu$s could be pushed to $\sim 1$ ms without improving the qubit itself — the improvement comes from the engineered bath.
+Over multiple revival cycles before the bath fully relaxes, coherence persists longer than a Markovian estimate would give. The framework does not deliver the extension factor: $\tau_B/\tau_S$ is a ratio of substratum timescales, and identifying it with an achievable $T_2$ ratio presumes the revivals survive the device's other decoherence channels — a platform-specific question. No numerical $T_2$ target is claimed.
 
 **Concrete platform: qubit coupled to a spin chain.** A specific platform implementing the framework's prediction is a qubit coupled to a linear chain of $L$ ancillary spins. The chain serves as the engineered hidden sector. Its correlation timescale scales as $\tau_B \sim L^z$ (where $z$ is the dynamical exponent — for a Heisenberg chain, $z = 1$). Its capacity scales exponentially as approximately $2^L$ states.
 
@@ -4187,11 +4187,11 @@ Sensing protocols that exploit the revival — measuring at the backflow time ra
 
 **Quantitative prediction.** Standard NV magnetometry sensitivity is $\delta B \sim 1/(\gamma \sqrt{T_2 \cdot T_{\text{meas}}})$, where $\gamma$ is the gyromagnetic ratio and $T_{\text{meas}}$ is the total measurement time. Non-Markovian backflow at $\tau_B$ means each measurement recovers information that Markovian protocols assume is lost. For $\tau_S/\tau_B \sim 10^{-6}$ (NV center with paramagnetic bath), each measurement carries approximately $10^{-6}$ extra information. Over $10^6$ repetitions, this integrates to $\mathcal{O}(1)$ — a factor of $\sqrt{\tau_B/\tau_S} \sim 10^3$ improvement in signal-to-noise if the protocol is optimized for the backflow timing.
 
-This corresponds to a factor-of-$10^3$ improvement in NV magnetometry sensitivity — pushing from nT$/\sqrt{\text{Hz}}$ to pT$/\sqrt{\text{Hz}}$ at room temperature. This would make NV sensors competitive with superconducting quantum interference devices (SQUIDs) but operating at room temperature rather than requiring cryogenic cooling — a substantial commercial advantage if achieved.
+A sensitivity gain follows in *direction* but not in size: the framework fixes neither the achievable interrogation time nor the readout efficiency, and both enter $\delta B$ directly, so no numerical improvement factor is claimed here. Quoting one would require an NV-specific model of the spin bath, readout chain and control sequence. This would make NV sensors competitive with superconducting quantum interference devices (SQUIDs) but operating at room temperature rather than requiring cryogenic cooling — a substantial commercial advantage if achieved.
 
 **Empirical accessibility and falsification.** The framework's prediction is testable on current NV-magnetometry platforms through development of backflow-aware sensing protocols. The required steps are: (i) characterize the bath correlation timescales on a specific NV-diamond sample; (ii) design measurement protocols that read out the NV at $\tau_B$ rather than at the standard $T_2/2$ timing; (iii) compare integrated sensitivity against standard protocols on the same hardware.
 
-A factor-of-$10^3$ improvement in NV sensitivity at room temperature would be transformative for biological imaging, medical diagnostics, and geophysical sensing applications. The framework's prediction is therefore not isolated theoretical content but a specific commercial design target with empirical accessibility on existing hardware. Falsification would come from demonstration that backflow-aware protocols do not improve integrated sensitivity by factors exceeding $\sim 10$ across multiple NV platforms — suggesting the framework's predicted backflow effects are too small or too thermally averaged to be exploited.
+A large improvement in NV sensitivity at room temperature would be transformative for biological imaging, medical diagnostics, and geophysical sensing applications. The framework's prediction is therefore not isolated theoretical content but a specific commercial design target with empirical accessibility on existing hardware. Falsification would come from demonstration that backflow-aware protocols do not improve integrated sensitivity by factors exceeding $\sim 10$ across multiple NV platforms — suggesting the framework's predicted backflow effects are too small or too thermally averaged to be exploited.
 
 ## 15.7 The partially-quantum regime in engineered systems
 
@@ -4293,9 +4293,9 @@ The framework's content in quantum engineering is concrete and empirically acces
 
 **Five quantitative predictions.**
 
-1. *Correlation-aware error correction.* For superconducting qubits with TLS baths ($\tau_S/\tau_B \sim 10^{-3}$), correlation-aware decoders can reduce fault-tolerance overhead by a factor of 3-10× at the same physical error rate (§15.4). Testable now with current hardware and current decoder implementations.
+1. *Correlation-aware error correction.* For superconducting qubits with TLS baths ($\tau_S/\tau_B \sim 10^{-3}$), correlation-aware decoders should outperform Markovian decoders at the same physical error rate (§15.4). The framework does not supply the size of that gain: converting a correlation length into a fault-tolerance overhead requires a specific code, decoder and noise spectrum, none of which follows from C1-C3. Testable now with current hardware and current decoder implementations.
 
-2. *Coherence extension through engineered baths.* For qubits coupled to designed slow hidden sectors ($\tau_S/\tau_B \sim 10^{-1}$), coherence times can extend by approximately the bath's correlation timescale (§15.5). $T_2$ from $\sim 100\,\mu$s to $\sim 1$ ms achievable.
+2. *Coherence extension through engineered baths.* For qubits coupled to designed slow hidden sectors ($\tau_S/\tau_B \sim 10^{-1}$), coherence should persist beyond the Markovian estimate (§15.5). No numerical $T_2$ target is claimed; the extension factor requires a device model the framework does not supply.
 
 3. *Backflow-aware NV sensing.* For NV centers in diamond ($\tau_S/\tau_B \sim 10^{-6}$), backflow-aware protocols can improve sensitivity by approximately $10^3 \times$ (§15.6). NV magnetometry from nT$/\sqrt{\text{Hz}}$ to pT$/\sqrt{\text{Hz}}$ at room temperature.
 
@@ -5735,9 +5735,9 @@ Beyond the predictions with current empirical match, the framework makes specifi
 | # | Prediction | Quantitative content | Testability | Chapter |
 |---|-----------|---------------------|-------------|---------|
 | F1 | BEC analogue-gravity $\mathcal{F}(r) = 2r - r^2$ | Capacity-controlled non-Markovianity | Steinhauer group, 2-3 years | Ch 15 §15.8 |
-| F2 | Correlation-aware error correction | 3-10× overhead reduction for superconducting qubits | Current quantum hardware | Ch 15 §15.4 |
-| F3 | Backflow-aware NV magnetometry | $10^3 \times$ sensitivity improvement | Current NV platforms | Ch 15 §15.6 |
-| F4 | Engineered-bath coherence extension | Up to 10× $T_2$ extension | Spin chain / NV / trapped ion platforms | Ch 15 §15.5 |
+| F2 | Correlation-aware error correction | correlated errors over $\sim\tau_B/\tau_S$ gates; gain not quantified | Current quantum hardware | Ch 15 §15.4 |
+| F3 | Backflow-aware NV magnetometry | sensitivity gain in direction only; factor not quantified | Current NV platforms | Ch 15 §15.6 |
+| F4 | Engineered-bath coherence extension | coherence beyond the Markovian estimate; factor not quantified | Spin chain / NV / trapped ion platforms | Ch 15 §15.5 |
 
 **Cosmology and gravity.**
 

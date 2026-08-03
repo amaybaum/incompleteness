@@ -1685,10 +1685,11 @@ The engineering gains from P-indivisible design are not incremental
 corrections. They scale with \(\tau_B / \tau_S\) --- the ratio the
 framework identifies as the fundamental design parameter.
 
-\textbf{Quantum error correction: 3--10× overhead reduction.} Standard
-surface codes assume independent (Markovian) errors. Correlated errors
-from a slow bath extend over \(\sim \tau_B / \tau_S\) gates. A Markovian
-decoder sees these correlations as a higher effective error rate --- it
+\textbf{Quantum error correction: a structural correlation, not a
+quantified gain.} Standard surface codes assume independent (Markovian)
+errors. Correlated errors from a slow bath extend over
+\(\sim \tau_B / \tau_S\) gates. A Markovian decoder sees these
+correlations as a higher effective error rate --- it
 \emph{underperforms}. A correlation-aware decoder exploits the
 predictability: correlated errors are easier to correct than random
 errors. For superconducting qubits with TLS baths
@@ -1756,10 +1757,12 @@ Status
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Error correction & \(10^{-3}\) & 3--10× overhead reduction & Testable
-now with correlation-aware decoders \\
-Coherence extension & \(10^{-1}\) (engineered) & Up to 10× \(T_2\) &
-Requires engineered spin chain coupling \\
+Error correction & \(10^{-3}\) & correlated errors over
+\(\sim\tau_B/\tau_S\) gates; overhead gain not quantified (no
+code/decoder model) & Testable now with correlation-aware decoders \\
+Coherence extension & \(10^{-1}\) (engineered) & coherence beyond the
+Markovian estimate; factor not quantified & Requires engineered spin
+chain coupling \\
 Quantum sensing & \(10^{-6}\) & Up to \(10^3\)× sensitivity & Requires
 backflow-optimized protocols \\
 Quantum materials & \(10^{-1}\) (engineered) & Qualitatively new regime
