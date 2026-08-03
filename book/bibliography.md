@@ -6,7 +6,7 @@ This bibliography lists the works cited in the book, organized by topical area. 
 
 ## Framework-internal citations
 
-Maybaum, A. (2026). *The Incompleteness Framework*. Zenodo, concept DOI: 10.5281/zenodo.19060318 (resolves to the current release). [Repository containing the framework's full technical content: the core papers — Main (central theorem and emergent quantum mechanics), Substratum (substratum construction and reconstruction theorem), Structure (structural realism), SM (Standard Model derivation), GR (gravitational sector) — together with the focused presentation Juno (neutrino-sector prediction), the methodology paper Physics Modulo Gauge, and the companion documents Explainer, Complexity, Medicine, and Bioinformatics.]
+Maybaum, A. (2026). *The Observational Incompleteness Framework*. Zenodo, concept DOI: 10.5281/zenodo.19060318 (resolves to the current release). [Repository containing the framework's full technical content: the core papers — Main (central theorem and emergent quantum mechanics), Substratum (substratum construction and reconstruction theorem), Structure (structural realism), SM (Standard Model derivation), GR (gravitational sector) — together with the focused presentation Juno (neutrino-sector prediction), the methodology paper Physics Modulo Gauge, and the companion documents Explainer, Complexity, Medicine, and Bioinformatics.]
 
 ---
 
