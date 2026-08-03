@@ -2397,6 +2397,35 @@ observation under (C1)--(C3) are equivalent.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{code-and-data-availability}{%
+\subsection{Code and Data
+Availability}\label{code-and-data-availability}}
+
+The verification code for §3.2 is under
+\texttt{papers/oi\_lattice\_code/coherence/}:
+\texttt{coherence\_enumeration.py} (the (C1) counterexample, the
+exhaustive small-system enumeration behind the counts quoted in the
+Remark on the failure of (C1), and the Lemma 1 boundary bounds) and
+\texttt{coherence\_theorem\_tests.py} (the Weyl transfer rule and normal
+form of Lemma 2, the separability threshold exhaustively at
+\(s = 2, 3\), and both directions of Corollary 1 --- a negative partial
+transpose wherever \(w < \kappa\), an explicit measure-and-prepare form
+wherever \(w = \kappa\) --- for \(q = 2\) and \(q = 3\)). Both are
+deterministic, depend only on NumPy and SciPy, and exit non-zero on
+failure; no result in this paper rests on sampling or on a random seed.
+
+The repository is archived on Zenodo with concept DOI
+\href{https://doi.org/10.5281/zenodo.19060318}{10.5281/zenodo.19060318},
+which resolves to the latest version; per-release version DOIs are
+minted at release time, and a reader reproducing a specific claim should
+cite the version DOI of the release carrying it rather than the concept
+DOI. Paths above are relative to the repository root, which is also the
+root of the archived snapshot. The code is also available on GitHub at
+\url{https://github.com/amaybaum/incompleteness} and is released under
+the MIT License.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
 \hypertarget{acknowledgements}{%
 \subsection{ACKNOWLEDGEMENTS}\label{acknowledgements}}
 

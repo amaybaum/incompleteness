@@ -453,6 +453,14 @@ where $\varepsilon$ absorbs typical-set and finite-size corrections. In particul
 
 ---
 
+## Code and Data Availability
+
+The verification code for §3.2 is under `papers/oi_lattice_code/coherence/`: `coherence_enumeration.py` (the (C1) counterexample, the exhaustive small-system enumeration behind the counts quoted in the Remark on the failure of (C1), and the Lemma 1 boundary bounds) and `coherence_theorem_tests.py` (the Weyl transfer rule and normal form of Lemma 2, the separability threshold exhaustively at $s = 2, 3$, and both directions of Corollary 1 — a negative partial transpose wherever $w < \kappa$, an explicit measure-and-prepare form wherever $w = \kappa$ — for $q = 2$ and $q = 3$). Both are deterministic, depend only on NumPy and SciPy, and exit non-zero on failure; no result in this paper rests on sampling or on a random seed.
+
+The repository is archived on Zenodo with concept DOI [10.5281/zenodo.19060318](https://doi.org/10.5281/zenodo.19060318), which resolves to the latest version; per-release version DOIs are minted at release time, and a reader reproducing a specific claim should cite the version DOI of the release carrying it rather than the concept DOI. Paths above are relative to the repository root, which is also the root of the archived snapshot. The code is also available on GitHub at <https://github.com/amaybaum/incompleteness> and is released under the MIT License.
+
+---
+
 ## ACKNOWLEDGEMENTS
 
 During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining argumentation, and verifying bibliographic details. The author reviewed and edited all content and takes full responsibility for the publication.
