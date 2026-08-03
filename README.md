@@ -20,6 +20,7 @@ A book-length treatment, **The Incompleteness of Observation: A Unified Framewor
 
 The full file list is in [Contents](#contents).
 
+
 ## Status of the material: core vs conjectural extensions
 
 The framework's empirical weight lies in its **physics core**. Its applications to biology, medicine, consciousness, and computational complexity are **conjectural extensions** — they apply the core framework to new domains, are offered as conjectures to be tested rather than established results, and carry no evidential weight for the core, which stands or falls independently on its physics. Each such chapter and paper now opens with an explicit "Status — conjectural extension" banner stating its test-or-break condition.
@@ -255,6 +256,33 @@ Output: [(S, φ)] / 𝒢_sub uniquely determined (Substratum §§3–4, Theorem 
 ```
 
 The reconstruction map has kernel $\mathcal{G}_{\rm sub}$ — everything outside the equivalence class is fixed; everything inside is gauge. Whether $(S, \varphi)$ *is* reality or *describes* reality is provably undecidable.
+
+## Licensing
+
+This repository is mixed content, and two licenses apply by scope:
+
+| Scope | License |
+|---|---|
+| **Source code** — everything under `papers/oi_lattice_code/`, the build and audit scripts under `audit/`, and any other program source here | **MIT**, per `LICENSE` |
+| **Manuscripts** — the technical papers under `papers/` in Markdown, LaTeX and PDF form, and everything under `book/` | **CC-BY-4.0** ([deed](https://creativecommons.org/licenses/by/4.0/)) |
+
+This section is the authoritative statement of scope. `LICENSE` carries the verbatim MIT
+text and is the file read by automated license detection; it is deliberately the only file
+named `LICENSE*`.
+
+Attribution, as CC-BY-4.0 requires for the manuscripts, is satisfied by a citation of the
+form
+
+> Maybaum, A. (2026). *The Incompleteness Framework*. Zenodo. https://doi.org/10.5281/zenodo.19060318
+
+The concept DOI resolves to the latest version; work reproducing a specific claim should
+cite the version DOI of the release carrying it. For the code, MIT requires that the
+copyright and permission notice in `LICENSE` accompany substantial portions of the source.
+
+The Zenodo deposit archives the whole repository as one record, and Zenodo's license field
+holds a single value. It is set to CC-BY-4.0, matching the manuscripts, which are the bulk
+of the deposit; the record description states the split. MIT continues to govern the code
+inside the archive regardless of that record-level label.
 
 ## Contact
 
