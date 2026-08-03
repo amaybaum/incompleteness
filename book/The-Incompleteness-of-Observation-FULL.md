@@ -3693,7 +3693,7 @@ The framework's content provides a structural reading of the radical-pair mechan
 
 **The framework's prediction.** The radical-pair dynamics is non-Markovian, with the recombination yield depending on the radical-pair history through correlations stored in the nuclear spin bath. The geomagnetic field's effect is therefore not just the Zeeman splitting of instantaneous spin states but the *integral* over the radical-pair lifetime of the field's effect on the coupled electron-nuclear spin dynamics.
 
-The framework's reading has specific consequences for the magnetic compass's sensitivity and selectivity. The compass's sensitivity to weak magnetic fields ($\sim 50$ $\mu$T for the geomagnetic field) requires the radical-pair dynamics to be sensitive to small Zeeman energies ($\sim 10^{-6}$ K of energy difference). The framework's non-Markovian dynamics provides the mechanism: the small energy difference accumulates coherently over the radical-pair lifetime, with the C1-C3 architecture preserving the relevant coherences long enough for the effect to be detected.
+The framework's reading has specific consequences for the magnetic compass's sensitivity and selectivity. The compass's sensitivity to weak magnetic fields ($\sim 50$ $\mu$T for the geomagnetic field) requires the radical-pair dynamics to be sensitive to small Zeeman energies ($\sim 10^{-6}$ K of energy difference). The framework's non-Markovian dynamics provides the mechanism: the small energy difference accumulates coherently over the radical-pair lifetime, with coherence surviving long enough for the effect to be detected. The coherence preservation is a property of the specific physical realization, not a consequence of the C1-C3 architecture: (C1)-(C3) constrain coupling, timescales and capacity, and neither contain nor imply a coherence requirement (see Ch. 1 and [Main §3.4]). The framework's contribution here is the non-Markovian accounting of the accumulated phase, not a derivation that the phase survives.
 
 **Empirical content.** The framework's reading is consistent with the empirical record on magnetoreception:
 
@@ -5548,7 +5548,7 @@ Beyond the resolved and open problems above, the framework does not address seve
 
 The open problems are also substantial. The flavor problem is the framework's largest single open theoretical task. The Hubble tension is not addressed by the framework's $\nu_{\text{OI}}$ prediction. Baryogenesis is solution-specific — the baryon asymmetry inherits the input status of the framework's flavor-sector CP phases. Inflation is not derived. The initial-state question is partially gauge and partially the framework's irreducible mystery.
 
-**A structural observation about the resolution pattern.** The twelve resolved problems above are not twelve independent solutions; they trace, to a substantial degree, to one structural feature — the substrate/emergent split with trace-out. The cosmological constant dissolution, the measurement problem dissolution, the Bell/Kochen-Specker/PBR/Frauchiger-Renner dissolutions, the dark-sector content, the hierarchy problem dissolution, the strong CP resolution, the Higgs criticality, the absence of GUT signatures: each of these traces to the same architectural move. Fixing the framework's substrate machinery to produce any one of these resolutions strongly constrains (and in several cases forces) the others. The resolutions are not assembled puzzle-by-puzzle; they fall out of one architectural commitment.
+**A structural observation about the resolution pattern.** The twelve problems above are not addressed to a uniform standard — several are conditional results whose hypotheses are stated but not discharged, and the per-claim status is recorded in `audit/claim_ledger.json` rather than inferable from this chapter's framing. Nor are they twelve independent resolutions; they trace, to a substantial degree, to one structural feature — the substrate/emergent split with trace-out. The cosmological constant dissolution, the measurement problem dissolution, the Bell/Kochen-Specker/PBR/Frauchiger-Renner dissolutions, the dark-sector content, the hierarchy problem dissolution, the strong CP resolution, the Higgs criticality, the absence of GUT signatures: each of these traces to the same architectural move. Fixing the framework's substrate machinery to produce any one of these resolutions strongly constrains (and in several cases forces) the others. The resolutions are not assembled puzzle-by-puzzle; they fall out of one architectural commitment.
 
 This is the kind of unity a foundational framework either has or does not have. A framework that solves $N$ deep problems through $N$ separate mechanisms, each fixable independently, is — in the methodological vocabulary of Deutsch's *Beginning of Infinity* — easy to vary: each mechanism could be adjusted without disturbing the others, and the framework's prior probability is correspondingly diffuse over alternative parameter choices. A framework that solves $N$ deep problems through one structural feature with shared assumptions is hard to vary: changing the architecture to fix one resolution disturbs the others. The Bayesian consequence is that a hard-to-vary framework concentrates probability where an easy-to-vary one disperses it; correlated explanations are stronger explanations, not weaker ones, when they hold up.
 
@@ -5622,6 +5622,8 @@ The framework's predictions are organized at four levels of descriptive abstract
 ## A.4 Master prediction tables
 
 This section provides the master tables of the framework's predictions, organized by domain. Each entry includes prediction number, formula or quantitative content, structural classification, layer, empirical match, and chapter cross-reference for further detail.
+
+**Authoritative source.** These tables are a reader-facing view of `audit/claim_ledger.json`, which is the single maintained record of every public claim. The ledger carries, per claim, a *status* (established / conditional / open / empirically selected / stipulated / representational / unsupported / refuted) separately from an *evidence kind* (fit / retrodiction / consistency check / conditional prediction / preregistered forward prediction / untested) — a distinction the single-letter class scheme of §A.2 conflates, and the reason a row can read "S" here while the ledger records the claim as conditional. Where this appendix and the ledger disagree, the ledger is authoritative; `audit/check_ledger.py` reports the disagreements. The migration of these tables to generated output is in progress and the class letters below are retained for continuity with earlier releases.
 
 ### A.4.1 Standard Model observables
 
@@ -5712,8 +5714,8 @@ The framework's empirical content in biology and medicine is concentrated in the
 | B1 | Wider therapeutic window for Rett | Substratum-emergent operator dissociation | S | 1 | Retrodiction (Guy et al. 2007) | Ch 16 §16.12 |
 | B2 | Cancer methylome classifier accuracy | Substratum preserved during tumorigenesis | S | 1 | DKFZ 95%+ accuracy | Ch 17 §17.7 |
 | B3 | Non-Markovian enzyme kinetics | Stretched-exponential waiting times | S | 1 | Multiple enzyme systems | Ch 13 §13.6 |
-| B4 | Vibronic coherences in photosynthesis | Picosecond timescale | S | 1 | FMO confirmed | Ch 13 §13.4 |
-| B5 | Millisecond radical-pair coherence in cryptochrome | Slow-bath C2 | S | 1 | Wiltschko 2019 confirmed | Ch 13 §13.5 |
+| B4 | Vibronic coherences in photosynthesis | Picosecond timescale | C | 1 | FMO observed; does not discriminate against standard vibronic accounts | Ch 13 §13.4 |
+| B5 | Millisecond radical-pair coherence in cryptochrome | Slow-bath C2 | C | 1 | Wiltschko 2019 | Ch 13 §13.5 |
 | B6 | Molecular clock overdispersion | $R(t) \approx 5$ for mammals | S | 1 | Gillespie 1989, Cutler 2000 | Ch 17 §17.9 |
 | B7 | Universal rate autocorrelation | Across the tree of life | S | 1 | Tao et al. 2019 confirmed | Ch 17 §17.9 |
 | B8 | LTEE power-law fitness | $\beta \approx 0.08$-$0.12$ | S | 1 | Wiser et al. 2013 confirmed | Ch 17 §17.9 |
@@ -5724,7 +5726,7 @@ The framework's empirical content in biology and medicine is concentrated in the
 | B13 | iPSC reprogramming residuals | Substratum-emergent dissociation | S | 1 | Lin et al. 2024 confirmed | Ch 16 §16.10 |
 | B14 | Bivalent chromatin states | Multi-operator substratum | S | 1 | Bernstein et al. 2006 confirmed | Ch 16 §16.10 |
 
-**Summary statistics.** Counts: 14 S. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction, in the same category as B6-B10 — the framework accounts for phenomena established before it. None is a forward confirmation.
+**Summary statistics.** Counts: 12 S + 2 C. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction, in the same category as B6-B10 — the framework accounts for phenomena established before it. None is a forward confirmation. B4 and B5 were reclassified from S to C following the withdrawal of the (C1 $\Rightarrow$ coherence) inference: coherence preservation is a property of the specific physical realization, not a consequence of (C1)-(C3), so the framework's content here is the non-Markovian accounting rather than a derivation that coherence survives.
 
 ## A.5 Forward predictions and falsification targets
 
