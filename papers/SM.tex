@@ -201,8 +201,9 @@ group \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\),
 three chiral generations, the Higgs as a composite scalar in the singlet
 staggered taste, anomaly cancellation with the observed hypercharges,
 the absolute generation count locked at exactly three by coupling-degree
-minimization, and \(\bar\theta = 0\) to all energy scales --- each step
-proved end-to-end as a chain of theorems on the equivalence class
+minimization, and \(\bar\theta = 0\) at the kinematic level of the
+lattice construction (a conditional result, scoped in §5.5) --- each
+step proved end-to-end as a chain of theorems on the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\). The foundational result
 that quantum mechanics emerges as the description of any embedded
 observer under structural conditions C1--C3 is established in a
@@ -304,14 +305,17 @@ commutant to local gauge invariance, yielding
 \emph{Top-down:} the six anomaly conditions force the observed
 hypercharges, the trace-out makes \(\mathrm{SU}(2)\) chiral while
 \(\mathrm{SU}(3)\) remains vector-like, and exact \(T\)-invariance of
-the underlying bijection forces \(\bar\theta = 0\) at all energy scales
---- the strong CP problem is dissolved at the kinematic level rather
-than being addressed by an axion. The gauge coupling values at \(M_Z\)
-follow quantitatively from a one-parameter chain whose single free
-parameter \(\delta_0\) is treated as empirical input --- a 2-loop
-staggered vacuum-polarization rebuild indicates it is not reproduced by
-strict 2-loop perturbation theory and is accordingly fixed by the U(1)
-row (§6.2).
+the underlying bijection forces \(\bar\theta = 0\) at the kinematic
+level of the lattice construction. This is a conditional result rather
+than a dissolution of the strong CP problem: it awaits a consistent
+CP-violating weak sector within the same construction, an explicit
+\(\bar\theta\)-fixing mechanism at the emergent level, radiative
+stability against that sector, and a quantitative neutron-EDM prediction
+(§5.5). The gauge coupling values at \(M_Z\) follow quantitatively from
+a one-parameter chain whose single free parameter \(\delta_0\) is
+treated as empirical input --- a 2-loop staggered vacuum-polarization
+rebuild indicates it is not reproduced by strict 2-loop perturbation
+theory and is accordingly fixed by the U(1) row (§6.2).
 
 The status of these results admits a useful three-tier classification.
 
@@ -335,16 +339,16 @@ coupling-degree minimization, multiplicities \((3, 2, 1)\) from the
 cubic rotation group, local gauge invariance from background
 independence, chirality from the trace-out, the unique anomaly-free
 hypercharges, three generations from cubic symmetry, one Higgs doublet,
-and \(\bar\theta = 0\) at all scales. Each step is proved; the chain
-runs through twenty-nine theorems and lemmas. The gauge coupling
-prediction extends the chain quantitatively, with a structural input
-\(1/\alpha_0 = 23.25\) (one-loop staggered vacuum polarization,
-analytic) and a universal threshold \(\delta_0 = 10.0\) (empirically
-fixed by the U(1) row; a 2-loop staggered VP rebuild indicates
-\(\delta_0\) is not reproduced by strict 2-loop PT and is accordingly
-treated as empirical input --- see §6.2). Deriving the \(C_2\)-dependent
-threshold from first-principles lattice PT is an open computational
-task.
+and \(\bar\theta = 0\) at the kinematic level of the construction
+(conditional; §5.5). Each step is proved; the chain runs through
+twenty-nine theorems and lemmas. The gauge coupling prediction extends
+the chain quantitatively, with a structural input \(1/\alpha_0 = 23.25\)
+(one-loop staggered vacuum polarization, analytic) and a universal
+threshold \(\delta_0 = 10.0\) (empirically fixed by the U(1) row; a
+2-loop staggered VP rebuild indicates \(\delta_0\) is not reproduced by
+strict 2-loop PT and is accordingly treated as empirical input --- see
+§6.2). Deriving the \(C_2\)-dependent threshold from first-principles
+lattice PT is an open computational task.
 
 \textbf{Tier 3 --- Redundant confirmations.} Asymptotic freedom
 requiring \(N_c \geq 3\), the minimal chiral group constraint, and the
@@ -357,7 +361,8 @@ which the framework's results depend. §3 establishes background
 independence and derives \(d = 3\) from the three self-consistency
 filters. §4 develops the emergent quantum field theory through the
 bottom-up, gauge-emergence, and top-down chains. §5 derives
-\(\bar\theta = 0\) from \(T\)-invariance and detailed balance. §6
+\(\bar\theta = 0\) from \(T\)-invariance and detailed balance at the
+kinematic level of the construction, and scopes the result in §5.5. §6
 extends the chain quantitatively through the gauge coupling prediction.
 §7 collects the quantitative predictions for the CKM matrix, the lepton
 sector, the fermion mass chain, the PMNS angles, and the Higgs mass. §8
@@ -2799,10 +2804,15 @@ symmetry of the transition amplitudes, by Wigner's theorem, implies
 anti-unitary \(\hat{\Theta}\), which gives
 \([\hat{H}_{\text{eff}}, \hat{\Theta}] = 0\). \(\square\)
 
-\textbf{Theorem 21} (\(\bar{\theta} = 0\) at all energy scales).
-\emph{The physical parameter
+\textbf{Theorem 21} (\(\bar{\theta} = 0\) at the kinematic level of the
+construction). \emph{In the lattice construction of §2--§4, with the
+substratum bijection exactly \(T\)-invariant and the emergent
+Hamiltonian satisfying detailed balance, the physical parameter
 \(\bar{\theta} = \theta + \arg\det(Y_u Y_d) = 0\), and the vanishing
-persists to all infrared scales.}
+propagates to every scale of the emergent description so constructed.}
+The theorem is conditional on the construction's hypotheses and does not
+by itself dissolve the strong CP problem of the physical Standard Model;
+see §5.5.
 
 \emph{Proof.} \textbf{Step 1:} Since φ is a bijection, \(\varphi^n\) is
 a bijection for every n.~Applying the counting argument of Theorem 19 to
@@ -2817,7 +2827,8 @@ Hamiltonian is T-invariant at every time scale.
 \textbf{Step 3:} T-invariant Yukawa couplings at each scale are
 simultaneously real in an appropriate basis {[}16, §6.3{]}. Real Yukawa
 matrices have \(\arg\det(Y_u Y_d) = 0\). Combined with θ = 0 (Theorem
-18): \(\bar{\theta} = 0\) at every scale. \(\square\)
+18): \(\bar{\theta} = 0\) at every scale of the constructed emergent
+description. \(\square\)
 
 \emph{Remark.} This proof bypasses the instanton question. T-invariance
 of the transition probabilities is an exact consequence of the bijection
@@ -2831,9 +2842,14 @@ and PMNS mixing. These phases arise from a distinct structural source
 and are treated as solution-specific inputs; see §5.4 for the scope
 distinction and its pre-registration.
 
-\textbf{Prediction:} \(\bar{\theta} = 0\) exactly. No axion needed.
-Neutron EDM should be exactly zero (current bound:
-\(|d_n| < 1.8 \times 10^{-26}\;e\cdot\text{cm}\) {[}19{]}).
+\textbf{Conditional prediction:} \(\bar{\theta} = 0\) with no axion
+required, \emph{within the construction}. The framework does not yet
+deliver a quantitative neutron-EDM prediction: an exactly vanishing
+\(d_n\) follows only if \(\bar\theta = 0\) survives the conditions of
+§5.5, and until radiative stability against a CP-violating weak sector
+is established the framework's commitment is the weaker one that \(d_n\)
+lies below the current bound,
+\(|d_n| < 1.8 \times 10^{-26}\;e\cdot\text{cm}\) {[}19{]}.
 
 \hypertarget{scope-flavor-sector-cp-violation-as-solution-specific-input}{%
 \subsubsection{5.4 Scope: flavor-sector CP violation as
@@ -2867,15 +2883,16 @@ are together compatible with a nonzero Jarlskog.
 \textbf{What the framework does and does not derive.} T-invariance at
 the substrate level (Theorem 17) plus detailed balance (Theorem 19)
 forces each Yukawa matrix to be individually diagonalizable to real
-form, fixing \(\bar\theta = 0\) as a theorem at every energy scale. It
-does \emph{not} force the up-type and down-type mass bases to coincide.
-The basis-alignment unitary is a solution-specific property of the
-particular bijection \(\varphi\), analogous to the absolute scale of
-fermion masses (§7.6) and the specific eigenvalues of the Yukawa
-matrices: the framework derives the structural form of the Yukawa sector
-but does not predict the basis-alignment parameters. The CKM and PMNS
-CP-violating phases are therefore compatible with --- though not derived
-from --- the framework's structural commitments.
+form, fixing \(\bar\theta = 0\) at every scale of the construction
+(Theorem 21, conditional per §5.5). It does \emph{not} force the up-type
+and down-type mass bases to coincide. The basis-alignment unitary is a
+solution-specific property of the particular bijection \(\varphi\),
+analogous to the absolute scale of fermion masses (§7.6) and the
+specific eigenvalues of the Yukawa matrices: the framework derives the
+structural form of the Yukawa sector but does not predict the
+basis-alignment parameters. The CKM and PMNS CP-violating phases are
+therefore compatible with --- though not derived from --- the
+framework's structural commitments.
 
 \textbf{The reducible phases are exactly the field redefinitions
 (nullity).} The \(\bar\theta = 0\) result relies on a supporting fact
@@ -2912,6 +2929,66 @@ commitment to any specific value of \(\delta_{\text{CKM}}\),
 \(\delta_{\text{PMNS}}\), the Jarlskog \(J\), or the Wolfenstein
 parameters \((\rho, \eta)\), and the measurement of these quantities
 does not bear on the framework's structural status.
+
+\hypertarget{scope-of-theorem-21-what-is-established-and-what-is-not}{%
+\subsubsection{5.5 Scope of Theorem 21: what is established and what is
+not}\label{scope-of-theorem-21-what-is-established-and-what-is-not}}
+
+Theorem 21 is a statement about the construction of §2--§4, not yet
+about the physical Standard Model, and this subsection states the gap
+precisely so the result is not read as more than it is.
+
+\emph{What is established.} Given an exactly \(T\)-invariant substratum
+bijection and the detailed balance that follows from it, the emergent
+Hamiltonian is \(T\)-invariant, the \(\theta\)-term is excluded, and
+\(T\)-invariant Yukawas are simultaneously real, so \(\bar\theta = 0\)
+at every scale of the emergent description the construction produces.
+This is a kinematic consequence of the symmetry assumed at the
+substratum; nothing in it depends on instanton dynamics.
+
+\emph{What is not established.} Four conditions stand between that
+statement and a resolution of the strong CP problem, and none is
+discharged here.
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \textbf{A consistent CP-violating weak sector.} §5.4 places the
+  observed CKM and PMNS phases outside the theorem's scope by
+  attributing them to solution-specific basis alignment. That is a
+  coherent division, but the framework has not exhibited a
+  \(T\)-invariant bijection whose emergent description carries a nonzero
+  Jarlskog invariant. Until one is exhibited, the compatibility of
+  \(\bar\theta = 0\) with observed CP violation is argued rather than
+  constructed.
+\item
+  \textbf{An explicit \(\bar\theta\)-fixing mechanism at the emergent
+  level.} The argument fixes \(\bar\theta\) by symmetry of the
+  substratum. A mechanism operating on the emergent effective Lagrangian
+  --- the level at which \(\bar\theta\) is measured --- is not supplied,
+  and the transfer from the one level to the other is the step the
+  construction assumes rather than proves.
+\item
+  \textbf{Radiative stability.} In the Standard Model a CP-violating
+  weak sector regenerates \(\bar\theta\) radiatively, at high loop order
+  and far below the experimental bound but not at zero. Once condition
+  (i) is met, the framework owes an argument that its \(\bar\theta = 0\)
+  survives that regeneration. ``Exactly zero at all energy scales'' is
+  not sustainable as a claim about the physical theory before that
+  argument exists.
+\item
+  \textbf{A quantitative neutron-EDM prediction.} The falsification
+  statement attached to this result should be a predicted \(d_n\) with
+  an error, or a bound the framework commits to. An exactly vanishing
+  \(d_n\) is a prediction of the construction, not yet of the framework
+  applied to the observed world.
+\end{enumerate}
+
+Accordingly the framework's commitment on strong CP is:
+\(\bar\theta = 0\) at the kinematic level of the lattice construction, a
+conditional result. The four conditions above are the content of the
+open item, and are tracked as part of the matter-sector programme of
+§8.9.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -6353,9 +6430,10 @@ bijection satisfying the six structural properties. These include: SU(3)
 × SU(2) × U(1) with multiplicities (3, 2, 1), three chiral generations
 with identical gauge quantum numbers, one Higgs doublet (1, 2, +1/2),
 unique hypercharges from anomaly cancellation, \(\bar{\theta} = 0\) at
-all energy scales, ℏ = c³ε²/(4G), the Bekenstein-Hawking formula, and
-the universal induced coupling \(1/\alpha_0 = 23.25\) (§6.1). These are
-theorems. They do not depend on which specific φ describes our universe.
+the kinematic level of the construction (conditional; §5.5), ℏ =
+c³ε²/(4G), the Bekenstein-Hawking formula, and the universal induced
+coupling \(1/\alpha_0 = 23.25\) (§6.1). These are theorems. They do not
+depend on which specific φ describes our universe.
 
 \textbf{Solution-specific properties} are determined by the particular
 bijection φ within the equivalence class. These include: gauge couplings
@@ -7175,9 +7253,10 @@ instance per problem:
 \item
   \emph{Strong CP} (§5, Theorems 17--21): substratum-level T-invariance
   of the wave equation combined with detailed balance in the emergent
-  Hamiltonian forces \(\bar\theta = 0\) at all energy scales. The
-  structural feature is T-invariance; the protected emergent parameter
-  is \(\bar\theta\).
+  Hamiltonian forces \(\bar\theta = 0\) at the kinematic level of the
+  construction. The structural feature is T-invariance; the protected
+  emergent parameter is \(\bar\theta\). This instance of the pattern is
+  conditional in the sense of §5.5, and is the weakest of the three.
 \item
   \emph{Hierarchy problem} (developed below): the staggered-taste chiral
   symmetry pairing \(\mu = +1\) singlet with \(\mu = -1\) singlet
@@ -7410,9 +7489,10 @@ JUNO measurement at \(0.14\sigma\) (a retrodiction) --- six fermion
 masses from a single empirical input to better than \(1\%\), and the SM
 gauge couplings at \(M_Z\) to \(0.1\%\) and \(0.3\%\) (the SU(2) and
 SU(3) values being retrodictions matched through the threshold
-parameters, not first-principles predictions; §6.3). The strong CP
-problem is dissolved at the kinematic level: \(\bar\theta = 0\) exactly
-at all energy scales, with no axion required.
+parameters, not first-principles predictions; §6.3). For strong CP the
+paper establishes \(\bar\theta = 0\) at the kinematic level of the
+lattice construction, with no axion required --- a conditional result,
+not a dissolution of the problem, pending the four conditions of §5.5.
 
 The framework is sharply falsifiable by experiments now in progress or
 under construction. JUNO's first results (November 2025) are matched at

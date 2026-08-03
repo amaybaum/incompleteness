@@ -297,7 +297,7 @@ In the Jarrett decomposition of the emergent process, the framework violates out
 
 The logical structure: Barandes' correspondence gives QM $\iff$ P-indivisibility. What remains is P-indivisibility $\implies$ embedded observation under (C1)–(C3).
 
-**Dilation existence.** Any stochastic process on a finite configuration space can be realized as marginalization of a deterministic process on a larger state space — furnishing Lemmas 1–3.
+**Dilation existence.** Any single one-step stochastic matrix on a finite configuration space can be realized as marginalization of a deterministic process on a larger state space — furnishing Lemmas 1–3. The scope is the one scoped at the lemma above: the matrix, not prescribed multi-time trajectory statistics.
 
 **Theorem (C1 equivalence).** *The marginalized process is P-indivisible iff $T$ is not a permutation matrix.*
 

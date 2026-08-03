@@ -77,7 +77,7 @@ The functional form is structural; the coefficient is bounded at the emergent-QF
 
 **Standard status.** Why is the QCD vacuum angle $\bar\theta < 10^{-10}$? Naively, $\bar\theta$ should be $\mathcal{O}(1)$ as a generic parameter of the QCD Lagrangian. The Peccei-Quinn mechanism (axion) is the leading conventional solution, but the axion has not been detected despite extensive searches.
 
-**Framework status.** Resolved. T-invariance of the substratum wave equation gives $\theta = 0$ at the substratum level. Detailed balance at all timescales — $\varphi^n$ is a bijection for every $n$, hence $T_{ij}^{(n)} = T_{ji}^{(n)}$ — gives T-invariant Hamiltonians at every energy scale. T-invariance of the Hamiltonian at every scale gives real Yukawa matrices at every scale (no complex phases). Real Yukawa matrices give $\bar\theta = 0$ exactly, at every scale and at every order of perturbation theory. No axion is needed; the structural T-invariance of the framework's substratum produces the empirical bound $\bar\theta < 10^{-10}$ as a theorem rather than a fine-tuning. The framework's strong-CP resolution is one of the cleanest examples of how a substantive empirical bound emerges from a structural feature of the framework.
+**Framework status.** Resolved. T-invariance of the substratum wave equation gives $\theta = 0$ at the substratum level. Detailed balance at all timescales — $\varphi^n$ is a bijection for every $n$, hence $T_{ij}^{(n)} = T_{ji}^{(n)}$ — gives T-invariant Hamiltonians at every energy scale. T-invariance of the Hamiltonian at every scale gives real Yukawa matrices at every scale (no complex phases). Real Yukawa matrices give $\bar\theta = 0$ at every scale and every order of perturbation theory *within the construction*. No axion is needed; the structural T-invariance of the framework's substratum produces the empirical bound $\bar\theta < 10^{-10}$ as a conditional consequence rather than a fine-tuning — conditional on a CP-violating weak sector inside the same construction, an emergent-level $\bar\theta$-fixing mechanism, radiative stability, and a quantitative neutron-EDM prediction, none yet supplied. The framework's strong-CP treatment is one of the cleanest examples of how a substantive empirical bound emerges from a structural feature of the framework.
 
 *Developed in:* Chapter 6 §6.3.
 
@@ -252,7 +252,7 @@ The framework's content against the standard list of open problems in fundamenta
 | Dark energy | Unknown, evolving disputed | Derived in form (Type II RVM) | Ch 7 §7.8 |
 | Measurement problem | No interpretive consensus | Dissolved (Bayesian updating) | Ch 1, Ch 18 §18.2 |
 | BH information paradox | Hawking vs unitarity | Resolved (Page curve from typicality) | Ch 7 §7.6 |
-| Strong CP | Why $\bar\theta < 10^{-10}$? | Resolved ($\bar\theta = 0$ from T-invariance) | Ch 6 §6.3 |
+| Strong CP | Why $\bar\theta < 10^{-10}$? | Conditional ($\bar\theta = 0$ from T-invariance, at the kinematic level) | Ch 6 §6.3 |
 | Hierarchy problem | Higgs mass protection unknown | Dissolved (lattice is UV) | Ch 6 §6.6 |
 | Gauge group origin | $\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$ unexplained | Derived ($K=2d=6$, cubic decomposition) | Chs 5, 6 |
 | Generation puzzle | Three, with hierarchical masses | Partially derived (three is structural; pattern open) | Ch 6 §§6.5-6.6 |
