@@ -2126,12 +2126,26 @@ Hilbert space \(\mathcal{H}_V \otimes \mathcal{H}_H\) is constructed
 rather than postulated --- the structure that quantum mechanics treats
 as fundamental emerges from the underlying configuration space. The
 channel \(\Phi\) can also carry genuine \emph{quantum coherence}, and
-the condition under which it does is geometric. A channel that destroys
-every off-diagonal density-matrix element --- a decoherence channel, or
-in the sharper sense an entanglement-breaking one --- produces no
-interference and cannot reproduce P-indivisible dynamics, so it matters
-where \(\Phi\) falls. Coupling alone does not settle this: \(T\) can
-fail to be a permutation while \(\Phi\) is still entanglement-breaking,
+the condition under which it does is geometric. Two notions have to be
+kept apart here, because they are easily run together. Complete
+dephasing --- destroying every off-diagonal density-matrix element ---
+is the extreme decoherence channel. Entanglement breaking is a strictly
+weaker property: an entanglement-breaking channel is one realizable as a
+measurement followed by a fresh preparation, and its output can still
+carry coherence --- coherence manufactured by the preparation rather
+than transmitted from the input; what such a channel cannot do is
+establish entanglement across the cut. And neither property decides the
+memory structure of the visible process: P-indivisibility is a
+multi-time property of the trajectory statistics, and the hidden sector
+can carry the memory even when a single step's channel is
+entanglement-breaking --- a two-state system with a two-state hidden
+register already realizes an entanglement-breaking step atop a
+P-indivisible process. What the entanglement-breaking question does
+decide is whether a single update transmits quantum coherence through
+the cut --- whether, at that step, the dilation is doing quantum work or
+merely dressing a classical channel --- so it matters where \(\Phi\)
+falls. Coupling alone does not settle this: \(T\) can fail to be a
+permutation while \(\Phi\) is still entanglement-breaking at one step,
 as happens when the coupling across the cut resolves every visible
 degree of freedom of the region --- a single site with all of its
 neighbours hidden being the extreme case. What controls the answer is
@@ -2141,9 +2155,11 @@ region only across the cut, so the visible directions it cannot
 distinguish outnumber those it can whenever the region has an interior.
 For a visible region more than a few sites across --- six suffices in
 three dimensions --- the off-diagonal elements that encode interference
-survive, and they survive no matter how large the hidden sector is.
-Decoherence is an effect of area; coherence is a property of the bulk
-(Appendix B.2).
+survive that step, and they survive no matter how large the hidden
+sector is. Decoherence is an effect of area; coherence is a property of
+the bulk. These are one-step statements about the specific lattice
+update, proved as such in Appendix B.2; their many-step composition is
+an open problem, not a corollary.
 
 The CP-indivisibility of the channel family \(\{\Phi_t\}\) follows from
 the P-indivisibility of the transition matrix family \(\{T_t\}\)
@@ -24982,12 +24998,17 @@ the identity on a non-trivial factor is not entanglement-breaking. Since
 conjugation by a unitary preserves the property, \(\Phi_G\) is
 entanglement-breaking precisely when \(s - t = 0\). \(\square\)
 
-\textbf{Corollary 1.} \emph{\(\Phi\) is not entanglement-breaking if and
-only if \(w < \kappa\).} Immediate from Lemma 2 and the Theorem with
-\(t = s - \kappa + w\): entanglement breaking is invariant under
-composition with the unitary \(\mathrm{Ad}_{V_A}\), so \(\Phi\) is
-entanglement-breaking exactly when \(\Phi_G\) is, and \(t = s\) reads
-\(w = \kappa\) (Lemma 2 gives \(w \leq \kappa\), matching \(t \leq s\)).
+\textbf{Corollary 1.} \emph{For one step of the displayed update on
+\(\mathbb{F}_2\) --- \(u'_x = \sum_{z \sim x} u_z + v_x\),
+\(v'_x = u_x\), with the hidden sector initially uncorrelated and
+maximally mixed --- the visible channel \(\Phi\) admits the
+Clifford-conjugated abelian Weyl-mixture normal form of Lemma 2 and is
+not entanglement-breaking if and only if \(w < \kappa\).} Immediate from
+Lemma 2 and the Theorem with \(t = s - \kappa + w\): entanglement
+breaking is invariant under composition with the unitary
+\(\mathrm{Ad}_{V_A}\), so \(\Phi\) is entanglement-breaking exactly when
+\(\Phi_G\) is, and \(t = s\) reads \(w = \kappa\) (Lemma 2 gives
+\(w \leq \kappa\), matching \(t \leq s\)).
 
 \textbf{Corollary 2.} \emph{If
 \(|\partial^{-}R| + |\partial^{+}R| < 2|R|\) then \(\Phi\) is not
@@ -25024,7 +25045,23 @@ arbitrary finite bijections. For a general linear bijection the abelian
 property of Lemma 2(iv) can fail (\(C A^{-1} B \neq 0\)); the mixture is
 then over a non-abelian Weyl family, and entanglement breaking is
 governed by the isotropy of the surviving index set rather than by its
-order alone --- not treated here.
+order alone --- not treated here. Two boundary markers on
+interpretation. Coherence preservation is a property of this
+realization, not an additional structural condition: (C1)--(C3)
+constrain coupling, timescales, and capacity, and neither contain nor
+imply a coherence requirement --- the swap example satisfies (C1) while
+its channel is entanglement-breaking, and which realizations preserve
+one-step coherence is the geometric question answered above for the
+displayed update alone. And non-entanglement-breaking is a statement
+about a single channel, not about quantum mechanics: it supplies neither
+the observable algebra, nor preparations and interventions, nor tensor
+composition, nor multi-time statistics --- the operational
+reconstruction claims rest on the dilation and correspondence arguments,
+not on Corollary 1 --- and the entanglement-breaking status of one step
+does not determine whether the visible multi-time process is
+P-divisible: the hidden sector can carry memory even when a step's
+channel is entanglement-breaking, as a two-state system with a two-state
+hidden register already shows.
 
 \textbf{Theorem B.2.5 (CP-indivisibility).} \emph{The P-indivisibility
 of the substratum dynamics (under C1-C3) implies CP-indivisibility of
