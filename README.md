@@ -273,7 +273,7 @@ named `LICENSE*`.
 Attribution, as CC-BY-4.0 requires for the manuscripts, is satisfied by a citation of the
 form
 
-> Maybaum, A. (2026). *The Incompleteness Framework*. Zenodo. https://doi.org/10.5281/zenodo.19060318
+> Maybaum, A. (2026). *The Observational Incompleteness Framework*. Zenodo. https://doi.org/10.5281/zenodo.19060318
 
 The concept DOI resolves to the latest version; work reproducing a specific claim should
 cite the version DOI of the release carrying it. For the code, MIT requires that the
