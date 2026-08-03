@@ -1319,15 +1319,16 @@ quantum biology: non-Markovian enzyme kinetics in proteins,
 photosynthesis as energy transfer through C1-C3 architectures,
 magnetoreception via cryptochrome radical-pair dynamics, and enzyme
 catalysis with conformational landscapes acting as \(\tau_B\)-scale
-memory. Chapter 14 develops quantum computing: BQP is identified as the
-unique computational class accessible to embedded observers satisfying
-C1-C3, with the lower bound (the emergent quantum mechanics provides the
-BQP toolkit) and upper bound (the quantum description is informationally
-complete for the embedded observer) jointly characterizing the class.
-The Extended Church-Turing Thesis is reframed from empirical conjecture
-to theorem of the framework, with any super-BQP demonstration providing
-falsification. Chapter 15 develops quantum engineering: superconducting
-qubit dynamics as the canonical engineered C1-C3 system with
+memory. Chapter 14 develops quantum computing: BQP is identified, under
+Chapter 14's explicit model hypotheses, as the computational class
+accessible to embedded observers satisfying C1-C3, with the lower bound
+(the emergent quantum mechanics provides the BQP toolkit) and upper
+bound (the quantum description is informationally complete for the
+embedded observer) jointly characterizing the class. The Extended
+Church-Turing Thesis is reframed from empirical conjecture to theorem of
+the framework, with any super-BQP demonstration providing falsification.
+Chapter 15 develops quantum engineering: superconducting qubit dynamics
+as the canonical engineered C1-C3 system with
 \(\tau_S/\tau_B \sim 10^{-3}\), P-indivisible noise structure producing
 correlated errors over \(\sim 10^3\) gates, correlation-aware decoders
 reducing fault-tolerant overhead by 3--10×, coherence extension with
@@ -16670,18 +16671,24 @@ dynamics at multiple scales --- provides the foundation for the
 framework's content in computational complexity theory.
 
 This chapter develops the framework's characterization of computational
-power available to embedded observers. The central result is the
-\emph{BQP characterization theorem}: BQP (bounded-error quantum
-polynomial time) is the unique computational class accessible to any
-finite deterministic system satisfying the framework's structural
-conditions C1-C3. The theorem has two directions. The \emph{lower bound}
-establishes that any embedded observer satisfying C1-C3 has access to
-BQP computational resources --- the emergent quantum mechanics provides
-state preparation, a universal gate set, and Born-rule measurement, the
-full toolkit for BQP computation. The \emph{upper bound} establishes
-that no embedded observer exceeds BQP --- the quantum description is
-informationally complete for the embedded observer, with no operation on
-the visible sector extracting information beyond the quantum state.
+power available to embedded observers. The central result is a
+\emph{conditional BQP model theorem}: under an explicit computational
+model --- a uniform efficient encoding of substratum configurations into
+qubits; efficient state preparation and control; a clock model;
+efficient measurement; explicit precision accounting; and noise
+assumptions under which fault tolerance applies with polynomial overhead
+--- BQP (bounded-error quantum polynomial time) is the computational
+class accessible to a finite deterministic system satisfying the
+framework's structural conditions C1-C3. None of the model hypotheses
+follows from C1-C3 or from CPTP representability alone. The theorem has
+two directions. The \emph{lower bound} establishes that any embedded
+observer satisfying C1-C3 has access to BQP computational resources ---
+the emergent quantum mechanics provides state preparation, a universal
+gate set, and Born-rule measurement, the full toolkit for BQP
+computation. The \emph{upper bound} establishes that no embedded
+observer exceeds BQP --- the quantum description is informationally
+complete for the embedded observer, with no operation on the visible
+sector extracting information beyond the quantum state.
 
 Ten pieces occupy the chapter.
 
@@ -16700,18 +16707,19 @@ argument runs through the framework's informational completeness --- the
 quantum description exhausts the information accessible to the embedded
 observer through any operation on the visible sector, so no super-BQP
 computation is possible. Section 14.5 combines the two bounds into the
-BQP characterization theorem: BQP is the unique computational class
-accessible to embedded observers satisfying C1-C3.
+conditional BQP model theorem: under the model hypotheses, BQP is the
+computational class accessible to embedded observers satisfying C1-C3.
 
 Section 14.6 develops the Extended Church-Turing Thesis (ECT) as a
-\emph{theorem} of the framework. The ECT --- that any physically
-realizable computation can be efficiently simulated by a quantum
-computer --- is conventionally treated as an empirical conjecture about
-physical reality. The framework's content reframes the ECT as a derived
-result: every physical observer is embedded (the cosmological horizon
-provides the partition), every embedded observer has access to BQP and
-nothing beyond, therefore every physical computation is in BQP. The
-reframing changes the ECT's epistemic status from conjecture to theorem.
+conditional result of the framework, valid under the same model
+hypotheses. The ECT --- that any physically realizable computation can
+be efficiently simulated by a quantum computer --- is conventionally
+treated as an empirical conjecture about physical reality. The
+framework's content reframes the ECT as a derived result: every physical
+observer is embedded (the cosmological horizon provides the partition),
+every embedded observer has access to BQP and nothing beyond, therefore
+every physical computation is in BQP. The reframing changes the ECT's
+epistemic status from conjecture to theorem.
 
 Section 14.7 develops the BPP-BQP gap: quantum advantage is real but is
 \emph{a feature of partial observation} rather than of the universe
@@ -17057,13 +17065,13 @@ class; together they produce the BQP characterization as a theorem.
 \textbf{Interpretation.} The characterization theorem has several
 interpretive consequences.
 
-\emph{BQP is the universal computational class.} For any universe in the
-framework's universality class, BQP is the relevant computational
-complexity class for embedded observers. The specific physical
-implementation of the computational hardware does not matter ---
-superconducting qubits, trapped ions, topological qubits, photonic
-systems, neutral atoms, or any other platform --- all have access to BQP
-and only BQP.
+\emph{BQP as the model-level computational class.} For any universe in
+the framework's universality class, and under the model hypotheses
+above, BQP is the relevant computational complexity class for embedded
+observers. The specific physical implementation of the computational
+hardware does not matter --- superconducting qubits, trapped ions,
+topological qubits, photonic systems, neutral atoms, or any other
+platform --- all have access to BQP and only BQP.
 
 \emph{BQP is independent of the specific bijection.} The framework's
 universality class contains many bijections producing different specific
@@ -17079,11 +17087,12 @@ exotic computational substrates --- can exceed BQP for embedded
 observers in the framework's universality class. The ceiling is
 structural rather than technological.
 
-The characterization theorem is therefore a substantial result: it
-establishes BQP as the unique computational class accessible to embedded
-observers, with the result holding at the structural level of the
-framework's universality-class commitments rather than at the
-specific-implementation level.
+The conditional model theorem is therefore a substantial but
+hypothesis-bearing result: given the model, it establishes BQP as the
+computational class accessible to embedded observers, holding at the
+structural level of the framework's universality-class commitments
+rather than at the specific-implementation level --- and only as far as
+the model hypotheses reach.
 
 \hypertarget{the-extended-church-turing-thesis-as-a-theorem}{%
 \subsection{14.6 The Extended Church-Turing Thesis as a
@@ -17684,18 +17693,19 @@ theory is the appropriate way to develop or refute each direction.
 \hypertarget{chapter-close-1}{%
 \subsection{14.10 Chapter close}\label{chapter-close-1}}
 
-The framework's content in this chapter establishes BQP as the unique
-computational class accessible to embedded observers in the framework's
-universality class. The characterization theorem combines a lower bound
-(BQP is available to any embedded observer satisfying C1-C3) with an
-upper bound (BQP cannot be exceeded by any embedded observer), with the
-combination producing BQP as the exact ceiling on computational
-capability.
+The framework's content in this chapter establishes, under the stated
+model hypotheses, BQP as the computational class accessible to embedded
+observers in the framework's universality class. The conditional model
+theorem combines a lower bound (BQP is available to any embedded
+observer satisfying C1-C3) with an upper bound (BQP cannot be exceeded
+by any embedded observer), with the combination producing BQP as the
+exact ceiling on computational capability.
 
 \textbf{Four principal results.}
 
-\emph{The BQP characterization theorem} (§14.5): BQP is the unique
-computational class accessible to embedded observers satisfying C1-C3.
+\emph{The conditional BQP model theorem} (§14.5): under the model
+hypotheses of §14.1, BQP is the computational class accessible to
+embedded observers satisfying C1-C3.
 
 \emph{The Extended Church-Turing Thesis as theorem} (§14.6): every
 physical computation is in BQP, derived from the embedding and BQP
@@ -17831,9 +17841,10 @@ Experiment}\label{quantum-engineering-hardware-software-and-the-bec-experiment}}
 develops}\label{what-this-chapter-develops-12}}
 
 Chapter 14 established the framework's content in computational
-complexity theory: BQP as the unique computational class accessible to
-embedded observers, the Extended Church-Turing Thesis as a theorem of
-the framework, the BPP-BQP gap as the cost of partial observation. The
+complexity theory: BQP, under that chapter's explicit model hypotheses,
+as the computational class accessible to embedded observers, the
+Extended Church-Turing Thesis as a conditional result under the same
+hypotheses, the BPP-BQP gap as the cost of partial observation. The
 framework's content there is theoretical at the foundational level --- a
 structural characterization of what computations any embedded observer
 can perform, with falsification by any super-BQP demonstration.
