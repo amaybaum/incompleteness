@@ -1,5 +1,6 @@
 {
-    "upload_type": "software",
+    "upload_type": "publication",
+    "publication_type": "preprint",
     "title": "The Incompleteness Framework",
     "creators": [
         {
