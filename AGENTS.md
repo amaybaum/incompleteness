@@ -93,6 +93,43 @@ notes** — `*[Status note, YYYY-MM-DD: …]*` — appended in place, supersedin
 
 ---
 
+## RULE — Governing principle: truth-seeking; hard-to-vary revisions (§A.29)
+
+**The project's goal is truth about nature — good explanations in Deutsch's sense: hard to vary,
+reaching beyond the data they were built on, open to criticism** (*The Beginning of Infinity*).
+The framework's survival is subordinate to it. A route closed by controlled computation is
+progress of the same kind as a route opened, and is recorded with the same care; sunk cost
+confers no protection, and "the framework needs this to be true" is never an argument.
+
+- **Computational verdicts print only over green controls.** Preregister the decision *rule*,
+  not the expected numbers; generate verdict text from the measurements. A verdict rendered
+  over a failed control is void.
+- **Layer-0 revisions must be hard to vary:** state *in advance* the existing results the
+  revision preserves (these become its controls); deliver at least one independent prediction
+  or postdiction beyond the problem it was built to fix; reject any variant that can be
+  adjusted to fit any outcome.
+
+---
+
+## RULE — Editorial integrity: assertions, status, self-narration, identifiers (§A.30)
+
+- **Remove the assertion; keep the derivation.** A result that loses its support comes *out* of
+  abstracts, enumerations, blurbs, and counts; the situation is stated declaratively where the
+  result is derived. Never assert-then-qualify: a claim tagged "unsupported" in the
+  manuscript's voice has been asserted and disclaimed in the same breath.
+- **Status lives in status artifacts, in the artifact's own idiom** — scope sections, dated
+  notes (§A.27), status tables. A status table licenses status, not editorial voice: if every
+  other cell is two words, the changed cell is two words.
+- **The document never narrates its own history.** No "formerly," no "is not listed," no
+  "withdrawn from" in the manuscript's voice; the record of change lives in dated notes, the
+  ledger, and version history.
+- **Fix the root cause, not the label.**
+- **Claim IDs are identifiers, not ordinals** (e.g. appendix-a `G`-rows): never renumber
+  successors, never reuse a retired ID, never annotate the gap. And a removed claim can hide in
+  a **count** — after any inventory change, grep the totals corpus-wide (§A.25).
+
+---
+
 ## Build recipe (regenerating `.tex` / `.pdf`)
 
 Requires `pandoc` + a LaTeX engine with `xelatex` (e.g. `brew install pandoc texlive`).

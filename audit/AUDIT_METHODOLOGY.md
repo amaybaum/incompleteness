@@ -1595,3 +1595,50 @@ withdrawn as unearned coverage — cross-table matching reached fewer than half 
 returned different counts on byte-identical inputs until repaired. In each case the artifact was created
 by flagging a risk before establishing the risk was real. Bands unchanged by logging this (methodology,
 not a result).
+
+---
+
+## §A.29 — Governing principle: truth-seeking *(added 2026-08-04, owner instruction)*
+
+The audit machinery of this document serves a single goal, named here so that no procedural
+rule can outrank it: **truth about nature, in the sense of Deutsch's good explanations — hard
+to vary, reaching beyond the data they were built on, and held open to criticism** (*The
+Beginning of Infinity*). The framework's survival is subordinate to it; a result that closes a
+route with controlled computation is progress of the same kind as a result that opens one, and
+is recorded with the same care.
+
+One operational consequence binds future revisions of the framework itself: **a Layer-0 change
+is acceptable only if it is hard to vary** — its proposers must state in advance which existing
+results it preserves (these become its controls), it must yield at least one independent
+prediction or postdiction beyond the problem it was built to fix, and it is rejected if it can
+be adjusted to fit any outcome. This clause was adopted immediately after the strong-CP /
+isotropy exclusion, precisely so that the coming revision of the fermion sector is designed
+under it rather than grandfathered past it.
+
+---
+
+## §A.30 — Editorial integrity: assertions, status, self-narration, identifiers *(added 2026-08-04, owner instruction)*
+
+Five rules of manuscript conduct, each adopted after a concrete failure of the opposite practice:
+
+1. **Remove the assertion; keep the derivation.** When a result loses its support, take it out of
+   the summaries — abstracts, result enumerations, blurbs, counts — and state the situation in
+   declarative prose where the result is derived. Do not assert and then qualify: a claim tagged
+   "unsupported" in the manuscript's own voice has been asserted *and* disclaimed in the same
+   breath. (A mechanical status-word swap across nineteen sites once produced exactly that,
+   including one sentence that called a chain proved while labeling its conclusion unsupported.)
+2. **Status lives in status artifacts, in the artifact's own idiom.** Scope sections, dated status
+   notes (§A.27), and status tables carry standing; running prose does not. And a status table is
+   the right *place* for status, not a license for editorial voice inside one — if every other
+   cell is two words, the changed cell is two words.
+3. **The document never narrates its own history.** No "formerly," no "is not listed," no
+   "withdrawn from" in the manuscript's voice. Absence needs no announcement; the record of what
+   changed lives in the dated notes, the ledger, and the version history.
+4. **Fix the root cause, not the label.** A wrong claim is corrected or removed, never annotated
+   into acceptability.
+5. **Claim identifiers are identifiers, not ordinals.** A retired row's ID is never reassigned
+   and successors are never renumbered — renumbering makes one ID mean two claims across
+   published versions and severs the ledger key. The gap itself gets no in-table annotation
+   (rule 3). A removed claim can also hide in a **count**: after any inventory change, grep the
+   totals corpus-wide (§A.25) — one removed row once left a stale count quoted at twenty-two
+   sites in nine files.
