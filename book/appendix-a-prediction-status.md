@@ -118,7 +118,7 @@ The framework's gravitational predictions match general relativistic predictions
 | G13 | Lorentz violation | $O(\epsilon^2/c^2)$ | S | 0 | Below current limits | Ch 7 §7.4 |
 | G14 | Boundary entropy | $\rho_s = \rho_{\text{crit}}$ | S | 1 | Exact | Ch 7 §7.9 |
 
-**Summary statistics.** Counts: 12 S + 1 L. Total: 13. The strong-CP entry (formerly G10) is not listed: the construction gives $\bar\theta = 0$, but the same premise forces the Jarlskog invariant to vanish, so the result does not carry to the Standard Model and is not a prediction of the framework. See [SM §5.5] and Ch 6 §6.3. The G6 MOND prediction has dual Layer 0/1 status (the discreteness scale at Layer 0 plus the mode-counting at Layer 1). Cumulative empirical match at observational precision for all entries within current experimental capability.
+**Summary statistics.** Counts: 12 S + 1 L. Total: 13. The G6 MOND prediction has dual Layer 0/1 status (the discreteness scale at Layer 0 plus the mode-counting at Layer 1). Cumulative empirical match at observational precision for all entries within current experimental capability.
 
 **Distinctive content.** The MOND acceleration $a_0 = cH/6$ at 0.5% (entry G6) is the framework's strongest gravitational empirical content. The Bekenstein-Hawking coefficient (entry G4) is derived but has no direct empirical test: GW250114 constrains the classical area theorem, which the framework preserves, not the entropy coefficient. The Running Vacuum Model coefficient $\nu_{\text{OI}}$ (entry G8) provides forward-looking exposure to DESI data over the next 2-3 years.
 
