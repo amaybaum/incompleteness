@@ -113,7 +113,7 @@ The framework's gravitational predictions match general relativistic predictions
 | G7 | CC dissolution | compression ratio | S | 1 | Structural | Ch 7 §7.7 |
 | G8 | Running vacuum $\nu_{\text{OI}}$ | functional form Type II RVM (structural); emergent-QFT-scale magnitude $|\nu| \approx |\nu_{\text{QFT}}| \sim (M_{\text{SM}}/M_{\text{Pl}})^2 \sim 10^{-32}$, indistinguishable from zero | L | 2(a) | DESI Year 5 decisive ($\sim 1$% on $\nu$); Bertini 2025 $\nu=-(2.5\pm1.3)\times10^{-4}$ consistent at $2\sigma$ | Ch 7 §7.8 |
 | G9 | Dark sector budget | $\sim 95\%$ | S | 1 | Within 1% | Ch 7 §7.9 |
-| G10 | Strong CP | $\bar\theta = 0$ (**unsupported**: the same premise forces $J = 0$; [SM §5.5]) | S | 1 | $< 10^{-10}$ | Ch 6 §6.3 |
+| G10 | Strong CP | $\bar\theta = 0$ within the construction — **withdrawn** as a prediction: the same premise forces the Jarlskog invariant to vanish | — | — | not a live prediction | Ch 6 §6.3, [SM §5.5] |
 | G11 | Page curve | nested trace-out | S | 1 | Structural | Ch 7 §7.6 |
 | G12 | $\Sigma m_\nu \sim 0.059$ eV | structural | S | 1 | Within 1$\sigma$ | Ch 8 |
 | G13 | Lorentz violation | $O(\epsilon^2/c^2)$ | S | 0 | Below current limits | Ch 7 §7.4 |

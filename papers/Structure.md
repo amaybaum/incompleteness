@@ -780,7 +780,7 @@ $$\Phi^{\rm OI}(\rho) = \mathrm{Tr}_H\big[U_\varphi \, (\rho \otimes \rho_H^{\rm
 where $U_\varphi$ is the unitary lift of the bijection $\varphi$ on the dilation $\mathcal{H}_V^{\rm OI} \otimes \mathcal{H}_H^{\rm OI}$ ([Substratum §3.1]), and $\rho_H^{\rm OI}$ is the uniform reference state on the hidden sector (the OI-canonical choice from the unique-invariant-measure lemma of [Main §1.2]). At the EFT scale, $\Phi^{\rm OI}$ encodes:
 
 - *SM RG flow* from the cubic-lattice scale ($1/\alpha_0 = 23.25$ structurally, [SM §6.1]) down to the electroweak scale ($1/\alpha_1 = 59.00$, $1/\alpha_2 = 29.57$, $1/\alpha_3 = 8.47$ at $M_Z$, [SM §6.3]).
-- *Non-perturbative structural features.* $\bar\theta = 0$ at the kinematic level of the lattice construction, an unsupported structural constraint ([SM §5], scoped at [SM §5.5]); instanton-sum closure consistent with $T$-invariance and detailed balance.
+- *Non-perturbative structural features.* Instanton-sum closure consistent with $T$-invariance and detailed balance. (The $\bar\theta = 0$ result that formerly headed this item is withdrawn from the framework's derived content; see [SM §5.5].)
 - *Anomaly structure.* Anomaly cancellation forced by the hypercharge structure derived from cubic-group representation theory ([SM §4.6]).
 - *Higher-dimensional operator coefficients* forced by cubic-lattice geometry, including the Yukawa structural relations producing the CKM and PMNS matrices and the fermion mass ratios ([SM §7]).
 

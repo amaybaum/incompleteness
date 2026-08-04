@@ -252,7 +252,7 @@ The framework's content against the standard list of open problems in fundamenta
 | Dark energy | Unknown, evolving disputed | Derived in form (Type II RVM) | Ch 7 §7.8 |
 | Measurement problem | No interpretive consensus | Dissolved (Bayesian updating) | Ch 1, Ch 18 §18.2 |
 | BH information paradox | Hawking vs unitarity | Resolved (Page curve from typicality) | Ch 7 §7.6 |
-| Strong CP | Why $\bar\theta < 10^{-10}$? | Conditional ($\bar\theta = 0$ from T-invariance, at the kinematic level) | Ch 6 §6.3 |
+| Strong CP | Why $\bar\theta < 10^{-10}$? | Not resolved — the construction gives $\bar\theta = 0$, but by an argument that also removes CKM CP violation | Ch 6 §6.3, [SM §5.5] |
 | Hierarchy problem | Higgs mass protection unknown | Dissolved (lattice is UV) | Ch 6 §6.6 |
 | Gauge group origin | $\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$ unexplained | Derived ($K=2d=6$, cubic decomposition) | Chs 5, 6 |
 | Generation puzzle | Three, with hierarchical masses | Partially derived (three is structural; pattern open) | Ch 6 §§6.5-6.6 |
