@@ -252,7 +252,7 @@ The framework's content against the standard list of open problems in fundamenta
 | Dark energy | Unknown, evolving disputed | Derived in form (Type II RVM) | Ch 7 §7.8 |
 | Measurement problem | No interpretive consensus | Dissolved (Bayesian updating) | Ch 1, Ch 18 §18.2 |
 | BH information paradox | Hawking vs unitarity | Resolved (Page curve from typicality) | Ch 7 §7.6 |
-| Strong CP | Why $\bar\theta < 10^{-10}$? | Not resolved — the construction gives $\bar\theta = 0$, but by an argument that also removes CKM CP violation | Ch 6 §6.3, [SM §5.5] |
+| Strong CP | Why $\bar\theta < 10^{-10}$? | Not resolved (construction gives $\bar\theta = 0$; same premise removes CKM CP violation, and breaking it enough to restore $J$ violates isotropy bounds by ~12 orders) | Ch 6 §6.3, [SM §5.5] |
 | Hierarchy problem | Higgs mass protection unknown | Dissolved (lattice is UV) | Ch 6 §6.6 |
 | Gauge group origin | $\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$ unexplained | Derived ($K=2d=6$, cubic decomposition) | Chs 5, 6 |
 | Generation puzzle | Three, with hierarchical masses | Partially derived (three is structural; pattern open) | Ch 6 §§6.5-6.6 |
@@ -278,7 +278,7 @@ Beyond the resolved and open problems above, the framework does not address seve
 
 *Mathematics and logical foundations.* The framework presupposes standard mathematics (ZFC set theory, the integers, finite combinatorics) without addressing the foundations of mathematics. Whether the framework's commitment to finiteness has implications for mathematical foundations (constructivism, finitism, ultrafinitism) is not addressed.
 
-**The framework's epistemic position.** The cumulative record of resolved problems across Chapters 5 through 18 is substantial: twenty-two classified Standard Model retrodictions (seven parameter-free structural), fourteen gravitational-sector entries, seven neutrino-sector predictions, and the dissolutions of the quantum gravity problem in three components. The framework's evidential standard — preregistered structural predictions matching observation at the current empirical precision — is met across multiple sectors of physics with a uniformity that distinguishes it from frameworks tuned to fit specific empirical targets.
+**The framework's epistemic position.** The cumulative record of resolved problems across Chapters 5 through 18 is substantial: twenty-two classified Standard Model retrodictions (seven parameter-free structural), thirteen gravitational-sector entries, seven neutrino-sector predictions, and the dissolutions of the quantum gravity problem in three components. The framework's evidential standard — preregistered structural predictions matching observation at the current empirical precision — is met across multiple sectors of physics with a uniformity that distinguishes it from frameworks tuned to fit specific empirical targets.
 
 The open problems are also substantial. The flavor problem is the framework's largest single open theoretical task. The Hubble tension is not addressed by the framework's $\nu_{\text{OI}}$ prediction. Baryogenesis is solution-specific — the baryon asymmetry inherits the input status of the framework's flavor-sector CP phases. Inflation is not derived. The initial-state question is partially gauge and partially the framework's irreducible mystery.
 
