@@ -200,9 +200,9 @@ with no further freedom, and that is this paper's content: the gauge
 group \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\),
 three chiral generations, the Higgs as a composite scalar in the singlet
 staggered taste, anomaly cancellation with the observed hypercharges,
-the absolute generation count locked at exactly three by coupling-degree
-minimization, and \(\bar\theta = 0\) to all energy scales --- each step
-proved end-to-end as a chain of theorems on the equivalence class
+and the absolute generation count locked at exactly three by
+coupling-degree minimization --- each step proved end-to-end as a chain
+of theorems on the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\). The foundational result
 that quantum mechanics emerges as the description of any embedded
 observer under structural conditions C1--C3 is established in a
@@ -304,14 +304,21 @@ commutant to local gauge invariance, yielding
 \emph{Top-down:} the six anomaly conditions force the observed
 hypercharges, the trace-out makes \(\mathrm{SU}(2)\) chiral while
 \(\mathrm{SU}(3)\) remains vector-like, and exact \(T\)-invariance of
-the underlying bijection forces \(\bar\theta = 0\) at all energy scales
---- the strong CP problem is dissolved at the kinematic level rather
-than being addressed by an axion. The gauge coupling values at \(M_Z\)
-follow quantitatively from a one-parameter chain whose single free
-parameter \(\delta_0\) is treated as empirical input --- a 2-loop
-staggered vacuum-polarization rebuild indicates it is not reproduced by
-strict 2-loop perturbation theory and is accordingly fixed by the U(1)
-row (§6.2).
+the underlying bijection forces \(\bar\theta = 0\) at the kinematic
+level of the lattice construction. This does not dissolve the strong CP
+problem, and §5.5 shows why it cannot be carried over to the Standard
+Model as it stands: the same premise that sets \(\bar\theta = 0\) ---
+detailed balance at every time scale --- also makes the two Yukawa
+matrices real in a common basis, which forces the Jarlskog invariant to
+vanish. A construction with no CKM CP violation is not the observed
+theory, so either the inference from \(T\)-invariance to real Yukawas
+fails, in which case \(\bar\theta = 0\) loses its derivation, or it
+holds and the construction is excluded. §5.5 sets out both branches. The
+gauge coupling values at \(M_Z\) follow quantitatively from a
+one-parameter chain whose single free parameter \(\delta_0\) is treated
+as empirical input --- a 2-loop staggered vacuum-polarization rebuild
+indicates it is not reproduced by strict 2-loop perturbation theory and
+is accordingly fixed by the U(1) row (§6.2).
 
 The status of these results admits a useful three-tier classification.
 
@@ -334,17 +341,16 @@ wave equation determines staggered Dirac fermions, \(K = 2d = 6\) from
 coupling-degree minimization, multiplicities \((3, 2, 1)\) from the
 cubic rotation group, local gauge invariance from background
 independence, chirality from the trace-out, the unique anomaly-free
-hypercharges, three generations from cubic symmetry, one Higgs doublet,
-and \(\bar\theta = 0\) at all scales. Each step is proved; the chain
-runs through twenty-nine theorems and lemmas. The gauge coupling
-prediction extends the chain quantitatively, with a structural input
-\(1/\alpha_0 = 23.25\) (one-loop staggered vacuum polarization,
-analytic) and a universal threshold \(\delta_0 = 10.0\) (empirically
-fixed by the U(1) row; a 2-loop staggered VP rebuild indicates
-\(\delta_0\) is not reproduced by strict 2-loop PT and is accordingly
-treated as empirical input --- see §6.2). Deriving the \(C_2\)-dependent
-threshold from first-principles lattice PT is an open computational
-task.
+hypercharges, three generations from cubic symmetry, and one Higgs
+doublet. Each step is proved; the chain runs through twenty-nine
+theorems and lemmas. The gauge coupling prediction extends the chain
+quantitatively, with a structural input \(1/\alpha_0 = 23.25\) (one-loop
+staggered vacuum polarization, analytic) and a universal threshold
+\(\delta_0 = 10.0\) (empirically fixed by the U(1) row; a 2-loop
+staggered VP rebuild indicates \(\delta_0\) is not reproduced by strict
+2-loop PT and is accordingly treated as empirical input --- see §6.2).
+Deriving the \(C_2\)-dependent threshold from first-principles lattice
+PT is an open computational task.
 
 \textbf{Tier 3 --- Redundant confirmations.} Asymptotic freedom
 requiring \(N_c \geq 3\), the minimal chiral group constraint, and the
@@ -357,7 +363,9 @@ which the framework's results depend. §3 establishes background
 independence and derives \(d = 3\) from the three self-consistency
 filters. §4 develops the emergent quantum field theory through the
 bottom-up, gauge-emergence, and top-down chains. §5 derives
-\(\bar\theta = 0\) from \(T\)-invariance and detailed balance. §6
+\(\bar\theta = 0\) from \(T\)-invariance and detailed balance at the
+kinematic level of the construction; §5.5 shows that the same premise
+forces the Jarlskog invariant to vanish, and sets out what follows. §6
 extends the chain quantitatively through the gauge coupling prediction.
 §7 collects the quantitative predictions for the CKM matrix, the lepton
 sector, the fermion mass chain, the PMNS angles, and the Higgs mass. §8
@@ -960,15 +968,37 @@ correspondingly narrower, and is not a sidereal-bound fine-tuning:
 whether the emergence preserves octahedral symmetry \emph{exactly} at
 loop level, or introduces an octahedral-breaking effect --- for instance
 an effective momentum-shell structure in the trace-out --- not visible
-in the octahedral-invariant checkerboard partition. That loop-level
-question, not the kernel width, is the arbiter. Two results bear on it.
-If the microscopic action, the measure, and the partition are each
-exactly \(O_h\)-invariant about the observer's centre, the effective
-action obtained by marginalizing the hidden sector is \(O_h\)-invariant
-to all orders (substitute \(H \to g^{-1}H\) in the defining integral for
-\(g \in O_h\); the Jacobian is unity), and every ingredient of the
-checkerboard trace-out --- the dispersion, the position-space partition,
-and the timescale-selected momentum region
+in the octahedral-invariant checkerboard partition. \emph{{[}Status
+note, 2026-08-04: the octahedral-invariance premise has a second
+dependency, more direct than the trace-out, and it is worth naming
+separately. The effective operator is octahedral-invariant only if the
+condensate \(\Sigma\) is, and the \(O\)-invariance of the dynamics does
+not descend to the solution: the framework's own gauge mechanism is
+spontaneous breaking of a dynamical symmetry by that condensate (§4.6).
+Theorem 5 takes \(\Sigma\) to be \(O\)-equivariant, and that
+equivariance is a hypothesis on the solution rather than a consequence
+of the dynamics. It is not secured by the observed gauge group alone: a
+condensate with the same block multiplicities \((3, 2, 1)\) --- hence
+the same stabilizer
+\(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) --- but with
+eigenspaces not aligned to the \(O\)-irreps generates an \(E_g\)
+anisotropy at dimension four rather than dimension six. What secures the
+alignment is the geometric identification of the blocks with the
+link-direction irreps, used independently in the link-carrier
+construction (§4.7.1.2) and in the inter-generation prescription of
+§7.1. In the other direction the premise is robust: an equivariant
+condensate leaves the \(E_g\) channel exactly null at every block
+splitting, and a staggered spatial modulation of the condensate does not
+lift it, so the rotational sector is insensitive to the condensate's
+spatial structure and turns only on its internal alignment.{]}} That
+loop-level question, not the kernel width, is the arbiter. Two results
+bear on it. If the microscopic action, the measure, and the partition
+are each exactly \(O_h\)-invariant about the observer's centre, the
+effective action obtained by marginalizing the hidden sector is
+\(O_h\)-invariant to all orders (substitute \(H \to g^{-1}H\) in the
+defining integral for \(g \in O_h\); the Jacobian is unity), and every
+ingredient of the checkerboard trace-out --- the dispersion, the
+position-space partition, and the timescale-selected momentum region
 \(\{\omega(k)<\omega_{\rm cut}\}\) --- is \(O_h\)-invariant, so no
 direction-dependent shell is available to break the symmetry. A
 numerical check on the rounded interacting dynamics is consistent with
@@ -2799,10 +2829,15 @@ symmetry of the transition amplitudes, by Wigner's theorem, implies
 anti-unitary \(\hat{\Theta}\), which gives
 \([\hat{H}_{\text{eff}}, \hat{\Theta}] = 0\). \(\square\)
 
-\textbf{Theorem 21} (\(\bar{\theta} = 0\) at all energy scales).
-\emph{The physical parameter
+\textbf{Theorem 21} (\(\bar{\theta} = 0\) at the kinematic level of the
+construction). \emph{In the lattice construction of §2--§4, with the
+substratum bijection exactly \(T\)-invariant and the emergent
+Hamiltonian satisfying detailed balance, the physical parameter
 \(\bar{\theta} = \theta + \arg\det(Y_u Y_d) = 0\), and the vanishing
-persists to all infrared scales.}
+propagates to every scale of the emergent description so constructed.}
+The theorem is conditional on the construction's hypotheses and does not
+by itself dissolve the strong CP problem of the physical Standard Model;
+see §5.5.
 
 \emph{Proof.} \textbf{Step 1:} Since φ is a bijection, \(\varphi^n\) is
 a bijection for every n.~Applying the counting argument of Theorem 19 to
@@ -2817,7 +2852,20 @@ Hamiltonian is T-invariant at every time scale.
 \textbf{Step 3:} T-invariant Yukawa couplings at each scale are
 simultaneously real in an appropriate basis {[}16, §6.3{]}. Real Yukawa
 matrices have \(\arg\det(Y_u Y_d) = 0\). Combined with θ = 0 (Theorem
-18): \(\bar{\theta} = 0\) at every scale. \(\square\)
+18): \(\bar{\theta} = 0\) at every scale of the constructed emergent
+description. \(\square\)
+
+\emph{{[}Status note, 2026-08-04: Step 3 requires \textbf{simultaneous}
+reality --- that \(Y_u\) and \(Y_d\) are real in one common basis ---
+and that is what a \(T\)-invariant \(H_{\text{eff}}\) supplies. The
+weaker statement that each Yukawa is real in \emph{its own} mass basis
+is vacuous: every complex matrix is diagonal and positive in its own
+mass basis by singular value decomposition, so it would give
+\(\arg\det(Y_uY_d) = 0\) for any Yukawa sector whatever. The distinction
+is not cosmetic, because the common-basis reading that carries this step
+also forces \(V_{\text{CKM}} = O_u^{\mathrm{T}}O_d\) to be real
+orthogonal and the Jarlskog invariant to vanish identically; see the
+scope discussion in §5.5, condition (i).{]}}
 
 \emph{Remark.} This proof bypasses the instanton question. T-invariance
 of the transition probabilities is an exact consequence of the bijection
@@ -2831,9 +2879,14 @@ and PMNS mixing. These phases arise from a distinct structural source
 and are treated as solution-specific inputs; see §5.4 for the scope
 distinction and its pre-registration.
 
-\textbf{Prediction:} \(\bar{\theta} = 0\) exactly. No axion needed.
-Neutron EDM should be exactly zero (current bound:
-\(|d_n| < 1.8 \times 10^{-26}\;e\cdot\text{cm}\) {[}19{]}).
+\textbf{Conditional prediction:} \(\bar{\theta} = 0\) with no axion
+required, \emph{within the construction}. The framework does not yet
+deliver a quantitative neutron-EDM prediction: an exactly vanishing
+\(d_n\) follows only if \(\bar\theta = 0\) survives the conditions of
+§5.5, and until radiative stability against a CP-violating weak sector
+is established the framework's commitment is the weaker one that \(d_n\)
+lies below the current bound,
+\(|d_n| < 1.8 \times 10^{-26}\;e\cdot\text{cm}\) {[}19{]}.
 
 \hypertarget{scope-flavor-sector-cp-violation-as-solution-specific-input}{%
 \subsubsection{5.4 Scope: flavor-sector CP violation as
@@ -2862,20 +2915,40 @@ transformation, and when that transformation has complex entries that
 cannot be absorbed by field redefinitions, the resulting CKM matrix
 contains an irreducible CP-violating phase. This is the standard SM
 picture {[}16, §6.3{]}: real mass-basis Yukawas plus a basis mismatch
-are together compatible with a nonzero Jarlskog.
+are together compatible with a nonzero Jarlskog. \emph{{[}Status note,
+2026-08-04: the standard picture is correctly stated, but it does not
+transfer to the present construction, and the difference is the premise.
+In the Standard Model the Yukawas are not required to be real in any
+common basis, so the mismatch unitary may be complex. Here they are: the
+detailed balance of Theorem 19, holding at every time scale as Theorem
+21 Step 1 requires, is equivalent to \(H_{\text{eff}}\) being
+rephasing-equivalent to a real symmetric matrix --- the obstruction
+enters at third order in \(t\) and is the rephasing-invariant triangle
+phase, which must vanish. Two matrices real in a common basis have real
+orthogonal singular value decompositions, so the mismatch unitary is
+real orthogonal and \(J = 0\) exactly. The consequence for the scope of
+Theorem 21 is stated in §5.5, condition (i).{]}}
 
 \textbf{What the framework does and does not derive.} T-invariance at
 the substrate level (Theorem 17) plus detailed balance (Theorem 19)
 forces each Yukawa matrix to be individually diagonalizable to real
-form, fixing \(\bar\theta = 0\) as a theorem at every energy scale. It
-does \emph{not} force the up-type and down-type mass bases to coincide.
-The basis-alignment unitary is a solution-specific property of the
-particular bijection \(\varphi\), analogous to the absolute scale of
-fermion masses (§7.6) and the specific eigenvalues of the Yukawa
-matrices: the framework derives the structural form of the Yukawa sector
-but does not predict the basis-alignment parameters. The CKM and PMNS
-CP-violating phases are therefore compatible with --- though not derived
-from --- the framework's structural commitments.
+form, fixing \(\bar\theta = 0\) at every scale of the construction
+(Theorem 21, conditional per §5.5). It does \emph{not} force the up-type
+and down-type mass bases to coincide. The basis-alignment unitary is a
+solution-specific property of the particular bijection \(\varphi\),
+analogous to the absolute scale of fermion masses (§7.6) and the
+specific eigenvalues of the Yukawa matrices: the framework derives the
+structural form of the Yukawa sector but does not predict the
+basis-alignment parameters. The CKM and PMNS CP-violating phases are
+therefore compatible with --- though not derived from --- the
+framework's structural commitments. \emph{{[}Status note, 2026-08-04:
+this compatibility does not survive the check. It is correct that the
+construction does not force the two \emph{mass} bases to coincide; what
+it does force is that both Yukawas are real in one common
+\emph{interaction} basis, and that alone makes the mismatch unitary real
+orthogonal, hence \(J = 0\), whatever the mass bases are. The paragraph
+above is therefore withdrawn as an argument for compatibility. See §5.5,
+condition (i), for what remains open and what does not.{]}}
 
 \textbf{The reducible phases are exactly the field redefinitions
 (nullity).} The \(\bar\theta = 0\) result relies on a supporting fact
@@ -2912,6 +2985,123 @@ commitment to any specific value of \(\delta_{\text{CKM}}\),
 \(\delta_{\text{PMNS}}\), the Jarlskog \(J\), or the Wolfenstein
 parameters \((\rho, \eta)\), and the measurement of these quantities
 does not bear on the framework's structural status.
+
+\hypertarget{scope-of-theorem-21-what-is-established-and-what-is-not}{%
+\subsubsection{5.5 Scope of Theorem 21: what is established and what is
+not}\label{scope-of-theorem-21-what-is-established-and-what-is-not}}
+
+Theorem 21 is a statement about the construction of §2--§4, not yet
+about the physical Standard Model, and this subsection states the gap
+precisely so the result is not read as more than it is.
+
+\emph{What is established.} Given an exactly \(T\)-invariant substratum
+bijection and the detailed balance that follows from it, the emergent
+Hamiltonian is \(T\)-invariant, the \(\theta\)-term is excluded, and
+\(T\)-invariant Yukawas are simultaneously real, so \(\bar\theta = 0\)
+at every scale of the emergent description the construction produces.
+This is a kinematic consequence of the symmetry assumed at the
+substratum; nothing in it depends on instanton dynamics.
+
+\emph{What is not established.} Four conditions stand between that
+statement and a resolution of the strong CP problem, and none is
+discharged here.
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\tightlist
+\item
+  \textbf{A consistent CP-violating weak sector.} §5.4 places the
+  observed CKM and PMNS phases outside the theorem's scope by
+  attributing them to solution-specific basis alignment. That is a
+  coherent division, but the framework has not exhibited a
+  \(T\)-invariant bijection whose emergent description carries a nonzero
+  Jarlskog invariant. Until one is exhibited, the compatibility of
+  \(\bar\theta = 0\) with observed CP violation is argued rather than
+  constructed.
+\end{enumerate}
+
+\emph{{[}Status note, 2026-08-04: this condition is now known to be
+stronger than ``not yet exhibited'', and the paragraph above understates
+it. Two results, both finite linear algebra. First, detailed balance at
+\textbf{every} time scale --- the premise Theorem 21 Step 1 asserts ---
+is equivalent to the emergent Hamiltonian being rephasing-equivalent to
+a real symmetric matrix: expanding \(U = e^{-iHt}\), the antisymmetric
+part of \(|U_{ij}|^2\) enters at \(O(t^3)\) with coefficient
+\(-2\,\mathrm{Im}[H_{ij}(H^2)^*_{ij}]\), which for a three-level system
+reduces to the rephasing-invariant triangle phase
+\(\mathrm{Im}[H_{12}H_{23}H_{31}]\); a Hermitian matrix is
+rephasing-equivalent to a real one exactly when that vanishes. Theorem
+20's conclusion is therefore correct. Second, a real \(H_{\text{eff}}\)
+places \(Y_u\) and \(Y_d\) in a common real basis, and two real matrices
+have real orthogonal singular value decompositions, so
+\(V_{\text{CKM}}\) is real orthogonal and the Jarlskog invariant
+vanishes identically --- a rephasing-invariant statement, so no field
+redefinition recovers it. The construction thus faces a dilemma rather
+than a missing example. Either the inference of Theorem 21 Step 3 holds,
+in which case \(J = 0\) and this condition is unsatisfiable rather than
+open; or it fails --- for instance if the map from the substratum
+configuration basis to the flavour basis does not preserve reality ---
+in which case \(\bar\theta = 0\) loses the step that converts
+\(T\)-invariance into \(\arg\det(Y_uY_d) = 0\). On neither branch does
+the \(\bar\theta = 0\) result stand as currently stated, and the choice
+between them turns on a property of the coarse-graining map that the
+construction has not established. Two further points bear on the scope.
+The obstruction requires three or more generations: for two levels there
+is no triangle phase and detailed balance is automatic, so the
+generation count of Theorem 12 and the strong-CP argument are not
+independent. And the tension is internal as well as empirical --- §7.4's
+table reports \(J = \eta/(12\pi^6) = 3.02\times10^{-5}\), so the corpus
+already carries a nonzero Jarlskog alongside the premise that forbids
+one.{]}} \emph{{[}Status note, 2026-08-04 (second): the dilemma above is
+now closed on both sides by a quantitative computation on the emergent
+operator of the §4.8 reconstruction. If the operator is
+octahedral-equivariant, the Jarlskog invariant vanishes identically. If
+the equivariance is broken, the Jarlskog and the forbidden \(E_g\)
+rotational anisotropy turn on together --- measured exponents
+\(J \sim \varepsilon^{3}\) and \(E_g \sim \varepsilon\) --- so the
+breaking strength that reproduces the observed \(J = 3.0\times10^{-5}\)
+produces a fractional \(E_g\) anisotropy of order \(10^{-3}\), some
+twelve orders of magnitude above dimension-four
+rotational-Lorentz-violation bounds, in the most favourable of the
+sampled breaking directions and sector assignments. Within the
+construction, rotational isotropy and CP conservation therefore stand or
+fall together, and observation requires one of each. The supports of
+this conclusion are the identification of the §4.8 staggered
+reconstruction as the coarse-graining map, the all-order detailed
+balance asserted in Theorem 21 Step 1, and the single-hypercube operator
+family on which the exponents were measured.{]}}
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\setcounter{enumi}{1}
+\item
+  \textbf{An explicit \(\bar\theta\)-fixing mechanism at the emergent
+  level.} The argument fixes \(\bar\theta\) by symmetry of the
+  substratum. A mechanism operating on the emergent effective Lagrangian
+  --- the level at which \(\bar\theta\) is measured --- is not supplied,
+  and the transfer from the one level to the other is the step the
+  construction assumes rather than proves.
+\item
+  \textbf{Radiative stability.} In the Standard Model a CP-violating
+  weak sector regenerates \(\bar\theta\) radiatively, at high loop order
+  and far below the experimental bound but not at zero. Once condition
+  (i) is met, the framework owes an argument that its \(\bar\theta = 0\)
+  survives that regeneration. ``Exactly zero at all energy scales'' is
+  not sustainable as a claim about the physical theory before that
+  argument exists.
+\item
+  \textbf{A quantitative neutron-EDM prediction.} The falsification
+  statement attached to this result should be a predicted \(d_n\) with
+  an error, or a bound the framework commits to. An exactly vanishing
+  \(d_n\) is a prediction of the construction, not yet of the framework
+  applied to the observed world.
+\end{enumerate}
+
+Accordingly the framework's commitment on strong CP is:
+\(\bar\theta = 0\) at the kinematic level of the lattice construction, a
+conditional result. The four conditions above are the content of the
+open item, and are tracked as part of the matter-sector programme of
+§8.9.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -6352,10 +6542,10 @@ distinction matters for assessing their status.
 bijection satisfying the six structural properties. These include: SU(3)
 × SU(2) × U(1) with multiplicities (3, 2, 1), three chiral generations
 with identical gauge quantum numbers, one Higgs doublet (1, 2, +1/2),
-unique hypercharges from anomaly cancellation, \(\bar{\theta} = 0\) at
-all energy scales, ℏ = c³ε²/(4G), the Bekenstein-Hawking formula, and
-the universal induced coupling \(1/\alpha_0 = 23.25\) (§6.1). These are
-theorems. They do not depend on which specific φ describes our universe.
+unique hypercharges from anomaly cancellation, ℏ = c³ε²/(4G), the
+Bekenstein-Hawking formula, and the universal induced coupling
+\(1/\alpha_0 = 23.25\) (§6.1). These are theorems. They do not depend on
+which specific φ describes our universe.
 
 \textbf{Solution-specific properties} are determined by the particular
 bijection φ within the equivalence class. These include: gauge couplings
@@ -7175,9 +7365,10 @@ instance per problem:
 \item
   \emph{Strong CP} (§5, Theorems 17--21): substratum-level T-invariance
   of the wave equation combined with detailed balance in the emergent
-  Hamiltonian forces \(\bar\theta = 0\) at all energy scales. The
-  structural feature is T-invariance; the protected emergent parameter
-  is \(\bar\theta\).
+  Hamiltonian forces \(\bar\theta = 0\) at the kinematic level of the
+  construction. The structural feature is T-invariance; the protected
+  emergent parameter is \(\bar\theta\). This instance of the pattern is
+  conditional in the sense of §5.5, and is the weakest of the three.
 \item
   \emph{Hierarchy problem} (developed below): the staggered-taste chiral
   symmetry pairing \(\mu = +1\) singlet with \(\mu = -1\) singlet
@@ -7410,9 +7601,12 @@ JUNO measurement at \(0.14\sigma\) (a retrodiction) --- six fermion
 masses from a single empirical input to better than \(1\%\), and the SM
 gauge couplings at \(M_Z\) to \(0.1\%\) and \(0.3\%\) (the SU(2) and
 SU(3) values being retrodictions matched through the threshold
-parameters, not first-principles predictions; §6.3). The strong CP
-problem is dissolved at the kinematic level: \(\bar\theta = 0\) exactly
-at all energy scales, with no axion required.
+parameters, not first-principles predictions; §6.3). For strong CP the
+paper derives \(\bar\theta = 0\) within the lattice construction, with
+no axion required, and then shows in §5.5 that the derivation cannot be
+carried to the Standard Model without also removing CKM CP violation ---
+so the strong CP problem is not dissolved here, pending the four
+conditions of §5.5.
 
 The framework is sharply falsifiable by experiments now in progress or
 under construction. JUNO's first results (November 2025) are matched at

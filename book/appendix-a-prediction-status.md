@@ -5,7 +5,7 @@
 
 ## A.1 What this appendix provides
 
-The framework has a substantial empirical record across multiple domains. Twenty-two Standard Model observables, fourteen gravitational-sector observables, seven neutrino-sector observables, and one structural biological retrodiction (the wider therapeutic window for Rett syndrome) cumulatively constitute the framework's quantitative match against existing data. This appendix provides a single reference resource for what the framework predicts, how each prediction is classified by structural status, what the current empirical match is, and what open issues remain.
+The framework has a substantial empirical record across multiple domains. Twenty-two Standard Model observables, thirteen gravitational-sector observables, seven neutrino-sector observables, and one structural biological retrodiction (the wider therapeutic window for Rett syndrome) cumulatively constitute the framework's quantitative match against existing data. This appendix provides a single reference resource for what the framework predicts, how each prediction is classified by structural status, what the current empirical match is, and what open issues remain.
 
 The appendix serves two purposes. First, as a *navigational index*: readers wanting to know "what does the framework predict for X" can find each prediction with its location in the book, its formula, its empirical match, and its current status. Second, as an *honest accounting*: predictions that are confirmed appear alongside predictions that are layered (requiring additional verification), parameter-fit (where the framework provides structural form but specific values are empirical), and forward-looking (testable but not yet tested). The reader can therefore assess the framework's empirical record at the level of detail appropriate to their domain of interest.
 
@@ -113,13 +113,12 @@ The framework's gravitational predictions match general relativistic predictions
 | G7 | CC dissolution | compression ratio | S | 1 | Structural | Ch 7 §7.7 |
 | G8 | Running vacuum $\nu_{\text{OI}}$ | functional form Type II RVM (structural); emergent-QFT-scale magnitude $|\nu| \approx |\nu_{\text{QFT}}| \sim (M_{\text{SM}}/M_{\text{Pl}})^2 \sim 10^{-32}$, indistinguishable from zero | L | 2(a) | DESI Year 5 decisive ($\sim 1$% on $\nu$); Bertini 2025 $\nu=-(2.5\pm1.3)\times10^{-4}$ consistent at $2\sigma$ | Ch 7 §7.8 |
 | G9 | Dark sector budget | $\sim 95\%$ | S | 1 | Within 1% | Ch 7 §7.9 |
-| G10 | Strong CP | $\bar\theta = 0$ | S | 1 | $< 10^{-10}$ | Ch 6 §6.3 |
 | G11 | Page curve | nested trace-out | S | 1 | Structural | Ch 7 §7.6 |
 | G12 | $\Sigma m_\nu \sim 0.059$ eV | structural | S | 1 | Within 1$\sigma$ | Ch 8 |
 | G13 | Lorentz violation | $O(\epsilon^2/c^2)$ | S | 0 | Below current limits | Ch 7 §7.4 |
 | G14 | Boundary entropy | $\rho_s = \rho_{\text{crit}}$ | S | 1 | Exact | Ch 7 §7.9 |
 
-**Summary statistics.** Counts: 13 S + 1 L. Total: 14. The G6 MOND prediction has dual Layer 0/1 status (the discreteness scale at Layer 0 plus the mode-counting at Layer 1). Cumulative empirical match at observational precision for all entries within current experimental capability.
+**Summary statistics.** Counts: 12 S + 1 L. Total: 13. The G6 MOND prediction has dual Layer 0/1 status (the discreteness scale at Layer 0 plus the mode-counting at Layer 1). Cumulative empirical match at observational precision for all entries within current experimental capability.
 
 **Distinctive content.** The MOND acceleration $a_0 = cH/6$ at 0.5% (entry G6) is the framework's strongest gravitational empirical content. The Bekenstein-Hawking coefficient (entry G4) is derived but has no direct empirical test: GW250114 constrains the classical area theorem, which the framework preserves, not the entropy coefficient. The Running Vacuum Model coefficient $\nu_{\text{OI}}$ (entry G8) provides forward-looking exposure to DESI data over the next 2-3 years.
 
@@ -150,8 +149,8 @@ The framework's empirical content in biology and medicine is concentrated in the
 | B1 | Wider therapeutic window for Rett | Substratum-emergent operator dissociation | S | 1 | Retrodiction (Guy et al. 2007) | Ch 16 §16.12 |
 | B2 | Cancer methylome classifier accuracy | Substratum preserved during tumorigenesis | S | 1 | DKFZ 95%+ accuracy | Ch 17 §17.7 |
 | B3 | Non-Markovian enzyme kinetics | Stretched-exponential waiting times | S | 1 | Multiple enzyme systems | Ch 13 §13.6 |
-| B4 | Vibronic coherences in photosynthesis | Picosecond timescale | S | 1 | FMO confirmed | Ch 13 §13.4 |
-| B5 | Millisecond radical-pair coherence in cryptochrome | Slow-bath C2 | S | 1 | Wiltschko 2019 confirmed | Ch 13 §13.5 |
+| B4 | Vibronic coherences in photosynthesis | Picosecond timescale | C | 1 | FMO observed; does not discriminate against standard vibronic accounts | Ch 13 §13.4 |
+| B5 | Millisecond radical-pair coherence in cryptochrome | Slow-bath C2 | C | 1 | Wiltschko 2019 | Ch 13 §13.5 |
 | B6 | Molecular clock overdispersion | $R(t) \approx 5$ for mammals | S | 1 | Gillespie 1989, Cutler 2000 | Ch 17 §17.9 |
 | B7 | Universal rate autocorrelation | Across the tree of life | S | 1 | Tao et al. 2019 confirmed | Ch 17 §17.9 |
 | B8 | LTEE power-law fitness | $\beta \approx 0.08$-$0.12$ | S | 1 | Wiser et al. 2013 confirmed | Ch 17 §17.9 |
@@ -162,7 +161,7 @@ The framework's empirical content in biology and medicine is concentrated in the
 | B13 | iPSC reprogramming residuals | Substratum-emergent dissociation | S | 1 | Lin et al. 2024 confirmed | Ch 16 §16.10 |
 | B14 | Bivalent chromatin states | Multi-operator substratum | S | 1 | Bernstein et al. 2006 confirmed | Ch 16 §16.10 |
 
-**Summary statistics.** Counts: 14 S. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction, in the same category as B6-B10 — the framework accounts for phenomena established before it. None is a forward confirmation.
+**Summary statistics.** Counts: 12 S + 2 C. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction, in the same category as B6-B10 — the framework accounts for phenomena established before it. None is a forward confirmation. B4 and B5 are C rather than S because coherence preservation is a property of the specific physical realization and is not implied by (C1)-(C3) (§13.4-13.5): the framework's content in those two rows is the non-Markovian accounting, not a derivation that coherence survives.
 
 ## A.5 Forward predictions and falsification targets
 
@@ -173,9 +172,9 @@ Beyond the predictions with current empirical match, the framework makes specifi
 | # | Prediction | Quantitative content | Testability | Chapter |
 |---|-----------|---------------------|-------------|---------|
 | F1 | BEC analogue-gravity $\mathcal{F}(r) = 2r - r^2$ | Capacity-controlled non-Markovianity | Steinhauer group, 2-3 years | Ch 15 §15.8 |
-| F2 | Correlation-aware error correction | 3-10× overhead reduction for superconducting qubits | Current quantum hardware | Ch 15 §15.4 |
-| F3 | Backflow-aware NV magnetometry | $10^3 \times$ sensitivity improvement | Current NV platforms | Ch 15 §15.6 |
-| F4 | Engineered-bath coherence extension | Up to 10× $T_2$ extension | Spin chain / NV / trapped ion platforms | Ch 15 §15.5 |
+| F2 | Correlation-aware error correction | correlated errors over $\sim\tau_B/\tau_S$ gates; gain not quantified | Current quantum hardware | Ch 15 §15.4 |
+| F3 | Backflow-aware NV magnetometry | sensitivity gain in direction only; factor not quantified | Current NV platforms | Ch 15 §15.6 |
+| F4 | Engineered-bath coherence extension | coherence beyond the Markovian estimate; factor not quantified | Spin chain / NV / trapped ion platforms | Ch 15 §15.5 |
 
 **Cosmology and gravity.**
 
@@ -229,7 +228,7 @@ The framework's cumulative empirical record can be summarized as follows.
 
 **Where the framework has no current content.** Five fundamental physics problems are scope limits from the framework's perspective — places where it does not provide a derived value: the fermion mass hierarchy in detail (flavor problem), baryogenesis (solution-specific — the baryon asymmetry inherits the input status of the framework's flavor-sector CP phases, §19.3.3), inflation and initial conditions, the Hubble tension's specific resolution, and the cosmological initial state. These are explicitly characterized in Chapter 19.
 
-**Cumulative assessment.** The framework's empirical record spans multiple domains, and its entries are of unequal evidential weight, classified explicitly above: of the twenty-two Standard Model observables, seven are parameter-free structural retrodictions and the remainder are layered, chained, or fitted; the fourteen gravitational-sector and seven neutrino-sector entries include retrodictions, consistency results, and one definitional fraction, with the $0.07\sigma$ JUNO match the sharpest (a retrodiction — the derivation postdates the November 2025 measurement); the fourteen biology/medicine entries are retrodictions and consistency results. Genuinely pre-registered forward content is the smaller set awaiting data (DESI Y5 $\nu$, the rotational-anisotropy amplitude, BTFR at $z>1$, the A2 lattice thresholds, JUNO design-lifetime precision on the exact $\sin^2\theta_{12}$ value). The framework's empirical case is therefore a broad retrodictive compression across domains, with its forward-test exposure concentrated in that smaller pre-registered set, rather than a single decisive confirmation.
+**Cumulative assessment.** The framework's empirical record spans multiple domains, and its entries are of unequal evidential weight, classified explicitly above: of the twenty-two Standard Model observables, seven are parameter-free structural retrodictions and the remainder are layered, chained, or fitted; the thirteen gravitational-sector and seven neutrino-sector entries include retrodictions, consistency results, and one definitional fraction, with the $0.07\sigma$ JUNO match the sharpest (a retrodiction — the derivation postdates the November 2025 measurement); the fourteen biology/medicine entries are retrodictions and consistency results. Genuinely pre-registered forward content is the smaller set awaiting data (DESI Y5 $\nu$, the rotational-anisotropy amplitude, BTFR at $z>1$, the A2 lattice thresholds, JUNO design-lifetime precision on the exact $\sin^2\theta_{12}$ value). The framework's empirical case is therefore a broad retrodictive compression across domains, with its forward-test exposure concentrated in that smaller pre-registered set, rather than a single decisive confirmation.
 
 The framework's distinctive epistemic position is that it provides *structural foundations* for the empirical patterns rather than competing theoretical content at the emergent level. Standard QM, standard QFT, and standard GR are reproduced at the emergent level; the framework's distinctive content is the structural foundations explaining why these emergent theories have the specific forms they do. The cumulative empirical record provides convergent evidence for the framework's structural commitments across multiple domains, with no single empirical match being load-bearing for the framework's overall content.
 
