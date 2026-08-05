@@ -7239,11 +7239,21 @@ the requirement that every component have at least one spatial coupling
 (the ``observable substratum'' condition: components with no spatial
 coupling are unobservable to the embedded observer and can be removed
 without changing the physics) combined with only \(2d\) distinct spatial
-channels available forces two components to share a channel, requiring
-at least one of them to couple to a second channel, so
-\(\delta(K) \geq 2\).
+channels forces two components to share a channel --- but sharing alone
+does not raise \(\delta\): components reading distinct entries of a
+shared neighbor's vector remain dynamically independent at
+\(\delta = 1\). What \(\delta = 1\) forces is that every component
+attach to exactly one link direction; statistical isotropy makes the
+per-direction multiplicity uniform, confining the count to the family
+\(K = 2d \cdot m\). The residual multiplicity is fixed at \(m = 1\) by
+the gauge chain of §5.5: the emergent gauge group is the condensate
+stabilizer in \(\mathrm{U}(K)\), a product \(\prod_i \mathrm{U}(k_i)\)
+with \(\sum_i k_i = K\), and the cubic multiplicities \((3, 2, 1)\) sum
+to six --- so \(K = 6\) carries the gauge sector once, while \(K = 6m\)
+would carry \(m\) commuting copies of it.
 
-The unique \(K\) with \(\delta(K) = 1\) is \(K = 2d\). On a
+The \(K\) with \(\delta(K) = 1\) form the family \(K = 2d \cdot m\); the
+unique member carrying a single gauge sector is \(K = 2d\). On a
 three-dimensional cubic lattice, this gives \(K = 2 \cdot 3 = 6\)
 internal components per site as the unique minimum-coupling
 factorization. The framework's commitment to coupling-degree
@@ -7704,19 +7714,20 @@ structure produces. The matter content is derived: three chiral fermion
 generations from the staggered taste structure of the wave equation, one
 composite Higgs doublet from the singlet staggered taste, with the
 absolute generation count locked at three by coupling-degree
-minimization. The strong-CP problem is treated structurally, with a
-limit Section 6.3 makes explicit: \(\bar\theta = 0\) at the kinematic
-level of the construction follows from T-invariance of the substratum
-bijection combined with detailed balance, requiring no axion. The gauge
-couplings at the \(Z\) pole follow from a one-parameter chain whose
-structural inputs include the analytic one-loop staggered vacuum
-polarization \(1/\alpha_0 = 23.25\) and the cubic-group structure of the
-matter content. The twenty-two classified quantitative retrodictions
-developed there (seven parameter-free structural; Appendix A) include
-the Cabibbo angle \(1/(\pi\sqrt{2})\) matched to \(0.04\%\), the Koide
-relation \(2/9\) matched to \(0.02\%\), the six fermion masses from a
-single empirical input matched to better than \(1\%\), all three PMNS
-mixing angles within \(1.1\sigma\), and the Higgs mass from the boundary
+minimization jointly with the condensate-stabilizer accounting. The
+strong-CP problem is treated structurally, with a limit Section 6.3
+makes explicit: \(\bar\theta = 0\) at the kinematic level of the
+construction follows from T-invariance of the substratum bijection
+combined with detailed balance, requiring no axion. The gauge couplings
+at the \(Z\) pole follow from a one-parameter chain whose structural
+inputs include the analytic one-loop staggered vacuum polarization
+\(1/\alpha_0 = 23.25\) and the cubic-group structure of the matter
+content. The twenty-two classified quantitative retrodictions developed
+there (seven parameter-free structural; Appendix A) include the Cabibbo
+angle \(1/(\pi\sqrt{2})\) matched to \(0.04\%\), the Koide relation
+\(2/9\) matched to \(0.02\%\), the six fermion masses from a single
+empirical input matched to better than \(1\%\), all three PMNS mixing
+angles within \(1.1\sigma\), and the Higgs mass from the boundary
 condition \(\lambda(M_{\text{Pl}}) = 0\) matched to \(0.9\%\). The
 framework's quantitative empirical record outside cosmology is
 concentrated in Chapter 6.
@@ -7758,8 +7769,9 @@ structure produces. Three pieces of structural derivation come first.
 Section 6.2 derives the matter content: three chiral fermion generations
 from the staggered taste structure of the wave equation, one composite
 Higgs doublet from the singlet taste, with the absolute generation count
-locked at three by the same coupling-degree minimization that fixed
-\(K = 6\). Section 6.3 treats the strong-CP problem structurally, and
+locked at three by the same argument that fixed \(K = 6\) ---
+coupling-degree minimization jointly with the condensate-stabilizer
+accounting. Section 6.3 treats the strong-CP problem structurally, and
 then shows why the treatment does not reach the Standard Model:
 \(\bar\theta = 0\) at the kinematic level of the construction follows
 from T-invariance of the substratum bijection combined with detailed
@@ -7881,16 +7893,19 @@ producing the observed fermion mass hierarchy through
 generation-dependent symmetry breaking that the specific bijection
 \(\varphi\) controls.
 
-The absolute generation count is locked at three by the same
-coupling-degree minimization that fixed \(K = 6\) in Chapter 5. The
-chain runs as follows: coupling-degree minimization on \(d = 3\) gives
-\(K = 2d = 6\) uniquely (Chapter 5 §5.4); the six internal components
-host the \(2^3 = 8\) Brillouin-zone corners; the corners pair into
+The absolute generation count is locked at three by the same argument
+that fixed \(K = 6\) in Chapter 5 --- coupling-degree minimization
+jointly with the condensate-stabilizer accounting. The chain runs as
+follows: coupling-degree minimization on \(d = 3\) confines the
+component count to multiples of \(2d\), and the stabilizer accounting
+fixes \(K = 2d = 6\) (Chapter 5 §5.4); the six internal components host
+the \(2^3 = 8\) Brillouin-zone corners; the corners pair into
 \(N_{\text{taste}} = 4\) Dirac tastes; the cubic-group decomposition
 gives \(4 = \mathbf{1} \oplus \mathbf{3}\), with one scalar taste and
 three spin-\(1/2\) tastes. The generation count is not chosen from a
-continuum of possibilities; it is a forced consequence of the uniqueness
-of the \(K = 6\) minimizer on \(d = 3\).
+continuum of possibilities; it is a forced consequence of \(K = 6\) on
+\(d = 3\) --- the minimality confinement together with the
+single-gauge-sector accounting.
 
 Adding a fourth fermion generation would require either expanding the
 internal-component count beyond \(K = 6\) (which violates
