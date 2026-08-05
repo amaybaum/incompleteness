@@ -1664,7 +1664,10 @@ where the minimization is restricted to the observable substratum ---
 factorizations in which every component has at least one spatial
 coupling (no inert components, \(\delta \geq 1\) everywhere --- fully
 decoupled components carry no observable degrees of freedom and can be
-removed without changing the physics). The ``observable substratum''
+removed without changing the physics). Minimality confines \(K\) to the
+link-attached family \(K = 2d \cdot m\) (Step 3); the multiplicity
+\(m = 1\) is fixed jointly by the condensate-stabilizer accounting of
+Theorems 5 and 7, as Step 3 records. The ``observable substratum''
 qualifier is a physical commitment, not a mathematical restriction: any
 sector that fails \(\delta \geq 1\) is by definition unobservable to the
 embedded observer of {[}Main, §3{]}, so the theorem applies to the full
@@ -1690,15 +1693,39 @@ principle, at least one component must receive contributions from
 \(\lceil 2d/K \rceil \geq 2\) spatial input channels. These channels
 carry independent data from distinct neighboring sites, so δ(K) ≥ 2.
 
-\emph{Step 3 (K \textgreater{} 2d forces δ ≥ 2).} With K \textgreater{}
-2d components each required to have \(\delta \geq 1\) but only 2d
-distinct spatial channels available, by pigeonhole at least two
-components share a channel. Two components depending on the same single
-channel and on no others would be linearly dependent dynamical
-variables, contradicting independence; at least one of them must
-therefore couple to a second channel, so δ(K) ≥ 2.
+\emph{Step 3 (δ = 1 confines K to multiples of 2d; the residual
+multiplicity is fixed by the gauge chain).} With K \textgreater{} 2d
+components each required to have \(\delta \geq 1\) but only 2d distinct
+spatial channels available, by pigeonhole at least two components share
+a channel. Sharing alone does not force δ ≥ 2: two components that read
+the \emph{same scalar datum} of the shared neighbor and nothing else are
+linearly dependent dynamical variables and are excluded, but two
+components reading \emph{distinct} components of the shared neighbor's
+vector remain dynamically independent at δ = 1 (checked directly on the
+\(m\)-fold link-diagonal factorization at \(K = 12\) and \(K = 18\): no
+inert component, and the stacked coupling has trivial nullspace). What δ
+= 1 does force is that every component attach to exactly one link
+direction; statistical isotropy then requires the attachment to be
+\(O\)-covariant, and since \(O\) acts transitively on the \(2d\) signed
+directions, every direction carries the same number \(m\) of components.
+Coupling-degree minimality therefore confines the component count to the
+family \(K = 2d \cdot m\), \(m \geq 1\), and does not by itself select
+\(m = 1\). The multiplicity is fixed by the gauge chain instead. The
+emergent gauge group is the stabilizer of the condensate in
+\(\mathrm{U}(K)\) (Theorem 5), which for any Hermitian condensate is
+\(\prod_i \mathrm{U}(k_i)\) with \(\sum_i k_i = K\); the cubic
+multiplicities \((3, 2, 1)\) of Theorem 7 sum to six, so the gauge
+sector of §4.6 arises precisely at \(K = 6\), while \(K = 6m\) with
+\(m > 1\) carries \(m\) commuting copies of it --- a generic equivariant
+condensate on \(V_K \otimes \mathbb{R}^m\) has stabilizer
+\([\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)]^m\). The
+selection of \(m = 1\) is therefore of the same kind as the selection of
+\(d = 3\) (§3.2): a discrete structural parameter fixed by consistency
+with the observed single gauge sector, not by minimality alone.
 
-\emph{Uniqueness.} Steps 1--3 show δ = 1 iff K = 2d.
+\emph{Uniqueness.} Steps 1--3 show δ = 1 iff \(K = 2d \cdot m\); within
+that family, \(m = 1\) --- hence \(K = 2d\) --- is fixed by the
+stabilizer accounting above.
 
 \emph{Extension to general graphs.} For a bounded-degree graph \(G\)
 with polynomial growth exponent \(d\) and statistical isotropy: (i)
@@ -2093,9 +2120,11 @@ representations such as \((\mathbf{3}, \mathbf{2})\) exist as ordinary
 tensor-product subspaces; see §4.7.1.2 for the closure. Anomaly
 cancellation (Theorem 15) then fixes their hypercharges as the unique
 consistent assignment. The absolute generation count is locked at
-exactly three by coupling-degree minimality: Theorem 6 proves
-\(K = 2d = 6\) is the unique minimizer, which yields exactly three
-spin-1/2 staggered tastes (Step 3, §4.7.1.2).
+exactly three by coupling-degree minimality jointly with the
+condensate-stabilizer accounting of Theorems 5 and 7: Theorem 6 confines
+the component count to \(K = 2d \cdot m\) and the stabilizer accounting
+fixes \(m = 1\), giving \(K = 6\) and exactly three spin-1/2 staggered
+tastes (Step 3, §4.7.1.2).
 
 \textbf{Theorem 11} (Higgs sector, consistency). \emph{Given a Higgs
 doublet \((\mathbf{1}, \mathbf{2}, +\tfrac{1}{2})\) in the SM, the
@@ -2159,8 +2188,9 @@ ruled out, but none has been produced.
 The neutrino mass mechanism (Dirac vs.~Majorana, presence or absence of
 \(\nu_R\)) is not fixed by the lattice structure as currently understood
 and is left open. The absolute generation count is addressed in
-§4.7.1.2: the uniqueness of the \(K = 2d = 6\) minimizer locks the count
-at three as a derived consequence rather than an assignment.
+§4.7.1.2: the \(K = 2d \cdot m\) confinement of Theorem 6 together with
+the \(m = 1\) stabilizer accounting (Theorems 5, 7) locks the count at
+three as a derived consequence rather than an assignment.
 
 \hypertarget{gauge-bosons-from-the-schur-complement-and-the-level-confusion-diagnosis}{%
 \paragraph{4.7.1.1 Gauge bosons from the Schur complement, and the
@@ -2404,17 +2434,23 @@ resolution was already distributed across the existing chain of theorems
 and was hidden only by the site-internal reading of \(V_K\) that
 §4.7.1.1's level-confusion diagnosis identified as incorrect.
 
-\emph{Step 3: The absolute generation count is locked by minimality.}
-Theorem 6 proves that \(K = 2d = 6\) is the unique minimizer of internal
-coupling degree on the \(d = 3\) lattice, forbidding the ad hoc addition
-of duplicate fundamental fields. This single unique field possesses
-exactly \(2^3 = 8\) BZ corners, which stagger-reduce to exactly 4 Dirac
-tastes. Theorem 8 decomposes these into exactly 1 scalar and 3 spin-1/2
-tastes. Therefore, the single-excitation link-carrier space
+\emph{Step 3: The absolute generation count is locked by minimality
+jointly with the stabilizer accounting.} Theorem 6 confines the internal
+component count on the \(d = 3\) lattice to \(K = 2d \cdot m\) (every
+component link-attached, equal multiplicity per direction), and the
+condensate-stabilizer accounting of Theorems 5 and 7 fixes \(m = 1\):
+only \(K = 6\) carries the gauge sector once rather than in \(m\)
+commuting copies. The ad hoc addition of duplicate fundamental fields is
+thereby excluded --- by the gauge chain, not by minimality alone. This
+single unique field possesses exactly \(2^3 = 8\) BZ corners, which
+stagger-reduce to exactly 4 Dirac tastes. Theorem 8 decomposes these
+into exactly 1 scalar and 3 spin-1/2 tastes. Therefore, the
+single-excitation link-carrier space
 \(V_K \otimes V_K^* \otimes V_{\text{taste}}\) contains exactly three
 copies of each SM gauge representation. The absolute generation count is
-not assigned; it is a rigid, derived consequence of the uniqueness of
-the \(K = 6\) minimizer.
+not assigned; it is a rigid, derived consequence of \(K = 6\) --- the
+minimality confinement of Theorem 6 together with the
+single-gauge-sector accounting of Theorems 5 and 7.
 
 The earlier \(\mathrm{End}(V_K)\) result for the gauge sector now fits
 cleanly into this picture. Gauge bosons live in \(\mathrm{End}(V_K)\)
