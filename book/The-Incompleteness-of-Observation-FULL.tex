@@ -8580,21 +8580,25 @@ scale as the square. The Koide angle and the Wolfenstein \(A\) parameter
 share a common Casimir structure, with the Koide angle obtaining at the
 eigenvalue level what \(A\) obtains at the amplitude level.
 
-A first-principles derivation of the specific \(1/d\) amplitude scaling
-(rather than alternatives like \(1/(2d)\)) from the cubic-lattice Yukawa
-structure remains an open task; the empirical match at \(0.02\%\)
-constrains the amplitude scaling tightly. The Koide prediction is
-currently Class B-S Layer 1 --- unconditional structural at the
-substratum-geometry level --- with the open derivation question being
-whether the \(1/d\) amplitude is forced by the framework's structural
-commitments or chosen empirically. The choice reduces to whether the
-taste-mixing loop carries a time direction (\(d=4\), giving \(1/16\)) or
-not (\(d=3\), giving \(1/9\)); the \(d=3\) substrate-eigenvalue origin
-of the generation masses selects \(1/9\); Schur's lemma on the \(T_1\)
-generations protects this against all taste-blind emergent dressing,
-leaving only a possible loop-level cubic-breaking contribution --- the
-same residual as the emergent-Lorentz radiative-stability question (SM
-§7.3).
+The first-principles derivation of the specific \(1/d\) amplitude
+scaling (rather than alternatives like \(1/(2d)\)) from the
+cubic-lattice Yukawa structure is now complete: the amplitude prefactor
+has been computed and equals one (SM §7.2; driver
+\texttt{oi\_lattice\_code/fermion/n\_ratio\_pt.py}), so
+\(\mathcal{N} = 1/d^2 = 1/9\) exactly at \(m \to 0\), and the empirical
+match at \(0.02\%\) confirms a derived normalization rather than
+constraining a chosen one. The Koide prediction is currently Class B-S
+Layer 1 --- unconditional structural at the substratum-geometry level
+--- with the former open question (whether the \(1/d\) amplitude is
+forced by the framework's structural commitments or chosen empirically)
+now settled on the forced side by that computation. The choice reduces
+to whether the taste-mixing loop carries a time direction (\(d=4\),
+giving \(1/16\)) or not (\(d=3\), giving \(1/9\)); the \(d=3\)
+substrate-eigenvalue origin of the generation masses selects \(1/9\);
+Schur's lemma on the \(T_1\) generations protects this against all
+taste-blind emergent dressing, leaving only a possible loop-level
+cubic-breaking contribution --- the same residual as the
+emergent-Lorentz radiative-stability question (SM §7.3).
 
 \textbf{The charged-lepton mass chain.} Given the Koide angle
 \(\theta_0 = 2/9\) and one empirical input (the tau mass
@@ -23072,7 +23076,13 @@ enhancement of the \(E\)-component (the structural route, under which
 the \(45°\) is derived) rather than solution-specific \(T_2\)
 off-diagonal elements (under which it would be bijection-specific). The
 full \(K = 6\) lattice Monte Carlo is the tool, and whether it lands on
-\(C_2\) is the key open question.
+\(C_2\) is the key open question. The observable class is constrained in
+advance: an exact shift-symmetry identity makes the ensemble
+single-quark two-point function eight-fold corner-degenerate at every
+coupling, so quark-level taste splitting vanishes identically and the
+measurement must use composite (multi-fermion) channels --- closing the
+otherwise-natural quark-propagator route before it is attempted (SM
+§7.2).
 
 \emph{The Wolfenstein hierarchy.} Perturbative taste-breaking naturally
 produces \(|V_{us}| \sim \lambda\), \(|V_{cb}| \sim \lambda^2\),
