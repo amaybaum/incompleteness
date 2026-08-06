@@ -4443,10 +4443,16 @@ normalization (below), not stronger: the Casimir form is structural and
 the dynamics --- one-loop perturbative taste-breaking gives
 \(A^2 \approx 0.34\), undershooting \(C_2 = 2\), so establishing that
 the substrate dynamics produces \(A^2 = C_2\) non-perturbatively is an
-open computation ({[}Ch. 19 §19.3.1{]}). The relation is therefore
-``structural form forced, amplitude argued from the Casimir and
-empirically confirmed'' --- the same footing as \(\theta_0\), weaker
-than a full derivation and stronger than a fit.
+open computation ({[}Ch. 19 §19.3.1{]}); its observable class is
+constrained in advance by an exact shift-symmetry identity --- the
+ensemble single-quark two-point function is exactly eight-fold
+corner-degenerate at every coupling (driver
+\texttt{oi\_lattice\_code/fermion/shift\_identity\_check.py}), so
+quark-level taste splitting vanishes identically and any dynamical
+measurement is necessarily composite (multi-fermion channels). The
+relation is therefore ``structural form forced, amplitude argued from
+the Casimir and empirically confirmed'' --- the same footing as
+\(\theta_0\), weaker than a full derivation and stronger than a fit.
 
 \textbf{The Koide angle.}
 
@@ -4579,19 +4585,30 @@ giving \(1/d\) to numerical precision). This forces the \emph{per-axis}
 \(1/d\) scaling structurally rather than leaving it to geometric
 analogy, and it is the mechanism behind why \(1/d\) and not \(1/(2d)\):
 the loop's axis-resolved weight is the symmetric fraction \(1/d\), with
-no factor of two available from the axis decomposition. What remains
-genuinely open is the overall coefficient relating this per-axis weight
-to the full perturbation-theory amplitude (the \(m \to 0\) limit of
-\(\mathcal{N}\) below and its prefactor), which the symmetry argument
-does not fix; the residual is therefore the amplitude prefactor, not the
-\(d\)-versus-\(2d\) power, and it is narrower than a free choice between
-\(1/d\) and \(1/(2d)\). Until the prefactor is computed, the cluster's
-status is ``structural form forced, per-axis normalization now
-symmetry-forced, overall amplitude prefactor argued and empirically
-confirmed'' rather than ``normalization proved'' --- a weaker status
-than full derivation and a stronger one than parameter fitting. Closure
-of the lattice computation specified below would promote the
-\emph{magnitude} normalization to derived; the bijection-specific
+no factor of two available from the axis decomposition. The overall
+coefficient relating this per-axis weight to the full
+perturbation-theory amplitude --- the \(m \to 0\) limit of
+\(\mathcal{N}\) below and its prefactor, which the symmetry argument
+does not fix --- has now been computed (driver
+\texttt{oi\_lattice\_code/fermion/n\_ratio\_pt.py}, anchored end-to-end:
+the \(8\times 8\) corner operator is derived numerically from the
+position-space staggered operator rather than assumed, the derived
+corner matrices satisfy the Clifford algebra to machine precision, and
+the sum-rule identity \(d\,w + m^2\langle 1/D\rangle = 1\) holds to
+\(10^{-16}\)). The computation resolves a genuine underdetermination in
+the specification en route: the matrix-element readings of the
+taste-off-diagonal vertex vanish identically --- the free staggered
+propagator has no two-flip corner entries, the same structural zero as
+the free-level taste-changing amplitude of §7.1 --- leaving the
+substrate-eigenvalue reading of the following subsection as the unique
+non-vanishing one-loop construction; under it the per-axis object is
+\(\hat V_a (\hat D^\dagger \hat D)^{-1} \hat V_a = (\sin^2 k_a/D)\,\mathbf{1}\)
+exactly, Schur-diagonal, with prefactor exactly one. The residual is
+thereby discharged: the cluster's status is ``structural form forced,
+per-axis normalization symmetry-forced, amplitude prefactor computed
+(\(=1\))'' --- the magnitude normalization is derived, conditional only
+on the substrate criterion of the following subsection. This closure
+promotes the \emph{magnitude} normalization only; the bijection-specific
 directional content of the flavor structure remains Layer 2(b) by
 construction (it transforms under substratum state-relabeling and is not
 fixed by any substrate-only computation), so closure sharpens the
@@ -4633,10 +4650,16 @@ machinery already validated in §6.1. The framework predicts
 confirms it --- promoting the \emph{magnitude} normalization
 \(C_2/d^2 = 2/9\) from argued to derived --- or refutes it (falsifying
 the \(1/d\) normalization and with it the \(\theta_0 = 2/9\) magnitude).
-The computation requires no input not already fixed by the lattice
-geometry, which is what makes the magnitude question Layer
-2(a)-tractable rather than open-ended. It is important to delimit what
-such a closure would and would not establish: the quantity
+This computation has now been run to closure (same driver as above):
+under the construction the specification's own refinement selects,
+\(\mathcal{N} = w^2 = 1/d^2 = 1/9\) exactly at \(m \to 0\), with the
+finite-mass plateau approaching from below as the sum-rule identity
+requires (\(w^2 = 0.10906\) at \(m = 0.1\), \(0.11056\) at \(m = 0.05\))
+--- inside the \(20\%\) band called decisive above, and exact rather
+than numerical by the identity. The computation requires no input not
+already fixed by the lattice geometry, which is what makes the magnitude
+question Layer 2(a)-tractable rather than open-ended. It is important to
+delimit what such a closure would and would not establish: the quantity
 \(\mathcal{N}\) is a magnitude with a gauge-invariant interpretation,
 and its closure promotes the magnitude of \(\theta_0\) only. It does
 not, and cannot, fix the bijection-specific directional content of the
