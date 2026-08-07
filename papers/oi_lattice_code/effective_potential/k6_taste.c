@@ -414,7 +414,7 @@ int main(int argc, char **argv) {
     }
     fprintf(stderr,"  Done.\n\n");
 
-    FILE *fp=fopen(outf,"a");
+    FILE *fp=fopen(outf,"w"); /* 2026-08-07: was "a"; verified hazard — append mode composed with environment re-execution silently doubles data (caught by a split-half drift gate reading an impossible exact zero); single-run output unchanged */
     time_t tnow=time(NULL);
     fprintf(fp,"# k6_taste L=%d beta=(%.1f,%.1f,%.1f) Ncfg=%d threads=%d\n",L,beta3,beta2,beta1,Ncfg,nthreads);
     fprintf(fp,"# started %s",ctime(&tnow));

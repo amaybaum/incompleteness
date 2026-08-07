@@ -702,7 +702,7 @@ int main(int argc,char **argv){
     double p3,p2,p1_val;plaquettes(&p3,&p2,&p1_val);
     fprintf(stderr,"  Done. P3=%.4f P2=%.4f P1=%.4f ⟨|Φ|⟩=%.4f\n\n",p3,p2,p1_val,measure_phi_mod());
 
-    FILE *fp=fopen(outf,"a");
+    FILE *fp=fopen(outf,"w"); /* 2026-08-07: was "a"; verified hazard — append mode composed with environment re-execution silently doubles data (caught by a split-half drift gate reading an impossible exact zero); single-run output unchanged */
     fprintf(fp,"# k6_higgs L=%d m0=%.6f kappa=%.6f lambda=%.6f yukawa=%.6f beta=(%.1f,%.1f,%.1f)\n",
             L,m0,kappa,lambda,yukawa,b3,b2,b1);
     fprintf(fp,"# traj acc dH phi_mod phi_mod2 hop magnet pbp P3 P2 P1\n");

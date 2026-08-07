@@ -130,6 +130,46 @@ confers no protection, and "the framework needs this to be true" is never an arg
 
 ---
 
+## RULE — Gem-finding investigation mode, depth-first (§A.31)
+
+Added 2026-08-07 by owner instruction, condensed from the project's private methodology
+(Part VII), so the mode is invocable from the public subset.
+
+Two investigation modes exist and are prioritized differently. **Closure mode** is
+structured around closing a claim: identify the residual gap → hypothesize the derivation
+that fills it → test → update the classification. **Gem-finding mode** is structured
+around exposing hidden assumptions: identify the load-bearing step → ask *what assumption
+am I implicitly making here that could be wrong?* → investigate (literature, dimensional
+analysis, re-derivation, code check) → update the methodology, and the claim's status only
+if a real issue is found. The gem-finding question is *what could go wrong*, not *how do I
+make this work* — bias toward skepticism, not extension. Closure attempts that produce
+structural understanding without binary closure are positive outcomes.
+
+**Triggers:** (1) a claim repeatedly fails to close across sessions — the diagnostic
+refines without closure; (2) methodology output accumulates faster than classification
+changes; (3) the target is recognized as high-instrumental-yield — its hidden assumptions,
+if found, propagate to other claims — in which case gem-finding may be the right *initial*
+framing and should run *before* lower-yield investigations, so the assumption-watch
+markers help those catch their own issues earlier.
+
+**Depth-first execution (the DFS form).** Fix a PRODUCTIVITY TEST before starting: the
+investigation is a gem iff it yields a fact strictly stronger than the obvious restatement
+AND either constrains something or exposes a hidden assumption; otherwise it is a non-gem
+(coherence relabeling). The propagation bar is better-than-coherence; below it,
+record-only. Then walk the fork depth-first as numbered branch nodes, each closed by an
+explicit check (code, algebra, citation) with the verdict recorded at the node; select the
+decisive branch at each level rather than surveying breadth. When a branch's outcome is
+favorable to the framework, apply maximum skepticism to that branch specifically —
+pressure-test the favorable reading before accepting it.
+
+**Output classification:** NEW (a structural blind spot not previously characterized) /
+POSITIVE (validates an inheritance or assumption — also valuable) / ELABORATING /
+CONFIRMING / BORDERLINE. **Fixed point:** continue until ~3–4 consecutive passes yield no
+NEW findings. **Cross-propagation:** a hidden assumption found in one claim's audit often
+applies to others; record it as an assumption-watch marker, not just a local fix.
+
+---
+
 ## Build recipe (regenerating `.tex` / `.pdf`)
 
 Requires `pandoc` + a LaTeX engine with `xelatex` (e.g. `brew install pandoc texlive`).

@@ -336,7 +336,7 @@ int main(int argc, char **argv) {
     fprintf(stderr,"  Thermalization done. ⟨P₃⟩=%.4f ⟨P₂⟩=%.4f ⟨P₁⟩=%.4f\n\n",p3f,p2f,p1f);
 
     /* Open output (append) */
-    FILE *fp=fopen(outf,"a");
+    FILE *fp=fopen(outf,"w"); /* 2026-08-07: was "a"; verified hazard — append mode composed with environment re-execution silently doubles data (caught by a split-half drift gate reading an impossible exact zero); single-run output unchanged */
     if(!fp){perror(outf);return 1;}
     time_t tnow=time(NULL);
     fprintf(fp,"# ── K=6 CW run started %s",ctime(&tnow));
