@@ -1627,13 +1627,15 @@ Five rules of manuscript conduct, each adopted after a concrete failure of the o
    "unsupported" in the manuscript's own voice has been asserted *and* disclaimed in the same
    breath. (A mechanical status-word swap across nineteen sites once produced exactly that,
    including one sentence that called a chain proved while labeling its conclusion unsupported.)
-2. **Status lives in status artifacts, in the artifact's own idiom.** Scope sections, dated status
-   notes (§A.27), and status tables carry standing; running prose does not. And a status table is
+2. **Status lives in status artifacts, in the artifact's own idiom.** Scope sections and status
+   tables carry standing; running prose does not. In a working draft the text itself is the status
+   artifact — corrections are made in place, not annotated (§A.27). And a status table is
    the right *place* for status, not a license for editorial voice inside one — if every other
    cell is two words, the changed cell is two words.
 3. **The document never narrates its own history.** No "formerly," no "is not listed," no
-   "withdrawn from" in the manuscript's voice. Absence needs no announcement; the record of what
-   changed lives in the dated notes, the ledger, and the version history.
+   "withdrawn from" in the manuscript's voice, and a date stamp does not make such narration
+   admissible. Absence needs no announcement; the record of what changed lives in the repository's
+   history and the change note, never in the manuscript.
 4. **Fix the root cause, not the label.** A wrong claim is corrected or removed, never annotated
    into acceptability.
 5. **Claim identifiers are identifiers, not ordinals.** A retired row's ID is never reassigned

@@ -45,7 +45,7 @@ Whenever you change a **claim**, its **classification** (status / layer / tier; 
    (see below) **or** flag them stale **in the same commit**. Never leave a distributed PDF inconsistent
    with its source.
 6. **Verify by re-grep.** Confirm zero stale occurrences remain and the legitimate uses survive; state the
-   surviving count in the commit/PR.
+   surviving count in the change record.
 
 **Abuse-guard:** *"I only edited the one place I was looking at"* is exactly the failure this rule prevents.
 
@@ -78,18 +78,33 @@ what actually caught and bounded the originating event — are unaffected.]*
 
 ---
 
-## RULE — Status annotations in manuscripts: dated, superseding, manuscript-voice (§A.27)
+## RULE — Status changes in a working draft: correct in place, no in-manuscript change records (§A.27)
 
-Empirical or archival status changes reach their manuscript dependents as **dated bracketed status
-notes** — `*[Status note, YYYY-MM-DD: …]*` — appended in place, superseding rather than deleting
-(a correction quotes or summarizes what it replaces). Two constraints, both learned the hard way:
+The repository is a **working draft**: the latest revision is the canonical text, and the
+manuscript carries only the current state. Empirical or archival status changes therefore reach
+their manuscript dependents **as corrections to the text itself** — the affected statement is
+rewritten where it is derived and the superseded wording is deleted, not annotated. No dated
+bracketed status notes, no "earlier revisions stated …", no reader-side version tracking. A date
+stamp does not convert self-narration into a status artifact. What changed is recorded in the
+repository's own history and in the change note accompanying the change; readers of the draft see
+the draft.
 
-- **Same-session propagation.** An empirical result that bears on a manuscript claim gets its status
-  note in the same session the result is accepted (this is §A.25 applied to results, not just edits).
+Three constraints, all learned the hard way:
+
+- **Same-session propagation.** A result that bears on a manuscript claim is applied to the text
+  in the same session it is accepted — §A.25 applied to results, not just edits — and to every
+  parallel source, per §A.14.
 - **Manuscript voice only.** No internal-ledger vocabulary (*graded motivated-unverified*,
   *implementation-unrecovered*), no internal filenames or phase labels, no process jargon a reader
   cannot resolve. State what is established, for which object, at what precision, and what remains
   unverified — in the paper's own register. Internal bookkeeping stays in the off-repo working logs.
+- **Never assert-then-qualify.** A claim that has lost its support is removed, not tagged; a
+  correction appended beneath a surviving assertion leaves the claim asserted and disclaimed in the
+  same breath (§A.30).
+
+One exception: a document that is deliberately **not** the canonical draft — a frozen or superseded
+file — may carry a standing notice of that fact, since that states current standing rather than a
+revision record.
 
 ---
 
@@ -118,11 +133,12 @@ confers no protection, and "the framework needs this to be true" is never an arg
   result is derived. Never assert-then-qualify: a claim tagged "unsupported" in the
   manuscript's voice has been asserted and disclaimed in the same breath.
 - **Status lives in status artifacts, in the artifact's own idiom** — scope sections, dated
-  notes (§A.27), status tables. A status table licenses status, not editorial voice: if every
+  status tables (§A.27). A status table licenses status, not editorial voice: if every
   other cell is two words, the changed cell is two words.
 - **The document never narrates its own history.** No "formerly," no "is not listed," no
-  "withdrawn from" in the manuscript's voice; the record of change lives in dated notes, the
-  ledger, and version history.
+  "withdrawn from" in the manuscript's voice, and a date stamp does not make such narration
+  admissible; the record of change lives in the repository's history and the change note (§A.27),
+  never in the manuscript.
 - **Fix the root cause, not the label.**
 - **Claim IDs are identifiers, not ordinals** (e.g. appendix-a `G`-rows): never renumber
   successors, never reuse a retired ID, never annotate the gap. And a removed claim can hide in
@@ -225,7 +241,7 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   framework actually matches reality.
 - **Consistency / honesty edits do not, by themselves, move correctness.** Relabeling a claim adds no new
   evidence, and matching an already-known value is a *retrodiction* (discounted — already priced into the
-  band) — so a pure cleanup/alignment PR is logged "bands unchanged." Correctness moves only from genuine
+  band) — so a pure cleanup/alignment change is logged "bands unchanged." Correctness moves only from genuine
   new confrontation: a *novel* prediction confirmed by new data (↑), a prediction falsified (↓), or a
   first-principles derivation that closes a previously-open gap (↑) or is excluded (↓).
 - **The asymmetry that does hold:** an honesty *downgrade* — conceding a claimed proof is actually
