@@ -971,16 +971,15 @@ loop level, or introduces an octahedral-breaking effect --- for instance
 an effective momentum-shell structure in the trace-out --- not visible
 in the octahedral-invariant checkerboard partition. \emph{{[}Status
 note, 2026-08-04: the octahedral-invariance premise has a second
-dependency, more direct than the trace-out, and it is worth naming
-separately. The effective operator is octahedral-invariant only if the
-condensate \(\Sigma\) is, and the \(O\)-invariance of the dynamics does
-not descend to the solution: the framework's own gauge mechanism is
-spontaneous breaking of a dynamical symmetry by that condensate (§4.6).
-Theorem 5 takes \(\Sigma\) to be \(O\)-equivariant, and that
-equivariance is a hypothesis on the solution rather than a consequence
-of the dynamics. It is not secured by the observed gauge group alone: a
-condensate with the same block multiplicities \((3, 2, 1)\) --- hence
-the same stabilizer
+dependency, more direct than the trace-out. The effective operator is
+octahedral-invariant only if the condensate \(\Sigma\) is, and the
+\(O\)-invariance of the dynamics does not descend to the solution: the
+framework's own gauge mechanism is spontaneous breaking of a dynamical
+symmetry by that condensate (§4.6). Theorem 5 takes \(\Sigma\) to be
+\(O\)-equivariant, and that equivariance is a hypothesis on the solution
+rather than a consequence of the dynamics. It is not secured by the
+observed gauge group alone: a condensate with the same block
+multiplicities \((3, 2, 1)\) --- hence the same stabilizer
 \(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) --- but with
 eigenspaces not aligned to the \(O\)-irreps generates an \(E_g\)
 anisotropy at dimension four rather than dimension six. What secures the
@@ -2901,11 +2900,11 @@ and that is what a \(T\)-invariant \(H_{\text{eff}}\) supplies. The
 weaker statement that each Yukawa is real in \emph{its own} mass basis
 is vacuous: every complex matrix is diagonal and positive in its own
 mass basis by singular value decomposition, so it would give
-\(\arg\det(Y_uY_d) = 0\) for any Yukawa sector whatever. The distinction
-is not cosmetic, because the common-basis reading that carries this step
-also forces \(V_{\text{CKM}} = O_u^{\mathrm{T}}O_d\) to be real
-orthogonal and the Jarlskog invariant to vanish identically; see the
-scope discussion in §5.5, condition (i).{]}}
+\(\arg\det(Y_uY_d) = 0\) for any Yukawa sector whatever. The
+common-basis reading that carries this step also forces
+\(V_{\text{CKM}} = O_u^{\mathrm{T}}O_d\) to be real orthogonal and the
+Jarlskog invariant to vanish identically; see the scope discussion in
+§5.5, condition (i).{]}}
 
 \emph{Remark.} This proof bypasses the instanton question. T-invariance
 of the transition probabilities is an exact consequence of the bijection
@@ -2947,27 +2946,22 @@ rather than framework-level predictions.
 and vanishes whenever each Yukawa matrix is individually diagonalizable
 to real form. CKM CP violation, by contrast, is encoded in the Jarlskog
 invariant \(J \approx 3 \times 10^{-5}\) and arises from the \emph{basis
-mismatch} between the up-type and down-type Yukawa mass eigenstates.
-T-invariant Yukawas are simultaneously real in some basis ---
-specifically, each Yukawa matrix is real in its own mass basis --- but
-the up-type and down-type mass bases generically differ by a unitary
-transformation, and when that transformation has complex entries that
-cannot be absorbed by field redefinitions, the resulting CKM matrix
-contains an irreducible CP-violating phase. This is the standard SM
-picture {[}16, §6.3{]}: real mass-basis Yukawas plus a basis mismatch
-are together compatible with a nonzero Jarlskog. \emph{{[}Status note,
-2026-08-04: the standard picture is correctly stated, but it does not
-transfer to the present construction, and the difference is the premise.
-In the Standard Model the Yukawas are not required to be real in any
-common basis, so the mismatch unitary may be complex. Here they are: the
-detailed balance of Theorem 19, holding at every time scale as Theorem
-21 Step 1 requires, is equivalent to \(H_{\text{eff}}\) being
-rephasing-equivalent to a real symmetric matrix --- the obstruction
-enters at third order in \(t\) and is the rephasing-invariant triangle
-phase, which must vanish. Two matrices real in a common basis have real
-orthogonal singular value decompositions, so the mismatch unitary is
-real orthogonal and \(J = 0\) exactly. The consequence for the scope of
-Theorem 21 is stated in §5.5, condition (i).{]}}
+mismatch} between the up-type and down-type Yukawa mass eigenstates. In
+the Standard Model the Yukawas are not required to be real in any common
+basis: each is real in its own mass basis, the up-type and down-type
+mass bases generically differ by a unitary transformation, and when that
+transformation has complex entries that cannot be absorbed by field
+redefinitions the resulting CKM matrix contains an irreducible
+CP-violating phase {[}16, §6.3{]}. That route is closed in the present
+construction, and the difference is the premise. The detailed balance of
+Theorem 19, holding at every time scale as Theorem 21 Step 1 requires,
+is equivalent to \(H_{\text{eff}}\) being rephasing-equivalent to a real
+symmetric matrix --- the obstruction enters at third order in \(t\) and
+is the rephasing-invariant triangle phase, which must vanish. Two
+matrices real in a common basis have real orthogonal singular value
+decompositions, so the mismatch unitary is real orthogonal and \(J = 0\)
+exactly. The consequence for the scope of Theorem 21 is stated in §5.5,
+condition (i).
 
 \textbf{What the framework does and does not derive.} T-invariance at
 the substrate level (Theorem 17) plus detailed balance (Theorem 19)
@@ -2979,16 +2973,18 @@ solution-specific property of the particular bijection \(\varphi\),
 analogous to the absolute scale of fermion masses (§7.6) and the
 specific eigenvalues of the Yukawa matrices: the framework derives the
 structural form of the Yukawa sector but does not predict the
-basis-alignment parameters. The CKM and PMNS CP-violating phases are
-therefore compatible with --- though not derived from --- the
-framework's structural commitments. \emph{{[}Status note, 2026-08-04:
-this compatibility does not survive the check. It is correct that the
-construction does not force the two \emph{mass} bases to coincide; what
-it does force is that both Yukawas are real in one common
-\emph{interaction} basis, and that alone makes the mismatch unitary real
-orthogonal, hence \(J = 0\), whatever the mass bases are. The paragraph
-above is therefore withdrawn as an argument for compatibility. See §5.5,
-condition (i), for what remains open and what does not.{]}}
+basis-alignment parameters. What the construction does force is that
+both Yukawas are real in one common \emph{interaction} basis, and that
+alone makes the mismatch unitary real orthogonal, hence \(J = 0\),
+whatever the mass bases are. The CKM and PMNS CP-violating phases are
+therefore not accommodated by the framework's structural commitments as
+they stand; §5.5, condition (i), states what remains open and what does
+not.
+
+\emph{{[}Status note, 2026-08-04: earlier revisions of this paragraph
+presented those phases as compatible with --- though not derived from
+--- the framework's structural commitments; that argument is
+withdrawn.{]}}
 
 \textbf{The reducible phases are exactly the field redefinitions
 (nullity).} The \(\bar\theta = 0\) result relies on a supporting fact
@@ -3052,49 +3048,25 @@ discharged here.
 \item
   \textbf{A consistent CP-violating weak sector.} §5.4 places the
   observed CKM and PMNS phases outside the theorem's scope by
-  attributing them to solution-specific basis alignment. That is a
-  coherent division, but the framework has not exhibited a
-  \(T\)-invariant bijection whose emergent description carries a nonzero
-  Jarlskog invariant. Until one is exhibited, the compatibility of
-  \(\bar\theta = 0\) with observed CP violation is argued rather than
-  constructed.
+  attributing them to solution-specific basis alignment. That division
+  does not survive. Detailed balance at \textbf{every} time scale ---
+  the premise Theorem 21 Step 1 asserts --- is equivalent to the
+  emergent Hamiltonian being rephasing-equivalent to a real symmetric
+  matrix: expanding \(U = e^{-iHt}\), the antisymmetric part of
+  \(|U_{ij}|^2\) enters at \(O(t^3)\) with coefficient
+  \(-2\,\mathrm{Im}[H_{ij}(H^2)^*_{ij}]\), which for a three-level
+  system reduces to the rephasing-invariant triangle phase
+  \(\mathrm{Im}[H_{12}H_{23}H_{31}]\); a Hermitian matrix is
+  rephasing-equivalent to a real one exactly when that vanishes. A real
+  \(H_{\text{eff}}\) places \(Y_u\) and \(Y_d\) in a common real basis,
+  and two real matrices have real orthogonal singular value
+  decompositions, so \(V_{\text{CKM}}\) is real orthogonal and the
+  Jarlskog invariant vanishes identically --- a rephasing-invariant
+  statement, so no field redefinition recovers it.
 \end{enumerate}
 
-\emph{{[}Status note, 2026-08-04: this condition is now known to be
-stronger than ``not yet exhibited'', and the paragraph above understates
-it. Two results, both finite linear algebra. First, detailed balance at
-\textbf{every} time scale --- the premise Theorem 21 Step 1 asserts ---
-is equivalent to the emergent Hamiltonian being rephasing-equivalent to
-a real symmetric matrix: expanding \(U = e^{-iHt}\), the antisymmetric
-part of \(|U_{ij}|^2\) enters at \(O(t^3)\) with coefficient
-\(-2\,\mathrm{Im}[H_{ij}(H^2)^*_{ij}]\), which for a three-level system
-reduces to the rephasing-invariant triangle phase
-\(\mathrm{Im}[H_{12}H_{23}H_{31}]\); a Hermitian matrix is
-rephasing-equivalent to a real one exactly when that vanishes. Theorem
-20's conclusion is therefore correct. Second, a real \(H_{\text{eff}}\)
-places \(Y_u\) and \(Y_d\) in a common real basis, and two real matrices
-have real orthogonal singular value decompositions, so
-\(V_{\text{CKM}}\) is real orthogonal and the Jarlskog invariant
-vanishes identically --- a rephasing-invariant statement, so no field
-redefinition recovers it. The construction thus faces a dilemma rather
-than a missing example. Either the inference of Theorem 21 Step 3 holds,
-in which case \(J = 0\) and this condition is unsatisfiable rather than
-open; or it fails --- for instance if the map from the substratum
-configuration basis to the flavour basis does not preserve reality ---
-in which case \(\bar\theta = 0\) loses the step that converts
-\(T\)-invariance into \(\arg\det(Y_uY_d) = 0\). On neither branch does
-the \(\bar\theta = 0\) result stand as currently stated, and the choice
-between them turns on a property of the coarse-graining map that the
-construction has not established. Two further points bear on the scope.
-The obstruction requires three or more generations: for two levels there
-is no triangle phase and detailed balance is automatic, so the
-generation count of Theorem 12 and the strong-CP argument are not
-independent. And the tension is internal as well as empirical --- §7.4's
-table reports \(J = \eta/(12\pi^6) = 3.02\times10^{-5}\), so the corpus
-already carries a nonzero Jarlskog alongside the premise that forbids
-one.{]}} \emph{{[}Status note, 2026-08-04 (second): the dilemma above is
-now closed on both sides by a quantitative computation on the emergent
-operator of the §4.8 reconstruction. If the operator is
+A quantitative computation on the emergent operator of the §4.8
+reconstruction settles both horns. If the operator is
 octahedral-equivariant, the Jarlskog invariant vanishes identically. If
 the equivariance is broken, the Jarlskog and the forbidden \(E_g\)
 rotational anisotropy turn on together --- measured exponents
@@ -3104,12 +3076,17 @@ produces a fractional \(E_g\) anisotropy of order \(10^{-3}\), some
 twelve orders of magnitude above dimension-four
 rotational-Lorentz-violation bounds, in the most favourable of the
 sampled breaking directions and sector assignments. Within the
-construction, rotational isotropy and CP conservation therefore stand or
-fall together, and observation requires one of each. The supports of
-this conclusion are the identification of the §4.8 staggered
-reconstruction as the coarse-graining map, the all-order detailed
-balance asserted in Theorem 21 Step 1, and the single-hypercube operator
-family on which the exponents were measured.{]}}
+construction, rotational isotropy and CP conservation stand or fall
+together, and observation requires one of each. The supports of this
+conclusion are the identification of the §4.8 staggered reconstruction
+as the coarse-graining map, the all-order detailed balance asserted in
+Theorem 21 Step 1, and the single-hypercube operator family on which the
+exponents were measured.
+
+\emph{{[}Status note, 2026-08-04: earlier revisions of this condition
+described it as awaiting an example of a \(T\)-invariant bijection with
+nonzero Jarlskog invariant; the results above supersede that
+reading.{]}}
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -3781,25 +3758,24 @@ measure is uniform on the substratum field, pushed through the on-shell
 exponential map --- and its \(q^{-4}\) plaquette-deficit scaling has
 been independently reproduced (fitted exponent \(-4.11\) over
 \(q = 15\)--\(127\)). The specific archived values have not been
-reproduced and should be treated as unverified pending a pre-registered
-re-derivation. Update, 2026-07-25: that re-derivation has now been
-carried out on the directly sampled construction. At the archived point
-(\(4^4\), \(mL = 3\), matched \(\langle P\rangle\)) the directly sampled
-ensemble differs from the Wilson comparator in \(Z_S\) by
-\(+2.6\% \pm 0.15\%\), beyond the pre-registered \(2\%\) tolerance,
-reproducibly across independent streams. The universality reported in
-this section is thereby established only for ensembles generated by
-Wilson dynamics on the image; for the directly sampled measure it is
-empirically violated at this point.{]}} Since \(q\) is gauge (§2.7) and
-the physical coupling is \(q\)-independent after renormalization,
-neither form is load-bearing --- \(\beta = 11.1\) below is fixed by
-\(\alpha_0\), not by \(q\) --- but the two differ by orders of magnitude
-in where they place a given \(\beta_{\text{eff}}\), and only the second
-is consistent with §4.2. Direct simulation of the 1D state-dependent
-coupling (§3.1, explicit construction) confirms that the wave equation
-creates no gauge correlations beyond random matter, but the
-\((\mathbb{Z}/q\mathbb{Z})\) constraint itself acts as an effective
-gauge kinetic term.
+reproduced and are unverified pending a pre-registered re-derivation.
+Update, 2026-07-25: that re-derivation has now been carried out on the
+directly sampled construction. At the archived point (\(4^4\),
+\(mL = 3\), matched \(\langle P\rangle\)) the directly sampled ensemble
+differs from the Wilson comparator in \(Z_S\) by \(+2.6\% \pm 0.15\%\),
+beyond the pre-registered \(2\%\) tolerance, reproducibly across
+independent streams. The universality reported in this section is
+thereby established only for ensembles generated by Wilson dynamics on
+the image; for the directly sampled measure it is empirically violated
+at this point.{]}} Since \(q\) is gauge (§2.7) and the physical coupling
+is \(q\)-independent after renormalization, neither form is load-bearing
+--- \(\beta = 11.1\) below is fixed by \(\alpha_0\), not by \(q\) ---
+but the two differ by orders of magnitude in where they place a given
+\(\beta_{\text{eff}}\), and only the second is consistent with §4.2.
+Direct simulation of the 1D state-dependent coupling (§3.1, explicit
+construction) confirms that the wave equation creates no gauge
+correlations beyond random matter, but the \((\mathbb{Z}/q\mathbb{Z})\)
+constraint itself acts as an effective gauge kinetic term.
 
 Since \(q\) is gauge (§2.7), the physical coupling is \(q\)-independent
 after renormalization. The perturbative calculation (§6.1) works in the
