@@ -333,7 +333,7 @@ The cubic-group prediction implies
 
 **2sin²θ₁₂ + sin²θ₂₃ = 7/6 = 1.1667**
 
-versus the observed 2(0.3085) + 0.561 = 1.178 ± 0.020 (using the post-JUNO sin²θ₁₂ and the NuFIT 6.0 NO best fit for sin²θ₂₃). The agreement is at 0.6σ. This depends on the atmospheric octant: the quoted value uses the NuFIT 6.0 NO best fit sin²θ₂₃ ≈ 0.561, the upper octant; under the lower-octant solution (sin²θ₂₃ ≈ 0.455) the combination is ≈ 1.07, roughly 5σ below 7/6 (2026-08). This sum rule is the angle-level statement of b₂₃ = (4/3)(b₁₂ + b₁₃), which is structural in the cubic-group setup. TM1 and TM2 do not produce this combination as an exact sum rule; in TM2, sin²θ₁₂ is determined by θ₁₃ alone with no θ₂₃ correlation. A direct measurement of 2sin²θ₁₂ + sin²θ₂₃ at the 0.005 level is therefore the sharpest data-side test that distinguishes the two classes of TBM modification.
+versus the observed 2(0.3085) + 0.561 = 1.178 ± 0.020 (using the post-JUNO sin²θ₁₂ and the NuFIT 6.0 NO best fit for sin²θ₂₃). The agreement is at 0.6σ. This depends on the atmospheric octant: the quoted value uses the NuFIT 6.0 NO best fit sin²θ₂₃ ≈ 0.561, the upper octant; under the lower-octant solution (sin²θ₂₃ ≈ 0.455) the combination is ≈ 1.07, roughly 5σ below 7/6. This sum rule is the angle-level statement of b₂₃ = (4/3)(b₁₂ + b₁₃), which is structural in the cubic-group setup. TM1 and TM2 do not produce this combination as an exact sum rule; in TM2, sin²θ₁₂ is determined by θ₁₃ alone with no θ₂₃ correlation. A direct measurement of 2sin²θ₁₂ + sin²θ₂₃ at the 0.005 level is therefore the sharpest data-side test that distinguishes the two classes of TBM modification.
 
 ## 5. The remaining angles
 
