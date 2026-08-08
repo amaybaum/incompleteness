@@ -9,18 +9,17 @@
 # cannot omit a flag that is written into it once.
 #
 # Usage:
-#   ./audit/build.sh        build everything (12 papers + book)
-#   ./audit/build.sh SM GR  build only the named papers
-#   ./audit/build.sh --book build only the book
+#   ./build.sh        build everything (12 papers + book)
+#   ./build.sh SM GR  build only the named papers
+#   ./build.sh --book build only the book
 #
 # Requires pandoc and xelatex. Reports any glyphs xelatex still dropped, per the
 # "check the log for Missing character warnings" step in AGENTS.md.
 
 set -u
 
-# Runs from anywhere: resolve this script's directory, then work from the repo root.
-# (The script lives in audit/ but all source paths are repo-relative.)
-cd "$(dirname "$0")/.." || exit 1
+# Runs from anywhere: resolve this script's directory (the repo root) and work from it.
+cd "$(dirname "$0")" || exit 1
 
 command -v pandoc  >/dev/null 2>&1 || { echo "error: pandoc not found";  exit 1; }
 command -v xelatex >/dev/null 2>&1 || { echo "error: xelatex not found"; exit 1; }
