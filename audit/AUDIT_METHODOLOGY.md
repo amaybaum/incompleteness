@@ -27,6 +27,19 @@ Section numbering (§A.x) is preserved from the working document so that referen
 the manuscripts resolve.
 
 ***
+## Relationship to AGENTS.md
+
+`AGENTS.md` is the **normative source** for the working rules: it states each rule, its trigger
+and its procedure, and it is the document an agent loads at the start of a session. This document
+carries what only it can — the per-prediction audit procedure, the manifestations of the
+antipattern, the lessons from completed audits, and the case history behind each rule — and
+**cites rule numbers rather than restating rule text**. Where a section here shares a number with
+a rule in `AGENTS.md`, that rule is authoritative and this section supplies its motivation.
+
+The split was adopted after the same rule change had to be applied to both documents twice and
+was applied once each time, leaving them in contradiction on §A.27. Duplication of normative text
+between the two is a defect, not a redundancy.
+
 ## §A.1 Purpose and standard
 
 A reusable procedure for auditing derivation chains in OI framework
@@ -1479,89 +1492,63 @@ PROCEDURE:
 Bands unchanged by logging this (methodology, not a result).
 
 
-## §A.25 Whole-corpus propagation & consistency check (before any status/claim edit lands)
-TRIGGER: any edit that changes a CLAIM, its CLASSIFICATION (status/layer/tier; "theorem / derived /
-forced / open / hypothesis / conditional / retrodiction"), or a NUMERIC value.
-MOTIVATION (cross-artifact audit, batches 1-9): the dark-energy "theorem-level" overclaim recurred in
-7+ places across GR / Substratum / book / FULL / Explainer -- each reader agent saw only its own range,
-so the first fix (papers) left the book asserting the stronger claim for weeks; and the REVERSE also
-occurred -- the book (ch08) was AHEAD of the papers on the Cabibbo c_λ closure. Single-location edits
-silently desynchronize the corpus in either direction.
-PROCEDURE:
-1. GREP THE WHOLE CORPUS, not the file at hand. Before assuming an occurrence count, grep every
-   papers/*.{md,tex}, book/*.md, book/FULL.md, and the derivatives (Explainer, README/journal,
-   appendix status tables) for the flagged phrase AND its paraphrases/symbols. A shared claim recurs in
-   abstracts, section bodies, §9-style conclusions, summary tables (§7.6 / appendix-a G-rows),
-   cross-reference remarks, and the book mirror.
-2. IDENTIFY THE AUTHORITATIVE ANCHOR, then propagate FROM it. The maintained / most-careful statement
-   (usually the body, or a referee-grade "Status" note) governs; `git log -1 --format=%ci -- <path>`
-   settles vintage when unclear. Propagation runs BOTH directions -- the book can lag OR lead the
-   papers; check, do not assume.
-3. MIRROR EVERY MIRROR. FULL.md duplicates each chapter -- a chapter edit MUST be mirrored into FULL.md
-   (and vice-versa). Companion papers that restate a shared claim (SM ↔ GR ↔ Substratum ↔ Structure)
-   must agree. Every summary / abstract / conclusion restatement must match the body's graded status.
-4. PRESERVE, DON'T BLANKET-REPLACE. A flagged phrase can have legitimate non-target uses (e.g.
-   "theorem level" is correct for the characterization theorem and the Brandner 2025 theorems; only the
-   dark-energy magnitude was the overclaim). Verify each hit's context before editing it.
-5. REGENERATE OR FLAG DERIVED ARTIFACTS. .tex/.pdf are generated from .md; after a content edit either
-   regenerate them (pandoc + xelatex; see the build recipe / unicode-fix.tex) or explicitly flag them
-   stale in the SAME commit. Never leave a distributed PDF silently inconsistent with its source.
-6. VERIFY POST-EDIT. Re-grep to confirm zero stale occurrences remain AND that the legitimate uses
-   survive; state the surviving count.
-ABUSE-GUARD (load-bearing): "I only edited the one place I was looking at" is precisely the failure this
-rule exists to prevent. An edit to a shared claim is NOT complete until the whole-corpus grep is clean.
-Bands unchanged by logging this (methodology, not a result).
+## §A.25 Whole-corpus propagation & consistency check — rule in AGENTS.md §A.25
 
+Why the rule exists (cross-artifact audit, batches 1–9): the dark-energy "theorem-level"
+overclaim recurred in seven or more places across GR / Substratum / book / FULL / Explainer.
+Each reader agent saw only its own range, so the first fix (papers) left the book asserting the
+stronger claim for weeks. The reverse also occurred — the book (ch08) was *ahead* of the papers
+on the Cabibbo c_λ closure. Single-location edits desynchronize the corpus in either direction,
+which is why the rule's abuse-guard is worded against "I only edited the one place I was looking
+at."
 
-## §A.26 Provenance integrity — anomaly sweep, quarantine-don't-delete, deterministic replay
+A later instance is on record from the process side rather than the manuscript side: a rule
+rewritten in AGENTS.md was propagated to this document by grepping the edited clauses instead of
+auditing every section carrying the same rule number, leaving the two normative statements in
+direct contradiction. That miss is part of what motivated the split recorded at the head of this
+document.
+
+The trigger, the six-step procedure and the abuse-guard are stated in `AGENTS.md` §A.25.
+
+## §A.26 Provenance integrity — rule in AGENTS.md §A.26
 
 Added after an integrity event: a second uncoordinated writer (most likely a concurrent session
 on a shared container) produced 26 unaccounted files in an active work area, detected only by a
-filename collision. The event was bounded and contained by the rules below; a "one writer at a
-time" lock requirement originally attached to this section was later withdrawn as an artifact
-that added maintenance without preventing anything (§A.28 records the withdrawal pattern).
+filename collision. The event was bounded and contained by the rules that followed from it. A
+"one writer at a time" lock requirement originally attached to this section was later withdrawn
+as an artifact that added maintenance without preventing anything (§A.28 records the withdrawal
+pattern).
 
-RULE 1 — ANOMALY ⇒ FULL SWEEP, THEN HALT. Any file you did not write and cannot source to the
-pristine upload or checkout triggers a complete integrity sweep — working copy against pristine
-against your own logged writes — *before* any further substantive work. Decisive measurements
-never run over an unresolved provenance anomaly: a verdict computed over data of unknown origin
-is not a verdict.
+The reasoning behind each clause, which is what this document adds: a verdict computed over data
+of unknown origin is not a verdict, so an anomaly halts substantive work rather than being noted
+in passing. Deletion destroys the ability to establish what happened and adoption launders
+unverified work into the record, so unaccounted artifacts are quarantined and may be verified
+read-only but never adopted as data. Deterministic replay is the primitive that distinguishes
+"same computation" from "similar-looking output"; it has caught a real precision defect before it
+could contaminate a verdict.
 
-RULE 2 — QUARANTINE, NEVER DELETE. Unaccounted artifacts move to an evidence directory with a
-hash+mtime manifest, content untouched. They may later be *verified read-only* — replay-matched,
-internal-claim-checked — but are never adopted as data. If their content proves right, re-derive
-it under your own trail and credit the quarantined source for priority. Deletion destroys the
-ability to establish what happened; adoption launders unverified work into the record.
+The three operative rules — anomaly ⇒ full sweep then halt, quarantine-never-delete, replay-match
+or halt — are stated in `AGENTS.md` §A.26.
 
-RULE 3 — DETERMINISTIC REPLAY IS THE INTEGRITY PRIMITIVE. Checkpoints carry full-precision
-parameters and observable series; regeneration must replay-match elementwise or the run halts.
-This is the check that distinguishes "same computation" from "similar-looking output," and it
-has caught a real precision defect before it could contaminate a verdict.
+## §A.27 Status changes in a working draft — rule in AGENTS.md §A.27
 
-Bands unchanged by logging this (methodology, not a result).
+This section formerly prescribed the opposite of the current rule: dated bracketed status notes
+appended in place, superseding rather than deleting, so that a reader could see both the prior
+claim and why it changed. Fifteen such notes accumulated across the corpus under that
+instruction. They were removed in a single pass once the principle was settled — a working
+repository's latest revision is the canonical draft, and no reader-side version tracking is
+carried — and the rule that had produced them was rewritten in the same change set, since leaving
+it would have regenerated them.
 
+Two failure modes are worth keeping on record because both were reached by following the old rule
+correctly. The first is assert-then-qualify: four sites carried a live claim in the manuscript's
+voice with a note withdrawing it underneath, which asserts and disclaims in the same breath. The
+second is subtler — a note that is *only* a change record ("earlier revisions stated X; that
+clause is withdrawn") is the document narrating its own history, and a date stamp does not make
+that admissible.
 
-## §A.27 Status annotations in manuscripts — dated, superseding, manuscript-voice
-
-Empirical or archival status changes reach their manuscript dependents as dated bracketed
-status notes — `*[Status note, YYYY-MM-DD: …]*` — appended in place, superseding rather than
-deleting: a correction quotes or summarizes what it replaces, so the reader can see both the
-prior claim and why it changed. Two constraints, both learned the hard way:
-
-SAME-SESSION PROPAGATION. An empirical result that bears on a manuscript claim gets its status
-note in the same session the result is accepted. This is §A.25 applied to results rather than
-edits: a result held back from its dependents desynchronizes the corpus exactly as an
-unpropagated edit does.
-
-MANUSCRIPT VOICE ONLY. No internal-ledger vocabulary (*graded motivated-unverified*,
-*implementation-unrecovered*), no internal filenames or phase labels, no process jargon a
-reader cannot resolve. State what is established, for which object, at what precision, and what
-remains unverified — in the paper's own register. Internal bookkeeping stays in the off-repo
-working logs. The test: a reader with no access to the project's private records must be able
-to resolve every term in the note.
-
-Bands unchanged by logging this (methodology, not a result).
-
+The rule, its three constraints and the single exception for deliberately frozen files are stated
+in `AGENTS.md` §A.27.
 
 ## §A.28 Repo minimalism — the burden of proof is on adding, not on omitting
 The repository is public and permanent: anything committed is published, has to be maintained, and will
@@ -1598,49 +1585,38 @@ not a result).
 
 ---
 
-## §A.29 — Governing principle: truth-seeking *(added 2026-08-04, owner instruction)*
+## §A.29 — Governing principle: truth-seeking — rule in AGENTS.md §A.29
 
-The audit machinery of this document serves a single goal, named here so that no procedural
-rule can outrank it: **truth about nature, in the sense of Deutsch's good explanations — hard
-to vary, reaching beyond the data they were built on, and held open to criticism** (*The
-Beginning of Infinity*). The framework's survival is subordinate to it; a result that closes a
-route with controlled computation is progress of the same kind as a result that opens one, and
-is recorded with the same care.
+Adopted 2026-08-04 by owner instruction, and named so that no procedural rule in this document
+can outrank it: the goal is truth about nature in the sense of Deutsch's good explanations — hard
+to vary, reaching beyond the data they were built on, held open to criticism (*The Beginning of
+Infinity*). The framework's survival is subordinate to it; a result that closes a route with
+controlled computation is progress of the same kind as one that opens a route, and is recorded
+with the same care.
 
-One operational consequence binds future revisions of the framework itself: **a Layer-0 change
-is acceptable only if it is hard to vary** — its proposers must state in advance which existing
-results it preserves (these become its controls), it must yield at least one independent
-prediction or postdiction beyond the problem it was built to fix, and it is rejected if it can
-be adjusted to fit any outcome. This clause was adopted immediately after the strong-CP /
-isotropy exclusion, precisely so that the coming revision of the fermion sector is designed
-under it rather than grandfathered past it.
+The clause binding Layer-0 revisions was adopted immediately after the strong-CP / isotropy
+exclusion, precisely so that the coming revision of the fermion sector would be designed under it
+rather than grandfathered past it.
 
----
+The principle and the Layer-0 acceptance conditions are stated in `AGENTS.md` §A.29.
 
-## §A.30 — Editorial integrity: assertions, status, self-narration, identifiers *(added 2026-08-04, owner instruction)*
+## §A.30 — Editorial integrity — rule in AGENTS.md §A.30
 
-Five rules of manuscript conduct, each adopted after a concrete failure of the opposite practice:
+Five rules of manuscript conduct, each adopted after a concrete failure of the opposite practice.
+The failures are recorded here; the rules themselves are stated in `AGENTS.md` §A.30.
 
-1. **Remove the assertion; keep the derivation.** When a result loses its support, take it out of
-   the summaries — abstracts, result enumerations, blurbs, counts — and state the situation in
-   declarative prose where the result is derived. Do not assert and then qualify: a claim tagged
-   "unsupported" in the manuscript's own voice has been asserted *and* disclaimed in the same
-   breath. (A mechanical status-word swap across nineteen sites once produced exactly that,
-   including one sentence that called a chain proved while labeling its conclusion unsupported.)
-2. **Status lives in status artifacts, in the artifact's own idiom.** Scope sections and status
-   tables carry standing; running prose does not. In a working draft the text itself is the status
-   artifact — corrections are made in place, not annotated (§A.27). And a status table is
-   the right *place* for status, not a license for editorial voice inside one — if every other
-   cell is two words, the changed cell is two words.
-3. **The document never narrates its own history.** No "formerly," no "is not listed," no
-   "withdrawn from" in the manuscript's voice, and a date stamp does not make such narration
-   admissible. Absence needs no announcement; the record of what changed lives in the repository's
-   history and the change note, never in the manuscript.
+1. **Remove the assertion; keep the derivation.** A mechanical status-word swap across nineteen
+   sites once produced exactly the forbidden pattern, including one sentence that called a chain
+   proved while labeling its conclusion unsupported.
+2. **Status lives in status artifacts, in the artifact's own idiom.** A status table is the right
+   *place* for status, not a license for editorial voice inside one: if every other cell is two
+   words, the changed cell is two words.
+3. **The document never narrates its own history.** See §A.27 above for the fifteen-note episode,
+   the fullest instance of this failure on record.
 4. **Fix the root cause, not the label.** A wrong claim is corrected or removed, never annotated
-   into acceptability.
-5. **Claim identifiers are identifiers, not ordinals.** A retired row's ID is never reassigned
-   and successors are never renumbered — renumbering makes one ID mean two claims across
-   published versions and severs the ledger key. The gap itself gets no in-table annotation
-   (rule 3). A removed claim can also hide in a **count**: after any inventory change, grep the
-   totals corpus-wide (§A.25) — one removed row once left a stale count quoted at twenty-two
-   sites in nine files.
+   into acceptability. Applied once to this ruleset itself: the rule that had caused a corpus-wide
+   defect was rewritten in the same change set that repaired the defect.
+5. **Claim identifiers are identifiers, not ordinals.** Renumbering makes one ID mean two claims
+   across published versions and severs the ledger key. A removed claim can also hide in a
+   **count**: after any inventory change, grep the totals corpus-wide (§A.25) — one removed row
+   once left a stale count quoted at twenty-two sites in nine files.

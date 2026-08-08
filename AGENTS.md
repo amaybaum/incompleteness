@@ -13,6 +13,12 @@ This repo holds the manuscript for *The Incompleteness of Observation*:
   detail, per-cluster confidence figures, and engagement strategy: the repo is public, so anything
   added here is published whether or not it is typeset.
 
+  **This file is the normative source for the working rules below.** `AUDIT_METHODOLOGY.md` carries
+  the per-prediction audit procedure, the manifestations of the antipattern, the completed-audit
+  lessons, and the case history behind each rule; where it shares a section number with a rule
+  here, it cites that rule rather than restating it. Rule text is maintained in one place — a rule
+  change edits this file, not both.
+
 **`.md` is the source of truth. `.tex` and `.pdf` are generated from it** (pandoc + xelatex) — never
 hand-edit them; regenerate. This applies to `papers/` and `book/`; `audit/` is markdown-only
 and has no build step. This file is the condensed, repo-enforced subset of `AUDIT_METHODOLOGY.md` (§A);
