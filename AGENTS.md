@@ -4,25 +4,131 @@ This repo holds the manuscript for *The Incompleteness of Observation*:
 
 - `papers/` — the technical papers (`SM`, `GR`, `Substratum`, `Structure`, `Main`, …).
 - `book/`   — the book chapters and the consolidated `The-Incompleteness-of-Observation-FULL.*`.
-- `audit/` — the self-audit procedure (`AUDIT_METHODOLOGY.md`) and the canonical build script
-  (`build.sh`). **No `.tex`, no `.pdf`.** `AUDIT_METHODOLOGY.md` is not a
-  journal artifact; it rides along with the repo so that the method the manuscripts were audited
-  under is versioned beside them. It is a *derived* document — the working methodology, operational
-  state, reference cards, session journal, and task queue all live in the project's private records.
-  Do not hand-edit it to record project state, and keep it free of journal citations, work-plan
-  detail, per-cluster confidence figures, and engagement strategy: the repo is public, so anything
-  added here is published whether or not it is typeset.
+- `build.sh` — the canonical build script, at the repo root.
 
-  **This file is the normative source for the working rules below.** `AUDIT_METHODOLOGY.md` carries
-  the per-prediction audit procedure, the manifestations of the antipattern, the completed-audit
-  lessons, and the case history behind each rule; where it shares a section number with a rule
-  here, it cites that rule rather than restating it. Rule text is maintained in one place — a rule
-  change edits this file, not both.
+**This file is the single rules-and-method document in the repository.** The full working
+methodology — session journal, operational state, long-form case studies, reference cards, task
+queue — lives in the project's private records; what is here is the operative distillate, and it
+is the document an agent loads at the start of a session. Keep it free of journal citations,
+work-plan detail, per-cluster confidence figures, and engagement strategy: the repo is public, so
+anything added here is published whether or not it is typeset.
 
-**`.md` is the source of truth. `.tex` and `.pdf` are generated from it** (pandoc + xelatex) — never
-hand-edit them; regenerate. This applies to `papers/` and `book/`; `audit/` is markdown-only
-and has no build step. This file is the condensed, repo-enforced subset of `AUDIT_METHODOLOGY.md` (§A);
-when they disagree, fix the disagreement in the same commit.
+The build has one entry point — `sh ./build.sh <papers…|--book>` — detailed in the build
+recipe below; dropped glyphs are a hard failure. There is no other build step.
+
+---
+
+## RULE — Governing principle: truth-seeking; hard-to-vary revisions (§A.29)
+
+**The project's goal is truth about nature — good explanations in Deutsch's sense: hard to vary,
+reaching beyond the data they were built on, open to criticism** (*The Beginning of Infinity*).
+The framework's survival is subordinate to it. A route closed by controlled computation is
+progress of the same kind as a route opened, and is recorded with the same care; sunk cost
+confers no protection, and "the framework needs this to be true" is never an argument.
+
+- **Computational verdicts print only over green controls.** Preregister the decision *rule*,
+  not the expected numbers; generate verdict text from the measurements. A verdict rendered
+  over a failed control is void.
+- **Layer-0 revisions must be hard to vary:** state *in advance* the existing results the
+  revision preserves (these become its controls); deliver at least one independent prediction
+  or postdiction beyond the problem it was built to fix; reject any variant that can be
+  adjusted to fit any outcome.
+
+---
+
+---
+
+## The audit method (condensed)
+
+### S/C/L/R/P/M/E — the primary classifications
+
+- **S** — Strictly parameter-free structural prediction. No fitted
+ parameters; chain walks end-to-end with all links Solid.
+- **C** — Conditional structural. Chain walks modulo a stated open
+ assumption (e.g., "conditional on Cond 2"). Empirical match
+ unaffected.
+- **L** — Layered conditional. Chain walks given Layer 2 inputs;
+ closure path is a specific active research direction (e.g., "S → L
+ pending Direction 10").
+- **R** — Retrodiction. Fitted to observation by construction; cannot
+ falsify in the precision-upgrade sense. The structural content lives
+ in *what's predicted given the fit* (universality, structure of
+ remaining quantities), not in the fitted value.
+- **P** — Phenomenological input. A specific quantity is taken from
+ experiment because the framework doesn't yet derive it.
+- **M** — Mass-chain inheritance. Empirical match given a single
+ upstream empirical input (e.g., $m_e, m_\mu$ given $m_\tau$).
+- **E** — Explicit empirical input. Some specific input enters the
+ chain from experiment (acknowledged honestly).
+
+
+### The four-layer framing
+
+A separate axis from S/C/L/R/P/M/E. Captures *where in the substratum-
+to-emergent stack* a prediction's derivation lives:
+
+- **Layer 0** — Gauge structure (what gauge groups exist, what
+ representations, structural constraints from C1-C3).
+- **Layer 1** — Structural form (Cabibbo's $1/(\pi\sqrt{2})$, Wolfenstein
+ $\sqrt{2/3}$ — pure substratum geometry/representation theory).
+- **Layer 2(a)** — Operator-relation structural (e.g., the structural
+ form of Cond 2 *given* that the relevant operators exist).
+- **Layer 2(b)** — Solution-specific (mixing-angle values within a fixed
+ operator structure).
+- **Layer 3** — Mass-scale and bijection-specific (the specific values
+ of $m_s$, $\mu_c$, $\mu_w$, etc., that pick out which $\varphi$).
+
+Predictions span layers. The §7.6-style table needs both a
+classification (S/C/L/...) and a layer assignment for each entry.
+
+
+### Substratum / emergent / mixed (architectural classification)
+
+Used in Step 5 (architectural review). Every load-bearing element of
+a calculation lives in one of three architectural layers:
+
+- **Substratum** — Bijection $(S, \varphi)$ on cubic lattice with
+ coupling matrix $M(\mathbf{n}, \hat e_j)$. Predictions: pure
+ structural ratios from geometry/representation theory.
+- **Emergent** — Unitary QFT after trace-out: induced gauge couplings,
+ RG running, Coleman-Weinberg potentials, $Z$-factors. Predictions:
+ PT/RG outputs.
+- **Mixed** — QFT machinery in derivation, but specific substratum-level
+ inputs constrain the output (the most typical case for §7's
+ quantitative predictions).
+
+Framework's stated rule: *"group structural, couplings emergent."*
+
+### Per-prediction procedure (Steps 1–7)
+
+1. **Identify the derivation chain** — every link from substratum premise to the quoted number.
+2. **Classify each link** — Solid / Motivated / Sketch, with the weakest link governing.
+3. **Triage the chain** — decide what the weakest link makes the prediction (S/C/L/R/P/M/E).
+4. **Literature search before closure attempts** — a gap may already be closed externally, or
+   known to be hard; neither should be discovered after the work.
+5. **Framework-architecture review** — place every load-bearing element as substratum / emergent /
+   mixed and check the QM-emergence interface; most historical overclaims entered here.
+6. **Probe sketch-grade links** — cheapest decisive computation first; "park with named gap" is
+   the precise demote when a probe is out of reach.
+7. **Update the prediction's classification** — and propagate it corpus-wide per §A.25.
+
+### External comparison under OI (§A.24)
+
+Measurements in OI are trace-out projections and the dark sector is a description artifact, so
+classify any external datum before comparing: **raw/direct** observables (baryonic masses, lensing
+deflections, decay rates, line and peak positions) must be reproduced as-is; **inferred**
+quantities that pass through a ΛCDM-style pipeline are compared at the level of what the pipeline
+measured, not its model-dependent summary. The comparison is checkable and never immunizing: a
+raw-direct miss is a miss.
+
+### Correctness vs consistency (§A.23)
+
+A result sits on the **correctness** axis iff it is a novel empirical confrontation — a framework
+output not fit to the data, against an independent measurement. Everything that confirms the
+framework's claims follow from its premises sits on the **consistency** axis. External
+replication/review *banks* a result on whichever axis it already occupies; it does not move a
+consistency result onto the correctness axis. Internal work — however careful — moves consistency
+only.
 
 ---
 
@@ -57,6 +163,8 @@ Whenever you change a **claim**, its **classification** (status / layer / tier; 
 
 ---
 
+---
+
 ## RULE — Provenance integrity: anomaly sweep, quarantine-don't-delete, deterministic replay (§A.26)
 
 Added 2026-07-25 after an integrity event: a second uncoordinated writer (most likely a concurrent
@@ -81,6 +189,8 @@ what actually caught and bounded the originating event — are unaffected.]*
 3. **Deterministic replay is the integrity primitive.** Checkpoints carry full-precision parameters and
    observable series; regeneration must replay-match elementwise or the run halts. (This gate caught a
    real precision defect on 2026-07-25 before it could contaminate a verdict.)
+
+---
 
 ---
 
@@ -114,22 +224,6 @@ revision record.
 
 ---
 
-## RULE — Governing principle: truth-seeking; hard-to-vary revisions (§A.29)
-
-**The project's goal is truth about nature — good explanations in Deutsch's sense: hard to vary,
-reaching beyond the data they were built on, open to criticism** (*The Beginning of Infinity*).
-The framework's survival is subordinate to it. A route closed by controlled computation is
-progress of the same kind as a route opened, and is recorded with the same care; sunk cost
-confers no protection, and "the framework needs this to be true" is never an argument.
-
-- **Computational verdicts print only over green controls.** Preregister the decision *rule*,
-  not the expected numbers; generate verdict text from the measurements. A verdict rendered
-  over a failed control is void.
-- **Layer-0 revisions must be hard to vary:** state *in advance* the existing results the
-  revision preserves (these become its controls); deliver at least one independent prediction
-  or postdiction beyond the problem it was built to fix; reject any variant that can be
-  adjusted to fit any outcome.
-
 ---
 
 ## RULE — Editorial integrity: assertions, status, self-narration, identifiers (§A.30)
@@ -149,6 +243,8 @@ confers no protection, and "the framework needs this to be true" is never an arg
 - **Claim IDs are identifiers, not ordinals** (e.g. appendix-a `G`-rows): never renumber
   successors, never reuse a retired ID, never annotate the gap. And a removed claim can hide in
   a **count** — after any inventory change, grep the totals corpus-wide (§A.25).
+
+---
 
 ---
 
@@ -196,9 +292,9 @@ applies to others; record it as an assumption-watch marker, not just a local fix
 
 Requires `pandoc` + a LaTeX engine with `xelatex` (e.g. `brew install pandoc texlive`).
 
-**Use `./audit/build.sh`.** It loops over the sources with the header include written in, so
-the flag cannot be omitted. `./audit/build.sh` builds everything;
-`./audit/build.sh SM GR` builds named papers; `--book` builds only the book. It runs from any
+**Use `./build.sh`.** It loops over the sources with the header include written in, so
+the flag cannot be omitted. `./build.sh` builds everything;
+`./build.sh SM GR` builds named papers; `--book` builds only the book. It runs from any
 directory. It reports the *distinct* glyphs xelatex
 dropped, which is what tells you what to add to `unicode-fix.tex`. Five papers were once
 published with artifacts built without the header — the recipe below was correct and was
@@ -253,10 +349,66 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
 - **The asymmetry that does hold:** an honesty *downgrade* — conceding a claimed proof is actually
   open/conditional — can only hold or lower correctness, never raise it (you don't become more likely-true
   by admitting you proved less). And consistency work is a *force-multiplier* on the correctness tests, not
-  a direct band-mover. (Full treatment: `audit/AUDIT_METHODOLOGY.md` §A.23.)
+  a direct band-mover. (Condensed as §A.23 above; full treatment in the private records.)
 - Prefer *conditional / retrodiction / empirically-anchored / open* over *derived / theorem / proved* when
   the body doesn't fully support the stronger word.
 - **Adding to the repo requires the same burden of proof as a claim (§A.28).** Before committing a file,
   section, or status note: is the risk it addresses *verified* rather than anticipated, will it still be
   true after the next change, and can it not live in a commit message or the off-repo log instead? If any
   answer is no, leave it out. Where a check is cheap, run it and remove the hazard rather than document it.
+
+---
+
+## Working rules — short form
+
+- **§A.12 Depth-first investigation.** Multi-avenue questions are driven one avenue at a time to
+  exhaustion or a genuine wall before pivoting; breadth-first scoping that reports partial results
+  across many avenues is the recorded failure mode. (Operationalized for gem-finding in §A.31.)
+- **§A.14 Parallel manuscript sources.** `book/The-Incompleteness-of-Observation-FULL.md` and
+  `book/ch*.md` are parallel sources, not derived from each other; the same content edit lands in
+  both, and the propagation audit greps distinctive phrases across the pair (§A.25 step 1 covers
+  this corpus-wide).
+- **§A.16 Run the cheap probe.** Understanding is the terminal aim and computation is instrumental
+  to it: when a computation might bear on the question, the default is to run it and see. "This
+  can't bear on it" is itself an unverified claim.
+- **§A.17 Peer review is the verification stage.** Its absence is the normal condition of
+  in-progress work, not a constraint on development. Proceed; bank externally later (§A.23).
+- **§A.18 Guard the recency ratchet.** The newest thread is always the one in working memory;
+  rebuild the assessment of what matters from the whole record, not from the latest marker.
+- **§A.19 Read the whole framework first.** Answers are distributed across companion papers;
+  before any negative or gap claim ("the framework is silent on / omits / contradicts X"), search
+  the full corpus — the answer is often already there.
+- **§A.21 A probe's sign can be an artifact.** Before trusting the direction of a numerical
+  result, run an exactness or symmetry control that checks the modeled operation preserves what it
+  provably must.
+- **§A.22 Valence moves need new results.** A conclusion may not become stronger or weaker by
+  re-narration; every valence shift is backed by a new computation, representation-theory result,
+  or external input.
+- **§A.28 Repo minimalism.** The repo is public and permanent; the burden of proof is on adding,
+  not omitting. Before committing a file: it must be needed by a reader of the manuscripts or the
+  code, be maintained, and not leak process. Process artifacts are cheap to add and expensive to
+  retire.
+
+---
+
+## Lessons register (why the rules exist — one line each)
+
+- Dark-energy "theorem-level" overclaim recurred in 7+ places across five documents; the first fix
+  left the book asserting the stronger claim for weeks — and the book has also *led* the papers
+  (Cabibbo c_λ). Hence §A.25 and its abuse-guard.
+- A second uncoordinated writer once left 26 unaccounted files in an active work area, found only
+  by filename collision. Hence §A.26: sweep-then-halt, quarantine-never-delete, replay-match.
+- Fifteen dated status notes accumulated under a rule that prescribed them; four sites asserted a
+  claim and withdrew it in the same breath. Hence §A.27 as it now stands, and §A.30's
+  no-self-narration clause — a date stamp does not make narration admissible.
+- A mechanical status-word swap across nineteen sites once labeled a chain proved while calling its
+  conclusion unsupported. Hence §A.30's remove-the-assertion rule.
+- One removed claim left a stale count quoted at twenty-two sites in nine files. Hence: after any
+  inventory change, grep the totals corpus-wide.
+- A numerical probe once returned a confidently wrong-signed verdict from an unfaithful
+  approximation that survived several turns. Hence §A.21's control requirement.
+- The seven manifestations of the QM-emergence-interface antipattern (catalogued in the private
+  records) are the recurring reason Step 5 exists; every historical overclaim audited traced to
+  one of them.
+
+---
