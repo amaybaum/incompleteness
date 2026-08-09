@@ -7787,18 +7787,18 @@ prediction in the quark sector. Section 6.6 derives the Koide relation
 as \(Q = 2/3\) from a cubic-group quadratic Casimir --- matched to
 \(0.001\%\), the sharpest empirical agreement in the framework, with the
 lepton mass chain following from one empirical input through the Koide
-structure plus the cross-sector-inherited second input
-\(m_e/m_\tau = \lambda^4/d^2\). Section 6.7 derives the three PMNS
-mixing angles from the cubic-group representation theory with
-parity-graded charged-lepton corrections --- all three angles matched
-within \(1.1\sigma\) at current precision, including the JUNO solar
-mixing angle \(\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)\) confirmed at
-\(0.07\sigma\) by the post-JUNO global fit. Section 6.8 collects the
-twenty-two predictions in a summary table classified by both
-derivational layer (Class column) and independent-evidence status (Cat
-column), and closes the chapter with a pointer forward to Chapter 7
-(gravitational sector), Chapter 8 (JUNO in detail), and the framework's
-broader empirical commitments.
+structure --- \(Q = 2/3\) with the derived phase \(\theta_0 = 2/9\) ---
+at \(0.007\%\). Section 6.7 derives the three PMNS mixing angles from
+the cubic-group representation theory with parity-graded charged-lepton
+corrections --- all three angles matched within \(1.1\sigma\) at current
+precision, including the JUNO solar mixing angle
+\(\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)\) confirmed at \(0.07\sigma\) by
+the post-JUNO global fit. Section 6.8 collects the twenty-two
+predictions in a summary table classified by both derivational layer
+(Class column) and independent-evidence status (Cat column), and closes
+the chapter with a pointer forward to Chapter 7 (gravitational sector),
+Chapter 8 (JUNO in detail), and the framework's broader empirical
+commitments.
 
 The methodological discipline of Chapter 4 organizes the predictions.
 The Cabibbo angle is Class B-S (unconditional structural, Layer 1, pure
@@ -8597,32 +8597,21 @@ emergent-Lorentz radiative-stability question (SM §7.3).
 
 \textbf{The charged-lepton mass chain.} Given the Koide angle
 \(\theta_0 = 2/9\) and one empirical input (the tau mass
-\(m_\tau = 1776.86\) MeV), the Koide relation \(Q = 2/3\) alone is
-insufficient to fix the remaining two lepton masses: it provides one
-equation in three mass unknowns, leaving a one-parameter family of
-\((m_e, m_\mu)\) pairs consistent with the relation and the observed
-\(m_\tau\). The framework's second structural commitment, fixing the
-specific point in this family, identifies the electron-to-tau mass ratio
-with a cross-sector quark-lepton structural quantity:
+\(m_\tau = 1776.86\) MeV), the parametrization
+\(\sqrt{m_k} = \mu(1 + A\cos(\theta_0 + 2\pi k/3))\) is fully
+determined: \(Q = 2/3\) fixes \(A = \sqrt{2}\), \(\theta_0\) fixes the
+phase, and \(m_\tau\) fixes the scale \(\mu\). The two structural inputs
+are \(Q = 2/3\) and \(\theta_0 = 2/9\), and the resulting masses are
+\(m_e = 0.51096\) MeV and \(m_\mu = 105.652\) MeV against \(0.51100\)
+and \(105.658\) observed (\(0.007\%\) and \(0.006\%\); SM §7.2). The
+ratio \(m_e/m_\tau = 2.876 \times 10^{-4}\) lies within \(0.84\%\) of
 \[\frac{m_e}{m_\tau} = \frac{\lambda^4}{d^2} = \frac{1}{36\pi^4} \approx 2.852 \times 10^{-4},\]
-where \(\lambda = 1/(\pi\sqrt{2})\) is the Cabibbo angle from the quark
-sector (§6.5) and \(d = 3\) is the spatial dimensionality of the
-substratum (Chapter 5 §5.2). The \(\lambda^4\) factor has the
-order-of-magnitude expected for a fourth-order Yukawa contribution (in
-the emergent post-trace-out description; see Ch02 §2.5 on the absence of
-any Lagrangian at the substratum level proper) involving two
-inter-generation insertions --- each carrying the same Cabibbo
-\(\lambda^2 = 1/(2\pi^2)\) that controls quark-sector inter-generation
-mixing. The \(1/d^2 = 1/9\) factor has the form of a taste-averaging
-suppression over the \(T_1 \otimes T_1\) tensor-product space of
-dimension \(d^2\). The specific combination \(\lambda^4/d^2\) is the
-structural identification adopted by the framework as the second input
-fixing the \((m_e, m_\mu)\) point in the Koide-relation family; a
-first-principles derivation from the emergent Yukawa lattice
-perturbation theory remains an open Layer 2(a) task for the magnitude
-content, while the assignment of \(m_e\) specifically to the lightest
-charged-lepton mass eigenvalue is Layer 2(b) bijection-specific by the
-gauge-invariance constraint of Chapter 2 §2.5.
+with \(\lambda = 1/(\pi\sqrt{2})\) the Cabibbo angle from the quark
+sector (§6.5) and \(d = 3\) the spatial dimensionality (Chapter 5 §5.2).
+The proximity plays no role in the chain: the mass point is fixed by
+\(Q\) and \(\theta_0\). The assignment of \(m_e\) specifically to the
+lightest charged-lepton mass eigenvalue is Layer 2(b) bijection-specific
+by the gauge-invariance constraint of Chapter 2 §2.5.
 
 Combined with \(Q = 2/3\) and the empirical \(m_\tau\), this second
 commitment determines all three charged-lepton masses:
@@ -8649,8 +8638,8 @@ Deviation
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\(m_e\) & \(m_\tau \cdot \lambda^4/d^2\) & \(0.5067\) MeV & \(0.5110\) &
-\(0.84\%\) \\
+\(m_e\) & Koide\((Q, \theta_0;\, m_\tau)\) & \(0.51096\) MeV &
+\(0.5110\) & \(0.007\%\) \\
 \(m_\mu\) & Koide closure with \(m_e\), \(m_\tau\) & \(105.74\) MeV &
 \(105.66\) & \(0.07\%\) \\
 \end{longtable}
@@ -8667,43 +8656,40 @@ corrections than the small \(m_e\) Yukawa.
 The cross-sector pattern is significant: the lepton mass spectrum
 inherits \emph{both} the Wolfenstein parameter \(A^2 = 2/3\) (via the
 PMNS Condition 2 sum rule of Ch08 §8.5) \emph{and} the Cabibbo coupling
-\(\lambda^2 = 1/(2\pi^2)\) (via the Koide chain second input above) from
-the quark sector. The lepton-sector structure is not freshly postulated;
-it inherits from the same substrate machinery that produces the
-quark-sector observables.
+\(\lambda^2 = 1/(2\pi^2)\) (via the PMNS reactor angle
+\(\sin^2\theta_{13}\)) from the quark sector. The lepton-sector
+structure is not freshly postulated; it inherits from the same substrate
+machinery that produces the quark-sector observables.
 
 The classification per Chapter 4 §4.5 is that the electron and muon
 masses are Class B-M (mass-chain inheritance from a single upstream
 empirical input \(m_\tau\) plus structural commitment); the Koide
 relation \(Q = 2/3\) is Class B-S Layer 1 from the cubic-group Casimir
-\(C_2(T_1)/d^2 = 2/9\); the Koide chain second input
-\(m_e/m_\tau = \lambda^4/d^2\) is Class B-S Layer 2 from cross-sector
-quark-sector inheritance via the Cabibbo \(\lambda\).
+\(C_2(T_1)/d^2 = 2/9\); the phase input \(\theta_0 = 2/9\) is Class B-S
+Layer 1 from the same Casimir structure, with the amplitude prefactor
+computed equal to one (SM §7.2).
 
-A first-principles derivation of the specific \(\lambda^4/d^2\)
-structural form from the cubic-lattice Yukawa expansion (in the emergent
-post-trace-out description; the substratum proper has no Lagrangian per
-Ch02 §2.5) remains an open Layer 2(a) task for the magnitude content,
-paralleling the analogous open task for the Condition 2 coefficient in
-Ch08 §8.5. In both cases the framework provides a structural
-identification with cross-sector content (quark-sector inputs
-determining lepton-sector outputs through cubic-group machinery), and in
-both cases the percent-level empirical match is consistent with the
-structural identification modulo renormalization-group running, but the
-substrate-level integration that would derive the specific numerical
-prefactor requires lattice perturbation theory work beyond the chapter's
-scope. The directional assignment (which specific generation is \(e\),
-\(\mu\), or \(\tau\), and correspondingly which mass ratio fills the
-\(\lambda^4/d^2\) slot) remains Layer 2(b) bijection-specific by the
-gauge structure of Chapter 2 §2.5 and is not derivable from substrate
-alone in any framework consistent with
+The magnitude content of the lepton chain is closed at Layer 1: both
+inputs derive from the cubic Casimir with computed unit prefactor (SM
+§7.2). The analogous coefficient task for Condition 2 in Ch08 §8.5
+remains open; there the framework provides a structural identification
+with cross-sector content (quark-sector inputs determining lepton-sector
+outputs through cubic-group machinery), and the percent-level empirical
+match is consistent with the structural identification modulo
+renormalization-group running, but the substrate-level integration that
+would derive the specific numerical prefactor requires lattice
+perturbation theory work beyond the chapter's scope. The directional
+assignment (which specific generation is \(e\), \(\mu\), or \(\tau\),
+and correspondingly which eigenvalue carries which label) remains Layer
+2(b) bijection-specific by the gauge structure of Chapter 2 §2.5 and is
+not derivable from substrate alone in any framework consistent with
 \(\mathcal{G}_{\text{sub}}\)-invariance.
 
 \textbf{The full six-mass chain.} The structural relations link the six
 lighter charged fermion masses through one empirical mass scale
 (\(m_s\)) plus two further structural inputs that the chapter makes
 explicit below:
-\[m_s \;\xrightarrow{\lambda^2}\; m_d \;\xrightarrow{\sqrt{\theta_0}}\; m_u \;\xrightarrow{Q_{\text{down}}}\; m_b \;\xrightarrow{Z_S}\; m_\tau \;\xrightarrow{\theta_0,\,\lambda^4/d^2}\; m_e, m_\mu.\]
+\[m_s \;\xrightarrow{\lambda^2}\; m_d \;\xrightarrow{\sqrt{\theta_0}}\; m_u \;\xrightarrow{Q_{\text{down}}}\; m_b \;\xrightarrow{Z_S}\; m_\tau \;\xrightarrow{\theta_0}\; m_e, m_\mu.\]
 
 The five arrows are structural relations of three different epistemic
 statuses, which the chapter distinguishes explicitly:
@@ -8712,9 +8698,9 @@ statuses, which the chapter distinguishes explicitly:
 Cabibbo-derived \(m_d/m_s = \lambda^2\) from the inter-generation
 Brillouin-zone distance squared; the \(m_u/m_d = \sqrt{\theta_0}\) from
 the intra-doublet splitting at the amplitude level; the charged-lepton
-Koide \(Q = 2/3\) from \(C_2(T_1)/d^2\); and the lepton chain second
-input \(m_e/m_\tau = \lambda^4/d^2\) from cross-sector inheritance
-(above). These four relations are all derived from cubic-group
+Koide \(Q = 2/3\) from \(C_2(T_1)/d^2\); and the Koide phase
+\(\theta_0 = 2/9 = C_2(T_1)/d^2\) with computed unit prefactor (SM
+§7.2). These four relations are all derived from cubic-group
 representation theory with no free parameters.
 
 \emph{Derived running factor plus measured non-perturbative
@@ -8793,8 +8779,8 @@ Match
 \(4180 \pm 30\) & \(0.9\%\) \\
 \(m_\tau\) & \(m_b \times Z_S/4.28\) & L (\(Z_S\) measured; 2(a): \(K\))
 & \(1755\) MeV & \(1776.9\) & \(1.2\%\) \\
-\(m_e\) & \(m_\tau \cdot \lambda^4/d^2\) & Layer 1 & \(0.507\) MeV &
-\(0.511\) & \(0.84\%\) \\
+\(m_e\) & Koide\((Q, \theta_0;\, m_\tau)\) & Layer 1 & \(0.51096\) MeV &
+\(0.511\) & \(0.007\%\) \\
 \(m_\mu\) & Koide closure & Layer 1 & \(105.74\) MeV & \(105.66\) &
 \(0.07\%\) \\
 \end{longtable}
@@ -9146,8 +9132,8 @@ Koide \(Q\) & cubic \(T_1\) structure & \(2/3\) & \(0.66667\) &
 \(0.001\%\) & \textbf{S} & \textbf{A} \\
 Koide angle \(\theta_0\) & \(C_2(T_1)/d^2\) & \(2/9\) & \(0.22222\) &
 \(0.02\%\) & \textbf{S} & \textbf{A} \\
-\(m_e\) & \(m_\tau \cdot \lambda^4/d^2\) & \(0.507\) MeV & \(0.511\) MeV
-& \(0.84\%\) & \textbf{M} (\(m_\tau\)) & \textbf{B} \\
+\(m_e\) & Koide\((Q, \theta_0;\, m_\tau)\) & \(0.51096\) MeV &
+\(0.51100\) MeV & \(0.007\%\) & \textbf{M} (\(m_\tau\)) & \textbf{B} \\
 \(m_\mu\) & Koide closure & \(105.74\) MeV & \(105.66\) MeV & \(0.07\%\)
 & \textbf{M} (\(m_\tau\)) & \textbf{B} \\
 \(m_d\) & \(m_s/(2\pi^2)\) & \(4.73\) MeV & \(4.67 \pm 0.48\) &
@@ -9233,8 +9219,8 @@ counted elsewhere.
 \item
   \textbf{Category B --- parameter-free predictions conditional on
   empirical mass-hierarchy bijection:} \(\sin^2\theta_{12}\),
-  \(\sin^2\theta_{23}\), \(m_e\) via \(\lambda^4/d^2\), \(m_\mu\) via
-  Koide closure, \(m_u\) via intra-doublet \(\sqrt{\theta_0}\)
+  \(\sin^2\theta_{23}\), \(m_e\) and \(m_\mu\) via Koide closure (\(Q\),
+  \(\theta_0\)), \(m_u\) via intra-doublet \(\sqrt{\theta_0}\)
   splitting, Jarlskog \(J\) via \(\eta/(12\pi^6)\). Five predictions
   whose structural forms are tightly identified at the cubic-group
   magnitude level but whose specific assignment to labeled observables
@@ -9330,14 +9316,14 @@ falsification handles through measurements independent of the Cabibbo
 channel that constrains \(\lambda\).
 
 The Category B predictions (\(\sin^2\theta_{12}\) and
-\(\sin^2\theta_{23}\), the mass-chain entries via \(\lambda^4/d^2\), the
-Jarlskog relation) constitute \emph{conditional} falsification targets.
-The framework's specific structural forms are the natural predictions of
-the cubic-group machinery; their match to observation under the
-empirical mass-hierarchy bijection is what the framework predicts. The
-magnitude-level closure (verifying the cubic-Casimir structure produces
-the specific numerical coefficients) is open through lattice
-perturbation theory in the emergent description; the
+\(\sin^2\theta_{23}\), the mass-chain entries via the Koide structure,
+the Jarlskog relation) constitute \emph{conditional} falsification
+targets. The framework's specific structural forms are the natural
+predictions of the cubic-group machinery; their match to observation
+under the empirical mass-hierarchy bijection is what the framework
+predicts. The magnitude-level closure (verifying the cubic-Casimir
+structure produces the specific numerical coefficients) is open through
+lattice perturbation theory in the emergent description; the
 directional/assignment-level content is Layer 2(b) bijection-specific by
 Chapter 2 §2.5 and is empirical input rather than open derivation.
 JUNO's design-precision measurement of \(\sin^2\theta_{12}\) at
@@ -9361,9 +9347,8 @@ at \(0.07\sigma\) on JUNO's \(\sin^2\theta_{12}\)). The Cabibbo coupling
 \(\lambda^2 = 1/(2\pi^2)\) from the inter-generation Brillouin-zone
 distance appears in the quark sector via Cabibbo \(\lambda\) (0.04\%
 match) and \(m_d/m_s = \lambda^2\) (0.7\% match), and in the lepton
-sector via the Koide chain second input \(m_e/m_\tau = \lambda^4/d^2\)
-producing \(m_e\) at 0.84\% deviation and (via Koide closure) \(m_\mu\)
-at 0.07\%.
+sector through the Koide chain (\(m_e\) at \(0.007\%\) and \(m_\mu\) at
+\(0.006\%\) via \(Q\) and \(\theta_0\)).
 
 The cross-sector pattern places a substantial constraint on alternative
 input choices: any alternative natural input to the framework's
@@ -9371,13 +9356,13 @@ machinery that fits quark-sector observation would also need to fit
 lepton-sector observation. Alternative natural inputs that produce
 different Cabibbo angles (e.g., BCC or FCC inter-generation distances)
 all deviate from \(\lambda = 1/(\pi\sqrt{2})\) by \(>20\%\) and would
-correspondingly mispredict \(m_d/m_s\), \(\sin^2\theta_{13}\), and the
-Koide chain second input by similar fractions. Alternative power
-combinations of \(A\) and \(\lambda\) in \(\sin^2\theta_{13}\)
-(\(A^2\lambda^2\) at 32\% deviation, \(A\lambda^2\) at 50\% deviation)
-similarly fail the cross-sector match. The framework's specific
-\(A^2 = 2/3\) and \(\lambda^2 = 1/(2\pi^2)\) inputs are consistent with
-observation in both sectors simultaneously.
+correspondingly mispredict \(m_d/m_s\) and \(\sin^2\theta_{13}\) by
+similar fractions. Alternative power combinations of \(A\) and
+\(\lambda\) in \(\sin^2\theta_{13}\) (\(A^2\lambda^2\) at 32\%
+deviation, \(A\lambda^2\) at 50\% deviation) similarly fail the
+cross-sector match. The framework's specific \(A^2 = 2/3\) and
+\(\lambda^2 = 1/(2\pi^2)\) inputs are consistent with observation in
+both sectors simultaneously.
 
 \textbf{What follows.} Chapter 7 develops the gravitational sector ---
 the Bekenstein-Hawking \(1/4\) factor derived by boundary-mode counting
