@@ -578,7 +578,7 @@ ETH is conjectural rather than fully proved, and the necessity of C2 is therefor
 $$I(X_{<t}; X_{>t} \mid X_t) \leq \log_2 m.$$
 *Proof.* The total system is deterministic: $X_{>t}$ is a function of $(X_t, H_t)$. Given $X_t$, the chain $X_{<t} \to H_t \to X_{>t}$ is Markov. The data-processing inequality gives
 $$I(X_{<t}; X_{>t} \mid X_t) \leq I(X_{<t}; H_t \mid X_t) \leq H(H_t \mid X_t) \leq \log_2 m. \qquad \square$$
-P-indivisibility across $n$ visible configurations requires $m \geq n$; sustained information backflow at rate $I_0$ over $K$ events requires $m \gtrsim 2^{K I_0}$ — exponential growth in the observation window, of which C3 is a conservative restatement.
+Any realization of a process whose conditional past–future information reaches $I^*$ requires $m \geq 2^{I^*}$ — the hidden sector must hold the backflow it carries (P-indivisibility alone does not force $m \geq n$: two hidden states suffice for full revival across three visible states); sustained backflow at rate $I_0$ over $K$ events requires $m \gtrsim 2^{K I_0}$ under an additional no-reuse hypothesis, of which C3 is a conservative restatement.
 
 The three necessity arguments combine into the chapter's central result.
 
@@ -5818,7 +5818,7 @@ The combined space is the tensor product $\mathcal{H} = \mathcal{H}_V \otimes \m
 
 For continuous-time dynamics $\varphi_t$, Stone's theorem on $\mathcal{H}$ yields $U_t = e^{-i\hat{H}t}$ for some Hermitian generator $\hat{H}$.
 
-**Lemma B.2.2 (Reverse direction, scoped).** *Any single one-step stochastic matrix on a finite configuration space $\mathcal{C}_V$ can be realized as the one-step marginal of a deterministic bijection on $\mathcal{C}_V \times \mathcal{C}_H$ with uniform prior on $\mathcal{C}_H$, for some finite $\mathcal{C}_H$ (exactly when transition probabilities are rational; to arbitrary precision otherwise).* The scope is the matrix, not the process: realizing prescribed multi-time statistics — a family of joint distributions over trajectories — with a single bijection and a single uniform prior is a stronger demand and is not claimed here.
+**Lemma B.2.2 (Reverse direction, scoped).** *Any single one-step doubly stochastic matrix on a finite configuration space $\mathcal{C}_V$ can be realized as the one-step marginal of a deterministic bijection on $\mathcal{C}_V \times \mathcal{C}_H$ with uniform prior on $\mathcal{C}_H$, for some finite $\mathcal{C}_H$ (exactly when transition probabilities are rational; to arbitrary precision otherwise).* (The restriction is forced: a uniform-prior bijection marginal preserves the uniform distribution, hence is doubly stochastic; the emergent unistochastic statistics lie inside this class.) The scope is the matrix, not the process: realizing prescribed multi-time statistics — a family of joint distributions over trajectories — with a single bijection and a single uniform prior is a stronger demand and is not claimed here.
 
 *Proof.* Any marginal of a bijection with uniform prior is a doubly stochastic matrix. By Birkhoff-von Neumann, every doubly stochastic matrix is a convex combination of permutation matrices. A bijection on $\mathcal{C}_V \times \mathcal{C}_H$ realizing the required mixture is obtained by letting $\mathcal{C}_H$ enumerate the permutations; for multi-step processes, the construction extends by history dilation. $\square$
 

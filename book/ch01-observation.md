@@ -235,7 +235,7 @@ ETH is conjectural rather than fully proved, and the necessity of C2 is therefor
 $$I(X_{<t}; X_{>t} \mid X_t) \leq \log_2 m.$$
 *Proof.* The total system is deterministic: $X_{>t}$ is a function of $(X_t, H_t)$. Given $X_t$, the chain $X_{<t} \to H_t \to X_{>t}$ is Markov. The data-processing inequality gives
 $$I(X_{<t}; X_{>t} \mid X_t) \leq I(X_{<t}; H_t \mid X_t) \leq H(H_t \mid X_t) \leq \log_2 m. \qquad \square$$
-P-indivisibility across $n$ visible configurations requires $m \geq n$; sustained information backflow at rate $I_0$ over $K$ events requires $m \gtrsim 2^{K I_0}$ — exponential growth in the observation window, of which C3 is a conservative restatement.
+Any realization of a process whose conditional past–future information reaches $I^*$ requires $m \geq 2^{I^*}$ — the hidden sector must hold the backflow it carries (P-indivisibility alone does not force $m \geq n$: two hidden states suffice for full revival across three visible states); sustained backflow at rate $I_0$ over $K$ events requires $m \gtrsim 2^{K I_0}$ under an additional no-reuse hypothesis, of which C3 is a conservative restatement.
 
 The three necessity arguments combine into the chapter's central result.
 

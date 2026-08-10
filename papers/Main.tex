@@ -470,7 +470,8 @@ a theorem, is stated at the remark in §3.4. Realization ---
 of freedom \(N_H\) exceeds the number of visible-sector degrees of
 freedom \(N_V\) by enough that visible-sector interactions do not
 appreciably perturb the hidden sector's state on timescales
-\(\ll \tau_B\). (Status: necessity --- observed QM forces C3 by §3.4.
+\(\ll \tau_B\). (Status: necessity --- observed information backflow
+forces the per-process capacity bound \(m \geq 2^{I^*}\) of §3.4.
 Realization --- \(A/\epsilon^2 \sim 10^{122}\) hidden modes against
 \(\sim 10^{80}\) baryons; no laboratory process saturates the hidden
 sector {[}GR §2.2{]}.)
@@ -664,8 +665,9 @@ where \(I_0 > 0\) is the single-step information transfer from (C1). For
 to the single-step coupling strength, not exponentially suppressed. The
 bound saturates (C3): the maximum storable history is \(\log_2 m\) bits
 (§3.4), so persistent backflow over \(K\) transitions requires
-\(m \geq 2^K\), which is amply satisfied when \(N_H \gg N_V\).
-\(\square\)
+\(m \geq 2^K\) when the per-transition contributions accumulate without
+hidden-state reuse (the independence hypothesis made explicit in §3.4)
+--- amply satisfied when \(N_H \gg N_V\). \(\square\)
 
 \textbf{Role of (C2) and (C3).} The Poincaré recurrence argument and the
 accessible-timescale lemma are independent: the former establishes
@@ -1081,12 +1083,19 @@ continuous-time statements are conditional on that choice, with the
 branch ambiguity part of the phase-retrieval gauge catalogued below.
 
 \textbf{Lemma (Reverse direction, scoped).} \emph{Any single one-step
-stochastic matrix on a finite configuration space \(\mathcal{C}_V\) can
-be realised as the one-step marginal of a deterministic bijection on
-\(\mathcal{C}_V \times \mathcal{C}_H\) with uniform prior on
-\(\mathcal{C}_H\), for some finite \(\mathcal{C}_H\) --- exactly when
-the transition probabilities are rational, and to arbitrary precision
-otherwise.} The scope is the matrix, not the process: realising
+doubly stochastic matrix on a finite configuration space
+\(\mathcal{C}_V\) can be realised as the one-step marginal of a
+deterministic bijection on \(\mathcal{C}_V \times \mathcal{C}_H\) with
+uniform prior on \(\mathcal{C}_H\), for some finite \(\mathcal{C}_H\)
+--- exactly when the transition probabilities are rational, and to
+arbitrary precision otherwise.} The restriction to doubly stochastic
+matrices is forced, not elective: a uniform-prior bijection marginal
+preserves the uniform distribution and is therefore doubly stochastic,
+so a merely row-stochastic matrix --- one sending both states of a
+two-state space to the first, say --- is not realisable in this form.
+The emergent statistics this converse serves lie inside the realisable
+class: ancilla-uniform marginals of unistochastic matrices are doubly
+stochastic. The scope is the matrix, not the process: realising
 prescribed \emph{multi-time} statistics --- a family of joint
 distributions over trajectories --- with a single bijection and a single
 uniform prior is a stronger demand and is not claimed by this lemma;
@@ -1613,11 +1622,11 @@ The logical structure: Barandes' correspondence gives QM \(\iff\)
 P-indivisibility. What remains is P-indivisibility \(\implies\) embedded
 observation under (C1)--(C3).
 
-\textbf{Dilation existence.} Any single one-step stochastic matrix on a
-finite configuration space can be realized as marginalization of a
-deterministic process on a larger state space --- furnishing Lemmas
-1--3. The scope is the one scoped at the lemma above: the matrix, not
-prescribed multi-time trajectory statistics.
+\textbf{Dilation existence.} Any single one-step doubly stochastic
+matrix on a finite configuration space can be realized as
+marginalization of a deterministic process on a larger state space ---
+furnishing Lemmas 1--3. The scope is the one scoped at the lemma above:
+the matrix, not prescribed multi-time trajectory statistics.
 
 \textbf{Theorem (C1 equivalence).} \emph{The marginalized process is
 P-indivisible iff \(T\) is not a permutation matrix.}
@@ -1711,12 +1720,30 @@ function of \((X_t, H_t)\). Conditioning on \(X_t\):
 
 \[I(X_{<t} ; X_{>t} \mid X_t) \leq I(X_{<t} ; H_t \mid X_t) \leq H(H_t \mid X_t) \leq \log_2 m \quad \square\]
 
-\textbf{Corollary.} P-indivisibility across \(n\) visible configurations
-requires \(m \geq n\). Sustained information backflow at rate
+\textbf{Corollary (per-process capacity bound).} Any
+deterministic-bijection realization of a process whose conditional
+past--future information reaches
+\(I^* = \sup_t I(X_{<t} ; X_{>t} \mid X_t)\) requires
+\(m \geq 2^{I^*}\): the hidden sector must be at least as large as the
+backflow it carries. The bound is process-quantitative and does not
+reduce to the visible count --- P-indivisibility alone does not force
+\(m \geq n\): a two-hidden-state, three-visible-state bijection already
+exhibits full distinguishability revival (\(m = 2 < n = 3\)), so the
+necessity content of (C3) is the capacity to hold the \emph{observed}
+backflow, not a bound set by \(n\). Sustained backflow at rate
 \(I_0 > 0\) per coupling event over \(K\) events requires
-\(m \gtrsim 2^{K I_0}\) --- exponential growth in the observation
-window, of which the framework's qualitative (C3) (``hidden sector large
-enough'') is a conservative restatement. \(\square\)
+\(m \gtrsim 2^{K I_0}\) \emph{under the additional hypothesis} that the
+per-event contributions accumulate without hidden-state reuse or
+compression; that independence hypothesis is not a consequence of
+P-indivisibility, and without it only the per-process bound above is
+forced. The framework's qualitative (C3) (``hidden sector large
+enough'') is the conservative restatement of the per-process bound.
+\(\square\)
+
+\emph{The revival counterexample and the doubly-stochastic obstruction
+of §3.2 are certified by the deterministic probes in
+\texttt{papers/oi\_lattice\_code/foundations/}
+(\texttt{c3\_dilation\_probes.py}).}
 
 \textbf{Definition (unitarily evolving QM).} A stochastic process
 \(\mathcal{S}\) on a finite configuration space
@@ -1773,8 +1800,9 @@ C1 alone) to information backflow on observable timescales using C2 and
 C3. (ii) \(\implies\) (iii): the necessity theorems above --- C1 from
 the equivalence with non-permutation \(T\), C2 from the dephasing
 argument (without C2, \(T\) becomes Markovian on accessible timescales
-and information backflow disappears), C3 from the data-processing bound.
-\(\square\)
+and information backflow disappears), C3 from the data-processing bound
+in its per-process form (\(m \geq 2^{I^*}\), matching the backflow the
+process exhibits). \(\square\)
 
 QM is not merely \emph{compatible with} embedded observation --- it is
 \emph{equivalent to} it.
