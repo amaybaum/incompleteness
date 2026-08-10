@@ -91,7 +91,7 @@ $$\Phi\!\left(X^{a}Z^{b}\right) = \big[\,Ca = 0\,\big]\,\big[\,B^{T}A^{-T}b = 0\
 
 **Theorem B.2.5 (CP-indivisibility).** *The P-indivisibility of the substratum dynamics (under C1-C3) implies CP-indivisibility of $\{\Phi_t\}$: there exist $t_2 > t_1 > 0$ with no CPTP map $\Lambda$ satisfying $\Phi_{t_2} = \Lambda \circ \Phi_{t_1}$.*
 
-*Proof.* CP-divisibility restricted to diagonal inputs reduces to P-divisibility. The contrapositive gives the result: if the diagonal-input dynamics is P-indivisible, the full quantum dynamics cannot be CP-divisible. $\square$
+*Proof.* The framework's $\Phi_t$ are permutation dilations with uniform ancilla, so they map computational-diagonal states to exactly diagonal states (a permutation unitary conjugates a diagonal state to a diagonal state; the partial trace preserves diagonality). If $\Phi_{t_2} = \Lambda \circ \Phi_{t_1}$ with $\Lambda$ CPTP, then $M_{kj} := \langle j|\Lambda(|k\rangle\langle k|)|j\rangle$ is stochastic and, by the diagonality of $\Phi_{t_1}(|i\rangle\langle i|)$, $T(t_2) = T(t_1)\,M$ — P-divisibility of the population process. The contrapositive gives the result. For a general CPTP family the diagonal-input reduction fails — a Hadamard pair is CP-divisible with P-indivisible populations — so the diagonal-preservation property is what licenses the step. $\square$
 
 By the Breuer-Laine-Piilo criterion, CP-indivisibility implies non-monotonic trace distance — the *information backflow* signature of non-Markovianity. The framework's content is therefore that emergent quantum mechanics under C1-C3 is necessarily non-Markovian, with information backflow at observable timescales.
 
