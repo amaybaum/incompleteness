@@ -264,7 +264,7 @@ These can be compared with the experimental values from the post-JUNO global fit
 |-------|-----------|----------|-------|
 | $\sin^2\theta_{12}$ | $0.3080$ | $0.3085 \pm 0.0073$ (post-JUNO global fit) | $0.07\sigma$ |
 | $\sin^2\theta_{23}$ | $0.5507$ | $0.561^{+0.012}_{-0.015}$ (NuFIT 6.0 NO) | $0.74\sigma$ |
-| $\sin^2\theta_{13}$ | $0.02252$ | $0.02195 \pm 0.00056$ (NuFIT 6.0 NO) | $1.02\sigma$ |
+| $\sin^2\theta_{13}$ | $0.02252$ | $0.02195 \pm 0.00056$ (NuFIT 6.0 NO) | $1.01\sigma$ |
 
 All three angles match observation within about $1\sigma$. The match for $\sin^2\theta_{12}$ at $0.07\sigma$ is unusually close, made tighter by the JUNO measurement reported in November 2025.
 
@@ -315,7 +315,7 @@ The chapter has developed twenty-two Standard Model retrodictions from the cubic
 | $m_t$ | $v/\sqrt{2}$ (weak-scale $y_t \approx 1$; mechanism open) | $174.1$ GeV | $172.5 \pm 0.3$ | $0.9\%$ | **R** | D |
 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | $0.3080$ | $0.3085 \pm 0.0073$ | $0.07\sigma$ | **L** [f] | **B** |
 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | $0.5507$ | $0.561^{+0.012}_{-0.015}$ | $0.74\sigma$ | **L** [f] | **B** |
-| $\sin^2\theta_{13}$ | $A^4\lambda^2 = 4/(18\pi^2)$ | $0.02252$ | $0.02195 \pm 0.00056$ | $1.02\sigma$ | **S** | **A** |
+| $\sin^2\theta_{13}$ | $A^4\lambda^2 = 4/(18\pi^2)$ | $0.02252$ | $0.02195 \pm 0.00056$ | $1.01\sigma$ | **S** | **A** |
 | $\lambda(M_{\text{Pl}})$ | composite-Higgs structure | $0$ | $-0.013 \pm 0.020$ | $0.6\sigma$ | **S** | **A** |
 | $m_H$ | RGE running from $\lambda(M_{\text{Pl}})=0$ | $129\text{-}132$ GeV (band) | $125.10 \pm 0.14$ | $m_t$-consistent | **M** ($m_t$) | D |
 

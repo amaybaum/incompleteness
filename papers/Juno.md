@@ -432,9 +432,9 @@ The author thanks the JUNO Collaboration for the rapid public release of their f
 
 [6] S. T. Petcov and A. V. Titov, "Assessing the viability of A₄, S₄ and A₅ flavour symmetries for description of neutrino mixing," Phys. Rev. D 97, 115045 (2018).
 
-[7] JUNO Collaboration (A. Abusleme et al.), "First measurement of reactor neutrino oscillations at JUNO," arXiv:2511.14593 (2025).
+[7] JUNO Collaboration (A. Abusleme et al.), "First measurement of reactor neutrino oscillations at JUNO," arXiv:2511.14593 (2025); Nature 654, 343 (2026).
 
-[8] F. Capozzi, E. Lisi, F. Marcone, A. Marrone, A. Palazzo, "Updated bounds on the (1,2) neutrino oscillation parameters after first JUNO results," arXiv:2511.21650 (2025).
+[8] F. Capozzi, E. Lisi, F. Marcone, A. Marrone, A. Palazzo, "Updated bounds on the (1,2) neutrino oscillation parameters after first JUNO results," arXiv:2511.21650 (2025); Phys. Rev. D 114, 016026 (2026).
 
 [9] X.-G. He, "Modified Tri-bimaximal neutrino mixing confronted by JUNO θ₁₂ measurement," arXiv:2511.15978 (2025).
 
@@ -446,7 +446,7 @@ The author thanks the JUNO Collaboration for the rapid public release of their f
 
 [13] S. Navas et al. (Particle Data Group), Phys. Rev. D 110, 030001 (2024).
 
-[14] I. Esteban, M. C. Gonzalez-Garcia, M. Maltoni, T. Schwetz, A. Zhou, "NuFIT 6.0: three-flavour global analyses of neutrino oscillation experiments," JHEP (2024); www.nu-fit.org.
+[14] I. Esteban, M. C. Gonzalez-Garcia, M. Maltoni, I. Martinez-Soler, J. P. Pinheiro, T. Schwetz, "NuFit-6.0: updated global analysis of three-flavor neutrino oscillations," JHEP 12 (2024) 216; www.nu-fit.org.
 
 [15] G. 't Hooft, *The Cellular Automaton Interpretation of Quantum Mechanics*, Fundamental Theories of Physics, vol. 185 (Springer, 2016); arXiv:1405.1548.
 

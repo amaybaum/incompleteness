@@ -767,7 +767,7 @@ The convergence is structural: both approaches require *something* to play the r
 [17] DESI Collaboration: W. Elbers et al., "Constraints on Neutrino Physics from DESI DR2 BAO and DR1 Full Shape," arXiv:2503.14744 (2025).
 
 
-[18] JUNO Collaboration: A. Abusleme et al., "First measurement of reactor neutrino oscillations at JUNO," arXiv:2511.14593 (2025).
+[18] JUNO Collaboration: A. Abusleme et al., "First measurement of reactor neutrino oscillations at JUNO," arXiv:2511.14593 (2025); Nature 654, 343 (2026).
 
 
 [19] F. Capozzi et al., "Updated bounds on the (1,2) neutrino oscillation parameters after first JUNO results," arXiv:2511.21650 (2025).

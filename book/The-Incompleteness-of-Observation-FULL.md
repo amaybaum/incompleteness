@@ -1868,7 +1868,7 @@ These can be compared with the experimental values from the post-JUNO global fit
 |-------|-----------|----------|-------|
 | $\sin^2\theta_{12}$ | $0.3080$ | $0.3085 \pm 0.0073$ (post-JUNO global fit) | $0.07\sigma$ |
 | $\sin^2\theta_{23}$ | $0.5507$ | $0.561^{+0.012}_{-0.015}$ (NuFIT 6.0 NO) | $0.74\sigma$ |
-| $\sin^2\theta_{13}$ | $0.02252$ | $0.02195 \pm 0.00056$ (NuFIT 6.0 NO) | $1.02\sigma$ |
+| $\sin^2\theta_{13}$ | $0.02252$ | $0.02195 \pm 0.00056$ (NuFIT 6.0 NO) | $1.01\sigma$ |
 
 All three angles match observation within about $1\sigma$. The match for $\sin^2\theta_{12}$ at $0.07\sigma$ is unusually close, made tighter by the JUNO measurement reported in November 2025.
 
@@ -1919,7 +1919,7 @@ The chapter has developed twenty-two Standard Model retrodictions from the cubic
 | $m_t$ | $v/\sqrt{2}$ (weak-scale $y_t \approx 1$; mechanism open) | $174.1$ GeV | $172.5 \pm 0.3$ | $0.9\%$ | **R** | D |
 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | $0.3080$ | $0.3085 \pm 0.0073$ | $0.07\sigma$ | **L** [f] | **B** |
 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | $0.5507$ | $0.561^{+0.012}_{-0.015}$ | $0.74\sigma$ | **L** [f] | **B** |
-| $\sin^2\theta_{13}$ | $A^4\lambda^2 = 4/(18\pi^2)$ | $0.02252$ | $0.02195 \pm 0.00056$ | $1.02\sigma$ | **S** | **A** |
+| $\sin^2\theta_{13}$ | $A^4\lambda^2 = 4/(18\pi^2)$ | $0.02252$ | $0.02195 \pm 0.00056$ | $1.01\sigma$ | **S** | **A** |
 | $\lambda(M_{\text{Pl}})$ | composite-Higgs structure | $0$ | $-0.013 \pm 0.020$ | $0.6\sigma$ | **S** | **A** |
 | $m_H$ | RGE running from $\lambda(M_{\text{Pl}})=0$ | $129\text{-}132$ GeV (band) | $125.10 \pm 0.14$ | $m_t$-consistent | **M** ($m_t$) | D |
 
@@ -2271,7 +2271,7 @@ Quantum-first orderings — where QM is logically prior to the metric — produc
 
 Chapter 9 develops the framework's relationship to other unification programs — the OI-string relationship at the matrix-model level, the no-GUT structural commitment against the broader landscape of grand unified theories, the universality-class character of the framework's Tier 1 results, and the de Sitter observer literature's convergence with the framework's geometry-first dissolution. The empirical record of Chapters 5-8 is concentrated at the Level G3 × Level D intersection of Chapter 3's hierarchical structural realism; Chapter 9 locates the framework within the broader space of substratum-level theories and articulates the universality classes that the framework's structural commitments belong to.
 
-The framework's content in fundamental physics, developed across Chapters 5 through 9, reduces a substantial portion of standard physics to structural consequences of the framework's foundational commitments. The empirical record at the close of Part II spans the Standard Model gauge sector (22 predictions matched within $0.02\%$ to $1.2\%$), the gravitational sector (14 predictions matched within $0.04\%$ to $99.999\%$), and the neutrino sector (7 predictions matched within $0.07\sigma$ to $1.02\sigma$). Part III turns to the framework's reach beyond fundamental physics — the emergence cascade through chemistry, life, evolution, and intelligence — and Part IV to working applications in quantum biology, quantum engineering and computation, medicine, bioinformatics, and the framework's forward predictions.
+The framework's content in fundamental physics, developed across Chapters 5 through 9, reduces a substantial portion of standard physics to structural consequences of the framework's foundational commitments. The empirical record at the close of Part II spans the Standard Model gauge sector (22 predictions matched within $0.02\%$ to $1.2\%$), the gravitational sector (14 predictions matched within $0.04\%$ to $99.999\%$), and the neutrino sector (7 predictions matched within $0.07\sigma$ to $1.01\sigma$). Part III turns to the framework's reach beyond fundamental physics — the emergence cascade through chemistry, life, evolution, and intelligence — and Part IV to working applications in quantum biology, quantum engineering and computation, medicine, bioinformatics, and the framework's forward predictions.
 
 ---
 
@@ -2445,7 +2445,7 @@ The reactor angle $\sin^2\theta_{13}$ uses only $A^2 = 2/3$ and $\lambda^2 = 1/(
 |-------|-----------|----------|-------|
 | $\sin^2\theta_{12}$ | $0.3080$ | $0.3085 \pm 0.0073$ (post-JUNO global fit) | $0.07\sigma$ |
 | $\sin^2\theta_{23}$ | $0.5507$ | $0.561^{+0.012}_{-0.015}$ (NuFIT 6.0, NO) | $0.74\sigma$ |
-| $\sin^2\theta_{13}$ | $0.02252$ | $0.02195 \pm 0.00056$ (NuFIT 6.0, NO) | $1.02\sigma$ |
+| $\sin^2\theta_{13}$ | $0.02252$ | $0.02195 \pm 0.00056$ (NuFIT 6.0, NO) | $1.01\sigma$ |
 
 All three predictions match observation within $1.1\sigma$ at current precision. The solar mixing angle value is the framework's sharpest neutrino-sector empirical match — a parameter-free retrodiction at $0.07\sigma$ from the post-JUNO global fit; the derivation (2026) postdates the first results (November 2025), and JUNO's design-lifetime precision (§8.8) is the corresponding pre-registered forward test, well within experimental uncertainty.
 
@@ -2559,7 +2559,7 @@ The framework's empirical content in fundamental physics is at the strongest evi
 
 ## 9.1 What this chapter develops
 
-Chapters 5 through 8 developed the framework's empirical record in fundamental physics: twenty-two classified Standard Model retrodictions (seven parameter-free structural), the sharpest matched within $0.02\%$ to $1.2\%$, thirteen gravitational-sector predictions matched within $0.04\%$ to $0.5\%$ where a direct test exists (the Bekenstein-Hawking coefficient is derived but untested; GW250114 constrains the area theorem), seven neutrino-sector predictions matched within $0.07\sigma$ to $1.02\sigma$. The empirical case for the framework's structural commitments is concentrated in those four chapters, with the framework's content tested against high-precision experimental data across the sectors of fundamental physics where the framework makes specific quantitative claims.
+Chapters 5 through 8 developed the framework's empirical record in fundamental physics: twenty-two classified Standard Model retrodictions (seven parameter-free structural), the sharpest matched within $0.02\%$ to $1.2\%$, thirteen gravitational-sector predictions matched within $0.04\%$ to $0.5\%$ where a direct test exists (the Bekenstein-Hawking coefficient is derived but untested; GW250114 constrains the area theorem), seven neutrino-sector predictions matched within $0.07\sigma$ to $1.01\sigma$. The empirical case for the framework's structural commitments is concentrated in those four chapters, with the framework's content tested against high-precision experimental data across the sectors of fundamental physics where the framework makes specific quantitative claims.
 
 This chapter is different. The framework's content is *not* a competitor to other unification programs that operate at the same level — it is a structural framework at a different level than string theory, loop quantum gravity, or grand unified theories. Locating the framework within the broader theoretical landscape, articulating what classes of results the framework establishes at the universality-class level rather than at the specific-bijection level, and identifying convergences and divergences with mainstream physics literature — these are the chapter's content.
 
@@ -2624,7 +2624,7 @@ The framework's empirical case is therefore largely a case at the *structural* l
 |-----------------|-------------|-----------------|
 | Level G4 (universality class) | $S = A/(4 l_p^2)$, CC dissolution, $\hbar$ from partition geometry, RVM form | structural ($1/4$ untested directly) |
 | Level G2 (substratum properties) | $\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$, three generations, no GUT, $a_0 = cH/6$, no DM particle | Concordance |
-| Level G3 (specific bijection) | Cabibbo angle, Koide relation, PMNS angles, sum rule, gauge couplings at $M_Z$ | $0.04\%$-$1.02\sigma$ across 22 predictions |
+| Level G3 (specific bijection) | Cabibbo angle, Koide relation, PMNS angles, sum rule, gauge couplings at $M_Z$ | $0.04\%$-$1.01\sigma$ across 22 predictions |
 | Level G3 (open) | Bottom-to-tau mass ratio, Koide angle's structural origin, $\delta_{\text{CP}}$ | Open research program |
 
 The framework's empirical exposure is therefore distributed across the hierarchy, with the strongest confirmations at the universality-class level and the open research program concentrated at the bijection-specific level. This distribution is what makes the hierarchical structural realism meaningful: different levels are tested with different empirical evidence, and the framework's content at each level is constrained by the corresponding empirical record.
@@ -2723,7 +2723,7 @@ The empirical record at Tier 3 summarizes as follows.
 | Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ | $0.04\%$ | Ch 6 §6.5 |
 | Koide relation $Q = 2/3$ | $0.02\%$ | Ch 6 §6.5 |
 | $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | $0.07\sigma$ from post-JUNO global fit | Ch 8 §8.6 |
-| $\sin^2\theta_{13} = 4/(18\pi^2)$ | $1.02\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
+| $\sin^2\theta_{13} = 4/(18\pi^2)$ | $1.01\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
 | $\sin^2\theta_{23} = 1/2 + 1/(2\pi^2)$ | $0.74\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
 | Sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ | $0.6\sigma$ | Ch 8 §8.6 |
 | Three gauge couplings at $M_Z$ | $< 0.1\%$ | Ch 6 §6.4 |
@@ -6806,7 +6806,7 @@ Wood, C. J., & Spekkens, R. W. (2015). The lesson of causal discovery algorithms
 
 't Hooft, G. (1993). Dimensional reduction in quantum gravity. *arXiv*:gr-qc/9310026. [Origin of the holographic principle.]
 
-Capozzi, F., Di Valentino, E., Lisi, E., Marrone, A., Melchiorri, A., & Palazzo, A. (2025). Updated bounds on the (1,2) neutrino oscillation parameters after first JUNO results. *arXiv*:2511.21650.
+Capozzi, F., Lisi, E., Marcone, F., Marrone, A., & Palazzo, A. (2025). Updated bounds on the (1,2) neutrino oscillation parameters after first JUNO results. *arXiv*:2511.21650. *Physical Review D* 114: 016026 (2026).
 
 Cabibbo, N. (1963). Unitary symmetry and leptonic decays. *Physical Review Letters* 10: 531-533. [Original Cabibbo angle.]
 
@@ -6814,7 +6814,7 @@ Cech, T. R. (1989). Self-splicing and enzymatic activity of an intervening seque
 
 Cech, T. R., Zaug, A. J., & Grabowski, P. J. (1981). In vitro splicing of the ribosomal RNA precursor of *Tetrahymena*: involvement of a guanosine nucleotide in the excision of the intervening sequence. *Cell* 27: 487-496.
 
-JUNO Collaboration (2025). First measurement of reactor neutrino oscillations at JUNO. *arXiv*:2511.14593, published November 2025. Reports $\sin^2\theta_{12} = 0.3092 \pm 0.0087$ and $\Delta m^2_{21} = (7.50 \pm 0.12) \times 10^{-5}\,\text{eV}^2$ from the first 59.1 days of data collected after detector completion in August 2025.
+JUNO Collaboration (2025). First measurement of reactor neutrino oscillations at JUNO. *arXiv*:2511.14593; *Nature* 654: 343 (2026). Reports $\sin^2\theta_{12} = 0.3092 \pm 0.0087$ and $\Delta m^2_{21} = (7.50 \pm 0.12) \times 10^{-5}\,\text{eV}^2$ from the first 59.1 days of data collected after detector completion in August 2025.
 
 Koide, Y. (1983). Fermion-boson two-body model of quarks and leptons and Cabibbo mixing. *Lettere al Nuovo Cimento* 34: 201-205. [Original Koide relation.]
 
