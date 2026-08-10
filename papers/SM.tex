@@ -198,12 +198,12 @@ concordance; §3.2), not derived from the construction. \emph{Given}
 those commitments, an extensive amount follows by representation theory
 with no further freedom, and that is this paper's content: the gauge
 group \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\),
-three chiral generations, the Higgs as a composite scalar in the singlet
-staggered taste, anomaly cancellation with the observed hypercharges,
-and the absolute generation count locked at exactly three by
-coupling-degree minimization jointly with the condensate-stabilizer
-accounting of Theorems 5 and 7 --- each step proved end-to-end as a
-chain of theorems on the equivalence class
+three generations (chirality conditional on H-χ, §4.8), the Higgs as a
+composite scalar in the singlet staggered taste, anomaly cancellation
+with the observed hypercharges, and the absolute generation count locked
+at exactly three by coupling-degree minimization jointly with the
+condensate-stabilizer accounting of Theorems 5 and 7 --- each step
+proved end-to-end as a chain of theorems on the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\). The foundational result
 that quantum mechanics emerges as the description of any embedded
 observer under structural conditions C1--C3 is established in a
@@ -303,7 +303,8 @@ matrix to \((3, 2, 1)\), and background independence promotes the
 commutant to local gauge invariance, yielding
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) uniquely.
 \emph{Top-down:} the six anomaly conditions force the observed
-hypercharges, the trace-out makes \(\mathrm{SU}(2)\) chiral while
+hypercharges, the trace-out supplies the ε-grading --- SU(2) chirality
+being carried as the named hypothesis H-χ (§4.8) --- while
 \(\mathrm{SU}(3)\) remains vector-like, and exact \(T\)-invariance of
 the underlying bijection forces \(\bar\theta = 0\) at the kinematic
 level of the lattice construction. This does not dissolve the strong CP
@@ -341,17 +342,18 @@ spatial isotropy, and linearity uniquely select the wave equation. The
 wave equation determines staggered Dirac fermions, \(K = 2d = 6\) from
 coupling-degree minimization, multiplicities \((3, 2, 1)\) from the
 cubic rotation group, local gauge invariance from background
-independence, chirality from the trace-out, the unique anomaly-free
-hypercharges, three generations from cubic symmetry, and one Higgs
-doublet. Each step is proved; the chain runs through twenty-nine
-theorems and lemmas. The gauge coupling prediction extends the chain
-quantitatively, with a structural input \(1/\alpha_0 = 23.25\) (one-loop
-staggered vacuum polarization, analytic) and a universal threshold
-\(\delta_0 = 10.0\) (empirically fixed by the U(1) row; a 2-loop
-staggered VP rebuild indicates \(\delta_0\) is not reproduced by strict
-2-loop PT and is accordingly treated as empirical input --- see §6.2).
-Deriving the \(C_2\)-dependent threshold from first-principles lattice
-PT is an open computational task.
+independence, the trace-out grading with chirality as the named
+hypothesis H-χ, the unique anomaly-free hypercharges, three generations
+from cubic symmetry, and one Higgs doublet. Each step is proved; the
+chain runs through twenty-nine theorems and lemmas. The gauge coupling
+prediction extends the chain quantitatively, with a structural input
+\(1/\alpha_0 = 23.25\) (one-loop staggered vacuum polarization,
+analytic) and a universal threshold \(\delta_0 = 10.0\) (empirically
+fixed by the U(1) row; a 2-loop staggered VP rebuild indicates
+\(\delta_0\) is not reproduced by strict 2-loop PT and is accordingly
+treated as empirical input --- see §6.2). Deriving the \(C_2\)-dependent
+threshold from first-principles lattice PT is an open computational
+task.
 
 \textbf{Tier 3 --- Redundant confirmations.} Asymptotic freedom
 requiring \(N_c \geq 3\), the minimal chiral group constraint, and the
@@ -2165,12 +2167,13 @@ derived --- via the link-carrier construction of §4.7.1.2 and anomaly
 cancellation (Theorem 15) --- rather than taken as input. The
 framework's claim on the fermion sector is therefore: \emph{the SM gauge
 group is forced by first principles; the SM matter content, its gauge
-representations, and its hypercharges are the unique anomaly-free
-consequence of placing matter on links in the link-carrier space
-\(V_K \otimes V_K^*\).} The residual gap is narrower: the assignment of
-SM representations to specific tastes rests on a uniqueness argument via
-anomaly cancellation rather than a direct geometric derivation of the
-representations themselves, and is noted as the residual scope.
+representations, and its hypercharges are, given the chiral structure
+(H-χ, §4.8), the unique anomaly-free consequence of placing matter on
+links in the link-carrier space \(V_K \otimes V_K^*\).} The residual gap
+is narrower: the assignment of SM representations to specific tastes
+rests on a uniqueness argument via anomaly cancellation rather than a
+direct geometric derivation of the representations themselves, and is
+noted as the residual scope.
 
 Whether a stronger derivation exists --- via a geometric embedding of
 (taste × sublattice × spinor) indices into SM gauge representations such
@@ -2188,10 +2191,14 @@ ruled out, but none has been produced.
 
 The neutrino mass mechanism (Dirac vs.~Majorana, presence or absence of
 \(\nu_R\)) is not fixed by the lattice structure as currently understood
-and is left open. The absolute generation count is addressed in
-§4.7.1.2: the \(K = 2d \cdot m\) confinement of Theorem 6 together with
-the \(m = 1\) stabilizer accounting (Theorems 5, 7) locks the count at
-three as a derived consequence rather than an assignment.
+and is left open. (Right-handed states as such are retained on the
+visible sublattice --- the ε-grading sorts by
+\(\gamma_5 \otimes \xi_5\), not spin chirality --- so the question is
+one of representation content, not of retention.) The absolute
+generation count is addressed in §4.7.1.2: the \(K = 2d \cdot m\)
+confinement of Theorem 6 together with the \(m = 1\) stabilizer
+accounting (Theorems 5, 7) locks the count at three as a derived
+consequence rather than an assignment.
 
 \hypertarget{gauge-bosons-from-the-schur-complement-and-the-level-confusion-diagnosis}{%
 \paragraph{4.7.1.1 Gauge bosons from the Schur complement, and the
@@ -2206,15 +2213,17 @@ simultaneously sharpens the fermion-embedding question of §4.7.1 into a
 precise and tractable form --- a form that §4.7.1.2 then answers via the
 link-carrier construction.
 
-\textbf{The gauge sector closes.} With \(D_{LL} = D_{RR} = 0\) (Theorem
+\textbf{The gauge sector closes.} With \(D_{ee} = D_{oo} = 0\) (Theorem
 13(ii)), the Schur-complement effective action takes the form
-\(\mathcal{L}_{\text{eff}} = \bar\psi_L\,K_{\text{eff}}\,\psi_L + \cdots\)
-with kernel \(K_{\text{eff}} = D_{LR}\,G_{RR}\,D_{RL}: W_L \to W_L\).
-The kernel is a linear map on the visible single-excitation space, i.e.,
-an element of \(\mathrm{End}(W_L) = W_L^* \otimes W_L\) --- \emph{not}
-of \(\Lambda^2 W_L\) or \(\mathrm{Sym}^2 W_L\). The two \(\psi_L\)
-factors are distinguishable (one barred, one unbarred), and bilinears of
-distinguishable objects pair \(W_L^*\) against \(W_L\) via the trace
+\(\mathcal{L}_{\text{eff}} = \bar\psi_+\,K_{\text{eff}}\,\psi_+ + \cdots\)
+with kernel \(K_{\text{eff}} = D_{eo}\,G_{oo}\,D_{oe}: W_+ \to W_+\) ---
+\(W_+\) the visible (even-sublattice) half of the spin⊗taste space,
+carrying both spin chiralities. The kernel is a linear map on the
+visible single-excitation space, i.e., an element of
+\(\mathrm{End}(W_+) = W_+^* \otimes W_+\) --- \emph{not} of
+\(\Lambda^2 W_+\) or \(\mathrm{Sym}^2 W_+\). The two \(\psi_+\) factors
+are distinguishable (one barred, one unbarred), and bilinears of
+distinguishable objects pair \(W_+^*\) against \(W_+\) via the trace
 pairing.
 
 Restricting to the internal index, the gauge content of
@@ -2259,13 +2268,13 @@ Schur-complement structure also produces the SM matter content. It does
 not, and the failure mode is structurally informative.
 
 The visible single-excitation space is
-\(W_L = V_K \otimes V_{\text{taste}} \otimes S_L\), with
+\(W_+ = V_K \otimes V_{\text{taste}} \otimes S_L\), with
 \(V_K = V_3 \oplus V_2 \oplus V_1\) by Theorem 5. Tensor products
 distribute over direct sums, so
 
-\[W_L = (V_3 \otimes V_{\text{taste}} \otimes S_L) \oplus (V_2 \otimes V_{\text{taste}} \otimes S_L) \oplus (V_1 \otimes V_{\text{taste}} \otimes S_L).\]
+\[W_+ = (V_3 \otimes V_{\text{taste}} \otimes S_L) \oplus (V_2 \otimes V_{\text{taste}} \otimes S_L) \oplus (V_1 \otimes V_{\text{taste}} \otimes S_L).\]
 
-A single excitation in \(W_L\) lives in exactly one summand and
+A single excitation in \(W_+\) lives in exactly one summand and
 therefore carries exactly one nontrivial gauge charge: it is a color
 triplet \emph{or} a weak doublet \emph{or} a hypercharge singlet, never
 two simultaneously. The left-handed quark doublet \(Q_L\), by contrast,
@@ -2275,13 +2284,13 @@ irreducible representation of the joint gauge group that lives in
 direct sum that carries simultaneous nontrivial labels under summands
 meant to act independently. As a statement about the bijection-level
 carrier \(V_K\), this is a hard algebraic fact and it cannot be
-circumvented by reorganizing \(\Lambda^k W_L\) for any \(k\).
+circumvented by reorganizing \(\Lambda^k W_+\) for any \(k\).
 
 \textbf{Diagnosis: a level confusion between bijection-level and
 observer-level structure.} The obstruction is fatal only under a hidden
 assumption that the present framework is required to reject. The
 assumption is that the observer-level single-fermion Hilbert space
-\emph{is} \(W_L = V_K \otimes V_{\text{taste}} \otimes S_L\), with the
+\emph{is} \(W_+ = V_K \otimes V_{\text{taste}} \otimes S_L\), with the
 gauge group acting on it via the bijection-level decomposition
 \(V_K = V_3 \oplus V_2 \oplus V_1\). This identifies two distinct
 objects:
@@ -2338,12 +2347,12 @@ This reframing is consistent with --- and arguably required by --- the
 way Theorem 13 already handles chirality. That proof treats the gauge
 group as acting on \(V_K\) \emph{coupled to} the spinor/sublattice
 grading, not as a pure internal rotation on a 6-dimensional space: SU(3)
-is vector-like because color commutes with the grading, SU(2) is chiral
-because its action survives only on the left-handed external legs after
-the trace-out. Theorem 13 is already implicitly working at the observer
-level, where the gauge action is induced rather than literal. §4.7.1.1
-simply makes this commitment explicit and applies it to the matter
-sector.
+is vector-like because color commutes with the grading; SU(2)'s
+chirality is carried by the taste-selectivity hypothesis H-χ (§4.8) ---
+the trace-out supplies the ε-grading, not spin chirality. Theorem 13 is
+already implicitly working at the observer level, where the gauge action
+is induced rather than literal. §4.7.1.1 simply makes this commitment
+explicit and applies it to the matter sector.
 
 \textbf{The asymmetry is structural, not embarrassing.} The reframing
 also explains \emph{why} the gauge sector closes from
@@ -2406,10 +2415,10 @@ the carrier on links.
 \emph{Step 2: Anomaly cancellation completes the assignment.} Once the
 matter carrier is \(V_K \otimes V_K^*\) on links, the question reduces
 to which subspaces of \(V_K \otimes V_K^*\) host propagating chiral
-fermions. Theorem 13 fixes the chirality structure: SU(2) is chiral,
-SU(3) is vector-like, with left-handed external legs after the
-Schur-complement trace-out. Theorem 15 then fixes the matter content
-uniquely: given chiral
+fermions. Theorem 13 identifies the chirality structure conditionally:
+taste-blind couplings are vector-like, and a spin-chiral SU(2) requires
+the taste-selectivity hypothesis H-χ (§4.8), which is open. Theorem 15
+then fixes the matter content uniquely: given chiral
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) with
 fermions in fundamental or singlet representations, the six anomaly
 conditions force exactly the SM hypercharge assignment
@@ -2420,20 +2429,31 @@ distributes this content across the three \(T_1\) staggered tastes as
 three identical generations, and Theorem 11 places the Higgs in the
 \(E\) projection of the singlet taste.
 
-\emph{The closure.} Combining these: (i) the local gauge invariance
+\emph{The closure, reclassified (availability established; chirality and
+selection open).} Combining these: (i) the local gauge invariance
 construction establishes that gauge connections live on links with
 carrier \(V_K \otimes V_K^*\); (ii) cross-charged SM representations
 such as \((\mathbf{3}, \mathbf{2})\) exist in \(V_K \otimes V_K^*\) as
-ordinary tensor-product subspaces, with no direct-sum obstruction; (iii)
-Theorem 13 fixes chirality; (iv) Theorem 15 fixes the unique
-anomaly-free hypercharge assignment; (v) Theorems 8--11 distribute the
-content across tastes as three generations plus one Higgs doublet. The
-§4.7.1 question is fully answered: the SM matter content is forced by
-the link-level carrier structure, the chirality theorem, and anomaly
-cancellation, jointly. No additional construction is required; the
-resolution was already distributed across the existing chain of theorems
-and was hidden only by the site-internal reading of \(V_K\) that
-§4.7.1.1's level-confusion diagnosis identified as incorrect.
+ordinary tensor-product subspaces, with no direct-sum obstruction ---
+representation \emph{availability} with no algebraic obstruction; (iii)
+the ε-grading survives the trace-out and, on the visible sector, spin
+chirality and taste chirality coincide (Theorem 13(iii)), so the
+chirality of any gauge coupling reduces to the taste-chirality
+selectivity of its embedding: hypothesis H-χ, underived; (iv)
+\emph{given} a chiral
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) structure
+with the observed family pattern, Theorem 15 fixes the hypercharges
+uniquely; (v) Theorems 8--11 distribute the content across the three
+\(T_1\) tastes plus the singlet-taste Higgs. The §4.7.1 question is
+answered at the level of representation availability: every SM multiplet
+has a carrier, and the hypercharges are the unique anomaly-free
+completion given chirality. Two things are open and are stated as such:
+the taste-selectivity hypothesis H-χ that would make SU(2) spin-chiral
+on the visible sector (§4.8), and the light-spectrum selection question
+--- which of the available modes are light, and why mirror and exotic
+modes are gapped --- for which no derivation exists. Earlier versions'
+``fully answered \ldots{} no additional construction required'' claims
+are retired accordingly.
 
 \emph{Step 3: The absolute generation count is locked by minimality
 jointly with the stabilizer accounting.} Theorem 6 confines the internal
@@ -2465,19 +2485,26 @@ matter question at the wrong layer; once both questions are asked at the
 link level, both close, and the closure is forced by theorems already in
 §§4.4--4.9.
 
-\textbf{Theorem 12} (Partition = spinor decomposition). \emph{The OI
-checkerboard partition coincides with the staggered spinor
-decomposition: visible and hidden sectors carry complementary spinor
-components.}
+\textbf{Theorem 12} (Partition = staggered ε-grading). \emph{The OI
+checkerboard partition coincides with the staggered ε-grading of the
+spin⊗taste space: visible and hidden sectors carry the two eigenspaces
+of the product grading \(\gamma_5 \otimes \xi_5\) (spin chirality ×
+taste chirality), each containing both spin chiralities.}
 
 \emph{Proof.} The checkerboard assigns site \textbf{n} to the visible
 sector iff \((-1)^{\sum n_\mu} = +1\) (even sublattice). In the
 staggered-to-Dirac reconstruction, the even sublattice carries spinor
-components with \(\Gamma(\eta)\) matrices of even rank (including
-\(I_4\)), which give the left-handed components under Lorentz
-decomposition. The odd sublattice carries the right-handed components.
-The partition structure and the spinor decomposition are the same
-object. \(\square\)
+components with \(\Gamma(\eta)\) matrices of even rank; these satisfy
+\(\gamma_5 \Gamma(\eta) \gamma_5 = +\Gamma(\eta)\) and therefore span
+the \(+1\) eigenspace of the product grading \(\gamma_5 \otimes \xi_5\)
+--- not a spin-chirality eigenspace. Each sublattice contains both spin
+chiralities in equal dimension: within the even-corner span the left-
+and right-handed subspaces are each four-dimensional
+(\(\Gamma(0) = I_4\) is even-rank and chirality-neutral; certified
+exactly by
+\texttt{papers/oi\_lattice\_code/foundations/chirality\_grading\_probes.py}).
+The partition structure and the ε-grading of the spin⊗taste
+decomposition are the same object. \(\square\)
 
 \textbf{Remark (the checkerboard is not a free choice).} The
 checkerboard partition is not selected by hand to produce chirality ---
@@ -2486,56 +2513,74 @@ is nearest-neighbor, so the cubic lattice is bipartite: even sites
 couple only to odd sites and vice versa. This bipartite structure is a
 property of the dynamics (range-1 coupling on a hypercubic graph), not
 of the partition. The staggered-to-Dirac reconstruction identifies the
-two sublattices with left- and right-handed spinor components --- a
-standard result in lattice QFT {[}12, 17{]}, not an OI construction.
-Theorem 12 observes that the OI partition (visible vs.~hidden) and the
-staggered partition (left vs.~right) are the same decomposition. The
-physical partition (the cosmological horizon) traces out a spatial
-region containing both sublattices; at scales large compared to
-\(\epsilon\), any macroscopic region contains equal numbers of even and
-odd sites. Chirality in the emergent description is a property of how
-the staggered-to-Dirac reconstruction organizes the lattice variables
-into spinor components --- it follows from the bipartite structure of
-the dynamics, not from a choice of which sites to trace out.
+two sublattices with the \(\pm 1\) eigenspaces of the product grading
+\(\gamma_5 \otimes \xi_5\) (spin chirality × taste chirality) --- the
+standard spin-taste result in lattice QFT {[}12, 17{]}, not an OI
+construction. Theorem 12 observes that the OI partition (visible
+vs.~hidden) and the staggered partition (left vs.~right) are the same
+decomposition. The physical partition (the cosmological horizon) traces
+out a spatial region containing both sublattices; at scales large
+compared to \(\epsilon\), any macroscopic region contains equal numbers
+of even and odd sites. The ε-grading in the emergent description is a
+property of how the staggered-to-Dirac reconstruction organizes the
+lattice variables --- it follows from the bipartite structure of the
+dynamics, not from a choice of which sites to trace out; spin chirality
+proper is a further question (Theorem 13).
 
-\hypertarget{chirality-from-the-trace-out}{%
-\subsubsection{4.8 Chirality from the
-trace-out}\label{chirality-from-the-trace-out}}
+\hypertarget{the-trace-out-grading-and-chirality-as-a-conditional-identification}{%
+\subsubsection{4.8 The trace-out grading, and chirality as a conditional
+identification}\label{the-trace-out-grading-and-chirality-as-a-conditional-identification}}
 
-\textbf{Theorem 13} (Chirality). \emph{The emergent gauge coupling of
-the visible sector is chiral: SU(2) is chiral while SU(3) remains
-vector-like.}
+\textbf{Theorem 13} (Chirality --- conditional identification; H-χ
+open). \emph{On the visible sector the spin-chirality and
+taste-chirality operators coincide, so a gauge coupling is spin-chiral
+on the visible sector if and only if its embedding is
+taste-chirality-selective --- the named hypothesis H-χ --- while any
+taste-blind coupling is vector-like. Given H-χ for the SU(2) embedding
+and taste-blindness for SU(3), SU(2) is chiral and SU(3) vector-like.
+H-χ is not derived from the construction and is recorded as open.}
 
-\emph{Proof.} (i) \emph{Chirality = sublattice parity.} The
-staggered-to-Dirac reconstruction {[}17, 12{]} assigns spinor components
-to hypercube corners \(\eta \in \{0,1\}^{d+1}\) via
+\emph{Proof.} (i) \emph{The grading.} The staggered-to-Dirac
+reconstruction {[}17, 12{]} assigns spinor components to hypercube
+corners \(\eta \in \{0,1\}^{d+1}\) via
 \(\chi(y + \eta\epsilon) = \frac{1}{4}\Gamma(\eta)_{\alpha\beta}\psi_\beta(y)\),
 where \(\Gamma(\eta) = \gamma_0^{\eta_0}\cdots\gamma_d^{\eta_d}\). Under
-\(\gamma_5\): \(\Gamma(\eta) \to (-1)^{|\eta|}\Gamma(\eta)\). Sites with
-\(|\eta|\) even are left-handed; \(|\eta|\) odd are right-handed. This
-equals the sublattice parity
-\(\varepsilon(\mathbf{x}) = (-1)^{\sum x_\mu}\). (ii)
-\emph{\(D_{LL} = D_{RR} = 0\).} The staggered Dirac operator couples
-only across sublattices: \(\{D_{\text{st}}, \varepsilon\} = 0\) (chiral
-symmetry, Theorem 3), so the even-even and odd-odd blocks vanish
-identically. (iii) \emph{Trace-out removes right-handed fields.} The OI
-checkerboard partition assigns even sites (left-handed) to V and odd
-sites (right-handed) to H (Theorem 12). The trace-out marginalizes over
-H: all operators in the emergent description act on the visible
-(left-handed) Hilbert space. (iv) \emph{Left-handed effective
-Lagrangian.} Since \(D_{LL} = 0\), the gauge coupling in the full theory
-is purely \(L \leftrightarrow R\). After integrating out R (the hidden
-sublattice) via the Schur complement --- a standard procedure in lattice
-QFT {[}12, 17{]} --- the effective coupling has the form
-\(\mathcal{L}_{\text{eff}} = \bar{\psi}_L\,(D_{LR}\,G_{RR}\,D_{RL})\,\psi_L + \cdots\),
-where \(G_{RR}\) is the hidden-sector propagator. Both external legs are
-left-handed. (v) \emph{SU(3) vector-like; SU(2) chiral.} The chirality
-projection \(P_L\) acts on the spin/sublattice index and commutes with
-the internal (K-component) index. SU(3) acts on internal \(T_1(3)\)
-components: both L and R carry color, so the trace-out preserves color
-coupling → \textbf{vector-like}. SU(2) acts on internal \(E(2)\)
-components, but the effective coupling has only L external legs →
-\textbf{chiral}. \(\square\)
+\(\gamma_5\)-conjugation,
+\(\Gamma(\eta) \to (-1)^{|\eta|}\Gamma(\eta)\): the sublattice parity
+\(\varepsilon(\mathbf{x}) = (-1)^{\sum x_\mu}\) is the product grading
+\(\gamma_5 \otimes \xi_5\) of the spin⊗taste space, and each sublattice
+contains both spin chiralities in equal dimension (Theorem 12; certified
+exactly by \texttt{chirality\_grading\_probes.py}, which also records
+that the identification ``even \(=\) left-handed'' of earlier versions
+fails --- \(\Gamma(0) = I_4\) is even-rank and chirality-neutral). (ii)
+\emph{\(D_{ee} = D_{oo} = 0\).} The staggered Dirac operator couples
+only across sublattices: \(\{D_{\text{st}}, \varepsilon\} = 0\) (Theorem
+3), so the even--even and odd--odd blocks vanish identically. (iii)
+\emph{Visible-sector identity.} On the \(+1\) eigenspace of
+\(\gamma_5 \otimes \xi_5\), \(\gamma_5 M \gamma_5 = M\) is equivalent to
+\(\gamma_5 M = M \gamma_5\): the spin-chirality action and the
+taste-chirality action coincide there (probe P4). The Schur complement
+over the hidden sublattice --- a standard procedure in lattice QFT
+{[}12, 17{]} --- therefore yields an effective theory
+\(\mathcal{L}_{\text{eff}} = \bar{\psi}_+\,(D_{eo}\,G_{oo}\,D_{oe})\,\psi_+ + \cdots\)
+on a space where chirality projections and taste-chirality projections
+are the same operators. (iv) \emph{Consequence.} A taste-blind embedding
+acts on both spin chiralities of the visible sector --- vector-like. A
+coupling is spin-chiral on the visible sector precisely when its
+embedding selects a taste chirality. SU(3) acts on the internal
+\(T_1(3)\) components, taste-blind: \textbf{vector-like}, as observed.
+SU(2) acts on the internal \(E(2)\) components and, as constructed, is
+likewise taste-blind; its observed spin-chirality therefore requires
+taste-chirality selectivity of the physical SU(2) embedding ---
+hypothesis H-χ --- which the present construction does not supply. (v)
+\emph{Status.} The observed chiral SU(2) is carried as the named
+hypothesis H-χ; the previous derivation via ``trace-out removes
+right-handed fields'' is retired (route closed and recorded, per the
+project conventions). One consequence is immediate and positive:
+right-handed fields are retained on the visible sublattice (as the
+\(s \cdot t = +1\) partners), so the Yukawa constructions of Theorem 10
+and the trace accounting of §6 use states the framework possesses.
+\(\square\)
 
 \textbf{Remark (chirality without a continuum limit).} In standard
 lattice QCD, staggered chirality is a property of the regularization
@@ -2554,35 +2599,39 @@ inherits the sublattice parity
 \(\varepsilon(\mathbf{x}) = (-1)^{\sum x_\mu}\) as a \(\mathbb{Z}_2\)
 grading because the hidden-sublattice modes do not propagate to IR
 scales --- they are integrated out at the lattice scale via the Schur
-complement (step (iv) of the proof). The resulting low-energy action
+complement (step (iii) of the proof). The resulting low-energy action
 
-\[\mathcal{L}_{\text{eff}} = \bar\psi_L \, (D_{LR} \, G_{RR} \, D_{RL}) \, \psi_L + (\text{gauge}) + (\text{Yukawa})\]
+\[\mathcal{L}_{\text{eff}} = \bar\psi_+ \, (D_{eo} \, G_{oo} \, D_{oe}) \, \psi_+ + (\text{gauge}) + (\text{Yukawa})\]
 
-has manifestly left-handed external states. SU(2) acts on internal \(E\)
-components and couples only to \(\psi_L\), giving chiral SU(2). SU(3)
-acts on internal \(T_1\) components and commutes with the sublattice
-grading (color is internal, not spatial), giving vector-like SU(3). The
-standard lattice-QCD objection to identifying staggered chirality with
-physical chirality --- that the doublers carry ``wrong'' chirality and
-contaminate the continuum theory --- \emph{inverts} in OI: the doublers
-are the physical generations (the \(2^3 = 8\) Brillouin-zone corners
-stagger-reduce to \(4\) Dirac tastes --- \(3\) generations plus the
-Higgs --- Theorem 9), so the U(1)\(_\varepsilon\) symmetry IS the
-physical chirality, not an artifact to be removed.
+has external states confined to the visible half of the spin⊗taste space
+--- the ε-grading, carrying both spin chiralities. SU(2) acts on
+internal \(E\) components; its spin-chirality on these states is the
+content of hypothesis H-χ (Theorem 13). SU(3) acts on internal \(T_1\)
+components and commutes with the sublattice grading (color is internal,
+not spatial), giving vector-like SU(3). The standard lattice-QCD
+objection to identifying staggered gradings with physical chirality ---
+that the doublers carry ``wrong'' chirality and contaminate the
+continuum theory --- is transformed rather than escaped in OI: the
+doublers are the physical generations (the \(2^3 = 8\) Brillouin-zone
+corners stagger-reduce to \(4\) Dirac tastes --- \(3\) generations plus
+the Higgs --- Theorem 9), and the exact U(1)\(_\varepsilon\) symmetry is
+the \(\gamma_5 \otimes \xi_5\) grading; physical chirality proper enters
+through H-χ, not through \(\varepsilon\).
 
-\textbf{Independent verification via anomaly cancellation.} A chiral
-gauge theory is consistent only if its anomalies cancel. Theorem 15
-below shows that the OI matter content cancels all six anomalies and
-determines the SM hypercharges \(Y_Q = 1/6\), \(Y_u = 2/3\),
-\(Y_d = -1/3\), \(Y_L = -1/2\), \(Y_e = -1\) (uniquely in the sense
-stated there). This is an independent consistency check on the
-lattice-scale chirality identification: if the identification of
-sublattice parity with physical chirality were wrong, the resulting
-``chiral'' theory would generically have non-zero anomalies, and the
-framework's prediction of the SM hypercharges would fail. Anomaly
-cancellation working out, with the unique SM values, is independent
-evidence that the lattice-scale chirality identified in step (i) is the
-correct physical chirality at IR scales.
+\textbf{Anomaly cancellation as a consistency check.} A chiral gauge
+theory is consistent only if its anomalies cancel. Theorem 15 below
+shows that, \emph{given} the chiral structure named by H-χ with the
+observed family pattern, the framework's matter content cancels all six
+anomalies and determines the SM hypercharges \(Y_Q = 1/6\),
+\(Y_u = 2/3\), \(Y_d = -1/3\), \(Y_L = -1/2\), \(Y_e = -1\) (uniquely in
+the sense stated there). This is a consistency check on the hypothesis
+rather than a derivation of it: a generic chiral assignment on this
+representation content would leave non-vanishing anomalies, so the
+existence of an anomaly-free completion --- landing uniquely on the
+observed hypercharges --- is non-trivial evidence that H-χ is a
+hypothesis the structure can consistently carry. What anomaly
+cancellation cannot supply is the taste-chirality selectivity itself;
+that remains open (Theorem 13(v)).
 
 \textbf{Remark (relation to spatial sublattice grading).} The
 \(\varepsilon\) used in Theorem 13's proof is the 4D parity
@@ -2632,12 +2681,16 @@ could be formulated. Dirac structure is \emph{derived}: Theorem 2
 (Susskind) shows \(D_{\text{st}}^2 = -\tfrac14\Box_{\text{lat}}\), so
 staggered Dirac fermions appear as a \emph{factorization} of the scalar
 wave operator, not as fields posited by an action principle. Theorem 12
-then identifies the staggered spinor decomposition with the bipartite
-checkerboard partition of the lattice. Chirality only crystallizes in
-the third step, Theorem 13: the Schur-complement trace-out of the odd
-(right-handed) sublattice produces an effective theory whose external
-legs are uniformly left-handed, with \(D_{LL}=D_{RR}=0\) enforced by
-sublattice parity.
+then identifies the staggered spin⊗taste ε-grading with the bipartite
+checkerboard partition of the lattice (the exact chiral symmetry of
+Theorem 3, \(\chi \to \varepsilon\chi\), being the standard staggered
+U(1)\(_\varepsilon\) --- the \(\gamma_5 \otimes \xi_5\) grading).
+Chirality is addressed in the third step, Theorem 13: the
+Schur-complement trace-out of the odd sublattice produces an effective
+theory on the visible half of the spin⊗taste space, with
+\(D_{ee}=D_{oo}=0\) enforced by sublattice parity; on that space spin-
+and taste-chirality coincide, and the physical chirality of SU(2) is
+carried as the named hypothesis H-χ.
 
 The NN premise therefore \textbf{fails to apply} at the level on which
 OI is defined --- it is not violated within its scope of applicability.
@@ -2653,22 +2706,23 @@ are reinterpreted as observed matter content. NN is not circumvented by
 a clever fermion formulation; it is bypassed because OI never enters its
 hypothesis space.
 
-\textbf{Remark (locality of the effective chiral operator, and its
-independence from the §3.1 (\emph{Scope of the emergent-Lorentz claim})
-smearing question).} The ``bypass'' reading above is the strong one ---
-that NN4 has no referent --- and it is worth separating it explicitly
-from a weaker fallback that a referee might expect, namely that the
-effective theory escapes NN only by being \emph{non-local} (the route
-taken by perfect-action and Ginsparg--Wilson formulations, where chiral
-symmetry is bought at the price of a non-local action). Whether OI needs
-that weaker fallback turns on the locality of the Schur-complement
-effective operator \(K_{\text{eff}} = D_{LR}\,G_{RR}\,D_{RL}\) of
-Theorem 13(iv): a long-ranged \(G_{RR}\) would make \(K_{\text{eff}}\)
-non-local, and the evasion would then be ``non-locality escapes NN''
-rather than ``NN does not apply.'' On the free substratum the question
-resolves in favour of the strong reading. The odd-sublattice self-term
-in the bipartite wave operator is the time part \(2\cos\omega\), not a
-frozen spatial constant; on the physical dispersion surface
+\textbf{Remark (locality of the effective visible-sector operator, and
+its independence from the §3.1 (\emph{Scope of the emergent-Lorentz
+claim}) smearing question).} The ``bypass'' reading above is the strong
+one --- that NN4 has no referent --- and it is worth separating it
+explicitly from a weaker fallback that a referee might expect, namely
+that the effective theory escapes NN only by being \emph{non-local} (the
+route taken by perfect-action and Ginsparg--Wilson formulations, where
+chiral symmetry is bought at the price of a non-local action). Whether
+OI needs that weaker fallback turns on the locality of the
+Schur-complement effective operator
+\(K_{\text{eff}} = D_{eo}\,G_{oo}\,D_{oe}\) of Theorem 13(iii): a
+long-ranged \(G_{oo}\) would make \(K_{\text{eff}}\) non-local, and the
+evasion would then be ``non-locality escapes NN'' rather than ``NN does
+not apply.'' On the free substratum the question resolves in favour of
+the strong reading. The odd-sublattice self-term in the bipartite wave
+operator is the time part \(2\cos\omega\), not a frozen spatial
+constant; on the physical dispersion surface
 \(2\cos\omega = t(\mathbf{k})/d\), the effective kernel reduces to
 \(K_{\text{eff}}(\mathbf{k}) = t(\mathbf{k})/d = \tfrac{2}{d}\sum_j\cos k_j\)
 --- a degree-one trigonometric polynomial, i.e.~a strictly
@@ -2677,15 +2731,15 @@ interior poles. (An apparent interior divergence on the
 \(t(\mathbf{k})=\pm 4\) surface arises only in the frequency-frozen
 static approximation, which replaces \(2\cos\omega\) by a spatial
 constant; it is an artifact of that approximation and is absent once the
-dispersion is imposed.) The free effective chiral operator is therefore
-local, and the NN evasion is the strong form. The same Schur-complement
+dispersion is imposed.) The free effective operator is therefore local,
+and the NN evasion is the strong form. The same Schur-complement
 structure yields a second exact property. With the site-diagonal grading
 \(\Gamma = (-1)^{x+y+z}\) and the nearest-neighbour operator
 anticommuting (\(\Gamma A \Gamma = -A\)), the effective kernel obeys
 \(\Gamma_V K_{\text{eff}}(E)\,\Gamma_V = -K_{\text{eff}}(-E)\) for
 \emph{any} site partition --- a one-line identity from the
 block-restriction of \(\Gamma\). At the mirror point the kernel is
-exactly chiral and the staggered-mass projection vanishes identically:
+exactly ε-graded and the staggered-mass projection vanishes identically:
 the trace-out preserves the bipartite grading and cannot gap the taste
 multiplet at the linear level, for the horizon partition or any other.
 This has been verified at machine precision in full \(d=3\) with
@@ -2700,18 +2754,18 @@ open --- question of whether the interacting, condensate-dressed
 coarse-graining map realises a sufficient ultraviolet \emph{smearing} to
 protect the rotational sector at loop level (§3.1 (\emph{Scope of the
 emergent-Lorentz claim}, point (iii))). The two questions share the
-object \(G_{RR}\) but are different computations: the chirality question
+object \(G_{oo}\) but are different computations: the locality question
 asks whether the free kernel is finite-range (answered here: yes), while
 the Lorentz-radiative-stability question asks whether the dressed
 induced links inherit the matter-field smearing (an interacting
 order-parameter question, addressed in §3.1 (\emph{A present-day
 constraint, and the rotational sector's distinct status}) and {[}Ch. 19
 §19.3.7{]}, where the current evidence leans toward the un-smeared
-regime). A local free chiral operator and an un-smeared dressed
-condensate are consistent: the former secures the chirality derivation
-of this section, while the latter leaves the radiative-stability
-protection of §3.1 (\emph{Scope of the emergent-Lorentz claim}) as the
-open item it is stated to be there.
+regime). A local free effective operator and an un-smeared dressed
+condensate are consistent: the former secures the strong NN reading of
+this section, while the latter leaves the radiative-stability protection
+of §3.1 (\emph{Scope of the emergent-Lorentz claim}) as the open item it
+is stated to be there.
 
 \hypertarget{anomaly-cancellation-and-hypercharges}{%
 \subsubsection{4.9 Anomaly cancellation and
@@ -6632,12 +6686,12 @@ distinction matters for assessing their status.
 \textbf{Structural predictions} are properties of the equivalence class
 {[}(S, φ){]}/\(\mathcal{G}_{\text{sub}}\) --- they hold for every
 bijection satisfying the six structural properties. These include: SU(3)
-× SU(2) × U(1) with multiplicities (3, 2, 1), three chiral generations
-with identical gauge quantum numbers, one Higgs doublet (1, 2, +1/2),
-unique hypercharges from anomaly cancellation, ℏ = c³ε²/(4G), the
-Bekenstein-Hawking formula, and the universal induced coupling
-\(1/\alpha_0 = 23.25\) (§6.1). These are theorems. They do not depend on
-which specific φ describes our universe.
+× SU(2) × U(1) with multiplicities (3, 2, 1), three generations
+(chirality conditional on H-χ, §4.8) with identical gauge quantum
+numbers, one Higgs doublet (1, 2, +1/2), unique hypercharges from
+anomaly cancellation, ℏ = c³ε²/(4G), the Bekenstein-Hawking formula, and
+the universal induced coupling \(1/\alpha_0 = 23.25\) (§6.1). These are
+theorems. They do not depend on which specific φ describes our universe.
 
 \textbf{Solution-specific properties} are determined by the particular
 bijection φ within the equivalence class. These include: gauge couplings
@@ -6668,12 +6722,12 @@ equivalence class \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) that
 follow from C1--C3 + cubic-group representation theory (§4.5--§4.7).
 Hold for every bijection. Examples: the gauge group
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) with
-multiplicities \((3, 2, 1)\), three chiral generations,
-anomaly-cancelling hypercharges, \(\bar\theta = 0\), Majorana neutrinos
-with normal mass ordering, the TBM zeroth-order pattern
-(\(\sin^2\theta_{12} = 1/3\) etc.), the Higgs as \(A_1\) taste, the
-universal induced coupling \(1/\alpha_0 = 23.25\) from \(N_f = 6\) and
-\(T(R) = 1/2\).
+multiplicities \((3, 2, 1)\), three generations (chirality conditional
+on H-χ, §4.8), anomaly-cancelling hypercharges, \(\bar\theta = 0\),
+Majorana neutrinos with normal mass ordering, the TBM zeroth-order
+pattern (\(\sin^2\theta_{12} = 1/3\) etc.), the Higgs as \(A_1\) taste,
+the universal induced coupling \(1/\alpha_0 = 23.25\) from \(N_f = 6\)
+and \(T(R) = 1/2\).
 
 \emph{Layer 1 --- Structural form of corrections.} Properties of the
 \emph{form} of the perturbative expansion around the zeroth-order
@@ -7076,9 +7130,10 @@ the representation theory alone, independent of the specific
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
 \item
-  \emph{Majorana neutrinos.} No right-handed neutrino exists in the
-  spectrum --- the singlet taste is the Higgs. Neutrinoless double beta
-  decay (\(0\nu\beta\beta\)) should be observed.
+  \emph{Majorana neutrinos.} No gauge-singlet neutrino representation is
+  available in the spectrum --- the singlet taste is the Higgs.
+  Neutrinoless double beta decay (\(0\nu\beta\beta\)) should be
+  observed.
 \item
   \emph{Normal mass ordering.} The taste-breaking in \(T_1\) generically
   gives the largest correction to the state most coupled to all three
@@ -7186,13 +7241,13 @@ the framework-specific machinery differs.
 
 The \emph{specific output} --- the SM gauge group precisely, with the
 multiplicities \((3, 2, 1)\), the unique anomaly-free hypercharges,
-three chiral generations, and one Higgs doublet --- is OI-specific
-(Level D × Level G2 of {[}Structure §2{]}). This paper's derivation
-forces the specific output uniquely from the cubic-group commutant on
-\(K = 6\); in other universality-class members, the same output is
-produced through different group-theoretic structure, with the
-uniqueness depending on framework-specific structural conditions
-analogous to OI's A1--A6.
+three generations (chirality conditional on H-χ, §4.8), and one Higgs
+doublet --- is OI-specific (Level D × Level G2 of {[}Structure §2{]}).
+This paper's derivation forces the specific output uniquely from the
+cubic-group commutant on \(K = 6\); in other universality-class members,
+the same output is produced through different group-theoretic structure,
+with the uniqueness depending on framework-specific structural
+conditions analogous to OI's A1--A6.
 
 The distinction matters for what falsification of the framework would
 refute. Falsifying the commutant gauge-invariance pattern (e.g.,
