@@ -168,7 +168,7 @@ The reactor angle $\sin^2\theta_{13}$ uses only $A^2 = 2/3$ and $\lambda^2 = 1/(
 |-------|-----------|----------|-------|
 | $\sin^2\theta_{12}$ | $0.3080$ | $0.3085 \pm 0.0073$ (post-JUNO global fit) | $0.07\sigma$ |
 | $\sin^2\theta_{23}$ | $0.5507$ | $0.561^{+0.012}_{-0.015}$ (NuFIT 6.0, NO) | $0.74\sigma$ |
-| $\sin^2\theta_{13}$ | $0.02252$ | $0.02195 \pm 0.00056$ (NuFIT 6.0, NO) | $1.02\sigma$ |
+| $\sin^2\theta_{13}$ | $0.02252$ | $0.02195 \pm 0.00056$ (NuFIT 6.0, NO) | $1.01\sigma$ |
 
 All three predictions match observation within $1.1\sigma$ at current precision. The solar mixing angle value is the framework's sharpest neutrino-sector empirical match — a parameter-free retrodiction at $0.07\sigma$ from the post-JUNO global fit; the derivation (2026) postdates the first results (November 2025), and JUNO's design-lifetime precision (§8.8) is the corresponding pre-registered forward test, well within experimental uncertainty.
 

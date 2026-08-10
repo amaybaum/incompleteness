@@ -981,7 +981,7 @@ $$\sin^2\theta_{13} = \frac{4}{9} \cdot \frac{1}{2\pi^2} = \frac{4}{18\pi^2} = 0
 |-------|-----------|----------|-------|
 | $\sin^2\theta_{12}$ | 0.3080 | 0.3085 ± 0.0073 (post-JUNO global fit [27]) | $0.07\sigma$ |
 | $\sin^2\theta_{23}$ | 0.5507 | 0.561$^{+0.012}_{-0.015}$ (NuFIT 6.0, NO) | $0.74\sigma$ |
-| $\sin^2\theta_{13}$ | 0.02252 | 0.02195 ± 0.00056 (NuFIT 6.0, NO) | $1.02\sigma$ |
+| $\sin^2\theta_{13}$ | 0.02252 | 0.02195 ± 0.00056 (NuFIT 6.0, NO) | $1.01\sigma$ |
 
 The three predictions have different structural status, made precise in the derivation below and in §8.3's four-layer classification. The reactor angle prediction $\sin^2\theta_{13}$ depends only on $A_1$ at second order — the $A_2$ coefficients cancel from $|U_{e3}|^2$ — and is therefore independent of Condition 2 (the structural relation among $A_2$ coefficients introduced below). The solar angle and atmospheric angle predictions $\sin^2\theta_{12}$ and $\sin^2\theta_{23}$ depend on Cond 2 jointly: they are equivalent (via the sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$) to the relation $b_{23} = (4/3)(b_{12}+b_{13})$. After the structural decomposition of "Status of Cond 2" below, this relation has an $A_1$ component closed at Layer 1 (sum rule preserved by $A_1$ alone via the $\cos^2\theta_{13}$ dressing) and an $A_2$ component whose substrate ratio $b_{23}/(b_{12}+b_{13}) = 4/3 = 2A^2$ was Layer 2(a)-tractable until its defining substrate calculation was performed (§7.3, "Status of Cond 2") and excluded the second-order route — demoting it to Layer 2(b), with the $7/6$ sum rule as its direct experimental test. Within the four-layer structural framework of §8.3, $\sin^2\theta_{13}$ is a Layer 1 unconditional structural prediction, while $\sin^2\theta_{12}$ and $\sin^2\theta_{23}$ are layered predictions: Layer 1 form combined with the Layer 2(b) Cond 2 coefficient.
 
@@ -1249,7 +1249,7 @@ Twenty-two quantitative observables from a $d = 3$ cubic lattice with spacing $\
 | $m_u/m_d$ | $\sqrt{2/9}$ | 0.4714 | 0.465 ± 0.024 | $0.27\sigma$ | **L**ᵉ |
 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | 0.3080 | 0.3085 ± 0.0073 (Capozzi 2025 post-JUNO global) | $0.07\sigma$ | **L**ᶠ |
 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | 0.5507 | 0.561$^{+0.012}_{-0.015}$ (NuFIT 6.0, NO) | $0.74\sigma$ | **L**ᶠ |
-| $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | 0.02252 | 0.02195 ± 0.00056 (NuFIT 6.0, NO) | $1.02\sigma$ | **S** |
+| $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | 0.02252 | 0.02195 ± 0.00056 (NuFIT 6.0, NO) | $1.01\sigma$ | **S** |
 | $\lambda(M_{\text{Pl}}) = 0$ | composite Higgs | 0 | $-0.013 \pm 0.020$ | $0.6\sigma$ | **S** |
 | $m_H$ (from $\lambda(M_{\text{Pl}}) = 0$, $m_t$) | RGE running | 129–132 GeV | 125.10 ± 0.14 | $m_t$-consistent | **M** ($m_t$) |
 | $m_b/m_\tau$ | $4.28/Z_S(\lambda g_0^2)$ | 2.361 | 2.352 | $0.5\sigma$ | **L**ᵇ |
@@ -1306,7 +1306,7 @@ The framework's empirical case therefore rests on two independent structural ing
 
 The coincidence bound of §7.7 quantifies how concentrated the framework's *retrodictive* content is. It does not, and cannot, address a distinct and more fundamental concern: every quantity in §7.1–§7.5 is a known value, and a framework developed with knowledge of its targets will tend to reproduce them whether or not its underlying structure is correct, because the development process has access to the answers. No internal analysis — no coincidence bound, no audit, no re-derivation — distinguishes "the structure forced these values" from "the known values guided the construction of the structure." Only a prediction of a value *not known at construction time* breaks this symmetry. This subsection separates the framework's genuinely forward content from its retrodictions and states it as such, because the forward content is the only part that bears on the retrodiction-vs-prediction distinction.
 
-**The JUNO precedent (a realized forward prediction).** The solar mixing angle prediction $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ is the framework's one realized forward prediction to date, and its status as *forward* rather than retrodictive is a matter of public record. The framework's value was fixed by the cubic-group structure independent of the neutrino data; the JUNO first oscillation result (November 2025) and the subsequent post-JUNO global fit (Capozzi et al.) tightened the experimental central value onto $0.3085 \pm 0.0073$ — a $0.07\sigma$ agreement — *after* the structural value was set. The relevant epistemic fact is not the smallness of the $\sigma$-distance but the temporal order: the prediction did not move to meet the data; the data moved to meet a prediction whose value was determined by representation theory. This is the one place where the post-hoc-selection concern is directly answered rather than argued.
+**The JUNO match (a retrodiction with a pre-registered forward conversion).** The solar mixing angle value $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ matches JUNO's first oscillation result (November 2025) at $0.14\sigma$ and the post-JUNO global fit ($0.3085 \pm 0.0073$, Capozzi et al.) at $0.07\sigma$. The derivation postdates the November-2025 measurement, so the match is retrodictive and belongs to the compression claim of §7.7; the post-hoc-selection concern of this subsection applies to it in full. What the exact, freedom-free form supplies is the framework's cleanest forward conversion: the value admits no adjustment, so JUNO's design-lifetime precision ($\pm 0.0014$) will test the same number at a $6\times$ tighter error — a pre-registered commitment whose outcome the framework cannot absorb.
 
 **Registered forward predictions (not yet measured to testing precision).** The same construction forces the following, stated here as pre-registered commitments whose values are fixed by the framework before the measurements that will test them:
 
@@ -1315,7 +1315,7 @@ The coincidence bound of §7.7 quantifies how concentrated the framework's *retr
 3. *The reactor angle* $\sin^2\theta_{13} = 4/(18\pi^2) = 0.02252$, unconditional structural (Layer 1). Already consistent with current data; tightening reactor measurements provide a continuing test against a value the framework cannot adjust.
 4. *Continued JUNO precision on* $\sin^2\theta_{12}$. JUNO's 30-year design lifetime projects $\pm 0.0014$ on $\sin^2\theta_{12}$, a $6\times$ improvement. The framework's $0.30798$ is tested at sub-percent precision against a value it committed to before this precision exists; a $2\sigma$ ultimate disagreement falsifies it.
 
-**Distinction from a parameter-fitted account.** A framework that accommodated the known mixing angles by fitting would retain latitude to absorb a future measurement that moved against it. The four predictions above have no such latitude: they are forced by the same cubic-group structure that produces the retrodictions, with no free parameter to adjust if the data moves. The retrodiction-vs-prediction concern of §7.7 is therefore not resolved by the retrodictions themselves; it is resolved, to the extent it can be resolved, by the JUNO precedent already realized and by the registered predictions above as they are measured. The framework's correctness is not internally decidable from the known-value matches; it is decidable, in either direction, by the forward predictions, which are stated in advance and carry fixed values.
+**Distinction from a parameter-fitted account.** A framework that accommodated the known mixing angles by fitting would retain latitude to absorb a future measurement that moved against it. The four predictions above have no such latitude: they are forced by the same cubic-group structure that produces the retrodictions, with no free parameter to adjust if the data moves. The retrodiction-vs-prediction concern of §7.7 is therefore not resolved by the retrodictions themselves; it is resolved, to the extent it can be resolved, by the registered predictions above as they are measured. The framework's correctness is not internally decidable from the known-value matches; it is decidable, in either direction, by the forward predictions, which are stated in advance and carry fixed values.
 
 ---
 
@@ -1675,13 +1675,13 @@ The source code under `papers/oi_lattice_code/`, together with the run drivers a
 
 [23] P. F. Harrison, D. H. Perkins, and W. G. Scott, "Tri-bimaximal mixing and the neutrino oscillation data," *Phys. Lett. B* **530**, 167 (2002).
 
-[24] JUNO Collaboration (A. Abusleme et al.), "First measurement of reactor neutrino oscillation parameters from JUNO," (2025).
+[24] JUNO Collaboration (A. Abusleme et al.), "First measurement of reactor neutrino oscillations at JUNO," arXiv:2511.14593 (2025); Nature 654, 343 (2026).
 
 [25] D. Buttazzo, G. Degrassi, P. P. Giardino, G. F. Giudice, F. Sala, A. Salvio, and A. Strumia, "Investigating the near-criticality of the Higgs boson," *JHEP* **12**, 089 (2013).
 
 [26] CMS Collaboration, "Measurement of the top quark mass using events with a single reconstructed top quark," (2024).
 
-[27] F. Capozzi, E. Lisi, F. Marcone, A. Marrone, and A. Palazzo, "Updated bounds on the (1,2) neutrino oscillation parameters after first JUNO results," arXiv:2511.21650 (2025).
+[27] F. Capozzi, E. Lisi, F. Marcone, A. Marrone, and A. Palazzo, "Updated bounds on the (1,2) neutrino oscillation parameters after first JUNO results," arXiv:2511.21650 (2025); Phys. Rev. D 114, 016026 (2026).
 
 [28] J. A. Barandes, "The Stochastic-Quantum Correspondence," *Foundations of Physics* **53**, 82 (2023); arXiv:2302.10778.
 

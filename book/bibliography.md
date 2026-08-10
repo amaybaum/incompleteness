@@ -78,7 +78,7 @@ Wood, C. J., & Spekkens, R. W. (2015). The lesson of causal discovery algorithms
 
 't Hooft, G. (1993). Dimensional reduction in quantum gravity. *arXiv*:gr-qc/9310026. [Origin of the holographic principle.]
 
-Capozzi, F., Di Valentino, E., Lisi, E., Marrone, A., Melchiorri, A., & Palazzo, A. (2025). Updated bounds on the (1,2) neutrino oscillation parameters after first JUNO results. *arXiv*:2511.21650.
+Capozzi, F., Lisi, E., Marcone, F., Marrone, A., & Palazzo, A. (2025). Updated bounds on the (1,2) neutrino oscillation parameters after first JUNO results. *arXiv*:2511.21650. *Physical Review D* 114: 016026 (2026).
 
 Cabibbo, N. (1963). Unitary symmetry and leptonic decays. *Physical Review Letters* 10: 531-533. [Original Cabibbo angle.]
 
@@ -86,7 +86,7 @@ Cech, T. R. (1989). Self-splicing and enzymatic activity of an intervening seque
 
 Cech, T. R., Zaug, A. J., & Grabowski, P. J. (1981). In vitro splicing of the ribosomal RNA precursor of *Tetrahymena*: involvement of a guanosine nucleotide in the excision of the intervening sequence. *Cell* 27: 487-496.
 
-JUNO Collaboration (2025). First measurement of reactor neutrino oscillations at JUNO. *arXiv*:2511.14593, published November 2025. Reports $\sin^2\theta_{12} = 0.3092 \pm 0.0087$ and $\Delta m^2_{21} = (7.50 \pm 0.12) \times 10^{-5}\,\text{eV}^2$ from the first 59.1 days of data collected after detector completion in August 2025.
+JUNO Collaboration (2025). First measurement of reactor neutrino oscillations at JUNO. *arXiv*:2511.14593; *Nature* 654: 343 (2026). Reports $\sin^2\theta_{12} = 0.3092 \pm 0.0087$ and $\Delta m^2_{21} = (7.50 \pm 0.12) \times 10^{-5}\,\text{eV}^2$ from the first 59.1 days of data collected after detector completion in August 2025.
 
 Koide, Y. (1983). Fermion-boson two-body model of quarks and leptons and Cabibbo mixing. *Lettere al Nuovo Cimento* 34: 201-205. [Original Koide relation.]
 

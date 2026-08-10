@@ -5,7 +5,7 @@
 
 ## 9.1 What this chapter develops
 
-Chapters 5 through 8 developed the framework's empirical record in fundamental physics: twenty-two classified Standard Model retrodictions (seven parameter-free structural), the sharpest matched within $0.02\%$ to $1.2\%$, thirteen gravitational-sector predictions matched within $0.04\%$ to $0.5\%$ where a direct test exists (the Bekenstein-Hawking coefficient is derived but untested; GW250114 constrains the area theorem), seven neutrino-sector predictions matched within $0.07\sigma$ to $1.02\sigma$. The empirical case for the framework's structural commitments is concentrated in those four chapters, with the framework's content tested against high-precision experimental data across the sectors of fundamental physics where the framework makes specific quantitative claims.
+Chapters 5 through 8 developed the framework's empirical record in fundamental physics: twenty-two classified Standard Model retrodictions (seven parameter-free structural), the sharpest matched within $0.02\%$ to $1.2\%$, thirteen gravitational-sector predictions matched within $0.04\%$ to $0.5\%$ where a direct test exists (the Bekenstein-Hawking coefficient is derived but untested; GW250114 constrains the area theorem), seven neutrino-sector predictions matched within $0.07\sigma$ to $1.01\sigma$. The empirical case for the framework's structural commitments is concentrated in those four chapters, with the framework's content tested against high-precision experimental data across the sectors of fundamental physics where the framework makes specific quantitative claims.
 
 This chapter is different. The framework's content is *not* a competitor to other unification programs that operate at the same level — it is a structural framework at a different level than string theory, loop quantum gravity, or grand unified theories. Locating the framework within the broader theoretical landscape, articulating what classes of results the framework establishes at the universality-class level rather than at the specific-bijection level, and identifying convergences and divergences with mainstream physics literature — these are the chapter's content.
 
@@ -70,7 +70,7 @@ The framework's empirical case is therefore largely a case at the *structural* l
 |-----------------|-------------|-----------------|
 | Level G4 (universality class) | $S = A/(4 l_p^2)$, CC dissolution, $\hbar$ from partition geometry, RVM form | structural ($1/4$ untested directly) |
 | Level G2 (substratum properties) | $\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$, three generations, no GUT, $a_0 = cH/6$, no DM particle | Concordance |
-| Level G3 (specific bijection) | Cabibbo angle, Koide relation, PMNS angles, sum rule, gauge couplings at $M_Z$ | $0.04\%$-$1.02\sigma$ across 22 predictions |
+| Level G3 (specific bijection) | Cabibbo angle, Koide relation, PMNS angles, sum rule, gauge couplings at $M_Z$ | $0.04\%$-$1.01\sigma$ across 22 predictions |
 | Level G3 (open) | Bottom-to-tau mass ratio, Koide angle's structural origin, $\delta_{\text{CP}}$ | Open research program |
 
 The framework's empirical exposure is therefore distributed across the hierarchy, with the strongest confirmations at the universality-class level and the open research program concentrated at the bijection-specific level. This distribution is what makes the hierarchical structural realism meaningful: different levels are tested with different empirical evidence, and the framework's content at each level is constrained by the corresponding empirical record.
@@ -169,7 +169,7 @@ The empirical record at Tier 3 summarizes as follows.
 | Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ | $0.04\%$ | Ch 6 §6.5 |
 | Koide relation $Q = 2/3$ | $0.02\%$ | Ch 6 §6.5 |
 | $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | $0.07\sigma$ from post-JUNO global fit | Ch 8 §8.6 |
-| $\sin^2\theta_{13} = 4/(18\pi^2)$ | $1.02\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
+| $\sin^2\theta_{13} = 4/(18\pi^2)$ | $1.01\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
 | $\sin^2\theta_{23} = 1/2 + 1/(2\pi^2)$ | $0.74\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
 | Sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ | $0.6\sigma$ | Ch 8 §8.6 |
 | Three gauge couplings at $M_Z$ | $< 0.1\%$ | Ch 6 §6.4 |
