@@ -496,7 +496,7 @@ The repository is archived on Zenodo with concept DOI [10.5281/zenodo.19060318](
 
 ## ACKNOWLEDGEMENTS
 
-During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining argumentation, and verifying bibliographic details. The author reviewed and edited all content and takes full responsibility for the publication. An anonymous technical review (2026) supplied the counterexamples that sharpened the reverse-dilation lemma and replaced the hidden-capacity corollary with its per-process form (§3.2, §3.4), and proposed the mixing hypothesis developed into the quantitative C2 theorem (§3.4). A second-round anonymous technical review (2026) supplied the one-way-coupling and Hadamard counterexamples, the process-dilation gap, and the time-homogeneity boundary example repaired in §1.3, §3.2, and §3.4 of this revision, and caught a seed-argument regression in two analysis drivers.
+During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining argumentation, and verifying bibliographic details. The author reviewed and edited all content and takes full responsibility for the publication.
 
 ---
 
