@@ -701,9 +701,11 @@ static void measure_plaquettes(double *p3, double *p2, double *p1) {
  * Main HMC
  * ================================================================ */
 int main(int argc, char *argv[]) {
+    unsigned oi_seed = 20260810u;
     int hot_start = 0;
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i],"-L") && i+1<argc) L=atoi(argv[++i]);
+        else if (!strcmp(argv[i],"-seed") && i+1<argc) oi_seed=(unsigned)atoi(argv[++i]);
         else if (!strcmp(argv[i],"-mass") && i+1<argc) mass=atof(argv[++i]);
         else if (!strcmp(argv[i],"-dt") && i+1<argc) dt=atof(argv[++i]);
         else if (!strcmp(argv[i],"-nsteps") && i+1<argc) nsteps=atoi(argv[++i]);
@@ -713,7 +715,7 @@ int main(int argc, char *argv[]) {
         else if (!strcmp(argv[i],"-hot")) hot_start=1;
     }
     
-    srand(time(NULL));
+    srand(oi_seed); printf("# seed = %u\n", oi_seed);
     init_geometry();
     init_gauge(hot_start);
     phi = (double complex*)malloc(NDOF*sizeof(double complex));

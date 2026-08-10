@@ -229,7 +229,7 @@ The consequence for the transition matrix is direct. Each visible-sector transit
 
 The contrapositive is the C2 necessity statement: observable P-indivisibility on accessible timescales requires the fast-bath regime to fail, i.e., requires $\tau_S \ll \tau_B$ — condition C2.
 
-ETH is conjectural rather than fully proved, and the necessity of C2 is therefore conditional on the ETH assumption. For the cosmological hidden sector — a generic chaotic many-body system at scales where the standard ergodic-hypothesis arguments apply — ETH is the standard assumption and is supported by extensive numerical evidence in analogous systems. The C2 necessity argument is conditional on ETH; the C1 and C3 necessity arguments are not.
+The necessity of C2 is conditional on a quantitative mixing hypothesis — uniform total-variation closeness of the hidden sector's post-relaxation conditionals to a single bath distribution — under which the divisibility deficit is bounded by an explicit constant times the mixing parameter ([Main §3.4]); ETH, conjectural rather than fully proved, is the physical case for that hypothesis. For the cosmological hidden sector — a generic chaotic many-body system at scales where the standard ergodic-hypothesis arguments apply — ETH is the standard assumption and is supported by extensive numerical evidence in analogous systems. The C2 necessity argument is conditional on the mixing hypothesis, with ETH as its motivation; the C1 and C3 necessity arguments are not.
 
 **Necessity of C3.** Let $m = |\mathcal{C}_H|$. The non-Markovian mutual information is bounded by hidden-sector capacity:
 $$I(X_{<t}; X_{>t} \mid X_t) \leq \log_2 m.$$
