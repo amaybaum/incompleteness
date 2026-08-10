@@ -211,15 +211,17 @@ substratum's coupling-graph locality (§3.1, scope remark; §3.4). The
 converse direction (any quantum system, realized as a deterministic
 dilation, requires non-trivial coupling, slow-bath memory, and
 sufficient hidden-sector capacity) holds with the C2 necessity step
-conditional on the eigenstate thermalization hypothesis in the hidden
-sector (§3.4). The Schrödinger equation, Born rule, and Bell violations
-emerge as structural consequences within this representation, requiring
-no independent quantum postulates beyond the correspondence itself. The
-framework's posture is therefore one of \emph{identification} ---
-quantum mechanics as the description of a particular kind of incomplete
-observation --- rather than derivation of quantum mechanics from a
-parameter-free first principle; the distinction is the proper locus of
-skeptical scrutiny.
+conditional on a quantitative hidden-sector mixing hypothesis ---
+uniform total-variation closeness of post-relaxation conditionals to a
+single bath distribution, with an explicit divisibility bound and ETH as
+the physical motivation (§3.4). The Schrödinger equation, Born rule, and
+Bell violations emerge as structural consequences within this
+representation, requiring no independent quantum postulates beyond the
+correspondence itself. The framework's posture is therefore one of
+\emph{identification} --- quantum mechanics as the description of a
+particular kind of incomplete observation --- rather than derivation of
+quantum mechanics from a parameter-free first principle; the distinction
+is the proper locus of skeptical scrutiny.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1635,7 +1637,7 @@ P-indivisible iff \(T\) is not a permutation matrix.}
 \(\Lambda(k_2, k_1) = T^{(k_2-k_1)}\) is a valid stochastic matrix for
 all \(k_2 > k_1\) \(\Rightarrow\) P-divisible. \(\square\)
 
-\textbf{Theorem (C2 necessity, conditional on ETH).} \emph{Assume the
+\textbf{Theorem (C2 necessity via ETH dephasing).} \emph{Assume the
 hidden-sector Hamiltonian \(H_H\) satisfies the eigenstate
 thermalization hypothesis (ETH) {[}17, 18{]}. Then in the fast-bath
 regime (\(\tau_B \ll \tau_S\)), the hidden sector dephases to its
@@ -1682,6 +1684,64 @@ the full ETH/dephasing condition; the relevant machinery for chaotic
 open quantum systems in the weak-memory regime is established in {[}3,
 8, 17, 18{]}. \(\square\)
 
+\textbf{Theorem (C2 necessity, quantitative mixing form).} \emph{Model
+one coupling step as the uniform-prior bijection marginal of §3.2's
+construction, and between coupling events let the hidden sector evolve
+by any map on the hidden conditional. Suppose the mixing hypothesis
+holds: there is a single distribution \(\pi_H\) such that every realized
+post-relaxation hidden conditional, given the visible record to date,
+lies within \(\varepsilon\) of \(\pi_H\) in total variation. Then the
+\(k\)-step visible marginal satisfies}
+
+\[\| T^{(k)} - T^k \|_{\mathrm{TV}} \;\leq\; (k-1)\,\varepsilon\]
+
+\emph{in the max-row total-variation norm, and the constant is optimal:
+no bound \(C\varepsilon\) with \(C < 1\) holds at \(k = 2\).
+Contrapositively, observable P-indivisibility of magnitude \(\delta\) at
+step order \(k\) forces \(\varepsilon \geq \delta/(k-1)\): the hidden
+conditionals must retain memory of the visible record --- the slow-bath
+condition in operational form.}
+
+\emph{Proof.} For \(k = 2\): with \(\mu'_{x_0 x_1}\) the post-relaxation
+conditional given the visible record \((x_0, x_1)\) and
+\(\Delta = \mu'_{x_0 x_1} - \pi_H\),
+
+\[T^{(2)}_{x_0 x_2} - (T^2)_{x_0 x_2} = \sum_{x_1} T_{x_0 x_1} \sum_h \Delta(h)\, P_\varphi(x_2 \mid x_1, h),\]
+
+where \(P_\varphi(x_2 \mid x_1, h) \in \{0, 1\}\) is the bijection's
+visible step. Taking the row's total variation and the triangle
+inequality,
+\(\tfrac{1}{2}\sum_{x_2} |\cdot| \leq \sum_{x_1} T_{x_0 x_1} \cdot \tfrac{1}{2} \sum_h |\Delta(h)| \sum_{x_2} P_\varphi(x_2 \mid x_1, h) = \sum_{x_1} T_{x_0 x_1}\, \mathrm{TV}(\mu'_{x_0 x_1}, \pi_H) \leq \varepsilon\)
+--- pushing two hidden distributions through the same channel contracts
+total variation. For general \(k\), telescope through the hybrids
+\(A_j = T^{(j)}\, T^{k-j}\): \(A_1 = T^k\), \(A_k = T^{(k)}\), and
+\(\|A_{j+1} - A_j\| = \|(T^{(j+1)} - T^{(j)} T)\, T^{k-j-1}\| \leq \|T^{(j+1)} - T^{(j)} T\| \leq \varepsilon\),
+since right-multiplication by a stochastic matrix contracts the norm and
+the middle difference is the \(k = 2\) argument applied at slot \(j+1\).
+Summing the \(k - 1\) differences gives the bound. Optimality: the
+two-hidden-state revival bijection of §3.4's corollary, taken with zero
+relaxation, has \(\varepsilon = \tfrac{1}{2}\) (its post-step
+conditionals are point masses, maximally far from uniform at \(m = 2\))
+and \(\|T^{(2)} - T^2\| = \tfrac{1}{2}\), saturating the bound.
+\(\square\)
+
+\emph{Remark (role of ETH, restated).} \emph{The necessity direction
+rests on the mixing hypothesis above --- an operational,
+in-principle-measurable condition --- not on ETH itself. ETH is the
+physical case for the hypothesis: dephasing to the diagonal ensemble is
+the mechanism by which a generic chaotic hidden sector drives
+\(\varepsilon\) small between coupling events (previous theorem). A
+hidden sector failing ETH but satisfying the mixing bound still delivers
+the necessity direction; a hidden sector satisfying ETH for few-body
+observables while retaining conditional-distribution memory (conserved
+quantities, slow modes) is exactly the case the quantitative form guards
+against. The bound, its optimality, and the fact that the revival
+counterexample violates the hypothesis maximally are certified
+deterministically by
+\texttt{papers/oi\_lattice\_code/foundations/c2\_mixing\_probes.py}
+(preregistered ensemble: 21\{,\}000 exact rational evaluations, zero
+violations; all three controls green).}
+
 \textbf{Remark (Status of ETH).} \emph{The eigenstate thermalization
 hypothesis is a well-supported conjecture, not a theorem, for generic
 chaotic many-body Hamiltonians. It is proved for specific models (random
@@ -1689,10 +1749,13 @@ matrix ensembles, certain integrable-chaotic transitions) and supported
 by extensive numerical evidence across many systems {[}17, 18{]}. For
 the OI framework's hidden sector --- the cosmological-horizon
 complement, a generic chaotic many-body system --- ETH is the standard
-assumption. The C2 necessity direction is therefore conditional on ETH;
-relaxations or failures of ETH would require a separate argument. For
-the framework's specific substratum, moreover, the chaoticity underlying
-ETH is not merely the standard assumption: the realized bijection's
+assumption. The C2 necessity direction is conditional on the
+quantitative mixing hypothesis (the theorem above); ETH is the physical
+case for that hypothesis rather than the load-bearing assumption, so
+relaxations or failures of ETH bear on how the hypothesis is argued for
+the framework's hidden sector, not on the theorem that uses it. For the
+framework's specific substratum, moreover, the chaoticity underlying ETH
+is not merely the standard assumption: the realized bijection's
 discretization nonlinearity is numerically demonstrated to be chaotic
 --- two-trajectory Lyapunov measurement, \(\lambda_{\max} > 0\);
 spectral-continuity, thermalization, cycle-consolidation, and orbit
@@ -1704,10 +1767,11 @@ not depend on ETH.}
 
 \textbf{Remark (Consequence for the characterization theorem).}
 \emph{The full biconditional (i) ⇔ (ii) ⇔ (iii) of the characterization
-theorem below is similarly conditional on ETH for the (ii) ⇒ (iii)
-direction specifically. The other directions --- (i) ⇔ (ii) from {[}11,
-12{]}; (iii) ⇒ (ii) from §2.3; C1 and C3 necessity from their own proofs
---- are unconditional.}
+theorem below is similarly conditional on the ε-mixing hypothesis for
+the (ii) ⇒ (iii) direction specifically (the quantitative form above;
+ETH is its physical motivation). The other directions --- (i) ⇔ (ii)
+from {[}11, 12{]}; (iii) ⇒ (ii) from §2.3; C1 and C3 necessity from
+their own proofs --- are unconditional.}
 
 \textbf{Theorem (C3 necessity).} \emph{Let \(m = |\mathcal{C}_H|\). The
 non-Markovian mutual information satisfies:}
@@ -1776,8 +1840,9 @@ stochastic process on a finite configuration space \(\mathcal{C}_V\)
 with \(|\mathcal{C}_V| \geq 2\), and consider dynamics on accessible
 timescales \(t \ll t_R\) where \(t_R\) is the Poincaré recurrence time
 of any realizing substrate. Assume the hidden sector of any candidate
-realization satisfies ETH {[}17, 18{]}. Then the following are
-equivalent:}
+realization satisfies the mixing hypothesis of the quantitative C2
+theorem (§3.4) in the small-\(\varepsilon\) regime --- ETH {[}17, 18{]}
+being its physical motivation. Then the following are equivalent:}
 
 \emph{(i) \(\mathcal{S}\) is mathematically equivalent to unitarily
 evolving QM (in the sense of the preceding definition).}
@@ -2496,7 +2561,11 @@ During the preparation of this work, the author used Claude Opus 4.6
 (Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining
 argumentation, and verifying bibliographic details. The author reviewed
 and edited all content and takes full responsibility for the
-publication.
+publication. An anonymous technical review (2026) supplied the
+counterexamples that sharpened the reverse-dilation lemma and replaced
+the hidden-capacity corollary with its per-process form (§3.2, §3.4),
+and proposed the mixing hypothesis developed into the quantitative C2
+theorem (§3.4).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 

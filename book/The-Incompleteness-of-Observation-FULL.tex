@@ -2501,13 +2501,18 @@ The contrapositive is the C2 necessity statement: observable
 P-indivisibility on accessible timescales requires the fast-bath regime
 to fail, i.e., requires \(\tau_S \ll \tau_B\) --- condition C2.
 
-ETH is conjectural rather than fully proved, and the necessity of C2 is
-therefore conditional on the ETH assumption. For the cosmological hidden
-sector --- a generic chaotic many-body system at scales where the
-standard ergodic-hypothesis arguments apply --- ETH is the standard
-assumption and is supported by extensive numerical evidence in analogous
-systems. The C2 necessity argument is conditional on ETH; the C1 and C3
-necessity arguments are not.
+The necessity of C2 is conditional on a quantitative mixing hypothesis
+--- uniform total-variation closeness of the hidden sector's
+post-relaxation conditionals to a single bath distribution --- under
+which the divisibility deficit is bounded by an explicit constant times
+the mixing parameter ({[}Main §3.4{]}); ETH, conjectural rather than
+fully proved, is the physical case for that hypothesis. For the
+cosmological hidden sector --- a generic chaotic many-body system at
+scales where the standard ergodic-hypothesis arguments apply --- ETH is
+the standard assumption and is supported by extensive numerical evidence
+in analogous systems. The C2 necessity argument is conditional on the
+mixing hypothesis, with ETH as its motivation; the C1 and C3 necessity
+arguments are not.
 
 \textbf{Necessity of C3.} Let \(m = |\mathcal{C}_H|\). The non-Markovian
 mutual information is bounded by hidden-sector capacity:
@@ -16772,7 +16777,11 @@ framework's content reframes the ECT as a derived result: every physical
 observer is embedded (the cosmological horizon provides the partition),
 every embedded observer has access to BQP and nothing beyond, therefore
 every physical computation is in BQP. The reframing changes the ECT's
-epistemic status from conjecture to theorem.
+epistemic status from freestanding empirical conjecture to conditional
+theorem --- a derived result valid under the same explicit model
+hypotheses (uniform encoding, efficient preparation, control, and
+measurement, and polynomial-overhead fault tolerance) as the BQP
+characterization it rests on.
 
 Section 14.7 develops the BPP-BQP gap: quantum advantage is real but is
 \emph{a feature of partial observation} rather than of the universe
@@ -17147,9 +17156,9 @@ structural level of the framework's universality-class commitments
 rather than at the specific-implementation level --- and only as far as
 the model hypotheses reach.
 
-\hypertarget{the-extended-church-turing-thesis-as-a-theorem}{%
-\subsection{14.6 The Extended Church-Turing Thesis as a
-theorem}\label{the-extended-church-turing-thesis-as-a-theorem}}
+\hypertarget{the-extended-church-turing-thesis-as-a-conditional-theorem}{%
+\subsection{14.6 The Extended Church-Turing Thesis as a conditional
+theorem}\label{the-extended-church-turing-thesis-as-a-conditional-theorem}}
 
 The Extended Church-Turing Thesis (ECT) asserts that any physically
 realizable computation can be efficiently simulated by a quantum Turing
@@ -17477,7 +17486,7 @@ commitments are equally compatible with either answer. Conversely, a
 proof of P = NP (should one ever be produced) would not falsify the
 framework. The framework offers leverage only on the BQP-boundary
 question --- the question the BQP characterization theorem and the
-Extended Church-Turing Thesis as theorem address directly.
+Extended Church-Turing Thesis as conditional theorem address directly.
 
 \textbf{The boundary-characterization pattern across the
 Gödel-Turing-OI-Deutsch family.} The framework's silence on P vs NP fits
@@ -17760,9 +17769,10 @@ exact ceiling on computational capability.
 hypotheses of §14.1, BQP is the computational class accessible to
 embedded observers satisfying C1-C3.
 
-\emph{The Extended Church-Turing Thesis as theorem} (§14.6): every
-physical computation is in BQP, derived from the embedding and BQP
-characterization rather than postulated as an empirical conjecture.
+\emph{The Extended Church-Turing Thesis as conditional theorem} (§14.6):
+every physical computation is in BQP under the model hypotheses of the
+BQP characterization, derived from the embedding rather than postulated
+as a freestanding empirical conjecture.
 
 \emph{The BPP-BQP gap as cost of partial observation} (§14.7): quantum
 advantage is real but reflects the embedded observer's exploitation of

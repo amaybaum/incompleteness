@@ -633,9 +633,11 @@ static double measure_plaquette(void) {
  * ================================================================ */
 
 int main(int argc, char *argv[]) {
+    unsigned oi_seed = 20260810u;
     /* Parse arguments */
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-L") == 0 && i+1 < argc) L = atoi(argv[++i]);
+        else if (strcmp(argv[i], "-seed") == 0 && i+1 < argc) oi_seed = (unsigned)atoi(argv[++i]);
         else if (strcmp(argv[i], "-Nf") == 0 && i+1 < argc) Nf = atoi(argv[++i]);
         else if (strcmp(argv[i], "-mass") == 0 && i+1 < argc) mass = atof(argv[++i]);
         else if (strcmp(argv[i], "-dt") == 0 && i+1 < argc) dt = atof(argv[++i]);
@@ -655,7 +657,7 @@ int main(int argc, char *argv[]) {
     for (int i = 1; i < argc; i++)
         if (strcmp(argv[i], "-hot") == 0) hot_start = 1;
     
-    srand(time(NULL));
+    srand(oi_seed); printf("# seed = %u\n", oi_seed);
     
     /* Initialize */
     init_geometry();

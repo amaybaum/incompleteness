@@ -144,8 +144,9 @@ int main(int argc, char **argv) {
     int nthm = argc>3 ? atoi(argv[3]) : 100;
     double beta = argc>4 ? atof(argv[4]) : 11.10;
     double mass = argc>5 ? atof(argv[5]) : 0.20;
+    unsigned oi_seed = argc>6 ? (unsigned)atoi(argv[6]) : 20260810u;
     
-    srand(time(NULL)); VOL=L*L*L;
+    srand(oi_seed); printf("# seed = %u\n", oi_seed); VOL=L*L*L;
     U = malloc(VOL*DIM*sizeof(Mat));
     for(int i=0;i<VOL*DIM;i++) U[i]=mat_unit();
     
