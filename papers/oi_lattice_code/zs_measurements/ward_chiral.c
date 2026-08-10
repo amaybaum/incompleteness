@@ -163,8 +163,8 @@ int main(int argc, char **argv) {
     int ncfg=argc>2?atoi(argv[2]):20;
     int nthm=argc>3?atoi(argv[3]):100;
     double beta=argc>4?atof(argv[4]):11.10;
-    unsigned oi_seed = argc>5 ? (unsigned)atoi(argv[5]) : 20260810u;
     double mass=argc>5?atof(argv[5]):0.20;
+    unsigned oi_seed = argc>6 ? (unsigned)atoi(argv[6]) : 20260810u;
     int nnoise=8;
     
     srand(oi_seed); printf("# seed = %u\n", oi_seed); VOL=L*L*L;
