@@ -451,12 +451,18 @@ quantum mechanics \emph{emerges} under the conditions below.
 \subsubsection{1.3 Conditions on the Hidden
 Sector}\label{conditions-on-the-hidden-sector}}
 
-\textbf{(C1) Non-zero coupling.} \(H_{\text{int}} \neq 0\). The coupling
-is bidirectional. (Status: doubly anchored. Necessity --- observed Bell
-violations force C1, by the characterization theorem of §3.4.
-Realization --- at the cosmological horizon the ADM boundary Hamiltonian
-and the constraint structure supply a coupling \emph{stronger} than
-\(H_{\text{int}} \neq 0\) {[}GR §2.2{]}.)
+\textbf{(C1) Non-zero coupling.} \(H_{\text{int}} \neq 0\): the hidden
+state non-trivially affects the visible evolution --- at the bijection
+level, the visible update is not independent of the hidden state,
+equivalently \(T\) is not a permutation matrix (§2.3). (Status: doubly
+anchored. Necessity --- observed Bell violations force C1, by the
+characterization theorem of §3.4. Realization --- at the cosmological
+horizon the ADM boundary Hamiltonian and the constraint structure supply
+a \emph{bidirectional} coupling stronger than \(H_{\text{int}} \neq 0\)
+{[}GR §2.2{]}. Bidirectionality is a property of the physical
+realization, not part of C1's defining content: a one-way influenced
+process can be P-indivisible --- see the Remark at the C1-equivalence
+theorem, §3.4.)
 
 \textbf{(C2) Slow-bath timescale separation.} The visible-sector
 (system) timescale \(\tau_S\) is much shorter than the hidden-sector
@@ -1110,8 +1116,9 @@ stochastic matrix, and by Birkhoff--von Neumann is a convex combination
 of permutation matrices. A bijection on
 \(\mathcal{C}_V \times \mathcal{C}_H\) realising the required mixture is
 obtained by letting \(\mathcal{C}_H\) enumerate the permutations; for
-multi-step processes, the construction extends by history dilation.
-\(\square\)
+multi-step processes, the construction extends by history dilation ---
+made precise, with a structured prior, by the process-dilation theorem
+of §3.4. \(\square\)
 
 \emph{Remark.} This is the correspondence at the stochastic-process
 level: bijection ↔ stochastic matrix via marginalization, both
@@ -1339,13 +1346,44 @@ compatibility of an entanglement-breaking step with a P-indivisible
 visible process are certified by \texttt{eb\_pindivisibility\_tests.py}
 there as well.
 
-\textbf{Theorem (CP-indivisibility).} \emph{The P-indivisibility of §2.3
-implies CP-indivisibility of \(\{\Phi_t\}\): there exist
-\(t_2 > t_1 > 0\) with no CPTP map \(\Lambda\) satisfying
+\textbf{Lemma (diagonal preservation).} \emph{The channels
+\(\Phi_t(\rho) = \mathrm{Tr}_H[\,U^t(\rho \otimes \mu_H)\,U^{-t}]\) with
+\(U\) a permutation unitary map computational-diagonal states to
+computational-diagonal states.}
+
+\emph{Proof.} A permutation unitary conjugates a diagonal state to a
+diagonal state; the partial trace of a diagonal state is diagonal.
+\(\square\) (Certified exactly for \(t = 1, \ldots, 6\) in
+\texttt{c1\_cp\_scope\_probes.py}.)
+
+\textbf{Theorem (CP-indivisibility, framework scope).} \emph{For the
+permutation-dilation family \(\{\Phi_t\}\) above, the P-indivisibility
+of §2.3 implies CP-indivisibility: there exist \(t_2 > t_1 > 0\) with no
+CPTP map \(\Lambda\) satisfying
 \(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\).}
 
-\emph{Proof.} CP-divisibility restricted to diagonal inputs reduces to
-P-divisibility. The contrapositive gives the result. \(\square\)
+\emph{Proof.} Suppose such a \(\Lambda\) exists.
+\(M_{kj} := \langle j|\Lambda(|k\rangle\langle k|)|j\rangle\) is a
+stochastic matrix (positivity and trace preservation of \(\Lambda\)). By
+the Lemma,
+\(\Phi_{t_1}(|i\rangle\langle i|) = \sum_k T_{ik}(t_1)\,|k\rangle\langle k|\),
+so
+\(T_{ij}(t_2) = \langle j|\Lambda(\Phi_{t_1}(|i\rangle\langle i|))|j\rangle = \sum_k T_{ik}(t_1)\,M_{kj}\)
+--- P-divisibility of the population process. The contrapositive gives
+the result. \(\square\)
+
+\emph{Remark (scope: P-indivisibility is not quantum non-Markovianity).}
+For a general CPTP family the reduction fails:
+\(\Phi_{t_1} = \mathrm{Ad}_H\) (Hadamard), \(\Phi_{t_2} = \mathrm{id}\)
+is CP-divisible with a unitary intermediate map, while the
+computational-basis populations \(\tfrac{1}{2}J \to I\) are
+P-indivisible --- the intermediate map consumes coherences invisible to
+\(T(t_1)\). Stochastic P-indivisibility must therefore not be equated
+with open-system non-Markovianity outside the diagonal-preserving class;
+the framework's channels are in that class, which is what licenses the
+theorem. (Counterexample from an anonymous technical review, 2026;
+certified exactly over \(\mathbb{Q}(\sqrt{2})\) in
+\texttt{c1\_cp\_scope\_probes.py}.)
 
 By the Breuer-Laine-Piilo criterion {[}3, 4{]}, CP-indivisibility
 implies non-monotonic trace distance (information backflow) --- the
@@ -1638,17 +1676,33 @@ P-indivisible iff \(T\) is not a permutation matrix.}
 \(\Lambda(k_2, k_1) = T^{(k_2-k_1)}\) is a valid stochastic matrix for
 all \(k_2 > k_1\) \(\Rightarrow\) P-divisible. \(\square\)
 
-\textbf{Theorem (C2 necessity via ETH dephasing).} \emph{Assume the
-hidden-sector Hamiltonian \(H_H\) satisfies the eigenstate
-thermalization hypothesis (ETH) {[}17, 18{]}. Then in the fast-bath
-regime (\(\tau_B \ll \tau_S\)), the hidden sector dephases to its
-diagonal ensemble between coupling events, so the marginal dynamics on
-\(\mathcal{C}_V\) is Markovian on accessible timescales
-(\(T^{(k)} = T^k\)) and hence P-divisible. Contrapositively, observable
-P-indivisibility in an ETH hidden sector requires
-\(\tau_S \ll \tau_B\).}
+\emph{Remark (influence, not bidirectionality).} The equivalence is with
+hidden-to-visible influence, which is C1's defining content (§1.3); it
+does not force bidirectional coupling.
+\(\varphi(v, h) = (v \oplus h,\ h)\) on two visible and two hidden
+states has \(T^{(1)} = \tfrac{1}{2}J\) and \(T^{(2)} = I\) ---
+P-indivisible --- while the hidden update \(h' = h\) is independent of
+\(v\): the coupling is strictly one-way. Bidirectionality is a property
+of the physical realization ({[}GR §2.2{]}), recorded at C1's
+realization clause in §1.3. (Counterexample from an anonymous technical
+review, 2026; certified in \texttt{c1\_cp\_scope\_probes.py}.)
 
-\emph{Proof.} Between coupling events (separated by \(\tau_S\)), the
+\textbf{Physical motivation (ETH dephasing).} Assume the hidden-sector
+Hamiltonian \(H_H\) satisfies the eigenstate thermalization hypothesis
+(ETH) {[}17, 18{]}. Then in the fast-bath regime
+(\(\tau_B \ll \tau_S\)), the hidden sector dephases to its diagonal
+ensemble between coupling events, so the marginal dynamics on
+\(\mathcal{C}_V\) is Markovian on accessible timescales
+(\(T^{(k)} = T^k\)) and hence P-divisible; contrapositively, observable
+P-indivisibility in an ETH hidden sector requires \(\tau_S \ll \tau_B\).
+This is the physical mechanism behind the mixing hypothesis; the
+load-bearing necessity statement is the quantitative theorem below,
+whose contrapositive makes the requirement operational. The dephasing
+picture imports from ETH a conditional-distribution equilibration that
+ETH's few-body form does not by itself deliver (Remark, \emph{Status of
+ETH}), which is why it is carried as motivation rather than theorem.
+
+The mechanism: between coupling events (separated by \(\tau_S\)), the
 hidden sector evolves under its own Hamiltonian \(H_H\). The substratum
 dynamics is reversible, so there is no relaxation in the strict sense
 --- finite-dimensional Hamiltonian flow has purely imaginary spectrum
@@ -1683,7 +1737,7 @@ separation must be \(\tau_S \ll \tau_B\). The continuous-time extension
 to general Hamiltonian flow replaces the collision-model picture with
 the full ETH/dephasing condition; the relevant machinery for chaotic
 open quantum systems in the weak-memory regime is established in {[}3,
-8, 17, 18{]}. \(\square\)
+8, 17, 18{]}.
 
 \textbf{Theorem (C2 necessity, quantitative mixing form).} \emph{Model
 one coupling step as the uniform-prior bijection marginal of §3.2's
@@ -1725,6 +1779,17 @@ relaxation, has \(\varepsilon = \tfrac{1}{2}\) (its post-step
 conditionals are point masses, maximally far from uniform at \(m = 2\))
 and \(\|T^{(2)} - T^2\| = \tfrac{1}{2}\), saturating the bound.
 \(\square\)
+
+\emph{Remark (operational form of \(\tau_S \ll \tau_B\)).} Define the
+\emph{conditional mixing time} \(\tau_B(\varepsilon_0)\) as the least
+inter-coupling relaxation time after which every realized hidden
+conditional lies within \(\varepsilon_0\) of \(\pi_H\) in total
+variation. The theorem's contrapositive then reads as a timescale
+statement: memory of magnitude \(\delta\) at step order \(k\) requires
+the coupling to return before the bath's conditional mixing to
+\(\varepsilon < \delta/(k-1)\) completes ---
+\(\tau_S \ll \tau_B(\delta/(k-1))\). This derives C2's timescale form
+from the \(\varepsilon\)-bound rather than asserting it separately.
 
 \emph{Remark (role of ETH, restated).} \emph{The necessity direction
 rests on the mixing hypothesis above --- an operational,
@@ -1808,7 +1873,59 @@ enough'') is the conservative restatement of the per-process bound.
 \emph{The revival counterexample and the doubly-stochastic obstruction
 of §3.2 are certified by the deterministic probes in
 \texttt{papers/oi\_lattice\_code/foundations/}
-(\texttt{c3\_dilation\_probes.py}).}
+(\texttt{c3\_dilation\_probes.py}); the process-dilation construction
+below, the one-way-coupling counterexample, and the
+diagonal-preservation lemma are certified in
+\texttt{process\_dilation\_probes.py} and
+\texttt{c1\_cp\_scope\_probes.py} in the same directory.}
+
+\textbf{Theorem (finite-horizon process dilation).} \emph{Let
+\(\mathcal{S}\) be a stochastic process on \(\mathcal{C}_V\)
+(\(n = |\mathcal{C}_V| \geq 2\)) with rational multi-time law on a
+finite accessible horizon \(K\) (\(t \ll t_R\)). Then there exist a
+finite \(\mathcal{C}_H\), a bijection \(\varphi\) on
+\(\mathcal{C}_V \times \mathcal{C}_H\), and an initial hidden prior
+\(\mu_H\) independent of the visible initial state, such that the
+marginal process of \((\varphi, \mu_H)\) reproduces \(\mathcal{S}\)'s
+full multi-time joint law for all \(k \leq K\). The realization
+satisfies (C1) iff \(\mathcal{S}\) is non-trivial (\(T\) not a
+permutation), realizes (C2) in the static-bath form (\(\tau_B = \infty\)
+between couplings, hence \(\tau_S \ll \tau_B\)), and satisfies (C3) with
+\(|\mathcal{C}_H| \geq 2^{I^*}\). Rationality is no loss of generality:
+every finite \((\varphi, \mu_H)\) marginal has rational law, so
+finite-horizon realizability is equivalent to rationality.}
+
+\emph{Proof (constructive).} Let \(D\) be a common denominator of the
+conditional kernels \(P(x_{k+1} \mid x_0 \ldots x_k)\). Take
+\(\mathcal{C}_H = (\mathcal{C}_V \cup \{\square\})^K \times \mathbb{Z}_D^K \times \mathbb{Z}_{K+1}\)
+--- a history ledger, a randomness tape, and a clock --- with \(\mu_H\)
+uniform on
+\(\{\text{ledger} = \square^K,\ \text{clock} = 0\} \times \mathbb{Z}_D^K\).
+On well-formed states the step is
+\((x,\ (x_0 \ldots x_{c-1}),\ \mathbf{s},\ c) \mapsto (Q_{c+1}(x_0 \ldots x_{c-1}, x;\, s_{c+1}),\ (x_0 \ldots x_{c-1}, x),\ \mathbf{s},\ c+1)\),
+where \(Q\)'s tape fibers have sizes
+\(D \cdot P(\cdot \mid \text{past})\) (the conditional-quantile
+representation). The step is injective structurally --- the ledger's
+last entry recovers the pre-image regardless of the kernels --- and
+extends to a bijection of the finite product by completing the partial
+permutation on the complement. Marginalizing over the uniform tape
+reproduces each conditional exactly, hence the full joint by the chain
+rule. (C1): the one-step marginal is a permutation iff the first kernel
+is deterministic, so a non-trivial \(\mathcal{S}\) yields
+hidden-to-visible influence. (C2): the ledger and tape have no
+autonomous dynamics between couplings --- a static bath, the slow-bath
+limit. (C3): \(\log_2 |\mathcal{C}_H| \geq I^*\), consistent with the
+per-process bound above. Certified exactly on P-indivisible targets ---
+including the §3.2 revival family and a non-Markovian kernel set with
+\(T^{(2)} \neq (T^{(1)})^2\) --- by
+\texttt{process\_dilation\_probes.py} (full-joint equality in exact
+rational arithmetic; permutation control silent). \(\square\)
+
+\emph{Remark (prior structure).} The realization uses a structured prior
+--- uniform on the initialized ledger/clock sector times the tape. The
+uniform-prior one-step lemma of §3.2, with its doubly stochastic scope,
+is the special case and is unchanged: double stochasticity is a property
+of uniform-prior marginals, not of deterministic realizability as such.
 
 \textbf{Definition (unitarily evolving QM).} A stochastic process
 \(\mathcal{S}\) on a finite configuration space
@@ -1837,13 +1954,15 @@ state update, and the measurement formalism --- are addressed in the
 remarks following the theorem.
 
 \textbf{Characterization theorem.} \emph{Let \(\mathcal{S}\) be a
-stochastic process on a finite configuration space \(\mathcal{C}_V\)
-with \(|\mathcal{C}_V| \geq 2\), and consider dynamics on accessible
-timescales \(t \ll t_R\) where \(t_R\) is the Poincaré recurrence time
-of any realizing substrate. Assume the hidden sector of any candidate
-realization satisfies the mixing hypothesis of the quantitative C2
-theorem (§3.4) in the small-\(\varepsilon\) regime --- ETH {[}17, 18{]}
-being its physical motivation. Then the following are equivalent:}
+time-homogeneous stochastic process on a finite configuration space
+\(\mathcal{C}_V\) with \(|\mathcal{C}_V| \geq 2\) --- the class every
+iterated-bijection marginal inhabits --- and consider dynamics on
+accessible timescales \(t \ll t_R\) where \(t_R\) is the Poincaré
+recurrence time of any realizing substrate. Assume the hidden sector of
+any candidate realization satisfies the mixing hypothesis of the
+quantitative C2 theorem (§3.4) in the small-\(\varepsilon\) regime ---
+ETH {[}17, 18{]} being its physical motivation. Then the following are
+equivalent:}
 
 \emph{(i) \(\mathcal{S}\) is mathematically equivalent to unitarily
 evolving QM (in the sense of the preceding definition).}
@@ -1863,12 +1982,26 @@ dynamics observers can resolve, not for behavior at recurrence times).
 (iii) \(\implies\) (ii): §2.3, where the accessible-timescale lemma
 upgrades the bare recurrence-based P-indivisibility (which follows from
 C1 alone) to information backflow on observable timescales using C2 and
-C3. (ii) \(\implies\) (iii): the necessity theorems above --- C1 from
-the equivalence with non-permutation \(T\), C2 from the dephasing
-argument (without C2, \(T\) becomes Markovian on accessible timescales
-and information backflow disappears), C3 from the data-processing bound
-in its per-process form (\(m \geq 2^{I^*}\), matching the backflow the
-process exhibits). \(\square\)
+C3. (ii) \(\implies\) (iii): existence by the finite-horizon
+process-dilation theorem above, which reproduces the full multi-time
+law; the realization then satisfies the conditions by the necessity
+theorems --- C1 from the equivalence with non-permutation \(T\), C2 from
+the quantitative mixing theorem's contrapositive (conditional as stated
+in the Remark above), C3 from the data-processing bound in its
+per-process form (\(m \geq 2^{I^*}\), matching the backflow the process
+exhibits). \(\square\)
+
+\emph{Remark (scope: time-homogeneity).} The restriction to
+time-homogeneous processes is load-bearing for the fixed-\(\hat{H}\)
+form of (i). A non-autonomous quantum evolution such as
+\(U(t) = e^{-i \sigma_x t^2}\) (generated by \(H(t) = 2t\,\sigma_x\))
+has P-indivisible computational-basis populations, but \(\cos^2(t^2)\)
+is not almost-periodic and therefore not any fixed-\(\hat{H}\)
+ancilla-marginal --- (ii) without homogeneity does not deliver (i) as
+defined. The substratum's own processes are iterated single-bijection
+marginals, hence time-homogeneous, so the restriction costs the
+framework nothing. (Boundary example from an anonymous technical review,
+2026.)
 
 QM is not merely \emph{compatible with} embedded observation --- it is
 \emph{equivalent to} it.
@@ -2567,7 +2700,11 @@ publication. An anonymous technical review (2026) supplied the
 counterexamples that sharpened the reverse-dilation lemma and replaced
 the hidden-capacity corollary with its per-process form (§3.2, §3.4),
 and proposed the mixing hypothesis developed into the quantitative C2
-theorem (§3.4).
+theorem (§3.4). A second-round anonymous technical review (2026)
+supplied the one-way-coupling and Hadamard counterexamples, the
+process-dilation gap, and the time-homogeneity boundary example repaired
+in §1.3, §3.2, and §3.4 of this revision, and caught a seed-argument
+regression in two analysis drivers.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 

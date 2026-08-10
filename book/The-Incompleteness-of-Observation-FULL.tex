@@ -1628,9 +1628,14 @@ The cosmological hidden sector differs in three specific ways, and the
 framework's central theorem is that their conjunction forces emergent
 quantum mechanics.
 
-\textbf{Condition C1 (Non-zero coupling).} \(H_{\text{int}} \neq 0\).
-The horizon is not a static wall. Stress-energy conservation enforces
-dynamical correlations across it. Information flows in both directions.
+\textbf{Condition C1 (Non-zero coupling).} \(H_{\text{int}} \neq 0\):
+the hidden state non-trivially affects the visible evolution. The
+horizon is not a static wall --- stress-energy conservation enforces
+dynamical correlations across it, and in the physical realization
+information flows in both directions. The defining content of C1, and
+what the necessity argument delivers, is the hidden-to-visible
+influence; bidirectionality belongs to the realization ({[}Main §3.4{]},
+Remark at the C1-equivalence theorem).
 
 \textbf{Condition C2 (Slow-bath timescale separation).}
 \(\tau_S \ll \tau_B\). The hidden sector evolves much more slowly than
@@ -2171,7 +2176,12 @@ through intermediate times as a valid stochastic matrix product, the
 channel \(\Phi_{t_3 - t_1}\) cannot be factored as
 \(\Phi_{t_3 - t_2} \circ \Phi_{t_2 - t_1}\) for any valid quantum
 channel --- the candidate intermediate channel would not be completely
-positive.
+positive. The reduction from channel divisibility to population
+divisibility holds because the framework's channels are permutation
+dilations with uniform ancilla, which map computational-diagonal states
+to diagonal states; for a general CPTP family it fails --- a Hadamard
+pair is CP-divisible while its computational-basis populations are
+P-indivisible (Appendix B, Theorem B.2.5 and its scope note).
 
 The approximate unitarity of the visible-sector dynamics on observable
 timescales follows from the slow-bath condition C2 together with a
@@ -2534,8 +2544,11 @@ The three necessity arguments combine into the chapter's central result.
 \textbf{Characterization theorem.} \emph{Let \(\mathcal{S}\) be a
 stochastic process on a finite configuration space \(\mathcal{C}_V\)
 with \(|\mathcal{C}_V| \geq 2\), and consider dynamics on accessible
-timescales \(t \ll t_R\). Assume the hidden sector of any candidate
-realization satisfies ETH. Then the following are equivalent:}
+timescales \(t \ll t_R\); take \(\mathcal{S}\) time-homogeneous, the
+class every iterated-bijection marginal inhabits. Assume the hidden
+sector of any candidate realization satisfies the mixing hypothesis of
+the quantitative C2 theorem, ETH being its physical motivation. Then the
+following are equivalent:}
 
 \emph{(i) \(\mathcal{S}\) is mathematically equivalent to unitarily
 evolving quantum mechanics --- there exists a Hilbert space
@@ -25207,10 +25220,19 @@ of the substratum dynamics (under C1-C3) implies CP-indivisibility of
 \(\{\Phi_t\}\): there exist \(t_2 > t_1 > 0\) with no CPTP map
 \(\Lambda\) satisfying \(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\).}
 
-\emph{Proof.} CP-divisibility restricted to diagonal inputs reduces to
-P-divisibility. The contrapositive gives the result: if the
-diagonal-input dynamics is P-indivisible, the full quantum dynamics
-cannot be CP-divisible. \(\square\)
+\emph{Proof.} The framework's \(\Phi_t\) are permutation dilations with
+uniform ancilla, so they map computational-diagonal states to exactly
+diagonal states (a permutation unitary conjugates a diagonal state to a
+diagonal state; the partial trace preserves diagonality). If
+\(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\) with \(\Lambda\) CPTP, then
+\(M_{kj} := \langle j|\Lambda(|k\rangle\langle k|)|j\rangle\) is
+stochastic and, by the diagonality of
+\(\Phi_{t_1}(|i\rangle\langle i|)\), \(T(t_2) = T(t_1)\,M\) ---
+P-divisibility of the population process. The contrapositive gives the
+result. For a general CPTP family the diagonal-input reduction fails ---
+a Hadamard pair is CP-divisible with P-indivisible populations --- so
+the diagonal-preservation property is what licenses the step.
+\(\square\)
 
 By the Breuer-Laine-Piilo criterion, CP-indivisibility implies
 non-monotonic trace distance --- the \emph{information backflow}
