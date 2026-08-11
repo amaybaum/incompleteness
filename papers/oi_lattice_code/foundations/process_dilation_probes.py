@@ -162,28 +162,30 @@ print("P4: permutation target realized as a permutation process, P-divisible (co
 # ---------- P6: capacity (info, float) ----------
 # I* over the P3 horizon: I(X_{<t}; X_{>t} | X_t) at t = 1, 2 from the exact joint
 def Istar():
+    # I(X_{<t}; X_{>t} | X_t) with X0 uniform, aggregated over x0 BEFORE the
+    # information computation (b55 fix: the earlier per-x0 aggregation dropped
+    # the X0 uncertainty from A and under-reported I*; review-3 finding).
     best = 0.0
-    for x0 in range(3):
-        J = joint_from_kernels(kR, 3, 3, x0)  # dist over (x1,x2,x3) given x0
-        for t in (1, 2):
-            # variables: A = (x_0..x_{t-1}) fixed-x0 prefix, B = suffix, C = x_t
-            tab = {}
+    for t in (1, 2):
+        tab = {}
+        for x0 in range(3):
+            J = joint_from_kernels(kR, 3, 3, x0)
             for traj, p in J.items():
                 full = (x0,) + traj
                 a, c, b = full[:t], full[t], full[t + 1:]
                 tab[(a, c, b)] = tab.get((a, c, b), F(0)) + p * F(1, 3)
-            # conditional mutual information I(A;B|C)
-            pc, pac, pcb = {}, {}, {}
-            for (a, c, b), p in tab.items():
-                pc[c] = pc.get(c, F(0)) + p
-                pac[(a, c)] = pac.get((a, c), F(0)) + p
-                pcb[(c, b)] = pcb.get((c, b), F(0)) + p
-            I = 0.0
-            for (a, c, b), p in tab.items():
-                if p: I += float(p) * log2(float(p * pc[c] / (pac[(a, c)] * pcb[(c, b)])))
-            best = max(best, I)
+        pc, pac, pcb = {}, {}, {}
+        for (a, c, b), p in tab.items():
+            pc[c] = pc.get(c, F(0)) + p
+            pac[(a, c)] = pac.get((a, c), F(0)) + p
+            pcb[(c, b)] = pcb.get((c, b), F(0)) + p
+        I = 0.0
+        for (a, c, b), p in tab.items():
+            if p: I += float(p) * log2(float(p * pc[c] / (pac[(a, c)] * pcb[(c, b)])))
+        best = max(best, I)
     return best
 Istar_v = Istar()
+assert abs(Istar_v - 2/3) < 1e-9, f"revival I* must be 2/3 bits (X2 = X0 reveals X0 beyond X1): got {Istar_v}"
 assert 2 ** Istar_v <= mH3 + 1e-9
 print(f"P6: I* = {Istar_v:.4f} bits, 2^I* = {2**Istar_v:.3f} <= |C_H| = {mH3} (capacity bound holds; info)")
 print("b51 dilation probe: COMPLETE")
