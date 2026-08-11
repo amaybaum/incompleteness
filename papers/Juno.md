@@ -52,15 +52,19 @@ The cubic-group structure used here is not a postulated flavor symmetry. It is t
 | Observable | Cubic-group prediction | Observed | Match |
 |---|---|---|---|
 | Cabibbo angle λ | 1/(π√2) = 0.22508 | 0.22500 ± 0.00067 [13] | 0.04% |
-| Koide angle θ₀ (charged leptons) | C₂/d² = 2/9 | 0.222204 ± 0.000010 [13] | 0.02% |
+| Koide angle θ₀ (charged leptons) | C₂/d² = 2/9 | 0.222225 ± 0.000006 [13] | 0.001% |
 | Solar mixing sin²θ₁₂ (this work) | 1/3 − 1/(4π²) = 0.30798 | 0.3085 ± 0.0073 [8] | 0.07σ |
 | PMNS sum rule | 2sin²θ₁₂ + sin²θ₂₃ = 7/6 | 1.178 ± 0.020 | 0.6σ |
 
 The first two entries are derived in [18, §§7.1–7.2]; the Cabibbo geometry and the chirality-forced 1/|q| power are unconditional structural (the chirality structure of the taste-changing vertex is established in the staggered fermion literature [18, §7.1, citing Mason et al.]), while the identification of the mixing-matrix element with the unit-normalized propagator is a stated structural hypothesis whose resolving computation is specified in [18, §7.1], and the empirical match to 0.04% supports this status. The Koide angle is structural with its per-axis normalization forced by cubic symmetry; the overall amplitude prefactor and the representation carrier of the mass-splitting operator are stated inputs whose resolving computations are specified in [18, §7.2, §4.7]. The third and fourth entries are the present work, classified at the layered level (Layer 1 form combined with the Layer 2(b) Condition 2 coefficient) per the operational definitions in §3.4; see Sec. 6.3 for full discussion. This cumulative empirical track record is what distinguishes the cubic-group structure from postulated flavor symmetries: the same parameter λ² = 1/(2π²) and the same projection factor A² = 2/3 enter multiple observables at sub-percent precision, which is testable structure rather than symmetry assumption.
 
+The first T2K–NOvA joint analysis [24] has since sharpened $|\Delta m^2_{32}|$ below the two-percent level while leaving both the mass ordering and the $\theta_{23}$ octant unresolved; the octant-dependent caveat structure of §7 is unchanged by it.
+
 ### 1.4 Position in the broader literature
 
 The lattice construction [18] from which the cubic-group structure is taken belongs to a recent line of work in which observers play a structural role in the emergence of quantum theory [19, 20, 21, 22]; it differs from those constructions in being deterministic at the base level and in producing the cubic flavor structure used here as a consequence rather than an input. None of that context is load-bearing for the present analysis: the flavor pattern of Secs. 2–5 stands as a self-contained group-theoretic construction, and its comparison with data (Secs. 4–7) is independent of how the underlying lattice is interpreted.
+
+On the Koide side specifically, an independent 2026 construction [23] reaches the same two numbers — the $\sqrt{2}$ amplitude from a rank-one coherence condition and $|\theta_0| = 2/9$ as a Berry-phase spectral sum $(3/2\pi^2)\sum_{3\nmid n} n^{-2}$ — by mechanisms external to the cubic-lattice structural data used here; the routes' coincidence on both numbers is noted.
 
 The remainder of this paper develops the technical content. Section 2 sets up the cubic-group structure and derives the perturbation scale. Section 3 computes the deviations from TBM at O(λ²) and derives the sum rule. Section 4 presents the predictions and compares them with JUNO, the post-JUNO global fit, and competing TM1/TM2 patterns. Section 5 covers the remaining angles. Section 6 addresses robustness. Section 7 discusses falsifiability under JUNO's projected long-term precision. Section 8 concludes.
 
@@ -372,7 +376,7 @@ The 0.07σ match for sin²θ₁₂ does not stand alone. It sits within a set of
 | Observable | Structural input | Prediction | Observed | Match |
 |---|---|---|---|---|
 | Cabibbo angle | Brillouin distance π√2; chirality 1/\|q\| | λ = 1/(π√2) = 0.22508 | 0.22500 ± 0.00067 | 0.04% |
-| Koide angle (charged leptons) | C₂/d² for cubic group | θ₀ = 2/9 = 0.22222 | 0.222204 ± 0.000010 | 0.02% |
+| Koide angle (charged leptons) | C₂/d² for cubic group | θ₀ = 2/9 = 0.22222 | 0.222225 ± 0.000006 | 0.001% |
 | Solar mixing sin²θ₁₂ (this work) | A₄ representation 1/3 + Cond 2 cubic relation | 1/3 − 1/(4π²) = 0.30798 | 0.3085 ± 0.0073 | 0.07σ |
 | PMNS sum rule (this work) | Cond 2 cubic relation | 2sin²θ₁₂ + sin²θ₂₃ = 7/6 | 1.178 ± 0.020 | 0.6σ |
 | Reactor mixing sin²θ₁₃ (this work) | A² λ projection geometry | 4/(18π²) = 0.02252 | 0.02195 ± 0.00056 | 1.01σ |
@@ -463,3 +467,7 @@ The author thanks the JUNO Collaboration for the rapid public release of their f
 [21] D. Harlow, M. Usatyuk, Y. Zhao, "Quantum mechanics and observers for gravity in a closed universe," *JHEP* **02** (2026) 108; arXiv:2501.02359.
 
 [22] K. Slagle and J. Preskill, "Emergent Quantum Mechanics at the Boundary of a Local Classical Lattice Model," *Phys. Rev. A* **108**, 012217 (2023); arXiv:2207.09465.
+
+[23] K. Shulga, "Charged-Lepton Koide Geometry from a Green-Dressed Compact Family Cycle," arXiv:2605.10245 (2026).
+
+[24] NOvA and T2K Collaborations (S. Abubakar et al.), "Joint neutrino oscillation analysis from the T2K and NOvA experiments," Nature 646, 818 (2025); arXiv:2510.19888.
