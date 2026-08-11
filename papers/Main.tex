@@ -271,7 +271,7 @@ that do not admit embedded observers exist as mathematical objects with
 dynamics; they do not produce physics in the present framework's sense.
 The axiom thus commits to our universe being in the observer-admitting
 subset of substrata --- substrata whose bijection structure satisfies
-the conditions C1--C3 below for some partition. This is a structural
+the conditions C1--C4 below for some partition. This is a structural
 commitment about the framework's domain, not a contingent fact about
 whether someone happens to be looking.
 
@@ -388,21 +388,33 @@ addresses approximation quality.
 a bijection: distinct states have distinct successors (determinism) and
 distinct predecessors (reversibility). The counting measure is the
 unique \(\varphi\)-invariant measure on the accessible orbit, and the
-unique maximal-entropy invariant measure globally.} Determinism
-(injectivity) holds by a two-pronged argument. For states differing in
-registered content, injectivity is the requirement that the dynamics
-preserve the observer's records --- merging them would erase a
-distinction that has occurred. For states differing only in the hidden
-sector, a merge is either statistically observable or removable: a merge
-whose successor configurations differ visibly breaks the double
-stochasticity of the marginalized process at some step order (the
-marginal of a bijection under the uniform prior is doubly stochastic by
-Birkhoff--von Neumann, §3.2, and unitary emergent statistics are
-unistochastic), so it is excluded by the observed unitarity of quantum
-dynamics; a merge that leaves no statistical trace is removable, since
-any map on a finite set restricts to a bijection on its \emph{eventual
-image}, where any recurrent registered history lives --- the
-non-injective description is then equivalent, for all registered
+unique maximal-entropy invariant measure globally.}
+
+\emph{Remark (the measure as a realization datum).} Lemma 3 fixes the
+canonical measure --- invariant, maximal-entropy --- and the framework's
+baseline transition matrices (§2.3) and the physical realization use it.
+It does not preclude structured preparations: a realization in the sense
+of §3.4 carries its own fixed hidden prior \(\mu_H\) as part of the
+realization datum, and the emergent law is a function of
+\((\varphi, \text{partition}, \mu_H)\) --- the same bijection and
+partition under different priors generally yield different visible laws
+(trivially: the two-state swap under uniform versus point-mass hidden
+priors). Partition-relativity statements are therefore relative to the
+declared measure; the counting measure is the default, not a constraint
+on representations. Determinism (injectivity) holds by a two-pronged
+argument. For states differing in registered content, injectivity is the
+requirement that the dynamics preserve the observer's records ---
+merging them would erase a distinction that has occurred. For states
+differing only in the hidden sector, a merge is either statistically
+observable or removable: a merge whose successor configurations differ
+visibly breaks the double stochasticity of the marginalized process at
+some step order (the marginal of a bijection under the uniform prior is
+doubly stochastic by Birkhoff--von Neumann, §3.2, and unitary emergent
+statistics are unistochastic), so it is excluded by the observed
+unitarity of quantum dynamics; a merge that leaves no statistical trace
+is removable, since any map on a finite set restricts to a bijection on
+its \emph{eventual image}, where any recurrent registered history lives
+--- the non-injective description is then equivalent, for all registered
 history, to a bijective one. Either horn delivers a bijective substratum
 for the dynamics governing registered history; the two prongs use
 different inputs --- the first empirical (the observed unitarity of
@@ -473,13 +485,15 @@ the §3.4 construction; \texttt{review4\_probes.py}). (Status: doubly
 anchored. Necessity --- observed non-Markovian dynamics force C1: with
 no hidden influence at any accessible step, every visible transition is
 a fixed function of the visible present and the process is Markov
-(§3.4); Bell-class dynamics certify this a fortiori. Realization --- at
-the cosmological horizon the ADM boundary Hamiltonian and the constraint
-structure supply a \emph{bidirectional} coupling stronger than
-\(H_{\text{int}} \neq 0\). Bidirectionality is a property of the
-physical realization, not part of C1's defining content: a one-way
-influenced process can be P-indivisible --- see the Remark at the
-non-permutation-witness lemma, §3.4.)
+(§3.4); directly observed memory effects in open-system dynamics certify
+the antecedent, and Bell-class dynamics add the nonclassicality anchor,
+their temporal-indivisibility reading being the imported
+correspondence's (§3.1). Realization --- at the cosmological horizon the
+ADM boundary Hamiltonian and the constraint structure supply a
+\emph{bidirectional} coupling stronger than \(H_{\text{int}} \neq 0\).
+Bidirectionality is a property of the physical realization, not part of
+C1's defining content: a one-way influenced process can be P-indivisible
+--- see the Remark at the non-permutation-witness lemma, §3.4.)
 
 \textbf{(C2) Slow-bath timescale separation.} The visible-sector
 (system) timescale \(\tau_S\) is much shorter than the hidden-sector
@@ -503,19 +517,23 @@ bath imperturbable on laboratory timescales; the hierarchy and the
 imperturbability belong to this realization clause, not to the
 condition.)
 
-\textbf{(C4) History readback.} The interaction reads what it writes: on
-accessible windows, some hidden degrees of freedom that depend on the
-visible past also influence subsequent visible steps --- equivalently,
-at some order two visible histories with the same current state induce
-different next-step laws. (Status: necessity --- immediate given
-observed P-indivisibility, since any realization of a non-Markov process
-carries differing past-conditionals. Realization --- the horizon
-coupling is bidirectional, reading the same boundary degrees it writes;
-this is the property that C1's redefinition relocated here. Separation
---- (C1)--(C3) alone do not imply (C4): a tape-and-ledger realization of
-the fair coin satisfies all three with identically zero backflow on
-arbitrarily long accessible horizons (\texttt{review3\_probes.py};
-§2.3).)
+\textbf{(C4) History readback.} History-sensitive hidden mediation: on
+accessible windows, hidden degrees of freedom carry information about
+the visible past into future visible conditionals --- at some order, two
+visible histories with the same current state induce different next-step
+laws, mediated through the hidden state. The condition is operational;
+it does not by itself assert a causal write-then-read cycle --- a
+pre-sampled hidden variable revealed by the history satisfies it (the
+response-table construction, §3.4). (Status: necessity --- immediate
+given observed non-Markovianity, since any realization of a non-Markov
+process carries differing past-conditionals. Realization --- in the
+cosmological realization the mediation \emph{is} a causal read-write
+cycle: the interaction reads the same boundary degrees it writes, a
+property to be independently demonstrated there; this is what C1's
+redefinition relocated here. Separation --- (C1)--(C3) alone do not
+imply (C4): a tape-and-ledger realization of the fair coin satisfies all
+three with identically zero backflow on arbitrarily long accessible
+horizons (\texttt{review3\_probes.py}; §2.3).)
 
 \textbf{Theorem statement.} Under Lemmas 1--3 and (C1)--(C4), the
 embedded observer's reduced description is non-Markovian on accessible
@@ -525,15 +543,16 @@ recurrence scale when a non-permutation one-step witness is present
 evolving quantum representation (defined precisely in §3.4), and
 conversely every such process admits, on each finite accessible horizon,
 an embedded-observation realization --- finite-horizon operational
-realizability; the consolidation of the per-horizon realizations into
-one fixed all-time substratum is open (§3.4, §4.5): the equivalence is
-(ii) \(\iff\) (iii) in the notation of §3.4 --- both directions this
-paper's own theorems --- with the quantum representation (i) following
-for the indivisible subclass, and the conditions are \emph{necessary}.
-Representability alone does not force indivisibility --- the retired
-direction (i) \(\implies\) (ii) fails on diagonal Hamiltonians (§3.4,
-Remark) --- but observed Bell violations certify (ii) directly, so
-nothing in the necessity argument leans on it.
+realizability; the consolidation question is settled negative in its
+universal all-time form (finite-order periodicity) and open in its
+recurrent-family and pre-recurrence window-approximation forms (§3.4,
+§4.5): the equivalence is (ii) \(\iff\) (iii) in the notation of §3.4
+--- both directions this paper's own theorems --- with the quantum
+representation (i) following for the indivisible subclass, and the
+conditions are \emph{necessary}. Representability alone does not force
+indivisibility --- the retired direction (i) \(\implies\) (ii) fails on
+diagonal Hamiltonians (§3.4, Remark) --- but observed Bell violations
+certify (ii) directly, so nothing in the necessity argument leans on it.
 
 \hypertarget{partition-relativity}{%
 \subsubsection{1.4 Partition-Relativity}\label{partition-relativity}}
@@ -825,7 +844,11 @@ the correspondence is non-trivial only in the P-indivisible regime,
 which is precisely the regime produced by §2.3. An independent
 derivation using only Stinespring's dilation theorem {[}15{]} and
 standard partial-trace properties {[}16{]} is given in §3.2; either
-route alone suffices.
+route alone suffices for the representation of the transition data; the
+operational completion --- physical preparation of coherent states,
+noncommuting interventions, the full instrument algebra --- is a
+separate bridge, partially established by the one-step coherence theorem
+of §3.2 for the lattice realization and otherwise open.
 
 \textbf{Scope of the correspondence (what it does and does not
 deliver).} Because the quantum-representation clause rests on this
@@ -987,15 +1010,24 @@ provides strictly more information.
 non-degenerate spectrum; (G2) non-degenerate energy gaps; (G3)
 \(V_{ik} \neq 0\) for all \(i, k\). Then
 \(T_{ij}(t) = |\langle i | e^{-iHt} | j \rangle|^2\) for all \(i, j, t\)
-uniquely determines \(H\) up to an overall energy shift and basis phase
-conventions.}
+uniquely determines \(H\) up to an overall energy shift, basis phase
+conventions, and the antiunitary conjugation \(H \to -H^*\) --- the
+complex-conjugate representation, which satisfies
+\(|\langle i|e^{-i(-H^*)t}|j\rangle|^2 = |\langle i|e^{-iHt}|j\rangle|^2\)
+identically and, for generic \(H\), is not shift- or rephasing-related
+(its spectrum is negated).}
 
 \emph{Proof.} Write:
 
 \[T_{ij}(t) = \sum_{k,l} V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\; e^{-i(E_k - E_l)t}\]
 
 By (G2), the frequencies \(\omega_{kl} = E_k - E_l\) are distinct for
-distinct pairs with \(k \neq l\). Fourier-transforming yields:
+distinct pairs with \(k \neq l\); since \(T_{ij}(t)\) is real, the
+components at \(\pm\omega_{kl}\) are conjugate-paired, and the
+simultaneous conjugation \(a \to a^*\), \(\omega \to -\omega\)
+(i.e.~\(V \to V^*\), \(E \to -E\): the \(H \to -H^*\) ambiguity of the
+statement) is invisible to the data. Fourier-transforming yields, up to
+that pairing:
 
 \[a_{ij}^{kl} = V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\]
 
@@ -1056,10 +1088,12 @@ generic \(\hat H\) across
 Fourier extraction has been demonstrated end-to-end. The marginal data
 therefore determine --- generically, and at least locally --- the
 \emph{dilated} Hamiltonian and the configuration projectors up to an
-energy shift and diagonal phase conventions; the reconstruction reaches
-the dilation itself, not only an \(n\)-dimensional effective generator.
-The status of each component: the Fourier structure, its rank-one
-property, and the coboundary null directions are exact algebra; that the
+energy shift, diagonal phase conventions, and the antiunitary
+conjugation (statement above); the general completeness proof beyond the
+numerically verified cases remains open; the reconstruction reaches the
+dilation itself, not only an \(n\)-dimensional effective generator. The
+status of each component: the Fourier structure, its rank-one property,
+and the coboundary null directions are exact algebra; that the
 coboundary \emph{exhausts} the null space is established numerically and
 awaits a written completeness proof (the natural route is that generic
 projector families make the constraint operator's kernel no larger than
@@ -1353,20 +1387,23 @@ entanglement-breaking.}
 \(w < \kappa\). \(\square\)
 
 \emph{Remark.} For a \(d\)-dimensional region of linear size \(\ell\),
-\(|\partial R| = O(\ell^{d-1})\) against \(2|R| = 2\ell^{d}\), so the
-hypothesis of Corollary 2 holds whenever \(\ell > 2d\); in \(d = 3\)
-this is roughly six sites across. Within this single-step result the
-criterion carries no dependence on \(|H|\), since the coupling reads
-only the boundary; the counterexample above is the degenerate case,
-every visible site lying on the cut so that the region has no bulk.
-Whether the same holds over many steps is not settled here: repeated
-interaction can propagate boundary information into the hidden bulk, and
-a multi-time statement would require a process-tensor argument rather
-than a single-channel one. The suggestion that coherence is a bulk
-quantity and decoherence an area quantity --- the accounting that
-reappears in the horizon entropy of §7 --- is at this stage an
-interpretation of the one-step result, not a theorem about the
-asymptotic dynamics.
+for an exact cubic block of side \(\ell\) in \(d = 3\):
+\(|\partial^{-}R| = \ell^3 - (\ell-2)^3\) and
+\(|\partial^{+}R| = 6\ell^2\), so the hypothesis
+\(|\partial^{-}R| + |\partial^{+}R| < 2|R|\) reads
+\(6\ell^2 - 6\ell + 4 < \ell^3\) and first holds at \(\ell = 5\) (at
+\(\ell = 4\): \(76 > 64\)); a big-\(O\) statement alone cannot fix the
+threshold. Within this single-step result the criterion carries no
+dependence on \(|H|\), since the coupling reads only the boundary; the
+counterexample above is the degenerate case, every visible site lying on
+the cut so that the region has no bulk. Whether the same holds over many
+steps is not settled here: repeated interaction can propagate boundary
+information into the hidden bulk, and a multi-time statement would
+require a process-tensor argument rather than a single-channel one. The
+suggestion that coherence is a bulk quantity and decoherence an area
+quantity --- the accounting that reappears in the horizon entropy of §7
+--- is at this stage an interpretation of the one-step result, not a
+theorem about the asymptotic dynamics.
 
 \emph{Remark (scope).} Lemma 1 holds over any \(\mathbb{Z}_q\) and, in
 weakened form, for arbitrary nearest-neighbour bijections. Lemma 2, the
@@ -1650,7 +1687,10 @@ Stinespring route of §3.2, which establishes full unitary QM on a
 tensor-product Hilbert space; Tsirelson's original operator-norm
 argument {[}27{]} then yields \(|\langle S \rangle| \leq 2\sqrt{2}\);
 achievability follows because all quantum states, including maximally
-entangled ones, are realizable in the emergent description.
+entangled ones, are realizable in the emergent description as
+representation-level objects; their operational preparation by an
+embedded observer belongs to the operational bridge (§3.2, one-step
+result; beyond it open).
 
 \textbf{The substratum level, stated explicitly.} The Jarrett
 classification above is a statement about the emergent process, where
@@ -1679,15 +1719,18 @@ rather than by stipulation: the substratum's measured chaotic mixing
 continuity, thermalization, cycle-structure consolidation, and orbit
 diagnostics concur, with the quantitative rate ensemble-dependent)
 actively destroys residual \(\lambda\)--setting correlations across
-macroscopic separations. The framework is therefore not
-superdeterministic in the sense that matters: superdeterminism \emph{as
-an explanation} of Bell correlations is the position that
-\(\lambda\)--setting correlations do the explanatory work, and here they
-do none --- they are dynamically suppressed, the correlations are
-produced by the indivisible joint dynamics, and the CHSH value is the
-stable structural output (exactly the Tsirelson bound) rather than a
-tuned coincidence. The no-fine-tuning analysis below makes the last
-point precise.
+macroscopic separations. At the fundamental deterministic level the
+framework rejects measurement independence --- settings, like everything
+else, are functions of the total state at fixed \(\lambda = (x, h)\); at
+the operational level it recovers approximate statistical independence
+of controllable settings, which is where the assumption is defined and
+testable. Whether to call this superdeterminism is terminology; what
+matters is that \(\lambda\)--setting correlations do no explanatory work
+in the Bell statistics here --- they are dynamically suppressed, the
+correlations are produced by the indivisible joint dynamics, and the
+CHSH value is the stable structural output (exactly the Tsirelson bound)
+rather than a tuned coincidence. The no-fine-tuning analysis below makes
+the last point precise.
 
 \textbf{Fine-tuning and causal structure.} The framework does not claim
 to restore Bell locality: outcome independence is genuinely violated.
@@ -2090,10 +2133,15 @@ set counts exactly the defining fraction of \(T^{(k)}\). \(\square\)
 preparations --- in \texttt{review4\_probes.py}, P-F(a)--(c).)
 
 \emph{Consequence.} The chain (ii) \(\implies\) (iii) \(\implies\)
-fixed-\(\hat{H}\) form is in-house, per horizon; the imported
-correspondence retains its conceptual role --- the Born-rule reading and
-the basis apparatus for the indivisible subclass --- while the form
-itself no longer leans on it.
+fixed-\(\hat{H}\) form is in-house per horizon \emph{in the uncompressed
+sense}: the internal representation is exact at integer horizon times on
+a space of dimension \(n \cdot |\mathcal{C}_H|\), which generally
+exceeds the \(n^3\) bound in (i)'s definition. The \(\leq n^3\)
+compression is the imported correspondence's result for the indivisible
+subclass, under its hypotheses; continuous-\(t\) interpolation beyond
+integer times likewise carries no internal claim. The import therefore
+retains the compressed representation, the Born-rule reading, and the
+basis apparatus.
 
 \textbf{Characterization theorem.} \emph{Let \(\mathcal{S}\) be a
 time-homogeneous stochastic process on a finite configuration space
@@ -2117,7 +2165,8 @@ from marginalizing a deterministic bijection on
 \(\mathcal{C}_V \times \mathcal{C}_H\) --- the hidden space may grow
 with the horizon --- with (C1) non-trivial coupling, (C2) slow-bath
 memory (\(\tau_S \ll \tau_B\)), (C3) sufficient capacity, and (C4)
-history readback.}
+history readback --- with a fixed hidden prior \(\mu_H\) carried as part
+of the realization datum (§1.4 Remark).}
 
 \emph{Remark (two notions of memory).} Non-Markovianity of the process
 --- condition (ii) --- and P-indivisibility of the transition-matrix
@@ -2132,8 +2181,9 @@ explicit family --- \(X_1\) uniform independent of \(X_0\),
 accessible-timescale claim is (ii). P-indivisibility enters as the
 stronger property in two ways: unconditionally at the recurrence scale
 from a non-permutation one-step witness (§2.3), and empirically ---
-Bell-class dynamics are indivisible in the imported correspondence's
-sense, hence non-Markovian a fortiori, certifying (ii) directly.
+P-indivisible dynamics are documented in open-system experiments, the
+imported correspondence reads Bell-class dynamics as indivisible, and
+(ii) itself is certified by directly observed memory effects.
 
 \emph{Proof.} (iii) \(\implies\) (ii): the readback lemma of §2.3 ---
 (iii) includes (C4), whose gap forces
@@ -2169,9 +2219,10 @@ diagonal Hamiltonian satisfies the definition with \(T(t) = I\) for all
 is permutation-close throughout an accessible window
 (\texttt{review3\_probes.py}). The equivalence therefore runs (ii)
 \(\iff\) (iii) with representability following for the indivisible
-subclass; Bell-class dynamics are indivisible, hence non-Markovian a
-fortiori, certifying (ii) directly --- the necessity argument never uses
-a converse.
+subclass; (ii) is certified empirically by directly observed memory
+effects in open-system dynamics, and the further reading of Bell-class
+dynamics as temporally indivisible is the imported framework's --- the
+necessity argument uses neither that reading nor any converse.
 
 \emph{Remark (existential and universal readings).} The equivalence is
 existential: (ii) holds iff SOME per-horizon (C1)--(C4) realization
@@ -2182,12 +2233,27 @@ and read-back differing past-conditionals (C4); C2's necessity holds
 within the conditional-mixing class. Neither reading borrows the other's
 strength.
 
-\emph{Remark (consolidation, open).} The equivalence is per-horizon: the
-hidden space may grow with \(K\), and nothing yet shows the family of
-realizations glues into a single fixed \((S, \varphi)\) reproducing the
-process at all times. This is the remaining mathematical debt between
-the operational theorem and the ontology, and it is carried as an open
-item (§4.5).
+\emph{Remark (representation, not explanation).} The equivalence is a
+representation theorem: every accessible non-Markovian law \emph{admits}
+a per-horizon C1--C4 realization. It does not, by itself, explain why
+the physical universe exhibits such a law; that explanatory burden ---
+the specific substratum satisfying C4 quantitatively, with the horizon's
+capacity and timescales --- is carried by the cosmological construction
+and tested there.
+
+\emph{Remark (consolidation, sharpened).} The equivalence is
+per-horizon, and the universal all-time form is now settled
+\emph{negative}: a bijection on a finite set has finite order \(L\), so
+any fixed realization with a fixed prior has an exactly \(L\)-periodic
+multi-time law (\(\varphi^{k+L} = \varphi^k\)) --- a nonperiodic target
+admits no exact all-time realization by one fixed finite substratum. The
+honest open questions are (a) exact gluing for recurrent target families
+--- which compatibility conditions on the per-horizon realizations
+suffice --- and (b) the physically operative form: quantitative
+approximation of the target on windows \(t \ll t_R\) by one fixed
+substratum before its recurrence. Form (b) is precisely the
+accessible-timescale scoping the framework's claims already carry; the
+sharpening aligns the open problem with it (§4.5).
 
 \emph{Remark (scope: time-homogeneity).} The restriction to
 time-homogeneous processes is load-bearing for the fixed-\(\hat{H}\)
@@ -2238,22 +2304,25 @@ Projective measurement in the emergent description corresponds to
 conditioning on a visible-sector outcome and re-marginalizing over the
 hidden sector. The Lüders rule
 \(\rho \to P_k \rho P_k / \text{Tr}(P_k \rho)\) is the quantum
-transcription of Bayesian updating on the classical substratum (Lemma
-3). No independent measurement postulate is required. Multi-time
-correlation functions, weak values, and Leggett-Garg inequalities are
-standard calculations within the delivered formalism (\(\mathcal{H}_V\),
-\(U(t)\), Born rule); they require no additional postulates beyond what
-the characterization theorem provides. The multi-time statement carries
-one qualification. The correspondence is engineered to reproduce rooted
-two-time transition data, which under-determines multi-time joint
-statistics {[}22{]}; the substratum, by contrast, fixes a unique
-multi-time law. Agreement of the substratum's conditioned multi-time
-statistics with the quantum formalism's intervention-rooted predictions
-is supported by the same chaotic-mixing suppression argument as
-operational measurement independence (§3.3), and residual pre-division
-memory, if present, would appear as deviations from quantum multi-time
-predictions --- a falsifiable texture of the same standing as the
-residual dissipation \(\mathcal{D}\).
+transcription of Bayesian updating on the classical substratum (Lemma 3)
+for the represented diagonal sector; its extension to arbitrary coherent
+density matrices belongs to the operational bridge (§3.2). No
+independent measurement postulate is required for the represented
+statistics. Multi-time correlation functions, weak values, and
+Leggett-Garg inequalities are standard calculations within the delivered
+formalism (\(\mathcal{H}_V\), \(U(t)\), Born rule); they require no
+additional postulates beyond what the characterization theorem provides.
+The multi-time statement carries one qualification. The correspondence
+is engineered to reproduce rooted two-time transition data, which
+under-determines multi-time joint statistics {[}22{]}; the substratum,
+by contrast, fixes a unique multi-time law. Agreement of the
+substratum's conditioned multi-time statistics with the quantum
+formalism's intervention-rooted predictions is supported by the same
+chaotic-mixing suppression argument as operational measurement
+independence (§3.3), and residual pre-division memory, if present, would
+appear as deviations from quantum multi-time predictions --- a
+falsifiable texture of the same standing as the residual dissipation
+\(\mathcal{D}\).
 
 \emph{(iv) Classical P-indivisibility and quantum mechanics.} The
 representation clause is not a claim that all P-indivisible processes
@@ -2266,11 +2335,15 @@ state spaces --- admit a unique unitary description (phase-locking
 lemma) that makes predictions beyond the transition data (energy
 eigenvalues, interference, entanglement), and can be realized as
 marginalization of deterministic dynamics under C1--C4 (necessity
-theorems). The framework does not distinguish ``classical
-non-Markovian'' from ``quantum'' --- it proves they are the same
-category. The physical content of the unitary is not that of a mere
-mathematical embedding: it is the \emph{specific} Hamiltonian uniquely
-determined by the transition data, arising from the \emph{actual}
+theorems). The framework identifies the P-indivisible subclass with
+unitarily evolving quantum systems --- classical P-indivisible processes
+in the correspondence's domain and quantum dynamics are the same
+mathematical category, while general non-Markovian (divisible) processes
+are not included (two-notions Remark, §3.4). The physical content of the
+unitary is not that of a mere mathematical embedding: it is a
+Hamiltonian determined by the transition data up to the stated gauge
+freedom --- energy shift, rephasing, and the antiunitary conjugate
+\(H \to -H^*\) (phase-locking lemma) --- arising from the \emph{actual}
 dilation structure of the system (§3.2).
 
 \emph{(v) The single load-bearing external dependency.} The necessity
@@ -2281,7 +2354,7 @@ configuration space and a unitarily-evolving quantum system on a finite
 Hilbert space are the same mathematical object (the ``indivisible'' and
 ``unitary'' descriptions are inter-translatable). Everything in the
 necessity direction downstream of this --- the dilation construction,
-the C1/C3 necessity theorems, the ETH-conditional C2 necessity --- is
+the C1/C3/C4 necessity theorems, the ETH-conditional C2 necessity --- is
 the framework's own, but the bridge identifying P-indivisibility with
 quantum structure is Barandes'. This means the necessity direction has a
 clean falsification target distinct from the rest of the framework: if
@@ -2475,7 +2548,7 @@ trace-out procedure:
 \item
   \textbf{Wigner's description.} Trace over
   \(S \setminus V_W = V_F \cup H\). Friend is part of Wigner's hidden
-  sector. Under C1--C3 applied to \((V_W, S \setminus V_W)\), Wigner's
+  sector. Under C1--C4 applied to \((V_W, S \setminus V_W)\), Wigner's
   reduced description is also quantum-mechanical. Wigner does not see a
   definite Friend-outcome within his own description --- Friend's state
   is traced out.
@@ -2792,12 +2865,15 @@ imply (ii) (diagonal-\(\hat{H}\); slow clock;
 process dilation reproducing the full multi-time law; the realization
 inherits (C4); C1/C3/C4 legs unconditional, C2 leg conditional on the
 mixing hypothesis; arbitrary-prior form via the response-table
-extension; CONSOLIDATION into one fixed all-time substratum OPEN (the
-gluing question) & §3.4 \\
-Fixed-\(\hat{H}\) form for realized processes & Proved --- the
-realization's permutation unitary, \(\hat{H} = i\log U\); slice-prepared
-ancilla marginal reproduces \(T^{(k)}\) exactly at horizon times
-(\texttt{review4\_probes.py}, P-F) & §3.4 \\
+extension; CONSOLIDATION: universal exact all-time form IMPOSSIBLE
+(finite-order periodicity); recurrent-family gluing and pre-recurrence
+window approximation OPEN & §3.4 \\
+Fixed-\(\hat{H}\) form for realized processes & Proved, uncompressed ---
+the realization's permutation unitary, \(\hat{H} = i\log U\), exact at
+integer horizon times for uniform, slice, and weighted priors
+(\texttt{review4\_probes.py}, P-F(a)--(c)); the \(\leq n^3\)-bounded
+form is the external correspondence's, for the indivisible subclass &
+§3.4 \\
 (iii) \(\implies\) (ii): realization \(\implies\) accessible
 non-Markovianity & Proved --- the readback lemma: a (C4) gap forces
 \(I(X_{<k}; X_{k+1} \mid X_k) \geq p_0\delta^2/\ln 2\) on the window;
@@ -2929,8 +3005,10 @@ stochastic-quantum correspondence, the observer's description is
 necessarily quantum mechanics. Continuous-time transition data resolves
 all gauge freedom. The Schrödinger equation, Born rule, and Bell
 violations are structural consequences. The characterization theorem
-establishes that the conditions are necessary: QM and embedded
-observation under (C1)--(C3) are equivalent.
+establishes the conditions' necessity and the equivalence in its current
+form: accessible non-Markovianity and embedded observation under
+(C1)--(C4) are equivalent per finite horizon, with the quantum
+representation attaching to the P-indivisible subclass.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
