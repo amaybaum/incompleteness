@@ -1463,27 +1463,27 @@ marginalization of a deterministic bijection satisfying C1-C3 for some
 partition.}
 
 The proof develops in seven stages, with a structural commentary in
-§1.10 examining what physics emerges when each of the three conditions
+§1.10 examining what physics emerges when each of the four conditions
 fails. §1.2 states the framework's definition of observation and
-extracts three structural lemmas from it. §1.3 introduces the three
-conditions C1-C3, anchoring each in the physical situation of laboratory
-observers in our universe. §1.4 proves that the partition uniquely
-determines the emergent description, establishing partition-relativity
-as a structural feature rather than a free parameter. §1.5 proves that
-under C1-C3 the marginalized stochastic process is P-indivisible --- a
-precise non-Markovian property that captures the structural difference
-between embedded-observer dynamics and classical thermal noise. §1.6
-establishes the two independent routes from P-indivisibility to unitary
-quantum mechanics: the Barandes stochastic-quantum correspondence and
-the Stinespring dilation. §1.7 develops the framework's account of
-Bell-inequality violations as a structural consequence of P-indivisible
-joint dynamics. §1.8 establishes necessity through the characterization
-theorem. §1.9 closes by stating what the theorem says: quantum mechanics
-as the unique self-consistent decompression algorithm for predictions
-from incomplete data under C1-C3. §1.10 develops the three structural
-limits --- what happens when each of C1, C2, C3 fails --- as commentary
-on what kind of observer the framework's conditions jointly
-characterize.
+extracts three structural lemmas from it. §1.3 introduces the four
+conditions C1--C4, anchoring each in the physical situation of
+laboratory observers in our universe. §1.4 proves that the partition
+uniquely determines the emergent description, establishing
+partition-relativity as a structural feature rather than a free
+parameter. §1.5 proves that under C1-C3 the marginalized stochastic
+process is P-indivisible --- a precise non-Markovian property that
+captures the structural difference between embedded-observer dynamics
+and classical thermal noise. §1.6 establishes the two independent routes
+from P-indivisibility to unitary quantum mechanics: the Barandes
+stochastic-quantum correspondence and the Stinespring dilation. §1.7
+develops the framework's account of Bell-inequality violations as a
+structural consequence of P-indivisible joint dynamics. §1.8 establishes
+necessity through the characterization theorem. §1.9 closes by stating
+what the theorem says: quantum mechanics as the unique self-consistent
+decompression algorithm for predictions from incomplete data under
+C1-C3. §1.10 develops the three structural limits --- what happens when
+each of C1, C2, C3 fails --- as commentary on what kind of observer the
+framework's conditions jointly characterize.
 
 \hypertarget{the-starting-point}{%
 \subsection{1.2 The starting point}\label{the-starting-point}}
@@ -1629,13 +1629,15 @@ framework's central theorem is that their conjunction forces emergent
 quantum mechanics.
 
 \textbf{Condition C1 (Non-zero coupling).} \(H_{\text{int}} \neq 0\):
-the hidden state non-trivially affects the visible evolution. The
-horizon is not a static wall --- stress-energy conservation enforces
+hidden degrees of freedom affect the visible evolution at some
+accessible step --- a non-permutation one-step matrix is the cheapest
+witness, though influence can also hide at step one and surface later.
+The horizon is not a static wall --- stress-energy conservation enforces
 dynamical correlations across it, and in the physical realization
 information flows in both directions. The defining content of C1, and
 what the necessity argument delivers, is the hidden-to-visible
 influence; bidirectionality belongs to the realization ({[}Main §3.4{]},
-Remark at the C1-equivalence theorem).
+Remark at the non-permutation-witness lemma).
 
 \textbf{Condition C2 (Slow-bath timescale separation).}
 \(\tau_S \ll \tau_B\). The hidden sector evolves much more slowly than
@@ -2554,13 +2556,10 @@ The three necessity arguments combine into the chapter's central result.
 \textbf{Characterization theorem.} \emph{Let \(\mathcal{S}\) be a
 stochastic process on a finite configuration space \(\mathcal{C}_V\)
 with \(|\mathcal{C}_V| \geq 2\), and consider dynamics on accessible
-timescales \(t \ll t_R\); take \(\mathcal{S}\) time-homogeneous, the
-class every iterated-bijection marginal inhabits. Assume the hidden
-sector of any candidate realization possesses a conditional mixing curve
-with finite mixing time \(\tau_B(\varepsilon_0)\) for every
-\(\varepsilon_0 > 0\), ETH being its physical motivation; no smallness
-of the residual at the coupling time is assumed. Then (ii) \(\iff\)
-(iii), and (ii) \(\implies\) (i):}
+timescales \(t \ll t_R\); take \(\mathcal{S}\) time-homogeneous. Then
+(ii) \(\iff\) (iii); and P-indivisibility of \(\mathcal{S}\) --- the
+strictly stronger property, with the mixing-curve hypothesis entering
+only the C2 necessity leg --- implies (i):}
 
 \emph{(i) \(\mathcal{S}\) is mathematically equivalent to unitarily
 evolving quantum mechanics --- there exists a Hilbert space
@@ -2568,11 +2567,14 @@ evolving quantum mechanics --- there exists a Hilbert space
 family \(U(t) = e^{-i\hat{H}t}\) such that
 \(T_{ij}(t) = |U_{ij}(t)|^2\).}
 
-\emph{(ii) \(\mathcal{S}\) is P-indivisible on accessible timescales.}
+\emph{(ii) \(\mathcal{S}\) is non-Markovian on accessible timescales:
+some conditional mutual information \(I(X_{<k}; X_{k+1} \mid X_k)\) is
+strictly positive at \(k\tau_S \ll t_R\).}
 
-\emph{(iii) \(\mathcal{S}\) arises from marginalizing a deterministic
-bijection on \(\mathcal{C}_V \times \mathcal{C}_H\) satisfying (C1),
-(C2), and (C3) for some partition.} \(\square\)
+\emph{(iii) For every finite accessible horizon, \(\mathcal{S}\) arises
+from marginalizing a deterministic bijection on
+\(\mathcal{C}_V \times \mathcal{C}_H\) satisfying (C1)--(C4) for some
+partition.} \(\square\)
 
 Quantum mechanics is not merely \emph{compatible with} embedded
 observation under C1-C3. It is equivalent to it.
@@ -5567,16 +5569,36 @@ one of two things. Either it is more structure, in which case it has
 been absorbed into \((S, \varphi)\) and the question repeats; or it is
 deep-sector content, in which case §3.6's identification applies in its
 strong species: gauge incompleteness, where the inaccessible ``fact'' is
-no fact at all. The tower is not terminated by a special turtle that
-stands on nothing; below the structural level, the sortal \emph{turtle}
-stops being well-formed. Asking what the structure runs on becomes like
-asking which coordinate chart spacetime is really in --- a question
-about representation mistaken for a question about the world. The same
-accounting absorbs the regress's modern costume, the simulation
-hypothesis: a simulated \((S, \varphi)\) and a native one differ only by
-deep-sector structure invisible to every embedded observer, so on the
-framework's own gauge bookkeeping there is no physics question there to
-answer.
+no fact at all. The tower is therefore not terminated by a special
+turtle that stands on nothing; it ends at a line the framework can state
+exactly, and the line is a criterion rather than a depth. A putative
+fact about the tower is physical if and only if it is an \emph{invariant
+of the gauge class} --- the same on every representative of
+\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) --- and it is gauge exactly
+when the group's generators move it while every observable stays fixed.
+For the support question the crossing sits at the
+boundary-layer/deep-sector interface. One step down, the hidden sector's
+capacity, timescales, coupling structure, and energetic content are
+class invariants --- every representative carries them, which is why
+they can be deduced (the computational species of §3.6, taken up below).
+One step further, every candidate answer to \emph{what does the boundary
+layer run on} --- this substrate or that, larger or smaller cardinality,
+native or simulated --- lies inside a single
+\(\mathcal{G}_{\text{sub}}\)-orbit, because deep-sector enlargement is
+one of the group's own generators: no invariant separates the
+candidates, so there is nothing for an answer to be right about. Below
+that line the sortal \emph{turtle} stops being well-formed, and asking
+what the structure runs on becomes --- precisely, not loosely --- the
+analogue of asking which coordinate chart spacetime is really in: there
+the diffeomorphism invariants exhaust the physics, and here the
+\(\mathcal{G}_{\text{sub}}\) invariants do (that exhaustion is what the
+reconstruction theorem's equivalence-class form, read through §3.6's
+identification, asserts). A question about representation, mistaken for
+a question about the world. The same accounting absorbs the regress's
+modern costume, the simulation hypothesis: a simulated \((S, \varphi)\)
+and a native one differ only by deep-sector structure invisible to every
+embedded observer, so on the framework's own gauge bookkeeping there is
+no physics question there to answer.
 
 The dissolution must be scoped, though, and the scoping is this
 chapter's own two-species distinction (§3.6). Not every turtle below us

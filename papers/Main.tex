@@ -190,22 +190,23 @@ Observation}\label{the-equivalence-of-quantum-mechanics-and-embedded-observation
 An observer embedded in a deterministic universe cannot access the
 complete state. We prove that any such observer --- coupled to a slow,
 high-capacity hidden sector on a finite-dimensional configuration space
---- must describe the visible sector using P-indivisible stochastic
-dynamics. The first half of the claim is established here in full:
-marginalizing a deterministic bijection over an inaccessible hidden
-sector yields a generically non-Markovian (P-indivisible) visible
-process, and this is the framework's own contribution. The
-identification of that process with unitary quantum mechanics is
-supplied by the Barandes stochastic-quantum correspondence {[}11, 12{]},
-an external result that we use as a load-bearing dependency rather than
-re-derive: it furnishes a (basis-dependent, non-unique) representation
-of any P-indivisible process on a finite configuration space as a
-unitary system whose transition probabilities are exactly Born-rule
-probabilities. The correspondence delivers the kinematic scaffolding and
-transition statistics of quantum mechanics --- complex Hilbert space,
-unitary evolution, the Born rule --- while non-commuting observables and
-spin are introduced as additional structure rather than derived from the
-bare stochastic data, with the composite-system tensor-product structure
+--- must describe the visible sector using non-Markovian stochastic
+dynamics --- memory-bearing on accessible windows, and P-indivisible at
+the recurrence scale. The first half of the claim is established here in
+full: marginalizing a deterministic bijection over an inaccessible
+hidden sector yields a generically non-Markovian visible process, and
+this is the framework's own contribution. The identification of that
+process with unitary quantum mechanics is supplied by the Barandes
+stochastic-quantum correspondence {[}11, 12{]}, an external result that
+we use as a load-bearing dependency rather than re-derive: it furnishes
+a (basis-dependent, non-unique) representation of any P-indivisible
+process on a finite configuration space as a unitary system whose
+transition probabilities are exactly Born-rule probabilities. The
+correspondence delivers the kinematic scaffolding and transition
+statistics of quantum mechanics --- complex Hilbert space, unitary
+evolution, the Born rule --- while non-commuting observables and spin
+are introduced as additional structure rather than derived from the bare
+stochastic data, with the composite-system tensor-product structure
 following instead, for spatially separated subsystems, from the
 substratum's coupling-graph locality (§3.1, scope remark; §3.4). The
 converse direction (any quantum system, realized as a deterministic
@@ -247,9 +248,10 @@ Prior work (QBism, relational QM, 't Hooft's cellular automaton {[}1{]})
 takes observer-dependence as an interpretive starting point or derives
 it from specific microphysical models. This framework differs by
 identifying \emph{necessary and sufficient conditions} under which any
-embedded observer in any deterministic system necessarily sees quantum
-mechanics --- and proving these are the \emph{only} conditions under
-which QM arises from a deterministic embedding.
+embedded observer in any deterministic system sees non-Markovian visible
+dynamics --- an equivalence proved entirely in-house (§3.4) --- with the
+quantum form of those dynamics supplied, for the empirically realized
+indivisible subclass, by one imported representation theorem.
 
 \hypertarget{the-starting-point}{%
 \subsubsection{1.2 The Starting Point}\label{the-starting-point}}
@@ -460,17 +462,23 @@ bidirectional read-write coupling --- is developed in companion work and
 is nowhere consumed by a proof here; the realization clauses below are
 physical statements of that picture, not premises.
 
-\textbf{(C1) Non-zero coupling.} \(H_{\text{int}} \neq 0\): the hidden
-state non-trivially affects the visible evolution --- at the bijection
-level, the visible update is not independent of the hidden state,
-equivalently \(T\) is not a permutation matrix (§2.3). (Status: doubly
-anchored. Necessity --- observed Bell violations force C1, by the
-characterization theorem of §3.4. Realization --- at the cosmological
-horizon the ADM boundary Hamiltonian and the constraint structure supply
-a \emph{bidirectional} coupling stronger than \(H_{\text{int}} \neq 0\).
-Bidirectionality is a property of the physical realization, not part of
-C1's defining content: a one-way influenced process can be P-indivisible
---- see the Remark at the C1-equivalence theorem, §3.4.)
+\textbf{(C1) Non-zero coupling.} \(H_{\text{int}} \neq 0\): hidden
+degrees of freedom affect the visible evolution at some accessible step
+--- the conditional law of some visible transition depends on the hidden
+state. A non-permutation one-step matrix \(T\) is the cheapest
+sufficient \emph{witness} (§2.3), not an equivalent: influence can hide
+at step one and surface later (the delayed-revival family, realized by
+the §3.4 construction; \texttt{review4\_probes.py}). (Status: doubly
+anchored. Necessity --- observed non-Markovian dynamics force C1: with
+no hidden influence at any accessible step, every visible transition is
+a fixed function of the visible present and the process is Markov
+(§3.4); Bell-class dynamics certify this a fortiori. Realization --- at
+the cosmological horizon the ADM boundary Hamiltonian and the constraint
+structure supply a \emph{bidirectional} coupling stronger than
+\(H_{\text{int}} \neq 0\). Bidirectionality is a property of the
+physical realization, not part of C1's defining content: a one-way
+influenced process can be P-indivisible --- see the Remark at the
+non-permutation-witness lemma, §3.4.)
 
 \textbf{(C2) Slow-bath timescale separation.} The visible-sector
 (system) timescale \(\tau_S\) is much shorter than the hidden-sector
@@ -512,11 +520,13 @@ embedded observer's reduced description is a P-indivisible process
 admitting a unitarily evolving quantum representation (defined precisely
 in §3.4), and conversely every such process arises from an
 embedded-observation realization: the equivalence is (ii) \(\iff\) (iii)
-with (ii) \(\implies\) (i) in the notation of §3.4, and the conditions
-are \emph{necessary}. Representability alone does not force
-indivisibility --- the retired direction (i) \(\implies\) (ii) fails on
-diagonal Hamiltonians (§3.4, Remark) --- but observed Bell violations
-certify (ii) directly, so nothing in the necessity argument leans on it.
+in the notation of §3.4 --- both directions this paper's own theorems
+--- with the quantum representation (i) following for the indivisible
+subclass, and the conditions are \emph{necessary}. Representability
+alone does not force indivisibility --- the retired direction (i)
+\(\implies\) (ii) fails on diagonal Hamiltonians (§3.4, Remark) --- but
+observed Bell violations certify (ii) directly, so nothing in the
+necessity argument leans on it.
 
 \hypertarget{partition-relativity}{%
 \subsubsection{1.4 Partition-Relativity}\label{partition-relativity}}
@@ -717,11 +727,11 @@ without readback, is noise.
 
 \textbf{Role of (C2)--(C4).} The Poincaré recurrence argument and the
 readback lemma are independent: the former establishes P-indivisibility
-from (C1) and finiteness alone, at the recurrence time; the latter
-locates observable backflow inside accessible windows. (C2) keeps stored
-history alive between couplings; (C3) provides the room to store it;
-(C4) is the reading of it --- and only the reading produces memory an
-observer can measure.
+from a non-permutation one-step witness and finiteness alone, at the
+recurrence time; the latter locates observable backflow inside
+accessible windows. (C2) keeps stored history alive between couplings;
+(C3) provides the room to store it; (C4) is the reading of it --- and
+only the reading produces memory an observer can measure.
 
 \textbf{Weak-coupling and fast-bath regimes.} Known P-divisible systems
 with non-zero coupling illustrate the necessity of (C2), not a failure
@@ -809,8 +819,10 @@ standard partial-trace properties {[}16{]} is given in §3.2; either
 route alone suffices.
 
 \textbf{Scope of the correspondence (what it does and does not
-deliver).} Because the entire emergence-of-QM claim rests on this
-external result, we state its scope precisely rather than treat it as a
+deliver).} Because the quantum-representation clause rests on this
+external result --- the equivalence (ii) \(\iff\) (iii) between the
+conditions and the observed process class is proved in-house (§3.4) and
+does not ---, we state its scope precisely rather than treat it as a
 black-box equivalence. The correspondence is a published theorem
 (Barandes, \emph{Philosophy of Physics} 3(1):8, 2025 {[}11{]}; proof in
 {[}12{]}) and is genuinely load-bearing here, but four scope conditions
@@ -1712,12 +1724,27 @@ marginalization of a deterministic process on a larger state space ---
 furnishing Lemmas 1--3. The scope is the one scoped at the lemma above:
 the matrix, not prescribed multi-time trajectory statistics.
 
-\textbf{Theorem (C1 equivalence).} \emph{The marginalized process is
-P-indivisible iff \(T\) is not a permutation matrix.}
+\textbf{Lemma (non-permutation witness).} \emph{If the one-step matrix
+\(T\) is not a permutation, the marginalized process is P-indivisible
+--- and in particular hidden-to-visible influence (C1) is present at the
+first step.}
 
-\emph{Proof.} Forward: §2.3. Reverse: if \(T\) is a permutation,
-\(\Lambda(k_2, k_1) = T^{(k_2-k_1)}\) is a valid stochastic matrix for
-all \(k_2 > k_1\) \(\Rightarrow\) P-divisible. \(\square\)
+\emph{Proof.} The indivisibility is §2.3's recurrence theorem; and a
+non-permutation \(T\) means some visible transition has a nondegenerate
+conditional law, which requires hidden dependence. \(\square\)
+
+\emph{Remark (witness, not equivalence).} The converse fails: the
+delayed-revival family \(X_1 = X_0\), \(X_2\) uniform and independent,
+\(X_3 = X_0\) has \(T^{(1)} = I\) --- a permutation --- while the family
+is P-indivisible (\(T^{(3)} = T^{(2)}\Lambda\) is impossible:
+\(\tfrac{1}{2}J\,\Lambda\) has identical rows for every stochastic
+\(\Lambda\)), and it is realized exactly by the §3.4 dilation
+construction (\texttt{review4\_probes.py}). C1 is therefore formulated
+globally --- influence at some accessible step (§1.3) --- with the
+non-permutation one-step matrix its cheapest witness. An earlier draft
+stated the witness as an equivalence; the reverse direction assumed the
+semigroup property \(\Lambda = T^{(k_2 - k_1)}\), which hidden memory is
+precisely there to break.
 
 \emph{Remark (influence, not bidirectionality).} The equivalence is with
 hidden-to-visible influence, which is C1's defining content (§1.3); it
@@ -1828,12 +1855,15 @@ and \(\|T^{(2)} - T^2\| = \tfrac{1}{2}\), saturating the bound.
 \emph{conditional mixing time} \(\tau_B(\varepsilon_0)\) as the least
 inter-coupling relaxation time after which every realized hidden
 conditional lies within \(\varepsilon_0\) of \(\pi_H\) in total
-variation. The theorem's contrapositive then reads as a timescale
-statement: memory of magnitude \(\delta\) at step order \(k\) requires
-the coupling to return before the bath's conditional mixing to
-\(\varepsilon < \delta/(k-1)\) completes ---
-\(\tau_S \ll \tau_B(\delta/(k-1))\). This derives C2's timescale form
-from the \(\varepsilon\)-bound rather than asserting it separately.
+variation. (The theorem's bound \(\|T^{(k)} - T^k\|\) measures departure
+from the homogeneous Markov benchmark; it is not itself a measure of
+P-indivisibility --- two-notions Remark, §3.4.) The theorem's
+contrapositive then reads as a timescale statement: memory of magnitude
+\(\delta\) at step order \(k\) requires the coupling to return before
+the bath's conditional mixing to \(\varepsilon < \delta/(k-1)\)
+completes --- \(\tau_S \ll \tau_B(\delta/(k-1))\). This derives C2's
+timescale form from the \(\varepsilon\)-bound rather than asserting it
+separately.
 
 \emph{Remark (role of ETH, restated).} \emph{The necessity direction
 rests on the mixing hypothesis above --- an operational,
@@ -2004,25 +2034,20 @@ remarks following the theorem.
 
 \textbf{Characterization theorem.} \emph{Let \(\mathcal{S}\) be a
 time-homogeneous stochastic process on a finite configuration space
-\(\mathcal{C}_V\) with \(|\mathcal{C}_V| \geq 2\) --- the class every
-iterated-bijection marginal inhabits --- and consider dynamics on
-accessible timescales \(t \ll t_R\) where \(t_R\) is the Poincaré
-recurrence time of any realizing substrate. Assume the hidden sector of
-any candidate realization possesses a conditional mixing curve: the
-total-variation distance of post-relaxation hidden conditionals to the
-reference prior is non-increasing along inter-coupling relaxation, with
-finite conditional mixing time \(\tau_B(\varepsilon_0)\) for every
-\(\varepsilon_0 > 0\) (Remark, §3.4; ETH {[}17, 18{]} is the physical
-motivation). No smallness of \(\varepsilon\) at the coupling time is
-assumed --- the C2 leg concerns whether recoupling occurs before mixing.
-Then (ii) \(\iff\) (iii), and (ii) \(\implies\) (i):}
+\(\mathcal{C}_V\) with \(|\mathcal{C}_V| \geq 2\) and consider dynamics
+on accessible timescales \(t \ll t_R\) where \(t_R\) is the Poincaré
+recurrence time of any realizing substrate. Then (ii) \(\iff\) (iii);
+and P-indivisibility of \(\mathcal{S}\) --- the strictly stronger
+property (Remark below) --- implies (i):}
 
 \emph{(i) \(\mathcal{S}\) is mathematically equivalent to unitarily
 evolving QM (in the sense of the preceding definition).}
 
-\emph{(ii) \(\mathcal{S}\) is P-indivisible on accessible timescales ---
-i.e., information backflow occurs at \(t \ll t_R\), not merely at the
-formal Poincaré recurrence time.}
+\emph{(ii) \(\mathcal{S}\) is non-Markovian on accessible timescales: at
+some order \(k\) with \(k\tau_S \ll t_R\), the conditional mutual
+information \(I(X_{<k}; X_{k+1} \mid X_k)\) is strictly positive --- the
+visible past carries information about the visible future beyond the
+present.}
 
 \emph{(iii) For every finite accessible horizon, \(\mathcal{S}\) arises
 from marginalizing a deterministic bijection on
@@ -2031,33 +2056,59 @@ with the horizon --- with (C1) non-trivial coupling, (C2) slow-bath
 memory (\(\tau_S \ll \tau_B\)), (C3) sufficient capacity, and (C4)
 history readback.}
 
-\emph{Proof.} (ii) \(\implies\) (i): Barandes {[}11, 12{]} --- the
-correspondence for indivisible processes --- on accessible timescales by
-construction (the representation is formulated for the dynamics
-observers can resolve, not for behavior at recurrence times). (iii)
-\(\implies\) (ii): the readback lemma of §2.3 --- (iii) includes (C4),
-whose gap forces backflow quantitatively (\(I \geq p_0\delta^2/\ln 2\));
-the bare recurrence-based P-indivisibility holds from (C1) alone at
-\(t_R\). (ii) \(\implies\) (iii): existence, per accessible horizon, by
-the finite-horizon process-dilation theorem above, which reproduces the
-full multi-time law; the realization inherits (C4) directly --- the
-ledger-conditioned kernels reproduce \(\mathcal{S}\)'s differing
-past-conditionals exactly (\texttt{c4\_backflow\_probes.py}) --- and
-satisfies the remaining conditions by the necessity theorems --- C1 from
-the equivalence with non-permutation \(T\), C2 from the quantitative
-mixing theorem's contrapositive (conditional as stated in the Remark
-above), C3 from the data-processing bound in its per-process form
-(\(m \geq 2^{I^*}\), matching the backflow the process exhibits).
-\(\square\)
+\emph{Remark (two notions of memory).} Non-Markovianity of the process
+--- condition (ii) --- and P-indivisibility of the transition-matrix
+family are distinct, and the distinction mirrors the quantum-side gap
+between process-tensor non-Markovianity and CP-divisibility (§3.2).
+Markov implies P-divisible (chain factorization), so P-indivisibility is
+the strictly stronger property; the strictness is witnessed by an
+explicit family --- \(X_1\) uniform independent of \(X_0\),
+\(X_2 = X_0 \oplus X_1\) --- with maximal conditional memory
+(\(I(X_0; X_2 \mid X_1) = 1\) bit) whose matrix family factors through
+\(\Lambda = I\) (\texttt{review4\_probes.py}). The framework's
+accessible-timescale claim is (ii). P-indivisibility enters as the
+stronger property in two ways: unconditionally at the recurrence scale
+from a non-permutation one-step witness (§2.3), and empirically ---
+Bell-class dynamics are indivisible in the imported correspondence's
+sense, hence non-Markovian a fortiori, certifying (ii) directly.
+
+\emph{Proof.} (iii) \(\implies\) (ii): the readback lemma of §2.3 ---
+(iii) includes (C4), whose gap forces
+\(I(X_{<k}; X_{k+1} \mid X_k) \geq p_0\delta^2/\ln 2 > 0\) at an
+accessible order. (ii) \(\implies\) (iii): existence, per accessible
+horizon, by the finite-horizon process-dilation theorem above, which
+reproduces the full multi-time law; the realization inherits (C4)
+directly --- the ledger-conditioned kernels reproduce \(\mathcal{S}\)'s
+differing past-conditionals exactly (\texttt{c4\_backflow\_probes.py})
+--- and satisfies the remaining conditions: (C1) because a
+Markov-breaking kernel dependence requires hidden influence at that step
+(with none anywhere, every visible transition is a fixed function of the
+visible present and the process is Markov, contradicting (ii)); (C2)
+trivially in the construction --- the bath is static,
+\(\tau_B = \infty\), satisfying \(\tau_S \ll \tau_B\); for
+\emph{physical} hidden sectors the quantitative mixing theorem's
+contrapositive supplies the necessity direction, conditional on the
+conditional-mixing-curve hypothesis with finite
+\(\tau_B(\varepsilon_0)\) (Remark, §3.4; ETH {[}17, 18{]} the
+motivation; no smallness of \(\varepsilon\) at the coupling time is
+assumed); (C3) from the data-processing bound in per-process form
+(\(m \geq 2^{I^*}\)). Both directions of the equivalence are theorems of
+this paper. Finally, if \(\mathcal{S}\) is moreover P-indivisible, the
+imported correspondence {[}11, 12{]} represents it by a unitarily
+evolving quantum system; under the time-homogeneity restriction the
+representation takes the fixed-\(\hat{H}\) ancilla-marginal form of (i)
+(scope Remark) --- the paper's single external import, sitting outside
+the equivalence. \(\square\)
 
 \emph{Remark (retired direction).} (i) alone does not imply (ii): a
 diagonal Hamiltonian satisfies the definition with \(T(t) = I\) for all
 \(t\) --- perfectly P-divisible --- and a nearly degenerate \(\hat{H}\)
 is permutation-close throughout an accessible window
 (\texttt{review3\_probes.py}). The equivalence therefore runs (ii)
-\(\iff\) (iii) with representability as a one-way consequence; observed
-Bell violations certify (ii) directly, so the necessity argument for the
-conditions never uses a converse.
+\(\iff\) (iii) with representability following for the indivisible
+subclass; Bell-class dynamics are indivisible, hence non-Markovian a
+fortiori, certifying (ii) directly --- the necessity argument never uses
+a converse.
 
 \emph{Remark (scope: time-homogeneity).} The restriction to
 time-homogeneous processes is load-bearing for the fixed-\(\hat{H}\)
@@ -2066,9 +2117,12 @@ form of (i). A non-autonomous quantum evolution such as
 has P-indivisible computational-basis populations, but \(\cos^2(t^2)\)
 is not almost-periodic and therefore not any fixed-\(\hat{H}\)
 ancilla-marginal --- (ii) without homogeneity does not deliver (i) as
-defined. The substratum's own processes are iterated single-bijection
-marginals, hence time-homogeneous, so the restriction costs the
-framework nothing.
+defined. Autonomy is not homogeneity: a single fixed bijection applied
+every step can still produce time-dependent visible kernels through a
+hidden clock --- the §3.4 construction is the explicit example.
+Homogeneity is an additional property of the visible process; the
+imported correspondence is invoked in its fixed-\(\hat{H}\) form only
+where it holds, and there the restriction costs the framework nothing.
 
 QM is not merely \emph{compatible with} embedded observation --- it is
 \emph{equivalent to} it.
@@ -2126,7 +2180,7 @@ P-indivisibility --- renewal processes, semi-Markov processes on finite
 state spaces --- admit a unique unitary description (phase-locking
 lemma) that makes predictions beyond the transition data (energy
 eigenvalues, interference, entanglement), and can be realized as
-marginalization of deterministic dynamics under C1--C3 (necessity
+marginalization of deterministic dynamics under C1--C4 (necessity
 theorems). The framework does not distinguish ``classical
 non-Markovian'' from ``quantum'' --- it proves they are the same
 category. The physical content of the unitary is not that of a mere
@@ -2366,14 +2420,15 @@ partition, with all derived from the same deterministic substratum.
 \hypertarget{scope}{%
 \subsubsection{4.2 Scope}\label{scope}}
 
-The characterization theorem's equivalence is (ii) \(\iff\) (iii) with
-(ii) \(\implies\) (i), under (C1)--(C4): observed Bell violations
-certify P-indivisibility directly, and the necessity argument runs from
-there; quantum representability alone is strictly weaker
-(diagonal-\(\hat{H}\), §3.4 Remark). The theorem does not identify which
-physical systems satisfy the conditions; this is an empirical question.
-Universality in our universe follows from the shared causal partition
-defined by null geodesics.
+The characterization theorem's equivalence is (ii) \(\iff\) (iii) under
+(C1)--(C4), both directions in-house; the quantum representation follows
+for the indivisible subclass, and observed Bell-class dynamics ---
+indivisible, hence non-Markovian a fortiori --- certify (ii) directly;
+representability alone is strictly weaker (diagonal-\(\hat{H}\), §3.4
+Remark). The theorem does not identify which physical systems satisfy
+the conditions; this is an empirical question. Universality in our
+universe follows from the shared causal partition defined by null
+geodesics.
 
 \hypertarget{the-status-of-the-discreteness-scale}{%
 \subsubsection{4.3 The Status of the Discreteness
@@ -2771,15 +2826,16 @@ compatible with (C2).
 
 \textbf{The general theorem.} Under a single definition --- observation
 is a proper subsystem of a deterministic whole --- and conditions
-(C1)--(C4), accessible P-indivisibility of reduced dynamics is proved:
-non-trivial coupling forces indivisibility at recurrence, and history
-readback places a quantitative lower bound on observable backflow within
-the window (§2.3). By the stochastic-quantum correspondence, the
-observer's description is necessarily quantum mechanics. Continuous-time
-transition data resolves all gauge freedom. The Schrödinger equation,
-Born rule, and Bell violations are structural consequences. The
-characterization theorem establishes that the conditions are necessary:
-QM and embedded observation under (C1)--(C3) are equivalent.
+(C1)--(C4), accessible non-Markovianity of reduced dynamics is proved
+--- history readback places a quantitative lower bound on observable
+memory within the window --- and a non-permutation coupling forces
+P-indivisibility at the recurrence scale (§2.3). By the
+stochastic-quantum correspondence, the observer's description is
+necessarily quantum mechanics. Continuous-time transition data resolves
+all gauge freedom. The Schrödinger equation, Born rule, and Bell
+violations are structural consequences. The characterization theorem
+establishes that the conditions are necessary: QM and embedded
+observation under (C1)--(C3) are equivalent.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
