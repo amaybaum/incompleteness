@@ -3,7 +3,8 @@
 # Exact arithmetic throughout (fractions.Fraction; Q(sqrt2) pairs for the Hadamard).
 # P1: XOR involution — non-permutation T does NOT imply bidirectional coupling (C1 as defined).
 # P2: Hadamard pair — "CP-divisibility restricted to diagonal inputs reduces to
-#     P-divisibility" is FALSE for general CPTP families (Main.md:261 proof step).
+#     P-divisibility" is FALSE for general CPTP families (the pre-2.8.1 proof step;
+#     the current Main §3.2 theorem is scoped to diagonal-preserving channels).
 # P3: framework scope — permutation-dilation channels map diagonal states to diagonal
 #     states exactly, which is the missing hypothesis under which the reduction IS valid.
 # Any single failed assertion fails the probe.
@@ -43,7 +44,9 @@ bar("    T^(2) = T^(1) M impossible for any M (identical-rows obstruction) : P-I
 assert all(phi(v, h)[1] == h for v in V for h in H)
 bar("    hidden update h' = h independent of v : coupling is one-way (hidden -> visible)")
 bar("    VERDICT: non-permutation T does NOT imply bidirectional coupling —")
-bar("             Main.md:109 / :355 identification with (C1) as defined at :59 REFUTED")
+bar("             the pre-2.8.1 formulation of (C1) (bidirectional) was refuted by this;")
+bar("             the current C1 (hidden-to-visible influence, Main §1.3) is what the")
+bar("             equivalence theorem states, and this probe certifies its counterexample record")
 
 # ---------------- Q(sqrt2) exact arithmetic ----------------
 class Q2:  # a + b*sqrt(2), a,b rational
@@ -85,7 +88,7 @@ assert Tq1 == [[F(1,2), F(1,2)], [F(1,2), F(1,2)]] and Tq2 == [[1, 0], [0, 1]]
 # same identical-rows obstruction: population process P-indivisible
 bar("    T(t1) = [[1/2,1/2],[1/2,1/2]], T(t2) = I : population process P-INDIVISIBLE")
 bar("    VERDICT: 'CP-divisibility restricted to diagonal inputs reduces to")
-bar("             P-divisibility' (Main.md:261) is FALSE for general CPTP families —")
+bar("             P-divisibility' (the pre-2.8.1 proof step) is FALSE for general CPTP —")
 bar("             Ad_H maps diagonal inputs to coherent states the intermediate map uses")
 
 # ---------------- P3: framework scope — permutation dilations preserve diagonality ----
