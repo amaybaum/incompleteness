@@ -188,18 +188,19 @@ Observation}\label{the-equivalence-of-quantum-mechanics-and-embedded-observation
 \subsection{ABSTRACT}\label{abstract}}
 
 An observer embedded in a deterministic universe cannot access the
-complete state. We prove that any such observer --- coupled to a slow,
-high-capacity hidden sector on a finite-dimensional configuration space
---- must describe the visible sector using non-Markovian stochastic
-dynamics --- memory-bearing on accessible windows, and P-indivisible at
-the recurrence scale. The first half of the claim is established here in
-full: marginalizing a deterministic bijection over an inaccessible
-hidden sector yields a generically non-Markovian visible process, and
-this is the framework's own contribution. The identification of that
-process with unitary quantum mechanics is supplied by the Barandes
-stochastic-quantum correspondence {[}11, 12{]}, an external result that
-we use as a load-bearing dependency rather than re-derive: it furnishes
-a (basis-dependent, non-unique) representation of any P-indivisible
+complete state. We prove that any such observer --- coupled, with its
+history read back, to a slow, high-capacity hidden sector on a
+finite-dimensional configuration space --- must describe the visible
+sector using non-Markovian stochastic dynamics --- memory-bearing on
+accessible windows, and P-indivisible at the recurrence scale. The first
+half of the claim is established here in full: marginalizing a
+deterministic bijection over an inaccessible hidden sector yields a
+generically non-Markovian visible process, and this is the framework's
+own contribution. The identification of that process with unitary
+quantum mechanics is supplied by the Barandes stochastic-quantum
+correspondence {[}11, 12{]}, an external result that we use as a
+load-bearing dependency rather than re-derive: it furnishes a
+(basis-dependent, non-unique) representation of any P-indivisible
 process on a finite configuration space as a unitary system whose
 transition probabilities are exactly Born-rule probabilities. The
 correspondence delivers the kinematic scaffolding and transition
@@ -491,15 +492,16 @@ well-supported conjecture rather than a theorem --- is discussed at the
 remark in §3.4. Realization --- \(\tau_S/\tau_B \sim 10^{-32}\) at the
 horizon.)
 
-\textbf{(C3) Sufficient capacity.} The number of hidden-sector degrees
-of freedom \(N_H\) exceeds the number of visible-sector degrees of
-freedom \(N_V\) by enough that visible-sector interactions do not
-appreciably perturb the hidden sector's state on timescales
-\(\ll \tau_B\). (Status: necessity --- observed information backflow
-forces the per-process capacity bound \(m \geq 2^{I^*}\) of §3.4.
-Realization --- \(A/\epsilon^2 \sim 10^{122}\) hidden modes against
-\(\sim 10^{80}\) baryons; no laboratory process saturates the hidden
-sector.)
+\textbf{(C3) Sufficient memory capacity.} The hidden sector has enough
+distinguishable states to encode the observed conditional past--future
+information: \(\log_2 |\mathcal{C}_H| \geq I^*\), the per-process bound
+of §3.4. (Status: necessity --- the data-processing bound,
+\(m \geq 2^{I^*}\), for any realization. Realization --- at the horizon
+the margin is astronomical: \(A/\epsilon^2 \sim 10^{122}\) hidden modes
+against \(\sim 10^{80}\) baryons, a hierarchy \(N_H \gg N_V\) with the
+bath imperturbable on laboratory timescales; the hierarchy and the
+imperturbability belong to this realization clause, not to the
+condition.)
 
 \textbf{(C4) History readback.} The interaction reads what it writes: on
 accessible windows, some hidden degrees of freedom that depend on the
@@ -518,15 +520,17 @@ arbitrarily long accessible horizons (\texttt{review3\_probes.py};
 \textbf{Theorem statement.} Under Lemmas 1--3 and (C1)--(C4), the
 embedded observer's reduced description is a P-indivisible process
 admitting a unitarily evolving quantum representation (defined precisely
-in §3.4), and conversely every such process arises from an
-embedded-observation realization: the equivalence is (ii) \(\iff\) (iii)
-in the notation of §3.4 --- both directions this paper's own theorems
---- with the quantum representation (i) following for the indivisible
-subclass, and the conditions are \emph{necessary}. Representability
-alone does not force indivisibility --- the retired direction (i)
-\(\implies\) (ii) fails on diagonal Hamiltonians (§3.4, Remark) --- but
-observed Bell violations certify (ii) directly, so nothing in the
-necessity argument leans on it.
+in §3.4), and conversely every such process admits, on each finite
+accessible horizon, an embedded-observation realization ---
+finite-horizon operational realizability; the consolidation of the
+per-horizon realizations into one fixed all-time substratum is open
+(§3.4, §4.5): the equivalence is (ii) \(\iff\) (iii) in the notation of
+§3.4 --- both directions this paper's own theorems --- with the quantum
+representation (i) following for the indivisible subclass, and the
+conditions are \emph{necessary}. Representability alone does not force
+indivisibility --- the retired direction (i) \(\implies\) (ii) fails on
+diagonal Hamiltonians (§3.4, Remark) --- but observed Bell violations
+certify (ii) directly, so nothing in the necessity argument leans on it.
 
 \hypertarget{partition-relativity}{%
 \subsubsection{1.4 Partition-Relativity}\label{partition-relativity}}
@@ -623,12 +627,14 @@ The theorem requires only bijective dynamics (Lemma 3) and non-trivial
 coupling (C1). Lemma 1 guarantees the finite configuration space.
 
 \textbf{Genericity.} The theorem's precondition --- that \(T\) is not a
-permutation matrix --- is equivalent to (C1) at the bijection level and
-is generic among bijections on \(\mathcal{C}_V \times \mathcal{C}_H\) in
-a quantifiable sense. A bijection \(\varphi\) on
-\(\mathcal{C}_V \times \mathcal{C}_H\) produces \(T\) equal to a
-permutation matrix if and only if \(\varphi\) has the form
-\(\varphi(x_i, h) = (\varphi_V(x_i), \sigma_{x_i}(h))\) --- the
+permutation matrix --- is a sufficient first-step \emph{witness} of (C1)
+--- neither necessary nor equivalent to the global condition (§1.3; the
+delayed-revival family hides its influence at step one,
+\texttt{review4\_probes.py}) --- and is generic among bijections on
+\(\mathcal{C}_V \times \mathcal{C}_H\) in a quantifiable sense. A
+bijection \(\varphi\) on \(\mathcal{C}_V \times \mathcal{C}_H\) produces
+\(T\) equal to a permutation matrix if and only if \(\varphi\) has the
+form \(\varphi(x_i, h) = (\varphi_V(x_i), \sigma_{x_i}(h))\) --- the
 V-dynamics is independent of \(h\). Counting these: \(|\mathcal{C}_V|!\)
 choices for \(\varphi_V\) times \((|\mathcal{C}_H|!)^{|\mathcal{C}_V|}\)
 choices for the family \(\{\sigma_{x_i}\}\), giving a total of
@@ -1531,20 +1537,21 @@ supplies (iii) \(\implies\) (i) independently.
 \textbf{Dependency scope of the correspondence.} The division of labor
 between the routes fixes the framework's exposure to the correspondence
 precisely: the sufficiency direction --- embedded observation under
-(C1)--(C3) yields the emergent quantum description, with its Born-rule
-statistics, Hamiltonian uniqueness (phase-locking, whose proof is
-self-contained Fourier analysis), and every downstream quantitative
-result of the framework, including the \(\hbar\) relation derived from
-the cosmological-horizon partition --- is established by the Stinespring
-route together with the reconstruction-theorem necessity statement
-below, and survives without the correspondence entirely. The
-correspondence {[}11, 12{]} is load-bearing for one result only: the
-necessity direction of the characterization theorem (§3.4), where the QM
-\(\Leftrightarrow\) P-indivisibility biconditional powers (ii)
-\(\implies\) (i). A failure of the correspondence would therefore leave
-the framework's constructive claims intact and would remove only the
-converse --- that every quantum system requires an embedded-observation
-realization.
+(C1)--(C4) yields the emergent description, quantum in its
+fixed-\(\hat{H}\) form constructively for realized processes (Lemma,
+§3.4), with its Born-rule statistics, Hamiltonian uniqueness
+(phase-locking, whose proof is self-contained Fourier analysis), and
+every downstream quantitative result of the framework, including the
+\(\hbar\) relation derived from the cosmological-horizon partition ---
+is established by the Stinespring route together with the
+reconstruction-theorem necessity statement below, and survives without
+the correspondence entirely. The correspondence {[}11, 12{]} is
+load-bearing for one result only: the necessity direction of the
+characterization theorem (§3.4), where the QM \(\Leftrightarrow\)
+P-indivisibility biconditional powers (ii) \(\implies\) (i). A failure
+of the correspondence would therefore leave the framework's constructive
+claims intact and would remove only the converse --- that every quantum
+system requires an embedded-observation realization.
 
 \textbf{An independent necessity statement.} Both routes above are
 constructive: they exhibit quantum mechanics as the description of the
@@ -1971,6 +1978,19 @@ rational, and conversely every rational finite-horizon law is realized;
 an irrational prior can produce an irrational law, so the equivalence is
 between rational laws and finite realizations with rational priors.}
 
+\emph{Extension (arbitrary priors --- the response-table form).} The
+rationality restriction is a property of the uniform-tape presentation,
+not of realizability. Replace the tape by a response coordinate
+\(u = (u_c)_c\) indexed by the horizon's finitely many history contexts,
+with product prior \(\mu(u) = \prod_c \mathrm{kern}_c(u_c)\) and
+deterministic step \(x_{k+1} := u_{c(x_{\leq k})}\); the ledger and
+clock complete the bijection exactly as above. Conditioning on the
+visible past exposes \(u\) only at visited contexts, so the current
+context's conditional law is \(\mathrm{kern}_c\) verbatim, and the full
+multi-time joint is reproduced for arbitrary real kernels
+(\texttt{review4\_probes.py}, P-G). The characterization below therefore
+quantifies over general finite-horizon laws.
+
 \emph{Proof (constructive).} Let \(D\) be a common denominator of the
 conditional kernels \(P(x_{k+1} \mid x_0 \ldots x_k)\). Take
 \(\mathcal{C}_H = (\mathcal{C}_V \cup \{\square\})^K \times \mathbb{Z}_D^K \times \mathbb{Z}_{K+1}\)
@@ -2031,6 +2051,32 @@ Born rule. Additional quantum-mechanical structures --- the tensor
 product decomposition for spatially separated visible-sector subsystems,
 state update, and the measurement formalism --- are addressed in the
 remarks following the theorem.
+
+\textbf{Lemma (fixed-\(\hat{H}\) form for realized processes).}
+\emph{Let a process arise as in (iii) below: the marginal of an iterated
+fixed bijection \(\varphi\) with a fixed hidden prior. Then the
+fixed-\(\hat{H}\) ancilla-marginal form of (i) holds constructively at
+every horizon time: take \(U_\varphi\) the permutation unitary of
+\(\varphi\) on \(\mathcal{C}_V \times \mathcal{C}_H\) and
+\(\hat{H} := i \log U_\varphi\); for the uniform hidden prior,
+\(T^{(k)}_{ij} = \frac{1}{|\mathcal{C}_H|}\sum_{h,l} |\langle j, l| U_\varphi^k |i, h\rangle|^2\)
+exactly, and for the §3.4 construction's structured prior the same
+identity holds with the ancilla prepared uniform on the initial register
+slice (final sum over the full space); \(U(t) = e^{-i\hat{H}t}\) matches
+\(U_\varphi^k\) at integer times.}
+
+\emph{Proof.}
+\(|\langle j,l|U_\varphi^k|i,h\rangle|^2 = \mathbb{1}[\varphi^k(i,h) = (j,l)]\);
+summing \(l\) over the final space and \(h\) uniformly over the prepared
+set counts exactly the defining fraction of \(T^{(k)}\). \(\square\)
+(Certified exactly, both preparations, in \texttt{review4\_probes.py},
+P-F.)
+
+\emph{Consequence.} The chain (ii) \(\implies\) (iii) \(\implies\)
+fixed-\(\hat{H}\) form is in-house, per horizon; the imported
+correspondence retains its conceptual role --- the Born-rule reading and
+the basis apparatus for the indivisible subclass --- while the form
+itself no longer leans on it.
 
 \textbf{Characterization theorem.} \emph{Let \(\mathcal{S}\) be a
 time-homogeneous stochastic process on a finite configuration space
@@ -2110,6 +2156,22 @@ subclass; Bell-class dynamics are indivisible, hence non-Markovian a
 fortiori, certifying (ii) directly --- the necessity argument never uses
 a converse.
 
+\emph{Remark (existential and universal readings).} The equivalence is
+existential: (ii) holds iff SOME per-horizon (C1)--(C4) realization
+exists. The necessity analysis is universal and per-condition: any
+deterministic realization of a non-Markovian process has hidden
+influence at some step (C1), memory capacity \(m \geq 2^{I^*}\) (C3),
+and read-back differing past-conditionals (C4); C2's necessity holds
+within the conditional-mixing class. Neither reading borrows the other's
+strength.
+
+\emph{Remark (consolidation, open).} The equivalence is per-horizon: the
+hidden space may grow with \(K\), and nothing yet shows the family of
+realizations glues into a single fixed \((S, \varphi)\) reproducing the
+process at all times. This is the remaining mathematical debt between
+the operational theorem and the ontology, and it is carried as an open
+item (§4.5).
+
 \emph{Remark (scope: time-homogeneity).} The restriction to
 time-homogeneous processes is load-bearing for the fixed-\(\hat{H}\)
 form of (i). A non-autonomous quantum evolution such as
@@ -2123,6 +2185,10 @@ hidden clock --- the §3.4 construction is the explicit example.
 Homogeneity is an additional property of the visible process; the
 imported correspondence is invoked in its fixed-\(\hat{H}\) form only
 where it holds, and there the restriction costs the framework nothing.
+The fixed-\(\hat{H}\) form itself is constructive for realized processes
+--- the realization's permutation unitary with \(\hat{H} = i \log U\)
+(Lemma above) --- at the horizon's integer times; the almost-periodicity
+obstruction of this Remark concerns the all-real-time reading.
 
 QM is not merely \emph{compatible with} embedded observation --- it is
 \emph{equivalent to} it.
@@ -2705,15 +2771,23 @@ imply (ii) (diagonal-\(\hat{H}\); slow clock;
 & Proved constructively, per accessible horizon --- finite-horizon
 process dilation reproducing the full multi-time law; the realization
 inherits (C4); C1/C3/C4 legs unconditional, C2 leg conditional on the
-mixing hypothesis & §3.4 \\
+mixing hypothesis; arbitrary-prior form via the response-table
+extension; CONSOLIDATION into one fixed all-time substratum OPEN (the
+gluing question) & §3.4 \\
+Fixed-\(\hat{H}\) form for realized processes & Proved --- the
+realization's permutation unitary, \(\hat{H} = i\log U\); slice-prepared
+ancilla marginal reproduces \(T^{(k)}\) exactly at horizon times
+(\texttt{review4\_probes.py}, P-F) & §3.4 \\
 (iii) \(\implies\) (ii): realization \(\implies\) P-indivisible & Proved
 --- the readback lemma: a (C4) gap forces \(I \geq p_0\delta^2/\ln 2\)
 on the window; bare-recurrence form from (C1) alone at \(t_R\) & §2.3 \\
 CP-indivisibility of \(\{\Phi_t\}\) & Proved for the framework's
 diagonal-preserving (permutation-dilation) channels; fails for general
 CPTP families (Hadamard boundary) & §3.2 \\
-C1 necessity & Proved --- equivalence with non-permutation \(T\);
-defining content is hidden-to-visible influence & §3.4, §1.3 \\
+C1 necessity & Proved --- any realization of a non-Markovian process has
+hidden influence at some accessible step (none anywhere ⟹ Markov); a
+non-permutation one-step \(T\) is the sufficient first-step witness, not
+an equivalence & §3.4, §1.3 \\
 C2 necessity & Conditional on the hidden-sector mixing hypothesis; the
 quantitative bound \(\varepsilon \geq \delta/(k-1)\) is proved, its
 constant saturated in the certification suite

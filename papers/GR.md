@@ -275,7 +275,7 @@ with the $\Lambda$CDM limit at the $2\sigma$ boundary of the posterior. This is 
 
 The trace-out that produces QM has an automatic gravitational consequence.
 
-**Corollary (Invisible gravitational budget).** *Under Lemmas 1–3 and conditions (C1)–(C3), the cosmological trace-out that produces quantum mechanics simultaneously renders ~95% of the universe's gravitational budget invisible to the emergent QFT.*
+**Corollary (Invisible gravitational budget).** *Under Lemmas 1–3 and conditions (C1)–(C4), the cosmological trace-out that produces quantum mechanics simultaneously renders ~95% of the universe's gravitational budget invisible to the emergent QFT.*
 
 *Proof.* Three steps, each using only results already established.
 

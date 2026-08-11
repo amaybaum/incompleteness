@@ -364,14 +364,14 @@ Two subsystems that interacted during preparation carry a joint transition matri
 
 ## The Characterization Theorem (§3.3)
 
-It's not enough to show that embedded observation *produces* QM (sufficiency). The paper shows QM *requires* embedded observation under C1–C3 (necessity). The full logical chain:
+It's not enough to show that embedded observation *produces* QM (sufficiency). The paper shows the observed non-Markovian dynamics *require* embedded observation under C1–C4 (necessity, per condition; the C2 leg conditional on the mixing hypothesis). The full logical chain:
 
 - Barandes proved: QM ⟺ P-indivisibility
-- Section 2.3 proved: C1–C3 ⟹ P-indivisibility (sufficiency)
+- Section 2.3 proved: a non-permutation coupling ⟹ P-indivisibility at the recurrence scale, and C4's readback ⟹ accessible non-Markovianity, quantitatively (sufficiency)
 - Section 3.3 proves: P-indivisibility ⟹ C1–C3 (necessity)
-- Combined: **QM ⟺ P-indivisibility ⟺ embedded observation under C1–C3**
+- Combined: **accessible non-Markovianity ⟺ embedded observation under C1–C4 (per finite horizon), with the quantum representation attaching to the P-indivisible subclass**
 
-**Necessity of C1 (coupling).** If T is a permutation (no coupling), then T^k is also a permutation for all k. The intermediate propagator Λ(k₂,k₁) = T^{k₂-k₁} is always a valid stochastic matrix. So the process is P-divisible. Contrapositive: P-indivisibility requires non-trivial coupling.
+**Necessity of C1 (coupling).** With no hidden influence at any accessible step, every visible transition is a fixed function of the visible present — the process is Markov, hence not the observed one. A non-permutation one-step matrix is the cheapest *witness* of C1, sufficient but not necessary: influence can hide at step one and surface later (the delayed-revival family).
 
 **Necessity of C2 (slow bath).** Between coupling events (separated by τ_S), the hidden sector evolves under its own Hamiltonian. The convergence to equilibrium is:
 
@@ -389,7 +389,7 @@ $$I(X_{<t} ; X_{>t} \mid X_t) \leq I(X_{<t} ; H_t \mid X_t) \leq H(H_t \mid X_t)
 
 Each step uses a standard information-theoretic inequality. The result: if you want K bits of history dependence, you need m ≥ 2^K hidden states.
 
-**The complete characterization.** For |C_V| ≥ 2, the following are equivalent: (1) the process is mathematically equivalent to unitarily evolving QM, (2) the process is P-indivisible, (3) the process arises from marginalizing a deterministic bijection with C1, C2, C3. This is the biconditional: **QM ⟺ embedded observation under C1–C3.**
+**The complete characterization.** For |C_V| ≥ 2: the process is non-Markovian on accessible timescales ⟺ it arises, on each finite horizon, from marginalizing a deterministic bijection under C1–C4. Both directions are the foundational paper's own theorems; P-indivisible processes in that class — the empirically realized ones — additionally admit the unitary quantum representation, and the fixed-Ĥ form is constructive for every realized process. The old three-way biconditional is retired: representability alone does not force memory (diagonal Hamiltonians), and conditional memory alone does not force P-indivisibility (the XOR family).
 
 **What "unitarily evolving QM" means precisely.** The characterization theorem delivers a Hilbert space, a Hermitian Hamiltonian, a unitary time evolution, and Born-rule transition probabilities. Additional structures of operational quantum mechanics — the tensor product decomposition for spatially separated subsystems, state update via the Lüders rule, and multi-time predictions — are all derived from the construction rather than added as independent postulates. The tensor product for the visible–hidden split comes from the Stinespring route (Appendix A). The tensor product for subsystems within the visible sector (two laboratories, for instance) follows from the spatial Markov property of range-1 dynamics on the coupling graph. Projective measurement corresponds to Bayesian conditioning on the classical substratum. The equivalence between "classical non-Markovian" and "quantum" is not metaphorical — the theorem proves these are the same mathematical category.
 
