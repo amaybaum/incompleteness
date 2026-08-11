@@ -245,7 +245,7 @@ The Standard-Model identification carries one named structural hypothesis. **H-�
 
 ## 19.4 Chapter close: summary table and what the framework does not address
 
-The framework's content against the standard list of open problems in fundamental physics summarizes as follows.
+The framework's content against the standard list of open problems in fundamental physics summarizes as follows. The status labels are the framework's claims as argued in the cited chapters, and every label inherits the conditionality ledger of [Main §4.5] — in particular the C2 leg's mixing-hypothesis conditionality, the open chirality hypothesis H-χ, and the flagged carrier input of the Casimir chain; no label asserts more than its cited derivation, and "Dissolved" or "Derived" is always relative to that ledger.
 
 **Summary table.**
 

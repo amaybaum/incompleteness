@@ -476,6 +476,7 @@ Laboratory tests of the characterization theorem may be possible in tabletop sys
 | C3 necessity | Proved — data-processing bound in per-process form, $m \geq 2^{I^*}$ | §3.4, §1.3 |
 | C4 necessity | Immediate given observed P-indivisibility (any realization of a non-Markov process reads differing past-conditionals); separation certified — (C1)–(C3) alone admit zero-backflow realizations (the coin) | §1.3, §2.3 |
 | Chirality of the SU(2) embedding | OPEN — named hypothesis H-χ (taste-chirality selectivity); the grading identification is proved and probe-certified; the generation count does not depend on H-χ | [SM §4.8], Thm 13 |
+| Taste → physical spin | Proved in the staggered formalism (Theorem 9: singlet → spin-0, triplet → spin-1/2); the carrier identification feeding the Casimir chain (signed $T_1$ vs $A_1 \oplus E$) is a flagged open input, tested jointly with $A^2 = C_2$ by the preregistered SC-1 measurement | [SM §4.7], Thm 9 + Remark |
 
 ### 4.6 Structural Exclusion of Equilibrium-Phase Observers
 
