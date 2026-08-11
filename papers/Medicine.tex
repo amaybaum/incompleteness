@@ -190,22 +190,22 @@ Design}\label{molecular-memory-as-a-unifying-framework-for-disease-mechanisms-an
 
 The Observational Incompleteness (OI) framework {[}1{]} proves that any
 fast subsystem coupled to a slow, high-capacity hidden sector exhibits
-P-indivisible (non-Markovian) dynamics --- history-dependent transition
-probabilities arising from information stored in the hidden sector and
-returned on subsequent interactions. Originally developed for
-fundamental physics, the theorem's architectural conditions (C1--C3) are
-scale-independent; although biological subsystems are open and
-dissipative rather than the closed, reversible substratum the full
-theorem assumes, the model-independent consequence --- that tracing out
-a slow, high-capacity sector yields history-dependent (non-Markovian)
-dynamics --- applies to them directly. We identify biological systems
---- from single enzymes through signaling cascades to the epigenome ---
-as natural instantiations of this architecture. The fast catalytic
-process (enzyme active site, ion channel gating, kinase phosphorylation)
-is coupled (C1) to slow conformational or post-translational
-modification dynamics (C2) with exponentially large state spaces (C3),
-producing history-dependent behavior that standard Markovian models
-cannot capture.
+non-Markovian dynamics (P-indivisible at the recurrence scale) ---
+history-dependent transition probabilities arising from information
+stored in the hidden sector and returned on subsequent interactions.
+Originally developed for fundamental physics, the theorem's
+architectural conditions (C1--C4) are scale-independent; although
+biological subsystems are open and dissipative rather than the closed,
+reversible substratum the full theorem assumes, the model-independent
+consequence --- that tracing out a slow, high-capacity sector yields
+history-dependent (non-Markovian) dynamics --- applies to them directly.
+We identify biological systems --- from single enzymes through signaling
+cascades to the epigenome --- as natural instantiations of this
+architecture. The fast catalytic process (enzyme active site, ion
+channel gating, kinase phosphorylation) is coupled (C1) to slow
+conformational or post-translational modification dynamics (C2) with
+exponentially large state spaces (C3), producing history-dependent
+behavior that standard Markovian models cannot capture.
 
 We develop this structural observation into a unified framework for
 seven medical domains: cancer pharmacology (checkpoint kinase memory and
@@ -290,7 +290,7 @@ correlations from past interactions across many fast events.
 states than the fast subsystem, providing sufficient room to store the
 full interaction history without saturation.
 
-When C1--C3 are satisfied, the characterization theorem {[}1, §3.4{]}
+When C1--C4 are satisfied, the characterization theorem {[}1, §3.4{]}
 proves that the fast subsystem's dynamics is P-indivisible: transition
 probabilities at time \(t\) depend on the system's history, stored in
 the hidden sector's state and returned through the coupling. The
@@ -304,7 +304,7 @@ conformational degrees of freedom. The catalytic cycle operates on
 nanosecond-to-microsecond timescales; the regulatory domain's
 conformational changes persist for microseconds to milliseconds; PTM
 patterns persist for minutes to hours; chromatin modifications persist
-for days to generations. At every scale, C1--C3 are satisfied, and the
+for days to generations. At every scale, C1--C4 are satisfied, and the
 theorem predicts non-Markovian dynamics.
 
 This paper develops the medical implications of this observation across
@@ -387,7 +387,7 @@ Storage medium
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 \(\tau_B\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-C1--C3 role
+C1--C4 role
 \end{minipage} \\
 \midrule\noalign{}
 \endhead
@@ -406,7 +406,7 @@ Months--generations & C2 + C3 \\
 \end{longtable}
 
 In multicellular tissues --- particularly the nervous system --- the
-same C1--C3 architecture extends upward through additional layers, each
+same C1--C4 architecture extends upward through additional layers, each
 treating the layer below as its hidden sector:
 
 \begin{longtable}[]{@{}lll@{}}
@@ -457,9 +457,9 @@ visible-sector context at the moment of access.
 This is the framework's derivation of the \emph{reconstructive nature of
 recall} --- a phenomenon long established in cognitive science but
 typically treated as a contingent feature of biological memory. The
-framework makes it structural: any C1--C3 memory system must exhibit
+framework makes it structural: any C1--C4 memory system must exhibit
 constructive re-storage on access. Pure address-store memory (where
-access leaves the substrate unchanged) is incompatible with C1--C3.
+access leaves the substrate unchanged) is incompatible with C1--C4.
 
 \textbf{Clinical consequence: the reconsolidation paradigm.} When a
 memory is recalled, the recalled trace becomes labile and must be
@@ -538,7 +538,7 @@ Chk1 inhibitors combined with gemcitabine and/or radiation selectively
 sensitize tumor cells --- particularly pancreatic cancer --- while
 sparing normal cells. Chk1 is a serine/threonine kinase whose catalytic
 domain (fast subsystem) is regulated by its SQ/TQ domain and C-terminal
-regulatory region (slow hidden sector). C1--C3 are satisfied: catalytic
+regulatory region (slow hidden sector). C1--C4 are satisfied: catalytic
 and regulatory domains are allosterically coupled (C1); regulatory
 conformational changes (\(\mu\)s--ms) \(\gg\) phosphorylation events
 (ns--\(\mu\)s), with PTM persistence extending to minutes--hours (C2);
@@ -623,12 +623,12 @@ three decades. Drugs that successfully clear A\(\beta\) plaques
 central hypothesis appears to target a symptom rather than the
 mechanism.
 
-\hypertarget{camkii-as-the-canonical-c1c3-system}{%
-\subsubsection{4.2 CaMKII as the canonical C1--C3
-system}\label{camkii-as-the-canonical-c1c3-system}}
+\hypertarget{camkii-as-the-canonical-c1c4-system}{%
+\subsubsection{4.2 CaMKII as the canonical C1--C4
+system}\label{camkii-as-the-canonical-c1c4-system}}
 
 CaMKII --- the canonical molecular memory device in neurons ---
-satisfies C1--C3:
+satisfies C1--C4:
 
 \begin{itemize}
 \tightlist
@@ -846,7 +846,7 @@ accumulation}\label{persister-cells-as-memory-accumulation}}
 
 Persister cells survive antibiotic treatment through transient
 phenotypic tolerance, not genetic resistance. The SOS response pathway
---- regulated by RecA --- satisfies C1--C3: RecA's nucleotide binding
+--- regulated by RecA --- satisfies C1--C4: RecA's nucleotide binding
 (fast) is allosterically coupled to filament formation on ssDNA (slow,
 seconds to minutes), with filaments extending over hundreds of bases
 (exponentially large state space).
@@ -900,13 +900,13 @@ PD-1/PD-L1 checkpoint inhibitors work in only \(\sim 20\)--\(30\%\) of
 patients. The primary barrier is T cell exhaustion --- progressive loss
 of effector function due to chronic antigen stimulation.
 
-\hypertarget{tcr-signaling-as-a-c1c3-system}{%
-\subsubsection{6.2 TCR signaling as a C1--C3
-system}\label{tcr-signaling-as-a-c1c3-system}}
+\hypertarget{tcr-signaling-as-a-c1c4-system}{%
+\subsubsection{6.2 TCR signaling as a C1--C4
+system}\label{tcr-signaling-as-a-c1c4-system}}
 
 The TCR signaling cascade (Lck \(\to\) ZAP-70 \(\to\) LAT \(\to\)
 downstream effectors) involves kinases with regulatory domains
-satisfying C1--C3, with multiple phosphorylation sites creating a
+satisfying C1--C4, with multiple phosphorylation sites creating a
 combinatorial memory register.
 
 \hypertarget{the-oi-prediction-2}{%
@@ -942,7 +942,7 @@ dynamics}\label{use-dependent-block-as-non-markovian-channel-dynamics}}
 
 Antiarrhythmic drugs show use-dependent block --- efficacy depends on
 heart rate, not just plasma concentration. Voltage-gated ion channels
-(hERG, Nav1.5, Cav1.2) satisfy C1--C3: the pore domain (fast gating,
+(hERG, Nav1.5, Cav1.2) satisfy C1--C4: the pore domain (fast gating,
 \(\sim \mu\)s) is coupled to voltage-sensing and regulatory domains with
 slow inactivation timescales (\(\sim 100\) ms to seconds) and multiple
 inactivation states (C3).
@@ -971,7 +971,7 @@ inhibition}\label{disproportionate-efficacy-of-partial-jak-inhibition}}
 JAK inhibitors (tofacitinib, baricitinib) show a nonlinear
 dose-response: \(50\%\) reduction in JAK activity produces \(> 80\%\)
 reduction in disease activity. JAK kinases have a pseudokinase domain
-(JH2) that regulates the kinase domain (JH1), satisfying C1--C3.
+(JH2) that regulates the kinase domain (JH1), satisfying C1--C4.
 
 \hypertarget{the-oi-prediction-3}{%
 \subsubsection{8.2 The OI prediction}\label{the-oi-prediction-3}}
@@ -999,11 +999,11 @@ activity reduced while acute immune competence is preserved.
 \subsection{9. Epigenetics as the Biological Hidden
 Sector}\label{epigenetics-as-the-biological-hidden-sector}}
 
-\hypertarget{the-c1c3-architecture-of-chromatin}{%
-\subsubsection{9.1 The C1--C3 architecture of
-chromatin}\label{the-c1c3-architecture-of-chromatin}}
+\hypertarget{the-c1c4-architecture-of-chromatin}{%
+\subsubsection{9.1 The C1--C4 architecture of
+chromatin}\label{the-c1c4-architecture-of-chromatin}}
 
-Epigenetic regulation satisfies C1--C3 exactly. The transcriptional
+Epigenetic regulation satisfies C1--C4 exactly. The transcriptional
 machinery (visible sector) is coupled (C1) to the chromatin state
 (hidden sector), which changes slowly relative to transcription (C2) and
 has astronomically large capacity (C3: \(\sim 2^{28 \times 10^6}\)
@@ -1246,7 +1246,7 @@ replacement}\label{coagulation-cascade-memory-and-factor-replacement}}
 
 The clotting cascade (intrinsic and extrinsic pathways converging at
 Factor X \(\to\) thrombin \(\to\) fibrin) is a multi-kinase signaling
-cascade with C1--C3 architecture. Thrombin activates Factor V and Factor
+cascade with C1--C4 architecture. Thrombin activates Factor V and Factor
 VIII (positive feedback), while antithrombin and TFPI provide negative
 feedback on different timescales. The cascade has memory: prior
 subthreshold activation primes it for faster response to subsequent
@@ -1369,7 +1369,7 @@ genetic defect itself but to three categories of treatment challenge:
 \begin{minipage}[b]{\linewidth}\raggedright
 Treatment challenge
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-C1--C3 system
+C1--C4 system
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 OI prediction
 \end{minipage} \\
@@ -1744,7 +1744,7 @@ al.~1998) --- not yet for checkpoint kinases.
 principle}\label{the-unifying-principle}}
 
 Every application follows the same logic: (1) a disease process involves
-a signaling molecule with C1--C3 architecture; (2) the disease state
+a signaling molecule with C1--C4 architecture; (2) the disease state
 involves pathological accumulation or alteration of non-Markovian
 memory; (3) current drugs target catalytic function; (4) the framework
 identifies memory structure as a pharmacologically distinct target; (5)
@@ -1825,13 +1825,13 @@ physics}\label{connection-to-fundamental-physics}}
 
 The mathematical structure underlying these predictions is identical to
 the theorem that derives quantum mechanics from embedded observation
-{[}1{]}. The C1--C3 conditions that produce non-Markovian enzyme
+{[}1{]}. The C1--C4 conditions that produce non-Markovian enzyme
 dynamics are the same conditions that produce quantum mechanics at the
 cosmological scale. The read-write cycle of a kinase interacting with
 its regulatory domain is structurally isomorphic to the read-write cycle
 of an observer interacting with the hidden sector across the
 cosmological horizon. This connection is not metaphorical --- the
-characterization theorem applies to any system satisfying C1--C3,
+characterization theorem applies to any system satisfying C1--C4,
 regardless of scale. The biological instantiations are classical (no
 quantum coherence is required or invoked), but the mathematical
 architecture is the same.
@@ -1856,7 +1856,7 @@ structural feature of trace-out dynamics.
 The \emph{unified naturalness pattern} developed in {[}SM §8.8{]}
 extends to biology in the form developed in §9.1: biological
 ``fine-tuning'' of \(\tau_B / \tau_S\) ratios at memory layers is
-structurally required by C1--C3 rather than evolutionarily contingent.
+structurally required by C1--C4 rather than evolutionarily contingent.
 The same mechanism that dissolves the hierarchy and
 cosmological-constant naturalness problems in physics ---
 substratum-level structural constraints forcing specific values of

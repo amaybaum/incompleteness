@@ -368,7 +368,7 @@ It's not enough to show that embedded observation *produces* QM (sufficiency). T
 
 - Barandes proved: QM ⟺ P-indivisibility
 - Section 2.3 proved: a non-permutation coupling ⟹ P-indivisibility at the recurrence scale, and C4's readback ⟹ accessible non-Markovianity, quantitatively (sufficiency)
-- Section 3.3 proves: P-indivisibility ⟹ C1–C3 (necessity)
+- Section 3.3 proves: P-indivisibility ⟹ C1–C4 (necessity)
 - Combined: **accessible non-Markovianity ⟺ embedded observation under C1–C4 (per finite horizon), with the quantum representation attaching to the P-indivisible subclass**
 
 **Necessity of C1 (coupling).** With no hidden influence at any accessible step, every visible transition is a fixed function of the visible present — the process is Markov, hence not the observed one. A non-permutation one-step matrix is the cheapest *witness* of C1, sufficient but not necessary: influence can hide at step one and surface later (the delayed-revival family).
@@ -916,7 +916,7 @@ S is the set of all distinguishable states. Its physical meaning is *finite capa
 
 Together, (S, φ) is a *finite lossless memory*: a register with finite capacity whose contents are updated without loss at each step. The partition V defines the observer's *access* — both read and write. The observer reads the visible sector (measuring x) and writes to the hidden sector (each visible-sector operation imprints correlations on H through coupling). The hidden sector stores those writes (C2: slow bath) and returns them on subsequent reads — producing the information backflow that defines P-indivisibility and hence QM.
 
-The framework's results all have a clean interpretation in this language. The conditions C1–C4 are access conditions on the memory: C1 means the readable and unreadable parts are dynamically linked (read-write coupling is active), and C4 means what is written is read back. C2 means the unreadable part retains its contents between reads. C3 means the unreadable part is large enough to store the full interaction history without overflow.
+The framework's results all have a clean interpretation in this language. The conditions C1–C4 are access conditions on the memory: C1 means the readable and unreadable parts are dynamically linked (read-write coupling is active), and C4 means the visible past is re-expressed through the hidden sector — in the physical realization, what is written is read back. C2 means the unreadable part retains its contents between reads. C3 means the unreadable part is large enough to store the full interaction history without overflow.
 
 Quantum mechanics is the statistics of this *read-write cycle* — not passive observation of a static memory, but the self-consistent description that emerges when a finite subsystem both reads from and writes to a register it cannot fully access. The Schrödinger equation governs how read-write probabilities evolve. The Born rule is the equilibrium of the cycle. Interference is write-then-read: information deposited in hidden storage during one transition is retrieved on a later transition, partially cancelling or reinforcing the transition probabilities. The 10¹²² cosmological constant discrepancy is the compression ratio between total storage and readable storage. The dark sector is the gravitational weight of the unreadable storage. The Bekenstein-Hawking entropy is the storage capacity of the partition boundary. ℏ is the conversion factor between storage geometry and read-write statistics.
 
@@ -926,7 +926,7 @@ An immediate objection: "Memory made of *what*?" In everyday life, memory requir
 
 A Turing machine has a tape (storage), a head (read/write access), and a transition function (update rule). Under effective finiteness — where the visible sector and boundary layer are finite but the deep hidden sector may be infinite (Main, §4.3) — the correspondence between (S, φ, V) and a reversible Turing machine is not an analogy. It is structural.
 
-The visible sector V is the head: a finite-state subsystem with bounded local coupling. The hidden sector H is the tape: a memory register that stores correlations written by past interactions. φ is a reversible transition function: no erasure, no halting, no information loss. The conditions C1–C4 characterize this architecture: C1 (coupling) is the read/write mechanism, and C4 (readback) closes the loop — the interaction reads what it writes. C2 (slow bath) says the tape retains its contents between head operations. C3 (capacity) says the tape is large enough to store the full interaction history.
+The visible sector V is the head: a finite-state subsystem with bounded local coupling. The hidden sector H is the tape: a memory register that stores correlations written by past interactions. φ is a reversible transition function: no erasure, no halting, no information loss. The conditions C1–C4 characterize this architecture: C1 (coupling) is the read/write mechanism, and C4 (readback) closes the loop: history-sensitive hidden mediation, realized cosmologically as a read-write cycle. C2 (slow bath) says the tape retains its contents between head operations. C3 (capacity) says the tape is large enough to store the full interaction history.
 
 So what's different? Not the finiteness — the tape can be infinite. Not the reversibility — that's a specialization (reversible Turing machines are a well-studied subclass, going back to Bennett and Fredkin-Toffoli). The one genuine difference is the *question asked*.
 
@@ -1028,7 +1028,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1 + C2 + C3 |
 | Coin-and-die model (§2.4) | Concrete demonstration of all mechanisms | Definition + all conditions |
 | Stochastic-quantum correspondence (§3.1) | P-indivisibility = quantum mechanics | Barandes [10,11] or Stinespring (Appendix A) |
-| Necessity proof (§3.3) | QM *requires* C1, C2, C3 | Contrapositives of sufficiency |
+| Necessity proof (§3.3) | QM *requires* C1, C2, C3, C4 | Contrapositives of sufficiency |
 
 ### Sections 3–6: The Logical Flow
 
