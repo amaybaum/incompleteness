@@ -1463,27 +1463,27 @@ marginalization of a deterministic bijection satisfying C1-C3 for some
 partition.}
 
 The proof develops in seven stages, with a structural commentary in
-§1.10 examining what physics emerges when each of the three conditions
+§1.10 examining what physics emerges when each of the four conditions
 fails. §1.2 states the framework's definition of observation and
-extracts three structural lemmas from it. §1.3 introduces the three
-conditions C1-C3, anchoring each in the physical situation of laboratory
-observers in our universe. §1.4 proves that the partition uniquely
-determines the emergent description, establishing partition-relativity
-as a structural feature rather than a free parameter. §1.5 proves that
-under C1-C3 the marginalized stochastic process is P-indivisible --- a
-precise non-Markovian property that captures the structural difference
-between embedded-observer dynamics and classical thermal noise. §1.6
-establishes the two independent routes from P-indivisibility to unitary
-quantum mechanics: the Barandes stochastic-quantum correspondence and
-the Stinespring dilation. §1.7 develops the framework's account of
-Bell-inequality violations as a structural consequence of P-indivisible
-joint dynamics. §1.8 establishes necessity through the characterization
-theorem. §1.9 closes by stating what the theorem says: quantum mechanics
-as the unique self-consistent decompression algorithm for predictions
-from incomplete data under C1-C3. §1.10 develops the three structural
-limits --- what happens when each of C1, C2, C3 fails --- as commentary
-on what kind of observer the framework's conditions jointly
-characterize.
+extracts three structural lemmas from it. §1.3 introduces the four
+conditions C1--C4, anchoring each in the physical situation of
+laboratory observers in our universe. §1.4 proves that the partition
+uniquely determines the emergent description, establishing
+partition-relativity as a structural feature rather than a free
+parameter. §1.5 proves that under C1-C3 the marginalized stochastic
+process is P-indivisible --- a precise non-Markovian property that
+captures the structural difference between embedded-observer dynamics
+and classical thermal noise. §1.6 establishes the two independent routes
+from P-indivisibility to unitary quantum mechanics: the Barandes
+stochastic-quantum correspondence and the Stinespring dilation. §1.7
+develops the framework's account of Bell-inequality violations as a
+structural consequence of P-indivisible joint dynamics. §1.8 establishes
+necessity through the characterization theorem. §1.9 closes by stating
+what the theorem says: quantum mechanics as the unique self-consistent
+decompression algorithm for predictions from incomplete data under
+C1-C3. §1.10 develops the three structural limits --- what happens when
+each of C1, C2, C3 fails --- as commentary on what kind of observer the
+framework's conditions jointly characterize.
 
 \hypertarget{the-starting-point}{%
 \subsection{1.2 The starting point}\label{the-starting-point}}
@@ -1629,13 +1629,15 @@ framework's central theorem is that their conjunction forces emergent
 quantum mechanics.
 
 \textbf{Condition C1 (Non-zero coupling).} \(H_{\text{int}} \neq 0\):
-the hidden state non-trivially affects the visible evolution. The
-horizon is not a static wall --- stress-energy conservation enforces
+hidden degrees of freedom affect the visible evolution at some
+accessible step --- a non-permutation one-step matrix is the cheapest
+witness, though influence can also hide at step one and surface later.
+The horizon is not a static wall --- stress-energy conservation enforces
 dynamical correlations across it, and in the physical realization
 information flows in both directions. The defining content of C1, and
 what the necessity argument delivers, is the hidden-to-visible
 influence; bidirectionality belongs to the realization ({[}Main §3.4{]},
-Remark at the C1-equivalence theorem).
+Remark at the non-permutation-witness lemma).
 
 \textbf{Condition C2 (Slow-bath timescale separation).}
 \(\tau_S \ll \tau_B\). The hidden sector evolves much more slowly than
@@ -2554,13 +2556,10 @@ The three necessity arguments combine into the chapter's central result.
 \textbf{Characterization theorem.} \emph{Let \(\mathcal{S}\) be a
 stochastic process on a finite configuration space \(\mathcal{C}_V\)
 with \(|\mathcal{C}_V| \geq 2\), and consider dynamics on accessible
-timescales \(t \ll t_R\); take \(\mathcal{S}\) time-homogeneous, the
-class every iterated-bijection marginal inhabits. Assume the hidden
-sector of any candidate realization possesses a conditional mixing curve
-with finite mixing time \(\tau_B(\varepsilon_0)\) for every
-\(\varepsilon_0 > 0\), ETH being its physical motivation; no smallness
-of the residual at the coupling time is assumed. Then (ii) \(\iff\)
-(iii), and (ii) \(\implies\) (i):}
+timescales \(t \ll t_R\); take \(\mathcal{S}\) time-homogeneous. Then
+(ii) \(\iff\) (iii); and P-indivisibility of \(\mathcal{S}\) --- the
+strictly stronger property, with the mixing-curve hypothesis entering
+only the C2 necessity leg --- implies (i):}
 
 \emph{(i) \(\mathcal{S}\) is mathematically equivalent to unitarily
 evolving quantum mechanics --- there exists a Hilbert space
@@ -2568,11 +2567,14 @@ evolving quantum mechanics --- there exists a Hilbert space
 family \(U(t) = e^{-i\hat{H}t}\) such that
 \(T_{ij}(t) = |U_{ij}(t)|^2\).}
 
-\emph{(ii) \(\mathcal{S}\) is P-indivisible on accessible timescales.}
+\emph{(ii) \(\mathcal{S}\) is non-Markovian on accessible timescales:
+some conditional mutual information \(I(X_{<k}; X_{k+1} \mid X_k)\) is
+strictly positive at \(k\tau_S \ll t_R\).}
 
-\emph{(iii) \(\mathcal{S}\) arises from marginalizing a deterministic
-bijection on \(\mathcal{C}_V \times \mathcal{C}_H\) satisfying (C1),
-(C2), and (C3) for some partition.} \(\square\)
+\emph{(iii) For every finite accessible horizon, \(\mathcal{S}\) arises
+from marginalizing a deterministic bijection on
+\(\mathcal{C}_V \times \mathcal{C}_H\) satisfying (C1)--(C4) for some
+partition.} \(\square\)
 
 Quantum mechanics is not merely \emph{compatible with} embedded
 observation under C1-C3. It is equivalent to it.

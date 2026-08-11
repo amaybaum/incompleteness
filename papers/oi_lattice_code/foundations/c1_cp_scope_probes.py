@@ -46,7 +46,7 @@ bar("    hidden update h' = h independent of v : coupling is one-way (hidden -> 
 bar("    VERDICT: non-permutation T does NOT imply bidirectional coupling —")
 bar("             the pre-2.8.1 formulation of (C1) (bidirectional) was refuted by this;")
 bar("             the current C1 (hidden-to-visible influence, Main §1.3) is what the")
-bar("             equivalence theorem states, and this probe certifies its counterexample record")
+bar("             witness lemma certifies, and this probe certifies its counterexample record")
 
 # ---------------- Q(sqrt2) exact arithmetic ----------------
 class Q2:  # a + b*sqrt(2), a,b rational
