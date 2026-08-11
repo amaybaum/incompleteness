@@ -79,7 +79,7 @@ This is not a generic dodge. Each engagement is specific: PBR's preparation inde
 
 ## C.4 The stochastic-quantum bridge: Barandes and Stinespring
 
-The framework's characterization theorem derives quantum mechanics from C1-C3 via a *stochastic-quantum bridge* — a mathematical correspondence between non-Markovian stochastic processes and unitary quantum dynamics. The bridge has multiple constructions in the recent literature. The framework's content uses Barandes' 2023 indivisible-stochastic-process bridge as one route, with Stinespring dilation as an independent second route.
+The framework's characterization theorem derives accessible non-Markovianity from C1–C4 — with quantum mechanics attaching to the P-indivisible subclass via a *stochastic-quantum bridge* — a mathematical correspondence between non-Markovian stochastic processes and unitary quantum dynamics. The bridge has multiple constructions in the recent literature. The framework's content uses Barandes' 2023 indivisible-stochastic-process bridge as one route, with Stinespring dilation as an independent second route.
 
 **The objection.** "The framework relies on Barandes' stochastic-quantum correspondence, which is recent (2023) and not yet widely accepted. This undermines the main result. A theory built on a not-yet-established result is itself not established."
 
@@ -97,11 +97,11 @@ A referee who rejects all routes to the bridge would need to also reject the fra
 
 ## C.5 The necessity direction of the characterization theorem
 
-A second frequent foundational objection concerns the *necessity* direction of the characterization theorem — the claim that quantum mechanics *requires* embedded observation with C1-C3, not just that embedded observation with C1-C3 *produces* quantum mechanics.
+A second frequent foundational objection concerns the *necessity* direction of the characterization theorem — the claim that the observed non-Markovian dynamics *require* embedded observation with C1–C4, not just that embedded observation with C1–C4 *produces* them.
 
 **The objection.** "You show embedded observation produces QM, but you haven't shown QM requires embedded observation. The characterization theorem's converse is the extraordinary claim. Without it, you have a sufficient condition for QM but not a necessary one — and the framework's main structural claim (that QM emerges *from* embedded observation) requires both directions."
 
-**The framework's response.** The necessity direction is proved through three independent theorems, each establishing that violating one of C1-C3 destroys the structural conditions for QM.
+**The framework's response.** The necessity direction is proved per condition: C1, C3, and C4 unconditionally for any realization, C2 within the conditional-mixing class — violating a necessary condition destroys the structural basis of the observed dynamics.
 
 *Necessity of C1 (coupling).* Any quantum system realized as a deterministic dilation must have non-trivial coupling between visible and hidden sectors. Proof: without coupling, the visible dynamics are a permutation (unitary on a classical basis), hence P-divisible, contradicting the P-indivisibility required for QM. This is a contrapositive: violating C1 produces P-divisible dynamics, which is structurally distinct from QM.
 
@@ -111,9 +111,9 @@ A second frequent foundational objection concerns the *necessity* direction of t
 
 Each theorem is a contrapositive: violating the condition destroys QM. Together they establish that C1, C3, and C4 are *individually necessary* for any realization — and C2 within the conditional-mixing class — and (with the per-horizon dilation of Chapter 1) *jointly sufficient*. The equivalence "accessible non-Markovianity $\Leftrightarrow$ embedded observation under C1–C4" is a per-horizon biconditional; the quantum representation attaches to its P-indivisible subclass.
 
-**What the necessity direction does not claim.** The necessity direction claims that QM requires C1-C3 *at the structural level* — that any system producing the empirical signature of QM (Bell-inequality violations, Born-rule statistics, non-commutative observables) must satisfy C1-C3. It does *not* claim that every empirical system we call "quantum" satisfies C1-C3 *uniquely* — alternative substrata satisfying C1-C3 with different specific bijections would produce QM with potentially different specific empirical content at the bijection-specific (Tier 3) level.
+**What the necessity direction does not claim.** The necessity direction claims that the observed dynamics require C1–C4 *at the structural level* — any system producing the empirical signature (Bell-inequality violations are P-indivisible, hence non-Markovian a fortiori) must satisfy them. It does *not* claim that every empirical system we call "quantum" satisfies C1–C4 *uniquely* — alternative substrata satisfying C1–C4 with different specific bijections would produce QM with potentially different specific empirical content at the bijection-specific (Tier 3) level.
 
-The framework's necessity claim is therefore at the *structural* level (C1-C3 are necessary for QM as a structural phenomenon) rather than at the *substratum-specific* level (which would require the additional claim that only the framework's specific cubic-lattice bijection produces our universe's QM). The structural necessity is what makes the characterization theorem a biconditional; the substratum-specific content is what the framework's empirical record tests directly.
+The framework's necessity claim is therefore at the *structural* level (C1, C3, C4 necessary unconditionally, C2 within its stated class) rather than at the *substratum-specific* level (which would require the additional claim that only the framework's specific cubic-lattice bijection produces our universe's QM). The structural necessity is what makes the characterization theorem a biconditional; the substratum-specific content is what the framework's empirical record tests directly.
 
 ## C.6 Finiteness: is Axiom 2 too strong?
 
@@ -193,7 +193,7 @@ The framework's reading is therefore that Bohmian mechanics adds an unnecessary 
 
 QBism therefore lacks the framework's substratum-emergent operator distinction; the framework provides a structural foundation that QBism's interpretive content alone does not. The framework's reading is that QBism captures the *epistemic* character of quantum descriptions correctly while missing the *structural foundation* of why these epistemic descriptions take the specific form they do.
 
-**The framework's position.** The framework is not a variant of any of these interpretations but a distinct structural position. The framework's content is closest to MWI in treating the substratum as the complete physical reality, closest to Bohmian in treating quantum predictions as statistics over a deterministic substratum, closest to QBism in treating the wave function as epistemic. But the framework's distinctive content — the substratum-emergent operator distinction, the C1-C3 structural conditions, the specific empirical predictions across physics and biology — is not shared by any of the standard interpretations.
+**The framework's position.** The framework is not a variant of any of these interpretations but a distinct structural position. The framework's content is closest to MWI in treating the substratum as the complete physical reality, closest to Bohmian in treating quantum predictions as statistics over a deterministic substratum, closest to QBism in treating the wave function as epistemic. But the framework's distinctive content — the substratum-emergent operator distinction, the C1–C4 structural conditions, the specific empirical predictions across physics and biology — is not shared by any of the standard interpretations.
 
 The framework's position is therefore: an interpretive-level structural framework with substantive empirical content that goes beyond what any of the standard interpretations provides. Readers approaching from any of the standard positions will find aspects of their preferred interpretation in the framework's content while finding the framework's distinctive content unfamiliar.
 
@@ -292,7 +292,7 @@ The Acknowledgements section discloses AI assistance transparently. The framewor
 
 **Scope.** "The framework claims to address fundamental physics *and* the origin of life *and* the methodological limits of single-cell bioinformatics. This is too much for a single framework. Each domain deserves its own framework."
 
-The framework's response: the claims are *interconnected by a single mechanism* (C1-C3 structural conditions operating at different scales). Separating them would obscure the connections — in particular, the framework's value comes from being *one* structural account that produces predictions across multiple domains, not from being separate accounts for each domain. The unification is the framework's distinctive content.
+The framework's response: the claims are *interconnected by a single mechanism* (C1–C4 structural conditions operating at different scales). Separating them would obscure the connections — in particular, the framework's value comes from being *one* structural account that produces predictions across multiple domains, not from being separate accounts for each domain. The unification is the framework's distinctive content.
 
 This is not a unique pattern. Statistical mechanics in the nineteenth century similarly addressed thermodynamics, kinetics, transport phenomena, and other domains with one structural account. The unification of multiple domains under one structural framework is a feature, not a bug. The framework's specific empirical record across multiple domains provides convergent evidence for the structural foundations.
 

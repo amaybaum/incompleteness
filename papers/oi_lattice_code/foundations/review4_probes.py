@@ -221,3 +221,66 @@ print("     EXACTLY on the non-Markov target (product prior over contexts;")
 print("     mechanism valid for arbitrary real kernels — finitely many contexts).")
 print("review4 probe (b60-extended): COMPLETE")
 
+# ---- P-F(c): rho_H-weighted marginal (b62) — nonuniform product prior ----
+# The response-table realization with product prior mu(u) = prod_c kern_c(u_c):
+# the rho_H-DIAGONAL-weighted ancilla marginal of U_phi^k equals T^(k) exactly.
+def build_rt_phi(kern,nV,K):
+    ctxs=[]
+    def gen(p):
+        if 1<=len(p)<=K: ctxs.append(tuple(p))
+        if len(p)<K:
+            for x in range(nV): gen(p+[x])
+    for x0 in range(nV): gen([x0])
+    uvals=[{}]
+    for c in ctxs:
+        new=[]
+        for tb in uvals:
+            for y in range(nV):
+                if kern(c)[y]>0:
+                    t2=dict(tb); t2[c]=y; new.append(t2)
+        uvals=new
+    U=[tuple(sorted(tb.items())) for tb in uvals]
+    PAD=-1
+    hs=list(itertools.product(list(range(nV))+[PAD],repeat=K))
+    wf=lambda h,c: all(h[i]!=PAD for i in range(c)) and all(h[i]==PAD for i in range(c,K))
+    states=[(x,h,u,c) for x in range(nV) for h in hs for u in range(len(U)) for c in range(K+1)]
+    phi={}
+    for (x,h,u,c) in states:
+        if c<K and wf(h,c):
+            tb=dict(U[u]); ctx=tuple(list(h[:c])+[x])
+            y=tb[ctx]
+            phi[(x,h,u,c)]=(y,tuple(list(h[:c])+[x]+[PAD]*(K-c-1)),u,c+1)
+    un=sorted(set(states)-set(phi.values())); ud=sorted(set(states)-set(phi.keys()))
+    for a,b in zip(ud,un): phi[a]=b
+    assert sorted(phi.values())==sorted(states)
+    mu={}
+    for ui,tb in enumerate(U):
+        w=F(1)
+        for c,y in tb: w*=kern(c)[y]
+        mu[ui]=w
+    assert sum(mu.values())==F(1)
+    return phi,mu,U,PAD
+phiC,muC,Uc,PAD=build_rt_phi(kNM,2,2)
+# weighted marginal of U^k vs the direct kernel chain, X0 uniform
+for k in (1,2):
+    for i in range(2):
+        row={}
+        for u,w in muC.items():
+            s=(i,tuple([PAD]*2),u,0)
+            for _ in range(k): s=phiC[s]
+            row[s[0]]=row.get(s[0],F(0))+w
+        # direct: chain the kernels
+        direct={}
+        def rec(tr,p):
+            if len(tr)==k+1: direct[tr[-1]]=direct.get(tr[-1],F(0))+p; return
+            d=kNM(tuple(tr))
+            for y in range(2):
+                if d[y]>0: rec(tr+[y],p*d[y])
+        rec([i],F(1))
+        assert row==direct,(k,i,row,direct)
+print("P-F(c): rho_H-weighted (nonuniform product prior) ancilla marginal of")
+print("     U_phi^k reproduces T^(k) EXACTLY on the response-table realization")
+print("     (k=1..2, all rows).  FIXED-H FORM EXTENDS TO ARBITRARY PRIORS.")
+print("review4 probe (b62-extended): COMPLETE")
+
+

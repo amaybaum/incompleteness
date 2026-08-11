@@ -430,11 +430,11 @@ The framework's characterization theorem (emergent quantum mechanics from C1-C3)
 *Scope.* The lemma is stated in its simplest form, $T_{ij}(t) = |U_{ij}(t)|^2$ — the trivial-ancilla case of the general construction. In the ancilla-marginal form the visible data determine the *dilated* Hamiltonian and the configuration projectors up to an energy shift and the same diagonal-phase freedom; the extension, its Fourier structure, and the constraint analysis that eliminates the larger pair-phase gauge are given in the companion paper ([Main §3.4]).
 
 **Theorem B.7.6 (Characterization theorem).** *In the redefined form of [Main §3.4]: accessible non-Markovianity of the visible process is equivalent, on each finite horizon, to embedded observation under C1–C4; the unitary quantum representation attaches to the P-indivisible subclass, with the fixed-$\hat{H}$ form constructive for realized processes:*
-$$\text{Emergent QM on } V \iff \text{Embedded observation of } (S, \varphi) \text{ with C1-C3 on } (V, H)$$
+$$\text{Accessible non-Markovianity on } V \iff \text{Embedded observation of } (S, \varphi) \text{ with C1–C4, per finite horizon}$$
 
 *Proof structure.* The forward direction (sufficiency) follows from Lemmas B.7.1-B.7.5 combined with the Stinespring construction (§B.2): under C1–C4, the substratum dynamics produces accessibly non-Markovian emergent stochastic dynamics on $V$ (P-indivisible at the recurrence scale), which is structurally equivalent to a unitary quantum dynamics on a Hilbert space via Stinespring dilation.
 
-The reverse direction (necessity) follows from three contrapositive theorems, one for each of C1, C2, C3 (Appendix C §C.5): violating any of the three conditions destroys the framework's emergent quantum mechanics, demonstrating that all three are individually necessary.
+The reverse direction (necessity) is per-condition (Appendix C §C.5): C1, C3, and C4 are individually necessary for any deterministic realization of a non-Markovian process, and C2 within the conditional-mixing class; violating a necessary condition destroys the emergent structure. The quantum representation attaches to the P-indivisible subclass.
 
 The biconditional is the framework's main characterization result. $\square$
 
