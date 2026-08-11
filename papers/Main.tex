@@ -2543,6 +2543,56 @@ correct about what is \emph{primitive}; this ledger states what is
 \emph{assumed}, and the framework's claims should be read as conditional
 on the full list.
 
+\textbf{Status ledger (theorems and conditions).} The table transcribes
+the standing status of each load-bearing claim with its canonical site.
+It introduces no new claims; a row may not state a status stronger than
+its cited site, and any apparent strengthening is an error in the table,
+not a result.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Claim
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Site
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+(i) \(\iff\) (ii): quantum \(\iff\) P-indivisible & Imported ({[}11,
+12{]}); stated on accessible timescales; the fixed-\(\hat{H}\) reading
+holds under the time-homogeneity restriction (scope Remark) & §3.4 \\
+(ii) \(\implies\) (iii): process \(\implies\) deterministic realization
+& Proved constructively --- finite-horizon process dilation reproducing
+the full multi-time law; C1 and C3 legs unconditional; C2 leg
+conditional on the mixing hypothesis & §3.4 \\
+(iii) \(\implies\) (ii): realization \(\implies\) P-indivisible & Proved
+(recurrence-based indivisibility upgraded to accessible timescales via
+C2, C3) & §2.3 \\
+CP-indivisibility of \(\{\Phi_t\}\) & Proved for the framework's
+diagonal-preserving (permutation-dilation) channels; fails for general
+CPTP families (Hadamard boundary) & §3.2 \\
+C1 necessity & Proved --- equivalence with non-permutation \(T\);
+defining content is hidden-to-visible influence & §3.4, §1.3 \\
+C2 necessity & Conditional on the hidden-sector mixing hypothesis; the
+quantitative bound \(\varepsilon \geq \delta/(k-1)\) is proved, its
+constant saturated in the certification suite
+(\texttt{c2\_mixing\_probes.py}); ETH is physical motivation, not a
+premise & §3.4, §1.3 \\
+C3 necessity & Proved --- data-processing bound in per-process form,
+\(m \geq 2^{I^*}\) & §3.4, §1.3 \\
+Chirality of the SU(2) embedding & OPEN --- named hypothesis H-χ
+(taste-chirality selectivity); the grading identification is proved and
+probe-certified; the generation count does not depend on H-χ & {[}SM
+§4.8{]}, Thm 13 \\
+\end{longtable}
+
 \hypertarget{structural-exclusion-of-equilibrium-phase-observers}{%
 \subsubsection{4.6 Structural Exclusion of Equilibrium-Phase
 Observers}\label{structural-exclusion-of-equilibrium-phase-observers}}
