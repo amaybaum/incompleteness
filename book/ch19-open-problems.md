@@ -245,7 +245,7 @@ The Standard-Model identification carries one named structural hypothesis. **H-�
 
 ## 19.4 Chapter close: summary table and what the framework does not address
 
-The framework's content against the standard list of open problems in fundamental physics summarizes as follows. The status labels are the framework's claims as argued in the cited chapters, and every label inherits the conditionality ledger of [Main §4.5] — in particular the C2 leg's mixing-hypothesis conditionality, the open chirality hypothesis H-χ, and the flagged carrier input of the Casimir chain; no label asserts more than its cited derivation, and "Dissolved" or "Derived" is always relative to that ledger.
+The framework's content against the standard list of open problems in fundamental physics summarizes as follows. The status labels are the framework's claims as argued in the cited chapters, and every label inherits the conditionality ledger of [Main §4.5] for the foundational claims — in particular the C2 leg's mixing-hypothesis conditionality — together with the matter-sector flags carried at their sources: the open chirality hypothesis H-χ [SM §4.8] and the flagged carrier input of the Casimir chain [SM §4.7]; no label asserts more than its cited derivation, and "Dissolved" or "Derived" is always relative to that ledger.
 
 **Summary table.**
 
@@ -253,6 +253,7 @@ The framework's content against the standard list of open problems in fundamenta
 |---------|----------------|------------------|--------------|
 | Quantum gravity | Central problem | Dissolved (three components) | Chs 1, 7, 18 |
 | SU(2) chirality | Assumed in the SM | Open — named hypothesis H-χ; grading proved, selectivity open | §19.3.8, [SM §4.8] |
+| Taste → physical spin | Spin postulated per field | Proved in the staggered formalism (Thm 9); the carrier input to the Casimir chain is flagged open, tested by the preregistered A² measurement | [SM §4.7] |
 | Cosmological constant | Worst prediction in physics | Dissolved ($10^{122}$ = $S_{\text{dS}}$) | Ch 7 §7.7 |
 | Dark matter | Unknown, no particle found | Derived ($a_0 = cH/6$) | Ch 7 §7.9 |
 | Dark energy | Unknown, evolving disputed | Derived in form (Type II RVM) | Ch 7 §7.8 |
