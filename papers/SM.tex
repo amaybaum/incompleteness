@@ -206,9 +206,10 @@ condensate-stabilizer accounting of Theorems 5 and 7 --- each step a
 stated theorem on the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\), with the named open inputs
 flagged where they enter (the chirality hypothesis H-χ, §4.8; the
-carrier identification, §4.7 Remark). The foundational result that
-quantum mechanics emerges as the description of any embedded observer
-under structural conditions C1--C4 is established in a companion paper
+physical-spin identification H-spin, §4.7 Remark; the carrier
+identification, §4.7 Remark). The foundational result that quantum
+mechanics emerges as the description of any embedded observer under
+structural conditions C1--C4 is established in a companion paper
 {[}Main{]}, where it is stated as an identification via the Barandes
 correspondence rather than a parameter-free derivation. The gauge
 coupling strengths follow quantitatively: the structural induced
@@ -2081,39 +2082,66 @@ identical for all \(j = 1, 2, 3\).}
 \(d = 3\) gives the couplings. The triplet members are related by cubic
 symmetry (\(O\) permutes spatial axes), hence identical. \(\square\)
 
-\textbf{Theorem 9} (Spin-taste correspondence). \emph{(a) The singlet
-taste produces a spin-0 field. (b) The triplet taste produces spin-1/2
-fields.}
+\textbf{Theorem 9} (Spin-taste correspondence --- algebraic content;
+physical identification carried by H-spin). \emph{(a) The singlet pair's
+spin-taste matrices are SO(3)-scalars. (b) The \(j\)-th triplet pair's
+are the vector \(\gamma^j\) and the spin generator \(-i\Sigma_j\). The
+identification of these labels with the physical spin of the emergent
+fields --- singlet → spin-0, triplet → spin-1/2 --- is the named
+hypothesis H-spin (Remark below).}
 
 \emph{Proof.} (a) The singlet pairs Γ(0,0,0) = I₄ (scalar) and Γ(1,1,1)
 = γ¹γ²γ³ (pseudoscalar), both SO(3)-invariant: J = 0. (b) The j-th
 triplet pairs γʲ (vector) with −iΣ\_j (spin generator): J = 1/2.
 \(\square\)
 
-\textbf{Corollary} (Spin-statistics from the lattice). Singlet → spin-0
-→ boson (Higgs). Triplet → spin-1/2 → fermion (quarks and leptons).
+\textbf{Remark (H-spin --- the physical spin identification).} What is
+proved, and probe-certified (\texttt{hspin\_labels\_probes.py}): the
+O-decomposition \(4 = \mathbf{1} \oplus \mathbf{3}\) (Theorem 8), the
+coupling structure (Theorem 8b), and the label content above --- the
+conjugation action on \(\{\gamma^j\}\) and \(\{-i\Sigma_j\}\) carries
+exactly the \(T_1\) vector characters \((3, 1, -1, 0, -1)\), the singlet
+pair is invariant, and the unsigned corner labels carry only
+\(A_1 \oplus E\) (the carrier Remark's point). What is open is the
+identification itself: that the triplet pair's two components assemble,
+in the emergent continuum limit, into a Lorentz spin-1/2 multiplet with
+\(-i\Sigma_j\) as the rotation generators. Resolution: expand the
+marginalized effective kernel around each triplet corner-pair at small
+momentum and test the Dirac form in the Theorem-7/\(K_{\text{eff}}\)
+apparatus --- a defined finite-lattice computation. A computed non-Dirac
+assembly falsifies the fermion identification while Theorems 8 and 8b
+stand; a Dirac assembly discharges the hypothesis. The preregistered
+\(A^2 = C_2\) measurement tests the adjacent CARRIER input (Remark
+above), a distinct instrument. Downstream, the spin-statistics Corollary
+and the physical-generation reading of Theorem 10 are stated under
+H-spin.
+
+\textbf{Corollary} (Spin-statistics from the lattice, under H-spin).
+Singlet → spin-0 → boson (Higgs). Triplet → spin-1/2 → fermion (quarks
+and leptons).
 
 \textbf{Theorem 10} (Three degenerate fermion sectors). \emph{The three
-triplet staggered tastes provide three degenerate spin-1/2 sectors
-related by cubic symmetry, one per SM generation. The SM matter
-representations are placed on links (§4.7.1.2), where the link-carrier
-space \(V_K \otimes V_K^*\) admits cross-charged tensor-product
-representations such as \((\mathbf{3}, \mathbf{2})\) without algebraic
-obstruction. Anomaly cancellation (Theorem 15) then uniquely fixes the
-hypercharge assignment as the sole consistent completion.}
+triplet staggered tastes provide three degenerate sectors related by
+cubic symmetry --- spin-1/2 sectors, one per SM generation, under H-spin
+(Remark, Theorem 9). The SM matter representations are placed on links
+(§4.7.1.2), where the link-carrier space \(V_K \otimes V_K^*\) admits
+cross-charged tensor-product representations such as
+\((\mathbf{3}, \mathbf{2})\) without algebraic obstruction. Anomaly
+cancellation (Theorem 15) then uniquely fixes the hypercharge assignment
+as the sole consistent completion.}
 
-\emph{Proof.} (i) Three spin-1/2 sectors and one spin-0 sector (Theorem
-9). (ii) The three sectors are related by cubic symmetry (O permutes
-spatial axes), hence degenerate. (iii) Theorem 15 below shows that,
-given a chiral \(SU(3) \times SU(2) \times U(1)\) gauge structure, the
-SM matter content is the unique anomaly-free assignment with the
-observed family pattern {[}16{]}. The framework therefore derives three
-SM generations as a forced consequence: cubic symmetry fixes three
-degenerate sectors (step ii), the link-carrier construction of §4.7.1.2
-places matter on links where cross-charged representations are
-admissible (no phenomenological input required), and anomaly
-cancellation (step iii) fixes the hypercharge assignment uniquely.
-\(\square\)
+\emph{Proof.} (i) Three sectors carrying the spin-1/2 labels and one
+carrying the scalar labels (Theorem 9; physical reading under H-spin).
+(ii) The three sectors are related by cubic symmetry (O permutes spatial
+axes), hence degenerate. (iii) Theorem 15 below shows that, given a
+chiral \(SU(3) \times SU(2) \times U(1)\) gauge structure, the SM matter
+content is the unique anomaly-free assignment with the observed family
+pattern {[}16{]}. The framework therefore derives three SM generations
+as a forced consequence: cubic symmetry fixes three degenerate sectors
+(step ii), the link-carrier construction of §4.7.1.2 places matter on
+links where cross-charged representations are admissible (no
+phenomenological input required), and anomaly cancellation (step iii)
+fixes the hypercharge assignment uniquely. \(\square\)
 
 \emph{Scope.} The SM gauge representations of the matter fields arise
 from the link-carrier space \(V_K \otimes V_K^*\), where cross-charged
@@ -2134,8 +2162,8 @@ consistent with hosting it; the \(T_1\) and \(A_1\) projections do not
 admit Yukawa couplings to the SM fermion doublets and play no role in
 the low-energy theory.}
 
-\emph{Proof.} The singlet taste is spin-0 (Theorem 9a) and decomposes
-under the gauge group as
+\emph{Proof.} The singlet taste is spin-0 (Theorem 9a, under H-spin) and
+decomposes under the gauge group as
 \(T_1(\mathbf{3}) \oplus E(\mathbf{2}) \oplus A_1(\mathbf{1})\) (Theorem
 7). Of these three projections, only \(E(\mathbf{2})\) admits a
 gauge-invariant Yukawa coupling of the form
