@@ -518,19 +518,22 @@ arbitrarily long accessible horizons (\texttt{review3\_probes.py};
 §2.3).)
 
 \textbf{Theorem statement.} Under Lemmas 1--3 and (C1)--(C4), the
-embedded observer's reduced description is a P-indivisible process
-admitting a unitarily evolving quantum representation (defined precisely
-in §3.4), and conversely every such process admits, on each finite
-accessible horizon, an embedded-observation realization ---
-finite-horizon operational realizability; the consolidation of the
-per-horizon realizations into one fixed all-time substratum is open
-(§3.4, §4.5): the equivalence is (ii) \(\iff\) (iii) in the notation of
-§3.4 --- both directions this paper's own theorems --- with the quantum
-representation (i) following for the indivisible subclass, and the
-conditions are \emph{necessary}. Representability alone does not force
-indivisibility --- the retired direction (i) \(\implies\) (ii) fails on
-diagonal Hamiltonians (§3.4, Remark) --- but observed Bell violations
-certify (ii) directly, so nothing in the necessity argument leans on it.
+embedded observer's reduced description is non-Markovian on accessible
+timescales; P-indivisibility is the stronger property, delivered at the
+recurrence scale when a non-permutation one-step witness is present
+(§2.3), and it is the P-indivisible subclass admitting a unitarily
+evolving quantum representation (defined precisely in §3.4), and
+conversely every such process admits, on each finite accessible horizon,
+an embedded-observation realization --- finite-horizon operational
+realizability; the consolidation of the per-horizon realizations into
+one fixed all-time substratum is open (§3.4, §4.5): the equivalence is
+(ii) \(\iff\) (iii) in the notation of §3.4 --- both directions this
+paper's own theorems --- with the quantum representation (i) following
+for the indivisible subclass, and the conditions are \emph{necessary}.
+Representability alone does not force indivisibility --- the retired
+direction (i) \(\implies\) (ii) fails on diagonal Hamiltonians (§3.4,
+Remark) --- but observed Bell violations certify (ii) directly, so
+nothing in the necessity argument leans on it.
 
 \hypertarget{partition-relativity}{%
 \subsubsection{1.4 Partition-Relativity}\label{partition-relativity}}
@@ -1968,15 +1971,18 @@ finite \(\mathcal{C}_H\), a bijection \(\varphi\) on
 \(\mathcal{C}_V \times \mathcal{C}_H\), and an initial hidden prior
 \(\mu_H\) independent of the visible initial state, such that the
 marginal process of \((\varphi, \mu_H)\) reproduces \(\mathcal{S}\)'s
-full multi-time joint law for all \(k \leq K\). The realization
-satisfies (C1) iff \(\mathcal{S}\) is non-trivial (\(T\) not a
-permutation), realizes (C2) in the static-bath form (\(\tau_B = \infty\)
-between couplings, hence \(\tau_S \ll \tau_B\)), and satisfies (C3) with
-\(|\mathcal{C}_H| \geq 2^{I^*}\). Rationality tracks the prior, not the
-mechanism: with the uniform-sector prior used here the marginal law is
-rational, and conversely every rational finite-horizon law is realized;
-an irrational prior can produce an irrational law, so the equivalence is
-between rational laws and finite realizations with rational priors.}
+full multi-time joint law for all \(k \leq K\). If the target process is
+non-Markovian, the construction necessarily contains hidden-to-visible
+influence at some accessible step --- hence satisfies (C1); a
+non-permutation first-step matrix is a sufficient first-step witness
+only. The realization realizes (C2) in the static-bath form
+(\(\tau_B = \infty\) between couplings, hence \(\tau_S \ll \tau_B\)),
+and satisfies (C3) with \(|\mathcal{C}_H| \geq 2^{I^*}\). Rationality
+tracks the prior, not the mechanism: with the uniform-sector prior used
+here the marginal law is rational, and conversely every rational
+finite-horizon law is realized; an irrational prior can produce an
+irrational law, so the equivalence is between rational laws and finite
+realizations with rational priors.}
 
 \emph{Extension (arbitrary priors --- the response-table form).} The
 rationality restriction is a property of the uniform-tape presentation,
@@ -2038,19 +2044,25 @@ orthogonal projectors
 \(P_i = |i\rangle\langle i| \otimes \mathbb{1}_{\text{anc}}\) onto the
 configuration sectors, such that the transition probabilities are the
 ancilla-uniform marginal of the dilated Born-rule probabilities:
-\(T_{ij}(t) = \tfrac{1}{m_a}\sum_{k,l} |\langle j,l|\,U(t)\,|i,k\rangle|^2\)
-with \(m_a = \dim \mathcal{H}_{\text{anc}}\). (This is the form the
-correspondence delivers --- the visible matrix is the ancilla-marginal
-of the dilated unistochastic matrix, per the scope statement in §3.1.
-The strict form \(T_{ij}(t) = |U_{ij}(t)|^2\) on visible indices is the
-trivial-ancilla special case \(m_a = 1\) and only that case: a doubly
-stochastic marginal need not be unistochastic at every \(t\), let alone
-realized by a single one-parameter unitary group on \(\mathcal{H}_V\).)
-This definition captures the Hilbert space, unitary dynamics, and the
-Born rule. Additional quantum-mechanical structures --- the tensor
-product decomposition for spatially separated visible-sector subsystems,
-state update, and the measurement formalism --- are addressed in the
-remarks following the theorem.
+\(T_{ij}(t) = \mathrm{Tr}\!\left[P_j\, U(t)\, (|i\rangle\langle i| \otimes \rho_{\text{anc}})\, U(t)^\dagger\right]\)
+for a fixed ancilla state \(\rho_{\text{anc}}\) on
+\(\mathcal{H}_{\text{anc}}\) (a diagonal \(\rho_{\text{anc}}\) suffices
+throughout; the uniform ancilla \(\rho_{\text{anc}} = I/m_a\) recovers
+\(\tfrac{1}{m_a}\sum_{k,l} |\langle j,l|\,U(t)\,|i,k\rangle|^2\) --- a
+special case, and the one that forces doubly stochastic \(T\); general
+priors, as the response-table construction of §3.4 requires, need the
+general form). (This is the form the correspondence delivers --- the
+visible matrix is the ancilla-marginal of the dilated unistochastic
+matrix, per the scope statement in §3.1. The strict form
+\(T_{ij}(t) = |U_{ij}(t)|^2\) on visible indices is the trivial-ancilla
+special case \(m_a = 1\) and only that case: a doubly stochastic
+marginal need not be unistochastic at every \(t\), let alone realized by
+a single one-parameter unitary group on \(\mathcal{H}_V\).) This
+definition captures the Hilbert space, unitary dynamics, and the Born
+rule. Additional quantum-mechanical structures --- the tensor product
+decomposition for spatially separated visible-sector subsystems, state
+update, and the measurement formalism --- are addressed in the remarks
+following the theorem.
 
 \textbf{Lemma (fixed-\(\hat{H}\) form for realized processes).}
 \emph{Let a process arise as in (iii) below: the marginal of an iterated
@@ -2062,15 +2074,20 @@ every horizon time: take \(U_\varphi\) the permutation unitary of
 \(T^{(k)}_{ij} = \frac{1}{|\mathcal{C}_H|}\sum_{h,l} |\langle j, l| U_\varphi^k |i, h\rangle|^2\)
 exactly, and for the §3.4 construction's structured prior the same
 identity holds with the ancilla prepared uniform on the initial register
-slice (final sum over the full space); \(U(t) = e^{-i\hat{H}t}\) matches
-\(U_\varphi^k\) at integer times.}
+slice (final sum over the full space); and for a general fixed prior
+\(\mu_H\) --- the response-table construction's product prior included
+--- with \(\rho_{\text{anc}} = \sum_h \mu_H(h)\,|h\rangle\langle h|\),
+so that
+\(T^{(k)}_{ij} = \mathrm{Tr}[P_j\, U_\varphi^k (|i\rangle\langle i| \otimes \rho_{\text{anc}}) U_\varphi^{k\dagger}]\)
+exactly; \(U(t) = e^{-i\hat{H}t}\) matches \(U_\varphi^k\) at integer
+times.}
 
 \emph{Proof.}
 \(|\langle j,l|U_\varphi^k|i,h\rangle|^2 = \mathbb{1}[\varphi^k(i,h) = (j,l)]\);
 summing \(l\) over the final space and \(h\) uniformly over the prepared
 set counts exactly the defining fraction of \(T^{(k)}\). \(\square\)
-(Certified exactly, both preparations, in \texttt{review4\_probes.py},
-P-F.)
+(Certified exactly --- uniform, slice-prepared, and weighted-prior
+preparations --- in \texttt{review4\_probes.py}, P-F(a)--(c).)
 
 \emph{Consequence.} The chain (ii) \(\implies\) (iii) \(\implies\)
 fixed-\(\hat{H}\) form is in-house, per horizon; the imported
@@ -2238,10 +2255,12 @@ memory, if present, would appear as deviations from quantum multi-time
 predictions --- a falsifiable texture of the same standing as the
 residual dissipation \(\mathcal{D}\).
 
-\emph{(iv) Classical non-Markovianity and quantum mechanics.} The
-equivalence is not a claim that all P-indivisible processes are
-``secretly quantum'' in some metaphysical sense; it is a theorem that
-the mathematical structures are identical. Classical systems exhibiting
+\emph{(iv) Classical P-indivisibility and quantum mechanics.} The
+representation clause is not a claim that all P-indivisible processes
+are ``secretly quantum'' --- and it does not extend to general
+non-Markovian (divisible) processes at all, per the two-notions Remark
+of §3.4 --- in some metaphysical sense; it is a theorem that the
+mathematical structures are identical. Classical systems exhibiting
 P-indivisibility --- renewal processes, semi-Markov processes on finite
 state spaces --- admit a unique unitary description (phase-locking
 lemma) that makes predictions beyond the transition data (energy
@@ -2644,9 +2663,10 @@ Falsifiability}\label{assumptions-limitations-and-falsifiability}}
 conditions (non-degenerate spectrum, non-vanishing overlaps), which hold
 for all but a measure-zero set. The P-indivisibility proof uses
 finiteness via the recurrence argument (\(\varphi^N = \text{id}\)). The
-accessible-timescale backflow lemma (§2.3) provides a parallel route to
-P-indivisibility, establishing observable information backflow on the
-timescales accessible to laboratory experiments --- physically
+accessible-timescale backflow lemma (§2.3) provides the quantitative
+route to accessible non-Markovianity, with P-indivisibility retained at
+the recurrence scale, establishing observable information backflow on
+the timescales accessible to laboratory experiments --- physically
 indistinguishable from a timeless identity for all experiments well
 below the recurrence time.
 
@@ -2778,9 +2798,10 @@ Fixed-\(\hat{H}\) form for realized processes & Proved --- the
 realization's permutation unitary, \(\hat{H} = i\log U\); slice-prepared
 ancilla marginal reproduces \(T^{(k)}\) exactly at horizon times
 (\texttt{review4\_probes.py}, P-F) & §3.4 \\
-(iii) \(\implies\) (ii): realization \(\implies\) P-indivisible & Proved
---- the readback lemma: a (C4) gap forces \(I \geq p_0\delta^2/\ln 2\)
-on the window; bare-recurrence form from (C1) alone at \(t_R\) & §2.3 \\
+(iii) \(\implies\) (ii): realization \(\implies\) accessible
+non-Markovianity & Proved --- the readback lemma: a (C4) gap forces
+\(I(X_{<k}; X_{k+1} \mid X_k) \geq p_0\delta^2/\ln 2\) on the window;
+bare-recurrence form from (C1) alone at \(t_R\) & §2.3 \\
 CP-indivisibility of \(\{\Phi_t\}\) & Proved for the framework's
 diagonal-preserving (permutation-dilation) channels; fails for general
 CPTP families (Hadamard boundary) & §3.2 \\
@@ -2795,7 +2816,7 @@ constant saturated in the certification suite
 premise & §3.4, §1.3 \\
 C3 necessity & Proved --- data-processing bound in per-process form,
 \(m \geq 2^{I^*}\) & §3.4, §1.3 \\
-C4 necessity & Immediate given observed P-indivisibility (any
+C4 necessity & Immediate given observed non-Markovianity (any
 realization of a non-Markov process reads differing past-conditionals);
 separation certified --- (C1)--(C3) alone admit zero-backflow
 realizations (the coin) & §1.3, §2.3 \\
