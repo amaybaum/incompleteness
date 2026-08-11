@@ -878,14 +878,14 @@ The $T_1$ representation of SO(3) has angular momentum $l = 1$ and quadratic Cas
 
 $$\boxed{\theta_0 = \frac{C_2}{d^2} = \frac{2}{9} = 0.22222}$$
 
-Observed: $\theta_0 = 0.22227$. Match: $0.02\%$. For the $A_1$ (Higgs) taste, $l = 0$ gives $\theta_0 = 0$ — no generational splitting, consistent with a single Higgs field.
+Observed: $\theta_0 = 0.222225 \pm 0.000006$ — the three charged-lepton pole masses determine $(\mu, A, \theta_0)$ exactly (PDG 2024/25; uncertainty from $m_\tau = 1776.93 \pm 0.09$ MeV). Match: $0.001\%$ ($0.4\sigma$). For the $A_1$ (Higgs) taste, $l = 0$ gives $\theta_0 = 0$ — no generational splitting, consistent with a single Higgs field.
 
 **Uniqueness of the normalization.** The Koide angle is dimensionless, so it must be a pure-number ratio of structural constants of the $(d=3, T_1)$ data: angular momentum $l$, Casimir $C_2 = l(l+1)$, dimension $\dim(T_1) = 2l+1$, lattice dimension $d$, and the dimensions of related representations and tensor products. Enumerating the natural ratios with the right order of magnitude:
 
-| Ratio | Value | Match to $\theta_0 = 0.22227$ |
+| Ratio | Value | Match to $\theta_0 = 0.222225$ |
 |---|---|---|
-| $C_2 / d^2 = 2/9$ | $0.22222$ | $\mathbf{0.02\%}$ ✓ |
-| $\dim(E)/\dim(T_1\otimes T_1) = 2/9$ | $0.22222$ | $\mathbf{0.02\%}$ ✓ |
+| $C_2 / d^2 = 2/9$ | $0.22222$ | $\mathbf{0.001\%}$ ✓ |
+| $\dim(E)/\dim(T_1\otimes T_1) = 2/9$ | $0.22222$ | $\mathbf{0.001\%}$ ✓ |
 | $C_2 / (d(d+1)) = 2/12$ | $0.16667$ | $25\%$ off |
 | $l / d^2 = 1/9$ | $0.11111$ | $50\%$ off |
 | $\dim(T_2)/\dim(T_1\otimes T_1) = 3/9$ | $0.33333$ | $50\%$ off |
@@ -896,6 +896,8 @@ Observed: $\theta_0 = 0.22227$. Match: $0.02\%$. For the $A_1$ (Higgs) taste, $l
 | $\dim(E)/\dim(\text{Sym}^2(T_1)) = 2/6$ | $0.33333$ | $50\%$ off |
 
 Only $2/9$ matches. The Casimir construction $C_2(T_1)/d^2$ is the physically correct derivation: $C_2(T_1) = 2$ measures the anisotropy strength of the $T_1$ generation representation (it is the unique $O(3)$-invariant quadratic scalar on the generation space), and $d^2 = 9$ is the natural geometric normalization from the cubic lattice bandwidth squared. The numerical coincidence with $\dim(E)/\dim(T_1 \otimes T_1) = 2/9$ arises because $\dim(E) = C_2(T_1) = 2$ for $O$ acting on its vector representation — a genuine structural feature of this group. However, the operator space for the Hermitian mass-splitting matrix $\delta M$ is $\text{Sym}^2(T_1)$ of dimension 6 (not $T_1 \otimes T_1$ of dimension 9, which includes antisymmetric operators irrelevant to symmetric mass splittings), and $\dim(E)/\dim(\text{Sym}^2(T_1)) = 1/3$, not $2/9$. The dim-ratio interpretation using the full $T_1 \otimes T_1$ space is therefore an arithmetic artifact; the Casimir construction is the structural derivation, with the factor $d^2 = 9$ understood as the geometric bandwidth rather than an operator-space dimension.
+
+An independent 2026 construction [40] arrives at the same two numbers by mechanisms outside the $(d = 3, T_1)$ structural data enumerated above — the $\sqrt{2}$ amplitude from a rank-one ("self-dual") coherence condition and $|\theta_0| = 2/9$ as the Berry-phase spectral sum $(3/2\pi^2)\sum_{3\nmid n} n^{-2} = 2/9$. The coincidence of independent routes on both numbers is recorded; the Casimir construction remains this framework's derivation.
 
 Among dimensionally consistent $(d=3, T_1)$ structural ratios enumerated above, $\theta_0 = C_2/d^2 = 2/9$ is the unique match to observation, and it has a clean physical interpretation: the anisotropy strength of the generation representation, normalized by the lattice bandwidth.
 
@@ -917,12 +919,12 @@ A second class escapes the Schur step without being cubic-symmetry-breaking: a d
 
 **Mass predictions.**
 
-With $Q = 2/3$, $\theta_0 = 2/9$, and $m_\tau = 1776.86$ MeV as input:
+With $Q = 2/3$, $\theta_0 = 2/9$, and $m_\tau = 1776.93$ MeV as input:
 
 | Mass | Predicted | Observed | Deviation |
 |------|-----------|----------|-----------|
-| $m_e$ | 0.51096 MeV | 0.51100 MeV | 0.007% |
-| $m_\mu$ | 105.652 MeV | 105.658 MeV | 0.006% |
+| $m_e$ | 0.51098 MeV | 0.51100 MeV | 0.003% |
+| $m_\mu$ | 105.656 MeV | 105.658 MeV | 0.002% |
 
 The quark sector does not satisfy $Q = 2/3$: $Q_{\text{down}} = 0.731$, $Q_{\text{up}} = 0.849$. The down-quark deviation is numerically described by $Q_{\text{down}} \approx (2/3)(1 + \alpha_s(2\,\text{GeV})/\pi)$ to $0.15\%$, a suggestive regularity that matches the leading-order form of a color correction but for which a first-principles derivation from framework primitives is not currently available. Two observations argue against treating this form as structural: (i) the generation $\mathbb{Z}_3$ symmetry that produces $Q_{\text{lepton}} = 2/3$ acts on the staggered-taste space (BZ corners), while SU(3) color acts on the internal $T_1$ (K-component) space — a direct breaking of the former by the latter would require a cross-coupling between the two $T_1$ representations beyond what §4.7.1.2 establishes; and (ii) the $0.15\%$ match holds only in the PDG mixed scheme (light quarks at $\mu = 2$ GeV, $b$ quark at $\mu = m_b$); in physically consistent single-scale schemes $Q_{\text{down}} \approx 0.755$–$0.760$ and the $(1+\alpha_s/\pi)$ form misses by $4$–$5\%$. The observed numerical match is reported below as empirical input to the $m_b$ determination, not as a derived structural relation. A full derivation would require either the link-carrier cross-coupling mentioned above, or a taste-decomposed Coleman–Weinberg analysis yet to be carried out.
 
@@ -1080,6 +1082,8 @@ Using the 3-loop SM RGE [25], $\lambda(M_{\text{Pl}}) = 0$ gives $m_H \approx 12
 **Higgs near-criticality.** The observed $\lambda(M_{\text{Pl}}) \approx 0$ is part of a broader empirical pattern: the SM Higgs sector sits at the boundary between vacuum stability and metastability, with $\lambda \approx 0$ and $\beta_\lambda \approx 0$ both occurring near the Planck scale (Buttazzo et al. [25]). This "near-criticality" is treated as a remarkable coincidence in standard SM analyses requiring beyond-the-Standard-Model explanation. The Multiple Point Principle (Bennett-Froggatt-Nielsen [34], Froggatt-Nielsen [35]) postulated $\lambda(M_{\text{Pl}}) = 0$ as a fine-tuning condition; this prediction matched the observed Higgs mass before its discovery. Subsequent BSM model-building (singlet scalar dark matter, vector-like leptons, strong dynamics extensions, 2HDM realizations) [36, 37, 38] has produced extensions enforcing $\lambda(M_{\text{Pl}}) = 0$ as a boundary condition postulated from outside the SM. The framework's prediction $\lambda(M_{\text{Pl}}) = 0$ is therefore the structural realization within a derived framework of a boundary condition that an active BSM literature has been postulating for three decades.
 
 **The asymptotic-safety convergence.** Wetterich (asymptotic-safety prediction [39]) showed that if the SM is valid up to the Planck mass and gravity contributes an irrelevant fixed-point structure to the running, the observed $M_H \approx 125$ GeV predicts $M_t \approx 171$ GeV. This is structurally the same prediction as the framework's, viewed from the opposite direction: from observed $m_H$ to predicted $m_t$. The convergence between two structurally distinct frameworks (asymptotic safety vs OI) predicting the same near-criticality boundary condition strengthens the empirical content of the prediction.
+
+[40] K. Shulga, "Charged-Lepton Koide Geometry from a Green-Dressed Compact Family Cycle," arXiv:2605.10245 (2026).
 
 **Empirical confirmation status of independent lattice composite-Higgs work.** Aoki et al. [40] observed via lattice simulations of $N_f = 8$ QCD that the singlet-taste channel produces a light composite scalar (technidilaton candidate) consistent with the observed 125 GeV Higgs mass. The framework's specific mechanism — Higgs as composite scalar in the singlet staggered taste with chiral protection — has independent empirical support from lattice gauge theory studies of strongly-coupled gauge theories.
 
@@ -1241,7 +1245,7 @@ Twenty-two quantitative observables from a $d = 3$ cubic lattice with spacing $\
 | $|V_{cb}|$ | $\sqrt{2/3}/(2\pi^2)$ | 0.0414 | 0.0408 ± 0.0014ʰ | $0.4\sigma$ | **S** |
 | $J$ (Jarlskog) | $\eta/(12\pi^6)$ | $3.02 \times 10^{-5}$ | $(3.08 \pm 0.13) \times 10^{-5}$ʰ | $0.5\sigma$ | **E** (empirical $\eta$) |
 | Koide $Q$ | $2/3$ | 0.66667 | 0.66666 | $< 0.01\%$ | **S** |
-| Koide angle $\theta_0$ | $C_2/d^2 = 2/9$ | 0.22222 | 0.22227 | 0.02% | **S** |
+| Koide angle $\theta_0$ | $C_2/d^2 = 2/9$ | 0.22222 | 0.222225 | 0.001% | **S** |
 | $m_e$ (from $m_\tau$) | $\theta_0 = 2/9$ | 0.51096 MeV | 0.51100 MeV | 0.007% | **M** ($m_\tau$) |
 | $m_\mu$ (from $m_\tau$) | $\theta_0 = 2/9$ | 105.652 MeV | 105.658 MeV | 0.006% | **M** ($m_\tau$) |
 | $Q_{\text{down}}$ | $(2/3)(1+\alpha_s/\pi)$ | 0.7303 | 0.7314 | 0.15% (scheme-dep) | **P** |
