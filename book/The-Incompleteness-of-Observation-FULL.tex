@@ -22575,7 +22575,7 @@ framework's status (how the framework engages it), with a
 cross-reference to the chapter and section where the relevant content is
 developed.
 
-Section 19.3 develops five problems the framework does \emph{not}
+Section 19.3 develops six problems the framework does \emph{not}
 resolve. The fermion mass hierarchy (flavor problem) has a defined
 research program with initial computational results and three tractable
 open targets, but the full quantitative content has not yet been
@@ -22591,10 +22591,14 @@ structure but does not address the very early universe's dynamics, with
 three possibilities outlined but none developed. The initial state of
 \((S, \varphi)\) is partially gauge (within the reconstruction theorem's
 equivalence class) and partially the framework's irreducible mystery
-(why this equivalence class rather than another). Section 19.3 also
-takes up two framework-specific meta-questions: whether the discrete
-structural residue is genuinely non-tautological (§19.3.6) --- now
-\emph{resolved} by a three-tier classification of the framework's
+(why this equivalence class rather than another). The sixth problem is
+the chirality hypothesis H-χ (§19.3.8): whether the SU(2) embedding is
+taste-chirality-selective --- the named hypothesis on which the
+Standard-Model chirality identification is conditional (SM §4.8), with
+the grading identification itself proved and probe-certified. Section
+19.3 also takes up two framework-specific meta-questions: whether the
+discrete structural residue is genuinely non-tautological (§19.3.6) ---
+now \emph{resolved} by a three-tier classification of the framework's
 results, which is the section's main conceptual addition and reframes
 the framework's overall claim as a tight compression of physics rather
 than a derivation of it from first principles --- and the radiative
@@ -23040,7 +23044,7 @@ non-Gaussianity searches over the next decade.
 \subsection{19.3 Problems open within the
 framework}\label{problems-open-within-the-framework}}
 
-This section develops the five problems the framework does not fully
+This section develops the six problems the framework does not fully
 resolve. Each entry pairs the standard formulation, the framework's
 current status, an assessment of what remains open, and a note on the
 prospects for closing the open question.
@@ -23088,12 +23092,20 @@ prescription rather than the wrong physics. With the correct matching
 scale (a structural feature of the taste-decomposed CW potential rather
 than a tunable parameter), the prediction matches observation at the
 same level as the framework's other Layer 1 closures (Cabibbo, Koide,
-\(\sin^2\theta_{13}\)). The remaining Layer 2(a)-tractable verification
-is whether the OI-specific one-loop kinematic prefactor
-\(K = 1/(n_{\text{gen}} - 1) = 1/2\) --- currently established by
-inheritance from the standard staggered vertex normalization (Patel and
-Sharpe 1993; further detail in SM §7.5) --- is reproduced by an explicit
-OI-specific Coleman-Weinberg one-loop calculation.
+\(\sin^2\theta_{13}\)). The kinematic prefactor
+\(K = 1/(n_{\text{gen}} - 1) = 1/2\) is a Layer-1 structural identity
+given the matching condition (\(c_{bb} = (n_{\text{gen}}-1)\lambda\));
+its support is the Monte Carlo verification at \(1.4\%\)
+(\(K_{\text{MC}} = 0.507\)). The explicit one-loop evaluation has been
+carried out and cannot close the gap: in the condensate-ratio
+construction the one-loop coefficient is \(0.446\)
+(tadpole-normalization bracket \(0.393\)--\(0.446\)), \(11\)--\(21\%\)
+below \(1/2\) at a coupling where \(Z_S - 1 = 0.81\) --- a truncation
+error an order of magnitude larger than the MC precision, indicting the
+truncation rather than the identity. Analytical closure requires the
+resummed staggered-χPT chain or a non-perturbative identity, or
+alternatively sub-percent MC; the task is Layer 2(a) in scope but not
+one-loop in method (SM §7.5).
 
 \emph{The Koide relation.} \(Q = 2/3\) is equivalent to the square-root
 mass vector making a \(45°\) angle with the \([1, 1, 1]\) direction in
@@ -23748,6 +23760,33 @@ rotational sector and exposes the boost sector, so the dimension-six
 rotational protection and the dimension-four boost exposure are two
 faces of one structural fact rather than independent assumptions.
 
+\hypertarget{the-chirality-hypothesis-h-ux3c7}{%
+\subsubsection{19.3.8 The chirality hypothesis
+H-χ}\label{the-chirality-hypothesis-h-ux3c7}}
+
+The Standard-Model identification carries one named structural
+hypothesis. \textbf{H-χ:} the SU(2) embedding is
+\emph{taste-chirality-selective} --- the gauge coupling distinguishes
+the taste-chirality grading on the internal \(E\) components. What is
+proved, and probe-certified (\texttt{chirality\_grading\_probes.py}): on
+the visible sector the spin-chirality and taste-chirality operators
+coincide, so a gauge coupling is spin-chiral there if and only if its
+embedding is taste-chirality-selective (SM §4.8, Theorem 13); the
+grading itself is \((d_L, d_R) = (4, 4)\) with \(\Gamma(0) = I_4\)
+chirality-neutral, refuting the earlier ``even sublattice =
+left-handed'' identification; SU(3) is vector-like; and the generation
+count does not depend on H-χ. What is open is H-χ itself: whether the
+substratum's SU(2) embedding is in fact taste-chirality-selective. The
+resolution path is a computation in the framework's own representation
+machinery --- the embedding's action on the graded components of the
+coupling matrix (the Theorem 7 apparatus). A computed non-selective
+embedding falsifies the chirality identification, and with it the
+specific Standard-Model matter assignment, while leaving the gauge
+group, the multiplicities \((3, 2, 1)\), and the generation count
+intact; a computed selective embedding discharges the hypothesis and
+upgrades the chirality clause corpus-wide. The condition's standing
+status is transcribed in the status ledger (Main §4.5).
+
 \hypertarget{chapter-close-summary-table-and-what-the-framework-does-not-address}{%
 \subsection{19.4 Chapter close: summary table and what the framework
 does not
@@ -23779,6 +23818,8 @@ Developed in
 \endlastfoot
 Quantum gravity & Central problem & Dissolved (three components) & Chs
 1, 7, 18 \\
+SU(2) chirality & Assumed in the SM & Open --- named hypothesis H-χ;
+grading proved, selectivity open & §19.3.8, {[}SM §4.8{]} \\
 Cosmological constant & Worst prediction in physics & Dissolved
 (\(10^{122}\) = \(S_{\text{dS}}\)) & Ch 7 §7.7 \\
 Dark matter & Unknown, no particle found & Derived (\(a_0 = cH/6\)) & Ch
