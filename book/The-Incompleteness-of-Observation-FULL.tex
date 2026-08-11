@@ -967,7 +967,7 @@ unchanged; what it represents is different. The wave function is not the
 universe's state; it is the experimenter's compressed description of
 what they cannot see. The Born rule is not a postulate about fundamental
 indeterminism; it is the probability assignment that any embedded
-experimenter must use given C1-C3. Bell-inequality violations do not
+experimenter must use given C1--C4. Bell-inequality violations do not
 require nonlocality; they emerge from the specific way correlations
 propagate through the unobserved outside under C1-C3.
 
@@ -1649,11 +1649,15 @@ Markovian regime: the environment cannot reset between measurements.
 Every correlation it picks up from one experiment is still there when
 the next begins.
 
-\textbf{Condition C3 (Sufficient capacity).} \(N_H \gg N_V\). The
-cosmological horizon has roughly \(10^{122}\) independent degrees of
-freedom, the Bekenstein-Hawking entropy. A laboratory apparatus has at
-most \(10^{30}\) to \(10^{50}\). No experiment appreciably disturbs the
-hidden sector. Its memory never saturates.
+\textbf{Condition C3 (Sufficient memory capacity).} The hidden sector
+has enough distinguishable states to encode the observed conditional
+past--future information --- \(\log_2 |\mathcal{C}_H| \geq I^*\), the
+bound the necessity theorem actually proves. The hierarchy is the
+realization, not the condition: the cosmological horizon has roughly
+\(10^{122}\) independent degrees of freedom, the Bekenstein-Hawking
+entropy, against a laboratory apparatus's \(10^{30}\) to \(10^{50}\) ---
+so \(N_H \gg N_V\) there, no experiment appreciably disturbs the hidden
+sector, and its memory never saturates.
 
 \textbf{Condition C4 (History readback).} The interaction reads what it
 writes. Some hidden degrees of freedom that depend on the visible past
@@ -2577,7 +2581,11 @@ from marginalizing a deterministic bijection on
 partition.} \(\square\)
 
 Quantum mechanics is not merely \emph{compatible with} embedded
-observation under C1-C3. It is equivalent to it.
+observation. Accessible process non-Markovianity is equivalent, on each
+finite horizon, to the existence of a C1--C4 deterministic hidden-state
+realization --- and the P-indivisible members of that class, the
+empirically realized ones, admit the quantum representation, with the
+fixed-Ĥ form constructive.
 
 The characterization establishes Hilbert space, unitary dynamics, and
 Born-rule transition probabilities. The further structures of
@@ -2606,8 +2614,9 @@ of the same standing as the residual dissipation.
 An observer inside the universe receives incomplete data --- the visible
 sector only. The characterization theorem proves that there is exactly
 one self-consistent algorithm for making predictions from this
-incomplete data on accessible timescales under C1-C3. That algorithm is
-quantum mechanics.
+incomplete data on accessible timescales under C1--C4. For the
+indivisible subclass --- the empirically realized one --- that algorithm
+is quantum mechanics.
 
 Everything in quantum mechanics is a feature of this algorithm, not a
 feature of the underlying reality. The wave function is the algorithm's
@@ -6720,8 +6729,9 @@ quantum-mechanical description; the content traced over is, by
 construction, inaccessible to that observer.
 
 These silences are structural rather than methodological. They follow
-from the characterization theorem's identification of quantum mechanics
-with embedded observation under C1-C3, and from the observer-selection
+from the characterization theorem's identification of accessible
+non-Markovian observation with embedded observation under C1--C4
+(quantum for the indivisible subclass), and from the observer-selection
 theorem's restriction of observers to the non-equilibrium phase. The
 framework's silence on these regimes is not a gap in its content but a
 feature of its structural commitments: it is committed to the regime
@@ -16543,7 +16553,7 @@ non-Markovian dynamics provides the mechanism: the small energy
 difference accumulates coherently over the radical-pair lifetime, with
 coherence surviving long enough for the effect to be detected. The
 coherence preservation is a property of the specific physical
-realization, not a consequence of the C1-C3 architecture: (C1)-(C3)
+realization, not a consequence of the C1--C4 architecture: (C1)-(C3)
 constrain coupling, timescales and capacity, and neither contain nor
 imply a coherence requirement. The framework's contribution here is the
 non-Markovian accounting of the accumulated phase, not a derivation that
@@ -25421,7 +25431,7 @@ channel is entanglement-breaking, as a two-state system with a two-state
 hidden register already shows.
 
 \textbf{Theorem B.2.5 (CP-indivisibility).} \emph{The P-indivisibility
-of the substratum dynamics (under C1-C3) implies CP-indivisibility of
+of the substratum dynamics (under C1--C4) implies CP-indivisibility of
 \(\{\Phi_t\}\): there exist \(t_2 > t_1 > 0\) with no CPTP map
 \(\Lambda\) satisfying \(\Phi_{t_2} = \Lambda \circ \Phi_{t_1}\).}
 
@@ -26433,16 +26443,20 @@ the extension, its Fourier structure, and the constraint analysis that
 eliminates the larger pair-phase gauge are given in the companion paper
 ({[}Main §3.4{]}).
 
-\textbf{Theorem B.7.6 (Characterization theorem).} \emph{Emergent
-quantum mechanics on the visible sector is equivalent to embedded
-observation under C1-C3:}
+\textbf{Theorem B.7.6 (Characterization theorem).} \emph{In the
+redefined form of {[}Main §3.4{]}: accessible non-Markovianity of the
+visible process is equivalent, on each finite horizon, to embedded
+observation under C1--C4; the unitary quantum representation attaches to
+the P-indivisible subclass, with the fixed-\(\hat{H}\) form constructive
+for realized processes:}
 \[\text{Emergent QM on } V \iff \text{Embedded observation of } (S, \varphi) \text{ with C1-C3 on } (V, H)\]
 
 \emph{Proof structure.} The forward direction (sufficiency) follows from
 Lemmas B.7.1-B.7.5 combined with the Stinespring construction (§B.2):
-under C1-C3, the substratum dynamics produces P-indivisible emergent
-stochastic dynamics on \(V\), which is structurally equivalent to a
-unitary quantum dynamics on a Hilbert space via Stinespring dilation.
+under C1--C4, the substratum dynamics produces accessibly non-Markovian
+emergent stochastic dynamics on \(V\) (P-indivisible at the recurrence
+scale), which is structurally equivalent to a unitary quantum dynamics
+on a Hilbert space via Stinespring dilation.
 
 The reverse direction (necessity) follows from three contrapositive
 theorems, one for each of C1, C2, C3 (Appendix C §C.5): violating any of
@@ -26922,10 +26936,13 @@ information backflow that produces P-indivisibility. Contrapositive:
 violating C3 produces saturated dynamics, structurally distinct from QM.
 
 Each theorem is a contrapositive: violating the condition destroys QM.
-Together they establish that C1-C3 are \emph{individually necessary} and
-(with the sufficiency proof in Chapter 1) \emph{jointly sufficient}. The
-equivalence ``QM \(\Leftrightarrow\) embedded observation under C1-C3''
-is therefore a biconditional, not just an implication.
+Together they establish that C1, C3, and C4 are \emph{individually
+necessary} for any realization --- and C2 within the conditional-mixing
+class --- and (with the per-horizon dilation of Chapter 1) \emph{jointly
+sufficient}. The equivalence ``accessible non-Markovianity
+\(\Leftrightarrow\) embedded observation under C1--C4'' is a per-horizon
+biconditional; the quantum representation attaches to its P-indivisible
+subclass.
 
 \textbf{What the necessity direction does not claim.} The necessity
 direction claims that QM requires C1-C3 \emph{at the structural level}

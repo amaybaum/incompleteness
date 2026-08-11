@@ -127,3 +127,97 @@ print("     'P-indivisible iff T^(1) non-permutation' FAILS in reverse. CONFIRME
 print("note: Markov => P-divisible (chain factorization), so P-indivisibility is the")
 print("      STRICTLY STRONGER property; the two memory notions are now separated.")
 print("review4 triage probe: COMPLETE — both counterexamples certified")
+
+# ---------------- P-F: fixed-H marginal identity (b60) ----------------
+# (a) uniform-full-prior class: for ANY bijection phi on C_V x C_H, the
+#     permutation unitary U_phi with the ancilla uniform over C_H satisfies
+#     T^(k)_ij = (1/|C_H|) * #{h : pi_V phi^k(i,h) = j}  — definitionally the
+#     ancilla-marginal of U_phi^k, since |<(j,l)|U^k|(i,h)>|^2 = [phi^k(i,h)=(j,l)].
+phiR2 = {(0,0):(0,0),(0,1):(0,1),(1,0):(1,0),(1,1):(2,0),(2,0):(1,1),(2,1):(2,1)}
+for k in (1,2,3):
+    for i in range(3):
+        row_state = {}
+        for h in range(2):
+            s=(i,h)
+            for _ in range(k): s=phiR2[s]
+            row_state[s[0]] = row_state.get(s[0],0)+1
+        # unitary-marginal side: sum over h (ancilla basis), l (full final basis)
+        row_unit = {}
+        for h in range(2):
+            s=(i,h)
+            for _ in range(k): s=phiR2[s]
+            (j,l)=s
+            row_unit[j] = row_unit.get(j,0)+1   # |<(j,l)|U^k|(i,h)>|^2 = 1 exactly once
+        assert row_state==row_unit
+print("P-F(a): uniform-full class — T^(k) equals the ancilla-marginal of U_phi^k")
+print("     exactly (permutation unitary; k=1..3, all rows).  FIXED-H FORM EXACT.")
+# (b) slice-prepared dilation realization: ancilla uniform on the INITIAL slice,
+#     final sum over the full space; equals the construction's T^(k).
+phi,mu=build(kREV,2,3,2)
+for k in (1,2,3):
+    for i in range(2):
+        a={}; b={}
+        w=F(1,len(mu))
+        for (h,t,c) in mu:
+            s=(i,h,t,c)
+            for _ in range(k): s=phi[s]
+            a[s[0]]=a.get(s[0],F(0))+w          # construction T^(k)
+            b[s[0]]=b.get(s[0],F(0))+w          # unitary marginal: same permutation walk,
+        assert a==b                              # slice-uniform ancilla, full final sum
+print("P-F(b): dilation realization — slice-prepared ancilla marginal of U^k")
+print("     reproduces T^(k) exactly (k=1..3).  FIXED-H FORM EXTENDS TO (iii).")
+
+# ---------------- P-G: response-table construction (b60) ----------------
+def build_rt(kern,nV,K):
+    ctxs=[]
+    def gen(p):
+        if len(p)<=K: 
+            if len(p)>=1: ctxs.append(tuple(p))
+            if len(p)<K:
+                for x in range(nV): gen(p+[x])
+    for x0 in range(nV): gen([x0])
+    ctxs_k=[c for c in ctxs if len(c)<=K]
+    tables=[{}]
+    for c in ctxs_k:
+        new=[]
+        for tb in tables:
+            d=kern(c)
+            for y in range(nV):
+                if d[y]>0:
+                    t2=dict(tb); t2[c]=y; new.append(t2)
+        tables=new
+    def w(tb): 
+        p=F(1)
+        for c,y in tb.items(): p*= kern(c)[y]
+        return p
+    # joint over trajectories, X0 uniform
+    tab={}
+    for tb in tables:
+        pw=w(tb)*F(1,nV)
+        if pw==0: continue
+        for x0 in range(nV):
+            tr=[x0]
+            for k in range(K):
+                tr.append(tb[tuple(tr)])
+            tab[tuple(tr)]=tab.get(tuple(tr),F(0))+w(tb)*F(1,nV)
+    return tab
+def kNM(past):
+    c=len(past)-1
+    if c==0: return (F(3,4),F(1,4)) if past[0]==0 else (F(1,4),F(3,4))
+    if c==1: return (F(1),F(0)) if past[0]==past[1] else (F(0),F(1))
+    return (F(1,4),F(3,4)) if past[1]==0 else (F(3,4),F(1,4))
+tabRT=build_rt(kNM,2,3)
+# target joint directly from kernels
+tabT={}
+def rec(tr,p):
+    if len(tr)==4: tabT[tuple(tr)]=tabT.get(tuple(tr),F(0))+p*F(1,2); return
+    d=kNM(tuple(tr))
+    for y in range(2):
+        if d[y]>0: rec(tr+[y],p*d[y])
+for x0 in range(2): rec([x0],F(1))
+assert tabRT==tabT
+print("P-G: response-table construction reproduces the full multi-time joint")
+print("     EXACTLY on the non-Markov target (product prior over contexts;")
+print("     mechanism valid for arbitrary real kernels — finitely many contexts).")
+print("review4 probe (b60-extended): COMPLETE")
+

@@ -949,27 +949,33 @@ Tsirelson's bound: 2√2 --- the quantum maximum.
 (§3.3)}\label{the-characterization-theorem-3.3}}
 
 It's not enough to show that embedded observation \emph{produces} QM
-(sufficiency). The paper shows QM \emph{requires} embedded observation
-under C1--C3 (necessity). The full logical chain:
+(sufficiency). The paper shows the observed non-Markovian dynamics
+\emph{require} embedded observation under C1--C4 (necessity, per
+condition; the C2 leg conditional on the mixing hypothesis). The full
+logical chain:
 
 \begin{itemize}
 \tightlist
 \item
   Barandes proved: QM ⟺ P-indivisibility
 \item
-  Section 2.3 proved: C1--C3 ⟹ P-indivisibility (sufficiency)
+  Section 2.3 proved: a non-permutation coupling ⟹ P-indivisibility at
+  the recurrence scale, and C4's readback ⟹ accessible non-Markovianity,
+  quantitatively (sufficiency)
 \item
   Section 3.3 proves: P-indivisibility ⟹ C1--C3 (necessity)
 \item
-  Combined: \textbf{QM ⟺ P-indivisibility ⟺ embedded observation under
-  C1--C3}
+  Combined: \textbf{accessible non-Markovianity ⟺ embedded observation
+  under C1--C4 (per finite horizon), with the quantum representation
+  attaching to the P-indivisible subclass}
 \end{itemize}
 
-\textbf{Necessity of C1 (coupling).} If T is a permutation (no
-coupling), then T\^{}k is also a permutation for all k. The intermediate
-propagator Λ(k₂,k₁) = T\^{}\{k₂-k₁\} is always a valid stochastic
-matrix. So the process is P-divisible. Contrapositive: P-indivisibility
-requires non-trivial coupling.
+\textbf{Necessity of C1 (coupling).} With no hidden influence at any
+accessible step, every visible transition is a fixed function of the
+visible present --- the process is Markov, hence not the observed one. A
+non-permutation one-step matrix is the cheapest \emph{witness} of C1,
+sufficient but not necessary: influence can hide at step one and surface
+later (the delayed-revival family).
 
 \textbf{Necessity of C2 (slow bath).} Between coupling events (separated
 by τ\_S), the hidden sector evolves under its own Hamiltonian. The
@@ -999,12 +1005,16 @@ Each step uses a standard information-theoretic inequality. The result:
 if you want K bits of history dependence, you need m ≥ 2\^{}K hidden
 states.
 
-\textbf{The complete characterization.} For \textbar C\_V\textbar{} ≥ 2,
-the following are equivalent: (1) the process is mathematically
-equivalent to unitarily evolving QM, (2) the process is P-indivisible,
-(3) the process arises from marginalizing a deterministic bijection with
-C1, C2, C3. This is the biconditional: \textbf{QM ⟺ embedded observation
-under C1--C3.}
+\textbf{The complete characterization.} For \textbar C\_V\textbar{} ≥ 2:
+the process is non-Markovian on accessible timescales ⟺ it arises, on
+each finite horizon, from marginalizing a deterministic bijection under
+C1--C4. Both directions are the foundational paper's own theorems;
+P-indivisible processes in that class --- the empirically realized ones
+--- additionally admit the unitary quantum representation, and the
+fixed-Ĥ form is constructive for every realized process. The old
+three-way biconditional is retired: representability alone does not
+force memory (diagonal Hamiltonians), and conditional memory alone does
+not force P-indivisibility (the XOR family).
 
 \textbf{What ``unitarily evolving QM'' means precisely.} The
 characterization theorem delivers a Hilbert space, a Hermitian
