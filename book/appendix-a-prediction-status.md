@@ -154,14 +154,14 @@ The framework's empirical content in biology and medicine is concentrated in the
 | B6 | Molecular clock overdispersion | $R(t) \approx 5$ for mammals | S | 1 | Gillespie 1989, Cutler 2000 | Ch 17 §17.9 |
 | B7 | Universal rate autocorrelation | Across the tree of life | S | 1 | Tao et al. 2019 confirmed | Ch 17 §17.9 |
 | B8 | LTEE power-law fitness | $\beta \approx 0.08$-$0.12$ | S | 1 | Wiser et al. 2013 confirmed | Ch 17 §17.9 |
-| B9 | Punctuated equilibrium | C1-C3 information backflow | S | 1 | Eldredge-Gould 1972 | Ch 17 §17.9 |
-| B10 | Hsp90 evolutionary capacitance | C1-C3 buffering | S | 1 | Rutherford-Lindquist 1998 | Ch 17 §17.9 |
+| B9 | Punctuated equilibrium | C1–C4 information backflow | S | 1 | Eldredge-Gould 1972 | Ch 17 §17.9 |
+| B10 | Hsp90 evolutionary capacitance | C1–C4 buffering | S | 1 | Rutherford-Lindquist 1998 | Ch 17 §17.9 |
 | B11 | Chk1 + gemcitabine schedule dependence | Memory asymmetry | S | 1 | Clinical literature consistent | Ch 16 §16.3 |
 | B12 | LIFU cognitive improvement in Alzheimer's | $\tau_B$ normalization | S | 1 | Ye et al. 2025 confirmed | Ch 16 §16.4 |
 | B13 | iPSC reprogramming residuals | Substratum-emergent dissociation | S | 1 | Lin et al. 2024 confirmed | Ch 16 §16.10 |
 | B14 | Bivalent chromatin states | Multi-operator substratum | S | 1 | Bernstein et al. 2006 confirmed | Ch 16 §16.10 |
 
-**Summary statistics.** Counts: 12 S + 2 C. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction, in the same category as B6-B10 — the framework accounts for phenomena established before it. None is a forward confirmation. B4 and B5 are C rather than S because coherence preservation is a property of the specific physical realization and is not implied by (C1)-(C3) (§13.4-13.5): the framework's content in those two rows is the non-Markovian accounting, not a derivation that coherence survives.
+**Summary statistics.** Counts: 12 S + 2 C. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction, in the same category as B6-B10 — the framework accounts for phenomena established before it. None is a forward confirmation. B4 and B5 are C rather than S because coherence preservation is a property of the specific physical realization and is not implied by (C1)–(C4) (§13.4-13.5): the framework's content in those two rows is the non-Markovian accounting, not a derivation that coherence survives.
 
 ## A.5 Forward predictions and falsification targets
 

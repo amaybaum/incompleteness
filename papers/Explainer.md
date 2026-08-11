@@ -368,7 +368,7 @@ It's not enough to show that embedded observation *produces* QM (sufficiency). T
 
 - Barandes proved: QM ⟺ P-indivisibility
 - Section 2.3 proved: a non-permutation coupling ⟹ P-indivisibility at the recurrence scale, and C4's readback ⟹ accessible non-Markovianity, quantitatively (sufficiency)
-- Section 3.3 proves: P-indivisibility ⟹ C1–C3 (necessity)
+- Section 3.3 proves: P-indivisibility ⟹ C1–C4 (necessity)
 - Combined: **accessible non-Markovianity ⟺ embedded observation under C1–C4 (per finite horizon), with the quantum representation attaching to the P-indivisible subclass**
 
 **Necessity of C1 (coupling).** With no hidden influence at any accessible step, every visible transition is a fixed function of the visible present — the process is Markov, hence not the observed one. A non-permutation one-step matrix is the cheapest *witness* of C1, sufficient but not necessary: influence can hide at step one and surface later (the delayed-revival family).
@@ -1028,7 +1028,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1 + C2 + C3 |
 | Coin-and-die model (§2.4) | Concrete demonstration of all mechanisms | Definition + all conditions |
 | Stochastic-quantum correspondence (§3.1) | P-indivisibility = quantum mechanics | Barandes [10,11] or Stinespring (Appendix A) |
-| Necessity proof (§3.3) | QM *requires* C1, C2, C3 | Contrapositives of sufficiency |
+| Necessity proof (§3.3) | QM *requires* C1, C2, C3, C4 | Contrapositives of sufficiency |
 
 ### Sections 3–6: The Logical Flow
 

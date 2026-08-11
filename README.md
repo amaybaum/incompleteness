@@ -12,7 +12,7 @@ This repository develops a single framework across five core papers:
 - **Substratum** — ties these into a single construction at the substratum level
 - **Structure** — develops the framework's hierarchical structural realism and universality classes of embedded observers
 
-A note on "derives" throughout this repository: the framework forces a large amount of structure *given* its commitments (cubic lattice, wave-equation dynamics, the C1–C3 observer architecture), several of which are empirically selected or definitional rather than derived from first principles. The accurate one-line description is that the framework is a tight *compression* of known physics onto a small set of commitments — a claim about the unity of physics — rather than a derivation of physics from the bare fact of observation. This is developed in book §4.7 and SM §8.3.
+A note on "derives" throughout this repository: the framework forces a large amount of structure *given* its commitments (cubic lattice, wave-equation dynamics, the C1–C4 observer architecture), several of which are empirically selected or definitional rather than derived from first principles. The accurate one-line description is that the framework is a tight *compression* of known physics onto a small set of commitments — a claim about the unity of physics — rather than a derivation of physics from the bare fact of observation. This is developed in book §4.7 and SM §8.3.
 
 A self-contained paper, **Juno**, presents the parameter-free value $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ — a retrodiction matching the post-JUNO global fit at $0.07\sigma$, with JUNO's design-lifetime precision providing the pre-registered forward test. See [`papers/Juno.md`](papers/Juno.md).
 
@@ -96,7 +96,7 @@ Each prediction's full derivation chain and classification (structural / mass-ch
 
 **Open foundational question — the axiom count.** The framework's foundation is presented as a *two-axiom observation base* (tokened differentiation occurs; differentiation recurs). One element of that distillation is under review: whether the observer's embeddedness — its status as a proper part $V \subsetneq S$ of a larger whole — is a lemma of the first axiom or a third axiom in its own right. The question turns on a point about what the primitive "tokened differentiation" means, and is presentational rather than empirical: it changes no prediction the framework makes, only how the foundation's commitments are counted and described. It is flagged in `Main` §1.2, `Methodology` §4.2, `Substratum` §1.1, and `book/ch01`; the two-axiom presentation is the framework's working choice with this proviso noted, not a closed result.
 
-**Three emergences, one structural requirement.** Three apparently independent emergence stories trace to a single structural requirement: quantum mechanics emerges from C1–C3 (Main characterization theorem), general relativity emerges from the horizon trace-out (GR derivation of $\hbar$, $S_{\rm BH}$, running-vacuum form), and the arrow of time emerges from the observer's confinement to the non-equilibrium phase (Main §4.6). The observer-selection theorem shows they share a common foundation: observers satisfying C1–C3 exist only in the non-equilibrium phase of $(S, \varphi)$. QM emerges because that phase is where C1–C3 holds. GR emerges because the cosmological horizon is the natural non-equilibrium structure satisfying C2 with $\tau_B \sim H^{-1}$. The arrow of time emerges because observer-existence and horizon-expansion together supply a monotonic clock. Nothing is fundamental; everything derives, including the direction of time.
+**Three emergences, one structural requirement.** Three apparently independent emergence stories trace to a single structural requirement: quantum mechanics emerges from C1–C4 (Main characterization theorem), general relativity emerges from the horizon trace-out (GR derivation of $\hbar$, $S_{\rm BH}$, running-vacuum form), and the arrow of time emerges from the observer's confinement to the non-equilibrium phase (Main §4.6). The observer-selection theorem shows they share a common foundation: observers satisfying C1–C4 exist only in the non-equilibrium phase of $(S, \varphi)$. QM emerges because that phase is where C1–C4 holds. GR emerges because the cosmological horizon is the natural non-equilibrium structure satisfying C2 with $\tau_B \sim H^{-1}$. The arrow of time emerges because observer-existence and horizon-expansion together supply a monotonic clock. Nothing is fundamental; everything derives, including the direction of time.
 
 **Position relative to mainstream observer-emergent physics.** The framework's foundational claim — that observation is not external to physics — has been independently arrived at by several mainstream programs since 2022, with results that converge on the central observer-essentiality move while differing in mechanism. CLPW 2022 (JHEP 02:082) showed that adding an observer to QFT in a gravitational subregion promotes the von Neumann algebra from type III to type II$_\infty$. Maldacena 2024 (arXiv:2412.14014) demonstrated that the de Sitter sphere partition function's unphysical phase cancels exactly when an observer-with-clock is incorporated. Harlow-Usatyuk-Zhao (JHEP 02:108) and the AAIL construction (arXiv:2501.04305) argue that the closed-universe Hilbert-space dimension is determined by the observer's degrees of freedom. Slagle-Preskill 2022 (Phys. Rev. A 108:012217) constructed boundary quantum mechanics from a classical lattice model with stochastic dynamics. The present framework converges on the foundational substance — observation is not external; the algebra of observables depends on the observer; the partition structure carries physical content — while differing in mechanism: it is the unique member of this convergence in which the observer-essentiality content derives from a finite *deterministic* substratum (no extra spatial dimensions, no fundamental stochasticity), and produces a quantitative empirical record (twenty-two classified Standard Model retrodictions, seven of them parameter-free structural) that the comparison programs do not currently match. The convergence is supportive context for the framework's central claims; the empirical record is what distinguishes it. Full positioning is developed in [`Main`](papers/Main.md) §4.4.
 
@@ -120,7 +120,7 @@ Each prediction's full derivation chain and classification (structural / mass-ch
 
 **How is black-hole information preserved?** The Page curve is derived at theorem level from the framework's nested trace-out, with $t_P \approx 0.646\, t_{\rm evap}$. Information moves from the visible sector to the hidden sector as the black hole evaporates; it is never lost from $(S, \varphi)$. The generalized second law follows from strong subadditivity applied to the nested partition. See GR Appendix A.
 
-**Doesn't a finite deterministic substrate have a Boltzmann-brain problem? And what gives the arrow of time?** Both are addressed by a single structural theorem: observer partitions satisfying C1–C3 cannot exist in the equilibrium phase of $(S, \varphi)$, because $\tau_B$ is bounded by the local mixing time on equilibrium microstates and C2 ($\tau_B \gg \tau_S$) fails there. Boltzmann brains are excluded structurally — their $\tau_B \lesssim 10^{-12}$ s is six or more orders of magnitude too short. The arrow of time follows: the substratum has no arrow, but observers are confined to the non-equilibrium phase where horizon expansion provides the primary temporal structure. See Main §4.6.
+**Doesn't a finite deterministic substrate have a Boltzmann-brain problem? And what gives the arrow of time?** Both are addressed by a single structural theorem: observer partitions satisfying C1–C4 cannot exist in the equilibrium phase of $(S, \varphi)$, because $\tau_B$ is bounded by the local mixing time on equilibrium microstates and C2 ($\tau_B \gg \tau_S$) fails there. Boltzmann brains are excluded structurally — their $\tau_B \lesssim 10^{-12}$ s is six or more orders of magnitude too short. The arrow of time follows: the substratum has no arrow, but observers are confined to the non-equilibrium phase where horizon expansion provides the primary temporal structure. See Main §4.6.
 
 **What does not dissolve.** The absolute scale of fermion masses ($m_s$), CP-violating phases, the charm-mass anomaly, the residual electroweak hierarchy, and the cross-charged scale $M_X$ (a solution-level parameter confined to a falsifiable window, SM §3.1) remain explicit inputs or open questions, as noted in SM §7.6 and §8.3. The framework resolves concerns specific to treating QM as fundamental; it does not eliminate every open question in particle physics.
 
@@ -155,13 +155,13 @@ All research papers live in [`papers/`](papers/).
 
 - **[`Explainer`](papers/Explainer.md)** — full-argument overview, now **superseded by the book** and frozen at the 2026-07-26 revision (retained for its D-gauge completeness walkthrough and summary tables, pending their book incorporation). ([`.tex`](papers/Explainer.tex), [`.pdf`](papers/Explainer.pdf))
 
-- **[`Complexity`](papers/Complexity.md)** — traces the structural chain from $(S, \varphi)$ to organic chemistry, the origin of life as a molecular C1–C3 system, and Darwinian evolution. Companion to [`Computation`](papers/Computation.md), which continues the chain from evolution onward. ([`.tex`](papers/Complexity.tex), [`.pdf`](papers/Complexity.pdf))
+- **[`Complexity`](papers/Complexity.md)** — traces the structural chain from $(S, \varphi)$ to organic chemistry, the origin of life as a molecular C1–C4 system, and Darwinian evolution. Companion to [`Computation`](papers/Computation.md), which continues the chain from evolution onward. ([`.tex`](papers/Complexity.tex), [`.pdf`](papers/Complexity.pdf))
 
 - **[`Computation`](papers/Computation.md)** — continues the structural chain from evolution through information processing, neural computation, semiconductor physics, and AI as embedded-observer construction. Develops the BQP characterization theorem for embedded observers and the framework's position on the P vs NP question: structural silence with empirical content concentrated at the BQP boundary. Proposes three condition-based research directions for complexity-theoretic refinements within BQP — geometric structure on the substratum lattice, BQP-BPP gap correlated with problem globality, and gauge equivalence as a possible physical account of polynomial-time reducibility. ([`.tex`](papers/Computation.tex), [`.pdf`](papers/Computation.pdf))
 
-- **[`Medicine`](papers/Medicine.md)** — applies C1–C3 to enzyme kinetics, identifies *memory asymmetry* as a therapeutic axis, presents 29 testable predictions across cancer, neurodegeneration, antibiotic resistance, and other domains. ([`.tex`](papers/Medicine.tex), [`.pdf`](papers/Medicine.pdf))
+- **[`Medicine`](papers/Medicine.md)** — applies C1–C4 to enzyme kinetics, identifies *memory asymmetry* as a therapeutic axis, presents 29 testable predictions across cancer, neurodegeneration, antibiotic resistance, and other domains. ([`.tex`](papers/Medicine.tex), [`.pdf`](papers/Medicine.pdf))
 
-- **[`Bioinformatics`](papers/Bioinformatics.md)** — applies C1–C3 to computational biology methodology, explaining documented failure modes in trajectory inference, gene regulatory network inference, perturbation prediction, and multi-omics integration through the information-theoretic ceiling of transcriptome-only methods. 22 testable predictions for methodological development. ([`.tex`](papers/Bioinformatics.tex), [`.pdf`](papers/Bioinformatics.pdf))
+- **[`Bioinformatics`](papers/Bioinformatics.md)** — applies C1–C4 to computational biology methodology, explaining documented failure modes in trajectory inference, gene regulatory network inference, perturbation prediction, and multi-omics integration through the information-theoretic ceiling of transcriptome-only methods. 22 testable predictions for methodological development. ([`.tex`](papers/Bioinformatics.tex), [`.pdf`](papers/Bioinformatics.pdf))
 
 ### Lattice Monte Carlo code
 
@@ -179,7 +179,7 @@ A book-length treatment, **The Incompleteness of Observation: A Unified Framewor
 
 | # | Result | Status | Source |
 |---|---|---|---|
-| 1 | QM ⟺ embedded observation under C1–C3 | theorem | Main §3.4 |
+| 1 | QM ⟺ embedded observation under C1–C4 | theorem | Main §3.4 |
 | 2 | $\hbar = c^3 \varepsilon^2/(4G)$ from horizon thermal self-consistency, $\varepsilon = 2 l_p$ uniquely | theorem (boost prerequisite discharged to the falsifiable $M_X$ window) | GR §§3–4, §8.5 |
 | 3 | Bekenstein-Hawking entropy with $1/4$ coefficient ($1/4$ derived; GW250114 tests the area theorem, not the coefficient) | theorem | GR §5 |
 | 4 | Cosmological constant dissolution: $10^{122}$ ratio = $S_{\rm dS}$ compression ratio | theorem | GR §6 |
@@ -188,11 +188,11 @@ A book-length treatment, **The Incompleteness of Observation: A Unified Framewor
 | 7 | Twenty-two SM observables match observation across CKM, mass, PMNS sectors | structural + empirical | SM §7 |
 | 8 | Dark sector $\sim 95\%$, $a_0 = cH/6$, Bullet Cluster, CMB peaks | theorem (total budget); structural (specific magnitudes) | GR §7 |
 | 9 | Page curve from nested trace-out, $t_P \approx 0.646\, t_{\rm evap}$ | theorem | GR Appendix A |
-| 10 | Observer selection theorem: C1–C3 systems exist only out of equilibrium → arrow of time, no Boltzmann brains | theorem | Main §4.6 |
+| 10 | Observer selection theorem: C1–C4 systems exist only out of equilibrium → arrow of time, no Boltzmann brains | theorem | Main §4.6 |
 | 11 | Reconstruction theorem: observed physics (E1–E7) + A1–A6 → $[(S, \varphi)]/\mathcal{G}_{\rm sub}$ uniquely (conditional on ETH for C2 necessity) | theorem | Substratum §§3–4 |
 | 12 | No-GUT structural prediction: $\tau_p \sim 10^{45}$ yr, no GUT-mechanism monopoles, no GUT-chain cosmic strings, non-unification of gauge couplings | structural | SM §6.7 + §8.7 + Structure §12.5 |
 | 13 | Substratum-level $B$ conservation + sphaleron emergence in emergent EFT (substratum-emergent operator distinction) | theorem | SM §8.7 |
-| 14 | Structural preconditions for organic chemistry, RNA world as first molecular C1–C3, viable parameter fraction $\sim 16\%$ | structural chain + statistical | Complexity |
+| 14 | Structural preconditions for organic chemistry, RNA world as first molecular C1–C4, viable parameter fraction $\sim 16\%$ | structural chain + statistical | Complexity |
 | 15 | BQP characterization theorem for embedded observers; Extended Church-Turing Thesis as theorem; structural silence on P vs NP; three condition-based research directions for refinements within BQP | theorem (BQP boundary) + research directions | Computation |
 | 16 | Non-Markovian dynamics in biology, memory asymmetry as therapeutic axis, 29 testable predictions | predictions | Medicine |
 | 17 | Information-theoretic ceiling on transcriptome-only bioinformatic methods, 22 testable predictions across single-cell analysis | predictions | Bioinformatics |
@@ -207,7 +207,7 @@ The forward derivation and reconstruction theorem together establish that the fr
 
 ```
 (S, φ) ─→ d = 3 self-consistent (three forward filters: SM §3.2)
-       ─→ QM emergence under C1–C3 (Main §3.4, conditional on ETH for C2)
+       ─→ QM emergence under C1–C4 (Main §3.4, conditional on ETH for C2)
        ─→ Wave equation uniquely selected (SM §3)
        ├── ℏ = c³ε²/(4G), S_BH with 1/4, CC dissolution, GR (GR §§3–6)
        ├── Cubic group → SU(3)×SU(2)×U(1), 3 generations, θ̄ = 0 (SM §§4–5)
@@ -219,7 +219,7 @@ The forward derivation and reconstruction theorem together establish that the fr
        ├── Observer selection → arrow of time, no Boltzmann brains (Main §4.6)
        ├── Structural preconditions for organic chemistry, RNA world (Complexity)
        ├── BQP characterization for embedded observers; P vs NP structurally silent (Computation)
-       ├── Molecular C1–C3 → non-Markovian pharmacology (Medicine)
+       ├── Molecular C1–C4 → non-Markovian pharmacology (Medicine)
        └── Non-Markovian dynamics in computational biology methods (Bioinformatics)
 ```
 
@@ -248,7 +248,7 @@ Observed physics (E1–E7): QM + Bell + finite boundary entropy + spatial isotro
                           + propagating gravity + stable matter + ρ_s/ρ_crit concordance
 + A1–A6 (structural assumptions)
                 │
-Stage 1: Stinespring + characterization → (S, φ) with C1–C3 (Main, C2 conditional on ETH)
+Stage 1: Stinespring + characterization → (S, φ) with C1–C4 (Main, C2 conditional on ETH)
 Stage 2: Coupling graph + dynamics selection → d=3 (3 forward filters), wave eq., SM structure (SM)
 Stage 3: Thermal self-consistency → ℏ, ε = 2l_p, all emergent constants (GR)
                 │

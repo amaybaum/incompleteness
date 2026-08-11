@@ -199,20 +199,20 @@ be solved with better algorithms, more data, or different model
 architectures.
 
 This paper applies the Observational Incompleteness (OI) framework
-{[}1{]} to these puzzles. The framework's C1--C3 conditions ---
-non-trivial coupling (C1), slow-bath memory (C2), and high-capacity
-hidden sector (C3) --- produce P-indivisible (non-Markovian) dynamics
-whenever a fast visible sector is coupled to a slow high-capacity hidden
-sector. The companion Medicine paper {[}2{]} establishes that chromatin
-layers satisfy C1--C3 in biological systems, with DNA methylation,
-histone modifications, and chromatin state functioning as the slow
-hidden sector with timescales spanning seconds (chromatin binding) to
-generations (DNA methylation maintenance). This paper shows that the
-same structural conditions explain the bioinformatics field's documented
-failure modes: each puzzle has the same underlying cause --- methods
-assume Markovian dynamics on systems with substantial hidden-sector
-memory, and this assumption violation produces characteristic systematic
-errors.
+{[}1{]} to these puzzles. The framework's C1--C4 conditions ---
+non-trivial coupling (C1), slow-bath memory (C2), high-capacity hidden
+sector (C3), and history readback (C4) --- produce non-Markovian
+dynamics (P-indivisible at the recurrence scale) whenever a fast visible
+sector is coupled to a slow high-capacity hidden sector. The companion
+Medicine paper {[}2{]} establishes that chromatin layers satisfy C1--C4
+in biological systems, with DNA methylation, histone modifications, and
+chromatin state functioning as the slow hidden sector with timescales
+spanning seconds (chromatin binding) to generations (DNA methylation
+maintenance). This paper shows that the same structural conditions
+explain the bioinformatics field's documented failure modes: each puzzle
+has the same underlying cause --- methods assume Markovian dynamics on
+systems with substantial hidden-sector memory, and this assumption
+violation produces characteristic systematic errors.
 
 We develop the analysis across five domains where the framework's
 predictions match documented empirical failure modes: trajectory
@@ -315,9 +315,9 @@ Some of these solutions help; others do not. The field lacks a
 structural framework for predicting \emph{which} methodological
 improvements will help and \emph{why}.
 
-\hypertarget{the-oi-framework-and-its-c1c3-conditions}{%
-\subsubsection{1.2 The OI framework and its C1--C3
-conditions}\label{the-oi-framework-and-its-c1c3-conditions}}
+\hypertarget{the-oi-framework-and-its-c1c4-conditions}{%
+\subsubsection{1.2 The OI framework and its C1--C4
+conditions}\label{the-oi-framework-and-its-c1c4-conditions}}
 
 The Observational Incompleteness (OI) framework {[}1{]} establishes a
 characterization theorem for embedded observation. The theorem states:
@@ -332,7 +332,7 @@ with the appropriate architecture, from quantum mechanics emerging at
 the cosmological horizon to biological signaling cascades.
 
 The companion Medicine paper {[}2{]} establishes that biological memory
-systems satisfy C1--C3 at multiple molecular layers. The chromatin layer
+systems satisfy C1--C4 at multiple molecular layers. The chromatin layer
 is the most directly relevant for computational biology: DNA methylation
 patterns, histone modifications, and chromatin-state assignments form a
 slow hidden sector with substantial \(\tau_B\) relative to
@@ -362,7 +362,7 @@ This paper develops the framework's prediction across five active
 methodological domains in single-cell bioinformatics. Each section
 follows a common structure: (i) the documented field-level puzzle or
 failure mode; (ii) the framework's structural explanation in terms of
-C1--C3 dynamics; (iii) the empirically observed methodological
+C1--C4 dynamics; (iii) the empirically observed methodological
 improvements that align with the framework's prediction.
 
 §2 addresses trajectory inference, from RNA velocity's documented
@@ -469,7 +469,7 @@ the current spliced/unspliced ratios is insufficient to predict the next
 state, because chromatin memory contributes information not captured by
 mRNA levels alone.
 
-The C1--C3 architecture applies directly: gene transcription (fast,
+The C1--C4 architecture applies directly: gene transcription (fast,
 visible) is coupled (C1) to chromatin state (slow, C2) with
 exponentially large chromatin state space (C3). The framework's
 characterization theorem {[}1{]} then implies that RNA velocity inferred
@@ -1818,7 +1818,7 @@ matching {[}SM §8.7{]}, and that organizes Rett syndrome paradigm and
 clinical epigenetic therapeutics {[}Medicine §9.4{]}. The pattern is
 unified across foundational physics, cellular biology, and computational
 biology --- instances of the same structural feature of trace-out
-dynamics in C1--C3 systems.
+dynamics in C1--C4 systems.
 
 The bioinformatic instantiation of the pattern has the empirical
 advantage of being directly measurable: the substratum is accessible
@@ -1952,12 +1952,12 @@ The framework's bioinformatic predictions have inherent limits:
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
 \item
-  \textbf{Scope limited to cellular systems satisfying C1--C3.} Systems
-  where C1--C3 fail (rapidly equilibrating systems, low-capacity hidden
+  \textbf{Scope limited to cellular systems satisfying C1--C4.} Systems
+  where C1--C4 fail (rapidly equilibrating systems, low-capacity hidden
   sectors, decoupled visible-hidden dynamics) do not exhibit the
   framework's predicted patterns. Not every biological system has
   substantial \(\tau_B\) at relevant timescales; the framework's
-  predictions apply where C1--C3 hold.
+  predictions apply where C1--C4 hold.
 \item
   \textbf{Information-theoretic ceilings are upper bounds, not
   necessarily attainable.} A method may underperform the ceiling for

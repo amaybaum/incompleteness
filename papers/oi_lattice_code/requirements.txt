@@ -1,0 +1,6 @@
+# Probe-battery environment (b63c). The nine foundation suites use only
+# the Python standard library plus:
+sympy==1.14.0
+numpy==2.4.4
+scipy==1.17.1
+# run:  bash run_all_probes.sh   (exit 0 iff all nine suites pass)

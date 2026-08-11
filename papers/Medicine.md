@@ -10,7 +10,7 @@
 
 ## Abstract
 
-The Observational Incompleteness (OI) framework [1] proves that any fast subsystem coupled to a slow, high-capacity hidden sector exhibits P-indivisible (non-Markovian) dynamics — history-dependent transition probabilities arising from information stored in the hidden sector and returned on subsequent interactions. Originally developed for fundamental physics, the theorem's architectural conditions (C1–C3) are scale-independent; although biological subsystems are open and dissipative rather than the closed, reversible substratum the full theorem assumes, the model-independent consequence — that tracing out a slow, high-capacity sector yields history-dependent (non-Markovian) dynamics — applies to them directly. We identify biological systems — from single enzymes through signaling cascades to the epigenome — as natural instantiations of this architecture. The fast catalytic process (enzyme active site, ion channel gating, kinase phosphorylation) is coupled (C1) to slow conformational or post-translational modification dynamics (C2) with exponentially large state spaces (C3), producing history-dependent behavior that standard Markovian models cannot capture.
+The Observational Incompleteness (OI) framework [1] proves that any fast subsystem coupled to a slow, high-capacity hidden sector exhibits non-Markovian dynamics (P-indivisible at the recurrence scale) — history-dependent transition probabilities arising from information stored in the hidden sector and returned on subsequent interactions. Originally developed for fundamental physics, the theorem's architectural conditions (C1–C4) are scale-independent; although biological subsystems are open and dissipative rather than the closed, reversible substratum the full theorem assumes, the model-independent consequence — that tracing out a slow, high-capacity sector yields history-dependent (non-Markovian) dynamics — applies to them directly. We identify biological systems — from single enzymes through signaling cascades to the epigenome — as natural instantiations of this architecture. The fast catalytic process (enzyme active site, ion channel gating, kinase phosphorylation) is coupled (C1) to slow conformational or post-translational modification dynamics (C2) with exponentially large state spaces (C3), producing history-dependent behavior that standard Markovian models cannot capture.
 
 We develop this structural observation into a unified framework for seven medical domains: cancer pharmacology (checkpoint kinase memory and schedule-dependent sensitization), neurodegeneration (Alzheimer's, Parkinson's, and PTSD as disorders of molecular memory timescale, with reconsolidation paradigms and low-intensity focused ultrasound as the first directly $\tau_B$-targeted therapeutic modality), antibiotic resistance (persister cells as SOS memory accumulation), immunotherapy (T cell exhaustion as accumulated TCR signaling memory), cardiac pharmacology (use-dependent ion channel block as gating memory), and autoimmune disease (disproportionate efficacy of partial JAK inhibition as memory disruption), and the treatment management of genetic disorders (replacement therapy scheduling, inhibitor prevention, gene therapy durability). In each case, the framework identifies a specific therapeutic axis — **memory asymmetry** between disease and normal tissue — that is pharmacologically distinct from standard catalytic inhibition and predicts wider therapeutic windows. We extend the analysis to epigenetic regulation, identifying the chromatin state as the biological hidden sector with a hierarchical memory architecture spanning minutes (histone acetylation) to generations (DNA methylation), and further upward through synaptic, circuit, systems, and cortical layers in the nervous system. The framework's central derivations — the necessarily reconstructive nature of memory access, the structural requirement of finite $\tau_B$ at every layer for functional dynamics, and the layer-specific reconsolidation window — provide unified accounts of phenomena previously treated as contingent features of biological memory. Twenty-nine main testable predictions (with three additional layer-specific PTSD/LIFU sub-predictions in neurodegeneration) are presented, each distinguishing the non-Markovian framework from standard Markovian pharmacology. Several predictions are already supported by existing data; the remainder are experimentally accessible with current techniques.
 
@@ -30,9 +30,9 @@ The Observational Incompleteness (OI) framework [1] provides such a principle. O
 
 **C3 (Capacity).** The hidden sector has many more accessible states than the fast subsystem, providing sufficient room to store the full interaction history without saturation.
 
-When C1–C3 are satisfied, the characterization theorem [1, §3.4] proves that the fast subsystem's dynamics is P-indivisible: transition probabilities at time $t$ depend on the system's history, stored in the hidden sector's state and returned through the coupling. The strength of the history-dependence is controlled by $\tau_S / \tau_B$ — the ratio of fast to slow timescales.
+When C1–C4 are satisfied, the characterization theorem [1, §3.4] proves that the fast subsystem's dynamics is P-indivisible: transition probabilities at time $t$ depend on the system's history, stored in the hidden sector's state and returned through the coupling. The strength of the history-dependence is controlled by $\tau_S / \tau_B$ — the ratio of fast to slow timescales.
 
-The biological relevance is immediate. Enzymes, kinases, ion channels, and receptors are composed of a fast catalytic domain coupled to slow regulatory domains, post-translational modification (PTM) sites, and conformational degrees of freedom. The catalytic cycle operates on nanosecond-to-microsecond timescales; the regulatory domain's conformational changes persist for microseconds to milliseconds; PTM patterns persist for minutes to hours; chromatin modifications persist for days to generations. At every scale, C1–C3 are satisfied, and the theorem predicts non-Markovian dynamics.
+The biological relevance is immediate. Enzymes, kinases, ion channels, and receptors are composed of a fast catalytic domain coupled to slow regulatory domains, post-translational modification (PTM) sites, and conformational degrees of freedom. The catalytic cycle operates on nanosecond-to-microsecond timescales; the regulatory domain's conformational changes persist for microseconds to milliseconds; PTM patterns persist for minutes to hours; chromatin modifications persist for days to generations. At every scale, C1–C4 are satisfied, and the theorem predicts non-Markovian dynamics.
 
 This paper develops the medical implications of this observation across seven domains, identifies a unifying therapeutic principle (memory asymmetry), and presents twenty-nine testable predictions that distinguish the non-Markovian framework from standard Markovian pharmacology.
 
@@ -58,7 +58,7 @@ The strength of the non-Markovian correction is set by $\tau_S / \tau_B$. When t
 
 The memory hierarchy spans many decades of timescale. At the molecular level:
 
-| Memory mechanism | Write operation | Storage medium | $\tau_B$ | C1–C3 role |
+| Memory mechanism | Write operation | Storage medium | $\tau_B$ | C1–C4 role |
 |---|---|---|---|---|
 | Conformational hysteresis | Ligand binding | Oligomeric/regulatory state | $\mu$s–ms | C2 |
 | Sequential phosphorylation | Ordered modification | Conformational accessibility | Minutes | C2 + C3 |
@@ -66,7 +66,7 @@ The memory hierarchy spans many decades of timescale. At the molecular level:
 | Chromatin marks | $\gamma$H2AX, methylation | Histone modification state | Hrs–days | C2 + C3 |
 | DNA methylation | Methyltransferase activity | CpG state | Months–generations | C2 + C3 |
 
-In multicellular tissues — particularly the nervous system — the same C1–C3 architecture extends upward through additional layers, each treating the layer below as its hidden sector:
+In multicellular tissues — particularly the nervous system — the same C1–C4 architecture extends upward through additional layers, each treating the layer below as its hidden sector:
 
 | Memory layer | Substrate | $\tau_B$ |
 |---|---|---|
@@ -85,7 +85,7 @@ In disease contexts, the framework identifies a specific therapeutic axis: **mem
 
 A direct consequence of the framework's core mechanism: *every act of accessing a memory necessarily alters the substrate that stores it.* Observation of a coupled hidden sector cannot be passive — the visible-sector readout requires interaction with the hidden sector, and this interaction back-acts on the hidden state. The re-stored trace is therefore a function of both the original hidden state and the present visible-sector context at the moment of access.
 
-This is the framework's derivation of the *reconstructive nature of recall* — a phenomenon long established in cognitive science but typically treated as a contingent feature of biological memory. The framework makes it structural: any C1–C3 memory system must exhibit constructive re-storage on access. Pure address-store memory (where access leaves the substrate unchanged) is incompatible with C1–C3.
+This is the framework's derivation of the *reconstructive nature of recall* — a phenomenon long established in cognitive science but typically treated as a contingent feature of biological memory. The framework makes it structural: any C1–C4 memory system must exhibit constructive re-storage on access. Pure address-store memory (where access leaves the substrate unchanged) is incompatible with C1–C4.
 
 **Clinical consequence: the reconsolidation paradigm.** When a memory is recalled, the recalled trace becomes labile and must be re-stored. The window during which it is labile provides a therapeutic opportunity. A drug given during the recall window writes into the re-storage process, modifying the future content of the memory. Propranolol given during recall of a traumatic memory selectively blocks the noradrenergic component of re-encoding, reducing the emotional valence of subsequent retrievals — a result well-established in PTSD trials (Brunet et al., reviewed extensively).
 
@@ -113,7 +113,7 @@ The therapeutic axis follows directly: $\tau_B$-normalizing interventions target
 
 ### 3.1 Checkpoint kinase inhibitors and selective tumor sensitization
 
-Chk1 inhibitors combined with gemcitabine and/or radiation selectively sensitize tumor cells — particularly pancreatic cancer — while sparing normal cells. Chk1 is a serine/threonine kinase whose catalytic domain (fast subsystem) is regulated by its SQ/TQ domain and C-terminal regulatory region (slow hidden sector). C1–C3 are satisfied: catalytic and regulatory domains are allosterically coupled (C1); regulatory conformational changes ($\mu$s–ms) $\gg$ phosphorylation events (ns–$\mu$s), with PTM persistence extending to minutes–hours (C2); the regulatory domain has $\sim 2^{10}$ modification states plus continuous conformational degrees of freedom (C3).
+Chk1 inhibitors combined with gemcitabine and/or radiation selectively sensitize tumor cells — particularly pancreatic cancer — while sparing normal cells. Chk1 is a serine/threonine kinase whose catalytic domain (fast subsystem) is regulated by its SQ/TQ domain and C-terminal regulatory region (slow hidden sector). C1–C4 are satisfied: catalytic and regulatory domains are allosterically coupled (C1); regulatory conformational changes ($\mu$s–ms) $\gg$ phosphorylation events (ns–$\mu$s), with PTM persistence extending to minutes–hours (C2); the regulatory domain has $\sim 2^{10}$ modification states plus continuous conformational degrees of freedom (C3).
 
 **The prediction.** Chk1's checkpoint signaling is non-Markovian: its response to a DNA damage signal depends on its recent activation history — specifically, on the PTM pattern and conformational state written by previous damage events. A Chk1 inhibitor that binds the regulatory domain disrupts the *memory structure* of the kinase, altering the history-dependence of future checkpoint responses.
 
@@ -141,9 +141,9 @@ A small priming dose of radiation ($\sim 0.01$–$0.1$ Gy) makes cells more resi
 
 Alzheimer's disease has been attacked through the amyloid hypothesis for three decades. Drugs that successfully clear A$\beta$ plaques (aducanumab, lecanemab, donanemab) have failed to restore cognition. The central hypothesis appears to target a symptom rather than the mechanism.
 
-### 4.2 CaMKII as the canonical C1–C3 system
+### 4.2 CaMKII as the canonical C1–C4 system
 
-CaMKII — the canonical molecular memory device in neurons — satisfies C1–C3:
+CaMKII — the canonical molecular memory device in neurons — satisfies C1–C4:
 
 - **C1:** The kinase domain is coupled to the regulatory/association domain through the autoinhibitory segment
 - **C2:** Autophosphorylation at T286 creates a bistable switch with persistence time of minutes to hours — far longer than individual calcium transients ($\sim$ms)
@@ -214,7 +214,7 @@ These are *extensions* of the framework's primary content (molecular memory and 
 
 ### 5.1 Persister cells as memory accumulation
 
-Persister cells survive antibiotic treatment through transient phenotypic tolerance, not genetic resistance. The SOS response pathway — regulated by RecA — satisfies C1–C3: RecA's nucleotide binding (fast) is allosterically coupled to filament formation on ssDNA (slow, seconds to minutes), with filaments extending over hundreds of bases (exponentially large state space).
+Persister cells survive antibiotic treatment through transient phenotypic tolerance, not genetic resistance. The SOS response pathway — regulated by RecA — satisfies C1–C4: RecA's nucleotide binding (fast) is allosterically coupled to filament formation on ssDNA (slow, seconds to minutes), with filaments extending over hundreds of bases (exponentially large state space).
 
 ### 5.2 The OI prediction
 
@@ -238,9 +238,9 @@ Clinical studies showing pulsed antibiotic regimens outperforming continuous reg
 
 PD-1/PD-L1 checkpoint inhibitors work in only $\sim 20$–$30\%$ of patients. The primary barrier is T cell exhaustion — progressive loss of effector function due to chronic antigen stimulation.
 
-### 6.2 TCR signaling as a C1–C3 system
+### 6.2 TCR signaling as a C1–C4 system
 
-The TCR signaling cascade (Lck $\to$ ZAP-70 $\to$ LAT $\to$ downstream effectors) involves kinases with regulatory domains satisfying C1–C3, with multiple phosphorylation sites creating a combinatorial memory register.
+The TCR signaling cascade (Lck $\to$ ZAP-70 $\to$ LAT $\to$ downstream effectors) involves kinases with regulatory domains satisfying C1–C4, with multiple phosphorylation sites creating a combinatorial memory register.
 
 ### 6.3 The OI prediction
 
@@ -256,7 +256,7 @@ T cell exhaustion begins as accumulated non-Markovian memory in the TCR signalin
 
 ### 7.1 Use-dependent block as non-Markovian channel dynamics
 
-Antiarrhythmic drugs show use-dependent block — efficacy depends on heart rate, not just plasma concentration. Voltage-gated ion channels (hERG, Nav1.5, Cav1.2) satisfy C1–C3: the pore domain (fast gating, $\sim \mu$s) is coupled to voltage-sensing and regulatory domains with slow inactivation timescales ($\sim 100$ ms to seconds) and multiple inactivation states (C3).
+Antiarrhythmic drugs show use-dependent block — efficacy depends on heart rate, not just plasma concentration. Voltage-gated ion channels (hERG, Nav1.5, Cav1.2) satisfy C1–C4: the pore domain (fast gating, $\sim \mu$s) is coupled to voltage-sensing and regulatory domains with slow inactivation timescales ($\sim 100$ ms to seconds) and multiple inactivation states (C3).
 
 ### 7.2 Therapeutic implication
 
@@ -268,7 +268,7 @@ Antiarrhythmic drugs show use-dependent block — efficacy depends on heart rate
 
 ### 8.1 Disproportionate efficacy of partial JAK inhibition
 
-JAK inhibitors (tofacitinib, baricitinib) show a nonlinear dose-response: $50\%$ reduction in JAK activity produces $> 80\%$ reduction in disease activity. JAK kinases have a pseudokinase domain (JH2) that regulates the kinase domain (JH1), satisfying C1–C3.
+JAK inhibitors (tofacitinib, baricitinib) show a nonlinear dose-response: $50\%$ reduction in JAK activity produces $> 80\%$ reduction in disease activity. JAK kinases have a pseudokinase domain (JH2) that regulates the kinase domain (JH1), satisfying C1–C4.
 
 ### 8.2 The OI prediction
 
@@ -282,9 +282,9 @@ Partial inhibition disrupts the *memory structure* of JAK signaling without full
 
 ## 9. Epigenetics as the Biological Hidden Sector
 
-### 9.1 The C1–C3 architecture of chromatin
+### 9.1 The C1–C4 architecture of chromatin
 
-Epigenetic regulation satisfies C1–C3 exactly. The transcriptional machinery (visible sector) is coupled (C1) to the chromatin state (hidden sector), which changes slowly relative to transcription (C2) and has astronomically large capacity (C3: $\sim 2^{28 \times 10^6}$ possible CpG methylation patterns).
+Epigenetic regulation satisfies C1–C4 exactly. The transcriptional machinery (visible sector) is coupled (C1) to the chromatin state (hidden sector), which changes slowly relative to transcription (C2) and has astronomically large capacity (C3: $\sim 2^{28 \times 10^6}$ possible CpG methylation patterns).
 
 The chromatin hidden sector operates at multiple nested timescales:
 
@@ -353,7 +353,7 @@ However, the *management* of genetic disorders — replacement therapy schedulin
 
 ### 10.2 Coagulation cascade memory and factor replacement
 
-The clotting cascade (intrinsic and extrinsic pathways converging at Factor X $\to$ thrombin $\to$ fibrin) is a multi-kinase signaling cascade with C1–C3 architecture. Thrombin activates Factor V and Factor VIII (positive feedback), while antithrombin and TFPI provide negative feedback on different timescales. The cascade has memory: prior subthreshold activation primes it for faster response to subsequent triggers.
+The clotting cascade (intrinsic and extrinsic pathways converging at Factor X $\to$ thrombin $\to$ fibrin) is a multi-kinase signaling cascade with C1–C4 architecture. Thrombin activates Factor V and Factor VIII (positive feedback), while antithrombin and TFPI provide negative feedback on different timescales. The cascade has memory: prior subthreshold activation primes it for faster response to subsequent triggers.
 
 In hemophilia patients receiving replacement factor, the cascade operates in a partially-reconstituted state where the memory dynamics differ from normal. The framework predicts that the *timing* of replacement factor dosing relative to the cascade's memory state matters — not just the trough factor level. A patient who bleeds and partially activates the cascade before receiving factor concentrate is in a different memory state than a patient receiving prophylactic factor on schedule.
 
@@ -387,7 +387,7 @@ These compensatory responses are non-Markovian: their current strength depends o
 
 For genetic disorders, the framework's contribution is not to the genetic defect itself but to three categories of treatment challenge:
 
-| Treatment challenge | C1–C3 system | OI prediction |
+| Treatment challenge | C1–C4 system | OI prediction |
 |---|---|---|
 | Replacement therapy scheduling | Coagulation cascade / metabolic pathway | Timing relative to cascade memory state improves efficacy |
 | Immune reactions to therapy | TCR/BCR signaling cascades | Inhibitor risk depends on exposure *schedule*, not just dose |
@@ -520,7 +520,7 @@ Several predictions are already supported by published data:
 
 ### 13.1 The unifying principle
 
-Every application follows the same logic: (1) a disease process involves a signaling molecule with C1–C3 architecture; (2) the disease state involves pathological accumulation or alteration of non-Markovian memory; (3) current drugs target catalytic function; (4) the framework identifies memory structure as a pharmacologically distinct target; (5) memory-targeted therapy predicts wider therapeutic windows because the memory asymmetry between disease and normal tissue is more specific than the catalytic asymmetry.
+Every application follows the same logic: (1) a disease process involves a signaling molecule with C1–C4 architecture; (2) the disease state involves pathological accumulation or alteration of non-Markovian memory; (3) current drugs target catalytic function; (4) the framework identifies memory structure as a pharmacologically distinct target; (5) memory-targeted therapy predicts wider therapeutic windows because the memory asymmetry between disease and normal tissue is more specific than the catalytic asymmetry.
 
 | Disease | Memory mechanism | Current target | OI target |
 |---|---|---|---|
@@ -547,11 +547,11 @@ Two predictions are immediately testable with existing drugs and standard clinic
 
 ### 13.4 Connection to fundamental physics
 
-The mathematical structure underlying these predictions is identical to the theorem that derives quantum mechanics from embedded observation [1]. The C1–C3 conditions that produce non-Markovian enzyme dynamics are the same conditions that produce quantum mechanics at the cosmological scale. The read-write cycle of a kinase interacting with its regulatory domain is structurally isomorphic to the read-write cycle of an observer interacting with the hidden sector across the cosmological horizon. This connection is not metaphorical — the characterization theorem applies to any system satisfying C1–C3, regardless of scale. The biological instantiations are classical (no quantum coherence is required or invoked), but the mathematical architecture is the same.
+The mathematical structure underlying these predictions is identical to the theorem that derives quantum mechanics from embedded observation [1]. The C1–C4 conditions that produce non-Markovian enzyme dynamics are the same conditions that produce quantum mechanics at the cosmological scale. The read-write cycle of a kinase interacting with its regulatory domain is structurally isomorphic to the read-write cycle of an observer interacting with the hidden sector across the cosmological horizon. This connection is not metaphorical — the characterization theorem applies to any system satisfying C1–C4, regardless of scale. The biological instantiations are classical (no quantum coherence is required or invoked), but the mathematical architecture is the same.
 
 The *substratum-emergent operator distinction* developed in the companion SM paper [SM §8.7] has a direct biological analog at the chromatin layer (§9.4). In the SM context, the distinction identifies operators that are exactly conserved at the substratum (bilinear lattice) level but violated at the emergent EFT level through non-perturbative mechanisms — the canonical example is baryon-number conservation. At the chromatin layer, the same structural distinction identifies operators that operate on the molecular substrate (DNA methylation, histone modifications, chromatin state) versus operators that operate on the emergent cellular phenotype (gene expression, cell identity, behavior). The two operators can dissociate, with iPSC reprogramming residuals, bivalent chromatin states, and Rett-class reader-writer disorders all being instances of this dissociation. The same mathematical pattern characterizes fundamental physics and chromatin biology — not by analogy, but as instances of the same structural feature of trace-out dynamics.
 
-The *unified naturalness pattern* developed in [SM §8.8] extends to biology in the form developed in §9.1: biological "fine-tuning" of $\tau_B / \tau_S$ ratios at memory layers is structurally required by C1–C3 rather than evolutionarily contingent. The same mechanism that dissolves the hierarchy and cosmological-constant naturalness problems in physics — substratum-level structural constraints forcing specific values of emergent parameters — operates at the biological memory layers.
+The *unified naturalness pattern* developed in [SM §8.8] extends to biology in the form developed in §9.1: biological "fine-tuning" of $\tau_B / \tau_S$ ratios at memory layers is structurally required by C1–C4 rather than evolutionarily contingent. The same mechanism that dissolves the hierarchy and cosmological-constant naturalness problems in physics — substratum-level structural constraints forcing specific values of emergent parameters — operates at the biological memory layers.
 
 The same structural picture applied to computational analysis methods is developed in the companion Bioinformatics paper [18], which addresses non-Markovian dynamics in single-cell trajectory inference, gene regulatory network inference, perturbation prediction, multi-omics integration, and cancer methylome classification. The framework's reader-writer disorder class (§10.7) extends into specific bioinformatic patterns there.
 
