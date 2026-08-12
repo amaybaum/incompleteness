@@ -1388,7 +1388,7 @@ This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Subst
 
 [Mackey1963] G. W. Mackey, *Mathematical Foundations of Quantum Mechanics* (Benjamin, 1963).
 
-[Main] A. Maybaum, "The Incompleteness of Observation: The Equivalence of Quantum Mechanics and Embedded Observation" (2026).
+[Main] A. Maybaum, "The Incompleteness of Observation: Embedded Observation, Non-Markovianity, and Quantum Representation" (2026).
 
 [Maldacena1997] J. Maldacena, "The Large N Limit of Superconformal Field Theories and Supergravity", Adv. Theor. Math. Phys. 2, 231-252 (1998). arXiv:hep-th/9711200.
 

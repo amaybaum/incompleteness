@@ -1,5 +1,5 @@
 # THE INCOMPLETENESS OF OBSERVATION
-### The Equivalence of Quantum Mechanics and Embedded Observation
+### Embedded Observation, Non-Markovianity, and Quantum Representation
 
 **Author:** Alex Maybaum  
 **Date:** April 2026  
