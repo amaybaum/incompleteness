@@ -1025,7 +1025,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | Partition-relativity (§1.4) | Emergent description depends only on partition | Definition, Lemmas 2, 3 |
 | Emergent stochasticity (§2.1) | Determinism looks random to embedded observer | Definition, Lemmas 2, 3 |
 | P-indivisibility proof (§2.3) | The stochastic process is non-Markovian | Definition, Lemma 1 + C1 |
-| Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1–C3 + a C4 gap |
+| Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1–C3, plus C4 holding quantitatively: two histories with the same present whose next-step laws differ by δ > 0 (then I ≥ p₀δ²/ln 2) |
 | Coin-and-die model (§2.4) | Concrete demonstration of all mechanisms | Definition + all conditions |
 | Stochastic-quantum correspondence (§3.1) | P-indivisibility = quantum mechanics | Barandes [10,11] or Stinespring (Appendix A) |
 | Necessity proof (§3.3) | QM *requires* C1, C2, C3, C4 | Contrapositives of sufficiency |
