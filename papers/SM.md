@@ -1283,7 +1283,7 @@ In total, 9 unconditional + 6 layered = 15 predictions in the structural-or-near
 
 In addition: the SM gauge group; threefold taste multiplicity — three candidate generations, physical reading under H-spin, chirality under H-χ, spectrum selection open; $\bar\theta = 0$ within the construction (§5.5's four conditions); Majorana neutrinos; normal mass ordering — all consistent with data. The matter-sector chain, open links marked:
 $$\text{taste} \xrightarrow{\text{H-spin}} \text{Lorentz spin} \xrightarrow{\text{H-}\chi} \text{weak chirality} \to \text{selected light spectrum} \to \text{three SM generations},$$
-established through the first node's label content (Theorem 9); each subsequent arrow is a named open input.
+established through the first node's label content (Theorem 9); each subsequent arrow is a named open input. Per-link statuses: $1 \oplus 3$ taste structure — proved (Theorem 8); H-spin — open (§4.7 discharge test); H-χ — open (§4.8); light-spectrum selection — open; three physical generations — conditional on the above; strong CP — unresolved (§5.5).
 
 Remaining open: (i) $m_s$ (the overall mass scale — requires taste-decomposed Coleman–Weinberg potential); (ii) $m_c$ (no clean structural relation found; the up-sector hierarchy involves top Yukawa backreaction); (iii) CP-violating phases (solution-specific); (iv) neutrino masses (solution-specific, but structurally constrained: Majorana, normal ordering).
 
