@@ -2122,14 +2122,18 @@ zero modes and cross anticommutators of spectrum \(\{\pm 1/9, 0\}\);
 independently, \(\nabla_k\, \omega = 0\) at every corner of the exact
 dispersion, so no linear cone exists for a Dirac form to inhabit. The
 original free-kernel form of the hypothesis (H-spin) is thereby refuted.
-What remains open is the sharpened \textbf{H-spin'}: whether a
-four-dimensional space-time staggered treatment --- the standard
-Kogut--Susskind construction, which the spatial-only Schur split of
-§4.7.1.1 omits --- or the interacting, condensate-dressed kernel
-restores the Dirac form within the framework's second-order-in-time
-axioms. The physical spin-1/2 reading of the matter chain rides H-spin',
-and its discharge test is the four-dimensional staggered extension of
-the kernel probe.
+What remains open is the sharpened \textbf{H-spin'}, now in narrowed
+form: whether the interacting, condensate-dressed kernel restores the
+Dirac form within the framework's second-order-in-time axioms. The
+four-dimensional space-time staggered route is itself settled negative
+(\texttt{hspin4d\_probes.py}, exact): the on-shell corner set is \{Γ,
+R̄\} alone, with the six triplet corners gapped by 4/3; every corner
+linearization vanishes --- a structural fact for any
+\(2\cos k_0 - 2c(k)\) cosine-hop symbol --- and the on-shell kernel's
+blocked linearization is identically zero. The dressed kernel is the
+sole surviving mechanism. The physical spin-1/2 reading of the matter
+chain rides H-spin', and its discharge test is the Dirac-form test on
+the condensate-dressed effective kernel.
 
 \textbf{Corollary} (Spin-statistics from the lattice, under H-spin').
 Singlet → spin-0 → boson (Higgs). Triplet → spin-1/2 → fermion (quarks
@@ -6451,8 +6455,9 @@ links marked:
 established through the first node's label content (Theorem 9); each
 subsequent arrow is a named open input. Per-link statuses:
 \(1 \oplus 3\) taste structure --- proved (Theorem 8); H-spin' --- free
-kernel refuted, sharpened form open (§4.7;
-\texttt{hspin\_kernel\_probes.py}); H-χ' --- open in sharpened form
+kernel refuted and the 4D-staggered route settled negative
+(\texttt{hspin\_kernel\_probes.py}, \texttt{hspin4d\_probes.py}); the
+condensate-dressed form open (§4.7); H-χ' --- open in sharpened form
 (§4.8; the minimal embedding is certified vector-like); light-spectrum
 selection --- open; three physical generations --- conditional on the
 above; strong CP --- unresolved (§5.5).
