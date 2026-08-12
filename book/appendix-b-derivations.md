@@ -328,7 +328,7 @@ The identification is structural: the cubic rotation group's representation theo
 
 (v) Anomaly cancellation (Appendix B.5) uniquely determines the hypercharges.
 
-(vi) Three degenerate sectors follow from the three triplet ($T_1$) staggered tastes related by cubic symmetry; their reading as physical fermion generations is under H-spin (with H-χ' and light-spectrum selection likewise flagged).
+(vi) Three degenerate sectors follow from the three triplet ($T_1$) staggered tastes related by cubic symmetry; their reading as physical fermion generations is under H-spin' (with H-χ' and light-spectrum selection likewise flagged).
 
 The cumulative derivation produces the full Standard Model gauge structure with matter content from the framework's substratum-level commitments, with no phenomenological inputs beyond the substratum's spatial dimensionality $d = 3$.
 

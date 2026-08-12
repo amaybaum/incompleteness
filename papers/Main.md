@@ -87,7 +87,7 @@ are therefore uniquely determined by three inputs: dynamics ($\phi_t$), partitio
 
 The results organize into four layers, and every claim should be read at its layer. **Layer 1 — reversible dilation** (§2.2, §3.4): exact mathematics, no quantum claim —
 $$\text{finite-horizon non-Markovianity} \iff \exists\ \text{finite reversible hidden-state realization},$$
-the paper's core. **Layer 2 — memory and capacity** (§2.3): (C4) forces positive conditional memory; the (C3) information bound; the physical-memory theorem ((C2), conditional on mixing). **Layer 3 — quantum representation** (§3.1, §3.4): the imported correspondence (Q1) and the in-house uncompressed form (Q2), scopes separated. **Layer 4 — physical and operational realization** (§3.2, §4, companions): interventions (classical comb closed, §3.4; quantum instruments open), coherent preparation, Bell and free-choice structure, H-spin and H-χ', the cosmological realization — where the named hypotheses live. A Layer-1 result does not by itself establish any Layer-4 claim.
+the paper's core. **Layer 2 — memory and capacity** (§2.3): (C4) forces positive conditional memory; the (C3) information bound; the physical-memory theorem ((C2), conditional on mixing). **Layer 3 — quantum representation** (§3.1, §3.4): the imported correspondence (Q1) and the in-house uncompressed form (Q2), scopes separated. **Layer 4 — physical and operational realization** (§3.2, §4, companions): interventions (classical comb closed, §3.4; quantum instruments open), coherent preparation, Bell and free-choice structure, H-spin' and H-χ', the cosmological realization — where the named hypotheses live. A Layer-1 result does not by itself establish any Layer-4 claim.
 
 ## 2. EMERGENT STOCHASTICITY AND P-INDIVISIBILITY
 

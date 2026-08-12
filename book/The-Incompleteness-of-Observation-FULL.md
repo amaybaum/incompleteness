@@ -1641,7 +1641,7 @@ The wave equation on the cubic lattice has staggered Dirac structure, as Chapter
 $$4 = \mathbf{1} \oplus \mathbf{3}.$$
 One singlet taste; three triplet tastes related by cubic symmetry.
 
-**Spin-statistics from the lattice.** The singlet taste produces a spin-0 field; the triplet tastes produce spin-$1/2$ fields — the algebraic labels proved and probe-certified, the physical identification the named hypothesis H-spin [SM §4.7]. The argument runs through the staggered-to-Dirac reconstruction. The singlet pairs $\Gamma$ and $R$ in the Brillouin zone, with corresponding Dirac matrices $\Gamma(\boldsymbol{0}) = I_4$ (scalar) and $\Gamma(\boldsymbol{1}) = \gamma^1 \gamma^2 \gamma^3$ (pseudoscalar). Both are $\mathrm{SO}(3)$-invariant, giving total angular momentum $J = 0$. The $j$-th triplet pair has matrices $\gamma^j$ (vector) and $-i\Sigma_j$ (spin generator), giving total angular momentum $J = 1/2$.
+**Spin-statistics from the lattice.** The singlet taste produces a spin-0 field; the triplet tastes produce spin-$1/2$ fields — the algebraic labels proved and probe-certified, the physical identification the named hypothesis H-spin' [SM §4.7]. The argument runs through the staggered-to-Dirac reconstruction. The singlet pairs $\Gamma$ and $R$ in the Brillouin zone, with corresponding Dirac matrices $\Gamma(\boldsymbol{0}) = I_4$ (scalar) and $\Gamma(\boldsymbol{1}) = \gamma^1 \gamma^2 \gamma^3$ (pseudoscalar). Both are $\mathrm{SO}(3)$-invariant, giving total angular momentum $J = 0$. The $j$-th triplet pair has matrices $\gamma^j$ (vector) and $-i\Sigma_j$ (spin generator), giving total angular momentum $J = 1/2$.
 
 The corollary is striking: the spin-statistics correspondence between the singlet taste (spin-0, bosonic) and the triplet tastes (spin-$1/2$, fermionic) follows from the lattice representation theory, not from a separate spin-statistics postulate. The Higgs (spin-0 boson) and the fermions (spin-$1/2$) emerge as distinct sectors of the same underlying staggered decomposition, with the cubic-group representation forcing the spin content of each sector.
 
@@ -5505,7 +5505,7 @@ The Standard-Model identification carries one named structural hypothesis. **H-�
 
 ## 19.4 Chapter close: summary table and what the framework does not address
 
-The framework's content against the standard list of open problems in fundamental physics summarizes as follows. The status labels are the framework's claims as argued in the cited chapters, and every label inherits the conditionality ledger of [Main §4.5] for the foundational claims — in particular the C2 leg's mixing-hypothesis conditionality — together with the matter-sector flags carried at their sources: the open chirality hypothesis H-χ' [SM §4.8], the physical-spin identification H-spin [SM §4.7], and the flagged carrier input of the Casimir chain [SM §4.7]; no label asserts more than its cited derivation, and "Dissolved" or "Derived" is always relative to that ledger.
+The framework's content against the standard list of open problems in fundamental physics summarizes as follows. The status labels are the framework's claims as argued in the cited chapters, and every label inherits the conditionality ledger of [Main §4.5] for the foundational claims — in particular the C2 leg's mixing-hypothesis conditionality — together with the matter-sector flags carried at their sources: the open chirality hypothesis H-χ' [SM §4.8], the physical-spin identification H-spin' [SM §4.7], and the flagged carrier input of the Casimir chain [SM §4.7]; no label asserts more than its cited derivation, and "Dissolved" or "Derived" is always relative to that ledger.
 
 **Summary table.**
 
@@ -5513,7 +5513,7 @@ The framework's content against the standard list of open problems in fundamenta
 |---------|----------------|------------------|--------------|
 | Quantum gravity | Central problem | Dissolved (three components) | Chs 1, 7, 18 |
 | SU(2) chirality | Assumed in the SM | Open — named hypothesis H-χ'; grading proved, selectivity open | §19.3.8, [SM §4.8] |
-| Taste → physical spin | Spin postulated per field | Algebraic label content proved and probe-certified (Thm 9); the physical identification is the named hypothesis H-spin (resolution: the small-momentum Dirac-form test); the carrier input separately flagged, A²-tested | [SM §4.7] |
+| Taste → physical spin | Spin postulated per field | Algebraic label content proved and probe-certified (Thm 9); the physical identification is the named hypothesis H-spin' (resolution: the small-momentum Dirac-form test); the carrier input separately flagged, A²-tested | [SM §4.7] |
 | Cosmological constant | Worst prediction in physics | Dissolved ($10^{122}$ = $S_{\text{dS}}$) | Ch 7 §7.7 |
 | Dark matter | Unknown, no particle found | Derived ($a_0 = cH/6$) | Ch 7 §7.9 |
 | Dark energy | Unknown, evolving disputed | Derived in form (Type II RVM) | Ch 7 §7.8 |
@@ -5522,7 +5522,7 @@ The framework's content against the standard list of open problems in fundamenta
 | Strong CP | Why $\bar\theta < 10^{-10}$? | Not resolved (construction gives $\bar\theta = 0$; same premise removes CKM CP violation, and breaking it enough to restore $J$ violates isotropy bounds by ~12 orders) | Ch 6 §6.3, [SM §5.5] |
 | Hierarchy problem | Higgs mass protection unknown | Dissolved (lattice is UV) | Ch 6 §6.6 |
 | Gauge group origin | $\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)$ unexplained | Derived ($K=2d=6$, cubic decomposition) | Chs 5, 6 |
-| Generation puzzle | Three, with hierarchical masses | Partially derived (three is structural at the taste level; the physical-generation reading is under H-spin; pattern open) | Ch 6 §§6.5-6.6 |
+| Generation puzzle | Three, with hierarchical masses | Partially derived (three is structural at the taste level; the physical-generation reading is under H-spin'; pattern open) | Ch 6 §§6.5-6.6 |
 | Dark sector budget | $95\%$ unexplained | Derived (total budget) | Ch 7 §7.9 |
 | Born rule origin | Independent postulate | Derived (read-write equilibrium) | Ch 1, Ch 18 §18.2 |
 | **Flavor problem** | **13 free parameters** | **Open (research program; $m_b/m_\tau$ at 0.4% match with Layer 2(a) verification residual)** | §19.3.1 |
@@ -6127,7 +6127,7 @@ The identification is structural: the cubic rotation group's representation theo
 
 (v) Anomaly cancellation (Appendix B.5) uniquely determines the hypercharges.
 
-(vi) Three degenerate sectors follow from the three triplet ($T_1$) staggered tastes related by cubic symmetry; their reading as physical fermion generations is under H-spin (with H-χ' and light-spectrum selection likewise flagged).
+(vi) Three degenerate sectors follow from the three triplet ($T_1$) staggered tastes related by cubic symmetry; their reading as physical fermion generations is under H-spin' (with H-χ' and light-spectrum selection likewise flagged).
 
 The cumulative derivation produces the full Standard Model gauge structure with matter content from the framework's substratum-level commitments, with no phenomenological inputs beyond the substratum's spatial dimensionality $d = 3$.
 
