@@ -330,9 +330,9 @@ $$a_{ij}^{kl} = V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*$$
 
 $$\arg(a_{ij}^{kl}) = (\varphi_{ik} - \varphi_{il}) - (\varphi_{jk} - \varphi_{jl})$$
 
-The only transformation preserving all double differences is φ_ik → φ_ik + α_i + β_k — just relabeling (choosing a different phase convention for the basis states). Once you fix these conventions, all remaining phases are uniquely determined.
+The only transformation preserving all double differences is φ_ik → φ_ik + α_i + β_k — just relabeling (choosing a different phase convention for the basis states). Once you fix these conventions, all remaining phases are determined up to one further discrete ambiguity: the complex-conjugate Hamiltonian H → −H*, an antiunitary twin producing identical transition probabilities at every time.
 
-**Bottom line:** Continuous-time transition probability data uniquely determines the Hamiltonian up to physically irrelevant relabeling.
+**Bottom line:** Continuous-time transition probability data determines the Hamiltonian up to relabeling conventions and the antiunitary conjugate H → −H* (ancilla-case completeness open beyond tested generic cases); i.e. up to physically irrelevant relabeling.
 
 ---
 
@@ -1034,8 +1034,8 @@ And the incompleteness family extends one step further: Gödel showed that proof
 
 | Step | What it establishes | Key equation |
 |---|---|---|
-| §3.1: Stochastic-quantum correspondence | P-indivisibility = QM | T_ij = ancilla-marginal Born rule (T = \|U\|² in the trivial-ancilla case) |
-| §3.1: Phase-locking | Quantum Hamiltonian is unique | Fourier analysis of T_ij(t) |
+| §3.1: Stochastic-quantum correspondence | P-indivisible subclass → quantum representation | T_ij = ancilla-marginal Born rule (T = \|U\|² in the trivial-ancilla case) |
+| §3.1: Phase-locking | Hamiltonian fixed up to shift, rephasing, and the antiunitary conjugate | Fourier analysis of T_ij(t) |
 | §3.2: Bell analysis | Framework evades Bell's theorem | Outcome independence violated, parameter independence preserved |
 | §3.3: Necessity of C1 | QM requires coupling | No coupling → permutation → P-divisible |
 | §3.3: Necessity of C2 | QM requires slow bath | Fast bath → Markov → P-divisible |

@@ -8,7 +8,7 @@ Lemma 1 boundary bounds).  This file tests the remaining links:
         Phi(X^a Z^b) = [C a = 0][B^T A^-T b = 0] * X^{A a} Z^{A^-T b}
       (exact, no phase), where A = M_VV, B = M_VH, C = M_HV.
       In particular Phi RELABELS Weyl operators (A != I), so the published
-      Lemma 2 claim "Phi IS a uniform Weyl mixture" is false as stated:
+      LEGACY (pre-2.x formulation) regression — the superseded Lemma-2 claim "Phi IS a uniform Weyl mixture" is false as stated:
       any mixture of Weyl unitaries is DIAGONAL in the Weyl basis.
 
   T2  The two operator families named in the published Lemma 2 proof
@@ -363,7 +363,7 @@ def certify_instance(inst, verbose_prefix=""):
     ok &= check(f"{pre}: transfer rule Phi(W(a,b)) = [surv] W(Aa, A^-T b), no phase "
                 f"(max err {max_err:.1e})", max_err < TOL)
     ok &= check(f"{pre}: Phi relabels Weyl operators (A != I)  "
-                "=> published 'Phi IS a Weyl mixture' is false as stated", relabels)
+                "=> LEGACY regression: the pre-2.x 'Phi IS a Weyl mixture' formulation is false as stated (current text corrected)", relabels)
 
     # ---- T3: corrected normal form  Phi = Ad_{V_A} o Phi_G, G abelian
     Sx = colspace_basis_mod(inst.Ainv @ inst.B % q if hasattr(inst, "Ainv")
