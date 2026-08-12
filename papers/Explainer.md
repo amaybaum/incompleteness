@@ -870,7 +870,7 @@ Meanwhile, color SU(3) acts on the *internal* components (the $K$-component inde
 
 **The strong CP problem, conditionally.** QCD has a parameter $\bar{\theta}$ that violates CP symmetry. Experimentally, $|\bar{\theta}| < 10^{-10}$. Why is it so small? This is the strong CP problem. The standard solution invokes a new particle (the axion).
 
-The OI framework solves it without new particles. The wave equation is exactly invariant under time reversal $T$. The trace-out is a spatial operation — it doesn't break $T$. Therefore the emergent QFT inherits $T$-invariance. The $\theta$-term in QCD is $T$-odd, so $T$-invariance forces $\theta = 0$. The physical parameter $\bar{\theta} = \theta + \arg\det(Y_u Y_d)$ also vanishes because the visible-sector transition matrix satisfies detailed balance ($T_{ij} = T_{ji}$, proved and verified numerically), which constrains the Yukawa matrices to be real. The prediction, within the construction: $\bar{\theta} = 0$ with no axion. This is conditional rather than settled — the framework has still to exhibit a CP-violating weak sector inside the same construction, an emergent-level mechanism fixing $\bar\theta$, radiative stability against that sector, and a quantitative neutron-EDM number rather than an exact zero.
+The OI framework addresses it without new particles, within the construction: T-invariance of the substratum wave equation gives $\bar{\theta} = 0$ at every scale of the emergent description — with four conditions standing between that result and the Standard Model's strong CP problem, none discharged ([SM §5.5]); no axion is invoked. The wave equation is exactly invariant under time reversal $T$. The trace-out is a spatial operation — it doesn't break $T$. Therefore the emergent QFT inherits $T$-invariance. The $\theta$-term in QCD is $T$-odd, so $T$-invariance forces $\theta = 0$. The physical parameter $\bar{\theta} = \theta + \arg\det(Y_u Y_d)$ also vanishes because the visible-sector transition matrix satisfies detailed balance ($T_{ij} = T_{ji}$, proved and verified numerically), which constrains the Yukawa matrices to be real. The prediction, within the construction: $\bar{\theta} = 0$ with no axion. This is conditional rather than settled — the framework has still to exhibit a CP-violating weak sector inside the same construction, an emergent-level mechanism fixing $\bar\theta$, radiative stability against that sector, and a quantitative neutron-EDM number rather than an exact zero.
 
 **No empirical inputs.** The hypercharge U(1)$_Y$ — traditionally an empirical input — is automatic: any U($n$) gauge group contains a U(1) factor, and anomaly cancellation uniquely determines the hypercharge assignments. The parity violation — also traditionally empirical — follows from the partition's chirality structure. The filter chain from (S, φ) to the Standard Model takes the spatial dimension d = 3 and the simple-cubic Bravais structure as empirically-selected inputs (the latter forced by the observed SU(3) factor); given those, the gauge group, the hypercharges, and the parity violation follow with no further empirical input. The hypercharge and parity results are genuine consequences; the cubic lattice on which the gauge derivation runs is an input, not a consequence of statistical isotropy alone.
 
@@ -1025,7 +1025,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | Partition-relativity (§1.4) | Emergent description depends only on partition | Definition, Lemmas 2, 3 |
 | Emergent stochasticity (§2.1) | Determinism looks random to embedded observer | Definition, Lemmas 2, 3 |
 | P-indivisibility proof (§2.3) | The stochastic process is non-Markovian | Definition, Lemma 1 + C1 |
-| Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1 + C2 + C3 |
+| Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1–C3, plus C4 holding quantitatively: two histories with the same present whose next-step laws differ by δ > 0 (then I ≥ p₀δ²/ln 2) |
 | Coin-and-die model (§2.4) | Concrete demonstration of all mechanisms | Definition + all conditions |
 | Stochastic-quantum correspondence (§3.1) | P-indivisibility = quantum mechanics | Barandes [10,11] or Stinespring (Appendix A) |
 | Necessity proof (§3.3) | QM *requires* C1, C2, C3, C4 | Contrapositives of sufficiency |
@@ -1040,7 +1040,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | §3.3: Necessity of C1 | QM requires coupling | No coupling → permutation → P-divisible |
 | §3.3: Necessity of C2 | QM requires slow bath | Fast bath → Markov → P-divisible |
 | §3.3: Necessity of C3 | QM requires capacity | I ≤ log₂ m bounds memory |
-| §3.3: Characterization theorem | QM ⟺ C1+C2+C3 | Biconditional |
+| §3.4: Characterization theorem | non-Markovianity ⟺ C1–C4 per horizon; QM for the P-indivisible subclass | Biconditional + imported representation |
 | §4: Cosmological horizon | The universe satisfies the definition | C1 ✓, C2 ✓, C3 ✓ |
 | §5.1: Classical temperature | T_cl = c²ε²κ/(8πGk_B) | No ℏ |
 | §5.2 Step 1: Uniqueness | ℏ is determined, not free | Partition-relativity |

@@ -2726,13 +2726,17 @@ vector-like. The distinction: the grading lives in the spatial structure
 \(|\bar{\theta}| < 10^{-10}\). Why is it so small? This is the strong CP
 problem. The standard solution invokes a new particle (the axion).
 
-The OI framework solves it without new particles. The wave equation is
-exactly invariant under time reversal \(T\). The trace-out is a spatial
-operation --- it doesn't break \(T\). Therefore the emergent QFT
-inherits \(T\)-invariance. The \(\theta\)-term in QCD is \(T\)-odd, so
-\(T\)-invariance forces \(\theta = 0\). The physical parameter
-\(\bar{\theta} = \theta + \arg\det(Y_u Y_d)\) also vanishes because the
-visible-sector transition matrix satisfies detailed balance
+The OI framework addresses it without new particles, within the
+construction: T-invariance of the substratum wave equation gives
+\(\bar{\theta} = 0\) at every scale of the emergent description --- with
+four conditions standing between that result and the Standard Model's
+strong CP problem, none discharged ({[}SM §5.5{]}); no axion is invoked.
+The wave equation is exactly invariant under time reversal \(T\). The
+trace-out is a spatial operation --- it doesn't break \(T\). Therefore
+the emergent QFT inherits \(T\)-invariance. The \(\theta\)-term in QCD
+is \(T\)-odd, so \(T\)-invariance forces \(\theta = 0\). The physical
+parameter \(\bar{\theta} = \theta + \arg\det(Y_u Y_d)\) also vanishes
+because the visible-sector transition matrix satisfies detailed balance
 (\(T_{ij} = T_{ji}\), proved and verified numerically), which constrains
 the Yukawa matrices to be real. The prediction, within the construction:
 \(\bar{\theta} = 0\) with no axion. This is conditional rather than
@@ -3351,7 +3355,9 @@ observer & Definition, Lemmas 2, 3 \\
 P-indivisibility proof (§2.3) & The stochastic process is non-Markovian
 & Definition, Lemma 1 + C1 \\
 Accessible-timescale lemma (§2.3) & Non-Markovianity is observable, not
-just formal & C1 + C2 + C3 \\
+just formal & C1--C3, plus C4 holding quantitatively: two histories with
+the same present whose next-step laws differ by δ \textgreater{} 0 (then
+I ≥ p₀δ²/ln 2) \\
 Coin-and-die model (§2.4) & Concrete demonstration of all mechanisms &
 Definition + all conditions \\
 Stochastic-quantum correspondence (§3.1) & P-indivisibility = quantum
@@ -3393,7 +3399,9 @@ independence violated, parameter independence preserved \\
 P-divisible \\
 §3.3: Necessity of C3 & QM requires capacity & I ≤ log₂ m bounds
 memory \\
-§3.3: Characterization theorem & QM ⟺ C1+C2+C3 & Biconditional \\
+§3.4: Characterization theorem & non-Markovianity ⟺ C1--C4 per horizon;
+QM for the P-indivisible subclass & Biconditional + imported
+representation \\
 §4: Cosmological horizon & The universe satisfies the definition & C1 ✓,
 C2 ✓, C3 ✓ \\
 §5.1: Classical temperature & T\_cl = c²ε²κ/(8πGk\_B) & No ℏ \\
