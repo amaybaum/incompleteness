@@ -293,23 +293,26 @@ exhaust --- is accordingly constitutive of the primitive rather than a
 downstream posit: a registering that left no remainder would be the
 whole representing itself, not an observation. From Axiom 1, by analysis
 of the words ``occurs'' and ``registered,'' the relational structure,
-the existence of a dynamics, determinism, finiteness per moment, and
-bijectivity follow as lemmas --- they are not independent assumptions.
-One thing does not follow: that the differentiation \emph{recurs} ---
-that there is more than one moment for the dynamics to act across. This
-is \textbf{Axiom 2}: differentiation recurs, the temporal domain being
-the minimal such recurrence. Axiom 2 presupposes Axiom 1 (there is no
-recurrence of differentiation without differentiation) but is not
-derivable from it: a structure containing a single tokened
-differentiation and nothing further satisfies Axiom 1 while containing
-no recurrence, so no analysis of Axiom 1 alone can yield Axiom 2 ---
-non-derivability by countermodel. The framework's foundation is
-therefore most honestly described not as a single axiom but as a
-\emph{two-axiom observation base}: one indubitable claim, and one
-substantive posit that the first does not yield. The two invoke a single
-principle --- tokened differentiation --- and are thematically one; they
-are numerically two. The Definition and Lemmas below unpack this
-structure.
+the existence of a dynamics, determinism and finiteness per moment
+follow as lemmas; the bijective (reversible) representative is a
+reconstruction choice motivated by observed near-unitarity, and total
+finiteness of the substratum is a physical posit (status Remark, §1.4;
+ledger §4.5) --- the package is not a set of independent assumptions,
+and it is not all theorems. One thing does not follow: that the
+differentiation \emph{recurs} --- that there is more than one moment for
+the dynamics to act across. This is \textbf{Axiom 2}: differentiation
+recurs, the temporal domain being the minimal such recurrence. Axiom 2
+presupposes Axiom 1 (there is no recurrence of differentiation without
+differentiation) but is not derivable from it: a structure containing a
+single tokened differentiation and nothing further satisfies Axiom 1
+while containing no recurrence, so no analysis of Axiom 1 alone can
+yield Axiom 2 --- non-derivability by countermodel. The framework's
+foundation is therefore most honestly described not as a single axiom
+but as a \emph{two-axiom observation base}: one indubitable claim, and
+one substantive posit that the first does not yield. The two invoke a
+single principle --- tokened differentiation --- and are thematically
+one; they are numerically two. The Definition and Lemmas below unpack
+this structure.
 
 The perspectival reading of the primitive is a commitment, and it is
 worth stating what the alternative would cost. One could instead read
@@ -684,7 +687,8 @@ Then:
 non-monotonic, hence P-indivisible. \(\square\)
 
 The theorem requires only bijective dynamics (Lemma 3) and non-trivial
-coupling (C1). Lemma 1 guarantees the finite configuration space.
+coupling (C1). Lemma 1 gives the finite visible space; the hidden space
+is finite under the total-finiteness posit (§1.2, §4.5).
 
 \textbf{Genericity.} The theorem's precondition --- that \(T\) is not a
 permutation matrix --- is a sufficient first-step \emph{witness} of (C1)
@@ -1910,10 +1914,11 @@ lies within \(\varepsilon\) of \(\pi_H\) in total variation. Then the
 
 \emph{in the max-row total-variation norm, and the constant is optimal:
 no bound \(C\varepsilon\) with \(C < 1\) holds at \(k = 2\).
-Contrapositively, observable P-indivisibility of magnitude \(\delta\) at
-step order \(k\) forces \(\varepsilon \geq \delta/(k-1)\): the hidden
-conditionals must retain memory of the visible record --- the slow-bath
-condition in operational form.}
+Contrapositively, departure of magnitude \(\delta\) from the homogeneous
+Markov benchmark at step order \(k\) forces
+\(\varepsilon \geq \delta/(k-1)\) --- the benchmark form; the operative
+contrapositive in condition (ii)'s currency is the physical-memory
+theorem's \(\varepsilon \geq \varepsilon_{\min}(I^*, n_V)\) below.}
 
 \emph{Proof.} For \(k = 2\): with \(\mu'_{x_0 x_1}\) the post-relaxation
 conditional given the visible record \((x_0, x_1)\) and
@@ -3000,7 +3005,7 @@ C3 necessity & Proved --- data-processing bound in per-process form,
 \(m \geq 2^{I^*}\) & §3.4, §1.3 \\
 C4 necessity & Immediate given observed non-Markovianity (any
 realization of a non-Markov process reads differing past-conditionals);
-separation certified --- (C1)--(C4) alone admit zero-backflow
+separation certified --- (C1)--(C3) alone admit zero-backflow
 realizations (the coin) & §1.3, §2.3 \\
 \end{longtable}
 
@@ -3077,9 +3082,10 @@ finite-information observer has \(\tau_S\) bounded below by its own
 internal processing time --- for biological or synthetic BBs of any
 currently-envisioned type, \(\tau_S \gtrsim 10^{-6}\) s. Condition (C2),
 \(\tau_S \ll \tau_B\), therefore fails by at least six orders of
-magnitude for any BB. Since QM emergence under the framework requires
-(C2) as a necessary condition (§3.4), Boltzmann-brain observers do not
-see emergent QM; they are not observers in the sense the framework's
+magnitude for any BB whose local environment satisfies the generic
+estimate. Since QM emergence under the framework requires (C2) as a
+necessary condition (§3.4), Boltzmann-brain observers do not see
+emergent QM; they are not observers in the sense the framework's
 definitions require. The exclusion is structural, not measure-theoretic
 --- it follows from the incompatibility of (C2) with local equilibrium,
 not from arguments about the ratio of BBs to ``ordinary'' observers in
@@ -3088,15 +3094,16 @@ an anthropic sample.
 \textbf{Corollary (past-hypothesis replacement).} For \((S, \varphi)\)
 in its typical orbit phase --- equivalently, in its equilibrium
 macrostate --- canonical typicality {[}31{]} implies every local
-subsystem is also in its local equilibrium. By the theorem,
-\(\tau_B(V)\) is bounded by the local \(\tau_{\text{mix}}\) for every
-bounded-diameter partition \(V\). No partition supports (C2). The
-framework's observers therefore exist only in the non-equilibrium phase
-of \((S, \varphi)\). The low-entropy initial condition commonly imported
-as a ``past hypothesis'' to select observer-compatible configurations is
-replaced here by a structural selection rule: observers exist where
-(C1)--(C4) are satisfiable, and (C1)--(C4) are not satisfiable in the
-equilibrium phase.
+subsystem is also in its local equilibrium. By the theorem --- under
+(EM) for each region's effective channel --- \(\tau_B(V)\) is bounded by
+the local \(\tau_{\text{mix}}\) for every bounded-diameter partition
+\(V\). No partition supports (C2). The framework's observers therefore
+exist only in the non-equilibrium phase of \((S, \varphi)\). The
+low-entropy initial condition commonly imported as a ``past hypothesis''
+to select observer-compatible configurations is replaced here by a
+structural selection rule: observers exist where (C1)--(C4) are
+satisfiable, and (C1)--(C4) are not satisfiable in the equilibrium
+phase.
 
 \textbf{Scope.} The theorem uses only bounded coupling, finiteness of
 \(S\), and the canonical-typicality result {[}31{]}; no new axioms are

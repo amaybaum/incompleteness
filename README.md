@@ -184,11 +184,11 @@ A book-length treatment, **The Incompleteness of Observation: A Unified Framewor
 | 3 | Bekenstein-Hawking entropy with $1/4$ coefficient ($1/4$ derived; GW250114 tests the area theorem, not the coefficient) | theorem | GR §5 |
 | 4 | Cosmological constant dissolution: $10^{122}$ ratio = $S_{\rm dS}$ compression ratio | theorem | GR §6 |
 | 5 | Wave equation uniquely selected; produces the matter and light-cone inputs for Einstein's equations (the smooth manifold's emergence from the discrete substratum is a separate, open kinematic question — GR §8.7) | theorem | SM §3 + GR §3, §8.7 |
-| 6 | SM gauge group SU(3)×SU(2)×U(1); hypercharges; threefold taste multiplicity (generations under H-spin, chirality under H-χ); $\bar\theta = 0$ within-construction | theorem + named hypotheses | SM §§4, 5 |
+| 6 | SM gauge group SU(3)×SU(2)×U(1); hypercharges; threefold taste multiplicity (generations under H-spin, chirality under H-χ); $\bar\theta = 0$ within-construction (strong CP itself unresolved) | theorem + named hypotheses | SM §§4, 5 |
 | 7 | Twenty-two SM observables match observation across CKM, mass, PMNS sectors | structural + empirical | SM §7 |
 | 8 | Dark sector $\sim 95\%$, $a_0 = cH/6$, Bullet Cluster, CMB peaks | theorem (total budget); structural (specific magnitudes) | GR §7 |
 | 9 | Page curve from nested trace-out, $t_P \approx 0.646\, t_{\rm evap}$ | theorem | GR Appendix A |
-| 10 | Observer selection theorem: C1–C4 systems exist only out of equilibrium → arrow of time, no Boltzmann brains | theorem | Main §4.6 |
+| 10 | Observer selection theorem: C1–C4 systems exist only out of equilibrium → arrow of time, no Boltzmann brains | theorem, conditional on (EM) | Main §4.6 |
 | 11 | Reconstruction theorem: observed physics (E1–E7) + A1–A6 → $[(S, \varphi)]/\mathcal{G}_{\rm sub}$ uniquely (conditional on ETH for C2 necessity) | theorem | Substratum §§3–4 |
 | 12 | No-GUT structural prediction: $\tau_p \sim 10^{45}$ yr, no GUT-mechanism monopoles, no GUT-chain cosmic strings, non-unification of gauge couplings | structural | SM §6.7 + §8.7 + Structure §12.5 |
 | 13 | Substratum-level $B$ conservation + sphaleron emergence in emergent EFT (substratum-emergent operator distinction) | theorem | SM §8.7 |
@@ -216,7 +216,7 @@ The forward derivation and reconstruction theorem together establish that the fr
        ├── 22 SM observables: gauge couplings, CKM, Koide, PMNS, m_t, m_b/m_τ (SM §§6–7)
        ├── Dark sector ~95%, a₀ = cH/6, Bullet Cluster, CMB peaks (GR §7)
        ├── Page curve with t_P ≈ 0.646 t_evap (GR Appendix A)
-       ├── Observer selection → arrow of time, no Boltzmann brains (Main §4.6)
+       ├── Observer selection → arrow of time, no Boltzmann brains (conditional on (EM); Main §4.6)
        ├── Structural preconditions for organic chemistry, RNA world (Complexity)
        ├── BQP characterization for embedded observers; P vs NP structurally silent (Computation)
        ├── Molecular C1–C4 → non-Markovian pharmacology (Medicine)
