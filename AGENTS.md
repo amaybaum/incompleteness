@@ -412,3 +412,49 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   one of them.
 
 ---
+
+## §A.32 Technical register only in paper prose
+
+Inserted or edited text in `papers/` uses a neutral technical
+register. Prohibited there (the book's essay chapters keep their own
+register by design):
+
+- meta-commentary on the corpus's own discipline, honesty, or history
+  ("the discipline maintained throughout…", "stated in that register
+  throughout", "the temptation resisted…");
+- reader-instruction phrases ("should not be read as…", "the reader
+  should note…");
+- rhetorical parallelism doing the work of argument ("neither borrows
+  the other's strength");
+- self-assessment of the framework, favorable or unfavorable, outside
+  status labels (proved / conditional / open / named hypothesis).
+
+State the mathematical content and its status; nothing else. Review
+notes, transfer-side prose, and DELTA-NOTES are exempt. Enforcement:
+every block's closing battery greps the diff's ADDED lines for the
+phrase family above (and additions to it as found); any hit blocks
+the ship until neutralized. Adopted 2026-08-10 after the b68 sweep
+(nine sites neutralized in Main the same day).
+
+## §A.33 No label-restating, caps emphasis, or revision-history voice in paper prose
+
+Extends §A.32. Additionally prohibited in `papers/`:
+
+- **Tautological label-restating**: sentences whose predicate restates
+  the subject's own type ("Lemma 1 is a lemma", "this posit is a
+  posit"). State the claim the classification makes, not the label
+  assignment.
+- **ALL-CAPS emphasis** in prose. Capitals are reserved for acronyms,
+  named conditions and hypotheses ((C1)–(C4), (EM), H-χ, H-spin), and
+  code identifiers. Status vocabulary in ledgers uses the same
+  lowercase register as claims ("proved", "conditional", "open",
+  "impossible").
+- **Revision-history self-reference** in claims: "is now settled",
+  "in its current form", "the corrected form", "as redefined",
+  "no longer". Claims are stated timelessly; the revision history
+  lives in the transfer ledger, not the paper.
+
+Enforcement: the closing battery's added-lines scan (§A.32) gains a
+caps-emphasis regex (mid-sentence [A-Z]{4,} outside the whitelist) and
+the history-phrase family; hits block the ship. Adopted 2026-08-10
+after the b70 catch; the same-day audit swept the existing corpus.
