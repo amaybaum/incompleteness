@@ -402,36 +402,47 @@ partition under different priors generally yield different visible laws
 (trivially: the two-state swap under uniform versus point-mass hidden
 priors). Partition-relativity statements are therefore relative to the
 declared measure; the counting measure is the default, not a constraint
-on representations. Determinism (injectivity) holds by a two-pronged
-argument. For states differing in registered content, injectivity is the
-requirement that the dynamics preserve the observer's records ---
-merging them would erase a distinction that has occurred. For states
-differing only in the hidden sector, a merge is either statistically
-observable or removable: a merge whose successor configurations differ
-visibly breaks the double stochasticity of the marginalized process at
-some step order (the marginal of a bijection under the uniform prior is
-doubly stochastic by Birkhoff--von Neumann, §3.2, and unitary emergent
-statistics are unistochastic), so it is excluded by the observed
-unitarity of quantum dynamics; a merge that leaves no statistical trace
-is removable, since any map on a finite set restricts to a bijection on
-its \emph{eventual image}, where any recurrent registered history lives
---- the non-injective description is then equivalent, for all registered
-history, to a bijective one. Either horn delivers a bijective substratum
-for the dynamics governing registered history; the two prongs use
-different inputs --- the first empirical (the observed unitarity of
-quantum dynamics), the second structural (finiteness and recurrence). On
-a finite set, injectivity implies surjectivity, so \(\varphi\) is a
-bijection. As for the measure: on the orbit of the actual microstate,
-the uniform measure is the unique \(\varphi\)-invariant measure; the
-selection among orbits is fixed by maximal entropy compatible with the
-observer's records --- and the atypical short orbits of the idealized
-linear dynamics (fixed points, low-period cycles) are precisely
-observer-lacking substrata --- an orbit of period \(p\) makes at most
-\(p\) states dynamically accessible, so for small \(p\) no partition of
-it can satisfy the high-capacity condition C3 --- admitting no C1--C4
-partition, hence outside the scope of every theorem below. The invariant
-counting measure, in the continuum limit, becomes the Liouville measure
-on \(\Gamma\):
+on representations.
+
+\emph{Remark (what is lemma, what is posit).} The early structure
+comprises four distinct kinds of commitment: Lemma 1 is a LEMMA --- the
+observer's finite visible resolution. Working with a bijective
+substratum is a REPRESENTATION CHOICE --- the minimal recurrent
+bijective representative of the hidden dynamics. Total finiteness of
+that representative is a PHYSICAL POSIT, carried in the posit ledger
+(§4.5). Observed near-unitarity is the EMPIRICAL INPUT motivating the
+choice. The characterization theorem is accordingly conditional on
+finite reversible substratum dynamics --- an empirically motivated
+reconstruction, not a pure derivation. Determinism (injectivity) holds
+by a two-pronged argument. For states differing in registered content,
+injectivity is the requirement that the dynamics preserve the observer's
+records --- merging them would erase a distinction that has occurred.
+For states differing only in the hidden sector, a merge is either
+statistically observable or removable: a merge whose successor
+configurations differ visibly breaks the double stochasticity of the
+marginalized process at some step order (the marginal of a bijection
+under the uniform prior is doubly stochastic by Birkhoff--von Neumann,
+§3.2, and unitary emergent statistics are unistochastic), so it is
+excluded by the observed unitarity of quantum dynamics; a merge that
+leaves no statistical trace is removable, since any map on a finite set
+restricts to a bijection on its \emph{eventual image}, where any
+recurrent registered history lives --- the non-injective description is
+then equivalent, for all registered history, to a bijective one. Either
+horn delivers a bijective substratum for the dynamics governing
+registered history; the two prongs use different inputs --- the first
+empirical (the observed unitarity of quantum dynamics), the second
+structural (finiteness and recurrence). On a finite set, injectivity
+implies surjectivity, so \(\varphi\) is a bijection. As for the measure:
+on the orbit of the actual microstate, the uniform measure is the unique
+\(\varphi\)-invariant measure; the selection among orbits is fixed by
+maximal entropy compatible with the observer's records --- and the
+atypical short orbits of the idealized linear dynamics (fixed points,
+low-period cycles) are precisely observer-lacking substrata --- an orbit
+of period \(p\) makes at most \(p\) states dynamically accessible, so
+for small \(p\) no partition of it can satisfy the high-capacity
+condition C3 --- admitting no C1--C4 partition, hence outside the scope
+of every theorem below. The invariant counting measure, in the continuum
+limit, becomes the Liouville measure on \(\Gamma\):
 
 \[\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\} \equiv \mathcal{L}\rho\]
 
@@ -588,6 +599,24 @@ Since \(\phi_t\) and \(\mu\) are fixed by the definition and lemmas, the
 stochastic process --- and hence any emergent quantum description (§3.1)
 --- depends only on the partition. \(\square\)
 
+\hypertarget{the-four-layers}{%
+\subsubsection{1.5 The four layers}\label{the-four-layers}}
+
+The results organize into four layers, and every claim should be read at
+its layer. \textbf{Layer 1 --- reversible dilation} (§2.2, §3.4): exact
+mathematics, no quantum claim ---
+\[\text{finite-horizon non-Markovianity} \iff \exists\ \text{finite reversible hidden-state realization},\]
+the paper's core. \textbf{Layer 2 --- memory and capacity} (§2.3): (C4)
+forces positive conditional memory; the (C3) information bound; the
+physical-memory theorem ((C2), conditional on mixing). \textbf{Layer 3
+--- quantum representation} (§3.1, §3.4): the imported correspondence
+(Q1) and the in-house uncompressed form (Q2), scopes separated.
+\textbf{Layer 4 --- physical and operational realization} (§3.2, §4,
+companions): interventions, coherent preparation, Bell and free-choice
+structure, H-spin and H-χ, the cosmological realization --- where the
+named hypotheses live. A Layer-1 result does not by itself establish any
+Layer-4 claim.
+
 \hypertarget{emergent-stochasticity-and-p-indivisibility}{%
 \subsection{2. EMERGENT STOCHASTICITY AND
 P-INDIVISIBILITY}\label{emergent-stochasticity-and-p-indivisibility}}
@@ -720,8 +749,9 @@ observable timescales --- not merely at Poincaré recurrence times.
 \textbf{Physical motivation (storage under C2).} The coupling
 \(H_{\text{int}}\) writes visible-sector information into the hidden
 sector at rate \(\sim 1/\tau_S\); between interactions the hidden
-sector's spectral gap \(\Delta \sim 1/\tau_B\) erodes it as
-\(e^{-\Delta \tau_S}\) per step, so on windows \(k\tau_S \ll \tau_B\)
+sector's effective relaxation at rate \(\sim 1/\tau_B\) (the
+coarse-grained channel's mixing; hypothesis (EM), §4.6) erodes it as
+\(e^{-\tau_S/\tau_B}\) per step, so on windows \(k\tau_S \ll \tau_B\)
 the stored history survives essentially intact. Storage, however, is not
 backflow: what is stored must also be \emph{read}. The lemma below makes
 the reading quantitative, and the separation remark shows why it is a
@@ -932,12 +962,14 @@ structure and its divisibility mechanics by Doukas {[}22{]}, the
 countable-dimension extension by Calvo {[}13{]}, the
 divisible/indivisible classification by Pimenta {[}14{]}, and the
 Tsirelson-bound result in a mainstream physics venue {[}24, forthcoming
-in Phys. Rev.~A{]}. The strongest interpretive readings (deflation of
-the wave function, of entanglement) remain contested philosophical
-overlays on the mathematical core, which is all the framework requires.
-None of (i)--(iv) undercuts the framework's use of the correspondence to
-obtain Born-rule statistics and unitary evolution from the §2.3 process;
-they bound what may be claimed to follow \emph{from} it.
+in Phys. Rev.~A{]} (a result for the causal-local indivisible
+construction of {[}24{]}, not for generic P-indivisibility). The
+strongest interpretive readings (deflation of the wave function, of
+entanglement) remain contested philosophical overlays on the
+mathematical core, which is all the framework requires. None of
+(i)--(iv) undercuts the framework's use of the correspondence to obtain
+Born-rule statistics and unitary evolution from the §2.3 process; they
+bound what may be claimed to follow \emph{from} it.
 
 \textbf{Independent corroboration of the trace-out mechanism.} The
 technical move from a deterministic substrate to non-Markovian visible
@@ -1101,17 +1133,20 @@ numerically verified cases remains open; the reconstruction reaches the
 dilation itself, not only an \(n\)-dimensional effective generator. The
 status of each component: the Fourier structure, its rank-one property,
 and the coboundary null directions are exact algebra; that the
-coboundary \emph{exhausts} the null space is established numerically and
-awaits a written completeness proof (the natural route is that generic
-projector families make the constraint operator's kernel no larger than
-the coboundary, a genericity statement); the genericity conditions
-(G1)--(G3) transfer to the dilated spectrum, gaps, and coherence
-vectors. One caveat applies in sharpened form: the idealized permutation
-dynamics has dilated eigenphases at roots of unity --- equally spaced,
-hence maximally gap-degenerate --- so the lemma's genericity holds for
-the physical continuous-time dynamics away from that idealized limit,
-not at it; this is the same idealization boundary carried by the
-finite-\(\epsilon\) displacement \(\mathcal{D}\).
+coboundary \emph{exhausts} the null space is the content of the
+\emph{Conjecture (generic local identifiability)}: for generic projector
+families, \(\ker L_{\{P_i\}} = \{\theta_{ab} = \alpha_a - \alpha_b\}\)
+--- established numerically and awaits a written completeness proof (the
+natural route is that generic projector families make the constraint
+operator's kernel no larger than the coboundary, a genericity
+statement); the genericity conditions (G1)--(G3) transfer to the dilated
+spectrum, gaps, and coherence vectors. One caveat applies in sharpened
+form: the idealized permutation dynamics has dilated eigenphases at
+roots of unity --- equally spaced, hence maximally gap-degenerate --- so
+the lemma's genericity holds for the physical continuous-time dynamics
+away from that idealized limit, not at it; this is the same idealization
+boundary carried by the finite-\(\epsilon\) displacement
+\(\mathcal{D}\).
 
 Conditions (G1)--(G3) fail only on a measure-zero set of Hamiltonians. A
 stronger argument applies whenever the partition itself breaks
@@ -1559,10 +1594,18 @@ bijections \\
 
 The Barandes route is more general (any P-indivisible process); the
 Stinespring route requires only textbook results {[}15, 16{]} and
-delivers additional structure: the tensor product
-\(\mathcal{H}_V \otimes \mathcal{H}_H\), genuine quantum coherence,
-CP-indivisibility, and approximate unitarity: the leading departure from
-the frozen-limit description enters at
+delivers additional structure at three separated levels. \emph{Level one
+(generic, proved):} the tensor product
+\(\mathcal{H}_V \otimes \mathcal{H}_H\), a unitary representation of the
+enlarged basis dynamics, and a CPTP reduced channel --- the
+representation of the basis statistics. \emph{Level two (specific,
+proved):} non-entanglement-breaking one-step coherence for the linear
+lattice realization under the \(w < \kappa\) criterion (§3.2) --- not
+generic: the swap-class dilations are entanglement-breaking. \emph{Level
+three (open):} coherent preparation, noncommuting interventions, and the
+instrument algebra --- the operational bridge (§3.2 checklist). Within
+level one, the frozen-limit error analysis stands: the leading departure
+from the frozen-limit description enters at
 \(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\) as an absorbable Hermitian
 drift of \(\hat{H}_{\text{eff}}\), with genuine non-unitarity
 \(\mathcal{D}\) entering through the conditioned-Hamiltonian spread and
@@ -1575,11 +1618,12 @@ dimensionless ratios --- which is why the \(10^{-32}\) figure is
 absorbable rather than observable --- with the composition-differential
 remainder suppressed by the tidal factor
 \((L_{\text{lab}}/R_H)^2 \sim 10^{-52}\) and independently capped by
-equivalence-principle tests. The two routes agree on all observables ---
-both produce the same \(T_{ij}(t)\) --- establishing that the emergence
-of QM is robust and overdetermined. The Barandes route powers (ii)
-\(\implies\) (i) in the characterization theorem; the Stinespring route
-supplies (iii) \(\implies\) (i) independently.
+equivalence-principle tests. The two routes agree on the
+configuration-transition probabilities \(T_{ij}(t)\); equivalence of the
+complete operational observable structure is part of level three. The
+Barandes route powers (ii) \(\implies\) (i) in the characterization
+theorem; the Stinespring route supplies the level-one representation of
+(iii) independently.
 
 \textbf{Dependency scope of the correspondence.} The division of labor
 between the routes fixes the framework's exposure to the correspondence
@@ -1619,7 +1663,9 @@ states (the construction supplies one one-parameter group, not a
 transitive continuous action --- and in Hardy's axiomatization precisely
 this clause excludes classical theory); tomographic locality (a tensor
 factorization is not yet a theorem that local statistics determine
-global states); the full effect and instrument structure.
+global states); the full effect and instrument structure; and the
+intervention dilation --- instrument-augmented realizations reproducing
+\(P(X_{k+1} \mid X_{\leq k}, A_{\leq k})\) --- not yet constructed.
 P-indivisibility licenses the imported stochastic--quantum
 representation {[}11, 12{]}; it does not select the nonclassical branch
 of these reconstructions --- a classical stochastic system can be
@@ -1633,25 +1679,29 @@ Violations}\label{bell-inequality-violations}}
 The framework is a hidden variable theory --- a deterministic completion
 of the kind the EPR argument concluded quantum mechanics required
 {[}46{]}, with measurement revealing antecedently definite substratum
-facts --- evading Bell's theorem {[}23{]} not by conspiratorial
-setting-dependence but by violating factorizability of the emergent
-joint process through P-indivisible joint dynamics --- while remaining
-causally local. (The substratum-level statement, including in what
-precise sense this is not superdeterminism, is given explicitly below.)
-Two subsystems interacting at preparation carry a joint transition
-matrix \(T_{QR} \neq T_Q \otimes T_R\). This non-factorizability
-\emph{is} stochastic entanglement {[}11, 12, 24{]}. The idea that a
-shared background can induce bipartite entanglement has a physics
-lineage of its own: stochastic electrodynamics derived two-particle
-entanglement from coupling to the common zero-point field {[}47, 48{]}.
-The framework's shared hidden sector differs structurally --- it is the
-derived complement of the observer's partition rather than a postulated
-field within spacetime, it sits prior to the emergent causal structure
-rather than inside it, and it carries the unistochasticity theorem and
-the derived Tsirelson bound rather than a model-by-model reconstruction
---- but the lineage is real and is acknowledged. Since the process is
-indivisible, no well-defined intermediate conditional probabilities
-permit Bell's factorization.
+facts --- evading Bell's theorem {[}23{]} by violating factorizability
+of the emergent joint process through P-indivisible joint dynamics ---
+with measurement independence not imposed at the substratum level, and
+approximate statistical independence of controllable settings recovered
+operationally, quantitatively
+\(I(\Lambda; A, B) \leq \varepsilon_{\text{MI}}\) with
+\(\varepsilon_{\text{MI}}\) set by the dynamical decorrelation bound
+below --- while remaining causally local. (The substratum-level
+statement, including in what precise sense this is not superdeterminism,
+is given explicitly below.) Two subsystems interacting at preparation
+carry a joint transition matrix \(T_{QR} \neq T_Q \otimes T_R\). This
+non-factorizability \emph{is} stochastic entanglement {[}11, 12, 24{]}.
+The idea that a shared background can induce bipartite entanglement has
+a physics lineage of its own: stochastic electrodynamics derived
+two-particle entanglement from coupling to the common zero-point field
+{[}47, 48{]}. The framework's shared hidden sector differs structurally
+--- it is the derived complement of the observer's partition rather than
+a postulated field within spacetime, it sits prior to the emergent
+causal structure rather than inside it, and it carries the
+unistochasticity theorem and the derived Tsirelson bound rather than a
+model-by-model reconstruction --- but the lineage is real and is
+acknowledged. Since the process is indivisible, no well-defined
+intermediate conditional probabilities permit Bell's factorization.
 
 In the Jarrett decomposition of the emergent process, the framework
 violates outcome independence while preserving parameter independence
@@ -1889,7 +1939,7 @@ variation. (The theorem's bound \(\|T^{(k)} - T^k\|\) measures departure
 from the homogeneous Markov benchmark; it is not itself a measure of
 P-indivisibility --- two-notions Remark, §3.4.)
 
-\textbf{Theorem (C2 necessity, process form).} \emph{Under the
+\textbf{Theorem (physical memory: C2, process form).} \emph{Under the
 conditional-mixing hypothesis --- every realized hidden conditional lies
 within \(\varepsilon\) of \(\pi_H\) in total variation at the coupling
 time --- every history-conditional next-step law satisfies
@@ -1922,10 +1972,29 @@ conditional mutual information on a parametric relaxation family,
 homogeneous Markov benchmark and is blind to conditional memory --- the
 XOR family has \(T^{(k)} = T^k\) exactly with one full bit of it
 (\texttt{review4\_probes.py}). The process form is the statement that
-feeds the characterization's C2 clause. The theorem's contrapositive
-then reads as a timescale statement: memory of magnitude \(\delta\) at
-step order \(k\) requires the coupling to return before the bath's
-conditional mixing to \(\varepsilon < \delta/(k-1)\) completes ---
+feeds the characterization's C2 clause.
+
+\emph{Remark ((C2)'s role: two theorems).} The characterization's
+realization clause needs (C2) only in its limit form --- the canonical
+dilation's bath is static, \(\tau_B = \infty\) --- so the structural
+equivalence is carried by (C1), (C3), (C4), with (C2) automatic in that
+limit. The physical content of (C2) is the memory theorem above: under
+the conditional-mixing hypothesis, observed conditional memory \(I^*\)
+lower-bounds the bath's mixing time. The structural equivalence and the
+physical-memory bound are distinct results with distinct hypotheses;
+(C1)--(C4) are not four necessities of equal standing --- (C2)'s
+necessity is the conditional bound above.
+
+\emph{Remark (passive scope).} The theorem concerns the closed
+multi-time law \(P(X_0, \ldots, X_K)\). Conditioning on interventions
+--- \(P(X_{k+1} \mid X_{\leq k}, A_{\leq k})\) --- requires the
+instrument-augmented realization
+\((S, \varphi, \mu_H, \{\mathcal{I}_a\})\), which is not constructed
+here: the \emph{intervention dilation} is a named target of the
+operational bridge (§3.2). The theorem's contrapositive then reads as a
+timescale statement: memory of magnitude \(\delta\) at step order \(k\)
+requires the coupling to return before the bath's conditional mixing to
+\(\varepsilon < \delta/(k-1)\) completes ---
 \(\tau_S \ll \tau_B(\delta/(k-1))\). This derives C2's timescale form
 from the \(\varepsilon\)-bound rather than asserting it separately.
 
@@ -2107,18 +2176,31 @@ throughout; the uniform ancilla \(\rho_{\text{anc}} = I/m_a\) recovers
 \(\tfrac{1}{m_a}\sum_{k,l} |\langle j,l|\,U(t)\,|i,k\rangle|^2\) --- a
 special case, and the one that forces doubly stochastic \(T\); general
 priors, as the response-table construction of §3.4 requires, need the
-general form). (This is the form the correspondence delivers --- the
-visible matrix is the ancilla-marginal of the dilated unistochastic
-matrix, per the scope statement in §3.1. The strict form
-\(T_{ij}(t) = |U_{ij}(t)|^2\) on visible indices is the trivial-ancilla
-special case \(m_a = 1\) and only that case: a doubly stochastic
-marginal need not be unistochastic at every \(t\), let alone realized by
-a single one-parameter unitary group on \(\mathcal{H}_V\).) This
-definition captures the Hilbert space, unitary dynamics, and the Born
-rule. Additional quantum-mechanical structures --- the tensor product
-decomposition for spatially separated visible-sector subsystems, state
-update, and the measurement formalism --- are addressed in the remarks
-following the theorem.
+general form).
+
+\emph{Two objects.} The definition covers two distinct targets,
+delivered by separate results. \textbf{(Q1) Barandes-representable:} the
+process corresponds to a unitarily evolving quantum system in the source
+theorem's own language {[}11, 12{]} --- the \(\leq n^3\) dilation bound
+is the source's result for the indivisible subclass, under its
+hypotheses. \textbf{(Q2) autonomous OI representation:} a fixed
+Hermitian \(\hat{H}\) with the ancilla-marginal form above, exact at
+integer horizon times, delivered in-house by the fixed-\(\hat{H}\) lemma
+on an uncompressed space of dimension \(n \cdot |\mathcal{C}_H|\).
+Condition (i) of the characterization means (Q1); the in-house chain
+proves (Q2); time-homogeneity and continuous-\(t\) interpolation belong
+to (Q2)'s autonomous form and are not imported claims (§3.1). (This is
+the form the correspondence delivers --- the visible matrix is the
+ancilla-marginal of the dilated unistochastic matrix, per the scope
+statement in §3.1. The strict form \(T_{ij}(t) = |U_{ij}(t)|^2\) on
+visible indices is the trivial-ancilla special case \(m_a = 1\) and only
+that case: a doubly stochastic marginal need not be unistochastic at
+every \(t\), let alone realized by a single one-parameter unitary group
+on \(\mathcal{H}_V\).) This definition captures the Hilbert space,
+unitary dynamics, and the Born rule. Additional quantum-mechanical
+structures --- the tensor product decomposition for spatially separated
+visible-sector subsystems, state update, and the measurement formalism
+--- are addressed in the remarks following the theorem.
 
 \textbf{Lemma (fixed-\(\hat{H}\) form for realized processes).}
 \emph{Let a process arise as in (iii) below: the marginal of an iterated
@@ -2214,11 +2296,11 @@ Markov-breaking kernel dependence requires hidden influence at that step
 visible present and the process is Markov, contradicting (ii)); (C2)
 trivially in the construction --- the bath is static,
 \(\tau_B = \infty\), satisfying \(\tau_S \ll \tau_B\); for
-\emph{physical} hidden sectors the process-form C2 theorem's
-contrapositive (§2.3) supplies the necessity direction --- observed
-conditional memory bounds the mixing residual below --- conditional on
-the conditional-mixing-curve hypothesis with finite
-\(\tau_B(\varepsilon_0)\) (Remark, §3.4; ETH {[}17, 18{]} the
+\emph{physical} hidden sectors the physical-memory theorem's
+contrapositive (§2.3, the C2 process form) supplies the necessity
+direction --- observed conditional memory bounds the mixing residual
+below --- conditional on the conditional-mixing-curve hypothesis with
+finite \(\tau_B(\varepsilon_0)\) (Remark, §3.4; ETH {[}17, 18{]} the
 motivation; no smallness of \(\varepsilon\) at the coupling time is
 assumed); (C3) from the data-processing bound in per-process form
 (\(m \geq 2^{I^*}\)). Both directions of the equivalence are theorems of
@@ -2246,8 +2328,8 @@ exists. The necessity analysis is universal and per-condition: any
 deterministic realization of a non-Markovian process has hidden
 influence at some step (C1), memory capacity \(m \geq 2^{I^*}\) (C3),
 and read-back differing past-conditionals (C4); C2's necessity holds
-within the conditional-mixing class. Neither reading borrows the other's
-strength.
+within the conditional-mixing class. The two readings are logically
+independent.
 
 \emph{Remark (representation, not explanation).} The equivalence is a
 representation theorem: every accessible non-Markovian law \emph{admits}
@@ -2267,9 +2349,8 @@ honest open questions are (a) exact gluing for recurrent target families
 --- which compatibility conditions on the per-horizon realizations
 suffice --- and (b) the physically operative form: quantitative
 approximation of the target on windows \(t \ll t_R\) by one fixed
-substratum before its recurrence. Form (b) is precisely the
-accessible-timescale scoping the framework's claims already carry; the
-sharpening aligns the open problem with it (§4.5).
+substratum before its recurrence. Form (b) coincides with the
+accessible-timescale scoping of §4.5.
 
 \emph{Remark (scope: time-homogeneity).} The restriction to
 time-homogeneous processes is load-bearing for the fixed-\(\hat{H}\)
@@ -2921,20 +3002,33 @@ Observers}\label{structural-exclusion-of-equilibrium-phase-observers}}
 An immediate corollary of (C1)--(C4) is a structural selection rule on
 where in a finite bijective \((S, \varphi)\) observers can exist. The
 rule replaces a postulate often imported from elsewhere --- the ``past
-hypothesis'' of low initial entropy --- with a theorem derived from the
-framework's own definitions.
+hypothesis'' of low initial entropy --- with a theorem conditional on
+the effective-mixing hypothesis (EM) below; under (EM) it is derived
+from the framework's own definitions, and without (EM) it is a
+conjectural application.
 
 \textbf{Setup.} Let \(V\) be a partition with hidden sector
 \(B = S \setminus V\). Define the coupling-graph neighborhood
 \(\Sigma_{\text{loc}}(V)\) as the subset of \(S\) reached from \(V\) by
 at most \(\tau_S / \Delta t\) steps of \(\varphi\), where \(\Delta t\)
-is the update step. Let \(\tau_{\text{mix}}(\Sigma)\) denote the mixing
-time of \(\varphi\) restricted to any \(\varphi\)-invariant subsystem
-\(\Sigma\), set by the spectral gap of the transfer operator on
-\(\Sigma\).
+is the update step. The exact Koopman operator of \(\varphi\) --- and of
+its restriction to any invariant subsystem --- is a permutation
+operator: unitary, with modulus-one spectrum and exact recurrence. It
+has no dissipative gap; exponential mixing cannot hold for it. Mixing,
+where it holds, is a property of a \emph{compression}: let
+\(\mathcal{K}_\Sigma := P_\Sigma\, \mathcal{U}_\varphi\, P_\Sigma\)
+denote the coarse-grained effective channel on the observable algebra of
+a local region \(\Sigma\). \textbf{Effective-mixing hypothesis (EM).}
+\emph{The local effective channel
+\(\mathcal{K}_{\Sigma_{\text{loc}}(V)}\) mixes, with mixing time
+\(\tau_{\text{mix}}(\Sigma_{\text{loc}}(V))\) set by its (dissipative)
+spectral gap.} (EM) is an explicit physical hypothesis --- motivated by
+local thermalization phenomenology, not derived from \(\varphi\) ---
+with the same status as the conditional-mixing curve of (C2).
 
-\textbf{Theorem (structural observer selection).} For any partition
-\(V\) of bounded coupling-graph diameter, \[
+\textbf{Theorem (structural observer selection --- conditional on
+(EM)).} Under the effective-mixing hypothesis, for any partition \(V\)
+of bounded coupling-graph diameter, \[
 \tau_B(V) \leq \tau_{\text{mix}}(\Sigma_{\text{loc}}(V)) + O(\varepsilon),
 \] where \(\varepsilon\) absorbs typical-set and finite-size
 corrections. In particular, if \(\Sigma_{\text{loc}}(V)\) is in its
@@ -2947,11 +3041,14 @@ and a \(B\)-localized observable \(g\) at time \(t\) require information
 to propagate from \(V\) to \(B\) at time \(0\) and back to influence the
 \(V\)-correlated component of \(g\) at time \(t\). By the bounded
 coupling degree of \(\varphi\), this round trip stays within
-\(\Sigma_{\text{loc}}(V)\) for \(t \leq \tau_S\). The spectral gap of
-\(\varphi|_{\Sigma_{\text{loc}}}\) --- which on an equilibrium
-microstate of \(\mu|_{\Sigma_{\text{loc}}}\) sets the local thermal
-decorrelation rate --- bounds the decay of such correlations
-exponentially at rate \(1/\tau_{\text{mix}}\). Hence
+\(\Sigma_{\text{loc}}(V)\) for \(t \leq \tau_S\). Under (EM), the
+dissipative gap of the effective channel
+\(\mathcal{K}_{\Sigma_{\text{loc}}}\) --- which on an equilibrium
+macrostate sets the local thermal decorrelation rate --- bounds the
+decay of such coarse-grained correlations exponentially at rate
+\(1/\tau_{\text{mix}}\); canonical typicality {[}31{]} supplies the
+local-equilibrium \emph{state}, not the temporal mixing, which is
+exactly what (EM) posits. Hence
 \(\tau_B(V) \leq \tau_{\text{mix}}(\Sigma_{\text{loc}}) + O(\varepsilon)\).
 \(\square\)
 
