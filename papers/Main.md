@@ -1,5 +1,5 @@
 # THE INCOMPLETENESS OF OBSERVATION
-### The Equivalence of Quantum Mechanics and Embedded Observation
+### Embedded Observation, Non-Markovianity, and Quantum Representation
 
 **Author:** Alex Maybaum  
 **Date:** April 2026  
@@ -383,7 +383,7 @@ $$I(X_{<t} ; X_{>t} \mid X_t) \leq I(X_{<t} ; H_t \mid X_t) \leq H(H_t \mid X_t)
 
 *Proof.* $|\langle j,l|U_\varphi^k|i,h\rangle|^2 = \mathbb{1}[\varphi^k(i,h) = (j,l)]$; summing $l$ over the final space and $h$ uniformly over the prepared set counts exactly the defining fraction of $T^{(k)}$. $\square$ (Certified exactly — uniform, slice-prepared, and weighted-prior preparations — in `review4_probes.py`, P-F(a)–(c).)
 
-*Consequence.* The chain (ii) $\implies$ (iii) $\implies$ fixed-$\hat{H}$ form is in-house per horizon *in the uncompressed sense*: the internal representation is exact at integer horizon times on a space of dimension $n \cdot |\mathcal{C}_H|$, which generally exceeds the $n^3$ bound in (i)'s definition. The $\leq n^3$ compression is the imported correspondence's result for the indivisible subclass, under its hypotheses; continuous-$t$ interpolation beyond integer times likewise carries no internal claim. The import therefore retains the compressed representation, the Born-rule reading, and the basis apparatus.
+*Consequence.* The chain (ii) $\implies$ (iii) $\implies$ fixed-$\hat{H}$ form is in-house per horizon *in the uncompressed sense*: the internal representation is exact at integer horizon times on a space of dimension $n \cdot |\mathcal{C}_H|$, which generally exceeds the $n^3$ bound in (i)'s definition. The $\leq n^3$ compression is the imported correspondence's result for the indivisible subclass, under its hypotheses; continuous-$t$ interpolation beyond integer times likewise carries no internal claim. The import therefore retains the compressed representation and the interpretive apparatus — basis independence and the general-observable reading; the Born-rule *form* itself is internal, being the marginal formula of the permutation unitary.
 
 **Characterization theorem.** *Let $\mathcal{S}$ be a time-homogeneous stochastic process on a finite configuration space $\mathcal{C}_V$ with $|\mathcal{C}_V| \geq 2$ and consider dynamics on accessible timescales $t \ll t_R$ where $t_R$ is the Poincaré recurrence time of any realizing substrate. Then (ii) $\iff$ (iii); and P-indivisibility of $\mathcal{S}$ — the strictly stronger property (Remark below) — implies (i):*
 
