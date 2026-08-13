@@ -674,8 +674,20 @@ be a bijection. Define:}
 P-indivisible.}
 
 \emph{Proof.} Uses total variation distance
-\(d(p, q) = \frac{1}{2}\sum_k |p_k - q_k|\). P-divisibility \(\iff\)
-\(d(p(t), q(t))\) non-increasing for all initial \(p, q\) {[}4, 5{]}.
+\(d(p, q) = \frac{1}{2}\sum_k |p_k - q_k|\). P-divisibility \(\implies\)
+\(d(p(t), q(t))\) non-increasing for all initial \(p, q\) {[}4, 5{]} (a
+stochastic divisor is a total-variation contraction); the proof below
+uses only this direction, in contrapositive form. The converse is
+\emph{false}: monotonicity constrains the divisor only on the image
+directions \((\delta_i - \delta_j)T(1,0)\), not on the extreme points of
+the zero-sum ball, and explicit stochastic pairs exist whose unique
+divisor \(T(1,0)^{-1}T(2,0)\) carries a negative entry --- no stochastic
+divisor, hence P-indivisible --- while \(d\) is non-increasing for every
+\(p, q\); one such pair is strictly contracting at \(n = 2\) and one
+lies in the doubly stochastic class at \(n = 3\)
+(\texttt{translation\_probes.py}). Monotonicity is therefore a
+necessary, not sufficient, condition for P-divisibility, and is not used
+as a criterion anywhere below.
 
 \emph{Step 1 (Recurrence).} \(\varphi\) bijective on a finite set
 \(\Rightarrow\) \(\exists N: \varphi^N = \text{id}\). Thus
@@ -885,19 +897,32 @@ at fine time resolution; the Stinespring dilation theorem guarantees a
 dilated Hilbert space and unitary \(\tilde U(t)\) whose unistochastic
 matrix \(|\tilde U(t)|^2\) marginalizes over the ancilla index to
 \(T_{ij}(t)\) --- transition probabilities are exactly Born-rule
-probabilities. The proof requires a finite-dimensional configuration
-space (Lemma 1); Calvo {[}13{]} extends the correspondence to infinite
-dimensions, but this is not required here. Pimenta {[}14{]}
-distinguishes P-divisible and P-indivisible stochastic-quantum dynamics:
-the correspondence is non-trivial only in the P-indivisible regime,
-which is precisely the regime produced by §2.3. An independent
-derivation using only Stinespring's dilation theorem {[}15{]} and
-standard partial-trace properties {[}16{]} is given in §3.2; either
-route alone suffices for the representation of the transition data; the
-operational completion --- physical preparation of coherent states,
-noncommuting interventions, the full instrument algebra --- is a
-separate bridge, partially established by the one-step coherence theorem
-of §3.2 for the lattice realization and otherwise open.
+probabilities. \emph{The ancilla is not optional for this framework's
+own processes.} Marginalizing a bijection under the uniform hidden prior
+yields a doubly stochastic one-step matrix (§3.2), and for \(n \geq 3\)
+doubly stochastic does not imply unistochastic: enumerating the
+construction's own realizations at \(n_V = 3\), \(|\mathcal{C}_H| = 2\)
+gives twenty-one distinct one-step matrices, all doubly stochastic, of
+which six --- including
+\(\left(\begin{smallmatrix} 1/2 & 1/2 & 0 \\ 1/2 & 0 & 1/2 \\ 0 & 1/2 & 1/2 \end{smallmatrix}\right)\)
+--- fail the row-orthogonality condition necessary for unistochasticity
+(\texttt{translation\_probes.py}). An undilated \(T = |U|^2\)
+representation is therefore unavailable on the framework's class, and
+the translation hypothesis (T) must be read against the ancilla-dilated
+statement --- the \(\leq n^3\) form above --- not against the bare one.
+The proof requires a finite-dimensional configuration space (Lemma 1);
+Calvo {[}13{]} extends the correspondence to infinite dimensions, but
+this is not required here. Pimenta {[}14{]} distinguishes P-divisible
+and P-indivisible stochastic-quantum dynamics: the correspondence is
+non-trivial only in the P-indivisible regime, which is precisely the
+regime produced by §2.3. An independent derivation using only
+Stinespring's dilation theorem {[}15{]} and standard partial-trace
+properties {[}16{]} is given in §3.2; either route alone suffices for
+the representation of the transition data; the operational completion
+--- physical preparation of coherent states, noncommuting interventions,
+the full instrument algebra --- is a separate bridge, partially
+established by the one-step coherence theorem of §3.2 for the lattice
+realization and otherwise open.
 
 \textbf{Scope of the correspondence (what it does and does not
 deliver).} Because the quantum-representation clause rests on this
