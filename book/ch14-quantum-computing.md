@@ -104,7 +104,7 @@ Combining the lower bound (BQP is available, §14.3) with the upper bound (BQP c
 The proof relies on the framework's structural commitments at multiple points:
 - The framework's finite substratum guarantees finite-dimensional emergent Hilbert spaces.
 - The framework's deterministic bijection $\varphi$ guarantees unitarity at the substratum level.
-- The framework's structural conditions C1–C4 guarantee the emergent quantum-mechanical description.
+- The framework's structural conditions C1–C4 guarantee accessible non-Markovianity, and the emergent quantum-mechanical description for the P-indivisible subclass under (T).
 - The framework's partition structure guarantees informational completeness of the density matrix.
 
 Each of these is a structural feature of the framework's universality class; together they produce the BQP characterization as a theorem.

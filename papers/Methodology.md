@@ -105,7 +105,7 @@ The framework formalizes "observation occurs" through a definition: an observati
 7. **The states are finite in number.** The visible configuration space is finite.
 8. **The hidden-sector conditions hold.** Non-zero coupling, slow-bath timescale separation, sufficient capacity, history readback (C1–C4).
 
-The framework's theorem — that an embedded observer's description is necessarily quantum-mechanical — takes all eight rungs as its basis. The evidence supplies only rung 1. The question of Sections 4 and 5 is which of rungs 2–8 are *consequences* of rung 1 and which are *additional commitments*.
+The framework's theorem — that an embedded observer's description is necessarily non-Markovian, and quantum-mechanical for the P-indivisible subclass under (T) — takes all eight rungs as its basis. The evidence supplies only rung 1. The question of Sections 4 and 5 is which of rungs 2–8 are *consequences* of rung 1 and which are *additional commitments*.
 
 ### 3.2 The standard of derivation
 

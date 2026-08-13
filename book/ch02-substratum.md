@@ -5,7 +5,7 @@
 
 ## 2.1 What this chapter constructs
 
-Chapter 1 established that any observer embedded in a finite deterministic system, satisfying conditions C1–C4 on what lies outside their access, must use quantum mechanics. The theorem treated the underlying deterministic system $(S, \varphi)$ as a given input — a finite configuration space and a bijection on it — and analyzed what the observer's marginalized description looks like. This chapter takes up the question deferred there: what is $(S, \varphi)$?
+Chapter 1 established that any observer embedded in a finite deterministic system, satisfying conditions C1–C4 on what lies outside their access, must use a memory-bearing formalism — quantum mechanics for the P-indivisible subclass, under (T). The theorem treated the underlying deterministic system $(S, \varphi)$ as a given input — a finite configuration space and a bijection on it — and analyzed what the observer's marginalized description looks like. This chapter takes up the question deferred there: what is $(S, \varphi)$?
 
 Two questions need separation. The first is whether the observed physics determines $(S, \varphi)$ uniquely. If many different bijections produced the same observables, the substratum would be underdetermined and the framework would have no concrete object to describe. The second is what symmetries $(S, \varphi)$ has, once it is determined — what transformations of the substratum leave all observables unchanged.
 
