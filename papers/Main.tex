@@ -200,31 +200,35 @@ own contribution. The identification of that process with unitary
 quantum mechanics is supplied by the Barandes stochastic-quantum
 correspondence {[}11, 12{]}, an external result that we use as a
 load-bearing dependency rather than re-derive: it furnishes a
-(basis-dependent, non-unique) representation of any P-indivisible
-process on a finite configuration space as a unitary system whose
-transition probabilities are exactly Born-rule probabilities. The
-correspondence delivers the kinematic scaffolding and transition
-statistics of quantum mechanics --- complex Hilbert space, unitary
-evolution, the Born rule --- while non-commuting observables and spin
-are introduced as additional structure rather than derived from the bare
-stochastic data, with the composite-system tensor-product structure
-following instead, for spatially separated subsystems, from the
-substratum's coupling-graph locality (§3.1, scope remark; §3.4). The
-converse direction (any quantum system, realized as a deterministic
-dilation, requires non-trivial coupling, slow-bath memory, and
-sufficient hidden-sector capacity) holds with the C2 necessity step
-conditional on a quantitative hidden-sector mixing hypothesis ---
-uniform total-variation closeness of post-relaxation conditionals to a
-single bath distribution, with an explicit divisibility bound and ETH as
-the physical motivation (§3.4). The Schrödinger equation and Born rule
-emerge as structural consequences within this representation --- and
-Bell-class correlations within its P-indivisible subclass --- requiring
-no independent quantum postulates beyond the correspondence itself. The
-framework's posture is therefore one of \emph{identification} ---
-quantum mechanics as the description of a particular kind of incomplete
-observation --- rather than derivation of quantum mechanics from a
-parameter-free first principle; the distinction is the proper locus of
-skeptical scrutiny.
+(basis-dependent, non-unique) representation of any process in the
+source theorem's own indivisible class, on a finite configuration space,
+as a unitary system whose transition probabilities are exactly Born-rule
+probabilities. That the framework's P-indivisibility criterion picks out
+processes in that class is the explicit translation hypothesis (T)
+(§3.4); every quantum-representation claim below is gated on it, while
+the non-Markovianity results are not. The correspondence delivers the
+kinematic scaffolding and transition statistics of quantum mechanics ---
+complex Hilbert space, unitary evolution, the Born rule --- while
+non-commuting observables and spin are introduced as additional
+structure rather than derived from the bare stochastic data, with the
+composite-system tensor-product structure following instead, for
+spatially separated subsystems, from the substratum's coupling-graph
+locality (§3.1, scope remark; §3.4). The converse direction (any quantum
+system whose visible process lies in the translated class --- hypothesis
+(T) --- realized as a deterministic dilation, requires non-trivial
+coupling, slow-bath memory, and sufficient hidden-sector capacity) holds
+with the C2 necessity step conditional on a quantitative hidden-sector
+mixing hypothesis --- uniform total-variation closeness of
+post-relaxation conditionals to a single bath distribution, with an
+explicit divisibility bound and ETH as the physical motivation (§3.4).
+The Schrödinger equation and Born rule emerge as structural consequences
+within this representation --- and Bell-class correlations within its
+P-indivisible subclass --- requiring no independent quantum postulates
+beyond the correspondence itself. The framework's posture is therefore
+one of \emph{identification} --- quantum mechanics as the description of
+a particular kind of incomplete observation --- rather than derivation
+of quantum mechanics from a parameter-free first principle; the
+distinction is the proper locus of skeptical scrutiny.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -674,8 +678,20 @@ be a bijection. Define:}
 P-indivisible.}
 
 \emph{Proof.} Uses total variation distance
-\(d(p, q) = \frac{1}{2}\sum_k |p_k - q_k|\). P-divisibility \(\iff\)
-\(d(p(t), q(t))\) non-increasing for all initial \(p, q\) {[}4, 5{]}.
+\(d(p, q) = \frac{1}{2}\sum_k |p_k - q_k|\). P-divisibility \(\implies\)
+\(d(p(t), q(t))\) non-increasing for all initial \(p, q\) {[}4, 5{]} (a
+stochastic divisor is a total-variation contraction); the proof below
+uses only this direction, in contrapositive form. The converse is
+\emph{false}: monotonicity constrains the divisor only on the image
+directions \((\delta_i - \delta_j)T(1,0)\), not on the extreme points of
+the zero-sum ball, and explicit stochastic pairs exist whose unique
+divisor \(T(1,0)^{-1}T(2,0)\) carries a negative entry --- no stochastic
+divisor, hence P-indivisible --- while \(d\) is non-increasing for every
+\(p, q\); one such pair is strictly contracting at \(n = 2\) and one
+lies in the doubly stochastic class at \(n = 3\)
+(\texttt{translation\_probes.py}). Monotonicity is therefore a
+necessary, not sufficient, condition for P-divisibility, and is not used
+as a criterion anywhere below.
 
 \emph{Step 1 (Recurrence).} \(\varphi\) bijective on a finite set
 \(\Rightarrow\) \(\exists N: \varphi^N = \text{id}\). Thus
@@ -885,19 +901,32 @@ at fine time resolution; the Stinespring dilation theorem guarantees a
 dilated Hilbert space and unitary \(\tilde U(t)\) whose unistochastic
 matrix \(|\tilde U(t)|^2\) marginalizes over the ancilla index to
 \(T_{ij}(t)\) --- transition probabilities are exactly Born-rule
-probabilities. The proof requires a finite-dimensional configuration
-space (Lemma 1); Calvo {[}13{]} extends the correspondence to infinite
-dimensions, but this is not required here. Pimenta {[}14{]}
-distinguishes P-divisible and P-indivisible stochastic-quantum dynamics:
-the correspondence is non-trivial only in the P-indivisible regime,
-which is precisely the regime produced by §2.3. An independent
-derivation using only Stinespring's dilation theorem {[}15{]} and
-standard partial-trace properties {[}16{]} is given in §3.2; either
-route alone suffices for the representation of the transition data; the
-operational completion --- physical preparation of coherent states,
-noncommuting interventions, the full instrument algebra --- is a
-separate bridge, partially established by the one-step coherence theorem
-of §3.2 for the lattice realization and otherwise open.
+probabilities. \emph{The ancilla is not optional for this framework's
+own processes.} Marginalizing a bijection under the uniform hidden prior
+yields a doubly stochastic one-step matrix (§3.2), and for \(n \geq 3\)
+doubly stochastic does not imply unistochastic: enumerating the
+construction's own realizations at \(n_V = 3\), \(|\mathcal{C}_H| = 2\)
+gives twenty-one distinct one-step matrices, all doubly stochastic, of
+which six --- including
+\(\left(\begin{smallmatrix} 1/2 & 1/2 & 0 \\ 1/2 & 0 & 1/2 \\ 0 & 1/2 & 1/2 \end{smallmatrix}\right)\)
+--- fail the row-orthogonality condition necessary for unistochasticity
+(\texttt{translation\_probes.py}). An undilated \(T = |U|^2\)
+representation is therefore unavailable on the framework's class, and
+the translation hypothesis (T) must be read against the ancilla-dilated
+statement --- the \(\leq n^3\) form above --- not against the bare one.
+The proof requires a finite-dimensional configuration space (Lemma 1);
+Calvo {[}13{]} extends the correspondence to infinite dimensions, but
+this is not required here. Pimenta {[}14{]} distinguishes P-divisible
+and P-indivisible stochastic-quantum dynamics: the correspondence is
+non-trivial only in the P-indivisible regime, which is precisely the
+regime produced by §2.3. An independent derivation using only
+Stinespring's dilation theorem {[}15{]} and standard partial-trace
+properties {[}16{]} is given in §3.2; either route alone suffices for
+the representation of the transition data; the operational completion
+--- physical preparation of coherent states, noncommuting interventions,
+the full instrument algebra --- is a separate bridge, partially
+established by the one-step coherence theorem of §3.2 for the lattice
+realization and otherwise open.
 
 \textbf{Scope of the correspondence (what it does and does not
 deliver).} Because the quantum-representation clause rests on this
@@ -1683,10 +1712,10 @@ permutation instruments reproducing the comb statistics
 \(P(X_{k+1} \mid X_{\leq k}, A_{\leq k})\) --- is constructed (Theorem,
 §3.4); the quantum instrument algebra on coherent states remains open.
 P-indivisibility licenses the imported stochastic--quantum
-representation {[}11, 12{]}; it does not select the nonclassical branch
-of these reconstructions --- a classical stochastic system can be
-P-indivisible. The route is therefore a target list with two boxes
-checked, not an independent derivation.
+representation {[}11, 12{]} under (T); it does not select the
+nonclassical branch of these reconstructions --- a classical stochastic
+system can be P-indivisible. The route is therefore a target list with
+two boxes checked, not an independent derivation.
 
 \hypertarget{bell-inequality-violations}{%
 \subsubsection{3.3 Bell Inequality
@@ -3177,17 +3206,22 @@ bounded-coupling regularity. Three scope notes. (i) \emph{Locality of
 Adversarially non-local partitions --- cherry-picking distant subsystems
 that happen to be correlated --- are excluded by the bounded coupling
 degree of \(\varphi\) and the finite response time of any physical
-observer. (ii) \emph{Ergodicity.} The argument assumes the spectral gap
-on typical orbits of \(\varphi\), which follows from statistical
-isotropy and bounded-coupling regularity; pathological non-ergodic
-\(\varphi\) (many short orbits) is excluded by the structural
-assumptions already in force. (iii) \emph{The cosmological realization.}
-The de Sitter horizon is thermal in the static-patch sense at Hawking
-temperature, but the globally expanding system is not in equilibrium
-with respect to any static-observer partition. The horizon's expansion
-sets \(\tau_B \sim H^{-1}\) structurally, not thermally, which is the
-OI-native mechanism making human-timescale laboratory observation
-compatible with (C2).
+observer. (ii) \emph{Ergodicity.} The gap the argument needs belongs to
+the coarse-grained effective channel \(\mathcal{K}_\Sigma\), not to
+\(\varphi\) itself: the exact Koopman operator of a finite permutation
+has modulus-one spectrum and cannot mix, so no spectral gap on typical
+orbits of \(\varphi\) is available or assumed. A gap for
+\(\mathcal{K}_\Sigma\) is exactly the content of (EM) and does not
+follow from statistical isotropy or bounded-coupling regularity;
+pathological non-ergodic \(\varphi\) (many short orbits) is excluded by
+the structural assumptions already in force, but that exclusion is a
+necessary, not a sufficient, condition for (EM). (iii) \emph{The
+cosmological realization.} The de Sitter horizon is thermal in the
+static-patch sense at Hawking temperature, but the globally expanding
+system is not in equilibrium with respect to any static-observer
+partition. The horizon's expansion sets \(\tau_B \sim H^{-1}\)
+structurally, not thermally, which is the OI-native mechanism making
+human-timescale laboratory observation compatible with (C2).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
