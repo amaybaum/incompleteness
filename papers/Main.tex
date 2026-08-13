@@ -1761,7 +1761,12 @@ class satisfies the source theorem's exact hypotheses --- not yet
 proved; and the intervention dilation: its CLASSICAL rung ---
 permutation instruments reproducing the comb statistics
 \(P(X_{k+1} \mid X_{\leq k}, A_{\leq k})\) --- is constructed (Theorem,
-§3.4); the quantum instrument algebra on coherent states remains open.
+§3.4); the quantum instrument ALGEBRA remains open --- not the
+intervention statistics, which the classical rung reaches for any finite
+instrument set (Leggett-Garg violations included, §3.4), but
+multilinearity over the full instrument space, complete positivity of
+the induced slot maps, noncommuting composition, and
+representation-consistency with the passive description.
 P-indivisibility licenses the imported stochastic--quantum
 representation {[}11, 12{]} under (T); it does not select the
 nonclassical branch of these reconstructions --- a classical stochastic
@@ -2133,10 +2138,34 @@ forty-eight conditionals in exact arithmetic, both instruments and
 
 \emph{Remark (scope of the closure).} The theorem closes the classical
 rung of the intervention bridge: classical action labels, permutation
-instruments, comb statistics of the visible configurations. The quantum
-instrument algebra --- coherent-state instruments, noncommuting
-interventions, instrument-valued combs --- remains the open remainder of
-the operational bridge (§3.2). The quantitative-mixing theorem's
+instruments, comb statistics of the visible configurations. Its reach is
+wider than it may appear. Because the instruments are \emph{invasive}
+--- they write to the action ledger --- the construction is not bound by
+the non-invasiveness assumption behind temporal inequalities, and it
+reproduces quantum instrument statistics that violate them. A worked
+case is certified exactly (\texttt{lg\_comb.py}): sequential
+\(\sigma_z\) measurements on a qubit with \(\pi/3\) rotations between
+them give \(C_{12} = C_{23} = 1/2\), \(C_{13} = -1/2\) and a
+Leggett-Garg value \(K = 3/2 > 1\), and the realization --- twelve
+contexts, one fixed prior, permutation instruments --- reproduces every
+conditional and returns \(K = 3/2\). The open remainder is therefore not
+the numbers.
+
+\emph{Proposition (no uniform finite realization).} A fixed finite \(S\)
+with a fixed prior and a fixed bijection supports only finitely many
+distinct action-labelled conditional families, whereas the instrument
+space of any non-trivial system is a continuum. Hence no fixed finite
+realization carries the whole instrument algebra: the theorem above is a
+statement per finite instrument set, and \(|S|\) grows with the set
+chosen. \(\square\)
+
+\emph{Remark (what the remainder is).} What stays open on the
+operational bridge is accordingly the instrument \emph{algebra} rather
+than the statistics: multilinearity of the process tensor over the full
+instrument space, complete positivity of the induced slot maps,
+composition of noncommuting interventions, and the requirement that the
+intervened description use the same Hilbert space and the same
+\(\hat{H}\) as the passive one (§3.2). The quantitative-mixing theorem's
 contrapositive (§2.3) reads as a timescale statement in the
 homogeneous-Markov benchmark: memory of magnitude \(\delta\) at step
 order \(k\) requires the coupling to return before the bath's
