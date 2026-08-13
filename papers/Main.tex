@@ -1127,6 +1127,57 @@ irrelevant basis rephasing). Fixing \(\varphi_{1k} = 0\),
 data. \(H = V \, \text{diag}(E_k) \, V^\dagger\) is unique up to energy
 shift and phase conventions. \(\square\)
 
+The ancilla-marginal form of the reconstruction --- where the visible
+transition data constrains a Hamiltonian on
+\(\mathcal{H}_V \otimes \mathcal{H}_{\text{anc}}\) through the block
+projectors \(P_i\) --- is governed by the linearised idempotency system,
+and admits a reformulation that makes its solution space transparent.
+
+\textbf{Lemma (ancilla-marginal reformulation).} \emph{Let
+\(M_i = V^\dagger P_i V\) be the block projectors in the eigenbasis,
+\(\theta\) real antisymmetric, and set \(K_i := i\,(\theta \circ M_i)\)
+with \(\circ\) the entrywise product. Then each \(K_i\) is Hermitian,
+and the linearised idempotency constraint
+\(\sum_b (\theta_{ab} + \theta_{bc}) M_i[a,b] M_i[b,c] = \theta_{ac} M_i[a,c]\)
+holds for all \(a, c\) if and only if}
+\[M_i K_i M_i = 0 \qquad \text{and} \qquad (I - M_i) K_i (I - M_i) = 0,\]
+\emph{that is, if and only if \(K_i\) is purely off-diagonal in the
+splitting induced by \(M_i\). In particular the coboundaries
+\(\theta_{ab} = \alpha_a - \alpha_b\) satisfy it identically:
+\(\theta \circ M = [\Delta, M]\) with
+\(\Delta = \mathrm{diag}(\alpha)\), so \(K = i[\Delta, M]\) and
+\(M K M = i(M \Delta M - M \Delta M) = 0\) for every projector \(M\) and
+every \(V\).}
+
+\textbf{Theorem (ancilla-marginal phase-locking; certified block
+structures).} \emph{Fix \((n, m_a)\) with \(D = n \, m_a\). The kernel
+of the linearised system contains the \((D-1)\)-dimensional coboundary
+space for every \(V\), and for \((n, m_a) \in \{(2,2), (3,2), (2,3)\}\)
+it equals that space for all \(V\) outside a proper closed algebraic
+subset of \(\mathrm{U}(D)\) --- hence for Haar-almost-every \(\hat{H}\).
+The reconstruction is therefore locally identifiable up to eigenbasis
+rephasing at those structures.}
+
+\emph{Proof.} Containment is the Lemma. For equality: \(\dim \ker\) is
+upper semi-continuous in \(V\) and \(\mathrm{U}(D)\) is irreducible, so
+it suffices to exhibit a single \(V\) at which the kernel has dimension
+exactly \(D-1\); the maximal-rank locus is then Zariski-open and dense.
+Such a \(V\) is given explicitly over the Gaussian rationals --- a
+product of Pythagorean Givens rotations across all coordinate planes
+times a diagonal of unit-modulus Gaussian rationals --- and the kernel
+dimension is computed there in exact arithmetic: \(3 = D-1\) at
+\(D = 4\), and \(5 = D-1\) at \(D = 6\) in both block shapes
+(\texttt{phaselock\_probes.py}). \(\square\)
+
+\emph{Remark (genericity is load-bearing).} The hypothesis cannot be
+dropped: at \(V = I\) the constraint is vacuous and the kernel is the
+whole parameter space (six of six at \(D = 4\), fifteen of fifteen at
+\(D = 6\)), and a real Hadamard \(V\) degenerates likewise. \emph{Remark
+(scope).} The semi-continuity argument runs per block structure;
+\((3,3)\) and \((4,2)\) are confirmed numerically by the same
+reformulated system but are not exactly certified here, and no
+uniform-in-\((n, m_a)\) statement is claimed.
+
 \textbf{Scope of the lemma under the ancilla-marginal form, and its
 extension.} The lemma as stated assumes the strict form
 \(T_{ij}(t) = |\langle i|e^{-iHt}|j\rangle|^2\) on an \(n\)-dimensional
@@ -3238,14 +3289,15 @@ stochastic-quantum correspondence, the observer's description is
 necessarily non-Markovian --- quantum, for the P-indivisible subclass,
 via the correspondence under (T). Continuous-time transition data fixes
 the Hamiltonian up to an energy shift, basis rephasing, and the
-antiunitary conjugate (phase-locking lemma), with ancilla-case
-completeness open beyond the tested generic cases. The Schrödinger
-equation and Born rule are structural consequences within the
-representation; Bell-class correlations arise in the P-indivisible
-subclass. The characterization theorem establishes the conditions'
-necessity and the equivalence: accessible non-Markovianity and embedded
-observation under (C1)--(C4) are equivalent per finite horizon, with the
-quantum representation attaching to the P-indivisible subclass.
+antiunitary conjugate (phase-locking lemma), with the ancilla-marginal
+case proved for the certified block structures (§3.1) and the
+uniform-in-structure statement open. The Schrödinger equation and Born
+rule are structural consequences within the representation; Bell-class
+correlations arise in the P-indivisible subclass. The characterization
+theorem establishes the conditions' necessity and the equivalence:
+accessible non-Markovianity and embedded observation under (C1)--(C4)
+are equivalent per finite horizon, with the quantum representation
+attaching to the P-indivisible subclass.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
