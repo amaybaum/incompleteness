@@ -41,7 +41,7 @@ The unification has practical consequences. Photosynthetic systems, magnetorecep
 
 ## 13.3 C1–C4 in proteins
 
-The canonical biological implementation of the framework's structural conditions is the protein conformational landscape. Proteins are the framework's clearest example of a biological C1–C4 system: an active configuration tightly coupled to a slow conformational bath, with substantial timescale separation and large hidden-sector capacity. This section develops the three conditions explicitly for proteins.
+The canonical biological implementation of the framework's structural conditions is the protein conformational landscape. Proteins are the framework's clearest example of a biological C1–C4 system: an active configuration tightly coupled to a slow conformational bath, with substantial timescale separation and large hidden-sector capacity. This section develops the four conditions explicitly for proteins.
 
 **The protein partition.** Consider an enzyme catalyzing a reaction. The visible sector is the active site's current configuration — the precise geometric arrangement of catalytic residues, the substrate's binding position, and the local electronic structure that determines the reaction's instantaneous rate. The hidden sector is the broader conformational landscape — the protein's overall fold, the rotameric states of distant side chains, the dynamic network of residue-residue contacts throughout the scaffold, and the bound water structure in the protein's interior.
 
