@@ -1431,11 +1431,19 @@ Theorem}\label{embedded-observation-and-the-characterization-theorem}}
 \subsection{1.1 The problem and the
 theorem}\label{the-problem-and-the-theorem}}
 
-The Introduction stated the framework's central claim: any observer
-embedded in a finite deterministic universe, satisfying three structural
-conditions on what lies outside their access, must use a mathematical
-formalism equivalent to unitarily evolving quantum mechanics. This
-chapter proves the claim.
+The Introduction stated the framework's central claims in their layered
+form. This chapter proves the foundational one: for an observer embedded
+as a proper subsystem of a finite reversible deterministic whole,
+accessible non-Markovianity of the reduced dynamics is equivalent, on
+every finite horizon, to the existence of a deterministic hidden-state
+realization satisfying four structural conditions --- coupling (C1),
+slow-bath memory (C2), capacity (C3), and history readback (C4). Quantum
+mechanics attaches to the P-indivisible subclass through the imported
+stochastic--quantum correspondence, under an explicit translation
+hypothesis ((T), {[}Main §3.4{]}); the delivered identification is a
+representation of the statistics, with the operational completion an
+open bridge ({[}Main §3.2{]}). Every claim in this chapter is read at
+its layer ({[}Main §1.5{]}).
 
 The starting point is the empirical fact of observation. An observer
 records distinguishable outcomes of interactions with a system not
@@ -1450,18 +1458,19 @@ emerge but necessary.
 \textbf{Central Theorem.} \emph{Let \((S, \varphi, V)\) be an embedded
 observation --- a finite total system \(S\), a deterministic bijection
 \(\varphi: S \to S\), and an observer \(V \subsetneq S\) with the
-visible sector and hidden sector coupled through \(\varphi\). Under
-three structural conditions on the partition --- non-trivial coupling
-(C1), slow-bath timescale separation (C2), and sufficient hidden-sector
-capacity (C3) --- the embedded observer's reduced description of the
-visible sector is mathematically equivalent to unitarily evolving
-quantum mechanics. The Hilbert space, the Schrödinger equation, the Born
-rule, and the quantum measurement formalism emerge as structural
-consequences of the marginalization, requiring no additional postulates.
-The conditions are necessary as well as sufficient: any system
-equivalent to unitarily evolving quantum mechanics arises from
-marginalization of a deterministic bijection satisfying C1--C4 for some
-partition.}
+visible sector and hidden sector coupled through \(\varphi\). Under four
+structural conditions on the partition --- non-trivial coupling (C1),
+slow-bath timescale separation (C2), sufficient hidden-sector capacity
+(C3), and history readback (C4) --- the embedded observer's reduced
+description of the visible sector is non-Markovian on every accessible
+horizon, with a unitarily evolving quantum representation for the
+P-indivisible subclass ((T), {[}Main §3.4{]}). The Hilbert space, the
+Schrödinger equation, the Born rule, and the quantum measurement
+formalism emerge as structural consequences of the marginalization,
+requiring no additional postulates. The conditions are necessary as well
+as sufficient: any system equivalent to unitarily evolving quantum
+mechanics arises from marginalization of a deterministic bijection
+satisfying C1--C4 for some partition.}
 
 The proof develops in seven stages, with a structural commentary in
 §1.10 examining what physics emerges when each of the four conditions
@@ -1474,17 +1483,18 @@ partition-relativity as a structural feature rather than a free
 parameter. §1.5 proves that under C1--C4 the marginalized stochastic
 process is P-indivisible --- a precise non-Markovian property that
 captures the structural difference between embedded-observer dynamics
-and classical thermal noise. §1.6 establishes the two independent routes
-from P-indivisibility to unitary quantum mechanics: the Barandes
-stochastic-quantum correspondence and the Stinespring dilation. §1.7
-develops the framework's account of Bell-inequality violations as a
-structural consequence of P-indivisible joint dynamics. §1.8 establishes
-necessity through the characterization theorem. §1.9 closes by stating
-what the theorem says: quantum mechanics as the unique self-consistent
-decompression algorithm for predictions from incomplete data under
-C1--C4. §1.10 develops the three structural limits --- what happens when
-each of C1, C2, C3, C4 fails --- as commentary on what kind of observer
-the framework's conditions jointly characterize.
+and classical thermal noise. §1.6 establishes the two routes with their
+separated scopes: the imported stochastic--quantum correspondence ---
+the quantum representation for the subclass, under (T) --- and the
+Stinespring dilation. §1.7 develops the framework's account of
+Bell-inequality violations as a structural consequence of P-indivisible
+joint dynamics. §1.8 establishes necessity through the characterization
+theorem. §1.9 closes by stating what the theorem says: quantum mechanics
+as the unique self-consistent decompression algorithm for predictions
+from incomplete data under C1--C4. §1.10 develops the three structural
+limits --- what happens when each of C1, C2, C3, C4 fails --- as
+commentary on what kind of observer the framework's conditions jointly
+characterize.
 
 \hypertarget{the-starting-point}{%
 \subsection{1.2 The starting point}\label{the-starting-point}}
@@ -1744,7 +1754,7 @@ chapter's central theorem can be proved. The remainder of the chapter
 develops the proof in the stages identified in §1.1:
 partition-relativity (§1.4), P-indivisibility (§1.5), the two routes to
 unitary quantum mechanics (§1.6), Bell-inequality violations (§1.7), the
-characterization theorem closing the biconditional (§1.8), and the
+characterization theorem in its current per-horizon form (§1.8), and the
 algorithmic reading of what the theorem establishes (§1.9).
 
 \hypertarget{partition-relativity}{%
@@ -2392,18 +2402,25 @@ The P-indivisibility theorem and the two routes establish sufficiency:
 C1--C4 imply quantum mechanics. The remaining question is necessity.
 Does every system equivalent to unitarily evolving quantum mechanics
 arise from a deterministic bijection satisfying C1--C4 for some
-partition? §1.8 establishes that it does --- the characterization
-theorem closes the biconditional.
+partition? §1.8 states the characterization in its current form --- the
+per-horizon equivalence, with the quantum representation attaching to
+the subclass under (T).
 
 \hypertarget{the-characterization-theorem}{%
 \subsection{1.8 The characterization
 theorem}\label{the-characterization-theorem}}
 
-The Barandes correspondence already establishes that quantum mechanics
-is equivalent to P-indivisibility {[}4, 5{]}; §1.5 established that
-C1--C4 imply P-indivisibility. Necessity requires the converse: that
-P-indivisibility implies C1--C4 for any underlying dilation. The
-argument is three separate proofs, one for each condition.
+The characterization in its current form ({[}Main §3.4{]}) is the
+per-horizon equivalence: accessible non-Markovianity of the reduced
+dynamics holds if and only if some finite-horizon deterministic
+realization satisfies (C1)--(C4), with the quantum representation
+attaching to the P-indivisible subclass through the imported
+correspondence under the translation hypothesis (T). The necessity
+arguments below are benchmark forms for three of the conditions,
+retained for their constructive content; {[}Main §3.4{]} carries the
+current proofs, where (C2)'s necessity is the conditional
+physical-memory theorem and (C4)'s is immediate from observed
+non-Markovianity.
 
 \textbf{Necessity of C1.} If \(T\) is a permutation matrix, then \(T^k\)
 is a permutation for all \(k\), and the candidate intermediate
