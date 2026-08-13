@@ -388,11 +388,16 @@ follows, with cross-partition correlations entering only through
 \(H_{\text{int}}\). The product decomposition is idealized; §4.5
 addresses approximation quality.
 
-\textbf{Lemma 3} (Determinism and unique measure). \emph{\(\varphi\) is
-a bijection: distinct states have distinct successors (determinism) and
-distinct predecessors (reversibility). The counting measure is the
-unique \(\varphi\)-invariant measure on the accessible orbit, and the
-unique maximal-entropy invariant measure globally.}
+\textbf{Lemma 3} (Determinism, reversibility, and the selected measure).
+\emph{\(\varphi\) is a function with a unique successor for every state
+(determinism) and, as the reversible representative of §1.2, a
+bijection: distinct states have distinct successors and predecessors
+(injectivity --- reversibility). On each accessible orbit the invariant
+measure is unique (uniform on the cycle); globally, the counting measure
+is selected among invariant measures as the maximal-entropy one --- a
+selection principle, not uniqueness from invariance alone (in the
+continuum, Liouville measure is invariant but not in general the unique
+absolutely continuous invariant measure).}
 
 \emph{Remark (the measure as a realization datum).} Lemma 3 fixes the
 canonical measure --- invariant, maximal-entropy --- and the framework's
@@ -1670,9 +1675,11 @@ states (the construction supplies one one-parameter group, not a
 transitive continuous action --- and in Hardy's axiomatization precisely
 this clause excludes classical theory); tomographic locality (a tensor
 factorization is not yet a theorem that local statistics determine
-global states); the full effect and instrument structure; and the
-intervention dilation: its CLASSICAL rung --- permutation instruments
-reproducing the comb statistics
+global states); the full effect and instrument structure; the
+translation theorem for (T) --- that the framework's P-indivisibility
+class satisfies the source theorem's exact hypotheses --- not yet
+proved; and the intervention dilation: its CLASSICAL rung ---
+permutation instruments reproducing the comb statistics
 \(P(X_{k+1} \mid X_{\leq k}, A_{\leq k})\) --- is constructed (Theorem,
 §3.4); the quantum instrument algebra on coherent states remains open.
 P-indivisibility licenses the imported stochastic--quantum
@@ -1768,10 +1775,12 @@ of controllable settings, which is where the assumption is defined and
 testable. Whether to call this superdeterminism is terminology; what
 matters is that \(\lambda\)--setting correlations do no explanatory work
 in the Bell statistics here --- they are dynamically suppressed, the
-correlations are produced by the indivisible joint dynamics, and the
-CHSH value is the stable structural output (exactly the Tsirelson bound)
-rather than a tuned coincidence. The no-fine-tuning analysis below makes
-the last point precise.
+correlations are produced by the indivisible joint dynamics, and, for
+the causal-local indivisible construction {[}24{]}, the CHSH value is
+the stable structural output (the Tsirelson bound) rather than a tuned
+coincidence; a derived setting-hidden correlation bound for the
+framework's own realizations is the open target the analysis below makes
+precise.
 
 \textbf{Fine-tuning and causal structure.} The framework does not claim
 to restore Bell locality: outcome independence is genuinely violated.
@@ -2009,9 +2018,9 @@ here: the \emph{intervention dilation} is a named target of the
 operational bridge (§3.2) --- and its classical rung is constructed
 below.
 
-\textbf{Theorem (intervention dilation, classical comb).} \emph{Let a
-finite action alphabet \(\mathcal{A}\) and a finite-horizon
-action-labeled family
+\textbf{Theorem (intervention dilation: the finite classical
+action-labelled comb).} \emph{Let a finite action alphabet
+\(\mathcal{A}\) and a finite-horizon action-labeled family
 \(\{P(x_{k+1} \mid x_{\leq k}, a_{\leq k})\}_{k < K}\) be given. There
 exist a finite set \(S\), a bijection \(\varphi\), a fixed prior
 \(\mu_H\), and bijections \(\{\mathcal{I}_a\}_{a \in \mathcal{A}}\) on
@@ -2047,12 +2056,15 @@ rung of the intervention bridge: classical action labels, permutation
 instruments, comb statistics of the visible configurations. The quantum
 instrument algebra --- coherent-state instruments, noncommuting
 interventions, instrument-valued combs --- remains the open remainder of
-the operational bridge (§3.2). The theorem's contrapositive then reads
-as a timescale statement: memory of magnitude \(\delta\) at step order
-\(k\) requires the coupling to return before the bath's conditional
-mixing to \(\varepsilon < \delta/(k-1)\) completes ---
-\(\tau_S \ll \tau_B(\delta/(k-1))\). This derives C2's timescale form
-from the \(\varepsilon\)-bound rather than asserting it separately.
+the operational bridge (§3.2). The quantitative-mixing theorem's
+contrapositive (§2.3) reads as a timescale statement in the
+homogeneous-Markov benchmark: memory of magnitude \(\delta\) at step
+order \(k\) requires the coupling to return before the bath's
+conditional mixing to \(\varepsilon < \delta/(k-1)\) completes --- the
+benchmark form. For condition (ii)'s currency the operative statement is
+the physical-memory theorem's
+\(\varepsilon \geq \varepsilon_{\min}(I^*, n_V)\) (§2.3); the benchmark
+inequality is not the general process-memory bound.
 
 \emph{Remark (role of ETH, restated).} \emph{The necessity direction
 rests on the mixing hypothesis above --- an operational,
@@ -2239,7 +2251,10 @@ delivered by separate results. \textbf{(Q1) Barandes-representable:} the
 process corresponds to a unitarily evolving quantum system in the source
 theorem's own language {[}11, 12{]} --- the \(\leq n^3\) dilation bound
 is the source's result for the indivisible subclass, under its
-hypotheses. \textbf{(Q2) autonomous OI representation:} a fixed
+hypotheses. The identification of the framework's P-indivisibility
+criterion with the source's indivisible-process class is an explicit
+\emph{translation hypothesis} (T); a proved translation theorem is open
+(§3.2 checklist). \textbf{(Q2) autonomous OI representation:} a fixed
 Hermitian \(\hat{H}\) with the ancilla-marginal form above, exact at
 integer horizon times, delivered in-house by the fixed-\(\hat{H}\) lemma
 on an uncompressed space of dimension \(n \cdot |\mathcal{C}_H|\).
@@ -3153,22 +3168,24 @@ replaced here by a structural selection rule: observers exist where
 (C1)--(C4) are satisfiable, and (C1)--(C4) are not satisfiable in the
 equilibrium phase.
 
-\textbf{Scope.} The theorem uses only bounded coupling, finiteness of
-\(S\), and the canonical-typicality result {[}31{]}; no new axioms are
-introduced. Three scope notes. (i) \emph{Locality of \(V\).} The theorem
-assumes \(V\) has bounded coupling-graph diameter. Adversarially
-non-local partitions --- cherry-picking distant subsystems that happen
-to be correlated --- are excluded by the bounded coupling degree of
-\(\varphi\) and the finite response time of any physical observer. (ii)
-\emph{Ergodicity.} The argument assumes the spectral gap on typical
-orbits of \(\varphi\), which follows from statistical isotropy and
-bounded-coupling regularity; pathological non-ergodic \(\varphi\) (many
-short orbits) is excluded by the structural assumptions already in
-force. (iii) \emph{The cosmological realization.} The de Sitter horizon
-is thermal in the static-patch sense at Hawking temperature, but the
-globally expanding system is not in equilibrium with respect to any
-static-observer partition. The horizon's expansion sets
-\(\tau_B \sim H^{-1}\) structurally, not thermally, which is the
+\textbf{Scope.} The theorem uses bounded coupling, finiteness of \(S\),
+the canonical-typicality result {[}31{]}, and the effective-mixing
+hypothesis (EM) --- the last an additional conditional physical premise,
+established model by model; it does not follow from isotropy or
+bounded-coupling regularity. Three scope notes. (i) \emph{Locality of
+\(V\).} The theorem assumes \(V\) has bounded coupling-graph diameter.
+Adversarially non-local partitions --- cherry-picking distant subsystems
+that happen to be correlated --- are excluded by the bounded coupling
+degree of \(\varphi\) and the finite response time of any physical
+observer. (ii) \emph{Ergodicity.} The argument assumes the spectral gap
+on typical orbits of \(\varphi\), which follows from statistical
+isotropy and bounded-coupling regularity; pathological non-ergodic
+\(\varphi\) (many short orbits) is excluded by the structural
+assumptions already in force. (iii) \emph{The cosmological realization.}
+The de Sitter horizon is thermal in the static-patch sense at Hawking
+temperature, but the globally expanding system is not in equilibrium
+with respect to any static-observer partition. The horizon's expansion
+sets \(\tau_B \sim H^{-1}\) structurally, not thermally, which is the
 OI-native mechanism making human-timescale laboratory observation
 compatible with (C2).
 
@@ -3185,16 +3202,16 @@ memory within the window --- and a non-permutation coupling forces
 P-indivisibility at the recurrence scale (§2.3). By the
 stochastic-quantum correspondence, the observer's description is
 necessarily non-Markovian --- quantum, for the P-indivisible subclass,
-via the correspondence. Continuous-time transition data fixes the
-Hamiltonian up to an energy shift, basis rephasing, and the antiunitary
-conjugate (phase-locking lemma), with ancilla-case completeness open
-beyond the tested generic cases. The Schrödinger equation and Born rule
-are structural consequences within the representation; Bell-class
-correlations arise in the P-indivisible subclass. The characterization
-theorem establishes the conditions' necessity and the equivalence:
-accessible non-Markovianity and embedded observation under (C1)--(C4)
-are equivalent per finite horizon, with the quantum representation
-attaching to the P-indivisible subclass.
+via the correspondence under (T). Continuous-time transition data fixes
+the Hamiltonian up to an energy shift, basis rephasing, and the
+antiunitary conjugate (phase-locking lemma), with ancilla-case
+completeness open beyond the tested generic cases. The Schrödinger
+equation and Born rule are structural consequences within the
+representation; Bell-class correlations arise in the P-indivisible
+subclass. The characterization theorem establishes the conditions'
+necessity and the equivalence: accessible non-Markovianity and embedded
+observation under (C1)--(C4) are equivalent per finite horizon, with the
+quantum representation attaching to the P-indivisible subclass.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
