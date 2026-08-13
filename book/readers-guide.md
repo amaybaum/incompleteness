@@ -10,7 +10,7 @@ Estimated reading time for the complete path: approximately 50-80 hours for tech
 
 ## Reading path for foundational interest
 
-Readers primarily interested in the framework's foundational claim — that quantum mechanics is derivable from a deterministic substratum under three structural conditions — should focus on the following chapters and sections.
+Readers primarily interested in the framework's foundational claim — that quantum mechanics is derivable from a deterministic substratum under four structural conditions — should focus on the following chapters and sections.
 
 **Essential.** Chapter 0 (the framing). Chapter 1 (the central theorem and characterization theorem). Chapter 2 (the substratum construction). Chapter 7 (the gravitational sector, particularly §§7.3, 7.5, 7.7 on $\hbar$, the Bekenstein-Hawking entropy, and the cosmological constant dissolution). Chapter 8 (JUNO as concrete empirical anchor). Appendix B (mathematical derivations) for technical detail.
 
