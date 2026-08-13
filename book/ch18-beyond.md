@@ -184,7 +184,7 @@ The chapter's broader content on forward predictions continues with the framewor
 
 ## 18.7 Finite information and Poincaré recurrence
 
-The framework's commitment to a finite substratum has structural consequences that extend beyond the empirical predictions of fundamental physics. The universe is described by a finite configuration space $S$ with bijection dynamics $\varphi: S \to S$. Finiteness is not a calculational convenience but a load-bearing commitment: it guarantees Poincaré recurrence of the substratum dynamics, which produces P-indivisibility at the embedded-observer level, which produces quantum mechanics. The framework's logic chain requires finite $S$.
+The framework's commitment to a finite substratum has structural consequences that extend beyond the empirical predictions of fundamental physics. The universe is described by a finite configuration space $S$ with bijection dynamics $\varphi: S \to S$. Finiteness is not a calculational convenience but a load-bearing commitment: it guarantees Poincaré recurrence of the substratum dynamics, which produces P-indivisibility at the embedded-observer level, which carries the quantum representation under (T). The framework's logic chain requires finite $S$.
 
 **Finite information content.** The substratum's information content is $\log_2 |S|$ bits — finite for any finite $S$. This is distinct from the Bekenstein-Hawking entropy $S_{\text{BH}} = A/(4 l_p^2)$, which bounds the *accessible* information at any given partition (the visible sector's capacity). The total information content of $S$ — including the hidden sector at the cosmological boundary — exceeds the Bekenstein-Hawking bound but remains finite.
 
