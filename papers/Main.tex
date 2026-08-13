@@ -913,20 +913,49 @@ which six --- including
 (\texttt{translation\_probes.py}). An undilated \(T = |U|^2\)
 representation is therefore unavailable on the framework's class, and
 the translation hypothesis (T) must be read against the ancilla-dilated
-statement --- the \(\leq n^3\) form above --- not against the bare one.
-The proof requires a finite-dimensional configuration space (Lemma 1);
-Calvo {[}13{]} extends the correspondence to infinite dimensions, but
-this is not required here. Pimenta {[}14{]} distinguishes P-divisible
-and P-indivisible stochastic-quantum dynamics: the correspondence is
-non-trivial only in the P-indivisible regime, which is precisely the
-regime produced by §2.3. An independent derivation using only
-Stinespring's dilation theorem {[}15{]} and standard partial-trace
-properties {[}16{]} is given in §3.2; either route alone suffices for
-the representation of the transition data; the operational completion
---- physical preparation of coherent states, noncommuting interventions,
-the full instrument algebra --- is a separate bridge, partially
-established by the one-step coherence theorem of §3.2 for the lattice
-realization and otherwise open.
+statement --- not against the bare one. What that costs is exactly one
+ancilla factor.
+
+\textbf{Lemma (one-step ancilla dilation).} \emph{For any stochastic
+\(T\) on \(n\) states, the map
+\(W|i\rangle = \sum_j \sqrt{T_{ij}}\,|j\rangle \otimes |i\rangle\) is an
+isometry \(\mathbb{C}^n \to \mathbb{C}^n \otimes \mathbb{C}^n\) whose
+ancilla-marginal is \(T\):
+\(\sum_\alpha |\langle j, \alpha | W | i \rangle|^2 = T_{ij}\). It
+extends to a unitary on \(\mathbb{C}^n \otimes \mathbb{C}^n\).}
+
+\emph{Proof.}
+\(\langle W i | W i' \rangle = \delta_{ii'} \sum_j T_{ij} = \delta_{ii'}\),
+so \(W\) is an isometry, and the marginal is
+\(\sum_\alpha |\sqrt{T_{ij}}\,\delta_{\alpha i}|^2 = T_{ij}\); an
+isometry onto an \(n\)-dimensional subspace of an \(n^2\)-dimensional
+space extends to a unitary. \(\square\) (Certified exactly on all six
+non-unistochastic realizations, with the completion carried out
+explicitly for the displayed witness as a \(9 \times 9\) unitary over
+the algebraic numbers, in \texttt{tdilate\_probes.py}.)
+
+So the obstruction above is priced rather than fatal: total dimension
+\(n^2\) suffices at a single step, within the source's \(\leq n^3\)
+bound for the full process family. Representability is not what (T) is
+about. \textbf{What (T) asserts, and what remains open, is the
+multi-time clause:} that the framework's P-indivisibility criterion ---
+no stochastic divisor between times (§3.4) --- picks out processes
+satisfying the source theorem's own hypotheses on the whole time family.
+That comparison is against the source's statement, not against anything
+the construction supplies, and it is the hypothesis's only remaining
+content. The proof requires a finite-dimensional configuration space
+(Lemma 1); Calvo {[}13{]} extends the correspondence to infinite
+dimensions, but this is not required here. Pimenta {[}14{]}
+distinguishes P-divisible and P-indivisible stochastic-quantum dynamics:
+the correspondence is non-trivial only in the P-indivisible regime,
+which is precisely the regime produced by §2.3. An independent
+derivation using only Stinespring's dilation theorem {[}15{]} and
+standard partial-trace properties {[}16{]} is given in §3.2; either
+route alone suffices for the representation of the transition data; the
+operational completion --- physical preparation of coherent states,
+noncommuting interventions, the full instrument algebra --- is a
+separate bridge, partially established by the one-step coherence theorem
+of §3.2 for the lattice realization and otherwise open.
 
 \textbf{Scope of the correspondence (what it does and does not
 deliver).} Because the quantum-representation clause rests on this
@@ -2143,7 +2172,7 @@ wider than it may appear. Because the instruments are \emph{invasive}
 --- they write to the action ledger --- the construction is not bound by
 the non-invasiveness assumption behind temporal inequalities, and it
 reproduces quantum instrument statistics that violate them. A worked
-case is certified exactly (\texttt{lg\_comb.py}): sequential
+case is certified exactly (\texttt{lg\_comb\_probes.py}): sequential
 \(\sigma_z\) measurements on a qubit with \(\pi/3\) rotations between
 them give \(C_{12} = C_{23} = 1/2\), \(C_{13} = -1/2\) and a
 Leggett-Garg value \(K = 3/2 > 1\), and the realization --- twelve
