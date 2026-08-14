@@ -4502,15 +4502,17 @@ large statistical-mechanical system at equilibrium would produce
 observers as random fluctuations more often than through evolutionary
 processes --- is dissolved at Level B. Equilibrium states are not
 observer-admitting in the framework's sense, because the slow-bath
-condition C2 fails at equilibrium: there are no slow modes by
-definition, every degree of freedom has thermalized. Boltzmann brains
-are not generic outcomes of long-time evolution that just happen to be
-rare; they are structurally excluded from the observer-admitting subset
-by C2. The framework's account of the arrow of time, developed in
-Chapter 2 §2.6, follows from this exclusion: observers are restricted to
-the non-equilibrium phase of the substratum's dynamics, and the
-structural arrow of horizon growth provides the clock the observer's
-other arrows align with.
+condition C2 fails at equilibrium --- there are no slow modes by
+definition, every degree of freedom has thermalized --- and a bath that
+thermalizes between steps erases the stored record before readback, so
+C4 fails with it ({[}Main §2.3{]}). Boltzmann brains are not generic
+outcomes of long-time evolution that just happen to be rare; they are
+structurally excluded from the observer-admitting subset by C2. The
+framework's account of the arrow of time, developed in Chapter 2 §2.6,
+follows from this exclusion: observers are restricted to the
+non-equilibrium phase of the substratum's dynamics, and the structural
+arrow of horizon growth provides the clock the observer's other arrows
+align with.
 
 The string-theory landscape problem looks different under the Level B
 reading as well. The conventional landscape picture posits roughly
@@ -6735,7 +6737,9 @@ whatever deeper theory describes the pre-horizon transition.
 
 \emph{The equilibrium phase of \((S, \varphi)\).} Chapter 1's central
 theorem requires C1--C4 to be satisfied. The slow-bath condition C2
-fails at substratum equilibrium: at equilibrium, the hidden sector has
+fails at substratum equilibrium --- and with it the readback condition
+C4, since a bath thermalizing between steps erases the record before it
+can be read ({[}Main §2.3{]}): at equilibrium, the hidden sector has
 thermalized completely, and there are no slow modes to provide the
 timescale separation that produces P-indivisibility. The structural
 observer-selection theorem developed at Main §4.6 restricts observers to
@@ -27927,39 +27931,51 @@ provides the BQP toolkit) and an upper bound (the quantum description is
 informationally complete for the embedded observer). Falsifiable by any
 super-BQP demonstration. Developed in Chapter 14.
 
-\textbf{C1 (Coupling).} The first of the framework's four structural
-conditions. Requires non-trivial coupling between the \emph{visible} and
-\emph{hidden sectors} of the \emph{embedded observer}'s partition.
-Mathematically: the transition matrix \(T\) on the visible sector is not
-a permutation. Physically: information crosses the partition boundary in
-both directions. C1 fails when the visible sector is causally
-disconnected from the hidden sector. Discussed in Chapter 1 §1.3.
+\textbf{C1 (Coupling).} The first of the framework's three structural
+conditions (C1, C3, C4; C2 is a physical-regime premise, not part of the
+characterization's equivalence). Requires non-trivial coupling between
+the \emph{visible} and \emph{hidden sectors} of the \emph{embedded
+observer}'s partition. Mathematically: the transition matrix \(T\) on
+the visible sector is not a permutation. Physically: information crosses
+the partition boundary in both directions. C1 fails when the visible
+sector is causally disconnected from the hidden sector. Discussed in
+Chapter 1 §1.3.
 
-\textbf{C2 (Slow-bath timescale separation).} The second of the
-framework's four structural conditions. Requires the hidden sector to
-evolve much more slowly than the visible sector:
-\(\tau_S / \tau_B \ll 1\). Physically: the hidden sector is essentially
-frozen on the timescale of any visible-sector measurement. For our
-universe at the cosmological horizon, \(\tau_S / \tau_B \sim 10^{-32}\).
-C2 fails when the hidden sector thermalizes between measurements,
-producing classical Markovian dynamics. Discussed in Chapter 1 §1.3.
+\textbf{C2 (Slow-bath memory persistence).} A physical-regime premise
+rather than one of the three structural conditions (C1, C3, C4): the
+equivalence runs over those three. C2 requires that the hidden sector's
+coarse-grained mixing time exceed the accessible window --- that stored
+records \emph{persist} --- not that the hidden sector evolve slowly:
+slow evolution is one sufficient mechanism, and fast conserved dynamics
+serve equally ({[}Main §1.3{]}, \texttt{fastbath\_probes.py}). C2 is the
+persistence half of what C4 operationally needs (the other half is
+in-window routing), and it is itself derived from observed memory by the
+physical-memory theorem. Requires the hidden sector to evolve much more
+slowly than the visible sector: \(\tau_S / \tau_B \ll 1\). Physically:
+the hidden sector is essentially frozen on the timescale of any
+visible-sector measurement. For our universe at the cosmological
+horizon, \(\tau_S / \tau_B \sim 10^{-32}\). C2 fails when the hidden
+sector thermalizes between measurements, producing classical Markovian
+dynamics. Discussed in Chapter 1 §1.3.
 
-\textbf{C3 (Hidden-sector capacity).} The third of the framework's four
-structural conditions. Requires the hidden sector to have substantially
-more degrees of freedom than the visible sector: \(N_H \gg N_V\). For
-our universe at the cosmological horizon, \(N_H \sim 10^{122}\). C3
-fails as \(N_H \to N_V\), with the marginal-capacity regime producing
-the \emph{partially-quantum} regime distinctive to the framework.
-Discussed in Chapter 1 §1.3, with the partially-quantum regime in
-Chapter 15 §15.7 and Chapter 18 §18.3.
+\textbf{C3 (Hidden-sector capacity).} The second of the framework's
+three structural conditions (C1, C3, C4). Requires the hidden sector to
+have substantially more degrees of freedom than the visible sector:
+\(N_H \gg N_V\). For our universe at the cosmological horizon,
+\(N_H \sim 10^{122}\). C3 fails as \(N_H \to N_V\), with the
+marginal-capacity regime producing the \emph{partially-quantum} regime
+distinctive to the framework. Discussed in Chapter 1 §1.3, with the
+partially-quantum regime in Chapter 15 §15.7 and Chapter 18 §18.3.
 
-\textbf{C4 (History readback).} The fourth of the framework's four
-structural conditions. Requires that records of the visible sector's own
-past, stored in the hidden sector, be read back into the visible
-dynamics: influence plus storage plus capacity, without readback, is
-noise rather than memory. C4 is what places a quantitative lower bound
-on observable conditional memory inside an accessible window (Main
-§2.3). Discussed in Chapter 1 §1.3.
+\textbf{C4 (History readback).} The third of the framework's three
+structural conditions (C1, C3, C4) --- the one the exclusion arguments
+turn on, since C2's failure acts only by erasing readback ({[}Main
+§2.3{]}). Requires that records of the visible sector's own past, stored
+in the hidden sector, be read back into the visible dynamics: influence
+plus storage plus capacity, without readback, is noise rather than
+memory. C4 is what places a quantitative lower bound on observable
+conditional memory inside an accessible window (Main §2.3). Discussed in
+Chapter 1 §1.3.
 
 \textbf{Cabibbo angle.} The CKM mixing parameter
 \(\lambda = \sin\theta_C \approx 0.225\) governing
