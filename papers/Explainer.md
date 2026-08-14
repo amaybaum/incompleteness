@@ -64,9 +64,9 @@ That's it. The claim is that quantum mechanics — the Schrödinger equation, th
 
 **C1: Non-zero coupling (H_int ≠ 0).** The visible and hidden sectors interact. Information flows between them. Without this, the observer's room is perfectly isolated — nothing interesting happens.
 
-**C2: Slow bath (τ_S ≪ τ_B).** The hidden sector evolves much more slowly than the visible sector. τ_S is the timescale of visible-sector processes; τ_B is the timescale of hidden-sector processes. This is the *opposite* of the usual assumption in physics. Normally, people assume the environment is fast and chaotic (a "heat bath" that quickly forgets everything). Here, the environment is slow and has a long memory. This is what makes the dynamics non-Markovian.
+**C2: Memory persistence (τ_S ≪ τ_B).** The hidden sector's *coarse-grained mixing time* — the rate at which a stored record of visible history degrades — is long compared with the accessible window. This is persistence, not slowness: fast hidden dynamics that conserve the record serve equally well, and a shift-register bath rotating five cells per visible step supports a maximal readback gap ([Main §1.3]). τ_S is the timescale of visible-sector processes; τ_B is the timescale of hidden-sector processes. This is the *opposite* of the usual assumption in physics. Normally, people assume the environment is fast and chaotic (a "heat bath" that quickly forgets everything). Here, the environment is slow and has a long memory. This is what makes the dynamics non-Markovian.
 
-**C3: Sufficient capacity (N_H ≫ N_V).** The hidden sector has many more degrees of freedom than the visible sector. There's enough "room" to store information about the visible sector's history without running out of space.
+**C3: Sufficient capacity (log₂|C_H| ≥ I\*).** The hidden sector has enough distinguishable states to encode the conditional past-future information the observer actually sees — the per-process bound, not a crude "many more degrees of freedom" comparison. It follows from readback by data processing in any faithful realization, and framework realizations saturate it ([Main §1.3]).
 
 The definition sets the stage. The conditions determine what kind of show plays on it. The next section explains why the cosmological horizon satisfies all three.
 
@@ -90,7 +90,7 @@ But the hidden sector beyond the cosmological horizon is not like that. It diffe
 
 **It's vast.** The hidden sector has roughly $10^{122}$ independent degrees of freedom — the Bekenstein-Hawking entropy of the cosmological horizon. No experiment you could ever perform would appreciably disturb its state. Its memory never saturates. (Condition C3.)
 
-A fast environment with vast capacity would wash out correlations (Markovian noise). A slow environment with limited capacity would eventually fill up and stop recording. Only an environment that is simultaneously coupled, slow, and vast sustains the kind of persistent, non-decomposable correlations that the paper calls *P-indivisibility* — a technical term meaning the system's transition probabilities at different times cannot be broken into independent steps.
+A fast environment with vast capacity would wash out correlations (Markovian noise). A slow environment with limited capacity would eventually fill up and stop recording. What the observer needs is an environment that couples to it, retains the record long enough to be read, has the capacity to hold it, and feeds it back — and it is the feedback (C4) that does the work, the other three following from it or supporting it. Such an environment sustains the persistent, non-decomposable correlations the paper calls *P-indivisibility* — a technical term meaning the system's transition probabilities at different times cannot be broken into independent steps.
 
 ---
 
