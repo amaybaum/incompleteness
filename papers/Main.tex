@@ -516,7 +516,15 @@ ADM boundary Hamiltonian and the constraint structure supply a
 \emph{bidirectional} coupling stronger than \(H_{\text{int}} \neq 0\).
 Bidirectionality is a property of the physical realization, not part of
 C1's defining content: a one-way influenced process can be P-indivisible
---- see the Remark at the non-permutation-witness lemma, §3.4.)
+--- see the Remark at the non-permutation-witness lemma, §3.4.
+Dependency --- C1 is \emph{not independent of C4}: a readback gap
+requires hidden mediation, so any realization satisfying C4 satisfies
+C1, and zero-coupling realizations exhibit no gap at any order,
+certified by exhaustive enumeration at
+\((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\) in
+\texttt{primitive\_probes.py}. C1 is retained as a separately checkable
+condition --- Bell-class dynamics force it directly --- not as an
+independent postulate.)
 
 \textbf{(C2) Slow-bath memory persistence.} The hidden sector's
 \emph{coarse-grained mixing time} \(\tau_B\) --- the timescale on which
@@ -562,7 +570,14 @@ the margin is astronomical: \(A/\epsilon^2 \sim 10^{122}\) hidden modes
 against \(\sim 10^{80}\) baryons, a hierarchy \(N_H \gg N_V\) with the
 bath imperturbable on laboratory timescales; the hierarchy and the
 imperturbability belong to this realization clause, not to the
-condition.)
+condition. Dependency --- like C1, C3 follows from C4 within any
+faithful realization: the observed conditional information must pass
+through the hidden sector, so data processing gives
+\(\log_2|\mathcal{C}_H| \geq I^*\) automatically. Exhaustive enumeration
+confirms it and finds the bound SATURATED --- realizations attaining
+\(I^* = \log_2|\mathcal{C}_H|\) exist at \((2,2)\) and \((3,2)\)
+(\texttt{primitive\_probes.py}) --- so C3 is tight rather than slack,
+and is retained as a separately checkable condition.)
 
 \textbf{(C4) History readback.} History-sensitive hidden mediation: on
 accessible windows, hidden degrees of freedom carry information about
@@ -2569,7 +2584,7 @@ basis independence and the general-observable reading; the Born-rule
 \emph{form} itself is internal, being the marginal formula of the
 permutation unitary.
 
-\textbf{Characterization theorem.} \emph{Let \(\mathcal{S}\) be a
+\textbf{Characterization theorem.} *Let \(\mathcal{S}\) be a
 time-homogeneous stochastic process on a finite configuration space
 \(\mathcal{C}_V\) with \(|\mathcal{C}_V| \geq 2\) and consider dynamics
 on accessible timescales \(t \ll t_R\) where \(t_R\) is the Poincaré
@@ -2579,7 +2594,46 @@ property (Remark below) --- implies (i). Condition (C2) is deliberately
 absent from (iii): the existential realization satisfies it trivially
 with a static bath (\(\tau_B = \infty\)), so it is not needed for the
 equivalence, and its physical content is carried separately by the
-conditional physical-memory theorem of §2.3:}
+conditional physical-memory theorem of §2.3:
+
+\emph{Remark (the conditions are diagnostics, not hypotheses).} The
+reduction goes one step further than the previous paragraph, and it is
+worth stating plainly. (C4) is not an independent condition on the
+realization either: it asserts a readback gap \emph{mediated through the
+hidden state}, and in a faithful realization every correlation is so
+mediated, so the mediation clause is automatic and (C4) coincides with
+clause (ii) itself. Exhaustive enumeration confirms it --- the (C4) gap
+and \(I(X_{<k}; X_{k+1} \mid X_k) > 0\) agree on all 24, 720 and 720
+realizations at \((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\), with
+no disagreement (\texttt{primitive\_probes.py}). Taken together with the
+dependencies above and (C2)'s exclusion from the equivalence, the
+theorem's content is therefore
+\[\text{accessible non-Markovianity} \iff \text{a per-horizon finite reversible deterministic realization exists,}\]
+with no conditions quantified over at all: \textbf{it is a dilation
+theorem.} What C1--C4 supply is not hypotheses but a \emph{diagnostic
+checklist} describing what such a realization looks like --- which is
+precisely what the physical applications need, since one cannot inspect
+a cosmological horizon or a Boltzmann brain for ``a realization exists''
+but can check coupling, capacity, readback and persistence directly. The
+substance of the theorem lives in the construction (§3.4) --- the
+response-table realization, the hidden space growing with the horizon,
+the prior carried as realization datum --- and is untouched by this
+reading.
+
+\emph{Remark (which condition is primitive).} Of the three structural
+conditions, only (C4) is logically independent. (C1) follows from it ---
+a readback gap requires hidden mediation, and zero-coupling realizations
+exhibit no gap at any order --- and (C3) follows by data processing,
+with the bound \(\log_2|\mathcal{C}_H| \geq I^*\) saturated by
+realizations that attain it; both are certified by exhaustive
+enumeration in \texttt{primitive\_probes.py}. The equivalence could
+therefore be stated with (C4) alone. It is not, deliberately: (C1) and
+(C3) are independently \emph{checkable} --- Bell-class dynamics force
+(C1) directly, capacity arguments use (C3) directly --- and a
+characterization that lists checkable consequences alongside its
+primitive is more useful than a minimal one, in the way that axiom lists
+for groups are conventionally redundant. The dependency is recorded at
+each condition's definition (§1.3).*
 
 \emph{(i) \(\mathcal{S}\) is mathematically equivalent to unitarily
 evolving QM (in the sense of the preceding definition).}
