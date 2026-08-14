@@ -516,18 +516,50 @@ ADM boundary Hamiltonian and the constraint structure supply a
 \emph{bidirectional} coupling stronger than \(H_{\text{int}} \neq 0\).
 Bidirectionality is a property of the physical realization, not part of
 C1's defining content: a one-way influenced process can be P-indivisible
---- see the Remark at the non-permutation-witness lemma, §3.4.)
+--- see the Remark at the non-permutation-witness lemma, §3.4.
+Dependency --- C1 is \emph{not independent of C4}: a readback gap
+requires hidden mediation, so any realization satisfying C4 satisfies
+C1, and zero-coupling realizations exhibit no gap at any order,
+certified by exhaustive enumeration at
+\((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\) in
+\texttt{primitive\_probes.py}. C1 is retained as a separately checkable
+condition --- Bell-class dynamics force it directly --- not as an
+independent postulate.)
 
-\textbf{(C2) Slow-bath timescale separation.} The visible-sector
-(system) timescale \(\tau_S\) is much shorter than the hidden-sector
-(bath) timescale \(\tau_B\): \(\tau_S \ll \tau_B\) --- the
-\emph{inverse} of the Markovian regime. The hidden sector evolves on
-timescales far exceeding those accessible to the observer. (Status:
-necessity --- observed QM forces C2 by §3.4, conditional on the
-hidden-sector mixing hypothesis; ETH, its physical motivation --- a
-well-supported conjecture rather than a theorem --- is discussed at the
-remark in §3.4. Realization --- \(\tau_S/\tau_B \sim 10^{-32}\) at the
-horizon.)
+\textbf{(C2) Slow-bath memory persistence.} The hidden sector's
+\emph{coarse-grained mixing time} \(\tau_B\) --- the timescale on which
+the effective channel degrades a stored record of visible history --- is
+long compared to the accessible window: \(\tau_S \ll \tau_B\), the
+\emph{inverse} of the Markovian regime. What is required is that records
+persist, not that the hidden sector evolve slowly: slow evolution is one
+\emph{sufficient mechanism} for persistence (a record that stays put
+survives), but fast autonomous hidden dynamics with conserved structure
+serve equally --- a shift-register bath rotating five cells per visible
+step produces a maximal order-2 readback gap, because its circulation
+forgets nothing and routes the record back within the window
+(\texttt{fastbath\_probes.py}). The same probe certifies the
+complementary boundary: persistence alone does not supply (C4) --- with
+the return time pushed outside the accessible window the identical
+non-forgetting register yields an exactly i.i.d. visible process. (C4)'s
+operative demand on the hidden sector is thus persistence \emph{together
+with in-window routing}; (C2) names the persistence half. (Status:
+\textbf{a physical-regime premise, not a structural condition} --- and
+the distinction is load-bearing. C1, C3 and C4 are the structural
+conditions: the characterization's equivalence runs over those three
+(§3.4), and the existential realization satisfies C2 trivially with a
+static bath. What C2 supplies is physical: it is the mechanism by which
+a stored record survives to be read in realistic models, so that C4
+holds rather than failing by erasure (§2.3); and in the other direction
+it is \emph{derived} --- observed conditional memory forces a lower
+bound on bath persistence, conditional on the hidden-sector mixing
+hypothesis, which is the physical-memory theorem of §3.4 rather than an
+assumption. Note also that C2 does not imply C4: a slow bath can store
+without reading, certified by a C1--C3 realization with identically zero
+backflow on arbitrarily long horizons (\texttt{review3\_probes.py}),
+which is why C4 is a separate condition and not a consequence. ETH, C2's
+physical motivation --- a well-supported conjecture rather than a
+theorem --- is discussed at the remark in §3.4. Realization ---
+\(\tau_S/\tau_B \sim 10^{-32}\) at the horizon.)
 
 \textbf{(C3) Sufficient memory capacity.} The hidden sector has enough
 distinguishable states to encode the observed conditional past--future
@@ -538,7 +570,14 @@ the margin is astronomical: \(A/\epsilon^2 \sim 10^{122}\) hidden modes
 against \(\sim 10^{80}\) baryons, a hierarchy \(N_H \gg N_V\) with the
 bath imperturbable on laboratory timescales; the hierarchy and the
 imperturbability belong to this realization clause, not to the
-condition.)
+condition. Dependency --- like C1, C3 follows from C4 within any
+faithful realization: the observed conditional information must pass
+through the hidden sector, so data processing gives
+\(\log_2|\mathcal{C}_H| \geq I^*\) automatically. Exhaustive enumeration
+confirms it and finds the bound SATURATED --- realizations attaining
+\(I^* = \log_2|\mathcal{C}_H|\) exist at \((2,2)\) and \((3,2)\)
+(\texttt{primitive\_probes.py}) --- so C3 is tight rather than slack,
+and is retained as a separately checkable condition.)
 
 \textbf{(C4) History readback.} History-sensitive hidden mediation: on
 accessible windows, hidden degrees of freedom carry information about
@@ -784,6 +823,31 @@ the stored history survives essentially intact. Storage, however, is not
 backflow: what is stored must also be \emph{read}. The lemma below makes
 the reading quantitative, and the separation remark shows why it is a
 genuinely additional requirement.
+
+Run backwards, the same estimate bounds what the failure of (C2) costs.
+Since the equivalence of §3.4 does not quantify over (C2), its failure
+carries no consequence except through that bound.
+
+\textbf{Lemma (fast bath erases readback).} \emph{Suppose the
+coarse-grained channel mixes fast relative to the visible step,
+\(\tau_B \ll \tau_S\), so that stored visible information is eroded by
+\(e^{-\tau_S/\tau_B}\) per step. Then for any \(k \geq 2\) the
+order-\(k\) readback gap obeys
+\(\delta_k \leq \delta_0\, e^{-(k-1)\tau_S/\tau_B}\), and by the
+backflow lemma the accessible conditional mutual information is
+suppressed as
+\(I(X_{<k}; X_{k+1} \mid X_k) \leq p_0 \delta_0^2 e^{-2(k-1)\tau_S/\tau_B} / \ln 2\).
+Hence a fast bath drives the readback gap to zero exponentially: (C2)'s
+failure implies (C4)'s failure.}
+
+\emph{Remark (why this matters for the exclusion arguments).} Since (C2)
+sits outside the equivalence (§3.4), the failure of (C2) does not by
+itself exclude anything: a partition could fail (C2) and still satisfy
+(C1), (C3), (C4). The exclusion arguments below --- the equilibrium
+phase, and the anti-Boltzmann-brain corollary of §4.6 --- therefore run
+through this lemma: fast mixing erases the stored record before it can
+be read, (C4) fails, and it is (C4)'s failure that the characterization
+registers. (C2) is the mechanism; (C4) is the exclusion.
 
 \textbf{Lemma (accessible backflow from readback).} \emph{Under
 (C1)--(C3), suppose (C4) holds with a gap at order \(k\) in the
@@ -1647,9 +1711,16 @@ the framework's channels are in that class, which is what licenses the
 theorem. (Certified exactly over \(\mathbb{Q}(\sqrt{2})\) in
 \texttt{c1\_cp\_scope\_probes.py}.)
 
-By the Breuer-Laine-Piilo criterion {[}3, 4{]}, CP-indivisibility
-implies non-monotonic trace distance (information backflow) --- the
-quantum signature of non-Markovianity.
+By the Breuer-Laine-Piilo criterion {[}3, 4{]}, CP-indivisibility is
+witnessed by non-monotonic distinguishability, but the correct witness
+is the ANCILLA-ASSISTED one: monotonicity of system-plus-ancilla
+distinguishability characterizes CP-divisibility, while ordinary system
+trace distance is a strictly weaker witness and can stay monotone on a
+CP-indivisible family. The classical analogue is exact and is certified
+here: a family can be P-indivisible while total-variation distance is
+non-increasing for every pair of visible distributions
+(\texttt{translation\_probes.py}, §2.3). Backflow in the system alone is
+therefore sufficient evidence of indivisibility, never necessary.
 
 \textbf{Approximate unitarity.} On observable timescales
 \(t \ll \tau_B\), the hidden-sector state is approximately frozen
@@ -1678,10 +1749,13 @@ the bath-motion term is fixed by the timescale hierarchy at
 conditioned-Hamiltonian spread is not --- its magnitude for the
 cosmological partition awaits the substratum interaction structure.
 Where these hold, the phase-locking lemma (§3.1) determines
-\(\hat{H}_{\text{eff}}\) uniquely from continuous-time transition data,
-up to the residual diagonal-unitary rephasing freedom that is physically
-trivial (basis convention); the residual dissipation \(\mathcal{D}\), if
-measurable at sufficient precision, is a prediction of the framework
+\(\hat{H}_{\text{eff}}\) from continuous-time transition data up to the
+lemma's full gauge --- an overall energy shift, the residual
+diagonal-unitary rephasing freedom that is physically trivial (basis
+convention), and the antiunitary conjugation \(\hat{H} \to -\hat{H}^*\),
+which is not shift- or rephasing-related and is a genuine twofold
+ambiguity, not a convention; the residual dissipation \(\mathcal{D}\),
+if measurable at sufficient precision, is a prediction of the framework
 rather than an approximation artifact.
 
 \textbf{Comparison of routes.}
@@ -2231,13 +2305,21 @@ exponentially more information than any fixed representation can encode.
 The remaining question at Layer 4 is therefore not which fixed Hilbert
 space to choose --- no such choice works --- but how the representation
 must grow with the horizon, and whether that growth can be made
-compatible with the passive \(\hat{H}\). The quantitative-mixing
-theorem's contrapositive (§2.3) reads as a timescale statement in the
-homogeneous-Markov benchmark: memory of magnitude \(\delta\) at step
-order \(k\) requires the coupling to return before the bath's
-conditional mixing to \(\varepsilon < \delta/(k-1)\) completes --- the
-benchmark form. For condition (ii)'s currency the operative statement is
-the physical-memory theorem's
+compatible with the passive \(\hat{H}\). Three successor problems
+replace it, and the framework must eventually choose among them: (a)
+identify the \emph{quantum-compatible subclass} of action-labelled combs
+--- those a fixed representation can host --- and argue that physical
+interventions fall in it; (b) accept \(d = d(K)\), a representation
+dimension growing with the horizon, and characterize the growth; or (c)
+allow \((\hat{H}, \mathcal{H})\) to depend on the intervention context,
+at the cost of the single-Hamiltonian reading of the passive dynamics.
+Each is a definite mathematical programme; none is supplied here. The
+quantitative-mixing theorem's contrapositive (§2.3) reads as a timescale
+statement in the homogeneous-Markov benchmark: memory of magnitude
+\(\delta\) at step order \(k\) requires the coupling to return before
+the bath's conditional mixing to \(\varepsilon < \delta/(k-1)\)
+completes --- the benchmark form. For condition (ii)'s currency the
+operative statement is the physical-memory theorem's
 \(\varepsilon \geq \varepsilon_{\min}(I^*, n_V)\) (§2.3); the benchmark
 inequality is not the general process-memory bound.
 
@@ -2428,15 +2510,31 @@ theorem's own language {[}11, 12{]} --- the \(\leq n^3\) dilation bound
 is the source's result for the indivisible subclass, under its
 hypotheses. The identification of the framework's P-indivisibility
 criterion with the source's indivisible-process class is an explicit
-\emph{translation hypothesis} (T); a proved translation theorem is open
-(§3.2 checklist). \textbf{(Q2) autonomous OI representation:} a fixed
-Hermitian \(\hat{H}\) with the ancilla-marginal form above, exact at
-integer horizon times, delivered in-house by the fixed-\(\hat{H}\) lemma
-on an uncompressed space of dimension \(n \cdot |\mathcal{C}_H|\).
-Condition (i) of the characterization means (Q1); the in-house chain
-proves (Q2); time-homogeneity and continuous-\(t\) interpolation belong
-to (Q2)'s autonomous form and are not imported claims (§3.1). (This is
-the form the correspondence delivers --- the visible matrix is the
+\emph{translation hypothesis} (T). Its content can be stated precisely,
+and the precision matters because the two sides differ in arity. The
+source defines its class through FIRST-ORDER conditionals: it works with
+the equivalence class of non-Markovian processes that may differ in
+their higher-order conditional probabilities but share the same
+\(p(i,t \mid j,t_0)\), and calls a process indivisible when its
+transition matrices fail to factorize through intermediate times {[}11,
+12{]}. The framework's P-indivisibility criterion (§3.4) is stated at
+the same two-time level, and at that level the two notions coincide.
+What the framework additionally delivers --- accessible non-Markovianity
+at order \(k\), condition (C4) --- is MULTI-TIME content that the
+source's equivalence class explicitly quotients away. \textbf{(T) is
+therefore the claim about the two-time marginal family
+\(\Gamma(t \leftarrow t_0)\) alone, and the multi-time content is not
+carried across by it.} A proved translation theorem at that arity is
+open (§3.2 checklist), and no reading of it licenses transporting (C4)'s
+multi-time content into the source's framework. \textbf{(Q2) autonomous
+OI representation:} a fixed Hermitian \(\hat{H}\) with the
+ancilla-marginal form above, exact at integer horizon times, delivered
+in-house by the fixed-\(\hat{H}\) lemma on an uncompressed space of
+dimension \(n \cdot |\mathcal{C}_H|\). Condition (i) of the
+characterization means (Q1); the in-house chain proves (Q2);
+time-homogeneity and continuous-\(t\) interpolation belong to (Q2)'s
+autonomous form and are not imported claims (§3.1). (This is the form
+the correspondence delivers --- the visible matrix is the
 ancilla-marginal of the dilated unistochastic matrix, per the scope
 statement in §3.1. The strict form \(T_{ij}(t) = |U_{ij}(t)|^2\) on
 visible indices is the trivial-ancilla special case \(m_a = 1\) and only
@@ -2486,13 +2584,56 @@ basis independence and the general-observable reading; the Born-rule
 \emph{form} itself is internal, being the marginal formula of the
 permutation unitary.
 
-\textbf{Characterization theorem.} \emph{Let \(\mathcal{S}\) be a
+\textbf{Characterization theorem.} *Let \(\mathcal{S}\) be a
 time-homogeneous stochastic process on a finite configuration space
 \(\mathcal{C}_V\) with \(|\mathcal{C}_V| \geq 2\) and consider dynamics
 on accessible timescales \(t \ll t_R\) where \(t_R\) is the Poincaré
 recurrence time of any realizing substrate. Then (ii) \(\iff\) (iii);
 and P-indivisibility of \(\mathcal{S}\) --- the strictly stronger
-property (Remark below) --- implies (i):}
+property (Remark below) --- implies (i). Condition (C2) is deliberately
+absent from (iii): the existential realization satisfies it trivially
+with a static bath (\(\tau_B = \infty\)), so it is not needed for the
+equivalence, and its physical content is carried separately by the
+conditional physical-memory theorem of §2.3:
+
+\emph{Remark (the conditions are diagnostics, not hypotheses).} The
+reduction extends one step further. (C4) is not an independent condition
+on the realization either: it asserts a readback gap \emph{mediated
+through the hidden state}, and in a faithful realization every
+correlation is so mediated, so the mediation clause is automatic and
+(C4) coincides with clause (ii) itself. Exhaustive enumeration confirms
+it --- the (C4) gap and \(I(X_{<k}; X_{k+1} \mid X_k) > 0\) agree on all
+24, 720 and 720 realizations at
+\((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\), with no disagreement
+(\texttt{primitive\_probes.py}). Taken together with the dependencies
+above and (C2)'s exclusion from the equivalence, the theorem's content
+is therefore
+\[\text{accessible non-Markovianity} \iff \text{a per-horizon finite reversible deterministic realization exists,}\]
+with no conditions quantified over at all: \textbf{it is a dilation
+theorem.} What C1--C4 supply is not hypotheses but a \emph{diagnostic
+checklist} describing what such a realization looks like --- which is
+precisely what the physical applications need, since one cannot inspect
+a cosmological horizon or a Boltzmann brain for ``a realization exists''
+but can check coupling, capacity, readback and persistence directly. The
+substance of the theorem lives in the construction (§3.4) --- the
+response-table realization, the hidden space growing with the horizon,
+the prior carried as realization datum --- and is untouched by this
+reading.
+
+\emph{Remark (which condition is primitive).} Of the three structural
+conditions, only (C4) is logically independent. (C1) follows from it ---
+a readback gap requires hidden mediation, and zero-coupling realizations
+exhibit no gap at any order --- and (C3) follows by data processing,
+with the bound \(\log_2|\mathcal{C}_H| \geq I^*\) saturated by
+realizations that attain it; both are certified by exhaustive
+enumeration in \texttt{primitive\_probes.py}. The equivalence could
+therefore be stated with (C4) alone. It is not, deliberately: (C1) and
+(C3) are independently \emph{checkable} --- Bell-class dynamics force
+(C1) directly, capacity arguments use (C3) directly --- and a
+characterization that lists checkable consequences alongside its
+primitive is more useful than a minimal one, in the way that axiom lists
+for groups are conventionally redundant. The dependency is recorded at
+each condition's definition (§1.3).*
 
 \emph{(i) \(\mathcal{S}\) is mathematically equivalent to unitarily
 evolving QM (in the sense of the preceding definition).}
@@ -2506,10 +2647,9 @@ present.}
 \emph{(iii) For every finite accessible horizon, \(\mathcal{S}\) arises
 from marginalizing a deterministic bijection on
 \(\mathcal{C}_V \times \mathcal{C}_H\) --- the hidden space may grow
-with the horizon --- with (C1) non-trivial coupling, (C2) slow-bath
-memory (\(\tau_S \ll \tau_B\)), (C3) sufficient capacity, and (C4)
-history readback --- with a fixed hidden prior \(\mu_H\) carried as part
-of the realization datum (§1.4 Remark).}
+with the horizon --- with (C1) non-trivial coupling, (C3) sufficient
+capacity, and (C4) history readback --- with a fixed hidden prior
+\(\mu_H\) carried as part of the realization datum (§1.4 Remark).}
 
 \emph{Remark (two notions of memory).} Non-Markovianity of the process
 --- condition (ii) --- and P-indivisibility of the transition-matrix
@@ -3306,7 +3446,10 @@ construction a local fluctuation within a neighborhood
 that is what ``fluctuation from equilibrium'' means. The exclusion is
 the conditional chain: (EM) together with
 \(\tau_{\text{mix}}(\Sigma_{\text{BB}}) \ll \tau_S\) implies the
-candidate partition fails (C2). For a numeric illustration under a
+candidate partition fails (C2), and hence --- by the fast-bath erasure
+lemma of §2.3, which suppresses the order-\(k\) readback gap as
+\(e^{-(k-1)\tau_S/\tau_B}\) --- fails (C4), which is the condition the
+characterization actually requires. For a numeric illustration under a
 further generic-thermal estimate --- (GT): the region's
 effective-channel correlation time is set by the thermal scale,
 \(\sim \hbar/(k_B T_{\text{local}}) \cdot O(1)\), an estimate that fails
