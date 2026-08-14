@@ -35,6 +35,15 @@ INVARIANTS = [
     (r"P-indivisibility is mathematically equivalent to quantum mechanics",
      "P-indivisibility governs nontriviality of the representation, not its existence",
      []),
+    (r"two independent routes|either alone sufficient|Either route alone suffices",
+     "both routes reach only the transition-statistics layer; neither supplies the operational instrument algebra",
+     # narrow, referent-specific exceptions: SM's hypercharge identity is obtained
+     # by two independent routes (a different claim), and Appendix C quotes the
+     # phrase in order to reject it.
+     [r"hypercharge assignment", r'so \"either alone suf']),
+    (r"requires a \*frozen\* hidden sector|hidden sector to evolve much more slowly",
+     "C2 is memory persistence, not slow evolution (fastbath_probes.py)",
+     []),
 ]
 
 violations = []
