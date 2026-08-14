@@ -79,7 +79,7 @@ This is not a generic dodge. Each engagement is specific: PBR's preparation inde
 
 ## C.4 The stochastic-quantum bridge: Barandes and Stinespring
 
-The framework's characterization theorem derives accessible non-Markovianity from C1–C4 — with quantum mechanics attaching to the P-indivisible subclass via a *stochastic-quantum bridge* — a mathematical correspondence between non-Markovian stochastic processes and unitary quantum dynamics. The bridge has multiple constructions in the recent literature. The framework's content uses Barandes' 2023 indivisible-stochastic-process bridge as one route, with Stinespring dilation as an independent second route.
+The framework's characterization theorem derives accessible non-Markovianity from C1–C4 — with quantum mechanics attaching to processes in the correspondence's class via a *stochastic-quantum bridge* — a mathematical correspondence between non-Markovian stochastic processes and unitary quantum dynamics. The bridge has multiple constructions in the recent literature. The framework's content uses Barandes' 2023 indivisible-stochastic-process bridge as one route, with Stinespring dilation as an independent second route.
 
 **The objection.** "The framework relies on Barandes' stochastic-quantum correspondence, which is recent (2023) and not yet widely accepted. This undermines the main result. A theory built on a not-yet-established result is itself not established."
 
@@ -109,7 +109,7 @@ A second frequent foundational objection concerns the *necessity* direction of t
 
 *Necessity of C3 (capacity).* The hidden sector must have sufficient capacity. Proof: if the mode count is too small, the mutual information between visible and hidden sectors saturates, limiting the information backflow that produces P-indivisibility. Contrapositive: violating C3 produces saturated dynamics, structurally distinct from QM.
 
-Each theorem is a contrapositive: violating the condition destroys QM. Together they establish that C1, C3, and C4 are *individually necessary* for any realization — and C2 within the conditional-mixing class — and (with the per-horizon dilation of Chapter 1) *jointly sufficient*. The equivalence "accessible non-Markovianity $\Leftrightarrow$ embedded observation under C1–C4" is a per-horizon biconditional; the quantum representation attaches to its P-indivisible subclass.
+Each theorem is a contrapositive: violating the condition destroys QM. Together they establish that C1, C3, and C4 are *individually necessary* for any realization — and C2 within the conditional-mixing class — and (with the per-horizon dilation of Chapter 1) *jointly sufficient*. The equivalence "accessible non-Markovianity $\Leftrightarrow$ embedded observation under C1–C4" is a per-horizon biconditional; the quantum representation attaches to its correspondence's class.
 
 **What the necessity direction does not claim.** The necessity direction claims that the observed dynamics require C1–C4 *at the structural level* — any system producing the empirical signature (Bell-inequality violations are P-indivisible, hence non-Markovian a fortiori) must satisfy them. It does *not* claim that every empirical system we call "quantum" satisfies C1–C4 *uniquely* — alternative substrata satisfying C1–C4 with different specific bijections would produce QM with potentially different specific empirical content at the bijection-specific (Tier 3) level.
 

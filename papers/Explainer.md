@@ -296,7 +296,7 @@ The secondary route, given in Appendix A, uses Stinespring's dilation theorem (1
 
 **Where the quantum features come from:**
 
-- **The Schrödinger equation** arises because U(t) is differentiable. Any continuous one-parameter *group* of unitaries — U(s+t) = U(s)U(t) — can be written as U(t) = exp(-iHt/ℏ) for one fixed Hermitian H (Stone's theorem); the framework's realized processes supply exactly such a group at horizon times (the fixed-Ĥ lemma), while a general smooth family without the group property would need a time-dependent generator. Feynman famously remarked of this equation in Volume III, Lecture 16: "Where did we get that equation from? Nowhere. It is not possible to derive it from anything you know. It came out of the mind of Schrödinger." The derivation above is the answer that wasn't available in 1963. The equation is no longer "from nowhere" — it is the differential form of unitary evolution, and unitary evolution is forced, for the P-indivisible subclass, on embedded observers by C1–C4.
+- **The Schrödinger equation** arises because U(t) is differentiable. Any continuous one-parameter *group* of unitaries — U(s+t) = U(s)U(t) — can be written as U(t) = exp(-iHt/ℏ) for one fixed Hermitian H (Stone's theorem); the framework's realized processes supply exactly such a group at horizon times (the fixed-Ĥ lemma), while a general smooth family without the group property would need a time-dependent generator. Feynman famously remarked of this equation in Volume III, Lecture 16: "Where did we get that equation from? Nowhere. It is not possible to derive it from anything you know. It came out of the mind of Schrödinger." The derivation above is the answer that wasn't available in 1963. The equation is no longer "from nowhere" — it is the differential form of unitary evolution, and unitary evolution is available, under (T), for embedded observers' processes — nontrivially so where the dynamics is P-indivisible by C1–C4.
 
 - **The Born rule** T_ij = |U_ij|² is not an additional postulate — it's the definition of how the stochastic process maps onto the unitary one.
 
@@ -369,7 +369,7 @@ It's not enough to show that embedded observation *produces* QM (sufficiency). T
 - Barandes proved: an exact correspondence between quantum systems and the source's indivisible class, defined at the level of first-order conditionals (the framework's link to it is the translation hypothesis (T), [Main §3.1])
 - Section 2.3 proved: a non-permutation coupling ⟹ P-indivisibility at the recurrence scale, and C4's readback ⟹ accessible non-Markovianity, quantitatively (sufficiency)
 - Section 3.3 proves: P-indivisibility ⟹ C1–C4 (necessity)
-- Combined: **accessible non-Markovianity ⟺ embedded observation under C1, C3, C4 (per finite horizon) — C2 is not needed for the equivalence and carries its physical content separately, through the conditional physical-memory theorem — with the quantum representation attaching to the P-indivisible subclass**
+- Combined: **accessible non-Markovianity ⟺ embedded observation under C1, C3, C4 (per finite horizon) — C2 is not needed for the equivalence and carries its physical content separately, through the conditional physical-memory theorem — with the quantum representation supplied across the correspondence's class under (T), nontrivially where the dynamics is P-indivisible**
 
 **Necessity of C1 (coupling).** With no hidden influence at any accessible step, every visible transition is a fixed function of the visible present — the process is Markov, hence not the observed one. A non-permutation one-step matrix is the cheapest *witness* of C1, sufficient but not necessary: influence can hide at step one and surface later (the delayed-revival family).
 
@@ -389,7 +389,7 @@ $$I(X_{<t} ; X_{>t} \mid X_t) \leq I(X_{<t} ; H_t \mid X_t) \leq H(H_t \mid X_t)
 
 Each step uses a standard information-theoretic inequality. The result: if you want K bits of history dependence, you need m ≥ 2^K hidden states.
 
-**The complete characterization.** For |C_V| ≥ 2: the process is non-Markovian on accessible timescales ⟺ it arises, on each finite horizon, from marginalizing a deterministic bijection under C1, C3, C4 (C2 sits outside the equivalence: the existential realization satisfies it trivially with a static bath). Both directions are the foundational paper's own theorems; P-indivisible processes in that class — the empirically realized ones — additionally admit the unitary quantum representation, and the fixed-Ĥ form is constructive for every realized process. The old three-way biconditional is retired: representability alone does not force memory (diagonal Hamiltonians), and conditional memory alone does not force P-indivisibility (the XOR family).
+**The complete characterization.** For |C_V| ≥ 2: the process is non-Markovian on accessible timescales ⟺ it arises, on each finite horizon, from marginalizing a deterministic bijection under C1, C3, C4 (C2 sits outside the equivalence: the existential realization satisfies it trivially with a static bath). Both directions are the foundational paper's own theorems; processes in that class admit the unitary quantum representation, and the fixed-Ĥ form is constructive for every realized process. The old three-way biconditional is retired: representability alone does not force memory (diagonal Hamiltonians), and conditional memory alone does not force P-indivisibility (the XOR family).
 
 **What "unitarily evolving QM" means precisely.** The characterization theorem delivers a Hilbert space, a Hermitian Hamiltonian, a unitary time evolution, and Born-rule transition probabilities. Additional structures of operational quantum mechanics — the tensor product decomposition for spatially separated subsystems, state update via the Lüders rule, and multi-time predictions — are all derived from the construction rather than added as independent postulates. The tensor product for the visible–hidden split comes from the Stinespring route (Appendix A). The tensor product for subsystems within the visible sector (two laboratories, for instance) follows from the spatial Markov property of range-1 dynamics on the coupling graph. Projective measurement corresponds to Bayesian conditioning on the classical substratum. The equivalence between "classical non-Markovian" and "quantum" is not metaphorical — the theorem proves these are the same mathematical category.
 
@@ -725,7 +725,7 @@ The correlation between entanglement and geometry is real either way. The questi
 
 There is a way to state what the framework means that is sharper than anything in the formal paper.
 
-An observer inside the universe receives incomplete data — the visible sector only. The characterization theorem proves that the accessible statistics are necessarily memory-bearing, and that the P-indivisible subclass admits — under the translation hypothesis (T) — exactly the quantum algorithm for prediction.
+An observer inside the universe receives incomplete data — the visible sector only. The characterization theorem proves that the accessible statistics are necessarily memory-bearing, and that processes in the correspondence's class admits — under the translation hypothesis (T) — exactly the quantum algorithm for prediction.
 
 Everything in QM is a feature of the algorithm, not a feature of the underlying reality. The wave function is the algorithm's internal state variable — the bookkeeping device it uses to track what it knows and what it doesn't. Complex amplitudes are the algorithm's arithmetic — the specific number system the reconstruction requires. Interference is what happens when the algorithm combines two incomplete pathways and their bookkeeping entries partially cancel. Entanglement is the algorithm's encoding of correlations that were written into the hidden sector during preparation and haven't been read back yet. The Born rule is the algorithm's output format — the way it converts its internal state into predictions the observer can check.
 
@@ -966,7 +966,7 @@ The precise OI analog of the halting problem is: *can the observer determine the
 
 The framework also identifies a distinct class of inaccessible quantities: the alphabet size q and the deep-sector cardinality |C_D|. These are not undecidable — they are *gauge*. Different values produce identical observables, so there is no fact of the matter to be inaccessible. The hidden state h is undecidable: it has a real answer the observer cannot reach. The cardinality |C_D| is gauge: there is nothing there to reach.
 
-The common thread: a system with finite resources tries to completely model something it's part of, and the structural impossibility of doing so determines the *form* of what it produces instead. The limitation and the law are the same object viewed from two sides. The Turing connection is direct: the observer is the head of a reversible computation; the halting problem (the head cannot determine the tape's global state) and the QM emergence theorem (the head's read-write statistics are necessarily non-Markovian, and quantum-mechanical for the P-indivisible subclass under (T)) are two consequences of the same structural constraint — finite self-referential access to a lossless computation.
+The common thread: a system with finite resources tries to completely model something it's part of, and the structural impossibility of doing so determines the *form* of what it produces instead. The limitation and the law are the same object viewed from two sides. The Turing connection is direct: the observer is the head of a reversible computation; the halting problem (the head cannot determine the tape's global state) and the QM emergence theorem (the head's read-write statistics are necessarily non-Markovian, and quantum-mechanical for processes in the correspondence's class under (T)) are two consequences of the same structural constraint — finite self-referential access to a lossless computation.
 
 Gödel and Turing are usually read as negative results — limits on knowledge. The framework recasts the physical instance as *generative*. Quantum mechanics is not what we're stuck with because we can't see the full state. It's the unique, mathematically rigid consequence of a reversible computation observed from within.
 
@@ -1034,13 +1034,13 @@ And the incompleteness family extends one step further: Gödel showed that proof
 
 | Step | What it establishes | Key equation |
 |---|---|---|
-| §3.1: Stochastic-quantum correspondence | P-indivisible subclass → quantum representation | T_ij = ancilla-marginal Born rule (T = \|U\|² in the trivial-ancilla case) |
+| §3.1: Stochastic-quantum correspondence | correspondence's class → quantum representation | T_ij = ancilla-marginal Born rule (T = \|U\|² in the trivial-ancilla case) |
 | §3.1: Phase-locking | Hamiltonian fixed up to shift, rephasing, and the antiunitary conjugate | Fourier analysis of T_ij(t) |
 | §3.2: Bell analysis | Framework evades Bell's theorem | Outcome independence violated, parameter independence preserved |
 | §3.3: Necessity of C1 | QM requires coupling | No coupling → permutation → P-divisible |
 | §3.3: Necessity of C2 | QM requires slow bath | Fast bath → Markov → P-divisible |
 | §3.3: Necessity of C3 | QM requires capacity | I ≤ log₂ m bounds memory |
-| §3.4: Characterization theorem | non-Markovianity ⟺ C1, C3, C4 per horizon (C2 separate, conditional); QM for the P-indivisible subclass | Biconditional + imported representation |
+| §3.4: Characterization theorem | non-Markovianity ⟺ C1, C3, C4 per horizon (C2 separate, conditional); QM for processes in the correspondence's class | Biconditional + imported representation |
 | §4: Cosmological horizon | The universe satisfies the definition | C1 ✓, C2 ✓, C3 ✓ |
 | §5.1: Classical temperature | T_cl = c²ε²κ/(8πGk_B) | No ℏ |
 | §5.2 Step 1: Uniqueness | ℏ is determined, not free | Partition-relativity |

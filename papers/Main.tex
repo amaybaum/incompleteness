@@ -203,38 +203,40 @@ load-bearing dependency rather than re-derive: it furnishes a
 (basis-dependent, non-unique) representation of any process in the
 source theorem's own indivisible class, on a finite configuration space,
 as a unitary system whose transition probabilities are exactly Born-rule
-probabilities. That the framework's P-indivisibility criterion picks out
-processes in that class is the explicit translation hypothesis (T)
-(§3.4); every quantum-representation claim below is gated on it, while
-the non-Markovianity results are not. The correspondence delivers the
-kinematic scaffolding and transition statistics of quantum mechanics ---
-complex Hilbert space, unitary evolution, the Born rule --- while
-non-commuting observables and spin are introduced as additional
-structure rather than derived from the bare stochastic data, with the
-composite-system tensor-product structure following instead, for
-spatially separated subsystems, from the substratum's coupling-graph
-locality (§3.1, scope remark; §3.4). The converse direction (any quantum
-system whose visible process lies in the translated class --- hypothesis
-(T) --- realized as a deterministic dilation, requires non-trivial
-coupling, slow-bath memory, and sufficient hidden-sector capacity) holds
-with the C2 necessity step conditional on a quantitative hidden-sector
-mixing hypothesis --- uniform total-variation closeness of
-post-relaxation conditionals to a single bath distribution, with an
-explicit divisibility bound and ETH as the physical motivation (§3.4).
-The Schrödinger equation and Born rule emerge as structural consequences
-within this representation --- and Bell-class correlations where the
-dynamics is P-indivisible --- requiring no independent quantum
-postulates beyond the correspondence itself. The representation itself
-is not the distinctive claim: the imported theorem supplies one for
-every finite-configuration process in its class, Markov chains included.
-What is distinctive is the in-house equivalence between accessible
-non-Markovianity and finite-horizon reversible realizability, and what
-P-indivisibility supplies is not the representation's existence but its
-nontriviality. The framework's posture is therefore one of
-\emph{identification} --- quantum mechanics as the description of a
-particular kind of incomplete observation --- rather than derivation of
-quantum mechanics from a parameter-free first principle; the distinction
-is the proper locus of skeptical scrutiny.
+probabilities. That the framework's per-horizon transition data
+instantiates the source's tuple --- its configuration space, times,
+transition maps, prior and observable algebra --- is the explicit
+translation hypothesis (T) (§3.1), checked directly for representative
+processes (\texttt{tuple\_probes.py}). Every quantum-representation
+claim below is gated on it, while the non-Markovianity results are not.
+The correspondence delivers the kinematic scaffolding and transition
+statistics of quantum mechanics --- complex Hilbert space, unitary
+evolution, the Born rule --- while non-commuting observables and spin
+are introduced as additional structure rather than derived from the bare
+stochastic data, with the composite-system tensor-product structure
+following instead, for spatially separated subsystems, from the
+substratum's coupling-graph locality (§3.1, scope remark; §3.4). The
+converse direction (any quantum system whose visible process lies in the
+translated class --- hypothesis (T) --- realized as a deterministic
+dilation, requires non-trivial coupling, slow-bath memory, and
+sufficient hidden-sector capacity) holds with the C2 necessity step
+conditional on a quantitative hidden-sector mixing hypothesis ---
+uniform total-variation closeness of post-relaxation conditionals to a
+single bath distribution, with an explicit divisibility bound and ETH as
+the physical motivation (§3.4). The Schrödinger equation and Born rule
+emerge as structural consequences within this representation --- and
+Bell-class correlations where the dynamics is P-indivisible ---
+requiring no independent quantum postulates beyond the correspondence
+itself. The representation itself is not the distinctive claim: the
+imported theorem supplies one for every finite-configuration process in
+its class, Markov chains included. What is distinctive is the in-house
+equivalence between accessible non-Markovianity and finite-horizon
+reversible realizability, and what P-indivisibility supplies is not the
+representation's existence but its nontriviality. The framework's
+posture is therefore one of \emph{identification} --- quantum mechanics
+as the description of a particular kind of incomplete observation ---
+rather than derivation of quantum mechanics from a parameter-free first
+principle; the distinction is the proper locus of skeptical scrutiny.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1028,25 +1030,28 @@ the algebraic numbers, in \texttt{tdilate\_probes.py}.)
 So the obstruction above is priced rather than fatal: total dimension
 \(n^2\) suffices at a single step, within the source's \(\leq n^3\)
 bound for the full process family. Representability is not what (T) is
-about. \textbf{What (T) asserts, and what remains open, is the
-multi-time clause:} that the framework's P-indivisibility criterion ---
-no stochastic divisor between times (§3.4) --- picks out processes
-satisfying the source theorem's own hypotheses on the whole time family.
-That comparison is against the source's statement, not against anything
-the construction supplies, and it is the hypothesis's only remaining
-content. The proof requires a finite-dimensional configuration space
-(Lemma 1); Calvo {[}13{]} extends the correspondence to infinite
-dimensions, but this is not required here. Pimenta {[}14{]}
-distinguishes P-divisible and P-indivisible stochastic-quantum dynamics:
-the correspondence is non-trivial only in the P-indivisible regime,
-which is precisely the regime produced by §2.3. An independent
-derivation using only Stinespring's dilation theorem {[}15{]} and
-standard partial-trace properties {[}16{]} is given in §3.2; either
-route alone suffices for the representation of the transition data; the
-operational completion --- physical preparation of coherent states,
-noncommuting interventions, the full instrument algebra --- is a
-separate bridge, partially established by the one-step coherence theorem
-of §3.2 for the lattice realization and otherwise open.
+about. \textbf{What (T) asserts is tuple instantiation}, and the
+source's membership conditions are the tuple's own --- a finite
+configuration space, transition maps normalized and trivializing at the
+conditioning time, a prior, and the observable algebra --- not a
+divisibility property. Divisibility failure is generic in the class
+rather than a condition of entry, so P-indivisibility is not what admits
+the framework's processes to it. What remains genuinely open is
+downstream: whether the ancilla-dilated representation can be made
+compatible with the passive \(\hat{H}\) across horizons (§3.4). The
+proof requires a finite-dimensional configuration space (Lemma 1); Calvo
+{[}13{]} extends the correspondence to infinite dimensions, but this is
+not required here. Pimenta {[}14{]} distinguishes P-divisible and
+P-indivisible stochastic-quantum dynamics: the correspondence is
+non-trivial only in the P-indivisible regime, which is precisely the
+regime produced by §2.3. An independent derivation using only
+Stinespring's dilation theorem {[}15{]} and standard partial-trace
+properties {[}16{]} is given in §3.2; either route alone suffices for
+the representation of the transition data; the operational completion
+--- physical preparation of coherent states, noncommuting interventions,
+the full instrument algebra --- is a separate bridge, partially
+established by the one-step coherence theorem of §3.2 for the lattice
+realization and otherwise open.
 
 \textbf{Scope of the correspondence (what it does and does not
 deliver).} Because the quantum-representation clause rests on this
@@ -1885,10 +1890,10 @@ states (the construction supplies one one-parameter group, not a
 transitive continuous action --- and in Hardy's axiomatization precisely
 this clause excludes classical theory); tomographic locality (a tensor
 factorization is not yet a theorem that local statistics determine
-global states); the full effect and instrument structure; the
-translation theorem for (T) --- that the framework's P-indivisibility
-class satisfies the source theorem's exact hypotheses --- not yet
-proved; and the intervention dilation: its CLASSICAL rung ---
+global states); the full effect and instrument structure; the general
+form of (T) --- instantiation checked for representative finite
+processes, not established for the framework's realizations at arbitrary
+horizon; and the intervention dilation: its CLASSICAL rung ---
 permutation instruments reproducing the comb statistics
 \(P(X_{k+1} \mid X_{\leq k}, A_{\leq k})\) --- is constructed (Theorem,
 §3.4); the quantum instrument ALGEBRA remains open --- not the
@@ -2031,10 +2036,11 @@ entanglement, this gives the precise Jarrett decomposition.
 Conditions}\label{the-characterization-theorem-necessity-of-the-conditions}}
 
 The logical structure: Barandes' correspondence supplies the
-representation of P-indivisible processes --- the (ii) \(\implies\) (i)
-direction; representability alone does not force indivisibility (§3.4,
-Remark). What remains is P-indivisibility \(\implies\) embedded
-observation under (C1)--(C4).
+representation for every finite-configuration process in its class,
+P-indivisible or not --- the (ii) \(\implies\) (i) direction;
+representability alone does not force indivisibility (§3.4, Remark).
+What remains is P-indivisibility \(\implies\) embedded observation under
+(C1)--(C4).
 
 \textbf{Dilation existence.} Any single one-step doubly stochastic
 matrix on a finite configuration space can be realized as
@@ -2631,12 +2637,15 @@ time-homogeneous stochastic process on a finite configuration space
 \(\mathcal{C}_V\) with \(|\mathcal{C}_V| \geq 2\) and consider dynamics
 on accessible timescales \(t \ll t_R\) where \(t_R\) is the Poincaré
 recurrence time of any realizing substrate. Then (ii) \(\iff\) (iii);
-and P-indivisibility of \(\mathcal{S}\) --- the strictly stronger
-property (Remark below) --- implies (i). Condition (C2) is deliberately
-absent from (iii): the existential realization satisfies it trivially
-with a static bath (\(\tau_B = \infty\)), so it is not needed for the
-equivalence, and its physical content is carried separately by the
-conditional physical-memory theorem of §2.3:
+and, under (T), (i) holds for \(\mathcal{S}\) --- as it does for every
+finite-configuration member of the correspondence's class,
+P-indivisibility determining not whether the representation exists but
+whether its dynamics is nontrivially indivisible (Remark below).
+Condition (C2) is deliberately absent from (iii): the existential
+realization satisfies it trivially with a static bath
+(\(\tau_B = \infty\)), so it is not needed for the equivalence, and its
+physical content is carried separately by the conditional
+physical-memory theorem of §2.3:
 
 \emph{Remark (the conditions are diagnostics, not hypotheses).} The
 reduction extends one step further. (C4) is not an independent condition
@@ -2877,13 +2886,13 @@ from the \emph{actual} dilation structure of the system (§3.2).
 \emph{(v) The single load-bearing external dependency.} The necessity
 direction imports one external result rather than proving it internally:
 the Barandes stochastic-quantum correspondence {[}11, 12{]}, which
-establishes that a P-indivisible stochastic process on a finite
-configuration space and a unitarily-evolving quantum system on a finite
-Hilbert space are the same mathematical object (the ``indivisible'' and
-``unitary'' descriptions are inter-translatable). Everything in the
-necessity direction downstream of this --- the dilation construction,
-the C1/C3/C4 necessity theorems, the ETH-conditional C2 necessity --- is
-the framework's own, but the bridge identifying P-indivisibility with
+establishes that every finite-configuration process in its class --- a
+broad class in which Markov chains are special cases --- can be regarded
+as a subsystem of a unistochastic process, so that the stochastic and
+unitary descriptions are inter-translatable. Everything in the necessity
+direction downstream of this --- the dilation construction, the C1/C3/C4
+necessity theorems, the ETH-conditional C2 necessity --- is the
+framework's own, but the bridge identifying P-indivisibility with
 quantum structure is Barandes'. This means the necessity direction has a
 clean falsification target distinct from the rest of the framework: if
 the Barandes correspondence were shown to be incomplete or to require
