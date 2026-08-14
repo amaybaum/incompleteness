@@ -824,9 +824,9 @@ backflow: what is stored must also be \emph{read}. The lemma below makes
 the reading quantitative, and the separation remark shows why it is a
 genuinely additional requirement.
 
-The same estimate run backwards is what makes (C2)'s failure
-consequential, and it is worth stating separately because (C2) is no
-longer part of the characterization's equivalence.
+Run backwards, the same estimate bounds what the failure of (C2) costs.
+Since the equivalence of §3.4 does not quantify over (C2), its failure
+carries no consequence except through that bound.
 
 \textbf{Lemma (fast bath erases readback).} \emph{Suppose the
 coarse-grained channel mixes fast relative to the visible step,
@@ -2597,17 +2597,17 @@ equivalence, and its physical content is carried separately by the
 conditional physical-memory theorem of §2.3:
 
 \emph{Remark (the conditions are diagnostics, not hypotheses).} The
-reduction goes one step further than the previous paragraph, and it is
-worth stating plainly. (C4) is not an independent condition on the
-realization either: it asserts a readback gap \emph{mediated through the
-hidden state}, and in a faithful realization every correlation is so
-mediated, so the mediation clause is automatic and (C4) coincides with
-clause (ii) itself. Exhaustive enumeration confirms it --- the (C4) gap
-and \(I(X_{<k}; X_{k+1} \mid X_k) > 0\) agree on all 24, 720 and 720
-realizations at \((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\), with
-no disagreement (\texttt{primitive\_probes.py}). Taken together with the
-dependencies above and (C2)'s exclusion from the equivalence, the
-theorem's content is therefore
+reduction extends one step further. (C4) is not an independent condition
+on the realization either: it asserts a readback gap \emph{mediated
+through the hidden state}, and in a faithful realization every
+correlation is so mediated, so the mediation clause is automatic and
+(C4) coincides with clause (ii) itself. Exhaustive enumeration confirms
+it --- the (C4) gap and \(I(X_{<k}; X_{k+1} \mid X_k) > 0\) agree on all
+24, 720 and 720 realizations at
+\((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\), with no disagreement
+(\texttt{primitive\_probes.py}). Taken together with the dependencies
+above and (C2)'s exclusion from the equivalence, the theorem's content
+is therefore
 \[\text{accessible non-Markovianity} \iff \text{a per-horizon finite reversible deterministic realization exists,}\]
 with no conditions quantified over at all: \textbf{it is a dilation
 theorem.} What C1--C4 supply is not hypotheses but a \emph{diagnostic
