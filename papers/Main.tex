@@ -490,13 +490,20 @@ quantum mechanics \emph{emerges} under the conditions below.
 Sector}\label{conditions-on-the-hidden-sector}}
 
 \textbf{Companions and independence.} The four conditions below are
-treated in this paper as structural hypotheses about the observer's
-embedding; every result uses only them, the two axioms, and the one
-external correspondence of §3.1. Their cosmological realization --- the
-horizon as the hidden sector, with its capacity, its timescales, and its
-bidirectional read-write coupling --- is developed in companion work and
-is nowhere consumed by a proof here; the realization clauses below are
-physical statements of that picture, not premises.
+diagnostics of a realization rather than hypotheses of the
+characterization: the equivalence of §3.4 quantifies over none of them
+(Remark, \emph{the conditions are diagnostics, not hypotheses}), (C1)
+and (C3) follow from (C4) in any faithful realization, and (C2) is a
+physical-regime premise. They are stated and used because they are what
+one can check of a candidate partition --- a cosmological horizon, a
+laboratory apparatus, an equilibrium fluctuation --- where the bare
+existence claim cannot be checked directly. Every result uses only
+these, the two axioms, and the one external correspondence of §3.1.
+Their cosmological realization --- the horizon as the hidden sector,
+with its capacity, its timescales, and its bidirectional read-write
+coupling --- is developed in companion work and is nowhere consumed by a
+proof here; the realization clauses below are physical statements of
+that picture, not premises.
 
 \textbf{(C1) Non-zero coupling.} \(H_{\text{int}} \neq 0\): hidden
 degrees of freedom affect the visible evolution at some accessible step
@@ -830,24 +837,38 @@ carries no consequence except through that bound.
 
 \textbf{Lemma (fast bath erases readback).} \emph{Suppose the
 coarse-grained channel mixes fast relative to the visible step,
-\(\tau_B \ll \tau_S\), so that stored visible information is eroded by
-\(e^{-\tau_S/\tau_B}\) per step. Then for any \(k \geq 2\) the
-order-\(k\) readback gap obeys
-\(\delta_k \leq \delta_0\, e^{-(k-1)\tau_S/\tau_B}\), and by the
-backflow lemma the accessible conditional mutual information is
-suppressed as
-\(I(X_{<k}; X_{k+1} \mid X_k) \leq p_0 \delta_0^2 e^{-2(k-1)\tau_S/\tau_B} / \ln 2\).
-Hence a fast bath drives the readback gap to zero exponentially: (C2)'s
-failure implies (C4)'s failure.}
+\(\tau_B \ll \tau_S\), and erodes the stored record uniformly, by
+\(e^{-\tau_S/\tau_B}\) per step, across the history pairs at issue. Then
+for any \(k \geq 2\) the order-\(k\) readback gap obeys}
+\[\delta_k \;\leq\; \delta_0\, e^{-(k-1)\tau_S/\tau_B}.\] \emph{A fast,
+uniformly erasing bath therefore drives the readback gap to zero
+exponentially, and (C4) --- which requires a gap at some order in the
+accessible window --- fails.}
+
+\emph{Remark (what this lemma does not give).} The backflow lemma above
+is a LOWER bound on \(I(X_{<k}; X_{k+1} \mid X_k)\) given a gap; an
+upper bound on \(\delta_k\) cannot be inserted into it to bound \(I\)
+from above. The corresponding upper bound on conditional mutual
+information is available, but by the continuity route --- uniform
+total-variation closeness through the Fannes--Audenaert estimate --- and
+it is proved where it is used, at the physical-memory theorem of §3.4.
+The statement above is confined to the gap.
 
 \emph{Remark (why this matters for the exclusion arguments).} Since (C2)
-sits outside the equivalence (§3.4), the failure of (C2) does not by
-itself exclude anything: a partition could fail (C2) and still satisfy
-(C1), (C3), (C4). The exclusion arguments below --- the equilibrium
-phase, and the anti-Boltzmann-brain corollary of §4.6 --- therefore run
-through this lemma: fast mixing erases the stored record before it can
-be read, (C4) fails, and it is (C4)'s failure that the characterization
-registers. (C2) is the mechanism; (C4) is the exclusion.
+sits outside the equivalence (§3.4), its failure excludes nothing by the
+characterization alone. It also matters which reading of (C2) is in
+play. Under the \emph{evolution} reading --- fast hidden dynamics ---
+failure is compatible with (C4) holding at full strength: a
+shift-register bath rotating five cells per visible step supports a
+maximal order-2 gap (\texttt{fastbath\_probes.py}), which is why (C2) is
+stated as persistence rather than slowness (§1.3). It is the failure of
+PERSISTENCE, with the uniform erosion hypothesis of the lemma above,
+that carries (C4) down with it. The exclusion arguments below --- the
+equilibrium phase, and the anti-Boltzmann-brain corollary of §4.6 ---
+therefore run through this lemma: fast mixing erases the stored record
+before it can be read, (C4) fails, and it is (C4)'s failure that the
+characterization registers. (C2) is the mechanism; (C4) is the
+exclusion.
 
 \textbf{Lemma (accessible backflow from readback).} \emph{Under
 (C1)--(C3), suppose (C4) holds with a gap at order \(k\) in the
@@ -2508,43 +2529,52 @@ delivered by separate results. \textbf{(Q1) Barandes-representable:} the
 process corresponds to a unitarily evolving quantum system in the source
 theorem's own language {[}11, 12{]} --- the \(\leq n^3\) dilation bound
 is the source's result for the indivisible subclass, under its
-hypotheses. The identification of the framework's P-indivisibility
-criterion with the source's indivisible-process class is an explicit
-\emph{translation hypothesis} (T). Its content can be stated precisely,
-and the precision matters because the two sides differ in arity. The
-source defines its class through FIRST-ORDER conditionals: it works with
-the equivalence class of non-Markovian processes that may differ in
-their higher-order conditional probabilities but share the same
-\(p(i,t \mid j,t_0)\), and calls a process indivisible when its
-transition matrices fail to factorize through intermediate times {[}11,
-12{]}. The framework's P-indivisibility criterion (§3.4) is stated at
-the same two-time level, and at that level the two notions coincide.
-What the framework additionally delivers --- accessible non-Markovianity
-at order \(k\), condition (C4) --- is MULTI-TIME content that the
-source's equivalence class explicitly quotients away. \textbf{(T) is
-therefore the claim about the two-time marginal family
-\(\Gamma(t \leftarrow t_0)\) alone, and the multi-time content is not
-carried across by it.} A proved translation theorem at that arity is
-open (§3.2 checklist), and no reading of it licenses transporting (C4)'s
-multi-time content into the source's framework. \textbf{(Q2) autonomous
-OI representation:} a fixed Hermitian \(\hat{H}\) with the
-ancilla-marginal form above, exact at integer horizon times, delivered
-in-house by the fixed-\(\hat{H}\) lemma on an uncompressed space of
-dimension \(n \cdot |\mathcal{C}_H|\). Condition (i) of the
-characterization means (Q1); the in-house chain proves (Q2);
-time-homogeneity and continuous-\(t\) interpolation belong to (Q2)'s
-autonomous form and are not imported claims (§3.1). (This is the form
-the correspondence delivers --- the visible matrix is the
-ancilla-marginal of the dilated unistochastic matrix, per the scope
-statement in §3.1. The strict form \(T_{ij}(t) = |U_{ij}(t)|^2\) on
-visible indices is the trivial-ancilla special case \(m_a = 1\) and only
-that case: a doubly stochastic marginal need not be unistochastic at
-every \(t\), let alone realized by a single one-parameter unitary group
-on \(\mathcal{H}_V\).) This definition captures the Hilbert space,
-unitary dynamics, and the Born rule. Additional quantum-mechanical
-structures --- the tensor product decomposition for spatially separated
-visible-sector subsystems, state update, and the measurement formalism
---- are addressed in the remarks following the theorem.
+hypotheses. What connects the framework to the source is an
+\emph{embedding}, and stating it as such is more accurate --- and less
+demanding --- than the identification of criteria it replaces. The
+source's object is a tuple: a configuration space, target and
+conditioning times, transition maps \(\Gamma(t \leftarrow t_0)\)
+carrying first-order conditional probabilities, an initial distribution,
+and a random variable {[}11, 12{]}. Divisibility failure is
+\emph{generic} within that class but is not what defines membership in
+it --- a Markovian-homogeneous dynamical system is already a
+unistochastic process and sits inside the class --- and the theorem is
+correspondingly broad: every finite-configuration process of that form
+can be regarded as a subsystem of a composite unistochastic process, on
+a Hilbert space of dimension \(\tilde{N} \leq N^3\).
+
+The framework's side supplies \(\mathcal{C}_V\), the accessible times,
+the per-horizon transition family \(T(t \leftarrow t_0)\), the visible
+prior, and the visible random variable. \textbf{Translation hypothesis
+(T) is the claim that this data instantiates the source's tuple, so that
+its theorem applies.} Two things follow. First, (T) is a structural
+check rather than an unproved equivalence between two notions of
+indivisibility, and it is correspondingly weaker than the corpus
+previously asked it to be. Second, the source theorem does not apply
+only to a ``P-indivisible subclass'': it applies to the class, with
+P-indivisibility governing whether the resulting representation is
+\emph{nontrivially} non-Markovian rather than whether the representation
+exists. What (T) still does not license is transporting the multi-time
+content of (C4) into the source's framework, whose dynamical data is
+first-order by construction. \textbf{(Q2) autonomous OI representation:}
+a fixed Hermitian \(\hat{H}\) with the ancilla-marginal form above,
+exact at integer horizon times, delivered in-house by the
+fixed-\(\hat{H}\) lemma on an uncompressed space of dimension
+\(n \cdot |\mathcal{C}_H|\). Condition (i) of the characterization means
+(Q1); the in-house chain proves (Q2); time-homogeneity and
+continuous-\(t\) interpolation belong to (Q2)'s autonomous form and are
+not imported claims (§3.1). (This is the form the correspondence
+delivers --- the visible matrix is the ancilla-marginal of the dilated
+unistochastic matrix, per the scope statement in §3.1. The strict form
+\(T_{ij}(t) = |U_{ij}(t)|^2\) on visible indices is the trivial-ancilla
+special case \(m_a = 1\) and only that case: a doubly stochastic
+marginal need not be unistochastic at every \(t\), let alone realized by
+a single one-parameter unitary group on \(\mathcal{H}_V\).) This
+definition captures the Hilbert space, unitary dynamics, and the Born
+rule. Additional quantum-mechanical structures --- the tensor product
+decomposition for spatially separated visible-sector subsystems, state
+update, and the measurement formalism --- are addressed in the remarks
+following the theorem.
 
 \textbf{Lemma (fixed-\(\hat{H}\) form for realized processes).}
 \emph{Let a process arise as in (iii) below: the marginal of an iterated
