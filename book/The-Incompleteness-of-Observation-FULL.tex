@@ -2685,9 +2685,9 @@ of the same standing as the residual dissipation.
 An observer inside the universe receives incomplete data --- the visible
 sector only. The characterization theorem proves that there is exactly
 one self-consistent algorithm for making predictions from this
-incomplete data on accessible timescales under C1--C4. For the
-indivisible subclass --- the empirically realized one --- that algorithm
-is quantum mechanics.
+incomplete data on accessible timescales under C1--C4. For the source's
+finite-configuration class --- the empirically realized one --- that
+algorithm is quantum mechanics.
 
 Everything in quantum mechanics is a feature of this algorithm, not a
 feature of the underlying reality. The wave function is the algorithm's
@@ -6830,12 +6830,13 @@ construction, inaccessible to that observer.
 These silences are structural rather than methodological. They follow
 from the characterization theorem's identification of accessible
 non-Markovian observation with embedded observation under C1--C4
-(quantum for the indivisible subclass), and from the observer-selection
-theorem's restriction of observers to the non-equilibrium phase. The
-framework's silence on these regimes is not a gap in its content but a
-feature of its structural commitments: it is committed to the regime
-where embedded observers exist and the regime is non-equilibrium; it is
-not committed to regimes where these conditions fail.
+(quantum for the source's finite-configuration class), and from the
+observer-selection theorem's restriction of observers to the
+non-equilibrium phase. The framework's silence on these regimes is not a
+gap in its content but a feature of its structural commitments: it is
+committed to the regime where embedded observers exist and the regime is
+non-equilibrium; it is not committed to regimes where these conditions
+fail.
 
 \textbf{What this section is not.} The articulation of what does not
 falsify is not a list of escape routes. The framework's structural
@@ -12674,10 +12675,12 @@ define membership in the framework's universality class --- are six
 structural properties of the substratum, organized as follows.
 
 \emph{Finiteness.} The substratum \(S\) has finite cardinality. This is
-load-bearing because the framework's recurrence theorem (Chapter 18
-§18.7) requires finiteness for Poincaré recurrence to apply, which in
-turn is required for P-indivisibility and the framework's derivation of
-quantum mechanics.
+load-bearing for the recurrence route specifically: the recurrence
+theorem (Chapter 18 §18.7) requires finiteness for Poincaré recurrence,
+which supplies recurrence-scale P-indivisibility. It is not required for
+accessible non-Markovianity, which has its own finite-horizon route
+through readback, nor for the imported representation, which is gated by
+(T). The framework's derivation of quantum mechanics.
 
 \emph{Deterministic bijection.} The substratum dynamics
 \(\varphi: S \to S\) is a bijection. Bijectivity is load-bearing because
@@ -12696,10 +12699,11 @@ coupled. This is necessary for non-Markovian dynamics; failing C1
 produces classical stochastic dynamics rather than emergent quantum
 mechanics.
 
-\emph{C2 (slow bath).} The hidden sector's timescale is much slower than
-the visible sector's, with \(\tau_B \gg \tau_S\). This is necessary for
-non-Markovian memory effects to emerge in the visible sector's reduced
-description.
+\emph{C2 (memory persistence).} The hidden sector retains a record of
+the visible past across the accessible window, \(\tau_B \gg \tau_S\)
+with \(\tau_B\) the coarse-grained mixing time. Slow hidden dynamics is
+one sufficient mechanism; fast dynamics that conserves and routes the
+record serves equally ({[}Main §1.3{]}).
 
 \emph{C3 (large capacity).} The hidden sector's mode count is much
 larger than the visible sector's, with \(N_H \gg N_V\). This is
@@ -15503,13 +15507,14 @@ niche's current state. The couplings are catalytic (protein-substrate,
 chromatin-gene, organism-environment), with feedback between fast and
 slow subsystems.
 
-\emph{C2 (slow bath).} At each scale, the slow subsystem changes on much
-longer timescales than the fast subsystem. Conformational landscapes
-evolve on timescales of microseconds to milliseconds; the catalytic
-cycle of a typical enzyme is in nanoseconds. Chromatin modifications
-evolve on cell-division timescales; gene expression cycles are in
-minutes. Niche-construction features evolve on generation timescales;
-behavioral responses are in hours to days. Each scale has
+\emph{C2 (memory persistence).} At each scale, the slow subsystem
+retains its record across the fast subsystem's window --- here realized,
+as it commonly is in biology, by slow evolution. Conformational
+landscapes evolve on timescales of microseconds to milliseconds; the
+catalytic cycle of a typical enzyme is in nanoseconds. Chromatin
+modifications evolve on cell-division timescales; gene expression cycles
+are in minutes. Niche-construction features evolve on generation
+timescales; behavioral responses are in hours to days. Each scale has
 \(\tau_S/\tau_B \sim 10^{-3}\) to \(10^{-6}\) --- substantial timescale
 separation.
 
@@ -21580,9 +21585,11 @@ is structural rather than approximate.
 \textbf{The four conditions as criteria.} Recall from Chapter 1 the
 framework's four structural conditions for an embedded observer's
 emergent dynamics to be quantum mechanical: - C1 (coupling): the
-subsystem must interact non-trivially with a hidden sector; - C2 (slow
-bath): the hidden sector must change slowly relative to the subsystem's
-dynamics, with timescale separation \(\tau_B \gg \tau_S\); - C3
+subsystem must interact non-trivially with a hidden sector; - C2 (memory
+persistence): the hidden sector must retain a record of the subsystem's
+past across the accessible window, \(\tau_B \gg \tau_S\) with \(\tau_B\)
+the coarse-grained mixing time --- slow hidden dynamics is one
+sufficient mechanism, not the condition itself ({[}Main §1.3{]}); - C3
 (capacity): the hidden sector must have sufficient capacity to store
 correlations, with mode count \(N_H \gg N_V\).
 
@@ -21616,15 +21623,17 @@ statement about the DYNAMICS, not about representability: every
 stochastic transition family admits the one-step ancilla dilation
 ({[}Main §3.1{]}), so no process lacks a Hilbert-space representation at
 the transition-statistics layer. What varies across the regime is
-whether the represented dynamics is indivisible, and how strongly. A
-partially P-indivisible system does \emph{not} have a full
-density-matrix description. Its transition probabilities have some but
-not all of the structure required for a Stinespring dilation. There is
-no Hilbert space on which the system's dynamics is unitary; there is no
-density matrix that fully captures its state. The system is partially
-quantum in the precise structural sense that some of the quantum
-features (P-indivisibility, interference, certain non-Markovian
-signatures) are present but the full quantum structure is not.
+whether the represented dynamics is indivisible, and how strongly. What
+a partially P-indivisible system may lack is the stronger OPERATIONAL
+structure built on top of that representation: coherent preparations of
+the represented states, the instrument algebra governing interventions,
+and representation-consistency across horizons --- each of which the
+framework leaves open or bounded rather than delivered ({[}Main
+§3.4{]}). The system is partially quantum in that precise sense: the
+transition-statistics layer is available throughout the regime, while
+the operational layer is available only to the extent those questions
+are settled, and the degree of indivisibility measures how far the
+represented dynamics departs from a divisible one.
 
 This is a genuinely new regime with no counterpart in standard physics.
 Standard accounts treat quantum and classical as endpoints of a spectrum
@@ -22111,12 +22120,13 @@ quantum mechanics on an infinite substratum.
 
 The framework's commitment to finite information is therefore neither a
 quantitative claim about the specific cardinality nor a metaphysical
-preference for finitism. It is a structural requirement: the framework's
-derivation of quantum mechanics from substratum dynamics passes through
-the Poincaré recurrence theorem, which applies only to finite (or, more
-precisely, finite-measure) dynamical systems. The substratum's
-finiteness is what makes the framework's account of quantum mechanics
-possible.
+preference for finitism. It is a structural requirement for one
+particular route --- the recurrence-based P-indivisibility result: the
+framework's derivation of quantum mechanics from substratum dynamics
+passes through the Poincaré recurrence theorem, which applies only to
+finite (or, more precisely, finite-measure) dynamical systems. The
+substratum's finiteness is what makes the framework's account of quantum
+mechanics possible.
 
 \textbf{Poincaré recurrence.} A bijection \(\varphi\) acting on a finite
 set \(S\) is a permutation. Every permutation on a finite set has finite
@@ -22179,10 +22189,13 @@ of information from hidden to visible over the recurrence timescale
 that, combined with the framework's structural conditions C1--C4, yields
 emergent quantum mechanics.
 
-The framework's commitment to finite information is therefore not an
-isolated structural feature but a load-bearing premise in the
-framework's derivation of quantum mechanics. Removing finiteness ---
-replacing \(|S| < \infty\) with \(|S| = \infty\) --- would break the
+The framework's commitment to finite information is therefore
+load-bearing for the recurrence route specifically, not for
+representability or for accessible non-Markovianity: readback at order
+\(k\) has its own finite-horizon route, and the imported representation
+is gated by (T) rather than by recurrence, so an infinite deep hidden
+sector remains admissible ({[}Main §2.3{]}, §3.1). Removing finiteness
+--- replacing \(|S| < \infty\) with \(|S| = \infty\) --- would break the
 logical chain and require a different account of how quantum mechanics
 emerges from substratum dynamics.
 
@@ -27091,8 +27104,8 @@ contradicting the P-indivisibility required for QM. This is a
 contrapositive: violating C1 produces P-divisible dynamics, which is
 structurally distinct from QM.
 
-\emph{Necessity of C2 (slow bath).} The hidden sector must have slow
-dynamics relative to the system timescale. Proof: if the hidden sector
+\emph{Necessity of C2 (memory persistence).} The hidden sector must
+retain the record across the window. Proof: if the hidden sector
 thermalizes between measurements, correlations are erased, the process
 becomes Markovian, and P-indivisibility is lost. Again contrapositive:
 violating C2 produces Markovian dynamics, which is structurally distinct

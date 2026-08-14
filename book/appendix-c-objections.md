@@ -105,7 +105,7 @@ A second frequent foundational objection concerns the *necessity* direction of t
 
 *Necessity of C1 (coupling).* Any quantum system realized as a deterministic dilation must have non-trivial coupling between visible and hidden sectors. Proof: without coupling, the visible dynamics are a permutation (unitary on a classical basis), hence P-divisible, contradicting the P-indivisibility required for QM. This is a contrapositive: violating C1 produces P-divisible dynamics, which is structurally distinct from QM.
 
-*Necessity of C2 (slow bath).* The hidden sector must have slow dynamics relative to the system timescale. Proof: if the hidden sector thermalizes between measurements, correlations are erased, the process becomes Markovian, and P-indivisibility is lost. Again contrapositive: violating C2 produces Markovian dynamics, which is structurally distinct from QM.
+*Necessity of C2 (memory persistence).* The hidden sector must retain the record across the window. Proof: if the hidden sector thermalizes between measurements, correlations are erased, the process becomes Markovian, and P-indivisibility is lost. Again contrapositive: violating C2 produces Markovian dynamics, which is structurally distinct from QM.
 
 *Necessity of C3 (capacity).* The hidden sector must have sufficient capacity. Proof: if the mode count is too small, the mutual information between visible and hidden sectors saturates, limiting the information backflow that produces P-indivisibility. Contrapositive: violating C3 produces saturated dynamics, structurally distinct from QM.
 

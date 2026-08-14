@@ -103,7 +103,7 @@ Third, the framework's content is *embeddable* within other frameworks at higher
 
 The framework's universality-class commitments — the conditions that define membership in the framework's universality class — are six structural properties of the substratum, organized as follows.
 
-*Finiteness.* The substratum $S$ has finite cardinality. This is load-bearing because the framework's recurrence theorem (Chapter 18 §18.7) requires finiteness for Poincaré recurrence to apply, which in turn is required for P-indivisibility and the framework's derivation of quantum mechanics.
+*Finiteness.* The substratum $S$ has finite cardinality. This is load-bearing for the recurrence route specifically: the recurrence theorem (Chapter 18 §18.7) requires finiteness for Poincaré recurrence, which supplies recurrence-scale P-indivisibility. It is not required for accessible non-Markovianity, which has its own finite-horizon route through readback, nor for the imported representation, which is gated by (T). The framework's derivation of quantum mechanics.
 
 *Deterministic bijection.* The substratum dynamics $\varphi: S \to S$ is a bijection. Bijectivity is load-bearing because it preserves information at the substratum level (resolving the BH information paradox in Chapter 7 §7.6) and produces the recurrence structure (Chapter 18 §18.7).
 
@@ -111,7 +111,7 @@ The framework's universality-class commitments — the conditions that define me
 
 *C1 (coupling).* The visible and hidden sectors are non-trivially coupled. This is necessary for non-Markovian dynamics; failing C1 produces classical stochastic dynamics rather than emergent quantum mechanics.
 
-*C2 (slow bath).* The hidden sector's timescale is much slower than the visible sector's, with $\tau_B \gg \tau_S$. This is necessary for non-Markovian memory effects to emerge in the visible sector's reduced description.
+*C2 (memory persistence).* The hidden sector retains a record of the visible past across the accessible window, $\tau_B \gg \tau_S$ with $\tau_B$ the coarse-grained mixing time. Slow hidden dynamics is one sufficient mechanism; fast dynamics that conserves and routes the record serves equally ([Main §1.3]).
 
 *C3 (large capacity).* The hidden sector's mode count is much larger than the visible sector's, with $N_H \gg N_V$. This is necessary for the hidden sector to have sufficient capacity to store the correlations the read-write cycle generates.
 

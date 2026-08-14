@@ -255,7 +255,7 @@ The characterization establishes Hilbert space, unitary dynamics, and Born-rule 
 
 ## 1.9 What the theorem says
 
-An observer inside the universe receives incomplete data — the visible sector only. The characterization theorem proves that there is exactly one self-consistent algorithm for making predictions from this incomplete data on accessible timescales under C1–C4. For the indivisible subclass — the empirically realized one — that algorithm is quantum mechanics.
+An observer inside the universe receives incomplete data — the visible sector only. The characterization theorem proves that there is exactly one self-consistent algorithm for making predictions from this incomplete data on accessible timescales under C1–C4. For the source's finite-configuration class — the empirically realized one — that algorithm is quantum mechanics.
 
 Everything in quantum mechanics is a feature of this algorithm, not a feature of the underlying reality. The wave function is the algorithm's internal state — the bookkeeping device that tracks what the observer knows and what they do not. Complex amplitudes are the algorithm's arithmetic — the specific number system the reconstruction requires. Interference is what happens when the algorithm combines two incomplete pathways and their bookkeeping entries partially cancel. Entanglement is the algorithm's encoding of correlations written into the hidden sector during preparation and not yet read back. The Born rule is the algorithm's output format — the conversion of internal state into predictions the observer can check against measurement.
 
