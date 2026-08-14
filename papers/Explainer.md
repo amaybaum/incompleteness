@@ -366,10 +366,10 @@ Two subsystems that interacted during preparation carry a joint transition matri
 
 It's not enough to show that embedded observation *produces* QM (sufficiency). The paper shows the observed non-Markovian dynamics *require* embedded observation under C1–C4 (necessity, per condition; the C2 leg conditional on the mixing hypothesis). The full logical chain:
 
-- Barandes proved: QM ⟺ P-indivisibility
+- Barandes proved: an exact correspondence between quantum systems and the source's indivisible class, defined at the level of first-order conditionals (the framework's link to it is the translation hypothesis (T), [Main §3.1])
 - Section 2.3 proved: a non-permutation coupling ⟹ P-indivisibility at the recurrence scale, and C4's readback ⟹ accessible non-Markovianity, quantitatively (sufficiency)
 - Section 3.3 proves: P-indivisibility ⟹ C1–C4 (necessity)
-- Combined: **accessible non-Markovianity ⟺ embedded observation under C1–C4 (per finite horizon), with the quantum representation attaching to the P-indivisible subclass**
+- Combined: **accessible non-Markovianity ⟺ embedded observation under C1, C3, C4 (per finite horizon) — C2 is not needed for the equivalence and carries its physical content separately, through the conditional physical-memory theorem — with the quantum representation attaching to the P-indivisible subclass**
 
 **Necessity of C1 (coupling).** With no hidden influence at any accessible step, every visible transition is a fixed function of the visible present — the process is Markov, hence not the observed one. A non-permutation one-step matrix is the cheapest *witness* of C1, sufficient but not necessary: influence can hide at step one and surface later (the delayed-revival family).
 
@@ -389,7 +389,7 @@ $$I(X_{<t} ; X_{>t} \mid X_t) \leq I(X_{<t} ; H_t \mid X_t) \leq H(H_t \mid X_t)
 
 Each step uses a standard information-theoretic inequality. The result: if you want K bits of history dependence, you need m ≥ 2^K hidden states.
 
-**The complete characterization.** For |C_V| ≥ 2: the process is non-Markovian on accessible timescales ⟺ it arises, on each finite horizon, from marginalizing a deterministic bijection under C1–C4. Both directions are the foundational paper's own theorems; P-indivisible processes in that class — the empirically realized ones — additionally admit the unitary quantum representation, and the fixed-Ĥ form is constructive for every realized process. The old three-way biconditional is retired: representability alone does not force memory (diagonal Hamiltonians), and conditional memory alone does not force P-indivisibility (the XOR family).
+**The complete characterization.** For |C_V| ≥ 2: the process is non-Markovian on accessible timescales ⟺ it arises, on each finite horizon, from marginalizing a deterministic bijection under C1, C3, C4 (C2 sits outside the equivalence: the existential realization satisfies it trivially with a static bath). Both directions are the foundational paper's own theorems; P-indivisible processes in that class — the empirically realized ones — additionally admit the unitary quantum representation, and the fixed-Ĥ form is constructive for every realized process. The old three-way biconditional is retired: representability alone does not force memory (diagonal Hamiltonians), and conditional memory alone does not force P-indivisibility (the XOR family).
 
 **What "unitarily evolving QM" means precisely.** The characterization theorem delivers a Hilbert space, a Hermitian Hamiltonian, a unitary time evolution, and Born-rule transition probabilities. Additional structures of operational quantum mechanics — the tensor product decomposition for spatially separated subsystems, state update via the Lüders rule, and multi-time predictions — are all derived from the construction rather than added as independent postulates. The tensor product for the visible–hidden split comes from the Stinespring route (Appendix A). The tensor product for subsystems within the visible sector (two laboratories, for instance) follows from the spatial Markov property of range-1 dynamics on the coupling graph. Projective measurement corresponds to Bayesian conditioning on the classical substratum. The equivalence between "classical non-Markovian" and "quantum" is not metaphorical — the theorem proves these are the same mathematical category.
 
@@ -1040,7 +1040,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | §3.3: Necessity of C1 | QM requires coupling | No coupling → permutation → P-divisible |
 | §3.3: Necessity of C2 | QM requires slow bath | Fast bath → Markov → P-divisible |
 | §3.3: Necessity of C3 | QM requires capacity | I ≤ log₂ m bounds memory |
-| §3.4: Characterization theorem | non-Markovianity ⟺ C1–C4 per horizon; QM for the P-indivisible subclass | Biconditional + imported representation |
+| §3.4: Characterization theorem | non-Markovianity ⟺ C1, C3, C4 per horizon (C2 separate, conditional); QM for the P-indivisible subclass | Biconditional + imported representation |
 | §4: Cosmological horizon | The universe satisfies the definition | C1 ✓, C2 ✓, C3 ✓ |
 | §5.1: Classical temperature | T_cl = c²ε²κ/(8πGk_B) | No ℏ |
 | §5.2 Step 1: Uniqueness | ℏ is determined, not free | Partition-relativity |

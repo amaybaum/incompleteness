@@ -179,7 +179,7 @@ A book-length treatment, **The Incompleteness of Observation: A Unified Framewor
 
 | # | Result | Status | Source |
 |---|---|---|---|
-| 1 | Accessible non-Markovianity ⟺ per-horizon C1–C4 deterministic realization; quantum representation for the P-indivisible subclass | theorem (+ imported correspondence for the subclass clause) | Main §3.4 |
+| 1 | Accessible non-Markovianity ⟺ per-horizon C1/C3/C4 deterministic realization (C2 separate, conditional); quantum representation for the P-indivisible subclass | theorem (+ imported correspondence for the subclass clause) | Main §3.4 |
 | 2 | $\hbar = c^3 \varepsilon^2/(4G)$ from horizon thermal self-consistency, $\varepsilon = 2 l_p$ uniquely | theorem (boost prerequisite discharged to the falsifiable $M_X$ window) | GR §§3–4, §8.5 |
 | 3 | Bekenstein-Hawking entropy with $1/4$ coefficient ($1/4$ derived; GW250114 tests the area theorem, not the coefficient) | theorem | GR §5 |
 | 4 | Cosmological constant dissolution: $10^{122}$ ratio = $S_{\rm dS}$ compression ratio | theorem | GR §6 |

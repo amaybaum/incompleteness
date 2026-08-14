@@ -1475,13 +1475,20 @@ slow-bath timescale separation (C2), sufficient hidden-sector capacity
 description of the visible sector is non-Markovian on every accessible
 horizon, with a unitarily evolving quantum representation for the
 P-indivisible subclass ((T), {[}Main §3.4{]}). The Hilbert space, the
-Schrödinger equation, the Born rule, and the quantum measurement
-formalism emerge as structural consequences of the marginalization,
-requiring no additional postulates. The conditions are necessary as well
-as sufficient per finite horizon: any accessible non-Markovian process
---- and, under (T), any system equivalent to unitarily evolving quantum
-mechanics --- arises from marginalization of a deterministic bijection
-satisfying C1--C4 for some partition.}
+Schrödinger equation and the Born rule emerge as structural consequences
+of the marginalization for the represented subclass; the measurement
+formalism does NOT come for free --- the classical intervention rung is
+constructed ({[}Main §3.4{]}) while the instrument algebra faces a
+proved obstruction at fixed representation dimension, so operational
+quantum mechanics requires more than the marginalization supplies. The
+conditions are necessary as well as sufficient per finite horizon: any
+accessible non-Markovian process --- and, under (T), any system
+equivalent to unitarily evolving quantum mechanics --- arises from
+marginalization of a deterministic bijection satisfying C1, C3 and C4
+for some partition. C2 sits outside the equivalence: the existential
+realization satisfies it trivially with a static bath, and its physical
+content is carried separately by the conditional physical-memory theorem
+({[}Main §2.3{]}).}
 
 The proof develops in seven stages, with a structural commentary in
 §1.10 examining what physics emerges when each of the four conditions
@@ -1814,8 +1821,11 @@ whether the marginalization produces a Markovian process, a generic
 non-Markovian one, or something more specific. The result of this
 section is that the process satisfies a precise structural property that
 has a name in the open-systems literature: P-indivisibility. The two
-sections following establish that P-indivisibility is mathematically
-equivalent to quantum mechanics.
+sections following establish how P-indivisibility carries the quantum
+representation for its subclass --- through the imported correspondence,
+under the translation hypothesis (T) ({[}Main §3.1{]}), which is a claim
+about the two-time marginal family and does not transport the multi-time
+content of (C4).
 
 \hypertarget{p-indivisibility}{%
 \subsection{1.5 P-indivisibility}\label{p-indivisibility}}
@@ -2420,8 +2430,8 @@ The P-indivisibility theorem and the two routes establish sufficiency:
 C1--C4 imply quantum mechanics. The remaining question is necessity.
 Does every accessible non-Markovian process --- and, under (T), every
 system equivalent to unitarily evolving quantum mechanics --- arise from
-a deterministic bijection satisfying C1--C4 for some partition? §1.8
-states the characterization in its current form --- the per-horizon
+a deterministic bijection satisfying C1, C3 and C4 for some partition?
+§1.8 states the characterization in its current form --- the per-horizon
 equivalence, with the quantum representation attaching to the subclass
 under (T).
 
@@ -2589,10 +2599,10 @@ partition.} \(\square\)
 
 Quantum mechanics is not merely \emph{compatible with} embedded
 observation. Accessible process non-Markovianity is equivalent, on each
-finite horizon, to the existence of a C1--C4 deterministic hidden-state
-realization --- and the P-indivisible members of that class, the
-empirically realized ones, admit the quantum representation, with the
-fixed-Ĥ form constructive.
+finite horizon, to the existence of a C1/C3/C4 deterministic
+hidden-state realization (C2 outside the equivalence) --- and the
+P-indivisible members of that class, the empirically realized ones,
+admit the quantum representation, with the fixed-Ĥ form constructive.
 
 The characterization establishes Hilbert space, unitary dynamics, and
 Born-rule transition probabilities. The further structures of
@@ -3477,15 +3487,15 @@ finiteness and determinism assumptions A1, A2. Chapter 1's
 characterization theorem (§1.8) supplies the construction: any
 accessible non-Markovian process --- and, under (T), any system
 equivalent to unitarily evolving quantum mechanics --- arises from
-marginalization of a deterministic bijection satisfying C1--C4 for some
-partition. Bell violations force C1 (non-trivial coupling); the unitary
-structure of QM forces C2 and C3 (conditional on the hidden-sector
-mixing hypothesis for C2, ETH being its physical motivation). The output
-of Stage 1 is a triple \((S, \varphi, V)\) with \(S\) finite,
-\(\varphi\) a bijection, and \(V \subset S\) the visible-sector
-partition, with the observed quantum dynamics reproduced as the
-marginalization of \(\varphi\) over the hidden sector
-\(H = S \setminus V\).
+marginalization of a deterministic bijection satisfying C1, C3 and C4
+for some partition (C2 outside the equivalence, {[}Main §3.4{]}). Bell
+violations force C1 (non-trivial coupling); the unitary structure of QM
+forces C2 and C3 (conditional on the hidden-sector mixing hypothesis for
+C2, ETH being its physical motivation). The output of Stage 1 is a
+triple \((S, \varphi, V)\) with \(S\) finite, \(\varphi\) a bijection,
+and \(V \subset S\) the visible-sector partition, with the observed
+quantum dynamics reproduced as the marginalization of \(\varphi\) over
+the hidden sector \(H = S \setminus V\).
 
 Uniqueness at Stage 1 follows from the Stinespring uniqueness theorem
 {[}Chapter 1, §1.6{]}. Any two dilations of the same quantum channel on
@@ -3879,11 +3889,13 @@ sector under conditions C1--C4, is non-Markovian on accessible horizons
 and --- for the P-indivisible subclass, under (T) --- mathematically
 equivalent to unitarily evolving quantum mechanics. The Hilbert space,
 the Schrödinger equation, the Born rule, and Bell-inequality violations
-all emerge from the marginalization, with no additional postulates.
-Applied to the substratum constructed in this chapter --- a \(d = 3\)
-cubic lattice with \(K = 6\) internal components and the wave equation
-as substratum dynamics --- the visible-sector projection produces the
-Standard Model: the gauge group
+emerge from the marginalization for the represented subclass; the
+operational layer --- instruments and interventions --- is a separate
+bridge, partly built and partly obstructed ({[}Main §3.4{]}). Applied to
+the substratum constructed in this chapter --- a \(d = 3\) cubic lattice
+with \(K = 6\) internal components and the wave equation as substratum
+dynamics --- the visible-sector projection produces the Standard Model:
+the gauge group
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) as the
 commutant of the cubic-symmetric coupling matrix, three chiral fermion
 generations, one composite Higgs, anomaly-free hypercharges, and
@@ -26504,10 +26516,11 @@ data.
 \textbf{Theorem B.7.6 (Characterization theorem).} \emph{In the
 redefined form of {[}Main §3.4{]}: accessible non-Markovianity of the
 visible process is equivalent, on each finite horizon, to embedded
-observation under C1--C4; the unitary quantum representation attaches to
-the P-indivisible subclass, with the fixed-\(\hat{H}\) form constructive
-for realized processes:}
-\[\text{Accessible non-Markovianity on } V \iff \text{Embedded observation of } (S, \varphi) \text{ with C1–C4, per finite horizon}\]
+observation under C1, C3, C4 (C2 outside the equivalence, carried by the
+conditional physical-memory theorem); the unitary quantum representation
+attaches to the P-indivisible subclass, with the fixed-\(\hat{H}\) form
+constructive for realized processes:}
+\[\text{Accessible non-Markovianity on } V \iff \text{Embedded observation of } (S, \varphi) \text{ with C1, C3, C4, per finite horizon}\]
 
 \emph{Proof structure.} The forward direction (sufficiency) follows from
 Lemmas B.7.1-B.7.5 combined with the Stinespring construction (§B.2):
