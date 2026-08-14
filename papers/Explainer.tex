@@ -584,10 +584,12 @@ that φ\^{}N = id. So T\^{}(N) = I, and:
 After N steps, states that started distinguishable are still perfectly
 distinguishable.
 
-\textbf{Step 2 --- Strict contraction.} T is not a permutation matrix
-(this follows from C1 --- the coupling mixes things). So there exist
-states i, j, l where both T\_il \textgreater{} 0 and T\_jl
-\textgreater{} 0. The total variation distance after one step:
+\textbf{Step 2 --- Strict contraction.} Suppose T is not a permutation
+matrix. (This does not follow from C1, which asserts only non-zero
+coupling; it is the separate non-permutation witness the theorem assumes
+at this step.) So there exist states i, j, l where both T\_il
+\textgreater{} 0 and T\_jl \textgreater{} 0. The total variation
+distance after one step:
 
 \[d(\delta_i T, \delta_j T) = \frac{1}{2}\sum_k |T_{ik} - T_{jk}| < 1\]
 
@@ -1848,23 +1850,23 @@ diagonal exhibits one question the device must fail, and by itself
 yields no probability calculus, no Hilbert space, and no entropy budget.
 The framework's incompleteness is a \emph{physical} one that runs
 parallel to it rather than instantiating it: the causal partition
-enforces the trace-out, the trace-out produces P-indivisibility, and
-P-indivisibility carries the quantum representation for its subclass
-under the translation hypothesis (T). The two come apart cleanly --- an
-observer in a universe without dark energy would be fully subject to
-Wolpert's theorem yet would face no cosmological horizon --- and the
-\(10^{122}\) compression ratio (the Bekenstein-Hawking entropy of the
-horizon) measures the \emph{physical} incompleteness, which is
-contingent on the observed causal structure and has no counterpart in
-the purely logical results. A closer rigorous relative of the physical
-statement is T. Breuer's theorem (1995, \emph{Philosophy of Science} 62:
-197--214; not to be confused with H.-P. Breuer of the
-Breuer--Laine--Piilo indivisibility criterion cited elsewhere in this
-framework) that no measurement performed from inside a system can
-perfectly resolve the state of a whole that contains the measuring
-apparatus; Wolpert and Breuer secure, each in its own domain, the rigor
-of the \emph{pattern} that the framework's construction then realizes
-physically.
+enforces the trace-out, the trace-out produces P-indivisibility, and the
+imported correspondence supplies the quantum representation across its
+class --- P-indivisibility fixing whether it is nontrivial under the
+translation hypothesis (T). The two come apart cleanly --- an observer
+in a universe without dark energy would be fully subject to Wolpert's
+theorem yet would face no cosmological horizon --- and the \(10^{122}\)
+compression ratio (the Bekenstein-Hawking entropy of the horizon)
+measures the \emph{physical} incompleteness, which is contingent on the
+observed causal structure and has no counterpart in the purely logical
+results. A closer rigorous relative of the physical statement is T.
+Breuer's theorem (1995, \emph{Philosophy of Science} 62: 197--214; not
+to be confused with H.-P. Breuer of the Breuer--Laine--Piilo
+indivisibility criterion cited elsewhere in this framework) that no
+measurement performed from inside a system can perfectly resolve the
+state of a whole that contains the measuring apparatus; Wolpert and
+Breuer secure, each in its own domain, the rigor of the \emph{pattern}
+that the framework's construction then realizes physically.
 
 The key difference from Gödel is in the \emph{form} of self-reference.
 Gödel's is syntactic: the system encodes a sentence that says ``I am not
@@ -2939,12 +2941,14 @@ S is the set of all distinguishable states. Its physical meaning is
 that can be told apart, carrying log₂\textbar S\textbar{} bits of
 information. The finiteness is not a regularization --- it's
 load-bearing. Finite sets recur (φ\^{}N = id), recurrence produces
-P-indivisibility, and P-indivisibility produces quantum mechanics.
-Strictly, only the visible sector and boundary layer need to be finite
---- the deep hidden sector may be infinite, because the
-accessible-timescale backflow lemma (Main, §2.3) establishes
-P-indivisibility without recurrence, and the boundary-only dependence
-lemma (GR, §3.2) ensures the deep sector's contribution is suppressed by
+P-indivisibility, and the imported correspondence supplies the quantum
+representation --- for its whole class, with P-indivisibility fixing
+whether the represented dynamics is nontrivially indivisible. Strictly,
+only the visible sector and boundary layer need to be finite --- the
+deep hidden sector may be infinite, because the accessible-timescale
+backflow lemma (Main, §2.3) establishes P-indivisibility without
+recurrence, and the boundary-only dependence lemma (GR, §3.2) ensures
+the deep sector's contribution is suppressed by
 \(\tau_S/\tau_B \sim 10^{-32}\).
 
 φ is a bijection: every state has exactly one predecessor and exactly
