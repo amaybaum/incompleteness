@@ -1969,13 +1969,20 @@ between distinct eigenstates of \(H_H\). The autocorrelation of any
 stored quantity falls as \(e^{-\Delta t}\) in the dephasing
 approximation, so the per-step retention from one visible-sector
 interaction to the next is
-\[r = e^{-\Delta \tau_S} \approx 1 - \Delta \tau_S = 1 - \tau_S/\tau_B,\]
-where \(\tau_B = 1/\Delta\) is the hidden sector's memory time. When
-\(\tau_S \ll \tau_B\), this is close to unity: almost no information is
-lost per visible-sector cycle. After \(k\) steps the cumulative
-retention is \(r^k \approx 1 - k\tau_S/\tau_B\), which remains close to
-unity for any observation window short compared to \(\tau_B/\tau_S\)
-cycles.
+\[r = e^{-\tau_S/\tau_B} \approx 1 - \tau_S/\tau_B,\] where \(\tau_B\)
+is the hidden sector's \emph{coarse-grained mixing time} --- the
+timescale on which the effective channel degrades a stored record. It is
+emphatically not a spectral gap of the substratum dynamics: the exact
+Koopman operator of a finite permutation has modulus-one spectrum and
+cannot mix at all, so no dissipative gap \(\Delta\) is available to set
+this rate. The decay rate belongs to the coarse-grained effective
+channel \(\mathcal{K}_\Sigma\) and is exactly the content of the
+effective-mixing hypothesis (EM) ({[}Main §4.6{]}); the estimate below
+is conditional on it. When \(\tau_S \ll \tau_B\), this is close to
+unity: almost no information is lost per visible-sector cycle. After
+\(k\) steps the cumulative retention is
+\(r^k \approx 1 - k\tau_S/\tau_B\), which remains close to unity for any
+observation window short compared to \(\tau_B/\tau_S\) cycles.
 
 Quantitatively, the non-Markovian mutual information between the visible
 sector's past and future, conditioned on its present, is bounded below
@@ -2085,23 +2092,31 @@ that, as the next section will establish, is mathematically quantum.
 \subsection{1.6 The two routes to quantum
 mechanics}\label{the-two-routes-to-quantum-mechanics}}
 
-P-indivisible stochastic processes are not merely \emph{like} quantum
-mechanics. They are mathematically identical to it. Two independent
-constructions establish this identity, each starting from different
-premises and arriving at the same conclusion.
+The stochastic and quantum descriptions are inter-translatable, and two
+constructions supply the translation from different premises. Neither
+establishes an identity between P-indivisibility and quantum mechanics:
+the imported correspondence applies across its own class --- a broad
+one, in which Markov chains are special cases --- under the translation
+hypothesis (T), and delivers an ancilla-dilated representation rather
+than a bare one ({[}Main §3.1{]}). What P-indivisibility governs is
+whether the dynamics so represented is nontrivially indivisible.
 
-\textbf{The Barandes correspondence} {[}4, 5{]}. Any P-indivisible
-stochastic process on a finite configuration space of size \(n\) can be
-represented by a unitarily evolving quantum system. There exist a
-Hilbert space \(\mathcal{H}_V\) of dimension at most \(n^3\), a
-Hermitian operator \(\hat{H}\) acting on \(\mathcal{H}_V\), and a
-one-parameter family of unitary operators \(U(t) = \exp(-i\hat{H} t)\)
-such that the classical transition probabilities equal Born-rule
-probabilities computed from the unitary: \[T_{ij}(t) = |U_{ij}(t)|^2.\]
-The left side is the classical transition probability from averaging
-over hidden states. The right side is the squared modulus of a matrix
-element of the unitary evolution. The equality is a mathematical
-identity, not an approximation or analogy.
+\textbf{The Barandes correspondence} {[}4, 5{]}. Any process in the
+correspondence's class on a finite configuration space of size \(n\) ---
+P-indivisible or not --- can be represented as a subsystem of a
+unistochastic process, hence by a unitarily evolving quantum system.
+There exist a Hilbert space \(\mathcal{H}_V\) of dimension at most
+\(n^3\), a Hermitian operator \(\hat{H}\) acting on \(\mathcal{H}_V\),
+and a one-parameter family of unitary operators
+\(U(t) = \exp(-i\hat{H} t)\) such that the classical transition
+probabilities equal Born-rule probabilities computed from the unitary:
+\[T_{ij}(t) = |U_{ij}(t)|^2.\] The left side is the classical transition
+probability from averaging over hidden states. The right side is the
+squared modulus of a matrix element of the unitary evolution. The
+equality is exact rather than approximate, and holds for the
+ancilla-dilated form: the framework's own one-step marginals are doubly
+stochastic but not in general unistochastic, so the undilated reading is
+unavailable ({[}Main §3.1{]}).
 
 The construction works because P-indivisibility means transition
 probabilities cannot factor through intermediate times in the classical
@@ -2409,14 +2424,17 @@ non-factorizability \emph{is} stochastic entanglement.
 The Jarrett decomposition splits factorizability into parameter
 independence (outcome at \(A\) independent of setting at \(B\)) and
 outcome independence (outcome at \(A\) independent of outcome at \(B\)).
-The framework preserves parameter independence and violates outcome
-independence. By Fine's theorem (Fine 1982), this is exactly the class
-consistent with quantum correlations. This decomposition is contested
-ground: the strongest critique in the philosophy-of-physics literature
-holds that keeping parameter independence while conceding outcome
-independence mistakes a no-signaling condition for locality. Chapter 3
-§3.7.1 states that critique at full strength and gives the framework's
-complete response, including what it concedes.
+The framework does not impose measurement independence at the substratum
+level and recovers it operationally as a quantitative target
+(\(I(\Lambda; A, B) \leq \varepsilon_{\text{MI}}\)); it preserves
+parameter independence and violates outcome independence. By Fine's
+theorem (Fine 1982), this is exactly the class consistent with quantum
+correlations. This decomposition is contested ground: the strongest
+critique in the philosophy-of-physics literature holds that keeping
+parameter independence while conceding outcome independence mistakes a
+no-signaling condition for locality. Chapter 3 §3.7.1 states that
+critique at full strength and gives the framework's complete response,
+including what it concedes.
 
 Parameter independence follows from spatial locality: if detectors \(A\)
 and \(B\) have disjoint coupling neighborhoods, Alice's setting
@@ -2425,18 +2443,18 @@ determines which function she evaluates on \(V_A\) but does not alter
 \(P(b \mid a, x, y) = P(b \mid y)\) structurally --- no fine-tuning of
 the hidden variable distribution required.
 
-The maximum violation the framework allows is exactly Tsirelson's bound
-\(2\sqrt{2}\), the quantum maximum. Barandes-Hasan-Kagan {[}12{]} prove
-this directly from the stochastic-quantum correspondence; it also
-follows from the Stinespring route via Tsirelson's operator-norm
-argument applied to the emergent unitary description. The framework
-predicts continued quantum-bound violations, no signature of local
-hidden-variable theories or super-quantum correlations. The
-Wood-Spekkens fine-tuning objection (2015) assumes DAG causal structure
-with Markov factorization; P-indivisible processes violate the Markov
-condition on any DAG, so the appropriate formalism is the process
-tensor, within which no-signaling follows from marginalization structure
-without fine-tuning.
+The Tsirelson value \(2\sqrt{2}\) is imported for the \emph{causally
+local indivisible} construction of Barandes-Hasan-Kagan {[}12{]}, whose
+result depends on that stronger setting rather than on generic
+P-indivisibility; it also follows from the Stinespring route via
+Tsirelson's operator-norm argument applied to the emergent unitary
+description. The framework predicts continued quantum-bound violations,
+no signature of local hidden-variable theories or super-quantum
+correlations. The Wood-Spekkens fine-tuning objection (2015) assumes DAG
+causal structure with Markov factorization; P-indivisible processes
+violate the Markov condition on any DAG, so the appropriate formalism is
+the process tensor, within which no-signaling follows from
+marginalization structure without fine-tuning.
 
 The P-indivisibility theorem and the two routes establish sufficiency:
 C1--C4 imply quantum mechanics. The remaining question is necessity.
@@ -6442,10 +6460,12 @@ framework's prediction --- falsifies the prediction that no right-handed
 neutrino exists in the spectrum.
 
 \emph{The Tsirelson bound.} Bell-inequality violations are bounded above
-by \(2\sqrt{2}\) in the framework, as a theorem rather than as an input.
-Any observation of a CHSH parameter exceeding \(2\sqrt{2}\) in a
-loophole-free Bell test falsifies the P-indivisibility structure that
-the framework derives.
+by \(2\sqrt{2}\) in the framework --- imported for the causally local
+indivisible construction ({[}Main §3.3{]}) rather than derived from
+generic P-indivisibility, and correspondingly a prediction of that
+setting rather than a free input. Any observation of a CHSH parameter
+exceeding \(2\sqrt{2}\) in a loophole-free Bell test falsifies the
+P-indivisibility structure that the framework derives.
 
 \emph{Exact unitarity of the visible-sector dynamics at accessible
 scales.} The framework derives unitary quantum evolution as the exact
@@ -7721,8 +7741,10 @@ hold for the emergent quantum field theory to match observation: the
 \(\mathrm{SU}(2)\) factor must act chirally on left-handed fermions
 while \(\mathrm{SU}(3)\) remains vector-like, and the hypercharges of
 the matter content must satisfy the six anomaly-cancellation conditions
-that the chiral structure imposes. This section develops both as
-theorems of the framework rather than as additional postulates.
+that the chiral structure imposes. This section develops the grading
+structure as a theorem of the framework rather than as an additional
+postulate, and states precisely where the physical chirality
+identification instead rests on the open hypothesis H-χ' (SM §4.8).
 
 \textbf{Chirality from the trace-out.} The Standard Model is a chiral
 gauge theory: weak interactions distinguish left-handed from
@@ -7763,7 +7785,9 @@ to the visible sector \(V\), and odd sites --- the \(-1\) grade --- to
 the hidden sector \(H\). This is not an arbitrary choice; it is what the
 framework's structural partition produces for a cubic lattice with
 bipartite coupling. The visible sector that the embedded observer reads
-out is therefore the left-handed sublattice; the right-handed sublattice
+out is therefore one \(\gamma_5 \otimes \xi_5\) grade --- which carries
+BOTH spin chiralities, so calling it the ``left-handed sublattice''
+would prejudge the taste-selectivity question; the complementary grade
 is part of the hidden sector that is traced over.
 
 The trace-out structure determines the grading content of the emergent
@@ -7779,8 +7803,8 @@ components appear only as internal lines; the observable external states
 carry both spin chiralities, graded so that spin chirality equals taste
 chirality.
 
-The two gauge factors couple differently to this chirality-projected
-effective theory. The \(\mathrm{SU}(3)\) factor acts on internal \(T_1\)
+The two gauge factors couple differently to this graded effective
+theory. The \(\mathrm{SU}(3)\) factor acts on internal \(T_1\)
 components of the cubic decomposition --- the three-dimensional
 spatial-vector representation. Both left-handed and right-handed Dirac
 components carry the same color charge, since the color index is
@@ -8123,13 +8147,14 @@ Both are \(\mathrm{SO}(3)\)-invariant, giving total angular momentum
 and \(-i\Sigma_j\) (spin generator), giving total angular momentum
 \(J = 1/2\).
 
-The corollary is striking: the spin-statistics correspondence between
-the singlet taste (spin-0, bosonic) and the triplet tastes
-(spin-\(1/2\), fermionic) follows from the lattice representation
-theory, not from a separate spin-statistics postulate. The Higgs (spin-0
-boson) and the fermions (spin-\(1/2\)) emerge as distinct sectors of the
-same underlying staggered decomposition, with the cubic-group
-representation forcing the spin content of each sector.
+The corollary, at the level of the algebraic labels: the spin-statistics
+correspondence between the singlet taste (spin-0, bosonic) and the
+triplet tastes (spin-\(1/2\), fermionic) follows from the lattice
+representation theory --- with the physical spin identification riding
+H-spin' (SM §4.7) --- not from a separate spin-statistics postulate. The
+Higgs (spin-0 boson) and the fermions (spin-\(1/2\)) emerge as distinct
+sectors of the same underlying staggered decomposition, with the
+cubic-group representation forcing the spin content of each sector.
 
 \textbf{Three degenerate fermion sectors.} The three triplet staggered
 tastes provide three degenerate spin-\(1/2\) sectors related by cubic
@@ -22821,19 +22846,23 @@ equivalence class) and partially the framework's irreducible mystery
 the chirality hypothesis H-χ' (§19.3.8), now in sharpened form: the
 minimal SU(2) embedding is certified taste-blind --- vector-like,
 exactly as color's is --- and the hypothesis asks whether a non-minimal
-mechanism (a taste-asymmetric condensate structure) restores
-selectivity; the Standard-Model chirality identification remains
-conditional on it (SM §4.8), with the grading identification and both
-blindness certifications probe-backed. Section 19.3 also takes up two
-framework-specific meta-questions: whether the discrete structural
-residue is genuinely non-tautological (§19.3.6) --- now \emph{resolved}
-by a three-tier classification of the framework's results, which is the
-section's main conceptual addition and reframes the framework's overall
-claim as a tight compression of physics rather than a derivation of it
-from first principles --- and the radiative stability of emergent
-Lorentz invariance in the rotational sector (§19.3.7), where a symmetry
-argument and a first numerical test support protection, with specific
-questions remaining.
+mechanism (a taste-asymmetric condensate structure) restores selectivity
+--- a class now certified nonempty, with dynamical selection the open
+question --- posed in an exact finite arena, the 32-dimensional
+admissible condensate space splitting evenly into sixteen blind and
+sixteen flipping directions (\texttt{hchiprime\_probes.py},
+\texttt{condensate\_space\_probes.py}); the Standard-Model chirality
+identification remains conditional on it (SM §4.8), with the grading
+identification and both blindness certifications probe-backed. Section
+19.3 also takes up two framework-specific meta-questions: whether the
+discrete structural residue is genuinely non-tautological (§19.3.6) ---
+now \emph{resolved} by a three-tier classification of the framework's
+results, which is the section's main conceptual addition and reframes
+the framework's overall claim as a tight compression of physics rather
+than a derivation of it from first principles --- and the radiative
+stability of emergent Lorentz invariance in the rotational sector
+(§19.3.7), where a symmetry argument and a first numerical test support
+protection, with specific questions remaining.
 
 Section 19.4 closes the chapter with a summary table and a note on what
 the framework does \emph{not address}: specific experimental anomalies
@@ -24040,10 +24069,13 @@ inherits the conditionality ledger of {[}Main §4.5{]} for the
 foundational claims --- in particular the C2 leg's mixing-hypothesis
 conditionality --- together with the matter-sector flags carried at
 their sources: the open chirality hypothesis H-χ' {[}SM §4.8{]}, the
-physical-spin identification H-spin' {[}SM §4.7{]}, and the flagged
-carrier input of the Casimir chain {[}SM §4.7{]}; no label asserts more
-than its cited derivation, and ``Dissolved'' or ``Derived'' is always
-relative to that ledger.
+physical-spin identification H-spin' {[}SM §4.7{]} (its free-kernel form
+and the four-dimensional staggered route are settled negative ---
+\texttt{hspin\_kernel\_probes.py}, \texttt{hspin4d\_probes.py}; the
+condensate-dressed form is the open), and the flagged carrier input of
+the Casimir chain {[}SM §4.7{]}; no label asserts more than its cited
+derivation, and ``Dissolved'' or ``Derived'' is always relative to that
+ledger.
 
 \textbf{Summary table.}
 
@@ -28076,9 +28108,10 @@ Chapter 6 §6.5.
 
 \textbf{CHSH inequality.} The Clauser-Horne-Shimony-Holt formulation of
 Bell's inequality, with the classical bound of 2 and the quantum
-(Tsirelson) bound of \(2\sqrt{2}\). The framework reproduces exactly the
-quantum maximum through \emph{P-indivisibility}. Discussed in Appendix C
-§C.2.
+(Tsirelson) bound of \(2\sqrt{2}\). The framework imports the quantum
+maximum for the causally local indivisible construction of the cited
+literature, not from generic \emph{P-indivisibility}. Discussed in
+Appendix C §C.2.
 
 \textbf{Cosmological constant problem.} The discrepancy of approximately
 \(10^{122}\) between quantum field theory's predicted vacuum energy
@@ -28431,10 +28464,11 @@ central technical operation. Equivalent to partial trace in quantum
 mechanics. Defined throughout Chapter 1.
 
 \textbf{Tsirelson bound.} The maximum CHSH inequality violation
-achievable by quantum mechanics: \(2\sqrt{2}\). The framework reproduces
-exactly this bound through \emph{P-indivisibility}, distinguishing it
-from theories predicting weaker (classical) or stronger (PR-box)
-violations. Discussed in Appendix C §C.2.
+achievable by quantum mechanics: \(2\sqrt{2}\). The framework imports
+this bound for the causally local indivisible construction of the cited
+literature rather than deriving it from generic \emph{P-indivisibility},
+which distinguishes it from theories predicting weaker (classical) or
+stronger (PR-box) violations. Discussed in Appendix C §C.2.
 
 \textbf{U-parity.} The framework's grading structure in the neutrino
 sector, distinguishing \(U^+\) and \(U^-\) states in the cubic-group

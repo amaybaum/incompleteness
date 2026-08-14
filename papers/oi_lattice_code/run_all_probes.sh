@@ -14,5 +14,7 @@ if python3 ../citation_check.py >/dev/null 2>&1; then echo "PASS  citation_check
 else echo "FAIL  citation_check"; FAIL=1; fi
 if python3 ../architecture_check.py >/dev/null 2>&1; then echo "PASS  architecture_check"
 else echo "FAIL  architecture_check"; FAIL=1; fi
-[ $FAIL -eq 0 ] && echo "all twenty-three suites green (+ citation and architecture guards)" || echo "BATTERY FAILED"
+if python3 ../mirror_check.py >/dev/null 2>&1; then echo "PASS  mirror_check"
+else echo "FAIL  mirror_check"; FAIL=1; fi
+[ $FAIL -eq 0 ] && echo "all twenty-three suites green (+ citation, architecture and mirror guards)" || echo "BATTERY FAILED"
 exit $FAIL

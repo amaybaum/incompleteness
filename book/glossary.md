@@ -44,7 +44,7 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **CKM (Cabibbo-Kobayashi-Maskawa) matrix.** The unitary mixing matrix between Standard Model quark mass and weak interaction eigenstates. Conventionally parameterized by three mixing angles and one CP-violating phase. The framework derives the Cabibbo angle structurally and provides partial content for the broader CKM structure. Developed in Chapter 6 §6.5.
 
-**CHSH inequality.** The Clauser-Horne-Shimony-Holt formulation of Bell's inequality, with the classical bound of 2 and the quantum (Tsirelson) bound of $2\sqrt{2}$. The framework reproduces exactly the quantum maximum through *P-indivisibility*. Discussed in Appendix C §C.2.
+**CHSH inequality.** The Clauser-Horne-Shimony-Holt formulation of Bell's inequality, with the classical bound of 2 and the quantum (Tsirelson) bound of $2\sqrt{2}$. The framework imports the quantum maximum for the causally local indivisible construction of the cited literature, not from generic *P-indivisibility*. Discussed in Appendix C §C.2.
 
 **Cosmological constant problem.** The discrepancy of approximately $10^{122}$ between quantum field theory's predicted vacuum energy ($\sim 10^{113}$ J/m³) and the observed value inferred from cosmic expansion ($\sim 6 \times 10^{-10}$ J/m³). The framework *dissolves* this problem by identifying the two quantities as properties of logically distinct descriptions: the quantum vacuum energy is the emergent QFT's prediction within a partition; the observed cosmological constant is the gravitational consequence of the substratum's full content. Developed in Chapter 7 §7.7.
 
@@ -138,7 +138,7 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **Trace-out.** The mathematical operation of marginalizing over (summing or integrating out) the hidden-sector degrees of freedom, producing the reduced description on the visible sector. The framework's central technical operation. Equivalent to partial trace in quantum mechanics. Defined throughout Chapter 1.
 
-**Tsirelson bound.** The maximum CHSH inequality violation achievable by quantum mechanics: $2\sqrt{2}$. The framework reproduces exactly this bound through *P-indivisibility*, distinguishing it from theories predicting weaker (classical) or stronger (PR-box) violations. Discussed in Appendix C §C.2.
+**Tsirelson bound.** The maximum CHSH inequality violation achievable by quantum mechanics: $2\sqrt{2}$. The framework imports this bound for the causally local indivisible construction of the cited literature rather than deriving it from generic *P-indivisibility*, which distinguishes it from theories predicting weaker (classical) or stronger (PR-box) violations. Discussed in Appendix C §C.2.
 
 **U-parity.** The framework's grading structure in the neutrino sector, distinguishing $U^+$ and $U^-$ states in the cubic-group flavor classification. Produces the framework's distinctive sum rule and structural relation among the three PMNS mixing angles. Developed in Chapter 8 §8.4.
 
