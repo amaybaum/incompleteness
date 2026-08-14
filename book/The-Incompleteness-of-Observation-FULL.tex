@@ -951,14 +951,15 @@ satisfied by enormous margins.
 The framework's central theorem says: an experimenter in this situation
 cannot describe the physics inside the room using classical mechanics,
 even if classical mechanics is what governs the underlying reality. They
-must use a memory-bearing formalism --- mathematically equivalent to
-quantum mechanics for the P-indivisible subclass, under (T), with wave
-functions, superpositions, Born-rule probabilities, and Bell-inequality
-violations. This is not because reality is intrinsically uncertain. It
-is because the experimenter's situation --- coupled to a slow, vast
-outside they cannot directly access --- forces them into a specific kind
-of compressed bookkeeping. Quantum mechanics is what classical physics
-looks like when you are inside the system you are trying to describe.
+must use a memory-bearing formalism, which under (T) carries a
+mathematically equivalent quantum description --- wave functions,
+superpositions, Born-rule probabilities --- with Bell-inequality
+violations where the dynamics is P-indivisible. This is not because
+reality is intrinsically uncertain. It is because the experimenter's
+situation --- coupled to a slow, vast outside they cannot directly
+access --- forces them into a specific kind of compressed bookkeeping.
+Quantum mechanics is what classical physics looks like when you are
+inside the system you are trying to describe.
 
 The thought experiment captures the framework's central move. Quantum
 mechanics is reframed from a statement about reality to a statement
@@ -977,10 +978,11 @@ experimenter becomes a mathematical observer. The three features become
 the four structural conditions. The ``compressed bookkeeping'' becomes
 the framework's characterization theorem --- a proof that the embedded
 observer's reduced description is mathematically equivalent to unitary
-quantum mechanics, and that this equivalence is not merely consistent
-with quantum mechanics but is required. Quantum mechanics, in the
-framework's content, is what any sufficiently complete account of
-observation must produce.
+quantum mechanics. The framework's own result is the equivalence between
+accessible non-Markovianity and finite-horizon reversible realizability;
+the quantum representation is imported and applies across the
+correspondence's class. Quantum mechanics, in the framework's content,
+is what any sufficiently complete account of observation must produce.
 
 \hypertarget{the-frameworks-central-claim}{%
 \subsection{0.3 The framework's central
@@ -27884,14 +27886,19 @@ with defense in Appendix C §C.6.
 
 \textbf{Barandes correspondence.} The mathematical result establishing
 that stochastic processes in its own indivisible class correspond
-structurally to unitary quantum dynamics under its hypotheses. That the
-framework's \emph{P-indivisibility} criterion picks out processes in
-that class is the explicit translation hypothesis \emph{(T)}, and the
-representation is the ancilla-dilated one (Main §3.1). One of the two
-independent routes by which the framework derives emergent quantum
-mechanics from a deterministic substratum (the other being
-\emph{Stinespring dilation}). Developed in Chapter 1 §1.6 and Appendix B
-§B.2.
+structurally to unitary quantum dynamics under its hypotheses. The class
+is a tuple structure --- configuration space, target and conditioning
+times, transition maps, prior, random variable --- and divisibility
+failure is generic within it rather than definitional, so Markov chains
+are included. The framework's link to it is the explicit translation
+hypothesis \emph{(T)}: that the framework's per-horizon transition
+family instantiates that tuple ({[}Main §3.1{]},
+\texttt{tuple\_probes.py}). \emph{P-indivisibility} does not gate the
+representation's existence; it determines whether the representation is
+nontrivial. One of the two independent routes by which the framework
+derives emergent quantum mechanics from a deterministic substratum (the
+other being \emph{Stinespring dilation}). Developed in Chapter 1 §1.6
+and Appendix B §B.2.
 
 \textbf{Bekenstein-Hawking entropy.} The entropy \(S = A/(4 l_p^2)\)
 assigned to a horizon of area \(A\) in units of the Planck length

@@ -290,7 +290,7 @@ $$T_{ij}(t) = |U_{ij}(t)|^2$$
 
 This is the Born rule. The left side is the transition probability computed by averaging over hidden states (the classical formula from partition-relativity). The right side is the quantum mechanical probability — the squared modulus of a matrix element of the unitary evolution operator. The equivalence is not approximate. It is not an analogy. It is a mathematical identity.
 
-**Two independent routes to the same conclusion.** The primary route uses Barandes' stochastic-quantum correspondence (2023–2025): P-indivisibility means transition probabilities can't be factored through intermediate times — try it and you get "negative probabilities." In quantum mechanics, this is *exactly what happens*: probability amplitudes combine to produce interference patterns that don't factorize classically. What Barandes proved is that these are the same mathematical object, written in different notation.
+**Two independent routes to the same conclusion.** The primary route uses Barandes' stochastic-quantum correspondence (2023–2025): P-indivisibility means transition probabilities can't be factored through intermediate times — try it and you get "negative probabilities." In quantum mechanics, this is *exactly what happens*: probability amplitudes combine to produce interference patterns that don't factorize classically. What Barandes proved is that every finite-configuration process in his class — a broad one, including Markov chains — can be regarded as a subsystem of a unistochastic process, so the two descriptions are notational variants of one object. The breadth matters: the representation's existence is not the framework's distinctive result, and what P-indivisibility adds is that the dynamics so represented is genuinely indivisible.
 
 The secondary route, given in Appendix A, uses Stinespring's dilation theorem (1955): a deterministic bijection on a finite product space defines a permutation unitary; tracing out the hidden sector with the Liouville measure produces a completely positive quantum channel whose diagonal elements recover the classical transition probabilities exactly. This second route requires only textbook results. Either route alone suffices; together they ensure the bridge rests on no single recent result.
 
@@ -1027,7 +1027,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | P-indivisibility proof (§2.3) | The stochastic process is non-Markovian | Definition, Lemma 1 + C1 |
 | Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1–C3, plus C4 holding quantitatively: two histories with the same present whose next-step laws differ by δ > 0 (then I ≥ p₀δ²/ln 2) |
 | Coin-and-die model (§2.4) | Concrete demonstration of all mechanisms | Definition + all conditions |
-| Stochastic-quantum correspondence (§3.1) | P-indivisibility = quantum mechanics | Barandes [10,11] or Stinespring (Appendix A) |
+| Stochastic-quantum correspondence (§3.1) | every process in the source's class embeds in a unistochastic one; P-indivisibility makes it nontrivial | Barandes [10,11] or Stinespring (Appendix A) |
 | Necessity proof (§3.3) | QM *requires* C1, C2, C3, C4 | Contrapositives of sufficiency |
 
 ### Sections 3–6: The Logical Flow
