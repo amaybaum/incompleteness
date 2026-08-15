@@ -37,7 +37,7 @@ The combined space is the tensor product $\mathcal{H} = \mathcal{H}_V \otimes \m
 
 *Proof.* Define $U_\varphi |i, k\rangle = |\varphi(x_i, h_k)\rangle$. Since $\varphi$ is a bijection, $U_\varphi$ permutes the orthonormal basis, hence is unitary. $\square$
 
-For continuous-time dynamics $\varphi_t$, Stone's theorem on $\mathcal{H}$ yields $U_t = e^{-i\hat{H}t}$ for some Hermitian generator $\hat{H}$.
+A continuous unitary interpolation comes from the discrete step itself: $U_\varphi$, being unitary, admits a Hermitian logarithm — $U_\varphi = e^{-i\hat{H}}$ for some Hermitian $\hat{H}$, unique only up to the branch and gauge freedom of Lemma B.7.5 — which defines $U_t = e^{-i\hat{H}t}$ through the integer-time dynamics. The finite substratum carries no nontrivial continuous permutation family, so the interpolation is representation-level structure, not substratum dynamics.
 
 **Lemma B.2.2 (Reverse direction, scoped).** *Any single one-step doubly stochastic matrix on a finite configuration space $\mathcal{C}_V$ can be realized as the one-step marginal of a deterministic bijection on $\mathcal{C}_V \times \mathcal{C}_H$ with uniform prior on $\mathcal{C}_H$, for some finite $\mathcal{C}_H$ (exactly when transition probabilities are rational; to arbitrary precision otherwise).* (The restriction is forced: a uniform-prior bijection marginal preserves the uniform distribution, hence is doubly stochastic; the emergent unistochastic statistics lie inside this class.) The scope is the matrix, not the process: realizing prescribed multi-time statistics — a family of joint distributions over trajectories — with a single bijection and a single uniform prior is a stronger demand and is not claimed here.
 
@@ -438,7 +438,7 @@ The reverse direction (necessity) is per-condition (Appendix C §C.5): C1, C3, a
 
 The biconditional is the framework's main characterization result. $\square$
 
-**The lemma chain produces the framework's central content.** The chain from Lemmas B.7.1-B.7.5 through Theorem B.7.6 establishes the framework's foundational claim: non-Markovian visible dynamics are the necessary description of any embedded observer satisfying C1–C4 — with the quantum representation internal and universal ($S \iff D \iff Q_{\mathrm{fb}}$), the compressed form via the imported correspondence under (T). The chain is constructive: each lemma is provable from the substratum's structural commitments without requiring quantum postulates as inputs, and the cumulative derivation produces the framework's emergent quantum mechanics as a theorem rather than as a separately-postulated quantum structure.
+**The lemma chain produces the framework's central content.** The chain from Lemmas B.7.1-B.7.5 through Theorem B.7.6 establishes the framework's foundational claim: non-Markovian visible dynamics are the necessary description of any embedded observer satisfying C1–C4 — with the quantum representation internal and universal ($S \iff D \iff Q_{\mathrm{fb}}$), the compressed form via the imported correspondence under (T). The chain is constructive: each lemma is provable from the substratum's structural commitments without requiring quantum postulates as inputs, and the cumulative derivation yields the framework's emergent quantum description as theorem-backed structure — the memory-bearing statistics with their universal fixed-basis representation — rather than as separately-postulated quantum axioms.
 
 **The framework's full mathematical content.** Combining the derivations of this appendix:
 

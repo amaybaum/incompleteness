@@ -249,7 +249,7 @@ The cycle ergodicity assumption deserves explicit acknowledgment. Pure linear dy
 
 **Remark (scope of the center-dependence–mass identification).** The specific self-term $C = 2(1-d)$ is not a mass term: it is the diagonal of the massless 4D lattice Laplacian, whose standard 4D staggered factorization has exact chiral symmetry. The hypercubic discretization is excluded not by this lemma but by the generation count — a 4D taste structure gives $2^4$ corners and the wrong number of generations (§4.7) — and by $K = 2d$ with the $(3,2,1)$ decomposition requiring the spatial cubic group (§4.5–4.6).
 
-**The chain:** P-indivisibility → center independence → chiral symmetry → Higgs mechanism [13, 14]. One algebraic condition (α = 0) produces quantum mechanics, chiral fermions, and the Higgs boson.
+**The chain:** P-indivisibility → center independence → chiral symmetry → Higgs mechanism [13, 14]. One algebraic condition (α = 0) produces the emergent quantum description, chiral fermions, and the Higgs boson.
 
 ### 4.4 Multi-component dynamics and gauge structure
 
