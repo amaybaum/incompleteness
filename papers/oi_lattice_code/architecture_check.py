@@ -75,6 +75,38 @@ INVARIANTS = [
      "C2 is memory persistence; slow evolution is one sufficient mechanism, not the condition",
      [],
      "C2 requires that the hidden sector must have slow dynamics"),
+    (r"(does not admit|lacks?|has no|is no)[^.\n]{0,45}(density[- ]matrix|Stinespring|Hilbert space)"
+     r"|some but not all[^.\n]{0,45}Stinespring",
+     "every stochastic T admits the one-step ancilla dilation; representability is not what is partial",
+     [r"no probability calculus", r"requires no Hilbert space, no Born rule",
+      r"routed through the uniqueness clause", r"is not distinguished by lacking",
+      r"Stinespring uniqueness"],
+     "a partially-quantum process does not admit a density-matrix description"),
+    (r"Markov chains are excluded|memoryless Markov chains are excluded|excludes? (ordinary )?Markov chains",
+     "the source's class explicitly includes Markov chains as special cases",
+     [],
+     "ordinary memoryless Markov chains are excluded"),
+    (r"(L\\u00fcders|Luders|Lüders)[^.\n]{0,60}(derived|delivered|follows)"
+     r"|instrument algebra[^.\n]{0,40}(derived|delivered)"
+     r"|multi-time predictions[^.\n]{0,40}(derived|delivered|are all)",
+     "the operational instrument algebra is open; only the transition-statistics layer is delivered",
+     # negation-aware: the corrected form states the NEGATIVE and must not self-trigger
+     [r"are NOT all delivered", r"remains open"],
+     "the Lüders update and multi-time predictions are derived"),
+    (rf"(would not produce|cannot produce|no)[^.\n]{{0,45}}quantum[^.\n]{{0,45}}infinite substratum"
+     rf"|infinite substratum[^.\n]{{0,60}}(would not produce|no longer produces|cannot produce)[^.\n]{{0,30}}quantum"
+     rf"|finiteness[^.\n]{{0,60}}(makes|required for)[^.\n]{{0,40}}(account of )?quantum",
+     "finiteness is load-bearing for the recurrence route only",
+     [],
+     "the framework would not produce quantum mechanics on an infinite substratum"),
+    (r"the (four|4) structural conditions|four structural conditions",
+     "C1, C3, C4 are the structural conditions; C2 is a physical-regime premise",
+     [r"Juno", r"A_1 is fixed by", r"cubic geometric input"],
+     "the framework's four structural conditions"),
+    (rf"C2 \(slow bath\)|C2[^.\n]{{0,30}}slow bath\)",
+     "C2 is memory persistence; slow bath is one realization",
+     [],
+     "C2 (slow bath) requires timescale separation"),
     (rf"P{E}indivisibility is mathematically equivalent to quantum mechanics",
      "P-indivisibility governs nontriviality of the representation, not its existence",
      [],
@@ -97,9 +129,10 @@ for path in targets:
             line = text[:m.start()].count("\n") + 1
             violations.append((os.path.relpath(path, root), line, re.sub(r"\s+", " ", m.group(0))[:60], why))
 
-for f, ln, hit, why in violations[:25]:
+LIMIT = len(violations) if os.environ.get("OI_ARCH_FULL") else 25
+for f, ln, hit, why in violations[:LIMIT]:
     print(f"ARCHITECTURE VIOLATION  {f}:{ln}  '{hit}'\n    -> {why}")
-if len(violations) > 25: print(f"    … and {len(violations)-25} more")
+if len(violations) > LIMIT: print(f"    … and {len(violations)-LIMIT} more (set OI_ARCH_FULL=1 for all)")
 print(f"architecture_check: {len(INVARIANTS)} invariant(s), {len(violations)} violation(s), "
       f"{len(selftest_failures)} self-test failure(s)")
 sys.exit(1 if (violations or selftest_failures) else 0)

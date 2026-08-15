@@ -26,7 +26,7 @@ The Observational Incompleteness (OI) framework [1] provides such a principle. O
 
 **C1 (Coupling).** The fast subsystem (visible sector) is dynamically coupled to a slow subsystem (hidden sector) through bidirectional interactions.
 
-**C2 (Slow bath).** The hidden sector's relaxation timescale $\tau_B$ greatly exceeds the fast subsystem's event timescale $\tau_S$: $\tau_S / \tau_B \ll 1$. The hidden sector retains correlations from past interactions across many fast events.
+**C2 (Memory persistence).** The hidden sector's relaxation timescale $\tau_B$ greatly exceeds the fast subsystem's event timescale $\tau_S$: $\tau_S / \tau_B \ll 1$. The hidden sector retains correlations from past interactions across many fast events.
 
 **C3 (Capacity).** The hidden sector has many more accessible states than the fast subsystem, providing sufficient room to store the full interaction history without saturation.
 

@@ -691,9 +691,9 @@ Every swap is a transposition (a ↔ b), so σ² = id (apply twice,
 everything returns).
 
 \textbf{Checking the conditions:} C1 (coupling): die values 1 and 2 flip
-the coin ✓. C2 (slow bath): σ² = id means recurrence time is 2 steps,
-giving τ\_S/τ\_B = 1/2 ✓. C3 (sufficient capacity): 6 hidden states vs 2
-visible states ✓.
+the coin ✓. C2 (memory persistence): σ² = id means recurrence time is 2
+steps, giving τ\_S/τ\_B = 1/2 ✓. C3 (sufficient capacity): 6 hidden
+states vs 2 visible states ✓.
 
 \textbf{Computing T(1,0).} Start at x = 0 (Heads). All 6 die values are
 equally likely.
@@ -752,11 +752,12 @@ step 1, if the coin was at 0 and the die was at 1, the coin flips to 1
 but the die stays at 1. The die value 1 now encodes the information
 ``the coin was at 0 and I flipped it.'' At step 2, σ sees (1, 1) and
 flips it back to (0, 1). The die read its own memory and reversed the
-flip. C1 (coupling) allows writing to the memory. C2 (slow bath) ensures
-it isn't erased between reads. C3 (sufficient capacity) ensures there's
-enough room. Together, they produce the information backflow that makes
-the process P-indivisible --- and therefore, by the stochastic-quantum
-correspondence, equivalent to quantum mechanics.
+flip. C1 (coupling) allows writing to the memory. C2 (memory
+persistence) ensures it isn't erased between reads. C3 (sufficient
+capacity) ensures there's enough room. Together, they produce the
+information backflow that makes the process P-indivisible --- and
+therefore, by the stochastic-quantum correspondence, equivalent to
+quantum mechanics.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1007,9 +1008,9 @@ non-permutation one-step matrix is the cheapest \emph{witness} of C1,
 sufficient but not necessary: influence can hide at step one and surface
 later (the delayed-revival family).
 
-\textbf{Necessity of C2 (slow bath).} Between coupling events (separated
-by τ\_S), the hidden sector evolves under its own Hamiltonian. The
-convergence to equilibrium is:
+\textbf{Necessity of C2 (memory persistence).} Between coupling events
+(separated by τ\_S), the hidden sector evolves under its own
+Hamiltonian. The convergence to equilibrium is:
 
 \[\| e^{\mathcal{L}_H \tau_S} \mu_H(\cdot | x_i) - \mu_{\text{eq}} \|_{\text{TV}} \leq C \, e^{-\Delta \tau_S}\]
 
@@ -1052,40 +1053,45 @@ characterization theorem delivers a Hilbert space, a Hermitian
 Hamiltonian, a unitary time evolution, and Born-rule transition
 probabilities. Additional structures of operational quantum mechanics
 --- the tensor product decomposition for spatially separated subsystems,
-state update via the Lüders rule, and multi-time predictions --- are all
-derived from the construction rather than added as independent
-postulates. The tensor product for the visible--hidden split comes from
-the Stinespring route (Appendix A). The tensor product for subsystems
-within the visible sector (two laboratories, for instance) follows from
-the spatial Markov property of range-1 dynamics on the coupling graph.
-Projective measurement corresponds to Bayesian conditioning on the
-classical substratum. The equivalence between ``classical
-non-Markovian'' and ``quantum'' is not metaphorical --- the theorem
-proves these are the same mathematical category.
+state update via the Lüders rule, and multi-time predictions --- are NOT
+all delivered: the classical intervention rung is constructed and the
+instrument algebra remains open ({[}Main §3.4{]}). What follows from the
+construction rather than added as independent postulates. The tensor
+product for the visible--hidden split comes from the Stinespring route
+(Appendix A). The tensor product for subsystems within the visible
+sector (two laboratories, for instance) follows from the spatial Markov
+property of range-1 dynamics on the coupling graph. Projective
+measurement corresponds to Bayesian conditioning on the classical
+substratum. The equivalence between ``classical non-Markovian'' and
+``quantum'' is not metaphorical --- the theorem proves these are the
+same mathematical category.
 
-\emph{A note on what is proved versus imported, to keep the claim
-honest.} The step from ``embedded observation'' to ``P-indivisible
-(non-Markovian) dynamics'' is the framework's own result. The step from
-``P-indivisible dynamics'' to ``quantum mechanics'' is supplied by an
-external theorem --- the Barandes stochastic-quantum correspondence
-(published in \emph{Philosophy of Physics}, 2025) --- which the
-framework uses rather than re-derives. That correspondence is a genuine
-result, but three things should be carried with it: it is a
-\emph{representation} (the map is not unique); it delivers the
-scaffolding above --- Hilbert space, unitary evolution, the Born rule
---- while non-commuting observables, spin, and the composite tensor
-structure are introduced via the dilation rather than read directly off
-the stochastic data; and the class of processes it covers is the
-indivisible one (ordinary memoryless Markov chains are excluded). And
-the ``necessity'' direction --- that a quantum system \emph{must} arise
-from this architecture --- holds given an assumption (eigenstate
-thermalization) about the hidden sector. So the accurate headline is
-that the framework \emph{identifies} quantum mechanics with the
-statistics of a particular kind of incomplete observation; it does not
-conjure QM from nothing. This is a reinterpretation of why the quantum
-formalism has the shape it does --- a strong claim --- but a different
-and more defensible one than ``QM derived from a parameter-free
-principle.''
+\emph{A note on what is proved versus imported, to keep the claim honest
+(ordinary Markov chains are members of the source's class, not
+exclusions from it).} The step from ``embedded observation'' to
+``P-indivisible (non-Markovian) dynamics'' is the framework's own
+result. The step to a quantum representation is supplied by an external
+theorem, which applies across its own class --- Markov chains included,
+so membership is not gated by P-indivisibility --- the Barandes
+stochastic-quantum correspondence (published in \emph{Philosophy of
+Physics}, 2025) --- which the framework uses rather than re-derives.
+That correspondence is a genuine result, but three things should be
+carried with it: it is a \emph{representation} (the map is not unique);
+it delivers the scaffolding above --- Hilbert space, unitary evolution,
+the Born rule --- while non-commuting observables, spin, and the
+composite tensor structure are introduced via the dilation rather than
+read directly off the stochastic data; and the class of processes it
+covers is the source's own tuple class, which is broad --- ordinary
+memoryless Markov chains are members of it, so P-indivisibility is not
+what admits a process to the theorem. And the ``necessity'' direction
+--- that a quantum system \emph{must} arise from this architecture ---
+holds given an assumption (eigenstate thermalization) about the hidden
+sector. So the accurate headline is that the framework \emph{identifies}
+quantum mechanics with the statistics of a particular kind of incomplete
+observation; it does not conjure QM from nothing. This is a
+reinterpretation of why the quantum formalism has the shape it does ---
+a strong claim --- but a different and more defensible one than ``QM
+derived from a parameter-free principle.''
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1122,9 +1128,10 @@ and momentum constraints correlate interior and exterior data. This is
 stronger than just H\_int ≠ 0: the constraints enforce correlations that
 persist on all timescales.
 
-\textbf{C2 (slow bath).} τ\_B \textasciitilde{} 1/H \textasciitilde{}
-10¹⁷ seconds (the Hubble time). τ\_S \textasciitilde{} 10⁻¹⁵ seconds (a
-typical atomic process). The ratio: τ\_S/τ\_B \textasciitilde{} 10⁻³².
+\textbf{C2 (memory persistence).} τ\_B \textasciitilde{} 1/H
+\textasciitilde{} 10¹⁷ seconds (the Hubble time). τ\_S \textasciitilde{}
+10⁻¹⁵ seconds (a typical atomic process). The ratio: τ\_S/τ\_B
+\textasciitilde{} 10⁻³².
 
 \textbf{C3 (sufficient capacity).} The hidden sector has A/ε²
 \textasciitilde{} 10¹²² modes (the de Sitter entropy). The visible
@@ -2963,9 +2970,11 @@ finite capacity whose contents are updated without loss at each step.
 The partition V defines the observer's \emph{access} --- both read and
 write. The observer reads the visible sector (measuring x) and writes to
 the hidden sector (each visible-sector operation imprints correlations
-on H through coupling). The hidden sector stores those writes (C2: slow
-bath) and returns them on subsequent reads --- producing the information
-backflow that defines P-indivisibility and hence QM.
+on H through coupling). The hidden sector stores those writes (C2:
+memory persistence --- the record survives the window, whether by slow
+evolution or by conserved fast dynamics) and returns them on subsequent
+reads --- producing the information backflow that defines
+P-indivisibility and hence QM.
 
 The framework's results all have a clean interpretation in this
 language. The conditions C1--C4 are access conditions on the memory: C1
@@ -3022,9 +3031,9 @@ transition function: no erasure, no halting, no information loss. The
 conditions C1--C4 characterize this architecture: C1 (coupling) is the
 read/write mechanism, and C4 (readback) closes the loop:
 history-sensitive hidden mediation, realized cosmologically as a
-read-write cycle. C2 (slow bath) says the tape retains its contents
-between head operations. C3 (capacity) says the tape is large enough to
-store the full interaction history.
+read-write cycle. C2 (memory persistence) says the tape retains its
+contents between head operations. C3 (capacity) says the tape is large
+enough to store the full interaction history.
 
 So what's different? Not the finiteness --- the tape can be infinite.
 Not the reversibility --- that's a specialization (reversible Turing

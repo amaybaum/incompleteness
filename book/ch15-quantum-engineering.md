@@ -58,7 +58,7 @@ Superconducting qubits — transmons, fluxonium, and similar architectures — a
 
 *C1 (coupling).* The TLS couple to the transmon through their electric dipoles, with coupling strengths varying from kHz to MHz depending on the TLS proximity to the qubit's electric field maxima. The coupling is continuous and bidirectional — qubit excitations can transfer to TLS and vice versa.
 
-*C2 (slow bath).* Transmon gate operations occur on $\tau_S \sim 10$-100 ns timescales. The TLS bath has correlation times $\tau_B \sim 1$-100 $\mu$s. The ratio: $\tau_S/\tau_B \sim 10^{-3}$ for typical operating conditions. This is twenty-nine orders of magnitude larger than the cosmological case, placing transmon-TLS dynamics squarely in the framework's slow-bath regime where structural corrections are non-negligible.
+*C2 (memory persistence).* Transmon gate operations occur on $\tau_S \sim 10$-100 ns timescales. The TLS bath has correlation times $\tau_B \sim 1$-100 $\mu$s. The ratio: $\tau_S/\tau_B \sim 10^{-3}$ for typical operating conditions. This is twenty-nine orders of magnitude larger than the cosmological case, placing transmon-TLS dynamics squarely in the framework's slow-bath regime where structural corrections are non-negligible.
 
 *C3 (capacity).* Several hundred to several thousand coupled TLS produce a hidden sector with capacity vastly exceeding the qubit's two-state Hilbert space. C3 is satisfied with overwhelming margin.
 
@@ -137,7 +137,7 @@ A large improvement in NV sensitivity at room temperature would be transformativ
 
 ## 15.7 The partially-quantum regime in engineered systems
 
-Beyond the corrections to fully-quantum behavior at large $\tau_B/\tau_S$ (developed in §§15.3-15.6), the framework predicts a distinctive *partially-quantum regime* at intermediate $\tau_S/\tau_B$ values where the C3 capacity condition is marginal. In this regime, engineered quantum systems exhibit dynamics that does not admit a clean density-matrix description and is distinguishable from both fully-quantum and fully-classical accounts through multi-time correlation diagnostics.
+Beyond the corrections to fully-quantum behavior at large $\tau_B/\tau_S$ (developed in §§15.3-15.6), the framework predicts a distinctive *partially-quantum regime* at intermediate $\tau_S/\tau_B$ values where the C3 capacity condition is marginal. In this regime, engineered quantum systems exhibit dynamics whose operational structure — coherent preparation and intervention consistency — gives out short of the fully-quantum case, while remaining representable at the transition-statistics layer, and is distinguishable from both fully-quantum and fully-classical accounts through multi-time correlation diagnostics.
 
 **The structural condition.** C3 (large hidden-sector capacity, $N_H \gg N_V$) is required for the framework's emergent quantum mechanics in its fully-quantum form. When C3 is satisfied with overwhelming margin, the emergent dynamics is fully quantum-mechanical with conventional Born-rule statistics. When C3 fails entirely, the dynamics is classical stochastic. The intermediate regime — where $N_H/N_V \sim 1$ to $10$, comparable rather than overwhelmingly larger — is the framework's partially-quantum regime.
 

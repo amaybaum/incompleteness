@@ -193,11 +193,11 @@ A second distinguishing prediction: combinations of JAK inhibitors with phosphat
 
 The second half of the chapter develops the framework's content on epigenetics — the systematic application of the substratum-emergent operator distinction (Chapter 6 §6.3) to chromatin biology. The framework's content here is *substantive*: epigenetic regulation is a direct biological instantiation of the framework's C1–C4 architecture, with the substratum-emergent operator distinction organizing the three-axis pharmacology of epigenetic drugs (readers, writers, erasers) and producing a wider-therapeutic-window pattern consistent with Rett syndrome (Guy et al. 2007).
 
-**The C1–C4 architecture of chromatin.** The transcriptional machinery — RNA polymerase II, transcription factors, mediator complex — is the visible sector. The chromatin state — DNA methylation patterns, histone modifications, chromatin compaction, three-dimensional architecture — is the hidden sector. The four structural conditions are satisfied with overwhelming margin.
+**The C1–C4 architecture of chromatin.** The transcriptional machinery — RNA polymerase II, transcription factors, mediator complex — is the visible sector. The chromatin state — DNA methylation patterns, histone modifications, chromatin compaction, three-dimensional architecture — is the hidden sector. The four conditions are satisfied with overwhelming margin.
 
 *C1 (coupling).* The transcriptional machinery and chromatin state are coupled through multiple mechanisms: direct physical coupling (nucleosome positioning controls promoter access, DNA methylation modulates transcription factor binding, histone tail modifications recruit reader proteins), writer-reader feedback (transcription recruits chromatin-modifying enzymes that alter the chromatin state, which modulates future transcription), and structural coupling (chromatin looping by CTCF and cohesin brings distal regulatory elements into proximity with promoters).
 
-*C2 (slow bath).* The chromatin state changes on timescales far slower than individual transcription events. The hierarchy is multi-scale:
+*C2 (memory persistence).* The chromatin state changes on timescales far slower than individual transcription events. The hierarchy is multi-scale:
 
 | Mechanism | $\tau_B$ | $\tau_S/\tau_B$ |
 |---|---|---|

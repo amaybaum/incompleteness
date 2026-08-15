@@ -351,7 +351,7 @@ Consider an enzyme's active site as the visible sector and the protein scaffold'
 
 **C1 (coupling).** The active site is covalently bonded to the scaffold — coupling is continuous and bidirectional. Electronic transitions at the active site induce conformational strain in the scaffold; conformational changes in the scaffold modulate the active site's electronic structure. This is the standard picture of allostery.
 
-**C2 (slow bath).** Electronic transitions at the active site occur on femtosecond timescales ($\tau_S \sim 10^{-15}$ s). Conformational changes of the protein scaffold occur on microsecond to millisecond timescales ($\tau_B \sim 10^{-6}$ to $10^{-3}$ s). The ratio: $\tau_S / \tau_B \sim 10^{-12}$ to $10^{-9}$. This is the *inverse* of the Markovian regime — exactly the slow-bath condition. The scaffold retains correlations for $\sim 10^9$ electronic transitions before relaxing.
+**C2 (memory persistence).** Electronic transitions at the active site occur on femtosecond timescales ($\tau_S \sim 10^{-15}$ s). Conformational changes of the protein scaffold occur on microsecond to millisecond timescales ($\tau_B \sim 10^{-6}$ to $10^{-3}$ s). The ratio: $\tau_S / \tau_B \sim 10^{-12}$ to $10^{-9}$. This is the *inverse* of the Markovian regime — exactly the slow-bath condition. The scaffold retains correlations for $\sim 10^9$ electronic transitions before relaxing.
 
 **C3 (capacity).** A typical enzyme has $\sim 10^3$ to $10^4$ atoms, each with multiple conformational degrees of freedom. The conformational state space is exponentially large: $\sim q^{N_{\text{conf}}}$ with $N_{\text{conf}} \sim 10^3$. This exceeds the active site's electronic state space ($\sim 10$ to $100$ relevant states) by tens of orders of magnitude.
 
@@ -405,7 +405,7 @@ The framework's specific correction is non-Markovian dynamics: $\mathcal{O}(\tau
 
 ### 8.2 Quantum computing
 
-**The Markovian assumption in error correction.** Standard quantum error correction (surface codes, stabilizer codes) assumes Markovian noise — each error is statistically independent of previous errors. The framework predicts this is wrong whenever the qubit's environment satisfies C2 (slow bath).
+**The Markovian assumption in error correction.** Standard quantum error correction (surface codes, stabilizer codes) assumes Markovian noise — each error is statistically independent of previous errors. The framework predicts this is wrong whenever the qubit's environment satisfies C2 (memory persistence).
 
 **The physical system.** Superconducting qubits (transmons) are coupled to two-level systems (TLS) in the substrate — structural defects in the amorphous oxide layer. TLS dynamics is slow ($\tau_B \sim \mu\text{s}$) relative to gate operations ($\tau_S \sim \text{ns}$). The ratio: $\tau_S / \tau_B \sim 10^{-3}$. This is 29 orders of magnitude larger than the cosmological case.
 

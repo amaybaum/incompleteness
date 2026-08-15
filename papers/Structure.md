@@ -107,7 +107,7 @@ The observation hierarchy nests by inclusion: each deeper level is a more specif
 
 **Level A — The observation axiom.** The framework begins with the empirical fact that *observation occurs* [Main §1]. An observer records distinguishable outcomes of interactions with a system not wholly under the observer's control. Level A commits to: there is something to observe; some part of reality is structured to record outcomes (observers are embedded in reality, not external to it); observation has structural consequences. This level is shared with mainstream observer-essentiality programs since 2022 (CLPW, Maldacena, HUZ, DEHK, Slagle-Preskill); the framework's distinguishing feature is producing the consequences from a finite deterministic substratum without extra dimensions or stochasticity.
 
-**Level B — Observer admission.** Not every substratum admits observation. The framework identifies four structural conditions on a substratum's bijection $\varphi$ that are necessary for an embedded observer to exist [Main §3]:
+**Level B — Observer admission.** Not every substratum admits observation. The framework identifies four conditions on a substratum's bijection $\varphi$ that are necessary for an embedded observer to exist [Main §3]:
 
 (C1) **Coupling.** The interaction between the observer's degrees of freedom and the rest must be substantial.
 
@@ -526,7 +526,7 @@ The observer-admission criterion distinguishes the two classes structurally. Mos
 
 - *C1 (coupling)* requires substantial coupling between visible-sector and hidden-sector dynamics. In string-theoretic terms: the four-dimensional EFT must have non-trivial interaction between observable matter (chiral fermions, gauge fields, Higgs sector) and the gravitational / Kaluza-Klein / hidden gauge sectors. Compactifications with completely decoupled hidden sectors fail C1.
 
-- *C2 (slow bath)* requires the hidden-sector correlation time to be much longer than the observer's measurement timescale. In string-theoretic terms: the cosmological structure must have a stable phase with horizon timescales $\tau_B \sim H^{-1}$ much longer than laboratory timescales $\tau_S$. AdS compactifications without de Sitter structure, or compactifications with rapidly mixing cosmological structure, fail C2.
+- *C2 (memory persistence)* requires the hidden-sector correlation time to be much longer than the observer's measurement timescale. In string-theoretic terms: the cosmological structure must have a stable phase with horizon timescales $\tau_B \sim H^{-1}$ much longer than laboratory timescales $\tau_S$. AdS compactifications without de Sitter structure, or compactifications with rapidly mixing cosmological structure, fail C2.
 
 - *C3 (high capacity)* requires the hidden sector to have sufficient information capacity to store the interaction history. In string-theoretic terms: the cosmological horizon's information capacity (set by the holographic bound at $\sim 10^{122}$ for our observed universe) must be sufficient. Compactifications with horizons of insufficient capacity fail C3.
 

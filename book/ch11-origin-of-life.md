@@ -141,7 +141,7 @@ The framework's structural prediction is therefore: Darwinian evolution is inevi
 
 ## 11.6 C1–C4 at the molecular scale
 
-The framework's characterization theorem from Chapter 1 establishes that any embedded observer's reduced description is necessarily non-Markovian whenever four structural conditions are satisfied: C1 (non-trivial coupling between visible and hidden sectors), C2 (slow-bath timescale separation), C3 (large hidden-sector capacity), and C4 (history readback). At the cosmological scale, these conditions produce emergent quantum mechanics. At the molecular scale, the same conditions produce heredity.
+The framework's characterization theorem from Chapter 1 establishes that any embedded observer's reduced description is necessarily non-Markovian whenever four conditions are satisfied: C1 (non-trivial coupling between visible and hidden sectors), C2 (slow-bath timescale separation), C3 (large hidden-sector capacity), and C4 (history readback). At the cosmological scale, these conditions produce emergent quantum mechanics. At the molecular scale, the same conditions produce heredity.
 
 **Before life: Markovian chemistry.** Ordinary chemical reactions are Markovian. The reaction rate depends on current concentrations alone, not on the history of the mixture. Products do not remember how they were made. Each reaction cycle is statistically independent of the previous one. No memory, no heredity, no evolution.
 
@@ -151,7 +151,7 @@ The Markovian character of chemistry follows structurally from the framework's c
 
 *C1 (coupling): catalytic feedback.* The template must direct synthesis of new molecules (catalyzing the reaction), and the synthesis must maintain the template (either by producing copies of the template or by producing molecules that contribute to template stability). The framework's autocatalytic networks (§11.2) provide the coupling: catalytic relationships between molecules produce feedback between template and environment.
 
-*C2 (slow bath): persistence.* The template must outlive individual reaction cycles. RNA has half-life of hours to days in aqueous conditions, while individual reaction cycles take seconds to minutes. The ratio $\tau_{\text{template}}/\tau_{\text{reaction}} \sim 10^4$ provides ample timescale separation, satisfying C2 with substantial margin.
+*C2 (memory persistence): persistence.* The template must outlive individual reaction cycles. RNA has half-life of hours to days in aqueous conditions, while individual reaction cycles take seconds to minutes. The ratio $\tau_{\text{template}}/\tau_{\text{reaction}} \sim 10^4$ provides ample timescale separation, satisfying C2 with substantial margin.
 
 *C3 (capacity): large sequence space.* The template's sequence space must be large enough to encode catalytic function. A 20-mer RNA has $4^{20} \sim 10^{12}$ possible sequences — vastly more than the $\sim 10$-$100$ reactions in a minimal metabolism, satisfying C3 by many orders of magnitude.
 
@@ -171,7 +171,7 @@ The framework does not predict the specific 700-million-year gap; it predicts on
 
 ## 11.7 RNA as the unique single-molecule C1–C4 system
 
-The framework's structural prediction is that the simplest realization of C1–C4 at the molecular scale uses *one molecular family* satisfying all four conditions, rather than requiring separate molecules for templates and catalysts. RNA is the natural candidate: a single molecular family that simultaneously satisfies all four structural conditions.
+The framework's structural prediction is that the simplest realization of C1–C4 at the molecular scale uses *one molecular family* satisfying all four conditions, rather than requiring separate molecules for templates and catalysts. RNA is the natural candidate: a single molecular family that simultaneously satisfies all four conditions.
 
 **Three capabilities in one molecule.**
 
