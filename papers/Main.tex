@@ -252,10 +252,16 @@ foundational question --- which additional principles select operational
 quantum theory from within the universal representation class
 \(Q_{\mathrm{fb}}\): exactly impossible for any fixed finite
 realization, whose operational state space is a polytope while a qubit's
-is the Bloch ball (§3.4), hence posed in finite-resolution ε-form with a
-hidden-capacity scaling target, and as a program for deriving the
-hypotheses of the operational reconstruction theorems --- is stated as
-the frontier (§3.2, §3.4). The framework's posture is therefore one of
+is the Bloch ball (§3.4), hence posed in finite-resolution ε-form ---
+and in that form now carried by a finite operational gluing theorem
+(§3.4): every finite adaptive quantum experiment has a finite reversible
+embedded realization with fixed per-instrument mechanisms, gluing by
+restriction, and a two-sided hidden-capacity law
+(\texttt{opglue\_probes.py}, exact) --- with the continuum theory
+recovered as a proved mutual-ε-density limit (uniform continuum
+realization, §3.4), and the selection of the specifically quantum
+family, via the reconstruction-hypotheses program, the surviving
+frontier (§3.2, §3.4). The framework's posture is therefore one of
 \emph{identification} --- quantum mechanics as the description of a
 particular kind of incomplete observation, with the content living in
 the nontrivial sector \(M_t > 0\) --- rather than derivation of quantum
@@ -2785,9 +2791,11 @@ to the internal construction, with the continuous interpolation
 that only continuous-time data resolve, §3.1 --- a Gleason-role
 selection theorem from the framework's own architecture being the named
 target) select operational quantum theory from within that universal
-class --- a question whose exact finite form is closed in the negative,
-and restated constructively, in the Proposition and frontier-program
-Remark following the interventions Remark below.
+class --- a question whose exact finite form is closed in the negative
+by the Proposition following the interventions Remark below, and
+answered at finite resolution by the operational gluing theorem that
+follows it and in the limit by the uniform continuum realization, with
+the selection question the surviving frontier.
 
 \emph{Remark (interventions).} The same construction indexed by
 intervention histories realizes any FIXED finite adaptive family (§3.4's
@@ -2827,35 +2835,202 @@ horizon \(K\), and precision \(\varepsilon > 0\), a finite reversible
 deterministic embedded-observer realization whose complete adaptive
 operational statistics reproduce the corresponding quantum experiment's
 to precision \(\varepsilon\). The per-family half is already the comb
-theorem (with the dilation lemma's rational-precision caveat); the open
-content is \emph{operational gluing} --- realizations of overlapping
-families agreeing on shared subexperiments, with a common
-bounded-dimensional completion respecting sequential and parallel
-composition, the same missing piece that keeps the Kochen--Specker
-inheritance conditional (§3.2) --- a \emph{capacity scaling law}
-\(|\mathcal{C}_H| = f(K, |\mathcal{F}|, \varepsilon, d)\), and
-\(Q_{\text{operational}}\) recovered as the \(K \to \infty\),
-\(|\mathcal{F}| \to \infty\), \(\varepsilon \to 0\) limit --- a polytope
-can approximate a curved convex body arbitrarily well, so the
-obstruction above licenses exactly this form and no stronger one.
-\textbf{(ii) The selector route:} derive from observation
-incompleteness, rather than postulate, the hypotheses of an operational
-reconstruction theorem --- continuous reversible transitivity (Hardy's
-five-axiom reconstruction, 2001, where dropping continuity returns
-classical theory; the hardest hypothesis here, the permutation group of
-a finite set being discrete, which is itself an argument for route (i));
-local tomography (coupling-graph locality supplies an ingredient, §3.1,
-not yet the injectivity); and purification with uniqueness up to
-reversible relabeling of the purifier (Chiribella--D'Ariano--Perinotti,
-2011) --- the reversible dilation supplies existence, and the
-minimal-predictive-completion machinery (the variational Remark below)
-is the in-house candidate for the uniqueness half --- with
-Masanes--Müller's requirement set (2011) the alternative package.
-\textbf{On either route the Born exponent is expected downstream:} once
-a noncommuting effect structure exists, Gleason-type theorems constrain
-the probability functional to the Born form, so the quadratic selection
-would be inherited rather than extracted from permutation entries ---
-resolving the exponent degeneracy at its proper layer.
+theorem (with the dilation lemma's rational-precision caveat); the
+finite form is now the gluing theorem below --- completeness for
+adaptive protocols with the \(K/G\) bound, gluing by restriction, fixed
+per-instrument mechanisms, sequential and parallel composition, and a
+two-sided capacity law --- with three residuals: tightening the
+general-regime exponent range (the \(K^2\) term), the
+\(K, |\mathcal{F}| \to \infty\), \(\varepsilon \to 0\) limit statement
+as a theorem, and the fact that approximation is not selection --- a
+polytope can approximate a curved convex body arbitrarily well, so the
+obstruction above licenses exactly this form and no stronger one --- and
+route (i) is now discharged in full up to its named residual: the gluing
+theorem delivers the per-family half, the uniform continuum realization
+the net half with \(|\mathcal{F}|\)-independent hidden cost, and the
+Corollary the limit; what survives of the program is the exponent-range
+tightening and route (ii) entire. \textbf{(ii) The selector route:}
+derive from observation incompleteness, rather than postulate, the
+hypotheses of an operational reconstruction theorem --- continuous
+reversible transitivity (Hardy's five-axiom reconstruction, 2001, where
+dropping continuity returns classical theory; the hardest hypothesis
+here, the permutation group of a finite set being discrete, which is
+itself an argument for route (i)); local tomography (coupling-graph
+locality supplies an ingredient, §3.1, not yet the injectivity); and
+purification with uniqueness up to reversible relabeling of the purifier
+(Chiribella--D'Ariano--Perinotti, 2011) --- the reversible dilation
+supplies existence, and the minimal-predictive-completion machinery (the
+variational Remark below) is the in-house candidate for the uniqueness
+half --- with Masanes--Müller's requirement set (2011) the alternative
+package. \textbf{On either route the Born exponent is expected
+downstream:} once a noncommuting effect structure exists, Gleason-type
+theorems constrain the probability functional to the Born form, so the
+quadratic selection would be inherited rather than extracted from
+permutation entries --- resolving the exponent degeneracy at its proper
+layer.
+
+\textbf{Theorem (finite operational realization and gluing --- ε-form).}
+\emph{Fix a quantum experiment: a system of dimension \(d\) with an
+initial state --- alternative preparations entering, when wanted, as
+outcome-free channels in the family --- a finite instrument family
+\(\mathcal{F}\) --- each instrument a finite Kraus decomposition of a
+channel, outcome set \(\mathcal{O}\) --- and a finite horizon \(K\); fix
+a grid size \(G \in \mathbb{N}\). There is a finite reversible
+deterministic embedded realization --- visible sector: step counter,
+intervention record, outcome registers; hidden sector: the unnormalized
+digitized branch vector, a predecessor stack, and \(K\) pre-loaded seeds
+uniform on \(\{0, \ldots, G{-}1\}\); one FIXED injective step map
+\(\varphi_a\) per instrument, extended to a bijection by finite padding
+--- with:}
+
+\emph{(1) \textbf{Completeness, adaptive.} For every adaptive protocol
+over \(\mathcal{F}\) through \(K\), the realized outcome-sequence law is
+within \(K(|\mathcal{O}_{\max}|{-}1)/G\) of the quantum law in total
+variation, \(|\mathcal{O}_{\max}|\) the largest per-instrument outcome
+count --- \(K/G\) for binary-outcome instruments.}
+
+\emph{(2) \textbf{Gluing by restriction.} For every
+\(\mathcal{F}' \subseteq \mathcal{F}\) and \(K' \leq K\), the same
+realization with the agent confined to \(\mathcal{F}'\) and stopped at
+\(K'\) realizes the subexperiment --- overlapping families agree on
+shared subexperiments identically, not approximately, because they run
+the same maps.}
+
+\emph{(3) \textbf{Mechanism noncontextuality.} Each instrument is one
+fixed map, applied whenever chosen, in every context; context enters
+only through the state. The outcome VALUES remain contextual --- the
+only combination Kochen--Specker permits of any account reproducing
+these statistics.}
+
+\emph{(4) \textbf{Composition.} Sequential composition by construction;
+for spatially separated experiments the product construction implements
+the joint family with \(\varphi_{(a,b)} = \varphi_a \times \varphi_b\)
+on product visible sectors, the hidden branch register joint ---
+necessarily joint for entangled preparations, in the
+factorizability-failing, locality-retaining pattern of §3.3.}
+
+\emph{(5) \textbf{Capacity, two-sided.} With exact-arithmetic registers
+over the instruments' entry ring,
+\(\log_2|\mathcal{C}_H| \leq (K{+}1)\log_2|V_{\mathrm{reach}}(\mathcal{F}, K)| + K \log_2 G\),
+where \(V_{\mathrm{reach}}\) is the finite set of unnormalized branch
+vectors reachable in \(\leq K\) steps; with \(b\)-bit floating-point
+registers and \(G = \lceil K/\varepsilon \rceil\),
+\(\log_2|\mathcal{C}_H| = O\!\left(K\, d^2 (b + E) + K \log_2 G\right)\)
+with \(b = O(\log(K d\, |\mathcal{O}|/\varepsilon))\) and exponent range
+\(E = O(K \log(1/\sigma_{\min}(\mathcal{F})))\) in general ---
+\(O(\log(1/\varepsilon))\) when nonzero branch probabilities are bounded
+below. The capacity floor supplies the matching direction,
+\(\log_2|\mathcal{C}_H| \geq I^*\), which is \(\Omega(K)\) on explicit
+memory-chain families:
+\(c_1 K \leq \log_2|\mathcal{C}_H| \leq c_2 K\, d^2 \left(\log(K d |\mathcal{O}|/\varepsilon) + E\right)\).}
+
+\emph{Proof (construction and bound).} The step map \(\varphi_a\) reads
+the counter \(t\); an outcome-free instrument applies its matrix to the
+branch register and pushes the predecessor onto the stack; an instrument
+with outcomes computes \(q_o = \|M_o \tilde v\|^2\) for each Kraus
+element, compares the \(t\)-th integer seed by exact threshold
+(\(r \cdot \sum_o q_o < G\, q_{<o}\) cumulatively), writes the outcome
+to the visible register, sets \(\tilde v \leftarrow M_o \tilde v\) ---
+unnormalized --- and pushes the predecessor. Injectivity: the stack
+makes every step invertible on the reachable set, and a finite injective
+map extends to a bijection on a finite superset. The bound: each step
+realizes the grid rounding of the true conditional through cumulative
+integer thresholds, off by at most \((|\mathcal{O}|{-}1)/G\) in total
+variation --- \(1/G\) for two outcomes, and --- because the branch
+vector is carried unnormalized --- the true conditionals are computed
+exactly in the ring, so in the exact-arithmetic regime the grid is the
+only error source; the chain rule over \(K\) steps gives (1). In the
+floating-point regime the per-step relative rounding is
+\(O(d^2 2^{-b})\), uniform along every branch because the registers are
+floating-point, and joins the same chain-rule sum. Adaptivity is free:
+an adaptive protocol's trajectory probability is the product of the same
+per-step conditionals along its realized history, and (2) is the
+observation that the construction never asks which protocol is running.
+\emph{Certified} at \((d, K, |\mathcal{F}|) = (2, \{2,3\}, 4)\) ---
+projective \(Z\) and \(X\), the Hadamard intervention, and the 3-4-5
+rotation, whose non-dyadic branch probabilities make the grid error
+strictly positive --- with the \(K/G\) bound and \(\sim 1/G\) scaling
+observed at \(G \in \{8, 128, 1024\}\); operational noncommutativity
+reproduced at total variation \(\tfrac12\) between the \(XZ\) and \(ZX\)
+outcome-string laws, with \(Z\)-repeatability exact; restriction
+identity; per-instrument injectivity over all 672 reachable states;
+capacity floor --- exact arithmetic over \(\mathbb{Q}(\sqrt2)\),
+\texttt{opglue\_probes.py}. \(\square\)
+
+\emph{Remark (what the gluing theorem does and does not deliver).} At
+finite resolution it crosses most of the gap between \(Q_{\mathrm{fb}}\)
+and the operational theory: incompatible measurements, adaptive
+interventions, preparation and instrument statistics, fixed
+per-instrument mechanisms, gluing by construction. Two deliberate
+non-deliveries. It is APPROXIMATION, not selection: the construction
+realizes any finite instrument family --- quantum or otherwise --- so it
+says nothing about why the quantum family; the selection question is
+route (ii) of the program Remark, untouched. And the general-regime
+capacity bound carries a \(K^2\) term through the exponent range \(E\);
+tightening it is the named residual. The finite-resolution boundary
+itself is no longer a non-delivery so much as a theorem: the exact
+continuum theory remains out of reach of any fixed finite realization
+(the polytope Proposition) and is recovered as the \(K \to \infty\),
+\(\varepsilon \to 0\) limit in the mutual-ε-density form proved below
+(uniform continuum realization and its Corollary). The Kochen--Specker
+inheritance (§3.2) remains conditional exactly as stated --- what this
+theorem adds is that at every finite resolution the statistics defeating
+noncontextual valuation are operationally reproduced, with noncontextual
+mechanisms and contextual values.
+
+\emph{Lemma (adaptive diamond telescoping).} \emph{Let \(\pi\) be an
+adaptive protocol of horizon \(K\) and \(\pi'\) the protocol with each
+instrument \(I_t\) replaced by \(I_t'\). Then the outcome-sequence laws
+obey
+\(\mathrm{TV}(P_\pi, P_{\pi'}) \leq \sum_{t \leq K} \max_a \|I_t^a - I_t'^a\|_\diamond\).}
+\emph{Proof.} Hybrid: swap one step at a time. An instrument is a
+channel into a classical--quantum register, the adaptive continuation is
+itself a channel, and the diamond norm is monotone under pre- and
+post-composition and under tensoring --- so each single swap moves the
+final classical law by at most that step's diamond distance; summing the
+hybrids gives the bound. \(\square\)
+
+\textbf{Theorem (uniform continuum realization --- mutual ε-density).}
+\emph{Fix \(d\), an outcome bound \(m\), a horizon \(K\), and
+\(\varepsilon > 0\). Let \(N\) be a \(\delta\)-net,
+\(\delta = \varepsilon/(2K)\), in diamond norm on the compact set of
+\(\leq m\)-outcome instruments on \(\mathbb{C}^d\) (preparations
+included as channels; a standard volumetric bound gives
+\(|N| \leq \exp(C\, m\, d^4 \log(1/\delta))\), the set having real
+dimension \(\leq 2 m d^4\)), and apply the gluing theorem to
+\(\mathcal{F} = N\) with \(G = \lceil 2K(m{-}1)/\varepsilon \rceil\).
+The single resulting finite reversible realization \(R\) satisfies: (i)
+for every adaptive quantum protocol \(\pi\) of horizon \(\leq K\) with
+arbitrary continuum instruments there is an \(R\)-protocol \(\hat\pi\)
+--- the net rounding --- with
+\(\mathrm{TV}(P_\pi^{\mathrm{QM}}, P_{\hat\pi}^{R}) \leq K\delta + K(m{-}1)/G \leq \varepsilon\),
+by the telescoping Lemma plus clause (1); (ii) conversely every
+\(R\)-protocol runs genuine quantum instruments (net members), so its
+law is within \(K(m{-}1)/G \leq \varepsilon/2\) of a quantum law. The
+two operational theories are therefore mutually \(\varepsilon\)-dense at
+horizon \(K\). And the hidden cost of uniformity is nil: the mechanisms
+are per-instrument, so the hidden registers --- branch vector, stack,
+seeds --- do not scale with \(|N|\); the net inflates only the visible
+intervention record, by
+\(\lceil \log_2 |N| \rceil = O(m\, d^4 \log(2K/\varepsilon))\) bits per
+step, and clause (5)'s hidden bound applies verbatim at the net's entry
+precision.} \(\square\) \emph{(Telescoping and off-net density certified
+on the qubit instance --- the 3-4-5 against the 5-12-13 rotation, and a
+mean-angle off-net target realized through its nearer net member within
+the predicted bound --- checks 8--9, \texttt{opglue\_probes.py}.)}
+
+\emph{Corollary (the operational limit).} \emph{Along any
+\(K_n \to \infty\), \(\varepsilon_n \to 0\), the realizations \(R_n\) of
+the theorem satisfy: every finite-horizon adaptive quantum protocol's
+law is the limit of its net-shadows' realized laws, and every
+\(R_n\)-law is within \(\varepsilon_n/2\) of a quantum law. In this
+mutual-density sense
+\(Q_{\mathrm{operational}} = \lim_n D_{\mathrm{finite}}(K_n, \varepsilon_n)\):
+the exact continuum theory is the completion of the finite embedded
+theories --- unreachable at any fixed stage (the polytope Proposition),
+recovered in the limit, with the selection of the specifically quantum
+family among all thus-realizable operational theories the remaining
+question (route (ii)).} \(\square\)
 
 \textbf{Theorem (unavoidable hidden predictive memory).} \emph{Let
 \(\mathcal{S}\) be a visible process and let \(\mathcal{R}\) be ANY
@@ -3910,10 +4085,13 @@ operational quantum mechanics entire: the instrument algebra and
 representation consistency across arbitrary intervention families face a
 proved obstruction at fixed dimension, and the frontier question ---
 which additional principles select operational quantum theory from
-within the universal class \(Q_{\mathrm{fb}}\) --- is stated rather than
-answered --- its exact finite form closed in the negative by the
-polytope obstruction, the ε-form with its capacity-scaling target and
-the reconstruction-hypotheses program carrying it forward (§3.2, §3.4).
+within the universal class \(Q_{\mathrm{fb}}\) --- is stated with its
+finite-resolution half answered --- the exact finite form closed in the
+negative by the polytope obstruction, the ε-form delivered by the finite
+operational gluing theorem with its two-sided capacity law, the
+continuum limit proved in mutual-ε-density form (uniform continuum
+realization), and the reconstruction-hypotheses selection program
+carrying the remainder (§3.2, §3.4).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 

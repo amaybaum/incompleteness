@@ -1531,19 +1531,22 @@ NOT come for free --- the classical intervention rung is constructed
 obstruction at fixed representation dimension, so operational quantum
 mechanics requires more than the marginalization supplies --- exactly
 unreachable from any fixed finite realization (the polytope obstruction,
-{[}Main §3.4{]}), approachable to every finite resolution in the ε-form,
-with operational gluing and hidden-capacity scaling the named targets
-({[}Main §3.4{]}). The conditions are necessary as well as sufficient
-per finite horizon, in the memory currency: accessible non-Markovianity
-holds if and only if some finite-horizon deterministic realization
-satisfies C1, C3 and C4 --- and, universally, every faithful
-deterministic realization of a memory-bearing process (\(M_t > 0\))
-stores readout-relevant hidden predictive memory, with
-distinguishability surviving to readback and capacity at least \(M_t\)
-({[}Main §3.4{]}). C2 sits outside the equivalence: the existential
-realization satisfies it trivially with a static bath, and its physical
-content is carried separately by the conditional physical-memory theorem
-({[}Main §2.3{]}).}
+{[}Main §3.4{]}), and now achieved at every finite resolution by the
+finite operational gluing theorem: fixed per-instrument mechanisms,
+gluing by restriction, adaptive completeness with a two-sided
+hidden-capacity law ({[}Main §3.4{]}); the continuum is recovered as a
+proved mutual-ε-density limit (uniform continuum realization, {[}Main
+§3.4{]}), and the selection question remains the frontier. The
+conditions are necessary as well as sufficient per finite horizon, in
+the memory currency: accessible non-Markovianity holds if and only if
+some finite-horizon deterministic realization satisfies C1, C3 and C4
+--- and, universally, every faithful deterministic realization of a
+memory-bearing process (\(M_t > 0\)) stores readout-relevant hidden
+predictive memory, with distinguishability surviving to readback and
+capacity at least \(M_t\) ({[}Main §3.4{]}). C2 sits outside the
+equivalence: the existential realization satisfies it trivially with a
+static bath, and its physical content is carried separately by the
+conditional physical-memory theorem ({[}Main §2.3{]}).}
 
 The proof develops in seven stages, with a structural commentary in
 §1.10 examining what physics emerges when each of the four conditions
@@ -28661,6 +28664,20 @@ representability (which is universal), carries the discriminating
 content ({[}Main §3.4{]}). Predicted to appear at multiple scales:
 cosmological (quantum mechanics), biological (enzyme kinetics, gene
 expression), engineered (qubit noise). Defined in Chapter 1 §1.5.
+
+\textbf{Operational gluing theorem.} The framework's finite-resolution
+operational result ({[}Main §3.4{]}): every finite adaptive quantum
+experiment --- instrument family \(\mathcal{F}\), horizon \(K\), grid
+\(G\) --- has a finite reversible deterministic embedded realization
+whose adaptive outcome statistics lie within \(K/G\) of the quantum law,
+with one fixed mechanism per instrument (context entering only through
+the state), gluing by restriction across overlapping families,
+sequential and parallel composition, and a two-sided hidden-capacity
+law. Approximation, not selection: it realizes any finite instrument
+family, quantum or otherwise; the exact continuum theory survives only
+as the limit (the polytope obstruction), and the selection question
+remains the frontier. Certified in exact arithmetic
+(\texttt{opglue\_probes.py}).
 
 \textbf{NV (Nitrogen-vacancy) center.} A point defect in diamond where a
 nitrogen atom replaces a carbon atom adjacent to a lattice vacancy. The

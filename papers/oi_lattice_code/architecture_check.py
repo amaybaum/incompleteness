@@ -460,6 +460,16 @@ INVARIANTS = [
      "no fixed finite realization is exactly operationally equivalent to the full operational theory (polytope obstruction, Main §3.4); use the ε-form",
      [r"[Nn]o fixed finite"],
      "the framework is exactly operationally equivalent to quantum mechanics"),
+    # ---- b126 family: the gluing theorem is approximation, not selection or closure ----
+    (r"gluing theorem (closes|delivers|selects)[^.\n]{0,40}operational",
+     "the gluing theorem is finite-resolution approximation with fixed mechanisms; the exact limit and the selection question remain the frontier (Main §3.4)",
+     [],
+     "the gluing theorem closes the gap to operational quantum mechanics"),
+    # ---- b126b family: the limit is now a theorem ----
+    (r"limit statement is not yet a theorem|limit and the selection question remain the frontier",
+     "the operational limit is proved in mutual-ε-density form (uniform continuum realization + Corollary, Main §3.4); only selection remains",
+     [],
+     "the limit statement is not yet a theorem"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
