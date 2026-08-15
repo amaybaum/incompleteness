@@ -298,7 +298,7 @@ This is not a unique pattern. Statistical mechanics in the nineteenth century si
 
 The framework is structured to allow domain-specific evaluation. Part II (fundamental physics) is self-contained and can be evaluated independently. Part III (emergence cascade) builds on Part II but is independently evaluable. Part IV (applications) builds on Parts II-III but is also independently evaluable. A reader skeptical of the framework's overall claim can evaluate Part II alone and engage the framework's content at that level.
 
-**Ambition.** "The framework derives QM, dissolves the cosmological constant problem, explains the dark sector, and provides a unifying account of memory in biology. This is too ambitious."
+**Ambition.** "The framework identifies QM with embedded observation, dissolves the cosmological constant problem, explains the dark sector, and provides a unifying account of memory in biology. This is too ambitious."
 
 The framework's response: ambition is not a scientific objection. The relevant questions are: do the derivations work? do the predictions match empirical data? are the structural commitments coherent? The framework's content provides specific answers to each: the derivations are explicit and the proofs are complete; the predictions match empirical data at substantial precision (JUNO 0.07$\sigma$, GW250114 99.999%); the structural commitments are coherent across multiple domains.
 

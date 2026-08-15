@@ -1534,9 +1534,11 @@ representation
 \((\mathcal{H}_H, U_\varphi, \rho_H)\) is the Stinespring dilation
 {[}15{]} of \(\Phi\).
 
-\textbf{Theorem (Born rule recovery).} \emph{The classical transition
-probabilities \(T_{ij}\) (§1.4) equal the Born-rule probabilities of
-\(\Phi\).}
+\textbf{Theorem (Born-form representation of the transition
+probabilities).} \emph{The classical transition probabilities \(T_{ij}\)
+(§1.4) equal the Born-rule probabilities of \(\Phi\) --- a
+representation identity: it exhibits the Born form and does not select
+the quadratic exponent (§3.4).}
 
 \emph{Proof.}
 \(P(j|i) = \langle j|\Phi(|i\rangle\langle i|)|j\rangle = m^{-1}\sum_{k,l} |\langle j,l|U_\varphi|i,k\rangle|^2\).
@@ -3215,26 +3217,28 @@ embedded observer; what differs is the \emph{type} of missing
 information. In the quantum case the missing information is the
 hidden-sector \emph{state}, which is dynamically resampled (the bath
 thermalizes) and therefore fluctuates; averaging over a fluctuating
-quantity is productive and yields the non-Markovian statistics that are
-quantum mechanics. In the isotropy case the ``missing'' information is
-the \emph{orientation} of the lattice constitution, a fixed global
-parameter that is not resampled; there is no ensemble to average over,
-and the observer's ignorance of the lattice axes is not a statistical
-mixture. The discriminant is whether the missing information fluctuates:
-fluctuating missingness is averaged into emergent structure, fixed
-missingness is inherited. Both faces trace to the temporal asymmetry of
-embedded observation --- the slow-bath condition (C2) that drives the
-quantum emergence is the same feature that selects the simultaneity
-surface and hence the timelike \(n\) --- but the quantum/isotropy
-contrast is properly attributed to fluctuating-versus-fixed missingness,
-not to a dichotomy of operations.
+quantity is productive and yields the memory-bearing non-Markovian
+statistics that quantum mechanics represents. In the isotropy case the
+``missing'' information is the \emph{orientation} of the lattice
+constitution, a fixed global parameter that is not resampled; there is
+no ensemble to average over, and the observer's ignorance of the lattice
+axes is not a statistical mixture. The discriminant is whether the
+missing information fluctuates: fluctuating missingness is averaged into
+emergent structure, fixed missingness is inherited. Both faces trace to
+the temporal asymmetry of embedded observation --- the persistence
+condition (C2) that sustains the memory-bearing sector --- the slow bath
+one mechanism for it (§1.3) --- is the same feature that selects the
+simultaneity surface and hence the timelike \(n\) --- but the
+quantum/isotropy contrast is properly attributed to
+fluctuating-versus-fixed missingness, not to a dichotomy of operations.
 
 Two honest qualifications bound this subsection. First, the lemma is
 one-directional and near-elementary (it follows from the little-group
 classification once the horizon is granted to select \(n\)); it is far
-less deep than the characterization theorem, which rests on the Barandes
-correspondence, and it is labelled a lemma for that reason. Second, it
-is a structural statement about the map's reach, not a derivation of a
+less deep than the characterization theorem --- proved in-house, the
+imported correspondence retaining only the compressed form under (T)
+(§3.4) --- and it is labelled a lemma for that reason. Second, it is a
+structural statement about the map's reach, not a derivation of a
 physical law: it explains \emph{why} the framework can constrain the
 boost sector and must take spatial isotropy as input, but it neither
 supplies that isotropy nor forbids its violation. (Whether the fixed
@@ -3265,9 +3269,12 @@ visible-sector degrees of freedom, changing the transition matrix and
 eliminating the interference terms. The Everettian measure problem
 dissolves: the system evolves as a single reality; ``branches'' are
 features of the compressed description. The Born rule, often treated as
-an independent postulate, is derived: it is the equilibrium distribution
-of the indivisible stochastic process (§3.1), not an additional
-assumption.
+an independent postulate, is here not an additional axiom: it enters as
+the representation's fixed-basis readout dictionary
+(\(S \iff D \iff Q_{\mathrm{fb}}\), §3.4) --- admitted rather than
+derived, its specifically quadratic form a named open selection question
+(§3.4) --- with the equilibrium-of-the-cycle reading the cosmological
+realization's mechanism proposal rather than a theorem of this paper.
 
 \textbf{Observer covariance and nested observers.} The framework treats
 the observer partition \(V \subsetneq S\) as a choice, not an absolute.
@@ -3382,30 +3389,30 @@ quantization condition \(\oint p \cdot dq = nh\) --- the stochastic
 process admits a broader class of solutions than standard QM, and the
 quantization must be reimposed by hand. The present framework is not
 subject to this critique because it does not derive QM from a continuous
-stochastic process on \(\psi\) or on configuration space; it derives QM
-from the characterization theorem for embedded observers on a
-deterministic bijection, with stochasticity emerging from the trace-out
-over the hidden sector rather than being fundamental. \textbf{Adler's
-trace dynamics {[}34{]}} derives QM from statistical mechanics of
-matrix-valued dynamical variables with a trace-class Hamiltonian, with
-the canonical commutation relations emerging as expectation values over
-a specific equilibrium ensemble. The framework here requires neither
-matrix-valued variables nor an equilibrium-ensemble derivation; the
-substratum is a finite configuration space with a deterministic
-bijection, and the emergence mechanism is the Stinespring dilation
-applied to observer-marginalized transition probabilities.
-\textbf{Barandes's stochastic-quantum correspondence {[}11, 12{]}}, used
-as a technical tool in §3.1, is not a competitor but a building block:
-the correspondence maps P-indivisible stochastic processes on finite
-configuration spaces to unitary quantum evolutions on finite Hilbert
-spaces, and the present framework supplies the physical mechanism
-(embedded observation under C1--C4) that produces the P-indivisible
-processes Barandes then maps to quantum mechanics. The three earlier
-programs identified emergent QM as a legitimate research target; what
-the present framework adds is an equivalence with necessary and
-sufficient conditions --- (ii) \(\iff\) (iii) with representability as a
-one-way consequence (§3.4) --- and a constructive derivation chain that
-does not require independent quantization conditions or equilibrium
+stochastic process on \(\psi\) or on configuration space; its
+identification of QM proceeds through the characterization theorem for
+embedded observers on a deterministic bijection, with stochasticity
+emerging from the trace-out over the hidden sector rather than being
+fundamental. \textbf{Adler's trace dynamics {[}34{]}} derives QM from
+statistical mechanics of matrix-valued dynamical variables with a
+trace-class Hamiltonian, with the canonical commutation relations
+emerging as expectation values over a specific equilibrium ensemble. The
+framework here requires neither matrix-valued variables nor an
+equilibrium-ensemble derivation; the substratum is a finite
+configuration space with a deterministic bijection, and the emergence
+mechanism is the Stinespring dilation applied to observer-marginalized
+transition probabilities. \textbf{Barandes's stochastic-quantum
+correspondence {[}11, 12{]}}, used as a technical tool in §3.1, is not a
+competitor but a building block: the correspondence maps P-indivisible
+stochastic processes on finite configuration spaces to unitary quantum
+evolutions on finite Hilbert spaces, and the present framework supplies
+the physical mechanism (embedded observation under C1--C4) that produces
+the P-indivisible processes Barandes then maps to quantum mechanics. The
+three earlier programs identified emergent QM as a legitimate research
+target; what the present framework adds is an equivalence with necessary
+and sufficient conditions --- (ii) \(\iff\) (iii) with representability
+as a one-way consequence (§3.4) --- and a constructive derivation chain
+that does not require independent quantization conditions or equilibrium
 ensembles.
 
 \textbf{Relation to the post-2022 observer-essentiality wave.} A

@@ -9,7 +9,7 @@ The main chapters of the book develop the framework's content with proofs sketch
 
 The appendix's content is organized by mathematical structure rather than by chapter sequence. Six derivations occupy the appendix.
 
-*B.2 The Stinespring construction.* The framework's emergent quantum mechanics derives from a deterministic substratum bijection through the Stinespring dilation theorem applied to a partial trace over the hidden sector. This appendix gives the full construction: Hilbert-space embedding, permutation unitarity lemma, CPTP channel structure, Born rule recovery, emergent coherence theorem, and CP-indivisibility theorem. The construction uses only textbook operator algebra from the 1950s.
+*B.2 The Stinespring construction.* The framework's emergent quantum description is constructed from a deterministic substratum bijection through the Stinespring dilation theorem applied to a partial trace over the hidden sector. This appendix gives the full construction: Hilbert-space embedding, permutation unitarity lemma, CPTP channel structure, Born-form representation of the transition probabilities, emergent coherence theorem, and CP-indivisibility theorem. The construction uses only textbook operator algebra from the 1950s.
 
 *B.3 The trace-out as a Jordan-Chevalley projection.* The framework's content on the Standard Model gauge structure relies on a structural property of the trace-out operation: it extracts the semisimple part of the evolution matrix's Jordan-Chevalley decomposition and discards the nilpotent monodromy. This appendix gives the full algebraic derivation: period formula, Jordan-Chevalley decomposition, $q$-independence of the Weil-Deligne conductor, additive decomposition over gauge irreps, and the precise sense in which the trace-out is a projection.
 
@@ -27,7 +27,7 @@ The appendix's content is *complete derivations*, not exposition. Each derivatio
 
 *Main-text reference: Chapter 1 §1.7-1.9.*
 
-The framework's emergent quantum mechanics derives from the substratum's deterministic bijection through a Stinespring dilation applied to the partial trace over the hidden sector. The construction uses only textbook operator algebra from the 1950s, with no reference to recent stochastic-quantum correspondence results.
+The framework's emergent quantum description is constructed from the substratum's deterministic bijection through a Stinespring dilation applied to the partial trace over the hidden sector. The construction uses only textbook operator algebra from the 1950s, with no reference to recent stochastic-quantum correspondence results.
 
 **Setup.** The finite configuration spaces $\mathcal{C}_V = \{x_1, \ldots, x_n\}$ (visible sector) and $\mathcal{C}_H = \{h_1, \ldots, h_m\}$ (hidden sector) embed into Hilbert spaces $\mathcal{H}_V = \mathbb{C}^n$ and $\mathcal{H}_H = \mathbb{C}^m$ via the canonical identification $|i\rangle \leftrightarrow x_i$ and $|k\rangle \leftrightarrow h_k$. This introduces no quantum postulates: it is the canonical identification of probability distributions on a finite set with diagonal density matrices.
 
@@ -49,7 +49,7 @@ For continuous-time dynamics $\varphi_t$, Stone's theorem on $\mathcal{H}$ yield
 $$\Phi(\rho_V) = \text{Tr}_H\!\left[U_\varphi\,(\rho_V \otimes \rho_H)\,U_\varphi^\dagger\right]$$
 This is completely-positive trace-preserving (CPTP) by a standard result (Nielsen-Chuang Theorem 8.1), with Kraus representation $\Phi(\rho_V) = \sum_{k,l} K_{kl}\,\rho_V\,K_{kl}^\dagger$ where $K_{kl} = m^{-1/2}\langle l|U_\varphi|k\rangle_H$. The triple $(\mathcal{H}_H, U_\varphi, \rho_H)$ is the *Stinespring dilation* of $\Phi$.
 
-**Theorem B.2.3 (Born rule recovery).** *The classical transition probabilities $T_{ij} = P(j|i)$ derived from the substratum's bijection equal the Born-rule probabilities of $\Phi$.*
+**Theorem B.2.3 (Born-form representation of the transition probabilities).** *The classical transition probabilities $T_{ij} = P(j|i)$ derived from the substratum's bijection equal the Born-rule probabilities of $\Phi$ — a representation identity: it exhibits the Born form and does not select the quadratic exponent, which remains open ([Main §3.4]).*
 
 *Proof.* $P(j|i) = \langle j|\Phi(|i\rangle\langle i|)|j\rangle = m^{-1}\sum_{k,l} |\langle j,l|U_\varphi|i,k\rangle|^2$. Since $U_\varphi$ is a permutation, $\langle j,l|U_\varphi|i,k\rangle = \delta_{(j,l),\varphi(i,k)}$. Thus $P(j|i) = m^{-1}\sum_k \delta_{j,\pi_V(\varphi(x_i,h_k))} = T_{ij}$, where $\pi_V$ is the projection from $\mathcal{C}_V \times \mathcal{C}_H$ to $\mathcal{C}_V$. $\square$
 

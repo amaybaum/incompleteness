@@ -51,7 +51,7 @@ The reconstruction theorem developed in the next section makes both inaccessibil
 
 ## 2.4 The reconstruction theorem
 
-Chapter 1 took the substratum $(S, \varphi)$ as input and derived quantum mechanics from it. The converse direction — from observed physics to the substratum — is the reconstruction theorem. If observed physics uniquely determines the substratum up to a precise equivalence, then the framework is not free to posit any deterministic system that happens to produce quantum mechanics under marginalization; the substratum is fixed by the data. This section establishes that uniqueness, and identifies the gauge equivalence that characterizes the residual freedom.
+Chapter 1 took the substratum $(S, \varphi)$ as input and developed the emergent quantum description from it. The converse direction — from observed physics to the substratum — is the reconstruction theorem. If observed physics uniquely determines the substratum up to a precise equivalence, then the framework is not free to posit any deterministic system that happens to produce quantum mechanics under marginalization; the substratum is fixed by the data. This section establishes that uniqueness, and identifies the gauge equivalence that characterizes the residual freedom.
 
 The theorem takes two kinds of input. The first is *empirical*: structural facts about the observed universe. The second is *structural*: assumptions about the class of candidate substrates the reconstruction is permitted to consider. Both are necessary, and both must be stated explicitly. A reconstruction theorem that did not specify its structural assumptions would either claim too much (uniqueness without restriction) or claim too little (uniqueness only within an undefined class).
 
