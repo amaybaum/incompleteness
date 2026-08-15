@@ -286,7 +286,7 @@ This is the key link. Section 2 proved that the embedded observer's dynamics are
 
 **The core statement.** Any P-indivisible stochastic process on a finite configuration space of size n can be embedded into a unitarily evolving quantum system. Specifically, there exists a Hilbert space H (dimension ≤ n³) and a unitary operator U(t) such that:
 
-$$T_{ij}(t) = |U_{ij}(t)|^2$$
+$$T_{ij}(t) = \sum_\alpha |\tilde U_{(i,0)\,(j,\alpha)}(t)|^2 \qquad \text{(ancilla-marginal; the bare visible form is the } m_a = 1 \text{ special case)}$$
 
 This is the Born rule. The left side is the transition probability computed by averaging over hidden states (the classical formula from partition-relativity). The right side is the quantum mechanical probability — the squared modulus of a matrix element of the unitary evolution operator. The equivalence is not approximate. It is not an analogy. It is a mathematical identity.
 

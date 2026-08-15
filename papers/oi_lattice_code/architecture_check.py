@@ -107,10 +107,12 @@ INVARIANTS = [
      "C2 is memory persistence; slow bath is one realization",
      [],
      "C2 (slow bath) requires timescale separation"),
-    (r"T_\{ij\}[^.\n]{0,12}=[^.\n]{0,12}\|U_\{ij\}\|\^2|Unitary with \$T_\{ij\} = \|U_\{ij\}\|\^2\$",
+    (r"T_\{ij\}(\(t\))?[^.\n]{0,12}=[^.\n]{0,12}\|U_\{ij\}(\(t\))?\|\^2"
+     r"|\|\\langle j\|e\^\{-i\\hat\{H\}t\}\|i\\rangle\|\^2 = T_\{ij\}",
      "the bare visible-space form is unavailable in general; the representation is the ancilla-dilated one (Main §3.1)",
-     [r"undilated equality", r"is itself unistochastic", r"not in general unistochastic"],
-     "Output | Unitary with $T_{ij} = |U_{ij}|^2$"),
+     [r"undilated equality", r"is itself unistochastic", r"not in general unistochastic",
+      r"trivial-ancilla (special )?case", r"discards phase information", r"ancilla-marginal level"],
+     "such that $T_{ij}(t) = |U_{ij}(t)|^2$ on the visible space"),
     (r"(follow|derived|delivered)[^.\n]{0,60}without independent postulates"
      r"|L\u00fcders rule[^.\n]{0,60}(quantum transcription|follows|is derived)",
      "the operational instrument algebra is open; the Lüders rule is not delivered by the characterization",
@@ -137,6 +139,34 @@ INVARIANTS = [
      "phase-locking fixes H only up to shift, rephasing and the antiunitary conjugation H -> -H*",
      [r"antiunitary", r"-\\hat\{H\}\^\*", r"twofold ambiguity"],
      "phase-locking determines the Hamiltonian uniquely"),
+    (rf"(Input|Scope|input)[^|\n]{{0,25}}\|[^|\n]{{0,20}}P{E}indivisible process"
+     rf"|[Aa]ny P{E}indivisible process(?![^.\n]{{0,40}}nontrivial)",
+     "membership in the source's class is not gated by P-indivisibility; (T) admits the process",
+     [],
+     "| Input | P-indivisible process on $\\mathcal{C}_V$ |"),
+    (rf"C1{E}[-–]{E}C4[^.\n]{{0,50}}(jointly necessary|jointly sufficient|exactly the joint specification)"
+     rf"|combination of the four conditions[^.\n]{{0,40}}(produces|yields)",
+     "the equivalence is a dilation theorem; C4 coincides with the non-Markovianity clause and C1/C3 follow from it",
+     [],
+     "C1–C4 as jointly necessary for accessible non-Markovianity"),
+    (r"(Hamiltonian|dynamics) is uniquely (fixed|determined)"
+     r"|Up to this freedom, the dynamics is uniquely determined",
+     "phase-locking fixes H only up to shift, rephasing and the antiunitary conjugation",
+     [r"antiunitary", r"twofold ambiguity", r"full gauge"],
+     "The Hamiltonian is uniquely fixed by the observable transition data."),
+    (r"independent second route|second independent route"
+     r"|rejects? the Barandes[^.\n]{0,60}must also reject Stinespring",
+     "Stinespring independently secures the generic dilation layer only; the two routes share that bedrock",
+     [],
+     "Stinespring dilation is an independent second route"),
+    (r"reproduces all quantum[- ]mechanical predictions|reproduces all of quantum mechanics",
+     "the operational instrument algebra is open; not all quantum predictions are delivered",
+     [],
+     "the framework reproduces all quantum-mechanical predictions"),
+    (r"measurement[- ]independence preservation|preservation of measurement independence",
+     "measurement independence is not imposed at the substratum level; it is an operational target",
+     [],
+     "the framework's measurement-independence preservation distinguishes it"),
     (rf"P{E}indivisibility is mathematically equivalent to quantum mechanics",
      "P-indivisibility governs nontriviality of the representation, not its existence",
      [],
@@ -154,7 +184,7 @@ for path in targets:
     text = open(path, encoding="utf-8").read()
     for pattern, why, exceptions, _ in INVARIANTS:
         for m in re.finditer(pattern, text):
-            window = text[max(0, m.start()-90):m.start()+90]
+            window = text[max(0, m.start()-160):m.start()+160]   # b114: qualifying language often sits a clause away
             if any(re.search(e, window) for e in exceptions): continue
             line = text[:m.start()].count("\n") + 1
             violations.append((os.path.relpath(path, root), line, re.sub(r"\s+", " ", m.group(0))[:60], why))
