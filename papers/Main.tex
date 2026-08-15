@@ -238,21 +238,25 @@ shows every memory-bearing completion must contain, while the slow-bath
 inequality \(\tau_S \ll \tau_B\) is one sufficient mechanism for it,
 whose necessity for physical hidden sectors is the conditional
 physical-memory theorem --- quantitative, with ETH as the physical
-motivation rather than a premise (§3.4). Within the representation the
-Schrödinger equation and Born rule are structural consequences, and
-Bell-class correlations arise where the dynamics is P-indivisible. What
-the equivalence deliberately does not deliver is operational quantum
-mechanics entire: the instrument algebra and representation consistency
-across arbitrary intervention families face a proved obstruction at
-fixed dimension, and the sharpened foundational question --- which
-additional principles select operational quantum theory from within the
-universal representation class \(Q_{\mathrm{fb}}\) --- is stated as the
-frontier (§3.2, §3.4). The framework's posture is therefore one of
-\emph{identification} --- quantum mechanics as the description of a
-particular kind of incomplete observation, with the content living in
-the nontrivial sector \(M_t > 0\) --- rather than derivation of quantum
-mechanics from a parameter-free first principle; the distinction is the
-proper locus of skeptical scrutiny.
+motivation rather than a premise (§3.4). The representation carries
+Schrödinger-form interpolation and Born-rule fixed-basis readout as its
+dictionary --- admitted, not derived: on the equivalence's permutation
+unitaries \(|U|^2 = |U|^p\) for every positive \(p\), so selecting the
+specifically quadratic Born functional is additional structure, named as
+part of the frontier --- and Bell-class correlations arise where the
+dynamics is P-indivisible. What the equivalence deliberately does not
+deliver is operational quantum mechanics entire: the instrument algebra
+and representation consistency across arbitrary intervention families
+face a proved obstruction at fixed dimension, and the sharpened
+foundational question --- which additional principles select operational
+quantum theory from within the universal representation class
+\(Q_{\mathrm{fb}}\) --- is stated as the frontier (§3.2, §3.4). The
+framework's posture is therefore one of \emph{identification} ---
+quantum mechanics as the description of a particular kind of incomplete
+observation, with the content living in the nontrivial sector
+\(M_t > 0\) --- rather than derivation of quantum mechanics from a
+parameter-free first principle; the distinction is the proper locus of
+skeptical scrutiny.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2739,7 +2743,14 @@ classical stochastic theories --- the equivalence identifies the
 \emph{representation class} exactly, and the sharpened foundational
 question it leaves is which additional principles (the instrument
 algebra and cross-horizon representation consistency of the scope Remark
-below) select operational quantum theory from within that universal
+below, and the selection of the specifically quadratic Born functional
+--- on the equivalence's own permutation unitaries
+\(|U_{ji}|^2 = |U_{ji}|^p\) for every \(p > 0\), the exponent invisible
+to the internal construction, with the continuous interpolation
+\(U_\varphi = e^{-i\hat H}\) carrying matrix-logarithm branch freedom
+that only continuous-time data resolve, §3.1 --- a Gleason-role
+selection theorem from the framework's own architecture being the named
+target) select operational quantum theory from within that universal
 class.
 
 \emph{Remark (interventions).} The same construction indexed by
@@ -2795,11 +2806,13 @@ endpoint induce differing pushforwards
 \((f_x)_\# \mu_p \neq (f_x)_\# \mu_{p'}\), then by (a) those
 pushforwards \emph{are} differing next-step conditional laws, so
 \(M_t > 0\) --- hence \(M_t > 0\) holds exactly when every faithful
-deterministic realization contains readout-relevant hidden predictive
-memory. The conditions follow rather than being assumed: (C1) because a
-hidden distinction invisible to \(f_x\) produces identical pushforwards;
-(C2-structural) as the retention required by (b) --- the slow-bath form
-(C2-slow) one mechanism among several (§1.3); (C3) as (c) itself.
+deterministic realization --- of any horizon \(K \geq t+1\), the least
+on which \(M_t\) is defined --- contains readout-relevant hidden
+predictive memory at \(t\). The conditions follow rather than being
+assumed: (C1) because a hidden distinction invisible to \(f_x\) produces
+identical pushforwards; (C2-structural) as the retention required by (b)
+--- the slow-bath form (C2-slow) one mechanism among several (§1.3);
+(C3) as (c) itself.
 
 \emph{Remark (a variational identity, open --- and false in its naive
 form).} It is natural to conjecture
@@ -2868,12 +2881,15 @@ information \(I(X_{<k}; X_{k+1} \mid X_k)\) is strictly positive --- the
 visible past carries information about the visible future beyond the
 present.}
 
-\emph{(iii) For every finite accessible horizon, \(\mathcal{S}\) arises
-from marginalizing a deterministic bijection on
+\emph{(iii) For every finite accessible horizon long enough to contain a
+memory witness --- every \(K \geq k+1\), with \(k\) an order at which
+(ii)'s conditional mutual information is positive --- \(\mathcal{S}\)
+arises from marginalizing a deterministic bijection on
 \(\mathcal{C}_V \times \mathcal{C}_H\) --- the hidden space may grow
 with the horizon --- with (C1) non-trivial coupling, (C3) sufficient
-capacity, and (C4) history readback --- with a fixed hidden prior
-\(\mu_H\) carried as part of the realization datum (§1.4 Remark).}
+capacity, and (C4) history readback at such a \(k\) --- with a fixed
+hidden prior \(\mu_H\) carried as part of the realization datum (§1.4
+Remark).}
 
 \emph{Remark (two notions of memory).} Non-Markovianity of the process
 --- condition (ii) --- and P-indivisibility of the transition-matrix
@@ -2896,21 +2912,22 @@ imported correspondence reads Bell-class dynamics as indivisible, and
 (iii) includes (C4), whose gap forces
 \(I(X_{<k}; X_{k+1} \mid X_k) \geq p_0\delta^2/\ln 2 > 0\) at an
 accessible order. (ii) \(\implies\) (iii): existence, per accessible
-horizon, by the finite-horizon process-dilation theorem above, which
-reproduces the full multi-time law; the realization inherits (C4)
-directly --- the ledger-conditioned kernels reproduce \(\mathcal{S}\)'s
-differing past-conditionals exactly (\texttt{c4\_backflow\_probes.py})
---- and satisfies the remaining conditions: (C1) because a
-Markov-breaking kernel dependence requires hidden influence at that step
-(with none anywhere, every visible transition is a fixed function of the
-visible present and the process is Markov, contradicting (ii)); (C2)
-trivially in the construction --- the bath is static,
-\(\tau_B = \infty\), satisfying \(\tau_S \ll \tau_B\); for
-\emph{physical} hidden sectors the physical-memory theorem's
-contrapositive (§2.3, the C2 process form) supplies the necessity
-direction --- observed conditional memory bounds the mixing residual
-below --- conditional on the conditional-mixing-curve hypothesis with
-finite \(\tau_B(\varepsilon_0)\) (Remark, §3.4; ETH {[}17, 18{]} the
+horizon containing the witness order \(k\), by the finite-horizon
+process-dilation theorem above, which reproduces the full multi-time
+law; the realization inherits (C4) at \(k\) directly --- the
+ledger-conditioned kernels reproduce \(\mathcal{S}\)'s differing
+past-conditionals exactly (\texttt{c4\_backflow\_probes.py}) --- and
+satisfies the remaining conditions: (C1) because a Markov-breaking
+kernel dependence requires hidden influence at that step (with none
+anywhere, every visible transition is a fixed function of the visible
+present and the process is Markov, contradicting (ii)); (C2) trivially
+in the construction --- the bath is static, \(\tau_B = \infty\),
+satisfying \(\tau_S \ll \tau_B\); for \emph{physical} hidden sectors the
+physical-memory theorem's contrapositive (§2.3, the C2 process form)
+supplies the necessity direction --- observed conditional memory bounds
+the mixing residual below --- conditional on the
+conditional-mixing-curve hypothesis with finite
+\(\tau_B(\varepsilon_0)\) (Remark, §3.4; ETH {[}17, 18{]} the
 motivation; no smallness of \(\varepsilon\) at the coupling time is
 assumed); (C3) from the data-processing bound in per-process form
 (\(m \geq 2^{I^*}\)). Both directions of the equivalence are theorems of
@@ -2922,6 +2939,20 @@ evolving quantum system; under the time-homogeneity restriction the
 representation takes the fixed-\(\hat{H}\) ancilla-marginal form of (i)
 (scope Remark) --- the paper's single external import, sitting outside
 the equivalence. \(\square\)
+
+\emph{Remark (the horizon restriction is forced).} The witness-anchored
+quantifier in (iii) is not a courtesy. A horizon ending before the first
+memory witness restricts \(\mathcal{S}\) to a Markovian law, and by the
+universal theorem's biconditional no faithful realization of a
+memory-free law carries a readback gap --- so the unrestricted
+every-horizon form of (iii) is false, while every horizon containing a
+witness supports the construction. The strong per-witness form is exact:
+\(M_t > 0\) \(\iff\) for every \(K \geq t+1\) there is a faithful
+realization of the law through \(K\) with readback biting at \(t\) ---
+the forward direction by dilation of the \(K\)-law, whose restriction
+contains the \(t\)-witness, the converse because a readback gap in any
+faithful realization \emph{is} a differing next-step conditional
+(universal theorem, (a)).
 
 \emph{Remark (retired direction).} (i) alone does not imply (ii): a
 diagonal Hamiltonian satisfies the definition with \(T(t) = I\) for all
@@ -3045,27 +3076,26 @@ falsifiable texture of the same standing as the residual dissipation
 
 \emph{(iv) Classical P-indivisibility and quantum mechanics.} The
 representation clause is not a claim that all P-indivisible processes
-are ``secretly quantum'' --- and it does not extend to general
-non-Markovian (divisible) processes at all, per the two-notions Remark
-of §3.4 --- in some metaphysical sense; it is a theorem that the
-mathematical structures are identical. Classical systems exhibiting
-P-indivisibility --- renewal processes, semi-Markov processes on finite
-state spaces --- admit a unitary description, generically constrained up
-to the phase-locking gauge (shift, rephasing, the antiunitary
-conjugate), that makes predictions beyond the transition data up to that
-gauge (energy-gap structure, interference, entanglement), and can be
-realized as marginalization of deterministic dynamics under C1--C4
-(necessity theorems). The framework locates the observer's process
-inside the correspondence's domain, where the imported theorem supplies
-a unitarily evolving representation for every finite-configuration
-member --- including divisible and Markovian ones. P-indivisibility does
-not gate that supply; it distinguishes representations whose dynamics is
-genuinely indivisible from those that are trivially unistochastic
-(§3.4). The physical content of the unitary is not that of a mere
-mathematical embedding: it is a Hamiltonian determined by the transition
-data up to the stated gauge freedom --- energy shift, rephasing, and the
-antiunitary conjugate \(H \to -H^*\) (phase-locking lemma) --- arising
-from the \emph{actual} dilation structure of the system (§3.2).
+are ``secretly quantum'' in some metaphysical sense; it is a theorem
+that the mathematical structures are identical. Classical systems
+exhibiting P-indivisibility --- renewal processes, semi-Markov processes
+on finite state spaces --- admit a unitary description, generically
+constrained up to the phase-locking gauge (shift, rephasing, the
+antiunitary conjugate), that makes predictions beyond the transition
+data up to that gauge (energy-gap structure, interference,
+entanglement), and can be realized as marginalization of deterministic
+dynamics under C1--C4 (necessity theorems). The framework locates the
+observer's process inside the correspondence's domain, where the
+imported theorem supplies a unitarily evolving representation for every
+finite-configuration member --- including divisible and Markovian ones.
+P-indivisibility does not gate that supply; it distinguishes
+representations whose dynamics is genuinely indivisible from those that
+are trivially unistochastic (§3.4). The physical content of the unitary
+is not that of a mere mathematical embedding: it is a Hamiltonian
+determined by the transition data up to the stated gauge freedom ---
+energy shift, rephasing, and the antiunitary conjugate \(H \to -H^*\)
+(phase-locking lemma) --- arising from the \emph{actual} dilation
+structure of the system (§3.2).
 
 \emph{(v) The single external dependency, scoped.} The paper imports one
 external result: the Barandes stochastic-quantum correspondence {[}11,
@@ -3693,15 +3723,21 @@ barriers, glassy or critical slowing) --- the bound is at most
 matter. The illustration rides (GT); the exclusion itself rides only the
 chain. Any finite-information observer has \(\tau_S\) bounded below by
 its own internal processing time --- for biological or synthetic BBs of
-any currently-envisioned type, \(\tau_S \gtrsim 10^{-6}\) s. Condition
-(C2), \(\tau_S \ll \tau_B\), therefore fails by at least six orders of
-magnitude for any BB whose local environment satisfies (GT). Since QM
-emergence under the framework requires (C2) as a necessary condition
-(§3.4), Boltzmann-brain observers do not see emergent QM; they are not
-observers in the sense the framework's definitions require. The
-exclusion is structural, not measure-theoretic --- it follows from the
-incompatibility of (C2) with local equilibrium, not from arguments about
-the ratio of BBs to ``ordinary'' observers in an anthropic sample.
+any currently-envisioned type, \(\tau_S \gtrsim 10^{-6}\) s. The slow
+form (C2-slow), \(\tau_S \ll \tau_B\), therefore fails by at least six
+orders of magnitude for any BB whose local environment satisfies (GT)
+--- and because (EM) posits genuine mixing rather than mere speed, the
+persistence form (C2-structural) fails with it: records are scrambled
+before readback. The chain closes in the memory currency:
+\(\neg\)(C2-structural) \(\Rightarrow\) \(\neg\)(C4) by the fast-bath
+erasure lemma \(\Rightarrow\) \(M_t = 0\) on accessible windows (§3.4)
+--- Boltzmann-brain observers see no accessible memory, so they are not
+observers in the sense the framework's definitions require; the
+fixed-basis quantum representation they trivially possess
+(\(S \iff D \iff Q_{\mathrm{fb}}\)) carries no discriminating content.
+The exclusion is structural, not measure-theoretic --- it follows from
+the incompatibility of (C2) with local equilibrium, not from arguments
+about the ratio of BBs to ``ordinary'' observers in an anthropic sample.
 
 \textbf{Corollary (past-hypothesis replacement).} For \((S, \varphi)\)
 in its typical orbit phase --- equivalently, in its equilibrium
@@ -3774,15 +3810,17 @@ the recurrence scale (§2.3); continuous-time transition data fixes the
 Hamiltonian up to an energy shift, basis rephasing, and the antiunitary
 conjugate (phase-locking lemma), with the ancilla-marginal case proved
 for the certified block structures (§3.1) and the uniform-in-structure
-statement open; and the Schrödinger equation and Born rule are
-structural consequences within the representation, with Bell-class
-correlations where the dynamics is P-indivisible. What the equivalence
-deliberately does not deliver is operational quantum mechanics entire:
-the instrument algebra and representation consistency across arbitrary
-intervention families face a proved obstruction at fixed dimension, and
-the frontier question --- which additional principles select operational
-quantum theory from within the universal class \(Q_{\mathrm{fb}}\) ---
-is stated rather than answered (§3.2, §3.4).
+statement open; and the representation carries Schrödinger-form
+interpolation and Born-rule fixed-basis readout as its dictionary ---
+admitted, not derived, the quadratic functional's selection belonging to
+the frontier --- with Bell-class correlations where the dynamics is
+P-indivisible. What the equivalence deliberately does not deliver is
+operational quantum mechanics entire: the instrument algebra and
+representation consistency across arbitrary intervention families face a
+proved obstruction at fixed dimension, and the frontier question ---
+which additional principles select operational quantum theory from
+within the universal class \(Q_{\mathrm{fb}}\) --- is stated rather than
+answered (§3.2, §3.4).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
