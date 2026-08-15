@@ -455,6 +455,11 @@ INVARIANTS = [
      "Bell and FR are developed; KS and PBR are conditional on the operational bridge reconstructing the observable algebra",
      [],
      "All four cases below are developed results, not conjectures."),
+    # ---- b125 family: exact finite operational equivalence is closed in the negative ----
+    (r"exactly operationally equivalent",
+     "no fixed finite realization is exactly operationally equivalent to the full operational theory (polytope obstruction, Main §3.4); use the ε-form",
+     [r"[Nn]o fixed finite"],
+     "the framework is exactly operationally equivalent to quantum mechanics"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
