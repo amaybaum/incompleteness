@@ -19,6 +19,9 @@
 # fixedness; (5) per-instrument injectivity on the reachable set (G=8, K=2);
 # (6) seed-enumeration dynamics equals the analytic grid-count law exactly;
 # (7) capacity accounting + capacity floor log2|C_H| ≥ I*.
+# Extended: checks 8–9 telescoping / off-net density (b126b), 10 rescaling invariance (b127),
+# 11–12 density register + mixed conditionals for multi-Kraus instruments (b128).
+
 import sys, math
 from fractions import Fraction as F
 from itertools import product
@@ -374,6 +377,65 @@ def _run_rescaled_tracking():
 lawB = _run_rescaled_tracking()
 check("rescaling_invariance", lawA == lawB and MAXSH[0] >= 1,
       f"laws identical over {len(lawA)} branches; max |shift| = {MAXSH[0]} (H,D,D,Z at K=4, G=128)")
+
+# ---- (11)-(12) density-matrix branch register: general multi-Kraus instruments (b128) ----
+def cconj(z): return C(z.re, R(0) - z.im)
+def mdag(M): return [[cconj(M[0][0]), cconj(M[1][0])], [cconj(M[0][1]), cconj(M[1][1])]]
+def mmul(A, B):
+    return [[A[i][0]*B[0][j] + A[i][1]*B[1][j] for j in range(2)] for i in range(2)]
+def madd(A, B): return [[A[i][j] + B[i][j] for j in range(2)] for i in range(2)]
+def mtrace(A): return A[0][0].re + A[1][1].re      # real part; im asserted 0 by construction
+def kraus_apply(Ks, rho):
+    out = [[CZ, CZ], [CZ, CZ]]
+    for Kr in Ks: out = madd(out, mmul(mmul(Kr, rho), mdag(Kr)))
+    return out
+k1 = [[c35, CZ], [CZ, CZ]]                          # (3/5) P0
+k2 = [[CZ, CZ], [c45, CZ]]                          # (4/5) X P0
+INSTR_DM = {"H": [(".", [Hm])], "Z": [("0", [P0]), ("1", [P1])],
+            "N": [("0", [k1, k2]), ("1", [P1])]}
+RHO0 = [[CO, CZ], [CZ, CZ]]
+def quantum_dm(seq, K):
+    out = {}
+    def rec(rho, hist):
+        if len(hist) == K:
+            key = "".join(o for _, o in hist)
+            out[key] = out.get(key, R(0)) + mtrace(rho); return
+        a = seq[len(hist)]
+        for o, Ks in INSTR_DM[a]:
+            nr = kraus_apply(Ks, rho)
+            if mtrace(nr).sign() != 0 or o == ".":
+                rec(nr, hist + ((a, o),))
+    rec(RHO0, ()); return out
+def realized_dm(seq, K, G):
+    out = {}
+    def rec(rho, hist, weight):
+        if len(hist) == K:
+            key = "".join(o for _, o in hist)
+            out[key] = out.get(key, F(0)) + weight; return
+        a = seq[len(hist)]; krs = INSTR_DM[a]
+        if len(krs) == 1:
+            o, Ks = krs[0]
+            rec(kraus_apply(Ks, rho), hist + ((a, o),), weight); return
+        den = mtrace(rho)
+        if den.sign() == 0: return
+        (o0, K0), (o1, K1) = krs
+        r0 = kraus_apply(K0, rho)
+        q0 = mtrace(r0)
+        c0 = count_below(G, q0, den)
+        if c0: rec(r0, hist + ((a, o0),), weight * F(c0, G))
+        if G - c0: rec(kraus_apply(K1, rho), hist + ((a, o1),), weight * F(G - c0, G))
+    rec(RHO0, (), F(1)); return out
+SEQN = ["H", "N", "Z"]
+qdm = quantum_dm(SEQN, 3)
+rdm = realized_dm(SEQN, 3, 200)
+same = set(qdm) == set(rdm) and all((qdm[k] - R(rdm[k])) == R(0) for k in qdm)
+check("dm_matches_quantum_exact", same,
+      f"multi-Kraus instrument N, protocol H-N-Z, G=200: realized == quantum exactly over {len(qdm)} strings")
+rho_plus = kraus_apply([Hm], RHO0)
+r0 = kraus_apply([k1, k2], rho_plus)
+pur = mtrace(mmul(r0, r0)); trsq = mtrace(r0) * mtrace(r0)
+check("conditional_mixedness", (trsq - pur).sign() > 0,
+      "Tr(I_0(rho)^2) < (Tr I_0(rho))^2 exactly — genuinely mixed conditional, beyond the branch-vector form")
 
 print(f"summary: hidden states {len(hid)} (log2 {log2CH:.2f}); "
       f"RZ TV at G=8/128/1024: {tv_rz[8]:.2e}/{tv_rz[128]:.2e}/{tv_rz[1024]:.2e}")

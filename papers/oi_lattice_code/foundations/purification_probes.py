@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# purification_probes.py — certificate for the canonical predictive completion theorem
-# (purification with uniqueness, substratum form; Main §3.4, b127). Exact fractions.
+# purification_probes.py — certificate for the canonical predictive quotient theorem
+# (a purification ingredient, substratum form; Main §3.4, b127–b128). Exact fractions.
 #
 # For every bijection φ on C_V × C_H at (n_V,|C_H|) ∈ {(2,2),(2,3),(3,2)} and two hidden
 # priors (uniform; generic 1:2[:3]), initial visible x0 = 0, horizon K = 3:
@@ -12,7 +12,9 @@
 #   (4) terminal minimality: the quotient of the quotient is itself (idempotence);
 #   (5) ledger reconstruction: T(P) ⊕ history ledger is an injective-on-reachable,
 #       bijection-completable, law-exact REVERSIBLE realization;
-#   (6) predictive floor: log2 #tails_t ≥ I(X_{<t}; X_{>t} | X_t) at every stage.
+#   (6) predictive floor: log2 #tails_t ≥ I(X_{<t}; X_{>t} | X_t) at every stage;
+#   (7) fiber freedom: same-law realizations with non-relabel-equivalent hidden
+#       fibers exist — completions are unique only in their canonical quotient.
 import sys, math
 from fractions import Fraction as F
 from itertools import permutations, product
@@ -30,6 +32,7 @@ def run_grid(nV, nH):
     priors = [("uniform", {h: F(1, nH) for h in H}),
               ("generic", {h: F(h + 1, sum(range(1, nH + 1))) for h in H})]
     law_groups = {}          # law_key -> list of quotient reprs
+    law_profiles = {}        # law_key -> list of (tail-multiplicity multiset, prior multiset)
     n_inst = 0
     intertwine_ok = pushfwd_ok = idem_ok = True
     for perm in permutations(states):
@@ -80,6 +83,12 @@ def run_grid(nV, nH):
                 req[tl] = req.get(tl, F(0)) + p
             if tuple(sorted(req.items())) != quot[0]: idem_ok = False
             law_groups.setdefault(law_key, []).append(tuple(quot))
+            mult = {}
+            for h in H:
+                t0 = tail(0, h, K)
+                mult[t0] = mult.get(t0, 0) + 1
+            profile = (tuple(sorted(mult.values())), tuple(sorted(mu.values())))
+            law_profiles.setdefault(law_key, []).append(profile)
     check(f"intertwine_{nV}x{nH}", intertwine_ok)
     check(f"pushforward_{nV}x{nH}", pushfwd_ok)
     check(f"idempotence_{nV}x{nH}", idem_ok)
@@ -137,6 +146,14 @@ def run_grid(nV, nH):
             if math.log2(max(len(tails_t), 1)) < I - 1e-9: floor_ok = False
     check(f"ledger_reversible_{nV}x{nH}", ledger_ok)
     check(f"predictive_floor_{nV}x{nH}", floor_ok)
+    # (7) fiber freedom (b128): same-law realizations exist whose hidden fibers are NOT
+    # relabel-equivalent — witnessed by differing tail-multiplicity/prior profiles —
+    # so completions are unique only in their canonical quotient, not as wholes.
+    witness = False
+    for law_key, members in law_profiles.items():
+        if len(set(members)) >= 2: witness = True
+    check(f"fiber_freedom_{nV}x{nH}", witness,
+          "same law, non-relabel-equivalent completions exist")
     return n_inst
 
 total = 0

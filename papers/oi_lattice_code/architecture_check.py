@@ -472,9 +472,22 @@ INVARIANTS = [
      "the limit statement is not yet a theorem"),
     # ---- b127 family: substratum purification is not yet the operational axiom ----
     (r"derives the purification axiom|purification axiom (is|has been) derived",
-     "the substratum-form theorem gives existence and uniqueness of completions; the operational translation is the remaining step (Main §3.4 Remark)",
+     "the substratum-form theorem gives existence and the canonical predictive quotient; full-completion uniqueness is not claimed, and the operational translation remains (Main §3.4 Remark)",
      [],
      "the framework derives the purification axiom of the reconstruction theorems"),
+    # ---- b128 families: retired claims must stay retired ----
+    (r"operational state space is a polytope",
+     "the polytope inference was invalid (b128 correction of record); the obstruction is classical-dimension form (Main §3.4 Proposition + Remark)",
+     [],
+     "the operational state space is a polytope with at most N extreme points"),
+    (r"= ?\\lim_n D",
+     "class identity Q_operational = lim D_finite was retracted in b128; the Corollary states finite-test density of the quantum-shadow subclass only",
+     [],
+     "in this sense $Q_{\mathrm{operational}} = \lim_n D_{\mathrm{finite}}$ holds"),
+    (r"purification with uniqueness, substratum form",
+     "renamed in b128: canonical predictive quotient, a purification ingredient; completions are not unique as wholes (fiber freedom certified)",
+     [],
+     "Theorem (canonical predictive completion, purification with uniqueness, substratum form)"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
