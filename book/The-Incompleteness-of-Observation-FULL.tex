@@ -2481,11 +2481,13 @@ violate the Markov condition on any DAG, so the appropriate formalism is
 the process tensor, within which no-signaling follows from
 marginalization structure without fine-tuning.
 
-The P-indivisibility theorem and the two routes establish sufficiency:
-C1--C4 imply quantum mechanics. The remaining question is necessity.
-Does every accessible non-Markovian process --- and, under (T), every
-system equivalent to unitarily evolving quantum mechanics --- arise from
-a deterministic bijection satisfying C1, C3 and C4 for some partition?
+The recurrence route and the dilation construction establish
+sufficiency: C4's readback implies accessible non-Markovianity, with C1
+and C3 its preconditions, and the quantum representation is supplied
+separately under (T). The remaining question is necessity. Does every
+accessible non-Markovian process --- and, under (T), every system
+equivalent to unitarily evolving quantum mechanics --- arise from a
+deterministic bijection satisfying C1, C3 and C4 for some partition?
 §1.8 states the characterization in its current form --- the per-horizon
 equivalence, with the quantum representation attaching to the subclass
 under (T).
@@ -2511,7 +2513,9 @@ is a permutation for all \(k\), and the candidate intermediate
 propagator \(\Lambda(k_2, k_1) = T^{k_2 - k_1}\) is a valid stochastic
 matrix for any \(k_2 > k_1\). The process is P-divisible.
 Contrapositively, P-indivisibility requires \(T\) not to be a
-permutation --- equivalent to non-trivial coupling.
+permutation. That is the non-permutation witness, and it is not
+equivalent to C1: non-trivial coupling does not by itself force \(T\)
+off the permutation set ({[}Main §1.3{]}; Appendix B.7.3).
 
 \textbf{Necessity of C2.} The C2 condition states that the hidden sector
 evolves much more slowly than the visible sector: \(\tau_S \ll \tau_B\).
@@ -27131,9 +27135,12 @@ destroys the structural basis of the observed dynamics.
 \emph{Necessity of C1 (coupling).} Any quantum system realized as a
 deterministic dilation must have non-trivial coupling between visible
 and hidden sectors. Proof: without coupling, the visible dynamics are a
-permutation (unitary on a classical basis), hence P-divisible,
-contradicting the P-indivisibility required for QM. This is a
-contrapositive: violating C1 produces P-divisible dynamics, which is
+permutation (unitary on a classical basis), hence P-divisible.
+(P-indivisibility is not required for a quantum representation --- Main
+§3.4 exhibits a diagonal Hamiltonian with \(T(t) = I\), perfectly valid
+unitary quantum mechanics and P-divisible. What C1's failure removes is
+the accessible non-Markovianity the characterization is about.) This is
+a contrapositive: violating C1 produces P-divisible dynamics, which is
 structurally distinct from QM.
 
 \emph{Necessity of C2 (memory persistence).} The hidden sector must
