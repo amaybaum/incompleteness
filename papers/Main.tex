@@ -2654,6 +2654,54 @@ realization satisfies it trivially with a static bath
 physical content is carried separately by the conditional
 physical-memory theorem of §2.3:
 
+\textbf{Theorem (finite-horizon observation--quantum equivalence).}
+\emph{Fix a finite visible alphabet and a finite accessible horizon
+\(K\). The following three classes of finite-horizon observable law
+\(P(x_0, \ldots, x_K)\) coincide:}
+
+\emph{(S) the finite stochastic laws;} \emph{(D) the visible marginals
+of finite reversible deterministic systems under incomplete
+observation;} \emph{(Q) the laws realizable by finite-dimensional
+unitary systems with Born-rule readout in a fixed basis.}
+
+\emph{Proof.} (S \(\Rightarrow\) D) is the response-table construction
+of §3.4, which reproduces the whole multi-time law, not merely the
+one-step matrices. (D \(\Rightarrow\) Q) is internal and needs no
+imported correspondence: for a bijection \(\varphi\) on
+\(\mathcal{C}_V \times \mathcal{C}_H\) set
+\(U_\varphi |x, h\rangle = |\varphi(x,h)\rangle\) and take the hidden
+prior diagonal. A permutation unitary preserves diagonality, so
+sequential projective measurements in the configuration basis do not
+disturb the state, and the measured record reproduces
+\(P(x_0, \ldots, x_K)\) exactly; \(U_\varphi = e^{-i\hat H}\) for a
+Hermitian \(\hat H\), giving a fixed autonomous generator at integer
+times. (Q \(\Rightarrow\) S) is the Born rule: the record of any finite
+quantum experiment is a finite stochastic law. \(\square\) (D
+\(\Rightarrow\) Q certified over 1\{,\}488 realizations at horizons 3
+and 4 in \texttt{sdq\_probes.py}.)
+
+\emph{Remark (what this equivalence does and does not say).} It says the
+three classes COINCIDE at the level of finite-horizon observable
+statistics --- so possessing a quantum representation is not, at this
+level, a distinguishing property of anything, and the framework claims
+no distinction from it. Its value is that it removes the external
+dependency: the quantum representation of the framework's own processes
+is now supplied internally, by the permutation unitary, rather than
+imported under (T). The content of the framework lies not here but in
+the \emph{nontrivial sector} of the equivalence, characterized exactly
+by the theorem below: the diagonal-Hamiltonian case, \(T(t) = I\), is a
+member of all three classes with \(M_t = 0\), while a memory-bearing
+record is a member with \(M_t > 0\), and it is the latter that embedded
+observation produces.
+
+\emph{Remark (interventions).} The same construction indexed by
+intervention histories realizes any FIXED finite adaptive family (§3.4's
+comb theorem), which narrows the operational gap for fixed instrument
+menus. It does not close it: the obstruction of §3.4 --- no fixed
+representation hosts generic combs as the horizon grows, with the
+dimension forced as \((n_V|\mathcal{A}|)^{K/4}\) --- is untouched, and
+the all-horizons fixed-representation question remains open.
+
 \textbf{Theorem (unavoidable hidden predictive memory).} \emph{Let
 \(\mathcal{S}\) be a visible process and let \(\mathcal{R}\) be ANY
 faithful deterministic realization of it --- a bijection \(\varphi\) on
@@ -2723,19 +2771,23 @@ it --- the (C4) gap and \(I(X_{<k}; X_{k+1} \mid X_k) > 0\) agree on all
 24, 720 and 720 realizations at
 \((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\), with no disagreement
 (\texttt{primitive\_probes.py}). Taken together with the dependencies
-above and (C2)'s exclusion from the equivalence, the theorem's content
-is therefore
-\[\text{accessible non-Markovianity} \iff \text{a per-horizon finite reversible deterministic realization exists,}\]
-with no conditions quantified over at all: \textbf{it is a dilation
-theorem.} What C1--C4 supply is not hypotheses but a \emph{diagnostic
-checklist} describing what such a realization looks like --- which is
-precisely what the physical applications need, since one cannot inspect
-a cosmological horizon or a Boltzmann brain for ``a realization exists''
-but can check coupling, capacity, readback and persistence directly. The
-substance of the theorem lives in the construction (§3.4) --- the
-response-table realization, the hidden space growing with the horizon,
-the prior carried as realization datum --- and is untouched by this
-reading.
+above, this does NOT license dropping readback from the right-hand side.
+The bare form
+\[\text{accessible non-Markovianity} \iff \text{a per-horizon finite reversible deterministic realization exists}\]
+is \textbf{false}: the process-dilation construction of §3.4 realizes
+Markov laws as well, so the right-hand side is satisfied by processes
+with no memory at all. What the reduction does license is the
+\emph{universal} statement --- the theorem below --- in which readback
+appears not as a hypothesis but as an unavoidable feature of every
+faithful realization. What C1--C4 supply is not hypotheses but a
+\emph{diagnostic checklist} describing what such a realization looks
+like --- which is precisely what the physical applications need, since
+one cannot inspect a cosmological horizon or a Boltzmann brain for ``a
+realization exists'' but can check coupling, capacity, readback and
+persistence directly. The substance of the theorem lives in the
+construction (§3.4) --- the response-table realization, the hidden space
+growing with the horizon, the prior carried as realization datum --- and
+is untouched by this reading.
 
 \emph{Remark (which condition is primitive).} Of the three structural
 conditions, only (C4) is logically independent. (C1) follows from it ---
@@ -2807,8 +2859,10 @@ finite \(\tau_B(\varepsilon_0)\) (Remark, §3.4; ETH {[}17, 18{]} the
 motivation; no smallness of \(\varepsilon\) at the coupling time is
 assumed); (C3) from the data-processing bound in per-process form
 (\(m \geq 2^{I^*}\)). Both directions of the equivalence are theorems of
-this paper. Finally, if \(\mathcal{S}\) is moreover P-indivisible, the
-imported correspondence {[}11, 12{]} represents it by a unitarily
+this paper. Finally, a unitarily evolving representation is available
+for \(\mathcal{S}\) regardless --- internally by the permutation unitary
+of any realization (the equivalence above), and under (T) by the
+imported correspondence {[}11, 12{]}, which represents it by a unitarily
 evolving quantum system; under the time-homogeneity restriction the
 representation takes the fixed-\(\hat{H}\) ancilla-marginal form of (i)
 (scope Remark) --- the paper's single external import, sitting outside
@@ -2961,21 +3015,23 @@ as a subsystem of a unistochastic process, so that the stochastic and
 unitary descriptions are inter-translatable. Everything in the necessity
 direction downstream of this --- the dilation construction, the C1/C3/C4
 necessity theorems, the ETH-conditional C2 necessity --- is the
-framework's own, but the bridge identifying P-indivisibility with
-quantum structure is Barandes'. This means the necessity direction has a
-clean falsification target distinct from the rest of the framework: if
-the Barandes correspondence were shown to be incomplete or to require
-additional hypotheses beyond P-indivisibility (e.g.~a positivity or
-normalizability condition that not all P-indivisible processes satisfy),
-the necessity direction would inherit those hypotheses and weaken
-accordingly. The framework takes the correspondence as established in
-{[}11, 12{]} and does not reproduce its proof; a referee skeptical of
-the necessity direction should direct that skepticism first at the
-Barandes correspondence, since that is the load-bearing import, and the
-framework's own contributions are conditional on it. The sufficiency
-direction (C1--C4 ⇒ QM) uses the correspondence in the same way but is
-independently supported by the explicit dilation construction of §3.2,
-so a weakening of Barandes would affect necessity more than sufficiency.
+framework's own, but the quantum representation is now supplied
+internally by the permutation unitary, with the imported correspondence
+{[}11, 12{]} an additional route under (T) rather than the only one.
+This means the necessity direction has a clean falsification target
+distinct from the rest of the framework: if the Barandes correspondence
+were shown to be incomplete or to require additional hypotheses beyond
+P-indivisibility (e.g.~a positivity or normalizability condition that
+not all P-indivisible processes satisfy), the necessity direction would
+inherit those hypotheses and weaken accordingly. The framework takes the
+correspondence as established in {[}11, 12{]} and does not reproduce its
+proof; a referee skeptical of the necessity direction should direct that
+skepticism first at the Barandes correspondence, since that is the
+load-bearing import, and the framework's own contributions are
+conditional on it. The sufficiency direction (C1--C4 ⇒ QM) uses the
+correspondence in the same way but is independently supported by the
+explicit dilation construction of §3.2, so a weakening of Barandes would
+affect necessity more than sufficiency.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 

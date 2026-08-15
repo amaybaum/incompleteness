@@ -180,6 +180,11 @@ INVARIANTS = [
      "the non-permutation witness is not equivalent to C1",
      [r"not equivalent to C1", r"does not by itself force"],   # negation-aware
      "requires $T$ not to be a permutation — equivalent to non-trivial coupling"),
+    (r"non-Markovianity\}?\s*\\iff\s*\\text\{a per-horizon finite reversible deterministic realization exists"
+     r"|accessible non-Markovianity[^.\n]{0,40}\\iff[^.\n]{0,60}realization exists(?![^.\n]{0,80}readback)",
+     "the realization-exists form is FALSE without readback on the right-hand side: Markov laws have realizations too",
+     [r"is \*\*false\*\*", r"does NOT license"],
+     "accessible non-Markovianity \\iff \\text{a per-horizon finite reversible deterministic realization exists}"),
     (rf"P{E}indivisibility is mathematically equivalent to quantum mechanics",
      "P-indivisibility governs nontriviality of the representation, not its existence",
      [],
