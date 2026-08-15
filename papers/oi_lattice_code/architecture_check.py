@@ -470,6 +470,11 @@ INVARIANTS = [
      "the operational limit is proved in mutual-ε-density form (uniform continuum realization + Corollary, Main §3.4); only selection remains",
      [],
      "the limit statement is not yet a theorem"),
+    # ---- b127 family: substratum purification is not yet the operational axiom ----
+    (r"derives the purification axiom|purification axiom (is|has been) derived",
+     "the substratum-form theorem gives existence and uniqueness of completions; the operational translation is the remaining step (Main §3.4 Remark)",
+     [],
+     "the framework derives the purification axiom of the reconstruction theorems"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---

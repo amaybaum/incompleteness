@@ -301,6 +301,80 @@ bound9 = 2.0 * dnear + 3.0 / G9
 check("mutual_density_offnet", tvd <= bound9 + 1e-12,
       f"TV(off-net target, net realization) = {tvd:.4f} <= {bound9:.4f} via {near}")
 
+# ---- (10) renormalization invariance: power-of-two rescaling leaves the law exact (b127) ----
+d35 = C(R(F(3,5)), R0); d45 = C(R(F(4,5)), R0)
+INSTR["D"] = [("0", [[CO, CZ], [CZ, d35]]), ("1", [[CZ, d45], [CZ, CZ]])]
+Rhalf = R(F(1,2))
+def realized_law_rescaled(strategy, K, G):
+    out = {}
+    def rec(v, hist, weight, shifts):
+        if len(hist) == K:
+            out[hist] = weight; return
+        a = strategy(hist); krs = INSTR[a]
+        def renorm(u, sh):
+            while float(norm2(u)) < 0.5:
+                u = (C(u[0].re + u[0].re, u[0].im + u[0].im),
+                     C(u[1].re + u[1].re, u[1].im + u[1].im)); sh += 1
+            while float(norm2(u)) >= 2.0:
+                u = (C(u[0].re * Rhalf, u[0].im * Rhalf),
+                     C(u[1].re * Rhalf, u[1].im * Rhalf)); sh -= 1
+            return u, sh
+        if len(krs) == 1:
+            o, M = krs[0]
+            u, sh = renorm(mat_apply(M, v), shifts)
+            rec(u, hist + ((a, o),), weight, sh); return
+        den = norm2(v)
+        if den.sign() == 0: return
+        (o0, M0), (o1, M1) = krs
+        q0 = norm2(mat_apply(M0, v))
+        c0 = count_below(G, q0, den)
+        if c0:
+            u, sh = renorm(mat_apply(M0, v), shifts)
+            rec(u, hist + ((a, o0),), weight * F(c0, G), sh)
+        if G - c0:
+            u, sh = renorm(mat_apply(M1, v), shifts)
+            rec(u, hist + ((a, o1),), weight * F(G - c0, G), sh)
+    rec(PSI0, (), F(1), 0); return out
+prot_D = SEQ(["H", "D", "D", "Z"])
+lawA = realized_law(prot_D, 4, 128)
+MAXSH = [0]
+_orig_renorm_probe = None
+lawB = {}
+def _run_rescaled_tracking():
+    out = {}
+    def rec(v, hist, weight, shifts):
+        MAXSH[0] = max(MAXSH[0], abs(shifts))
+        if len(hist) == 4:
+            out[hist] = weight; return
+        a = prot_D(hist); krs = INSTR[a]
+        def renorm(u, sh):
+            while float(norm2(u)) < 0.5:
+                u = (C(u[0].re + u[0].re, u[0].im + u[0].im),
+                     C(u[1].re + u[1].re, u[1].im + u[1].im)); sh += 1
+            while float(norm2(u)) >= 2.0:
+                u = (C(u[0].re * Rhalf, u[0].im * Rhalf),
+                     C(u[1].re * Rhalf, u[1].im * Rhalf)); sh -= 1
+            return u, sh
+        if len(krs) == 1:
+            o, M = krs[0]
+            u, sh = renorm(mat_apply(M, v), shifts)
+            rec(u, hist + ((a, o),), weight, sh); return
+        den = norm2(v)
+        if den.sign() == 0: return
+        (o0, M0), (o1, M1) = krs
+        q0 = norm2(mat_apply(M0, v))
+        c0 = count_below(128, q0, den)
+        if c0:
+            u, sh = renorm(mat_apply(M0, v), shifts)
+            rec(u, hist + ((a, o0),), weight * F(c0, 128), sh)
+        if 128 - c0:
+            u, sh = renorm(mat_apply(M1, v), shifts)
+            rec(u, hist + ((a, o1),), weight * F(128 - c0, 128), sh)
+    rec(PSI0, (), F(1), 0); return out
+lawB = _run_rescaled_tracking()
+check("rescaling_invariance", lawA == lawB and MAXSH[0] >= 1,
+      f"laws identical over {len(lawA)} branches; max |shift| = {MAXSH[0]} (H,D,D,Z at K=4, G=128)")
+
 print(f"summary: hidden states {len(hid)} (log2 {log2CH:.2f}); "
       f"RZ TV at G=8/128/1024: {tv_rz[8]:.2e}/{tv_rz[128]:.2e}/{tv_rz[1024]:.2e}")
 sys.exit(1 if fails else 0)

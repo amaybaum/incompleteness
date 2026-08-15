@@ -2848,26 +2848,27 @@ obstruction above licenses exactly this form and no stronger one --- and
 route (i) is now discharged in full up to its named residual: the gluing
 theorem delivers the per-family half, the uniform continuum realization
 the net half with \(|\mathcal{F}|\)-independent hidden cost, and the
-Corollary the limit; what survives of the program is the exponent-range
-tightening and route (ii) entire. \textbf{(ii) The selector route:}
-derive from observation incompleteness, rather than postulate, the
-hypotheses of an operational reconstruction theorem --- continuous
-reversible transitivity (Hardy's five-axiom reconstruction, 2001, where
+Corollary the limit; what survives of the program is route (ii) entire
+--- the exponent-range residual is closed by the renormalization
+register of clause (5). \textbf{(ii) The selector route:} derive from
+observation incompleteness, rather than postulate, the hypotheses of an
+operational reconstruction theorem --- continuous reversible
+transitivity (Hardy's five-axiom reconstruction, 2001 {[}40{]}, where
 dropping continuity returns classical theory; the hardest hypothesis
 here, the permutation group of a finite set being discrete, which is
 itself an argument for route (i)); local tomography (coupling-graph
 locality supplies an ingredient, §3.1, not yet the injectivity); and
 purification with uniqueness up to reversible relabeling of the purifier
-(Chiribella--D'Ariano--Perinotti, 2011) --- the reversible dilation
-supplies existence, and the minimal-predictive-completion machinery (the
-variational Remark below) is the in-house candidate for the uniqueness
-half --- with Masanes--Müller's requirement set (2011) the alternative
-package. \textbf{On either route the Born exponent is expected
-downstream:} once a noncommuting effect structure exists, Gleason-type
-theorems constrain the probability functional to the Born form, so the
-quadratic selection would be inherited rather than extracted from
-permutation entries --- resolving the exponent degeneracy at its proper
-layer.
+(Chiribella--D'Ariano--Perinotti, 2011 {[}42{]}) --- existence AND
+uniqueness now delivered in substratum form by the canonical
+predictive-completion theorem below, with the operational translation
+the remaining step --- with Masanes--Müller's requirement set (2011
+{[}41{]}) the alternative package. \textbf{On either route the Born
+exponent is expected downstream:} once a noncommuting effect structure
+exists, Gleason-type theorems {[}43{]} constrain the probability
+functional to the Born form, so the quadratic selection would be
+inherited rather than extracted from permutation entries --- resolving
+the exponent degeneracy at its proper layer.
 
 \textbf{Theorem (finite operational realization and gluing --- ε-form).}
 \emph{Fix a quantum experiment: a system of dimension \(d\) with an
@@ -2913,15 +2914,20 @@ factorizability-failing, locality-retaining pattern of §3.3.}
 over the instruments' entry ring,
 \(\log_2|\mathcal{C}_H| \leq (K{+}1)\log_2|V_{\mathrm{reach}}(\mathcal{F}, K)| + K \log_2 G\),
 where \(V_{\mathrm{reach}}\) is the finite set of unnormalized branch
-vectors reachable in \(\leq K\) steps; with \(b\)-bit floating-point
-registers and \(G = \lceil K/\varepsilon \rceil\),
-\(\log_2|\mathcal{C}_H| = O\!\left(K\, d^2 (b + E) + K \log_2 G\right)\)
-with \(b = O(\log(K d\, |\mathcal{O}|/\varepsilon))\) and exponent range
-\(E = O(K \log(1/\sigma_{\min}(\mathcal{F})))\) in general ---
-\(O(\log(1/\varepsilon))\) when nonzero branch probabilities are bounded
-below. The capacity floor supplies the matching direction,
-\(\log_2|\mathcal{C}_H| \geq I^*\), which is \(\Omega(K)\) on explicit
-memory-chain families:
+vectors reachable in \(\leq K\) steps; with \(b\)-bit registers,
+\(G = \lceil K/\varepsilon \rceil\), and a power-of-two renormalization
+step --- the branch vector rescaled into a fixed norm window after each
+instrument, the shift pushed to the stack, the ring extended by
+\(\tfrac12\); the thresholds are scale-invariant, so the realized law is
+unchanged --- the mantissa needs only
+\(b = O(\log(K d\, |\mathcal{O}|/\varepsilon))\) bits with no exponent
+accumulation, giving
+\(\log_2|\mathcal{C}_H| = O\!\left(K\, d^2 \log(K d\, |\mathcal{O}|/\varepsilon) + K \log_2 G\right)\)
+in general --- linear in \(K\) up to logarithms, the former
+exponent-range \(K^2\) term removed (rescaling invariance certified:
+check 10, \texttt{opglue\_probes.py}). The capacity floor supplies the
+matching direction, \(\log_2|\mathcal{C}_H| \geq I^*\), which is
+\(\Omega(K)\) on explicit memory-chain families:
 \(c_1 K \leq \log_2|\mathcal{C}_H| \leq c_2 K\, d^2 \left(\log(K d |\mathcal{O}|/\varepsilon) + E\right)\).}
 
 \emph{Proof (construction and bound).} The step map \(\varphi_a\) reads
@@ -2966,17 +2972,18 @@ non-deliveries. It is APPROXIMATION, not selection: the construction
 realizes any finite instrument family --- quantum or otherwise --- so it
 says nothing about why the quantum family; the selection question is
 route (ii) of the program Remark, untouched. And the general-regime
-capacity bound carries a \(K^2\) term through the exponent range \(E\);
-tightening it is the named residual. The finite-resolution boundary
-itself is no longer a non-delivery so much as a theorem: the exact
-continuum theory remains out of reach of any fixed finite realization
-(the polytope Proposition) and is recovered as the \(K \to \infty\),
-\(\varepsilon \to 0\) limit in the mutual-ε-density form proved below
-(uniform continuum realization and its Corollary). The Kochen--Specker
-inheritance (§3.2) remains conditional exactly as stated --- what this
-theorem adds is that at every finite resolution the statistics defeating
-noncontextual valuation are operationally reproduced, with noncontextual
-mechanisms and contextual values.
+capacity bound is now linear in \(K\) up to logarithms --- the
+renormalization register of clause (5) removed the former exponent-range
+\(K^2\) term --- leaving no capacity residual beyond constants. The
+finite-resolution boundary itself is no longer a non-delivery so much as
+a theorem: the exact continuum theory remains out of reach of any fixed
+finite realization (the polytope Proposition) and is recovered as the
+\(K \to \infty\), \(\varepsilon \to 0\) limit in the mutual-ε-density
+form proved below (uniform continuum realization and its Corollary). The
+Kochen--Specker inheritance (§3.2) remains conditional exactly as stated
+--- what this theorem adds is that at every finite resolution the
+statistics defeating noncontextual valuation are operationally
+reproduced, with noncontextual mechanisms and contextual values.
 
 \emph{Lemma (adaptive diamond telescoping).} \emph{Let \(\pi\) be an
 adaptive protocol of horizon \(K\) and \(\pi'\) the protocol with each
@@ -3098,7 +3105,11 @@ one of fifteen distinct processes with \(M_t > 0\), with residuals up to
 let the hidden dimension vary --- the response-table construction, which
 preloads exactly the next-response variable, is the candidate attainer
 --- and must quotient inert ledger bits that cannot influence the
-future. Stated here so the naive form is not re-derived.
+future; that quotient is now constructed and shown canonical (the
+predictive-completion theorem below), leaving open only the variational
+VALUE question: whether the post-quotient minimum of
+\(I(X_{<t}; H_t \mid X_t)\) attains \(M_t\). Stated here so the naive
+form is not re-derived.
 
 \emph{Remark (the conditions are diagnostics, not hypotheses).} The
 reduction extends one step further. (C4) is not an independent condition
@@ -3127,6 +3138,53 @@ persistence directly. The substance of the theorem lives in the
 construction (§3.4) --- the response-table realization, the hidden space
 growing with the horizon, the prior carried as realization datum --- and
 is untouched by this reading.
+
+\textbf{Theorem (canonical predictive completion --- purification with
+uniqueness, substratum form).} \emph{Let \(P\) be a finite-horizon law
+on visible trajectories. Define the tail object \(T(P)\): hidden states
+the positive-probability visible future-tails, prior \(P\) itself,
+dynamics the shift. Then: (existence) \(T(P)\) completes \(P\), and
+adjoining a history ledger --- the emitted prefix, with each tail's
+chain closed into a cycle --- makes it a reversible (bijective)
+realization; (universality) every faithful deterministic realization
+\(R\) of \(P\) carries the canonical morphism
+\(q_R: (x, h) \mapsto (x, \text{its visible future-tail})\), which
+intertwines the dynamics (evolution shifts tails), pushes the prior
+forward to \(P\), and is the unique dynamics-intertwining,
+law-preserving morphism \(R \to T(P)\); (uniqueness) \(T(P)\) is
+terminal --- any two faithful realizations of the same \(P\) have the
+identical canonical quotient --- so deterministic completions of \(P\)
+are unique up to the canonical quotient together with a free reversible
+relabeling and extension of the ledger sector.} \(\square\)
+\emph{Proof.} Determinism makes the visible future from \((x, h)\) a
+single string, so \(q_R\) is well-defined; one step of \(\varphi\)
+shifts that string, giving the intertwining; faithfulness makes the
+pushforward \(P\). Uniqueness of the morphism: in \(T(P)\) a state's own
+trajectory recovers its tail, so any intertwining law-preserving map
+must send each state to its tail. Terminality: the same argument against
+any tail-injective target. Reversibility of the ledger extension: the
+prefix-and-cycle construction is a permutation --- injective along each
+chain, chains disjoint, terminals rotated to roots. \(\square\) (All
+clauses certified exhaustively --- intertwining, pushforward, canonicity
+across same-law realizations, quotient idempotence, ledger
+reversibility, and the predictive floor
+\(\log_2 |\mathrm{tails}_t| \geq I(X_{<t}; X_{>t} \mid X_t)\) --- over
+all 1\{,\}464 \(\varphi\)-realizations at
+\((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\) under two priors,
+2\{,\}928 instances, exact: \texttt{purification\_probes.py}.)
+
+\emph{Remark (relation to the purification axiom).} In the
+Chiribella--D'Ariano--Perinotti reconstruction {[}42{]}, purification
+demands existence and essential uniqueness --- up to reversible
+transformations of the purifying system --- within the operational
+theory. The theorem above is the substratum-level counterpart:
+completions exist, and are unique up to the canonical quotient and
+ledger freedom --- the same logical shape, derived rather than
+postulated, from determinism and faithfulness alone. What remains for
+the selector route is the translation: showing that the operational
+theory the realizations generate inherits this structure as its own
+purification axiom. It is the first of route (ii)'s hypotheses to
+acquire an in-house theorem behind it; it is not yet the axiom itself.
 
 \emph{Remark (which condition is primitive).} Of the three structural
 conditions, only (C4) is logically independent. (C1) follows from it ---
@@ -4279,6 +4337,21 @@ observers for gravity in a closed universe,'' \emph{JHEP} \textbf{02}
 
 {[}39{]} T. Akers, R. Akhmedov, R. M. T. Iyer, M. Loyola, ``Closed
 universes and the entropy bound,'' arXiv:2501.04305 (2025).
+
+{[}40{]} L. Hardy, ``Quantum theory from five reasonable axioms,''
+arXiv:quant-ph/0101012 (2001).
+
+{[}41{]} L. Masanes, M. P. Müller, ``A derivation of quantum theory from
+physical requirements,'' \emph{New J. Phys.} \textbf{13}, 063001 (2011).
+
+{[}42{]} G. Chiribella, G. M. D'Ariano, P. Perinotti, ``Informational
+derivation of quantum theory,'' \emph{Phys. Rev.~A} \textbf{84}, 012311
+(2011).
+
+{[}43{]} A. M. Gleason, ``Measures on the closed subspaces of a Hilbert
+space,'' \emph{J. Math. Mech.} \textbf{6}, 885 (1957); P. Busch,
+``Quantum states and generalized observables,'' \emph{Phys. Rev.~Lett.}
+\textbf{91}, 120403 (2003).
 
 {[}40{]} L. Donnelly, L. Eccles, S. Hollands, T. Kibe, ``Partition
 relativity in algebraic quantum field theory,'' arXiv:2405.21010 (2024).
