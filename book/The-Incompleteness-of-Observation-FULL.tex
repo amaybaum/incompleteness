@@ -1022,19 +1022,20 @@ mechanics --- arises, per finite horizon, from marginalization of a
 deterministic system satisfying these four conditions for some
 partition.
 
-Quantum mechanics is, in this picture, the unique self-consistent
-algorithm for making predictions from incomplete data on accessible
-timescales under C1--C4. It is what computation looks like when one is a
-component of the machine doing the computing. The reframing has
-structural consequences. The \(10^{122}\) vacuum-energy discrepancy is
-not a fine-tuning failure but the compression ratio between the
-universe's total degrees of freedom and the visible ones --- quantum
-field theory and general relativity are measuring two different things,
-not two different values of the same thing. The roughly \(95\%\) of
-cosmic energy density attributed to dark matter and dark energy is the
-gravitational signature of the same hidden degrees of freedom,
-structured (dark matter) and uniform (dark energy). These are theorems
-within the framework, developed in Part II.
+Quantum mechanics is, in this picture, a self-consistent algorithm for
+making predictions from incomplete data on accessible timescales under
+C1--C4 --- supplied by the imported correspondence, and not unique,
+since the stochastic-to-quantum representation is explicitly non-unique.
+It is what computation looks like when one is a component of the machine
+doing the computing. The reframing has structural consequences. The
+\(10^{122}\) vacuum-energy discrepancy is not a fine-tuning failure but
+the compression ratio between the universe's total degrees of freedom
+and the visible ones --- quantum field theory and general relativity are
+measuring two different things, not two different values of the same
+thing. The roughly \(95\%\) of cosmic energy density attributed to dark
+matter and dark energy is the gravitational signature of the same hidden
+degrees of freedom, structured (dark matter) and uniform (dark energy).
+These are theorems within the framework, developed in Part II.
 
 The framework reaches further than dissolving the cosmological constant
 problem. From the same starting definition --- \emph{observation occurs}
@@ -2655,16 +2656,20 @@ admit the quantum representation, with the fixed-Ĥ form constructive.
 
 The characterization establishes Hilbert space, unitary dynamics, and
 Born-rule transition probabilities. The further structures of
-operational quantum mechanics follow without independent postulates. The
-visible-hidden tensor product comes from the Stinespring construction.
-The tensor product for spatially separated visible-sector subsystems
-follows from the spatial Markov property of range-1 coupling on the
-underlying graph. Projective measurement corresponds to Bayesian
-conditioning on the substratum followed by re-marginalization --- the
-Lüders rule \(\rho \to P_k \rho P_k / \mathrm{Tr}(P_k \rho)\) is the
-quantum transcription of this classical update. Multi-time correlation
-functions of the passive law are standard calculations within the
-delivered formalism; weak values and Leggett-Garg protocols are
+operational quantum mechanics do not all follow: the classical
+intervention rung is constructed and the instrument algebra remains open
+({[}Main §3.4{]}). The visible-hidden tensor product comes from the
+Stinespring construction. The tensor product for spatially separated
+visible-sector subsystems follows from the spatial Markov property of
+range-1 coupling on the underlying graph. Projective measurement
+corresponds to Bayesian conditioning on the substratum followed by
+re-marginalization --- the Lüders rule
+\(\rho \to P_k \rho P_k / \mathrm{Tr}(P_k \rho)\) transcribes this
+classical update on the represented diagonal sector; the general
+operational update for noncommuting interventions is not delivered by
+the characterization ({[}Main §3.4{]}). Multi-time correlation functions
+of the passive law are standard calculations within the delivered
+formalism; weak values and Leggett-Garg protocols are
 intervention-rooted: the classical intervention dilation is constructed
 ({[}Main §3.4{]}, the comb theorem), and their full quantum-instrument
 content remains on the operational bridge ({[}Main §3.2{]}). One
@@ -2681,11 +2686,13 @@ of the same standing as the residual dissipation.
 \subsection{1.9 What the theorem says}\label{what-the-theorem-says}}
 
 An observer inside the universe receives incomplete data --- the visible
-sector only. The characterization theorem proves that there is exactly
-one self-consistent algorithm for making predictions from this
-incomplete data on accessible timescales under C1--C4. For the source's
-finite-configuration class --- the empirically realized one --- that
-algorithm is quantum mechanics.
+sector only. The characterization theorem proves that the accessible
+statistics are necessarily memory-bearing, and the imported
+correspondence supplies a quantum algorithm for predicting from this
+incomplete data --- a representation, and explicitly not a unique one
+({[}Main §3.1{]}) --- on accessible timescales under C1--C4. For the
+source's finite-configuration class --- the empirically realized one ---
+that algorithm is quantum mechanics.
 
 Everything in quantum mechanics is a feature of this algorithm, not a
 feature of the underlying reality. The wave function is the algorithm's
@@ -26520,15 +26527,16 @@ on the visible sector. These transition probabilities are stochastic
 visible-sector outputs from a single visible-sector input across
 different hidden-sector configurations. \(\square\)
 
-\textbf{Lemma B.7.3 (P-indivisibility from C1--C4).} \emph{Under
-conditions C1 (non-trivial coupling), C2 (slow hidden sector), and C3
-(large hidden-sector capacity), the emergent stochastic dynamics on the
-visible sector is P-indivisible.}
+\textbf{Lemma B.7.3 (P-indivisibility from a non-permutation one-step
+matrix).} \emph{Under conditions C1 (non-trivial coupling), C2 (slow
+hidden sector), and C3 (large hidden-sector capacity), the emergent
+stochastic dynamics on the visible sector is P-indivisible.}
 
-\emph{Proof.} It suffices that C1 holds and the configuration space is
-finite; C2 and C3 are not required for P-indivisibility itself (they
-govern \emph{observability}, below). By C1 the visible transition matrix
-\(T = \Gamma(1)\) is not a permutation (Theorem B.2.4). A
+\emph{Proof.} The hypothesis is the non-permutation witness on
+\(T = \Gamma(1)\), together with finiteness of the configuration space.
+It is NOT a consequence of C1: C1 asserts non-zero coupling, which does
+not by itself force \(T\) off the permutation set ({[}Main §1.3{]}). C2
+and C3 play no part here; they govern \emph{observability}, below. A
 column-stochastic matrix that is not a permutation strictly contracts
 total-variation distance for some pair of basis states:
 \(\mathrm{TV}(Te_i, Te_j) = 1\) exactly when columns \(i\) and \(j\)
@@ -26587,9 +26595,12 @@ requires, is that the memory is \(\mathcal{O}(I_0)\) and observable
 throughout the regime \(k\tau_S \ll \tau_B\). \(\square\)
 
 \textbf{Lemma B.7.5 (Phase locking).} \emph{The emergent effective
-Hamiltonian \(\hat{H}_{\text{eff}}\) on the visible sector is uniquely
-determined by the continuous-time transition data \(\{T_{ij}(t)\}\), up
-to the trivial diagonal-unitary rephasing freedom.}
+Hamiltonian \(\hat{H}_{\text{eff}}\) on the visible sector is determined
+by the continuous-time transition data \(\{T_{ij}(t)\}\) up to the
+lemma's full gauge: an overall energy shift, the diagonal-unitary
+rephasing freedom, and the antiunitary conjugation
+\(\hat{H} \to -\hat{H}^*\) --- a genuine twofold ambiguity rather than a
+convention ({[}Main §3.1{]}).}
 
 \emph{Proof.} The transition data \(\{T_{ij}(t)\}\) determines the
 Born-rule probabilities
@@ -26820,12 +26831,13 @@ characterization theorem makes this equivalence explicit).
 \emph{Not superdeterminism.} Superdeterministic hidden-variable theories
 restore Bell inequality satisfaction by giving up measurement
 independence --- the experimenter's choice of measurement setting is
-correlated with the hidden variables. The framework preserves
-measurement independence: the partition between visible and hidden
-sectors is determined by the causal structure (the cosmological
-horizon), not by the experimenter's measurement choices. The framework's
-content does not require the experimenter's choices to be pre-correlated
-with hidden variables.
+correlated with the hidden variables. The framework does not impose
+measurement independence at the substratum level and recovers it
+operationally as a quantitative target: the partition between visible
+and hidden sectors is determined by the causal structure (the
+cosmological horizon), not by the experimenter's measurement choices.
+The framework's content does not require the experimenter's choices to
+be pre-correlated with hidden variables.
 
 \emph{Not dynamically nonlocal (Bohmian-type).} The framework does not
 claim to be a local theory in Bell's sense: outcome independence is
@@ -26856,8 +26868,10 @@ framework's measurement-independence preservation distinguishes), from
 Bohmian mechanics (which has no analog of the framework's
 substratum-emergent operator distinction), and from Many-Worlds (which
 has no analog of the framework's partition structure). The class
-produces quantum correlations through P-indivisibility rather than
-through any of the conventional mechanisms.
+produces Bell-inequality violation through the joint dynamics'
+non-Markovian conditionals rather than through any of the conventional
+mechanisms; the Tsirelson value itself is imported for the causally
+local indivisible construction (§C.2).
 
 \hypertarget{c.3-the-no-go-theorems-pbr-frauchiger-renner-colbeck-renner-bong-wiseman}{%
 \subsection{C.3 The no-go theorems: PBR, Frauchiger-Renner,
@@ -27033,11 +27047,13 @@ stochastic-quantum correspondence, which is recent (2023) and not yet
 widely accepted. This undermines the main result. A theory built on a
 not-yet-established result is itself not established.''
 
-\textbf{The framework's response.} Two routes reach the bridge's
-transition-statistics layer, and the dependency on any single recent
-result is correspondingly weaker --- but neither route reaches the
-operational instrument algebra, which remains open ({[}Main §3.4{]}), so
-``either alone sufficient'' would overstate what is established.
+\textbf{The framework's response.} The framework's own permutation
+dilation independently supplies a transition-statistics representation,
+so the dependency on any single recent result is weaker than it appears
+--- though the two routes share the Stinespring bedrock and neither is
+fully independent of it --- but neither route reaches the operational
+instrument algebra, which remains open ({[}Main §3.4{]}), so ``either
+alone sufficient'' would overstate what is established.
 
 \emph{Route 1: Barandes correspondence.} Barandes (2023) and subsequent
 work (Barandes 2024, Liu 2024, others) established a mathematical

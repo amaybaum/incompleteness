@@ -1817,7 +1817,8 @@ Input & P-indivisible process on \(\mathcal{C}_V\) & Bijection on
 \(\mathcal{C}_V \times \mathcal{C}_H\) + marginalization \\
 Bridge & Stochastic-quantum correspondence {[}11, 12{]} & Stinespring
 dilation {[}15{]} + partial trace {[}16{]} \\
-Output & Unitary with \(T_{ij} = |U_{ij}|^2\) & CPTP channel with
+Output & Dilated unitary whose ancilla-marginal Born probabilities
+reproduce \(T_{ij}\) & CPTP channel with
 \(T_{ij} = \langle j|\Phi(|i\rangle\langle i|)|j\rangle\) \\
 Born rule & Equilibrium of indivisible process & Partial trace structure
 (above) \\
@@ -2844,9 +2845,11 @@ shared boundary history --- precisely the stochastic entanglement of
 Projective measurement in the emergent description corresponds to
 conditioning on a visible-sector outcome and re-marginalizing over the
 hidden sector. The Lüders rule
-\(\rho \to P_k \rho P_k / \text{Tr}(P_k \rho)\) is the quantum
-transcription of Bayesian updating on the classical substratum (Lemma 3)
-for the represented diagonal sector; its extension to arbitrary coherent
+\(\rho \to P_k \rho P_k / \text{Tr}(P_k \rho)\) transcribes Bayesian
+updating on the classical substratum (Lemma 3) for the represented
+diagonal sector --- which is the transition-statistics layer, not the
+instrument algebra: the general operational update for noncommuting
+interventions is open (§3.4); its extension to arbitrary coherent
 density matrices belongs to the operational bridge (§3.2). No
 independent measurement postulate is required for the represented
 statistics. Multi-time correlation functions of the passive law are
