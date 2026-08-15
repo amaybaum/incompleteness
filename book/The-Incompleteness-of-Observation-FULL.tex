@@ -1534,7 +1534,7 @@ unreachable from any fixed finite realization (the classical-dimension
 obstruction, {[}Main §3.4{]}), and now achieved at every finite
 resolution by the finite operational gluing theorem: fixed
 per-instrument mechanisms, gluing by restriction, adaptive completeness
-with a two-sided hidden-capacity law ({[}Main §3.4{]}); the continuum is
+with explicit hidden-capacity bounds ({[}Main §3.4{]}); the continuum is
 approached as proved finite-test density of the constructed realizations
 ({[}Main §3.4{]}) --- class identity not claimed --- and the selection
 question remains the frontier. The conditions are necessary as well as
@@ -28692,14 +28692,17 @@ expression), engineered (qubit noise). Defined in Chapter 1 §1.5.
 operational result ({[}Main §3.4{]}): every finite adaptive quantum
 experiment --- instrument family \(\mathcal{F}\), horizon \(K\), grid
 \(G\) --- has a finite reversible deterministic embedded realization
-whose adaptive outcome statistics lie within \(K/G\) of the quantum law,
-with one fixed mechanism per instrument (context entering only through
-the state), gluing by restriction across overlapping families,
-sequential and parallel composition, and a two-sided hidden-capacity
-law. Approximation, not selection: it realizes any finite instrument
-family, quantum or otherwise; the exact continuum theory survives only
-as the limit (the polytope obstruction), and the selection question
-remains the frontier. Certified in exact arithmetic
+whose adaptive outcome statistics lie within
+\(K(|\mathcal{O}_{\max}|{-}1)/G\) of the quantum law (\(K/G\) for binary
+outcomes), with one fixed mechanism per instrument (context entering
+only through the state), gluing by restriction across overlapping
+families, sequential and parallel composition, and explicit
+hidden-capacity bounds (constructive upper, universal lower).
+Approximation, not selection: it realizes any finite instrument family,
+quantum or otherwise; the exact continuum theory stays unreachable at
+any fixed stage (the classical-dimension obstruction) and is approached
+as finite-test density of the constructed realizations, and the
+selection question remains the frontier. Certified in exact arithmetic
 (\texttt{opglue\_probes.py}).
 
 \textbf{NV (Nitrogen-vacancy) center.} A point defect in diamond where a

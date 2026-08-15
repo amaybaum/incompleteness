@@ -20,7 +20,8 @@
 # (6) seed-enumeration dynamics equals the analytic grid-count law exactly;
 # (7) capacity accounting + capacity floor log2|C_H| ≥ I*.
 # Extended: checks 8–9 telescoping / off-net density (b126b), 10 rescaling invariance (b127),
-# 11–12 density register + mixed conditionals for multi-Kraus instruments (b128).
+# 11–12 density register + mixed conditionals for multi-Kraus instruments (b128),
+# 13 single controlled dynamics — one bijection, protocol as initial condition (b129).
 
 import sys, math
 from fractions import Fraction as F
@@ -436,6 +437,55 @@ r0 = kraus_apply([k1, k2], rho_plus)
 pur = mtrace(mmul(r0, r0)); trsq = mtrace(r0) * mtrace(r0)
 check("conditional_mixedness", (trsq - pur).sign() > 0,
       "Tr(I_0(rho)^2) < (Tr I_0(rho))^2 exactly — genuinely mixed conditional, beyond the branch-vector form")
+
+# ---- (13) single controlled dynamics: one bijection, protocol as initial condition (b129) ----
+def policy_A(hist): return ["H", "Z", "Z"][len(hist)]
+def policy_B(hist):
+    if len(hist) < 2: return ["H", "Z"][len(hist)]
+    return "Z" if hist[1][1] == "0" else "X"
+POL = {"A": policy_A, "B": policy_B}
+G13, K13 = 4, 3
+def vkey(v): return (str(v[0].re.a), str(v[0].re.b), str(v[0].im.a), str(v[0].im.b),
+                     str(v[1].re.a), str(v[1].re.b), str(v[1].im.a), str(v[1].im.b))
+def phi_single(state):
+    prog, t, seeds, rec, v, stack = state
+    a = POL[prog](rec)
+    krs = INSTR[a]
+    if len(krs) == 1:
+        o, M = krs[0]
+        nv = mat_apply(M, v)
+        return (prog, t + 1, seeds, rec + ((a, o),), nv, stack + ("U",))
+    den = norm2(v)
+    (o0, M0), (o1, M1) = krs
+    q0 = norm2(mat_apply(M0, v))
+    c0 = count_below(G13, q0, den)
+    r = seeds[t]
+    o, M = (o0, M0) if r < c0 else (o1, M1)
+    return (prog, t + 1, seeds, rec + ((a, o),), mat_apply(M, v), stack + ("P", vkey(v)))
+from itertools import product as iproduct
+img_by_src = {}
+laws = {"A": {}, "B": {}}
+for prog in ("A", "B"):
+    for seeds in iproduct(range(G13), repeat=K13):
+        s = (prog, 0, seeds, (), PSI0, ())
+        for _ in range(K13):
+            s2 = phi_single(s)
+            img_by_src[(prog, s[1], seeds, s[3], vkey(s[4]), s[5])] =                 (prog, s2[1], seeds, s2[3], vkey(s2[4]), s2[5])
+            s = s2
+        key = "".join(o for _, o in s[3])
+        laws[prog][key] = laws[prog].get(key, F(0)) + F(1, G13 ** K13)
+inj = len(set(img_by_src.values())) == len(img_by_src)
+lawA_ref = realized_law(policy_A, K13, G13)
+lawB_ref = realized_law(policy_B, K13, G13)
+def strmarg(law):
+    out = {}
+    for hist, w in law.items():
+        k = "".join(o for _, o in hist)
+        out[k] = out.get(k, F(0)) + w
+    return out
+match = laws["A"] == strmarg(lawA_ref) and laws["B"] == strmarg(lawB_ref)
+check("single_controlled_dynamics", inj and match,
+      f"one map, two protocols (one adaptive), {len(img_by_src)} steps injective; laws exact")
 
 print(f"summary: hidden states {len(hid)} (log2 {log2CH:.2f}); "
       f"RZ TV at G=8/128/1024: {tv_rz[8]:.2e}/{tv_rz[128]:.2e}/{tv_rz[1024]:.2e}")

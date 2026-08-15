@@ -457,7 +457,7 @@ INVARIANTS = [
      "All four cases below are developed results, not conjectures."),
     # ---- b125 family: exact finite operational equivalence is closed in the negative ----
     (r"exactly operationally equivalent",
-     "no fixed finite realization is exactly operationally equivalent to the full operational theory (polytope obstruction, Main §3.4); use the ε-form",
+     "no fixed finite realization is exactly operationally equivalent to the full operational theory (classical-dimension obstruction, Main §3.4); use the ε-form",
      [r"[Nn]o fixed finite"],
      "the framework is exactly operationally equivalent to quantum mechanics"),
     # ---- b126 family: the gluing theorem is approximation, not selection or closure ----
@@ -483,11 +483,16 @@ INVARIANTS = [
     (r"= ?\\lim_n D",
      "class identity Q_operational = lim D_finite was retracted in b128; the Corollary states finite-test density of the quantum-shadow subclass only",
      [],
-     "in this sense $Q_{\mathrm{operational}} = \lim_n D_{\mathrm{finite}}$ holds"),
+     r"in this sense $Q_{\mathrm{operational}} = \lim_n D_{\mathrm{finite}}$ holds"),
     (r"purification with uniqueness, substratum form",
      "renamed in b128: canonical predictive quotient, a purification ingredient; completions are not unique as wholes (fiber freedom certified)",
      [],
      "Theorem (canonical predictive completion, purification with uniqueness, substratum form)"),
+    # ---- b129 family: capacity bounds have different scopes, not a matched pair ----
+    (r"two-sided (hidden-)?capacity",
+     "constructive upper bound for the built realization vs universal lower bound (>= I*) for every realization; different scopes, not a matched pair (Main §3.4 clause (5), b129)",
+     [],
+     "a two-sided hidden-capacity law"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
