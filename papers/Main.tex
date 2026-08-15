@@ -2654,6 +2654,65 @@ realization satisfies it trivially with a static bath
 physical content is carried separately by the conditional
 physical-memory theorem of §2.3:
 
+\textbf{Theorem (unavoidable hidden predictive memory).} \emph{Let
+\(\mathcal{S}\) be a visible process and let \(\mathcal{R}\) be ANY
+faithful deterministic realization of it --- a bijection \(\varphi\) on
+\(\mathcal{C}_V \times \mathcal{C}_H\) with a hidden prior reproducing
+\(\mathcal{S}\). Write \(f_x(h) = \pi_V(\varphi(x,h))\) for the next
+visible state, and for a visible history \(p\) ending in \(x\) write
+\(\mu_p\) for the induced hidden posterior
+\(P(H_t = \cdot \mid X_{<t} = p, X_t = x)\). Then:}
+
+\emph{(a) \textbf{Pushforward identity.}
+\(P(X_{t+1} \mid p, x) = (f_x)_\# \mu_p\) exactly.}
+
+\emph{(b) \textbf{Distinguishability floor.} For histories \(p, p'\)
+sharing the endpoint \(x\), the observed gap obeys
+\(\delta = \|P(X_{t+1} \mid p,x) - P(X_{t+1} \mid p',x)\|_{\mathrm{TV}} \leq \|\mu_p - \mu_{p'}\|_{\mathrm{TV}}\).}
+
+\emph{(c) \textbf{Capacity floor.}
+\(M_t := I(X_{<t}; X_{t+1} \mid X_t) \leq I(X_{<t}; H_t \mid X_t) \leq \log_2 |\mathcal{C}_H|\).}
+
+\emph{Proof.} (a) Determinism makes \(X_{t+1}\) a function of
+\((X_t, H_t)\), so conditioning on \(p\) and pushing \(\mu_p\) through
+\(f_x\) IS the conditional law. (b) A deterministic map is a channel and
+total variation is monotone under channels. (c)
+\(X_{<t} \to H_t \to X_{t+1}\) is a Markov chain given \(X_t\), by the
+same functional dependence; data processing gives the first inequality
+and \(I \leq H(H_t) \leq \log_2|\mathcal{C}_H|\) the second. \(\square\)
+(All three certified over every realization at
+\((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\) --- 1\{,\}464 cases ---
+in \texttt{memory\_probes.py}.)
+
+\emph{Remark (what this strengthens).} The equivalence of §3.4 is
+existential: some finite reversible realization exists. That statement
+is satisfied by Markov processes too, so it cannot by itself distinguish
+the framework's regime. The theorem above is UNIVERSAL --- it constrains
+every deterministic completion --- and it is the sense in which
+observation incompleteness forces hidden structure rather than merely
+permitting it: \textbf{if the visible process remembers its past, then
+every deterministic completion reproducing it must carry that memory in
+the hidden sector, with distinguishability surviving to readback and
+capacity at least \(M_t\).} The conditions follow rather than being
+assumed: (C1) because a hidden distinction invisible to \(f_x\) produces
+identical pushforwards; (C2) as the retention required by (b), with slow
+baths one mechanism among several; (C3) as (c) itself.
+
+\emph{Remark (a variational identity, open --- and false in its naive
+form).} It is natural to conjecture
+\(M_{\mathrm{det}} := \inf_{\mathcal{R}} I(X_{<t}; H_t \mid X_t) = M_t\):
+that conditional mutual information is exactly the minimum hidden
+predictive memory a reversible deterministic completion requires. The
+lower bound is (c). The reading in which the infimum ranges over
+realizations of FIXED hidden dimension is FALSE: at
+\((n_V, |\mathcal{C}_H|) = (2,3)\) the minimum equals \(M_t\) for only
+one of fifteen distinct processes with \(M_t > 0\), with residuals up to
+\(0.667\) bits (\texttt{memory\_probes.py}). Any proof must therefore
+let the hidden dimension vary --- the response-table construction, which
+preloads exactly the next-response variable, is the candidate attainer
+--- and must quotient inert ledger bits that cannot influence the
+future. Stated here so the naive form is not re-derived.
+
 \emph{Remark (the conditions are diagnostics, not hypotheses).} The
 reduction extends one step further. (C4) is not an independent condition
 on the realization either: it asserts a readback gap \emph{mediated
