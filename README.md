@@ -6,7 +6,7 @@
 
 This repository develops a single framework across five core papers:
 
-- **Main** — identifies embedded observation with quantum mechanics via the Barandes stochastic-quantum correspondence (the marginalized-bijection → P-indivisible step is the framework's own; the identification with unitary QM is supplied by that external correspondence)
+- **Main** — proves the finite-horizon representation equivalence in-house — stochastic laws ⟺ reversible deterministic marginals ⟺ fixed-basis unitary Born representations — and the universal hidden-memory theorem (memory-bearing visible dynamics forces readout-relevant hidden memory in every deterministic completion); the compressed representation is supplied by the Barandes stochastic-quantum correspondence under (T)
 - **SM** — derives the Standard Model from a $d = 3$ simple-cubic lattice, where the dimension is argued at self-consistency strength (the filters consume $d$-dependent emergent physics — a self-consistency selection, not an axiomatic derivation) and the cubic structure is empirically anchored by the observed $\mathrm{SU}(3)$ (see *Derivation status: the three tiers*, SM §8.3, and SM §3.2)
 - **GR** — derives the gravitational sector from the cosmological horizon
 - **Substratum** — ties these into a single construction at the substratum level
@@ -132,7 +132,7 @@ All research papers live in [`papers/`](papers/).
 
 ### Core papers
 
-- **[`Main`](papers/Main.md)** — proves the per-horizon equivalence — accessible non-Markovianity ⟺ deterministic (C1)–(C4) realization — with a quantum representation for processes in the correspondence's class via the imported correspondence under the translation hypothesis (T); (C2)'s necessity is the conditional physical-memory theorem. Minimal explicit model, stated falsification conditions. ([`.tex`](papers/Main.tex), [`.pdf`](papers/Main.pdf))
+- **[`Main`](papers/Main.md)** — proves the per-horizon equivalence — accessible non-Markovianity ⟺ deterministic (C1)/(C3)/(C4) realization — and the finite-horizon representation equivalence $S \iff D \iff Q_{\mathrm{fb}}$ (the quantum representation internal and universal, the compressed form via the imported correspondence under the translation hypothesis (T)); the universal hidden-memory theorem constrains every deterministic completion, and (C2)'s necessity is the conditional physical-memory theorem. Minimal explicit model, stated falsification conditions. ([`.tex`](papers/Main.tex), [`.pdf`](papers/Main.pdf))
 - **[`SM`](papers/SM.md)** — derives the Standard Model from a $d=3$ cubic lattice. SU(3)×SU(2)×U(1); threefold taste multiplicity (candidate generations under H-spin' — free kernel and 4D route refuted, condensate-dressed form open; chirality under H-χ' — sharpened, the minimal embedding certified vector-like, mechanism class nonempty with dynamical selection open); $\bar\theta=0$ within the construction; twenty-two quantitative observables. ([`.tex`](papers/SM.tex), [`.pdf`](papers/SM.pdf))
 
 - **[`GR`](papers/GR.md)** — derives $\hbar$, the Bekenstein-Hawking entropy with the $1/4$ coefficient (derived; GW250114 tests the area theorem, not the coefficient), the cosmological constant dissolution, and the dark sector phenomenology including $a_0 = cH/6$ from the cosmological horizon. The Tier 1 results ($\hbar$, area law, CC dissolution, Type II RVM functional form) are formalized at the universality-class level: they hold for any horizon-bounded embedded-observer system satisfying the structural conditions S1-S4, with OI providing one specific realization (§8.5). The $\hbar$ chain's boost-structure prerequisite is discharged in closed form: exact free-level cone per channel, KMS robustness at $\mathcal{O}((\epsilon\kappa/c)^2)$, and custodially decoupled radiative splitting, leaving one solution-level parameter — the cross-charged mass $M_X$ — confined to a baryon-safe, falsifiable window (GR §8.5; SM §3.1). The paper also carries the reconstruction-gauge form of the vacuum-offset claim (§6) and a scope preamble on what the classical tests test (§7). ([`.tex`](papers/GR.tex), [`.pdf`](papers/GR.pdf))
@@ -179,7 +179,7 @@ A book-length treatment, **The Incompleteness of Observation: A Unified Framewor
 
 | # | Result | Status | Source |
 |---|---|---|---|
-| 1 | Accessible non-Markovianity ⟺ per-horizon C1/C3/C4 deterministic realization (C2 separate, conditional); quantum representation for processes in the correspondence's class | theorem (+ imported correspondence for the subclass clause) | Main §3.4 |
+| 1 | Accessible non-Markovianity ⟺ per-horizon C1/C3/C4 deterministic realization (C2 separate, conditional); representation equivalence $S \iff D \iff Q_{\mathrm{fb}}$ — internal, universal; universal hidden-memory theorem over every completion | theorem (+ imported correspondence for the compressed form) | Main §3.4 |
 | 2 | $\hbar = c^3 \varepsilon^2/(4G)$ from horizon thermal self-consistency, $\varepsilon = 2 l_p$ uniquely | theorem (boost prerequisite discharged to the falsifiable $M_X$ window) | GR §§3–4, §8.5 |
 | 3 | Bekenstein-Hawking entropy with $1/4$ coefficient ($1/4$ derived; GW250114 tests the area theorem, not the coefficient) | theorem | GR §5 |
 | 4 | Cosmological constant dissolution: $10^{122}$ ratio = $S_{\rm dS}$ compression ratio | theorem | GR §6 |

@@ -801,8 +801,9 @@ probability --- the squared modulus of a matrix element of the unitary
 evolution operator. The equivalence is not approximate. It is not an
 analogy. It is a mathematical identity.
 
-\textbf{Two independent routes to the same conclusion.} The primary
-route uses Barandes' stochastic-quantum correspondence (2023--2025):
+\textbf{Two routes to the same layer --- and the in-house one is now
+primary.} The imported route uses Barandes' stochastic-quantum
+correspondence (2023--2025), which supplies the compressed form:
 P-indivisibility means transition probabilities can't be factored
 through intermediate times --- try it and you get ``negative
 probabilities.'' In quantum mechanics, this is \emph{exactly what
@@ -815,15 +816,17 @@ of one object. The breadth matters: the representation's existence is
 not the framework's distinctive result, and what P-indivisibility adds
 is that the dynamics so represented is genuinely indivisible.
 
-The secondary route, given in Appendix A, uses Stinespring's dilation
-theorem (1955): a deterministic bijection on a finite product space
-defines a permutation unitary; tracing out the hidden sector with the
-Liouville measure produces a completely positive quantum channel whose
-diagonal elements recover the classical transition probabilities
-exactly. This second route requires only textbook results. Both reach
-the transition-statistics layer and neither reaches the operational
-instrument algebra, which stays open; together they ensure that
-\emph{layer} rests on no single recent result.
+The in-house route, given in Appendix A, uses Stinespring's dilation
+theorem (1955), and it is now primary --- its permutation unitary is
+exactly the object behind the equivalence theorem's internal
+\(D \Rightarrow Q_{\mathrm{fb}}\) leg ({[}Main §3.4{]}): a deterministic
+bijection on a finite product space defines a permutation unitary;
+tracing out the hidden sector with the Liouville measure produces a
+completely positive quantum channel whose diagonal elements recover the
+classical transition probabilities exactly. This second route requires
+only textbook results. Both reach the transition-statistics layer and
+neither reaches the operational instrument algebra, which stays open;
+together they ensure that \emph{layer} rests on no single recent result.
 
 \textbf{Where the quantum features come from:}
 
@@ -991,13 +994,16 @@ logical chain:
   the recurrence scale, and C4's readback ⟹ accessible non-Markovianity,
   quantitatively (sufficiency)
 \item
-  Section 3.3 proves: P-indivisibility ⟹ C1--C4 (necessity)
+  Section 3.3 proves: P-indivisibility ⟹ C1, C3, C4 (necessity,
+  unconditional); C2's slow form within the mixing class (the
+  conditional physical-memory theorem)
 \item
   Combined: \textbf{accessible non-Markovianity ⟺ embedded observation
   under C1, C3, C4 (per finite horizon) --- C2 is not needed for the
   equivalence and carries its physical content separately, through the
-  conditional physical-memory theorem --- with the quantum
-  representation supplied across the correspondence's class under (T),
+  conditional physical-memory theorem --- with a fixed-basis unitary
+  quantum representation internal and universal ({[}Main §3.4{]}), the
+  compressed form supplied across the correspondence's class under (T),
   nontrivially where the dynamics is P-indivisible}
 \end{itemize}
 
@@ -1008,17 +1014,23 @@ non-permutation one-step matrix is the cheapest \emph{witness} of C1,
 sufficient but not necessary: influence can hide at step one and surface
 later (the delayed-revival family).
 
-\textbf{Necessity of C2 (memory persistence).} Between coupling events
-(separated by τ\_S), the hidden sector evolves under its own
-Hamiltonian. The convergence to equilibrium is:
+\textbf{Necessity of C2 (memory persistence), the slow form conditional
+on mixing.} Between coupling events (separated by τ\_S), the hidden
+sector evolves under its own Hamiltonian. The convergence to equilibrium
+is:
 
 \[\| e^{\mathcal{L}_H \tau_S} \mu_H(\cdot | x_i) - \mu_{\text{eq}} \|_{\text{TV}} \leq C \, e^{-\Delta \tau_S}\]
 
 In the fast-bath regime (Δ·τ\_S ≫ 1), this is exponentially small. The
 hidden sector forgets everything between interactions. Each transition
 is computed against the same equilibrium distribution, so T\^{}(k) =
-T\^{}k --- a Markov chain, hence P-divisible. Contrapositive:
-P-indivisibility requires τ\_S ≪ τ\_B.
+T\^{}k --- a Markov chain, hence P-divisible. Contrapositive, within the
+mixing class: P-indivisibility requires τ\_S ≪ τ\_B --- conditional
+because the convergence bound presupposes a relaxation gap Δ. Fast
+\emph{non-mixing} hidden dynamics --- conserved circulation --- retain
+records with no timescale separation at all
+(\texttt{fastbath\_probes.py}, {[}Main §1.3{]}), which is why (C2) is
+stated in two forms and this necessity belongs to the slow form.
 
 \textbf{Necessity of C3 (sufficient capacity).} The non-Markovian mutual
 information is bounded by the hidden sector's size:
@@ -1041,12 +1053,14 @@ the process is non-Markovian on accessible timescales ⟺ it arises, on
 each finite horizon, from marginalizing a deterministic bijection under
 C1, C3, C4 (C2 sits outside the equivalence: the existential realization
 satisfies it trivially with a static bath). Both directions are the
-foundational paper's own theorems; processes in that class admit the
-unitary quantum representation, and the fixed-Ĥ form is constructive for
-every realized process. The old three-way biconditional is retired:
-representability alone does not force memory (diagonal Hamiltonians),
-and conditional memory alone does not force P-indivisibility (the XOR
-family).
+foundational paper's own theorems; every finite-horizon law admits the
+fixed-basis unitary quantum representation
+(\(S \iff D \iff Q_{\mathrm{fb}}\), internal --- the compressed form for
+the correspondence's class under (T)), and the fixed-Ĥ form is
+constructive for every realized process. The old three-way biconditional
+is retired: representability alone does not force memory (diagonal
+Hamiltonians), and conditional memory alone does not force
+P-indivisibility (the XOR family).
 
 \textbf{What ``unitarily evolving QM'' means precisely.} The
 characterization theorem delivers a Hilbert space, a Hermitian
@@ -1062,36 +1076,42 @@ product for the visible--hidden split comes from the Stinespring route
 sector (two laboratories, for instance) follows from the spatial Markov
 property of range-1 dynamics on the coupling graph. Projective
 measurement corresponds to Bayesian conditioning on the classical
-substratum. The equivalence between ``classical non-Markovian'' and
-``quantum'' is not metaphorical --- the theorem proves these are the
-same mathematical category.
+substratum. The equivalence between ``finite classical stochastic'' and
+``fixed-basis quantum'' is not metaphorical ---
+\(S \iff D \iff Q_{\mathrm{fb}}\) proves these are the same mathematical
+category, with the memory-bearing sector (\(M_t > 0\)) carrying the
+discriminating content.
 
 \emph{A note on what is proved versus imported, to keep the claim honest
 (ordinary Markov chains are members of the source's class, not
 exclusions from it).} The step from ``embedded observation'' to
 ``P-indivisible (non-Markovian) dynamics'' is the framework's own
-result. The step to a quantum representation is supplied by an external
-theorem, which applies across its own class --- Markov chains included,
-so membership is not gated by P-indivisibility --- the Barandes
-stochastic-quantum correspondence (published in \emph{Philosophy of
-Physics}, 2025) --- which the framework uses rather than re-derives.
-That correspondence is a genuine result, but three things should be
-carried with it: it is a \emph{representation} (the map is not unique);
-it delivers the scaffolding above --- Hilbert space, unitary evolution,
-the Born rule --- while non-commuting observables, spin, and the
-composite tensor structure are introduced via the dilation rather than
-read directly off the stochastic data; and the class of processes it
-covers is the source's own tuple class, which is broad --- ordinary
-memoryless Markov chains are members of it, so P-indivisibility is not
-what admits a process to the theorem. And the ``necessity'' direction
---- that a quantum system \emph{must} arise from this architecture ---
-holds given an assumption (eigenstate thermalization) about the hidden
-sector. So the accurate headline is that the framework \emph{identifies}
-quantum mechanics with the statistics of a particular kind of incomplete
-observation; it does not conjure QM from nothing. This is a
-reinterpretation of why the quantum formalism has the shape it does ---
-a strong claim --- but a different and more defensible one than ``QM
-derived from a parameter-free principle.''
+result. The step to a quantum representation is now internal --- every
+finite-horizon law has a fixed-basis unitary Born representation via the
+realization's own permutation unitary ({[}Main §3.4{]}) --- with the
+\emph{compressed} representation supplied by an external result, which
+applies across its own class --- Markov chains included, so membership
+is not gated by P-indivisibility --- the Barandes stochastic-quantum
+correspondence (published in \emph{Philosophy of Physics}, 2025) ---
+which the framework uses rather than re-derives. That correspondence is
+a genuine result, but three things should be carried with it: it is a
+\emph{representation} (the map is not unique); it delivers the
+scaffolding above --- Hilbert space, unitary evolution, the Born rule
+--- while non-commuting observables, spin, and the composite tensor
+structure are introduced via the dilation rather than read directly off
+the stochastic data; and the class of processes it covers is the
+source's own tuple class, which is broad --- ordinary memoryless Markov
+chains are members of it, so P-indivisibility is not what admits a
+process to the theorem. And the ``necessity'' direction --- that a
+quantum system \emph{must} arise from this architecture --- holds with
+one leg (the physical-memory bound behind C2) conditional on an
+assumption (eigenstate thermalization) about the hidden sector, the
+remaining legs unconditional. So the accurate headline is that the
+framework \emph{identifies} quantum mechanics with the statistics of a
+particular kind of incomplete observation; it does not conjure QM from
+nothing. This is a reinterpretation of why the quantum formalism has the
+shape it does --- a strong claim --- but a different and more defensible
+one than ``QM derived from a parameter-free principle.''
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3436,22 +3456,27 @@ Key equation
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-§3.1: Stochastic-quantum correspondence & correspondence's class →
-quantum representation & T\_ij = ancilla-marginal Born rule (T =
-\textbar U\textbar² in the trivial-ancilla case) \\
+§3.1: Stochastic-quantum correspondence & compressed (≤ n³)
+representation for the correspondence's class; existence is internal and
+universal (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}) & T\_ij =
+ancilla-marginal Born rule (T = \textbar U\textbar² in the
+trivial-ancilla case) \\
 §3.1: Phase-locking & Hamiltonian fixed up to shift, rephasing, and the
 antiunitary conjugate & Fourier analysis of T\_ij(t) \\
 §3.2: Bell analysis & Framework evades Bell's theorem & Outcome
 independence violated, parameter independence preserved \\
-§3.3: Necessity of C1 & QM requires coupling & No coupling → permutation
-→ P-divisible \\
-§3.3: Necessity of C2 & QM requires slow bath & Fast bath → Markov →
-P-divisible \\
-§3.3: Necessity of C3 & QM requires capacity & I ≤ log₂ m bounds
-memory \\
+§3.3: Necessity of C1 & Accessible memory requires coupling & No
+coupling → permutation → P-divisible \\
+§3.3: Necessity of C2 & Physical memory requires record persistence ---
+slow bath one mechanism, conditional on mixing & Fast-mixing bath →
+Markov → P-divisible \\
+§3.3: Necessity of C3 & Accessible memory requires capacity & I ≤ log₂ m
+bounds memory \\
 §3.4: Characterization theorem & non-Markovianity ⟺ C1, C3, C4 per
-horizon (C2 separate, conditional); QM for processes in the
-correspondence's class & Biconditional + imported representation \\
+horizon (C2 separate, conditional); representation equivalence
+\(S \iff D \iff Q_{\mathrm{fb}}\) --- internal, universal; universal
+hidden-memory theorem & Biconditional + internal permutation unitary
+(compressed form imported under (T)) \\
 §4: Cosmological horizon & The universe satisfies the definition & C1 ✓,
 C2 ✓, C3 ✓ \\
 §5.1: Classical temperature & T\_cl = c²ε²κ/(8πGk\_B) & No ℏ \\
