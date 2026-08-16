@@ -77,7 +77,7 @@ The partially-quantum regime is structurally distinct from both the maximal-back
 
 Intermediate information backflow itself is standard open-systems phenomenology — the Breuer–Laine–Piilo and Rivas–Huelga–Plenio constructions quantify continuous degrees of non-Markovianity; what is distinctive here is the proposed capacity-controlled origin and the specific scaling law. Standard accounts treat quantum and classical as endpoints of a spectrum (with decoherence interpolating between them), but the framework treats them as structurally distinct MEMORY regimes with a third — intermediate backflow, the partially-quantum label — between them, all three quantum-representable ([Main §3.4]).
 
-**Where to look for partially-quantum systems.** The framework's structural conditions specify exactly where the partially-quantum regime is expected to occur: in systems where the hidden sector has intermediate capacity and timescale separation. The table below summarizes the predicted regimes for several systems:
+**Where to look for partially-quantum systems.** The mechanism proposal, layered on the capacity theorem, specifies where the intermediate-backflow (partially-quantum) regime is expected to occur: in systems where the hidden sector has intermediate capacity and timescale separation. The table below summarizes the predicted regimes for several systems:
 
 | System | $\tau_S / \tau_B$ | Regime |
 |--------|-------------------|--------|

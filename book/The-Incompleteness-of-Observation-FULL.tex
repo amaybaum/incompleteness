@@ -2873,14 +2873,16 @@ information ever crosses the partition boundary. The hidden sector
 exists but is causally disconnected from the visible sector for all
 purposes.
 
-The dynamics in this regime is fully classical. The reduced description
-requires no Hilbert space, no Born rule, no wave function. The
-Schrödinger equation does not emerge because there is no
-coupling-induced non-Markovianity for it to encode. Bell-inequality
-violations cannot occur because P-indivisibility cannot arise from a
-partition with no coupling. The observer sees a classical Newtonian
-world with deterministic trajectories and well-defined values of every
-observable at every time.
+The dynamics in this regime is fully classical in character: memoryless.
+The reduced description still admits the fixed-basis quantum
+representation --- every finite law does, trivially here ({[}Main
+§3.4{]}) --- but there is nothing memory-bearing in it: no
+coupling-induced non-Markovianity for a nontrivial representation to
+encode, hence none of the interference phenomenology the framework
+attributes to backflow. Bell-inequality violations cannot occur because
+P-indivisibility cannot arise from a partition with no coupling. The
+observer sees a classical Newtonian world with deterministic
+trajectories and well-defined values of every observable at every time.
 
 This is the regime closest to the historical picture of classical
 mechanics: a clockwork universe where every particle has a definite
@@ -2933,11 +2935,13 @@ The dynamics in this regime is \emph{fully Markovian}. The reduced
 description on the visible sector is a classical stochastic process with
 transition probabilities depending only on the current state. The
 observer sees probabilistic dynamics, but the probabilities are
-classical: no interference, no Bell-inequality violations, no genuine
-quantum coherence. The Born rule reduces to the classical probability
-assignment for transitions between well-defined states. The Schrödinger
-equation does not emerge because there are no temporal correlations for
-it to encode.
+memoryless: no interference phenomenology, no Bell-inequality violations
+--- the fixed-basis representation survives, trivially
+diagonal-preserving, while the memory-bearing sector is empty ({[}Main
+§3.4{]}). The Born rule reduces to the classical probability assignment
+for transitions between well-defined states. The Schrödinger equation
+does not emerge because there are no temporal correlations for it to
+encode.
 
 This regime corresponds to what physics calls the \emph{thermal limit}
 --- systems in contact with a fast equilibrating bath, where the bath's
@@ -2983,11 +2987,14 @@ satisfy the condition --- a shift-register bath rotating five cells per
 visible step supports a maximal readback gap
 (\texttt{fastbath\_probes.py}) --- so persistence, not slowness, is
 doing the structural work beyond merely providing some unobserved
-degrees of freedom. An observer with access to a fast hidden bath would
-see classical probability; only observers with access to a \emph{slow}
-hidden bath see quantum amplitudes. The cosmological horizon's slowness
-is therefore not a contingent fact but a structurally required feature
-of any observer who sees quantum mechanics.
+degrees of freedom. An observer whose fast hidden bath scrambles the
+record sees memoryless statistics; one whose fast bath conserves and
+routes it retains the full memory-bearing description
+(\texttt{fastbath\_probes.py}). The cosmological horizon's slowness is
+therefore the physically comfortable route to persistence in our
+universe --- and the small parameter of the continuum Schrödinger-form
+derivation, the \(\tau_S/\tau_B\) expansion --- not what
+representability or the memory theorem require ({[}Main §3.4{]}).
 
 \textbf{The C3 limit: the universe-sized observer.}
 
@@ -3000,13 +3007,14 @@ observer is \emph{coextensive} with the universe.
 The dynamics in this limit is fully deterministic and fully classical.
 The bijection \(\varphi\) on the full system \(S\) is just a permutation
 of classical states; the observer who is all of \(S\) sees its complete
-deterministic evolution. No Born rule, no Schrödinger equation, no
-quantum interference --- but for a different reason than in the C1 case.
-In the C1 limit, the visible sector is closed but the framework still
-applies to it as a system; in the C3 limit, the framework's content has
-no purchase because there is no embedded observation taking place. The
-``observer'' is not observing anything; they are the system being
-observed, with no separation between knower and known.
+deterministic evolution. No memory-bearing sector --- the fixed-basis
+representation survives, trivially, as always ({[}Main §3.4{]}) --- and
+no interference phenomenology, but for a different reason than in the C1
+case. In the C1 limit, the visible sector is closed but the framework
+still applies to it as a system; in the C3 limit, the framework's
+content has no purchase because there is no embedded observation taking
+place. The ``observer'' is not observing anything; they are the system
+being observed, with no separation between knower and known.
 
 This is the regime that superficially resembles a \emph{God's-eye view}.
 The traditional theological framing imagines an observer who stands
@@ -17026,8 +17034,10 @@ magnetoreception (\(\tau_S/\tau_B \sim 10^{-3}\)), single-enzyme
 catalysis (\(\tau_S/\tau_B \sim 10^{-9}\) to \(10^{-12}\)) --- span the
 regime where C3 is marginally satisfied. Hidden-sector capacities range
 from \(\sim 10^{30}\) (radical pair) to \(\sim 10^{200}\) (protein
-conformational landscape) --- large but finite, with the finiteness
-producing the framework's specific partially-quantum signature.
+conformational landscape) --- large but finite, the finiteness capping
+accessible memory --- the theorem-level content; the mechanism proposal
+hypothesizes that this marginal capacity is realized as the specific
+intermediate-backflow signature.
 
 The proposal's prediction is therefore that \emph{biological systems
 occupy the intermediate-backflow (partially-quantum) regime} at the
@@ -18945,14 +18955,15 @@ Beyond the backflow corrections within the maximal-backflow regime at
 large \(\tau_B/\tau_S\) (developed in §§15.3-15.6), the framework
 predicts a distinctive \emph{partially-quantum regime} at intermediate
 \(\tau_S/\tau_B\) values where the C3 capacity condition is marginal. In
-this regime, engineered quantum systems exhibit dynamics whose
-memoryless operational modeling --- divisible-channel accounts of
-preparation and intervention --- gives out, while full representability
-at the transition-statistics layer is retained ({[}Main §3.4{]}); any
-stronger operational-failure reading is a mechanism-proposal claim,
-stated as such, and the regime is distinguishable from both
-maximal-backflow and memoryless accounts through multi-time correlation
-diagnostics.
+this regime --- on the mechanism proposal's hypothesis that marginal
+capacity is realized as intermediate backflow --- engineered systems
+exhibit dynamics whose memoryless operational modeling ---
+divisible-channel accounts of preparation and intervention --- gives
+out, while full representability at the transition-statistics layer is
+retained ({[}Main §3.4{]}); any stronger operational-failure reading is
+a mechanism-proposal claim, stated as such, and the regime is
+distinguishable from both maximal-backflow and memoryless accounts
+through multi-time correlation diagnostics.
 
 \textbf{The structural condition.} C3 is sufficient memory capacity ---
 \(N_H \gg N_V\) is the comfortable physical regime, not the condition
@@ -18973,10 +18984,12 @@ In engineered systems, the C3 marginality condition is
 \emph{controllable}. By designing the hidden-sector capacity (the number
 of TLS in a superconducting qubit's substrate, the number of nuclear
 spins in an NV center's bath, the length of an engineered spin chain),
-the engineer chooses where on the memory-backflow spectrum the system
-operates. This is a new design degree of freedom that the framework
-predicts has empirical consequences distinct from continuous-decoherence
-accounts of the quantum-classical boundary.
+the engineer sets the capacity ceiling on accessible memory --- the
+theorem-level content; the mechanism proposal hypothesizes that this
+choice positions the system on the memory-backflow spectrum. This is a
+new design degree of freedom whose predicted empirical consequences, on
+that proposal, are distinct from continuous-decoherence accounts of the
+quantum-classical boundary.
 
 \textbf{The framework's prediction.} In the partially-quantum regime,
 the framework predicts that multi-time correlation functions show
@@ -21946,11 +21959,12 @@ but the framework treats them as structurally distinct MEMORY regimes
 with a third --- intermediate backflow, the partially-quantum label ---
 between them, all three quantum-representable ({[}Main §3.4{]}).
 
-\textbf{Where to look for partially-quantum systems.} The framework's
-structural conditions specify exactly where the partially-quantum regime
-is expected to occur: in systems where the hidden sector has
-intermediate capacity and timescale separation. The table below
-summarizes the predicted regimes for several systems:
+\textbf{Where to look for partially-quantum systems.} The mechanism
+proposal, layered on the capacity theorem, specifies where the
+intermediate-backflow (partially-quantum) regime is expected to occur:
+in systems where the hidden sector has intermediate capacity and
+timescale separation. The table below summarizes the predicted regimes
+for several systems:
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2286}}

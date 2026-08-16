@@ -691,6 +691,19 @@ INVARIANTS = [
      "operational-failure diagnoses are mechanism-proposal claims, labeled as such (Main §3.4, b144)",
      [],
      "if no, the system is partially quantum (framework prediction)"),
+    # ---- b147 families: review-54 classes ----
+    (r"no Hilbert space, no Born rule",
+     "the fixed-basis representation survives every C-failure (universal Q_fb, Main §3.4); what is lost is the memory sector (b147)",
+     [],
+     "requires no Hilbert space, no Born rule, no wave function"),
+    (r"only observers with access to a \*?slow\*? hidden bath",
+     "persistence, not slowness, is structural (fastbath_probes.py); slowness is the comfortable route and the continuum expansion parameter (b147)",
+     [],
+     "only observers with access to a slow hidden bath see quantum amplitudes"),
+    (r"chooses where on the memory-backflow spectrum",
+     "capacity choice sets the memory CEILING (theorem); spectrum position is the mechanism proposal's hypothesis (b147)",
+     [],
+     "the engineer chooses where on the memory-backflow spectrum the system operates"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
