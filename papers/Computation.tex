@@ -523,16 +523,22 @@ super-BQP capability would falsify the framework).
 \hypertarget{the-lower-bound}{%
 \subsubsection{4.1 The lower bound}\label{the-lower-bound}}
 
-Quantum computation in the standard model is universal: any unitary on
-\(n\) qubits can be approximated by a polynomial-depth circuit built
-from Hadamard, phase, and CNOT gates (the Solovay-Kitaev theorem and its
-descendants). The framework's substratum, by the QM emergence theorem
-{[}1, Part I{]}, implements unitary dynamics in its visible-sector
-marginal description; the gauge structure permits the qubit
-decomposition (a single SU(2) doublet provides the qubit basis); the
-lattice geometry permits the spatial layout. Therefore any BQP algorithm
-has a physical implementation on the substratum, and embedded observers
-can in principle access any problem in BQP.
+Quantum computation in the standard model is defined through uniform
+polynomial-size circuit families: every BQP computation, by definition,
+is specified by such a family over a finite universal gate set ---
+Hadamard, a non-Clifford phase gate such as \(T\), and CNOT --- with the
+Solovay--Kitaev theorem supplying efficient approximation of any fixed
+gate over that set. Generic \(n\)-qubit unitaries, by contrast, require
+circuits of size \(\Theta(4^n)\) {[}11{]} and play no role in the
+definition. The lower-bound task is therefore to show that the
+framework's explicit computational model can realize the gates of a
+uniform polynomial-size family. The framework's substratum, by the QM
+emergence theorem {[}1, Part I{]}, implements unitary dynamics in its
+visible-sector marginal description; the gauge structure permits the
+qubit decomposition (a single SU(2) doublet provides the qubit basis);
+the lattice geometry permits the spatial layout. Therefore any BQP
+algorithm has a physical implementation on the substratum, and embedded
+observers can in principle access any problem in BQP.
 
 \hypertarget{the-upper-bound}{%
 \subsubsection{4.2 The upper bound}\label{the-upper-bound}}
@@ -1120,7 +1126,7 @@ reason behind this clustering becomes visible when one notes that the
 framework's quantum toolkit (from the QM emergence theorem, Chapter 1 of
 {[}1{]}) is built from \(\mathrm{SU}(2)\)-based operations: qubits are
 \(\mathrm{SU}(2)\)-doublet representations; the universal gate set
-(Hadamard, phase, CNOT) acts on these doublets. The quantum Fourier
+(Hadamard, \(T\), CNOT) acts on these doublets. The quantum Fourier
 transform --- the workhorse of HSP-style algorithms --- is efficiently
 implementable for groups whose representation theory factors through
 \(\mathrm{SU}(2)\)-compatible structure: abelian groups embedding in
@@ -1328,5 +1334,9 @@ Hamiltonian problem,'' \emph{SIAM Journal on Computing} \textbf{35},
 {[}10{]} S. Lloyd, ``Computational capacity of the universe,''
 \emph{Phys. Rev.~Lett.} \textbf{88}, 237901 (2002);
 arXiv:quant-ph/0110141.
+
+{[}11{]} V. V. Shende, S. S. Bullock, and I. L. Markov, ``Synthesis of
+quantum-logic circuits,'' \emph{IEEE Trans. Computer-Aided Design}
+\textbf{25}, 1000 (2006); arXiv:quant-ph/0406176.
 
 \end{document}

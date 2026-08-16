@@ -704,6 +704,23 @@ INVARIANTS = [
      "capacity choice sets the memory CEILING (theorem); spectrum position is the mechanism proposal's hypothesis (b147)",
      [],
      "the engineer chooses where on the memory-backflow spectrum the system operates"),
+    # ---- b148 families: review-55 complexity-theory classes ----
+    (r"any unitary on \$?n\$? qubits can be approximated",
+     "generic unitary synthesis is Theta(4^n) (SBM); BQP is defined via uniform poly-size circuit families (b148)",
+     [],
+     "any unitary on $n$ qubits can be approximated by a polynomial-depth circuit"),
+    (r"any CPTP map on \$?n\$? qubits can be implemented",
+     "CPTP is a type, not an efficiency class; only efficiently+uniformly implementable channels are poly-size (b148)",
+     [],
+     "any CPTP map on $n$ qubits can be implemented by a polynomial-size quantum circuit"),
+    (r"Hadamard,? (gate, the )?phase(,| gate,) (and )?(the )?CNOT",
+     "H+S+CNOT is Clifford, not universal (Gottesman–Knill); use H + non-Clifford T + CNOT (b148)",
+     [],
+     "the Hadamard gate, the phase gate, and the CNOT"),
+    (r"universal\*? capability of all embedded observers",
+     "BQP access is conditional on §14.4's computational-control model, never a bare C1–C4 consequence (b148)",
+     [],
+     "a universal capability of all embedded observers satisfying C1–C4"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---

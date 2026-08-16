@@ -2879,10 +2879,12 @@ representation --- every finite law does, trivially here ({[}Main
 §3.4{]}) --- but there is nothing memory-bearing in it: no
 coupling-induced non-Markovianity for a nontrivial representation to
 encode, hence none of the interference phenomenology the framework
-attributes to backflow. Bell-inequality violations cannot occur because
-P-indivisibility cannot arise from a partition with no coupling. The
-observer sees a classical Newtonian world with deterministic
-trajectories and well-defined values of every observable at every time.
+attributes to backflow. The framework's route to Bell-inequality
+violations is closed here --- P-indivisibility cannot arise from a
+partition with no coupling --- whether other routes exist is not
+adjudicated ({[}Main §3.4{]}). The observer sees a classical Newtonian
+world with deterministic trajectories and well-defined values of every
+observable at every time.
 
 This is the regime closest to the historical picture of classical
 mechanics: a clockwork universe where every particle has a definite
@@ -2935,13 +2937,16 @@ The dynamics in this regime is \emph{fully Markovian}. The reduced
 description on the visible sector is a classical stochastic process with
 transition probabilities depending only on the current state. The
 observer sees probabilistic dynamics, but the probabilities are
-memoryless: no interference phenomenology, no Bell-inequality violations
---- the fixed-basis representation survives, trivially
-diagonal-preserving, while the memory-bearing sector is empty ({[}Main
-§3.4{]}). The Born rule reduces to the classical probability assignment
-for transitions between well-defined states. The Schrödinger equation
-does not emerge because there are no temporal correlations for it to
-encode.
+memoryless: no interference phenomenology, and no route to
+Bell-inequality violations through the framework's mechanism of
+P-indivisible joint dynamics --- the fixed-basis representation
+survives, trivially diagonal-preserving, while the memory-bearing sector
+is empty ({[}Main §3.4{]}). The Born rule reduces to the classical
+probability assignment for transitions between well-defined states. A
+Schrödinger-form unitary representation still exists ---
+\(Q_{\mathrm{fb}}\) supplies one for every finite law --- but here it
+encodes no temporal correlations: what the regime lacks is the
+memory-bearing content, not the equation's existence ({[}Main §3.4{]}).
 
 This regime corresponds to what physics calls the \emph{thermal limit}
 --- systems in contact with a fast equilibrating bath, where the bath's
@@ -17462,13 +17467,13 @@ the framework's fundamental observational operation.
 \textbf{Universal gate set.} Quantum computing requires a universal gate
 set: a collection of single-qubit and two-qubit gates that can
 approximate any unitary transformation to arbitrary precision. The
-standard universal gate set includes the Hadamard gate, the phase gate,
-and the CNOT (controlled-NOT) gate, with these three gates generating
-the full unitary group through composition. Each of these gates is
-implementable in any system with controllable two-level subsystems and a
-tunable coupling --- features that the framework's emergent quantum
-mechanics provides for any embedded observer with sufficient
-experimental control.
+standard universal gate set includes the Hadamard gate, a non-Clifford
+phase gate such as \(T\), and the CNOT (controlled-NOT) gate, with these
+three gates generating the full unitary group through composition. Each
+of these gates is implementable in any system with controllable
+two-level subsystems and a tunable coupling --- features that the
+framework's emergent quantum mechanics provides for any embedded
+observer with sufficient experimental control.
 
 The argument is concrete: an observer who can prepare two-level
 subsystems (qubits) in the visible sector, who can apply controllable
@@ -17505,30 +17510,35 @@ non-Markovian noise structure.
 preparation, universal gate set, measurement, error correction ---
 establishes the lower bound:
 
-\emph{Lower Bound Theorem.} Any embedded observer satisfying C1--C4 has
-access to BQP computational resources. The emergent quantum mechanics
-provides state preparation, a universal gate set, and Born-rule
-measurement; error correction is structurally available; the cumulative
-result is access to polynomial-time quantum computation with bounded
-error.
+\emph{Conditional Lower Bound.} Under the computational-control
+hypotheses of §14.4, an embedded observer satisfying C1--C4 can host any
+uniform polynomial-size BQP circuit family: the stated model supplies
+state preparation, a universal gate set (Hadamard, a non-Clifford phase
+gate such as \(T\), and CNOT), and Born-rule measurement; error
+correction is available within the same model; the cumulative result is
+access to polynomial-time quantum computation with bounded error.
 
-The lower bound is therefore established structurally: BQP is not a
-contingent capability that some embedded observers happen to have but a
-\emph{universal} capability of all embedded observers satisfying C1--C4.
-This is a structural feature of the framework's universality class ---
-any member of the class has access to BQP.
+The lower bound is therefore established conditionally: BQP access is a
+capability of every embedded observer satisfying C1--C4 \emph{together
+with} §14.4's computational-control model --- uniform across the
+framework's universality class under those hypotheses, not a consequence
+of C1--C4 alone.
 
 \hypertarget{bqp-cannot-be-exceeded-the-upper-bound}{%
 \subsection{14.4 BQP cannot be exceeded: the upper
 bound}\label{bqp-cannot-be-exceeded-the-upper-bound}}
 
-The upper bound of the BQP characterization theorem establishes that no
-embedded observer exceeds BQP. The argument runs through
-\emph{informational completeness}: the quantum description exhausts the
-information accessible to the embedded observer through any operation on
-the visible sector. No further computational capability is available,
-because there is no additional information for further computation to
-access.
+The upper bound of the BQP characterization theorem establishes, under
+the efficiency hypotheses stated below --- locally generated, uniformly
+describable evolutions over polynomial physical time, with polynomial
+precision and polynomial simulation overhead --- that no embedded
+observer exceeds BQP; informational completeness fixes the operations'
+type, and these efficiency hypotheses, not completeness alone, carry the
+complexity bound. The argument runs through \emph{informational
+completeness}: the quantum description exhausts the information
+accessible to the embedded observer through any operation on the visible
+sector. No further computational capability is available, because there
+is no additional information for further computation to access.
 
 \textbf{Informational completeness of the quantum description.} The
 framework's emergent quantum mechanics from Chapter 1 has a specific
@@ -17569,13 +17579,16 @@ measurement of the apparatus state. By the standard derivation of CPTP
 maps from such constructions, every operation the observer can perform
 on the visible sector is a CPTP map.
 
-\textbf{Computational complexity of CPTP maps.} The computational
-complexity of CPTP maps is well-characterized in quantum complexity
-theory: any CPTP map on \(n\) qubits can be implemented by a
-polynomial-size quantum circuit (a sequence of polynomial many gates
-from a universal gate set). Conversely, any polynomial-size quantum
-circuit implements a CPTP map. The class of efficiently-implementable
-CPTP maps coincides with BQP up to the standard polynomial encoding.
+\textbf{Computational complexity of CPTP maps.} The relationship runs in
+one direction only: any polynomial-size quantum circuit (with the stated
+ancilla-and-measurement model) implements a CPTP map, but a generic CPTP
+map on \(n\) qubits has no polynomial-size implementation --- unitary
+channels are already a counterexample, generic unitary synthesis
+requiring \(\Theta(4^n)\) elementary gates (Shende, Bullock, and
+Markov). CPTP is the operation's type; efficient uniform
+implementability is a separate hypothesis, supplied here by §14.4's
+efficiency model. The class of efficiently and uniformly implementable
+channels coincides with BQP up to the standard polynomial encoding.
 
 The framework's content therefore identifies BQP with the class of
 operations available to embedded observers. The observer cannot perform
@@ -18189,7 +18202,7 @@ reason behind this clustering becomes visible when one notes that the
 framework's quantum toolkit (from the QM emergence theorem of Chapter 1)
 is built from \(\mathrm{SU}(2)\)-based operations: qubits are
 \(\mathrm{SU}(2)\)-doublet representations; the universal gate set
-(Hadamard, phase, CNOT) acts on these doublets. The quantum Fourier
+(Hadamard, \(T\), CNOT) acts on these doublets. The quantum Fourier
 transform --- the workhorse of HSP-style algorithms --- is efficiently
 implementable for groups whose representation theory factors through
 \(\mathrm{SU}(2)\)-compatible structure: abelian groups embedding in
