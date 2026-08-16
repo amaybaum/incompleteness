@@ -217,9 +217,9 @@ not exceeded). CPTP representability of the visible dynamics supplies
 none of those model hypotheses by itself, so no unconditional
 characterization is claimed. Under the same model hypotheses the
 Extended Church-Turing Thesis holds in its quantum-modified form as a
-conditional result rather than an empirical conjecture. The BPP-BQP gap
-is reframed as the cost of marginal-statistics observation rather than
-as evidence of fundamental quantum-ness.
+conditional result rather than an empirical conjecture. The conjectured
+BPP--BQP separation is reframed as the cost of marginal-statistics
+observation rather than as evidence of fundamental quantum-ness.
 
 On the P vs NP question the framework is \emph{structurally silent}. We
 develop this position in detail: the framework's empirical content (the
@@ -305,9 +305,9 @@ computation given that step. §3 develops the self-referential loop of AI
 as embedded-observer construction, with the partition-level limits
 applying to the constructed observer. §4 states the BQP characterization
 theorem and its consequences for the Extended Church-Turing Thesis and
-the BPP-BQP gap. §5 develops the framework's position on the P vs NP
-question --- neutrality, structural silence, the unifying
-boundary-characterization pattern across the Gödel-Turing-OI
+the conjectured BPP--BQP separation. §5 develops the framework's
+position on the P vs NP question --- neutrality, structural silence, the
+unifying boundary-characterization pattern across the Gödel-Turing-OI
 incompleteness family, and the relationship to Aaronson's
 physical-principle approach. §6 examines why no obvious bridging axiom
 is available. §7 proposes three condition-based research directions for
@@ -599,17 +599,19 @@ commitments, in a modified form: the appropriate computational class is
 BQP rather than BPP, reflecting the quantum nature of the visible-sector
 marginal.
 
-This modification has empirical consequences. The BPP-BQP gap ---
-quantum advantage for problems like factoring, discrete log, and certain
-simulation problems --- is reframed as the cost of partial observation
-rather than as evidence that the universe is fundamentally quantum.
-Classical observers operating with marginal-statistics access cannot
-achieve BQP without using quantum hardware, because the hidden-sector
-correlations that enable BQP advantage are accessible only through
-measurement protocols that exploit the substratum's actual structure.
-Quantum computers exploit these correlations; classical computers do
-not. The BPP-BQP gap is empirical evidence for the substratum's
-structure, not evidence against the framework.
+This modification has empirical consequences. The conjectured BPP--BQP
+separation --- task-specific quantum advantage for problems like
+factoring, discrete log, and certain simulation problems --- is reframed
+as the cost of partial observation rather than as evidence that the
+universe is fundamentally quantum. Classical observers operating with
+marginal-statistics access cannot achieve BQP without using quantum
+hardware, because the hidden-sector correlations that enable BQP
+advantage are accessible only through measurement protocols that exploit
+the substratum's actual structure. Quantum computers exploit these
+correlations; classical computers do not. The observed task-specific
+quantum advantage --- with the strict BPP--BQP separation conjectured,
+not proved --- is read by the framework as evidence about the
+substratum's structure, not evidence against the framework.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -632,19 +634,19 @@ computation encounters a scale ceiling; or (II) the tasks exhibiting
 quantum advantage possess hidden classical algorithms; or (III) the
 substratum commands resources exponential in the number of emergent
 qubits. The framework closes (III) by construction: the holographic
-bound is a structural commitment. It closes (II) by theorem: the
-substratum measure is the unique \(\varphi\)-invariant maximal-entropy
-measure ({[}Main{]}, Lemma 3 and posit (iv) of the posit ledger), which
-carries no planted information --- though absence of planted answers is
-not itself a classical lower bound: the hardness of the relevant
-sampling rests on standard complexity-theoretic evidence (random-circuit
-results are assumption-dependent, e.g.~non-collapse of the polynomial
-hierarchy), so (II) closes conditionally on those assumptions, while
-escape by conspiracy would additionally require a planted measure
-contradicting the uniqueness clause; independently, Theorem 24 of
-{[}Substratum §4{]} classifies the specific microstate as gauge,
-provably without empirical content, whereas extractable task answers
-would be empirical content. What remains, granted the complexity
+bound is a structural commitment. It addresses (II) in one theorem-level
+respect: the substratum measure is the unique \(\varphi\)-invariant
+maximal-entropy measure ({[}Main{]}, Lemma 3 and posit (iv) of the posit
+ledger), which excludes a planted-measure escape --- though absence of
+planted answers is not itself a classical lower bound: the hardness of
+the relevant sampling rests on standard complexity-theoretic evidence
+(random-circuit results are assumption-dependent, e.g.~non-collapse of
+the polynomial hierarchy), so (II) closes conditionally on those
+assumptions, while escape by conspiracy would additionally require a
+planted measure contradicting the uniqueness clause; independently,
+Theorem 24 of {[}Substratum §4{]} classifies the specific microstate as
+gauge, provably without empirical content, whereas extractable task
+answers would be empirical content. What remains, granted the complexity
 assumptions below, is (I): the ceiling is a conditional consequence with
 its assumptions stated, not an unconditional entailment.
 
@@ -656,7 +658,11 @@ for a day-scale computation, \(\sim 10^{157}\) for thirty years, and
 \(\sim 2 \times 10^{183}\) at the absolute horizon scale. A computation
 whose output statistics require classical sampling resources exceeding
 the budget cannot have those statistics realized by the substratum. The
-ceiling therefore sits at \(n^* = \log_2(\mathrm{budget})\):
+ceiling therefore sits, under an explicit quantitative assumption ---
+\(C_{\mathrm{cl}}(n, \varepsilon) \geq 2^{\alpha n}\) for the chosen
+circuit ensemble and fidelity criterion, an assumption the cited
+hardness evidence supports but does not prove --- at
+\(n^* \approx \log_2(\mathrm{budget})/\alpha\): with \(\alpha = 1\),
 approximately 480 (day), 520 (decades), 610 (absolute)
 \emph{full-fidelity, sampling-hard} logical qubits --- the operative
 quantity being fidelity-weighted classical simulation cost, not qubit
@@ -689,8 +695,10 @@ day-scale budget of \(2^{482}\)); nothing yet probes it. Fault-tolerant
 machines at \(\sim 10^3\) logical qubits enter the test zone. Clean
 absence of hardness-correlated degradation on sampling-hard circuits at
 that scale --- full-fidelity performance where the budget forbids it ---
-falsifies the finite classical substratum itself: unlike the framework's
-other gates, this one reaches {[}Main{]}.
+falsifies, in order of exposure, the quantitative cost model (the
+\(\alpha\)-assumption below), then the complexity-resource bridge ---
+and only if those survive every repair does the pressure reach the
+finite classical substratum and {[}Main{]}.
 
 \textbf{Corollary (entanglement dimension).} The same budget caps the
 entanglement dimension available to any physical Bell-type experiment at
@@ -1266,8 +1274,9 @@ Summarizing the paper's content:
   model --- conditional, not an empirical conjecture and not a bare
   consequence of C1--C4.
 \item
-  The BPP-BQP gap is structural --- the cost of marginal-statistics
-  observation rather than evidence for fundamental quantum-ness.
+  The conjectured BPP--BQP separation is structural in the framework's
+  reading --- the cost of marginal-statistics observation rather than
+  evidence for fundamental quantum-ness.
 \item
   The Gödel-Turing-OI incompleteness family operates at every level of
   recursive self-improvement; no level of AI sophistication overcomes

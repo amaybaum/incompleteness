@@ -17288,10 +17288,12 @@ stated model, not by C1--C4 alone.
 Section 14.4 develops the upper bound: BQP cannot be exceeded. The
 argument runs through the framework's informational completeness --- the
 quantum description exhausts the information accessible to the embedded
-observer through any operation on the visible sector, so no super-BQP
-computation is possible. Section 14.5 combines the two bounds into the
-conditional BQP model theorem: under the model hypotheses, BQP is the
-computational class accessible to embedded observers satisfying C1--C4.
+observer through any operation on the visible sector, so --- under
+§14.4's efficiency hypotheses, which carry the complexity content --- no
+super-BQP computation is possible. Section 14.5 combines the two bounds
+into the conditional BQP model theorem: under the model hypotheses, BQP
+is the computational class accessible to embedded observers satisfying
+C1--C4.
 
 Section 14.6 develops the Extended Church-Turing Thesis (ECT) as a
 conditional result of the framework, valid under the same model
@@ -17308,29 +17310,30 @@ hypotheses (uniform encoding, efficient preparation, control, and
 measurement, and polynomial-overhead fault tolerance) as the BQP
 characterization it rests on.
 
-Section 14.7 develops the BPP-BQP gap: quantum advantage is real but is
-\emph{a feature of partial observation} rather than of the universe
-being fundamentally quantum. An embedded observer who ignores the
-quantum structure of the reduced description (treating measurements as
-classical samples) operates at BPP; one who exploits the quantum
-structure (interference, entanglement, adaptive measurement) operates at
-BQP. The gap between the two is the cost of not recognizing the
-partition's structure. Section 14.8 develops the framework's neutrality
-on the P vs NP question: the BQP characterization identifies the
-ceiling, while leaving the internal structure of complexity classes
-within that ceiling --- including P vs NP --- to standard complexity
-theory; the silence on P vs NP is shown to fit a broader
-boundary-characterization pattern across the Gödel-Turing-OI-Deutsch
-incompleteness family. Section 14.9 develops three research directions
-opened by the framework's specific substratum structure for
-complexity-theoretic refinements \emph{within} the BQP ceiling
-(geometric structure on the substratum lattice; BQP-BPP gap correlated
-with problem globality and a refined hidden-subgroup-problem /
-gauge-group conjecture; gauge equivalence as a possible physical account
-of polynomial-time reducibility). Section 14.10 develops the chapter's
-falsification conditions and connections to broader complexity theory,
-with closing forward pointers to Chapter 15's engineering content and
-Chapter 18's foundational content.
+Section 14.7 develops task-specific quantum advantage --- the
+conjectured BPP--BQP separation: the advantage is real but is \emph{a
+feature of partial observation} rather than of the universe being
+fundamentally quantum. An embedded observer who ignores the quantum
+structure of the reduced description (treating measurements as classical
+samples) operates at BPP; one who exploits the quantum structure
+(interference, entanglement, adaptive measurement) operates at BQP. The
+gap between the two is the cost of not recognizing the partition's
+structure. Section 14.8 develops the framework's neutrality on the P vs
+NP question: the BQP characterization identifies the ceiling, while
+leaving the internal structure of complexity classes within that ceiling
+--- including P vs NP --- to standard complexity theory; the silence on
+P vs NP is shown to fit a broader boundary-characterization pattern
+across the Gödel-Turing-OI-Deutsch incompleteness family. Section 14.9
+develops three research directions opened by the framework's specific
+substratum structure for complexity-theoretic refinements \emph{within}
+the BQP ceiling (geometric structure on the substratum lattice;
+conjectured BQP--BPP separation correlated with problem globality and a
+refined hidden-subgroup-problem / gauge-group conjecture; gauge
+equivalence as a possible physical account of polynomial-time
+reducibility). Section 14.10 develops the chapter's falsification
+conditions and connections to broader complexity theory, with closing
+forward pointers to Chapter 15's engineering content and Chapter 18's
+foundational content.
 
 The chapter's content is foundational rather than algorithmic. The
 framework's contribution to quantum computing is structural: a
@@ -17340,7 +17343,8 @@ identified as the unique class accessible to embedded observers. The
 empirical content is principally negative: the framework predicts that
 no super-BQP computation is possible on any physically realizable
 hardware, with any demonstrated super-BQP capability constituting a
-falsification of the framework.
+falsification of the framework's commitments in conjunction with §14.4's
+computational model --- sharpest at the model bridge.
 
 \hypertarget{the-frameworks-content-in-computational-complexity}{%
 \subsection{14.2 The framework's content in computational
@@ -17402,10 +17406,10 @@ reasons.
 treatment leaves open the possibility that some future physical
 principle could extend computational access beyond BQP. The framework's
 content closes this possibility: super-BQP computation would require an
-embedded observer to exceed the structural limits the framework
-identifies, which is mathematically impossible if the framework's
-commitments are correct. The ceiling is a theorem, not an empirical
-bound.
+embedded observer to exceed the limits the framework identifies under
+§14.4's model, which is mathematically impossible if the framework's
+commitments and that model are both correct. The ceiling is a
+conditional theorem --- framework plus model --- not an empirical bound.
 
 \emph{The falsification condition is sharp.} The conventional treatment
 makes no specific predictions about whether super-BQP computation is
@@ -17469,12 +17473,12 @@ set: a collection of single-qubit and two-qubit gates that can
 approximate any unitary transformation to arbitrary precision. The
 standard universal gate set includes the Hadamard gate, a non-Clifford
 phase gate such as \(T\), and the CNOT (controlled-NOT) gate, with these
-three gates generating the an approximately universal set --- dense in
-the unitary group, not an exact enumeration of it --- through
-composition. Each of these gates is implementable in any system with
-controllable two-level subsystems and a tunable coupling --- features
-that the framework's emergent quantum mechanics provides for any
-embedded observer with sufficient experimental control.
+three gates generating an approximately universal set --- dense in the
+unitary group, not an exact enumeration of it --- through composition.
+Each of these gates is implementable in any system with controllable
+two-level subsystems and a tunable coupling --- features that the
+framework's emergent quantum mechanics provides for any embedded
+observer with sufficient experimental control.
 
 The argument is concrete: an observer who can prepare two-level
 subsystems (qubits) in the visible sector, who can apply controllable
@@ -17594,16 +17598,21 @@ channels coincides with BQP up to the standard polynomial encoding.
 The framework's content therefore identifies BQP with the class of
 operations available to embedded observers. The observer cannot perform
 any operation that is not a CPTP map (because all observer operations
-are CPTP maps), and the class of efficiently-computable CPTP maps is
-BQP. Therefore the observer cannot perform any computation outside BQP.
+are CPTP maps), and under §14.4's efficiency hypotheses the efficiently
+and uniformly implementable channels form BQP. Under those hypotheses,
+therefore, the observer cannot efficiently perform computation outside
+BQP.
 
 \textbf{The upper bound theorem.}
 
-\emph{Upper Bound Theorem.} No embedded observer satisfying C1--C4 can
+\emph{Conditional Upper Bound Theorem.} Under §14.4's efficiency
+hypotheses, no embedded observer satisfying C1--C4 can efficiently
 perform computation outside BQP. Every observer operation is a CPTP map
-on the density matrix; the class of efficiently-implementable CPTP maps
-is BQP; therefore the class of efficient computations available to the
-observer is BQP.
+on the density matrix --- the operation's type; under the stated
+hypotheses of uniform description, polynomial time and precision, and
+polynomial simulation overhead, the efficiently and uniformly
+implementable channels form BQP; therefore, under those hypotheses, the
+class of efficient computations available to the observer is BQP.
 
 \textbf{Addressing objections.} Three potential objections to the upper
 bound are worth addressing.
@@ -17635,11 +17644,12 @@ not preclude future discoveries that revise our understanding of
 physical reality. What it does preclude is super-BQP computation
 \emph{consistent with the framework's commitments}. A future discovery
 that demonstrated super-BQP computation would constitute a falsification
-of the framework --- it would require the universe to violate the
-framework's structural conditions C1--C4 or one of the framework's other
-commitments. The framework therefore makes a sharp empirical prediction:
-no super-BQP computation is possible on any physically realizable
-hardware compatible with the framework's commitments.
+of the framework-plus-model conjunction --- requiring the universe to
+violate C1--C4, another framework commitment, or §14.4's
+computational-model bridge, with the bridge the first suspect. The
+framework therefore makes a sharp empirical prediction: no super-BQP
+computation is possible on any physically realizable hardware compatible
+with the framework's commitments.
 
 \hypertarget{the-bqp-characterization-theorem}{%
 \subsection{14.5 The BQP characterization
@@ -17789,10 +17799,11 @@ explicit model.
 the ECT to other foundational results in the framework. The
 Bekenstein-Hawking entropy bound (Chapter 7 §7.5) limits the information
 content of any region; the BQP characterization limits the computational
-power of any embedded observer; both follow from the framework's
-commitments at the substratum level. The connection unifies the
-information-theoretic and computational bounds under a common structural
-framework.
+power of any embedded observer under §14.4's model; the entropy bound
+follows from the framework's commitments at the substratum level, the
+computational bound from those commitments joined to the explicit model.
+The connection unifies the information-theoretic and computational
+bounds under a common structural framework.
 
 \emph{Connection to Deutsch's jump-to-universality concept.} The
 reframing also instantiates a specific structural pattern Deutsch
@@ -17807,8 +17818,8 @@ computation up to that ceiling and no further. The promotion of the ECT
 from empirical conjecture to derived theorem is the framework's specific
 contribution to this pattern: the jump to universality in physical
 computation reaches BQP and stops there, with the stopping point itself
-being a structural feature of the framework's commitments rather than an
-empirical regularity.
+being a structural feature of the framework's commitments joined to
+§14.4's model, rather than an empirical regularity.
 
 The framework's reframing of the ECT is therefore not a minor
 terminological change but a substantive theoretical contribution. The
@@ -17817,14 +17828,16 @@ theorem, with the framework's other empirical content (Chapters 5-13)
 providing the supporting evidence for the framework's structural
 commitments that make the theorem follow.
 
-\hypertarget{the-bpp-bqp-gap-as-cost-of-partial-observation}{%
-\subsection{14.7 The BPP-BQP gap as cost of partial
-observation}\label{the-bpp-bqp-gap-as-cost-of-partial-observation}}
+\hypertarget{task-specific-quantum-advantage-as-cost-of-partial-observation}{%
+\subsection{14.7 Task-specific quantum advantage as cost of partial
+observation}\label{task-specific-quantum-advantage-as-cost-of-partial-observation}}
 
-Quantum advantage --- the gap between classical (BPP) and quantum (BQP)
-computational complexity --- is one of the central topics in quantum
-complexity theory. The framework's content provides a structural
-reading: the BPP-BQP gap is the \emph{cost of not recognizing the
+Quantum advantage --- known task-specific separations between classical
+and quantum algorithms, with the strict
+\(\mathrm{BPP} \subsetneq \mathrm{BQP}\) separation conjectured, not
+proved --- is one of the central topics in quantum complexity theory.
+The framework's content provides a structural reading: the conjectured
+BPP--BQP separation is read as the \emph{cost of not recognizing the
 quantum nature of the reduced description}. An embedded observer who
 treats the visible sector classically (sampling measurement outcomes
 according to classical probabilities) operates at BPP; an observer who
@@ -17832,9 +17845,9 @@ exploits the quantum structure (interference, entanglement, adaptive
 measurement) operates at BQP. The gap between the two is the cost of
 partial observation interpreted classically.
 
-\textbf{The gap is real.} Standard quantum complexity theory establishes
-that BQP contains problems believed not to be in BPP --- Shor's
-factoring algorithm being the canonical example. Whether
+\textbf{The advantage is real.} Standard quantum complexity theory
+establishes that BQP contains problems believed not to be in BPP ---
+Shor's factoring algorithm being the canonical example. Whether
 \(\text{BPP} \subsetneq \text{BQP}\) strictly is an open problem in
 complexity theory; the standard conjecture is that the strict inclusion
 holds, with super-polynomial separations like Shor's algorithm providing
@@ -17843,15 +17856,15 @@ strict inclusion holds --- that is a question about the structure of BQP
 and BPP as complexity classes, addressed by standard quantum complexity
 theory.
 
-\textbf{The gap's structural origin.} What the framework adds is a
-\emph{structural} account of the gap's origin. The embedded observer's
-reduced description is quantum-mechanical (Chapter 1). An observer who
-\emph{recognizes} the quantum-mechanical structure of the reduced
-description can perform quantum computation, exploiting interference,
-entanglement, and measurement back-action. An observer who \emph{does
-not recognize} the quantum-mechanical structure --- who treats the
-reduced description as classical with stochastic measurement outcomes
---- operates with reduced computational capability.
+\textbf{The advantage's structural origin.} What the framework adds is a
+\emph{structural} account of the advantage's origin. The embedded
+observer's reduced description is quantum-mechanical (Chapter 1). An
+observer who \emph{recognizes} the quantum-mechanical structure of the
+reduced description can perform quantum computation, exploiting
+interference, entanglement, and measurement back-action. An observer who
+\emph{does not recognize} the quantum-mechanical structure --- who
+treats the reduced description as classical with stochastic measurement
+outcomes --- operates with reduced computational capability.
 
 The gap between BPP and BQP is therefore not a property of physical
 reality per se but of the \emph{observer's representation of physical
@@ -17873,12 +17886,13 @@ finite state space with classical probability for the observer's
 outcomes), with quantum mechanics being the \emph{emergent} description
 that embedded observers use.
 
-The BPP-BQP gap is therefore not evidence that physical reality is
-fundamentally quantum but evidence that \emph{embedded observers in
-classical substrata have access to quantum-mechanical resources through
-the partition structure}. The quantum advantage is real but is a feature
-of the observer's situation (embedded in a substratum with C1--C4
-structure) rather than of the substratum's fundamental nature.
+The conjectured BPP--BQP separation is therefore read not as evidence
+that physical reality is fundamentally quantum but as evidence that
+\emph{embedded observers in classical substrata have access to
+quantum-mechanical resources through the partition structure}. The
+quantum advantage is real but is a feature of the observer's situation
+(embedded in a substratum with C1--C4 structure) rather than of the
+substratum's fundamental nature.
 
 This reading has substantive consequences for foundational questions.
 The framework's content is compatible with classical substrate
@@ -18340,10 +18354,10 @@ every physical computation is in BQP under the model hypotheses of the
 BQP characterization, derived from the embedding rather than postulated
 as a freestanding empirical conjecture.
 
-\emph{The BPP-BQP gap as cost of partial observation} (§14.7): quantum
-advantage is real but reflects the embedded observer's exploitation of
-partition structure rather than the universe's fundamentally quantum
-nature.
+\emph{Task-specific quantum advantage as cost of partial observation}
+(§14.7): the advantage is real but reflects the embedded observer's
+exploitation of partition structure rather than the universe's
+fundamentally quantum nature.
 
 \emph{Framework neutrality on P vs NP} (§14.8): the framework's
 empirical content is consistent with either answer to the P vs NP
@@ -18416,11 +18430,12 @@ The chapter's content is therefore the framework's positive contribution
 to computational complexity theory: a structural characterization of BQP
 as the unique class accessible to embedded observers, with the ECT
 reframed from empirical conjecture to a theorem of the framework
-together with §14.4's computational model, and the BPP-BQP gap
-interpreted as the cost of partial observation. The framework's
-empirical exposure in computational complexity is principally negative
---- the prediction of no super-BQP computation provides a sharp
-falsification target --- but the structural content is substantial.
+together with §14.4's computational model, and the conjectured BPP--BQP
+separation interpreted as the cost of partial observation. The
+framework's empirical exposure in computational complexity is
+principally negative --- the prediction of no super-BQP computation
+provides a sharp falsification target --- but the structural content is
+substantial.
 
 One refinement sharpens the exposure from principally negative to
 positively dated. A finite substratum bounds the classical resources of
@@ -18436,11 +18451,15 @@ ceiling does not. The signature would be unlike any ordinary noise:
 fidelity tracking what the circuit \emph{means} --- its classical
 simulation cost --- rather than how large it is, with Clifford-dominated
 circuits immune at any scale. Finding no such wall at a thousand
-high-fidelity logical qubits would falsify the classical substratum
-itself. And this is not an optional conjecture: the framework's own
-theorems --- the maximal-entropy measure, the gauge status of the
-microstate --- close every alternative, so the ceiling is entailed, not
-adopted.
+high-fidelity logical qubits would falsify, first, the quantitative cost
+model (\(C_{\mathrm{cl}} \geq 2^{\alpha n}\)) and the
+complexity-resource bridge --- and only through them, if every repair
+fails, the classical substratum. The wall is a
+complexity-assumption-dependent proposal: the framework's own theorems
+(the maximal-entropy measure, the gauge status of the microstate) close
+the planted-measure escape, while excluding efficient classical
+algorithms requires the separate complexity assumptions --- the ceiling
+is proposed on those assumptions, not entailed by Main.
 
 The depth of computation is bounded too, and by the same construction.
 The residual dissipation --- the framework's irreducible \(10^{-64}\)
@@ -18478,10 +18497,12 @@ Chapter 14 established the framework's content in computational
 complexity theory: BQP, under that chapter's explicit model hypotheses,
 as the computational class accessible to embedded observers, the
 Extended Church-Turing Thesis as a conditional result under the same
-hypotheses, the BPP-BQP gap as the cost of partial observation. The
-framework's content there is theoretical at the foundational level --- a
-structural characterization of what computations any embedded observer
-can perform, with falsification by any super-BQP demonstration.
+hypotheses, the conjectured BPP--BQP separation as the cost of partial
+observation. The framework's content there is theoretical at the
+foundational level --- a structural characterization, under those
+hypotheses, of what computations any embedded observer can perform, with
+any super-BQP demonstration falsifying the framework-plus-model
+conjunction, sharpest at the model bridge.
 
 This chapter develops the framework's content in \emph{engineered
 quantum systems} --- the specific predictions for current and

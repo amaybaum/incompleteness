@@ -751,6 +751,32 @@ INVARIANTS = [
      "the ceiling is structural-plus-model; the model hypotheses are part of the claim (b149)",
      [],
      "The ceiling is structural rather than technological"),
+    # ---- b150 families: review-57 residual classes ----
+    (r"\*Upper Bound Theorem\.\* No embedded",
+     "the component upper bound is CONDITIONAL on §14.4's efficiency hypotheses (b150)",
+     [],
+     "*Upper Bound Theorem.* No embedded observer satisfying C1–C4 can perform computation outside BQP"),
+    (r"entailed, not adopted|not an optional conjecture",
+     "the qubit wall is a complexity-assumption-dependent proposal, never entailed by Main (b150)",
+     [],
+     "the ceiling is entailed, not adopted"),
+    (r"falsif(y|ies) the (finite )?classical substratum itself",
+     "falsification lands first on the cost model and bridge; the substratum only after every repair fails (b150)",
+     [],
+     "would falsify the classical substratum itself"),
+    (r"The BPP-BQP gap is",
+     "strict BPP-BQP separation is conjectured; speak of task-specific advantage (b150)",
+     [],
+     "The BPP-BQP gap is empirical evidence for the substratum"),
+    # ---- b151 families: review-58 propagation closure ----
+    (r"BPP-BQP gap",
+     "retired corpus-wide: use task-specific quantum advantage / the conjectured BPP–BQP separation (b151)",
+     [],
+     "Section 14.7 develops the BPP-BQP gap"),
+    (r"a falsification of the framework[.—]",
+     "super-BQP falsifies the framework-plus-model conjunction, sharpest at the bridge (b151)",
+     [],
+     "constituting a falsification of the framework."),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
