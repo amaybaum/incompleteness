@@ -657,6 +657,27 @@ INVARIANTS = [
      "the regimes are MEMORY regimes, all quantum-representable (Main §3.4, b141)",
      [],
      "the framework's three regimes of matter — classical, partially quantum, fully quantum"),
+    # ---- b143 families: review-52 selection-layer terminology discipline ----
+    (r"quantum-to-classical spectrum",
+     "the axis is memory-backflow strength; quantum membership is selection-layer (Main §3.4, b143)",
+     [],
+     "where on the quantum-to-classical spectrum the system operates"),
+    (r"giv(es|ing) out short of the fully-quantum",
+     "memoryless operational modeling gives out; representability is retained; stronger failure claims are proposal-level (b143)",
+     [],
+     "operational structure gives out short of the fully-quantum case"),
+    (r"unique to the framework's structural mechanism|uniquely identif\w* the framework",
+     "distinctive among alternatives considered; uniqueness over all mechanisms is not claimed (b143)",
+     [],
+     "the quadratic form is unique to the framework's structural mechanism"),
+    (r"test of the BQP characterization theorem",
+     "the BEC experiment tests the proposed capacity-controlled mechanism, not the characterization theorems (b143)",
+     [],
+     "near-term test of the BQP characterization theorem"),
+    (r"from all known decoherence backgrounds",
+     "distinguishable from the standard backgrounds considered; 'all known' is not established (b143)",
+     [],
+     "distinguishes the predictions from all known decoherence backgrounds"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---

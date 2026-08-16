@@ -1,10 +1,15 @@
-# RELEASE — freeze record (batch b141, review 51, 2026-08-16)
+# RELEASE — freeze record (batch b143, reviews 51–52, 2026-08-16)
 
 This file records the frozen state of the release so the artifact is
 self-describing. The freeze was reached through an adversarial review
-sequence — reviews 31–51, batches b119–b141 — with the final reviewer
-verdict: freeze-ready without qualification, at every layer
-(mathematics, Main, build/package, book corpus).
+sequence — reviews 31–52, batches b119–b143. Mathematics, Main, and
+build/package were frozen at review 51; review 52 required one final
+book-only selection-layer semantic pass (backflow terminology vs
+quantum membership; $\mathcal{F}(r)$ held at proposed-model status),
+which is incorporated in this batch — restoring, per that review's own
+completion criterion, the status: freeze-ready without qualification,
+at every layer (mathematics, Main, build/package, book corpus),
+subject to standard verification of this batch.
 
 ## Certified results, at their stated scopes
 
@@ -43,7 +48,7 @@ equivalence summary are stated in Main §3.4 with their exact scopes.
 
 ## Verification snapshot at freeze
 
-Foundation suites **28/28** · architecture guard **148 invariants, 0
+Foundation suites **28/28** · architecture guard **153 invariants, 0
 violations, 0 self-test failures** · citations **103, 0 broken, 0
 duplicate bibliography numbers** · book/chapter mirror **0 absent
 lines** · rendered-text sweeps clean on all retired formulations.
@@ -74,6 +79,21 @@ rebuild is required before DOI deposit.
    backflow-strength label with explicit not-a-membership
    disclaimers); shipping review notes inside the repo.
 
+## Terminology discipline (guard-enforced)
+
+Three distinctions are enforced by guard families throughout the book:
+$\mathcal{N}$ measures memory/backflow strength, never degree of
+quantumness — the regime labels (memoryless / intermediate backflow /
+maximal backflow, with "partially-quantum" retained as a historical
+label) are memory labels, every finite law at every $\mathcal{N}$
+admitting both the quantum representation and a deterministic hidden
+realization ($S \iff D$). Claims that operational quantum structure
+fails at marginal capacity are mechanism-proposal claims, stated as
+such, until a selection theorem supplies the implication. And
+$\mathcal{F}(r) = 2r - r^2$ is a proposed phenomenological law — not
+theorem-derived, not a test of the characterization theorems — until a
+derivation ships.
+
 ## Corrections of record (the honesty ledger)
 
 The b125 polytope proof was invalid and was replaced by the
@@ -83,4 +103,6 @@ repaired, with the citation checker hardened to enforce uniqueness.
 Freeze declarations at b138/b139 were premature at the book layer and
 were corrected by the review-48/49 semantic sweeps. Concurrency
 events (three) were handled by coordination notes with single-writer
-verification per batch.
+verification per batch. The b142 record's opening claim outran b142's
+contents — review 52 — and was corrected by completing the
+selection-layer pass in b143 and refreshing this record.
