@@ -640,12 +640,13 @@ def branch_neg_upper(A):
     su = F(isqrt(N) + 1, 2**40)
     v = (su - T) / 2
     return v if v > 0 else F(0)
+RHO_REF16 = [[(F(1), F(0)), (F(0), F(0))], [(F(0), F(0)), (F(0), F(0))]]
 ok16 = True
 for b16 in (20, 24):
     eta = CdR * F(1, 2**b16)
     ex = {(): (RHO_P, F(1))}
     fxk = {(): (RHO_P, F(1))}
-    dropped = F(0)
+    fallback_mass = F(0)
     for step, a in enumerate(prot15, start=1):
         ne, nf = {}, {}
         for h in ex:
@@ -662,10 +663,11 @@ for b16 in (20, 24):
             cs = [max(B[0][0][0] + B[1][1][0], F(0)) for B in Bf]
             Qh = sum(cs)
             if Qh <= 0:
-                # dead branch: the simulator drops it (zero denominator); its mass is error
-                dropped += w_f
-                for oi, B in enumerate(Bf):
-                    nf[h + (oi,)] = (B, F(0))
+                # deterministic fallback: outcome o*=0 written, register set to P0; mass kept
+                fallback_mass += w_f
+                nf[h + (0,)] = (RHO_REF16, w_f)
+                for oi in range(1, len(Bf)):
+                    nf[h + (oi,)] = (Bf[oi], F(0))
                 continue
             for oi, B in enumerate(Bf):
                 nf[h + (oi,)] = (B, w_f * cs[oi] / Qh)
@@ -675,14 +677,16 @@ for b16 in (20, 24):
         ex, fxk = ne, nf
     tv = sum(abs(ex[h][1] - fxk[h][1]) for h in ex) / 2
     bound = 12 * 9 * CdR * F(1, 2**b16)          # 12 K^2 C_{d,R} 2^-b, K=3
-    if dropped > 2 * 3 * eta:
-        ok16 = False; print(f"  DIAG b={b16}: dropped mass {float(dropped):.2e}")
-    tv = tv + dropped / 2
+    if fallback_mass > 2 * 3 * eta:
+        ok16 = False; print(f"  DIAG b={b16}: fallback mass {float(fallback_mass):.2e}")
+    tot_mass = sum(fxk[h][1] for h in fxk)
+    if tot_mass != F(1):
+        ok16 = False; print(f"  DIAG b={b16}: mass {float(tot_mass)} != 1 (bijection must conserve)")
     if tv > bound:
         ok16 = False; print(f"  DIAG b={b16}: tv {float(tv):.2e} > bound {float(bound):.2e}")
 check("simulator_kernel_clipped_normalized", ok16,
-      "actual pre-grid kernel (clip + per-parent normalize) over the K=3 tree at b in {20,24}: "
-      "classical TV within 12 K^2 C_dR 2^-b; negativity ledger nu_t <= 2 t eta at every step; all Q > 0")
+      "actual pre-grid kernel (clip + normalize + deterministic fallback) over the K=3 tree at b in {20,24}: "
+      "classical TV within 12 K^2 C_dR 2^-b; ledger nu_t <= 2 t eta; mass conserved exactly (bijection)")
 
 
 print(f"summary: hidden states {len(hid)} (log2 {log2CH:.2f}); "

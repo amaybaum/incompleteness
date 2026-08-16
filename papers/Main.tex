@@ -2923,14 +2923,15 @@ telescoping sum, giving the unified bound
 \(\|P_R - P_Q\|_{\mathrm{TV}} \leq K(|\mathcal{O}_{\max}|{-}1)/G + 12\, K^2 C_{d,R}\, 2^{-b}\),
 absorbed by \(G \geq 2K(|\mathcal{O}_{\max}|{-}1)/\varepsilon\) and
 \(b \geq \log_2(24\, K^2 C_{d,R}/\varepsilon)\), each term at most
-\(\varepsilon/2\) (\(R = \sum_o r_o \leq |\mathcal{O}_{\max}|\, d^2\)
-the instrument's total Kraus count; the \(K^2\), carried by the
-Corollary's negativity ledger, costs one extra \(\log_2 K\) bit); the
-\(b\)-bit term is supplied by the instrument-level Rounding Lemma of
-clause (5) --- proved there in the fixed-point dyadic model and
-telescoped over subnormalized cq branches --- so both regimes are
-unconditional, the exact-ring one additionally probe-certified
-end-to-end.}
+\(\varepsilon/2\)
+(\(R := \max_{a \in \mathcal{F}} \sum_o r_{a,o} \leq |\mathcal{O}_{\max}|\, d^2\),
+the family-wide maximum total Kraus count, so one \(C_{d,R}\) covers
+every adaptive step; the \(K^2\), carried by the Corollary's negativity
+ledger, costs one extra \(\log_2 K\) bit); the \(b\)-bit term is
+supplied by the instrument-level Rounding Lemma of clause (5) --- proved
+there in the fixed-point dyadic model and telescoped over subnormalized
+cq branches --- so both regimes are unconditional, the exact-ring one
+additionally probe-certified end-to-end.}
 
 \emph{(2) \textbf{Gluing by restriction.} For every
 \(\mathcal{F}' \subseteq \mathcal{F}\) and \(K' \leq K\), the same
@@ -3000,7 +3001,8 @@ with absolute error \(\leq 2^{-b}\). The lemma is stated for the whole
 instrument as the classical--quantum map
 \(\mathfrak{I}(\tilde\rho) = \bigoplus_o \mathcal{I}_o(\tilde\rho)\),
 with \(R = \sum_o r_o \leq |\mathcal{O}_{\max}|\, d^2\) the instrument's
-total Kraus count:}
+total Kraus count (the theorem takes \(R\) as the family-wide maximum
+\(\max_a \sum_o r_{a,o}\)):}
 \[\sum_o \big\|\widehat{\mathcal{I}}_o(\tilde\rho) - \mathcal{I}_o(\tilde\rho)\big\|_1 \;\leq\; C_{d,R}\, 2^{-b}\, \|\tilde\rho\|_1, \qquad C_{d,R} = 48\, R\, d^4.\]
 \emph{Proof. Kraus quantization, by operator norms --- the earlier
 componentwise step is abandoned as unjustified:
@@ -3043,25 +3045,41 @@ normalized digitized kernel
 the simulator's pre-grid probabilities, the blocks retained up to the
 irrelevant power-of-two scale --- satisfies
 \(\|\widetilde{\mathfrak I}(\rho) - \mathfrak I(\rho)\|_1 \leq \tfrac{2\eta}{1-\eta}\, s \leq 4\eta s\)
-for \(\eta \leq \tfrac12\); a branch whose clipped total vanishes is
-dropped, its mass counted into the same term.} \(\square\) The Corollary
-is exact for positive inputs; digitized branches are Hermitian but not
-positive, so the telescope carries a negativity ledger: negative mass is
-created only by rounding and is contracted by the exact maps, so
-\(\nu_t := \sum_h \|(\widehat\rho_h)_-\|_1 \leq 2 t \eta\), and it
-enters the per-parent estimates with a bounded factor. The classical
-marginal then satisfies the rounding term of clause (1) in the form
-\(12\, K^2 C_{d,R}\, 2^{-b}\) --- the \(K^2\) carried by the ledger,
-entering the bit requirement only through one extra \(\log_2 K\);
-tightening it away is a named polish, not a gap. Positivity of the
-register is never needed --- Hermiticity is exact by construction, and
-contraction holds on Hermitian arguments.* \(\square\) Status: proved at
-instrument level; per-outcome and cq-aggregate inequalities
-instance-certified in exact rational simulation of the
+for \(\eta \leq \tfrac12\); a parent whose clipped total vanishes takes
+a fixed deterministic fallback --- outcome \(o^\ast\) is written and the
+register set to the reference state \(P_0\) at window scale, the
+predecessor pushed --- so the step stays a bijection and no probability
+mass is lost; the entire mass of such parents is already bounded inside
+the same error term, so the arbitrary assignment costs nothing further.}
+\(\square\) The Corollary is exact for positive inputs; digitized
+branches are Hermitian but not positive, so the telescope carries a
+negativity ledger --- now proved rather than stated. Define
+\(\nu_t := \sum_h \|(\widehat\rho_h)_-\|_1\) on the UNSCALED analytic
+representatives: the subnormalized cq objects, related to the physical
+registers by undoing the accumulated power-of-two rescalings --- an
+analysis device only, no shift being stored, the stack alone carrying
+reversibility. Recurrence: exact CP maps contract negative mass
+(\(\|(X{-}Y)_-\|_1 \leq \operatorname{Tr} Y\) for \(X, Y \geq 0\),
+summed over outcomes), rounding injects at most \(\eta\) per unit trace
+norm, and clipping or the fallback only removes or relabels mass, so
+\[\nu_{t+1} \;\leq\; \nu_t + \eta\, \|\widehat\sigma_t\|_1 \;\leq\; \nu_t + 2\eta, \qquad \nu_0 = 0, \qquad \nu_t \leq 2t\eta.\]
+The Hermitian-input application of the Corollary costs at most
+\(8\nu_t\) extra across the parents, so
+\(\delta_{t+1} \leq \delta_t + 4\eta(1{+}\delta_t) + 8\nu_t \leq \delta_t + 8\eta + 16t\eta\),
+and the one-line summation \(\sum_{t<K}(8\eta + 16t\eta) = 8K^2\eta\)
+delivers the classical-marginal rounding term of clause (1) as
+\(12\, K^2 C_{d,R}\, 2^{-b}\), with slack --- the \(K^2\) carried by the
+ledger, entering the bit requirement only through one extra
+\(\log_2 K\); tightening it away is a named polish, not a gap.
+Positivity of the register is never needed --- Hermiticity is exact by
+construction, and contraction holds on Hermitian arguments.* \(\square\)
+Status: proved at instrument level; per-outcome and cq-aggregate
+inequalities instance-certified in exact rational simulation of the
 \(b\)-fractional-bit rounding, Hermiticity enforced by construction, at
 \(b \in \{8, 16, 24\}\), with the telescoping conclusion instanced over
 a \(K{=}3\) branch ensemble including rare outcomes, and the ACTUAL
-clipped-and-normalized simulator kernel evaluated against the exact law
+clipped-and-normalized simulator kernel --- deterministic fallback
+included, mass conserved exactly --- evaluated against the exact law
 with the negativity ledger tracked (checks 14--16,
 \texttt{opglue\_probes.py}).
 
@@ -3791,8 +3809,9 @@ Consequences}\label{interpretive-consequences}}
 The degrees of freedom involved in quantum experiments --- photons,
 electrons, slits, detectors --- are all visible-sector objects. Their
 quantum behavior is a downstream consequence of the trace-out: the
-emergent quantum mechanics, once established by the theorem, governs all
-visible-sector dynamics.
+quantum representation, once established by the theorem, is available
+for all visible-sector dynamics --- the operational theory's unique
+selection remaining open (§3.4).
 
 In the double-slit experiment, the particle traverses a single slit in
 the deterministic substratum. The interference pattern arises because
@@ -3924,35 +3943,36 @@ process admits a broader class of solutions than standard QM, and the
 quantization must be reimposed by hand. The present framework is not
 subject to this critique because it does not derive QM from a continuous
 stochastic process on \(\psi\) or on configuration space; its
-identification of QM proceeds through the characterization theorem for
-embedded observers on a deterministic bijection, with stochasticity
-emerging from the trace-out over the hidden sector rather than being
-fundamental. \textbf{Adler's trace dynamics {[}34{]}} derives QM from
-statistical mechanics of matrix-valued dynamical variables with a
-trace-class Hamiltonian, with the canonical commutation relations
-emerging as expectation values over a specific equilibrium ensemble. The
-framework here requires neither matrix-valued variables nor an
-equilibrium-ensemble derivation; the substratum is a finite
-configuration space with a deterministic bijection, and the emergence
-mechanism is the Stinespring dilation applied to observer-marginalized
-transition probabilities. \textbf{Barandes's stochastic-quantum
-correspondence {[}11, 12{]}}, used as a technical tool in §3.1, is not a
-competitor but a building block: the correspondence maps its
-finite-configuration tuple class --- a broad class in which Markov
-chains are members and P-indivisibility marks the nontrivially
-indivisible dynamical sector, not a membership criterion --- to unitary
-quantum evolutions in compressed (\(\leq n^3\)) form under (T); the
-present framework supplies the physical mechanism (embedded observation
-under C1--C4) that produces the memory-bearing processes occupying that
-nontrivial sector --- P-indivisibility in the stronger regimes
-established separately --- and supplies the fixed-basis representation
-itself internally (\(S \iff D \iff Q_{\mathrm{fb}}\), §3.4), retaining
-the import for compression and interpretation. The three earlier
-programs identified emergent QM as a legitimate research target; what
-the present framework adds is an equivalence with necessary and
-sufficient conditions --- (ii) \(\iff\) (iii) with representability as a
-one-way consequence (§3.4) --- and a constructive derivation chain that
-does not require independent quantization conditions or equilibrium
+identification is of the quantum REPRESENTATION --- universal at the
+fixed-basis layer, the operational selection open --- and proceeds
+through the characterization theorem for embedded observers on a
+deterministic bijection, with stochasticity emerging from the trace-out
+over the hidden sector rather than being fundamental. \textbf{Adler's
+trace dynamics {[}34{]}} derives QM from statistical mechanics of
+matrix-valued dynamical variables with a trace-class Hamiltonian, with
+the canonical commutation relations emerging as expectation values over
+a specific equilibrium ensemble. The framework here requires neither
+matrix-valued variables nor an equilibrium-ensemble derivation; the
+substratum is a finite configuration space with a deterministic
+bijection, and the emergence mechanism is the Stinespring dilation
+applied to observer-marginalized transition probabilities.
+\textbf{Barandes's stochastic-quantum correspondence {[}11, 12{]}}, used
+as a technical tool in §3.1, is not a competitor but a building block:
+the correspondence maps its finite-configuration tuple class --- a broad
+class in which Markov chains are members and P-indivisibility marks the
+nontrivially indivisible dynamical sector, not a membership criterion
+--- to unitary quantum evolutions in compressed (\(\leq n^3\)) form
+under (T); the present framework supplies the physical mechanism
+(embedded observation under C1--C4) that produces the memory-bearing
+processes occupying that nontrivial sector --- P-indivisibility in the
+stronger regimes established separately --- and supplies the fixed-basis
+representation itself internally (\(S \iff D \iff Q_{\mathrm{fb}}\),
+§3.4), retaining the import for compression and interpretation. The
+three earlier programs identified emergent QM as a legitimate research
+target; what the present framework adds is an equivalence with necessary
+and sufficient conditions --- (ii) \(\iff\) (iii) with representability
+as a one-way consequence (§3.4) --- and a constructive derivation chain
+that does not require independent quantization conditions or equilibrium
 ensembles.
 
 \textbf{Relation to the post-2022 observer-essentiality wave.} A

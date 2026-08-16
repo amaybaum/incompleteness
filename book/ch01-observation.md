@@ -38,7 +38,7 @@ $$\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\} \equiv \mathcal{L}
 
 The observer uses standard Kolmogorov probability. The bijection requirement is structural: non-injective dynamics would merge distinct total states, erasing the observer's records of past outcomes — contrary to what observation is. On a finite set, injectivity implies surjectivity. This is worth putting in context: the reversibility of $\varphi$ — equivalently, that the substratum conserves information — is not a peculiar demand of this framework but the standard assumption of mainstream physics. Unitary evolution in quantum mechanics *is* information conservation, and its classical shadow is Liouville's theorem, the conservation of phase-space volume recovered here. Physics treats this principle as effectively non-negotiable: the black-hole information paradox is called a *paradox* precisely because the apparent loss of information under Hawking evaporation would violate it, and the no-hiding theorem (Braunstein & Pati, 2007) makes the conservation statement rigorous. The framework assumes no more than standard physics already does; what is distinctive, developed below, is not the assumption but what emerges from it.
 
-These lemmas contain no quantum postulates. Quantum mechanics emerges under three further conditions.
+These lemmas contain no quantum postulates. The memory-bearing description — with its admitted quantum representation — emerges under three further conditions.
 
 ## 1.3 The observer's blind spot
 

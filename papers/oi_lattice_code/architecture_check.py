@@ -542,6 +542,23 @@ INVARIANTS = [
      "the reduced description ADMITS the quantum representation; equivalence-as-identity is the retired reading (Main §3.4, b134)",
      [],
      "the description is P-indivisible and therefore equivalent to unitary quantum mechanics"),
+    # ---- b135 families: review-44 completion-pass regressions ----
+    (r"Quantum mechanics emerges under",
+     "the memory-bearing description emerges; the quantum representation is admitted (Main §3.4, b135)",
+     [],
+     "Quantum mechanics emerges under three further conditions"),
+    (r"governs all visible-sector dynamics",
+     "the representation is available for visible-sector dynamics; selection of the operational theory is open (Main §3.4, b135)",
+     [],
+     "emergent quantum mechanics governs all visible-sector dynamics"),
+    (r"yields emergent quantum mechanics",
+     "the conditions yield the memory-bearing sector whose laws admit the quantum representation (Main §3.4, b135)",
+     [],
+     "combined with C1–C4, yields emergent quantum mechanics"),
+    (r"load-bearing dependency",
+     "the fixed-basis representation is internal; Barandes is retained for compression and interpretation (Main §3.4, b135)",
+     [],
+     "an external result used as a load-bearing dependency"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
