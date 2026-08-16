@@ -623,6 +623,23 @@ INVARIANTS = [
      "the bijection produces the memory-bearing description; the representation is supplied, operational selection open (Main §3.4, b139)",
      [],
      "the deterministic bijection produces emergent unitary quantum mechanics on the visible sector"),
+    # ---- b140 families: the partially-quantum layer must not contradict S<=>D ----
+    (r"BEC_Experiment",
+     "the file is not packaged; F(r)=2r-r^2 is a proposed model form until a derivation ships (b140)",
+     [],
+     "developed in detail in BEC_Experiment.md §3.3"),
+    (r"classical probability distribution over hidden classical variables",
+     "every finite law has a deterministic hidden realization (S<=>D, Main §3.4); non-realizability is never the claim (b140)",
+     [],
+     "does not admit a classical probability distribution over hidden classical variables"),
+    (r"required for the framework's emergent quantum mechanics in its fully-quantum form",
+     "C3 is the capacity condition for the memory-bearing sector; representability is universal (Main §3.4, b140)",
+     [],
+     "C3 is required for the framework's emergent quantum mechanics in its fully-quantum form"),
+    (r"fully quantum-decohered in the standard sense",
+     "the memoryless-description test is the mechanism proposal's own falsifiable claim (b140)",
+     [],
+     "the enzyme would be fully quantum-decohered in the standard sense"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
