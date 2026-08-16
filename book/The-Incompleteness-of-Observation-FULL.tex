@@ -17469,11 +17469,12 @@ set: a collection of single-qubit and two-qubit gates that can
 approximate any unitary transformation to arbitrary precision. The
 standard universal gate set includes the Hadamard gate, a non-Clifford
 phase gate such as \(T\), and the CNOT (controlled-NOT) gate, with these
-three gates generating the full unitary group through composition. Each
-of these gates is implementable in any system with controllable
-two-level subsystems and a tunable coupling --- features that the
-framework's emergent quantum mechanics provides for any embedded
-observer with sufficient experimental control.
+three gates generating the an approximately universal set --- dense in
+the unitary group, not an exact enumeration of it --- through
+composition. Each of these gates is implementable in any system with
+controllable two-level subsystems and a tunable coupling --- features
+that the framework's emergent quantum mechanics provides for any
+embedded observer with sufficient experimental control.
 
 The argument is concrete: an observer who can prepare two-level
 subsystems (qubits) in the visible sector, who can apply controllable
@@ -17647,12 +17648,16 @@ theorem}\label{the-bqp-characterization-theorem}}
 Combining the lower bound (BQP is available, §14.3) with the upper bound
 (BQP cannot be exceeded, §14.4) yields the BQP characterization theorem.
 
-\textbf{Statement.} \emph{BQP Characterization Theorem.} Let
-\(\mathcal{S} = (S, \varphi)\) be a finite deterministic system, and let
+\textbf{Statement.} \emph{Conditional BQP Characterization Theorem.} Let
+\(\mathcal{S} = (S, \varphi)\) be a finite deterministic system, let
 \(\mathcal{O}\) be an embedded observer with partition \(V\) satisfying
-C1, C2, C3, C4 at the partition boundary. Then the class of computations
-the observer can efficiently perform (in polynomial time with bounded
-error) is exactly BQP.
+C1, C2, C3, C4 at the partition boundary, and assume the
+computational-control and efficiency hypotheses of §14.4 --- state
+preparation, the universal gate set, and Born-rule readout; locally
+generated, uniformly describable evolutions over polynomial physical
+time, with polynomial precision and polynomial simulation overhead. Then
+the class of computations the observer can efficiently perform (in
+polynomial time with bounded error) is exactly BQP.
 
 \textbf{Proof outline.} The lower bound from §14.3 establishes that BQP
 is available to the observer. The upper bound from §14.4 establishes
@@ -17670,7 +17675,8 @@ class under (T). - The framework's partition structure guarantees
 informational completeness of the density matrix.
 
 Each of these is a structural feature of the framework's universality
-class; together they produce the BQP characterization as a theorem.
+class; together with §14.4's computational-control and efficiency
+hypotheses they produce the conditional BQP characterization.
 
 \textbf{Interpretation.} The characterization theorem has several
 interpretive consequences.
@@ -17681,7 +17687,8 @@ above, BQP is the relevant computational complexity class for embedded
 observers. The specific physical implementation of the computational
 hardware does not matter --- superconducting qubits, trapped ions,
 topological qubits, photonic systems, neutral atoms, or any other
-platform --- all have access to BQP and only BQP.
+platform --- all have access to BQP and only BQP under the same §14.4
+model.
 
 \emph{BQP is independent of the specific bijection.} The framework's
 universality class contains many bijections producing different specific
@@ -17694,8 +17701,9 @@ than the specific-bijection level.
 \emph{BQP is the ceiling for any future technology.} No future
 technological development --- better qubits, better error correction,
 exotic computational substrates --- can exceed BQP for embedded
-observers in the framework's universality class. The ceiling is
-structural rather than technological.
+observers in the framework's universality class, so long as §14.4's
+model hypotheses continue to describe the hardware. The ceiling is
+structural-plus-model rather than technological.
 
 The conditional model theorem is therefore a substantial but
 hypothesis-bearing result: given the model, it establishes BQP as the
@@ -17719,7 +17727,8 @@ possibility that future discoveries could refute it by demonstrating
 super-BQP computation in some physical system.
 
 The framework's content reframes the ECT from empirical conjecture to
-\emph{theorem}.
+\emph{conditional theorem} --- valid under §14.4's computational-control
+and efficiency hypotheses.
 
 \textbf{The framework's argument.} The reframing runs through three
 steps.
@@ -17732,11 +17741,13 @@ principle, given sufficient instruments) and the trans-horizon region
 embedded in the framework's structural sense: the partition with C1--C4
 structure exists for any observer in the universe.
 
-\emph{Step 2: Every embedded observer has access to BQP and only BQP.}
-This is the BQP characterization theorem from §14.5. Any observer
-satisfying C1--C4 has access to BQP computational resources (the lower
-bound) and cannot exceed BQP (the upper bound). The computational class
-accessible to the observer is exactly BQP.
+\emph{Step 2: Under §14.4's hypotheses, every embedded observer has
+access to BQP and only BQP.} This is the Conditional BQP
+Characterization Theorem from §14.5. Any observer satisfying C1--C4
+together with the stated model has access to BQP computational resources
+(the lower bound) and cannot exceed BQP (the upper bound). Under those
+hypotheses, the computational class accessible to the observer is
+exactly BQP.
 
 \emph{Step 3: Every physical computation is in BQP.} Combining the
 previous two steps: every physical computation is performed by some
@@ -17744,32 +17755,35 @@ physical observer or apparatus, every physical observer or apparatus is
 embedded in the framework's structural sense, every embedded observer
 can compute only in BQP. Therefore every physical computation is in BQP.
 
-The ECT is therefore not an empirical conjecture but a \emph{theorem} of
-the framework --- a derived consequence of the framework's structural
-commitments. The reframing changes the ECT's epistemic status
-fundamentally: the question ``is the ECT correct?'' becomes ``are the
-framework's structural commitments correct?'', which is testable through
-the framework's other empirical content (Chapters 5-13).
+The ECT is therefore not a freestanding empirical conjecture but a
+\emph{conditional theorem} --- a derived consequence of the framework's
+structural commitments together with §14.4's computational model. The
+reframing changes the ECT's epistemic status: the question ``is the ECT
+correct?'' becomes ``are the framework's structural commitments and the
+model bridge correct?'', which is testable through the framework's other
+empirical content (Chapters 5-13).
 
 \textbf{Implications of the reframing.}
 
 \emph{Sharper predictions.} The reframing produces sharper empirical
-predictions. Any demonstrated super-BQP computation would constitute a
-falsification of the framework --- the universe would not be in the
-framework's universality class, which would falsify the framework's
-structural commitments at the foundational level. This is a stronger
-prediction than the conventional ECT, which allows the possibility of
-future revisions without committing to a specific structural commitment.
+predictions. Any demonstrated super-BQP computation would falsify the
+conjunction of the framework's structural commitments with §14.4's
+computational model --- the model bridge could fail without the
+foundational framework failing, so the falsification lands on the
+conjunction, sharpest at the bridge. This is still a sharper commitment
+than the conventional ECT, which allows the possibility of future
+revisions without committing to a specific structural commitment.
 
 \emph{Structural foundations.} The reframing provides structural
 foundations for the ECT that were previously absent. The ECT's empirical
 status conventional treatment provides no explanation for \emph{why} the
 ECT should hold --- it remains an unexplained regularity of physical
-reality. The framework's content provides the explanation: the ECT holds
-because every physical observer is embedded, every embedded observer has
-access to BQP and only BQP, therefore every physical computation is in
-BQP. The structural basis is the framework's universality-class
-commitments.
+reality. The framework's content provides the explanation: the ECT
+holds, under the model, because every physical observer is embedded and
+--- given §14.4's hypotheses --- has access to BQP and only BQP, so
+every physical computation within the model is in BQP. The structural
+basis is the framework's universality-class commitments joined to that
+explicit model.
 
 \emph{Connection to other foundational results.} The reframing connects
 the ECT to other foundational results in the framework. The
@@ -17798,10 +17812,10 @@ empirical regularity.
 
 The framework's reframing of the ECT is therefore not a minor
 terminological change but a substantive theoretical contribution. The
-ECT moves from empirical conjecture to derived theorem, with the
-framework's other empirical content (Chapters 5-13) providing the
-supporting evidence for the framework's structural commitments that make
-the theorem follow.
+ECT moves from freestanding empirical conjecture to conditional derived
+theorem, with the framework's other empirical content (Chapters 5-13)
+providing the supporting evidence for the framework's structural
+commitments that make the theorem follow.
 
 \hypertarget{the-bpp-bqp-gap-as-cost-of-partial-observation}{%
 \subsection{14.7 The BPP-BQP gap as cost of partial
@@ -17898,10 +17912,14 @@ falsification for the framework's computational content sits at the BQP
 boundary rather than at any internal boundary within BQP.
 
 \textbf{The location of P vs NP within the framework.} The framework's
-BQP characterization places P and NP inside BQP: every problem in P is
-in BQP (trivially, since BQP contains BPP and BPP contains P), and every
-problem in NP whose witness can be verified efficiently has its
-verification problem in BQP as well. The conventional inclusion chain
+conditional BQP characterization places P inside BQP
+(\(\mathrm{P} \subseteq \mathrm{BPP} \subseteq \mathrm{BQP}\)); the
+relation of NP to BQP is UNKNOWN --- efficient witness verification puts
+the verification map, not the NP language, inside BQP, and
+\(\mathrm{NP} \subseteq \mathrm{BQP}\) is an open containment question.
+Consequently the framework's conditional ceiling neither settles P vs NP
+nor determines the NP--BQP relationship. The conventional inclusion
+chain
 \(\mathrm{P} \subseteq \mathrm{NP} \subseteq \mathrm{PH} \subseteq \mathrm{PSPACE}\),
 with BQP situated somewhere within PSPACE and conjectured to contain BPP
 strictly, is unmodified by the framework's content. The framework's
@@ -17914,11 +17932,11 @@ to standard complexity theory.
 entail either P = NP or P ≠ NP. Two cases:
 
 \emph{Case 1: P ≠ NP} (the conventional expectation). The framework's
-BQP ceiling is unchanged: P and NP are both inside BQP, and no efficient
-general solution exists for NP-complete problems. Quantum advantage
-(Shor's algorithm and related results) places specific NP problems
-inside BQP without placing all of NP inside P, consistent with the
-standard conjecture.
+conditional BQP ceiling is unchanged: P is inside BQP while the NP--BQP
+relation remains open, and no efficient general solution is known for
+NP-complete problems. Quantum advantage (Shor's algorithm and related
+results) places specific NP problems inside BQP without placing all of
+NP inside either BQP or P, consistent with the standard conjectures.
 
 \emph{Case 2: P = NP} (the surprising case). A polynomial-time algorithm
 for an NP-complete problem operates on a classical Turing machine; its
@@ -18353,9 +18371,11 @@ investigation, not framework predictions. The companion paper
 specific falsifiable predictions:
 
 \emph{Any demonstrated super-BQP computation on physically realizable
-hardware would falsify the framework.} The framework's structural
-commitments preclude super-BQP computation; any empirical demonstration
-of such capability would refute the framework at the foundational level.
+hardware would falsify the conjunction of the framework's structural
+commitments with §14.4's computational model.} The falsification lands
+sharpest at the model bridge --- the bridge could fail without the
+foundational framework failing --- while a super-BQP demonstration
+surviving every bridge repair would press on the framework itself.
 
 \emph{Hypercomputation is structurally impossible.} The framework's
 finite substratum and bounded-coupling-degree commitments preclude
@@ -18364,11 +18384,13 @@ arbitrary-precision-continuous). Any apparent demonstration of
 hypercomputation would either be reducible to standard computation or
 constitute a falsification.
 
-\emph{The BQP ceiling applies to all future technology.} No improvement
-in quantum-computing technology --- better qubits, better error
-correction, exotic architectures --- can exceed BQP. The ceiling is
-structural rather than technological. The framework therefore predicts a
-specific limit on future quantum-computing capability.
+\emph{The BQP ceiling, under §14.4's model, applies to all future
+technology.} No improvement in quantum-computing technology --- better
+qubits, better error correction, exotic architectures --- exceeds BQP
+while the model's hypotheses hold. The ceiling is
+structural-given-the-model rather than technological. The framework
+therefore predicts a specific limit on future quantum-computing
+capability.
 
 \textbf{Forward pointers.} Chapter 15 develops the framework's content
 in quantum engineering: the practical implementation of quantum
@@ -18393,7 +18415,8 @@ the framework's emergent quantum mechanics.
 The chapter's content is therefore the framework's positive contribution
 to computational complexity theory: a structural characterization of BQP
 as the unique class accessible to embedded observers, with the ECT
-reframed from empirical conjecture to theorem and the BPP-BQP gap
+reframed from empirical conjecture to a theorem of the framework
+together with §14.4's computational model, and the BPP-BQP gap
 interpreted as the cost of partial observation. The framework's
 empirical exposure in computational complexity is principally negative
 --- the prediction of no super-BQP computation provides a sharp

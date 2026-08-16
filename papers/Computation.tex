@@ -517,8 +517,10 @@ CPTP representability of the visible dynamics alone, and each is a
 modelling commitment, not a consequence of C1--C4. The theorem combines
 a lower bound (BQP is available to any embedded observer; the
 quantum-computing toolkit can be physically instantiated on the
-framework's substratum) with an upper bound (BQP cannot be exceeded; any
-super-BQP capability would falsify the framework).
+framework's substratum) with an upper bound (BQP cannot be exceeded
+under the same hypotheses; any super-BQP capability would falsify the
+conjunction of the framework's commitments with this model, sharpest at
+the model bridge).
 
 \hypertarget{the-lower-bound}{%
 \subsubsection{4.1 The lower bound}\label{the-lower-bound}}
@@ -543,16 +545,22 @@ observers can in principle access any problem in BQP.
 \hypertarget{the-upper-bound}{%
 \subsubsection{4.2 The upper bound}\label{the-upper-bound}}
 
-No physical process implementable on the substratum exceeds BQP. The
-framework's dynamics is finite-rate (the substratum has bounded coupling
-degree, A3 of the reconstruction {[}5, §3{]}), the partition entropy is
-finite (E3 plus the holographic interpretation), and the dynamics is
-unitary in the visible-sector marginal (by construction).
+No physical process implementable on the substratum exceeds BQP, under
+the model's efficiency hypotheses. The framework's dynamics is
+finite-rate (bounded coupling degree, A3 of the reconstruction {[}5,
+§3{]}), the partition entropy is finite (E3 plus the holographic
+interpretation), and the dynamics is unitary in the visible-sector
+marginal (by construction) --- type-level facts that alone do not bound
+complexity; the load-bearing additions, matching {[}1, Ch. 14 §14.4{]},
+are that admissible evolutions are locally generated with uniformly
+computable descriptions, run for polynomial physical time at polynomial
+precision, and admit polynomial-overhead circuit simulation.
 Hypercomputation {[}6{]}, oracle access {[}7{]}, and other super-BQP
 capabilities would require either continuum precision (violating A1),
-unbounded coupling (violating A3), or non-unitary visible-sector
-dynamics (incompatible with the QM emergence theorem). Each falls
-outside the framework's class of admissible substrata.
+unbounded coupling (violating A3), non-unitary visible-sector dynamics
+(incompatible with the QM emergence theorem), or violation of these
+efficiency hypotheses. Each falls outside the framework's class of
+admissible substrata.
 
 \hypertarget{the-combined-result}{%
 \subsubsection{4.3 The combined result}\label{the-combined-result}}
@@ -613,9 +621,10 @@ floor}\label{the-finite-substratum-refinement-a-ceiling-above-bqps-floor}}
 The characterization of §4.3 is exact in the idealized limit
 \(S \to \infty\). The framework, however, asserts that \(S\) is finite
 --- the holographic bound caps the substratum resources available to any
-physical computation. This subsection states the finite-size
-consequence, which is a theorem-grade commitment of the corpus as it
-stands rather than an optional strengthening.
+physical computation. This subsection states the finite-size consequence
+as a complexity-assumption-dependent proposal: its status inherits the
+standard conjectures made explicit below, and it is not entailed by
+Main.
 
 \textbf{The forced position.} Any interpretation with a finite classical
 substratum faces a standard trilemma {[}7{]}: either (I) quantum
@@ -626,14 +635,18 @@ qubits. The framework closes (III) by construction: the holographic
 bound is a structural commitment. It closes (II) by theorem: the
 substratum measure is the unique \(\varphi\)-invariant maximal-entropy
 measure ({[}Main{]}, Lemma 3 and posit (iv) of the posit ledger), which
-carries no planted information --- a polynomial-resource local
-reversible dynamics seeded from a maximal-entropy measure is a classical
-sampler, and escape by conspiracy would require a planted measure
+carries no planted information --- though absence of planted answers is
+not itself a classical lower bound: the hardness of the relevant
+sampling rests on standard complexity-theoretic evidence (random-circuit
+results are assumption-dependent, e.g.~non-collapse of the polynomial
+hierarchy), so (II) closes conditionally on those assumptions, while
+escape by conspiracy would additionally require a planted measure
 contradicting the uniqueness clause; independently, Theorem 24 of
 {[}Substratum §4{]} classifies the specific microstate as gauge,
 provably without empirical content, whereas extractable task answers
-would be empirical content. What remains is (I): the ceiling is not
-adopted here; it is entailed.
+would be empirical content. What remains, granted the complexity
+assumptions below, is (I): the ceiling is a conditional consequence with
+its assumptions stated, not an unconditional entailment.
 
 \textbf{The scale.} The substratum budget for a computation of wall-time
 \(T\) is bounded by the holographic patch:
@@ -769,15 +782,18 @@ BPP strictly, is unmodified by the framework's content.
 \subsubsection{5.1 The location of P vs NP within the
 framework}\label{the-location-of-p-vs-np-within-the-framework}}
 
-The framework's BQP characterization places P and NP inside BQP: every
-problem in P is in BQP (trivially, since BQP contains BPP and BPP
-contains P), and every problem in NP whose witness can be verified
-efficiently has its verification problem in BQP as well. The
-conventional inclusion chain is unmodified by the framework's content.
-The framework's contribution is at a different level: it identifies BQP
-as the \emph{outermost} class accessible to embedded observers, leaving
-the inclusion relationships among interior classes --- including P vs NP
---- to standard complexity theory.
+The framework's conditional BQP characterization places P inside BQP
+(\(\mathrm{P} \subseteq \mathrm{BPP} \subseteq \mathrm{BQP}\)); the
+relation of NP to BQP is UNKNOWN --- efficient witness verification puts
+the verification map, not the NP language, inside BQP, and
+\(\mathrm{NP} \subseteq \mathrm{BQP}\) is an open containment question.
+Consequently the framework's conditional ceiling neither settles P vs NP
+nor determines the NP--BQP relationship. The conventional inclusion
+chain is unmodified by the framework's content. The framework's
+contribution is at a different level: it identifies BQP as the
+\emph{outermost} class accessible to embedded observers, leaving the
+inclusion relationships among interior classes --- including P vs NP ---
+to standard complexity theory.
 
 \hypertarget{the-neutrality-result}{%
 \subsubsection{5.2 The neutrality result}\label{the-neutrality-result}}
@@ -785,11 +801,12 @@ the inclusion relationships among interior classes --- including P vs NP
 The framework's commitments do not entail either P = NP or P ≠ NP. Two
 cases:
 
-\emph{Case 1: P ≠ NP} (the conventional expectation). Both P and NP are
-inside BQP; no efficient general solution exists for NP-complete
-problems; quantum advantage (Shor's algorithm and related results)
-places specific NP problems inside BQP without placing all of NP inside
-P, consistent with the standard conjecture.
+\emph{Case 1: P ≠ NP} (the conventional expectation). P is inside BQP
+while the NP--BQP relation remains open; no efficient general solution
+is known for NP-complete problems; quantum advantage (Shor's algorithm
+and related results) places specific NP problems inside BQP without
+placing all of NP inside either BQP or P, consistent with the standard
+conjectures.
 
 \emph{Case 2: P = NP} (the surprising case). A polynomial-time algorithm
 for an NP-complete problem operates on a classical Turing machine; its
@@ -1245,7 +1262,9 @@ Summarizing the paper's content:
   BQP model theorem, §4; extended development in {[}1, Ch. 14{]}).
 \item
   The Extended Church-Turing Thesis (in BQP form) is a theorem of the
-  framework's structural commitments, not an empirical conjecture.
+  framework's structural commitments together with §4's computational
+  model --- conditional, not an empirical conjecture and not a bare
+  consequence of C1--C4.
 \item
   The BPP-BQP gap is structural --- the cost of marginal-statistics
   observation rather than evidence for fundamental quantum-ness.
