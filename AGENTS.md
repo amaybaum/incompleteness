@@ -5,6 +5,7 @@ This repo holds the manuscript for *The Incompleteness of Observation*:
 - `papers/` — the technical papers (`SM`, `GR`, `Substratum`, `Structure`, `Main`, …).
 - `book/`   — the book chapters and the consolidated `The-Incompleteness-of-Observation-FULL.*`.
 - `build.sh` — the canonical build script, at the repo root.
+- `RELEASE.md` — the freeze record (batch b141, review 51): certified scopes, verification snapshot, reproduction, surviving open items.
 
 **This file is the single rules-and-method document in the repository.** The full working
 methodology — session journal, operational state, long-form case studies, reference cards, task

@@ -640,6 +640,23 @@ INVARIANTS = [
      "the memoryless-description test is the mechanism proposal's own falsifiable claim (b140)",
      [],
      "the enzyme would be fully quantum-decohered in the standard sense"),
+    # ---- b141 families: review-50 preventive patterns (corpus-zero at install) ----
+    (r"no underlying density matrix",
+     "a density-matrix representation always exists (universal Q_fb, Main §3.4); only memoryless descriptions can fail (b141)",
+     [],
+     "at marginal capacity no underlying density matrix exists"),
+    (r"quantum mechanics only partially applies",
+     "the representation fully applies; memory is what is partial (Main §3.4, b141)",
+     [],
+     "enzymes operate in a regime where quantum mechanics only partially applies"),
+    (r"partially-quantum theorems",
+     "there are no partially-quantum theorems; the regime's predictions are mechanism-proposal claims (b141)",
+     [],
+     "derived from the partially-quantum theorems"),
+    (r"three regimes of matter",
+     "the regimes are MEMORY regimes, all quantum-representable (Main §3.4, b141)",
+     [],
+     "the framework's three regimes of matter — classical, partially quantum, fully quantum"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
