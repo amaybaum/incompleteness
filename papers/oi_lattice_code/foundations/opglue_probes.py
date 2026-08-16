@@ -21,7 +21,8 @@
 # (7) capacity accounting + capacity floor log2|C_H| ≥ I*.
 # Extended: checks 8–9 telescoping / off-net density (b126b), 10 rescaling invariance (b127),
 # 11–12 density register + mixed conditionals for multi-Kraus instruments (b128),
-# 13 single controlled dynamics — one bijection, protocol as initial condition (b129).
+# 13 single controlled dynamics — one bijection, protocol as initial condition (b129),
+# 14 Rounding Lemma instances — exact rational b-bit rounding vs exact instrument (b131).
 
 import sys, math
 from fractions import Fraction as F
@@ -486,6 +487,83 @@ def strmarg(law):
 match = laws["A"] == strmarg(lawA_ref) and laws["B"] == strmarg(lawB_ref)
 check("single_controlled_dynamics", inj and match,
       f"one map, two protocols (one adaptive), {len(img_by_src)} steps injective; laws exact")
+
+# ---- (14) Rounding Lemma instances: exact rational simulation of b-bit rounding (b131) ----
+def fl_frac(x, b):
+    if x == 0: return F(0)
+    ax = -x if x < 0 else x
+    e = ax.numerator.bit_length() - ax.denominator.bit_length()
+    if F(2) ** e > ax: e -= 1
+    while F(2) ** (e + 1) <= ax: e += 1
+    scaled = x * F(2) ** (b - 1 - e)
+    fl = scaled.numerator // scaled.denominator
+    rem = scaled - fl
+    if rem > F(1, 2) or (rem == F(1, 2) and fl % 2 == 1): fl += 1
+    return F(fl) * F(2) ** (e - b + 1)
+def fadd(x, y, b): return fl_frac(x + y, b)
+def fmul(x, y, b): return fl_frac(x * y, b)
+def cmulf(z, w, b):   # complex parts as (re, im) Fractions
+    return (fadd(fmul(z[0], w[0], b), -fmul(z[1], w[1], b), b),
+            fadd(fmul(z[0], w[1], b), fmul(z[1], w[0], b), b))
+def caddf(z, w, b): return (fadd(z[0], w[0], b), fadd(z[1], w[1], b))
+def mat_f(M): return [[(F(0), F(0)) if M[i][j] is None else M[i][j] for j in range(2)] for i in range(2)]
+def mmulf(A, B, b):
+    out = [[(F(0), F(0)) for _ in range(2)] for _ in range(2)]
+    for i in range(2):
+        for j in range(2):
+            acc = cmulf(A[i][0], B[0][j], b)
+            acc = caddf(acc, cmulf(A[i][1], B[1][j], b), b)
+            out[i][j] = acc
+    return out
+def dagf(M): return [[(M[j][i][0], -M[j][i][1]) for j in range(2)] for i in range(2)]
+def maddf(A, B, b): return [[caddf(A[i][j], B[i][j], b) for j in range(2)] for i in range(2)]
+KR_N = [[[(F(3,5), F(0)), (F(0), F(0))], [(F(0), F(0)), (F(0), F(0))]],
+        [[(F(0), F(0)), (F(0), F(0))], [(F(4,5), F(0)), (F(0), F(0))]]]
+KR_Z0 = [[[(F(1), F(0)), (F(0), F(0))], [(F(0), F(0)), (F(0), F(0))]]]
+STATES = [
+ [[(F(1), F(0)), (F(0), F(0))], [(F(0), F(0)), (F(0), F(0))]],
+ [[(F(1,2), F(0)), (F(1,2), F(0))], [(F(1,2), F(0)), (F(1,2), F(0))]],
+ [[(F(1,3), F(0)), (F(1,6), F(1,7))], [(F(1,6), F(-1,7)), (F(2,3), F(0))]],
+]
+def exact_apply(Ks, rho):
+    out = [[(F(0), F(0)) for _ in range(2)] for _ in range(2)]
+    for Kr in Ks:
+        Kd = dagf(Kr)
+        B = [[(sum2 := None) for _ in range(2)] for _ in range(2)]
+        def cm(z, w): return (z[0]*w[0] - z[1]*w[1], z[0]*w[1] + z[1]*w[0])
+        def ca(z, w): return (z[0]+w[0], z[1]+w[1])
+        B = [[ca(cm(Kr[i][0], rho[0][j]), cm(Kr[i][1], rho[1][j])) for j in range(2)] for i in range(2)]
+        Cm = [[ca(cm(B[i][0], Kd[0][j]), cm(B[i][1], Kd[1][j])) for j in range(2)] for i in range(2)]
+        out = [[ca(out[i][j], Cm[i][j]) for j in range(2)] for i in range(2)]
+    return out
+def float_apply(Ks, rho, b):
+    Ksr = [[[ (fl_frac(Kr[i][j][0], b), fl_frac(Kr[i][j][1], b)) for j in range(2)] for i in range(2)] for Kr in Ks]
+    out = [[(F(0), F(0)) for _ in range(2)] for _ in range(2)]
+    for Kr in Ksr:
+        B = mmulf(Kr, rho, b)
+        Cm = mmulf(B, dagf(Kr), b)
+        out = maddf(out, Cm, b)
+    return out
+Cdr = F(384)   # 4(d+r+2) r d^3 at d=2, r=2
+ok14 = True
+worst = F(0)
+for Ks in (KR_N, KR_Z0):
+    for rho in STATES:
+        tr = rho[0][0][0] + rho[1][1][0]
+        for b in (8, 16, 24):
+            E = exact_apply(Ks, rho)
+            Eh = float_apply(Ks, rho, b)
+            fro2 = F(0)
+            for i in range(2):
+                for j in range(2):
+                    dr = Eh[i][j][0] - E[i][j][0]; di = Eh[i][j][1] - E[i][j][1]
+                    fro2 += dr*dr + di*di
+            lhs = 2 * fro2
+            rhs = Cdr*Cdr * F(1, 4**b) * tr*tr
+            if lhs > rhs: ok14 = False
+            if rhs > 0 and lhs * 10**12 // rhs > worst: worst = lhs * 10**12 // rhs
+check("rounding_lemma_instances", ok14,
+      f"18 instances (2 instruments x 3 states x b in 8,16,24): ||diff||_1 <= C_dr 2^-b Tr rho with C_dr=384; worst ratio {float(worst)/1e12:.2e}")
 
 print(f"summary: hidden states {len(hid)} (log2 {log2CH:.2f}); "
       f"RZ TV at G=8/128/1024: {tv_rz[8]:.2e}/{tv_rz[128]:.2e}/{tv_rz[1024]:.2e}")

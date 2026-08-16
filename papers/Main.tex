@@ -252,7 +252,9 @@ foundational question --- which additional principles select operational
 quantum theory from within the universal representation class
 \(Q_{\mathrm{fb}}\): exactly impossible for any fixed finite realization
 --- the classical-dimension obstruction: qubit prepare--measure
-behaviors force unboundedly many classical states (§3.4), hence posed in
+behaviors force unboundedly many classical states, under the ordinary
+operational interface of preparation \(\to\) finite ontic carrier
+\(\to\) freely chosen measurement (§3.4), hence posed in
 finite-resolution ε-form --- and in that form now carried by a finite
 operational gluing theorem (§3.4): every finite adaptive quantum
 experiment has a finite reversible embedded realization with fixed
@@ -2872,9 +2874,10 @@ half with \(|\mathcal{F}|\)-independent hidden cost in the controlled
 model, and the Corollary the finite-test density --- the
 classical-dimension obstruction licenses exactly this density form and
 no stronger one, finite behavior sets approximating curved state spaces
-arbitrarily well while approximation is not selection. One named item
-remains on route (i): the finite-bit Rounding Lemma closing the explicit
-capacity estimate (clause (5)). Route (ii), selection, is open entire.
+arbitrarily well while approximation is not selection. Route (i) is
+closed: the Rounding Lemma is proved for the stated evaluation algorithm
+with explicit polynomial constant (clause (5)), making the finite-bit
+capacity clause unconditional. Route (ii), selection, is open entire.
 \textbf{(ii) The selector route:} derive from observation
 incompleteness, rather than postulate, the hypotheses of an operational
 reconstruction theorem --- continuous reversible transitivity (Hardy's
@@ -2917,12 +2920,13 @@ variation, \(|\mathcal{O}_{\max}|\) the largest per-instrument outcome
 count --- \(K/G\) for binary-outcome instruments; in the \(b\)-bit
 register regime an additional state-update term joins the same
 telescoping sum, giving the unified bound
-\(\|P_R - P_Q\|_{\mathrm{TV}} \leq K\left[(|\mathcal{O}_{\max}|{-}1)/G + C_d\, 2^{-b}\right]\),
+\(\|P_R - P_Q\|_{\mathrm{TV}} \leq K\left[(|\mathcal{O}_{\max}|{-}1)/G + C_{d,r}\, 2^{-b}\right]\),
 absorbed by \(G \geq 2K(|\mathcal{O}_{\max}|{-}1)/\varepsilon\) and
-\(b \geq \log_2(2K C_d/\varepsilon)\), each term at most
-\(\varepsilon/2\); the \(b\)-bit term is supplied by the Rounding Lemma
-of clause (5) --- stated there as the exact dependency --- while the
-exact-ring regime is unconditional and probe-certified.}
+\(b \geq \log_2(2K C_{d,r}/\varepsilon)\), each term at most
+\(\varepsilon/2\) (\(r \leq d^2\) the Kraus rank); the \(b\)-bit term is
+supplied by the Rounding Lemma of clause (5) --- proved there for the
+stated evaluation algorithm --- so both regimes are unconditional, the
+exact-ring one additionally probe-certified end-to-end.}
 
 \emph{(2) \textbf{Gluing by restriction.} For every
 \(\mathcal{F}' \subseteq \mathcal{F}\) and \(K' \leq K\), the same
@@ -2953,15 +2957,16 @@ instruments' entry ring,
 where \(V_{\mathrm{reach}}\) is the finite set of unnormalized branch
 vectors reachable in \(\leq K\) steps; with \(b\)-bit registers,
 \(G = \lceil 2K(|\mathcal{O}_{\max}|{-}1)/\varepsilon \rceil\),
-\(b \geq \log_2(2K C_d/\varepsilon)\), and a canonical renormalization
---- the branch register replaced after each instrument by
-\(\rho^{\sharp} = 2^{s(\tilde\rho)}\tilde\rho\), the unique power-of-two
-rescaling into a fixed norm window, the ring extended by \(\tfrac12\);
-no shift is stored anywhere: the thresholds are scale-invariant, so the
-realized law is unchanged, and reversibility needs no exponent, the
-predecessor stack holding the predecessor itself --- the mantissa needs
-only \(b = O(\log(K d\, |\mathcal{O}|/\varepsilon))\) bits with no
-exponent accumulation, giving
+\(b \geq \log_2(2K C_{d,r}/\varepsilon)\), and a canonical
+renormalization --- the branch register replaced after each instrument
+by \(\rho^{\sharp} = 2^{s(\tilde\rho)}\tilde\rho\), the unique
+power-of-two rescaling into a fixed norm window, the ring extended by
+\(\tfrac12\); no shift is stored anywhere: the thresholds are
+scale-invariant, so the realized law is unchanged, and reversibility
+needs no exponent, the predecessor stack holding the predecessor itself
+--- the mantissa needs only
+\(b = O(\log(K d\, |\mathcal{O}|/\varepsilon))\) bits with no exponent
+accumulation, giving
 \(\log_2|\mathcal{C}_H| = O\!\left(K\, d^2 \log(K d\, |\mathcal{O}|/\varepsilon) + K \log_2 G\right)\)
 in general --- linear in \(K\) up to logarithms, the former
 exponent-range \(K^2\) term removed (rescaling invariance certified:
@@ -2975,18 +2980,34 @@ the constructed realization on those families,
 --- the former \(+E\) on the right removed with the exponent range by
 the canonical renormalization above.}
 
-\emph{Rounding Lemma (stated).} \emph{In the \(b\)-bit model ---
-round-to-nearest, relative error \(2^{-b}\) per operation --- each
-instrument application satisfies
-\(\|\widehat{\mathcal{I}}_o(\tilde\rho) - \mathcal{I}_o(\tilde\rho)\|_1 \leq C_d\, 2^{-b}\, \|\tilde\rho\|_1\)
-with \(C_d = O(d^2)\) counting the arithmetic; outcome probabilities
-inherit the bound, and trace-nonincreasing CP maps propagate trace-norm
-error without amplification --- whence the \(K C_d 2^{-b}\) term through
-clause (1)'s telescoping.} Status, split explicitly: the exact-ring
-gluing theorem is unconditional and probe-certified; the finite-\(b\)
-capacity clause is proved conditional on this Lemma --- standard forward
-rounding analysis, recorded as the named dependency rather than
-re-derived, and not separately probe-certified.
+\emph{Rounding Lemma (proved, for the stated evaluation algorithm).}
+\emph{Fix the evaluation: Kraus constants pre-rounded to \(b\) bits;
+\(B_\alpha = \mathrm{fl}(M_\alpha \tilde\rho)\) and then
+\(\mathrm{fl}(B_\alpha M_\alpha^\dagger)\) entry-by-entry as inner
+products; the \(\alpha\)-sum accumulated in order; round-to-nearest with
+unit roundoff \(u = 2^{-b}\), all magnitudes kept in window by the
+canonical renormalization. The classical inner-product bound
+\(|\mathrm{fl}(x^{\top}y) - x^{\top}y| \leq \gamma_n \sum_i |x_i||y_i|\)
+with \(\gamma_n = nu/(1{-}nu)\), together with
+\(\|M_\alpha\|_{\max} \leq \|M_\alpha\|_{\mathrm{op}} \leq 1\) and
+\(\sum_{kl}|\tilde\rho_{kl}| \leq d\, \|\tilde\rho\|_1\), gives
+componentwise error at most
+\(\gamma_{2d+r+2}\, r\, d\, \|\tilde\rho\|_1\) across the \(r\) Kraus
+terms; converting by \(\|A\|_1 \leq d^2 \max_{ij}|a_{ij}|\) yields
+\(\|\widehat{\mathcal{I}}_o(\tilde\rho) - \mathcal{I}_o(\tilde\rho)\|_1 \leq C_{d,r}\, 2^{-b}\, \|\tilde\rho\|_1\)
+with the explicit constant \(C_{d,r} = 4(d{+}r{+}2)\, r\, d^3\), valid
+once \((2d{+}r{+}2)2^{-b} \leq \tfrac12\) --- polynomial in \(d\)
+(\(O(d^7)\) at Kraus rank \(r \leq d^2\), \(O(d^5)\) at \(r = O(d)\)),
+the earlier \(O(d^2)\) retracted as unestablished; only
+\(\log_2 C_{d,r}\) enters the mantissa requirement, so the resource
+conclusion is unchanged up to a constant factor. Outcome probabilities
+inherit the bound through the trace, and trace-nonincreasing CP maps
+propagate trace-norm error without amplification --- whence the
+\(K C_{d,r} 2^{-b}\) term through clause (1)'s telescoping.} \(\square\)
+Status: with the Lemma proved for the stated algorithm, the finite-\(b\)
+capacity clause is unconditional; the inequality is additionally
+instance-certified in exact rational simulation of \(b\)-bit rounding at
+\(b \in \{8, 16, 24\}\) (check 14, \texttt{opglue\_probes.py}).
 
 \emph{Proof (construction and bound).} The step map \(\varphi_a\) reads
 the counter \(t\); an outcome-free instrument applies its CP map to the
@@ -3113,8 +3134,11 @@ makes explicit. And in the controlled model the hidden cost of
 uniformity is nil: the mechanisms are per-instrument, so the hidden
 registers --- branch register, stack, seeds --- do not scale with
 \(|N|\) (the autonomous program register is charged separately:
-single-dynamics Corollary above); the net inflates only the visible
-intervention record, by
+single-dynamics Corollary above) --- hidden-STATE capacity is
+independent of \(|N|\), while the DESCRIPTION complexity of the
+controlled transition law itself scales with the instrument net and is
+deliberately outside this capacity measure; the net inflates only the
+visible intervention record, by
 \(\lceil \log_2 |N| \rceil = O(m\, d^4 \log(2K/\varepsilon))\) bits per
 step, and clause (5)'s hidden bound applies verbatim at the net's entry
 precision.} \(\square\) \emph{(Telescoping and off-net density certified
@@ -3141,6 +3165,24 @@ and the selection of the specifically quantum family among all
 thus-realizable theories is exactly the remaining question (route (ii)).
 The exact continuum theory stays unreachable at any fixed stage (the
 classical-dimension Proposition).} \(\square\)
+
+\textbf{Summary (the equivalence at maximum proved strength).} Four
+claims, each with its exact status. (1)
+\(S \iff D \iff Q_{\mathrm{fb}}\) --- proved, all finite laws. (2)
+\(M_t > 0 \iff\) unavoidable readout-relevant hidden predictive memory
+--- proved, every faithful completion. (3) No fixed finite classical
+carrier reproduces full qubit operational behavior --- proved under the
+stated operational interface, the unbounded-dimension half imported
+{[}55{]}. (4) Every \(d\)-dimensional quantum experiment of horizon
+\(K\) has a finite reversible deterministic \(\varepsilon\)-realization
+--- proved unconditionally at exact arithmetic AND at finite \(b\) (the
+Rounding Lemma now proved for the stated algorithm), covering general
+instruments, mixed conditionals, incompatible measurements, and adaptive
+protocols, with explicit controlled-model resources and one controlled
+dynamics serving all protocols. Per (3), density is the maximum: the
+equivalence cannot be strengthened to exact class identity at any fixed
+carrier, so what remains is precisely selection --- route (ii). This is
+the maximal equivalence the finite-substratum premise admits.
 
 \textbf{Theorem (unavoidable hidden predictive memory).} \emph{Let
 \(\mathcal{S}\) be a visible process and let \(\mathcal{R}\) be ANY
@@ -4263,12 +4305,12 @@ proved obstruction at fixed dimension, and the frontier question ---
 which additional principles select operational quantum theory from
 within the universal class \(Q_{\mathrm{fb}}\) --- is stated with its
 finite-resolution half answered --- the exact finite form closed in the
-negative by the classical-dimension obstruction, the ε-form delivered by
-the finite operational gluing theorem with its explicit capacity bounds,
-the continuum recovered as finite-test density of the quantum-shadow
-realizations (uniform continuum realization), and the
-reconstruction-hypotheses selection program carrying the remainder
-(§3.2, §3.4).
+negative by the classical-dimension obstruction (under the stated
+operational interface), the ε-form delivered by the finite operational
+gluing theorem with its explicit capacity bounds, the continuum
+recovered as finite-test density of the quantum-shadow realizations
+(uniform continuum realization), and the reconstruction-hypotheses
+selection program carrying the remainder (§3.2, §3.4).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -4521,9 +4563,11 @@ for qubit prepare--measure behaviors via the PSD-rank / nonnegative-rank
 separation; shared randomness simulates individual tasks, while the
 coordinated classical resource across the family is itself unbounded.
 
-{[}56{]} A. J. P. Garner, M. P. Müller, arXiv:2004.06136. Embedding of
-probabilistic/operational models in finite classical systems under
-procedural-independence / no-restriction assumptions --- the alternative
-route.
+{[}56{]} A. J. P. Garner, M. P. Müller, ``Characterization of the
+probabilistic models that can be embedded in quantum theory,''
+arXiv:2004.06136; superseded by the published version, \emph{Phys.
+Rev.~X} \textbf{13}, 041001 (2023). Embedding of
+probabilistic/operational models under procedural-independence /
+no-restriction assumptions --- the alternative route.
 
 \end{document}

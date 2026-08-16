@@ -498,6 +498,19 @@ INVARIANTS = [
      "route (i) is discharged at the exact-ring finite-test level; the one named item is the Rounding Lemma (Main §3.4, b130)",
      [],
      "the finite form is now the gluing theorem below — with three residuals: tightening"),
+    # ---- b131 families: pre-equivalence "C1-C4 derive QM" language must stay retired ----
+    (r"necessarily describes? the visible sector using",
+     "the reduced description is necessarily non-Markovian and ADMITS the quantum representation; nothing forces the observer to use it (Main §3.4, b131)",
+     [],
+     "the observer necessarily describes the visible sector using quantum mechanics"),
+    (r"derivable from a deterministic substratum|deriving quantum mechanics as a theorem",
+     "the quantum REPRESENTATION is derived; operational quantum theory's unique selection is open (Main §3.4, b131)",
+     [],
+     "quantum mechanics is derivable from a deterministic substratum through four conditions"),
+    (r"(four conditions|C1–C4) (produce|produced|derive|derived) quantum mechanics",
+     "the conditions produce the quantum representation and the memory sector; they do not by themselves produce operational quantum theory (Main §3.4, b131)",
+     [],
+     "the four conditions produced quantum mechanics in Part I"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
