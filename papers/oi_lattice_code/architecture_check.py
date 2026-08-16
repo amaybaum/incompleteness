@@ -790,6 +790,19 @@ INVARIANTS = [
      "the CPTP premise is the operational-closure hypothesis, cited as such (b152)",
      [],
      "cannot perform any operation that is not a CPTP map (because all observer operations are CPTP maps)"),
+    # ---- b153 families: review-60 proof-narrative and resource-model classes ----
+    (r"reduces to CPTP through normalization",
+     "conditioned branches are CP trace-nonincreasing; normalized updates are nonlinear; postselection is charged its cost (b153)",
+     [],
+     "post-selection (non-CPTP but reduces to CPTP through normalization)"),
+    (r"non-unitary visible-sector dynamics",
+     "non-unitary CPTP is ordinary open-system dynamics; the excluded class is outside-operational-closure (b153)",
+     [],
+     "would require non-unitary visible-sector dynamics (incompatible with the QM emergence theorem)"),
+    (r"emergent quantum mechanics provides",
+     "controllability/toolkit come from the computational-control model; Main supplies representation + finite-test shadow (b153)",
+     [],
+     "the emergent quantum mechanics provides state preparation, a universal gate set, and Born-rule measurement"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---

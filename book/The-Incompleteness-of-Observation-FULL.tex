@@ -1372,16 +1372,18 @@ catalysis with conformational landscapes acting as \(\tau_B\)-scale
 memory. Chapter 14 develops quantum computing: BQP is identified, under
 Chapter 14's explicit model hypotheses, as the computational class
 accessible to embedded observers satisfying C1--C4, with the lower bound
-(the emergent quantum mechanics provides the BQP toolkit) and upper
-bound (the quantum description is informationally complete for the
-embedded observer) jointly characterizing the class. The Extended
-Church-Turing Thesis is reframed from empirical conjecture to theorem of
-the framework, with any super-BQP demonstration providing falsification.
-Chapter 15 develops quantum engineering: superconducting qubit dynamics
-as the canonical engineered C1--C4 system with
-\(\tau_S/\tau_B \sim 10^{-3}\), P-indivisible noise structure producing
-correlated errors over \(\sim 10^3\) gates, correlation-aware decoders
-correlated errors that a correlation-aware decoder can exploit,
+(the computational-control model supplies the BQP toolkit on Main's
+representation layer) and upper bound (informational completeness
+relative to the model's admissible instruments --- operational closure,
+an explicit hypothesis) jointly characterizing the class under those
+hypotheses. The Extended Church-Turing Thesis is reframed from empirical
+conjecture to conditional theorem of the framework together with that
+model, any super-BQP demonstration falsifying the conjunction, sharpest
+at the model bridge. Chapter 15 develops quantum engineering:
+superconducting qubit dynamics as the canonical engineered C1--C4 system
+with \(\tau_S/\tau_B \sim 10^{-3}\), P-indivisible noise structure
+producing correlated errors over \(\sim 10^3\) gates, correlation-aware
+decoders correlated errors that a correlation-aware decoder can exploit,
 coherence revivals from engineered baths, and information recovery in
 quantum sensing --- structural effects whose magnitudes the framework
 does not quantify, and the BEC analogue-gravity experiment as the
@@ -17262,16 +17264,20 @@ operational closure --- all admissible operations available to the
 observer within the model are standard quantum instruments (CPTP maps
 for unconditioned evolution, CP trace-nonincreasing branches for
 conditioned outcomes), with no additional nonlinear, post-quantum,
-oracle, or hidden-sector-access operation --- BQP (bounded-error quantum
+oracle, or hidden-sector-access operation, and with conditioned branches
+and postselected preparations charged their physical
+success-probability/repetition cost (no free postselection:
+\(\mathrm{PostBQP} = \mathrm{PP}\)) --- BQP (bounded-error quantum
 polynomial time) is the computational class accessible to a finite
 deterministic system satisfying the framework's structural conditions
 C1--C4. None of the model hypotheses follows from C1--C4 or from CPTP
 representability alone. The theorem has two directions. The \emph{lower
 bound} establishes that, under the explicit computational-control
 hypotheses of §14.4, any embedded observer satisfying C1--C4 has access
-to BQP computational resources --- the emergent quantum mechanics
-provides state preparation, a universal gate set, and Born-rule
-measurement, the full toolkit for BQP computation. The \emph{upper
+to BQP computational resources --- the computational-control model
+supplies state preparation, a universal gate set, and Born-rule
+measurement --- the full toolkit for BQP computation --- on top of
+Main's representation and finite-test-shadow layer. The \emph{upper
 bound} establishes that no embedded observer exceeds BQP --- the quantum
 description is informationally complete for the embedded observer, with
 no operation on the visible sector extracting information beyond the
@@ -17481,9 +17487,9 @@ phase gate such as \(T\), and the CNOT (controlled-NOT) gate, with these
 three gates generating an approximately universal set --- dense in the
 unitary group, not an exact enumeration of it --- through composition.
 Each of these gates is implementable in any system with controllable
-two-level subsystems and a tunable coupling --- features that the
-framework's emergent quantum mechanics provides for any embedded
-observer with sufficient experimental control.
+two-level subsystems and a tunable coupling --- features supplied by
+§14.4's computational-control model --- Main supplying the
+representation layer, the model the controllability.
 
 The argument is concrete: an observer who can prepare two-level
 subsystems (qubits) in the visible sector, who can apply controllable
@@ -17501,10 +17507,10 @@ tolerance: the ability to perform long computations despite physical
 errors at each gate. Quantum error correction (surface codes, stabilizer
 codes, topological codes) provides the theoretical framework for fault
 tolerance with overhead scaling logarithmically in the desired
-computational accuracy. The framework's emergent quantum mechanics
-provides the structural foundation: error correction operates on the
-quantum information in the visible sector, with redundant encoding
-protecting against local errors.
+computational accuracy. The framework's quantum representation provides
+the structural setting, the control model the operations: error
+correction operates on the quantum information in the visible sector,
+with redundant encoding protecting against local errors.
 
 The framework's content here is consistent with standard
 quantum-computing theory: error correction is structurally available to
@@ -17545,24 +17551,29 @@ precision and polynomial simulation overhead --- that no embedded
 observer exceeds BQP; informational completeness fixes the operations'
 type, and these efficiency hypotheses, not completeness alone, carry the
 complexity bound. The argument runs through \emph{informational
-completeness}: the quantum description exhausts the information
-accessible through any admissible operation --- operational closure, the
-model hypothesis stated above. No further computational capability
-within the model is available, because there is no additional
-information for further computation to access.
+completeness relative to the model}: the quantum description exhausts
+the information accessible through the admissible quantum instruments
+--- operational closure, the model hypothesis stated above; completeness
+for arbitrary conceivable operations is not asserted. And extra
+computational power would not even require extra information: modified
+or nonlinear evolution on the same state description already changes the
+complexity class --- which is precisely what the closure hypothesis
+excludes.
 
-\textbf{Informational completeness of the quantum description.} The
-framework's emergent quantum mechanics from Chapter 1 has a specific
-structural property: the density matrix \(\rho_V\) describing the
-visible sector contains \emph{all} the information accessible to the
-embedded observer about the visible sector's state. Any operation the
-observer performs on the visible sector --- measurement, transformation,
-post-selection --- operates on the density matrix and produces outcomes
-consistent with the density matrix's statistical predictions.
+\textbf{Informational completeness relative to the admissible
+instruments (model-scoped).} Within the operational-closure model, the
+density matrix \(\rho_V\) is a complete description: every admissible
+operation --- the quantum instruments the model specifies --- operates
+on \(\rho_V\) and produces outcomes consistent with its statistical
+predictions. Completeness for arbitrary conceivable operations is not
+asserted; it is exactly what the closure hypothesis supplies, not what
+the framework proves.
 
-There is no additional information for the observer to access. The
-hidden sector's specific state is structurally inaccessible to the
-embedded observer (Chapter 1 §1.4); the observer can detect the
+Hidden-state inaccessibility (Chapter 1 §1.4) is real but does not by
+itself yield closure: extra computational power need not come from extra
+information --- modified or nonlinear evolution acting on the same state
+description already changes the complexity class, which is what the
+closure hypothesis excludes. The observer can detect the
 \emph{statistical} effect of the hidden sector through the density
 matrix's mixedness but cannot detect the specific hidden-sector
 configuration. Any computational capability beyond what the density
@@ -17577,23 +17588,37 @@ is a \emph{quantum operation} in the standard sense: a completely
 positive trace-preserving (CPTP) map on the density matrix \(\rho_V\)
 for unconditioned evolution, with CP trace-nonincreasing branches for
 conditioned outcomes, and no additional nonlinear, post-quantum, oracle,
-or hidden-sector-access operation. Whether nature offers the observer
+or hidden-sector-access operation, and with conditioned branches and
+postselected preparations charged their physical
+success-probability/repetition cost (no free postselection:
+\(\mathrm{PostBQP} = \mathrm{PP}\)). Whether nature offers the observer
 anything beyond quantum instruments is exactly the operational-selection
 question Main leaves open ({[}Main §3.4{]}). This includes unitary
-evolution (a special case of CPTP map preserving purity), projective
-measurement (CPTP maps with specific structure), post-selection
-(non-CPTP but reduces to CPTP through normalization), and any
-combination of these.
+evolution (a special case, purity-preserving), projective measurement
+(an instrument whose unconditioned map is CPTP), and conditioned
+measurement branches (CP and trace-nonincreasing; the normalized
+post-outcome update divides by the outcome probability and is therefore
+nonlinear). Conditioned branches and postselected preparations are
+charged their physical success-probability/repetition cost: no
+exponentially rare outcome may be selected as a free computational
+primitive --- free postselection yields
+\(\mathrm{PostBQP} = \mathrm{PP}\), not BQP --- and any postselection
+the model uses must have polynomial total implementation or
+expected-repetition cost.
 
-The argument runs as follows. The embedded observer's operations are
-implemented through interactions between the observer's measurement
-apparatus and the visible sector. The apparatus itself is part of the
-visible sector (it is composed of visible-sector degrees of freedom).
-Any operation the apparatus performs is therefore a unitary evolution of
-the joint apparatus-system Hilbert space followed by projective
-measurement of the apparatus state. By the standard derivation of CPTP
-maps from such constructions, every operation the observer can perform
-on the visible sector is a CPTP map.
+The standard dilation picture motivates the model choice --- motivation
+for the hypothesis, not a derivation of closure. The embedded observer's
+operations are implemented through interactions between the observer's
+measurement apparatus and the visible sector. The apparatus itself is
+part of the visible sector (it is composed of visible-sector degrees of
+freedom). Any operation the apparatus performs is therefore a unitary
+evolution of the joint apparatus-system Hilbert space followed by
+projective measurement of the apparatus state. By the standard
+derivation of CPTP maps from such constructions, operations of that
+dilation form are CPTP --- which is why the standard quantum instrument
+set is the natural model choice; whether every operation nature offers
+the observer has that form is the operational-selection question, and
+the model assumes closure over exactly that set.
 
 \textbf{Computational complexity of CPTP maps.} The relationship runs in
 one direction only: any polynomial-size quantum circuit (with the stated
@@ -17680,7 +17705,10 @@ generated, uniformly describable evolutions over polynomial physical
 time, with polynomial precision and polynomial simulation overhead; and
 operational closure, all admissible operations being standard quantum
 instruments with no additional nonlinear, post-quantum, oracle, or
-hidden-sector-access operation. Then the class of computations the
+hidden-sector-access operation, and with conditioned branches and
+postselected preparations charged their physical
+success-probability/repetition cost (no free postselection:
+\(\mathrm{PostBQP} = \mathrm{PP}\)). Then the class of computations the
 observer can efficiently perform (in polynomial time with bounded error)
 is exactly BQP.
 
@@ -17702,9 +17730,10 @@ admissible operations is a model hypothesis, not a partition-structure
 guarantee --- deriving it is the operational-selection frontier ({[}Main
 §3.4{]}).
 
-Each of these is a structural feature of the framework's universality
-class; together with §14.4's computational-control and efficiency
-hypotheses they produce the conditional BQP characterization.
+The first two are structural features of the framework's universality
+class; the third is §14.4's added model hypothesis --- and together with
+the computational-control and efficiency hypotheses they produce the
+conditional BQP characterization.
 
 \textbf{Interpretation.} The characterization theorem has several
 interpretive consequences.
