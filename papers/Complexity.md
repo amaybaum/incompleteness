@@ -449,7 +449,7 @@ The GPS analogy is exact: GR corrections were irrelevant until clocks got precis
 
 ### 8.6 Engineered partitions: the bath as a resource
 
-Standard quantum engineering treats the environment as the enemy — decoherence destroys quantum information, and the goal is to isolate qubits from their surroundings. The framework suggests a fundamentally different design philosophy: *engineer* the C1–C4 architecture to produce the quantum behavior you want.
+Standard quantum engineering treats the environment as the enemy — decoherence destroys quantum information, and the goal is to isolate qubits from their surroundings. The framework suggests a fundamentally different design philosophy: *engineer* the C1–C4 memory architecture and realize the target quantum process as its finite-test shadow ([Main §3.4]) — the conditions do not by themselves select the operational mechanism.
 
 **The design principle.** Instead of isolating a qubit from all environmental coupling, deliberately couple it to a *slow, high-capacity hidden sector* with controllable properties. The hidden sector stores correlations written during one gate operation and returns them during a later operation. The bath is not noise — it is programmable quantum memory.
 

@@ -6767,15 +6767,19 @@ contradicted.
 
 \emph{Classical-memory simulability of any genuinely quantum process.}
 The characterization theorem developed in Chapter 1 §1.8 establishes
-that quantum mechanics is the description produced by an embedded
-observer satisfying C1--C4 on a deterministic substratum with bounded
-classical hidden-sector memory. This implies that every process the
-framework calls quantum admits a classical-memory simulation at
-appropriate scale. The commitment is specific: non-Markovian models are
-permitted and expected (they are how the hidden-sector correlation
-persistence manifests), but they must be realizable by finite classical
-memory. A process whose non-Markovianity is provably supra-classical
-falsifies the framework at the characterization-theorem level.
+that the memory-bearing description admitted by an embedded observer
+satisfying C1--C4 lives on a deterministic substratum with bounded
+classical hidden-sector memory. This implies that every process in the
+framework's fundamental memory-bearing class admits a classical-memory
+simulation at appropriate scale --- and, at finite test, every finite
+adaptive quantum experiment has a deterministic ε-shadow, while the
+exact continuum theory at any fixed finite carrier is excluded by the
+classical-dimension obstruction ({[}Main §3.4{]}). The commitment is
+specific: non-Markovian models are permitted and expected (they are how
+the hidden-sector correlation persistence manifests), but they must be
+realizable by finite classical memory. A process whose non-Markovianity
+is provably supra-classical falsifies the framework at the
+characterization-theorem level.
 
 \emph{The dark sector as entropy-displacement, not as a novel particle
 content.} The framework's account of dark energy as a Type II
@@ -12578,11 +12582,13 @@ chapters live at different (O × G) intersections.
 \emph{Chapter 1 (Quantum Mechanics from Embedded Observation).} The
 derivation lives at Level O2 × Level G1: the framework's most general
 structural commitments produce accessible non-Markovianity in the
-emergent description, with the quantum representation supplied by the
-imported correspondence under (T) and the operational instrument algebra
-still open ({[}Main §3.4{]}). The result is universality-class-level:
-any finite deterministic substratum satisfying C1--C4 produces the
-emergent quantum representation, regardless of the specific substratum
+emergent description, with the quantum representation internal and
+universal (\(S \iff D \iff Q_{\mathrm{fb}}\)), the imported
+correspondence retained for compression under (T), and the operational
+instrument algebra still open ({[}Main §3.4{]}). The result is
+universality-class-level: any finite deterministic substratum satisfying
+C1--C4 produces the memory-bearing description whose laws admit the
+universal quantum representation, regardless of the specific substratum
 dynamics.
 
 \emph{Chapter 5 (Gauge Structure).} The derivation of the Standard Model
@@ -16535,10 +16541,12 @@ reverses the conventional treatment. Quantum mechanics is \emph{not} the
 exception in biology; it is the \emph{default} wherever the framework's
 structural conditions C1--C4 hold. The framework's characterization
 theorem from Chapter 1 establishes that any embedded observer satisfying
-C1--C4 has emergent quantum dynamics --- this is universal, not
-exceptional. The relevant question for biology is therefore not ``where
-do quantum effects appear?'' but ``where do biological systems implement
-C1--C4, and what are the structural consequences?''
+C1--C4 has a memory-bearing description admitting the quantum
+representation --- the representation universal over finite laws, the
+memory the discriminating content ({[}Main §3.4{]}). The relevant
+question for biology is therefore not ``where do quantum effects
+appear?'' but ``where do biological systems implement C1--C4, and what
+are the structural consequences?''
 
 The reframing is significant. Biological systems routinely implement
 C1--C4 at multiple scales: the protein conformational landscape (Chapter
@@ -17211,7 +17219,8 @@ assumptions under which fault tolerance applies with polynomial overhead
 class accessible to a finite deterministic system satisfying the
 framework's structural conditions C1--C4. None of the model hypotheses
 follows from C1--C4 or from CPTP representability alone. The theorem has
-two directions. The \emph{lower bound} establishes that any embedded
+two directions. The \emph{lower bound} establishes that, under the
+explicit computational-control hypotheses of §14.4, any embedded
 observer satisfying C1--C4 has access to BQP computational resources ---
 the emergent quantum mechanics provides state preparation, a universal
 gate set, and Born-rule measurement, the full toolkit for BQP
@@ -17370,16 +17379,17 @@ alternative accounts of computational complexity in physical systems.
 \subsection{14.3 BQP is available: the lower
 bound}\label{bqp-is-available-the-lower-bound}}
 
-The lower bound of the BQP characterization theorem establishes that any
+The lower bound of the BQP characterization theorem establishes that,
+under the explicit computational-control hypotheses of §14.4, an
 embedded observer satisfying C1--C4 has access to BQP computational
-resources. The argument runs through the framework's emergent quantum
-mechanics from Chapter 1: the observer's reduced description is
-quantum-mechanical, and the standard quantum-computing toolkit (state
+resources. The argument runs through the framework's quantum
+representation from Chapter 1: the observer's reduced description admits
+the representation, and the standard quantum-computing toolkit (state
 preparation, universal gate set, Born-rule measurement) is available to
 the observer through standard operations on the visible sector.
 
 \textbf{The observer's quantum toolkit.} Chapter 1 developed the
-framework's emergent quantum description for any embedded observer
+framework's admitted quantum representation for any embedded observer
 satisfying C1--C4: a Hilbert space of visible-sector states, unitary
 evolution under the reduced Hamiltonian, and fixed-basis Born-rule
 readout --- the representation the equivalence supplies universally
@@ -17399,8 +17409,9 @@ by itself.
 The standard quantum-computing toolkit is built on exactly these
 features. \emph{State preparation} (producing a specific quantum state
 for computation) corresponds to projective measurement followed by
-post-selection --- operations the observer has access to as part of the
-emergent quantum mechanics. \emph{Gate application} (transforming the
+post-selection --- operations belonging to §14.4's explicit
+computational-control model, realized at finite test by the operational
+layer ({[}Main §3.4{]}). \emph{Gate application} (transforming the
 quantum state through unitary operations) corresponds to time evolution
 under controllable Hamiltonians --- available wherever the observer can
 engineer the visible sector's dynamics. \emph{Measurement} (reading the
@@ -18475,14 +18486,16 @@ be minimized.
 
 The framework's content suggests a fundamentally different design
 philosophy. Instead of isolating a qubit from all environmental
-coupling, \emph{engineer} the C1--C4 architecture to produce the quantum
-behavior you want. The hidden sector is not noise but \emph{programmable
-quantum memory} --- a resource that stores correlations written during
-one gate operation and returns them during subsequent operations. The
-bath becomes a design variable rather than a constraint.
+coupling, \emph{engineer} the C1--C4 memory architecture and realize the
+target quantum process as its finite-test shadow ({[}Main §3.4{]}) ---
+the conditions do not by themselves select the operational mechanism.
+The hidden sector is not noise but \emph{programmable quantum memory}
+--- a resource that stores correlations written during one gate
+operation and returns them during subsequent operations. The bath
+becomes a design variable rather than a constraint.
 
-\textbf{The structural argument.} The framework's emergent quantum
-mechanics from Chapter 1 develops the read-write cycle as the
+\textbf{The structural argument.} The framework's Chapter-1
+memory-architecture account develops the read-write cycle as the
 realization's mechanism picture for the coupling between visible and
 hidden sectors. The cycle's specific properties --- the coherence
 timescale, the information-backflow pattern, the noise correlation

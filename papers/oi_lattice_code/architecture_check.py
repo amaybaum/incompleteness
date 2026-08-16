@@ -559,6 +559,19 @@ INVARIANTS = [
      "the fixed-basis representation is internal; Barandes is retained for compression and interpretation (Main §3.4, b135)",
      [],
      "an external result used as a load-bearing dependency"),
+    # ---- b136 families: review-45 editorial-sweep regressions ----
+    (r"establishes that any embedded observer satisfying C1–C4 has access to BQP",
+     "BQP access is conditional on the explicit computational-control hypotheses of ch14 §14.4 (b136)",
+     [],
+     "establishes that any embedded observer satisfying C1–C4 has access to BQP computational resources"),
+    (r"produce the quantum behavior you want",
+     "C1–C4 characterize memory architecture; target processes are realized as finite-test shadows, not selected by the conditions (Main §3.4, b136)",
+     [],
+     "engineer the C1–C4 architecture to produce the quantum behavior you want"),
+    (r"as part of the emergent quantum mechanics",
+     "capabilities belong to the stated computational-control model / operational layer, not to emergent QM as such (b136)",
+     [],
+     "operations the observer has access to as part of the emergent quantum mechanics"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---

@@ -3064,13 +3064,20 @@ summed over outcomes), rounding injects at most \(\eta\) per unit trace
 norm, and clipping or the fallback only removes or relabels mass, so
 \[\nu_{t+1} \;\leq\; \nu_t + \eta\, \|\widehat\sigma_t\|_1 \;\leq\; \nu_t + 2\eta, \qquad \nu_0 = 0, \qquad \nu_t \leq 2t\eta.\]
 The Hermitian-input application of the Corollary costs at most
-\(8\nu_t\) extra across the parents, so
+\(8\nu_t\) extra across the parents --- write
+\(\widehat\rho = \widehat\rho_+ - \widehat\rho_-\), apply the
+positive-branch estimate to \(\widehat\rho_+\), and charge the
+exact-instrument contraction and the clipping/renormalization
+perturbation of \(\widehat\rho_-\) by triangle inequality --- so
 \(\delta_{t+1} \leq \delta_t + 4\eta(1{+}\delta_t) + 8\nu_t \leq \delta_t + 8\eta + 16t\eta\),
 and the one-line summation \(\sum_{t<K}(8\eta + 16t\eta) = 8K^2\eta\)
 delivers the classical-marginal rounding term of clause (1) as
-\(12\, K^2 C_{d,R}\, 2^{-b}\), with slack --- the \(K^2\) carried by the
-ledger, entering the bit requirement only through one extra
-\(\log_2 K\); tightening it away is a named polish, not a gap.
+\(12\, K^2 C_{d,R}\, 2^{-b}\), with slack (WLOG
+\(0 < \varepsilon \leq 1\): the choice of \(b\) gives
+\(8t^2\eta \leq \tfrac13\) inductively, closing the bootstrap
+\(\delta_t < 1\) behind \(4\eta(1{+}\delta_t) \leq 8\eta\)) --- the
+\(K^2\) carried by the ledger, entering the bit requirement only through
+one extra \(\log_2 K\); tightening it away is a named polish, not a gap.
 Positivity of the register is never needed --- Hermiticity is exact by
 construction, and contraction holds on Hermitian arguments.* \(\square\)
 Status: proved at instrument level; per-outcome and cq-aggregate
@@ -4171,11 +4178,12 @@ Site
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-(ii) \(\implies\) (i): P-indivisible \(\implies\) quantum representation
-& Imported ({[}11, 12{]}); accessible timescales; fixed-\(\hat{H}\)
-under time-homogeneity. The converse is retired: (i) alone does not
-imply (ii) (diagonal-\(\hat{H}\); slow clock;
-\texttt{review3\_probes.py}) & §3.4 \\
+(ii) \(\implies\) (i): P-indivisible \(\implies\) nontrivial quantum
+representation (the representation itself universal, §3.4) & Imported
+({[}11, 12{]}); accessible timescales; fixed-\(\hat{H}\) under
+time-homogeneity. The converse is retired: (i) alone does not imply (ii)
+(diagonal-\(\hat{H}\); slow clock; \texttt{review3\_probes.py}) &
+§3.4 \\
 (ii) \(\implies\) (iii): process \(\implies\) deterministic realization
 & Proved constructively, per accessible horizon --- finite-horizon
 process dilation reproducing the full multi-time law; the realization
