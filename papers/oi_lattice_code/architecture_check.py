@@ -511,6 +511,15 @@ INVARIANTS = [
      "the conditions produce the quantum representation and the memory sector; they do not by themselves produce operational quantum theory (Main §3.4, b131)",
      [],
      "the four conditions produced quantum mechanics in Part I"),
+    # ---- b132 families: further regression phrasings caught by review 41 ----
+    (r"produce(s)? emergent quantum mechanics",
+     "conditions select the memory-bearing sector; its finite laws ADMIT the universal Q_fb representation (Main §3.4, b132)",
+     [],
+     "these conditions produce emergent quantum mechanics"),
+    (r"formalism — quantum(,| mechanics)",
+     "the memory-bearing formalism ADMITS the quantum representation; it is not identified with quantum mechanics (Main §3.4, b132)",
+     [],
+     "must use a memory-bearing formalism — quantum mechanics for processes in the class"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---

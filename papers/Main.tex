@@ -2875,7 +2875,7 @@ model, and the Corollary the finite-test density --- the
 classical-dimension obstruction licenses exactly this density form and
 no stronger one, finite behavior sets approximating curved state spaces
 arbitrarily well while approximation is not selection. Route (i) is
-closed: the Rounding Lemma is proved for the stated evaluation algorithm
+closed: the Rounding Lemma is proved in the fixed-point dyadic model
 with explicit polynomial constant (clause (5)), making the finite-bit
 capacity clause unconditional. Route (ii), selection, is open entire.
 \textbf{(ii) The selector route:} derive from observation
@@ -2917,15 +2917,15 @@ instrument, extended to a bijection by finite padding --- with:}
 over \(\mathcal{F}\) through \(K\), the realized outcome-sequence law is
 within \(K(|\mathcal{O}_{\max}|{-}1)/G\) of the quantum law in total
 variation, \(|\mathcal{O}_{\max}|\) the largest per-instrument outcome
-count --- \(K/G\) for binary-outcome instruments; in the \(b\)-bit
-register regime an additional state-update term joins the same
+count --- \(K/G\) for binary-outcome instruments; in the fixed-point
+\(b\)-bit regime an additional state-update term joins the same
 telescoping sum, giving the unified bound
 \(\|P_R - P_Q\|_{\mathrm{TV}} \leq K\left[(|\mathcal{O}_{\max}|{-}1)/G + C_{d,r}\, 2^{-b}\right]\),
 absorbed by \(G \geq 2K(|\mathcal{O}_{\max}|{-}1)/\varepsilon\) and
 \(b \geq \log_2(2K C_{d,r}/\varepsilon)\), each term at most
 \(\varepsilon/2\) (\(r \leq d^2\) the Kraus rank); the \(b\)-bit term is
-supplied by the Rounding Lemma of clause (5) --- proved there for the
-stated evaluation algorithm --- so both regimes are unconditional, the
+supplied by the Rounding Lemma of clause (5) --- proved there in the
+fixed-point dyadic model --- so both regimes are unconditional, the
 exact-ring one additionally probe-certified end-to-end.}
 
 \emph{(2) \textbf{Gluing by restriction.} For every
@@ -2955,7 +2955,9 @@ of §3.3.}
 instruments' entry ring,
 \(\log_2|\mathcal{C}_H| \leq (K{+}1)\log_2|V_{\mathrm{reach}}(\mathcal{F}, K)| + K \log_2 G\),
 where \(V_{\mathrm{reach}}\) is the finite set of unnormalized branch
-vectors reachable in \(\leq K\) steps; with \(b\)-bit registers,
+vectors reachable in \(\leq K\) steps; with fixed-point dyadic registers
+(\(b\) fractional bits and \(O(\log d)\) integer bits per entry, all
+counted),
 \(G = \lceil 2K(|\mathcal{O}_{\max}|{-}1)/\varepsilon \rceil\),
 \(b \geq \log_2(2K C_{d,r}/\varepsilon)\), and a canonical
 renormalization --- the branch register replaced after each instrument
@@ -2964,9 +2966,10 @@ power-of-two rescaling into a fixed norm window, the ring extended by
 \(\tfrac12\); no shift is stored anywhere: the thresholds are
 scale-invariant, so the realized law is unchanged, and reversibility
 needs no exponent, the predecessor stack holding the predecessor itself
---- the mantissa needs only
-\(b = O(\log(K d\, |\mathcal{O}|/\varepsilon))\) bits with no exponent
-accumulation, giving
+--- the fractional precision needs only
+\(b = O(\log(K d\, |\mathcal{O}|/\varepsilon))\) bits --- plus the
+counted \(O(\log d)\) integer bits per entry, no exponent anywhere,
+giving
 \(\log_2|\mathcal{C}_H| = O\!\left(K\, d^2 \log(K d\, |\mathcal{O}|/\varepsilon) + K \log_2 G\right)\)
 in general --- linear in \(K\) up to logarithms, the former
 exponent-range \(K^2\) term removed (rescaling invariance certified:
@@ -2980,33 +2983,43 @@ the constructed realization on those families,
 --- the former \(+E\) on the right removed with the exponent range by
 the canonical renormalization above.}
 
-\emph{Rounding Lemma (proved, for the stated evaluation algorithm).}
-\emph{Fix the evaluation: Kraus constants pre-rounded to \(b\) bits;
-\(B_\alpha = \mathrm{fl}(M_\alpha \tilde\rho)\) and then
-\(\mathrm{fl}(B_\alpha M_\alpha^\dagger)\) entry-by-entry as inner
-products; the \(\alpha\)-sum accumulated in order; round-to-nearest with
-unit roundoff \(u = 2^{-b}\), all magnitudes kept in window by the
-canonical renormalization. The classical inner-product bound
-\(|\mathrm{fl}(x^{\top}y) - x^{\top}y| \leq \gamma_n \sum_i |x_i||y_i|\)
-with \(\gamma_n = nu/(1{-}nu)\), together with
-\(\|M_\alpha\|_{\max} \leq \|M_\alpha\|_{\mathrm{op}} \leq 1\) and
-\(\sum_{kl}|\tilde\rho_{kl}| \leq d\, \|\tilde\rho\|_1\), gives
-componentwise error at most
-\(\gamma_{2d+r+2}\, r\, d\, \|\tilde\rho\|_1\) across the \(r\) Kraus
-terms; converting by \(\|A\|_1 \leq d^2 \max_{ij}|a_{ij}|\) yields
-\(\|\widehat{\mathcal{I}}_o(\tilde\rho) - \mathcal{I}_o(\tilde\rho)\|_1 \leq C_{d,r}\, 2^{-b}\, \|\tilde\rho\|_1\)
-with the explicit constant \(C_{d,r} = 4(d{+}r{+}2)\, r\, d^3\), valid
-once \((2d{+}r{+}2)2^{-b} \leq \tfrac12\) --- polynomial in \(d\)
-(\(O(d^7)\) at Kraus rank \(r \leq d^2\), \(O(d^5)\) at \(r = O(d)\)),
-the earlier \(O(d^2)\) retracted as unestablished; only
-\(\log_2 C_{d,r}\) enters the mantissa requirement, so the resource
-conclusion is unchanged up to a constant factor. Outcome probabilities
-inherit the bound through the trace, and trace-nonincreasing CP maps
-propagate trace-norm error without amplification --- whence the
+\emph{Rounding Lemma (proved, fixed-point dyadic model).}
+\emph{Floating-point entries carry uncounted per-entry exponents, so a
+``\(b\)-bit floating register'' is not literally a finite-\(b\)-bit
+state description; the model is therefore fixed-point: after the
+canonical renormalization every register entry is a dyadic rational with
+\(b\) fractional bits and \(O(\log d)\) integer bits, all counted;
+Hermiticity is exact by storing the upper triangle and defining the
+lower by conjugation; each operation rounds to \(b\) fractional bits
+with absolute error \(\leq 2^{-b}\). Two error sources, both bounded.
+(i) Kraus quantization: pre-rounding gives
+\(\widehat M_\alpha = M_\alpha + \Delta_\alpha\) with
+\(\|\Delta_\alpha\|_{\max} \leq 2^{-b}\), and
+\(\widehat M_\alpha \tilde\rho\, \widehat M_\alpha^\dagger - M_\alpha \tilde\rho\, M_\alpha^\dagger\)
+is componentwise at most \(3 \cdot 2^{-b} d \max_{kl}|\tilde\rho_{kl}|\)
+per Kraus term. (ii) Arithmetic with propagation: the first product
+injects \(\leq 2d\, 2^{-b}\) per entry, the second matmul propagates
+that with gain \(\leq d\) and injects again, and the \(\alpha\)-sum
+accumulates \(r\) terms --- componentwise \(\leq 5 r d^2\, 2^{-b}\).
+With the window \(\|\tilde\rho\|_1 \in [\tfrac12, 2]\) (so
+\(\max|\tilde\rho_{kl}| \leq 2 \leq 4\|\tilde\rho\|_1\)) and
+\(\|A\|_1 \leq d^2 \max_{ij}|a_{ij}|\):}
+\[\|\widehat{\mathcal{I}}_o(\tilde\rho) - \mathcal{I}_o(\tilde\rho)\|_1 \leq C_{d,r}\, 2^{-b}\, \|\tilde\rho\|_1, \qquad C_{d,r} = 24\, r\, d^4\]
+\emph{--- polynomial in \(d\) (\(O(d^6)\) at Kraus rank \(r \leq d^2\));
+the earlier \(O(d^2)\) remains retracted, and the floating-point route's
+\(\gamma_n\) analysis is superseded, its per-entry exponent ranges never
+having been counted state. The rounded register can still acquire a
+slightly negative eigenvalue; the construction never needs positivity
+--- trace-norm contraction of trace-nonincreasing CP maps holds on
+Hermitian arguments, and Hermiticity is exact by construction --- and
+the thresholds use the clipped values
+\(\tilde q_o = \max(\widehat q_o, 0)\), at least as close to the true
+conditionals, the clipping absorbed into the same term. Outcome
+probabilities inherit the bound through the trace --- whence the
 \(K C_{d,r} 2^{-b}\) term through clause (1)'s telescoping.} \(\square\)
-Status: with the Lemma proved for the stated algorithm, the finite-\(b\)
-capacity clause is unconditional; the inequality is additionally
-instance-certified in exact rational simulation of \(b\)-bit rounding at
+Status: proved in the fixed-point dyadic model with both error sources
+included; instance-certified in exact rational simulation of the
+\(b\)-fractional-bit rounding, Hermiticity enforced by construction, at
 \(b \in \{8, 16, 24\}\) (check 14, \texttt{opglue\_probes.py}).
 
 \emph{Proof (construction and bound).} The step map \(\varphi_a\) reads
@@ -3029,19 +3042,19 @@ through cumulative integer thresholds, off by at most
 outcomes, and --- because the branch register is carried unnormalized
 --- the true conditionals are computed exactly in the ring, so in the
 exact-arithmetic regime the grid is the only error source; the chain
-rule over \(K\) steps gives (1). In the floating-point regime the
-per-step relative rounding is \(O(d^2 2^{-b})\), uniform along every
-branch because the registers are floating-point, and joins the same
-chain-rule sum. Adaptivity is free: an adaptive protocol's trajectory
-probability is the product of the same per-step conditionals along its
-realized history, and (2) is the observation that the construction never
-asks which protocol is running. \emph{Certified} at
-\((d, K, |\mathcal{F}|) = (2, \{2,3\}, 4)\) --- projective \(Z\) and
-\(X\), the Hadamard intervention, and the 3-4-5 rotation, whose
-non-dyadic branch probabilities make the grid error strictly positive
---- with the \(K/G\) bound and \(\sim 1/G\) scaling observed at
-\(G \in \{8, 128, 1024\}\); operational noncommutativity reproduced at
-total variation \(\tfrac12\) between the \(XZ\) and \(ZX\)
+rule over \(K\) steps gives (1). In the finite-precision regime the
+per-step rounding contributes \(O(C_{d,r}\, 2^{-b})\) in trace norm (the
+Rounding Lemma below, fixed-point dyadic model), uniform along every
+branch, and joins the same chain-rule sum. Adaptivity is free: an
+adaptive protocol's trajectory probability is the product of the same
+per-step conditionals along its realized history, and (2) is the
+observation that the construction never asks which protocol is running.
+\emph{Certified} at \((d, K, |\mathcal{F}|) = (2, \{2,3\}, 4)\) ---
+projective \(Z\) and \(X\), the Hadamard intervention, and the 3-4-5
+rotation, whose non-dyadic branch probabilities make the grid error
+strictly positive --- with the \(K/G\) bound and \(\sim 1/G\) scaling
+observed at \(G \in \{8, 128, 1024\}\); operational noncommutativity
+reproduced at total variation \(\tfrac12\) between the \(XZ\) and \(ZX\)
 outcome-string laws, with \(Z\)-repeatability exact; restriction
 identity; per-instrument injectivity over all 672 reachable states;
 capacity floor --- exact arithmetic over \(\mathbb{Q}(\sqrt2)\); the
@@ -3176,13 +3189,14 @@ stated operational interface, the unbounded-dimension half imported
 {[}55{]}. (4) Every \(d\)-dimensional quantum experiment of horizon
 \(K\) has a finite reversible deterministic \(\varepsilon\)-realization
 --- proved unconditionally at exact arithmetic AND at finite \(b\) (the
-Rounding Lemma now proved for the stated algorithm), covering general
+Rounding Lemma proved in the fixed-point dyadic model), covering general
 instruments, mixed conditionals, incompatible measurements, and adaptive
 protocols, with explicit controlled-model resources and one controlled
 dynamics serving all protocols. Per (3), density is the maximum: the
 equivalence cannot be strengthened to exact class identity at any fixed
 carrier, so what remains is precisely selection --- route (ii). This is
-the maximal equivalence the finite-substratum premise admits.
+the maximal equivalence available to a fixed finite substratum under the
+stated operational interface.
 
 \textbf{Theorem (unavoidable hidden predictive memory).} \emph{Let
 \(\mathcal{S}\) be a visible process and let \(\mathcal{R}\) be ANY
@@ -3881,15 +3895,16 @@ chains are members and P-indivisibility marks the nontrivially
 indivisible dynamical sector, not a membership criterion --- to unitary
 quantum evolutions in compressed (\(\leq n^3\)) form under (T); the
 present framework supplies the physical mechanism (embedded observation
-under C1--C4) that produces the memory-bearing, P-indivisible processes
-occupying that nontrivial sector, and supplies the fixed-basis
-representation itself internally (\(S \iff D \iff Q_{\mathrm{fb}}\),
-§3.4), retaining the import for compression and interpretation. The
-three earlier programs identified emergent QM as a legitimate research
-target; what the present framework adds is an equivalence with necessary
-and sufficient conditions --- (ii) \(\iff\) (iii) with representability
-as a one-way consequence (§3.4) --- and a constructive derivation chain
-that does not require independent quantization conditions or equilibrium
+under C1--C4) that produces the memory-bearing processes occupying that
+nontrivial sector --- P-indivisibility in the stronger regimes
+established separately --- and supplies the fixed-basis representation
+itself internally (\(S \iff D \iff Q_{\mathrm{fb}}\), §3.4), retaining
+the import for compression and interpretation. The three earlier
+programs identified emergent QM as a legitimate research target; what
+the present framework adds is an equivalence with necessary and
+sufficient conditions --- (ii) \(\iff\) (iii) with representability as a
+one-way consequence (§3.4) --- and a constructive derivation chain that
+does not require independent quantization conditions or equilibrium
 ensembles.
 
 \textbf{Relation to the post-2022 observer-essentiality wave.} A

@@ -22,7 +22,8 @@
 # Extended: checks 8–9 telescoping / off-net density (b126b), 10 rescaling invariance (b127),
 # 11–12 density register + mixed conditionals for multi-Kraus instruments (b128),
 # 13 single controlled dynamics — one bijection, protocol as initial condition (b129),
-# 14 Rounding Lemma instances — exact rational b-bit rounding vs exact instrument (b131).
+# 14 Rounding Lemma instances — exact rational FIXED-POINT dyadic rounding vs exact
+#    instrument, Hermiticity by upper-triangle storage (b131, reworked b132).
 
 import sys, math
 from fractions import Fraction as F
@@ -490,16 +491,13 @@ check("single_controlled_dynamics", inj and match,
 
 # ---- (14) Rounding Lemma instances: exact rational simulation of b-bit rounding (b131) ----
 def fl_frac(x, b):
-    if x == 0: return F(0)
-    ax = -x if x < 0 else x
-    e = ax.numerator.bit_length() - ax.denominator.bit_length()
-    if F(2) ** e > ax: e -= 1
-    while F(2) ** (e + 1) <= ax: e += 1
-    scaled = x * F(2) ** (b - 1 - e)
-    fl = scaled.numerator // scaled.denominator
-    rem = scaled - fl
+    # fixed-point dyadic rounding: b FRACTIONAL bits, round-to-nearest-even,
+    # absolute error <= 2^{-b-1}; integer part unconstrained (O(log d) bits, counted)
+    num = x * (2 ** b)
+    fl = num.numerator // num.denominator
+    rem = num - fl
     if rem > F(1, 2) or (rem == F(1, 2) and fl % 2 == 1): fl += 1
-    return F(fl) * F(2) ** (e - b + 1)
+    return F(fl, 2 ** b)
 def fadd(x, y, b): return fl_frac(x + y, b)
 def fmul(x, y, b): return fl_frac(x * y, b)
 def cmulf(z, w, b):   # complex parts as (re, im) Fractions
@@ -543,8 +541,9 @@ def float_apply(Ks, rho, b):
         B = mmulf(Kr, rho, b)
         Cm = mmulf(B, dagf(Kr), b)
         out = maddf(out, Cm, b)
+    out[1][0] = (out[0][1][0], -out[0][1][1])   # Hermiticity exact: upper-triangle storage
     return out
-Cdr = F(384)   # 4(d+r+2) r d^3 at d=2, r=2
+Cdr = F(768)   # 24 r d^4 at d=2, r=2 (fixed-point dyadic model, propagation counted)
 ok14 = True
 worst = F(0)
 for Ks in (KR_N, KR_Z0):
@@ -561,9 +560,12 @@ for Ks in (KR_N, KR_Z0):
             lhs = 2 * fro2
             rhs = Cdr*Cdr * F(1, 4**b) * tr*tr
             if lhs > rhs: ok14 = False
+            herm = all(Eh[i][j][0] == Eh[j][i][0] and Eh[i][j][1] == -Eh[j][i][1]
+                       for i in range(2) for j in range(2))
+            if not herm: ok14 = False
             if rhs > 0 and lhs * 10**12 // rhs > worst: worst = lhs * 10**12 // rhs
 check("rounding_lemma_instances", ok14,
-      f"18 instances (2 instruments x 3 states x b in 8,16,24): ||diff||_1 <= C_dr 2^-b Tr rho with C_dr=384; worst ratio {float(worst)/1e12:.2e}")
+      f"18 instances, fixed-point dyadic (b fractional bits), Hermiticity exact by construction: ||diff||_1 <= C_dr 2^-b Tr rho with C_dr=768 (24 r d^4); worst ratio {float(worst)/1e12:.2e}")
 
 print(f"summary: hidden states {len(hid)} (log2 {log2CH:.2f}); "
       f"RZ TV at G=8/128/1024: {tv_rz[8]:.2e}/{tv_rz[128]:.2e}/{tv_rz[1024]:.2e}")
