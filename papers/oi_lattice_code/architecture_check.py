@@ -520,6 +520,28 @@ INVARIANTS = [
      "the memory-bearing formalism ADMITS the quantum representation; it is not identified with quantum mechanics (Main §3.4, b132)",
      [],
      "must use a memory-bearing formalism — quantum mechanics for processes in the class"),
+    # ---- b133 families: review-42 corpus regressions must stay retired ----
+    (r"not merely sufficient for quantum mechanics",
+     "necessity holds in the memory currency, not for quantum mechanics as such (Main §3.4, b133)",
+     [],
+     "the conditions are not merely sufficient for quantum mechanics to emerge"),
+    (r"(C1–C4|the four conditions) imply P-indivisibility|under C1–C4 the marginalized stochastic process is P-indivisible —",
+     "C1–C4 give accessible non-Markovianity; P-indivisibility needs the stronger recurrence/non-permutation regimes (Main §3.4, b133)",
+     [],
+     "under C1–C4 the marginalized stochastic process is P-indivisible — a precise property"),
+    (r"any system equivalent to unitarily evolving",
+     "the retired converse: memory-free unitary systems need only the trivial realization; the characterization is in the memory currency (Main §3.4, b133)",
+     [],
+     "and, under (T), any system equivalent to unitarily evolving quantum mechanics arises from"),
+    # ---- b134 families: review-43 corpus-lag phrasings ----
+    (r"mechanism for emergent quantum mechanics",
+     "P-indivisibility marks the nontrivially indivisible sector; the quantum representation is admitted, not mechanically produced (Main §3.4, b134)",
+     [],
+     "P-indivisibility, the framework's mechanism for emergent quantum mechanics"),
+    (r"therefore equivalent to unitary quantum mechanics",
+     "the reduced description ADMITS the quantum representation; equivalence-as-identity is the retired reading (Main §3.4, b134)",
+     [],
+     "the description is P-indivisible and therefore equivalent to unitary quantum mechanics"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---

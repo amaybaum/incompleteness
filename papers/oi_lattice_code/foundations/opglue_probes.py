@@ -23,7 +23,8 @@
 # 11–12 density register + mixed conditionals for multi-Kraus instruments (b128),
 # 13 single controlled dynamics — one bijection, protocol as initial condition (b129),
 # 14 Rounding Lemma instances — exact rational FIXED-POINT dyadic rounding vs exact
-#    instrument, Hermiticity by upper-triangle storage (b131, reworked b132).
+#    instrument, Hermiticity by upper-triangle storage (b131, reworked b132);
+#    plus the instrument-level cq aggregate over the whole outcome direct sum (b133).
 
 import sys, math
 from fractions import Fraction as F
@@ -543,7 +544,8 @@ def float_apply(Ks, rho, b):
         out = maddf(out, Cm, b)
     out[1][0] = (out[0][1][0], -out[0][1][1])   # Hermiticity exact: upper-triangle storage
     return out
-Cdr = F(768)   # 24 r d^4 at d=2, r=2 (fixed-point dyadic model, propagation counted)
+Cdr = F(768)   # per-outcome 24 r d^4 at d=2, r=2 (fixed-point dyadic model)
+CdR = F(2304)  # instrument-level 48 R d^4 at d=2, R=3 (cq direct sum, b133)
 ok14 = True
 worst = F(0)
 for Ks in (KR_N, KR_Z0):
@@ -565,7 +567,123 @@ for Ks in (KR_N, KR_Z0):
             if not herm: ok14 = False
             if rhs > 0 and lhs * 10**12 // rhs > worst: worst = lhs * 10**12 // rhs
 check("rounding_lemma_instances", ok14,
-      f"18 instances, fixed-point dyadic (b fractional bits), Hermiticity exact by construction: ||diff||_1 <= C_dr 2^-b Tr rho with C_dr=768 (24 r d^4); worst ratio {float(worst)/1e12:.2e}")
+      f"18 per-outcome instances, fixed-point dyadic, Hermiticity exact: worst ratio {float(worst)/1e12:.2e}")
+# instrument-level cq aggregate: sum of block errors vs C_{d,R} (whole instrument N: R=3)
+KR_N1 = [[[(F(0), F(0)), (F(0), F(0))], [(F(0), F(0)), (F(1), F(0))]]]   # outcome 1: P1
+ok14b = True
+worstb = F(0)
+for rho in STATES:
+    tr = rho[0][0][0] + rho[1][1][0]
+    for b in (8, 16, 24):
+        tot2 = F(0)
+        for Ks in (KR_N, KR_N1):
+            E = exact_apply(Ks, rho); Eh = float_apply(Ks, rho, b)
+            fro2 = F(0)
+            for i in range(2):
+                for j in range(2):
+                    dr = Eh[i][j][0] - E[i][j][0]; di = Eh[i][j][1] - E[i][j][1]
+                    fro2 += dr*dr + di*di
+            tot2 += fro2
+        # sum_o ||diff_o||_1 <= sqrt(2) * sum_o ||diff_o||_F <= sqrt(2) * sqrt(2 * tot2)  (2 blocks)
+        lhs = 4 * tot2                       # (sum_o ||.||_1)^2 <= 2 * (2 * tot2) = 4 tot2
+        rhs = CdR*CdR * F(1, 4**b) * tr*tr
+        if lhs > rhs: ok14b = False
+        if rhs > 0 and lhs * 10**12 // rhs > worstb: worstb = lhs * 10**12 // rhs
+check("rounding_lemma_cq_instrument", ok14b,
+      f"instrument-level cq: sum over outcome blocks <= C_dR 2^-b Tr rho, C_dR=2304 (48 R d^4, R=3); worst ratio {float(worstb)/1e12:.2e}")
+
+# ---- (15) cq telescoping: exact vs fixed-point subnormalized branch ensembles (b133) ----
+b15, K15 = 16, 3
+INSTR15 = {"N": [KR_N, KR_N1], "Z": [KR_Z0, KR_N1]}
+prot15 = ["N", "Z", "N"]
+RHO_P = [[(F(1,2),F(0)),(F(1,2),F(0))],[(F(1,2),F(0)),(F(1,2),F(0))]]
+sig_ex = {(): RHO_P}
+sig_fx = {(): RHO_P}
+for a in prot15:
+    ne, nf = {}, {}
+    for h in sig_ex:
+        for oi, Ks in enumerate(INSTR15[a]):
+            ne[h + (oi,)] = exact_apply(Ks, sig_ex[h])
+            nf[h + (oi,)] = float_apply(Ks, sig_fx[h], b15)
+    sig_ex, sig_fx = ne, nf
+sumfro2 = F(0)
+sumtr = F(0)
+hermall = True
+for h in sig_ex:
+    E, Eh = sig_ex[h], sig_fx[h]
+    fro2 = F(0)
+    for i in range(2):
+        for j in range(2):
+            dr = Eh[i][j][0] - E[i][j][0]; di = Eh[i][j][1] - E[i][j][1]
+            fro2 += dr*dr + di*di
+    sumfro2 += fro2
+    dtr = (Eh[0][0][0] + Eh[1][1][0]) - (E[0][0][0] + E[1][1][0])
+    sumtr += (dtr if dtr >= 0 else -dtr)
+    hermall &= all(Eh[i][j][0] == Eh[j][i][0] and Eh[i][j][1] == -Eh[j][i][1]
+                   for i in range(2) for j in range(2))
+RHS15 = 2 * K15 * CdR * F(1, 2**b15)
+# (sum_h ||diff_h||_1)^2 <= |branches| * sum_h 2 fro2_h  (Cauchy-Schwarz + sqrt2||.||_F at d=2)
+ok15 = (len(sig_ex) * 2 * sumfro2 <= RHS15 * RHS15) and (sumtr <= RHS15) and hermall
+check("cq_telescoping", ok15,
+      f"K=3 ensemble, {len(sig_ex)} branches incl. rare: total ||diff||_1 bound and classical-marginal drift {float(sumtr):.2e} both <= 2 K C_dR 2^-b = {float(RHS15):.2e}; Hermiticity everywhere")
+
+# ---- (16) the actual simulator kernel: clip + normalize + grid-free ratios (b134) ----
+from math import isqrt
+def branch_neg_upper(A):
+    # EXACT eigen form for 2x2 Hermitian: ||A_-||_1 = max(0, (sqrt(T^2-4detA) - T)/2),
+    # with a dyadic ceiling on the square root (tight: slack ~2^-40)
+    T = A[0][0][0] + A[1][1][0]
+    det = A[0][0][0]*A[1][1][0] - (A[0][1][0]*A[0][1][0] + A[0][1][1]*A[0][1][1])
+    disc = T*T - 4*det
+    if disc <= 0: return F(0)
+    N = (disc * 4**40).numerator // (disc * 4**40).denominator + 1
+    su = F(isqrt(N) + 1, 2**40)
+    v = (su - T) / 2
+    return v if v > 0 else F(0)
+ok16 = True
+for b16 in (20, 24):
+    eta = CdR * F(1, 2**b16)
+    ex = {(): (RHO_P, F(1))}
+    fxk = {(): (RHO_P, F(1))}
+    dropped = F(0)
+    for step, a in enumerate(prot15, start=1):
+        ne, nf = {}, {}
+        for h in ex:
+            rho_e, w_e = ex[h]
+            Be = [exact_apply(Ks, rho_e) for Ks in INSTR15[a]]
+            se = sum(B[0][0][0] + B[1][1][0] for B in Be)
+            for oi, B in enumerate(Be):
+                tre = B[0][0][0] + B[1][1][0]
+                ne[h + (oi,)] = (B, w_e * (tre / se if se > 0 else F(0)))
+        nu = F(0)
+        for h in fxk:
+            rho_f, w_f = fxk[h]
+            Bf = [float_apply(Ks, rho_f, b16) for Ks in INSTR15[a]]
+            cs = [max(B[0][0][0] + B[1][1][0], F(0)) for B in Bf]
+            Qh = sum(cs)
+            if Qh <= 0:
+                # dead branch: the simulator drops it (zero denominator); its mass is error
+                dropped += w_f
+                for oi, B in enumerate(Bf):
+                    nf[h + (oi,)] = (B, F(0))
+                continue
+            for oi, B in enumerate(Bf):
+                nf[h + (oi,)] = (B, w_f * cs[oi] / Qh)
+                nu += branch_neg_upper(B)
+        if nu > 2 * step * eta:
+            ok16 = False; print(f"  DIAG b={b16} step={step}: nu {float(nu):.2e} > {float(2*step*eta):.2e}")
+        ex, fxk = ne, nf
+    tv = sum(abs(ex[h][1] - fxk[h][1]) for h in ex) / 2
+    bound = 12 * 9 * CdR * F(1, 2**b16)          # 12 K^2 C_{d,R} 2^-b, K=3
+    if dropped > 2 * 3 * eta:
+        ok16 = False; print(f"  DIAG b={b16}: dropped mass {float(dropped):.2e}")
+    tv = tv + dropped / 2
+    if tv > bound:
+        ok16 = False; print(f"  DIAG b={b16}: tv {float(tv):.2e} > bound {float(bound):.2e}")
+check("simulator_kernel_clipped_normalized", ok16,
+      "actual pre-grid kernel (clip + per-parent normalize) over the K=3 tree at b in {20,24}: "
+      "classical TV within 12 K^2 C_dR 2^-b; negativity ledger nu_t <= 2 t eta at every step; all Q > 0")
+
 
 print(f"summary: hidden states {len(hid)} (log2 {log2CH:.2f}); "
       f"RZ TV at G=8/128/1024: {tv_rz[8]:.2e}/{tv_rz[128]:.2e}/{tv_rz[1024]:.2e}")

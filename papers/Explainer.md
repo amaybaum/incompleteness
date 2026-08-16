@@ -268,7 +268,7 @@ $$\Lambda(2,1) = T(2,0) \cdot [T(1,0)]^{-1} = I \cdot \begin{pmatrix} 2 & -1 \\ 
 
 The entries −1 are negative. No valid stochastic matrix exists. **This is P-indivisibility.**
 
-**The mechanism in detail.** The die works as a memory register. At step 1, if the coin was at 0 and the die was at 1, the coin flips to 1 but the die stays at 1. The die value 1 now encodes the information "the coin was at 0 and I flipped it." At step 2, σ sees (1, 1) and flips it back to (0, 1). The die read its own memory and reversed the flip. C1 (coupling) allows writing to the memory. C2 (memory persistence) ensures it isn't erased between reads. C3 (sufficient capacity) ensures there's enough room. Together, they produce the information backflow that makes the process P-indivisible — and therefore, by the stochastic-quantum correspondence, equivalent to quantum mechanics.
+**The mechanism in detail.** The die works as a memory register. At step 1, if the coin was at 0 and the die was at 1, the coin flips to 1 but the die stays at 1. The die value 1 now encodes the information "the coin was at 0 and I flipped it." At step 2, σ sees (1, 1) and flips it back to (0, 1). The die read its own memory and reversed the flip. C1 (coupling) allows writing to the memory. C2 (memory persistence) ensures it isn't erased between reads. C3 (sufficient capacity) ensures there's enough room. Together, they produce the information backflow that makes the process P-indivisible — and therefore, by the stochastic-quantum correspondence, the carrier of a nontrivial quantum representation under (T).
 
 ---
 
@@ -282,7 +282,7 @@ Because P-indivisibility without C2 and C3 might only show up at absurd timescal
 
 ## The Stochastic-Quantum Correspondence (§3.1 and Appendix A)
 
-This is the key link. Section 2 proved that the embedded observer's dynamics are P-indivisible. Section 3 shows this is mathematically equivalent to quantum mechanics.
+This is the key link. Section 2 proved that the embedded observer's dynamics are P-indivisible. Section 3 shows how the correspondence supplies the quantum representation for exactly this sector — admitted by every finite law, nontrivial here.
 
 **The core statement.** Any P-indivisible stochastic process on a finite configuration space of size n can be embedded into a unitarily evolving quantum system. Specifically, there exists a Hilbert space H (dimension ≤ n³) and a unitary operator U(t) such that:
 
@@ -419,7 +419,7 @@ where H is the Hubble parameter. This implements Lemma 2 naturally: Γ_V = every
 
 ### 4.3 Application
 
-With the cosmological horizon satisfying the definition and all conditions, the characterization theorem applies. The observer's reduced description is P-indivisible and therefore equivalent to unitary quantum mechanics. The value of ℏ is determined by the partition geometry — which is what Section 5 derives.
+With the cosmological horizon satisfying the definition and all conditions, the characterization theorem applies. The observer's reduced description is non-Markovian — P-indivisible in the recurrence regimes — and admits a unitarily evolving quantum representation ([Main §3.4]). The value of ℏ is determined by the partition geometry — which is what Section 5 derives.
 
 ---
 
