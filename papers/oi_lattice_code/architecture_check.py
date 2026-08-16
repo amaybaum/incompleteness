@@ -602,6 +602,27 @@ INVARIANTS = [
      "the C1–C4/readback SECTOR is necessarily memory-bearing; representability is universal (Main §3.4, b138)",
      [],
      "emergent quantum mechanics under C1–C4 is necessarily non-Markovian"),
+    # ---- b139 families: review-48 final semantic classes (markup-tolerant) ----
+    (r"is the emergent description of any embedded observer",
+     "the memory-bearing description is what the observer has; QM-as-such is not identified with it (Main §3.4, b139)",
+     [],
+     "quantum mechanics is the emergent description of any embedded observer satisfying C1–C4"),
+    (r"structurally \*?quantum\*? wherever",
+     "biology is structurally memory-bearing wherever the conditions hold; representability is universal (Main §3.4, b139)",
+     [],
+     "biology is *structurally quantum* wherever C1–C4 hold"),
+    (r"sees the same emergent quantum mechanics",
+     "observers share the memory architecture and representation; further structures need their own derivation chains (b139)",
+     [],
+     "any embedded observer satisfying C1–C4 sees the same emergent quantum mechanics"),
+    (r"rather than emergent quantum mechanics",
+     "the contrast is memoryless vs memory-bearing; representability is universal, Markov included (Main §3.4, b139)",
+     [],
+     "produces classical stochastic dynamics rather than emergent quantum mechanics"),
+    (r"produces emergent unitary quantum mechanics|identification of quantum mechanics with embedded observation applies in full",
+     "the bijection produces the memory-bearing description; the representation is supplied, operational selection open (Main §3.4, b139)",
+     [],
+     "the deterministic bijection produces emergent unitary quantum mechanics on the visible sector"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---

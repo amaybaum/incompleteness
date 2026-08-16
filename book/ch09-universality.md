@@ -109,7 +109,7 @@ The framework's universality-class commitments — the conditions that define me
 
 *Causal partition.* The configuration space partitions as $S = \mathcal{C}_V \times \mathcal{C}_H$ for an embedded observer, with the partition determined by causal structure at the cosmological horizon. This is load-bearing because the partition is the framework's marker for the nontrivially indivisible sector, whose laws admit the quantum representation.
 
-*C1 (coupling).* The visible and hidden sectors are non-trivially coupled. This is necessary for non-Markovian dynamics; failing C1 produces classical stochastic dynamics rather than emergent quantum mechanics.
+*C1 (coupling).* The visible and hidden sectors are non-trivially coupled. This is necessary for non-Markovian dynamics; failing C1 produces memoryless (Markovian) dynamics rather than the memory-bearing sector — fixed-basis quantum representability itself is universal, memoryless laws included ([Main §3.4]).
 
 *C2 (memory persistence).* The hidden sector retains a record of the visible past across the accessible window, $\tau_B \gg \tau_S$ with $\tau_B$ the coarse-grained mixing time. Slow hidden dynamics is one sufficient mechanism; fast dynamics that conserves and routes the record serves equally ([Main §1.3]).
 
