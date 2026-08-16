@@ -209,12 +209,17 @@ in §4 of this paper and developed at chapter length in {[}1, Ch. 14{]}:
 under an explicit computational model --- a uniform efficient encoding
 of substratum configurations into qubits; efficient state preparation
 and control; a clock model; efficient measurement; explicit precision
-accounting; and noise assumptions under which fault tolerance applies
-with polynomial overhead --- the class accessible to an embedded
-observer satisfying C1--C4 is bounded-error quantum polynomial time,
-with a lower bound (BQP available in the model) and an upper bound (BQP
-not exceeded). CPTP representability of the visible dynamics supplies
-none of those model hypotheses by itself, so no unconditional
+accounting; noise assumptions under which fault tolerance applies with
+polynomial overhead; and operational closure --- all admissible
+operations available to the observer within the model are standard
+quantum instruments (CPTP maps for unconditioned evolution, CP
+trace-nonincreasing branches for conditioned outcomes), with no
+additional nonlinear, post-quantum, oracle, or hidden-sector-access
+operation --- the class accessible to an embedded observer satisfying
+C1--C4 is bounded-error quantum polynomial time, with a lower bound (BQP
+available in the model) and an upper bound (BQP not exceeded --- given
+operational closure). CPTP representability of the visible dynamics
+supplies none of those model hypotheses by itself, so no unconditional
 characterization is claimed. Under the same model hypotheses the
 Extended Church-Turing Thesis holds in its quantum-modified form as a
 conditional result rather than an empirical conjecture. The conjectured
@@ -509,18 +514,22 @@ development in {[}1, Ch. 14{]} --- answers this \emph{relative to an
 explicit computational model}, whose hypotheses are: a uniform efficient
 encoding of substratum configurations into qubits; efficient state
 preparation and control; a clock model; efficient measurement; explicit
-precision accounting; and noise assumptions under which fault tolerance
-applies with polynomial overhead. Under these hypotheses, bounded-error
-quantum polynomial-time is the computational class accessible to an
-embedded observer satisfying C1--C4; none of the hypotheses follows from
-CPTP representability of the visible dynamics alone, and each is a
-modelling commitment, not a consequence of C1--C4. The theorem combines
-a lower bound (BQP is available to any embedded observer; the
-quantum-computing toolkit can be physically instantiated on the
-framework's substratum) with an upper bound (BQP cannot be exceeded
-under the same hypotheses; any super-BQP capability would falsify the
-conjunction of the framework's commitments with this model, sharpest at
-the model bridge).
+precision accounting; noise assumptions under which fault tolerance
+applies with polynomial overhead; and operational closure --- all
+admissible operations available to the observer within the model are
+standard quantum instruments (CPTP maps for unconditioned evolution, CP
+trace-nonincreasing branches for conditioned outcomes), with no
+additional nonlinear, post-quantum, oracle, or hidden-sector-access
+operation. Under these hypotheses, bounded-error quantum polynomial-time
+is the computational class accessible to an embedded observer satisfying
+C1--C4; none of the hypotheses follows from CPTP representability of the
+visible dynamics alone, and each is a modelling commitment, not a
+consequence of C1--C4. The theorem combines a lower bound (BQP is
+available to any embedded observer; the quantum-computing toolkit can be
+physically instantiated on the framework's substratum) with an upper
+bound (BQP cannot be exceeded under the same hypotheses; any super-BQP
+capability would falsify the conjunction of the framework's commitments
+with this model, sharpest at the model bridge).
 
 \hypertarget{the-lower-bound}{%
 \subsubsection{4.1 The lower bound}\label{the-lower-bound}}
@@ -534,13 +543,17 @@ gate over that set. Generic \(n\)-qubit unitaries, by contrast, require
 circuits of size \(\Theta(4^n)\) {[}11{]} and play no role in the
 definition. The lower-bound task is therefore to show that the
 framework's explicit computational model can realize the gates of a
-uniform polynomial-size family. The framework's substratum, by the QM
-emergence theorem {[}1, Part I{]}, implements unitary dynamics in its
-visible-sector marginal description; the gauge structure permits the
-qubit decomposition (a single SU(2) doublet provides the qubit basis);
-the lattice geometry permits the spatial layout. Therefore any BQP
-algorithm has a physical implementation on the substratum, and embedded
-observers can in principle access any problem in BQP.
+uniform polynomial-size family. Main supplies the transition-statistics
+layer --- every finite law admits the fixed-basis unitary
+representation, and every finite adaptive experiment has a deterministic
+finite-test shadow {[}1, Part I{]} --- while the controllability needed
+to realize chosen gates is the model's contribution: the gauge structure
+permits the qubit decomposition (a single SU(2) doublet provides the
+qubit basis), the lattice geometry permits the spatial layout, and §4's
+control hypotheses supply preparation and gating. Under those
+hypotheses, any BQP algorithm has a physical implementation on the
+substratum, and embedded observers can in principle access any problem
+in BQP.
 
 \hypertarget{the-upper-bound}{%
 \subsubsection{4.2 The upper bound}\label{the-upper-bound}}
@@ -568,13 +581,17 @@ admissible substrata.
 \textbf{Theorem (conditional BQP model).} \emph{Assume the computational
 model of §4: a uniform efficient encoding of substratum configurations
 into qubits; efficient state preparation and control; a clock model;
-efficient measurement; explicit precision accounting; and noise
-assumptions under which fault tolerance applies with polynomial
-overhead. Then for an embedded observer satisfying C1--C4, every
-computation the model can host lies in BQP (upper bound, §4.2), and
-every BQP computation can be hosted (lower bound, §4.1). CPTP
-representability of the visible dynamics implies none of the model
-hypotheses.}
+efficient measurement; explicit precision accounting; noise assumptions
+under which fault tolerance applies with polynomial overhead; and
+operational closure --- all admissible operations available to the
+observer within the model are standard quantum instruments (CPTP maps
+for unconditioned evolution, CP trace-nonincreasing branches for
+conditioned outcomes), with no additional nonlinear, post-quantum,
+oracle, or hidden-sector-access operation. Then for an embedded observer
+satisfying C1--C4, every computation the model can host lies in BQP
+(upper bound, §4.2), and every BQP computation can be hosted (lower
+bound, §4.1). CPTP representability of the visible dynamics implies none
+of the model hypotheses.}
 
 Within the stated model, BQP is the \emph{exact} ceiling --- the class
 characterized by the framework's structural commitments \emph{together

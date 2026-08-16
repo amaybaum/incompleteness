@@ -777,6 +777,19 @@ INVARIANTS = [
      "super-BQP falsifies the framework-plus-model conjunction, sharpest at the bridge (b151)",
      [],
      "constituting a falsification of the framework."),
+    # ---- b152 families: review-59 operational-closure discipline ----
+    (r"All observer operations are quantum operations",
+     "operational closure is a MODEL HYPOTHESIS, not a framework derivation; deriving it is the selection frontier (Main §3.4, b152)",
+     [],
+     "**All observer operations are quantum operations.**"),
+    (r"partition structure guarantees informational completeness",
+     "informational completeness for all admissible operations is assumed by the model, never guaranteed by the partition (b152)",
+     [],
+     "the partition structure guarantees informational completeness of the density matrix"),
+    (r"because all observer operations are CPTP maps",
+     "the CPTP premise is the operational-closure hypothesis, cited as such (b152)",
+     [],
+     "cannot perform any operation that is not a CPTP map (because all observer operations are CPTP maps)"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---

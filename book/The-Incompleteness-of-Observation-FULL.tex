@@ -17256,21 +17256,26 @@ power available to embedded observers. The central result is a
 \emph{conditional BQP model theorem}: under an explicit computational
 model --- a uniform efficient encoding of substratum configurations into
 qubits; efficient state preparation and control; a clock model;
-efficient measurement; explicit precision accounting; and noise
-assumptions under which fault tolerance applies with polynomial overhead
---- BQP (bounded-error quantum polynomial time) is the computational
-class accessible to a finite deterministic system satisfying the
-framework's structural conditions C1--C4. None of the model hypotheses
-follows from C1--C4 or from CPTP representability alone. The theorem has
-two directions. The \emph{lower bound} establishes that, under the
-explicit computational-control hypotheses of §14.4, any embedded
-observer satisfying C1--C4 has access to BQP computational resources ---
-the emergent quantum mechanics provides state preparation, a universal
-gate set, and Born-rule measurement, the full toolkit for BQP
-computation. The \emph{upper bound} establishes that no embedded
-observer exceeds BQP --- the quantum description is informationally
-complete for the embedded observer, with no operation on the visible
-sector extracting information beyond the quantum state.
+efficient measurement; explicit precision accounting; noise assumptions
+under which fault tolerance applies with polynomial overhead; and
+operational closure --- all admissible operations available to the
+observer within the model are standard quantum instruments (CPTP maps
+for unconditioned evolution, CP trace-nonincreasing branches for
+conditioned outcomes), with no additional nonlinear, post-quantum,
+oracle, or hidden-sector-access operation --- BQP (bounded-error quantum
+polynomial time) is the computational class accessible to a finite
+deterministic system satisfying the framework's structural conditions
+C1--C4. None of the model hypotheses follows from C1--C4 or from CPTP
+representability alone. The theorem has two directions. The \emph{lower
+bound} establishes that, under the explicit computational-control
+hypotheses of §14.4, any embedded observer satisfying C1--C4 has access
+to BQP computational resources --- the emergent quantum mechanics
+provides state preparation, a universal gate set, and Born-rule
+measurement, the full toolkit for BQP computation. The \emph{upper
+bound} establishes that no embedded observer exceeds BQP --- the quantum
+description is informationally complete for the embedded observer, with
+no operation on the visible sector extracting information beyond the
+quantum state.
 
 Ten pieces occupy the chapter.
 
@@ -17287,13 +17292,13 @@ stated model, not by C1--C4 alone.
 
 Section 14.4 develops the upper bound: BQP cannot be exceeded. The
 argument runs through the framework's informational completeness --- the
-quantum description exhausts the information accessible to the embedded
-observer through any operation on the visible sector, so --- under
-§14.4's efficiency hypotheses, which carry the complexity content --- no
-super-BQP computation is possible. Section 14.5 combines the two bounds
-into the conditional BQP model theorem: under the model hypotheses, BQP
-is the computational class accessible to embedded observers satisfying
-C1--C4.
+quantum description exhausts the information accessible through any
+admissible operation --- operational closure, a model hypothesis of
+§14.4 --- so, with the efficiency hypotheses carrying the complexity
+content, no super-BQP computation is possible within the model. Section
+14.5 combines the two bounds into the conditional BQP model theorem:
+under the model hypotheses, BQP is the computational class accessible to
+embedded observers satisfying C1--C4.
 
 Section 14.6 develops the Extended Church-Turing Thesis (ECT) as a
 conditional result of the framework, valid under the same model
@@ -17541,9 +17546,10 @@ observer exceeds BQP; informational completeness fixes the operations'
 type, and these efficiency hypotheses, not completeness alone, carry the
 complexity bound. The argument runs through \emph{informational
 completeness}: the quantum description exhausts the information
-accessible to the embedded observer through any operation on the visible
-sector. No further computational capability is available, because there
-is no additional information for further computation to access.
+accessible through any admissible operation --- operational closure, the
+model hypothesis stated above. No further computational capability
+within the model is available, because there is no additional
+information for further computation to access.
 
 \textbf{Informational completeness of the quantum description.} The
 framework's emergent quantum mechanics from Chapter 1 has a specific
@@ -17564,15 +17570,20 @@ matrix supports would require the observer to access hidden-sector
 information that the framework's structural commitments make
 inaccessible.
 
-\textbf{All observer operations are quantum operations.} The framework's
-content includes a more specific structural claim: any operation an
-embedded observer can perform on the visible sector is a \emph{quantum
-operation} in the standard sense --- a completely positive
-trace-preserving (CPTP) map on the density matrix \(\rho_V\). This
-includes unitary evolution (a special case of CPTP map preserving
-purity), projective measurement (CPTP maps with specific structure),
-post-selection (non-CPTP but reduces to CPTP through normalization), and
-any combination of these.
+\textbf{Operational closure (a model hypothesis).} The computational
+model assumes --- it does not derive from C1--C4 --- that any admissible
+operation the observer performs on the visible sector within the model
+is a \emph{quantum operation} in the standard sense: a completely
+positive trace-preserving (CPTP) map on the density matrix \(\rho_V\)
+for unconditioned evolution, with CP trace-nonincreasing branches for
+conditioned outcomes, and no additional nonlinear, post-quantum, oracle,
+or hidden-sector-access operation. Whether nature offers the observer
+anything beyond quantum instruments is exactly the operational-selection
+question Main leaves open ({[}Main §3.4{]}). This includes unitary
+evolution (a special case of CPTP map preserving purity), projective
+measurement (CPTP maps with specific structure), post-selection
+(non-CPTP but reduces to CPTP through normalization), and any
+combination of these.
 
 The argument runs as follows. The embedded observer's operations are
 implemented through interactions between the observer's measurement
@@ -17596,23 +17607,24 @@ efficiency model. The class of efficiently and uniformly implementable
 channels coincides with BQP up to the standard polynomial encoding.
 
 The framework's content therefore identifies BQP with the class of
-operations available to embedded observers. The observer cannot perform
-any operation that is not a CPTP map (because all observer operations
-are CPTP maps), and under §14.4's efficiency hypotheses the efficiently
-and uniformly implementable channels form BQP. Under those hypotheses,
-therefore, the observer cannot efficiently perform computation outside
-BQP.
+operations available to embedded observers. Within the model, the
+observer performs no operation that is not a quantum instrument ---
+operational closure, assumed above --- and under §14.4's efficiency
+hypotheses the efficiently and uniformly implementable channels form
+BQP. Under those hypotheses, therefore, the observer cannot efficiently
+perform computation outside BQP.
 
 \textbf{The upper bound theorem.}
 
-\emph{Conditional Upper Bound Theorem.} Under §14.4's efficiency
-hypotheses, no embedded observer satisfying C1--C4 can efficiently
-perform computation outside BQP. Every observer operation is a CPTP map
-on the density matrix --- the operation's type; under the stated
-hypotheses of uniform description, polynomial time and precision, and
-polynomial simulation overhead, the efficiently and uniformly
-implementable channels form BQP; therefore, under those hypotheses, the
-class of efficient computations available to the observer is BQP.
+\emph{Conditional Upper Bound Theorem.} Under §14.4's
+operational-closure and efficiency hypotheses, no embedded observer
+satisfying C1--C4 can efficiently perform computation outside BQP. Every
+observer operation is a CPTP map on the density matrix --- the
+operation's type; under the stated hypotheses of uniform description,
+polynomial time and precision, and polynomial simulation overhead, the
+efficiently and uniformly implementable channels form BQP; therefore,
+under those hypotheses, the class of efficient computations available to
+the observer is BQP.
 
 \textbf{Addressing objections.} Three potential objections to the upper
 bound are worth addressing.
@@ -17665,9 +17677,12 @@ C1, C2, C3, C4 at the partition boundary, and assume the
 computational-control and efficiency hypotheses of §14.4 --- state
 preparation, the universal gate set, and Born-rule readout; locally
 generated, uniformly describable evolutions over polynomial physical
-time, with polynomial precision and polynomial simulation overhead. Then
-the class of computations the observer can efficiently perform (in
-polynomial time with bounded error) is exactly BQP.
+time, with polynomial precision and polynomial simulation overhead; and
+operational closure, all admissible operations being standard quantum
+instruments with no additional nonlinear, post-quantum, oracle, or
+hidden-sector-access operation. Then the class of computations the
+observer can efficiently perform (in polynomial time with bounded error)
+is exactly BQP.
 
 \textbf{Proof outline.} The lower bound from §14.3 establishes that BQP
 is available to the observer. The upper bound from §14.4 establishes
@@ -17681,8 +17696,11 @@ deterministic bijection \(\varphi\) guarantees unitarity at the
 substratum level. - The framework's structural conditions C1--C4
 guarantee accessible non-Markovianity, and the emergent
 quantum-mechanical description for processes in the correspondence's
-class under (T). - The framework's partition structure guarantees
-informational completeness of the density matrix.
+class under (T). - The computational model assumes operational quantum
+closure: informational completeness of the density matrix for all
+admissible operations is a model hypothesis, not a partition-structure
+guarantee --- deriving it is the operational-selection frontier ({[}Main
+§3.4{]}).
 
 Each of these is a structural feature of the framework's universality
 class; together with §14.4's computational-control and efficiency
