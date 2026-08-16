@@ -292,9 +292,9 @@ applies to others; record it as an assumption-watch marker, not just a local fix
 
 Requires `pandoc` + a LaTeX engine with `xelatex` (e.g. `brew install pandoc texlive`).
 
-**Use `./build.sh`.** It loops over the sources with the header include written in, so
-the flag cannot be omitted. `./build.sh` builds everything;
-`./build.sh SM GR` builds named papers; `--book` builds only the book. It runs from any
+**Use `sh ./build.sh`.** It loops over the sources with the header include written in, so
+the flag cannot be omitted. `sh ./build.sh` builds everything;
+`sh ./build.sh SM GR` builds named papers; `--book` builds only the book. It runs from any
 directory. It reports the *distinct* glyphs xelatex
 dropped, which is what tells you what to add to `unicode-fix.tex`. Five papers were once
 published with artifacts built without the header — the recipe below was correct and was
