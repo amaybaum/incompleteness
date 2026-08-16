@@ -493,6 +493,11 @@ INVARIANTS = [
      "constructive upper bound for the built realization vs universal lower bound (>= I*) for every realization; different scopes, not a matched pair (Main §3.4 clause (5), b129)",
      [],
      "a two-sided hidden-capacity law"),
+    # ---- b130 family: the route-(i) residue list must stay retired ----
+    (r"with three residuals",
+     "route (i) is discharged at the exact-ring finite-test level; the one named item is the Rounding Lemma (Main §3.4, b130)",
+     [],
+     "the finite form is now the gluing theorem below — with three residuals: tightening"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---

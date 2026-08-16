@@ -2865,27 +2865,25 @@ per-family half is already the comb theorem (with the dilation lemma's
 rational-precision caveat); the finite form is now the gluing theorem
 below --- completeness for adaptive protocols with the \(K/G\) bound,
 gluing by restriction, fixed per-instrument mechanisms, sequential and
-parallel composition, and explicit capacity bounds --- with three
-residuals: tightening the general-regime exponent range (the \(K^2\)
-term), the \(K, |\mathcal{F}| \to \infty\), \(\varepsilon \to 0\) limit
-statement as a theorem, and the fact that approximation is not selection
---- finite behavior sets approximate curved state spaces arbitrarily
-well, so the classical-dimension obstruction licenses exactly this
-density form and no stronger one --- and route (i) is now discharged in
-full up to that scoping: the gluing theorem delivers the per-family
-half, the uniform continuum realization the net half with
-\(|\mathcal{F}|\)-independent hidden cost, and the Corollary the
-finite-test density; what survives of the program is route (ii) entire
---- the exponent-range residual is closed by the renormalization
-register of clause (5). \textbf{(ii) The selector route:} derive from
-observation incompleteness, rather than postulate, the hypotheses of an
-operational reconstruction theorem --- continuous reversible
-transitivity (Hardy's five-axiom reconstruction, 2001 {[}51{]}, where
-dropping continuity returns classical theory; the hardest hypothesis
-here, the permutation group of a finite set being discrete, which is
-itself an argument for route (i)); local tomography (coupling-graph
-locality supplies an ingredient, §3.1, not yet the injectivity); and
-purification with uniqueness up to reversible relabeling of the purifier
+parallel composition, and explicit capacity bounds --- route (i) is now
+discharged at the exact-ring finite-test level: the gluing theorem
+delivers the per-family half, the uniform continuum realization the net
+half with \(|\mathcal{F}|\)-independent hidden cost in the controlled
+model, and the Corollary the finite-test density --- the
+classical-dimension obstruction licenses exactly this density form and
+no stronger one, finite behavior sets approximating curved state spaces
+arbitrarily well while approximation is not selection. One named item
+remains on route (i): the finite-bit Rounding Lemma closing the explicit
+capacity estimate (clause (5)). Route (ii), selection, is open entire.
+\textbf{(ii) The selector route:} derive from observation
+incompleteness, rather than postulate, the hypotheses of an operational
+reconstruction theorem --- continuous reversible transitivity (Hardy's
+five-axiom reconstruction, 2001 {[}51{]}, where dropping continuity
+returns classical theory; the hardest hypothesis here, the permutation
+group of a finite set being discrete, which is itself an argument for
+route (i)); local tomography (coupling-graph locality supplies an
+ingredient, §3.1, not yet the injectivity); and purification with
+uniqueness up to reversible relabeling of the purifier
 (Chiribella--D'Ariano--Perinotti, 2011 {[}53{]}) --- existence
 delivered, plus the canonical predictive quotient as a uniqueness
 ingredient (theorem below); the operational translation and the full
@@ -2920,10 +2918,11 @@ count --- \(K/G\) for binary-outcome instruments; in the \(b\)-bit
 register regime an additional state-update term joins the same
 telescoping sum, giving the unified bound
 \(\|P_R - P_Q\|_{\mathrm{TV}} \leq K\left[(|\mathcal{O}_{\max}|{-}1)/G + C_d\, 2^{-b}\right]\),
-absorbed by \(G = \Theta(K|\mathcal{O}_{\max}|/\varepsilon)\) and
-\(b = \Theta(\log(K d^2/\varepsilon))\); the \(b\)-bit term is standard
-forward rounding analysis, the exact-ring regime the probe-certified
-one.}
+absorbed by \(G \geq 2K(|\mathcal{O}_{\max}|{-}1)/\varepsilon\) and
+\(b \geq \log_2(2K C_d/\varepsilon)\), each term at most
+\(\varepsilon/2\); the \(b\)-bit term is supplied by the Rounding Lemma
+of clause (5) --- stated there as the exact dependency --- while the
+exact-ring regime is unconditional and probe-certified.}
 
 \emph{(2) \textbf{Gluing by restriction.} For every
 \(\mathcal{F}' \subseteq \mathcal{F}\) and \(K' \leq K\), the same
@@ -2953,13 +2952,16 @@ instruments' entry ring,
 \(\log_2|\mathcal{C}_H| \leq (K{+}1)\log_2|V_{\mathrm{reach}}(\mathcal{F}, K)| + K \log_2 G\),
 where \(V_{\mathrm{reach}}\) is the finite set of unnormalized branch
 vectors reachable in \(\leq K\) steps; with \(b\)-bit registers,
-\(G = \lceil K(|\mathcal{O}_{\max}|{-}1)/\varepsilon \rceil\), and a
-power-of-two renormalization step --- the branch vector rescaled into a
-fixed norm window after each instrument, the shift pushed to the stack,
-the ring extended by \(\tfrac12\); the thresholds are scale-invariant,
-so the realized law is unchanged --- the mantissa needs only
-\(b = O(\log(K d\, |\mathcal{O}|/\varepsilon))\) bits with no exponent
-accumulation, giving
+\(G = \lceil 2K(|\mathcal{O}_{\max}|{-}1)/\varepsilon \rceil\),
+\(b \geq \log_2(2K C_d/\varepsilon)\), and a canonical renormalization
+--- the branch register replaced after each instrument by
+\(\rho^{\sharp} = 2^{s(\tilde\rho)}\tilde\rho\), the unique power-of-two
+rescaling into a fixed norm window, the ring extended by \(\tfrac12\);
+no shift is stored anywhere: the thresholds are scale-invariant, so the
+realized law is unchanged, and reversibility needs no exponent, the
+predecessor stack holding the predecessor itself --- the mantissa needs
+only \(b = O(\log(K d\, |\mathcal{O}|/\varepsilon))\) bits with no
+exponent accumulation, giving
 \(\log_2|\mathcal{C}_H| = O\!\left(K\, d^2 \log(K d\, |\mathcal{O}|/\varepsilon) + K \log_2 G\right)\)
 in general --- linear in \(K\) up to logarithms, the former
 exponent-range \(K^2\) term removed (rescaling invariance certified:
@@ -2971,7 +2973,20 @@ realization and a universal floor, deliberately not a matched pair. For
 the constructed realization on those families,
 \(c_1 K \leq \log_2|\mathcal{C}_H| \leq c_2 K \left(d^2 \log(K d\, |\mathcal{O}|/\varepsilon) + \log_2 G\right)\)
 --- the former \(+E\) on the right removed with the exponent range by
-the renormalization register above.}
+the canonical renormalization above.}
+
+\emph{Rounding Lemma (stated).} \emph{In the \(b\)-bit model ---
+round-to-nearest, relative error \(2^{-b}\) per operation --- each
+instrument application satisfies
+\(\|\widehat{\mathcal{I}}_o(\tilde\rho) - \mathcal{I}_o(\tilde\rho)\|_1 \leq C_d\, 2^{-b}\, \|\tilde\rho\|_1\)
+with \(C_d = O(d^2)\) counting the arithmetic; outcome probabilities
+inherit the bound, and trace-nonincreasing CP maps propagate trace-norm
+error without amplification --- whence the \(K C_d 2^{-b}\) term through
+clause (1)'s telescoping.} Status, split explicitly: the exact-ring
+gluing theorem is unconditional and probe-certified; the finite-\(b\)
+capacity clause is proved conditional on this Lemma --- standard forward
+rounding analysis, recorded as the named dependency rather than
+re-derived, and not separately probe-certified.
 
 \emph{Proof (construction and bound).} The step map \(\varphi_a\) reads
 the counter \(t\); an outcome-free instrument applies its CP map to the
@@ -3028,6 +3043,14 @@ the restored record, undo the controlled step. One law, initial
 conditions vary --- the substratum ontology stated as a theorem at
 finite resolution (check 13, \texttt{opglue\_probes.py}: one map, two
 protocols including an adaptive one, all steps injective, laws exact).}
+\emph{Resource accounting: the capacity clause counts branch register,
+stack, and seeds --- the controlled model, intervention labels arriving
+as visible inputs. Here the read-only program register is additional
+state: an arbitrary adaptive policy over \(\mathcal{F}\) through \(K\)
+costs up to \(\Theta(|\mathcal{O}_{\max}|^{K} \log_2|\mathcal{F}|)\)
+bits of table --- exponential in \(K\), charged separately and
+deliberately outside the linear-in-\(K\) estimate. One dynamics; the
+program is paid for as an initial condition, not obtained free.}
 \(\square\)
 
 \emph{Remark (what the gluing theorem does and does not deliver).} At
@@ -3085,9 +3108,12 @@ by the telescoping Lemma plus clause (1); (ii) conversely every
 \(R\)-protocol runs genuine quantum instruments (net members), so its
 law is within \(K(m{-}1)/G \leq \varepsilon/2\) of a quantum law. The
 two operational theories are therefore mutually \(\varepsilon\)-dense at
-horizon \(K\). And the hidden cost of uniformity is nil: the mechanisms
-are per-instrument, so the hidden registers --- branch vector, stack,
-seeds --- do not scale with \(|N|\); the net inflates only the visible
+horizon \(K\), in the finite-test metric the density Corollary below
+makes explicit. And in the controlled model the hidden cost of
+uniformity is nil: the mechanisms are per-instrument, so the hidden
+registers --- branch register, stack, seeds --- do not scale with
+\(|N|\) (the autonomous program register is charged separately:
+single-dynamics Corollary above); the net inflates only the visible
 intervention record, by
 \(\lceil \log_2 |N| \rceil = O(m\, d^4 \log(2K/\varepsilon))\) bits per
 step, and clause (5)'s hidden bound applies verbatim at the net's entry
@@ -3233,12 +3259,14 @@ morphism of realizations here being stage-preserving, visible-preserving
 (\(\pi_V \circ q = \pi_V\)), and dynamics-intertwining
 (\(q \circ \varphi_R = \sigma \circ q\), \(\sigma\) the shift) --- which
 pushes the prior forward to \(P\) and is the unique morphism
-\(R \to T(P)\); (canonical quotient) \(T(P)\) is terminal --- any two
-faithful realizations of the same \(P\) induce the identical canonical
-quotient, so the predictive content of every completion is unique ---
-while the hidden fibers above the quotient may differ: full completions
-are NOT claimed unique up to reversible relabeling, and same-law
-realizations with non-relabel-equivalent fibers exist
+\(R \to T(P)\); (canonical quotient) \(T(P)\) is the canonical terminal
+predictive quotient of the category of faithful realizations --- itself
+a staged predictor, bijective only once the ledger is adjoined --- and
+any two faithful realizations of the same \(P\) induce the identical
+canonical quotient, so the predictive content of every completion is
+unique --- while the hidden fibers above the quotient may differ: full
+completions are NOT claimed unique up to reversible relabeling, and
+same-law realizations with non-relabel-equivalent fibers exist
 (\texttt{fiber\_freedom}, certified).} \(\square\) \emph{Proof.}
 Determinism makes the visible future from \((x, h)\) a single string, so
 \(q_R\) is well-defined; one step of \(\varphi\) shifts that string,
@@ -4486,16 +4514,16 @@ space,'' \emph{J. Math. Mech.} \textbf{6}, 885 (1957); P. Busch,
 ``Quantum states and generalized observables,'' \emph{Phys. Rev.~Lett.}
 \textbf{91}, 120403 (2003).
 
-{[}55{]} T. Heinosaari, O. Kerppo, L. Leppäjärvi, M. Plávala,
-classical-dimension unboundedness for qubit prepare--measure behaviors
-via the PSD-rank / nonnegative-rank separation, with a
-finite-shared-coordination version, arXiv (2026). {[}Load-bearing
-import; arXiv identifier to be verified at deposit --- the work
-postdates this manuscript's verification horizon.{]}
+{[}55{]} T. Heinosaari, O. Kerppo, L. Leppäjärvi, M. Plávala, ``Simple
+Information Processing Tasks with Unbounded Quantum Advantage,''
+arXiv:2308.07727 (2023; revised 2026). Classical-dimension unboundedness
+for qubit prepare--measure behaviors via the PSD-rank / nonnegative-rank
+separation; shared randomness simulates individual tasks, while the
+coordinated classical resource across the family is itself unbounded.
 
-{[}56{]} A. J. P. Garner, M. P. Müller, embedding of operational
-theories in finite classical systems under procedural-independence /
-no-restriction assumptions. {[}Alternative route; identifier to be
-verified at deposit.{]}
+{[}56{]} A. J. P. Garner, M. P. Müller, arXiv:2004.06136. Embedding of
+probabilistic/operational models in finite classical systems under
+procedural-independence / no-restriction assumptions --- the alternative
+route.
 
 \end{document}
