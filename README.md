@@ -40,7 +40,6 @@ This tiering mirrors the four-layer derivational classification of book §4.7 an
 
 ## Repository layout
 
-Review triage notes and the count-asserted edit drivers for each batch are carried in the companion `OI_session_transfer` bundle (under `notes/`), not in this repository archive; reviewers auditing a round against its triage record need both archives.
 
 ```
 incompleteness/

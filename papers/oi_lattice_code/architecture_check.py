@@ -678,6 +678,19 @@ INVARIANTS = [
      "distinguishable from the standard backgrounds considered; 'all known' is not established (b143)",
      [],
      "distinguishes the predictions from all known decoherence backgrounds"),
+    # ---- b144 families: review-53 final-wording classes ----
+    (r"no counterpart in standard",
+     "intermediate backflow is standard BLP/RHP phenomenology; the distinctive claim is the proposed capacity-controlled origin/scaling (b144)",
+     [],
+     "a genuinely new regime with no counterpart in standard physics"),
+    (r"Standard open-quantum-system models predict either",
+     "the dichotomy holds only for the cited comparison class, not open-system models generically (b144)",
+     [],
+     "Standard open-quantum-system models predict either exponential decay or linear behavior"),
+    (r"\(framework prediction\)",
+     "operational-failure diagnoses are mechanism-proposal claims, labeled as such (Main §3.4, b144)",
+     [],
+     "if no, the system is partially quantum (framework prediction)"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
