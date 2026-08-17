@@ -158,7 +158,7 @@ $$\mathfrak{f}_{\text{WD}} = 3\mathfrak{f}_{\text{WD}}(\mu_c) + 2\mathfrak{f}_{\
 
 Verified for all $(\mu_c, \mu_w) \in \{1, \ldots, q-1\}^2$ at $q \in \{3, 5, 7\}$ with $L = 4$.
 
-**The projection.** The framework's trace-out operation (marginalization over the hidden sector) produces the emergent quantum description, which depends on the coupling eigenvalues $\mu_k$ via the NM formula $\text{NM}^2 = 3\langle\mu^4\rangle$ — a consequence of the stochastic-quantum correspondence applied to the wave equation's Fourier decomposition. These $\mu_k$ are properties of $F_{\text{ss}}$, the semisimple part of the dynamics. The nilpotent monodromy $N$ contributes nothing to the emergent description: it affects only the off-diagonal Jordan block entries, which are erased by the coarse-graining over the hidden sector.
+**The projection.** The framework's trace-out operation (marginalization over the hidden sector) produces the reduced observable description — universally admitting the quantum representation — which depends on the coupling eigenvalues $\mu_k$ via the NM formula $\text{NM}^2 = 3\langle\mu^4\rangle$ — a consequence of the stochastic-quantum correspondence applied to the wave equation's Fourier decomposition. These $\mu_k$ are properties of $F_{\text{ss}}$, the semisimple part of the dynamics. The nilpotent monodromy $N$ contributes nothing to the emergent description: it affects only the off-diagonal Jordan block entries, which are erased by the coarse-graining over the hidden sector.
 
 The trace-out therefore performs the Jordan-Chevalley projection
 $$(F_{\text{ss}}, N) \mapsto F_{\text{ss}} \mapsto \{\mu_k\} \mapsto \text{NM}^2$$

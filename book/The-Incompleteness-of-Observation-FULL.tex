@@ -2370,10 +2370,11 @@ pair is CP-divisible while its computational-basis populations are
 P-indivisible (Appendix B, Theorem B.2.5 and its scope note).
 
 The approximate unitarity of the visible-sector dynamics on observable
-timescales follows from the slow-bath condition C2 together with a
-weak-coupling condition that it is important to state explicitly. At
-\(t=0\) the channel generator is exactly Hamiltonian; at finite time it
-acquires two distinct dissipative contributions:
+timescales follows from C2's slow-bath realization --- the
+\(\tau_S \ll \tau_B\) regime of the continuum derivation --- together
+with a weak-coupling condition that it is important to state explicitly.
+At \(t=0\) the channel generator is exactly Hamiltonian; at finite time
+it acquires two distinct dissipative contributions:
 \[\dot\rho_V = -\tfrac{i}{\hbar}[\hat{H}_{\text{eff}}, \rho_V] + \mathcal{D}(\rho_V),\]
 the standard Lindblad form with effective Hamiltonian
 \(\hat{H}_{\text{eff}}\) and dissipator \(\mathcal{D}\). The leading
@@ -2388,16 +2389,16 @@ Hamiltonians dephases the visible state by an amount of order the
 coupling strength squared --- independent of \(\tau_B\). The second,
 from the bath's motion away from the frozen limit, is suppressed by
 \((\tau_S/\tau_B)^2\). The dynamics is therefore approximately unitary
-Schrödinger evolution to the extent that both the slow-bath condition
-\(\tau_S \ll \tau_B\) and the weak-coupling condition (small
-conditioned-Hamiltonian spread) hold; the latter is the parameter that
-controls the leading non-unitarity. At the cosmological partition both
-are extreme, so \(\mathcal{D}\) is far below detection sensitivity for
-any laboratory measurement; the dissipative corrections, if measurable
-at high enough precision, would be predictions of the framework. The
-continuous-measurement and quantum-trajectory formulations of open
-quantum systems agree with this framework structure on observable
-timescales.
+Schrödinger evolution to the extent that both the slow-bath regime
+\(\tau_S \ll \tau_B\) (C2's realization here) and the weak-coupling
+condition (small conditioned-Hamiltonian spread) hold; the latter is the
+parameter that controls the leading non-unitarity. At the cosmological
+partition both are extreme, so \(\mathcal{D}\) is far below detection
+sensitivity for any laboratory measurement; the dissipative corrections,
+if measurable at high enough precision, would be predictions of the
+framework. The continuous-measurement and quantum-trajectory
+formulations of open quantum systems agree with this framework structure
+on observable timescales.
 
 \textbf{The macroscopic-superposition frontier.} The exactness claim of
 this section has a direct experimental frontier: matter-wave
@@ -2480,9 +2481,11 @@ route would supply the same compressed representation through different
 mathematics. The two-route structure is the framework's hedge against
 single-point failure in the foundational technical machinery. The
 division of labor is precise: the correspondence is load-bearing only
-for the necessity direction of the characterization theorem (§1.8);
-every constructive claim, including the \(\hbar\) derivation of Chapter
-7, survives on the Stinespring route alone.
+for the compressed Schrödinger-form presentation under its translation
+hypothesis (T) --- not for representation existence, and not for the
+characterization's necessity direction, both internal ({[}Main §3.4{]};
+§1.8); every constructive claim, including the \(\hbar\) derivation of
+Chapter 7, survives on the Stinespring route alone.
 
 The reconstruction theorems --- Hardy's, Masanes--Müller's, and
 Chiribella--D'Ariano--Perinotti's --- derive quantum theory from
@@ -3443,12 +3446,12 @@ reads the visible sector by measuring \(x\), and writes to the hidden
 sector --- every visible-sector interaction imprints correlations onto
 \(H\) through the coupling \(H_{\text{int}}\).
 
-Quantum mechanics is the statistics of this read-write cycle. The
-slow-bath condition C2 ensures that information written to the hidden
-sector during one visible-sector interaction is preserved until the
-next; subsequent reads retrieve correlations laid down earlier. The
-information backflow that Chapter 1 identified as the structural
-signature of P-indivisibility is exactly the signature of
+Quantum mechanics is the statistics of this read-write cycle. C2 ---
+persistence, realized here by the slow bath --- ensures that information
+written to the hidden sector during one visible-sector interaction is
+preserved until the next; subsequent reads retrieve correlations laid
+down earlier. The information backflow that Chapter 1 identified as the
+structural signature of P-indivisibility is exactly the signature of
 write-then-read at the substratum level. The Born rule enters as the
 read-write cycle's readout rule --- admitted by the representation
 ({[}Main §3.4{]}), the equilibrium reading being the realization's
@@ -3724,14 +3727,16 @@ accessible non-Markovian process arises from marginalization of a
 deterministic bijection satisfying C1, C3 and C4 for some partition ---
 and every finite observable law, memory-free sectors included, admits
 some deterministic realization (C2 outside the equivalence, {[}Main
-§3.4{]}). Bell violations force C1 (non-trivial coupling); the unitary
-structure of QM forces C2 and C3 (conditional on the hidden-sector
-mixing hypothesis for C2, ETH being its physical motivation). The output
-of Stage 1 is a triple \((S, \varphi, V)\) with \(S\) finite,
-\(\varphi\) a bijection, and \(V \subset S\) the visible-sector
-partition, with the observed quantum dynamics reproduced as the
-marginalization of \(\varphi\) over the hidden sector
-\(H = S \setminus V\).
+§3.4{]}). Bell violations, entering through the framework's
+P-indivisible joint-dynamics route (a modeling premise, {[}Main
+§2.3{]}), certify C1 (non-trivial coupling); the observed memory-bearing
+phenomenology --- not quantum representability, which is universal ---
+grounds C2 and C3, with C2's necessity conditional on the hidden-sector
+mixing hypothesis (ETH its physical motivation). The output of Stage 1
+is a triple \((S, \varphi, V)\) with \(S\) finite, \(\varphi\) a
+bijection, and \(V \subset S\) the visible-sector partition, with the
+observed quantum dynamics reproduced as the marginalization of
+\(\varphi\) over the hidden sector \(H = S \setminus V\).
 
 Uniqueness at Stage 1 follows from the Stinespring uniqueness theorem
 {[}Chapter 1, §1.6{]}. Any two dilations of the same quantum channel on
@@ -4173,14 +4178,14 @@ projection applies the trace-out machinery to the horizon-growth
 parameter along an observer worldline. The substratum is time-symmetric:
 \(\varphi\) and \(\varphi^{-1}\) are equally valid as forward-time maps,
 and there is no preferred direction at the substratum level. Observers,
-however, are not symmetric under this exchange. Condition C2 --- the
-slow-bath condition --- picks out one direction along the observer's
-worldline as the direction in which the hidden sector's correlations
-with the visible sector's past are preserved. The structural
-observer-selection theorem developed in Chapter 1's appendix material
-restricts observers satisfying C1--C4 to the non-equilibrium phase of
-\((S, \varphi)\); in the \(\Lambda\)-dominated cosmological phase, this
-phase is the one in which the horizon entropy
+however, are not symmetric under this exchange. Condition C2 ---
+persistence, in its slow-bath realization --- picks out one direction
+along the observer's worldline as the direction in which the hidden
+sector's correlations with the visible sector's past are preserved. The
+structural observer-selection theorem developed in Chapter 1's appendix
+material restricts observers satisfying C1--C4 to the non-equilibrium
+phase of \((S, \varphi)\); in the \(\Lambda\)-dominated cosmological
+phase, this phase is the one in which the horizon entropy
 \(S_{\text{dS}}(t) = A(t)/(4\ell_P^2)\) is monotonically increasing.
 
 The cosmological horizon entropy provides a structural clock. Every
@@ -4189,14 +4194,14 @@ increases --- the monotonicity is a feature of the causal partition
 rather than of any local frame --- and other arrows of time align with
 this structural clock through a cascade. The thermodynamic arrow
 descends from Jacobson's coupling between boundary entropy and matter
-entropy. The memory arrow descends from the slow-bath condition C2,
-which preserves correlations forward along the clock rather than
-backward. The measurement arrow --- the observer records past outcomes
-and prepares future states --- descends from the memory arrow. The chain
-grounds in one structural fact (horizon growth in the accelerating
-phase) and one structural constraint (C1--C4 observer selection). No
-independent past-hypothesis axiom is required, and Boltzmann brains are
-excluded structurally rather than anthropically.
+entropy. The memory arrow descends from C2 --- persistence, realized by
+the slow bath --- which preserves correlations forward along the clock
+rather than backward. The measurement arrow --- the observer records
+past outcomes and prepares future states --- descends from the memory
+arrow. The chain grounds in one structural fact (horizon growth in the
+accelerating phase) and one structural constraint (C1--C4 observer
+selection). No independent past-hypothesis axiom is required, and
+Boltzmann brains are excluded structurally rather than anthropically.
 
 The framework's content here is precise: it derives a monotonic
 parameter along observer worldlines and four aligned arrows of time.
@@ -4543,8 +4548,9 @@ automaton with a deterministic update rule may or may not admit an
 embedded observer, depending on whether its dynamics support the
 slow-mixing, sufficient-capacity, coupled, read-back structure C1--C4
 require. Random permutations on finite sets typically lack this
-structure: their cycle decompositions are wrong for the slow-bath
-condition, their internal correlations are wrong for the capacity
+structure: their cycle decompositions are wrong for the persistence
+condition (no structure realizing a slow bath or a conserve-and-route
+alternative), their internal correlations are wrong for the capacity
 condition, or their coupling is too uniform or too sparse for the
 non-trivial-coupling condition. The space of substrata is structurally
 partitioned into the observer-admitting subset, which can support
@@ -4741,9 +4747,10 @@ problems. The Boltzmann brain problem --- the worry that a sufficiently
 large statistical-mechanical system at equilibrium would produce
 observers as random fluctuations more often than through evolutionary
 processes --- is dissolved at Level B. Equilibrium states are not
-observer-admitting in the framework's sense, because the slow-bath
-condition C2 fails at equilibrium --- there are no slow modes by
-definition, every degree of freedom has thermalized --- and a bath that
+observer-admitting in the framework's sense, because C2 (persistence)
+fails at equilibrium --- its slow-bath route gone, no slow modes by
+definition, an equilibrated bath admitting no conserve-and-route
+alternative, every degree of freedom has thermalized --- and a bath that
 thermalizes between steps erases the stored record before readback, so
 C4 fails with it ({[}Main §2.3{]}). Boltzmann brains are not generic
 outcomes of long-time evolution that just happen to be rare; they are
@@ -6996,21 +7003,21 @@ the dynamics of the pre-horizon era itself; that domain belongs to
 whatever deeper theory describes the pre-horizon transition.
 
 \emph{The equilibrium phase of \((S, \varphi)\).} Chapter 1's central
-theorem requires C1--C4 to be satisfied. The slow-bath condition C2
-fails at substratum equilibrium --- and with it the readback condition
-C4, since a bath thermalizing between steps erases the record before it
-can be read ({[}Main §2.3{]}): at equilibrium, the hidden sector has
-thermalized completely, and there are no slow modes to provide the
-timescale separation that produces P-indivisibility. The structural
-observer-selection theorem developed at Main §4.6 restricts observers to
-the non-equilibrium phase of the substratum's dynamics. The equilibrium
-phase is observer-free by structural argument, and the framework makes
-no prediction for what happens in this regime --- there is no observer
-to whom a prediction could be addressed. This is the framework's account
-of why Boltzmann brains do not appear in observed physics: not because
-they are rare random fluctuations that happen not to occur, but because
-the equilibrium phase that would produce them is structurally
-observer-free.
+theorem requires C1--C4 to be satisfied. C2 (persistence) fails at
+substratum equilibrium --- its slow-bath route gone --- and with it the
+readback condition C4, since a bath thermalizing between steps erases
+the record before it can be read ({[}Main §2.3{]}): at equilibrium, the
+hidden sector has thermalized completely, and there are no slow modes to
+provide the timescale separation that produces P-indivisibility. The
+structural observer-selection theorem developed at Main §4.6 restricts
+observers to the non-equilibrium phase of the substratum's dynamics. The
+equilibrium phase is observer-free by structural argument, and the
+framework makes no prediction for what happens in this regime --- there
+is no observer to whom a prediction could be addressed. This is the
+framework's account of why Boltzmann brains do not appear in observed
+physics: not because they are rare random fluctuations that happen not
+to occur, but because the equilibrium phase that would produce them is
+structurally observer-free.
 
 \emph{Regions beyond the observer's causal horizon.} For any observer
 with a finite cosmological horizon, regions beyond that horizon are part
@@ -10063,7 +10070,7 @@ timescale for any laboratory process is much faster: typical electroweak
 processes occur on timescales \(\tau_S \sim 10^{-15}\) s. The ratio
 \(\tau_S / \tau_B \sim 10^{-32}\) is extraordinarily small, making the
 corrections to the framework's leading-order results at scale
-\(\tau_S / \tau_B\) correspondingly small. The slow-bath condition is
+\(\tau_S / \tau_B\) correspondingly small. C2's slow-bath realization is
 satisfied with enormous margin --- the cosmological horizon is among the
 slowest baths the framework's conditions admit. Corrections of order
 \(10^{-32}\) to the framework's leading results are well below current
@@ -10544,19 +10551,19 @@ cosmological horizon (the external observer's visible sector), \(B\) is
 the black hole interior (the secondary hidden sector), and \(D\) is the
 trans-cosmological region (the primary hidden sector).
 
-The external observer's emergent quantum description of the region \(V\)
-is obtained by tracing out \emph{both} \(B\) and \(D\). Two procedures
-produce a quantum description on \(V\): a \emph{direct} trace,
-marginalizing over \(\mathcal{C}_B \times \mathcal{C}_D\) in one step,
-and a \emph{sequential} trace, first marginalizing over
-\(\mathcal{C}_D\) (cosmological partition) and then over
-\(\mathcal{C}_B\) (black hole partition). The consistency of the nested
-formalism --- the requirement that the two procedures produce the same
-CPTP channel, the same emergent Hamiltonian, and the same value of
-\(\hbar\) --- is established in the framework's appendix to the
-gravitational sector. The nested trace-out is well-defined; the external
-observer's emergent quantum mechanics is self-consistent when multiple
-causal boundaries coexist.
+The external observer's reduced description of the region \(V\) ---
+universally admitting the quantum representation --- is obtained by
+tracing out \emph{both} \(B\) and \(D\). Two procedures produce that
+reduced description on \(V\): a \emph{direct} trace, marginalizing over
+\(\mathcal{C}_B \times \mathcal{C}_D\) in one step, and a
+\emph{sequential} trace, first marginalizing over \(\mathcal{C}_D\)
+(cosmological partition) and then over \(\mathcal{C}_B\) (black hole
+partition). The consistency of the nested formalism --- the requirement
+that the two procedures produce the same CPTP channel, the same emergent
+Hamiltonian, and the same value of \(\hbar\) --- is established in the
+framework's appendix to the gravitational sector. The nested trace-out
+is well-defined; the external observer's emergent quantum mechanics is
+self-consistent when multiple causal boundaries coexist.
 
 \textbf{The Page curve from cycle typicality.} The framework's
 derivation of the Page curve runs through the \emph{combinatorial}
@@ -13620,9 +13627,10 @@ their geometry.
 \emph{Decoherence vanishes when coupling is screened.} The framework's
 C1 condition requires non-trivial coupling between visible and hidden
 sectors. If C1 fails (the coupling is screened or vanishingly small),
-the framework's emergent dynamics is classical stochastic rather than
-quantum. DSW reproduces this with extremal black holes: when the
-horizon's surface gravity vanishes (the extremal limit), the soft
+the framework's emergent dynamics is memoryless rather than
+memory-bearing --- the finite law still universally admits
+\(Q_{\mathrm{fb}}\). DSW reproduces this with extremal black holes: when
+the horizon's surface gravity vanishes (the extremal limit), the soft
 graviton coupling to the horizon also vanishes, and the DSW decoherence
 rate goes to zero. The match is structural: both frameworks predict that
 extremal horizons impose no fundamental decoherence.
@@ -18901,14 +18909,20 @@ regime where structural corrections are non-negligible.
 produce a hidden sector with capacity vastly exceeding the qubit's
 two-state Hilbert space. C3 is satisfied with overwhelming margin.
 
-\textbf{The framework's prediction: P-indivisible noise.} With C1--C4
-satisfied at \(\tau_S/\tau_B \sim 10^{-3}\), the framework predicts that
-the qubit's noise structure is P-indivisible: error probabilities at
-gate \(k\) depend on the error history at gates \(k-1, k-2, \ldots\)
-through correlations stored in the TLS bath. The correlations extend
-over approximately \(\tau_B/\tau_S \sim 10^3\) gates --- meaning noise
-events separated by less than one thousand gate operations are
-statistically correlated rather than independent.
+\emph{C4 (history readback).} The TLS retain the state the qubit's
+operations write into them and act back on subsequent gates through the
+same dipole coupling --- the bath reads back what was written.
+
+\textbf{The framework's prediction: memory-bearing noise.} With C1--C4
+realized at \(\tau_S/\tau_B \sim 10^{-3}\), the framework predicts that
+the qubit's noise structure is memory-bearing --- accessibly
+non-Markovian, with P-indivisibility the stronger diagnostic to be
+established by a measured witness (§15.8's protocols measure exactly
+this): error probabilities at gate \(k\) depend on the error history at
+gates \(k-1, k-2, \ldots\) through correlations stored in the TLS bath.
+The correlations extend over approximately \(\tau_B/\tau_S \sim 10^3\)
+gates --- meaning noise events separated by less than one thousand gate
+operations are statistically correlated rather than independent.
 
 This prediction is structurally distinct from the standard Markovian
 assumption underlying quantum error correction. Markovian noise models
@@ -26387,15 +26401,16 @@ Verified for all \((\mu_c, \mu_w) \in \{1, \ldots, q-1\}^2\) at
 \(q \in \{3, 5, 7\}\) with \(L = 4\).
 
 \textbf{The projection.} The framework's trace-out operation
-(marginalization over the hidden sector) produces the emergent quantum
-description, which depends on the coupling eigenvalues \(\mu_k\) via the
-NM formula \(\text{NM}^2 = 3\langle\mu^4\rangle\) --- a consequence of
-the stochastic-quantum correspondence applied to the wave equation's
-Fourier decomposition. These \(\mu_k\) are properties of
-\(F_{\text{ss}}\), the semisimple part of the dynamics. The nilpotent
-monodromy \(N\) contributes nothing to the emergent description: it
-affects only the off-diagonal Jordan block entries, which are erased by
-the coarse-graining over the hidden sector.
+(marginalization over the hidden sector) produces the reduced observable
+description --- universally admitting the quantum representation ---
+which depends on the coupling eigenvalues \(\mu_k\) via the NM formula
+\(\text{NM}^2 = 3\langle\mu^4\rangle\) --- a consequence of the
+stochastic-quantum correspondence applied to the wave equation's Fourier
+decomposition. These \(\mu_k\) are properties of \(F_{\text{ss}}\), the
+semisimple part of the dynamics. The nilpotent monodromy \(N\)
+contributes nothing to the emergent description: it affects only the
+off-diagonal Jordan block entries, which are erased by the
+coarse-graining over the hidden sector.
 
 The trace-out therefore performs the Jordan-Chevalley projection
 \[(F_{\text{ss}}, N) \mapsto F_{\text{ss}} \mapsto \{\mu_k\} \mapsto \text{NM}^2\]

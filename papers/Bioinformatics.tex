@@ -476,15 +476,17 @@ state, because chromatin memory contributes information not captured by
 mRNA levels alone.
 
 The C1--C4 architecture applies directly: gene transcription (fast,
-visible) is coupled (C1) to chromatin state (slow, C2) with
-exponentially large chromatin state space (C3). The framework's
-characterization theorem {[}1{]} then implies that RNA velocity inferred
-from gene-expression data alone is memory-bearing --- accessibly
-non-Markovian, with P-indivisibility the stronger diagnostic requiring a
-measured witness (\texttt{review4\_probes.py}): the marginal dynamics on
-the gene-expression subspace cannot be described by a Markovian kinetic
-equation, and methods assuming such description will produce biased
-estimates.
+visible) is coupled (C1) to chromatin state (persistent --- slow, C2)
+with exponentially large chromatin state space (C3), and the chromatin
+marks transcription lays down modulate subsequent transcription --- the
+coupling reads back what it wrote (C4). With all four realized, the
+framework's characterization theorem {[}1{]} then implies that RNA
+velocity inferred from gene-expression data alone is memory-bearing ---
+accessibly non-Markovian, with P-indivisibility the stronger diagnostic
+requiring a measured witness (\texttt{review4\_probes.py}): the marginal
+dynamics on the gene-expression subspace cannot be described by a
+Markovian kinetic equation, and methods assuming such description will
+produce biased estimates.
 
 The bias is not arbitrary. Its sign depends on the relationship between
 chromatin state and transcriptional kinetics. When chromatin transitions
