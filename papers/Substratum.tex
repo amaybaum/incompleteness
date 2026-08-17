@@ -802,8 +802,8 @@ finite, \(\varphi\) a bijection on \(S\), and \(V \subset S\) a
 distinguished subset such that: - The observed quantum dynamics is the
 reduced description obtained by tracing out \(S \setminus V\) from the
 deterministic evolution under \(\varphi\). - The triple satisfies C1
-(non-trivial coupling), C2 (slow-bath memory), and C3 (high
-hidden-sector capacity).
+(non-trivial coupling), C2 (record persistence --- the slow bath one
+realization), and C3 (sufficient hidden memory capacity).
 
 \textbf{Conditional structure.} C1 and C3 are derived unconditionally
 from the inputs. C2 is conditional on the quantitative mixing hypothesis
@@ -838,15 +838,17 @@ independently selects \(d = 3\) (§3.3, {[}SM §3.2{]}), the hidden sector
 sits in the regime where MBL does not survive and generic interacting
 dynamics thermalize --- so ETH is the expected case, not an additional
 fine-tuning. Second, the conditional attaches only to the
-\emph{necessity} direction of C2; the \emph{sufficiency} direction
-(C1--C4 ⇒ QM) is unconditional, so the framework's positive predictive
-content does not rest on ETH. ETH is required to argue that QM
-\emph{forces} the slow-bath structure, not to argue that the slow-bath
-structure produces the quantum phenomenology. A referee skeptical of ETH
-may therefore read the reconstruction's uniqueness as holding within the
-class of ETH-satisfying (equivalently, non-integrable, non-MBL) hidden
-sectors --- a class the framework argues is generic at \(d = 3\) rather
-than special.
+\emph{necessity} direction of C2; the \emph{sufficiency} direction ---
+C1--C4 realization yields the memory-bearing non-Markovian
+phenomenology, whose finite law universally admits the quantum
+representation --- is unconditional, so the framework's positive
+predictive content does not rest on ETH. ETH is required to argue that
+QM \emph{forces} the slow-bath structure, not to argue that the
+slow-bath structure produces the quantum phenomenology. A referee
+skeptical of ETH may therefore read the reconstruction's uniqueness as
+holding within the class of ETH-satisfying (equivalently,
+non-integrable, non-MBL) hidden sectors --- a class the framework argues
+is generic at \(d = 3\) rather than special.
 
 \textbf{Derivation.} The observed quantum dynamics provides, for each
 choice of computational basis in the visible sector, a family of
@@ -855,11 +857,14 @@ Born-rule matrix elements of the unitary evolution. These form a
 stochastic process on the finite visible configuration space (finiteness
 of \(\mathcal{C}_V\) follows from E3, the boundary entropy bound). Bell
 violations (E2) are incompatible with a factorizable hidden-variable
-distribution and hence imply the stochastic process is P-indivisible: at
-intermediate times no valid stochastic matrix \(\Lambda\) satisfies
-\(T(t_2, 0) = \Lambda \, T(t_1, 0)\) ({[}Main §2.3{]}). By the
-reverse-direction lemma at the stochastic-process level ({[}Main
-§3.2{]}) --- applicable here because the one-step matrices, as
+distribution; within the framework's account they enter through
+P-indivisible joint dynamics --- the mechanism route ({[}Main §2.3{]})
+--- and the reconstruction here adopts that route as a modeling premise,
+not a generic implication from spatial Bell correlation to temporal
+P-indivisibility: at intermediate times no valid stochastic matrix
+\(\Lambda\) satisfies \(T(t_2, 0) = \Lambda \, T(t_1, 0)\) ({[}Main
+§2.3{]}). By the reverse-direction lemma at the stochastic-process level
+({[}Main §3.2{]}) --- applicable here because the one-step matrices, as
 ancilla-uniform marginals of unistochastic matrices, are doubly
 stochastic --- any such P-indivisible process on a finite configuration
 space admits a realization as marginalization of a deterministic
@@ -871,10 +876,10 @@ Non-permutation \(T(t)\) (forced by Bell violations) gives C1. The
 characterization theorem {[}Main §3.4{]} establishes that the resulting
 dynamics, conditional on the hidden-sector mixing hypothesis ({[}Main
 §3.4{]}; ETH is its physical motivation), necessarily satisfies C2
-(slow-bath memory is required for the non-Markovian returns that produce
-quantum interference) and C3 (high hidden-sector capacity is required
-for the data-processing bound to accommodate observed information
-backflow).
+(record persistence is required for the non-Markovian returns that
+produce quantum interference) and C3 (sufficient hidden-sector capacity
+is required for the data-processing bound to accommodate observed
+information backflow).
 
 \textbf{Uniqueness at Stage 1.} The triple \((S, \varphi, V)\) is
 uniquely determined by the observations up to the equivalences: -
@@ -1870,9 +1875,9 @@ constructed, Born-form readout admitted as the dictionary, the
 specifically quadratic functional not derived, full operational quantum
 mechanics not yet selected. The proof in {[}Main, §3{]} establishes the
 theorem layer: under the four conditions C1 (non-trivial coupling), C2
-(memory persistence), C3 (high-capacity hidden sector), and C4 (history
-readback), the embedded observer's compressed description is necessarily
-memory-bearing (non-Markovian) --- its fixed-basis quantum
+(memory persistence), C3 (sufficient hidden memory capacity), and C4
+(history readback), the embedded observer's compressed description is
+necessarily memory-bearing (non-Markovian) --- its fixed-basis quantum
 representation supplied universally, the compressed form under (T) ---
 with the conditions both necessary and sufficient per finite horizon
 (the C2-necessity step conditional on the hidden-sector mixing

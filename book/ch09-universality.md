@@ -81,7 +81,7 @@ The framework's strongest empirical predictions are concentrated at the universa
 
 **What universality-class content means.** A universality-class result is a structural commitment that follows from a small set of structural conditions and holds across multiple substratum realizations. The classic example in condensed matter is the renormalization-group universality of critical phenomena: different microscopic Hamiltonians (Ising model, $\phi^4$ field theory, certain lattice gauge theories) produce identical critical exponents at their phase transitions because they belong to the same universality class.
 
-The framework's structural conditions C1, C2, C3, C4 — coupling to a hidden sector, slow-bath timescale separation, sufficient hidden-sector capacity — define a universality class of substratum theories. Any finite deterministic substratum with a partition satisfying C1–C4 belongs to the class. The cubic-lattice substratum developed in Chapters 5-6 is one member; alternative substrata that satisfy C1–C4 differently would be other members of the same class.
+The framework's structural conditions C1, C2, C3, C4 — coupling to a hidden sector, record persistence (slow-bath separation one route), sufficient hidden-sector capacity, history readback — define a universality class of substratum theories. Any finite deterministic substratum with a partition satisfying C1–C4 belongs to the class. The cubic-lattice substratum developed in Chapters 5-6 is one member; alternative substrata that satisfy C1–C4 differently would be other members of the same class.
 
 The framework's Tier 1 results are properties of the universality class as a whole, not of the specific cubic-lattice realization. Three examples illustrate.
 

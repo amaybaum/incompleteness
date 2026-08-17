@@ -141,7 +141,7 @@ The framework's structural prediction is therefore: Darwinian evolution is inevi
 
 ## 11.6 C1–C4 at the molecular scale
 
-The framework's characterization theorem from Chapter 1 establishes that any embedded observer's reduced description is necessarily non-Markovian whenever four conditions are satisfied: C1 (non-trivial coupling between visible and hidden sectors), C2 (slow-bath timescale separation), C3 (large hidden-sector capacity), and C4 (history readback). At the cosmological scale these conditions select the memory-bearing sector, whose finite observable laws admit the universal $Q_{\mathrm{fb}}$ representation ([Main §3.4]). At the molecular scale, the same conditions produce heredity.
+The framework's characterization theorem from Chapter 1 establishes that any embedded observer's reduced description is non-Markovian in the memory-bearing sector characterized by four conditions: C1 (non-trivial coupling between visible and hidden sectors), C2 (record persistence — slow-bath separation one route), C3 (sufficient hidden memory capacity), and C4 (history readback). At the cosmological scale these conditions select the memory-bearing sector, whose finite observable laws admit the universal $Q_{\mathrm{fb}}$ representation ([Main §3.4]). At the molecular scale, the same conditions produce heredity.
 
 **Before life: Markovian chemistry.** Ordinary chemical reactions are Markovian. The reaction rate depends on current concentrations alone, not on the history of the mixture. Products do not remember how they were made. Each reaction cycle is statistically independent of the previous one. No memory, no heredity, no evolution.
 

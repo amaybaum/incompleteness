@@ -1037,11 +1037,14 @@ enormous margins. The first condition (C1) requires non-trivial coupling
 between what the observer can see and what they cannot --- satisfied
 because the cosmological horizon is not a static wall, and stress-energy
 conservation forces correlations across it. The second condition (C2)
-requires that the hidden sector evolve much more slowly than the visible
-sector --- satisfied with a ratio of approximately \(10^{-32}\) between
-laboratory timescales and the Hubble time. The third condition (C3)
-requires the hidden sector to have far more degrees of freedom than the
-visible sector --- satisfied with \(10^{122}\) degrees of freedom on the
+requires that the observational record persist across the window ---
+satisfied in our universe via the slow cosmological horizon, a ratio of
+approximately \(10^{-32}\) between laboratory timescales and the Hubble
+time; slowness is one sufficient route, a fast bath that conserves and
+routes the record serving equally. The third condition (C3) requires
+hidden capacity sufficient to store the history the statistics draw on
+--- satisfied, with \(N_H \gg N_V\) a comfortable physical regime rather
+than the condition itself, by \(10^{122}\) degrees of freedom on the
 cosmological horizon against at most \(10^{50}\) in any laboratory
 apparatus. The fourth condition (C4) requires that the observer's own
 past records be read back into the visible dynamics --- satisfied by any
@@ -1054,19 +1057,21 @@ some partition, while every finite observable law, memory-free ones
 included, admits the quantum representation ({[}Main §3.4{]}).
 
 Quantum mechanics is, in this picture, a self-consistent algorithm for
-making predictions from incomplete data on accessible timescales under
-C1--C4 --- supplied by the imported correspondence, and not unique,
-since the stochastic-to-quantum representation is explicitly non-unique.
-It is what computation looks like when one is a component of the machine
-doing the computing. The reframing has structural consequences. The
-\(10^{122}\) vacuum-energy discrepancy is not a fine-tuning failure but
-the compression ratio between the universe's total degrees of freedom
-and the visible ones --- quantum field theory and general relativity are
-measuring two different things, not two different values of the same
-thing. The roughly \(95\%\) of cosmic energy density attributed to dark
-matter and dark energy is the gravitational signature of the same hidden
-degrees of freedom, structured (dark matter) and uniform (dark energy).
-These are theorems within the framework, developed in Part II.
+making predictions from incomplete data on accessible timescales --- the
+fixed-basis representation internal and universal ({[}Main §3.4{]}), the
+imported correspondence retained for compression and interpretation, and
+not unique, since the stochastic-to-quantum representation is explicitly
+non-unique. It is what computation looks like when one is a component of
+the machine doing the computing. The reframing has structural
+consequences. The \(10^{122}\) vacuum-energy discrepancy is not a
+fine-tuning failure but the compression ratio between the universe's
+total degrees of freedom and the visible ones --- quantum field theory
+and general relativity are measuring two different things, not two
+different values of the same thing. The roughly \(95\%\) of cosmic
+energy density attributed to dark matter and dark energy is the
+gravitational signature of the same hidden degrees of freedom,
+structured (dark matter) and uniform (dark energy). These are theorems
+within the framework, developed in Part II.
 
 The framework reaches further than dissolving the cosmological constant
 problem. From the same starting definition --- \emph{observation occurs}
@@ -2464,11 +2469,14 @@ Stinespring route requires the dilation to be specified explicitly but
 delivers richer structural information (the tensor product, the
 channel-level CP-indivisibility, the Lindblad-form generator, the
 suppression of dissipation by \(\tau_S/\tau_B\)). Both routes agree on
-the observable transition data. The agreement means the emergence of
-quantum mechanics from embedded observation under C1--C4 does not rest
-on any single technical result: if one were to discover an error in
-Barandes' construction, the Stinespring route from textbook quantum
-information would establish the same conclusion through different
+the observable transition data. The agreement means the representation
+of the embedded observer's transition statistics does not rest on any
+single technical result: both routes represent and compress the
+transition-statistics layer --- neither establishes operational
+selection, and neither makes C1--C4 the gate to quantum
+representability, which is internal and universal ({[}Main §3.4{]}); if
+one were to discover an error in Barandes' construction, the Stinespring
+route would supply the same compressed representation through different
 mathematics. The two-route structure is the framework's hedge against
 single-point failure in the foundational technical machinery. The
 division of labor is precise: the correspondence is load-bearing only
@@ -3017,11 +3025,13 @@ representability or the memory theorem require ({[}Main §3.4{]}).
 
 \textbf{The C3 limit: the universe-sized observer.}
 
-C3 requires large hidden-sector capacity: \(N_H \gg N_V\). In the limit
-of complete failure --- \(N_H \to 0\), the hidden sector vanishes
-entirely --- the visible sector \(V\) approaches the total system \(S\).
-There is no trace-out because there is nothing to trace over. The
-observer is \emph{coextensive} with the universe.
+C3 requires sufficient hidden memory capacity ---
+\(\log_2|\mathcal{C}_H| \geq I^*\), with \(N_H \gg N_V\) the comfortable
+realization regime. In the limit of complete failure --- \(N_H \to 0\),
+the hidden sector vanishes entirely --- the visible sector \(V\)
+approaches the total system \(S\). There is no trace-out because there
+is nothing to trace over. The observer is \emph{coextensive} with the
+universe.
 
 The dynamics in this limit is fully deterministic and fully classical.
 The bijection \(\varphi\) on the full system \(S\) is just a permutation
@@ -4520,13 +4530,13 @@ identified in Chapter 1's structural lemmas.
 
 \textbf{Level B: observer admission.} Not every conceivable substratum
 admits embedded observation. Chapter 1 identified four conditions --- C1
-(non-trivial coupling), C2 (slow-bath timescale separation), C3
-(sufficient hidden-sector capacity), and C4 (history readback) --- that
-are necessary for a substratum's bijection \(\varphi\) to support an
-embedded observer. A substratum \((S, \varphi)\) is
-\emph{observer-admitting} if there exists a partition \(V \subset S\)
-such that the triple \((S, \varphi, V)\) satisfies C1--C4; it is
-\emph{observer-lacking} otherwise.
+(non-trivial coupling), C2 (record persistence --- slow-bath separation
+one route), C3 (sufficient hidden-sector capacity), and C4 (history
+readback) --- that are necessary for a substratum's bijection
+\(\varphi\) to support an embedded observer. A substratum
+\((S, \varphi)\) is \emph{observer-admitting} if there exists a
+partition \(V \subset S\) such that the triple \((S, \varphi, V)\)
+satisfies C1--C4; it is \emph{observer-lacking} otherwise.
 
 The distinction is structural rather than empirical. A finite cellular
 automaton with a deterministic update rule may or may not admit an
@@ -5560,29 +5570,30 @@ Bell's sense, and the framework says so. What it maintains is that the
 ontology and the dynamics are local in the taxonomic senses above, and
 that the interesting question is therefore not whether to utter the word
 ``nonlocal'' but where the nonlocality lives; here it lives in the
-partition --- the same structural feature that generates quantum
-mechanics itself. Whether the substratum-level notion the framework
-satisfies --- causal locality in the directed-conditional-probability
-sense developed by Barandes for unistochastic reformulations
-(arXiv:2402.16935) --- is a physically principled locality criterion or
-a weakened surrogate is a live dispute in the current literature between
-exactly these positions. The framework inherits that dispute and does
-not pretend to settle it; it records which side of it the construction
-occupies. On the second: the bath is not an event-structure in the
-wings' past light cone, because the emergent causal structure --- light
-cones included --- is itself an output of the trace-out, and the
-co-embedding relation between the wings and the bath is prior to it;
-Bell's screening condition quantifies over beables in spacetime regions
-and has no slot for the structure that produces the regions. That this
-is a physical claim rather than a verbal one rests on three checkable
-facts already in the framework's ledger: the correlations are computed,
-not posited; their maximum is derived (\(2\sqrt{2}\) exactly); and the
-no-signaling protection is structural. But the classification of the
-bath as ``not a past-light-cone common cause'' turns on treating
-emergent causal structure as non-fundamental --- which is the
-framework's central commitment and precisely what a critic of this
-school declines to grant. The framework can survive the verdict ``a
-nonlocal theory with a local ontology''; it does not claim to refute it.
+partition --- the same structural feature that carries the
+memory-bearing quantum phenomenology itself. Whether the
+substratum-level notion the framework satisfies --- causal locality in
+the directed-conditional-probability sense developed by Barandes for
+unistochastic reformulations (arXiv:2402.16935) --- is a physically
+principled locality criterion or a weakened surrogate is a live dispute
+in the current literature between exactly these positions. The framework
+inherits that dispute and does not pretend to settle it; it records
+which side of it the construction occupies. On the second: the bath is
+not an event-structure in the wings' past light cone, because the
+emergent causal structure --- light cones included --- is itself an
+output of the trace-out, and the co-embedding relation between the wings
+and the bath is prior to it; Bell's screening condition quantifies over
+beables in spacetime regions and has no slot for the structure that
+produces the regions. That this is a physical claim rather than a verbal
+one rests on three checkable facts already in the framework's ledger:
+the correlations are computed, not posited; their maximum is derived
+(\(2\sqrt{2}\) exactly); and the no-signaling protection is structural.
+But the classification of the bath as ``not a past-light-cone common
+cause'' turns on treating emergent causal structure as non-fundamental
+--- which is the framework's central commitment and precisely what a
+critic of this school declines to grant. The framework can survive the
+verdict ``a nonlocal theory with a local ontology''; it does not claim
+to refute it.
 
 \textbf{The bill, paid in the open.} A theory that violates outcome
 independence and keeps a substratum owes an account of relativity, and
@@ -12781,12 +12792,13 @@ produce identical critical exponents at their phase transitions because
 they belong to the same universality class.
 
 The framework's structural conditions C1, C2, C3, C4 --- coupling to a
-hidden sector, slow-bath timescale separation, sufficient hidden-sector
-capacity --- define a universality class of substratum theories. Any
-finite deterministic substratum with a partition satisfying C1--C4
-belongs to the class. The cubic-lattice substratum developed in Chapters
-5-6 is one member; alternative substrata that satisfy C1--C4 differently
-would be other members of the same class.
+hidden sector, record persistence (slow-bath separation one route),
+sufficient hidden-sector capacity, history readback --- define a
+universality class of substratum theories. Any finite deterministic
+substratum with a partition satisfying C1--C4 belongs to the class. The
+cubic-lattice substratum developed in Chapters 5-6 is one member;
+alternative substrata that satisfy C1--C4 differently would be other
+members of the same class.
 
 The framework's Tier 1 results are properties of the universality class
 as a whole, not of the specific cubic-lattice realization. Three
@@ -15263,14 +15275,14 @@ comparative biology).
 scale}\label{c1c4-at-the-molecular-scale}}
 
 The framework's characterization theorem from Chapter 1 establishes that
-any embedded observer's reduced description is necessarily non-Markovian
-whenever four conditions are satisfied: C1 (non-trivial coupling between
-visible and hidden sectors), C2 (slow-bath timescale separation), C3
-(large hidden-sector capacity), and C4 (history readback). At the
-cosmological scale these conditions select the memory-bearing sector,
-whose finite observable laws admit the universal \(Q_{\mathrm{fb}}\)
-representation ({[}Main §3.4{]}). At the molecular scale, the same
-conditions produce heredity.
+any embedded observer's reduced description is non-Markovian in the
+memory-bearing sector characterized by four conditions: C1 (non-trivial
+coupling between visible and hidden sectors), C2 (record persistence ---
+slow-bath separation one route), C3 (sufficient hidden memory capacity),
+and C4 (history readback). At the cosmological scale these conditions
+select the memory-bearing sector, whose finite observable laws admit the
+universal \(Q_{\mathrm{fb}}\) representation ({[}Main §3.4{]}). At the
+molecular scale, the same conditions produce heredity.
 
 \textbf{Before life: Markovian chemistry.} Ordinary chemical reactions
 are Markovian. The reaction rate depends on current concentrations
@@ -23067,9 +23079,10 @@ addressed, and the framework is explicit about this scope limitation.
 \textbf{Mathematical observer is not equivalent to conscious entity.}
 The framework's observer is a partition \(V\) of the substratum's
 configuration space combined with the structural conditions C1 (coupling
-to hidden sector), C2 (slow-bath timescale separation), and C3
-(sufficient hidden-sector capacity). The partition is a mathematical
-object that has dynamical consequences (the trace-out producing emergent
+to hidden sector), C2 (record persistence --- slow-bath separation the
+route), and C3 (sufficient hidden-sector capacity). The partition is a
+mathematical object that has dynamical consequences (the trace-out
+producing the reduced law whose representation carries the emergent
 QFT), thermodynamic consequences (entropy displacement producing dark
 matter phenomenology), and empirical consequences (the JUNO prediction,
 the BH entropy, the dark sector).
@@ -23175,14 +23188,16 @@ conscious; systems with low \(\Phi\) are not.
 There is a real structural relationship between the framework's C1--C4
 architecture and IIT's \(\Phi\). C1 (non-trivial coupling) is necessary
 for non-zero \(\Phi\) --- without inter-part coupling, integrated
-information cannot be non-trivial. C2 (slow-bath timescale separation)
-is necessary for IIT's information integration over time --- the
-framework's \(\tau_B \gg \tau_S\) provides the memory architecture that
-integration requires. C3 (large hidden-sector capacity) is necessary for
-the system's state space to be large enough to support meaningful
-integration. A system satisfying C1--C4 with substantial margins (large
-\(\tau_B/\tau_S\), large \(N_H/N_V\)) is a system with substantial
-\(\Phi\); a system satisfying C1--C4 marginally has low \(\Phi\).
+information cannot be non-trivial. C2 (record persistence --- realized
+here by slow-bath separation) is necessary for IIT's information
+integration over time --- the framework's persistence requirement, met
+via \(\tau_B \gg \tau_S\), provides the memory architecture that
+integration requires. C3 (sufficient hidden-sector capacity) is
+necessary for the system's state space to be large enough to support
+meaningful integration. A system satisfying C1--C4 with substantial
+margins (large \(\tau_B/\tau_S\), large \(N_H/N_V\)) is a system with
+substantial \(\Phi\); a system satisfying C1--C4 marginally has low
+\(\Phi\).
 
 The relationship is not exact identity. C1--C4 are \emph{necessary
 conditions} for non-Markovian dynamics in the framework's specific
@@ -27762,13 +27777,16 @@ to the correspondence's class under (T).
 
 \textbf{What the necessity direction does not claim.} The necessity
 direction claims that the observed dynamics require C1--C4 \emph{at the
-structural level} --- any system producing the empirical signature
-(Bell-inequality violations are P-indivisible, hence non-Markovian a
-fortiori) must satisfy them. It does \emph{not} claim that every
-empirical system we call ``quantum'' satisfies C1--C4 \emph{uniquely}
---- alternative substrata satisfying C1--C4 with different specific
-bijections would produce QM with potentially different specific
-empirical content at the bijection-specific (Tier 3) level.
+structural level} --- any system producing the empirical signature ---
+the measured memory witness, accessible non-Markovianity in the temporal
+statistics; Bell violations enter through the framework's P-indivisible
+joint-dynamics route, a mechanism claim, not a generic implication from
+spatial Bell correlation to temporal P-indivisibility --- must satisfy
+them. It does \emph{not} claim that every empirical system we call
+``quantum'' satisfies C1--C4 \emph{uniquely} --- alternative substrata
+satisfying C1--C4 with different specific bijections would produce the
+same memory-bearing quantum phenomenology with potentially different
+specific empirical content at the bijection-specific (Tier 3) level.
 
 The framework's necessity claim is therefore at the \emph{structural}
 level (C1, C3, C4 necessary unconditionally, C2 within its stated class)
