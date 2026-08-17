@@ -315,25 +315,29 @@ derivation in {[}SM{]}, and the gravitational sector in {[}GR{]} --- a
 single construction rather than three separate applications of the same
 formalism. The two technical results that do this work are the
 \emph{reconstruction theorem} (§3) and the \emph{substratum gauge group}
-(§4). The reconstruction theorem shows that the map from
-\((S, \varphi)\) to observed physics is invertible within the
-framework's structural class: observed quantum mechanics with Bell
-violations, together with finite boundary entropy and spatial isotropy
-and the structural assumptions of the framework (finiteness,
+(§4). The reconstruction theorem shows --- under its stated conditions
+(the M1 modeling premise; C2-mixing; Lemma 24.1's completeness step) ---
+that the map from \((S, \varphi)\) to observed physics is invertible
+within the framework's structural class: observed quantum mechanics with
+Bell violations, together with finite boundary entropy and spatial
+isotropy and the structural assumptions of the framework (finiteness,
 determinism, bounded coupling, center independence, linearity,
-background independence), uniquely determine the equivalence class of
-bijections on a lattice, with the Standard Model structure as a forced
-retrodiction. The substratum gauge group identifies the kernel of this
-inverse map --- four families of transformations of \((S, \varphi)\)
-that exhaust all observables-preserving operations of the dilation-datum
-substratum (§4) --- and shows that the Standard Model gauge group is its
-shadow under the trace-out. The combination of these two results turns
-the framework's three derivations into a single object: the SM gauge
-group is not chosen from a landscape, the gravitational thermodynamics
-are not appended to a quantum description, and the emergent QM is not
-postulated as a starting point. All three emerge from the same
-\((S, \varphi)\), and the substratum gauge group is the symmetry that
-makes the relationship between them exact rather than approximate.
+background independence), uniquely determine --- under the theorem's
+stated conditions (M1; C2-mixing; Lemma 24.1's completeness) --- the
+equivalence class of bijections on a lattice, with the Standard Model
+structure as a forced retrodiction. The substratum gauge group
+identifies the kernel of this inverse map --- four families of
+transformations of \((S, \varphi)\) that exhaust --- conditional on
+Lemma 24.1's completeness step --- all observables-preserving operations
+of the dilation-datum substratum (§4) --- and shows that the Standard
+Model gauge group is its shadow under the trace-out. The combination of
+these two results turns the framework's three derivations into a single
+object: the SM gauge group is not chosen from a landscape, the
+gravitational thermodynamics are not appended to a quantum description,
+and the emergent QM is not postulated as a starting point. All three
+emerge from the same \((S, \varphi)\), and the substratum gauge group is
+the symmetry that makes the relationship between them exact rather than
+approximate.
 
 The synthesis claim that follows from these results --- developed in §5
 --- is that quantum mechanics and general relativity are not two
@@ -393,16 +397,17 @@ realism applied to the equivalence class}
 level is the equivalence class, not any specific substratum
 representative. This is the strongest claim the framework's own theorems
 license at the substratum-class level, and it is forced by them: the
-reconstruction theorem (§3) shows that the equivalence class is uniquely
-determined by the observations together with the structural assumptions,
-and the substratum gauge group (§4) shows that different representatives
-of the class are observably indistinguishable. The class is what the
-data pin down within OI's structural class; individual substrates are
-gauge representations of it. A stronger claim --- realism about a
-specific bijection --- commits to features the framework's own gauge
-group identifies as unobservable. A weaker claim --- pure explanatory
-economy without ontic commitment --- undersells what the uniqueness
-theorem actually establishes.
+reconstruction theorem (§3) shows --- under its stated conditions (M1;
+C2-mixing; Lemma 24.1's completeness) --- that the equivalence class is
+uniquely determined by the observations together with the structural
+assumptions, and the substratum gauge group (§4) shows that different
+representatives of the class are observably indistinguishable. The class
+is what the data pin down within OI's structural class; individual
+substrates are gauge representations of it. A stronger claim --- realism
+about a specific bijection --- commits to features the framework's own
+gauge group identifies as unobservable. A weaker claim --- pure
+explanatory economy without ontic commitment --- undersells what the
+uniqueness theorem actually establishes.
 
 Stated at its most distilled, the framework's foundational commitment
 --- what {[}Main §1.2{]} gives as ``observation occurs'' --- is itself
@@ -615,8 +620,8 @@ semisimple part of the dynamics and erases the nilpotent monodromy.
 Physics is the semisimple shadow of mathematics --- the diagonalizable
 spectral data, projected by the trace-out and organized by the gauge
 group's representation structure. The reconstruction theorem (below)
-proves that the mathematical description and the physics determine each
-other uniquely up to gauge.
+proves --- under its stated conditions --- that the mathematical
+description and the physics determine each other uniquely up to gauge.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1058,8 +1063,11 @@ solution under the stated inputs ({[}GR §3, Theorem{]}).
 \textbf{Lemma 23.0} (Uniqueness preservation). \emph{Let
 \((S_1, \varphi_1)\) and \((S_2, \varphi_2)\) both be reconstructions of
 the same observed physics (E1--E7) satisfying the structural assumptions
-(A1--A6). Then \((S_1, \varphi_1)\) and \((S_2, \varphi_2)\) are in the
-same equivalence class \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\).}
+(A1--A6), with the Stage-1 modeling premise M1 and, for the C2 necessity
+direction, the hidden-sector mixing hypothesis. Then, conditional on
+Lemma 24.1's semigroup-transfer/completeness step, \((S_1, \varphi_1)\)
+and \((S_2, \varphi_2)\) are in the same equivalence class
+\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\).}
 
 \emph{Proof.} By Stage 1, each \((S_i, \varphi_i, V_i)\) is a C1--C4
 embedding of the observed QM. By the Stinespring uniqueness and the
@@ -1091,9 +1099,10 @@ independence) hold. Then the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) is uniquely determined,
 conditional on the hidden-sector mixing hypothesis for the C2 necessity
 direction (Stage 1; {[}Main §3.4{]}, with ETH as its physical
-motivation): a finite set with a bijection of bounded coupling degree
-and statistical isotropy, with \(d = 3\), \(K = 6\), coupling matrix
-eigenvalue multiplicities \((3, 2, 1)\), gauge group
+motivation) and on Lemma 24.1's semigroup-transfer/completeness step
+(Theorem 24, §4): a finite set with a bijection of bounded coupling
+degree and statistical isotropy, with \(d = 3\), \(K = 6\), coupling
+matrix eigenvalue multiplicities \((3, 2, 1)\), gauge group
 \(\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)\), three
 generations (physical reading conditional on H-spin', {[}SM §4.7{]};
 chirality on H-χ', {[}SM §4.8{]}), one Higgs doublet, anomaly-free
@@ -1108,7 +1117,7 @@ the same premise removes CKM CP --- the open fork of {[}SM §5.5{]}), and
 \item
   Stage 1 (§3.2) establishes existence and uniqueness (up to
   \(\mathcal{G}_{\text{sub}}\)) of a C1--C4 embedding from E1--E3 +
-  A1--A2.
+  A1--A2 + M1.
 \item
   Stage 2 (§3.3) takes the Stage 1 output plus E4 + A3--A6 and derives
   the specific lattice, dimension, gauge group, matter content, and
@@ -1617,9 +1626,10 @@ not close the gap to a derivation but relocates the irreducible
 assumption to a more primitive and more defensible place, and names it
 exactly.
 
-\textbf{Completeness of the generators.} The four families exhaust
-\(\mathcal{G}_{\text{sub}}\). The proof proceeds by showing that any
-observables-preserving transformation decomposes into (i)--(iv). The
+\textbf{Completeness of the generators (conditional).} The four families
+exhaust \(\mathcal{G}_{\text{sub}}\) conditional on Lemma 24.1's
+semigroup-transfer step (below). The argument proceeds by showing that
+any observables-preserving transformation decomposes into (i)--(iv). The
 argument has two logical parts that are worth separating, because the
 completeness (as opposed to soundness) direction is the substantive one:
 soundness --- that each of (i)--(iv) preserves observables --- is
@@ -1803,9 +1813,9 @@ equipped with additional intrinsic fields not reflected in any
 definition unobservable and hence already gauge; a referee adopting a
 different substratum ontology would need to re-examine Step 2
 accordingly. The completeness claim is therefore precise rather than
-absolute: the four families exhaust the observables-preserving
-transformations of the dilation-datum substratum, which is the object
-the reconstruction theorem reconstructs.
+absolute --- and conditional: subject to Lemma 24.1, the four families
+exhaust the observables-preserving transformations of the dilation-datum
+substratum, which is the object the reconstruction theorem reconstructs.
 
 Three candidate fifth families are explicitly subsumed:
 
@@ -1869,14 +1879,15 @@ the standard sense, derived from the substratum through the trace-out.
 
 The reconstruction theorem (§3) establishes that observed physics ---
 quantum mechanics with Bell violations, finite boundary entropy, and
-spatial isotropy --- uniquely determines the equivalence class
-\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the lattice level. The
-substratum gauge group (§4) makes the equivalence relation precise and
-identifies the Standard Model gauge group as the visible-sector shadow
-of \(\mathcal{G}_{\text{sub}}\). This section makes the synthesis claim
-explicit: quantum mechanics, general relativity, and the arrow of time
-are not three independent theories but three projections of the same
-finite deterministic construction.
+spatial isotropy --- together with the M1 modeling premise uniquely
+determines, conditional on C2-mixing and Lemma 24.1's completeness step,
+the equivalence class \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the
+lattice level. The substratum gauge group (§4) makes the equivalence
+relation precise and identifies the Standard Model gauge group as the
+visible-sector shadow of \(\mathcal{G}_{\text{sub}}\). This section
+makes the synthesis claim explicit: quantum mechanics, general
+relativity, and the arrow of time are not three independent theories but
+three projections of the same finite deterministic construction.
 
 \hypertarget{the-three-projections}{%
 \subsubsection{5.1 The three projections}\label{the-three-projections}}
@@ -2283,10 +2294,11 @@ the full technical machinery in place. The framework's claim is ontic
 structural realism applied to
 \([(S, \varphi)] / \mathcal{G}_{\text{sub}}\): what exists at the
 substratum-class level is the equivalence class of bijections, uniquely
-determined by observations plus structural assumptions (Theorem 23),
-with individual substratum representatives related by the substratum
-gauge group (Theorem 24). The class is real; specific substrates are
-representations.
+determined --- under Theorem 23's stated conditions (M1; C2-mixing;
+Lemma 24.1's completeness) --- by observations plus structural
+assumptions (Theorem 23), with individual substratum representatives
+related by the substratum gauge group (Theorem 24). The class is real;
+specific substrates are representations.
 
 This is the strongest claim the framework's theorems license at this
 level without overclaiming. Two alternative framings merit explicit
@@ -2303,11 +2315,11 @@ structure classifies as unobservable.
 \emph{Pure explanatory economy} --- the weaker position that the
 framework is simply more economical than standard QM (fewer postulates,
 more derivations) without ontic commitment --- undersells what Theorem
-23 establishes. If observations plus structural assumptions uniquely
-determine the equivalence class, the class is not one possibility among
-many but the unique structure consistent with the evidence. The
-explanatory economy follows from this uniqueness rather than
-substituting for it.
+23 establishes. If observations plus structural assumptions, under
+Theorem 23's stated conditions, uniquely determine the equivalence
+class, the class is not one possibility among many but the unique
+structure consistent with the evidence. The explanatory economy follows
+from this uniqueness rather than substituting for it.
 
 The wave function, Hilbert space, emergent gauge group, and metric are
 features of representations --- of the emergent description of a
@@ -2824,26 +2836,27 @@ sharpens the scope of the positive commitments above.
 The substratum-level results developed in this paper --- the
 reconstruction theorem (Theorem 23) and the substratum gauge group
 (Theorem 24) --- turn the framework's three derivations into a single
-construction. The reconstruction theorem establishes that observed
-quantum mechanics with Bell violations, finite boundary entropy, and
-spatial isotropy, together with the framework's structural assumptions,
-uniquely determine the equivalence class
-\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the lattice level, with
-the Standard Model gauge group and \(\bar\theta = 0\) as forced
-retrodictions, and the anomaly-free hypercharge assignment forced once
-the observed family pattern is given (fermion embedding closed via the
-link-carrier construction, with the candidate-sector count locked at
-three by coupling-degree minimality (three physical generations only
-under H-spin', {[}SM §4.7{]}) jointly with the condensate-stabilizer
-accounting). The substratum gauge group identifies the kernel of this
-inverse map and shows that the Standard Model gauge group is its
-visible-sector shadow. Together, these two results establish that the
-framework's emergence of quantum mechanics {[}Main{]}, its derivation of
-the Standard Model {[}SM{]}, and its derivation of the gravitational
-sector {[}GR{]} are not three independent applications of the same
-trace-out machinery but three projections of one object --- the
-bijection \((S, \varphi)\) --- viewed at different levels of
-description.
+construction. The reconstruction theorem establishes --- under the M1
+modeling premise, conditional on C2-mixing and Lemma 24.1's completeness
+step --- that observed quantum mechanics with Bell violations, finite
+boundary entropy, and spatial isotropy, together with the framework's
+structural assumptions, so conditioned, uniquely determine the
+equivalence class \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the
+lattice level, with the Standard Model gauge group and
+\(\bar\theta = 0\) as forced retrodictions, and the anomaly-free
+hypercharge assignment forced once the observed family pattern is given
+(fermion embedding closed via the link-carrier construction, with the
+candidate-sector count locked at three by coupling-degree minimality
+(three physical generations only under H-spin', {[}SM §4.7{]}) jointly
+with the condensate-stabilizer accounting). The substratum gauge group
+identifies the kernel of this inverse map and shows that the Standard
+Model gauge group is its visible-sector shadow. Together, these two
+results establish that the framework's emergence of quantum mechanics
+{[}Main{]}, its derivation of the Standard Model {[}SM{]}, and its
+derivation of the gravitational sector {[}GR{]} are not three
+independent applications of the same trace-out machinery but three
+projections of one object --- the bijection \((S, \varphi)\) --- viewed
+at different levels of description.
 
 The synthesis claim that follows is not a unification of quantum
 mechanics and general relativity in the traditional sense. The

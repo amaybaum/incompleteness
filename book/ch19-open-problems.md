@@ -197,7 +197,7 @@ The baryon asymmetry inherits this status. Sakharov's second condition is CP vio
 
 **Standard status.** Not applicable in the conventional sense — this is a framework-specific question. Why does the universe have the particular bijection $\varphi$ rather than some other? Why these particular initial conditions for the bijection's evolution?
 
-**Framework status.** Partially addressed, partially outside scope. The framework's reconstruction theorem establishes that observed physics uniquely determines the equivalence class $[(S, \varphi)] / \mathcal{G}_{\text{sub}}$ of bijections producing those observations. Within the equivalence class, all bijections produce identical observables; the choice of representative is gauge. The question "why this $\varphi$?" has two layers.
+**Framework status.** Partially addressed, partially outside scope. The framework's reconstruction theorem establishes — under the M1 modeling premise, the C2 mixing hypothesis, and conditional on Lemma 24.1's completeness step — that observed physics uniquely determines the equivalence class $[(S, \varphi)] / \mathcal{G}_{\text{sub}}$ of bijections producing those observations. Within the equivalence class, all bijections produce identical observables; the choice of representative is gauge. The question "why this $\varphi$?" has two layers.
 
 *Within the equivalence class.* Gauge — no answer needed, no answer possible. The framework's content makes the specific choice of representative bijection within the equivalence class empirically indistinguishable from any other choice in the class.
 

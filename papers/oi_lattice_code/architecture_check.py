@@ -1061,6 +1061,23 @@ INVARIANTS = [
      "the conditions characterize the memory sector; the P-indivisibility witness is what readback makes measurable (b172)",
      [],
      "The conditions C1–C4 that produce P-indivisibility"),
+    # ---- b173 families: review-80 proof-status propagation ----
+    (r"uniquely determin\w+[^.\n]{0,60}(equivalence class|substratum\b)|(equivalence class|substratum)[^.\n]{0,80}uniquely determined|is shown to be uniquely determined|shown unique\b|uniqueness established|assumptions force exactly this class|assumptions force\.|determines it uniquely|the class is uniquely determined|determine each other uniquely",
+     "reconstruction uniqueness is conditional: C2-mixing, M1, and Lemma 24.1's completeness; each assertion carries the conditions or the theorem's stated-conditions reference in-window (b174)",
+     [r"conditional|stated conditions|Lemma 24\.1|completeness step|so conditioned|close to true by construction"],
+     "observed physics uniquely determines the equivalence class of the reconstruction"),
+    (r"families exhaust|exhaust all observables-preserving|exhaust the (physics|group|freedom)|provably exhausts|exhaustive classification|exhaustively classified|exactly classified|(?<!in)completeness theorem",
+     "exhaustiveness is conditional on the semigroup-transfer lemma; each assertion carries the conditionality in-window (b174)",
+     [r"conditional|semigroup-transfer|Lemma 24\.1|conditionally asserts|does not exhaust|decomposing as a composition|completeness step"],
+     "The four families exhaust $\\mathcal{G}_{\\text{sub}}$"),
+    (r"provably exhaustive",
+     "no unconditional exhaustiveness claim; Lemma 24.1 is the dependency (b173)",
+     [],
+     "an explicit and provably exhaustive list"),
+    (r"identifies quantum mechanics with embedded observation",
+     "the framework universally represents finite laws; the memory sector is what embedded-observer structure identifies (b173)",
+     [],
+     "The Incompleteness framework identifies quantum mechanics with embedded observation"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
