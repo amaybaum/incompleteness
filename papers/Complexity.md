@@ -445,7 +445,7 @@ The net device-level status is therefore: the framework's syndrome-testable pred
 | Quantum computing | Qubit / TLS | $10^{-3}$ | At the threshold |
 | Atomic clocks | Atom / cavity | $\sim 10^{-6}$ | Potentially measurable |
 
-The corrections grow as $\tau_S / \tau_B$ increases — equivalently, as the hidden sector's timescale approaches the system's timescale. The cosmological case is the most extreme separation (corrections negligible). Engineered quantum devices have the least separation (corrections largest). The framework predicts the same structural phenomenon — P-indivisible dynamics from a slow bath — at every scale. The question in each case is whether the correction has reached the precision frontier.
+The corrections grow as $\tau_S / \tau_B$ increases — equivalently, as the hidden sector's timescale approaches the system's timescale. The cosmological case is the most extreme separation (corrections negligible). Engineered quantum devices have the least separation (corrections largest). The framework predicts the same structural phenomenon — memory-bearing dynamics from a persistent, read-back bath, with P-indivisibility the stronger witnessed diagnostic — at every scale. The question in each case is whether the correction has reached the precision frontier.
 
 The GPS analogy is exact: GR corrections were irrelevant until clocks got precise enough. OI corrections are irrelevant until quantum devices get precise enough. The framework predicts that as quantum technologies continue improving, non-Markovian corrections will transition from negligible to measurable to design-relevant — following the same trajectory that relativistic corrections followed from Newtonian mechanics to GPS.
 

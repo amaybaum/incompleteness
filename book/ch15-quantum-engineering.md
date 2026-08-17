@@ -44,7 +44,7 @@ The implications are concrete. A qubit isolated from all environmental coupling 
 | Atomic clocks | Atom / cavity | $\sim 10^{-6}$ | Potentially measurable |
 | Engineered baths | Designed coupling | up to $10^{-1}$ | Future architectures |
 
-The corrections grow as $\tau_S/\tau_B$ increases — equivalently, as the hidden sector's timescale approaches the system's timescale. The cosmological case has the most extreme separation (corrections negligible). Engineered systems have the least separation (corrections largest). The framework predicts the same structural phenomenon — P-indivisible dynamics from a slow bath — at every scale; the question in each case is whether the correction has reached the precision frontier where it matters for the application.
+The corrections grow as $\tau_S/\tau_B$ increases — equivalently, as the hidden sector's timescale approaches the system's timescale. The cosmological case has the most extreme separation (corrections negligible). Engineered systems have the least separation (corrections largest). The framework predicts the same structural phenomenon — memory-bearing dynamics from a persistent, read-back bath, with P-indivisibility the stronger witnessed diagnostic — at every scale; the question in each case is whether the correction has reached the precision frontier where it matters for the application.
 
 The remaining sections develop the framework's specific engineering content at each of these scales, with concrete numerical predictions for current and near-future quantum hardware platforms.
 

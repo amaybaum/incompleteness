@@ -1078,6 +1078,27 @@ INVARIANTS = [
      "the framework universally represents finite laws; the memory sector is what embedded-observer structure identifies (b173)",
      [],
      "The Incompleteness framework identifies quantum mechanics with embedded observation"),
+    # ---- b176 families: review-83 terminal propositions ----
+    (r"P-indivisible dynamics from a slow bath",
+     "slow/persistent bath does not imply P-indivisibility; readback and a measured witness matter (b176)",
+     [],
+     "P-indivisible dynamics from a slow bath"),
+    (r"slow, high-capacity sector yields history-dependent",
+     "slow + capacity + trace-out without readback is the three-of-four counterexample class (b176)",
+     [],
+     "tracing out a slow, high-capacity sector yields history-dependent (non-Markovian) dynamics"),
+    (r"trace-out produces P-indivisibility",
+     "the trace-out produces the reduced law; P-indivisibility needs the memory structure and witness (b176)",
+     [],
+     "the trace-out produces P-indivisibility"),
+    (r"requires \$\\tau_S \\ll \\tau_B\$ — condition C2",
+     "P-indivisibility does not imply C2-slow outside the mixing class; the fast conserve-and-route bath is the certified counterexample (b176)",
+     [],
+     "requires $\\tau_S \\ll \\tau_B$ — condition C2"),
+    (r"limit forces — a P-indivisible marginal",
+     "embedded incompleteness does not force P-indivisibility, and P-indivisibility does not grant representability (b176)",
+     [],
+     "the framework derives what the limit forces — a P-indivisible marginal"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
