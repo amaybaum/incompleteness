@@ -846,6 +846,19 @@ INVARIANTS = [
      "dihedral HSP has Kuperberg's subexponential quantum algorithm; say no known poly-time algorithm (b156)",
      [],
      "have no known exponential quantum advantage despite extensive investigation"),
+    # ---- b157 families: review-64 separation-status classes ----
+    (r"cannot achieve BQP",
+     "class-level capability claims are conditional on the separation conjecture (b157)",
+     [],
+     "classical observers cannot achieve BQP without using quantum hardware"),
+    (r"access only to BPP",
+     "under the conjectured strict separation, phrase as operates-within with the conjecture named (b157)",
+     [],
+     "an observer using an incorrect classical-stochastic description has access only to BPP"),
+    (r"operates at B[QP]P",
+     "operates WITHIN a class; class-level differences carry the conjecture (b157)",
+     [],
+     "an embedded observer who ignores the quantum structure operates at BPP"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---

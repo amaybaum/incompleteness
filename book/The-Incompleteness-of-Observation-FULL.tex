@@ -17326,25 +17326,27 @@ conjectured BPP--BQP separation: the advantage is real but is \emph{a
 feature of partial observation} rather than of the universe being
 fundamentally quantum. An embedded observer who ignores the quantum
 structure of the reduced description (treating measurements as classical
-samples) operates at BPP; one who exploits the quantum structure
-(interference, entanglement, adaptive measurement) operates at BQP. The
-gap between the two is the cost of not recognizing the partition's
-structure. Section 14.8 develops the framework's neutrality on the P vs
-NP question: the BQP characterization identifies the ceiling, while
-leaving the internal structure of complexity classes within that ceiling
---- including P vs NP --- to standard complexity theory; the silence on
-P vs NP is shown to fit a broader boundary-characterization pattern
-across the Gödel-Turing-OI-Deutsch incompleteness family. Section 14.9
-develops three research directions opened by the framework's specific
-substratum structure for complexity-theoretic refinements \emph{within}
-the BQP ceiling (geometric structure on the substratum lattice;
-conjectured BQP--BPP separation correlated with problem globality and a
-refined hidden-subgroup-problem / gauge-group conjecture; gauge
-equivalence as a possible physical account of polynomial-time
-reducibility). Section 14.10 develops the chapter's falsification
-conditions and connections to broader complexity theory, with closing
-forward pointers to Chapter 15's engineering content and Chapter 18's
-foundational content.
+samples) operates within BPP; one who exploits the quantum structure
+(interference, entanglement, adaptive measurement) operates within BQP.
+Under the conjectured strict separation, the difference between the two
+is read as the cost of not recognizing the partition's structure ---
+proven task-specific advantages are facts; the class-level gap remains
+the standard conjecture. Section 14.8 develops the framework's
+neutrality on the P vs NP question: the BQP characterization identifies
+the ceiling, while leaving the internal structure of complexity classes
+within that ceiling --- including P vs NP --- to standard complexity
+theory; the silence on P vs NP is shown to fit a broader
+boundary-characterization pattern across the Gödel-Turing-OI-Deutsch
+incompleteness family. Section 14.9 develops three research directions
+opened by the framework's specific substratum structure for
+complexity-theoretic refinements \emph{within} the BQP ceiling
+(geometric structure on the substratum lattice; conjectured BQP--BPP
+separation correlated with problem globality and a refined
+hidden-subgroup-problem / gauge-group conjecture; gauge equivalence as a
+possible physical account of polynomial-time reducibility). Section
+14.10 develops the chapter's falsification conditions and connections to
+broader complexity theory, with closing forward pointers to Chapter 15's
+engineering content and Chapter 18's foundational content.
 
 The chapter's content is foundational rather than algorithmic. The
 framework's contribution to quantum computing is structural: a
@@ -17898,25 +17900,30 @@ Quantum advantage --- known task-specific separations between classical
 and quantum algorithms, with the strict
 \(\mathrm{BPP} \subsetneq \mathrm{BQP}\) separation conjectured, not
 proved --- is one of the central topics in quantum complexity theory.
-The framework's content provides a structural reading: the conjectured
-BPP--BQP separation is read as the \emph{cost of not recognizing the
-quantum nature of the reduced description}. An embedded observer who
-treats the visible sector classically (sampling measurement outcomes
-according to classical probabilities) operates at BPP; an observer who
+The framework's content provides a structural reading: under the
+conjectured strict BPP--BQP separation, the framework proposes to
+interpret the separation as the \emph{cost of using a classical
+description of the reduced dynamics}. An embedded observer who treats
+the visible sector classically (sampling measurement outcomes according
+to classical probabilities) operates within BPP; an observer who
 exploits the quantum structure (interference, entanglement, adaptive
-measurement) operates at BQP. The gap between the two is the cost of
-partial observation interpreted classically.
+measurement) operates within BQP; under that conjecture, the difference
+between the two is the cost of partial observation interpreted
+classically.
 
 \textbf{The advantage is real.} Standard quantum complexity theory
 establishes that BQP contains problems believed not to be in BPP ---
 Shor's factoring algorithm being the canonical example. Whether
 \(\text{BPP} \subsetneq \text{BQP}\) strictly is an open problem in
 complexity theory; the standard conjecture is that the strict inclusion
-holds, with super-polynomial separations like Shor's algorithm providing
-strong evidence. The framework's content does not address whether the
-strict inclusion holds --- that is a question about the structure of BQP
-and BPP as complexity classes, addressed by standard quantum complexity
-theory.
+holds. Proven task-specific and query-model quantum advantages are
+empirical and mathematical facts, but their existence does not by itself
+prove \(\mathrm{BPP} \subsetneq \mathrm{BQP}\) --- Shor's algorithm,
+with conjectured classical hardness, is strong evidence for the
+conjecture, not a proof. The framework's content does not address
+whether the strict inclusion holds --- that is a question about the
+structure of BQP and BPP as complexity classes, addressed by standard
+quantum complexity theory.
 
 \textbf{The advantage's structural origin.} What the framework adds is a
 \emph{structural} account of the advantage's origin. The embedded
@@ -17930,11 +17937,12 @@ outcomes --- operates with reduced computational capability.
 
 The gap between BPP and BQP is therefore not a property of physical
 reality per se but of the \emph{observer's representation of physical
-reality}. An observer using the correct quantum-mechanical description
-has access to BQP; an observer using an incorrect classical-stochastic
-description has access only to BPP. The framework's content reframes
-quantum advantage as a \emph{epistemic gap} between two descriptions of
-the same physical reality.
+reality}. An observer using the quantum-mechanical description operates
+within BQP; one restricted to a classical-stochastic description
+operates within BPP --- and under the conjectured strict separation, the
+difference is real. The framework's content reframes that conjectured
+advantage as an \emph{epistemic gap} between two descriptions of the
+same physical reality.
 
 \textbf{The framework's reading vs the ``quantum nature of reality''
 reading.} A common interpretive position is that quantum advantage
@@ -17952,9 +17960,10 @@ The conjectured BPP--BQP separation is therefore read not as evidence
 that physical reality is fundamentally quantum but as evidence that
 \emph{embedded observers in classical substrata have access to
 quantum-mechanical resources through the partition structure}. The
-quantum advantage is real but is a feature of the observer's situation
-(embedded in a substratum with C1--C4 structure) rather than of the
-substratum's fundamental nature.
+task-specific quantum advantage is proven, the class-level separation
+conjectured; on the framework's reading both are a feature of the
+observer's situation (embedded in a substratum with C1--C4 structure)
+rather than of the substratum's fundamental nature.
 
 This reading has substantive consequences for foundational questions.
 The framework's content is compatible with classical substrate
@@ -18433,7 +18442,8 @@ BQP characterization, derived from the embedding rather than postulated
 as a freestanding empirical conjecture.
 
 \emph{Task-specific quantum advantage as cost of partial observation}
-(§14.7): the advantage is real but reflects the embedded observer's
+(§14.7): the task-specific advantage is proven (the class-level
+separation conjectured) and reflects the embedded observer's
 exploitation of partition structure rather than the universe's
 fundamentally quantum nature.
 
