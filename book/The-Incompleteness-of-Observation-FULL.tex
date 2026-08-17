@@ -1378,8 +1378,10 @@ relative to the model's admissible instruments --- operational closure,
 an explicit hypothesis) jointly characterizing the class under those
 hypotheses. The Extended Church-Turing Thesis is reframed from empirical
 conjecture to conditional theorem of the framework together with that
-model, any super-BQP demonstration falsifying the conjunction, sharpest
-at the model bridge. Chapter 15 develops quantum engineering:
+model under a global-coverage premise (all physically realizable
+computation falling under the model), any super-BQP demonstration
+falsifying coverage first, the conjunction and its bridge only with
+further argument. Chapter 15 develops quantum engineering:
 superconducting qubit dynamics as the canonical engineered C1--C4 system
 with \(\tau_S/\tau_B \sim 10^{-3}\), P-indivisible noise structure
 producing correlated errors over \(\sim 10^3\) gates, correlation-aware
@@ -17307,16 +17309,21 @@ under the model hypotheses, BQP is the computational class accessible to
 embedded observers satisfying C1--C4.
 
 Section 14.6 develops the Extended Church-Turing Thesis (ECT) as a
-conditional result of the framework, valid under the same model
-hypotheses. The ECT --- that any physically realizable computation can
-be efficiently simulated by a quantum computer --- is conventionally
+conditional result of the framework, valid under a global-coverage
+premise: every physically realizable computation falling under §14.4's
+model hypotheses. The ECT --- that any physically realizable computation
+can be efficiently simulated by a quantum computer --- is conventionally
 treated as an empirical conjecture about physical reality. The
-framework's content reframes the ECT as a derived result: every physical
-observer is embedded (the cosmological horizon provides the partition),
-every embedded observer has access to BQP and nothing beyond, therefore
-every physical computation is in BQP. The reframing changes the ECT's
-epistemic status from freestanding empirical conjecture to conditional
-theorem --- a derived result valid under the same explicit model
+framework's content reframes the ECT as a derived result under an
+explicit coverage premise: given global computational-model coverage ---
+every physically realizable computation is implemented by a physical
+system whose admissible computational operations satisfy §14.4's
+operational-closure and efficiency hypotheses, every such computation is
+BQP-simulable. The upper bound needs only that coverage --- no device is
+required to satisfy C1--C4 or to possess the lower-bound control
+toolkit. The reframing changes the ECT's epistemic status from
+freestanding empirical conjecture to conditional theorem --- a derived
+result valid under the coverage premise and the same explicit model
 hypotheses (uniform encoding, efficient preparation, control, and
 measurement, and polynomial-overhead fault tolerance) as the BQP
 characterization it rests on.
@@ -17353,11 +17360,12 @@ framework's contribution to quantum computing is structural: a
 characterization of the computational ceiling that emerges from the
 framework's commitments at the substratum level, with the BQP class
 identified as the unique class accessible to embedded observers. The
-empirical content is principally negative: the framework predicts that
-no super-BQP computation is possible on any physically realizable
-hardware, with any demonstrated super-BQP capability constituting a
-falsification of the framework's commitments in conjunction with §14.4's
-computational model --- sharpest at the model bridge.
+empirical content is principally negative: the framework predicts, under
+global coverage of §14.4's model, that no super-BQP computation is
+possible on any physically realizable hardware, with any demonstrated
+super-BQP capability falsifying first the global-coverage premise and
+only with additional argument the framework's commitments in conjunction
+with §14.4's computational model --- sharpest at the model bridge.
 
 \hypertarget{the-frameworks-content-in-computational-complexity}{%
 \subsection{14.2 The framework's content in computational
@@ -17427,10 +17435,11 @@ conditional theorem --- framework plus model --- not an empirical bound.
 \emph{The falsification condition is sharp.} The conventional treatment
 makes no specific predictions about whether super-BQP computation is
 possible --- it remains an open question subject to future discovery.
-The framework's content predicts that no super-BQP computation is
-possible on any physically realizable hardware, with any demonstrated
-super-BQP capability constituting a falsification of the
-framework-plus-model conjunction, sharpest at the model bridge. The
+The framework's content predicts, under global coverage of §14.4's
+model, that no super-BQP computation is possible on any physically
+realizable hardware, with any demonstrated super-BQP capability
+falsifying first the global-coverage premise, and only with additional
+argument the framework-plus-model conjunction and its bridge. The
 falsification condition is empirically actionable: future quantum
 computing experiments could in principle test the framework's
 prediction.
@@ -17701,9 +17710,10 @@ that demonstrated super-BQP computation would constitute a falsification
 of the framework-plus-model conjunction --- requiring the universe to
 violate C1--C4, another framework commitment, or §14.4's
 computational-model bridge, with the bridge the first suspect. The
-framework therefore makes a sharp empirical prediction: no super-BQP
-computation is possible on any physically realizable hardware compatible
-with the framework's commitments.
+framework therefore makes a sharp empirical prediction: under global
+coverage of §14.4's model, no super-BQP computation is possible on any
+physically realizable hardware --- a device escaping the model would
+falsify coverage first.
 
 \hypertarget{the-bqp-characterization-theorem}{%
 \subsection{14.5 The BQP characterization
@@ -17812,8 +17822,14 @@ horizon provides a partition for any observer in the universe --- the
 partition between the observable universe (visible to the observer in
 principle, given sufficient instruments) and the trans-horizon region
 (causally disconnected from the observer). The observer is therefore
-embedded in the framework's structural sense: the partition with C1--C4
-structure exists for any observer in the universe.
+embedded in the framework's structural sense: the horizon partition
+exists for any observer in the universe. Embeddedness alone, however,
+does not establish the C1--C4 conditions or §14.4's computational model
+for every device --- that is a separate premise, stated here as
+\emph{global computational-model coverage --- every physically
+realizable computation is implemented by a physical system whose
+admissible computational operations satisfy §14.4's operational-closure
+and efficiency hypotheses}.
 
 \emph{Step 2: Under §14.4's hypotheses, every embedded observer has
 access to BQP and only BQP.} This is the Conditional BQP
@@ -17853,11 +17869,12 @@ foundations for the ECT that were previously absent. The ECT's empirical
 status conventional treatment provides no explanation for \emph{why} the
 ECT should hold --- it remains an unexplained regularity of physical
 reality. The framework's content provides the explanation: the ECT
-holds, under the model, because every physical observer is embedded and
---- given §14.4's hypotheses --- has access to BQP and only BQP, so
-every physical computation within the model is in BQP. The structural
-basis is the framework's universality-class commitments joined to that
-explicit model.
+holds, under global coverage of the model, because every physically
+realizable computation then falls under §14.4's operational-closure and
+efficiency hypotheses, and computations so covered are BQP-simulable ---
+embeddedness supplies the partition, coverage supplies the premises. The
+structural basis is the framework's universality-class commitments
+joined to that explicit model.
 
 \emph{Connection to other foundational results.} The reframing connects
 the ECT to other foundational results in the framework. The
@@ -18437,9 +18454,10 @@ hypotheses of §14.1, BQP is the computational class accessible to
 embedded observers satisfying C1--C4.
 
 \emph{The Extended Church-Turing Thesis as conditional theorem} (§14.6):
-every physical computation is in BQP under the model hypotheses of the
-BQP characterization, derived from the embedding rather than postulated
-as a freestanding empirical conjecture.
+every physical computation is BQP-simulable under the global-coverage
+premise (all physically realizable computation falling under §14.4's
+model hypotheses), derived from that coverage rather than postulated as
+a freestanding empirical conjecture.
 
 \emph{Task-specific quantum advantage as cost of partial observation}
 (§14.7): the task-specific advantage is proven (the class-level
@@ -18474,11 +18492,13 @@ canonical reference.
 specific falsifiable predictions:
 
 \emph{Any demonstrated super-BQP computation on physically realizable
-hardware would falsify the conjunction of the framework's structural
-commitments with §14.4's computational model.} The falsification lands
-sharpest at the model bridge --- the bridge could fail without the
-foundational framework failing --- while a super-BQP demonstration
-surviving every bridge repair would press on the framework itself.
+hardware would falsify, first, the global-coverage premise --- some
+physical computation escaping §14.4's model --- and only through
+additional argument the conjunction of the framework's structural
+commitments with that model.} The bridge could fail without the
+foundational framework failing, and a super-BQP demonstration surviving
+every repair --- coverage, then bridge --- would press on the framework
+itself.
 
 \emph{Hypercomputation is excluded --- structurally in its
 infinite-resource forms, by the model in its oracle form.} The
@@ -28815,9 +28835,11 @@ molecular scale. Discussed in Chapter 16 §§16.9-16.10.
 physically realizable computation can be efficiently simulated by a
 Turing machine. Conventionally treated as an empirical hypothesis
 subject to potential refutation by quantum computing. The framework
-derives the ECT as a \emph{theorem}: any physically realizable
-computation by an \emph{embedded observer} satisfies the BQP bound.
-Developed in Chapter 14 §14.6.
+derives the ECT as a \emph{conditional theorem} under a global-coverage
+premise (every physically realizable computation falling under Chapter
+14 §14.4's operational-closure and efficiency hypotheses): any
+computation so covered satisfies the BQP bound. Developed in Chapter 14
+§14.6.
 
 \textbf{Fine-tuning.} The observation that certain physical parameters
 (fine-structure constant, mass ratios, cosmological constant) appear to

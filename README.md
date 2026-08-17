@@ -194,7 +194,7 @@ A book-length treatment, **The Incompleteness of Observation: A Unified Framewor
 | 12 | No-GUT structural prediction: $\tau_p \sim 10^{45}$ yr, no GUT-mechanism monopoles, no GUT-chain cosmic strings, non-unification of gauge couplings | structural | SM §6.7 + §8.7 + Structure §12.5 |
 | 13 | Substratum-level $B$ conservation + sphaleron emergence in emergent EFT (substratum-emergent operator distinction) | theorem | SM §8.7 |
 | 14 | Structural preconditions for organic chemistry, RNA world as first molecular C1–C4, viable parameter fraction $\sim 16\%$ | structural chain + statistical | Complexity |
-| 15 | BQP characterization theorem for embedded observers; Extended Church-Turing Thesis as theorem; structural silence on P vs NP; three condition-based research directions for refinements within BQP | theorem (BQP boundary) + research directions | Computation |
+| 15 | BQP characterization theorem for embedded observers; Extended Church-Turing Thesis as conditional theorem under a global model-coverage premise; structural silence on P vs NP; three condition-based research directions for refinements within BQP | theorem (BQP boundary) + research directions | Computation |
 | 16 | Non-Markovian dynamics in biology, memory asymmetry as therapeutic axis, 29 testable predictions | predictions | Medicine |
 | 17 | Information-theoretic ceiling on transcriptome-only bioinformatic methods, 22 testable predictions across single-cell analysis | predictions | Bioinformatics |
 

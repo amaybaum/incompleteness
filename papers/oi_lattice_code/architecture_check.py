@@ -859,6 +859,19 @@ INVARIANTS = [
      "operates WITHIN a class; class-level differences carry the conjecture (b157)",
      [],
      "an embedded observer who ignores the quantum structure operates at BPP"),
+    # ---- b158 families: review-65 coverage-premise classes ----
+    (r"C1–C4 structure exists for any observer in the universe",
+     "embeddedness supplies the partition only; C1-C4 and the model are separate premises (global coverage, b158)",
+     [],
+     "the partition with C1–C4 structure exists for any observer in the universe"),
+    (r"therefore every physical computation is in BQP",
+     "the ECT syllogism routes through the global-coverage premise, never through embeddedness alone (b158)",
+     [],
+     "every embedded observer has access to BQP and nothing beyond, therefore every physical computation is in BQP"),
+    (r"derives the ECT as a \*theorem\*",
+     "the ECT is a CONDITIONAL theorem under the global-coverage premise (b158)",
+     [],
+     "The framework derives the ECT as a *theorem*"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
