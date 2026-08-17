@@ -229,11 +229,11 @@ One feature of Deutsch's broader program is read differently by the framework, a
 | Determine the hidden-sector state $h$ | Provably impossible (characterization theorem) |
 | Observe beyond the cosmological horizon | Provably impossible (causal partition) |
 | Build faster computers | Structurally possible (derived physics permits it) |
-| Overcome P-indivisibility of QM | Provably impossible (structural, not technological) |
-| Solve problems outside BQP | Provably impossible (Ch 14's BQP theorem) |
+| Replace a genuinely P-indivisible visible process by a faithful memoryless (divisible) model at the same horizon | Provably impossible when the measured memory witness is nonzero ([Main §3.4]) |
+| Solve problems outside BQP | Impossible under global coverage of Ch 14's computational model (a conditional theorem) |
 | Achieve consciousness in the phenomenal sense | Not addressed (Ch 18 §18.10) |
 
-The framework's content places several capabilities in the "provably impossible" column — not as engineering challenges but as mathematical impossibilities. No level of AI sophistication, no level of computational resources, no level of theoretical insight can overcome these limits. The framework's substratum picture provides a unified mathematical basis for understanding what AI can and cannot achieve.
+The framework's content places several capabilities in the impossible column — the structural entries as mathematical impossibilities that no level of AI sophistication, computational resources, or theoretical insight can overcome; the BQP entry as a conditional one, impossible under global coverage of Chapter 14's computational model, with a device outside that model falsifying coverage first. The framework's substratum picture provides a unified mathematical basis for understanding what AI can and cannot achieve.
 
 **The framework's self-reference.** The framework's content includes its own status: the framework is a description developed by embedded observers (the framework's authors, the readers, the AIs that may eventually engage with the framework) about the structure that produced them. The framework's commitments include the structural limits that apply to the framework's own development: the framework cannot determine the hidden-sector state, cannot see beyond the cosmological horizon, cannot derive its own initial conditions (Chapter 19 §19.3.5).
 

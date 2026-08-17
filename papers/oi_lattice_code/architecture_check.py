@@ -898,6 +898,19 @@ INVARIANTS = [
      "no structural theorem excludes quantum-gravity computational content; within-model or coverage-fails is the safe statement (b160)",
      [],
      "quantum gravity effects ... cannot enhance computational power for embedded observers"),
+    # ---- b161 families: review-68 classes ----
+    (r"Provably impossible \(Ch 14",
+     "the BQP table entry is conditional on global coverage, never unconditional (b161)",
+     [],
+     "Solve problems outside BQP | Provably impossible (Ch 14's BQP theorem)"),
+    (r"P-indivisibility of QM",
+     "quantum representability is universal (Q_fb); P-indivisibility diagnoses the memory-bearing sector, never QM itself (b161)",
+     [],
+     "Overcome P-indivisibility of QM"),
+    (r"Extended Church-Turing Thesis \(ECT\) asserts that any physically realizable computation can be efficiently simulated by a quantum",
+     "that is the QUANTUM (BQP-form) ECT; the conventional ECT is the classical efficient-simulation conjecture (b161)",
+     [],
+     "The Extended Church-Turing Thesis (ECT) asserts that any physically realizable computation can be efficiently simulated by a quantum Turing machine"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
