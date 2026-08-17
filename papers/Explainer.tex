@@ -757,10 +757,14 @@ but the die stays at 1. The die value 1 now encodes the information
 flips it back to (0, 1). The die read its own memory and reversed the
 flip. C1 (coupling) allows writing to the memory. C2 (memory
 persistence) ensures it isn't erased between reads. C3 (sufficient
-capacity) ensures there's enough room. Together, they produce the
-information backflow that makes the process P-indivisible --- and
-therefore, by the stochastic-quantum correspondence, the carrier of a
-nontrivial quantum representation under (T).
+capacity) ensures there's enough room. C4 (history readback): at step 2
+the unchanged die register controls the reverse flip --- the dynamics
+reads back the record written at step 1. In this toy, C1 through C4
+explain the memory mechanism --- the information backflow; the explicit
+negative-propagator calculation above independently establishes the
+stronger P-indivisibility witness, and the process is thereby, via the
+stochastic-quantum correspondence, the carrier of a nontrivial quantum
+representation in compressed form under (T).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -776,9 +780,12 @@ timescales or might self-destruct. C2 ensures the memory persists on
 timescales accessible to actual experiments, not just at cosmic
 recurrence times. C3 ensures the hidden sector never runs out of room to
 store information --- if it saturates, later imprints overwrite earlier
-ones, and the process becomes effectively memoryless. Together, C2 and
-C3 guarantee that P-indivisibility is strong, persistent, and
-observationally relevant.
+ones, and the process becomes effectively memoryless. Together with C4's
+readback --- the load-bearing condition (\texttt{review4\_probes.py}:
+storage and capacity without readback do not suffice) --- C2 and C3 make
+the accessible memory strong, persistent, and observationally relevant;
+the P-indivisibility witness is the stronger diagnostic that readback
+makes measurable.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3451,8 +3458,10 @@ Definition + all conditions \\
 Stochastic-quantum correspondence (§3.1) & every process in the source's
 class embeds in a unistochastic one; P-indivisibility makes it
 nontrivial & Barandes {[}10,11{]} or Stinespring (Appendix A) \\
-Necessity proof (§3.3) & QM \emph{requires} C1, C2, C3, C4 &
-Contrapositives of sufficiency \\
+Necessity proof (§3.3) & Accessible non-Markovian memory requires
+C1/C3/C4 in every faithful deterministic realization; C2's
+physical-timescale necessity conditional on the mixing hypothesis &
+Per-condition necessity ({[}Main §3.4{]}) \\
 \end{longtable}
 
 \hypertarget{sections-36-the-logical-flow}{%
@@ -3497,7 +3506,7 @@ horizon (C2 separate, conditional); representation equivalence
 hidden-memory theorem & Biconditional + internal permutation unitary
 (compressed form imported under (T)) \\
 §4: Cosmological horizon & The universe satisfies the definition & C1 ✓,
-C2 ✓, C3 ✓ \\
+C2 ✓, C3 ✓, C4 ✓ \\
 §5.1: Classical temperature & T\_cl = c²ε²κ/(8πGk\_B) & No ℏ \\
 §5.2 Step 1: Uniqueness & ℏ is determined, not free &
 Partition-relativity \\

@@ -268,7 +268,7 @@ $$\Lambda(2,1) = T(2,0) \cdot [T(1,0)]^{-1} = I \cdot \begin{pmatrix} 2 & -1 \\ 
 
 The entries −1 are negative. No valid stochastic matrix exists. **This is P-indivisibility.**
 
-**The mechanism in detail.** The die works as a memory register. At step 1, if the coin was at 0 and the die was at 1, the coin flips to 1 but the die stays at 1. The die value 1 now encodes the information "the coin was at 0 and I flipped it." At step 2, σ sees (1, 1) and flips it back to (0, 1). The die read its own memory and reversed the flip. C1 (coupling) allows writing to the memory. C2 (memory persistence) ensures it isn't erased between reads. C3 (sufficient capacity) ensures there's enough room. Together, they produce the information backflow that makes the process P-indivisible — and therefore, by the stochastic-quantum correspondence, the carrier of a nontrivial quantum representation under (T).
+**The mechanism in detail.** The die works as a memory register. At step 1, if the coin was at 0 and the die was at 1, the coin flips to 1 but the die stays at 1. The die value 1 now encodes the information "the coin was at 0 and I flipped it." At step 2, σ sees (1, 1) and flips it back to (0, 1). The die read its own memory and reversed the flip. C1 (coupling) allows writing to the memory. C2 (memory persistence) ensures it isn't erased between reads. C3 (sufficient capacity) ensures there's enough room. C4 (history readback): at step 2 the unchanged die register controls the reverse flip — the dynamics reads back the record written at step 1. In this toy, C1 through C4 explain the memory mechanism — the information backflow; the explicit negative-propagator calculation above independently establishes the stronger P-indivisibility witness, and the process is thereby, via the stochastic-quantum correspondence, the carrier of a nontrivial quantum representation in compressed form under (T).
 
 ---
 
@@ -276,7 +276,7 @@ The entries −1 are negative. No valid stochastic matrix exists. **This is P-in
 
 The P-indivisibility theorem needs only coupling (C1) and finiteness. So why does the paper insist on slow memory (C2) and vast capacity (C3)?
 
-Because P-indivisibility without C2 and C3 might only show up at absurd timescales or might self-destruct. C2 ensures the memory persists on timescales accessible to actual experiments, not just at cosmic recurrence times. C3 ensures the hidden sector never runs out of room to store information — if it saturates, later imprints overwrite earlier ones, and the process becomes effectively memoryless. Together, C2 and C3 guarantee that P-indivisibility is strong, persistent, and observationally relevant.
+Because P-indivisibility without C2 and C3 might only show up at absurd timescales or might self-destruct. C2 ensures the memory persists on timescales accessible to actual experiments, not just at cosmic recurrence times. C3 ensures the hidden sector never runs out of room to store information — if it saturates, later imprints overwrite earlier ones, and the process becomes effectively memoryless. Together with C4's readback — the load-bearing condition (`review4_probes.py`: storage and capacity without readback do not suffice) — C2 and C3 make the accessible memory strong, persistent, and observationally relevant; the P-indivisibility witness is the stronger diagnostic that readback makes measurable.
 
 ---
 
@@ -1028,7 +1028,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | Accessible-timescale lemma (§2.3) | Non-Markovianity is observable, not just formal | C1–C3, plus C4 holding quantitatively: two histories with the same present whose next-step laws differ by δ > 0 (then I ≥ p₀δ²/ln 2) |
 | Coin-and-die model (§2.4) | Concrete demonstration of all mechanisms | Definition + all conditions |
 | Stochastic-quantum correspondence (§3.1) | every process in the source's class embeds in a unistochastic one; P-indivisibility makes it nontrivial | Barandes [10,11] or Stinespring (Appendix A) |
-| Necessity proof (§3.3) | QM *requires* C1, C2, C3, C4 | Contrapositives of sufficiency |
+| Necessity proof (§3.3) | Accessible non-Markovian memory requires C1/C3/C4 in every faithful deterministic realization; C2's physical-timescale necessity conditional on the mixing hypothesis | Per-condition necessity ([Main §3.4]) |
 
 ### Sections 3–6: The Logical Flow
 
@@ -1041,7 +1041,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | §3.3: Necessity of C2 | Physical memory requires record persistence — slow bath one mechanism, conditional on mixing | Fast-mixing bath → Markov → P-divisible |
 | §3.3: Necessity of C3 | Accessible memory requires capacity | I ≤ log₂ m bounds memory |
 | §3.4: Characterization theorem | non-Markovianity ⟺ C1, C3, C4 per horizon (C2 separate, conditional); representation equivalence $S \iff D \iff Q_{\mathrm{fb}}$ — internal, universal; universal hidden-memory theorem | Biconditional + internal permutation unitary (compressed form imported under (T)) |
-| §4: Cosmological horizon | The universe satisfies the definition | C1 ✓, C2 ✓, C3 ✓ |
+| §4: Cosmological horizon | The universe satisfies the definition | C1 ✓, C2 ✓, C3 ✓, C4 ✓ |
 | §5.1: Classical temperature | T_cl = c²ε²κ/(8πGk_B) | No ℏ |
 | §5.2 Step 1: Uniqueness | ℏ is determined, not free | Partition-relativity |
 | §5.2 Step 2: Boundary-only | ℏ depends only on c, G, ε | Deep sector frozen |

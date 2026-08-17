@@ -190,9 +190,11 @@ theorem} (Theorem 23), which shows that observed physics --- quantum
 mechanics with Bell violations, finite boundary entropy, and spatial
 isotropy --- together with the framework's structural assumptions
 (finiteness, determinism, bounded coupling, center independence,
-linearity, background independence) uniquely determines the equivalence
-class \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the lattice level,
-with the Standard Model gauge group
+linearity, background independence), together with the M1 modeling
+premise and conditional on Theorem 24's completeness (Lemma 24.1),
+uniquely determines the equivalence class
+\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the lattice level, with
+the Standard Model gauge group
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) and
 \(\bar\theta = 0\) as forced retrodictions, and the anomaly-free
 hypercharge assignment forced once the observed family pattern is given
@@ -201,9 +203,12 @@ candidate-sector count locked at three by coupling-degree minimality
 (three physical generations only under H-spin', {[}SM §4.7{]}) jointly
 with the condensate-stabilizer accounting); and (ii) the
 \emph{substratum gauge group} \(\mathcal{G}_{\text{sub}}\) (Theorem 24),
-with four explicit families of generators proved to exhaust all
-observables-preserving transformations of the dilation-datum substratum
-via Stinespring uniqueness (completeness relative to the framework's
+with four explicit families of generators exhausting --- conditional on
+the semigroup-transfer lemma (Lemma 24.1, §4: the standard
+Stinespring/GNS uniqueness transferring to the discrete
+unitary-generated semigroup, identified there for specialist
+verification) --- all observables-preserving transformations of the
+dilation-datum substratum (completeness relative to the framework's
 substratum ontology; see §4). The Standard Model gauge group is the
 visible-sector shadow of \(\mathcal{G}_{\text{sub}}\) --- the image of
 the substratum's symmetry under the trace-out --- and the three-level
@@ -800,7 +805,9 @@ these dependencies.
 C1--C4}\label{stage-1-observed-qm-deterministic-embedding-with-c1c4}}
 
 \textbf{Inputs:} E1 (unitary QM), E2 (Bell violations), E3 (finite
-boundary entropy), A1 (finiteness), A2 (determinism).
+boundary entropy), A1 (finiteness), A2 (determinism), M1 (modeling
+premise: the observed Bell data enter through the framework's
+P-indivisible joint-dynamics route, {[}Main §2.3{]}).
 
 \textbf{Output:} There exists a triple \((S, \varphi, V)\) with \(S\)
 finite, \(\varphi\) a bijection on \(S\), and \(V \subset S\) a
@@ -808,14 +815,22 @@ distinguished subset such that: - The observed quantum dynamics is the
 reduced description obtained by tracing out \(S \setminus V\) from the
 deterministic evolution under \(\varphi\). - The triple satisfies C1
 (non-trivial coupling), C2 (record persistence --- the slow bath one
-realization), and C3 (sufficient hidden memory capacity).
+realization), C3 (sufficient hidden memory capacity), and C4 (history
+readback): the adopted P-indivisible temporal structure is
+non-Markovian, and {[}Main §3.4{]}'s universal hidden-memory theorem ---
+accessible non-Markovianity ⟺ C1/C3/C4 realization per horizon, with
+\(M_t > 0\) forcing unavoidable hidden predictive memory --- makes
+readback-relevant hidden memory unavoidable in every faithful
+deterministic realization.
 
-\textbf{Conditional structure.} C1 and C3 are derived unconditionally
-from the inputs. C2 is conditional on the quantitative mixing hypothesis
-of {[}Main §3.4{]} --- uniform total-variation closeness of the hidden
-sector's post-relaxation conditionals to a single bath distribution,
-under which the divisibility deficit obeys an explicit bound
-\((k-1)\varepsilon\); without it, the necessity direction
+\textbf{Conditional structure.} C1, C3, and C4 are derived from E1--E3,
+A1--A2 together with M1 --- C4 via the hidden-memory theorem applied to
+M1's P-indivisible temporal structure; conditional on M1, they hold
+without further hypothesis. C2 is conditional on the quantitative mixing
+hypothesis of {[}Main §3.4{]} --- uniform total-variation closeness of
+the hidden sector's post-relaxation conditionals to a single bath
+distribution, under which the divisibility deficit obeys an explicit
+bound \((k-1)\varepsilon\); without it, the necessity direction
 (P-indivisibility on accessible timescales forces \(\tau_S \ll \tau_B\))
 cannot be established. ETH is the physical case for the hypothesis, as
 discussed in {[}Main §3.4{]}'s ``Remark (Status of ETH).'' ETH is a
@@ -867,27 +882,27 @@ of \(\mathcal{C}_V\) follows from E3, the boundary entropy bound). Bell
 violations (E2) are incompatible with a factorizable hidden-variable
 distribution; within the framework's account they enter through
 P-indivisible joint dynamics --- the mechanism route ({[}Main §2.3{]})
---- and the reconstruction here adopts that route as a modeling premise,
-not a generic implication from spatial Bell correlation to temporal
-P-indivisibility: at intermediate times no valid stochastic matrix
-\(\Lambda\) satisfies \(T(t_2, 0) = \Lambda \, T(t_1, 0)\) ({[}Main
-§2.3{]}). By the reverse-direction lemma at the stochastic-process level
-({[}Main §3.2{]}) --- applicable here because the one-step matrices, as
-ancilla-uniform marginals of unistochastic matrices, are doubly
-stochastic --- any such P-indivisible process on a finite configuration
-space admits a realization as marginalization of a deterministic
-bijection \(\varphi\) on an enlarged finite space
+--- and the reconstruction here adopts that route as the modeling
+premise M1, not a generic implication from spatial Bell correlation to
+temporal P-indivisibility: at intermediate times no valid stochastic
+matrix \(\Lambda\) satisfies \(T(t_2, 0) = \Lambda \, T(t_1, 0)\)
+({[}Main §2.3{]}). By the reverse-direction lemma at the
+stochastic-process level ({[}Main §3.2{]}) --- applicable here because
+the one-step matrices, as ancilla-uniform marginals of unistochastic
+matrices, are doubly stochastic --- any such P-indivisible process on a
+finite configuration space admits a realization as marginalization of a
+deterministic bijection \(\varphi\) on an enlarged finite space
 \(\mathcal{C}_V \times \mathcal{C}_H\) with uniform prior on
 \(\mathcal{C}_H\). This delivers the triple \((S, \varphi, V)\) with
 \(S = \mathcal{C}_V \times \mathcal{C}_H\) and \(V = \mathcal{C}_V\).
-Non-permutation \(T(t)\) (forced by Bell violations) gives C1. The
-characterization theorem {[}Main §3.4{]} establishes that the resulting
-dynamics, conditional on the hidden-sector mixing hypothesis ({[}Main
-§3.4{]}; ETH is its physical motivation), necessarily satisfies C2
-(record persistence is required for the non-Markovian returns that
-produce quantum interference) and C3 (sufficient hidden-sector capacity
-is required for the data-processing bound to accommodate observed
-information backflow).
+Non-permutation \(T(t)\) (forced, under M1's route, by the Bell data)
+gives C1. The characterization theorem {[}Main §3.4{]} establishes that
+the resulting dynamics, conditional on the hidden-sector mixing
+hypothesis ({[}Main §3.4{]}; ETH is its physical motivation),
+necessarily satisfies C2 (record persistence is required for the
+non-Markovian returns that produce quantum interference) and C3
+(sufficient hidden-sector capacity is required for the data-processing
+bound to accommodate observed information backflow).
 
 \textbf{Uniqueness at Stage 1.} The triple \((S, \varphi, V)\) is
 uniquely determined by the observations up to the equivalences: -
@@ -1069,9 +1084,10 @@ and hence are in the same equivalence class. \(\square\)
 \textbf{Theorem 23} (Layered reconstruction). \emph{Let E1--E7
 (empirical inputs: QM with Bell violations, finite boundary entropy,
 spatial isotropy, propagating gravity, stable matter, boundary-entropy
-concordance) and A1--A6 (structural assumptions: finiteness,
-determinism, bounded coupling degree, center independence, linearity,
-background independence) hold. Then the equivalence class
+concordance), M1 (the P-indivisible-route modeling premise of Stage 1),
+and A1--A6 (structural assumptions: finiteness, determinism, bounded
+coupling degree, center independence, linearity, background
+independence) hold. Then the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) is uniquely determined,
 conditional on the hidden-sector mixing hypothesis for the C2 necessity
 direction (Stage 1; {[}Main §3.4{]}, with ETH as its physical
