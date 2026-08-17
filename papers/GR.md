@@ -202,7 +202,7 @@ Spacetime geometry is part of the classical substratum (Lemma 2): the metric evo
 
 **Ontological commitment.** Classical spacetime is logically prior to QM; QM is emergent. This ordering is not a claim that spacetime is a substance-level primitive of the framework — the framework has no substance-level primitives, and under the reconstruction theorem, spacetime emerges from $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$ given the framework's irreducible starting commitments (the empirical fact that observation occurs, the empirical inputs E1–E4, and the structural assumptions A1–A6). It is a claim about the direction of the derivation chain — that the trace-out producing QM presupposes the classical geometric structure, not the reverse. This ordering is forced by the logical structure of the derivation through three independent requirements:
 
-*(i) Definiteness.* The trace-out that produces QM is defined by a *specific* partition $\Gamma = \Gamma_V \times \Gamma_H$. The partition must be definite — not in superposition, not subject to quantum uncertainty — for the marginalization integral ([Main, §1.4]) to be well-defined. A partition in superposition would yield an incoherent mixture of inequivalent quantum theories, not a single QM. The metric at the partition boundary must therefore be classical.
+*(i) Definiteness.* The trace-out that produces the quantum-representable reduced description is defined by a *specific* partition $\Gamma = \Gamma_V \times \Gamma_H$. The partition must be definite — not in superposition, not subject to quantum uncertainty — for the marginalization integral ([Main, §1.4]) to be well-defined. A partition in superposition would yield an incoherent mixture of inequivalent quantum theories, not a single QM. The metric at the partition boundary must therefore be classical.
 
 *(ii) Non-circularity.* The partition is defined by the causal structure: $\Gamma_H$ is the set of degrees of freedom beyond the observer's causal reach (§2.1). Causal structure is determined by null geodesics of the metric. If the metric were derived from QM, then the derivation would require: QM $\to$ metric $\to$ causal structure $\to$ partition $\to$ QM — a circular dependency with no entry point. The circle breaks only if the metric exists prior to the partition.
 
@@ -273,7 +273,7 @@ with the $\Lambda$CDM limit at the $2\sigma$ boundary of the posterior. This is 
 
 ### 7.2 The dark-sector corollary
 
-The trace-out that produces QM has an automatic gravitational consequence.
+The trace-out that produces the quantum-representable reduced description has an automatic gravitational consequence.
 
 **Corollary (Invisible gravitational budget).** *Under Lemmas 1–3 and conditions (C1)–(C4), the cosmological trace-out that produces the memory-bearing dynamics quantum mechanics represents simultaneously renders ~95% of the universe's gravitational budget invisible to the emergent QFT.*
 

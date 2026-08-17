@@ -99,7 +99,7 @@ A referee who rejects all routes to the bridge would need to also reject the fra
 
 A second frequent foundational objection concerns the *necessity* direction of the characterization theorem — the claim that the observed non-Markovian dynamics *require* embedded observation with C1–C4, not just that embedded observation with C1–C4 *produces* them.
 
-**The objection.** "You show embedded observation produces QM, but you haven't shown QM requires embedded observation. The characterization theorem's converse is the extraordinary claim. Without it, you have a sufficient condition for QM but not a necessary one — and the framework's main structural claim (that QM emerges *from* embedded observation) requires both directions."
+**The objection.** "You show embedded observation produces the memory-bearing non-Markovian dynamics, but you haven't shown those dynamics require embedded observation. The characterization theorem's converse is the extraordinary claim. Without it, you have a sufficient condition but not a necessary one — and the framework's structural claim (that the observed dynamics arise *from* embedded observation) requires both directions."
 
 **The framework's response.** The necessity direction is proved per condition: C1, C3, and C4 unconditionally for any realization, C2 within the conditional-mixing class — violating a necessary condition destroys the structural basis of the observed dynamics.
 

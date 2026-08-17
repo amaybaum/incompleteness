@@ -93,7 +93,7 @@ Each prediction's full derivation chain and classification (structural / mass-ch
 
 **Two types of inaccessibility.** The framework distinguishes between two reasons a quantity can be inaccessible. The hidden-sector state $h$ is *undecidable* — definite, consequential, provably inaccessible to any observer — and its inaccessibility produces the memory-bearing dynamics quantum mechanics represents. The alphabet size $q$ and the deep-sector cardinality $|C_D|$ are *gauge* — different values produce identical observables, so the question of their value has no empirical content. The question "is the universe finite or infinite?" falls in the second category.
 
-**The incompleteness family.** The framework belongs to a family of results where self-reference under finite resources produces rigid structure: Gödel (a formal system cannot prove all truths about itself), Turing (a computer cannot decide all questions about its own behavior), OI (an embedded observer cannot access the complete state). In each case, structural impossibility determines the form of what the system produces instead — undecidable propositions in arithmetic, undecidable problems in computation, quantum mechanics for embedded observers.
+**The incompleteness family.** The framework belongs to a family of results where self-reference under finite resources produces rigid structure: Gödel (a formal system cannot prove all truths about itself), Turing (a computer cannot decide all questions about its own behavior), OI (an embedded observer cannot access the complete state). In each case, structural impossibility determines the form of what the system produces instead — undecidable propositions in arithmetic, undecidable problems in computation, and — for embedded observers — the memory-bearing non-Markovian statistics whose universal quantum representation the framework supplies.
 
 **Open foundational question — the axiom count.** The framework's foundation is presented as a *two-axiom observation base* (tokened differentiation occurs; differentiation recurs). One element of that distillation is under review: whether the observer's embeddedness — its status as a proper part $V \subsetneq S$ of a larger whole — is a lemma of the first axiom or a third axiom in its own right. The question turns on a point about what the primitive "tokened differentiation" means, and is presentational rather than empirical: it changes no prediction the framework makes, only how the foundation's commitments are counted and described. It is flagged in `Main` §1.2, `Methodology` §4.2, `Substratum` §1.1, and `book/ch01`; the two-axiom presentation is the framework's working choice with this proviso noted, not a closed result.
 
@@ -208,7 +208,7 @@ The forward derivation and reconstruction theorem together establish that the fr
 
 ```
 (S, φ) ─→ d = 3 self-consistent (three forward filters: SM §3.2)
-       ─→ QM emergence under C1–C4 (Main §3.4, conditional on ETH for C2)
+       ─→ Universal fixed-basis quantum representation, every finite law (Main §3.4) — C1/C3/C4 diagnosing the memory-bearing sector, C2 a physical-regime premise (necessity conditional on the mixing hypothesis)
        ─→ Wave equation uniquely selected (SM §3)
        ├── ℏ = c³ε²/(4G), S_BH with 1/4, CC dissolution, GR (GR §§3–6)
        ├── Cubic group → SU(3)×SU(2)×U(1), 3 generations, θ̄ = 0 (SM §§4–5)

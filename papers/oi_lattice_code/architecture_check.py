@@ -911,6 +911,32 @@ INVARIANTS = [
      "that is the QUANTUM (BQP-form) ECT; the conventional ECT is the classical efficient-simulation conjecture (b161)",
      [],
      "The Extended Church-Turing Thesis (ECT) asserts that any physically realizable computation can be efficiently simulated by a quantum Turing machine"),
+    # ---- b162 families: review-69 pre-freeze-architecture classes ----
+    (r"produces QM",
+     "the trace-out produces the quantum-representable reduced description; the phenomenology is the memory sector's (b162)",
+     [],
+     "the same causal partition that produces QM at the visible-sector level"),
+    (r"unique class accessible to embedded observers",
+     "the class is accessible UNDER §14.4's model; never a bare structural feature (b162)",
+     [],
+     "the BQP class identified as the unique class accessible to embedded observers"),
+    (r"emerges as the description of any embedded observer",
+     "the representation is universal; nothing emerges 'under C1–C4' as a gate (b162)",
+     [],
+     "quantum mechanics emerges as the description of any embedded observer under structural conditions C1–C4"),
+    # ---- b163 families: review-70 foundational-chapter classes ----
+    (r"unique decompression algorithm",
+     "the representation is explicitly NON-unique; universality, not uniqueness (b163)",
+     [],
+     "quantum mechanics is the unique decompression algorithm for embedded observers"),
+    (r"established as the necessary description",
+     "the representation is universal, never 'the necessary description'; selection remains open (b163)",
+     [],
+     "With unitary quantum mechanics established as the necessary description"),
+    (r"is the dynamics that coupling produces",
+     "coupling produces the memory-bearing sector; representability is universal (b163)",
+     [],
+     "the framework's emergent quantum mechanics is the dynamics that coupling produces"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
