@@ -872,6 +872,32 @@ INVARIANTS = [
      "the ECT is a CONDITIONAL theorem under the global-coverage premise (b158)",
      [],
      "The framework derives the ECT as a *theorem*"),
+    # ---- b159 families: review-66 coverage-propagation classes ----
+    (r"[Tt]herefore every physical computation is in BQP",
+     "the ECT quantifier is carried by global coverage, never by the embedded-observer syllogism (case-hole of the b158 family closed, b159)",
+     [],
+     "Therefore every physical computation is in BQP."),
+    (r"Falsifiable by any super-BQP demonstration",
+     "generic super-BQP falsifies the global-coverage premise first (b159)",
+     [],
+     "Falsifiable by any super-BQP demonstration."),
+    (r"super-BQP computation would refute the framework",
+     "generic super-BQP refutation reaches the framework only through further argument past coverage and bridge (b159); local per-prediction refutations elsewhere are legitimate",
+     [],
+     "any demonstrated super-BQP computation would refute the framework"),
+    # ---- b160 families: review-67 summary catch-up classes ----
+    (r"super-BQP demonstration would refute the framework",
+     "the hierarchy is coverage first, framework only through further argument (b160)",
+     [],
+     "any super-BQP demonstration would refute the framework"),
+    (r"falsifiable by any demonstrated super-BQP",
+     "exposure runs through the global-coverage premise first (b160)",
+     [],
+     "is falsifiable by any demonstrated super-BQP computation"),
+    (r"cannot enhance computational power for embedded observers",
+     "no structural theorem excludes quantum-gravity computational content; within-model or coverage-fails is the safe statement (b160)",
+     [],
+     "quantum gravity effects ... cannot enhance computational power for embedded observers"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---

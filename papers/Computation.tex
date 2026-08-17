@@ -583,8 +583,11 @@ unbounded coupling (violating A3), operations outside the
 operational-closure model (non-unitary CPTP evolution is ordinary
 open-system dynamics and stays inside; what is excluded is the
 nonlinear, post-quantum, oracle, or hidden-sector-access class), or
-violation of these efficiency hypotheses. Each falls outside the
-framework's class of admissible substrata.
+violation of these efficiency hypotheses. The first falls outside the
+framework's class of admissible substrata; the operational-closure and
+efficiency violations fall outside the added computational model --- a
+device exhibiting them would falsify global coverage of that model, not
+the substratum class by itself.
 
 \hypertarget{the-combined-result}{%
 \subsubsection{4.3 The combined result}\label{the-combined-result}}
@@ -623,12 +626,13 @@ The Extended Church-Turing Thesis (ECT) --- that any physically
 realizable computation can be simulated by a probabilistic Turing
 machine with at most polynomial overhead --- has long been treated as an
 empirical conjecture about the physical universe. The framework's
-conditional BQP model theorem yields the ECT, under the same model
-hypotheses, as a conditional result rather than a theorem about
-unconditioned physical reality of the framework's structural
-commitments, in a modified form: the appropriate computational class is
-BQP rather than BPP, reflecting the quantum nature of the visible-sector
-marginal.
+conditional BQP model theorem yields the ECT under the additional
+global-coverage premise --- every physically realizable computation
+falling under the same operational-closure and efficiency hypotheses ---
+as a conditional result rather than a theorem about unconditioned
+physical reality, in a modified form: the appropriate computational
+class is BQP rather than BPP, reflecting the quantum nature of the
+visible-sector marginal.
 
 This modification has empirical consequences. The conjectured BPP--BQP
 separation --- task-specific quantum advantage for problems like
@@ -1319,10 +1323,11 @@ Summarizing the paper's content:
   class accessible to embedded observers satisfying C1--C4 (conditional
   BQP model theorem, §4; extended development in {[}1, Ch. 14{]}).
 \item
-  The Extended Church-Turing Thesis (in BQP form) is a theorem of the
-  framework's structural commitments together with §4's computational
-  model --- conditional, not an empirical conjecture and not a bare
-  consequence of C1--C4.
+  The Extended Church-Turing Thesis (in BQP form) is a conditional
+  theorem under the global-coverage premise together with §4's
+  computational model, the coverage carrying the universal quantifier
+  --- not an empirical conjecture, not a bare consequence of C1--C4, and
+  not of embeddedness.
 \item
   The conjectured BPP--BQP separation is structural in the framework's
   reading --- the cost of marginal-statistics observation rather than
