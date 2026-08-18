@@ -1066,7 +1066,7 @@ INVARIANTS = [
      "reconstruction uniqueness is conditional: C2-mixing, M1, and Lemma 24.1's completeness; each assertion carries the conditions or the theorem's stated-conditions reference in-window (b174)",
      [r"conditional|stated conditions|Lemma 24\.1|completeness step|so conditioned|close to true by construction"],
      "observed physics uniquely determines the equivalence class of the reconstruction"),
-    (r"families exhaust|exhaust all observables-preserving|exhaust the (physics|group|freedom)|provably exhausts|exhaustive classification|exhaustively classified|exactly classified|(?<!in)completeness theorem",
+    (r"families exhaust|exhaust all observables-preserving|exhaust the (physics|group|freedom)|provably exhausts|provably complete|exhaustive classification|exhaustively classified|exactly classified|(?<!in)completeness theorem|surplus[^.\n]{0,40}closed|closed classification|nothing in the position's promissory note",
      "exhaustiveness is conditional on the semigroup-transfer lemma; each assertion carries the conditionality in-window (b174)",
      [r"conditional|semigroup-transfer|Lemma 24\.1|conditionally asserts|does not exhaust|decomposing as a composition|completeness step"],
      "The four families exhaust $\\mathcal{G}_{\\text{sub}}$"),
