@@ -15,13 +15,12 @@
 #       instances EXIST whose polytope has MIXED extreme points — extreme in
 #       S_t(P) yet not a tail point mass — certifying the document's
 #       non-identification of quotient tails with operational pure states.
-#   (4) STAGED-PROCESS automorphism census (corrected b184, relabeled
-#       b185): RECURSIVELY label-preserving, shift-commuting automorphisms
-#       of the staged tail structure — the b183 census accepted
-#       label-breaking induced maps and is replaced; group closure
-#       verified, orders reported. A structural observation about the
-#       staged process, NOT a computation of Aut_aff(S_t(P)); Lemma S2's
-#       finiteness is theorem-proved, not computed here.
+#   (4) S2 census (corrected b184): RECURSIVELY label-preserving,
+#       shift-commuting automorphisms of the staged tail structure — the
+#       b183 census accepted label-breaking induced maps and is replaced;
+#       group closure verified, orders reported. Finiteness itself is
+#       theorem-proved (Lemma S2, on the polytope); the census is a
+#       representative certificate.
 #   (5) S3 (classical homogeneous-Markov EMBEDDABILITY obstruction):
 #       determinant certificates for the negative-determinant
 #       (flip-dominant) exemplar regime det A_a = 2a-1 < 0, the 3-state
@@ -217,7 +216,7 @@ check("Ext_mixed_extremes_exist (polytope pure states need not be tails)",
       mixed_extreme_instances > 0 and stage0_mixed_singletons > 0,
       f"{mixed_extreme_instances} instances with mixed extreme points; "
       f"{stage0_mixed_singletons} stage-0 mixed singletons")
-check("staged_automorphism_census (label-preserving; NOT Aut_aff(S_t), which Lemma S2 proves finite)",
+check("S2_census (recursively label-preserving automorphisms form a group)",
       s2_group_ok, "orders " + str(sorted(group_orders.items())))
 
 # ---------- (5): S3 embeddability-obstruction certificates ----------

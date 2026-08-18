@@ -25,10 +25,8 @@ cylinder tests supplying single-system finite tomographic injectivity
 unconditionally, the preparation quotient identified, and tail-vertex
 reachability characterized (Theorem S1); the operational state space is a
 finite polytope whose affine automorphism group is finite, admitting no
-nontrivial continuous one-parameter subgroup — so no nontrivial Hardy-type
-continuous reversible transitivity between DISTINCT pure states can occur
-at an individual finite-law layer, and a selector capable of producing the
-quantum pure-state geometry necessarily lives at a
+nontrivial continuous one-parameter subgroup — so Hardy-type continuity
+cannot hold at any individual finite-law layer and O2 necessarily lives at a
 continuum/closure/emergent-limit layer (Lemma S2); a decidable spectral
 obstruction excludes classical homogeneous continuous-time Markov-semigroup
 embedding and stochastic roots of the law's one-step map (Lemma S3); the
@@ -142,13 +140,10 @@ $\mathrm{Aut}_{\mathrm{aff}}(\mathcal{S}_t(P)) \hookrightarrow
 \mathrm{Sym}(E)$, a finite group; local constancy of continuous maps into a
 discrete group finishes. $\square$
 
-*Remark (where O2 must live).* The consequence is structural, with its
-exact qualifier: no NONTRIVIAL Hardy-type continuous reversible transitivity
-between DISTINCT pure states can occur at an individual finite-law layer,
-because the finite-law operational polytope's reversible group is finite —
-while a singleton polytope (the stage-0 example of §2) satisfies continuity
-VACUOUSLY, there being no two distinct pure states to connect; the selector
-that produces the quantum pure-state geometry is the nontrivial case. So O2, if it holds at
+*Remark (where O2 must live).* The consequence is structural: Hardy-type
+continuity — continuous reversible transformations acting on pure states —
+CANNOT hold at any individual finite-law layer, because the finite-law
+operational polytope's reversible group is finite. So O2, if it holds at
 all, is a statement about a continuum/closure/emergent-limit layer of the
 operational theory, not about any single finite law — which is exactly
 where [Main §3.4]'s finite-test-density architecture already places the
@@ -228,25 +223,21 @@ quantumly. What survives, under a SYMMETRIC carrier-level requirement, is:
 
 **Proposition S5′ (embeddability separation).** *Let $A$ be row-stochastic
 and satisfy Lemma S3's obstruction (decidable: $\det A < 0$, or an
-odd-multiplicity negative real eigenvalue). Consider the DIRECT classical carrier — the
-visible simplex itself, canonical preparation and readout, the carrier's
-time-one map equal to $A$ — and require a continuous one-parameter GROUP
-(reversible) or SEMIGROUP of carrier dynamics with that time-one map. Then
-no such classical realization exists — $A = e^{Q}$ is impossible (S3), and
-stochastic roots do not exist — while the unitary quantum carrier realizing
-the same observable endpoint qualifies, $e^{itH}$ being a
+odd-multiplicity negative real eigenvalue). Require of a carrier a
+continuous one-parameter GROUP (reversible) or SEMIGROUP of dynamics on the
+carrier's own state space whose $t = 1$ action reproduces $A$'s statistics
+at the fixed readout. Then: no classical carrier on the same state space
+qualifies — $A = e^{Q}$ is impossible (S3), and stochastic roots do not
+exist — while the unitary quantum carrier qualifies, $e^{itH}$ being a
 one-parameter group with valid marginals at every $t$ and $M(1) = A$
 (S4).*
 
 *Proof.* Immediate from S3 and S4. $\square$
 
-**What S5′ is and is not.** It is a true DIRECT-CARRIER separation: for
-obstruction-class laws, direct visible-space classical Markov
-embeddability fails while quantum unitary availability holds. Hidden or
-enlarged classical carriers — realizations $A = R\,T_1\,E$ with nontrivial
-encoding/readout, where $T_1 \neq A$ and $T_{1/2}^2 = T_1$ would not give
-$A$ a stochastic root — are a SEPARATE question, not addressed and not
-excluded here. It is NOT operational
+**What S5′ is and is not.** It is a true classical-versus-quantum
+separation at the level of homogeneous carrier dynamics: for
+obstruction-class laws, one-parameter carrier dynamics reproducing the
+one-step map exists quantumly and not classically. It is NOT operational
 selection: it does not exclude non-classical non-quantum carriers, does not
 supply transitivity, does not touch composites, and the carrier-level
 requirement it imposes is itself a modeling choice, not yet derived from
@@ -302,11 +293,10 @@ no-redundancy quotient; (2) S1(ii) constructively — a separating cylinder
 for every distinct pair; (3) the Ext control — exact extreme-point
 computation of $\mathcal{S}_t(P)$ (Carathéodory in dimension $\leq 2$)
 exhibiting instances whose operational polytope has MIXED extreme points,
-certifying §2's non-identification; (4) the STAGED-PROCESS automorphism census — recursively label-preserving,
-group-closure verified, orders reported (the b183 census accepted
-label-breaking induced maps and is corrected); a structural observation:
-this does NOT compute $\mathrm{Aut}_{\mathrm{aff}}(\mathcal{S}_t(P))$,
-whose finiteness Lemma S2 establishes by proof, not computation; (5) S3 — determinant and double-negative-spectrum
+certifying §2's non-identification; (4) S2 — the recursively
+label-preserving automorphism census of the staged process, group-closure
+verified, orders reported (the b183 census accepted label-breaking induced
+maps and is corrected); (5) S3 — determinant and double-negative-spectrum
 certificates plus numeric root-search corroboration; (6) the
 COUNTER-CONTROL — $C(t)$ verified a valid continuous stochastic path to a
 negative-determinant $A$, with the determinant sign change exhibited: S3
