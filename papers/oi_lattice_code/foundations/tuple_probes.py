@@ -108,13 +108,19 @@ for nV, nH in [(2,2),(2,3),(3,2)]:
                 if t_ == t0_:
                     if any(Gamma[t_][i][j] != (1 if i == j else 0) for i in range(nV) for j in range(nV)):
                         fail += 1
-        # (c) transpose convention: the column-stochastic form has unit column sums
+        # (c) transpose convention, ASSERTED rather than merely computed. The source
+        #     writes Gamma_ij = P(i,t | j,t0) — target index as ROW, source as COLUMN,
+        #     hence COLUMN-normalized. This probe builds the row-normalized form, so
+        #     the source's object is the transpose; both are checked in their own
+        #     convention, and the marginal is reproduced column-vector style.
         for t_ in T:
-            colsums = [sum(Gamma[t_][i][j] for i in range(nV)) for j in range(nV)]
-            rowsums = [sum(Gamma[t_][i]) for i in range(nV)]
-            if any(r != 1 for r in rowsums): fail += 1
-            # column sums need not be 1 in general; recorded, not asserted
-            _ = colsums
+            if any(sum(Gamma[t_][i]) != 1 for i in range(nV)): fail += 1   # rows here
+            Gs = [[Gamma[t_][j][i] for j in range(nV)] for i in range(nV)]  # Gamma^T
+            if any(sum(Gs[i][j] for i in range(nV)) != 1 for j in range(nV)): fail += 1  # columns there
+            # marginal in the source's convention: p(t) = Gamma_source . p(t0)
+            pred_col = [sum(Gs[i][j] * p0[j] for j in range(nV)) for i in range(nV)]
+            pred_row = [sum(p0[i] * Gamma[t_][i][j] for i in range(nV)) for j in range(nV)]
+            if pred_col != pred_row: fail += 1
         checked += 1
     print(f"  (n_V,n_H)=({nV},{nH}): {checked} processes — tuple constructed, all six requirements hold")
 print()

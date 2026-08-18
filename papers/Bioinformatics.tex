@@ -200,19 +200,21 @@ architectures.
 
 This paper applies the Observational Incompleteness (OI) framework
 {[}1{]} to these puzzles. The framework's C1--C4 conditions ---
-non-trivial coupling (C1), slow-bath memory (C2), high-capacity hidden
-sector (C3), and history readback (C4) --- produce non-Markovian
-dynamics (P-indivisible at the recurrence scale) whenever a fast visible
-sector is coupled to a slow high-capacity hidden sector. The companion
-Medicine paper {[}2{]} establishes that chromatin layers satisfy C1--C4
-in biological systems, with DNA methylation, histone modifications, and
-chromatin state functioning as the slow hidden sector with timescales
-spanning seconds (chromatin binding) to generations (DNA methylation
-maintenance). This paper shows that the same structural conditions
-explain the bioinformatics field's documented failure modes: each puzzle
-has the same underlying cause --- methods assume Markovian dynamics on
-systems with substantial hidden-sector memory, and this assumption
-violation produces characteristic systematic errors.
+non-trivial coupling (C1), memory persistence (C2), high-capacity hidden
+sector (C3), and history readback (C4) --- produce, in the
+memory-bearing sector they characterize, non-Markovian dynamics
+(P-indivisibility the stronger diagnostic, established at recurrence by
+C1 and finiteness alone) whenever a fast visible sector's hidden
+coupling realizes them. The companion Medicine paper {[}2{]} establishes
+that chromatin layers satisfy C1--C4 in biological systems, with DNA
+methylation, histone modifications, and chromatin state functioning as
+the slow hidden sector with timescales spanning seconds (chromatin
+binding) to generations (DNA methylation maintenance). This paper shows
+that the same structural conditions explain the bioinformatics field's
+documented failure modes: each puzzle has the same underlying cause ---
+methods assume Markovian dynamics on systems with substantial
+hidden-sector memory, and this assumption violation produces
+characteristic systematic errors.
 
 We develop the analysis across five domains where the framework's
 predictions match documented empirical failure modes: trajectory
@@ -321,16 +323,19 @@ conditions}\label{the-oi-framework-and-its-c1c4-conditions}}
 
 The Observational Incompleteness (OI) framework {[}1{]} establishes a
 characterization theorem for embedded observation. The theorem states:
-any embedded observer whose dynamics satisfies four structural
-conditions --- C1 (non-trivial coupling between visible and hidden
-sectors), C2 (slow-bath memory, \(\tau_B \gg \tau_S\)), C3
-(high-capacity hidden sector), and C4 (history readback) --- necessarily
-experiences P-indivisible dynamics: history-dependent transition
-probabilities arising from information stored in the hidden sector and
-returned on subsequent interactions. The theorem is scale-independent:
-it applies to any system with the appropriate architecture, from quantum
-mechanics emerging at the cosmological horizon to biological signaling
-cascades.
+any embedded observer whose dynamics satisfies four conditions --- C1
+(non-trivial coupling between visible and hidden sectors), C2 (record
+persistence; the slow bath \(\tau_B \gg \tau_S\) one realization), C3
+(sufficient hidden memory capacity), and C4 (history readback) ---
+exhibits, when those conditions are realized in the memory-bearing form,
+accessible non-Markovian dynamics (P-indivisibility being the strictly
+stronger temporal-indivisibility/backflow diagnostic, not an automatic
+consequence --- \texttt{review4\_probes.py}): history-dependent
+transition probabilities arising from information stored in the hidden
+sector and returned on subsequent interactions. The theorem is
+scale-independent: it applies to any system with the appropriate
+architecture, from the memory-bearing dynamics quantum mechanics
+represents at the cosmological horizon to biological signaling cascades.
 
 The companion Medicine paper {[}2{]} establishes that biological memory
 systems satisfy C1--C4 at multiple molecular layers. The chromatin layer
@@ -471,12 +476,16 @@ state, because chromatin memory contributes information not captured by
 mRNA levels alone.
 
 The C1--C4 architecture applies directly: gene transcription (fast,
-visible) is coupled (C1) to chromatin state (slow, C2) with
-exponentially large chromatin state space (C3). The framework's
-characterization theorem {[}1{]} then implies that RNA velocity inferred
-from gene-expression data alone is necessarily P-indivisible: the
-marginal dynamics on the gene-expression subspace cannot be described by
-a Markovian kinetic equation, and methods assuming such description will
+visible) is coupled (C1) to chromatin state (persistent --- slow, C2)
+with exponentially large chromatin state space (C3), and the chromatin
+marks transcription lays down modulate subsequent transcription --- the
+coupling reads back what it wrote (C4). With all four realized, the
+framework's characterization theorem {[}1{]} then implies that RNA
+velocity inferred from gene-expression data alone is memory-bearing ---
+accessibly non-Markovian, with P-indivisibility the stronger diagnostic
+requiring a measured witness (\texttt{review4\_probes.py}): the marginal
+dynamics on the gene-expression subspace cannot be described by a
+Markovian kinetic equation, and methods assuming such description will
 produce biased estimates.
 
 The bias is not arbitrary. Its sign depends on the relationship between

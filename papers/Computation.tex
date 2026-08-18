@@ -209,17 +209,27 @@ in §4 of this paper and developed at chapter length in {[}1, Ch. 14{]}:
 under an explicit computational model --- a uniform efficient encoding
 of substratum configurations into qubits; efficient state preparation
 and control; a clock model; efficient measurement; explicit precision
-accounting; and noise assumptions under which fault tolerance applies
-with polynomial overhead --- the class accessible to an embedded
-observer satisfying C1--C4 is bounded-error quantum polynomial time,
-with a lower bound (BQP available in the model) and an upper bound (BQP
-not exceeded). CPTP representability of the visible dynamics supplies
-none of those model hypotheses by itself, so no unconditional
-characterization is claimed. Under the same model hypotheses the
-Extended Church-Turing Thesis holds in its quantum-modified form as a
-conditional result rather than an empirical conjecture. The BPP-BQP gap
-is reframed as the cost of marginal-statistics observation rather than
-as evidence of fundamental quantum-ness.
+accounting; noise assumptions under which fault tolerance applies with
+polynomial overhead; and operational closure --- all admissible
+operations available to the observer within the model are standard
+quantum instruments (CPTP maps for unconditioned evolution, CP
+trace-nonincreasing branches for conditioned outcomes), with no
+additional nonlinear, post-quantum, oracle, or hidden-sector-access
+operation, and with conditioned branches and postselected preparations
+charged their physical success-probability/repetition cost (no free
+postselection: \(\mathrm{PostBQP} = \mathrm{PP}\)) --- the class
+accessible to an embedded observer satisfying C1--C4 is bounded-error
+quantum polynomial time, with a lower bound (BQP available in the model)
+and an upper bound (BQP not exceeded --- given operational closure).
+CPTP representability of the visible dynamics supplies none of those
+model hypotheses by itself, so no unconditional characterization is
+claimed. Under a global-coverage premise --- every physically realizable
+computation implemented by a system whose admissible operations satisfy
+the same operational-closure and efficiency hypotheses --- the Extended
+Church-Turing Thesis holds in its quantum-modified form as a conditional
+result rather than an empirical conjecture. The conjectured BPP--BQP
+separation is reframed as the cost of marginal-statistics observation
+rather than as evidence of fundamental quantum-ness.
 
 On the P vs NP question the framework is \emph{structurally silent}. We
 develop this position in detail: the framework's empirical content (the
@@ -241,12 +251,13 @@ exactly) and weaker at the P vs NP boundary (where the framework
 declines to stipulate). We propose three condition-based research
 directions where the framework's specific substratum structure does
 provide content for complexity-theoretic refinements \emph{within} the
-BQP ceiling: geometric structure on the substratum lattice, the BQP-BPP
-gap and problem globality (with a refined conjecture that BQP advantage
-is maximized for problems whose hidden structure matches the framework's
-gauge group), and gauge equivalence as a possible physical account of
-polynomial-time reducibility. These are framework-relative conjectures
-inviting investigation, not framework predictions.
+BQP ceiling: geometric structure on the substratum lattice,
+task-specific quantum advantage and problem globality (with a refined
+conjecture that BQP advantage is maximized for problems whose hidden
+structure matches the framework's gauge group), and gauge equivalence as
+a possible physical account of polynomial-time reducibility. These are
+framework-relative conjectures inviting investigation, not framework
+predictions.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -305,9 +316,9 @@ computation given that step. §3 develops the self-referential loop of AI
 as embedded-observer construction, with the partition-level limits
 applying to the constructed observer. §4 states the BQP characterization
 theorem and its consequences for the Extended Church-Turing Thesis and
-the BPP-BQP gap. §5 develops the framework's position on the P vs NP
-question --- neutrality, structural silence, the unifying
-boundary-characterization pattern across the Gödel-Turing-OI
+the conjectured BPP--BQP separation. §5 develops the framework's
+position on the P vs NP question --- neutrality, structural silence, the
+unifying boundary-characterization pattern across the Gödel-Turing-OI
 incompleteness family, and the relationship to Aaronson's
 physical-principle approach. §6 examines why no obvious bridging axiom
 is available. §7 proposes three condition-based research directions for
@@ -363,12 +374,13 @@ intelligence exists --- for whatever contingent or structural reason ---
 then AI follows from the derived structure through a specific chain in
 which every link is structural.
 
-\emph{Band theory.} Derived QM {[}1, Part I{]} applied to electrons in a
-periodic crystal potential (the sp³ diamond-cubic lattice of a Group IV
-element) gives Bloch's theorem: energy bands separated by gaps. The
-periodic potential is structural --- it follows from sp³ hybridization
-in d = 3. Band structure is a consequence of derived QM applied to
-derived crystal geometry.
+\emph{Band theory.} The framework's emergent quantum representation
+{[}1, Part I{]} applied to electrons in a periodic crystal potential
+(the sp³ diamond-cubic lattice of a Group IV element) gives Bloch's
+theorem: energy bands separated by gaps. The periodic potential is
+structural --- it follows from sp³ hybridization in d = 3. Band
+structure is a consequence of the framework's emergent quantum mechanics
+applied to derived crystal geometry.
 
 \emph{Semiconductors.} For Group IV elements (4 valence electrons per
 atom), the Pauli exclusion principle (derived --- spin-statistics from
@@ -481,8 +493,9 @@ Observe beyond the cosmological horizon & Provably impossible (causal
 partition) \\
 Build faster computers & Structurally possible (derived physics permits
 it) \\
-Overcome the P-indivisibility of QM & Provably impossible (structural,
-not technological) \\
+Replace a genuinely P-indivisible visible process by a faithful
+memoryless (divisible) model at the same horizon & Provably impossible
+when the measured memory witness is nonzero ({[}Main §3.4{]}) \\
 Recursive self-improvement & Possible within the structural limits \\
 \end{longtable}
 
@@ -508,44 +521,74 @@ development in {[}1, Ch. 14{]} --- answers this \emph{relative to an
 explicit computational model}, whose hypotheses are: a uniform efficient
 encoding of substratum configurations into qubits; efficient state
 preparation and control; a clock model; efficient measurement; explicit
-precision accounting; and noise assumptions under which fault tolerance
-applies with polynomial overhead. Under these hypotheses, bounded-error
-quantum polynomial-time is the computational class accessible to an
-embedded observer satisfying C1--C4; none of the hypotheses follows from
-CPTP representability of the visible dynamics alone, and each is a
-modelling commitment, not a consequence of C1--C4. The theorem combines
-a lower bound (BQP is available to any embedded observer; the
-quantum-computing toolkit can be physically instantiated on the
-framework's substratum) with an upper bound (BQP cannot be exceeded; any
-super-BQP capability would falsify the framework).
+precision accounting; noise assumptions under which fault tolerance
+applies with polynomial overhead; and operational closure --- all
+admissible operations available to the observer within the model are
+standard quantum instruments (CPTP maps for unconditioned evolution, CP
+trace-nonincreasing branches for conditioned outcomes), with no
+additional nonlinear, post-quantum, oracle, or hidden-sector-access
+operation, and with conditioned branches and postselected preparations
+charged their physical success-probability/repetition cost (no free
+postselection: \(\mathrm{PostBQP} = \mathrm{PP}\)). Under these
+hypotheses, bounded-error quantum polynomial-time is the computational
+class accessible to an embedded observer satisfying C1--C4; none of the
+hypotheses follows from CPTP representability of the visible dynamics
+alone, and each is a modelling commitment, not a consequence of C1--C4.
+The theorem combines a lower bound (BQP is available to any embedded
+observer satisfying C1--C4 under these hypotheses; the quantum-computing
+toolkit can be physically instantiated on the framework's substratum)
+with an upper bound (BQP cannot be exceeded under the same hypotheses;
+any super-BQP capability would falsify the conjunction of the
+framework's commitments with this model, sharpest at the model bridge).
 
 \hypertarget{the-lower-bound}{%
 \subsubsection{4.1 The lower bound}\label{the-lower-bound}}
 
-Quantum computation in the standard model is universal: any unitary on
-\(n\) qubits can be approximated by a polynomial-depth circuit built
-from Hadamard, phase, and CNOT gates (the Solovay-Kitaev theorem and its
-descendants). The framework's substratum, by the QM emergence theorem
-{[}1, Part I{]}, implements unitary dynamics in its visible-sector
-marginal description; the gauge structure permits the qubit
-decomposition (a single SU(2) doublet provides the qubit basis); the
-lattice geometry permits the spatial layout. Therefore any BQP algorithm
-has a physical implementation on the substratum, and embedded observers
-can in principle access any problem in BQP.
+Quantum computation in the standard model is defined through uniform
+polynomial-size circuit families: every BQP computation, by definition,
+is specified by such a family over a finite universal gate set ---
+Hadamard, a non-Clifford phase gate such as \(T\), and CNOT --- with the
+Solovay--Kitaev theorem supplying efficient approximation of any fixed
+gate over that set. Generic \(n\)-qubit unitaries, by contrast, require
+circuits of size \(\Theta(4^n)\) {[}11{]} and play no role in the
+definition. The lower-bound task is therefore to show that the
+framework's explicit computational model can realize the gates of a
+uniform polynomial-size family. Main supplies the transition-statistics
+layer --- every finite law admits the fixed-basis unitary
+representation, and every finite adaptive experiment has a deterministic
+finite-test shadow {[}1, Part I{]} --- while the controllability needed
+to realize chosen gates is the model's contribution: the gauge structure
+permits the qubit decomposition (a single SU(2) doublet provides the
+qubit basis), the lattice geometry permits the spatial layout, and §4's
+control hypotheses supply preparation and gating. Under those
+hypotheses, any BQP algorithm has a physical implementation on the
+substratum, and embedded observers can in principle access any problem
+in BQP.
 
 \hypertarget{the-upper-bound}{%
 \subsubsection{4.2 The upper bound}\label{the-upper-bound}}
 
-No physical process implementable on the substratum exceeds BQP. The
-framework's dynamics is finite-rate (the substratum has bounded coupling
-degree, A3 of the reconstruction {[}5, §3{]}), the partition entropy is
-finite (E3 plus the holographic interpretation), and the dynamics is
-unitary in the visible-sector marginal (by construction).
+No physical process implementable on the substratum exceeds BQP, under
+the model's efficiency hypotheses. The framework's dynamics is
+finite-rate (bounded coupling degree, A3 of the reconstruction {[}5,
+§3{]}), the partition entropy is finite (E3 plus the holographic
+interpretation), and the dynamics is unitary in the visible-sector
+marginal (by construction) --- type-level facts that alone do not bound
+complexity; the load-bearing additions, matching {[}1, Ch. 14 §14.4{]},
+are that admissible evolutions are locally generated with uniformly
+computable descriptions, run for polynomial physical time at polynomial
+precision, and admit polynomial-overhead circuit simulation.
 Hypercomputation {[}6{]}, oracle access {[}7{]}, and other super-BQP
 capabilities would require either continuum precision (violating A1),
-unbounded coupling (violating A3), or non-unitary visible-sector
-dynamics (incompatible with the QM emergence theorem). Each falls
-outside the framework's class of admissible substrata.
+unbounded coupling (violating A3), operations outside the
+operational-closure model (non-unitary CPTP evolution is ordinary
+open-system dynamics and stays inside; what is excluded is the
+nonlinear, post-quantum, oracle, or hidden-sector-access class), or
+violation of these efficiency hypotheses. The first falls outside the
+framework's class of admissible substrata; the operational-closure and
+efficiency violations fall outside the added computational model --- a
+device exhibiting them would falsify global coverage of that model, not
+the substratum class by itself.
 
 \hypertarget{the-combined-result}{%
 \subsubsection{4.3 The combined result}\label{the-combined-result}}
@@ -553,13 +596,20 @@ outside the framework's class of admissible substrata.
 \textbf{Theorem (conditional BQP model).} \emph{Assume the computational
 model of §4: a uniform efficient encoding of substratum configurations
 into qubits; efficient state preparation and control; a clock model;
-efficient measurement; explicit precision accounting; and noise
-assumptions under which fault tolerance applies with polynomial
-overhead. Then for an embedded observer satisfying C1--C4, every
-computation the model can host lies in BQP (upper bound, §4.2), and
-every BQP computation can be hosted (lower bound, §4.1). CPTP
-representability of the visible dynamics implies none of the model
-hypotheses.}
+efficient measurement; explicit precision accounting; noise assumptions
+under which fault tolerance applies with polynomial overhead; and
+operational closure --- all admissible operations available to the
+observer within the model are standard quantum instruments (CPTP maps
+for unconditioned evolution, CP trace-nonincreasing branches for
+conditioned outcomes), with no additional nonlinear, post-quantum,
+oracle, or hidden-sector-access operation, and with conditioned branches
+and postselected preparations charged their physical
+success-probability/repetition cost (no free postselection:
+\(\mathrm{PostBQP} = \mathrm{PP}\)). Then for an embedded observer
+satisfying C1--C4, every computation the model can host lies in BQP
+(upper bound, §4.2), and every BQP computation can be hosted (lower
+bound, §4.1). CPTP representability of the visible dynamics implies none
+of the model hypotheses.}
 
 Within the stated model, BQP is the \emph{exact} ceiling --- the class
 characterized by the framework's structural commitments \emph{together
@@ -569,32 +619,38 @@ computation: there is no ceiling on the \emph{complexity of the
 observer}, but there is a permanent ceiling on the \emph{computational
 reach} of any embedded observer at BQP exactly.
 
-\hypertarget{the-extended-church-turing-thesis-as-theorem}{%
-\subsubsection{4.4 The Extended Church-Turing Thesis as
-theorem}\label{the-extended-church-turing-thesis-as-theorem}}
+\hypertarget{the-quantum-bqp-form-extended-church-turing-thesis-as-conditional-theorem}{%
+\subsubsection{4.4 The quantum (BQP-form) Extended Church-Turing Thesis
+as conditional
+theorem}\label{the-quantum-bqp-form-extended-church-turing-thesis-as-conditional-theorem}}
 
 The Extended Church-Turing Thesis (ECT) --- that any physically
 realizable computation can be simulated by a probabilistic Turing
 machine with at most polynomial overhead --- has long been treated as an
 empirical conjecture about the physical universe. The framework's
-conditional BQP model theorem yields the ECT, under the same model
-hypotheses, as a conditional result rather than a theorem about
-unconditioned physical reality of the framework's structural
-commitments, in a modified form: the appropriate computational class is
-BQP rather than BPP, reflecting the quantum nature of the visible-sector
-marginal.
+conditional BQP model theorem yields the quantum (BQP-form) ECT --- the
+BQP counterpart of the classical thesis --- under the additional
+global-coverage premise --- every physically realizable computation
+falling under the same operational-closure and efficiency hypotheses ---
+as a conditional result rather than a theorem about unconditioned
+physical reality, in a modified form: the appropriate computational
+class is BQP rather than BPP, reflecting the quantum nature of the
+visible-sector marginal.
 
-This modification has empirical consequences. The BPP-BQP gap ---
-quantum advantage for problems like factoring, discrete log, and certain
-simulation problems --- is reframed as the cost of partial observation
-rather than as evidence that the universe is fundamentally quantum.
-Classical observers operating with marginal-statistics access cannot
-achieve BQP without using quantum hardware, because the hidden-sector
-correlations that enable BQP advantage are accessible only through
-measurement protocols that exploit the substratum's actual structure.
-Quantum computers exploit these correlations; classical computers do
-not. The BPP-BQP gap is empirical evidence for the substratum's
-structure, not evidence against the framework.
+This modification has empirical consequences. The conjectured BPP--BQP
+separation --- task-specific quantum advantage for problems like
+factoring, discrete log, and certain simulation problems --- is reframed
+as the cost of partial observation rather than as evidence that the
+universe is fundamentally quantum. Under the standard separation
+conjecture, a BPP-limited classical implementation cannot reproduce all
+BQP computations efficiently; on the framework's reading, the
+hidden-sector correlations that enable the conjectured advantage are
+accessible only through measurement protocols that exploit the
+substratum's actual structure --- quantum hardware exploits these
+correlations, while classical sampling does not. The observed
+task-specific quantum advantage --- with the strict BPP--BQP separation
+conjectured, not proved --- is read by the framework as evidence about
+the substratum's structure, not evidence against the framework.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -606,9 +662,10 @@ floor}\label{the-finite-substratum-refinement-a-ceiling-above-bqps-floor}}
 The characterization of §4.3 is exact in the idealized limit
 \(S \to \infty\). The framework, however, asserts that \(S\) is finite
 --- the holographic bound caps the substratum resources available to any
-physical computation. This subsection states the finite-size
-consequence, which is a theorem-grade commitment of the corpus as it
-stands rather than an optional strengthening.
+physical computation. This subsection states the finite-size consequence
+as a complexity-assumption-dependent proposal: its status inherits the
+standard conjectures made explicit below, and it is not entailed by
+Main.
 
 \textbf{The forced position.} Any interpretation with a finite classical
 substratum faces a standard trilemma {[}7{]}: either (I) quantum
@@ -616,17 +673,21 @@ computation encounters a scale ceiling; or (II) the tasks exhibiting
 quantum advantage possess hidden classical algorithms; or (III) the
 substratum commands resources exponential in the number of emergent
 qubits. The framework closes (III) by construction: the holographic
-bound is a structural commitment. It closes (II) by theorem: the
-substratum measure is the unique \(\varphi\)-invariant maximal-entropy
-measure ({[}Main{]}, Lemma 3 and posit (iv) of the posit ledger), which
-carries no planted information --- a polynomial-resource local
-reversible dynamics seeded from a maximal-entropy measure is a classical
-sampler, and escape by conspiracy would require a planted measure
-contradicting the uniqueness clause; independently, Theorem 24 of
-{[}Substratum §4{]} classifies the specific microstate as gauge,
-provably without empirical content, whereas extractable task answers
-would be empirical content. What remains is (I): the ceiling is not
-adopted here; it is entailed.
+bound is a structural commitment. It addresses (II) in one theorem-level
+respect: the substratum measure is the unique \(\varphi\)-invariant
+maximal-entropy measure ({[}Main{]}, Lemma 3 and posit (iv) of the posit
+ledger), which excludes a planted-measure escape --- though absence of
+planted answers is not itself a classical lower bound: the hardness of
+the relevant sampling rests on standard complexity-theoretic evidence
+(random-circuit results are assumption-dependent, e.g.~non-collapse of
+the polynomial hierarchy), so (II) closes conditionally on those
+assumptions, while escape by conspiracy would additionally require a
+planted measure contradicting the uniqueness clause; independently,
+Theorem 24 of {[}Substratum §4{]} classifies the specific microstate as
+gauge, provably without empirical content, whereas extractable task
+answers would be empirical content. What remains, granted the complexity
+assumptions below, is (I): the ceiling is a conditional consequence with
+its assumptions stated, not an unconditional entailment.
 
 \textbf{The scale.} The substratum budget for a computation of wall-time
 \(T\) is bounded by the holographic patch:
@@ -636,7 +697,11 @@ for a day-scale computation, \(\sim 10^{157}\) for thirty years, and
 \(\sim 2 \times 10^{183}\) at the absolute horizon scale. A computation
 whose output statistics require classical sampling resources exceeding
 the budget cannot have those statistics realized by the substratum. The
-ceiling therefore sits at \(n^* = \log_2(\mathrm{budget})\):
+ceiling therefore sits, under an explicit quantitative assumption ---
+\(C_{\mathrm{cl}}(n, \varepsilon) \geq 2^{\alpha n}\) for the chosen
+circuit ensemble and fidelity criterion, an assumption the cited
+hardness evidence supports but does not prove --- at
+\(n^* \approx \log_2(\mathrm{budget})/\alpha\): with \(\alpha = 1\),
 approximately 480 (day), 520 (decades), 610 (absolute)
 \emph{full-fidelity, sampling-hard} logical qubits --- the operative
 quantity being fidelity-weighted classical simulation cost, not qubit
@@ -669,8 +734,10 @@ day-scale budget of \(2^{482}\)); nothing yet probes it. Fault-tolerant
 machines at \(\sim 10^3\) logical qubits enter the test zone. Clean
 absence of hardness-correlated degradation on sampling-hard circuits at
 that scale --- full-fidelity performance where the budget forbids it ---
-falsifies the finite classical substratum itself: unlike the framework's
-other gates, this one reaches {[}Main{]}.
+falsifies, in order of exposure, the quantitative cost model (the
+\(\alpha\)-assumption below), then the complexity-resource bridge ---
+and only if those survive every repair does the pressure reach the
+finite classical substratum and {[}Main{]}.
 
 \textbf{Corollary (entanglement dimension).} The same budget caps the
 entanglement dimension available to any physical Bell-type experiment at
@@ -734,8 +801,11 @@ partition --- derivation queued). Hypercomputation through spacetime
 structure is closed as well: Malament--Hogarth constructions require
 unbounded blueshift and effectively infinite state space, unavailable on
 a finite lattice with \(e^{S}\) states. The account of physical
-computation is therefore a complete box, with each face carrying either
-a derived number or a queued derivation from the same primitives.
+computation is therefore a four-axis program: the energy and spacetime
+faces carry derived exclusions, the width face a
+complexity-assumption-dependent proposal (§4.5), and the rate and memory
+faces queued derivations from the same primitives --- a program, not a
+completed box.
 
 \textbf{Near-term texture.} The same partition machinery predicts
 P-indivisible device noise at the engineered-bath level ({[}Complexity
@@ -762,15 +832,18 @@ BPP strictly, is unmodified by the framework's content.
 \subsubsection{5.1 The location of P vs NP within the
 framework}\label{the-location-of-p-vs-np-within-the-framework}}
 
-The framework's BQP characterization places P and NP inside BQP: every
-problem in P is in BQP (trivially, since BQP contains BPP and BPP
-contains P), and every problem in NP whose witness can be verified
-efficiently has its verification problem in BQP as well. The
-conventional inclusion chain is unmodified by the framework's content.
-The framework's contribution is at a different level: it identifies BQP
-as the \emph{outermost} class accessible to embedded observers, leaving
-the inclusion relationships among interior classes --- including P vs NP
---- to standard complexity theory.
+The framework's conditional BQP characterization places P inside BQP
+(\(\mathrm{P} \subseteq \mathrm{BPP} \subseteq \mathrm{BQP}\)); the
+relation of NP to BQP is UNKNOWN --- efficient witness verification puts
+the verification map, not the NP language, inside BQP, and
+\(\mathrm{NP} \subseteq \mathrm{BQP}\) is an open containment question.
+Consequently the framework's conditional ceiling neither settles P vs NP
+nor determines the NP--BQP relationship. The conventional inclusion
+chain is unmodified by the framework's content. The framework's
+contribution is at a different level: it identifies BQP as the
+\emph{outermost} class accessible to embedded observers, leaving the
+inclusion relationships among interior classes --- including P vs NP ---
+to standard complexity theory.
 
 \hypertarget{the-neutrality-result}{%
 \subsubsection{5.2 The neutrality result}\label{the-neutrality-result}}
@@ -778,11 +851,12 @@ the inclusion relationships among interior classes --- including P vs NP
 The framework's commitments do not entail either P = NP or P ≠ NP. Two
 cases:
 
-\emph{Case 1: P ≠ NP} (the conventional expectation). Both P and NP are
-inside BQP; no efficient general solution exists for NP-complete
-problems; quantum advantage (Shor's algorithm and related results)
-places specific NP problems inside BQP without placing all of NP inside
-P, consistent with the standard conjecture.
+\emph{Case 1: P ≠ NP} (the conventional expectation). P is inside BQP
+while the NP--BQP relation remains open; no efficient general solution
+is known for NP-complete problems; quantum advantage (Shor's algorithm
+and related results) places specific NP problems inside BQP without
+placing all of NP inside either BQP or P, consistent with the standard
+conjectures.
 
 \emph{Case 2: P = NP} (the surprising case). A polynomial-time algorithm
 for an NP-complete problem operates on a classical Turing machine; its
@@ -1068,22 +1142,22 @@ with problem geometry. It connects to existing complexity-theoretic work
 on planar variants of NP-complete problems and on local Hamiltonian
 complexity {[}9{]}.
 
-\hypertarget{the-bqp-bpp-gap-hidden-group-structure-and-the-mathrmsu2-compatibility-refinement}{%
-\subsubsection{\texorpdfstring{7.2 The BQP-BPP gap, hidden group
-structure, and the \(\mathrm{SU}(2)\)-compatibility
-refinement}{7.2 The BQP-BPP gap, hidden group structure, and the \textbackslash mathrm\{SU\}(2)-compatibility refinement}}\label{the-bqp-bpp-gap-hidden-group-structure-and-the-mathrmsu2-compatibility-refinement}}
+\hypertarget{task-specific-quantum-advantage-hidden-group-structure-and-the-mathrmsu2-compatibility-refinement}{%
+\subsubsection{\texorpdfstring{7.2 Task-specific quantum advantage,
+hidden group structure, and the \(\mathrm{SU}(2)\)-compatibility
+refinement}{7.2 Task-specific quantum advantage, hidden group structure, and the \textbackslash mathrm\{SU\}(2)-compatibility refinement}}\label{task-specific-quantum-advantage-hidden-group-structure-and-the-mathrmsu2-compatibility-refinement}}
 
-Existing complexity-theoretic evidence suggests that the BQP-BPP gap is
-largest for problems with strong global structure (factoring, discrete
-log, hidden-subgroup problems) and smallest for problems with primarily
-local structure (where classical heuristics often perform well). The
-framework's partition architecture suggests a structural reason for this
-correlation: BQP advantage derives from exploiting hidden-sector
-correlations that are induced by nonlocal substratum couplings, and
-nonlocal substratum couplings are precisely what global problem
-structure requires. The base conjecture is that the BQP-BPP gap
-correlates structurally with the \emph{globality} of the problem's
-hidden-sector dependence.
+Existing complexity-theoretic evidence suggests that task-specific
+quantum advantage is strongest for problems with strong global structure
+(factoring, discrete log, hidden-subgroup problems) and smallest for
+problems with primarily local structure (where classical heuristics
+often perform well). The framework's partition architecture suggests a
+structural reason for this correlation: BQP advantage derives from
+exploiting hidden-sector correlations that are induced by nonlocal
+substratum couplings, and nonlocal substratum couplings are precisely
+what global problem structure requires. The base conjecture is that
+task-specific quantum advantage correlates structurally with the
+\emph{globality} of the problem's hidden-sector dependence.
 
 A sharper structural reading is available when the conjecture is
 restricted to its appropriate scope and tested against the catalog of
@@ -1100,26 +1174,41 @@ engage them, and they are left outside the conjecture's scope. Within
 the in-scope class, the conjecture's testable content survives.
 
 \textbf{Survey against the known advantage catalog.} The known
-exponential BQP advantages with identifiable group-theoretic structure
-cluster as follows: Shor's factoring (HSP on \(\mathbb{Z}_n^*\),
-abelian), discrete log (HSP on cyclic groups, abelian), Simon's problem
-and Deutsch-Jozsa (HSP on \((\mathbb{Z}_2)^n\), abelian), Forrelation
-(Fourier-correlation on \((\mathbb{Z}_2)^n\)), period-finding (HSP on
-\(\mathbb{Z}\)), and Jones polynomial estimation at roots of unity
-(Aharonov-Jones-Landau 2006, with hidden structure in the braid-group
-representations factoring through \(\mathrm{SU}(2)_q\)). On the negative
-side, large symmetric groups \(S_n\) and dihedral groups \(D_n\) for
-large \(n\) --- both nonabelian with complex representation theory ---
-have no known exponential quantum advantage despite extensive
-investigation; this is the empirical state of the nonabelian HSP
-problem.
+task-specific quantum advantages with identifiable group-theoretic
+structure span several distinct epistemic types --- proven query-model
+separations, polynomial-time quantum algorithms with conjectured
+classical hardness, BQP-complete estimation problems, and subexponential
+speedups --- and cluster as follows: Shor's factoring (HSP on
+\(\mathbb{Z}_n^*\), abelian; a polynomial-time quantum algorithm with
+classical hardness conjectured, not proved), discrete log (HSP on cyclic
+groups, abelian; the same status), period-finding (HSP on
+\(\mathbb{Z}\); the same status), Simon's problem (HSP on
+\((\mathbb{Z}_2)^n\), abelian; a proven exponential query-model
+separation), Deutsch-Jozsa (\((\mathbb{Z}_2)^n\); a query-model result
+only --- a bounded-error randomized classical algorithm needs just
+constantly many queries, so it witnesses no exponential bounded-error
+advantage), Forrelation (Fourier-correlation on \((\mathbb{Z}_2)^n\); a
+proven query-model separation, not an unrelativized
+\(\mathrm{BPP} \neq \mathrm{BQP}\)), and Jones polynomial estimation at
+roots of unity (Aharonov-Jones-Landau 2006, a BQP-complete estimation
+problem, with hidden structure in the braid-group representations
+factoring through \(\mathrm{SU}(2)_q\)). On the negative side, large
+symmetric groups \(S_n\) and dihedral groups \(D_n\) for large \(n\) ---
+both nonabelian with complex representation theory --- have no known
+polynomial-time quantum algorithm despite extensive investigation ---
+for the dihedral case Kuperberg's algorithm runs in subexponential
+\(2^{O(\sqrt{\log N})}\) time {[}12{]}, a subexponential speedup rather
+than an exponential advantage; this is the empirical state of the
+nonabelian HSP problem.
 
 \textbf{The \(\mathrm{SU}(2)\)-compatibility refinement.} The structural
 reason behind this clustering becomes visible when one notes that the
-framework's quantum toolkit (from the QM emergence theorem, Chapter 1 of
-{[}1{]}) is built from \(\mathrm{SU}(2)\)-based operations: qubits are
+observer's gate toolkit --- the framework's \(\mathrm{SU}(2)\)
+representation structure with model-supplied controllability (Chapter 1
+of {[}1{]} gives the representation; §4's hypotheses the control) --- is
+built from \(\mathrm{SU}(2)\)-based operations: qubits are
 \(\mathrm{SU}(2)\)-doublet representations; the universal gate set
-(Hadamard, phase, CNOT) acts on these doublets. The quantum Fourier
+(Hadamard, \(T\), CNOT) acts on these doublets. The quantum Fourier
 transform --- the workhorse of HSP-style algorithms --- is efficiently
 implementable for groups whose representation theory factors through
 \(\mathrm{SU}(2)\)-compatible structure: abelian groups embedding in
@@ -1144,15 +1233,15 @@ deformations in a way that the framework's \(\mathrm{SU}(2)\)-based
 quantum toolkit can efficiently access. The framework's broader gauge
 group \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\)
 determines what physics is; the BQP-advantage correlation connects
-specifically to \(\mathrm{SU}(2)\) via the QM emergence theorem's
-toolkit construction.}
+specifically to \(\mathrm{SU}(2)\) via the \(\mathrm{SU}(2)\)
+representation structure on which the model's toolkit is built.}
 
-This is the structural reading of the BQP-BPP gap pattern that the
-framework's content suggests. It survives the survey against known BQP
-advantages (twelve cases, all in-scope cases consistent), accommodates
-the tractable / intractable boundary in nonabelian HSP, and is grounded
-in the framework's existing QM emergence theorem rather than being an
-external postulate. The conjecture is silent on sampling-style
+This is the structural reading of the task-specific-advantage pattern
+that the framework's content suggests. It survives the survey against
+known BQP advantages (twelve cases, all in-scope cases consistent),
+accommodates the tractable / intractable boundary in nonabelian HSP, and
+is grounded in the framework's existing QM emergence theorem rather than
+being an external postulate. The conjecture is silent on sampling-style
 advantages (boson sampling, random circuit sampling) by scope, not
 because the framework is inconsistent with them. The internal
 investigation supporting this refinement is recorded in the framework's
@@ -1170,8 +1259,8 @@ representation theory, including quantum-deformation variants. None of
 these is established by the framework; each is a structurally motivated
 conjecture inviting complexity-theoretic investigation. The framework's
 contribution is to suggest a specific structural reason --- the
-\(\mathrm{SU}(2)\)-based quantum toolkit construction --- behind the
-empirical concentration of BQP advantage on the specific group
+\(\mathrm{SU}(2)\)-based, model-supplied toolkit construction --- behind
+the empirical concentration of BQP advantage on the specific group
 structures it concentrates on, with this contribution rooted in the
 framework's existing QM emergence theorem rather than introduced as new
 content.
@@ -1237,11 +1326,15 @@ Summarizing the paper's content:
   class accessible to embedded observers satisfying C1--C4 (conditional
   BQP model theorem, §4; extended development in {[}1, Ch. 14{]}).
 \item
-  The Extended Church-Turing Thesis (in BQP form) is a theorem of the
-  framework's structural commitments, not an empirical conjecture.
+  The Extended Church-Turing Thesis (in BQP form) is a conditional
+  theorem under the global-coverage premise together with §4's
+  computational model, the coverage carrying the universal quantifier
+  --- not an empirical conjecture, not a bare consequence of C1--C4, and
+  not of embeddedness.
 \item
-  The BPP-BQP gap is structural --- the cost of marginal-statistics
-  observation rather than evidence for fundamental quantum-ness.
+  The conjectured BPP--BQP separation is structural in the framework's
+  reading --- the cost of marginal-statistics observation rather than
+  evidence for fundamental quantum-ness.
 \item
   The Gödel-Turing-OI incompleteness family operates at every level of
   recursive self-improvement; no level of AI sophistication overcomes
@@ -1269,7 +1362,8 @@ Summarizing the paper's content:
 \item
   Geometric refinements based on substratum lattice structure (§7.1).
 \item
-  BQP-BPP gap structure correlating with problem globality (§7.2).
+  task-specific quantum-advantage structure correlating with problem
+  globality (§7.2).
 \item
   Gauge equivalence as a possible physical account of polynomial-time
   reducibility (§7.3).
@@ -1327,5 +1421,13 @@ Hamiltonian problem,'' \emph{SIAM Journal on Computing} \textbf{35},
 {[}10{]} S. Lloyd, ``Computational capacity of the universe,''
 \emph{Phys. Rev.~Lett.} \textbf{88}, 237901 (2002);
 arXiv:quant-ph/0110141.
+
+{[}11{]} V. V. Shende, S. S. Bullock, and I. L. Markov, ``Synthesis of
+quantum-logic circuits,'' \emph{IEEE Trans. Computer-Aided Design}
+\textbf{25}, 1000 (2006); arXiv:quant-ph/0406176.
+
+{[}12{]} G. Kuperberg, ``A subexponential-time quantum algorithm for the
+dihedral hidden subgroup problem,'' \emph{SIAM J. Comput.} \textbf{35},
+170 (2005); arXiv:quant-ph/0302112.
 
 \end{document}

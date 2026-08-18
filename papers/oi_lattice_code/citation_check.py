@@ -28,7 +28,19 @@ for path in targets:
             line = text[:m.start()].count("\n") + 1
             broken.append((os.path.relpath(path, root), line, name))
 
+dupes = []
+for path in targets:
+    if not os.path.exists(path): continue
+    text = open(path, encoding="utf-8").read()
+    nums = re.findall(r"(?m)^\[(\d+)\]", text)
+    seen = {}
+    for nnum in nums: seen[nnum] = seen.get(nnum, 0) + 1
+    for nnum, k in sorted(seen.items(), key=lambda x: int(x[0])):
+        if k > 1: dupes.append((os.path.relpath(path, root), nnum, k))
+
 for f, ln, n in broken:
     print(f"BROKEN CITATION  {f}:{ln}  ->  {n} (no such file under papers/oi_lattice_code/)")
-print(f"citation_check: {cited} citation(s), {len(broken)} broken")
-sys.exit(1 if broken else 0)
+for f, nnum, k in dupes:
+    print(f"DUPLICATE BIB NUMBER  {f}  [{nnum}] appears {k}x")
+print(f"citation_check: {cited} citation(s), {len(broken)} broken, {len(dupes)} duplicate bib number(s)")
+sys.exit(1 if (broken or dupes) else 0)

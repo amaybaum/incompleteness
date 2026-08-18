@@ -292,9 +292,9 @@ applies to others; record it as an assumption-watch marker, not just a local fix
 
 Requires `pandoc` + a LaTeX engine with `xelatex` (e.g. `brew install pandoc texlive`).
 
-**Use `./build.sh`.** It loops over the sources with the header include written in, so
-the flag cannot be omitted. `./build.sh` builds everything;
-`./build.sh SM GR` builds named papers; `--book` builds only the book. It runs from any
+**Use `sh ./build.sh`.** It loops over the sources with the header include written in, so
+the flag cannot be omitted. `sh ./build.sh` builds everything;
+`sh ./build.sh SM GR` builds named papers; `--book` builds only the book. It runs from any
 directory. It reports the *distinct* glyphs xelatex
 dropped, which is what tells you what to add to `unicode-fix.tex`. Five papers were once
 published with artifacts built without the header — the recipe below was correct and was
@@ -430,7 +430,7 @@ register by design):
   status labels (proved / conditional / open / named hypothesis).
 
 State the mathematical content and its status; nothing else. Review
-notes, transfer-side prose, and DELTA-NOTES are exempt. Enforcement:
+notes and DELTA-NOTES are exempt. Enforcement:
 every block's closing battery greps the diff's ADDED lines for the
 phrase family above (and additions to it as found); any hit blocks
 the ship until neutralized. Adopted 2026-08-10 after the b68 sweep
@@ -452,7 +452,7 @@ Extends §A.32. Additionally prohibited in `papers/`:
 - **Revision-history self-reference** in claims: "is now settled",
   "in its current form", "the corrected form", "as redefined",
   "no longer". Claims are stated timelessly; the revision history
-  lives in the transfer ledger, not the paper.
+  is kept out of the paper.
 
 Enforcement: the closing battery's added-lines scan (§A.32) gains a
 caps-emphasis regex (mid-sentence [A-Z]{4,} outside the whitelist) and

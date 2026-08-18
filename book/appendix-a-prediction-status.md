@@ -171,7 +171,7 @@ Beyond the predictions with current empirical match, the framework makes specifi
 
 | # | Prediction | Quantitative content | Testability | Chapter |
 |---|-----------|---------------------|-------------|---------|
-| F1 | BEC analogue-gravity $\mathcal{F}(r) = 2r - r^2$ | Capacity-controlled non-Markovianity | Steinhauer group, 2-3 years | Ch 15 §15.8 |
+| F1 | BEC analogue-gravity $\mathcal{F}(r) = 2r - r^2$ (proposed model form; derivation unpackaged) | Capacity-controlled non-Markovianity | Steinhauer group, 2-3 years | Ch 15 §15.8 |
 | F2 | Correlation-aware error correction | correlated errors over $\sim\tau_B/\tau_S$ gates; gain not quantified | Current quantum hardware | Ch 15 §15.4 |
 | F3 | Backflow-aware NV magnetometry | sensitivity gain in direction only; factor not quantified | Current NV platforms | Ch 15 §15.6 |
 | F4 | Engineered-bath coherence extension | coherence beyond the Markovian estimate; factor not quantified | Spin chain / NV / trapped ion platforms | Ch 15 §15.5 |
@@ -204,7 +204,7 @@ The *rotational* Lorentz sector is deliberately **not** listed as a forward pred
 
 **Falsification conditions.** Each forward prediction has specific falsification conditions developed in the relevant chapter. The framework's content is most distinctively at risk in:
 
-- F1 (BEC analogue-gravity): null result with functional form different from $2r - r^2$ would falsify the framework's structural mechanism for partially-quantum dynamics.
+- F1 (BEC analogue-gravity): null result with functional form different from $2r - r^2$ would falsify the proposed functional form — a model prediction, not theorem-derived (Ch 15 §15.8).
 - F5 (gravitational wave echoes): null result at $\Delta t = (r_+/c)\ln(r_+/2l_p)$ would constrain the framework's substratum-level lattice scale.
 - F6 (DESI running vacuum): DESI Year 5 confirmation of phantom-crossing dark energy would falsify the framework's running vacuum prediction.
 - F9 (variant pathogenicity stratification): demonstration that AlphaMissense performance is uniform across reader/writer/eraser and substrate genes would falsify the substratum-emergent operator distinction at the variant-prediction level.

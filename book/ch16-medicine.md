@@ -7,7 +7,7 @@
 
 ## 16.1 What this chapter develops
 
-Chapters 13 through 15 developed the framework's reach into biology, computing, and engineering. Chapter 13 established that biological systems with C1–C4 architectures exhibit non-Markovian dynamics as their default behavior — quantum mechanics in biology is the framework's prediction rather than the anomaly conventional accounts treat it as. Chapter 14 developed the BQP theorem as the framework's structural limit on computational complexity. Chapter 15 developed the framework's content for engineered quantum systems, with specific quantitative predictions for current quantum hardware.
+Chapters 13 through 15 developed the framework's reach into biology, computing, and engineering. Chapter 13 established that biological systems with C1–C4 architectures exhibit non-Markovian dynamics as their default behavior — the memory-bearing architecture is the framework's prediction for biology, in classical instantiation, rather than the anomaly conventional quantum-biology accounts treat it as. Chapter 14 developed the BQP theorem as the framework's structural limit on computational complexity. Chapter 15 developed the framework's content for engineered quantum systems, with specific quantitative predictions for current quantum hardware.
 
 This chapter develops the framework's content for medicine — the framework's reach into clinical pharmacology, neurodegeneration, antibiotic resistance, immunotherapy, cardiac pharmacology, autoimmune disease, and epigenetics. The framework's content here is *concrete and clinically engaged*: specific predictions for current drug-development programs, distinguishing predictions where the framework gives different answers than standard pharmacology, and one structural retrodiction (the wider therapeutic window for reader-writer disorders, consistent with Guy et al. 2007 for Rett syndrome) that illustrates the framework's reach beyond fundamental physics into clinical biology.
 
@@ -193,11 +193,11 @@ A second distinguishing prediction: combinations of JAK inhibitors with phosphat
 
 The second half of the chapter develops the framework's content on epigenetics — the systematic application of the substratum-emergent operator distinction (Chapter 6 §6.3) to chromatin biology. The framework's content here is *substantive*: epigenetic regulation is a direct biological instantiation of the framework's C1–C4 architecture, with the substratum-emergent operator distinction organizing the three-axis pharmacology of epigenetic drugs (readers, writers, erasers) and producing a wider-therapeutic-window pattern consistent with Rett syndrome (Guy et al. 2007).
 
-**The C1–C4 architecture of chromatin.** The transcriptional machinery — RNA polymerase II, transcription factors, mediator complex — is the visible sector. The chromatin state — DNA methylation patterns, histone modifications, chromatin compaction, three-dimensional architecture — is the hidden sector. The four structural conditions are satisfied with overwhelming margin.
+**The C1–C4 architecture of chromatin.** The transcriptional machinery — RNA polymerase II, transcription factors, mediator complex — is the visible sector. The chromatin state — DNA methylation patterns, histone modifications, chromatin compaction, three-dimensional architecture — is the hidden sector. The four conditions are satisfied with overwhelming margin.
 
 *C1 (coupling).* The transcriptional machinery and chromatin state are coupled through multiple mechanisms: direct physical coupling (nucleosome positioning controls promoter access, DNA methylation modulates transcription factor binding, histone tail modifications recruit reader proteins), writer-reader feedback (transcription recruits chromatin-modifying enzymes that alter the chromatin state, which modulates future transcription), and structural coupling (chromatin looping by CTCF and cohesin brings distal regulatory elements into proximity with promoters).
 
-*C2 (slow bath).* The chromatin state changes on timescales far slower than individual transcription events. The hierarchy is multi-scale:
+*C2 (memory persistence).* The chromatin state changes on timescales far slower than individual transcription events. The hierarchy is multi-scale:
 
 | Mechanism | $\tau_B$ | $\tau_S/\tau_B$ |
 |---|---|---|
