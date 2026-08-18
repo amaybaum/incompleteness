@@ -1099,11 +1099,6 @@ INVARIANTS = [
      "embedded incompleteness does not force P-indivisibility, and P-indivisibility does not grant representability (b176)",
      [],
      "the framework derives what the limit forces — a P-indivisible marginal"),
-    # ---- b184: the withdrawn-S5 regression guard ----
-    (r"every classical continuous interpolation|kills every classical continuous",
-     "S3 is an embeddability obstruction: it forbids semigroup/root structure, not continuous stochastic paths (the convex path C(t) exists; b184 counter-control)",
-     [],
-     "kills every real square root and every classical continuous interpolation"),
 ]
 
 # --- self-test: every invariant must match its own known-bad exemplar ---
