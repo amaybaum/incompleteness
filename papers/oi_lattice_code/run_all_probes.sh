@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # run_all_probes.sh — the foundation certification battery, one command.
-# Exit 0 iff all twenty-eight suites and both guards pass. (b63; named in the seventh-review triage.)
+# Exit 0 iff all twenty-eight suites and all three guards pass. (b63; named in the seventh-review triage.)
 set -u
 cd "$(dirname "$0")/foundations" || exit 2
 FAIL=0
