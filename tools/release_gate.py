@@ -4,6 +4,9 @@
 Four checks accumulated over the correction rounds, none of which subsumes
 another. Each exists because a real defect shipped past the others:
 
+  toolchain_check      build.sh went missing and the duplicate unicode-fix
+                       headers came back. All six other checks passed green on
+                       a tree that could not be rebuilt at all.
   staleness_check      a .md was edited and its .tex/.pdf were not rebuilt.
                        bundle_check, mirror and citation audits all passed.
   mirror_check         a book CHAPTER was edited; chapters have no individual
@@ -39,6 +42,10 @@ def main():
     if '--label' in sys.argv:
         label = sys.argv[sys.argv.index('--label') + 1]
     checks = [
+        # toolchain FIRST: every other check compares artifacts to sources, so
+        # they all pass on a tree that has lost its build entry point and can
+        # no longer be regenerated at all.
+        ("toolchain", [sys.executable, "tools/toolchain_check.py"]),
         ("staleness", [sys.executable, "tools/staleness_check.py"]),
         ("voice",     [sys.executable, "tools/voice_check.py"]),
         ("mirror",    [sys.executable, "papers/oi_lattice_code/mirror_check.py"]),
