@@ -320,10 +320,23 @@ probabilities, no quantum probability --- just ordinary probability.
 This is what makes the result surprising: we're putting in classical
 probability and getting out quantum mechanics.
 
-That's it. The claim is that quantum mechanics --- the Schrödinger
-equation, the Born rule, superposition, entanglement, Bell inequality
-violations --- follows from this definition alone, given the right
-conditions on the hidden sector:
+That's it. The precise claim is layered. At the finite observable-law
+level, the resulting stochastic law has an exact fixed-basis
+Hilbert/unitary/Born-form representation
+(\(S \iff D \iff Q_{\mathrm{fb}}\)); when C4 readback holds, the OI
+sector additionally carries genuine predictive memory and, for a fixed
+finite recurrent representative, global indivisibility. The
+Schrödinger/unitary interpolation and the \(p=|U|^2\) dictionary belong
+to that exact representation layer. What does \textbf{not} follow from
+the definition alone is that every coherent preparation, noncommuting
+instrument, and spatial composite is already one standard local quantum
+operational theory. That common operational lift remains the narrow
+frontier. Bell is a separate fork: a response-complete deterministic
+completion that is both measurement-independent and ontically
+parameter-independent is Bell-local, so the framework retains
+measurement independence and takes ontic parameter dependence for
+Bell-violating substrata while preserving operational no-signaling. The
+hidden-sector conditions are:
 
 \textbf{C1: Non-zero coupling (H\_int ≠ 0).} The visible and hidden
 sectors interact. Information flows between them. Without this, the
@@ -859,9 +872,17 @@ together they ensure that \emph{layer} rests on no single recent result.
   processes --- nontrivially so where the dynamics is P-indivisible by
   C1--C4.
 \item
-  \textbf{The Born rule} T\_ij = \textbar U\_ij\textbar² is not an
-  additional postulate --- it's the definition of how the stochastic
-  process maps onto the unitary one.
+  \textbf{The Born-form dictionary} is the ancilla-marginal rule
+  \(T_{ij}=\sum_\alpha |\widetilde U_{(i,0)(j,\alpha)}|^2\) in general,
+  reducing to \(T_{ij}=|U_{ij}|^2\) only in the trivial-ancilla case.
+  Inside \(Q_{\mathrm{fb}}\) that quadratic readout is part of the
+  definition of the equivalent representation. The permutation-unitary
+  construction does not, however, select the exponent: its dilated
+  matrix entries are \(0\) or \(1\), so replacing the square by
+  \(|\widetilde U|^p\) leaves the same marginal table for every \(p>0\).
+  Why the quadratic functional is the physical dictionary is therefore a
+  question about the dictionary's origin, not a gap in the fixed-basis
+  equivalence.
 \item
   \textbf{The action scale ℏ} enters when converting from the
   dimensionless unitary to a dimensionful Hamiltonian: Ĥ = iℏ (∂U/∂t)
@@ -869,10 +890,17 @@ together they ensure that \emph{layer} rests on no single recent result.
   transition data alone --- it requires additional physical input from
   the partition geometry (§5).
 \item
-  \textbf{Bell inequality violations.} Since the transition matrices for
-  composite systems don't factorize, entangled systems naturally produce
-  correlations that violate Bell inequalities, up to exactly Tsirelson's
-  bound.
+  \textbf{Bell correlations.} Bare non-factorization is not enough to
+  select the quantum correlation set. The stochastic causal-local
+  indivisible construction has a Tsirelson bound, but the framework's
+  response-complete deterministic layer is more restrictive: pointwise
+  graph locality plus a measurement-independent pre-setting ensemble
+  gives a Bell-local model with \(|S_{\rm CHSH}|\le2\). The framework
+  therefore takes the ontic-parameter-dependent branch for
+  Bell-violating substrata while retaining operational no-signaling
+  (Main §3.3). Unrestricted/global composites remain a post-quantum
+  negative control, so neither hidden memory nor indivisibility is a
+  selector of the quantum Bell set.
 \end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -935,51 +963,55 @@ tested generic cases); i.e.~up to physically irrelevant relabeling.
 This is the question everyone asks: isn't this ruled out by Bell's
 theorem?
 
-\textbf{What Bell's theorem actually requires.} Bell's theorem proves
-that no hidden variable theory can reproduce quantum correlations if it
-satisfies three conditions simultaneously:
+\textbf{What Bell's theorem actually requires.} For the
+response-complete deterministic layer, the decisive conjunction is
+measurement independence plus ontic parameter independence. If one
+pre-setting microstate fixes the responses at both wings, one common
+setting-independent ensemble is used, and the Bell-relevant coupling
+range does not connect the wings before readout, the result is an
+ordinary local hidden-variable model and \(|S_{\rm CHSH}|\le2\). Hidden
+memory and indivisibility do not change that conclusion.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{Locality:} The outcome at detector A doesn't depend on the
-  setting at detector B
-\item
-  \textbf{Measurement independence:} The experimenters' choices are
-  independent of the hidden variables
-\item
-  \textbf{Factorizability:} P(a,b \textbar{} x,y,λ) = P(a\textbar x,λ) ·
-  P(b\textbar y,λ)
-\end{enumerate}
+\textbf{The branch the framework takes.} The framework declines the
+measurement-dependent/superdeterministic horn and instead relinquishes
+\textbf{ontic parameter independence}. In the specific SM/GR
+representative this need not be a static all-to-all sector: {[}SM
+§3.1{]} already makes the coupling graph state-dependent, so the
+branch-(a) target is preparation-indexed adjacency --- a geometric
+bounded-range reference graph in the uniform/vacuum class, with
+bounded-degree long links (or an equivalent nonlocal response map)
+supplied by an entangling preparation. The operational distribution
+remains no-signaling. The unresolved cost is H-Bell's
+curvature-stability condition: the prepared graph must retain the
+metric/Ollivier--Ricci continuum behavior required by the Einstein
+reconstruction. That condition is now downstream of a harder one. The
+cited convergence theorem is arbitrary-dimensional only for the
+manifold-distance-weighted graph metric, and for the degree-\(6\) cubic
+reference graph the intrinsic hop metric is exactly \(\ell_1\) --- a
+\(\sqrt2\) diagonal stretch that does not decay at any scale --- so the
+hop-metric curvature route FAILS for the reference family, before any
+Bell edge is added, and no \(D=3\) extension of that theorem would
+rescue it. The emergent geometry itself is not in question: the
+substratum's dispersion relation is isotropic at leading order. What
+must be re-founded is the curvature functional, on the
+propagation/Laplacian geometry rather than on shortest-path counts {[}SM
+§3.2{]}. The measurement-dependent alternative is retained only as a
+quantified counterfactual. Main §3.3 proves the model-independent
+necessary bound \(I_{\rm ont}\ge0.0309409\ldots\) bits for the quantum
+value; this is not an achievable cost. Hall--Branciard's optimized
+causal CHSH construction in its model class uses approximately \(0.080\)
+bits, whereas the approximately \(0.046\)-bit optimum is retrocausal;
+OI's one-way branch does not adopt the latter.
 
-The framework satisfies conditions 1 and 2. It violates condition 3.
-
-\textbf{Why factorizability fails.} Factorizability requires that,
-conditioned on the hidden variable λ, the outcomes at the two detectors
-are independent --- that λ carries all the relevant information as a
-snapshot at a single moment.
-
-P-indivisible processes don't work this way. The transition
-probabilities for a joint system can't be factored:
-
-\[T_{QR} \neq T_Q \otimes T_R\]
-
-Two subsystems that interacted during preparation carry a joint
-transition matrix that doesn't decompose into a product. This
-non-factorizability IS entanglement.
-
-\textbf{The Jarrett decomposition.} Factorizability splits into
-parameter independence (outcome at A doesn't depend on setting at B ---
-preserved ✓) and outcome independence (outcome at A doesn't depend on
-outcome at B --- violated ✗). Parameter independence prevents
-faster-than-light signaling. Fine's theorem shows that violating outcome
-independence while preserving parameter independence is exactly the
-class of theories consistent with quantum correlations.
-
-\textbf{The maximum violation.} Barandes, Hasan, and Kagan prove the
-maximum CHSH violation from P-indivisible processes is exactly
-Tsirelson's bound: 2√2 --- the quantum maximum.
+\textbf{The stochastic Tsirelson result is a different layer.}
+Barandes--Hasan--Kagan bound a weaker class of causally local
+indivisible \emph{stochastic} processes by \(2\sqrt2\). Their
+causal-independence condition is weaker than Bell factorization, so that
+theorem does not turn the response-complete deterministic completion
+into a local quantum hidden-variable model. Jarrett/Fine diagnostics
+remain useful; at the deterministic layer the Bell mechanism is ontic
+parameter dependence, while stochastic causal locality belongs to the
+weaker reduced-law description.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1073,58 +1105,50 @@ is retired: representability alone does not force memory (diagonal
 Hamiltonians), and conditional memory alone does not force
 P-indivisibility (the XOR family).
 
-\textbf{What ``unitarily evolving QM'' means precisely.} The
-characterization theorem delivers a Hilbert space, a Hermitian
-Hamiltonian, a unitary time evolution, and Born-rule transition
-probabilities. Additional structures of operational quantum mechanics
---- the tensor product decomposition for spatially separated subsystems,
-state update via the Lüders rule, and multi-time predictions --- are NOT
-all delivered: the classical intervention rung is constructed and the
-instrument algebra remains open ({[}Main §3.4{]}). What follows from the
-construction rather than added as independent postulates. The tensor
-product for the visible--hidden split comes from the Stinespring route
-(Appendix A). The tensor product for subsystems within the visible
-sector (two laboratories, for instance) follows from the spatial Markov
-property of range-1 dynamics on the coupling graph. Projective
-measurement corresponds to Bayesian conditioning on the classical
-substratum. The equivalence between ``finite classical stochastic'' and
-``fixed-basis quantum'' is not metaphorical ---
-\(S \iff D \iff Q_{\mathrm{fb}}\) proves these are the same mathematical
-category, with the memory-bearing sector (\(M_t > 0\)) carrying the
-discriminating content.
+\textbf{What ``unitarily evolving QM'' means precisely.} At the finite
+observable-law layer the framework gives an exact fixed-basis
+Hilbert/unitary/Born representation: \(S \iff D \iff Q_{\mathrm{fb}}\).
+This is not metaphorical, and it includes exact multi-time fixed-basis
+records through the permutation-unitary realization. It does
+\textbf{not} by itself derive the whole operational category of quantum
+mechanics. The visible--hidden tensor factor used by the dilation is
+part of the representation construction; for two spatial laboratories,
+the OI dependency graph supplies exact causal cones, but a common local
+tensor/composite instrument structure is part of the coherent
+operational lift still stated separately in Main §3.4. Conditioning on a
+registered classical outcome is represented by ordinary conditioning on
+the substratum ensemble; identifying every coherent quantum update with
+that construction is likewise part of the operational lift. The
+memory-bearing sector (\(M_t>0\)), and on a fixed finite representative
+the associated global indivisibility, carries the specifically OI
+content.
 
-\emph{A note on what is proved versus imported, to keep the claim honest
-(ordinary Markov chains are members of the source's class, not
-exclusions from it).} The step from ``embedded observation'' to
-``P-indivisible (non-Markovian) dynamics'' is the framework's own
-result. The step to a quantum representation is now internal --- every
-finite-horizon law has a fixed-basis unitary Born representation via the
-realization's own permutation unitary ({[}Main §3.4{]}) --- with the
-\emph{compressed} representation supplied by an external result, which
-applies across its own class --- Markov chains included, so membership
-is not gated by P-indivisibility --- the Barandes stochastic-quantum
-correspondence (published in \emph{Philosophy of Physics}, 2025) ---
-which the framework uses rather than re-derives. That correspondence is
-a genuine result, but three things should be carried with it: it is a
-\emph{representation} (the map is not unique); it delivers the
-scaffolding above --- Hilbert space, unitary evolution, the Born rule
---- while non-commuting observables, spin, and the composite tensor
-structure are introduced via the dilation rather than read directly off
-the stochastic data; and the class of processes it covers is the
-source's own tuple class, which is broad --- ordinary memoryless Markov
-chains are members of it, so P-indivisibility is not what admits a
-process to the theorem. And the ``necessity'' direction --- that a
-quantum system \emph{must} arise from this architecture --- holds with
-one leg (the physical-memory bound behind C2) conditional on an
-assumption (eigenstate thermalization) about the hidden sector, the
-remaining legs unconditional. So the accurate headline is that the
-framework \emph{identifies} the memory-bearing quantum phenomenology
-with the statistics of a particular kind of incomplete observation ---
-the representation universal, operational selection open; it does not
-conjure QM from nothing. This is a reinterpretation of why the quantum
-formalism has the shape it does --- a strong claim --- but a different
-and more defensible one than ``QM derived from a parameter-free
-principle.''
+\emph{A note on what is proved versus imported, to keep the claim
+honest.} The exact finite-law representation is internal: every finite
+stochastic law has a reversible deterministic realization and an exact
+fixed-basis unitary/Born representation
+(\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}). That statement is
+universal --- ordinary Markov chains are included --- so
+representability itself is not the discriminator. C4 supplies the
+nontrivial content: accessible history readback, unavoidable hidden
+predictive memory, and, on one fixed finite recurrent representative,
+global indivisibility. The Barandes stochastic--quantum correspondence
+remains useful for a compressed representation and its interpretive
+apparatus; it is not needed to prove that some Hilbert/Born
+representation exists. The remaining foundational qualification is
+narrower than the old ``selection'' wording: the framework has not yet
+proved that all coherent preparations, noncommuting instruments, and
+composites generated by one OI system form one standard local quantum
+operational theory. Bell is kept separate from that operational-lift
+residue: the response-complete deterministic layer retains measurement
+independence and requires ontic parameter dependence for quantum Bell
+violation, while the stochastic causal-local Tsirelson result remains a
+weaker-description statement. Thus the accurate headline is strong but
+layered: the finite observable stochastic/reversible/quantum
+descriptions are exactly equivalent; readback identifies the
+memory-bearing indivisible OI sector; the common coherent local
+operational lift is stated separately rather than silently folded into
+the equivalence theorem.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1548,13 +1572,16 @@ is what marginal statistics look like when paths through the partition
 are indistinguishable.
 
 \textbf{Entanglement.} Two particles prepared together share a joint
-transition matrix inherited from the trace-out. The correlations are
-encoded in the structure of the dynamics itself, not in a hidden
-variable you could integrate over. This is why Bell inequality
-violations occur: the standard factorization assumption fails for
-indivisible processes. The framework reproduces quantum correlations
-exactly up to Tsirelson's bound, without faster-than-light signaling and
-without superdeterminism.
+transition structure inherited from the trace-out, but Bell violation
+cannot be explained merely by calling that reduced law indivisible. At
+the response-complete deterministic level, measurement independence plus
+parameter independence would force Bell factorization and CHSH \(\le2\).
+The framework therefore gives up \textbf{ontic parameter independence}:
+the microstate response of one wing may depend on the remote setting,
+while the averaged operational statistics remain no-signaling.
+Superdeterminism --- ontic measurement dependence --- is the alternative
+it records and declines. The stochastic indivisible construction's
+Tsirelson theorem remains a separate reduced-law result.
 
 \textbf{The measurement problem.} Measurement produces definite outcomes
 through the indivisible dynamics. When Wigner can't access his Friend's
@@ -1932,12 +1959,12 @@ mechanism. One assumption in Wolpert's theorems also deserves naming
 rather than burying: they quantify over all possible setups of the
 inference device, a counterfactual-availability assumption whose status
 in a deterministic substratum is exactly that of the free-choice
-assumption in Bell's theorem. The framework's treatment is the same one
-it applies to Bell-type assumptions generally --- identify the
-descriptive level at which the assumption holds (the observer's
-effective description, where the framework reproduces the represented
-quantum statistics exactly --- the fixed-basis transition layer) as
-distinct from the substratum level, where it need not.
+assumption in Bell's theorem. The framework therefore keeps
+counterfactual assumptions level-explicit rather than using determinism
+as a blanket escape. In the Bell case specifically it does \textbf{not}
+invoke failure of measurement independence: that branch is declined, and
+the adopted Bell violation instead comes from ontic parameter dependence
+while operational no-signaling is retained.
 
 There is also a difference worth stating plainly, because it sets the
 standard the framework should be held to. Gödel's and Turing's results
@@ -2095,12 +2122,15 @@ evolution --- that interpretations do not, and it accounts for the
 dark-sector concordance as an automatic consequence.
 
 \textbf{``Doesn't Bell's theorem rule out hidden variable theories?''}
-Bell's theorem rules out \emph{local} hidden variable theories
-satisfying a specific factorizability condition. This framework violates
-that factorizability --- not through faster-than-light signals, but
-because P-indivisible joint dynamics don't permit the decomposition
-Bell's theorem assumes. The framework reproduces exactly Tsirelson's
-bound (the maximum quantum violation), no more and no less.
+Bell's theorem applies directly to the deterministic completion. If its
+response-complete hidden state is measurement-independent and
+parameter-independent, the model is Bell-local and obeys
+\(|S_{\rm CHSH}|\le2\). The Bell mechanism is separate from temporal
+indivisibility: the framework retains measurement independence, gives up
+ontic parameter independence for Bell-violating substrata, and
+separately requires operational no-signaling. The \(2\sqrt2\) Tsirelson
+theorem belongs to the weaker stochastic causal-local construction, not
+to a Bell-local deterministic completion.
 
 \textbf{``If everything is deterministic underneath, where does
 randomness come from?''} From ignorance. The total system is
@@ -3029,21 +3059,24 @@ what is written is read back. C2 means the unreadable part retains its
 contents between reads. C3 means the unreadable part is large enough to
 store the full interaction history without overflow.
 
-Quantum mechanics is the statistics of this \emph{read-write cycle} ---
-not passive observation of a static memory, but the self-consistent
-description that emerges when a finite subsystem both reads from and
-writes to a register it cannot fully access. The Schrödinger equation
-governs how read-write probabilities evolve. The Born rule enters as the
-cycle's readout rule --- admitted by the representation ({[}Main
-§3.4{]}), its specifically quadratic form an open selection question.
-Interference is write-then-read: information deposited in hidden storage
-during one transition is retrieved on a later transition, partially
-cancelling or reinforcing the transition probabilities. The 10¹²²
-cosmological constant discrepancy is the compression ratio between total
-storage and readable storage. The dark sector is the gravitational
-weight of the unreadable storage. The Bekenstein-Hawking entropy is the
-storage capacity of the partition boundary. ℏ is the conversion factor
-between storage geometry and read-write statistics.
+Quantum mechanics is the representation of this \emph{read-write cycle}
+at the finite observable-law layer --- not passive observation of a
+static memory, but the description of a finite subsystem that both reads
+from and writes to a register it cannot fully access. The fixed-basis
+Schrödinger/unitary interpolation and the quadratic Born readout are
+already part of the exact equivalent representation
+(\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}); they are not a
+separate exponent-selection problem. The unresolved question is whether
+the whole coherent intervention/composite family lifts into one standard
+local quantum operational theory. Interference in the mechanism picture
+is write-then-read: information deposited in hidden storage during one
+transition is retrieved on a later transition, partially cancelling or
+reinforcing the transition probabilities. The 10¹²² cosmological
+constant discrepancy is the compression ratio between total storage and
+readable storage. The dark sector is the gravitational weight of the
+unreadable storage. The Bekenstein-Hawking entropy is the storage
+capacity of the partition boundary. ℏ is the conversion factor between
+storage geometry and read-write statistics.
 
 An immediate objection: ``Memory made of \emph{what}?'' In everyday
 life, memory requires a physical substrate --- silicon, magnetic
@@ -3092,14 +3125,17 @@ feeds in input and reads output?
 The framework asks: what does computation look like to a component of
 the machine that cannot read the full tape?
 
-The answer is quantum mechanics. The head cannot access the tape's
-global state. It sees only local statistics --- transition probabilities
-obtained by marginalizing over unread tape cells. The characterization
-theorem proves those statistics are necessarily non-Markovian, and
-P-indivisible at the recurrence scale --- quantum-mechanical for that
-subclass, under (T). The Schrödinger equation, the Born rule,
-superposition, entanglement --- all are what reversible computation
-looks like from inside.
+At the finite observable-law layer, the answer is an exact quantum
+\textbf{representation}. The head cannot access the tape's global state.
+It sees only local statistics --- transition probabilities obtained by
+marginalizing over unread tape cells. With readback those statistics are
+non-Markovian and, on a fixed finite recurrent representative, globally
+indivisible. The fixed-basis Hilbert/unitary/Born-form description is
+exact (\(S \iff D \iff Q_{\mathrm{fb}}\)). The stronger statement that
+superposition, entanglement, and arbitrary coherent instruments all
+belong to one standard local quantum operational theory is the separate
+coherent/composite lifting problem, not something the tape analogy
+proves by itself.
 
 People ask: ``Is the universe a computer?'' The framework's answer: the
 universe is a reversible computation. And physics --- quantum mechanics,
@@ -3231,9 +3267,13 @@ a lossless computation.
 
 Gödel and Turing are usually read as negative results --- limits on
 knowledge. The framework recasts the physical instance as
-\emph{generative}. Quantum mechanics is not what we're stuck with
-because we can't see the full state. It's the unique, mathematically
-rigid consequence of a reversible computation observed from within.
+\emph{generative}. What is mathematically rigid here is the finite
+stochastic/reversible/fixed-basis quantum representation equivalence,
+together with the memory-bearing indivisible sector selected by
+readback. Calling the resulting description \textbf{full operational
+quantum mechanics} requires the additional coherent/composite lifting
+and locality conditions stated above; the stronger uniqueness claim is
+not being smuggled into the analogy.
 
 \hypertarget{why-does-mathematics-describe-physics}{%
 \subsubsection{Why does mathematics describe
@@ -3259,12 +3299,13 @@ Mathematics doesn't describe physics. Physics is what mathematics
 
 The mathematical structure is (S, φ) --- a finite set and a bijection.
 An observer embedded in that structure, seeing only part of it through
-the partition V, produces a description of what it can see. That
-description is quantum mechanics. Not because QM was designed to
-describe nature. Not because nature is mysteriously mathematical. But
-because the structural constraints of embedded observation --- finite
-capacity, lossless dynamics, partial access --- uniquely determine the
-form of what the observer produces.
+the partition V, produces a stochastic description of what it can see,
+and that finite observable law has an exact fixed-basis quantum
+representation. Not because QM was designed to describe nature, and not
+because nature is mysteriously mathematical, but because the structural
+constraints of embedded observation determine this representation class.
+The step from that exact representation class to the unique full local
+operational theory is the explicitly separated lifting problem.
 
 The trace-out is the mechanism. It takes the complete mathematical
 structure --- the full evolution matrix with all its eigenvalues, Jordan
@@ -3284,23 +3325,25 @@ So Wigner's puzzle dissolves, for physics. Mathematics isn't
 ``unreasonably effective'' at describing physics. Mathematics --- at
 least the part of it that physics tracks --- is the most complete
 description an embedded observer would have access to, with the
-reconstruction theorem guaranteeing the structural content is
-determinate modulo gauge. Physics is the observable part of that
-description --- drawn by someone who can't see the whole thing. The
-observable part is effective because it's a faithful projection --- the
-semisimple part genuinely captures the eigenvalue structure. But it's
-not the whole description. The full mathematical description has
-structure (the nilpotent monodromy) that no physical measurement an
-embedded observer can perform can reveal. Whether mathematics extends
-beyond the structural content that physics tracks, into domains an
-embedded physical observer cannot reach (and that may have substantive
-content in mathematical foundations or meta-mathematics), is a question
-the framework does not address.
+reconstruction theorem fixing the local lattice/gauge structural residue
+modulo gauge; the Bell-inclusive completion is not uniquely
+reconstructed. Physics is the observable part of that description ---
+drawn by someone who can't see the whole thing. The observable part is
+effective because it's a faithful projection --- the semisimple part
+genuinely captures the eigenvalue structure. But it's not the whole
+description. The full mathematical description has structure (the
+nilpotent monodromy) that no physical measurement an embedded observer
+can perform can reveal. Whether mathematics extends beyond the
+structural content that physics tracks, into domains an embedded
+physical observer cannot reach (and that may have substantive content in
+mathematical foundations or meta-mathematics), is a question the
+framework does not address.
 
-But there's a stronger result. The reconstruction theorem proves the
-converse: starting from the observed physics, mathematical consistency
-forces you uniquely back to the equivalence class {[}(S, φ){]}. The two
-descriptions determine each other.
+There is also a converse result, but it is scoped. Starting from the
+observed physics and the theorem's structural inputs, the reconstruction
+fixes the \textbf{local lattice/gauge residue} up to substratum gauge. A
+Bell-inclusive full completion additionally requires H-Bell and is not
+proved unique.
 
 The forward direction: start from (S, φ) and derive physics. That's the
 program's main result. The converse: start from the observed physics and
@@ -3318,11 +3361,13 @@ unique. If θ̄ = 0, the dynamics is T-invariant. If ℏ has the specific
 value c³ε²/(4G), the gap equation pins ε = 2l\_p.~And d = 3 is the
 unique self-consistent dimension.
 
-Chain all of these together and you get: the observed physics determines
-a unique equivalence class {[}(S, φ){]} --- a finite set with a
-bijection, pinned up to the substratum gauge group
-\(\mathcal{G}_{\text{sub}}\) {[}Substratum §4{]}. This gauge group has
-four generators: state relabeling (permuting the elements of S while
+Chain the local reconstruction steps together and the observed inputs
+determine a unique \textbf{local-sector equivalence class} --- the
+lattice/gauge data pinned up to the substratum gauge group
+\(\mathcal{G}_{\text{sub}}\) {[}Substratum §4{]}. The Bell preparation
+rule is extra composite data: H-Bell conditions its
+compatibility/existence, and its uniqueness is open. This gauge group
+has four generators: state relabeling (permuting the elements of S while
 conjugating φ), alphabet change (replacing ℤ/qℤ with any ℤ/q'ℤ),
 deep-sector enlargement (the cardinality of the deep hidden sector
 beyond the boundary layer is unobservable --- it may even be infinite),
@@ -3341,36 +3386,39 @@ This is exactly how physics always works. In general relativity,
 measurements determine an equivalence class of spacetime metrics modulo
 diffeomorphisms --- not a unique coordinate system. In gauge theory,
 experiments determine an equivalence class of connections modulo gauge
-transformations --- not a unique field configuration. Here, the observed
-physics determines an equivalence class of finite bijections modulo the
-OI gauge freedoms --- not a unique (S, φ).
+transformations --- not a unique field configuration. Here, the local
+reconstruction determines its lattice/gauge residue modulo the OI gauge
+freedoms --- not a unique representative and not a unique Bell-inclusive
+completion.
 
 So the question ``is mathematics reality, or does it just describe
 reality?'' is not unanswered --- it's provably unanswerable by any
-measurement. The observed physics and the mathematical structure
-determine each other uniquely up to gauge, under the reconstruction
-theorem's stated conditions. Any experiment that could distinguish ``the
-universe is (S, φ)'' from ``the universe is described by (S, φ)'' would
-need to detect something outside the equivalence class. But the
+measurement. The observed physics and the \textbf{locally reconstructed
+structural residue} determine each other up to gauge under the
+reconstruction theorem's stated conditions; the Bell-inclusive
+completion is underdetermined. Any experiment that could distinguish
+``the universe is (S, φ)'' from ``the universe is described by (S, φ)''
+would need to detect something outside the equivalence class. But the
 equivalence class already accounts for everything observable.
 
 This is the same structure as gauge invariance in electromagnetism. The
 potential A is underdetermined --- only the field strength F is
 measurable. We don't agonize over whether A is ``real.'' We identify the
 exact boundary between the physical (F) and the gauge (A). The OI
-framework identifies the same kind of boundary for the math-physics
-relationship: the physics is the equivalence class {[}(S, φ){]}; the
-ontological status of (S, φ) is gauge. The boundary is a theorem.
+framework identifies an analogous boundary for the \textbf{local
+lattice/gauge residue}: representative choices inside that reconstructed
+sector are gauge. The theorem does not collapse every Bell-inclusive
+completion into one gauge class.
 
 This suggests a precise way to understand what physics is, \emph{from
 the embedded observer's perspective}. The mathematical structure (S, φ)
-has two parts: the part accessible to an embedded observer (the
-equivalence class, the gauge-invariant content, the semisimple spectral
-data), and the part that isn't (the specific representative, the
-nilpotent monodromy, the choice of q). The first part is what we call
-physics. A suggestive name for it might be \emph{observable mathematics}
---- the portion of mathematical structure that an embedded subsystem
-with partial read-write access can detect.
+has two parts: the part fixed by the local reconstruction (the local
+gauge-invariant residue and semisimple spectral data), and the part that
+isn't (the specific representative, the nilpotent monodromy, the choice
+of q). The first part is what we call physics. A suggestive name for it
+might be \emph{observable mathematics} --- the portion of mathematical
+structure that an embedded subsystem with partial read-write access can
+detect.
 
 Under this definition, Wigner's puzzle dissolves \emph{for physics} to
 the point of tautology. ``Why is mathematics effective at describing
@@ -3495,8 +3543,11 @@ ancilla-marginal Born rule (T = \textbar U\textbar² in the
 trivial-ancilla case) \\
 §3.1: Phase-locking & Hamiltonian fixed up to shift, rephasing, and the
 antiunitary conjugate & Fourier analysis of T\_ij(t) \\
-§3.2: Bell analysis & Framework evades Bell's theorem & Outcome
-independence violated, parameter independence preserved \\
+§3.2: Bell analysis & Deterministic screened graph-local completion is
+Bell-local; quantum CHSH therefore requires ontic parameter dependence
+with operational no-signaling & local deterministic completion
+\(\Rightarrow S_{\rm CHSH}\le 2\); stochastic causal-local class has the
+separate Tsirelson bound; bare/global OI has PR negative control \\
 §3.3: Necessity of C1 & Accessible memory requires coupling & No
 coupling → permutation → P-divisible \\
 §3.3: Necessity of C2 & Physical memory requires record persistence ---
@@ -3613,3 +3664,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
+% source-sha256: b5db26290b1558087a1a974a1a3a739eb1a69e089f6ec70d4b8f79d8ef9b301c

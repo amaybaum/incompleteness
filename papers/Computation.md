@@ -65,7 +65,7 @@ The paper's structure: §2 carries the structural chain from evolution to genera
 | Logic gates | Transistors in series / parallel | Structural |
 | Universal computation | NAND is functionally complete | Mathematical theorem |
 
-The chain from (S, φ) to a universal computer is structural — given someone to build it. That is the same contingent step (general intelligence) identified in §2. The reconstruction theorem [5, §3] implies that a sufficiently sophisticated observer can discover (S, φ) — and an observer that understands its own substrate can build computational devices exploiting it.
+The chain from (S, φ) to a universal computer is structural — given someone to build it. That is the same contingent step (general intelligence) identified in §2. The reconstruction theorem [5, §3] implies that a sufficiently sophisticated observer can reconstruct the local lattice/gauge invariants fixed by Theorem 23; it does not identify a unique Bell-inclusive microphysical completion. An observer can nevertheless exploit the reconstructed local physics to build computational devices.
 
 **The self-referential loop.** AI is an embedded observer building another embedded observer within the same (S, φ). The characterization theorem [1, §3.4] applies to the new observer. It sees the same QM, the same ℏ, the same SM, the same dark sector. Not because it is limited by human design, but because the physics is structural — determined by the partition, not by the observer's complexity. A superintelligent AI has the same observational access as any other embedded observer: it reads the visible sector and writes to the hidden sector through the same coupling. It cannot determine $h$. It cannot see past the cosmological horizon. It can build better instruments, but it cannot overcome the partition.
 
@@ -75,7 +75,7 @@ The recursion — AI building AI building AI — produces ever more sophisticate
 
 | Capability | Status |
 |-----------|--------|
-| Discover (S, φ) from observations | Structurally possible (reconstruction theorem) |
+| Reconstruct the local lattice/gauge invariants from observations | Structurally possible under Theorem 23's conditions |
 | Build better models of the visible sector | No structural limit |
 | Determine the hidden-sector state $h$ | Provably impossible (characterization theorem) |
 | Observe beyond the cosmological horizon | Provably impossible (causal partition) |

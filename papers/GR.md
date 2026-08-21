@@ -31,7 +31,6 @@ The tier system maps to the framework's broader hierarchical structure articulat
 
 The paper is organized as follows. §2 identifies the cosmological horizon as a causal partition and verifies the structural conditions. §3 derives the emergent action scale $\hbar$ in four steps: the classical horizon temperature, boundary-only dependence, dimensional determination, and thermal self-consistency. §4 fixes the discreteness scale $\epsilon = 2\,l_p$. §5 derives the Bekenstein-Hawking entropy and discusses the GW250114 confirmation. §6 dissolves the cosmological constant problem. §7 presents the quantitative predictions for dark energy, the dark sector, and dark matter, with a summary table in §7.4. §8 discusses scope, the status of the discreteness scale, vacuum energy and the Higgs potential, and the framework's falsifiability conditions. §9 concludes. The cubic-lattice realization of the substratum — which fixes the Standard Model gauge structure via the wave equation — is developed in a companion paper [SM] and is independent of the GR results presented here. The reconstruction theorem and the synthesis claim that quantum mechanics, general relativity, and the arrow of time descend as three projections of the same $(S, \varphi)$ are developed in [Substratum].
 
-
 ---
 
 ## 2. The Cosmological Horizon as Causal Partition
@@ -54,7 +53,6 @@ Different observers have different horizon areas (hence different $S_{\text{dS}}
 
 Lemma 1 is now a consequence of partition geometry: the horizon has finite area $A = 4\pi c^2/H^2$, bounding coupled modes to $A/\epsilon^2 < \infty$. The Part I theorem applies: the observer's reduced description is P-indivisible and, by either route of [Main, §3], equivalent to unitary QM with $\hbar$ determined by the partition boundary.
 
-
 ---
 
 ## 3. The Emergent Action Scale $\hbar$
@@ -67,7 +65,7 @@ $$T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G k_B}$$
 
 For de Sitter ($\kappa = cH$): $k_B T_{\text{cl}} = c^3 \epsilon^2 H / (8\pi G)$. No $\hbar$ appears.
 
-*Reconciliation with the internal component count.* The counting $\eta = 1/\epsilon^2$ is one boundary mode per cell, whereas the substratum carries $K = 2d = 6$ internal components per site ([SM §4.5]). These are consistent, and the consistency is forced rather than assumed, once the components are read as what [SM §4.5, Theorem 6] establishes them to be: the $K = 2d$ components are the $2d$ link directions from a cell, with component $a$ assigned to link direction $\hat e_a \in \{\pm\hat e_1, \ldots, \pm\hat e_d\}$ and coupling only across that one link (the minimal-coupling factorization $\delta = 1$). A boundary cell on the horizon has exactly one outward-normal link crossing the partition; the other $2d - 1 = 5$ link directions are tangential to the boundary surface or inward, and carry no cross-partition coupling. The number of components whose coupling crosses the horizon per cell is therefore exactly one — the normal link — so $\kappa_m = 1$ and $\eta = 1/\epsilon^2$ follows from the link-direction structure, not from a separate mode-counting postulate. (The $q$-gauge argument settles the orthogonal question of states per mode; the component count is settled here by which links are normal.) This also confirms $\epsilon = 2\,l_p$ directly: with $\kappa_m = 1$ the relation $\epsilon = 2\sqrt{\kappa_m}\,l_p$ gives $\epsilon = 2\,l_p$, and the [SM §6] cutoff identification is unaffected. The Bekenstein-Hawking coefficient is independent of $\kappa_m$ in any case — writing $\eta = \kappa_m/\epsilon^2$, the gap equation gives $\hbar = c^3/(4G\eta)$ and $S = \eta A = A/(4l_p^2)$ with $\kappa_m$ cancelling — so the entropy law is a fixed point of the construction regardless, and the component count enters only the discreteness scale, where the link-direction structure fixes it at unity.
+*Reconciliation with the internal component count.* The counting $\eta = 1/\epsilon^2$ is one boundary mode per cell, whereas the substratum carries $K = 2d = 6$ internal components per site ([SM §4.5]). These are consistent, and the consistency is forced rather than assumed, once the components are read as what [SM §4.5] now conditionally identifies them as, under H-link: the $K = 2d$ components are the $2d$ link directions from a cell, with component $a$ assigned to link direction $\hat e_a \in \{\pm\hat e_1, \ldots, \pm\hat e_d\}$ and coupling only across that one link (the minimal-coupling factorization $\delta = 1$). A boundary cell on the horizon has exactly one outward-normal link crossing the partition; the other $2d - 1 = 5$ link directions are tangential to the boundary surface or inward, and carry no cross-partition coupling. The number of components whose coupling crosses the horizon per cell is therefore exactly one — the normal link — so $\kappa_m = 1$ and $\eta = 1/\epsilon^2$ follows from the link-direction structure, not from a separate mode-counting postulate. (The $q$-gauge argument settles the orthogonal question of states per mode; the component count is settled here by which links are normal.) This also confirms $\epsilon = 2\,l_p$ directly: with $\kappa_m = 1$ the relation $\epsilon = 2\sqrt{\kappa_m}\,l_p$ gives $\epsilon = 2\,l_p$, and the [SM §6] cutoff identification is unaffected. The Bekenstein-Hawking coefficient is independent of $\kappa_m$ in any case — writing $\eta = \kappa_m/\epsilon^2$, the gap equation gives $\hbar = c^3/(4G\eta)$ and $S = \eta A = A/(4l_p^2)$ with $\kappa_m$ cancelling — so the entropy law is a fixed point of the construction regardless, and the component count enters only the discreteness scale, where the link-direction structure fixes it at unity.
 
 ### 3.2 The emergent action scale
 
@@ -154,7 +152,6 @@ The D-gauge is physically trivial (basis rephasing). Cross-interval transition p
 **Dimensional obstruction.** The unitary $U(t)$ is dimensionless; $\hbar$ enters only via $\hat{H} = i\hbar \, \partial_t U \cdot U^\dagger$. No dimensionless data can fix a dimensionful constant — Step 4's thermal self-consistency provides the necessary dimensionful input.
 
 **Remark (phase recovery under discrete sampling).** The spatial lattice discreteness does not discretize time: the continuous-time extension ([Main, §2.3]) provides $T_{ij}(t)$ as a genuinely continuous function of $t$ via the Liouville marginalization of the Hamiltonian flow (Lemma 3). The D-gauge theorem therefore applies to the continuous object without aliasing corrections. Aliasing would arise only if the observer sampled $T_{ij}$ at discrete intervals, in which case trans-Planckian frequencies could be misidentified — but these lie outside the emergent QFT's domain. The phase-recovery error is controlled by the same $\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}$ suppression that governs the boundary-only dependence of §3.2.
-
 
 ---
 
@@ -258,7 +255,6 @@ A potential additional contribution from the substratum mode count is constraine
 
 **Remark (gravitational status of the emergent running — two readings, one forecast).** The magnitude assignment above imports the emergent-QFT running of $\rho_{\rm vac}$, while §8.3 denies that the emergent zero-point sum gravitates absolutely and the emergent-QFT scope statement assigns the Part II predictions to partition geometry rather than emergent field content. These commitments are compatible under two readings, which we state explicitly rather than leave implicit. *Reading 1 (curvature-response sources):* the substratum budget fixes the constant part of $\rho_\Lambda$, while the emergent layer's curvature response — the $\sim m^2 H^2$ piece that survives adiabatic renormalization precisely because it is an epoch-differential (relative) effect in the sense of §8.3 — feeds back as a source. On this reading $\nu = \nu_{\rm QFT} + \nu_{\rm sub}$, and evaluating the adiabatic running of [34, 49] over the emergent SM spectrum gives a definite sign: $\nu_{\rm QFT} \approx -(4\text{–}8)\times 10^{-33}$ — negative for all natural curvature couplings ($|\xi-1/6| \le 1/6$), fermion-dominated (top-quark share $\approx 99.9\%$), with sign reversal requiring boson-sector couplings $|\xi-1/6| \gtrsim 0.4$. Heavy states at $M_X$, if they belong to the emergent QFT, would dominate the $M^2$-weighted sum and the sign would follow their statistics — an input the present construction does not fix. *Reading 2 (strict geometry-first):* only partition geometry sources gravity; the emergent running is the observer's effective attribution rather than a source, and $\nu = \nu_{\rm sub}$ alone — smaller still under the local spectral measure, with sign open pending the boundary-measure computation (see the locality remark of §7.4 and [SM §3.1]). The framework does not adjudicate between the readings here, and for observational purposes it does not need to: both give $w(z) = -1$ to all achievable precision and a null at DESI Year 5, differing only in the attribution and sign of a residual no foreseeable instrument resolves. (This non-adjudication is resource-relative, and thereby unlike the in-principle non-adjudicability of §6.3: the two readings are not observationally equivalent — they assign different sign and attribution to a real residual — so the factoring argument does not apply, and a sufficiently sensitive probe would in principle separate them. The §6.3 limitation protects only pairs of descriptions faithful to the same accessible data.) What both readings exclude is an observable running in the DESI-favored quadrant ($w_0 > -1$, $w_a < 0$) attributable to the emergent-QFT channel: under Reading 1 that channel is negative (phantom-side), and under Reading 2 it is not a source. Any detected positive-quadrant residual therefore requires the substratum channel on the non-local spectral measure, with its correlated Lorentz-violation signature.
 
-
 **Observational status.** DESI data [12, 13] report evolving dark energy at $2.8\sigma$–$4.2\sigma$. The 2026 multi-variant analysis [14] of DESI DR2 + Planck PR4 + supernovae tests several Type I RVM variants (vacuum–DM exchange), finding the "flipped RVM" and "RVM with threshold" variants preferred over $\Lambda$CDM at a level comparable to the more flexible $w_0w_a$CDM parameterization — the running-vacuum functional form this framework predicts is favoured by the data at the qualitative level, though the Type I variants tested are not a direct test of OI's Type II prediction.
 
 A direct Type-II-equivalent test is provided by Bertini, Novaes, von Marttens, and Shapiro (arXiv:2509.24026) [15], who fit a renormalization-group-corrected $\Lambda$CDM model — structurally equivalent to Type II RVM at leading order in $\nu$, with both $G(\mu)$ and $\Lambda(\mu)$ running and matter conserved — against Planck 2018 + DESI DR2 + DES-Y5, reporting
@@ -299,7 +295,7 @@ $$\frac{\rho_s}{\rho_{\rm crit}} = \frac{2}{d-1}$$
 
 — unity only at $d=3$. This is the general-$d$ formula cited in [SM §3.2] as the boundary-entropy filter selecting $d=3$.
 
-This boundary-entropy filter is one of three independent $d=3$ selectors in the framework: (i) substratum coupling-degree minimization (SM Theorem 6, $K = 2d$ gives $K=6$); (ii) Bravais-lattice uniqueness for the SM gauge group (SM Theorem 7b); (iii) the present boundary-entropy filter. The three derive $d=3$ from very different physical considerations (substrate dynamics, crystallographic representation theory, cosmological boundary thermodynamics). The convergence is structurally significant.
+This boundary-entropy filter is one of three independent $d=3$ selectors in the framework: (i) substratum link counting under H-link (SM §4.5, $K = 2dm$ with $m=1$ giving $K=6$; coupling-degree minimization does not establish it); (ii) Bravais-lattice uniqueness for the SM gauge group (SM Theorem 7b); (iii) the present boundary-entropy filter. The three derive $d=3$ from very different physical considerations (substrate dynamics, crystallographic representation theory, cosmological boundary thermodynamics). The convergence is structurally significant.
 
 *(ii) Invisibility.* The argument has two logically distinct components.
 
@@ -389,7 +385,6 @@ The entropy displacement perturbation then evolves identically to CDM in the lin
 
 **Relaxation kernel: Bullet–CMB consistency.** The frozen-displacement account of the Bullet Cluster (slow $\tau_{\text{relax}}$) and the growing-mode tracking the CMB requires (fast response at recombination) are reconciled by a single kernel once $\tau_{\text{relax}}$ is read as the *epoch-local* horizon time $\tau_{\text{relax}}(z) \sim 1/H(z)$ — the $\approx 14$ Gyr quoted above is its $z\!\approx\!0$ value, not a fixed constant. Because the linear growing mode also evolves on $\sim 1/H(z)$, the displacement relaxation equation $d\delta_E/dt = (\delta_m - \delta_E)/\tau_{\text{relax}}$ becomes, in scale-factor form, $d\delta_E/da = (\delta_m - \delta_E)/a$ — *epoch-independent*, with solution $\delta_E = \tfrac12\,\delta_m + \mathcal{O}(a_{\text{rec}}^2/a)$. Thus $\delta_E \propto a$ tracks the CDM growing mode at every epoch with no lag at recombination and no temporal cutoff; the constant ratio is absorbed into the calibration $\rho_E \approx \Omega_{\text{CDM}}\rho_{\text{crit}}$ (§7.2). A *fixed* $\tau_{\text{relax}} = 1/H_0$ would instead suppress the response by $H_0/H(z) \sim 1/10$ at $z = 100$ and distort the peaks — confirming that the epoch-local reading is the correct one (numerically verified: $\delta_E/\delta_m$ constant to $<0.1\%$ across $z = 1100\to0$ for $\tau = 1/H(z)$, versus an order-of-magnitude lag for $\tau = 1/H_0$). The Bullet remains frozen for the independent reason that a cluster collision is anomalously fast on the cosmic clock: $t_{\text{cross}}/\tau_{\text{relax}}(z\!=\!0.3) \approx 0.15/12 \approx 0.013 \ll 1$. The two regimes are therefore controlled by *different* ratios — $\tau_{\text{relax}}/t_{\text{growth}} \sim \mathcal{O}(1)$ at all epochs (tracking) versus $\tau_{\text{relax}}/t_{\text{collision}} \gg 1$ (freezing) — and do not conflict. Since the Jacobson sourcing is spatially local, the non-locality is *temporal* (a memory over $\tau_{\text{relax}}$), not spatial, and imposes no $k$-cutoff on the linear growth. *Open computation (not an inconsistency):* the $k$-dependence of the relaxation rate, required for a full mode-by-mode kernel. *Epistemic status: Tier 2 (temporal reconciliation verified numerically, relaxation_kernel_check.py 2026-06-29; $k$-dependence deferred).*
 
-
 ### 7.4 Summary of GR-side predictions
 
 The GR-side quantitative predictions of the framework are collected in the table below. Each follows from partition geometry at the cosmological horizon; no predictions are fit to the quantities they predict.
@@ -442,7 +437,6 @@ The principle is uniform: the zero-point sum, the Higgs vacuum energy, and the Q
 **Why QCD binding energy gravitates but the quantum vacuum does not.** The proton mass is ~99% QCD binding energy — a purely quantum effect. If gravity couples to the classical substratum, how does it "know" about masses generated by emergent quantum dynamics? The answer is that QCD binding energy and vacuum zero-point energy occupy different categories in the structural/volumetric distinction of §3.2. Relative energies within the emergent QFT — energy differences between configurations — correspond to differences in the coupling structure of $\varphi$, which the Jacobson derivation reads as curvature. A proton vs. three free quarks corresponds to two distinct classes of classical microstates with different energies in the classical substratum; the binding energy $\sim 938$ MeV is a *relative* quantity that appears in $H_{\text{tot}}$ and gravitates. The absolute baseline — the zero-point energy summed over all modes — corresponds to the total information capacity of the hidden sector ($S_{\text{dS}}$), which is a property of the partition geometry, not of the dynamics, and therefore does not source curvature.
 
 ### 8.4 Assumptions, limitations, and falsifiability
-
 
 **The theorem** requires Lemma 1 (independent in Part I; consequence of geometry in Part II), the stochastic-quantum bridge ([Main, §3.1] and Appendix A; two routes reach its transition-statistics layer, neither reaching the operational instrument algebra), and genericity conditions (non-degenerate spectrum, non-vanishing overlaps), which hold for all but a measure-zero set. The P-indivisibility proof uses finiteness via the recurrence argument ($\varphi^N = \text{id}$). The deep-sector cardinality corollary (§3.2) establishes that only $\mathcal{C}_V$ and $\mathcal{C}_B$ need be finite — both guaranteed by holographic entropy bounds [26] independently of the de Sitter finite-dimensionality conjecture — while the deep sector $\mathcal{C}_D$ may be infinite. The accessible-timescale backflow lemma ([Main, §2.3]) provides a second route to P-indivisibility that is independent of $|\mathcal{C}_H|$. The characterization theorem becomes an equivalence on observable timescales ($T_{\text{obs}} \ll \tau_B \sim 10^{17}$ s) — physically indistinguishable from a timeless identity for all experiments within the age of the universe.
 
@@ -519,7 +513,6 @@ The proof is the §3–§7 derivations themselves, with the observation that eac
 **Empirical implication.** The Tier 1 universality has substantial empirical content. GW250114 confirms Hawking's area theorem — classical horizon dynamics that any framework retaining general relativity, at any hierarchy level, preserves; it does not measure entropy and therefore does not test the $1/4$ coefficient at any level. Conversely, the dark-sector concordance (§7.2), the MOND-like phenomenology (§7.3), and the rotation-curve crossover (§7.3) depend on OI's specific gap-equation solution and are Level D × Levels G1–G2 predictions; their empirical confirmation would support OI's specific universality-class representative.
 
 The stratification clarifies what would falsify what: a measured violation of the area theorem would challenge the classical horizon dynamics the framework presupposes; a direct empirical test of the $1/4$ coefficient, if one becomes available, would test the universality-class claim; a measured deviation from the dark-sector phenomenology would falsify OI's specific representative without necessarily refuting the universality class. The framework's empirical content thus operates at multiple hierarchy levels, with falsifiability stratified accordingly.
-
 
 ---
 
@@ -715,100 +708,69 @@ The convergence is structural: both approaches require *something* to play the r
 
 ---
 
-
 [1] T. Jacobson, "Thermodynamics of Spacetime: The Einstein Equation of State," *Phys. Rev. Lett.* **75**, 1260 (1995).
-
 
 [2] G. W. Gibbons and S. W. Hawking, "Cosmological event horizons, thermodynamics, and particle creation," *Phys. Rev. D* **15**, 2738 (1977).
 
-
 [3] W. G. Unruh, "Sonic analogue of black holes and the effects of high frequencies on black hole evaporation," *Phys. Rev. D* **51**, 2827 (1995).
-
 
 [4] K. Fredenhagen and R. Haag, "On the derivation of Hawking radiation associated with the formation of a black hole," *Commun. Math. Phys.* **127**, 273–284 (1990).
 
-
 [5] LIGO Scientific Collaboration, Virgo Collaboration, and KAGRA Collaboration: A. G. Abac et al., "GW250114: Testing Hawking's Area Law and the Kerr Nature of Black Holes," *Phys. Rev. Lett.* **135**, 111403 (2025).
-
 
 [6] J. Martin, "Everything you always wanted to know about the cosmological constant problem (but were afraid to ask)," *C. R. Phys.* **13**, 566–665 (2012).
 
-
 [7] S. Weinberg, "The cosmological constant problem," *Rev. Mod. Phys.* **61**, 1 (1989).
-
 
 [8] S. M. Carroll, "The Cosmological Constant," *Living Rev. Relativ.* **4**, 1 (2001).
 
-
 [9] D. H. Wolpert, "Physical limits of inference," *Physica D* **237**, 1257–1281 (2008).
-
 
 [10] J. Solà Peracaula, "The cosmological constant problem and running vacuum in the expanding universe," *Phil. Trans. R. Soc. A* **380**, 20210182 (2022).
 
-
 [11] J. Solà Peracaula, A. Gómez-Valent, J. de Cruz Pérez, and C. Moreno-Pulido, "Running Vacuum in the Universe: Phenomenological Status in Light of the Latest Observations, and Its Impact on the σ₈ and H₀ Tensions," *Universe* **9**, 262 (2023); arXiv:2304.11157.
-
 
 [12] DESI Collaboration, "DESI 2024 VI: Cosmological Constraints from BAO," arXiv:2404.03002 (2024).
 
-
 [13] DESI Collaboration, "DESI DR2 Results II: Measurements of Baryon Acoustic Oscillations and Cosmological Constraints," *Phys. Rev. D* **112**, 083515 (2025); arXiv:2503.14738.
-
 
 [14] J. de Cruz Pérez, A. Gómez-Valent, and J. Solà Peracaula, "Dynamical Dark Energy models in light of the latest observations," arXiv:2512.20616 (2025).
 
-
 [15] N. R. Bertini, M. H. Novaes, R. von Marttens, and I. L. Shapiro, "Renormalization group corrections to ΛCDM model and observational consequences for H₀ tension," arXiv:2509.24026 (2025).
-
 
 [16] A. Gómez-Valent and J. Solà Peracaula, "Relaxing the σ₈-tension through running vacuum in the Universe," *Mon. Not. Roy. Astron. Soc.* **478**, 126–145 (2018); arXiv:1801.08501.
 
-
 [17] DESI Collaboration: W. Elbers et al., "Constraints on Neutrino Physics from DESI DR2 BAO and DR1 Full Shape," arXiv:2503.14744 (2025).
-
 
 [18] JUNO Collaboration: A. Abusleme et al., "First measurement of reactor neutrino oscillations at JUNO," arXiv:2511.14593 (2025); Nature 654, 343 (2026).
 
-
 [19] F. Capozzi et al., "Updated bounds on the (1,2) neutrino oscillation parameters after first JUNO results," arXiv:2511.21650 (2025).
-
 
 [20] E. P. Verlinde, "Emergent Gravity and the Dark Universe," *SciPost Phys.* **2**, 016 (2017); arXiv:1611.02269.
 
-
 [21] LZ Collaboration: J. Aalbers et al., "Dark matter search results from 4.2 tonne-years of exposure of the LUX-ZEPLIN (LZ) experiment," (2025); 417-day analysis presented at SURF, December 2025.
-
 
 [22] S. S. McGaugh, F. Lelli, and J. M. Schombert, "Radial acceleration relation in rotationally supported galaxies," *Phys. Rev. Lett.* **117**, 201101 (2016).
 
-
 [23] R. Genzel et al., "Strongly baryon-dominated disk galaxies at the peak of galaxy formation ten billion years ago," *Nature* **543**, 397–401 (2017).
-
 
 [24] R. Genzel et al., "Rotation curves in z ~ 1–2 star-forming disks: evidence for cored dark matter distributions," *Astrophys. J.* **902**, 98 (2020).
 
-
 [25] Y. Jiao et al., "Detection of the Keplerian decline in the Milky Way rotation curve," *Astronomy & Astrophysics* **678**, A208 (2023).
-
 
 ---
 
 [26] N. Bao, S. M. Carroll, and A. Singh, "The Hilbert space of quantum gravity is locally finite-dimensional," *Int. J. Mod. Phys. D* **26**, 1743013 (2017).
 
-
 [27] C. Bäcker, K. Beyer, and W. T. Strunz, "Local disclosure of quantum memory in non-Markovian dynamics," *Phys. Rev. Lett.* **132**, 060402 (2024); arXiv:2310.01205.
 
-
 [28] A. Yosifov, A. Iyer, V. Vedral, and J. Sun, "On the emergence of quantum memory in non-Markovian dynamics," arXiv:2507.21907 (2025).
-
 
 [29] S. Popescu, A. J. Short, and A. Winter, "Entanglement and the foundations of statistical mechanics," *Nature Physics* **2**, 754–758 (2006).
 
 [30] W. F. Stinespring, "Positive functions on C*-algebras," *Proc. Amer. Math. Soc.* **6**, 211–216 (1955).
 
-
 [31] M. A. Nielsen and I. L. Chuang, *Quantum Computation and Quantum Information* (Cambridge University Press, 10th anniversary edition, 2010).
-
 
 [32] D. N. Page, "Average entropy of a subsystem," *Phys. Rev. Lett.* **71**, 1291 (1993).
 
@@ -816,9 +778,7 @@ The convergence is structural: both approaches require *something* to play the r
 
 [34] C. Moreno-Pulido and J. Solà Peracaula, "Running vacuum in QFT in FLRW spacetime: the dynamics of ρ_vac(H) from the quantized matter fields," *Eur. Phys. J. C* **83**, 637 (2023); arXiv:2302.04807.
 
-
 [35] J. A. Barandes, "The Stochastic-Quantum Correspondence," *Philosophy of Physics* **3**(1), 8 (2025), DOI 10.31389/pop.186; arXiv:2302.10778.
-
 
 [36] J. A. Barandes, "The Stochastic-Quantum Theorem," arXiv:2309.03085 (2023).
 
@@ -857,6 +817,5 @@ The convergence is structural: both approaches require *something* to play the r
 [53] Y. Ollivier, "Ricci curvature of Markov chains on metric spaces," *J. Funct. Anal.* **256** (2009) 810–864.
 
 [54] J. Ambjørn, J. Jurkiewicz and R. Loll, "Spectral dimension of the universe," *Phys. Rev. Lett.* **95**, 171301 (2005); arXiv:hep-th/0505113.
-
 
 [55] T. Breuer, "The impossibility of accurate state self-measurements," *Philosophy of Science* **62**, 197–214 (1995).

@@ -309,9 +309,9 @@ If mathematical structures are taken as necessarily existent — the Platonic po
 
 ### 6.3 Observable mathematics
 
-The framework makes this sharper than generic Platonism. Tegmark's Mathematical Universe Hypothesis [7] asserts that all consistent mathematical structures are equally real. The OI framework says something more specific: among all mathematical structures, only those containing embedded observers are *observable from within*. The characterization theorem [1, §3.4] identifies which structures contain embedded observers: exactly those of the form (S, φ) with conditions C1–C4. The reconstruction theorem [33, §3] identifies what those observers see: exactly our physics.
+The framework makes this sharper than generic Platonism. Tegmark's Mathematical Universe Hypothesis [7] asserts that all consistent mathematical structures are equally real. The OI framework says something more specific: among all mathematical structures, only those containing embedded observers are *observable from within*. The characterization theorem [1, §3.4] identifies which structures contain embedded observers: exactly those of the form (S, φ) with conditions C1–C4. The reconstruction theorem [33, §3] fixes the local lattice/gauge residue of the framework's physics under its stated inputs; it does not select a unique Bell-inclusive completion.
 
-There is no ensemble of equally real structures from which observation selects. There is one equivalence class — the one compatible with embedded observation — and it is the one we see. The framework does not need a multiverse, an ensemble, or a selection mechanism. It needs only the observation that (S, φ) is a well-defined mathematical structure and that its observable content is unique.
+At the level Theorem 23 actually controls, the structural inputs select one local lattice/gauge residue up to the stated gauge freedoms. This does not imply one unique Bell-inclusive substratum: preparation-indexed Bell-composite structure remains underdetermined even when H-Bell compatibility holds. The framework's mathematical-existence discussion therefore concerns the existence of admissible deterministic structures, not uniqueness of the full ontology.
 
 ### 6.4 The self-referential closure
 
@@ -622,5 +622,4 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [41] M. Puviani, S. Borah, R. Zen, J. Olle, and F. Marquardt, "Non-Markovian feedback for optimized quantum error correction," *Phys. Rev. Lett.* (2025); arXiv:2312.07391.
 
 [42] D. Biswas, S. Utagi, and P. Mandayam, "Noise-adapted quantum error correction for non-Markovian noise," arXiv:2411.09637 (2024).
-
 

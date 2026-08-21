@@ -1,0 +1,104 @@
+% unicode-fix.tex — render raw-Unicode symbols that the Latin Modern *text* font
+% lacks, using Computer Modern math/text equivalents. This keeps the established
+% Computer Modern look while filling the glyphs xelatex would otherwise drop.
+% Included via: pandoc ... --include-in-header=unicode-fix.tex
+\usepackage{newunicodechar}
+\usepackage{pifont}
+% --- Greek letters -> math (Latin Modern Math; consistent with CM body text) ---
+\newunicodechar{α}{\ensuremath{\alpha}}
+\newunicodechar{β}{\ensuremath{\beta}}
+\newunicodechar{γ}{\ensuremath{\gamma}}
+\newunicodechar{δ}{\ensuremath{\delta}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
+\newunicodechar{θ}{\ensuremath{\theta}}
+\newunicodechar{μ}{\ensuremath{\mu}}
+\newunicodechar{ν}{\ensuremath{\nu}}
+\newunicodechar{ρ}{\ensuremath{\rho}}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{τ}{\ensuremath{\tau}}
+\newunicodechar{φ}{\ensuremath{\varphi}}
+\newunicodechar{χ}{\ensuremath{\chi}}
+\newunicodechar{ψ}{\ensuremath{\psi}}
+\newunicodechar{η}{\ensuremath{\eta}}
+\newunicodechar{κ}{\ensuremath{\kappa}}
+\newunicodechar{λ}{\ensuremath{\lambda}}
+\newunicodechar{π}{\ensuremath{\pi}}
+\newunicodechar{ω}{\ensuremath{\omega}}
+\newunicodechar{Ḣ}{\ensuremath{\dot H}}
+\newunicodechar{≪}{\ensuremath{\ll}}
+\newunicodechar{≫}{\ensuremath{\gg}}
+\newunicodechar{⟺}{\ensuremath{\Longleftrightarrow}}
+\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
+\newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+\newunicodechar{⟨}{\ensuremath{\langle}}
+\newunicodechar{⟩}{\ensuremath{\rangle}}
+\newunicodechar{⁰}{\textsuperscript{0}}
+\newunicodechar{¹}{\textsuperscript{1}}
+\newunicodechar{²}{\textsuperscript{2}}
+\newunicodechar{³}{\textsuperscript{3}}
+\newunicodechar{⁴}{\textsuperscript{4}}
+\newunicodechar{⁵}{\textsuperscript{5}}
+\newunicodechar{⁶}{\textsuperscript{6}}
+\newunicodechar{⁷}{\textsuperscript{7}}
+\newunicodechar{⁸}{\textsuperscript{8}}
+\newunicodechar{⁹}{\textsuperscript{9}}
+% --- Relations / operators -> math ---
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{∂}{\ensuremath{\partial}}
+\newunicodechar{∅}{\ensuremath{\varnothing}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{∼}{\ensuremath{\sim}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{⊂}{\ensuremath{\subset}}
+\newunicodechar{⊃}{\ensuremath{\supset}}
+% --- Special ---
+\newunicodechar{ℏ}{\ensuremath{\hbar}}
+\newunicodechar{ℤ}{\ensuremath{\mathbb{Z}}}
+% --- Superscript modifier letters (footnote-style markers) -> text superscript ---
+\newunicodechar{ʰ}{\textsuperscript{h}}
+\newunicodechar{ʲ}{\textsuperscript{j}}
+\newunicodechar{ᵃ}{\textsuperscript{a}}
+\newunicodechar{ᵇ}{\textsuperscript{b}}
+\newunicodechar{ᵈ}{\textsuperscript{d}}
+\newunicodechar{ᵉ}{\textsuperscript{e}}
+\newunicodechar{ᵍ}{\textsuperscript{g}}
+\newunicodechar{ᶠ}{\textsuperscript{f}}
+\newunicodechar{⁻}{\textsuperscript{\ensuremath{-}}}
+% --- Subscript digits -> text subscript ---
+\newunicodechar{₀}{\textsubscript{0}}
+\newunicodechar{₁}{\textsubscript{1}}
+\newunicodechar{₂}{\textsubscript{2}}
+\newunicodechar{₃}{\textsubscript{3}}
+\newunicodechar{₄}{\textsubscript{4}}
+\newunicodechar{₈}{\textsubscript{8}}
+% --- Checkmarks ---
+\newunicodechar{✓}{\ding{51}}
+\newunicodechar{✗}{\ding{55}}
+
+% --- added 2026-08-02 after an independent glyph audit ---
+\newunicodechar{ℓ}{\ensuremath{\ell}}
+\newunicodechar{⊕}{\ensuremath{\oplus}}
+\newunicodechar{⊗}{\ensuremath{\otimes}}
+\newunicodechar{∠}{\ensuremath{\angle}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{∝}{\ensuremath{\propto}}
+\newunicodechar{ℝ}{\ensuremath{\mathbb{R}}}
+\newunicodechar{₅}{\ensuremath{_5}}
+\newunicodechar{₋}{\ensuremath{_-}}
+\newunicodechar{⁺}{\ensuremath{^+}}
+\newunicodechar{⁽}{\ensuremath{^(}}
+\newunicodechar{⁾}{\ensuremath{^)}}
+% U+239B..U+23A0: multi-line parenthesis assembly pieces emitted by some
+% converters. There is no sane inline equivalent; map to ordinary delimiters so
+% the notation survives rather than vanishing silently.
+\newunicodechar{⎛}{\ensuremath{\big(}}
+\newunicodechar{⎜}{\ensuremath{\big\vert}}
+\newunicodechar{⎝}{\ensuremath{\big(}}
+\newunicodechar{⎞}{\ensuremath{\big)}}
+\newunicodechar{⎟}{\ensuremath{\big\vert}}
+\newunicodechar{⎠}{\ensuremath{\big)}}

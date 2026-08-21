@@ -24,9 +24,12 @@ cd "$(dirname "$0")" || exit 1
 command -v pandoc  >/dev/null 2>&1 || { echo "error: pandoc not found";  exit 1; }
 command -v xelatex >/dev/null 2>&1 || { echo "error: xelatex not found"; exit 1; }
 
-PAPER_HDR="papers/unicode-fix.tex"
+PAPER_HDR="tools/unicode-fix.tex"
 BOOK_MD="book/The-Incompleteness-of-Observation-FULL.md"
-BOOK_HDR="book/unicode-fix.tex"
+BOOK_HDR="tools/unicode-fix.tex"   # single shared header: the two
+                                 # copies were byte-identical, and a glyph fix
+                                 # applied to one but not the other is exactly
+                                 # the silent-drop failure this file prevents
 BOOK_OUT="book/The-Incompleteness-of-Observation-FULL"
 
 status=0
@@ -53,6 +56,8 @@ build_paper() {
     printf '  %-15s' "$name"
     pandoc "$md" -s --pdf-engine=xelatex --include-in-header="$PAPER_HDR" \
         -o "papers/${name}.tex" >"$tmplog" 2>&1 || { echo "TEX FAILED"; status=1; return; }
+    printf '%% source-sha256: %s\n' \
+        "$(sha256sum "$md" | cut -d" " -f1)" >> "papers/${name}.tex"
     pandoc "$md" -s --pdf-engine=xelatex --include-in-header="$PAPER_HDR" \
         -o "papers/${name}.pdf" >"$tmplog" 2>&1 || { echo "PDF FAILED"; status=1; return; }
     pages=$(pdfinfo "papers/${name}.pdf" 2>/dev/null | awk '/^Pages/{print $2}')
@@ -65,6 +70,8 @@ build_book() {
     pandoc "$BOOK_MD" -s --toc --toc-depth=3 --pdf-engine=xelatex \
         --include-in-header="$BOOK_HDR" -o "${BOOK_OUT}.tex" >"$tmplog" 2>&1 \
         || { echo "TEX FAILED"; status=1; return; }
+    printf '%% source-sha256: %s\n' \
+        "$(sha256sum "$BOOK_MD" | cut -d" " -f1)" >> "${BOOK_OUT}.tex"
     pandoc "$BOOK_MD" -s --toc --toc-depth=3 --pdf-engine=xelatex \
         --include-in-header="$BOOK_HDR" -o "${BOOK_OUT}.pdf" >"$tmplog" 2>&1 \
         || { echo "PDF FAILED"; status=1; return; }
