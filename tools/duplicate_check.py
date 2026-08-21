@@ -22,6 +22,30 @@ def main():
     if '--min-chars' in sys.argv:
         minc = int(sys.argv[sys.argv.index('--min-chars') + 1])
     bad = 0
+    # Headings first. A section duplicated with SMALL edits shares few whole
+    # paragraphs and can slip past paragraph matching entirely, while still
+    # being a duplicated section. Report the heading and BOTH offsets so the
+    # two copies can be diffed before anything is deleted -- never delete on
+    # heading match alone.
+    import re as _re
+    for dp, _, fs in os.walk(root):
+        for f in sorted(fs):
+            if not f.endswith('.md'):
+                continue
+            p2 = os.path.join(dp, f)
+            t2 = open(p2, encoding='utf-8', errors='replace').read()
+            pos = {}
+            for m in _re.finditer(r'^#{2,4} .+$', t2, _re.M):
+                pos.setdefault(m.group(0).strip(), []).append(m.start())
+            for h, offs in pos.items():
+                if len(offs) > 1:
+                    lines = [t2.count('\n', 0, o) + 1 for o in offs]
+                    print(f"  DUP-HEADING {p2}  x{len(offs)} at lines "
+                          f"{', '.join(map(str, lines))}")
+                    print(f"              {h[:80]}")
+                    print(f"              diff the copies before removing either")
+                    bad += 1
+
     for dp, _, fs in os.walk(root):
         for f in sorted(fs):
             if not f.endswith('.md'):
