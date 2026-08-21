@@ -17,6 +17,11 @@ another. Each exists because a real defect shipped past the others:
                        same stale baseline passes the relative test.
   voice_check          correction rounds reintroduced revision narration that
                        AGENTS.md forbids, faster than review removed it.
+  claims_check         a withdrawn result stayed asserted in a later sentence;
+                       a file-level scope note does not rescue it.
+
+Post-packaging, verify the DECLARED checksum against the shipped archive:
+    python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
 
 Usage:
     python3 tools/release_gate.py [--label bNNN] [--transfer DIR]
@@ -48,6 +53,7 @@ def main():
         ("toolchain", [sys.executable, "tools/toolchain_check.py"]),
         ("staleness", [sys.executable, "tools/staleness_check.py"]),
         ("voice",     [sys.executable, "tools/voice_check.py"]),
+        ("claims",    [sys.executable, "tools/claims_check.py"]),
         ("mirror",    [sys.executable, "papers/oi_lattice_code/mirror_check.py"]),
         ("citation",  [sys.executable, "papers/oi_lattice_code/citation_check.py"]),
         ("architecture",

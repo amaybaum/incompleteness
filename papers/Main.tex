@@ -157,7 +157,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -169,18 +169,17 @@
 
 \begin{document}
 
-\hypertarget{the-incompleteness-of-observation}{%
 \section{THE INCOMPLETENESS OF
-OBSERVATION}\label{the-incompleteness-of-observation}}
+OBSERVATION}\label{the-incompleteness-of-observation}
 
-\hypertarget{the-equivalence-of-quantum-mechanics-and-embedded-observation}{%
 \subsubsection{The Equivalence of Quantum Mechanics and Embedded
-Observation}\label{the-equivalence-of-quantum-mechanics-and-embedded-observation}}
+Observation}\label{the-equivalence-of-quantum-mechanics-and-embedded-observation}
 
 \textbf{Observer geometry and physical carrier.} SM §4.1 distinguishes
 two claims. First, finite equivariant projection is classical and exact:
 cubic symmetry is inherited by the projected Markov part and every
-memory kernel, forcing an Euclidean \textbf{quadratic} scalar symbol
+memory kernel, forbidding quadratic anisotropy in the scalar symbol ---
+so whatever NONDEGENERATE quadratic structure survives is isotropic ---
 while allowing cubic anisotropy at \(O(k^4)\). The particular normalized
 nearest-neighbor operator \(A/(2d)\) additionally requires an
 \textbf{observer-level} center-free kernel; microscopic center
@@ -202,8 +201,7 @@ geometric links.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{abstract}{%
-\subsection{ABSTRACT}\label{abstract}}
+\subsection{ABSTRACT}\label{abstract}
 
 An observer embedded in a finite deterministic system cannot access the
 complete state. This paper establishes an exact finite-horizon
@@ -267,12 +265,10 @@ compatibility of preparation-indexed Bell adjacency with the
 continuum-curvature limit is the separate H-Bell hypothesis of
 {[}Substratum §3.3{]}.
 
-\hypertarget{introduction}{%
-\subsection{1. INTRODUCTION}\label{introduction}}
+\subsection{1. INTRODUCTION}\label{introduction}
 
-\hypertarget{the-problem-of-embedded-observation}{%
 \subsubsection{1.1 The Problem of Embedded
-Observation}\label{the-problem-of-embedded-observation}}
+Observation}\label{the-problem-of-embedded-observation}
 
 An observer embedded in a deterministic universe cannot access the
 complete state: degrees of freedom beyond causal reach are permanently
@@ -299,8 +295,7 @@ distinction between this exact stochastic--quantum equivalence and
 simultaneous coherent-instrument and composite structure stated
 explicitly in §3.4.
 
-\hypertarget{the-starting-point}{%
-\subsubsection{1.2 The Starting Point}\label{the-starting-point}}
+\subsubsection{1.2 The Starting Point}\label{the-starting-point}
 
 The framework begins from a starting point usually stated in two words:
 \emph{observation occurs}. An observer records distinguishable outcomes
@@ -525,9 +520,8 @@ elsewhere, with no cost to the emergence results.
 These properties contain no quantum postulates. The claim is that
 quantum mechanics \emph{emerges} under the conditions below.
 
-\hypertarget{conditions-on-the-hidden-sector}{%
 \subsubsection{1.3 Conditions on the Hidden
-Sector}\label{conditions-on-the-hidden-sector}}
+Sector}\label{conditions-on-the-hidden-sector}
 
 \textbf{Companions and independence.} The four conditions below are
 diagnostics of a realization rather than hypotheses of the
@@ -683,8 +677,7 @@ independence would force \(|S_{\rm CHSH}|\le2\), so the Bell-violating
 branch adopted in §3.3 retains measurement independence and relinquishes
 ontic parameter independence while preserving operational no-signaling.
 
-\hypertarget{partition-relativity}{%
-\subsubsection{1.4 Partition-Relativity}\label{partition-relativity}}
+\subsubsection{1.4 Partition-Relativity}\label{partition-relativity}
 
 \textbf{Lemma (partition-relativity under the canonical invariant
 measure).} \emph{Under the canonical measure of Lemma 3, the emergent
@@ -715,8 +708,7 @@ Since \(\phi_t\) and \(\mu\) are fixed by the definition and lemmas, the
 stochastic process --- and hence any emergent quantum description (§3.1)
 --- depends only on the partition. \(\square\)
 
-\hypertarget{the-four-layers}{%
-\subsubsection{1.5 The four layers}\label{the-four-layers}}
+\subsubsection{1.5 The four layers}\label{the-four-layers}
 
 The results organize into four layers, and every claim should be read at
 its layer. \textbf{Layer 1 --- reversible dilation} (§2.2, §3.4): exact
@@ -734,13 +726,10 @@ H-spin' and H-χ', the cosmological realization --- where the named
 hypotheses live. A Layer-1 result does not by itself establish any
 Layer-4 claim.
 
-\hypertarget{emergent-stochasticity-and-p-indivisibility}{%
 \subsection{2. EMERGENT STOCHASTICITY AND
-P-INDIVISIBILITY}\label{emergent-stochasticity-and-p-indivisibility}}
+P-INDIVISIBILITY}\label{emergent-stochasticity-and-p-indivisibility}
 
-\hypertarget{emergent-stochasticity}{%
-\subsubsection{2.1 Emergent
-Stochasticity}\label{emergent-stochasticity}}
+\subsubsection{2.1 Emergent Stochasticity}\label{emergent-stochasticity}
 
 The total system evolves deterministically, but the visible sector alone
 is stochastic. The observer knows \(x\) but not \(h\); different hidden
@@ -749,8 +738,7 @@ futures \(x'_k\). Transition probabilities are obtained by marginalizing
 over the Liouville measure (§1.4). This makes the framework a hidden
 variable theory; consistency with Bell's theorem is addressed in §3.3.
 
-\hypertarget{the-slow-bath-regime}{%
-\subsubsection{2.2 The Slow-Bath Regime}\label{the-slow-bath-regime}}
+\subsubsection{2.2 The Slow-Bath Regime}\label{the-slow-bath-regime}
 
 The Markovian limit requires \(\tau_B \ll \tau_S\) {[}3{]}. Condition
 (C2) inverts this: \(\tau_S \ll \tau_B\). A slow bath must be
@@ -761,8 +749,7 @@ thermal overwriting. On subsequent transitions, coupling reads back
 stored correlations, producing history-dependent transition
 probabilities --- the non-Markovian regime {[}3{]}.
 
-\hypertarget{p-indivisibility}{%
-\subsubsection{2.3 P-Indivisibility}\label{p-indivisibility}}
+\subsubsection{2.3 P-Indivisibility}\label{p-indivisibility}
 
 By Lemma 1 the visible sector is finite; under the total-finiteness
 posit (§1.2 Remark, §4.5 ledger) the hidden sector is also finite ---
@@ -1015,9 +1002,8 @@ Davies-Merkli Markovian convergence theorem likewise applies in the
 Born-Markov (fast-bath) limit. The §3.4 necessity proof for (C2)
 establishes this formally.
 
-\hypertarget{explicit-construction-a-minimal-model}{%
 \subsubsection{2.4 Explicit Construction: A Minimal
-Model}\label{explicit-construction-a-minimal-model}}
+Model}\label{explicit-construction-a-minimal-model}
 
 Visible sector: \(x \in \{0, 1\}\). Hidden sector:
 \(h \in \{1, \ldots, 6\}\). Dynamics: the permutation
@@ -1065,13 +1051,11 @@ persistent.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-emergence-of-quantum-mechanics}{%
 \subsection{3. THE EMERGENCE OF QUANTUM
-MECHANICS}\label{the-emergence-of-quantum-mechanics}}
+MECHANICS}\label{the-emergence-of-quantum-mechanics}
 
-\hypertarget{the-stochastic-quantum-correspondence}{%
 \subsubsection{3.1 The Stochastic-Quantum
-Correspondence}\label{the-stochastic-quantum-correspondence}}
+Correspondence}\label{the-stochastic-quantum-correspondence}
 
 By Barandes' correspondence {[}11, 12{]}, any finite-configuration
 member of the source's indivisible-stochastic-process class --- its term
@@ -1506,9 +1490,8 @@ on the unit circle, the Hermitian effective generator
 \(\hat{H}_{\text{eff}}\) has real eigenvalues that are not equally
 spaced, and retains non-degenerate gaps after the trace-out.)
 
-\hypertarget{independent-derivation-via-stinespring-dilation}{%
 \subsubsection{3.2 Independent Derivation via Stinespring
-Dilation}\label{independent-derivation-via-stinespring-dilation}}
+Dilation}\label{independent-derivation-via-stinespring-dilation}
 
 An independent derivation of the emergent quantum description uses only
 Stinespring's dilation theorem {[}15{]} and standard properties of the
@@ -2025,9 +2008,8 @@ of these reconstructions either: a classical stochastic system can be
 P-indivisible. The route is therefore conditional on the completion and
 compositional hypotheses just named, not an independent derivation.
 
-\hypertarget{bell-inequality-violations}{%
 \subsubsection{3.3 Bell Inequality
-Violations}\label{bell-inequality-violations}}
+Violations}\label{bell-inequality-violations}
 
 The framework is a deterministic hidden-state theory, so its Bell
 content must be stated at the correct level. Bare finite OI
@@ -2182,9 +2164,8 @@ operational signal at the remote wing. Dropping that
 spatial/intervention structure returns the unrestricted OI behavior
 class, including PR, which is the mandatory negative control.
 
-\hypertarget{the-characterization-theorem-necessity-of-the-conditions}{%
 \subsubsection{3.4 The Characterization Theorem: Necessity of the
-Conditions}\label{the-characterization-theorem-necessity-of-the-conditions}}
+Conditions}\label{the-characterization-theorem-necessity-of-the-conditions}
 
 The logical structure is easiest to state by keeping representation and
 selection separate. The finite-horizon theorem below proves internally
@@ -3757,9 +3738,8 @@ longer route through it.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{generative-and-limitative-faces-of-the-observation-map}{%
 \subsubsection{3.5 Generative and limitative faces of the observation
-map}\label{generative-and-limitative-faces-of-the-observation-map}}
+map}\label{generative-and-limitative-faces-of-the-observation-map}
 
 The characterization theorem establishes what embedded observation
 \emph{produces}. The same trace-out map has a complementary structural
@@ -3884,9 +3864,8 @@ agnostic on it.)
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{interpretive-consequences}{%
 \subsubsection{4.1 Interpretive
-Consequences}\label{interpretive-consequences}}
+Consequences}\label{interpretive-consequences}
 
 The degrees of freedom involved in quantum experiments --- photons,
 electrons, slits, detectors --- are all visible-sector objects. Their
@@ -3966,8 +3945,7 @@ because the framework provides multiple simultaneous reduced
 descriptions, each internally consistent with respect to its own
 partition, with all derived from the same deterministic substratum.
 
-\hypertarget{scope}{%
-\subsubsection{4.2 Scope}\label{scope}}
+\subsubsection{4.2 Scope}\label{scope}
 
 The characterization theorem's equivalence is (ii) \(\iff\) (iii) under
 (C1)--(C4), both directions in-house; the quantum representation follows
@@ -3979,9 +3957,8 @@ physical systems satisfy the conditions; this is an empirical question.
 Universality in our universe follows from the shared causal partition
 defined by null geodesics.
 
-\hypertarget{the-status-of-the-discreteness-scale}{%
 \subsubsection{4.3 The Status of the Discreteness
-Scale}\label{the-status-of-the-discreteness-scale}}
+Scale}\label{the-status-of-the-discreteness-scale}
 
 \(\epsilon\) does not smuggle in a quantum assumption, but the reason is
 foundational rather than field-theoretic. Finiteness of the
@@ -4003,9 +3980,7 @@ check: the framework derives \(\hbar\) and the Bekenstein--Hawking
 coefficient downstream, and the derived bound is compatible with the
 finiteness assumed here --- a closed loop, not a circular one.
 
-\hypertarget{relation-to-prior-work}{%
-\subsubsection{4.4 Relation to Prior
-Work}\label{relation-to-prior-work}}
+\subsubsection{4.4 Relation to Prior Work}\label{relation-to-prior-work}
 
 \textbf{'t Hooft {[}1{]}:} Differs in mechanism (epistemic trace-out
 vs.~information loss), generality (any embedded observer vs.~particular
@@ -4126,9 +4101,8 @@ finite-dimensional Hilbert spaces; this is compatible, since the
 framework's predictions depend on finite entropy (the physical content
 of Lemma 1), not on dimensional finiteness per se.
 
-\hypertarget{assumptions-limitations-and-falsifiability}{%
 \subsubsection{4.5 Assumptions, Limitations, and
-Falsifiability}\label{assumptions-limitations-and-falsifiability}}
+Falsifiability}\label{assumptions-limitations-and-falsifiability}
 
 \textbf{The theorem} requires Lemma 1, the stochastic-quantum bridge
 (§3.1 and §3.2; two routes reach its transition-statistics layer,
@@ -4300,9 +4274,8 @@ separation certified --- (C1)--(C3) alone admit zero-backflow
 realizations (the coin) & §1.3, §2.3 \\
 \end{longtable}
 
-\hypertarget{structural-exclusion-of-equilibrium-phase-observers}{%
 \subsubsection{4.6 Structural Exclusion of Equilibrium-Phase
-Observers}\label{structural-exclusion-of-equilibrium-phase-observers}}
+Observers}\label{structural-exclusion-of-equilibrium-phase-observers}
 
 An immediate corollary of (C1)--(C4) is a structural selection rule on
 where in a finite bijective \((S, \varphi)\) observers can exist. The
@@ -4437,8 +4410,7 @@ human-timescale laboratory observation compatible with (C2).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{conclusion}{%
-\subsection{5. CONCLUSION}\label{conclusion}}
+\subsection{5. CONCLUSION}\label{conclusion}
 
 The paper's central result is stronger than a finite-accuracy analogy
 and narrower than an unqualified claim that C1--C4 uniquely generate
@@ -4501,9 +4473,8 @@ this residual is specifically the coherent/noncommuting and
 compositional layer. It is the remaining operational-lifting problem,
 not a defect in the exact stochastic--quantum equivalence proved here.
 
-\hypertarget{code-and-data-availability}{%
 \subsection{Code and Data
-Availability}\label{code-and-data-availability}}
+Availability}\label{code-and-data-availability}
 
 The verification code for §3.2 is under
 \texttt{papers/oi\_lattice\_code/coherence/}:
@@ -4534,8 +4505,7 @@ the MIT License.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{acknowledgements}{%
-\subsection{ACKNOWLEDGEMENTS}\label{acknowledgements}}
+\subsection{ACKNOWLEDGEMENTS}\label{acknowledgements}
 
 During the preparation of this work, the author used Claude Opus 4.6
 (Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining
@@ -4545,8 +4515,7 @@ publication.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{references}{%
-\subsection{REFERENCES}\label{references}}
+\subsection{REFERENCES}\label{references}
 
 {[}1{]} G. 't Hooft, \emph{The Cellular Automaton Interpretation of
 Quantum Mechanics} (Springer, 2016).
@@ -4763,4 +4732,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: 362a51154f48191116255f94b5b49361c66acc50ef89e55d61f846f218eb755c
+% source-sha256: e405fcca232d9fd25f85182cb41474241a69d20c546bc1f54f5ee0c8a9c00f08

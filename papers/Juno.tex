@@ -157,7 +157,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -169,10 +169,9 @@
 
 \begin{document}
 
-\hypertarget{a-neutrino-mixing-sum-rule-from-octahedral-flavor-structure-2-sinuxb2ux3b8ux2081ux2082-sinuxb2ux3b8ux2082ux2083-76}{%
 \section{A Neutrino Mixing Sum Rule from Octahedral Flavor Structure: 2
 sin²θ₁₂ + sin²θ₂₃ =
-7/6}\label{a-neutrino-mixing-sum-rule-from-octahedral-flavor-structure-2-sinuxb2ux3b8ux2081ux2082-sinuxb2ux3b8ux2082ux2083-76}}
+7/6}\label{a-neutrino-mixing-sum-rule-from-octahedral-flavor-structure-2-sinuxb2ux3b8ux2081ux2082-sinuxb2ux3b8ux2082ux2083-76}
 
 \begin{quote}
 \textbf{Scope (\(K = 2d\)).} Coupling-degree minimization does not
@@ -192,7 +191,8 @@ single-copy \(m=1\) a premise to be derived rather than a result. See
 \textbf{Observer geometry and physical carrier.} SM §4.1 distinguishes
 two claims. First, finite equivariant projection is classical and exact:
 cubic symmetry is inherited by the projected Markov part and every
-memory kernel, forcing an Euclidean \textbf{quadratic} scalar symbol
+memory kernel, forbidding quadratic anisotropy in the scalar symbol ---
+so whatever NONDEGENERATE quadratic structure survives is isotropic ---
 while allowing cubic anisotropy at \(O(k^4)\). The particular normalized
 nearest-neighbor operator \(A/(2d)\) additionally requires an
 \textbf{observer-level} center-free kernel; microscopic center
@@ -212,8 +212,7 @@ geometric links.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{abstract}{%
-\subsection{Abstract}\label{abstract}}
+\subsection{Abstract}\label{abstract}
 
 Discrete flavor symmetries yield characteristic correlations among the
 PMNS mixing angles, with the trimaximal TM1 and TM2 sum rules serving as
@@ -241,11 +240,9 @@ holds.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{introduction}{%
-\subsection{1. Introduction}\label{introduction}}
+\subsection{1. Introduction}\label{introduction}
 
-\hypertarget{the-result}{%
-\subsubsection{1.1 The result}\label{the-result}}
+\subsubsection{1.1 The result}\label{the-result}
 
 Tri-bimaximal mixing {[}1{]} was the leading description of the lepton
 mixing pattern until Daya Bay established a nonzero θ₁₃ {[}2{]}. The
@@ -289,9 +286,8 @@ result, and the perturbation scale λ² = 1/(2π²) is the squared Cabibbo
 angle, fixed independently by the cubic Brillouin geometry (matching the
 observed λ to 0.04\%).
 
-\hypertarget{where-the-prediction-comes-from}{%
 \subsubsection{1.2 Where the prediction comes
-from}\label{where-the-prediction-comes-from}}
+from}\label{where-the-prediction-comes-from}
 
 The structure is constrained by two ingredients. First, the perturbation
 scale λ² = 1/(2π²) is not a fitted parameter: it is the squared Cabibbo
@@ -320,8 +316,7 @@ The 0.07σ match with the post-JUNO global fit therefore tests Condition
 2 --- a sharply specified structural relation --- rather than fitted
 parameters.
 
-\hypertarget{the-empirical-context}{%
-\subsubsection{1.3 The empirical context}\label{the-empirical-context}}
+\subsubsection{1.3 The empirical context}\label{the-empirical-context}
 
 The cubic-group structure used here is not a postulated flavor symmetry.
 It is the rotation symmetry group of three-dimensional space, realized
@@ -387,9 +382,8 @@ The first T2K--NOvA joint analysis {[}24{]} has since sharpened
 mass ordering and the \(\theta_{23}\) octant unresolved; the
 octant-dependent caveat structure of §7 is unchanged by it.
 
-\hypertarget{position-in-the-broader-literature}{%
 \subsubsection{1.4 Position in the broader
-literature}\label{position-in-the-broader-literature}}
+literature}\label{position-in-the-broader-literature}
 
 The lattice construction {[}18{]} from which the cubic-group structure
 is taken belongs to a recent line of work in which observers play a
@@ -418,8 +412,7 @@ covers the remaining angles. Section 6 addresses robustness. Section 7
 discusses falsifiability under JUNO's projected long-term precision.
 Section 8 concludes.
 
-\hypertarget{provenance}{%
-\subsubsection{1.5 Provenance}\label{provenance}}
+\subsubsection{1.5 Provenance}\label{provenance}
 
 This derivation was carried out in 2026, after the JUNO first results
 {[}7{]} and the post-JUNO global fit {[}8{]} appeared. The value was not
@@ -435,13 +428,11 @@ analyzed in the post-JUNO literature {[}9, 10{]}; and (iii) the θ₁₃ and
 the post-JUNO structural-interpretation literature {[}9, 10{]}, with its
 provenance stated explicitly.
 
-\hypertarget{cubic-group-flavor-structure}{%
 \subsection{2. Cubic-group flavor
-structure}\label{cubic-group-flavor-structure}}
+structure}\label{cubic-group-flavor-structure}
 
-\hypertarget{the-cubic-group-o-and-its-aux2084-subgroup}{%
 \subsubsection{2.1 The cubic group O and its A₄
-subgroup}\label{the-cubic-group-o-and-its-aux2084-subgroup}}
+subgroup}\label{the-cubic-group-o-and-its-aux2084-subgroup}
 
 The cubic point group O is the rotation symmetry group of
 three-dimensional space, the unique finite point group with a
@@ -487,9 +478,8 @@ of TBM: the second column of U\_TBM is exactly ĥ, and the first and
 third columns lie in the plane perpendicular to it, oriented by μ-τ
 exchange.
 
-\hypertarget{why-the-cubic-group-is-forced}{%
 \subsubsection{2.1.1 Why the cubic group is
-forced}\label{why-the-cubic-group-is-forced}}
+forced}\label{why-the-cubic-group-is-forced}
 
 The cubic group is not postulated here as a flavor symmetry of the
 lepton sector in the manner of A₄, S₄, or Δ(27) in the
@@ -564,9 +554,8 @@ three-generation T₁ representation, with the spatial rotation group
 fixed by the gauge-structure derivation of {[}18, Theorem 7b{]} rather
 than postulated as a flavor symmetry.
 
-\hypertarget{the-cabibbo-scale-from-cubic-brillouin-geometry}{%
 \subsubsection{2.2 The Cabibbo scale from cubic Brillouin
-geometry}\label{the-cabibbo-scale-from-cubic-brillouin-geometry}}
+geometry}\label{the-cabibbo-scale-from-cubic-brillouin-geometry}
 
 We identify the perturbation parameter λ with the Cabibbo angle. In a
 lattice realization of the cubic-group flavor structure, the three
@@ -621,9 +610,8 @@ agreeing with the PDG value A = 0.826 ± 0.012 at 0.23σ. The combination
 A² = 2/3 enters the inter-generation projection geometry, and A⁴ = 4/9
 appears directly in the deviation Δ₁₃ below.
 
-\hypertarget{the-pmns-matrix-in-the-altarelli-feruglio-basis}{%
 \subsubsection{2.3 The PMNS matrix in the Altarelli-Feruglio
-basis}\label{the-pmns-matrix-in-the-altarelli-feruglio-basis}}
+basis}\label{the-pmns-matrix-in-the-altarelli-feruglio-basis}
 
 We work in the Altarelli-Feruglio (AF) basis {[}12{]}. In this basis the
 neutrino sector realizes TBM exactly (after diagonalization of the
@@ -649,13 +637,10 @@ with A₁, A₂ real antisymmetric 3×3 matrices. The remaining task is to
 determine A₁ and A₂ from the structural ingredients of the cubic
 geometry.
 
-\hypertarget{u-parity-grading-and-the-sum-rule}{%
 \subsection{3. U-parity grading and the sum
-rule}\label{u-parity-grading-and-the-sum-rule}}
+rule}\label{u-parity-grading-and-the-sum-rule}
 
-\hypertarget{the-u-parity-generator}{%
-\subsubsection{3.1 The U-parity
-generator}\label{the-u-parity-generator}}
+\subsubsection{3.1 The U-parity generator}\label{the-u-parity-generator}
 
 In the AF basis, the μ-τ exchange generator U ∈ S₄ acts on the
 generation indices by exchanging the second and third:
@@ -683,8 +668,7 @@ The unique U-odd combination antisymmetric in (μ, τ) is E₂₃; the unique
 U-odd combination relating the first generation to the second/third is
 E₁₂ − E₁₃.
 
-\hypertarget{determination-of-aux2081}{%
-\subsubsection{3.2 Determination of A₁}\label{determination-of-aux2081}}
+\subsubsection{3.2 Determination of A₁}\label{determination-of-aux2081}
 
 A₁ is fixed by three structural conditions plus the projection geometry
 of §2.2.
@@ -715,8 +699,7 @@ A₁ is purely U-odd: UA₁U⁻¹ = −A₁. Geometrically, it is a rotation by
 angle A² = 2/3 around the axis (e₂ + e₃)/√2, which reproduces sinθ₁₃ =
 A²λ as required.
 
-\hypertarget{deviations-to-oux3bbuxb2}{%
-\subsubsection{3.3 Deviations to O(λ²)}\label{deviations-to-oux3bbuxb2}}
+\subsubsection{3.3 Deviations to O(λ²)}\label{deviations-to-oux3bbuxb2}
 
 Expanding V\_ℓ to second order,
 
@@ -764,9 +747,8 @@ O(λ²): the contributions that would enter through the (V\_ℓ\^{}T)₂ν
 matrix elements all arise at O(λ³) or higher in the calculation of
 \textbar U\_μ3\textbar².
 
-\hypertarget{sum-rule-and-absolute-normalization}{%
 \subsubsection{3.4 Sum rule and absolute
-normalization}\label{sum-rule-and-absolute-normalization}}
+normalization}\label{sum-rule-and-absolute-normalization}
 
 The deviations depend on two scalar combinations of A₂: (b₁₂ + b₁₃)
 controlling Δ₁₂, and b₂₃ controlling Δ₂₃. We fix the normalization with
@@ -970,8 +952,7 @@ identification, since it is the only remaining O(λ²) free parameter that
 does not enter any of the three angles). The present analysis therefore
 predicts all three angles but not δ\_CP.
 
-\hypertarget{numerical-predictions}{%
-\subsubsection{3.5 Numerical predictions}\label{numerical-predictions}}
+\subsubsection{3.5 Numerical predictions}\label{numerical-predictions}
 
 Substituting b₂₃ = 1, b₁₂ + b₁₃ = 3/4, and λ² = 1/(2π²):
 
@@ -989,13 +970,11 @@ The first formula for sin²θ₁₃ follows from A² = 2/3 and λ² = 1/(2π²)
 together with the constraints on A₁; it does not use the normalization
 conditions on A₂. The other two additionally use Conditions 1 and 2.
 
-\hypertarget{the-sinuxb2ux3b8ux2081ux2082-prediction}{%
 \subsection{4. The sin²θ₁₂
-prediction}\label{the-sinuxb2ux3b8ux2081ux2082-prediction}}
+prediction}\label{the-sinuxb2ux3b8ux2081ux2082-prediction}
 
-\hypertarget{numerical-value-and-comparison-with-data}{%
 \subsubsection{4.1 Numerical value and comparison with
-data}\label{numerical-value-and-comparison-with-data}}
+data}\label{numerical-value-and-comparison-with-data}
 
 The headline prediction is
 
@@ -1023,9 +1002,8 @@ A₄ TBM zeroth-order value, and λ² = 1/(2π²) is the squared Cabibbo
 angle, fixed independently by the cubic Brillouin geometry (matching the
 observed λ = 0.22508 to 0.04\%).
 
-\hypertarget{comparison-with-column-preservation-patterns}{%
 \subsubsection{4.2 Comparison with column-preservation
-patterns}\label{comparison-with-column-preservation-patterns}}
+patterns}\label{comparison-with-column-preservation-patterns}
 
 Tribimaximal mixing {[}1{]} was the leading phenomenological description
 of neutrino oscillation data until Daya Bay measured a nonzero θ₁₃
@@ -1102,9 +1080,8 @@ global fit by a factor of about 20 in σ-distance than the best surviving
 column-preservation pattern, and at the same time makes more falsifiable
 claims (three independent angles plus the sum rule below).
 
-\hypertarget{the-sum-rule-discriminator}{%
 \subsubsection{4.3 The sum-rule
-discriminator}\label{the-sum-rule-discriminator}}
+discriminator}\label{the-sum-rule-discriminator}
 
 The cubic-group prediction implies
 
@@ -1123,11 +1100,9 @@ direct measurement of 2sin²θ₁₂ + sin²θ₂₃ at the 0.005 level is there
 the sharpest data-side test that distinguishes the two classes of TBM
 modification.
 
-\hypertarget{the-remaining-angles}{%
-\subsection{5. The remaining angles}\label{the-remaining-angles}}
+\subsection{5. The remaining angles}\label{the-remaining-angles}
 
-\hypertarget{sinuxb2ux3b8ux2081ux2083}{%
-\subsubsection{5.1 sin²θ₁₃}\label{sinuxb2ux3b8ux2081ux2083}}
+\subsubsection{5.1 sin²θ₁₃}\label{sinuxb2ux3b8ux2081ux2083}
 
 The formula for sin²θ₁₃ is fully derived: at O(λ²) the A₂ parameters
 cancel from \textbar U\_e3\textbar², leaving sin²θ₁₃ = A⁴λ² = 4/(18π²) =
@@ -1138,8 +1113,7 @@ agreeing at 1.01σ. Equivalently,
 
 giving θ₁₃ = 8.63°, compared with the observed 8.56° ± 0.10°.
 
-\hypertarget{sinuxb2ux3b8ux2082ux2083}{%
-\subsubsection{5.2 sin²θ₂₃}\label{sinuxb2ux3b8ux2082ux2083}}
+\subsubsection{5.2 sin²θ₂₃}\label{sinuxb2ux3b8ux2082ux2083}
 
 The formula gives sin²θ₂₃ = 1/2 + 1/(2π²) = 0.5507. NuFIT 6.0 (NO) gives
 sin²θ₂₃ = 0.561⁺⁰·⁰¹²₋₀.₀₁₅, agreeing at 0.74σ. The prediction lies in
@@ -1151,8 +1125,7 @@ rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6 ties this directly to sin²θ₁₂:
 A ±0.0014 ultimate JUNO error on sin²θ₁₂ then implies a ±0.0028 error on
 the predicted sin²θ₂₃, comparable to the current direct measurement.
 
-\hypertarget{summary}{%
-\subsubsection{5.3 Summary}\label{summary}}
+\subsubsection{5.3 Summary}\label{summary}
 
 \begin{longtable}[]{@{}llll@{}}
 \toprule\noalign{}
@@ -1168,12 +1141,10 @@ sin²θ₂₃ & 1/2 + 1/(2π²) = 0.5507 & 0.561⁺⁰·⁰¹²₋₀.₀₁₅ 
 
 All three predictions agree with observation within 1.1σ.
 
-\hypertarget{robustness}{%
-\subsection{6. Robustness}\label{robustness}}
+\subsection{6. Robustness}\label{robustness}
 
-\hypertarget{cumulative-empirical-match}{%
 \subsubsection{6.1 Cumulative empirical
-match}\label{cumulative-empirical-match}}
+match}\label{cumulative-empirical-match}
 
 The 0.07σ match for sin²θ₁₂ does not stand alone. It sits within a set
 of empirical matches all using the same cubic-group structural inputs:
@@ -1224,9 +1195,8 @@ distinct empirical matches, each of which would have to be explained as
 coincidence in a flavor-symmetry framework that postulates the cubic
 structure rather than deriving it.
 
-\hypertarget{sensitivity-to-condition-2}{%
 \subsubsection{6.2 Sensitivity to Condition
-2}\label{sensitivity-to-condition-2}}
+2}\label{sensitivity-to-condition-2}
 
 The factor 4/3 in Condition 2 (Sec. 3.4) is the one substantive
 structural input. It is \emph{not} a free parameter fitted to sin²θ₁₂:
@@ -1256,8 +1226,7 @@ substantive content of this test is that 4/3 is precisely 2A² where A² =
 representation geometry --- a falsifiable structural relation rather
 than a fitted parameter.
 
-\hypertarget{status-of-condition-2}{%
-\subsubsection{6.3 Status of Condition 2}\label{status-of-condition-2}}
+\subsubsection{6.3 Status of Condition 2}\label{status-of-condition-2}
 
 Condition 2 admits the structural decomposition into two parts
 established in Sec. 3.4: an A₁ component closed at Layer 1 (the TBM sum
@@ -1343,8 +1312,7 @@ rule level is therefore independent confirmation of the framework's
 structural prediction against the principal competing frameworks,
 regardless of how the 4/3 coefficient verification path closes.
 
-\hypertarget{falsifiability}{%
-\subsection{7. Falsifiability}\label{falsifiability}}
+\subsection{7. Falsifiability}\label{falsifiability}
 
 The prediction is sharp: λ² = 1/(2π²) is fixed independently by the
 Cabibbo angle, and the coefficient 1/(4π²) in Δ₁₂ has no adjustable
@@ -1368,8 +1336,7 @@ angle prediction, so the framework is consistent with any δ\_CP.
 Long-baseline measurements at DUNE and Hyper-Kamiokande will determine
 this remaining parameter directly.
 
-\hypertarget{conclusion}{%
-\subsection{8. Conclusion}\label{conclusion}}
+\subsection{8. Conclusion}\label{conclusion}
 
 We have derived sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080 from cubic-group flavor
 structure, matching the post-JUNO global fit at 0.07σ with no parameter
@@ -1402,8 +1369,7 @@ the sum rule. A confirmed result at JUNO's ultimate precision would
 support cubic-group flavor structure as a viable origin of the lepton
 mixing pattern.
 
-\hypertarget{acknowledgments}{%
-\subsection{Acknowledgments}\label{acknowledgments}}
+\subsection{Acknowledgments}\label{acknowledgments}
 
 The author thanks the JUNO Collaboration for the rapid public release of
 their first oscillation results, and F. Capozzi, E. Lisi, F. Marcone, A.
@@ -1414,8 +1380,7 @@ positioning relative to existing approaches; specific intellectual debts
 are recorded in the references and in the underlying framework
 documentation {[}18{]}.
 
-\hypertarget{references}{%
-\subsection{References}\label{references}}
+\subsection{References}\label{references}
 
 {[}1{]} P. F. Harrison, D. H. Perkins, W. G. Scott, ``Tri-bimaximal
 mixing and the neutrino oscillation data,'' Phys. Lett. B 530, 167
@@ -1504,4 +1469,4 @@ neutrino oscillation analysis from the T2K and NOvA experiments,''
 Nature 646, 818 (2025); arXiv:2510.19888.
 
 \end{document}
-% source-sha256: 9135a4a1d21bf635d3a3e3cbab156b4072b775b7d4372ecd789b4e5523b6039a
+% source-sha256: 8b72fccc20ea8288b3ecccb5e6a8c3b73a16aed523dd7ad9454d80b9c3f432a4

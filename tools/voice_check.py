@@ -21,6 +21,10 @@ PATTERNS = [
     (r'\bformerly\b|\bFormer\b',      "revision narration: 'former(ly)'"),
     (r'\bnow (separates|states|says|reads)\b', "revision narration: 'now ...'"),
     (r'\bpreviously (said|stated|read|claimed)\b', "revision narration"),
+    (r'\bno longer (presents|claims|says|states|asserts)\b',
+     "revision narration: 'no longer ...'"),
+    (r'\b(has|have) since been (revised|corrected|dropped)\b',
+     "revision narration: 'has since been ...'"),
     (r'\bwe (were|had) (wrong|mistaken)\b', "first-person revision narration"),
 ]
 
@@ -28,6 +32,17 @@ def main():
     root = '.'
     if '--root' in sys.argv:
         root = sys.argv[sys.argv.index('--root') + 1]
+    # This check applies to the MANUSCRIPT only. The session transfer exists to
+    # narrate history, so pointing this at a transfer produces hundreds of
+    # meaningless failures. Refuse rather than mislead.
+    if not os.path.isdir(os.path.join(root, 'papers')) and \
+       os.path.exists(os.path.join(root, 'NEXT-SESSION.md')):
+        print("voice_check: SKIPPED - this looks like a session transfer, not "
+              "the manuscript tree.")
+        print("             The transfer is where revision history BELONGS; "
+              "this check applies")
+        print("             only to a tree containing papers/.")
+        return 0
     hits = 0
     for dp, _, fs in os.walk(root):
         for f in sorted(fs):

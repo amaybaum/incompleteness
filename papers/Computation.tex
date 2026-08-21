@@ -157,7 +157,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -169,18 +169,17 @@
 
 \begin{document}
 
-\hypertarget{embedded-computation-in-the-incompleteness-of-observation-framework}{%
 \section{Embedded Computation in the Incompleteness of Observation
-Framework}\label{embedded-computation-in-the-incompleteness-of-observation-framework}}
+Framework}\label{embedded-computation-in-the-incompleteness-of-observation-framework}
 
-\hypertarget{from-evolution-to-bqp-and-the-p-vs-np-question}{%
 \subsubsection{From Evolution to BQP and the P vs NP
-Question}\label{from-evolution-to-bqp-and-the-p-vs-np-question}}
+Question}\label{from-evolution-to-bqp-and-the-p-vs-np-question}
 
 \textbf{Observer geometry and physical carrier.} SM §4.1 distinguishes
 two claims. First, finite equivariant projection is classical and exact:
 cubic symmetry is inherited by the projected Markov part and every
-memory kernel, forcing an Euclidean \textbf{quadratic} scalar symbol
+memory kernel, forbidding quadratic anisotropy in the scalar symbol ---
+so whatever NONDEGENERATE quadratic structure survives is isotropic ---
 while allowing cubic anisotropy at \(O(k^4)\). The particular normalized
 nearest-neighbor operator \(A/(2d)\) additionally requires an
 \textbf{observer-level} center-free kernel; microscopic center
@@ -201,8 +200,7 @@ Foundations / Computational Complexity
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{abstract}{%
-\subsection{Abstract}\label{abstract}}
+\subsection{Abstract}\label{abstract}
 
 The Observational Incompleteness (OI) framework reproduces the Standard
 Model's gauge structure as a forced consequence of a cubic-lattice
@@ -293,8 +291,7 @@ falls independently on its physics --- and should be read as a
 structural possibility to be tested, not as support for the framework.
 \end{quote}
 
-\hypertarget{introduction}{%
-\subsection{1. Introduction}\label{introduction}}
+\subsection{1. Introduction}\label{introduction}
 
 The structural chain from \((S, \varphi)\) through chemistry to
 biological evolution is developed in the companion paper {[}3{]}. The
@@ -345,9 +342,8 @@ what the framework establishes and what it does not.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{from-evolution-to-intelligence}{%
 \subsection{2. From Evolution to
-Intelligence}\label{from-evolution-to-intelligence}}
+Intelligence}\label{from-evolution-to-intelligence}
 
 \textbf{Information processing is generically fitness-enhancing.} In an
 environment with the derived physics --- a thermal window {[}3, §2.7{]}
@@ -383,9 +379,8 @@ general intelligence is a much more specific capability.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{from-intelligence-to-ai-and-the-self-referential-limit}{%
 \subsection{3. From Intelligence to AI and the Self-Referential
-Limit}\label{from-intelligence-to-ai-and-the-self-referential-limit}}
+Limit}\label{from-intelligence-to-ai-and-the-self-referential-limit}
 
 \textbf{The structural chain to universal computation.} If general
 intelligence exists --- for whatever contingent or structural reason ---
@@ -528,9 +523,8 @@ biological or artificial, at any level of sophistication.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{a-conditional-bqp-model-theorem}{%
 \subsection{4. A Conditional BQP Model
-Theorem}\label{a-conditional-bqp-model-theorem}}
+Theorem}\label{a-conditional-bqp-model-theorem}
 
 §3 establishes that embedded observers can construct universal computers
 from the framework's derived structure. The next question is whether
@@ -561,8 +555,7 @@ with an upper bound (BQP cannot be exceeded under the same hypotheses;
 any super-BQP capability would falsify the conjunction of the
 framework's commitments with this model, sharpest at the model bridge).
 
-\hypertarget{the-lower-bound}{%
-\subsubsection{4.1 The lower bound}\label{the-lower-bound}}
+\subsubsection{4.1 The lower bound}\label{the-lower-bound}
 
 Quantum computation in the standard model is defined through uniform
 polynomial-size circuit families: every BQP computation, by definition,
@@ -585,8 +578,7 @@ hypotheses, any BQP algorithm has a physical implementation on the
 substratum, and embedded observers can in principle access any problem
 in BQP.
 
-\hypertarget{the-upper-bound}{%
-\subsubsection{4.2 The upper bound}\label{the-upper-bound}}
+\subsubsection{4.2 The upper bound}\label{the-upper-bound}
 
 No physical process implementable on the substratum exceeds BQP, under
 the model's efficiency hypotheses. The framework's dynamics is
@@ -610,8 +602,7 @@ efficiency violations fall outside the added computational model --- a
 device exhibiting them would falsify global coverage of that model, not
 the substratum class by itself.
 
-\hypertarget{the-combined-result}{%
-\subsubsection{4.3 The combined result}\label{the-combined-result}}
+\subsubsection{4.3 The combined result}\label{the-combined-result}
 
 \textbf{Theorem (conditional BQP model).} \emph{Assume the computational
 model of §4: a uniform efficient encoding of substratum configurations
@@ -639,10 +630,9 @@ computation: there is no ceiling on the \emph{complexity of the
 observer}, but there is a permanent ceiling on the \emph{computational
 reach} of any embedded observer at BQP exactly.
 
-\hypertarget{the-quantum-bqp-form-extended-church-turing-thesis-as-conditional-theorem}{%
 \subsubsection{4.4 The quantum (BQP-form) Extended Church-Turing Thesis
 as conditional
-theorem}\label{the-quantum-bqp-form-extended-church-turing-thesis-as-conditional-theorem}}
+theorem}\label{the-quantum-bqp-form-extended-church-turing-thesis-as-conditional-theorem}
 
 The Extended Church-Turing Thesis (ECT) --- that any physically
 realizable computation can be simulated by a probabilistic Turing
@@ -674,10 +664,9 @@ the substratum's structure, not evidence against the framework.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-finite-substratum-refinement-a-ceiling-above-bqps-floor}{%
 \subsubsection{4.5 The finite-substratum refinement: a ceiling above
 BQP's
-floor}\label{the-finite-substratum-refinement-a-ceiling-above-bqps-floor}}
+floor}\label{the-finite-substratum-refinement-a-ceiling-above-bqps-floor}
 
 The characterization of §4.3 is exact in the idealized limit
 \(S \to \infty\). The framework, however, asserts that \(S\) is finite
@@ -780,10 +769,9 @@ it.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-depth-axis-residual-dissipation-the-correction-fork-and-the-box}{%
 \subsubsection{4.6 The depth axis: residual dissipation, the correction
 fork, and the
-box}\label{the-depth-axis-residual-dissipation-the-correction-fork-and-the-box}}
+box}\label{the-depth-axis-residual-dissipation-the-correction-fork-and-the-box}
 
 §4.5 bounded the width of physical computation; the framework also
 bounds its depth. The residual dissipation
@@ -836,9 +824,8 @@ fault-tolerance datasets, and the sharpened prediction is stated there.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-internal-structure-of-bqp-and-the-p-vs-np-question}{%
 \subsection{5. The Internal Structure of BQP and the P vs NP
-Question}\label{the-internal-structure-of-bqp-and-the-p-vs-np-question}}
+Question}\label{the-internal-structure-of-bqp-and-the-p-vs-np-question}
 
 The BQP characterization theorem identifies the \emph{boundary} of
 computational capability for embedded observers. It is silent on the
@@ -848,9 +835,8 @@ conventional inclusion chain
 with BQP positioned somewhere within PSPACE and conjectured to contain
 BPP strictly, is unmodified by the framework's content.
 
-\hypertarget{the-location-of-p-vs-np-within-the-framework}{%
 \subsubsection{5.1 The location of P vs NP within the
-framework}\label{the-location-of-p-vs-np-within-the-framework}}
+framework}\label{the-location-of-p-vs-np-within-the-framework}
 
 The framework's conditional BQP characterization places P inside BQP
 (\(\mathrm{P} \subseteq \mathrm{BPP} \subseteq \mathrm{BQP}\)); the
@@ -865,8 +851,7 @@ contribution is at a different level: it identifies BQP as the
 inclusion relationships among interior classes --- including P vs NP ---
 to standard complexity theory.
 
-\hypertarget{the-neutrality-result}{%
-\subsubsection{5.2 The neutrality result}\label{the-neutrality-result}}
+\subsubsection{5.2 The neutrality result}\label{the-neutrality-result}
 
 The framework's commitments do not entail either P = NP or P ≠ NP. Two
 cases:
@@ -890,9 +875,8 @@ empirical exposure on P vs NP is zero: no observation an embedded
 observer could make would distinguish the two cases at the level of the
 framework's commitments.
 
-\hypertarget{relation-to-gauge-vs-computational-incompleteness}{%
 \subsubsection{5.3 Relation to gauge vs computational
-incompleteness}\label{relation-to-gauge-vs-computational-incompleteness}}
+incompleteness}\label{relation-to-gauge-vs-computational-incompleteness}
 
 The framework's Methodology paper {[}8, §19{]} distinguishes \emph{gauge
 incompleteness} (the question has no answer-bearing content; no
@@ -913,9 +897,8 @@ the framework's empirical claims.'' The framework is uncommitted on P vs
 NP, and a mathematical proof of either answer would leave the
 framework's empirical predictions unchanged.
 
-\hypertarget{the-silence-is-structural-not-stipulative}{%
 \subsubsection{5.4 The silence is structural, not
-stipulative}\label{the-silence-is-structural-not-stipulative}}
+stipulative}\label{the-silence-is-structural-not-stipulative}
 
 The neutrality result of §5.2 can be sharpened. The framework's two
 foundational axioms (tokened differentiation occurs; differentiation
@@ -967,10 +950,9 @@ framework's own complexity content might productively engage with
 complexity theory: in fine-grained / parameterized / resource-bounded
 complexity rather than at the asymptotic P vs NP boundary.
 
-\hypertarget{the-boundary-characterization-pattern-across-the-guxf6del-turing-oi-family}{%
 \subsubsection{5.5 The boundary-characterization pattern across the
 Gödel-Turing-OI
-family}\label{the-boundary-characterization-pattern-across-the-guxf6del-turing-oi-family}}
+family}\label{the-boundary-characterization-pattern-across-the-guxf6del-turing-oi-family}
 
 The framework's silence on P vs NP fits a broader pattern across the
 incompleteness family identified in {[}1, Ch. 12 §12.8{]}: Gödel's
@@ -1042,9 +1024,8 @@ the \emph{boundary} of a domain of access; the \emph{internal
 complexity} of what's accessible is a separate question requiring tools
 internal to the relevant complexity theory.
 
-\hypertarget{position-relative-to-aaronsons-physical-principle-approach}{%
 \subsubsection{5.6 Position relative to Aaronson's physical-principle
-approach}\label{position-relative-to-aaronsons-physical-principle-approach}}
+approach}\label{position-relative-to-aaronsons-physical-principle-approach}
 
 Aaronson {[}4{]} has argued that the physical universe respects the
 principle that NP-complete problems are not solvable in polynomial time
@@ -1077,9 +1058,8 @@ from physical-substrate axioms.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{bridging-axioms-why-none-are-obviously-available}{%
 \subsection{6. Bridging Axioms: Why None Are Obviously
-Available}\label{bridging-axioms-why-none-are-obviously-available}}
+Available}\label{bridging-axioms-why-none-are-obviously-available}
 
 It is natural to ask what additional axiom would close the gap between
 physical-substrate content and asymptotic complexity-class content.
@@ -1122,9 +1102,8 @@ foundations.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{beyond-axioms-conditions-and-framework-relative-refinements}{%
 \subsection{7. Beyond Axioms: Conditions and Framework-Relative
-Refinements}\label{beyond-axioms-conditions-and-framework-relative-refinements}}
+Refinements}\label{beyond-axioms-conditions-and-framework-relative-refinements}
 
 The previous section's negative result --- that physical-substrate
 axioms do not bridge to asymptotic complexity content --- should not be
@@ -1141,9 +1120,8 @@ framework predicts none of them as new theorems; each is offered as a
 structurally motivated conjecture inviting complexity-theoretic
 investigation.
 
-\hypertarget{geometric-structure-on-the-substratum-lattice}{%
 \subsubsection{7.1 Geometric structure on the substratum
-lattice}\label{geometric-structure-on-the-substratum-lattice}}
+lattice}\label{geometric-structure-on-the-substratum-lattice}
 
 NP-complete problems vary in the extent to which their constraint
 structure can be embedded into the substratum's cubic lattice geometry.
@@ -1162,10 +1140,9 @@ with problem geometry. It connects to existing complexity-theoretic work
 on planar variants of NP-complete problems and on local Hamiltonian
 complexity {[}9{]}.
 
-\hypertarget{task-specific-quantum-advantage-hidden-group-structure-and-the-mathrmsu2-compatibility-refinement}{%
 \subsubsection{\texorpdfstring{7.2 Task-specific quantum advantage,
 hidden group structure, and the \(\mathrm{SU}(2)\)-compatibility
-refinement}{7.2 Task-specific quantum advantage, hidden group structure, and the \textbackslash mathrm\{SU\}(2)-compatibility refinement}}\label{task-specific-quantum-advantage-hidden-group-structure-and-the-mathrmsu2-compatibility-refinement}}
+refinement}{7.2 Task-specific quantum advantage, hidden group structure, and the \textbackslash mathrm\{SU\}(2)-compatibility refinement}}\label{task-specific-quantum-advantage-hidden-group-structure-and-the-mathrmsu2-compatibility-refinement}
 
 Existing complexity-theoretic evidence suggests that task-specific
 quantum advantage is strongest for problems with strong global structure
@@ -1285,9 +1262,8 @@ structures it concentrates on, with this contribution rooted in the
 framework's existing QM emergence theorem rather than introduced as new
 content.
 
-\hypertarget{gauge-equivalence-and-complexity-theoretic-reductions}{%
 \subsubsection{7.3 Gauge equivalence and complexity-theoretic
-reductions}\label{gauge-equivalence-and-complexity-theoretic-reductions}}
+reductions}\label{gauge-equivalence-and-complexity-theoretic-reductions}
 
 The framework's substratum gauge group \(\mathcal{G}_{\text{sub}}\)
 partitions the space of bijections into equivalence classes; the gauge
@@ -1307,9 +1283,8 @@ and polynomial-time reducibility is ``no complexity distinction'' at the
 algorithm level. Both are equivalence relations on otherwise distinct
 structures.
 
-\hypertarget{conditions-and-the-right-kind-of-research-question}{%
 \subsubsection{7.4 Conditions and the right kind of research
-question}\label{conditions-and-the-right-kind-of-research-question}}
+question}\label{conditions-and-the-right-kind-of-research-question}
 
 The pattern across the three directions in §7.1--§7.3 is that the
 framework's specific structure suggests \emph{conditional}
@@ -1331,9 +1306,8 @@ them.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{what-the-framework-establishes-and-what-it-does-not}{%
 \subsection{8. What the Framework Establishes and What It Does
-Not}\label{what-the-framework-establishes-and-what-it-does-not}}
+Not}\label{what-the-framework-establishes-and-what-it-does-not}
 
 Summarizing the paper's content:
 
@@ -1398,8 +1372,7 @@ inside that ceiling. The two are complementary rather than competing.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{acknowledgements}{%
-\subsection{Acknowledgements}\label{acknowledgements}}
+\subsection{Acknowledgements}\label{acknowledgements}
 
 The author thanks the broader community of foundational thinkers in
 quantum computing and complexity theory whose work this paper engages
@@ -1407,8 +1380,7 @@ quantum computing and complexity theory whose work this paper engages
 physical principle clarified what the OI framework should and should not
 aspire to claim.
 
-\hypertarget{references}{%
-\subsection{References}\label{references}}
+\subsection{References}\label{references}
 
 {[}1{]} A. Maybaum, \emph{The Incompleteness of Observation}, (2026).
 
@@ -1451,4 +1423,4 @@ dihedral hidden subgroup problem,'' \emph{SIAM J. Comput.} \textbf{35},
 170 (2005); arXiv:quant-ph/0302112.
 
 \end{document}
-% source-sha256: 54fccf3bb2974e3b307853321db02c48313eab52e9b12eebdb0c1549d43df792
+% source-sha256: 6c2dcc2014caa82ea6bad6a9430e8f443074ce39934889e012bf09bcd5c5bbb0
