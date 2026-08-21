@@ -25,7 +25,7 @@ The full file list is in [Contents](#contents).
 
 The framework's empirical weight lies in its **physics core**. Its applications to biology, medicine, consciousness, and computational complexity are **conjectural extensions** — they apply the core framework to new domains, are offered as conjectures to be tested rather than established results, and carry no evidential weight for the core, which stands or falls independently on its physics. Each such chapter and paper now opens with an explicit "Status — conjectural extension" banner stating its test-or-break condition.
 
-**Core (physics — where the framework's weight lies):** Main, SM, Structure, Substratum, GR, Methodology, Juno, and the corresponding physics chapters. (The Explainer, formerly listed here, is superseded by the book and frozen.)
+**Core (physics — where the framework's weight lies):** Main, SM, Structure, Substratum, GR, Methodology, Juno, and the corresponding physics chapters. (The Explainer is superseded by the book and frozen.)
 
 **Conjectural extensions:**
 
@@ -42,7 +42,7 @@ This tiering mirrors the four-layer derivational classification of book §4.7 an
 
 The current research milestone does **not** assume quantum mechanics is fundamental. Let $U$ be the Koopman operator of the finite bijection and $P$ the observer projection. If both commute with the cubic spatial action, then the exact projected Markov part and every memory kernel $BD^mC$ inherit that symmetry. Any translation-invariant scalar kernel therefore has an isotropic quadratic Fourier symbol, $a-b|\mathbf k|^2+O(k^4)$, although cubic anisotropy remains at quartic order. If the observer-level Markov part is moreover nearest-neighbor, constant-preserving and center-free, its unique weights are $1/(2d)$ on the signed neighbors, giving the $A/(2d)$ operator already used by the spectral code. Microscopic center independence alone does **not** imply this observer-level center-free condition; a reversible swap is the exact counterexample.
 
-The physical-carrier frontier is separate: the six signed SC links decompose exactly as $3\oplus2\oplus1$, but the former coupling-degree proof that these must be the complete physical carrier has been withdrawn. **H-link** names the carrier identification $V_{\mathrm{phys}}\cong V_{\mathrm{link}}\otimes\mathbb C^m$; the single-copy clause $m=1$ gives $K=6$. **H-cust** names the custodial kinetic/condensate premise used by the stabilizer route.
+The physical-carrier frontier is separate: the six signed SC links decompose exactly as $3\oplus2\oplus1$, but the former coupling-degree proof that these must be the complete physical carrier is not established. **H-link** names the carrier identification $V_{\mathrm{phys}}\cong V_{\mathrm{link}}\otimes\mathbb C^m$; the single-copy clause $m=1$ gives $K=6$. **H-cust** names the custodial kinetic/condensate premise used by the stabilizer route.
 
 ## Repository layout
 

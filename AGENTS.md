@@ -305,17 +305,17 @@ The equivalent commands, for reference:
 ```sh
 # Papers (no TOC, no section numbering):
 pandoc papers/<NAME>.md -s --pdf-engine=xelatex \
-  --include-in-header=papers/unicode-fix.tex -o papers/<NAME>.tex
+  --include-in-header=tools/unicode-fix.tex -o papers/<NAME>.tex
 pandoc papers/<NAME>.md -s --pdf-engine=xelatex \
-  --include-in-header=papers/unicode-fix.tex -o papers/<NAME>.pdf
+  --include-in-header=tools/unicode-fix.tex -o papers/<NAME>.pdf
 
 # Book (adds a table of contents):
 pandoc book/The-Incompleteness-of-Observation-FULL.md -s --toc --toc-depth=3 \
-  --pdf-engine=xelatex --include-in-header=book/unicode-fix.tex \
+  --pdf-engine=xelatex --include-in-header=tools/unicode-fix.tex \
   -o book/The-Incompleteness-of-Observation-FULL.tex   # and .pdf
 ```
 
-`unicode-fix.tex` (in both `book/` and `papers/`) maps raw-Unicode Greek/math glyphs to Computer-Modern
+`tools/unicode-fix.tex` — one shared copy for papers and book — maps raw-Unicode Greek/math glyphs to Computer-Modern
 equivalents via `newunicodechar`, so xelatex doesn't silently drop them (e.g. a title's `ℏ`, or `φ`) while
 keeping the Computer Modern look. Always pass it with `--include-in-header`. After building, check the
 xelatex log for `Missing character` warnings.
