@@ -1576,15 +1576,40 @@ the symmetry group. Define \(A=PUP\), \(B=PUQ\), \(C=QUP\), and
 identity. Since \(Q=I-P\) commutes with \(R_g\), so do \(A,B,C,D\), and
 hence every product \(BD^mC\). \(\square\)
 
-\textbf{Corollary 1a (cubic symmetry forces a Euclidean quadratic
-symbol).} \emph{Suppose a scalar projected kernel is translation
-invariant with finite second moment and is equivariant under the full
-cubic point group \(O_h\). Then near \(\mathbf k=0\) its Fourier symbol
-has the form}
+\textbf{Attribution.} The exact projected identity above --- a Markov
+term plus memory kernels acting on the projected history, with an
+initial-condition term from the unobserved sector --- is standard
+Mori--Zwanzig/Nakajima--Zwanzig structure and is not claimed as new.
+What is specialized to this framework is the combination: a FINITE
+deterministic bijection in place of a continuous flow, an observer
+projection that is equivariant for the substratum's point group, cubic
+invariant theory applied to the resulting kernels, and the operationally
+finite reading of what the observer can resolve. The conclusion those
+support is that neither fundamental quantum structure nor a microscopic
+Riemannian metric is needed for quadratic observer-level isotropy.
+Absent a novelty search establishing more, Theorem 1a should be read as
+an exact projection result specialized to this setting rather than as a
+new projection theorem.
+
+\textbf{Corollary 1a (cubic symmetry FORBIDS quadratic anisotropy).}
+\emph{Suppose a scalar projected kernel is translation invariant with
+finite second moment and is equivariant under the full cubic point group
+\(O_h\). Then near \(\mathbf k=0\) its Fourier symbol has the form}
 
 \[\widehat K_m(\mathbf k)=a_m-b_m|\mathbf k|_2^2+O(|\mathbf k|^4).\]
 
 \emph{The \(O(|\mathbf k|^4)\) term need not be rotationally invariant.}
+
+\textbf{Precision (what this does and does not give).} The content is
+NEGATIVE: equivariant finite observation FORBIDS quadratic spatial
+anisotropy. It does not by itself produce a Euclidean metric, because
+the corollary does not fix the sign or nonvanishing of \(b_m\). If
+\(b_m=0\) the quadratic term is absent and the kernel defines no metric
+at that order at all; a nondegeneracy condition \(b_m\neq0\) (with the
+sign fixed by stability) is an ADDITIONAL requirement, not a consequence
+of \(O_h\) equivariance. The theorem's honest form is therefore:
+whatever quadratic spatial structure survives projection is isotropic
+--- not that quadratic structure survives.
 
 \emph{Proof.} Inversion in \(O_h\) removes odd powers. Permutations and
 sign changes of the coordinate axes force the quadratic tensor to be
@@ -2349,8 +2374,8 @@ doublet via the singlet taste, consistent with the SM.
 \paragraph{4.7.1 The fermion embedding question: diagnosis and
 closure}\label{the-fermion-embedding-question-diagnosis-and-closure}}
 
-The framework as written derives the gauge group
-\(SU(3) \times SU(2) \times U(1)\) from the commutant construction
+The framework as written derives, conditionally on H-link, the gauge
+group \(SU(3) \times SU(2) \times U(1)\) from the commutant construction
 (Theorems 5, 7, 14) and uses anomaly cancellation (Theorem 15) as a
 uniqueness check on the SM matter assignment, given a chiral \(SU(2)\)
 structure. The matter representations and hypercharge assignments are
@@ -8414,4 +8439,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: a0f5e698f6e39e678a1896a7b0c36f9bfdb361185dd8a97eaf2bd0d92aed6656
+% source-sha256: bd077334ec0fa15e4afcb1a43727e97e43d1429866bd8b14709b796c709c2d98
