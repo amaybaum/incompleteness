@@ -1,8 +1,6 @@
 # Appendix B
 # Mathematical Derivations
 
-> **Scope ($K = 2d$).** Coupling-degree minimization does not establish $K=2d=6$: diagonalizing the internal matrix decouples eigenvectors but does not assign an eigenvector to a single signed spatial neighbour, since every component receives the whole neighbour sum. What holds exactly is the six geometric simple-cubic links carry the $O_h$ decomposition $V_{\rm link}=T_1\oplus E\oplus A_1=3\oplus2\oplus1$. Conditional is the further claim that those geometric links are the physical gauge carrier — hypothesis H-link, $V_{\rm physical}\cong V_{\rm link}^{\oplus m}$ giving $K=2dm$, with single-copy $m=1$ a premise to be derived rather than a result. See [SM §4.5].
-
 ---
 
 ## B.1 What this appendix develops
