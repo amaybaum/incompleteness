@@ -147,7 +147,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\usepackage{bookmark}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -159,9 +159,43 @@
 
 \begin{document}
 
+\hypertarget{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}{%
 \section{The Substratum Construction: Reconstruction, the Substratum
 Gauge Group, and the QM-GR
-Synthesis}\label{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}
+Synthesis}\label{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}}
+
+\begin{quote}
+\textbf{Scope (K = 2d).} The coupling-degree-minimization proof of
+\(K=2d=6\) is WITHDRAWN: diagonalizing the internal matrix decouples
+eigenvectors but does not assign an eigenvector to a single signed
+spatial neighbour --- every component still receives the whole neighbour
+sum. What survives is exact and is retained throughout: the six
+geometric simple-cubic links carry the \(O_h\) decomposition
+\(V_{\rm link}=T_1\oplus E\oplus A_1=3\oplus2\oplus1\). What becomes
+CONDITIONAL is that those geometric links are the physical gauge carrier
+--- hypothesis H-link, \(V_{\rm physical}\cong V_{\rm link}^{\oplus m}\)
+giving \(K=2dm\), with single-copy \(m=1\) a premise to be derived
+rather than a result. See {[}SM §4.5{]}.
+\end{quote}
+
+\textbf{Scope update --- observer geometry and physical carrier.} SM
+§4.1 now separates two claims that earlier shorthand sometimes
+conflated. First, finite equivariant projection is classical and exact:
+cubic symmetry is inherited by the projected Markov part and every
+memory kernel, forcing an Euclidean \textbf{quadratic} scalar symbol
+while allowing cubic anisotropy at \(O(k^4)\). The particular normalized
+nearest-neighbor operator \(A/(2d)\) additionally requires an
+\textbf{observer-level} center-free kernel; microscopic center
+independence alone does not imply that after correlated hidden variables
+are marginalized. Second, the six signed simple-cubic links and their
+exact \(3\oplus2\oplus1\) representation are unconditional geometry, but
+identifying that link space with the complete physical carrier is
+\textbf{H-link}; the single-copy clause gives \(K=6\), and the custodial
+condensate-stabilizer reading is \textbf{H-cust}. Accordingly, any
+downstream statement here that consumes \(K=6\), \(N_f=6\), the physical
+SM gauge carrier, or a fixed three-sector count inherits those named
+bridge conditions unless it is explicitly referring only to the six
+geometric links.
 
 \textbf{Author:} Alex Maybaum\\
 \textbf{Date:} April 2026\\
@@ -170,7 +204,8 @@ Synthesis}\label{the-substratum-construction-reconstruction-the-substratum-gauge
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{Abstract}\label{abstract}
+\hypertarget{abstract}{%
+\subsection{Abstract}\label{abstract}}
 
 Quantum mechanics and general relativity are conventionally treated as
 two fundamental theories awaiting unification. This paper develops the
@@ -193,20 +228,23 @@ Standard-Model structure developed in {[}SM{]}.
 The two substratum-level results that make these emergences one
 construction rather than independent applications are the reconstruction
 theorem (Theorem 23) and the substratum gauge group (Theorem 24).
-Theorem 23 reconstructs the lattice-level equivalence class
-\([(S,\varphi)]/\mathcal G_{\rm sub}\) from its stated empirical inputs
-and structural assumptions, conditional on the named modeling and
-completeness premises; Theorem 24 identifies the observables-preserving
-kernel, conditional on Lemma 24.1's semigroup-transfer completeness
-step. The synthesis claim is therefore structural rather than
-rhetorical: the same finite deterministic object supports the visible
-stochastic/quantum projection, the boundary-thermodynamic gravitational
-projection, and the lattice gauge projection. The traditional QM--GR
-``unification problem'' is correspondingly recast as a category error
-between two projections of one object, while the theorem statuses and
-remaining conditional steps are kept explicit.
+Theorem 23 reconstructs the \textbf{local propagating lattice/gauge
+residue} from its stated empirical inputs and structural assumptions,
+conditional on the named modeling and completeness premises;
+Bell-inclusive existence additionally requires H-Bell and Bell-inclusive
+uniqueness is not established. Theorem 24 identifies the
+observables-preserving kernel of the dilation-datum/local
+reconstruction, conditional on Lemma 24.1's semigroup-transfer
+completeness step. The synthesis claim is therefore structural rather
+than rhetorical: the same finite deterministic object supports the
+visible stochastic/quantum projection, the boundary-thermodynamic
+gravitational projection, and the lattice gauge projection. The
+traditional QM--GR ``unification problem'' is correspondingly recast as
+a category error between two projections of one object, while the
+theorem statuses and remaining conditional steps are kept explicit.
 
-\subsection{1. Introduction}\label{introduction}
+\hypertarget{introduction}{%
+\subsection{1. Introduction}\label{introduction}}
 
 The standard physical picture of the world contains two fundamental
 theories. Quantum mechanics describes the microscopic regime in terms of
@@ -247,10 +285,13 @@ coincide. The representation itself is universal; the memory-bearing OI
 sector is singled out instead by history readback, which forces hidden
 predictive memory and global indivisibility on a fixed finite recurrent
 representative. For spatial systems the same construction supplies graph
-causal cones. What remains conditional is only the strongest operational
-reading --- one common standard local quantum instrument/composite
-theory for the whole coherent intervention family, together with
-operational setting screening in Bell experiments. The projection from
+causal cones for finite-range couplings. What remains conditional on the
+quantum side is the strongest operational reading --- one common
+standard quantum instrument/composite theory for the whole coherent
+intervention family. Bell is separate: the response-complete
+deterministic layer keeps measurement independence and reproduces
+quantum Bell violation only on the ontically parameter-dependent branch
+of {[}Main §3.3{]}, with operational no-signaling. The projection from
 the same underlying object to general relativity is the thermodynamic
 limit at the partition boundary, formalized in {[}GR{]} as the
 cosmological-horizon application: applied to the cosmological horizon as
@@ -275,28 +316,24 @@ single construction rather than three separate applications of the same
 formalism. The two technical results that do this work are the
 \emph{reconstruction theorem} (§3) and the \emph{substratum gauge group}
 (§4). The reconstruction theorem shows --- under its stated conditions
-(the M1 modeling premise; C2-mixing; Lemma 24.1's completeness step) ---
-that the map from \((S, \varphi)\) to observed physics is invertible
-within the framework's structural class: observed quantum mechanics with
-Bell violations, together with finite boundary entropy and spatial
-isotropy and the structural assumptions of the framework (finiteness,
-determinism, bounded coupling, center independence, linearity,
-background independence), uniquely determine --- under the theorem's
-stated conditions (M1; C2-mixing; Lemma 24.1's completeness) --- the
-equivalence class of bijections on a lattice, with the Standard Model
-structure as a forced retrodiction. The substratum gauge group
-identifies the kernel of this inverse map --- four families of
-transformations of \((S, \varphi)\) that exhaust --- conditional on
-Lemma 24.1's completeness step --- all observables-preserving operations
-of the dilation-datum substratum (§4) --- and shows that the Standard
-Model gauge group is its shadow under the trace-out. The combination of
-these two results turns the framework's three derivations into a single
-object: the SM gauge group is not chosen from a landscape, the
-gravitational thermodynamics are not appended to a quantum description,
-and the emergent QM is not postulated as a starting point. All three
-emerge from the same \((S, \varphi)\), and the substratum gauge group is
-the symmetry that makes the relationship between them exact rather than
-approximate.
+(M1-T; C2-mixing; Lemma 24.1's completeness step, together with the
+Stage-2 structural inputs) --- that observed physics fixes the
+\textbf{local propagating lattice/gauge residue} up to the stated gauge
+freedoms. Bell violation enters separately through M1-B: a common
+measurement-independent deterministic completion exists only conditional
+on H-Bell, and no theorem here makes the Bell-inclusive completion
+unique. The substratum gauge group identifies the kernel of this inverse
+map --- four families of transformations of \((S, \varphi)\) that
+exhaust --- conditional on Lemma 24.1's completeness step --- all
+observables-preserving operations of the dilation-datum substratum (§4)
+--- and shows that the Standard Model gauge group is its shadow under
+the trace-out. The combination of these two results turns the
+framework's three derivations into a single object: the SM gauge group
+is not chosen from a landscape, the gravitational thermodynamics are not
+appended to a quantum description, and the emergent QM is not postulated
+as a starting point. All three emerge from the same \((S, \varphi)\),
+and the substratum gauge group is the symmetry that makes the
+relationship between them exact rather than approximate.
 
 The synthesis claim that follows from these results --- developed in §5
 --- is that quantum mechanics and general relativity are not two
@@ -346,26 +383,22 @@ The paper is short by design: the technical content fits in two sections
 (§§3--4) and the rest is the structural and interpretive context that
 shows why those two sections matter.
 
+\hypertarget{the-metaphysical-commitment}{%
 \subsubsection{1.1 The metaphysical
-commitment}\label{the-metaphysical-commitment}
+commitment}\label{the-metaphysical-commitment}}
 
 The framework's primary metaphysical claim is \emph{ontic structural
-realism applied to the equivalence class}
-\([(S, \varphi)] / \mathcal{G}_{\text{sub}}\). What is real at this
-level is the equivalence class, not any specific substratum
-representative. This is the strongest claim the framework's own theorems
-license at the substratum-class level, and it is forced by them: the
-reconstruction theorem (§3) shows --- under its stated conditions (M1;
-C2-mixing; Lemma 24.1's completeness) --- that the equivalence class is
-uniquely determined by the observations together with the structural
-assumptions, and the substratum gauge group (§4) shows that different
-representatives of the class are observably indistinguishable. The class
-is what the data pin down within OI's structural class; individual
-substrates are gauge representations of it. A stronger claim --- realism
-about a specific bijection --- commits to features the framework's own
-gauge group identifies as unobservable. A weaker claim --- pure
-explanatory economy without ontic commitment --- undersells what the
-uniqueness theorem actually establishes.
+realism applied to the reconstructed local-sector equivalence class}.
+What is real at this level is the gauge-invariant local lattice/gauge
+structure fixed by Theorem 23, not any specific substratum
+representative. The substratum gauge group (§4) identifies
+representative freedoms that are observably irrelevant. H-Bell is a
+separate compatibility condition for embedding the Bell-violating
+composite structure into the same deterministic ontology; neither
+Theorem 23 nor Lemma 24.1 proves that the Bell-inclusive completion is
+unique. A stronger claim --- realism about a particular full
+Bell-complete bijection --- therefore outruns the reconstruction
+theorem.
 
 Stated at its most distilled, the framework's foundational commitment
 --- what {[}Main §1.2{]} gives as ``observation occurs'' --- is itself
@@ -431,8 +464,9 @@ develops the structural and explanatory consequences; {[}SM{]} and
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-physical-interpretation-of-s-ux3c6}{%
 \subsection{2. The Physical Interpretation of (S,
-φ)}\label{the-physical-interpretation-of-s-ux3c6}
+φ)}\label{the-physical-interpretation-of-s-ux3c6}}
 
 \textbf{Storage and memory.} S is the set of all distinguishable states:
 \emph{finite capacity}. φ is a bijection: \emph{perfect memory} ---
@@ -459,25 +493,25 @@ effect of the unreadable storage. The Bekenstein-Hawking entropy is the
 storage capacity of the partition boundary. The action scale ℏ is the
 conversion factor between storage geometry and read-write statistics.
 
-\textbf{Remark (the domain of the substratum dynamics).} The wave
+\textbf{Remark (the domain of the local lattice dynamics).} The wave
 equation of {[}SM §4.1{]} --- the unique second-order reversible
 nearest-neighbor dynamics compatible with center independence, isotropy,
-and linearity --- is defined on the full substratum \((S, \varphi)\),
-not on the visible sector alone. Both visible and hidden sectors run the
-same wave equation; the partition \(V\) imposes an observer-access
-structure on this common dynamics but does not change it. This
-convention makes three pieces of the framework consistent: (i) the
-trace-out of {[}Main{]} proceeds by marginalizing over the hidden
-sector's substratum degrees of freedom, which requires those degrees of
-freedom to have a well-defined dynamics; (ii) the nested trace-out of
-{[}GR §8.4{]} extends the construction to a deep hidden sector by
-running the same wave equation at all levels; (iii) the link-carrier
-construction of {[}SM §4.7.1.2{]} places matter on links that span
-visible and hidden sublattices --- which makes sense only because both
-sublattices are governed by the same dynamics. The full-substratum wave
-equation is therefore the common dynamical input to all three companion
-papers, with each applying a different projection map to extract
-observer-level physics.
+and linearity --- governs the full \textbf{local lattice sector} used by
+the SM/GR construction, not the visible degrees of freedom alone.
+Visible and hidden lattice degrees of freedom in that sector run the
+same wave equation; the partition \(V\) imposes observer access without
+changing the local update. This is enough for (i) the trace-out of
+{[}Main{]} over lattice-hidden degrees of freedom, (ii) the nested local
+trace-out of {[}GR §8.4{]}, and (iii) the link-carrier construction of
+{[}SM §4.7.1.2{]}. It is not enough for the Bell-violating deterministic
+completion under measurement independence: a nearest-neighbor update
+with maximum speed \(c\), together with local spacelike-separated
+interventions and readouts, falls under {[}Main §3.3{]}'s Bell ceiling
+and gives \(|S_{\rm CHSH}|\le2\). The one-object synthesis therefore
+additionally requires H-Bell (§3.3): the state-dependent graph must
+realize Bell-relevant preparation-indexed parameter dependence with
+operational no-signaling while preserving the metric/Ollivier--Ricci
+continuum limit required by the GR projection.
 
 \textbf{The substrate objection.} ``What is the memory made of?'' (S, φ)
 is a \emph{complete description} of reality --- it determines all
@@ -576,24 +610,28 @@ semisimple part of the dynamics and erases the nilpotent monodromy.
 Physics is the semisimple shadow of mathematics --- the diagonalizable
 spectral data, projected by the trace-out and organized by the gauge
 group's representation structure. The reconstruction theorem (below)
-proves --- under its stated conditions --- that the mathematical
-description and the physics determine each other uniquely up to gauge.
+proves --- under its stated conditions --- that the \textbf{local
+lattice/gauge residue} is determined up to gauge. It does not prove
+uniqueness of the Bell-inclusive full substratum.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-reconstruction-theorem}{%
 \subsection{3. The Reconstruction
-Theorem}\label{the-reconstruction-theorem}
+Theorem}\label{the-reconstruction-theorem}}
 
 The forward direction --- from \((S, \varphi)\) to observed physics ---
 is established by {[}SM §§3.1, 4--5{]} and the companion paper
-{[}Main{]}. The converse question is whether the observed physics
-uniquely determines \((S, \varphi)\). The reconstruction proceeds in
-three stages, each taking specified inputs and producing specified
-outputs with an explicit uniqueness claim. The composite theorem
-(Theorem 23) then aggregates the stages.
+{[}Main{]}. The converse question is which parts of \((S, \varphi)\) the
+observed physics fixes. The reconstruction proceeds in three stages. The
+composite theorem (Theorem 23) aggregates the stages and separates the
+uniquely reconstructed local lattice/gauge residue from the
+Bell-inclusive completion, whose existence is conditional on H-Bell and
+whose uniqueness is open.
 
+\hypertarget{inputs-to-the-reconstruction}{%
 \subsubsection{3.1 Inputs to the
-reconstruction}\label{inputs-to-the-reconstruction}
+reconstruction}\label{inputs-to-the-reconstruction}}
 
 The reconstruction takes two kinds of inputs: empirical observations and
 structural assumptions. Being explicit about both is essential to the
@@ -730,10 +768,15 @@ following prior theorems, whose individual correctness is assumed:
 \begin{itemize}
 \tightlist
 \item
-  {[}Main §2.3{]} P-indivisibility of the marginalized stochastic
-  process (Bell violations entering through the P-indivisible
-  joint-dynamics route --- a modeling premise, not a generic
-  implication)
+  {[}Main §2.3{]} history readback / accessible temporal
+  P-indivisibility for the \textbf{memory-bearing temporal} sector used
+  in Stage 1 (a modeling premise about the temporal data, not an
+  inference from Bell violation)
+\item
+  {[}Main §3.3{]} Bell ceiling and the adopted measurement-independent,
+  ontically parameter-dependent Bell branch (a separate
+  spatial-composite premise; Bell violation is not used as a witness of
+  temporal P-indivisibility)
 \item
   {[}Main §3.2{]} Forward Stinespring dilation (bijection → CPTP
   channel) and reverse-direction lemma (stochastic process → bijection)
@@ -759,13 +802,19 @@ following prior theorems, whose individual correctness is assumed:
 Theorem 23's confidence is bounded above by the minimum confidence in
 these dependencies.
 
+\hypertarget{stage-1-observed-qm-deterministic-embedding-with-c1c4}{%
 \subsubsection{3.2 Stage 1: Observed QM → deterministic embedding with
-C1--C4}\label{stage-1-observed-qm-deterministic-embedding-with-c1c4}
+C1--C4}\label{stage-1-observed-qm-deterministic-embedding-with-c1c4}}
 
 \textbf{Inputs:} E1 (unitary QM), E2 (Bell violations), E3 (finite
-boundary entropy), A1 (finiteness), A2 (determinism), M1 (modeling
-premise: the observed Bell data enter through the framework's
-P-indivisible joint-dynamics route, {[}Main §2.3{]}).
+boundary entropy), A1 (finiteness), A2 (determinism), and M1, now
+explicitly two-clause: \textbf{M1-T}, the observed temporal quantum data
+used in Stage 1 lie in the accessible history-readback/P-indivisible
+sector of {[}Main §2.3--§3.4{]}; and \textbf{M1-B}, Bell-violating
+composites take {[}Main §3.3{]}'s measurement-independent, ontically
+parameter-dependent branch with operational no-signaling. M1-T and M1-B
+are logically distinct; Bell violation is not taken to imply temporal
+P-indivisibility.
 
 \textbf{Output:} There exists a triple \((S, \varphi, V)\) with \(S\)
 finite, \(\varphi\) a bijection on \(S\), and \(V \subset S\) a
@@ -774,29 +823,67 @@ reduced description obtained by tracing out \(S \setminus V\) from the
 deterministic evolution under \(\varphi\). - The triple satisfies C1
 (non-trivial coupling), C2 (record persistence --- the slow bath one
 realization), C3 (sufficient hidden memory capacity), and C4 (history
-readback): the adopted P-indivisible temporal structure is
-non-Markovian, and {[}Main §3.4{]}'s universal hidden-memory theorem ---
-accessible non-Markovianity ⟺ C1/C3/C4 realization per horizon, with
-\(M_t > 0\) forcing unavoidable hidden predictive memory --- makes
-readback-relevant hidden memory unavoidable in every faithful
-deterministic realization.
+readback) for the M1-T temporal sector: {[}Main §3.4{]}'s universal
+hidden-memory theorem --- accessible non-Markovianity ⟺ C1/C3/C4
+realization per horizon, with \(M_t > 0\) forcing unavoidable hidden
+predictive memory --- makes readback-relevant hidden memory unavoidable
+in every faithful deterministic realization. M1-B separately requires
+Bell-relevant cross-wing coupling/parameter dependence and does not
+supply C4.
 
-\textbf{Conditional structure.} C1, C3, and C4 are derived from E1--E3,
-A1--A2 together with M1 --- C4 via the hidden-memory theorem applied to
-M1's P-indivisible temporal structure; conditional on M1, they hold
-without further hypothesis. C2 is conditional on the quantitative mixing
-hypothesis of {[}Main §3.4{]} --- uniform total-variation closeness of
-the hidden sector's post-relaxation conditionals to a single bath
-distribution, under which the divisibility deficit obeys an explicit
-bound \((k-1)\varepsilon\); without it, the necessity direction
-(P-indivisibility on accessible timescales forces \(\tau_S \ll \tau_B\))
-cannot be established. ETH is the physical case for the hypothesis, as
-discussed in {[}Main §3.4{]}'s ``Remark (Status of ETH).'' ETH is a
-well-supported conjecture for generic chaotic many-body Hamiltonians and
-is the standard assumption for the cosmological-horizon complement;
-relaxations or failures of ETH would require a separate argument. The
-framework's gauge-group derivation through Stage 2 inherits this
-conditional.
+\textbf{Conditional structure.} C1, C3, and C4 for the memory-bearing
+temporal sector are derived from E1--E3, A1--A2 together with
+\textbf{M1-T} --- C4 via the hidden-memory theorem applied to the
+stipulated accessible temporal memory/P-indivisibility; conditional on
+M1-T, they hold without further hypothesis. \textbf{M1-B} is separate:
+it maps E2 to the ontically parameter-dependent Bell composite and
+supplies an independent cross-wing-coupling requirement, not C4. C2 is
+conditional on the quantitative mixing hypothesis of {[}Main §3.4{]} ---
+uniform total-variation closeness of the hidden sector's post-relaxation
+conditionals to a single bath distribution, under which the divisibility
+deficit obeys an explicit bound \((k-1)\varepsilon\); without it, the
+necessity direction (P-indivisibility on accessible timescales forces
+\(\tau_S \ll \tau_B\)) cannot be established. ETH is the physical case
+for the hypothesis, as discussed in {[}Main §3.4{]}'s ``Remark (Status
+of ETH).'' ETH is a well-supported conjecture for generic chaotic
+many-body Hamiltonians and is the standard assumption for the
+cosmological-horizon complement; relaxations or failures of ETH would
+require a separate argument. The framework's gauge-group derivation
+through Stage 2 inherits this conditional.
+
+\textbf{Bell--gravity compatibility hypothesis (H-Bell).} The Stage-2
+reference nearest-neighbor wave-equation graph has a pointwise causal
+cone with maximum propagation speed \(c\). Under measurement
+independence, local setting interventions and spacelike-separated
+readouts, {[}Main §3.3{]} therefore makes that \textbf{reference graph}
+Bell-local and caps CHSH at \(2\). The framework nevertheless already
+makes the graph state-dependent: the Einstein theorem of {[}SM §3.1{]}
+is formulated on \(G(x)\), and its mod-\(q\) spatial-Markov proof
+explicitly assumes uniform initial conditions. M1-B may therefore be
+implemented by \textbf{preparation-indexed adjacency}: the
+vacuum/uniform reference class retains the geometric bounded-range graph
+used by the local SM/GR derivation, while an entangling preparation
+supplies bounded-degree Bell-relevant long edges (or an equivalent
+ontically nonlocal response map) furnishing parameter dependence without
+operational signaling.
+
+H-Bell is the remaining compatibility statement for that branch: the
+preparation-indexed graphs must (i) supply the required ontic parameter
+dependence, (ii) preserve operational no-signaling, and (iii) satisfy a
+metric/Ollivier--Ricci stability condition strong enough that the
+continuum-curvature step of {[}SM §3.1{]} remains valid on the state
+classes to which the Einstein reconstruction is applied. The
+graph-boundary area law is not the primary unresolved issue:
+\(|\partial V|\) is defined on \(G(x)\) and therefore counts
+preparation-induced crossing edges. The open step is the identification
+of that graph boundary/curvature with continuum geometric area/Ricci
+curvature. {[}SM §3.1{]}'s sparse local-contamination estimate,
+\(L_Nm_N/N\to0\), is a sufficient condition for typical mesoscopic
+neighborhoods to remain reference-like, but it does not prove global
+curvature convergence, control defect endpoints, or establish the
+integrated-curvature limit. H-Bell is therefore an explicit
+curvature-stability/composite-existence hypothesis, not a consequence of
+A1--A6 or of the nearest-neighbor wave equation.
 
 Two points limit the exposure this conditional creates. First, the
 relevant question is not whether ETH holds universally --- it is known
@@ -837,58 +924,65 @@ configuration space. By {[}Main{]}'s exact finite-horizon equivalence,
 this law has a finite reversible deterministic realization and an exact
 fixed-basis unitary/Born representation. The representation step is
 universal and therefore does not itself reconstruct the nontrivial OI
-sector. The additional empirical input is the observed memory/Bell
-structure, interpreted within the framework through the modeling premise
-M1: the relevant joint law belongs to the history-readback/indivisible
-sector. {[}Main §2.3{]} proves that genuine C4 readback on a fixed
-finite representative forces global indivisibility, while {[}Main
-§3.3{]} separates graph-causal propagation from the still-explicit
-operational setting-screening premise used for Bell locality. By the
-reverse-direction lemma at the stochastic-process level ({[}Main
-§3.2{]}) --- applicable here because the one-step matrices, as
-ancilla-uniform marginals of unistochastic matrices, are doubly
-stochastic --- any such P-indivisible process on a finite configuration
-space admits a realization as marginalization of a deterministic
-bijection \(\varphi\) on an enlarged finite space
+sector. The additional modeling premise M1 now separates two empirical
+structures that earlier wording conflated. \textbf{M1-T} places the
+temporal data used for Stage 1 in the accessible history-readback
+sector; {[}Main §2.3{]} then proves that genuine C4 readback on a fixed
+finite representative forces global indivisibility. \textbf{M1-B} places
+the Bell data on {[}Main §3.3{]}'s measurement-independent, ontically
+parameter-dependent branch; Bell violation therefore certifies
+Bell-relevant cross-wing coupling but is not used to infer temporal
+P-indivisibility. By the reverse-direction lemma at the
+stochastic-process level ({[}Main §3.2{]}) --- applicable here because
+the one-step matrices, as ancilla-uniform marginals of unistochastic
+matrices, are doubly stochastic --- any such P-indivisible process on a
+finite configuration space admits a realization as marginalization of a
+deterministic bijection \(\varphi\) on an enlarged finite space
 \(\mathcal{C}_V \times \mathcal{C}_H\) with uniform prior on
 \(\mathcal{C}_H\). This delivers the triple \((S, \varphi, V)\) with
 \(S = \mathcal{C}_V \times \mathcal{C}_H\) and \(V = \mathcal{C}_V\).
-Non-permutation \(T(t)\) (forced, under M1's route, by the Bell data)
-gives C1. The characterization theorem {[}Main §3.4{]} establishes that
-the resulting dynamics, conditional on the hidden-sector mixing
-hypothesis ({[}Main §3.4{]}; ETH is its physical motivation),
-necessarily satisfies C2 (record persistence is required for the
-non-Markovian returns that produce quantum interference) and C3
-(sufficient hidden-sector capacity is required for the data-processing
-bound to accommodate observed information backflow).
+Non-permutation \(T(t)\) in the M1-T temporal sector gives the
+corresponding C1 witness; independently, M1-B's ontic parameter
+dependence requires Bell-relevant cross-wing coupling. The
+characterization theorem {[}Main §3.4{]} establishes that the resulting
+dynamics, conditional on the hidden-sector mixing hypothesis ({[}Main
+§3.4{]}; ETH is its physical motivation), necessarily satisfies C2
+(record persistence is required for the non-Markovian returns that
+produce quantum interference) and C3 (sufficient hidden-sector capacity
+is required for the data-processing bound to accommodate observed
+information backflow).
 
-\textbf{Uniqueness at Stage 1.} The triple \((S, \varphi, V)\) is
-uniquely determined by the observations up to the equivalences: -
-Stinespring ambiguity: different dilations producing the same channel
-differ by unitary rotations on the hidden sector, which are absorbed
-into \(\mathcal{G}_{\text{sub}}\) (Theorem 24). - Hidden-sector basis
-choice: relabeling of hidden states is gauge (generator (i) of
-\(\mathcal{G}_{\text{sub}}\)). - Deep-sector enlargement: additional
-hidden degrees of freedom with \(\tau_B^D \gg \tau_S\) leave
-observations unchanged (generator (iii) of
-\(\mathcal{G}_{\text{sub}}\)).
+\textbf{Stage-1 gauge statement.} For the \textbf{finite
+channel/dilation datum actually used by the temporal reconstruction},
+the familiar dilation freedoms are absorbed into the stated
+substratum-gauge directions: hidden-sector basis/relabeling freedom and
+observationally inert deep-sector enlargement. This is not uniqueness of
+the full triple \((S,\varphi,V)\) across all coherent composites. In
+particular, it does not select a preparation-indexed Bell adjacency
+rule, and the operational lift still requires its separately stated
+finite-predictive-dimension, local-tomography and purification
+hypotheses.
 
-\textbf{Status:} Theorem.
+\textbf{Status:} Theorem for the scoped finite dilation datum; no
+Bell-inclusive Stage-1 uniqueness claim.
 
+\hypertarget{stage-2-embedding-isotropy-specific-lattice-gauge-structure}{%
 \subsubsection{3.3 Stage 2: Embedding + isotropy → specific lattice +
 gauge
-structure}\label{stage-2-embedding-isotropy-specific-lattice-gauge-structure}
+structure}\label{stage-2-embedding-isotropy-specific-lattice-gauge-structure}}
 
 \textbf{Inputs:} Stage 1 output + E4 (spatial isotropy) + E5
 (propagating gravity) + E6 (stable matter) + E7 (boundary-entropy
 concordance) + A3 (bounded coupling) + A4 (center independence) + A5
 (linearity) + A6 (background independence) + max-lattice-speed condition
 (for the wave-equation coupling constant; see step (b) below).
+Identification of this local lattice output with the Bell-violating
+Stage-1 completion additionally assumes H-Bell.
 
-\textbf{Output:} The substratum is a \(d = 3\) cubic lattice bijection
-with: - \(K = 2d = 6\) internal components per site - Coupling matrix
-eigenvalue multiplicities \((3, 2, 1)\) - Gauge group
-\(\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)\) - Three
+\textbf{Output:} The local propagating substratum sector is a \(d = 3\)
+cubic lattice bijection with: - \(K = 2d = 6\) internal components per
+site - Coupling matrix eigenvalue multiplicities \((3, 2, 1)\) - Gauge
+group \(\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)\) - Three
 generations of chiral fermions in the SM representations - One Higgs
 doublet \((\mathbf{1}, \mathbf{2}, +1/2)\) - Anomaly-free hypercharges
 \((Y_Q, Y_u, Y_d, Y_L, Y_e) = (1/6, 2/3, -1/3, -1/2, -1)\)
@@ -932,11 +1026,12 @@ doublet \((\mathbf{1}, \mathbf{2}, +1/2)\) - Anomaly-free hypercharges
   relativistic causality with maximum signal speed \(c\) realized at the
   lattice cutoff.
 \item
-  \emph{Internal components.} Coupling-degree minimization applied to
-  the wave equation gives \(K = 2d = 6\) uniquely (Theorem 6). This
-  locks the candidate-sector count at three --- three physical
-  generations only under H-spin' ({[}SM §4.7{]}) --- (three spin-1/2
-  staggered tastes emerge from the \(K = 6\) minimum).
+  \emph{Internal components.} Under H-link the link count gives
+  \(K = 2dm\), with \(m=1\) giving \(K = 6\); the earlier
+  coupling-degree-minimization proof is withdrawn (see 6). This locks
+  the candidate-sector count at three --- three physical generations
+  only under H-spin' ({[}SM §4.7{]}) --- (three spin-1/2 staggered
+  tastes emerge from the \(K = 6\) minimum).
 \item
   \emph{Gauge group.} Cubic-group decomposition of the \(K = 6\)
   components gives multiplicities \((3, 2, 1)\) (Theorem 7). The unitary
@@ -984,10 +1079,30 @@ choice given the inputs. The full chain is therefore a composition of
 unique selections, so the output is unique up to
 \(\mathcal{G}_{\text{sub}}\).
 
-\textbf{Status:} Theorem at the lattice level.
+\textbf{Bell compatibility.} Step (b)'s nearest-neighbor
+\textbf{reference} cone cannot itself realize M1-B in a spacelike Bell
+protocol while retaining measurement independence. Stage 2 therefore
+establishes the local lattice/gauge sector on the geometric reference
+class. The state-dependent \(G(x)\) machinery leaves a native route for
+M1-B through preparation-indexed adjacency, but the Ollivier--Ricci
+continuum theorem presently cited by {[}SM{]} does not cover those
+long-edge perturbations. Nor does it cover the unperturbed reference
+graph, and there the situation is worse than open: the degree-\(6\)
+cubic hop metric is exactly \(\ell_1\), with a scale-independent
+\(\sqrt2\) diagonal stretch, so the hop-metric curvature route fails for
+the reference family and no \(D=3\) extension of the cited theorem would
+rescue it. The repair is to re-found curvature on the
+propagation/Laplacian geometry, which the substratum's isotropic leading
+dispersion already supplies {[}SM §3.2{]}. Promoting the local sector
+and M1-B to one common \((S,\varphi)\) is therefore conditional on
+H-Bell's curvature-stability requirement.
 
+\textbf{Status:} Theorem for the local lattice sector; one-object Bell
+compatibility conditional on H-Bell.
+
+\hypertarget{stage-3-dynamics-emergent-fundamental-constants}{%
 \subsubsection{3.4 Stage 3: Dynamics → emergent fundamental
-constants}\label{stage-3-dynamics-emergent-fundamental-constants}
+constants}\label{stage-3-dynamics-emergent-fundamental-constants}}
 
 \textbf{Inputs:} Stage 2 output.
 
@@ -1008,84 +1123,65 @@ solution under the stated inputs ({[}GR §3, Theorem{]}).
 
 \textbf{Status:} Theorem.
 
-\subsubsection{3.5 The composite theorem}\label{the-composite-theorem}
+\hypertarget{the-composite-theorem}{%
+\subsubsection{3.5 The composite theorem}\label{the-composite-theorem}}
 
-\textbf{Lemma 23.0} (Uniqueness preservation). \emph{Let
-\((S_1, \varphi_1)\) and \((S_2, \varphi_2)\) both be reconstructions of
-the same observed physics (E1--E7) satisfying the structural assumptions
-(A1--A6), with the Stage-1 modeling premise M1 and, for the C2 necessity
-direction, the hidden-sector mixing hypothesis. Then, conditional on
-Lemma 24.1's semigroup-transfer/completeness step, \((S_1, \varphi_1)\)
-and \((S_2, \varphi_2)\) are in the same equivalence class
-\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\).}
+\textbf{Lemma 23.0} (Local-sector uniqueness preservation). \emph{Let
+\((S_1,\varphi_1)\) and \((S_2,\varphi_2)\) both reproduce the same
+inputs E1--E7 and satisfy A1--A6 and M1, with the hidden-sector mixing
+hypothesis where required. Conditional on Lemma 24.1's
+semigroup-transfer/completeness step, their reconstructed \textbf{local
+propagating lattice/gauge sectors} have the same Stage-2 invariants up
+to the local action of \(\mathcal{G}_{\rm sub}\): \(d=3\), \(K=6\),
+multiplicities \((3,2,1)\), the SM gauge group and associated local
+representation data, and the same Stage-3 value of \(\hbar\).}
 
-\emph{Proof.} By Stage 1, each \((S_i, \varphi_i, V_i)\) is a C1--C4
-embedding of the observed QM. By the Stinespring uniqueness and the
-\(\mathcal{G}_{\text{sub}}\) identification of Stage 1, the two
-embeddings are related by generators (i) and (iii) of
-\(\mathcal{G}_{\text{sub}}\) (state relabeling and deep-sector
-enlargement).
+\emph{Proof.} Stage 1 fixes the finite channel/dilation datum used by
+the reconstruction only up to its stated dilation/gauge freedoms and the
+explicit operational-lift conditions. Stage 2 then selects the same
+local cubic propagating sector and discrete representation-theoretic
+invariants from E4--E7 and A3--A6; graph relabeling, alphabet freedom
+and deep-sector enlargement lie in \(\mathcal{G}_{\rm sub}\). Stage 3
+fixes the same gap-equation value \(\hbar=c^3\epsilon^2/(4G)\). These
+statements compare the reconstructed local sector only. They do
+\textbf{not} compare preparation-indexed Bell edge rules or other
+Bell-nonlocal composite data, because neither Lemma 24.1 nor the Stage-2
+uniqueness argument acts on that extra structure. \(\square\)
 
-By Stage 2, each triple is placed on a \(d = 3\) cubic lattice with
-\(K = 6\) and the specific gauge structure. Any two lattices satisfying
-A3--A6 and having the observed isotropy (E4) are related by generator
-(iv) of \(\mathcal{G}_{\text{sub}}\) (graph isomorphism up to
-statistical isotropy). The alphabet size freedom is generator (ii).
+\textbf{Theorem 23} (Layered local reconstruction with Bell
+compatibility). \emph{Let E1--E7, M1-T, M1-B, A1--A6, the hidden-sector
+mixing hypothesis for the C2 necessity direction, and Lemma 24.1's
+semigroup-transfer/completeness step hold. Then the reconstruction
+uniquely fixes, up to the stated substratum-gauge freedoms, the
+\textbf{local propagating lattice/gauge sector} with \(d=3\), \(K=6\),
+coupling-matrix multiplicities \((3,2,1)\), gauge group
+\(\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)\), the stated
+local matter/representation content and discrete-symmetry outputs, and
+\(\hbar=c^3\epsilon^2/(4G)\), with the same qualifications stated in
+{[}SM{]} for H-spin', H-χ', and the CKM-CP fork. A single
+measurement-independent deterministic completion that also realizes the
+Bell-violating M1-B composites exists only conditional on H-Bell. The
+theorem does \textbf{not} establish uniqueness of that Bell-inclusive
+full completion.}
 
-By Stage 3, each triple produces \(\hbar = c^3 \epsilon^2 / (4G)\). The
-constant is the same in both reconstructions.
+\emph{Proof.} Stage 1 supplies the finite reversible/dilation data and
+the M1-T temporal conditions used by the local reconstruction, subject
+to its explicit operational-lift hypotheses and the C2-mixing condition.
+Stage 2 uniquely fixes the listed local lattice/gauge invariants from
+those data and E4--E7; Stage 3 uniquely fixes \(\hbar\). Lemma 23.0
+preserves that uniqueness at the local-sector level. M1-B adds a
+separate Bell-relevant requirement. H-Bell states the
+compatibility/existence condition for realizing it through the
+state-dependent graph or an equivalent ontically nonlocal response
+implementation while retaining the continuum-curvature limit. No theorem
+in the present chain selects a unique preparation-indexed Bell edge
+rule, and Lemma 24.1 controls the visible channel-semigroup dilation
+datum rather than such Bell-composite structure. Therefore
+Bell-inclusive existence is conditional and Bell-inclusive uniqueness
+remains open. \(\square\)
 
-Therefore \((S_1, \varphi_1)\) and \((S_2, \varphi_2)\) are related by
-the composition of generators (i)--(iv) of \(\mathcal{G}_{\text{sub}}\),
-and hence are in the same equivalence class. \(\square\)
-
-\textbf{Theorem 23} (Layered reconstruction). \emph{Let E1--E7
-(empirical inputs: QM with Bell violations, finite boundary entropy,
-spatial isotropy, propagating gravity, stable matter, boundary-entropy
-concordance), M1 (the P-indivisible-route modeling premise of Stage 1),
-and A1--A6 (structural assumptions: finiteness, determinism, bounded
-coupling degree, center independence, linearity, background
-independence) hold. Then the equivalence class
-\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) is uniquely determined,
-conditional on the hidden-sector mixing hypothesis for the C2 necessity
-direction (Stage 1; {[}Main §3.4{]}, with ETH as its physical
-motivation) and on Lemma 24.1's semigroup-transfer/completeness step
-(Theorem 24, §4): a finite set with a bijection of bounded coupling
-degree and statistical isotropy, with \(d = 3\), \(K = 6\), coupling
-matrix eigenvalue multiplicities \((3, 2, 1)\), gauge group
-\(\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)\), three
-generations (physical reading conditional on H-spin', {[}SM §4.7{]};
-chirality on H-χ', {[}SM §4.8{]}), one Higgs doublet, anomaly-free
-hypercharges, \(\bar\theta = 0\) (kinematic level, {[}SM{]} Theorem 21;
-the same premise removes CKM CP --- the open fork of {[}SM §5.5{]}), and
-\(\hbar = c^3 \epsilon^2/(4G)\).}
-
-\emph{Proof.}
-
-\begin{enumerate}
-\def\labelenumi{(\arabic{enumi})}
-\item
-  Stage 1 (§3.2) establishes existence and uniqueness (up to
-  \(\mathcal{G}_{\text{sub}}\)) of a C1--C4 embedding from E1--E3 +
-  A1--A2 + M1.
-\item
-  Stage 2 (§3.3) takes the Stage 1 output plus E4 + A3--A6 and derives
-  the specific lattice, dimension, gauge group, matter content, and
-  discrete symmetries, with uniqueness at each step.
-\item
-  Stage 3 (§3.4) takes the Stage 2 output and derives the emergent
-  constant \(\hbar\), with uniqueness.
-\item
-  Lemma 23.0 establishes that any two reconstructions consistent with
-  the inputs are in the same equivalence class, completing the
-  uniqueness claim.
-\end{enumerate}
-
-The existence direction is the composition of Stages 1--3. The
-uniqueness direction is Lemma 23.0. Together they establish the
-bidirectional correspondence. \(\square\)
-
-\subsubsection{3.6 Remarks}\label{remarks}
+\hypertarget{remarks}{%
+\subsubsection{3.6 Remarks}\label{remarks}}
 
 \textbf{Remark} (Evidential weight of the reconstruction). The
 reconstruction uniquely derives
@@ -1202,12 +1298,13 @@ theory from the outset:
   independence (violate A4--A6)
 \end{itemize}
 
-The framework's claim is that within the class of finite deterministic
-bounded-coupling systems with the structural assumptions, the substratum
-is unique. A separate argument would be required to rule out
-alternatives outside this class. The framework's defense of A1--A6 (in
-{[}SM §2{]} and elsewhere) is that they are natural given the empirical
-inputs E1--E7, but this defense is itself an argument, not a theorem.
+The framework's claim is that within the stated structural class the
+\textbf{local reconstructed residue} is unique up to gauge. The
+Bell-inclusive substratum is not proved unique. A separate argument
+would be required to rule out alternatives outside this class. The
+framework's defense of A1--A6 (in {[}SM §2{]} and elsewhere) is that
+they are natural given the empirical inputs E1--E7, but this defense is
+itself an argument, not a theorem.
 
 \textbf{Remark} (Hypothesis dependencies). Each structural assumption
 can in principle be weakened or replaced:
@@ -1296,37 +1393,41 @@ no finite observation set fully establishes any of these; finite
 measurements support them only in the sense of being consistent with the
 data so far. The reconstruction theorem holds for the empirical inputs
 \emph{as stated} --- the idealized infinite-data regime --- and proves
-uniqueness of the equivalence class under that regime. Reconstruction
-from finite observation sets is a related but distinct question: with
-finite data, multiple equivalence classes may all be consistent, with
-the data discriminating among them only weakly. The framework's
-operational answer to the finite-data question is the cumulative weight
-of the quantitative predictions of {[}SM §7{]} --- twenty-two structural
+uniqueness of the local lattice/gauge residue under that regime;
+Bell-inclusive uniqueness remains open. Reconstruction from finite
+observation sets is a related but distinct question: with finite data,
+multiple equivalence classes may all be consistent, with the data
+discriminating among them only weakly. The framework's operational
+answer to the finite-data question is the cumulative weight of the
+quantitative predictions of {[}SM §7{]} --- twenty-two structural
 retrodictions of gauge couplings, CKM/PMNS angles, mass ratios, and the
 Koide relation, each at \(\lesssim 1\sigma\) --- which collectively rule
 out reconstructions that would have produced different values. Theorem
-23 establishes idealized uniqueness; the {[}SM §7{]} prediction set
-establishes the operational uniqueness that a skeptical reader can check
-against data.
+23 establishes idealized local-sector uniqueness; the {[}SM §7{]}
+prediction set supplies the operational evidence for that local
+structural residue that a skeptical reader can check against data.
 
-The reconstruction establishes a bidirectional correspondence:
+The reconstruction establishes a bidirectional correspondence for the
+\textbf{local reconstructed residue}:
 
-\[\text{Observed physics (E1–E7)} \; + \; \text{Structural assumptions (A1–A6)} \quad \longleftrightarrow \quad [(S, \varphi)] / \mathcal{G}_{\text{sub}}\]
+\[\text{Observed local lattice/gauge data (E1–E7)} \; + \; \text{Structural assumptions (A1–A6)} \quad \longleftrightarrow \quad [ (S,\varphi) ]_{\rm loc}/\mathcal{G}_{\text{sub}}.\]
 
-The mathematical structure and the physics determine each other up to
-gauge equivalence, given the structural assumptions. The distinction
-between ``mathematics describes reality'' and ``mathematics is reality''
-has no empirical content for any embedded physical observer --- it is
-itself gauge in the framework's specific physics-internal sense,
-provably undecidable by any measurement (cf.~Theorem 24). The framework
-does not claim the question is absolutely meaningless; whether it has
-substantive content in mathematical foundations or other modes of
-inquiry not bound by embedded physical observation is a separate matter
-the framework does not address. This reframes Wigner's puzzle: the
-``unreasonable effectiveness'' of mathematics is a theorem modulo the
-structural assumptions, not a mystery --- the reconstruction theorem
-supplies, modulo gauge, the specific mathematical structure that physics
-is observationally equivalent to.
+The local lattice/gauge structure and the corresponding observed inputs
+determine each other up to the stated gauge equivalence. Bell-inclusive
+completion data sit outside this arrow: their existence is conditional
+on H-Bell and their uniqueness is open. The distinction between
+``mathematics describes reality'' and ``mathematics is reality'' has no
+empirical content for any embedded physical observer --- it is itself
+gauge in the framework's specific physics-internal sense, provably
+undecidable by any measurement (cf.~Theorem 24). The framework does not
+claim the question is absolutely meaningless; whether it has substantive
+content in mathematical foundations or other modes of inquiry not bound
+by embedded physical observation is a separate matter the framework does
+not address. This reframes Wigner's puzzle: the ``unreasonable
+effectiveness'' of mathematics is a theorem modulo the structural
+assumptions, not a mystery --- the reconstruction theorem supplies,
+modulo gauge, the specific mathematical structure that physics is
+observationally equivalent to.
 
 \textbf{Remark} (ER=EPR at substratum and emergent levels). The
 Maldacena-Susskind ER=EPR conjecture {[}3{]} proposes that any two
@@ -1371,8 +1472,9 @@ the broader ER=EPR program.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-substratum-gauge-group}{%
 \subsection{4. The Substratum Gauge
-Group}\label{the-substratum-gauge-group}
+Group}\label{the-substratum-gauge-group}}
 
 The equivalence relation \(\sim\) in the reconstruction theorem has a
 precise structure. Define: \((S, \varphi) \sim (S', \varphi')\) if the
@@ -1821,22 +1923,25 @@ the standard sense, derived from the substratum through the trace-out.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{synthesis-three-projections-of-s-ux3c6}{%
 \subsection{5. Synthesis: Three Projections of (S,
-φ)}\label{synthesis-three-projections-of-s-ux3c6}
+φ)}\label{synthesis-three-projections-of-s-ux3c6}}
 
-The reconstruction theorem (§3) establishes that observed physics ---
-quantum mechanics with Bell violations, finite boundary entropy, and
-spatial isotropy --- together with the M1 modeling premise uniquely
-determines, conditional on C2-mixing and Lemma 24.1's completeness step,
-the equivalence class \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the
-lattice level. The substratum gauge group (§4) makes the equivalence
-relation precise and identifies the Standard Model gauge group as the
-visible-sector shadow of \(\mathcal{G}_{\text{sub}}\). This section
-makes the synthesis claim explicit: quantum mechanics, general
+The reconstruction theorem (§3) establishes that the stated empirical
+and structural inputs, together with M1-T, C2-mixing and Lemma 24.1's
+completeness step, uniquely fix the \textbf{local propagating
+lattice/gauge residue} modulo the stated substratum-gauge freedoms. M1-B
+and H-Bell separately condition the existence of a
+measurement-independent Bell-violating completion; Bell-inclusive
+uniqueness is open. The substratum gauge group (§4) makes the
+equivalence relation precise and identifies the Standard Model gauge
+group as the visible-sector shadow of \(\mathcal{G}_{\text{sub}}\). This
+section makes the synthesis claim explicit: quantum mechanics, general
 relativity, and the arrow of time are not three independent theories but
 three projections of the same finite deterministic construction.
 
-\subsubsection{5.1 The three projections}\label{the-three-projections}
+\hypertarget{the-three-projections}{%
+\subsubsection{5.1 The three projections}\label{the-three-projections}}
 
 The framework's derivations apply the same trace-out machinery to the
 same \((S, \varphi)\) along three projections: a visible-sector
@@ -1858,11 +1963,13 @@ conditional memory, hidden predictive structure in every faithful
 completion, and global indivisibility on a fixed finite recurrent
 representative; C1 and C3 diagnose the mediation and its capacity, while
 C2-structural supplies persistence to readback. In the spatial theory
-the dependency graph additionally supplies exact causal cones. Full
-equality with the standard local coherent instrument/composite theory
-remains the narrower operational-lifting statement of {[}Main §3.4{]},
-and Bell locality additionally requires operational setting screening as
-stated in {[}Main §3.3{]}. Applied to a cubic lattice with the wave
+the dependency graph additionally supplies exact causal cones for
+finite-range couplings. Full equality with the standard coherent
+instrument/composite theory remains the narrower operational-lifting
+statement of {[}Main §3.4{]}. Bell is separate: the
+measurement-independent deterministic completion reaches quantum Bell
+violation only by ontic parameter dependence, with operational
+no-signaling {[}Main §3.3{]}. Applied to a cubic lattice with the wave
 equation as substratum dynamics --- itself uniquely selected among
 second-order reversible nearest-neighbor dynamics by center
 independence, isotropy, and linearity ({[}SM, §4.1{]}) --- this
@@ -1945,8 +2052,9 @@ exhibits it as the necessary shadow of worldline-centered observation,
 with ordinary momentum conservation holding in the visible sector up to
 corrections of order (length / horizon radius).
 
+\hypertarget{the-qm-gr-incompatibility-as-a-category-error}{%
 \subsubsection{5.2 The QM-GR incompatibility as a category
-error}\label{the-qm-gr-incompatibility-as-a-category-error}
+error}\label{the-qm-gr-incompatibility-as-a-category-error}}
 
 The conventional formulation of the QM-GR unification problem treats
 quantum mechanics and general relativity as two competing theories in
@@ -2005,8 +2113,9 @@ accessible observations can separate two descriptions faithful to the
 same data --- the fundamentality question is answered at the level of
 \((S, \varphi)\), not adjudicated between its projections.)
 
+\hypertarget{the-three-level-hierarchy-made-explicit}{%
 \subsubsection{5.3 The three-level hierarchy made
-explicit}\label{the-three-level-hierarchy-made-explicit}
+explicit}\label{the-three-level-hierarchy-made-explicit}}
 
 The substratum gauge group (§4) provides the structural framework for
 the synthesis claim at the level of the two gauge-bearing projections
@@ -2050,8 +2159,9 @@ equations are not two independent theoretical inputs but two co-derived
 structures, both consequences of the same underlying \((S, \varphi)\)
 and the same trace-out under the same conditions C1--C4.
 
+\hypertarget{the-arrow-of-time-as-a-third-projection}{%
 \subsubsection{5.4 The arrow of time as a third
-projection}\label{the-arrow-of-time-as-a-third-projection}
+projection}\label{the-arrow-of-time-as-a-third-projection}}
 
 After Main §4.6 (structural observer-selection theorem), the arrow of
 time joins quantum mechanics and general relativity as a third emergent
@@ -2170,8 +2280,9 @@ and §6.4 ``what does not falsify'' for the commitment that the framework
 makes no prediction of \(\delta_{\text{CKM}}\),
 \(\delta_{\text{PMNS}}\), or the Wolfenstein \((\rho, \eta)\).
 
+\hypertarget{what-the-synthesis-does-and-does-not-claim}{%
 \subsubsection{5.5 What the synthesis does and does not
-claim}\label{what-the-synthesis-does-and-does-not-claim}
+claim}\label{what-the-synthesis-does-and-does-not-claim}}
 
 The synthesis claim is structural and architectural rather than
 empirical. It does not claim that the framework predicts gravitational
@@ -2208,7 +2319,8 @@ but the unique consequence of the framework's structural inputs.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{6. Discussion}\label{discussion}
+\hypertarget{discussion}{%
+\subsection{6. Discussion}\label{discussion}}
 
 The reconstruction theorem identifies the question ``is mathematics
 describing reality, or is it reality?'' as gauge in the precise sense
@@ -2226,19 +2338,20 @@ finally, is the empirical counterpart of the methodological discipline
 developed in §§3--5: a framework that derives rather than posits must be
 willing to specify what would invalidate the derivation.
 
+\hypertarget{ontic-structural-realism-on-the-equivalence-class}{%
 \subsubsection{6.1 Ontic structural realism on the equivalence
-class}\label{ontic-structural-realism-on-the-equivalence-class}
+class}\label{ontic-structural-realism-on-the-equivalence-class}}
 
 The metaphysical commitment introduced in §1.1 can now be stated with
-the full technical machinery in place. The framework's claim is ontic
-structural realism applied to
-\([(S, \varphi)] / \mathcal{G}_{\text{sub}}\): what exists at the
-substratum-class level is the equivalence class of bijections, uniquely
-determined --- under Theorem 23's stated conditions (M1; C2-mixing;
-Lemma 24.1's completeness) --- by observations plus structural
-assumptions (Theorem 23), with individual substratum representatives
-related by the substratum gauge group (Theorem 24). The class is real;
-specific substrates are representations.
+the full technical machinery in place. The framework's theorem-level
+structural-realist commitment applies first to the \textbf{local
+reconstructed residue modulo the stated substratum-gauge freedoms}:
+Theorem 23 uniquely fixes that local lattice/gauge residue under its
+stated conditions. H-Bell separately conditions whether a
+measurement-independent Bell-violating composite can coexist with it,
+and no theorem here uniquely fixes the Bell-inclusive full completion.
+Realism about a particular full Bell-complete bijection therefore
+outruns the reconstruction result.
 
 This is the strongest claim the framework's theorems license at this
 level without overclaiming. Two alternative framings merit explicit
@@ -2255,11 +2368,12 @@ structure classifies as unobservable.
 \emph{Pure explanatory economy} --- the weaker position that the
 framework is simply more economical than standard QM (fewer postulates,
 more derivations) without ontic commitment --- undersells what Theorem
-23 establishes. If observations plus structural assumptions, under
-Theorem 23's stated conditions, uniquely determine the equivalence
-class, the class is not one possibility among many but the unique
-structure consistent with the evidence. The explanatory economy follows
-from this uniqueness rather than substituting for it.
+23 establishes about the \textbf{local reconstructed residue}. Under the
+theorem's stated conditions that residue is not one local possibility
+among many but the uniquely fixed local lattice/gauge structure modulo
+gauge. The Bell-inclusive completion is a separate underdetermined
+layer, so explanatory economy follows from local-sector reconstruction
+without implying full-substratum uniqueness.
 
 The wave function, Hilbert space, emergent gauge group, and metric are
 features of representations --- of the emergent description of a
@@ -2274,21 +2388,20 @@ has a two-level answer --- the wave function is real at the emergent
 level, gauge at the substratum level.
 
 The question ``is mathematics describing reality, or is it reality?''
-is, on this reading, provably gauge in the same technical sense that the
-alphabet size \(q\) and the relabeling of hidden-sector states are gauge
---- \emph{for the embedded physical observer}. What the framework
-establishes is that the structural content is determinate and unique;
-the metaphysical attitude one takes toward that content is itself
-structural information the framework does not carry, and therefore
-information no measurement an embedded observer can perform can
-determine. The framework does not claim the question is absolutely
-meaningless. Whether it has substantive content in mathematical
-foundations or other modes of inquiry not bound by embedded physical
-observation is a separate matter the framework does not address.
-Wigner's ``unreasonable effectiveness of mathematics'' becomes a theorem
-modulo the structural assumptions rather than a mystery: physics is
-structural, mathematics is the language of structure, and the
-effectiveness is the reconstruction theorem.
+is, on this reading, gauge for the embedded physical observer
+\textbf{within the reconstructed local observable structure}: the local
+residue is determinate modulo the stated gauge freedoms, while
+Bell-completion data are not uniquely reconstructed. The metaphysical
+attitude one takes toward either description is information the
+framework does not encode in accessible observables, and therefore no
+measurement an embedded observer can perform can determine it. The
+framework does not claim the question is absolutely meaningless. Whether
+it has substantive content in mathematical foundations or other modes of
+inquiry not bound by embedded physical observation is a separate matter
+the framework does not address. Wigner's ``unreasonable effectiveness of
+mathematics'' becomes a theorem modulo the structural assumptions rather
+than a mystery: physics is structural, mathematics is the language of
+structure, and the effectiveness is the reconstruction theorem.
 
 \textbf{Multi-level structural realism.} The structural-realism
 commitment is not single-level. {[}Structure{]} establishes that the
@@ -2315,25 +2428,26 @@ At intermediate levels, realism applies to the SM gauge group (forced
 uniquely in OI but shared with any SM-reproducing universality class)
 and the algebra-channel structure within the SM-reproducing sub-class.
 
-At the most class-specific level --- the equivalence class
-\([(S, \varphi)] / \mathcal{G}_{\text{sub}}\) within OI's structural
-class (Level G3 in {[}Structure §2{]}) operating at OI's specific
-universality-class representative (Level D in {[}Structure §2{]}) ---
-what is real is what this paper articulates: the substratum modulo
-\(\mathcal{G}_{\text{sub}}\). OI's specific predictions (Cabibbo angle
-\(1/(\pi\sqrt{2})\), Koide ratio \(2/3\), dark-sector phenomenology) are
-real at this level, distinguishing OI's universality-class
-representative from alternatives within the same partial-trace-features
-sub-class.
+At the most class-specific theorem-supported level --- the \textbf{local
+reconstructed residue modulo \(\mathcal{G}_{\text{sub}}\)} within OI's
+structural class (Level G3 in {[}Structure §2{]}) operating at OI's
+specific universality-class representative (Level D in {[}Structure
+§2{]}) --- what is real is the local lattice/gauge structure Theorem 23
+fixes. A stronger realism about the full Bell-complete substratum is
+additional and presently underdetermined. OI's specific predictions
+(Cabibbo angle \(1/(\pi\sqrt{2})\), Koide ratio \(2/3\), dark-sector
+phenomenology) are real at this level, distinguishing OI's
+universality-class representative from alternatives within the same
+partial-trace-features sub-class.
 
 These are not competing realisms; they are realism at different levels
 of the hierarchy. The framework commits to all of them simultaneously,
 with content at each level being class-specific (more specific at deeper
 levels) or class-universal (more universal at higher levels). What is
 real at the universality-class level is what observation extracts from
-any partial-trace operation; what is real at the substratum-class level
-is the specific equivalence class that the reconstruction theorem
-identifies.
+any partial-trace operation; at the deepest theorem-supported level it
+is the specific \textbf{local structural residue} identified by the
+reconstruction theorem, with Bell-completion structure left open.
 
 This refinement does not weaken the substratum-class realism articulated
 above; it situates it within a broader hierarchical structure. The
@@ -2348,8 +2462,9 @@ the hierarchical structure is in {[}Structure §2{]}; the
 substratum-class realism developed in this paper is one specific level
 within that broader structure.
 
+\hypertarget{the-ontological-hierarchy}{%
 \subsubsection{6.2 The ontological
-hierarchy}\label{the-ontological-hierarchy}
+hierarchy}\label{the-ontological-hierarchy}}
 
 The triple (S, φ, V) generates every concept in fundamental physics, not
 as independent substances but as different aspects of the same
@@ -2366,8 +2481,9 @@ emergent: energy conservation (Noether) is what information conservation
 these are independent entities; they are descriptions of (S, φ, V) at
 different scales.
 
+\hypertarget{the-measurement-problem}{%
 \subsubsection{6.3 The measurement
-problem}\label{the-measurement-problem}
+problem}\label{the-measurement-problem}}
 
 On the structural reading, the measurement problem is dissolved. The
 wave function is not a component of (S, φ, V) --- it is a derived
@@ -2384,20 +2500,22 @@ the emergent quantum description reflects the observer's uncertainty
 about which trajectory they are on (because they cannot see the hidden
 sector), not a physical splitting of worlds.
 
-Bell correlations separate dynamical locality from operational
-screening. Two visible sites prepared jointly may carry correlated
-hidden-sector configurations, while the dependency graph still enforces
-an exact causal cone: before the cones meet, a remote intervention
-cannot dynamically alter the local substratum state {[}Main, §3.3{]}. To
-promote that graph-local dynamics to Bell causal locality, the setting
-variables must additionally be screened from preparation-relevant hidden
-data. Under exact screening the causal-local indivisible construction
-obeys Tsirelson; with imperfect screening Main gives a quantitative
-correction. Thus the coupling graph supplies propagation locality, not
-by itself the full statistical factorization condition.
+Bell correlations force a sharper distinction. For any
+\textbf{finite-range Bell-relevant} substratum, the dependency graph
+gives an exact causal cone; if a response-complete deterministic
+completion also uses one setting-independent pre-setting ensemble, Bell
+factorization follows and CHSH is capped at \(2\). The framework
+therefore does not obtain quantum Bell violation from screening plus
+indivisibility. It keeps measurement independence and takes ontic
+parameter dependence: Bell-violating substrata have Bell-relevant
+coupling range exceeding the wings' separation, while the averaged
+operational statistics remain no-signaling {[}Main §3.3{]}. The
+stochastic causal-local indivisible Tsirelson theorem is retained only
+at that weaker stochastic layer.
 
+\hypertarget{pre-registered-falsification-conditions}{%
 \subsubsection{6.4 Pre-registered falsification
-conditions}\label{pre-registered-falsification-conditions}
+conditions}\label{pre-registered-falsification-conditions}}
 
 The framework's structural content --- the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\), the emergent Standard Model
@@ -2453,13 +2571,16 @@ reconstruction if violated.
   masses well below the framework's prediction) falsifies the prediction
   that no right-handed neutrino exists in the spectrum.
 \item
-  \emph{Tsirelson/setting-screening test.} For the causal-local
-  indivisible sector with exact operational setting screening,
-  \(S_{\mathrm{CHSH}}\le 2\sqrt{2}\); with residual setting-hidden
-  correlation \(I_{\mathrm{MI}}\), Main §3.3 gives the explicit
-  robustness allowance. A confirmed excess beyond that allowed bound
-  would falsify the corresponding causal-local/screening claim. Bare
-  C1--C4 or graph locality alone are not asserted to enforce Tsirelson.
+  \emph{Bell/Tsirelson test.} For the cited \textbf{stochastic
+  causal-local indivisible} sector, \(S_{\mathrm{CHSH}}\le 2\sqrt{2}\).
+  At the deterministic level, measurement independence plus ontic
+  parameter independence instead gives the Bell-local ceiling \(2\), so
+  the framework's Bell-violating branch is ontically parameter-dependent
+  {[}Main §3.3{]}. A confirmed loophole-free excess above \(2\sqrt2\)
+  would falsify standard quantum mechanics and any claim that the
+  operational lift lands in the standard quantum Bell set; it would not
+  by itself falsify P-indivisibility. Bare C1--C4 or graph locality do
+  not enforce Tsirelson.
 \item
   \emph{Leading Lorentz-invariance-violation coefficient.} The
   cubic-lattice dispersion relation ({[}SM, §4.4{]} Theorem 4,
@@ -2776,32 +2897,40 @@ sharpens the scope of the positive commitments above.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{7. Conclusion}\label{conclusion}
+\hypertarget{conclusion}{%
+\subsection{7. Conclusion}\label{conclusion}}
 
 The substratum-level results developed in this paper --- the
 reconstruction theorem (Theorem 23) and the substratum gauge group
-(Theorem 24) --- turn the framework's three derivations into a single
-construction. The reconstruction theorem establishes --- under the M1
-modeling premise, conditional on C2-mixing and Lemma 24.1's completeness
-step --- that observed quantum mechanics with Bell violations, finite
-boundary entropy, and spatial isotropy, together with the framework's
-structural assumptions, so conditioned, uniquely determine the
-equivalence class \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) at the
-lattice level, with the Standard Model gauge group and
-\(\bar\theta = 0\) as forced retrodictions, and the anomaly-free
-hypercharge assignment forced once the observed family pattern is given
-(fermion embedding closed via the link-carrier construction, with the
-candidate-sector count locked at three by coupling-degree minimality
-(three physical generations only under H-spin', {[}SM §4.7{]}) jointly
-with the condensate-stabilizer accounting). The substratum gauge group
-identifies the kernel of this inverse map and shows that the Standard
-Model gauge group is its visible-sector shadow. Together, these two
-results establish that the framework's emergence of quantum mechanics
-{[}Main{]}, its derivation of the Standard Model {[}SM{]}, and its
-derivation of the gravitational sector {[}GR{]} are not three
-independent applications of the same trace-out machinery but three
-projections of one object --- the bijection \((S, \varphi)\) --- viewed
-at different levels of description.
+(Theorem 24) --- turn the framework's three derivations into a layered
+single-construction claim. Under M1-T, C2-mixing and Lemma 24.1's
+completeness step, the reconstruction uniquely fixes the \textbf{local
+propagating lattice/gauge residue} modulo the stated gauge freedoms;
+M1-B and H-Bell separately condition the existence of a
+measurement-independent Bell-violating completion, whose uniqueness is
+not established. The local reconstruction carries with the Standard
+Model gauge group and \(\bar\theta = 0\) as forced retrodictions, and
+the anomaly-free hypercharge assignment forced once the observed family
+pattern is given (fermion embedding closed via the link-carrier
+construction, with the candidate-sector count locked at three by
+coupling-degree minimality (three physical generations only under
+H-spin', {[}SM §4.7{]}) jointly with the condensate-stabilizer
+accounting). The substratum gauge group identifies the kernel of this
+inverse map and shows that the Standard Model gauge group is its
+visible-sector shadow. Together, these two results establish that the
+framework's emergence of quantum mechanics {[}Main{]}, its derivation of
+the Standard Model {[}SM{]}, and its derivation of the gravitational
+sector {[}GR{]} are not three independent applications of the same
+trace-out machinery but three projections of one object --- the
+bijection \((S, \varphi)\) --- viewed at different levels of
+description. The scope of \emph{established} here is the one Theorem 23
+carries and no more: the local propagating lattice/gauge residue is what
+the reconstruction fixes, modulo the stated gauge freedoms. A
+Bell-violating completion of the same object exists only conditional on
+H-Bell, and its uniqueness is not established, so the single-object
+claim is layered rather than total --- it is a claim about the
+reconstructed local residue together with a conditional Bell sector, not
+about a uniquely selected \([(S,\varphi)]/\mathcal G_{\rm sub}\) entire.
 
 The synthesis claim that follows is not a unification of quantum
 mechanics and general relativity in the traditional sense. The
@@ -2825,18 +2954,19 @@ four-paper synthesis require the framework to be the final theory of
 physics: the substratum may itself be an effective description of
 something deeper, and the trace-out may have corrections beyond the
 leading-order results developed here. First, the \emph{specific
-bijection} \(\varphi\) that describes our universe is not determined by
-the framework --- only the equivalence class
-\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) is. The framework predicts
-the structural features of the Standard Model and the gravitational
-sector but not the specific values of (for example) the lightest fermion
-mass or the specific numerical value of the Type II RVM coefficient
-\(\nu\) beyond its dimensional order of magnitude and sign. These are
-properties of the particular bijection, analogous to the mass of the sun
-in general relativity. Second, the \emph{trans-Planckian regime} --- the
-regime in which the lattice spacing \(\epsilon = 2 l_p\) is not small
-compared to the relevant length scale --- lies outside the framework's
-leading-order results. The framework presents the lattice as
+Bell-inclusive completion} that describes our universe is not uniquely
+determined by the framework. Theorem 23 fixes the local lattice/gauge
+residue modulo its stated gauge freedoms, while H-Bell leaves the
+preparation-indexed Bell-composite rule underdetermined. The framework
+predicts the structural features of the Standard Model and the
+gravitational sector but not the specific values of (for example) the
+lightest fermion mass or the specific numerical value of the Type II RVM
+coefficient \(\nu\) beyond its dimensional order of magnitude and sign.
+These are properties of the particular bijection, analogous to the mass
+of the sun in general relativity. Second, the \emph{trans-Planckian
+regime} --- the regime in which the lattice spacing \(\epsilon = 2 l_p\)
+is not small compared to the relevant length scale --- lies outside the
+framework's leading-order results. The framework presents the lattice as
 fundamental, not as a regulator approximating a continuum theory, and so
 does not need a continuum limit in the standard sense; but the
 corrections to the leading-order results in the regime where the
@@ -2857,7 +2987,8 @@ construction rather than problems with it.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{References}\label{references}
+\hypertarget{references}{%
+\subsection{References}\label{references}}
 
 {[}1{]} R. Bousso, ``The holographic principle,'' \emph{Rev.~Mod. Phys.}
 \textbf{74}, 825 (2002).
@@ -2888,3 +3019,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 (2026).
 
 \end{document}
+% source-sha256: cfad9522ac26d73de743cd79dbafd9870e1b025fdd32070cbbe8b6623c583747

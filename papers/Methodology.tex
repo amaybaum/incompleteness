@@ -147,7 +147,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\usepackage{bookmark}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -159,10 +159,31 @@
 
 \begin{document}
 
-\section{PHYSICS MODULO GAUGE}\label{physics-modulo-gauge}
+\hypertarget{physics-modulo-gauge}{%
+\section{PHYSICS MODULO GAUGE}\label{physics-modulo-gauge}}
 
+\hypertarget{the-methodology-of-the-incompleteness-framework}{%
 \subsubsection{The Methodology of the Incompleteness
-Framework}\label{the-methodology-of-the-incompleteness-framework}
+Framework}\label{the-methodology-of-the-incompleteness-framework}}
+
+\textbf{Scope update --- observer geometry and physical carrier.} SM
+§4.1 now separates two claims that earlier shorthand sometimes
+conflated. First, finite equivariant projection is classical and exact:
+cubic symmetry is inherited by the projected Markov part and every
+memory kernel, forcing an Euclidean \textbf{quadratic} scalar symbol
+while allowing cubic anisotropy at \(O(k^4)\). The particular normalized
+nearest-neighbor operator \(A/(2d)\) additionally requires an
+\textbf{observer-level} center-free kernel; microscopic center
+independence alone does not imply that after correlated hidden variables
+are marginalized. Second, the six signed simple-cubic links and their
+exact \(3\oplus2\oplus1\) representation are unconditional geometry, but
+identifying that link space with the complete physical carrier is
+\textbf{H-link}; the single-copy clause gives \(K=6\), and the custodial
+condensate-stabilizer reading is \textbf{H-cust}. Accordingly, any
+downstream statement here that consumes \(K=6\), \(N_f=6\), the physical
+SM gauge carrier, or a fixed three-sector count inherits those named
+bridge conditions unless it is explicitly referring only to the six
+geometric links.
 
 \textbf{Author:} Alex Maybaum \textbf{Date:} May 2026 \textbf{Status:}
 Developmental draft \textbf{Classification:} Foundations of Physics /
@@ -170,7 +191,8 @@ Philosophy of Physics
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{ABSTRACT}\label{abstract}
+\hypertarget{abstract}{%
+\subsection{ABSTRACT}\label{abstract}}
 
 The Incompleteness framework proves an exact finite observable-law
 equivalence with fixed-basis unitary/Born representation, identifies the
@@ -187,59 +209,60 @@ the framework's foundation, examined directly, resolves into a
 \emph{two-axiom observation base}: an indubitable axiom (tokened
 differentiation occurs) and a substantive second axiom (differentiation
 recurs), the second presupposing but not derivable from the first --- a
-no-go result we state and defend. Second, the framework realizes
-\emph{constructive structural realism}: the equivalence class of
-structures consistent with the empirical inputs is uniquely determined
-under the reconstruction theorem's stated conditions (the M1 modeling
-premise; C2-mixing; Lemma 24.1's completeness step), and the residual
-gauge freedom is explicitly classified conditional on that same
-completeness step, converting ontic structural realism from a
-programmatic position into a conditionally demonstrated constructive
-one. Third, the framework's relation to the no-go theorems of quantum
-foundations --- Bell, Kochen--Specker, the Pusey--Barrett--Rudolph
-reality theorems, Frauchiger--Renner --- is not piecemeal evasion but a
-single structural feature: each theorem assumes at the hidden-variable
-level a property that, in the framework, holds only at the observable
-level, and the trace-out construction is what mediates the two. Fourth,
-these combine into a general methodological proposal --- that the
-well-posed question for fundamental physics is not ``what is
-fundamental?'' but ``what is the equivalence class of structures
-producing observations, and what are its representatives?'' ---
-\emph{physics modulo gauge}. Fifth, Part V develops the operational form
-of the methodology: a gauge-invariance no-go on substrate-only
-computation and a category-error finding on substrate-level Lagrangians
-sharpen the boundary between substrate-derivable content and content
-selected by empirical input; the two results unify with Part III's four
-cases under a single architectural pattern; systematic audits applying
-the operational standard to the framework's own content are summarized;
-and three methodological refinements canonized by the audit experience
-are stated at the generality the methodology requires. The paper
-develops each commitment and argues that, taken together, they
-constitute a replicable methodology rather than features peculiar to one
-framework. Developmental status is made explicit throughout: the
-foundational distillation of Part I is recent and is offered for
-scrutiny; the structural results of Part II are summarized from the
-framework's technical papers at the fidelity of faithful synthesis; Part
-III's four no-go cases divide by status --- two (Bell,
-Frauchiger--Renner) developed results summarized from the framework's
-technical papers, two (Kochen--Specker, Pusey--Barrett--Rudolph)
-developed in this paper as \emph{conditional} chains on results those
-papers already establish, inheriting automatically once the
-operational-selection bridge reconstructs the noncommuting observable
-algebra ({[}Main{]} §3.2, §3.4); and Part V is more recent still --- its
-two no-go results are developed in the framework's technical record, the
-systematic audits it summarizes are developed there as well, and the
-methodological reading as one architectural unification with Part III,
-together with the three operational refinements, is the present paper's
-synthesis, offered as a proposal in the same sense Part III's unifying
-formulation is offered.
+no-go result we state and defend. Second, the framework realizes a
+scoped \emph{constructive structural realism}: the \textbf{local
+propagating lattice/gauge residue} consistent with the empirical inputs
+is uniquely fixed under the reconstruction theorem's stated conditions,
+while Bell-inclusive existence is conditional on H-Bell and
+Bell-inclusive uniqueness remains open; the residual gauge freedom of
+the reconstructed dilation/local datum is explicitly classified
+conditional on Lemma 24.1's completeness step. Third, the framework's
+relation to the no-go theorems of quantum foundations --- Bell,
+Kochen--Specker, the Pusey--Barrett--Rudolph reality theorems,
+Frauchiger--Renner --- is not piecemeal evasion but a single structural
+feature: each theorem assumes at the hidden-variable level a property
+that, in the framework, holds only at the observable level, and the
+trace-out construction is what mediates the two. Fourth, these combine
+into a general methodological proposal --- that the well-posed question
+for fundamental physics is not ``what is fundamental?'' but ``what is
+the equivalence class of structures producing observations, and what are
+its representatives?'' --- \emph{physics modulo gauge}. Fifth, Part V
+develops the operational form of the methodology: a gauge-invariance
+no-go on substrate-only computation and a category-error finding on
+substrate-level Lagrangians sharpen the boundary between
+substrate-derivable content and content selected by empirical input; the
+two results unify with Part III's four cases under a single
+architectural pattern; systematic audits applying the operational
+standard to the framework's own content are summarized; and three
+methodological refinements canonized by the audit experience are stated
+at the generality the methodology requires. The paper develops each
+commitment and argues that, taken together, they constitute a replicable
+methodology rather than features peculiar to one framework.
+Developmental status is made explicit throughout: the foundational
+distillation of Part I is recent and is offered for scrutiny; the
+structural results of Part II are summarized from the framework's
+technical papers at the fidelity of faithful synthesis; Part III's four
+no-go cases divide by status --- two (Bell, Frauchiger--Renner)
+developed results summarized from the framework's technical papers, two
+(Kochen--Specker, Pusey--Barrett--Rudolph) developed in this paper as
+\emph{conditional} chains on results those papers already establish,
+inheriting automatically once the operational-selection bridge
+reconstructs the noncommuting observable algebra ({[}Main{]} §3.2,
+§3.4); and Part V is more recent still --- its two no-go results are
+developed in the framework's technical record, the systematic audits it
+summarizes are developed there as well, and the methodological reading
+as one architectural unification with Part III, together with the three
+operational refinements, is the present paper's synthesis, offered as a
+proposal in the same sense Part III's unifying formulation is offered.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{1. INTRODUCTION}\label{introduction}
+\hypertarget{introduction}{%
+\subsection{1. INTRODUCTION}\label{introduction}}
 
+\hypertarget{what-this-paper-is-and-what-it-is-not}{%
 \subsubsection{1.1 What this paper is, and what it is
-not}\label{what-this-paper-is-and-what-it-is-not}
+not}\label{what-this-paper-is-and-what-it-is-not}}
 
 This is a paper about method. The Incompleteness framework is a body of
 physics --- it makes quantitative, parameter-free retrodictions across
@@ -273,7 +296,8 @@ Part I in particular presents a recent distillation of the framework's
 foundational commitment, offered for scrutiny rather than asserted as
 settled. We mark developmental status explicitly wherever it applies.
 
-\subsubsection{1.2 The five commitments}\label{the-five-commitments}
+\hypertarget{the-five-commitments}{%
+\subsubsection{1.2 The five commitments}\label{the-five-commitments}}
 
 The paper is organized around five methodological commitments, developed
 in Parts I through V.
@@ -301,14 +325,13 @@ perspectival reading.
 \textbf{Part II --- constructive structural realism.} Ontic structural
 realism holds that physical structure, not individual objects, is what
 is fundamental and what is known. As usually stated it is a programmatic
-position. The framework makes it constructive: the equivalence class of
-structures consistent with the empirical inputs is shown to be uniquely
-determined under the reconstruction theorem's stated conditions (M1;
-C2-mixing; Lemma 24.1's completeness step), and the residual gauge
-freedom --- the respects in which distinct structures are empirically
-indistinguishable --- is explicitly classified conditional on that
-completeness step. Structural realism becomes, in this setting, a
-conditionally demonstrated result rather than a stance.
+position. The framework makes a \textbf{scoped} version constructive:
+the local propagating lattice/gauge residue is shown to be uniquely
+fixed under the reconstruction theorem's stated conditions, and the
+residual gauge freedom of the reconstructed dilation/local datum is
+explicitly classified conditional on Lemma 24.1's completeness step. A
+Bell-inclusive full completion is not part of that uniqueness theorem:
+H-Bell conditions its existence and its uniqueness is open.
 
 \textbf{Part III --- per-theorem evasion of no-go results.} The no-go
 theorems of quantum foundations --- Bell, Kochen--Specker, the reality
@@ -342,8 +365,9 @@ standard to the framework's own content are summarized, and three
 methodological refinements canonized by the audit experience are stated
 at the generality the methodology requires.
 
+\hypertarget{developmental-status-stated-once}{%
 \subsubsection{1.3 Developmental status, stated
-once}\label{developmental-status-stated-once}
+once}\label{developmental-status-stated-once}}
 
 The five parts differ in maturity, and it is more honest to say so here
 than to qualify every paragraph. Part I is a recent distillation; its
@@ -371,8 +395,9 @@ organized, and the claims of this paper stand or fall as methodology.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{part-i-the-foundational-commitment}{%
 \section{PART I --- THE FOUNDATIONAL
-COMMITMENT}\label{part-i-the-foundational-commitment}
+COMMITMENT}\label{part-i-the-foundational-commitment}}
 
 \emph{Part I develops the framework's foundational commitment: the
 distillation of ``observation occurs'' into a two-axiom base, the
@@ -381,9 +406,12 @@ that isolates the single non-evidential posit. It is the first of the
 paper's four methodological commitments --- the discipline of stating a
 foundation at the exact granularity of what it commits to.}
 
-\subsection{2. THE EVIDENCE}\label{the-evidence}
+\hypertarget{the-evidence}{%
+\subsection{2. THE EVIDENCE}\label{the-evidence}}
 
-\subsubsection{2.1 What cannot be doubted}\label{what-cannot-be-doubted}
+\hypertarget{what-cannot-be-doubted}{%
+\subsubsection{2.1 What cannot be
+doubted}\label{what-cannot-be-doubted}}
 
 The framework invokes the Cartesian move: there is a fact that cannot be
 doubted, because the act of doubting it instantiates it. It is worth
@@ -416,8 +444,9 @@ genuinely \emph{thin} --- thinner than ``I exist,'' thinner than ``a
 world exists.'' It asserts neither a subject nor a totality. It asserts
 that differentiation has occurred.
 
+\hypertarget{why-not-thinner-why-not-thicker}{%
 \subsubsection{2.2 Why not thinner, why not
-thicker}\label{why-not-thinner-why-not-thicker}
+thicker}\label{why-not-thinner-why-not-thicker}}
 
 One might propose a thinner floor still: ``something exists.'' This is
 in fact \emph{too} thin to be the evidence. Bare undifferentiated
@@ -442,8 +471,9 @@ structure --- as Section 4 shows --- is not built in here; it is a fact
 established downstream, and it is what makes this level the right floor
 rather than an arbitrary one.
 
+\hypertarget{what-the-evidence-is-silent-on}{%
 \subsubsection{2.3 What the evidence is silent
-on}\label{what-the-evidence-is-silent-on}
+on}\label{what-the-evidence-is-silent-on}}
 
 It is as important to state what tokened differentiation does \emph{not}
 deliver as what it does.
@@ -467,9 +497,10 @@ this-here against a that-there, with no before and no after. The
 evidence gives a frame; it does not, on its own, give a sequence of
 frames.
 
+\hypertarget{the-distinction-primitive-lineage-and-the-divergence-from-it}{%
 \subsubsection{2.4 The distinction-primitive: lineage and the divergence
 from
-it}\label{the-distinction-primitive-lineage-and-the-divergence-from-it}
+it}\label{the-distinction-primitive-lineage-and-the-divergence-from-it}}
 
 Taking distinction as the primitive is not new, and the note should be
 explicit about its lineage. The major precedent is George
@@ -515,10 +546,12 @@ differentiation occurs; it does not assert what the literature around
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{3. THE EIGHT-RUNG LADDER}\label{the-eight-rung-ladder}
+\hypertarget{the-eight-rung-ladder}{%
+\subsection{3. THE EIGHT-RUNG LADDER}\label{the-eight-rung-ladder}}
 
+\hypertarget{the-frameworks-definitions-unpacked}{%
 \subsubsection{3.1 The framework's definitions,
-unpacked}\label{the-frameworks-definitions-unpacked}
+unpacked}\label{the-frameworks-definitions-unpacked}}
 
 The framework formalizes ``observation occurs'' through a definition: an
 observation is a triple \((S, \varphi, V)\) --- a total system \(S\), a
@@ -567,8 +600,9 @@ only rung 1. The question of Sections 4 and 5 is which of rungs 2--8 are
 \emph{consequences} of rung 1 and which are \emph{additional
 commitments}.
 
+\hypertarget{the-standard-of-derivation}{%
 \subsubsection{3.2 The standard of
-derivation}\label{the-standard-of-derivation}
+derivation}\label{the-standard-of-derivation}}
 
 A rung counts as derived --- as a lemma rather than an addition --- only
 if it follows from rung 1 by an argument that does not, at any step,
@@ -580,9 +614,12 @@ that is recorded as a finding rather than glossed.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{4. WHICH RUNGS ARE LEMMAS}\label{which-rungs-are-lemmas}
+\hypertarget{which-rungs-are-lemmas}{%
+\subsection{4. WHICH RUNGS ARE LEMMAS}\label{which-rungs-are-lemmas}}
 
-\subsubsection{4.1 Rung 2 --- relationality}\label{rung-2-relationality}
+\hypertarget{rung-2-relationality}{%
+\subsubsection{4.1 Rung 2 ---
+relationality}\label{rung-2-relationality}}
 
 A distinction, by what the word denotes, holds between relata. A
 distinction that distinguishes nothing from nothing is not a
@@ -591,8 +628,9 @@ is therefore not an addition to rung 1 but an unpacking of it:
 ``differentiation'' already means \emph{differentiation of something
 from something}. Rung 2 collapses into rung 1 by conceptual analysis.
 
+\hypertarget{the-locus-and-rung-3-the-proper-part}{%
 \subsubsection{4.2 The locus, and rung 3 --- the proper
-part}\label{the-locus-and-rung-3-the-proper-part}
+part}\label{the-locus-and-rung-3-the-proper-part}}
 
 Rung 3 asserts that the observer-locus is a proper part of an
 unexhausted whole. Between rung 2 and rung 3 there is a step easy to
@@ -637,8 +675,9 @@ presentational: it changes no result downstream of the structure
 is presented as analytic in the perspectival primitive, with the
 thin-reading alternative noted.
 
+\hypertarget{rung-5-the-existence-of-a-dynamics}{%
 \subsubsection{4.3 Rung 5 --- the existence of a
-dynamics}\label{rung-5-the-existence-of-a-dynamics}
+dynamics}\label{rung-5-the-existence-of-a-dynamics}}
 
 Granting (provisionally, pending Section 5) that there is more than one
 moment, and granting the locus that persists across moments as the same
@@ -655,7 +694,8 @@ depends on rung 4, which Section 5 will show is \emph{not} itself a
 lemma. Rung 5 is thus a \emph{conditional} lemma: a consequence of the
 evidence together with the one genuine addition.
 
-\subsubsection{4.4 Rung 6 --- bijectivity}\label{rung-6-bijectivity}
+\hypertarget{rung-6-bijectivity}{%
+\subsubsection{4.4 Rung 6 --- bijectivity}\label{rung-6-bijectivity}}
 
 The framework's Lemma 3 derives bijectivity from the preservation of the
 observer's records. The derivation separates into two halves with
@@ -704,7 +744,8 @@ on a finite set; on an infinite set an injective map need not be
 surjective. Reversibility therefore is not established here --- it waits
 on rung 7.
 
-\subsubsection{4.5 Rung 7 --- finiteness}\label{rung-7-finiteness}
+\hypertarget{rung-7-finiteness}{%
+\subsubsection{4.5 Rung 7 --- finiteness}\label{rung-7-finiteness}}
 
 Rung 7 asserts the visible configuration space is finite. The
 framework's Lemma 1 motivates finiteness from holographic entropy bounds
@@ -753,8 +794,9 @@ inherits the A1 extension above; reversibility of the registered
 dynamics is recovered, and rung 6 is a lemma at the visible level,
 structural-plus-A1 at the substratum level.
 
+\hypertarget{rung-8-the-hidden-sector-conditions}{%
 \subsubsection{4.6 Rung 8 --- the hidden-sector
-conditions}\label{rung-8-the-hidden-sector-conditions}
+conditions}\label{rung-8-the-hidden-sector-conditions}}
 
 Rungs C1--C4 are conditions on the relationship between the locus \(V\)
 and its complement. C1, non-zero coupling, follows conditionally: a
@@ -771,8 +813,9 @@ selection rule on where observers can exist ({[}Main{]} §4.6). Rung 8 is
 correctly treated by the framework as a selection condition, not a
 derivation, and no overclaim is present.
 
+\hypertarget{summary-of-the-recoveries}{%
 \subsubsection{4.7 Summary of the
-recoveries}\label{summary-of-the-recoveries}
+recoveries}\label{summary-of-the-recoveries}}
 
 Of rungs 2--8: rung 2 (relationality) and the locus premise collapse
 into rung 1 by conceptual analysis; rung 3 (proper part), rung 5
@@ -783,11 +826,13 @@ remains: rung 4.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-one-rung-that-is-not-a-lemma}{%
 \subsection{5. THE ONE RUNG THAT IS NOT A
-LEMMA}\label{the-one-rung-that-is-not-a-lemma}
+LEMMA}\label{the-one-rung-that-is-not-a-lemma}}
 
+\hypertarget{two-questions-about-succession-and-which-one-is-the-claim}{%
 \subsubsection{5.1 Two questions about succession, and which one is the
-claim}\label{two-questions-about-succession-and-which-one-is-the-claim}
+claim}\label{two-questions-about-succession-and-which-one-is-the-claim}}
 
 The claim of this section concerns rung 4 --- temporal succession. But
 ``deriving succession'' can mean two distinct things, and the no-go
@@ -861,8 +906,9 @@ independently. No third temporal axiom is required, and none is
 concealed: the two-question framing of this section is the complete
 account of where the framework's temporal commitments lie.
 
+\hypertarget{six-attempted-derivations}{%
 \subsubsection{5.2 Six attempted
-derivations}\label{six-attempted-derivations}
+derivations}\label{six-attempted-derivations}}
 
 The claim is established not by a single argument but by the exhaustion
 of the available derivations. Six attempts to derive succession from
@@ -923,8 +969,9 @@ a process conclusion; ``differentiated content is'' does not yield
 reached is the domain-existence claim of Section 5.1: each attempt, to
 get a second moment, must assume a second moment.
 
+\hypertarget{the-result-against-the-existing-literature}{%
 \subsubsection{5.3 The result against the existing
-literature}\label{the-result-against-the-existing-literature}
+literature}\label{the-result-against-the-existing-literature}}
 
 The no-go of Section 5.2 is not made in isolation from a substantial
 existing literature on temporal succession. That literature both
@@ -1010,8 +1057,9 @@ precisely because --- as Section 5.2 establishes --- the recurrence
 cannot be synthesized from the difference without a premise that already
 contains it.
 
+\hypertarget{the-status-of-succession-a-second-axiom}{%
 \subsubsection{5.4 The status of succession --- a second
-axiom}\label{the-status-of-succession-a-second-axiom}
+axiom}\label{the-status-of-succession-a-second-axiom}}
 
 Succession is therefore neither evidential nor derivable. But it is also
 not an independent axiom of the same kind as rung 1. The honest
@@ -1085,8 +1133,9 @@ of count --- ``one axiom'' --- would be to conceal the second posit
 behind the first, which is the move this distillation exists to expose,
 not to perform.
 
+\hypertarget{the-result-stated-as-a-no-go}{%
 \subsubsection{5.5 The result stated as a
-no-go}\label{the-result-stated-as-a-no-go}
+no-go}\label{the-result-stated-as-a-no-go}}
 
 The content of Sections 4 and 5 can be stated as a single result.
 \emph{Given Axiom 1, ``tokened differentiation occurs,'' the rungs
@@ -1106,10 +1155,12 @@ domain; the latter is a separate and possibly tractable question
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-two-axiom-observation-base}{%
 \subsection{6. THE TWO-AXIOM OBSERVATION
-BASE}\label{the-two-axiom-observation-base}
+BASE}\label{the-two-axiom-observation-base}}
 
-\subsubsection{6.1 Statement}\label{statement}
+\hypertarget{statement}{%
+\subsubsection{6.1 Statement}\label{statement}}
 
 The foundation of the framework, distilled, is two axioms:
 
@@ -1148,8 +1199,9 @@ dynamics, determinism, finiteness-per-moment, and bijectivity. The
 hidden-sector conditions C1--C4 are selection conditions, not lemmas,
 and are so treated.
 
+\hypertarget{what-the-two-axiom-form-buys}{%
 \subsubsection{6.2 What the two-axiom form
-buys}\label{what-the-two-axiom-form-buys}
+buys}\label{what-the-two-axiom-form-buys}}
 
 The two-axiom statement is more honest than ``a single axiom'' and more
 precise than ``several assumptions,'' and both improvements are
@@ -1176,8 +1228,9 @@ eight are lemmas. The framework rests on two axioms, and the two-axiom
 form states \emph{that} --- the economy is real, and naming it at the
 correct count is part of stating it honestly.
 
+\hypertarget{relation-to-other-minimal-claims}{%
 \subsubsection{6.3 Relation to other minimal
-claims}\label{relation-to-other-minimal-claims}
+claims}\label{relation-to-other-minimal-claims}}
 
 The two-axiom observation base is sometimes compared, in discussion, to
 other candidate ``bedrock'' claims. The comparisons are clarifying. They
@@ -1213,9 +1266,10 @@ it is a substantive posit, defended not as undeniable but as the minimal
 further commitment without which there is no dynamics and no physics,
 and shown by the no-go to be irreducible to Axiom 1.
 
+\hypertarget{relation-to-the-landscape-generality-selection-and-what-they-presuppose}{%
 \subsubsection{6.4 Relation to the landscape: generality, selection, and
 what they
-presuppose}\label{relation-to-the-landscape-generality-selection-and-what-they-presuppose}
+presuppose}\label{relation-to-the-landscape-generality-selection-and-what-they-presuppose}}
 
 A natural question, given that the framework elsewhere derives a gauge
 structure and a selection principle, is whether the two axioms might
@@ -1285,8 +1339,9 @@ general over in the first place.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-intuition-in-plain-language}{%
 \subsection{7. THE INTUITION IN PLAIN
-LANGUAGE}\label{the-intuition-in-plain-language}
+LANGUAGE}\label{the-intuition-in-plain-language}}
 
 The preceding sections are precise at the cost of being technical. The
 underlying intuition is simple, and stating it plainly is worthwhile ---
@@ -1358,8 +1413,9 @@ total, but because it is honest about what it assumes.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{open-questions-and-status}{%
 \subsection{8. OPEN QUESTIONS AND
-STATUS}\label{open-questions-and-status}
+STATUS}\label{open-questions-and-status}}
 
 Part I is developmental, and several questions are deliberately left
 open.
@@ -1410,8 +1466,9 @@ concerns only the formulation of their starting point.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{part-ii-constructive-structural-realism}{%
 \section{PART II --- CONSTRUCTIVE STRUCTURAL
-REALISM}\label{part-ii-constructive-structural-realism}
+REALISM}\label{part-ii-constructive-structural-realism}}
 
 \emph{Part II develops the framework's second methodological commitment:
 that ontic structural realism, ordinarily a programmatic stance, becomes
@@ -1424,8 +1481,9 @@ summarized here are established in the framework's substratum paper;
 this part states them at the fidelity of faithful synthesis and refers
 the reader needing the proofs to that paper.}
 
+\hypertarget{structural-realism-as-a-programmatic-position}{%
 \subsection{9. STRUCTURAL REALISM AS A PROGRAMMATIC
-POSITION}\label{structural-realism-as-a-programmatic-position}
+POSITION}\label{structural-realism-as-a-programmatic-position}}
 
 Ontic structural realism (OSR) holds that what is fundamental, and what
 physical theory gives us knowledge of, is structure --- the network of
@@ -1471,43 +1529,56 @@ programmatic version, left as the position's horizon rather than its
 deliverable.
 
 The methodological claim of this part is that the Incompleteness
-framework discharges the promise. It does so not by arguing for OSR as a
-stance but by proving two theorems whose conjunction \emph{is} the
-structural-realist claim made constructive: the structure consistent
-with the empirical inputs is exhibited and shown to be unique under the
-theorems' stated conditions (M1; C2-mixing; Lemma 24.1's completeness),
-and the surplus --- the respects in which distinct descriptions are the
-same structure --- is exhibited and classified, exhaustively conditional
-on that completeness step. OSR, in this framework, is not adopted. It is
-a conditional result --- as strong as the theorems that carry it.
+framework discharges a \textbf{scoped} version of that promise. The
+local propagating lattice/gauge residue is exhibited and shown unique
+under Theorem 23's stated conditions, while the surplus of the
+reconstructed dilation/local datum is exhibited and classified,
+exhaustively conditional on Lemma 24.1's completeness step.
+Bell-composite structure lies outside that uniqueness result: H-Bell is
+an existence/compatibility condition and Bell-inclusive uniqueness is
+open. OSR is therefore constructive here at the local reconstructed
+level, not a theorem selecting one complete ontology.
 
-\subsection{10. THE RECONSTRUCTION THEOREM: UNIQUENESS OF THE
-STRUCTURE}\label{the-reconstruction-theorem-uniqueness-of-the-structure}
+\hypertarget{the-reconstruction-theorem-uniqueness-of-the-local-structural-residue}{%
+\subsection{10. THE RECONSTRUCTION THEOREM: UNIQUENESS OF THE LOCAL
+STRUCTURAL
+RESIDUE}\label{the-reconstruction-theorem-uniqueness-of-the-local-structural-residue}}
 
 The framework's forward direction runs from a finite deterministic
 construction --- a bijection \((S, \varphi)\) on a finite configuration
-space --- to observed physics: the emergence of quantum mechanics for an
-embedded observer, the Standard Model gauge group as the visible-sector
-projection, the gravitational sector from boundary thermodynamics. The
-reconstruction theorem addresses the converse. It asks whether observed
-physics determines the construction, and answers that it determines it
-uniquely --- under the stated conditions --- up to a gauge equivalence
-that the next section classifies.
+space --- to observed physics. The reconstruction theorem addresses the
+converse at a narrower level: it asks which \textbf{local propagating
+lattice/gauge residue} the observed inputs fix, and answers that this
+residue is unique --- under the stated conditions --- up to the gauge
+equivalence classified next. It does not select a unique Bell-inclusive
+full construction.
 
-Stated as faithful synthesis of the framework's substratum paper
-{[}Substratum{]}: given empirical inputs E1--E7 --- quantum mechanics
-with Bell-inequality violations attaining the Tsirelson bound, finite
-boundary entropy, spatial isotropy, propagating gravity, stable matter,
-boundary-entropy concordance --- and structural assumptions A1--A6 ---
-finiteness, determinism, bounded coupling degree, center independence,
-linearity, background independence --- together with the M1 modeling
-premise, the equivalence class
-\([(S,\varphi)]/\mathcal{G}_{\text{sub}}\) is uniquely determined,
-conditional on the C2 mixing hypothesis and on Lemma 24.1's completeness
-step. The reconstruction yields, as forced outputs rather than fitted
-parameters, a finite set with a bijection of bounded coupling degree and
-statistical isotropy; spatial dimension three; the coupling-matrix
-eigenvalue multiplicities \((3,2,1)\); the Standard Model gauge group
+Stated as faithful synthesis of {[}Substratum{]}: given E1--E7 and
+A1--A6 together with M1-T, the C2 mixing hypothesis and Lemma 24.1's
+completeness step, the \textbf{local propagating lattice/gauge residue}
+is uniquely fixed up to the stated substratum-gauge freedoms. M1-B is
+separate. The reference nearest-neighbor graph is Bell-local under
+measurement independence; the adopted branch uses preparation-indexed
+adjacency in the state-dependent graph \(G(x)\) (or an equivalent
+ontically nonlocal response). H-Bell is the open requirement that those
+prepared graphs preserve operational no-signaling and the
+metric/Ollivier--Ricci continuum limit. That condition is now downstream
+of a harder one. The cited convergence theorem is arbitrary-dimensional
+only for the manifold-distance-weighted graph metric, and for the
+degree-\(6\) cubic reference graph the intrinsic hop metric is exactly
+\(\ell_1\) --- a \(\sqrt2\) diagonal stretch that does not decay at any
+scale --- so the hop-metric curvature route FAILS for the reference
+family, before any Bell edge is added, and no \(D=3\) extension of that
+theorem would rescue it. The emergent geometry itself is not in
+question: the substratum's dispersion relation is isotropic at leading
+order. What must be re-founded is the curvature functional, on the
+propagation/Laplacian geometry rather than on shortest-path counts {[}SM
+§3.2{]}. No theorem here establishes Bell-inclusive full-substratum
+uniqueness. The reconstruction yields, as forced outputs rather than
+fitted parameters, a finite set with a bijection of bounded coupling
+degree and statistical isotropy; spatial dimension three; the
+coupling-matrix eigenvalue multiplicities \((3,2,1)\); the Standard
+Model gauge group
 \(\mathrm{SU}(3)\times\mathrm{SU}(2)\times\mathrm{U}(1)\); three
 generations (physical reading conditional on H-spin', {[}SM §4.7{]};
 chirality on H-χ', {[}SM §4.8{]}); one Higgs doublet; anomaly-free
@@ -1519,15 +1590,14 @@ Two features of this theorem matter methodologically, independently of
 whether each forced output survives empirical scrutiny.
 
 The first is the \emph{direction} of the result. The theorem does not
-say that the framework's construction can reproduce observed physics ---
-reproduction is the forward direction, and many constructions can be
-tuned to reproduce a target. It says the inverse: that observed physics,
-taken as the input, \emph{backs out} to the construction with no freedom
-left except the classified gauge equivalence. This is the property an
-OSR claim needs and ordinarily cannot supply. To say ``the structure is
-what is real'' is idle if many structures fit the phenomena; it has
-content exactly when the structure is pinned. The reconstruction theorem
-is the pinning.
+merely say that the construction can reproduce observed physics; it says
+the inverse inputs \emph{back out} to a unique \textbf{local structural
+residue} modulo the classified gauge directions. That is genuine
+pinning, but its domain matters: preparation-indexed Bell-composite data
+are not pinned by the theorem. The methodological content is therefore a
+demonstrated local structural residue plus an explicitly named
+completion underdetermination, rather than an unqualified unique
+ontology.
 
 The second is the theorem's \emph{honesty about its inputs}. The
 structural assumptions A1--A6 are not claimed as derived; they are
@@ -1545,27 +1615,25 @@ the level of the reconstruction.
 
 There is also a scope limit the framework states itself, and faithful
 synthesis requires repeating it. The empirical inputs E1--E7 are
-idealized: they are structural facts about observed physics --- the full
-apparatus of quantum mechanics, Bell violations exactly at the Tsirelson
-bound, the holographic bound, exact isotropy --- none of which any
-finite body of data establishes outright. The theorem proves uniqueness
-under the idealized inputs. Reconstruction from finite data is a
-distinct and weaker question, on which the framework's answer is the
-cumulative weight of its quantitative retrodictions rather than the
-theorem. Part II's claim is about the theorem's idealized uniqueness; it
-does not assert that finite data singles out the structure, and a
-referee should hold it to the former and not the latter.
+idealized structural facts; no finite body of data establishes them
+outright. The theorem proves \textbf{local-residue uniqueness} under
+those idealized inputs. Reconstruction from finite data is a distinct
+and weaker question, answered operationally by the cumulative
+quantitative record rather than the theorem. This finite-data
+qualification is independent of the Bell qualification: even at the
+idealized-input level, Bell-inclusive completion uniqueness is open.
 
+\hypertarget{the-gauge-classification-theorem-exhibiting-the-surplus}{%
 \subsection{11. THE GAUGE-CLASSIFICATION THEOREM: EXHIBITING THE
-SURPLUS}\label{the-gauge-classification-theorem-exhibiting-the-surplus}
+SURPLUS}\label{the-gauge-classification-theorem-exhibiting-the-surplus}}
 
-A reconstruction theorem alone would establish uniqueness up to
-\emph{something} --- up to whatever transformations leave the empirical
-inputs invariant. An OSR claim needs that ``something'' itself to be
-exhibited and bounded. Otherwise the surplus is a residual unknown, and
-``the structure is real, up to we-know-not-what'' is not yet a
-constructive position. The framework's second theorem supplies this: it
-classifies the gauge group \(\mathcal{G}_{\text{sub}}\) --- the
+A scoped reconstruction theorem establishes local-residue uniqueness up
+to \emph{something} --- up to the transformations that leave that
+reconstructed content invariant. An OSR claim needs that ``something''
+itself to be exhibited and bounded. Otherwise the surplus is a residual
+unknown, and ``the structure is real, up to we-know-not-what'' is not
+yet a constructive position. The framework's second theorem supplies
+this: it classifies the gauge group \(\mathcal{G}_{\text{sub}}\) --- the
 transformations relating distinct constructions that produce identical
 observables --- into an explicit list, exhaustive conditional on the
 semigroup-transfer completeness step (Substratum Lemma 24.1, identified
@@ -1649,26 +1717,22 @@ construction within the class one's universe ``is'' is --- provably ---
 without empirical content, because the gauge group relates all
 representatives to identical observables.
 
+\hypertarget{what-the-conjunction-establishes-and-what-it-does-not}{%
 \subsection{12. WHAT THE CONJUNCTION ESTABLISHES, AND WHAT IT DOES
-NOT}\label{what-the-conjunction-establishes-and-what-it-does-not}
+NOT}\label{what-the-conjunction-establishes-and-what-it-does-not}}
 
 The methodological yield of Parts II is the conjunction, so it is worth
 stating exactly.
 
-With both theorems in hand, the framework can say three things that
-programmatic OSR cannot. It can \emph{exhibit} the structure rather than
-promise it: the equivalence class is a specified mathematical object. It
-can \emph{bound the surplus}: the four-family classification says
-precisely which differences between descriptions are differences that
-make no difference. And it can \emph{adjudicate the realism question for
-its own case}: realism about a specific substratum is not false but
-unstatable --- it commits to facts the framework's own gauge theorem
-classifies as observably empty --- while a deflationary reading on which
-the framework is merely an economical reformulation undersells the
-reconstruction theorem, since uniqueness means the structure is not one
-economical option among many but the structure the evidence forces. The
-framework's position is the middle one: realism about the equivalence
-class, exactly.
+With both theorems in hand, the framework can do more than programmatic
+OSR at the \textbf{local reconstructed level}. It can exhibit the local
+residue, bound its gauge surplus by the four-family classification
+(conditional on the completeness step), and state exactly where the
+result stops. The local residue is not merely one economical option
+within the theorem's class; it is the residue the stated inputs fix. But
+realism about a uniquely specified Bell-complete substratum would outrun
+the theorem, because H-Bell does not classify or uniquely select
+preparation-indexed Bell-composite structure.
 
 Three honest limits. First, the theorems are summarized here, not
 proved; their proofs and their dependency structure live in the
@@ -1713,8 +1777,9 @@ demonstration that it was ill-formed --- is the pattern the framework
 applies again, in Part III, to the no-go theorems of quantum
 foundations.
 
+\hypertarget{part-iii-per-theorem-evasion-of-no-go-results}{%
 \section{PART III --- PER-THEOREM EVASION OF NO-GO
-RESULTS}\label{part-iii-per-theorem-evasion-of-no-go-results}
+RESULTS}\label{part-iii-per-theorem-evasion-of-no-go-results}}
 
 \emph{Part III develops the framework's third methodological commitment:
 that its relation to the no-go theorems of quantum foundations is
@@ -1728,8 +1793,9 @@ architecture is what each theorem's assumption runs aground on --- is
 the present paper's synthesis, and the developmental status of each case
 is flagged accordingly.}
 
+\hypertarget{the-no-go-theorems-as-a-family}{%
 \subsection{13. THE NO-GO THEOREMS AS A
-FAMILY}\label{the-no-go-theorems-as-a-family}
+FAMILY}\label{the-no-go-theorems-as-a-family}}
 
 A deterministic-substratum account of quantum mechanics must answer to
 the no-go theorems of quantum foundations. These results --- Bell's
@@ -1769,10 +1835,14 @@ before any no-go theorem is considered.
 
 The trace-out separates the two levels, but the four no-go theorems do
 \textbf{not} share one automatic escape pattern, and the manuscript
-should not pretend that they do. Bell requires a dynamical locality
-statement plus an ensemble/setting-screening statement; the first is
-supplied by the OI dependency graph, while the second remains
-quantitative. Kochen--Specker constrains the noncommuting operational
+should not pretend that they do. Bell is sharper: for a
+response-complete deterministic completion, a finite-range Bell graph
+together with a setting-independent pre-setting ensemble gives a
+Bell-local model and \(|S_{\rm CHSH}|\le2\). The framework therefore
+cannot use the trace-out, screening, or indivisibility as an escape from
+Bell; it retains measurement independence and takes ontic parameter
+dependence for Bell-violating substrata, with operational no-signaling
+kept separately. Kochen--Specker constrains the noncommuting operational
 observable algebra, so its inheritance is conditional on the coherent
 operational lift. PBR depends on a preparation-independence postulate
 for the underlying variables; OI does not posit that postulate, but
@@ -1784,15 +1854,22 @@ statements, fixed-basis representation statements, and full
 operational-QM statements at their correct levels. The trace-out is the
 common architecture, not a universal theorem-disabling device.
 
-\subsection{14. THE FOUR CASES}\label{the-four-cases}
+\hypertarget{the-four-cases}{%
+\subsection{14. THE FOUR CASES}\label{the-four-cases}}
 
 \emph{A status note, stated before the cases and not buried within
-them.} Bell's case is developed to the following precise strength:
-spatial OI gives an exact graph causal cone; Tsirelson follows for the
-causal-local indivisible process once operational setting screening is
-imposed/established, with an explicit robustness correction for residual
-setting--hidden mutual information. The derivation of exact screening
-from the cosmological mixing mechanism remains open. Kochen--Specker is
+them.} Bell's case now has two deliberately separated layers. Spatial OI
+gives an exact graph causal cone for finite-range substrata. But when
+the completion is response-complete and deterministic, combining that
+pointwise cone with one measurement-independent pre-setting ensemble
+gives a Bell-local hidden-variable model and the classical ceiling
+\(|S_{\rm CHSH}|\le2\). The framework therefore does not use screening
+plus graph locality as its route to quantum Bell correlations: it
+declines the measurement-dependent/superdeterministic branch and takes
+ontic parameter dependence for Bell-violating substrata, while retaining
+operational no-signaling. The Barandes--Hasan--Kagan Tsirelson result
+remains a statement about the weaker stochastic causal-local indivisible
+description, not about the deterministic completion. Kochen--Specker is
 conditional on the common coherent noncommuting instrument lift. The PBR
 discussion is likewise conditional at the composite level: OI does not
 postulate unconditional preparation independence, and co-embedding
@@ -1802,39 +1879,35 @@ an interpretive consequence of partition-relative reduced descriptions.
 These different statuses are kept separate below.
 
 \textbf{Bell's theorem.} Bell's theorem binds on the framework because
-the substratum configuration is a hidden variable. What the foundational
-paper establishes unconditionally for spatial OI is the dynamical part
-of locality: the dependency graph gives exact causal cones, so a remote
-setting cannot alter a local substratum state before the cones meet.
-Statistical Bell locality additionally requires operational setting
-screening --- the setting choice must not reweight preparation-relevant
-hidden variables. Under that condition, the causal-local indivisible
-construction obeys Tsirelson; with residual setting correlation the Main
-paper gives an explicit robustness bound. Unrestricted globally
-controlled OI realizations can produce PR-box behavior, so neither
-no-signaling nor graph propagation alone is promoted to the full local
-quantum correlation class. \emph{(Established: graph causal cone and
-conditional/robust Bell bound; open: derivation of exact operational
-setting screening from the cosmological mechanism.)}
+the substratum configuration is a hidden variable. The dependency graph
+proves a finite-propagation statement for any substratum whose
+Bell-relevant couplings are finite-range: before the cones meet, a
+remote setting cannot change the local response through that graph. If,
+in addition, one response-complete pre-setting microstate fixes both
+wings' responses and its ensemble is independent of the settings,
+determinism turns the model into an ordinary local hidden-variable
+decomposition, hence \(|S_{\rm CHSH}|\le2\). That is the Bell ceiling
+theorem of Main §3.3. Quantum Bell violation therefore cannot be
+attributed simultaneously to that pointwise cone and measurement
+independence.
 
-Cast in the levels language of Section 13, the unconditional theorem is
-dynamical: before the relevant causal cones meet, changing a remote
-setting intervention cannot alter the local substratum state. This
-pointwise statement does not by itself establish the observational
-ensemble condition used in Bell inequalities. If the setting generator
-remains correlated with preparation-relevant hidden variables,
-conditioning on the setting can reweight the local hidden ensemble
-without any superluminal propagation. The manuscript's chaotic-mixing
-mechanism motivates suppression of that correlation but does not yet
-derive its exact vanishing; Main therefore carries the residual quantity
-\(I_{\rm MI}\) explicitly and bounds the possible CHSH excess above
-Tsirelson by \(4\sqrt{2\ln2\,I_{\rm MI}}\) (capped by the algebraic
-maximum). Exact screening recovers the causal-local Tsirelson theorem.
-This is the precise sense in which the Bell obligation is met
-conditionally rather than evaded: graph locality is proved, setting
-screening is a testable quantitative premise/target, and PR behavior is
-the mandatory control when that operational locality structure is
-removed.
+The framework's chosen branch is ontic parameter dependence: the
+Bell-relevant substratum has coupling range exceeding the wings'
+separation, so one wing's response can depend on the remote setting at
+the microstate level even though the averaged outcome distribution is
+operationally no-signaling. The alternative is ontic measurement
+dependence; Main records but does not adopt it, with the necessary bound
+\(S\le\min\{4,2+4\sqrt{2\ln2\,I_{\rm ont}}\}\). The stochastic
+causal-local indivisible construction can obey Tsirelson because its
+causal-independence condition is weaker than Bell factorization; that
+result is retained at the stochastic layer only. Unrestricted globally
+controlled OI realizations can produce PR-box behavior, so no-signaling,
+hidden memory, and indivisibility are all insufficient by themselves to
+select the quantum correlation set. \emph{(Established: graph
+causal-cone theorem for finite-range substrata, Bell ceiling for the
+screened deterministic completion, and the measurement-dependence bound;
+adopted Bell branch: ontic parameter dependence with operational
+no-signaling.)}
 
 \textbf{The Frauchiger--Renner theorem.} Frauchiger--Renner shows that
 quantum theory cannot consistently describe its own use by an agent who
@@ -1938,8 +2011,9 @@ were shown to satisfy PBR preparation independence together with the
 other hypotheses, it would inherit PBR's conclusion; if it does not, the
 theorem is outside that completion's scope.
 
+\hypertarget{why-the-unification-is-not-ad-hoc}{%
 \subsection{15. WHY THE UNIFICATION IS NOT AD
-HOC}\label{why-the-unification-is-not-ad-hoc}
+HOC}\label{why-the-unification-is-not-ad-hoc}}
 
 The natural objection to any framework that ``evades'' several no-go
 theorems is that the evasions are opportunistic --- that the framework
@@ -1947,25 +2021,22 @@ has simply looked, for each theorem, at which assumption can be broken
 cheapest, and broken it. Part III's claim is that this objection does
 not apply, and the reason is structural rather than rhetorical.
 
-The four cases are not four chosen assumptions. They are four
-manifestations of one feature: the framework has two levels of
-description, a hidden deterministic substratum and an emergent quantum
-description, related by the trace-out, and each no-go theorem's
-assumption runs aground on the separation that trace-out enforces. In
-three cases --- Bell's factorizability, Frauchiger--Renner's universal
-description, PBR's preparation-independence --- the property holds at
-the emergent level, where it is unobjectionable because that level
-simply is quantum mechanics, and fails at the substratum level, where
-the theorem needed it. In the fourth --- Kochen--Specker's noncontextual
-valuation --- the property holds at neither level, because the trace-out
-interposes a partition-dependent step that makes a noncontextual
-valuation of the emergent observables unavailable in principle (Section
-13). The common factor is not a single ``emergent-yes, substratum-no''
-slogan applied four times; it is the architecture --- two levels and a
-trace-out --- that, fixed before any no-go theorem is considered,
-determines the response to all of them at once. The framework did not
-select four assumptions to break; it has one structure, and the four
-responses are four things that structure does.
+The four cases are not four versions of one theorem-disabling trick.
+They share one bookkeeping architecture --- substratum, reduced
+description, and trace-out --- but each no-go theorem constrains a
+different object and must be checked separately. Bell is the clearest
+warning against over-unification: Bell factorizability fails for the
+observed quantum correlations themselves, and a response-complete
+deterministic completion cannot recover those correlations from graph
+locality plus measurement independence. The adopted substratum is
+therefore ontically parameter-dependent, while the emergent statistics
+remain no-signaling. Frauchiger--Renner concerns the universality of one
+quantum description across observer partitions; PBR concerns preparation
+independence at the ontic composite level; Kochen--Specker concerns
+noncontextual valuations in the noncommuting operational algebra. The
+common factor is the discipline of locating each premise at the correct
+level, not a claim that the trace-out automatically makes every
+forbidden premise true above and false below.
 
 The test of non-ad-hocness is whether the response to the theorems was
 available before the theorems were examined, or constructed afterward to
@@ -1995,8 +2066,9 @@ shared condition directly. The methodological claim of Part III stands
 on all four: the framework's relation to the no-go family is governed by
 one architectural feature, and each of the four cases exhibits it.
 
+\hypertarget{part-iv-physics-modulo-gauge}{%
 \section{PART IV --- PHYSICS MODULO
-GAUGE}\label{part-iv-physics-modulo-gauge}
+GAUGE}\label{part-iv-physics-modulo-gauge}}
 
 \emph{Part IV draws the three preceding commitments into a single
 methodological proposal: that the well-posed question for fundamental
@@ -2006,8 +2078,9 @@ representatives?'' This part argues the proposal as a general
 methodology, not as a feature peculiar to the framework's particular
 construction.}
 
+\hypertarget{the-question-that-does-not-close}{%
 \subsection{16. THE QUESTION THAT DOES NOT
-CLOSE}\label{the-question-that-does-not-close}
+CLOSE}\label{the-question-that-does-not-close}}
 
 The realism debate in the philosophy of physics is organized around a
 question: what is fundamental? Realists answer with an inventory ---
@@ -2050,25 +2123,28 @@ it the choice of representative is, provably, without empirical content.
 unknown answer. It is a question the framework's own structure certifies
 as empty.
 
+\hypertarget{the-well-posed-replacement}{%
 \subsection{17. THE WELL-POSED
-REPLACEMENT}\label{the-well-posed-replacement}
+REPLACEMENT}\label{the-well-posed-replacement}}
 
 If ``what is fundamental?'' is ill-posed, it should be replaced, not
 merely abandoned. The replacement the framework's methodology proposes
 is: \emph{what is the equivalence class of structures that produce the
 observations, and what are its representatives?}
 
-This question is well-posed in the precise sense that it has a
-determinate answer of a known form. The reconstruction theorem gives the
-equivalence class; the gauge-classification theorem gives the
-representatives, by enumerating the transformations relating them. The
-question decomposes into two sub-questions each of which is answerable
-by a theorem rather than by a stance: a uniqueness question (what
-class?) and a classification question (what gauge freedom within it?).
-Where ``what is fundamental?'' asks for a winner among the
-representatives and the framework certifies that there is none to be
-had, ``what is the equivalence class and what are its representatives?''
-asks for exactly the two things the framework's theorems deliver.
+For the reconstructed local sector this question is well-posed in a
+determinate form: the reconstruction theorem gives the local equivalence
+class, and the gauge-classification theorem gives its representatives by
+enumerating the relevant transformations. The Bell-inclusive completion
+adds a third question --- which compatible preparation-indexed Bell
+rule, if any --- whose uniqueness is presently open. The question
+decomposes into two sub-questions each of which is answerable by a
+theorem rather than by a stance: a uniqueness question (what class?) and
+a classification question (what gauge freedom within it?). Where ``what
+is fundamental?'' asks for a winner among the representatives and the
+framework certifies that there is none to be had, ``what is the
+equivalence class and what are its representatives?'' asks for exactly
+the two things the framework's theorems deliver.
 
 Call this posture \emph{physics modulo gauge}. The name is chosen to
 make the structure explicit. Physics, on this view, determines its
@@ -2106,34 +2182,35 @@ class and the group are exhibited, not promised.
 
 The posture reframes several standing puzzles, beyond the realism debate
 itself. The ``unreasonable effectiveness of mathematics'' becomes, in
-this setting, a theorem rather than a mystery: if the mathematical
-structure and the physics determine each other up to gauge given the
-structural assumptions, the effectiveness is what the reconstruction
-theorem asserts, and the residual sense of mystery attaches only to the
-structural assumptions themselves, which are stated and finite. The
-question whether mathematics \emph{is} reality or merely
-\emph{describes} it is, \emph{for the embedded physical observer},
-exhibited as gauge --- the two phrasings are related by a transformation
-that changes no observable an embedded observer can perform, so the
-question of which is correct has, for physics, the same status as the
-question of which substratum representative is the real one. This is
-gauge \emph{in the framework's specific physics-internal sense}: the
-framework's gauge classification is relative to what an embedded
-observer can measure, not relative to all possible vantage points. The
-framework does not claim the question is absolutely meaningless. Whether
-the question has substantive content in mathematical foundations,
-meta-mathematics, or other modes of inquiry not bound by embedded
-physical observation is a separate matter the framework does not
-address; what the framework establishes is that the question carries no
-empirical weight for physics. A specialist in mathematical foundations
-is free to pursue it; the framework's reconstruction theorem provides,
-modulo gauge, the specific mathematical structure that would be in
-question if it has a positive answer, without committing to whether it
-does. The measurement problem, on this posture, is not solved by adding
-a mechanism but dissolved by noting that the definiteness of outcomes is
-a feature of every partition-relative emergent description, and that the
-apparent conflict between descriptions is the partition-gauge covariance
-of Part III.
+this setting, a scoped reconstruction result rather than a mystery: the
+observed inputs and the \textbf{local reconstructed structural residue}
+determine each other up to the stated gauge freedoms under the theorem's
+assumptions. Bell-composite structure is not included in that
+bidirectional uniqueness claim, so the residual underdetermination
+includes both the stated structural assumptions and the open
+Bell-inclusive completion. The question whether mathematics \emph{is}
+reality or merely \emph{describes} it is, \emph{for the embedded
+physical observer}, exhibited as gauge --- the two phrasings are related
+by a transformation that changes no observable an embedded observer can
+perform, so the question of which is correct has, for physics, the same
+status as the question of which substratum representative is the real
+one. This is gauge \emph{in the framework's specific physics-internal
+sense}: the framework's gauge classification is relative to what an
+embedded observer can measure, not relative to all possible vantage
+points. The framework does not claim the question is absolutely
+meaningless. Whether the question has substantive content in
+mathematical foundations, meta-mathematics, or other modes of inquiry
+not bound by embedded physical observation is a separate matter the
+framework does not address; what the framework establishes is that the
+question carries no empirical weight for physics. A specialist in
+mathematical foundations is free to pursue it; the framework's
+reconstruction theorem provides, modulo gauge, the specific mathematical
+structure that would be in question if it has a positive answer, without
+committing to whether it does. The measurement problem, on this posture,
+is not solved by adding a mechanism but dissolved by noting that the
+definiteness of outcomes is a feature of every partition-relative
+emergent description, and that the apparent conflict between
+descriptions is the partition-gauge covariance of Part III.
 
 A further structural observation, kept brief here because it lies
 outside the framework's primary scope: if a mathematical-foundations
@@ -2155,8 +2232,9 @@ as a selection effect. The framework does not commit to a
 mathematical-universe ontology; it provides the selection principle that
 any such ontology would benefit from having if it is pursued.
 
+\hypertarget{the-proposal-as-a-general-methodology}{%
 \subsection{18. THE PROPOSAL AS A GENERAL
-METHODOLOGY}\label{the-proposal-as-a-general-methodology}
+METHODOLOGY}\label{the-proposal-as-a-general-methodology}}
 
 The claim of this part is not merely that the Incompleteness framework
 happens to admit a physics-modulo-gauge reading. It is that physics
@@ -2235,8 +2313,9 @@ horizon, in the same spirit in which Part I left the succession no-go
 open to a derivation that has not been found. The methodology is offered
 for use and for criticism, not asserted as proven.
 
+\hypertarget{gauge-freedom-and-observational-incompleteness}{%
 \subsection{19. GAUGE FREEDOM AND OBSERVATIONAL
-INCOMPLETENESS}\label{gauge-freedom-and-observational-incompleteness}
+INCOMPLETENESS}\label{gauge-freedom-and-observational-incompleteness}}
 
 \emph{This section is the most recent addition to the paper and the
 least settled; it is developmental even by the standards of the rest,
@@ -2407,8 +2486,9 @@ that fall inside it as ill-posed rather than unanswered.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{part-v-the-operational-methodology}{%
 \section{PART V --- THE OPERATIONAL
-METHODOLOGY}\label{part-v-the-operational-methodology}
+METHODOLOGY}\label{part-v-the-operational-methodology}}
 
 \emph{Part V develops the methodology of the preceding parts at the
 operational level: given the substratum gauge group classified by Part
@@ -2421,8 +2501,9 @@ is offered as developmental in the same sense the earlier parts are ---
 provisional, but with each section's specific developmental status
 flagged.}
 
+\hypertarget{the-operational-question}{%
 \subsection{21. THE OPERATIONAL
-QUESTION}\label{the-operational-question}
+QUESTION}\label{the-operational-question}}
 
 Parts II through IV established that physics modulo gauge is the right
 \emph{form} of the answer for a foundational program with a
@@ -2455,8 +2536,9 @@ the framework's technical papers, and the unification stated here as
 synthesis is the present paper's contribution. Each section flags its
 own status more specifically.
 
+\hypertarget{the-gauge-invariance-no-go}{%
 \subsection{22. THE GAUGE-INVARIANCE
-NO-GO}\label{the-gauge-invariance-no-go}
+NO-GO}\label{the-gauge-invariance-no-go}}
 
 \emph{Status: developed result; the theorem and its proof are in the
 framework's technical record. The statement and proof sketch below are
@@ -2541,8 +2623,9 @@ the content that requires empirical input. Where the line falls is the
 operational question of §22; the answer is not vacuous in either
 direction.
 
+\hypertarget{the-category-error-finding}{%
 \subsection{23. THE CATEGORY-ERROR
-FINDING}\label{the-category-error-finding}
+FINDING}\label{the-category-error-finding}}
 
 \emph{Status: developed result; the type-mismatch is established by
 direct inspection of the framework's substratum-level structure (see the
@@ -2616,8 +2699,9 @@ program finds itself repeatedly stuck on a construction, the first check
 should be whether the construction is well-typed at the level it is
 being asked of.
 
+\hypertarget{the-architectural-pattern-part-iii-extended}{%
 \subsection{24. THE ARCHITECTURAL PATTERN: PART III
-EXTENDED}\label{the-architectural-pattern-part-iii-extended}
+EXTENDED}\label{the-architectural-pattern-part-iii-extended}}
 
 \emph{Status: synthesis; the architectural pattern is articulated in
 Part III as a unification of the four no-go cases of quantum
@@ -2678,7 +2762,8 @@ move; whether that record continues to hold under further scrutiny is
 part of what is offered for testing. The unification is a working claim,
 not a settled one.
 
-\subsection{25. THE OPERATIONAL AUDITS}\label{the-operational-audits}
+\hypertarget{the-operational-audits}{%
+\subsection{25. THE OPERATIONAL AUDITS}\label{the-operational-audits}}
 
 \emph{Status: the audits themselves are developed in the framework's
 technical record; their methodological reading as systematic application
@@ -2762,8 +2847,9 @@ obligation extended to revising the framework's own audits --- though
 not always in the first pass. The methodological refinements that this
 discipline canonizes are the subject of §26.
 
+\hypertarget{the-operational-refinements}{%
 \subsection{26. THE OPERATIONAL
-REFINEMENTS}\label{the-operational-refinements}
+REFINEMENTS}\label{the-operational-refinements}}
 
 \emph{Status: the refinements stated here are derived from the
 framework's audit experience and are offered at the generality the
@@ -2847,7 +2933,8 @@ operational claim is being made, distinguish derivation from inflation
 from declension, and the methodology gains the same precision it asks
 the framework's content to display.
 
-\subsection{27. CONCLUSION}\label{conclusion}
+\hypertarget{conclusion}{%
+\subsection{27. CONCLUSION}\label{conclusion}}
 
 This paper has articulated the methodology of the Incompleteness
 framework through five commitments, and it is worth stating, in closing,
@@ -2857,10 +2944,11 @@ Part I distilled the framework's foundation and found it was two axioms
 rather than one, related by a no-go: the foundation stated at the exact
 granularity of what it commits to, with the single non-evidential posit
 named and isolated. Part II found that the framework's structural
-realism is constructive rather than programmatic: the structure
-consistent with the evidence is exhibited and shown unique under the
-theorems' stated conditions, and the gauge freedom is exhibited and
-shown exhaustively classified conditional on the completeness step. Part
+realism is constructive rather than programmatic \textbf{for the local
+reconstructed residue}: that residue is exhibited and shown unique under
+the stated conditions, and its relevant gauge freedom is exhibited and
+shown exhaustively classified conditional on the completeness step;
+Bell-inclusive completion uniqueness remains outside the theorem. Part
 III found that the framework's relation to the no-go theorems of quantum
 foundations is one architectural feature --- two levels and a trace-out
 --- and not four separate escapes. Part IV drew these together into
@@ -2930,7 +3018,8 @@ framework's methodology consists in.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{ACKNOWLEDGEMENTS}\label{acknowledgements}
+\hypertarget{acknowledgements}{%
+\subsection{ACKNOWLEDGEMENTS}\label{acknowledgements}}
 
 This paper articulates, for a philosophy-of-physics readership, the
 methodological posture developed across the Incompleteness framework's
@@ -2940,7 +3029,8 @@ framework's substratum and main papers.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{REFERENCES}\label{references}
+\hypertarget{references}{%
+\subsection{REFERENCES}\label{references}}
 
 {[}Main{]} Maybaum, A. (2026). \emph{The Incompleteness of Observation:
 The Equivalence of Quantum Mechanics and Embedded Observation.} Zenodo.
@@ -3044,3 +3134,4 @@ deriving temporal succession.'' PhilSci-Archive preprint 20893.
 Time}, 2nd edn. Clarendon Press, Oxford.
 
 \end{document}
+% source-sha256: 38cc11d489db9ed19e04c167900cfb80bd8f29f53d660494f05f605dd16e9dfa

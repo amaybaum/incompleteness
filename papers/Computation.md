@@ -1,6 +1,9 @@
 # Embedded Computation in the Incompleteness of Observation Framework
 ### From Evolution to BQP and the P vs NP Question
 
+**Scope update — observer geometry and physical carrier.** SM §4.1 now separates two claims that earlier shorthand sometimes conflated. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forcing an Euclidean **quadratic** scalar symbol while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
+
+
 **Author:** Alex Maybaum
 **Date:** May 2026
 **Status:** DRAFT PRE-PRINT
@@ -65,7 +68,7 @@ The paper's structure: §2 carries the structural chain from evolution to genera
 | Logic gates | Transistors in series / parallel | Structural |
 | Universal computation | NAND is functionally complete | Mathematical theorem |
 
-The chain from (S, φ) to a universal computer is structural — given someone to build it. That is the same contingent step (general intelligence) identified in §2. The reconstruction theorem [5, §3] implies that a sufficiently sophisticated observer can discover (S, φ) — and an observer that understands its own substrate can build computational devices exploiting it.
+The chain from (S, φ) to a universal computer is structural — given someone to build it. That is the same contingent step (general intelligence) identified in §2. The reconstruction theorem [5, §3] implies that a sufficiently sophisticated observer can reconstruct the local lattice/gauge invariants fixed by Theorem 23; it does not identify a unique Bell-inclusive microphysical completion. An observer can nevertheless exploit the reconstructed local physics to build computational devices.
 
 **The self-referential loop.** AI is an embedded observer building another embedded observer within the same (S, φ). The characterization theorem [1, §3.4] applies to the new observer. It sees the same QM, the same ℏ, the same SM, the same dark sector. Not because it is limited by human design, but because the physics is structural — determined by the partition, not by the observer's complexity. A superintelligent AI has the same observational access as any other embedded observer: it reads the visible sector and writes to the hidden sector through the same coupling. It cannot determine $h$. It cannot see past the cosmological horizon. It can build better instruments, but it cannot overcome the partition.
 
@@ -75,7 +78,7 @@ The recursion — AI building AI building AI — produces ever more sophisticate
 
 | Capability | Status |
 |-----------|--------|
-| Discover (S, φ) from observations | Structurally possible (reconstruction theorem) |
+| Reconstruct the local lattice/gauge invariants from observations | Structurally possible under Theorem 23's conditions |
 | Build better models of the visible sector | No structural limit |
 | Determine the hidden-sector state $h$ | Provably impossible (characterization theorem) |
 | Observe beyond the cosmological horizon | Provably impossible (causal partition) |

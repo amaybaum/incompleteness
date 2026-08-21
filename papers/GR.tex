@@ -157,7 +157,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\usepackage{bookmark}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -169,9 +169,43 @@
 
 \begin{document}
 
+\hypertarget{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form-of-dark-energy-from-the-cosmological-horizon}{%
 \section{ℏ, the Bekenstein-Hawking Entropy, and the Running-Vacuum Form
 of Dark Energy from the Cosmological
-Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form-of-dark-energy-from-the-cosmological-horizon}
+Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form-of-dark-energy-from-the-cosmological-horizon}}
+
+\begin{quote}
+\textbf{Scope (K = 2d).} The coupling-degree-minimization proof of
+\(K=2d=6\) is WITHDRAWN: diagonalizing the internal matrix decouples
+eigenvectors but does not assign an eigenvector to a single signed
+spatial neighbour --- every component still receives the whole neighbour
+sum. What survives is exact and is retained throughout: the six
+geometric simple-cubic links carry the \(O_h\) decomposition
+\(V_{\rm link}=T_1\oplus E\oplus A_1=3\oplus2\oplus1\). What becomes
+CONDITIONAL is that those geometric links are the physical gauge carrier
+--- hypothesis H-link, \(V_{\rm physical}\cong V_{\rm link}^{\oplus m}\)
+giving \(K=2dm\), with single-copy \(m=1\) a premise to be derived
+rather than a result. See {[}SM §4.5{]}.
+\end{quote}
+
+\textbf{Scope update --- observer geometry and physical carrier.} SM
+§4.1 now separates two claims that earlier shorthand sometimes
+conflated. First, finite equivariant projection is classical and exact:
+cubic symmetry is inherited by the projected Markov part and every
+memory kernel, forcing an Euclidean \textbf{quadratic} scalar symbol
+while allowing cubic anisotropy at \(O(k^4)\). The particular normalized
+nearest-neighbor operator \(A/(2d)\) additionally requires an
+\textbf{observer-level} center-free kernel; microscopic center
+independence alone does not imply that after correlated hidden variables
+are marginalized. Second, the six signed simple-cubic links and their
+exact \(3\oplus2\oplus1\) representation are unconditional geometry, but
+identifying that link space with the complete physical carrier is
+\textbf{H-link}; the single-copy clause gives \(K=6\), and the custodial
+condensate-stabilizer reading is \textbf{H-cust}. Accordingly, any
+downstream statement here that consumes \(K=6\), \(N_f=6\), the physical
+SM gauge carrier, or a fixed three-sector count inherits those named
+bridge conditions unless it is explicitly referring only to the six
+geometric links.
 
 \textbf{Author:} Alex Maybaum\\
 \textbf{Date:} April 2026\\
@@ -180,7 +214,8 @@ Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{Abstract}\label{abstract}
+\hypertarget{abstract}{%
+\subsection{Abstract}\label{abstract}}
 
 Applied to the cosmological horizon as a causal partition, the
 embedded-observation framework of {[}Main{]} determines the emergent
@@ -235,7 +270,8 @@ specific substratum dynamics, treated in a separate companion paper
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{1. Introduction}\label{introduction}
+\hypertarget{introduction}{%
+\subsection{1. Introduction}\label{introduction}}
 
 The cosmological observables that most resist explanation within
 standard physics --- the value of \(\hbar\), the Bekenstein-Hawking area
@@ -387,10 +423,12 @@ in {[}Substratum{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-cosmological-horizon-as-causal-partition}{%
 \subsection{2. The Cosmological Horizon as Causal
-Partition}\label{the-cosmological-horizon-as-causal-partition}
+Partition}\label{the-cosmological-horizon-as-causal-partition}}
 
-\subsubsection{2.1 The partition}\label{the-partition}
+\hypertarget{the-partition}{%
+\subsubsection{2.1 The partition}\label{the-partition}}
 
 The cosmological horizon --- the boundary beyond which no signal
 propagating at or below \(c\) can reach the observer --- implements the
@@ -404,8 +442,9 @@ Different observers have different horizon areas (hence different
 local geometric quantities --- not on the observer's worldline or
 horizon area --- so all observers share the same emergent action scale.
 
+\hypertarget{verification-of-the-conditions}{%
 \subsubsection{2.2 Verification of the
-conditions}\label{verification-of-the-conditions}
+conditions}\label{verification-of-the-conditions}}
 
 \textbf{(C1)} In the ADM formulation, the bulk Hamiltonian is a sum of
 constraints that vanish on-shell; physical time evolution is generated
@@ -426,7 +465,8 @@ processes, \(\tau_S \sim 10^{-15}\) s. Ratio:
 \(A \sim 10^{52}\) m\(^2\); visible sector has \(\sim 10^{80}\) baryons.
 No laboratory process saturates the hidden sector. \textbf{Satisfied.}
 
-\subsubsection{2.3 Application}\label{application}
+\hypertarget{application}{%
+\subsubsection{2.3 Application}\label{application}}
 
 Lemma 1 is now a consequence of partition geometry: the horizon has
 finite area \(A = 4\pi c^2/H^2\), bounding coupled modes to
@@ -437,11 +477,13 @@ partition boundary.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-emergent-action-scale-hbar}{%
 \subsection{\texorpdfstring{3. The Emergent Action Scale
-\(\hbar\)}{3. The Emergent Action Scale \textbackslash hbar}}\label{the-emergent-action-scale-hbar}
+\(\hbar\)}{3. The Emergent Action Scale \textbackslash hbar}}\label{the-emergent-action-scale-hbar}}
 
+\hypertarget{the-classical-horizon-temperature}{%
 \subsubsection{3.1 The classical horizon
-temperature}\label{the-classical-horizon-temperature}
+temperature}\label{the-classical-horizon-temperature}}
 
 Jacobson {[}1{]} showed \(dE = T\,dS\) applied to local causal horizons
 yields Einstein's equations, with \(dE = (c^2 \kappa / 8\pi G)\,dA\),
@@ -467,11 +509,12 @@ appears.
 \(\eta = 1/\epsilon^2\) is one boundary mode per cell, whereas the
 substratum carries \(K = 2d = 6\) internal components per site ({[}SM
 §4.5{]}). These are consistent, and the consistency is forced rather
-than assumed, once the components are read as what {[}SM §4.5, Theorem
-6{]} establishes them to be: the \(K = 2d\) components are the \(2d\)
-link directions from a cell, with component \(a\) assigned to link
-direction \(\hat e_a \in \{\pm\hat e_1, \ldots, \pm\hat e_d\}\) and
-coupling only across that one link (the minimal-coupling factorization
+than assumed, once the components are read as what {[}SM §4.5{]} now
+conditionally identifies them as, under H-link: the \(K = 2d\)
+components are the \(2d\) link directions from a cell, with component
+\(a\) assigned to link direction
+\(\hat e_a \in \{\pm\hat e_1, \ldots, \pm\hat e_d\}\) and coupling only
+across that one link (the minimal-coupling factorization
 \(\delta = 1\)). A boundary cell on the horizon has exactly one
 outward-normal link crossing the partition; the other \(2d - 1 = 5\)
 link directions are tangential to the boundary surface or inward, and
@@ -492,8 +535,9 @@ entropy law is a fixed point of the construction regardless, and the
 component count enters only the discreteness scale, where the
 link-direction structure fixes it at unity.
 
+\hypertarget{the-emergent-action-scale}{%
 \subsubsection{3.2 The emergent action
-scale}\label{the-emergent-action-scale}
+scale}\label{the-emergent-action-scale}}
 
 \textbf{Step 1: Uniqueness.} By partition-relativity (Prerequisites),
 \(\hbar\) is derived, not free.
@@ -743,8 +787,9 @@ polynomial, and its comparison against the closure of weakly
 birefringent electrodynamics {[}arXiv:1708.03870{]}, is an open
 consistency check.
 
+\hypertarget{gauge-fixing-and-the-dimensional-obstruction}{%
 \subsubsection{3.3 Gauge-fixing and the dimensional
-obstruction}\label{gauge-fixing-and-the-dimensional-obstruction}
+obstruction}\label{gauge-fixing-and-the-dimensional-obstruction}}
 
 Steps 1--2 establish that \(\hbar\) depends only on boundary quantities;
 Step 4 will fix its value via thermal matching. A prior question must be
@@ -826,8 +871,9 @@ suppression that governs the boundary-only dependence of §3.2.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{self-consistency-and-the-discreteness-scale}{%
 \subsection{4. Self-Consistency and the Discreteness
-Scale}\label{self-consistency-and-the-discreteness-scale}
+Scale}\label{self-consistency-and-the-discreteness-scale}}
 
 Rearranging \(\hbar = c^3 \epsilon^2 / (4G)\):
 
@@ -848,8 +894,9 @@ formula, and the consequences that follow.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-bekenstein-hawking-entropy}{%
 \subsection{5. The Bekenstein-Hawking
-Entropy}\label{the-bekenstein-hawking-entropy}
+Entropy}\label{the-bekenstein-hawking-entropy}}
 
 With \(\epsilon = 2\,l_p\), the number of independent modes on the
 cosmological horizon is:
@@ -915,11 +962,13 @@ masses and spins.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{dissolution-of-the-cosmological-constant-problem}{%
 \subsection{6. Dissolution of the Cosmological Constant
-Problem}\label{dissolution-of-the-cosmological-constant-problem}
+Problem}\label{dissolution-of-the-cosmological-constant-problem}}
 
+\hypertarget{the-two-levels-of-description}{%
 \subsubsection{6.1 The two levels of
-description}\label{the-two-levels-of-description}
+description}\label{the-two-levels-of-description}}
 
 \textbf{From finite-dimensional QM to QFT.} Part I delivers QM on a
 finite-dimensional Hilbert space. The \(N = A/\epsilon^2\) cells
@@ -970,8 +1019,9 @@ Zero-point energy \(\frac{1}{2}\hbar\omega\) per mode summed to the
 Planck cutoff gives \(\rho_{\text{QFT}} \sim 10^{113}\) J/m\(^3\) --- a
 \(\sim 10^{122}\) discrepancy with the observed value {[}6, 7, 8{]}.
 
+\hypertarget{why-gravity-sees-the-classical-value}{%
 \subsubsection{6.2 Why gravity sees the classical
-value}\label{why-gravity-sees-the-classical-value}
+value}\label{why-gravity-sees-the-classical-value}}
 
 Spacetime geometry is part of the classical substratum (Lemma 2): the
 metric evolves via Einstein's equations \emph{before} the trace-out. The
@@ -1126,9 +1176,10 @@ vacuum energy (volumetric, state-dependent, a property of
 \(H_{\text{tot}}\)) does, but at the classical scale \(\rho \sim H^2/G\)
 rather than \(\rho \sim M_{\text{Pl}}^4\).
 
+\hypertarget{the-structural-origin-of-the-10122-discrepancy}{%
 \subsubsection{\texorpdfstring{6.3 The structural origin of the
 \(10^{122}\)
-discrepancy}{6.3 The structural origin of the 10\^{}\{122\} discrepancy}}\label{the-structural-origin-of-the-10122-discrepancy}
+discrepancy}{6.3 The structural origin of the 10\^{}\{122\} discrepancy}}\label{the-structural-origin-of-the-10122-discrepancy}}
 
 \(\rho_{\text{QFT}} / \rho_{\text{classical}} \sim M_{\text{Pl}}^4 / (H^2/G) = S_{\text{dS}} = A/(4\,l_p^2)\)
 --- the Bekenstein-Hawking entropy, now identified as the information
@@ -1182,7 +1233,8 @@ both programs.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{7. Predictions and Tests}\label{predictions-and-tests}
+\hypertarget{predictions-and-tests}{%
+\subsection{7. Predictions and Tests}\label{predictions-and-tests}}
 
 \textbf{What the classical tests test.} A scope observation frames this
 section. The classic precision tests of general relativity ---
@@ -1211,8 +1263,9 @@ live. The classical record's silence about the equations is therefore
 not a loophole the framework hides in but the reason its forward tests
 are cosmological.
 
+\hypertarget{dark-energy-evolution-in-running-vacuum-form}{%
 \subsubsection{7.1 Dark energy evolution in running vacuum
-form}\label{dark-energy-evolution-in-running-vacuum-form}
+form}\label{dark-energy-evolution-in-running-vacuum-form}}
 
 \(\hbar\) is \(H\)-independent (§3.2), but the emergent vacuum energy is
 a state-level quantity depending on the hidden sector's volume. Any
@@ -1442,8 +1495,9 @@ empirical exposure --- a falsification gradient with concrete decisive
 test scheduled --- that distinguishes a framework engaged with data from
 one tuned to fit it.
 
+\hypertarget{the-dark-sector-corollary}{%
 \subsubsection{7.2 The dark-sector
-corollary}\label{the-dark-sector-corollary}
+corollary}\label{the-dark-sector-corollary}}
 
 The trace-out that produces the quantum-representable reduced
 description has an automatic gravitational consequence.
@@ -1530,13 +1584,14 @@ factors in \(\rho_s = S\,k_B T_{\rm cl}/V_d\) and dividing by
 {[}SM §3.2{]} as the boundary-entropy filter selecting \(d=3\).
 
 This boundary-entropy filter is one of three independent \(d=3\)
-selectors in the framework: (i) substratum coupling-degree minimization
-(SM Theorem 6, \(K = 2d\) gives \(K=6\)); (ii) Bravais-lattice
-uniqueness for the SM gauge group (SM Theorem 7b); (iii) the present
-boundary-entropy filter. The three derive \(d=3\) from very different
-physical considerations (substrate dynamics, crystallographic
-representation theory, cosmological boundary thermodynamics). The
-convergence is structurally significant.
+selectors in the framework: (i) substratum link counting under H-link
+(SM §4.5, \(K = 2dm\) with \(m=1\) giving \(K=6\); the coupling-degree
+proof is withdrawn); (ii) Bravais-lattice uniqueness for the SM gauge
+group (SM Theorem 7b); (iii) the present boundary-entropy filter. The
+three derive \(d=3\) from very different physical considerations
+(substrate dynamics, crystallographic representation theory,
+cosmological boundary thermodynamics). The convergence is structurally
+significant.
 
 \emph{(ii) Invisibility.} The argument has two logically distinct
 components.
@@ -1618,8 +1673,9 @@ of dark matter particles accounting for the full \textasciitilde27\%
 structured dark sector, or by evidence that the dark sector's
 gravitational effects are unrelated to the boundary geometry.
 
+\hypertarget{dark-matter-from-entropy-displacement}{%
 \subsubsection{7.3 Dark matter from entropy
-displacement}\label{dark-matter-from-entropy-displacement}
+displacement}\label{dark-matter-from-entropy-displacement}}
 
 The total dark sector budget is established by §7.2. This section
 derives the structured component from the entropy displacement induced
@@ -1990,8 +2046,9 @@ the relaxation rate, required for a full mode-by-mode kernel.
 numerically, relaxation\_kernel\_check.py 2026-06-29; \(k\)-dependence
 deferred).}
 
+\hypertarget{summary-of-gr-side-predictions}{%
 \subsubsection{7.4 Summary of GR-side
-predictions}\label{summary-of-gr-side-predictions}
+predictions}\label{summary-of-gr-side-predictions}}
 
 The GR-side quantitative predictions of the framework are collected in
 the table below. Each follows from partition geometry at the
@@ -2140,7 +2197,8 @@ interacting (condensate-dressed) kernel, shared with {[}SM §3.1{]}.)
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{8. Discussion}\label{discussion}
+\hypertarget{discussion}{%
+\subsection{8. Discussion}\label{discussion}}
 
 The foundational emergent QM result is treated as established in
 {[}Main{]} and not re-derived here. The cubic-lattice realization of the
@@ -2151,7 +2209,8 @@ group, and the synthesis claim that quantum mechanics, general
 relativity, and the arrow of time descend as three projections of the
 same \((S, \varphi)\) are developed in {[}Substratum{]}.
 
-\subsubsection{8.1 Scope}\label{scope}
+\hypertarget{scope}{%
+\subsubsection{8.1 Scope}\label{scope}}
 
 The characterization theorem's equivalence is (ii) \(\iff\) (iii) under
 (C1)--(C4) --- both directions proved in the foundational paper --- with
@@ -2169,8 +2228,9 @@ satisfy the conditions (empirical) nor derive \(\hbar\) for specific
 systems (requires Part II). Universality in our universe follows from
 the shared causal partition defined by null geodesics.
 
+\hypertarget{the-status-of-the-discreteness-scale}{%
 \subsubsection{8.2 The status of the discreteness
-scale}\label{the-status-of-the-discreteness-scale}
+scale}\label{the-status-of-the-discreteness-scale}}
 
 \(\epsilon\) does not smuggle in a quantum assumption. Lemma 1 requires
 finite-dimensionality, motivated by the classical fact that finite-area
@@ -2178,8 +2238,9 @@ boundaries admit finitely many modes. The result \(\epsilon = 2\,l_p\)
 is a \emph{consequence} of self-consistency (§4). Holographic entropy
 bounds {[}26{]} provide independent, non-quantum motivation.
 
+\hypertarget{vacuum-energy-relative-effects-and-the-higgs-potential}{%
 \subsubsection{8.3 Vacuum energy: relative effects and the Higgs
-potential}\label{vacuum-energy-relative-effects-and-the-higgs-potential}
+potential}\label{vacuum-energy-relative-effects-and-the-higgs-potential}}
 
 \textbf{Relative effects.} Casimir forces and Lamb shifts are
 predictions \emph{within} the emergent QFT --- relative effects
@@ -2258,8 +2319,9 @@ all modes --- corresponds to the total information capacity of the
 hidden sector (\(S_{\text{dS}}\)), which is a property of the partition
 geometry, not of the dynamics, and therefore does not source curvature.
 
+\hypertarget{assumptions-limitations-and-falsifiability}{%
 \subsubsection{8.4 Assumptions, limitations, and
-falsifiability}\label{assumptions-limitations-and-falsifiability}
+falsifiability}\label{assumptions-limitations-and-falsifiability}}
 
 \textbf{The theorem} requires Lemma 1 (independent in Part I;
 consequence of geometry in Part II), the stochastic-quantum bridge
@@ -2422,8 +2484,9 @@ solution-specific.
 Laboratory tests of the characterization theorem may be possible in
 analogue gravity systems where the hidden sector capacity is tunable.
 
+\hypertarget{universality-class-character-of-tier-1-results}{%
 \subsubsection{8.5 Universality-class character of Tier 1
-results}\label{universality-class-character-of-tier-1-results}
+results}\label{universality-class-character-of-tier-1-results}}
 
 §1 distinguished Tier 1 results --- the derivation of \(\hbar\), the
 discreteness scale \(\epsilon = 2\,l_p\), the Bekenstein-Hawking area
@@ -2668,8 +2731,9 @@ stratified accordingly.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{relation-to-other-entropic-and-emergent-gravity-programs}{%
 \subsubsection{8.6 Relation to other entropic and emergent-gravity
-programs}\label{relation-to-other-entropic-and-emergent-gravity-programs}
+programs}\label{relation-to-other-entropic-and-emergent-gravity-programs}}
 
 The thermodynamic derivation of §3--§5 places this framework within a
 broader program that treats gravity as entropic or emergent rather than
@@ -2706,8 +2770,9 @@ the running-vacuum coefficient predicted here (§7.1) are specific to
 this construction --- not corroborated by, nor inherited from, the
 neighbouring programs.
 
+\hypertarget{kinematic-emergence-of-geometry-from-the-substratum}{%
 \subsubsection{8.7 Kinematic emergence of geometry from the
-substratum}\label{kinematic-emergence-of-geometry-from-the-substratum}
+substratum}\label{kinematic-emergence-of-geometry-from-the-substratum}}
 
 The derivations of §3--§5, and the four convergent necessity routes of
 §3.2 (\emph{An independent necessity statement}) (thermodynamic,
@@ -2775,7 +2840,8 @@ continuum limit into a computation that reaches the Newtonian checkpoint
 with the remaining steps explicitly marked --- not a claim to have
 derived general relativity from the substratum.
 
-\subsection{9. Conclusion}\label{conclusion}
+\hypertarget{conclusion}{%
+\subsection{9. Conclusion}\label{conclusion}}
 
 The cosmological horizon realizes the embedded-observation framework of
 {[}Main{]}, and the consequences for the gravitational sector are sharp.
@@ -2847,8 +2913,9 @@ are developed in the fifth core paper {[}Structure{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{appendix-a-nested-partitions}{%
 \subsection{Appendix A: Nested
-Partitions}\label{appendix-a-nested-partitions}
+Partitions}\label{appendix-a-nested-partitions}}
 
 This appendix develops the nested-partition formalism for the framework,
 establishing the self-consistency of multiple coexisting causal
@@ -2856,7 +2923,8 @@ boundaries (typically a black hole horizon inside a cosmological
 horizon) and deriving the generalized second law and the Page curve as
 consequences.
 
-\subsubsection{A.1 Setup}\label{a.1-setup}
+\hypertarget{a.1-setup}{%
+\subsubsection{A.1 Setup}\label{a.1-setup}}
 
 Let \(\mathcal{C}_V\), \(\mathcal{C}_B\), \(\mathcal{C}_D\) be finite
 configuration spaces with \(|\mathcal{C}_V|, |\mathcal{C}_B| \geq 2\),
@@ -2876,8 +2944,9 @@ Two procedures produce a quantum description on \(V\):
 \(W\). (Stage 2) Within the emergent QM on \(W\), trace out \(B\),
 producing a further-reduced description on \(V\).
 
+\hypertarget{a.2-classical-associativity}{%
 \subsubsection{A.2 Classical
-Associativity}\label{a.2-classical-associativity}
+Associativity}\label{a.2-classical-associativity}}
 
 \textbf{Theorem A.1.} \emph{The direct and sequential procedures produce
 the same transition probabilities on \(\mathcal{C}_V\).}
@@ -2893,8 +2962,9 @@ The sequential procedure marginalizes over \(D\) (Stage 1) then over
 
 The sums commute (Fubini on a finite product). \(\square\)
 
+\hypertarget{a.3-quantum-classical-consistency}{%
 \subsubsection{A.3 Quantum-Classical
-Consistency}\label{a.3-quantum-classical-consistency}
+Consistency}\label{a.3-quantum-classical-consistency}}
 
 \textbf{Theorem A.2} (Quantum-classical consistency of nested
 trace-outs). \emph{Let \(\Phi_V^{\text{dir}}\) and
@@ -2913,8 +2983,9 @@ On finite-dimensional tensor products,
 \(\text{Tr}_B \circ \text{Tr}_D = \text{Tr}_{BD}\), giving
 \(\Phi_V^{\text{seq}} = \Phi_V^{\text{dir}}\). \(\square\)
 
+\hypertarget{a.4-hamiltonian-and-hbar-consistency}{%
 \subsubsection{\texorpdfstring{A.4 Hamiltonian and \(\hbar\)
-Consistency}{A.4 Hamiltonian and \textbackslash hbar Consistency}}\label{a.4-hamiltonian-and-hbar-consistency}
+Consistency}{A.4 Hamiltonian and \textbackslash hbar Consistency}}\label{a.4-hamiltonian-and-hbar-consistency}}
 
 \textbf{Corollary A.3} (Hamiltonian consistency). \emph{The emergent
 Hamiltonians \(\hat{H}_V^{\text{dir}}\) and \(\hat{H}_V^{\text{seq}}\)
@@ -2935,7 +3006,9 @@ yield the same emergent action scale \(\hbar = c^3 \epsilon^2 / (4G)\).}
 \(G\), \(\epsilon\) (§3.2, Steps 2--3), not on which horizon defines the
 partition or how many trace-outs are performed. \(\square\)
 
-\subsubsection{A.5 Additive Dissipators}\label{a.5-additive-dissipators}
+\hypertarget{a.5-additive-dissipators}{%
+\subsubsection{A.5 Additive
+Dissipators}\label{a.5-additive-dissipators}}
 
 \textbf{Theorem A.5} (Additive dissipators). \emph{Let the classical
 Hamiltonian be spatially local with coupling chain
@@ -3024,8 +3097,9 @@ s, \(\tau_B^D \sim 1/H \sim 10^{17}\) s. The three terms:
 The cross term is negligible by 12 orders of magnitude relative to the
 smaller of the two primary corrections.
 
+\hypertarget{a.6-the-generalized-second-law}{%
 \subsubsection{A.6 The Generalized Second
-Law}\label{a.6-the-generalized-second-law}
+Law}\label{a.6-the-generalized-second-law}}
 
 The Bekenstein-Hawking entropy of a horizon is the information content
 of the corresponding partition boundary (§5):
@@ -3093,7 +3167,8 @@ Since \(\rho_{VBD} = |\Psi\rangle\langle\Psi|\) is pure,
   \(S_{\text{matter}} + S_{\text{dS}}\). \(\square\)
 \end{enumerate}
 
-\subsubsection{A.7 The Page Curve}\label{a.7-the-page-curve}
+\hypertarget{a.7-the-page-curve}{%
+\subsubsection{A.7 The Page Curve}\label{a.7-the-page-curve}}
 
 \textbf{Setup.} A black hole with initial horizon area \(A_0\)
 evaporates. The partition boundary at the black hole horizon moves:
@@ -3258,7 +3333,8 @@ construction.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{References}\label{references}
+\hypertarget{references}{%
+\subsection{References}\label{references}}
 
 \textbf{Companion papers (cited inline by short name):}
 
@@ -3486,3 +3562,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
+% source-sha256: e4a234cfc719a174dba6971933bbf6257d46855a571ab05a121dd7442641c536

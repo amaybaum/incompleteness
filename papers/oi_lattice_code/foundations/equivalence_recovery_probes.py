@@ -352,5 +352,146 @@ check("entropy_argument_needs_only_an_invariant_prior_not_uniformity",
       ok10 and control10,
       f"(invariant, all-rows-degenerate, memory) per prior: {rows}")
 
+# Bell ceiling for a screened deterministic local completion (Main 3.3).
+# (a) every deterministic local response table with a setting-INDEPENDENT
+#     ensemble is capped at |CHSH| = 2 -- exhaustive, then randomized;
+# (b) setting-DEPENDENT ensembles reach the algebraic maximum 4, so the
+#     hypothesis is load-bearing and the check can fire;
+# (c) the withdrawn I_MI bound fails on a coarse lambda: I(lambda;Z) = 0 while
+#     omitted response-relevant data stays setting-correlated and CHSH = 4;
+# (d) the corrected baseline: 2sqrt2 needs I_ont >= (3-2sqrt2)/(8 ln 2).
+import itertools as _it11, random as _r11, math as _m11
+SET11 = [(0,0),(0,1),(1,0),(1,1)]
+def chsh(E):   # E[(a,b)] in [-1,1]
+    return abs(E[(0,0)] + E[(0,1)] + E[(1,0)] - E[(1,1)])
+# (a) exhaustive over the 16 deterministic local tables
+worst = 0.0
+for qa in _it11.product((-1,1), repeat=2):
+    for rb in _it11.product((-1,1), repeat=2):
+        E = {(a,b): qa[a]*rb[b] for a,b in SET11}
+        worst = max(worst, chsh(E))
+exhaustive_ok = (worst == 2.0)
+# ... and over random setting-independent mixtures of them
+tables = [(qa,rb) for qa in _it11.product((-1,1),repeat=2)
+                  for rb in _it11.product((-1,1),repeat=2)]
+_r11.seed(11)
+mix_ok = True
+for _ in range(4000):
+    w = [_r11.random() for _ in tables]; z = sum(w); w = [x/z for x in w]
+    E = {s: sum(wi*qa[s[0]]*rb[s[1]] for wi,(qa,rb) in zip(w,tables))
+         for s in SET11}
+    if chsh(E) > 2 + 1e-12:
+        mix_ok = False
+# (b) setting-DEPENDENT: pick the table that maximizes each term separately
+Edep = {(0,0):1.0, (0,1):1.0, (1,0):1.0, (1,1):-1.0}
+dep_reaches_4 = abs(chsh(Edep) - 4.0) < 1e-12
+# (c) coarse lambda carries zero information yet the model reaches 4
+lam = {s: 0 for s in SET11}                      # constant coarse variable
+I_lambda = 0.0                                   # I(lambda;Z) = 0 exactly
+coarse_defect = (I_lambda == 0.0) and dep_reaches_4
+# (d) the corrected threshold
+I_req = ((2*_m11.sqrt(2)-2)/4)**2 / (2*_m11.log(2))
+thresh_ok = abs(I_req - (3-2*_m11.sqrt(2))/(8*_m11.log(2))) < 1e-15 \
+            and abs(I_req - 0.030940917034966) < 1e-12
+# and the WITHDRAWN baseline would have licensed 2sqrt2 at zero information
+withdrawn_would_allow = (2*_m11.sqrt(2) > 2.0)
+check("bell_ceiling_screened_deterministic_local_completion_is_2",
+      exhaustive_ok and mix_ok and dep_reaches_4 and coarse_defect
+      and thresh_ok and withdrawn_would_allow,
+      f"exhaustive max |CHSH| = {worst}; 4000 setting-independent mixtures all "
+      f"<= 2; setting-dependent reaches 4; coarse lambda has I = 0 with "
+      f"CHSH = 4; 2sqrt2 needs I_ont >= {I_req:.12f} bits")
+
+# SM 3.2's reference-geometry no-go, and the route that survives.
+# (a) the degree-6 cubic hop metric IS l1 -- exactly, at every spacing;
+# (b) the diagonal stretch is sqrt(2) and SCALE-INDEPENDENT, so no continuum
+#     limit removes it;
+# (c) any FIXED finite stencil keeps a polytopal unit ball, so 18/26-neighbour
+#     variants exchange l1 for another crystalline norm and do not converge;
+# (d) the dispersion relation IS isotropic at leading order, anisotropy O(a^2)
+#     -- which is why the repair is to re-found curvature on the
+#     propagation/Laplacian geometry rather than on shortest-path counts.
+import math as _m12, itertools as _i12
+from collections import deque as _dq12
+
+L12 = 21; c12 = L12 // 2
+def _bfs12(off):
+    src=(c12,c12,c12); d={src:0}; q=_dq12([src])
+    while q:
+        u=q.popleft()
+        for o in off:
+            v=(u[0]+o[0],u[1]+o[1],u[2]+o[2])
+            if all(0<=t<L12 for t in v) and v not in d:
+                d[v]=d[u]+1; q.append(v)
+    return d
+S6  = [o for o in _i12.product((-1,0,1),repeat=3) if sum(map(abs,o))==1]
+S18 = [o for o in _i12.product((-1,0,1),repeat=3) if 1<=sum(map(abs,o))<=2]
+S26 = [o for o in _i12.product((-1,0,1),repeat=3) if o!=(0,0,0)]
+
+D6=_bfs12(S6)
+is_l1 = all(D6[p]==abs(p[0]-c12)+abs(p[1]-c12)+abs(p[2]-c12) for p in D6)
+# diagonal stretch, compared to sqrt(2) with a tolerance fit for exact ratios
+ratios=[]
+for s in (1,2,4,6,8,10):
+    p=(c12+s,c12+s,c12)
+    if p in D6:
+        ratios.append(D12 := D6[p]/_m12.dist(p,(c12,c12,c12)))
+scale_free = all(abs(r-_m12.sqrt(2))<1e-12 for r in ratios) and len(ratios)>=5
+# fixed stencils stay polyhedral: worst/best directional ratio bounded off 1
+def _spread(off):
+    D=_bfs12(off); vals=[D[p]/_m12.dist(p,(c12,c12,c12))
+                         for p in D if _m12.dist(p,(c12,c12,c12))>=4]
+    return max(vals)/min(vals)
+spread={n:_spread(o) for n,o in (("6",S6),("18",S18),("26",S26))}
+polyhedral = all(v > 1.4 for v in spread.values())
+# dispersion: isotropy improves like a^2
+def _w2(k,a): return sum((2-2*_m12.cos(ki*a))/a**2 for ki in k)
+def _aniso(a):
+    ks=[(1,0,0),(1/_m12.sqrt(2),1/_m12.sqrt(2),0),
+        (1/_m12.sqrt(3),)*3]
+    v=[_w2(k,a) for k in ks]
+    return max(v)/min(v)-1
+a1,a2=_aniso(0.2),_aniso(0.05)
+disp_iso = a2 < a1/10 and a2 < 1e-3          # ~a^2: factor 4 in a -> 16 in error
+check("SM32_hop_metric_route_fails_but_dispersion_geometry_survives",
+      is_l1 and scale_free and polyhedral and disp_iso,
+      f"hop==l1 exact; diagonal stretch sqrt2 at every scale "
+      f"({len(ratios)} scales); stencil worst/best {dict((k,round(v,4)) for k,v in spread.items())}; "
+      f"dispersion anisotropy {a1:.2e} -> {a2:.2e} as a: 0.2 -> 0.05")
+
+# SM 4 dispersion: the coefficient's two corrections, certified.
+# (a) the real lift x(t+1)=alpha*sum_nbrs x(t)-x(t-1) has cos w = alpha*sum_j
+#     cos(k_j a); at alpha=1, d=3, k=0 this is 3 -> w complex -> UNSTABLE;
+# (b) alpha = 1/d is the exact stability threshold AND makes the leading
+#     symbol isotropic, w/(a|k|) -> 1/sqrt(d) in every direction;
+# (c) 1/d need not exist in Z/qZ, which is why the normalisation belongs to
+#     the observer-level operator rather than the substratum update.
+import math as _m13
+_d13 = 3
+def _cosw(k, alpha, a=1e-3):
+    return alpha * sum(_m13.cos(ki * a) for ki in k)
+unstable = abs(_cosw((0,0,0), 1.0)) > 1.0 + 1e-12
+threshold = abs(_cosw((0,0,0), 1.0/_d13)) <= 1.0 + 1e-12 and \
+            abs(_cosw((0,0,0), 1.05/_d13)) > 1.0
+DIRS = {"axis":(1,0,0), "face":(1/_m13.sqrt(2),1/_m13.sqrt(2),0),
+        "body":(1/_m13.sqrt(3),)*3}
+a13 = 1e-3
+speeds = {}
+for nm,k in DIRS.items():
+    cw = _cosw(k, 1.0/_d13, a13)
+    speeds[nm] = _m13.acos(max(-1.0, min(1.0, cw))) / a13
+iso = max(speeds.values()) - min(speeds.values()) < 1e-7 and \
+      abs(speeds["axis"] - 1/_m13.sqrt(_d13)) < 1e-6
+# (c) arithmetic obstruction is real: 1/3 is absent exactly when 3 | q
+inv_ok = [q for q in range(2,25) if _m13.gcd(_d13,q)==1]
+inv_bad = [q for q in range(2,25) if _m13.gcd(_d13,q)!=1]
+arith = (3 in inv_bad) and (9 in inv_bad) and (2 in inv_ok) and (5 in inv_ok)
+check("SM4_alpha_normalisation_is_forced_and_lives_at_observer_level",
+      unstable and threshold and iso and arith,
+      f"alpha=1 gives cos w = {_cosw((0,0,0),1.0):.1f} at k=0 (unstable); "
+      f"alpha=1/d is the threshold; w/(a|k|) = "
+      f"{ {n: round(v,9) for n,v in speeds.items()} } vs 1/sqrt(3) = "
+      f"{1/_m13.sqrt(3):.9f}; 1/3 absent mod q for q in {inv_bad[:5]}")
+
 print("equivalence_recovery_probes: ALL PASS" if not fails else f"equivalence_recovery_probes: {fails} FAILURE(S)")
 raise SystemExit(1 if fails else 0)

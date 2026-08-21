@@ -1,6 +1,11 @@
 # Appendix B
 # Mathematical Derivations
 
+> **Scope (K = 2d).** The coupling-degree-minimization proof of $K=2d=6$ is WITHDRAWN: diagonalizing the internal matrix decouples eigenvectors but does not assign an eigenvector to a single signed spatial neighbour — every component still receives the whole neighbour sum. What survives is exact and is retained throughout: the six geometric simple-cubic links carry the $O_h$ decomposition $V_{\rm link}=T_1\oplus E\oplus A_1=3\oplus2\oplus1$. What becomes CONDITIONAL is that those geometric links are the physical gauge carrier — hypothesis H-link, $V_{\rm physical}\cong V_{\rm link}^{\oplus m}$ giving $K=2dm$, with single-copy $m=1$ a premise to be derived rather than a result. See [SM §4.5].
+
+**Scope update — observer geometry and physical carrier.** SM §4.1 now separates two claims that earlier shorthand sometimes conflated. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forcing an Euclidean **quadratic** scalar symbol while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
+
+
 ---
 
 ## B.1 What this appendix develops
@@ -17,7 +22,7 @@ The appendix's content is organized by mathematical structure rather than by cha
 
 *B.5 Anomaly cancellation and unique hypercharges.* The framework's content on the Standard Model matter content derives the unique hypercharge assignment from the six anomaly conditions of $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. This appendix gives the explicit calculation: the six anomaly conditions, the algebraic constraint structure, and the unique solution producing $(Y_Q, Y_u, Y_d, Y_L, Y_e) = (1/6, 2/3, -1/3, -1/2, -1)$ with no free parameters.
 
-*B.6 Gauge-theoretic derivations.* Two key gauge-theoretic results from Chapter 5: the coupling-degree minimization derivation of $K = 2d = 6$ internal components per site, and the cubic-rotation-group decomposition of the coupling matrix's eigenvalue multiplicities into $(3, 2, 1)$ — the multiplicities that determine $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$.
+*B.6 Gauge-theoretic derivations.* Two key gauge-theoretic results from Chapter 5: the (withdrawn) coupling-degree minimization argument for $K = 2d = 6$ internal components per site, and the cubic-rotation-group decomposition of the coupling matrix's eigenvalue multiplicities into $(3, 2, 1)$ — the multiplicities that determine $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$.
 
 *B.7 The lemma chain for the characterization.* The framework's characterization theorem — accessible non-Markovianity ⟺ C1/C3/C4 realization per horizon, with the quantum representation internal and universal ($S \iff D \iff Q_{\mathrm{fb}}$, [Main §3.4]) — relies on a chain of intermediate lemmas: partition-relativity, emergent stochasticity, P-indivisibility from a non-permutation witness, accessible-timescale backflow, and phase-locking. This appendix collects these lemmas with their proofs in compact form, providing the reader a self-contained reference for the framework's logical structure.
 
@@ -287,7 +292,7 @@ Two key gauge-theoretic results from Chapter 5 are presented here with full deri
 
 **The coupling-degree minimization.** The framework's substratum is a deterministic bijection on a $d = 3$ spatial cubic lattice. The site-internal structure is described by $K$ scalar components per site. The minimal $K$ supporting a chiral gauge structure is the structural question; the framework's answer is $K = 2d = 6$.
 
-**Theorem B.6.1 ($K = 2d$).** *The minimal $K$ supporting the framework's chiral gauge structure on a $d$-dimensional cubic lattice is $K = 2d$.*
+**Proposition B.6.1 ($K = 2dm$, conditional on H-link).** *The minimal $K$ supporting the framework's chiral gauge structure on a $d$-dimensional cubic lattice is $K = 2d$.*
 
 *Proof.* The wave equation $x(n, t+1) = \sum_{\hat{e}} x(n + \hat{e}, t) - x(n, t-1) \pmod q$ with $K$ components per site requires the discrete Laplacian to act on the internal $K$-dimensional vector. The discrete Laplacian on the $d$-dimensional cubic lattice involves $2d$ nearest neighbors (one in each of $\pm \hat{e}_\mu$ direction for each spatial axis $\mu$).
 

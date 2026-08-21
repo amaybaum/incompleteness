@@ -1,6 +1,9 @@
 # Chapter 9
 # Universality Classes and External Convergence
 
+**Scope update — observer geometry and physical carrier.** SM §4.1 now separates two claims that earlier shorthand sometimes conflated. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forcing an Euclidean **quadratic** scalar symbol while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
+
+
 ---
 
 ## 9.1 What this chapter develops
@@ -41,7 +44,7 @@ The framework's predictions stratify across these levels. Different chapters liv
 
 *Chapter 1 (Quantum Mechanics from Embedded Observation).* The derivation lives at Level O2 × Level G1: the framework's most general structural commitments produce accessible non-Markovianity in the emergent description, with the quantum representation internal and universal ($S \iff D \iff Q_{\mathrm{fb}}$), the imported correspondence retained for compression under (T), and the operational instrument algebra still open ([Main §3.4]). The result is universality-class-level: any finite deterministic substratum satisfying C1–C4 produces the memory-bearing description whose laws admit the universal quantum representation, regardless of the specific substratum dynamics.
 
-*Chapter 5 (Gauge Structure).* The derivation of the Standard Model gauge group lives at Level O2 × Level G2 — the cubic-lattice substratum with its six structural properties produces $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ with three candidate matter sectors (three generations under H-spin', SM §4.7). Some content (the coupling-degree minimization $K = 2d = 6$) is Level G2 universality-class; some (the specific cubic decomposition giving multiplicities $(3, 2, 1)$) is Level G3 substratum-specific.
+*Chapter 5 (Gauge Structure).* The exact Level O2 × Level G2 content is the observer-isotropy theorem together with the six-link cubic representation; the latter decomposes as $(3,2,1)$. Identifying that representation with one physical Standard-Model carrier is H-link single-copy, with H-cust and the later matter hypotheses entering downstream. The geometric decomposition is therefore structural; the physical gauge-group reading is a conditional bridge construction rather than a consequence of a $K=2d$ minimization theorem.
 
 *Chapter 6 (Matter Content).* The quantitative predictions of Standard Model parameters live at Level O1 × Level G3 — the specific cubic-lattice bijection produces specific values for the Cabibbo angle, Koide relation, gauge couplings, and other observables. The Cabibbo angle prediction $\lambda = 1/(\pi\sqrt{2})$ tests the framework's commitment to the cubic Brillouin geometry at Level G3.
 
@@ -199,7 +202,7 @@ The bridge would be: identify the framework's finite-bijection structure with a 
 
 *A2 (determinism / bijection).* The framework requires deterministic bijection dynamics. Matrix models with deterministic Hamiltonian evolution satisfy this; matrix models with quantum-mechanical evolution on the matrix degrees of freedom do not, unless the quantum mechanics is interpreted as emergent from the substratum (consistent with the framework's content but not with standard matrix-model interpretations).
 
-*A3 (bounded coupling degree).* The framework's $K = 2d = 6$ minimization fixes the coupling degree per substratum site. Matrix models with arbitrary connectivity do not have a bounded-degree property; the bridge would require the matrix model to be of bounded-degree form. This is a non-trivial restriction on which matrix models can serve as the bridge.
+*A3 (bounded coupling degree).* The framework retains bounded local coupling as a substratum condition, but it no longer derives the physical carrier dimension $K=6$ from coupling-degree minimization. Matrix models with arbitrary connectivity therefore still need a bounded-locality bridge, while the separate H-link single-copy condition controls whether the six geometric links are the physical carrier.
 
 *A4 (center independence).* The framework's predictions are independent of the choice of partition center. Matrix models have natural translation symmetries; the bridge is consistent here.
 

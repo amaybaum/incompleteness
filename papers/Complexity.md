@@ -1,6 +1,9 @@
 # Structural Consequences of Observational Incompleteness
 ### From Chemistry to Evolution
 
+**Scope update — observer geometry and physical carrier.** SM §4.1 now separates two claims that earlier shorthand sometimes conflated. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forcing an Euclidean **quadratic** scalar symbol while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
+
+
 **Author:** Alex Maybaum  
 **Date:** April 2026  
 **Status:** DRAFT PRE-PRINT  
@@ -309,9 +312,9 @@ If mathematical structures are taken as necessarily existent — the Platonic po
 
 ### 6.3 Observable mathematics
 
-The framework makes this sharper than generic Platonism. Tegmark's Mathematical Universe Hypothesis [7] asserts that all consistent mathematical structures are equally real. The OI framework says something more specific: among all mathematical structures, only those containing embedded observers are *observable from within*. The characterization theorem [1, §3.4] identifies which structures contain embedded observers: exactly those of the form (S, φ) with conditions C1–C4. The reconstruction theorem [33, §3] identifies what those observers see: exactly our physics.
+The framework makes this sharper than generic Platonism. Tegmark's Mathematical Universe Hypothesis [7] asserts that all consistent mathematical structures are equally real. The OI framework says something more specific: among all mathematical structures, only those containing embedded observers are *observable from within*. The characterization theorem [1, §3.4] identifies which structures contain embedded observers: exactly those of the form (S, φ) with conditions C1–C4. The reconstruction theorem [33, §3] fixes the local lattice/gauge residue of the framework's physics under its stated inputs; it does not select a unique Bell-inclusive completion.
 
-There is no ensemble of equally real structures from which observation selects. There is one equivalence class — the one compatible with embedded observation — and it is the one we see. The framework does not need a multiverse, an ensemble, or a selection mechanism. It needs only the observation that (S, φ) is a well-defined mathematical structure and that its observable content is unique.
+At the level Theorem 23 actually controls, the structural inputs select one local lattice/gauge residue up to the stated gauge freedoms. This does not imply one unique Bell-inclusive substratum: preparation-indexed Bell-composite structure remains underdetermined even when H-Bell compatibility holds. The framework's mathematical-existence discussion therefore concerns the existence of admissible deterministic structures, not uniqueness of the full ontology.
 
 ### 6.4 The self-referential closure
 

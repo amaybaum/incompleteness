@@ -157,7 +157,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\usepackage{bookmark}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -169,8 +169,42 @@
 
 \begin{document}
 
+\hypertarget{the-incompleteness-of-observation}{%
 \section{The Incompleteness of
-Observation}\label{the-incompleteness-of-observation}
+Observation}\label{the-incompleteness-of-observation}}
+
+\begin{quote}
+\textbf{Scope (K = 2d).} The coupling-degree-minimization proof of
+\(K=2d=6\) is WITHDRAWN: diagonalizing the internal matrix decouples
+eigenvectors but does not assign an eigenvector to a single signed
+spatial neighbour --- every component still receives the whole neighbour
+sum. What survives is exact and is retained throughout: the six
+geometric simple-cubic links carry the \(O_h\) decomposition
+\(V_{\rm link}=T_1\oplus E\oplus A_1=3\oplus2\oplus1\). What becomes
+CONDITIONAL is that those geometric links are the physical gauge carrier
+--- hypothesis H-link, \(V_{\rm physical}\cong V_{\rm link}^{\oplus m}\)
+giving \(K=2dm\), with single-copy \(m=1\) a premise to be derived
+rather than a result. See {[}SM §4.5{]}.
+\end{quote}
+
+\textbf{Scope update --- observer geometry and physical carrier.} SM
+§4.1 now separates two claims that earlier shorthand sometimes
+conflated. First, finite equivariant projection is classical and exact:
+cubic symmetry is inherited by the projected Markov part and every
+memory kernel, forcing an Euclidean \textbf{quadratic} scalar symbol
+while allowing cubic anisotropy at \(O(k^4)\). The particular normalized
+nearest-neighbor operator \(A/(2d)\) additionally requires an
+\textbf{observer-level} center-free kernel; microscopic center
+independence alone does not imply that after correlated hidden variables
+are marginalized. Second, the six signed simple-cubic links and their
+exact \(3\oplus2\oplus1\) representation are unconditional geometry, but
+identifying that link space with the complete physical carrier is
+\textbf{H-link}; the single-copy clause gives \(K=6\), and the custodial
+condensate-stabilizer reading is \textbf{H-cust}. Accordingly, any
+downstream statement here that consumes \(K=6\), \(N_f=6\), the physical
+SM gauge carrier, or a fixed three-sector count inherits those named
+bridge conditions unless it is explicitly referring only to the six
+geometric links.
 
 \emph{{[}Status note, 2026-07-26: this companion overview is superseded
 by the book, \texttt{book/}, which now carries its content in maintained
@@ -180,19 +214,22 @@ authoritative. Two elements are for now available only here: the D-gauge
 completeness walkthrough (§5.3 below) and the mathematical summary
 tables of the appendix, pending their incorporation into the book.{]}}
 
+\hypertarget{why-physics-biggest-contradiction-might-not-be-a-contradiction-at-all}{%
 \subsubsection{Why Physics' Biggest Contradiction Might Not Be a
 Contradiction at
-All}\label{why-physics-biggest-contradiction-might-not-be-a-contradiction-at-all}
+All}\label{why-physics-biggest-contradiction-might-not-be-a-contradiction-at-all}}
 
+\hypertarget{with-complete-mathematical-detail}{%
 \subsubsection{With Complete Mathematical
-Detail}\label{with-complete-mathematical-detail}
+Detail}\label{with-complete-mathematical-detail}}
 
 \textbf{Alex Maybaum --- March 2026}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-worst-prediction-in-physics}{%
 \subsection{The Worst Prediction in
-Physics}\label{the-worst-prediction-in-physics}
+Physics}\label{the-worst-prediction-in-physics}}
 
 Physics has two spectacularly successful theories. Quantum mechanics
 describes the behavior of atoms, particles, and light. General
@@ -227,8 +264,9 @@ through the logic of every major proof, and shows how they connect.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-starting-point-observation-exists}{%
 \subsection{The Starting Point: Observation
-Exists}\label{the-starting-point-observation-exists}
+Exists}\label{the-starting-point-observation-exists}}
 
 Every mathematical proof starts from assumptions, and this framework has
 exactly one. It doesn't mention quantum mechanics. It doesn't mention
@@ -326,9 +364,12 @@ to that exact representation layer. What does \textbf{not} follow from
 the definition alone is that every coherent preparation, noncommuting
 instrument, and spatial composite is already one standard local quantum
 operational theory. That common operational lift remains the narrow
-frontier; in Bell experiments the OI coupling graph supplies causal
-cones, while exact causal locality additionally requires operational
-setting screening. The hidden-sector conditions are:
+frontier. Bell is a separate fork: a response-complete deterministic
+completion that is both measurement-independent and ontically
+parameter-independent is Bell-local, so the framework retains
+measurement independence and takes ontic parameter dependence for
+Bell-violating substrata while preserving operational no-signaling. The
+hidden-sector conditions are:
 
 \textbf{C1: Non-zero coupling (H\_int ≠ 0).} The visible and hidden
 sectors interact. Information flows between them. Without this, the
@@ -360,7 +401,8 @@ satisfies all three.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{The Observer's Blind Spot}\label{the-observers-blind-spot}
+\hypertarget{the-observers-blind-spot}{%
+\subsection{The Observer's Blind Spot}\label{the-observers-blind-spot}}
 
 Light travels at a finite speed, and the universe has a finite age. Put
 those together and every observer has a horizon --- a boundary beyond
@@ -438,7 +480,9 @@ different times cannot be broken into independent steps.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{Partition-Relativity (§1.4)}\label{partition-relativity-1.4}
+\hypertarget{partition-relativity-1.4}{%
+\subsection{Partition-Relativity
+(§1.4)}\label{partition-relativity-1.4}}
 
 This is the first real proof in the paper, and it's beautifully simple.
 
@@ -500,8 +544,9 @@ choice.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{emergent-stochasticity-and-the-slow-bath-regime-2.12.2}{%
 \subsection{Emergent Stochasticity and the Slow-Bath Regime
-(§§2.1--2.2)}\label{emergent-stochasticity-and-the-slow-bath-regime-2.12.2}
+(§§2.1--2.2)}\label{emergent-stochasticity-and-the-slow-bath-regime-2.12.2}}
 
 The total system is deterministic. If you knew both x and h, you'd know
 the future with certainty. But the observer knows only x. Different
@@ -532,8 +577,9 @@ quantum mechanics from classical stochastic processes.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-p-indivisibility-theorem-2.3}{%
 \subsection{The P-Indivisibility Theorem
-(§2.3)}\label{the-p-indivisibility-theorem-2.3}
+(§2.3)}\label{the-p-indivisibility-theorem-2.3}}
 
 \textbf{What it claims.} If a deterministic system is split into a
 visible and hidden sector, and these sectors are genuinely coupled, then
@@ -612,8 +658,9 @@ non-trivial (C1). It is purely combinatorial.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-accessible-timescale-lemma-2.3-continued}{%
 \subsection{The Accessible-Timescale Lemma (§2.3
-continued)}\label{the-accessible-timescale-lemma-2.3-continued}
+continued)}\label{the-accessible-timescale-lemma-2.3-continued}}
 
 The recurrence proof shows P-indivisibility exists as a mathematical
 property. But the recurrence time is absurdly long --- for the
@@ -657,8 +704,9 @@ timescales.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-coin-and-die-model-2.4}{%
 \subsection{The Coin-and-Die Model
-(§2.4)}\label{the-coin-and-die-model-2.4}
+(§2.4)}\label{the-coin-and-die-model-2.4}}
 
 The paper builds a concrete toy model to make the mechanism tangible.
 
@@ -766,8 +814,9 @@ representation in compressed form under (T).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{why-conditions-c2-and-c3-matter-physically}{%
 \subsubsection{Why conditions C2 and C3 matter
-physically}\label{why-conditions-c2-and-c3-matter-physically}
+physically}\label{why-conditions-c2-and-c3-matter-physically}}
 
 The P-indivisibility theorem needs only coupling (C1) and finiteness. So
 why does the paper insist on slow memory (C2) and vast capacity (C3)?
@@ -786,8 +835,9 @@ makes measurable.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-stochastic-quantum-correspondence-3.1-and-appendix-a}{%
 \subsection{The Stochastic-Quantum Correspondence (§3.1 and Appendix
-A)}\label{the-stochastic-quantum-correspondence-3.1-and-appendix-a}
+A)}\label{the-stochastic-quantum-correspondence-3.1-and-appendix-a}}
 
 This is the key link. Section 2 proved that the embedded observer's
 dynamics are P-indivisible. Section 3 shows how the correspondence
@@ -874,19 +924,23 @@ together they ensure that \emph{layer} rests on no single recent result.
   the partition geometry (§5).
 \item
   \textbf{Bell correlations.} Bare non-factorization is not enough to
-  select the quantum correlation set. For spatial OI the dependency
-  graph supplies exact causal cones; with operational setting screening
-  and an indivisible joint law, the process lies in the causal-local
-  class for which the CHSH/Tsirelson result applies. Without the
-  local-setting premise, the same broad reversible machinery can realize
-  post-quantum finite behaviors, so the Bell statement is explicitly
-  conditional.
+  select the quantum correlation set. The stochastic causal-local
+  indivisible construction has a Tsirelson bound, but the framework's
+  response-complete deterministic layer is more restrictive: pointwise
+  graph locality plus a measurement-independent pre-setting ensemble
+  gives a Bell-local model with \(|S_{\rm CHSH}|\le2\). The framework
+  therefore takes the ontic-parameter-dependent branch for
+  Bell-violating substrata while retaining operational no-signaling
+  (Main §3.3). Unrestricted/global composites remain a post-quantum
+  negative control, so neither hidden memory nor indivisibility is a
+  selector of the quantum Bell set.
 \end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-phase-locking-lemma-3.1-continued}{%
 \subsection{The Phase-Locking Lemma (§3.1
-continued)}\label{the-phase-locking-lemma-3.1-continued}
+continued)}\label{the-phase-locking-lemma-3.1-continued}}
 
 A potential objection: the relation T\_ij = \textbar U\_ij\textbar²
 throws away phase information. Different unitaries could give the same
@@ -935,54 +989,68 @@ tested generic cases); i.e.~up to physically irrelevant relabeling.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{bell-inequality-violations-3.2}{%
 \subsection{Bell Inequality Violations
-(§3.2)}\label{bell-inequality-violations-3.2}
+(§3.2)}\label{bell-inequality-violations-3.2}}
 
 This is the question everyone asks: isn't this ruled out by Bell's
 theorem?
 
-\textbf{What Bell's theorem actually requires.} For this framework the
-crucial distinction is between \emph{dynamical causal propagation} and
-\emph{statistical setting independence}. Full spatial OI supplies the
-first: because the coupling graph is defined by one-step dependence, a
-local state after \(k\) updates can depend only on the radius-\(k\)
-graph ball. A remote setting therefore cannot physically propagate into
-the local state before the causal cones meet.
+\textbf{What Bell's theorem actually requires.} For the
+response-complete deterministic layer, the decisive conjunction is
+measurement independence plus ontic parameter independence. If one
+pre-setting microstate fixes the responses at both wings, one common
+setting-independent ensemble is used, and the Bell-relevant coupling
+range does not connect the wings before readout, the result is an
+ordinary local hidden-variable model and \(|S_{\rm CHSH}|\le2\). Hidden
+memory and indivisibility do not change that conclusion.
 
-That fact alone does not imply Bell's statistical locality conditions.
-If the setting variables are correlated with preparation-relevant hidden
-data, conditioning on a setting can reweight the local hidden ensemble
-without any superluminal signal. Exact Bell causal locality therefore
-needs an additional \textbf{operational setting-screening} condition.
-This is a genuine open quantitative obligation of the
-cosmological/mixing realization, not something supplied by C1--C4 alone.
+\textbf{The branch the framework takes.} The framework declines the
+measurement-dependent/superdeterministic horn and instead relinquishes
+\textbf{ontic parameter independence}. In the specific SM/GR
+representative this need not be a static all-to-all sector: {[}SM
+§3.1{]} already makes the coupling graph state-dependent, so the
+branch-(a) target is preparation-indexed adjacency --- a geometric
+bounded-range reference graph in the uniform/vacuum class, with
+bounded-degree long links (or an equivalent nonlocal response map)
+supplied by an entangling preparation. The operational distribution
+remains no-signaling. The unresolved cost is H-Bell's
+curvature-stability condition: the prepared graph must retain the
+metric/Ollivier--Ricci continuum behavior required by the Einstein
+reconstruction. That condition is now downstream of a harder one. The
+cited convergence theorem is arbitrary-dimensional only for the
+manifold-distance-weighted graph metric, and for the degree-\(6\) cubic
+reference graph the intrinsic hop metric is exactly \(\ell_1\) --- a
+\(\sqrt2\) diagonal stretch that does not decay at any scale --- so the
+hop-metric curvature route FAILS for the reference family, before any
+Bell edge is added, and no \(D=3\) extension of that theorem would
+rescue it. The emergent geometry itself is not in question: the
+substratum's dispersion relation is isotropic at leading order. What
+must be re-founded is the curvature functional, on the
+propagation/Laplacian geometry rather than on shortest-path counts {[}SM
+§3.2{]}. The measurement-dependent alternative is retained only as a
+quantified counterfactual. Main §3.3 proves the model-independent
+necessary bound \(I_{\rm ont}\ge0.0309409\ldots\) bits for the quantum
+value; this is not an achievable cost. Hall--Branciard's optimized
+causal CHSH construction in its model class uses approximately \(0.080\)
+bits, whereas the approximately \(0.046\)-bit optimum is retrocausal;
+OI's one-way branch does not adopt the latter.
 
-\textbf{Why the unrestricted OI class is broader.} A globally controlled
-reversible realization can couple both wings through the joint history
-and even let a wing update depend on the remote control. Such models are
-outside the local-setting premise and can realize PR-box behavior. Their
-existence is the negative control showing that no-signaling, generic
-non-factorization, or P-indivisibility by themselves select the quantum
-correlation set.
-
-\textbf{Jarrett/Fine scope.} Parameter independence, outcome
-independence, and Fine's theorem are useful diagnostics, but they are
-not a derivation of the quantum set here. In particular, graph causality
-should not be silently promoted to parameter independence when
-setting-conditioned hidden ensembles differ.
-
-\textbf{The Tsirelson result.} The applicable result is the stronger
-one: for a \textbf{causally local indivisible} stochastic process, the
-CHSH value obeys the Tsirelson bound \(2\sqrt{2}\). Thus the OI route
-is: graph causal cones + operational setting screening + indivisibility
-\(\Rightarrow\) causal-local class \(\Rightarrow\) Tsirelson. With
-imperfect screening, Main gives the corresponding quantitative
-robustness bound in terms of \(I_{\rm MI}=I(\Lambda;XY)\).
+\textbf{The stochastic Tsirelson result is a different layer.}
+Barandes--Hasan--Kagan bound a weaker class of causally local
+indivisible \emph{stochastic} processes by \(2\sqrt2\). Their
+causal-independence condition is weaker than Bell factorization, so that
+theorem does not turn the response-complete deterministic completion
+into a local quantum hidden-variable model. Jarrett/Fine diagnostics
+remain useful; at the deterministic layer the Bell mechanism is ontic
+parameter dependence, while stochastic causal locality belongs to the
+weaker reduced-law description.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-characterization-theorem-3.3}{%
 \subsection{The Characterization Theorem
-(§3.3)}\label{the-characterization-theorem-3.3}
+(§3.3)}\label{the-characterization-theorem-3.3}}
 
 It's not enough to show that embedded observation \emph{produces} QM
 (sufficiency). The paper shows the observed non-Markovian dynamics
@@ -1104,20 +1172,25 @@ representation exists. The remaining foundational qualification is
 narrower than the old ``selection'' wording: the framework has not yet
 proved that all coherent preparations, noncommuting instruments, and
 composites generated by one OI system form one standard local quantum
-operational theory. Spatial OI supplies graph causal cones, while Bell
-causal locality additionally requires operational setting screening.
-Thus the accurate headline is strong but layered: the finite observable
-stochastic/reversible/quantum descriptions are exactly equivalent;
-readback identifies the memory-bearing indivisible OI sector; the common
-coherent local operational lift is stated separately rather than
-silently folded into the equivalence theorem.
+operational theory. Bell is kept separate from that operational-lift
+residue: the response-complete deterministic layer retains measurement
+independence and requires ontic parameter dependence for quantum Bell
+violation, while the stochastic causal-local Tsirelson result remains a
+weaker-description statement. Thus the accurate headline is strong but
+layered: the finite observable stochastic/reversible/quantum
+descriptions are exactly equivalent; readback identifies the
+memory-bearing indivisible OI sector; the common coherent local
+operational lift is stated separately rather than silently folded into
+the equivalence theorem.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-cosmological-application-4}{%
 \subsection{The Cosmological Application
-(§4)}\label{the-cosmological-application-4}
+(§4)}\label{the-cosmological-application-4}}
 
-\subsubsection{4.1 The Partition}\label{the-partition}
+\hypertarget{the-partition}{%
+\subsubsection{4.1 The Partition}\label{the-partition}}
 
 The cosmological horizon is the boundary beyond which no signal
 traveling at or below c can ever reach the observer. In a universe with
@@ -1134,8 +1207,9 @@ slightly different horizons. But the gap equation ℏ = c³ε²/(4G) depends
 only on local geometric quantities (c, G, ε) --- not on the horizon area
 or the observer's worldline. So all observers derive the same ℏ.
 
+\hypertarget{verification-of-the-conditions}{%
 \subsubsection{4.2 Verification of the
-Conditions}\label{verification-of-the-conditions}
+Conditions}\label{verification-of-the-conditions}}
 
 \textbf{C1 (coupling).} In general relativity's ADM formulation, the
 bulk Hamiltonian is a sum of constraints that vanish on-shell ---
@@ -1154,7 +1228,8 @@ persist on all timescales.
 sector has \textasciitilde{} 10⁸⁰ baryons. No experiment comes close to
 saturating the hidden sector.
 
-\subsubsection{4.3 Application}\label{application}
+\hypertarget{application}{%
+\subsubsection{4.3 Application}\label{application}}
 
 With the cosmological horizon satisfying the definition and all
 conditions, the characterization theorem applies. The observer's reduced
@@ -1165,16 +1240,18 @@ which is what Section 5 derives.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{where-plancks-constant-comes-from-5}{%
 \subsection{Where Planck's Constant Comes From
-(§5)}\label{where-plancks-constant-comes-from-5}
+(§5)}\label{where-plancks-constant-comes-from-5}}
 
 Partition-relativity proved that the emergent quantum description is
 completely and uniquely determined by the partition. This means
 \(\hbar\) cannot be a free parameter --- it must be fixed by the
 geometry of the boundary.
 
+\hypertarget{the-classical-horizon-temperature-5.1}{%
 \subsubsection{The Classical Horizon Temperature
-(§5.1)}\label{the-classical-horizon-temperature-5.1}
+(§5.1)}\label{the-classical-horizon-temperature-5.1}}
 
 \textbf{Starting point: Jacobson's identity.} Jacobson (1995) showed
 that Einstein's field equations follow from applying the first law of
@@ -1203,8 +1280,9 @@ For the de Sitter horizon, κ = cH:
 \textbf{Critical point: no ℏ appears anywhere.} This temperature is
 computed from purely classical quantities.
 
+\hypertarget{the-four-step-derivation-5.2}{%
 \subsubsection{The Four-Step Derivation
-(§5.2)}\label{the-four-step-derivation-5.2}
+(§5.2)}\label{the-four-step-derivation-5.2}}
 
 \textbf{Step 1 (Uniqueness).} Partition-relativity guarantees ℏ is
 determined by the partition geometry. It's not a free parameter.
@@ -1301,8 +1379,9 @@ discussion.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-d-gauge-completeness-theorem-5.3}{%
 \subsection{The D-Gauge Completeness Theorem
-(§5.3)}\label{the-d-gauge-completeness-theorem-5.3}
+(§5.3)}\label{the-d-gauge-completeness-theorem-5.3}}
 
 \textbf{The problem.} The relation T\_ij = \textbar U\_ij\textbar²
 discards phase information. Could different Hamiltonians give the same
@@ -1340,9 +1419,12 @@ dimensionful physical input enters the framework.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{The Discreteness Scale (§6)}\label{the-discreteness-scale-6}
+\hypertarget{the-discreteness-scale-6}{%
+\subsection{The Discreteness Scale
+(§6)}\label{the-discreteness-scale-6}}
 
-\subsubsection{What ε = 2 l\_p means}\label{what-ux3b5-2-l_p-means}
+\hypertarget{what-ux3b5-2-l_p-means}{%
+\subsubsection{What ε = 2 l\_p means}\label{what-ux3b5-2-l_p-means}}
 
 Rearranging the gap equation ℏ = c³ε²/(4G):
 
@@ -1361,8 +1443,9 @@ to known constants. The self-consistency condition pins ε to the Planck
 regime but doesn't predict a number that wasn't already implicitly
 known.
 
+\hypertarget{the-bekenstein-hawking-entropy-why-the-14-factor-is-derived}{%
 \subsubsection{The Bekenstein-Hawking Entropy --- Why the 1/4 factor is
-derived}\label{the-bekenstein-hawking-entropy-why-the-14-factor-is-derived}
+derived}\label{the-bekenstein-hawking-entropy-why-the-14-factor-is-derived}}
 
 The number of independent modes on the cosmological horizon is:
 
@@ -1382,8 +1465,9 @@ denominator comes from ε = 2 l\_p.
 constructions specifically designed to produce it. Here it follows from
 the gap equation with no additional input.
 
+\hypertarget{self-consistency-bounds-on-ux3b5}{%
 \subsubsection{Self-consistency bounds on
-ε}\label{self-consistency-bounds-on-ux3b5}
+ε}\label{self-consistency-bounds-on-ux3b5}}
 
 \textbf{If ε² ≪ l\_p²:} Sub-Planckian cells would need further
 subdivision, creating a second trace-out within the first. This would
@@ -1398,7 +1482,8 @@ neither pathology occurs.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{The Two Levels}\label{the-two-levels}
+\hypertarget{the-two-levels}{%
+\subsection{The Two Levels}\label{the-two-levels}}
 
 Now the cosmological constant problem dissolves. But first, a crucial
 link: how does finite-dimensional quantum mechanics become quantum
@@ -1491,8 +1576,9 @@ is exactly the kind of criterion the factoring argument leaves open.)
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{what-quantum-weirdness-looks-like-from-here}{%
 \subsection{What Quantum Weirdness Looks Like From
-Here}\label{what-quantum-weirdness-looks-like-from-here}
+Here}\label{what-quantum-weirdness-looks-like-from-here}}
 
 Feynman opens his quantum mechanics volume with a famous warning. The
 double-slit experiment, he writes in Volume III, Lecture 1 of the
@@ -1519,13 +1605,16 @@ is what marginal statistics look like when paths through the partition
 are indistinguishable.
 
 \textbf{Entanglement.} Two particles prepared together share a joint
-transition matrix inherited from the trace-out. The correlations are
-encoded in the structure of the dynamics itself, not in a hidden
-variable you could integrate over. This is why Bell inequality
-violations occur: the standard factorization assumption fails for
-indivisible processes. The framework reproduces quantum correlations
-exactly up to Tsirelson's bound, without faster-than-light signaling and
-without superdeterminism.
+transition structure inherited from the trace-out, but Bell violation
+cannot be explained merely by calling that reduced law indivisible. At
+the response-complete deterministic level, measurement independence plus
+parameter independence would force Bell factorization and CHSH \(\le2\).
+The framework therefore gives up \textbf{ontic parameter independence}:
+the microstate response of one wing may depend on the remote setting,
+while the averaged operational statistics remain no-signaling.
+Superdeterminism --- ontic measurement dependence --- is the alternative
+it records and declines. The stochastic indivisible construction's
+Tsirelson theorem remains a separate reduced-law result.
 
 \textbf{The measurement problem.} Measurement produces definite outcomes
 through the indivisible dynamics. When Wigner can't access his Friend's
@@ -1566,7 +1655,8 @@ distinguish it from competing accounts are listed below.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{Predictions}\label{predictions}
+\hypertarget{predictions}{%
+\subsection{Predictions}\label{predictions}}
 
 The framework is not just a reinterpretation. It makes specific,
 falsifiable predictions --- and, crucially, it makes predictions in
@@ -1784,7 +1874,8 @@ phenomenon: the cost of observing the universe from within.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{Philosophical Lineage}\label{philosophical-lineage}
+\hypertarget{philosophical-lineage}{%
+\subsection{Philosophical Lineage}\label{philosophical-lineage}}
 
 The paper is a physics paper, but its core claims --- that observers
 face irreducible limits, that two irreconcilable descriptions can both
@@ -1794,7 +1885,8 @@ philosophy. A systematic mapping against the major traditions reveals a
 striking pattern: broad support for most of the framework, and
 near-universal resistance to one specific thesis.
 
-\subsubsection{The seven claims}\label{the-seven-claims}
+\hypertarget{the-seven-claims}{%
+\subsubsection{The seven claims}\label{the-seven-claims}}
 
 The framework rests on seven implicit philosophical commitments:
 
@@ -1831,7 +1923,8 @@ Claims 1, 5, 6, and 7 enjoy broad philosophical support across nearly
 every tradition examined. Claim 4 --- that the underlying reality is
 definite --- is the paper's most philosophically isolated thesis.
 
-\subsubsection{The Gödel connection}\label{the-guxf6del-connection}
+\hypertarget{the-guxf6del-connection}{%
+\subsubsection{The Gödel connection}\label{the-guxf6del-connection}}
 
 The analogy between this framework and Gödel's incompleteness theorem is
 not merely metaphorical. Gödel proved that a formal system rich enough
@@ -1899,12 +1992,12 @@ mechanism. One assumption in Wolpert's theorems also deserves naming
 rather than burying: they quantify over all possible setups of the
 inference device, a counterfactual-availability assumption whose status
 in a deterministic substratum is exactly that of the free-choice
-assumption in Bell's theorem. The framework's treatment is the same one
-it applies to Bell-type assumptions generally --- identify the
-descriptive level at which the assumption holds (the observer's
-effective description, where the framework reproduces the represented
-quantum statistics exactly --- the fixed-basis transition layer) as
-distinct from the substratum level, where it need not.
+assumption in Bell's theorem. The framework therefore keeps
+counterfactual assumptions level-explicit rather than using determinism
+as a blanket escape. In the Bell case specifically it does \textbf{not}
+invoke failure of measurement independence: that branch is declined, and
+the adopted Bell violation instead comes from ontic parameter dependence
+while operational no-signaling is retained.
 
 There is also a difference worth stating plainly, because it sets the
 standard the framework should be held to. Gödel's and Turing's results
@@ -1939,8 +2032,9 @@ emergent quantum description and the classical substrate assign
 different vacuum energies, and only the substrate's value matches
 observation. The loop has a floor, and the floor matters.
 
+\hypertarget{closest-ancestor-nicholas-of-cusa}{%
 \subsubsection{Closest ancestor: Nicholas of
-Cusa}\label{closest-ancestor-nicholas-of-cusa}
+Cusa}\label{closest-ancestor-nicholas-of-cusa}}
 
 Of all thinkers surveyed, the fifteenth-century cardinal Nicholas of
 Cusa provides the most precise structural alignment. His \emph{docta
@@ -1961,8 +2055,9 @@ this wall not as escaping through it but as \emph{inhabiting the
 boundary} --- compatible with a framework where understanding the limit
 is itself the deepest available insight.
 
+\hypertarget{deepest-ontological-parallel-spinoza}{%
 \subsubsection{Deepest ontological parallel:
-Spinoza}\label{deepest-ontological-parallel-spinoza}
+Spinoza}\label{deepest-ontological-parallel-spinoza}}
 
 Spinoza's attribute theory is arguably the single closest ontological
 parallel. One substance (God/Nature) expresses itself through infinite
@@ -1981,8 +2076,9 @@ adequate knowledge of reality through \emph{scientia intuitiva}
 (intuitive knowledge). The paper's permanent limits directly contradict
 this ambition.
 
+\hypertarget{the-recurring-fault-line-claim-4}{%
 \subsubsection{The recurring fault line: Claim
-4}\label{the-recurring-fault-line-claim-4}
+4}\label{the-recurring-fault-line-claim-4}}
 
 Across every tradition examined, a striking pattern emerges. The claim
 that underlying reality is ``local and definite'' faces resistance from
@@ -2020,7 +2116,8 @@ and Worrall's epistemic structural realism (which posits real but
 unknowable natures behind structures) provide genuine philosophical
 support for Claim 4.
 
-\subsubsection{What's genuinely new}\label{whats-genuinely-new}
+\hypertarget{whats-genuinely-new}{%
+\subsubsection{What's genuinely new}\label{whats-genuinely-new}}
 
 The paper's philosophical lineage is not a single line of descent but a
 mosaic. Its structural epistemology draws from Kant through Wittgenstein
@@ -2044,8 +2141,9 @@ philosophical question.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{frequently-asked-questions}{%
 \subsection{Frequently Asked
-Questions}\label{frequently-asked-questions}
+Questions}\label{frequently-asked-questions}}
 
 \textbf{``Isn't this just another interpretation of quantum
 mechanics?''} No.~Interpretations (Copenhagen, Many-Worlds, Bohmian
@@ -2057,12 +2155,15 @@ evolution --- that interpretations do not, and it accounts for the
 dark-sector concordance as an automatic consequence.
 
 \textbf{``Doesn't Bell's theorem rule out hidden variable theories?''}
-Bell's theorem rules out \emph{local} hidden variable theories
-satisfying a specific factorizability condition. This framework violates
-that factorizability --- not through faster-than-light signals, but
-because P-indivisible joint dynamics don't permit the decomposition
-Bell's theorem assumes. The framework reproduces exactly Tsirelson's
-bound (the maximum quantum violation), no more and no less.
+Bell's theorem applies directly to the deterministic completion. If its
+response-complete hidden state is measurement-independent and
+parameter-independent, the model is Bell-local and obeys
+\(|S_{\rm CHSH}|\le2\). The Bell mechanism is separate from temporal
+indivisibility: the framework retains measurement independence, gives up
+ontic parameter independence for Bell-violating substrata, and
+separately requires operational no-signaling. The \(2\sqrt2\) Tsirelson
+theorem belongs to the weaker stochastic causal-local construction, not
+to a Bell-local deterministic completion.
 
 \textbf{``If everything is deterministic underneath, where does
 randomness come from?''} From ignorance. The total system is
@@ -2246,8 +2347,9 @@ unexplained inputs, and has no natural account of the dark sector.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{the-decompression-algorithm}{%
 \subsection{The Decompression
-Algorithm}\label{the-decompression-algorithm}
+Algorithm}\label{the-decompression-algorithm}}
 
 There is a way to state what the framework means that is sharper than
 anything in the formal paper.
@@ -2277,8 +2379,9 @@ Hamiltonian flow. That's all. The entire apparatus of quantum mechanics
 --- every textbook, every equation, every experiment --- is what the
 decompression algorithm looks like from the inside.
 
+\hypertarget{antimatter-as-algorithmic-artifact}{%
 \subsubsection{Antimatter as algorithmic
-artifact}\label{antimatter-as-algorithmic-artifact}
+artifact}\label{antimatter-as-algorithmic-artifact}}
 
 This reframing changes the understanding of specific phenomena. Consider
 antimatter.
@@ -2319,8 +2422,9 @@ self-consistent.
 In both cases: the substratum has no doubling. The algorithm demands
 one.
 
+\hypertarget{nothing-in-quantum-mechanics-explains-a-fundamental-phenomenon}{%
 \subsubsection{Nothing in quantum mechanics explains a fundamental
-phenomenon}\label{nothing-in-quantum-mechanics-explains-a-fundamental-phenomenon}
+phenomenon}\label{nothing-in-quantum-mechanics-explains-a-fundamental-phenomenon}}
 
 This is the deepest implication of the framework, and it is worth
 stating plainly.
@@ -2393,7 +2497,8 @@ incomplete cosmological data. It is the only one.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{What This Means}\label{what-this-means}
+\hypertarget{what-this-means}{%
+\subsection{What This Means}\label{what-this-means}}
 
 The search for a ``theory of everything'' that unifies quantum mechanics
 and general relativity has assumed that the two theories describe the
@@ -2414,8 +2519,9 @@ The universe is not broken. We are observing it from within.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{corroboration-the-rigidity-test}{%
 \subsection{Corroboration: The Rigidity
-Test}\label{corroboration-the-rigidity-test}
+Test}\label{corroboration-the-rigidity-test}}
 
 A natural objection to any framework this sweeping is: maybe it only
 works because it was built to work. Maybe the definition was chosen to
@@ -2480,7 +2586,8 @@ framework describing something real from one that was engineered to fit.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{What Is the Lattice?}\label{what-is-the-lattice}
+\hypertarget{what-is-the-lattice}{%
+\subsection{What Is the Lattice?}\label{what-is-the-lattice}}
 
 The rigidity test proves that the wave equation on a lattice produces
 both QM and GR. But what \emph{is} the lattice? Is the universe
@@ -2618,7 +2725,8 @@ physics are all emergent.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{Why These Particles?}\label{why-these-particles}
+\hypertarget{why-these-particles}{%
+\subsection{Why These Particles?}\label{why-these-particles}}
 
 The first two companion papers establish the framework's identification
 of quantum mechanics with embedded observation and its derivation of
@@ -2864,7 +2972,8 @@ of falsifiable predictions that no competing theory makes jointly.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{The Full Picture}\label{the-full-picture}
+\hypertarget{the-full-picture}{%
+\subsection{The Full Picture}\label{the-full-picture}}
 
 The framework now covers the three pillars of modern physics and their
 consequences:
@@ -2931,12 +3040,14 @@ Model --- is emergent.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{What Is (S, φ)?}\label{what-is-s-ux3c6}
+\hypertarget{what-is-s-ux3c6}{%
+\subsection{What Is (S, φ)?}\label{what-is-s-ux3c6}}
 
 The papers derive what (S, φ) \emph{produces}. But what kind of thing
 \emph{is} it?
 
-\subsubsection{Storage and memory}\label{storage-and-memory}
+\hypertarget{storage-and-memory}{%
+\subsubsection{Storage and memory}\label{storage-and-memory}}
 
 S is the set of all distinguishable states. Its physical meaning is
 \emph{finite capacity}: there are \textbar S\textbar{} configurations
@@ -3014,7 +3125,8 @@ mathematical description from which everything observable is derived.
 Asking what it's made of presupposes a deeper level that no measurement
 can access --- like asking what the number 7 is made of.
 
-\subsubsection{Computation from within}\label{computation-from-within}
+\hypertarget{computation-from-within}{%
+\subsubsection{Computation from within}\label{computation-from-within}}
 
 A Turing machine has a tape (storage), a head (read/write access), and a
 transition function (update rule). Under effective finiteness --- where
@@ -3064,7 +3176,8 @@ general relativity, the Standard Model --- is what that computation
 looks like to a subsystem embedded within it, observing through a finite
 window.
 
-\subsubsection{The arrow of time}\label{the-arrow-of-time}
+\hypertarget{the-arrow-of-time}{%
+\subsubsection{The arrow of time}\label{the-arrow-of-time}}
 
 If the universe is a finite permutation, it must eventually cycle back:
 φ\^{}N = id for some N. So where does the arrow of time come from? Why
@@ -3131,8 +3244,9 @@ this non-equilibrium phase. Like quantum mechanics itself, the direction
 of time is emergent --- a consequence of observing a lossless cycle from
 within, during the phase when such observation is structurally possible.
 
+\hypertarget{the-incompleteness-family}{%
 \subsubsection{The incompleteness
-family}\label{the-incompleteness-family}
+family}\label{the-incompleteness-family}}
 
 This places the framework in a family of results where self-reference
 under finite resources produces rigid structure.
@@ -3194,8 +3308,9 @@ quantum mechanics} requires the additional coherent/composite lifting
 and locality conditions stated above; the stronger uniqueness claim is
 not being smuggled into the analogy.
 
+\hypertarget{why-does-mathematics-describe-physics}{%
 \subsubsection{Why does mathematics describe
-physics?}\label{why-does-mathematics-describe-physics}
+physics?}\label{why-does-mathematics-describe-physics}}
 
 This reframes one of the oldest questions in the philosophy of science.
 
@@ -3243,23 +3358,25 @@ So Wigner's puzzle dissolves, for physics. Mathematics isn't
 ``unreasonably effective'' at describing physics. Mathematics --- at
 least the part of it that physics tracks --- is the most complete
 description an embedded observer would have access to, with the
-reconstruction theorem guaranteeing the structural content is
-determinate modulo gauge. Physics is the observable part of that
-description --- drawn by someone who can't see the whole thing. The
-observable part is effective because it's a faithful projection --- the
-semisimple part genuinely captures the eigenvalue structure. But it's
-not the whole description. The full mathematical description has
-structure (the nilpotent monodromy) that no physical measurement an
-embedded observer can perform can reveal. Whether mathematics extends
-beyond the structural content that physics tracks, into domains an
-embedded physical observer cannot reach (and that may have substantive
-content in mathematical foundations or meta-mathematics), is a question
-the framework does not address.
+reconstruction theorem fixing the local lattice/gauge structural residue
+modulo gauge; the Bell-inclusive completion is not uniquely
+reconstructed. Physics is the observable part of that description ---
+drawn by someone who can't see the whole thing. The observable part is
+effective because it's a faithful projection --- the semisimple part
+genuinely captures the eigenvalue structure. But it's not the whole
+description. The full mathematical description has structure (the
+nilpotent monodromy) that no physical measurement an embedded observer
+can perform can reveal. Whether mathematics extends beyond the
+structural content that physics tracks, into domains an embedded
+physical observer cannot reach (and that may have substantive content in
+mathematical foundations or meta-mathematics), is a question the
+framework does not address.
 
-But there's a stronger result. The reconstruction theorem proves the
-converse: starting from the observed physics, mathematical consistency
-forces you uniquely back to the equivalence class {[}(S, φ){]}. The two
-descriptions determine each other.
+There is also a converse result, but it is scoped. Starting from the
+observed physics and the theorem's structural inputs, the reconstruction
+fixes the \textbf{local lattice/gauge residue} up to substratum gauge. A
+Bell-inclusive full completion additionally requires H-Bell and is not
+proved unique.
 
 The forward direction: start from (S, φ) and derive physics. That's the
 program's main result. The converse: start from the observed physics and
@@ -3277,11 +3394,13 @@ unique. If θ̄ = 0, the dynamics is T-invariant. If ℏ has the specific
 value c³ε²/(4G), the gap equation pins ε = 2l\_p.~And d = 3 is the
 unique self-consistent dimension.
 
-Chain all of these together and you get: the observed physics determines
-a unique equivalence class {[}(S, φ){]} --- a finite set with a
-bijection, pinned up to the substratum gauge group
-\(\mathcal{G}_{\text{sub}}\) {[}Substratum §4{]}. This gauge group has
-four generators: state relabeling (permuting the elements of S while
+Chain the local reconstruction steps together and the observed inputs
+determine a unique \textbf{local-sector equivalence class} --- the
+lattice/gauge data pinned up to the substratum gauge group
+\(\mathcal{G}_{\text{sub}}\) {[}Substratum §4{]}. The Bell preparation
+rule is extra composite data: H-Bell conditions its
+compatibility/existence, and its uniqueness is open. This gauge group
+has four generators: state relabeling (permuting the elements of S while
 conjugating φ), alphabet change (replacing ℤ/qℤ with any ℤ/q'ℤ),
 deep-sector enlargement (the cardinality of the deep hidden sector
 beyond the boundary layer is unobservable --- it may even be infinite),
@@ -3300,36 +3419,39 @@ This is exactly how physics always works. In general relativity,
 measurements determine an equivalence class of spacetime metrics modulo
 diffeomorphisms --- not a unique coordinate system. In gauge theory,
 experiments determine an equivalence class of connections modulo gauge
-transformations --- not a unique field configuration. Here, the observed
-physics determines an equivalence class of finite bijections modulo the
-OI gauge freedoms --- not a unique (S, φ).
+transformations --- not a unique field configuration. Here, the local
+reconstruction determines its lattice/gauge residue modulo the OI gauge
+freedoms --- not a unique representative and not a unique Bell-inclusive
+completion.
 
 So the question ``is mathematics reality, or does it just describe
 reality?'' is not unanswered --- it's provably unanswerable by any
-measurement. The observed physics and the mathematical structure
-determine each other uniquely up to gauge, under the reconstruction
-theorem's stated conditions. Any experiment that could distinguish ``the
-universe is (S, φ)'' from ``the universe is described by (S, φ)'' would
-need to detect something outside the equivalence class. But the
+measurement. The observed physics and the \textbf{locally reconstructed
+structural residue} determine each other up to gauge under the
+reconstruction theorem's stated conditions; the Bell-inclusive
+completion is underdetermined. Any experiment that could distinguish
+``the universe is (S, φ)'' from ``the universe is described by (S, φ)''
+would need to detect something outside the equivalence class. But the
 equivalence class already accounts for everything observable.
 
 This is the same structure as gauge invariance in electromagnetism. The
 potential A is underdetermined --- only the field strength F is
 measurable. We don't agonize over whether A is ``real.'' We identify the
 exact boundary between the physical (F) and the gauge (A). The OI
-framework identifies the same kind of boundary for the math-physics
-relationship: the physics is the equivalence class {[}(S, φ){]}; the
-ontological status of (S, φ) is gauge. The boundary is a theorem.
+framework identifies an analogous boundary for the \textbf{local
+lattice/gauge residue}: representative choices inside that reconstructed
+sector are gauge. The theorem does not collapse every Bell-inclusive
+completion into one gauge class.
 
 This suggests a precise way to understand what physics is, \emph{from
 the embedded observer's perspective}. The mathematical structure (S, φ)
-has two parts: the part accessible to an embedded observer (the
-equivalence class, the gauge-invariant content, the semisimple spectral
-data), and the part that isn't (the specific representative, the
-nilpotent monodromy, the choice of q). The first part is what we call
-physics. A suggestive name for it might be \emph{observable mathematics}
---- the portion of mathematical structure that an embedded subsystem
-with partial read-write access can detect.
+has two parts: the part fixed by the local reconstruction (the local
+gauge-invariant residue and semisimple spectral data), and the part that
+isn't (the specific representative, the nilpotent monodromy, the choice
+of q). The first part is what we call physics. A suggestive name for it
+might be \emph{observable mathematics} --- the portion of mathematical
+structure that an embedded subsystem with partial read-write access can
+detect.
 
 Under this definition, Wigner's puzzle dissolves \emph{for physics} to
 the point of tautology. ``Why is mathematics effective at describing
@@ -3380,11 +3502,13 @@ philosophy of science.}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{appendix-mathematical-summary-tables}{%
 \subsection{Appendix: Mathematical Summary
-Tables}\label{appendix-mathematical-summary-tables}
+Tables}\label{appendix-mathematical-summary-tables}}
 
+\hypertarget{sections-12-what-each-piece-does}{%
 \subsubsection{Sections 1--2: What Each Piece
-Does}\label{sections-12-what-each-piece-does}
+Does}\label{sections-12-what-each-piece-does}}
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
@@ -3425,8 +3549,9 @@ physical-timescale necessity conditional on the mixing hypothesis &
 Per-condition necessity ({[}Main §3.4{]}) \\
 \end{longtable}
 
+\hypertarget{sections-36-the-logical-flow}{%
 \subsubsection{Sections 3--6: The Logical
-Flow}\label{sections-36-the-logical-flow}
+Flow}\label{sections-36-the-logical-flow}}
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
@@ -3451,10 +3576,11 @@ ancilla-marginal Born rule (T = \textbar U\textbar² in the
 trivial-ancilla case) \\
 §3.1: Phase-locking & Hamiltonian fixed up to shift, rephasing, and the
 antiunitary conjugate & Fourier analysis of T\_ij(t) \\
-§3.2: Bell analysis & Spatial OI supplies causal cones; quantum CHSH
-requires setting screening + indivisibility & causal-local class
-\(\Rightarrow S_{\rm CHSH}\le 2\sqrt2\); bare OI has PR negative
-control \\
+§3.2: Bell analysis & Deterministic screened graph-local completion is
+Bell-local; quantum CHSH therefore requires ontic parameter dependence
+with operational no-signaling & local deterministic completion
+\(\Rightarrow S_{\rm CHSH}\le 2\); stochastic causal-local class has the
+separate Tsirelson bound; bare/global OI has PR negative control \\
 §3.3: Necessity of C1 & Accessible memory requires coupling & No
 coupling → permutation → P-divisible \\
 §3.3: Necessity of C2 & Physical memory requires record persistence ---
@@ -3495,8 +3621,9 @@ are determined by steps 4--6.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\hypertarget{appendix-key-mathematical-subtleties}{%
 \subsection{Appendix: Key Mathematical
-Subtleties}\label{appendix-key-mathematical-subtleties}
+Subtleties}\label{appendix-key-mathematical-subtleties}}
 
 \textbf{1. The gap equation is a gap equation, not a derivation from
 nothing.}
@@ -3570,3 +3697,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
+% source-sha256: b6aa350b8bdf483bbdae65e99b8e5a46a1bf3fbf0dec5857c88d79da665301dd
