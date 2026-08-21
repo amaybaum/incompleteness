@@ -53,6 +53,8 @@ build_paper() {
     printf '  %-15s' "$name"
     pandoc "$md" -s --pdf-engine=xelatex --include-in-header="$PAPER_HDR" \
         -o "papers/${name}.tex" >"$tmplog" 2>&1 || { echo "TEX FAILED"; status=1; return; }
+    printf '%% source-sha256: %s\n' \
+        "$(sha256sum "$md" | cut -d" " -f1)" >> "papers/${name}.tex"
     pandoc "$md" -s --pdf-engine=xelatex --include-in-header="$PAPER_HDR" \
         -o "papers/${name}.pdf" >"$tmplog" 2>&1 || { echo "PDF FAILED"; status=1; return; }
     pages=$(pdfinfo "papers/${name}.pdf" 2>/dev/null | awk '/^Pages/{print $2}')
@@ -65,6 +67,8 @@ build_book() {
     pandoc "$BOOK_MD" -s --toc --toc-depth=3 --pdf-engine=xelatex \
         --include-in-header="$BOOK_HDR" -o "${BOOK_OUT}.tex" >"$tmplog" 2>&1 \
         || { echo "TEX FAILED"; status=1; return; }
+    printf '%% source-sha256: %s\n' \
+        "$(sha256sum "$BOOK_MD" | cut -d" " -f1)" >> "${BOOK_OUT}.tex"
     pandoc "$BOOK_MD" -s --toc --toc-depth=3 --pdf-engine=xelatex \
         --include-in-header="$BOOK_HDR" -o "${BOOK_OUT}.pdf" >"$tmplog" 2>&1 \
         || { echo "PDF FAILED"; status=1; return; }
