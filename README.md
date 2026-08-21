@@ -6,7 +6,7 @@
 
 This repository develops a single framework across five core papers:
 
-- **Main** — proves the finite-horizon representation equivalence in-house — stochastic laws ⟺ reversible deterministic marginals ⟺ fixed-basis unitary Born representations — and the universal hidden-memory theorem (memory-bearing visible dynamics forces readout-relevant hidden memory in every deterministic completion); the compressed representation is supplied by the Barandes stochastic-quantum correspondence under (T)
+- **Main** — proves the exact finite-horizon equivalence $S \iff D \iff Q_{\mathrm{fb}}$ — stochastic laws ⟺ finite reversible deterministic realizations ⟺ fixed-basis unitary/Born representations — together with the universal hidden-memory theorem and the new recurrence result that genuine C4 readback forces global indivisibility on a fixed finite representative; spatial OI supplies graph causal cones, while the remaining full-QM qualification is confined to operational setting screening and the common coherent instrument/composite lift
 - **SM** — derives the Standard Model from a $d = 3$ simple-cubic lattice, where the dimension is argued at self-consistency strength (the filters consume $d$-dependent emergent physics — a self-consistency selection, not an axiomatic derivation) and the cubic structure is empirically anchored by the observed $\mathrm{SU}(3)$ (see *Derivation status: the three tiers*, SM §8.3, and SM §3.2)
 - **GR** — derives the gravitational sector from the cosmological horizon
 - **Substratum** — ties these into a single construction at the substratum level
@@ -111,7 +111,7 @@ Each prediction's full derivation chain and classification (structural / mass-ch
 
 **Doesn't this revive local hidden variables, which Bell rules out?** No. The framework's substratum is not a local hidden variable in Bell's sense — Bell's theorem assumes local causality (factorizability of the joint outcome distribution given the hidden state) together with measurement independence. The framework does not impose measurement independence at the substratum level and recovers it operationally as a quantitative target ($I(\Lambda; A, B) \leq \varepsilon_{\text{MI}}$); factorizability fails through the joint process's non-Markovian conditionals. The CHSH/Tsirelson value is imported for the causal-local indivisible construction of [24], not claimed for generic P-indivisibility.
 
-**If the dynamics is classical and deterministic, how do you get the Born rule?** At the representation level it comes for free: every finite-horizon stochastic law admits a unitary representation with Born-rule fixed-basis readout — the internal equivalence $S \iff D \iff Q_{\mathrm{fb}}$ (Main §3.4) — so the rule is admitted rather than derived, with the specifically quadratic functional an open selection question named at the frontier. The cosmological realization adds a mechanism proposal: measurement as the observer's read-write cycle on the partition $V$ — reads produce classical outcomes, writes imprint correlations that persist via (C2)'s persistence requirement — with Born statistics as the cycle's equilibrium reading (book Ch 18 §18.2), a structural commitment rather than a theorem.
+**If the dynamics is classical and deterministic, how do you get the Born rule?** At the finite observable-law level the Born form is part of an exact equivalent description: every finite-horizon stochastic law has a fixed-basis unitary representation whose probabilities are $|U|^2$, and every finite reversible realization supplies such a representation ($S \iff D \iff Q_{\mathrm{fb}}$, Main §3.4). What is not yet proved is that this fixed-basis representation uniquely extends, for all coherent interventions and composites at once, to the standard local quantum instrument algebra. The cosmological realization adds a mechanism proposal: measurement as the observer's read-write cycle on the partition $V$, with equilibrium Born statistics; that mechanism is additional physical interpretation, not needed for the finite representation equivalence.
 
 **Doesn't Nielsen-Ninomiya forbid chiral fermions on a lattice?** NN forbids them under four specific premises, the load-bearing one being that the action must be bilinear in fermionic fields carrying a conserved chirality charge. The OI fundamental action is bosonic (the bijection $\varphi$); fermions and chirality are derived post-trace-out, by which point NN no longer applies. The "unwanted" doublers appear as the $T_1$ triplet of the 6-link wave-equation decomposition — three candidate matter sectors. Reading them as three *physical* generations rides H-spin' (SM §4.7), whose free-kernel and 4D-staggered routes are both settled negative; the unconditional statement is the $1 \oplus 3$ decomposition. See SM §4.8.1.
 
@@ -202,61 +202,21 @@ The classification (structural / mass-chain / empirical / phenomenological) for 
 
 ## The Bidirectional Correspondence
 
-The forward derivation and reconstruction theorem together establish that the framework closes in both directions: $(S, \varphi)$ determines observed physics, and observed physics together with structural assumptions A1–A6 and the M1 modeling premise determines $[(S, \varphi)]/\mathcal{G}_{\rm sub}$ uniquely — conditional on C2-mixing and Lemma 24.1's completeness step.
+The foundational theorem is bidirectional at the level actually observable on a finite horizon:
 
-**Forward — major branches.** From $(S, \varphi)$ as a finite lossless memory with bounded coupling and statistical isotropy:
-
-```
-(S, φ) ─→ d = 3 self-consistent (three forward filters: SM §3.2)
-       ─→ Universal fixed-basis quantum representation, every finite law (Main §3.4) — C1/C3/C4 diagnosing the memory-bearing sector, C2 a physical-regime premise (necessity conditional on the mixing hypothesis)
-       ─→ Wave equation uniquely selected (SM §3)
-       ├── ℏ = c³ε²/(4G), S_BH with 1/4, CC dissolution, GR (GR §§3–6)
-       ├── Cubic group → SU(3)×SU(2)×U(1), 3 generations, θ̄ = 0 (SM §§4–5)
-       ├── No GUT: direct emergence, no intermediate large gauge group (SM §6.7)
-       ├── Substratum-level B conservation; emergent-level sphalerons (SM §8.7)
-       ├── 22 SM observables: gauge couplings, CKM, Koide, PMNS, m_t, m_b/m_τ (SM §§6–7)
-       ├── Dark sector ~95%, a₀ = cH/6, Bullet Cluster, CMB peaks (GR §7)
-       ├── Page curve with t_P ≈ 0.646 t_evap (GR Appendix A)
-       ├── Observer selection → arrow of time, no Boltzmann brains (conditional on (EM); Main §4.6)
-       ├── Structural preconditions for organic chemistry, RNA world (Complexity)
-       ├── BQP characterization for embedded observers; P vs NP structurally silent (Computation)
-       ├── Molecular C1–C4 → non-Markovian pharmacology (Medicine)
-       └── Non-Markovian dynamics in computational biology methods (Bioinformatics)
+```text
+finite stochastic law (S)
+        ⇅ exact
+finite reversible realization (D)
+        ⇅ exact
+fixed-basis unitary/Born representation (Q_fb)
 ```
 
-**Four-level gauge hierarchy.** The framework's gauge structure is layered (per [`Structure`](papers/Structure.md) §2.2):
+The representation arrow is universal: Markov processes live in the same class. The specifically OI content is history readback. C4 forces readout-relevant hidden predictive memory in every faithful realization and, on a fixed finite recurrent representative, forces global indivisibility. C1 and C3 diagnose the necessary mediation and capacity; C2-structural is persistence to readback.
 
-```
-Level G4: Universality-class equivalence (Structure §9)
-          {algebra-channel *-isomorphism with channel intertwining;
-           broader than 𝒢_sub, includes substrata not related by 𝒢_sub
-           that produce the same algebra-channel pair}
-                │ restriction to OI's structural class (A1–A6)
-Level G3: Substratum gauge group 𝒢_sub (Substratum §4)
-          {state relabeling, alphabet change, deep-sector size, graph isomorphism}
-                │ trace-out
-Level G2: SM gauge group SU(3)×SU(2)×U(1) (SM §4)
-          {commutant of coupling matrix M with multiplicities (3,2,1)}
-                │ Hamiltonian restriction
-Level G1: D-gauge H ↦ DHD† (GR §3.3)
-          {diagonal unitary basis rephasing of emergent Hamiltonian}
-```
+For spatial systems, the coupling graph defined by one-step dynamical dependence gives exact causal cones. Bell/Tsirelson claims additionally use operational setting screening; if $I_{\rm MI}$ bits of residual setting–hidden mutual information remain, the CHSH allowance above Tsirelson is at most $4\sqrt{2\ln2\,I_{\rm MI}}$ (capped by the algebraic maximum).
 
-**Reverse — three stages.** From observed physics back to the substratum equivalence class:
-
-```
-Observed physics (E1–E7): QM + Bell + finite boundary entropy + spatial isotropy
-                          + propagating gravity + stable matter + ρ_s/ρ_crit concordance
-+ A1–A6 (structural assumptions)
-                │
-Stage 1: Stinespring + characterization → (S, φ) with C1–C4 (Main, C2 conditional on ETH)
-Stage 2: Coupling graph + dynamics selection → d=3 (3 forward filters), wave eq., SM structure (SM)
-Stage 3: Thermal self-consistency → ℏ, ε = 2l_p, all emergent constants (GR)
-                │
-Output: [(S, φ)] / 𝒢_sub uniquely determined conditional on C2-mixing, M1, and Lemma 24.1 (Substratum §§3–4, Theorem 23)
-```
-
-The reconstruction map has kernel $\mathcal{G}_{\rm sub}$ — everything outside the equivalence class is fixed; everything inside is gauge. Whether $(S, \varphi)$ *is* reality or *describes* reality is provably undecidable.
+The reverse operational result is also constructive: every finite quantum record has a finite reversible realization, and for any bounded finite quantum experiment envelope and $\varepsilon>0$, one finite OI realization reproduces the entire envelope to that accuracy. What remains open for the strongest *full operational equivalence* wording is one common standard local quantum instrument/composite representation for all coherent interventions. This is a narrower operational-lifting problem; it is not a retreat from the exact finite stochastic/representation equivalence.
 
 ## Licensing
 

@@ -157,7 +157,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -169,22 +169,19 @@
 
 \begin{document}
 
-\hypertarget{non-markovian-dynamics-in-computational-biology}{%
 \section{Non-Markovian Dynamics in Computational
-Biology}\label{non-markovian-dynamics-in-computational-biology}}
+Biology}\label{non-markovian-dynamics-in-computational-biology}
 
-\hypertarget{hidden-sector-memory-and-the-methodological-limits-of-single-cell-analysis}{%
 \subsubsection{Hidden-Sector Memory and the Methodological Limits of
 Single-Cell
-Analysis}\label{hidden-sector-memory-and-the-methodological-limits-of-single-cell-analysis}}
+Analysis}\label{hidden-sector-memory-and-the-methodological-limits-of-single-cell-analysis}
 
 \textbf{Author:} Alex Maybaum \textbf{Date:} May 2026
 \textbf{Classification:} Computational Biology / Bioinformatics
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{abstract}{%
-\subsection{Abstract}\label{abstract}}
+\subsection{Abstract}\label{abstract}
 
 The single-cell bioinformatics literature has documented a series of
 methodological puzzles over the past five years: RNA velocity methods
@@ -258,12 +255,10 @@ read as a structural possibility to be tested, not as support for the
 framework.
 \end{quote}
 
-\hypertarget{introduction}{%
-\subsection{1. Introduction}\label{introduction}}
+\subsection{1. Introduction}\label{introduction}
 
-\hypertarget{the-bioinformatics-fields-persistent-puzzles}{%
 \subsubsection{1.1 The bioinformatics field's persistent
-puzzles}\label{the-bioinformatics-fields-persistent-puzzles}}
+puzzles}\label{the-bioinformatics-fields-persistent-puzzles}
 
 Single-cell transcriptomics has revolutionized biology over the past
 decade, producing datasets of millions of cells with detailed gene
@@ -317,9 +312,8 @@ Some of these solutions help; others do not. The field lacks a
 structural framework for predicting \emph{which} methodological
 improvements will help and \emph{why}.
 
-\hypertarget{the-oi-framework-and-its-c1c4-conditions}{%
 \subsubsection{1.2 The OI framework and its C1--C4
-conditions}\label{the-oi-framework-and-its-c1c4-conditions}}
+conditions}\label{the-oi-framework-and-its-c1c4-conditions}
 
 The Observational Incompleteness (OI) framework {[}1{]} establishes a
 characterization theorem for embedded observation. The theorem states:
@@ -361,8 +355,7 @@ information explicitly (multi-modal data, knowledge graphs, prior
 biological information) should systematically outperform pure
 visible-sector methods on these tasks.
 
-\hypertarget{thesis-and-structure}{%
-\subsubsection{1.3 Thesis and structure}\label{thesis-and-structure}}
+\subsubsection{1.3 Thesis and structure}\label{thesis-and-structure}
 
 This paper develops the framework's prediction across five active
 methodological domains in single-cell bioinformatics. Each section
@@ -397,12 +390,10 @@ than scaling visible-sector models further.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{trajectory-inference}{%
-\subsection{2. Trajectory Inference}\label{trajectory-inference}}
+\subsection{2. Trajectory Inference}\label{trajectory-inference}
 
-\hypertarget{the-rna-velocity-paradigm-and-its-assumptions}{%
 \subsubsection{2.1 The RNA velocity paradigm and its
-assumptions}\label{the-rna-velocity-paradigm-and-its-assumptions}}
+assumptions}\label{the-rna-velocity-paradigm-and-its-assumptions}
 
 RNA velocity, introduced by La Manno et al.~(2018) {[}9{]} and
 operationalized in the velocyto and scVelo tools, infers the direction
@@ -426,9 +417,8 @@ only on current mRNA levels. Both methods treat the gene-state dynamics
 as Markovian: the probability of state change at time \(t + \Delta t\)
 depends only on the state at time \(t\), not on the cell's history.
 
-\hypertarget{documented-failure-modes}{%
 \subsubsection{2.2 Documented failure
-modes}\label{documented-failure-modes}}
+modes}\label{documented-failure-modes}
 
 Gorin, Pachter, and Yosef (2022) {[}3{]} published a detailed analysis
 of RNA velocity methods in PLOS Computational Biology, demonstrating
@@ -458,9 +448,8 @@ develop progressively more flexible parameter estimation (LatentVelo
 marginally but do not eliminate the failure mode: the underlying issue
 is structural, not parametric.
 
-\hypertarget{the-frameworks-structural-explanation}{%
 \subsubsection{2.3 The framework's structural
-explanation}\label{the-frameworks-structural-explanation}}
+explanation}\label{the-frameworks-structural-explanation}
 
 The OI framework predicts the RNA velocity failure mode structurally.
 Gene expression in single cells is governed by the joint dynamics of the
@@ -507,9 +496,8 @@ succeed; complex trajectories with heterogeneous dynamics fail. The
 framework explains why this is the structural pattern rather than a
 methodological accident.
 
-\hypertarget{multi-omic-velocity-as-empirical-convergence}{%
 \subsubsection{2.4 Multi-omic velocity as empirical
-convergence}\label{multi-omic-velocity-as-empirical-convergence}}
+convergence}\label{multi-omic-velocity-as-empirical-convergence}
 
 The methodological response that does work is to include chromatin
 accessibility data explicitly. MultiVelo {[}17{]}, introduced by Li et
@@ -542,9 +530,7 @@ to single-peak resolution multi-omic methods --- represents the field's
 gradual adoption of the framework's structural prediction without
 explicit reference to the underlying theorem.
 
-\hypertarget{practical-consequences}{%
-\subsubsection{2.5 Practical
-consequences}\label{practical-consequences}}
+\subsubsection{2.5 Practical consequences}\label{practical-consequences}
 
 The framework provides three practical predictions for trajectory
 inference methodology:
@@ -580,13 +566,11 @@ modality combination tracking the framework's prediction.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{gene-regulatory-network-inference}{%
 \subsection{3. Gene Regulatory Network
-Inference}\label{gene-regulatory-network-inference}}
+Inference}\label{gene-regulatory-network-inference}
 
-\hypertarget{the-grn-inference-paradigm-and-the-persistent-puzzle}{%
 \subsubsection{3.1 The GRN inference paradigm and the ``persistent
-puzzle''}\label{the-grn-inference-paradigm-and-the-persistent-puzzle}}
+puzzle''}\label{the-grn-inference-paradigm-and-the-persistent-puzzle}
 
 Gene regulatory networks (GRNs) describe the directed influence of
 transcription factors on target genes. Inferring GRNs from single-cell
@@ -618,10 +602,9 @@ rate and sparsity. The conclusion across the literature is consistent:
 GRN inference from single-cell data is hard, and current methods perform
 near baseline.
 
-\hypertarget{why-correlation-outperforms-causation-the-frameworks-prediction}{%
 \subsubsection{3.2 Why correlation outperforms causation: the
 framework's
-prediction}\label{why-correlation-outperforms-causation-the-frameworks-prediction}}
+prediction}\label{why-correlation-outperforms-causation-the-frameworks-prediction}
 
 The persistent puzzle has a natural framework explanation. Causal
 methods assume that the joint distribution over gene expression captures
@@ -656,9 +639,8 @@ correlation-based methods will systematically outperform causal methods
 that assume Markovian dynamics on the visible sector. The ``persistent
 puzzle'' is the empirical signature of this structural prediction.
 
-\hypertarget{multi-modal-methods-as-the-predicted-improvement}{%
 \subsubsection{3.3 Multi-modal methods as the predicted
-improvement}\label{multi-modal-methods-as-the-predicted-improvement}}
+improvement}\label{multi-modal-methods-as-the-predicted-improvement}
 
 The methodological response that improves GRN inference accuracy is to
 incorporate additional data modalities. SCENIC+ {[}23{]}, introduced by
@@ -691,9 +673,8 @@ much hidden-sector information is included in the data --- is
 empirically realized in the methodological development trajectory of the
 past five years.
 
-\hypertarget{information-theoretic-ceiling}{%
 \subsubsection{3.4 Information-theoretic
-ceiling}\label{information-theoretic-ceiling}}
+ceiling}\label{information-theoretic-ceiling}
 
 The framework predicts more than just a relative improvement from
 multi-modal data. It predicts an information-theoretic ceiling: no
@@ -720,9 +701,8 @@ the ceiling is structural, not computational. The methodological roadmap
 forward requires architectural changes that incorporate hidden-sector
 information, not further scaling of visible-sector models.
 
-\hypertarget{practical-consequences-1}{%
 \subsubsection{3.5 Practical
-consequences}\label{practical-consequences-1}}
+consequences}\label{practical-consequences-1}
 
 Three framework-grounded predictions for GRN inference methodology:
 
@@ -748,12 +728,10 @@ foundation models become available.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{perturbation-prediction}{%
-\subsection{4. Perturbation Prediction}\label{perturbation-prediction}}
+\subsection{4. Perturbation Prediction}\label{perturbation-prediction}
 
-\hypertarget{the-perturbation-prediction-paradigm}{%
 \subsubsection{4.1 The perturbation prediction
-paradigm}\label{the-perturbation-prediction-paradigm}}
+paradigm}\label{the-perturbation-prediction-paradigm}
 
 Single-cell perturbation experiments --- CRISPR knockouts (Perturb-seq,
 CROP-seq), CRISPRa/i activation/repression (Replogle et al.~2022
@@ -776,10 +754,9 @@ foundation models (scGPT {[}25{]}, Geneformer {[}26{]}, scFoundation
 with the expectation that pretraining on tens of millions of cells would
 enable strong zero-shot and few-shot performance.
 
-\hypertarget{the-empirical-failure-of-deep-learning-on-perturbation-prediction}{%
 \subsubsection{4.2 The empirical failure of deep learning on
 perturbation
-prediction}\label{the-empirical-failure-of-deep-learning-on-perturbation-prediction}}
+prediction}\label{the-empirical-failure-of-deep-learning-on-perturbation-prediction}
 
 Ahlmann-Eltze et al.~(Nature Methods 2025) {[}6{]} published a direct
 evaluation of this expectation. The study compared five foundation
@@ -810,9 +787,8 @@ not seen in training requires knowing what the cell can become, which
 depends on chromatin state, transcription factor activity, and other
 variables not in the transcriptome.
 
-\hypertarget{the-frameworks-structural-prediction}{%
 \subsubsection{4.3 The framework's structural
-prediction}\label{the-frameworks-structural-prediction}}
+prediction}\label{the-frameworks-structural-prediction}
 
 The OI framework's information-theoretic constraint produces a hard
 upper bound on what transcriptome-only perturbation models can achieve.
@@ -843,9 +819,8 @@ conditional mean is the limit of what transcriptome data supports. Deep
 learning architectures do not extract additional information from the
 visible sector because there is no additional information to extract.
 
-\hypertarget{knowledge-graph-methods-as-the-predicted-improvement}{%
 \subsubsection{4.4 Knowledge-graph methods as the predicted
-improvement}\label{knowledge-graph-methods-as-the-predicted-improvement}}
+improvement}\label{knowledge-graph-methods-as-the-predicted-improvement}
 
 The methods that do exceed simple baselines incorporate explicit
 hidden-sector information through external knowledge. GEARS {[}32{]}
@@ -868,9 +843,8 @@ are the methods that try to extract that information from transcriptome
 data alone. The ``deep learning fails to beat baselines'' puzzle is the
 framework's information-theoretic ceiling made empirically manifest.
 
-\hypertarget{compositional-generalization-and-what-scaling-cannot-fix}{%
 \subsubsection{4.5 Compositional generalization and what scaling cannot
-fix}\label{compositional-generalization-and-what-scaling-cannot-fix}}
+fix}\label{compositional-generalization-and-what-scaling-cannot-fix}
 
 A subtler prediction from the framework concerns compositional
 generalization --- the ability to predict combinations of perturbations
@@ -893,9 +867,8 @@ track the chromatin co-localization of the perturbed genes, not just
 their expression patterns. This prediction has not been directly tested
 in the existing benchmarking literature.
 
-\hypertarget{practical-consequences-2}{%
 \subsubsection{4.6 Practical
-consequences}\label{practical-consequences-2}}
+consequences}\label{practical-consequences-2}
 
 Four framework-grounded predictions for perturbation prediction
 methodology:
@@ -931,12 +904,10 @@ is the right explanation for compositional generalization failure modes.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{multi-omics-integration}{%
-\subsection{5. Multi-Omics Integration}\label{multi-omics-integration}}
+\subsection{5. Multi-Omics Integration}\label{multi-omics-integration}
 
-\hypertarget{the-multi-omics-integration-paradigm}{%
 \subsubsection{5.1 The multi-omics integration
-paradigm}\label{the-multi-omics-integration-paradigm}}
+paradigm}\label{the-multi-omics-integration-paradigm}
 
 Single-cell multi-omics technologies measure multiple molecular
 modalities in the same cell: G\&T-seq (genome + transcriptome),
@@ -957,8 +928,7 @@ modalities are parallel measurements of the same underlying cell state,
 and integration combines them into a single low-dimensional latent
 space.
 
-\hypertarget{the-timescale-problem}{%
-\subsubsection{5.2 The timescale problem}\label{the-timescale-problem}}
+\subsubsection{5.2 The timescale problem}\label{the-timescale-problem}
 
 The parallel-measurements assumption fails when modalities measure
 different memory layers operating on different timescales. The QuRIE-seq
@@ -991,9 +961,8 @@ The integration improves accuracy modestly compared to single-modality
 methods, but does not fully exploit the temporal information present in
 the multi-modal data.
 
-\hypertarget{emerging-timescale-aware-methods}{%
 \subsubsection{5.3 Emerging timescale-aware
-methods}\label{emerging-timescale-aware-methods}}
+methods}\label{emerging-timescale-aware-methods}
 
 Recent methodological work has begun to address the timescale problem
 explicitly. The QuRIE-seq paper {[}8{]} used time-series sampling
@@ -1020,9 +989,8 @@ methods that treat modalities as instantaneous parallel measurements.
 The lag structure should be biologically calibrated to the
 characteristic \(\tau_B\) of each modality.
 
-\hypertarget{the-hierarchy-of-biological-memory-layers}{%
 \subsubsection{5.4 The hierarchy of biological memory
-layers}\label{the-hierarchy-of-biological-memory-layers}}
+layers}\label{the-hierarchy-of-biological-memory-layers}
 
 The framework provides a specific prediction for the timescale hierarchy
 across biological modalities, ordered from fastest to slowest:
@@ -1062,9 +1030,8 @@ this ordering --- treating slower modalities as constraints on faster
 modalities --- will systematically outperform methods that treat them
 symmetrically.
 
-\hypertarget{static-factor-analysis-under-the-framework}{%
 \subsubsection{5.5 Static factor analysis under the
-framework}\label{static-factor-analysis-under-the-framework}}
+framework}\label{static-factor-analysis-under-the-framework}
 
 MOFA and MOFA+ are widely used and produce useful cell embeddings. They
 do not, however, capture the temporal hierarchy across modalities. The
@@ -1085,9 +1052,8 @@ multi-omics studies provide the data substrate for such comparisons; the
 comparison has not been systematically performed across the
 methodological literature.
 
-\hypertarget{practical-consequences-3}{%
 \subsubsection{5.6 Practical
-consequences}\label{practical-consequences-3}}
+consequences}\label{practical-consequences-3}
 
 Three framework-grounded predictions for multi-omics integration:
 
@@ -1121,13 +1087,11 @@ succeed.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{cancer-methylome-classification}{%
 \subsection{6. Cancer Methylome
-Classification}\label{cancer-methylome-classification}}
+Classification}\label{cancer-methylome-classification}
 
-\hypertarget{the-methylation-based-tumor-classification-paradigm}{%
 \subsubsection{6.1 The methylation-based tumor classification
-paradigm}\label{the-methylation-based-tumor-classification-paradigm}}
+paradigm}\label{the-methylation-based-tumor-classification-paradigm}
 
 DNA methylation profiling has emerged over the past decade as a central
 diagnostic tool in neuro-oncology and increasingly across cancer types.
@@ -1153,9 +1117,8 @@ identify the developmental lineage from which the tumor arose, even when
 the tumor's morphology, histology, or transcriptional state has diverged
 substantially from the lineage's normal pattern.
 
-\hypertarget{methylome-arrest-in-cancer}{%
 \subsubsection{6.2 Methylome arrest in
-cancer}\label{methylome-arrest-in-cancer}}
+cancer}\label{methylome-arrest-in-cancer}
 
 A critical observation in the methylation-classification literature is
 that DNA methylation patterns are \emph{relatively stable} in cancer
@@ -1175,9 +1138,8 @@ as transcriptional profiles do. The methylome's relative stability
 across disease course is the practical foundation of the entire
 methylation-classification paradigm.
 
-\hypertarget{the-substratum-emergent-operator-distinction-in-cancer}{%
 \subsubsection{6.3 The substratum-emergent operator distinction in
-cancer}\label{the-substratum-emergent-operator-distinction-in-cancer}}
+cancer}\label{the-substratum-emergent-operator-distinction-in-cancer}
 
 The framework's predicted pattern for cancer is the substratum-emergent
 operator distinction {[}Medicine §9.4{]} applied to oncology: the
@@ -1208,9 +1170,8 @@ unified across scales: the substratum carries information that the
 emergent operator can violate, and methylation classification in
 oncology operationalizes this for clinical diagnostics.
 
-\hypertarget{unclassifiable-tumors-and-substratum-disruption}{%
 \subsubsection{6.4 Unclassifiable tumors and substratum
-disruption}\label{unclassifiable-tumors-and-substratum-disruption}}
+disruption}\label{unclassifiable-tumors-and-substratum-disruption}
 
 A specific empirical pattern in methylation classification is
 informative for the framework. Drexler et al.~(2024) {[}45{]} document
@@ -1243,9 +1204,8 @@ methylation differences. The hypothesis is testable in the existing
 Heidelberg dataset by stratifying classifiable versus unclassifiable
 cases on machinery-site versus content-site methylation patterns.
 
-\hypertarget{methylation-classification-beyond-cns-tumors}{%
 \subsubsection{6.5 Methylation classification beyond CNS
-tumors}\label{methylation-classification-beyond-cns-tumors}}
+tumors}\label{methylation-classification-beyond-cns-tumors}
 
 The methylation-classification paradigm has been extended to other
 cancer types: sarcoma classifiers {[}46{]}, leukemia classifiers, and
@@ -1264,9 +1224,8 @@ amenable to methylation classification than cancers with stable genomes.
 This is a specific testable prediction about cross-cancer methylation
 classifier performance.
 
-\hypertarget{practical-consequences-4}{%
 \subsubsection{6.6 Practical
-consequences}\label{practical-consequences-4}}
+consequences}\label{practical-consequences-4}
 
 Three framework-grounded predictions for cancer methylome
 bioinformatics:
@@ -1298,13 +1257,11 @@ stratification variable.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{variant-pathogenicity-for-readerwritereraser-genes}{%
 \subsection{7. Variant Pathogenicity for Reader/Writer/Eraser
-Genes}\label{variant-pathogenicity-for-readerwritereraser-genes}}
+Genes}\label{variant-pathogenicity-for-readerwritereraser-genes}
 
-\hypertarget{variant-effect-prediction-methods}{%
 \subsubsection{7.1 Variant effect prediction
-methods}\label{variant-effect-prediction-methods}}
+methods}\label{variant-effect-prediction-methods}
 
 Predicting the functional impact of missense variants on protein-coding
 genes is a core task in clinical genetics. Methods range from
@@ -1328,9 +1285,8 @@ regulatory architecture --- whether the affected gene is a substrate
 gene, a reader of epigenetic marks, a writer that establishes marks, or
 an eraser that removes marks.
 
-\hypertarget{the-frameworks-prediction}{%
 \subsubsection{7.2 The framework's
-prediction}\label{the-frameworks-prediction}}
+prediction}\label{the-frameworks-prediction}
 
 The Medicine companion paper {[}Medicine §10.7{]} establishes the
 reader-writer disorder class: genetic disorders caused by
@@ -1373,9 +1329,8 @@ versus variants in substrate genes. Specifically:
   effects on chromatin state).
 \end{enumerate}
 
-\hypertarget{the-proposed-empirical-test}{%
 \subsubsection{7.3 The proposed empirical
-test}\label{the-proposed-empirical-test}}
+test}\label{the-proposed-empirical-test}
 
 The framework's predictions can be tested through reanalysis of existing
 AlphaMissense predictions stratified by gene functional role. The
@@ -1415,9 +1370,8 @@ Negative results would refute the framework's prediction; positive
 results would establish a new structural pattern in variant effect
 prediction with practical clinical implications.
 
-\hypertarget{implications-for-clinical-variant-interpretation}{%
 \subsubsection{7.4 Implications for clinical variant
-interpretation}\label{implications-for-clinical-variant-interpretation}}
+interpretation}\label{implications-for-clinical-variant-interpretation}
 
 If the framework's predictions are confirmed, variant interpretation in
 reader-writer disorders should incorporate gene functional role as a
@@ -1441,9 +1395,8 @@ substrate it acts on. These recommendations align with emerging clinical
 practice for Rett-class disorders {[}58{]} but have not been generalized
 to the full machinery-gene category.
 
-\hypertarget{practical-consequences-5}{%
 \subsubsection{7.5 Practical
-consequences}\label{practical-consequences-5}}
+consequences}\label{practical-consequences-5}
 
 Three framework-grounded predictions for variant effect prediction
 methodology:
@@ -1471,13 +1424,11 @@ stratified by gene category.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{reader-writer-disorder-bioinformatics}{%
 \subsection{8. Reader-Writer Disorder
-Bioinformatics}\label{reader-writer-disorder-bioinformatics}}
+Bioinformatics}\label{reader-writer-disorder-bioinformatics}
 
-\hypertarget{the-frameworks-reader-writer-disorder-class}{%
 \subsubsection{8.1 The framework's reader-writer disorder
-class}\label{the-frameworks-reader-writer-disorder-class}}
+class}\label{the-frameworks-reader-writer-disorder-class}
 
 The Medicine paper {[}Medicine §10.7{]} introduces the reader-writer
 disorder class: genetic disorders caused by loss-of-function mutations
@@ -1491,9 +1442,8 @@ disrupted. The framework predicts that this structural feature produces
 specific bioinformatic patterns that distinguish reader-writer disorders
 from substrate-affecting genetic disorders.
 
-\hypertarget{bioinformatic-patterns-in-rett-syndrome}{%
 \subsubsection{8.2 Bioinformatic patterns in Rett
-syndrome}\label{bioinformatic-patterns-in-rett-syndrome}}
+syndrome}\label{bioinformatic-patterns-in-rett-syndrome}
 
 Rett syndrome provides the most directly testable case. MECP2 is a
 methyl-CpG-binding protein --- a reader of DNA methylation. Patients
@@ -1520,9 +1470,8 @@ wildtype neurons, with characteristic patterns affecting long genes
 emergent transcriptional operator is substantially disrupted while the
 substrate is largely preserved --- exactly the framework's prediction.
 
-\hypertarget{generalization-to-other-reader-writer-disorders}{%
 \subsubsection{8.3 Generalization to other reader-writer
-disorders}\label{generalization-to-other-reader-writer-disorders}}
+disorders}\label{generalization-to-other-reader-writer-disorders}
 
 The framework predicts that similar bioinformatic patterns hold across
 the reader-writer disorder class:
@@ -1570,9 +1519,8 @@ reader/writer/eraser acts on is preserved; the emergent operator at the
 level affected by the machinery is disrupted; other levels are
 relatively preserved.
 
-\hypertarget{differential-diagnosis-through-multi-omic-bioinformatics}{%
 \subsubsection{8.4 Differential diagnosis through multi-omic
-bioinformatics}\label{differential-diagnosis-through-multi-omic-bioinformatics}}
+bioinformatics}\label{differential-diagnosis-through-multi-omic-bioinformatics}
 
 The framework's predicted patterns provide a bioinformatic differential
 diagnostic. A patient with a developmental disorder of unknown cause can
@@ -1606,9 +1554,8 @@ reader-writer disorders from substrate-affecting disorders even before
 the causal mutation is identified --- a useful diagnostic capability for
 patients with unclassified developmental syndromes.
 
-\hypertarget{therapeutic-implications-and-bioinformatic-monitoring}{%
 \subsubsection{8.5 Therapeutic implications and bioinformatic
-monitoring}\label{therapeutic-implications-and-bioinformatic-monitoring}}
+monitoring}\label{therapeutic-implications-and-bioinformatic-monitoring}
 
 The Medicine paper {[}Medicine §10.7{]} establishes that reader-writer
 disorders are reversibility-prone because the substrate has been
@@ -1638,9 +1585,8 @@ therapy outcomes should follow the framework's structural picture:
   substrate integrity is the prognostic marker for sustained response.
 \end{enumerate}
 
-\hypertarget{practical-consequences-6}{%
 \subsubsection{8.6 Practical
-consequences}\label{practical-consequences-6}}
+consequences}\label{practical-consequences-6}
 
 Three framework-grounded predictions for reader-writer disorder
 bioinformatics:
@@ -1667,12 +1613,10 @@ cohorts.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{synthesis}{%
-\subsection{9. Synthesis}\label{synthesis}}
+\subsection{9. Synthesis}\label{synthesis}
 
-\hypertarget{five-domains-one-structural-explanation}{%
 \subsubsection{9.1 Five domains, one structural
-explanation}\label{five-domains-one-structural-explanation}}
+explanation}\label{five-domains-one-structural-explanation}
 
 The preceding sections have developed framework predictions across five
 active methodological domains in single-cell bioinformatics. The
@@ -1729,9 +1673,8 @@ hidden-sector information explicitly succeed; methods that try to
 extract hidden-sector information from visible-sector data alone are
 bounded by an information-theoretic ceiling.
 
-\hypertarget{the-information-theoretic-ceiling}{%
 \subsubsection{9.2 The information-theoretic
-ceiling}\label{the-information-theoretic-ceiling}}
+ceiling}\label{the-information-theoretic-ceiling}
 
 The framework's most consequential bioinformatic prediction is the
 existence of an information-theoretic ceiling on transcriptome-only
@@ -1767,8 +1710,7 @@ to scale foundation models depends on the assumption that more data and
 compute will eventually overcome the apparent limits; the framework
 predicts this assumption is wrong for ceiling-bounded tasks.
 
-\hypertarget{the-roadmap-forward}{%
-\subsubsection{9.3 The roadmap forward}\label{the-roadmap-forward}}
+\subsubsection{9.3 The roadmap forward}\label{the-roadmap-forward}
 
 The framework's positive prediction is that methodological progress on
 ceiling-bounded tasks requires architectural changes that incorporate
@@ -1805,10 +1747,9 @@ pattern suggests that combining them --- multi-modal data analyzed with
 knowledge-graph priors using methods that maintain explicit memory state
 --- represents the most promising methodological direction.
 
-\hypertarget{the-substratum-emergent-operator-distinction-as-the-unifying-structural-feature}{%
 \subsubsection{9.4 The substratum-emergent operator distinction as the
 unifying structural
-feature}\label{the-substratum-emergent-operator-distinction-as-the-unifying-structural-feature}}
+feature}\label{the-substratum-emergent-operator-distinction-as-the-unifying-structural-feature}
 
 A more compact summary of the synthesis: cellular bioinformatics
 operates on systems that exhibit the substratum-emergent operator
@@ -1844,13 +1785,11 @@ the framework predicts will work.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{open-questions-and-limits}{%
 \subsection{10. Open Questions and
-Limits}\label{open-questions-and-limits}}
+Limits}\label{open-questions-and-limits}
 
-\hypertarget{what-the-framework-predicts-but-has-not-been-tested}{%
 \subsubsection{10.1 What the framework predicts but has not been
-tested}\label{what-the-framework-predicts-but-has-not-been-tested}}
+tested}\label{what-the-framework-predicts-but-has-not-been-tested}
 
 Several framework predictions in this paper are testable but not yet
 empirically verified:
@@ -1885,9 +1824,8 @@ Each is a discrete empirical test with clear positive and negative
 outcomes. The framework's bioinformatic predictions are falsifiable in a
 specific operational sense.
 
-\hypertarget{what-the-framework-does-not-predict}{%
 \subsubsection{10.2 What the framework does not
-predict}\label{what-the-framework-does-not-predict}}
+predict}\label{what-the-framework-does-not-predict}
 
 The framework's predictions are limited to information-theoretic
 constraints and structural patterns. It does not predict:
@@ -1920,9 +1858,8 @@ constraints and structural patterns. It does not predict:
   to require domain-specific theoretical and experimental work.
 \end{enumerate}
 
-\hypertarget{open-structural-questions}{%
 \subsubsection{10.3 Open structural
-questions}\label{open-structural-questions}}
+questions}\label{open-structural-questions}
 
 Three open questions remain at the structural level:
 
@@ -1954,8 +1891,7 @@ mechanistic models has not been worked out in detail. A formal
 connection would clarify which aspects of mechanistic modeling
 correspond to which framework structural features.
 
-\hypertarget{limits}{%
-\subsubsection{10.4 Limits}\label{limits}}
+\subsubsection{10.4 Limits}\label{limits}
 
 The framework's bioinformatic predictions have inherent limits:
 
@@ -1998,8 +1934,7 @@ content that has been confirmed across multiple methodological domains.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{acknowledgements}{%
-\subsection{Acknowledgements}\label{acknowledgements}}
+\subsection{Acknowledgements}\label{acknowledgements}
 
 During the preparation of this work, the author used Claude Opus 4.7
 (Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining
@@ -2009,8 +1944,7 @@ the publication.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{references}{%
-\subsection{References}\label{references}}
+\subsection{References}\label{references}
 
 {[}1{]} A. Maybaum, ``The Incompleteness of Observation,'' (2026).
 
@@ -2261,9 +2195,8 @@ disease,'' \emph{Genes \& Development} 36, 1083--1100 (2022).
 H3.3 localization at specific genomic regions,'' \emph{Cell} 140,
 678--691 (2010).
 
-\hypertarget{the-frameworks-reader-writer-disorder-class-1}{%
 \subsubsection{8.1 The framework's reader-writer disorder
-class}\label{the-frameworks-reader-writer-disorder-class-1}}
+class}\label{the-frameworks-reader-writer-disorder-class-1}
 
 The Medicine paper {[}Medicine §10.7{]} introduces the reader-writer
 disorder class: genetic disorders caused by loss-of-function mutations
@@ -2277,9 +2210,8 @@ disrupted. The framework predicts that this structural feature produces
 specific bioinformatic patterns that distinguish reader-writer disorders
 from substrate-affecting genetic disorders.
 
-\hypertarget{bioinformatic-patterns-in-rett-syndrome-1}{%
 \subsubsection{8.2 Bioinformatic patterns in Rett
-syndrome}\label{bioinformatic-patterns-in-rett-syndrome-1}}
+syndrome}\label{bioinformatic-patterns-in-rett-syndrome-1}
 
 Rett syndrome provides the most directly testable case. MECP2 is a
 methyl-CpG-binding protein --- a reader of DNA methylation. Patients
@@ -2306,9 +2238,8 @@ wildtype neurons, with characteristic patterns affecting long genes
 emergent transcriptional operator is substantially disrupted while the
 substrate is largely preserved --- exactly the framework's prediction.
 
-\hypertarget{generalization-to-other-reader-writer-disorders-1}{%
 \subsubsection{8.3 Generalization to other reader-writer
-disorders}\label{generalization-to-other-reader-writer-disorders-1}}
+disorders}\label{generalization-to-other-reader-writer-disorders-1}
 
 The framework predicts that similar bioinformatic patterns hold across
 the reader-writer disorder class:
@@ -2356,9 +2287,8 @@ reader/writer/eraser acts on is preserved; the emergent operator at the
 level affected by the machinery is disrupted; other levels are
 relatively preserved.
 
-\hypertarget{differential-diagnosis-through-multi-omic-bioinformatics-1}{%
 \subsubsection{8.4 Differential diagnosis through multi-omic
-bioinformatics}\label{differential-diagnosis-through-multi-omic-bioinformatics-1}}
+bioinformatics}\label{differential-diagnosis-through-multi-omic-bioinformatics-1}
 
 The framework's predicted patterns provide a bioinformatic differential
 diagnostic. A patient with a developmental disorder of unknown cause can
@@ -2392,9 +2322,8 @@ reader-writer disorders from substrate-affecting disorders even before
 the causal mutation is identified --- a useful diagnostic capability for
 patients with unclassified developmental syndromes.
 
-\hypertarget{therapeutic-implications-and-bioinformatic-monitoring-1}{%
 \subsubsection{8.5 Therapeutic implications and bioinformatic
-monitoring}\label{therapeutic-implications-and-bioinformatic-monitoring-1}}
+monitoring}\label{therapeutic-implications-and-bioinformatic-monitoring-1}
 
 The Medicine paper {[}Medicine §10.7{]} establishes that reader-writer
 disorders are reversibility-prone because the substrate has been
@@ -2424,9 +2353,8 @@ therapy outcomes should follow the framework's structural picture:
   substrate integrity is the prognostic marker for sustained response.
 \end{enumerate}
 
-\hypertarget{practical-consequences-7}{%
 \subsubsection{8.6 Practical
-consequences}\label{practical-consequences-7}}
+consequences}\label{practical-consequences-7}
 
 Three framework-grounded predictions for reader-writer disorder
 bioinformatics:

@@ -157,7 +157,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -169,14 +169,12 @@
 
 \begin{document}
 
-\hypertarget{non-markovian-dynamics-in-biology-and-medicine}{%
 \section{Non-Markovian Dynamics in Biology and
-Medicine}\label{non-markovian-dynamics-in-biology-and-medicine}}
+Medicine}\label{non-markovian-dynamics-in-biology-and-medicine}
 
-\hypertarget{molecular-memory-as-a-unifying-framework-for-disease-mechanisms-and-therapeutic-design}{%
 \subsubsection{Molecular Memory as a Unifying Framework for Disease
 Mechanisms and Therapeutic
-Design}\label{molecular-memory-as-a-unifying-framework-for-disease-mechanisms-and-therapeutic-design}}
+Design}\label{molecular-memory-as-a-unifying-framework-for-disease-mechanisms-and-therapeutic-design}
 
 \textbf{Author:} Alex Maybaum\\
 \textbf{Date:} April 2026\\
@@ -185,8 +183,7 @@ Design}\label{molecular-memory-as-a-unifying-framework-for-disease-mechanisms-an
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{abstract}{%
-\subsection{Abstract}\label{abstract}}
+\subsection{Abstract}\label{abstract}
 
 The Observational Incompleteness (OI) framework {[}1{]} proves that any
 fast subsystem coupled to a hidden sector realizing conditions C1--C4
@@ -260,8 +257,7 @@ physics --- and should be read as a structural possibility to be tested,
 not as support for the framework.
 \end{quote}
 
-\hypertarget{introduction}{%
-\subsection{1. Introduction}\label{introduction}}
+\subsection{1. Introduction}\label{introduction}
 
 Standard pharmacological models treat enzyme catalysis, receptor
 signaling, and ion channel gating as Markovian processes --- each event
@@ -324,13 +320,11 @@ pharmacology.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-enzyme-as-a-read-write-system}{%
 \subsection{2. The Enzyme as a Read-Write
-System}\label{the-enzyme-as-a-read-write-system}}
+System}\label{the-enzyme-as-a-read-write-system}
 
-\hypertarget{molecular-memory-mechanisms}{%
 \subsubsection{2.1 Molecular memory
-mechanisms}\label{molecular-memory-mechanisms}}
+mechanisms}\label{molecular-memory-mechanisms}
 
 The OI prediction requires that an enzyme's activity history is
 physically encoded in its structure and persists across multiple
@@ -366,8 +360,7 @@ histone code provides the most dramatic example. DNA damage induces
 histone modifications (\(\gamma\)H2AX, H4K20me) that persist for hours
 to days --- far longer than the kinase cascade that wrote them.
 
-\hypertarget{the-key-parameter}{%
-\subsubsection{2.2 The key parameter}\label{the-key-parameter}}
+\subsubsection{2.2 The key parameter}\label{the-key-parameter}
 
 The strength of the non-Markovian correction is set by
 \(\tau_S / \tau_B\). When this ratio is very small (e.g., \(10^{-12}\)
@@ -438,9 +431,8 @@ layers with progressively longer \(\tau_B\). The clinical timecourse of
 memory-related diseases --- and the schedule-dependence of
 memory-targeted drugs --- reflects this layered architecture.
 
-\hypertarget{the-core-therapeutic-principle}{%
 \subsubsection{2.3 The core therapeutic
-principle}\label{the-core-therapeutic-principle}}
+principle}\label{the-core-therapeutic-principle}
 
 In disease contexts, the framework identifies a specific therapeutic
 axis: \textbf{memory asymmetry}. When a disease process depends on
@@ -451,9 +443,8 @@ is pharmacologically distinct from standard inhibition and predicts
 wider therapeutic windows because the target (memory dependence) is more
 disease-specific than the target (catalytic activity).
 
-\hypertarget{reconstructive-consequences-of-memory-access}{%
 \subsubsection{2.4 Reconstructive consequences of memory
-access}\label{reconstructive-consequences-of-memory-access}}
+access}\label{reconstructive-consequences-of-memory-access}
 
 A direct consequence of the framework's core mechanism: \emph{every act
 of accessing a memory necessarily alters the substrate that stores it.}
@@ -487,9 +478,8 @@ rewrite the memory at that layer without affecting memories already
 consolidated to slower layers. The selectivity is not coincidental ---
 it follows from the layered architecture of §2.2.
 
-\hypertarget{forgetting-as-functional-necessity}{%
 \subsubsection{2.5 Forgetting as functional
-necessity}\label{forgetting-as-functional-necessity}}
+necessity}\label{forgetting-as-functional-necessity}
 
 Standard accounts treat forgetting as a failure of memory. The framework
 reframes it: \emph{finite \(\tau_B\) at every layer is structurally
@@ -536,12 +526,10 @@ broad-spectrum receptor pharmacology.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{cancer-pharmacology}{%
-\subsection{3. Cancer Pharmacology}\label{cancer-pharmacology}}
+\subsection{3. Cancer Pharmacology}\label{cancer-pharmacology}
 
-\hypertarget{checkpoint-kinase-inhibitors-and-selective-tumor-sensitization}{%
 \subsubsection{3.1 Checkpoint kinase inhibitors and selective tumor
-sensitization}\label{checkpoint-kinase-inhibitors-and-selective-tumor-sensitization}}
+sensitization}\label{checkpoint-kinase-inhibitors-and-selective-tumor-sensitization}
 
 Chk1 inhibitors combined with gemcitabine and/or radiation selectively
 sensitize tumor cells --- particularly pancreatic cancer --- while
@@ -576,9 +564,8 @@ system, only concentrations matter. In a non-Markovian system, the first
 drug writes information into the enzyme's memory, and the second drug's
 effect depends on what was written.
 
-\hypertarget{radiation-adaptive-response}{%
 \subsubsection{3.2 Radiation adaptive
-response}\label{radiation-adaptive-response}}
+response}\label{radiation-adaptive-response}
 
 A small priming dose of radiation (\(\sim 0.01\)--\(0.1\) Gy) makes
 cells more resistant to a subsequent larger dose (\(\sim 2\) Gy), with
@@ -588,9 +575,8 @@ modification marks into histones, which persist and are read by the DDR
 when dose 2 arrives. The ``adaptation'' is the DDR network reading the
 memory of the previous damage event.
 
-\hypertarget{therapeutic-strategies-from-memory-asymmetry}{%
 \subsubsection{3.3 Therapeutic strategies from memory
-asymmetry}\label{therapeutic-strategies-from-memory-asymmetry}}
+asymmetry}\label{therapeutic-strategies-from-memory-asymmetry}
 
 \textbf{Memory-selective scheduling.} The optimal dose interval depends
 on \(\tau_B\) of the tumor's checkpoint kinases. The second dose should
@@ -619,12 +605,10 @@ measure catalytic inhibition.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{neurodegeneration}{%
-\subsection{4. Neurodegeneration}\label{neurodegeneration}}
+\subsection{4. Neurodegeneration}\label{neurodegeneration}
 
-\hypertarget{the-failure-of-the-amyloid-hypothesis}{%
 \subsubsection{4.1 The failure of the amyloid
-hypothesis}\label{the-failure-of-the-amyloid-hypothesis}}
+hypothesis}\label{the-failure-of-the-amyloid-hypothesis}
 
 Alzheimer's disease has been attacked through the amyloid hypothesis for
 three decades. Drugs that successfully clear A\(\beta\) plaques
@@ -632,9 +616,8 @@ three decades. Drugs that successfully clear A\(\beta\) plaques
 central hypothesis appears to target a symptom rather than the
 mechanism.
 
-\hypertarget{camkii-as-the-canonical-c1c4-system}{%
 \subsubsection{4.2 CaMKII as the canonical C1--C4
-system}\label{camkii-as-the-canonical-c1c4-system}}
+system}\label{camkii-as-the-canonical-c1c4-system}
 
 CaMKII --- the canonical molecular memory device in neurons ---
 satisfies C1--C4:
@@ -658,8 +641,7 @@ CaMKII's memory function (long-term potentiation) is the \emph{intended}
 biological use of non-Markovian dynamics. Neurodegeneration involves
 pathological perturbation of this memory system.
 
-\hypertarget{the-oi-prediction}{%
-\subsubsection{4.3 The OI prediction}\label{the-oi-prediction}}
+\subsubsection{4.3 The OI prediction}\label{the-oi-prediction}
 
 Neurodegenerative disease involves pathological alteration of \(\tau_B\)
 in synaptic signaling kinases:
@@ -680,9 +662,8 @@ in synaptic signaling kinases:
   conformational dynamics of LRRK2 and other PD-associated kinases
 \end{itemize}
 
-\hypertarget{therapeutic-implication}{%
 \subsubsection{4.4 Therapeutic
-implication}\label{therapeutic-implication}}
+implication}\label{therapeutic-implication}
 
 \textbf{\(\tau_B\)-normalizing drugs.} Instead of targeting the
 misfolded proteins themselves (which has largely failed clinically),
@@ -697,10 +678,9 @@ regulatory domain. A compound that reverses this \(\tau_B\) shift should
 rescue synaptic plasticity (measurable by LTP induction) independently
 of A\(\beta\) clearance.
 
-\hypertarget{ptsd-as-tau_b-pathology-with-reconsolidation-as-therapy}{%
 \subsubsection{\texorpdfstring{4.5 PTSD as \(\tau_B\) pathology with
 reconsolidation as
-therapy}{4.5 PTSD as \textbackslash tau\_B pathology with reconsolidation as therapy}}\label{ptsd-as-tau_b-pathology-with-reconsolidation-as-therapy}}
+therapy}{4.5 PTSD as \textbackslash tau\_B pathology with reconsolidation as therapy}}\label{ptsd-as-tau_b-pathology-with-reconsolidation-as-therapy}
 
 PTSD involves abnormally persistent and intrusive memory of traumatic
 events. From the framework's perspective, this is a representative case
@@ -737,9 +717,8 @@ erases the emotional content while preserving the declarative trace.
   modalities are not yet available.
 \end{itemize}
 
-\hypertarget{direct-mechanical-access-via-low-intensity-focused-ultrasound}{%
 \subsubsection{4.6 Direct mechanical access via low-intensity focused
-ultrasound}\label{direct-mechanical-access-via-low-intensity-focused-ultrasound}}
+ultrasound}\label{direct-mechanical-access-via-low-intensity-focused-ultrasound}
 
 Standard pharmacology writes to \emph{chemical} degrees of freedom
 (receptor occupancy, phosphorylation state). It cannot directly access
@@ -798,9 +777,8 @@ clinically (parameters are largely empirical). Framework-informed trials
 would systematically scan PRF and intensity against measured molecular
 \(\tau_B\) values.
 
-\hypertarget{the-brain-memory-hierarchy-extension}{%
 \subsubsection{4.7 The brain memory hierarchy
-(extension)}\label{the-brain-memory-hierarchy-extension}}
+(extension)}\label{the-brain-memory-hierarchy-extension}
 
 The five-layer extension introduced in §2.2 --- synaptic, circuit,
 systems, cortical --- applies most directly to the brain. Each layer is
@@ -846,12 +824,10 @@ current scope.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{antibiotic-resistance}{%
-\subsection{5. Antibiotic Resistance}\label{antibiotic-resistance}}
+\subsection{5. Antibiotic Resistance}\label{antibiotic-resistance}
 
-\hypertarget{persister-cells-as-memory-accumulation}{%
 \subsubsection{5.1 Persister cells as memory
-accumulation}\label{persister-cells-as-memory-accumulation}}
+accumulation}\label{persister-cells-as-memory-accumulation}
 
 Persister cells survive antibiotic treatment through transient
 phenotypic tolerance, not genetic resistance. The SOS response pathway
@@ -860,17 +836,15 @@ phenotypic tolerance, not genetic resistance. The SOS response pathway
 seconds to minutes), with filaments extending over hundreds of bases
 (exponentially large state space).
 
-\hypertarget{the-oi-prediction-1}{%
-\subsubsection{5.2 The OI prediction}\label{the-oi-prediction-1}}
+\subsubsection{5.2 The OI prediction}\label{the-oi-prediction-1}
 
 Persister formation is not random switching --- it is the accumulation
 of SOS memory past a threshold. Each antibiotic exposure writes
 information into the RecA filament state, which persists and modulates
 subsequent responses.
 
-\hypertarget{memory-optimized-antibiotic-scheduling}{%
 \subsubsection{5.3 Memory-optimized antibiotic
-scheduling}\label{memory-optimized-antibiotic-scheduling}}
+scheduling}\label{memory-optimized-antibiotic-scheduling}
 
 The interval between doses should be optimized for the bacterial SOS
 memory timescale (\(\tau_B\) of RecA filament dynamics), not just the
@@ -897,29 +871,24 @@ optimization.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{immunotherapy-and-t-cell-exhaustion}{%
 \subsection{6. Immunotherapy and T Cell
-Exhaustion}\label{immunotherapy-and-t-cell-exhaustion}}
+Exhaustion}\label{immunotherapy-and-t-cell-exhaustion}
 
-\hypertarget{the-exhaustion-problem}{%
-\subsubsection{6.1 The exhaustion
-problem}\label{the-exhaustion-problem}}
+\subsubsection{6.1 The exhaustion problem}\label{the-exhaustion-problem}
 
 PD-1/PD-L1 checkpoint inhibitors work in only \(\sim 20\)--\(30\%\) of
 patients. The primary barrier is T cell exhaustion --- progressive loss
 of effector function due to chronic antigen stimulation.
 
-\hypertarget{tcr-signaling-as-a-c1c4-system}{%
 \subsubsection{6.2 TCR signaling as a C1--C4
-system}\label{tcr-signaling-as-a-c1c4-system}}
+system}\label{tcr-signaling-as-a-c1c4-system}
 
 The TCR signaling cascade (Lck \(\to\) ZAP-70 \(\to\) LAT \(\to\)
 downstream effectors) involves kinases with regulatory domains
 satisfying C1--C4, with multiple phosphorylation sites creating a
 combinatorial memory register.
 
-\hypertarget{the-oi-prediction-2}{%
-\subsubsection{6.3 The OI prediction}\label{the-oi-prediction-2}}
+\subsubsection{6.3 The OI prediction}\label{the-oi-prediction-2}
 
 T cell exhaustion begins as accumulated non-Markovian memory in the TCR
 signaling kinases. Each antigen encounter writes PTM/conformational
@@ -929,9 +898,8 @@ progressively shifts the signaling dynamics toward exhaustion. The
 transcriptional changes (TOX upregulation) are \emph{downstream
 consequences} of the accumulated kinase memory, not the primary cause.
 
-\hypertarget{therapeutic-implication-1}{%
 \subsubsection{6.4 Therapeutic
-implication}\label{therapeutic-implication-1}}
+implication}\label{therapeutic-implication-1}
 
 \textbf{Memory erasure + checkpoint inhibition.} PD-1 inhibitors release
 the inhibitory brake but do not erase accumulated TCR signaling memory.
@@ -942,12 +910,10 @@ effectively than PD-1 inhibitor alone.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{cardiac-pharmacology}{%
-\subsection{7. Cardiac Pharmacology}\label{cardiac-pharmacology}}
+\subsection{7. Cardiac Pharmacology}\label{cardiac-pharmacology}
 
-\hypertarget{use-dependent-block-as-non-markovian-channel-dynamics}{%
 \subsubsection{7.1 Use-dependent block as non-Markovian channel
-dynamics}\label{use-dependent-block-as-non-markovian-channel-dynamics}}
+dynamics}\label{use-dependent-block-as-non-markovian-channel-dynamics}
 
 Antiarrhythmic drugs show use-dependent block --- efficacy depends on
 heart rate, not just plasma concentration. Voltage-gated ion channels
@@ -956,9 +922,8 @@ heart rate, not just plasma concentration. Voltage-gated ion channels
 slow inactivation timescales (\(\sim 100\) ms to seconds) and multiple
 inactivation states (C3).
 
-\hypertarget{therapeutic-implication-2}{%
 \subsubsection{7.2 Therapeutic
-implication}\label{therapeutic-implication-2}}
+implication}\label{therapeutic-implication-2}
 
 \textbf{Heart-rate-adapted dosing.} Antiarrhythmic dosing should be
 adapted to the patient's \emph{heart rate pattern}, which determines the
@@ -970,20 +935,17 @@ avoiding pro-arrhythmic effects at high heart rates.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{autoimmune-disease}{%
-\subsection{8. Autoimmune Disease}\label{autoimmune-disease}}
+\subsection{8. Autoimmune Disease}\label{autoimmune-disease}
 
-\hypertarget{disproportionate-efficacy-of-partial-jak-inhibition}{%
 \subsubsection{8.1 Disproportionate efficacy of partial JAK
-inhibition}\label{disproportionate-efficacy-of-partial-jak-inhibition}}
+inhibition}\label{disproportionate-efficacy-of-partial-jak-inhibition}
 
 JAK inhibitors (tofacitinib, baricitinib) show a nonlinear
 dose-response: \(50\%\) reduction in JAK activity produces \(> 80\%\)
 reduction in disease activity. JAK kinases have a pseudokinase domain
 (JH2) that regulates the kinase domain (JH1), satisfying C1--C4.
 
-\hypertarget{the-oi-prediction-3}{%
-\subsubsection{8.2 The OI prediction}\label{the-oi-prediction-3}}
+\subsubsection{8.2 The OI prediction}\label{the-oi-prediction-3}
 
 Partial inhibition disrupts the \emph{memory structure} of JAK signaling
 without fully blocking transduction. The pathological signaling in
@@ -992,9 +954,8 @@ chronic cytokine stimulation. Partial inhibition erases this memory
 faster than it blocks acute signaling, producing disproportionate
 reduction in the chronic (memory-dependent) disease component.
 
-\hypertarget{therapeutic-implication-3}{%
 \subsubsection{8.3 Therapeutic
-implication}\label{therapeutic-implication-3}}
+implication}\label{therapeutic-implication-3}
 
 \textbf{Memory-selective JAK modulation.} Drugs that selectively
 accelerate JH2 conformational relaxation --- erasing accumulated
@@ -1004,13 +965,11 @@ activity reduced while acute immune competence is preserved.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{epigenetics-as-the-biological-hidden-sector}{%
 \subsection{9. Epigenetics as the Biological Hidden
-Sector}\label{epigenetics-as-the-biological-hidden-sector}}
+Sector}\label{epigenetics-as-the-biological-hidden-sector}
 
-\hypertarget{the-c1c4-architecture-of-chromatin}{%
 \subsubsection{9.1 The C1--C4 architecture of
-chromatin}\label{the-c1c4-architecture-of-chromatin}}
+chromatin}\label{the-c1c4-architecture-of-chromatin}
 
 Epigenetic regulation satisfies C1--C4 exactly. The transcriptional
 machinery (visible sector) is coupled (C1) to the chromatin state
@@ -1048,9 +1007,8 @@ response \\
 Intergenerational memory \\
 \end{longtable}
 
-\hypertarget{cancer-as-pathological-epigenetic-memory}{%
 \subsubsection{9.2 Cancer as pathological epigenetic
-memory}\label{cancer-as-pathological-epigenetic-memory}}
+memory}\label{cancer-as-pathological-epigenetic-memory}
 
 Cancer is, in OI language, a disease of the epigenetic hidden sector.
 The malignant transcriptional program is maintained by aberrant
@@ -1060,9 +1018,8 @@ Disrupting the memory \emph{structure} (the stability of the hidden
 sector) is predicted to be more selective than disrupting the memory
 \emph{content} (reactivating specific genes).
 
-\hypertarget{aging-as-memory-accumulation}{%
 \subsubsection{9.3 Aging as memory
-accumulation}\label{aging-as-memory-accumulation}}
+accumulation}\label{aging-as-memory-accumulation}
 
 The epigenetic clock (Horvath 2013) quantifies progressive accumulation
 of methylation marks associated with declining function. In OI language,
@@ -1072,9 +1029,8 @@ Yamanaka factor expression) erases recent epigenetic memory while
 preserving deeper developmental identity --- the framework predicts a
 critical pulse duration matching \(\tau_B\) of aging-associated marks.
 
-\hypertarget{the-substratum-emergent-operator-distinction-at-chromatin}{%
 \subsubsection{9.4 The substratum-emergent operator distinction at
-chromatin}\label{the-substratum-emergent-operator-distinction-at-chromatin}}
+chromatin}\label{the-substratum-emergent-operator-distinction-at-chromatin}
 
 The companion paper's treatment of the Standard Model identifies a
 \emph{substratum-emergent operator distinction} {[}SM §8.7{]}: operators
@@ -1156,10 +1112,9 @@ treatment of strong CP, baryon number, sphalerons, and anomaly matching;
 at the chromatin layer it organizes methylation maintenance, bivalent
 poised states, and transcriptional burst dynamics.
 
-\hypertarget{reader-writer-and-eraser-pharmacology-as-the-operational-substratum-emergent-axis}{%
 \subsubsection{9.5 Reader, writer, and eraser pharmacology as the
 operational substratum-emergent
-axis}\label{reader-writer-and-eraser-pharmacology-as-the-operational-substratum-emergent-axis}}
+axis}\label{reader-writer-and-eraser-pharmacology-as-the-operational-substratum-emergent-axis}
 
 Current epigenetic therapeutics are organized along three axes --- drugs
 targeting \textbf{writers} (DNA methyltransferase inhibitors like
@@ -1228,13 +1183,11 @@ maximum-tolerated-dose optimization alone.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{genetic-disorders-non-markovian-treatment-management}{%
 \subsection{10. Genetic Disorders: Non-Markovian Treatment
-Management}\label{genetic-disorders-non-markovian-treatment-management}}
+Management}\label{genetic-disorders-non-markovian-treatment-management}
 
-\hypertarget{the-boundary-of-the-framework}{%
 \subsubsection{10.1 The boundary of the
-framework}\label{the-boundary-of-the-framework}}
+framework}\label{the-boundary-of-the-framework}
 
 Pure loss-of-function genetic disorders --- hemophilia (absent Factor
 VIII/IX), cystic fibrosis (absent/misfolded CFTR), PKU (deficient
@@ -1249,9 +1202,8 @@ therapy durability, and compensatory pathway dynamics --- involves
 non-Markovian dynamics at every level. The framework's contribution is
 to these surrounding problems.
 
-\hypertarget{coagulation-cascade-memory-and-factor-replacement}{%
 \subsubsection{10.2 Coagulation cascade memory and factor
-replacement}\label{coagulation-cascade-memory-and-factor-replacement}}
+replacement}\label{coagulation-cascade-memory-and-factor-replacement}
 
 The clotting cascade (intrinsic and extrinsic pathways converging at
 Factor X \(\to\) thrombin \(\to\) fibrin) is a multi-kinase signaling
@@ -1279,9 +1231,8 @@ between the most recent cascade activation event and the next scheduled
 prophylactic dose --- OI predicts this interval matters; standard PK
 models predict only trough level matters.
 
-\hypertarget{inhibitor-development-as-immune-memory}{%
 \subsubsection{10.3 Inhibitor development as immune
-memory}\label{inhibitor-development-as-immune-memory}}
+memory}\label{inhibitor-development-as-immune-memory}
 
 Approximately 30\% of severe hemophilia A patients develop inhibitory
 antibodies against replacement Factor VIII --- the most serious
@@ -1315,9 +1266,8 @@ infusion schedule to \(\tau_B\) of the relevant B cell memory
 compartment, and that optimized ITI schedules calculated from measured B
 cell memory kinetics would show higher success rates.
 
-\hypertarget{gene-therapy-durability-as-epigenetic-memory}{%
 \subsubsection{10.4 Gene therapy durability as epigenetic
-memory}\label{gene-therapy-durability-as-epigenetic-memory}}
+memory}\label{gene-therapy-durability-as-epigenetic-memory}
 
 Gene therapies for hemophilia (Hemgenix for Factor IX, Roctavian for
 Factor VIII) deliver functional gene copies via AAV vectors. The
@@ -1344,9 +1294,8 @@ hemophilia gene therapy, measure expression decline rate alongside
 integration-site-specific chromatin dynamics. Sites with higher
 \(\tau_B\) of activating marks should show slower expression decline.
 
-\hypertarget{compensatory-pathway-memory}{%
 \subsubsection{10.5 Compensatory pathway
-memory}\label{compensatory-pathway-memory}}
+memory}\label{compensatory-pathway-memory}
 
 In many genetic disorders, compensatory pathways develop over time and
 partially mask the deficiency. In spinal muscular atrophy (SMA), for
@@ -1364,8 +1313,7 @@ The framework predicts that interventions to boost compensatory pathways
 effective if timed to the memory state of the compensatory system ---
 analogous to the memory-priming strategy in cancer pharmacology (§3.3).
 
-\hypertarget{the-general-principle}{%
-\subsubsection{10.6 The general principle}\label{the-general-principle}}
+\subsubsection{10.6 The general principle}\label{the-general-principle}
 
 For genetic disorders, the framework's contribution is not to the
 genetic defect itself but to three categories of treatment challenge:
@@ -1404,10 +1352,9 @@ are memory systems. Optimizing these treatments for the non-Markovian
 dynamics of the underlying biology is a distinct and testable
 therapeutic strategy.
 
-\hypertarget{reader-writer-disorders-as-substratum-emergent-operator-disruption}{%
 \subsubsection{10.7 Reader-writer disorders as substratum-emergent
 operator
-disruption}\label{reader-writer-disorders-as-substratum-emergent-operator-disruption}}
+disruption}\label{reader-writer-disorders-as-substratum-emergent-operator-disruption}
 
 A specific class of genetic disorders falls within the framework's scope
 of memory diseases rather than the §10.1 surrounding-treatment category.
@@ -1486,9 +1433,8 @@ memory systems only through treatment (§10.1--§10.6).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{distinguishing-predictions}{%
 \subsection{11. Distinguishing
-Predictions}\label{distinguishing-predictions}}
+Predictions}\label{distinguishing-predictions}
 
 The following predictions follow from the non-Markovian (memory)
 architecture. Two cautions frame them. First, the relevant comparison is
@@ -1513,8 +1459,7 @@ rather than level (Prediction 16), \(\tau_B\)-resonant dosing
 the discriminating quantity is the measured \(\tau_B\) (or entropy)
 value, not the resonance concept itself, which is generic.
 
-\hypertarget{cancer}{%
-\subsubsection{11.1 Cancer}\label{cancer}}
+\subsubsection{11.1 Cancer}\label{cancer}
 
 \textbf{Prediction 1:} Resistance mutations to
 regulatory-domain-targeting Chk1 inhibitors cluster in regions that
@@ -1549,8 +1494,7 @@ Single-molecule fluorescence assay. Standard models predict
 \(\beta = 1\) (exponential); OI predicts \(\beta < 1\) with value
 calculable from \(\tau_S / \tau_B\).
 
-\hypertarget{neurodegeneration-1}{%
-\subsubsection{11.2 Neurodegeneration}\label{neurodegeneration-1}}
+\subsubsection{11.2 Neurodegeneration}\label{neurodegeneration-1}
 
 \textbf{Prediction 6:} A\(\beta\) oligomers shift CaMKII's regulatory
 domain \(\tau_B\), measurable by FRET or HDX-MS. \emph{Test:} Compare
@@ -1585,9 +1529,8 @@ normalization, measurable by post-LIFU CaMKII conformational dynamics.
 \emph{Test:} The 2025 Korean trial design extended with mechanistic
 assays.
 
-\hypertarget{antibiotic-resistance-1}{%
 \subsubsection{11.3 Antibiotic
-resistance}\label{antibiotic-resistance-1}}
+resistance}\label{antibiotic-resistance-1}
 
 \textbf{Prediction 9:} Pulsed antibiotic dosing with interval
 \(\approx \tau_B\) of RecA filament dynamics outperforms continuous
@@ -1600,8 +1543,7 @@ the second antibiotic pulse predicts survival probability. \emph{Test:}
 Single-cell imaging of RecA-GFP filaments during pulsed antibiotic
 treatment.
 
-\hypertarget{immunotherapy}{%
-\subsubsection{11.4 Immunotherapy}\label{immunotherapy}}
+\subsubsection{11.4 Immunotherapy}\label{immunotherapy}
 
 \textbf{Prediction 11:} Temporal correlations between successive calcium
 flux events in repeatedly stimulated T cells are positive and decay on
@@ -1612,8 +1554,7 @@ imaging under repeated anti-CD3 stimulation.
 (increasing Lck SH2 flexibility) delays functional exhaustion markers
 (PD-1, Tim-3, LAG-3) in ex vivo exhaustion assays.
 
-\hypertarget{cardiac-pharmacology-1}{%
-\subsubsection{11.5 Cardiac pharmacology}\label{cardiac-pharmacology-1}}
+\subsubsection{11.5 Cardiac pharmacology}\label{cardiac-pharmacology-1}
 
 \textbf{Prediction 13:} Antiarrhythmic drug efficacy at fixed plasma
 concentration differs between patients with persistent vs.~intermittent
@@ -1621,8 +1562,7 @@ tachycardia, beyond what Markovian models predict. \emph{Test:}
 Correlate drug efficacy with heart rate pattern history, not just
 current rate.
 
-\hypertarget{autoimmune-disease-1}{%
-\subsubsection{11.6 Autoimmune disease}\label{autoimmune-disease-1}}
+\subsubsection{11.6 Autoimmune disease}\label{autoimmune-disease-1}
 
 \textbf{Prediction 14:} Partial JAK inhibition reverses chronic
 cytokine-induced gene expression changes more effectively than
@@ -1630,8 +1570,7 @@ proportional reduction in acute STAT phosphorylation. \emph{Test:}
 Compare chronic vs.~acute transcriptional effects of partial vs.~full
 JAK inhibition.
 
-\hypertarget{epigenetics}{%
-\subsubsection{11.7 Epigenetics}\label{epigenetics}}
+\subsubsection{11.7 Epigenetics}\label{epigenetics}
 
 \textbf{Prediction 15:} Gene expression autocorrelation across cell
 divisions correlates with \(\tau_B\) of the dominant epigenetic mark:
@@ -1655,9 +1594,8 @@ shows a critical duration: methylation age decreases smoothly with pulse
 length, while cell-type identity remains stable up to a sharp threshold
 corresponding to \(\tau_B\) of developmental memory.
 
-\hypertarget{allosteric-pharmacology}{%
 \subsubsection{11.8 Allosteric
-pharmacology}\label{allosteric-pharmacology}}
+pharmacology}\label{allosteric-pharmacology}
 
 \textbf{Prediction 20:} RGS4 allosteric inhibitor selectivity across RGS
 family members correlates with B-site conformational dynamics
@@ -1669,8 +1607,7 @@ kinase produce different effects on distant regulatory domains because
 each writes different conformational information into the memory
 structure.
 
-\hypertarget{drug-resistance}{%
-\subsubsection{11.9 Drug resistance}\label{drug-resistance}}
+\subsubsection{11.9 Drug resistance}\label{drug-resistance}
 
 \textbf{Prediction 22:} Resistance mutations far from the active site
 work by altering the \emph{memory capacity} (C3) or \emph{memory
@@ -1684,9 +1621,8 @@ Existing data on BTK inhibitor-specific regulatory effects (Joseph et
 al.~2020) and RGS4 selectivity (Blazer et al.~2010) already support this
 prediction.
 
-\hypertarget{genetic-disorder-treatment}{%
 \subsubsection{11.10 Genetic disorder
-treatment}\label{genetic-disorder-treatment}}
+treatment}\label{genetic-disorder-treatment}
 
 \textbf{Prediction 24:} In hemophilia patients on prophylaxis,
 breakthrough bleeding frequency correlates with the interval between the
@@ -1709,8 +1645,7 @@ mark stability.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{existing-evidence}{%
-\subsection{12. Existing Evidence}\label{existing-evidence}}
+\subsection{12. Existing Evidence}\label{existing-evidence}
 
 Several predictions are already supported by published data:
 
@@ -1745,12 +1680,10 @@ al.~1998) --- not yet for checkpoint kinases.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{discussion}{%
-\subsection{13. Discussion}\label{discussion}}
+\subsection{13. Discussion}\label{discussion}
 
-\hypertarget{the-unifying-principle}{%
 \subsubsection{13.1 The unifying
-principle}\label{the-unifying-principle}}
+principle}\label{the-unifying-principle}
 
 Every application follows the same logic: (1) a disease process involves
 a signaling molecule with C1--C4 architecture; (2) the disease state
@@ -1806,9 +1739,8 @@ Gene therapy durability & Chromatin state at transgene locus & Dose
 escalation & Epigenetic \(\tau_B\) stabilization at locus \\
 \end{longtable}
 
-\hypertarget{implications-for-drug-discovery}{%
 \subsubsection{13.2 Implications for drug
-discovery}\label{implications-for-drug-discovery}}
+discovery}\label{implications-for-drug-discovery}
 
 The framework identifies a new class of drug targets --- conformational
 memory timescale --- that current screening assays do not measure. A
@@ -1817,9 +1749,8 @@ enzyme activity, not steady-state kinetic parameters. This requires
 single-molecule or single-cell time-series measurements, which are
 technically mature but not routinely used in drug discovery.
 
-\hypertarget{implications-for-clinical-trial-design}{%
 \subsubsection{13.3 Implications for clinical trial
-design}\label{implications-for-clinical-trial-design}}
+design}\label{implications-for-clinical-trial-design}
 
 Two predictions are immediately testable with existing drugs and
 standard clinical infrastructure: (1) memory-selective scheduling of
@@ -1828,9 +1759,8 @@ gemcitabine + Chk1 inhibitor (modified dosing protocol, no new drugs);
 erasure (standard radiation biology experiment). Both could be evaluated
 in Phase I/II settings with minimal additional cost.
 
-\hypertarget{connection-to-fundamental-physics}{%
 \subsubsection{13.4 Connection to fundamental
-physics}\label{connection-to-fundamental-physics}}
+physics}\label{connection-to-fundamental-physics}
 
 The mathematical structure underlying these predictions is identical to
 the theorem that identifies the quantum representation --- and the
@@ -1883,8 +1813,7 @@ patterns there.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{acknowledgements}{%
-\subsection{Acknowledgements}\label{acknowledgements}}
+\subsection{Acknowledgements}\label{acknowledgements}
 
 During the preparation of this work, the author used Claude Opus 4.6
 (Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining
@@ -1894,8 +1823,7 @@ publication.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{references}{%
-\subsection{References}\label{references}}
+\subsection{References}\label{references}
 
 {[}1{]} A. Maybaum, ``The Incompleteness of Observation,'' (2026).
 
