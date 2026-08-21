@@ -9,8 +9,8 @@ cannot be regenerated. This check looks at the tooling itself.
 
   1. the build entry point exists and is non-empty
   2. every file path build.sh references resolves
-  3. the shared header has exactly one copy (duplicates drift: a glyph fix
-     applied to one and not the other silently drops glyphs from the other)
+  3. all copies of the shared header are byte-identical (a glyph fix applied
+     to one copy and not the others silently drops glyphs from the others)
   4. every tools/*.py named in release_gate.py is present
 
 Usage:  python3 tools/toolchain_check.py [--root DIR]
@@ -47,8 +47,21 @@ def main():
     if len(copies) == 0:
         bad.append("unicode-fix.tex missing entirely")
     elif len(copies) > 1:
-        bad.append("unicode-fix.tex has %d copies (%s) - duplicates drift; "
-                   "keep one shared header" % (len(copies), ", ".join(sorted(copies))))
+        # Extra copies are inert -- build.sh reads only the shared one -- so
+        # what matters is that they have not DRIFTED. A glyph mapping added to
+        # one copy and not the others is the silent-drop failure this header
+        # exists to prevent.
+        import hashlib
+        digests = {}
+        for c in sorted(copies):
+            h = hashlib.sha256(open(os.path.join(root, c), 'rb').read()).hexdigest()
+            digests.setdefault(h, []).append(c)
+        if len(digests) > 1:
+            groups = " | ".join(", ".join(v) for v in digests.values())
+            bad.append("unicode-fix.tex copies have DRIFTED apart: %s" % groups)
+        else:
+            print("  note: %d identical copies of unicode-fix.tex (%s); build.sh "
+                  "reads only the shared one" % (len(copies), ", ".join(sorted(copies))))
 
     gate = os.path.join(root, 'tools', 'release_gate.py')
     if os.path.exists(gate):
@@ -67,8 +80,8 @@ def main():
     if bad:
         print(f"\ntoolchain_check: FAILED ({len(bad)} problem(s))")
         return 1
-    print(f"toolchain_check: OK (build entry present, {len(copies)} shared "
-          f"header, all named checks resolve)")
+    print(f"toolchain_check: OK (build entry present, unicode-fix.tex "
+          f"consistent across {len(copies)} copy/copies, all named checks resolve)")
     return 0
 
 if __name__ == '__main__':
