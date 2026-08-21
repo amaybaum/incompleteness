@@ -1,9 +1,6 @@
 # Structural Consequences of Observational Incompleteness
 ### From Chemistry to Evolution
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 **Author:** Alex Maybaum  
 **Date:** April 2026  
 **Status:** DRAFT PRE-PRINT  
@@ -625,5 +622,4 @@ During the preparation of this work, the author used Claude Opus 4.6 (Anthropic)
 [41] M. Puviani, S. Borah, R. Zen, J. Olle, and F. Marquardt, "Non-Markovian feedback for optimized quantum error correction," *Phys. Rev. Lett.* (2025); arXiv:2312.07391.
 
 [42] D. Biswas, S. Utagi, and P. Mandayam, "Noise-adapted quantum error correction for non-Markovian noise," arXiv:2411.09637 (2024).
-
 

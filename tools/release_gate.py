@@ -19,6 +19,9 @@ another. Each exists because a real defect shipped past the others:
                        AGENTS.md forbids, faster than review removed it.
   claims_check         a withdrawn result stayed asserted in a later sentence;
                        a file-level scope note does not rescue it.
+  duplicate_check      a scope note pasted at the head of every file put 16
+                       identical copies inside the assembled book, and an
+                       entire 8.6 section was duplicated in one paper.
 
 Post-packaging, verify the DECLARED checksum against the shipped archive:
     python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
@@ -54,6 +57,7 @@ def main():
         ("staleness", [sys.executable, "tools/staleness_check.py"]),
         ("voice",     [sys.executable, "tools/voice_check.py"]),
         ("claims",    [sys.executable, "tools/claims_check.py"]),
+        ("duplicate", [sys.executable, "tools/duplicate_check.py"]),
         ("mirror",    [sys.executable, "papers/oi_lattice_code/mirror_check.py"]),
         ("citation",  [sys.executable, "papers/oi_lattice_code/citation_check.py"]),
         ("architecture",

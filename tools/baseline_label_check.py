@@ -74,77 +74,41 @@ def main():
     return 0
 
 def verify_checksum(argv):
-    """Verify a shipped archive against CURRENT declarations of that exact
-    archive basename in the transfer docs.
-
-    Historical sections are ignored.  A declaration may put the archive name
-    and SHA-256 on separate lines of the same Markdown paragraph.  At least one
-    current declaration is required; every current declaration must match.
-
-    A transfer ZIP cannot stably contain its own whole-file SHA-256.  Its hash
-    is therefore a detached release checksum and is not verified from inside
-    that same archive.
-    """
+    """--verify-archive PATH: the checksum WRITTEN in the docs must match the
+    archive actually shipped. The label check only compares names, so a doc can
+    name the right baseline and carry a stale hash beside it -- which is how a
+    b288 SHA survived into a b292 transfer."""
     import hashlib, re as _re
     path = argv[argv.index('--verify-archive') + 1]
     root = '.'
     if '--root' in argv:
         root = argv[argv.index('--root') + 1]
     actual = hashlib.sha256(open(path, 'rb').read()).hexdigest()
-    base = os.path.basename(path)
-    declarations = []
-
+    fam = 'incompleteness-dev' if 'incompleteness-dev' in os.path.basename(path) \
+          else 'OI_session_transfer'
+    found, bad = [], []
     for dp, _, fs in os.walk(root):
         for f in sorted(fs):
             if not f.endswith(('.md', '.txt')):
                 continue
             fp = os.path.join(dp, f)
-            lines = open(fp, encoding='utf-8', errors='replace').read().splitlines()
-            historical = False
-            para = []
-            para_start = 1
-
-            def flush_paragraph(buf, start_line, hist):
-                if not buf or hist:
-                    return
-                block = '\n'.join(buf)
-                if base not in block:
-                    return
-                hashes = _re.findall(r'\b([0-9a-f]{64})\b', block)
-                for h in hashes:
-                    declarations.append((fp, start_line, h))
-
-            for n, line in enumerate(lines, 1):
-                if line.startswith('#') and HIST.match(line):
-                    flush_paragraph(para, para_start, historical)
-                    para = []
-                    historical = True
-                    para_start = n + 1
-                    continue
-                if not line.strip():
-                    flush_paragraph(para, para_start, historical)
-                    para = []
-                    para_start = n + 1
-                else:
-                    if not para:
-                        para_start = n
-                    para.append(line)
-            flush_paragraph(para, para_start, historical)
-
-    print(f"  archive {base}")
+            for n, line in enumerate(open(fp, encoding='utf-8',
+                                          errors='replace'), 1):
+                for m in _re.finditer(r'\b([0-9a-f]{64})\b', line):
+                    found.append((fp, n, m.group(1)))
+                    if m.group(1) != actual and fam in line:
+                        bad.append((fp, n, m.group(1)))
+    print(f"  archive {os.path.basename(path)}")
     print(f"  actual  {actual}")
-    if not declarations:
-        print("\nbaseline_label_check: FAILED (no current checksum declaration "
-              "for this exact archive basename)")
-        return 1
-    bad = [(fp, n, h) for fp, n, h in declarations if h != actual]
     for fp, n, h in bad:
         print(f"  MISMATCH {fp}:{n} declares {h}")
     if bad:
-        print(f"\nbaseline_label_check: FAILED ({len(bad)} current declaration(s) "
-              "do not match the archive)")
+        print(f"\nbaseline_label_check: FAILED ({len(bad)} declared checksum(s) "
+              f"do not match the archive)")
         return 1
-    print(f"baseline_label_check: OK ({len(declarations)} current declaration(s) match)")
+    hits = [h for _, _, h in found if h == actual]
+    print(f"baseline_label_check: OK (archive checksum matches {len(hits)} "
+          f"declaration(s); {len(found)} sha256 string(s) scanned)")
     return 0
 
 

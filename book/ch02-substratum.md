@@ -1,9 +1,6 @@
 # Chapter 2
 # The Substratum
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 ---
 
 ## 2.1 What this chapter constructs
@@ -73,7 +70,6 @@ The theorem takes two kinds of input. The first is *empirical*: structural facts
 The inputs E5, E6, E7 each provide an independent dimensional constraint. Propagating gravity (E5) requires $d \geq 3$, since the Weyl tensor governing gravitational-wave propagation vanishes in $d \leq 2$. Stable matter (E6) requires $d \leq 3$, since the Coulomb potential gives unstable atoms in $d \geq 4$ (Ehrenfest's theorem) and gravitational orbits are unstable in $d \geq 4$ (Tangherlini's result). Boundary-entropy concordance (E7) gives $d = 3$ exactly. Without stable matter no embedded observers exist; without propagating gravity no observable GR exists; without concordance the spatial-flatness data is unexplained. The three filters converge on $d = 3$ by independent routes, making the spatial dimension a forced consequence rather than an input to the reconstruction.
 
 The convergence has an external echo. A literature independent of this framework reaches the same selection from different starting points: Ehrenfest's stability analysis (atoms and planetary orbits are stable only for $d = 3$), the sharp-propagation property of the wave equation (Huygens' principle holds cleanly only in odd spatial dimensions, and distortion-free signal propagation singles out $d = 3$, as Hadamard's analysis of the wave equation shows), and Tegmark's predictability argument (field equations well-posed enough for observers to process information select $3+1$). These are convergent arguments rather than theorems, and they are not an independent axiom base in the sense of the reconstruction theorems of Chapter 1: like the framework's own three filters, they condition on the existence of stable structure and embedded observers. Their force is corroborative texture — several instruments, pointed from different premises within the same observer-admitting family, land on the same integer.
-
 
 **Structural assumptions.** The reconstruction restricts attention to candidate substrates satisfying six properties:
 

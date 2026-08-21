@@ -1,9 +1,6 @@
 # Chapter 19
 # Resolved and Open Problems in Fundamental Physics
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 ---
 
 ## 19.1 What this chapter develops
@@ -127,8 +124,6 @@ The specific $27/68$ split between dark matter and dark energy depends on the ma
 **Standard status.** The Born rule — that the probability of measuring quantum state $|x\rangle$ given wave function $|\psi\rangle$ is $|\langle x | \psi \rangle|^2$ — is an independent postulate of quantum mechanics with no derivation from the other axioms. Gleason's theorem derives the Born rule from non-contextuality, but non-contextuality is itself a postulate. The various interpretive programs (many-worlds, QBism, Bohmian, dynamical collapse) take different positions on what the Born rule means without explaining why it has the specific form $|\langle x | \psi \rangle|^2$.
 
 **Framework status.** Split — fixed-basis representation settled exactly, coherent operational extension open. Every finite-horizon stochastic law has an exact fixed-basis unitary/Born representation ($S\iff D\iff Q_{\mathrm{fb}}$, [Main §3.4]); in that theorem the quadratic Born dictionary is part of the equivalent representation, not a separate exponent-selection problem. The unresolved question begins when one asks for **one common operational theory** covering arbitrary coherent preparations, noncommuting effects/instruments, and composites. Main's finite gluing theorem realizes every bounded quantum experiment to arbitrary requested finite accuracy, but the same machinery can also realize non-quantum finite behaviors, so a full local operational-equivalence theorem still requires the coherent/composite lifting conditions stated in Main. The cosmological realization adds a mechanism proposal — the equilibrium reading of the read-write cycle (Chapter 18 §18.2) — whose stationary-distribution step is a structural commitment rather than a premise of the representation theorem.
-
-
 
 The framework predicts transient deviations from the Born rule in the very early universe (Chapter 18 §18.2), with the deviations decaying on the hidden sector's equilibration timescale. CMB-S4 and LiteBIRD will tighten constraints on these transient violations through CMB non-Gaussianity searches over the next decade.
 

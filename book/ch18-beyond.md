@@ -1,9 +1,6 @@
 # Chapter 18
 # Beyond Quantum Mechanics and General Relativity
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 ---
 
 > **Status — conjectural extension.** This chapter applies the core framework to consciousness, and is offered as a *conjecture*, not an established result: no empirical test is proposed; the claim is a structural correspondence between embedded observation — the trace-out of an observer's own inaccessible degrees of freedom — and the character of a bounded first-person perspective, offered as a possibility the framework raises rather than a result it establishes. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.

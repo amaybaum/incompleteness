@@ -2,9 +2,6 @@
 
 > **Scope ($K = 2d$).** Coupling-degree minimization does not establish $K=2d=6$: diagonalizing the internal matrix decouples eigenvectors but does not assign an eigenvector to a single signed spatial neighbour, since every component receives the whole neighbour sum. What holds exactly is the six geometric simple-cubic links carry the $O_h$ decomposition $V_{\rm link}=T_1\oplus E\oplus A_1=3\oplus2\oplus1$. Conditional is the further claim that those geometric links are the physical gauge carrier — hypothesis H-link, $V_{\rm physical}\cong V_{\rm link}^{\oplus m}$ giving $K=2dm$, with single-copy $m=1$ a premise to be derived rather than a result. See [SM §4.5].
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 *[Status note, 2026-07-26: this companion overview is superseded by the book, `book/`, which
 now carries its content in maintained form, and is frozen at this revision — it will not be
 updated in subsequent releases, and where it and the book disagree, the book is authoritative.
@@ -1002,7 +999,6 @@ And the incompleteness family extends one step further: Gödel showed that proof
 ---
 
 *This is a companion overview to the framework's five core papers: "The Incompleteness of Observation" (Maybaum, [Main]), which presents the foundational embedded-observation theorems with detailed derivations; "The Standard Model from a Cubic Lattice" (Maybaum, [SM]), which derives the Standard Model's gauge group, matter content, and chiral structure from lattice dynamics; "The Gravitational Sector from the Cosmological Horizon" (Maybaum, [GR]), which derives ℏ, the Bekenstein-Hawking area law, and dark-sector phenomenology; "The Substratum: Reconstruction Theorem and Gauge Group" (Maybaum, [Substratum]), which addresses the ontological status of the lattice and proves the framework's reconstruction theorem; and "Hierarchical Structural Realism and Universality Classes of Embedded Observers" (Maybaum, [Structure]), which articulates the framework's two-dimensional hierarchical structure and develops its relationship to other unification programs. The philosophical lineage section draws on a systematic analysis mapping the framework's claims against the major traditions in Western, Eastern, and contemporary philosophy of science.*
-
 
 ---
 

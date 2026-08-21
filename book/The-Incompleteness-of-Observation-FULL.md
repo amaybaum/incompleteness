@@ -238,9 +238,6 @@ The framework developed in this book rests on the work of many physicists, mathe
 
 > **Scope ($K = 2d$).** Coupling-degree minimization does not establish $K=2d=6$: diagonalizing the internal matrix decouples eigenvectors but does not assign an eigenvector to a single signed spatial neighbour, since every component receives the whole neighbour sum. What holds exactly is the six geometric simple-cubic links carry the $O_h$ decomposition $V_{\rm link}=T_1\oplus E\oplus A_1=3\oplus2\oplus1$. Conditional is the further claim that those geometric links are the physical gauge carrier — hypothesis H-link, $V_{\rm physical}\cong V_{\rm link}^{\oplus m}$ giving $K=2dm$, with single-copy $m=1$ a premise to be derived rather than a result. See [SM §4.5].
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 ---
 
 ## 0.1 Two physics, or two projections?
@@ -282,8 +279,6 @@ The framework's central theorem says something more exact. The finite stochastic
 The thought experiment captures the framework's central move. Quantum mechanics is reframed from a statement about reality to a statement about the observer's relationship to reality. The mathematics is unchanged; what it represents is different. The wave function is not the universe's state; it is the experimenter's compressed description of what they cannot see. The Born rule is not an independent postulate about fundamental indeterminism at the finite observable-law layer; it is the $|U|^2$ readout dictionary of the exact unitary representation every such law admits ([Main §3.4]). The remaining quantum question is the coherent local operational extension of that representation. For Bell experiments the deterministic layer faces Bell's sharper fork: a measurement-independent response-complete completion with finite-range Bell couplings is classical, so quantum violation requires ontic parameter dependence. The framework takes that branch while retaining operational no-signaling; the stochastic Tsirelson construction is kept as a separate weaker-description result.
 
 The chapters that follow make this thought experiment precise. The room becomes a partition of the universe into visible and hidden sectors. The experimenter becomes a mathematical observer. The characterization theorem then separates what is universal from what is physically discriminating. The universal part is the exact finite-horizon equivalence $S\iff D\iff Q_{\mathrm{fb}}$; the discriminating part is history readback, which forces hidden predictive memory and recurrence-scale indivisibility. The spatial extension adds graph causal cones and a separately stated operational screening condition for Bell experiments. The strongest remaining question is therefore not whether the observer has a quantum representation, but whether the whole coherent instrument/composite hierarchy is one standard local quantum operational theory.
-
-
 
 ## 0.3 The framework's central claim
 
@@ -647,9 +642,6 @@ The remainder of this part of the book develops the substratum, the structural r
 # Chapter 2
 # The Substratum
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 ---
 
 ## 2.1 What this chapter constructs
@@ -719,7 +711,6 @@ The theorem takes two kinds of input. The first is *empirical*: structural facts
 The inputs E5, E6, E7 each provide an independent dimensional constraint. Propagating gravity (E5) requires $d \geq 3$, since the Weyl tensor governing gravitational-wave propagation vanishes in $d \leq 2$. Stable matter (E6) requires $d \leq 3$, since the Coulomb potential gives unstable atoms in $d \geq 4$ (Ehrenfest's theorem) and gravitational orbits are unstable in $d \geq 4$ (Tangherlini's result). Boundary-entropy concordance (E7) gives $d = 3$ exactly. Without stable matter no embedded observers exist; without propagating gravity no observable GR exists; without concordance the spatial-flatness data is unexplained. The three filters converge on $d = 3$ by independent routes, making the spatial dimension a forced consequence rather than an input to the reconstruction.
 
 The convergence has an external echo. A literature independent of this framework reaches the same selection from different starting points: Ehrenfest's stability analysis (atoms and planetary orbits are stable only for $d = 3$), the sharp-propagation property of the wave equation (Huygens' principle holds cleanly only in odd spatial dimensions, and distortion-free signal propagation singles out $d = 3$, as Hadamard's analysis of the wave equation shows), and Tegmark's predictability argument (field equations well-posed enough for observers to process information select $3+1$). These are convergent arguments rather than theorems, and they are not an independent axiom base in the sense of the reconstruction theorems of Chapter 1: like the framework's own three filters, they condition on the existence of stable structure and embedded observers. Their force is corroborative texture — several instruments, pointed from different premises within the same observer-admitting family, land on the same integer.
-
 
 **Structural assumptions.** The reconstruction restricts attention to candidate substrates satisfying six properties:
 
@@ -883,9 +874,6 @@ The framework's claim, made precise across these chapters, is that a single star
 
 # Chapter 3
 # Hierarchical Structural Realism
-
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
 
 ---
 
@@ -1130,9 +1118,6 @@ The framework's hierarchical structure is what makes the framework different fro
 # Chapter 4
 # Methodology
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 ---
 
 ## 4.1 What this chapter develops
@@ -1344,7 +1329,6 @@ The methodological posture sketched in this chapter is developed at length, for 
 
 **Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
 
-
 ---
 
 ## 5.1 What this chapter develops
@@ -1540,9 +1524,6 @@ Chapter 6 develops the specific quantitative content this gauge structure produc
 
 # Chapter 6
 # The Matter Content and Quantitative Predictions
-
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
 
 ---
 
@@ -1903,9 +1884,6 @@ The framework's empirical record in fundamental physics, developed across Chapte
 # Chapter 7
 # The Gravitational Sector
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 ---
 
 ## 7.1 What this chapter develops
@@ -1962,7 +1940,6 @@ The derivation has the structure of a gap equation: $\epsilon$ is the free geome
 **The counting $\eta = 1/\epsilon^2$ is definitional — and the internal components do not multiply it.** The entropy-density argument in Step 1 used $dS = dA/\epsilon^2$ — one boundary mode per cell of area $\epsilon^2$. This counting is not an independent physical ansatz about the mode density but a consequence of the definition of $\epsilon$ as the minimal distinguishable scale. A cell finer than $\epsilon$ would subdivide the minimal scale; counting fewer modes would require a distinction below $\epsilon$ to group them. Two potential multiplicities are settled separately. The number of internal *states* per mode (the alphabet size) is gauge — observationally irrelevant by the framework's gauge-freedom result — so it does not enter. The number of internal *components* per site ($K = 2d = 6$) is physical, but it does not multiply the count either, for a structural reason: the $K = 2d$ components are the $2d$ link directions from a cell, each coupling across exactly one link, and a boundary cell has exactly one outward-normal link crossing the horizon — the other $2d - 1$ are tangential or inward. One crossing link per cell means one coupled boundary mode per cell, forced by the link-direction structure rather than assumed ([GR §3.1]). The counting $\eta = 1/\epsilon^2$ is therefore the definition of $\epsilon$ together with a forced consequence of the component structure, not an additional commitment.
 
 The counting also sits at the intersection of an independent family of results: the Bekenstein bound and Bousso's covariant entropy bound each cap the entropy of a region by its boundary area in Planck units — area-law mode counting reached from quantum field theory and from light-sheet geometry respectively. One caution keeps the logic clean: those bounds are formulated with $\hbar$ already in hand, and the framework derives $\hbar$ downstream of this counting, so the family can serve only as downstream convergence — the emergent theory, once $\hbar = c^3\epsilon^2/(4G)$ is fixed, satisfies both bounds — and never as motivation for the counting, which stands on the definitional argument above alone. Citing the bounds as motivation would re-import the circularity that the definitional argument removed.
-
 
 **The predictive content of the gap equation.** The framework's content does not lie in the gap equation alone — given $\epsilon$, $\hbar$ is fixed — but in the consequences of the specific relationship $\hbar = c^3 \epsilon^2 / (4G)$. The relationship produces, in Section 7.5, the Bekenstein-Hawking entropy $S = A/(4 l_p^2)$ with the exact factor $1/4$. In Section 7.7, it produces the cosmological constant dissolution with the de Sitter entropy $S_{\text{dS}}$ as the structural compression ratio. In Section 7.8, it produces the Type II running-vacuum form of the dark energy. Any alternative functional form $\hbar(\epsilon)$ would fail at least one of these consistency checks. The situation is analogous to deriving the Schwarzschild metric with mass $M$ as a free parameter: the derivation has genuine content (the functional form of the metric) even though one input is not determined from within the derivation.
 
@@ -2220,9 +2197,6 @@ The framework's content in fundamental physics, developed across Chapters 5 thro
 
 # Chapter 8
 # JUNO and the Neutrino Sector
-
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
 
 ---
 
@@ -2501,9 +2475,6 @@ The framework's empirical content in fundamental physics is at the strongest evi
 # Chapter 9
 # Universality Classes and External Convergence
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 ---
 
 ## 9.1 What this chapter develops
@@ -2766,7 +2737,6 @@ The dark-matter sectors are mutually falsifiable in the same way. Conformal grav
 
 The last axis of comparison is explanatory unification, and it is the one where the two programs' architectures differ most instructively — because both are built on a single unifying symmetry, and the symmetries enter at opposite ends of the logic. Conformal gravity's unifier is a postulated symmetry *of nature's action*: local conformal invariance is assumed, and it then works hard — it uniquely selects the Weyl action, forbids fundamental scales and so forces dynamical mass generation, and forbids a fundamental cosmological constant. This framework's unifier, the substratum gauge group $\mathcal{G}_{\text{sub}}$, is not an assumption about nature's action but a *derived* structure: the invariance group of embedded observation itself, the relabelings of the substrate that no observation can distinguish. Its explanatory reach follows from that origin. Local gauge symmetry — the thing conformal gravity and every field theory must postulate — appears here as an output, the commutant structure of the substrate's internal components (Chapter 5); the phase conventions of quantum mechanics are among its gauge directions; the uniform vacuum-energy offset is another (Chapter 7 §7.6, via the reconstruction theorem's energy-shift freedom), which is why the cosmological constant dissolution above is a *symmetry statement* in both programs — conformal symmetry forbids a fundamental $\Lambda$ and must then manage the induced one, while here the offset is gauge outright and there is nothing to manage; and the boundary between what the framework can derive and what remains bijection-specific is drawn by $\mathcal{G}_{\text{sub}}$-invariance itself, with the invariant list (the Cabibbo magnitude, the Koide ratio, the $1/4$ coefficient, the acceleration scale $a_0 = cH/6$) constituting the substrate-computable record. One principle thus answers, within the framework's premises, questions that span quantum structure, the origin of gauge symmetry, the vacuum energy, and the program's own epistemology — a breadth of claimed unification that conformal gravity's narrower, older principle does not attempt. The calibration that must accompany the comparison: breadth of *claimed* unification is not depth of *tested* unification. Conformal gravity's narrower claims have decades of scrutiny and known wounds; this framework's broader claims are unreviewed, and their breadth is a promissory asset that external review and the framework's own gate computations will either convert or void.
 
-
 ## 9.7 The Danielson-Satishchandran-Wald external convergence
 
 The framework's core mechanism — horizons as causal partitions producing decoherence in the visible sector — has received independent convergence from mainstream physics literature on horizon decoherence. The Danielson-Satishchandran-Wald (DSW) program (Danielson, Satishchandran, and Wald 2022 in *Physical Review D*; 2023 in *International Journal of Modern Physics D*) proves within standard quantum field theory in curved spacetime that Killing horizons impart fundamental decoherence on nearby quantum superpositions, with rate determined by horizon geometry. This is *direct mainstream convergence* with the framework's content — the framework's marker for the nontrivially indivisible sector, whose laws admit the quantum representation is being independently derived by physicists operating in standard QFT-in-curved-spacetime without any commitment to the framework's substratum picture.
@@ -2849,9 +2819,6 @@ The framework's content from Chapter 5 through Chapter 8 — concentrated at the
 
 # Chapter 10
 # Chemistry
-
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
 
 ---
 
@@ -4849,9 +4816,6 @@ The framework's content from the substratum-level structural axioms of Chapter 1
 # Chapter 18
 # Beyond Quantum Mechanics and General Relativity
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 ---
 
 > **Status — conjectural extension.** This chapter applies the core framework to consciousness, and is offered as a *conjecture*, not an established result: no empirical test is proposed; the claim is a structural correspondence between embedded observation — the trace-out of an observer's own inaccessible degrees of freedom — and the character of a bounded first-person perspective, offered as a possibility the framework raises rather than a result it establishes. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
@@ -5206,9 +5170,6 @@ The chapter is honest about what it does not address. The hard problem of consci
 # Chapter 19
 # Resolved and Open Problems in Fundamental Physics
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 ---
 
 ## 19.1 What this chapter develops
@@ -5332,8 +5293,6 @@ The specific $27/68$ split between dark matter and dark energy depends on the ma
 **Standard status.** The Born rule — that the probability of measuring quantum state $|x\rangle$ given wave function $|\psi\rangle$ is $|\langle x | \psi \rangle|^2$ — is an independent postulate of quantum mechanics with no derivation from the other axioms. Gleason's theorem derives the Born rule from non-contextuality, but non-contextuality is itself a postulate. The various interpretive programs (many-worlds, QBism, Bohmian, dynamical collapse) take different positions on what the Born rule means without explaining why it has the specific form $|\langle x | \psi \rangle|^2$.
 
 **Framework status.** Split — fixed-basis representation settled exactly, coherent operational extension open. Every finite-horizon stochastic law has an exact fixed-basis unitary/Born representation ($S\iff D\iff Q_{\mathrm{fb}}$, [Main §3.4]); in that theorem the quadratic Born dictionary is part of the equivalent representation, not a separate exponent-selection problem. The unresolved question begins when one asks for **one common operational theory** covering arbitrary coherent preparations, noncommuting effects/instruments, and composites. Main's finite gluing theorem realizes every bounded quantum experiment to arbitrary requested finite accuracy, but the same machinery can also realize non-quantum finite behaviors, so a full local operational-equivalence theorem still requires the coherent/composite lifting conditions stated in Main. The cosmological realization adds a mechanism proposal — the equilibrium reading of the read-write cycle (Chapter 18 §18.2) — whose stationary-distribution step is a structural commitment rather than a premise of the representation theorem.
-
-
 
 The framework predicts transient deviations from the Born rule in the very early universe (Chapter 18 §18.2), with the deviations decaying on the hidden sector's equilibration timescale. CMB-S4 and LiteBIRD will tighten constraints on these transient violations through CMB non-Gaussianity searches over the next decade.
 
@@ -5513,9 +5472,6 @@ The book's content concludes here. The framework's empirical record (Chapters 5-
 
 # Appendix A
 # Prediction Status Table
-
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
 
 ---
 
@@ -5752,9 +5708,6 @@ The framework's distinctive epistemic position is that it provides *structural f
 
 # Appendix B
 # Mathematical Derivations
-
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
 
 ---
 
@@ -6209,9 +6162,6 @@ The combined derivations constitute the framework's full mathematical content as
 # Appendix C
 # Common Objections and Framework Responses
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 ---
 
 ## C.1 What this appendix develops
@@ -6545,9 +6495,6 @@ The appendix's value is therefore as a reference resource for readers approachin
 
 # Glossary
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 This glossary defines the framework's distinctive terminology and the technical vocabulary used throughout the book. Entries are organized alphabetically. Cross-references to chapter and appendix sections point to where each concept is most fully developed.
 
 **Note on convention:** terms in *italics* within definitions indicate other glossary entries. Where the framework's usage differs from standard physics or mathematics usage, the difference is noted explicitly.
@@ -6565,8 +6512,6 @@ This glossary defines the framework's distinctive terminology and the technical 
 **Bell-inequality violations.** Empirical correlations exceeding bounds derivable from local hidden-variable theories. For a response-complete deterministic OI completion, measurement independence plus ontic parameter independence gives Bell factorization and $|S_{\rm CHSH}|\le2$. The framework therefore retains measurement independence but relinquishes **ontic parameter independence** for Bell-violating substrata, while preserving operational no-signaling. The measurement-dependent alternative is recorded rather than adopted: the manuscript proves the model-independent necessary lower bound $I_{\rm ont}\ge0.0309$ bits for the quantum CHSH value, while an optimized causal model in Hall--Branciard uses about $0.080$ bits (the smaller $\sim0.046$-bit benchmark is retrocausal). Developed in Chapter 1 §1.7 and Appendix C §C.2.
 
 **Born rule.** The quantum-mechanical prescription that the probability of measurement outcome $i$ on state $|\psi\rangle$ is $|\langle i|\psi\rangle|^2$. Conventionally treated as a postulate of quantum mechanics. In the framework, at the finite fixed-basis observable-law layer, the Born form is part of an exact equivalent representation: $S\iff D\iff Q_{\mathrm{fb}}$ ([Main §3.4]). The framework therefore does not list a separate 'quadratic-exponent selector' as an unresolved foundational theorem at that layer. What remains is the **operational lifting** problem: prove that the fixed-basis representation extends coherently and simultaneously to the standard local noncommuting instrument/composite algebra. The read-write-cycle equilibrium account in Chapter 18 §18.2 is an additional physical mechanism proposal and is not needed for the finite representation equivalence.
-
-
 
 **BQP (Bounded-error Quantum Polynomial time).** The computational complexity class of decision problems solvable by a quantum computer in polynomial time with error probability bounded by $1/3$. Conventionally treated as an empirical conjecture about what quantum computers can achieve. Under the framework's explicit computational model — uniform efficient encoding, state preparation and control, a clock model, efficient measurement, precision accounting, and fault-tolerance-grade noise assumptions — BQP is the computational class accessible to embedded observers satisfying C1–C4, with both a lower bound (the model can host the BQP toolkit) and an upper bound (the model cannot exceed it); CPTP representability supplies none of the model hypotheses by itself ([Computation §4]). A generic super-BQP demonstration falsifies the global-coverage premise first (Chapter 14 §14.6); pressing on the framework itself requires further argument. Developed in Chapter 14.
 

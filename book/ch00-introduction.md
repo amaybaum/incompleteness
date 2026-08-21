@@ -1,8 +1,5 @@
 # Introduction
 
-**Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever NONDEGENERATE quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
-
-
 ---
 
 ## 0.1 Two physics, or two projections?
@@ -44,8 +41,6 @@ The framework's central theorem says something more exact. The finite stochastic
 The thought experiment captures the framework's central move. Quantum mechanics is reframed from a statement about reality to a statement about the observer's relationship to reality. The mathematics is unchanged; what it represents is different. The wave function is not the universe's state; it is the experimenter's compressed description of what they cannot see. The Born rule is not an independent postulate about fundamental indeterminism at the finite observable-law layer; it is the $|U|^2$ readout dictionary of the exact unitary representation every such law admits ([Main §3.4]). The remaining quantum question is the coherent local operational extension of that representation. For Bell experiments the deterministic layer faces Bell's sharper fork: a measurement-independent response-complete completion with finite-range Bell couplings is classical, so quantum violation requires ontic parameter dependence. The framework takes that branch while retaining operational no-signaling; the stochastic Tsirelson construction is kept as a separate weaker-description result.
 
 The chapters that follow make this thought experiment precise. The room becomes a partition of the universe into visible and hidden sectors. The experimenter becomes a mathematical observer. The characterization theorem then separates what is universal from what is physically discriminating. The universal part is the exact finite-horizon equivalence $S\iff D\iff Q_{\mathrm{fb}}$; the discriminating part is history readback, which forces hidden predictive memory and recurrence-scale indivisibility. The spatial extension adds graph causal cones and a separately stated operational screening condition for Bell experiments. The strongest remaining question is therefore not whether the observer has a quantum representation, but whether the whole coherent instrument/composite hierarchy is one standard local quantum operational theory.
-
-
 
 ## 0.3 The framework's central claim
 
