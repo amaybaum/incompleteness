@@ -187,7 +187,7 @@ Lattice}\label{the-standard-model-from-a-cubic-lattice}}
 two claims. First, finite equivariant projection is classical and exact:
 cubic symmetry is inherited by the projected Markov part and every
 memory kernel, forbidding quadratic anisotropy in the scalar symbol ---
-so whatever NONDEGENERATE quadratic structure survives is isotropic ---
+so whatever nondegenerate quadratic structure survives is isotropic ---
 while allowing cubic anisotropy at \(O(k^4)\). The particular normalized
 nearest-neighbor operator \(A/(2d)\) additionally requires an
 \textbf{observer-level} center-free kernel; microscopic center
@@ -196,11 +196,18 @@ are marginalized. Second, the six signed simple-cubic links and their
 exact \(3\oplus2\oplus1\) representation are unconditional geometry, but
 identifying that link space with the complete physical carrier is
 \textbf{H-link}; the single-copy clause gives \(K=6\), and the custodial
-condensate-stabilizer reading is \textbf{H-cust}. Accordingly, any
-downstream statement here that consumes \(K=6\), \(N_f=6\), the physical
-SM gauge carrier, or a fixed three-sector count inherits those named
-bridge conditions unless it is explicitly referring only to the six
-geometric links.
+condensate-stabilizer reading is \textbf{H-cust}; the component-blind
+reading of the observer's trace-out --- that the observation commutes
+with signed permutations of the six carrier components --- is
+\textbf{H-blind}; at the symmetric point it holds for the branch's
+observer class, the component-complete site observer whose visible
+variable is the six-component field on its sites, and it is carried as a
+named condition for other observer classes and for extensions of the
+rule that couple components through a hidden sector (§4.4). Accordingly,
+any downstream statement here that consumes \(K=6\), \(N_f=6\), the
+physical SM gauge carrier, or a fixed three-sector count inherits those
+named bridge conditions unless it is explicitly referring only to the
+six geometric links.
 
 The Standard Model arises as a distinguished low-freedom representation
 of a finite bijection on a \(d = 3\) simple-cubic lattice governed by
@@ -351,11 +358,14 @@ and the spatial dimension \(d = 3\) is shown to be the unique
 self-consistent dimension by three independent filters: propagating
 gravity (\(d \geq 3\)), stable matter (\(d \leq 3\)), and the boundary
 entropy concordance \(\rho_s/\rho_{\text{crit}} = 2/(d-1)\) (which
-equals unity only for \(d = 3\)). Renormalizability of the emergent
-Yang-Mills coupling at \(d = 3\) is a downstream consequence rather than
-an independent filter (§3.2). These results are theorems about the
-equivalence class \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\); they do
-not depend on which specific dynamics is selected.
+equals unity only for \(d = 3\); its coefficient inherits the horizon
+conditions of {[}GR §2, §8.5{]} through \(\epsilon = 2\,l_P\)).
+Renormalizability of the emergent Yang-Mills coupling at \(d = 3\) is a
+downstream consequence rather than an independent filter (§3.2). The
+structural object is a theorem about the equivalence class
+\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\), and the \(d = 3\) selection
+holds at self-consistency strength (§3.2; Tier 2 in §8.3); neither
+depends on which specific dynamics is selected.
 
 \textbf{Tier 2 --- Conditional physical-carrier chain.} The
 observer-level isotropy theorem and the geometric six-link decomposition
@@ -363,7 +373,11 @@ are proved. The physical identification then has named bridges:
 observer-level center-freedom for the exact normalized \(A/(2d)\) Markov
 part; H-link for identifying the physical carrier with
 \(V_{\rm link}\otimes\mathbb C^m\); the single-copy clause \(m=1\) for
-\(K=6\); H-cust for the custodial condensate-stabilizer route; and the
+\(K=6\); H-cust for the custodial condensate-stabilizer route; H-blind
+for the component-blind trace-out, which the symmetric-point rule
+supplies for the branch's component-complete site observer and which
+names the condition under which the universal cone of §4.4 extends to
+other observer classes and to inter-component hidden couplings; and the
 previously named H-spin'/H-χ' for physical-generation and weak-chirality
 readings. Downstream Standard-Model and numerical calculations are
 results \emph{on that branch}, not unconditional consequences of finite
@@ -379,18 +393,20 @@ The paper is organized as follows. §2 sets out the minimal structure on
 which the framework's results depend. §3 establishes background
 independence and derives \(d = 3\) from the three self-consistency
 filters. §4 develops the emergent quantum field theory through the
-bottom-up, gauge-emergence, and top-down chains. §5 derives
-\(\bar\theta = 0\) from \(T\)-invariance and detailed balance at the
-kinematic level of the construction; §5.5 shows that the same premise
-forces the Jarlskog invariant to vanish, and sets out what follows. §6
-extends the chain quantitatively through the gauge coupling prediction.
-§7 collects the quantitative predictions for the CKM matrix, the lepton
-sector, the fermion mass chain, the PMNS angles, and the Higgs mass. §8
-discusses structural realism, observer genericity, the
-structural-vs-bijection-level distinction, and the neutrino sector. §9
-concludes --- including a synthesis with the cosmological application
-developed in {[}GR{]} and the substratum-level reconstruction theorem
-developed in {[}Substratum{]}.
+bottom-up, gauge-emergence, and top-down chains. §5 shows that
+\(T\)-invariance and detailed balance give \(\theta\in\{0,\pi\}\) and
+reciprocal transition counts but not \(\bar\theta = 0\), leaving strong
+CP open under two named conditions (H-top, H-det); §5.5 sets out what is
+and is not established, and records a reported, unverified tension in
+the octahedral-equivariant reconstruction --- reciprocity itself leaves
+the Jarlskog invariant free. §6 extends the chain quantitatively through
+the gauge coupling prediction. §7 collects the quantitative predictions
+for the CKM matrix, the lepton sector, the fermion mass chain, the PMNS
+angles, and the Higgs mass. §8 discusses structural realism, observer
+genericity, the structural-vs-bijection-level distinction, and the
+neutrino sector. §9 concludes --- including a synthesis with the
+cosmological application developed in {[}GR{]} and the substratum-level
+reconstruction theorem developed in {[}Substratum{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -729,8 +745,18 @@ rule:
 \(I(V;\, V^c) = I(\partial V;\, V^c) \leq H(\partial V) \leq |\partial V| \cdot \log_2 q\).
 The mutual information scales as boundary area, not volume. \(\square\)
 
-\textbf{Lemma} (Relativistic dispersion). \emph{The wave equation has
-exact dispersion relation \(\cos\omega = \cos k\).}
+\textbf{Lemma} (Relativistic dispersion, one spatial dimension).
+\emph{In \(d=1\) the wave equation has exact dispersion relation
+\(\cos\omega = \cos k\).} The restriction is essential: on the
+normalized \(d=3\) observer branch of §4.1 the relation is
+\(\cos\omega(\mathbf k)=\tfrac13\sum_{i=1}^{3}\cos(ak_i)\), which
+reduces to \(\cos\omega=\cos(ak)\) only where all three cosine arguments
+coincide --- the body diagonals. Along a lattice axis it is
+\(\cos\omega=(2+\cos ak)/3\), since setting the transverse momenta to
+zero leaves their two \(+1\) contributions inside the three-dimensional
+operator; recovering \(\cos\omega=\cos k\) there would require each
+component to read a single signed link, the operator substitution Lemma
+6a rejects.
 
 \emph{Proof.} Substituting \(x_j(t) = A\exp(i(kj - \omega t))\):
 \(e^{-i\omega} + e^{i\omega} = e^{-ik} + e^{ik}\), giving
@@ -814,28 +840,46 @@ characterized map does not supply --- but on loop-level octahedral
 invariance of the emergent theory (the mechanism developed below and in
 {[}Ch. 19 §19.3.7{]}); the interacting (condensate-dressed) extension of
 the characterization is the stated residual. A second, structural
-ingredient is available within the framework itself: at \(M = \mu I\)
-the substratum dynamics carries an exact custodial \(\mathrm{U}(6)\)
-relating the gauge sectors (Theorem 5, revised; §4.6), broken only
-spontaneously by the equivariant condensate, so sector-differential
-Lorentz-violating coefficients admit no independent counterterm at the
-regulator level. The resulting sector-differential boost-violation is
-then controlled by the heavy cross-charged mass \(M_X\) generated at the
-condensate gap: a one-loop lattice computation of the boost-projected
-self-energy curvature, after absorbing the universal tree-level cone,
-finds the differential coefficient obeys a quadratic-with-logarithm
-decoupling law of the form
+ingredient is available within the framework itself, and it has a
+matching part and a running part. \emph{Matching.} At \(M = \mu I\) the
+six carrier components are dynamically identical and decoupled, so the
+substratum dynamics, the threshold nonlinearity of the finite alphabet
+and the selected measure all commute with the signed permutations of the
+components --- a symmetry larger than the cubic group acting on the six
+links, and one whose six-dimensional representation is irreducible. For
+the branch's observer --- the component-complete site observer whose
+visible variable is the six-component field on its sites --- the
+trace-out commutes with it too (H-blind, supplied there; §4.4), and the
+complete memory-resummed quadratic response of the carrier is then
+custodially scalar: every massless block shares one cone at the matching
+scale (§4.4, Proposition 4b). The custodial \(\mathrm{U}(6)\) of the
+real lift (Theorem 5, §4.6) is broken by the threshold only down to this
+signed-permutation group, which suffices, and it is broken spontaneously
+by the equivariant condensate, so sector-differential Lorentz-violating
+coefficients admit no condensate-independent counterterm at the
+regulator level; condensate-dependent derivative operators are allowed
+and decouple with the order parameter. \emph{Running.} Conditional on
+that matching, the sector-differential boost-violation is controlled by
+the heavy cross-charged mass \(M_X\) generated at the condensate gap. A
+one-loop lattice calculation of the boost-projected self-energy
+curvature, whose integrand, driver and numerical output are not
+available for verification, reported that, after absorbing the universal
+tree-level cone, the differential coefficient obeys a
+quadratic-with-logarithm decoupling law of the form
 \(\delta c \sim \Delta C_2\,(\alpha_0/4\pi)\,(M_X/M_{\text{Pl}})^2\,[\,c_L\ln(M_{\text{Pl}}/M_X)+c_0\,]\)
-rather than a non-decoupling constant, so the heavy sector decouples as
-\(M_X\) rises. The decoupling \emph{form} is established (the law
-survives both a scalar- and a fermion-line check, and fails ---
-reverting to a non-decoupling logarithm --- precisely when the cone is
-not absorbed, confirming the absorption is load-bearing); the
-normalization is bounded by the framework's own representation content:
-\(\Delta C_2\) is a difference of total gauge Casimirs across species,
-giving \(\Delta C_2 \in [0.58,\,2.08]\) --- order unity. The
-representation-side point values are now fixed per bound: the
-clock-comparison pair (nucleon--electron, chirality-averaged) gives
+rather than a non-decoupling constant, so that the heavy sector
+decouples as \(M_X\) rises; the same calculation reported that the law
+survived both a scalar- and a fermion-line check and reverted to a
+non-decoupling logarithm when the cone was not absorbed. The form, the
+constants, the controls and every window derived from them below are
+reported results of that calculation and are not independently verified;
+they are retained as illustrative and carry no weight as predictions,
+bounds, or inputs to any other result. What is certified independently
+of it is the normalization's bound from the framework's own
+representation content: \(\Delta C_2\) is a difference of total gauge
+Casimirs across species, giving \(\Delta C_2 \in [0.58,\,2.08]\) ---
+order unity. The representation-side point values are fixed per bound:
+the clock-comparison pair (nucleon--electron, chirality-averaged) gives
 \(\Delta C_2 \approx 0.9\)--\(1.1\) across the two
 \(\mathrm{U}(1)\)-normalization conventions, and the electron
 coefficient --- measured against the \emph{induced} photon, whose boost
@@ -848,15 +892,24 @@ weighted average cannot stray far from itself), so the photon-sector
 channel is suppressed roughly two orders below generic when referenced
 to that mean, with its residual sensitivity confined to the
 absorbed-cone reference definition --- the one place the reference
-choice materially matters, owned by the kernel computation. With the
-computed kernel constants (\(c_L = -9.4\), \(d = -0.88\), superseding
-the order-unity placeholders) and the point values, the tightest ceiling
-refines from the worst-case figures below to
-\(M_X \lesssim 4\times10^{7}\) GeV --- a factor-two class shift that
-leaves the window's decade structure intact. What remains open on the
-normalization side is the absorbed-cone reference (photon channel only);
-the mechanism's remaining quantitative item is the condensate-gap
-determination of \(M_X\) itself.
+choice materially matters, owned by the kernel calculation. With the
+reported kernel constants (\(c_L \simeq -9.4\), \(d \simeq -0.88\)) and
+the point values, the tightest ceiling would refine from the worst-case
+figures below to \(M_X \lesssim 4\times10^{7}\) GeV --- an illustrative
+figure carrying the provenance of those constants. What remains open on
+the normalization side is the absorbed-cone reference (photon channel
+only). The non-logarithmic constant receives no separate
+condensate-dependent contribution from the substratum itself: the
+threshold nonlinearity of the finite alphabet acts per component, so
+every operator it generates is component-local, and a component-local
+operator contracted with an \(O_h\)-equivariant condensate is
+sector-common --- the link-basis diagonal of \(aP_{T_1}+bP_E+cP_{A_1}\)
+is the constant \(a/2+b/3+c/6\) --- so such terms shift only the
+universal cone. Block-differential derivative terms require
+inter-component interactions, which on this branch are the induced gauge
+couplings of §5 and enter first at one loop, in the calculation reported
+above; \(c_0\) is that diagram's own constant. The mechanism's remaining
+quantitative item is the condensate-gap determination of \(M_X\) itself.
 
 \emph{Baryon safety of the cross-charged sector, the pinned reference,
 and the closed form of the window.} Three further results complete the
@@ -878,62 +931,67 @@ phenomenology rather than proton decay: \(\sim 1.5 \times 10^{6}\) GeV
 (\(K_L \to \mu e\) class) if the cross couplings are
 generation-off-diagonal, \(10^{3}\)--\(10^{4}\) GeV (collider and
 precision) if generation-diagonal --- the generation structure being
-solution-level, like \(M_X\) itself. The refined window is
-\([10^{3}\)--\(10^{6},\ \sim 4 \times 10^{7}]\) GeV: between one and a
-half and four and a half decades. Scope: this argument covers the gauge
-sector; baryon violation through non-gauge operators (the condensate and
-Yukawa sectors, higher-dimension operators) is a separate accounting
-item, not excluded here. Second, the absorbed-cone reference is pinned
-by the framework's own architecture rather than left as a scheme choice:
-spacetime geometry is classical-substratum-level ({[}GR §6.2{]}) and
-takes no emergent-loop corrections, so the gravitational-wave cone
-\emph{is} the tree cone --- gravity-referenced bounds (the GW170817
-class) therefore constrain each species' full coefficient
+solution-level, like \(M_X\) itself. On the reported constants the
+illustrative window is \([10^{3}\)--\(10^{6},\ \sim 4 \times 10^{7}]\)
+GeV: between one and a half and four and a half decades. Scope: this
+argument covers the gauge sector; baryon violation through non-gauge
+operators (the condensate and Yukawa sectors, higher-dimension
+operators) is a separate accounting item, not excluded here. Second, the
+absorbed-cone reference is pinned by the framework's own architecture
+rather than left as a scheme choice: spacetime geometry is
+classical-substratum-level ({[}GR §6.2{]}) and takes no emergent-loop
+corrections, so the gravitational-wave cone \emph{is} the tree cone ---
+gravity-referenced bounds (the GW170817 class) therefore constrain each
+species' full coefficient
 (\(\Delta C_2^{\rm eff} = \sum_f w_f C_2^f \approx 1.6\) for the induced
 photon, ceiling \(4 \times 10^{11}\) GeV, still the loosest), while
 matter-matter bounds constrain differences, as computed above. The same
 classical priority of geometry that dissolves the cosmological-constant
 problem pins the Lorentz-violation reference. Third, with \(M_X\)
 classified as solution-level (set by the equivariant block splittings,
-§4.7.1.1, not fixed at the lattice scale), the boost conditional reaches
-its closed form: it is discharged into one solution-level parameter
+§4.7.1.1, not fixed at the lattice scale), the boost conditional has two
+parts of different standing: its matching part is the certified
+symmetric-point theorem of §4.4, and its running part rests on the
+reported, unverified decoupling calculation. On that reported form the
+running part would be discharged into one solution-level parameter
 confined to a one-and-a-half-to-four-and-a-half-decade window,
 baryon-safe, reference-pinned, and falsifiable from both sides --- the
-same closure the framework accepts for the mass eigenvalues, and the
-terminal state available to it short of Layer 2(b) input. With
-\(\alpha_0 = 1/23.25\) and the worst-case \(\Delta C_2\), the resulting
-ceilings are \(M_X \lesssim 9\times10^{7}\) GeV against the tightest
-(clock-comparison) multi-species bound, \(7.5\times10^{9}\) GeV against
-the electron SME coefficient, and \(1.1\times10^{12}\) GeV against
-photon-sector bounds, while the floor is set by cross-charged
+same closure the framework accepts for the mass eigenvalues. With
+\(\alpha_0 = 1/23.25\) and the worst-case \(\Delta C_2\), the reported
+form gives ceilings of \(M_X \lesssim 9\times10^{7}\) GeV against the
+tightest (clock-comparison) multi-species bound, \(7.5\times10^{9}\) GeV
+against the electron SME coefficient, and \(1.1\times10^{12}\) GeV
+against photon-sector bounds, while the floor is set by cross-charged
 (leptoquark-like) phenomenology at \(10^{3}\)--\(10^{6}\) GeV: a window
-of two to five orders of magnitude remains. The mechanism therefore
-requires the cross-charged condensate scale to be intermediate,
-\(M_X \lesssim 10^{8}\) GeV rather than GUT- or Planck-scale; an
-independent determination of \(M_X\) from the condensate-gap chain above
-this ceiling would falsify it. The bound-to-coefficient mapping and the
-cross-charged phenomenology floor are treated here at order of magnitude
-only. We situate this in the literature. The radiative
-Lorentz-fine-tuning problem is general to Planck-scale Lorentz violation
-(Collins, Perez, Sudarsky, Urrutia, and Vucetich, Phys. Rev.~Lett.
-\textbf{93}, 191301), and its standard field-theoretic resolution ---
-supersymmetric suppression of the offending divergences --- is
-unavailable here, as the framework is not supersymmetric. The one
-non-supersymmetric protection mechanism consistent with the framework's
-structure is renormalization-group emergence: Lorentz-violating
-couplings flowing to zero at an infrared-attractive Lorentz-invariant
-fixed point (Chadha and Nielsen, Nucl. Phys. B \textbf{217}, 125 (1983);
-Bednik, Pujolàs, and Sibiryakov, JHEP \textbf{11} (2013) 064). This
-mechanism is natural in the present setting because the trace-out of
-{[}Main{]} is itself a coarse-graining toward the infrared, and it is
-the same mechanism on which emergent-quantum-mechanics-from-lattice
-constructions rely (e.g.~arXiv:2207.09465); its documented limitation is
-that the inter-species velocity flow is only logarithmically fast,
-leaving a residual fine-tuning against the tightest multi-species
-bounds. Independently, the causal-set discreteness results (Bombelli,
-Henson, and Sorkin, \emph{Discreteness without symmetry breaking})
-establish that a finite-valency, locally-coupled discrete structure
-cannot carry exact Lorentz invariance microscopically --- only a random,
+of two to five orders of magnitude. These figures are illustrative
+consequences of the reported calculation, not verified results; on them
+the mechanism would require the cross-charged condensate scale to be
+intermediate, \(M_X \lesssim 10^{8}\) GeV rather than GUT- or
+Planck-scale, and an independent determination of \(M_X\) from the
+condensate-gap chain above that ceiling would falsify it. The
+bound-to-coefficient mapping and the cross-charged phenomenology floor
+are treated here at order of magnitude only. We situate this in the
+literature. The radiative Lorentz-fine-tuning problem is general to
+Planck-scale Lorentz violation (Collins, Perez, Sudarsky, Urrutia, and
+Vucetich, Phys. Rev.~Lett. \textbf{93}, 191301), and its standard
+field-theoretic resolution --- supersymmetric suppression of the
+offending divergences --- is unavailable here, as the framework is not
+supersymmetric. The one non-supersymmetric protection mechanism
+consistent with the framework's structure is renormalization-group
+emergence: Lorentz-violating couplings flowing to zero at an
+infrared-attractive Lorentz-invariant fixed point (Chadha and Nielsen,
+Nucl. Phys. B \textbf{217}, 125 (1983); Bednik, Pujolàs, and Sibiryakov,
+JHEP \textbf{11} (2013) 064). This mechanism is natural in the present
+setting because the trace-out of {[}Main{]} is itself a coarse-graining
+toward the infrared, and it is the same mechanism on which
+emergent-quantum-mechanics-from-lattice constructions rely
+(e.g.~arXiv:2207.09465); its documented limitation is that the
+inter-species velocity flow is only logarithmically fast, leaving a
+residual fine-tuning against the tightest multi-species bounds.
+Independently, the causal-set discreteness results (Bombelli, Henson,
+and Sorkin, \emph{Discreteness without symmetry breaking}) establish
+that a finite-valency, locally-coupled discrete structure cannot carry
+exact Lorentz invariance microscopically --- only a random,
 statistically isotropic structure can, and then only non-locally ---
 which is consistent with the framework's concession of a preferred
 lattice frame and reinforces that Lorentz invariance here must be wholly
@@ -1077,13 +1135,17 @@ operator smearing is the coarse-graining-toward-the-infrared realization
 of the renormalization-group-emergence mechanism, so the question ``does
 the substratum-to-observer map smear sufficiently?'' and the question
 ``does the theory flow to a Lorentz-invariant infrared fixed point?''
-are two descriptions of the same requirement. The custodial
-\(\mathrm{U}(6)\) ingredient is logically separate and stronger where it
-applies: it removes sector-\emph{differential} Lorentz-violating
-counterterms at the regulator level, and the resulting differential
-coefficient obeys the established power-law-with-logarithm decoupling in
-\(M_X\) --- a genuine power-law suppression, not merely the
-logarithmically-slow RG flow. The remaining gap is sharper than
+are two descriptions of the same requirement. The custodial ingredient
+is logically separate and stronger where it applies: at the symmetric
+point the signed-permutation symmetry of the carrier components makes
+the quadratic response custodially scalar under H-blind (§4.4,
+Proposition 4b), which removes condensate-independent
+sector-\emph{differential} Lorentz-violating counterterms at the
+regulator level, and, conditional on that matching, the resulting
+differential coefficient obeys the reported power-law-with-logarithm
+decoupling in \(M_X\) --- the matching is certified, the running is the
+reported, unverified calculation --- a power-law suppression rather than
+the logarithmically-slow RG flow. The remaining gap is sharper than
 ``radiative stability in general'': the custodial argument controls the
 \emph{sector-differential} (inter-species) boost-violation that the
 multi-species bounds constrain most tightly, but the \emph{overall}
@@ -1260,9 +1322,9 @@ lattice-exact, corrections enter only through input (ii):
 \[G_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu} \times \left[1 + \mathcal{O}\!\left(\frac{\varepsilon^2 \kappa^2}{c^2}\right)\right]\]
 
 For the cosmological horizon,
-\(\varepsilon\kappa/c = 2l_P \cdot H/c \sim 10^{-61}\), giving
+\(\varepsilon\kappa/c^2 = 2l_P \cdot H/c \sim 10^{-61}\), giving
 corrections of order \(10^{-122}\). For solar-mass black holes,
-\(\varepsilon\kappa/c \sim 10^{-38}\), giving corrections of order
+\(\varepsilon\kappa/c^2 \sim 10^{-38}\), giving corrections of order
 \(10^{-76}\). The corrections are negligible for any horizon much larger
 than the Planck scale.
 
@@ -1383,13 +1445,15 @@ existence of observers, stable matter, or any anthropic input; both are
 computed from the gravitational dynamics and the holographic mode count,
 which is why this filter is independent of the stable-matter filter and
 answers the circularity objection. \emph{What is imported from
-{[}GR{]}:} the horizon-mode counting and the area-law coefficient are
-derived in {[}GR §3, §7.2{]}; this paragraph states the structure of the
-ratio and its observer-independence but relies on {[}GR{]} for the
-coefficient derivation, which a referee checking the concordance filter
-would verify there. The qualitative result --- that the ratio depends
-only on \(d\) and equals unity solely at \(d=3\) --- does not depend on
-the coefficient details, only on the scaling \(\rho_s \sim H^2\) and
+{[}GR{]}:} the horizon-mode counting is derived in {[}GR §3{]} and the
+area-law coefficient in {[}GR §5{]}, the latter conditional on the
+horizon conditions H-slope, H-frame and H-Hawking of {[}GR §2, §8.5{]};
+this paragraph states the structure of the ratio and its
+observer-independence but relies on {[}GR{]} for the coefficient
+derivation, which a referee checking the concordance filter would verify
+there. The qualitative result --- that the ratio depends only on \(d\)
+and equals unity solely at \(d=3\) --- does not depend on the
+coefficient details, only on the scaling \(\rho_s \sim H^2\) and
 \(\rho_{\text{crit}}\sim H^2\) with the stated \(d\)-dependence.
 
 \textbf{Downstream consequence on the H-link gauge branch:
@@ -1493,10 +1557,21 @@ normalization of \(\alpha\).}
 \textbf{Remark (scope).} The nearest-neighbor restriction is an
 assumption beyond bounded coupling degree (A3): center-independent
 families with next-nearest-neighbor couplings exist and tune the
-low-energy speed. Nearest-neighbor is adopted as the minimal local
-branch used by the observer-level spectral calculation; the dispersion
---- and the 4/45 coefficient of §6.4 --- is conditional on that branch
-and on the coarse-graining bridge of §4.1.
+low-energy speed. The assumption is not rescued by equivariance: the
+range and the self-weight of the projected Markov part are set by the
+hidden conditional law rather than by the microscopic radius (a
+correlated hidden preparation of range two makes the visible one-step
+law range two), and a block's low-energy speed is the second moment of
+its memory-resummed kernel rather than its range --- a range-two kernel
+with the nearest-neighbor second moment keeps the cone exactly, while a
+gapped hidden sector coupled through a derivative lowers it by the
+squared coupling over the gap. None of these moves one block's cone
+relative to another's unless the signed-permutation symmetry of the
+components is explicitly broken (§4.4, Proposition 4b). Nearest-neighbor
+is adopted as the minimal local branch used by the observer-level
+spectral calculation; the dispersion --- and the 4/45 coefficient of
+§6.4 --- is conditional on that branch and on the coarse-graining bridge
+of §4.1.
 
 \emph{Proof.} The update function has the form
 \(x_i(t+1) = (f(\text{neighbors of } i \text{ at time } t) - x_i(t-1)) \bmod q\).
@@ -1617,6 +1692,45 @@ finite reading of what the observer can resolve. The conclusion those
 support is that neither fundamental quantum structure nor a microscopic
 Riemannian metric is needed for quadratic observer-level isotropy.
 Theorem 1a is an exact projection result specialized to this setting.
+
+\textbf{Lemma 1c (canonical projection and the resummed kernel).}
+\emph{Let \(\mu\) be the selected invariant measure --- the counting
+measure of {[}Main{]} Lemma 3, or a stated structured prior --- and
+\(P_\mu=\mathbb E_\mu[\,\cdot\mid\sigma(X)]\). (i) For every
+measure-preserving visible-fixing relabelling \(S\) of the total system
+--- \(X\circ S=X\) and \(S_*\mu=\mu\) --- \(P_\mu\) commutes with the
+Koopman operator \(R_S\), so the conjugate dynamics \(U'=R_SUR_S^{-1}\)
+has the same canonical Markov part, \(P_\mu U'P_\mu=P_\mu UP_\mu\); the
+coordinate-block projection of Theorem 1a has no such invariance --- the
+shear \(S(x,y)=(x,\,y-Lx)\) conjugates the second-order rule to one
+whose block Markov part vanishes while the visible recurrence
+\(x_{t+2}=Lx_{t+1}-x_t\) is unchanged. (ii) The visible poles are the
+poles of the reduced resolvent
+\(P(\lambda-U)^{-1}P=\mathcal D(\lambda)^{-1}\), with
+\(\mathcal D(\lambda)=\lambda-A-B(\lambda-D)^{-1}C\) the memory-resummed
+Schur complement continued meromorphically through the spectrum of
+\(D\); the observer-level dispersion is the zero set of that continued
+\(\mathcal D\), and it depends only on the visible \(\sigma\)-algebra,
+not on the coordinate split. (iii) On the standard second-order
+companion realization of Theorem 1 --- current field visible, retarded
+register hidden,
+\(U=\bigl(\begin{smallmatrix}A&-I\\ I&0\end{smallmatrix}\bigr)\) ---
+with the Corollary-1b kernel \(A\), \(K_0=-I\) and \(K_{m\ge1}=0\), so
+\(\mathcal D(\lambda)=\lambda-A+\lambda^{-1}\) and the dispersion is
+\(\cos\omega=\widehat A(\mathbf k)/2\).}
+
+\emph{Proof.} (i) Conditional expectation is covariant under a
+measure-preserving map that fixes the conditioning variable, and \(R_S\)
+acts trivially on functions of \(X\); the counterexample is a direct
+computation. (ii) Block inversion of \(\lambda-U\) off the spectrum of
+\(D\), where \(\det(\lambda-U)=\det(\lambda-D)\det\mathcal D(\lambda)\);
+the identity extends as a polynomial identity after clearing
+denominators, and factors cancelling against \(\det(\lambda-D)\) are
+removable. (iii) Substitute \(D=0\), \(B=-I\), \(C=I\). \(\square\)
+
+The statements below are made on the companion realization of (iii),
+where the Markov part and the resummed kernel coincide; away from it the
+kernel, not the Markov part, carries the dispersion.
 
 \textbf{Corollary 1a (cubic symmetry FORBIDS quadratic anisotropy).}
 \emph{Suppose a scalar projected kernel is translation invariant with
@@ -1876,10 +1990,75 @@ The theorem is a statement about the normalized observer-level branch.
 It does not derive that branch from \(\varphi\); that is the
 projection/closure debt isolated in §4.1.
 
+\textbf{Lemma 4a (one cone on the branch).} \emph{On the branch of
+Theorem 4 every block with \(\mu_a=1\) has
+\(\omega_a^2=(a^2/d)|\mathbf k|^2+O(a^4k^4)\) with the same coefficient
+along every direction, and a block with \(\mu_a=\cos m_a\),
+\(0<m_a<\pi/2\), has
+\(\omega_a^2=m_a^2+(a^2/d)\,m_a\cot m_a\,|\mathbf k|^2+O(k^4)\).}
+
+\emph{Proof.} \(\mu_a\) multiplies one block-independent kernel; expand
+\(\cos\omega=\mu_af(\mathbf k)\) about \(\omega=m_a\). \(\square\)
+
+With the time step at the Planck scale the massive-block deviation
+\(1-c_a/c\simeq m_a^2/6\) is of order \((m_a/M_{\rm Pl})^2\), far inside
+every bound on species-dependent limiting speeds; massless blocks share
+the cone exactly. The lemma is conditional on the branch: it reads the
+factorized form, one spatial kernel times \(M\), as given.
+
+\textbf{Proposition 4b (symmetric-point custodial scalarity for a
+component-complete site observer).} \emph{Let \(M=\mu I_6\), let the
+finite-alphabet rule act identically and independently on the six
+components, take the selected counting measure, which is invariant under
+signed permutations of the components, and let the observer projection
+be the conditional expectation onto the \(\sigma\)-algebra generated by
+all six carrier components on one common set of visible sites. Then the
+complete memory-resummed quadratic response is
+\(\mathcal D_{\rm obs}(\omega,\mathbf k)=d(\omega,\mathbf k)\,I_6\), so
+the ratio of spatial to temporal quadratic coefficients is common to
+\(T_1\), \(E\) and \(A_1\) and the massless blocks share one cone. The
+same conclusion holds for extensions of the rule whose dynamics, measure
+and observer \(\sigma\)-algebra are equivariant under signed
+permutations of the six components (H-blind).}
+
+\emph{Proof.} At \(M=\mu I_6\) no component's update depends on another
+component, so the dynamics is a product of six identical systems; the
+counting measure is a product of identical factors, and the visible
+\(\sigma\)-algebra is generated by the same family on every component,
+so the conditional-expectation projection is equivariant under signed
+permutations and the reduced response is six identical copies --- for
+any site-based split the visible Schur complement is \(I_6\) tensored
+with one scalar block. For the extensions the rule, its
+symmetric-residue real lift, the measure and the observation commute
+with the hyperoctahedral group by hypothesis, the response inherits the
+equivariance, and the signed-permutation representation on
+\(\mathbb R^6\) is irreducible --- its commutant is one-dimensional,
+against three dimensions for the cubic group acting on the six links ---
+so by Schur's lemma the response is scalar. \(\square\)
+
+The observer class of the proposition is the branch's own: Theorem 4
+takes the observer-level variable to be the six-component field on the
+observer's sites. The cubic \((3,2,1)\) structure is therefore not a
+property of the symmetric-point dynamics; it enters through the H-link
+identification of components with links and through the condensate state
+of Theorem 5. What can split the block cones is an explicit reduction of
+the signed-permutation symmetry to the cubic group, either in the rule
+--- a hidden sector coupled through one combination of links, or a
+direction-attached hidden coupling --- or in the observation, through a
+readout that selects components or ties the component index to a spatial
+direction; the branch posits neither, and for other observer classes
+H-blind is the named condition. The condensate does not enter the linear
+transfer function; its derivative dressing of the blocks arises through
+the emergent interactions and belongs to the matching/running accounting
+of §3.1, where it enters at one loop, because the substratum's own
+nonlinearity is component-local and a component-local operator
+contracted with an \(O_h\)-equivariant condensate is sector-common.
+
 \textbf{Theorem 5 (condensate stabilizer, conditional physical
 reading).} \emph{Assume H-link with one carrier copy and H-cust: the
 observer-level kinetic structure is custodially scalar on the six-link
-carrier before the state/condensate is chosen. Let
+carrier before the state/condensate is chosen (at the symmetric point
+\(M=\mu I_6\) this clause is supplied by Proposition 4b). Let
 \(\Sigma=\langle\phi\phi^\dagger\rangle\) be \(O\)-equivariant. By
 Schur's lemma, on the exact \(T_1\oplus E\oplus A_1\) link decomposition
 one has \(\Sigma=aP_{T_1}+bP_E+cP_{A_1}\). For generic distinct block
@@ -1966,8 +2145,10 @@ H-link}, the same multiplicities act on one physical carrier copy.
 \textbf{H-cust} denotes the additional premise used by the
 condensate-stabilizer route: the observer-level kinetic/condensate
 structure is scalar on each of these isotypic blocks and does not
-introduce extra copy-mixing custodial structure. Under H-link + H-cust,
-a generic equivariant condensate has stabilizer
+introduce extra copy-mixing custodial structure. Its kinetic clause is a
+theorem at the symmetric point (Proposition 4b); its condensate clause
+remains a premise. Under H-link + H-cust, a generic equivariant
+condensate has stabilizer
 \(\mathrm U(3)\times\mathrm U(2)\times\mathrm U(1)\); the further
 reduction to the Standard-Model group carries the amplitude-scale-gauge
 and background-independence premises stated below.
@@ -3132,194 +3313,189 @@ time reversal T: φ(n, t) → φ(n, −t).}
 The checkerboard partition marginalizes over spatial sites, not temporal
 data. It preserves T while breaking P (§4.8).
 
-\hypertarget{ux3b8-0}{%
-\subsubsection{5.2 θ = 0}\label{ux3b8-0}}
+\hypertarget{what-time-reversal-fixes-about-ux3b8}{%
+\subsubsection{5.2 What time reversal fixes about
+θ}\label{what-time-reversal-fixes-about-ux3b8}}
 
-\textbf{Theorem 18.} \emph{The QCD θ-parameter vanishes: θ = 0.}
+\textbf{Theorem 18.} \emph{A time-reversal-invariant point of the
+\(\theta\)-vacuum satisfies \(\theta\in\{0,\pi\}\pmod{2\pi}\).}
 
 \emph{Proof.} The θ-term
 \(\mathcal{L}_\theta = (\theta/32\pi^2) \mathrm{Tr}(F \tilde{F})\) is
 T-odd: \(\mathrm{Tr}(F\tilde{F}) = 2\,\mathbf{E} \cdot \mathbf{B}\), and
 under T, \(\mathbf{E} \to \mathbf{E}\), \(\mathbf{B} \to -\mathbf{B}\).
-A T-invariant Lagrangian cannot contain a T-odd term. The emergent
-Lagrangian inherits T-invariance because the partition is spatial, so
-time reversal commutes with the visible/hidden projection. \(\square\)
+The emergent Lagrangian inherits T-invariance from the substratum
+because the partition is spatial, so time reversal commutes with the
+visible/hidden projection; since \(\theta\) is periodic and \(T\) sends
+\(\theta\to-\theta\), invariance gives \(\theta=-\theta\pmod{2\pi}\),
+whose solutions are \(\theta=0\) and \(\theta=\pi\). Yang--Mills theory
+has T-invariant points at both. \(\square\)
 
-\hypertarget{detailed-balance-and-ux3b8-0}{%
-\subsubsection{5.3 Detailed balance and θ̄ =
-0}\label{detailed-balance-and-ux3b8-0}}
+Selecting the \(\theta = 0\) branch over \(\theta=\pi\) is a separate
+condition, \textbf{H-top}, which \(T\) symmetry does not supply.
 
-\textbf{Theorem 19} (Detailed balance). \emph{For a spatial partition
-(one preserved by time reversal: \(\pi_V \circ \mathcal{T} = \pi_V\)),
-the visible-sector transition probabilities satisfy \(T_{ij} = T_{ji}\)
-for all i, j.}
+\hypertarget{detailed-balance-and-what-it-does-not-give}{%
+\subsubsection{5.3 Detailed balance, and what it does not
+give}\label{detailed-balance-and-what-it-does-not-give}}
 
-\emph{Proof.} The full dynamics φ is a bijection, and T-invariance
-(Theorem 17) gives
-\(\varphi^{-1} = \mathcal{T} \circ \varphi \circ \mathcal{T}\). For each
-hidden state h with \(\pi_V(\varphi(i, h)) = j\), let
-\(h' = \pi_H(\varphi(i, h))\). Then \(\varphi(i, h) = (j, h')\), so
-\(\varphi^{-1}(j, h') = (i, h)\). Since the partition is spatial,
-\(\mathcal{T}\) preserves the visible/hidden classification. The map
-\(h \mapsto h'\) is an injection from
-\(\{h : \pi_V(\varphi(i,h)) = j\}\) into
-\(\{h' : \pi_V(\varphi(j,h')) = i\}\). Since φ is a bijection on a
-finite set, the injection is a bijection between sets of equal
-cardinality. Dividing by \(|\mathcal{C}_H|\): \(T_{ij} = T_{ji}\).
-\(\square\)
+\textbf{Theorem 19} (Reciprocity of visible transition counts).
+\emph{Let the partition be preserved by time reversal, with \(\theta\)
+the induced action of \(T\) on visible states and \(\theta_H\) its
+action on hidden states, and let the hidden prior be the counting
+measure. Then \(T_{ij} = T_{\theta j,\theta i}\) for all visible
+\(i, j\); when the visible states carry no T-odd data
+(\(\theta=\mathrm{id}\)) this is detailed balance, \(T_{ij}=T_{ji}\).
+The same holds at every time scale:
+\(T_{ij}(n)=T_{\theta j,\theta i}(n)\) for all \(n\).}
 
-\textbf{Theorem 20} (Detailed balance implies T-invariant Hamiltonian).
-\emph{If \(T_{ij} = T_{ji}\) for all i, j, then the emergent Hamiltonian
-satisfies \([\hat{H}_{\text{eff}}, \hat{\Theta}] = 0\) where
-\(\hat{\Theta}\) is the anti-unitary time-reversal operator.}
+\emph{Proof.} T-invariance (Theorem 17) gives
+\(\varphi^{-1} = \mathcal{T} \circ \varphi \circ \mathcal{T}\), hence
+\(\varphi=\mathcal T\circ\varphi^{-1}\circ\mathcal T\). For a hidden
+state \(h\) with \(\varphi(i,h)=(j,h')\), apply the second identity to
+\(\mathcal T(j,h')=(\theta j,\theta_H h')\):
+\(\varphi(\theta j,\theta_H h')=\mathcal T\varphi^{-1}(j,h')=\mathcal T(i,h)=(\theta i,\theta_H h)\).
+So \(F_{ij}(h)=\pi_H(\mathcal T\varphi(i,h))=\theta_H h'\) maps
+\(\{h : \pi_V\varphi(i,h) = j\}\) into
+\(\{h'' : \pi_V\varphi(\theta j,h'') = \theta i\}\); the same
+construction for the pair \((\theta j,\theta i)\) maps back, the two
+maps are mutually inverse, and the sets have equal cardinality. Dividing
+by \(|\mathcal{C}_H|\) gives \(T_{ij} = T_{\theta j,\theta i}\). Since
+\(\varphi^n\) is a bijection with
+\(\varphi^{-n}=\mathcal T\varphi^n\mathcal T\), the argument applies at
+every \(n\). \(\square\)
 
-\emph{Proof.} Within the representation the Born rule gives
-\(T_{ij}(t) = |U_{ij}(t)|^2\) for the represented (dilated) unitary,
-read at the ancilla-marginal level (Prerequisites; Barandes
-correspondence {[}28, 29{]}). Combined with \(T_{ij} = T_{ji}\), the
-represented amplitudes obey \(|U_{ij}|^2 = |U_{ji}|^2\) for all i, j, t
-(again at the ancilla-marginal level). This symmetry of the transition
-amplitudes, by Wigner's theorem, implies
-\(U(t) = \hat{\Theta}\,U(t)^*\,\hat{\Theta}^{-1}\) for a suitable
-anti-unitary \(\hat{\Theta}\), which gives
-\([\hat{H}_{\text{eff}}, \hat{\Theta}] = 0\). \(\square\)
+Verified numerically on the wave-equation substratum: the T-violation of
+the visible transition counts is exactly zero for \(L = 4, 6\),
+\(q = 2, 3, 5\) and all \(n = 1, \dots, 12\).
 
-\textbf{Theorem 21} (\(\bar{\theta} = 0\) at the kinematic level of the
-construction). \emph{In the lattice construction of §2--§4, with the
-substratum bijection exactly \(T\)-invariant and the emergent
-Hamiltonian satisfying detailed balance, the physical parameter
-\(\bar{\theta} = \theta + \arg\det(Y_u Y_d) = 0\), and the vanishing
-propagates to every scale of the emergent description so constructed.}
-The theorem is conditional on the construction's hypotheses and does not
-by itself dissolve the strong CP problem of the physical Standard Model;
-see §5.5.
+\textbf{Proposition 20} (Reciprocity does not imply a T-invariant
+Hamiltonian). \emph{Reciprocity \(T_{ij}(t)=T_{ji}(t)\) for all
+\(i,j,t\) does not force \(H_{\rm eff}\) to be rephasing-equivalent to a
+real Hamiltonian.} Counterexample: the bipartite \(C_4\) ring
+\(H_{01}=H_{12}=H_{23}=H_{30}=z=a+ib\) with the Hermitian conjugates on
+the reverse links. Its spectrum is \(\{\pm2a,\pm2b\}\), and
+\(|U_{ij}(t)|^2=|U_{ji}(t)|^2\) identically (verified to
+\(6\times10^{-15}\) over \(400\) times at \(a=1,b=0.3\)). Yet the
+gauge-invariant loop product is \(H_{01}H_{12}H_{23}H_{30}=z^4\) with
+\(\arg z^4=4\arctan(b/a)=1.165827\) and
+\(\operatorname{Im}z^4=1.092\neq0\). Diagonal rephasing cannot alter a
+loop phase and a real Hamiltonian has a real loop product, so no such
+equivalence exists. Wigner's theorem does not supply the missing step:
+it represents a given ray transformation, and does not manufacture a
+physical time reversal from the scalar relations
+\(|U_{ij}|^2=|U_{ji}|^2\); allowing an arbitrary antiunitary makes the
+statement vacuous, since every Hermitian \(H\) admits conjugation in its
+own eigenbasis. The physically relevant \(\Theta\) is inherited from the
+substratum and fixes the visible projectors, hence has the form \(DK\)
+in that basis, which would force every loop product real --- the \(C_4\)
+example admits no such \(\Theta\). A genericity rescue via phase-locking
+hypotheses is not adopted: the counterexample's bipartite structure is
+exactly the protected sector this construction uses, so such a rescue
+would itself owe a theorem that the flavor sector satisfies those
+hypotheses.
 
-\emph{Proof.} \textbf{Step 1:} Since φ is a bijection, \(\varphi^n\) is
-a bijection for every n.~Applying the counting argument of Theorem 19 to
-\(\varphi^n\): \(T_{ij}(n) = T_{ji}(n)\) for all n.~(Verified
-numerically: T-violation is exactly zero for L = 4, 6, q = 2, 3, 5, and
-all n = 1, \ldots, 12.)
+\emph{Proof.} The reciprocity of the example is exact: for every pair of
+sites the uniform ring has a reflection \(R\) exchanging them, and a
+reflection reverses the orientation of the loop, so
+\(RHR^{-1}=\overline{H}\) and
+\(|U_{ij}(t)|^2=|(RU(t)R^{-1})_{ji}|^2=|\overline{U_{ji}(t)}|^2=|U_{ji}(t)|^2\).
+The obstruction is exact as well: a rephasing \(H\mapsto DHD^{-1}\)
+leaves \(H_{01}H_{12}H_{23}H_{30}\) unchanged, a real symmetric matrix
+has a real loop product, and an antiunitary of the form \(DK\) commuting
+with \(H\) forces \(\overline{H}=DHD^{-1}\), hence a real loop product
+again. For a fully coupled three-level system the antisymmetric part of
+\(|U_{ij}(t)|^2\) enters at \(O(t^3)\) through the rephasing-invariant
+triangle phase \(\operatorname{Im}[H_{12}H_{23}H_{31}]\), and
+reciprocity at all \(t\) does force that phase to vanish; on a bipartite
+coupling graph there are no triangles, every closed walk has even
+length, and the criterion is silent. \(\square\)
 
-\textbf{Step 2:} By Theorem 20 applied to \(T_{ij}(n)\) at each scale:
-\([\hat{H}_{\mathrm{eff}}(n), \hat{\Theta}] = 0\). The effective
-Hamiltonian is T-invariant at every time scale.
+\textbf{Theorem 21} (Strong CP is not fixed by substratum T-invariance).
+\emph{In the construction of §2--§4, T-invariance of the substratum
+bijection together with reciprocity of the visible transition counts
+fixes neither \(\theta\), which may be \(0\) or \(\pi\) (Theorem 18),
+nor \(\arg\det(Y_uY_d)\), since the emergent Hamiltonian need not be
+T-invariant (Proposition 20). The physical combination
+\(\bar\theta=\theta+\arg\det(Y_uY_d)\) is therefore not determined by
+the construction. Any mechanism that fixes \(\arg\det(Y_uY_d)=0\) by
+making \(Y_u\) and \(Y_d\) simultaneously real also forces
+\(V_{\rm CKM}\) to be real orthogonal and the Jarlskog invariant to
+vanish.}
 
-\textbf{Step 3:} T-invariant Yukawa couplings at each scale are
-simultaneously real in an appropriate basis {[}16, §6.3{]}. Real Yukawa
-matrices have \(\arg\det(Y_u Y_d) = 0\). Combined with θ = 0 (Theorem
-18): \(\bar{\theta} = 0\) at every scale of the constructed emergent
-description. \(\square\)
+\emph{Proof.} The first two statements are Theorem 18 and Proposition
+20. For the last: two matrices real in one common basis have real
+orthogonal singular value decompositions, so the mismatch unitary
+\(V_{\rm CKM}=O_u^{\mathrm T}O_d\) is real orthogonal and \(J=0\), a
+rephasing-invariant statement. \(\square\)
 
-Step 3 requires \textbf{simultaneous} reality --- that \(Y_u\) and
-\(Y_d\) are real in one common basis --- and that is what a
-\(T\)-invariant \(H_{\text{eff}}\) supplies. The weaker statement that
-each Yukawa is real in \emph{its own} mass basis is vacuous: every
-complex matrix is diagonal and positive in its own mass basis by
-singular value decomposition, so it would give \(\arg\det(Y_uY_d) = 0\)
-for any Yukawa sector whatever. The common-basis reading that carries
-this step also forces \(V_{\text{CKM}} = O_u^{\mathrm{T}}O_d\) to be
-real orthogonal and the Jarlskog invariant to vanish identically; see
-the scope discussion in §5.5, condition (i).
-
-\emph{Remark.} This proof bypasses the instanton question. T-invariance
-of the transition probabilities is an exact consequence of the bijection
-structure, holding at every time scale without perturbative or
-non-perturbative approximation. The RG flow cannot generate T-violation
-because the underlying bijection structure forbids it at every scale.
-
-\emph{Remark (scope of Theorem 21).} The vanishing of \(\bar\theta\)
-does not extend to the flavor-sector CP-violating phases observed in CKM
-and PMNS mixing. These phases arise from a distinct structural source
-and are treated as solution-specific inputs; see §5.4 for the scope
-distinction and its pre-registration.
-
-\textbf{Conditional prediction:} \(\bar{\theta} = 0\) with no axion
-required, \emph{within the construction}. The framework does not yet
-deliver a quantitative neutron-EDM prediction: an exactly vanishing
-\(d_n\) follows only if \(\bar\theta = 0\) survives the conditions of
-§5.5, and until radiative stability against a CP-violating weak sector
-is established the framework's commitment is the weaker one that \(d_n\)
-lies below the current bound,
-\(|d_n| < 1.8 \times 10^{-26}\;e\cdot\text{cm}\) {[}19{]}.
+The strong CP problem is therefore open in this construction, under two
+named conditions: \textbf{H-top} (select \(\theta=0\) over \(\pi\)) and
+\textbf{H-det} (\(\arg\det(Y_uY_d)=0\) while leaving the
+rephasing-invariant flavor quartets free). The framework makes no
+prediction for the neutron electric dipole moment; a measured
+\(\bar\theta\neq0\) would constrain mechanisms proposed for H-det, not
+the T-symmetry of the substratum, which Theorem 19 shows is compatible
+with any value of \(\bar\theta\). The narrowing of the target is partly
+a relief: reciprocal probabilities can hide genuine loop phases, so
+classical detailed balance need not kill weak CP violation, and there is
+no algebraic conflict between \(\arg\det(Y_uY_d)=0\) and
+\(J_{\rm CKM}\neq0\) --- take \(Y_u=D_u>0\) and \(Y_d=VD_d\) with
+\(D_d>0\) and \(V\) a complex CKM-type \(SU(3)\) matrix. Chiral grading
+alone cannot help: for
+\(\mathcal M=\begin{pmatrix}0&Y\\ Y^\dagger&0\end{pmatrix}\),
+\(\det\mathcal M=(-1)^n|\det Y|^2\) and the phase of \(\det Y\) is gone.
+Falsification control for any proposed mechanism: if it makes \(Y_u\)
+and \(Y_d\) simultaneously real it has solved too much, since it also
+predicts \(J_{\rm CKM}=0\) (Theorem 21).
 
 \hypertarget{scope-flavor-sector-cp-violation-as-solution-specific-input}{%
 \subsubsection{5.4 Scope: flavor-sector CP violation as
 solution-specific
 input}\label{scope-flavor-sector-cp-violation-as-solution-specific-input}}
 
-Theorem 21 establishes \(\bar\theta = 0\), the \emph{static} CP-odd
-combination \(\theta + \arg\det(Y_u Y_d)\) --- the quantity that couples
-to QCD instantons and would generate a neutron electric dipole moment.
-The theorem does \emph{not} forbid the CKM and PMNS CP-violating phases
-observed in flavor-changing processes. This subsection delineates the
-scope of the \(\bar\theta = 0\) result and makes explicit that the
-framework treats flavor-sector CP phases as solution-specific inputs
-rather than framework-level predictions.
-
-\textbf{The distinction.} \(\bar\theta\) is a property of
-\(\det(Y_u Y_d)\): it depends only on the products of Yukawa eigenvalues
-and vanishes whenever each Yukawa matrix is individually diagonalizable
-to real form. CKM CP violation, by contrast, is encoded in the Jarlskog
-invariant \(J \approx 3 \times 10^{-5}\) and arises from the \emph{basis
-mismatch} between the up-type and down-type Yukawa mass eigenstates. In
-the Standard Model the Yukawas are not required to be real in any common
-basis: each is real in its own mass basis, the up-type and down-type
-mass bases generically differ by a unitary transformation, and when that
+The CKM and PMNS CP-violating phases are treated as solution-specific
+inputs rather than framework-level predictions. \(\bar\theta\) is a
+property of \(\det(Y_u Y_d)\), the static CP-odd combination that
+couples to QCD instantons and would generate a neutron electric dipole
+moment; CKM CP violation is encoded in the Jarlskog invariant
+\(J \approx 3 \times 10^{-5}\) and arises from the basis mismatch
+between the up-type and down-type Yukawa mass eigenstates. In the
+Standard Model the Yukawas are not required to be real in any common
+basis: each is real in its own mass basis, the two mass bases
+generically differ by a unitary transformation, and when that
 transformation has complex entries that cannot be absorbed by field
-redefinitions the resulting CKM matrix contains an irreducible
-CP-violating phase {[}16, §6.3{]}. That route is closed in the present
-construction, and the difference is the premise. The detailed balance of
-Theorem 19, holding at every time scale as Theorem 21 Step 1 requires,
-is equivalent to \(H_{\text{eff}}\) being rephasing-equivalent to a real
-symmetric matrix --- the obstruction enters at third order in \(t\) and
-is the rephasing-invariant triangle phase, which must vanish. Two
-matrices real in a common basis have real orthogonal singular value
-decompositions, so the mismatch unitary is real orthogonal and \(J = 0\)
-exactly. The consequence for the scope of Theorem 21 is stated in §5.5,
-condition (i).
+redefinitions the CKM matrix contains an irreducible phase {[}16,
+§6.3{]}. The present construction leaves that route open. Reciprocity of
+the visible transition counts (Theorem 19) does not force the Yukawas
+into a common real basis (Proposition 20): the \(O(t^3)\) triangle-phase
+criterion that would do so for a fully coupled three-level system is
+silent on the bipartite staggered sector of §4.8, so \(J\) is not
+constrained by the construction's discrete symmetries. The
+basis-alignment unitary is a solution-specific property of the
+particular bijection \(\varphi\), analogous to the absolute scale of
+fermion masses (§7.6) and the specific eigenvalues of the Yukawa
+matrices.
 
-\textbf{What the framework does and does not derive.} T-invariance at
-the substrate level (Theorem 17) plus detailed balance (Theorem 19)
-forces each Yukawa matrix to be individually diagonalizable to real
-form, fixing \(\bar\theta = 0\) at every scale of the construction
-(Theorem 21, conditional per §5.5). It does \emph{not} force the up-type
-and down-type mass bases to coincide. The basis-alignment unitary is a
-solution-specific property of the particular bijection \(\varphi\),
-analogous to the absolute scale of fermion masses (§7.6) and the
-specific eigenvalues of the Yukawa matrices: the framework derives the
-structural form of the Yukawa sector but does not predict the
-basis-alignment parameters. What the construction does force is that
-both Yukawas are real in one common \emph{interaction} basis, and that
-alone makes the mismatch unitary real orthogonal, hence \(J = 0\),
-whatever the mass bases are. The CKM and PMNS CP-violating phases are
-therefore not accommodated by the framework's structural commitments as
-they stand; §5.5, condition (i), states what remains open and what does
-not.
-
-\textbf{The reducible phases are exactly the field redefinitions
-(nullity).} The \(\bar\theta = 0\) result relies on a supporting fact
-worth stating precisely: among the CP phases carried by a T-invariant
-Yukawa sector, those that are physically vacuous --- removable by field
-redefinition --- are \emph{exactly} the diagonal rephasings, and nothing
-else is spuriously counted as removable. Cast in the natural language: a
-phase assignment \(\theta_{ab}\) on generation pairs is
-field-redefinition-removable iff it is a coboundary
-\(\theta_{ab} = \alpha_a - \alpha_b\) of a rephasing vector \(\alpha\).
-The claim that the removable phases \emph{exhaust} the closed ones ---
-those consistent around every triangle
+\textbf{Which phases a Yukawa sector can hide (nullity).} Among the CP
+phases carried by a Yukawa sector, those that are physically vacuous ---
+removable by field redefinition --- are exactly the diagonal rephasings,
+and nothing else is spuriously counted as removable. A phase assignment
+\(\theta_{ab}\) on generation pairs is field-redefinition-removable iff
+it is a coboundary \(\theta_{ab} = \alpha_a - \alpha_b\) of a rephasing
+vector \(\alpha\). The claim that the removable phases exhaust the
+closed ones --- those consistent around every triangle
 \(\theta_{ab} + \theta_{bc} + \theta_{ca} = 0\) --- is the vanishing of
 the first cohomology of the generation-coupling complex. For the
 physical sector, where all three generations couple pairwise, that
 complex is the filled triangle \(K_3\), which is simply connected, so
 \(H^1 = 0\): every closed phase configuration is a coboundary, and the
 only irreducible phase is the single Jarlskog invariant that survives
-\(H^1\) of the \emph{mismatch} between the up- and down-sectors. The
-result generalizes to any number of generations whose coupling graph is
-chordal (every cycle triangulated); it can fail only on a coupling graph
-with an unfilled cycle, which the all-pairs-coupled generation structure
-excludes. This closes the nullity step numerically observed across
-generation counts, replacing the case check with the topological
-identity \(H^1(K_n) = 0\).
+\(H^1\) of the mismatch between the up- and down-sectors. The result
+generalizes to any number of generations whose coupling graph is chordal
+(every cycle triangulated); it can fail only on a coupling graph with an
+unfilled cycle --- which is exactly the bipartite situation of
+Proposition 20, where a loop phase survives with no triangle to
+constrain it.
 
 \textbf{Pre-registration.} Flavor-sector CP phases are listed as
 solution-specific inputs in §8.3 and in the pre-registered falsification
@@ -3332,98 +3508,47 @@ commitment to any specific value of \(\delta_{\text{CKM}}\),
 parameters \((\rho, \eta)\), and the measurement of these quantities
 does not bear on the framework's structural status.
 
-\hypertarget{scope-of-theorem-21-what-is-established-and-what-is-not}{%
-\subsubsection{5.5 Scope of Theorem 21: what is established and what is
-not}\label{scope-of-theorem-21-what-is-established-and-what-is-not}}
+\hypertarget{scope-what-is-established-and-what-is-not}{%
+\subsubsection{5.5 Scope: what is established and what is
+not}\label{scope-what-is-established-and-what-is-not}}
 
-Theorem 21 is a statement about the construction of §2--§4, not yet
-about the physical Standard Model, and this subsection states the gap
-precisely so the result is not read as more than it is.
+\emph{What is established.} T-invariance of the wave equation (Theorem
+17); \(\theta\in\{0,\pi\}\) for a T-invariant emergent Lagrangian
+(Theorem 18); reciprocity of the visible transition counts at every time
+scale, in the general form \(T_{ij}=T_{\theta j,\theta i}\) (Theorem
+19); that reciprocity does not make the emergent Hamiltonian T-invariant
+(Proposition 20); and that the construction therefore does not fix
+\(\bar\theta\) (Theorem 21). Nothing in these statements depends on
+instanton dynamics.
 
-\emph{What is established.} Given an exactly \(T\)-invariant substratum
-bijection and the detailed balance that follows from it, the emergent
-Hamiltonian is \(T\)-invariant, the \(\theta\)-term is excluded, and
-\(T\)-invariant Yukawas are simultaneously real, so \(\bar\theta = 0\)
-at every scale of the emergent description the construction produces.
-This is a kinematic consequence of the symmetry assumed at the
-substratum; nothing in it depends on instanton dynamics.
+\emph{What is not established.} Two conditions stand between the
+construction and a resolution of the strong CP problem, and neither is
+discharged here: \textbf{H-top}, the selection of \(\theta=0\) over
+\(\theta=\pi\); and \textbf{H-det}, a mechanism fixing
+\(\arg\det(Y_uY_d)=0\) at the emergent level --- the level at which
+\(\bar\theta\) is measured --- while leaving the flavor quartets free.
+Downstream of them stand radiative stability against the CP-violating
+weak sector and a quantitative neutron-EDM prediction with an error;
+neither can be addressed before H-det has content. The framework's
+commitment on strong CP is accordingly a statement of what T-invariance
+does and does not fix, and the two conditions are tracked as part of the
+matter-sector programme of §8.9.
 
-\emph{What is not established.} Four conditions stand between that
-statement and a resolution of the strong CP problem, and none is
-discharged here.
-
-\begin{enumerate}
-\def\labelenumi{(\roman{enumi})}
-\tightlist
-\item
-  \textbf{A consistent CP-violating weak sector.} §5.4 places the
-  observed CKM and PMNS phases outside the theorem's scope by
-  attributing them to solution-specific basis alignment. That division
-  does not survive. Detailed balance at \textbf{every} time scale ---
-  the premise Theorem 21 Step 1 asserts --- is equivalent to the
-  emergent Hamiltonian being rephasing-equivalent to a real symmetric
-  matrix: expanding \(U = e^{-iHt}\), the antisymmetric part of
-  \(|U_{ij}|^2\) enters at \(O(t^3)\) with coefficient
-  \(-2\,\mathrm{Im}[H_{ij}(H^2)^*_{ij}]\), which for a three-level
-  system reduces to the rephasing-invariant triangle phase
-  \(\mathrm{Im}[H_{12}H_{23}H_{31}]\); a Hermitian matrix is
-  rephasing-equivalent to a real one exactly when that vanishes. A real
-  \(H_{\text{eff}}\) places \(Y_u\) and \(Y_d\) in a common real basis,
-  and two real matrices have real orthogonal singular value
-  decompositions, so \(V_{\text{CKM}}\) is real orthogonal and the
-  Jarlskog invariant vanishes identically --- a rephasing-invariant
-  statement, so no field redefinition recovers it.
-\end{enumerate}
-
-A quantitative computation on the emergent operator of the §4.8
-reconstruction settles both horns. If the operator is
-octahedral-equivariant, the Jarlskog invariant vanishes identically. If
-the equivariance is broken, the Jarlskog and the forbidden \(E_g\)
-rotational anisotropy turn on together --- measured exponents
-\(J \sim \varepsilon^{3}\) and \(E_g \sim \varepsilon\) --- so the
-breaking strength that reproduces the observed \(J = 3.0\times10^{-5}\)
-produces a fractional \(E_g\) anisotropy of order \(10^{-3}\), some
-twelve orders of magnitude above dimension-four
-rotational-Lorentz-violation bounds, in the most favourable of the
-sampled breaking directions and sector assignments. Within the
-construction, rotational isotropy and CP conservation stand or fall
-together, and observation requires one of each. The supports of this
-conclusion are the identification of the §4.8 staggered reconstruction
-as the coarse-graining map, the all-order detailed balance asserted in
-Theorem 21 Step 1, and the single-hypercube operator family on which the
-exponents were measured.
-
-\begin{enumerate}
-\def\labelenumi{(\roman{enumi})}
-\setcounter{enumi}{1}
-\item
-  \textbf{An explicit \(\bar\theta\)-fixing mechanism at the emergent
-  level.} The argument fixes \(\bar\theta\) by symmetry of the
-  substratum. A mechanism operating on the emergent effective Lagrangian
-  --- the level at which \(\bar\theta\) is measured --- is not supplied,
-  and the transfer from the one level to the other is the step the
-  construction assumes rather than proves.
-\item
-  \textbf{Radiative stability.} In the Standard Model a CP-violating
-  weak sector regenerates \(\bar\theta\) radiatively, at high loop order
-  and far below the experimental bound but not at zero. Once condition
-  (i) is met, the framework owes an argument that its \(\bar\theta = 0\)
-  survives that regeneration. ``Exactly zero at all energy scales'' is
-  not sustainable as a claim about the physical theory before that
-  argument exists.
-\item
-  \textbf{A quantitative neutron-EDM prediction.} The falsification
-  statement attached to this result should be a predicted \(d_n\) with
-  an error, or a bound the framework commits to. An exactly vanishing
-  \(d_n\) is a prediction of the construction, not yet of the framework
-  applied to the observed world.
-\end{enumerate}
-
-Accordingly the framework's commitment on strong CP is:
-\(\bar\theta = 0\) at the kinematic level of the lattice construction, a
-conditional result. The four conditions above are the content of the
-open item, and are tracked as part of the matter-sector programme of
-§8.9.
+\emph{A reported computation, not available for verification.} A
+computation on the emergent operator of the §4.8 reconstruction reported
+that an octahedral-equivariant single-hypercube operator gives a
+vanishing Jarlskog invariant, and that breaking the equivariance turns
+on \(J\) and the \(E_g\) rotational anisotropy together, with measured
+exponents \(J \sim \varepsilon^{3}\) and \(E_g \sim \varepsilon\), so
+that the breaking strength reproducing \(J = 3.0\times10^{-5}\) would
+produce a fractional \(E_g\) anisotropy of order \(10^{-3}\) in the most
+favourable of the sampled directions. Its driver and numerical output
+are not available for verification, and its framing rested on reading
+reciprocity as all-order reality of \(H_{\rm eff}\), which Proposition
+20 removes. If the equivariance statement stands on its own, it is a
+tension for the flavor sector --- the observed \(J\) would require
+octahedral breaking that the rotational bounds of §3.1 exclude --- and
+it is recorded here as such, not as a result of this paper.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -6388,12 +6513,12 @@ predictions}\label{summary-table-of-all-predictions}}
 
 Twenty-two quantitative observables from a \(d = 3\) cubic lattice with
 spacing \(\epsilon = 2\,l_P\), classified by input status: \textbf{S} =
-strictly parameter-free structural; \textbf{L} = layered (structural
-form combined with a Layer-2(b) substrate-specific coefficient or
-Layer-3 empirical input --- see §8.3 four-layer framing); \textbf{M} =
-one-input mass/parameter chain; \textbf{E} = uses explicit empirical
-input; \textbf{R} = retrodiction; \textbf{P} = phenomenological/ansatz
-input.
+parameter-free structural (no fitted input; the cubic substratum itself
+is empirically selected, §8.3); \textbf{L} = layered (structural form
+combined with a Layer-2(b) substrate-specific coefficient or Layer-3
+empirical input --- see §8.3 four-layer framing); \textbf{M} = one-input
+mass/parameter chain; \textbf{E} = uses explicit empirical input;
+\textbf{R} = retrodiction; \textbf{P} = phenomenological/ansatz input.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2308}}
@@ -6640,10 +6765,10 @@ structural-or-near-structural class.
 
 In addition: the SM gauge group; threefold taste multiplicity --- three
 candidate generations, physical reading under H-spin', chirality under
-H-χ', spectrum selection open; \(\bar\theta = 0\) within the
-construction (§5.5's four conditions); Majorana neutrinos; normal mass
-ordering --- all consistent with data. The matter-sector chain, open
-links marked:
+H-χ', spectrum selection open; strong CP open --- \(T\)-invariance fixes
+\(\theta\in\{0,\pi\}\) and reciprocity, not \(\bar\theta\) (§5, H-top
+and H-det); Majorana neutrinos; normal mass ordering --- all consistent
+with data. The matter-sector chain, open links marked:
 \[\text{taste} \xrightarrow{\text{H-spin'}} \text{Lorentz spin} \xrightarrow{\text{H-}\chi\ (\text{sharpened})} \text{weak chirality} \to \text{selected light spectrum} \to \text{three SM generations},\]
 established through the first node's label content (Theorem 9); each
 subsequent arrow is a named open input. Per-link statuses:
@@ -7025,11 +7150,10 @@ cubic-invariant operators contributing to the Yukawa sector beyond
 whatever structural relations (such as Condition 2 of §7.3, a stated
 structural input whose second-order derivation route is excluded by the
 monomial-orthogonality result there, and which the \(7/6\) sum rule
-tests directly) constrain them. The CP phases are explicitly compatible
-with Theorem 21: the theorem establishes \(\bar\theta = 0\) (the
-determinant-phase combination) but does not constrain the
-basis-alignment structure that produces the Jarlskog invariant (see §5.4
-for the full scope statement).
+tests directly) constrain them. The CP phases are compatible with §5:
+the construction fixes neither \(\bar\theta\) nor the basis-alignment
+structure that produces the Jarlskog invariant, and reciprocity of the
+transition counts leaves both free (§5.4).
 
 The framework's predictions stratify into four layers, made precise here
 for downstream reference:
@@ -7041,11 +7165,11 @@ Hold for every bijection. Examples: the gauge group
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) with
 multiplicities \((3, 2, 1)\), three generations (chirality conditional
 on H-χ' in its sharpened form (the minimal embedding certified
-vector-like), §4.8), anomaly-cancelling hypercharges,
-\(\bar\theta = 0\), Majorana neutrinos with normal mass ordering, the
-TBM zeroth-order pattern (\(\sin^2\theta_{12} = 1/3\) etc.), the Higgs
-as \(A_1\) taste, the universal induced coupling \(1/\alpha_0 = 23.25\)
-from \(N_f = 6\) and \(T(R) = 1/2\).
+vector-like), §4.8), anomaly-cancelling hypercharges, Majorana neutrinos
+with normal mass ordering, the TBM zeroth-order pattern
+(\(\sin^2\theta_{12} = 1/3\) etc.), the Higgs as \(A_1\) taste, the
+universal induced coupling \(1/\alpha_0 = 23.25\) from \(N_f = 6\) and
+\(T(R) = 1/2\).
 
 \emph{Layer 1 --- Structural form of corrections.} Properties of the
 \emph{form} of the perturbative expansion around the zeroth-order
@@ -7289,10 +7413,8 @@ its nearest-neighbor and linearity stipulations, and the alphabet ---
 and the trace-out map \(T\). Then the emergent gauge group, the
 candidate-sector count (\(1 \oplus 3\); its reading as three physical
 generations is conditional on H-spin', §4.7), the anomaly-free
-hypercharge assignment given the sector pattern, the vanishing of
-\(\bar\theta\) within the constructed description (§5.5: not the
-Standard Model's strong CP problem), and the Cabibbo angle are each
-determined as functions of \((C,T)\)} --- by the octahedral
+hypercharge assignment given the sector pattern, and the Cabibbo angle
+are each determined as functions of \((C,T)\)} --- by the octahedral
 representation theory of §4.5--4.7 together with the chiral/taste
 structure of §5 and §7. This is the conjunction of the structural
 results already proved above, restated as a single determination claim;
@@ -7679,8 +7801,9 @@ Trace-out role
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-T-invariance of the wave equation (§5) & \(\theta = 0\) in QCD & Forces
-parameter value \\
+T-invariance of the wave equation (§5) & \(\theta \in \{0,\pi\}\) in
+QCD; \(\bar\theta\) not fixed & Narrows parameter value; H-top, H-det
+open \\
 Topology of induced \(\mathrm{SU}(2)\) gauge action (via
 fermion-determinant index) & Sphalerons, \(B+L\) violation & Permits
 standard mechanism \\
@@ -7704,14 +7827,16 @@ Hooft determinant interaction; \(\eta'\) mass via Witten-Veneziano &
 Standard mechanism (open derivation in framework) \\
 \end{longtable}
 
-The framework's treatment of the strong CP problem (§5: substratum
-T-invariance forces \(\theta = 0\)) is one instance of this pattern:
-substratum-level symmetry forces a value of an emergent parameter that
-would otherwise be free. The substratum-level \(B\) conservation derived
-above is another instance: substratum-level structural feature provides
-exact conservation that maps to bilinear-renormalizable conservation at
-the emergent level, with non-perturbative violations through emergent
-processes only.
+The framework's treatment of the strong CP problem (§5) is not yet an
+instance of this pattern --- substratum T-invariance narrows \(\theta\)
+to \(\{0,\pi\}\) and gives reciprocal transition counts, but does not
+fix \(\bar\theta\); it would become one if H-top and H-det were
+supplied. The pattern is: substratum-level symmetry forces a value of an
+emergent parameter that would otherwise be free. The substratum-level
+\(B\) conservation derived above is another instance: substratum-level
+structural feature provides exact conservation that maps to
+bilinear-renormalizable conservation at the emergent level, with
+non-perturbative violations through emergent processes only.
 
 \textbf{Empirical implications.} The composite picture supports the
 framework's existing predictions and clarifies their structural origins:
@@ -7784,14 +7909,15 @@ naturalness
 pattern}\label{composite-higgs-chiral-protection-and-the-unified-naturalness-pattern}}
 
 The framework's treatment of three open problems of the Standard Model
---- strong CP, the hierarchy problem, the cosmological constant ---
-exhibits a common structural pattern: each is dissolved by a
-substratum-level structural feature that forces an emergent parameter
-value which would otherwise be naturally at the cutoff. This subsection
-articulates the pattern and develops its hierarchy-problem instance
-(composite-Higgs chiral protection) which extends the framework's
-existing treatment of strong CP (§5) and the cosmological constant
-({[}GR §6{]}).
+--- strong CP, the hierarchy problem, the cosmological constant --- is
+organized by a common structural pattern: a substratum-level structural
+feature forces, or narrows, an emergent parameter value which would
+otherwise be naturally at the cutoff. The hierarchy problem and the
+cosmological constant are the two instances; strong CP is the pattern's
+missing instance, since §5 narrows \(\theta\) without fixing
+\(\bar\theta\). This subsection articulates the pattern and develops its
+hierarchy-problem instance (composite-Higgs chiral protection) alongside
+the treatment of the cosmological constant ({[}GR §6{]}).
 
 \textbf{The unified naturalness pattern.} Standard quantum field theory
 has three classical naturalness problems where dimensionless parameters
@@ -7816,11 +7942,13 @@ instance per problem:
 \def\labelenumi{(\roman{enumi})}
 \item
   \emph{Strong CP} (§5, Theorems 17--21): substratum-level T-invariance
-  of the wave equation combined with detailed balance in the emergent
-  Hamiltonian forces \(\bar\theta = 0\) at the kinematic level of the
-  construction. The structural feature is T-invariance; the protected
-  emergent parameter is \(\bar\theta\). This instance of the pattern is
-  conditional in the sense of §5.5, and is the weakest of the three.
+  of the wave equation narrows \(\theta\) to \(\{0,\pi\}\) and gives
+  reciprocal visible transition counts at every scale, but reciprocity
+  does not make the emergent Hamiltonian T-invariant, so
+  \(\arg\det(Y_uY_d)\) and hence \(\bar\theta\) are not fixed. The
+  structural feature is T-invariance; the parameter it would protect is
+  \(\bar\theta\); the instance is open under H-top and H-det, and is the
+  weakest of the three.
 \item
   \emph{Hierarchy problem} (developed below): the staggered-taste chiral
   symmetry pairing \(\mu = +1\) singlet with \(\mu = -1\) singlet
@@ -8055,12 +8183,11 @@ all three PMNS angles within \(1.1\sigma\) --- with
 empirical input to better than \(1\%\), and the SM gauge couplings at
 \(M_Z\) to \(0.1\%\) and \(0.3\%\) (the SU(2) and SU(3) values being
 retrodictions matched through the threshold parameters, not
-first-principles predictions; §6.3). For strong CP the paper derives
-\(\bar\theta = 0\) within the lattice construction, with no axion
-required, and then shows in §5.5 that the derivation cannot be carried
-to the Standard Model without also removing CKM CP violation --- so the
-strong CP problem is not dissolved here, pending the four conditions of
-§5.5.
+first-principles predictions; §6.3). For strong CP the paper shows that
+substratum T-invariance gives \(\theta\in\{0,\pi\}\) and reciprocal
+transition counts but not a T-invariant emergent Hamiltonian, so
+\(\bar\theta\) is not fixed by the construction; the problem is open
+under two named conditions, H-top and H-det (§5).
 
 The framework is sharply falsifiable by experiments now in progress or
 under construction. JUNO's first results (November 2025) are matched at
@@ -8078,26 +8205,28 @@ its successors corroborates structural predictions of the framework,
 which forbids all such states.
 
 The cosmological application of the same framework --- including the
-derivation of \(\hbar\) from the cosmological horizon, the
-Bekenstein-Hawking area law including the \(1/4\) coefficient, the
-dissolution of the cosmological constant problem, and the prediction of
-dynamical dark energy in Type II running-vacuum functional form
-(structural prediction; magnitude not derived at theorem level but
-consistent with the Bertini et al.~2025 direct DESI-DR2-era fit at
-\(2\sigma\)) --- is developed in {[}GR{]}. The substratum-level
-reconstruction theorem, the substratum gauge group, and the synthesis
-claim that quantum mechanics, general relativity, and the arrow of time
-descend as three projections of the same \((S, \varphi)\) are developed
-in {[}Substratum{]}. Together, this four-paper synthesis ({[}Main{]},
-{[}SM{]}, {[}GR{]}, {[}Substratum{]}) makes a single claim: the Standard
-Model, general relativity, and the arrow of time are three projections
-of one finite deterministic construction --- the visible-sector
-projection developed here, the boundary-level thermodynamic limit
-developed in {[}GR{]}, and the horizon-clock-plus-observer-selection
-projection developed in {[}Substratum §5.4{]}. The fifth core paper
-{[}Structure{]} articulates the framework's two-dimensional hierarchical
-structural realism and develops its relationship to other unification
-programs through universality classes of embedded observers.
+derivation of \(\hbar\) from the cosmological horizon and the
+Bekenstein-Hawking area law including the \(1/4\) coefficient (both
+conditional on the horizon conditions recorded there), the dissolution
+of the cosmological constant problem at the descriptive level, and dark
+energy in running-vacuum form (the functional form the local expansion
+shared by every smooth model; the content the Type II channel, with
+magnitude not derived at theorem level but consistent with the Bertini
+et al.~2025 direct DESI-DR2-era fit at \(2\sigma\)) --- is developed in
+{[}GR{]}. The substratum-level reconstruction theorem, the substratum
+gauge group, and the synthesis claim that quantum mechanics, general
+relativity, and the arrow of time descend as three projections of the
+same \((S, \varphi)\) are developed in {[}Substratum{]}. Together, this
+four-paper synthesis ({[}Main{]}, {[}SM{]}, {[}GR{]}, {[}Substratum{]})
+makes a single claim: the Standard Model, general relativity, and the
+arrow of time are three projections of one finite deterministic
+construction --- the visible-sector projection developed here, the
+boundary-level thermodynamic limit developed in {[}GR{]}, and the
+horizon-clock-plus-observer-selection projection developed in
+{[}Substratum §5.4{]}. The fifth core paper {[}Structure{]} articulates
+the framework's two-dimensional hierarchical structural realism and
+develops its relationship to other unification programs through
+universality classes of embedded observers.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -8469,4 +8598,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: 56cb43cb0fdce63bd1f2ba927d2f22b304ac6f5a40709b144d7e51ff4b6ba7bb
+% source-sha256: ede3f1c1505e36ea3a68b43f370e96bb35f75bc5f97516da5a17e01c7b23a150

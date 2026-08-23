@@ -25,7 +25,8 @@ import os, re, sys
 # about it NEGATIVELY -- "no framework derives m=1 from ... coupling-degree
 # minimization" and "coupling-degree minimization as the DEFINITION of a site"
 # are both correct usages, not assertions of the withdrawn proof.
-MARKERS = ('H-link', 'H-spin', 'conditional', 'CONDITIONAL', 'not establish',
+MARKERS = ('H-link', 'H-spin', 'H-balance', 'H-Hawking', 'H-spectrum', 'H-cust', 'H-blind',
+           'H-frame', 'H-scramble', 'H-shell', 'H-slope', 'kinematic in its parameter', 'conditional', 'CONDITIONAL', 'not establish',
            'does not answer', 'does not close', 'premise', 'withdrawn',
            'is not a proof', 'No framework derives', 'no framework derives',
            'definition*', 'assumption', 'does not', 'cannot', 'not a proof',
@@ -37,6 +38,22 @@ CLAIMS = [
      "b_m: 'forces a Euclidean quadratic symbol'"),
     (re.compile(r'leading scalar propagation geometry is Euclidean'),
      "b_m: leading geometry asserted Euclidean"),
+    # GR layer. Each phrase asserts unconditionally something the manuscript
+    # marks conditional elsewhere. All six shipped past a green gate at least
+    # once, because an added correction and the statement it supersedes both
+    # pass every other check.
+    (re.compile(r'state-independent'),
+     "GR: T_Q asserted state-independent (H-balance)"),
+    (re.compile(r'purely kinematic'),
+     "GR: thermality asserted purely kinematic (H-balance)"),
+    (re.compile(r'must therefore be periodic|must be KMS|any QFT on this background'),
+     "GR: unconditional KMS periodicity (H-Hawking)"),
+    (re.compile(r'any QFT on a bifurcate|exact free-level cone per channel'),
+     "GR: paraphrase of a superseded unconditional claim"),
+    (re.compile(r'free-level cone is exact'),
+     "GR: exact free-level cone (false on the normalized d=3 branch)"),
+    (re.compile(r'(\\v?arepsilon|\\epsilon)\s*\\kappa\s*/\s*c\b(?!\^)'),
+     "GR: epsilon*kappa/c should be epsilon*kappa/c^2"),
 ]
 
 def main():

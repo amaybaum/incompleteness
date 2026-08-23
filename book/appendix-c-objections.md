@@ -209,7 +209,7 @@ This is structurally distinct. Baryon-number conservation, for example, is exact
 
 These empirical patterns are not generic effective-field-theory predictions; they are specific structural predictions of the framework's substratum-emergent operator distinction. The standard fundamental/effective distinction does not predict these patterns. The framework's distinction is therefore *substantively* different from the standard one, with specific empirical signatures that test the difference.
 
-**The methodological asymmetry.** The framework's substratum-emergent distinction operates *the same way* in fundamental physics and in biology. The same structural pattern that organizes strong CP, baryon-number conservation, and anomaly matching in fundamental physics also organizes iPSC reprogramming residuals, bivalent chromatin states, and methylation classification in biology. The standard fundamental/effective distinction does not have this cross-domain reach — it is specifically a tool of effective field theory, not a general structural principle.
+**The methodological asymmetry.** The framework's substratum-emergent distinction operates *the same way* in fundamental physics and in biology. The same structural pattern that organizes baryon-number conservation and anomaly matching in fundamental physics also organizes iPSC reprogramming residuals, bivalent chromatin states, and methylation classification in biology. The standard fundamental/effective distinction does not have this cross-domain reach — it is specifically a tool of effective field theory, not a general structural principle.
 
 The framework's content is therefore that the substratum-emergent operator distinction is a *general structural principle* with applications across physics and biology, rather than a domain-specific tool. This generality is itself substantive content beyond the standard effective-field-theory distinction.
 
@@ -238,7 +238,7 @@ The structure of the derivation is therefore:
 
 The $\hbar$ being "derived" enters only in the second step (as an unknown to be determined), not in the first step (which provides the geometric input independent of $\hbar$). The derivation is therefore non-circular.
 
-**The lattice-KMS concern.** A related concern is that the KMS periodicity assumes a continuous spacetime, while the framework's substratum is a lattice at $\epsilon = 2 l_p$. The lattice introduces corrections to the KMS periodicity of order $(\epsilon \kappa / c)^2 \sim 10^{-122}$ — far below any observable threshold.
+**The lattice-KMS concern.** A related concern is that the KMS periodicity assumes a continuous spacetime, while the framework's substratum is a lattice at $\epsilon = 2 l_p$. The lattice introduces corrections to the KMS periodicity of order $(\epsilon\kappa/c^2)^2 \sim 10^{-122}$ — far below any observable threshold.
 
 The framework's response: trans-Planckian insensitivity (Jacobson, 't Hooft, Verlinde, and others) ensures the result is robust against UV modifications. The continuum KMS periodicity is the dominant contribution; the lattice corrections are negligible at the relevant scales. The framework's derivation of $\hbar$ is therefore consistent with the lattice structure rather than requiring strict continuum spacetime.
 
