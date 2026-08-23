@@ -323,7 +323,7 @@ Three lines of empirical evidence confirm this distinction operates in biology:
 
 (iii) *Multi-timescale chromatin dynamics* (Stasevich et al. 2014; Saxton et al. 2023). Single-molecule and single-cell measurements directly observe distinct dynamics on subsecond and minutes timescales for the same histone modifications on the same nucleosomes. Histone acetylation modulates transcriptional burst frequency rather than burst size (Nicolas-Phillips et al. 2018), a stochastic-emergent-output pattern consistent with the framework's prediction that emergent operators have specific functional relationships to substratum operators rather than being identical to them.
 
-These three phenomena instantiate a single structural pattern — the substratum-emergent operator distinction from [SM §8.7] — at the chromatin level. The pattern is the same one that organizes the SM's treatment of strong CP, baryon number, sphalerons, and anomaly matching; at the chromatin layer it organizes methylation maintenance, bivalent poised states, and transcriptional burst dynamics.
+These three phenomena instantiate a single structural pattern — the substratum-emergent operator distinction from [SM §8.7] — at the chromatin level. The pattern is the same one that organizes the SM's treatment of baryon number, sphalerons, and anomaly matching; at the chromatin layer it organizes methylation maintenance, bivalent poised states, and transcriptional burst dynamics.
 
 ### 9.5 Reader, writer, and eraser pharmacology as the operational substratum-emergent axis
 
