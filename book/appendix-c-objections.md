@@ -238,7 +238,7 @@ The structure of the derivation is therefore:
 
 The $\hbar$ being "derived" enters only in the second step (as an unknown to be determined), not in the first step (which provides the geometric input independent of $\hbar$). The derivation is therefore non-circular.
 
-**The lattice-KMS concern.** A related concern is that the KMS periodicity assumes a continuous spacetime, while the framework's substratum is a lattice at $\epsilon = 2 l_p$. The lattice introduces corrections to the KMS periodicity of order $(\epsilon \kappa / c)^2 \sim 10^{-122}$ — far below any observable threshold.
+**The lattice-KMS concern.** A related concern is that the KMS periodicity assumes a continuous spacetime, while the framework's substratum is a lattice at $\epsilon = 2 l_p$. The lattice introduces corrections to the KMS periodicity of order $(\epsilon\kappa/c^2)^2 \sim 10^{-122}$ — far below any observable threshold.
 
 The framework's response: trans-Planckian insensitivity (Jacobson, 't Hooft, Verlinde, and others) ensures the result is robust against UV modifications. The continuum KMS periodicity is the dominant contribution; the lattice corrections are negligible at the relevant scales. The framework's derivation of $\hbar$ is therefore consistent with the lattice structure rather than requiring strict continuum spacetime.
 

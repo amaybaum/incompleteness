@@ -204,7 +204,7 @@ with unknown dimensionless coefficient $\beta$.
 $$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G}$$
 containing no $\hbar$. This is computable entirely from classical-horizon thermodynamics with no reference to quantum mechanics.
 
-The emergent QFT of the framework's Part I content lives on this classical background, which has a bifurcate Killing horizon with surface gravity $\kappa$ (the bifurcate structure presupposes emergent local boost invariance at the horizon, a dependency carried in [GR §8.5]). Regularity of the Wick-rotated metric at the horizon requires Euclidean period $\beta = 2\pi c / \kappa$; any QFT on this background — including a lattice-regularized one — must therefore be periodic in imaginary time with the same period, giving a KMS state at temperature
+On the exact de Sitter calibration, the emergent QFT of the framework's Part I content lives on a classical background that has a bifurcate Killing horizon with surface gravity $\kappa$ (the bifurcate structure presupposes emergent local boost invariance at the horizon, a dependency carried in [GR §8.5]). Regularity of the Wick-rotated metric at the horizon requires Euclidean period $\beta = 2\pi c / \kappa$; any QFT on this background — including a lattice-regularized one — is periodic in imaginary time with that period only under the H-Hawking conditions, giving a KMS state at temperature
 $$T_Q = \frac{\hbar \kappa}{2\pi c k_B}$$
 with $\hbar$ unknown. This is a theorem *within* the derived QFT, not an external import.
 

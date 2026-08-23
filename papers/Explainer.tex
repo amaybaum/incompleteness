@@ -504,10 +504,25 @@ depends only on the partition. QED.
 \textbf{Why the Liouville measure is unique:} The observer needs a
 ``prior'' --- a way to weight the hidden states. Liouville measure is
 the unique measure on phase space that is absolutely continuous (no
-point masses) and invariant under Hamiltonian flow. Any smooth initial
-distribution evolves toward it. Singular measures are excluded by Lemma
-3's requirement of standard probability theory. The observer has no
-choice.
+point masses) and invariant under Hamiltonian flow. \textbf{Not a
+distinctive prediction (removed from Tier 1).} The expansion below is
+correct but universal: for any smooth \(f(H)\), setting
+\(g(X)=f(\sqrt X)\) with \(X=H^2\) gives
+\(f=g(X_0)+g'(X_0)(H^2-H_0^2)+O((H^2-H_0^2)^2)\) around any \(H_0>0\).
+Every smooth dark-energy model has that local form, and the
+counterfamily \(\rho_\Lambda=\rho_0+A(H^2-H_0^2)+B(H^2-H_0^2)^2\) with
+arbitrary \(B\) satisfies the same boundary \(H\)-dependence with matter
+conserved and the Bianchi relation carried by running \(G\). Nothing in
+the architectural commitments forces \(B=0\), and the running-vacuum
+literature carries even powers of \(H\), \(H^4\) in other regimes, and
+\(\dot H\) terms. So: if ``Type II form'' means the first local Taylor
+term it is non-predictive; if it means a global \(c_0+\nu H^2\) law, it
+is not derived here. The defensible statement is that boundary
+architecture requires SOME state dependence on cosmological geometry,
+whose smooth late-time normal form contains an \(H^2-H_0^2\) term. With
+that said: any smooth initial distribution evolves toward it. Singular
+measures are excluded by Lemma 3's requirement of standard probability
+theory. The observer has no choice.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1331,9 +1346,10 @@ emerges with \emph{some} action scale ℏ; §5 determines \emph{which} ℏ,
 using the independent classical temperature that Part I neither requires
 nor produces. If T\_cl had depended on the deep hidden-sector volume (it
 doesn't --- the boundary-only lemma excludes it), or if T\_Q had been
-state-dependent (it isn't --- the KMS temperature is purely kinematic),
-the matching wouldn't work. That neither pathology obtains makes the gap
-equation a genuine determination.
+state-dependent (it isn't --- the KMS temperature is kinematic in its
+parameter, conditional on H-balance in its class), the matching wouldn't
+work. That neither pathology obtains makes the gap equation a genuine
+determination.
 
 \textbf{Predictive content.} The gap equation relates one free parameter
 (ε) to one output (ℏ), but the derivation has genuine content because it
@@ -1410,9 +1426,10 @@ to known constants. The self-consistency condition pins ε to the Planck
 regime but doesn't predict a number that wasn't already implicitly
 known.
 
-\hypertarget{the-bekenstein-hawking-entropy-why-the-14-factor-is-derived}{%
-\subsubsection{The Bekenstein-Hawking Entropy --- Why the 1/4 factor is
-derived}\label{the-bekenstein-hawking-entropy-why-the-14-factor-is-derived}}
+\hypertarget{the-bekenstein-hawking-entropy-where-the-14-factor-comes-from}{%
+\subsubsection{The Bekenstein-Hawking Entropy --- Where the 1/4 factor
+comes
+from}\label{the-bekenstein-hawking-entropy-where-the-14-factor-comes-from}}
 
 The number of independent modes on the cosmological horizon is:
 
@@ -1423,14 +1440,18 @@ This is the Bekenstein-Hawking entropy:
 \[S_{\text{BH}} = \frac{A}{4 \, l_p^2}\]
 
 The factor of 1/4 --- which Bekenstein and Hawking introduced as a
-proportionality constant in 1973 --- is here derived: each minimal cell
-of area ε² = 4 l\_p² contributes one unit of entropy. The 4 in the
-denominator comes from ε = 2 l\_p.
+proportionality constant in 1973 --- is here fixed by the cell size:
+each minimal cell of area ε² = 4 l\_p² contributes one unit of entropy,
+and the 4 in the denominator comes from ε = 2 l\_p, which the gap
+equation supplies under one named condition on the horizon reservoir
+(H-slope, the infrared detailed-balance condition of {[}GR §3.2{]})
+together with the horizon and frame conditions of {[}GR §2, §8.5{]}.
 
 \textbf{Why this is significant:} The 1/4 factor has been a mystery for
 50 years. Most frameworks either assume it or derive it within
 constructions specifically designed to produce it. Here it follows from
-the gap equation with no additional input.
+the gap equation with no fitted input, under the named horizon
+conditions; the mode count itself, S = A/ε², needs none of them.
 
 \hypertarget{self-consistency-bounds-on-ux3b5}{%
 \subsubsection{Self-consistency bounds on
@@ -1637,7 +1658,9 @@ Vacuum Model: \(\Lambda_{\text{eff}} = \Lambda_0 + \nu H^2\). The
 framework's \emph{structural} commitments --- boundary entropy depends
 on \(H\), matter is conserved in the trace-out, and Bianchi consistency
 then forces \(G(H)\) to run in tandem with \(\rho_\Lambda(H)\) --- fix
-the Type II RVM functional form. The magnitude of \(\nu\) is fixed at
+the Type II channel; the functional form itself is the local expansion
+shared by every smooth dark-energy model ({[}GR §7.1{]}), so the content
+is the channel and the magnitude. The magnitude of \(\nu\) is fixed at
 theorem level by the emergent-QFT calculation: applying standard
 curved-spacetime running to the Standard Model fields at their physical
 masses on the derived classical background yields
@@ -1700,8 +1723,9 @@ structured component --- dark matter --- arises from matter-induced
 entropy displacement: baryonic matter displaces boundary entropy via the
 Clausius relation, the Jacobson mechanism converts the entropy gradient
 into curvature, yielding the MOND acceleration scale
-\(a_0 = cH/6 \approx 1.2 \times 10^{-10}\) m/s² and the baryonic
+\(a_0 = cH/6 \approx 1.1 \times 10^{-10}\) m/s² and the baryonic
 Tully-Fisher relation \(v^4 = GM_B \cdot cH/6\) --- both parameter-free
+once the dimensional factor \(1/6\) is imported from Verlinde's analysis
 (GR, §7.3). That a definition designed to formalize observation also
 account for the dark sector's total budget and internal structure is
 independent corroboration that observational incompleteness is capturing
@@ -2888,11 +2912,12 @@ under H-spin' ({[}SM §4.7{]}).
 
 \textbf{What the framework does not determine.} The coupling matrix
 \(M\) has three independent eigenvalues (\(\mu_c\), \(\mu_w\),
-\(\mu_y\)), constrained by the max-speed condition to have
-\(\mu_y = 1\). The remaining two eigenvalues set the strong and weak
-coupling strengths at the lattice scale. These, along with the Yukawa
-couplings (which determine fermion masses and mixing angles) and the
-Higgs potential parameters, are properties of the specific bijection
+\(\mu_y\)); the argument that a maximum-speed condition fixes
+\(\mu_y = 1\) is not established (SM §4.6), so all three are
+solution-level, the first two setting the strong and weak coupling
+strengths at the lattice scale. These, along with the Yukawa couplings
+(which determine fermion masses and mixing angles) and the Higgs
+potential parameters, are properties of the specific bijection
 \(\varphi\) --- the specific ``universe'' the observer inhabits. The
 companion papers determine the \emph{form} of the laws but not the
 \emph{constants}. However, the universal induced coupling
@@ -2925,9 +2950,10 @@ oscillation minimum (\(\approx 0.059\) eV). DESI DR2+CMB data
 (\(\Sigma m_\nu < 0.064\) eV, normal ordering preferred) are consistent
 with all of these.
 
-Combined with the earlier papers' predictions --- dynamical dark energy
-in Type II RVM structural form (functional form derived from
-boundary-entropy architecture; theorem-level magnitude
+Combined with the earlier papers' predictions --- dark energy in the
+Type II running-vacuum channel (the functional form is the local
+expansion shared by every smooth model, {[}GR §7.1{]}; the content is
+the channel and the magnitude
 \(|\nu| \approx |\nu_{\rm QFT}| \sim 10^{-32}\), consistent with Bertini
 2025's value-consistent-with-zero measurement at \(2\sigma\)), dark
 matter from galaxies through clusters to the Bullet Cluster, gauge
@@ -3664,4 +3690,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: b5db26290b1558087a1a974a1a3a739eb1a69e089f6ec70d4b8f79d8ef9b301c
+% source-sha256: 7b063ecac8745ce332b471deadd7bafa0cc1205d19da6e9382105431470aaa4f

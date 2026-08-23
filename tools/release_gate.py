@@ -62,6 +62,11 @@ def main():
         ("citation",  [sys.executable, "papers/oi_lattice_code/citation_check.py"]),
         ("architecture",
                       [sys.executable, "papers/oi_lattice_code/architecture_check.py"]),
+        # dependency-label guard: a "(derived)"/Tier-label paragraph that cites
+        # a section carrying a named condition. Strict: any hit fails the gate
+        # (the check also runs its own self-test every time).
+        ("dependency-label",
+                      [sys.executable, "tools/dependency_label_check.py", "--strict"]),
     ]
     # baselines are named in the TRANSFER's docs, not the manuscript tree, so
     # point the label check there when a transfer path is supplied
