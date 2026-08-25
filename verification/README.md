@@ -1,7 +1,24 @@
-# verification/ — the additive proof-verification layer (owner-directed, b404)
+# Verification suite
 
-This directory holds machine-checkable verification artifacts for the OI framework,
-beginning with the LEAN-FULL Lean 4 audit (`lean/`). It is strictly additive to the
-published 3.0.0 artifact set: `lean/MANIFEST-baseline-3.0.0.sha256` records every
-pre-existing file's hash, and the session-transfer probes re-verify that set byte-identical
-each round. Entry gate for the Lean program: `cd lean && lean OI_B397_Pilot.lean`.
+Machine-checked certificates for the finite and algebraic core of the OI papers, in two
+layers: **Lean 4 proof files** (self-contained, zero dependencies — no Mathlib, no lake
+project) and **numerical probes** (Python 3) that instantiate every hypothesis and
+conclusion on the concrete lattice operators, exactly in integer arithmetic where the
+statements are integer identities.
+
+Contents (`lean/`):
+
+- `OI_Gauge_Certificates.lean` — telescoping/plaquette triviality for arbitrary abelian
+  alphabets; central-sign collapse for every odd q; the kernel-checked cubic counting
+  layer (24 / 72 / 288 / 144) behind the local-gauge closure argument of `papers/SM.md`.
+- `OI_Structural_Core.lean` — Theorem 1a of `papers/SM.md` at operator level (exact
+  projected evolution and kernel equivariance), the Susskind factorization's cancellation
+  mechanism, Theorem 3's chirality algebra, and the quadratic boost-Ward identity.
+- `gauge_certificates_probe.py`, `structural_core_probe.py` — companion checks for the two
+  proof files, including exact certification that the concrete lattice operators satisfy
+  every hypothesis the Lean proofs use.
+- `structural_chain_probe.py`, `representation_bridge_probe.py` — numerical verification
+  of the planned formalizations (see `lean/ROADMAP.md`): Theorems 1a/2/3 and the GR
+  detailed-balance lemma; the representation-theoretic bridge (character table, isotypic
+  decompositions, invariant dimensions).
+- `VERIFYING.md` — how to run everything; `ROADMAP.md` — planned extensions.
