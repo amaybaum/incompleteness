@@ -308,7 +308,7 @@ structure El where
   s : Sgn
 
 def allElems : List El :=
-  perms.bind (fun pp => signs.map (fun t => ⟨pp.1, pp.2, t⟩))
+  perms.flatMap (fun pp => signs.map (fun t => ⟨pp.1, pp.2, t⟩))
 
 def det (g : El) : Int := g.par * sprod g.s
 

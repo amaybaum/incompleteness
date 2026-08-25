@@ -34,12 +34,23 @@ jobs:
       - name: Report toolchain
         run: lean --version
 
+      # Each file is checked independently and the failures are summed, so one
+      # rejection does not hide the state of the other two.
       - name: Kernel check
         working-directory: verification/lean
         run: |
-          lean OI_Gauge_Certificates.lean
-          lean OI_Structural_Core.lean
-          lean OI_Staggered_Relations.lean
+          rc=0
+          for f in OI_Gauge_Certificates OI_Structural_Core OI_Staggered_Relations; do
+            echo "::group::lean ${f}.lean"
+            if lean "${f}.lean"; then
+              echo "OK ${f}.lean"
+            else
+              echo "FAIL ${f}.lean"
+              rc=1
+            fi
+            echo "::endgroup::"
+          done
+          exit $rc
 
   probes:
     name: Numerical probes
