@@ -1,0 +1,8 @@
+verification/README.md
+verification/lean/ADDED-b404.txt
+verification/lean/INVENTORY.md
+verification/lean/LEAN-PILOT-README.md
+verification/lean/MANIFEST-baseline-3.0.0.sha256
+verification/lean/MIGRATION-NOTE.md
+verification/lean/OI_B397_Pilot.lean
+verification/lean/b399_lean_pilot_probe.py
