@@ -181,7 +181,9 @@ theorem Q_idem {P : R} (hP : P * P = P) : Qm P * Qm P = Qm P :=
     _ = Rng.one * Qm P + (-P) * Qm P := right_distrib _ _ _
     _ = Qm P + (-P) * Qm P := by rw [one_mul]
     _ = Qm P + -(P * Qm P) := by rw [neg_mul]
-    _ = Qm P + -(P * Rng.one + P * (-P)) := by rw [left_distrib]
+    _ = Qm P + -(P * Rng.one + P * (-P)) := by
+        show Qm P + -(P * (Rng.one + -P)) = Qm P + -(P * Rng.one + P * (-P))
+        rw [left_distrib]
     _ = Qm P + -(P + P * (-P)) := by rw [mul_one]
     _ = Qm P + -(P + -(P * P)) := by rw [mul_neg]
     _ = Qm P + -(P + -P) := by rw [hP]
@@ -266,7 +268,8 @@ theorem q_closed {U P : R} (hP : P * P = P) (t : Nat) :
         _ = (opow (Dm U P) s * Dm U P) * Qm P
               + (Dm U P * Kk U P s + Cm U P * (P * opow U s)) := by
               rw [add_left_comm (Cm U P * (P * opow U s))
-                    ((opow (Dm U P) s * Dm U P) * Qm P) (Dm U P * Kk U P s)]
+                    ((opow (Dm U P) s * Dm U P) * Qm P) (Dm U P * Kk U P s),
+                  add_comm (Cm U P * (P * opow U s)) (Dm U P * Kk U P s)]
         _ = opow (Dm U P) (s + 1) * Qm P + Kk U P (s + 1) := rfl
 
 /-- **M1.1 (Theorem 1a, operator form).** The exact projected evolution. -/
@@ -451,9 +454,8 @@ theorem mass_square (D e m : R)
     _ = (D * D + (m * e) * D) + (D * (m * e) + (m * e) * (m * e)) := by
         rw [right_distrib D (m * e) (m * e)]
     _ = (D * D + (m * e) * (m * e)) + ((m * e) * D + D * (m * e)) := by
-        rw [add_add_add_comm (D * D) ((m * e) * D) (D * (m * e)) ((m * e) * (m * e)),
-            add_comm ((m * e) * D) (D * (m * e)),
-            add_add_add_comm (D * D) (D * (m * e)) ((m * e) * (m * e)) ((m * e) * D)]
+        rw [add_comm (D * (m * e)) ((m * e) * (m * e)),
+            add_add_add_comm (D * D) ((m * e) * D) ((m * e) * (m * e)) (D * (m * e))]
     _ = (D * D + (m * e) * (m * e)) + (m * (e * D) + D * (m * e)) := by
         rw [mul_assoc m e D]
     _ = (D * D + (m * e) * (m * e)) + (m * (e * D) + (D * m) * e) := by
@@ -510,7 +512,7 @@ theorem boost_ward (c w k zs zt : R) :
     _ = -(c * ((w * k) * zt)) + c * (w * (zs * k)) := by
         rw [mul_comm zt (w * k)]
     _ = -(c * ((w * k) * zt)) + c * (zs * (w * k)) := by
-        rw [left_swap w zs k, Rng.mul_assoc zs w k]
+        rw [left_swap w zs k]
     _ = -(c * ((w * k) * zt)) + c * ((w * k) * zs) := by
         rw [mul_comm zs (w * k)]
     _ = c * ((w * k) * zs) + -(c * ((w * k) * zt)) := by
