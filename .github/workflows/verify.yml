@@ -1,0 +1,64 @@
+name: verify
+
+# Machine-checked verification layer (verification/lean).
+#
+# The three proof files are self-contained Lean 4 — no Mathlib, no lake project,
+# zero imports — so the kernel gate is just a `lean` binary and three commands.
+# A clean exit is the certificate; see verification/lean/VERIFYING.md.
+
+on:
+  push:
+    paths:
+      - 'verification/**'
+      - '.github/workflows/verify.yml'
+  pull_request:
+    paths:
+      - 'verification/**'
+      - '.github/workflows/verify.yml'
+  workflow_dispatch:
+
+jobs:
+  kernel:
+    name: Lean kernel check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lean
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain leanprover/lean4:stable
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Report toolchain
+        run: lean --version
+
+      - name: Kernel check
+        working-directory: verification/lean
+        run: |
+          lean OI_Gauge_Certificates.lean
+          lean OI_Structural_Core.lean
+          lean OI_Staggered_Relations.lean
+
+  probes:
+    name: Numerical probes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy scipy
+
+      - name: Probes
+        working-directory: verification/lean
+        run: |
+          for p in gauge_certificates structural_core staggered_relations \
+                   structural_chain representation_bridge; do
+            echo "=== ${p}_probe.py ==="
+            python3 "${p}_probe.py"
+          done
