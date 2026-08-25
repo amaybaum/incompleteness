@@ -16,7 +16,7 @@ R3 Operator-level Theorem 1a: random U with idempotent P — the mz_identity ope
 R4 Theorem 3 statement forms: {D + m*eps + p0, eps} = (m+m) I + (p0 eps + p0 eps) and
    (D + m*eps)^2 = D^2 + m^2, int-exact.
 R5 The boost-Ward identity in the c-general form over exact rationals.
-R6 Lint: no sorry/admit, zero imports, theorem count; both proof files present.
+R6 Lint: no sorry/admit, zero imports, theorem count; all three proof files present.
 """
 import numpy as np, itertools, fractions, os, re
 rng=np.random.default_rng(408)
@@ -100,5 +100,5 @@ assert '\nimport ' not in src and not src.lstrip().startswith('import')
 nthm=len(re.findall(r'(?m)^theorem ',src))
 assert nthm>=30
 leans=sorted(f for f in os.listdir(os.path.dirname(os.path.abspath(__file__))) if f.endswith('.lean'))
-assert leans==['OI_Gauge_Certificates.lean','OI_Structural_Core.lean']
-print(f"R6 PASS: no sorry/admit; zero imports; {nthm} theorems; proof files = 2; kernel check: see VERIFYING.md")
+assert leans==['OI_Gauge_Certificates.lean','OI_Staggered_Relations.lean','OI_Structural_Core.lean']
+print(f"R6 PASS: no sorry/admit; zero imports; {nthm} theorems; proof files = 3; kernel check: see VERIFYING.md")

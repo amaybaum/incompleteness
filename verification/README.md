@@ -14,9 +14,13 @@ Contents (`lean/`):
 - `OI_Structural_Core.lean` — Theorem 1a of `papers/SM.md` at operator level (exact
   projected evolution and kernel equivariance), the Susskind factorization's cancellation
   mechanism, Theorem 3's chirality algebra, and the quadratic boost-Ward identity.
-- `gauge_certificates_probe.py`, `structural_core_probe.py` — companion checks for the two
-  proof files, including exact certification that the concrete lattice operators satisfy
-  every hypothesis the Lean proofs use.
+- `OI_Staggered_Relations.lean` — the staggered generator relations (phase involutions,
+  commuting shifts, and the axis-order sign pattern) imply pairwise anticommutation and
+  the squares, and hence the factorization at three and four axes with no remaining
+  hypotheses. Axes are indexed by natural numbers, so one structure serves any dimension.
+- `gauge_certificates_probe.py`, `structural_core_probe.py`, `staggered_relations_probe.py`
+  — companion checks for the three proof files, including exact certification that the
+  concrete lattice operators satisfy every hypothesis the Lean proofs use.
 - `structural_chain_probe.py`, `representation_bridge_probe.py` — numerical verification
   of the planned formalizations (see `lean/ROADMAP.md`): Theorems 1a/2/3 and the GR
   detailed-balance lemma; the representation-theoretic bridge (character table, isotypic

@@ -9,7 +9,8 @@
 ## Kernel check
 
     cd verification/lean
-    lean OI_Gauge_Certificates.lean && lean OI_Structural_Core.lean
+    lean OI_Gauge_Certificates.lean && lean OI_Structural_Core.lean \
+      && lean OI_Staggered_Relations.lean
 
 A clean exit is the certificate. The files use only core tactics (`calc`, `rw`, `decide`,
 structural induction); `decide` targets are small integer identities over an explicitly
@@ -19,6 +20,7 @@ generated 24-element action.
 
     python3 gauge_certificates_probe.py       # G1–G5
     python3 structural_core_probe.py          # R1–R6
+    python3 staggered_relations_probe.py      # S1–S5
     python3 structural_chain_probe.py         # C1–C5
     python3 representation_bridge_probe.py    # B1–B7
 
@@ -28,7 +30,7 @@ rational arithmetic, not floating point.
 
 ## Release checklist
 
-- [ ] Both `lean` commands exit cleanly.
+- [ ] All three `lean` commands exit cleanly.
 - [ ] All four probes print their full PASS sets.
 
 Status: the numerical probes pass in the maintained environment; the kernel check is run

@@ -19,6 +19,13 @@ A6. broken₂₂ ≅ E² ⊕ T₁⁴ ⊕ T₂² with explicit idempotent isotypi
 A7. The regulator-symmetry theorem by the same machinery: dim Sym²(ℝ⁴) invariants — 1 for
 the 384-element hypercubic group, 2 for the 96-element native spatial-B₃ × T group, with
 fixed basis {diag(1,0,0,0), diag(0,I₃)}.
+A7b. The same statement on the field strength: quadratic invariants of an antisymmetric
+F over Sym²(Λ²ℝ⁴) number **1** under the 384-element hypercubic group and **2** under the
+96-element native spatial-B₃ × time-reflection group, with fixed basis exactly
+{Σ_i F₀ᵢ², Σ_{i<j} Fᵢⱼ²}. Electric and magnetic normalizations are therefore independent
+under the native symmetry and are locked to each other only by the Euclidean regulator —
+the gauge-sector counterpart of A7.
+
 A8. ZMod censuses: for odd q every additive character with χ² = 1 is trivial (instances
 q ∈ {3,…,13}); the q = 4 witness shows Odd is necessary.
 A9. The Schur sign theorem: −B D⁻¹ Bᵀ ⪯ 0 for D ≻ 0, with an indefinite-D witness for
@@ -36,13 +43,19 @@ disconnected necessity witness.
 B3. The exact harmonic dispersion cos ω = (1/d) Σ cos kⱼ of the second-order update, and
 Corollary 1a's algebraic core (dim Sym²(ℝ³)^{B₃} = 1) as an instance of A1.
 
-## C. Generator-relations layer
+## C. Generator-relations layer — DELIVERED for three and four axes
 
-Derive, inside Lean, the anticommutation and square hypotheses of `susskind3` from the
-staggered generator relations (η involutions; commuting shifts; η_μ anticommutes with
-shifts of strictly earlier axes and commutes otherwise), for d = 3 and d = 4.
-`structural_core_probe.py` (R2) already certifies every relation exactly on the lattice
-operators.
+`OI_Staggered_Relations.lean` derives the anticommutation and square hypotheses of
+`susskind3` from the staggered generator relations (η involutions; commuting shifts; η_μ
+anticommutes with the shifts of strictly earlier axes and commutes with those of later
+axes) and concludes the factorization at three and four axes with no remaining hypotheses.
+The relations are quantified over `Nat`-indexed axes, so the structure already covers every
+dimension; what remains is the arbitrary-n conclusion, which needs a sum over an index
+family (a list- or `Finset`-induction, natural to add with the Mathlib bridge of section A)
+rather than the per-dimension expansions used now.
+
+C1. Arbitrary-n statement: for pairwise-anticommuting summands, `(∑ A_i)² = ∑ A_i²`, then
+the factorization for every d as a corollary.
 
 ## D. Conventions and statement forms
 

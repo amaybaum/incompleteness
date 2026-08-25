@@ -16,6 +16,10 @@ B5 The regulator-symmetry theorem by the same machinery: |H(4)| = 384 with Sym^2
    fixed basis {diag(1,0,0,0), diag(0,I3)}.
 B6 ZMod censuses: only the trivial character squares to 1 for odd q in {3..13}; the q = 4
    control has the k = 2 survivor.
+B5b The same statement on the field strength: quadratic invariants of antisymmetric F
+   number 1 under the hypercubic 384 and 2 under the native 96, fixed basis
+   {sum_i F_0i^2, sum_{i<j} F_ij^2} - electric/magnetic normalizations independent
+   natively, locked only by the Euclidean regulator.
 B7 The Schur sign theorem: -B D^{-1} B^T negative semidefinite for D > 0; an
    indefinite-D control produces a positive eigenvalue.
 """
@@ -138,6 +142,32 @@ print("B5 PASS: same machinery on the regulator-symmetry theorem — |H(4)|=384 
 for q in (3,5,7,9,11,13):
     assert [k for k in range(q) if (2*k)%q==0]==[0]
 assert [k for k in range(4) if (2*k)%4==0]==[0,2]
+idxF=[(a,b) for a in range(4) for b in range(a+1,4)]
+def actF(g):
+    M=np.zeros((6,6))
+    for j,(a,b) in enumerate(idxF):
+        E=np.zeros((4,4)); E[a,b]=1; E[b,a]=-1
+        gE=g@E@g.T
+        for i,(c,d) in enumerate(idxF): M[i,j]=gE[c,d]
+    return M
+symF=[(i,j) for i in range(6) for j in range(i,6)]
+def invF(group):
+    P=np.zeros((21,21))
+    for g in group:
+        Rg=actF(g); M=np.zeros((21,21))
+        for jj,(i,j) in enumerate(symF):
+            Q=np.zeros((6,6)); Q[i,j]=Q[j,i]=1.0
+            gQ=Rg.T@Q@Rg
+            for ii,(k,l) in enumerate(symF): M[ii,jj]=gQ[k,l]
+        P+=M
+    return P/len(group)
+P4=invF(H4); Pn2=invF(NAT)
+assert int(np.sum(np.linalg.svd(P4-np.eye(21),compute_uv=False)<1e-9))==1
+assert int(np.sum(np.linalg.svd(Pn2-np.eye(21),compute_uv=False)<1e-9))==2
+for Q in (np.diag([1.0 if a==0 else 0.0 for (a,b) in idxF]),np.diag([0.0 if a==0 else 1.0 for (a,b) in idxF])):
+    v=np.array([Q[i,j] for (i,j) in symF])
+    assert np.linalg.norm(Pn2@v-v)<1e-9
+print("B5b PASS: field-strength quadratic invariants — hypercubic dim 1, native dim 2, basis {sum F_0i^2, sum F_ij^2}")
 print("B6 PASS: odd-q censuses trivial-only (q in 3..13); q=4 keeps the k=2 survivor — Odd hypothesis necessary")
 Bm=rng.normal(size=(4,6)); A=rng.normal(size=(6,6)); D=A.T@A+0.3*np.eye(6)
 S=-Bm@np.linalg.inv(D)@Bm.T
