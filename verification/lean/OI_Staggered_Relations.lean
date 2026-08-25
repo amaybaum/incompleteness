@@ -14,8 +14,13 @@ files independently checkable is the price of the zero-dependency discipline, an
 copies collapse into one once the Mathlib bridge (ROADMAP.md section A) lands.
 
 Axes are indexed by natural numbers, so the same structure serves any dimension; the
-concrete d = 3 and d = 4 lattice operators satisfy every field of `Gens` exactly in integer
-arithmetic (companion: staggered_relations_probe.py, S1).
+concrete lattice operators satisfy every field of `Gens` exactly in integer arithmetic
+(companion: staggered_relations_probe.py, S1).
+
+Part 4 removes the per-dimension restriction: a list of pairwise-anticommuting elements
+satisfies `(sum)^2 = sum of squares` by structural induction, the staggered summands form
+such a list for every axis count, and `Staggered.factorization` concludes the identity for
+all dimensions at once. The three- and four-axis theorems are kept as explicit corollaries.
 -/
 
 universe u
@@ -60,6 +65,10 @@ theorem eq_neg_of_add_eq_zero {x a : R} (hxa : x + a = zero) : x = -a :=
     _ = (x + a) + -a := (add_assoc _ _ _).symm
     _ = zero + -a := by rw [hxa]
     _ = -a := zero_add _
+
+theorem neg_zero : -(zero : R) = zero :=
+  calc -(zero : R) = zero + -zero := (zero_add _).symm
+    _ = zero := add_neg_cancel _
 
 theorem neg_neg (a : R) : -(-a) = a :=
   (eq_neg_of_add_eq_zero (add_neg_cancel a)).symm
@@ -123,10 +132,10 @@ structure Gens (R : Type u) [Rng R] where
   hlt_s : ∀ i j, j < i → e i * s j = -(s j * e i)
   hgt_t : ∀ i j, i < j → e i * t j = t j * e i
   hgt_s : ∀ i j, i < j → e i * s j = s j * e i
-  htt : ∀ i j, i ≠ j → t i * t j = t j * t i
-  hts : ∀ i j, i ≠ j → t i * s j = s j * t i
-  hst : ∀ i j, i ≠ j → s i * t j = t j * s i
-  hss : ∀ i j, i ≠ j → s i * s j = s j * s i
+  htt : ∀ i j, t i * t j = t j * t i
+  hts : ∀ i j, t i * s j = s j * t i
+  hst : ∀ i j, s i * t j = t j * s i
+  hss : ∀ i j, s i * s j = s j * s i
 
 variable (g : Gens R)
 
@@ -167,9 +176,9 @@ theorem e_anti_lt {i j : Nat} (h : j < i) : g.e i * S g j = -(S g j * g.e i) :=
   anti_diff (g.hlt_t i j h) (g.hlt_s i j h)
 
 /-- Differences on distinct axes commute. -/
-theorem S_comm {i j : Nat} (h : i ≠ j) : S g i * S g j = S g j * S g i := by
-  have ht : g.t i * S g j = S g j * g.t i := comm_diff (g.htt i j h) (g.hts i j h)
-  have hs : g.s i * S g j = S g j * g.s i := comm_diff (g.hst i j h) (g.hss i j h)
+theorem S_comm (i j : Nat) : S g i * S g j = S g j * S g i := by
+  have ht : g.t i * S g j = S g j * g.t i := comm_diff (g.htt i j) (g.hts i j)
+  have hs : g.s i * S g j = S g j * g.s i := comm_diff (g.hst i j) (g.hss i j)
   exact diff_comm ht hs
 
 /-- **Squares.** `A_i² = S_i²` — the first hypothesis of the factorization, discharged. -/
@@ -194,7 +203,7 @@ theorem A_mul_A {i j : Nat} (hij : j < i) :
     _ = (g.e i * g.e j) * (S g i * S g j) := (mul_assoc _ _ _).symm
 
 /-- Anticommutation in the orientation the computation produces. -/
-theorem A_anti_raw {i j : Nat} (hij : j < i) (hne : j ≠ i) :
+theorem A_anti_raw {i j : Nat} (hij : j < i) :
     A g j * A g i = -(A g i * A g j) :=
   calc A g j * A g i = (g.e j * S g j) * (g.e i * S g i) := rfl
     _ = g.e j * (S g j * (g.e i * S g i)) := mul_assoc _ _ _
@@ -207,14 +216,14 @@ theorem A_anti_raw {i j : Nat} (hij : j < i) (hne : j ≠ i) :
     _ = -((g.e j * g.e i) * (S g j * S g i)) := by rw [← mul_assoc (g.e j) (g.e i) (S g j * S g i)]
     _ = -((g.e i * g.e j) * (S g j * S g i)) := by rw [g.hee j i]
     _ = -((g.e i * g.e j) * (S g i * S g j)) := by
-          rw [S_comm g hne]
+          rw [S_comm g j i]
     _ = -(A g i * A g j) := by rw [← A_mul_A g hij]
 
 /-- **Anticommutation.** `A_i A_j = -(A_j A_i)` for `j < i` — the second hypothesis of the
 factorization, discharged from the phase pattern alone. -/
-theorem A_anti {i j : Nat} (hij : j < i) (hne : j ≠ i) :
+theorem A_anti {i j : Nat} (hij : j < i) :
     A g i * A g j = -(A g j * A g i) :=
-  eq_neg_symm (A_anti_raw g hij hne)
+  eq_neg_symm (A_anti_raw g hij)
 
 end Staggered
 
@@ -326,9 +335,9 @@ both derived from the generator relations. -/
 theorem factorization3 :
     ((A g 0 + A g 1) + A g 2) * ((A g 0 + A g 1) + A g 2)
       = ((S g 0 * S g 0 + S g 1 * S g 1) + S g 2 * S g 2) := by
-  have h10 : A g 1 * A g 0 = -(A g 0 * A g 1) := A_anti g (by decide) (by decide)
-  have h20 : A g 2 * A g 0 = -(A g 0 * A g 2) := A_anti g (by decide) (by decide)
-  have h21 : A g 2 * A g 1 = -(A g 1 * A g 2) := A_anti g (by decide) (by decide)
+  have h10 : A g 1 * A g 0 = -(A g 0 * A g 1) := A_anti g (by decide)
+  have h20 : A g 2 * A g 0 = -(A g 0 * A g 2) := A_anti g (by decide)
+  have h21 : A g 2 * A g 1 = -(A g 1 * A g 2) := A_anti g (by decide)
   rw [sq_of_anticomm3 (A g 0) (A g 1) (A g 2) h10 h20 h21,
       A_sq g 0, A_sq g 1, A_sq g 2]
 
@@ -336,14 +345,118 @@ theorem factorization3 :
 theorem factorization4 :
     (((A g 0 + A g 1) + A g 2) + A g 3) * (((A g 0 + A g 1) + A g 2) + A g 3)
       = (((S g 0 * S g 0 + S g 1 * S g 1) + S g 2 * S g 2) + S g 3 * S g 3) := by
-  have h10 : A g 1 * A g 0 = -(A g 0 * A g 1) := A_anti g (by decide) (by decide)
-  have h20 : A g 2 * A g 0 = -(A g 0 * A g 2) := A_anti g (by decide) (by decide)
-  have h21 : A g 2 * A g 1 = -(A g 1 * A g 2) := A_anti g (by decide) (by decide)
-  have h30 : A g 3 * A g 0 = -(A g 0 * A g 3) := A_anti g (by decide) (by decide)
-  have h31 : A g 3 * A g 1 = -(A g 1 * A g 3) := A_anti g (by decide) (by decide)
-  have h32 : A g 3 * A g 2 = -(A g 2 * A g 3) := A_anti g (by decide) (by decide)
+  have h10 : A g 1 * A g 0 = -(A g 0 * A g 1) := A_anti g (by decide)
+  have h20 : A g 2 * A g 0 = -(A g 0 * A g 2) := A_anti g (by decide)
+  have h21 : A g 2 * A g 1 = -(A g 1 * A g 2) := A_anti g (by decide)
+  have h30 : A g 3 * A g 0 = -(A g 0 * A g 3) := A_anti g (by decide)
+  have h31 : A g 3 * A g 1 = -(A g 1 * A g 3) := A_anti g (by decide)
+  have h32 : A g 3 * A g 2 = -(A g 2 * A g 3) := A_anti g (by decide)
   rw [sq_of_anticomm4 (A g 0) (A g 1) (A g 2) (A g 3) h10 h20 h21 h30 h31 h32,
       A_sq g 0, A_sq g 1, A_sq g 2, A_sq g 3]
+
+end Staggered
+
+/-! ## Part 4: arbitrary many axes
+
+The per-dimension expansions above are corollaries of a single induction. A list of
+pairwise-anticommuting elements has `(∑)² = ∑ squares`; the staggered summands form such a
+list for every axis count; hence the factorization holds for all dimensions at once.
+
+The predicates are defined by recursion rather than through list membership, so every step
+below uses only structural induction and the `Nat.le` constructors — no library lemmas. -/
+
+namespace Rng
+
+variable {R : Type u} [Rng R]
+
+/-- Sum of a list. -/
+def sumL : List R → R
+  | [] => Rng.zero
+  | x :: t => x + sumL t
+
+/-- Sum of the squares of a list. -/
+def sqSumL : List R → R
+  | [] => Rng.zero
+  | x :: t => x * x + sqSumL t
+
+/-- `x` anticommutes with every entry of the list. -/
+def AntiAll (x : R) : List R → Prop
+  | [] => True
+  | y :: t => (y * x = -(x * y)) ∧ AntiAll x t
+
+/-- The list is pairwise anticommuting. -/
+def PairwiseAnti : List R → Prop
+  | [] => True
+  | x :: t => AntiAll x t ∧ PairwiseAnti t
+
+/-- Anticommuting with every entry gives anticommuting with the sum. -/
+theorem anti_sumL {x : R} : ∀ (L : List R), AntiAll x L → sumL L * x = -(x * sumL L)
+  | [], _ => by
+      show (Rng.zero : R) * x = -(x * Rng.zero)
+      rw [zero_mul, mul_zero, neg_zero]
+  | y :: t, h => by
+      have hy : y * x = -(x * y) := h.1
+      have ht : sumL t * x = -(x * sumL t) := anti_sumL t h.2
+      show (y + sumL t) * x = -(x * (y + sumL t))
+      calc (y + sumL t) * x = y * x + sumL t * x := right_distrib _ _ _
+        _ = -(x * y) + -(x * sumL t) := by rw [hy, ht]
+        _ = -(x * y + x * sumL t) := (neg_add _ _).symm
+        _ = -(x * (y + sumL t)) := by rw [← left_distrib x y (sumL t)]
+
+/-- **Pairwise anticommuting: all cross terms cancel, for any number of terms.** -/
+theorem sq_sumL : ∀ (L : List R), PairwiseAnti L → sumL L * sumL L = sqSumL L
+  | [], _ => by
+      show (Rng.zero : R) * Rng.zero = Rng.zero
+      rw [zero_mul]
+  | x :: t, h => by
+      have hcross : sumL t * x = -(x * sumL t) := anti_sumL t h.1
+      have hrec : sumL t * sumL t = sqSumL t := sq_sumL t h.2
+      show (x + sumL t) * (x + sumL t) = x * x + sqSumL t
+      calc (x + sumL t) * (x + sumL t) = x * x + sumL t * sumL t :=
+            sq_of_anticomm2 x (sumL t) hcross
+        _ = x * x + sqSumL t := by rw [hrec]
+
+end Rng
+
+namespace Staggered
+
+open Rng
+
+variable {R : Type u} [Rng R] (g : Gens R)
+
+/-- The first `n` staggered summands, highest index first. -/
+def axes : Nat → List R
+  | 0 => []
+  | n + 1 => A g n :: axes n
+
+/-- The first `n` squares of the shift differences. -/
+def sqS : Nat → R
+  | 0 => Rng.zero
+  | n + 1 => S g n * S g n + sqS n
+
+/-- If `A m` anticommutes with every earlier summand, it anticommutes with the whole list. -/
+theorem antiAll_axes (m : Nat) :
+    ∀ n, (∀ j, j < n → A g j * A g m = -(A g m * A g j)) → AntiAll (A g m) (axes g n)
+  | 0, _ => True.intro
+  | n + 1, H =>
+      ⟨H n Nat.le.refl, antiAll_axes m n (fun j hj => H j (Nat.le.step hj))⟩
+
+/-- The staggered summands are pairwise anticommuting, for every axis count. -/
+theorem pairwise_axes : ∀ n, PairwiseAnti (axes g n)
+  | 0 => True.intro
+  | n + 1 => ⟨antiAll_axes g n n (fun _ hj => A_anti_raw g hj), pairwise_axes n⟩
+
+/-- The squares of the summands are the squares of the differences, listwise. -/
+theorem sqSumL_axes : ∀ n, sqSumL (axes g n) = sqS g n
+  | 0 => rfl
+  | n + 1 => by
+      show A g n * A g n + sqSumL (axes g n) = S g n * S g n + sqS g n
+      rw [A_sq g n, sqSumL_axes n]
+
+/-- **The factorization for any number of axes.** `(∑_{i<n} A_i)² = ∑_{i<n} S_i²`, with the
+anticommutation and squares both derived from the generator relations. -/
+theorem factorization (n : Nat) : sumL (axes g n) * sumL (axes g n) = sqS g n := by
+  rw [sq_sumL (axes g n) (pairwise_axes g n), sqSumL_axes g n]
 
 end Staggered
 
@@ -378,7 +491,7 @@ def unitGens : Staggered.Gens Unit where
   hlt_s := fun _ _ _ => rfl
   hgt_t := fun _ _ _ => rfl
   hgt_s := fun _ _ _ => rfl
-  htt := fun _ _ _ => rfl
-  hts := fun _ _ _ => rfl
-  hst := fun _ _ _ => rfl
-  hss := fun _ _ _ => rfl
+  htt := fun _ _ => rfl
+  hts := fun _ _ => rfl
+  hst := fun _ _ => rfl
+  hss := fun _ _ => rfl

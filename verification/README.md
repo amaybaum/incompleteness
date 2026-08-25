@@ -16,8 +16,10 @@ Contents (`lean/`):
   mechanism, Theorem 3's chirality algebra, and the quadratic boost-Ward identity.
 - `OI_Staggered_Relations.lean` — the staggered generator relations (phase involutions,
   commuting shifts, and the axis-order sign pattern) imply pairwise anticommutation and
-  the squares, and hence the factorization at three and four axes with no remaining
-  hypotheses. Axes are indexed by natural numbers, so one structure serves any dimension.
+  the squares, and hence the factorization for **any number of axes** — by structural
+  induction over a list of pairwise-anticommuting summands, with the three- and four-axis
+  statements as corollaries. Axes are indexed by natural numbers, so one structure serves
+  every dimension.
 - `gauge_certificates_probe.py`, `structural_core_probe.py`, `staggered_relations_probe.py`
   — companion checks for the three proof files, including exact certification that the
   concrete lattice operators satisfy every hypothesis the Lean proofs use.

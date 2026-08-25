@@ -54,14 +54,20 @@ dimension; what remains is the arbitrary-n conclusion, which needs a sum over an
 family (a list- or `Finset`-induction, natural to add with the Mathlib bridge of section A)
 rather than the per-dimension expansions used now.
 
-C1. Arbitrary-n statement: for pairwise-anticommuting summands, `(∑ A_i)² = ∑ A_i²`, then
-the factorization for every d as a corollary.
+C1 is now also delivered: `Staggered.factorization` proves `(∑_{i<n} A_i)² = ∑_{i<n} S_i²`
+for every `n` by structural induction over a list of pairwise-anticommuting summands, with
+the three- and four-axis theorems kept as explicit corollaries. Section C is closed.
 
 ## D. Conventions and statement forms
 
 - `papers/SM.md` states D² = −¼□_lat without displaying the □ sign convention; the
   factorization is exact with □_lat := −Σ_μ (T_μ − T_μ⁻¹)², and the probes pin this
   constructively. A future text revision should display the convention beside the theorem.
+- The abstract relations are dimension-free, but a *periodic* lattice realizes the staggered
+  phase pattern only for **even extent**: at odd L the wrap from L−1 to 0 does not flip the
+  parity phase, and η_μ fails to anticommute with the shifts of earlier axes
+  (`staggered_relations_probe.py`, S6, with the countercontrol at L = 3 and 5). Any statement
+  of the factorization on a periodic lattice should carry the even-extent hypothesis.
 - Theorem 3 is formalized at operator level: {D + m·ε + p₀·1, ε} = 2m + 2p₀·ε, so center
   independence of the diagonal of D_st is equivalent to exact chirality. Per the SM
   remark, the second-order update's self-term C = 2(1−d) is the Laplacian diagonal, not a
