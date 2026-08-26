@@ -100,5 +100,12 @@ assert '\nimport ' not in src and not src.lstrip().startswith('import')
 nthm=len(re.findall(r'(?m)^theorem ',src))
 assert nthm>=30
 leans=sorted(f for f in os.listdir(os.path.dirname(os.path.abspath(__file__))) if f.endswith('.lean'))
-assert leans==['OI_Gauge_Certificates.lean','OI_Staggered_Relations.lean','OI_Structural_Core.lean']
-print(f"R6 PASS: no sorry/admit; zero imports; {nthm} theorems; proof files = 3; kernel check: see VERIFYING.md")
+assert leans==['OI_Gauge_Certificates.lean','OI_Regulator_Symmetry.lean',
+               'OI_Staggered_Relations.lean','OI_Structural_Core.lean'], leans
+# every proof file in the layer is zero-import; the layer's defining discipline
+for f in leans:
+    s=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),f),encoding='utf-8').read()
+    assert '\nimport ' not in s and not s.lstrip().startswith('import'), f
+    assert 'sorry' not in s and 'admit' not in s and 'native_decide' not in s, f
+print(f"R6 PASS: no sorry/admit; zero imports across all {len(leans)} proof files; {nthm} theorems "
+      "in this one; kernel check: see VERIFYING.md")

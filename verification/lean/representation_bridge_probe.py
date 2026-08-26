@@ -123,22 +123,26 @@ NAT=gen([perm4([0,2,1,3]),perm4([0,1,3,2]),np.diag([1.,-1,1,1]),np.diag([-1.,1,1
 assert len(H4)==384 and len(NAT)==96
 idx=[(a,b) for a in range(4) for b in range(a,4)]
 def fixdim(group):
-    P=np.zeros((10,10))
+    P=np.zeros((10,10)); chisum=0
     for g in group:
         M=np.zeros((10,10))
         for j,(a,b) in enumerate(idx):
             E=np.zeros((4,4)); E[a,b]=E[b,a]=1.0
             gE=g@E@g.T
             for i,(c,d) in enumerate(idx): M[i,j]=gE[c,d]
-        P+=M
+        P+=M; chisum+=int(round(np.trace(M)))
     P/=len(group)
-    return int(np.sum(np.linalg.svd(P-np.eye(10),compute_uv=False)<1e-9)),P
-d4,_=fixdim(H4); dn,Pn=fixdim(NAT)
+    return int(np.sum(np.linalg.svd(P-np.eye(10),compute_uv=False)<1e-9)),P,chisum
+d4,_,c4=fixdim(H4); dn,Pn,cn=fixdim(NAT)
 assert d4==1 and dn==2
+# the character sums the Lean file kernel-checks; dimension = sum / |G| is the averaging step
+assert c4==384 and cn==192, (c4,cn)
+assert c4==d4*len(H4) and cn==dn*len(NAT)
 for Mfix in (np.diag([1.,0,0,0]),np.diag([0.,1,1,1])):
     v=np.array([Mfix[a,b] for (a,b) in idx])
     assert np.linalg.norm(Pn@v-v)<1e-9
 print("B5 PASS: same machinery on the regulator-symmetry theorem — |H(4)|=384 dim 1; native 96 dim 2, basis {diag(1,0,0,0),diag(0,I3)}")
+print(f"     character sums (the Lean decide-targets): {c4} = 1·384 and {cn} = 2·96")
 for q in (3,5,7,9,11,13):
     assert [k for k in range(q) if (2*k)%q==0]==[0]
 assert [k for k in range(4) if (2*k)%4==0]==[0,2]
@@ -152,22 +156,30 @@ def actF(g):
     return M
 symF=[(i,j) for i in range(6) for j in range(i,6)]
 def invF(group):
-    P=np.zeros((21,21))
+    P=np.zeros((21,21)); chisum=0
     for g in group:
         Rg=actF(g); M=np.zeros((21,21))
         for jj,(i,j) in enumerate(symF):
             Q=np.zeros((6,6)); Q[i,j]=Q[j,i]=1.0
             gQ=Rg.T@Q@Rg
             for ii,(k,l) in enumerate(symF): M[ii,jj]=gQ[k,l]
-        P+=M
-    return P/len(group)
-P4=invF(H4); Pn2=invF(NAT)
+        P+=M; chisum+=int(round(np.trace(M)))
+    return P/len(group),chisum
+P4,c4F=invF(H4); Pn2,cnF=invF(NAT)
 assert int(np.sum(np.linalg.svd(P4-np.eye(21),compute_uv=False)<1e-9))==1
 assert int(np.sum(np.linalg.svd(Pn2-np.eye(21),compute_uv=False)<1e-9))==2
+assert c4F==384 and cnF==192, (c4F,cnF)
 for Q in (np.diag([1.0 if a==0 else 0.0 for (a,b) in idxF]),np.diag([0.0 if a==0 else 1.0 for (a,b) in idxF])):
     v=np.array([Q[i,j] for (i,j) in symF])
     assert np.linalg.norm(Pn2@v-v)<1e-9
+# countercontrol: the electric form alone is NOT hypercubic-invariant, which is what makes
+# the enlargement 96 -> 384 collapse the two normalizations onto one
+vE=np.array([(1.0 if a==0 else 0.0) for (a,b) in idxF])
+vEsym=np.array([ (vE[i] if i==j else 0.0) for (i,j) in symF])
+assert np.linalg.norm(P4@vEsym-vEsym)>1e-6
 print("B5b PASS: field-strength quadratic invariants — hypercubic dim 1, native dim 2, basis {sum F_0i^2, sum F_ij^2}")
+print(f"     character sums (the Lean decide-targets): {c4F} = 1·384 and {cnF} = 2·96; electric form")
+print("     alone is not hypercubic-invariant — the regulator is what locks E to B")
 print("B6 PASS: odd-q censuses trivial-only (q in 3..13); q=4 keeps the k=2 survivor — Odd hypothesis necessary")
 Bm=rng.normal(size=(4,6)); A=rng.normal(size=(6,6)); D=A.T@A+0.3*np.eye(6)
 S=-Bm@np.linalg.inv(D)@Bm.T

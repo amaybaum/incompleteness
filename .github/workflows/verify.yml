@@ -40,7 +40,8 @@ jobs:
         working-directory: verification/lean
         run: |
           rc=0
-          for f in OI_Gauge_Certificates OI_Structural_Core OI_Staggered_Relations; do
+          for f in OI_Gauge_Certificates OI_Structural_Core OI_Staggered_Relations \
+                   OI_Regulator_Symmetry; do
             echo "::group::lean ${f}.lean"
             if lean "${f}.lean"; then
               echo "OK ${f}.lean"
