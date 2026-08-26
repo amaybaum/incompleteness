@@ -8,14 +8,19 @@ probes verify every concrete number they assert.
 ## A. Representation-theoretic bridge — mostly DELIVERED
 
 The section split in two on contact with the work. Most of it is finite arithmetic and needed
-no dependency at all: it is now kernel-checked in the zero-import layer. Only the averaging
-identity itself, and the "≅" upgrades that quantify over representations, need Mathlib.
+no dependency at all: it is now kernel-checked in the zero-import layer. What genuinely needs
+Mathlib turned out to be smaller still — the averaging identity and the Hom-dimension formula
+are both already *in* Mathlib, so what is left is only the transport of the cubic data onto a
+`Representation`, which is A10.
 
-A1. **Delivered** (`lean-mathlib/OIBridge.lean`). The averaging identity: for a finite group
-G and a finite-dimensional representation over a field in which |G| is invertible,
-|G| · dim(fixed subspace) = Σ_g χ(g), by identifying the group average with the projection
-onto the invariant subspace and taking its trace. This is the identity the counting layer
-defers; it is what converts every character sum below into a dimension.
+A1. **Available — from Mathlib, not from this layer.** The averaging identity
+|G| · dim(fixed subspace) = Σ_g χ(g) is `Representation.card_inv_mul_sum_char_eq_finrank` in
+`Mathlib/RepresentationTheory/Character.lean`. An earlier round reproved it here from
+`isProj_averageMap` and `IsProj.trace` without checking that the assembled statement already
+existed; it did, by the same proof. `lean-mathlib/OIBridge.lean` now only restates it with the
+group order cleared to the left, which is the shape the kernel-checked integer sums are in.
+The same file also restates `card_inv_mul_sum_char_mul_char_eq_finrank`, the equivariant-map
+dimension formula — the engine behind A5 and B1, likewise already supplied by Mathlib.
 A2. **Delivered** (`OI_Gauge_Certificates.lean`, `irr_orthonormal`), and in a stronger form
 than specified: rather than a class table with weights (1,8,6,6,3) entered as data, the five
 irreducible characters are given as functions on the group elements — A₁ constant, E and T₁
@@ -47,12 +52,19 @@ the q = 4 countercontrol showing the oddness hypothesis is load-bearing.
 A9. **Open.** The Schur sign theorem: −B D⁻¹ Bᵀ ⪯ 0 for D ≻ 0, with an indefinite-D witness
 for necessity. Analytic rather than finite, and unrelated to the counting machinery — it
 shares nothing with A1 and is better taken as its own piece of work.
-A10. **Open, and now the substantive remainder.** Transport lemmas aligning the in-file
-character and element data with the Mathlib vocabulary: a group instance on the 24 elements,
-a `Representation` whose character is `chi6`, and the bijection carrying `rots` onto it. Only
-then do A5's quotients become `finrank` statements about the actual cubic representation
-rather than integer arithmetic beside a general theorem. Nothing numerical is missing; this
-is bookkeeping, and it is what the two halves of the section are still waiting on.
+A10. **Open — attempted, and reduced to one plumbing step.** The transport onto a Mathlib
+`Representation`. Two things previously believed to be part of this item are not: Mathlib
+already proves the averaging identity (`card_inv_mul_sum_char_eq_finrank`) **and** the
+equivariant-map dimension formula (`card_inv_mul_sum_char_mul_char_eq_finrank`), so A1 and A5's
+engine were never missing — see the note in `lean-mathlib/OIBridge.lean`. And the group need not
+be built as a subgroup of `Perm (Fin 6)`: **V₆ is the permutation representation of S₄ on the
+two-element subsets of a four-set**, mirror-checked in `representation_bridge_probe.py` (B4) by
+comparing the full character multisets, so `Equiv.Perm (Fin 4)` serves directly with
+`Fintype.card_perm` giving 24 and `Matrix.trace_permutation` giving the character as a
+fixed-point count. The construction elaborated up to a single goal in the character lemma,
+where `Set.mem_toFinset` fails to fire against the `Fintype` instance that `Set.ncard` selects;
+defining the character through `Finset.card` from the outset should avoid it. Nothing numerical
+is missing, and A5, B1 and B3's dimension step all still wait on this one step.
 
 ## B. Structural chain completions (probe: `structural_chain_probe.py`)
 
