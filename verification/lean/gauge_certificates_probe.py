@@ -13,7 +13,10 @@ G3 Central-sign censuses: for q in {3,5,7,9,11,13} only the trivial Z_q characte
 G4 Telescoping, instanced beyond the plaquette: plaquette, hexagon, and a random 8-loop
    are identity to machine precision on a random Z_11 potential field.
 G5 Lint: the Lean file contains no sorry/admit; its decide-target integers all appear in
-   G1's independently verified set; theorem count recorded.
+   the independently verified sets above; theorem count recorded.
+G6 The character layer (roadmap A2-A4, A6): the five irreducible characters of O as vectors
+   over the 24 elements, degrees (1,1,2,3,3), Gram matrix = 24·I; multiplicities of V6,
+   End(V6) and the broken restriction, each summing to 6 / 36 / 22 against the degrees.
 """
 import numpy as np, itertools, re
 from scipy.linalg import expm
@@ -54,7 +57,7 @@ def inv_sign(p):
     for i,j in ((0,1),(0,2),(1,2)):
         if p[j]<p[i]: sgn*=-1
     return sgn
-chi6=[]; chiT=[]; chiE=[]; chiBrk=[]
+chi6=[]; chiT=[]; chiE=[]; chiBrk=[]; chiA2=[]
 census={}
 for g in rots:
     p,s=decomp(g)
@@ -66,6 +69,7 @@ for g in rots:
     assert c6==c6dir
     cB=2*(cT*cE+cT*cA+cE*cA)
     chi6.append(c6); chiT.append(cT); chiE.append(cE); chiBrk.append(cB)
+    chiA2.append(inv_sign(p))   # the sign character, from the axis permutation's parity
     # order for the census
     A=np.eye(6); order=0
     for k in range(1,9):
@@ -120,9 +124,37 @@ import os
 src=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'OI_Gauge_Certificates.lean'),encoding='utf-8').read()
 assert 'sorry' not in src and 'admit' not in src
 targets=set(int(x) for x in re.findall(r'=\s*(\d+)\s*:=\s*by\s*decide',src))
-assert targets=={24,72,288,144}, targets
+assert targets=={22,24,36,72,144,288}, targets
 nthm=len(re.findall(r'(?m)^theorem ',src))
 assert nthm>=18
 assert 'import' not in src.split('\n')[0] and '\nimport ' not in src
 print(f"G5 PASS: no sorry/admit; decide-targets {sorted(targets)} all independently verified above;")
 print(f"     {nthm} theorems; kernel check: `lean OI_Gauge_Certificates.lean` — see VERIFYING.md")
+# ---------- G6 ----------
+# The character layer (roadmap A2-A4, A6), recomputed from the BFS-generated group rather
+# than from the Lean file's list: the five irreducible characters as vectors over the 24
+# elements, their Gram matrix, and the three multiplicity vectors.
+chiA1=[1]*24
+chiT2=[a*b for a,b in zip(chiT,chiA2)]
+irr={'A1':chiA1,'A2':chiA2,'E':chiE,'T1':chiT,'T2':chiT2}
+order5=['A1','A2','E','T1','T2']
+ident=[i for i,c in enumerate(chi6) if c==6]
+assert len(ident)==1, ident
+assert [irr[n][ident[0]] for n in order5]==[1,1,2,3,3]
+gram=[[sum(x*y for x,y in zip(irr[a],irr[b])) for b in order5] for a in order5]
+assert gram==[[24 if a==b else 0 for b in order5] for a in order5], gram
+def mults(chi):
+    raw=[sum(x*y for x,y in zip(chi,irr[n])) for n in order5]
+    assert all(r%24==0 for r in raw), raw
+    return [r//24 for r in raw]
+mV=mults(chi6); mE=mults([c*c for c in chi6]); mB=mults(chiBrk)
+dims=[1,1,2,3,3]
+assert mV==[1,0,1,1,0] and sum(m*d for m,d in zip(mV,dims))==6
+assert mE==[3,1,4,5,3] and sum(m*d for m,d in zip(mE,dims))==36
+assert mB==[0,0,2,4,2] and sum(m*d for m,d in zip(mB,dims))==22
+assert chiBrk[ident[0]]==22
+# countercontrol: a non-character vector must fail orthonormality, so the Gram test has teeth
+bogus=[c+1 for c in chiT]
+assert sum(x*y for x,y in zip(bogus,chiA1))!=0
+print("G6 PASS: five irreducible characters over the 24 elements, degrees (1,1,2,3,3); Gram matrix")
+print(f"     = 24·I (A2 certificate); multiplicities V6 {mV} = 6, End(V6) {mE} = 36, broken {mB} = 22")
