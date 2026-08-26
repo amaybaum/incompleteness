@@ -195,6 +195,62 @@ print(f"B4 PASS: 72/288/144 re-derived; averaging gives Hom dims 3 / 12 / 6; com
 print(f"     Hom_G(V6, End V6) = {dimEnd} by exact GF(p) rank on the {len(Gi)*36*6}x{36*6} "
       f"intertwiner system — again before any character sum; one generator alone leaves "
       f"{dimEnd1}, so the full cubic symmetry is what cuts it to {dimEnd}")
+# The third A5 quotient, 144/24 = 6, and the concrete broken sector behind it. Every face has an
+# opposite (the complementary 2-subset), so sigma : f |-> f o opp is an involution COMMUTING with
+# the whole action -- which is what makes the split invariant rather than a choice of basis:
+#   T = -1 eigenspace (3), even = +1 eigenspace, A = constants (1), E = even and zero-sum (2).
+# Everything below is exact integer arithmetic: the bases are +-1 vectors, and each block is
+# checked to be integral rather than assumed.
+oppi=[subsets.index(frozenset(set(range(4))-set(s))) for s in subsets]
+SIG=np.zeros((6,6),dtype=np.int64)
+for j in range(6): SIG[oppi[j],j]=1
+assert (SIG@SIG==np.eye(6,dtype=np.int64)).all()
+assert all((g@SIG==SIG@g).all() for g in Gi)         # the involution is equivariant
+reps=[]; seen=set()
+for j in range(6):
+    if j not in seen: reps.append(j); seen|={j,oppi[j]}
+Tb=np.zeros((6,3),dtype=np.int64); Vb=np.zeros((6,3),dtype=np.int64)
+for i,j in enumerate(reps):
+    Tb[j,i]=1; Tb[oppi[j],i]=-1                      # e_s - e_opp(s)
+    Vb[j,i]=1; Vb[oppi[j],i]=1                       # e_s + e_opp(s)
+Eb=Vb@np.array([[1,0],[-1,1],[0,-1]],dtype=np.int64)  # even, zero-sum
+Ab=np.ones((6,1),dtype=np.int64)
+def blk(g,B):
+    """matrix of g restricted to span(B), asserted integral rather than assumed."""
+    R=np.rint(np.linalg.lstsq(B.astype(float),(g@B).astype(float),rcond=None)[0]).astype(np.int64)
+    assert np.array_equal(g@B,B@R)
+    return R
+def chiTEA(g):
+    """characters of T, E, A from the involution: chi_T = (tr g - tr g.sigma)/2, etc."""
+    tr=int(np.trace(g)); trs=int(np.trace(g@SIG))
+    assert (tr-trs)%2==0
+    return (tr-trs)//2, (tr+trs)//2-1, 1
+for g in Gi:                                          # the formula is not assumed either
+    cT,cE,cA=chiTEA(g)
+    assert (int(np.trace(blk(g,Tb))),int(np.trace(blk(g,Eb))),int(np.trace(blk(g,Ab))))==(cT,cE,cA)
+    assert cT+cE+cA==int(np.trace(g))                 # T + E + A really is all of V6
+BASIS={'T':Tb,'E':Eb,'A':Ab}
+BLOCKS=[('T','E'),('E','T'),('T','A'),('A','T'),('E','A'),('A','E')]
+def rho_b22(g):
+    mats=[np.kron(blk(g,BASIS[b]),blk(g,BASIS[a])) for (a,b) in BLOCKS]
+    d=sum(m.shape[0] for m in mats); out=np.zeros((d,d),dtype=np.int64); i=0
+    for m in mats:
+        k=m.shape[0]; out[i:i+k,i:i+k]=m; i+=k
+    return out
+B22=[rho_b22(g) for g in Gi]
+assert B22[0].shape[0]==22                            # 6+6+3+3+2+2
+chiB22=[int(np.trace(M)) for M in B22]
+assert all(chiB22[i]==2*(lambda c:(c[0]*c[1]+c[0]*c[2]+c[1]*c[2]))(chiTEA(g))
+           for i,g in enumerate(Gi))                  # = the core layer's chiBrk
+dimB22=hom_dim(Gi,B22)
+assert dimB22==6, dimB22
+assert sum(chiB22[i]*chiS4[i] for i in range(24))==144 and 144//24==dimB22
+oneB=[Gi[1]]
+dimB22_1=hom_dim(oneB,[rho_b22(Gi[1])])
+assert dimB22_1>dimB22, (dimB22_1,dimB22)
+print(f"     V6 = T(3)+E(2)+A(1) invariantly under the opposite-face involution; B22 is the six "
+      f"off-diagonal Hom blocks, dim {B22[0].shape[0]}, character 2(cTcE+cTcA+cEcA) = chiBrk; "
+      f"Hom_G(V6,B22) = {dimB22} by exact rank, one generator alone leaves {dimB22_1}")
 print(f"     V6 identified with S4 on the six 2-subsets: character multisets agree exactly "
       f"({dict(sorted(_C(chi6).items()))}) — the model the Mathlib bridge builds")
 def perm4(p):

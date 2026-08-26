@@ -51,9 +51,39 @@ one is a construction, not plumbing. The target is at least canonical now: oppos
 the intrinsic invariant split `V₆ = T₃ ⊕ E₂ ⊕ A₁`, and `B₂₂` is exactly the off-diagonal part
 of `End(V₆)` —
 `Hom(E,T) ⊕ Hom(T,E) ⊕ Hom(A,T) ⊕ Hom(T,A) ⊕ Hom(A,E) ⊕ Hom(E,A)`, dimension 22, character
-`2(χ_T χ_E + χ_T χ_A + χ_E χ_A)`, which is the core layer's `chiBrk`. The Mathlib pieces exist
-(`Subrepresentation.toRepresentation`, `linHom`, representation products); the work is
-describing the three submodules to Lean, and it deserves its own round.
+`2(χ_T χ_E + χ_T χ_A + χ_E χ_A)`, which is the core layer's `chiBrk`.
+
+**The mirror is now complete and exact** (`representation_bridge_probe.py`, B4). It builds the
+opposite-face involution, checks it commutes with all 24 elements, exhibits `T`, `E`, `A` with
+integer bases, verifies each block of every group element is integral rather than assuming it,
+confirms `χ_T + χ_E + χ_A = χ_V₆` pointwise, assembles the six blocks into a 22-dimensional
+representation whose character it checks against `2(χ_T χ_E + χ_T χ_A + χ_E χ_A)`, and gets
+`dim Hom_G(V₆, B₂₂) = 6` by exact `GF(p)` rank — with a one-generator control leaving 68. So
+nothing numerical is missing, and the answer is certified by a route that uses no character
+theory at all.
+
+**What blocks the Lean statement is one missing Mathlib lemma, and it is worth naming precisely
+so the next attempt does not rediscover it.** Reaching `finrank_intertwiners` needs `χ_B₂₂`,
+which needs the characters of `T`, `E`, `A` — that is, the trace of `ρ g` restricted to a
+subrepresentation. Mathlib has no lemma for it:
+
+- `Subrepresentation.toRepresentation` builds the object fine, but says nothing about traces.
+- `LinearMap.IsProj.trace` gives `trace P = finrank p` for the **projector itself**, via
+  `IsProj.eq_conj_prodMap`. That conjugation is specialised to `P`; it does **not** cover
+  `trace (ρ g ∘ₗ P)` for an operator merely *commuting* with `P`, which is what a character needs.
+- `LinearMap.trace_prodMap'` does close the other gap for free — the character of a
+  `Representation.prod` is the sum of characters, even though no `char_prod` is stated.
+
+An earlier note described the Mathlib support as covering "all three structural pieces". That is
+not quite right, and the correction matters for scheduling: two routes remain, both real work.
+**(a)** Prove the commuting-projector trace lemma — `IsProj p P`, `f ∘ₗ P = P ∘ₗ f` ⊢
+`trace (f.restrict …) = trace (f ∘ₗ P)` — generalising `eq_conj_prodMap`. **(b)** Sidestep it by
+defining `T`, `E`, `A` as explicit representations on `Fin n → ℚ` with matrices given directly,
+keeping every character decidable; the cost there is a sign cocycle for `T`, since the group
+permutes the three complement-pairs *with signs*. Route (b) would leave the identification of
+those explicit representations with the invariant summands of `V₆` mirror-certified rather than
+kernel-certified — the same status `V₆ ≅ S₄`-on-2-subsets already has, which is stated and
+accepted, so that is a coherent choice rather than a compromise.
 A6. **Delivered at character level** (`mult_broken`, `mult_broken_dims`): 24 · (0,0,2,4,2)
 over 22, so the broken restriction carries no A₁ or A₂ and no equivariant scalar survives on
 it. The explicit idempotent isotypic projectors (traces 0, 0, 4, 12, 6) remain for the
