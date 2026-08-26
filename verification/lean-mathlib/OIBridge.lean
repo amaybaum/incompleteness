@@ -20,6 +20,9 @@
 import Mathlib.RepresentationTheory.Invariants
 import Mathlib.RepresentationTheory.Character
 import Mathlib.LinearAlgebra.Trace
+import Mathlib.LinearAlgebra.Matrix.Permutation
+import Mathlib.LinearAlgebra.Matrix.ToLin
+import Mathlib.GroupTheory.Perm.Fin
 
 namespace OIBridge
 
