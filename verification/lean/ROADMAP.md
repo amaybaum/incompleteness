@@ -1,37 +1,58 @@
 # Roadmap — planned formalizations
 
-The current proof files are deliberately dependency-free. The next layer binds to Mathlib
-and closes the remaining classical bridges. Statements below are fixed; the companion
-probes already verify every concrete number they assert.
+The four core proof files are deliberately dependency-free, and stay that way. A single
+separate file under `lean-mathlib/` binds to Mathlib, for the one classical bridge that
+genuinely needs finite-dimensional linear algebra. Statements below are fixed; the companion
+probes verify every concrete number they assert.
 
-## A. Representation-theoretic bridge (probe: `representation_bridge_probe.py`)
+## A. Representation-theoretic bridge — mostly DELIVERED
 
-A1. The averaging identity: for a finite group G and finite-dimensional real (or rational)
-representation, |G| · dim(fixed subspace) = Σ_g χ(g). This is the one classical identity
-the counting layer of `OI_Gauge_Certificates.lean` defers.
-A2. The O character table over classes [e, 8C₃, 6C₂′, 6C₄, 3C₂] with weights (1,8,6,6,3),
-entered as a `decide`-checked row-orthonormality certificate, not trusted data.
-A3. V₆ multiplicities (1,0,1,1,0): multiplicity-free with constituents {A₁, E, T₁}.
-A4. End(V₆) ≅ A₁³ ⊕ A₂¹ ⊕ E⁴ ⊕ T₁⁵ ⊕ T₂³ (36 dims).
-A5. Hom dims 3 / 12 / 6 from the kernel-checked sums 72 / 288 / 144 via A1.
-A6. broken₂₂ ≅ E² ⊕ T₁⁴ ⊕ T₂² with explicit idempotent isotypic projectors
-(traces 0, 0, 4, 12, 6).
-A7. The regulator-symmetry theorem by the same machinery: dim Sym²(ℝ⁴) invariants — 1 for
-the 384-element hypercubic group, 2 for the 96-element native spatial-B₃ × T group, with
-fixed basis {diag(1,0,0,0), diag(0,I₃)}.
-A7b. The same statement on the field strength: quadratic invariants of an antisymmetric
-F over Sym²(Λ²ℝ⁴) number **1** under the 384-element hypercubic group and **2** under the
-96-element native spatial-B₃ × time-reflection group, with fixed basis exactly
-{Σ_i F₀ᵢ², Σ_{i<j} Fᵢⱼ²}. Electric and magnetic normalizations are therefore independent
-under the native symmetry and are locked to each other only by the Euclidean regulator —
-the gauge-sector counterpart of A7.
+The section split in two on contact with the work. Most of it is finite arithmetic and needed
+no dependency at all: it is now kernel-checked in the zero-import layer. Only the averaging
+identity itself, and the "≅" upgrades that quantify over representations, need Mathlib.
 
-A8. ZMod censuses: for odd q every additive character with χ² = 1 is trivial (instances
-q ∈ {3,…,13}); the q = 4 witness shows Odd is necessary.
-A9. The Schur sign theorem: −B D⁻¹ Bᵀ ⪯ 0 for D ≻ 0, with an indefinite-D witness for
-necessity.
-A10. Transport lemmas aligning the in-file character/hom classes with the Mathlib
-vocabulary, so the certificate theorems restate without change of content.
+A1. **Delivered** (`lean-mathlib/OIBridge.lean`). The averaging identity: for a finite group
+G and a finite-dimensional representation over a field in which |G| is invertible,
+|G| · dim(fixed subspace) = Σ_g χ(g), by identifying the group average with the projection
+onto the invariant subspace and taking its trace. This is the identity the counting layer
+defers; it is what converts every character sum below into a dimension.
+A2. **Delivered** (`OI_Gauge_Certificates.lean`, `irr_orthonormal`), and in a stronger form
+than specified: rather than a class table with weights (1,8,6,6,3) entered as data, the five
+irreducible characters are given as functions on the group elements — A₁ constant, E and T₁
+the pieces χ₆ already uses, A₂ the validated parity, T₂ = T₁ ⊗ A₂ — and orthonormality is
+summed over the actual 24 rotations. No separate claim that the class census is correct is
+then needed.
+A3. **Delivered** (`mult_V6`): ⟨χ₆, χᵢ⟩ = 24 · (1,0,1,1,0), multiplicity-free on {A₁, E, T₁}.
+A4. **Delivered** (`mult_End`, `mult_End_dims`): 24 · (3,1,4,5,3), accounting for all 36
+dimensions of End(V₆).
+A5. **Delivered** as arithmetic, given A1: the sums 72 / 288 / 144 are kernel-checked and A1
+divides them by 24. What remains is A10 — carrying them across to a Mathlib `Representation`
+so the quotient is literally a `finrank`.
+A6. **Delivered at character level** (`mult_broken`, `mult_broken_dims`): 24 · (0,0,2,4,2)
+over 22, so the broken restriction carries no A₁ or A₂ and no equivariant scalar survives on
+it. The explicit idempotent isotypic projectors (traces 0, 0, 4, 12, 6) remain for the
+Mathlib phase; they are 22×22 matrix algebra, not a `decide` target.
+A7. **Delivered** (`OI_Regulator_Symmetry.lean`): Σχ over Sym²(ℝ⁴) is 384 = 1 · 384 for the
+hypercubic group and 192 = 2 · 96 for the native group, and the fixed basis
+{diag(1,0,0,0), diag(0,I₃)} is exhibited as invariant under the native group by direct check
+rather than inferred from a dimension count. The hypercubic countercontrol is included.
+A7b. **Delivered** (same file): Σχ over Sym²(Λ²ℝ⁴) is likewise 384 and 192, with
+{Σ_i F₀ᵢ², Σ_{i<j} Fᵢⱼ²} exhibited invariant under the native group and the electric form
+shown *not* invariant under the hypercubic group. Electric and magnetic normalizations are
+therefore independent under the native symmetry and are locked to each other only by the
+Euclidean regulator — the gauge-sector counterpart of A7.
+A8. **Delivered** (`sqTrivial_odd`, `sqTrivial_four`). Note the general statement for every
+odd q was already proved by `eq_one_of_sq_of_odd`; what was missing, and is now present, is
+the q = 4 countercontrol showing the oddness hypothesis is load-bearing.
+A9. **Open.** The Schur sign theorem: −B D⁻¹ Bᵀ ⪯ 0 for D ≻ 0, with an indefinite-D witness
+for necessity. Analytic rather than finite, and unrelated to the counting machinery — it
+shares nothing with A1 and is better taken as its own piece of work.
+A10. **Open, and now the substantive remainder.** Transport lemmas aligning the in-file
+character and element data with the Mathlib vocabulary: a group instance on the 24 elements,
+a `Representation` whose character is `chi6`, and the bijection carrying `rots` onto it. Only
+then do A5's quotients become `finrank` statements about the actual cubic representation
+rather than integer arithmetic beside a general theorem. Nothing numerical is missing; this
+is bookkeeping, and it is what the two halves of the section are still waiting on.
 
 ## B. Structural chain completions (probe: `structural_chain_probe.py`)
 

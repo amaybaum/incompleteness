@@ -24,6 +24,14 @@ namespace OIBridge
 
 open LinearMap Representation
 
+/- `Module.Finite k V` is retained deliberately, and Lean's unused-variable linter is
+correspondingly silenced here rather than the hypothesis dropped. The identity does hold
+without it, but only degenerately: for a module that is not finite and free both
+`Module.finrank` and `LinearMap.trace` take junk values of zero, so the statement reduces to
+`0 = 0` and asserts nothing. Finite-dimensionality is what makes it a theorem about
+dimensions, which is the only reading the counting layer can use. -/
+set_option linter.unusedSectionVars false
+
 variable {k G V : Type*} [Field k] [Group G] [Fintype G]
   [AddCommGroup V] [Module k V] [Module.Finite k V]
   [Invertible (Fintype.card G : k)]
