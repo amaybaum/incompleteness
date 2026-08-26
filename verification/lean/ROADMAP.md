@@ -12,9 +12,10 @@ The section split in two on contact with the work. Most of it is finite arithmet
 no dependency at all: it is now kernel-checked in the zero-import layer. What genuinely needs
 Mathlib turned out to be smaller still — the averaging identity and the Hom-dimension formula
 are both already *in* Mathlib, so all that had to be built was the transport of the cubic data
-onto a `Representation`. That is A10, and it is now delivered. What remains open in this
-section is A9, which shares nothing with the counting machinery, and the two of A5's three
-quotients that need further representations constructed.
+onto a `Representation`. That is A10, and it is now delivered. Two of A5's three quotients are
+dimensions on the strength of it. What remains open in this section is A9, which shares nothing
+with the counting machinery, and A5-B22, which needs the broken sector built as a representation
+in its own right — a construction, not more plumbing.
 
 A1. **Available — from Mathlib, not from this layer.** The averaging identity
 |G| · dim(fixed subspace) = Σ_g χ(g) is `Representation.card_inv_mul_sum_char_eq_finrank` in
@@ -33,14 +34,56 @@ then needed.
 A3. **Delivered** (`mult_V6`): ⟨χ₆, χᵢ⟩ = 24 · (1,0,1,1,0), multiplicity-free on {A₁, E, T₁}.
 A4. **Delivered** (`mult_End`, `mult_End_dims`): 24 · (3,1,4,5,3), accounting for all 36
 dimensions of End(V₆).
-A5. **Split, and the first quotient is now a dimension.** The sums 72 / 288 / 144 are
-kernel-checked in the zero-import layer and A1 divides them by 24. With A10 delivered,
-`72 / 24 = 3` is no longer an integer quotient but a `Module.finrank`:
-`Cubic.finrank_commutant : finrank ℚ (IntertwiningMap rho rho) = 3`, together with
-`Cubic.finrank_invariants : finrank ℚ (invariants rho) = 1`. **288 / 24 = 12 and 144 / 24 = 6
-are not yet dimensions**: they need `End(V₆)` and the 22-dimensional broken restriction built
-as `Representation`s in their own right. That is mechanical given the pattern A10 establishes,
-but it is not done, and the two numbers remain arithmetic until it is.
+A5. **Split into A5-End (delivered) and A5-B22 (open).** The sums 72 / 288 / 144 are
+kernel-checked in the zero-import layer and A1 divides them by 24. Two of the three are now
+`Module.finrank` statements rather than integer quotients:
+
+- `72 / 24 = 3` — `Cubic.finrank_commutant : finrank ℚ (IntertwiningMap rho rho) = 3`, with
+  `Cubic.finrank_invariants : finrank ℚ (invariants rho) = 1` beside it.
+- **A5-End**, `288 / 24 = 12` — `Cubic.finrank_hom_end`. `End(V₆)` needed no construction:
+  Mathlib's `Representation.linHom` is the conjugation action and `char_linHom` gives its
+  character, so the transport is one decidable sum plus the same division.
+
+**A5-B22, `144 / 24 = 6`, is open, and it is a different kind of step.** An earlier round called
+both remaining quotients "mechanical given the pattern A10 establishes"; that was too coarse and
+is corrected here. There is no `B₂₂` object in the bridge for a `Hom` to target, and building
+one is a construction, not plumbing. The target is at least canonical now: opposite faces give
+the intrinsic invariant split `V₆ = T₃ ⊕ E₂ ⊕ A₁`, and `B₂₂` is exactly the off-diagonal part
+of `End(V₆)` —
+`Hom(E,T) ⊕ Hom(T,E) ⊕ Hom(A,T) ⊕ Hom(T,A) ⊕ Hom(A,E) ⊕ Hom(E,A)`, dimension 22, character
+`2(χ_T χ_E + χ_T χ_A + χ_E χ_A)`, which is the core layer's `chiBrk`.
+
+**The mirror is now complete and exact** (`representation_bridge_probe.py`, B4). It builds the
+opposite-face involution, checks it commutes with all 24 elements, exhibits `T`, `E`, `A` with
+integer bases, verifies each block of every group element is integral rather than assuming it,
+confirms `χ_T + χ_E + χ_A = χ_V₆` pointwise, assembles the six blocks into a 22-dimensional
+representation whose character it checks against `2(χ_T χ_E + χ_T χ_A + χ_E χ_A)`, and gets
+`dim Hom_G(V₆, B₂₂) = 6` by exact `GF(p)` rank — with a one-generator control leaving 68. So
+nothing numerical is missing, and the answer is certified by a route that uses no character
+theory at all.
+
+**What blocks the Lean statement is one missing Mathlib lemma, and it is worth naming precisely
+so the next attempt does not rediscover it.** Reaching `finrank_intertwiners` needs `χ_B₂₂`,
+which needs the characters of `T`, `E`, `A` — that is, the trace of `ρ g` restricted to a
+subrepresentation. Mathlib has no lemma for it:
+
+- `Subrepresentation.toRepresentation` builds the object fine, but says nothing about traces.
+- `LinearMap.IsProj.trace` gives `trace P = finrank p` for the **projector itself**, via
+  `IsProj.eq_conj_prodMap`. That conjugation is specialised to `P`; it does **not** cover
+  `trace (ρ g ∘ₗ P)` for an operator merely *commuting* with `P`, which is what a character needs.
+- `LinearMap.trace_prodMap'` does close the other gap for free — the character of a
+  `Representation.prod` is the sum of characters, even though no `char_prod` is stated.
+
+An earlier note described the Mathlib support as covering "all three structural pieces". That is
+not quite right, and the correction matters for scheduling: two routes remain, both real work.
+**(a)** Prove the commuting-projector trace lemma — `IsProj p P`, `f ∘ₗ P = P ∘ₗ f` ⊢
+`trace (f.restrict …) = trace (f ∘ₗ P)` — generalising `eq_conj_prodMap`. **(b)** Sidestep it by
+defining `T`, `E`, `A` as explicit representations on `Fin n → ℚ` with matrices given directly,
+keeping every character decidable; the cost there is a sign cocycle for `T`, since the group
+permutes the three complement-pairs *with signs*. Route (b) would leave the identification of
+those explicit representations with the invariant summands of `V₆` mirror-certified rather than
+kernel-certified — the same status `V₆ ≅ S₄`-on-2-subsets already has, which is stated and
+accepted, so that is a coherent choice rather than a compromise.
 A6. **Delivered at character level** (`mult_broken`, `mult_broken_dims`): 24 · (0,0,2,4,2)
 over 22, so the broken restriction carries no A₁ or A₂ and no equivariant scalar survives on
 it. The explicit idempotent isotypic projectors (traces 0, 0, 4, 12, 6) remain for the
@@ -79,18 +122,27 @@ and finish with `Set.ncard_coe_finset`, which carries no `Fintype` instance at a
 ## B. Structural chain completions (probe: `structural_chain_probe.py`)
 
 The section split on the A10 dependency, and the split is kept here so that neither half gets
-reported closed on the strength of the other. A10 has since landed, which moves B1 from blocked
-to unblocked but does not by itself close it — the corollary still has to be stated.
+reported closed on the strength of the other. A10 landed, and B1 is now closed on the strength
+of it. B3 remains split, and its two halves are still unrelated to each other.
 
-B1. **Unblocked; the dimension is delivered, the corollary is not yet stated.** The
-operator-level forms are already proved in `OI_Structural_Core.lean` — `mz_identity`,
-`kernel_equivariant`, `susskind3`, `center_anticommutator`, `mass_square` — and the missing
-step was from "K_m commutes with every R_g" to "K_m lies in a space of dimension 72/24 = 3".
-**That dimension now exists as a theorem**: `Cubic.finrank_commutant`. What remains is joining
-the two, and the join has an architectural constraint worth stating: it cannot live in
-`OI_Structural_Core.lean`, which is zero-import and stays that way. The V₆-instance corollary
-belongs in `OIBridge.lean`, restating `kernel_equivariant`'s hypothesis for `rho` and concluding
-membership in a 3-dimensional space. Nothing numerical is missing.
+B1. **Delivered** (`Cubic.equivariant_kernel_lives_in_finrank_three`, in
+`lean-mathlib/OIBridge.lean`). The
+operator-level forms are proved in `OI_Structural_Core.lean` — `mz_identity`,
+`kernel_equivariant`, `susskind3`, `center_anticommutator`, `mass_square` — and the missing step
+was from "K_m commutes with every R_g" to "K_m lies in a space of dimension 72/24 = 3". Every
+kernel satisfying the cubic equivariance equation is now shown to lie in a **fixed**
+three-dimensional operator space, the dimension being `Cubic.finrank_commutant`. The confinement
+is the physical content, not the classification: the symmetry does not merely reduce a parameter
+count, it pins every admissible kernel into one space.
+
+The hypothesis is in composition form, `K ∘ₗ ρ g = ρ g ∘ₗ K`, which is definitionally the
+`isIntertwining'` field — so the bundling is a structure literal — and is the closer reading of
+`kernel_equivariant`, which is an operator identity rather than a pointwise statement.
+
+The architectural point is worth keeping on record: this corollary **cannot** live in
+`OI_Structural_Core.lean`. That file is zero-import and stays that way, and the word *dimension*
+is not available in it at all. The split between the two files is exactly the split between the
+implication and its dimensional reading.
 B2. **Delivered** (`OI_Structural_Chain.lean`, `path_prop`). The detailed-balance lemma,
 stated without the exponential. The `exp` in W(m→n)/W(n→m) = e^{−τ(ω_n−ω_m)} does one job —
 making the edge ratio a gradient g_n/g_m — so cross-multiplying gives a multiplicative cocycle
