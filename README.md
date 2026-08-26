@@ -239,7 +239,7 @@ This repository is mixed content, and two licenses apply by scope:
 
 | Scope | License |
 |---|---|
-| **Source code** — everything under `papers/oi_lattice_code/`, the build and audit scripts under `audit/`, and any other program source here | **MIT**, per `LICENSE` |
+| **Source code** — everything under `papers/oi_lattice_code/` and `verification/`, the build and audit scripts under `tools/`, and any other program source here | **MIT**, per `LICENSE` |
 | **Manuscripts** — the technical papers under `papers/` in Markdown, LaTeX and PDF form, and everything under `book/` | **CC-BY-4.0** ([deed](https://creativecommons.org/licenses/by/4.0/)) |
 
 This section is the authoritative statement of scope. `LICENSE` carries the verbatim MIT
