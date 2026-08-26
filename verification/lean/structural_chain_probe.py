@@ -87,6 +87,7 @@ def nbr_sum(vec,kvec):
                 acc+=vec[pos[tuple(t)]]
         out[pos[s]]=acc
     return out
+ndeg=0
 for _ in range(5):
     # momenta on the periodic lattice, so the plane wave is an exact eigenvector
     n=rng.integers(0,L,d); k=2*np.pi*n/L
@@ -104,6 +105,14 @@ for _ in range(5):
     u0=phi.copy(); u1=z*phi
     u2=alpha*nbr_sum(u1,k)-u0
     assert np.max(np.abs(u2-(z**2)*phi))<1e-9                    # matches z^2 phi
+    # teeth: at a momentum with sum cos k = 0 every alpha satisfies the equation, so the
+    # wrong-alpha control is only meaningful away from those. Require some, and check there.
+    if abs(lam)>1e-6:
+        ndeg+=1
+        assert abs((1.0/(d+1))*lam-2*cw)>1e-6                    # alpha = 1/(d+1) is rejected
+        u2bad=(1.0/(d+1))*nbr_sum(u1,k)-u0
+        assert np.max(np.abs(u2bad-(z**2)*phi))>1e-6             # and its evolution diverges
+assert ndeg>=2, "too few non-degenerate momenta to exercise the wrong-alpha control"
 # stability control: at alpha = 1 the same substitution gives cos w = d = 3, outside [-1,1]
 k0=np.zeros(d); lam0=2*sum(np.cos(k0[mu]) for mu in range(d))    # = 2d, the band edge
 assert 1.0*lam0/2==float(d) and float(d)>1.0                     # cos w = 3: no real solution
@@ -111,7 +120,8 @@ print("C2 PASS: (2D)^2 = Σ(T−T⁻¹)² EXACT in int64 (d=3,4; cross terms can
 print("     pinned constructively; {D,ε} = 0 exact; dispersion DERIVED from the second-order")
 print("     update on an 8^3 periodic lattice (5 momenta): neighbour sum diagonal on plane")
 print("     waves, z+1/z = α Σ(c+1/c) at α = 1/d, and two evolution steps reproduce z² φ;")
-print("     control: α = 1 gives cos ω = d = 3, outside [-1,1], so the lift is unstable there")
+print("     controls: α = 1/(d+1) is rejected on both clauses at every non-degenerate momentum,")
+print("     and α = 1 gives cos ω = d = 3, outside [-1,1], so the lift is unstable there")
 # ---------- C3 ----------
 d,L=3,4
 D2,box_neg,eps=stag(d,L)
