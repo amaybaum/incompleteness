@@ -1,9 +1,10 @@
 # Roadmap — planned formalizations
 
-The four core proof files are deliberately dependency-free, and stay that way. A single
-separate file under `lean-mathlib/` binds to Mathlib, for the one classical bridge that
-genuinely needs finite-dimensional linear algebra. Statements below are fixed; the companion
-probes verify every concrete number they assert.
+The five core proof files are deliberately dependency-free, and stay that way. A single
+separate file under `lean-mathlib/` binds to Mathlib, for the statements that genuinely need
+finite-dimensional linear algebra — the ones containing the word *dimension*, which finite
+arithmetic cannot reach. Statements below are fixed; the companion probes verify every concrete
+number they assert.
 
 ## A. Representation-theoretic bridge — mostly DELIVERED
 

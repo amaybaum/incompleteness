@@ -2,8 +2,10 @@
 
 ## Requirements
 
-- Lean 4 (any recent release; the proof files are self-contained — no Mathlib, no lake
-  project, zero imports).
+- Lean 4 (any recent release; the five core proof files are self-contained — no Mathlib, no
+  lake project, zero imports).
+- For the bridge only: `elan`/`lake` and network access, to fetch mathlib4 `v4.33.0` and its
+  build cache. Nothing in the core check needs this, and the two are kept separable on purpose.
 - Python 3 with NumPy (SciPy additionally for `gauge_certificates_probe.py`).
 
 ## Kernel check
@@ -19,6 +21,16 @@ finite actions — the 24-element cubic rotation group, the 384- and 96-element 
 permutation groups of the regulator sector, and the 48-element group of the cubic quadratic
 invariant.
 
+## Mathlib bridge
+
+    cd verification/lean-mathlib
+    lake exe cache get && lake build
+
+Separate project, separate pinned toolchain, separate verdict. It carries the two statements
+that contain the word *dimension* — the averaging identity and the equivariant-map dimension
+formula, both derived from Mathlib rather than reproved — and the transport of the cubic data
+onto a `Representation` that turns the core layer's `72` into `dim Hom_G(V₆, V₆) = 3`.
+
 ## Numerical probes
 
     python3 gauge_certificates_probe.py       # G1–G6
@@ -33,16 +45,22 @@ int64 or rational arithmetic, not floating point.
 
 ## Continuous checking
 
-`.github/workflows/verify.yml` runs the kernel check and all five probes on every change to
-`verification/`. Each proof file is checked separately and the failures are summed, so a
-rejection in one file does not hide the state of the others. The kernel verdict is
-version-relative: the workflow installs `leanprover/lean4:stable` and reports the resolved
-version in its own log, which is the version any given run certifies.
+`.github/workflows/verify.yml` runs on every change to `verification/`, in **three independent
+jobs**: the zero-import kernel check, the Mathlib bridge, and the probes. They are independent
+on purpose — a breakage in the bridge, which depends on a large external library, can never be
+mistaken for a verdict on the self-contained files, and vice versa. Within the kernel job each
+proof file is checked separately and the failures are summed, so a rejection in one file does
+not hide the state of the others.
+
+**The two kernel verdicts are version-relative, and to different versions.** The core job
+installs `leanprover/lean4:stable` and reports the resolved version in its own log; the bridge
+job is pinned to `leanprover/lean4:v4.33.0`, matching the Mathlib tag it requires. A green run
+certifies those toolchains and nothing about any other.
 
 ## Release checklist
 
 - [ ] All five `lean` commands exit cleanly.
 - [ ] All five probes print their full PASS sets.
+- [ ] The bridge builds: `cd verification/lean-mathlib && lake exe cache get && lake build`.
 
-Status: both layers pass in CI. A green run certifies the toolchain that run resolved, and
-nothing about any other.
+Status: all three jobs pass in CI.
