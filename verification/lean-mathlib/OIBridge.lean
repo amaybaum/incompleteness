@@ -252,6 +252,93 @@ theorem finrank_invariants : Module.finrank ℚ (invariants rho) = 1 := by
     linarith
   exact_mod_cast h1
 
+/-! ### §A5, second quotient: `288 / 24 = 12` as a dimension
+
+`End(V₆)` needs no construction here. Mathlib's `Representation.linHom` already builds the
+conjugation action `K ↦ ρ g ∘ K ∘ ρ g⁻¹`, and `char_linHom` already gives its character as
+`χ(g⁻¹) · χ(g)`. So the counting layer's `288` transports exactly the way `72` did, and the
+only new content is one decidable sum.
+
+This is where a scope claim made when A10 landed has to be corrected. It said both remaining
+quotients were "mechanical given the pattern A10 establishes". That is true of `End(V₆)` and
+**not** of the broken 22-dimensional sector — see the note at the end of this section. -/
+
+/-- The conjugation action on `End(V₆)`, 36-dimensional. -/
+noncomputable def rhoEnd : Representation ℚ (Perm (Fin 4)) ((Face → ℚ) →ₗ[ℚ] (Face → ℚ)) :=
+  rho.linHom rho
+
+set_option maxRecDepth 8000 in
+/-- `Σ_g χ_End(g) · χ(g⁻¹) = 288`, written with the inverses in exactly the shape
+`finrank_intertwiners` produces so that the evaluator, not a lemma, supplies
+`χ(g⁻¹) = χ(g)`. -/
+theorem sum_char_end :
+    ∑ g : Perm (Fin 4), fixCount g⁻¹ * fixCount g * fixCount g⁻¹ = 288 := by decide
+
+/-- The same sum in `ℚ`, with the character of `End(V₆)` expanded by `char_linHom`. -/
+theorem sum_character_end_rat :
+    ∑ g : Perm (Fin 4), rhoEnd.character g * rho.character g⁻¹ = (288 : ℚ) := by
+  have h : ∀ g : Perm (Fin 4), rhoEnd.character g * rho.character g⁻¹
+      = ((fixCount g⁻¹ * fixCount g * fixCount g⁻¹ : ℕ) : ℚ) := by
+    intro g
+    rw [rhoEnd, Representation.char_linHom, character_eq_fixCount, character_eq_fixCount,
+      character_eq_fixCount, Nat.cast_mul, Nat.cast_mul]
+  rw [Finset.sum_congr rfl fun g _ => h g, ← Nat.cast_sum, sum_char_end]
+  norm_num
+
+/-- **§A5.** `dim Hom_G(V₆, End V₆) = 12`. The mirror reaches the same 12 without any character
+theory, by an exact `GF(p)` rank on the 216-unknown intertwiner system; imposing equivariance
+for a single generator instead of the whole group leaves 112, so the number is cut out by the
+cubic symmetry and is not an artifact of the construction. -/
+theorem finrank_hom_end : Module.finrank ℚ (IntertwiningMap rho rhoEnd) = 12 := by
+  have h := finrank_intertwiners rho rhoEnd
+  rw [sum_character_end_rat, card_group] at h
+  have h12 : ((Module.finrank ℚ (IntertwiningMap rho rhoEnd) : ℚ)) = 12 := by
+    push_cast at h ⊢
+    linarith
+  exact_mod_cast h12
+
+/-! ### §B1 — the corollary the structural core could not state
+
+`OI_Structural_Core.lean`'s `kernel_equivariant` says `K_m` commutes with every `R_g`, in an
+abstract ring and with no notion of dimension available. What the manuscript wants next is that
+`K_m` therefore lies in a space of dimension `72 / 24 = 3`. That sentence cannot be written in
+the zero-import layer at all, and it is why it lives here.
+
+Mathlib supplies the bridging constructor, so this is short: a linear map commuting with the
+whole action *is* an intertwiner, and `finrank_commutant` says that space is 3-dimensional. -/
+
+/-- **§B1.** A linear map on `V₆` commuting with the entire cubic action is an intertwining
+map — and by `finrank_commutant` the space of those is 3-dimensional. -/
+theorem mem_commutant_of_commutes (K : (Face → ℚ) →ₗ[ℚ] (Face → ℚ))
+    (h : ∀ (g : Perm (Fin 4)) (v : Face → ℚ), K (rho g v) = rho g (K v)) :
+    ∃ F : IntertwiningMap rho rho, F.toLinearMap = K :=
+  ⟨K.intertwiningMap_of_isIntertwiningMap h, rfl⟩
+
+/-! ### §A5-B22 — open, and *not* the same kind of step
+
+The remaining quotient, `144 / 24 = 6`, is `dim Hom_G(V₆, B₂₂)`, and `B₂₂` has no object in this
+file to be the target of. It has to be built first, and that is a construction rather than
+plumbing — which is the correction to the earlier "both are mechanical" claim.
+
+What makes the target canonical is an intrinsic split found in the mirror. Every face has an
+opposite face (its set-theoretic complement), so the six faces form three complement pairs, and
+that gives an `S₄`-invariant decomposition
+
+    V₆ = T₃ ⊕ E₂ ⊕ A₁
+
+into functions odd under complementation (3), even functions whose three pair-values sum to
+zero (2), and constants (1). The broken sector is then exactly the off-diagonal part of
+`End(V₆)`:
+
+    B₂₂ = Hom(E,T) ⊕ Hom(T,E) ⊕ Hom(A,T) ⊕ Hom(T,A) ⊕ Hom(A,E) ⊕ Hom(E,A)
+
+of dimension `6+6+3+3+2+2 = 22`, with character `2(χ_T χ_E + χ_T χ_A + χ_E χ_A)` — which is
+precisely the zero-import layer's `chiBrk`. The Mathlib pieces for it all exist
+(`Subrepresentation.toRepresentation`, `linHom`, and representation products), so the route is
+clear; the work is in describing the three submodules to Lean without friction, and it is a
+round of its own. The mirror already certifies the answer: an exact rank on the 132-unknown
+system gives 6, with a one-generator control at 68. -/
+
 end Cubic
 
 end OIBridge

@@ -151,9 +151,50 @@ def permmat6(g):
     return M
 S4six=[permmat6(g) for g in itertools.permutations(range(4))]
 assert commutant_dim(S4six,6)==3
+# The SECOND remaining A5 quotient, 288/24 = 12, likewise without character theory. The object
+# is Hom_G(V6, End(V6)): maps K with rhoEnd(g) K = K rho(g). Since every rho(g) here is a
+# permutation matrix, g^-1 = g^T, so the conjugation action K |-> g K g^-1 has matrix
+# kron(g, g) on the row-major vectorization -- no inverse to form. Solved exactly over GF(p)
+# rather than by numpy's float matrix_rank, since a rank that is off by one silently reports
+# the wrong dimension.
+def rank_mod_p(rows,ncols,p=1000003):
+    rows=[r[:] for r in rows]; r=0
+    for c in range(ncols):
+        piv=next((i for i in range(r,len(rows)) if rows[i][c]%p),None)
+        if piv is None: continue
+        rows[r],rows[piv]=rows[piv],rows[r]
+        inv=pow(rows[r][c],p-2,p)
+        rows[r]=[(x*inv)%p for x in rows[r]]
+        for i in range(len(rows)):
+            if i!=r and rows[i][c]%p:
+                f=rows[i][c]; rows[i]=[(a-f*b)%p for a,b in zip(rows[i],rows[r])]
+        r+=1
+        if r==len(rows): break
+    return r
+def hom_dim(src,tgt):
+    """dim Hom_G(source, target): nullity of the stacked T(g) K - K S(g) = 0 system."""
+    n=src[0].shape[0]; m=tgt[0].shape[0]; rows=[]
+    for S,T in zip(src,tgt):
+        M=np.kron(T,np.eye(n,dtype=np.int64))-np.kron(np.eye(m,dtype=np.int64),S.T)
+        rows.extend(M.astype(np.int64).tolist())
+    return m*n-rank_mod_p(rows,m*n)
+Gi=[g.astype(np.int64) for g in S4six]
+End=[np.kron(g,g) for g in Gi]
+dimEnd=hom_dim(Gi,End)
+assert dimEnd==12, dimEnd
+assert dimEnd==sum(c**3 for c in chiS4)//len(Gi)        # only now: 288/24 = 12
+# Countercontrol, as for the commutant: imposing equivariance for a single generator instead
+# of the whole group must give a strictly larger space, or the system is not seeing the
+# symmetry at all.
+one=[Gi[i] for i in (1,)]
+dimEnd1=hom_dim(one,[np.kron(g,g) for g in one])
+assert dimEnd1>dimEnd, (dimEnd1,dimEnd)
 print(f"B4 PASS: 72/288/144 re-derived; averaging gives Hom dims 3 / 12 / 6; commutant dim "
       f"{dimO} also obtained directly from gK = Kg (no character theory), same on the "
       f"2-subset model, and a proper subgroup gives {commutant_dim(C4,6)} > 3")
+print(f"     Hom_G(V6, End V6) = {dimEnd} by exact GF(p) rank on the {len(Gi)*36*6}x{36*6} "
+      f"intertwiner system — again before any character sum; one generator alone leaves "
+      f"{dimEnd1}, so the full cubic symmetry is what cuts it to {dimEnd}")
 print(f"     V6 identified with S4 on the six 2-subsets: character multisets agree exactly "
       f"({dict(sorted(_C(chi6).items()))}) — the model the Mathlib bridge builds")
 def perm4(p):
