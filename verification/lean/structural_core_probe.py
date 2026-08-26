@@ -94,8 +94,13 @@ for _ in range(25):
     c,w,k,zs,zt=(F(int(rng.integers(-9,9)),int(rng.integers(1,7))) for _ in range(5))
     assert k*(-(c*(zt*w)))+w*(c*(zs*k))==c*((w*k)*(zs+(-zt)))
 print("R5 PASS: boost_ward c-general form exact over rationals (25 draws)")
+def lean_code(text):
+    """Lean source with block and line comments removed, so the lint reads code and not
+    prose. A file is entitled to *discuss* sorry or native_decide in its docstring; what
+    matters is whether it uses them."""
+    return re.sub(r'(?m)--.*$','',re.sub(r'/-.*?-/','',text,flags=re.S))
 src=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'OI_Structural_Core.lean'),encoding='utf-8').read()
-assert 'sorry' not in src and 'admit' not in src
+assert 'sorry' not in lean_code(src) and 'admit' not in lean_code(src)
 assert '\nimport ' not in src and not src.lstrip().startswith('import')
 nthm=len(re.findall(r'(?m)^theorem ',src))
 assert nthm>=30
@@ -105,7 +110,8 @@ assert leans==['OI_Gauge_Certificates.lean','OI_Regulator_Symmetry.lean',
 # every proof file in the layer is zero-import; the layer's defining discipline
 for f in leans:
     s=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),f),encoding='utf-8').read()
+    c=lean_code(s)
     assert '\nimport ' not in s and not s.lstrip().startswith('import'), f
-    assert 'sorry' not in s and 'admit' not in s and 'native_decide' not in s, f
+    assert 'sorry' not in c and 'admit' not in c and 'native_decide' not in c, f
 print(f"R6 PASS: no sorry/admit; zero imports across all {len(leans)} proof files; {nthm} theorems "
       "in this one; kernel check: see VERIFYING.md")
