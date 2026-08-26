@@ -34,6 +34,13 @@
   native symmetry and are locked to each other only by the Euclidean regulator.
 -/
 
+/- The group sums below run over 384 elements, so the `decide` certificates recurse deeper
+than the default elaboration limit of 512. Raising it changes how deep the evaluator may
+go, not what counts as a proof: every certificate is still reduced and checked by the
+kernel in full. `native_decide`, which would move the compiler into the trusted base, is
+not used anywhere in this layer. -/
+set_option maxRecDepth 100000
+
 namespace Regulator
 
 /-! ## Signed permutations of four coordinates
