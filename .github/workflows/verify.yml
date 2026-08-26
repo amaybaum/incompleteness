@@ -53,6 +53,29 @@ jobs:
           done
           exit $rc
 
+  # The Mathlib bridge is a separate lake project with a pinned toolchain, and a separate
+  # job: it is slower and has its own failure surface, and a breakage there must not be
+  # able to obscure the state of the zero-import core gate above.
+  bridge:
+    name: Mathlib bridge
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Build
+        working-directory: verification/lean-mathlib
+        run: |
+          lean --version
+          lake exe cache get
+          lake build
+
   probes:
     name: Numerical probes
     runs-on: ubuntu-latest
