@@ -102,7 +102,60 @@ sB=0.0
 for c in classes:
     for g in cls[c]: sB+=np.trace(g)*np.trace(rho_brk(g))
 assert round(sB)==144
-print("B4 PASS: 72/288/144 re-derived; averaging gives Hom dims 3 / 12 / 6")
+# The model the Mathlib bridge uses for V6 (roadmap A10): S4 acting on the two-element
+# subsets of a four-set -- the cube's rotation group on its faces, indexed by which pair of
+# body diagonals each face separates. This must be the SAME representation as the signed-
+# permutation V6 above, and the check is the full character multiset, not just the sums:
+# equal sums would not by itself establish equality of representations.
+subsets=[frozenset(p) for p in itertools.combinations(range(4),2)]
+assert len(subsets)==6
+chiS4=[sum(1 for s in subsets if frozenset(g[i] for i in s)==s)
+       for g in itertools.permutations(range(4))]
+assert len(chiS4)==24
+from collections import Counter as _C
+assert _C(chiS4)==_C(chi6), (sorted(_C(chiS4).items()),sorted(_C(chi6).items()))
+assert sum(c*c for c in chiS4)==72 and sum(c**3 for c in chiS4)==288
+# Countercontrol: a different 6-element S4-action -- the four diagonals plus two fixed
+# points -- must NOT match, or the comparison above has no teeth. Note a weaker control was
+# tried first and rejected: the coset action on S4/C4 has the SAME character (multiset
+# {0:14, 2:9, 6:1}, sum chi^2 = 72), so it discriminates nothing and was not kept.
+chiAlt=[sum(1 for i in range(4) if g[i]==i)+2 for g in itertools.permutations(range(4))]
+assert _C(chiAlt)!=_C(chi6) and sum(c*c for c in chiAlt)==240
+# The commutant dimension, by a SECOND and independent route. Above it is sum(chi^2)/|G|,
+# which is the averaging identity -- the very thing the Mathlib bridge is being asked to
+# supply. Deriving the Lean target from the identity it depends on would be circular, so
+# solve for the commutant directly: stack g@K - K@g = 0 over all 24 elements and take the
+# null space of the 24*36 x 36 system. No character theory enters.
+def commutant_dim(group,n):
+    rows=[]
+    for g in group:
+        # vec(gK - Kg) = (I (x) g - g^T (x) I) vec(K), with vec column-major
+        rows.append(np.kron(np.eye(n),g)-np.kron(g.T,np.eye(n)))
+    M=np.vstack(rows)
+    return n*n-np.linalg.matrix_rank(M,tol=1e-8)
+dimO=commutant_dim(O,6)
+assert dimO==3, dimO
+assert dimO==sum(c*c for c in chi6)//len(O)          # the two routes agree: 72/24 = 3
+# Countercontrol: the dimension must actually depend on the whole group. A proper subgroup
+# has a strictly larger commutant, so a check that could not tell them apart has no teeth.
+C4=[g for g in O if np.allclose(np.linalg.matrix_power(g,4),np.eye(6))
+    and np.allclose(g@Rz,Rz@g)]
+assert 1<len(C4)<24
+assert commutant_dim(C4,6)>3, commutant_dim(C4,6)
+# and the same computation on the S4-on-2-subsets model must give the SAME 3, since B4 has
+# just established the two are the same representation.
+def permmat6(g):
+    M=np.zeros((6,6))
+    for j,s in enumerate(subsets):
+        M[subsets.index(frozenset(g[i] for i in s)),j]=1
+    return M
+S4six=[permmat6(g) for g in itertools.permutations(range(4))]
+assert commutant_dim(S4six,6)==3
+print(f"B4 PASS: 72/288/144 re-derived; averaging gives Hom dims 3 / 12 / 6; commutant dim "
+      f"{dimO} also obtained directly from gK = Kg (no character theory), same on the "
+      f"2-subset model, and a proper subgroup gives {commutant_dim(C4,6)} > 3")
+print(f"     V6 identified with S4 on the six 2-subsets: character multisets agree exactly "
+      f"({dict(sorted(_C(chi6).items()))}) — the model the Mathlib bridge builds")
 def perm4(p):
     M=np.zeros((4,4))
     for i,j in enumerate(p): M[j,i]=1

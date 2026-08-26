@@ -106,7 +106,8 @@ nthm=len(re.findall(r'(?m)^theorem ',src))
 assert nthm>=30
 leans=sorted(f for f in os.listdir(os.path.dirname(os.path.abspath(__file__))) if f.endswith('.lean'))
 assert leans==['OI_Gauge_Certificates.lean','OI_Regulator_Symmetry.lean',
-               'OI_Staggered_Relations.lean','OI_Structural_Core.lean'], leans
+               'OI_Staggered_Relations.lean','OI_Structural_Chain.lean',
+               'OI_Structural_Core.lean'], leans
 # every proof file in the layer is zero-import; the layer's defining discipline
 for f in leans:
     s=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),f),encoding='utf-8').read()

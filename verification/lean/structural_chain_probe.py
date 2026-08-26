@@ -67,11 +67,61 @@ for d,L in ((3,4),(4,4)):
     D2,box_neg,eps=stag(d,L)
     assert np.array_equal(D2@D2,box_neg)          # (2D)^2 = sum (T-T^-1)^2 exactly
     assert np.array_equal(D2@eps+eps@D2,np.zeros_like(D2))
-th=rng.uniform(0,2*np.pi,3); d=3
-w=np.arccos(np.mean(np.cos(th)))
-assert abs(np.cos(w)-np.mean(np.cos(th)))<1e-12
+# Dispersion of the second-order update, derived rather than assumed. The previous form of
+# this check asserted cos(arccos(x)) == x for one random triple, which is a tautology and
+# tested nothing about the update; it is replaced here.
+#   u(t+1) = alpha * sum_nbrs u(t) - u(t-1), plane wave u(x,t) = z^t exp(i k.x)
+# substituting gives the characteristic equation  z + 1/z = alpha * sum_mu (c_mu + 1/c_mu),
+# i.e. cos w = (1/d) sum_j cos k_j exactly when alpha = 1/d.
+d,L=3,8; alpha=1.0/d
+sites=list(itertools.product(range(L),repeat=d))
+pos={s:i for i,s in enumerate(sites)}
+def nbr_sum(vec,kvec):
+    """sum of vec over the 2d nearest neighbours of each site, periodic"""
+    out=np.zeros(len(sites),dtype=complex)
+    for s in sites:
+        acc=0j
+        for mu in range(d):
+            for step in (1,-1):
+                t=list(s); t[mu]=(t[mu]+step)%L
+                acc+=vec[pos[tuple(t)]]
+        out[pos[s]]=acc
+    return out
+ndeg=0
+for _ in range(5):
+    # momenta on the periodic lattice, so the plane wave is an exact eigenvector
+    n=rng.integers(0,L,d); k=2*np.pi*n/L
+    phi=np.array([np.exp(1j*np.dot(k,s)) for s in sites])
+    # the lattice fact the dispersion rests on: the neighbour sum is diagonal on plane waves
+    lam=2*sum(np.cos(k[mu]) for mu in range(d))
+    assert np.max(np.abs(nbr_sum(phi,k)-lam*phi))<1e-9
+    # characteristic equation of u(t+1) = alpha * nbr_sum(u(t)) - u(t-1) at u(t) = z^t phi
+    cw=np.mean([np.cos(k[mu]) for mu in range(d)])               # = (1/d) sum cos k
+    assert abs(alpha*lam-2*cw)<1e-12                             # z + 1/z = 2 cos w
+    assert abs(cw)<=1+1e-12                                      # so a real w exists
+    w=np.arccos(cw); z=np.exp(1j*w)
+    assert abs((z+1/z)-alpha*lam)<1e-12                          # the root satisfies it
+    # and the update really does reproduce it: evolve two steps from z^0, z^1
+    u0=phi.copy(); u1=z*phi
+    u2=alpha*nbr_sum(u1,k)-u0
+    assert np.max(np.abs(u2-(z**2)*phi))<1e-9                    # matches z^2 phi
+    # teeth: at a momentum with sum cos k = 0 every alpha satisfies the equation, so the
+    # wrong-alpha control is only meaningful away from those. Require some, and check there.
+    if abs(lam)>1e-6:
+        ndeg+=1
+        assert abs((1.0/(d+1))*lam-2*cw)>1e-6                    # alpha = 1/(d+1) is rejected
+        u2bad=(1.0/(d+1))*nbr_sum(u1,k)-u0
+        assert np.max(np.abs(u2bad-(z**2)*phi))>1e-6             # and its evolution diverges
+assert ndeg>=2, "too few non-degenerate momenta to exercise the wrong-alpha control"
+# stability control: at alpha = 1 the same substitution gives cos w = d = 3, outside [-1,1]
+k0=np.zeros(d); lam0=2*sum(np.cos(k0[mu]) for mu in range(d))    # = 2d, the band edge
+assert 1.0*lam0/2==float(d) and float(d)>1.0                     # cos w = 3: no real solution
 print("C2 PASS: (2D)^2 = Σ(T−T⁻¹)² EXACT in int64 (d=3,4; cross terms cancel) — D² = −¼□ with □ := −Σ(T−T⁻¹)²")
-print("     pinned constructively; {D,ε} = 0 exact; Theorem-1 dispersion cos ω = (1/d)Σcos k exact")
+print("     pinned constructively; {D,ε} = 0 exact; dispersion DERIVED from the second-order")
+print("     update on an 8^3 periodic lattice (5 momenta): neighbour sum diagonal on plane")
+print("     waves, z+1/z = α Σ(c+1/c) at α = 1/d, and two evolution steps reproduce z² φ;")
+print("     controls: α = 1/(d+1) is rejected on both clauses at every non-degenerate momentum,")
+print("     and α = 1 gives cos ω = d = 3, outside [-1,1], so the lift is unstable there")
 # ---------- C3 ----------
 d,L=3,4
 D2,box_neg,eps=stag(d,L)
@@ -106,6 +156,16 @@ assert np.sum(sv<1e-10)==2
 pA=np.concatenate([np.exp(-tau*om[:3]),3.0*np.exp(-tau*om[3:6])]); pA/=pA.sum()
 assert np.linalg.norm(L2g@pA)<1e-10
 assert np.linalg.norm(pA/pA.sum()-np.exp(-tau*om[:6])/np.exp(-tau*om[:6]).sum())>1e-3
+# The exponential-free form the Lean file proves: cross-multiplied edgewise balance, exact
+# integers, no division and no null space. Same content, stronger statement.
+gI=[1,2,4,1,3,9]; pI=[1,2,4,3,9,27]
+compA=[(0,1),(1,2)]; compB=[(3,4),(4,5)]
+assert all(pI[b]*gI[a]==pI[a]*gI[b] for (a,b) in compA+compB)   # every edge balanced
+assert pI[3]*gI[0]!=pI[0]*gI[3]                                  # but not across components
+assert pI[2]*gI[3]!=pI[3]*gI[2]                                  # the bridging edge is unbalanced
+gC=[1,2,4,8]; pC=[5*x for x in gC]                               # connected control, c = 5
+assert all(pC[b]*gC[a]==pC[a]*gC[b] for (a,b) in [(0,1),(1,2),(2,3)])
+assert pC[3]*gC[0]==pC[0]*gC[3]                                  # proportionality does hold
 print("C4 PASS: detailed balance on a connected graph forces Gibbs at τ (unique, 1e−10); disconnected control has a")
 print("     2-dim stationary space with per-component constants — not global Gibbs; connectedness load-bearing")
 # ---------- C5 ----------
@@ -141,5 +201,28 @@ Pav/=48
 assert int(np.sum(np.linalg.svd(Pav-np.eye(6),compute_uv=False)<1e-9))==1
 v=np.array([np.eye(3)[a,b] for (a,b) in idx3])
 assert np.linalg.norm(Pav@v-v)<1e-10
+# The character sum the Lean file kernel-checks, in exact integers. The float SVD above reads
+# the dimension off a rank; this reads it off Σχ = |G|·dim, which is the form Lean uses.
+symP=[(a,b) for a in range(3) for b in range(a,3)]
+def trS(p,s): return sum(s[a]*s[b] for (a,b) in symP
+                         if (min(p[a],p[b]),max(p[a],p[b]))==(a,b))
+allB3=[(p,s) for p in itertools.permutations(range(3))
+       for s in itertools.product([1,-1],repeat=3)]
+evens={(0,1,2),(1,2,0),(2,0,1)}
+rotB3=[(p,s) for (p,s) in allB3 if (1 if p in evens else -1)*s[0]*s[1]*s[2]==1]
+assert len(allB3)==48 and len(rotB3)==24
+sB3=sum(trS(p,s) for (p,s) in allB3); sRot=sum(trS(p,s) for (p,s) in rotB3)
+assert sB3==48 and sRot==24                       # = 1*48 and 1*24: one invariant either way
+assert sB3//48==1 and sRot//24==1
+def fixesQ(p,s,vals):
+    for (a,b) in symP:
+        src=vals[a] if a==b else 0
+        tgt=vals[p[a]] if p[a]==p[b] else 0
+        if s[a]*s[b]*src!=tgt: return False
+    return True
+assert all(fixesQ(p,s,[1,1,1]) for (p,s) in allB3)          # delta is invariant
+assert not all(fixesQ(p,s,[1,0,0]) for (p,s) in allB3)      # countercontrol
 print("C5 PASS: boost-Ward identity exact over rationals (20 draws); Corollary 1a core = L2 machinery instance:")
 print("     dim Sym²(ℝ³)^{B₃} = 1 with fixed vector δ — quadratic anisotropy forbidden, as the manuscript proves")
+print(f"     exact character sums (the Lean decide-targets): {sB3} = 1·48 over B₃ and {sRot} = 1·24 over its")
+print("     rotations; δ invariant, diag(1,0,0) not — the countercontrol that gives the claim teeth")
