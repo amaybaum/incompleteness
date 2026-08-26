@@ -44,6 +44,14 @@ The current research milestone does **not** assume quantum mechanics is fundamen
 
 The physical-carrier frontier is separate: the six signed SC links decompose exactly as $3\oplus2\oplus1$, but the former coupling-degree proof that these must be the complete physical carrier is not established. **H-link** names the carrier identification $V_{\mathrm{phys}}\cong V_{\mathrm{link}}\otimes\mathbb C^m$; the single-copy clause $m=1$ gives $K=6$. **H-cust** names the custodial kinetic/condensate premise used by the stabilizer route.
 
+## Verification
+
+The finite and algebraic core of the papers is machine-checked in [`verification/`](verification/), in two layers. Three Lean 4 proof files carry the telescoping and plaquette-triviality results for arbitrary abelian alphabets, the central-sign collapse for every odd $q$, the cubic counting layer behind the local-gauge closure argument of [`SM`](papers/SM.md), Theorem 1a at operator level, Theorem 3's chirality algebra, the quadratic boost-Ward identity, and the staggered generator relations that imply the Susskind factorization of Theorem 2 for any number of axes. The files are self-contained — no Mathlib, no `lake` project, zero imports — so the kernel check is three `lean` invocations and a clean exit is the certificate.
+
+Five Python probes instantiate every hypothesis and conclusion on the concrete lattice operators, exactly in integer or rational arithmetic wherever the statement is an integer identity. The division of labour is deliberate: the Lean files prove the implications, and the probes certify that the physical operators satisfy the hypotheses those implications assume. Both layers run on every change to `verification/`. See [`verification/lean/VERIFYING.md`](verification/lean/VERIFYING.md) to run them locally, and [`verification/lean/ROADMAP.md`](verification/lean/ROADMAP.md) for the statements that are specified and numerically mirrored but not yet formalized — chiefly the representation-theoretic bridge, which needs the classical averaging identity and therefore a Mathlib dependency the present files deliberately avoid.
+
+---
+
 ## Repository layout
 
 
@@ -56,6 +64,7 @@ incompleteness/
 │   ├── Explainer, Complexity, Computation, Medicine, Bioinformatics  (companion documents)
 │   └── oi_lattice_code/                      (source code for SM §§6–7 lattice computations)
 ├── book/                      Book manuscript: 20 chapters, 4 parts, full back matter
+├── verification/              Lean 4 proof files + numerical companion probes
 └── README.md, LICENSE
 ```
 
@@ -230,7 +239,7 @@ This repository is mixed content, and two licenses apply by scope:
 
 | Scope | License |
 |---|---|
-| **Source code** — everything under `papers/oi_lattice_code/`, the build and audit scripts under `audit/`, and any other program source here | **MIT**, per `LICENSE` |
+| **Source code** — everything under `papers/oi_lattice_code/` and `verification/`, the build and audit scripts under `tools/`, and any other program source here | **MIT**, per `LICENSE` |
 | **Manuscripts** — the technical papers under `papers/` in Markdown, LaTeX and PDF form, and everything under `book/` | **CC-BY-4.0** ([deed](https://creativecommons.org/licenses/by/4.0/)) |
 
 This section is the authoritative statement of scope. `LICENSE` carries the verbatim MIT
