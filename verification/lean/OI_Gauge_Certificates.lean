@@ -238,6 +238,23 @@ theorem trivial_connection {A : Type u} {G : Type v}
     exact h2
   exact eq_one_of_sq_of_odd hsq hodd (htor a)
 
+/-! ### A8: the oddness hypothesis is necessary.
+
+`trivial_connection` above covers every odd `q`. The census below is the countercontrol: at
+`q = 4` the additive characters squaring to one are `k ∈ {0, 2}`, so a nontrivial survivor
+exists and the `OddN` hypothesis cannot simply be dropped. -/
+
+/-- The characters with `χ² = 1` at modulus `q`, as the residues `k` with `2k ≡ 0 (mod q)`. -/
+def sqTrivial (q : Nat) : List Nat := (List.range q).filter (fun k => (2 * k) % q == 0)
+
+/-- For odd `q` the census is trivial — the arithmetic shadow of `eq_one_of_sq_of_odd`. -/
+theorem sqTrivial_odd :
+    [sqTrivial 3, sqTrivial 5, sqTrivial 7, sqTrivial 9, sqTrivial 11, sqTrivial 13]
+      = [[0], [0], [0], [0], [0], [0]] := by decide
+
+/-- At `q = 4` the survivor `k = 2` appears: oddness is load-bearing, not decorative. -/
+theorem sqTrivial_four : sqTrivial 4 = [0, 2] := by decide
+
 /-! Smoke instances (nonvacuity of the classes; also exercises elaboration). -/
 
 instance : AddCommGrp Int where
@@ -377,6 +394,61 @@ theorem sum_cube :
 survive restriction to the 22 broken directions (). -/
 theorem sum_broken :
     isum (rots.map (fun g => chi6 g * chiBrk g)) = 144 := by decide
+
+/-! ### The irreducible characters, and the multiplicity certificates (A2-A4, A6).
+
+The five irreducible characters of O are given as functions on `El`, not as a table of
+trusted class data: `A₁` is constant, `E` and `T₁` are the pieces already used by `chi6`,
+`A₂` is the stored parity, and `T₂ = T₁ ⊗ A₂`.  Row-orthonormality is then checked as a sum
+over the actual 24 elements rather than over class weights, which is strictly stronger than
+a table certificate — it needs no separate claim that the class census is right.
+
+Every multiplicity below is `24 * m`, and the division by 24 is the one step deferred to the
+averaging identity of the Mathlib phase.  The sums themselves are kernel-checked here. -/
+
+/-- The sign character. On a rotation `det = par * sprod = 1`, so `par = sprod`; the stored
+parity is validated against the inversion count by `parities_correct`. -/
+def chiA2 (g : El) : Int := g.par
+
+/-- `T₂ = T₁ ⊗ A₂`. -/
+def chiT2 (g : El) : Int := chiT g * chiA2 g
+
+/-- The five irreducible characters, in the order `A₁, A₂, E, T₁, T₂`. -/
+def irr : List (El → Int) := [chiA, chiA2, chiE, chiT, chiT2]
+
+/-- Each character evaluates to its own degree at the identity: `1, 1, 2, 3, 3`. -/
+theorem irr_degrees :
+    irr.map (fun c => c ⟨p0, 1, (false, false, false)⟩) = [1, 1, 2, 3, 3] := by decide
+
+/-- Row-orthonormality over the 24 rotations: `⟨χᵢ, χⱼ⟩ = 24` on the diagonal and `0` off it.
+This is A2's certificate, and it doubles as the irreducibility witness for all five. -/
+theorem irr_orthonormal :
+    (irr.map (fun a => irr.map (fun b => isum (rots.map (fun g => a g * b g)))))
+      = [[24, 0, 0, 0, 0], [0, 24, 0, 0, 0], [0, 0, 24, 0, 0],
+         [0, 0, 0, 24, 0], [0, 0, 0, 0, 24]] := by decide
+
+/-- **A3.** `⟨χ₆, χᵢ⟩ = 24 · (1, 0, 1, 1, 0)`: V₆ is multiplicity-free on `{A₁, E, T₁}`. -/
+theorem mult_V6 :
+    irr.map (fun c => isum (rots.map (fun g => chi6 g * c g))) = [24, 0, 24, 24, 0] := by
+  decide
+
+/-- **A4.** `⟨χ₆², χᵢ⟩ = 24 · (3, 1, 4, 5, 3)` — the 36 dimensions of `End(V₆)`. -/
+theorem mult_End :
+    irr.map (fun c => isum (rots.map (fun g => chi6 g * chi6 g * c g)))
+      = [72, 24, 96, 120, 72] := by decide
+
+/-- The multiplicities of A4 account for all 36 dimensions: `3·1+1·1+4·2+5·3+3·3 = 36`. -/
+theorem mult_End_dims : 3 * 1 + 1 * 1 + 4 * 2 + 5 * 3 + 3 * 3 = 36 := by decide
+
+/-- **A6.** `⟨χ_broken, χᵢ⟩ = 24 · (0, 0, 2, 4, 2)` — the broken restriction carries no
+`A₁` or `A₂`, so no equivariant scalar survives on it. -/
+theorem mult_broken :
+    irr.map (fun c => isum (rots.map (fun g => chiBrk g * c g))) = [0, 0, 48, 96, 48] := by
+  decide
+
+/-- The multiplicities of A6 account for all 22 dimensions, and `chiBrk` has degree 22. -/
+theorem mult_broken_dims :
+    2 * 2 + 4 * 3 + 2 * 3 = 22 ∧ chiBrk ⟨p0, 1, (false, false, false)⟩ = 22 := by decide
 
 end Cubic
 
