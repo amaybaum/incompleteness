@@ -33,9 +33,13 @@ without it, but only degenerately: for a module that is not finite and free both
 dimensions, which is the only reading the counting layer can use. -/
 set_option linter.unusedSectionVars false
 
+/- The group order is written `Nat.card G`, matching the Mathlib statements these derive
+from. `Fintype.card` would read more naturally beside the core layer's integer sums, but the
+two are different *instances* of `Invertible` even though they are propositionally equal, and
+carrying the mismatch would mean converting at every use site for no gain. -/
 variable {k G V : Type*} [Field k] [Group G] [Fintype G]
   [AddCommGroup V] [Module k V] [Module.Finite k V]
-  [Invertible (Fintype.card G : k)]
+  [Invertible (Nat.card G : k)]
 
 /-! ### The averaging identity is Mathlib's, not this file's
 
@@ -61,12 +65,8 @@ the character sum. This is `Representation.card_inv_mul_sum_char_eq_finrank` wit
 inverse cleared, which is the form the kernel-checked sums of the core layer are in:
 `72 = 24 · 3`, `288 = 24 · 12`, `144 = 24 · 6`, `384 = 384 · 1` against `192 = 96 · 2`. -/
 theorem card_mul_finrank_invariants (ρ : Representation k G V) :
-    (Fintype.card G : k) * (Module.finrank k (invariants ρ) : k) = ∑ g : G, ρ.character g := by
-  have hcard : (Nat.card G : k) = (Fintype.card G : k) := by
-    rw [Nat.card_eq_fintype_card]
-  have h := ρ.card_inv_mul_sum_char_eq_finrank
-  rw [hcard] at h
-  rw [← h, ← mul_assoc, mul_inv_cancel₀, one_mul]
+    (Nat.card G : k) * (Module.finrank k (invariants ρ) : k) = ∑ g : G, ρ.character g := by
+  rw [← ρ.card_inv_mul_sum_char_eq_finrank, ← mul_assoc, mul_inv_cancel₀, one_mul]
   exact Invertible.ne_zero _
 
 /-- The dimension of the space of equivariant maps, which is what the counting layer's
@@ -74,13 +74,10 @@ theorem card_mul_finrank_invariants (ρ : Representation k G V) :
 and §B1, and no part of it needed building here. -/
 theorem finrank_intertwiners {W : Type*} [AddCommGroup W] [Module k W] [Module.Finite k W]
     (ρ : Representation k G V) (σ : Representation k G W) :
-    (Fintype.card G : k) * (Module.finrank k (IntertwiningMap ρ σ) : k)
+    (Nat.card G : k) * (Module.finrank k (IntertwiningMap ρ σ) : k)
       = ∑ g : G, σ.character g * ρ.character g⁻¹ := by
-  have hcard : (Nat.card G : k) = (Fintype.card G : k) := by
-    rw [Nat.card_eq_fintype_card]
-  have h := Representation.card_inv_mul_sum_char_mul_char_eq_finrank ρ σ
-  rw [hcard] at h
-  rw [← h, ← mul_assoc, mul_inv_cancel₀, one_mul]
+  rw [← Representation.card_inv_mul_sum_char_mul_char_eq_finrank ρ σ, ← mul_assoc,
+    mul_inv_cancel₀, one_mul]
   exact Invertible.ne_zero _
 
 end OIBridge
