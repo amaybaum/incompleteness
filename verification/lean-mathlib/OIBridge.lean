@@ -144,22 +144,24 @@ noncomputable def rho : Representation ℚ (Perm (Fin 4)) (Face → ℚ) where
     simp [Matrix.toLin'_apply, Matrix.permMatrix_mulVec, Function.comp, mul_inv_rev,
       map_mul, Perm.mul_apply]
 
-/-- The number of faces fixed by `g`, as a decidable count. -/
+/-- The number of faces fixed by `g`, as a decidable count. It is phrased on `g⁻¹` to match
+`rho`, which uses the inverse to get the homomorphism direction right; summed over the whole
+group the distinction is immaterial, and keeping it here avoids an inverse-juggling step in
+the character lemma. -/
 def fixCount (g : Perm (Fin 4)) : ℕ :=
-  (Finset.univ.filter (fun s : Face => actHom g s = s)).card
+  (Finset.univ.filter (fun s : Face => actHom g⁻¹ s = s)).card
 
-/-- The character of `V₆` is the fixed-face count — `Matrix.trace_permutation`, transported
-across the fact that a permutation and its inverse fix the same points. -/
+/-- The character of `V₆` is the fixed-face count. This is `Matrix.trace_permutation` — the
+trace of a permutation matrix is the number of points it fixes — which Mathlib already
+supplies, so no new trace theory is needed here. -/
 theorem character_eq_fixCount (g : Perm (Fin 4)) :
     rho.character g = (fixCount g : ℚ) := by
-  have h : rho.character g = Matrix.trace (Equiv.Perm.permMatrix ℚ (actHom g⁻¹)) := by
-    simp [Representation.character, rho, Matrix.trace_toLin'_eq]
-  rw [h, Matrix.trace_permutation]
-  rw [← Set.ncard_coe_finset]
+  simp only [Representation.character, rho, MonoidHom.coe_mk, OneHom.coe_mk,
+    Matrix.trace_toLin'_eq, Matrix.trace_permutation, fixCount]
+  rw [Set.ncard_eq_toFinset_card']
   congr 1
   ext s
-  simp [Function.fixedPoints, Function.IsFixedPt, fixCount, map_inv, Perm.inv_def,
-    Equiv.symm_apply_eq, eq_comm]
+  simp [Function.fixedPoints, Function.IsFixedPt]
 
 /-- `Σ χ² = 72` — the same integer the zero-import layer kernel-checks, now over a genuine
 representation. -/
