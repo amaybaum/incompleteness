@@ -164,7 +164,7 @@ theorem character_eq_fixCount (g : Perm (Fin 4)) :
   have hset : (Function.fixedPoints (actHom g⁻¹)).toFinset
       = Finset.univ.filter (fun s : Face => actHom g⁻¹ s = s) := by
     ext s
-    simp [Function.fixedPoints, Function.IsFixedPt]
+    simp [Set.mem_toFinset, Function.fixedPoints, Function.IsFixedPt]
   simp only [Representation.character, rho, MonoidHom.coe_mk, OneHom.coe_mk,
     Matrix.trace_toLin'_eq, Matrix.trace_permutation, fixCount,
     Set.ncard_eq_toFinset_card', hset]
