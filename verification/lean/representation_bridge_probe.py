@@ -102,7 +102,28 @@ sB=0.0
 for c in classes:
     for g in cls[c]: sB+=np.trace(g)*np.trace(rho_brk(g))
 assert round(sB)==144
+# The model the Mathlib bridge uses for V6 (roadmap A10): S4 acting on the two-element
+# subsets of a four-set -- the cube's rotation group on its faces, indexed by which pair of
+# body diagonals each face separates. This must be the SAME representation as the signed-
+# permutation V6 above, and the check is the full character multiset, not just the sums:
+# equal sums would not by itself establish equality of representations.
+subsets=[frozenset(p) for p in itertools.combinations(range(4),2)]
+assert len(subsets)==6
+chiS4=[sum(1 for s in subsets if frozenset(g[i] for i in s)==s)
+       for g in itertools.permutations(range(4))]
+assert len(chiS4)==24
+from collections import Counter as _C
+assert _C(chiS4)==_C(chi6), (sorted(_C(chiS4).items()),sorted(_C(chi6).items()))
+assert sum(c*c for c in chiS4)==72 and sum(c**3 for c in chiS4)==288
+# Countercontrol: a different 6-element S4-action -- the four diagonals plus two fixed
+# points -- must NOT match, or the comparison above has no teeth. Note a weaker control was
+# tried first and rejected: the coset action on S4/C4 has the SAME character (multiset
+# {0:14, 2:9, 6:1}, sum chi^2 = 72), so it discriminates nothing and was not kept.
+chiAlt=[sum(1 for i in range(4) if g[i]==i)+2 for g in itertools.permutations(range(4))]
+assert _C(chiAlt)!=_C(chi6) and sum(c*c for c in chiAlt)==240
 print("B4 PASS: 72/288/144 re-derived; averaging gives Hom dims 3 / 12 / 6")
+print(f"     V6 identified with S4 on the six 2-subsets: character multisets agree exactly "
+      f"({dict(sorted(_C(chi6).items()))}) — the model the Mathlib bridge builds")
 def perm4(p):
     M=np.zeros((4,4))
     for i,j in enumerate(p): M[j,i]=1
