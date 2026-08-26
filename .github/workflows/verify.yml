@@ -41,7 +41,7 @@ jobs:
         run: |
           rc=0
           for f in OI_Gauge_Certificates OI_Structural_Core OI_Staggered_Relations \
-                   OI_Regulator_Symmetry; do
+                   OI_Regulator_Symmetry OI_Structural_Chain; do
             echo "::group::lean ${f}.lean"
             if lean "${f}.lean"; then
               echo "OK ${f}.lean"
