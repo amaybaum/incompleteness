@@ -315,10 +315,9 @@ map — and by `finrank_commutant` the space of those is 3-dimensional. -/
 theorem mem_commutant_of_commutes (K : (Face → ℚ) →ₗ[ℚ] (Face → ℚ))
     (h : ∀ (g : Perm (Fin 4)) (v : Face → ℚ), K (rho g v) = rho g (K v)) :
     ∃ F : IntertwiningMap rho rho, F.toLinearMap = K :=
-  -- Not `K.intertwiningMap_of_isIntertwiningMap`: the map is an *implicit* argument of that
-  -- constructor and the two representations are the explicit ones, so dot notation puts `K`
-  -- in the wrong position. Name it and pass `rho` twice.
-  ⟨LinearMap.intertwiningMap_of_isIntertwiningMap rho rho h, rfl⟩
+  -- All four arguments given positionally. Dot notation on `K` misfires here: the constructor
+  -- takes the two representations first and the map third, so `K.…` lands it in the wrong slot.
+  ⟨LinearMap.intertwiningMap_of_isIntertwiningMap rho rho K h, rfl⟩
 
 /-! ### §A5-B22 — open, and *not* the same kind of step
 
