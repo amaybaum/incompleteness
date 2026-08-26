@@ -10,8 +10,10 @@ probes verify every concrete number they assert.
 The section split in two on contact with the work. Most of it is finite arithmetic and needed
 no dependency at all: it is now kernel-checked in the zero-import layer. What genuinely needs
 Mathlib turned out to be smaller still — the averaging identity and the Hom-dimension formula
-are both already *in* Mathlib, so what is left is only the transport of the cubic data onto a
-`Representation`, which is A10.
+are both already *in* Mathlib, so all that had to be built was the transport of the cubic data
+onto a `Representation`. That is A10, and it is now delivered. What remains open in this
+section is A9, which shares nothing with the counting machinery, and the two of A5's three
+quotients that need further representations constructed.
 
 A1. **Available — from Mathlib, not from this layer.** The averaging identity
 |G| · dim(fixed subspace) = Σ_g χ(g) is `Representation.card_inv_mul_sum_char_eq_finrank` in
@@ -30,9 +32,14 @@ then needed.
 A3. **Delivered** (`mult_V6`): ⟨χ₆, χᵢ⟩ = 24 · (1,0,1,1,0), multiplicity-free on {A₁, E, T₁}.
 A4. **Delivered** (`mult_End`, `mult_End_dims`): 24 · (3,1,4,5,3), accounting for all 36
 dimensions of End(V₆).
-A5. **Delivered** as arithmetic, given A1: the sums 72 / 288 / 144 are kernel-checked and A1
-divides them by 24. What remains is A10 — carrying them across to a Mathlib `Representation`
-so the quotient is literally a `finrank`.
+A5. **Split, and the first quotient is now a dimension.** The sums 72 / 288 / 144 are
+kernel-checked in the zero-import layer and A1 divides them by 24. With A10 delivered,
+`72 / 24 = 3` is no longer an integer quotient but a `Module.finrank`:
+`Cubic.finrank_commutant : finrank ℚ (IntertwiningMap rho rho) = 3`, together with
+`Cubic.finrank_invariants : finrank ℚ (invariants rho) = 1`. **288 / 24 = 12 and 144 / 24 = 6
+are not yet dimensions**: they need `End(V₆)` and the 22-dimensional broken restriction built
+as `Representation`s in their own right. That is mechanical given the pattern A10 establishes,
+but it is not done, and the two numbers remain arithmetic until it is.
 A6. **Delivered at character level** (`mult_broken`, `mult_broken_dims`): 24 · (0,0,2,4,2)
 over 22, so the broken restriction carries no A₁ or A₂ and no equivariant scalar survives on
 it. The explicit idempotent isotypic projectors (traces 0, 0, 4, 12, 6) remain for the
@@ -52,31 +59,37 @@ the q = 4 countercontrol showing the oddness hypothesis is load-bearing.
 A9. **Open.** The Schur sign theorem: −B D⁻¹ Bᵀ ⪯ 0 for D ≻ 0, with an indefinite-D witness
 for necessity. Analytic rather than finite, and unrelated to the counting machinery — it
 shares nothing with A1 and is better taken as its own piece of work.
-A10. **Open — attempted, and reduced to one plumbing step.** The transport onto a Mathlib
-`Representation`. Two things previously believed to be part of this item are not: Mathlib
+A10. **Delivered** (`lean-mathlib/OIBridge.lean`, namespace `Cubic`). The transport onto a
+Mathlib `Representation`. Two things once believed to be part of this item never were: Mathlib
 already proves the averaging identity (`card_inv_mul_sum_char_eq_finrank`) **and** the
 equivariant-map dimension formula (`card_inv_mul_sum_char_mul_char_eq_finrank`), so A1 and A5's
-engine were never missing — see the note in `lean-mathlib/OIBridge.lean`. And the group need not
-be built as a subgroup of `Perm (Fin 6)`: **V₆ is the permutation representation of S₄ on the
-two-element subsets of a four-set**, mirror-checked in `representation_bridge_probe.py` (B4) by
-comparing the full character multisets, so `Equiv.Perm (Fin 4)` serves directly with
-`Fintype.card_perm` giving 24 and `Matrix.trace_permutation` giving the character as a
-fixed-point count. The construction elaborated up to a single goal in the character lemma,
-where `Set.mem_toFinset` fails to fire against the `Fintype` instance that `Set.ncard` selects;
-defining the character through `Finset.card` from the outset should avoid it. Nothing numerical
-is missing, and A5, B1 and B3's dimension step all still wait on this one step.
+engine were never missing. And the group need not be built as a subgroup of `Perm (Fin 6)`:
+**V₆ is the permutation representation of S₄ on the two-element subsets of a four-set**,
+mirror-checked in `representation_bridge_probe.py` (B4) by comparing the full character
+multisets, so `Equiv.Perm (Fin 4)` serves directly — `Fintype.card_perm` gives the order 24 and
+`Matrix.trace_permutation` gives the character as a fixed-point count, with no new trace theory.
+
+The step that had stalled was the last one in `character_eq_fixCount`: `trace_permutation`
+delivers a `Set.ncard`, and routing it through `Set.ncard_eq_toFinset_card'` selects a `Fintype`
+instance that `Set.mem_toFinset` then does not match. The route that works is the one Mathlib's
+own proof of `trace_permutation` takes — exhibit the fixed-point set as a **coerced `Finset`**
+and finish with `Set.ncard_coe_finset`, which carries no `Fintype` instance at all.
 
 ## B. Structural chain completions (probe: `structural_chain_probe.py`)
 
-The section splits on the A10 dependency, and the split is recorded here so that neither half
-gets reported closed on the strength of the other.
+The section split on the A10 dependency, and the split is kept here so that neither half gets
+reported closed on the strength of the other. A10 has since landed, which moves B1 from blocked
+to unblocked but does not by itself close it — the corollary still has to be stated.
 
-B1. **Open, gated on A10.** The V₆-instance corollaries of Theorems 1a/2/3. The operator-level
-forms are already proved in `OI_Structural_Core.lean` — `mz_identity`, `kernel_equivariant`,
-`susskind3`, `center_anticommutator`, `mass_square` — and what is missing is the step from
-"K_m commutes with every R_g" to "K_m lies in a space of dimension 72/24 = 3". That is A1
-applied to `End(V₆)`, so it needs A10's transport before it can be stated at all. Nothing
-numerical is missing.
+B1. **Unblocked; the dimension is delivered, the corollary is not yet stated.** The
+operator-level forms are already proved in `OI_Structural_Core.lean` — `mz_identity`,
+`kernel_equivariant`, `susskind3`, `center_anticommutator`, `mass_square` — and the missing
+step was from "K_m commutes with every R_g" to "K_m lies in a space of dimension 72/24 = 3".
+**That dimension now exists as a theorem**: `Cubic.finrank_commutant`. What remains is joining
+the two, and the join has an architectural constraint worth stating: it cannot live in
+`OI_Structural_Core.lean`, which is zero-import and stays that way. The V₆-instance corollary
+belongs in `OIBridge.lean`, restating `kernel_equivariant`'s hypothesis for `rho` and concluding
+membership in a 3-dimensional space. Nothing numerical is missing.
 B2. **Delivered** (`OI_Structural_Chain.lean`, `path_prop`). The detailed-balance lemma,
 stated without the exponential. The `exp` in W(m→n)/W(n→m) = e^{−τ(ω_n−ω_m)} does one job —
 making the edge ratio a gradient g_n/g_m — so cross-multiplying gives a multiplicative cocycle
@@ -89,8 +102,11 @@ unbalanced.
 B3. **Split.** The algebraic core — Corollary 1a's `dim Sym²(ℝ³)^{B₃} = 1` — is **delivered at
 character level** (`sum_trSym_b3`, `sum_trSym_rot`): Σχ = 48 = 1·48 over the 48-element signed
 permutation group and 24 = 1·24 over its rotations, with `δ` exhibited invariant and
-`diag(1,0,0)` shown not to be. As with A7/A7b the closing division by the group order is A1,
-so the *dimension* statement is **pending A10**. The harmonic dispersion cos ω = (1/d) Σ cos kⱼ
+`diag(1,0,0)` shown not to be. As with A7/A7b the closing division by the group order is A1.
+The *dimension* statement is **not blocked any more but not delivered either**: A10 supplies
+the pattern, and applying it here needs a second representation — the 48-element signed
+permutation group acting on Sym²(ℝ³) — built the way `Cubic.rho` is. The harmonic dispersion
+cos ω = (1/d) Σ cos kⱼ
 is **open and genuinely analytic**: it needs `Real.cos`, the range side-conditions on `arccos`,
 and a Taylor expansion for the O(a²k²) form. Its algebraic skeleton — that in any commutative
 ring `u_t = z^t` solves the second-order recursion exactly when z + z⁻¹ = α Σ_μ (c_μ + c_μ⁻¹)

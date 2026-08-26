@@ -20,6 +20,9 @@
 import Mathlib.RepresentationTheory.Invariants
 import Mathlib.RepresentationTheory.Character
 import Mathlib.LinearAlgebra.Trace
+import Mathlib.LinearAlgebra.Matrix.Permutation
+import Mathlib.LinearAlgebra.Matrix.ToLin
+import Mathlib.GroupTheory.Perm.Fin
 
 namespace OIBridge
 
@@ -80,38 +83,167 @@ theorem finrank_intertwiners {W : Type*} [AddCommGroup W] [Module k W] [Module.F
     mul_inv_cancel₀, one_mul]
   exact Invertible.ne_zero _
 
-/-! ## §A10 — not delivered; where it stands
+/-! ## §A10 — the cubic representation, and §A5's first quotient read off it
 
-The construction was attempted this round and is **withdrawn from the build**, deliberately,
-rather than left failing. What was established still holds and is recorded here so it is not
-rediscovered:
+The counting layer's `72` is an integer sum over a list of signed permutation records. To make
+it a *dimension* it must be a sum over a genuine `Representation`, which is what this section
+supplies.
 
-* **The model.** `V₆` is the permutation representation of `S₄` on the two-element subsets of
-  a four-set — the cube's rotation group on its faces, indexed by which pair of body diagonals
-  each separates. This is checked numerically in `representation_bridge_probe.py` (label B4):
-  the character multisets agree exactly, `χ = 6` once, `2` nine times, `0` fourteen times,
-  giving `Σχ² = 72` and `Σχ³ = 288`. A countercontrol is included, and note that an earlier
-  candidate control — the coset action on `S₄/C₄` — was rejected because it has the *same*
-  character and so discriminates nothing.
+The model is the classical one: the rotation group of the cube is `S₄` acting on the four body
+diagonals, and the six faces are the six two-element subsets of those diagonals. So `V₆` is the
+permutation representation of `Equiv.Perm (Fin 4)` on `{s : Finset (Fin 4) // s.card = 2}`.
 
-* **Why this model.** `Equiv.Perm (Fin 4)` is already a group of order 24 (`Fintype.card_perm`),
-  so no subgroup or closure computation is needed, and `Matrix.trace_permutation` already gives
-  the character as a fixed-point count. Both were confirmed present in Mathlib v4.33.0.
+Two things make this cheap, and both are already in Mathlib. `Equiv.Perm (Fin 4)` is a group of
+order 24 outright, so no subgroup or closure computation is needed. And `Matrix.trace_permutation`
+states that the trace of a permutation matrix is its fixed-point count, so the character needs no
+new trace theory — it is a finite count, and the sums over the group are decidable.
 
-* **What compiled.** The face type, the action, its `MonoidHom`, the representation, and the
-  decidable sum `Σ (fixCount g)² = 72` over the 24 permutations all elaborated.
+The identification with the cubic character is **not asserted here**. It is checked in
+`representation_bridge_probe.py` (label B4) by comparing the two character multisets element by
+element — `χ = 6` once, `2` nine times, `0` fourteen times — with a countercontrol. Note that an
+earlier candidate control, the coset action on `S₄/C₄`, was rejected because it has the *same*
+character and so discriminates nothing. -/
 
-* **Where it stalled.** One goal in the character lemma:
+namespace Cubic
 
-      s ∈ {x | (actHom g⁻¹) x = x}.toFinset ↔ (actHom g).symm s = s
+open Equiv
 
-  `simp` normalises the right-hand side through `map_inv` but leaves the left wrapped in
-  `Set.toFinset` membership, and adding `Set.mem_toFinset` does not fire — the linter reports
-  it unused, so the `Fintype` instance reached by `Set.ncard_eq_toFinset_card'` is not the one
-  that lemma matches. The fix is to pick the finiteness route explicitly rather than let
-  `ncard` choose it, or to define the character via `Finset.card` from the start and avoid
-  `Set.ncard` altogether.
+/-- The six faces of the cube, as two-element subsets of the four body diagonals. -/
+abbrev Face := {s : Finset (Fin 4) // s.card = 2}
 
-Nothing numerical is missing. This is one instance-plumbing step. -/
+instance : DecidableEq Face := Subtype.instDecidableEq
+
+theorem card_face : Fintype.card Face = 6 := by decide
+
+/-- A permutation of the diagonals permutes the faces. -/
+def act (g : Perm (Fin 4)) : Perm Face :=
+  Equiv.subtypeEquiv g.finsetCongr (by
+    intro s
+    simp [Equiv.finsetCongr_apply, Finset.card_map])
+
+@[simp] theorem act_coe (g : Perm (Fin 4)) (s : Face) :
+    ((act g s) : Finset (Fin 4)) = s.1.map g.toEmbedding := rfl
+
+/-- The face action as a group homomorphism. -/
+def actHom : Perm (Fin 4) →* Perm Face where
+  toFun := act
+  map_one' := by
+    ext s x
+    simp [act_coe]
+  map_mul' g h := by
+    ext s x
+    simp [act_coe, Finset.mem_map, Perm.mul_apply]
+    constructor
+    · rintro ⟨a, ha, rfl⟩; exact ⟨h a, ⟨a, ha, rfl⟩, rfl⟩
+    · rintro ⟨b, ⟨a, ha, rfl⟩, rfl⟩; exact ⟨a, ha, rfl⟩
+
+/-- The permutation representation of `S₄` on the six faces — this is `V₆`. -/
+noncomputable def rho : Representation ℚ (Perm (Fin 4)) (Face → ℚ) where
+  toFun g := (Equiv.Perm.permMatrix ℚ (actHom g⁻¹)).toLin'
+  map_one' := by
+    ext v x
+    simp [Matrix.toLin'_apply, Matrix.permMatrix_mulVec, Function.comp]
+  map_mul' g h := by
+    ext v x
+    simp [Matrix.toLin'_apply, Matrix.permMatrix_mulVec, Function.comp, mul_inv_rev,
+      map_mul, Perm.mul_apply]
+
+/-- The faces fixed by `g`, as a `Finset`. Phrased on `g⁻¹` to match `rho`, which carries the
+inverse to get the homomorphism direction right; summed over the whole group the distinction is
+immaterial, and keeping it here avoids an inverse-juggling step in the character lemma. -/
+def fixed (g : Perm (Fin 4)) : Finset Face :=
+  Finset.univ.filter fun s => actHom g⁻¹ s = s
+
+/-- The number of faces fixed by `g`. -/
+def fixCount (g : Perm (Fin 4)) : ℕ := (fixed g).card
+
+/-- **The character of `V₆` is the fixed-face count.** This is `Matrix.trace_permutation` — the
+trace of a permutation matrix is the number of points it fixes — so no new trace theory is
+needed.
+
+The one delicate step is the last. `trace_permutation` delivers a `Set.ncard` of a fixed-point
+*set*, and routing that through `Set.ncard_eq_toFinset_card'` fails: that lemma selects a
+`Fintype` instance which `Set.mem_toFinset` then does not match, leaving the membership goal
+stuck. The route taken instead is the one Mathlib's own proof of `trace_permutation` uses —
+exhibit the set as a **coerced `Finset`** and finish with `Set.ncard_coe_finset`, which carries
+no `Fintype` instance at all, so the mismatch cannot arise. -/
+theorem character_eq_fixCount (g : Perm (Fin 4)) :
+    rho.character g = (fixCount g : ℚ) := by
+  have hset : Function.fixedPoints (actHom g⁻¹) = (fixed g : Set Face) := by
+    ext s
+    simp [fixed, Function.fixedPoints, Function.IsFixedPt]
+  simp only [Representation.character, rho, MonoidHom.coe_mk, OneHom.coe_mk,
+    Matrix.trace_toLin'_eq, Matrix.trace_permutation, hset, Set.ncard_coe_finset, fixCount]
+
+/- The two sums below are decided by evaluation over the 24 permutations, each filtering the
+six faces. The recursion limit is raised for the same reason as in the core layer: it is a
+bound on the evaluator's depth, not a soundness knob, and `native_decide` is deliberately not
+used anywhere in this project — it would put the Lean compiler in the trusted base. -/
+set_option maxRecDepth 8000 in
+/-- `Σ_g χ(g) · χ(g⁻¹) = 72` — the same integer the zero-import layer kernel-checks, now over a
+genuine representation. The inverse is carried through the computation rather than removed by a
+lemma; that a permutation and its inverse fix the same faces is then a fact the evaluator uses,
+not one this file has to state. -/
+theorem sum_char_sq : ∑ g : Perm (Fin 4), fixCount g * fixCount g⁻¹ = 72 := by decide
+
+set_option maxRecDepth 8000 in
+/-- `Σ_g χ(g) = 24`. `S₄` is transitive on the six faces, so Burnside gives one orbit. -/
+theorem sum_char : ∑ g : Perm (Fin 4), fixCount g = 24 := by decide
+
+/-- The group order, in the `Nat.card` spelling the bridge theorems use. -/
+theorem card_group : Nat.card (Perm (Fin 4)) = 24 := by
+  rw [Nat.card_eq_fintype_card, Fintype.card_perm, Fintype.card_fin]
+  rfl
+
+instance : Invertible ((Nat.card (Perm (Fin 4)) : ℚ)) :=
+  invertibleOfNonzero (by rw [card_group]; norm_num)
+
+/-- The character sum of the equivariant-map formula, in `ℚ`. -/
+theorem sum_character_sq_rat :
+    ∑ g : Perm (Fin 4), rho.character g * rho.character g⁻¹ = (72 : ℚ) := by
+  have h : ∀ g : Perm (Fin 4), rho.character g * rho.character g⁻¹
+      = ((fixCount g * fixCount g⁻¹ : ℕ) : ℚ) := by
+    intro g; rw [character_eq_fixCount, character_eq_fixCount, Nat.cast_mul]
+  rw [Finset.sum_congr rfl fun g _ => h g, ← Nat.cast_sum, sum_char_sq]
+  norm_num
+
+/-- The character sum of the averaging identity, in `ℚ`. -/
+theorem sum_character_rat : ∑ g : Perm (Fin 4), rho.character g = (24 : ℚ) := by
+  rw [Finset.sum_congr rfl fun g _ => character_eq_fixCount g, ← Nat.cast_sum, sum_char]
+  norm_num
+
+/-! ### §A5, first quotient: `72 / 24 = 3` as a dimension
+
+This is the step the counting layer could not take. `finrank_intertwiners` divides the character
+sum by the group order inside a field, and what comes out is a `Module.finrank` — the commutant
+of `V₆` really is three-dimensional, not merely the quotient of two integers.
+
+The mirror reaches the same 3 by a route that uses no character theory at all: it solves
+`g K = K g` over all 24 elements and takes the null space. Deriving the Lean target from the
+averaging identity alone would have been circular, since that identity is exactly what this file
+supplies; the direct computation is the independent check, and a proper subgroup gives 12. -/
+
+/-- **§A5.** `dim Hom_G(V₆, V₆) = 3`. The commutant of the cubic action on `V₆` is
+three-dimensional — the statement `OI_Structural_Core.lean`'s `kernel_equivariant` needs in
+order to say that `K_m` lies in a space of dimension 3, and which no amount of finite
+arithmetic could reach. -/
+theorem finrank_commutant : Module.finrank ℚ (IntertwiningMap rho rho) = 3 := by
+  have h := finrank_intertwiners rho rho
+  rw [sum_character_sq_rat, card_group] at h
+  have h3 : ((Module.finrank ℚ (IntertwiningMap rho rho) : ℚ)) = 3 := by
+    push_cast at h ⊢
+    linarith
+  exact_mod_cast h3
+
+/-- **§A5.** `dim V₆^G = 1` — the invariant subspace is the constants. -/
+theorem finrank_invariants : Module.finrank ℚ (invariants rho) = 1 := by
+  have h := card_mul_finrank_invariants rho
+  rw [sum_character_rat, card_group] at h
+  have h1 : ((Module.finrank ℚ (invariants rho) : ℚ)) = 1 := by
+    push_cast at h ⊢
+    linarith
+  exact_mod_cast h1
+
+end Cubic
 
 end OIBridge
