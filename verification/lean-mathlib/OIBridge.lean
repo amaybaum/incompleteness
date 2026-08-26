@@ -141,7 +141,9 @@ def actHom : Perm (Fin 4) →* Perm Face where
 /-- The permutation representation of `S₄` on the six faces — this is `V₆`. -/
 noncomputable def rho : Representation ℚ (Perm (Fin 4)) (Face → ℚ) where
   toFun g := (Equiv.Perm.permMatrix ℚ (actHom g⁻¹)).toLin'
-  map_one' := by simp
+  map_one' := by
+    ext v x
+    simp [Matrix.toLin'_apply, Matrix.permMatrix_mulVec, Function.comp]
   map_mul' g h := by
     ext v x
     simp [Matrix.toLin'_apply, Matrix.permMatrix_mulVec, Function.comp, mul_inv_rev,
@@ -159,12 +161,13 @@ trace of a permutation matrix is the number of points it fixes — which Mathlib
 supplies, so no new trace theory is needed here. -/
 theorem character_eq_fixCount (g : Perm (Fin 4)) :
     rho.character g = (fixCount g : ℚ) := by
+  have hset : (Function.fixedPoints (actHom g⁻¹)).toFinset
+      = Finset.univ.filter (fun s : Face => actHom g⁻¹ s = s) := by
+    ext s
+    simp [Function.fixedPoints, Function.IsFixedPt]
   simp only [Representation.character, rho, MonoidHom.coe_mk, OneHom.coe_mk,
-    Matrix.trace_toLin'_eq, Matrix.trace_permutation, fixCount]
-  rw [Set.ncard_eq_toFinset_card']
-  congr 1
-  ext s
-  simp [Function.fixedPoints, Function.IsFixedPt]
+    Matrix.trace_toLin'_eq, Matrix.trace_permutation, fixCount,
+    Set.ncard_eq_toFinset_card', hset]
 
 /-- `Σ χ² = 72` — the same integer the zero-import layer kernel-checks, now over a genuine
 representation. -/
