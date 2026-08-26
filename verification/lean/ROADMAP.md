@@ -95,12 +95,19 @@ The section split on the A10 dependency, and the split is kept here so that neit
 reported closed on the strength of the other. A10 landed, and B1 is now closed on the strength
 of it. B3 remains split, and its two halves are still unrelated to each other.
 
-B1. **Delivered** (`Cubic.mem_commutant_of_commutes`, in `lean-mathlib/OIBridge.lean`). The
+B1. **Delivered** (`Cubic.equivariant_kernel_lives_in_finrank_three`, in
+`lean-mathlib/OIBridge.lean`). The
 operator-level forms are proved in `OI_Structural_Core.lean` — `mz_identity`,
 `kernel_equivariant`, `susskind3`, `center_anticommutator`, `mass_square` — and the missing step
-was from "K_m commutes with every R_g" to "K_m lies in a space of dimension 72/24 = 3". A linear
-map commuting with the whole cubic action is now shown to be an intertwining map, and
-`Cubic.finrank_commutant` says that space is 3-dimensional.
+was from "K_m commutes with every R_g" to "K_m lies in a space of dimension 72/24 = 3". Every
+kernel satisfying the cubic equivariance equation is now shown to lie in a **fixed**
+three-dimensional operator space, the dimension being `Cubic.finrank_commutant`. The confinement
+is the physical content, not the classification: the symmetry does not merely reduce a parameter
+count, it pins every admissible kernel into one space.
+
+The hypothesis is in composition form, `K ∘ₗ ρ g = ρ g ∘ₗ K`, which is definitionally the
+`isIntertwining'` field — so the bundling is a structure literal — and is the closer reading of
+`kernel_equivariant`, which is an operator identity rather than a pointwise statement.
 
 The architectural point is worth keeping on record: this corollary **cannot** live in
 `OI_Structural_Core.lean`. That file is zero-import and stays that way, and the word *dimension*

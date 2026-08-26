@@ -307,17 +307,37 @@ abstract ring and with no notion of dimension available. What the manuscript wan
 `K_m` therefore lies in a space of dimension `72 / 24 = 3`. That sentence cannot be written in
 the zero-import layer at all, and it is why it lives here.
 
-Mathlib supplies the bridging constructor, so this is short: a linear map commuting with the
-whole action *is* an intertwiner, and `finrank_commutant` says that space is 3-dimensional. -/
+The hypothesis is written in **composition form**, `K ∘ₗ ρ g = ρ g ∘ₗ K`, for two reasons. It is
+*definitionally* the `isIntertwining'` field, so the bundling is a structure literal with no
+constructor call and no argument-order to get wrong. And it is the closer reading of
+`MZ.kernel_equivariant`, which is an operator identity in a ring rather than a pointwise
+statement about vectors. This formulation comes from the parallel thread's b423 candidate and is
+better than the pointwise one this file carried first. -/
 
-/-- **§B1.** A linear map on `V₆` commuting with the entire cubic action is an intertwining
-map — and by `finrank_commutant` the space of those is 3-dimensional. -/
-theorem mem_commutant_of_commutes (K : (Face → ℚ) →ₗ[ℚ] (Face → ℚ))
-    (h : ∀ (g : Perm (Fin 4)) (v : Face → ℚ), K (rho g v) = rho g (K v)) :
-    ∃ F : IntertwiningMap rho rho, F.toLinearMap = K :=
-  -- All four arguments given positionally. Dot notation on `K` misfires here: the constructor
-  -- takes the two representations first and the map third, so `K.…` lands it in the wrong slot.
-  ⟨LinearMap.intertwiningMap_of_isIntertwiningMap rho rho K h, rfl⟩
+/-- Bundle a cubic-equivariant linear kernel as an intertwining endomorphism. The hypothesis is
+the concrete linear-map reading of `MZ.kernel_equivariant`. -/
+def kernelIntertwiner (K : (Face → ℚ) →ₗ[ℚ] (Face → ℚ))
+    (hK : ∀ g : Perm (Fin 4), K ∘ₗ rho g = rho g ∘ₗ K) : IntertwiningMap rho rho where
+  toLinearMap := K
+  isIntertwining' := hK
+
+@[simp] theorem kernelIntertwiner_toLinearMap (K : (Face → ℚ) →ₗ[ℚ] (Face → ℚ))
+    (hK : ∀ g : Perm (Fin 4), K ∘ₗ rho g = rho g ∘ₗ K) :
+    (kernelIntertwiner K hK).toLinearMap = K := rfl
+
+/-- **§B1.** Every memory kernel satisfying the cubic equivariance equation lies in a *fixed*
+three-dimensional operator space. This is the Mathlib-side join to the zero-import theorem
+`MZ.kernel_equivariant`; no numerical hypothesis is added here, and no new count — the dimension
+is `finrank_commutant`, already proved above.
+
+Stated this way rather than as bare membership because the physical content is the confinement,
+not the classification: the cubic symmetry does not merely reduce the parameter count, it pins
+every admissible kernel into one three-dimensional space. -/
+theorem equivariant_kernel_lives_in_finrank_three (K : (Face → ℚ) →ₗ[ℚ] (Face → ℚ))
+    (hK : ∀ g : Perm (Fin 4), K ∘ₗ rho g = rho g ∘ₗ K) :
+    ∃ Kρ : IntertwiningMap rho rho,
+      Kρ.toLinearMap = K ∧ Module.finrank ℚ (IntertwiningMap rho rho) = 3 :=
+  ⟨kernelIntertwiner K hK, rfl, finrank_commutant⟩
 
 /-! ### §A5-B22 — open, and *not* the same kind of step
 
