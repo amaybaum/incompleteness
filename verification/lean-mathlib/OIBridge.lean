@@ -279,9 +279,12 @@ theorem sum_character_end_rat :
     ∑ g : Perm (Fin 4), rhoEnd.character g * rho.character g⁻¹ = (288 : ℚ) := by
   have h : ∀ g : Perm (Fin 4), rhoEnd.character g * rho.character g⁻¹
       = ((fixCount g⁻¹ * fixCount g * fixCount g⁻¹ : ℕ) : ℚ) := by
+    -- Two rewrites, not three: `rw` instantiates on the first match and then rewrites every
+    -- occurrence of *that* instance, so the first pass takes both `χ(g⁻¹)` factors together.
     intro g
-    rw [rhoEnd, Representation.char_linHom, character_eq_fixCount, character_eq_fixCount,
-      character_eq_fixCount, Nat.cast_mul, Nat.cast_mul]
+    rw [rhoEnd, Representation.char_linHom, character_eq_fixCount, character_eq_fixCount]
+    push_cast
+    ring
   rw [Finset.sum_congr rfl fun g _ => h g, ← Nat.cast_sum, sum_char_end]
   norm_num
 
@@ -312,7 +315,10 @@ map — and by `finrank_commutant` the space of those is 3-dimensional. -/
 theorem mem_commutant_of_commutes (K : (Face → ℚ) →ₗ[ℚ] (Face → ℚ))
     (h : ∀ (g : Perm (Fin 4)) (v : Face → ℚ), K (rho g v) = rho g (K v)) :
     ∃ F : IntertwiningMap rho rho, F.toLinearMap = K :=
-  ⟨K.intertwiningMap_of_isIntertwiningMap h, rfl⟩
+  -- Not `K.intertwiningMap_of_isIntertwiningMap`: the map is an *implicit* argument of that
+  -- constructor and the two representations are the explicit ones, so dot notation puts `K`
+  -- in the wrong position. Name it and pass `rho` twice.
+  ⟨LinearMap.intertwiningMap_of_isIntertwiningMap rho rho h, rfl⟩
 
 /-! ### §A5-B22 — open, and *not* the same kind of step
 
