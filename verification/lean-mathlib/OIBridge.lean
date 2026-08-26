@@ -137,7 +137,7 @@ def actHom : Perm (Fin 4) →* Perm Face where
 
 /-- The permutation representation of `S₄` on the six faces — this is `V₆`. -/
 noncomputable def rho : Representation ℚ (Perm (Fin 4)) (Face → ℚ) where
-  toFun g := ((actHom g⁻¹).permMatrix ℚ).toLin'
+  toFun g := (Equiv.Perm.permMatrix ℚ (actHom g⁻¹)).toLin'
   map_one' := by simp
   map_mul' g h := by
     ext v x
@@ -152,7 +152,7 @@ def fixCount (g : Perm (Fin 4)) : ℕ :=
 across the fact that a permutation and its inverse fix the same points. -/
 theorem character_eq_fixCount (g : Perm (Fin 4)) :
     rho.character g = (fixCount g : ℚ) := by
-  have h : rho.character g = Matrix.trace ((actHom g⁻¹).permMatrix ℚ) := by
+  have h : rho.character g = Matrix.trace (Equiv.Perm.permMatrix ℚ (actHom g⁻¹)) := by
     simp [Representation.character, rho, Matrix.trace_toLin'_eq]
   rw [h, Matrix.trace_permutation]
   rw [← Set.ncard_coe_finset]
