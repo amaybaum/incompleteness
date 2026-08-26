@@ -143,7 +143,8 @@ def check_file(path, text, report, notes=None):
             if bad:
                 ln = text.count('\n', 0, pos) + 1
                 d = g or n
-                msg = (f"{path}:{ln}  cites \u00a7{', \u00a7'.join(bad)} "
+                sep = ', \u00a7'
+                msg = (f"{path}:{ln}  cites \u00a7{sep.join(bad)} "
                        f"(conditional) with '{d.group(0)}' and no local marker\n"
                        f"        ...{para[max(0, d.start()-70):d.start()+90].strip()}...")
                 if g:
