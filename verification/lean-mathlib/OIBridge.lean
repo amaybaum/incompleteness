@@ -127,15 +127,20 @@ def act (g : Perm (Fin 4)) : Perm Face :=
 /-- The face action as a group homomorphism. -/
 def actHom : Perm (Fin 4) →* Perm Face where
   toFun := act
+  -- Both obligations are settled at the level of the underlying `Finset`, never at the level
+  -- of its elements. Descending further — `ext s x` — unfolds membership through
+  -- `Finset.mem_map_equiv` and then into the raw `Multiset`, where the goal is stated in terms
+  -- of `Quot.lift` and stops being an inductive datatype `rcases` can take apart. `Subtype.ext`
+  -- followed by `Finset.map_refl` / `Finset.map_map` closes both without that descent.
   map_one' := by
-    ext s x
-    simp [act_coe]
+    refine Equiv.ext fun s => Subtype.ext ?_
+    show s.1.map (Equiv.refl (Fin 4)).toEmbedding = s.1
+    rw [Equiv.refl_toEmbedding, Finset.map_refl]
   map_mul' g h := by
-    ext s x
-    simp [act_coe, Finset.mem_map, Perm.mul_apply]
-    constructor
-    · rintro ⟨a, ha, rfl⟩; exact ⟨h a, ⟨a, ha, rfl⟩, rfl⟩
-    · rintro ⟨b, ⟨a, ha, rfl⟩, rfl⟩; exact ⟨a, ha, rfl⟩
+    refine Equiv.ext fun s => Subtype.ext ?_
+    show s.1.map (g * h).toEmbedding = (s.1.map h.toEmbedding).map g.toEmbedding
+    rw [Finset.map_map]
+    rfl
 
 /-- The permutation representation of `S₄` on the six faces — this is `V₆`. -/
 noncomputable def rho : Representation ℚ (Perm (Fin 4)) (Face → ℚ) where
@@ -195,7 +200,10 @@ theorem card_group : Nat.card (Perm (Fin 4)) = 24 := by
   rw [Nat.card_eq_fintype_card, Fintype.card_perm, Fintype.card_fin]
   rfl
 
-instance : Invertible ((Nat.card (Perm (Fin 4)) : ℚ)) :=
+/- `noncomputable` because `Nat.card` is: it is defined through `Nat.card = Nat.card` on a
+possibly-infinite type and carries no executable content. The instance is only ever used to
+divide inside `ℚ`, never evaluated, so this costs nothing. -/
+noncomputable instance : Invertible ((Nat.card (Perm (Fin 4)) : ℚ)) :=
   invertibleOfNonzero (by rw [card_group]; norm_num)
 
 /-- The character sum of the equivariant-map formula, in `ℚ`. -/
