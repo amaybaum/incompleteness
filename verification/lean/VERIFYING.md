@@ -10,12 +10,14 @@
 
     cd verification/lean
     lean OI_Gauge_Certificates.lean && lean OI_Structural_Core.lean \
-      && lean OI_Staggered_Relations.lean && lean OI_Regulator_Symmetry.lean
+      && lean OI_Staggered_Relations.lean && lean OI_Regulator_Symmetry.lean \
+      && lean OI_Structural_Chain.lean
 
 A clean exit is the certificate. The files use only core tactics (`calc`, `rw`, `decide`,
 structural induction); `decide` targets are integer identities over explicitly generated
-finite actions — the 24-element cubic rotation group, and the 384- and 96-element signed
-permutation groups of the regulator sector.
+finite actions — the 24-element cubic rotation group, the 384- and 96-element signed
+permutation groups of the regulator sector, and the 48-element group of the cubic quadratic
+invariant.
 
 ## Numerical probes
 
@@ -39,7 +41,7 @@ version in its own log, which is the version any given run certifies.
 
 ## Release checklist
 
-- [ ] All four `lean` commands exit cleanly.
+- [ ] All five `lean` commands exit cleanly.
 - [ ] All five probes print their full PASS sets.
 
 Status: both layers pass in CI. A green run certifies the toolchain that run resolved, and

@@ -28,6 +28,11 @@ Contents (`lean/`):
   induction over a list of pairwise-anticommuting summands, with the three- and four-axis
   statements as corollaries. Axes are indexed by natural numbers, so one structure serves
   every dimension.
+- `OI_Structural_Chain.lean` — the detailed-balance lemma stated without the exponential
+  (edgewise balance plus connectivity forces proportionality, in a commutative monoid, with
+  no division and no spectral argument), and the cubic quadratic invariant: the character of
+  the induced action on Sym²(ℝ³) sums to 48 over the signed permutation group and 24 over its
+  rotations, with δ exhibited invariant and a direction-singling form shown not to be.
 - `gauge_certificates_probe.py`, `structural_core_probe.py`, `staggered_relations_probe.py`
   — companion checks for the proof files, including exact certification that the concrete
   lattice operators satisfy every hypothesis the Lean proofs use. Every integer the Lean

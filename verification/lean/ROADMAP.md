@@ -56,13 +56,33 @@ is bookkeeping, and it is what the two halves of the section are still waiting o
 
 ## B. Structural chain completions (probe: `structural_chain_probe.py`)
 
-B1. The V₆-instance corollaries of Theorems 1a/2/3 that require A1 (the operator-level
-forms are already proved in `OI_Structural_Core.lean`).
-B2. The GR detailed-balance lemma: on a finite connected transition graph with
-W(m→n)/W(n→m) = e^{−τ(ω_n−ω_m)}, the stationary state is Gibbs, unique up to scale;
-disconnected necessity witness.
-B3. The exact harmonic dispersion cos ω = (1/d) Σ cos kⱼ of the second-order update, and
-Corollary 1a's algebraic core (dim Sym²(ℝ³)^{B₃} = 1) as an instance of A1.
+The section splits on the A10 dependency, and the split is recorded here so that neither half
+gets reported closed on the strength of the other.
+
+B1. **Open, gated on A10.** The V₆-instance corollaries of Theorems 1a/2/3. The operator-level
+forms are already proved in `OI_Structural_Core.lean` — `mz_identity`, `kernel_equivariant`,
+`susskind3`, `center_anticommutator`, `mass_square` — and what is missing is the step from
+"K_m commutes with every R_g" to "K_m lies in a space of dimension 72/24 = 3". That is A1
+applied to `End(V₆)`, so it needs A10's transport before it can be stated at all. Nothing
+numerical is missing.
+B2. **Delivered** (`OI_Structural_Chain.lean`, `path_prop`). The detailed-balance lemma,
+stated without the exponential. The `exp` in W(m→n)/W(n→m) = e^{−τ(ω_n−ω_m)} does one job —
+making the edge ratio a gradient g_n/g_m — so cross-multiplying gives a multiplicative cocycle
+in a commutative monoid, with no division, no field inverse and no spectral theory. Perron–
+Frobenius is neither used nor needed: uniqueness up to scale comes from connectivity and
+invertibility. The statement proved is stronger than the mirror's, which recovers a stationary
+vector as a null space; here every edgewise-balanced p is proportional to g along any path.
+Connectivity is shown load-bearing by a two-component witness whose bridging edge is
+unbalanced.
+B3. **Split.** The algebraic core — Corollary 1a's `dim Sym²(ℝ³)^{B₃} = 1` — is **delivered at
+character level** (`sum_trSym_b3`, `sum_trSym_rot`): Σχ = 48 = 1·48 over the 48-element signed
+permutation group and 24 = 1·24 over its rotations, with `δ` exhibited invariant and
+`diag(1,0,0)` shown not to be. As with A7/A7b the closing division by the group order is A1,
+so the *dimension* statement is **pending A10**. The harmonic dispersion cos ω = (1/d) Σ cos kⱼ
+is **open and genuinely analytic**: it needs `Real.cos`, the range side-conditions on `arccos`,
+and a Taylor expansion for the O(a²k²) form. Its algebraic skeleton — that in any commutative
+ring `u_t = z^t` solves the second-order recursion exactly when z + z⁻¹ = α Σ_μ (c_μ + c_μ⁻¹)
+— is core-expressible and is what the probe now verifies constructively on the lattice.
 
 ## C. Generator-relations layer — DELIVERED for three and four axes
 
