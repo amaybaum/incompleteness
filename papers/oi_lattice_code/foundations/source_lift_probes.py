@@ -51,6 +51,41 @@
 # rank_p <= rank_Q, so rank_p = n-1 forces rank_Q >= n-1, and step 1 gives rank_Q <= n-1; hence
 # rank_Q = n-1 EXACTLY. A mod-p rank can fail to certify, but it cannot certify falsely.
 #
+# b435 (2026-08-27) EXTENDS THE STRATIFICATION to the framework's own idealized layer (SL7-SL9).
+# The substratum's realization is neither generic nor coherently probed: the dynamics is a
+# PERMUTATION unitary and the native instruments are PERMUTATIONS. Stratifying the rank by layer:
+#
+#     dynamics \ probes      permutation      real rotation       complex generic
+#     permutation, c cycles   0 (all orders)   0 (first order)     n - c
+#     diagonal                0                --                  0        (SL4)
+#     generic                 --               n - 1               n - 1    (SL1)
+#
+#   - SL7: permutation dynamics probed by permutation instruments yields 0/1 tables invariant
+#     under EVERY phase decoration, not just rephasings. The native instrument set carries no
+#     coherent source information at any order. (The intervened form of the |U|^p
+#     exponent-blindness recorded at check 6 of equivalence_recovery_probes.py.)
+#   - SL8, THE CYCLE LAW: for permutation dynamics with c cycles and a generic coherent probe,
+#     rank = n - c exactly. Upper bound: a diagonal D constant on the cycles commutes with the
+#     permutation, so data(U, D R D^dag) = |D (R^dag U^k R) D^dag|^2 = data(U, R) -- an EXACT
+#     symmetry, all orders; the c cycle-indicator directions are null identically, generalizing
+#     SL2's global phase (a generic U has diagonal commutant = scalars, c = 1; a diagonal U has
+#     all of them, c = n, which is SL4's collapse). Lower bound: one witness per shape, mod p.
+#     A control shows the law tracks the DIAGONAL COMMUTANT and not the spectrum: a unitary with
+#     a repeated eigenvalue but generic eigenvectors still has rank n - 1.
+#     So the SINGLE-CYCLE permutation -- the framework's idealized hidden dynamics, with its
+#     equally spaced eigenphases -- has NO deficit: G2 failure costs nothing for source-phase
+#     identifiability, and each extra ergodic component costs exactly one direction, the relative
+#     phase between dynamically disconnected sectors.
+#   - SL9: if dynamics AND probe are both real, every Jacobian entry vanishes IDENTICALLY --
+#     M is real, dM = i(E o S)-driven is purely imaginary, so 2 Re(conj(M) dM) = 0 entry by
+#     entry. Real-amplitude superpositions are first-order blind to the relative phase;
+#     sensitivity returns at second order, and one complex side restores rank n - 1.
+#
+# Together: the source-lift deficiency of the native layer lives ENTIRELY in the instruments, not
+# in the idealized dynamics. What the lift needs is complex-phase-bearing coherent probes; it does
+# not need generic dynamics, non-degenerate gaps, or anything beyond the single-cycle structure
+# the framework already has.
+#
 # WHY EXACT AND NOT FLOATING POINT, beyond the usual reason. The rank being certified is a rank of
 # a Jacobian whose true value at the interesting witnesses is ZERO. A floating-point second
 # difference there returns entries of order 1e-10, and any rank test taken relative to the largest
@@ -333,6 +368,140 @@ check("SL6", True,
       "rank = n-1 confines the deficient locus to a proper closed algebraic subset. The argument "
       "is PER SHAPE and nothing here is uniform in n")
 
+# ================================================================ b435: SL7-SL9
+def perm_mat(p):
+    n = len(p)
+    M = [[ZERO] * n for _ in range(n)]
+    for i, j in enumerate(p):
+        M[j][i] = ONE
+    return M
+
+def cycles_of(p):
+    n = len(p); seen = [False] * n; out = []
+    for i in range(n):
+        if not seen[i]:
+            c, j = [], i
+            while not seen[j]:
+                seen[j] = True; c.append(j); j = p[j]
+            out.append(c)
+    return out
+
+def build_O(n, off):
+    """A REAL orthogonal matrix over Q — the coherent-but-phase-free probe of SL9."""
+    V = eye(n); k = off
+    for p_ in range(n):
+        for q in range(p_ + 1, n):
+            c, s = PYTH[k % len(PYTH)]; k += 1
+            G = eye(n)
+            G[p_][p_] = gr(c); G[q][q] = gr(c)
+            G[p_][q] = gr(s); G[q][p_] = gr(-s)
+            V = matmul(V, G)
+    return V
+
+def tables(U, R, horizons, strengths):
+    """The joint source-loop data itself, as exact GF(p) tables."""
+    out = []
+    for m in strengths:
+        S = mpow(R, m); Sd = dagger(S)
+        for k in horizons:
+            out.append(modsq(matmul(matmul(Sd, mpow(U, k)), S)))
+    return out
+
+# ---------------------------------------------------------------- SL7  native probes are blind
+print("SL7  permutation dynamics probed by permutation instruments: no phase survives")
+ok7 = True
+for p_dyn, p_probe in (([1, 2, 3, 0], [2, 0, 3, 1]), ([1, 0, 3, 2], [3, 2, 1, 0])):
+    n = len(p_dyn)
+    Pm, Rp = perm_mat(p_dyn), perm_mat(p_probe)
+    tb = tables(Pm, Rp, range(1, 2 * n + 1), (1, 2))
+    ok7 &= all(v in (0, 1) for t in tb for row in t for v in row)
+    # decorate the dynamics' support with arbitrary unit phases: the tables must not move
+    Pph = [[cmul(Pm[r][c], gr(*PHASE[(r + 2 * c) % len(PHASE)])) if Pm[r][c] != ZERO else ZERO
+            for c in range(n)] for r in range(n)]
+    ok7 &= tables(Pph, Rp, range(1, 2 * n + 1), (1, 2)) == tb
+    # and the relative rephasing of the probe: also invisible
+    ok7 &= tables(Pm, conj_by(diag_phase(n, 1), Rp), range(1, 2 * n + 1), (1, 2)) == tb
+check("SL7", ok7,
+      "every table is 0/1 — the classical permutation table — and is unchanged by ARBITRARY unit "
+      "phases painted on the dynamics' support, and by any rephasing of the probe. A product of "
+      "permutation-supported matrices has one term per entry, so no path ever interferes with "
+      "another: the native instrument set carries zero coherent source information at any order. "
+      "This is the intervened form of the |U|^p blindness at check 6 of "
+      "equivalence_recovery_probes.py")
+
+# ---------------------------------------------------------------- SL8  the cycle law
+print("SL8  the cycle law: coherent probes at permutation dynamics resolve exactly n - c phases")
+PERMS = ([1, 0], [1, 2, 0], [1, 2, 3, 0], [1, 2, 3, 4, 0], [1, 2, 3, 4, 5, 0],   # single cycles
+         [1, 0, 3, 2], [1, 2, 0, 3], [1, 0, 3, 4, 2], [1, 2, 0, 4, 5, 3],        # two cycles
+         [1, 0, 3, 2, 5, 4], [1, 2, 0, 4, 3, 6, 5],                              # three cycles
+         [0, 1, 2, 3])                                                           # identity: c = n
+rows8, t8 = [], time.time()
+for p_dyn in PERMS:
+    n = len(p_dyn)
+    cyc = cycles_of(p_dyn); c = len(cyc)
+    Pm, R = perm_mat(p_dyn), build_U(n, 3)
+    J = jacobian(Pm, R, n, range(1, 2 * n + 1), (1, 2))
+    rk = rank_mod_p(J, len(J[0]))
+    # upper bound, exactly: each cycle-indicator direction is null identically...
+    null_ok = all(all(sum(J[a][e] for a in cyc_i) % P == 0 for e in range(len(J[0])))
+                  for cyc_i in cyc)
+    # ...because a D constant on the cycles is an exact symmetry of the data, at finite angle
+    D = eye(n)
+    for i, cyc_i in enumerate(cyc):
+        for a in cyc_i:
+            D[a][a] = gr(*PHASE[i % len(PHASE)])
+    inv_ok = (tables(Pm, conj_by(D, R), range(1, 2 * n + 1), (1, 2))
+              == tables(Pm, R, range(1, 2 * n + 1), (1, 2)))
+    rows8.append((n, c, rk, null_ok, inv_ok))
+    print(f"        n={n}  cycles={c}  rank = {rk}  n-c = {n - c}  "
+          f"{'CERTIFIED' if rk == n - c and null_ok and inv_ok else 'MISMATCH'}", flush=True)
+# the control that pins the mechanism: repeated EIGENVALUE, generic eigenvectors — still full rank
+Vd = build_U(4, 5)
+Dg = eye(4)
+for i, ph in enumerate((0, 0, 1, 2)):        # the first eigenphase REPEATED
+    Dg[i][i] = gr(*PHASE[ph])
+Udeg = matmul(matmul(Vd, Dg), dagger(Vd))
+Jdeg = jacobian(Udeg, build_U(4, 2), 4, range(1, 9), (1, 2))
+rk_deg = rank_mod_p(Jdeg, len(Jdeg[0]))
+print(f"        control: repeated eigenvalue, generic eigenvectors  rank = {rk_deg}  (n-1 = 3)")
+check("SL8", all(rk == n - c and no and io for n, c, rk, no, io in rows8) and rk_deg == 3,
+      f"rank = n - c at all {len(PERMS)} permutations in {time.time()-t8:.1f} s: the diagonal D "
+      "constant on the cycles commutes with the dynamics, so the c cycle-indicator directions are "
+      "an exact symmetry (checked at finite angle, not only infinitesimally) — generalizing SL2 "
+      "(generic U: diagonal commutant = scalars, c = 1) and SL4 (diagonal U: everything commutes, "
+      "c = n). The control shows the law tracks the diagonal COMMUTANT, not the spectrum: a "
+      "repeated eigenvalue with generic eigenvectors still gives n-1. So the SINGLE-CYCLE "
+      "permutation — the idealized hidden dynamics, equally spaced eigenphases and all — has NO "
+      "deficit, and each extra ergodic component costs exactly the relative phase between "
+      "dynamically disconnected sectors")
+
+# ---------------------------------------------------------------- SL9  real probes at first order
+print("SL9  a real probe of a real dynamics reads nothing at first order")
+ok_zero = True
+for n in (3, 4):
+    Jr = jacobian(build_O(n, 0), build_O(n, 3), n, range(1, 2 * n + 1), (1, 2))
+    ok_zero &= all(v % P == 0 for row in Jr for v in row)
+# ...but only at first order: a finite rephasing moves the tables
+O1, O2 = build_O(3, 0), build_O(3, 3)
+moved = (tables(O1, conj_by(diag_phase(3, 1), O2), range(1, 7), (1, 2))
+         != tables(O1, O2, range(1, 7), (1, 2)))
+# one complex side restores everything: complex dynamics with the REAL probe
+ranks9 = []
+for n in (3, 4):
+    Jc = jacobian(build_U(n, 0), build_O(n, 3), n, range(1, 2 * n + 1), (1, 2))
+    ranks9.append(rank_mod_p(Jc, len(Jc[0])))
+print(f"        real-real Jacobian identically zero at n = 3, 4: {ok_zero};  finite rephasing "
+      f"still moves the tables: {moved}")
+print(f"        complex dynamics, real probe: ranks {ranks9}  (n-1 = [2, 3])")
+check("SL9", ok_zero and moved and ranks9 == [2, 3],
+      "with dynamics and probe both real, every Jacobian entry is identically zero — M is real "
+      "and dM = i(E o S)-driven is purely imaginary, so 2 Re(conj(M) dM) vanishes entry by entry "
+      "— while a finite rephasing still moves the tables, so the blindness is first-order only, "
+      "not an invariance. One complex side restores rank n-1: real dynamics with a complex probe "
+      "is SL8's single-cycle row, and complex dynamics with a real probe is certified here. "
+      "Coherent probing therefore means COMPLEX-phase-bearing probing; real-amplitude "
+      "superpositions do not linearly resolve the relative phase")
+
 print()
 print("     [scope] Settled: b405 §5's finite operational control does NOT exhibit a generic")
 print("     obstruction. At a generic (U, R) the joint coherent source-loop data resolves every")
@@ -341,6 +510,13 @@ print("     none. The collapse needs the dynamics to be DIAGONAL — a maximal G
 print("     single vanishing overlap does not produce it (SL5), so the deficient locus is smaller")
 print("     than the G3-violating one. The finite layer supplies no support for a source-lift")
 print("     obstruction that survives genericity.")
+print("     Also settled (b435): the deficiency of the NATIVE layer lives entirely in the")
+print("     instruments. Permutation probes are blind at every order (SL7); real probes are blind")
+print("     at first order (SL9); and once the probe is complex, permutation dynamics with c")
+print("     cycles resolves exactly n - c phases (SL8) — so the framework's single-cycle idealized")
+print("     dynamics has NO deficit, its equally spaced eigenphases notwithstanding. The unresolved")
+print("     directions are always the diagonal commutant of the dynamics: scalars generically,")
+print("     cycle indicators for permutations, everything for a diagonal U.")
 print("     NOT settled, and NOT touched: b405 §3-§4, the lattice kappa-family. That is a claim")
 print("     about needing a lift — a second source derivative cannot be read off zero-source data")
 print("     — not about identifiability failing, and b426 recorded that the lattice and operational")
