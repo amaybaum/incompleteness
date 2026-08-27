@@ -14,12 +14,14 @@ on:
       # without these lines the job exists but never runs when a probe itself changes
       - 'papers/oi_lattice_code/foundations/comb_reachability_probes.py'
       - 'papers/oi_lattice_code/foundations/phaselock_probes.py'
+      - 'papers/oi_lattice_code/foundations/source_lift_probes.py'
       - '.github/workflows/verify.yml'
   pull_request:
     paths:
       - 'verification/**'
       - 'papers/oi_lattice_code/foundations/comb_reachability_probes.py'
       - 'papers/oi_lattice_code/foundations/phaselock_probes.py'
+      - 'papers/oi_lattice_code/foundations/source_lift_probes.py'
       - '.github/workflows/verify.yml'
   workflow_dispatch:
 
@@ -112,7 +114,7 @@ jobs:
         working-directory: papers/oi_lattice_code/foundations
         run: |
           rc=0
-          for p in comb_reachability_probes phaselock_probes; do
+          for p in comb_reachability_probes phaselock_probes source_lift_probes; do
             echo "=== ${p}.py ==="
             python3 "${p}.py" || rc=1
           done
