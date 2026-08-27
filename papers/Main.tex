@@ -1380,10 +1380,11 @@ every \(V\).}
 \textbf{Theorem (ancilla-marginal phase-locking; certified block
 structures).} \emph{Fix \((n, m_a)\) with \(D = n \, m_a\). The kernel
 of the linearised system contains the \((D-1)\)-dimensional coboundary
-space for every \(V\), and for \((n, m_a) \in \{(2,2), (3,2), (2,3)\}\)
-it equals that space for all \(V\) outside a proper closed algebraic
-subset of \(\mathrm{U}(D)\) --- hence for Haar-almost-every \(\hat{H}\).
-The reconstruction is therefore locally identifiable up to eigenbasis
+space for every \(V\), and for
+\((n, m_a) \in \{(2,2), (3,2), (2,3), (4,2), (2,4), (3,3), (3,4)\}\) it
+equals that space for all \(V\) outside a proper closed algebraic subset
+of \(\mathrm{U}(D)\) --- hence for Haar-almost-every \(\hat{H}\). The
+reconstruction is therefore locally identifiable up to eigenbasis
 rephasing at those structures.}
 
 \emph{Proof.} Containment is the Lemma. For equality: \(\dim \ker\) is
@@ -1440,33 +1441,36 @@ using \(P_i^2 = P_i\), which is the right side. This exhibits the
 a global constant that acts trivially) as an analytic null space of the
 constraint, for every projector family. That these are the \emph{only}
 null directions --- that the constraint admits no pair-phase deformation
-beyond the coboundary --- is verified numerically: the linearized
-idempotency operator has null space of dimension exactly \(D-1\) for
-generic \(\hat H\) across
-\((n, m_a) = (3,4), (2,3), (4,2), (3,3), (2,4)\), and the constructive
+beyond the coboundary --- holds for generic \(\hat H\) at each block
+structure, by the genericity argument set out below; the constructive
 Fourier extraction has been demonstrated end-to-end. The marginal data
 therefore determine --- generically, and at least locally --- the
 \emph{dilated} Hamiltonian and the configuration projectors up to an
 energy shift, diagonal phase conventions, and the antiunitary
-conjugation (statement above); the general completeness proof beyond the
-numerically verified cases remains open; the reconstruction reaches the
-dilation itself, not only an \(n\)-dimensional effective generator. The
-status of each component: the Fourier structure, its rank-one property,
-and the coboundary null directions are exact algebra; that the
-coboundary \emph{exhausts} the null space is the content of the
-\emph{Conjecture (generic local identifiability)}: for generic projector
-families, \(\ker L_{\{P_i\}} = \{\theta_{ab} = \alpha_a - \alpha_b\}\)
---- established numerically and awaits a written completeness proof (the
-natural route is that generic projector families make the constraint
-operator's kernel no larger than the coboundary, a genericity
-statement); the genericity conditions (G1)--(G3) transfer to the dilated
-spectrum, gaps, and coherence vectors. One caveat applies in sharpened
-form: the idealized permutation dynamics has dilated eigenphases at
-roots of unity --- equally spaced, hence maximally gap-degenerate --- so
-the lemma's genericity holds for the physical continuous-time dynamics
-away from that idealized limit, not at it; this is the same idealization
-boundary carried by the finite-\(\epsilon\) displacement
-\(\mathcal{D}\).
+conjugation (statement above); the reconstruction reaches the dilation
+itself, not only an \(n\)-dimensional effective generator. The status of
+each component: the Fourier structure, its rank-one property, and the
+coboundary null directions are exact algebra; and the coboundary
+\emph{exhausts} the null space for generic projector families,
+\(\ker L_{\{P_i\}} = \{\theta_{ab} = \alpha_a - \alpha_b\}\), at each
+fixed \((n, m_a)\). The families of \(n\) rank-\(m_a\) projectors
+summing to the identity are a single \(U(D)\) orbit, hence an
+irreducible variety; \(\dim \ker L\) is upper semi-continuous on it, its
+entries being polynomial in the family; and the coboundary lies in the
+kernel identically, so \(\dim \ker L \geq D-1\) throughout. A single
+family with \(\dim \ker L = D-1\) therefore confines the excess locus to
+a proper closed algebraic subset, of empty interior and Haar measure
+zero. Witnesses over \(\mathbb{Q}(i)\) are certified in exact arithmetic
+at \((n,m_a) = (2,2), (3,2), (2,3), (4,2), (2,4), (3,3), (3,4)\)
+(\texttt{phaselock\_probes.py}); the argument runs shape by shape and
+supplies no statement uniform in \(D\). The genericity conditions
+(G1)--(G3) transfer to the dilated spectrum, gaps, and coherence
+vectors. One caveat applies in sharpened form: the idealized permutation
+dynamics has dilated eigenphases at roots of unity --- equally spaced,
+hence maximally gap-degenerate --- so the lemma's genericity holds for
+the physical continuous-time dynamics away from that idealized limit,
+not at it; this is the same idealization boundary carried by the
+finite-\(\epsilon\) displacement \(\mathcal{D}\).
 
 Conditions (G1)--(G3) fail only on a measure-zero set of Hamiltonians. A
 stronger argument applies whenever the partition itself breaks
@@ -4777,4 +4781,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: 723b0c652664b6ea737fc2f3329b2fd16810d7268dce38df6ba81cb3e94098e4
+% source-sha256: 0814cd747534d2b6c7c544d815ed65304750c899b63c49e2be0488a107cfc575
