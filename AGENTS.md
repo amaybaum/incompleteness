@@ -468,16 +468,21 @@ after the b70 catch; the same-day audit swept the existing corpus.
 **Working-draft mode is the default**, and is what every other rule in this document already
 assumes: the repository is the canonical text, changes are corrected in place (§A.27), propagated
 corpus-wide (§A.25), gated by `tools/release_gate.py`, and merged. A published deposit is a
-released artifact, not a freeze on the draft — the `3.0.0` tag is the reference point for how far
-the working draft has moved, and drift from it is expected rather than a defect.
+released artifact, not a freeze on the draft: drift from it is expected rather than a defect, and
+the reference point for measuring that drift is **derived, never named here** — the current release
+tag, taken by version sort (`git tag --sort=-v:refname | head -1`) rather than by `git describe`,
+which walks ancestry and so reports a stale tag on any branch the release was not merged into.
 
-**Adversarial-review mode is invoked, never assumed.** Its setting is a research thread run in a
-separate environment where several models check each other's output. There the manuscript is not
-edited: new work is developed only in numbered transfer bundles, each chaining to the last by an
-input SHA-256, a shipped bundle is never rewritten, and a correction goes forward into the next
-bundle rather than back into the record it corrects. What that buys is a provenance chain that
-stays checkable when the parties producing a claim do not share a context — which is the whole
-reason to pay for it. In single-thread work it buys nothing and costs the deferral of every
+**Adversarial-review mode is invoked, never assumed, and is invoked with a freeze point.** Its
+setting is a research thread run in a separate environment where several models check each other's
+output. Entering it names the commit or tag that is frozen for its duration — not necessarily the
+current release — and that freeze point is recorded in the bundles the mode produces, on a
+`Frozen at:` line beside the input hash, so every party is anchored to the same tree. There the
+manuscript is not edited: new work is developed only in numbered transfer bundles, each chaining to
+the last by an input SHA-256, a shipped bundle is never rewritten, and a correction goes forward
+into the next bundle rather than back into the record it corrects. What that buys is a provenance
+chain that stays checkable when the parties producing a claim do not share a context — which is the
+whole reason to pay for it. In single-thread work it buys nothing and costs the deferral of every
 correction the draft could simply make.
 
 The mode is entered by saying so and holds until it is stood down. Bundles already shipped stay
