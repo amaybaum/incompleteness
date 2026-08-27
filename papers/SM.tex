@@ -4063,6 +4063,13 @@ consistency check.
 staggered vacuum polarization, evaluated analytically in §6.1. No free
 parameters. This is the foundational structural input and would falsify
 the framework if observation required a significantly different value.
+Its reading as a \emph{native} coupling inherits H-transverse-link for
+the \(\mathrm{U}(1)\) row (§6.5): the determinant is constant over the
+induced abelian configurations, so the coefficient is one of the ambient
+staggered gauge theory until the physical gauge sector is shown to carry
+transverse connection degrees of freedom. The computation and its value
+are unaffected by that condition; what it fixes is whose coupling the
+number is.
 
 \textbf{(ii) Structural constraint --- universality of \(\delta_0\).}
 The \(C_2\)-independent part of the threshold is by definition
@@ -4324,24 +4331,41 @@ volume and mass, and a first-order transition at intermediate \(q\) is
 not excluded, though none appears. Whether the near-identity measure
 additionally carries the chiral condensate the \(A^2\) amplitude
 requires (§7.5) is a separate question, not settled here. The abelian
-row is not a further gap: its classical field strength is identically
-zero (the gradient connection is pure gauge), but this is immaterial,
-since in the induced theory every coupling is the fermion vacuum
-polarization --- nonzero for \(\mathrm{U}(1)\) as for the non-abelian
-factors --- not a classical field strength. The one residual that
-remains separate is whether the near-identity measure additionally
-carries the chiral condensate the \(A^2\) amplitude requires (§7.5),
-which is not settled here. For audit purposes the bridge's status under
-the {[}appendix-A §A.3{]} scheme is recorded explicitly: the kinematic
-half (measure and map) is derived-conditional (solid modulo the
-amplitude-scale operational input of {[}Substratum §4, Theorem 24,
-\emph{Status}{]}); the classical near-identity pushforward and the
-determinant free-energy comparison are numerically supported at one
-volume and mass (sketch-grade); the condensate transport is a documented
-gap. The induced measure is therefore a derived-conditional commitment,
-not a theorem, and any verdict of the \(A^2\) falsification computation
-is a verdict on the conjunction of the amplitude closure with this
-bridge; any successor run order accordingly carries plaquette
+row carries a named condition rather than a gap, and the condition is
+sharper than a statement about classical field strength. The induced
+abelian connection is a lattice gradient, so it is pure gauge --- and
+because the matter field is \(\mathbb{Z}/q\mathbb{Z}\)-valued the gauge
+function \(G_x = \exp(2\pi i\,\phi_x/q)\) is single-valued, leaving no
+vortex sector either. The consequence reaches the fermion determinant:
+the staggered operator at an induced abelian link satisfies
+\(D[U[\phi]] = G^\dagger D[I]\,G\) with \(G\) diagonal and unitary, so
+\(D^\dagger D\) is unitarily similar to its free value and every
+spectral quantity built from it --- \(\mathrm{Tr}\ln D^\dagger D\)
+included --- is \emph{constant} over the induced \(\mathrm{U}(1)\)
+configurations. The induced coupling computed above is therefore a
+second derivative of the determinant with respect to an arbitrary
+background link, taken in directions the microscopic image does not
+contain; reading it as a native \(\mathrm{U}(1)\) coupling requires
+\textbf{H-transverse-link}: that the physical or coarse-grained gauge
+sector carry genuine transverse connection degrees of freedom, and not
+only the pure-gradient image \(\{U[\phi]\}\). The non-abelian factors
+are not in this position --- there the telescoped exponents do not
+exponentiate to a pure gauge, the induced plaquette carries curvature at
+second order in \(2\pi/q\), and the determinant varies across the
+induced configurations. The one residual that remains separate is
+whether the near-identity measure additionally carries the chiral
+condensate the \(A^2\) amplitude requires (§7.5), which is not settled
+here. For audit purposes the bridge's status under the {[}appendix-A
+§A.3{]} scheme is recorded explicitly: the kinematic half (measure and
+map) is derived-conditional (solid modulo the amplitude-scale
+operational input of {[}Substratum §4, Theorem 24, \emph{Status}{]});
+the classical near-identity pushforward and the determinant free-energy
+comparison are numerically supported at one volume and mass
+(sketch-grade); the condensate transport is a documented gap. The
+induced measure is therefore a derived-conditional commitment, not a
+theorem, and any verdict of the \(A^2\) falsification computation is a
+verdict on the conjunction of the amplitude closure with this bridge;
+any successor run order accordingly carries plaquette
 \(\langle P \rangle\) and chiral-condensate measurements as first-class
 observables, so that a wrong-ensemble failure is empirically separable
 from a wrong-amplitude failure. The 2026-07-14 reconnaissance halt makes
@@ -8598,4 +8622,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: ede3f1c1505e36ea3a68b43f370e96bb35f75bc5f97516da5a17e01c7b23a150
+% source-sha256: 572477f7f3b31026c82673ff388c06082382e78491cb8dde03d147336bd03570
