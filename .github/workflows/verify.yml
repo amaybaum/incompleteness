@@ -97,3 +97,10 @@ jobs:
             echo "=== ${p}_probe.py ==="
             python3 "${p}_probe.py"
           done
+
+      # papers/oi_lattice_code/ has sat outside this gate; this is the first of its probes
+      # brought in. Named individually rather than by directory glob: several of the others
+      # (intervention_probes at K=2 builds 124k states) are far too slow for CI.
+      - name: Foundations probes
+        working-directory: papers/oi_lattice_code/foundations
+        run: python3 comb_reachability_probes.py
