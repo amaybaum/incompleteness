@@ -410,6 +410,10 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
 - The seven manifestations of the QM-emergence-interface antipattern (catalogued in the private
   records) are the recurring reason Step 5 exists; every historical overclaim audited traced to
   one of them.
+- A provenance discipline written for multi-party adversarial review was carried as the standing
+  default for twenty rounds of single-thread work, deferring corrections the working draft could
+  have made directly. Hence §A.34: a mode that costs more than it buys outside its setting is
+  named as a mode, with its setting attached.
 
 ---
 
@@ -458,3 +462,26 @@ Enforcement: the closing battery's added-lines scan (§A.32) gains a
 caps-emphasis regex (mid-sentence [A-Z]{4,} outside the whitelist) and
 the history-phrase family; hits block the ship. Adopted 2026-08-10
 after the b70 catch; the same-day audit swept the existing corpus.
+
+## §A.34 Two working modes: mutable working draft (default), adversarial review (invoked)
+
+**Working-draft mode is the default**, and is what every other rule in this document already
+assumes: the repository is the canonical text, changes are corrected in place (§A.27), propagated
+corpus-wide (§A.25), gated by `tools/release_gate.py`, and merged. A published deposit is a
+released artifact, not a freeze on the draft — the `3.0.0` tag is the reference point for how far
+the working draft has moved, and drift from it is expected rather than a defect.
+
+**Adversarial-review mode is invoked, never assumed.** Its setting is a research thread run in a
+separate environment where several models check each other's output. There the manuscript is not
+edited: new work is developed only in numbered transfer bundles, each chaining to the last by an
+input SHA-256, a shipped bundle is never rewritten, and a correction goes forward into the next
+bundle rather than back into the record it corrects. What that buys is a provenance chain that
+stays checkable when the parties producing a claim do not share a context — which is the whole
+reason to pay for it. In single-thread work it buys nothing and costs the deferral of every
+correction the draft could simply make.
+
+The mode is entered by saying so and holds until it is stood down. Bundles already shipped stay
+immutable under either mode: that is a fact about the archive, not a policy about new work.
+
+Adopted 2026-08-27 by owner instruction, restoring the default the rest of this document describes
+and naming the alternative so it remains invocable.
