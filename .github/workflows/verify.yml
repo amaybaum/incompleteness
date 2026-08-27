@@ -10,10 +10,16 @@ on:
   push:
     paths:
       - 'verification/**'
+      # the foundations probes are gated below, so their own edits must trigger this workflow;
+      # without these lines the job exists but never runs when a probe itself changes
+      - 'papers/oi_lattice_code/foundations/comb_reachability_probes.py'
+      - 'papers/oi_lattice_code/foundations/phaselock_probes.py'
       - '.github/workflows/verify.yml'
   pull_request:
     paths:
       - 'verification/**'
+      - 'papers/oi_lattice_code/foundations/comb_reachability_probes.py'
+      - 'papers/oi_lattice_code/foundations/phaselock_probes.py'
       - '.github/workflows/verify.yml'
   workflow_dispatch:
 
@@ -97,3 +103,17 @@ jobs:
             echo "=== ${p}_probe.py ==="
             python3 "${p}_probe.py"
           done
+
+      # papers/oi_lattice_code/ has sat outside this gate; these are the first of its probes
+      # brought in. Named individually rather than by directory glob: several of the others
+      # (intervention_probes at K=2 builds 124k states) are far too slow for CI. Both of these
+      # use the standard library alone, so nothing here depends on the pip step above.
+      - name: Foundations probes
+        working-directory: papers/oi_lattice_code/foundations
+        run: |
+          rc=0
+          for p in comb_reachability_probes phaselock_probes; do
+            echo "=== ${p}.py ==="
+            python3 "${p}.py" || rc=1
+          done
+          exit $rc

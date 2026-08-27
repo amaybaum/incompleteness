@@ -7,6 +7,7 @@ Each script prints explicit PASS/FAIL against the claim it verifies.
 |---|---|---|---|
 | `minimal_model.py` | §2.4 minimal model: T(1,0), T(2,0)=I un-mixing, Λ(2,1) negativity ⇒ **P-indivisible**; process-tensor memory check P(x₂=0\|x₁=1,x₀=0)=1 vs 1/3 | ALL PASS (exact enumeration) | <1 s |
 | `coboundary_nullspace.py` | Reconstruction lemma (ancilla-marginal form): linearized idempotency constraint has null space of dimension **exactly D−1** for generic Ĥ, across (n,mₐ)=(3,4),(2,3),(4,2),(3,3),(2,4) | ALL PASS (3 random Ĥ per case) | ~2 min |
+| — | *the same claim in exact arithmetic*: `../oi_lattice_code/foundations/phaselock_probes.py` certifies ker = coboundary over GF(p²) at seven block structures, which is what carries the genericity argument of §3.4; the floating-point script above is its companion, not its evidence | ALL CHECKS PASS | ~5 s |
 | `mixing_battery.py` | Substratum chaotic-mixing diagnostics cited in the Bell section: spectral continuity (rounded H≈0.931 vs linear 0.126), thermalization (autocorr 0.019 vs 0.543), comparative cycle consolidation, orbit non-fragmentation | Matches archived RESULTS (journal §B.2.575, battery2) | ~3 min |
 | `lyapunov_v3.py` | Two-trajectory Lyapunov: **λ_max > 0** on the realized rounded bijection (quantitative rate ensemble-dependent, as stated in the paper) | PASS, λ>0 all seeds, growth to saturation | ~1 min |
 
