@@ -10,10 +10,14 @@ on:
   push:
     paths:
       - 'verification/**'
+      # the foundations probe is gated below, so its own edits must trigger this workflow;
+      # without this line the job exists but never runs when the probe itself changes
+      - 'papers/oi_lattice_code/foundations/comb_reachability_probes.py'
       - '.github/workflows/verify.yml'
   pull_request:
     paths:
       - 'verification/**'
+      - 'papers/oi_lattice_code/foundations/comb_reachability_probes.py'
       - '.github/workflows/verify.yml'
   workflow_dispatch:
 
