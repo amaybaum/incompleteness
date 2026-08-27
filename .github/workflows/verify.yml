@@ -16,6 +16,7 @@ on:
       - 'papers/oi_lattice_code/foundations/phaselock_probes.py'
       - 'papers/oi_lattice_code/foundations/source_lift_probes.py'
       - 'papers/oi_lattice_code/foundations/induced_source_probes.py'
+      - 'papers/oi_lattice_code/foundations/gauge_support_probes.py'
       - '.github/workflows/verify.yml'
   pull_request:
     paths:
@@ -24,6 +25,7 @@ on:
       - 'papers/oi_lattice_code/foundations/phaselock_probes.py'
       - 'papers/oi_lattice_code/foundations/source_lift_probes.py'
       - 'papers/oi_lattice_code/foundations/induced_source_probes.py'
+      - 'papers/oi_lattice_code/foundations/gauge_support_probes.py'
       - '.github/workflows/verify.yml'
   workflow_dispatch:
 
@@ -110,14 +112,14 @@ jobs:
 
       # papers/oi_lattice_code/ has sat outside this gate; these are the first of its probes
       # brought in. Named individually rather than by directory glob: several of the others
-      # (intervention_probes at K=2 builds 124k states) are far too slow for CI. All four of these
+      # (intervention_probes at K=2 builds 124k states) are far too slow for CI. All five of these
       # use the standard library alone, so nothing here depends on the pip step above.
       - name: Foundations probes
         working-directory: papers/oi_lattice_code/foundations
         run: |
           rc=0
           for p in comb_reachability_probes phaselock_probes source_lift_probes \
-                   induced_source_probes; do
+                   induced_source_probes gauge_support_probes; do
             echo "=== ${p}.py ==="
             python3 "${p}.py" || rc=1
           done
