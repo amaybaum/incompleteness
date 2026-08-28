@@ -9,17 +9,23 @@ name: codex-gate
 # head commit at all. This job is the missing name: require "Codex review complete" on main
 # alongside the three verify jobs and that window closes.
 #
-# IT FAILS FAST AND DOES NOT WAIT. Codex review is a metered service and this is a research
-# repository whose pull requests iterate many times before they are candidates; spending a review on
-# every intermediate head exhausts the quota and blocks the merge that actually matters. So the
-# intended workflow is two-phase, and the gate makes the phase explicit rather than polling:
+# THE PHASE IS THE PULL REQUEST'S DRAFT STATE, and nothing else. Codex review is a metered service
+# and this is a research repository whose pull requests iterate many times before they are
+# candidates; reviewing every intermediate head exhausts the quota and then blocks the merge that
+# actually matters, which is exactly what happened here. Codex does not auto-review DRAFT pull
+# requests and does auto-review the Draft -> Ready transition, so draft state is already the signal
+# and needs no parallel machinery:
 #
-#   development     no 'codex-ready' label. The gate is red by design, no review is requested, and
-#                   no review quota is spent. Iterate as much as necessary; Lean, the Mathlib
-#                   bridge and the probes are the checks doing real work here.
-#   final candidate label 'codex-ready' applied to a frozen head. Request one review by commenting
-#                   "@codex review", address or reject every finding, re-request only if the head
-#                   moved. Then this check goes green and the pull request is mergeable.
+#   development     the pull request is a DRAFT. This check fails immediately, no review is
+#                   triggered, and no quota is spent. Iterate as much as necessary; Lean, the
+#                   Mathlib bridge and the probes are the checks doing real work here.
+#   final candidate click "Ready for review" on a frozen head. That single action triggers the
+#                   review natively. This job then waits a modest while for it to land -- Actions
+#                   minutes, not review quota -- and checks the threads.
+#
+# If a review finds problems: convert BACK TO DRAFT before changing the head, batch every fix,
+# re-run the deterministic checks, and click Ready once. Fix-push-review-fix-push-review is the
+# pattern that burned the quota; one review, all fixes, one re-review is the replacement.
 #
 # It gates PROCESS, not verdict. It asks whether a review exists for the exact head SHA and whether
 # any thread Codex opened is still unresolved. It does NOT ask whether Codex was happy: a
@@ -31,7 +37,7 @@ name: codex-gate
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, labeled, unlabeled]
+    types: [opened, synchronize, reopened, ready_for_review, converted_to_draft]
   workflow_dispatch:
     inputs:
       pr:
@@ -51,8 +57,8 @@ jobs:
   codex:
     name: Codex review complete
     runs-on: ubuntu-latest
-    # Nothing here waits on anything, so this is a guard against a hung API call, not a review window.
-    timeout-minutes: 5
+    # Covers the ready_for_review wait below with margin. A draft run exits in seconds regardless.
+    timeout-minutes: 20
     steps:
       - name: Check for a Codex review of this exact head and any open threads
         env:
@@ -65,7 +71,7 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           REVIEWER: chatgpt-codex-connector
           EVENT_NAME: ${{ github.event_name }}
-          READY_LABEL: codex-ready
+          IS_DRAFT: ${{ github.event.pull_request.draft }}
         run: |
           set -euo pipefail
 
@@ -91,14 +97,15 @@ jobs:
             exit 1
           fi
 
-          # PHASE. Without the label this is development: fail immediately, request nothing, spend
-          # no review quota. The label is the explicit transition to a frozen merge candidate.
-          if ! gh api "repos/${OWNER}/${REPO}/issues/${PR}/labels" --jq '.[].name' \
-               | grep -qx "${READY_LABEL}"; then
-            echo "::error::Development phase: #${PR} is not labelled '${READY_LABEL}', so no final" \
-                 "Codex review is expected for ${HEAD_SHA} and none has been requested." \
-                 "When this head is the merge candidate, apply the label, comment '@codex review'," \
-                 "then re-run this check."
+          # PHASE. Draft is development: fail immediately, trigger nothing, spend no quota. The
+          # event payload's draft flag is absent on workflow_dispatch, so ask the API there.
+          if [ -z "${IS_DRAFT:-}" ] || [ "${IS_DRAFT}" = "null" ]; then
+            IS_DRAFT="$(gh api "repos/${OWNER}/${REPO}/pulls/${PR}" --jq .draft)"
+          fi
+          if [ "${IS_DRAFT}" = "true" ]; then
+            echo "::error::Development phase: #${PR} is a DRAFT, so Codex does not review it and" \
+                 "no review of ${HEAD_SHA} is expected. When this head is the merge candidate," \
+                 "click 'Ready for review' -- that single action triggers the review natively."
             exit 1
           fi
 
@@ -162,11 +169,24 @@ jobs:
             echo "$total"
           }
 
-          if [ "$(reviewed_head)" -eq 0 ]; then
-            echo "::error::Final Codex review not yet present for ${HEAD_SHA}." \
-                 "#${PR} is labelled '${READY_LABEL}', so this head is the merge candidate:" \
-                 "comment '@codex review', wait for it to land, then re-run this check." \
-                 "Do not request a review per push -- batch the fixes and request once per frozen head."
+          # On the Ready-for-review transition the review has just been triggered natively, so wait
+          # for it. This spends Actions minutes, never review quota. On any other event against a
+          # ready pull request the review either already exists or the head moved, so do not wait.
+          WAIT=1
+          [ "${EVENT_NAME}" = "ready_for_review" ] && WAIT=12
+          found=0
+          for attempt in $(seq 1 "$WAIT"); do
+            found="$(reviewed_head)"
+            [ "$found" -eq 0 ] || break
+            [ "$attempt" -lt "$WAIT" ] || break
+            echo "Attempt ${attempt}/${WAIT}: no Codex review of ${HEAD_SHA} yet; waiting 60s."
+            sleep 60
+          done
+          if [ "$found" -eq 0 ]; then
+            echo "::error::No Codex review of ${HEAD_SHA}. #${PR} is ready for review, so this head" \
+                 "is the merge candidate. If the head moved after the review, convert BACK TO DRAFT," \
+                 "batch every fix, then click 'Ready for review' once -- one review per frozen head," \
+                 "never one per push."
             exit 1
           fi
 
