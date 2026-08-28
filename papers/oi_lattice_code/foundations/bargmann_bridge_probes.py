@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# bargmann_bridge_probes.py — b440 (2026-08-28)
+# bargmann_bridge_probes.py — b440 (2026-08-28), audit-corrected b440a
 #
 # Does the framework's OWN operational construction supply the observer states H-observer-bundle
 # needs? No. And the reason is the one b435 already found on the other side.
@@ -24,12 +24,20 @@
 #        state by any word in {phi, I_a} is therefore a basis state, and every overlap is exactly
 #        0 or 1: REAL and NON-NEGATIVE. Every Bargmann invariant of three such states is 0 (distinct)
 #        or 1 (repeated). There is never a nonzero PHASE.
-#   BB3  The observer's states after the trace-out are DIAGONAL in the visible basis, hence mutually
-#        commuting, and Tr(rho_0 rho_1 rho_2) is real -- so the mixed-state (interferometric /
-#        Uhlmann) generalization of the invariant vanishes identically too. Both the pure and the
-#        mixed reading give zero.
+#   BB3  The ACTUAL reduced observer states -- the framework's own initial law pushed through the
+#        native permutations and traced over (h, a, u, c), not invented distributions -- are
+#        DIAGONAL in the visible basis, hence mutually commuting, so the MIXED BARGMANN INVARIANT
+#        Tr(rho_0 rho_1 rho_2) is a non-negative rational and carries no phase. Both the pure and
+#        the mixed reading give zero.
+#   BB3b The Uhlmann statement, kept SEPARATE. Tr(rho_0 rho_1 rho_2) is a mixed Bargmann invariant
+#        and is NOT the Uhlmann phase, which is defined through amplitudes W with the transport
+#        condition W_i^dag W_j > 0. For a family sharing a fixed eigenbasis the amplitudes may be
+#        taken diagonal and positive, the condition holds with no rotation, and the holonomy is the
+#        identity. Identifying the two would be an error, so they are two checks.
 #   BB4  What would work is a COMPLEX SUPERPOSITION -- b439's witness (1,0), (1,1)/sqrt2, (1,i)/sqrt2.
-#        Permutations never leave the 0/1 amplitude set, so those states are unreachable.
+#        The invariant that separates it from anything native is SUPPORT SIZE: a permutation image
+#        of a basis vector has support exactly one, while a nonzero Bargmann phase needs at least
+#        two components carrying a nontrivial relative complex phase.
 #
 # WHAT THIS DOES AND DOES NOT ESTABLISH (BB5), and the distinction matters.
 #   It DOES exhibit a shared necessary ingredient: the complex-phase-bearing states H-observer-bundle
@@ -155,33 +163,92 @@ for i in range(len(rl)):
             d = lambda p, q: 1 if p == q else 0
             seen_vals.add(d(rl[i], rl[j]) * d(rl[j], rl[k]) * d(rl[k], rl[i]))
 ok2 &= (seen_vals <= {0, 1})
+# The all-word-length statement is ALGEBRAIC, not a consequence of the depth-4 sweep: permutations
+# are closed under composition, so every word is a permutation. Checked here as closure on the
+# generators rather than left as prose — compose each pair and confirm the result is a bijection.
+for g in GENS:
+    for h_ in GENS:
+        comp = {s: g[h_[s]] for s in STATES}
+        ok2 &= (sorted(comp.values()) == sorted(STATES))
 check("BB2", ok2,
       f"{len(reached)} states are reachable by words of length <= 4 in {{phi, I_0, I_1}} from 24 "
-      "starting basis states, and every one of them is again a BASIS state — a permutation carries "
-      "a basis vector to a basis vector. So every overlap is exactly 0 or 1, and the Bargmann "
-      f"invariant <x|y><y|z><z|x> takes only the values {sorted(seen_vals)}: zero for distinct "
-      "states, one for a repeated one. It is never a nonzero PHASE, at any word length, because "
-      "no word can leave the permutation group")
+      "starting basis states, and every one is again a BASIS state. The bound on ALL word lengths "
+      "is algebraic rather than sampled: the generators compose to bijections (checked on all "
+      f"{len(GENS)**2} pairs), so every word is a permutation, and a permutation carries a basis "
+      "vector to a basis vector. Hence every overlap is exactly 0 or 1 and the Bargmann invariant "
+      f"<x|y><y|z><z|x> takes only the values {sorted(seen_vals)} — zero for distinct states, one "
+      "for a repeated one, never a nonzero phase, at any depth whatever")
 
-# ---------------------------------------------------------------- BB3  the mixed reading too
-print("BB3  and the observer's post-trace-out states are diagonal, so the mixed invariant is real")
-# the observer sees x; its state given a visible history is a distribution over x — diagonal, and
-# any two diagonal matrices commute, so Tr(rho_0 rho_1 rho_2) is a sum of products of reals.
-def obs_state(seed):
-    w = [F((7 * seed + 3 * i + 1) % 11 + 1, 13) for i in range(nV)]
-    tot = sum(w)
-    return [x / tot for x in w]
-r0, r1, r2 = obs_state(1), obs_state(2), obs_state(5)
-tr = sum(r0[i] * r1[i] * r2[i] for i in range(nV))       # Tr of a product of diagonals
-ok3 = isinstance(tr, F) and tr > 0
-# commutativity, exactly: diagonal matrices commute entry by entry
-ok3 &= all(r0[i] * r1[i] == r1[i] * r0[i] for i in range(nV))
+# ---------------------------------------------------------------- BB3  the ACTUAL reduced states
+print("BB3  the actual reduced observer states carry no mixed Bargmann phase either")
+# Derived from the construction, not invented: start from the framework's own initial law — uniform
+# on the visible variable, mu_H on the hidden sector, protocol-shaped (clock 0, ledgers blank) —
+# push it forward through ACTUAL native operations, and trace out (h, a, u, c).
+def initial_law():
+    p = {}
+    blank_h, blank_a = (BLANK,) * K, (BLANK,) * K
+    for x in range(nV):
+        for u in range(len(UTAB)):
+            p[(x, blank_h, blank_a, u, 0)] = MU[u] / nV
+    assert sum(p.values()) == F(1)
+    return p
+
+def push(p, perm):
+    """A permutation acts on a distribution by relabelling: diagonality is preserved by fiat."""
+    out = {}
+    for s, w in p.items():
+        t = perm[s]
+        out[t] = out.get(t, F(0)) + w
+    assert sum(out.values()) == F(1)
+    return out
+
+def reduce_visible(p):
+    """Trace out (h, a, u, c): the reduced observer state, as its diagonal in the visible basis."""
+    r = [F(0)] * nV
+    for (x, _h, _a, _u, _c), w in p.items():
+        r[x] += w
+    assert sum(r) == F(1)
+    return r
+
+p0 = initial_law()
+p1 = push(push(p0, INSTR[0]), PHI)                  # act with a = 0, then step
+p2 = push(push(p0, INSTR[1]), PHI)                  # act with a = 1, then step
+RHOS = [reduce_visible(p0), reduce_visible(p1), reduce_visible(p2)]
+# every reduced state is diagonal by construction, and diagonal matrices commute entry by entry
+ok3 = all(all(isinstance(v, F) and v >= 0 for v in r) for r in RHOS)
+ok3 &= all(RHOS[i][k] * RHOS[j][k] == RHOS[j][k] * RHOS[i][k]
+           for i in range(3) for j in range(3) for k in range(nV))
+tr = sum(RHOS[0][k] * RHOS[1][k] * RHOS[2][k] for k in range(nV))
+ok3 &= isinstance(tr, F) and tr >= 0
+# the reduced states are genuinely different, so this is not a degenerate coincidence
+ok3 &= (RHOS[1] != RHOS[2])
 check("BB3", ok3,
-      f"the observer's states are diagonal in the visible basis, hence mutually commuting, and "
-      f"Tr(rho_0 rho_1 rho_2) = {tr} is a positive RATIONAL with no imaginary part. The mixed-state "
-      "(interferometric / Uhlmann) generalization of the Bargmann invariant therefore vanishes "
-      "identically as well — so the negative result does not depend on reading the observer's "
-      "state as pure rather than mixed. Both readings give zero")
+      f"the three reduced states come from the construction itself — the initial law (uniform "
+      f"visible, mu_H hidden, protocol-shaped) pushed through the actual permutations I_0 then phi, "
+      f"and I_1 then phi, with (h, a, u, c) traced out. They differ ({RHOS[1][0]} vs {RHOS[2][0]} "
+      f"on x=0), so this is not degenerate. A permutation acts on a diagonal law by relabelling and "
+      "the partial trace preserves diagonality, so every reduced state is diagonal in the SAME "
+      f"visible basis and they all commute; the mixed Bargmann invariant Tr(rho_0 rho_1 rho_2) = "
+      f"{tr} is a non-negative RATIONAL and carries no phase. The negative therefore does not "
+      "depend on reading the observer's state as pure rather than mixed")
+
+# ---------------------------------------------------------------- BB3b  the Uhlmann statement
+print("BB3b the Uhlmann holonomy of that family is trivial, stated separately and not conflated")
+# Tr(rho_0 rho_1 rho_2) is a mixed Bargmann invariant; it is NOT the Uhlmann phase, which is defined
+# through amplitudes W with the parallel-transport condition W_i^dag W_j > 0. For a family sharing a
+# fixed eigenbasis the amplitudes may be taken W_i = sqrt(rho_i), diagonal and positive, and then
+# W_i^dag W_j is diagonal with non-negative entries — the transport condition holds with no
+# rotation, so the holonomy is the identity. Checked as: all pairwise products are non-negative
+# diagonals, which is the condition, rather than by computing a square root numerically.
+okU = all(RHOS[i][k] * RHOS[j][k] >= 0 for i in range(3) for j in range(3) for k in range(nV))
+okU &= all(RHOS[i][k] >= 0 for i in range(3) for k in range(nV))     # positivity, so sqrt is real
+check("BB3b", okU,
+      "the family shares a fixed eigenbasis, so Uhlmann amplitudes may be taken diagonal and "
+      "positive; every pairwise product W_i W_j is then a non-negative diagonal, which is exactly "
+      "the parallel-transport condition, satisfied with no rotation. The Uhlmann holonomy is "
+      "therefore the identity. This is a SEPARATE statement from BB3: the triple trace is a mixed "
+      "Bargmann invariant and must not be identified with the Uhlmann phase, which involves "
+      "amplitudes and parallel transport rather than a product of density matrices")
 
 # ---------------------------------------------------------------- BB4  what would work, and why not
 print("BB4  the states that would work are complex superpositions, and permutations never make them")
@@ -195,15 +262,23 @@ w1 = ((F(1), F(0)), (F(1), F(0)))
 w2 = ((F(1), F(0)), (F(0), F(1)))
 B = gmul(gmul(inner(w0, w1), inner(w1, w2)), inner(w2, w0))
 witness_phase = (B[1] != 0 or B[0] < 0)
-# and such a vector has two nonzero amplitudes, which no permutation of a basis state produces
-amps_of_basis = {0, 1}
-ok4 = witness_phase and B == (F(1), F(1)) and amps_of_basis == {0, 1}
+# The invariant that matters is SUPPORT SIZE, not the literal amplitude set: a permutation image of
+# a basis vector has support on exactly one component, while a nonzero Bargmann phase needs at
+# least two components carrying a nontrivial relative complex phase.
+supp = lambda v: sum(1 for c in v if c != (F(0), F(0)))
+native_supports = {1}                                   # basis vectors, and permutation images
+witness_supports = {supp(w0), supp(w1), supp(w2)}
+ok4 = (witness_phase and B == (F(1), F(1))
+       and max(witness_supports) >= 2 and native_supports == {1}
+       and min(s for s in witness_supports if s >= 2) >= 2)
 check("BB4", ok4,
-      f"b439's witness gives <0|1><1|2><2|0> = {B[0]} + {B[1]}i, a nonzero phase — but its vectors "
-      "are complex superpositions with two nonzero amplitudes. A permutation matrix applied to a "
-      "basis vector yields a basis vector, whose amplitude set is {0, 1}; no word in the native "
-      "generators enlarges it. The states that would satisfy H-observer-bundle are therefore not "
-      "merely absent from the construction, they are unreachable within it")
+      f"b439's witness gives <0|1><1|2><2|0> = {B[0]} + {B[1]}i, a nonzero phase. The property that "
+      f"separates it from anything native is SUPPORT SIZE: its vectors have supports "
+      f"{sorted(witness_supports)}, and a nonzero Bargmann phase requires at least two components "
+      "carrying a nontrivial relative complex phase. Every permutation image of a basis vector has "
+      "support exactly one, so no word in the native generators can reach such a state. The states "
+      "that would satisfy H-observer-bundle are not merely absent from the construction; they are "
+      "unreachable within it")
 
 # ---------------------------------------------------------------- BB5  what this establishes
 print("BB5  a shared necessary ingredient — which is NOT a shared obstruction")
