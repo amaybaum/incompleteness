@@ -71,6 +71,10 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           REVIEWER: chatgpt-codex-connector
           EVENT_NAME: ${{ github.event_name }}
+          # github.event_name is 'pull_request' for EVERY pull-request event; which one it was lives
+          # in github.event.action. Testing the former against 'ready_for_review' silently never
+          # matches, so the wait below would never engage.
+          EVENT_ACTION: ${{ github.event.action }}
           IS_DRAFT: ${{ github.event.pull_request.draft }}
         run: |
           set -euo pipefail
@@ -173,7 +177,8 @@ jobs:
           # for it. This spends Actions minutes, never review quota. On any other event against a
           # ready pull request the review either already exists or the head moved, so do not wait.
           WAIT=1
-          [ "${EVENT_NAME}" = "ready_for_review" ] && WAIT=12
+          if [ "${EVENT_ACTION:-}" = "ready_for_review" ]; then WAIT=12; fi
+          echo "Event ${EVENT_NAME}/${EVENT_ACTION:-none}: waiting up to ${WAIT} minute(s) for a review of ${HEAD_SHA}." 
           found=0
           for attempt in $(seq 1 "$WAIT"); do
             found="$(reviewed_head)"
