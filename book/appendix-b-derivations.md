@@ -435,6 +435,8 @@ $$\text{Accessible non-Markovianity on } V \iff \text{Embedded observation of } 
 The reverse direction (necessity) is per-condition (Appendix C §C.5): C1, C3, and C4 are individually necessary for any deterministic realization of a non-Markovian process, and C2 within the conditional-mixing class; violating a necessary condition destroys the emergent structure. The quantum representation attaches to processes in the correspondence's class.
 
 The biconditional is the framework's main characterization result. $\square$
+**Coherent extension.** The equivalence holds between the operational, dilated, and fixed-basis descriptions and is exact at that level; it does not by itself determine a coherent extension of the fixed-basis theory, and at least one conservative coherent extension preserves the fixed-basis theory exactly as a quotient while adding coherent structure not fixed by the equivalence.
+
 
 **The lemma chain produces the framework's central content.** The chain from Lemmas B.7.1-B.7.5 through Theorem B.7.6 establishes the framework's foundational claim: non-Markovian visible dynamics are the necessary description of any embedded observer satisfying C1–C4 — with the quantum representation internal and universal ($S \iff D \iff Q_{\mathrm{fb}}$), the compressed form via the imported correspondence under (T). The chain is constructive: each lemma is provable from the substratum's structural commitments without requiring quantum postulates as inputs, and the cumulative derivation yields the framework's emergent quantum description as theorem-backed structure — the memory-bearing statistics with their universal fixed-basis representation — rather than as separately-postulated quantum axioms.
 
