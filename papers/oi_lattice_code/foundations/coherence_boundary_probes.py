@@ -39,32 +39,42 @@
 #        states with identical F and different fibre expectation. So the original
 #        S <=> D <=> Q_fb equivalence is preserved as a QUOTIENT, and must NOT be read as covering
 #        the enlarged coherent theory.
-#   CB5b A VARYING SECTION IS NOT A CONNECTION, and the extension as built has NO CURVATURE. This
-#        check is negative and it is the load-bearing one. P~ = P (x) I moves a block from s to
-#        P(s) without touching it, so the fibre is INERT: no native operation rotates any ray
-#        anywhere on the support, and along the word s, I_0 s, phi I_0 s the ray DELIVERED at the
-#        third state is the one that started at the first, not the one the section names there. The
-#        dynamically realized triple is one ray three times, whose invariant is a positive real.
-#        The word is not closed either -- no native operation supplies the edge back to the start,
-#        which a three-point Bargmann invariant inserts silently through its third overlap. So any
-#        nonzero phase read off an assignment at three states is a property of the hand-imposed
-#        SECTION and not a holonomy. b439's GS17 generalizes: it is not an artifact of the
-#        framework's fixed projectors but of the whole P (x) I lift.
+#   CB5b THE NATIVE TRANSPORT IS FLAT. P~ = P (x) I moves a block from s to P(s) without touching
+#        it, so the fibre is INERT: no native operation rotates any ray anywhere on the support,
+#        and along the word s, I_0 s, phi I_0 s the ray DELIVERED at the third state is the one
+#        that started at the first, not the one the section names there. The dynamically realized
+#        triple is one ray three times, whose invariant is a positive real. The word is not closed
+#        either -- no native operation supplies the edge back to the start, which a three-point
+#        Bargmann invariant inserts silently through its third overlap. SCOPE: this rules out
+#        holonomy OF THE NATIVE TRANSPORT. It does NOT rule out a SECTION-INDUCED Bargmann/Berry
+#        connection, which [SM §6.5] defines through overlaps and which needs no rotation by the
+#        transport; that object is untouched here, because the construction supplies no local graph
+#        to evaluate it on. Flat transport and no connection are different statements.
+#   CB5c THE RICHER LIFT DOES NOT ESCAPE, and the reason is a real constraint rather than a gap.
+#        A state-dependent rotation P~ = sum_s |P(s)><s| (x) U_s looks conservative because the
+#        fibre trace forgets a unitary -- but that holds only for BLOCK-DIAGONAL inputs. A
+#        coherence between two native states carries U_s rho_st U_t^dag, of trace
+#        Tr(U_t^dag U_s rho_st), which equals Tr(rho_st) for every rho_st only when U_t^dag U_s = I.
+#        So conservativity on the whole coherent state space forces one global U, i.e. P (x) I
+#        after a change of fibre basis. CB4's identity does not license the richer lift.
 #
 # THE BOUNDARY STATEMENT (CB6). OI fixes the classical operational quotient and leaves the coherent
 # fibre over it UNDERDETERMINED. b440 showed the canonical fibre is trivial; this file shows how
 # little is needed to make it nontrivial, and that everything already proved survives the forgetting.
 #
-# H-OBSERVER-BUNDLE IS NOT MADE AVAILABLE BY ANY OF THIS, in any sense, and the file must not say
-# it is. The condition as [SM §6.5] states it asks for a LOCAL observer-state bundle with nonzero
-# projective curvature IN THE HYPERCHARGE CHANNEL. CB5b establishes the opposite of availability:
-# the conservative extension as built has NO curvature at all, because P (x) I is inert on the
-# fibre. Three independent gaps therefore stand between this file and the condition -- not DERIVED
-# (nothing in OI selects a section), not LOCAL (two visible values, no neighbour relation, so the
-# plaquette is absent), not IDENTIFIED with the hypercharge channel (H-Y-vertex, untouched) -- and
-# a fourth is now named: curvature needs a strictly RICHER lift, state-dependent fibre rotations
-# P (x) U_s, which the trace would still forget and which would therefore still be conservative.
-# This file neither builds one nor shows OI selects one. That is the frontier, not a result here.
+# THIS IS AN EXISTENCE STATEMENT, NOT A CLASSIFICATION, and the file must not read as one. Nothing
+# here shows that every quantum completion preserving the quotient has tensor-product-fibre form,
+# so "a classical core plus a coherent fibre" describes how THIS witness is built and is not a
+# theorem about the alternatives. b441 does not classify all possible quantum completions.
+#
+# H-OBSERVER-BUNDLE IS NOT MADE AVAILABLE BY ANY OF THIS. The condition as [SM §6.5] states it asks
+# for a LOCAL observer-state bundle with nonzero projective curvature IN THE HYPERCHARGE CHANNEL.
+# Three independent gaps stand between this file and it -- not DERIVED (nothing in OI selects a
+# section), not LOCAL (two visible values, no neighbour relation, so the plaquette is absent), not
+# IDENTIFIED with the hypercharge channel (H-Y-vertex, untouched). What CB5b and CB5c add is that
+# the two obvious routes to closing the first gap from inside this construction are shut: the
+# native transport is flat, and the state-dependent rotation that would unflatten it is not
+# conservative on coherences. A section-induced Berry connection remains a live and untested route.
 #
 # CB6 and the scope block are GATED on CB1-CB5b, and the gate withholds the MESSAGE as well as
 # flipping the label: check() prints its text whatever the label says, so gating alone would render
@@ -226,7 +236,12 @@ check("CB3", ok3,
       f"statement, not four samples; the samples {[f'{B[0]}+{B[1]}i' for B in args]} are kept only "
       "as a spot check of the identity. A rank-one fibre supplies only a global phase: three phase "
       "multiples of one vector give a positive real invariant, because the phases cancel in the "
-      "ray. So complex rank two is the smallest fibre rank that can carry a phase at all")
+      "ray. SCOPE, and it is narrow: this is a statement about BARGMANN PHASES OF RAY OVERLAPS "
+      "inside ONE globally identified ambient space. It is NOT a lower bound on connection "
+      "holonomy in general — a complex LINE bundle carries perfectly good non-flat U(1) "
+      "connections, and a rank-one transport can accumulate holonomy while the fibre trace sees "
+      "nothing. Rank two is the smallest fibre that carries an overlap phase between DISTINCT "
+      "rays here, and nothing more than that is claimed")
 
 # ---------------------------------------------------------------- the native construction (b76B)
 nV, nA, BLANK, K = 2, 2, -1, 1
@@ -452,8 +467,11 @@ ok5b &= is_real_nonneg(bargmann(*[RAYS[DELIVERED]] * 3))
 NO_SPATIAL_PLAQUETTE = (len({s[0] for s in STATES}) < 3)
 ok5b &= NO_SPATIAL_PLAQUETTE
 check("CB5b", ok5b,
-      f"a varying section is conservative but is NOT a connection, and this extension has NO "
-      f"curvature at all. The state-dependent lift does reproduce the comb exactly at both actions "
+      f"THE NATIVE TRANSPORT IS FLAT. This is a statement about the transport P~ = P (x) I and "
+      f"about the tested word, and NOT about every connection the extension could carry — [SM "
+      f"§6.5]'s Bargmann connection W_xy = <psi_x|psi_y>/|<psi_x|psi_y>| is induced by a SECTION "
+      f"through overlaps and does not need the transport to rotate anything, so it is untouched "
+      f"here. The state-dependent lift does reproduce the comb exactly at both actions "
       f"and still retracts onto the fixed-basis theory. But P~ = P (x) I moves a block without "
       f"touching it, so the fibre is INERT: no native operation rotates any ray anywhere on the "
       f"support, and along the word s, I_0 s, phi I_0 s the ray DELIVERED at the third state is "
@@ -461,55 +479,102 @@ check("CB5b", ok5b,
       f"what the section names there. The dynamically realized triple is therefore one ray three "
       f"times and its Bargmann invariant is a positive real. The word is not even closed: no native "
       f"operation supplies the edge back to the start, which a three-point invariant inserts "
-      f"silently through its third overlap. Any nonzero phase read off ASSIGN at three states is a "
-      f"property of the hand-imposed SECTION, not a holonomy of anything. Independently, the "
+      f"silently through its third overlap. So a nonzero phase read off ASSIGN at three states is a "
+      f"property of the SECTION and is not a holonomy OF THE NATIVE TRANSPORT — which is the only "
+      f"thing ruled out. Independently, the "
       f"construction has {len({s[0] for s in STATES})} visible values and no neighbour relation, so "
-      "the spatial plaquette the condition lives on does not exist here either")
+      "the spatial plaquette the condition lives on does not exist here either, which is why the "
+      "section-induced connection is not evaluated: there is no local graph here to evaluate it on")
+
+# ------------------------------------------ CB5c  where the richer lift's conservativity fails
+print("CB5c  P (x) U_s is conservative on CLASSICAL inputs only — coherence forces U_s constant")
+# The obvious escape from CB5b's flat transport is a state-dependent fibre rotation,
+# P~ = sum_s |P(s)><s| (x) U_s, on the grounds that the fibre trace forgets a unitary anyway. That
+# reasoning holds only for BLOCK-DIAGONAL inputs. On a coherence between two native states the
+# block (s,t) carries U_s rho_st U_t^dag, whose fibre trace is Tr(U_t^dag U_s rho_st) -- equal to
+# Tr(rho_st) for EVERY rho_st only when U_t^dag U_s = I, since X -> Tr(AX) agrees with the trace
+# on all X exactly when A = I. So inside this family the only lifts conservative on the whole
+# coherent state space are P (x) U with one global U, which is P (x) I after a change of fibre
+# basis. The escape closes, and CB4's identity does not license it.
+def bmul(A, B):
+    return tuple(tuple(gadd(gmul(A[i][0], B[0][j]), gmul(A[i][1], B[1][j])) for j in range(2))
+                 for i in range(2))
+def bdag(A): return tuple(tuple(gconj(A[j][i]) for j in range(2)) for i in range(2))
+def btr(A):  return gadd(A[0][0], A[1][1])
+U_I = ((GO, GZ), (GZ, GO))
+U_D = (((F(0), F(1)), GZ), (GZ, (F(0), F(-1))))       # diag(i, -i): unitary, and not a phase times I
+RHO_ST = ((GO, (F(1), F(1))), ((F(0), F(2)), (F(3), F(0))))    # an arbitrary off-diagonal block
+ok5c = (bmul(U_D, bdag(U_D)) == U_I)                  # U_D really is unitary
+# (a) on a DIAGONAL block any single U is forgotten by the trace — this is why CB4 passed
+ok5c &= all(btr(bmul(bmul(U, RHO_ST), bdag(U))) == btr(RHO_ST) for U in (U_I, U_D))
+# (b) on an OFF-DIAGONAL block two different U's are NOT forgotten
+ok5c &= (btr(bmul(bmul(U_I, RHO_ST), bdag(U_D))) != btr(RHO_ST))
+# (c) the general statement, on a basis of the 2x2 blocks: Tr(AX) = Tr(X) for all X iff A = I
+BASIS = [((GO, GZ), (GZ, GZ)), ((GZ, GO), (GZ, GZ)), ((GZ, GZ), (GO, GZ)), ((GZ, GZ), (GZ, GO))]
+A_NE = bmul(bdag(U_D), U_I)
+ok5c &= (A_NE != U_I) and any(btr(bmul(A_NE, X)) != btr(X) for X in BASIS)
+ok5c &= all(btr(bmul(U_I, X)) == btr(X) for X in BASIS)
+check("CB5c", ok5c,
+      "the state-dependent rotation P (x) U_s does NOT automatically inherit CB4's intertwining. "
+      "On a diagonal block any single U is forgotten by the fibre trace, which is exactly why CB4 "
+      "passed and why the lift looks conservative on the classical states the dynamics produces. "
+      "But a coherence between two native states carries U_s rho_st U_t^dag, whose trace is "
+      "Tr(U_t^dag U_s rho_st); with U_s = I and U_t = diag(i, -i) that differs from Tr(rho_st) "
+      "exactly. And on a basis of the 2x2 blocks, Tr(AX) = Tr(X) for every X only when A = I — "
+      "checked both ways here. So requiring conservativity on the WHOLE coherent state space "
+      "forces U_t^dag U_s = I, a single global U, which is P (x) I after a change of fibre basis "
+      "and is inert exactly as CB5b found. Within this family the richer-lift escape is CLOSED; "
+      "restricted to block-diagonal inputs and comb probabilities it is open and empty, since "
+      "every {U_s} then acts identically on everything the classical theory can see")
 
 # ---------------------------------------------------------------- CB6  the boundary statement
 print("CB6  the boundary, and what it does and does not settle")
 # Gated on CB1-CB5b: an unconditional True would print PASS beside red controls and the
 # scope block below would assert conclusions drawn from failed checks.
 verdict("CB6", all(CHECKS),
-      "OI fixes the classical operational quotient and leaves the coherent fibre over it "
-      "UNDERDETERMINED. b440 showed the canonical fibre is trivial; CB1-CB3 show how little is "
-      "needed to make it nontrivial — not merely support > 1, which only buys a Z_2 sign, but a "
-      "COMPLEX rank-two fibre — and CB4-CB5 show everything already proved survives the forgetting. "
-      "So the non-uniqueness of OI -> QM is not 'many arbitrary quantum completions': it is a "
-      "classical core plus an underdetermined coherent fibre, with a rank and reality bound on what "
-      "the fibre must be for hypercharge. WHAT IS EARNED is a NEGATIVE result and it is sharper "
-      "than a narrowing: the conservative extension as built carries NO CURVATURE AT ALL. P~ = "
-      "P (x) I is inert on the fibre (CB5b), so every native word transports one ray to itself and "
-      "every realized loop product is a positive real. b439's GS17 is therefore not an artifact of "
-      "the framework's particular fixed projectors — it is a property of the whole P (x) I lift, "
-      "and no choice of section escapes it, because a section is not a connection. H-OBSERVER-"
-      "BUNDLE IS NOT AVAILABLE HERE IN ANY SENSE and stays OPEN. Curvature would require a strictly "
-      "RICHER lift — state-dependent fibre rotations P (x) U_s, which the trace would still forget "
-      "and which would therefore still be conservative — and this file neither builds one nor shows "
-      "OI selects one. Three gaps remain and they are independent: not DERIVED, not LOCAL (no "
-      "neighbour relation, two visible values, so the plaquette the condition lives on is absent), "
-      "and not IDENTIFIED with the hypercharge channel, which is H-Y-vertex and untouched")
+      "OI ADMITS AT LEAST ONE CONSERVATIVE COHERENT EXTENSION AND DOES NOT DETERMINE ITS COHERENT "
+      "GEOMETRY. That is the whole claim, and it is an EXISTENCE statement, not a classification. "
+      "S <=> D <=> Q_fb remains the exact classical / fixed-basis quotient; H~ = l^2(S) (x) C^2 "
+      "with P~ = P (x) I and F = Tr_{C^2} is ONE explicit conservative completion of it (CB4-CB5), "
+      "preserving the dynamics, the comb probabilities and the fixed-basis theory as a retract "
+      "while carrying observables the old instrument algebra cannot see. THIS FILE DOES NOT "
+      "CLASSIFY ALL QUANTUM COMPLETIONS: nothing here shows every completion preserving the "
+      "quotient has tensor-product-fibre form, and 'a classical core plus a coherent fibre' is "
+      "therefore how this witness is built, not a theorem about the alternatives. Its geometry is "
+      "undetermined in the specific senses established: the native transport P (x) I is FLAT and "
+      "the tested word is open (CB5b), so no holonomy comes from the transport — while a "
+      "section-induced Bargmann connection is a different object and is untouched; and the obvious "
+      "richer transport does not rescue it, since P (x) U_s is conservative on block-diagonal "
+      "inputs but fails on coherences unless U_s is globally constant, which returns P (x) I "
+      "(CB5c). Rank bounds are equally narrow: CB2-CB3 bound BARGMANN PHASES OF RAY OVERLAPS in a "
+      "fixed ambient space, not connection holonomy, and a complex line bundle can be non-flat. "
+      "H-OBSERVER-BUNDLE REMAINS OPEN — not derived, not local (no neighbour relation, two visible "
+      "values, so the plaquette it lives on is absent), not identified with the hypercharge "
+      "channel, which is H-Y-vertex and untouched")
 
 print()
 if not all(CHECKS):
     print("     [scope] VERDICT WITHHELD: a control above failed, so the boundary statement below")
     print("     is not asserted. Fix the failing check before reading any conclusion from this run.")
 else:
-    print("     [scope] Settled: nothing in the normalizer of the diagonal algebra escapes b440's no-go;")
-    print("     real mixing gives support two but only a Z_2 sign; a COMPLEX RANK-TWO fibre is the first")
-    print("     sufficient class; the conservative extension H~ = l^2(S) (x) C^2 with P~ = P (x) I and")
-    print("     F = Tr_{C^2} preserves the native dynamics, the comb probabilities and the fixed-basis")
-    print("     theory exactly, as a retract; and it carries observables the old instrument algebra")
-    print("     cannot see.")
-    print("     Also settled, and NEGATIVE: the extension as built has NO curvature. P~ = P (x) I is")
-    print("     inert on the fibre, so every native word transports one ray to itself and every")
-    print("     realized loop product is a positive real. A varying section is not a connection.")
-    print("     H-OBSERVER-BUNDLE IS NOT AVAILABLE HERE IN ANY SENSE and remains OPEN. Curvature")
-    print("     needs a strictly richer lift — state-dependent fibre rotations P (x) U_s, still")
-    print("     conservative under the trace — which this file neither builds nor derives. Three")
-    print("     independent gaps stand: not DERIVED, not LOCAL (two visible values, no neighbour")
-    print("     relation, so the plaquette is absent), not IDENTIFIED with hypercharge (H-Y-vertex).")
-    print("     The enlarged theory is also NOT covered by the old S <=> D <=> Q_fb equivalence —")
+    print("     [scope] Settled: OI ADMITS AT LEAST ONE CONSERVATIVE COHERENT EXTENSION AND DOES NOT")
+    print("     DETERMINE ITS COHERENT GEOMETRY. S <=> D <=> Q_fb remains the exact classical /")
+    print("     fixed-basis quotient, and H~ = l^2(S) (x) C^2 with P~ = P (x) I and F = Tr_{C^2} is")
+    print("     ONE explicit conservative completion of it: the dynamics, the comb probabilities and")
+    print("     the fixed-basis retract all survive, and it carries observables the old instrument")
+    print("     algebra cannot see. Nothing in the normalizer of the diagonal algebra escapes b440's")
+    print("     no-go. The native transport is FLAT — P (x) I moves a ray without rotating it, the")
+    print("     tested word is open, and P (x) U_s does not rescue this: it is conservative on")
+    print("     block-diagonal inputs but fails on coherences unless U_s is globally constant.")
+    print("     NOT settled — and this is the important boundary. b441 does NOT classify all")
+    print("     possible quantum completions: it exhibits one, and nothing here shows every")
+    print("     completion of the quotient has tensor-product-fibre form. The rank bounds are")
+    print("     bounds on BARGMANN PHASES OF RAY OVERLAPS in a fixed ambient space, not on")
+    print("     connection holonomy — a complex line bundle can be non-flat. Flat native transport")
+    print("     is not the same as no section-induced Berry connection, which is untouched here")
+    print("     because the construction has no local graph to evaluate one on. H-OBSERVER-BUNDLE")
+    print("     REMAINS OPEN: not derived, not local, not identified with hypercharge (H-Y-vertex).")
+    print("     And the enlarged theory is NOT covered by the old S <=> D <=> Q_fb equivalence —")
     print("     that survives as a quotient only.")
 print()
 print("coherence_boundary_probes:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
