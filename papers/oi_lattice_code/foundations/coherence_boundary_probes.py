@@ -74,8 +74,10 @@
 #        involution forces U^2 = scalar and NOT U^2 = I -- the quarter turn J with J^2 = -I is a
 #        legitimate lift that the strict reading would wrongly exclude. Demanding strictness imposes
 #        a non-projective representation as a hidden hypothesis, which begs the question when the
-#        target structure is Bargmann geometry. NO HOLONOMY WITNESS IS CLAIMED HERE: the word that
-#        looked like a loop still yields a scalar, whose phase is a Z_2 sign of CB2's kind. The
+#        target structure is Bargmann geometry. NO HOLONOMY WITNESS IS CLAIMED HERE: for the ONE
+#        TESTED WORD the holonomy is a scalar, trivial as a channel, and that scalar's value is
+#        GAUGE -- J and iJ give the same channel with squares -I and +I -- so no Z_2 datum follows
+#        from it either. An invariant would be the 2-cocycle class in H^2(G, U(1)), uncomputed. The
 #        question is live -- words fixing the base state without being the identity map exist, some
 #        using no phi -- and deciding it needs the PROJECTIVE representations (2-cocycles, Schur
 #        multiplier) of the group the three native permutations generate, uncomputed here.
@@ -573,7 +575,7 @@ check("CB5c", ok5c,
       "OI-conservativity; CB5d takes up what the remaining freedom does and does not buy")
 
 # ------------------------------- CB5d  the freedom CB5c leaves, and the underdetermination it gives
-print("CB5d  operation-dependent rotations are conservative — but the RELATIONS kill the holonomy")
+print("CB5d  operation-dependent rotations are conservative; the ONE TESTED WORD carries no holonomy")
 # CB5c forbids the rotation from depending on the STATE. It leaves untouched a rotation depending on
 # the OPERATION: lift each native operation o as P_o (x) U_o with U_o a single global unitary. Every
 # block (s,t) then carries U_o rho_st U_o^dag -- the SAME U on both sides -- so the fibre trace is
@@ -589,8 +591,13 @@ print("CB5d  operation-dependent rotations are conservative — but the RELATION
 # projective reading is the right one and the strict one would beg the question.
 #
 # What the projective relation still gives is that the tested word's holonomy is a SCALAR, and a
-# scalar acts trivially by conjugation. So the withdrawn witness stays withdrawn -- but for a
-# weaker reason than "the relations kill it", and the phase it leaves is a real projective datum.
+# scalar acts trivially by conjugation. So the withdrawn witness stays withdrawn -- for that ONE
+# WORD, which is all that is tested here.
+#
+# And the scalar's VALUE carries no invariant content: J and (i J) implement the SAME conjugation
+# channel while their squares are -I and +I. Reading -1 off a chosen representative as a Z_2 datum
+# is reading a gauge choice; an earlier version of this check did that and tied it to CB2's real
+# line bundle, wrongly. An invariant would be the class of the 2-cocycle, which is not computed.
 U_OP = {'I_0': (((F(3, 5), F(0)), (F(-4, 5), F(0))),        # a rational rotation: unitary over Q(i)
                 ((F(4, 5), F(0)), (F(3, 5), F(0)))),
         'I_1': U_I, 'phi': U_I}
@@ -625,11 +632,17 @@ ok5d &= (bmul(J, bdag(J)) == U_I)                            # unitary
 J2 = bmul(J, J)
 ok5d &= (J2 != U_I) and is_scalar(J2)                        # not I, but a SCALAR: projectively fine
 ok5d &= all(bmul(bmul(J2, X), bdag(J2)) == X for X in BASIS)  # and conjugation by it is the identity
-# The word's holonomy under that projective lift is J^2 = -I: a scalar, hence trivial as a CHANNEL,
-# but a phase of -1 -- a Z_2 sign, which is exactly the real-line-bundle structure CB2 identified and
-# NOT the continuously variable U(1) a hypercharge connection needs.
+# The word's holonomy under that projective lift is J^2 = -I: a scalar, hence trivial as a CHANNEL.
 HOLJ = hol(WORD_OPS, {'I_0': J, 'I_1': U_I})
 ok5d &= (HOLJ == J2) and is_scalar(HOLJ)
+# But that -1 is GAUGE, not a datum. Rescaling the representative by a phase leaves the conjugation
+# channel identical and moves the squared scalar: (iJ)^2 = +I while J^2 = -I. So no Z_2 sign is
+# established by choosing J, and none is claimed. An invariant would be the class of the 2-cocycle
+# in H^2(G, U(1)) for a consistent projective representation, which this file does not compute.
+iJ = tuple(tuple(gmul((F(0), F(1)), J[i][j]) for j in range(2)) for i in range(2))
+ok5d &= (bmul(iJ, bdag(iJ)) == U_I)                                   # still unitary
+ok5d &= all(bmul(bmul(J, X), bdag(J)) == bmul(bmul(iJ, X), bdag(iJ)) for X in BASIS)   # same channel
+ok5d &= (bmul(iJ, iJ) == U_I) and (J2 != U_I)                         # ... different squared scalar
 # the 3-4-5 rotation the withdrawn witness used is excluded even projectively: R^2 is NOT a scalar
 R35 = U_OP['I_0']
 ok5d &= (not is_scalar(bmul(R35, R35)))
@@ -657,9 +670,13 @@ check("CB5d", ok5d,
       f"impose a non-projective representation as a hidden hypothesis — question-begging, since the "
       f"target structure is itself Bargmann geometry. The withdrawn witness stays withdrawn on the "
       f"weaker ground: the 3-4-5 rotation's square is not even a scalar, so it fails projectively "
-      f"too. What the projective lift does give for this word is holonomy -I: trivial as a CHANNEL, "
-      f"but a Z_2 phase — precisely CB2's real-line-bundle sign, not the continuously variable U(1) "
-      f"a hypercharge connection needs. The question is LIVE rather than closed: at length "
+      f"too. For THIS ONE WORD the holonomy is then the scalar -I, trivial as a channel — and that "
+      f"is the whole scope of the negative result. The -1 is GAUGE, not a datum: J and iJ implement "
+      f"the SAME conjugation channel (verified on a basis) while their squares are -I and +I, so "
+      f"reading a Z_2 sign off a chosen representative would be reading a gauge choice, and no such "
+      f"sign is claimed. An invariant would be the class of the 2-cocycle in H^2(G, U(1)), not "
+      f"computed here. Nothing is claimed about the extension class at large: the question is LIVE "
+      f"rather than closed, since at length "
       f"<= 4 there are {len(CAND)} words fixing the base state that are not the identity map, and "
       f"{len(PHI_FREE)} of them use no phi at all, so they cannot be dismissed as steps through the "
       f"bijection padding the way a lone phi at the base state can. Deciding it needs the PROJECTIVE "
@@ -688,9 +705,11 @@ verdict("CB6", all(CHECKS),
       "intertwining on coherences, which is a separate hypothesis and not a consequence of the "
       "definition (CB5c). An OPERATION-dependent one is conservative in both senses, and the native "
       "relations bind it only PROJECTIVELY — conjugation is blind to a phase, so involutions force "
-      "U^2 = scalar rather than U^2 = I. The word that looked like a loop still yields a scalar, so "
-      "that witness stays withdrawn, but the phase it leaves is a Z_2 sign of exactly CB2's kind "
-      "(CB5d). Words fixing the base state without being the identity map do exist, some using no "
+      "U^2 = scalar rather than U^2 = I. For the ONE TESTED WORD the holonomy is then a scalar and "
+      "that witness stays withdrawn; the scalar's value is GAUGE, since J and iJ give the same "
+      "channel with squares -I and +I, so no Z_2 datum follows from it (CB5d). Nothing is claimed "
+      "about the extension class at large. "
+      "Words fixing the base state without being the identity map do exist, some using no "
       "phi at all, so the question is LIVE; deciding it needs the PROJECTIVE representations of the "
       "group the native permutations generate, which is not computed here and is claimed in neither "
       "direction — and the projective reading makes that freedom LARGER, not smaller. "
@@ -718,9 +737,11 @@ else:
     print("     hypothesis, not a consequence of the definition. An OPERATION-dependent one is")
     print("     conservative in both senses, and the native relations bind it only PROJECTIVELY:")
     print("     conjugation is blind to a phase, so an involution forces U^2 = scalar, not U^2 = I.")
-    print("     NO HOLONOMY WITNESS IS CLAIMED in this construction — the word that looked like a")
-    print("     loop yields a scalar, whose phase is a Z_2 sign of exactly CB2's kind and not the")
-    print("     continuously variable U(1) hypercharge needs. Words fixing the base state without")
+    print("     NO HOLONOMY WITNESS IS CLAIMED in this construction. For the ONE TESTED WORD the")
+    print("     holonomy is a scalar, trivial as a channel, and that scalar's value is GAUGE — J")
+    print("     and iJ give the same channel with squares -I and +I — so no Z_2 datum follows from")
+    print("     it. An invariant would be the 2-cocycle class in H^2(G, U(1)), uncomputed. Nothing")
+    print("     is claimed about the extension class at large. Words fixing the base state without")
     print("     being the identity map do exist, some using no phi at all, so the question is LIVE:")
     print("     deciding it needs the PROJECTIVE representations — 2-cocycles, Schur multiplier —")
     print("     of the group the native permutations generate, uncomputed here and claimed in")
