@@ -1,0 +1,106 @@
+name: codex-gate
+
+# A required status check whose only job is to answer one question: has Codex reviewed THIS head
+# commit, and is anything it raised still open?
+#
+# Native Codex publishes no check run and no commit status, and its reviews are always COMMENTED,
+# never APPROVED, from an app with author_association NONE. So there is nothing for a branch rule to
+# require, and a pull request goes green on CI and becomes mergeable in the five to seven minutes
+# before Codex has looked at the head commit at all. This job is the missing name: require
+# "Codex review complete" on main alongside the three verify jobs and that window closes.
+#
+# It gates PROCESS, not verdict. It asks whether a review exists for the exact head SHA and whether
+# any thread Codex opened is still unresolved. It does NOT ask whether Codex was happy: a
+# nondeterministic reviewer must never hold a merge veto on the content of its findings, only on
+# whether they have been looked at. Deterministic checks belong in verify.yml.
+#
+# NO PATH FILTERS, for the same reason verify.yml has none: a required check that never runs never
+# reports, and GitHub leaves it Expected forever.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: codex-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  codex:
+    name: Codex review complete
+    runs-on: ubuntu-latest
+    # Long enough to cover the observed lag (five to seven minutes across six pushes) with margin,
+    # short enough that a genuinely absent review fails the same working session.
+    timeout-minutes: 25
+    steps:
+      - name: Wait for a Codex review of this exact head, then check the threads
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+          PR: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          REVIEWER: chatgpt-codex-connector
+        run: |
+          set -euo pipefail
+
+          # One GraphQL round trip returns both halves: the reviews with the commit each looked at,
+          # and the threads with their resolution and outdated flags.
+          query() {
+            gh api graphql -f query='
+              query($owner:String!, $repo:String!, $pr:Int!) {
+                repository(owner:$owner, name:$repo) {
+                  pullRequest(number:$pr) {
+                    reviews(last:50) {
+                      nodes { author { login } commit { oid } }
+                    }
+                    reviewThreads(last:100) {
+                      nodes {
+                        isResolved
+                        isOutdated
+                        comments(first:1) { nodes { author { login } } }
+                      }
+                    }
+                  }
+                }
+              }' -F owner="$OWNER" -F repo="$REPO" -F pr="$PR"
+          }
+
+          # A thread counts against the gate only if Codex opened it, it is unresolved, and it is
+          # NOT outdated. Outdated threads are ones a later push superseded; on this repository four
+          # of five went outdated the moment a fix landed, and counting those would wedge the branch
+          # on stale findings that no longer refer to live code.
+          for attempt in $(seq 1 24); do
+            json="$(query)"
+
+            reviewed="$(jq -r --arg who "$REVIEWER" --arg sha "$HEAD_SHA" '
+              [ .data.repository.pullRequest.reviews.nodes[]
+                | select(.author.login == $who and .commit.oid == $sha) ] | length' <<<"$json")"
+
+            open_threads="$(jq -r --arg who "$REVIEWER" '
+              [ .data.repository.pullRequest.reviewThreads.nodes[]
+                | select(.isResolved == false and .isOutdated == false)
+                | select(.comments.nodes[0].author.login == $who) ] | length' <<<"$json")"
+
+            if [ "$reviewed" -gt 0 ]; then
+              echo "Codex has reviewed ${HEAD_SHA}."
+              if [ "$open_threads" -gt 0 ]; then
+                echo "::error::${open_threads} unresolved, non-outdated Codex thread(s) on this head." \
+                     "Address them and resolve, or reply saying why not."
+                exit 1
+              fi
+              echo "No unresolved, non-outdated Codex threads. Gate satisfied."
+              exit 0
+            fi
+
+            echo "Attempt ${attempt}/24: no Codex review of ${HEAD_SHA} yet; waiting 60s."
+            sleep 60
+          done
+
+          echo "::error::No Codex review of ${HEAD_SHA} after 24 minutes." \
+               "Comment '@codex review' on the pull request, then re-run this check."
+          exit 1

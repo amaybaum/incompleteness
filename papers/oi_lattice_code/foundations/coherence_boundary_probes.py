@@ -57,14 +57,17 @@
 #        U_t^dag U_s = I. What that forces is exactly that the rotation cannot depend on the STATE.
 #        It does NOT force the common value to be I, and it says nothing about different native
 #        OPERATIONS carrying different global rotations.
-#   CB5d THAT REMAINING FREEDOM IS REAL, AND IT IS THE ROUND'S RESULT. Lift each operation o as
-#        P_o (x) U_o with a single global U_o: the same U sits on both sides of every block, so the
-#        fibre trace is preserved on every coherence unconditionally. The closed word I_0 I_0 I_1
-#        I_1 then accumulates a fibre rotation which, for U_(I_0) a 3-4-5 rotation, is not a scalar
-#        multiple of I and carries the ray (1,0) elsewhere -- while the comb is identical. Two
-#        conservative extensions, different holonomy, indistinguishable classical data. SCOPE: this
-#        is a connection labelled by OPERATIONS on the operational graph, not a spatial plaquette;
-#        nothing selects one {U_o}, and nothing ties it to the hypercharge channel.
+#   CB5d THE OPERATION-DEPENDENT LIFT IS CONSERVATIVE, AND THE RELATIONS STILL KILL THE HOLONOMY.
+#        Lift each operation o as P_o (x) U_o with a single global U_o: the same U sits on both
+#        sides of every block, so the fibre trace is preserved on every coherence unconditionally,
+#        and CB5c's obstruction does not apply. But a lift must respect the native RELATIONS. Both
+#        instruments are involutions on every state, so I_0 I_0 I_1 I_1 is the identity MAP and any
+#        lift must give it the identity rotation; assigning it a nontrivial one lifts the SPELLING
+#        of an operation rather than the operation. NO HOLONOMY WITNESS IS CLAIMED HERE. The
+#        question is nonetheless live: words fixing the base state without being the identity map
+#        exist, some using no phi at all, so they are not padding artifacts. Deciding whether a
+#        consistent lift is nontrivial on any of them needs the presentation of the group the three
+#        native permutations generate, which this file does not compute.
 #
 # THE BOUNDARY STATEMENT (CB6). OI fixes the classical operational quotient and leaves the coherent
 # fibre over it UNDERDETERMINED. b440 showed the canonical fibre is trivial; this file shows how
@@ -79,10 +82,11 @@
 # for a LOCAL observer-state bundle with nonzero projective curvature IN THE HYPERCHARGE CHANNEL.
 # Three independent gaps stand between this file and it -- not DERIVED (nothing in OI selects a
 # section), not LOCAL (two visible values, no neighbour relation, so the plaquette is absent), not
-# IDENTIFIED with the hypercharge channel (H-Y-vertex, untouched). CB5b-CB5d locate exactly where
-# the freedom lives: the native P (x) I transport is flat, a STATE-dependent rotation is not
-# conservative on coherences, and an OPERATION-dependent one is -- and carries holonomy nothing in
-# OI fixes. A section-induced Berry connection remains a separate live and untested route.
+# IDENTIFIED with the hypercharge channel (H-Y-vertex, untouched). CB5b-CB5d map where the freedom
+# can and cannot live: the native P (x) I transport is flat, a STATE-dependent rotation is not
+# conservative on coherences, and an OPERATION-dependent one is conservative but is pinned by the
+# native relations, which force the tested loop's holonomy to be trivial. NO HOLONOMY WITNESS IS
+# CLAIMED IN THIS CONSTRUCTION. A section-induced Berry connection is a separate untested route.
 #
 # NOTHING HERE IS PROPAGATED TO THE MANUSCRIPT. These are round results pending acceptance; the
 # scope block says so, and §A.25 propagation is a merge-time step, not something this file asserts.
@@ -504,9 +508,10 @@ print("CB5c  P (x) U_s is conservative on CLASSICAL inputs only — coherence fo
 # reasoning holds only for BLOCK-DIAGONAL inputs. On a coherence between two native states the
 # block (s,t) carries U_s rho_st U_t^dag, whose fibre trace is Tr(U_t^dag U_s rho_st) -- equal to
 # Tr(rho_st) for EVERY rho_st only when U_t^dag U_s = I, since X -> Tr(AX) agrees with the trace
-# on all X exactly when A = I. So inside this family the only lifts conservative on the whole
-# coherent state space are P (x) U with one global U, which is P (x) I after a change of fibre
-# basis. The escape closes, and CB4's identity does not license it.
+# on all X exactly when A = I. What that forces is exactly STATE-INDEPENDENCE: U_s = U_t. It does
+# NOT force the common value to be the identity -- conjugating a nonidentity unitary cannot make it
+# one -- and it says nothing about different native OPERATIONS carrying different global rotations.
+# CB5d takes up what that freedom does and does not buy.
 def bmul(A, B):
     return tuple(tuple(gadd(gmul(A[i][0], B[0][j]), gmul(A[i][1], B[1][j])) for j in range(2))
                  for i in range(2))
@@ -535,55 +540,77 @@ check("CB5c", ok5c,
       "checked both ways here. WHAT THIS FORCES, exactly: U_t^dag U_s = I, i.e. the fibre rotation "
       "cannot depend on the STATE. It does NOT force the common value to be the identity, and it "
       "says nothing about different NATIVE OPERATIONS carrying different global rotations. That "
-      "remaining freedom is real and CB5d exhibits it; this check closes only the state-dependent "
-      "case")
+      "check closes only the state-dependent case; CB5d takes up what the remaining freedom does "
+      "and does not buy")
 
 # ------------------------------- CB5d  the freedom CB5c leaves, and the underdetermination it gives
-print("CB5d  operation-dependent global rotations ARE conservative — and carry real holonomy")
+print("CB5d  operation-dependent rotations are conservative — but the RELATIONS kill the holonomy")
 # CB5c forbids the rotation from depending on the STATE. It leaves untouched a rotation depending on
 # the OPERATION: lift each native operation o as P_o (x) U_o with U_o a single global unitary. Every
 # block (s,t) then carries U_o rho_st U_o^dag -- the SAME U on both sides -- so the fibre trace is
 # preserved on every coherence, not merely on the block-diagonal states. Conservativity is exact and
-# unconditional here, which is what makes the holonomy below a genuine underdetermination rather
-# than a violation.
+# unconditional here.
+#
+# But a LIFT MUST RESPECT THE NATIVE RELATIONS, and that is what kills the holonomy. Each instrument
+# is an involution ON ALL STATES -- I_a swaps BLANK and act -- so I_a o I_a is the identity MAP, and
+# any lift of the operation algebra must send it to the identity: U_(I_a)^2 = I is forced, not
+# chosen. The word I_0 I_0 I_1 I_1 is therefore the identity operation spelled at length four, and
+# assigning it a nontrivial fibre rotation lifts the SPELLING rather than the operation. An earlier
+# version of this check did exactly that and its witness is withdrawn here.
 U_OP = {'I_0': (((F(3, 5), F(0)), (F(-4, 5), F(0))),        # a rational rotation: unitary over Q(i)
                 ((F(4, 5), F(0)), (F(3, 5), F(0)))),
         'I_1': U_I, 'phi': U_I}
 ok5d = all(bmul(U, bdag(U)) == U_I for U in U_OP.values())
 # conservative on EVERY block, coherences included: Tr(U X U^dag) = Tr(X) for all X, both U's equal
 ok5d &= all(btr(bmul(bmul(U, X), bdag(U))) == btr(X) for U in U_OP.values() for X in BASIS)
-# a genuinely CLOSED native word: I_0, I_0, I_1, I_1 returns the base state to itself
-WORD_OPS = ('I_0', 'I_0', 'I_1', 'I_1')
 OPMAP = {'phi': PHI, 'I_0': INSTR[0], 'I_1': INSTR[1]}
-_s = W0
-for _o in WORD_OPS:
-    _s = OPMAP[_o][_s]
-ok5d &= (_s == W0)
-# the fibre accumulates the ordered product of the U_o along that word
-HOL = U_I
-for _o in WORD_OPS:
-    HOL = bmul(U_OP[_o], HOL)
-def is_scalar(A): return A[0][1] == GZ and A[1][0] == GZ and A[0][0] == A[1][1]
-ok5d &= (not is_scalar(HOL))          # not a phase times I, so not removable by a phase convention
-# and it moves a ray: the fibre state does not come back to itself
-_v = (GO, GZ)
-_w = tuple(gadd(gmul(HOL[i][0], _v[0]), gmul(HOL[i][1], _v[1])) for i in range(2))
-ok5d &= (_w != _v)
-# the classical side is untouched: the SAME word, with the trivial fibre choice, gives the same comb
-ok5d &= all(comb_from(lift(INIT, KET0), act, True) == comb_from(INIT, act, False) for act in range(nA))
+# the relation: each instrument is an involution ON EVERY STATE, so I_a o I_a is the identity map
+INVOLUTIVE = {a: all(m[m[s]] == s for s in STATES) for a, m in INSTR.items()}
+ok5d &= all(INVOLUTIVE.values())
+# hence the length-four word is the identity OPERATION, not a loop
+WORD_OPS = ('I_0', 'I_0', 'I_1', 'I_1')
+def apply_word(ops, s):
+    for o in ops:
+        s = OPMAP[o][s]
+    return s
+WORD_IS_GLOBAL_IDENTITY = all(apply_word(WORD_OPS, s) == s for s in STATES)
+ok5d &= WORD_IS_GLOBAL_IDENTITY
+# so a relation-respecting lift is FORCED to give it the identity rotation, whatever U_(I_0) is
+def hol(ops, U):
+    H = U_I
+    for o in ops:
+        H = bmul(U.get(o, U_I), H)
+    return H
+ok5d &= (hol(WORD_OPS, {'I_0': U_I, 'I_1': U_I}) == U_I)
+# and the rotation the withdrawn witness used is exactly what the relation forbids: R^2 != I
+R35 = U_OP['I_0']
+ok5d &= (bmul(R35, R35) != U_I)
+# Is the question even live? Words fixing W0 that are NOT the identity map do exist, and some avoid
+# phi entirely -- so they cannot be dismissed as steps through the bijection padding the way a lone
+# phi at W0 can (W0 fails phi's constructed-branch guard). Whether a CONSISTENT lift can be
+# nontrivial on any of them needs the presentation of the group these permutations generate, which
+# this file does not compute. It is recorded as live and left open, not decided in either direction.
+CAND = [w for L in range(1, 5) for w in itertools.product(OPMAP, repeat=L)
+        if apply_word(w, W0) == W0 and any(apply_word(w, s) != s for s in STATES)]
+PHI_FREE = [w for w in CAND if 'phi' not in w]
+ok5d &= (len(CAND) > 0 and len(PHI_FREE) > 0)
+ok5d &= (WORD_OPS not in CAND)          # the withdrawn witness is NOT one of them: it is the identity
+ok5d &= not (W0[4] < K and wf_x(W0[1], W0[4]) and wf_a(W0[2], W0[4], wrote=True))   # W0 is padding
 check("CB5d", ok5d,
-      f"lifting each native operation o as P_o (x) U_o with a single GLOBAL U_o is conservative on "
-      f"EVERY block, coherences included — the same U sits on both sides, so Tr(U X U^dag) = Tr(X) "
-      f"unconditionally, and CB5c's obstruction does not apply. This freedom is not empty. The word "
-      f"I_0 I_0 I_1 I_1 is genuinely CLOSED on the base state, and with U_(I_0) a 3-4-5 rotation and "
-      f"the others trivial the fibre accumulates {HOL[0][0][0]},{HOL[0][1][0]};{HOL[1][0][0]},"
-      f"{HOL[1][1][0]} — NOT a scalar multiple of I, so no phase convention removes it, and it "
-      f"carries the ray (1,0) to a different ray. So there are conservative extensions with "
-      f"DIFFERENT holonomy and IDENTICAL classical data: the comb is reproduced either way. The "
-      f"coherent geometry is therefore UNDERDETERMINED by OI, exhibited rather than argued. SCOPE: "
-      f"this is holonomy of a connection labelled by OPERATIONS on the operational graph. It is "
-      f"still not a spatial plaquette, nothing selects one {{U_o}} over another, and nothing ties "
-      f"it to the hypercharge channel")
+      f"lifting each native operation o as P_o (x) U_o with a single GLOBAL U_o IS conservative on "
+      f"every block, coherences included — the same U sits on both sides, so Tr(U X U^dag) = Tr(X) "
+      f"unconditionally and CB5c's obstruction does not apply. But conservativity is not the only "
+      f"constraint: a lift must respect the native RELATIONS. Both instruments are verified "
+      f"involutions ON EVERY STATE, so I_0 I_0 I_1 I_1 is the identity MAP (checked on all "
+      f"{len(STATES)} states), and any lift of the operation algebra must give it the identity "
+      f"rotation. Assigning it the 3-4-5 rotation's square, which is not I, lifts the SPELLING of "
+      f"an operation rather than the operation — so the holonomy witness an earlier version of this "
+      f"check reported is WITHDRAWN. The question is nonetheless LIVE rather than closed: at length "
+      f"<= 4 there are {len(CAND)} words fixing the base state that are not the identity map, and "
+      f"{len(PHI_FREE)} of them use no phi at all, so they cannot be dismissed as steps through the "
+      f"bijection padding the way a lone phi at the base state can. Whether a CONSISTENT lift can "
+      f"be nontrivial on any of them needs the presentation of the group these three permutations "
+      f"generate, which this file does not compute. OPEN, and claimed in neither direction")
 
 # ---------------------------------------------------------------- CB6  the boundary statement
 print("CB6  the boundary, and what it does and does not settle")
@@ -599,14 +626,16 @@ verdict("CB6", all(CHECKS),
       "CLASSIFY ALL QUANTUM COMPLETIONS: nothing here shows every completion preserving the "
       "quotient has tensor-product-fibre form, and 'a classical core plus a coherent fibre' is "
       "therefore how this witness is built, not a theorem about the alternatives. Its geometry is "
-      "undetermined, and CB5d EXHIBITS that rather than arguing it: lifting each operation o as "
-      "P_o (x) U_o with a global U_o is conservative on every block including coherences, the "
-      "closed word I_0 I_0 I_1 I_1 then accumulates a fibre rotation that is not a scalar multiple "
-      "of I, and the comb is identical either way — two conservative extensions, different "
-      "holonomy, indistinguishable classical data. The route there is narrow and both walls are "
-      "checked: the native P (x) I transport is FLAT and the earlier word was open (CB5b), and a "
-      "STATE-dependent rotation is not conservative on coherences unless it is constant (CB5c). "
-      "What survives is OPERATION-dependent, which is exactly the freedom nothing in OI fixes. "
+      "undetermined in the SPECIFIC senses CB5b-CB5d establish, and NO holonomy witness is claimed "
+      "in this construction. The native P (x) I transport is FLAT and the tested word was open "
+      "(CB5b). A STATE-dependent rotation is not conservative on coherences unless it is constant "
+      "(CB5c). An OPERATION-dependent one IS conservative, but a lift must respect the native "
+      "relations, and since both instruments are involutions the word that looked like a loop is "
+      "the identity operation spelled at length four — so its holonomy is forced trivial and that "
+      "witness is withdrawn (CB5d). Words fixing the base state without being the identity map do "
+      "exist, some using no phi at all, so the question is LIVE; deciding it needs the presentation "
+      "of the group the native permutations generate, which is not computed here and is claimed in "
+      "neither direction. "
       "Rank bounds are narrow too: CB2-CB3 bound BARGMANN PHASES OF RAY OVERLAPS in a "
       "fixed ambient space, not connection holonomy, and a complex line bundle can be non-flat. "
       "H-OBSERVER-BUNDLE REMAINS OPEN — not derived, not local (no neighbour relation, two visible "
@@ -626,10 +655,14 @@ else:
     print("     conservative completion of it: the dynamics, the comb probabilities and the")
     print("     fixed-basis retract all survive, and it carries observables the old instrument")
     print("     algebra cannot see. Nothing in the normalizer of the diagonal algebra escapes b440's")
-    print("     no-go. The native transport is FLAT and a STATE-dependent rotation is not")
-    print("     conservative on coherences unless constant — but an OPERATION-dependent one is, and")
-    print("     CB5d exhibits two conservative extensions with different holonomy and identical")
-    print("     comb data. That is the underdetermination, shown rather than argued.")
+    print("     no-go. The native transport is FLAT; a STATE-dependent rotation is not conservative")
+    print("     on coherences unless constant; an OPERATION-dependent one is conservative but must")
+    print("     respect the native relations, and since both instruments are involutions the word")
+    print("     that looked like a loop is the identity operation spelled at length four.")
+    print("     NO HOLONOMY WITNESS IS CLAIMED in this construction. Words fixing the base state")
+    print("     without being the identity map do exist, some using no phi at all, so the question")
+    print("     is LIVE — deciding it needs the presentation of the group the native permutations")
+    print("     generate, which is not computed here and is claimed in neither direction.")
     print("     NOT settled — and this is the important boundary. b441 does NOT classify all")
     print("     possible quantum completions: it exhibits one, and nothing here shows every")
     print("     completion of the quotient has tensor-product-fibre form. The rank bounds are")
