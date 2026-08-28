@@ -254,7 +254,9 @@ check("PL3", cited <= set(SHAPES),
       "default and (2,3) behind an environment flag — one of the five cited shapes, at most")
 
 print("PL4  what the witnesses are for")
-check("PL4", True,
+# Gated on the checks above: an unconditional True would print PASS beside a red control,
+# and this verdict has no computation of its own — it summarizes the ones that do.
+check("PL4", all(CHECKS),
       "one exact witness per shape is what the genericity argument needs: the families of n "
       "rank-m_a projectors summing to I form a single U(D) orbit, hence an irreducible variety; "
       "dim ker L is upper semi-continuous on it; the coboundary is in the kernel everywhere. So a "
@@ -262,10 +264,14 @@ check("PL4", True,
       "subset. The argument is PER SHAPE and nothing here is uniform in D")
 
 print()
-print("     [scope] Proved: for each shape above, generic families have ker L = coboundaries, so")
-print("     the pair-phase gauge reduces to the diagonal one and the marginal data fix the")
-print("     dilated Hamiltonian and the configuration projectors up to the stated freedoms.")
-print("     NOT proved: any statement uniform in D. Each shape rests on its own witness.")
+if not all(CHECKS):
+    print("     [scope] VERDICT WITHHELD: a control above failed, so the statement below is not")
+    print("     asserted. Fix the failing check before reading any conclusion from this run.")
+else:
+    print("     [scope] Proved: for each shape above, generic families have ker L = coboundaries, so")
+    print("     the pair-phase gauge reduces to the diagonal one and the marginal data fix the")
+    print("     dilated Hamiltonian and the configuration projectors up to the stated freedoms.")
+    print("     NOT proved: any statement uniform in D. Each shape rests on its own witness.")
 print()
 print("phaselock_probes:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

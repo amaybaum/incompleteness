@@ -12,35 +12,48 @@
 #
 # THE HIERARCHY.
 #   CB1  NORMALIZER NO-GO. Let D be the diagonal algebra in the native basis. Permutations lie in
-#        its unitary normalizer, and the normalizer is exactly the MONOMIAL group U = D_phase P.
-#        Enlarging the native operations from permutations to the whole normalizer buys NOTHING: a
-#        monomial unitary sends a basis vector to a PHASE TIMES a basis vector, i.e. to the same
-#        RAY, and a Bargmann invariant sees only rays. Support stays 1, invariants stay 0 or
-#        positive real. The no-go is therefore about the largest group that preserves the classical
-#        structure, not about permutations specifically.
+#        its unitary normalizer, and the normalizer is exactly the MONOMIAL group U = D_phase P --
+#        the standard characterization, CITED here and not certified by the check, which exhibits
+#        non-monomial unitaries outside it as a countercontrol but proves no converse.
+#        Enlarging the native operations from permutations to the whole monomial group buys
+#        NOTHING: a monomial unitary sends a basis vector to a PHASE TIMES a basis vector, i.e. to
+#        the same RAY, and a Bargmann invariant sees only rays. Support stays 1, invariants stay 0
+#        or positive real.
 #   CB2  REAL MIXING IS NECESSARY BUT NOT SUFFICIENT. A real 2x2 mixer does create support-two
 #        states, so support > 1 is genuinely necessary. But if the reachable ray geometry stays
 #        REAL, every Bargmann product is real and the holonomy is confined to {0, pi} -- a Z_2 sign
 #        structure, a real line bundle, NOT a continuously variable U(1)_Y connection.
 #   CB3  COMPLEX RANK TWO IS SUFFICIENT, AND RANK ONE IS NOT. With a C^2 fibre the witness family
-#        (1,0), (1,1), (1, t i) has Bargmann invariant 1 + t i, whose argument varies CONTINUOUSLY
-#        with t. A rank-one fibre contributes only a global phase, which cancels in the ray.
+#        (1,0), (1,1), (1, t i) has Bargmann invariant 1 + t i as an IDENTITY IN t -- carried as
+#        polynomials in t over the Gaussian rationals, so the continuity of arctan(t) is algebra
+#        rather than sampling. A rank-one fibre contributes only a global phase, which cancels in
+#        the ray.
 #   CB4  THE CONSERVATIVE EXTENSION, and the identity that makes it conservative. Take
 #        H~ = l^2(S) (x) C^2, lift every native operation as P~ = P (x) I, and forget by
 #        F = Tr_{C^2}. Then F(P~ rho P~^dag) = P F(rho) P^dag EXACTLY -- checked on the actual
-#        native permutations, not on a generic one.
+#        native permutations, not on a generic one, and after verifying that phi and both
+#        instruments really are BIJECTIONS, which is what entitles the reading as permutations.
 #   CB5  THE SURVIVAL LEDGER, which is the point of the round. The comb probabilities come back
 #        exactly after F; the fixed-basis theory is an exact RETRACT (F o (. (x) |0><0|) = id); AND
 #        the enlarged theory carries observables the old instrument algebra cannot see -- two lifted
 #        states with identical F and different fibre expectation. So the original
 #        S <=> D <=> Q_fb equivalence is preserved as a QUOTIENT, and must NOT be read as covering
 #        the enlarged coherent theory.
+#   CB5b THE SITE-DEPENDENT LIFT, which is what the availability claim actually needs. A CONSTANT
+#        fibre -- the same ray at every state -- cannot carry curvature: P~ = P (x) I leaves it
+#        untouched and the loop product is a positive real, which is b439's GS17 exactly. So CB5b
+#        builds a lift whose ray VARIES with the native state, shows it reproduces the comb and
+#        retracts just as the constant one does, and exhibits a NONZERO Bargmann phase among the
+#        rays it attaches. Capacity is thus demonstrated inside the construction, not on
+#        free-floating vectors.
 #
 # THE BOUNDARY STATEMENT (CB6). OI fixes the classical operational quotient and leaves the coherent
 # fibre over it UNDERDETERMINED. b440 showed the canonical fibre is trivial; this file shows how
 # little is needed to make it nontrivial, and that everything already proved survives the forgetting.
-# H-observer-bundle becomes AVAILABLE in the extension class -- it is still NOT DERIVED, because
-# nothing in OI selects a fibre. H-Y-vertex is untouched and remains separate.
+# H-observer-bundle becomes AVAILABLE-IN-THE-CLASS -- the conservative extension class CONTAINS a
+# curved configuration (CB5b) -- and is still NOT DERIVED, because the assignment is imposed by hand
+# and nothing in OI selects it. H-Y-vertex is untouched and remains separate. CB6 and the scope
+# block are GATED on CB1-CB5b: an unconditional verdict would print PASS beside red controls.
 #
 # ARITHMETIC. Exact throughout: Gaussian rationals for the ray geometry, Fractions for the states.
 # The lifted state is carried as a block form rho = sum_s |s><s| (x) M_s with M_s a 2x2 Gaussian
@@ -101,17 +114,24 @@ for a in range(n):
 ok1 &= all(is_real_nonneg(z) for z in vals)
 # countercontrol: a NON-monomial unitary does not normalize the diagonal algebra. A real rotation
 # conjugates diag(1,0) to a matrix with nonzero off-diagonal entries.
-c_, s_ = F(3, 5), F(4, 5)
-off = c_ * s_                      # the (0,1) entry of R diag(1,0) R^T
-ok1 &= (off != 0)
+# Several structurally different non-monomial unitaries, each conjugating diag(1,0) off the
+# diagonal. This is a countercontrol on the tested matrices; it is NOT a proof that every
+# non-monomial unitary fails to normalize, and the verdict below does not claim one.
+NONMONO = ((F(3, 5), F(4, 5)), (F(5, 13), F(12, 13)), (F(8, 17), F(15, 17)))
+offs = [c_ * s_ for c_, s_ in NONMONO]        # the (0,1) entry of R diag(1,0) R^T in each case
+ok1 &= all(o != 0 for o in offs)
 check("CB1", ok1,
       f"a monomial unitary U = D P sends every basis vector to a unit multiple of a basis vector — "
       f"support {sorted({support(v) for v in imgs})}, the SAME ray — so every Bargmann invariant "
       f"among the images lies in {{0, positive real}} — {ntriples} triples, taking only the "
       f"{len(vals)} distinct values {sorted(vals)}. The monomial "
-      "group is exactly the normalizer of the diagonal algebra (a rotation moves diag(1,0) off the "
-      f"diagonal, by {off}), so this is the LARGEST group preserving the classical structure. b440's "
-      "no-go is therefore not about permutations specifically: nothing in the normalizer escapes it")
+      f"group is CONTAINED in the normalizer of the diagonal algebra, and {len(NONMONO)} "
+      f"non-monomial rotations are exhibited outside it (each moves diag(1,0) off the diagonal, by "
+      f"{offs}). That the normalizer is EXACTLY the monomial group is the standard characterization "
+      "— for a diagonal with distinct entries, conjugation preserving diagonality permutes its "
+      "eigenlines, which are the coordinate axes — and it is cited here, not certified by this "
+      "check. What the check establishes is the part it computes: monomial images stay on one ray, "
+      "so b440's no-go survives the enlargement from permutations to monomials")
 
 # ---------------------------------------------------------------- CB2  real is not enough
 print("CB2  real mixing makes support two — necessary, but it only ever gives a Z_2 sign")
@@ -134,25 +154,56 @@ check("CB2", ok2,
 
 # ---------------------------------------------------------------- CB3  complex rank two suffices
 print("CB3  a complex rank-two fibre gives a continuously variable phase; rank one gives nothing")
-q0 = ((F(1), F(0)), (F(0), F(0)))
-q1 = ((F(1), F(0)), (F(1), F(0)))
+# Four samples cannot certify that the argument VARIES CONTINUOUSLY. Do it as an identity in t:
+# carry each number as a POLYNOMIAL in t with Gaussian-rational coefficients and verify the
+# invariant is exactly 1 + t i, with every higher coefficient zero. Continuity of arctan then makes
+# the continuous statement algebra rather than sampling.
+def padd(a, b):
+    n = max(len(a), len(b))
+    return [gadd(a[i] if i < len(a) else GZ, b[i] if i < len(b) else GZ) for i in range(n)]
+def pmul(a, b):
+    out = [GZ] * (len(a) + len(b) - 1)
+    for i, x in enumerate(a):
+        for j, y in enumerate(b):
+            out[i + j] = gadd(out[i + j], gmul(x, y))
+    return out
+def pconj(a): return [gconj(x) for x in a]
+def pinner(u, v):
+    tot = [GZ]
+    for a, b in zip(u, v):
+        tot = padd(tot, pmul(pconj(a), b))
+    return tot
+def ptrim(a):
+    while len(a) > 1 and a[-1] == GZ:
+        a = a[:-1]
+    return a
+ONE_P, ZERO_P, T_I = [GO], [GZ], [GZ, (F(0), F(1))]      # 1, 0, and t*i as polynomials in t
+P0 = (ONE_P, ZERO_P)
+P1 = (ONE_P, ONE_P)
+P2 = (ONE_P, T_I)                                        # (1, t i), t a free real parameter
+Bpoly = ptrim(pmul(pmul(pinner(P0, P1), pinner(P1, P2)), pinner(P2, P0)))
+ok3 = (Bpoly == [GO, (F(0), F(1))])                      # exactly 1 + t i, identically in t
+# the four samples are kept as a spot check of the identity, not as the evidence for it
 args = []
 for t in (1, 2, 3, 5):
     q2 = ((F(1), F(0)), (F(0), F(t)))
-    B = bargmann(q0, q1, q2)
+    B = bargmann(((F(1), F(0)), (F(0), F(0))), ((F(1), F(0)), (F(1), F(0))), q2)
     args.append(B)
-ok3 = all(B[1] != 0 for B in args) and len(set(args)) == len(args)
+    ok3 &= (B == (F(1), F(t)))
 # rank one: the fibre contributes a global phase, which cancels in the ray — the invariant of three
 # multiples of one vector is a positive real whatever the phases
 u = ((F(1), F(0)), (F(2), F(0)))
 scaled = [tuple(gmul(ph, c) for c in u) for ph in PHASES[:3]]
 ok3 &= is_real_nonneg(bargmann(*scaled))
 check("CB3", ok3,
-      f"the witness family (1,0), (1,1), (1, t i) has Bargmann invariant 1 + t i, taking the "
-      f"distinct values {[f'{B[0]}+{B[1]}i' for B in args]} as t runs — the argument varies "
-      "CONTINUOUSLY, which is a genuine U(1) rather than CB2's sign. A rank-one fibre supplies only "
-      "a global phase: three phase multiples of one vector give a positive real invariant, because "
-      "the phases cancel in the ray. So complex rank two is the first sufficient class")
+      "the witness family (1,0), (1,1), (1, t i) has Bargmann invariant EXACTLY 1 + t i as an "
+      "IDENTITY IN t — verified by carrying the whole computation as polynomials in t over the "
+      "Gaussian rationals, with every coefficient above the linear one zero — so its argument is "
+      "arctan(t), which is continuous and sweeps (-pi/2, pi/2). That is a parameterized algebraic "
+      f"statement, not four samples; the samples {[f'{B[0]}+{B[1]}i' for B in args]} are kept only "
+      "as a spot check of the identity. A rank-one fibre supplies only a global phase: three phase "
+      "multiples of one vector give a positive real invariant, because the phases cancel in the "
+      "ray. So complex rank two is the smallest fibre rank that can carry a phase at all")
 
 # ---------------------------------------------------------------- the native construction (b76B)
 nV, nA, BLANK, K = 2, 2, -1, 1
@@ -204,14 +255,38 @@ for s in STATES:
         ctx = (tuple(list(h[:c]) + [x]), tuple(a[:c + 1]))
         PHI[s] = (dict(UTAB[u])[ctx], tuple(list(h[:c]) + [x] + [BLANK] * (K - c - 1)), a, u, c + 1)
 _und = sorted(set(STATES) - set(PHI)); _unh = sorted(set(STATES) - set(PHI.values()))
+# zip() truncates silently if the two complements differ in size, which would leave PHI a
+# non-bijection while every downstream comparison still passed on the tested support. Check the
+# sizes, then check bijectivity outright: CB4 reads these maps as permutation matrices and is
+# entitled to nothing until that is established.
+assert len(_und) == len(_unh), (len(_und), len(_unh))
 for _a, _b in zip(_und, _unh):
     PHI[_a] = _b
+NATIVE_ARE_BIJECTIONS = (sorted(PHI.values()) == sorted(STATES)
+                         and all(sorted(m.values()) == sorted(STATES) for m in INSTR.values()))
 
 # A lifted state is rho = sum_s |s><s| (x) M_s, with M_s a 2x2 Gaussian-rational block. Permutation
 # dynamics preserves that form, so the ledger below is exact without ever forming a 2|S| matrix.
+RAYS = (((F(1), F(0)), (F(0), F(0))),        # |0>
+        ((F(1), F(0)), (F(1), F(0))),        # (|0> + |1>)/sqrt2
+        ((F(1), F(0)), (F(0), F(1))),        # (|0> + i|1>)/sqrt2
+        ((F(1), F(0)), (F(2), F(0))))
+def ray_block(psi, w):
+    """w * |psi><psi| / <psi|psi>: exact, since <psi|psi> is a positive RATIONAL for Gaussian psi."""
+    nrm = inner(psi, psi)
+    assert nrm[1] == 0 and nrm[0] > 0
+    return tuple(tuple(gmul((w / nrm[0], F(0)), gmul(psi[i], gconj(psi[j]))) for j in range(2))
+                 for i in range(2))
+
 def lift(p, fibre):
+    """Constant fibre: one state at every site. Retained because CB4/CB5 must hold for it too."""
     return {s: tuple(tuple(gmul((w, F(0)), fibre[i][j]) for j in range(2)) for i in range(2))
             for s, w in p.items()}
+
+def lift_varying(p, assign):
+    """SITE-DEPENDENT fibre: a different ray per state. This is the lift that can carry curvature,
+    and the one the availability claim needs -- a constant fibre is exactly b439's GS17, zero."""
+    return {s: ray_block(RAYS[assign(s)], w) for s, w in p.items()}
 def forget(rho):
     return {s: gadd(M[0][0], M[1][1])[0] for s, M in rho.items()}     # Tr over the fibre
 def push_lift(rho, perm):
@@ -235,9 +310,9 @@ YPLUS = (((F(1, 2), F(0)), (F(0), F(-1, 2))), ((F(0), F(1, 2)), (F(1, 2), F(0)))
 
 # ---------------------------------------------------------------- CB4  the intertwining identity
 print("CB4  the extension is conservative: F(P~ rho P~^dag) = P F(rho) P^dag on the native ops")
-ok4 = True
-for fibre in (KET0, PLUS, YPLUS):
-    rho = lift(INIT, fibre)
+ok4 = NATIVE_ARE_BIJECTIONS          # CB4 reads these as permutation matrices; establish that first
+ASSIGN = lambda st: (st[0] + st[3]) % len(RAYS)      # a genuinely site-dependent ray assignment
+for rho in ([lift(INIT, f) for f in (KET0, PLUS, YPLUS)] + [lift_varying(INIT, ASSIGN)]):
     for perm, name in ((PHI, 'phi'), (INSTR[0], 'I_0'), (INSTR[1], 'I_1')):
         lhs = forget(push_lift(rho, perm))
         rhs = push_classical(forget(rho), perm)
@@ -247,11 +322,13 @@ for fibre in (KET0, PLUS, YPLUS):
     rhs = push_classical(push_classical(forget(rho), INSTR[1]), PHI)
     ok4 &= (lhs == rhs)
 check("CB4", ok4,
-      "with H~ = l^2(S) (x) C^2, P~ = P (x) I and F = Tr_{C^2}, forgetting commutes with the "
-      "dynamics EXACTLY — checked on the actual native operations phi, I_0, I_1 and on the "
-      "composite word I_1 then phi, at three different fibre states including a coherent one. The "
-      "identity holds because a permutation relabels the blocks and the fibre trace is taken "
-      "blockwise; nothing about the fibre can leak into the classical marginal")
+      "phi and both instruments are verified BIJECTIONS first, so reading them as permutation "
+      "matrices is earned rather than assumed. Then with H~ = l^2(S) (x) C^2, P~ = P (x) I and "
+      "F = Tr_{C^2}, forgetting commutes with the dynamics EXACTLY — on the actual operations phi, "
+      "I_0, I_1 and on the composite word I_1 then phi, at three constant fibre states AND at a "
+      "SITE-DEPENDENT one. The identity holds because a permutation relabels the blocks and the "
+      "fibre trace is taken blockwise, so it is blind to which ray sits where; nothing about the "
+      "fibre can leak into the classical marginal")
 
 # ---------------------------------------------------------------- CB5  the survival ledger
 print("CB5  the ledger: comb probabilities survive, Q_fb is a retract, and something new appears")
@@ -296,30 +373,68 @@ check("CB5", ok5,
       "carries observables the old instrument algebra cannot see. S <=> D <=> Q_fb survives as a "
       "QUOTIENT and must not be read as covering the extension")
 
+# ------------------------------------------------- CB5b  the site-dependent lift, which is the point
+print("CB5b a SITE-DEPENDENT fibre preserves everything AND carries curvature")
+# The constant fibre of CB4/CB5 cannot carry curvature: a site-independent state gives a real
+# positive loop product, which is exactly b439's GS17. So the availability claim needs a lift whose
+# ray VARIES with the state, and that lift has to be shown conservative in its own right.
+ok5b = NATIVE_ARE_BIJECTIONS
+for act in range(nA):
+    native = comb_from(INIT, act, False)
+    ok5b &= (comb_from(lift_varying(INIT, ASSIGN), act, True) == native)
+ok5b &= (forget(lift_varying(INIT, ASSIGN)) == INIT)          # the retract still holds
+# ... and the rays this lift actually attaches carry a nonzero Bargmann phase between sites
+sites = [s for s in STATES if s in INIT][:64]
+attached = {}
+for s in sites:
+    attached.setdefault(ASSIGN(s), s)
+tri = [attached[k] for k in sorted(attached)][:3]
+ok5b &= (len(tri) == 3)
+Bsite = bargmann(RAYS[ASSIGN(tri[0])], RAYS[ASSIGN(tri[1])], RAYS[ASSIGN(tri[2])])
+ok5b &= (Bsite[1] != 0 or Bsite[0] < 0)                        # a genuine phase, not 0 or positive
+check("CB5b", ok5b,
+      f"the site-dependent lift reproduces the comb EXACTLY at both actions and still retracts onto "
+      f"the fixed-basis theory, so it is conservative in exactly the sense CB4-CB5 established for "
+      f"the constant one — the intertwining is blind to which ray sits where. And the rays it "
+      f"attaches to three distinct native states have Bargmann invariant {Bsite[0]} + {Bsite[1]}i, "
+      "which is not a non-negative real: the extension carries CURVATURE. This is what the "
+      "availability claim needs and what a constant fibre could never supply, that being b439's "
+      "GS17 exactly")
+
 # ---------------------------------------------------------------- CB6  the boundary statement
 print("CB6  the boundary, and what it does and does not settle")
-check("CB6", True,
+# Gated on CB1-CB5b: an unconditional True would print PASS beside red controls and the
+# scope block below would assert conclusions drawn from failed checks.
+check("CB6", all(CHECKS),
       "OI fixes the classical operational quotient and leaves the coherent fibre over it "
       "UNDERDETERMINED. b440 showed the canonical fibre is trivial; CB1-CB3 show how little is "
       "needed to make it nontrivial — not merely support > 1, which only buys a Z_2 sign, but a "
       "COMPLEX rank-two fibre — and CB4-CB5 show everything already proved survives the forgetting. "
       "So the non-uniqueness of OI -> QM is not 'many arbitrary quantum completions': it is a "
       "classical core plus an underdetermined coherent fibre, with a rank and reality bound on what "
-      "the fibre must be for hypercharge. WHAT THIS DOES NOT DO: it does not DERIVE the fibre. "
-      "H-observer-bundle becomes AVAILABLE in the extension class and is still not a consequence of "
-      "OI, because nothing in the framework selects a fibre; and H-Y-vertex is untouched, since a "
-      "curved observer connection existing says nothing about its vacuum-polarization coefficient")
+      "the fibre must be for hypercharge. WHAT IS EARNED, and only this: the conservative extension "
+      "class CONTAINS a configuration that preserves the comb, the retract and the dynamics exactly "
+      "and still carries a nonzero Bargmann phase (CB5b) — kinematic capacity, demonstrated on the "
+      "actual construction rather than on free-floating vectors. WHAT IS NOT: nothing here DERIVES "
+      "the fibre, since the assignment is imposed by hand and nothing in OI selects it; and nothing "
+      "identifies that phase with the HYPERCHARGE channel, which is H-Y-vertex and is untouched. "
+      "'Available' therefore means available-in-the-class, not derived, and the two must not be run "
+      "together")
 
 print()
-print("     [scope] Settled: nothing in the normalizer of the diagonal algebra escapes b440's no-go;")
-print("     real mixing gives support two but only a Z_2 sign; a COMPLEX RANK-TWO fibre is the first")
-print("     sufficient class; the conservative extension H~ = l^2(S) (x) C^2 with P~ = P (x) I and")
-print("     F = Tr_{C^2} preserves the native dynamics, the comb probabilities and the fixed-basis")
-print("     theory exactly, as a retract; and it carries observables the old instrument algebra")
-print("     cannot see.")
-print("     NOT settled: the fibre is not DERIVED. H-observer-bundle is available in the extension")
-print("     class, not a consequence of OI. H-Y-vertex is untouched. And the enlarged theory is NOT")
-print("     covered by the old S <=> D <=> Q_fb equivalence — that survives as a quotient only.")
+if not all(CHECKS):
+    print("     [scope] VERDICT WITHHELD: a control above failed, so the boundary statement below")
+    print("     is not asserted. Fix the failing check before reading any conclusion from this run.")
+else:
+    print("     [scope] Settled: nothing in the normalizer of the diagonal algebra escapes b440's no-go;")
+    print("     real mixing gives support two but only a Z_2 sign; a COMPLEX RANK-TWO fibre is the first")
+    print("     sufficient class; the conservative extension H~ = l^2(S) (x) C^2 with P~ = P (x) I and")
+    print("     F = Tr_{C^2} preserves the native dynamics, the comb probabilities and the fixed-basis")
+    print("     theory exactly, as a retract; and it carries observables the old instrument algebra")
+    print("     cannot see.")
+    print("     NOT settled: the fibre is not DERIVED. H-observer-bundle is available in the extension")
+    print("     class, not a consequence of OI. H-Y-vertex is untouched. And the enlarged theory is NOT")
+    print("     covered by the old S <=> D <=> Q_fb equivalence — that survives as a quotient only.")
 print()
 print("coherence_boundary_probes:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)
