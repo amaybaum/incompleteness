@@ -20,6 +20,11 @@ name: codex-gate
 on:
   pull_request:
   workflow_dispatch:
+    inputs:
+      pr:
+        description: 'Pull request number to check (workflow_dispatch has no pull_request payload)'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -42,11 +47,22 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OWNER: ${{ github.repository_owner }}
           REPO: ${{ github.event.repository.name }}
-          PR: ${{ github.event.pull_request.number }}
+          # workflow_dispatch carries no pull_request payload, so both fall back to the input and
+          # the head SHA is looked up below rather than read from the event.
+          PR: ${{ github.event.pull_request.number || inputs.pr }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           REVIEWER: chatgpt-codex-connector
         run: |
           set -euo pipefail
+
+          if [ -z "${PR:-}" ]; then
+            echo "::error::No pull request number. On workflow_dispatch, pass the 'pr' input."
+            exit 1
+          fi
+          if [ -z "${HEAD_SHA:-}" ]; then
+            HEAD_SHA="$(gh api "repos/${OWNER}/${REPO}/pulls/${PR}" --jq .head.sha)"
+            echo "Resolved head of #${PR} to ${HEAD_SHA}."
+          fi
 
           # One GraphQL round trip returns both halves: the reviews with the commit each looked at,
           # and the threads with their resolution and outdated flags.
@@ -89,8 +105,14 @@ jobs:
             if [ "$reviewed" -gt 0 ]; then
               echo "Codex has reviewed ${HEAD_SHA}."
               if [ "$open_threads" -gt 0 ]; then
+                # RESOLVING the thread is what clears this, and nothing else. A reply leaves
+                # isResolved false, so an instruction to "reply saying why not" would leave the gate
+                # red forever; and counting any reply as acknowledgement would let a one-word answer
+                # satisfy it, which is not a gate. Disagreeing with a finding is legitimate — reply
+                # with the reason AND resolve, so the thread carries the record and the branch moves.
                 echo "::error::${open_threads} unresolved, non-outdated Codex thread(s) on this head." \
-                     "Address them and resolve, or reply saying why not."
+                     "Resolve each one. If you are rejecting a finding, reply with the reason and" \
+                     "resolve it anyway — a reply alone does not clear this check."
                 exit 1
               fi
               echo "No unresolved, non-outdated Codex threads. Gate satisfied."
