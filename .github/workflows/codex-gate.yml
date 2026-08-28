@@ -1,53 +1,21 @@
 name: codex-gate
 
-# A required status check answering one question: has Codex reviewed THIS head commit, and is
-# anything it raised still open?
+# TEMPORARILY DISABLED.
 #
-# Native Codex publishes no check run and no commit status, and its reviews are always COMMENTED,
-# never APPROVED, from an app with author_association NONE. So there is nothing for a branch rule to
-# require, and a pull request goes green on CI and becomes mergeable before Codex has looked at the
-# head commit at all. This job is the missing name: require "Codex review complete" on main
-# alongside the three verify jobs and that window closes.
+# Codex code review is metered and the repository's deterministic verification already runs
+# independently in verify.yml. Keep this workflow and, crucially, keep the existing required
+# check name so the branch ruleset does not leave pull requests permanently "Expected" while
+# Codex review is paused. Re-enable the exact-head/thread gate by restoring the prior implementation.
 #
-# THE PHASE IS THE PULL REQUEST'S DRAFT STATE, and nothing else. Codex review is a metered service
-# and this is a research repository whose pull requests iterate many times before they are
-# candidates; reviewing every intermediate head exhausts the quota and then blocks the merge that
-# actually matters, which is exactly what happened here. Codex does not auto-review DRAFT pull
-# requests and does auto-review the Draft -> Ready transition, so draft state is already the signal
-# and needs no parallel machinery:
-#
-#   development     the pull request is a DRAFT. This check fails immediately, no review is
-#                   triggered, and no quota is spent. Iterate as much as necessary; Lean, the
-#                   Mathlib bridge and the probes are the checks doing real work here.
-#   final candidate click "Ready for review" on a frozen head. That single action triggers the
-#                   review natively. This job then waits a modest while for it to land -- Actions
-#                   minutes, not review quota -- and checks the threads.
-#
-# If a review finds problems: convert BACK TO DRAFT before changing the head, batch every fix,
-# re-run the deterministic checks, and click Ready once. Fix-push-review-fix-push-review is the
-# pattern that burned the quota; one review, all fixes, one re-review is the replacement.
-#
-# It gates PROCESS, not verdict. It asks whether a review exists for the exact head SHA and whether
-# any thread Codex opened is still unresolved. It does NOT ask whether Codex was happy: a
-# nondeterministic reviewer must never hold a merge veto on the content of its findings, only on
-# whether they have been looked at. Deterministic checks belong in verify.yml.
-#
-# NO PATH FILTERS, for the same reason verify.yml has none: a required check that never runs never
-# reports, and GitHub leaves it Expected forever.
+# This workflow does not call Codex, inspect Codex reviews, poll, or consume Codex review quota.
 
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review, converted_to_draft]
   workflow_dispatch:
-    inputs:
-      pr:
-        description: 'Pull request number to check (workflow_dispatch has no pull_request payload)'
-        required: true
-        type: string
 
 permissions:
   contents: read
-  pull-requests: read
 
 concurrency:
   group: codex-gate-${{ github.event.pull_request.number || github.ref }}
@@ -57,158 +25,7 @@ jobs:
   codex:
     name: Codex review complete
     runs-on: ubuntu-latest
-    # Covers the ready_for_review wait below with margin. A draft run exits in seconds regardless.
-    timeout-minutes: 20
     steps:
-      - name: Check for a Codex review of this exact head and any open threads
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OWNER: ${{ github.repository_owner }}
-          REPO: ${{ github.event.repository.name }}
-          # workflow_dispatch carries no pull_request payload, so both fall back to the input and
-          # the head SHA is looked up below rather than read from the event.
-          PR: ${{ github.event.pull_request.number || inputs.pr }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          REVIEWER: chatgpt-codex-connector
-          EVENT_NAME: ${{ github.event_name }}
-          # github.event_name is 'pull_request' for EVERY pull-request event; which one it was lives
-          # in github.event.action. Testing the former against 'ready_for_review' silently never
-          # matches, so the wait below would never engage.
-          EVENT_ACTION: ${{ github.event.action }}
-          IS_DRAFT: ${{ github.event.pull_request.draft }}
+      - name: Codex gate temporarily disabled
         run: |
-          set -euo pipefail
-
-          if [ -z "${PR:-}" ]; then
-            echo "::error::No pull request number. On workflow_dispatch, pass the 'pr' input."
-            exit 1
-          fi
-          if [ -z "${HEAD_SHA:-}" ]; then
-            HEAD_SHA="$(gh api "repos/${OWNER}/${REPO}/pulls/${PR}" --jq .head.sha)"
-            echo "Resolved head of #${PR} to ${HEAD_SHA}."
-          fi
-
-          # A dispatched run attaches its check run to GITHUB_SHA -- the tip of the ref it was
-          # launched on -- not to whatever this script chooses to query. Dispatched from the default
-          # branch, it would go green against main's commit and leave the pull request's required
-          # check untouched, which is worse than failing: it looks like the gate passed. Refuse.
-          # (The comparison is dispatch-only: on pull_request, GITHUB_SHA is the merge commit and
-          # differs from head.sha by design.)
-          if [ "${EVENT_NAME}" = "workflow_dispatch" ] && [ "${GITHUB_SHA}" != "${HEAD_SHA}" ]; then
-            echo "::error::This run is attached to ${GITHUB_SHA}, but #${PR}'s head is ${HEAD_SHA}." \
-                 "A green result here could not clear the required check. Re-run the original" \
-                 "pull_request run instead, or dispatch with --ref set to the head branch."
-            exit 1
-          fi
-
-          # PHASE. Draft is development: fail immediately, trigger nothing, spend no quota. The
-          # event payload's draft flag is absent on workflow_dispatch, so ask the API there.
-          if [ -z "${IS_DRAFT:-}" ] || [ "${IS_DRAFT}" = "null" ]; then
-            IS_DRAFT="$(gh api "repos/${OWNER}/${REPO}/pulls/${PR}" --jq .draft)"
-          fi
-          if [ "${IS_DRAFT}" = "true" ]; then
-            echo "::error::Development phase: #${PR} is a DRAFT, so Codex does not review it and" \
-                 "no review of ${HEAD_SHA} is expected. When this head is the merge candidate," \
-                 "click 'Ready for review' -- that single action triggers the review natively."
-            exit 1
-          fi
-
-          # Has the reviewer looked at this exact commit? PAGINATED: every reply posted on a pull
-          # request is itself a review, so the count climbs far faster than the number of review
-          # passes, and a fixed page would omit a valid exact-head review.
-          reviewed_head() {
-            local cursor="null" found=0 page
-            while :; do
-              page="$(gh api graphql -f query='
-                query($owner:String!, $repo:String!, $pr:Int!, $after:String) {
-                  repository(owner:$owner, name:$repo) {
-                    pullRequest(number:$pr) {
-                      reviews(first:100, after:$after) {
-                        pageInfo { hasNextPage endCursor }
-                        nodes { author { login } commit { oid } }
-                      }
-                    }
-                  }
-                }' -F owner="$OWNER" -F repo="$REPO" -F pr="$PR" \
-                   $( [ "$cursor" = "null" ] || printf -- '-F after=%s' "$cursor" ) )"
-              found=$(( found + $(jq -r --arg who "$REVIEWER" --arg sha "$HEAD_SHA" '
-                [ .data.repository.pullRequest.reviews.nodes[]
-                  | select(.author.login == $who and .commit.oid == $sha) ] | length' <<<"$page") ))
-              [ "$found" -eq 0 ] || break
-              [ "$(jq -r '.data.repository.pullRequest.reviews.pageInfo.hasNextPage' <<<"$page")" = "true" ] || break
-              cursor="$(jq -r '.data.repository.pullRequest.reviews.pageInfo.endCursor' <<<"$page")"
-            done
-            echo "$found"
-          }
-
-          # Threads, PAGINATED, counting every UNRESOLVED Codex thread whether or not GitHub marks
-          # it outdated. "Outdated" only means a later push moved the anchored lines, which is
-          # exactly what happens when a fix is pushed WITHOUT the finding being acknowledged;
-          # excluding them would let an unaddressed finding vanish by editing nearby code.
-          open_thread_count() {
-            local cursor="null" total=0 page
-            while :; do
-              page="$(gh api graphql -f query='
-                query($owner:String!, $repo:String!, $pr:Int!, $after:String) {
-                  repository(owner:$owner, name:$repo) {
-                    pullRequest(number:$pr) {
-                      reviewThreads(first:100, after:$after) {
-                        pageInfo { hasNextPage endCursor }
-                        nodes {
-                          isResolved
-                          comments(first:1) { nodes { author { login } } }
-                        }
-                      }
-                    }
-                  }
-                }' -F owner="$OWNER" -F repo="$REPO" -F pr="$PR" \
-                   $( [ "$cursor" = "null" ] || printf -- '-F after=%s' "$cursor" ) )"
-              total=$(( total + $(jq -r --arg who "$REVIEWER" '
-                [ .data.repository.pullRequest.reviewThreads.nodes[]
-                  | select(.isResolved == false)
-                  | select(.comments.nodes[0].author.login == $who) ] | length' <<<"$page") ))
-              [ "$(jq -r '.data.repository.pullRequest.reviewThreads.pageInfo.hasNextPage' <<<"$page")" = "true" ] || break
-              cursor="$(jq -r '.data.repository.pullRequest.reviewThreads.pageInfo.endCursor' <<<"$page")"
-            done
-            echo "$total"
-          }
-
-          # On the Ready-for-review transition the review has just been triggered natively, so wait
-          # for it. This spends Actions minutes, never review quota. On any other event against a
-          # ready pull request the review either already exists or the head moved, so do not wait.
-          WAIT=1
-          if [ "${EVENT_ACTION:-}" = "ready_for_review" ]; then WAIT=12; fi
-          echo "Event ${EVENT_NAME}/${EVENT_ACTION:-none}: waiting up to ${WAIT} minute(s) for a review of ${HEAD_SHA}." 
-          found=0
-          for attempt in $(seq 1 "$WAIT"); do
-            found="$(reviewed_head)"
-            [ "$found" -eq 0 ] || break
-            [ "$attempt" -lt "$WAIT" ] || break
-            echo "Attempt ${attempt}/${WAIT}: no Codex review of ${HEAD_SHA} yet; waiting 60s."
-            sleep 60
-          done
-          if [ "$found" -eq 0 ]; then
-            echo "::error::No Codex review of ${HEAD_SHA}. #${PR} is ready for review, so this head" \
-                 "is the merge candidate. If the head moved after the review, convert BACK TO DRAFT," \
-                 "batch every fix, then click 'Ready for review' once -- one review per frozen head," \
-                 "never one per push."
-            exit 1
-          fi
-
-          echo "Codex has reviewed ${HEAD_SHA}."
-          open_threads="$(open_thread_count)"
-          if [ "$open_threads" -gt 0 ]; then
-            # RESOLVING the thread is what clears this, and nothing else. A reply leaves isResolved
-            # false, so an instruction to "reply saying why not" would leave the gate red forever;
-            # and counting any reply as acknowledgement would let a one-word answer satisfy it,
-            # which is not a gate. Disagreeing with a finding is legitimate -- reply with the reason
-            # AND resolve, so the thread carries the record and the branch moves.
-            echo "::error::${open_threads} unresolved Codex thread(s) on this pull request." \
-                 "Convert #${PR} to DRAFT, batch every fix, then mark it Ready for review ONCE for" \
-                 "the next exact-head review -- pushing while draft never spends review quota," \
-                 "and only the Ready transition does. Resolve each thread as you address it; if you" \
-                 "are rejecting a finding, reply with the reason and resolve it anyway, since a" \
-                 "reply alone does not clear this check."
-            exit 1
-          fi
-          echo "No unresolved Codex threads. Gate satisfied."
+          echo "Codex review gate is temporarily disabled; deterministic verification remains required."
