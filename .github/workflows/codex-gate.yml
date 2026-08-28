@@ -1,13 +1,25 @@
 name: codex-gate
 
-# A required status check whose only job is to answer one question: has Codex reviewed THIS head
-# commit, and is anything it raised still open?
+# A required status check answering one question: has Codex reviewed THIS head commit, and is
+# anything it raised still open?
 #
 # Native Codex publishes no check run and no commit status, and its reviews are always COMMENTED,
 # never APPROVED, from an app with author_association NONE. So there is nothing for a branch rule to
-# require, and a pull request goes green on CI and becomes mergeable in the five to seven minutes
-# before Codex has looked at the head commit at all. This job is the missing name: require
-# "Codex review complete" on main alongside the three verify jobs and that window closes.
+# require, and a pull request goes green on CI and becomes mergeable before Codex has looked at the
+# head commit at all. This job is the missing name: require "Codex review complete" on main
+# alongside the three verify jobs and that window closes.
+#
+# IT FAILS FAST AND DOES NOT WAIT. Codex review is a metered service and this is a research
+# repository whose pull requests iterate many times before they are candidates; spending a review on
+# every intermediate head exhausts the quota and blocks the merge that actually matters. So the
+# intended workflow is two-phase, and the gate makes the phase explicit rather than polling:
+#
+#   development     no 'codex-ready' label. The gate is red by design, no review is requested, and
+#                   no review quota is spent. Iterate as much as necessary; Lean, the Mathlib
+#                   bridge and the probes are the checks doing real work here.
+#   final candidate label 'codex-ready' applied to a frozen head. Request one review by commenting
+#                   "@codex review", address or reject every finding, re-request only if the head
+#                   moved. Then this check goes green and the pull request is mergeable.
 #
 # It gates PROCESS, not verdict. It asks whether a review exists for the exact head SHA and whether
 # any thread Codex opened is still unresolved. It does NOT ask whether Codex was happy: a
@@ -19,6 +31,7 @@ name: codex-gate
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
   workflow_dispatch:
     inputs:
       pr:
@@ -38,11 +51,10 @@ jobs:
   codex:
     name: Codex review complete
     runs-on: ubuntu-latest
-    # Long enough to cover the observed lag (five to seven minutes across six pushes) with margin,
-    # short enough that a genuinely absent review fails the same working session.
-    timeout-minutes: 25
+    # Nothing here waits on anything, so this is a guard against a hung API call, not a review window.
+    timeout-minutes: 5
     steps:
-      - name: Wait for a Codex review of this exact head, then check the threads
+      - name: Check for a Codex review of this exact head and any open threads
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OWNER: ${{ github.repository_owner }}
@@ -53,6 +65,7 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           REVIEWER: chatgpt-codex-connector
           EVENT_NAME: ${{ github.event_name }}
+          READY_LABEL: codex-ready
         run: |
           set -euo pipefail
 
@@ -78,10 +91,20 @@ jobs:
             exit 1
           fi
 
-          # Reviews: has the reviewer looked at this exact commit? PAGINATED, for the same reason the
-          # threads are. Every reply posted on this pull request is itself a review, so the count
-          # climbs fast; once it passes one page, a single last:50 would omit the valid exact-head
-          # review and the gate would wait out its full timeout and fail a condition already met.
+          # PHASE. Without the label this is development: fail immediately, request nothing, spend
+          # no review quota. The label is the explicit transition to a frozen merge candidate.
+          if ! gh api "repos/${OWNER}/${REPO}/issues/${PR}/labels" --jq '.[].name' \
+               | grep -qx "${READY_LABEL}"; then
+            echo "::error::Development phase: #${PR} is not labelled '${READY_LABEL}', so no final" \
+                 "Codex review is expected for ${HEAD_SHA} and none has been requested." \
+                 "When this head is the merge candidate, apply the label, comment '@codex review'," \
+                 "then re-run this check."
+            exit 1
+          fi
+
+          # Has the reviewer looked at this exact commit? PAGINATED: every reply posted on a pull
+          # request is itself a review, so the count climbs far faster than the number of review
+          # passes, and a fixed page would omit a valid exact-head review.
           reviewed_head() {
             local cursor="null" found=0 page
             while :; do
@@ -107,9 +130,10 @@ jobs:
             echo "$found"
           }
 
-          # Threads, PAGINATED. A single last:100 page silently drops older threads once a pull
-          # request accumulates more than that, and an unresolved finding scrolling out of the query
-          # would turn the gate green while the finding stood. This one walks every page.
+          # Threads, PAGINATED, counting every UNRESOLVED Codex thread whether or not GitHub marks
+          # it outdated. "Outdated" only means a later push moved the anchored lines, which is
+          # exactly what happens when a fix is pushed WITHOUT the finding being acknowledged;
+          # excluding them would let an unaddressed finding vanish by editing nearby code.
           open_thread_count() {
             local cursor="null" total=0 page
             while :; do
@@ -138,37 +162,25 @@ jobs:
             echo "$total"
           }
 
-          # A thread counts against the gate if Codex opened it and it is UNRESOLVED -- outdated or
-          # not. Excluding outdated ones was wrong: "outdated" only means a later push moved the
-          # lines the comment was anchored to, which is exactly what happens when a fix is pushed
-          # WITHOUT the finding being acknowledged. That let an unaddressed finding vanish from the
-          # gate by editing nearby code. Resolving is the only thing that clears it, which is the
-          # contract the failure message states.
-          for attempt in $(seq 1 24); do
-            reviewed="$(reviewed_head)"
+          if [ "$(reviewed_head)" -eq 0 ]; then
+            echo "::error::Final Codex review not yet present for ${HEAD_SHA}." \
+                 "#${PR} is labelled '${READY_LABEL}', so this head is the merge candidate:" \
+                 "comment '@codex review', wait for it to land, then re-run this check." \
+                 "Do not request a review per push -- batch the fixes and request once per frozen head."
+            exit 1
+          fi
 
-            if [ "$reviewed" -gt 0 ]; then
-              open_threads="$(open_thread_count)"
-              echo "Codex has reviewed ${HEAD_SHA}."
-              if [ "$open_threads" -gt 0 ]; then
-                # RESOLVING the thread is what clears this, and nothing else. A reply leaves
-                # isResolved false, so an instruction to "reply saying why not" would leave the gate
-                # red forever; and counting any reply as acknowledgement would let a one-word answer
-                # satisfy it, which is not a gate. Disagreeing with a finding is legitimate — reply
-                # with the reason AND resolve, so the thread carries the record and the branch moves.
-                echo "::error::${open_threads} unresolved Codex thread(s) on this pull request." \
-                     "Resolve each one. If you are rejecting a finding, reply with the reason and" \
-                     "resolve it anyway — a reply alone does not clear this check."
-                exit 1
-              fi
-              echo "No unresolved Codex threads. Gate satisfied."
-              exit 0
-            fi
-
-            echo "Attempt ${attempt}/24: no Codex review of ${HEAD_SHA} yet; waiting 60s."
-            sleep 60
-          done
-
-          echo "::error::No Codex review of ${HEAD_SHA} after 24 minutes." \
-               "Comment '@codex review' on the pull request, then re-run this check."
-          exit 1
+          echo "Codex has reviewed ${HEAD_SHA}."
+          open_threads="$(open_thread_count)"
+          if [ "$open_threads" -gt 0 ]; then
+            # RESOLVING the thread is what clears this, and nothing else. A reply leaves isResolved
+            # false, so an instruction to "reply saying why not" would leave the gate red forever;
+            # and counting any reply as acknowledgement would let a one-word answer satisfy it,
+            # which is not a gate. Disagreeing with a finding is legitimate -- reply with the reason
+            # AND resolve, so the thread carries the record and the branch moves.
+            echo "::error::${open_threads} unresolved Codex thread(s) on this pull request." \
+                 "Resolve each one. If you are rejecting a finding, reply with the reason and" \
+                 "resolve it anyway -- a reply alone does not clear this check."
+            exit 1
+          fi
+          echo "No unresolved Codex threads. Gate satisfied."
