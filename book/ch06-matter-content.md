@@ -1,7 +1,7 @@
 # Chapter 6
 # The Matter Content and Quantitative Predictions
 
----
+***
 
 ## 6.1 What this chapter develops
 
@@ -67,7 +67,7 @@ The framework's partition — the visible/hidden checkerboard developed in Chapt
 
 The narrowing of the target is partly a relief. The CKM CP violation, encoded in the Jarlskog invariant $J \approx 3 \times 10^{-5}$, arises from the basis mismatch between up-type and down-type Yukawa mass eigenstates; reciprocal transition probabilities can hide exactly such loop phases, so detailed balance at the substratum does not kill weak CP violation, and there is no algebraic conflict between $\arg\det(Y_u Y_d) = 0$ and $J \neq 0$. Conversely, a mechanism that fixed $\arg\det(Y_u Y_d) = 0$ by making $Y_u$ and $Y_d$ simultaneously real would force the CKM matrix to be real orthogonal and $J = 0$ — it would have solved too much, and that is the falsification control on any proposed H-det. The flavor-sector CP phases themselves are solution-specific properties of the particular bijection $\varphi$, treated as inputs rather than predictions; Chapter 4 §4.6 lists them among the solution-specific properties whose measurement does not bear on the framework's structural status.
 
----
+***
 
 ## 6.4 Gauge couplings and the no-GUT prediction
 
@@ -227,7 +227,7 @@ The mechanism behind this relation is open, and the honest classification is a r
 
 The relation $m_t = v/\sqrt{2}$ matches the observation to $0.9\%$, but as a retrodiction of the weak-scale $y_t \approx 1$ coincidence rather than a parameter-free structural prediction; a derivation of $y_t = 1$ at the electroweak matching scale, or of $y_t(M_{\text{Pl}}) \approx 1/2$ (which runs to $\approx 177$ GeV), would close the mechanism.
 
----
+***
 
 ## 6.7 PMNS mixing angles
 

@@ -1,7 +1,7 @@
 # Chapter 14
 # Quantum Computing
 
----
+***
 
 > **Status — conjectural extension.** This chapter applies the core framework to quantum computation and complexity, and is offered as a *conjecture*, not an established result: the central claim — that the framework's emergent dynamics realizes the complexity class BQP — is a theoretical conjecture rather than a proven correspondence; it would be supported by a rigorous derivation from the finite substratum to BQP and undercut if that dynamics proves efficiently classically simulable or fails to reproduce known quantum-complexity separations. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
 
@@ -279,4 +279,4 @@ One refinement sharpens the exposure from principally negative to positively dat
 
 The depth of computation is bounded too, and by the same construction. The residual dissipation — the framework's irreducible $10^{-64}$ deviation from perfect quantum behavior, sourced by the cosmological partition rather than by any lab's imperfections — caps uncorrected coherent computation near $10^{64}$ operations, an absolute decoherence floor no isolation can evade. Error correction erases that wall: the dissipation channel is quasi-static — a static conditioned Hamiltonian over the run, hence a common-mode coherent error of the benign class that calibration, dynamical decoupling, and error correction handle, thirty orders below threshold besides — so it does not break the fault-tolerance theorem's assumptions, and the $10^{32}$ cap is a property of uncorrected hardware only. Together with the width ceiling, the rate and memory bounds derivable from the same primitives, and the exclusion of spacetime hypercomputation tricks, the framework proposes the four-axis program of physical computation — some faces derived, the width face resting on the explicit complexity assumptions of §14.8, the rate and memory faces awaiting their stated derivations.
 
----
+***

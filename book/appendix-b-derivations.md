@@ -1,7 +1,7 @@
 # Appendix B
 # Mathematical Derivations
 
----
+***
 
 ## B.1 What this appendix develops
 
@@ -451,4 +451,4 @@ The biconditional is the framework's main characterization result. $\square$
 
 The combined derivations constitute the framework's full mathematical content as a derivation chain from the substratum-level structural commitments to the Standard Model, the gravitational sector, and the empirical predictions across the framework's domains. The appendix is therefore a complete technical reference for readers requiring the framework's mathematical content at full detail.
 
----
+***

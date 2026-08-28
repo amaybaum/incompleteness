@@ -1,7 +1,7 @@
 # Chapter 18
 # Beyond Quantum Mechanics and General Relativity
 
----
+***
 
 > **Status — conjectural extension.** This chapter applies the core framework to consciousness, and is offered as a *conjecture*, not an established result: no empirical test is proposed; the claim is a structural correspondence between embedded observation — the trace-out of an observer's own inaccessible degrees of freedom — and the character of a bounded first-person perspective, offered as a possibility the framework raises rather than a result it establishes. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
 
@@ -123,7 +123,7 @@ The framework does not claim to settle these foundational questions; it makes st
 
 The framework's quantum randomness is therefore epistemic, exact in its predictions for any embedded observer's empirical access, and consequential for the classes of foundational accounts compatible with it. The empirical record is silent at the $10^{-32}$ level; the conceptual record is substantial.
 
----
+***
 
 ## 18.5 The quantum gravity dissolution as cumulative case
 
@@ -236,7 +236,7 @@ The reframing places the explanatory burden on a different question. Instead of 
 
 The arrow of time is therefore one more case where the framework's substratum-emergent distinction does substantive work. The substratum is T-symmetric (the dynamics has no arrow). The emergent description is not T-symmetric (the observer sees an arrow). The asymmetry is structural — inherited from the partition's initial conditions — rather than dynamical. The framework's content here is not to solve the arrow-of-time problem in the conventional sense but to locate it precisely: the arrow is at the level of partition initial conditions, not at the level of substratum dynamics.
 
----
+***
 
 ## 18.9 Cosmic spatial topology
 
@@ -350,4 +350,4 @@ The framework's evidential standard is parameter-free structural prediction matc
 
 The chapter is honest about what it does not address. The hard problem of consciousness is not solved. The cosmological initial state is not explained. Several other open problems remain in the framework's residue. Chapter 19 develops these residues in detail, alongside the resolved-problem inventory that makes the framework's cumulative empirical reach explicit.
 
----
+***

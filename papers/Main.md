@@ -9,7 +9,7 @@
 **Status:** DRAFT PRE-PRINT  
 **Classification:** Theoretical Physics / Foundations
 
----
+***
 
 ## ABSTRACT
 
@@ -193,7 +193,7 @@ Negative entries — no valid stochastic matrix exists. **P-indivisible.** $\squ
 
 **The mechanism.** The hidden sector acts as a memory register. The transpositions $(0,h) \leftrightarrow (1,h)$ for $h \in \{1, 2\}$ flip $x$ while preserving $h$, so a state at $x = 1$ with $h \in \{1, 2\}$ after step 1 carries the record "I was at $x = 0$." Step 2 reads this record and flips $x$ back — information backflow impossible for a memoryless process. P-indivisibility is more extreme, not less, when memory is more persistent.
 
----
+***
 
 ## 3. THE EMERGENCE OF QUANTUM MECHANICS
 
@@ -619,7 +619,7 @@ At the level of finite-horizon fixed-basis observable laws, embedded observation
 
 *(v) The single external dependency, scoped.* The paper imports one external result: the Barandes stochastic-quantum correspondence [11, 12], which establishes that every finite-configuration process in its class — a broad class in which Markov chains are special cases — can be regarded as a subsystem of a composite unistochastic process on dimension $\leq n^3$, so that the stochastic and unitary descriptions are inter-translatable in compressed form. What the import is load-bearing for has narrowed as the internal results grew: existence of a fixed-basis unitary Born representation is internal (the equivalence theorem — the permutation unitary of any realization), as are the dilation construction, the C1/C3/C4 necessity theorems, and the ETH-conditional C2 bound; the import retains the compressed ($\leq n^3$) representation and the interpretive apparatus that travels with it, under (T). This gives the dependency a clean falsification profile: if the correspondence were shown to be incomplete or to require additional hypotheses, the framework would lose the compressed form and its interpretation — and nothing else, since existence, equivalence, and necessity are internal. A referee skeptical of the import should direct that skepticism at the compression and interpretation claims specifically; the framework's own results no longer route through it.
 
----
+***
 
 ### 3.5 Generative and limitative faces of the observation map
 
@@ -641,7 +641,7 @@ The content of the converse is not decorative. It says that **rotational invaria
 
 Two honest qualifications bound this subsection. First, the lemma is one-directional and near-elementary (it follows from the little-group classification once the horizon is granted to select $n$); it is far less deep than the characterization theorem — proved in-house, the imported correspondence retaining only the compressed form under (T) (§3.4) — and it is labelled a lemma for that reason. Second, it is a structural statement about the map's reach, not a derivation of a physical law: it explains *why* the framework can constrain the boost sector and must take spatial isotropy as input, but it neither supplies that isotropy nor forbids its violation. (Whether the fixed orientation could, in some régime, be effectively resampled — restoring isotropy generatively with a calculable residual anisotropy of the $\ell=4$ cubic-harmonic form — is a separate open question pursued in the book's open-problems treatment; the present lemma is agnostic on it.)
 
----
+***
 
 ### 4.1 Interpretive Consequences
 
@@ -725,7 +725,7 @@ where $\varepsilon$ absorbs typical-set and finite-size corrections. In particul
 
 **Scope.** The theorem uses bounded coupling, finiteness of $S$, the canonical-typicality result [31], and the effective-mixing hypothesis (EM) — the last an additional conditional physical premise, established model by model; it does not follow from isotropy or bounded-coupling regularity. Three scope notes. (i) *Locality of $V$.* The theorem assumes $V$ has bounded coupling-graph diameter. Adversarially non-local partitions — cherry-picking distant subsystems that happen to be correlated — are excluded by the bounded coupling degree of $\varphi$ and the finite response time of any physical observer. (ii) *Ergodicity.* The gap the argument needs belongs to the coarse-grained effective channel $\mathcal{K}_\Sigma$, not to $\varphi$ itself: the exact Koopman operator of a finite permutation has modulus-one spectrum and cannot mix, so no spectral gap on typical orbits of $\varphi$ is available or assumed. A gap for $\mathcal{K}_\Sigma$ is exactly the content of (EM) and does not follow from statistical isotropy or bounded-coupling regularity; pathological non-ergodic $\varphi$ (many short orbits) is excluded by the structural assumptions already in force, but that exclusion is a necessary, not a sufficient, condition for (EM). (iii) *The cosmological realization.* The de Sitter horizon is thermal in the static-patch sense at Hawking temperature, but the globally expanding system is not in equilibrium with respect to any static-observer partition. The horizon's expansion sets $\tau_B \sim H^{-1}$ structurally, not thermally, which is the OI-native mechanism making human-timescale laboratory observation compatible with (C2).
 
----
+***
 
 ## 5. CONCLUSION
 
@@ -747,13 +747,13 @@ The verification code for §3.2 is under `papers/oi_lattice_code/coherence/`: `c
 
 The repository is archived on Zenodo with concept DOI [10.5281/zenodo.19060318](https://doi.org/10.5281/zenodo.19060318), which resolves to the latest version; per-release version DOIs are minted at release time, and a reader reproducing a specific claim should cite the version DOI of the release carrying it rather than the concept DOI. Paths above are relative to the repository root, which is also the root of the archived snapshot. The code is also available on GitHub at <https://github.com/amaybaum/incompleteness> and is released under the MIT License.
 
----
+***
 
 ## ACKNOWLEDGEMENTS
 
 During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining argumentation, and verifying bibliographic details. The author reviewed and edited all content and takes full responsibility for the publication.
 
----
+***
 
 ## REFERENCES
 

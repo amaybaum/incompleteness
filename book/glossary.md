@@ -4,7 +4,7 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **Note on convention:** terms in *italics* within definitions indicate other glossary entries. Where the framework's usage differs from standard physics or mathematics usage, the difference is noted explicitly.
 
----
+***
 
 **Anomaly cancellation.** A condition in quantum field theory requiring that the sum of contributions from chiral fermions to certain triangle diagrams vanishes. In the Standard Model, anomaly cancellation between fermion generations is a structural consistency requirement that constrains the allowed hypercharge assignments. The framework derives the *unique* hypercharge assignment $(Y_Q, Y_u, Y_d, Y_L, Y_e) = (1/6, 2/3, -1/3, -1/2, -1)$ from the six anomaly conditions of $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$, with no free parameters. Developed in Chapter 6 §6.7 and Appendix B §B.5.
 
@@ -154,4 +154,4 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **Yamanaka factors.** The four transcription factors (Oct4, Sox2, Klf4, c-Myc) whose transient expression reprograms somatic cells to induced pluripotent stem cells. The framework identifies iPSC reprogramming as confirming the *substratum-emergent operator distinction* at chromatin: the emergent operator (cell identity) flips while substantial residual substrate-level operator (DNA methylation patterns reflecting source cell type) persists. Discussed in Chapter 16 §16.10.
 
----
+***

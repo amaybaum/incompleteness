@@ -1,7 +1,7 @@
 # Chapter 2
 # The Substratum
 
----
+***
 
 ## 2.1 What this chapter constructs
 
@@ -125,7 +125,7 @@ Second, the empirical inputs E1–E7 are stated as structural facts rather than 
 
 The reconstruction theorem identifies the equivalence class $[(S, \varphi)] / \mathcal{G}_{\text{sub}}$ as the framework's central object. The next section makes the gauge group $\mathcal{G}_{\text{sub}}$ explicit by identifying its generators and showing they exhaust — conditional on the semigroup-transfer lemma — the freedom in the reconstruction.
 
----
+***
 
 ## 2.5 The substratum gauge group
 
@@ -177,7 +177,7 @@ This is what makes the framework's scoped structural realism non-trivial. The **
 
 The reconstruction theorem identifies the **local lattice/gauge residue**; the gauge group identifies what within that scoped reconstruction has no observable content. With both in place, observed physics fixes that local residue under the theorem's stated conditions up to the specified gauge equivalence. H-Bell separately conditions Bell-inclusive existence, and Bell-inclusive uniqueness is not established. The next section turns to the synthesis: how quantum mechanics, general relativity, and the arrow of time relate to the substratum as three projections of the same construction.
 
----
+***
 
 ## 2.6 The three projections
 

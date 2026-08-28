@@ -4,7 +4,7 @@
 **Observer geometry and physical carrier.** SM §4.1 distinguishes two claims. First, finite equivariant projection is classical and exact: cubic symmetry is inherited by the projected Markov part and every memory kernel, forbidding quadratic anisotropy in the scalar symbol — so whatever nondegenerate quadratic structure survives is isotropic — while allowing cubic anisotropy at $O(k^4)$. The particular normalized nearest-neighbor operator $A/(2d)$ additionally requires an **observer-level** center-free kernel; microscopic center independence alone does not imply that after correlated hidden variables are marginalized. Second, the six signed simple-cubic links and their exact $3\oplus2\oplus1$ representation are unconditional geometry, but identifying that link space with the complete physical carrier is **H-link**; the single-copy clause gives $K=6$, and the custodial condensate-stabilizer reading is **H-cust**. Accordingly, any downstream statement here that consumes $K=6$, $N_f=6$, the physical SM gauge carrier, or a fixed three-sector count inherits those named bridge conditions unless it is explicitly referring only to the six geometric links.
 
 
----
+***
 
 ## 5.1 What this chapter develops
 
@@ -78,7 +78,7 @@ The argument's structure is worth marking explicitly. The framework's definition
 
 The combination of the three filters and the structural argument that integer-polynomial growth is the only consistent option produces an unusual claim: the spatial dimension is fixed structurally rather than as an input to the framework. Where the conventional picture treats $d = 3$ as an observed fact requiring no explanation, the framework derives it as a forced consequence of the structural conditions that any embedded observer's universe must satisfy. The empirical fact that space appears three-dimensional is then evidence for the framework's structural commitments rather than independent of them.
 
----
+***
 
 ## 5.4 The emergent QFT: factorization and multi-component dynamics
 
@@ -146,7 +146,7 @@ Under a site-dependent transformation $G(\mathbf{n})$ of the form $\boldsymbol{\
 
 The framework's derivation of local $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge invariance is therefore complete. The gauge group is fixed by the cubic decomposition of the six link directions; the amplitude-scale-invariance argument reduces $\mathrm{U}(n)$ to $\mathrm{SU}(n)$ for $n \geq 2$; background independence promotes the global commutant to a local gauge symmetry; the resulting structure is the Wilson plaquette action, with the link variables $M(\mathbf{n}, \hat{e}_j)$ as the gauge connections. The Standard Model gauge theory is derived rather than postulated, with each step a theorem in the framework's chain.
 
----
+***
 
 ## 5.6 Chirality, anomaly cancellation, and hypercharges
 

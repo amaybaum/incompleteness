@@ -107,8 +107,13 @@
 # CONSTRUCTION, and nothing is claimed about the extension class at large. A section-induced Berry
 # connection is a separate untested route.
 #
-# NOTHING HERE IS PROPAGATED TO THE MANUSCRIPT. These are round results pending acceptance; the
-# scope block says so, and §A.25 propagation is a merge-time step, not something this file asserts.
+# WHAT IS PROPAGATED, and it is one sentence. [Main §3.4] and both §A.14 parallel sources carry a
+# remark that the equivalence is exact at its own level, does not by itself determine a coherent
+# extension of the fixed-basis theory, and that AT LEAST ONE conservative coherent extension
+# preserves that theory exactly as a quotient while adding structure the equivalence does not fix.
+# The phrasing is EXISTENTIAL on purpose. Nothing else propagates: no status word changes, no new
+# named condition, nothing about curvature, projective representations or the hypercharge channel,
+# all of which remain open here and are recorded as open there too.
 #
 # CB6 and the scope block are GATED on CB1-CB5b, and the gate withholds the MESSAGE as well as
 # flipping the label: check() prints its text whatever the label says, so gating alone would render
@@ -728,8 +733,9 @@ if not all(CHECKS):
     print("     [scope] VERDICT WITHHELD: a control above failed, so the boundary statement below")
     print("     is not asserted. Fix the failing check before reading any conclusion from this run.")
 else:
-    print("     [scope] Established IN THIS PROBE, and NOT yet propagated to the manuscript — this")
-    print("     is a round result pending acceptance, not a recorded corpus status:")
+    print("     [scope] Established here and RECORDED in the corpus: [Main §3.4] and both §A.14")
+    print("     parallel sources carry the existence remark. What follows is the probe's own")
+    print("     statement of it, and the open questions below are open in the manuscript too:")
     print("     OI ADMITS AT LEAST ONE CONSERVATIVE COHERENT EXTENSION AND DOES NOT DETERMINE ITS")
     print("     COHERENT GEOMETRY. S <=> D <=> Q_fb remains the exact classical / fixed-basis")
     print("     quotient, and H~ = l^2(S) (x) C^2 with P~ = P (x) I and F = Tr_{C^2} is ONE explicit")

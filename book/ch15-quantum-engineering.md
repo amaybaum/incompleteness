@@ -1,7 +1,7 @@
 # Chapter 15
 # Quantum Engineering — Hardware, Software, and the BEC Experiment
 
----
+***
 
 ## 15.1 What this chapter develops
 
@@ -169,7 +169,7 @@ The functional form distinguishes the proposal's prediction from the alternative
 
 The next section develops the BEC analogue-gravity experiment in detail as the framework's cleanest near-term test of these predictions.
 
----
+***
 
 ## 15.8 The BEC analogue-gravity experiment
 
@@ -265,4 +265,4 @@ The chapter's content connects the framework's foundational commitments (Chapter
 
 The framework's empirical reach across Chapters 13-17 is concentrated at the application level — specific predictions for biology, computing, engineering, medicine, and bioinformatics. The framework's content here in quantum engineering is the bridge between the foundational chapters (1-9) and the applied chapters (13-17), demonstrating that the framework's structural commitments at the substratum level produce specific quantitative predictions across multiple engineering domains.
 
----
+***

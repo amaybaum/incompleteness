@@ -1,7 +1,7 @@
 # Chapter 11
 # The Origin of Life
 
----
+***
 
 ## 11.1 What this chapter develops
 
@@ -217,4 +217,4 @@ The empirical confirmations of the framework's content are concordance: laborato
 
 **Forward pointers.** Chapter 12 develops the framework's content on evolution, intelligence, and self-reference: the cascade from the chapter's first replicators through complex biology to general intelligence and the framework's own self-discovery. Chapter 13 develops quantum biology — the specific applications of C1–C4 at the molecular scale to biological systems with substantial empirical content (enzyme kinetics, photosynthesis, magnetoreception, neural information processing). The framework's content in this chapter — Darwinian evolution as structural consequence, RNA-like architecture as structural prediction, C1–C4 as the unifying mechanism — provides the foundation on which the subsequent biology chapters build.
 
----
+***

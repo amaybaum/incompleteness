@@ -1,7 +1,7 @@
 # Chapter 7
 # The Gravitational Sector
 
----
+***
 
 ## 7.1 What this chapter develops
 
@@ -62,7 +62,7 @@ The counting also sits at the intersection of an independent family of results: 
 
 The framework's relation to Jacobson's original derivation deserves explicit comment. Jacobson's argument [Phys. Rev. Lett. 75, 1260 (1995)] uses $\hbar$-containing forms throughout; the present derivation does not — it uses the classical identity $dE = (c^2 \kappa / 8\pi G)\,dA$ and the classical entropy density $\eta = 1/\epsilon^2$. The logical ordering differs from Jacobson's: his argument derives $G$ from $\eta$ and $\hbar$; the present argument takes $G$ as a parameter of the classical Hamiltonian and derives $\hbar$ from $G$ and $\epsilon$. The two are consistent — substituting $\eta = 1/\epsilon^2$ and $\hbar = c^3 \epsilon^2/(4G)$ into Jacobson's formula $G_{\text{eff}} = c^4/(8\pi \eta \cdot \hbar c)$ recovers $G_{\text{eff}} = G$ — but the roles of input and output are reversed. The Gibbons-Hawking temperature $k_B T_{\text{GH}} = \hbar \kappa / (2\pi c)$ is recovered as a prediction, not used as an input.
 
----
+***
 
 ## 7.4 Self-consistency and the discreteness scale
 
@@ -188,7 +188,7 @@ The framework provides a microscopic realization of these results: the partition
 
 **The classical vacuum energy scale.** The framework dissolves the QFT cosmological constant problem but does not explain *why* $\rho \sim H^2/G$ takes its specific observed value. This is set by initial conditions through the Friedmann equation, and the framework reclassifies the problem from quantum vacuum cancellation to classical initial conditions. The two problems are not equivalent. The QFT cosmological constant problem requires a 122-decimal-place cancellation between independent contributions — the bare cosmological constant and the zero-point energies of every quantum field — re-tuned at each order of perturbation theory. The initial-conditions question asks why a single parameter takes its observed value; the scale $\rho \sim H^2/G$ is the natural energy density of classical cosmology, not a fine-tuned cancellation between unrelated quantities. The framework eliminates the 122-digit cancellation entirely; the remaining question — why $H$ takes its value — is a standard cosmological problem addressable by inflationary dynamics or other initial-conditions mechanisms.
 
----
+***
 
 ## 7.8 Dark energy in running-vacuum form
 
@@ -310,4 +310,4 @@ Chapter 9 develops the framework's relationship to other unification programs �
 
 The framework's content in fundamental physics, developed across Chapters 5 through 9, reduces a substantial portion of standard physics to structural consequences of the framework's foundational commitments. The empirical record at the close of Part II spans the Standard Model gauge sector (22 predictions matched within $0.02\%$ to $1.2\%$), the gravitational sector (14 predictions matched within $0.04\%$ to $99.999\%$), and the neutrino sector (7 predictions matched within $0.07\sigma$ to $1.01\sigma$). Part III turns to the framework's reach beyond fundamental physics — the emergence cascade through chemistry, life, evolution, and intelligence — and Part IV to working applications in quantum biology, quantum engineering and computation, medicine, bioinformatics, and the framework's forward predictions.
 
----
+***
