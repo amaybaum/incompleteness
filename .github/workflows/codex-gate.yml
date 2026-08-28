@@ -78,16 +78,33 @@ jobs:
             exit 1
           fi
 
-          # Reviews: which commit each one looked at.
-          reviews_json() {
-            gh api graphql -f query='
-              query($owner:String!, $repo:String!, $pr:Int!) {
-                repository(owner:$owner, name:$repo) {
-                  pullRequest(number:$pr) {
-                    reviews(last:50) { nodes { author { login } commit { oid } } }
+          # Reviews: has the reviewer looked at this exact commit? PAGINATED, for the same reason the
+          # threads are. Every reply posted on this pull request is itself a review, so the count
+          # climbs fast; once it passes one page, a single last:50 would omit the valid exact-head
+          # review and the gate would wait out its full timeout and fail a condition already met.
+          reviewed_head() {
+            local cursor="null" found=0 page
+            while :; do
+              page="$(gh api graphql -f query='
+                query($owner:String!, $repo:String!, $pr:Int!, $after:String) {
+                  repository(owner:$owner, name:$repo) {
+                    pullRequest(number:$pr) {
+                      reviews(first:100, after:$after) {
+                        pageInfo { hasNextPage endCursor }
+                        nodes { author { login } commit { oid } }
+                      }
+                    }
                   }
-                }
-              }' -F owner="$OWNER" -F repo="$REPO" -F pr="$PR"
+                }' -F owner="$OWNER" -F repo="$REPO" -F pr="$PR" \
+                   $( [ "$cursor" = "null" ] || printf -- '-F after=%s' "$cursor" ) )"
+              found=$(( found + $(jq -r --arg who "$REVIEWER" --arg sha "$HEAD_SHA" '
+                [ .data.repository.pullRequest.reviews.nodes[]
+                  | select(.author.login == $who and .commit.oid == $sha) ] | length' <<<"$page") ))
+              [ "$found" -eq 0 ] || break
+              [ "$(jq -r '.data.repository.pullRequest.reviews.pageInfo.hasNextPage' <<<"$page")" = "true" ] || break
+              cursor="$(jq -r '.data.repository.pullRequest.reviews.pageInfo.endCursor' <<<"$page")"
+            done
+            echo "$found"
           }
 
           # Threads, PAGINATED. A single last:100 page silently drops older threads once a pull
@@ -128,11 +145,7 @@ jobs:
           # gate by editing nearby code. Resolving is the only thing that clears it, which is the
           # contract the failure message states.
           for attempt in $(seq 1 24); do
-            json="$(reviews_json)"
-
-            reviewed="$(jq -r --arg who "$REVIEWER" --arg sha "$HEAD_SHA" '
-              [ .data.repository.pullRequest.reviews.nodes[]
-                | select(.author.login == $who and .commit.oid == $sha) ] | length' <<<"$json")"
+            reviewed="$(reviewed_head)"
 
             if [ "$reviewed" -gt 0 ]; then
               open_threads="$(open_thread_count)"

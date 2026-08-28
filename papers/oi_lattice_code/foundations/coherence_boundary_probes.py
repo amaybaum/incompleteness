@@ -30,7 +30,11 @@
 #        states, so support > 1 is genuinely necessary. But if the reachable ray geometry stays
 #        REAL, every Bargmann product is real and the holonomy is confined to {0, pi} -- a Z_2 sign
 #        structure, a real line bundle, NOT a continuously variable U(1)_Y connection.
-#   CB3  COMPLEX RANK TWO IS SUFFICIENT, AND RANK ONE IS NOT. With a C^2 fibre the witness family
+#   CB3  COMPLEX RANK TWO SUFFICES, AND RANK ONE DOES NOT, *for Bargmann phases of distinct rays in
+#        one globally identified ambient space* -- which is the whole scope of the bound. It is NOT
+#        a lower bound on connection holonomy: a complex LINE bundle carries non-flat U(1)
+#        connections, and a rank-one transport can accumulate holonomy the fibre trace never sees.
+#        With a C^2 fibre the witness family
 #        (1,0), (1,1), (1, t i) has Bargmann invariant 1 + t i as an IDENTITY IN t -- carried as
 #        polynomials in t over the Gaussian rationals, so the continuity of arctan(t) is algebra
 #        rather than sampling. A rank-one fibre contributes only a global phase, which cancels in
@@ -66,7 +70,7 @@
 #        U_s rho_st U_t^dag, of trace Tr(U_t^dag U_s rho_st), equal to Tr(rho_st) for every rho_st
 #        only when U_t^dag U_s = I. That forces state-independence, nothing about the common value,
 #        and nothing about different native OPERATIONS carrying different global rotations.
-#   CB5d THE OPERATION-DEPENDENT LIFT IS CONSERVATIVE, AND THE RELATIONS STILL KILL THE HOLONOMY.
+#   CB5d THE OPERATION-DEPENDENT LIFT IS CONSERVATIVE, AND THE ONE TESTED WORD CARRIES NO HOLONOMY.
 #        Lift each operation o as P_o (x) U_o with a single global U_o: the same U sits on both
 #        sides of every block, so the fibre trace is preserved on every coherence unconditionally,
 #        and CB5c's obstruction does not apply. The native RELATIONS then bind it only
@@ -96,10 +100,12 @@
 # Three independent gaps stand between this file and it -- not DERIVED (nothing in OI selects a
 # section), not LOCAL (two visible values, no neighbour relation, so the plaquette is absent), not
 # IDENTIFIED with the hypercharge channel (H-Y-vertex, untouched). CB5b-CB5d map where the freedom
-# can and cannot live: the native P (x) I transport is flat, a STATE-dependent rotation is not
-# conservative on coherences, and an OPERATION-dependent one is conservative but is pinned by the
-# native relations, which force the tested loop's holonomy to be trivial. NO HOLONOMY WITNESS IS
-# CLAIMED IN THIS CONSTRUCTION. A section-induced Berry connection is a separate untested route.
+# can and cannot live: the native P (x) I transport is flat; a STATE-dependent rotation stays
+# OI-CONSERVATIVE and fails only STRONG conservativity, on the coherences OI never supplied; and an
+# OPERATION-dependent one is conservative in both senses, with the native relations binding it
+# projectively and the ONE TESTED WORD coming out trivial. NO HOLONOMY WITNESS IS CLAIMED IN THIS
+# CONSTRUCTION, and nothing is claimed about the extension class at large. A section-induced Berry
+# connection is a separate untested route.
 #
 # NOTHING HERE IS PROPAGATED TO THE MANUSCRIPT. These are round results pending acceptance; the
 # scope block says so, and §A.25 propagation is a merge-time step, not something this file asserts.
@@ -585,19 +591,17 @@ print("CB5d  operation-dependent rotations are conservative; the ONE TESTED WORD
 # A lift must respect the native RELATIONS -- but only PROJECTIVELY, and the difference matters.
 # Each instrument is an involution ON ALL STATES, so I_a o I_a is the identity MAP. The fibre acts by
 # CONJUGATION, rho -> U rho U^dag, which is blind to an overall phase, so what the relation forces is
-# U_(I_a)^2 = e^{i theta} I -- a SCALAR -- and NOT U_(I_a)^2 = I. Demanding the strict equality is
-# imposing a non-projective representation as an extra hypothesis, and an earlier version of this
-# check did that silently. Since the target structure is itself Bargmann/projective geometry, the
-# projective reading is the right one and the strict one would beg the question.
+# U_(I_a)^2 = e^{i theta} I -- a SCALAR -- and NOT U_(I_a)^2 = I. Demanding the strict equality
+# imposes a non-projective representation as an extra hypothesis. Since the target structure is
+# itself Bargmann/projective geometry, the projective reading is the right one and the strict one
+# begs the question.
 #
-# What the projective relation still gives is that the tested word's holonomy is a SCALAR, and a
-# scalar acts trivially by conjugation. So the withdrawn witness stays withdrawn -- for that ONE
-# WORD, which is all that is tested here.
+# What the projective relation gives is that the tested word's holonomy is a SCALAR, and a scalar
+# acts trivially by conjugation. That covers the ONE WORD tested here and nothing wider.
 #
-# And the scalar's VALUE carries no invariant content: J and (i J) implement the SAME conjugation
-# channel while their squares are -I and +I. Reading -1 off a chosen representative as a Z_2 datum
-# is reading a gauge choice; an earlier version of this check did that and tied it to CB2's real
-# line bundle, wrongly. An invariant would be the class of the 2-cocycle, which is not computed.
+# The scalar's VALUE carries no invariant content: J and (i J) implement the SAME conjugation
+# channel while their squares are -I and +I, so -1 read off a chosen representative is a gauge
+# choice and not a Z_2 datum. An invariant would be the class of the 2-cocycle, uncomputed here.
 U_OP = {'I_0': (((F(3, 5), F(0)), (F(-4, 5), F(0))),        # a rational rotation: unitary over Q(i)
                 ((F(4, 5), F(0)), (F(3, 5), F(0)))),
         'I_1': U_I, 'phi': U_I}
