@@ -115,7 +115,8 @@ jobs:
           rc=0
           for p in comb_reachability_probes phaselock_probes source_lift_probes \
                    induced_source_probes gauge_support_probes \
-                   bargmann_bridge_probes coherence_boundary_probes; do
+                   bargmann_bridge_probes coherence_boundary_probes \
+                   native_group_probes; do
             echo "=== ${p}.py ==="
             python3 "${p}.py" || rc=1
           done
