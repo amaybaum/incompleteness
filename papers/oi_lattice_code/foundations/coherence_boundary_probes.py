@@ -504,9 +504,9 @@ ok5b &= all(op[W2] != W0 for op in (PHI, INSTR[0], INSTR[1]))
 ok5b &= is_real_nonneg(bargmann(*[RAYS[DELIVERED]] * 3))
 # LOCALITY IS UNSPECIFIED HERE, and that is stated rather than measured. The construction defines
 # states, a dynamics and instruments; it defines no adjacency, no neighbour relation and no graph on
-# the visible values, so there is nothing here for a spatial plaquette to be built on. An earlier
-# form of this check tested the SIZE of the visible alphabet, which is not evidence about locality:
-# it would have passed for a construction with an adjacency and failed for one without.
+# the visible values, so there is nothing here for a spatial plaquette to be built on. The SIZE of
+# the visible alphabet is not evidence either way: it would read green for a construction that has
+# an adjacency and red for one that does not, so no count of visible values is asserted here.
 check("CB5b", ok5b,
       f"THE NATIVE TRANSPORT IS FLAT. This is a statement about the transport P~ = P (x) I and "
       f"about the tested word, and NOT about every connection the extension could carry — [SM "
