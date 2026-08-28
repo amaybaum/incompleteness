@@ -39,21 +39,27 @@
 #        states with identical F and different fibre expectation. So the original
 #        S <=> D <=> Q_fb equivalence is preserved as a QUOTIENT, and must NOT be read as covering
 #        the enlarged coherent theory.
-#   CB5b THE SITE-DEPENDENT LIFT, which is what the availability claim actually needs. A CONSTANT
+#   CB5b THE STATE-DEPENDENT LIFT, which is what the availability claim actually needs. A CONSTANT
 #        fibre -- the same ray at every state -- cannot carry curvature: P~ = P (x) I leaves it
 #        untouched and the loop product is a positive real, which is b439's GS17 exactly. So CB5b
 #        builds a lift whose ray VARIES with the native state, shows it reproduces the comb and
-#        retracts just as the constant one does, and exhibits a NONZERO Bargmann phase among the
-#        rays it attaches. Capacity is thus demonstrated inside the construction, not on
-#        free-floating vectors.
+#        retracts just as the constant one does, and exhibits a NONZERO Bargmann phase. The witness
+#        is a WORD THE DYNAMICS TRAVERSES -- s, I_0 s, phi I_0 s, distinct, in ONE sector, with the
+#        phi step taken in the constructed branch rather than the bijection padding -- and NOT three
+#        states drawn from sectors the dynamics keeps disjoint, whose rays would again be an
+#        arbitrary assignment on configuration space. The ray assignment therefore has to depend on
+#        what the native operations MOVE, not only on the sector label they preserve.
 #
 # THE BOUNDARY STATEMENT (CB6). OI fixes the classical operational quotient and leaves the coherent
 # fibre over it UNDERDETERMINED. b440 showed the canonical fibre is trivial; this file shows how
 # little is needed to make it nontrivial, and that everything already proved survives the forgetting.
 # H-observer-bundle becomes AVAILABLE-IN-THE-CLASS -- the conservative extension class CONTAINS a
 # curved configuration (CB5b) -- and is still NOT DERIVED, because the assignment is imposed by hand
-# and nothing in OI selects it. H-Y-vertex is untouched and remains separate. CB6 and the scope
-# block are GATED on CB1-CB5b: an unconditional verdict would print PASS beside red controls.
+# and nothing in OI selects it. The curvature is also OPERATIONAL, not SPATIAL: the construction has
+# two visible values and no neighbour relation, so the plaquette a hypercharge curvature lives on
+# cannot be exhibited in it at all, and CB5b records that as a computed fact rather than a caveat.
+# H-Y-vertex is untouched and remains separate. CB6 and the scope block are GATED on CB1-CB5b: an
+# unconditional verdict would print PASS beside red controls.
 #
 # ARITHMETIC. Exact throughout: Gaussian rationals for the ray geometry, Fractions for the states.
 # The lifted state is carried as a block form rho = sum_s |s><s| (x) M_s with M_s a 2x2 Gaussian
@@ -311,7 +317,14 @@ YPLUS = (((F(1, 2), F(0)), (F(0), F(-1, 2))), ((F(0), F(1, 2)), (F(1, 2), F(0)))
 # ---------------------------------------------------------------- CB4  the intertwining identity
 print("CB4  the extension is conservative: F(P~ rho P~^dag) = P F(rho) P^dag on the native ops")
 ok4 = NATIVE_ARE_BIJECTIONS          # CB4 reads these as permutation matrices; establish that first
-ASSIGN = lambda st: (st[0] + st[3]) % len(RAYS)      # a genuinely site-dependent ray assignment
+def ASSIGN(st):
+    """A ray per native state. It must depend on the parts of the state the NATIVE OPERATIONS
+    MOVE -- the action register and the step counter, not only the sector label u, which the
+    instruments and the constructed branch of phi both preserve. An assignment constant along a
+    native word attaches the same ray at every step of it and can carry no phase."""
+    x, h, a, u, c = st
+    aw = 0 if a[0] == BLANK else a[0] + 1
+    return (x + u + c + aw) % len(RAYS)
 for rho in ([lift(INIT, f) for f in (KET0, PLUS, YPLUS)] + [lift_varying(INIT, ASSIGN)]):
     for perm, name in ((PHI, 'phi'), (INSTR[0], 'I_0'), (INSTR[1], 'I_1')):
         lhs = forget(push_lift(rho, perm))
@@ -326,7 +339,7 @@ check("CB4", ok4,
       "matrices is earned rather than assumed. Then with H~ = l^2(S) (x) C^2, P~ = P (x) I and "
       "F = Tr_{C^2}, forgetting commutes with the dynamics EXACTLY — on the actual operations phi, "
       "I_0, I_1 and on the composite word I_1 then phi, at three constant fibre states AND at a "
-      "SITE-DEPENDENT one. The identity holds because a permutation relabels the blocks and the "
+      "STATE-DEPENDENT one. The identity holds because a permutation relabels the blocks and the "
       "fibre trace is taken blockwise, so it is blind to which ray sits where; nothing about the "
       "fibre can leak into the classical marginal")
 
@@ -373,33 +386,50 @@ check("CB5", ok5,
       "carries observables the old instrument algebra cannot see. S <=> D <=> Q_fb survives as a "
       "QUOTIENT and must not be read as covering the extension")
 
-# ------------------------------------------------- CB5b  the site-dependent lift, which is the point
-print("CB5b a SITE-DEPENDENT fibre preserves everything AND carries curvature")
-# The constant fibre of CB4/CB5 cannot carry curvature: a site-independent state gives a real
-# positive loop product, which is exactly b439's GS17. So the availability claim needs a lift whose
-# ray VARIES with the state, and that lift has to be shown conservative in its own right.
+# -------------------------------------- CB5b  the varying lift, along a word the dynamics traverses
+print("CB5b a STATE-DEPENDENT fibre preserves everything AND is curved ALONG A NATIVE WORD")
+# The constant fibre of CB4/CB5 cannot carry curvature: a state-independent ray gives a real
+# positive loop product, which is exactly b439's GS17. So the claim needs a lift whose ray VARIES,
+# and that lift has to be shown conservative in its own right.
+#
+# It also has to be curved over states the theory can actually VISIT. Three states drawn from
+# three different sectors u -- which both instruments and the constructed branch of phi preserve --
+# are mutually inaccessible, and a Bargmann product among their rays is a statement about an
+# arbitrary assignment on configuration space, not a holonomy of anything the dynamics traverses.
+# So the witness here is a WORD in the native generators: s, then I_0 applied to it, then phi.
 ok5b = NATIVE_ARE_BIJECTIONS
 for act in range(nA):
     native = comb_from(INIT, act, False)
     ok5b &= (comb_from(lift_varying(INIT, ASSIGN), act, True) == native)
 ok5b &= (forget(lift_varying(INIT, ASSIGN)) == INIT)          # the retract still holds
-# ... and the rays this lift actually attaches carry a nonzero Bargmann phase between sites
-sites = [s for s in STATES if s in INIT][:64]
-attached = {}
-for s in sites:
-    attached.setdefault(ASSIGN(s), s)
-tri = [attached[k] for k in sorted(attached)][:3]
-ok5b &= (len(tri) == 3)
-Bsite = bargmann(RAYS[ASSIGN(tri[0])], RAYS[ASSIGN(tri[1])], RAYS[ASSIGN(tri[2])])
-ok5b &= (Bsite[1] != 0 or Bsite[0] < 0)                        # a genuine phase, not 0 or positive
+W0 = min(INIT)                                    # a state the initial law actually charges
+W1 = INSTR[0][W0]                                 # ... write action 0
+W2 = PHI[W1]                                      # ... then step the comb
+WORD = (W0, W1, W2)
+ok5b &= (len(set(WORD)) == 3)                     # three DISTINCT states, so the triangle is real
+ok5b &= (len({s[3] for s in WORD}) == 1)          # all in ONE sector: connected, not disjoint
+# W2 must come from the CONSTRUCTED branch of phi, not from the padding completion that only
+# exists to make phi a bijection -- a step through the padding is not a step of the dynamics.
+ok5b &= (W1[4] < K and wf_x(W1[1], W1[4]) and wf_a(W1[2], W1[4], wrote=True))
+Bword = bargmann(*[RAYS[ASSIGN(s)] for s in WORD])
+ok5b &= (Bword[1] != 0 or Bword[0] < 0)                        # a genuine phase, not 0 or positive
+# What is NOT available here, stated as a computed fact rather than a caveat: the construction has
+# nV visible values and no neighbour relation at all, so "three connected local SITES" -- the
+# spatial plaquette a hypercharge curvature would live on -- does not exist to be exhibited.
+NO_SPATIAL_PLAQUETTE = (len({s[0] for s in STATES}) < 3)
+ok5b &= NO_SPATIAL_PLAQUETTE
 check("CB5b", ok5b,
-      f"the site-dependent lift reproduces the comb EXACTLY at both actions and still retracts onto "
-      f"the fixed-basis theory, so it is conservative in exactly the sense CB4-CB5 established for "
-      f"the constant one — the intertwining is blind to which ray sits where. And the rays it "
-      f"attaches to three distinct native states have Bargmann invariant {Bsite[0]} + {Bsite[1]}i, "
-      "which is not a non-negative real: the extension carries CURVATURE. This is what the "
-      "availability claim needs and what a constant fibre could never supply, that being b439's "
-      "GS17 exactly")
+      f"the state-dependent lift reproduces the comb EXACTLY at both actions and still retracts "
+      f"onto the fixed-basis theory, so it is conservative in exactly the sense CB4-CB5 established "
+      f"for the constant one — the intertwining is blind to which ray sits where. And its rays are "
+      f"curved along a WORD THE DYNAMICS TRAVERSES: the three distinct states s, I_0 s, phi I_0 s — "
+      f"one sector throughout, with the phi step taken in the constructed branch and not in the "
+      f"padding — carry Bargmann invariant {Bword[0]} + {Bword[1]}i, not a non-negative real. That "
+      f"is what a constant fibre could never supply, b439's GS17 exactly. What it is NOT: the "
+      f"construction has {len({s[0] for s in STATES})} visible values and NO neighbour relation, so "
+      "three connected local SITES — the spatial plaquette a hypercharge curvature would live on — "
+      "do not exist in it to be exhibited, and this witness is a loop in OPERATIONAL HISTORY rather "
+      "than in space. The spatial statement stays inside H-observer-bundle, undischarged")
 
 # ---------------------------------------------------------------- CB6  the boundary statement
 print("CB6  the boundary, and what it does and does not settle")
@@ -414,12 +444,15 @@ check("CB6", all(CHECKS),
       "classical core plus an underdetermined coherent fibre, with a rank and reality bound on what "
       "the fibre must be for hypercharge. WHAT IS EARNED, and only this: the conservative extension "
       "class CONTAINS a configuration that preserves the comb, the retract and the dynamics exactly "
-      "and still carries a nonzero Bargmann phase (CB5b) — kinematic capacity, demonstrated on the "
-      "actual construction rather than on free-floating vectors. WHAT IS NOT: nothing here DERIVES "
-      "the fibre, since the assignment is imposed by hand and nothing in OI selects it; and nothing "
+      "and is curved along a word the dynamics actually traverses (CB5b) — kinematic capacity, "
+      "demonstrated inside the construction rather than on free-floating vectors. WHAT IS NOT, in "
+      "three separate respects: nothing here DERIVES the fibre, since the assignment is imposed by "
+      "hand and nothing in OI selects it; the curvature exhibited is along an OPERATIONAL word, "
+      "while the construction has no neighbour relation and only two visible values, so the SPATIAL "
+      "plaquette a hypercharge curvature lives on cannot be exhibited in it at all; and nothing "
       "identifies that phase with the HYPERCHARGE channel, which is H-Y-vertex and is untouched. "
-      "'Available' therefore means available-in-the-class, not derived, and the two must not be run "
-      "together")
+      "'Available' therefore means available-in-the-class, not derived and not local, and the "
+      "readings must not be run together")
 
 print()
 if not all(CHECKS):
@@ -432,9 +465,15 @@ else:
     print("     F = Tr_{C^2} preserves the native dynamics, the comb probabilities and the fixed-basis")
     print("     theory exactly, as a retract; and it carries observables the old instrument algebra")
     print("     cannot see.")
+    print("     Settled at b441a: a state-dependent fibre is curved along a word the dynamics")
+    print("     traverses — s, I_0 s, phi I_0 s, one sector throughout — while still reproducing the")
+    print("     comb and the retract exactly. Capacity is inside the construction, not beside it.")
     print("     NOT settled: the fibre is not DERIVED. H-observer-bundle is available in the extension")
-    print("     class, not a consequence of OI. H-Y-vertex is untouched. And the enlarged theory is NOT")
-    print("     covered by the old S <=> D <=> Q_fb equivalence — that survives as a quotient only.")
+    print("     class, not a consequence of OI. The curvature shown is OPERATIONAL, not SPATIAL: the")
+    print("     construction has two visible values and no neighbour relation, so the plaquette a")
+    print("     hypercharge curvature lives on cannot be exhibited in it. H-Y-vertex is untouched.")
+    print("     And the enlarged theory is NOT covered by the old S <=> D <=> Q_fb equivalence —")
+    print("     that survives as a quotient only.")
 print()
 print("coherence_boundary_probes:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)
