@@ -58,8 +58,14 @@ jobs:
             "$PR_BASE_REF" \
             "+refs/pull/$PR_NUMBER/head"
 
+      # continue-on-error is STEP-level, deliberately. An unavailable external reviewer should not
+      # fail the pull request; a broken checkout or fetch should, because that is this workflow's
+      # own plumbing rather than the reviewer. Job-level would have masked both. GitHub keeps the
+      # step's outcome as `failure` while its conclusion becomes `success`, so the next step can
+      # still detect and report the failure instead of disguising it.
       - name: Run Codex research audit
         id: codex
+        continue-on-error: true
         # openai/codex-action v1, pinned to the commit targeted by v1 as checked 2026-08-28
         uses: openai/codex-action@86365089eb2b84e0a8fb0717b304f8bdcb13b20e
         with:
@@ -133,6 +139,17 @@ jobs:
             - Review blocker(s) found
 
             Do NOT recommend or perform a GitHub merge. The human owner decides merging.
+
+      - name: Report unavailable audit
+        if: steps.codex.outcome == 'failure'
+        run: |
+          echo "::warning::Codex advisory audit failed; no review was produced. Research CI is unaffected."
+          {
+            echo "### Codex PR audit"
+            echo
+            echo "⚠️ Advisory audit unavailable for this run."
+            echo "This does not affect the research verification jobs."
+          } >> "$GITHUB_STEP_SUMMARY"
 
   post-audit:
     name: Post Codex audit comment
