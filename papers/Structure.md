@@ -941,7 +941,7 @@ The framework predicts that no grand-unified gauge structure exists at any energ
 
 (C) *Mechanistic.* OI's gauge couplings emerge from the fermion determinant, with no fundamental gauge action and no moduli connecting the predicted values to other values.
 
-This prediction is structurally distinct from string-theoretic frameworks, which traverse intermediate large gauge groups (heterotic $E_8$ chains, F-theory $\mathrm{SU}(5)$, type IIA Pati-Salam) en route to the SM. The OI-distinguishing content is layer (C) plus the universal $1/\alpha_0 = 23.25$ value: the three SM gauge couplings emerge from a *single* substratum quantity, not from independent compactification moduli.
+This prediction is structurally distinct from string-theoretic frameworks, which traverse intermediate large gauge groups (heterotic $E_8$ chains, F-theory $\mathrm{SU}(5)$, type IIA Pati-Salam) en route to the SM. The OI-distinguishing content is layer (C) plus the universal $1/\alpha_0 = 23.25$ value (ambient; native for hypercharge under H-observer-bundle and H-Y-vertex, [SM §6.5]): the three SM gauge couplings emerge from a *single* substratum quantity, not from independent compactification moduli.
 
 The no-GUT prediction's empirical consequences are catalogued at Level 3 in §12.4: proton lifetime $\tau_p \sim 10^{45}$ years, no GUT-mechanism monopoles, no GUT-chain cosmic strings. None of these uniquely identify OI; they identify the broader "SM all the way to Planck" universality class to which OI belongs. The unique-to-OI content is the structural reason the framework belongs to this class (the cubic-commutant gauge-emergence mechanism plus the induced-gauge-theory structure forcing the universal $1/\alpha_0$).
 

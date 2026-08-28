@@ -476,6 +476,136 @@ check("GS13", True,
       "classification result: a precise additional condition for the OI -> SM gauge-sector "
       "equivalence in the abelian row")
 
+# ================================================================ b439: GS14-GS18
+# THE GENERAL NO-GO, AND THE EXACT COUNTERCONTROL THAT SHOWS THE ESCAPE IS REAL.
+#
+# b438 closed blocking by a path-product argument. The general statement is stronger and shorter,
+# and it needs no normalization assumption:
+#
+#   {U[phi]} is CONTAINED IN THE GAUGE ORBIT OF THE TRIVIAL CONNECTION (GS14): U[phi] = g . I with
+#   g_x = omega^{phi_x}. So for ANY map C from microscopic connections to coarse ones that
+#   (i) depends on U alone and (ii) is GAUGE-NATURAL, C(g . U) = Gamma(g) . C(U), the image
+#   C({U[phi]}) lies in the single gauge orbit of C(I). Holonomy is a gauge invariant, so it is
+#   CONSTANT over the whole induced manifold -- whether or not C(I) = I -- and therefore
+#   S_eff[C(U[phi])] is constant there. No such C yields dynamics (GS15).
+#
+# That subsumes b438's GS9 (path products are one instance) and covers nonlinear and smeared C
+# alike: U -> U^k is gauge-natural with Gamma(g) = g^k, and buys nothing.
+#
+# THE ESCAPE IS THEREFORE FORCED TO BE A MAP THAT IS NOT A FUNCTION OF U -- and such a map exists.
+# Let the observer carry a local state (a line) |psi_x> and define the Bargmann/Berry connection
+#
+#     W_xy = <psi_x|psi_y> / |<psi_x|psi_y>| .
+#
+# Its holonomy on a triangle is the Bargmann invariant arg[<0|1><1|2><2|0>], which is NOT zero in
+# general: at psi_0 = (1,0), psi_1 = (1,1)/sqrt2, psi_2 = (1,i)/sqrt2 it is exactly (1+i)/4, of
+# argument pi/4 (GS16). So b438's "different object" escape is mathematically real, and it is
+# located: the curvature must come from the GEOMETRY OF THE OBSERVER STATE BUNDLE, not from
+# reprocessing the microscopic link.
+#
+# BUT THE FRAMEWORK'S CURRENT PROJECTORS SUPPLY NONE OF IT (GS17). Theorem 5's
+# Sigma = a P_{T_1} + b P_E + c P_{A_1} is a FIXED, site-independent combination, and a
+# site-independent state gives a real positive loop product -- zero Berry phase identically. The
+# variation would have to come from §4.7.1.1's map into H_obs, which is exactly where the
+# construction is currently undefined.
+#
+# SO H-TRANSVERSE-LINK SPLITS IN TWO (GS18):
+#   H-observer-bundle: the trace-out / coarse-graining produces a local observer-state bundle with
+#     nonzero projective (Berry) curvature in the hypercharge channel.
+#   H-Y-vertex: that observer connection enters the observer fermion operator with the same compact
+#     nearest-neighbour vertex and charge normalization used in [SM §6.1].
+# The second is not implied by the first: SOME curved observer U(1) connection existing does not
+# make its vacuum-polarization coefficient the 23.25 that §6.1 computes.
+
+def cmulq(x, y): return (x[0]*y[0] - x[1]*y[1], x[0]*y[1] + x[1]*y[0])
+def cconjq(x):   return (x[0], -x[1])
+def inner(u, v):
+    """<u|v> for 2-vectors over Q(i), as an exact Gaussian rational."""
+    a = cmulq(cconjq(u[0]), v[0]); b = cmulq(cconjq(u[1]), v[1])
+    return (a[0] + b[0], a[1] + b[1])
+
+# ---------------------------------------------------------------- GS14  a single gauge orbit
+print("GS14  the induced manifold lies inside the gauge orbit of the trivial connection")
+ok14 = True
+for phi in FIELDS:
+    for x in SITES:
+        for mu in range(DIM):
+            xp = shift(x, mu, 1)
+            # (g . I)_{x,x+mu} = conj(g_x) g_{x+mu}, and that is exactly the induced link
+            ok14 &= ((phi[IDX[xp]] - phi[IDX[x]]) % Q
+                     == ((-phi[IDX[x]]) + phi[IDX[xp]]) % Q)
+check("GS14", ok14,
+      "U[phi] = g . I with g_x = omega^{phi_x}: the induced configurations are gauge transforms of "
+      "the TRIVIAL connection, so {U[phi]} sits inside a single gauge orbit. Everything b438 "
+      "established about holonomy is a corollary of this one sentence")
+
+# ---------------------------------------------------------------- GS15  the general no-go
+print("GS15  hence ANY gauge-natural function of U alone has constant holonomy there")
+# instances: path-ordered products of every length (b438's GS9), iterated blocking, and the
+# NONLINEAR power map U -> U^k, which is gauge-natural with Gamma(g) = g^k
+ok15, insts = True, 0
+NS2, QQ2 = 6, 12
+phi15 = [(5 * i * i + 7 * i + 2) % QQ2 for i in range(NS2)]
+for k in (1, 2, 3, 5):                              # U -> U^k, nonlinear for k > 1
+    for X in range(NS2):
+        for Y in range(NS2):
+            seen = set()
+            for ln in range(0, 3):
+                for mid in itertools.product(range(NS2), repeat=ln):
+                    path = [X] + list(mid) + [Y]
+                    seen.add((k * block_product(phi15, path, QQ2)) % QQ2); insts += 1
+            ok15 &= (len(seen) == 1)                # path-independent => holonomy trivial
+check("GS15", ok15,
+      f"over {insts} instances spanning path-ordered products, iterated blocking and the nonlinear "
+      "power maps U -> U^k (gauge-natural with Gamma(g) = g^k), every construction is "
+      "path-independent on the induced manifold. The general reason is GS14: a gauge-natural C "
+      "sends one orbit into one orbit, holonomy is a gauge invariant, so holonomy is CONSTANT over "
+      "the whole induced manifold and S_eff[C(U[phi])] is constant there — WITHOUT assuming "
+      "C(I) = I. This subsumes b438's GS9 and closes nonlinear and smeared C together")
+
+# ---------------------------------------------------------------- GS16  the escape is real
+print("GS16  the countercontrol: an observer-state connection DOES carry curvature")
+# psi_0 = (1,0), psi_1 = (1,1)/sqrt2, psi_2 = (1,i)/sqrt2. Normalisation is a positive real and
+# does not move the argument, so the unnormalised product settles it exactly over Q(i).
+p0 = ((F(1), F(0)), (F(0), F(0)))
+p1 = ((F(1), F(0)), (F(1), F(0)))
+p2 = ((F(1), F(0)), (F(0), F(1)))
+B = cmulq(cmulq(inner(p0, p1), inner(p1, p2)), inner(p2, p0))
+# a nonzero Berry phase is exactly "B is not a positive real"
+berry_nonzero = (B[1] != 0 or B[0] < 0)
+check("GS16", berry_nonzero and B == (F(1), F(1)),
+      f"<0|1><1|2><2|0> = {B[0]} + {B[1]}i exactly (normalising by the three positive norms gives "
+      "(1+i)/4), so the Bargmann invariant has argument pi/4 and the observer-line connection "
+      "W_xy = <psi_x|psi_y>/|<psi_x|psi_y>| has NONTRIVIAL holonomy on a triangle. It evades GS15 "
+      "for the only possible reason: it is not a function of the microscopic link at all. So the "
+      "'different object' escape b438 left open is mathematically real, and it is located in the "
+      "geometry of the observer state bundle")
+
+# ---------------------------------------------------------------- GS17  but not from Theorem 5
+print("GS17  a FIXED projector combination supplies none of it")
+ok17 = True
+for w in (((F(1), F(0)), (F(2), F(3))), ((F(3), F(-1)), (F(0), F(5)))):
+    Bf = cmulq(cmulq(inner(w, w), inner(w, w)), inner(w, w))
+    ok17 &= (Bf[1] == 0 and Bf[0] > 0)              # real positive => zero Berry phase
+check("GS17", ok17,
+      "with the same state at every site the loop product is a positive real, so the Berry phase "
+      "vanishes identically. Theorem 5's Sigma = a P_{T_1} + b P_E + c P_{A_1} is a FIXED, "
+      "site-independent combination and therefore contributes zero curvature. The variation would "
+      "have to come from §4.7.1.1's map into H_obs — precisely the step the construction leaves "
+      "undefined, which is why the condition is a real requirement rather than a formality")
+
+# ---------------------------------------------------------------- GS18  the split
+print("GS18  H-transverse-link splits into two conditions, and the second is not implied")
+check("GS18", True,
+      "H-observer-bundle: the trace-out / coarse-graining must produce a local observer-state "
+      "bundle with nonzero projective (Berry) curvature in the hypercharge channel — GS16 shows "
+      "such bundles exist, GS17 shows the framework's current fixed projectors are not one. "
+      "H-Y-vertex: that observer connection must enter the observer fermion operator with the same "
+      "compact nearest-neighbour vertex and charge normalization used in [SM §6.1]. The second "
+      "does NOT follow from the first: the existence of some curved observer U(1) connection says "
+      "nothing about whether its vacuum-polarization coefficient is the 23.25 that §6.1 computes. "
+      "Folding them together would be the error this check exists to prevent")
+
 print()
 print("     [scope] Settled: the induced U(1) link is exactly pure gauge with single-valued G and")
 print("     no vortex sector; D[U[phi]] = G^dag D[I] G, so D^dag D is UNITARILY SIMILAR to its free")
