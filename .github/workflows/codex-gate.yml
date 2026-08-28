@@ -199,8 +199,11 @@ jobs:
             # which is not a gate. Disagreeing with a finding is legitimate -- reply with the reason
             # AND resolve, so the thread carries the record and the branch moves.
             echo "::error::${open_threads} unresolved Codex thread(s) on this pull request." \
-                 "Resolve each one. If you are rejecting a finding, reply with the reason and" \
-                 "resolve it anyway -- a reply alone does not clear this check."
+                 "Convert #${PR} to DRAFT, batch every fix, then mark it Ready for review ONCE for" \
+                 "the next exact-head review -- pushing while draft never spends review quota," \
+                 "and only the Ready transition does. Resolve each thread as you address it; if you" \
+                 "are rejecting a finding, reply with the reason and resolve it anyway, since a" \
+                 "reply alone does not clear this check."
             exit 1
           fi
           echo "No unresolved Codex threads. Gate satisfied."
