@@ -75,10 +75,12 @@
 #        sides of every block, so the fibre trace is preserved on every coherence unconditionally,
 #        and CB5c's obstruction does not apply. The native RELATIONS then bind it only
 #        PROJECTIVELY: the fibre acts by conjugation, which is blind to an overall phase, so an
-#        involution forces U^2 = scalar and NOT U^2 = I -- the quarter turn J with J^2 = -I is a
-#        legitimate lift that the strict reading would wrongly exclude. Demanding strictness imposes
-#        a non-projective representation as a hidden hypothesis, which begs the question when the
-#        target structure is Bargmann geometry. NO HOLONOMY WITNESS IS CLAIMED HERE: for the ONE
+#        involution forces U^2 = scalar and NOT U^2 = I. But a projective lift must satisfy EVERY
+#        relation up to a scalar, and the instruments obey a second one: (I_0 I_1)^3 is the identity
+#        map on every state. The quarter turn J with J^2 = -I passes the involution and FAILS that,
+#        since J^3 = -J is not scalar -- and with U_(I_1) = I the two together force U itself
+#        scalar. NO NONTRIVIAL PROJECTIVE LIFT IS EXHIBITED HERE. Checking one relation would have
+#        licensed a lift a second relation forbids. NO HOLONOMY WITNESS IS CLAIMED HERE: for the ONE
 #        TESTED WORD the holonomy is a scalar, trivial as a channel, and that scalar's value is
 #        GAUGE -- J and iJ give the same channel with squares -I and +I -- so no Z_2 datum follows
 #        from it either. An invariant would be the 2-cocycle class in H^2(G, U(1)), uncomputed. The
@@ -468,7 +470,7 @@ print("CB5b a varying section is NOT a connection — P (x) I is inert, so there
 # at s is the ray that arrives at P(s) -- the fibre is INERT under the whole native algebra. A
 # Bargmann product formed by reading ASSIGN at three states of a word is then a property of the
 # hand-imposed section evaluated at three points, NOT a holonomy: the dynamics never realizes those
-# three rays together. Two earlier versions of this check made exactly that substitution.
+# three rays together.
 ok5b = NATIVE_ARE_BIJECTIONS
 for act in range(nA):
     native = comb_from(INIT, act, False)
@@ -500,11 +502,11 @@ for op in (PHI, INSTR[0], INSTR[1]):
 ok5b &= all(op[W2] != W0 for op in (PHI, INSTR[0], INSTR[1]))
 # so the DYNAMICALLY REALIZED triple is one ray three times, and its invariant is a positive real
 ok5b &= is_real_nonneg(bargmann(*[RAYS[DELIVERED]] * 3))
-# Separately: the construction has nV visible values and no neighbour relation at all, so "three
-# connected local SITES" -- the spatial plaquette a hypercharge curvature would live on -- does not
-# exist in it to be exhibited even if the fibre were not inert.
-NO_SPATIAL_PLAQUETTE = (len({s[0] for s in STATES}) < 3)
-ok5b &= NO_SPATIAL_PLAQUETTE
+# LOCALITY IS UNSPECIFIED HERE, and that is stated rather than measured. The construction defines
+# states, a dynamics and instruments; it defines no adjacency, no neighbour relation and no graph on
+# the visible values, so there is nothing here for a spatial plaquette to be built on. An earlier
+# form of this check tested the SIZE of the visible alphabet, which is not evidence about locality:
+# it would have passed for a construction with an adjacency and failed for one without.
 check("CB5b", ok5b,
       f"THE NATIVE TRANSPORT IS FLAT. This is a statement about the transport P~ = P (x) I and "
       f"about the tested word, and NOT about every connection the extension could carry — [SM "
@@ -521,9 +523,10 @@ check("CB5b", ok5b,
       f"silently through its third overlap. So a nonzero phase read off ASSIGN at three states is a "
       f"property of the SECTION and is not a holonomy OF THE NATIVE TRANSPORT — which is the only "
       f"thing ruled out. Independently, the "
-      f"construction has {len({s[0] for s in STATES})} visible values and no neighbour relation, so "
-      "the spatial plaquette the condition lives on does not exist here either, which is why the "
-      "section-induced connection is not evaluated: there is no local graph here to evaluate it on")
+      "construction defines states, a dynamics and instruments but NO adjacency, neighbour relation "
+      "or graph on the visible values, so LOCALITY IS SIMPLY UNSPECIFIED here rather than ruled out "
+      "— which is also why the section-induced connection is not evaluated: there is no graph to "
+      "evaluate it on. The size of the visible alphabet is not evidence either way and is not used")
 
 # ------------------------------------------ CB5c  where the richer lift's conservativity fails
 print("CB5c  P (x) U_s is OI-CONSERVATIVE; what it fails is the STRONGER intertwining condition")
@@ -632,22 +635,33 @@ def hol(ops, U):
         H = bmul(U.get(o, U_I), H)
     return H
 ok5d &= (hol(WORD_OPS, {'I_0': U_I, 'I_1': U_I}) == U_I)
-# The PROJECTIVE lift is strictly larger than the strict one, and a Gaussian-rational witness shows
-# it: J is a quarter turn, J^2 = -I. Strictly that violates the involution; projectively it does not,
-# because conjugating by -I is the identity on every density matrix. So J is a legitimate lift of an
-# involution that the strict reading would have excluded.
+# A PROJECTIVE LIFT MUST SATISFY EVERY RELATION UP TO A SCALAR, NOT ONE OF THEM. The quarter turn
+# J with J^2 = -I looks like a lift the strict reading would exclude and the projective reading
+# admits -- but that reads a single relation. The instruments obey a second one: on the active
+# action slot they are the transpositions swapping BLANK with 0 and with 1, and those generate a
+# 3-cycle, so (I_0 I_1)^3 is the identity map on every state. Assigning I_0 -> J and I_1 -> I sends
+# that identity word to J^3 = -J, which is NOT a scalar. So the assignment is not a projective
+# representation of the native operation group, and NO NONTRIVIAL ONE IS EXHIBITED HERE: with
+# U_(I_1) = I the two relations force U^2 = aI and U^3 scalar, and U^3 = aU is scalar only when U
+# itself is. Checking involutions alone would have licensed a lift that a second relation forbids.
 J = ((GZ, GO), ((F(-1), F(0)), GZ))
 ok5d &= (bmul(J, bdag(J)) == U_I)                            # unitary
-J2 = bmul(J, J)
-ok5d &= (J2 != U_I) and is_scalar(J2)                        # not I, but a SCALAR: projectively fine
-ok5d &= all(bmul(bmul(J2, X), bdag(J2)) == X for X in BASIS)  # and conjugation by it is the identity
-# The word's holonomy under that projective lift is J^2 = -I: a scalar, hence trivial as a CHANNEL.
-HOLJ = hol(WORD_OPS, {'I_0': J, 'I_1': U_I})
-ok5d &= (HOLJ == J2) and is_scalar(HOLJ)
-# But that -1 is GAUGE, not a datum. Rescaling the representative by a phase leaves the conjugation
-# channel identical and moves the squared scalar: (iJ)^2 = +I while J^2 = -I. So no Z_2 sign is
-# established by choosing J, and none is claimed. An invariant would be the class of the 2-cocycle
-# in H^2(G, U(1)) for a consistent projective representation, which this file does not compute.
+J2, J3 = bmul(J, J), bmul(bmul(J, J), J)
+ok5d &= (J2 != U_I) and is_scalar(J2)                        # the involution relation: satisfied
+ok5d &= not is_scalar(J3)                                    # the 3-cycle relation: VIOLATED
+# the second relation, verified on every state rather than asserted
+def word_power(a, b, k, s):
+    for _ in range(k):
+        s = OPMAP[b][OPMAP[a][s]]
+    return s
+MIXED_ORDER_3 = all(word_power('I_0', 'I_1', 3, s) == s for s in STATES)
+ok5d &= MIXED_ORDER_3
+ok5d &= not all(word_power('I_0', 'I_1', 1, s) == s for s in STATES)   # genuinely order 3,
+ok5d &= not all(word_power('I_0', 'I_1', 2, s) == s for s in STATES)   # not a vacuous relation
+# and the scalar a lift would attach to a closed word carries no invariant content anyway: J and
+# (i J) implement the SAME conjugation channel while their squares are -I and +I. An invariant
+# would be the class of the 2-cocycle in H^2(G, U(1)) for a CONSISTENT projective representation,
+# which is exactly what this file does not construct.
 iJ = tuple(tuple(gmul((F(0), F(1)), J[i][j]) for j in range(2)) for i in range(2))
 ok5d &= (bmul(iJ, bdag(iJ)) == U_I)                                   # still unitary
 ok5d &= all(bmul(bmul(J, X), bdag(J)) == bmul(bmul(iJ, X), bdag(iJ)) for X in BASIS)   # same channel
@@ -673,8 +687,14 @@ check("CB5d", ok5d,
       f"native RELATIONS, and they bind only PROJECTIVELY. Both instruments are verified involutions "
       f"ON EVERY STATE, so I_0 I_0 I_1 I_1 is the identity MAP (checked on all {len(STATES)} "
       f"states) — but the fibre acts by conjugation, which is blind to a phase, so what is forced is "
-      f"U^2 = scalar, NOT U^2 = I. The quarter turn J with J^2 = -I is exhibited as a legitimate "
-      f"projective lift of an involution that the strict reading would wrongly exclude, and "
+      f"U^2 = scalar, NOT U^2 = I. But a lift must satisfy EVERY relation up to a scalar, and the "
+      f"instruments obey a second: on the active slot they are the transpositions swapping BLANK "
+      f"with 0 and with 1, which generate a 3-cycle, so (I_0 I_1)^3 is the identity map on every "
+      f"state — verified here, and verified NOT to hold at powers 1 or 2, so the relation is not "
+      f"vacuous. The quarter turn J passes the involution and FAILS this one, since J^3 = -J is not "
+      f"scalar; and with U_(I_1) = I the two relations force U^2 = aI and U^3 scalar, hence U "
+      f"scalar. NO NONTRIVIAL PROJECTIVE LIFT IS EXHIBITED. Checking involutions alone would have "
+      f"licensed a lift a second relation forbids, and "
       f"conjugation by J^2 is verified to be the identity on every block. Demanding strictness would "
       f"impose a non-projective representation as a hidden hypothesis — question-begging, since the "
       f"target structure is itself Bargmann geometry. The withdrawn witness stays withdrawn on the "
@@ -691,8 +711,8 @@ check("CB5d", ok5d,
       f"bijection padding the way a lone phi at the base state can. Deciding it needs the PROJECTIVE "
       f"representations — the 2-cocycles, the Schur multiplier — of the finite group these three "
       f"permutations generate, which this file does not compute. OPEN, and claimed in neither "
-      f"direction; the projective reading makes the available freedom LARGER than the strict one, "
-      f"not smaller")
+      f"direction — and whether the projective reading admits any nontrivial lift at all is part of "
+      f"that same open question, not something this file settles")
 
 # ---------------------------------------------------------------- CB6  the boundary statement
 print("CB6  the boundary, and what it does and does not settle")
@@ -721,7 +741,7 @@ verdict("CB6", all(CHECKS),
       "Words fixing the base state without being the identity map do exist, some using no "
       "phi at all, so the question is LIVE; deciding it needs the PROJECTIVE representations of the "
       "group the native permutations generate, which is not computed here and is claimed in neither "
-      "direction — and the projective reading makes that freedom LARGER, not smaller. "
+      "direction; no nontrivial projective lift is exhibited here. "
       "Rank bounds are narrow too: CB2-CB3 bound BARGMANN PHASES OF RAY OVERLAPS in a "
       "fixed ambient space, not connection holonomy, and a complex line bundle can be non-flat. "
       "H-OBSERVER-BUNDLE REMAINS OPEN — not derived, not local (no neighbour relation, two visible "
@@ -755,7 +775,8 @@ else:
     print("     being the identity map do exist, some using no phi at all, so the question is LIVE:")
     print("     deciding it needs the PROJECTIVE representations — 2-cocycles, Schur multiplier —")
     print("     of the group the native permutations generate, uncomputed here and claimed in")
-    print("     neither direction. The projective reading makes that freedom LARGER, not smaller.")
+    print("     neither direction; no nontrivial projective lift is exhibited here, and the obvious")
+    print("     candidate fails a second native relation that a one-relation check would have missed.")
     print("     NOT settled — and this is the important boundary. b441 does NOT classify all")
     print("     possible quantum completions: it exhibits one, and nothing here shows every")
     print("     completion of the quotient has tensor-product-fibre form. The rank bounds are")
