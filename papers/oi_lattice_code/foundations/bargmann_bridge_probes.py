@@ -67,6 +67,14 @@ def check(label, ok, msg):
     CHECKS.append(bool(ok))
     print(f"  {'PASS' if ok else 'FAIL'}  {label}: {msg}", flush=True)
 
+def verdict(label, ok, msg):
+    """A TERMINAL SUMMARY: it has no computation of its own, it only states what the checks above
+    have established. Gating the label is not enough -- check() prints its msg whatever the label
+    says, so a bare gate renders the entire verdict text under a FAIL heading, which is the thing
+    the gate exists to prevent. The message itself is therefore withheld when a control has failed."""
+    check(label, ok, msg if ok else
+          "WITHHELD — a prerequisite control above failed, so this summary is not asserted")
+
 # ---------------------------------------------------------------- the native construction (b76B)
 nV, nA, BLANK, K = 2, 2, -1, 1
 
@@ -284,7 +292,7 @@ check("BB4", ok4,
 print("BB5  a shared necessary ingredient — which is NOT a shared obstruction")
 # Gated on the checks above: an unconditional True would print PASS beside a red control,
 # and this verdict has no computation of its own — it summarizes the ones that do.
-check("BB5", all(CHECKS),
+verdict("BB5", all(CHECKS),
       "the complex-phase-bearing states H-observer-bundle would need are exactly the "
       "complex-phase-bearing probes b435's SL9 identified as necessary for coherent probing, and "
       "b435's SL7 showed the native permutation instrument set supplies none of them AT ANY ORDER. "
@@ -297,7 +305,7 @@ check("BB5", all(CHECKS),
 print("BB6  the verdict, and what stays closed")
 # Gated on the checks above: an unconditional True would print PASS beside a red control,
 # and this verdict has no computation of its own — it summarizes the ones that do.
-check("BB6", all(CHECKS),
+verdict("BB6", all(CHECKS),
       "step 2 of the b440 tree — can the native construction produce a nonzero exact Bargmann "
       "invariant — answers NO, on both the pure and the mixed reading. So H-observer-bundle remains "
       "an ADDITIONAL condition on the framework rather than a consequence of it; H-Y-vertex is not "

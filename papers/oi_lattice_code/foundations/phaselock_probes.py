@@ -223,6 +223,14 @@ def check(label, ok, msg):
     CHECKS.append(bool(ok))
     print(f"  {'PASS' if ok else 'FAIL'}  {label}: {msg}", flush=True)
 
+def verdict(label, ok, msg):
+    """A TERMINAL SUMMARY: it has no computation of its own, it only states what the checks above
+    have established. Gating the label is not enough -- check() prints its msg whatever the label
+    says, so a bare gate renders the entire verdict text under a FAIL heading, which is the thing
+    the gate exists to prevent. The message itself is therefore withheld when a control has failed."""
+    check(label, ok, msg if ok else
+          "WITHHELD — a prerequisite control above failed, so this summary is not asserted")
+
 # ---------------------------------------------------------------- the witnesses
 SHAPES = ((2, 2), (3, 2), (2, 3), (4, 2), (2, 4), (3, 3), (3, 4))
 print("PL1  exact witnesses: at an explicit V over Q(i), the kernel IS the coboundary space")
@@ -256,7 +264,7 @@ check("PL3", cited <= set(SHAPES),
 print("PL4  what the witnesses are for")
 # Gated on the checks above: an unconditional True would print PASS beside a red control,
 # and this verdict has no computation of its own — it summarizes the ones that do.
-check("PL4", all(CHECKS),
+verdict("PL4", all(CHECKS),
       "one exact witness per shape is what the genericity argument needs: the families of n "
       "rank-m_a projectors summing to I form a single U(D) orbit, hence an irreducible variety; "
       "dim ker L is upper semi-continuous on it; the coboundary is in the kernel everywhere. So a "

@@ -39,7 +39,7 @@
 #        states with identical F and different fibre expectation. So the original
 #        S <=> D <=> Q_fb equivalence is preserved as a QUOTIENT, and must NOT be read as covering
 #        the enlarged coherent theory.
-#   CB5b THE STATE-DEPENDENT LIFT, which is what the availability claim actually needs. A CONSTANT
+#   CB5b THE STATE-DEPENDENT LIFT, which is what the CAPACITY claim needs. A CONSTANT
 #        fibre -- the same ray at every state -- cannot carry curvature: P~ = P (x) I leaves it
 #        untouched and the loop product is a positive real, which is b439's GS17 exactly. So CB5b
 #        builds a lift whose ray VARIES with the native state, shows it reproduces the comb and
@@ -53,13 +53,22 @@
 # THE BOUNDARY STATEMENT (CB6). OI fixes the classical operational quotient and leaves the coherent
 # fibre over it UNDERDETERMINED. b440 showed the canonical fibre is trivial; this file shows how
 # little is needed to make it nontrivial, and that everything already proved survives the forgetting.
-# H-observer-bundle becomes AVAILABLE-IN-THE-CLASS -- the conservative extension class CONTAINS a
-# curved configuration (CB5b) -- and is still NOT DERIVED, because the assignment is imposed by hand
-# and nothing in OI selects it. The curvature is also OPERATIONAL, not SPATIAL: the construction has
-# two visible values and no neighbour relation, so the plaquette a hypercharge curvature lives on
-# cannot be exhibited in it at all, and CB5b records that as a computed fact rather than a caveat.
-# H-Y-vertex is untouched and remains separate. CB6 and the scope block are GATED on CB1-CB5b: an
-# unconditional verdict would print PASS beside red controls.
+#
+# H-OBSERVER-BUNDLE IS NOT MADE AVAILABLE BY ANY OF THIS, and the file must not say it is. The
+# condition as [SM §6.5] states it asks for a LOCAL observer-state bundle with nonzero projective
+# curvature IN THE HYPERCHARGE CHANNEL. CB5b establishes something strictly weaker: OPERATIONAL
+# KINEMATIC CAPACITY -- the conservative extension class contains a fibre assignment that preserves
+# the comb, the retract and the dynamics exactly and is curved along a word the dynamics traverses.
+# It is weaker in three separate respects, each of which leaves the condition OPEN. It is not
+# DERIVED: the assignment is imposed by hand and nothing in OI selects it. It is not LOCAL: the
+# construction has two visible values and no neighbour relation, so the plaquette the condition
+# lives on cannot be exhibited in it at all -- CB5b records that as a computed check rather than a
+# caveat. And it is not IDENTIFIED with the hypercharge channel, which is H-Y-vertex, untouched.
+# "Capacity" and "availability" are different claims and must not be run together.
+#
+# CB6 and the scope block are GATED on CB1-CB5b, and the gate withholds the MESSAGE as well as
+# flipping the label: check() prints its text whatever the label says, so gating alone would render
+# the whole verdict under a FAIL heading -- exactly what the gate exists to prevent.
 #
 # ARITHMETIC. Exact throughout: Gaussian rationals for the ray geometry, Fractions for the states.
 # The lifted state is carried as a block form rho = sum_s |s><s| (x) M_s with M_s a 2x2 Gaussian
@@ -77,6 +86,14 @@ CHECKS = []
 def check(label, ok, msg):
     CHECKS.append(bool(ok))
     print(f"  {'PASS' if ok else 'FAIL'}  {label}: {msg}", flush=True)
+
+def verdict(label, ok, msg):
+    """A TERMINAL SUMMARY: it has no computation of its own, it only states what the checks above
+    have established. Gating the label is not enough -- check() prints its msg whatever the label
+    says, so a bare gate renders the entire verdict text under a FAIL heading, which is the thing
+    the gate exists to prevent. The message itself is therefore withheld when a control has failed."""
+    check(label, ok, msg if ok else
+          "WITHHELD — a prerequisite control above failed, so this summary is not asserted")
 
 # ---------------------------------------------------------------- Gaussian rationals
 def gadd(x, y): return (x[0] + y[0], x[1] + y[1])
@@ -291,7 +308,7 @@ def lift(p, fibre):
 
 def lift_varying(p, assign):
     """SITE-DEPENDENT fibre: a different ray per state. This is the lift that can carry curvature,
-    and the one the availability claim needs -- a constant fibre is exactly b439's GS17, zero."""
+    and the one the CAPACITY claim needs -- a constant fibre is exactly b439's GS17, zero."""
     return {s: ray_block(RAYS[assign(s)], w) for s, w in p.items()}
 def forget(rho):
     return {s: gadd(M[0][0], M[1][1])[0] for s, M in rho.items()}     # Tr over the fibre
@@ -435,24 +452,25 @@ check("CB5b", ok5b,
 print("CB6  the boundary, and what it does and does not settle")
 # Gated on CB1-CB5b: an unconditional True would print PASS beside red controls and the
 # scope block below would assert conclusions drawn from failed checks.
-check("CB6", all(CHECKS),
+verdict("CB6", all(CHECKS),
       "OI fixes the classical operational quotient and leaves the coherent fibre over it "
       "UNDERDETERMINED. b440 showed the canonical fibre is trivial; CB1-CB3 show how little is "
       "needed to make it nontrivial — not merely support > 1, which only buys a Z_2 sign, but a "
       "COMPLEX rank-two fibre — and CB4-CB5 show everything already proved survives the forgetting. "
       "So the non-uniqueness of OI -> QM is not 'many arbitrary quantum completions': it is a "
       "classical core plus an underdetermined coherent fibre, with a rank and reality bound on what "
-      "the fibre must be for hypercharge. WHAT IS EARNED, and only this: the conservative extension "
-      "class CONTAINS a configuration that preserves the comb, the retract and the dynamics exactly "
-      "and is curved along a word the dynamics actually traverses (CB5b) — kinematic capacity, "
-      "demonstrated inside the construction rather than on free-floating vectors. WHAT IS NOT, in "
-      "three separate respects: nothing here DERIVES the fibre, since the assignment is imposed by "
-      "hand and nothing in OI selects it; the curvature exhibited is along an OPERATIONAL word, "
-      "while the construction has no neighbour relation and only two visible values, so the SPATIAL "
-      "plaquette a hypercharge curvature lives on cannot be exhibited in it at all; and nothing "
-      "identifies that phase with the HYPERCHARGE channel, which is H-Y-vertex and is untouched. "
-      "'Available' therefore means available-in-the-class, not derived and not local, and the "
-      "readings must not be run together")
+      "the fibre must be for hypercharge. WHAT IS EARNED, and only this: OPERATIONAL KINEMATIC "
+      "CAPACITY — the conservative extension class contains a fibre assignment that preserves the "
+      "comb, the retract and the dynamics exactly and is curved along a word the dynamics actually "
+      "traverses (CB5b), demonstrated inside the construction rather than on free-floating vectors. "
+      "H-OBSERVER-BUNDLE IS NOT THEREBY AVAILABLE, and stays OPEN. [SM §6.5] asks for a LOCAL "
+      "observer-state bundle with nonzero projective curvature IN THE HYPERCHARGE CHANNEL, and what "
+      "is exhibited falls short in three separate respects: it is not DERIVED, since the assignment "
+      "is imposed by hand and nothing in OI selects it; it is not LOCAL, since the construction has "
+      "no neighbour relation and only two visible values, so the plaquette the condition lives on "
+      "cannot be exhibited in it at all; and it is not IDENTIFIED with the hypercharge channel, "
+      "which is H-Y-vertex and untouched. Capacity is not availability and the two must not be run "
+      "together")
 
 print()
 if not all(CHECKS):
@@ -465,15 +483,16 @@ else:
     print("     F = Tr_{C^2} preserves the native dynamics, the comb probabilities and the fixed-basis")
     print("     theory exactly, as a retract; and it carries observables the old instrument algebra")
     print("     cannot see.")
-    print("     Settled at b441a: a state-dependent fibre is curved along a word the dynamics")
-    print("     traverses — s, I_0 s, phi I_0 s, one sector throughout — while still reproducing the")
-    print("     comb and the retract exactly. Capacity is inside the construction, not beside it.")
-    print("     NOT settled: the fibre is not DERIVED. H-observer-bundle is available in the extension")
-    print("     class, not a consequence of OI. The curvature shown is OPERATIONAL, not SPATIAL: the")
-    print("     construction has two visible values and no neighbour relation, so the plaquette a")
-    print("     hypercharge curvature lives on cannot be exhibited in it. H-Y-vertex is untouched.")
-    print("     And the enlarged theory is NOT covered by the old S <=> D <=> Q_fb equivalence —")
-    print("     that survives as a quotient only.")
+    print("     Settled at b441a: OPERATIONAL KINEMATIC CAPACITY. A state-dependent fibre is curved")
+    print("     along a word the dynamics traverses — s, I_0 s, phi I_0 s, one sector throughout —")
+    print("     while still reproducing the comb and the retract exactly.")
+    print("     NOT settled, and H-OBSERVER-BUNDLE REMAINS OPEN: [SM §6.5] asks for a LOCAL bundle")
+    print("     with curvature in the HYPERCHARGE channel, and capacity is not that. The fibre is")
+    print("     not DERIVED — nothing in OI selects the assignment. It is not LOCAL — the")
+    print("     construction has two visible values and no neighbour relation, so the plaquette the")
+    print("     condition lives on cannot be exhibited in it. And it is not IDENTIFIED with the")
+    print("     hypercharge channel; H-Y-vertex is untouched. The enlarged theory is also NOT")
+    print("     covered by the old S <=> D <=> Q_fb equivalence — that survives as a quotient only.")
 print()
 print("coherence_boundary_probes:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

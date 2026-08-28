@@ -79,6 +79,14 @@ def check(label, ok, msg):
     CHECKS.append(bool(ok))
     print(f"  {'PASS' if ok else 'FAIL'}  {label}: {msg}", flush=True)
 
+def verdict(label, ok, msg):
+    """A TERMINAL SUMMARY: it has no computation of its own, it only states what the checks above
+    have established. Gating the label is not enough -- check() prints its msg whatever the label
+    says, so a bare gate renders the entire verdict text under a FAIL heading, which is the thing
+    the gate exists to prevent. The message itself is therefore withheld when a control has failed."""
+    check(label, ok, msg if ok else
+          "WITHHELD — a prerequisite control above failed, so this summary is not asserted")
+
 # ---------------------------------------------------------------- Gaussian rationals
 def gadd(x, y): return (x[0] + y[0], x[1] + y[1])
 def gsub(x, y): return (x[0] - y[0], x[1] - y[1])
@@ -352,7 +360,7 @@ check("IS6", all(anchors.values()),
 print("IS7  what the round settles, and what it leaves untouched")
 # Gated on the checks above: an unconditional True would print PASS beside a red control,
 # and this verdict has no computation of its own — it summarizes the ones that do.
-check("IS7", all(CHECKS),
+verdict("IS7", all(CHECKS),
       "b405's lattice witness is a direction in the ambient independent-link theory, not a "
       "leading-order direction in OI's own theory space; and §2's uniqueness lemma, which §6 left "
       "conditional on a modelling choice, is met by the construction's own nearest-neighbour "

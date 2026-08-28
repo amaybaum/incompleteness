@@ -95,6 +95,14 @@ def check(label, ok, msg):
     CHECKS.append(bool(ok))
     print(f"  {'PASS' if ok else 'FAIL'}  {label}: {msg}", flush=True)
 
+def verdict(label, ok, msg):
+    """A TERMINAL SUMMARY: it has no computation of its own, it only states what the checks above
+    have established. Gating the label is not enough -- check() prints its msg whatever the label
+    says, so a bare gate renders the entire verdict text under a FAIL heading, which is the thing
+    the gate exists to prevent. The message itself is therefore withheld when a control has failed."""
+    check(label, ok, msg if ok else
+          "WITHHELD — a prerequisite control above failed, so this summary is not asserted")
+
 # ---------------------------------------------------------------- lattice setup
 L, DIM, Q = 4, 2, 12                       # 4^2 sites, Z/12Z alphabet
 SITES = list(itertools.product(range(L), repeat=DIM))
@@ -324,7 +332,7 @@ check("GS6", nonabelian_curved,
 print("GS7  what this reclassifies, and the condition it names")
 # Gated on the checks above: an unconditional True would print PASS beside a red control,
 # and this verdict has no computation of its own — it summarizes the ones that do.
-check("GS7", all(CHECKS),
+verdict("GS7", all(CHECKS),
       "H-source-lift's lattice half is NOT 'compute the contact terms'. For U(1) it is first a "
       "question of SUPPORT: the microscopic induced image is a set on which S_eff is constant, so "
       "an ambient second derivative taken at those configurations is a statement about directions "
@@ -460,7 +468,7 @@ check("GS11", t3 != GZ_ and W != [[GO_, GZ_], [GZ_, GO_]],
 print("GS12  and the determinant reweighting cannot create transverse configurations")
 # Gated on the checks above: an unconditional True would print PASS beside a red control,
 # and this verdict has no computation of its own — it summarizes the ones that do.
-check("GS12", all(CHECKS),
+verdict("GS12", all(CHECKS),
       "the induced measure is the pushforward of the matter measure reweighted by "
       "det(D^dag D)^{N_f}. A reweighting changes the measure ON a support; it cannot enlarge the "
       "support. And by GS3 the weight is CONSTANT on the induced U(1) manifold, so in exactly the "
@@ -471,7 +479,7 @@ check("GS12", all(CHECKS),
 print("GS13  what H-transverse-link now requires")
 # Gated on the checks above: an unconditional True would print PASS beside a red control,
 # and this verdict has no computation of its own — it summarizes the ones that do.
-check("GS13", all(CHECKS),
+verdict("GS13", all(CHECKS),
       "H-transverse-link is no longer merely unproved for U(1)_Y: it FAILS along every route that "
       "defines the coarse-grained connection by parallel transport of the microscopic one. "
       "Holonomy is trivial round every cycle on every graph (GS8), blocking is a fixed point of "
@@ -604,7 +612,7 @@ check("GS17", ok17,
 print("GS18  H-transverse-link splits into two conditions, and the second is not implied")
 # Gated on the checks above: an unconditional True would print PASS beside a red control,
 # and this verdict has no computation of its own — it summarizes the ones that do.
-check("GS18", all(CHECKS),
+verdict("GS18", all(CHECKS),
       "H-observer-bundle: the trace-out / coarse-graining must produce a local observer-state "
       "bundle with nonzero projective (Berry) curvature in the hypercharge channel — GS16 shows "
       "such bundles exist, GS17 shows the framework's current fixed projectors are not one. "

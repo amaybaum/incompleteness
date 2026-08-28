@@ -243,6 +243,14 @@ def check(label, ok, msg):
     CHECKS.append(bool(ok))
     print(f"  {'PASS' if ok else 'FAIL'}  {label}: {msg}", flush=True)
 
+def verdict(label, ok, msg):
+    """A TERMINAL SUMMARY: it has no computation of its own, it only states what the checks above
+    have established. Gating the label is not enough -- check() prints its msg whatever the label
+    says, so a bare gate renders the entire verdict text under a FAIL heading, which is the thing
+    the gate exists to prevent. The message itself is therefore withheld when a control has failed."""
+    check(label, ok, msg if ok else
+          "WITHHELD — a prerequisite control above failed, so this summary is not asserted")
+
 # ---------------------------------------------------------------- SL1  the witnesses
 SHAPES = (2, 3, 4, 5, 6)
 print("SL1  at an explicit (U, R) over Q(i), the joint data resolves EVERY relative phase")
@@ -363,7 +371,7 @@ check("SL5", len(zeros) == 1 and rk_p == 2,
 print("SL6  what the witnesses are for, and what they are not")
 # Gated on the checks above: an unconditional True would print PASS beside a red control,
 # and this verdict has no computation of its own — it summarizes the ones that do.
-check("SL6", all(CHECKS),
+verdict("SL6", all(CHECKS),
       "one exact witness per n is what the genericity argument needs: U(n) x U(n) is a connected "
       "real algebraic group hence irreducible, the Jacobian entries are polynomial on it, rank is "
       "lower semi-continuous, and rank <= n-1 holds identically by SL2. So a single point with "
