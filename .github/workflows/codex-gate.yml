@@ -52,6 +52,7 @@ jobs:
           PR: ${{ github.event.pull_request.number || inputs.pr }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           REVIEWER: chatgpt-codex-connector
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           set -euo pipefail
 
@@ -62,6 +63,19 @@ jobs:
           if [ -z "${HEAD_SHA:-}" ]; then
             HEAD_SHA="$(gh api "repos/${OWNER}/${REPO}/pulls/${PR}" --jq .head.sha)"
             echo "Resolved head of #${PR} to ${HEAD_SHA}."
+          fi
+
+          # A dispatched run attaches its check run to GITHUB_SHA -- the tip of the ref it was
+          # launched on -- not to whatever this script chooses to query. Dispatched from the default
+          # branch, it would go green against main's commit and leave the pull request's required
+          # check untouched, which is worse than failing: it looks like the gate passed. Refuse.
+          # (The comparison is dispatch-only: on pull_request, GITHUB_SHA is the merge commit and
+          # differs from head.sha by design.)
+          if [ "${EVENT_NAME}" = "workflow_dispatch" ] && [ "${GITHUB_SHA}" != "${HEAD_SHA}" ]; then
+            echo "::error::This run is attached to ${GITHUB_SHA}, but #${PR}'s head is ${HEAD_SHA}." \
+                 "A green result here could not clear the required check. Re-run the original" \
+                 "pull_request run instead, or dispatch with --ref set to the head branch."
+            exit 1
           fi
 
           # One GraphQL round trip returns both halves: the reviews with the commit each looked at,
