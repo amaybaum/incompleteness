@@ -6,31 +6,22 @@ name: verify
 # zero imports — so the kernel gate is just a `lean` binary and three commands.
 # A clean exit is the certificate; see verification/lean/VERIFYING.md.
 
+# NO PATH FILTERS, deliberately. These three jobs are required status checks on main, and a
+# required check that never runs never reports: GitHub leaves it Expected forever and the pull
+# request cannot be merged. A path filter would do exactly that to any pull request touching only
+# papers/*.md. The filters that used to live here also had to name every gated probe individually,
+# which was a standing trap of its own — a probe added to the job below but not to both filter
+# lists is a gate that silently never fires. Cheaper to run the suite on everything.
+#
+# pull_request covers every branch and re-runs on each push to the head branch (synchronize), so a
+# dev pull request is checked on every commit. push is restricted to main so that the same commit
+# is not checked twice under the same check-run names, which is what a required-check rule has to
+# match against. The gap this leaves is a push to dev with no pull request open; it closes the
+# moment one is opened, and nothing merges without one.
 on:
-  push:
-    paths:
-      - 'verification/**'
-      # the foundations probes are gated below, so their own edits must trigger this workflow;
-      # without these lines the job exists but never runs when a probe itself changes
-      - 'papers/oi_lattice_code/foundations/comb_reachability_probes.py'
-      - 'papers/oi_lattice_code/foundations/phaselock_probes.py'
-      - 'papers/oi_lattice_code/foundations/source_lift_probes.py'
-      - 'papers/oi_lattice_code/foundations/induced_source_probes.py'
-      - 'papers/oi_lattice_code/foundations/gauge_support_probes.py'
-      - 'papers/oi_lattice_code/foundations/bargmann_bridge_probes.py'
-      - 'papers/oi_lattice_code/foundations/coherence_boundary_probes.py'
-      - '.github/workflows/verify.yml'
   pull_request:
-    paths:
-      - 'verification/**'
-      - 'papers/oi_lattice_code/foundations/comb_reachability_probes.py'
-      - 'papers/oi_lattice_code/foundations/phaselock_probes.py'
-      - 'papers/oi_lattice_code/foundations/source_lift_probes.py'
-      - 'papers/oi_lattice_code/foundations/induced_source_probes.py'
-      - 'papers/oi_lattice_code/foundations/gauge_support_probes.py'
-      - 'papers/oi_lattice_code/foundations/bargmann_bridge_probes.py'
-      - 'papers/oi_lattice_code/foundations/coherence_boundary_probes.py'
-      - '.github/workflows/verify.yml'
+  push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
