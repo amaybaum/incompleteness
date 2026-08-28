@@ -243,6 +243,14 @@ def check(label, ok, msg):
     CHECKS.append(bool(ok))
     print(f"  {'PASS' if ok else 'FAIL'}  {label}: {msg}", flush=True)
 
+def verdict(label, ok, msg):
+    """A TERMINAL SUMMARY: it has no computation of its own, it only states what the checks above
+    have established. Gating the label is not enough -- check() prints its msg whatever the label
+    says, so a bare gate renders the entire verdict text under a FAIL heading, which is the thing
+    the gate exists to prevent. The message itself is therefore withheld when a control has failed."""
+    check(label, ok, msg if ok else
+          "WITHHELD — a prerequisite control above failed, so this summary is not asserted")
+
 # ---------------------------------------------------------------- SL1  the witnesses
 SHAPES = (2, 3, 4, 5, 6)
 print("SL1  at an explicit (U, R) over Q(i), the joint data resolves EVERY relative phase")
@@ -361,7 +369,9 @@ check("SL5", len(zeros) == 1 and rk_p == 2,
 
 # ---------------------------------------------------------------- SL6  what this settles
 print("SL6  what the witnesses are for, and what they are not")
-check("SL6", True,
+# Gated on the checks above: an unconditional True would print PASS beside a red control,
+# and this verdict has no computation of its own — it summarizes the ones that do.
+verdict("SL6", all(CHECKS),
       "one exact witness per n is what the genericity argument needs: U(n) x U(n) is a connected "
       "real algebraic group hence irreducible, the Jacobian entries are polynomial on it, rank is "
       "lower semi-continuous, and rank <= n-1 holds identically by SL2. So a single point with "
@@ -503,26 +513,30 @@ check("SL9", ok_zero and moved and ranks9 == [2, 3],
       "superpositions do not linearly resolve the relative phase")
 
 print()
-print("     [scope] Settled: b405 §5's finite operational control does NOT exhibit a generic")
-print("     obstruction. At a generic (U, R) the joint coherent source-loop data resolves every")
-print("     relative phase between dynamics and intervention; at b405's own witness it resolves")
-print("     none. The collapse needs the dynamics to be DIAGONAL — a maximal G3 failure — and a")
-print("     single vanishing overlap does not produce it (SL5), so the deficient locus is smaller")
-print("     than the G3-violating one. The finite layer supplies no support for a source-lift")
-print("     obstruction that survives genericity.")
-print("     Also settled (b435): the deficiency of the NATIVE layer lives entirely in the")
-print("     instruments. Permutation probes are blind at every order (SL7); real probes are blind")
-print("     at first order (SL9); and once the probe is complex, permutation dynamics with c")
-print("     cycles resolves exactly n - c phases (SL8) — so the framework's single-cycle idealized")
-print("     dynamics has NO deficit, its equally spaced eigenphases notwithstanding. The unresolved")
-print("     directions are always the diagonal commutant of the dynamics: scalars generically,")
-print("     cycle indicators for permutations, everything for a diagonal U.")
-print("     NOT settled, and NOT touched: b405 §3-§4, the lattice kappa-family. That is a claim")
-print("     about needing a lift — a second source derivative cannot be read off zero-source data")
-print("     — not about identifiability failing, and b426 recorded that the lattice and operational")
-print("     settings have no bridge. Nothing here bridges them. Also not claimed: anything uniform")
-print("     in n, and anything about the antiunitary conjugate, which remains a genuine twofold")
-print("     ambiguity of transition data (Main §3.4) and is untouched by any rank computed here.")
+if not all(CHECKS):
+    print("     [scope] VERDICT WITHHELD: a control above failed, so the statement below is not")
+    print("     asserted. Fix the failing check before reading any conclusion from this run.")
+else:
+    print("     [scope] Settled: b405 §5's finite operational control does NOT exhibit a generic")
+    print("     obstruction. At a generic (U, R) the joint coherent source-loop data resolves every")
+    print("     relative phase between dynamics and intervention; at b405's own witness it resolves")
+    print("     none. The collapse needs the dynamics to be DIAGONAL — a maximal G3 failure — and a")
+    print("     single vanishing overlap does not produce it (SL5), so the deficient locus is smaller")
+    print("     than the G3-violating one. The finite layer supplies no support for a source-lift")
+    print("     obstruction that survives genericity.")
+    print("     Also settled (b435): the deficiency of the NATIVE layer lives entirely in the")
+    print("     instruments. Permutation probes are blind at every order (SL7); real probes are blind")
+    print("     at first order (SL9); and once the probe is complex, permutation dynamics with c")
+    print("     cycles resolves exactly n - c phases (SL8) — so the framework's single-cycle idealized")
+    print("     dynamics has NO deficit, its equally spaced eigenphases notwithstanding. The unresolved")
+    print("     directions are always the diagonal commutant of the dynamics: scalars generically,")
+    print("     cycle indicators for permutations, everything for a diagonal U.")
+    print("     NOT settled, and NOT touched: b405 §3-§4, the lattice kappa-family. That is a claim")
+    print("     about needing a lift — a second source derivative cannot be read off zero-source data")
+    print("     — not about identifiability failing, and b426 recorded that the lattice and operational")
+    print("     settings have no bridge. Nothing here bridges them. Also not claimed: anything uniform")
+    print("     in n, and anything about the antiunitary conjugate, which remains a genuine twofold")
+    print("     ambiguity of transition data (Main §3.4) and is untouched by any rank computed here.")
 print()
 print("source_lift_probes:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

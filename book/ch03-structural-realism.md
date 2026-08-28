@@ -1,7 +1,7 @@
 # Chapter 3
 # Hierarchical Structural Realism
 
----
+***
 
 ## 3.1 What this chapter develops
 
@@ -61,7 +61,7 @@ The string-theory landscape problem looks different under the Level B reading as
 
 The framework's commitment at Level B is therefore structurally substantive, not merely a definitional convention. It identifies the observer-admission boundary as a real feature of the space of candidate substrata, with consequences for anthropic reasoning, Boltzmann brains, the arrow of time, and the landscape problem. The realism at Level B is realism about the boundary itself: which substrata admit observers, which do not, and why. The empirical content at Level B is sparse — most of the framework's predictions live at deeper levels — but the structural content is rich.
 
----
+***
 
 ## 3.4 The gauge axis
 
@@ -123,7 +123,7 @@ The framework's most distinguishing empirical content lives at Level G3 × Level
 
 The stratification has methodological consequences developed in Chapter 4. Different kinds of empirical content require different epistemic standards, and the hierarchy makes the stratification precise. Level G4 × Level C content is structural; Level G2 × Level D content is shared across an entire universality class; Level G3 × Level D content is class-specific to OI. The framework's pre-registration of falsification conditions, developed in Chapter 4, identifies which empirical results would falsify which level of the framework's commitments.
 
----
+***
 
 ## 3.6 Gauge freedom and observational incompleteness
 
@@ -151,7 +151,7 @@ The distinction matters because conflating the two would make "incompleteness" i
 
 This identification is recent within the framework's development, and the companion paper flags it as the least-settled of its contributions; it is included here because it follows directly from the two axes this chapter has built, and because it answers the standing question of how the book's title concept and its gauge structure relate. The reader inclined to treat it cautiously should treat it as a proposal the framework's structure invites rather than as a load-bearing result the rest of the book depends on — nothing in the empirical chapters rests on it.
 
----
+***
 
 ## 3.7 No-go theorems at different descriptive levels
 

@@ -1,7 +1,7 @@
 # Chapter 8
 # JUNO and the Neutrino Sector
 
----
+***
 
 ## 8.1 What this chapter develops
 
@@ -67,7 +67,7 @@ The observed values deviate from tribimaximal mixing by amounts of order $\lambd
 
 **The framework's structural commitment.** The cubic-group flavor structure used here is not a postulated symmetry of the lepton sector. It is the rotation symmetry group of three-dimensional space, realized in the framework's lattice substratum as developed in Chapters 5 and 6. The same cubic group that produced the Standard Model gauge structure produces the lepton flavor structure here, with the $T_1$ generations occupying the same triplet representation in both contexts. The empirical record across the framework's flavor predictions — Cabibbo at $0.04\%$, Koide at $0.02\%$, $\sin^2\theta_{12}$ at $0.07\sigma$, the sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ at $0.6\sigma$ — tests the same cubic structure across multiple observables at sub-percent precision. This is testable structure rather than a postulated symmetry: the same numerical inputs ($\lambda^2 = 1/(2\pi^2)$, the projection factor $A^2 = 2/3$) enter multiple observables with all of them matching observation.
 
----
+***
 
 ## 8.4 The U-parity grading
 
@@ -180,7 +180,7 @@ The cumulative empirical record across the framework's flavor predictions is str
 
 The remaining sections develop the framework's position in the broader landscape of tribimaximal-modification proposals (Section 8.7), the JUNO design-lifetime sensitivity for testing the $\sin^2\theta_{12}$ prediction at sub-percent precision (Section 8.8), and the coupled neutrino-mass / dark-energy result with DESI DR2 (Section 8.9).
 
----
+***
 
 ## 8.7 Comparison with TM1/TM2 column-preservation patterns
 
@@ -273,4 +273,4 @@ The methodological discipline of Chapter 4 §4.6 places this kind of cross-secto
 
 The framework's empirical content in fundamental physics is at the strongest evidential standard the field admits: parameter-free structural predictions with inputs fixed by cubic-group representation theory and quark-sector observables, matching neutrino-sector observation at the current experimental precision with no fresh free parameters fitted — retrodictively, with provenance stated (§8.6), and with the pre-registered forward exposure carried by the design-lifetime test (§8.8). The JUNO retrodictive match is the chapter's empirical anchor — the framework's commitment to cubic-group representation theory in the lepton sector, tested at $0.07\sigma$ on a parameter-free cross-sector prediction. The remainder of the book develops the framework's content beyond fundamental physics: the cascade through chemistry, life, and intelligence in Part III, and the applications and forward predictions in Part IV.
 
----
+***

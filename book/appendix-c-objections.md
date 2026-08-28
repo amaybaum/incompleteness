@@ -1,7 +1,7 @@
 # Appendix C
 # Common Objections and Framework Responses
 
----
+***
 
 ## C.1 What this appendix develops
 
@@ -133,7 +133,7 @@ The framework's commitment to finiteness is therefore *compatible with* the stan
 
 The framework's finiteness commitment is therefore not just a mathematical convenience but a structurally consequential commitment with specific empirical content. The commitment is supported by the Bekenstein bound (established physics), compatible with continuum QFT (the framework's emergent description), and has specific empirical signatures (Chapter 18). A referee rejecting finiteness must engage these supports and signatures specifically rather than dismissing the commitment in general.
 
----
+***
 
 ## C.7 Computational implementability and Wolpert's theorem
 
@@ -330,4 +330,4 @@ Where the framework's reach has genuine limits (consciousness, initial condition
 
 The appendix's value is therefore as a reference resource for readers approaching the framework from different starting points. Readers familiar with Bell's theorem and the no-go theorems should find §§C.2-C.3 directly useful. Readers familiar with effective field theory should find §§C.9 directly useful. Readers familiar with standard interpretations should find §C.8 directly useful. Readers concerned about credentials, scope, or ambition should find §C.12 directly useful. The appendix is intended to be navigable rather than read straight through, with each section engaging the specific cluster of concerns characteristic of one reader audience.
 
----
+***

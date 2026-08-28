@@ -1,7 +1,7 @@
 # Chapter 10
 # Chemistry
 
----
+***
 
 ## 10.1 What this chapter develops
 
@@ -205,4 +205,4 @@ The framework's content on fine-tuning and anthropics is therefore a substantive
 
 **Forward pointers.** Chapter 11 develops the framework's content on the origin of life: how the framework's chemistry-supporting commitments propagate further through the emergence cascade to produce self-replicating molecular systems. Chapter 12 develops evolution, intelligence, and self-reference. Chapter 13 develops the framework's content in quantum biology, where the framework's C1–C4 structural conditions apply directly to biological systems at the molecular scale. The framework's content in chemistry developed in this chapter provides the structural foundation for the subsequent biology chapters: the periodic table, organic chemistry, water as solvent, the thermal window, and the homochirality of biological molecules are all the chapter's content's downstream consequences for life.
 
----
+***

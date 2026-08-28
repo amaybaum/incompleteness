@@ -1,7 +1,7 @@
 # Chapter 19
 # Resolved and Open Problems in Fundamental Physics
 
----
+***
 
 ## 19.1 What this chapter develops
 
@@ -129,7 +129,7 @@ The framework predicts transient deviations from the Born rule in the very early
 
 *Developed in:* Chapter 1, with forward content in Chapter 18 §18.2.
 
----
+***
 
 ## 19.3 Problems open within the framework
 
@@ -299,4 +299,4 @@ The chapter's purpose is to make the framework's record on standard open problem
 
 The book's content concludes here. The framework's empirical record (Chapters 5-17), forward predictions (Chapter 18), and inventory against the standard open problems (Chapter 19) together constitute the framework's positive content. The remaining scope limits — the flavor problem, the Hubble tension, baryogenesis (solution-specific: $\eta_B$ inherits the flavor-sector CP input), inflation, and the initial state — are pre-registered as the framework's current boundaries. Closing them is the framework's future research program.
 
----
+***

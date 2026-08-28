@@ -95,6 +95,14 @@ def check(label, ok, msg):
     CHECKS.append(bool(ok))
     print(f"  {'PASS' if ok else 'FAIL'}  {label}: {msg}", flush=True)
 
+def verdict(label, ok, msg):
+    """A TERMINAL SUMMARY: it has no computation of its own, it only states what the checks above
+    have established. Gating the label is not enough -- check() prints its msg whatever the label
+    says, so a bare gate renders the entire verdict text under a FAIL heading, which is the thing
+    the gate exists to prevent. The message itself is therefore withheld when a control has failed."""
+    check(label, ok, msg if ok else
+          "WITHHELD — a prerequisite control above failed, so this summary is not asserted")
+
 # ---------------------------------------------------------------- lattice setup
 L, DIM, Q = 4, 2, 12                       # 4^2 sites, Z/12Z alphabet
 SITES = list(itertools.product(range(L), repeat=DIM))
@@ -322,7 +330,9 @@ check("GS6", nonabelian_curved,
 
 # ---------------------------------------------------------------- GS7  the reclassification
 print("GS7  what this reclassifies, and the condition it names")
-check("GS7", True,
+# Gated on the checks above: an unconditional True would print PASS beside a red control,
+# and this verdict has no computation of its own — it summarizes the ones that do.
+verdict("GS7", all(CHECKS),
       "H-source-lift's lattice half is NOT 'compute the contact terms'. For U(1) it is first a "
       "question of SUPPORT: the microscopic induced image is a set on which S_eff is constant, so "
       "an ambient second derivative taken at those configurations is a statement about directions "
@@ -456,7 +466,9 @@ check("GS11", t3 != GZ_ and W != [[GO_, GZ_], [GZ_, GO_]],
 
 # ---------------------------------------------------------------- GS12  the measure cannot help
 print("GS12  and the determinant reweighting cannot create transverse configurations")
-check("GS12", True,
+# Gated on the checks above: an unconditional True would print PASS beside a red control,
+# and this verdict has no computation of its own — it summarizes the ones that do.
+verdict("GS12", all(CHECKS),
       "the induced measure is the pushforward of the matter measure reweighted by "
       "det(D^dag D)^{N_f}. A reweighting changes the measure ON a support; it cannot enlarge the "
       "support. And by GS3 the weight is CONSTANT on the induced U(1) manifold, so in exactly the "
@@ -465,7 +477,9 @@ check("GS12", True,
 
 # ---------------------------------------------------------------- GS13  the status of the gate
 print("GS13  what H-transverse-link now requires")
-check("GS13", True,
+# Gated on the checks above: an unconditional True would print PASS beside a red control,
+# and this verdict has no computation of its own — it summarizes the ones that do.
+verdict("GS13", all(CHECKS),
       "H-transverse-link is no longer merely unproved for U(1)_Y: it FAILS along every route that "
       "defines the coarse-grained connection by parallel transport of the microscopic one. "
       "Holonomy is trivial round every cycle on every graph (GS8), blocking is a fixed point of "
@@ -596,7 +610,9 @@ check("GS17", ok17,
 
 # ---------------------------------------------------------------- GS18  the split
 print("GS18  H-transverse-link splits into two conditions, and the second is not implied")
-check("GS18", True,
+# Gated on the checks above: an unconditional True would print PASS beside a red control,
+# and this verdict has no computation of its own — it summarizes the ones that do.
+verdict("GS18", all(CHECKS),
       "H-observer-bundle: the trace-out / coarse-graining must produce a local observer-state "
       "bundle with nonzero projective (Berry) curvature in the hypercharge channel — GS16 shows "
       "such bundles exist, GS17 shows the framework's current fixed projectors are not one. "
@@ -607,22 +623,26 @@ check("GS18", True,
       "Folding them together would be the error this check exists to prevent")
 
 print()
-print("     [scope] Settled: the induced U(1) link is exactly pure gauge with single-valued G and")
-print("     no vortex sector; D[U[phi]] = G^dag D[I] G, so D^dag D is UNITARILY SIMILAR to its free")
-print("     value and S_eff is CONSTANT on the induced U(1) manifold; minimal and kappa-dressed")
-print("     extensions therefore agree on the whole physical image while differing transversally,")
-print("     which SHARPENS b405's counterexample rather than dissolving it; and the induced tangent")
-print("     space at the identity is exactly the gauge directions.")
-print("     Settled at b438: H-transverse-link FAILS for U(1)_Y along every transport-defined route")
-print("     — trivial holonomy on every cycle of every graph, blocking a fixed point of that, the")
-print("     non-abelian rows central-blocked, the measure unable to enlarge a support. It can hold")
-print("     only if the observer-level connection is a DIFFERENT OBJECT from the transported")
-print("     microscopic one. U(1)_em is a separate case and is NOT transverse-free (Q = T^3 + Y/2).")
-print("     NOT settled: whether such a different object exists — that is now the whole question,")
-print("     and nothing here decides it. The non-abelian")
-print("     sectors are NOT covered by the no-go (curvature is O(eps^2) and real), though their")
-print("     first-order tangent is gradient-like too. [SM §6.1]'s computation is not challenged and")
-print("     its value is untouched; what is added is the condition under which it is NATIVE.")
+if not all(CHECKS):
+    print("     [scope] VERDICT WITHHELD: a control above failed, so the statement below is not")
+    print("     asserted. Fix the failing check before reading any conclusion from this run.")
+else:
+    print("     [scope] Settled: the induced U(1) link is exactly pure gauge with single-valued G and")
+    print("     no vortex sector; D[U[phi]] = G^dag D[I] G, so D^dag D is UNITARILY SIMILAR to its free")
+    print("     value and S_eff is CONSTANT on the induced U(1) manifold; minimal and kappa-dressed")
+    print("     extensions therefore agree on the whole physical image while differing transversally,")
+    print("     which SHARPENS b405's counterexample rather than dissolving it; and the induced tangent")
+    print("     space at the identity is exactly the gauge directions.")
+    print("     Settled at b438: H-transverse-link FAILS for U(1)_Y along every transport-defined route")
+    print("     — trivial holonomy on every cycle of every graph, blocking a fixed point of that, the")
+    print("     non-abelian rows central-blocked, the measure unable to enlarge a support. It can hold")
+    print("     only if the observer-level connection is a DIFFERENT OBJECT from the transported")
+    print("     microscopic one. U(1)_em is a separate case and is NOT transverse-free (Q = T^3 + Y/2).")
+    print("     NOT settled: whether such a different object exists — that is now the whole question,")
+    print("     and nothing here decides it. The non-abelian")
+    print("     sectors are NOT covered by the no-go (curvature is O(eps^2) and real), though their")
+    print("     first-order tangent is gradient-like too. [SM §6.1]'s computation is not challenged and")
+    print("     its value is untouched; what is added is the condition under which it is NATIVE.")
 print()
 print("gauge_support_probes:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

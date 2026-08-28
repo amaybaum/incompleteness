@@ -1,7 +1,7 @@
 # Chapter 16
 # Medicine
 
----
+***
 
 > **Status — conjectural extension.** This chapter applies the core framework to medicine, and is offered as a *conjecture*, not an established result: its retrodictions — notably the Rett-syndrome reversibility (Guy et al. 2007), which predates the framework — are consistency checks rather than confirmations, while its forward content (wider therapeutic windows across as-yet-untested reader-writer disorders, and specific schedule-dependence predictions) is what future clinical data would confirm or break. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
 
@@ -187,7 +187,7 @@ The framework's account: JAK signaling is non-Markovian, with the cytokine respo
 
 A second distinguishing prediction: combinations of JAK inhibitors with phosphatase activators (drugs that accelerate the memory erasure of the JAK-STAT pathway) should be synergistic, producing equivalent clinical effect at lower JAK inhibitor doses. This combination would be invisible to standard pharmacology screens that focus on catalytic inhibition.
 
----
+***
 
 ## 16.9 Epigenetics as biological hidden sector
 
@@ -345,4 +345,4 @@ The framework is not just a theory of fundamental physics with implications for 
 
 The framework's reach from Chapter 13's quantum biology through Chapter 15's quantum engineering and this chapter's medicine provides cumulative empirical content in applied domains. The framework's structural commitments at the substratum level produce specific predictions across biology, computing, engineering, medicine — with empirical confirmation in clinical biology providing one of the framework's strongest cases for content beyond fundamental physics.
 
----
+***

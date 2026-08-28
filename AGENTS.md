@@ -38,6 +38,55 @@ confers no protection, and "the framework needs this to be true" is never an arg
 
 ---
 
+## Code Review Rules
+
+### Claim/evidence boundary
+
+- Flag a review blocker when a changed mathematical, physical, or status claim is
+  stronger than the evidence supplied by the PR. In particular check for:
+  witness → theorem, finite test → universal claim, necessary → sufficient,
+  available → derived, conditional → unconditional, and ambient/background
+  calculation → native OI prediction.
+  Safe path: narrow the statement to the proved scope or supply an independent
+  derivation/control establishing the stronger claim.
+
+- When a probe claims a result about the framework's actual construction, verify
+  that the quantity tested is derived from that construction rather than from an
+  invented surrogate or illustrative distribution.
+
+### Exactness and controls
+
+- Do not accept floating-point evidence as certification of an exact zero, exact
+  rank, exact identity, exact leading order, or algebraic obstruction when an
+  exact/combinatorial calculation is available.
+
+- A computational verdict is invalid if a required control fails, is vacuous, or
+  merely reproduces the claimed formula. Decisive probes need an independent
+  control or countercontrol appropriate to the claim.
+
+### Status, propagation, and provenance
+
+- A change to a claim, numeric value, or theorem/status classification must be
+  checked across its maintained corpus mirrors. Flag stale contradictory status
+  surfaces or generated artifacts.
+
+- Preserve historical provenance. Correct current working-draft text forward;
+  do not rewrite historical commits or status records merely to make the history
+  agree with the latest result.
+
+- Keep verification layers distinct: Lean/kernel certification, exact algebra,
+  exhaustive finite computation, numerical evidence, and prose/status checks do
+  not substitute for one another.
+
+### Bridge and no-go scope
+
+- Do not promote a shared necessary ingredient into an identification of two
+  obstructions, a bridge, or an equivalence without an explicit formal map.
+
+- State negative results only for the construction or class actually ruled out;
+  do not turn failure of the current construction into impossibility of every
+  observer-level extension.
+
 ## The audit method (condensed)
 
 ### S/C/L/R/P/M/E — the primary classifications

@@ -1,7 +1,7 @@
 # Appendix A
 # Prediction Status Table
 
----
+***
 
 ## A.1 What this appendix provides
 
@@ -232,4 +232,4 @@ The framework's cumulative empirical record can be summarized as follows.
 
 The framework's distinctive epistemic position is that it provides *structural foundations* for the empirical patterns rather than competing theoretical content at the emergent level. Standard QM, standard QFT, and standard GR are reproduced at the emergent level; the framework's distinctive content is the structural foundations explaining why these emergent theories have the specific forms they do. The cumulative empirical record provides convergent evidence for the framework's structural commitments across multiple domains, with no single empirical match being load-bearing for the framework's overall content.
 
----
+***

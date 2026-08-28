@@ -1,7 +1,7 @@
 # Chapter 4
 # Methodology
 
----
+***
 
 ## 4.1 What this chapter develops
 
@@ -73,7 +73,7 @@ The framework's general rule is *group structural, couplings emergent*. The gaug
 
 **Why the classification matters.** A framework that classified all its predictions as S-class would either overstate its empirical record (if some predictions are actually conditional or retrodicted) or be implausibly successful (if all predictions actually walk end-to-end with no inputs). The framework's explicit classification of each prediction by its derivational rigor is a methodological discipline that allows the empirical record to be evaluated honestly. The strongest claims live in the S-class entries; the conditional claims live in C and L; retrodictions and inputs are acknowledged honestly. The framework's twenty-two Standard Model retrodictions split across these categories — some S-class, some C-class, some R-class — and the split is part of what readers should know when evaluating the framework's empirical record against the framework's structural commitments.
 
----
+***
 
 ## 4.4 Engaging the no-go results through one architecture
 
@@ -149,7 +149,7 @@ The Class B split is, in honest summary: four predictions are unconditional stru
 
 **The pre-registration commitment.** The author commits to treating the Class A conditions, the Class C commitments, and a Class B retrodiction exceeding $3\sigma$ on precision upgrade as framework-falsifying rather than as an invitation to post-hoc rescue. In the case of a Class B violation, the framework will be revisited to determine whether the violation reflects a computational error in the specific retrodiction, an incorrect specific-bijection input, or a structural problem with the derivation; the first two are recoverable, the third is fatal. The framework does not reserve the right to add structural postulates after the fact to accommodate disconfirming evidence. The pre-registration of this commitment is itself part of the falsifiability content of the framework — a framework that pre-registers its falsification conditions and then revises them post-hoc has compromised the discipline that pre-registration was meant to enforce.
 
----
+***
 
 ## 4.6 What does not falsify and regimes of deliberate silence
 

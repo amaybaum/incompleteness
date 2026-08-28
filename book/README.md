@@ -8,7 +8,7 @@
 
 This directory contains the book-length presentation of the framework developed in the companion research papers at [`../papers/`](../papers/). The complete manuscript is at [`The-Incompleteness-of-Observation-FULL.pdf`](The-Incompleteness-of-Observation-FULL.pdf); individual chapters are also provided as separate Markdown files.
 
----
+***
 
 ## Overview
 
@@ -30,7 +30,7 @@ The book is organized into four parts following the framework's intellectual cas
 
 A back matter section provides the prediction-status table, mathematical derivations, common objections, glossary, and bibliography.
 
----
+***
 
 ## Contents
 
@@ -103,13 +103,13 @@ The full compiled manuscript:
 
 - [`bibliography.md`](bibliography.md) — full references organized topically.
 
----
+***
 
 ## Relationship to the research papers
 
 This book draws on twelve technical papers in the companion [`../papers/`](../papers/) directory: **Main**, **SM**, **GR**, **Substratum**, **Structure** (core), **Juno** (focused case study), **Methodology** (foundations and philosophy of physics), and **Explainer** (superseded by this book as of 2026-07-26 and frozen), **Complexity**, **Computation**, **Medicine**, **Bioinformatics** (companion documents). The papers are the primary technical record; the book integrates them into a single narrative with expanded exposition, methodology, common-objection responses, glossary, and bibliography. Each chapter integrates one or more papers — readers wanting the original technical treatment should consult the corresponding paper.
 
----
+***
 
 ## Citation
 

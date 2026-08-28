@@ -1,7 +1,7 @@
 # Chapter 17
 # Bioinformatics
 
----
+***
 
 > **Status — conjectural extension.** This chapter applies the core framework to bioinformatics and evolutionary biology, and is offered as a *conjecture*, not an established result: the account is explicitly retrodictive — the phenomena predate the framework — and its principal forward discriminator (the Hurst-exponent signature) does not by itself separate the framework from a mundane superposition null, so the conjecture awaits a test that distinguishes it from that baseline. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
 
@@ -235,4 +235,4 @@ The framework's reach across Chapters 13-17 — quantum biology, quantum computi
 
 The framework's content from the substratum-level structural axioms of Chapter 1 through the emergence cascade of Chapters 10-12 and the applied chapters of 13-17, with the closing forward predictions and open problems inventory of Chapters 18-19, constitutes a complete structural framework with empirical exposure across physics, chemistry, biology, computing, engineering, and medicine. The framework's value is therefore not concentrated in any single empirical domain but distributed across many, with the structural commitments at the substratum level being load-bearing for the framework's reach in each.
 
----
+***

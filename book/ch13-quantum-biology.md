@@ -1,7 +1,7 @@
 # Chapter 13
 # Quantum Biology
 
----
+***
 
 ## 13.1 What this chapter develops
 
@@ -175,4 +175,4 @@ The framework's content in quantum biology unifies several apparently disparate 
 
 The framework's content from this chapter onward shifts from cascade derivations to specific empirical applications: how the framework's structural commitments at the chemistry and biology levels produce specific predictions about quantum computing platforms, engineered quantum systems, clinical pharmacology, and bioinformatics methodology. The chapter's content on the protein C1–C4 architecture provides the foundational example that the subsequent chapters build on.
 
----
+***

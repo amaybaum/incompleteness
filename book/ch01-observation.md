@@ -1,7 +1,7 @@
 # Chapter 1
 # Embedded Observation and the Characterization Theorem
 
----
+***
 
 ## 1.1 The problem and the theorem
 

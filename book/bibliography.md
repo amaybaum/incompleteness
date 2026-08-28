@@ -2,13 +2,13 @@
 
 This bibliography lists the works cited in the book, organized by topical area. Within each section, entries are alphabetical by first author. The framework's own technical companion papers are listed first under "Framework-internal citations"; subsequent sections cover foundations and interpretation, fundamental physics, gravitational physics and cosmology, chemistry and biology, evolution and molecular biology, medicine and pharmacology, bioinformatics and computational biology, quantum information and computing, and historical and philosophical works.
 
----
+***
 
 ## Framework-internal citations
 
 Maybaum, A. (2026). *The Observational Incompleteness Framework*. Zenodo, concept DOI: 10.5281/zenodo.19060318 (resolves to the current release). [Repository containing the framework's full technical content: the core papers — Main (central theorem and emergent quantum mechanics), Substratum (substratum construction and reconstruction theorem), Structure (structural realism), SM (Standard Model derivation), GR (gravitational sector) — together with the focused presentation Juno (neutrino-sector prediction), the methodology paper Physics Modulo Gauge, and the companion documents Explainer, Complexity, Medicine, and Bioinformatics.]
 
----
+***
 
 ## Foundations of quantum mechanics and interpretation
 
@@ -72,7 +72,7 @@ Wolpert, D. H. (2001). Computational capabilities of physical systems. *Physical
 
 Wood, C. J., & Spekkens, R. W. (2015). The lesson of causal discovery algorithms for quantum correlations: causal explanations of Bell-inequality violations require fine-tuning. *New Journal of Physics* 17: 033002.
 
----
+***
 
 ## Standard Model physics and particle phenomenology
 
@@ -94,7 +94,7 @@ Pontecorvo, B. (1957). Mesonium and antimesonium. *Soviet Physics JETP* 6: 429.
 
 Wu, C. S., Ambler, E., Hayward, R. W., Hoppes, D. D., & Hudson, R. P. (1957). Experimental test of parity conservation in beta decay. *Physical Review* 105: 1413-1415.
 
----
+***
 
 ## Gravitational physics, cosmology, and quantum gravity
 
@@ -146,7 +146,7 @@ Westerweck, J., Nielsen, A. B., Fischer-Birnholtz, O., Cabero, M., Capano, C., D
 
 Wilson-Gerow, J., Dugad, A., & Chen, Y. (2024). Decoherence by warm horizons. *Physical Review D* 110: 045002. arXiv:2405.00804. [Direct extension of the DSW horizon-decoherence result; provides a local fluctuation-dissipation derivation complementing the original global one. Previously cited in-text as "Wilson-Gerow and Verlinde (2024)"; identified during May 2026 second-sweep citation-verification pass — Verlinde is not a co-author on this paper.]
 
----
+***
 
 ## Chemistry and origin of life
 
@@ -166,7 +166,7 @@ Soai, K., Shibata, T., Morioka, H., & Choji, K. (1995). Asymmetric autocatalysis
 
 Wächtershäuser, G. (1990). Evolution of the first metabolic cycles. *Proceedings of the National Academy of Sciences USA* 87: 200-204.
 
----
+***
 
 ## Evolution and molecular biology
 
@@ -192,7 +192,7 @@ Wiser, M. J., Ribeck, N., & Lenski, R. E. (2013). Long-term dynamics of adaptati
 
 Zeng, L.-W., Comeron, J. M., Chen, B., & Kreitman, M. (1998). The molecular clock revisited: the rate of synonymous vs. replacement change in *Drosophila*. *Genetica* 102/103: 369-382. DOI: 10.1023/A:1017035109224. [Source of the *Drosophila* dispersion-index range R(t) ≈ 1.6-2.6 cited in the text; previously attributed in-text to a "Wang et al. (2010)" entry that could not be located. The 1.6-2.6 range traces to this paper via Bedford & Hartl (2008).]
 
----
+***
 
 ## Medicine, pharmacology, and clinical biology
 
@@ -230,7 +230,7 @@ Ye, B. S., Chang, K. W., Kang, S., Jeon, S., & Chang, J. W. (2025). Repetitive a
 
 Zhang, X., Zegar, T., Lucas, A., Morrison-Smith, C., Knox, T., French, C. A., Knapp, S., Müller, S., & Siveke, J. T. (2020). Therapeutic targeting of p300/CBP HAT domain for the treatment of NUT midline carcinoma. *Oncogene* 39: 4770-4779. DOI: 10.1038/s41388-020-1301-9. PMID: 32366905. [Previously cited in-text as "Bauer et al. 2020"; identified during May 2026 citation-verification pass. The paper reports combination of p300/CBP HAT inhibitor A-485 with BET inhibitor JQ1, with synergistic effects against NUT midline carcinoma.]
 
----
+***
 
 ## Bioinformatics and computational biology
 
@@ -278,7 +278,7 @@ Tedesco, M., Giannese, F., Lazarević, D., Giansanti, V., Rosano, D., Monzani, S
 
 Theodoris, C. V., Xiao, L., Chopra, A., Chaffin, M. D., Sayed, Z. R. A., Hill, M. C., et al. (2023). Transfer learning enables predictions in network biology. *Nature* 618: 616-624.
 
----
+***
 
 ## Quantum biology and biological information processing
 
@@ -296,7 +296,7 @@ Hiscock, H. G., Worster, S., Kattnig, D. R., Steers, C., Jin, Y., Manolopoulos, 
 
 Hiscock, H. G., Hiscock, T. W., Kattnig, D. R., Scrivener, T., Lewis, A. M., Manolopoulos, D. E., & Hore, P. J. (2019). Navigating at night: fundamental limits on the sensitivity of radical pair magnetoreception under dim light. *Quarterly Reviews of Biophysics* 52: e9. DOI: 10.1017/S0033583519000076.
 
----
+***
 
 ## Quantum information, computing, and complexity
 
@@ -314,7 +314,7 @@ Nielsen, M. A., & Chuang, I. L. (2010). *Quantum Computation and Quantum Informa
 
 Steinhauer, J. (2016). Observation of quantum Hawking radiation and its entanglement in an analogue black hole. *Nature Physics* 12: 959-965.
 
----
+***
 
 ## Mathematical foundations and computability
 
@@ -326,7 +326,7 @@ Turing, A. M. (1937). On computable numbers, with an application to the *Entsche
 
 von Neumann, J. (1953). A certain zero-sum two-person game equivalent to the optimal assignment problem. In: H. W. Kuhn & A. W. Tucker (eds.), *Contributions to the Theory of Games II*, pp. 5-12. Princeton University Press. [Birkhoff-von Neumann theorem.]
 
----
+***
 
 ## Historical and philosophical works
 

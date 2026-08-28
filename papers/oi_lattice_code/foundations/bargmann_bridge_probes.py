@@ -67,6 +67,14 @@ def check(label, ok, msg):
     CHECKS.append(bool(ok))
     print(f"  {'PASS' if ok else 'FAIL'}  {label}: {msg}", flush=True)
 
+def verdict(label, ok, msg):
+    """A TERMINAL SUMMARY: it has no computation of its own, it only states what the checks above
+    have established. Gating the label is not enough -- check() prints its msg whatever the label
+    says, so a bare gate renders the entire verdict text under a FAIL heading, which is the thing
+    the gate exists to prevent. The message itself is therefore withheld when a control has failed."""
+    check(label, ok, msg if ok else
+          "WITHHELD — a prerequisite control above failed, so this summary is not asserted")
+
 # ---------------------------------------------------------------- the native construction (b76B)
 nV, nA, BLANK, K = 2, 2, -1, 1
 
@@ -282,7 +290,9 @@ check("BB4", ok4,
 
 # ---------------------------------------------------------------- BB5  what this establishes
 print("BB5  a shared necessary ingredient — which is NOT a shared obstruction")
-check("BB5", True,
+# Gated on the checks above: an unconditional True would print PASS beside a red control,
+# and this verdict has no computation of its own — it summarizes the ones that do.
+verdict("BB5", all(CHECKS),
       "the complex-phase-bearing states H-observer-bundle would need are exactly the "
       "complex-phase-bearing probes b435's SL9 identified as necessary for coherent probing, and "
       "b435's SL7 showed the native permutation instrument set supplies none of them AT ANY ORDER. "
@@ -293,7 +303,9 @@ check("BB5", True,
 
 # ---------------------------------------------------------------- BB6  the decision-tree verdict
 print("BB6  the verdict, and what stays closed")
-check("BB6", True,
+# Gated on the checks above: an unconditional True would print PASS beside a red control,
+# and this verdict has no computation of its own — it summarizes the ones that do.
+verdict("BB6", all(CHECKS),
       "step 2 of the b440 tree — can the native construction produce a nonzero exact Bargmann "
       "invariant — answers NO, on both the pure and the mixed reading. So H-observer-bundle remains "
       "an ADDITIONAL condition on the framework rather than a consequence of it; H-Y-vertex is not "
@@ -302,15 +314,19 @@ check("BB6", True,
       "it. A different observer-level map (§4.7.1.1) is not excluded by anything here")
 
 print()
-print("     [scope] Settled: the framework's own (S, phi, mu_H, {I_a}) cannot supply the observer")
-print("     states H-observer-bundle needs. Its operations are permutations, so reachable pure")
-print("     states are basis states with 0/1 overlaps and no Bargmann phase at any word length;")
-print("     the post-trace-out states are diagonal, so the mixed generalization vanishes too; and")
-print("     the witness states that do carry a phase are complex superpositions no permutation")
-print("     produces. The candidate bridge therefore FAILS in the direction b435 predicted.")
-print("     NOT settled: that H-observer-bundle is unsatisfiable — a different observer-level map")
-print("     is untouched here. H-Y-vertex is not reached. And this is a shared NECESSARY INGREDIENT")
-print("     across the two arcs, not the shared obstruction b426 declined to assert; b426 stands.")
+if not all(CHECKS):
+    print("     [scope] VERDICT WITHHELD: a control above failed, so the statement below is not")
+    print("     asserted. Fix the failing check before reading any conclusion from this run.")
+else:
+    print("     [scope] Settled: the framework's own (S, phi, mu_H, {I_a}) cannot supply the observer")
+    print("     states H-observer-bundle needs. Its operations are permutations, so reachable pure")
+    print("     states are basis states with 0/1 overlaps and no Bargmann phase at any word length;")
+    print("     the post-trace-out states are diagonal, so the mixed generalization vanishes too; and")
+    print("     the witness states that do carry a phase are complex superpositions no permutation")
+    print("     produces. The candidate bridge therefore FAILS in the direction b435 predicted.")
+    print("     NOT settled: that H-observer-bundle is unsatisfiable — a different observer-level map")
+    print("     is untouched here. H-Y-vertex is not reached. And this is a shared NECESSARY INGREDIENT")
+    print("     across the two arcs, not the shared obstruction b426 declined to assert; b426 stands.")
 print()
 print("bargmann_bridge_probes:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

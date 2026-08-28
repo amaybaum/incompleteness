@@ -1,7 +1,7 @@
 # Chapter 9
 # Universality Classes and External Convergence
 
----
+***
 
 ## 9.1 What this chapter develops
 
@@ -133,7 +133,7 @@ Seven universality-class entries tested against current empirical evidence: one 
 
 The next section develops the corresponding Tier 2 and Tier 3 content and traces the empirical record at the substratum-properties and bijection-specific levels.
 
----
+***
 
 ## 9.4 Tier 2 and Tier 3 stratification
 
@@ -340,4 +340,4 @@ This stance is intellectually irenic. The framework is not a competitor to exist
 
 The framework's content from Chapter 5 through Chapter 8 — concentrated at the universality-class, substratum-properties, and specific-bijection levels in this chapter's hierarchical structural realism — provides the empirical foundation. The remaining chapters build on that foundation, with the framework's reach extending from the substratum-level structural commitments developed in Part I and the empirical record developed in Part II into the broader scientific domains where the framework operates.
 
----
+***

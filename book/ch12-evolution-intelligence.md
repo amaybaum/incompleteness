@@ -1,7 +1,7 @@
 # Chapter 12
 # Evolution, Intelligence, and Self-Reference
 
----
+***
 
 ## 12.1 What this chapter develops
 
@@ -243,4 +243,4 @@ The framework's self-reference is therefore not paradoxical but consistent. The 
 
 The framework's reach in this chapter spans from molecular biology to AI to the framework's own self-discovery. The cumulative structural account — Darwinian evolution as inevitable consequence of C1–C4 at the molecular scale, information processing as fitness-enhancing, neural computation as structurally possible, general intelligence as structurally unconstrained but not guaranteed, AI as structural consequence of intelligence, and the framework's self-referential limits as mathematical constraints — provides the framework's content on emergence beyond fundamental physics. The remaining chapters apply this content to specific empirical domains: quantum biology (Chapter 13), quantum computing (Chapter 14), quantum engineering (Chapter 15), medicine (Chapter 16), and bioinformatics (Chapter 17).
 
----
+***

@@ -1,6 +1,6 @@
 # Introduction
 
----
+***
 
 ## 0.1 Two physics, or two projections?
 
