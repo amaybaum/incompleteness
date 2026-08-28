@@ -78,45 +78,64 @@ jobs:
             exit 1
           fi
 
-          # One GraphQL round trip returns both halves: the reviews with the commit each looked at,
-          # and the threads with their resolution and outdated flags.
-          query() {
+          # Reviews: which commit each one looked at.
+          reviews_json() {
             gh api graphql -f query='
               query($owner:String!, $repo:String!, $pr:Int!) {
                 repository(owner:$owner, name:$repo) {
                   pullRequest(number:$pr) {
-                    reviews(last:50) {
-                      nodes { author { login } commit { oid } }
-                    }
-                    reviewThreads(last:100) {
-                      nodes {
-                        isResolved
-                        isOutdated
-                        comments(first:1) { nodes { author { login } } }
-                      }
-                    }
+                    reviews(last:50) { nodes { author { login } commit { oid } } }
                   }
                 }
               }' -F owner="$OWNER" -F repo="$REPO" -F pr="$PR"
           }
 
-          # A thread counts against the gate only if Codex opened it, it is unresolved, and it is
-          # NOT outdated. Outdated threads are ones a later push superseded; on this repository four
-          # of five went outdated the moment a fix landed, and counting those would wedge the branch
-          # on stale findings that no longer refer to live code.
+          # Threads, PAGINATED. A single last:100 page silently drops older threads once a pull
+          # request accumulates more than that, and an unresolved finding scrolling out of the query
+          # would turn the gate green while the finding stood. This one walks every page.
+          open_thread_count() {
+            local cursor="null" total=0 page
+            while :; do
+              page="$(gh api graphql -f query='
+                query($owner:String!, $repo:String!, $pr:Int!, $after:String) {
+                  repository(owner:$owner, name:$repo) {
+                    pullRequest(number:$pr) {
+                      reviewThreads(first:100, after:$after) {
+                        pageInfo { hasNextPage endCursor }
+                        nodes {
+                          isResolved
+                          comments(first:1) { nodes { author { login } } }
+                        }
+                      }
+                    }
+                  }
+                }' -F owner="$OWNER" -F repo="$REPO" -F pr="$PR" \
+                   $( [ "$cursor" = "null" ] || printf -- '-F after=%s' "$cursor" ) )"
+              total=$(( total + $(jq -r --arg who "$REVIEWER" '
+                [ .data.repository.pullRequest.reviewThreads.nodes[]
+                  | select(.isResolved == false)
+                  | select(.comments.nodes[0].author.login == $who) ] | length' <<<"$page") ))
+              [ "$(jq -r '.data.repository.pullRequest.reviewThreads.pageInfo.hasNextPage' <<<"$page")" = "true" ] || break
+              cursor="$(jq -r '.data.repository.pullRequest.reviewThreads.pageInfo.endCursor' <<<"$page")"
+            done
+            echo "$total"
+          }
+
+          # A thread counts against the gate if Codex opened it and it is UNRESOLVED -- outdated or
+          # not. Excluding outdated ones was wrong: "outdated" only means a later push moved the
+          # lines the comment was anchored to, which is exactly what happens when a fix is pushed
+          # WITHOUT the finding being acknowledged. That let an unaddressed finding vanish from the
+          # gate by editing nearby code. Resolving is the only thing that clears it, which is the
+          # contract the failure message states.
           for attempt in $(seq 1 24); do
-            json="$(query)"
+            json="$(reviews_json)"
 
             reviewed="$(jq -r --arg who "$REVIEWER" --arg sha "$HEAD_SHA" '
               [ .data.repository.pullRequest.reviews.nodes[]
                 | select(.author.login == $who and .commit.oid == $sha) ] | length' <<<"$json")"
 
-            open_threads="$(jq -r --arg who "$REVIEWER" '
-              [ .data.repository.pullRequest.reviewThreads.nodes[]
-                | select(.isResolved == false and .isOutdated == false)
-                | select(.comments.nodes[0].author.login == $who) ] | length' <<<"$json")"
-
             if [ "$reviewed" -gt 0 ]; then
+              open_threads="$(open_thread_count)"
               echo "Codex has reviewed ${HEAD_SHA}."
               if [ "$open_threads" -gt 0 ]; then
                 # RESOLVING the thread is what clears this, and nothing else. A reply leaves
@@ -124,12 +143,12 @@ jobs:
                 # red forever; and counting any reply as acknowledgement would let a one-word answer
                 # satisfy it, which is not a gate. Disagreeing with a finding is legitimate — reply
                 # with the reason AND resolve, so the thread carries the record and the branch moves.
-                echo "::error::${open_threads} unresolved, non-outdated Codex thread(s) on this head." \
+                echo "::error::${open_threads} unresolved Codex thread(s) on this pull request." \
                      "Resolve each one. If you are rejecting a finding, reply with the reason and" \
                      "resolve it anyway — a reply alone does not clear this check."
                 exit 1
               fi
-              echo "No unresolved, non-outdated Codex threads. Gate satisfied."
+              echo "No unresolved Codex threads. Gate satisfied."
               exit 0
             fi
 

@@ -10,6 +10,13 @@
 # the native classical state and readout, and every existing comb probability, must be preserved
 # EXACTLY -- and the question is what is first capable of continuous U(1) projective curvature.
 #
+# TWO SENSES OF CONSERVATIVE, used throughout and never interchangeably. OI-CONSERVATIVE is the
+# definition just given: what OI actually supplies comes back exactly. STRONGLY CONSERVATIVE adds
+# that the forgetting intertwines the dynamics on the ENTIRE coherent state space, coherences
+# included -- data the enlarged theory has and OI never supplied, so it is an extra hypothesis and
+# not a consequence. CB4-CB5 establish the first for P (x) I; CB5c shows a state-dependent rotation
+# keeps the first and loses the second.
+#
 # THE HIERARCHY.
 #   CB1  NORMALIZER NO-GO. Let D be the diagonal algebra in the native basis. Permutations lie in
 #        its unitary normalizer, and the normalizer is exactly the MONOMIAL group U = D_phase P --
@@ -50,24 +57,28 @@
 #        connection, which [SM §6.5] defines through overlaps and which needs no rotation by the
 #        transport; that object is untouched here, because the construction supplies no local graph
 #        to evaluate it on. Flat transport and no connection are different statements.
-#   CB5c STATE-DEPENDENT ROTATION IS NOT CONSERVATIVE. P~ = sum_s |P(s)><s| (x) U_s looks
-#        conservative because the fibre trace forgets a unitary -- but that holds only for
-#        BLOCK-DIAGONAL inputs. A coherence between two native states carries U_s rho_st U_t^dag,
-#        of trace Tr(U_t^dag U_s rho_st), which equals Tr(rho_st) for every rho_st only when
-#        U_t^dag U_s = I. What that forces is exactly that the rotation cannot depend on the STATE.
-#        It does NOT force the common value to be I, and it says nothing about different native
-#        OPERATIONS carrying different global rotations.
+#   CB5c TWO CONDITIONS, kept apart. OI-CONSERVATIVE is this file's definition, used by CB4-CB5:
+#        the native classical state, the readout and every comb probability OI supplies come back
+#        exactly. STRONGLY CONSERVATIVE additionally demands the intertwining on the ENTIRE coherent
+#        state space. Coherences are data the enlarged theory has and OI never supplied, so the
+#        second is an extra hypothesis, not a consequence of the first. P~ = sum_s |P(s)><s| (x) U_s
+#        is OI-CONSERVATIVE and fails only STRONG conservativity: a coherence carries
+#        U_s rho_st U_t^dag, of trace Tr(U_t^dag U_s rho_st), equal to Tr(rho_st) for every rho_st
+#        only when U_t^dag U_s = I. That forces state-independence, nothing about the common value,
+#        and nothing about different native OPERATIONS carrying different global rotations.
 #   CB5d THE OPERATION-DEPENDENT LIFT IS CONSERVATIVE, AND THE RELATIONS STILL KILL THE HOLONOMY.
 #        Lift each operation o as P_o (x) U_o with a single global U_o: the same U sits on both
 #        sides of every block, so the fibre trace is preserved on every coherence unconditionally,
-#        and CB5c's obstruction does not apply. But a lift must respect the native RELATIONS. Both
-#        instruments are involutions on every state, so I_0 I_0 I_1 I_1 is the identity MAP and any
-#        lift must give it the identity rotation; assigning it a nontrivial one lifts the SPELLING
-#        of an operation rather than the operation. NO HOLONOMY WITNESS IS CLAIMED HERE. The
-#        question is nonetheless live: words fixing the base state without being the identity map
-#        exist, some using no phi at all, so they are not padding artifacts. Deciding whether a
-#        consistent lift is nontrivial on any of them needs the presentation of the group the three
-#        native permutations generate, which this file does not compute.
+#        and CB5c's obstruction does not apply. The native RELATIONS then bind it only
+#        PROJECTIVELY: the fibre acts by conjugation, which is blind to an overall phase, so an
+#        involution forces U^2 = scalar and NOT U^2 = I -- the quarter turn J with J^2 = -I is a
+#        legitimate lift that the strict reading would wrongly exclude. Demanding strictness imposes
+#        a non-projective representation as a hidden hypothesis, which begs the question when the
+#        target structure is Bargmann geometry. NO HOLONOMY WITNESS IS CLAIMED HERE: the word that
+#        looked like a loop still yields a scalar, whose phase is a Z_2 sign of CB2's kind. The
+#        question is live -- words fixing the base state without being the identity map exist, some
+#        using no phi -- and deciding it needs the PROJECTIVE representations (2-cocycles, Schur
+#        multiplier) of the group the three native permutations generate, uncomputed here.
 #
 # THE BOUNDARY STATEMENT (CB6). OI fixes the classical operational quotient and leaves the coherent
 # fibre over it UNDERDETERMINED. b440 showed the canonical fibre is trivial; this file shows how
@@ -502,8 +513,17 @@ check("CB5b", ok5b,
       "section-induced connection is not evaluated: there is no local graph here to evaluate it on")
 
 # ------------------------------------------ CB5c  where the richer lift's conservativity fails
-print("CB5c  P (x) U_s is conservative on CLASSICAL inputs only — coherence forces U_s constant")
-# The obvious escape from CB5b's flat transport is a state-dependent fibre rotation,
+print("CB5c  P (x) U_s is OI-CONSERVATIVE; what it fails is the STRONGER intertwining condition")
+# TWO CONDITIONS, and they must not be run together. This file's definition of conservative --
+# stated in the header and used by CB4-CB5 -- is OI-CONSERVATIVE: the native classical state and
+# readout are preserved and every comb probability OI actually supplies comes back exactly. STRONGLY
+# CONSERVATIVE is the different, stronger demand that F o (lifted op) = (op) o F on the ENTIRE
+# coherent state space, coherences included. The coherences are new data the enlarged theory has and
+# OI never supplied, so the stronger condition is a legitimate extra hypothesis and NOT a
+# consequence of the definition. What follows fails STRONG conservativity only; state-dependent
+# rotations remain OI-conservative, which is what CB4-CB5 were about.
+#
+# The escape from CB5b's flat transport is a state-dependent fibre rotation,
 # P~ = sum_s |P(s)><s| (x) U_s, on the grounds that the fibre trace forgets a unitary anyway. That
 # reasoning holds only for BLOCK-DIAGONAL inputs. On a coherence between two native states the
 # block (s,t) carries U_s rho_st U_t^dag, whose fibre trace is Tr(U_t^dag U_s rho_st) -- equal to
@@ -517,6 +537,10 @@ def bmul(A, B):
                  for i in range(2))
 def bdag(A): return tuple(tuple(gconj(A[j][i]) for j in range(2)) for i in range(2))
 def btr(A):  return gadd(A[0][0], A[1][1])
+def is_scalar(A):
+    """A multiple of the identity. Conjugation cannot see one, which is why the native relations
+    bind a fibre lift only up to a scalar and CB5d reads them projectively."""
+    return A[0][1] == GZ and A[1][0] == GZ and A[0][0] == A[1][1]
 U_I = ((GO, GZ), (GZ, GO))
 U_D = (((F(0), F(1)), GZ), (GZ, (F(0), F(-1))))       # diag(i, -i): unitary, and not a phase times I
 RHO_ST = ((GO, (F(1), F(1))), ((F(0), F(2)), (F(3), F(0))))    # an arbitrary off-diagonal block
@@ -531,17 +555,22 @@ A_NE = bmul(bdag(U_D), U_I)
 ok5c &= (A_NE != U_I) and any(btr(bmul(A_NE, X)) != btr(X) for X in BASIS)
 ok5c &= all(btr(bmul(U_I, X)) == btr(X) for X in BASIS)
 check("CB5c", ok5c,
-      "the state-dependent rotation P (x) U_s does NOT automatically inherit CB4's intertwining. "
-      "On a diagonal block any single U is forgotten by the fibre trace, which is exactly why CB4 "
-      "passed and why the lift looks conservative on the classical states the dynamics produces. "
+      "TWO CONDITIONS, and the finding is about the stronger one. OI-CONSERVATIVE — this file's "
+      "definition, the one CB4-CB5 use — asks that the native classical state, the readout and "
+      "every comb probability OI supplies come back exactly. The state-dependent rotation "
+      "P (x) U_s MEETS that: on a diagonal block any single U is forgotten by the fibre trace, and "
+      "the block-diagonal states are all the dynamics produces. STRONGLY CONSERVATIVE is the "
+      "separate, stronger demand that the intertwining hold on the ENTIRE coherent state space; "
+      "the coherences are data the enlarged theory has and OI never supplied, so it is an extra "
+      "hypothesis rather than a consequence. What follows fails STRONG conservativity ONLY. "
       "But a coherence between two native states carries U_s rho_st U_t^dag, whose trace is "
       "Tr(U_t^dag U_s rho_st); with U_s = I and U_t = diag(i, -i) that differs from Tr(rho_st) "
       "exactly. And on a basis of the 2x2 blocks, Tr(AX) = Tr(X) for every X only when A = I — "
       "checked both ways here. WHAT THIS FORCES, exactly: U_t^dag U_s = I, i.e. the fibre rotation "
       "cannot depend on the STATE. It does NOT force the common value to be the identity, and it "
       "says nothing about different NATIVE OPERATIONS carrying different global rotations. That "
-      "check closes only the state-dependent case; CB5d takes up what the remaining freedom does "
-      "and does not buy")
+      "check closes the state-dependent case for STRONG conservativity and leaves it OPEN for "
+      "OI-conservativity; CB5d takes up what the remaining freedom does and does not buy")
 
 # ------------------------------- CB5d  the freedom CB5c leaves, and the underdetermination it gives
 print("CB5d  operation-dependent rotations are conservative — but the RELATIONS kill the holonomy")
@@ -551,12 +580,17 @@ print("CB5d  operation-dependent rotations are conservative — but the RELATION
 # preserved on every coherence, not merely on the block-diagonal states. Conservativity is exact and
 # unconditional here.
 #
-# But a LIFT MUST RESPECT THE NATIVE RELATIONS, and that is what kills the holonomy. Each instrument
-# is an involution ON ALL STATES -- I_a swaps BLANK and act -- so I_a o I_a is the identity MAP, and
-# any lift of the operation algebra must send it to the identity: U_(I_a)^2 = I is forced, not
-# chosen. The word I_0 I_0 I_1 I_1 is therefore the identity operation spelled at length four, and
-# assigning it a nontrivial fibre rotation lifts the SPELLING rather than the operation. An earlier
-# version of this check did exactly that and its witness is withdrawn here.
+# A lift must respect the native RELATIONS -- but only PROJECTIVELY, and the difference matters.
+# Each instrument is an involution ON ALL STATES, so I_a o I_a is the identity MAP. The fibre acts by
+# CONJUGATION, rho -> U rho U^dag, which is blind to an overall phase, so what the relation forces is
+# U_(I_a)^2 = e^{i theta} I -- a SCALAR -- and NOT U_(I_a)^2 = I. Demanding the strict equality is
+# imposing a non-projective representation as an extra hypothesis, and an earlier version of this
+# check did that silently. Since the target structure is itself Bargmann/projective geometry, the
+# projective reading is the right one and the strict one would beg the question.
+#
+# What the projective relation still gives is that the tested word's holonomy is a SCALAR, and a
+# scalar acts trivially by conjugation. So the withdrawn witness stays withdrawn -- but for a
+# weaker reason than "the relations kill it", and the phase it leaves is a real projective datum.
 U_OP = {'I_0': (((F(3, 5), F(0)), (F(-4, 5), F(0))),        # a rational rotation: unitary over Q(i)
                 ((F(4, 5), F(0)), (F(3, 5), F(0)))),
         'I_1': U_I, 'phi': U_I}
@@ -582,9 +616,23 @@ def hol(ops, U):
         H = bmul(U.get(o, U_I), H)
     return H
 ok5d &= (hol(WORD_OPS, {'I_0': U_I, 'I_1': U_I}) == U_I)
-# and the rotation the withdrawn witness used is exactly what the relation forbids: R^2 != I
+# The PROJECTIVE lift is strictly larger than the strict one, and a Gaussian-rational witness shows
+# it: J is a quarter turn, J^2 = -I. Strictly that violates the involution; projectively it does not,
+# because conjugating by -I is the identity on every density matrix. So J is a legitimate lift of an
+# involution that the strict reading would have excluded.
+J = ((GZ, GO), ((F(-1), F(0)), GZ))
+ok5d &= (bmul(J, bdag(J)) == U_I)                            # unitary
+J2 = bmul(J, J)
+ok5d &= (J2 != U_I) and is_scalar(J2)                        # not I, but a SCALAR: projectively fine
+ok5d &= all(bmul(bmul(J2, X), bdag(J2)) == X for X in BASIS)  # and conjugation by it is the identity
+# The word's holonomy under that projective lift is J^2 = -I: a scalar, hence trivial as a CHANNEL,
+# but a phase of -1 -- a Z_2 sign, which is exactly the real-line-bundle structure CB2 identified and
+# NOT the continuously variable U(1) a hypercharge connection needs.
+HOLJ = hol(WORD_OPS, {'I_0': J, 'I_1': U_I})
+ok5d &= (HOLJ == J2) and is_scalar(HOLJ)
+# the 3-4-5 rotation the withdrawn witness used is excluded even projectively: R^2 is NOT a scalar
 R35 = U_OP['I_0']
-ok5d &= (bmul(R35, R35) != U_I)
+ok5d &= (not is_scalar(bmul(R35, R35)))
 # Is the question even live? Words fixing W0 that are NOT the identity map do exist, and some avoid
 # phi entirely -- so they cannot be dismissed as steps through the bijection padding the way a lone
 # phi at W0 can (W0 fails phi's constructed-branch guard). Whether a CONSISTENT lift can be
@@ -599,18 +647,26 @@ ok5d &= not (W0[4] < K and wf_x(W0[1], W0[4]) and wf_a(W0[2], W0[4], wrote=True)
 check("CB5d", ok5d,
       f"lifting each native operation o as P_o (x) U_o with a single GLOBAL U_o IS conservative on "
       f"every block, coherences included — the same U sits on both sides, so Tr(U X U^dag) = Tr(X) "
-      f"unconditionally and CB5c's obstruction does not apply. But conservativity is not the only "
-      f"constraint: a lift must respect the native RELATIONS. Both instruments are verified "
-      f"involutions ON EVERY STATE, so I_0 I_0 I_1 I_1 is the identity MAP (checked on all "
-      f"{len(STATES)} states), and any lift of the operation algebra must give it the identity "
-      f"rotation. Assigning it the 3-4-5 rotation's square, which is not I, lifts the SPELLING of "
-      f"an operation rather than the operation — so the holonomy witness an earlier version of this "
-      f"check reported is WITHDRAWN. The question is nonetheless LIVE rather than closed: at length "
+      f"unconditionally and CB5c's obstruction does not apply. The remaining constraint is the "
+      f"native RELATIONS, and they bind only PROJECTIVELY. Both instruments are verified involutions "
+      f"ON EVERY STATE, so I_0 I_0 I_1 I_1 is the identity MAP (checked on all {len(STATES)} "
+      f"states) — but the fibre acts by conjugation, which is blind to a phase, so what is forced is "
+      f"U^2 = scalar, NOT U^2 = I. The quarter turn J with J^2 = -I is exhibited as a legitimate "
+      f"projective lift of an involution that the strict reading would wrongly exclude, and "
+      f"conjugation by J^2 is verified to be the identity on every block. Demanding strictness would "
+      f"impose a non-projective representation as a hidden hypothesis — question-begging, since the "
+      f"target structure is itself Bargmann geometry. The withdrawn witness stays withdrawn on the "
+      f"weaker ground: the 3-4-5 rotation's square is not even a scalar, so it fails projectively "
+      f"too. What the projective lift does give for this word is holonomy -I: trivial as a CHANNEL, "
+      f"but a Z_2 phase — precisely CB2's real-line-bundle sign, not the continuously variable U(1) "
+      f"a hypercharge connection needs. The question is LIVE rather than closed: at length "
       f"<= 4 there are {len(CAND)} words fixing the base state that are not the identity map, and "
       f"{len(PHI_FREE)} of them use no phi at all, so they cannot be dismissed as steps through the "
-      f"bijection padding the way a lone phi at the base state can. Whether a CONSISTENT lift can "
-      f"be nontrivial on any of them needs the presentation of the group these three permutations "
-      f"generate, which this file does not compute. OPEN, and claimed in neither direction")
+      f"bijection padding the way a lone phi at the base state can. Deciding it needs the PROJECTIVE "
+      f"representations — the 2-cocycles, the Schur multiplier — of the finite group these three "
+      f"permutations generate, which this file does not compute. OPEN, and claimed in neither "
+      f"direction; the projective reading makes the available freedom LARGER than the strict one, "
+      f"not smaller")
 
 # ---------------------------------------------------------------- CB6  the boundary statement
 print("CB6  the boundary, and what it does and does not settle")
@@ -628,14 +684,16 @@ verdict("CB6", all(CHECKS),
       "therefore how this witness is built, not a theorem about the alternatives. Its geometry is "
       "undetermined in the SPECIFIC senses CB5b-CB5d establish, and NO holonomy witness is claimed "
       "in this construction. The native P (x) I transport is FLAT and the tested word was open "
-      "(CB5b). A STATE-dependent rotation is not conservative on coherences unless it is constant "
-      "(CB5c). An OPERATION-dependent one IS conservative, but a lift must respect the native "
-      "relations, and since both instruments are involutions the word that looked like a loop is "
-      "the identity operation spelled at length four — so its holonomy is forced trivial and that "
-      "witness is withdrawn (CB5d). Words fixing the base state without being the identity map do "
-      "exist, some using no phi at all, so the question is LIVE; deciding it needs the presentation "
-      "of the group the native permutations generate, which is not computed here and is claimed in "
-      "neither direction. "
+      "(CB5b). A STATE-dependent rotation stays OI-CONSERVATIVE and fails only the stronger "
+      "intertwining on coherences, which is a separate hypothesis and not a consequence of the "
+      "definition (CB5c). An OPERATION-dependent one is conservative in both senses, and the native "
+      "relations bind it only PROJECTIVELY — conjugation is blind to a phase, so involutions force "
+      "U^2 = scalar rather than U^2 = I. The word that looked like a loop still yields a scalar, so "
+      "that witness stays withdrawn, but the phase it leaves is a Z_2 sign of exactly CB2's kind "
+      "(CB5d). Words fixing the base state without being the identity map do exist, some using no "
+      "phi at all, so the question is LIVE; deciding it needs the PROJECTIVE representations of the "
+      "group the native permutations generate, which is not computed here and is claimed in neither "
+      "direction — and the projective reading makes that freedom LARGER, not smaller. "
       "Rank bounds are narrow too: CB2-CB3 bound BARGMANN PHASES OF RAY OVERLAPS in a "
       "fixed ambient space, not connection holonomy, and a complex line bundle can be non-flat. "
       "H-OBSERVER-BUNDLE REMAINS OPEN — not derived, not local (no neighbour relation, two visible "
@@ -655,14 +713,18 @@ else:
     print("     conservative completion of it: the dynamics, the comb probabilities and the")
     print("     fixed-basis retract all survive, and it carries observables the old instrument")
     print("     algebra cannot see. Nothing in the normalizer of the diagonal algebra escapes b440's")
-    print("     no-go. The native transport is FLAT; a STATE-dependent rotation is not conservative")
-    print("     on coherences unless constant; an OPERATION-dependent one is conservative but must")
-    print("     respect the native relations, and since both instruments are involutions the word")
-    print("     that looked like a loop is the identity operation spelled at length four.")
-    print("     NO HOLONOMY WITNESS IS CLAIMED in this construction. Words fixing the base state")
-    print("     without being the identity map do exist, some using no phi at all, so the question")
-    print("     is LIVE — deciding it needs the presentation of the group the native permutations")
-    print("     generate, which is not computed here and is claimed in neither direction.")
+    print("     no-go. The native transport is FLAT. A STATE-dependent rotation stays")
+    print("     OI-CONSERVATIVE and fails only the STRONGER intertwining on coherences — a separate")
+    print("     hypothesis, not a consequence of the definition. An OPERATION-dependent one is")
+    print("     conservative in both senses, and the native relations bind it only PROJECTIVELY:")
+    print("     conjugation is blind to a phase, so an involution forces U^2 = scalar, not U^2 = I.")
+    print("     NO HOLONOMY WITNESS IS CLAIMED in this construction — the word that looked like a")
+    print("     loop yields a scalar, whose phase is a Z_2 sign of exactly CB2's kind and not the")
+    print("     continuously variable U(1) hypercharge needs. Words fixing the base state without")
+    print("     being the identity map do exist, some using no phi at all, so the question is LIVE:")
+    print("     deciding it needs the PROJECTIVE representations — 2-cocycles, Schur multiplier —")
+    print("     of the group the native permutations generate, uncomputed here and claimed in")
+    print("     neither direction. The projective reading makes that freedom LARGER, not smaller.")
     print("     NOT settled — and this is the important boundary. b441 does NOT classify all")
     print("     possible quantum completions: it exhibits one, and nothing here shows every")
     print("     completion of the quotient has tensor-product-fibre form. The rank bounds are")
