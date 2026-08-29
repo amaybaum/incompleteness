@@ -96,6 +96,21 @@ theorem trace_permOp (h : Equiv.Perm Link) :
   simp only [Matrix.diag_apply, hentry]
   rw [Finset.sum_boole]
 
+/-- **`permOp` is an ANTI-homomorphism.** Precomposition reverses the order of composition, so any
+REPRESENTATION built from it has to carry the inverse: `rho g = permOp (h g⁻¹)`. Recorded as a
+lemma rather than left to the reader, because the `S₄` characters here happen to satisfy
+`χ(g⁻¹) = χ(g)` and every numeric consequence would come out right even with the orientation
+wrong. -/
+theorem permOp_mul (h₁ h₂ : Equiv.Perm Link) : permOp (h₁ * h₂) = permOp h₂ ∘ₗ permOp h₁ := by
+  refine LinearMap.ext fun f => ?_
+  funext l
+  rfl
+
+theorem permOp_one : permOp 1 = LinearMap.id := by
+  refine LinearMap.ext fun f => ?_
+  funext l
+  rfl
+
 /-! ### The three projectors
 
 `C` is the antipodal involution on functions. `P_T` is its `−1` eigenprojector — the odd functions,
@@ -559,6 +574,7 @@ theorem hlink_transport {W : Type*} [AddCommGroup W] [Module ℚ W]
 /-! ### What these proofs rest on -/
 
 #print axioms trace_permOp
+#print axioms permOp_mul
 #print axioms PT_idem
 #print axioms PE_idem
 #print axioms sum_proj

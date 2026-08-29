@@ -172,11 +172,10 @@ noncomputable def rho : Representation ℚ (Perm (Fin 4)) (Face → ℚ) where
   toFun g := (Equiv.Perm.permMatrix ℚ (actHom g⁻¹)).toLin'
   map_one' := by
     ext v x
-    simp [Matrix.toLin'_apply, Matrix.permMatrix_mulVec, Function.comp]
+    simp [Function.comp]
   map_mul' g h := by
     ext v x
-    simp [Matrix.toLin'_apply, Matrix.permMatrix_mulVec, Function.comp, mul_inv_rev,
-      map_mul, Perm.mul_apply]
+    simp [Function.comp, mul_inv_rev, map_mul]
 
 /-- The faces fixed by `g`, as a `Finset`. Phrased on `g⁻¹` to match `rho`, which carries the
 inverse to get the homomorphism direction right; summed over the whole group the distinction is
@@ -487,6 +486,89 @@ theorem linkHom_injective : Function.Injective linkHom := by
   refine act_injective (Equiv.ext fun F => faceEquivLink.injective ?_)
   have := congrArg (fun σ => σ (faceEquivLink F)) hgh
   simpa [linkHom_apply, Equiv.symm_apply_apply] using this
+
+/-! ### The link representation
+
+`permOp` acts by precomposition and so reverses composition order (`LinkDecomposition.permOp_mul`).
+The representation therefore carries the INVERSE. That orientation is made explicit here rather
+than left implicit: the `S₄` characters below all satisfy `χ(g⁻¹) = χ(g)`, so every numeric
+consequence would come out right even if the orientation were wrong, and only a pointwise statement
+would notice. -/
+
+/-- **The six-link representation of the cubic rotation group**, `V₆`. -/
+noncomputable def rhoLink : Representation ℚ (Perm (Fin 4)) LV where
+  toFun g := permOp (linkHom g⁻¹)
+  map_one' := by rw [inv_one, map_one, permOp_one]; rfl
+  map_mul' g h := by
+    rw [mul_inv_rev, map_mul, permOp_mul]
+    rfl
+
+theorem rhoLink_apply (g : Perm (Fin 4)) : rhoLink g = permOp (linkHom g⁻¹) := rfl
+
+/-- Its character is the fixed-link count, through `trace_permOp`. -/
+theorem character_rhoLink (g : Perm (Fin 4)) :
+    rhoLink.character g
+      = ((Finset.univ.filter fun l => linkHom g⁻¹ l = l).card : ℚ) := by
+  rw [Representation.character, rhoLink_apply, trace_permOp]
+
+/-- The three projectors commute with the representation, so all three images are
+SUBREPRESENTATIONS and not merely invariant subspaces of a monoid action. -/
+theorem rhoLink_comm_PT (g : Perm (Fin 4)) : rhoLink g ∘ₗ PT = PT ∘ₗ rhoLink g :=
+  permOp_comp_PT (sym_linkHom g⁻¹)
+
+theorem rhoLink_comm_PE (g : Perm (Fin 4)) : rhoLink g ∘ₗ PE = PE ∘ₗ rhoLink g :=
+  permOp_comp_PE (sym_linkHom g⁻¹)
+
+theorem rhoLink_comm_PA (g : Perm (Fin 4)) : rhoLink g ∘ₗ PA = PA ∘ₗ rhoLink g :=
+  permOp_comp_PA (linkHom g⁻¹)
+
+/-- **The character of a summand is the restricted trace**, through
+`IdempotentTrace.trace_restrict_range`. This is the join between the infrastructure lemma and the
+representation: the left side is a genuine character of a subrepresentation, the right side is
+computable from fixed-point counts by `charOn_PT` and `charOn_PA`. -/
+theorem character_restrict_PT (g : Perm (Fin 4)) :
+    LinearMap.trace ℚ (LinearMap.range PT)
+        ((rhoLink g).restrict (IdempotentTrace.mapsTo_range (rhoLink_comm_PT g)))
+      = charOn PT (linkHom g⁻¹) :=
+  IdempotentTrace.trace_restrict_range PT_idem (rhoLink_comm_PT g)
+
+theorem character_restrict_PE (g : Perm (Fin 4)) :
+    LinearMap.trace ℚ (LinearMap.range PE)
+        ((rhoLink g).restrict (IdempotentTrace.mapsTo_range (rhoLink_comm_PE g)))
+      = charOn PE (linkHom g⁻¹) :=
+  IdempotentTrace.trace_restrict_range PE_idem (rhoLink_comm_PE g)
+
+theorem character_restrict_PA (g : Perm (Fin 4)) :
+    LinearMap.trace ℚ (LinearMap.range PA)
+        ((rhoLink g).restrict (IdempotentTrace.mapsTo_range (rhoLink_comm_PA g)))
+      = charOn PA (linkHom g⁻¹) :=
+  IdempotentTrace.trace_restrict_range PA_comp_PA (rhoLink_comm_PA g)
+
+/-- The one-dimensional summand is the TRIVIAL representation `A₁`: its character is constantly
+one, at every rotation. -/
+theorem character_PA_eq_one (g : Perm (Fin 4)) :
+    LinearMap.trace ℚ (LinearMap.range PA)
+        ((rhoLink g).restrict (IdempotentTrace.mapsTo_range (rhoLink_comm_PA g))) = 1 := by
+  rw [character_restrict_PA, charOn_PA]
+
+/-- The three characters sum to the character of `V₆`, at every rotation. -/
+theorem character_sum (g : Perm (Fin 4)) :
+    charOn PT (linkHom g⁻¹) + charOn PE (linkHom g⁻¹) + charOn PA (linkHom g⁻¹)
+      = rhoLink.character g := by
+  rw [Representation.character, rhoLink_apply, charOn_sum]
+
+/-! ### What these proofs rest on -/
+
+#print axioms LinkJoin.faceEquivLink_op
+#print axioms LinkJoin.act_op
+#print axioms LinkJoin.sym_linkHom
+#print axioms LinkJoin.act_injective
+#print axioms LinkJoin.linkHom_injective
+#print axioms LinkJoin.character_rhoLink
+#print axioms LinkJoin.rhoLink_comm_PT
+#print axioms LinkJoin.character_restrict_PT
+#print axioms LinkJoin.character_PA_eq_one
+#print axioms LinkJoin.character_sum
 
 end LinkJoin
 

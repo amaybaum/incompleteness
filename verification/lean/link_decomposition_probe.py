@@ -298,8 +298,18 @@ ok7 &= 'import OIBridge.CubicIsotropy' not in src
 # the genuine 24-element group object, and the face/link identification, live in OIBridge.lean
 ok7 &= 'namespace LinkJoin' in root
 for n in ('faceEquivLink', 'faceEquivLink_op', 'act_op', 'linkHom', 'sym_linkHom',
-          'act_injective', 'linkHom_injective'):
+          'act_injective', 'linkHom_injective', 'rhoLink', 'character_rhoLink',
+          'rhoLink_comm_PT', 'character_restrict_PT', 'character_PA_eq_one', 'character_sum'):
     ok7 &= n in root
+# THE ORIENTATION GUARD. permOp acts by precomposition and so reverses composition order, which
+# means the representation must carry the inverse. Every S4 character here satisfies chi(g^-1) =
+# chi(g), so the numbers would come out right even with the orientation wrong and only a pointwise
+# statement would notice -- hence a lint check rather than a numeric one.
+ok7 &= 'theorem permOp_mul' in src
+pm = src[src.index('theorem permOp_mul'):]
+ok7 &= 'permOp (h₁ * h₂) = permOp h₂ ∘ₗ permOp h₁' in pm[:pm.index(':= by')]
+rl = root[root.index('noncomputable def rhoLink'):]
+ok7 &= 'permOp (linkHom g⁻¹)' in rl[:rl.index('theorem rhoLink_apply')]
 check("L7", ok7,
       f"the Lean file is IMPORTED BY OIBridge.lean, so CI builds it; it carries no `sorry` and no "
       f"`axiom`; all {len(NAMES)} named results print their axiom dependencies; the dimensions come "
