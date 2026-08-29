@@ -292,7 +292,13 @@ ok7 &= 'p ≠ q' in guard_sig and 'Invariant φ p' in guard_sig and 'Invariant �
 header = src[:src.index('import ')]
 ok7 &= 'REVERSIBILITY IS NOT DERIVED HERE' in header
 ok7 &= 'A SELECTION PRINCIPLE, NOT UNIQUENESS FROM INVARIANCE ALONE' in header
-ok7 &= 'Liouville measure is invariant' in header and 'not formalized' in header
+ok7 &= 'Liouville measure is invariant' in header and 'deliberately not formalized' in header
+# and the manuscript must carry that analogue in a REMARK, not inside the lemma statement
+main = open(os.path.join(HERE, os.pardir, os.pardir, 'papers', 'Main.md'), encoding='utf-8').read()
+lemma3 = main[main.index('**Lemma 3** (Determinism, reversibility'):]
+lemma3 = lemma3[:lemma3.index('\n')]
+ok7 &= 'Liouville' not in lemma3 and 'absolutely continuous' not in lemma3
+ok7 &= '*Remark (the continuum analogue).*' in main
 check("M7", ok7,
       f"the Lean file is IMPORTED BY OIBridge.lean, so CI builds it and the theorems are gated; it "
       f"carries no `sorry` and no `axiom`; all {len(NAMES)} named results print their axiom "
@@ -300,7 +306,8 @@ check("M7", ok7,
       f"substratum is bijective, matching the manuscript's status remark that reversibility is a "
       f"representation choice; the non-selection guard is a theorem whose conclusion really is "
       f"`p ≠ q` for two invariant probability laws; and the header records both the epistemic "
-      f"layering and the continuum parenthetical it does not formalize")
+      f"layering and the continuum analogue it does not formalize, which the manuscript now "
+      f"carries in a remark of its own rather than inside the lemma statement")
 
 print()
 print('     [scope] Settled: [Main] Lemma 3\'s measure content is kernel-proved — on each')
@@ -312,9 +319,10 @@ print('     with the infinite countercontrol showing finiteness is what carries 
 print('     NOT settled here, deliberately: reversibility itself. The manuscript calls the')
 print('     bijective substratum a representation choice recovered by a two-pronged argument one')
 print('     prong of which is empirical, so the permutation is TAKEN AS GIVEN in Lean and no')
-print('     theorem concludes it. The continuum parenthetical about Liouville measure is an')
-print('     illustration outside the framework\'s finite scope and is not formalized; its role is')
-print('     discharged by the finite non-selection theorem, which is stronger where it matters.')
+print('     theorem concludes it. The continuum analogue about Liouville measure lives in a')
+print('     remark of its own, outside the lemma statement and outside the framework\'s finite')
+print('     scope; it is not formalized, and its role is discharged by the finite non-selection')
+print('     theorem, which is stronger where it matters.')
 print()
 print("canonical_measure_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

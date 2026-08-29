@@ -89,13 +89,13 @@
    "line": 61,
    "kind": "Lemma",
    "label": "3",
-   "fingerprint": "94d0d55173ac0c0a",
+   "fingerprint": "f702fd4083101a3c",
    "area": "mirror",
    "assumptions": "mirrors the corresponding Main statement",
    "checks": [],
    "kernel": "MIRROR",
    "delta": "",
-   "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
+   "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation. Corrected in this round: it stated the counting measure as the UNIQUE invariant measure, which Main denies and CanonicalMeasure.invariance_does_not_select refutes; it now states the maximal-entropy selection, with uniqueness kept where it holds, on a single orbit."
   },
   {
    "id": "GR:L-boundary-only-dependence",
@@ -354,7 +354,7 @@
    "line": 56,
    "kind": "Lemma",
    "label": "3",
-   "fingerprint": "4d9488cd71d08a13",
+   "fingerprint": "bbb0765c47744e94",
    "area": "oi-foundations",
    "assumptions": "determinism; reversibility of the selected representative; maximal-entropy SELECTION of the counting measure among invariant measures — not uniqueness from invariance",
    "checks": [
@@ -373,12 +373,12 @@
    ],
    "kernel": "K3",
    "delta": "",
-   "note": "The scope wall is respected in both directions. REVERSIBILITY IS NOT DERIVED: the manuscript's own status remark calls the bijective substratum a representation choice recovered by a two-pronged argument one prong of which is empirical, so phi is a hypothesis (Equiv.Perm S) everywhere and no theorem concludes that the substratum is bijective; what IS proved from finiteness is the structural prong, injective_imp_bijective. And the selection principle is not silently upgraded to uniqueness: invariance_does_not_select is a THEOREM -- two disjoint nonempty invariant sets carry two distinct invariant probability laws -- with two_cycle_witness supplying the double transposition so it is not vacuous. Orbit uniqueness, invariance of the counting measure, and its entropy maximality are the other three clauses. The manuscript's parenthetical support for the selection reading is a CONTINUUM statement about Liouville measure; it lies outside the framework's finite scope and is not formalized, its role being discharged by the finite non-selection theorem, which the probe checks exhaustively over all 873 permutations of up to six states (invariant-subspace dimension = cycle count)."
+   "note": "The scope wall is respected in both directions. REVERSIBILITY IS NOT DERIVED: the manuscript's own status remark calls the bijective substratum a representation choice recovered by a two-pronged argument one prong of which is empirical, so phi is a hypothesis (Equiv.Perm S) everywhere and no theorem concludes that the substratum is bijective; what IS proved from finiteness is the structural prong, injective_imp_bijective. And the selection principle is not silently upgraded to uniqueness: invariance_does_not_select is a THEOREM -- two disjoint nonempty invariant sets carry two distinct invariant probability laws -- with two_cycle_witness supplying the double transposition so it is not vacuous. Orbit uniqueness, invariance of the counting measure, and its entropy maximality are the other three clauses. The continuum analogue about Liouville measure was moved out of the lemma statement into its own following remark, so the lemma's formal obligation is now entirely finite and this entry's coverage is exact. The non-selection clause is discharged by invariance_does_not_select, which the probe checks exhaustively over all 873 permutations of up to six states (invariant-subspace dimension = cycle count) -- stronger for the framework than the continuum analogy, since it proves the phenomenon in the setting actually consumed downstream."
   },
   {
    "id": "MAIN:T-statement",
    "paper": "papers/Main.md",
-   "line": 80,
+   "line": 82,
    "kind": "Theorem",
    "label": "statement",
    "fingerprint": "96178c80977a3c46",
@@ -392,7 +392,7 @@
   {
    "id": "MAIN:L-partition-relativity-under-canonical-invariant",
    "paper": "papers/Main.md",
-   "line": 84,
+   "line": 86,
    "kind": "Lemma",
    "label": "(partition-relativity under the canonical invariant measure)",
    "fingerprint": "277d94b19b9a10f2",
@@ -406,7 +406,7 @@
   {
    "id": "MAIN:T-unnamed-182a6975",
    "paper": "papers/Main.md",
-   "line": 113,
+   "line": 115,
    "kind": "Theorem",
    "label": "",
    "fingerprint": "182a69752a829d2e",
@@ -433,7 +433,7 @@
   {
    "id": "MAIN:L-stochastic-inverse",
    "paper": "papers/Main.md",
-   "line": 131,
+   "line": 133,
    "kind": "Lemma",
    "label": "(stochastic inverse)",
    "fingerprint": "fae6e45fd175f22c",
@@ -468,7 +468,7 @@
   {
    "id": "MAIN:T-history-readback-finite-recurrence-implies",
    "paper": "papers/Main.md",
-   "line": 135,
+   "line": 137,
    "kind": "Theorem",
    "label": "(history readback + finite recurrence implies indivisibility)",
    "fingerprint": "92c1f59c0f6f9e3e",
@@ -495,7 +495,7 @@
   {
    "id": "MAIN:L-fast-bath-erases-readback",
    "paper": "papers/Main.md",
-   "line": 157,
+   "line": 159,
    "kind": "Lemma",
    "label": "(fast bath erases readback)",
    "fingerprint": "9ae2c125fc14a6ab",
@@ -516,7 +516,7 @@
   {
    "id": "MAIN:L-accessible-backflow-from-readback",
    "paper": "papers/Main.md",
-   "line": 165,
+   "line": 167,
    "kind": "Lemma",
    "label": "(accessible backflow from readback)",
    "fingerprint": "449e3df3147485ef",
@@ -537,7 +537,7 @@
   {
    "id": "MAIN:L-one-step-ancilla-dilation",
    "paper": "papers/Main.md",
-   "line": 204,
+   "line": 206,
    "kind": "Lemma",
    "label": "(one-step ancilla dilation)",
    "fingerprint": "caec1093862d7955",
@@ -580,7 +580,7 @@
   {
    "id": "MAIN:L-phase-locking",
    "paper": "papers/Main.md",
-   "line": 222,
+   "line": 224,
    "kind": "Lemma",
    "label": "(phase-locking)",
    "fingerprint": "a2bbef866acc6972",
@@ -601,7 +601,7 @@
   {
    "id": "MAIN:L-ancilla-marginal-reformulation",
    "paper": "papers/Main.md",
-   "line": 240,
+   "line": 242,
    "kind": "Lemma",
    "label": "(ancilla-marginal reformulation)",
    "fingerprint": "591acbb7bfdf5cd3",
@@ -622,7 +622,7 @@
   {
    "id": "MAIN:T-ancilla-marginal-phase-locking-certified",
    "paper": "papers/Main.md",
-   "line": 244,
+   "line": 246,
    "kind": "Theorem",
    "label": "(ancilla-marginal phase-locking; certified block structures)",
    "fingerprint": "a8bfb64ad16a145c",
@@ -643,7 +643,7 @@
   {
    "id": "MAIN:L-permutation-unitarity",
    "paper": "papers/Main.md",
-   "line": 262,
+   "line": 264,
    "kind": "Lemma",
    "label": "(permutation unitarity)",
    "fingerprint": "d9fa15aa060513b9",
@@ -677,7 +677,7 @@
   {
    "id": "MAIN:L-reverse-direction-scoped",
    "paper": "papers/Main.md",
-   "line": 268,
+   "line": 270,
    "kind": "Lemma",
    "label": "(Reverse direction, scoped)",
    "fingerprint": "fea0497e8ec4dd9c",
@@ -704,7 +704,7 @@
   {
    "id": "MAIN:T-born-form-representation-transition-probabilities",
    "paper": "papers/Main.md",
-   "line": 280,
+   "line": 282,
    "kind": "Theorem",
    "label": "(Born-form representation of the transition probabilities)",
    "fingerprint": "69fb04e6539179c8",
@@ -725,7 +725,7 @@
   {
    "id": "MAIN:L-1-boundary-bound",
    "paper": "papers/Main.md",
-   "line": 292,
+   "line": 294,
    "kind": "Lemma",
    "label": "1 (boundary bound)",
    "fingerprint": "f483bbbc56bff0dc",
@@ -739,7 +739,7 @@
   {
    "id": "MAIN:L-2-channel-normal-form",
    "paper": "papers/Main.md",
-   "line": 298,
+   "line": 300,
    "kind": "Lemma",
    "label": "2 (channel normal form)",
    "fingerprint": "1c9aa2f382bc9e75",
@@ -753,7 +753,7 @@
   {
    "id": "MAIN:T-separability-threshold",
    "paper": "papers/Main.md",
-   "line": 306,
+   "line": 308,
    "kind": "Theorem",
    "label": "(separability threshold)",
    "fingerprint": "0b2eb937cfe2d36b",
@@ -767,7 +767,7 @@
   {
    "id": "MAIN:C-1",
    "paper": "papers/Main.md",
-   "line": 310,
+   "line": 312,
    "kind": "Corollary",
    "label": "1",
    "fingerprint": "292a005a0ee074f5",
@@ -781,7 +781,7 @@
   {
    "id": "MAIN:C-2",
    "paper": "papers/Main.md",
-   "line": 312,
+   "line": 314,
    "kind": "Corollary",
    "label": "2",
    "fingerprint": "7ed2f61c9956c149",
@@ -795,7 +795,7 @@
   {
    "id": "MAIN:L-diagonal-preservation",
    "paper": "papers/Main.md",
-   "line": 320,
+   "line": 322,
    "kind": "Lemma",
    "label": "(diagonal preservation)",
    "fingerprint": "15be37eef5071735",
@@ -826,7 +826,7 @@
   {
    "id": "MAIN:T-cp-indivisibility-framework-scope",
    "paper": "papers/Main.md",
-   "line": 324,
+   "line": 326,
    "kind": "Theorem",
    "label": "(CP-indivisibility, framework scope)",
    "fingerprint": "b440fd63f2584861",
@@ -847,7 +847,7 @@
   {
    "id": "MAIN:C-bell-lattice-obstruction-state-dependent",
    "paper": "papers/Main.md",
-   "line": 390,
+   "line": 392,
    "kind": "Corollary",
    "label": "(Bell–lattice obstruction and state-dependent escape)",
    "fingerprint": "8dfc5de1b600053f",
@@ -861,7 +861,7 @@
   {
    "id": "MAIN:L-non-permutation-witness",
    "paper": "papers/Main.md",
-   "line": 411,
+   "line": 413,
    "kind": "Lemma",
    "label": "(non-permutation witness)",
    "fingerprint": "3a87e714d4b89b3d",
@@ -888,7 +888,7 @@
   {
    "id": "MAIN:T-c2-necessity-quantitative-mixing-form",
    "paper": "papers/Main.md",
-   "line": 429,
+   "line": 431,
    "kind": "Theorem",
    "label": "(C2 necessity, quantitative mixing form)",
    "fingerprint": "a2d568e0afd73b4e",
@@ -909,7 +909,7 @@
   {
    "id": "MAIN:T-physical-memory-c2-process-form",
    "paper": "papers/Main.md",
-   "line": 443,
+   "line": 445,
    "kind": "Theorem",
    "label": "(physical memory: C2, process form)",
    "fingerprint": "eaf472aa957c43fa",
@@ -930,7 +930,7 @@
   {
    "id": "MAIN:T-intervention-dilation-finite-classical-action",
    "paper": "papers/Main.md",
-   "line": 456,
+   "line": 458,
    "kind": "Theorem",
    "label": "(intervention dilation: the finite classical action-labelled comb)",
    "fingerprint": "e639740e89f576ed",
@@ -969,7 +969,7 @@
   {
    "id": "MAIN:P-no-horizon-independent-intervened-representation",
    "paper": "papers/Main.md",
-   "line": 468,
+   "line": 470,
    "kind": "Proposition",
    "label": "(no horizon-independent intervened representation)",
    "fingerprint": "546efbc4c09ea030",
@@ -990,7 +990,7 @@
   {
    "id": "MAIN:T-c3-necessity",
    "paper": "papers/Main.md",
-   "line": 480,
+   "line": 482,
    "kind": "Theorem",
    "label": "(C3 necessity)",
    "fingerprint": "851d788fb738c428",
@@ -1023,7 +1023,7 @@
   {
    "id": "MAIN:C-per-process-capacity-bound",
    "paper": "papers/Main.md",
-   "line": 488,
+   "line": 490,
    "kind": "Corollary",
    "label": "(per-process capacity bound)",
    "fingerprint": "cc7fd03ee5f8e9ee",
@@ -1050,7 +1050,7 @@
   {
    "id": "MAIN:T-finite-horizon-process-dilation",
    "paper": "papers/Main.md",
-   "line": 492,
+   "line": 494,
    "kind": "Theorem",
    "label": "(finite-horizon process dilation)",
    "fingerprint": "12a3411af0e7e69a",
@@ -1071,7 +1071,7 @@
   {
    "id": "MAIN:D-unitarily-evolving-qm",
    "paper": "papers/Main.md",
-   "line": 500,
+   "line": 502,
    "kind": "Definition",
    "label": "(unitarily evolving QM)",
    "fingerprint": "c1bc7b35a7c12e99",
@@ -1085,7 +1085,7 @@
   {
    "id": "MAIN:L-fixed-hat-h-form-realized",
    "paper": "papers/Main.md",
-   "line": 506,
+   "line": 508,
    "kind": "Lemma",
    "label": "(fixed-$\\hat{H}$ form for realized processes)",
    "fingerprint": "073a270ea5497b99",
@@ -1106,7 +1106,7 @@
   {
    "id": "MAIN:T-finite-horizon-stochastic-reversible-unitary",
    "paper": "papers/Main.md",
-   "line": 522,
+   "line": 524,
    "kind": "Theorem",
    "label": "(finite-horizon stochastic–reversible–unitary equivalence)",
    "fingerprint": "eb7422303f7624ea",
@@ -1145,7 +1145,7 @@
   {
    "id": "MAIN:T-finite-operational-realization-gluing-form",
    "paper": "papers/Main.md",
-   "line": 540,
+   "line": 542,
    "kind": "Theorem",
    "label": "(finite operational realization and gluing — ε-form)",
    "fingerprint": "769289a21d84cc02",
@@ -1166,7 +1166,7 @@
   {
    "id": "MAIN:T-uniform-continuum-realization-mutual-density",
    "paper": "papers/Main.md",
-   "line": 562,
+   "line": 564,
    "kind": "Theorem",
    "label": "(uniform continuum realization — mutual ε-density)",
    "fingerprint": "d5bebe2b4b397137",
@@ -1187,7 +1187,7 @@
   {
    "id": "MAIN:T-unavoidable-hidden-predictive-memory",
    "paper": "papers/Main.md",
-   "line": 568,
+   "line": 570,
    "kind": "Theorem",
    "label": "(unavoidable hidden predictive memory)",
    "fingerprint": "d813f5acc348e2d1",
@@ -1235,7 +1235,7 @@
   {
    "id": "MAIN:T-canonical-predictive-quotient-purification-ingredient",
    "paper": "papers/Main.md",
-   "line": 586,
+   "line": 588,
    "kind": "Theorem",
    "label": "(canonical predictive quotient — a purification ingredient, substratum form)",
    "fingerprint": "8b180e8ae437af19",
@@ -1256,7 +1256,7 @@
   {
    "id": "MAIN:L-rest-frame-selection",
    "paper": "papers/Main.md",
-   "line": 628,
+   "line": 630,
    "kind": "Lemma",
    "label": "(rest-frame selection)",
    "fingerprint": "9a0d6bb006a18763",
@@ -1270,7 +1270,7 @@
   {
    "id": "MAIN:C-boost-rotation-inequivalence",
    "paper": "papers/Main.md",
-   "line": 632,
+   "line": 634,
    "kind": "Corollary",
    "label": "(boost/rotation inequivalence)",
    "fingerprint": "f3989dfe422a5ab6",
@@ -1284,7 +1284,7 @@
   {
    "id": "MAIN:T-structural-observer-selection-conditional-em",
    "paper": "papers/Main.md",
-   "line": 714,
+   "line": 716,
    "kind": "Theorem",
    "label": "(structural observer selection — conditional on (EM))",
    "fingerprint": "ee37bee219b5e0ba",
@@ -1298,7 +1298,7 @@
   {
    "id": "MAIN:C-anti-boltzmann-brain",
    "paper": "papers/Main.md",
-   "line": 722,
+   "line": 724,
    "kind": "Corollary",
    "label": "(anti-Boltzmann-brain)",
    "fingerprint": "a1b5f6f9cb61e6f6",
@@ -1312,7 +1312,7 @@
   {
    "id": "MAIN:C-past-hypothesis-replacement-rate-condition",
    "paper": "papers/Main.md",
-   "line": 724,
+   "line": 726,
    "kind": "Corollary",
    "label": "(past-hypothesis replacement, with its rate condition)",
    "fingerprint": "d6189921c664b0e7",

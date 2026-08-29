@@ -31,10 +31,11 @@
   selects. A later refactor cannot quietly turn the selection principle back into a uniqueness
   claim without this theorem contradicting it.
 
-  RECORDED, not silently decided. The manuscript's parenthetical support for the selection reading
-  is a continuum statement — "in the continuum, Liouville measure is invariant but not in general
-  the unique absolutely continuous invariant measure". That is an illustration in a setting the
-  framework's finite scope does not use, and it is not formalized. Its role is discharged here by
+  THE LEMMA'S FORMAL OBLIGATION IS ENTIRELY FINITE, and the manuscript now says so in its own
+  typography. The continuum analogue — Liouville measure is invariant but not in general the unique
+  absolutely continuous invariant measure — is an illustration in a setting the framework's finite
+  scope does not use, and it is carried in its own remark following the lemma rather than inside
+  the italicized statement. It is deliberately not formalized. Its role is discharged here by
   `invariance_does_not_select`, which proves non-uniqueness where the framework actually lives, on
   the finite state space, and is therefore the load-bearing statement rather than the analogy.
 
