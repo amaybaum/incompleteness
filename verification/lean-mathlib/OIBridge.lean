@@ -36,7 +36,8 @@ import Mathlib.GroupTheory.Perm.Fin
 -- selected measure, `OIBridge.Finiteness` Lemma 1's conditional finiteness, and `OIBridge.CubicIsotropy`
 -- [SM] Corollary 1a, and `OIBridge.IdempotentTrace` the trace-of-restriction lemma
 -- Theorem 7 was blocked on, `OIBridge.FactorUniqueness` the factor-uniqueness lemma
--- [Structure] Proposition 9.7a is blocked on, `OIBridge.Irreducibility` the implication from the
+-- [Structure] Proposition 9.7a was blocked on and `OIBridge.KrausUniqueness` that
+-- proposition itself, `OIBridge.Irreducibility` the implication from the
 -- endomorphism dimension to irreducibility that Mathlib carries only for algebraically
 -- closed fields, `OIBridge.LinkDecomposition` that theorem's six-link
 -- decomposition and `OIBridge.QuarterTurn` the cubic rotation group it decomposes under;
@@ -55,6 +56,7 @@ import OIBridge.CubicIsotropy
 import OIBridge.FactorUniqueness
 import OIBridge.IdempotentTrace
 import OIBridge.Irreducibility
+import OIBridge.KrausUniqueness
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

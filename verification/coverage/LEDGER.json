@@ -2256,21 +2256,45 @@
    "assumptions": "finite-dimensional visible sector; each Kraus family LINEARLY INDEPENDENT, which is minimality",
    "checks": [
     {
-     "kind": "probe",
-     "path": "verification/lean/stinespring_scope_probe.py",
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/KrausUniqueness.lean",
      "basis": "named",
-     "evidence": "PROPOSITION 9.7a, as a round trip"
+     "evidence": "proposition_9_7a"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/KrausUniqueness.lean",
+     "basis": "named",
+     "evidence": "krausMatrix_eq_transpose"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/FactorUniqueness.lean",
+     "basis": "named",
+     "evidence": "existsUnique_unitary_factor"
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/kraus_uniqueness_probe.py",
+     "basis": "named",
+     "evidence": "THE ORIENTATION COUNTERCONTROL"
     },
     {
      "kind": "probe",
      "path": "verification/lean/factor_uniqueness_probe.py",
      "basis": "named",
      "evidence": "THE THEOREM, as a round trip"
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/stinespring_scope_probe.py",
+     "basis": "named",
+     "evidence": "PROPOSITION 9.7a, as a round trip"
     }
    ],
-   "kernel": "P",
-   "delta": "PROBED, NOT PROVED -- but the infrastructure step now is. OIBridge/FactorUniqueness.lean kernel-proves existsUnique_unitary_factor, the abstract form of this proposition with no channel, no Kraus family and no dilation in the statement. What is still missing is the CONSUMER: the reduction of channel equality to X X* = Y Y* on the two synthesis maps, linear independence to injectivity, and the transpose in the orientation. That file does not exist yet, so this entry stays at P.",
-   "note": "SCOPE REPAIR, found by formalizing. The former Proposition 9.7 asserted U2 = (1 (x) W) U1 (1 (x) W^dagger) as an identity of operators, which is FALSE: with a pure reference state the channel constrains U only on H_V (x) C|0>, and its action elsewhere is free. CNOT and CNOT.(1 (x) Z) realize the same channel on the same hidden sector, both minimally; minimality forces W = 1, so the old conclusion would read U2 = U1. The proposition was split into 9.7a (the algebraic core, true) and 9.7b (the dilation bridge, concluding on the ISOMETRY and no further), and Definition 9.2 now calls its object a unitary realization, reserving Stinespring dilation for the pure-reference isometry -- OI's own construction uses a mixed reference state, so the uniqueness statements do not apply to it without purifying. 9.7a is the kernel target: two linearly independent Kraus families of one channel are related by a unique unitary. The probe reproduces it as a round trip -- the relating unitary is discarded and recovered from the channel alone -- and records the two countercontrols, the CNOT pair and the 3x2-isometry family showing linear independence is not removable."
+   "kernel": "K3",
+   "delta": "",
+   "note": "KERNEL-PROVED, with the scope repair that preceded it. The former Proposition 9.7 was FALSE as an identity of operators; it was split, and 9.7a is the algebraic core. OIBridge/KrausUniqueness.lean proves it: proposition_9_7a gives equal cardinality (Fintype.card J = Fintype.card I), a UNIQUE unitary on the coefficient space, the Kraus relation B_j = sum_i U_ji A_i in the manuscript's index order, U U^H = 1, and the transpose relating that order to the factor's column matrix. THE UNIQUENESS IS NOT REPROVED HERE: it is OIBridge/FactorUniqueness.lean's existsUnique_unitary_factor, stated with no channel, no Kraus family and no dilation, over an arbitrary RCLike field and with the two index types independent so that equal cardinality is a conclusion. THE FOUR JOINS this file adds: (1) the synthesis map e_i -> vec(A_i) with its analysis map proved to be the adjoint through eq_adjoint_iff; (2) gram_entry, the synthesis Gram operator with all four indices explicit; (3) krausMap_single plus synth_gram_eq_of_krausMap_eq -- evaluating the channel at the matrix unit E_bd and reading entry (a,c) gives exactly the ((a,b),(c,d)) Gram entry, so channel equality IS Gram equality with NOTHING in between; (4) synth_injective_of_linearIndependent, linear independence being injectivity, which is why the hypothesis is independence rather than 'minimal hidden-sector dimension'. NO CHOI LAYER AND NO POSITIVITY: X X* is called the synthesis GRAM operator because positivity is never used -- no Choi theorem, no complete positivity, no spectral theorem, no Cholesky factorization, no pseudoinverse, and no trace, so trace preservation is not assumed either. The probe's lint enforces each absence. THE ORIENTATION IS A THEOREM: Y = X W in the column convention reads B_j = sum_i W_ij A_i while the manuscript writes B_j = sum_i U_ji A_i, so U is the TRANSPOSE, recorded as krausMatrix_eq_transpose; the probe's K4 builds a complex non-symmetric U, discards it, recovers the column factor, certifies W^T = U with W != U, and checks that the SWAPPED index order fails -- so a transposition would be a numerical failure rather than a silent one."
   },
   {
    "id": "STRUCTURE:P-9.7b",
@@ -2290,7 +2314,7 @@
     }
    ],
    "kernel": "P",
-   "delta": "PROBED, NOT PROVED. Downstream of 9.7a, which has no kernel proof yet.",
+   "delta": "PROBED, NOT PROVED. 9.7a is now K3, so what remains is the dilation bridge alone: extract the Kraus families A_i = (1 (x) <i|) V_a from the two minimal pure-reference isometries, apply KrausUniqueness.proposition_9_7a, and reassemble V_2 = (1 (x) W) V_1. The countercontrol bounding it is already permanent -- the CNOT pair in stinespring_scope_probe.py, which shows the conclusion cannot be strengthened to the full unitaries.",
    "note": "The dilation bridge, and the boundary the old statement crossed. 9.7b concludes V2 = (1 (x) W) V1 on the Stinespring ISOMETRIES, equivalently agreement of the dilating unitaries on the reference subspace, and states explicitly that no equality of the full unitaries follows. The probe's S4 exhibits both halves in one line: a hidden-sector unitary relates the isometries, and composing with 1 (x) Z afterwards changes the unitary while leaving the channel and the isometry fixed. [Substratum] Lemma 24.1's stronger conjugation of the dilating unitaries is reconciled rather than contradicted -- it fixes the whole semigroup and works on the cyclic boundary sector, where there is no off-reference remainder by construction."
   },
   {
@@ -2599,11 +2623,11 @@
  "backlog": [
   {
    "rank": 1,
-   "id": "STRUCTURE:P-9.7a",
+   "id": "STRUCTURE:P-9.7b",
    "centrality": "high",
-   "difficulty": "high",
+   "difficulty": "low",
    "tier": 4,
-   "route": "The scope repair is done and the infrastructure step is KERNEL-PROVED: OIBridge/FactorUniqueness.lean carries existsUnique_unitary_factor -- for injective X : E -> H and Y : F -> H with X X* = Y Y*, a unique W : F -> E with Y = X W, and W unitary -- over an arbitrary RCLike field, with E and F independent so that equal cardinality is a consequence (finrank_eq) rather than a hypothesis. It needed no Stinespring theorem, no pseudoinverse, no determinant, no rank, no spectral theorem and no PSD library: range_self_comp_adjoint gives range X = range Y, injectivity of X makes it an equivalence onto its range, and unitarity is a left cancellation by injectivity of X and a right cancellation by surjectivity of X*. REMAINING, in a separate consumer file: channel equality to equal vectorized positive operator to X X* = Y Y*, with linear independence of the Kraus families becoming injectivity of the two synthesis maps; then the orientation, since Y = X W in column form reads B_j = sum_i W_ij A_i while the manuscript writes B_j = sum_i U_ji A_i, so the Kraus-mixing matrix is the TRANSPOSE. 9.7b then follows by transporting through A_i = (1 (x) <i|) V."
+   "route": "9.7a is K3 and the infrastructure is done, so this is now short. Extract the Kraus family A_i = (1 (x) <i|) V from a pure-reference isometry V, check that minimality of the dilation is linear independence of that family, apply KrausUniqueness.proposition_9_7a to the two families, and reassemble the coefficient unitary into V_2 = (1 (x) W) V_1. The statement must stop at the isometry: the CNOT countercontrol in stinespring_scope_probe.py is the permanent record that the full unitaries are not determined."
   },
   {
    "rank": 2,
