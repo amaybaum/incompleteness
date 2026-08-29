@@ -349,6 +349,48 @@ check("L6c", ok6c,
       f"`sum_sq_collision` and `sum_cube_collision`. The control confirms the power sums are not "
       f"vacuous: the regular representation gives a different value")
 
+# ------------------------------------------------- L6d  the quarter-turn construction
+# The six four-cycles of S4 ARE the six quarter turns, hence the six oriented axes. S4 acts on them
+# by conjugation; the stabilizer is the centralizer C4, so the orbit is S4/C4 with no quotient; and
+# q -> q^-1 is the antipode. This is the construction OIBridge/QuarterTurn.lean formalizes.
+def inv4(g):
+    h = [0] * 4
+    for i in range(4):
+        h[g[i]] = i
+    return tuple(h)
+
+
+QTs = [g for g in S4 if cycle_type(g) == (4,)]
+ok6d = len(QTs) == 6
+# conjugation is an action on them, and the stabilizer of each is its centralizer, of order 4
+for q in QTs:
+    ok6d &= all(cycle_type(cmp4(cmp4(g, q), inv4(g))) == (4,) for g in S4)
+    stab = [g for g in S4 if cmp4(cmp4(g, q), inv4(g)) == q]
+    ok6d &= len(stab) == 4
+    ok6d &= inv4(q) in QTs and inv4(q) != q
+# q -> q^-1 is a fixed-point-free involution: the three axes, two orientations each
+ok6d &= len({frozenset({q, inv4(q)}) for q in QTs}) == 3
+# and conjugation commutes with it, which is what makes every rotation a link symmetry
+for q in QTs:
+    ok6d &= all(cmp4(cmp4(g, inv4(q)), inv4(g)) == inv4(cmp4(cmp4(g, q), inv4(g))) for g in S4)
+# THE GATE: the fixed-point character of this action is the manuscript's (6, 0, 2, 0, 2)
+chi_qt = {g: sum(1 for q in QTs if cmp4(cmp4(g, q), inv4(g)) == q) for g in S4}
+gate = {}
+for g in S4:
+    gate.setdefault(cycle_type(g), set()).add(chi_qt[g])
+ok6d &= gate == {(1, 1, 1, 1): {6}, (1, 3): {0}, (2, 2): {2}, (1, 1, 2): {0}, (4,): {2}}
+ok6d &= all(chi_qt[g] == chi_lnk[g] for g in S4)          # it IS the S4/C4 character
+ok6d &= any(chi_qt[g] != chi_sub[g] for g in S4)          # and NOT the two-subset one
+check("L6d", ok6d,
+      f"THE QUARTER-TURN CONSTRUCTION AND ITS ACCEPTANCE GATE. The {len(QTs)} four-cycles of S4 are "
+      f"the six quarter turns, hence the six oriented axes. Conjugation permutes them, each "
+      f"stabilizer is the centralizer of order 4 so the orbit is S4/C4 with no quotient "
+      f"formalized, and q -> q^-1 is a fixed-point-free involution pairing them into the three "
+      f"axes and commuting with the action. THE GATE: the fixed-point character is "
+      f"(6, 0, 2, 0, 2) on (E, 8C3, 3C2, 6C2', 6C4) — [SM] Theorem 7's own proof line. It agrees "
+      f"with the S4/C4 character everywhere and differs from the two-subset one, so this is the "
+      f"correct S4-set. Lean proves the same as `QuarterTurn.character_gate`")
+
 # ----------------------------------------------------------------- L7  lint
 src = open(os.path.join(BRIDGE, 'OIBridge', 'LinkDecomposition.lean'), encoding='utf-8').read()
 root = open(os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
@@ -396,7 +438,23 @@ for n in ('char_two_subset_ne_link', 'char_multiset_collision', 'sum_sq_collisio
     ok7 &= f'theorem {n}' in root
 ok7 &= 'is NOT the six-link representation' in root
 ok7 &= 'A₁ ⊕ E ⊕ T₂' in root
-ok7 &= 'def chiLinkTable' in root
+# chiLinkTable is no longer a transcription: it is the character of a real action
+ok7 &= 'abbrev chiLinkTable : Perm (Fin 4) → ℤ := QuarterTurn.chiLink' in root
+qt = open(os.path.join(BRIDGE, 'OIBridge', 'QuarterTurn.lean'), encoding='utf-8').read()
+qtbody = re.sub(r'(?m)--.*$', '', re.sub(r'/-.*?-/', '', qt, flags=re.S))
+ok7 &= 'import OIBridge.QuarterTurn' in root
+ok7 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', qtbody) is None
+ok7 &= re.search(r'(?m)^axiom ', qtbody) is None
+for n in ('card_QT', 'conjHom', 'qtEquivLink_inv', 'sym_linkAct', 'linkAct_injective',
+          'character_gate', 'character_values'):
+    ok7 &= f'#print axioms {n}' in qt
+# the gate must be the pointwise identity, not a spot check
+cg = qt[qt.index('theorem character_gate'):]
+ok7 &= '∀ g : Perm (Fin 4), (fixLink g : ℤ) = chiLink g' in cg[:cg.index(':= by')]
+# and the action must be conjugation on four-cycles, with the inverse as antipode
+ok7 &= 'MulAut.conj' in qtbody and 'q ^ 4 = 1 ∧ q ^ 2 ≠ 1' in qtbody
+ok7 &= 'theorem qtEquivLink_inv' in qt and 'anti (qtEquivLink q)' in qt
+ok7 &= 'native_decide' not in qtbody
 for n in ('character_rhoT', 'character_rhoE', 'character_rhoA', 'character_rhoA_eq_one',
           'character_rhoLink_eq_sum'):
     ok7 &= f'theorem {n}' in root
@@ -423,7 +481,10 @@ check("L7", ok7,
       f"rotation group; and OIBridge.lean's LinkJoin is explicitly NOT claimed to be the rotation "
       f"action on the coordinate links — `char_two_subset_ne_link` records in Lean that the "
       f"two-subset model differs from Theorem 7's character at the transpositions and the "
-      f"four-fold class, so nothing there can be read as V6")
+      f"four-fold class, so nothing there can be read as V6; and OIBridge/QuarterTurn.lean builds "
+      f"the CORRECT action — conjugation on the six four-cycles, antipode q -> q^-1, faithful, "
+      f"every element in `Sym` — whose `character_gate` is the pointwise identity with the "
+      f"manuscript's character, so `chiLinkTable` is now derived rather than transcribed")
 
 print()
 print('     [scope] Settled in Lean: three explicit projectors on the six-link space, idempotent,')

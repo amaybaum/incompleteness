@@ -49,6 +49,7 @@ import OIBridge.Finiteness
 import OIBridge.CubicIsotropy
 import OIBridge.IdempotentTrace
 import OIBridge.LinkDecomposition
+import OIBridge.QuarterTurn
 
 namespace OIBridge
 
@@ -417,7 +418,9 @@ mislaid again.
 The six links are instead the coset space `S₄/C₄`: the stabilizer of `+e₃` in the rotation group is
 the four-fold rotation about that axis. This section's own note records the coset action as an
 "earlier candidate control, rejected because it has the same character and so discriminates
-nothing" — the same multiset collision, read the wrong way round. It is the correct model.
+nothing" — the same multiset collision, read the wrong way round. It is the correct model, and
+`OIBridge/QuarterTurn.lean` now builds it: `S₄` acting by conjugation on its six four-cycles, whose
+fixed-link character `character_gate` computes to be exactly `(6, 0, 2, 0, 2)`.
 
 WHAT FOLLOWS IS THEREFORE NOT THE ROTATION ACTION ON THE COORDINATE LINKS. `faceEquivLink` is a
 complement-preserving bijection of six-element sets and `linkHom` is a faithful action of `S₄` by
@@ -642,20 +645,12 @@ the four-fold rotations. -/
 action transported to the links. -/
 def fixTwoSub (g : Perm (Fin 4)) : ℕ := (Finset.univ.filter fun l => linkHom g l = l).card
 
-/-- Fixed points on the four diagonals, used to separate the two order-two classes. -/
-def nfix (g : Perm (Fin 4)) : ℕ := (Finset.univ.filter fun i : Fin 4 => g i = i).card
+/-- **The character of `V₆`**: `6` at the identity, `0` on `8C₃`, `2` on `3C₂`, `0` on `6C₂'`, `2`
+on `6C₄`, which is [SM] Theorem 7's own proof line.
 
-/-- **The manuscript's character of `V₆`**, transcribed as a class function: `6` at the identity,
-`0` on `8C₃`, `2` on `3C₂`, `0` on `6C₂'`, `2` on `6C₄`. Under `O ≅ S₄` the classes are identity,
-three-cycles, double transpositions, transpositions and four-cycles respectively.
-
-This is a DEFINITION recording [SM] Theorem 7's proof line, not a derived object. Deriving it needs
-the rotation action on the links, which is the outstanding item. -/
-def chiLinkTable (g : Perm (Fin 4)) : ℤ :=
-  if g = 1 then 6
-  else if g * g = 1 then (if nfix g = 2 then 0 else 2)
-  else if g * g * g = 1 then 0
-  else 2
+No longer a transcription. `OIBridge.QuarterTurn.character_gate` proves it is the fixed-link
+character of the cubic rotation action, built there from conjugation on the six quarter turns. -/
+abbrev chiLinkTable : Perm (Fin 4) → ℤ := QuarterTurn.chiLink
 
 set_option maxRecDepth 40000 in
 /-- **`Cubic.rho` is not the six-link representation.** The transposition `(0 1)` is a `6C₂'`
