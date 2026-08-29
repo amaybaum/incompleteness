@@ -283,7 +283,15 @@ ok7 &= 'trace_eq_finrank_range' in body
 ok7 &= 'theorem hlink_transport' in src
 tr = src[src.index('theorem hlink_transport'):]
 ok7 &= 'H-cust' not in tr and 'H-cust' not in body
-ok7 &= 'e : W ≃ₗ[ℚ] LV' in tr[:tr.index(':= by')]
+tr_sig = tr[:tr.index(':= by')]
+ok7 &= 'e : W ≃ₗ[ℚ] LV' in tr_sig
+# H-link must be EQUIVARIANT, not a bare linear equivalence: the carrier carries its own action
+# and the isomorphism must intertwine it, and the conclusion must transport the projectors and
+# their invariance, not only the three dimensions
+ok7 &= 'act : Equiv.Perm Link → (W →ₗ[ℚ] W)' in tr_sig
+ok7 &= 'permOp h ∘ₗ e.toLinearMap' in tr_sig
+ok7 &= 'act h ∘ₗ QT = QT ∘ₗ act h' in tr_sig
+ok7 &= 'QT + QE + QA = LinearMap.id' in tr_sig
 # the O_h machinery of CubicIsotropy must not be imported into the rotational statement
 ok7 &= 'CubicIsotropy' not in body
 ok7 &= 'import OIBridge.CubicIsotropy' not in src
@@ -292,8 +300,11 @@ check("L7", ok7,
       f"`axiom`; all {len(NAMES)} named results print their axiom dependencies; the dimensions come "
       f"from `trace_eq_finrank_range` rather than from ad hoc bases, so the infrastructure lemma is "
       f"validated in its intended consumer; H-link appears only as the hypothesis of the separate "
-      f"`hlink_transport` and H-cust appears nowhere; and `CubicIsotropy` is neither imported nor "
-      f"mentioned, so its 48-element O_h cannot be substituted for the 24-element rotation group")
+      f"`hlink_transport`, and that hypothesis is EQUIVARIANT — the carrier carries its own action, "
+      f"the isomorphism intertwines it, and what transports is the projectors and their invariance "
+      f"rather than three bare dimensions; H-cust appears nowhere; and `CubicIsotropy` is neither "
+      f"imported nor mentioned, so its 48-element O_h cannot be substituted for the 24-element "
+      f"rotation group")
 
 print()
 print('     [scope] Settled in Lean: three explicit projectors on the six-link space, idempotent,')

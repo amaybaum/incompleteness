@@ -458,27 +458,83 @@ theorem theorem_7 :
    fun h hh => ⟨permOp_comp_PT hh, permOp_comp_PE hh, permOp_comp_PA h⟩,
    ⟨char_c4_odd, char_c4_E, char_c4_const⟩⟩
 
-/-- **The H-link transport, stated separately.**
+/-- **The H-link transport, stated separately, and genuinely equivariantly.**
 
-If the physical carrier is equivariantly identified with the link space — that identification IS
-**H-link**, a named premise and not a theorem — then it inherits the same `3 ⊕ 2 ⊕ 1`
-decomposition. Nothing here argues for the premise, and **H-cust** appears nowhere: the custodial
-condensate-stabilizer reading is downstream of this and is not part of the geometry. -/
+**H-link** is the premise that the physical carrier is identified with the link space AS A
+REPRESENTATION — an isomorphism intertwining the carrier's action with the link action, not merely
+a linear isomorphism. Under it the carrier inherits the whole structure: three projectors,
+idempotent, pairwise orthogonal, summing to the identity, each commuting with the carrier's own
+action, with images of dimensions `3`, `2`, `1`. A dimension-only transport would be strictly
+weaker and is not what the manuscript's second clause says.
+
+Nothing here argues for the premise. **H-cust**, the custodial condensate-stabilizer reading,
+appears nowhere: it is downstream of this and is not part of the geometry. -/
 theorem hlink_transport {W : Type*} [AddCommGroup W] [Module ℚ W]
-    (e : W ≃ₗ[ℚ] LV) :
-    Module.finrank ℚ (range ((e.symm.toLinearMap ∘ₗ PT) ∘ₗ e.toLinearMap)) = 3 ∧
-    Module.finrank ℚ (range ((e.symm.toLinearMap ∘ₗ PE) ∘ₗ e.toLinearMap)) = 2 ∧
-    Module.finrank ℚ (range ((e.symm.toLinearMap ∘ₗ PA) ∘ₗ e.toLinearMap)) = 1 := by
-  have key : ∀ P : LV →ₗ[ℚ] LV,
-      Module.finrank ℚ (range ((e.symm.toLinearMap ∘ₗ P) ∘ₗ e.toLinearMap))
-        = Module.finrank ℚ (range P) := by
+    (act : Equiv.Perm Link → (W →ₗ[ℚ] W)) (e : W ≃ₗ[ℚ] LV)
+    (hinter : ∀ h : Equiv.Perm Link, Sym h →
+      e.toLinearMap ∘ₗ act h = permOp h ∘ₗ e.toLinearMap) :
+    ∃ QT QE QA : W →ₗ[ℚ] W,
+      (QT ∘ₗ QT = QT ∧ QE ∘ₗ QE = QE ∧ QA ∘ₗ QA = QA) ∧
+      (QT ∘ₗ QE = 0 ∧ QE ∘ₗ QT = 0 ∧ QT ∘ₗ QA = 0 ∧ QA ∘ₗ QT = 0 ∧
+        QE ∘ₗ QA = 0 ∧ QA ∘ₗ QE = 0) ∧
+      QT + QE + QA = LinearMap.id ∧
+      (∀ h : Equiv.Perm Link, Sym h →
+        act h ∘ₗ QT = QT ∘ₗ act h ∧ act h ∘ₗ QE = QE ∘ₗ act h ∧ act h ∘ₗ QA = QA ∘ₗ act h) ∧
+      (Module.finrank ℚ (range QT) = 3 ∧ Module.finrank ℚ (range QE) = 2 ∧
+        Module.finrank ℚ (range QA) = 1) := by
+  classical
+  set conj : (LV →ₗ[ℚ] LV) → (W →ₗ[ℚ] W) :=
+    fun P => e.symm.toLinearMap ∘ₗ P ∘ₗ e.toLinearMap with hconj
+  have hee : e.toLinearMap ∘ₗ e.symm.toLinearMap = LinearMap.id := by
+    refine LinearMap.ext fun x => ?_
+    simp
+  have hmul : ∀ P Q : LV →ₗ[ℚ] LV, conj P ∘ₗ conj Q = conj (P ∘ₗ Q) := by
+    intro P Q
+    refine LinearMap.ext fun x => ?_
+    simp [hconj]
+  have hzero : conj 0 = 0 := by simp [hconj]
+  have hone : conj LinearMap.id = LinearMap.id := by
+    refine LinearMap.ext fun x => ?_
+    simp [hconj]
+  have hadd : ∀ P Q : LV →ₗ[ℚ] LV, conj (P + Q) = conj P + conj Q := by
+    intro P Q
+    simp only [hconj, LinearMap.add_comp, LinearMap.comp_add]
+  -- the action really is conjugate to the link action, which is what H-link supplies
+  have hact : ∀ h : Equiv.Perm Link, Sym h → act h = conj (permOp h) := by
+    intro h hh
+    have := hinter h hh
+    have hl : e.symm.toLinearMap ∘ₗ (e.toLinearMap ∘ₗ act h)
+        = e.symm.toLinearMap ∘ₗ (permOp h ∘ₗ e.toLinearMap) := by rw [this]
+    rw [← LinearMap.comp_assoc, ← LinearMap.comp_assoc] at hl
+    have hse : e.symm.toLinearMap ∘ₗ e.toLinearMap = LinearMap.id := by
+      refine LinearMap.ext fun x => ?_; simp
+    rw [hse, LinearMap.id_comp] at hl
+    rw [hl, hconj, LinearMap.comp_assoc]
+  have hrank : ∀ P : LV →ₗ[ℚ] LV,
+      Module.finrank ℚ (range (conj P)) = Module.finrank ℚ (range P) := by
     intro P
-    have himg : range ((e.symm.toLinearMap ∘ₗ P) ∘ₗ e.toLinearMap)
-        = (range P).map e.symm.toLinearMap := by
-      rw [LinearMap.range_comp, LinearEquiv.range, Submodule.map_top, LinearMap.range_comp]
+    have himg : range (conj P) = (range P).map e.symm.toLinearMap := by
+      ext w
+      simp only [hconj, LinearMap.mem_range, Submodule.mem_map, LinearMap.comp_apply]
+      constructor
+      · rintro ⟨x, rfl⟩
+        exact ⟨P (e x), ⟨e x, rfl⟩, rfl⟩
+      · rintro ⟨y, ⟨x, rfl⟩, rfl⟩
+        exact ⟨e.symm x, by simp⟩
     rw [himg]
     exact (Submodule.equivMapOfInjective _ e.symm.injective (range P)).finrank_eq.symm
-  exact ⟨key PT ▸ finrank_PT, key PE ▸ finrank_PE, key PA ▸ finrank_PA⟩
+  refine ⟨conj PT, conj PE, conj PA, ?_, ?_, ?_, ?_, ?_⟩
+  · exact ⟨by rw [hmul, PT_idem], by rw [hmul, PE_idem], by rw [hmul, PA_comp_PA]⟩
+  · refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩ <;>
+      rw [hmul] <;>
+      simp [PT_comp_PE, PE_comp_PT, PT_comp_PA, PA_comp_PT, PE_comp_PA, PA_comp_PE, hzero]
+  · rw [← hadd, ← hadd, sum_proj, hone]
+  · intro h hh
+    rw [hact h hh]
+    exact ⟨by rw [hmul, hmul, permOp_comp_PT hh],
+           by rw [hmul, hmul, permOp_comp_PE hh],
+           by rw [hmul, hmul, permOp_comp_PA h]⟩
+  · exact ⟨by rw [hrank, finrank_PT], by rw [hrank, finrank_PE], by rw [hrank, finrank_PA]⟩
 
 /-! ### What these proofs rest on -/
 
