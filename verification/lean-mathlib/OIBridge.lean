@@ -27,16 +27,19 @@ import Mathlib.GroupTheory.Perm.Fin
 -- The lake library's root is this file, so a module the root does not import is never built and
 -- never gated. `OIBridge.CombRealization` carries b446's saturated-class lemma and
 -- `OIBridge.EquivalenceChain` carries b448's Tier-1 closures from Main §2.3, §3.1 and §3.2,
--- `OIBridge.FiniteEntropy` the finite Shannon layer Mathlib does not have, and
--- `OIBridge.HiddenMemory` the unavoidable-hidden-predictive-memory theorem; none has anything to
--- do with the representation theory below. The imports are here for exactly one reason, and that
--- reason is the gate — `coverage_check.py` enforces it.
+-- `OIBridge.FiniteEntropy` the finite Shannon layer Mathlib does not have,
+-- `OIBridge.HiddenMemory` the unavoidable-hidden-predictive-memory theorem,
+-- `OIBridge.Equivalence` the finite-horizon stochastic/reversible/unitary equivalence,
+-- `OIBridge.C3Necessity` the C3 capacity theorem, and `OIBridge.CanonicalMeasure` Lemma 3's
+-- selected measure; none has anything to do with the representation theory below. The imports are
+-- here for exactly one reason, and that reason is the gate — `coverage_check.py` enforces it.
 import OIBridge.CombRealization
 import OIBridge.EquivalenceChain
 import OIBridge.FiniteEntropy
 import OIBridge.HiddenMemory
 import OIBridge.Equivalence
 import OIBridge.C3Necessity
+import OIBridge.CanonicalMeasure
 
 namespace OIBridge
 
