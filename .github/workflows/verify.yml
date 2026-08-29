@@ -2,8 +2,8 @@ name: verify
 
 # Machine-checked verification layer (verification/lean).
 #
-# The three proof files are self-contained Lean 4 — no Mathlib, no lake project,
-# zero imports — so the kernel gate is just a `lean` binary and three commands.
+# The six core proof files are self-contained Lean 4 — no Mathlib, no lake project,
+# zero imports — so the kernel gate is just a `lean` binary and one command per file.
 # A clean exit is the certificate; see verification/lean/VERIFYING.md.
 
 # NO PATH FILTERS, deliberately. These three jobs are required status checks on main, and a
@@ -48,7 +48,7 @@ jobs:
         run: |
           rc=0
           for f in OI_Gauge_Certificates OI_Structural_Core OI_Staggered_Relations \
-                   OI_Regulator_Symmetry OI_Structural_Chain; do
+                   OI_Regulator_Symmetry OI_Structural_Chain OI_Time_Reversal; do
             echo "::group::lean ${f}.lean"
             if lean "${f}.lean"; then
               echo "OK ${f}.lean"
@@ -100,7 +100,7 @@ jobs:
         working-directory: verification/lean
         run: |
           for p in gauge_certificates structural_core staggered_relations \
-                   structural_chain representation_bridge; do
+                   structural_chain representation_bridge time_reversal; do
             echo "=== ${p}_probe.py ==="
             python3 "${p}_probe.py"
           done
