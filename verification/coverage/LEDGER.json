@@ -1719,15 +1719,39 @@
    "checks": [
     {
      "kind": "lean",
-     "path": "verification/lean-mathlib/OIBridge/LinkDecomposition.lean",
+     "path": "verification/lean-mathlib/OIBridge/QuarterTurn.lean",
      "basis": "named",
-     "evidence": "theorem_7"
+     "evidence": "theorem_7_link"
     },
     {
      "kind": "lean",
      "path": "verification/lean-mathlib/OIBridge/QuarterTurn.lean",
      "basis": "named",
      "evidence": "character_gate"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/QuarterTurn.lean",
+     "basis": "named",
+     "evidence": "isRot_iff"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/QuarterTurn.lean",
+     "basis": "named",
+     "evidence": "decompEquiv_equivariant"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/LinkDecomposition.lean",
+     "basis": "named",
+     "evidence": "theorem_7"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/IdempotentTrace.lean",
+     "basis": "named",
+     "evidence": "trace_restrict_range"
     },
     {
      "kind": "probe",
@@ -1754,26 +1778,13 @@
       "irr_orthonormal",
       "irr_degrees",
       "mult_V6",
-      "mult_End",
-      "mult_End_dims",
-      "mult_broken",
-      "mult_broken_dims",
       "chi_consistent"
-     ]
-    },
-    {
-     "kind": "lean",
-     "path": "verification/lean-mathlib/OIBridge.lean",
-     "names": [
-      "Cubic.finrank_invariants",
-      "Cubic.finrank_commutant",
-      "Cubic.finrank_hom_end"
      ]
     }
    ],
-   "kernel": "K2",
-   "delta": "THE CHARACTER ARITHMETIC AND THE WRAPPER. The group object is now built: OIBridge/QuarterTurn.lean has S4 acting by CONJUGATION on its six four-cycles -- the six quarter turns, hence the six oriented axes -- with the orbit S4/C4 obtained without formalizing a quotient (each stabilizer is the centralizer C4), the antipode canonical as q -> q^-1, an inverse-preserving equivalence QT = Link, faithfulness, and sym_linkAct putting every rotation in LinkDecomposition's Sym with no enumeration. THE ACCEPTANCE GATE FIRED: character_gate proves pointwise that the fixed-link character is [SM] Theorem 7's own (6,0,2,0,2), so the S4-set is confirmed correct before any representation theory is reconnected -- the check whose absence admitted the two-subset model. WHAT REMAINS: (a) build the representation from linkAct with the INVERSE (permOp is an anti-homomorphism) and rebundle the three summands as Subrepresentations under it, reusing LinkDecomposition's projector algebra unchanged; (b) the five S4 characters -- A1 = 1, A2 = sign, E = fix3 - 1, T1 = sign * (fix4 - 1), T2 = fix4 - 1, T1 being standard-TENSOR-SIGN since four-fold rotations are odd -- with their 5x5 orthogonality and the multiplicities 24*(1,0,1,1,0) by decide; (c) the pointwise chi(rhoT) = T1 and chi(rhoE) = E through charOn_PT; (d) irreducibility from the self-inner-products over Q via finrank_intertwiners; (e) the terminal equivariant equivalence v -> (P_T v, P_E v, P_A v).",
-   "note": "KERNEL-PROVED: three explicit projectors on the six-link space -- P_T from the antipodal involution, P_A averaging onto constants, P_E the remainder -- idempotent, pairwise orthogonal, summing to the identity, so the decomposition is an internal direct sum and not a multiplicity count. Every permutation of the links preserving the antipodal pairing commutes with all three, so all three images are invariant subspaces; that group contains the rotation group O the manuscript names. Dimensions 3, 2, 1 come from IdempotentTrace.trace_eq_finrank_range -- the infrastructure lemma validated in its intended consumer -- rather than from ad hoc bases. char_c4_odd = 1 pins the three-dimensional summand as T1 rather than T2, the two being separated exactly there. SCOPE: the file proves GEOMETRY. H-link appears only as the hypothesis of the separate hlink_transport theorem, and H-cust appears nowhere -- the probe's lint enforces both. CubicIsotropy's 48-element O_h is neither imported nor mentioned, so it cannot be substituted for the 24-element rotation group."
+   "kernel": "K3",
+   "delta": "",
+   "note": "KERNEL-PROVED, and the group object is certified rather than named. OIBridge/QuarterTurn.lean builds the cubic rotation group as S4 acting by CONJUGATION on its six four-cycles -- the six quarter turns, hence the six oriented axes -- so the orbit is S4/C4 with no quotient formalized (each stabilizer is the centralizer C4) and antipodality is canonical, q -> q^-1. THE NAME IS A THEOREM: isRot_iff proves the image of the action is EXACTLY the antipode-preserving permutations of the six signed links whose 3x3 signed-permutation matrix has determinant +1, detLink_eq_det ties that hand-written determinant to Mathlib's, card_sym counts the antipode-preserving group at 48 (O_h) and card_rot the rotations at 24 (O), and antiPerm_not_isRot certifies that the inversion -I -- the element separating them -- is absent. THE ACCEPTANCE GATE, character_gate, then proves pointwise that the fixed-link character is the manuscript's own (6, 0, 2, 0, 2); it fires before any representation theory is attached, its absence being what admitted a wrong S4-set once. THE REPRESENTATION rhoLinkQT g = permOp (linkAct g^-1) carries the inverse because permOp is an anti-homomorphism (permOp_mul). The three summands are bundled as Mathlib Subrepresentations TsubQT/EsubQT/AsubQT, so the conclusions are about Representation.character and not about restricted traces that resemble one. The five S4 characters -- A1 = 1, A2 = sign, E = fix3 - 1, T1 = sign * (fix4 - 1), T2 = fix4 - 1, T1 being standard-TENSOR-sign because a four-fold rotation is an ODD permutation -- are proved orthonormal (irr_orthonormal, 5x5 = 24 delta), and mult_link gives 24*(1,0,1,1,0) against the DERIVED chiLink rather than a transcribed table: no A2, no T2. character_rhoT_eq / character_rhoE_eq / character_rhoA_eq identify the three summands' characters through IdempotentTrace.trace_restrict_range, dimensions 3, 2, 1 come from trace_eq_finrank_range, and chiT_c4 pins the three-dimensional summand as T1 rather than T2 -- the two differ exactly at the four-fold class. Irreducibility over Q, not over an algebraically closed field: each self-inner-product is 24, so finrank_intertwiners and Maschke give dim End = 1 with no complexification. The wrapper theorem_7_link bundles the rotation-group certificate, the gate, the three characters, the dimensions, the three irreducibility statements, and the TERMINAL EQUIVARIANT EQUIVALENCE decompEquiv : V6 = T1 + E + A1 given by v -> (P_T v, P_E v, P_A v). SCOPE: the file proves GEOMETRY. H-link appears only as the hypothesis of the separate, equivariant hlink_transport, and H-cust appears nowhere -- the probe's lint enforces both. CubicIsotropy's 48-element O_h is neither imported nor mentioned. SEPARATELY OPEN, as the A10 gap: the six-face/six-link equivariant identification, and OIBridge.lean's Cubic section, whose 72, 288 and 144 are statements about the two-subset action and carry no link-physics reading until re-established against linkAct."
   },
   {
    "id": "SM:T-7b",
@@ -2535,14 +2546,6 @@
  "backlog": [
   {
    "rank": 1,
-   "id": "SM:T-7-exact-link-representation-physical-reading",
-   "centrality": "high",
-   "difficulty": "low",
-   "tier": 3,
-   "route": "The group object and the acceptance gate are done (QuarterTurn.character_gate: the fixed-link character is (6,0,2,0,2)). Remaining: build the representation from linkAct with the inverse, rebundle the three summands as Subrepresentations under it (LinkDecomposition's projector algebra carries over unchanged, since sym_linkAct puts every rotation in Sym), then the five S4 characters and their orthogonality by decide, the pointwise chi(rhoT) = T1 and chi(rhoE) = E through charOn_PT, irreducibility over Q via finrank_intertwiners, and the terminal equivariant equivalence."
-  },
-  {
-   "rank": 2,
    "id": "STRUCTURE:P-9.7",
    "centrality": "high",
    "difficulty": "high",
@@ -2550,7 +2553,7 @@
    "route": "Stinespring uniqueness in restricted form. Mathlib has no Stinespring dilation theorem, so the restricted statement has to be set up from the partial-trace side. High centrality because the substratum-is-gauge corollary and the whole universality-class story rest on it."
   },
   {
-   "rank": 3,
+   "rank": 2,
    "id": "MAIN:T-separability-threshold",
    "centrality": "medium",
    "difficulty": "high",
@@ -2558,7 +2561,7 @@
    "route": "A clean finite-group statement -- entanglement-breaking iff t = s for an abelian Weyl subgroup of order 2^t on s qubits -- but Mathlib carries no entanglement-breaking characterization, so the definition has to be built before the theorem can be stated."
   },
   {
-   "rank": 4,
+   "rank": 3,
    "id": "MAIN:L-1-boundary-bound",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2566,7 +2569,7 @@
    "route": "A rank bound on the off-diagonal blocks of a local update. Mathlib has matrix rank and the submatrix API; the content is that the block factors through the boundary index set."
   },
   {
-   "rank": 5,
+   "rank": 4,
    "id": "SM:T-19",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2574,7 +2577,7 @@
    "route": "Reciprocity of visible transition counts. The side condition is the interesting part and must be carried: the symmetric form T_ij = T_ji holds only for T-EVEN coarse states, and GR section 3.2 is explicit that with T-odd visible data only the (theta j, theta i) form survives."
   },
   {
-   "rank": 6,
+   "rank": 5,
    "id": "SM:T-16",
    "centrality": "low",
    "difficulty": "low",
@@ -2582,7 +2585,7 @@
    "route": "Dimensional bookkeeping: [g] = (3-d)/2, dimensionless iff d = 3. Cheap, and it moves an SM GAP for almost nothing."
   },
   {
-   "rank": 7,
+   "rank": 6,
    "id": "GR:T-d-gauge-completeness",
    "centrality": "medium",
    "difficulty": "high",
@@ -2590,7 +2593,7 @@
    "route": "Needs non-degenerate spectra, non-vanishing overlaps and an argument over all t -- analytic, and the first GR statement worth attempting."
   },
   {
-   "rank": 8,
+   "rank": 7,
    "id": "SM:T-8",
    "centrality": "low",
    "difficulty": "low",

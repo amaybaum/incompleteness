@@ -18,10 +18,15 @@ conjugacy classes and then the character inner products.
   the irreducibility witness) and mult_V6 (the inner products, 24*(1,0,1,1,0)). L4 and L5 below
   reproduce that arithmetic independently rather than standing in for a gap.
 
-  WHAT IS MISSING is the JOIN: that the zero-import layer's encoding of the 24 rotations is the
-  same group as this file's antipode-preserving permutations, that chi6dir is trace (permOp .), and
-  hence that the three projector images carry chiT, chiE, chiA and are irreducible. That is this
-  entry's recorded ledger delta.
+  THE JOIN, which used to be this entry's recorded delta, is now made inside the Mathlib bridge
+  rather than across the two gates: OIBridge/QuarterTurn.lean carries a genuine 24-element group —
+  S4 acting by conjugation on its six four-cycles, the six quarter turns — whose image is PROVED to
+  be exactly the determinant-+1 antipode-preserving permutations of the six signed links, so the
+  name "rotation group" is a theorem there and not a convention. Its fixed-link character is the
+  manuscript's own (6, 0, 2, 0, 2), the multiplicities are computed against that derived character,
+  the three summands are Subrepresentations with characters T1, E, A1, each irreducible over Q, and
+  the terminal equivalence is equivariant. The zero-import layer's arithmetic is now a second
+  independent witness rather than a load-bearing half.
 
   L1  the projector algebra, exactly: idempotence, pairwise orthogonality, completeness.
   L2  the dimensions 3, 2, 1, computed both as ranks and as traces — the two routes the Lean file
@@ -34,6 +39,16 @@ conjugacy classes and then the character inner products.
       manuscript's multiplicity computation, independently of the zero-import layer's proof of it.
   L6  COUNTERCONTROL for the label: the three-dimensional summand's character at C4 is +1, so it is
       T1; T2's value there is -1. Checked against the full character table of O.
+  L6b COUNTERCONTROL for the model: the two-subset action is NOT the six-link one, and carries T2
+      where the links carry T1.
+  L6c the collision that hid it — same multiset, same sum of squares (72) and cubes (288) — kept as
+      a permanent regression control.
+  L6d the quarter-turn construction and its ACCEPTANCE GATE: the fixed-point character of S4 acting
+      by conjugation on its six four-cycles is the manuscript's (6, 0, 2, 0, 2).
+  L6e the representation against that gated action: five orthonormal characters, multiplicities
+      24*(1,0,1,1,0), the pointwise split, and self-inner-products 24 giving irreducibility over Q.
+  L6f the NAME certified rather than asserted: 48 antipode-preserving permutations, 24 of them of
+      determinant +1, and the image of the action is exactly those 24 — the inversion excluded.
   L7  lint: the Lean file is imported by the gated bridge root, carries no sorry, uses the ROTATION
       group's discriminant rather than CubicIsotropy's O_h, and keeps H-link as the hypothesis of a
       separate transport theorem with H-cust absent.
@@ -391,6 +406,111 @@ check("L6d", ok6d,
       f"with the S4/C4 character everywhere and differs from the two-subset one, so this is the "
       f"correct S4-set. Lean proves the same as `QuarterTurn.character_gate`")
 
+# ------------------------------------------------- L6e  the representation, against the gate
+def sgn4(g):
+    s = 1
+    for i in range(4):
+        for j in range(i + 1, 4):
+            if g[i] > g[j]:
+                s = -s
+    return s
+
+
+def nfix4(g):
+    return sum(1 for i in range(4) if g[i] == i)
+
+
+L2Q = {}
+for q in QTs:
+    v = q[q[0]]
+    ax = 0 if v == 1 else (1 if v == 2 else 2)
+    L2Q[(ax, inv4(q)[0] < q[0])] = q
+ok6e = len(L2Q) == 6
+
+
+def act_on_link(g, l):
+    q = L2Q[l]
+    r = cmp4(cmp4(g, q), inv4(g))
+    v = r[r[0]]
+    ax = 0 if v == 1 else (1 if v == 2 else 2)
+    return (ax, inv4(r)[0] < r[0])
+
+
+def fix3(g):
+    return sum(1 for a in range(3) if act_on_link(g, (a, False))[0] == a)
+
+
+CH = {'A1': lambda g: 1, 'A2': sgn4, 'E': lambda g: fix3(g) - 1,
+      'T1': lambda g: sgn4(g) * (nfix4(g) - 1), 'T2': lambda g: nfix4(g) - 1}
+for a in CH:
+    for b in CH:
+        ip = sum(CH[a](g) * CH[b](g) for g in S4)
+        ok6e &= ip == (24 if a == b else 0)
+mult = {a: sum(chi_lnk[g] * CH[a](g) for g in S4) for a in CH}
+ok6e &= mult == {'A1': 24, 'A2': 0, 'E': 24, 'T1': 24, 'T2': 0}
+ok6e &= all(chi_lnk[g] == CH['T1'](g) + CH['E'](g) + CH['A1'](g) for g in S4)
+# the odd summand's character from the two fixed-point counts, as charOn_PT reduces it
+fixLA = {g: sum(1 for l in L2Q if act_on_link(g, l) == (l[0], not l[1])) for g in S4}
+ok6e &= all(chi_lnk[inv4(g)] - fixLA[g] == 2 * CH['T1'](g) for g in S4)
+# the label discriminator
+c4g = (1, 2, 3, 0)
+ok6e &= CH['T1'](c4g) == 1 and CH['T2'](c4g) == -1
+# irreducibility: each self-inner-product is 24, so dim End = 1
+ok6e &= all(sum(CH[a](g) * CH[a](inv4(g)) for g in S4) == 24 for a in ('T1', 'E', 'A1'))
+check("L6e", ok6e,
+      f"THE REPRESENTATION, against the gated action. The five S4 characters — A1 = 1, A2 = sign, "
+      f"E = fix3 - 1, T1 = sign*(fix4 - 1), T2 = fix4 - 1 — are orthonormal over the 24 elements; "
+      f"the multiplicities of the link character are 24*(1,0,1,1,0), so no A2 and no T2; the "
+      f"character splits pointwise as T1 + E + A1; and the odd summand's two fixed-point counts "
+      f"give 2*T1 exactly, which is the reduction `charOn_PT` performs in Lean. The label "
+      f"discriminator: at the four-cycle class T1 = 1 and T2 = -1, so the three-dimensional "
+      f"summand is T1. Each self-inner-product is 24, giving dim End = 1 over Q — irreducibility "
+      f"by Maschke, with no complexification")
+
+# ------------------------------------------------- L6f  the name is certified, not asserted
+# Calling the acting group "the cubic rotation group" is a naming claim, and a wrong naming claim is
+# exactly what L6b caught. So it is checked: a signed permutation of the three axes is a rotation iff
+# its 3x3 matrix has determinant +1, and the image of the conjugation action is precisely that set.
+LINKS = [(a, s) for a in range(3) for s in (False, True)]
+
+
+def det_link(h):
+    col = {}
+    for j in range(3):
+        ax, sg = h[(j, True)]
+        col[j] = (ax, 1 if sg else -1)
+    M = [[0] * 3 for _ in range(3)]
+    for j in range(3):
+        M[col[j][0]][j] = col[j][1]
+    return (M[0][0] * (M[1][1] * M[2][2] - M[1][2] * M[2][1])
+            - M[0][1] * (M[1][0] * M[2][2] - M[1][2] * M[2][0])
+            + M[0][2] * (M[1][0] * M[2][1] - M[1][1] * M[2][0]))
+
+
+allperm = [dict(zip(LINKS, p)) for p in itertools.permutations(LINKS)]
+ok6f = len(allperm) == 720
+sym = [h for h in allperm if all(h[(a, not s)] == (h[(a, s)][0], not h[(a, s)][1])
+                                 for (a, s) in LINKS)]
+rot = [h for h in sym if det_link(h) == 1]
+ok6f &= len(sym) == 48 and len(rot) == 24                     # O_h has 48, O has 24
+inversion = {l: (l[0], not l[1]) for l in LINKS}
+ok6f &= inversion in sym and det_link(inversion) == -1        # -I is in O_h and not in O
+image = [{l: act_on_link(g, l) for l in LINKS} for g in S4]
+ok6f &= len({tuple(sorted(h.items())) for h in image}) == 24   # faithful
+ok6f &= {tuple(sorted(h.items())) for h in image} == {tuple(sorted(h.items())) for h in rot}
+# a control: det is not vacuous here — the 24 non-rotations are exactly the other coset
+ok6f &= len([h for h in sym if det_link(h) == -1]) == 24
+check("L6f", ok6f,
+      f"THE NAME IS CERTIFIED, NOT ASSERTED. Of the {len(allperm)} permutations of the six signed "
+      f"links, {len(sym)} preserve antipodality — that is O_h — and exactly {len(rot)} of those have "
+      f"determinant +1 in the 3x3 signed-permutation matrix, which is the definition of a rotation. "
+      f"The image of the conjugation action is faithful and coincides with that 24-element set "
+      f"exactly, so the group really is O and not some other index-2 subgroup of O_h, and not O_h "
+      f"itself. The concrete separator: the inversion -I preserves antipodality and has determinant "
+      f"-1, so it is in O_h and not in the image. Lean proves the same as `QuarterTurn.isRot_iff`, "
+      f"`card_sym`, `card_rot` and `antiPerm_not_isRot` — the check whose absence let a group object "
+      f"be named for geometry it did not have")
+
 # ----------------------------------------------------------------- L7  lint
 src = open(os.path.join(BRIDGE, 'OIBridge', 'LinkDecomposition.lean'), encoding='utf-8').read()
 root = open(os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
@@ -446,8 +566,22 @@ ok7 &= 'import OIBridge.QuarterTurn' in root
 ok7 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', qtbody) is None
 ok7 &= re.search(r'(?m)^axiom ', qtbody) is None
 for n in ('card_QT', 'conjHom', 'qtEquivLink_inv', 'sym_linkAct', 'linkAct_injective',
-          'character_gate', 'character_values'):
+          'character_gate', 'character_values', 'card_sym', 'card_rot', 'isRot_iff',
+          'antiPerm_not_isRot', 'theorem_7_link'):
     ok7 &= f'#print axioms {n}' in qt
+# THE NAMING GUARD. The acting group must be certified to BE the rotation group rather than merely
+# called one -- the failure mode that admitted the two-subset model. The determinant must be tied to
+# Mathlib's, so the hand-written expansion cannot drift into a different polynomial.
+for n in ('detLink_eq_det', 'card_sym', 'card_rot', 'antiPerm_not_isRot', 'isRot_iff'):
+    ok7 &= f'theorem {n}' in qt
+dd = qt[qt.index('theorem detLink_eq_det'):]
+ok7 &= 'detLink h = (linkMat h).det' in dd[:dd.index(':= by')]
+ir = qt[qt.index('theorem isRot_iff'):]
+ok7 &= 'IsRot h ↔ ∃ g : Perm (Fin 4), linkAct g = h' in ir[:ir.index(':= by')]
+ok7 &= 'def IsRot (h : Perm Link) : Prop := Sym h ∧ detLink h = 1' in qtbody
+# and the wrapper must carry that certificate, not leave it to one side
+tw = qt[qt.index('theorem theorem_7_link'):]
+ok7 &= 'IsRot h ↔ ∃ g : Perm (Fin 4), linkAct g = h' in tw[:tw.index('⟨isRot_iff')]
 # the gate must be the pointwise identity, not a spot check
 cg = qt[qt.index('theorem character_gate'):]
 ok7 &= '∀ g : Perm (Fin 4), (fixLink g : ℤ) = chiLink g' in cg[:cg.index(':= by')]
@@ -455,6 +589,22 @@ ok7 &= '∀ g : Perm (Fin 4), (fixLink g : ℤ) = chiLink g' in cg[:cg.index(':=
 ok7 &= 'MulAut.conj' in qtbody and 'q ^ 4 = 1 ∧ q ^ 2 ≠ 1' in qtbody
 ok7 &= 'theorem qtEquivLink_inv' in qt and 'anti (qtEquivLink q)' in qt
 ok7 &= 'native_decide' not in qtbody
+# the representation must be built on the GATED action, with a fresh name
+for n in ('rhoLinkQT', 'TsubQT', 'EsubQT', 'AsubQT', 'rhoT', 'rhoE', 'rhoA', 'decompEquiv'):
+    ok7 &= f'def {n}' in qt
+rq = qt[qt.index('def rhoLinkQT'):]
+ok7 &= 'permOp (linkAct g⁻¹)' in rq[:rq.index('theorem rhoLinkQT_apply')]
+for n in ('irr_orthonormal', 'mult_link', 'character_rhoT_eq', 'character_rhoE_eq',
+          'character_rhoA_eq', 'finrank_end_rhoT', 'finrank_end_rhoE', 'finrank_end_rhoA',
+          'chiT_c4', 'decompEquiv_equivariant', 'theorem_7_link'):
+    ok7 &= f'theorem {n}' in qt
+# the terminal wrapper must be an EQUIVARIANT equivalence, not a conjunction of projector facts
+de = qt[qt.index('theorem decompEquiv_equivariant'):]
+ok7 &= 'decompEquiv (rhoLinkQT g v)' in de[:de.index(':= by')]
+ok7 &= 'rhoT g (decompEquiv v).1' in de[:de.index(':= by')]
+# T1 must be standard-tensor-sign, not the standard representation
+ct = qt[qt.index('def chiT1'):]
+ok7 &= 'sgnZ g * ((nfix g : ℤ) - 1)' in ct[:ct.index('def chiT2')]
 for n in ('character_rhoT', 'character_rhoE', 'character_rhoA', 'character_rhoA_eq_one',
           'character_rhoLink_eq_sum'):
     ok7 &= f'theorem {n}' in root
@@ -484,7 +634,10 @@ check("L7", ok7,
       f"four-fold class, so nothing there can be read as V6; and OIBridge/QuarterTurn.lean builds "
       f"the CORRECT action — conjugation on the six four-cycles, antipode q -> q^-1, faithful, "
       f"every element in `Sym` — whose `character_gate` is the pointwise identity with the "
-      f"manuscript's character, so `chiLinkTable` is now derived rather than transcribed")
+      f"manuscript's character, so `chiLinkTable` is now derived rather than transcribed; and that "
+      f"action's group is certified to BE the rotation group by `isRot_iff`, `card_sym`, `card_rot` "
+      f"and `antiPerm_not_isRot`, with `detLink_eq_det` tying the hand-written determinant to "
+      f"Mathlib's so the criterion cannot drift, and the certificate is a clause of the wrapper")
 
 print()
 print('     [scope] Settled in Lean: three explicit projectors on the six-link space, idempotent,')
@@ -492,14 +645,17 @@ print('     pairwise orthogonal and summing to the identity, commuting with ever
 print('     link set; dimensions 3, 2, 1 read off their traces through the IdempotentTrace lemma;')
 print('     and the character at a four-fold rotation, 1 for the three-dimensional summand, which')
 print('     is T1\'s value and not T2\'s. H-link is the hypothesis of a separate transport theorem.')
-print('     Also settled, in the ZERO-IMPORT layer: the manuscript\'s own proof line — the fixed')
-print('     directed-link count equals chiT + chiE + chiA, the five irreducible characters are')
-print('     orthonormal over the 24 rotations, and the inner products give 24*(1,0,1,1,0).')
-print('     NOT settled, and this entry\'s recorded delta: the JOIN between those two layers —')
-print('     that the zero-import encoding of the rotations is this file\'s group, that chi6dir is')
-print('     trace(permOp .), and hence that the three projector images carry those characters and')
-print('     are irreducible. Also outstanding: the six-face/six-link equivariant identification,')
-print('     which OIBridge.lean\'s Cubic section still records as probe-only.')
+print('     THE JOIN IS NOW SETTLED TOO, inside the Mathlib bridge: OIBridge/QuarterTurn.lean acts')
+print('     with a genuine 24-element group whose image is proved to be exactly the determinant-+1')
+print('     antipode-preserving permutations of the six signed links — the rotation group, named by')
+print('     theorem and not by convention — whose fixed-link character is the manuscript\'s own')
+print('     (6, 0, 2, 0, 2); the five S4 characters are orthonormal there, the multiplicities are')
+print('     24*(1,0,1,1,0) against that DERIVED character, the three summands are Subrepresentations')
+print('     with characters T1, E and A1, each irreducible over Q by finrank_intertwiners, and the')
+print('     terminal equivalence V6 = T1 + E + A1 is equivariant.')
+print('     NOT settled, and recorded separately as the A10 gap: the six-face/six-link equivariant')
+print('     identification, and OIBridge.lean\'s Cubic section — whose 72, 288 and 144 are')
+print('     statements about the two-subset action, not about these links.')
 print()
 print("link_decomposition_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)
