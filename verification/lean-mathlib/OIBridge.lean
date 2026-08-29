@@ -391,4 +391,104 @@ system gives 6, with a one-generator control at 68. -/
 
 end Cubic
 
+/-! ## The face model IS the link space
+
+`Cubic.rho` is a representation of `S₄` on the six faces, and its own header records that the
+identification with the cubic action was checked only by probe. `LinkDecomposition` builds Theorem
+7 on the links themselves, so that identification is not a premise of anything there — but it is a
+standing debt of this section, and this is where it is paid.
+
+The bijection below is COMPLEMENT-PRESERVING: opposite faces go to antipodal links. That single
+property is what makes the transported `S₄` action a symmetry of the link set in
+`LinkDecomposition`'s sense, so all three projectors are invariant under it with no part of their
+algebra reproved. And it supplies what the representation-theoretic join needs and this bridge
+otherwise lacks: a GENUINE GROUP of order 24 acting on `Link`, rather than a predicate cutting a
+subset out of the 48-element antipode-preserving group. -/
+
+namespace LinkJoin
+
+open Equiv OIBridge.LinkDecomposition
+
+/-- The face opposite to a given one. -/
+def op (F : Cubic.Face) : Cubic.Face :=
+  ⟨F.1ᶜ, by rw [Finset.card_compl, F.2]; rfl⟩
+
+/-- The six faces as the six links: outward normals, with opposite faces antipodal. -/
+def faceToLink (F : Cubic.Face) : Link :=
+  if 0 ∈ F.1 then
+    (if 1 ∈ F.1 then (0, false) else if 2 ∈ F.1 then (1, false) else (2, false))
+  else
+    (if 1 ∈ F.1 then (if 2 ∈ F.1 then (2, true) else (1, true)) else (0, true))
+
+/-- Its inverse, given explicitly so the equivalence stays computable and `decide` can run. -/
+def linkToFace (l : Link) : Cubic.Face :=
+  if l.1 = 0 then (if l.2 then ⟨{2, 3}, by decide⟩ else ⟨{0, 1}, by decide⟩)
+  else if l.1 = 1 then (if l.2 then ⟨{1, 3}, by decide⟩ else ⟨{0, 2}, by decide⟩)
+  else (if l.2 then ⟨{1, 2}, by decide⟩ else ⟨{0, 3}, by decide⟩)
+
+/-- **The six faces are the six links.** -/
+def faceEquivLink : Cubic.Face ≃ Link :=
+  ⟨faceToLink, linkToFace, by decide, by decide⟩
+
+/-- **The equivalence is complement-preserving**: opposite faces are antipodal links. This is the
+property the whole join turns on. -/
+theorem faceEquivLink_op (F : Cubic.Face) : faceEquivLink (op F) = anti (faceEquivLink F) := by
+  revert F; decide
+
+/-- The face action commutes with taking the opposite face, because a bijection of the four
+diagonals commutes with complementation. -/
+theorem act_op (g : Perm (Fin 4)) (F : Cubic.Face) :
+    Cubic.act g (op F) = op (Cubic.act g F) := by
+  refine Subtype.ext ?_
+  show (F.1ᶜ).map g.toEmbedding = (F.1.map g.toEmbedding)ᶜ
+  ext x
+  simp only [Finset.mem_map, Finset.mem_compl, Equiv.coe_toEmbedding]
+  constructor
+  · rintro ⟨a, ha, rfl⟩ hc
+    obtain ⟨b, hb, hbx⟩ := hc
+    exact ha (by rwa [← g.injective hbx])
+  · intro hx
+    refine ⟨g.symm x, fun hc => hx ⟨g.symm x, hc, by simp⟩, by simp⟩
+
+/-- **The cubic rotation action on the links**, transported from the face model. `S₄` is a genuine
+group of order 24 (`Cubic.card_group`), so this is a group acting on the link space and not a
+predicate cutting out a subset. -/
+def linkHom : Perm (Fin 4) →* Perm Link where
+  toFun g := (faceEquivLink.symm.trans (Cubic.actHom g)).trans faceEquivLink
+  map_one' := by
+    refine Equiv.ext fun l => ?_
+    simp [map_one]
+  map_mul' g h := by
+    refine Equiv.ext fun l => ?_
+    simp [map_mul, Equiv.Perm.mul_apply]
+
+theorem linkHom_apply (g : Perm (Fin 4)) (l : Link) :
+    linkHom g l = faceEquivLink (Cubic.act g (faceEquivLink.symm l)) := rfl
+
+/-- **Every rotation is a symmetry of the link set.** Complement-preservation of the bijection plus
+`act_op` gives it directly, with no enumeration over the group. This is what makes
+`LinkDecomposition`'s three projectors invariant under the genuine `S₄` action. -/
+theorem sym_linkHom (g : Perm (Fin 4)) : Sym (linkHom g) := by
+  intro l
+  have hl : faceEquivLink.symm (anti l) = op (faceEquivLink.symm l) := by
+    refine faceEquivLink.injective ?_
+    rw [Equiv.apply_symm_apply, faceEquivLink_op, Equiv.apply_symm_apply]
+  rw [linkHom_apply, linkHom_apply, hl, act_op, faceEquivLink_op]
+
+/- The face action of `S₄` is faithful, decided over the 576 pairs. The recursion limit is raised
+for the same reason as elsewhere in this file: it bounds the evaluator's depth, not the trusted
+base, and `native_decide` is deliberately never used in this project. -/
+set_option maxRecDepth 40000 in
+theorem act_injective : Function.Injective Cubic.act := by decide
+
+/-- The action is faithful, so its image really is a 24-element group of link symmetries. -/
+theorem linkHom_injective : Function.Injective linkHom := by
+  intro g h hgh
+  refine act_injective (Equiv.ext fun F => faceEquivLink.injective ?_)
+  have := congrArg (fun σ => σ (faceEquivLink F)) hgh
+  simpa [linkHom_apply, Equiv.symm_apply_apply] using this
+
+end LinkJoin
+
+
 end OIBridge

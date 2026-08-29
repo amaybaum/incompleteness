@@ -269,8 +269,8 @@ check("L6", ok6,
 src = open(os.path.join(BRIDGE, 'OIBridge', 'LinkDecomposition.lean'), encoding='utf-8').read()
 root = open(os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
 NAMES = ('trace_permOp', 'PT_idem', 'PE_idem', 'sum_proj', 'finrank_PT', 'finrank_PE',
-         'finrank_PA', 'permOp_comp_PT', 'char_c4_odd', 'char_c4_E', 'theorem_7',
-         'hlink_transport')
+         'finrank_PA', 'permOp_comp_PT', 'permOp_comp_C_eq', 'charOn_PA', 'charOn_PT',
+         'charOn_sum', 'char_c4_odd', 'char_c4_E', 'theorem_7', 'hlink_transport')
 body = re.sub(r'(?m)--.*$', '', re.sub(r'/-.*?-/', '', src, flags=re.S))
 ok7 = ('import OIBridge.LinkDecomposition' in root
        and re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', body) is None
@@ -295,6 +295,11 @@ ok7 &= 'QT + QE + QA = LinearMap.id' in tr_sig
 # the O_h machinery of CubicIsotropy must not be imported into the rotational statement
 ok7 &= 'CubicIsotropy' not in body
 ok7 &= 'import OIBridge.CubicIsotropy' not in src
+# the genuine 24-element group object, and the face/link identification, live in OIBridge.lean
+ok7 &= 'namespace LinkJoin' in root
+for n in ('faceEquivLink', 'faceEquivLink_op', 'act_op', 'linkHom', 'sym_linkHom',
+          'act_injective', 'linkHom_injective'):
+    ok7 &= n in root
 check("L7", ok7,
       f"the Lean file is IMPORTED BY OIBridge.lean, so CI builds it; it carries no `sorry` and no "
       f"`axiom`; all {len(NAMES)} named results print their axiom dependencies; the dimensions come "
@@ -304,7 +309,9 @@ check("L7", ok7,
       f"the isomorphism intertwines it, and what transports is the projectors and their invariance "
       f"rather than three bare dimensions; H-cust appears nowhere; and `CubicIsotropy` is neither "
       f"imported nor mentioned, so its 48-element O_h cannot be substituted for the 24-element "
-      f"rotation group")
+      f"rotation group; and OIBridge.lean now carries the genuine group object — a "
+      f"complement-preserving Face-Link equivalence, the transported S4 action, `sym_linkHom` "
+      f"putting every rotation in `Sym`, and faithfulness")
 
 print()
 print('     [scope] Settled in Lean: three explicit projectors on the six-link space, idempotent,')

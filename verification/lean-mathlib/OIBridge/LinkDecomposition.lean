@@ -390,11 +390,40 @@ theorem trace_permOp_anti_c4 : trace ℚ LV (permOp (antiPerm * c4Perm)) = 0 := 
   have hc : (Finset.univ.filter fun l : Link => (antiPerm * c4Perm) l = l).card = 0 := by decide
   rw [hc]; norm_num
 
-theorem permOp_c4_comp_C : permOp c4Perm ∘ₗ C = permOp (antiPerm * c4Perm) := by
+/-- **The character reduction for the odd summand**, general in the symmetry: composing with the
+antipodal involution is composing with the antipodal permutation. With `trace_permOp` this turns
+every character of `im P_T` into a difference of two fixed-point counts. -/
+theorem permOp_comp_C_eq (h : Equiv.Perm Link) : permOp h ∘ₗ C = permOp (antiPerm * h) := by
   refine LinearMap.ext fun f => ?_
   funext l
   simp only [LinearMap.comp_apply, C_apply, permOp_apply]
   rfl
+
+theorem permOp_c4_comp_C : permOp c4Perm ∘ₗ C = permOp (antiPerm * c4Perm) :=
+  permOp_comp_C_eq c4Perm
+
+/-- **The character reduction for the constants**: every symmetry acts trivially on them, so the
+one-dimensional summand's character is constantly `1` — the trivial representation `A₁`. -/
+theorem permOp_absorb_PA (h : Equiv.Perm Link) : permOp h ∘ₗ PA = PA := by
+  refine LinearMap.ext fun f => ?_
+  funext l
+  simp only [LinearMap.comp_apply, PA_apply, permOp_apply]
+
+theorem charOn_PA (h : Equiv.Perm Link) : charOn PA h = 1 := by
+  rw [charOn, permOp_absorb_PA, trace_PA]
+
+/-- The odd summand's character at any symmetry, as a difference of fixed-point counts. -/
+theorem charOn_PT (h : Equiv.Perm Link) :
+    charOn PT h = (1 / 2 : ℚ) * (trace ℚ LV (permOp h) - trace ℚ LV (permOp (antiPerm * h))) := by
+  rw [charOn, PT, LinearMap.comp_smul, map_smul, LinearMap.comp_sub, map_sub,
+    LinearMap.comp_id, permOp_comp_C_eq]
+  norm_num
+
+/-- The three characters sum to the character of the whole space, at every symmetry. -/
+theorem charOn_sum (h : Equiv.Perm Link) :
+    charOn PT h + charOn PE h + charOn PA h = trace ℚ LV (permOp h) := by
+  simp only [charOn, ← map_add, ← LinearMap.comp_add]
+  rw [show PT + PE + PA = LinearMap.id from sum_proj, LinearMap.comp_id]
 
 /-- **The three-dimensional summand is `T₁`, not `T₂`.** Its character at the quarter turn is `1`;
 `T₂`'s is `−1`. That value is the whole discriminant between the two three-dimensional
@@ -405,20 +434,11 @@ theorem char_c4_odd : charOn PT c4Perm = 1 := by
   norm_num
 
 /-- The character of the constants at the quarter turn is `1`: the trivial representation, `A₁`. -/
-theorem char_c4_const : charOn PA c4Perm = 1 := by
-  rw [charOn]
-  have h : permOp c4Perm ∘ₗ PA = PA := by
-    refine LinearMap.ext fun f => ?_
-    funext l
-    simp only [LinearMap.comp_apply, PA_apply, permOp_apply]
-  rw [h, trace_PA]
+theorem char_c4_const : charOn PA c4Perm = 1 := charOn_PA c4Perm
 
 /-- The character of the two-dimensional summand at the quarter turn is `0`, which is `E`'s. -/
 theorem char_c4_E : charOn PE c4Perm = 0 := by
-  have hsum : charOn PT c4Perm + charOn PE c4Perm + charOn PA c4Perm
-      = trace ℚ LV (permOp c4Perm) := by
-    simp only [charOn, ← map_add, ← LinearMap.comp_add]
-    rw [show PT + PE + PA = LinearMap.id from sum_proj, LinearMap.comp_id]
+  have hsum := charOn_sum c4Perm
   rw [char_c4_odd, char_c4_const, trace_permOp_c4] at hsum
   linarith
 
@@ -546,6 +566,10 @@ theorem hlink_transport {W : Type*} [AddCommGroup W] [Module ℚ W]
 #print axioms finrank_PE
 #print axioms finrank_PA
 #print axioms permOp_comp_PT
+#print axioms permOp_comp_C_eq
+#print axioms charOn_PA
+#print axioms charOn_PT
+#print axioms charOn_sum
 #print axioms char_c4_odd
 #print axioms char_c4_E
 #print axioms theorem_7
