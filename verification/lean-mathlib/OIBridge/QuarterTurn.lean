@@ -34,6 +34,7 @@
 -/
 import OIBridge.LinkDecomposition
 import OIBridge.Averaging
+import OIBridge.Irreducibility
 import Mathlib.GroupTheory.Perm.Fin
 import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
 import Mathlib.RepresentationTheory.Subrepresentation
@@ -473,11 +474,14 @@ theorem character_rhoE_eq (g : Perm (Fin 4)) : rhoE.character g = (chiE g : ℚ)
     exact_mod_cast congrArg (fun z : ℤ => (z : ℚ)) (chiLink_split g)
   linarith
 
-/-! ### Irreducibility, over ℚ
+/-! ### The endomorphism algebras are one-dimensional
 
-`A₁` is one-dimensional and irreducible outright. For the other two the self-inner-product is `24`,
-and `finrank_intertwiners` turns that into an endomorphism algebra of dimension one — Schur over ℚ
-by Maschke, with no algebraically closed field and no complexification. -/
+Each self-inner-product is `24`, and `finrank_intertwiners` turns that into an endomorphism algebra
+of dimension one, over ℚ, with no algebraically closed field and no complexification.
+
+This is not yet irreducibility, and the two are kept apart deliberately: `dim End = 1` is an
+arithmetic fact about characters, while irreducibility is a statement about subrepresentations, and
+Maschke is what carries one to the other. That step is `OIBridge.Irreducibility`, applied below. -/
 
 theorem sum_chiT1_sq : ∑ g : Perm (Fin 4), chiT1 g * chiT1 g⁻¹ = 24 := by decide
 
@@ -537,6 +541,31 @@ theorem finrank_end_rhoE : Module.finrank ℚ (Representation.IntertwiningMap rh
   have h' : (24 : ℕ) * Module.finrank ℚ (Representation.IntertwiningMap rhoE rhoE) = 24 := by
     exact_mod_cast h
   omega
+
+/-! ### From the endomorphism dimension to irreducibility
+
+`dim End = 1` is not yet irreducibility: the implication is where Maschke enters, and Mathlib
+carries only the converse, under `[IsAlgClosed k]`. `OIBridge.Irreducibility` supplies the
+direction needed here, without that hypothesis; what remains is to instantiate it, which needs
+only that each summand is nonzero. -/
+
+/-- `24 ≠ 0` in ℚ, which is what makes Maschke available. -/
+instance : NeZero ((Nat.card (Perm (Fin 4)) : ℚ)) := ⟨by rw [card_group]; norm_num⟩
+
+theorem irreducible_rhoT : Representation.IsIrreducible rhoT :=
+  have : Nontrivial TsubQT.toSubmodule :=
+    Module.nontrivial_of_finrank_pos (R := ℚ) (by rw [finrank_rhoT]; norm_num)
+  Irreducibility.isIrreducible_of_finrank_intertwiners_eq_one rhoT finrank_end_rhoT
+
+theorem irreducible_rhoE : Representation.IsIrreducible rhoE :=
+  have : Nontrivial EsubQT.toSubmodule :=
+    Module.nontrivial_of_finrank_pos (R := ℚ) (by rw [finrank_rhoE]; norm_num)
+  Irreducibility.isIrreducible_of_finrank_intertwiners_eq_one rhoE finrank_end_rhoE
+
+theorem irreducible_rhoA : Representation.IsIrreducible rhoA :=
+  have : Nontrivial AsubQT.toSubmodule :=
+    Module.nontrivial_of_finrank_pos (R := ℚ) (by rw [finrank_rhoA]; norm_num)
+  Irreducibility.isIrreducible_of_finrank_intertwiners_eq_one rhoA finrank_end_rhoA
 
 /-! ### The terminal equivariant decomposition
 
@@ -612,9 +641,15 @@ theorem decompEquiv_equivariant (g : Perm (Fin 4)) (v : LV) :
 /-- **Theorem 7 (exact six-link representation), [SM] §4.1.**
 
 The six signed simple-cubic links decompose under the cubic rotation group as
-`V₆ ≅ T₁(3) ⊕ E(2) ⊕ A₁(1)`. The equivalence is explicit and equivariant; the three summands are
-irreducible over ℚ, with dimensions `3, 2, 1`; their characters are `χ_{T₁}`, `χ_E`, `χ_{A₁}`; and
-the whole character is the manuscript's `(6, 0, 2, 0, 2)`.
+`V₆ ≅ T₁(3) ⊕ E(2) ⊕ A₁(1)`. The equivalence is explicit and equivariant; the three summands have
+dimensions `3, 2, 1` and characters `χ_{T₁}`, `χ_E`, `χ_{A₁}`; and the whole character is the
+manuscript's `(6, 0, 2, 0, 2)`.
+
+Irreducibility is `Representation.IsIrreducible` — no proper nonzero subrepresentation — and not
+merely the endomorphism dimension it follows from. The two are separate clauses because the
+implication between them is Maschke, which `OIBridge.Irreducibility` supplies without assuming the
+field algebraically closed; over ℚ that is the whole difficulty, and stating only `dim End = 1`
+would leave it to prose.
 
 The action is the cubic ROTATION action, and that is certified twice over rather than asserted:
 `isRot_iff` proves the acting group is EXACTLY the antipode-preserving permutations of the six
@@ -635,12 +670,15 @@ theorem theorem_7_link :
     (Module.finrank ℚ (Representation.IntertwiningMap rhoT rhoT) = 1 ∧
       Module.finrank ℚ (Representation.IntertwiningMap rhoE rhoE) = 1 ∧
       Module.finrank ℚ (Representation.IntertwiningMap rhoA rhoA) = 1) ∧
+    (Representation.IsIrreducible rhoT ∧ Representation.IsIrreducible rhoE ∧
+      Representation.IsIrreducible rhoA) ∧
     (∀ g : Perm (Fin 4), ∀ v : LV, decompEquiv (rhoLinkQT g v)
       = (rhoT g (decompEquiv v).1, rhoE g (decompEquiv v).2.1, rhoA g (decompEquiv v).2.2)) :=
   ⟨isRot_iff, card_rot, character_gate,
    fun g => ⟨character_rhoT_eq g, character_rhoE_eq g, character_rhoA_eq g⟩,
    ⟨finrank_rhoT, finrank_rhoE, finrank_rhoA⟩,
    ⟨finrank_end_rhoT, finrank_end_rhoE, finrank_end_rhoA⟩,
+   ⟨irreducible_rhoT, irreducible_rhoE, irreducible_rhoA⟩,
    decompEquiv_equivariant⟩
 
 /-! ### What these proofs rest on -/
@@ -665,6 +703,9 @@ theorem theorem_7_link :
 #print axioms mult_link
 #print axioms finrank_end_rhoT
 #print axioms finrank_end_rhoE
+#print axioms irreducible_rhoT
+#print axioms irreducible_rhoE
+#print axioms irreducible_rhoA
 #print axioms decompEquiv_equivariant
 #print axioms chiT_c4
 #print axioms finrank_end_rhoA

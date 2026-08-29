@@ -35,7 +35,9 @@ import Mathlib.GroupTheory.Perm.Fin
 -- `OIBridge.C3Necessity` the C3 capacity theorem, `OIBridge.CanonicalMeasure` Lemma 3's
 -- selected measure, `OIBridge.Finiteness` Lemma 1's conditional finiteness, and `OIBridge.CubicIsotropy`
 -- [SM] Corollary 1a, and `OIBridge.IdempotentTrace` the trace-of-restriction lemma
--- Theorem 7 was blocked on, `OIBridge.LinkDecomposition` that theorem's six-link
+-- Theorem 7 was blocked on, `OIBridge.Irreducibility` the implication from the
+-- endomorphism dimension to irreducibility that Mathlib carries only for algebraically
+-- closed fields, `OIBridge.LinkDecomposition` that theorem's six-link
 -- decomposition and `OIBridge.QuarterTurn` the cubic rotation group it decomposes under;
 -- none has anything
 -- to do with the representation theory below. The imports are here for exactly one reason, and
@@ -50,6 +52,7 @@ import OIBridge.CanonicalMeasure
 import OIBridge.Finiteness
 import OIBridge.CubicIsotropy
 import OIBridge.IdempotentTrace
+import OIBridge.Irreducibility
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

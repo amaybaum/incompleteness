@@ -24,9 +24,11 @@ conjugacy classes and then the character inner products.
   be exactly the determinant-+1 antipode-preserving permutations of the six signed links, so the
   name "rotation group" is a theorem there and not a convention. Its fixed-link character is the
   manuscript's own (6, 0, 2, 0, 2), the multiplicities are computed against that derived character,
-  the three summands are Subrepresentations with characters T1, E, A1, each irreducible over Q, and
-  the terminal equivalence is equivariant. The zero-import layer's arithmetic is now a second
-  independent witness rather than a load-bearing half.
+  the three summands are Subrepresentations with characters T1, E, A1, each irreducible over Q in
+  the strict sense — no proper nonzero subrepresentation, reached from dim End = 1 through Maschke,
+  since Mathlib carries that implication only for algebraically closed fields — and the terminal
+  equivalence is equivariant. The zero-import layer's arithmetic is now a second independent
+  witness rather than a load-bearing half.
 
   L1  the projector algebra, exactly: idempotence, pairwise orthogonality, completeness.
   L2  the dimensions 3, 2, 1, computed both as ranks and as traces — the two routes the Lean file
@@ -46,7 +48,9 @@ conjugacy classes and then the character inner products.
   L6d the quarter-turn construction and its ACCEPTANCE GATE: the fixed-point character of S4 acting
       by conjugation on its six four-cycles is the manuscript's (6, 0, 2, 0, 2).
   L6e the representation against that gated action: five orthonormal characters, multiplicities
-      24*(1,0,1,1,0), the pointwise split, and self-inner-products 24 giving irreducibility over Q.
+      24*(1,0,1,1,0), the pointwise split, and self-inner-products 24 giving dim End = 1 over Q.
+  L6g COUNTERCONTROL for the Maschke step: an algebra with a one-dimensional endomorphism algebra
+      whose module is nonetheless reducible, so `dim End = 1` alone is not irreducibility.
   L6f the NAME certified rather than asserted: 48 antipode-preserving permutations, 24 of them of
       determinant +1, and the image of the action is exactly those 24 — the inversion excluded.
   L7  lint: the Lean file is imported by the gated bridge root, carries no sorry, uses the ROTATION
@@ -464,8 +468,76 @@ check("L6e", ok6e,
       f"character splits pointwise as T1 + E + A1; and the odd summand's two fixed-point counts "
       f"give 2*T1 exactly, which is the reduction `charOn_PT` performs in Lean. The label "
       f"discriminator: at the four-cycle class T1 = 1 and T2 = -1, so the three-dimensional "
-      f"summand is T1. Each self-inner-product is 24, giving dim End = 1 over Q — irreducibility "
-      f"by Maschke, with no complexification")
+      f"summand is T1. Each self-inner-product is 24, giving dim End = 1 over Q, with no "
+      f"complexification — which becomes irreducibility only through Maschke, the step L6g shows "
+      f"is load-bearing")
+
+# ------------------------------------------------- L6g  countercontrol for the Maschke step
+# `dim End = 1` is an arithmetic fact about characters; irreducibility is a statement about
+# subrepresentations. The implication between them is Maschke, and this check shows Maschke is
+# load-bearing rather than decorative: an algebra whose module has a one-dimensional endomorphism
+# algebra and a proper nonzero invariant subspace at the same time. Nothing about the module is
+# wrong; what fails is semisimplicity, which is exactly the hypothesis the new Lean lemma carries.
+def nullity(rows, n):
+    """Dimension of the solution space of `rows . x = 0`, exactly, over the rationals."""
+    m = [list(map(F, r)) for r in rows]
+    piv, r = [], 0
+    for c in range(n):
+        p = next((i for i in range(r, len(m)) if m[i][c] != 0), None)
+        if p is None:
+            continue
+        m[r], m[p] = m[p], m[r]
+        inv = F(1) / m[r][c]
+        m[r] = [inv * v for v in m[r]]
+        for i in range(len(m)):
+            if i != r and m[i][c] != 0:
+                f = m[i][c]
+                m[i] = [a - f * b for a, b in zip(m[i], m[r])]
+        piv.append(c)
+        r += 1
+    return n - len(piv)
+
+
+def commutant_dim(gens, n):
+    """Dimension of {X : X A = A X for every generator A}, for n x n matrices."""
+    rows = []
+    for A in gens:
+        for i in range(n):
+            for j in range(n):
+                # coefficient of x_{pq} in (XA - AX)_{ij}
+                row = [F(0)] * (n * n)
+                for q in range(n):
+                    row[i * n + q] += F(A[q][j])          # (X A)_{ij} = sum_q x_{iq} A_{qj}
+                for p in range(n):
+                    row[p * n + j] -= F(A[i][p])          # (A X)_{ij} = sum_p A_{ip} x_{pj}
+                rows.append(row)
+    return nullity(rows, n * n)
+
+
+E11 = [[1, 0], [0, 0]]
+E12 = [[0, 1], [0, 0]]
+E22 = [[0, 0], [0, 1]]
+UT = [E11, E12, E22]                       # the upper-triangular algebra acting on k^2
+ok6g = commutant_dim(UT, 2) == 1           # one-dimensional endomorphism algebra ...
+# ... and yet span(e1) is a proper nonzero invariant subspace: the module is NOT simple
+ok6g &= all(A[1][0] == 0 for A in UT)      # every generator maps e1 into span(e1)
+# controls that the routine is not degenerate: the full matrix algebra also has commutant k
+# (and is simple), while a scalar-only algebra has the whole 4-dimensional commutant
+ok6g &= commutant_dim(UT + [[[0, 0], [1, 0]]], 2) == 1
+ok6g &= commutant_dim([[[1, 0], [0, 1]]], 2) == 4
+# the hypothesis that rescues the implication here: |O| = 24 is invertible in Q, so Maschke applies
+ok6g &= F(24) != 0 and F(1) / F(24) * F(24) == 1
+check("L6g", ok6g,
+      "COUNTERCONTROL FOR THE MASCHKE STEP. `dim End = 1` does NOT by itself give irreducibility. "
+      "The upper-triangular 2x2 algebra acting on k^2 has a ONE-dimensional endomorphism algebra — "
+      "commuting with E11 and E22 forces a diagonal matrix, and commuting with E12 forces its two "
+      "entries equal — and yet span(e1) is a proper nonzero invariant subspace, so the module is "
+      "not simple. What fails there is semisimplicity, and that is precisely the hypothesis "
+      "`OIBridge/Irreducibility.lean` carries: over Q the group order 24 is invertible, Maschke "
+      "gives every subrepresentation an invariant complement, and only then does the projection "
+      "onto a summand become an endomorphism that a one-dimensional End can pin down. Controls: "
+      "the full matrix algebra also gives commutant dimension 1, and the scalars alone give 4, so "
+      "the routine separates cases rather than always reporting 1")
 
 # ------------------------------------------------- L6f  the name is certified, not asserted
 # Calling the acting group "the cubic rotation group" is a naming claim, and a wrong naming claim is
@@ -581,7 +653,30 @@ ok7 &= 'IsRot h ↔ ∃ g : Perm (Fin 4), linkAct g = h' in ir[:ir.index(':= by'
 ok7 &= 'def IsRot (h : Perm Link) : Prop := Sym h ∧ detLink h = 1' in qtbody
 # and the wrapper must carry that certificate, not leave it to one side
 tw = qt[qt.index('theorem theorem_7_link'):]
-ok7 &= 'IsRot h ↔ ∃ g : Perm (Fin 4), linkAct g = h' in tw[:tw.index('⟨isRot_iff')]
+sig = tw[:tw.index('⟨isRot_iff')]
+ok7 &= 'IsRot h ↔ ∃ g : Perm (Fin 4), linkAct g = h' in sig
+# THE MASCHKE GUARD. `dim End = 1` is not irreducibility, and the wrapper must claim the latter:
+# `Representation.IsIrreducible` is "no proper nonzero subrepresentation", and the implication from
+# the endomorphism dimension is Maschke, proved separately and WITHOUT an algebraically closed
+# field -- Mathlib carries only the converse, under `[IsAlgClosed k]`.
+for n in ('irreducible_rhoT', 'irreducible_rhoE', 'irreducible_rhoA'):
+    ok7 &= f'theorem {n} : Representation.IsIrreducible' in qt
+    ok7 &= f'#print axioms {n}' in qt
+ok7 &= 'Representation.IsIrreducible rhoT ∧ Representation.IsIrreducible rhoE' in sig
+irr = open(os.path.join(BRIDGE, 'OIBridge', 'Irreducibility.lean'), encoding='utf-8').read()
+irrbody = re.sub(r'(?m)--.*$', '', re.sub(r'/-.*?-/', '', irr, flags=re.S))
+ok7 &= 'import OIBridge.Irreducibility' in root and 'import OIBridge.Irreducibility' in qt
+ok7 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', irrbody) is None
+ok7 &= re.search(r'(?m)^axiom ', irrbody) is None
+ok7 &= 'IsAlgClosed' not in irrbody              # the whole point: no algebraically closed field
+for n in ('complementedLattice', 'projMap_equivariant',
+          'isIrreducible_of_finrank_intertwiners_eq_one'):
+    ok7 &= f'theorem {n}' in irr and f'#print axioms {n}' in irr
+mi = irr[irr.index('theorem isIrreducible_of_finrank_intertwiners_eq_one'):]
+misig = mi[:mi.index(':= by')]
+ok7 &= 'Module.finrank k (IntertwiningMap ρ ρ) = 1' in misig and 'IsIrreducible ρ' in misig
+# and Maschke must come from Mathlib's semisimplicity rather than be assumed
+ok7 &= 'isSemisimpleRepresentation_iff_isSemisimpleModule_asModule' in irrbody
 # the gate must be the pointwise identity, not a spot check
 cg = qt[qt.index('theorem character_gate'):]
 ok7 &= '∀ g : Perm (Fin 4), (fixLink g : ℤ) = chiLink g' in cg[:cg.index(':= by')]
@@ -637,7 +732,11 @@ check("L7", ok7,
       f"manuscript's character, so `chiLinkTable` is now derived rather than transcribed; and that "
       f"action's group is certified to BE the rotation group by `isRot_iff`, `card_sym`, `card_rot` "
       f"and `antiPerm_not_isRot`, with `detLink_eq_det` tying the hand-written determinant to "
-      f"Mathlib's so the criterion cannot drift, and the certificate is a clause of the wrapper")
+      f"Mathlib's so the criterion cannot drift, and the certificate is a clause of the wrapper; "
+      f"and the wrapper claims `Representation.IsIrreducible` — no proper nonzero subrepresentation "
+      f"— not merely `dim End = 1`, with the implication supplied by OIBridge/Irreducibility.lean, "
+      f"which mentions no algebraically closed field and takes its semisimplicity from Mathlib's "
+      f"Maschke rather than assuming it")
 
 print()
 print('     [scope] Settled in Lean: three explicit projectors on the six-link space, idempotent,')
@@ -651,8 +750,11 @@ print('     antipode-preserving permutations of the six signed links — the rot
 print('     theorem and not by convention — whose fixed-link character is the manuscript\'s own')
 print('     (6, 0, 2, 0, 2); the five S4 characters are orthonormal there, the multiplicities are')
 print('     24*(1,0,1,1,0) against that DERIVED character, the three summands are Subrepresentations')
-print('     with characters T1, E and A1, each irreducible over Q by finrank_intertwiners, and the')
-print('     terminal equivalence V6 = T1 + E + A1 is equivariant.')
+print('     with characters T1, E and A1, each IRREDUCIBLE over Q — no proper nonzero')
+print('     subrepresentation, not merely dim End = 1: the implication between those two is')
+print('     Maschke, proved in OIBridge/Irreducibility.lean without an algebraically closed field,')
+print('     which is the direction Mathlib does not carry — and the terminal equivalence')
+print('     V6 = T1 + E + A1 is equivariant.')
 print('     NOT settled, and recorded separately as the A10 gap: the six-face/six-link equivariant')
 print('     identification, and OIBridge.lean\'s Cubic section — whose 72, 288 and 144 are')
 print('     statements about the two-subset action, not about these links.')
