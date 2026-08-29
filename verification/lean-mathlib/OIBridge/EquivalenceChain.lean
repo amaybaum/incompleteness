@@ -1,10 +1,10 @@
 /-
   OIBridge/EquivalenceChain.lean — b447's first closure wave on the central chain.
 
-  Two statements from `papers/Main.md` §2.3 and §3.2, formalized as the manuscript states them
-  rather than as representative instances. Both were at level P in `verification/coverage/
-  LEDGER.json` — an executable probe and nothing kernel-side — and both are small, self-contained
-  and load-bearing, which is exactly the profile the coverage census says to convert first.
+  Four statements from `papers/Main.md` §2.3, §3.1 and §3.2, formalized as the manuscript states
+  them rather than as representative instances. They are ranks 1-4 of the kernel backlog in
+  `verification/coverage/LEDGER.json`, taken in order, and together they are the computational
+  core of the central equivalence chain.
 
   THE STOCHASTIC-INVERSE LEMMA (Main §2.3):
 
@@ -26,16 +26,36 @@
   are fixed — the manuscript's own reading, since its proof is that `U_φ` permutes the product
   orthonormal basis.
 
-  BOTH ARE `K3` IN THE LEDGER'S SENSE: the exact manuscript statement, no weakening, no
+  DIAGONAL PRESERVATION (Main §3.2):
+
+      The channels Φ_t(ρ) = Tr_H[U^t (ρ ⊗ μ_H) U^{-t}] with U a permutation unitary map
+      computational-diagonal states to computational-diagonal states.
+
+  Derived from permutation unitarity rather than recomputed. The hidden prior enters as a STATE
+  built from a distribution — which is what `μ_H` is in the framework, §3.4 writing it out as
+  `ρ_anc = Σ_h μ_H(h)|h⟩⟨h|` — so its diagonality is definitional and no hypothesis is smuggled in.
+
+  THE ONE-STEP ANCILLA DILATION (Main §3.1):
+
+      For any stochastic T on n states, W|i⟩ = Σ_j √(T_ij) |j⟩ ⊗ |i⟩ is an isometry
+      ℂⁿ → ℂⁿ ⊗ ℂⁿ whose ancilla-marginal is T, and it extends to a unitary on ℂⁿ ⊗ ℂⁿ.
+
+  All three clauses are proved. The third is where Mathlib earns its place rather than being
+  incidental: extending an isometry to a unitary is orthonormal-basis extension, a real theorem
+  and not bookkeeping.
+
+  ALL FOUR ARE `K3` IN THE LEDGER'S SENSE: the exact manuscript statement, no weakening, no
   representative instance, and no premise imported beyond finiteness. The companion probes stay:
-  `equivalence_recovery_probes.py` and `sdq_probes.py` remain independent executable evidence, and
-  PROBED IS NOT FORMALLY PROVED runs in both directions — neither layer replaces the other.
+  `equivalence_recovery_probes.py`, `sdq_probes.py` and `tdilate_probes.py` remain independent
+  executable evidence, and PROBED IS NOT FORMALLY PROVED runs in both directions — neither layer
+  replaces the other.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
 import Mathlib.LinearAlgebra.Matrix.Stochastic
 import Mathlib.LinearAlgebra.Matrix.NonsingularInverse
 import Mathlib.LinearAlgebra.UnitaryGroup
+import Mathlib.Analysis.InnerProductSpace.PiL2
 
 namespace OIBridge
 
@@ -252,6 +272,115 @@ theorem isDiag_Phi (φ : Equiv.Perm (V × H)) (μ : H → ℂ) (t : ℕ) (ρ : M
 
 end DiagonalPreservation
 
+/-! ## The one-step ancilla dilation (Main §3.1)
+
+Rank 4 of the coverage backlog. Three clauses, and all three are proved: the map is an isometry,
+its ancilla-marginal is `T`, and it extends to a unitary. The third is where Mathlib earns its
+place rather than being incidental — extending an isometry to a unitary is orthonormal-basis
+extension, which is a real theorem and not bookkeeping. -/
+
+section AncillaDilation
+
+variable {n : Type*} [Fintype n] [DecidableEq n]
+
+/-- The dilation of Main §3.1: `W|i⟩ = Σ_j √(T_ij) |j⟩ ⊗ |i⟩`, written as a matrix whose rows are
+indexed by the product basis `|j⟩ ⊗ |α⟩` and whose columns are indexed by `|i⟩`. -/
+noncomputable def dilation (T : Matrix n n ℝ) : Matrix (n × n) n ℂ :=
+  fun p i => if p.2 = i then (Real.sqrt (T i p.1) : ℂ) else 0
+
+/-- **Clause 1: `W` is an isometry.** `⟨W i | W i'⟩ = δ_{ii'} Σ_j T_ij = δ_{ii'}`. -/
+theorem dilation_isometry (T : Matrix n n ℝ) (hT : T ∈ rowStochastic ℝ n) :
+    (dilation T)ᴴ * (dilation T) = 1 := by
+  have hnn : ∀ i j, 0 ≤ T i j := (mem_rowStochastic_iff_sum.1 hT).1
+  have hrow : ∀ i, ∑ j, T i j = 1 := (mem_rowStochastic_iff_sum.1 hT).2
+  ext i i'
+  rw [Matrix.mul_apply]
+  by_cases h : i = i'
+  · subst h
+    rw [Matrix.one_apply_eq, Fintype.sum_prod_type]
+    have key : ∀ j : n, ∑ α : n, (dilation T)ᴴ i (j, α) * dilation T (j, α) i
+        = ((T i j : ℝ) : ℂ) := by
+      intro j
+      rw [Finset.sum_eq_single i]
+      · simp [dilation, Matrix.conjTranspose_apply, ← Complex.ofReal_mul,
+          Real.mul_self_sqrt (hnn i j)]
+      · intro α _ hα
+        simp [dilation, Matrix.conjTranspose_apply, hα]
+      · intro hi; exact absurd (Finset.mem_univ i) hi
+    rw [Finset.sum_congr rfl fun j _ => key j, ← Complex.ofReal_sum, hrow i,
+      Complex.ofReal_one]
+  · rw [Matrix.one_apply_ne h]
+    refine Finset.sum_eq_zero fun p _ => ?_
+    by_cases hp : p.2 = i
+    · have hz : dilation T p i' = 0 := by
+        simp only [dilation, if_neg (fun hc => h (hp.symm.trans hc))]
+      rw [hz, mul_zero]
+    · have hz : dilation T p i = 0 := by simp [dilation, hp]
+      rw [Matrix.conjTranspose_apply, hz, star_zero, zero_mul]
+
+/-- **Clause 2: the ancilla-marginal is `T`.** `Σ_α |⟨j, α| W |i⟩|² = T_ij`. -/
+theorem dilation_marginal (T : Matrix n n ℝ) (hT : T ∈ rowStochastic ℝ n) (i j : n) :
+    ∑ α : n, ‖dilation T (j, α) i‖ ^ 2 = T i j := by
+  have hnn : ∀ i j, 0 ≤ T i j := (mem_rowStochastic_iff_sum.1 hT).1
+  rw [Finset.sum_eq_single i]
+  · simp only [dilation, if_true, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_nonneg (Real.sqrt_nonneg _)]
+    exact Real.sq_sqrt (hnn i j)
+  · intro α _ hα; simp [dilation, hα]
+  · intro hi; exact absurd (Finset.mem_univ i) hi
+
+/-- **Clause 3: `W` extends to a unitary on `ℂⁿ ⊗ ℂⁿ`.** An isometry onto an `n`-dimensional
+subspace of an `n²`-dimensional space extends to a unitary — which in Mathlib is the extension of
+an orthonormal family to an orthonormal basis. -/
+theorem dilation_extends (T : Matrix n n ℝ) (hT : T ∈ rowStochastic ℝ n) :
+    ∃ (U : Matrix (n × n) (n × n) ℂ) (f : n → n × n),
+      Function.Injective f ∧ U ∈ Matrix.unitaryGroup (n × n) ℂ ∧
+        U.submatrix id f = dilation T := by
+  classical
+  set E := EuclideanSpace ℂ (n × n)
+  -- the columns of `W`, spread over the diagonal copies of the index set
+  set v : (n × n) → E := fun p => WithLp.toLp 2 (fun q => dilation T q p.1) with hv
+  set f : n → n × n := fun i => (i, i) with hf
+  have hfinj : Function.Injective f := fun a b hab => (Prod.ext_iff.1 hab).1
+  have hiso := dilation_isometry T hT
+  -- orthonormality of the columns is exactly `Wᴴ W = 1`
+  have horth : Orthonormal ℂ ((Set.range f).domRestrict v) := by
+    rw [orthonormal_iff_ite]
+    rintro ⟨p, hp⟩ ⟨q, hq⟩
+    obtain ⟨a, rfl⟩ := hp
+    obtain ⟨b, rfl⟩ := hq
+    have hinner : (inner ℂ (v (f a)) (v (f b)) : ℂ)
+        = ((dilation T)ᴴ * dilation T) a b := by
+      rw [PiLp.inner_apply, Matrix.mul_apply]
+      refine Finset.sum_congr rfl fun q _ => ?_
+      simp [hv, hf, RCLike.inner_apply, Matrix.conjTranspose_apply, mul_comm]
+    simp only [Set.domRestrict, hinner, hiso]
+    by_cases hab : a = b
+    · subst hab; simp
+    · rw [Matrix.one_apply_ne hab]
+      simp [hf, Subtype.ext_iff, Prod.ext_iff, hab]
+  have hcard : Module.finrank ℂ E = Fintype.card (n × n) := by
+    simp [E, finrank_euclideanSpace]
+  obtain ⟨b, hb⟩ := horth.exists_orthonormalBasis_extension_of_card_eq hcard
+  set U : Matrix (n × n) (n × n) ℂ := Matrix.of (fun p q => b q p) with hU
+  refine ⟨U, f, hfinj, ?_, ?_⟩
+  · -- the matrix whose columns are an orthonormal basis is unitary
+    refine (Matrix.mem_unitaryGroup_iff').mpr ?_
+    have hbo := b.orthonormal
+    rw [orthonormal_iff_ite] at hbo
+    ext p q
+    have hpq := hbo p q
+    rw [PiLp.inner_apply] at hpq
+    rw [Matrix.mul_apply, Matrix.one_apply]
+    rw [← hpq]
+    refine Finset.sum_congr rfl fun r _ => ?_
+    simp [hU, RCLike.inner_apply, mul_comm]
+  · ext p i
+    have hbi : b (i, i) = v (i, i) := hb (f i) ⟨i, rfl⟩
+    simp [Matrix.submatrix_apply, hU, hf, hbi, hv]
+
+end AncillaDilation
+
 /-! ### What these proofs rest on
 
 Printed at build time so the kernel's own answer, not a claim in a comment, is what the log
@@ -262,6 +391,9 @@ carries. `sorryAx` in any of these lines would mean a hole. -/
 #print axioms permMatrix_mem_unitaryGroup
 #print axioms permConj_apply
 #print axioms isDiag_Phi
+#print axioms dilation_isometry
+#print axioms dilation_marginal
+#print axioms dilation_extends
 
 end EquivalenceChain
 
