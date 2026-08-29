@@ -5,7 +5,9 @@
   produces a short structural theorem, LEAN PROVES THE REASON and Python keeps the exhaustive
   census. `comb_realization_probes.py` (CR3, CR4) enumerates every bijection at n = 8 and n = 9
   and confirms the lemma's forced steps hold in 100% of cases; what is proved here is the
-  universal implication those enumerations sample.
+  universal implication those enumerations sample. The two layers are independent and neither
+  substitutes for the other: PROBED IS NOT FORMALLY PROVED, and a census over n <= 9 is evidence
+  where this file is certification.
 
   THE STATEMENT, in the language of `papers/oi_lattice_code/foundations/comb_realization_probes.py`.
   A finite-state machine realizing a comb has a state set `S`, a readout `π : S → Bool`, and for
