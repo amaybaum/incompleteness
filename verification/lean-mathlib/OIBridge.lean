@@ -24,6 +24,12 @@ import Mathlib.LinearAlgebra.Matrix.Permutation
 import Mathlib.LinearAlgebra.Matrix.ToLin
 import Mathlib.GroupTheory.Perm.Fin
 
+-- The lake library's root is this file, so a module the root does not import is never built and
+-- never gated. `OIBridge.CombRealization` carries b446's saturated-class lemma, which has nothing
+-- to do with the representation theory below; the import is here for exactly one reason, and that
+-- reason is the gate.
+import OIBridge.CombRealization
+
 namespace OIBridge
 
 open LinearMap Representation

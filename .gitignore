@@ -1,3 +1,10 @@
 **/.DS_STORE
 __pycache__/
 *.pyc
+
+# Lean build tree and resolved dependency clones. `lake exe cache get` recreates both, and CI
+# clones fresh, so committing them would ship several gigabytes of machine-specific state and
+# nine embedded git repositories. The Mathlib revision is pinned in lakefile.toml, which is the
+# thing that actually has to be under version control.
+.lake/
+lake-manifest.json

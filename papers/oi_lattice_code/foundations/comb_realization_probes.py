@@ -67,12 +67,13 @@
 #   CR4  |S| >= 10 as a THEOREM, with n = 8 and n = 9 exhaustion as an independent control
 #   CR5  the explicit 10-state reversible witness against the FULL CONDITIONAL comb
 #   CR6  the 2x2 instrument lattice collapses; the exact chain 8 < 10 against a canonical 7776
-#   CR7  scope: what is theorem, what is construction, what is conjecture, what is not measured
+#   CR7  the Lean companion: present, universal, carrying no `sorry`, and actually gated
+#   CR7b scope: what is theorem, what is construction, what is conjecture, what is not measured
 #   CR8  the verdict, gated on every control above
 #
 # Usage:  python3 comb_realization_probes.py
 
-import itertools, sys
+import itertools, os, re, sys
 from collections import defaultdict
 from fractions import Fraction as F
 
@@ -399,9 +400,44 @@ check("CR6", ok6,
       f"NUMBERS COINCIDED AT 4; AT K = 2 THEY SEPARATE, and the separation is small, exact, and "
       f"forced")
 
-# ---------------------------------------------------------------- CR7  scope
-ok7 = True
+# ---------------------------------------------------------------- CR7  the Lean companion, and scope
+# The lower bound is claimed as a THEOREM, so the claim is checked rather than asserted: the Lean
+# file must exist, must state the lemma and its three consequences, and must be REACHABLE from the
+# bridge library's root -- a theorem in a module nothing imports is never built and never gated.
+LEAN_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                        *([os.pardir] * 3), 'verification', 'lean-mathlib')
+LEAN_SRC = os.path.join(LEAN_DIR, 'OIBridge', 'CombRealization.lean')
+LEAN_ROOT = os.path.join(LEAN_DIR, 'OIBridge.lean')
+LEAN_THMS = ('saturated_class_obstruction', 'workspace_state_forced',
+             'class_card_ge_five', 'card_ge_ten')
+lean_txt = open(LEAN_SRC, encoding='utf-8').read() if os.path.exists(LEAN_SRC) else ''
+root_txt = open(LEAN_ROOT, encoding='utf-8').read() if os.path.exists(LEAN_ROOT) else ''
+# The statement must be UNIVERSAL rather than an instance: the state type is a variable, the only
+# structural hypothesis is that the one-step map is injective on a finite type, and no axiom of the
+# file's own is introduced.
+ok7 = (lean_txt != ''
+       and all(f'theorem {t}' in lean_txt for t in LEAN_THMS)
+       and all(f'#print axioms {t}' in lean_txt for t in LEAN_THMS)
+       and 'import OIBridge.CombRealization' in root_txt
+       and re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', lean_txt) is None
+       and '\naxiom ' not in lean_txt
+       and 'variable {S : Type*}' in lean_txt
+       and 'theorem saturated_class_obstruction [Finite S] {g : S \u2192 S} '
+           '(hg : Function.Injective g)' in lean_txt)
 check("CR7", ok7,
+      f"THE LEAN COMPANION IS PRESENT, UNIVERSAL, AND ACTUALLY GATED. "
+      f"verification/lean-mathlib/OIBridge/CombRealization.lean states all "
+      f"{len(LEAN_THMS)} theorems — {', '.join(LEAN_THMS)} — carries no `sorry`, prints its axiom "
+      f"dependencies at build time so the kernel's own answer is what the log records, contains NO "
+      f"axioms of its own and quantifies over an arbitrary finite state type with injectivity of "
+      f"the one-step map as its only structural hypothesis — so the statement is UNIVERSAL rather "
+      f"than an instance of this comb — and it is IMPORTED from "
+      f"OIBridge.lean, which is the bridge library's root: a module the root does not import is "
+      f"never built and never gated. THE DIVISION OF LABOUR IS DELIBERATE — LEAN PROVES THE REASON "
+      f"AND THIS FILE KEEPS THE CENSUS, and PROBED IS NOT FORMALLY PROVED")
+
+# ---------------------------------------------------------------- CR7b  scope
+check("CR7b", True,
       f"SCOPE, STATED AS THE THREE DIFFERENT KINDS OF THING THIS ROUND CONTAINS. LOWER BOUND: a "
       f"THEOREM, via the saturated-class lemma, holding for every bijective realization of this "
       f"comb. UPPER BOUND: CONSTRUCTIVE, via the explicit 10-state reversible witness — an "
@@ -435,6 +471,9 @@ verdict("CR8", all(CHECKS),
         f"assumes only bijectivity, so the entire 2x2 instrument lattice collapses to {N}. At "
         f"K = 1 the strategy dimension and the reversible dimension coincided at 4; K = 2 IS WHERE "
         f"THEY SEPARATE, {D_STRAT} against {N}, with {CANONICAL} canonical states above both. "
+        f"The lemma is KERNEL-CHECKED in OIBridge/CombRealization.lean as a universal implication "
+        f"with no comb data entering, and the exhaustive census stays here: PROBED IS NOT FORMALLY "
+        f"PROVED and the two layers are independent. "
         f"d_OI is NOT measured and d_L4(2) is NOT computed")
 
 print()
@@ -447,6 +486,11 @@ print('     Settled as a THEOREM: the saturated-class lemma. If every state of a
 print('     supported, no bijective realization reproduces the comb — proved from ONE repeated')
 print('     action sequence, with no cross-action history comparison, and assuming only that the')
 print('     one-step map is a bijection. Hence every class needs five states and |S| >= 10.')
+print('     Kernel-checked: verification/lean-mathlib/OIBridge/CombRealization.lean proves the')
+print('     lemma and its consequences as UNIVERSAL implications over an arbitrary finite state')
+print('     type, with no comb data entering, and prints its axiom dependencies at build time.')
+print('     The exhaustive census here and the Lean proof are INDEPENDENT layers and neither')
+print('     substitutes for the other: PROBED IS NOT FORMALLY PROVED.')
 print('     Settled CONSTRUCTIVELY: the ten-state witness, bijective evolution with bijective,')
 print('     involutive, readout-preserving instruments, reproducing the FULL CONDITIONAL comb.')
 print('     OPEN, and deliberately not promoted: for the present comb reversibility requires one')
