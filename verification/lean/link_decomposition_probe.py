@@ -265,6 +265,65 @@ check("L6", ok6,
       f"`char_c4_odd`. The other two read {chiE} and {chiA}, which are E's and A1's values. Getting "
       f"this wrong is the one way the decomposition can be right in dimensions and wrong in labels")
 
+# ----------------------------------------------------------------- L6b  the model discrepancy
+# The bridge's Cubic.rho acts on the six TWO-ELEMENT SUBSETS of the four body diagonals. Those are
+# not the six links: a face of the cube meets every diagonal, so it determines no pair of them.
+# The two representations have the same character MULTISET and differ as class functions.
+def cycle_type(g):
+    seen, t = [False] * 4, []
+    for i in range(4):
+        if seen[i]:
+            continue
+        c, j = 0, i
+        while not seen[j]:
+            seen[j] = True
+            c += 1
+            j = g[j]
+        t.append(c)
+    return tuple(sorted(t))
+
+
+S4 = list(itertools.permutations(range(4)))
+subs = [frozenset(c) for c in itertools.combinations(range(4), 2)]
+chi_sub = {g: sum(1 for x in subs if frozenset(g[i] for i in x) == x) for g in S4}
+# the six links are the cosets of a four-fold rotation subgroup, S4/C4
+def cmp4(a, b):
+    return tuple(a[b[i]] for i in range(4))
+
+
+C4, x = [(0, 1, 2, 3)], (1, 2, 3, 0)
+while x != (0, 1, 2, 3):
+    C4.append(x)
+    x = cmp4(x, (1, 2, 3, 0))
+cos = []
+for g in S4:
+    c = frozenset(cmp4(g, h) for h in C4)
+    if c not in cos:
+        cos.append(c)
+chi_lnk = {g: sum(1 for c in cos if frozenset(cmp4(g, h) for h in c) == c) for g in S4}
+ok6b = sorted(chi_sub.values()) == sorted(chi_lnk.values())          # same multiset
+ok6b &= any(chi_sub[g] != chi_lnk[g] for g in S4)                    # different class function
+by_cls = {}
+for g in S4:
+    by_cls.setdefault(cycle_type(g), set()).add((chi_sub[g], chi_lnk[g]))
+ok6b &= by_cls[(1, 1, 2)] == {(2, 0)}          # transpositions = 6C2': manuscript says 0
+ok6b &= by_cls[(4,)] == {(0, 2)}               # four-cycles = 6C4: manuscript says 2
+ok6b &= by_cls[(1, 1, 1, 1)] == {(6, 6)} and by_cls[(2, 2)] == {(2, 2)}
+ok6b &= by_cls[(1, 3)] == {(0, 0)}
+# the manuscript's own proof line is the SECOND column
+ok6b &= chi_lnk[(0, 1, 2, 3)] == 6 and next(iter(by_cls[(4,)]))[1] == chi6['6C4']
+check("L6b", ok6b,
+      "THE MODEL DISCREPANCY, found by formalizing and now recorded in Lean as "
+      "`char_two_subset_ne_link`. The bridge's `Cubic.rho` acts on the six TWO-ELEMENT SUBSETS of "
+      "the four body diagonals; those are the six pairs of opposite edges, not the six links — a "
+      "face of the cube meets every diagonal and so determines no pair of them. The two "
+      "representations have the SAME character multiset, which is all the old multiset comparison "
+      "ever checked, and differ as class functions: at transpositions (6C2') the two-subset "
+      "character is 2 where [SM] Theorem 7's is 0, and at four-cycles (6C4) it is 0 where the "
+      "manuscript's is 2. So the two-subset model carries T2 where the links carry T1 — the two "
+      "three-dimensional irreducibles, swapped. The six links are the coset space S4/C4, which "
+      "this section had recorded as a rejected control for having 'the same character'")
+
 # ----------------------------------------------------------------- L7  lint
 src = open(os.path.join(BRIDGE, 'OIBridge', 'LinkDecomposition.lean'), encoding='utf-8').read()
 root = open(os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
@@ -306,6 +365,10 @@ for n in ('faceEquivLink', 'faceEquivLink_op', 'act_op', 'linkHom', 'sym_linkHom
 for n in ('Tsub', 'Esub', 'Asub', 'rhoT', 'rhoE', 'rhoA'):
     ok7 &= f'def {n}' in root
 ok7 &= 'Subrepresentation rhoLink' in root and 'Subrepresentation.toRepresentation' in root
+# and the section must NOT claim to be the cubic rotation action on the coordinate links
+ok7 &= 'theorem char_two_subset_ne_link' in root
+ok7 &= 'is NOT the six-link representation' in root
+ok7 &= 'A₁ ⊕ E ⊕ T₂' in root
 for n in ('character_rhoT', 'character_rhoE', 'character_rhoA', 'character_rhoA_eq_one',
           'character_rhoLink_eq_sum'):
     ok7 &= f'theorem {n}' in root
@@ -329,9 +392,10 @@ check("L7", ok7,
       f"the isomorphism intertwines it, and what transports is the projectors and their invariance "
       f"rather than three bare dimensions; H-cust appears nowhere; and `CubicIsotropy` is neither "
       f"imported nor mentioned, so its 48-element O_h cannot be substituted for the 24-element "
-      f"rotation group; and OIBridge.lean now carries the genuine group object — a "
-      f"complement-preserving Face-Link equivalence, the transported S4 action, `sym_linkHom` "
-      f"putting every rotation in `Sym`, and faithfulness")
+      f"rotation group; and OIBridge.lean's LinkJoin is explicitly NOT claimed to be the rotation "
+      f"action on the coordinate links — `char_two_subset_ne_link` records in Lean that the "
+      f"two-subset model differs from Theorem 7's character at the transpositions and the "
+      f"four-fold class, so nothing there can be read as V6")
 
 print()
 print('     [scope] Settled in Lean: three explicit projectors on the six-link space, idempotent,')

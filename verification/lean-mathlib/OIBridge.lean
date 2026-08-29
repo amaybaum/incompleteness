@@ -391,19 +391,40 @@ system gives 6, with a one-generator control at 68. -/
 
 end Cubic
 
-/-! ## The face model IS the link space
+/-! ## The two-subset model is NOT the six-link representation
 
-`Cubic.rho` is a representation of `S₄` on the six faces, and its own header records that the
-identification with the cubic action was checked only by probe. `LinkDecomposition` builds Theorem
-7 on the links themselves, so that identification is not a premise of anything there — but it is a
-standing debt of this section, and this is where it is paid.
+**A defect in this section, found by formalizing [SM] Theorem 7, and recorded here rather than
+repaired in passing.**
 
-The bijection below is COMPLEMENT-PRESERVING: opposite faces go to antipodal links. That single
-property is what makes the transported `S₄` action a symmetry of the link set in
-`LinkDecomposition`'s sense, so all three projectors are invariant under it with no part of their
-algebra reproved. And it supplies what the representation-theoretic join needs and this bridge
-otherwise lacks: a GENUINE GROUP of order 24 acting on `Link`, rather than a predicate cutting a
-subset out of the 48-element antipode-preserving group. -/
+`Cubic.rho` is the permutation representation of `S₄` on the six two-element subsets of the four
+body diagonals, and its header describes those as "the six faces of the cube". They are not. A face
+of the cube contains one endpoint of every body diagonal, so it determines no two-element subset of
+them; the six two-element subsets are the six pairs of opposite EDGES.
+
+The consequence is exactly the failure mode a multiplicity count cannot see. Both representations
+have character multiset `{6, 2×9, 0×14}`, so comparing multisets — which is what
+`representation_bridge_probe.py` did, and all that the "identification is checked in the probe"
+note ever claimed — cannot tell them apart. As CLASS FUNCTIONS they differ:
+
+    class            E   8C₃  3C₂  6C₂'  6C₄
+    two-subsets      6    0    2    2     0     =  A₁ ⊕ E ⊕ T₂
+    six links        6    0    2    0     2     =  A₁ ⊕ E ⊕ T₁   ([SM] Theorem 7's proof line)
+
+so `Cubic.rho` carries `T₂` where the six links carry `T₁` — the two three-dimensional irreducibles,
+swapped. `char_two_subset_ne_link` below states the discrepancy as a theorem so it cannot be
+mislaid again.
+
+The six links are instead the coset space `S₄/C₄`: the stabilizer of `+e₃` in the rotation group is
+the four-fold rotation about that axis. This section's own note records the coset action as an
+"earlier candidate control, rejected because it has the same character and so discriminates
+nothing" — the same multiset collision, read the wrong way round. It is the correct model.
+
+WHAT FOLLOWS IS THEREFORE NOT THE ROTATION ACTION ON THE COORDINATE LINKS. `faceEquivLink` is a
+complement-preserving bijection of six-element sets and `linkHom` is a faithful action of `S₄` by
+symmetries of the link set — both true as stated — but the action it transports is the two-subset
+one, so it realizes `T₂` and not `T₁`. It is kept because it is correct as stated and because the
+padding lemmas around it are reusable; it does NOT close the A10 face/link debt, and nothing here
+should be read as the six-link representation of [SM] Theorem 7. -/
 
 namespace LinkJoin
 
@@ -450,9 +471,9 @@ theorem act_op (g : Perm (Fin 4)) (F : Cubic.Face) :
   · intro hx
     refine ⟨g.symm x, fun hc => hx ⟨g.symm x, hc, by simp⟩, by simp⟩
 
-/-- **The cubic rotation action on the links**, transported from the face model. `S₄` is a genuine
-group of order 24 (`Cubic.card_group`), so this is a group acting on the link space and not a
-predicate cutting out a subset. -/
+/-- The two-subset action, transported to the link set. A faithful action of `S₄` of order 24 by
+symmetries of the link set — but the TWO-SUBSET one, realizing `T₂`, not the rotation action on the
+coordinate links. See the section header. -/
 def linkHom : Perm (Fin 4) →* Perm Link where
   toFun g := (faceEquivLink.symm.trans (Cubic.actHom g)).trans faceEquivLink
   map_one' := by
@@ -488,15 +509,18 @@ theorem linkHom_injective : Function.Injective linkHom := by
   have := congrArg (fun σ => σ (faceEquivLink F)) hgh
   simpa [linkHom_apply, Equiv.symm_apply_apply] using this
 
-/-! ### The link representation
+/-! ### The transported representation
 
-`permOp` acts by precomposition and so reverses composition order (`LinkDecomposition.permOp_mul`).
-The representation therefore carries the INVERSE. That orientation is made explicit here rather
-than left implicit: the `S₄` characters below all satisfy `χ(g⁻¹) = χ(g)`, so every numeric
-consequence would come out right even if the orientation were wrong, and only a pointwise statement
-would notice. -/
+`permOp` acts by precomposition and so reverses composition order (`LinkDecomposition.permOp_mul`),
+so the representation carries the INVERSE. That orientation is explicit rather than implicit: every
+character here satisfies `χ(g⁻¹) = χ(g)`, so every numeric consequence would come out right even
+with the orientation wrong, and only a pointwise statement would notice.
 
-/-- **The six-link representation of the cubic rotation group**, `V₆`. -/
+This is the two-subset representation read on the link set, `A₁ ⊕ E ⊕ T₂`. The decomposition
+machinery below applies to it verbatim — the projectors do not know which action they commute with
+— but the three-dimensional summand here is `T₂`. -/
+
+/-- The transported representation. NOT [SM] Theorem 7's `V₆`; see the section header. -/
 noncomputable def rhoLink : Representation ℚ (Perm (Fin 4)) LV where
   toFun g := permOp (linkHom g⁻¹)
   map_one' := by rw [inv_one, map_one, permOp_one]; rfl
@@ -608,8 +632,28 @@ theorem character_rhoLink_eq_sum (g : Perm (Fin 4)) :
     rhoLink.character g = rhoT.character g + rhoE.character g + rhoA.character g := by
   rw [character_rhoT, character_rhoE, character_rhoA, character_sum]
 
+/-! ### The discrepancy, as a theorem
+
+Stated so it cannot be mislaid again: the two-subset character and the six-link character of [SM]
+Theorem 7's proof line agree in multiset and differ as class functions, at the transpositions and
+the four-fold rotations. -/
+
+/-- Fixed two-element subsets of the four diagonals: the character of `Cubic.rho`, and of the
+action transported to the links. -/
+def fixTwoSub (g : Perm (Fin 4)) : ℕ := (Finset.univ.filter fun l => linkHom g l = l).card
+
+/-- **`Cubic.rho` is not the six-link representation.** The transposition `(0 1)` is a `6C₂'`
+rotation, where [SM] Theorem 7's character is `0`; the two-subset character is `2` there. The
+four-fold class is the mirror image: the manuscript's character is `2` and this one is `0`. Same
+multiset, different class function, and the two three-dimensional irreducibles are swapped. -/
+theorem char_two_subset_ne_link :
+    fixTwoSub (Equiv.swap 0 1) = 2 ∧ fixTwoSub (Equiv.swap 0 1 * Equiv.swap 2 3) = 2 ∧
+      fixTwoSub ⟨![1, 2, 3, 0], ![3, 0, 1, 2], by decide, by decide⟩ = 0 := by
+  refine ⟨by decide, by decide, by decide⟩
+
 /-! ### What these proofs rest on -/
 
+#print axioms LinkJoin.char_two_subset_ne_link
 #print axioms LinkJoin.faceEquivLink_op
 #print axioms LinkJoin.act_op
 #print axioms LinkJoin.sym_linkHom
