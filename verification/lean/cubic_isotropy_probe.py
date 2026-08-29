@@ -296,18 +296,31 @@ check("A6", ok6,
 src = open(os.path.join(BRIDGE, 'OIBridge', 'CubicIsotropy.lean'), encoding='utf-8').read()
 root = open(os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
 NAMES = ('ohInvariant_eq_scalar', 'ohInvariant_scalar', 'ohInvariant_iff', 'quadratic_isotropic',
-         'quartic_ohInvariant', 'quartic_not_isotropic')
+         'quartic_ohInvariant', 'quartic_not_isotropic', 'one_le_nsq_rvec', 'kernelOh_neg',
+         'ohInvariant_mom2', 'mom2_quadratic_isotropic', 'summable_abs_of_mom2',
+         'symbolC_eq_symbol', 'symbol_expansion', 'rem_littleO', 'rem_bigO', 'corollary_1a')
 body = re.sub(r'(?m)--.*$', '', re.sub(r'/-.*?-/', '', src, flags=re.S))
 ok7 = ('import OIBridge.CubicIsotropy' in root
        and re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', body) is None
        and re.search(r'(?m)^axiom ', body) is None
        and all(f'theorem {n}' in src for n in NAMES)
        and all(f'#print axioms {n}' in src for n in NAMES))
-# the file must RECORD the two analytic clauses it does not prove
 header = src[:src.index('import ')]
 ok7 &= 'THE TWO CLAUSES ARE NOT INTERCHANGEABLE' in header
-ok7 &= 'are NOT proved here' in src
-ok7 &= 'coverage ledger records both as this entry' in src
+# the chain must run from the MANUSCRIPT's hypothesis, not from the algebraic one: the kernel is
+# O_h-equivariant, and the moment tensor's invariance is derived rather than assumed
+ok7 &= 'def KernelOh' in src
+kmom = src[src.index('theorem ohInvariant_mom2'):]
+ok7 &= 'KernelOh K' in kmom[:kmom.index(':= by')]
+# the symbol must be the exponential sum, with the cosine form PROVED from inversion evenness
+ok7 &= 'Complex.exp' in src and 'theorem symbolC_eq_symbol' in src
+# and the wrapper must carry both clauses and start from KernelOh
+wrap = src[src.index('theorem corollary_1a'):]
+wrap_sig = wrap[:wrap.index(':= by')]
+ok7 &= 'KernelOh K' in wrap_sig
+ok7 &= 'nsq (rvec v) ^ 2' in wrap_sig                # the fourth-moment clause
+ok7 &= 'rem K k / nsq k' in wrap_sig                 # the o(|k|^2) clause
+ok7 &= 'symbolC K k' in wrap_sig                     # the cosine-form clause
 # and the manuscript must carry the repaired, split statement
 sm = open(os.path.join(HERE, os.pardir, os.pardir, 'papers', 'SM.md'), encoding='utf-8').read()
 cor = sm[sm.index('**Corollary 1a (cubic symmetry FORBIDS quadratic anisotropy).**'):]
@@ -319,10 +332,12 @@ ok7 &= 'need not be rotationally invariant' in cor
 check("A7", ok7,
       f"the Lean file is IMPORTED BY OIBridge.lean, so CI builds it and the theorems are gated; it "
       f"carries no `sorry` and no `axiom`; all {len(NAMES)} named results print their axiom "
-      f"dependencies; the header RECORDS the analytic bridge and the quartic refinement as clauses "
-      f"it does not prove, so the algebraic core cannot stand in for the whole corollary; and the "
-      f"manuscript now carries the split statement, with clause (i) at o(|k|^2) under a finite "
-      f"second absolute moment and clause (ii) at O(|k|^4) under a finite fourth one")
+      f"dependencies; the chain starts from the MANUSCRIPT's hypothesis — `KernelOh`, kernel "
+      f"O_h-equivariance — with the moment tensor's invariance DERIVED rather than assumed, and "
+      f"the cosine form of the symbol proved from inversion evenness rather than built into the "
+      f"definition; the wrapper `corollary_1a` carries all of it, both moment clauses included; "
+      f"and the manuscript now states clause (i) at o(|k|^2) under a finite second absolute moment "
+      f"and clause (ii) at O(|k|^4) under a finite fourth one")
 
 print()
 print('     [scope] Settled: the ALGEBRAIC CORE of [SM] Corollary 1a is kernel-proved — every')
@@ -330,12 +345,15 @@ print('     O_h-invariant symmetric form on R^3 is a multiple of delta, so no an
 print('     at quadratic order — together with the quartic countercontrol showing the surviving')
 print('     invariants are not rotationally invariant. Both generator families of the group are')
 print('     shown load-bearing: sign flips alone leave 3 dimensions, permutations alone 2.')
-print('     NOT settled here, and recorded as this entry\'s ledger delta rather than glossed: the')
-print('     ANALYTIC BRIDGE (finite second moment gives an o(|k|^2) remainder, by dominated')
-print('     convergence against the second moment) and the QUARTIC REFINEMENT (finite fourth')
-print('     moment sharpens it to O(|k|^4)). Both are checked numerically here, including the')
-print('     kernel that motivated the manuscript repair: finite second moment, infinite fourth')
-print('     moment, remainder/|k|^2 -> 0 but remainder/|k|^4 divergent.')
+print('     The whole chain is now kernel-proved, from the manuscript hypothesis: kernel')
+print('     O_h-equivariance gives moment-tensor O_h-invariance, inversion evenness reduces the')
+print('     exponential symbol to a cosine series, a finite second moment gives absolute')
+print('     summability and the o(|k|^2) remainder by dominated convergence, and a finite fourth')
+print('     moment sharpens it to O(|k|^4) with an explicit constant.')
+print('     NOT settled: nothing beyond quadratic order is isotropic, and nothing here claims it.')
+print('     The numerical layer keeps the boundary witness that motivated the manuscript repair —')
+print('     finite second moment, infinite fourth moment, remainder/|k|^2 -> 0 but')
+print('     remainder/|k|^4 divergent — as a regression guard on the split statement.')
 print()
 print("cubic_isotropy_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

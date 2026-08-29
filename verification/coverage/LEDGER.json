@@ -1477,7 +1477,7 @@
      "kind": "lean",
      "path": "verification/lean-mathlib/OIBridge/CubicIsotropy.lean",
      "basis": "named",
-     "evidence": "ohInvariant_iff"
+     "evidence": "corollary_1a"
     },
     {
      "kind": "probe",
@@ -1486,9 +1486,9 @@
      "evidence": "quartic_not_isotropic"
     }
    ],
-   "kernel": "K2",
-   "delta": "the two analytic clauses: (i) finite second absolute moment gives the o(|k|^2) remainder, by dominated convergence of the cosine Taylor remainder against the second moment -- the uniform bound |cos t - 1 + t^2/2| <= t^2 supplies the dominating function and the bound (5/96)t^4 for |t| <= 1 the pointwise limit; (ii) finite fourth absolute moment sharpens it to O(|k|^4). Both are checked numerically in the probe, neither is kernel-proved.",
-   "note": "SCOPE REPAIR FOUND BY FORMALIZING. The corollary assumed only a finite second moment and concluded an O(|k|^4) remainder; finite second moment gives o(|k|^2) and nothing sharper, since a symmetric kernel can have finite second moment and infinite fourth moment. The manuscript statement is now split into clause (i) at o(|k|^2) under a second moment -- which carries the whole negative content, whatever quadratic structure survives is isotropic -- and clause (ii) at O(|k|^4) under a fourth moment. The probe's A6 is the witness: axis weights r^-4 give a convergent second moment and a fourth moment growing linearly with the cutoff, and on it remainder/|k|^2 -> 0 while remainder/|k|^4 diverges like 1/|k|. KERNEL-PROVED HERE: the algebraic core, ohInvariant_iff -- every O_h-invariant symmetric form on R^3 is a multiple of delta, so dim Sym^2(R^3)^{O_h} = 1 -- with quadratic_isotropic and the quartic countercontrol quartic_not_isotropic. Deliberately NOT promoted to K3: the algebraic core is not the whole corollary, and the delta names exactly what is missing."
+   "kernel": "K3",
+   "delta": "",
+   "note": "SCOPE REPAIR FOUND BY FORMALIZING, then closed. The corollary assumed only a finite second moment and concluded an O(|k|^4) remainder; finite second moment gives o(|k|^2) and nothing sharper, since a symmetric kernel can have finite second moment and infinite fourth moment. The statement is now split into clause (i) at o(|k|^2) under a second moment -- which carries the whole negative content -- and clause (ii) at O(|k|^4) under a fourth moment. KERNEL-PROVED, the whole chain from the manuscript's own hypothesis: KernelOh (kernel O_h-equivariance) gives ohInvariant_mom2 (the SECOND MOMENT TENSOR is O_h-invariant) -- the step that was implicit and is now derived -- which with the algebraic core ohInvariant_iff gives dim Sym^2(R^3)^{O_h} = 1 and hence mom2_quadratic_isotropic. Inversion evenness (kernelOh_neg) is derived from the group and reduces the exponential symbol to a cosine series (symbolC_eq_symbol) rather than that form being assumed. On a lattice the second moment gives absolute summability for free (summable_abs_of_mom2, since |v|^2 >= 1 off the origin). symbol_expansion, then rem_littleO by dominated convergence for series -- the uniform bound |cos t - 1 + t^2/2| <= t^2/2 dominates, the global quartic bound t^4/2 gives the pointwise limit -- and rem_bigO for clause (ii) with an explicit constant. corollary_1a is the wrapper. quartic_not_isotropic supplies the 'need not be rotationally invariant' clause. The probe keeps the boundary witness that motivated the repair (axis weights r^-4) as a regression guard on the split."
   },
   {
    "id": "SM:C-1b-when-normalized-adjacency-forced",
@@ -2496,22 +2496,6 @@
   },
   {
    "rank": 2,
-   "id": "SM:C-1a-cubic-symmetry-forbids-quadratic-anisotropy",
-   "centrality": "medium",
-   "difficulty": "medium",
-   "tier": 3,
-   "route": "Algebraic core closed (ohInvariant_iff). What remains is analytic: clause (i)'s o(|k|^2) remainder by dominated convergence for series (tendsto_tsum_of_dominated_convergence, with Real.cos_bound for the pointwise limit and |cos t - 1 + t^2/2| <= t^2 for the uniform bound), then clause (ii)'s O(|k|^4) under a fourth moment. No new Mathlib is needed; the work is the summability bookkeeping."
-  },
-  {
-   "rank": 3,
-   "id": "SM:C-1a-cubic-symmetry-forbids-quadratic-anisotropy",
-   "centrality": "medium",
-   "difficulty": "medium",
-   "tier": 3,
-   "route": "ROADMAP B3 algebraic half. The character-level statement is delivered; the dimension statement dim Sym^2(R^3)^{B_3} = 1 needs the 48-element signed permutation group built as a Mathlib Representation the way Cubic.rho already is, after which A1 divides by the group order. This is plumbing of a kind already done once, which is why it ranks above A9."
-  },
-  {
-   "rank": 4,
    "id": "STRUCTURE:P-9.7",
    "centrality": "high",
    "difficulty": "high",
@@ -2519,7 +2503,7 @@
    "route": "Stinespring uniqueness in restricted form. Mathlib has no Stinespring dilation theorem, so the restricted statement has to be set up from the partial-trace side. High centrality because the substratum-is-gauge corollary and the whole universality-class story rest on it."
   },
   {
-   "rank": 5,
+   "rank": 3,
    "id": "MAIN:T-separability-threshold",
    "centrality": "medium",
    "difficulty": "high",
@@ -2527,7 +2511,7 @@
    "route": "A clean finite-group statement -- entanglement-breaking iff t = s for an abelian Weyl subgroup of order 2^t on s qubits -- but Mathlib carries no entanglement-breaking characterization, so the definition has to be built before the theorem can be stated."
   },
   {
-   "rank": 6,
+   "rank": 4,
    "id": "MAIN:L-1-boundary-bound",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2535,7 +2519,7 @@
    "route": "A rank bound on the off-diagonal blocks of a local update. Mathlib has matrix rank and the submatrix API; the content is that the block factors through the boundary index set."
   },
   {
-   "rank": 7,
+   "rank": 5,
    "id": "SM:T-19",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2543,7 +2527,7 @@
    "route": "Reciprocity of visible transition counts. The side condition is the interesting part and must be carried: the symmetric form T_ij = T_ji holds only for T-EVEN coarse states, and GR section 3.2 is explicit that with T-odd visible data only the (theta j, theta i) form survives."
   },
   {
-   "rank": 8,
+   "rank": 6,
    "id": "SM:T-16",
    "centrality": "low",
    "difficulty": "low",
@@ -2551,7 +2535,7 @@
    "route": "Dimensional bookkeeping: [g] = (3-d)/2, dimensionless iff d = 3. Cheap, and it moves an SM GAP for almost nothing."
   },
   {
-   "rank": 9,
+   "rank": 7,
    "id": "GR:T-d-gauge-completeness",
    "centrality": "medium",
    "difficulty": "high",
@@ -2559,7 +2543,7 @@
    "route": "Needs non-degenerate spectra, non-vanishing overlaps and an argument over all t -- analytic, and the first GR statement worth attempting."
   },
   {
-   "rank": 10,
+   "rank": 8,
    "id": "SM:T-8",
    "centrality": "low",
    "difficulty": "low",
