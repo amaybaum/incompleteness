@@ -32,7 +32,8 @@ import Mathlib.GroupTheory.Perm.Fin
 -- `OIBridge.Equivalence` the finite-horizon stochastic/reversible/unitary equivalence,
 -- `OIBridge.C3Necessity` the C3 capacity theorem, `OIBridge.CanonicalMeasure` Lemma 3's
 -- selected measure, `OIBridge.Finiteness` Lemma 1's conditional finiteness, and `OIBridge.CubicIsotropy`
--- [SM] Corollary 1a's algebraic core; none has anything
+-- [SM] Corollary 1a, and `OIBridge.IdempotentTrace` the trace-of-restriction lemma
+-- Theorem 7 was blocked on; none has anything
 -- to do with the representation theory below. The imports are here for exactly one reason, and
 -- that reason is the gate — `coverage_check.py` enforces it.
 import OIBridge.CombRealization
@@ -44,6 +45,7 @@ import OIBridge.C3Necessity
 import OIBridge.CanonicalMeasure
 import OIBridge.Finiteness
 import OIBridge.CubicIsotropy
+import OIBridge.IdempotentTrace
 
 namespace OIBridge
 

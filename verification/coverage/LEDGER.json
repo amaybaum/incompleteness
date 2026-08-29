@@ -2482,6 +2482,22 @@
    "names": [],
    "certifies": "b430-b432 research-layer result.",
    "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+  },
+  {
+   "kind": "lean",
+   "path": "verification/lean-mathlib/OIBridge/IdempotentTrace.lean",
+   "names": [
+    "apply_eq_self_of_mem_range",
+    "mapsTo_range",
+    "mapsTo_ker",
+    "isCompl_range_ker",
+    "comp_eq_conj_prodMap",
+    "trace_restrict_range",
+    "trace_restrict_range_of_mapsTo",
+    "trace_eq_finrank_range"
+   ],
+   "certifies": "Library infrastructure, not a manuscript statement: for an idempotent P and a map f commuting with it on a finite-dimensional vector space over any field, tr(f restricted to im P) = tr(f . P), with the block structure it rests on and the corollary tr P = dim(im P).",
+   "note": "The step SM:T-7 was recorded as blocked on. Isolated deliberately so the blocker becomes a resolved dependency rather than a theorem-specific workaround: nothing in the statements mentions a group, a character or equivariance. The companion probe established that commutativity is SUFFICIENT BUT NOT NECESSARY -- image-invariance alone suffices, since it already makes f block triangular and f.P kills the off-diagonal block -- so the weaker trace_restrict_range_of_mapsTo is carried too."
   }
  ],
  "backlog_policy": "LEAN-FIRST. Every established canonical mathematical result is a kernel-formalization target by default. GAP IS A BACKLOG STATE AND NOT AN ACCEPTABLE TERMINAL VERIFICATION STATE. An exception requires a RECORDED REASON -- empirical input, an external literature premise, a physical assumption, or a formal library result that does not yet exist -- and even then Lean should prove the implication FROM that premise wherever possible: A_1 and ... and A_n implies the framework conclusion, which is exactly where the framework's own deduction ends and an external assumption begins. Formalization order: central OI/equivalence chain, foundational OI lemmas, existing ROADMAP gaps, reconstruction/representation, comb/locality, GR/SM deductions, then secondary corollaries and controls. WITHIN each tier take the easy K3 conversions first so coverage rises quickly, but NEVER let that displace a central theorem merely because it is harder. And the probes are preserved after Lean catches up: the standard is Lean theorem PLUS independent executable probe PLUS countercontrols, never Lean instead of probes.",
@@ -2490,9 +2506,9 @@
    "rank": 1,
    "id": "SM:T-7-exact-link-representation-physical-reading",
    "centrality": "high",
-   "difficulty": "blocked",
+   "difficulty": "medium",
    "tier": 3,
-   "route": "ROADMAP A5-B22. Blocked on a Mathlib lemma that does not exist: the trace of an operator restricted to a subrepresentation, i.e. IsProj p P and f commuting with P entails trace (f.restrict) = trace (f * P). Two routes, both real work: prove that lemma, or define T, E, A as explicit representations with matrices given directly, which costs a sign cocycle for T and leaves the identification mirror-certified rather than kernel-certified."
+   "route": "NO LONGER BLOCKED. The missing library step -- trace of a commuting map restricted to the image of an idempotent -- is now kernel-proved in OIBridge/IdempotentTrace.lean, over an arbitrary field and with no representation theory in the statement, together with tr P = dim(im P). What remains is the theorem itself, and K3 needs the actual EQUIVARIANT DECOMPOSITION rather than the multiplicity arithmetic: build the six-link representation of the 24-element ROTATIONAL cubic group O -- NOT the 48-element O_h of Corollary 1a, whose machinery must not be substituted -- construct the equivariant projectors, prove them idempotent, mutually complementary and summing to the identity, compute their characters via the new trace lemma, identify the images with T1, E and A1, prove dimensions 3, 2, 1, and give a named wrapper for the direct-sum equivalence. Then a SEPARATE conditional transport theorem: the H-link equivariant identification gives the physical carrier the same 3+2+1 decomposition. The geometry is unconditional; H-link is the premise that transports it, and H-cust belongs downstream to the condensate reading, not to the geometric decomposition."
   },
   {
    "rank": 2,
