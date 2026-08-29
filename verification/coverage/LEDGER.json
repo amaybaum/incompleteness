@@ -2181,7 +2181,7 @@
    "line": 628,
    "kind": "Definition",
    "label": "9.2",
-   "fingerprint": "aa33473176f62ac6",
+   "fingerprint": "17514cb462546e40",
    "area": "reconstruction",
    "assumptions": "see the statement",
    "checks": [],
@@ -2192,7 +2192,7 @@
   {
    "id": "STRUCTURE:D-9.3",
    "paper": "papers/Structure.md",
-   "line": 632,
+   "line": 634,
    "kind": "Definition",
    "label": "9.3",
    "fingerprint": "ab7171f54fbcb738",
@@ -2206,7 +2206,7 @@
   {
    "id": "STRUCTURE:D-9.4",
    "paper": "papers/Structure.md",
-   "line": 635,
+   "line": 637,
    "kind": "Definition",
    "label": "9.4",
    "fingerprint": "c1f7875add01be08",
@@ -2220,7 +2220,7 @@
   {
    "id": "STRUCTURE:P-9.5",
    "paper": "papers/Structure.md",
-   "line": 643,
+   "line": 645,
    "kind": "Proposition",
    "label": "9.5",
    "fingerprint": "47fd5a483b0f9e92",
@@ -2234,7 +2234,7 @@
   {
    "id": "STRUCTURE:C-9.6",
    "paper": "papers/Structure.md",
-   "line": 649,
+   "line": 651,
    "kind": "Corollary",
    "label": "9.6",
    "fingerprint": "1ac4f23c6a863bcf",
@@ -2246,37 +2246,72 @@
    "note": ""
   },
   {
-   "id": "STRUCTURE:P-9.7",
+   "id": "STRUCTURE:P-9.7a",
    "paper": "papers/Structure.md",
-   "line": 657,
+   "line": 659,
    "kind": "Proposition",
-   "label": "9.7",
-   "fingerprint": "c27ff0c7aecbaea1",
+   "label": "9.7a (Minimal Kraus uniqueness)",
+   "fingerprint": "b735edebf49d1666",
    "area": "reconstruction",
-   "assumptions": "see the statement",
-   "checks": [],
-   "kernel": "GAP",
-   "delta": "not formalized",
-   "note": ""
+   "assumptions": "finite-dimensional visible sector; each Kraus family LINEARLY INDEPENDENT, which is minimality",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "verification/lean/stinespring_scope_probe.py",
+     "basis": "named",
+     "evidence": "PROPOSITION 9.7a, as a round trip"
+    }
+   ],
+   "kernel": "P",
+   "delta": "PROBED, NOT PROVED. No kernel proof yet; the probe recovers the relating unitary numerically over six random channels and checks it is unique, which is evidence and not a proof.",
+   "note": "SCOPE REPAIR, found by formalizing. The former Proposition 9.7 asserted U2 = (1 (x) W) U1 (1 (x) W^dagger) as an identity of operators, which is FALSE: with a pure reference state the channel constrains U only on H_V (x) C|0>, and its action elsewhere is free. CNOT and CNOT.(1 (x) Z) realize the same channel on the same hidden sector, both minimally; minimality forces W = 1, so the old conclusion would read U2 = U1. The proposition was split into 9.7a (the algebraic core, true) and 9.7b (the dilation bridge, concluding on the ISOMETRY and no further), and Definition 9.2 now calls its object a unitary realization, reserving Stinespring dilation for the pure-reference isometry -- OI's own construction uses a mixed reference state, so the uniqueness statements do not apply to it without purifying. 9.7a is the kernel target: two linearly independent Kraus families of one channel are related by a unique unitary. The probe reproduces it as a round trip -- the relating unitary is discarded and recovered from the channel alone -- and records the two countercontrols, the CNOT pair and the 3x2-isometry family showing linear independence is not removable."
+  },
+  {
+   "id": "STRUCTURE:P-9.7b",
+   "paper": "papers/Structure.md",
+   "line": 668,
+   "kind": "Proposition",
+   "label": "9.7b (Minimal pure-reference dilation uniqueness)",
+   "fingerprint": "f8495fb9263ba1d8",
+   "area": "reconstruction",
+   "assumptions": "PURE reference states; both realizations minimal; conclusion is about the isometry, not the full unitary",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "verification/lean/stinespring_scope_probe.py",
+     "basis": "named",
+     "evidence": "PROPOSITION 9.7b, and exactly where it stops"
+    }
+   ],
+   "kernel": "P",
+   "delta": "PROBED, NOT PROVED. Downstream of 9.7a, which has no kernel proof yet.",
+   "note": "The dilation bridge, and the boundary the old statement crossed. 9.7b concludes V2 = (1 (x) W) V1 on the Stinespring ISOMETRIES, equivalently agreement of the dilating unitaries on the reference subspace, and states explicitly that no equality of the full unitaries follows. The probe's S4 exhibits both halves in one line: a hidden-sector unitary relates the isometries, and composing with 1 (x) Z afterwards changes the unitary while leaving the channel and the isometry fixed. [Substratum] Lemma 24.1's stronger conjugation of the dilating unitaries is reconciled rather than contradicted -- it fixes the whole semigroup and works on the cyclic boundary sector, where there is no off-reference remainder by construction."
   },
   {
    "id": "STRUCTURE:C-9.8",
    "paper": "papers/Structure.md",
-   "line": 663,
+   "line": 682,
    "kind": "Corollary",
    "label": "9.8",
-   "fingerprint": "954a386ad628a35b",
+   "fingerprint": "b3b8ab680e2a1e42",
    "area": "reconstruction",
    "assumptions": "see the statement",
-   "checks": [],
-   "kernel": "GAP",
-   "delta": "not formalized",
-   "note": ""
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "verification/lean/stinespring_scope_probe.py",
+     "basis": "named",
+     "evidence": "three freedoms of"
+    }
+   ],
+   "kernel": "P",
+   "delta": "PROBED, NOT PROVED. Downstream of 9.7a and 9.7b.",
+   "note": "STRENGTHENED AND SCOPED. The earlier form named two freedoms in the substratum description, hidden-sector unitary and deep-sector enlargement. There are three: the extension of the Stinespring isometry to a full tensor-product unitary is additionally unconstrained off the prepared reference subspace. The correction WIDENS the gauge freedom, so the substratum-is-gauge reading survives and is reinforced; only 9.7's precise form changed. The corollary now carries the qualification that the second freedom is gauge relative to the fixed-reference observational interface: the off-reference action of U is invisible to the channel only because Definition 9.2 always prepares the same rho_H, and would become observable if the hidden sector were independently preparable."
   },
   {
    "id": "STRUCTURE:D-9.9",
    "paper": "papers/Structure.md",
-   "line": 691,
+   "line": 714,
    "kind": "Definition",
    "label": "9.9",
    "fingerprint": "2abe6d67e4247481",
@@ -2290,7 +2325,7 @@
   {
    "id": "STRUCTURE:P-9.10",
    "paper": "papers/Structure.md",
-   "line": 701,
+   "line": 724,
    "kind": "Proposition",
    "label": "9.10",
    "fingerprint": "dbd6efee2abea3bc",
@@ -2304,7 +2339,7 @@
   {
    "id": "STRUCTURE:C-9.11",
    "paper": "papers/Structure.md",
-   "line": 705,
+   "line": 728,
    "kind": "Corollary",
    "label": "9.11",
    "fingerprint": "b87569f89d74abf1",
@@ -2558,11 +2593,11 @@
  "backlog": [
   {
    "rank": 1,
-   "id": "STRUCTURE:P-9.7",
+   "id": "STRUCTURE:P-9.7a",
    "centrality": "high",
    "difficulty": "high",
    "tier": 4,
-   "route": "Stinespring uniqueness in restricted form. Mathlib has no Stinespring dilation theorem, so the restricted statement has to be set up from the partial-trace side. High centrality because the substratum-is-gauge corollary and the whole universality-class story rest on it."
+   "route": "The scope repair is done and the statement is now formalizable. Mathlib has no Stinespring theorem, and none is needed: the target is the finite-dimensional Kraus form. The missing general lemma is X X^dagger = Y Y^dagger with X, Y of full column rank implies Y = X W for a unique unitary W -- two linearly independent rank-one factorizations of one positive semidefinite operator differ by a unitary on the coefficient space. Kraus uniqueness is then vectorization bookkeeping, and 9.7b follows by transporting through A_i = (1 (x) <i|) V."
   },
   {
    "rank": 2,

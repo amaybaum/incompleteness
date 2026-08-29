@@ -5746,7 +5746,7 @@ A continuous unitary interpolation comes from the discrete step itself: $U_\varp
 
 **The quantum channel.** The observer's ignorance of the hidden sector corresponds to the maximally mixed state $\rho_H = I_m / m$. The visible-sector quantum channel is
 $$\Phi(\rho_V) = \text{Tr}_H\!\left[U_\varphi\,(\rho_V \otimes \rho_H)\,U_\varphi^\dagger\right]$$
-This is completely-positive trace-preserving (CPTP) by a standard result (Nielsen-Chuang Theorem 8.1), with Kraus representation $\Phi(\rho_V) = \sum_{k,l} K_{kl}\,\rho_V\,K_{kl}^\dagger$ where $K_{kl} = m^{-1/2}\langle l|U_\varphi|k\rangle_H$. The triple $(\mathcal{H}_H, U_\varphi, \rho_H)$ is the *Stinespring dilation* of $\Phi$.
+This is completely-positive trace-preserving (CPTP) by a standard result (Nielsen-Chuang Theorem 8.1), with Kraus representation $\Phi(\rho_V) = \sum_{k,l} K_{kl}\,\rho_V\,K_{kl}^\dagger$ where $K_{kl} = m^{-1/2}\langle l|U_\varphi|k\rangle_H$. The triple $(\mathcal{H}_H, U_\varphi, \rho_H)$ is a *unitary realization* of $\Phi$. The reference state here is the uniform mixed state, so the triple is a unitary realization rather than a Stinespring dilation: with a pure reference the Stinespring dilation is the associated isometry $\psi \mapsto U_\varphi(\psi \otimes |0\rangle)$, not the unitary, and obtaining one from a mixed reference requires purifying $\rho_H$.
 
 **Theorem B.2.3 (Born-form representation of the transition probabilities).** *The classical transition probabilities $T_{ij} = P(j|i)$ derived from the substratum's bijection equal the Born-rule probabilities of $\Phi$ — a representation identity: it exhibits the Born form and does not select the quadratic exponent, which remains open ([Main §3.4]).*
 

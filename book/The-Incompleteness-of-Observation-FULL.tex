@@ -25290,8 +25290,12 @@ This is completely-positive trace-preserving (CPTP) by a standard result
 (Nielsen-Chuang Theorem 8.1), with Kraus representation
 \(\Phi(\rho_V) = \sum_{k,l} K_{kl}\,\rho_V\,K_{kl}^\dagger\) where
 \(K_{kl} = m^{-1/2}\langle l|U_\varphi|k\rangle_H\). The triple
-\((\mathcal{H}_H, U_\varphi, \rho_H)\) is the \emph{Stinespring
-dilation} of \(\Phi\).
+\((\mathcal{H}_H, U_\varphi, \rho_H)\) is a \emph{unitary realization}
+of \(\Phi\). The reference state here is the uniform mixed state, so the
+triple is a unitary realization rather than a Stinespring dilation: with
+a pure reference the Stinespring dilation is the associated isometry
+\(\psi \mapsto U_\varphi(\psi \otimes |0\rangle)\), not the unitary, and
+obtaining one from a mixed reference requires purifying \(\rho_H\).
 
 \textbf{Theorem B.2.3 (Born-form representation of the transition
 probabilities).} \emph{The classical transition probabilities
@@ -29320,4 +29324,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: a592d0704e67c16ea80d9fba97cab7b30780c750ba371da90c11229861c79040
+% source-sha256: d53d1c7e1009aa2078b0036210b75894cf19b26ad61c015d005edb913efad6e3

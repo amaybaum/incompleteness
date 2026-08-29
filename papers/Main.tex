@@ -1603,8 +1603,15 @@ This is CPTP by a standard result {[}16, Theorem 8.1{]}, with Kraus
 representation
 \(\Phi(\rho_V) = \sum_{k,l} K_{kl}\,\rho_V\,K_{kl}^\dagger\) where
 \(K_{kl} = m^{-1/2}\langle l|U_\varphi|k\rangle_H\). The triple
-\((\mathcal{H}_H, U_\varphi, \rho_H)\) is the Stinespring dilation
-{[}15{]} of \(\Phi\).
+\((\mathcal{H}_H, U_\varphi, \rho_H)\) is a \emph{unitary realization}
+of \(\Phi\) ({[}Structure{]} Definition 9.2). The reference state here
+is the uniform mixed state, so the triple is a unitary realization
+rather than a Stinespring dilation: with a pure reference the
+Stinespring dilation is the associated isometry
+\(\psi \mapsto U_\varphi(\psi \otimes |0\rangle)\), not the unitary, and
+obtaining one from a mixed reference requires purifying \(\rho_H\).
+Nothing below depends on the distinction; it is kept because the
+uniqueness statements of {[}Structure{]} Propositions 9.7a--9.7b do.
 
 \textbf{Theorem (Born-form representation of the transition
 probabilities).} \emph{The classical transition probabilities \(T_{ij}\)
@@ -4788,4 +4795,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: ffcaa9fbff2b548062ee4fc91590f67d45f005980036cad7740a4ee10edd0d9d
+% source-sha256: 55fbc2fe9906b22222e15da6f17a8d5a37ac838f2ef730e1919518077967df86

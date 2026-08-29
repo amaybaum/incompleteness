@@ -277,7 +277,7 @@ A finite permutation does not by itself generate a continuous flow: on a finite 
 
 $$\Phi(\rho_V) = \mathrm{Tr}_H\!\left[U_\varphi\,(\rho_V \otimes \rho_H)\,U_\varphi^\dagger\right]$$
 
-This is CPTP by a standard result [16, Theorem 8.1], with Kraus representation $\Phi(\rho_V) = \sum_{k,l} K_{kl}\,\rho_V\,K_{kl}^\dagger$ where $K_{kl} = m^{-1/2}\langle l|U_\varphi|k\rangle_H$. The triple $(\mathcal{H}_H, U_\varphi, \rho_H)$ is the Stinespring dilation [15] of $\Phi$.
+This is CPTP by a standard result [16, Theorem 8.1], with Kraus representation $\Phi(\rho_V) = \sum_{k,l} K_{kl}\,\rho_V\,K_{kl}^\dagger$ where $K_{kl} = m^{-1/2}\langle l|U_\varphi|k\rangle_H$. The triple $(\mathcal{H}_H, U_\varphi, \rho_H)$ is a *unitary realization* of $\Phi$ ([Structure] Definition 9.2). The reference state here is the uniform mixed state, so the triple is a unitary realization rather than a Stinespring dilation: with a pure reference the Stinespring dilation is the associated isometry $\psi \mapsto U_\varphi(\psi \otimes |0\rangle)$, not the unitary, and obtaining one from a mixed reference requires purifying $\rho_H$. Nothing below depends on the distinction; it is kept because the uniqueness statements of [Structure] Propositions 9.7a–9.7b do.
 
 **Theorem (Born-form representation of the transition probabilities).** *The classical transition probabilities $T_{ij}$ (§1.4) equal the Born-rule probabilities of $\Phi$ — a representation identity: it exhibits the Born form and does not select the quadratic exponent (§3.4).*
 
