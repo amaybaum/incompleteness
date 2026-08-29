@@ -30,9 +30,10 @@ import Mathlib.GroupTheory.Perm.Fin
 -- `OIBridge.FiniteEntropy` the finite Shannon layer Mathlib does not have,
 -- `OIBridge.HiddenMemory` the unavoidable-hidden-predictive-memory theorem,
 -- `OIBridge.Equivalence` the finite-horizon stochastic/reversible/unitary equivalence,
--- `OIBridge.C3Necessity` the C3 capacity theorem, and `OIBridge.CanonicalMeasure` Lemma 3's
--- selected measure; none has anything to do with the representation theory below. The imports are
--- here for exactly one reason, and that reason is the gate — `coverage_check.py` enforces it.
+-- `OIBridge.C3Necessity` the C3 capacity theorem, `OIBridge.CanonicalMeasure` Lemma 3's
+-- selected measure, and `OIBridge.Finiteness` Lemma 1's conditional finiteness; none has anything
+-- to do with the representation theory below. The imports are here for exactly one reason, and
+-- that reason is the gate — `coverage_check.py` enforces it.
 import OIBridge.CombRealization
 import OIBridge.EquivalenceChain
 import OIBridge.FiniteEntropy
@@ -40,6 +41,7 @@ import OIBridge.HiddenMemory
 import OIBridge.Equivalence
 import OIBridge.C3Necessity
 import OIBridge.CanonicalMeasure
+import OIBridge.Finiteness
 
 namespace OIBridge
 
