@@ -324,6 +324,31 @@ check("L6b", ok6b,
       "three-dimensional irreducibles, swapped. The six links are the coset space S4/C4, which "
       "this section had recorded as a rejected control for having 'the same character'")
 
+# ------------------------------------------------- L6c  why the old evidence was blind
+sq_sub = sum(v ** 2 for v in chi_sub.values())
+sq_lnk = sum(v ** 2 for v in chi_lnk.values())
+cb_sub = sum(v ** 3 for v in chi_sub.values())
+cb_lnk = sum(v ** 3 for v in chi_lnk.values())
+ok6c = sq_sub == sq_lnk == 72 and cb_sub == cb_lnk == 288
+ok6c &= sorted(chi_sub.values()) == sorted(chi_lnk.values())
+# the two differing classes both have six elements, which is why the contributions trade places
+ok6c &= len([g for g in S4 if cycle_type(g) == (1, 1, 2)]) == 6
+ok6c &= len([g for g in S4 if cycle_type(g) == (4,)]) == 6
+# a control: the sums DO separate representations in general, so this collision is a fact about
+# these two and not a vacuous observation about power sums
+chi_reg = {g: (24 if g == (0, 1, 2, 3) else 0) for g in S4}          # the regular representation
+ok6c &= sum(v ** 2 for v in chi_reg.values()) != 72
+check("L6c", ok6c,
+      f"WHY THE PREVIOUS EVIDENCE WAS BLIND, and now a permanent regression control. The two "
+      f"characters agree as multisets AND on the aggregate power sums this bridge reports: "
+      f"sum(chi^2) = {sq_sub} for both, sum(chi^3) = {cb_sub} for both. The two classes where they "
+      f"differ, 6C2' and 6C4, both have six elements, so the contributions simply trade places. So "
+      f"neither the old multiset comparison nor the 72/288 certificates could ever have "
+      f"distinguished them — and those numbers being right is not evidence that the physical "
+      f"representation was right. Lean records all three as `char_multiset_collision`, "
+      f"`sum_sq_collision` and `sum_cube_collision`. The control confirms the power sums are not "
+      f"vacuous: the regular representation gives a different value")
+
 # ----------------------------------------------------------------- L7  lint
 src = open(os.path.join(BRIDGE, 'OIBridge', 'LinkDecomposition.lean'), encoding='utf-8').read()
 root = open(os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
@@ -366,9 +391,12 @@ for n in ('Tsub', 'Esub', 'Asub', 'rhoT', 'rhoE', 'rhoA'):
     ok7 &= f'def {n}' in root
 ok7 &= 'Subrepresentation rhoLink' in root and 'Subrepresentation.toRepresentation' in root
 # and the section must NOT claim to be the cubic rotation action on the coordinate links
-ok7 &= 'theorem char_two_subset_ne_link' in root
+for n in ('char_two_subset_ne_link', 'char_multiset_collision', 'sum_sq_collision',
+          'sum_cube_collision'):
+    ok7 &= f'theorem {n}' in root
 ok7 &= 'is NOT the six-link representation' in root
 ok7 &= 'A₁ ⊕ E ⊕ T₂' in root
+ok7 &= 'def chiLinkTable' in root
 for n in ('character_rhoT', 'character_rhoE', 'character_rhoA', 'character_rhoA_eq_one',
           'character_rhoLink_eq_sum'):
     ok7 &= f'theorem {n}' in root

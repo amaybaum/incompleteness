@@ -642,18 +642,64 @@ the four-fold rotations. -/
 action transported to the links. -/
 def fixTwoSub (g : Perm (Fin 4)) : ℕ := (Finset.univ.filter fun l => linkHom g l = l).card
 
+/-- Fixed points on the four diagonals, used to separate the two order-two classes. -/
+def nfix (g : Perm (Fin 4)) : ℕ := (Finset.univ.filter fun i : Fin 4 => g i = i).card
+
+/-- **The manuscript's character of `V₆`**, transcribed as a class function: `6` at the identity,
+`0` on `8C₃`, `2` on `3C₂`, `0` on `6C₂'`, `2` on `6C₄`. Under `O ≅ S₄` the classes are identity,
+three-cycles, double transpositions, transpositions and four-cycles respectively.
+
+This is a DEFINITION recording [SM] Theorem 7's proof line, not a derived object. Deriving it needs
+the rotation action on the links, which is the outstanding item. -/
+def chiLinkTable (g : Perm (Fin 4)) : ℤ :=
+  if g = 1 then 6
+  else if g * g = 1 then (if nfix g = 2 then 0 else 2)
+  else if g * g * g = 1 then 0
+  else 2
+
+set_option maxRecDepth 40000 in
 /-- **`Cubic.rho` is not the six-link representation.** The transposition `(0 1)` is a `6C₂'`
-rotation, where [SM] Theorem 7's character is `0`; the two-subset character is `2` there. The
-four-fold class is the mirror image: the manuscript's character is `2` and this one is `0`. Same
-multiset, different class function, and the two three-dimensional irreducibles are swapped. -/
+rotation, where the manuscript's character is `0` and the two-subset character is `2`; the
+four-fold class is the mirror image. -/
 theorem char_two_subset_ne_link :
-    fixTwoSub (Equiv.swap 0 1) = 2 ∧ fixTwoSub (Equiv.swap 0 1 * Equiv.swap 2 3) = 2 ∧
-      fixTwoSub ⟨![1, 2, 3, 0], ![3, 0, 1, 2], by decide, by decide⟩ = 0 := by
-  refine ⟨by decide, by decide, by decide⟩
+    ∃ g : Perm (Fin 4), (fixTwoSub g : ℤ) ≠ chiLinkTable g := by
+  refine ⟨Equiv.swap 0 1, ?_⟩
+  decide
+
+/-! ### Why the previous evidence could not have caught this
+
+Three permanent regression controls. The two characters agree as MULTISETS, and they agree on the
+aggregate power sums this bridge reports — so neither the old multiset comparison nor the character
+sums `72` and `288` could ever have distinguished them. The two classes where they differ, `6C₂'`
+and `6C₄`, both have six elements, so the contributions simply trade places. -/
+
+set_option maxRecDepth 100000 in
+/-- The two characters take the same values with the same multiplicities. This is exactly what
+`representation_bridge_probe.py` compared, and it is why that comparison was silent. -/
+theorem char_multiset_collision :
+    (Finset.univ.val.map fun g : Perm (Fin 4) => (fixTwoSub g : ℤ))
+      = (Finset.univ.val.map fun g : Perm (Fin 4) => chiLinkTable g) := by decide
+
+set_option maxRecDepth 100000 in
+/-- The `Σχ² = 72` certificate cannot distinguish them either. -/
+theorem sum_sq_collision :
+    (∑ g : Perm (Fin 4), (fixTwoSub g : ℤ) ^ 2) = 72 ∧
+      (∑ g : Perm (Fin 4), chiLinkTable g ^ 2) = 72 := by
+  refine ⟨by decide, by decide⟩
+
+set_option maxRecDepth 100000 in
+/-- Nor can `Σχ³ = 288`. -/
+theorem sum_cube_collision :
+    (∑ g : Perm (Fin 4), (fixTwoSub g : ℤ) ^ 3) = 288 ∧
+      (∑ g : Perm (Fin 4), chiLinkTable g ^ 3) = 288 := by
+  refine ⟨by decide, by decide⟩
 
 /-! ### What these proofs rest on -/
 
 #print axioms LinkJoin.char_two_subset_ne_link
+#print axioms LinkJoin.char_multiset_collision
+#print axioms LinkJoin.sum_sq_collision
+#print axioms LinkJoin.sum_cube_collision
 #print axioms LinkJoin.faceEquivLink_op
 #print axioms LinkJoin.act_op
 #print axioms LinkJoin.sym_linkHom
