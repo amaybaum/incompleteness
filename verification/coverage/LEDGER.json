@@ -2307,15 +2307,45 @@
    "assumptions": "PURE reference states; both realizations minimal; conclusion is about the isometry, not the full unitary",
    "checks": [
     {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/StinespringUniqueness.lean",
+     "basis": "named",
+     "evidence": "proposition_9_7b"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/StinespringUniqueness.lean",
+     "basis": "named",
+     "evidence": "minimal_iff_linearIndependent"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/StinespringUniqueness.lean",
+     "basis": "named",
+     "evidence": "channel_eq_krausMap"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/KrausUniqueness.lean",
+     "basis": "named",
+     "evidence": "proposition_9_7a"
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/stinespring_uniqueness_probe.py",
+     "basis": "named",
+     "evidence": "GATE 3: THE ORIENTATION"
+    },
+    {
      "kind": "probe",
      "path": "verification/lean/stinespring_scope_probe.py",
      "basis": "named",
      "evidence": "PROPOSITION 9.7b, and exactly where it stops"
     }
    ],
-   "kernel": "P",
-   "delta": "PROBED, NOT PROVED. 9.7a is now K3, so what remains is the dilation bridge alone: extract the Kraus families A_i = (1 (x) <i|) V_a from the two minimal pure-reference isometries, apply KrausUniqueness.proposition_9_7a, and reassemble V_2 = (1 (x) W) V_1. The countercontrol bounding it is already permanent -- the CNOT pair in stinespring_scope_probe.py, which shows the conclusion cannot be strengthened to the full unitaries.",
-   "note": "The dilation bridge, and the boundary the old statement crossed. 9.7b concludes V2 = (1 (x) W) V1 on the Stinespring ISOMETRIES, equivalently agreement of the dilating unitaries on the reference subspace, and states explicitly that no equality of the full unitaries follows. The probe's S4 exhibits both halves in one line: a hidden-sector unitary relates the isometries, and composing with 1 (x) Z afterwards changes the unitary while leaving the channel and the isometry fixed. [Substratum] Lemma 24.1's stronger conjugation of the dilating unitaries is reconciled rather than contradicted -- it fixes the whole semigroup and works on the cyclic boundary sector, where there is no off-reference remainder by construction."
+   "kernel": "K3",
+   "delta": "",
+   "note": "KERNEL-PROVED, and it stops where the repair says it must. OIBridge/StinespringUniqueness.lean's proposition_9_7b gives equal environment dimension and a UNIQUE isometric T with V2 = (1 (x) T) V1 -- and nothing about the full dilating unitaries, which the CNOT pair in stinespring_scope_probe.py certifies are not determined off the prepared reference subspace. THREE GATES, not one reassembly. (1) minimal_iff_linearIndependent proves that MINIMALITY IS KRAUS INDEPENDENCE in the manuscript's own cyclicity form -- Minimal is span {(M (x) 1) V psi} = top with M ranging over ALL of B(H_V), containing no finrank and no cardinality, so it is not the independence it is proved equivalent to. The proof goes through the orthogonal complement: inner_ampl_eq puts the inner product against the cyclic set in closed form, orthogonal_iff turns orthogonality into the annihilation of the Kraus family by the coefficients conj(u(a,i)), and independence closes both directions. It carries [Nonempty n], which is load-bearing rather than decorative: with a zero visible space every dilation is vacuously cyclic while its Kraus family need not be independent, and a zero visible space is not an embedded observer. (2) channel_eq_krausMap proves the Stinespring channel -- defined as what it is, conjugation by V summed over the environment index -- is the Kraus map of A_i = (1 (x) <i|) V, so KrausUniqueness can consume it. (3) THE ORIENTATION, and it is the TRANSPOSE, not the adjoint: FactorUniqueness produces the column factor W : H_H^(2) -> H_H^(1) and the environment unitary runs the other way with T_ji = W(e_j)_i, so the adjoint -- which conjugates the entries -- is a different operator whenever they are not real. hiddenUnitary is built with the transpose orientation, hiddenUnitary_matrix identifies its matrix with KrausUniqueness.krausMatrix (the manuscript's U, in the manuscript's index order), and the probe's G3 uses a complex non-symmetric witness for which the transpose reassembles V2 exactly and the adjoint does not. UNIQUENESS IS PROVED, not inherited: amplR_ext shows the environment operator is determined, again from independence of the Kraus family, so the wrapper is an existential-unique as the manuscript states. The uniqueness of the coefficient factor is KrausUniqueness/FactorUniqueness and is not reproved."
   },
   {
    "id": "STRUCTURE:C-9.8",
@@ -2328,14 +2358,20 @@
    "assumptions": "see the statement",
    "checks": [
     {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/StinespringUniqueness.lean",
+     "basis": "named",
+     "evidence": "proposition_9_7b"
+    },
+    {
      "kind": "probe",
      "path": "verification/lean/stinespring_scope_probe.py",
      "basis": "named",
      "evidence": "three freedoms of"
     }
    ],
-   "kernel": "P",
-   "delta": "PROBED, NOT PROVED. Downstream of 9.7a and 9.7b.",
+   "kernel": "K2",
+   "delta": "THE TWO NEGATIVE CLAUSES. Kernel-proved: the first positive half -- for a minimal pure-reference representative the embedded observer determines the Stinespring isometry up to a unique hidden-sector unitary, which is StinespringUniqueness.proposition_9_7b. NOT kernel-proved, and recorded as this entry's delta: (a) that the extension of that isometry to a FULL tensor-product unitary is unconstrained off the prepared reference subspace, and (b) that non-minimal realizations introduce further enlargement freedom. Both are negative existence statements about the dilating unitary, and the Lean layer deliberately carries no unitary-realization formalism -- 9.7b is stated for the isometry alone. (a) is witnessed by the CNOT pair in stinespring_scope_probe.py (same channel, same environment, both minimal, minimality forcing W = 1, and the two unitaries differing), which is evidence and not a kernel proof. Formalizing (a) would need the unitary layer built on top of the present isometry layer; (b) would need the non-minimal case.",
    "note": "STRENGTHENED AND SCOPED. The earlier form named two freedoms in the substratum description, hidden-sector unitary and deep-sector enlargement. There are three: the extension of the Stinespring isometry to a full tensor-product unitary is additionally unconstrained off the prepared reference subspace. The correction WIDENS the gauge freedom, so the substratum-is-gauge reading survives and is reinforced; only 9.7's precise form changed. The corollary now carries the qualification that the second freedom is gauge relative to the fixed-reference observational interface: the off-reference action of U is invisible to the channel only because Definition 9.2 always prepares the same rho_H, and would become observable if the hidden sector were independently preparable."
   },
   {
@@ -2623,14 +2659,6 @@
  "backlog": [
   {
    "rank": 1,
-   "id": "STRUCTURE:P-9.7b",
-   "centrality": "high",
-   "difficulty": "low",
-   "tier": 4,
-   "route": "9.7a is K3 and the infrastructure is done, so this is now short. Extract the Kraus family A_i = (1 (x) <i|) V from a pure-reference isometry V, check that minimality of the dilation is linear independence of that family, apply KrausUniqueness.proposition_9_7a to the two families, and reassemble the coefficient unitary into V_2 = (1 (x) W) V_1. The statement must stop at the isometry: the CNOT countercontrol in stinespring_scope_probe.py is the permanent record that the full unitaries are not determined."
-  },
-  {
-   "rank": 2,
    "id": "MAIN:T-separability-threshold",
    "centrality": "medium",
    "difficulty": "high",
@@ -2638,7 +2666,7 @@
    "route": "A clean finite-group statement -- entanglement-breaking iff t = s for an abelian Weyl subgroup of order 2^t on s qubits -- but Mathlib carries no entanglement-breaking characterization, so the definition has to be built before the theorem can be stated."
   },
   {
-   "rank": 3,
+   "rank": 2,
    "id": "MAIN:L-1-boundary-bound",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2646,7 +2674,7 @@
    "route": "A rank bound on the off-diagonal blocks of a local update. Mathlib has matrix rank and the submatrix API; the content is that the block factors through the boundary index set."
   },
   {
-   "rank": 4,
+   "rank": 3,
    "id": "SM:T-19",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2654,7 +2682,7 @@
    "route": "Reciprocity of visible transition counts. The side condition is the interesting part and must be carried: the symmetric form T_ij = T_ji holds only for T-EVEN coarse states, and GR section 3.2 is explicit that with T-odd visible data only the (theta j, theta i) form survives."
   },
   {
-   "rank": 5,
+   "rank": 4,
    "id": "SM:T-16",
    "centrality": "low",
    "difficulty": "low",
@@ -2662,7 +2690,7 @@
    "route": "Dimensional bookkeeping: [g] = (3-d)/2, dimensionless iff d = 3. Cheap, and it moves an SM GAP for almost nothing."
   },
   {
-   "rank": 6,
+   "rank": 5,
    "id": "GR:T-d-gauge-completeness",
    "centrality": "medium",
    "difficulty": "high",
@@ -2670,7 +2698,7 @@
    "route": "Needs non-degenerate spectra, non-vanishing overlaps and an argument over all t -- analytic, and the first GR statement worth attempting."
   },
   {
-   "rank": 7,
+   "rank": 6,
    "id": "SM:T-8",
    "centrality": "low",
    "difficulty": "low",
