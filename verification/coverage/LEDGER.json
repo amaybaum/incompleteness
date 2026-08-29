@@ -759,10 +759,23 @@
    "fingerprint": "0b2eb937cfe2d36b",
    "area": "locality-combs",
    "assumptions": "G an abelian subgroup of the Weyl group on s qubits of order 2^t modulo phases",
-   "checks": [],
-   "kernel": "GAP",
-   "delta": "not formalized",
-   "note": "A clean finite-group statement and a good K3 candidate once the Weyl-group machinery is available; Mathlib does not carry the entanglement-breaking characterization."
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/coherence/coherence_theorem_tests.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/weyl_twirl_probe.py",
+     "basis": "named",
+     "evidence": "THE TWIRL IDENTITY"
+    }
+   ],
+   "kernel": "P",
+   "delta": "PROBED, NOT PROVED. The theorem is verified exhaustively at s = 2, 3 by coherence_theorem_tests.py, and layer 1 of the formalization route is KERNEL-PROVED: OIBridge/WeylTwirl.lean carries the phase space, the Weyl operators, the product rule, the conjugation character W u W v W u* = (-1)^omega(u,v) W v, commutation as vanishing of the symplectic form, and the exact twirl identity twirl_W: Phi_G(W v) = W v for v in G-perp and 0 otherwise, for every isotropic subspace. WHAT REMAINS: the entanglement layer (Choi separability, separability under partial trace, separable => PPT), the t = s direction through joint eigenspaces of the commuting Weyls, the t < s direction through an explicit negative-partial-transpose witness from an anticommuting pair in G-perp, and the terminal wrapper. THE LEAN FILE IS NOT LISTED AS A CHECK ON THIS ENTRY, deliberately: WeylTwirl.lean proves an input to the theorem's proof, not the theorem or a consequence of it, so naming it here would let infrastructure count as coverage. Same treatment as FactorUniqueness before its consumer existed; the entry moves off P when the entanglement layers land.",
+   "note": "SCOPE AUDITED BEFORE FORMALIZING, and the statement survived intact -- unlike [Structure] 9.7, which the same pass found false. Every step checks out: abelian is isotropic, isotropy bounds t <= s, Witt plus Clifford give D_t (x) id, complete dephasing is measure-and-prepare, and the tensor-factor step is correct with the justification given (separability survives the partial trace). Endpoints behave: t = 0 gives the identity channel, non-EB for s >= 1; s = 0 is degenerate and consistent; a G containing -I is handled by 'modulo phases'. Verified independently by exhaustive enumeration over all abelian Weyl subgroups at s = 1 and s = 2 -- NPT for every t < s, PPT with an explicit measure-and-prepare form at t = s, and isotropic-subspace counts 1/3 and 1/15/15 matching the 15 Lagrangians of Sp(4,2). TWO MODELLING DECISIONS, both recorded in Lean rather than asserted. G is an ISOTROPIC SUBSPACE of F_2^{2s}, not a Pauli subgroup: the set {X^a Z^b} is not closed under multiplication, since (XZ)^2 = -1, so 'a subgroup of order 2^t' is not a statement about it and the manuscript's 'modulo phases' is load-bearing; the probe's W6 is the countercontrol. And the route needs NO WITT EXTENSION AND NO CLIFFORD GROUP: the twirl identity lets both directions be read off G and G-perp directly, for every isotropic subspace, without building the finite Clifford representation -- a simplification of the route, not of the result, and the probe's lint enforces that neither appears."
   },
   {
    "id": "MAIN:C-1",
@@ -2663,7 +2676,7 @@
    "centrality": "medium",
    "difficulty": "high",
    "tier": 5,
-   "route": "A clean finite-group statement -- entanglement-breaking iff t = s for an abelian Weyl subgroup of order 2^t on s qubits -- but Mathlib carries no entanglement-breaking characterization, so the definition has to be built before the theorem can be stated."
+   "route": "Layer 1 is KERNEL-PROVED in OIBridge/WeylTwirl.lean: the exact twirl identity Phi_G(W v) = [v in G-perp] W v, with no Witt extension and no Clifford group, G being an isotropic subspace rather than a Pauli subgroup. REMAINING LAYERS: (2) Choi separability defined narrowly -- finite convex decompositions are separable, separability survives partial trace, separable implies PPT; (3) t = s, where G = G-perp, via Mathlib's JointEigenspace simultaneous diagonalisation of the commuting Weyls, giving the dephasing basis and an explicit separable Choi; (4) t < s, via an anticommuting pair in G-perp and an explicit negative-partial-transpose witness -- the direction to guard with a finite-s probe, since sign and conjugation conventions can point the witness the wrong way; (5) the terminal wrapper EB(Phi_G) iff dim G = s."
   },
   {
    "rank": 2,
