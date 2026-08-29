@@ -419,11 +419,25 @@
      "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
      "basis": "named",
      "evidence": "stochastic inverse"
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/equivalence_chain_probe.py",
+     "basis": "named",
+     "evidence": "OIBridge/EquivalenceChain.lean"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
+     "names": [
+      "row_eq_basis_of_mem_support",
+      "isPermMatrix_of_stochastic_inverse"
+     ]
     }
    ],
-   "kernel": "P",
-   "delta": "no Lean statement",
-   "note": "PRIORITY K3 TARGET: a self-contained finite-matrix statement with no physics content, no analysis and no imported premise. The cheapest central conversion in the corpus."
+   "kernel": "K3",
+   "delta": "",
+   "note": "Closed in b448, rank 1 of the backlog, from P. The proof is the manuscript's own, step for step: vanishing off-diagonal entries of A*B force every row of B indexed by the support of a row of A to be a basis vector; two such rows would coincide, which a nonzero determinant forbids; so each row of A carries a single unit entry and the occupied columns are distinct. Both sides of \"left or right\" are covered without separate proofs, because a one-sided inverse of a square matrix over a commutative ring is two-sided. The countercontrol in the companion probe shows the hypothesis is load-bearing: [[1/2,1/2],[0,1]] is stochastic and invertible and is NOT a permutation, its inverse simply failing to be stochastic."
   },
   {
    "id": "MAIN:T-history-readback-finite-recurrence-implies",
@@ -599,11 +613,24 @@
      "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
      "basis": "named",
      "evidence": "permutation"
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/equivalence_chain_probe.py",
+     "basis": "named",
+     "evidence": "OIBridge/EquivalenceChain.lean"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
+     "names": [
+      "permMatrix_mem_unitaryGroup"
+     ]
     }
    ],
-   "kernel": "P",
-   "delta": "no Lean statement",
-   "note": "K3 TARGET, and an easy one: a permutation matrix is unitary."
+   "kernel": "K3",
+   "delta": "",
+   "note": "Closed in b448, rank 2 of the backlog, from P. Stated over the index type V x H, which is what \"on the tensor product\" means once the product basis is fixed — the manuscript's own reading, since its proof is that U_phi permutes the product orthonormal basis. Nothing about the two factors is used, so the lemma holds for any finite index type."
   },
   {
    "id": "MAIN:L-reverse-direction-scoped",
@@ -732,10 +759,27 @@
    "fingerprint": "15be37eef5071735",
    "area": "equivalence-chain",
    "assumptions": "U a permutation unitary",
-   "checks": [],
-   "kernel": "GAP",
-   "delta": "not formalized",
-   "note": "K3 TARGET, and near-trivial once permutation unitarity is in place."
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "verification/lean/equivalence_chain_probe.py",
+     "basis": "named",
+     "evidence": "OIBridge/EquivalenceChain.lean"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
+     "names": [
+      "permConj_apply",
+      "permMatrix_pow",
+      "permMatrix_mul_inv",
+      "isDiag_Phi"
+     ]
+    }
+   ],
+   "kernel": "K3",
+   "delta": "",
+   "note": "Closed in b448, rank 3 of the backlog, from GAP. DERIVED from permutation unitarity rather than recomputed, as the ordering intends: the only new content is that conjugating by a permutation matrix is a RELABELLING of indices, after which diagonality survives because a permutation is injective and the partial trace of a diagonal state is diagonal. The hidden prior enters as a STATE built from a distribution, Matrix.diagonal mu — which is what mu_H is in the framework (Main section 3.4 writes it as rho_anc = sum_h mu_H(h)|h><h|), so its diagonality is definitional and not an extra hypothesis. The companion probe's countercontrol shows a NON-permutation unitary destroys diagonality, matching the manuscript's own scope remark that the CP-indivisibility reduction fails for a general CPTP family."
   },
   {
    "id": "MAIN:T-cp-indivisibility-framework-scope",
@@ -2362,30 +2406,6 @@
  "backlog": [
   {
    "rank": 1,
-   "id": "MAIN:L-stochastic-inverse",
-   "centrality": "core",
-   "difficulty": "low",
-   "tier": 1,
-   "route": "A finite-matrix statement with no physics content: rows of the inverse forced to basis vectors by sign, then a repeated row killed by the determinant. Mathlib carries rowStochastic and permMatrix, so nothing has to be built."
-  },
-  {
-   "rank": 2,
-   "id": "MAIN:L-permutation-unitarity",
-   "centrality": "core",
-   "difficulty": "low",
-   "tier": 1,
-   "route": "Mathlib has conjTranspose_permMatrix and permMatrix_mul; the statement is their composition over the product index type V x H, which is what \"on the tensor product\" means once the product basis is fixed."
-  },
-  {
-   "rank": 3,
-   "id": "MAIN:L-diagonal-preservation",
-   "centrality": "high",
-   "difficulty": "low",
-   "tier": 1,
-   "route": "Follows from permutation unitarity: conjugation by a permutation matrix permutes the diagonal. Cheapest remaining conversion on the chain once item 2 lands."
-  },
-  {
-   "rank": 4,
    "id": "MAIN:L-one-step-ancilla-dilation",
    "centrality": "core",
    "difficulty": "medium",
@@ -2393,7 +2413,7 @@
    "route": "An isometry identity over the reals with square roots, so it belongs in the Mathlib bridge. The ancilla-marginal computation is a Finset sum of squares of square roots."
   },
   {
-   "rank": 5,
+   "rank": 2,
    "id": "MAIN:T-unavoidable-hidden-predictive-memory",
    "centrality": "core",
    "difficulty": "medium",
@@ -2401,7 +2421,7 @@
    "route": "Universally quantified over ALL faithful deterministic realizations -- structurally the closest analogue in the corpus to b446's saturated-class lemma, and formalizable by the same shape: hypotheses are the process facts, the conclusion is a lower bound on the hidden alphabet."
   },
   {
-   "rank": 6,
+   "rank": 3,
    "id": "MAIN:T-finite-horizon-stochastic-reversible-unitary",
    "centrality": "core",
    "difficulty": "high",
@@ -2409,7 +2429,7 @@
    "route": "THE central equivalence chain, and the head of the whole order. Needs items 2 and 4 first, plus the Born-form representation; the D => Q leg is the one needing no imported correspondence and should be formalized first, matching what sdq_probes.py already certifies."
   },
   {
-   "rank": 7,
+   "rank": 4,
    "id": "MAIN:L-3",
    "centrality": "high",
    "difficulty": "medium",
@@ -2417,7 +2437,7 @@
    "route": "Must formalize the SELECTION principle and not uniqueness -- the manuscript is explicit that the counting measure is selected as maximal-entropy among invariant measures, and that uniqueness from invariance alone is false in the continuum. A formalization that proved uniqueness would be proving something the corpus denies."
   },
   {
-   "rank": 8,
+   "rank": 5,
    "id": "MAIN:L-1",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2425,7 +2445,7 @@
    "route": "Not derivable as stated -- it is a premise. The kernel-checkable content is the IMPLICATION from a finite-area boundary and a finite mode count to a finite visible alphabet, with the holographic bound left as a named external hypothesis."
   },
   {
-   "rank": 9,
+   "rank": 6,
    "id": "MAIN:T-c3-necessity",
    "centrality": "high",
    "difficulty": "medium",
@@ -2433,7 +2453,7 @@
    "route": "Information-theoretic: needs conditional mutual information and log-cardinality bounds. Mathlib has entropy for finite measures; the bound I <= log m is the whole content."
   },
   {
-   "rank": 10,
+   "rank": 7,
    "id": "SM:T-7-exact-link-representation-physical-reading",
    "centrality": "high",
    "difficulty": "blocked",
@@ -2441,7 +2461,7 @@
    "route": "ROADMAP A5-B22. Blocked on a Mathlib lemma that does not exist: the trace of an operator restricted to a subrepresentation, i.e. IsProj p P and f commuting with P entails trace (f.restrict) = trace (f * P). Two routes, both real work: prove that lemma, or define T, E, A as explicit representations with matrices given directly, which costs a sign cocycle for T and leaves the identification mirror-certified rather than kernel-certified."
   },
   {
-   "rank": 11,
+   "rank": 8,
    "id": "SM:C-1a-cubic-symmetry-forbids-quadratic-anisotropy",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2449,7 +2469,7 @@
    "route": "ROADMAP B3 algebraic half. The character-level statement is delivered; the dimension statement dim Sym^2(R^3)^{B_3} = 1 needs the 48-element signed permutation group built as a Mathlib Representation the way Cubic.rho already is, after which A1 divides by the group order. This is plumbing of a kind already done once, which is why it ranks above A9."
   },
   {
-   "rank": 12,
+   "rank": 9,
    "id": "STRUCTURE:P-9.7",
    "centrality": "high",
    "difficulty": "high",
@@ -2457,7 +2477,7 @@
    "route": "Stinespring uniqueness in restricted form. Mathlib has no Stinespring dilation theorem, so the restricted statement has to be set up from the partial-trace side. High centrality because the substratum-is-gauge corollary and the whole universality-class story rest on it."
   },
   {
-   "rank": 13,
+   "rank": 10,
    "id": "MAIN:T-separability-threshold",
    "centrality": "medium",
    "difficulty": "high",
@@ -2465,7 +2485,7 @@
    "route": "A clean finite-group statement -- entanglement-breaking iff t = s for an abelian Weyl subgroup of order 2^t on s qubits -- but Mathlib carries no entanglement-breaking characterization, so the definition has to be built before the theorem can be stated."
   },
   {
-   "rank": 14,
+   "rank": 11,
    "id": "MAIN:L-1-boundary-bound",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2473,7 +2493,7 @@
    "route": "A rank bound on the off-diagonal blocks of a local update. Mathlib has matrix rank and the submatrix API; the content is that the block factors through the boundary index set."
   },
   {
-   "rank": 15,
+   "rank": 12,
    "id": "SM:T-19",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2481,7 +2501,7 @@
    "route": "Reciprocity of visible transition counts. The side condition is the interesting part and must be carried: the symmetric form T_ij = T_ji holds only for T-EVEN coarse states, and GR section 3.2 is explicit that with T-odd visible data only the (theta j, theta i) form survives."
   },
   {
-   "rank": 16,
+   "rank": 13,
    "id": "SM:T-16",
    "centrality": "low",
    "difficulty": "low",
@@ -2489,7 +2509,7 @@
    "route": "Dimensional bookkeeping: [g] = (3-d)/2, dimensionless iff d = 3. Cheap, and it moves an SM GAP for almost nothing."
   },
   {
-   "rank": 17,
+   "rank": 14,
    "id": "GR:T-d-gauge-completeness",
    "centrality": "medium",
    "difficulty": "high",
@@ -2497,7 +2517,7 @@
    "route": "Needs non-degenerate spectra, non-vanishing overlaps and an argument over all t -- analytic, and the first GR statement worth attempting."
   },
   {
-   "rank": 18,
+   "rank": 15,
    "id": "SM:T-8",
    "centrality": "low",
    "difficulty": "low",

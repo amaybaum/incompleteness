@@ -25,10 +25,12 @@ import Mathlib.LinearAlgebra.Matrix.ToLin
 import Mathlib.GroupTheory.Perm.Fin
 
 -- The lake library's root is this file, so a module the root does not import is never built and
--- never gated. `OIBridge.CombRealization` carries b446's saturated-class lemma, which has nothing
--- to do with the representation theory below; the import is here for exactly one reason, and that
--- reason is the gate.
+-- never gated. `OIBridge.CombRealization` carries b446's saturated-class lemma and
+-- `OIBridge.EquivalenceChain` carries b448's Tier-1 closures from Main §2.3 and §3.2; neither has
+-- anything to do with the representation theory below. The imports are here for exactly one
+-- reason, and that reason is the gate — `coverage_check.py` enforces it.
 import OIBridge.CombRealization
+import OIBridge.EquivalenceChain
 
 namespace OIBridge
 

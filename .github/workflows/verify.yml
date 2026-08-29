@@ -100,7 +100,8 @@ jobs:
         working-directory: verification/lean
         run: |
           for p in gauge_certificates structural_core staggered_relations \
-                   structural_chain representation_bridge time_reversal; do
+                   structural_chain representation_bridge time_reversal \
+                   equivalence_chain; do
             echo "=== ${p}_probe.py ==="
             python3 "${p}_probe.py"
           done
