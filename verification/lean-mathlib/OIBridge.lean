@@ -19,6 +19,7 @@
 -/
 import Mathlib.RepresentationTheory.Invariants
 import Mathlib.RepresentationTheory.Character
+import Mathlib.RepresentationTheory.Subrepresentation
 import Mathlib.LinearAlgebra.Trace
 import Mathlib.LinearAlgebra.Matrix.Permutation
 import Mathlib.LinearAlgebra.Matrix.ToLin
@@ -557,6 +558,56 @@ theorem character_sum (g : Perm (Fin 4)) :
       = rhoLink.character g := by
   rw [Representation.character, rhoLink_apply, charOn_sum]
 
+/-! ### The three summands as honest subrepresentations
+
+Up to here the three images were invariant submodules and the "characters" were restricted traces.
+Mathlib's `Subrepresentation` bundles the submodule with its invariance and `toRepresentation`
+turns it into a genuine `Representation` whose action is exactly that restricted map — so the join
+theorems below are statements about `Representation.character`, not about a trace that resembles
+one. This also makes `finrank_intertwiners` applicable to the summands directly, which is what the
+irreducibility step needs. -/
+
+/-- The three-dimensional summand, as a subrepresentation. -/
+noncomputable def Tsub : Subrepresentation rhoLink where
+  toSubmodule := LinearMap.range PT
+  apply_mem_toSubmodule g _ hv := IdempotentTrace.mapsTo_range (rhoLink_comm_PT g) _ hv
+
+/-- The two-dimensional summand. -/
+noncomputable def Esub : Subrepresentation rhoLink where
+  toSubmodule := LinearMap.range PE
+  apply_mem_toSubmodule g _ hv := IdempotentTrace.mapsTo_range (rhoLink_comm_PE g) _ hv
+
+/-- The one-dimensional summand. -/
+noncomputable def Asub : Subrepresentation rhoLink where
+  toSubmodule := LinearMap.range PA
+  apply_mem_toSubmodule g _ hv := IdempotentTrace.mapsTo_range (rhoLink_comm_PA g) _ hv
+
+noncomputable def rhoT : Representation ℚ (Perm (Fin 4)) Tsub.toSubmodule := Tsub.toRepresentation
+noncomputable def rhoE : Representation ℚ (Perm (Fin 4)) Esub.toSubmodule := Esub.toRepresentation
+noncomputable def rhoA : Representation ℚ (Perm (Fin 4)) Asub.toSubmodule := Asub.toRepresentation
+
+/-- **The join, at the level of characters of representations.** Each summand's character is
+`charOn`, which `charOn_PT` and `charOn_PA` compute from fixed-point counts. The bridge from the
+left side to the right is `IdempotentTrace.trace_restrict_range`. -/
+theorem character_rhoT (g : Perm (Fin 4)) : rhoT.character g = charOn PT (linkHom g⁻¹) :=
+  IdempotentTrace.trace_restrict_range PT_idem (rhoLink_comm_PT g)
+
+theorem character_rhoE (g : Perm (Fin 4)) : rhoE.character g = charOn PE (linkHom g⁻¹) :=
+  IdempotentTrace.trace_restrict_range PE_idem (rhoLink_comm_PE g)
+
+theorem character_rhoA (g : Perm (Fin 4)) : rhoA.character g = charOn PA (linkHom g⁻¹) :=
+  IdempotentTrace.trace_restrict_range PA_comp_PA (rhoLink_comm_PA g)
+
+/-- **The one-dimensional summand is the trivial representation `A₁`**, now as a statement about a
+representation's character rather than a restricted trace. -/
+theorem character_rhoA_eq_one (g : Perm (Fin 4)) : rhoA.character g = 1 := by
+  rw [character_rhoA, charOn_PA]
+
+/-- The three characters decompose the character of `V₆`. -/
+theorem character_rhoLink_eq_sum (g : Perm (Fin 4)) :
+    rhoLink.character g = rhoT.character g + rhoE.character g + rhoA.character g := by
+  rw [character_rhoT, character_rhoE, character_rhoA, character_sum]
+
 /-! ### What these proofs rest on -/
 
 #print axioms LinkJoin.faceEquivLink_op
@@ -569,6 +620,11 @@ theorem character_sum (g : Perm (Fin 4)) :
 #print axioms LinkJoin.character_restrict_PT
 #print axioms LinkJoin.character_PA_eq_one
 #print axioms LinkJoin.character_sum
+#print axioms LinkJoin.character_rhoT
+#print axioms LinkJoin.character_rhoE
+#print axioms LinkJoin.character_rhoA
+#print axioms LinkJoin.character_rhoA_eq_one
+#print axioms LinkJoin.character_rhoLink_eq_sum
 
 end LinkJoin
 

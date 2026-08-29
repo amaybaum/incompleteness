@@ -301,6 +301,16 @@ for n in ('faceEquivLink', 'faceEquivLink_op', 'act_op', 'linkHom', 'sym_linkHom
           'act_injective', 'linkHom_injective', 'rhoLink', 'character_rhoLink',
           'rhoLink_comm_PT', 'character_restrict_PT', 'character_PA_eq_one', 'character_sum'):
     ok7 &= n in root
+# the three summands must be bundled as honest Subrepresentations, so that the join is a statement
+# about Representation.character and not about a restricted trace that resembles one
+for n in ('Tsub', 'Esub', 'Asub', 'rhoT', 'rhoE', 'rhoA'):
+    ok7 &= f'def {n}' in root
+ok7 &= 'Subrepresentation rhoLink' in root and 'Subrepresentation.toRepresentation' in root
+for n in ('character_rhoT', 'character_rhoE', 'character_rhoA', 'character_rhoA_eq_one',
+          'character_rhoLink_eq_sum'):
+    ok7 &= f'theorem {n}' in root
+ct = root[root.index('theorem character_rhoT'):]
+ok7 &= 'rhoT.character g = charOn PT' in ct[:ct.index(':=')]
 # THE ORIENTATION GUARD. permOp acts by precomposition and so reverses composition order, which
 # means the representation must carry the inverse. Every S4 character here satisfies chi(g^-1) =
 # chi(g), so the numbers would come out right even with the orientation wrong and only a pointwise
