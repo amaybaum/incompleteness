@@ -2357,5 +2357,161 @@
    "certifies": "b430-b432 research-layer result.",
    "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
   }
- ]
+ ],
+ "backlog_policy": "LEAN-FIRST. Every established canonical mathematical result is a kernel-formalization target by default. GAP IS A BACKLOG STATE AND NOT AN ACCEPTABLE TERMINAL VERIFICATION STATE. An exception requires a RECORDED REASON -- empirical input, an external literature premise, a physical assumption, or a formal library result that does not yet exist -- and even then Lean should prove the implication FROM that premise wherever possible: A_1 and ... and A_n implies the framework conclusion, which is exactly where the framework's own deduction ends and an external assumption begins. Formalization order: central OI/equivalence chain, foundational OI lemmas, existing ROADMAP gaps, reconstruction/representation, comb/locality, GR/SM deductions, then secondary corollaries and controls. WITHIN each tier take the easy K3 conversions first so coverage rises quickly, but NEVER let that displace a central theorem merely because it is harder. And the probes are preserved after Lean catches up: the standard is Lean theorem PLUS independent executable probe PLUS countercontrols, never Lean instead of probes.",
+ "backlog": [
+  {
+   "rank": 1,
+   "id": "MAIN:L-stochastic-inverse",
+   "centrality": "core",
+   "difficulty": "low",
+   "tier": 1,
+   "route": "A finite-matrix statement with no physics content: rows of the inverse forced to basis vectors by sign, then a repeated row killed by the determinant. Mathlib carries rowStochastic and permMatrix, so nothing has to be built."
+  },
+  {
+   "rank": 2,
+   "id": "MAIN:L-permutation-unitarity",
+   "centrality": "core",
+   "difficulty": "low",
+   "tier": 1,
+   "route": "Mathlib has conjTranspose_permMatrix and permMatrix_mul; the statement is their composition over the product index type V x H, which is what \"on the tensor product\" means once the product basis is fixed."
+  },
+  {
+   "rank": 3,
+   "id": "MAIN:L-diagonal-preservation",
+   "centrality": "high",
+   "difficulty": "low",
+   "tier": 1,
+   "route": "Follows from permutation unitarity: conjugation by a permutation matrix permutes the diagonal. Cheapest remaining conversion on the chain once item 2 lands."
+  },
+  {
+   "rank": 4,
+   "id": "MAIN:L-one-step-ancilla-dilation",
+   "centrality": "core",
+   "difficulty": "medium",
+   "tier": 1,
+   "route": "An isometry identity over the reals with square roots, so it belongs in the Mathlib bridge. The ancilla-marginal computation is a Finset sum of squares of square roots."
+  },
+  {
+   "rank": 5,
+   "id": "MAIN:T-unavoidable-hidden-predictive-memory",
+   "centrality": "core",
+   "difficulty": "medium",
+   "tier": 1,
+   "route": "Universally quantified over ALL faithful deterministic realizations -- structurally the closest analogue in the corpus to b446's saturated-class lemma, and formalizable by the same shape: hypotheses are the process facts, the conclusion is a lower bound on the hidden alphabet."
+  },
+  {
+   "rank": 6,
+   "id": "MAIN:T-finite-horizon-stochastic-reversible-unitary",
+   "centrality": "core",
+   "difficulty": "high",
+   "tier": 1,
+   "route": "THE central equivalence chain, and the head of the whole order. Needs items 2 and 4 first, plus the Born-form representation; the D => Q leg is the one needing no imported correspondence and should be formalized first, matching what sdq_probes.py already certifies."
+  },
+  {
+   "rank": 7,
+   "id": "MAIN:L-3",
+   "centrality": "high",
+   "difficulty": "medium",
+   "tier": 2,
+   "route": "Must formalize the SELECTION principle and not uniqueness -- the manuscript is explicit that the counting measure is selected as maximal-entropy among invariant measures, and that uniqueness from invariance alone is false in the continuum. A formalization that proved uniqueness would be proving something the corpus denies."
+  },
+  {
+   "rank": 8,
+   "id": "MAIN:L-1",
+   "centrality": "medium",
+   "difficulty": "medium",
+   "tier": 2,
+   "route": "Not derivable as stated -- it is a premise. The kernel-checkable content is the IMPLICATION from a finite-area boundary and a finite mode count to a finite visible alphabet, with the holographic bound left as a named external hypothesis."
+  },
+  {
+   "rank": 9,
+   "id": "MAIN:T-c3-necessity",
+   "centrality": "high",
+   "difficulty": "medium",
+   "tier": 2,
+   "route": "Information-theoretic: needs conditional mutual information and log-cardinality bounds. Mathlib has entropy for finite measures; the bound I <= log m is the whole content."
+  },
+  {
+   "rank": 10,
+   "id": "SM:T-7-exact-link-representation-physical-reading",
+   "centrality": "high",
+   "difficulty": "blocked",
+   "tier": 3,
+   "route": "ROADMAP A5-B22. Blocked on a Mathlib lemma that does not exist: the trace of an operator restricted to a subrepresentation, i.e. IsProj p P and f commuting with P entails trace (f.restrict) = trace (f * P). Two routes, both real work: prove that lemma, or define T, E, A as explicit representations with matrices given directly, which costs a sign cocycle for T and leaves the identification mirror-certified rather than kernel-certified."
+  },
+  {
+   "rank": 11,
+   "id": "SM:C-1a-cubic-symmetry-forbids-quadratic-anisotropy",
+   "centrality": "medium",
+   "difficulty": "medium",
+   "tier": 3,
+   "route": "ROADMAP B3 algebraic half. The character-level statement is delivered; the dimension statement dim Sym^2(R^3)^{B_3} = 1 needs the 48-element signed permutation group built as a Mathlib Representation the way Cubic.rho already is, after which A1 divides by the group order. This is plumbing of a kind already done once, which is why it ranks above A9."
+  },
+  {
+   "rank": 12,
+   "id": "STRUCTURE:P-9.7",
+   "centrality": "high",
+   "difficulty": "high",
+   "tier": 4,
+   "route": "Stinespring uniqueness in restricted form. Mathlib has no Stinespring dilation theorem, so the restricted statement has to be set up from the partial-trace side. High centrality because the substratum-is-gauge corollary and the whole universality-class story rest on it."
+  },
+  {
+   "rank": 13,
+   "id": "MAIN:T-separability-threshold",
+   "centrality": "medium",
+   "difficulty": "high",
+   "tier": 5,
+   "route": "A clean finite-group statement -- entanglement-breaking iff t = s for an abelian Weyl subgroup of order 2^t on s qubits -- but Mathlib carries no entanglement-breaking characterization, so the definition has to be built before the theorem can be stated."
+  },
+  {
+   "rank": 14,
+   "id": "MAIN:L-1-boundary-bound",
+   "centrality": "medium",
+   "difficulty": "medium",
+   "tier": 5,
+   "route": "A rank bound on the off-diagonal blocks of a local update. Mathlib has matrix rank and the submatrix API; the content is that the block factors through the boundary index set."
+  },
+  {
+   "rank": 15,
+   "id": "SM:T-19",
+   "centrality": "medium",
+   "difficulty": "medium",
+   "tier": 6,
+   "route": "Reciprocity of visible transition counts. The side condition is the interesting part and must be carried: the symmetric form T_ij = T_ji holds only for T-EVEN coarse states, and GR section 3.2 is explicit that with T-odd visible data only the (theta j, theta i) form survives."
+  },
+  {
+   "rank": 16,
+   "id": "SM:T-16",
+   "centrality": "low",
+   "difficulty": "low",
+   "tier": 6,
+   "route": "Dimensional bookkeeping: [g] = (3-d)/2, dimensionless iff d = 3. Cheap, and it moves an SM GAP for almost nothing."
+  },
+  {
+   "rank": 17,
+   "id": "GR:T-d-gauge-completeness",
+   "centrality": "medium",
+   "difficulty": "high",
+   "tier": 6,
+   "route": "Needs non-degenerate spectra, non-vanishing overlaps and an argument over all t -- analytic, and the first GR statement worth attempting."
+  },
+  {
+   "rank": 18,
+   "id": "SM:T-8",
+   "centrality": "low",
+   "difficulty": "low",
+   "tier": 6,
+   "route": "Already K1: the irreducible characters and their orthonormality are kernel-checked over the 24 rotations. Upgrading to K3 means stating the 4 = 1 + 3 branching as its own theorem rather than reading it off the table."
+  }
+ ],
+ "backlog_tiers": {
+  "1": "central OI / equivalence chain",
+  "2": "foundational OI lemmas",
+  "3": "existing ROADMAP gaps (A5-B22, B3, A9, B3 dispersion)",
+  "4": "reconstruction / representation",
+  "5": "comb / locality",
+  "6": "GR / SM deductions",
+  "7": "secondary corollaries and controls"
+ }
 }

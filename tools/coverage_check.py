@@ -24,17 +24,22 @@ WHAT IS ENFORCED, and each rule exists because the corresponding lie is easy to 
   5. THE LEAN IS ACTUALLY GATED. A Mathlib-side module is only checked by CI if the bridge
      library's root imports it. An unimported module is never built, and a theorem in it certifies
      nothing.
-  6. LEVELS MEAN WHAT THEY SAY. K3/K2/K1 require at least one Lean check; P requires at least one
+  6. LEVELS MEAN WHAT THEY SAY, and the distinction they encode is that PROBED IS NOT FORMALLY
+     PROVED: a probe is evidence and a kernel proof is certification, they live in separate columns,
+     and no entry may hold one while claiming the other. K3/K2/K1 require at least one Lean check; P requires at least one
      probe; GAP must have neither claimed. AND K3 REQUIRES AN EMPTY `delta`: a recorded gap between
      the manuscript statement and the formal statement is exactly the definition of not-K3, so
      "there is some related Lean theorem" cannot be filed as an exact formalization.
-  7. NOTHING IS SILENTLY DROPPED. Checkers that certify reasoning carrying no bold-headed
+  7. THE BACKLOG IS A LIST OF WORK. Every backlog item names a real entry that is not yet K3,
+     carries a centrality, a difficulty, a declared tier and a concrete route, and the ranks are a
+     permutation of 1..n. A closed target must leave the backlog; a target with no route is a wish.
+  8. NOTHING IS SILENTLY DROPPED. Checkers that certify reasoning carrying no bold-headed
      statement, and research-layer results that deliberately do not propagate, are listed in
      `unattached` with what they certify — so the census gap is visible rather than invisible.
 
 Usage:
-    python3 tools/coverage_check.py            # gate mode: enforce, then report the baseline
-    python3 tools/coverage_check.py --report   # the baseline table only
+    python3 tools/coverage_check.py                  # gate mode: enforce, then report the baseline
+    python3 tools/coverage_check.py --ledger PATH    # run against another copy, to watch it FAIL
 """
 import json
 import os
@@ -45,6 +50,11 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 LEDGER = os.path.join(ROOT, 'verification', 'coverage', 'LEDGER.json')
+if '--ledger' in sys.argv:
+    # Only so the check can be run against a DELIBERATELY BROKEN copy. A gate nobody has watched
+    # fail is a gate nobody knows is wired; the round probe mutates a copy and requires a nonzero
+    # exit. The repo's own ledger path stays the default and is what the release gate uses.
+    LEDGER = os.path.abspath(sys.argv[sys.argv.index('--ledger') + 1])
 BRIDGE_ROOT = os.path.join(ROOT, 'verification', 'lean-mathlib', 'OIBridge.lean')
 WORKFLOW = os.path.join(ROOT, '.github', 'workflows', 'verify.yml')
 
@@ -164,6 +174,31 @@ def main():
                 fail(f'{path} is not imported by OIBridge.lean, so CI never builds it and any '
                      f'theorem in it certifies nothing')
 
+    # 6b. the kernel backlog must name real, still-open entries
+    ranks = []
+    for b in led.get('backlog', []):
+        ranks.append(b.get('rank'))
+        if b['id'] not in entries:
+            fail(f'backlog item {b["id"]} names no ledger entry')
+            continue
+        lvl = entries[b['id']]['kernel']
+        if lvl == 'K3':
+            fail(f'backlog item {b["id"]} is already K3 — a closed target must leave the backlog, '
+                 f'or the backlog stops being a list of work')
+        if lvl in UNSCORED:
+            fail(f'backlog item {b["id"]} is level {lvl}, which carries no proof obligation')
+        for field in ('centrality', 'difficulty', 'route', 'tier'):
+            if not str(b.get(field, '')).strip():
+                fail(f'backlog item {b["id"]}: empty `{field}` — a target with no recorded route '
+                     f'is a wish, not a backlog item')
+        if str(b.get('tier')) not in led.get('backlog_tiers', {}):
+            fail(f'backlog item {b["id"]}: tier {b.get("tier")!r} is not one of the declared tiers')
+    if sorted(ranks) != list(range(1, len(ranks) + 1)):
+        fail('backlog ranks are not a permutation of 1..n')
+    if not str(led.get('backlog_policy', '')).strip():
+        fail('the ledger records no backlog policy — the standing rule must be stated where the '
+             'backlog is, not only in a round note')
+
     # 7. unattached artifacts must say what they certify
     for u in led.get('unattached', []):
         p = os.path.join(ROOT, u['path'])
@@ -198,6 +233,13 @@ def main():
     named |= {u['path'] for u in led.get('unattached', []) if u['kind'] == 'probe'}
     ungated = sorted(p for p in named if not is_gated(p, wf))
     print(f'probes named by the ledger: {len(named)}, of which {len(ungated)} are NOT run by CI')
+    bl = led.get('backlog', [])
+    if bl:
+        print(f'kernel backlog: {len(bl)} ranked targets, '
+              + ', '.join(f'tier {t} x{sum(1 for b in bl if str(b["tier"]) == t)}'
+                          for t in sorted({str(b['tier']) for b in bl})))
+        for b in bl[:6]:
+            print(f'    {b["rank"]:>2}. {b["id"]}  ({b["centrality"]}/{b["difficulty"]})')
     for p in ungated:
         print(f'    ungated: {p}')
 
