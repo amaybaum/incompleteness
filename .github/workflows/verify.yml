@@ -101,7 +101,8 @@ jobs:
         run: |
           for p in gauge_certificates structural_core staggered_relations \
                    structural_chain representation_bridge time_reversal \
-                   equivalence_chain hidden_memory finite_horizon_equivalence; do
+                   equivalence_chain hidden_memory finite_horizon_equivalence \
+                   c3_necessity; do
             echo "=== ${p}_probe.py ==="
             python3 "${p}_probe.py"
           done

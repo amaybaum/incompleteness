@@ -972,15 +972,27 @@
    "assumptions": "m = |C_H| finite",
    "checks": [
     {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/C3Necessity.lean",
+     "basis": "named",
+     "evidence": "c3_necessity_and_capacity"
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/c3_necessity_probe.py",
+     "basis": "named",
+     "evidence": "c3_necessity"
+    },
+    {
      "kind": "probe",
      "path": "papers/oi_lattice_code/foundations/c3_dilation_probes.py",
      "basis": "named",
      "evidence": "C3 corollary"
     }
    ],
-   "kernel": "P",
-   "delta": "no Lean statement",
-   "note": ""
+   "kernel": "K3",
+   "delta": "",
+   "note": "Kernel-proved as a COROLLARY of the hidden-memory layer rather than a second data-processing argument: HiddenMemory.capacity_floor_of_fun bounds the conditional information of ANY quantity read off (X_t, H_t) by log2|C_H|, and c3_necessity instantiates it at the whole visible future while capacity_floor instantiates it at the next visible value, so Lean checks the dependency between the two manuscript theorems. X_>t is DEFINED by iterating the bijection, which is where determinism enters. The corollary's I* is the maximum over a finite nonempty family of accessible slices sharing ONE hidden alphabet -- that sharing is what makes m >= 2^(I*) a statement about a single hidden sector, and it is written into the signature. NOT proved, because the manuscript denies both: C3 is not m >= n, and sustained backflow does not force m >~ 2^(K I_0) -- the accumulated form needs an independence hypothesis P-indivisibility does not supply. Both have countercontrols in the probe."
   },
   {
    "id": "MAIN:C-per-process-capacity-bound",
@@ -2477,14 +2489,6 @@
   },
   {
    "rank": 3,
-   "id": "MAIN:T-c3-necessity",
-   "centrality": "high",
-   "difficulty": "medium",
-   "tier": 2,
-   "route": "Information-theoretic: needs conditional mutual information and log-cardinality bounds. Mathlib has entropy for finite measures; the bound I <= log m is the whole content."
-  },
-  {
-   "rank": 4,
    "id": "SM:T-7-exact-link-representation-physical-reading",
    "centrality": "high",
    "difficulty": "blocked",
@@ -2492,7 +2496,7 @@
    "route": "ROADMAP A5-B22. Blocked on a Mathlib lemma that does not exist: the trace of an operator restricted to a subrepresentation, i.e. IsProj p P and f commuting with P entails trace (f.restrict) = trace (f * P). Two routes, both real work: prove that lemma, or define T, E, A as explicit representations with matrices given directly, which costs a sign cocycle for T and leaves the identification mirror-certified rather than kernel-certified."
   },
   {
-   "rank": 5,
+   "rank": 4,
    "id": "SM:C-1a-cubic-symmetry-forbids-quadratic-anisotropy",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2500,7 +2504,7 @@
    "route": "ROADMAP B3 algebraic half. The character-level statement is delivered; the dimension statement dim Sym^2(R^3)^{B_3} = 1 needs the 48-element signed permutation group built as a Mathlib Representation the way Cubic.rho already is, after which A1 divides by the group order. This is plumbing of a kind already done once, which is why it ranks above A9."
   },
   {
-   "rank": 6,
+   "rank": 5,
    "id": "STRUCTURE:P-9.7",
    "centrality": "high",
    "difficulty": "high",
@@ -2508,7 +2512,7 @@
    "route": "Stinespring uniqueness in restricted form. Mathlib has no Stinespring dilation theorem, so the restricted statement has to be set up from the partial-trace side. High centrality because the substratum-is-gauge corollary and the whole universality-class story rest on it."
   },
   {
-   "rank": 7,
+   "rank": 6,
    "id": "MAIN:T-separability-threshold",
    "centrality": "medium",
    "difficulty": "high",
@@ -2516,7 +2520,7 @@
    "route": "A clean finite-group statement -- entanglement-breaking iff t = s for an abelian Weyl subgroup of order 2^t on s qubits -- but Mathlib carries no entanglement-breaking characterization, so the definition has to be built before the theorem can be stated."
   },
   {
-   "rank": 8,
+   "rank": 7,
    "id": "MAIN:L-1-boundary-bound",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2524,7 +2528,7 @@
    "route": "A rank bound on the off-diagonal blocks of a local update. Mathlib has matrix rank and the submatrix API; the content is that the block factors through the boundary index set."
   },
   {
-   "rank": 9,
+   "rank": 8,
    "id": "SM:T-19",
    "centrality": "medium",
    "difficulty": "medium",
@@ -2532,7 +2536,7 @@
    "route": "Reciprocity of visible transition counts. The side condition is the interesting part and must be carried: the symmetric form T_ij = T_ji holds only for T-EVEN coarse states, and GR section 3.2 is explicit that with T-odd visible data only the (theta j, theta i) form survives."
   },
   {
-   "rank": 10,
+   "rank": 9,
    "id": "SM:T-16",
    "centrality": "low",
    "difficulty": "low",
@@ -2540,7 +2544,7 @@
    "route": "Dimensional bookkeeping: [g] = (3-d)/2, dimensionless iff d = 3. Cheap, and it moves an SM GAP for almost nothing."
   },
   {
-   "rank": 11,
+   "rank": 10,
    "id": "GR:T-d-gauge-completeness",
    "centrality": "medium",
    "difficulty": "high",
@@ -2548,7 +2552,7 @@
    "route": "Needs non-degenerate spectra, non-vanishing overlaps and an argument over all t -- analytic, and the first GR statement worth attempting."
   },
   {
-   "rank": 12,
+   "rank": 11,
    "id": "SM:T-8",
    "centrality": "low",
    "difficulty": "low",

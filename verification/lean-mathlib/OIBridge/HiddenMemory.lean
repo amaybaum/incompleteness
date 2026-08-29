@@ -137,25 +137,40 @@ noncomputable def cmiBits {σ α β γ : Type*} [Fintype σ] [DecidableEq σ] [F
 /-- `M_t := I(X_<t ; X_{t+1} | X_t)`, in bits. -/
 noncomputable def memory : ℝ := cmiBits R.w (varHist) (varNow) (varNext R)
 
-/-- **(c) Capacity floor.** `M_t ≤ I(X_<t ; H_t | X_t) ≤ log₂ |C_H|`.
+/-- **The capacity bound, in the general form the manuscript's theorems instantiate.**
 
-`X_<t → H_t → X_{t+1}` is a Markov chain given `X_t` by the same functional dependence that gives
-clause (a); data processing gives the first inequality and `I ≤ H(H_t) ≤ log₂|C_H|` the second. -/
-theorem capacity_floor [Nonempty H] :
-    memory R ≤ cmiBits R.w (varHist) (varNow) (varHid) ∧
+ANY quantity read off the pair `(X_t, H_t)` — the next visible value, the whole visible future,
+anything at all — carries at most the predictive information the hidden state carries, which is at
+most `log₂|C_H|`. Determinism is the entire hypothesis, and it enters exactly once: it is what makes
+the readout a FUNCTION of the pair, hence `X_<t → H_t → · | X_t` a Markov chain rather than an
+assumed one.
+
+`capacity_floor` below is the one-step instance and `C3.c3_necessity` the whole-future instance, so
+the two manuscript theorems share this proof rather than duplicating it. -/
+theorem capacity_floor_of_fun [Nonempty H] {D : Type*} [Fintype D] [DecidableEq D]
+    (d : V × H → D) :
+    cmiBits R.w (varHist) (varNow) (fun s => d (varNow s, varHid s))
+        ≤ cmiBits R.w (varHist) (varNow) (varHid) ∧
       cmiBits R.w (varHist) (varNow) (varHid) ≤ Real.logb 2 (Fintype.card H) := by
   have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   constructor
-  · -- data processing: `X_{t+1}` is a deterministic function of `(X_t, H_t)`
-    have hdet : (varNext R) = fun s => (fun q : V × H => nextVis R q.1 q.2) (varNow s, varHid s) :=
-      rfl
-    have := cmi_le_of_deterministic R.w R.nonneg R.total (varHist) (varNow) (varHid)
-      (fun q : V × H => nextVis R q.1 q.2)
-    simp only [memory, cmiBits, hdet]
+  · -- data processing: the readout is a deterministic function of `(X_t, H_t)`
+    have := cmi_le_of_deterministic R.w R.nonneg R.total (varHist) (varNow) (varHid) d
+    simp only [cmiBits]
     exact (div_le_div_iff_of_pos_right hlog2).mpr this
   · have := cmi_le_log_card R.w R.nonneg R.total (varHist) (varNow) (varHid)
     rw [cmiBits, Real.logb, div_le_div_iff_of_pos_right hlog2]
     exact this
+
+/-- **(c) Capacity floor.** `M_t ≤ I(X_<t ; H_t | X_t) ≤ log₂ |C_H|`.
+
+`X_<t → H_t → X_{t+1}` is a Markov chain given `X_t` by the same functional dependence that gives
+clause (a); data processing gives the first inequality and `I ≤ H(H_t) ≤ log₂|C_H|` the second. It
+is the one-step instance of `capacity_floor_of_fun`. -/
+theorem capacity_floor [Nonempty H] :
+    memory R ≤ cmiBits R.w (varHist) (varNow) (varHid) ∧
+      cmiBits R.w (varHist) (varNow) (varHid) ≤ Real.logb 2 (Fintype.card H) :=
+  capacity_floor_of_fun R (fun q : V × H => nextVis R q.1 q.2)
 
 /-! ### The theorem
 
@@ -182,6 +197,7 @@ theorem unavoidable_hidden_predictive_memory [Nonempty H] :
 #print axioms pushforward_identity
 #print axioms tv_marg_le
 #print axioms distinguishability_floor
+#print axioms capacity_floor_of_fun
 #print axioms capacity_floor
 #print axioms unavoidable_hidden_predictive_memory
 
