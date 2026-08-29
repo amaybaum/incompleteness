@@ -35,6 +35,7 @@ import OIBridge.CombRealization
 import OIBridge.EquivalenceChain
 import OIBridge.FiniteEntropy
 import OIBridge.HiddenMemory
+import OIBridge.Equivalence
 
 namespace OIBridge
 
