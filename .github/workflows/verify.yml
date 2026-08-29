@@ -103,7 +103,7 @@ jobs:
                    structural_chain representation_bridge time_reversal \
                    equivalence_chain hidden_memory finite_horizon_equivalence \
                    c3_necessity canonical_measure finiteness cubic_isotropy \
-                   idempotent_trace; do
+                   idempotent_trace link_decomposition; do
             echo "=== ${p}_probe.py ==="
             python3 "${p}_probe.py"
           done

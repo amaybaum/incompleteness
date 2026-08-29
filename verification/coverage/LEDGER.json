@@ -1718,6 +1718,18 @@
    "assumptions": "the d = 3 simple-cubic lattice; the cubic rotation group; the physical reading is CONDITIONAL on H-link",
    "checks": [
     {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/LinkDecomposition.lean",
+     "basis": "named",
+     "evidence": "theorem_7"
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/link_decomposition_probe.py",
+     "basis": "named",
+     "evidence": "character inner products"
+    },
+    {
      "kind": "probe",
      "path": "verification/lean/gauge_certificates_probe.py",
      "basis": "section",
@@ -1754,8 +1766,8 @@
     }
    ],
    "kernel": "K2",
-   "delta": "the decomposition and every multiplicity are kernel-checked, and two of A5's three quotients are finrank statements; A5-B22 (144/24 = 6) is OPEN and blocked on a missing Mathlib lemma for the trace of a commuting-projector restriction (ROADMAP A5-B22). The identification of the link representation with the physical carrier is H-link and is not a formal object",
-   "note": ""
+   "delta": "THE JOIN BETWEEN TWO LAYERS, and two smaller items. The manuscript's proof line -- characters at the five conjugacy classes, then inner products giving n(A1) = n(E) = n(T1) = 1 and n(A2) = n(T2) = 0 -- is ALREADY kernel-proved, in the zero-import layer: OI_Gauge_Certificates.chi_consistent (the fixed directed-link count equals chiT + chiE + chiA), irr_orthonormal (the five irreducible characters are orthonormal over the 24 rotations, which is the irreducibility witness) and mult_V6. And the vector-space decomposition into three invariant summands of dimensions 3, 2, 1, with the T1/T2 label pinned by the four-fold character, is kernel-proved in OIBridge/LinkDecomposition.theorem_7. WHAT IS MISSING is the identification of the two: that the zero-import layer's El/rots encoding of the 24 rotations on directed links is the same group as LinkDecomposition's antipode-preserving permutations of Link, that chi6dir is trace (permOp .), and hence that the three projector images carry chiT, chiE, chiA and are irreducible -- which is what turns 'three invariant summands of the right dimensions' into 'V6 = T1 + E + A1 as representations'. Also outstanding: the equivariant identification of the six-FACE model in OIBridge.lean's Cubic section with this six-LINK space, which that file's own header records as probe-only. T7 does not depend on the face model -- LinkDecomposition is built on the links directly -- but the Cubic section's physical reading does.",
+   "note": "KERNEL-PROVED: three explicit projectors on the six-link space -- P_T from the antipodal involution, P_A averaging onto constants, P_E the remainder -- idempotent, pairwise orthogonal, summing to the identity, so the decomposition is an internal direct sum and not a multiplicity count. Every permutation of the links preserving the antipodal pairing commutes with all three, so all three images are invariant subspaces; that group contains the rotation group O the manuscript names. Dimensions 3, 2, 1 come from IdempotentTrace.trace_eq_finrank_range -- the infrastructure lemma validated in its intended consumer -- rather than from ad hoc bases. char_c4_odd = 1 pins the three-dimensional summand as T1 rather than T2, the two being separated exactly there. SCOPE: the file proves GEOMETRY. H-link appears only as the hypothesis of the separate hlink_transport theorem, and H-cust appears nowhere -- the probe's lint enforces both. CubicIsotropy's 48-element O_h is neither imported nor mentioned, so it cannot be substituted for the 24-element rotation group."
   },
   {
    "id": "SM:T-7b",
@@ -2506,9 +2518,9 @@
    "rank": 1,
    "id": "SM:T-7-exact-link-representation-physical-reading",
    "centrality": "high",
-   "difficulty": "medium",
+   "difficulty": "low",
    "tier": 3,
-   "route": "NO LONGER BLOCKED. The missing library step -- trace of a commuting map restricted to the image of an idempotent -- is now kernel-proved in OIBridge/IdempotentTrace.lean, over an arbitrary field and with no representation theory in the statement, together with tr P = dim(im P). What remains is the theorem itself, and K3 needs the actual EQUIVARIANT DECOMPOSITION rather than the multiplicity arithmetic: build the six-link representation of the 24-element ROTATIONAL cubic group O -- NOT the 48-element O_h of Corollary 1a, whose machinery must not be substituted -- construct the equivariant projectors, prove them idempotent, mutually complementary and summing to the identity, compute their characters via the new trace lemma, identify the images with T1, E and A1, prove dimensions 3, 2, 1, and give a named wrapper for the direct-sum equivalence. Then a SEPARATE conditional transport theorem: the H-link equivariant identification gives the physical carrier the same 3+2+1 decomposition. The geometry is unconditional; H-link is the premise that transports it, and H-cust belongs downstream to the condensate reading, not to the geometric decomposition."
+   "route": "Both halves exist; what remains is the JOIN. The character arithmetic and the multiplicities are already kernel-proved in the zero-import OI_Gauge_Certificates (chi_consistent, irr_orthonormal, mult_V6), and the vector-space decomposition with dimensions and the T1 label in OIBridge/LinkDecomposition (theorem_7). K3 needs them identified: map the zero-import El/rots encoding to Equiv.Perm Link, show chi6dir g = trace (permOp .) via trace_permOp, and conclude that the three projector images carry chiT, chiE, chiA and are therefore irreducible. Separately, close the six-face/six-link equivariant identification that OIBridge.lean's Cubic section still records as probe-only."
   },
   {
    "rank": 2,

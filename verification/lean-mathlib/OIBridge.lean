@@ -33,7 +33,8 @@ import Mathlib.GroupTheory.Perm.Fin
 -- `OIBridge.C3Necessity` the C3 capacity theorem, `OIBridge.CanonicalMeasure` Lemma 3's
 -- selected measure, `OIBridge.Finiteness` Lemma 1's conditional finiteness, and `OIBridge.CubicIsotropy`
 -- [SM] Corollary 1a, and `OIBridge.IdempotentTrace` the trace-of-restriction lemma
--- Theorem 7 was blocked on; none has anything
+-- Theorem 7 was blocked on and `OIBridge.LinkDecomposition` that theorem's six-link
+-- decomposition; none has anything
 -- to do with the representation theory below. The imports are here for exactly one reason, and
 -- that reason is the gate — `coverage_check.py` enforces it.
 import OIBridge.CombRealization
@@ -46,6 +47,7 @@ import OIBridge.CanonicalMeasure
 import OIBridge.Finiteness
 import OIBridge.CubicIsotropy
 import OIBridge.IdempotentTrace
+import OIBridge.LinkDecomposition
 
 namespace OIBridge
 
