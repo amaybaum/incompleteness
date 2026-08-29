@@ -1,2568 +1,2568 @@
 {
-  "schema": 1,
-  "round": "b447",
-  "census_tool": "tools/proof_census.py",
-  "levels": {
-    "K3": "the exact manuscript statement is proved in Lean",
-    "K2": "the main structural content is Lean-proved; named ancillary steps remain external",
-    "K1": "a finite or specialized consequence is kernel-checked",
-    "P": "executable probe only — evidence, not certification",
-    "GAP": "no machine verification yet; a BACKLOG state and not an acceptable terminal state",
-    "DEF": "a definition, carrying no proof obligation; excluded from the coverage denominator",
-    "SUM": "a summary whose content is carried by other rows; excluded from the denominator",
-    "MIRROR": "a restatement of a canonical result in another paper; excluded from the denominator"
+ "schema": 1,
+ "round": "b447",
+ "census_tool": "tools/proof_census.py",
+ "levels": {
+  "K3": "the exact manuscript statement is proved in Lean",
+  "K2": "the main structural content is Lean-proved; named ancillary steps remain external",
+  "K1": "a finite or specialized consequence is kernel-checked",
+  "P": "executable probe only — evidence, not certification",
+  "GAP": "no machine verification yet; a BACKLOG state and not an acceptable terminal state",
+  "DEF": "a definition, carrying no proof obligation; excluded from the coverage denominator",
+  "SUM": "a summary whose content is carried by other rows; excluded from the denominator",
+  "MIRROR": "a restatement of a canonical result in another paper; excluded from the denominator"
+ },
+ "entries": [
+  {
+   "id": "COMPUTATION:T-conditional-bqp-model",
+   "paper": "papers/Computation.md",
+   "line": 104,
+   "kind": "Theorem",
+   "label": "(conditional BQP model)",
+   "fingerprint": "49e5716065a36cff",
+   "area": "computation",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
   },
-  "entries": [
-    {
-      "id": "COMPUTATION:T-conditional-bqp-model",
-      "paper": "papers/Computation.md",
-      "line": 104,
-      "kind": "Theorem",
-      "label": "(conditional BQP model)",
-      "fingerprint": "49e5716065a36cff",
-      "area": "computation",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "COMPUTATION:C-entanglement-dimension",
-      "paper": "papers/Computation.md",
-      "line": 130,
-      "kind": "Corollary",
-      "label": "(entanglement dimension)",
-      "fingerprint": "556140edc8e9d3e6",
-      "area": "computation",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "EXPLAINER:D-unnamed-2883898d",
-      "paper": "papers/Explainer.md",
-      "line": 43,
-      "kind": "Definition",
-      "label": "",
-      "fingerprint": "2883898db7d086c5",
-      "area": "mirror",
-      "assumptions": "mirrors the corresponding Main statement",
-      "checks": [],
-      "kernel": "DEF",
-      "delta": "",
-      "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
-    },
-    {
-      "id": "EXPLAINER:L-1",
-      "paper": "papers/Explainer.md",
-      "line": 49,
-      "kind": "Lemma",
-      "label": "1",
-      "fingerprint": "fb49958f1f426046",
-      "area": "mirror",
-      "assumptions": "mirrors the corresponding Main statement",
-      "checks": [],
-      "kernel": "MIRROR",
-      "delta": "",
-      "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
-    },
-    {
-      "id": "EXPLAINER:L-2",
-      "paper": "papers/Explainer.md",
-      "line": 51,
-      "kind": "Lemma",
-      "label": "2",
-      "fingerprint": "f7fc8b2092705f59",
-      "area": "mirror",
-      "assumptions": "mirrors the corresponding Main statement",
-      "checks": [],
-      "kernel": "MIRROR",
-      "delta": "",
-      "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
-    },
-    {
-      "id": "EXPLAINER:L-3",
-      "paper": "papers/Explainer.md",
-      "line": 61,
-      "kind": "Lemma",
-      "label": "3",
-      "fingerprint": "94d0d55173ac0c0a",
-      "area": "mirror",
-      "assumptions": "mirrors the corresponding Main statement",
-      "checks": [],
-      "kernel": "MIRROR",
-      "delta": "",
-      "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
-    },
-    {
-      "id": "GR:L-boundary-only-dependence",
-      "paper": "papers/GR.md",
-      "line": 110,
-      "kind": "Lemma",
-      "label": "(Boundary-only dependence)",
-      "fingerprint": "eb527d02de116a12",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:C-deep-sector-cardinality-gauge",
-      "paper": "papers/GR.md",
-      "line": 134,
-      "kind": "Corollary",
-      "label": "(deep-sector cardinality is gauge)",
-      "fingerprint": "24c8e32239e1d588",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:T-d-gauge-completeness",
-      "paper": "papers/GR.md",
-      "line": 166,
-      "kind": "Theorem",
-      "label": "(D-gauge completeness)",
-      "fingerprint": "bdc0f01e54fe1d20",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:C-invisible-gravitational-budget",
-      "paper": "papers/GR.md",
-      "line": 308,
-      "kind": "Corollary",
-      "label": "(Invisible gravitational budget)",
-      "fingerprint": "ea5d16ff902c196d",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:T-unnamed-b09a495a",
-      "paper": "papers/GR.md",
-      "line": 563,
-      "kind": "Theorem",
-      "label": "-level statement",
-      "fingerprint": "b09a495aaaa74234",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:T-a.1",
-      "paper": "papers/GR.md",
-      "line": 617,
-      "kind": "Theorem",
-      "label": "A.1",
-      "fingerprint": "6194ab9e0237ac5d",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:T-a.2",
-      "paper": "papers/GR.md",
-      "line": 631,
-      "kind": "Theorem",
-      "label": "A.2",
-      "fingerprint": "9038fb0a71ad5428",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:C-a.3",
-      "paper": "papers/GR.md",
-      "line": 637,
-      "kind": "Corollary",
-      "label": "A.3",
-      "fingerprint": "5f71b094854d9ff3",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:C-a.4",
-      "paper": "papers/GR.md",
-      "line": 641,
-      "kind": "Corollary",
-      "label": "A.4",
-      "fingerprint": "da598c322c63193a",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:T-a.5",
-      "paper": "papers/GR.md",
-      "line": 647,
-      "kind": "Theorem",
-      "label": "A.5",
-      "fingerprint": "c72669dae57db87f",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:T-a.6",
-      "paper": "papers/GR.md",
-      "line": 683,
-      "kind": "Theorem",
-      "label": "A.6",
-      "fingerprint": "d2f6e40dab0088fc",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:T-a.7",
-      "paper": "papers/GR.md",
-      "line": 705,
-      "kind": "Theorem",
-      "label": "A.7",
-      "fingerprint": "afea3a8c2dbcb278",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:T-a.8",
-      "paper": "papers/GR.md",
-      "line": 709,
-      "kind": "Theorem",
-      "label": "A.8",
-      "fingerprint": "17e40e97098c702e",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "GR:T-a.9",
-      "paper": "papers/GR.md",
-      "line": 733,
-      "kind": "Theorem",
-      "label": "A.9",
-      "fingerprint": "d42ca3c552d95614",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "MAIN:D-unnamed-7c0166f8",
-      "paper": "papers/Main.md",
-      "line": 44,
-      "kind": "Definition",
-      "label": "",
-      "fingerprint": "7c0166f8f003a402",
-      "area": "oi-foundations",
-      "assumptions": "none — this is the framework's primitive",
-      "checks": [],
-      "kernel": "DEF",
-      "delta": "",
-      "note": "The definition of an observation. Carries no proof obligation."
-    },
-    {
-      "id": "MAIN:L-1",
-      "paper": "papers/Main.md",
-      "line": 48,
-      "kind": "Lemma",
-      "label": "1",
-      "fingerprint": "3f78a6038b1ad02f",
-      "area": "oi-foundations",
-      "assumptions": "finite-area observer boundary; holographic entropy bound [2] cited as independent support",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": "A premise of the framework rather than a derived result. The formalizable content is the implication finite boundary => finite visible alphabet, which is not stated separately."
-    },
-    {
-      "id": "MAIN:L-2",
-      "paper": "papers/Main.md",
-      "line": 50,
-      "kind": "Lemma",
-      "label": "2",
-      "fingerprint": "b9ed4a3e353cb018",
-      "area": "oi-foundations",
-      "assumptions": "none — unpacks the definition",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": "Definitional content stated as a lemma. K1 would be cheap and is on the backlog only because it certifies almost nothing."
-    },
-    {
-      "id": "MAIN:L-3",
-      "paper": "papers/Main.md",
-      "line": 56,
-      "kind": "Lemma",
-      "label": "3",
-      "fingerprint": "4d9488cd71d08a13",
-      "area": "oi-foundations",
-      "assumptions": "determinism; reversibility of the selected representative; maximal-entropy SELECTION of the counting measure among invariant measures — not uniqueness from invariance",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": "The scope wall matters here: the manuscript is explicit that this is a selection principle. A formalization must not silently prove uniqueness, which is false in the continuum."
-    },
-    {
-      "id": "MAIN:T-statement",
-      "paper": "papers/Main.md",
-      "line": 80,
-      "kind": "Theorem",
-      "label": "statement",
-      "fingerprint": "96178c80977a3c46",
-      "area": "oi-foundations",
-      "assumptions": "see the constituent rows",
-      "checks": [],
-      "kernel": "SUM",
-      "delta": "",
-      "note": "A summary of the three exact layers and the conditional extension. Its content is carried by the equivalence-chain and memory-condition rows; it is not a separate obligation."
-    },
-    {
-      "id": "MAIN:L-partition-relativity-under-canonical-invariant",
-      "paper": "papers/Main.md",
-      "line": 84,
-      "kind": "Lemma",
-      "label": "(partition-relativity under the canonical invariant measure)",
-      "fingerprint": "277d94b19b9a10f2",
-      "area": "oi-foundations",
-      "assumptions": "the canonical measure of Lemma 3",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "MAIN:T-unnamed-182a6975",
-      "paper": "papers/Main.md",
-      "line": 113,
-      "kind": "Theorem",
-      "label": "",
-      "fingerprint": "182a69752a829d2e",
-      "area": "oi-foundations",
-      "assumptions": "finite C_V, C_H; |C_V| >= 2; phi a bijection; uniform hidden prior",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/translation_probes.py",
-          "basis": "named",
-          "evidence": "P-divisibility"
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": "The §2.3 emergent-stochasticity construction. translation_probes certifies the P-divisibility/TV-monotonicity separation on it."
-    },
-    {
-      "id": "MAIN:L-stochastic-inverse",
-      "paper": "papers/Main.md",
-      "line": 131,
-      "kind": "Lemma",
-      "label": "(stochastic inverse)",
-      "fingerprint": "fae6e45fd175f22c",
-      "area": "oi-foundations",
-      "assumptions": "a finite square stochastic matrix with a one-sided stochastic inverse",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
-          "basis": "named",
-          "evidence": "stochastic inverse"
-        },
-        {
-          "kind": "probe",
-          "path": "verification/lean/equivalence_chain_probe.py",
-          "basis": "named",
-          "evidence": "OIBridge/EquivalenceChain.lean"
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
-          "names": [
-            "row_eq_basis_of_mem_support",
-            "isPermMatrix_of_stochastic_inverse"
-          ]
-        }
-      ],
-      "kernel": "K3",
-      "delta": "",
-      "note": "Closed in b448, rank 1 of the backlog, from P. The proof is the manuscript's own, step for step: vanishing off-diagonal entries of A*B force every row of B indexed by the support of a row of A to be a basis vector; two such rows would coincide, which a nonzero determinant forbids; so each row of A carries a single unit entry and the occupied columns are distinct. Both sides of \"left or right\" are covered without separate proofs, because a one-sided inverse of a square matrix over a commutative ring is two-sided. The countercontrol in the companion probe shows the hypothesis is load-bearing: [[1/2,1/2],[0,1]] is stochastic and invertible and is NOT a permutation, its inverse simply failing to be stochastic."
-    },
-    {
-      "id": "MAIN:T-history-readback-finite-recurrence-implies",
-      "paper": "papers/Main.md",
-      "line": 135,
-      "kind": "Theorem",
-      "label": "(history readback + finite recurrence implies indivisibility)",
-      "fingerprint": "92c1f59c0f6f9e3e",
-      "area": "memory-conditions",
-      "assumptions": "a fixed finite reversible OI representative; genuine C4 readback",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/review4_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "MAIN:L-fast-bath-erases-readback",
-      "paper": "papers/Main.md",
-      "line": 157,
-      "kind": "Lemma",
-      "label": "(fast bath erases readback)",
-      "fingerprint": "9ae2c125fc14a6ab",
-      "area": "memory-conditions",
-      "assumptions": "tau_B << tau_S; uniform record erosion e^{-tau_S/tau_B} per step",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/fastbath_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": "fastbath_probes carries the counterexample to the slow-evolution reading, which is the load-bearing half."
-    },
-    {
-      "id": "MAIN:L-accessible-backflow-from-readback",
-      "paper": "papers/Main.md",
-      "line": 165,
-      "kind": "Lemma",
-      "label": "(accessible backflow from readback)",
-      "fingerprint": "449e3df3147485ef",
-      "area": "memory-conditions",
-      "assumptions": "(C1)-(C3); a (C4) gap at order k inside the accessible window; p_0 and delta as stated",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/c4_backflow_probes.py",
-          "basis": "named",
-          "evidence": "readback lemma"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "MAIN:L-one-step-ancilla-dilation",
-      "paper": "papers/Main.md",
-      "line": 204,
-      "kind": "Lemma",
-      "label": "(one-step ancilla dilation)",
-      "fingerprint": "caec1093862d7955",
-      "area": "equivalence-chain",
-      "assumptions": "T stochastic on n states",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/tdilate_probes.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "probe",
-          "path": "verification/lean/equivalence_chain_probe.py",
-          "basis": "named",
-          "evidence": "OIBridge/EquivalenceChain.lean"
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
-          "names": [
-            "dilation",
-            "dilation_isometry",
-            "dilation_marginal",
-            "dilation_extends"
-          ]
-        }
-      ],
-      "kernel": "K3",
-      "delta": "",
-      "note": "Closed in b448, rank 4 of the backlog, from P. ALL THREE CLAUSES are proved: W is an isometry, its ancilla-marginal is T, and it EXTENDS TO A UNITARY. The third is the one that could have been quietly dropped, and it is where Mathlib earns its place rather than being incidental — extending an isometry to a unitary is orthonormal-basis extension, a real theorem and not bookkeeping. The companion probe checks the two computational clauses on the SQUARED amplitudes so the arithmetic stays rational and no square root is ever approximated, and exhibits an explicit Gram-Schmidt completion for the third. Its countercontrol records that the stochasticity is used in one direction only: for a COLUMN-stochastic T the isometry clause is false."
-    },
-    {
-      "id": "MAIN:L-phase-locking",
-      "paper": "papers/Main.md",
-      "line": 222,
-      "kind": "Lemma",
-      "label": "(phase-locking)",
-      "fingerprint": "a2bbef866acc6972",
-      "area": "equivalence-chain",
-      "assumptions": "(G1) non-degenerate spectrum; (G2) non-degenerate gaps; (G3) V_ik nonzero",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/phaselock_probes.py",
-          "basis": "named",
-          "evidence": "ancilla-marginal phase-locking"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": "Gated in CI. The genericity half rests on exact witnesses at seven shapes (b433); a uniform-D statement is NOT established and must not be formalized as one."
-    },
-    {
-      "id": "MAIN:L-ancilla-marginal-reformulation",
-      "paper": "papers/Main.md",
-      "line": 240,
-      "kind": "Lemma",
-      "label": "(ancilla-marginal reformulation)",
-      "fingerprint": "591acbb7bfdf5cd3",
-      "area": "equivalence-chain",
-      "assumptions": "block projectors in the eigenbasis; theta real antisymmetric",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/phaselock_probes.py",
-          "basis": "named",
-          "evidence": "ancilla-marginal phase-locking"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "MAIN:T-ancilla-marginal-phase-locking-certified",
-      "paper": "papers/Main.md",
-      "line": 244,
-      "kind": "Theorem",
-      "label": "(ancilla-marginal phase-locking; certified block structures)",
-      "fingerprint": "a8bfb64ad16a145c",
-      "area": "equivalence-chain",
-      "assumptions": "per-shape: certified at (n,m_a) in the listed set; genericity by upper semi-continuity from one exact witness per shape",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/phaselock_probes.py",
-          "basis": "named",
-          "evidence": "ancilla-marginal phase-locking"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": "Nothing uniform in D is proved. Each shape rests on its own witness (b433)."
-    },
-    {
-      "id": "MAIN:L-permutation-unitarity",
-      "paper": "papers/Main.md",
-      "line": 262,
-      "kind": "Lemma",
-      "label": "(permutation unitarity)",
-      "fingerprint": "d9fa15aa060513b9",
-      "area": "equivalence-chain",
-      "assumptions": "phi a bijection on a finite product",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
-          "basis": "named",
-          "evidence": "permutation"
-        },
-        {
-          "kind": "probe",
-          "path": "verification/lean/equivalence_chain_probe.py",
-          "basis": "named",
-          "evidence": "OIBridge/EquivalenceChain.lean"
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
-          "names": [
-            "permMatrix_mem_unitaryGroup"
-          ]
-        }
-      ],
-      "kernel": "K3",
-      "delta": "",
-      "note": "Closed in b448, rank 2 of the backlog, from P. Stated over the index type V x H, which is what \"on the tensor product\" means once the product basis is fixed — the manuscript's own reading, since its proof is that U_phi permutes the product orthonormal basis. Nothing about the two factors is used, so the lemma holds for any finite index type."
-    },
-    {
-      "id": "MAIN:L-reverse-direction-scoped",
-      "paper": "papers/Main.md",
-      "line": 268,
-      "kind": "Lemma",
-      "label": "(Reverse direction, scoped)",
-      "fingerprint": "fea0497e8ec4dd9c",
-      "area": "equivalence-chain",
-      "assumptions": "a SINGLE one-step doubly stochastic matrix; uniform hidden prior — the scope word is load-bearing and the multi-step statement is false",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/tdilate_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "MAIN:T-born-form-representation-transition-probabilities",
-      "paper": "papers/Main.md",
-      "line": 280,
-      "kind": "Theorem",
-      "label": "(Born-form representation of the transition probabilities)",
-      "fingerprint": "69fb04e6539179c8",
-      "area": "equivalence-chain",
-      "assumptions": "the §1.4 construction; ancilla-marginal form — a REPRESENTATION identity, which does not select the quadratic form",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/tdilate_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "MAIN:L-1-boundary-bound",
-      "paper": "papers/Main.md",
-      "line": 292,
-      "kind": "Lemma",
-      "label": "1 (boundary bound)",
-      "fingerprint": "f483bbbc56bff0dc",
-      "area": "locality-combs",
-      "assumptions": "the block decomposition of the update on a region R",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "MAIN:L-2-channel-normal-form",
-      "paper": "papers/Main.md",
-      "line": 298,
-      "kind": "Lemma",
-      "label": "2 (channel normal form)",
-      "fingerprint": "1c9aa2f382bc9e75",
-      "area": "locality-combs",
-      "assumptions": "the displayed F_2 update on a region R",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "MAIN:T-separability-threshold",
-      "paper": "papers/Main.md",
-      "line": 306,
-      "kind": "Theorem",
-      "label": "(separability threshold)",
-      "fingerprint": "0b2eb937cfe2d36b",
-      "area": "locality-combs",
-      "assumptions": "G an abelian subgroup of the Weyl group on s qubits of order 2^t modulo phases",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": "A clean finite-group statement and a good K3 candidate once the Weyl-group machinery is available; Mathlib does not carry the entanglement-breaking characterization."
-    },
-    {
-      "id": "MAIN:C-1",
-      "paper": "papers/Main.md",
-      "line": 310,
-      "kind": "Corollary",
-      "label": "1",
-      "fingerprint": "292a005a0ee074f5",
-      "area": "locality-combs",
-      "assumptions": "the displayed one-step F_2 update; uncorrelated maximally mixed hidden sector",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "MAIN:C-2",
-      "paper": "papers/Main.md",
-      "line": 312,
-      "kind": "Corollary",
-      "label": "2",
-      "fingerprint": "7ed2f61c9956c149",
-      "area": "locality-combs",
-      "assumptions": "the boundary cardinalities of R",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "MAIN:L-diagonal-preservation",
-      "paper": "papers/Main.md",
-      "line": 320,
-      "kind": "Lemma",
-      "label": "(diagonal preservation)",
-      "fingerprint": "15be37eef5071735",
-      "area": "equivalence-chain",
-      "assumptions": "U a permutation unitary",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "verification/lean/equivalence_chain_probe.py",
-          "basis": "named",
-          "evidence": "OIBridge/EquivalenceChain.lean"
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
-          "names": [
-            "permConj_apply",
-            "permMatrix_pow",
-            "permMatrix_mul_inv",
-            "isDiag_Phi"
-          ]
-        }
-      ],
-      "kernel": "K3",
-      "delta": "",
-      "note": "Closed in b448, rank 3 of the backlog, from GAP. DERIVED from permutation unitarity rather than recomputed, as the ordering intends: the only new content is that conjugating by a permutation matrix is a RELABELLING of indices, after which diagonality survives because a permutation is injective and the partial trace of a diagonal state is diagonal. The hidden prior enters as a STATE built from a distribution, Matrix.diagonal mu — which is what mu_H is in the framework (Main section 3.4 writes it as rho_anc = sum_h mu_H(h)|h><h|), so its diagonality is definitional and not an extra hypothesis. The companion probe's countercontrol shows a NON-permutation unitary destroys diagonality, matching the manuscript's own scope remark that the CP-indivisibility reduction fails for a general CPTP family."
-    },
-    {
-      "id": "MAIN:T-cp-indivisibility-framework-scope",
-      "paper": "papers/Main.md",
-      "line": 324,
-      "kind": "Theorem",
-      "label": "(CP-indivisibility, framework scope)",
-      "fingerprint": "b440fd63f2584861",
-      "area": "equivalence-chain",
-      "assumptions": "the permutation-dilation family; P-indivisibility of §2.3 — FRAMEWORK SCOPE, not a general implication",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/c1_cp_scope_probes.py",
-          "basis": "named",
-          "evidence": "non-permutation"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "MAIN:C-bell-lattice-obstruction-state-dependent",
-      "paper": "papers/Main.md",
-      "line": 390,
-      "kind": "Corollary",
-      "label": "(Bell–lattice obstruction and state-dependent escape)",
-      "fingerprint": "8dfc5de1b600053f",
-      "area": "locality-combs",
-      "assumptions": "Bell-relevant degrees of freedom governed by the nearest-neighbour cubic update; max lattice speed identified with c",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "MAIN:L-non-permutation-witness",
-      "paper": "papers/Main.md",
-      "line": 411,
-      "kind": "Lemma",
-      "label": "(non-permutation witness)",
-      "fingerprint": "3a87e714d4b89b3d",
-      "area": "memory-conditions",
-      "assumptions": "T not a permutation",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/c1_cp_scope_probes.py",
-          "basis": "named",
-          "evidence": "non-permutation"
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/translation_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "MAIN:T-c2-necessity-quantitative-mixing-form",
-      "paper": "papers/Main.md",
-      "line": 429,
-      "kind": "Theorem",
-      "label": "(C2 necessity, quantitative mixing form)",
-      "fingerprint": "a2d568e0afd73b4e",
-      "area": "memory-conditions",
-      "assumptions": "the uniform-prior bijection marginal of §3.2; the stated mixing hypothesis",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/c2_mixing_probes.py",
-          "basis": "named",
-          "evidence": "C2 quantitative mixing theorem"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": "Preregistered probe (b49): rule, ensemble, seed and grid fixed before the run."
-    },
-    {
-      "id": "MAIN:T-physical-memory-c2-process-form",
-      "paper": "papers/Main.md",
-      "line": 443,
-      "kind": "Theorem",
-      "label": "(physical memory: C2, process form)",
-      "fingerprint": "eaf472aa957c43fa",
-      "area": "memory-conditions",
-      "assumptions": "the conditional-mixing hypothesis at coupling time",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/c2_mixing_probes.py",
-          "basis": "named",
-          "evidence": "C2 quantitative mixing theorem"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "MAIN:T-intervention-dilation-finite-classical-action",
-      "paper": "papers/Main.md",
-      "line": 456,
-      "kind": "Theorem",
-      "label": "(intervention dilation: the finite classical action-labelled comb)",
-      "fingerprint": "e639740e89f576ed",
-      "area": "memory-conditions",
-      "assumptions": "a finite action alphabet and a finite-horizon action-labelled family",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/intervention_probes.py",
-          "basis": "named",
-          "evidence": "intervention dilation"
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/comb_reachability_probes.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/lg_comb_probes.py",
-          "basis": "named",
-          "evidence": "classical action-labelled comb theorem"
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/repconsistency_probes.py",
-          "basis": "named",
-          "evidence": "classical comb theorem"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": "The reach limit is part of the record: lg_comb_probes shows the classical comb theorem does not by itself reach quantum instrument statistics, and repconsistency names the remainder."
-    },
-    {
-      "id": "MAIN:P-no-horizon-independent-intervened-representation",
-      "paper": "papers/Main.md",
-      "line": 468,
-      "kind": "Proposition",
-      "label": "(no horizon-independent intervened representation)",
-      "fingerprint": "546efbc4c09ea030",
-      "area": "memory-conditions",
-      "assumptions": "a fixed representation dimension d, Hamiltonian and slot structure",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/nogo_probes.py",
-          "basis": "named",
-          "evidence": "classical-dimension operational obstruction"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": "nogo_probes also carries the counterexample that invalidated the earlier convex-geometry proof (b125 polytope inference, corrected at b128) — a countercontrol, not just a certificate."
-    },
-    {
-      "id": "MAIN:T-c3-necessity",
-      "paper": "papers/Main.md",
-      "line": 480,
-      "kind": "Theorem",
-      "label": "(C3 necessity)",
-      "fingerprint": "851d788fb738c428",
-      "area": "memory-conditions",
-      "assumptions": "m = |C_H| finite",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/c3_dilation_probes.py",
-          "basis": "named",
-          "evidence": "C3 corollary"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "MAIN:C-per-process-capacity-bound",
-      "paper": "papers/Main.md",
-      "line": 488,
-      "kind": "Corollary",
-      "label": "(per-process capacity bound)",
-      "fingerprint": "cc7fd03ee5f8e9ee",
-      "area": "memory-conditions",
-      "assumptions": "a deterministic-bijection realization attaining I*",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/c3_dilation_probes.py",
-          "basis": "named",
-          "evidence": "C3 corollary"
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/recurrence_entropy_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": "b444 sharpens the same budget from the entropy side; b445/b446 sharpen it again by realization dimension."
-    },
-    {
-      "id": "MAIN:T-finite-horizon-process-dilation",
-      "paper": "papers/Main.md",
-      "line": 492,
-      "kind": "Theorem",
-      "label": "(finite-horizon process dilation)",
-      "fingerprint": "12a3411af0e7e69a",
-      "area": "equivalence-chain",
-      "assumptions": "rational multi-time law; finite accessible horizon K with t << t_R",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/process_dilation_probes.py",
-          "basis": "named",
-          "evidence": "finite-horizon process-dilation"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "MAIN:D-unitarily-evolving-qm",
-      "paper": "papers/Main.md",
-      "line": 500,
-      "kind": "Definition",
-      "label": "(unitarily evolving QM)",
-      "fingerprint": "c1bc7b35a7c12e99",
-      "area": "equivalence-chain",
-      "assumptions": "none — a definition",
-      "checks": [],
-      "kernel": "DEF",
-      "delta": "",
-      "note": ""
-    },
-    {
-      "id": "MAIN:L-fixed-hat-h-form-realized",
-      "paper": "papers/Main.md",
-      "line": 506,
-      "kind": "Lemma",
-      "label": "(fixed-$\\hat{H}$ form for realized processes)",
-      "fingerprint": "073a270ea5497b99",
-      "area": "equivalence-chain",
-      "assumptions": "the process arises as the marginal of an iterated fixed bijection with a fixed hidden prior",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
-          "basis": "named",
-          "evidence": "finite-horizon equivalence"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "MAIN:T-finite-horizon-stochastic-reversible-unitary",
-      "paper": "papers/Main.md",
-      "line": 522,
-      "kind": "Theorem",
-      "label": "(finite-horizon stochastic–reversible–unitary equivalence)",
-      "fingerprint": "eb7422303f7624ea",
-      "area": "equivalence-chain",
-      "assumptions": "finite visible alphabet; finite accessible horizon K",
-      "checks": [
-        {
-          "kind": "lean",
-          "path": "verification/lean-mathlib/OIBridge/Equivalence.lean",
-          "basis": "named",
-          "evidence": "finite_horizon_equivalence"
-        },
-        {
-          "kind": "probe",
-          "path": "verification/lean/finite_horizon_equivalence_probe.py",
-          "basis": "named",
-          "evidence": "finite_horizon_equivalence"
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
-          "basis": "named",
-          "evidence": "finite-horizon equivalence"
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "K3",
-      "delta": "",
-      "note": "THE CENTRAL EQUIVALENCE CHAIN. Kernel-proved as three explicit constructions -- S_imp_D's multi-time clock-and-record carrier over an arbitrary finite-horizon joint law, D_imp_Qfb's permutation unitary with fixed-basis readout at every time, Qfb_imp_S's chain normalization from unitarity -- assembled by the named wrapper finite_horizon_equivalence, which takes NONE of the three as a hypothesis. The three classes are separate predicates and none is defined through another. TWO SCOPE GUARDS, recorded in the Lean header: the hidden-predictive-memory theorem is neither an assumption nor a lemma here (the equivalence is existential and holds for Markov laws too), and the one-step ancilla dilation of EquivalenceChain.lean does not prove S => D. The class (Q_fb) is defined without an autonomous-generator clause, so the manuscript's U = exp(-iH) remark is a property of the construction and is deliberately left unformalized; widening the class definition is what would reopen this."
-    },
-    {
-      "id": "MAIN:T-finite-operational-realization-gluing-form",
-      "paper": "papers/Main.md",
-      "line": 540,
-      "kind": "Theorem",
-      "label": "(finite operational realization and gluing — ε-form)",
-      "fingerprint": "769289a21d84cc02",
-      "area": "equivalence-chain",
-      "assumptions": "fixed d, finite instrument family, horizon K, tolerance epsilon",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/opglue_probes.py",
-          "basis": "named",
-          "evidence": "finite operational realization and gluing"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": "Exact arithmetic over Q(sqrt 2) + i Q(sqrt 2) at d = 2, K = 2 and 3."
-    },
-    {
-      "id": "MAIN:T-uniform-continuum-realization-mutual-density",
-      "paper": "papers/Main.md",
-      "line": 562,
-      "kind": "Theorem",
-      "label": "(uniform continuum realization — mutual ε-density)",
-      "fingerprint": "d5bebe2b4b397137",
-      "area": "equivalence-chain",
-      "assumptions": "a delta-net in diamond norm on the compact set of <= m-outcome instruments",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/opglue_probes.py",
-          "basis": "named",
-          "evidence": "finite operational realization and gluing"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": "The net argument is the analytic step and the probe does not reach it; only the finite instance is certified."
-    },
-    {
-      "id": "MAIN:T-unavoidable-hidden-predictive-memory",
-      "paper": "papers/Main.md",
-      "line": 568,
-      "kind": "Theorem",
-      "label": "(unavoidable hidden predictive memory)",
-      "fingerprint": "d813f5acc348e2d1",
-      "area": "memory-conditions",
-      "assumptions": "ANY faithful deterministic realization — the quantifier is the content",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/memory_probes.py",
-          "basis": "named",
-          "evidence": "universal hidden-memory theorem"
-        },
-        {
-          "kind": "probe",
-          "path": "verification/lean/hidden_memory_probe.py",
-          "basis": "named",
-          "evidence": "OIBridge/HiddenMemory.lean"
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean-mathlib/OIBridge/HiddenMemory.lean",
-          "names": [
-            "pushforward_identity",
-            "distinguishability_floor",
-            "capacity_floor",
-            "unavoidable_hidden_predictive_memory"
-          ]
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean-mathlib/OIBridge/FiniteEntropy.lean",
-          "names": [
-            "sum_mul_log_le",
-            "entropy_le_log_card",
-            "cmi3_nonneg",
-            "cmi_le_of_deterministic",
-            "cmi_le_log_card"
-          ]
-        }
-      ],
-      "kernel": "K3",
-      "delta": "",
-      "note": "Closed in b448, rank 1 of the backlog, from P. ALL THREE CLAUSES: the pushforward identity, the distinguishability floor, and the capacity floor M_t <= I(X_<t; H_t | X_t) <= log2 |C_H|. Clause (c) required BUILDING A FINITE SHANNON LAYER, since Mathlib carries no entropy of a finite distribution, no mutual information, no conditional mutual information and no data-processing inequality; OIBridge/FiniteEntropy.lean supplies them from one analytic input, log x <= x - 1. Proving only M_t <= log2|C_H| would have been a different theorem wearing this one's name. The next visible value is DEFINED as the visible component of the bijection rather than assumed to be a function of the pair, so the Markov chain X_<t -> H_t -> X_{t+1} given X_t is a consequence and not a hypothesis. THIS THEOREM IS DELIBERATELY SEPARATE FROM THE EQUIVALENCE CHAIN and is not a lemma of it: the equivalence is existential and holds for Markov laws too, which is exactly why it cannot do this theorem's work. Each clause has a countercontrol removing the hypothesis its proof consumes — a stochastic channel for (a), a non-TV distance for (b), and a broken Markov chain for (c)."
-    },
-    {
-      "id": "MAIN:T-canonical-predictive-quotient-purification-ingredient",
-      "paper": "papers/Main.md",
-      "line": 586,
-      "kind": "Theorem",
-      "label": "(canonical predictive quotient — a purification ingredient, substratum form)",
-      "fingerprint": "8b180e8ae437af19",
-      "area": "memory-conditions",
-      "assumptions": "a finite-horizon law on visible trajectories",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/purification_probes.py",
-          "basis": "named",
-          "evidence": "canonical predictive quotient"
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "MAIN:L-rest-frame-selection",
-      "paper": "papers/Main.md",
-      "line": 628,
-      "kind": "Lemma",
-      "label": "(rest-frame selection)",
-      "fingerprint": "9a0d6bb006a18763",
-      "area": "gr",
-      "assumptions": "the partition realized across a causal horizon",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "MAIN:C-boost-rotation-inequivalence",
-      "paper": "papers/Main.md",
-      "line": 632,
-      "kind": "Corollary",
-      "label": "(boost/rotation inequivalence)",
-      "fingerprint": "f3989dfe422a5ab6",
-      "area": "gr",
-      "assumptions": "the rest-frame selection lemma",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "MAIN:T-structural-observer-selection-conditional-em",
-      "paper": "papers/Main.md",
-      "line": 714,
-      "kind": "Theorem",
-      "label": "(structural observer selection — conditional on (EM))",
-      "fingerprint": "ee37bee219b5e0ba",
-      "area": "oi-foundations",
-      "assumptions": "the effective-mixing hypothesis (EM) — EXPLICITLY CONDITIONAL",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": "The conditional form A_EM => conclusion is exactly the shape the kernel can certify while leaving (EM) external."
-    },
-    {
-      "id": "MAIN:C-anti-boltzmann-brain",
-      "paper": "papers/Main.md",
-      "line": 722,
-      "kind": "Corollary",
-      "label": "(anti-Boltzmann-brain)",
-      "fingerprint": "a1b5f6f9cb61e6f6",
-      "area": "oi-foundations",
-      "assumptions": "the structural observer selection theorem, hence (EM)",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "MAIN:C-past-hypothesis-replacement-rate-condition",
-      "paper": "papers/Main.md",
-      "line": 724,
-      "kind": "Corollary",
-      "label": "(past-hypothesis replacement, with its rate condition)",
-      "fingerprint": "d6189921c664b0e7",
-      "area": "oi-foundations",
-      "assumptions": "the observer-selection theorem plus its rate condition — the manuscript is explicit that the two bounds do NOT compose without it",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-factorization-uniqueness-translation-invariant-dynamics",
-      "paper": "papers/SM.md",
-      "line": 70,
-      "kind": "Theorem",
-      "label": "(factorization uniqueness for translation-invariant dynamics)",
-      "fingerprint": "0fbd89bfc72bc254",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:L-unnamed-332dde89",
-      "paper": "papers/SM.md",
-      "line": 118,
-      "kind": "Lemma",
-      "label": "",
-      "fingerprint": "332dde89a60f07d3",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:L-unnamed-5e5c0ff4",
-      "paper": "papers/SM.md",
-      "line": 122,
-      "kind": "Lemma",
-      "label": "",
-      "fingerprint": "5e5c0ff4dc9c3241",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:L-unnamed-cb196ce9",
-      "paper": "papers/SM.md",
-      "line": 136,
-      "kind": "Lemma",
-      "label": "",
-      "fingerprint": "cb196ce983dadfb6",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-unnamed-f1d3c661",
-      "paper": "papers/SM.md",
-      "line": 140,
-      "kind": "Theorem",
-      "label": "",
-      "fingerprint": "f1d3c6619bfdb644",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:C-unnamed-faf4656b",
-      "paper": "papers/SM.md",
-      "line": 206,
-      "kind": "Corollary",
-      "label": "",
-      "fingerprint": "faf4656b6c23bd43",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:L-form-center-free-isotropic-linear",
-      "paper": "papers/SM.md",
-      "line": 220,
-      "kind": "Lemma",
-      "label": "(form of the center-free isotropic linear rule)",
-      "fingerprint": "6671da6a71ecada9",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-1a-equivariant-finite-projection-preserves-spatial",
-      "paper": "papers/SM.md",
-      "line": 238,
-      "kind": "Theorem",
-      "label": "1a (equivariant finite projection preserves spatial symmetry)",
-      "fingerprint": "8e362ef0f004ec78",
-      "area": "sm",
-      "assumptions": "S finite; U the Koopman operator of a bijection; P an equivariant projection",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/observer_isotropy_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "SM:L-1c-canonical-projection-resummed-kernel",
-      "paper": "papers/SM.md",
-      "line": 248,
-      "kind": "Lemma",
-      "label": "1c (canonical projection and the resummed kernel)",
-      "fingerprint": "c5ff80aab6d5c1f6",
-      "area": "sm",
-      "assumptions": "the selected invariant measure",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/observer_isotropy_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "SM:C-1a-cubic-symmetry-forbids-quadratic-anisotropy",
-      "paper": "papers/SM.md",
-      "line": 254,
-      "kind": "Corollary",
-      "label": "1a (cubic symmetry FORBIDS quadratic anisotropy)",
-      "fingerprint": "c30d4a4d20350ed0",
-      "area": "sm",
-      "assumptions": "scalar projected kernel; translation invariance; finite second moment; full cubic equivariance",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "verification/lean/structural_chain_probe.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/observer_isotropy_probes.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean/OI_Structural_Chain.lean",
-          "names": [
-            "b3_card",
-            "sum_trSym_b3",
-            "sum_trSym_rot",
-            "b3_fixes_delta",
-            "b3_forbids_anisotropy"
-          ]
-        }
-      ],
-      "kernel": "K2",
-      "delta": "delivered at CHARACTER level — sum chi = 48 = 1x48 over the 48-element signed permutation group and 24 = 1x24 over its rotations, with delta exhibited invariant and diag(1,0,0) shown NOT to be. The DIMENSION statement dim Sym^2(R^3)^{B_3} = 1 needs a second Mathlib representation built the way Cubic.rho is, and is ROADMAP B3 — open",
-      "note": ""
-    },
-    {
-      "id": "SM:C-1b-when-normalized-adjacency-forced",
-      "paper": "papers/SM.md",
-      "line": 266,
-      "kind": "Corollary",
-      "label": "1b (when the normalized adjacency is forced)",
-      "fingerprint": "f97a955a09311fd4",
-      "area": "sm",
-      "assumptions": "scalar, translation-invariant, nearest-neighbour, O_h-equivariant, constant-row Markov part",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/observer_isotropy_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "SM:T-1-conditional-observer-level-lattice-klein",
-      "paper": "papers/SM.md",
-      "line": 274,
-      "kind": "Theorem",
-      "label": "1 (conditional observer-level lattice Klein--Gordon branch)",
-      "fingerprint": "4d87a9a93518e79d",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-2",
-      "paper": "papers/SM.md",
-      "line": 282,
-      "kind": "Theorem",
-      "label": "2",
-      "fingerprint": "f430eea59c91601c",
-      "area": "sm",
-      "assumptions": "the observer-level lattice-wave branch of Theorem 1 (CONDITIONAL); the sign convention box_lat := -sum_mu (T_mu - T_mu^{-1})^2",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "verification/lean/staggered_relations_probe.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "probe",
-          "path": "verification/lean/structural_core_probe.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/chirality_grading_probes.py",
-          "basis": "named",
-          "evidence": "Theorem 2"
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean/OI_Staggered_Relations.lean",
-          "names": [
-            "Staggered.factorization",
-            "factorization3",
-            "factorization4"
-          ]
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean/OI_Structural_Core.lean",
-          "names": [
-            "susskind3",
-            "mass_square"
-          ]
-        }
-      ],
-      "kernel": "K2",
-      "delta": "the manuscript does not display the box_lat sign convention beside the theorem, so the formal statement fixes a convention the text leaves implicit (ROADMAP §D); and the periodic realization needs an even-extent hypothesis the text does not carry",
-      "note": "Section C of the ROADMAP is closed: the factorization holds for every n by induction over a list of pairwise-anticommuting summands, not just at three and four axes."
-    },
-    {
-      "id": "SM:T-3",
-      "paper": "papers/SM.md",
-      "line": 296,
-      "kind": "Theorem",
-      "label": "3",
-      "fingerprint": "487eed577016c6d0",
-      "area": "sm",
-      "assumptions": "the staggered generator relations; the diagonal of D_st",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "verification/lean/structural_core_probe.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/chirality_grading_probes.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean/OI_Structural_Core.lean",
-          "names": [
-            "center_anticommutator",
-            "mass_square"
-          ]
-        }
-      ],
-      "kernel": "K2",
-      "delta": "formalized at operator level as {D + m·eps + p_0·1, eps} = 2m + 2p_0·eps; the equivalence to \"exact chiral symmetry of the emergent staggered fermions\" is the physical reading and is not itself kernel-checked",
-      "note": "The scope note in SM §4 that C = 2(1-d) is the Laplacian diagonal and not a mass term is encoded in the formal statement."
-    },
-    {
-      "id": "SM:T-4-conditional-observer-level-mass-spectrum",
-      "paper": "papers/SM.md",
-      "line": 312,
-      "kind": "Theorem",
-      "label": "4 (conditional observer-level mass spectrum)",
-      "fingerprint": "429df1ffcd675a9f",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:L-4a-one-cone-branch",
-      "paper": "papers/SM.md",
-      "line": 322,
-      "kind": "Lemma",
-      "label": "4a (one cone on the branch)",
-      "fingerprint": "1c3f7025195892e5",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:P-4b-symmetric-point-custodial-scalarity-component",
-      "paper": "papers/SM.md",
-      "line": 328,
-      "kind": "Proposition",
-      "label": "4b (symmetric-point custodial scalarity for a component-complete site observer)",
-      "fingerprint": "179be8cffbf610f3",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-5-condensate-stabilizer-conditional-physical-reading",
-      "paper": "papers/SM.md",
-      "line": 334,
-      "kind": "Theorem",
-      "label": "5 (condensate stabilizer, conditional physical reading)",
-      "fingerprint": "ca3bd07272070a3d",
-      "area": "sm",
-      "assumptions": "H-link with one carrier copy; H-cust — CONDITIONAL physical reading",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/gauge_support_probes.py",
-          "basis": "named",
-          "evidence": "Theorem 5"
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/condensate_space_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "SM:L-6a-operator-substitution-control",
-      "paper": "papers/SM.md",
-      "line": 348,
-      "kind": "Lemma",
-      "label": "6a (operator-substitution control)",
-      "fingerprint": "d526588a6904040b",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-6-conditional-link-carrier-count",
-      "paper": "papers/SM.md",
-      "line": 360,
-      "kind": "Theorem",
-      "label": "6 (conditional link-carrier count)",
-      "fingerprint": "e72c821fb1b8238a",
-      "area": "sm",
-      "assumptions": "H-link; the single-copy clause m = 1; d = 3",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-7-exact-link-representation-physical-reading",
-      "paper": "papers/SM.md",
-      "line": 368,
-      "kind": "Theorem",
-      "label": "7 (exact link representation; physical reading conditional)",
-      "fingerprint": "4f1f24bf85509709",
-      "area": "sm",
-      "assumptions": "the d = 3 simple-cubic lattice; the cubic rotation group; the physical reading is CONDITIONAL on H-link",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "verification/lean/gauge_certificates_probe.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "probe",
-          "path": "verification/lean/representation_bridge_probe.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean/OI_Gauge_Certificates.lean",
-          "names": [
-            "irr_orthonormal",
-            "irr_degrees",
-            "mult_V6",
-            "mult_End",
-            "mult_End_dims",
-            "mult_broken",
-            "mult_broken_dims",
-            "chi_consistent"
-          ]
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean-mathlib/OIBridge.lean",
-          "names": [
-            "Cubic.finrank_invariants",
-            "Cubic.finrank_commutant",
-            "Cubic.finrank_hom_end"
-          ]
-        }
-      ],
-      "kernel": "K2",
-      "delta": "the decomposition and every multiplicity are kernel-checked, and two of A5's three quotients are finrank statements; A5-B22 (144/24 = 6) is OPEN and blocked on a missing Mathlib lemma for the trace of a commuting-projector restriction (ROADMAP A5-B22). The identification of the link representation with the physical carrier is H-link and is not a formal object",
-      "note": ""
-    },
-    {
-      "id": "SM:T-7b",
-      "paper": "papers/SM.md",
-      "line": 384,
-      "kind": "Theorem",
-      "label": "7b",
-      "fingerprint": "8d7173320dbc6298",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-8",
-      "paper": "papers/SM.md",
-      "line": 428,
-      "kind": "Theorem",
-      "label": "8",
-      "fingerprint": "b4e78dbf1aec8fb2",
-      "area": "sm",
-      "assumptions": "the cubic group O acting on the four BZ corners",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "verification/lean/gauge_certificates_probe.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean/OI_Gauge_Certificates.lean",
-          "names": [
-            "irr_degrees",
-            "irr_orthonormal"
-          ]
-        }
-      ],
-      "kernel": "K1",
-      "delta": "the irreducible characters and their orthonormality are kernel-checked over the 24 rotations; the specific 4 = 1 + 3 branching is read off the same table but is not stated as its own theorem",
-      "note": ""
-    },
-    {
-      "id": "SM:T-8b",
-      "paper": "papers/SM.md",
-      "line": 434,
-      "kind": "Theorem",
-      "label": "8b",
-      "fingerprint": "9666e97d071006fe",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-9",
-      "paper": "papers/SM.md",
-      "line": 442,
-      "kind": "Theorem",
-      "label": "9",
-      "fingerprint": "5fc2a05ca9c46eb8",
-      "area": "sm",
-      "assumptions": "the octahedral group O acting by conjugation; free-kernel identification REFUTED; H-spin' OPEN",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/hspin_labels_probes.py",
-          "basis": "named",
-          "evidence": "Theorem 9"
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/condensate_space_probes.py",
-          "basis": "named",
-          "evidence": "Theorem 9"
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/hspin_kernel_probes.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/hspin4d_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": "The probe certifies EXACTLY the algebraic content the theorem keeps after the H-spin split — the refutation is part of the record."
-    },
-    {
-      "id": "SM:C-unnamed-39abc017",
-      "paper": "papers/SM.md",
-      "line": 448,
-      "kind": "Corollary",
-      "label": "",
-      "fingerprint": "39abc0175a95fdda",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-10",
-      "paper": "papers/SM.md",
-      "line": 450,
-      "kind": "Theorem",
-      "label": "10",
-      "fingerprint": "c1774f68700254d6",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-11",
-      "paper": "papers/SM.md",
-      "line": 458,
-      "kind": "Theorem",
-      "label": "11",
-      "fingerprint": "f47488bb1b7cb179",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-12",
-      "paper": "papers/SM.md",
-      "line": 529,
-      "kind": "Theorem",
-      "label": "12",
-      "fingerprint": "94fb79de985592e2",
-      "area": "sm",
-      "assumptions": "the bipartite structure of a range-1 hypercubic coupling graph",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/chirality_grading_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "SM:T-13",
-      "paper": "papers/SM.md",
-      "line": 537,
-      "kind": "Theorem",
-      "label": "13",
-      "fingerprint": "63d989dbd0f92597",
-      "area": "sm",
-      "assumptions": "CONDITIONAL identification; the minimal embedding is certified VECTOR-LIKE; H-chi' sharpened and OPEN",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/chirality_grading_probes.py",
-          "basis": "named",
-          "evidence": "Theorem 13"
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/hchi_selectivity_probes.py",
-          "basis": "section",
-          "evidence": ""
-        },
-        {
-          "kind": "probe",
-          "path": "papers/oi_lattice_code/foundations/hchiprime_probes.py",
-          "basis": "section",
-          "evidence": ""
-        }
-      ],
-      "kernel": "P",
-      "delta": "no Lean statement",
-      "note": ""
-    },
-    {
-      "id": "SM:T-14",
-      "paper": "papers/SM.md",
-      "line": 569,
-      "kind": "Theorem",
-      "label": "14",
-      "fingerprint": "5030ef7770eb2884",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-15",
-      "paper": "papers/SM.md",
-      "line": 575,
-      "kind": "Theorem",
-      "label": "15",
-      "fingerprint": "6e99ec24b17ecaba",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:C-unnamed-66dedb9a",
-      "paper": "papers/SM.md",
-      "line": 579,
-      "kind": "Corollary",
-      "label": "",
-      "fingerprint": "66dedb9af46d7da9",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-16",
-      "paper": "papers/SM.md",
-      "line": 583,
-      "kind": "Theorem",
-      "label": "16",
-      "fingerprint": "49edbac40239ee5e",
-      "area": "sm",
-      "assumptions": "the Yang-Mills action on the d-dimensional lattice",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": "K1 TARGET: dimensional bookkeeping."
-    },
-    {
-      "id": "SM:T-17",
-      "paper": "papers/SM.md",
-      "line": 605,
-      "kind": "Theorem",
-      "label": "17",
-      "fingerprint": "d4ff945f3de05b59",
-      "area": "sm",
-      "assumptions": "the discrete wave equation as displayed",
-      "checks": [
-        {
-          "kind": "probe",
-          "path": "verification/lean/time_reversal_probe.py",
-          "basis": "named",
-          "evidence": "[SM] Theorem 17"
-        },
-        {
-          "kind": "lean",
-          "path": "verification/lean/OI_Time_Reversal.lean",
-          "names": [
-            "waveS_time_reversal_invariant",
-            "wave_time_reversal_invariant",
-            "wave_nonvacuous",
-            "transport_not_time_reversal_invariant"
-          ]
-        }
-      ],
-      "kernel": "K3",
-      "delta": "",
-      "note": "Closed in b447's first closure wave, from GAP. Zero-import, so it is kernel-checked by the core gate with no Mathlib dependency. Proved first with the SPATIAL STENCIL LEFT ABSTRACT, which settles the reading question the manuscript leaves open — §5.1 displays the nearest-neighbour form while the theorem says \"the discrete wave equation\", which elsewhere in [SM] is d-dimensional; the displayed form is an instance, so both readings are covered. Carries a non-vacuity control and a countercontrol (first-order transport is reversible and NOT time-reversal invariant), and the companion probe re-derives the same fact by exact integer evolution."
-    },
-    {
-      "id": "SM:T-18",
-      "paper": "papers/SM.md",
-      "line": 613,
-      "kind": "Theorem",
-      "label": "18",
-      "fingerprint": "f16e5a756dd9aee2",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-19",
-      "paper": "papers/SM.md",
-      "line": 621,
-      "kind": "Theorem",
-      "label": "19",
-      "fingerprint": "bc328464f38b8bc1",
-      "area": "sm",
-      "assumptions": "partition preserved by time reversal; counting-measure hidden prior; the symmetric form needs T-even visible states",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": "The precision note in GR §3.2 — that N_ij = N_ji holds only for T-even coarse states — is exactly the kind of side condition a formal statement should carry."
-    },
-    {
-      "id": "SM:P-20",
-      "paper": "papers/SM.md",
-      "line": 627,
-      "kind": "Proposition",
-      "label": "20",
-      "fingerprint": "0ecbb951f7fb33b7",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-21",
-      "paper": "papers/SM.md",
-      "line": 631,
-      "kind": "Theorem",
-      "label": "21",
-      "fingerprint": "f2236da0bec98ef3",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:T-22",
-      "paper": "papers/SM.md",
-      "line": 1356,
-      "kind": "Theorem",
-      "label": "22",
-      "fingerprint": "66c883710a56ac79",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SM:C-unnamed-235f5cba",
-      "paper": "papers/SM.md",
-      "line": 1368,
-      "kind": "Corollary",
-      "label": "",
-      "fingerprint": "235f5cba7fc10e49",
-      "area": "sm",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "STRUCTURE:D-9.1",
-      "paper": "papers/Structure.md",
-      "line": 623,
-      "kind": "Definition",
-      "label": "9.1",
-      "fingerprint": "e0499da112de1b28",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "DEF",
-      "delta": "",
-      "note": ""
-    },
-    {
-      "id": "STRUCTURE:D-9.2",
-      "paper": "papers/Structure.md",
-      "line": 628,
-      "kind": "Definition",
-      "label": "9.2",
-      "fingerprint": "aa33473176f62ac6",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "DEF",
-      "delta": "",
-      "note": ""
-    },
-    {
-      "id": "STRUCTURE:D-9.3",
-      "paper": "papers/Structure.md",
-      "line": 632,
-      "kind": "Definition",
-      "label": "9.3",
-      "fingerprint": "ab7171f54fbcb738",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "DEF",
-      "delta": "",
-      "note": ""
-    },
-    {
-      "id": "STRUCTURE:D-9.4",
-      "paper": "papers/Structure.md",
-      "line": 635,
-      "kind": "Definition",
-      "label": "9.4",
-      "fingerprint": "c1f7875add01be08",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "DEF",
-      "delta": "",
-      "note": ""
-    },
-    {
-      "id": "STRUCTURE:P-9.5",
-      "paper": "papers/Structure.md",
-      "line": 643,
-      "kind": "Proposition",
-      "label": "9.5",
-      "fingerprint": "47fd5a483b0f9e92",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "STRUCTURE:C-9.6",
-      "paper": "papers/Structure.md",
-      "line": 649,
-      "kind": "Corollary",
-      "label": "9.6",
-      "fingerprint": "1ac4f23c6a863bcf",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "STRUCTURE:P-9.7",
-      "paper": "papers/Structure.md",
-      "line": 657,
-      "kind": "Proposition",
-      "label": "9.7",
-      "fingerprint": "c27ff0c7aecbaea1",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "STRUCTURE:C-9.8",
-      "paper": "papers/Structure.md",
-      "line": 663,
-      "kind": "Corollary",
-      "label": "9.8",
-      "fingerprint": "954a386ad628a35b",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "STRUCTURE:D-9.9",
-      "paper": "papers/Structure.md",
-      "line": 691,
-      "kind": "Definition",
-      "label": "9.9",
-      "fingerprint": "2abe6d67e4247481",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "DEF",
-      "delta": "",
-      "note": ""
-    },
-    {
-      "id": "STRUCTURE:P-9.10",
-      "paper": "papers/Structure.md",
-      "line": 701,
-      "kind": "Proposition",
-      "label": "9.10",
-      "fingerprint": "dbd6efee2abea3bc",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "STRUCTURE:C-9.11",
-      "paper": "papers/Structure.md",
-      "line": 705,
-      "kind": "Corollary",
-      "label": "9.11",
-      "fingerprint": "b87569f89d74abf1",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SUBSTRATUM:L-23.0",
-      "paper": "papers/Substratum.md",
-      "line": 188,
-      "kind": "Lemma",
-      "label": "23.0",
-      "fingerprint": "11c8a93fc88cf91b",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SUBSTRATUM:T-23",
-      "paper": "papers/Substratum.md",
-      "line": 192,
-      "kind": "Theorem",
-      "label": "23",
-      "fingerprint": "8dbe0304d1cd55ba",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SUBSTRATUM:T-24",
-      "paper": "papers/Substratum.md",
-      "line": 250,
-      "kind": "Theorem",
-      "label": "24",
-      "fingerprint": "cd76d5df5680765e",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SUBSTRATUM:C-effective-finiteness-gauge-class-transfer",
-      "paper": "papers/Substratum.md",
-      "line": 262,
-      "kind": "Corollary",
-      "label": "(effective finiteness and gauge-class transfer)",
-      "fingerprint": "9330e1f409e986c0",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
-      "id": "SUBSTRATUM:L-24.1",
-      "paper": "papers/Substratum.md",
-      "line": 272,
-      "kind": "Lemma",
-      "label": "24.1",
-      "fingerprint": "86db2ddcb8767cd0",
-      "area": "reconstruction",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
+  {
+   "id": "COMPUTATION:C-entanglement-dimension",
+   "paper": "papers/Computation.md",
+   "line": 130,
+   "kind": "Corollary",
+   "label": "(entanglement dimension)",
+   "fingerprint": "556140edc8e9d3e6",
+   "area": "computation",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "EXPLAINER:D-unnamed-2883898d",
+   "paper": "papers/Explainer.md",
+   "line": 43,
+   "kind": "Definition",
+   "label": "",
+   "fingerprint": "2883898db7d086c5",
+   "area": "mirror",
+   "assumptions": "mirrors the corresponding Main statement",
+   "checks": [],
+   "kernel": "DEF",
+   "delta": "",
+   "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
+  },
+  {
+   "id": "EXPLAINER:L-1",
+   "paper": "papers/Explainer.md",
+   "line": 49,
+   "kind": "Lemma",
+   "label": "1",
+   "fingerprint": "fb49958f1f426046",
+   "area": "mirror",
+   "assumptions": "mirrors the corresponding Main statement",
+   "checks": [],
+   "kernel": "MIRROR",
+   "delta": "",
+   "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
+  },
+  {
+   "id": "EXPLAINER:L-2",
+   "paper": "papers/Explainer.md",
+   "line": 51,
+   "kind": "Lemma",
+   "label": "2",
+   "fingerprint": "f7fc8b2092705f59",
+   "area": "mirror",
+   "assumptions": "mirrors the corresponding Main statement",
+   "checks": [],
+   "kernel": "MIRROR",
+   "delta": "",
+   "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
+  },
+  {
+   "id": "EXPLAINER:L-3",
+   "paper": "papers/Explainer.md",
+   "line": 61,
+   "kind": "Lemma",
+   "label": "3",
+   "fingerprint": "94d0d55173ac0c0a",
+   "area": "mirror",
+   "assumptions": "mirrors the corresponding Main statement",
+   "checks": [],
+   "kernel": "MIRROR",
+   "delta": "",
+   "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
+  },
+  {
+   "id": "GR:L-boundary-only-dependence",
+   "paper": "papers/GR.md",
+   "line": 110,
+   "kind": "Lemma",
+   "label": "(Boundary-only dependence)",
+   "fingerprint": "eb527d02de116a12",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:C-deep-sector-cardinality-gauge",
+   "paper": "papers/GR.md",
+   "line": 134,
+   "kind": "Corollary",
+   "label": "(deep-sector cardinality is gauge)",
+   "fingerprint": "24c8e32239e1d588",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:T-d-gauge-completeness",
+   "paper": "papers/GR.md",
+   "line": 166,
+   "kind": "Theorem",
+   "label": "(D-gauge completeness)",
+   "fingerprint": "bdc0f01e54fe1d20",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:C-invisible-gravitational-budget",
+   "paper": "papers/GR.md",
+   "line": 308,
+   "kind": "Corollary",
+   "label": "(Invisible gravitational budget)",
+   "fingerprint": "ea5d16ff902c196d",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:T-unnamed-b09a495a",
+   "paper": "papers/GR.md",
+   "line": 563,
+   "kind": "Theorem",
+   "label": "-level statement",
+   "fingerprint": "b09a495aaaa74234",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:T-a.1",
+   "paper": "papers/GR.md",
+   "line": 617,
+   "kind": "Theorem",
+   "label": "A.1",
+   "fingerprint": "6194ab9e0237ac5d",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:T-a.2",
+   "paper": "papers/GR.md",
+   "line": 631,
+   "kind": "Theorem",
+   "label": "A.2",
+   "fingerprint": "9038fb0a71ad5428",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:C-a.3",
+   "paper": "papers/GR.md",
+   "line": 637,
+   "kind": "Corollary",
+   "label": "A.3",
+   "fingerprint": "5f71b094854d9ff3",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:C-a.4",
+   "paper": "papers/GR.md",
+   "line": 641,
+   "kind": "Corollary",
+   "label": "A.4",
+   "fingerprint": "da598c322c63193a",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:T-a.5",
+   "paper": "papers/GR.md",
+   "line": 647,
+   "kind": "Theorem",
+   "label": "A.5",
+   "fingerprint": "c72669dae57db87f",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:T-a.6",
+   "paper": "papers/GR.md",
+   "line": 683,
+   "kind": "Theorem",
+   "label": "A.6",
+   "fingerprint": "d2f6e40dab0088fc",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:T-a.7",
+   "paper": "papers/GR.md",
+   "line": 705,
+   "kind": "Theorem",
+   "label": "A.7",
+   "fingerprint": "afea3a8c2dbcb278",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:T-a.8",
+   "paper": "papers/GR.md",
+   "line": 709,
+   "kind": "Theorem",
+   "label": "A.8",
+   "fingerprint": "17e40e97098c702e",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "GR:T-a.9",
+   "paper": "papers/GR.md",
+   "line": 733,
+   "kind": "Theorem",
+   "label": "A.9",
+   "fingerprint": "d42ca3c552d95614",
+   "area": "gr",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "MAIN:D-unnamed-7c0166f8",
+   "paper": "papers/Main.md",
+   "line": 44,
+   "kind": "Definition",
+   "label": "",
+   "fingerprint": "7c0166f8f003a402",
+   "area": "oi-foundations",
+   "assumptions": "none — this is the framework's primitive",
+   "checks": [],
+   "kernel": "DEF",
+   "delta": "",
+   "note": "The definition of an observation. Carries no proof obligation."
+  },
+  {
+   "id": "MAIN:L-1",
+   "paper": "papers/Main.md",
+   "line": 48,
+   "kind": "Lemma",
+   "label": "1",
+   "fingerprint": "3f78a6038b1ad02f",
+   "area": "oi-foundations",
+   "assumptions": "finite-area observer boundary; holographic entropy bound [2] cited as independent support",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": "A premise of the framework rather than a derived result. The formalizable content is the implication finite boundary => finite visible alphabet, which is not stated separately."
+  },
+  {
+   "id": "MAIN:L-2",
+   "paper": "papers/Main.md",
+   "line": 50,
+   "kind": "Lemma",
+   "label": "2",
+   "fingerprint": "b9ed4a3e353cb018",
+   "area": "oi-foundations",
+   "assumptions": "none — unpacks the definition",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": "Definitional content stated as a lemma. K1 would be cheap and is on the backlog only because it certifies almost nothing."
+  },
+  {
+   "id": "MAIN:L-3",
+   "paper": "papers/Main.md",
+   "line": 56,
+   "kind": "Lemma",
+   "label": "3",
+   "fingerprint": "4d9488cd71d08a13",
+   "area": "oi-foundations",
+   "assumptions": "determinism; reversibility of the selected representative; maximal-entropy SELECTION of the counting measure among invariant measures — not uniqueness from invariance",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": "The scope wall matters here: the manuscript is explicit that this is a selection principle. A formalization must not silently prove uniqueness, which is false in the continuum."
+  },
+  {
+   "id": "MAIN:T-statement",
+   "paper": "papers/Main.md",
+   "line": 80,
+   "kind": "Theorem",
+   "label": "statement",
+   "fingerprint": "96178c80977a3c46",
+   "area": "oi-foundations",
+   "assumptions": "see the constituent rows",
+   "checks": [],
+   "kernel": "SUM",
+   "delta": "",
+   "note": "A summary of the three exact layers and the conditional extension. Its content is carried by the equivalence-chain and memory-condition rows; it is not a separate obligation."
+  },
+  {
+   "id": "MAIN:L-partition-relativity-under-canonical-invariant",
+   "paper": "papers/Main.md",
+   "line": 84,
+   "kind": "Lemma",
+   "label": "(partition-relativity under the canonical invariant measure)",
+   "fingerprint": "277d94b19b9a10f2",
+   "area": "oi-foundations",
+   "assumptions": "the canonical measure of Lemma 3",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "MAIN:T-unnamed-182a6975",
+   "paper": "papers/Main.md",
+   "line": 113,
+   "kind": "Theorem",
+   "label": "",
+   "fingerprint": "182a69752a829d2e",
+   "area": "oi-foundations",
+   "assumptions": "finite C_V, C_H; |C_V| >= 2; phi a bijection; uniform hidden prior",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/translation_probes.py",
+     "basis": "named",
+     "evidence": "P-divisibility"
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
+     "basis": "section",
+     "evidence": ""
     }
-  ],
-  "unattached": [
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": "The §2.3 emergent-stochasticity construction. translation_probes certifies the P-divisibility/TV-monotonicity separation on it."
+  },
+  {
+   "id": "MAIN:L-stochastic-inverse",
+   "paper": "papers/Main.md",
+   "line": 131,
+   "kind": "Lemma",
+   "label": "(stochastic inverse)",
+   "fingerprint": "fae6e45fd175f22c",
+   "area": "oi-foundations",
+   "assumptions": "a finite square stochastic matrix with a one-sided stochastic inverse",
+   "checks": [
     {
-      "kind": "lean",
-      "path": "verification/lean/OI_Structural_Chain.lean",
-      "names": [
-        "path_prop",
-        "gD_edges_balanced",
-        "gD_bridge_unbalanced",
-        "gEx_invertible"
-      ],
-      "certifies": "GR §3.2 H-balance: edgewise detailed balance on a connected transition graph fixes the stationary populations to Gibbs form.",
-      "note": "Stated in GR §3.2 as running prose rather than as a bold-headed theorem, so the census assigns it no row. Proved WITHOUT the exponential and without Perron-Frobenius; connectivity is shown load-bearing by a two-component witness."
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
+     "basis": "named",
+     "evidence": "stochastic inverse"
     },
     {
-      "kind": "lean",
-      "path": "verification/lean/OI_Regulator_Symmetry.lean",
-      "names": [
-        "native_card",
-        "hyper_card",
-        "native_fixes_EB",
-        "native_fixes_both",
-        "hyper_does_not_fix_electric",
-        "hyper_does_not_fix_time",
-        "boost_ward"
-      ],
-      "certifies": "ROADMAP A7/A7b: the regulator-symmetry character sums 384 and 192 over the hypercubic and native groups, with the invariant bases exhibited by direct check.",
-      "note": "Supports the boost-sector discussion in GR §8.5 and SM §4.4, neither of which states a bold-headed theorem for it."
+     "kind": "probe",
+     "path": "verification/lean/equivalence_chain_probe.py",
+     "basis": "named",
+     "evidence": "OIBridge/EquivalenceChain.lean"
     },
     {
-      "kind": "lean",
-      "path": "verification/lean-mathlib/OIBridge/CombRealization.lean",
-      "names": [
-        "saturated_class_obstruction",
-        "workspace_state_forced",
-        "class_card_ge_five",
-        "card_ge_ten"
-      ],
-      "certifies": "b446: the saturated-class lemma and the |S| >= 10 lower bound for reversible realizations of the b76B comb at horizon 2.",
-      "note": "RESEARCH LAYER, deliberately unpropagated. b446 states explicitly that nothing propagates to the manuscripts, so there is no canonical row to attach it to — and that is the correct state, not a gap."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/primitive_probes.py",
-      "names": [],
-      "certifies": "Main §1.3: C4 is primitive; C1 and C3 are its consequences within any faithful realization.",
-      "note": "The conditions C1-C4 are introduced in §1.3 as a numbered list rather than as bold-headed statements, so they carry no census row."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/review3_probes.py",
-      "names": [],
-      "certifies": "The third-round review's three load-bearing counterexamples against the 2.8.1 texts.",
-      "note": "A countercontrol against superseded statements."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/review4_probes.py",
-      "names": [],
-      "certifies": "The fourth-round review's two counterexamples, exactly.",
-      "note": "Includes that C4 does NOT imply P-indivisibility — a scope wall, not a certificate."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/coherence_boundary_probes.py",
-      "names": [],
-      "certifies": "b441 research-layer result.",
-      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/native_group_probes.py",
-      "names": [],
-      "certifies": "b442 research-layer result.",
-      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/finite_horizon_probes.py",
-      "names": [],
-      "certifies": "b443 research-layer result.",
-      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/recurrence_entropy_probes.py",
-      "names": [],
-      "certifies": "b444 research-layer result.",
-      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/comb_dimension_probes.py",
-      "names": [],
-      "certifies": "b445 research-layer result.",
-      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/comb_realization_probes.py",
-      "names": [],
-      "certifies": "b446 research-layer result.",
-      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/source_lift_probes.py",
-      "names": [],
-      "certifies": "b434 research-layer result.",
-      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/induced_source_probes.py",
-      "names": [],
-      "certifies": "b436 research-layer result.",
-      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/gauge_support_probes.py",
-      "names": [],
-      "certifies": "b437 research-layer result.",
-      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/bargmann_bridge_probes.py",
-      "names": [],
-      "certifies": "b440 research-layer result.",
-      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
-    },
-    {
-      "kind": "probe",
-      "path": "papers/oi_lattice_code/foundations/comb_reachability_probes.py",
-      "names": [],
-      "certifies": "b430-b432 research-layer result.",
-      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
+     "names": [
+      "row_eq_basis_of_mem_support",
+      "isPermMatrix_of_stochastic_inverse"
+     ]
     }
-  ],
-  "backlog_policy": "LEAN-FIRST. Every established canonical mathematical result is a kernel-formalization target by default. GAP IS A BACKLOG STATE AND NOT AN ACCEPTABLE TERMINAL VERIFICATION STATE. An exception requires a RECORDED REASON -- empirical input, an external literature premise, a physical assumption, or a formal library result that does not yet exist -- and even then Lean should prove the implication FROM that premise wherever possible: A_1 and ... and A_n implies the framework conclusion, which is exactly where the framework's own deduction ends and an external assumption begins. Formalization order: central OI/equivalence chain, foundational OI lemmas, existing ROADMAP gaps, reconstruction/representation, comb/locality, GR/SM deductions, then secondary corollaries and controls. WITHIN each tier take the easy K3 conversions first so coverage rises quickly, but NEVER let that displace a central theorem merely because it is harder. And the probes are preserved after Lean catches up: the standard is Lean theorem PLUS independent executable probe PLUS countercontrols, never Lean instead of probes.",
-  "backlog": [
+   ],
+   "kernel": "K3",
+   "delta": "",
+   "note": "Closed in b448, rank 1 of the backlog, from P. The proof is the manuscript's own, step for step: vanishing off-diagonal entries of A*B force every row of B indexed by the support of a row of A to be a basis vector; two such rows would coincide, which a nonzero determinant forbids; so each row of A carries a single unit entry and the occupied columns are distinct. Both sides of \"left or right\" are covered without separate proofs, because a one-sided inverse of a square matrix over a commutative ring is two-sided. The countercontrol in the companion probe shows the hypothesis is load-bearing: [[1/2,1/2],[0,1]] is stochastic and invertible and is NOT a permutation, its inverse simply failing to be stochastic."
+  },
+  {
+   "id": "MAIN:T-history-readback-finite-recurrence-implies",
+   "paper": "papers/Main.md",
+   "line": 135,
+   "kind": "Theorem",
+   "label": "(history readback + finite recurrence implies indivisibility)",
+   "fingerprint": "92c1f59c0f6f9e3e",
+   "area": "memory-conditions",
+   "assumptions": "a fixed finite reversible OI representative; genuine C4 readback",
+   "checks": [
     {
-      "rank": 1,
-      "id": "MAIN:L-3",
-      "centrality": "high",
-      "difficulty": "medium",
-      "tier": 2,
-      "route": "Must formalize the SELECTION principle and not uniqueness -- the manuscript is explicit that the counting measure is selected as maximal-entropy among invariant measures, and that uniqueness from invariance alone is false in the continuum. A formalization that proved uniqueness would be proving something the corpus denies."
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
+     "basis": "section",
+     "evidence": ""
     },
     {
-      "rank": 2,
-      "id": "MAIN:L-1",
-      "centrality": "medium",
-      "difficulty": "medium",
-      "tier": 2,
-      "route": "Not derivable as stated -- it is a premise. The kernel-checkable content is the IMPLICATION from a finite-area boundary and a finite mode count to a finite visible alphabet, with the holographic bound left as a named external hypothesis."
-    },
-    {
-      "rank": 3,
-      "id": "MAIN:T-c3-necessity",
-      "centrality": "high",
-      "difficulty": "medium",
-      "tier": 2,
-      "route": "Information-theoretic: needs conditional mutual information and log-cardinality bounds. Mathlib has entropy for finite measures; the bound I <= log m is the whole content."
-    },
-    {
-      "rank": 4,
-      "id": "SM:T-7-exact-link-representation-physical-reading",
-      "centrality": "high",
-      "difficulty": "blocked",
-      "tier": 3,
-      "route": "ROADMAP A5-B22. Blocked on a Mathlib lemma that does not exist: the trace of an operator restricted to a subrepresentation, i.e. IsProj p P and f commuting with P entails trace (f.restrict) = trace (f * P). Two routes, both real work: prove that lemma, or define T, E, A as explicit representations with matrices given directly, which costs a sign cocycle for T and leaves the identification mirror-certified rather than kernel-certified."
-    },
-    {
-      "rank": 5,
-      "id": "SM:C-1a-cubic-symmetry-forbids-quadratic-anisotropy",
-      "centrality": "medium",
-      "difficulty": "medium",
-      "tier": 3,
-      "route": "ROADMAP B3 algebraic half. The character-level statement is delivered; the dimension statement dim Sym^2(R^3)^{B_3} = 1 needs the 48-element signed permutation group built as a Mathlib Representation the way Cubic.rho already is, after which A1 divides by the group order. This is plumbing of a kind already done once, which is why it ranks above A9."
-    },
-    {
-      "rank": 6,
-      "id": "STRUCTURE:P-9.7",
-      "centrality": "high",
-      "difficulty": "high",
-      "tier": 4,
-      "route": "Stinespring uniqueness in restricted form. Mathlib has no Stinespring dilation theorem, so the restricted statement has to be set up from the partial-trace side. High centrality because the substratum-is-gauge corollary and the whole universality-class story rest on it."
-    },
-    {
-      "rank": 7,
-      "id": "MAIN:T-separability-threshold",
-      "centrality": "medium",
-      "difficulty": "high",
-      "tier": 5,
-      "route": "A clean finite-group statement -- entanglement-breaking iff t = s for an abelian Weyl subgroup of order 2^t on s qubits -- but Mathlib carries no entanglement-breaking characterization, so the definition has to be built before the theorem can be stated."
-    },
-    {
-      "rank": 8,
-      "id": "MAIN:L-1-boundary-bound",
-      "centrality": "medium",
-      "difficulty": "medium",
-      "tier": 5,
-      "route": "A rank bound on the off-diagonal blocks of a local update. Mathlib has matrix rank and the submatrix API; the content is that the block factors through the boundary index set."
-    },
-    {
-      "rank": 9,
-      "id": "SM:T-19",
-      "centrality": "medium",
-      "difficulty": "medium",
-      "tier": 6,
-      "route": "Reciprocity of visible transition counts. The side condition is the interesting part and must be carried: the symmetric form T_ij = T_ji holds only for T-EVEN coarse states, and GR section 3.2 is explicit that with T-odd visible data only the (theta j, theta i) form survives."
-    },
-    {
-      "rank": 10,
-      "id": "SM:T-16",
-      "centrality": "low",
-      "difficulty": "low",
-      "tier": 6,
-      "route": "Dimensional bookkeeping: [g] = (3-d)/2, dimensionless iff d = 3. Cheap, and it moves an SM GAP for almost nothing."
-    },
-    {
-      "rank": 11,
-      "id": "GR:T-d-gauge-completeness",
-      "centrality": "medium",
-      "difficulty": "high",
-      "tier": 6,
-      "route": "Needs non-degenerate spectra, non-vanishing overlaps and an argument over all t -- analytic, and the first GR statement worth attempting."
-    },
-    {
-      "rank": 12,
-      "id": "SM:T-8",
-      "centrality": "low",
-      "difficulty": "low",
-      "tier": 6,
-      "route": "Already K1: the irreducible characters and their orthonormality are kernel-checked over the 24 rotations. Upgrading to K3 means stating the 4 = 1 + 3 branching as its own theorem rather than reading it off the table."
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/review4_probes.py",
+     "basis": "section",
+     "evidence": ""
     }
-  ],
-  "backlog_tiers": {
-    "1": "central OI / equivalence chain",
-    "2": "foundational OI lemmas",
-    "3": "existing ROADMAP gaps (A5-B22, B3, A9, B3 dispersion)",
-    "4": "reconstruction / representation",
-    "5": "comb / locality",
-    "6": "GR / SM deductions",
-    "7": "secondary corollaries and controls"
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "MAIN:L-fast-bath-erases-readback",
+   "paper": "papers/Main.md",
+   "line": 157,
+   "kind": "Lemma",
+   "label": "(fast bath erases readback)",
+   "fingerprint": "9ae2c125fc14a6ab",
+   "area": "memory-conditions",
+   "assumptions": "tau_B << tau_S; uniform record erosion e^{-tau_S/tau_B} per step",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/fastbath_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": "fastbath_probes carries the counterexample to the slow-evolution reading, which is the load-bearing half."
+  },
+  {
+   "id": "MAIN:L-accessible-backflow-from-readback",
+   "paper": "papers/Main.md",
+   "line": 165,
+   "kind": "Lemma",
+   "label": "(accessible backflow from readback)",
+   "fingerprint": "449e3df3147485ef",
+   "area": "memory-conditions",
+   "assumptions": "(C1)-(C3); a (C4) gap at order k inside the accessible window; p_0 and delta as stated",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/c4_backflow_probes.py",
+     "basis": "named",
+     "evidence": "readback lemma"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "MAIN:L-one-step-ancilla-dilation",
+   "paper": "papers/Main.md",
+   "line": 204,
+   "kind": "Lemma",
+   "label": "(one-step ancilla dilation)",
+   "fingerprint": "caec1093862d7955",
+   "area": "equivalence-chain",
+   "assumptions": "T stochastic on n states",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/tdilate_probes.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/equivalence_chain_probe.py",
+     "basis": "named",
+     "evidence": "OIBridge/EquivalenceChain.lean"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
+     "names": [
+      "dilation",
+      "dilation_isometry",
+      "dilation_marginal",
+      "dilation_extends"
+     ]
+    }
+   ],
+   "kernel": "K3",
+   "delta": "",
+   "note": "Closed in b448, rank 4 of the backlog, from P. ALL THREE CLAUSES are proved: W is an isometry, its ancilla-marginal is T, and it EXTENDS TO A UNITARY. The third is the one that could have been quietly dropped, and it is where Mathlib earns its place rather than being incidental — extending an isometry to a unitary is orthonormal-basis extension, a real theorem and not bookkeeping. The companion probe checks the two computational clauses on the SQUARED amplitudes so the arithmetic stays rational and no square root is ever approximated, and exhibits an explicit Gram-Schmidt completion for the third. Its countercontrol records that the stochasticity is used in one direction only: for a COLUMN-stochastic T the isometry clause is false."
+  },
+  {
+   "id": "MAIN:L-phase-locking",
+   "paper": "papers/Main.md",
+   "line": 222,
+   "kind": "Lemma",
+   "label": "(phase-locking)",
+   "fingerprint": "a2bbef866acc6972",
+   "area": "equivalence-chain",
+   "assumptions": "(G1) non-degenerate spectrum; (G2) non-degenerate gaps; (G3) V_ik nonzero",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/phaselock_probes.py",
+     "basis": "named",
+     "evidence": "ancilla-marginal phase-locking"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": "Gated in CI. The genericity half rests on exact witnesses at seven shapes (b433); a uniform-D statement is NOT established and must not be formalized as one."
+  },
+  {
+   "id": "MAIN:L-ancilla-marginal-reformulation",
+   "paper": "papers/Main.md",
+   "line": 240,
+   "kind": "Lemma",
+   "label": "(ancilla-marginal reformulation)",
+   "fingerprint": "591acbb7bfdf5cd3",
+   "area": "equivalence-chain",
+   "assumptions": "block projectors in the eigenbasis; theta real antisymmetric",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/phaselock_probes.py",
+     "basis": "named",
+     "evidence": "ancilla-marginal phase-locking"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "MAIN:T-ancilla-marginal-phase-locking-certified",
+   "paper": "papers/Main.md",
+   "line": 244,
+   "kind": "Theorem",
+   "label": "(ancilla-marginal phase-locking; certified block structures)",
+   "fingerprint": "a8bfb64ad16a145c",
+   "area": "equivalence-chain",
+   "assumptions": "per-shape: certified at (n,m_a) in the listed set; genericity by upper semi-continuity from one exact witness per shape",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/phaselock_probes.py",
+     "basis": "named",
+     "evidence": "ancilla-marginal phase-locking"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": "Nothing uniform in D is proved. Each shape rests on its own witness (b433)."
+  },
+  {
+   "id": "MAIN:L-permutation-unitarity",
+   "paper": "papers/Main.md",
+   "line": 262,
+   "kind": "Lemma",
+   "label": "(permutation unitarity)",
+   "fingerprint": "d9fa15aa060513b9",
+   "area": "equivalence-chain",
+   "assumptions": "phi a bijection on a finite product",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
+     "basis": "named",
+     "evidence": "permutation"
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/equivalence_chain_probe.py",
+     "basis": "named",
+     "evidence": "OIBridge/EquivalenceChain.lean"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
+     "names": [
+      "permMatrix_mem_unitaryGroup"
+     ]
+    }
+   ],
+   "kernel": "K3",
+   "delta": "",
+   "note": "Closed in b448, rank 2 of the backlog, from P. Stated over the index type V x H, which is what \"on the tensor product\" means once the product basis is fixed — the manuscript's own reading, since its proof is that U_phi permutes the product orthonormal basis. Nothing about the two factors is used, so the lemma holds for any finite index type."
+  },
+  {
+   "id": "MAIN:L-reverse-direction-scoped",
+   "paper": "papers/Main.md",
+   "line": 268,
+   "kind": "Lemma",
+   "label": "(Reverse direction, scoped)",
+   "fingerprint": "fea0497e8ec4dd9c",
+   "area": "equivalence-chain",
+   "assumptions": "a SINGLE one-step doubly stochastic matrix; uniform hidden prior — the scope word is load-bearing and the multi-step statement is false",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/tdilate_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "MAIN:T-born-form-representation-transition-probabilities",
+   "paper": "papers/Main.md",
+   "line": 280,
+   "kind": "Theorem",
+   "label": "(Born-form representation of the transition probabilities)",
+   "fingerprint": "69fb04e6539179c8",
+   "area": "equivalence-chain",
+   "assumptions": "the §1.4 construction; ancilla-marginal form — a REPRESENTATION identity, which does not select the quadratic form",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/tdilate_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "MAIN:L-1-boundary-bound",
+   "paper": "papers/Main.md",
+   "line": 292,
+   "kind": "Lemma",
+   "label": "1 (boundary bound)",
+   "fingerprint": "f483bbbc56bff0dc",
+   "area": "locality-combs",
+   "assumptions": "the block decomposition of the update on a region R",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "MAIN:L-2-channel-normal-form",
+   "paper": "papers/Main.md",
+   "line": 298,
+   "kind": "Lemma",
+   "label": "2 (channel normal form)",
+   "fingerprint": "1c9aa2f382bc9e75",
+   "area": "locality-combs",
+   "assumptions": "the displayed F_2 update on a region R",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "MAIN:T-separability-threshold",
+   "paper": "papers/Main.md",
+   "line": 306,
+   "kind": "Theorem",
+   "label": "(separability threshold)",
+   "fingerprint": "0b2eb937cfe2d36b",
+   "area": "locality-combs",
+   "assumptions": "G an abelian subgroup of the Weyl group on s qubits of order 2^t modulo phases",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": "A clean finite-group statement and a good K3 candidate once the Weyl-group machinery is available; Mathlib does not carry the entanglement-breaking characterization."
+  },
+  {
+   "id": "MAIN:C-1",
+   "paper": "papers/Main.md",
+   "line": 310,
+   "kind": "Corollary",
+   "label": "1",
+   "fingerprint": "292a005a0ee074f5",
+   "area": "locality-combs",
+   "assumptions": "the displayed one-step F_2 update; uncorrelated maximally mixed hidden sector",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "MAIN:C-2",
+   "paper": "papers/Main.md",
+   "line": 312,
+   "kind": "Corollary",
+   "label": "2",
+   "fingerprint": "7ed2f61c9956c149",
+   "area": "locality-combs",
+   "assumptions": "the boundary cardinalities of R",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "MAIN:L-diagonal-preservation",
+   "paper": "papers/Main.md",
+   "line": 320,
+   "kind": "Lemma",
+   "label": "(diagonal preservation)",
+   "fingerprint": "15be37eef5071735",
+   "area": "equivalence-chain",
+   "assumptions": "U a permutation unitary",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "verification/lean/equivalence_chain_probe.py",
+     "basis": "named",
+     "evidence": "OIBridge/EquivalenceChain.lean"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
+     "names": [
+      "permConj_apply",
+      "permMatrix_pow",
+      "permMatrix_mul_inv",
+      "isDiag_Phi"
+     ]
+    }
+   ],
+   "kernel": "K3",
+   "delta": "",
+   "note": "Closed in b448, rank 3 of the backlog, from GAP. DERIVED from permutation unitarity rather than recomputed, as the ordering intends: the only new content is that conjugating by a permutation matrix is a RELABELLING of indices, after which diagonality survives because a permutation is injective and the partial trace of a diagonal state is diagonal. The hidden prior enters as a STATE built from a distribution, Matrix.diagonal mu — which is what mu_H is in the framework (Main section 3.4 writes it as rho_anc = sum_h mu_H(h)|h><h|), so its diagonality is definitional and not an extra hypothesis. The companion probe's countercontrol shows a NON-permutation unitary destroys diagonality, matching the manuscript's own scope remark that the CP-indivisibility reduction fails for a general CPTP family."
+  },
+  {
+   "id": "MAIN:T-cp-indivisibility-framework-scope",
+   "paper": "papers/Main.md",
+   "line": 324,
+   "kind": "Theorem",
+   "label": "(CP-indivisibility, framework scope)",
+   "fingerprint": "b440fd63f2584861",
+   "area": "equivalence-chain",
+   "assumptions": "the permutation-dilation family; P-indivisibility of §2.3 — FRAMEWORK SCOPE, not a general implication",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/c1_cp_scope_probes.py",
+     "basis": "named",
+     "evidence": "non-permutation"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "MAIN:C-bell-lattice-obstruction-state-dependent",
+   "paper": "papers/Main.md",
+   "line": 390,
+   "kind": "Corollary",
+   "label": "(Bell–lattice obstruction and state-dependent escape)",
+   "fingerprint": "8dfc5de1b600053f",
+   "area": "locality-combs",
+   "assumptions": "Bell-relevant degrees of freedom governed by the nearest-neighbour cubic update; max lattice speed identified with c",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "MAIN:L-non-permutation-witness",
+   "paper": "papers/Main.md",
+   "line": 411,
+   "kind": "Lemma",
+   "label": "(non-permutation witness)",
+   "fingerprint": "3a87e714d4b89b3d",
+   "area": "memory-conditions",
+   "assumptions": "T not a permutation",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/c1_cp_scope_probes.py",
+     "basis": "named",
+     "evidence": "non-permutation"
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/translation_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "MAIN:T-c2-necessity-quantitative-mixing-form",
+   "paper": "papers/Main.md",
+   "line": 429,
+   "kind": "Theorem",
+   "label": "(C2 necessity, quantitative mixing form)",
+   "fingerprint": "a2d568e0afd73b4e",
+   "area": "memory-conditions",
+   "assumptions": "the uniform-prior bijection marginal of §3.2; the stated mixing hypothesis",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/c2_mixing_probes.py",
+     "basis": "named",
+     "evidence": "C2 quantitative mixing theorem"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": "Preregistered probe (b49): rule, ensemble, seed and grid fixed before the run."
+  },
+  {
+   "id": "MAIN:T-physical-memory-c2-process-form",
+   "paper": "papers/Main.md",
+   "line": 443,
+   "kind": "Theorem",
+   "label": "(physical memory: C2, process form)",
+   "fingerprint": "eaf472aa957c43fa",
+   "area": "memory-conditions",
+   "assumptions": "the conditional-mixing hypothesis at coupling time",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/c2_mixing_probes.py",
+     "basis": "named",
+     "evidence": "C2 quantitative mixing theorem"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "MAIN:T-intervention-dilation-finite-classical-action",
+   "paper": "papers/Main.md",
+   "line": 456,
+   "kind": "Theorem",
+   "label": "(intervention dilation: the finite classical action-labelled comb)",
+   "fingerprint": "e639740e89f576ed",
+   "area": "memory-conditions",
+   "assumptions": "a finite action alphabet and a finite-horizon action-labelled family",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/intervention_probes.py",
+     "basis": "named",
+     "evidence": "intervention dilation"
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/comb_reachability_probes.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/lg_comb_probes.py",
+     "basis": "named",
+     "evidence": "classical action-labelled comb theorem"
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/repconsistency_probes.py",
+     "basis": "named",
+     "evidence": "classical comb theorem"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": "The reach limit is part of the record: lg_comb_probes shows the classical comb theorem does not by itself reach quantum instrument statistics, and repconsistency names the remainder."
+  },
+  {
+   "id": "MAIN:P-no-horizon-independent-intervened-representation",
+   "paper": "papers/Main.md",
+   "line": 468,
+   "kind": "Proposition",
+   "label": "(no horizon-independent intervened representation)",
+   "fingerprint": "546efbc4c09ea030",
+   "area": "memory-conditions",
+   "assumptions": "a fixed representation dimension d, Hamiltonian and slot structure",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/nogo_probes.py",
+     "basis": "named",
+     "evidence": "classical-dimension operational obstruction"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": "nogo_probes also carries the counterexample that invalidated the earlier convex-geometry proof (b125 polytope inference, corrected at b128) — a countercontrol, not just a certificate."
+  },
+  {
+   "id": "MAIN:T-c3-necessity",
+   "paper": "papers/Main.md",
+   "line": 480,
+   "kind": "Theorem",
+   "label": "(C3 necessity)",
+   "fingerprint": "851d788fb738c428",
+   "area": "memory-conditions",
+   "assumptions": "m = |C_H| finite",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/c3_dilation_probes.py",
+     "basis": "named",
+     "evidence": "C3 corollary"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "MAIN:C-per-process-capacity-bound",
+   "paper": "papers/Main.md",
+   "line": 488,
+   "kind": "Corollary",
+   "label": "(per-process capacity bound)",
+   "fingerprint": "cc7fd03ee5f8e9ee",
+   "area": "memory-conditions",
+   "assumptions": "a deterministic-bijection realization attaining I*",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/c3_dilation_probes.py",
+     "basis": "named",
+     "evidence": "C3 corollary"
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/recurrence_entropy_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": "b444 sharpens the same budget from the entropy side; b445/b446 sharpen it again by realization dimension."
+  },
+  {
+   "id": "MAIN:T-finite-horizon-process-dilation",
+   "paper": "papers/Main.md",
+   "line": 492,
+   "kind": "Theorem",
+   "label": "(finite-horizon process dilation)",
+   "fingerprint": "12a3411af0e7e69a",
+   "area": "equivalence-chain",
+   "assumptions": "rational multi-time law; finite accessible horizon K with t << t_R",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/process_dilation_probes.py",
+     "basis": "named",
+     "evidence": "finite-horizon process-dilation"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "MAIN:D-unitarily-evolving-qm",
+   "paper": "papers/Main.md",
+   "line": 500,
+   "kind": "Definition",
+   "label": "(unitarily evolving QM)",
+   "fingerprint": "c1bc7b35a7c12e99",
+   "area": "equivalence-chain",
+   "assumptions": "none — a definition",
+   "checks": [],
+   "kernel": "DEF",
+   "delta": "",
+   "note": ""
+  },
+  {
+   "id": "MAIN:L-fixed-hat-h-form-realized",
+   "paper": "papers/Main.md",
+   "line": 506,
+   "kind": "Lemma",
+   "label": "(fixed-$\\hat{H}$ form for realized processes)",
+   "fingerprint": "073a270ea5497b99",
+   "area": "equivalence-chain",
+   "assumptions": "the process arises as the marginal of an iterated fixed bijection with a fixed hidden prior",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
+     "basis": "named",
+     "evidence": "finite-horizon equivalence"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "MAIN:T-finite-horizon-stochastic-reversible-unitary",
+   "paper": "papers/Main.md",
+   "line": 522,
+   "kind": "Theorem",
+   "label": "(finite-horizon stochastic–reversible–unitary equivalence)",
+   "fingerprint": "eb7422303f7624ea",
+   "area": "equivalence-chain",
+   "assumptions": "finite visible alphabet; finite accessible horizon K",
+   "checks": [
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/Equivalence.lean",
+     "basis": "named",
+     "evidence": "finite_horizon_equivalence"
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/finite_horizon_equivalence_probe.py",
+     "basis": "named",
+     "evidence": "finite_horizon_equivalence"
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
+     "basis": "named",
+     "evidence": "finite-horizon equivalence"
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "K3",
+   "delta": "",
+   "note": "THE CENTRAL EQUIVALENCE CHAIN. Kernel-proved as three explicit constructions -- S_imp_D's multi-time clock-and-record carrier over an arbitrary finite-horizon joint law, D_imp_Qfb's permutation unitary with fixed-basis readout at every time, Qfb_imp_S's chain normalization from unitarity -- assembled by the named wrapper finite_horizon_equivalence, which takes NONE of the three as a hypothesis. The three classes are separate predicates and none is defined through another. TWO SCOPE GUARDS, recorded in the Lean header: the hidden-predictive-memory theorem is neither an assumption nor a lemma here (the equivalence is existential and holds for Markov laws too), and the one-step ancilla dilation of EquivalenceChain.lean does not prove S => D. The class (Q_fb) is defined without an autonomous-generator clause, so the manuscript's U = exp(-iH) remark is a property of the construction and is deliberately left unformalized; widening the class definition is what would reopen this."
+  },
+  {
+   "id": "MAIN:T-finite-operational-realization-gluing-form",
+   "paper": "papers/Main.md",
+   "line": 540,
+   "kind": "Theorem",
+   "label": "(finite operational realization and gluing — ε-form)",
+   "fingerprint": "769289a21d84cc02",
+   "area": "equivalence-chain",
+   "assumptions": "fixed d, finite instrument family, horizon K, tolerance epsilon",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/opglue_probes.py",
+     "basis": "named",
+     "evidence": "finite operational realization and gluing"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": "Exact arithmetic over Q(sqrt 2) + i Q(sqrt 2) at d = 2, K = 2 and 3."
+  },
+  {
+   "id": "MAIN:T-uniform-continuum-realization-mutual-density",
+   "paper": "papers/Main.md",
+   "line": 562,
+   "kind": "Theorem",
+   "label": "(uniform continuum realization — mutual ε-density)",
+   "fingerprint": "d5bebe2b4b397137",
+   "area": "equivalence-chain",
+   "assumptions": "a delta-net in diamond norm on the compact set of <= m-outcome instruments",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/opglue_probes.py",
+     "basis": "named",
+     "evidence": "finite operational realization and gluing"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": "The net argument is the analytic step and the probe does not reach it; only the finite instance is certified."
+  },
+  {
+   "id": "MAIN:T-unavoidable-hidden-predictive-memory",
+   "paper": "papers/Main.md",
+   "line": 568,
+   "kind": "Theorem",
+   "label": "(unavoidable hidden predictive memory)",
+   "fingerprint": "d813f5acc348e2d1",
+   "area": "memory-conditions",
+   "assumptions": "ANY faithful deterministic realization — the quantifier is the content",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/memory_probes.py",
+     "basis": "named",
+     "evidence": "universal hidden-memory theorem"
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/hidden_memory_probe.py",
+     "basis": "named",
+     "evidence": "OIBridge/HiddenMemory.lean"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/HiddenMemory.lean",
+     "names": [
+      "pushforward_identity",
+      "distinguishability_floor",
+      "capacity_floor",
+      "unavoidable_hidden_predictive_memory"
+     ]
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge/FiniteEntropy.lean",
+     "names": [
+      "sum_mul_log_le",
+      "entropy_le_log_card",
+      "cmi3_nonneg",
+      "cmi_le_of_deterministic",
+      "cmi_le_log_card"
+     ]
+    }
+   ],
+   "kernel": "K3",
+   "delta": "",
+   "note": "Closed in b448, rank 1 of the backlog, from P. ALL THREE CLAUSES: the pushforward identity, the distinguishability floor, and the capacity floor M_t <= I(X_<t; H_t | X_t) <= log2 |C_H|. Clause (c) required BUILDING A FINITE SHANNON LAYER, since Mathlib carries no entropy of a finite distribution, no mutual information, no conditional mutual information and no data-processing inequality; OIBridge/FiniteEntropy.lean supplies them from one analytic input, log x <= x - 1. Proving only M_t <= log2|C_H| would have been a different theorem wearing this one's name. The next visible value is DEFINED as the visible component of the bijection rather than assumed to be a function of the pair, so the Markov chain X_<t -> H_t -> X_{t+1} given X_t is a consequence and not a hypothesis. THIS THEOREM IS DELIBERATELY SEPARATE FROM THE EQUIVALENCE CHAIN and is not a lemma of it: the equivalence is existential and holds for Markov laws too, which is exactly why it cannot do this theorem's work. Each clause has a countercontrol removing the hypothesis its proof consumes — a stochastic channel for (a), a non-TV distance for (b), and a broken Markov chain for (c)."
+  },
+  {
+   "id": "MAIN:T-canonical-predictive-quotient-purification-ingredient",
+   "paper": "papers/Main.md",
+   "line": 586,
+   "kind": "Theorem",
+   "label": "(canonical predictive quotient — a purification ingredient, substratum form)",
+   "fingerprint": "8b180e8ae437af19",
+   "area": "memory-conditions",
+   "assumptions": "a finite-horizon law on visible trajectories",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/purification_probes.py",
+     "basis": "named",
+     "evidence": "canonical predictive quotient"
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "MAIN:L-rest-frame-selection",
+   "paper": "papers/Main.md",
+   "line": 628,
+   "kind": "Lemma",
+   "label": "(rest-frame selection)",
+   "fingerprint": "9a0d6bb006a18763",
+   "area": "gr",
+   "assumptions": "the partition realized across a causal horizon",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "MAIN:C-boost-rotation-inequivalence",
+   "paper": "papers/Main.md",
+   "line": 632,
+   "kind": "Corollary",
+   "label": "(boost/rotation inequivalence)",
+   "fingerprint": "f3989dfe422a5ab6",
+   "area": "gr",
+   "assumptions": "the rest-frame selection lemma",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "MAIN:T-structural-observer-selection-conditional-em",
+   "paper": "papers/Main.md",
+   "line": 714,
+   "kind": "Theorem",
+   "label": "(structural observer selection — conditional on (EM))",
+   "fingerprint": "ee37bee219b5e0ba",
+   "area": "oi-foundations",
+   "assumptions": "the effective-mixing hypothesis (EM) — EXPLICITLY CONDITIONAL",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": "The conditional form A_EM => conclusion is exactly the shape the kernel can certify while leaving (EM) external."
+  },
+  {
+   "id": "MAIN:C-anti-boltzmann-brain",
+   "paper": "papers/Main.md",
+   "line": 722,
+   "kind": "Corollary",
+   "label": "(anti-Boltzmann-brain)",
+   "fingerprint": "a1b5f6f9cb61e6f6",
+   "area": "oi-foundations",
+   "assumptions": "the structural observer selection theorem, hence (EM)",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "MAIN:C-past-hypothesis-replacement-rate-condition",
+   "paper": "papers/Main.md",
+   "line": 724,
+   "kind": "Corollary",
+   "label": "(past-hypothesis replacement, with its rate condition)",
+   "fingerprint": "d6189921c664b0e7",
+   "area": "oi-foundations",
+   "assumptions": "the observer-selection theorem plus its rate condition — the manuscript is explicit that the two bounds do NOT compose without it",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-factorization-uniqueness-translation-invariant-dynamics",
+   "paper": "papers/SM.md",
+   "line": 70,
+   "kind": "Theorem",
+   "label": "(factorization uniqueness for translation-invariant dynamics)",
+   "fingerprint": "0fbd89bfc72bc254",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:L-unnamed-332dde89",
+   "paper": "papers/SM.md",
+   "line": 118,
+   "kind": "Lemma",
+   "label": "",
+   "fingerprint": "332dde89a60f07d3",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:L-unnamed-5e5c0ff4",
+   "paper": "papers/SM.md",
+   "line": 122,
+   "kind": "Lemma",
+   "label": "",
+   "fingerprint": "5e5c0ff4dc9c3241",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:L-unnamed-cb196ce9",
+   "paper": "papers/SM.md",
+   "line": 136,
+   "kind": "Lemma",
+   "label": "",
+   "fingerprint": "cb196ce983dadfb6",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-unnamed-f1d3c661",
+   "paper": "papers/SM.md",
+   "line": 140,
+   "kind": "Theorem",
+   "label": "",
+   "fingerprint": "f1d3c6619bfdb644",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:C-unnamed-faf4656b",
+   "paper": "papers/SM.md",
+   "line": 206,
+   "kind": "Corollary",
+   "label": "",
+   "fingerprint": "faf4656b6c23bd43",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:L-form-center-free-isotropic-linear",
+   "paper": "papers/SM.md",
+   "line": 220,
+   "kind": "Lemma",
+   "label": "(form of the center-free isotropic linear rule)",
+   "fingerprint": "6671da6a71ecada9",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-1a-equivariant-finite-projection-preserves-spatial",
+   "paper": "papers/SM.md",
+   "line": 238,
+   "kind": "Theorem",
+   "label": "1a (equivariant finite projection preserves spatial symmetry)",
+   "fingerprint": "8e362ef0f004ec78",
+   "area": "sm",
+   "assumptions": "S finite; U the Koopman operator of a bijection; P an equivariant projection",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/observer_isotropy_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "SM:L-1c-canonical-projection-resummed-kernel",
+   "paper": "papers/SM.md",
+   "line": 248,
+   "kind": "Lemma",
+   "label": "1c (canonical projection and the resummed kernel)",
+   "fingerprint": "c5ff80aab6d5c1f6",
+   "area": "sm",
+   "assumptions": "the selected invariant measure",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/observer_isotropy_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "SM:C-1a-cubic-symmetry-forbids-quadratic-anisotropy",
+   "paper": "papers/SM.md",
+   "line": 254,
+   "kind": "Corollary",
+   "label": "1a (cubic symmetry FORBIDS quadratic anisotropy)",
+   "fingerprint": "c30d4a4d20350ed0",
+   "area": "sm",
+   "assumptions": "scalar projected kernel; translation invariance; finite second moment; full cubic equivariance",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "verification/lean/structural_chain_probe.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/observer_isotropy_probes.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean/OI_Structural_Chain.lean",
+     "names": [
+      "b3_card",
+      "sum_trSym_b3",
+      "sum_trSym_rot",
+      "b3_fixes_delta",
+      "b3_forbids_anisotropy"
+     ]
+    }
+   ],
+   "kernel": "K2",
+   "delta": "delivered at CHARACTER level — sum chi = 48 = 1x48 over the 48-element signed permutation group and 24 = 1x24 over its rotations, with delta exhibited invariant and diag(1,0,0) shown NOT to be. The DIMENSION statement dim Sym^2(R^3)^{B_3} = 1 needs a second Mathlib representation built the way Cubic.rho is, and is ROADMAP B3 — open",
+   "note": ""
+  },
+  {
+   "id": "SM:C-1b-when-normalized-adjacency-forced",
+   "paper": "papers/SM.md",
+   "line": 266,
+   "kind": "Corollary",
+   "label": "1b (when the normalized adjacency is forced)",
+   "fingerprint": "f97a955a09311fd4",
+   "area": "sm",
+   "assumptions": "scalar, translation-invariant, nearest-neighbour, O_h-equivariant, constant-row Markov part",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/observer_isotropy_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "SM:T-1-conditional-observer-level-lattice-klein",
+   "paper": "papers/SM.md",
+   "line": 274,
+   "kind": "Theorem",
+   "label": "1 (conditional observer-level lattice Klein--Gordon branch)",
+   "fingerprint": "4d87a9a93518e79d",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-2",
+   "paper": "papers/SM.md",
+   "line": 282,
+   "kind": "Theorem",
+   "label": "2",
+   "fingerprint": "f430eea59c91601c",
+   "area": "sm",
+   "assumptions": "the observer-level lattice-wave branch of Theorem 1 (CONDITIONAL); the sign convention box_lat := -sum_mu (T_mu - T_mu^{-1})^2",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "verification/lean/staggered_relations_probe.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/structural_core_probe.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/chirality_grading_probes.py",
+     "basis": "named",
+     "evidence": "Theorem 2"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean/OI_Staggered_Relations.lean",
+     "names": [
+      "Staggered.factorization",
+      "factorization3",
+      "factorization4"
+     ]
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean/OI_Structural_Core.lean",
+     "names": [
+      "susskind3",
+      "mass_square"
+     ]
+    }
+   ],
+   "kernel": "K2",
+   "delta": "the manuscript does not display the box_lat sign convention beside the theorem, so the formal statement fixes a convention the text leaves implicit (ROADMAP §D); and the periodic realization needs an even-extent hypothesis the text does not carry",
+   "note": "Section C of the ROADMAP is closed: the factorization holds for every n by induction over a list of pairwise-anticommuting summands, not just at three and four axes."
+  },
+  {
+   "id": "SM:T-3",
+   "paper": "papers/SM.md",
+   "line": 296,
+   "kind": "Theorem",
+   "label": "3",
+   "fingerprint": "487eed577016c6d0",
+   "area": "sm",
+   "assumptions": "the staggered generator relations; the diagonal of D_st",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "verification/lean/structural_core_probe.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/chirality_grading_probes.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean/OI_Structural_Core.lean",
+     "names": [
+      "center_anticommutator",
+      "mass_square"
+     ]
+    }
+   ],
+   "kernel": "K2",
+   "delta": "formalized at operator level as {D + m·eps + p_0·1, eps} = 2m + 2p_0·eps; the equivalence to \"exact chiral symmetry of the emergent staggered fermions\" is the physical reading and is not itself kernel-checked",
+   "note": "The scope note in SM §4 that C = 2(1-d) is the Laplacian diagonal and not a mass term is encoded in the formal statement."
+  },
+  {
+   "id": "SM:T-4-conditional-observer-level-mass-spectrum",
+   "paper": "papers/SM.md",
+   "line": 312,
+   "kind": "Theorem",
+   "label": "4 (conditional observer-level mass spectrum)",
+   "fingerprint": "429df1ffcd675a9f",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:L-4a-one-cone-branch",
+   "paper": "papers/SM.md",
+   "line": 322,
+   "kind": "Lemma",
+   "label": "4a (one cone on the branch)",
+   "fingerprint": "1c3f7025195892e5",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:P-4b-symmetric-point-custodial-scalarity-component",
+   "paper": "papers/SM.md",
+   "line": 328,
+   "kind": "Proposition",
+   "label": "4b (symmetric-point custodial scalarity for a component-complete site observer)",
+   "fingerprint": "179be8cffbf610f3",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-5-condensate-stabilizer-conditional-physical-reading",
+   "paper": "papers/SM.md",
+   "line": 334,
+   "kind": "Theorem",
+   "label": "5 (condensate stabilizer, conditional physical reading)",
+   "fingerprint": "ca3bd07272070a3d",
+   "area": "sm",
+   "assumptions": "H-link with one carrier copy; H-cust — CONDITIONAL physical reading",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/gauge_support_probes.py",
+     "basis": "named",
+     "evidence": "Theorem 5"
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/condensate_space_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "SM:L-6a-operator-substitution-control",
+   "paper": "papers/SM.md",
+   "line": 348,
+   "kind": "Lemma",
+   "label": "6a (operator-substitution control)",
+   "fingerprint": "d526588a6904040b",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-6-conditional-link-carrier-count",
+   "paper": "papers/SM.md",
+   "line": 360,
+   "kind": "Theorem",
+   "label": "6 (conditional link-carrier count)",
+   "fingerprint": "e72c821fb1b8238a",
+   "area": "sm",
+   "assumptions": "H-link; the single-copy clause m = 1; d = 3",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-7-exact-link-representation-physical-reading",
+   "paper": "papers/SM.md",
+   "line": 368,
+   "kind": "Theorem",
+   "label": "7 (exact link representation; physical reading conditional)",
+   "fingerprint": "4f1f24bf85509709",
+   "area": "sm",
+   "assumptions": "the d = 3 simple-cubic lattice; the cubic rotation group; the physical reading is CONDITIONAL on H-link",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "verification/lean/gauge_certificates_probe.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "probe",
+     "path": "verification/lean/representation_bridge_probe.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean/OI_Gauge_Certificates.lean",
+     "names": [
+      "irr_orthonormal",
+      "irr_degrees",
+      "mult_V6",
+      "mult_End",
+      "mult_End_dims",
+      "mult_broken",
+      "mult_broken_dims",
+      "chi_consistent"
+     ]
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean-mathlib/OIBridge.lean",
+     "names": [
+      "Cubic.finrank_invariants",
+      "Cubic.finrank_commutant",
+      "Cubic.finrank_hom_end"
+     ]
+    }
+   ],
+   "kernel": "K2",
+   "delta": "the decomposition and every multiplicity are kernel-checked, and two of A5's three quotients are finrank statements; A5-B22 (144/24 = 6) is OPEN and blocked on a missing Mathlib lemma for the trace of a commuting-projector restriction (ROADMAP A5-B22). The identification of the link representation with the physical carrier is H-link and is not a formal object",
+   "note": ""
+  },
+  {
+   "id": "SM:T-7b",
+   "paper": "papers/SM.md",
+   "line": 384,
+   "kind": "Theorem",
+   "label": "7b",
+   "fingerprint": "8d7173320dbc6298",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-8",
+   "paper": "papers/SM.md",
+   "line": 428,
+   "kind": "Theorem",
+   "label": "8",
+   "fingerprint": "b4e78dbf1aec8fb2",
+   "area": "sm",
+   "assumptions": "the cubic group O acting on the four BZ corners",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "verification/lean/gauge_certificates_probe.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean/OI_Gauge_Certificates.lean",
+     "names": [
+      "irr_degrees",
+      "irr_orthonormal"
+     ]
+    }
+   ],
+   "kernel": "K1",
+   "delta": "the irreducible characters and their orthonormality are kernel-checked over the 24 rotations; the specific 4 = 1 + 3 branching is read off the same table but is not stated as its own theorem",
+   "note": ""
+  },
+  {
+   "id": "SM:T-8b",
+   "paper": "papers/SM.md",
+   "line": 434,
+   "kind": "Theorem",
+   "label": "8b",
+   "fingerprint": "9666e97d071006fe",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-9",
+   "paper": "papers/SM.md",
+   "line": 442,
+   "kind": "Theorem",
+   "label": "9",
+   "fingerprint": "5fc2a05ca9c46eb8",
+   "area": "sm",
+   "assumptions": "the octahedral group O acting by conjugation; free-kernel identification REFUTED; H-spin' OPEN",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/hspin_labels_probes.py",
+     "basis": "named",
+     "evidence": "Theorem 9"
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/condensate_space_probes.py",
+     "basis": "named",
+     "evidence": "Theorem 9"
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/hspin_kernel_probes.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/hspin4d_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": "The probe certifies EXACTLY the algebraic content the theorem keeps after the H-spin split — the refutation is part of the record."
+  },
+  {
+   "id": "SM:C-unnamed-39abc017",
+   "paper": "papers/SM.md",
+   "line": 448,
+   "kind": "Corollary",
+   "label": "",
+   "fingerprint": "39abc0175a95fdda",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-10",
+   "paper": "papers/SM.md",
+   "line": 450,
+   "kind": "Theorem",
+   "label": "10",
+   "fingerprint": "c1774f68700254d6",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-11",
+   "paper": "papers/SM.md",
+   "line": 458,
+   "kind": "Theorem",
+   "label": "11",
+   "fingerprint": "f47488bb1b7cb179",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-12",
+   "paper": "papers/SM.md",
+   "line": 529,
+   "kind": "Theorem",
+   "label": "12",
+   "fingerprint": "94fb79de985592e2",
+   "area": "sm",
+   "assumptions": "the bipartite structure of a range-1 hypercubic coupling graph",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/chirality_grading_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "SM:T-13",
+   "paper": "papers/SM.md",
+   "line": 537,
+   "kind": "Theorem",
+   "label": "13",
+   "fingerprint": "63d989dbd0f92597",
+   "area": "sm",
+   "assumptions": "CONDITIONAL identification; the minimal embedding is certified VECTOR-LIKE; H-chi' sharpened and OPEN",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/chirality_grading_probes.py",
+     "basis": "named",
+     "evidence": "Theorem 13"
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/hchi_selectivity_probes.py",
+     "basis": "section",
+     "evidence": ""
+    },
+    {
+     "kind": "probe",
+     "path": "papers/oi_lattice_code/foundations/hchiprime_probes.py",
+     "basis": "section",
+     "evidence": ""
+    }
+   ],
+   "kernel": "P",
+   "delta": "no Lean statement",
+   "note": ""
+  },
+  {
+   "id": "SM:T-14",
+   "paper": "papers/SM.md",
+   "line": 569,
+   "kind": "Theorem",
+   "label": "14",
+   "fingerprint": "5030ef7770eb2884",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-15",
+   "paper": "papers/SM.md",
+   "line": 575,
+   "kind": "Theorem",
+   "label": "15",
+   "fingerprint": "6e99ec24b17ecaba",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:C-unnamed-66dedb9a",
+   "paper": "papers/SM.md",
+   "line": 579,
+   "kind": "Corollary",
+   "label": "",
+   "fingerprint": "66dedb9af46d7da9",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-16",
+   "paper": "papers/SM.md",
+   "line": 583,
+   "kind": "Theorem",
+   "label": "16",
+   "fingerprint": "49edbac40239ee5e",
+   "area": "sm",
+   "assumptions": "the Yang-Mills action on the d-dimensional lattice",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": "K1 TARGET: dimensional bookkeeping."
+  },
+  {
+   "id": "SM:T-17",
+   "paper": "papers/SM.md",
+   "line": 605,
+   "kind": "Theorem",
+   "label": "17",
+   "fingerprint": "d4ff945f3de05b59",
+   "area": "sm",
+   "assumptions": "the discrete wave equation as displayed",
+   "checks": [
+    {
+     "kind": "probe",
+     "path": "verification/lean/time_reversal_probe.py",
+     "basis": "named",
+     "evidence": "[SM] Theorem 17"
+    },
+    {
+     "kind": "lean",
+     "path": "verification/lean/OI_Time_Reversal.lean",
+     "names": [
+      "waveS_time_reversal_invariant",
+      "wave_time_reversal_invariant",
+      "wave_nonvacuous",
+      "transport_not_time_reversal_invariant"
+     ]
+    }
+   ],
+   "kernel": "K3",
+   "delta": "",
+   "note": "Closed in b447's first closure wave, from GAP. Zero-import, so it is kernel-checked by the core gate with no Mathlib dependency. Proved first with the SPATIAL STENCIL LEFT ABSTRACT, which settles the reading question the manuscript leaves open — §5.1 displays the nearest-neighbour form while the theorem says \"the discrete wave equation\", which elsewhere in [SM] is d-dimensional; the displayed form is an instance, so both readings are covered. Carries a non-vacuity control and a countercontrol (first-order transport is reversible and NOT time-reversal invariant), and the companion probe re-derives the same fact by exact integer evolution."
+  },
+  {
+   "id": "SM:T-18",
+   "paper": "papers/SM.md",
+   "line": 613,
+   "kind": "Theorem",
+   "label": "18",
+   "fingerprint": "f16e5a756dd9aee2",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-19",
+   "paper": "papers/SM.md",
+   "line": 621,
+   "kind": "Theorem",
+   "label": "19",
+   "fingerprint": "bc328464f38b8bc1",
+   "area": "sm",
+   "assumptions": "partition preserved by time reversal; counting-measure hidden prior; the symmetric form needs T-even visible states",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": "The precision note in GR §3.2 — that N_ij = N_ji holds only for T-even coarse states — is exactly the kind of side condition a formal statement should carry."
+  },
+  {
+   "id": "SM:P-20",
+   "paper": "papers/SM.md",
+   "line": 627,
+   "kind": "Proposition",
+   "label": "20",
+   "fingerprint": "0ecbb951f7fb33b7",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-21",
+   "paper": "papers/SM.md",
+   "line": 631,
+   "kind": "Theorem",
+   "label": "21",
+   "fingerprint": "f2236da0bec98ef3",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:T-22",
+   "paper": "papers/SM.md",
+   "line": 1356,
+   "kind": "Theorem",
+   "label": "22",
+   "fingerprint": "66c883710a56ac79",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SM:C-unnamed-235f5cba",
+   "paper": "papers/SM.md",
+   "line": 1368,
+   "kind": "Corollary",
+   "label": "",
+   "fingerprint": "235f5cba7fc10e49",
+   "area": "sm",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "STRUCTURE:D-9.1",
+   "paper": "papers/Structure.md",
+   "line": 623,
+   "kind": "Definition",
+   "label": "9.1",
+   "fingerprint": "e0499da112de1b28",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "DEF",
+   "delta": "",
+   "note": ""
+  },
+  {
+   "id": "STRUCTURE:D-9.2",
+   "paper": "papers/Structure.md",
+   "line": 628,
+   "kind": "Definition",
+   "label": "9.2",
+   "fingerprint": "aa33473176f62ac6",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "DEF",
+   "delta": "",
+   "note": ""
+  },
+  {
+   "id": "STRUCTURE:D-9.3",
+   "paper": "papers/Structure.md",
+   "line": 632,
+   "kind": "Definition",
+   "label": "9.3",
+   "fingerprint": "ab7171f54fbcb738",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "DEF",
+   "delta": "",
+   "note": ""
+  },
+  {
+   "id": "STRUCTURE:D-9.4",
+   "paper": "papers/Structure.md",
+   "line": 635,
+   "kind": "Definition",
+   "label": "9.4",
+   "fingerprint": "c1f7875add01be08",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "DEF",
+   "delta": "",
+   "note": ""
+  },
+  {
+   "id": "STRUCTURE:P-9.5",
+   "paper": "papers/Structure.md",
+   "line": 643,
+   "kind": "Proposition",
+   "label": "9.5",
+   "fingerprint": "47fd5a483b0f9e92",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "STRUCTURE:C-9.6",
+   "paper": "papers/Structure.md",
+   "line": 649,
+   "kind": "Corollary",
+   "label": "9.6",
+   "fingerprint": "1ac4f23c6a863bcf",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "STRUCTURE:P-9.7",
+   "paper": "papers/Structure.md",
+   "line": 657,
+   "kind": "Proposition",
+   "label": "9.7",
+   "fingerprint": "c27ff0c7aecbaea1",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "STRUCTURE:C-9.8",
+   "paper": "papers/Structure.md",
+   "line": 663,
+   "kind": "Corollary",
+   "label": "9.8",
+   "fingerprint": "954a386ad628a35b",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "STRUCTURE:D-9.9",
+   "paper": "papers/Structure.md",
+   "line": 691,
+   "kind": "Definition",
+   "label": "9.9",
+   "fingerprint": "2abe6d67e4247481",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "DEF",
+   "delta": "",
+   "note": ""
+  },
+  {
+   "id": "STRUCTURE:P-9.10",
+   "paper": "papers/Structure.md",
+   "line": 701,
+   "kind": "Proposition",
+   "label": "9.10",
+   "fingerprint": "dbd6efee2abea3bc",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "STRUCTURE:C-9.11",
+   "paper": "papers/Structure.md",
+   "line": 705,
+   "kind": "Corollary",
+   "label": "9.11",
+   "fingerprint": "b87569f89d74abf1",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SUBSTRATUM:L-23.0",
+   "paper": "papers/Substratum.md",
+   "line": 188,
+   "kind": "Lemma",
+   "label": "23.0",
+   "fingerprint": "11c8a93fc88cf91b",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SUBSTRATUM:T-23",
+   "paper": "papers/Substratum.md",
+   "line": 192,
+   "kind": "Theorem",
+   "label": "23",
+   "fingerprint": "8dbe0304d1cd55ba",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SUBSTRATUM:T-24",
+   "paper": "papers/Substratum.md",
+   "line": 250,
+   "kind": "Theorem",
+   "label": "24",
+   "fingerprint": "cd76d5df5680765e",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SUBSTRATUM:C-effective-finiteness-gauge-class-transfer",
+   "paper": "papers/Substratum.md",
+   "line": 262,
+   "kind": "Corollary",
+   "label": "(effective finiteness and gauge-class transfer)",
+   "fingerprint": "9330e1f409e986c0",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
+  },
+  {
+   "id": "SUBSTRATUM:L-24.1",
+   "paper": "papers/Substratum.md",
+   "line": 272,
+   "kind": "Lemma",
+   "label": "24.1",
+   "fingerprint": "86db2ddcb8767cd0",
+   "area": "reconstruction",
+   "assumptions": "see the statement",
+   "checks": [],
+   "kernel": "GAP",
+   "delta": "not formalized",
+   "note": ""
   }
+ ],
+ "unattached": [
+  {
+   "kind": "lean",
+   "path": "verification/lean/OI_Structural_Chain.lean",
+   "names": [
+    "path_prop",
+    "gD_edges_balanced",
+    "gD_bridge_unbalanced",
+    "gEx_invertible"
+   ],
+   "certifies": "GR §3.2 H-balance: edgewise detailed balance on a connected transition graph fixes the stationary populations to Gibbs form.",
+   "note": "Stated in GR §3.2 as running prose rather than as a bold-headed theorem, so the census assigns it no row. Proved WITHOUT the exponential and without Perron-Frobenius; connectivity is shown load-bearing by a two-component witness."
+  },
+  {
+   "kind": "lean",
+   "path": "verification/lean/OI_Regulator_Symmetry.lean",
+   "names": [
+    "native_card",
+    "hyper_card",
+    "native_fixes_EB",
+    "native_fixes_both",
+    "hyper_does_not_fix_electric",
+    "hyper_does_not_fix_time",
+    "boost_ward"
+   ],
+   "certifies": "ROADMAP A7/A7b: the regulator-symmetry character sums 384 and 192 over the hypercubic and native groups, with the invariant bases exhibited by direct check.",
+   "note": "Supports the boost-sector discussion in GR §8.5 and SM §4.4, neither of which states a bold-headed theorem for it."
+  },
+  {
+   "kind": "lean",
+   "path": "verification/lean-mathlib/OIBridge/CombRealization.lean",
+   "names": [
+    "saturated_class_obstruction",
+    "workspace_state_forced",
+    "class_card_ge_five",
+    "card_ge_ten"
+   ],
+   "certifies": "b446: the saturated-class lemma and the |S| >= 10 lower bound for reversible realizations of the b76B comb at horizon 2.",
+   "note": "RESEARCH LAYER, deliberately unpropagated. b446 states explicitly that nothing propagates to the manuscripts, so there is no canonical row to attach it to — and that is the correct state, not a gap."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/primitive_probes.py",
+   "names": [],
+   "certifies": "Main §1.3: C4 is primitive; C1 and C3 are its consequences within any faithful realization.",
+   "note": "The conditions C1-C4 are introduced in §1.3 as a numbered list rather than as bold-headed statements, so they carry no census row."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/review3_probes.py",
+   "names": [],
+   "certifies": "The third-round review's three load-bearing counterexamples against the 2.8.1 texts.",
+   "note": "A countercontrol against superseded statements."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/review4_probes.py",
+   "names": [],
+   "certifies": "The fourth-round review's two counterexamples, exactly.",
+   "note": "Includes that C4 does NOT imply P-indivisibility — a scope wall, not a certificate."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/coherence_boundary_probes.py",
+   "names": [],
+   "certifies": "b441 research-layer result.",
+   "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/native_group_probes.py",
+   "names": [],
+   "certifies": "b442 research-layer result.",
+   "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/finite_horizon_probes.py",
+   "names": [],
+   "certifies": "b443 research-layer result.",
+   "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/recurrence_entropy_probes.py",
+   "names": [],
+   "certifies": "b444 research-layer result.",
+   "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/comb_dimension_probes.py",
+   "names": [],
+   "certifies": "b445 research-layer result.",
+   "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/comb_realization_probes.py",
+   "names": [],
+   "certifies": "b446 research-layer result.",
+   "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/source_lift_probes.py",
+   "names": [],
+   "certifies": "b434 research-layer result.",
+   "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/induced_source_probes.py",
+   "names": [],
+   "certifies": "b436 research-layer result.",
+   "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/gauge_support_probes.py",
+   "names": [],
+   "certifies": "b437 research-layer result.",
+   "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/bargmann_bridge_probes.py",
+   "names": [],
+   "certifies": "b440 research-layer result.",
+   "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+  },
+  {
+   "kind": "probe",
+   "path": "papers/oi_lattice_code/foundations/comb_reachability_probes.py",
+   "names": [],
+   "certifies": "b430-b432 research-layer result.",
+   "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+  }
+ ],
+ "backlog_policy": "LEAN-FIRST. Every established canonical mathematical result is a kernel-formalization target by default. GAP IS A BACKLOG STATE AND NOT AN ACCEPTABLE TERMINAL VERIFICATION STATE. An exception requires a RECORDED REASON -- empirical input, an external literature premise, a physical assumption, or a formal library result that does not yet exist -- and even then Lean should prove the implication FROM that premise wherever possible: A_1 and ... and A_n implies the framework conclusion, which is exactly where the framework's own deduction ends and an external assumption begins. Formalization order: central OI/equivalence chain, foundational OI lemmas, existing ROADMAP gaps, reconstruction/representation, comb/locality, GR/SM deductions, then secondary corollaries and controls. WITHIN each tier take the easy K3 conversions first so coverage rises quickly, but NEVER let that displace a central theorem merely because it is harder. And the probes are preserved after Lean catches up: the standard is Lean theorem PLUS independent executable probe PLUS countercontrols, never Lean instead of probes.",
+ "backlog": [
+  {
+   "rank": 1,
+   "id": "MAIN:L-3",
+   "centrality": "high",
+   "difficulty": "medium",
+   "tier": 2,
+   "route": "Must formalize the SELECTION principle and not uniqueness -- the manuscript is explicit that the counting measure is selected as maximal-entropy among invariant measures, and that uniqueness from invariance alone is false in the continuum. A formalization that proved uniqueness would be proving something the corpus denies."
+  },
+  {
+   "rank": 2,
+   "id": "MAIN:L-1",
+   "centrality": "medium",
+   "difficulty": "medium",
+   "tier": 2,
+   "route": "Not derivable as stated -- it is a premise. The kernel-checkable content is the IMPLICATION from a finite-area boundary and a finite mode count to a finite visible alphabet, with the holographic bound left as a named external hypothesis."
+  },
+  {
+   "rank": 3,
+   "id": "MAIN:T-c3-necessity",
+   "centrality": "high",
+   "difficulty": "medium",
+   "tier": 2,
+   "route": "Information-theoretic: needs conditional mutual information and log-cardinality bounds. Mathlib has entropy for finite measures; the bound I <= log m is the whole content."
+  },
+  {
+   "rank": 4,
+   "id": "SM:T-7-exact-link-representation-physical-reading",
+   "centrality": "high",
+   "difficulty": "blocked",
+   "tier": 3,
+   "route": "ROADMAP A5-B22. Blocked on a Mathlib lemma that does not exist: the trace of an operator restricted to a subrepresentation, i.e. IsProj p P and f commuting with P entails trace (f.restrict) = trace (f * P). Two routes, both real work: prove that lemma, or define T, E, A as explicit representations with matrices given directly, which costs a sign cocycle for T and leaves the identification mirror-certified rather than kernel-certified."
+  },
+  {
+   "rank": 5,
+   "id": "SM:C-1a-cubic-symmetry-forbids-quadratic-anisotropy",
+   "centrality": "medium",
+   "difficulty": "medium",
+   "tier": 3,
+   "route": "ROADMAP B3 algebraic half. The character-level statement is delivered; the dimension statement dim Sym^2(R^3)^{B_3} = 1 needs the 48-element signed permutation group built as a Mathlib Representation the way Cubic.rho already is, after which A1 divides by the group order. This is plumbing of a kind already done once, which is why it ranks above A9."
+  },
+  {
+   "rank": 6,
+   "id": "STRUCTURE:P-9.7",
+   "centrality": "high",
+   "difficulty": "high",
+   "tier": 4,
+   "route": "Stinespring uniqueness in restricted form. Mathlib has no Stinespring dilation theorem, so the restricted statement has to be set up from the partial-trace side. High centrality because the substratum-is-gauge corollary and the whole universality-class story rest on it."
+  },
+  {
+   "rank": 7,
+   "id": "MAIN:T-separability-threshold",
+   "centrality": "medium",
+   "difficulty": "high",
+   "tier": 5,
+   "route": "A clean finite-group statement -- entanglement-breaking iff t = s for an abelian Weyl subgroup of order 2^t on s qubits -- but Mathlib carries no entanglement-breaking characterization, so the definition has to be built before the theorem can be stated."
+  },
+  {
+   "rank": 8,
+   "id": "MAIN:L-1-boundary-bound",
+   "centrality": "medium",
+   "difficulty": "medium",
+   "tier": 5,
+   "route": "A rank bound on the off-diagonal blocks of a local update. Mathlib has matrix rank and the submatrix API; the content is that the block factors through the boundary index set."
+  },
+  {
+   "rank": 9,
+   "id": "SM:T-19",
+   "centrality": "medium",
+   "difficulty": "medium",
+   "tier": 6,
+   "route": "Reciprocity of visible transition counts. The side condition is the interesting part and must be carried: the symmetric form T_ij = T_ji holds only for T-EVEN coarse states, and GR section 3.2 is explicit that with T-odd visible data only the (theta j, theta i) form survives."
+  },
+  {
+   "rank": 10,
+   "id": "SM:T-16",
+   "centrality": "low",
+   "difficulty": "low",
+   "tier": 6,
+   "route": "Dimensional bookkeeping: [g] = (3-d)/2, dimensionless iff d = 3. Cheap, and it moves an SM GAP for almost nothing."
+  },
+  {
+   "rank": 11,
+   "id": "GR:T-d-gauge-completeness",
+   "centrality": "medium",
+   "difficulty": "high",
+   "tier": 6,
+   "route": "Needs non-degenerate spectra, non-vanishing overlaps and an argument over all t -- analytic, and the first GR statement worth attempting."
+  },
+  {
+   "rank": 12,
+   "id": "SM:T-8",
+   "centrality": "low",
+   "difficulty": "low",
+   "tier": 6,
+   "route": "Already K1: the irreducible characters and their orthonormality are kernel-checked over the 24 rotations. Upgrading to K3 means stating the 4 = 1 + 3 branching as its own theorem rather than reading it off the table."
+  }
+ ],
+ "backlog_tiers": {
+  "1": "central OI / equivalence chain",
+  "2": "foundational OI lemmas",
+  "3": "existing ROADMAP gaps (A5-B22, B3, A9, B3 dispersion)",
+  "4": "reconstruction / representation",
+  "5": "comb / locality",
+  "6": "GR / SM deductions",
+  "7": "secondary corollaries and controls"
+ }
 }
