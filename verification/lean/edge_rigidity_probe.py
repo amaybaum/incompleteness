@@ -369,7 +369,13 @@ for fname, names in (
                       'spectral_clauses_insufficient', 'overlap_row_sum', 'overlap_col_sum',
                       'mixture_diag', 'shell_representation_from_comb',
                       'comb_mixture_of_shell_representation', 'uniform_overlap_obstruction',
-                      'populations_nonuniform_of_marginal')),
+                      'populations_nonuniform_of_marginal', 'projOverlap_complex',
+                      'projector_overlap_nonneg', 'projector_overlap_col_sum',
+                      'projector_overlap_row_sum', 'projector_mixture_readout',
+                      'projector_shell_representation_from_comb',
+                      'comb_mixture_of_projector_shell_representation',
+                      'projector_uniform_overlap_obstruction', 'projOverlap_rankOne',
+                      'rankOne_specialization')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -410,7 +416,7 @@ spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(âˆƒ Eâ
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
       "LINT. All eleven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 18 + 5 + 16 named results print their "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 28 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

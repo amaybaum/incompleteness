@@ -606,6 +606,164 @@ check("F13", ok13,
       "probability yields a disagreement certificate: no common extension (kernel: "
       "no_common_extension_of_disagreement)")
 
+# ---------------------------- F14  the projector-valued preparation slot (phase three, round 2)
+ok14 = True
+# The rank-one obstruction of F13 is carrier-specific: Main's actual emergent object is the
+# ancilla-marginal representation on D = n*m_a with rank-m_a block projectors P_i summing to
+# I -- the carrier of the phase-locking shapes. There B_ia = <a|P_i|a> and the preparation
+# Prop holds iff p lies in conv{B_.a} (kernel: projector_shell_representation_from_comb /
+# comb_mixture_of_projector_shell_representation). This census decides the LP exactly on
+# structured rational eigenbases at all seven phase-locking shapes, then samples generic
+# eigenbases in float.
+SHAPES14 = ((2, 2), (3, 2), (2, 3), (4, 2), (2, 4), (3, 3), (3, 4))
+TRIPLES14 = [(Frac(3, 5), Frac(4, 5)), (Frac(5, 13), Frac(12, 13)),
+             (Frac(8, 17), Frac(15, 17)), (Frac(7, 25), Frac(24, 25)),
+             (Frac(20, 29), Frac(21, 29))]
+PROFILES14 = {2: [Frac(2, 3), Frac(1, 3)],
+              3: [Frac(4, 7), Frac(2, 7), Frac(1, 7)],
+              4: [Frac(8, 15), Frac(4, 15), Frac(2, 15), Frac(1, 15)]}
+
+
+def matmul14(A, B):
+    D = len(A)
+    return [[sum(A[r][k] * B[k][c] for k in range(D)) for c in range(D)] for r in range(D)]
+
+
+def build_U14(D, sweeps):
+    U = [[Frac(1) if r == c else Frac(0) for c in range(D)] for r in range(D)]
+    t = 0
+    for _ in range(sweeps):
+        for k in range(D - 1):
+            c, s = TRIPLES14[t % len(TRIPLES14)]
+            G = [[Frac(1) if r == cc else Frac(0) for cc in range(D)] for r in range(D)]
+            G[k][k], G[k + 1][k + 1], G[k][k + 1], G[k + 1][k] = c, c, -s, s
+            U = matmul14(G, U)
+            t += 1
+    return U
+
+
+def gauss14(M, b):
+    k = len(M)
+    A = [row[:] + [b[r]] for r, row in enumerate(M)]
+    for col in range(k):
+        piv = next((r for r in range(col, k) if A[r][col] != 0), None)
+        if piv is None:
+            return None
+        A[col], A[piv] = A[piv], A[col]
+        pv = A[col][col]
+        A[col] = [x / pv for x in A[col]]
+        for r in range(k):
+            if r != col and A[r][col] != 0:
+                f = A[r][col]
+                A[r] = [x - f * y for x, y in zip(A[r], A[col])]
+    return [A[r][k] for r in range(k)]
+
+
+def in_hull14(B, p):
+    """Exact decision: p in conv(columns of B)? Caratheodory over subsets of size <= n,
+    each candidate verified against the FULL system, so a positive answer is a certificate;
+    exhaustion of the affinely independent subsets makes a negative answer one too."""
+    n = len(B)
+    D = len(B[0])
+    cols = [[B[i][a] for i in range(n)] for a in range(D)]
+    for k in range(1, n + 1):
+        for sub in itertools.combinations(range(D), k):
+            M = [[cols[a][i] for a in sub] for i in range(n)] + [[Frac(1)] * k]
+            for rows in itertools.combinations(range(n + 1), k):
+                lam = gauss14([M[r] for r in rows],
+                              [(p[r] if r < n else Frac(1)) for r in rows])
+                if lam is None or any(l < 0 for l in lam):
+                    continue
+                if sum(lam) == 1 and all(
+                        sum(lam[j] * cols[sub[j]][i] for j in range(k)) == p[i]
+                        for i in range(n)):
+                    return sub, lam
+    return None
+
+
+for n14, m14 in SHAPES14:
+    D14 = n14 * m14
+    for sweeps in (1, 3):
+        U = build_U14(D14, sweeps)
+        Ut = [[U[c][r] for c in range(D14)] for r in range(D14)]
+        ok14 &= matmul14(Ut, U) == [[Frac(1) if r == c else Frac(0) for c in range(D14)]
+                                    for r in range(D14)]
+        B = [[sum(U[s][a] ** 2 for s in range(D14) if s // m14 == i) for a in range(D14)]
+             for i in range(n14)]
+        # doubly-stochastic-with-multiplicity structure (kernel: projector_overlap_nonneg,
+        # projector_overlap_col_sum, projector_overlap_row_sum)
+        ok14 &= all(B[i][a] >= 0 for i in range(n14) for a in range(D14))
+        ok14 &= all(sum(B[i][a] for i in range(n14)) == 1 for a in range(D14))
+        ok14 &= all(sum(B[i][a] for a in range(D14)) == m14 for i in range(n14))
+        # the counting profile is FEASIBLE at every shape and both mixing depths: the
+        # rank-one uniform-overlap obstruction does NOT survive on these carriers
+        ok14 &= in_hull14(B, PROFILES14[n14]) is not None
+        # positive control: uniform is always feasible (q uniform gives B q = rows/D = 1/n)
+        ok14 &= in_hull14(B, [Frac(1, n14)] * n14) is not None
+        # countercontrol: the deterministic vertex profile is infeasible, and consistently
+        # so -- a probability-vector hull hits a vertex only through a column at it
+        ok14 &= in_hull14(B, [Frac(1)] + [Frac(0)] * (n14 - 1)) is None
+        ok14 &= max(B[0]) < 1
+# generic-eigenbasis census (float, LP via scipy): feasibility depends SYSTEMATICALLY on
+# the geometry -- mild non-uniformity is representable, strong non-uniformity is not once
+# n >= 3, because Haar-like eigenvectors concentrate the readout columns near uniform
+from scipy.optimize import linprog
+
+rng14 = np.random.default_rng(23)
+counts14 = {}
+NS14 = 40
+for n14, m14 in SHAPES14:
+    D14 = n14 * m14
+    cnt = {b: 0 for b in (0.25, 2.0, 'shape', 'uniform')}
+    for _ in range(NS14):
+        A = rng14.normal(size=(D14, D14))
+        _, Vg = np.linalg.eigh((A + A.T) / 2)
+        Bg = np.array([[sum(Vg[s, a] ** 2 for s in range(D14) if s // m14 == i)
+                        for a in range(D14)] for i in range(n14)])
+        for key in cnt:
+            if key == 'shape':
+                p = np.array([float(x) for x in PROFILES14[n14]])
+            elif key == 'uniform':
+                p = np.full(n14, 1.0 / n14)
+            else:
+                w = np.exp(-key * np.arange(n14))
+                p = w / w.sum()
+            r = linprog(np.zeros(D14), A_eq=np.vstack([Bg, np.ones(D14)]),
+                        b_eq=np.concatenate([p, [1.0]]),
+                        bounds=[(0, None)] * D14, method='highs')
+            cnt[key] += 1 if r.status == 0 else 0
+    counts14[(n14, m14)] = cnt
+for shp, cnt in counts14.items():
+    ok14 &= cnt['uniform'] >= NS14 - 2                    # uniform: always representable
+    ok14 &= cnt[0.25] >= 35                               # mild non-uniformity: generic yes
+    if shp[0] >= 3:
+        ok14 &= cnt[2.0] <= 5                             # strong non-uniformity: generic no
+for shp in ((3, 2), (3, 3), (3, 4)):
+    ok14 &= 5 <= counts14[shp]['shape'] <= 35             # the shell profile splits: geometry
+for shp in ((2, 2), (2, 3), (2, 4)):
+    ok14 &= counts14[shp]['shape'] >= 30                  # n = 2 polytope is wide enough
+check("F14", ok14,
+      "THE PROJECTOR-VALUED PREPARATION SLOT (phase three, round two): on Main's "
+      "ancilla-marginal carrier (rank-m_a block projectors at all seven phase-locking "
+      "shapes) the preparation lift exists iff p lies in conv{B_.a}, B_ia = <a|P_i|a> "
+      "(kernel: projector_shell_representation_from_comb, "
+      "comb_mixture_of_projector_shell_representation, with projector_overlap_nonneg/"
+      "col_sum/row_sum the doubly-stochastic-with-multiplicity structure and "
+      "rankOne_specialization tying F13's carrier to this one). EXACT LAYER: on structured "
+      "rational eigenbases (Pythagorean Givens sweeps, orthogonality verified exactly) the "
+      "counting profiles are FEASIBLE at every shape and both mixing depths, with exact "
+      "Caratheodory certificates -- the rank-one uniform-overlap obstruction does NOT "
+      "survive on these carriers; uniform is always feasible and the deterministic vertex "
+      "never is (max B < 1, exact). GENERIC LAYER (40 seeded Gaussian eigenbases per "
+      "shape, LP): feasibility depends SYSTEMATICALLY on the geometry -- mild "
+      "non-uniformity (beta = 1/4) is representable nearly always, strong non-uniformity "
+      "(beta = 2) nearly never once n >= 3, and the shell profile itself splits both ways "
+      "at the n = 3 shapes: OI-compatible coherent completions are being classified by "
+      "whether the shell marginal lies inside their spectral-readout polytope -- "
+      "concentration of delocalized eigenvectors shrinks it toward uniform "
+      "(kernel boundary: projector_uniform_overlap_obstruction is the exact uniform-"
+      "overlap limit of that shrinkage)")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

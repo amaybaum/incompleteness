@@ -458,6 +458,244 @@ theorem populations_nonuniform_of_marginal (V : Matrix (Fin m) (Fin m) ℂ)
     rw [← Finset.mul_sum, overlap_row_sum V hV k, mul_one]
   exact hp (by rw [hconst i, hconst j])
 
+/-! ### Section C — the projector-valued preparation slot (Main's ancilla-marginal carrier)
+
+Section B's feasibility characterization is proved for the trivial-ancilla carrier: rank-one
+fixed-basis readout `ρ_ii = p_i` and `B_{ia} = |V_{ia}|²`. The actual emergent object of
+[Main] is generally the ancilla-marginal representation on dimension `D = n·m_a`, with the
+visible outcomes represented by rank-`m_a` orthogonal projectors `P_i` summing to `I` — the
+carrier of the phase-locking shapes. This section proves the exact generalization: with
+`B_{ia} = ⟨a|P_i|a⟩` (nonnegative, columns summing to one, rows summing to `tr P_i`), the
+projector-valued preparation Prop holds iff `p = B·q` for a probability profile `q` — i.e.
+iff `p` lies in the convex hull of the spectral-readout columns `{B_{•a}}`. Once
+stationarity and nondegeneracy are imposed, the preparation problem is not an SDP at all: it
+collapses to this classical convex-hull condition, and the genuinely quantum difficulty
+begins only at the multi-time/intervention layer. The rank-one theorems of Section B are the
+`P_i = |i⟩⟨i|` specialization (`rankOne_specialization`, `projOverlap_rankOne`), and the
+uniform-overlap obstruction generalizes ONLY under uniform projector overlaps
+(`⟨a|P_i|a⟩` constant): an ancilla gives `D > n` columns and can enlarge the feasibility
+polytope, so Section B's Fourier obstruction is carrier-specific and must not be read as an
+obstruction to the full coherent OI lift — whether it survives on the actual phase-locking
+carriers is what probe F14 measures. -/
+
+variable {ι : Type*} [Fintype ι]
+
+/-- **The projector-valued preparation Prop** — `ShellRepresentationConsistency` on Main's
+ancilla-marginal carrier: a genuine state, stationary under the reconstructed propagator at
+every time, whose readout against the projector family `P` is the classical marginal `p`.
+`ShellRepresentationConsistency` is the `P_i = |i⟩⟨i|` special case
+(`rankOne_specialization`). -/
+def ProjectorShellRepresentation (Vm : Matrix (Fin m) (Fin m) ℂ) (E : Fin m → ℝ)
+    (P : ι → Matrix (Fin m) (Fin m) ℂ) (p : ι → ℝ) : Prop :=
+  ∃ ρ : Matrix (Fin m) (Fin m) ℂ,
+    ρ.PosSemidef ∧ Matrix.trace ρ = 1
+    ∧ (∀ t : ℝ, Matrix.of (BohrFrequency.Umat Vm E t) * ρ
+        * (Matrix.of (BohrFrequency.Umat Vm E t))ᴴ = ρ)
+    ∧ ∀ i, Matrix.trace (P i * ρ) = ((p i : ℝ) : ℂ)
+
+/-- The projector overlap matrix `B_{ia} = ⟨a|P_i|a⟩`: the spectral readout of the `i`-th
+outcome projector at the `a`-th energy eigenvector. Defined as the real part; for positive
+semidefinite `P_i` the entry is real (`projOverlap_complex`). -/
+def projOverlap (Vm : Matrix (Fin m) (Fin m) ℂ) (P : ι → Matrix (Fin m) (Fin m) ℂ)
+    (i : ι) (a : Fin m) : ℝ :=
+  ((Vmᴴ * P i * Vm) a a).re
+
+omit [Fintype ι] in
+/-- For a positive semidefinite outcome operator the overlap entry is genuinely real. -/
+theorem projOverlap_complex (V : Matrix (Fin m) (Fin m) ℂ)
+    (P : ι → Matrix (Fin m) (Fin m) ℂ) {i : ι} (hP : (P i).PosSemidef) (a : Fin m) :
+    (Vᴴ * P i * V) a a = ((projOverlap V P i a : ℝ) : ℂ) := by
+  have h0 : (0 : ℂ) ≤ (Vᴴ * P i * V) a a := (hP.conjTranspose_mul_mul_same V).diag_nonneg
+  have him : ((Vᴴ * P i * V) a a).im = 0 := (Complex.nonneg_iff.mp h0).2.symm
+  exact Complex.ext (by rw [Complex.ofReal_re, projOverlap]) (by rw [him, Complex.ofReal_im])
+
+omit [Fintype ι] in
+/-- `B_{ia} ≥ 0`. -/
+theorem projector_overlap_nonneg (V : Matrix (Fin m) (Fin m) ℂ)
+    (P : ι → Matrix (Fin m) (Fin m) ℂ) {i : ι} (hP : (P i).PosSemidef) (a : Fin m) :
+    0 ≤ projOverlap V P i a := by
+  have h0 : (0 : ℂ) ≤ (Vᴴ * P i * V) a a := (hP.conjTranspose_mul_mul_same V).diag_nonneg
+  exact (Complex.nonneg_iff.mp h0).1
+
+/-- Columns of `B` sum to one: the outcome projectors partition the identity. -/
+theorem projector_overlap_col_sum (V : Matrix (Fin m) (Fin m) ℂ)
+    (P : ι → Matrix (Fin m) (Fin m) ℂ) (hV' : Vᴴ * V = 1)
+    (hP : ∀ i, (P i).PosSemidef) (hsum : ∑ i, P i = 1) (a : Fin m) :
+    ∑ i, projOverlap V P i a = 1 := by
+  have hM : (∑ i, Vᴴ * P i * V) = Vᴴ * (∑ i, P i) * V := by
+    rw [Matrix.mul_sum, Matrix.sum_mul]
+  have hentry : (∑ i, ((projOverlap V P i a : ℝ) : ℂ)) = 1 := by
+    rw [Finset.sum_congr rfl fun i _ => (projOverlap_complex V P (hP i) a).symm]
+    rw [show (∑ i, (Vᴴ * P i * V) a a) = (∑ i, Vᴴ * P i * V) a a by
+      rw [Matrix.sum_apply]]
+    rw [hM, hsum, mul_one, hV', Matrix.one_apply_eq]
+  rw [← Complex.ofReal_sum] at hentry
+  exact_mod_cast hentry
+
+omit [Fintype ι] in
+/-- Rows of `B` sum to the trace of the outcome projector — `m_a` for a rank-`m_a`
+projector. -/
+theorem projector_overlap_row_sum (V : Matrix (Fin m) (Fin m) ℂ)
+    (P : ι → Matrix (Fin m) (Fin m) ℂ) (hV : V * Vᴴ = 1) {i : ι} (hP : (P i).PosSemidef) :
+    Matrix.trace (P i) = ((∑ a, projOverlap V P i a : ℝ) : ℂ) := by
+  have hcyc : Matrix.trace (Vᴴ * P i * V) = Matrix.trace (P i) := by
+    rw [Matrix.trace_mul_cycle, hV, one_mul]
+  rw [← hcyc, Matrix.trace]
+  rw [Complex.ofReal_sum]
+  exact Finset.sum_congr rfl fun a _ => projOverlap_complex V P hP a
+
+omit [Fintype ι] in
+/-- The readout of a spectral mixture against the projector family transports through `B`:
+`Tr(P_i · V diag(q) Vᴴ) = Σ_a B_{ia} q_a`. -/
+theorem projector_mixture_readout (V : Matrix (Fin m) (Fin m) ℂ)
+    (P : ι → Matrix (Fin m) (Fin m) ℂ) (hP : ∀ i, (P i).PosSemidef)
+    (q : Fin m → ℝ) (i : ι) :
+    Matrix.trace (P i * (V * Matrix.diagonal (fun a => ((q a : ℝ) : ℂ)) * Vᴴ))
+      = ((∑ a, q a * projOverlap V P i a : ℝ) : ℂ) := by
+  rw [show P i * (V * Matrix.diagonal (fun a => ((q a : ℝ) : ℂ)) * Vᴴ)
+    = (P i * V) * Matrix.diagonal (fun a => ((q a : ℝ) : ℂ)) * Vᴴ by noncomm_ring]
+  rw [Matrix.trace_mul_cycle]
+  rw [show Vᴴ * (P i * V) = Vᴴ * P i * V by noncomm_ring]
+  rw [Matrix.trace]
+  rw [Complex.ofReal_sum]
+  refine Finset.sum_congr rfl fun a _ => ?_
+  rw [Matrix.diag_apply, Matrix.mul_diagonal, projOverlap_complex V P (hP i) a]
+  push_cast
+  ring
+
+omit [Fintype ι] in
+/-- **FEASIBILITY, CONSTRUCTIVE, projector form.** If the classical marginal is a mixture
+`p = B·q` of the spectral-readout columns with `q` a probability profile — i.e. `p` lies in
+the convex hull `conv{B_{•a}}` — the projector-valued preparation Prop holds. -/
+theorem projector_shell_representation_from_comb (V : Matrix (Fin m) (Fin m) ℂ)
+    (E : Fin m → ℝ) (P : ι → Matrix (Fin m) (Fin m) ℂ) (p : ι → ℝ)
+    (hV' : Vᴴ * V = 1) (hP : ∀ i, (P i).PosSemidef) (q : Fin m → ℝ)
+    (hq : ∀ a, 0 ≤ q a) (hq1 : ∑ a, q a = 1)
+    (hmix : ∀ i, ∑ a, q a * projOverlap V P i a = p i) :
+    ProjectorShellRepresentation V E P p := by
+  refine ⟨V * Matrix.diagonal (fun a => ((q a : ℝ) : ℂ)) * Vᴴ, ?_, ?_, ?_, fun i => ?_⟩
+  · have hdiag : (Matrix.diagonal fun a => ((q a : ℝ) : ℂ)).PosSemidef := by
+      rw [Matrix.posSemidef_diagonal_iff]
+      intro a
+      exact_mod_cast Complex.zero_le_real.mpr (hq a)
+    exact hdiag.mul_mul_conjTranspose_same V
+  · rw [Matrix.trace_mul_cycle, hV', one_mul, Matrix.trace_diagonal]
+    rw [← Complex.ofReal_sum, hq1, Complex.ofReal_one]
+  · exact fun t => sandwich_stationary V E hV' _ t
+  · rw [projector_mixture_readout V P hP q i, hmix]
+
+omit [Fintype ι] in
+/-- **NECESSITY, projector form.** Any state witnessing the projector-valued preparation
+Prop, with distinct energies, forces `p = B·q` for its energy populations `q`, a probability
+profile. With the constructive direction: the projector-valued preparation lift exists iff
+`p ∈ conv{B_{•a}}` — the SDP collapses, at the preparation slot, to a classical convex-hull
+condition on `(V, {P_i}, p)`. -/
+theorem comb_mixture_of_projector_shell_representation (V : Matrix (Fin m) (Fin m) ℂ)
+    (E : Fin m → ℝ) (P : ι → Matrix (Fin m) (Fin m) ℂ) (p : ι → ℝ)
+    (hV : V * Vᴴ = 1) (hE : Function.Injective E) (hP : ∀ i, (P i).PosSemidef)
+    (hsrc : ProjectorShellRepresentation V E P p) :
+    ∃ q : Fin m → ℝ, (∀ a, 0 ≤ q a) ∧ (∑ a, q a = 1)
+      ∧ ∀ i, ∑ a, q a * projOverlap V P i a = p i := by
+  obtain ⟨ρ, hpsd, htr, hstat, hread⟩ := hsrc
+  have hVρV : (Vᴴ * ρ * V).PosSemidef := hpsd.conjTranspose_mul_mul_same V
+  have hreal : ∀ a, (Vᴴ * ρ * V) a a = (((Vᴴ * ρ * V) a a).re : ℂ) := by
+    intro a
+    have h0 : (0 : ℂ) ≤ (Vᴴ * ρ * V) a a := hVρV.diag_nonneg
+    have him : ((Vᴴ * ρ * V) a a).im = 0 := (Complex.nonneg_iff.mp h0).2.symm
+    exact Complex.ext (by rw [Complex.ofReal_re]) (by rw [him, Complex.ofReal_im])
+  have hform := ThermalOrientation.stationary_spectral_form V ρ E hV hE hstat
+  have hV' : Vᴴ * V = 1 := mul_eq_one_comm.mp hV
+  have hformR : ρ = V * Matrix.diagonal
+      (fun a => ((((Vᴴ * ρ * V) a a).re : ℝ) : ℂ)) * Vᴴ := by
+    conv_lhs => rw [hform]
+    rw [show (Matrix.diagonal fun a => (Vᴴ * ρ * V) a a)
+        = Matrix.diagonal fun a => ((((Vᴴ * ρ * V) a a).re : ℝ) : ℂ) by
+      congr 1; funext a; exact hreal a]
+  refine ⟨fun a => ((Vᴴ * ρ * V) a a).re, fun a => ?_, ?_, fun i => ?_⟩
+  · have h0 : (0 : ℂ) ≤ (Vᴴ * ρ * V) a a := hVρV.diag_nonneg
+    exact (Complex.nonneg_iff.mp h0).1
+  · have htr2 : Matrix.trace ρ = ∑ a, (Vᴴ * ρ * V) a a := by
+      conv_lhs => rw [hform]
+      rw [Matrix.trace_mul_cycle, hV', one_mul, Matrix.trace_diagonal]
+    rw [htr] at htr2
+    have : ((∑ a, ((Vᴴ * ρ * V) a a).re : ℝ) : ℂ) = 1 := by
+      rw [Complex.ofReal_sum, ← Finset.sum_congr rfl fun a _ => (hreal a)]
+      exact htr2.symm
+    exact_mod_cast this
+  · have hi : Matrix.trace (P i * ρ)
+        = ((∑ a, ((Vᴴ * ρ * V) a a).re * projOverlap V P i a : ℝ) : ℂ) := by
+      conv_lhs => rw [hformR]
+      exact projector_mixture_readout V P hP (fun a => ((Vᴴ * ρ * V) a a).re) i
+    rw [hread i] at hi
+    exact_mod_cast hi.symm
+
+omit [Fintype ι] in
+/-- **THE UNIFORM-OVERLAP OBSTRUCTION, projector form** — the exact condition under which
+Section B's Fourier obstruction survives on the ancilla carrier: if the projector overlaps
+`⟨a|P_i|a⟩` are constant across outcomes and eigenvectors, every stationary state has
+constant readout, so a non-uniform marginal admits no representation. When the overlaps are
+NOT uniform, the `D > n` columns can enlarge the feasibility polytope and the obstruction
+need not survive. -/
+theorem projector_uniform_overlap_obstruction (V : Matrix (Fin m) (Fin m) ℂ)
+    (E : Fin m → ℝ) (P : ι → Matrix (Fin m) (Fin m) ℂ) (p : ι → ℝ) {c : ℝ}
+    (hV : V * Vᴴ = 1) (hE : Function.Injective E) (hP : ∀ i, (P i).PosSemidef)
+    (huni : ∀ i a, projOverlap V P i a = c) {i j : ι} (hp : p i ≠ p j) :
+    ¬ ProjectorShellRepresentation V E P p := by
+  intro hsrc
+  obtain ⟨q, _, hq1, hmix⟩ :=
+    comb_mixture_of_projector_shell_representation V E P p hV hE hP hsrc
+  have hconst : ∀ k : ι, p k = c := by
+    intro k
+    rw [← hmix k]
+    rw [Finset.sum_congr rfl fun a _ => by rw [huni k a]]
+    rw [← Finset.sum_mul, hq1, one_mul]
+  exact hp (by rw [hconst i, hconst j])
+
+/-- The rank-one overlap is Section B's transport matrix: `⟨a|(|i⟩⟨i|)|a⟩ = |V_{ia}|²`. -/
+theorem projOverlap_rankOne (V : Matrix (Fin m) (Fin m) ℂ) (i a : Fin m) :
+    projOverlap V (fun k => Matrix.diagonal (fun s => if s = k then 1 else 0)) i a
+      = overlap V i a := by
+  rw [projOverlap, overlap]
+  have hentry : (Vᴴ * Matrix.diagonal (fun s => if s = i then (1 : ℂ) else 0) * V) a a
+      = star (V i a) * V i a := by
+    rw [Matrix.mul_apply]
+    rw [Finset.sum_congr rfl fun s _ => by
+      rw [Matrix.mul_diagonal, Matrix.conjTranspose_apply]]
+    rw [Finset.sum_congr rfl fun s _ => by
+      rw [show star (V s a) * (if s = i then (1 : ℂ) else 0) * V s a
+        = if s = i then star (V s a) * V s a else 0 by
+          by_cases h : s = i <;> simp [h]]]
+    rw [Finset.sum_ite_eq' (Finset.univ : Finset (Fin m)) i
+      (fun s => star (V s a) * V s a)]
+    simp
+  rw [hentry, Complex.star_def, mul_comm, Complex.mul_conj]
+  rw [Complex.ofReal_re]
+
+/-- **THE SPECIALIZATION.** With the basis projectors `P_i = |i⟩⟨i|` the projector-valued
+preparation Prop IS the strengthened `ShellRepresentationConsistency`: Section B is the
+trivial-ancilla case of this section. -/
+theorem rankOne_specialization (V : Matrix (Fin m) (Fin m) ℂ) (E : Fin m → ℝ)
+    (p : Fin m → ℝ) :
+    ProjectorShellRepresentation V E
+        (fun k => Matrix.diagonal (fun s => if s = k then 1 else 0)) p
+      ↔ ShellAssignment.ShellRepresentationConsistency V E p := by
+  have hread : ∀ (ρ : Matrix (Fin m) (Fin m) ℂ) (i : Fin m),
+      Matrix.trace (Matrix.diagonal (fun s => if s = i then (1 : ℂ) else 0) * ρ)
+        = ρ i i := by
+    intro ρ i
+    rw [Matrix.trace]
+    rw [Finset.sum_congr rfl fun s _ => by
+      rw [Matrix.diag_apply, Matrix.diagonal_mul,
+        show (if s = i then (1 : ℂ) else 0) * ρ s s
+          = if s = i then ρ s s else 0 by by_cases h : s = i <;> simp [h]]]
+    rw [Finset.sum_ite_eq' (Finset.univ : Finset (Fin m)) i (fun s => ρ s s)]
+    simp
+  constructor
+  · rintro ⟨ρ, hpsd, htr, hstat, hp⟩
+    exact ⟨ρ, hpsd, htr, hstat, fun i => by rw [← hread ρ i]; exact hp i⟩
+  · rintro ⟨ρ, hpsd, htr, hstat, hp⟩
+    exact ⟨ρ, hpsd, htr, hstat, fun i => by rw [hread ρ i]; exact hp i⟩
+
 #print axioms permMatrix_unitary
 #print axioms permMatrix_conj_diagonal
 #print axioms readProj_sum
@@ -476,6 +714,16 @@ theorem populations_nonuniform_of_marginal (V : Matrix (Fin m) (Fin m) ℂ)
 #print axioms comb_mixture_of_shell_representation
 #print axioms uniform_overlap_obstruction
 #print axioms populations_nonuniform_of_marginal
+#print axioms projOverlap_complex
+#print axioms projector_overlap_nonneg
+#print axioms projector_overlap_col_sum
+#print axioms projector_overlap_row_sum
+#print axioms projector_mixture_readout
+#print axioms projector_shell_representation_from_comb
+#print axioms comb_mixture_of_projector_shell_representation
+#print axioms projector_uniform_overlap_obstruction
+#print axioms projOverlap_rankOne
+#print axioms rankOne_specialization
 
 end CoherentLift
 end OIBridge
