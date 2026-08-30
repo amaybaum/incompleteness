@@ -42,6 +42,12 @@ over Q(i). No floating point anywhere.
       at t = s with independent generators -- of trace 1 and rank 1.
   L7  COUNTERCONTROL for maximality: at t < s some joint projector has rank > 1, so the
       "complete dephasing" conclusion genuinely needs t = s and not merely commutativity.
+  L9  the dephasing identity  sum_chi P_chi rho P_chi = Phi_G(rho)  on a generic complex rho.
+  L10 the separable Choi matrix: rank one used as an entrywise factorization, and the Choi matrix
+      of the twirl as a sum of pure product projectors -- entanglement breaking, exhibited.
+  L11 COUNTERCONTROL for the Choi index convention, on genuinely complex vectors.
+  L12 LAYER 4 PREVIEW: at t < s the partially transposed Choi matrix has an explicit negative
+      direction, the single-vector refutation the remaining direction will consume.
   L8  lint.
 
 Usage:  python3 weyl_lift_probe.py
@@ -428,13 +434,193 @@ check("L7", ok7,
       f"lines and no complete dephasing follows. The conclusion needs |G| = 2^s and not merely "
       f"that G is isotropic")
 
+# ---------------------------------------------------------------- L9  the dephasing identity
+def Pproj(gens, e, s):
+    """The actual projector 2^{-t} sum_c chi(e.c) lift(c)."""
+    t = len(gens)
+    return mat_scale((Fraction(1, 2 ** t), Fraction(0)), proj(gens, e, s))
+
+
+def twirl(G, rho, s):
+    acc = zeros(2 ** s)
+    for g in G:
+        Wg = W(g, s)
+        acc = mat_add(acc, mat_mul(mat_mul(Wg, rho), dagger(Wg)))
+    return mat_scale((Fraction(1, len(G)), Fraction(0)), acc)
+
+
+def generic_rho(s):
+    """A deliberately non-Hermitian, genuinely complex matrix: the identity is claimed for ALL rho,
+    so testing it on a state would be a weaker test than testing it on this."""
+    n = 2 ** s
+    return [[(Fraction(1 + a + 2 * b), Fraction(1 + a * b - b)) for b in range(n)]
+            for a in range(n)]
+
+
+ok9 = True
+cases9 = 0
+for s in (1, 2):
+    rho = generic_rho(s)
+    for gens in isotropic_tuples(s, s):
+        cases9 += 1
+        G = span(gens, s)
+        acc = zeros(2 ** s)
+        for e in itertools.product((0, 1), repeat=s):
+            Pe = Pproj(gens, e, s)
+            acc = mat_add(acc, mat_mul(mat_mul(Pe, rho), dagger(Pe)))
+        ok9 &= eq(acc, twirl(G, rho, s))
+ok9 &= cases9 > 0
+check("L9", ok9,
+      f"THE DEPHASING IDENTITY sum_chi P_chi rho P_chi = Phi_G(rho), over all {cases9} Lagrangian "
+      f"tuples at s = 1, 2 and a non-Hermitian generically complex rho. The projectors are built "
+      f"from a chosen tuple and the twirl is not; they agree, which is what makes a "
+      f"tuple-dependent construction legitimate for a tuple-independent theorem")
+
+# ---------------------------------------------------------------- L10  the separable Choi matrix
+def single_mat(p1, q1, n):
+    M = zeros(n)
+    M[p1][q1] = ONE
+    return M
+
+
+def choi(Phi, s):
+    """J(Phi)[(p1,p2)][(q1,q2)] = Phi(E_{p1 q1})[p2][q2], ancilla index FIRST -- the convention
+    OIBridge/Separability.lean fixes."""
+    n = 2 ** s
+    J = [[ZERO] * (n * n) for _ in range(n * n)]
+    for p1 in range(n):
+        for q1 in range(n):
+            out = Phi(single_mat(p1, q1, n))
+            for p2 in range(n):
+                for q2 in range(n):
+                    J[p1 * n + p2][q1 * n + q2] = out[p2][q2]
+    return J
+
+
+def prodProj(u, v, n):
+    """|u (x) v><u (x) v| at ((p1,p2),(q1,q2)) = u[p1] v[p2] conj(u[q1] v[q2])."""
+    J = [[ZERO] * (n * n) for _ in range(n * n)]
+    for p1 in range(n):
+        for p2 in range(n):
+            for q1 in range(n):
+                for q2 in range(n):
+                    J[p1 * n + p2][q1 * n + q2] = mul(mul(u[p1], v[p2]),
+                                                      conj(mul(u[q1], v[q2])))
+    return J
+
+
+def rank_one_factor(M):
+    """M[a][i] = x[a] * y[i]; returns (x, y). Requires M of rank one."""
+    n = len(M)
+    j0 = next(j for j in range(n) if any(M[a][j] != ZERO for a in range(n)))
+    a0 = next(a for a in range(n) if M[a][j0] != ZERO)
+    x = [M[a][j0] for a in range(n)]
+    y = [mul(M[a0][i], inv(M[a0][j0])) for i in range(n)]
+    return x, y
+
+
+ok10 = True
+cases10 = 0
+for s in (1, 2):
+    n = 2 ** s
+    for gens in isotropic_tuples(s, s):
+        cases10 += 1
+        G = span(gens, s)
+        J = choi(lambda r: twirl(G, r, s), s)
+        acc = [[ZERO] * (n * n) for _ in range(n * n)]
+        for e in itertools.product((0, 1), repeat=s):
+            Pe = Pproj(gens, e, s)
+            # the factorization rank one supplies, with no eigenvector anywhere
+            x, y = rank_one_factor(Pe)
+            for a in range(n):
+                for i in range(n):
+                    ok10 &= Pe[a][i] == mul(x[a], y[i])
+            term = prodProj(y, x, n)
+            ok10 &= eq(choi(lambda r: mat_mul(mat_mul(Pe, r), dagger(Pe)), s), term)
+            acc = [[add(acc[i][j], term[i][j]) for j in range(n * n)] for i in range(n * n)]
+        ok10 &= eq(J, acc)
+ok10 &= cases10 > 0
+check("L10", ok10,
+      f"THE SEPARABLE CHOI MATRIX, over all {cases10} Lagrangian tuples at s = 1, 2. Each P_chi "
+      f"factors entrywise as P[a][i] = x[a] y[i] -- rank one used with no eigenvector, no "
+      f"orthonormal basis and no square root -- the Choi matrix of rho |-> P rho P^dagger is "
+      f"exactly the pure product projector prodProj(y, x) with the ancilla index taking y, and the "
+      f"Choi matrix of the twirl is their sum. That is entanglement breaking, exhibited")
+
+# ---------------------------------------------------------------- L11  the index convention
+# prodProj(y, x) and prodProj(x, y) are genuinely different objects; the Lean proof commits to the
+# first, and a real complex example is needed to see the difference at all.
+ok11 = False
+for s in (1, 2):
+    n = 2 ** s
+    for gens in isotropic_tuples(s, s):
+        for e in itertools.product((0, 1), repeat=s):
+            x, y = rank_one_factor(Pproj(gens, e, s))
+            if not eq(prodProj(y, x, n), prodProj(x, y, n)):
+                ok11 = True
+check("L11", ok11,
+      "COUNTERCONTROL for the Choi index convention. prodProj(y, x) and prodProj(x, y) genuinely "
+      "differ on these projectors, so the order in `choi_conj_of_factor` is a real commitment and "
+      "not a harmless relabelling -- the same discipline the Kraus transpose guard applies")
+
+# ---------------------------------------------------------------- L12  the Layer 4 witness exists
+# Not yet Lean: a preview that the remaining direction has the witness `not_eb_of_neg_witness` wants.
+def ptranspose(J, n):
+    T = [[ZERO] * (n * n) for _ in range(n * n)]
+    for p1 in range(n):
+        for p2 in range(n):
+            for q1 in range(n):
+                for q2 in range(n):
+                    T[p1 * n + p2][q1 * n + q2] = J[p1 * n + q2][q1 * n + p2]
+    return T
+
+
+def qform(M, w):
+    acc = ZERO
+    for p in range(len(M)):
+        for q in range(len(M)):
+            acc = add(acc, mul(mul(conj(w[p]), M[p][q]), w[q]))
+    return acc
+
+
+UNITS = (ONE, scal_c(-1, ONE), I, scal_c(-1, I))
+ok12 = True
+cases12 = 0
+for s in (1, 2):
+    n = 2 ** s
+    for t in range(0, s):
+        for gens in isotropic_tuples(s, t):
+            cases12 += 1
+            G = span(gens, s)
+            T = ptranspose(choi(lambda r: twirl(G, r, s), s), n)
+            found = False
+            for p in range(n * n):
+                for q in range(p + 1, n * n):
+                    for u in UNITS:
+                        w = [ZERO] * (n * n)
+                        w[p] = ONE
+                        w[q] = u
+                        if qform(T, w)[0] < 0:
+                            found = True
+            ok12 &= found
+ok12 &= cases12 > 0
+check("L12", ok12,
+      f"LAYER 4 PREVIEW, not yet in Lean. For every one of the {cases12} non-maximal isotropic "
+      f"subspaces at s = 1, 2 the partially transposed Choi matrix of the twirl has a NEGATIVE "
+      f"quadratic form at a two-support vector with a unit coefficient -- exactly the single-vector "
+      f"refutation `Separability.not_eb_of_neg_witness` consumes. The remaining direction needs to "
+      f"produce such a vector from an anticommuting pair in G-perp, and one always exists")
+
 # ---------------------------------------------------------------- L8  lint
 src = open(os.path.join(BRIDGE, 'OIBridge', 'WeylLift.lean'), encoding='utf-8').read()
 root = open(os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
 body = src[src.index('namespace OIBridge'):]
 
 NAMES = ('fac_mul', 'lift_mul', 'lift_conjTranspose', 'lift_eq_smul_W', 'P_conjTranspose',
-         'P_mul_self', 'P_mul_of_ne', 'sum_P', 'trace_P', 'trace_P_eq_one')
+         'P_mul_self', 'P_mul_of_ne', 'sum_P', 'trace_P', 'trace_P_eq_one',
+         'lift_conj', 'exists_lagrangian_tuple', 'sum_P_conj', 'sum_P_conj_eq_twirl',
+         'exists_factor_of_finrank_range_eq_one', 'finrank_range_P',
+         'entanglementBreaking_twirl')
 ok8 = 'import OIBridge.WeylLift' in root
 ok8 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', body) is None
 ok8 &= re.search(r'(?m)^axiom ', body) is None
@@ -447,10 +633,22 @@ ok8 &= 'lift t g c * lift t g c\' = lift t g (c + c\')' in lm[:lm.index(':= by')
 # rank one must be a finrank statement, not a trace statement wearing its name
 ok8 &= 'Module.finrank ℂ (LinearMap.range (Matrix.toLin\' (P s g e))) = 1' in src
 # the obstruction must be recorded in the kernel, in WeylTwirl, and referred to here
-twirl = open(os.path.join(BRIDGE, 'OIBridge', 'WeylTwirl.lean'), encoding='utf-8').read()
-ok8 &= 'theorem H_not_multiplicative' in twirl
-ok8 &= '#print axioms H_not_multiplicative' in twirl
+twirl_src = open(os.path.join(BRIDGE, 'OIBridge', 'WeylTwirl.lean'), encoding='utf-8').read()
+ok8 &= 'theorem H_not_multiplicative' in twirl_src
+ok8 &= '#print axioms H_not_multiplicative' in twirl_src
 ok8 &= 'H_not_multiplicative' in src
+# THE WRAPPER'S HYPOTHESES MUST BE ON G, NOT ON A TUPLE. This is the gate that keeps the
+# tuple-dependent construction from leaking into the manuscript-facing statement.
+wr = src[src.index('theorem entanglementBreaking_twirl'):]
+sig = wr[:wr.index(':= by')]
+ok8 &= 'G : Submodule (ZMod 2) (PS s)' in sig
+ok8 &= 'hiso : Isotropic G' in sig
+ok8 &= "hcard : (gset G).card = 2 ^ s" in sig
+ok8 &= 'Separability.EntanglementBreaking (twirl G)' in sig
+for banned in ('Fin s → PS s', 'Indep', 'spanF', 'lift', 'P s g'):
+    ok8 &= banned not in sig                     # no tuple, no lift, no projector in the statement
+# and the tuple it does use has to be produced from G, not assumed
+ok8 &= 'exists_lagrangian_tuple G hiso hcard' in wr
 check("L8", ok8,
       f"LINT. The file is imported by OIBridge.lean so CI builds it; no `sorry`, no `axiom`, no "
       f"`native_decide`; all {len(NAMES)} named results print their axiom dependencies. "
@@ -459,12 +657,15 @@ check("L8", ok8,
       f"the whole file is itself kernel-proved as `WeylTwirl.H_not_multiplicative`")
 
 print()
-print('     [scope] Settled in Lean: the projective obstruction, the multiplicative lift along a')
-print('     chosen spanning tuple, and the character projectors it supports -- idempotent,')
-print('     self-adjoint, mutually orthogonal, resolving the identity, and of rank one at t = s.')
-print('     NOT settled: the passage from those projectors to a separable Choi matrix, and the')
-print('     t < s negative-partial-transpose witness. [Main] Theorem (separability threshold)')
-print('     stays short of its full statement until both land.')
+print('     [scope] Settled in Lean: the projective obstruction; the multiplicative lift along a')
+print('     chosen spanning tuple; the character projectors -- idempotent, self-adjoint, mutually')
+print('     orthogonal, resolving the identity, rank one at t = s; the extraction of a spanning')
+print('     tuple from an arbitrary Lagrangian G; the dephasing identity; and the wrapper')
+print('     G isotropic with |G| = 2^s  ==>  EntanglementBreaking (twirl G), whose hypotheses')
+print('     name only G. NOT settled: the converse, |G| < 2^s ==> not entanglement breaking.')
+print('     L12 shows the witness it needs always exists, but producing it in Lean from an')
+print('     anticommuting pair in G-perp is the remaining work on [Main] Theorem')
+print('     (separability threshold).')
 print()
 print("weyl_lift_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

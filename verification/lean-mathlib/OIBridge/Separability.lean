@@ -32,6 +32,7 @@
 -/
 import Mathlib.Data.Matrix.Basic
 import Mathlib.Data.Matrix.Basis
+import Mathlib.LinearAlgebra.Matrix.ConjTranspose
 import Mathlib.Data.Complex.Basic
 import Mathlib.Data.Complex.BigOperators
 import Mathlib.Algebra.Star.BigOperators
@@ -141,6 +142,19 @@ theorem prodProj_smul (c : ℝ) (hc : 0 ≤ c) (x : m → ℂ) (y : n → ℂ) :
   rw [← hsq]
   ring
 
+/-- **A decomposition indexed by any finite type.** The definition uses `Fin k` so that it stays a
+plain finite sum; a consumer whose decomposition is naturally indexed by characters, or by anything
+else finite, reindexes through this. -/
+theorem separable_of_fintype {ι : Type*} [Fintype ι] {M : Matrix (m × n) (m × n) ℂ}
+    (x : ι → (m → ℂ)) (y : ι → (n → ℂ)) (hM : M = ∑ r, prodProj (x r) (y r)) : Separable M := by
+  classical
+  refine ⟨Fintype.card ι, fun r => x ((Fintype.equivFin ι).symm r),
+    fun r => y ((Fintype.equivFin ι).symm r), ?_⟩
+  rw [hM]
+  exact (Fintype.sum_equiv (Fintype.equivFin ι).symm
+    (fun r => prodProj (x ((Fintype.equivFin ι).symm r)) (y ((Fintype.equivFin ι).symm r)))
+    (fun i => prodProj (x i) (y i)) fun _ => rfl).symm
+
 /-- **The weighted form is the same cone.** A consumer may present a decomposition with
 nonnegative weights; they are absorbed, so the definition itself carries none. -/
 theorem separable_of_conic {M : Matrix (m × n) (m × n) ℂ} {k : ℕ} (c : Fin k → ℝ)
@@ -208,6 +222,34 @@ def choi (Φ : Matrix n n ℂ → Matrix n n ℂ) : Matrix (n × n) (n × n) ℂ
 @[simp] theorem choi_apply (Φ : Matrix n n ℂ → Matrix n n ℂ) (p q : n × n) :
     choi Φ p q = Φ (Matrix.single p.1 q.1 1) p.2 q.2 := rfl
 
+/-- The Choi matrix is linear in the map: a channel presented as a finite sum of pieces has the
+sum of their Choi matrices. -/
+theorem choi_sum {ι : Type*} [Fintype ι] (Ψ : ι → (Matrix n n ℂ → Matrix n n ℂ)) :
+    choi (fun ρ => ∑ e, Ψ e ρ) = ∑ e, choi (Ψ e) := by
+  refine Matrix.ext fun p q => ?_
+  rw [choi_apply, Matrix.sum_apply]
+  simp only [Matrix.sum_apply, choi_apply]
+
+/-- **The Choi matrix of a single conjugation `ρ ↦ M ρ M†` with `M` of rank one is a pure product
+projector.** Rank one is used only through the entrywise factorization `M a i = x a · y i`, which
+is why the maximal case never needs normalized eigenvectors, an orthonormal basis, or a square
+root. Note the index order: the Choi ancilla index picks up `y` and the output index `x`. -/
+theorem choi_conj_of_factor (M : Matrix n n ℂ) (x y : n → ℂ) (hM : ∀ a i, M a i = x a * y i) :
+    choi (fun ρ => M * ρ * Mᴴ) = prodProj y x := by
+  refine Matrix.ext fun p q => ?_
+  have hentry : ∀ a b : n,
+      (M * Matrix.single p.1 q.1 (1 : ℂ) * Mᴴ : Matrix n n ℂ) a b
+        = M a p.1 * star (M b q.1) := by
+    intro a b
+    rw [Matrix.mul_apply, Finset.sum_eq_single q.1]
+    · rw [Matrix.mul_single_apply_same, mul_one, Matrix.conjTranspose_apply]
+    · intro l _ hl
+      rw [Matrix.mul_single_apply_of_ne _ _ _ _ _ hl, zero_mul]
+    · intro hc; exact absurd (Finset.mem_univ _) hc
+  rw [choi_apply, hentry, prodProj_apply, hM, hM]
+  simp only [star_mul']
+  ring
+
 /-- **Entanglement breaking**: the Choi matrix is separable. -/
 def EntanglementBreaking (Φ : Matrix n n ℂ → Matrix n n ℂ) : Prop := Separable (choi Φ)
 
@@ -229,6 +271,9 @@ theorem not_eb_of_neg_witness {Φ : Matrix n n ℂ → Matrix n n ℂ} {w : n ×
 #print axioms separable_imp_ppt
 #print axioms not_separable_of_neg
 #print axioms not_eb_of_neg_witness
+#print axioms separable_of_fintype
+#print axioms choi_sum
+#print axioms choi_conj_of_factor
 
 end Separability
 

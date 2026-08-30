@@ -217,7 +217,8 @@ root = open(os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
 body = re.sub(r'(?m)--.*$', '', re.sub(r'/-.*?-/', '', src, flags=re.S))
 NAMES = ('mul_star_self', 'qform_prodProj', 'prodProj_posSemidefOn', 'prodProj_smul',
          'separable_of_conic', 'Separable.posSemidefOn', 'ptranspose_prodProj',
-         'separable_imp_ppt', 'not_separable_of_neg', 'not_eb_of_neg_witness')
+         'separable_imp_ppt', 'not_separable_of_neg', 'not_eb_of_neg_witness',
+         'separable_of_fintype', 'choi_sum', 'choi_conj_of_factor')
 ok6 = 'import OIBridge.Separability' in root
 ok6 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', body) is None
 ok6 &= re.search(r'(?m)^axiom ', body) is None
@@ -228,6 +229,15 @@ ok6 &= 'native_decide' not in body
 ok6 &= 'def Separable' in src and '∑ r, prodProj (x r) (y r)' in src
 ok6 &= 'def ptranspose' in src and 'M (p.1, q.2) (q.1, p.2)' in src
 ok6 &= 'Φ (Matrix.single p.1 q.1 1) p.2 q.2' in src
+# the rank-one Choi bridge must take the factorization as its hypothesis -- no eigenvectors, no
+# orthonormal basis, no square root -- and must commit to the ancilla-takes-y index order
+cf = src[src.index('theorem choi_conj_of_factor'):]
+csig = cf[:cf.index(':= by')]
+ok6 &= 'hM : ∀ a i, M a i = x a * y i' in csig
+ok6 &= 'choi (fun ρ => M * ρ * Mᴴ) = prodProj y x' in csig
+# and nothing spectral may be used to get there
+for banned in ('eigen', 'Eigen', 'orthonormal', 'spectral', 'Spectral'):
+    ok6 &= banned not in body
 # no convexity, closure or measure-and-prepare machinery crept in
 for banned in ('convexHull', 'Convex', 'closure', 'MeasureAndPrepare', 'POVM'):
     ok6 &= banned not in body
@@ -237,16 +247,19 @@ check("P6", ok6,
       f"definitions are the narrow ones the theorem needs: `Separable` is a finite sum of pure "
       f"product projectors with no convexity library, closure or measure-and-prepare machinery; "
       f"`ptranspose` swaps the second factor's indices; and the Choi entry formula is the "
-      f"ancilla-first one")
+      f"ancilla-first one. `choi_conj_of_factor` takes rank one as the entrywise factorization "
+      f"M a i = x a * y i and commits to the ancilla-takes-y order, and no eigenvector, "
+      f"orthonormal basis or spectral theorem appears anywhere in the file")
 
 print()
 print('     [scope] Settled in Lean: the Choi matrix, partial transpose, separability as finite')
-print('     sums of pure product projectors, and Separable => PPT — with positivity defined')
-print('     here in the one form both directions need rather than imported. NOT settled: either')
-print('     direction of the theorem. The maximal case must exhibit a separable decomposition')
-print('     from the joint eigenspaces of the commuting H(u); the non-maximal case must build a')
-print('     negative witness from an anticommuting pair in G-perp. This file and WeylTwirl are')
-print('     infrastructure and promote nothing on their own.')
+print('     sums of pure product projectors, Separable => PPT, and the rank-one Choi bridge')
+print('     choi_conj_of_factor — with positivity defined here in the one form both directions')
+print('     need rather than imported. The maximal direction of [Main] Theorem (separability')
+print('     threshold) is closed through this file, in WeylLift.entanglementBreaking_twirl.')
+print('     NOT settled: the converse. The non-maximal case must build a negative witness from')
+print('     an anticommuting pair in G-perp and feed it to not_eb_of_neg_witness, which is')
+print('     waiting for exactly that.')
 print()
 print("separability_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)
