@@ -1230,6 +1230,46 @@ than H-spectrum. (Kernel: \texttt{transported\_gibbs},
 \texttt{gibbs\_strictlyPassive} in
 \texttt{OIBridge/ThermalOrientation.lean}.)
 
+\textbf{One frontier, not two.} The state-based and the rate-based
+attempts to derive that orientation from the substratum terminate at the
+same unresolved structure, and each is now reduced to a single named
+premise with everything on either side kernel-proved. The state route:
+the uniform ensemble on an invariant total-energy shell is jointly
+stationary and its visible marginal is stationary on the actual
+correlated preparation, exactly and with no product substitution; what
+remains is \texttt{ShellRepresentationConsistency} --- that this
+correlated preparation is represented by a stationary density operator
+of the reconstructed theory --- after which stationarity forces spectral
+populations and the passivity selector excludes the reflection. The rate
+route: if the classical shell transition and the frequency-resolved
+detector transition are the same operational transition
+(\texttt{OperationalTransitionIdentification}), the two Boltzmann ratios
+are one object, and positivity of \(\beta_E\) and \(\tau_K\) transports
+the classical energy ordering to the Bohr ordering sign for sign
+(\texttt{energyOrder\_transport}), whereupon the same selector excludes
+the reflection
+(\texttt{reflection\_excluded\_of\_transition\_identification}). Both
+premises are instances of one obligation: identifying the classical
+energy-oriented preparation and transition structure with the coherent
+quantum state-and-instrument representation --- the operational
+completion that §3.2 marks open and {[}Main §3.2, §3.4{]} names as the
+remaining bridge (coherent preparations, noncommuting interventions, the
+full instrument algebra). The antiunitary ambiguity is therefore not an
+additional independent incompleteness of the framework; it is a
+consequence of the already identified coherent-completion frontier, and
+the remaining question is a classification: whether the coherent
+completions of the framework's operational data form a single
+unitary--antiunitary equivalence class --- in which case the derived
+orientation selects complex quantum mechanics essentially uniquely ---
+or a larger family, in which case the terminal result is a
+classification of coherent completions. (Kernel:
+\texttt{ShellRepresentationConsistency} in
+\texttt{OIBridge/ShellAssignment.lean};
+\texttt{OperationalTransitionIdentification},
+\texttt{energyOrder\_transport},
+\texttt{reflection\_excluded\_of\_transition\_identification} in
+\texttt{OIBridge/ThermalOrientation.lean}.)
+
 Every member of the residual family is invisible to the transition data
 for a stated reason --- diagonal rephasing moves no modulus, the energy
 origin is a global phase, the antiunitary reflection conjugates \(U(t)\)
@@ -4167,4 +4207,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: 8e3f2ff46c167b332e47d1eb4fa65db59d35a513ebc728f992ac771dbf47cd25
+% source-sha256: 013593715e7944449465c00b1aa23d1ef5700a249e48bc1aeb8501a5566e088d

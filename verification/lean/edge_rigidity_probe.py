@@ -357,7 +357,9 @@ for fname, names in (
                             'counting_passive', 'counting_strictlyPassive',
                             'commutant_diagonal', 'umat_spectral', 'stationary_offdiag',
                             'stationary_spectral_form', 'exists_margin_pair',
-                            'approx_passivity_selector')),
+                            'approx_passivity_selector', 'rate_sign_transport',
+                            'energyOrder_transport', 'passive_transport',
+                            'reflection_excluded_of_transition_identification')),
     ('ShellAssignment', ('shellWeight_invariant', 'joint_stationary',
                          'marginal_stationary', 'shellConditional_sum')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
@@ -400,7 +402,7 @@ spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(âˆƒ Eâ
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
       "LINT. All ten files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 17 + 4 + 5 + 16 named results print their "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

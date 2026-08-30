@@ -26,6 +26,16 @@
       transport programme: exact finite-bath counting with a monotone bath count `Ω`
       (`β_E = ∂S_H/∂E ≥ 0`) makes the counting-selected profile passive for the classical
       energies. No Gibbs approximation, no thermodynamic limit, no common temperature.
+    * the rate route, reduced — `OperationalTransitionIdentification` names the single
+      physical premise (the classical exchange rates and the reconstructed transition
+      weights share the Boltzmann-ratio form with positive `β_E`, `τ_K`); everything after
+      it is kernel theorem: `rate_sign_transport` (equal exponentials with positive rates
+      transport the sign, by injectivity of `exp`), `energyOrder_transport` (the classical
+      energy order IS the Bohr-frequency order — the fork-deciding sign correspondence,
+      conditionally closed), `passive_transport` (classical passivity becomes spectral
+      passivity), and `reflection_excluded_of_transition_identification` (the assembled
+      chain: OTI ⟹ order transport ⟹ the reflected orientation admits no passive,
+      non-uniform state). The premise is stated separately and never assumed.
 
   WHAT THIS DOES AND DOES NOT ESTABLISH. Together with AntiunitaryInvariance the honest
   structure is: operational data determine `H` up to unitary gauge AND the antiunitary
@@ -33,11 +43,13 @@
   statistics, physically distinct only once an oriented structure is fixed; operational data
   PLUS one passive, non-maximally-mixed state determine `H` up to unitary gauge only. Whether
   the substratum DERIVES that state is the H-orientation transport programme: layer one
-  (classical counting orients classically) is proved here; layer two (stationarity of the
-  counting state under the reconstructed evolution diagonalizes it in the energy basis) and
-  layer three (`energyOrder_transport`: the classical exchange ordering agrees with one of the
-  two orientations of the reconstructed Bohr spectrum — sign only) are the named open targets,
-  the third being the fork-deciding lemma.
+  (classical counting orients classically) is proved here; layer two's mathematical half
+  (stationarity under the reconstructed evolution with distinct energies forces spectral
+  diagonality: `stationary_offdiag`, `stationary_spectral_form`) is proved here; layer
+  three is conditionally closed by the rate route above. Each of the two remaining named
+  premises — `ShellRepresentationConsistency` (state route, `OIBridge/ShellAssignment.lean`)
+  and `OperationalTransitionIdentification` (rate route, this file) — is a face of the one
+  open obligation: the coherent operational lift of the correlated shell ensemble.
 -/
 import OIBridge.CongruentReconstruction
 
@@ -286,6 +298,69 @@ theorem approx_passivity_selector {E p q : Fin m → ℝ} {E₀ γ : ℝ}
   have h3 := abs_lt.mp (hclose b)
   linarith [h2.1, h2.2, h3.1, h3.2]
 
+/-! ### The rate route, reduced to one named premise
+
+GR §3.2 carries the classically derived inverse energy `β_E = ∂S_H/∂E > 0` and the emergent
+inverse time `τ_K = 2π c/κ > 0`. If the classical shell transition and the frequency-resolved
+detector transition are THE SAME operational transition — so their forward/reverse rate ratio
+is one object — the two Boltzmann ratios coincide, and positivity of `β_E, τ_K` transports the
+classical energy ordering to the reconstructed Bohr ordering, sign for sign, with no magnitude
+matching. That identification is the physical premise; it is named separately
+(`OperationalTransitionIdentification`) and never buried inside a theorem: it is the rate-route
+face of the same coherent operational lift `ShellRepresentationConsistency` names on the state
+side. -/
+
+/-- **THE RATE-ROUTE PREMISE, named and not assumed.** The classical shell transition between
+configurations of energies `ε a, ε b` and the frequency-resolved detector transition between
+modes of Bohr frequencies `ω a, ω b` are the same operational transition: their
+forward/reverse rate ratios are one object, so the classical Boltzmann ratio at `β_E` equals
+the detector ratio at `τ_K` on every pair. -/
+def OperationalTransitionIdentification (βE τK : ℝ) (ε ω : Fin m → ℝ) : Prop :=
+  ∀ a b : Fin m, Real.exp (-(βE * (ε b - ε a))) = Real.exp (-(τK * (ω b - ω a)))
+
+/-- The scalar core: equal Boltzmann ratios with positive `β_E, τ_K` transport the sign. -/
+theorem rate_sign_transport {βE τK x y : ℝ} (hβ : 0 < βE) (hτ : 0 < τK)
+    (h : Real.exp (-(βE * x)) = Real.exp (-(τK * y))) : 0 < x ↔ 0 < y := by
+  have hlin : βE * x = τK * y := by
+    have := Real.exp_injective h
+    linarith
+  constructor
+  · intro hx
+    nlinarith
+  · intro hy
+    nlinarith
+
+/-- **`energyOrder_transport` — layer three, conditionally closed.** Under the identification
+premise, the classical exchange ordering agrees with the orientation of the reconstructed Bohr
+spectrum: a sign correspondence only, no magnitudes. -/
+theorem energyOrder_transport {βE τK : ℝ} (hβ : 0 < βE) (hτ : 0 < τK)
+    {ε ω : Fin m → ℝ} (hOTI : OperationalTransitionIdentification βE τK ε ω)
+    (a b : Fin m) : ε a < ε b ↔ ω a < ω b := by
+  have := rate_sign_transport hβ hτ (hOTI a b)
+  constructor
+  · intro h
+    exact by linarith [this.mp (by linarith)]
+  · intro h
+    exact by linarith [this.mpr (by linarith)]
+
+/-- Passivity transports along the identification: classically passive is spectrally passive. -/
+theorem passive_transport {βE τK : ℝ} (hβ : 0 < βE) (hτ : 0 < τK)
+    {ε ω p : Fin m → ℝ} (hOTI : OperationalTransitionIdentification βE τK ε ω)
+    (hp : Passive ε p) : Passive ω p := by
+  intro a b hab
+  exact hp a b ((energyOrder_transport hβ hτ hOTI a b).mpr hab)
+
+/-- **THE RATE ROUTE, COMPLETELY REDUCED:** the identification premise, the counting-passive
+classical profile, and non-uniformity exclude the reflection — everything after
+`OperationalTransitionIdentification` is kernel-proved. -/
+theorem reflection_excluded_of_transition_identification {βE τK : ℝ}
+    (hβ : 0 < βE) (hτ : 0 < τK) {ε ω p : Fin m → ℝ} {E₀ : ℝ}
+    (hOTI : OperationalTransitionIdentification βE τK ε ω)
+    (hdist : ∀ a b : Fin m, a ≠ b → ω a ≠ ω b)
+    (hp : Passive ε p) {a b : Fin m} (hpab : p a ≠ p b) :
+    ¬ Passive (fun c => -ω c + E₀) p :=
+  passivity_selector_nonuniform hdist (passive_transport hβ hτ hOTI hp) hpab
+
 /-! ### Layer two, the mathematical half: stationarity diagonalizes
 
 `stationary_diagonal` is the purely algebraic implication layer two of the H-orientation
@@ -425,6 +500,10 @@ theorem stationary_spectral_form (V ρ : Matrix (Fin m) (Fin m) ℂ) (E : Fin m 
 #print axioms counting_strictlyPassive
 #print axioms exists_margin_pair
 #print axioms approx_passivity_selector
+#print axioms rate_sign_transport
+#print axioms energyOrder_transport
+#print axioms passive_transport
+#print axioms reflection_excluded_of_transition_identification
 #print axioms commutant_diagonal
 #print axioms umat_spectral
 #print axioms stationary_offdiag
