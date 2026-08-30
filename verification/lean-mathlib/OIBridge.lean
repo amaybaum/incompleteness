@@ -79,6 +79,7 @@ import OIBridge.EdgeRigidity
 import OIBridge.HomometricSix
 import OIBridge.HomometricKill
 import OIBridge.CongruentReconstruction
+import OIBridge.TurnpikeScopeTransfer
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

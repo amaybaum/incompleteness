@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Numerical companion checks for OIBridge/EdgeRigidity.lean, OIBridge/HomometricSix.lean,
-OIBridge/HomometricKill.lean, OIBridge/PiccardBridge.lean,
+OIBridge/HomometricKill.lean, OIBridge/PiccardBridge.lean, OIBridge/TurnpikeScopeTransfer.lean,
 OIBridge/CongruentReconstruction.lean, and OIBridge/FrequencyMatching.lean.
 
 EdgeRigidity kernel-proves K4-RIGIDITY: for n >= 5, an edge permutation of K_n preserving all
@@ -38,7 +38,7 @@ These checks exercise the same statements independently (no Lean in the loop):
   R6  ORIENTATION COHERENCE: for random spectra with distinct eigenvalues, both global lifts
       satisfy every triangle gap identity while EVERY properly mixed sign assignment violates
       one -- the content of `orientation_coherence`, checked in exact fractions.
-  R7  lint of all six Lean files.
+  R7  lint of all seven Lean files.
   R8  CONGRUENT RECONSTRUCTION, numerically: random unitary V, random unimodular row/column
       phases and mode permutation build W; the coefficient lines match and H' recovers
       D H D^dag + E0 (and the reflected model recovers -D conj(H) D^dag + E0) to machine
@@ -338,6 +338,11 @@ for fname, names in (
                        'piccardX_at_printed', 'piccardY_at_printed',
                        'piccard_factor_r', 'piccard_factor_s',
                        'piccardX_marks', 'piccardY_marks')),
+    ('TurnpikeScopeTransfer', ('rational_point', 'rational_solutions', 'exists_int_scaling',
+                               'integer_realization_of_real_realization',
+                               'spectral_classification_of_BG',
+                               'gaps_eq_of_equal_probabilities',
+                               'twoBranch_of_BGClassification')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -377,8 +382,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All six files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 5 + 16 named results print their "
+      "LINT. All seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

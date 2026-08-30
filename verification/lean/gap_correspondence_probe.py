@@ -80,6 +80,11 @@ homometric mu is killed by explicit polynomial identities, not by genericity.
       factorizations. The formula layer of the primary audit is thereby machine-confirmed;
       the remaining audit caveat (real-vs-integer scope, recorded in the ledger) is about
       the paper's quantification, not its formulas.
+  M13 THE SCOPE TRANSFER IN ACTION: in exact Q(sqrt2) arithmetic, the irrational family
+      member p = (1, 6+sqrt2) is a strictly sorted, Golomb, nontrivial real pair realizing
+      mu, and the integer member p = (1, 6) realizes the SAME correspondence -- the exact
+      shape of the kernel theorem integer_realization_of_real_realization
+      (TurnpikeScopeTransfer.lean), which closes the real-vs-integer scope caveat of M12.
 
 Usage:  python3 gap_correspondence_probe.py
 """
@@ -838,6 +843,96 @@ check("M12", ok12,
       "the one negative coefficient destroys the six-term cancellation. Kernel twins: "
       "piccard_factor_r / piccard_factor_s / piccardX_marks / piccardY_marks in "
       "OIBridge/PiccardBridge.lean, in chamber coordinates s = x^p1, t = x^(p2-2p1)")
+
+# ------------------------------------------- M13  the scope transfer in action, over Q(sqrt2)
+# TurnpikeScopeTransfer.lean proves: a REAL realization of a fixed gap correspondence yields an
+# INTEGER realization of the same correspondence, preserving order, Golombness, nontriviality.
+# Exhibit it exactly: the IRRATIONAL family member p = (1, 6 + sqrt2) is a genuine real
+# nontrivial homometric Golomb pair realizing mu (verified in exact Q(sqrt2) arithmetic), and
+# the integer member p = (1, 6) realizes the SAME correspondence -- order, Golombness, and
+# nontriviality all preserved, exactly as the kernel theorem asserts.
+ok13 = True
+
+
+class Q2:
+    """Exact arithmetic in Q(sqrt2): a + b*sqrt2 with rational a, b."""
+
+    __slots__ = ('a', 'b')
+
+    def __init__(self, a, b=0):
+        self.a, self.b = Fr(a), Fr(b)
+
+    def __add__(self, o):
+        return Q2(self.a + o.a, self.b + o.b)
+
+    def __sub__(self, o):
+        return Q2(self.a - o.a, self.b - o.b)
+
+    def __eq__(self, o):
+        return self.a == o.a and self.b == o.b
+
+    def __hash__(self):
+        return hash((self.a, self.b))
+
+    def pos(self):
+        # a + b*sqrt2 > 0, decided exactly
+        if self.b == 0:
+            return self.a > 0
+        if self.a == 0:
+            return self.b > 0
+        if self.a > 0 and self.b > 0:
+            return True
+        if self.a < 0 and self.b < 0:
+            return False
+        if self.a > 0:  # b < 0: positive iff a^2 > 2 b^2
+            return self.a * self.a > 2 * self.b * self.b
+        return 2 * self.b * self.b > self.a * self.a  # a < 0, b > 0
+
+
+from fractions import Fraction as Fr
+
+s2 = Q2(0, 1)
+p1r, p2r = Q2(1), Q2(6) + s2          # the irrational family member
+Xr = [Q2(0), p1r, p2r - p1r - p1r, p2r + p2r - p1r - p1r, p2r + p2r,
+      p2r + p2r + p2r - p1r]
+Yr = [Q2(0), p1r, p1r + p1r + p2r, p1r + p2r + p2r, p2r + p2r - p1r,
+      p2r + p2r + p2r - p1r]
+Xi = [fev(x, 1, 6) for x in PX]        # the integer member, from M11's forms
+Yi = [fev(y, 1, 6) for y in PY]
+for RUL in (Xr,):
+    ok13 &= all((RUL[i + 1] - RUL[i]).pos() for i in range(5))          # sorted strictly
+ok13 &= all((Yr[SWAP34[i + 1]] - Yr[SWAP34[i]]).pos() for i in range(5))  # sorted via (3 4)
+# Golomb, both sides: all 15 ascending gaps distinct in Q(sqrt2), exactly
+gr = [Xr[b] - Xr[a] for a, b in itertools.combinations(range(6), 2)]
+gr2 = [Yr[SWAP34[b]] - Yr[SWAP34[a]] for a, b in itertools.combinations(range(6), 2)]
+ok13 &= len(set(gr)) == 15 and len(set(gr2)) == 15
+# all 15 mu-identities hold exactly for the irrational member, with the SAME alignment
+for (a, b), (c, d) in printed_mu.items():
+    ok13 &= (Yr[SWAP34[d]] - Yr[SWAP34[c]]) == (Xr[b] - Xr[a])
+# nontriviality of the irrational member: neither a translate nor a reflection
+diffs = {Yr[SWAP34[i]] - Xr[i] for i in range(6)}
+refls = {Yr[SWAP34[i]] + Xr[5 - i] for i in range(6)}
+ok13 &= len(diffs) > 1 and len(refls) > 1
+# the integer member realizes the SAME correspondence (M11/M12 already verified the
+# identities; here: same forced matching, i.e. same mu after the same alignment)
+for (a, b), (c, d) in printed_mu.items():
+    ok13 &= (Yi[SWAP34[d]] - Yi[SWAP34[c]]) == (Xi[b] - Xi[a])
+ok13 &= sorted(Xi) == list(R1) and sorted(Yi) == list(R2)
+# countercontrol: perturbing one irrational coordinate breaks an identity
+Yr_bad = Yr[:]
+Yr_bad[2] = Yr[2] + Q2(0, Fr(1, 1000))
+ok13 &= any((Yr_bad[SWAP34[d]] - Yr_bad[SWAP34[c]]) != (Xr[b] - Xr[a])
+            for (a, b), (c, d) in printed_mu.items())
+check("M13", ok13,
+      "THE SCOPE TRANSFER IN ACTION, exact over Q(sqrt2): the irrational family member "
+      "p = (1, 6+sqrt2) is a strictly sorted, Golomb, NONTRIVIAL real homometric pair "
+      "realizing mu through the same (3 4) alignment -- all 15 identities exact -- and the "
+      "integer member p = (1, 6) realizes the SAME correspondence with order, Golombness, "
+      "and nontriviality preserved: precisely the conclusion of the kernel theorem "
+      "integer_realization_of_real_realization (TurnpikeScopeTransfer.lean), whose "
+      "twoBranch_of_BGClassification leaves the INTEGER Bekir-Golomb classification as the "
+      "single unproved premise of the entire reconstruction; a perturbed irrational "
+      "coordinate breaks the bridge")
 
 print()
 print('     [scope] Settled exactly, at probe level: (i) n = 4 -- every labeled correspondence')
