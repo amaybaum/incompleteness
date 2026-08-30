@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """release_gate.py - one entry point for every pre-release check.
 
-Four checks accumulated over the correction rounds, none of which subsumes
+Eleven checks accumulated over the correction rounds, none of which subsumes
 another. Each exists because a real defect shipped past the others:
 
   toolchain_check      build.sh went missing and the duplicate unicode-fix
@@ -22,6 +22,10 @@ another. Each exists because a real defect shipped past the others:
   duplicate_check      a scope note pasted at the head of every file put 16
                        identical copies inside the assembled book, and an
                        entire 8.6 section was duplicated in one paper.
+  coverage_check       theorems accumulated in the papers with no executable or
+                       kernel coverage and nothing noticed, because every other
+                       check compares artifacts to sources and none of them asks
+                       whether a source statement is checked at all.
 
 Post-packaging, verify the DECLARED checksum against the shipped archive:
     python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
@@ -67,6 +71,12 @@ def main():
         # (the check also runs its own self-test every time).
         ("dependency-label",
                       [sys.executable, "tools/dependency_label_check.py", "--strict"]),
+        # coverage: every canonical theorem/lemma has a ledger entry, every entry's
+        # fingerprint still matches the manuscript statement it certifies, every
+        # named checker exists, and no level claims more than its checkers deliver.
+        # This is the check against a proof that ships without ever being wired to
+        # anything -- which no other check here can see.
+        ("coverage",  [sys.executable, "tools/coverage_check.py"]),
     ]
     # baselines are named in the TRANSFER's docs, not the manuscript tree, so
     # point the label check there when a transfer path is supplied

@@ -178,8 +178,8 @@ by the book, \texttt{book/}, which now carries its content in maintained
 form, and is frozen at this revision --- it will not be updated in
 subsequent releases, and where it and the book disagree, the book is
 authoritative. Two elements are for now available only here: the D-gauge
-completeness walkthrough (§5.3 below) and the mathematical summary
-tables of the appendix, pending their incorporation into the book.{]}}
+walkthrough (§5.3 below) and the mathematical summary tables of the
+appendix, pending their incorporation into the book.{]}}
 
 \hypertarget{why-physics-biggest-contradiction-might-not-be-a-contradiction-at-all}{%
 \subsubsection{Why Physics' Biggest Contradiction Might Not Be a
@@ -312,13 +312,14 @@ alone. H\_int couples them --- it's how the two sectors talk to each
 other. Without H\_int, the two sectors would evolve independently and
 the observer would never feel the hidden sector's influence.
 
-\textbf{Lemma 3} (Unique measure). \emph{The counting measure on \(S\)
---- assigning equal weight to each state --- is the unique measure
-invariant under \(\varphi\).} The observer uses standard Kolmogorov
-probability theory. No exotic probability theories, no negative
-probabilities, no quantum probability --- just ordinary probability.
-This is what makes the result surprising: we're putting in classical
-probability and getting out quantum mechanics.
+\textbf{Lemma 3} (Selected measure). \emph{The counting measure on \(S\)
+--- assigning equal weight to each state --- is selected among the
+measures invariant under \(\varphi\) as the one of maximal entropy; on a
+single orbit it is the only invariant measure.} The observer uses
+standard Kolmogorov probability theory. No exotic probability theories,
+no negative probabilities, no quantum probability --- just ordinary
+probability. This is what makes the result surprising: we're putting in
+classical probability and getting out quantum mechanics.
 
 That's it. The precise claim is layered. At the finite observable-law
 level, the resulting stochastic law has an exact fixed-basis
@@ -1362,36 +1363,43 @@ discussion.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-d-gauge-completeness-theorem-5.3}{%
-\subsection{The D-Gauge Completeness Theorem
-(§5.3)}\label{the-d-gauge-completeness-theorem-5.3}}
+\hypertarget{frequencies-and-the-d-gauge-question-5.3}{%
+\subsection{Frequencies and the D-Gauge Question
+(§5.3)}\label{frequencies-and-the-d-gauge-question-5.3}}
 
 \textbf{The problem.} The relation T\_ij = \textbar U\_ij\textbar²
 discards phase information. Could different Hamiltonians give the same
 transition probabilities?
 
-\textbf{The theorem.} If \textbar U'\_ij(t)\textbar² =
-\textbar U\_ij(t)\textbar² for all i, j, t, then H' = DHD† where D is a
-diagonal unitary (a physically meaningless relabeling of basis phases).
+\textbf{What is proved (Bohr-frequency completeness).} The transition
+probabilities determine the full set of energy differences E\_k − E\_l.
+Each return probability expands as \textbar U\_ii(t)\textbar² = Σ
+\textbar V\_ik\textbar²\textbar V\_il\textbar² e\^{}\{−i(E\_k−E\_l)t\},
+in which every gap carries a strictly positive coefficient ---
+degenerate gaps merge coefficients but cannot cancel them --- and
+distinct frequencies give linearly independent characters, so equal
+probability families have equal gap sets.
 
-\textbf{The proof in three steps:}
-
-\emph{Step 1 (eigenvalue recovery):} Fourier analysis of T\_ij(t)
-extracts the energy differences E\_k - E\_l. Non-degeneracy of energy
-gaps means E'\_k = E\_k + E₀ (same eigenvalues up to a global shift).
-
-\emph{Step 2 (modulus recovery):} The diagonal Fourier coefficients give
-\textbar V\_ik\textbar² directly. So \textbar V'\_ik\textbar{} =
-\textbar V\_ik\textbar.
-
-\emph{Step 3 (phase structure):} Writing V'\_ik = V\_ik e\^{}\{iδ\_ik\}
-and requiring all Fourier coefficients to match gives the
-double-difference condition:
+\textbf{What is proved (two-branch reconstruction).} Under the
+genericity conditions G1--G3 --- non-degenerate spectrum, non-degenerate
+energy gaps, non-vanishing overlaps --- matching probabilities force H'
+= DHD† + E₀ or H' = −DH̄D† + E₀: basis rephasing, an energy origin, and
+an antiunitary reflection, nothing else ({[}GR §3.3{]}). Each listed
+ambiguity is exactly invisible (the reflection satisfies
+e\^{}\{−i(−H̄)t\} = conj(e\^{}\{−iHt\}) entrywise), and each relaxation
+fails on an explicit example --- dropping the gap condition fails on the
+C₄ ring of {[}SM{]} Proposition 20. The discrete inverse problem at the
+proof's core --- the raw difference set does not determine a spectrum,
+since non-congruent homometric Golomb rulers exist --- is resolved on
+the coefficient-labelled frequency data, with one classical input: the
+completed Piccard classification of integer rulers with equal difference
+sets (Bekir--Golomb 2007), whose extension from integer to real spectra
+is proved internally. The double-difference condition
 
 \[\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0 \pmod{2\pi}\]
 
-The general solution: δ\_ik = α\_i + β\_k --- a sum of a row phase and a
-column phase. This is just basis rephasing.
+with general solution δ\_ik = α\_i + β\_k then closes the rephasing
+factor once the mode correspondence is pinned.
 
 \textbf{The dimensional obstruction.} The unitary U(t) is dimensionless.
 The Hamiltonian Ĥ = iℏ ∂\_tU · U† contains ℏ, which is dimensionful. No
@@ -3601,8 +3609,8 @@ frozen \\
 §5.2 Step 3: Dimensional analysis & ℏ = β c³ε²/G & Unique combination \\
 §5.2 Step 4: Thermal matching & T\_cl = T\_Q fixes β = 1/4 & ℏ =
 c³ε²/(4G) \\
-§5.3: D-gauge theorem & No phase ambiguity & Double-difference
-condition \\
+§5.3: Bohr-frequency completeness & Frequencies determined, ℏ not &
+Dimensional obstruction \\
 §6: Self-consistency & ε = 2 l\_p, S\_BH = A/(4l\_p²) & ε² = 4ℏG/c³ \\
 \end{longtable}
 
@@ -3648,35 +3656,38 @@ corrections of order (εκ/c)². For the cosmological horizon: εκ/c = εH/c
 Negligible, but a lattice-native proof of the KMS condition would
 strengthen the argument.
 
-\textbf{3. The D-gauge theorem requires genericity.}
+\textbf{3. The D-gauge reconstruction requires genericity, and is stated
+as a claim.}
 
-The phase-locking and D-gauge results assume non-degenerate spectrum,
-non-degenerate energy gaps, and non-vanishing overlaps (conditions
-G1--G3). These fail on a measure-zero set of Hamiltonians. For the
-cosmological realization, a stronger argument applies to G1
-specifically: the genericity conditions concern the \emph{effective}
-visible-sector Hamiltonian \(\hat{H}_{\text{eff}}\) (after the
-trace-out), not the total Hamiltonian \(H_{\text{tot}}\). The relevant
-distinction is whether a symmetry of \(H_{\text{tot}}\) preserves the
-visible/hidden factorization. The spatial symmetries an
-observer-centered partition breaks --- translation, rotation about
-distant points, boost --- are \emph{factorization-breaking} (they map
-boundary visible sites to hidden sites across the cosmological horizon),
-so they have no action on the visible factor alone and the degeneracies
-they protect are lifted in \(\hat{H}_{\text{eff}}\).
-Factorization-preserving symmetries \(S_V\otimes S_H\), by contrast,
-descend to a visible symmetry \(S_V\) of \(\hat{H}_{\text{eff}}\) (the
-uniform-bath trace-out is invariant under any unitary on the hidden
-factor); the visible-internal ones among these are the gauge symmetries
-of the emergent QFT, which correspond to physically equivalent states
-and don't affect the phase-locking argument. G2 (non-degenerate gaps) is
-not symmetry-protected and rests on genericity directly; it holds for
-generic \(\hat{H}_{\text{eff}}\) and can fail only on a measure-zero
-set, with no known structural feature of the substratum forcing
-systematic failure (single-cycle hidden dynamics in particular does not,
-since the Hermitian \(\hat{H}_{\text{eff}}\) --- unlike the unitary
-cycle operator's equally-spaced phases --- has unequally-spaced real
-eigenvalues and retains non-degenerate gaps after the trace-out).
+The phase-locking argument and the two-branch reconstruction theorem
+assume non-degenerate spectrum, non-degenerate energy gaps, and
+non-vanishing overlaps (conditions G1--G3); Bohr-frequency completeness
+itself needs only the spectrum and overlap conditions. These fail on a
+measure-zero set of Hamiltonians. For the cosmological realization, a
+stronger argument applies to G1 specifically: the genericity conditions
+concern the \emph{effective} visible-sector Hamiltonian
+\(\hat{H}_{\text{eff}}\) (after the trace-out), not the total
+Hamiltonian \(H_{\text{tot}}\). The relevant distinction is whether a
+symmetry of \(H_{\text{tot}}\) preserves the visible/hidden
+factorization. The spatial symmetries an observer-centered partition
+breaks --- translation, rotation about distant points, boost --- are
+\emph{factorization-breaking} (they map boundary visible sites to hidden
+sites across the cosmological horizon), so they have no action on the
+visible factor alone and the degeneracies they protect are lifted in
+\(\hat{H}_{\text{eff}}\). Factorization-preserving symmetries
+\(S_V\otimes S_H\), by contrast, descend to a visible symmetry \(S_V\)
+of \(\hat{H}_{\text{eff}}\) (the uniform-bath trace-out is invariant
+under any unitary on the hidden factor); the visible-internal ones among
+these are the gauge symmetries of the emergent QFT, which correspond to
+physically equivalent states and don't affect the phase-locking
+argument. G2 (non-degenerate gaps) is not symmetry-protected and rests
+on genericity directly; it holds for generic \(\hat{H}_{\text{eff}}\)
+and can fail only on a measure-zero set, with no known structural
+feature of the substratum forcing systematic failure (single-cycle
+hidden dynamics in particular does not, since the Hermitian
+\(\hat{H}_{\text{eff}}\) --- unlike the unitary cycle operator's
+equally-spaced phases --- has unequally-spaced real eigenvalues and
+retains non-degenerate gaps after the trace-out).
 
 \textbf{4. Why doesn't the deep sector matter?}
 
@@ -3695,4 +3706,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: ad4cbfead545233a79cc3882327848b7c56cf84b5d86329955d50acfacabb2af
+% source-sha256: c5600d0bc6c98255d1ac42e96b7f6a635e79f40cbfaf14413c1c9c3adfa2a253

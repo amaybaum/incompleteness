@@ -188,8 +188,8 @@ two claims. First, finite equivariant projection is classical and exact:
 cubic symmetry is inherited by the projected Markov part and every
 memory kernel, forbidding quadratic anisotropy in the scalar symbol ---
 so whatever nondegenerate quadratic structure survives is isotropic ---
-while allowing cubic anisotropy at \(O(k^4)\). The particular normalized
-nearest-neighbor operator \(A/(2d)\) additionally requires an
+while allowing cubic anisotropy at quartic order. The particular
+normalized nearest-neighbor operator \(A/(2d)\) additionally requires an
 \textbf{observer-level} center-free kernel; microscopic center
 independence alone does not imply that after correlated hidden variables
 are marginalized. Second, the six signed simple-cubic links and their
@@ -1733,13 +1733,16 @@ where the Markov part and the resummed kernel coincide; away from it the
 kernel, not the Markov part, carries the dispersion.
 
 \textbf{Corollary 1a (cubic symmetry FORBIDS quadratic anisotropy).}
-\emph{Suppose a scalar projected kernel is translation invariant with
-finite second moment and is equivariant under the full cubic point group
-\(O_h\). Then near \(\mathbf k=0\) its Fourier symbol has the form}
+\emph{Suppose a scalar projected kernel is translation invariant and
+equivariant under the full cubic point group \(O_h\). (i) If it has
+finite second absolute moment, then near \(\mathbf k=0\) its Fourier
+symbol has the form}
 
-\[\widehat K_m(\mathbf k)=a_m-b_m|\mathbf k|_2^2+O(|\mathbf k|^4).\]
+\[\widehat K_m(\mathbf k)=a_m-b_m|\mathbf k|_2^2+o(|\mathbf k|^2).\]
 
-\emph{The \(O(|\mathbf k|^4)\) term need not be rotationally invariant.}
+\emph{(ii) If it has finite fourth absolute moment --- in particular if
+it has finite range --- the remainder sharpens to \(O(|\mathbf k|^4)\),
+and that quartic term need not be rotationally invariant.}
 
 \textbf{Scope.} The content is negative: equivariant finite observation
 FORBIDS quadratic spatial anisotropy. It does not by itself produce a
@@ -1750,11 +1753,23 @@ condition \(b_m\neq0\) (with the sign fixed by stability) is an
 ADDITIONAL requirement, not a consequence of \(O_h\) equivariance. The
 theorem's honest form is therefore: whatever quadratic spatial structure
 survives projection is isotropic --- not that quadratic structure
-survives.
+survives. The two moment conditions are not interchangeable: a symmetric
+kernel can have finite second moment and infinite fourth moment, and its
+remainder is then nonanalytic between quadratic and quartic order, so
+clause (i) cannot be strengthened to \(O(|\mathbf k|^4)\) without the
+further hypothesis of clause (ii). The negative content is carried by
+(i) alone; clause (ii) is what licenses reading the surviving anisotropy
+as quartic.
 
 \emph{Proof.} Inversion in \(O_h\) removes odd powers. Permutations and
 sign changes of the coordinate axes force the quadratic tensor to be
-proportional to \(\delta_{ij}\). At quartic order the independent cubic
+proportional to \(\delta_{ij}\) --- equivalently, the space of
+\(O_h\)-invariant symmetric quadratic forms on \(\mathbb R^3\) is
+one-dimensional, spanned by \(\delta_{ij}\). For (i),
+\(|\cos x-1+x^2/2|\le\min(x^2,|x|^3/6)\) and dominated convergence
+against the finite second moment give the \(o(|\mathbf k|^2)\)
+remainder. For (ii), the finite fourth moment dominates the quartic
+Taylor remainder directly. At quartic order the independent cubic
 invariants \(\sum_i k_i^4\) and \(\sum_{i<j}k_i^2k_j^2\) remain, so
 exact microscopic rotational symmetry is neither assumed nor obtained.
 \(\square\)
@@ -3339,13 +3354,13 @@ condition, \textbf{H-top}, which \(T\) symmetry does not supply.
 give}\label{detailed-balance-and-what-it-does-not-give}}
 
 \textbf{Theorem 19} (Reciprocity of visible transition counts).
-\emph{Let the partition be preserved by time reversal, with \(\theta\)
-the induced action of \(T\) on visible states and \(\theta_H\) its
-action on hidden states, and let the hidden prior be the counting
-measure. Then \(T_{ij} = T_{\theta j,\theta i}\) for all visible
-\(i, j\); when the visible states carry no T-odd data
-(\(\theta=\mathrm{id}\)) this is detailed balance, \(T_{ij}=T_{ji}\).
-The same holds at every time scale:
+\emph{Let the partition be preserved by an involutive time reversal
+\(\mathcal{T}\) (\(\mathcal{T}^2 = \mathrm{id}\)), with \(\theta\) its
+induced action on visible states and \(\theta_H\) its action on hidden
+states, and let the hidden prior be the counting measure. Then
+\(T_{ij} = T_{\theta j,\theta i}\) for all visible \(i, j\); when the
+visible states carry no T-odd data (\(\theta=\mathrm{id}\)) this is
+detailed balance, \(T_{ij}=T_{ji}\). The same holds at every time scale:
 \(T_{ij}(n)=T_{\theta j,\theta i}(n)\) for all \(n\).}
 
 \emph{Proof.} T-invariance (Theorem 17) gives
@@ -8695,4 +8710,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: 97b8d19e5e6b355fc5054339d3bf8cb07cc63e82cd379132a6650af89aa614a0
+% source-sha256: 8f802a9870343d070371088a32c98468f81c2a8fa11cc52c91ca910fc83c82f0

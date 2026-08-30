@@ -32,9 +32,10 @@ Lemma 1 boundary bounds).  This file tests the remaining links:
       every abelian subgroup G of the Weyl group (= isotropic subspace of
       F_2^{2s}), Phi_G is EB iff dim G = s.  Same two-sided certificates.
 
-  T6  Corollary 2 arithmetic on every lattice instance; plus the ring-6
+  T6  Corollary 2 arithmetic on every lattice instance, with the hypothesis in
+      its min form: min(|dR-|, |dR+|) < |R| => w < kappa. Plus the ring-6
       R = {0,2,4} instance: every visible site on the cut, Corollary 2
-      hypothesis FAILS (|dR-|+|dR+| = 2|R|), yet w < kappa and the channel
+      hypothesis FAILS (min(|dR-|, |dR+|) = |R|), yet w < kappa and the channel
       is NOT entanglement-breaking (Corollary 2 is sufficient, not necessary).
 
   T7  Prime q = 3 instances: transfer rule, group order q^{s-kappa+w}, and
@@ -427,8 +428,10 @@ def certify_instance(inst, verbose_prefix=""):
                     f"(complete dephasing in an explicit basis)  => "
                     f"entanglement-breaking (measure-and-prepare)", okppt and okmp)
 
-    # ---- T6: Corollary 2 arithmetic
-    if len(inst.d_minus) + len(inst.d_plus) < 2 * len(inst.R):
+    # ---- T6: Corollary 2 arithmetic, in the min form the corollary now carries. The old
+    # summed hypothesis |dR-| + |dR+| < 2|R| implies this one, so the check fires on at least
+    # every instance it used to, and more.
+    if min(len(inst.d_minus), len(inst.d_plus)) < len(inst.R):
         ok &= check(f"{pre}: Corollary 2 hypothesis holds and w < kappa",
                     inst.w < inst.kappa)
     return ok

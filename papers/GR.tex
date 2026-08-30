@@ -1042,61 +1042,145 @@ Steps 1--2 establish that \(\hbar\) depends only on boundary quantities;
 Step 4 will fix its value via thermal matching. A prior question must be
 addressed: does the transition-probability data \(\{T_{ij}(t)\}\)
 determine the emergent Hamiltonian uniquely, or does residual gauge
-freedom leave \(\hbar\) underdetermined? The following theorem,
-completing the phase-locking argument (Prerequisites), shows the gauge
-freedom is physically trivial.
+freedom leave \(\hbar\) underdetermined? The following theorem settles
+what the argument needs: the transition data determine the full
+dynamical frequency content, and the dimensional obstruction then makes
+the determination of \(\hbar\) a question no amount of such data can
+settle. The sharper question --- how far the data pin the Hamiltonian
+itself --- is settled by the two-branch theorem below.
 
-\textbf{Theorem (D-gauge completeness).} \emph{Let \(U(t) = e^{-iHt}\)
-with non-degenerate eigenvalues and non-vanishing configuration-basis
-overlaps. If \(|U'_{ij}(t)|^2 = |U_{ij}(t)|^2\) for all \(i, j, t\),
-then \(H' = DHD^\dagger\) for a time-independent diagonal unitary
-\(D\).}
+\textbf{Theorem (Bohr-frequency completeness).} \emph{Let
+\(U(t) = e^{-iHt}\) with non-degenerate eigenvalues and non-vanishing
+configuration-basis overlaps. Then the transition probabilities
+determine the Bohr-frequency set \(\{E_a - E_b\}\): each return
+probability expands as
+\(|U_{ii}(t)|^2 = \sum_{a,b} |V_{ia}|^2 |V_{ib}|^2\, e^{-i(E_a - E_b)t}\),
+in which every gap value carries a strictly positive coefficient; every
+\(|U_{ij}(t)|^2\) is a combination of the same frequencies; and
+consequently any \(U'\) of the same form with
+\(|U'_{ij}(t)|^2 = |U_{ij}(t)|^2\) for all \(i, j, t\) has
+\(\{E'_a - E'_b\} = \{E_a - E_b\}\).}
 
-\emph{Proof.} Write
-\(U_{ij}(t) = \sum_a V_{ia} \, e^{-iE_a t} \, V_{ja}^*\) with
-\(V_{ia} = \langle i | a \rangle\) and eigenvalues \(\{E_a\}\), and
-similarly \(U'_{ij}(t) = \sum_a V'_{ia} \, e^{-iE'_a t} \, V'^*_{ja}\).
+\emph{Proof.} Expanding
+\(U_{ij}(t) = \sum_a V_{ia}\, e^{-iE_a t}\, V_{ja}^*\) gives
+\(|U_{ij}(t)|^2 = \sum_{a,b} V_{ia} V_{ja}^* V_{ib}^* V_{jb}\, e^{-i(E_a - E_b)t}\);
+at \(i = j\) the coefficients are \(|V_{ia}|^2 |V_{ib}|^2 > 0\), and
+grouping terms by frequency value only adds positive quantities ---
+degenerate gaps merge coefficients but cannot cancel them. Distinct
+characters \(t \mapsto e^{-i\omega t}\) of \((\mathbb{R}, +)\) are
+linearly independent (Dedekind), so equality of two probability families
+forces equality of the per-frequency coefficients over the union of the
+two gap sets, and positivity makes the supports --- the gap sets ---
+coincide. \(\square\)
 
-\emph{Step 1 (Eigenvalue recovery).} By the phase-locking argument of
-{[}Main, §3.1{]}, \(|U_{ij}(t)|^2 = |U'_{ij}(t)|^2\) for all \(t\)
-implies, via Fourier analysis, that the frequency sets \(\{E_a - E_b\}\)
-and \(\{E'_a - E'_b\}\) coincide. Non-degeneracy of energy gaps then
-gives \(E'_a = E_{\sigma(a)} + E_0\) for some permutation \(\sigma\) and
-global shift \(E_0\). The Fourier coefficients
-\(a^{kl}_{ij} = V_{ik} V^*_{jk} V_{jl} V^*_{il}\) must match between
-primed and unprimed, which (by the non-vanishing condition on overlaps)
-forces \(\sigma = \text{id}\) up to relabeling. Thus
-\(E'_a = E_a + E_0\).
+\textbf{The dimensional obstruction.} This is what §3's argument
+consumes, and it is deliberately less than a reconstruction of \(H\).
+The transition probabilities are dimensionless functions of \(t\) and
+determine temporal frequencies; converting a frequency to an energy
+requires the action scale \(\hbar\) itself, so no amount of transition
+data fixes it. The residual ambiguities in passing from frequencies to a
+Hamiltonian carry no scale either: the energy origin
+\(H \mapsto H + E_0\) contributes only the global phase \(e^{-iE_0 t}\),
+the antiunitary reflection \(H \mapsto -\bar{H}\) satisfies
+\(e^{-i(-\bar{H})t} = \overline{e^{-iHt}}\) entrywise and so preserves
+every \(|U_{ij}(t)|^2\) exactly, and the two-branch theorem below shows
+that nothing beyond these survives the coefficient matching. Step 4's
+thermal matching is therefore the mathematically obligatory entry point
+for the dimensionful input.
 
-\emph{Step 2 (Modulus recovery).} From the diagonal Fourier coefficients
-\(a^{kl}_{ii} = |V_{ik}|^2 |V_{il}|^2\), the non-vanishing condition
-gives \(|V'_{ia}| = |V_{ia}|\) for all \(i, a\).
+\textbf{Theorem (D-gauge completeness, two-branch form).} \emph{Let
+\(U(t) = e^{-iHt}\) with all energy gaps \(E_a - E_b\) (\(a \neq b\))
+distinct and all configuration-basis overlaps non-vanishing. If
+\(|U'_{ij}(t)|^2 = |U_{ij}(t)|^2\) for all \(i, j, t\), then
+\(H' = DHD^\dagger + E_0\) or \(H' = -D\bar{H}D^\dagger + E_0\), for a
+time-independent diagonal unitary \(D\) and a real \(E_0\).}
 
-\emph{Step 3 (Phase structure).} Write
-\(V'_{ia} = V_{ia} \, e^{i\delta_{ia}}\). The off-diagonal Fourier
-coefficients require:
+\emph{Proof.} Equality of the probability families forces, by the
+character independence above, equality of every per-frequency
+coefficient of
+\(|U_{ij}(t)|^2 = \sum_{a,b} V_{ia} V_{ja}^* V_{ib}^* V_{jb}\, e^{-i(E_b - E_a)t}\)
+over the union of the two gap sets; the gap sets coincide, and with all
+gaps distinct each frequency is carried by exactly one ordered mode pair
+on each side, so the matching forces a bijection \(\nu\) of ordered
+pairs preserving gap values and, pair by pair, equality of the
+coefficient tensors \(C^{ab}_{ij} = V_{ia} V_{ja}^* V_{ib}^* V_{jb}\)
+along \(\nu\). The classification of \(\nu\) concerns the spectra alone,
+and it reduces to integer spectra: the realization constraints of a
+fixed correspondence --- gap identities, orderings, distinctness of
+differences, failure of translation- and reflection-congruence --- are
+homogeneous rational-linear equalities, strict inequalities, and
+inequations, so a real spectrum pair realizing a nontrivial
+correspondence yields an integer pair realizing the same one: the
+entries span a finite-dimensional \(\mathbb{Q}\)-subspace of
+\(\mathbb{R}\), each basis-coordinate slice of the pair is itself a
+rational solution of the equality subsystem, rational combination
+coefficients near the real ones preserve the finitely many strict
+conditions, and a common denominator clears. For integer spectra the
+classification is the completed Piccard theorem: two rulers with all
+internal differences distinct and the same difference set are identical
+or mirror images, except for a single two-parameter six-mark family
+{[}A. Bekir and S. W. Golomb, IEEE Trans. Inform. Theory 53 (2007)
+2864--2867{]}. In the congruent cases the coefficient lines give the
+multiplicative rigidity \(W_{i,\tau a} = d_i \beta_a V_{ia}\) with
+\(d, \beta\) unimodular --- the moduli by diagonal-line rigidity at
+\(m \ge 3\), while at \(m = 2\) the diagonal line factors as
+\((q - p)(1 - p - q) = 0\) and the apparent hyperbola is exactly the
+reflection branch; the phases by the coboundary splitting on the pair
+lattice, the general solution of
+\(\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0\) being
+\(\delta_{ia} = \alpha_i + \beta_a\) --- and the \(\beta\)'s cancel in
+\(H' = W \operatorname{diag}(E') W^\dagger\), giving the first branch;
+reflection congruence is the first branch applied to \((\bar{V}, -E)\),
+giving the second. The exceptional six-mark family induces, up to
+relabeling, the single frequency-preserving correspondence \(\mu\) of
+the homometric pair \(\{0,1,4,10,12,17\}\) / \(\{0,1,8,11,13,17\}\) ---
+the two-parameter family satisfies all fifteen gap identities of \(\mu\)
+identically in its parameters --- and \(\mu\) admits no realization by
+unitary eigenbases with non-vanishing overlaps: its pulled-back
+four-cycle identities force flat moduli, the surviving monomial phase
+family confines the row parameters to the eight common roots-of-unity
+zeros of two mask polynomials, and the graph these eight generate has
+maximum clique three, short of the six mutually orthogonal rows
+required. The two printed branches are all that remains. \(\square\)
 
-\[V'_{ik} V'^*_{jk} V'_{jl} V'^*_{il} = V_{ik} V^*_{jk} V_{jl} V^*_{il}\]
+The proof is kernel-verified end to end
+(\texttt{verification/lean-mathlib/OIBridge/}, composed statement
+\texttt{twoBranch\_of\_BGClassification}), with a single exception
+consumed as a cited external theorem: the integer classification of
+Bekir--Golomb, stated in the kernel as the explicit premise
+\texttt{BGIntegerClassification} --- in the integer scope the cited text
+uses, the passage from integer to real spectra being proved, not
+assumed. The hypotheses are sharp: each relaxation fails on an explicit
+example. Omitting \(E_0\) fails on \(H + E_0\). Omitting the second
+branch fails on \(-\bar{H}\), whose spectrum \(\{-E_a\}\) is not a shift
+of \(\{E_a\}\) for generic \(H\); the second branch is an antiunitary
+ambiguity --- time reversal composed with energy reflection --- not a
+gauge transformation. Weakening the gap condition to eigenvalue
+non-degeneracy fails on the \(C_4\) ring of {[}SM{]} Proposition 20: its
+spectrum \(\{\pm 2a, \pm 2b\}\) has distinct eigenvalues but degenerate
+gaps, its overlaps are uniform Fourier moduli, its reflection symmetry
+gives \(|U_{ij}(t)|^2 = |U_{ji}(t)|^2\) so that \(\bar{H}\) reproduces
+every transition probability, and \(\bar{H}\) is not diagonal-conjugate
+to \(H\) because conjugation preserves the loop product \(z^4\), which
+is not real there --- the same example that keeps weak-CP phases viable
+under reciprocity marks the exact boundary of Hamiltonian
+reconstruction. And the frequency set alone could not have decided the
+classification: the homometric pair above shares its fifteen pairwise
+differences without the rulers being translates or reflections of one
+another, which is why the proof runs on the coefficient-labelled
+frequency data, where the multiplicative relations
+\(z^{ab} z^{bc} = |V_{\cdot b}|^2 z^{ac}\) of the vectors
+\(z^{ab}_i = V_{ia} V_{ib}^*\) are available, and not on the difference
+set.
 
-Substituting and canceling moduli:
-
-\[e^{i(\delta_{ik} - \delta_{jk} - \delta_{il} + \delta_{jl})} = 1 \quad \text{for all } i, j, k, l\]
-
-This is the double-difference condition:
-\(\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0 \pmod{2\pi}\).
-The general solution on the integer lattice is
-\(\delta_{ia} = \alpha_i + \beta_a\) for phases \(\{\alpha_i\}\),
-\(\{\beta_a\}\). Thus \(V' = D_\alpha \, V \, D_\beta\) where
-\(D_\alpha = \text{diag}(e^{i\alpha_i})\) and
-\(D_\beta = \text{diag}(e^{i\beta_a})\). The \(D_\beta\) factor is
-absorbed into the eigenvector phase convention (physically irrelevant),
-giving \(H' = D_\alpha H D_\alpha^\dagger\) with \(D = D_\alpha\) a
-time-independent diagonal unitary. \(\square\)
-
-The D-gauge is physically trivial (basis rephasing). Cross-interval
-transition probabilities fix the relative gauge up to a single global
-phase; in the continuum limit this becomes an unobservable smooth
-function \(e^{i\theta(t)}\).
+Every member of the residual family is invisible to the transition data
+for a stated reason --- diagonal rephasing moves no modulus, the energy
+origin is a global phase, the antiunitary reflection conjugates \(U(t)\)
+entrywise --- and none carries a scale, so §3.4's determination of
+\(\hbar\) does not wait on the theorem. Cross-interval transition
+probabilities fix the relative gauge up to a single global phase; in the
+continuum limit this becomes an unobservable smooth function
+\(e^{i\theta(t)}\).
 
 \textbf{Dimensional obstruction.} The unitary \(U(t)\) is dimensionless;
 \(\hbar\) enters only via
@@ -4002,4 +4086,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: 345ed32b3c0a21fc063c51292ac1ed01f55090de33c1431c9a991fa3f827c05a
+% source-sha256: 65ddfac853cb96f8608f020010886a15deda863152d3ea81d46319dd12c0cfbb

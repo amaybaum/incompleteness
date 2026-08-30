@@ -508,7 +508,7 @@ principal. §9 develops the algebraic formalization, stating the key
 definitions (embedded observer, substratum-with-observer system,
 observational equivalence, universality class), proving propositions on
 the relation to OI's gauge group (Proposition 9.5) and the Stinespring
-uniqueness structure (Proposition 9.7), and developing the
+uniqueness structure (Propositions 9.7a and 9.7b), and developing the
 observer-admission distinction (Definition 9.9 + Proposition 9.10 +
 Corollary 9.11) that operates at a level prior to universality-class
 membership. §10 uses OI's framework as a worked example. §11 examines
@@ -859,14 +859,14 @@ Different theorems and structural conditions do the load-bearing work at
 each level: Level A is not a theorem (structural fact); Level B is
 C1--C4 ({[}Main §3{]}) plus Definition 9.9 + Proposition 9.10 +
 Corollary 9.11 (§9.6); Level C is Definitions 9.1--9.4 + Propositions
-9.5--9.7 (§9) plus the four-feature audit (§14); Level D is Theorem 23
-(reconstruction) and Theorem 24 (substratum gauge group) ({[}Substratum
-§§3-4{]}) plus A1--A6 + E1--E4. On the gauge axis: G1 is the residual
-diagonal-unitary equivalence ({[}GR §3.3{]}); G2 is the cubic-group
-commutant theorem ({[}SM Theorem 7{]}) plus background independence; G3
-is the four-generator characterization (Theorem 24) plus Stinespring
-uniqueness; G4 is Definition 9.4 plus the algebra-channel structure as
-the invariant.
+9.5, 9.7a and 9.7b (§9) plus the four-feature audit (§14); Level D is
+Theorem 23 (reconstruction) and Theorem 24 (substratum gauge group)
+({[}Substratum §§3-4{]}) plus A1--A6 + E1--E4. On the gauge axis: G1 is
+the residual diagonal-unitary equivalence ({[}GR §3.3{]}); G2 is the
+cubic-group commutant theorem ({[}SM Theorem 7{]}) plus background
+independence; G3 is the four-generator characterization (Theorem 24)
+plus Stinespring uniqueness; G4 is Definition 9.4 plus the
+algebra-channel structure as the invariant.
 
 The framework's empirical content (twenty-two classified quantitative
 predictions --- seven parameter-free structural, the remainder layered,
@@ -2407,14 +2407,18 @@ a von Neumann algebra acting on a Hilbert space \(\mathcal{H}_V\)) - A
 CPTP channel
 \(\Phi: \mathcal{B}(\mathcal{H}_V) \to \mathcal{B}(\mathcal{H}_V)\)
 representing the dynamics of visible-sector states under the
-substratum's evolution traced over the hidden sector - A Stinespring
-dilation \(\mathcal{H}_V \otimes \mathcal{H}_H\) with a unitary \(U\) on
-the dilation lifting \(\Phi\) to a unitary dynamics
+substratum's evolution traced over the hidden sector - A unitary
+realization: a hidden sector \(\mathcal{H}_H\), a reference state
+\(\rho_H\), and a unitary \(U\) on
+\(\mathcal{H}_V \otimes \mathcal{H}_H\) lifting \(\Phi\) to a unitary
+dynamics (Definition 9.2; when \(\rho_H\) is pure the associated
+isometry is the Stinespring dilation)
 
-The substratum is captured by the dilation; the observer is captured by
-the visible-sector algebra and the CPTP channel. Equivalence between
+The substratum is captured by the realization; the observer is captured
+by the visible-sector algebra and the CPTP channel. Equivalence between
 embedded observers is equivalence of the channel and algebra structure,
-with the dilation being gauge.
+with the realization being gauge relative to the fixed reference
+preparation.
 
 The universality-class proposal in algebraic terms: two substrata are in
 the same class if they produce equivalent \((\mathcal{A}_V, \Phi)\)
@@ -2486,8 +2490,31 @@ substratum-with-observer system is a quintuple
 space), and \(U\) is a unitary on
 \(\mathcal{H}_V \otimes \mathcal{H}_H\) such that}
 \[\Phi(\rho) = \mathrm{Tr}_H[U(\rho \otimes \rho_H) U^\dagger]\]
-\emph{for some hidden-sector reference state \(\rho_H\). The pair
-\((\mathcal{H}_H, U)\) is a Stinespring dilation of \(\Phi\).}
+\emph{for some hidden-sector reference state \(\rho_H\). The triple
+\((\mathcal{H}_H, \rho_H, U)\) is a} unitary realization \emph{of
+\(\Phi\). When \(\rho_H = |0\rangle\langle 0|\) is pure, the map
+\(V_{U,0}: \psi \mapsto U(\psi \otimes |0\rangle)\) is an isometry
+\(\mathcal{H}_V \to \mathcal{H}_V \otimes \mathcal{H}_H\) satisfying
+\(\Phi(\rho) = \mathrm{Tr}_H[V_{U,0}\, \rho\, V_{U,0}^\dagger]\), and it
+is this isometry --- not \(U\) --- that is a Stinespring dilation of
+\(\Phi\).}
+
+\textbf{Remark (why the distinction is load-bearing).} A unitary
+realization carries strictly more data than the channel constrains, in
+two separate ways, and both matter below. First, when \(\rho_H\) is pure
+the channel sees \(U\) only through its action on
+\(\mathcal{H}_V \otimes \mathbb{C}|0\rangle\); the action of \(U\) on
+the rest of \(\mathcal{H}_V \otimes \mathcal{H}_H\) is entirely free.
+Second, when \(\rho_H\) is mixed the realization remains a realization
+rather than a Stinespring dilation, and its hidden-sector dimension is
+not the Kraus rank --- it can be strictly \emph{smaller}. The completely
+depolarizing qubit channel has Kraus rank \(4\), yet
+\(\rho_H = \mathbb{1}/2\) with \(U = \mathrm{SWAP}\) realizes it on a
+two-dimensional hidden sector. This is not an edge case for OI: §10.4's
+construction uses the uniform mixed reference state, so OI's own
+\((\mathcal{H}_H, \rho_H, U_\varphi)\) is a unitary realization and not
+a minimal Stinespring dilation, and the uniqueness statements below must
+not be read as applying to it directly.
 
 \textbf{Definition 9.3} (Observational equivalence). \emph{Two embedded
 observers \((\mathcal{H}_V^{(1)}, \mathcal{A}_V^{(1)}, \Phi^{(1)})\) and
@@ -2565,45 +2592,134 @@ A structural feature important for the universality-class framework is
 the \emph{many-to-one} relationship between substratum-with-observer
 systems and their embedded observers. Many distinct
 substratum-with-observer quintuples produce the same embedded-observer
-triple; the additional data is the Stinespring dilation
-\((\mathcal{H}_H, U)\).
+triple; the additional data is the unitary realization
+\((\mathcal{H}_H, \rho_H, U)\). The uniqueness available here is at the
+level of the Stinespring isometry, and it is worth separating the
+algebraic content from what it does and does not say about \(U\).
 
-\textbf{Proposition 9.7} (Stinespring uniqueness, restricted form).
-\emph{Let \((\mathcal{H}_V, \mathcal{A}_V, \Phi)\) be an embedded
-observer with two Stinespring dilations
-\((\mathcal{H}_H^{(1)}, U^{(1)})\) and
-\((\mathcal{H}_H^{(2)}, U^{(2)})\) producing the same channel \(\Phi\).
-If both dilations have minimal hidden-sector dimension (i.e., neither
-has redundant deep-sector content), then there exists a unitary
-\(W: \mathcal{H}_H^{(1)} \to \mathcal{H}_H^{(2)}\) such that
-\(U^{(2)} = (\mathbb{1}_V \otimes W) U^{(1)} (\mathbb{1}_V \otimes W^\dagger)\).}
+\textbf{Proposition 9.7a} (Minimal Kraus uniqueness). \emph{Let
+\(\mathcal{H}_V\) be finite-dimensional and let}
+\[\Phi(\rho) = \sum_{i=1}^{r} A_i \rho A_i^\dagger = \sum_{j=1}^{s} B_j \rho B_j^\dagger\]
+\emph{with \(\{A_i\}_{i \le r}\) and \(\{B_j\}_{j \le s}\) each linearly
+independent. Then \(r = s\) and there is a unique unitary
+\(W \in \mathrm{U}(r)\) with} \[B_j = \sum_i W_{ji} A_i .\]
 
-\emph{Proof sketch.} Standard application of Stinespring's uniqueness
-theorem {[}Stinespring1955{]} for minimal dilations. Non-minimal
-dilations admit additional partial-isometry freedom corresponding to
-deep-sector enlargement, which is OI's generator (iii). \(\square\)
+\emph{Proof.} Vectorize: the map
+\(\rho \mapsto \sum_i A_i \rho A_i^\dagger\) determines, and is
+determined by, the positive semidefinite operator
+\(M = \sum_i |a_i\rangle\langle a_i|\) where
+\(|a_i\rangle = \mathrm{vec}(A_i)\). Linear independence of the family
+says the \(|a_i\rangle\) are linearly independent, so
+\(r = \mathrm{rank}\,M = s\) and both families are bases of
+\(\mathrm{ran}\,M\). Writing \(X\) and \(Y\) for the matrices with those
+columns, \(XX^\dagger = M = YY^\dagger\) with \(X, Y\) of full column
+rank forces \(Y = X W^{\mathsf T}\) for a unique unitary \(W\).
+\(\square\)
 
-The proposition establishes that the universality-class framework's
-many-to-one structure has a precise form: at the level of minimal
-dilations, the substratum-with-observer system is unique up to
-hidden-sector unitary; additional dilation freedom corresponds to
-deep-sector enlargement. This is the algebraic counterpart of OI's
-\(\mathcal{G}_{\rm sub}\) generators (i) (hidden-sector relabeling,
-corresponds to \(W\)) and (iii) (deep-sector enlargement, corresponds to
-non-minimality).
+Linear independence is exactly minimality, and it is not removable:
+without it the family size is not even determined. For any
+\(3 \times 2\) isometry \(M\) the family \(C_k = \sum_i M_{ki} A_i\)
+realizes the same channel with three members rather than two, and no
+unitary relates families of different sizes.
+
+\textbf{Proposition 9.7b} (Minimal pure-reference dilation uniqueness).
+\emph{Let \((\mathcal{H}_H^{(1)}, |0_1\rangle\langle 0_1|, U^{(1)})\)
+and \((\mathcal{H}_H^{(2)}, |0_2\rangle\langle 0_2|, U^{(2)})\) be
+pure-reference unitary realizations of the same channel \(\Phi\), and
+let \(V_a \psi = U^{(a)}(\psi \otimes |0_a\rangle)\) be the associated
+Stinespring isometries. If both are minimal ---
+\(\overline{\mathrm{span}}\{(A \otimes \mathbb{1})V_a \psi : A \in \mathcal{B}(\mathcal{H}_V),\ \psi \in \mathcal{H}_V\} = \mathcal{H}_V \otimes \mathcal{H}_H^{(a)}\)
+--- then \(\dim \mathcal{H}_H^{(1)} = \dim \mathcal{H}_H^{(2)}\) and
+there is a unique unitary
+\(W: \mathcal{H}_H^{(1)} \to \mathcal{H}_H^{(2)}\) with}
+\[V_2 = (\mathbb{1}_V \otimes W)\, V_1, \qquad \text{equivalently} \qquad U^{(2)}(\psi \otimes |0_2\rangle) = (\mathbb{1}_V \otimes W)\, U^{(1)}(\psi \otimes |0_1\rangle) \ \ \forall \psi .\]
+\emph{No equality of the full unitaries away from the reference
+subspaces follows.}
+
+\emph{Proof.} Minimality of a Stinespring isometry is linear
+independence of its Kraus family, so this is Proposition 9.7a
+transported through \(A_i = (\mathbb{1}_V \otimes \langle i|)V_a\).
+\(\square\)
+
+The final clause is not a hedge. The channel constrains \(U^{(a)}\) only
+on \(\mathcal{H}_V \otimes \mathbb{C}|0_a\rangle\), and the action
+elsewhere is free: with
+\(\mathcal{H}_V = \mathcal{H}_H = \mathbb{C}^2\), the realizations
+\(U^{(1)} = \mathrm{CNOT}\) and
+\(U^{(2)} = \mathrm{CNOT}\,(\mathbb{1} \otimes Z)\) produce the same
+channel, share the same hidden sector, and are both minimal --- yet
+minimality forces \(W = \mathbb{1}\), so no unitary conjugation carries
+one to the other. Any statement of the form
+\(U^{(2)} = (\mathbb{1}_V \otimes W) U^{(1)} (\mathbb{1}_V \otimes W^\dagger)\)
+is therefore false as an identity of operators.
+
+\textbf{Remark (the conjugation form).} After additionally choosing
+\(W\) so that \(W|0_1\rangle = |0_2\rangle\) --- an admissible
+normalization, not a consequence --- the relation of Proposition 9.7b
+can be written as a conjugation on the reference subspace. It still does
+not extend to an equality of the full operators.
+
+\textbf{Remark (why {[}Substratum{]} Lemma 24.1 can say more).} That
+lemma does assert a conjugation of the dilating unitaries,
+\(\hat\varphi' = (\mathbb{1}_V \otimes W_B)\,\hat\varphi\,(\mathbb{1}_V \otimes W_B)^{-1}\),
+and this is consistent with the restriction here rather than in tension
+with it. Proposition 9.7b fixes a single channel and a single reference
+preparation, so nothing constrains \(U\) off
+\(\mathcal{H}_V \otimes \mathbb{C}|0\rangle\). Lemma 24.1 instead fixes
+the whole family \(\{\Phi_t\}_{t \ge 0}\) generated by one unitary and
+works on the cyclic boundary sector
+\(\mathcal{C}_B = \overline{\mathrm{span}}\{\hat\varphi^{\,t}(\mathcal{C}_V \otimes \mathrm{supp}\,\omega_H)\}\)
+--- the subspace the dynamics reaches from the visible factor. There is
+no off-reference remainder there by construction: cyclicity is exactly
+the statement that the reference subspace generates everything, which is
+what upgrades an isometry statement to an operator statement. The price
+is that the conclusion holds on \(\mathcal{C}_V \otimes \mathcal{C}_B\)
+and not on a larger hidden sector, which is the deep-sector remainder
+that lemma isolates as generator (iii). Single-channel uniqueness of the
+kind stated here cannot substitute for it, and the completeness argument
+of {[}Substratum §4{]} correctly invokes the semigroup form.
+
+These propositions give the universality-class framework's many-to-one
+structure its precise form: at the level of minimal pure-reference
+realizations, what the embedded observer determines is the Stinespring
+\emph{isometry}, up to hidden-sector unitary. That unitary is the
+algebraic counterpart of OI's \(\mathcal{G}_{\rm sub}\) generator (i)
+(hidden-sector relabeling); non-minimality is the counterpart of
+generator (iii) (deep-sector enlargement); and the extension of the
+isometry to a full tensor-product unitary is a third freedom with no
+generator, because it is invisible to the channel.
 
 \textbf{Corollary 9.8} (Substratum description as gauge). \emph{The
-substratum description \((\mathcal{H}_H, U)\) is gauge under
-hidden-sector unitary equivalence and deep-sector enlargement; the
-universality-class data is the embedded-observer triple
-\((\mathcal{H}_V, \mathcal{A}_V, \Phi)\).}
+embedded-observer triple \((\mathcal{H}_V, \mathcal{A}_V, \Phi)\) does
+not determine a unique substratum realization. For a minimal
+pure-reference representative it determines the Stinespring isometry
+only up to hidden-sector unitary; the extension of that isometry to a
+full tensor-product unitary is additionally unconstrained off the
+prepared reference subspace; and non-minimal realizations introduce
+further enlargement freedom. The universality-class data is the
+embedded-observer triple.}
+
+So the gauge freedom in the substratum description has at least three
+pieces --- hidden-sector unitary, unitary-extension freedom off the
+prepared subspace, and non-minimal enlargement --- where the earlier
+formulation named only the first and third.
+
+\textbf{Scope (relative to the fixed-reference observational
+interface).} The second piece is gauge only because Definition 9.2
+always prepares the same \(\rho_H\). The off-reference action of \(U\)
+is invisible to \(\Phi\) for that reason and no other. If the hidden
+sector became independently preparable, that action would become
+observable and would cease to be gauge. The claim is therefore not that
+the substratum has less structure than the channel, but that the
+channel, at a fixed reference preparation, does not see it.
 
 This sharpens the structural-realism claim. What is invariant under the
 universality-class framework's gauge structure is the embedded-observer
-triple; the substratum is gauge data. OI's framework treats the
-equivalence class modulo \(\mathcal{G}_{\rm sub}\) as ontologically
-real; the universality-class framework treats the embedded-observer
-triple as ontologically real.
+triple; the substratum description is gauge data relative to the
+fixed-reference interface. OI's framework treats the equivalence class
+modulo \(\mathcal{G}_{\rm sub}\) as ontologically real; the
+universality-class framework treats the embedded-observer triple as
+ontologically real.
 
 \hypertarget{relation-to-ois-gauge-group-refined}{%
 \subsubsection{9.4 Relation to OI's gauge group,
@@ -2785,10 +2901,11 @@ We illustrate the universality-class definition with three examples.
 
 \textbf{Example 1: OI's class.} OI's substratum is a finite
 deterministic bijection on a \(d=3\) cubic lattice with \(K=6\) internal
-components. The dilation is the Stinespring lift of the visible-sector
-CPTP channel; the visible-sector algebra is the emergent QFT operator
-algebra. The universality class containing OI's substratum is the class
-of substrata producing the same algebra-channel pair --- by OI's
+components. The substratum enters as a unitary realization of the
+visible-sector CPTP channel (Definition 9.2), with a mixed reference
+state; the visible-sector algebra is the emergent QFT operator algebra.
+The universality class containing OI's substratum is the class of
+substrata producing the same algebra-channel pair --- by OI's
 reconstruction theorem, this includes all
 \(\mathcal{G}_{\rm sub}\)-related substrata (relabelings, alphabet
 changes, deep-sector enlargements, graph statistical-class equivalents).
@@ -3010,14 +3127,18 @@ that commutes with the action of \(SU(3) \times SU(2) \times U(1)\) on
 
 \textbf{The channel.} The CPTP channel encoding visible-sector dynamics
 is generated by the substratum bijection \(\varphi\) traced over the
-hidden sector. By Stinespring dilation (Definition 9.2):
+hidden sector. As a unitary realization (Definition 9.2):
 \[\Phi^{\rm OI}(\rho) = \mathrm{Tr}_H\big[U_\varphi \, (\rho \otimes \rho_H^{\rm OI}) \, U_\varphi^\dagger\big]\]
 where \(U_\varphi\) is the unitary lift of the bijection \(\varphi\) on
-the dilation \(\mathcal{H}_V^{\rm OI} \otimes \mathcal{H}_H^{\rm OI}\)
-({[}Substratum §3.1{]}), and \(\rho_H^{\rm OI}\) is the uniform
-reference state on the hidden sector (the OI-canonical choice from the
-unique-invariant-measure lemma of {[}Main §1.2{]}). At the EFT scale,
-\(\Phi^{\rm OI}\) encodes:
+\(\mathcal{H}_V^{\rm OI} \otimes \mathcal{H}_H^{\rm OI}\) ({[}Substratum
+§3.1{]}), and \(\rho_H^{\rm OI}\) is the uniform reference state on the
+hidden sector (the OI-canonical choice from the maximal-entropy
+invariant-measure lemma of {[}Main §1.2{]}). That reference state is
+\emph{mixed}, so this triple is a unitary realization rather than a
+Stinespring dilation, and Propositions 9.7a--9.7b do not apply to it
+directly: obtaining a Stinespring isometry from it requires first
+purifying \(\rho_H^{\rm OI}\), which enlarges the hidden sector. At the
+EFT scale, \(\Phi^{\rm OI}\) encodes:
 
 \begin{itemize}
 \tightlist
@@ -5193,7 +5314,11 @@ cluster.
 \textbf{Stinespring dilation as universal device.} The Stinespring
 representation theorem {[}Stinespring1955{]} guarantees that every CPTP
 channel admits a unitary dilation. §9.2 (Definition 9.2) and §10.4's
-channel construction invoke this directly. The recent literature has
+channel construction invoke this, with the qualification recorded there:
+OI's own realization uses a mixed reference state, so what it exhibits
+is a unitary realization rather than a Stinespring dilation, and the
+uniqueness statements of Propositions 9.7a--9.7b apply to the
+pure-reference isometry rather than to it. The recent literature has
 refined Stinespring dilations into a working tool for quantum channel
 learning and metrology, including channel tomography techniques
 {[}RandomStinespring2025{]} that provide protocols for distinguishing
@@ -5701,4 +5826,4 @@ Press (1979), 790-831.
 quantum gravity'', Phys. Rev.~D 57, 971 (1998). arXiv:hep-th/9605030.
 
 \end{document}
-% source-sha256: 6bb6bce94a906598a624ba9c695cc887c65ef73761ea16690eb988e7714eb0ef
+% source-sha256: a1de35ab5bf1e4b0fd7f05ee1bfecdb00e5cc9b696aad57a77a59c54f7de9072

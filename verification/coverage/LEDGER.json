@@ -1,0 +1,2854 @@
+{
+  "schema": 1,
+  "round": "b447",
+  "census_tool": "tools/proof_census.py",
+  "levels": {
+    "K3": "the exact manuscript statement is proved in Lean",
+    "K2": "the main structural content is Lean-proved; named ancillary steps remain external",
+    "K1": "a finite or specialized consequence is kernel-checked",
+    "P": "executable probe only — evidence, not certification",
+    "GAP": "no machine verification yet; a BACKLOG state and not an acceptable terminal state",
+    "DEF": "a definition, carrying no proof obligation; excluded from the coverage denominator",
+    "SUM": "a summary whose content is carried by other rows; excluded from the denominator",
+    "MIRROR": "a restatement of a canonical result in another paper; excluded from the denominator"
+  },
+  "entries": [
+    {
+      "id": "COMPUTATION:T-conditional-bqp-model",
+      "paper": "papers/Computation.md",
+      "line": 104,
+      "kind": "Theorem",
+      "label": "(conditional BQP model)",
+      "fingerprint": "49e5716065a36cff",
+      "area": "computation",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "COMPUTATION:C-entanglement-dimension",
+      "paper": "papers/Computation.md",
+      "line": 130,
+      "kind": "Corollary",
+      "label": "(entanglement dimension)",
+      "fingerprint": "556140edc8e9d3e6",
+      "area": "computation",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "EXPLAINER:D-unnamed-2883898d",
+      "paper": "papers/Explainer.md",
+      "line": 43,
+      "kind": "Definition",
+      "label": "",
+      "fingerprint": "2883898db7d086c5",
+      "area": "mirror",
+      "assumptions": "mirrors the corresponding Main statement",
+      "checks": [],
+      "kernel": "DEF",
+      "delta": "",
+      "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
+    },
+    {
+      "id": "EXPLAINER:L-1",
+      "paper": "papers/Explainer.md",
+      "line": 49,
+      "kind": "Lemma",
+      "label": "1",
+      "fingerprint": "fb49958f1f426046",
+      "area": "mirror",
+      "assumptions": "mirrors the corresponding Main statement",
+      "checks": [],
+      "kernel": "MIRROR",
+      "delta": "",
+      "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
+    },
+    {
+      "id": "EXPLAINER:L-2",
+      "paper": "papers/Explainer.md",
+      "line": 51,
+      "kind": "Lemma",
+      "label": "2",
+      "fingerprint": "f7fc8b2092705f59",
+      "area": "mirror",
+      "assumptions": "mirrors the corresponding Main statement",
+      "checks": [],
+      "kernel": "MIRROR",
+      "delta": "",
+      "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
+    },
+    {
+      "id": "EXPLAINER:L-3",
+      "paper": "papers/Explainer.md",
+      "line": 61,
+      "kind": "Lemma",
+      "label": "3",
+      "fingerprint": "f702fd4083101a3c",
+      "area": "mirror",
+      "assumptions": "mirrors the corresponding Main statement",
+      "checks": [],
+      "kernel": "MIRROR",
+      "delta": "",
+      "note": "Explainer.md restates Main's definition and Lemmas 1-3 for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation. Corrected in this round: it stated the counting measure as the UNIQUE invariant measure, which Main denies and CanonicalMeasure.invariance_does_not_select refutes; it now states the maximal-entropy selection, with uniqueness kept where it holds, on a single orbit."
+    },
+    {
+      "id": "GR:L-boundary-only-dependence",
+      "paper": "papers/GR.md",
+      "line": 110,
+      "kind": "Lemma",
+      "label": "(Boundary-only dependence)",
+      "fingerprint": "eb527d02de116a12",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:C-deep-sector-cardinality-gauge",
+      "paper": "papers/GR.md",
+      "line": 134,
+      "kind": "Corollary",
+      "label": "(deep-sector cardinality is gauge)",
+      "fingerprint": "24c8e32239e1d588",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:C-invisible-gravitational-budget",
+      "paper": "papers/GR.md",
+      "line": 300,
+      "kind": "Corollary",
+      "label": "(Invisible gravitational budget)",
+      "fingerprint": "ea5d16ff902c196d",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:T-unnamed-b09a495a",
+      "paper": "papers/GR.md",
+      "line": 555,
+      "kind": "Theorem",
+      "label": "-level statement",
+      "fingerprint": "b09a495aaaa74234",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:T-a.1",
+      "paper": "papers/GR.md",
+      "line": 609,
+      "kind": "Theorem",
+      "label": "A.1",
+      "fingerprint": "6194ab9e0237ac5d",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:T-a.2",
+      "paper": "papers/GR.md",
+      "line": 623,
+      "kind": "Theorem",
+      "label": "A.2",
+      "fingerprint": "9038fb0a71ad5428",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:C-a.3",
+      "paper": "papers/GR.md",
+      "line": 629,
+      "kind": "Corollary",
+      "label": "A.3",
+      "fingerprint": "5f71b094854d9ff3",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:C-a.4",
+      "paper": "papers/GR.md",
+      "line": 633,
+      "kind": "Corollary",
+      "label": "A.4",
+      "fingerprint": "da598c322c63193a",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:T-a.5",
+      "paper": "papers/GR.md",
+      "line": 639,
+      "kind": "Theorem",
+      "label": "A.5",
+      "fingerprint": "c72669dae57db87f",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:T-a.6",
+      "paper": "papers/GR.md",
+      "line": 675,
+      "kind": "Theorem",
+      "label": "A.6",
+      "fingerprint": "d2f6e40dab0088fc",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:T-a.7",
+      "paper": "papers/GR.md",
+      "line": 697,
+      "kind": "Theorem",
+      "label": "A.7",
+      "fingerprint": "afea3a8c2dbcb278",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:T-a.8",
+      "paper": "papers/GR.md",
+      "line": 701,
+      "kind": "Theorem",
+      "label": "A.8",
+      "fingerprint": "17e40e97098c702e",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:T-a.9",
+      "paper": "papers/GR.md",
+      "line": 725,
+      "kind": "Theorem",
+      "label": "A.9",
+      "fingerprint": "d42ca3c552d95614",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "MAIN:D-unnamed-7c0166f8",
+      "paper": "papers/Main.md",
+      "line": 44,
+      "kind": "Definition",
+      "label": "",
+      "fingerprint": "7c0166f8f003a402",
+      "area": "oi-foundations",
+      "assumptions": "none — this is the framework's primitive",
+      "checks": [],
+      "kernel": "DEF",
+      "delta": "",
+      "note": "The definition of an observation. Carries no proof obligation."
+    },
+    {
+      "id": "MAIN:L-1",
+      "paper": "papers/Main.md",
+      "line": 48,
+      "kind": "Lemma",
+      "label": "1",
+      "fingerprint": "3f78a6038b1ad02f",
+      "area": "oi-foundations",
+      "assumptions": "finite-area observer boundary; holographic entropy bound [2] cited as independent support",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/Finiteness.lean",
+          "basis": "named",
+          "evidence": "finiteness"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/finiteness_probe.py",
+          "basis": "named",
+          "evidence": "modes_must_be_finite"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "Kernel-proved AS A CONDITIONAL, with the physical input carried as a named premise in every signature and argued for nowhere: finitely many boundary modes, finitely many distinguishable settings each, and an observer whose internal state is determined by them give Finite C_V with the explicit bound Nat.card C_V <= prod of the per-mode counts, and d^N in uniform form. The finite-area boundary and the holographic entropy bound enter as the [Finite Mode] instance and NOTHING derives them; the file deliberately does not encode finite area as a bare real number, which would smuggle the physics into an axiom with a reassuring name. Both halves of the premise are shown load-bearing rather than assumed to be: modes_must_be_finite exhibits an observer with infinitely many two-setting modes and an infinite configuration space, and cells_need_positive_floor shows a bounded region with no positive floor admits any number of cells. The discreteness-scale clause is card_cells_le, at most V/eps cells."
+    },
+    {
+      "id": "MAIN:L-2",
+      "paper": "papers/Main.md",
+      "line": 50,
+      "kind": "Lemma",
+      "label": "2",
+      "fingerprint": "b9ed4a3e353cb018",
+      "area": "oi-foundations",
+      "assumptions": "none — unpacks the definition",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": "Definitional content stated as a lemma. K1 would be cheap and is on the backlog only because it certifies almost nothing."
+    },
+    {
+      "id": "MAIN:L-3",
+      "paper": "papers/Main.md",
+      "line": 56,
+      "kind": "Lemma",
+      "label": "3",
+      "fingerprint": "bbb0765c47744e94",
+      "area": "oi-foundations",
+      "assumptions": "determinism; reversibility of the selected representative; maximal-entropy SELECTION of the counting measure among invariant measures — not uniqueness from invariance",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/CanonicalMeasure.lean",
+          "basis": "named",
+          "evidence": "determinism_reversibility_selected_measure"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/canonical_measure_probe.py",
+          "basis": "named",
+          "evidence": "invariance_does_not_select"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "The scope wall is respected in both directions. REVERSIBILITY IS NOT DERIVED: the manuscript's own status remark calls the bijective substratum a representation choice recovered by a two-pronged argument one prong of which is empirical, so phi is a hypothesis (Equiv.Perm S) everywhere and no theorem concludes that the substratum is bijective; what IS proved from finiteness is the structural prong, injective_imp_bijective. And the selection principle is not silently upgraded to uniqueness: invariance_does_not_select is a THEOREM -- two disjoint nonempty invariant sets carry two distinct invariant probability laws -- with two_cycle_witness supplying the double transposition so it is not vacuous. Orbit uniqueness, invariance of the counting measure, and its entropy maximality are the other three clauses. The continuum analogue about Liouville measure was moved out of the lemma statement into its own following remark, so the lemma's formal obligation is now entirely finite and this entry's coverage is exact. The non-selection clause is discharged by invariance_does_not_select, which the probe checks exhaustively over all 873 permutations of up to six states (invariant-subspace dimension = cycle count) -- stronger for the framework than the continuum analogy, since it proves the phenomenon in the setting actually consumed downstream."
+    },
+    {
+      "id": "MAIN:T-statement",
+      "paper": "papers/Main.md",
+      "line": 82,
+      "kind": "Theorem",
+      "label": "statement",
+      "fingerprint": "96178c80977a3c46",
+      "area": "oi-foundations",
+      "assumptions": "see the constituent rows",
+      "checks": [],
+      "kernel": "SUM",
+      "delta": "",
+      "note": "A summary of the three exact layers and the conditional extension. Its content is carried by the equivalence-chain and memory-condition rows; it is not a separate obligation."
+    },
+    {
+      "id": "MAIN:L-partition-relativity-under-canonical-invariant",
+      "paper": "papers/Main.md",
+      "line": 86,
+      "kind": "Lemma",
+      "label": "(partition-relativity under the canonical invariant measure)",
+      "fingerprint": "277d94b19b9a10f2",
+      "area": "oi-foundations",
+      "assumptions": "the canonical measure of Lemma 3",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "MAIN:T-unnamed-182a6975",
+      "paper": "papers/Main.md",
+      "line": 115,
+      "kind": "Theorem",
+      "label": "",
+      "fingerprint": "182a69752a829d2e",
+      "area": "oi-foundations",
+      "assumptions": "finite C_V, C_H; |C_V| >= 2; phi a bijection; uniform hidden prior",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/translation_probes.py",
+          "basis": "named",
+          "evidence": "P-divisibility"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": "The §2.3 emergent-stochasticity construction. translation_probes certifies the P-divisibility/TV-monotonicity separation on it."
+    },
+    {
+      "id": "MAIN:L-stochastic-inverse",
+      "paper": "papers/Main.md",
+      "line": 133,
+      "kind": "Lemma",
+      "label": "(stochastic inverse)",
+      "fingerprint": "fae6e45fd175f22c",
+      "area": "oi-foundations",
+      "assumptions": "a finite square stochastic matrix with a one-sided stochastic inverse",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
+          "basis": "named",
+          "evidence": "stochastic inverse"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/equivalence_chain_probe.py",
+          "basis": "named",
+          "evidence": "OIBridge/EquivalenceChain.lean"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
+          "names": [
+            "row_eq_basis_of_mem_support",
+            "isPermMatrix_of_stochastic_inverse"
+          ]
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "Closed in b448, rank 1 of the backlog, from P. The proof is the manuscript's own, step for step: vanishing off-diagonal entries of A*B force every row of B indexed by the support of a row of A to be a basis vector; two such rows would coincide, which a nonzero determinant forbids; so each row of A carries a single unit entry and the occupied columns are distinct. Both sides of \"left or right\" are covered without separate proofs, because a one-sided inverse of a square matrix over a commutative ring is two-sided. The countercontrol in the companion probe shows the hypothesis is load-bearing: [[1/2,1/2],[0,1]] is stochastic and invertible and is NOT a permutation, its inverse simply failing to be stochastic."
+    },
+    {
+      "id": "MAIN:T-history-readback-finite-recurrence-implies",
+      "paper": "papers/Main.md",
+      "line": 137,
+      "kind": "Theorem",
+      "label": "(history readback + finite recurrence implies indivisibility)",
+      "fingerprint": "92c1f59c0f6f9e3e",
+      "area": "memory-conditions",
+      "assumptions": "a fixed finite reversible OI representative; genuine C4 readback",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/review4_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "MAIN:L-fast-bath-erases-readback",
+      "paper": "papers/Main.md",
+      "line": 159,
+      "kind": "Lemma",
+      "label": "(fast bath erases readback)",
+      "fingerprint": "9ae2c125fc14a6ab",
+      "area": "memory-conditions",
+      "assumptions": "tau_B << tau_S; uniform record erosion e^{-tau_S/tau_B} per step",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/fastbath_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": "fastbath_probes carries the counterexample to the slow-evolution reading, which is the load-bearing half."
+    },
+    {
+      "id": "MAIN:L-accessible-backflow-from-readback",
+      "paper": "papers/Main.md",
+      "line": 167,
+      "kind": "Lemma",
+      "label": "(accessible backflow from readback)",
+      "fingerprint": "449e3df3147485ef",
+      "area": "memory-conditions",
+      "assumptions": "(C1)-(C3); a (C4) gap at order k inside the accessible window; p_0 and delta as stated",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/c4_backflow_probes.py",
+          "basis": "named",
+          "evidence": "readback lemma"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "MAIN:L-one-step-ancilla-dilation",
+      "paper": "papers/Main.md",
+      "line": 206,
+      "kind": "Lemma",
+      "label": "(one-step ancilla dilation)",
+      "fingerprint": "caec1093862d7955",
+      "area": "equivalence-chain",
+      "assumptions": "T stochastic on n states",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/tdilate_probes.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/equivalence_chain_probe.py",
+          "basis": "named",
+          "evidence": "OIBridge/EquivalenceChain.lean"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
+          "names": [
+            "dilation",
+            "dilation_isometry",
+            "dilation_marginal",
+            "dilation_extends"
+          ]
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "Closed in b448, rank 4 of the backlog, from P. ALL THREE CLAUSES are proved: W is an isometry, its ancilla-marginal is T, and it EXTENDS TO A UNITARY. The third is the one that could have been quietly dropped, and it is where Mathlib earns its place rather than being incidental — extending an isometry to a unitary is orthonormal-basis extension, a real theorem and not bookkeeping. The companion probe checks the two computational clauses on the SQUARED amplitudes so the arithmetic stays rational and no square root is ever approximated, and exhibits an explicit Gram-Schmidt completion for the third. Its countercontrol records that the stochasticity is used in one direction only: for a COLUMN-stochastic T the isometry clause is false."
+    },
+    {
+      "id": "MAIN:L-phase-locking",
+      "paper": "papers/Main.md",
+      "line": 224,
+      "kind": "Lemma",
+      "label": "(phase-locking)",
+      "fingerprint": "a2bbef866acc6972",
+      "area": "equivalence-chain",
+      "assumptions": "(G1) non-degenerate spectrum; (G2) non-degenerate gaps; (G3) V_ik nonzero",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/phaselock_probes.py",
+          "basis": "named",
+          "evidence": "ancilla-marginal phase-locking"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": "Gated in CI. The genericity half rests on exact witnesses at seven shapes (b433); a uniform-D statement is NOT established and must not be formalized as one."
+    },
+    {
+      "id": "MAIN:L-ancilla-marginal-reformulation",
+      "paper": "papers/Main.md",
+      "line": 242,
+      "kind": "Lemma",
+      "label": "(ancilla-marginal reformulation)",
+      "fingerprint": "591acbb7bfdf5cd3",
+      "area": "equivalence-chain",
+      "assumptions": "block projectors in the eigenbasis; theta real antisymmetric",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/phaselock_probes.py",
+          "basis": "named",
+          "evidence": "ancilla-marginal phase-locking"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "MAIN:T-ancilla-marginal-phase-locking-certified",
+      "paper": "papers/Main.md",
+      "line": 246,
+      "kind": "Theorem",
+      "label": "(ancilla-marginal phase-locking; certified block structures)",
+      "fingerprint": "a8bfb64ad16a145c",
+      "area": "equivalence-chain",
+      "assumptions": "per-shape: certified at (n,m_a) in the listed set; genericity by upper semi-continuity from one exact witness per shape",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/phaselock_probes.py",
+          "basis": "named",
+          "evidence": "ancilla-marginal phase-locking"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": "Nothing uniform in D is proved. Each shape rests on its own witness (b433)."
+    },
+    {
+      "id": "MAIN:L-permutation-unitarity",
+      "paper": "papers/Main.md",
+      "line": 264,
+      "kind": "Lemma",
+      "label": "(permutation unitarity)",
+      "fingerprint": "d9fa15aa060513b9",
+      "area": "equivalence-chain",
+      "assumptions": "phi a bijection on a finite product",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
+          "basis": "named",
+          "evidence": "permutation"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/equivalence_chain_probe.py",
+          "basis": "named",
+          "evidence": "OIBridge/EquivalenceChain.lean"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
+          "names": [
+            "permMatrix_mem_unitaryGroup"
+          ]
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "Closed in b448, rank 2 of the backlog, from P. Stated over the index type V x H, which is what \"on the tensor product\" means once the product basis is fixed — the manuscript's own reading, since its proof is that U_phi permutes the product orthonormal basis. Nothing about the two factors is used, so the lemma holds for any finite index type."
+    },
+    {
+      "id": "MAIN:L-reverse-direction-scoped",
+      "paper": "papers/Main.md",
+      "line": 270,
+      "kind": "Lemma",
+      "label": "(Reverse direction, scoped)",
+      "fingerprint": "fea0497e8ec4dd9c",
+      "area": "equivalence-chain",
+      "assumptions": "a SINGLE one-step doubly stochastic matrix; uniform hidden prior — the scope word is load-bearing and the multi-step statement is false",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/tdilate_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "MAIN:T-born-form-representation-transition-probabilities",
+      "paper": "papers/Main.md",
+      "line": 282,
+      "kind": "Theorem",
+      "label": "(Born-form representation of the transition probabilities)",
+      "fingerprint": "69fb04e6539179c8",
+      "area": "equivalence-chain",
+      "assumptions": "the §1.4 construction; ancilla-marginal form — a REPRESENTATION identity, which does not select the quadratic form",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/tdilate_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "MAIN:L-1-boundary-bound",
+      "paper": "papers/Main.md",
+      "line": 294,
+      "kind": "Lemma",
+      "label": "1 (boundary bound)",
+      "fingerprint": "f483bbbc56bff0dc",
+      "area": "locality-combs",
+      "assumptions": "the block decomposition of the update on a region R",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/BoundaryRank.lean",
+          "basis": "named",
+          "evidence": "lemma_1_boundary_bound"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/BoundaryRank.lean",
+          "basis": "named",
+          "evidence": "lemma_1_sharpened"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/boundary_rank_probe.py",
+          "basis": "named",
+          "evidence": "THE LEMMA"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/coherence/coherence_enumeration.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "AUDITED BEFORE FORMALIZING, and the lemma survived intact. Exhaustive check over all 316 proper nonempty regions of four paths, four cycles, a 2x3 grid and a star: no violation of either bound, and both bounds attained. TWO LAYERS, DELIBERATELY SEPARATED, because the mathematics is a support statement and the rank bound is its reading over a ring where rank means the usual thing. rank_le_card_of_rowSupport is proved for an ARBITRARY commutative ring with the strong rank condition, with no lattice, no adjacency and no ZMod anywhere in its section -- the probe's lint enforces that: a matrix whose rows vanish off a finite B equals extend B times its own B-rows (eq_extend_mul_restrict, the ring-independent content), hence has rank at most |B|. The OI consumer then instantiates it twice. THE FACTOR OF TWO IS THE THING TO GET WRONG. Each site carries two components, so the visible sector has dimension 2|R|, and yet the bounds count SITES. The reason is that exactly one output row per site participates: v'_x = u_x reads a single input from its own sector, so its row in the cross-block is identically zero. rowsHV and rowsVH therefore carry .val.2 = false as half of their defining condition, and rowsHV_card / rowsVH_card are where |boundary| rather than 2|boundary| is earned. The probe guards this twice: B4 checks all 1714 v'-rows vanish, and B3 checks the bound is ATTAINED, so a spurious factor of two would be provably not tight. B7 is the other miscount: a star with four leaves visible has four edges crossing the cut and one boundary site, and the rank is one -- the bound is by boundary sites. MANUSCRIPT SHARPENING, applied. The prose after the proof said the rank argument 'uses no property of the coefficient ring' and 'holds verbatim over Z_q'. For composite q ordinary vector-space rank is not the same object, so what is ring-independent is the FACTORIZATION; the rank inequality is its reading over a field. Both the proof remark and the scope remark now say that, in all three parallel sources. ONE OBSERVATION NOT PRINTED AND NOT RELIED ON: the columns of each cross-block are supported on the other boundary, so both ranks are in fact bounded by min(|inner|, |outer|), verified on every region and with the two boundaries differing in size in 168 of them. That would strengthen Corollary 2; it is recorded in the probe as B8 and left as a manuscript decision. The Lean file proves the printed row-side bound only. SHARPENED, WITH THE SCOPE GUARD EXPLICIT. The columns of each cross-block are supported on the OTHER boundary, so both ranks are bounded by min(|dR-|, |dR+|) -- kernel-proved as lemma_1_sharpened. That needs adjacency SYMMETRY, which the row-side lemma does not: innerB and outerB orient their edges into the named site while a column entry records an edge out of its input site, and only symmetry identifies the two. The hypothesis is therefore explicit (hsym : forall x y, adj x y -> adj y x) rather than ambient, the probe's lint fails if it leaks into lemma_1_boundary_bound's signature, and B10 exhibits a one-edge digraph where the min bound fails outright in both orientations while both printed row-side bounds hold. The sharpening is what the strengthened Corollary 2 consumes; the row-side lemma keeps the arbitrary relation and with it the manuscript's 'weakened form for arbitrary nearest-neighbour bijections'."
+    },
+    {
+      "id": "MAIN:L-2-channel-normal-form",
+      "paper": "papers/Main.md",
+      "line": 300,
+      "kind": "Lemma",
+      "label": "2 (channel normal form)",
+      "fingerprint": "1c9aa2f382bc9e75",
+      "area": "locality-combs",
+      "assumptions": "the displayed F_2 update on a region R",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "MAIN:T-separability-threshold",
+      "paper": "papers/Main.md",
+      "line": 308,
+      "kind": "Theorem",
+      "label": "(separability threshold)",
+      "fingerprint": "0b2eb937cfe2d36b",
+      "area": "locality-combs",
+      "assumptions": "G an abelian subgroup of the Weyl group on s qubits of order 2^t modulo phases",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/coherence/coherence_theorem_tests.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/WeylLift.lean",
+          "basis": "named",
+          "evidence": "entanglementBreaking_iff"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/WeylTwirl.lean",
+          "basis": "named",
+          "evidence": "twirl_W"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/Separability.lean",
+          "basis": "named",
+          "evidence": "choi_conj_of_factor"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/weyl_twirl_probe.py",
+          "basis": "named",
+          "evidence": "THE TWIRL IDENTITY"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/weyl_lift_probe.py",
+          "basis": "named",
+          "evidence": "THE SEPARABLE CHOI MATRIX"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/separability_probe.py",
+          "basis": "named",
+          "evidence": "SEPARABLE => PPT"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "BOTH DIRECTIONS KERNEL-PROVED. WeylLift.entanglementBreaking_iff is the printed statement: for an isotropic G, the twirl Phi_G is entanglement breaking exactly when |G| = 2^s. Its hypotheses name only G -- no tuple, no basis, no Clifford reduction -- and the probe's lint reads the signature and fails if a tuple, a lift or a projector leaks into it. entanglementBreaking_iff_dim is the same statement in the manuscript's parameterization, EB(Phi_G) iff t = s where |G| = 2^t. THE ROUTE, LAYER BY LAYER. (1) OIBridge/WeylTwirl.lean: the phase space, the Weyl operators, the product rule, the conjugation character W u W v W u* = (-1)^omega(u,v) W v, commutation as vanishing of the symplectic form, and the exact twirl identity twirl_W. Plus the symplectic count -- nondegeneracy, the character sum over the whole phase space, and from them |G| . |G-perp| = 2^s . 2^s, the manuscript's dim G + dim G-perp = 2s in the multiplicative form the twirl's normalization uses -- giving (G-perp)-perp = G, |G| <= 2^s for isotropic G, and |G| = 2^s iff G-perp = G. The last of these is what the iff's contrapositive turns on. No Mathlib dimension theory is invoked: the count comes off the same character sum as the twirl identity, which also sidesteps an instance mismatch between the Submodule built over ZMod 2's CommRing and the Field structure BilinForm.finrank_orthogonal wants. (2) OIBridge/Separability.lean: the Choi matrix, partial transpose on the second factor, separability as finite sums of pure product projectors, separable_imp_ppt, the rank-one Choi bridge choi_conj_of_factor, and the fixed-plane refutation not_eb_of_fixed_plane. Positivity is DEFINED there rather than imported -- Mathlib's PosSemidef needs the order on C, which lives only in the ComplexOrder scope -- as PosSemidefOn, which is the form both directions want. (3) OIBridge/WeylLift.lean, WHICH EXISTS BECAUSE THE OBVIOUS ROUTE IS FALSE. The self-adjoint normalization H(u) = i^{b.a} W(u) is Hermitian, squares to 1 and commutes on omega = 0, but it is a PROJECTIVE representation of an isotropic subspace: H_mul gives H u H v = beta(u,v) H(u+v) with an explicit scalar, and H_not_multiplicative exhibits a commuting pair at s = 2 with beta = -1, because d(u+v) = d(u) + d(v) + omega(u,v) holds in ZMod 2 while the exponents of i add in Z. So P_chi = |G|^{-1} sum_g chi(g) H(g) is not idempotent; its trace is still 1, which is what makes the error easy to miss, and its rank is 2^s. The cocycle is a coboundary, but not merely because each H(u) is an involution: what trivializes it is that on an ISOTROPIC subspace a chosen F_2-basis gives COMMUTING involutions, whose ordered products are an honest representation. WeylLift makes that choice explicit and proves lift_mul. THE TWO DIRECTIONS, both consuming the same projectors. Maximal: exists_lagrangian_tuple extracts an independent spanning tuple of length exactly s from an arbitrary Lagrangian, greedily and with no basis theory; lift_conj says conjugation by a lift is conjugation by its Weyl operator, the unit scalar cancelling against its own conjugate, so the tuple-dependent construction reproduces the tuple-independent twirl; sum_P_conj_eq_twirl is the dephasing identity sum_chi P_chi rho P_chi = Phi_G(rho); and rank one is consumed ALGEBRAICALLY -- exists_factor_of_finrank_range_eq_one turns finrank of range equal to 1 into an entrywise factorization P a i = x a . y i, and choi_conj_of_factor turns that into a pure product projector. Non-maximal: trace_P_nonmaximal gives trace 2^(s-t) >= 2; exists_minor_ne_of_idem_trace converts that into a non-vanishing 2x2 minor, since an idempotent all of whose minors vanish factors and has trace 0 or 1; the two columns the minor names span a plane twirl_fixes_plane fixes pointwise; and not_eb_of_fixed_plane refutes entanglement breaking with the single antisymmetric witness w(i,a) = conj(x_i) conj(y_a) - conj(y_i) conj(x_a), on which the partially transposed Choi form is -sum |y_a x_b - x_a y_b|^2. WHAT IS NOT USED ANYWHERE: no eigenvector, no orthonormal basis, no square root, no spectral theorem, no Schmidt decomposition, no PPT characterization, no Witt extension, no Clifford group, and -- in the non-maximal direction -- no anticommuting pair. perp_perp remains proved and remains the explanation of what survives below maximality, but the block-rank route is shorter and is almost entirely a consumer of machinery the maximal direction already needed. THREE CONVENTION GATES, each guarded by a numerical countercontrol on genuinely complex data because the wrong variants coincide with the right one on real vectors: the Choi ancilla-first index order, the ancilla-takes-y order in choi_conj_of_factor, and the double conjugation in the antisymmetric witness -- for which all four obvious variants get the value wrong and all four come out non-negative, so each would refute nothing. SCOPE AUDITED BEFORE FORMALIZING, and the statement survived intact -- unlike [Structure] 9.7, which the same pass found false. Every step checks out: abelian is isotropic, isotropy bounds t <= s, Witt plus Clifford give D_t (x) id, complete dephasing is measure-and-prepare, and the tensor-factor step is correct with the justification given (separability survives the partial trace). Endpoints behave: t = 0 gives the identity channel, non-EB for s >= 1; s = 0 is degenerate and consistent; a G containing -I is handled by 'modulo phases'. Verified independently by exhaustive enumeration over all abelian Weyl subgroups at s = 1 and s = 2 -- NPT for every t < s, PPT with an explicit measure-and-prepare form at t = s, and isotropic-subspace counts 1/3 and 1/15/15 matching the 15 Lagrangians of Sp(4,2). TWO MODELLING DECISIONS, both recorded in Lean rather than asserted. G is an ISOTROPIC SUBSPACE of F_2^{2s}, not a Pauli subgroup: the set {X^a Z^b} is not closed under multiplication, since (XZ)^2 = -1, so 'a subgroup of order 2^t' is not a statement about it and the manuscript's 'modulo phases' is load-bearing; the probe's W6 is the countercontrol. And the route needs NO WITT EXTENSION AND NO CLIFFORD GROUP: the twirl identity lets both directions be read off G and G-perp directly, for every isotropic subspace, without building the finite Clifford representation -- a simplification of the route, not of the result, and the probe's lint enforces that neither appears."
+    },
+    {
+      "id": "MAIN:C-1",
+      "paper": "papers/Main.md",
+      "line": 312,
+      "kind": "Corollary",
+      "label": "1",
+      "fingerprint": "292a005a0ee074f5",
+      "area": "locality-combs",
+      "assumptions": "the displayed one-step F_2 update; uncorrelated maximally mixed hidden sector",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "MAIN:C-2",
+      "paper": "papers/Main.md",
+      "line": 314,
+      "kind": "Corollary",
+      "label": "2",
+      "fingerprint": "c14d367d99ca674a",
+      "area": "locality-combs",
+      "assumptions": "the boundary cardinalities of R",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": "STRENGTHENED: the hypothesis is min(|dR-|, |dR+|) < |R|, replacing the summed |dR-| + |dR+| < 2|R|, which implies it. The proof consumes the column sharpening of Lemma 1 (kernel-proved as BoundaryRank.lemma_1_sharpened, with adjacency symmetry an explicit hypothesis), bounding both rank M_HV = s - kappa and rank M_VH = w by the smaller boundary, so w + (s - kappa) <= 2 min < 2|R| = s. For the exact cubic block the criterion becomes (l-2)^3 > 0 -- a non-empty bulk -- first at side 3 where the old form first held at side 5; probe check B11 counts the threshold exactly in Z^3, and coherence_theorem_tests' T6 verifies the min-form arithmetic on every lattice instance, with ring-6 R={0,2,4} still failing the hypothesis while not entanglement-breaking, so sufficiency-not-necessity is preserved. The corollary itself remains GAP: it chains through Lemma 2 and the threshold theorem, and only its inputs are kernel-proved."
+    },
+    {
+      "id": "MAIN:L-diagonal-preservation",
+      "paper": "papers/Main.md",
+      "line": 322,
+      "kind": "Lemma",
+      "label": "(diagonal preservation)",
+      "fingerprint": "15be37eef5071735",
+      "area": "equivalence-chain",
+      "assumptions": "U a permutation unitary",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "verification/lean/equivalence_chain_probe.py",
+          "basis": "named",
+          "evidence": "OIBridge/EquivalenceChain.lean"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/EquivalenceChain.lean",
+          "names": [
+            "permConj_apply",
+            "permMatrix_pow",
+            "permMatrix_mul_inv",
+            "isDiag_Phi"
+          ]
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "Closed in b448, rank 3 of the backlog, from GAP. DERIVED from permutation unitarity rather than recomputed, as the ordering intends: the only new content is that conjugating by a permutation matrix is a RELABELLING of indices, after which diagonality survives because a permutation is injective and the partial trace of a diagonal state is diagonal. The hidden prior enters as a STATE built from a distribution, Matrix.diagonal mu — which is what mu_H is in the framework (Main section 3.4 writes it as rho_anc = sum_h mu_H(h)|h><h|), so its diagonality is definitional and not an extra hypothesis. The companion probe's countercontrol shows a NON-permutation unitary destroys diagonality, matching the manuscript's own scope remark that the CP-indivisibility reduction fails for a general CPTP family."
+    },
+    {
+      "id": "MAIN:T-cp-indivisibility-framework-scope",
+      "paper": "papers/Main.md",
+      "line": 326,
+      "kind": "Theorem",
+      "label": "(CP-indivisibility, framework scope)",
+      "fingerprint": "b440fd63f2584861",
+      "area": "equivalence-chain",
+      "assumptions": "the permutation-dilation family; P-indivisibility of §2.3 — FRAMEWORK SCOPE, not a general implication",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/c1_cp_scope_probes.py",
+          "basis": "named",
+          "evidence": "non-permutation"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "MAIN:C-bell-lattice-obstruction-state-dependent",
+      "paper": "papers/Main.md",
+      "line": 392,
+      "kind": "Corollary",
+      "label": "(Bell–lattice obstruction and state-dependent escape)",
+      "fingerprint": "8dfc5de1b600053f",
+      "area": "locality-combs",
+      "assumptions": "Bell-relevant degrees of freedom governed by the nearest-neighbour cubic update; max lattice speed identified with c",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "MAIN:L-non-permutation-witness",
+      "paper": "papers/Main.md",
+      "line": 413,
+      "kind": "Lemma",
+      "label": "(non-permutation witness)",
+      "fingerprint": "3a87e714d4b89b3d",
+      "area": "memory-conditions",
+      "assumptions": "T not a permutation",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/c1_cp_scope_probes.py",
+          "basis": "named",
+          "evidence": "non-permutation"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/translation_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "MAIN:T-c2-necessity-quantitative-mixing-form",
+      "paper": "papers/Main.md",
+      "line": 431,
+      "kind": "Theorem",
+      "label": "(C2 necessity, quantitative mixing form)",
+      "fingerprint": "a2d568e0afd73b4e",
+      "area": "memory-conditions",
+      "assumptions": "the uniform-prior bijection marginal of §3.2; the stated mixing hypothesis",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/c2_mixing_probes.py",
+          "basis": "named",
+          "evidence": "C2 quantitative mixing theorem"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": "Preregistered probe (b49): rule, ensemble, seed and grid fixed before the run."
+    },
+    {
+      "id": "MAIN:T-physical-memory-c2-process-form",
+      "paper": "papers/Main.md",
+      "line": 445,
+      "kind": "Theorem",
+      "label": "(physical memory: C2, process form)",
+      "fingerprint": "eaf472aa957c43fa",
+      "area": "memory-conditions",
+      "assumptions": "the conditional-mixing hypothesis at coupling time",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/c2_mixing_probes.py",
+          "basis": "named",
+          "evidence": "C2 quantitative mixing theorem"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "MAIN:T-intervention-dilation-finite-classical-action",
+      "paper": "papers/Main.md",
+      "line": 458,
+      "kind": "Theorem",
+      "label": "(intervention dilation: the finite classical action-labelled comb)",
+      "fingerprint": "e639740e89f576ed",
+      "area": "memory-conditions",
+      "assumptions": "a finite action alphabet and a finite-horizon action-labelled family",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/intervention_probes.py",
+          "basis": "named",
+          "evidence": "intervention dilation"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/comb_reachability_probes.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/lg_comb_probes.py",
+          "basis": "named",
+          "evidence": "classical action-labelled comb theorem"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/repconsistency_probes.py",
+          "basis": "named",
+          "evidence": "classical comb theorem"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": "The reach limit is part of the record: lg_comb_probes shows the classical comb theorem does not by itself reach quantum instrument statistics, and repconsistency names the remainder."
+    },
+    {
+      "id": "MAIN:P-no-horizon-independent-intervened-representation",
+      "paper": "papers/Main.md",
+      "line": 470,
+      "kind": "Proposition",
+      "label": "(no horizon-independent intervened representation)",
+      "fingerprint": "546efbc4c09ea030",
+      "area": "memory-conditions",
+      "assumptions": "a fixed representation dimension d, Hamiltonian and slot structure",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/nogo_probes.py",
+          "basis": "named",
+          "evidence": "classical-dimension operational obstruction"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": "nogo_probes also carries the counterexample that invalidated the earlier convex-geometry proof (b125 polytope inference, corrected at b128) — a countercontrol, not just a certificate."
+    },
+    {
+      "id": "MAIN:T-c3-necessity",
+      "paper": "papers/Main.md",
+      "line": 482,
+      "kind": "Theorem",
+      "label": "(C3 necessity)",
+      "fingerprint": "851d788fb738c428",
+      "area": "memory-conditions",
+      "assumptions": "m = |C_H| finite",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/C3Necessity.lean",
+          "basis": "named",
+          "evidence": "c3_necessity_and_capacity"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/c3_necessity_probe.py",
+          "basis": "named",
+          "evidence": "c3_necessity"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/c3_dilation_probes.py",
+          "basis": "named",
+          "evidence": "C3 corollary"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "Kernel-proved as a COROLLARY of the hidden-memory layer rather than a second data-processing argument: HiddenMemory.capacity_floor_of_fun bounds the conditional information of ANY quantity read off (X_t, H_t) by log2|C_H|, and c3_necessity instantiates it at the whole visible future while capacity_floor instantiates it at the next visible value, so Lean checks the dependency between the two manuscript theorems. X_>t is DEFINED by iterating the bijection, which is where determinism enters. The corollary's I* is the maximum over a finite nonempty family of accessible slices sharing ONE hidden alphabet -- that sharing is what makes m >= 2^(I*) a statement about a single hidden sector, and it is written into the signature. NOT proved, because the manuscript denies both: C3 is not m >= n, and sustained backflow does not force m >~ 2^(K I_0) -- the accumulated form needs an independence hypothesis P-indivisibility does not supply. Both have countercontrols in the probe."
+    },
+    {
+      "id": "MAIN:C-per-process-capacity-bound",
+      "paper": "papers/Main.md",
+      "line": 490,
+      "kind": "Corollary",
+      "label": "(per-process capacity bound)",
+      "fingerprint": "cc7fd03ee5f8e9ee",
+      "area": "memory-conditions",
+      "assumptions": "a deterministic-bijection realization attaining I*",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/c3_dilation_probes.py",
+          "basis": "named",
+          "evidence": "C3 corollary"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/recurrence_entropy_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": "b444 sharpens the same budget from the entropy side; b445/b446 sharpen it again by realization dimension."
+    },
+    {
+      "id": "MAIN:T-finite-horizon-process-dilation",
+      "paper": "papers/Main.md",
+      "line": 494,
+      "kind": "Theorem",
+      "label": "(finite-horizon process dilation)",
+      "fingerprint": "12a3411af0e7e69a",
+      "area": "equivalence-chain",
+      "assumptions": "rational multi-time law; finite accessible horizon K with t << t_R",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/process_dilation_probes.py",
+          "basis": "named",
+          "evidence": "finite-horizon process-dilation"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "MAIN:D-unitarily-evolving-qm",
+      "paper": "papers/Main.md",
+      "line": 502,
+      "kind": "Definition",
+      "label": "(unitarily evolving QM)",
+      "fingerprint": "c1bc7b35a7c12e99",
+      "area": "equivalence-chain",
+      "assumptions": "none — a definition",
+      "checks": [],
+      "kernel": "DEF",
+      "delta": "",
+      "note": ""
+    },
+    {
+      "id": "MAIN:L-fixed-hat-h-form-realized",
+      "paper": "papers/Main.md",
+      "line": 508,
+      "kind": "Lemma",
+      "label": "(fixed-$\\hat{H}$ form for realized processes)",
+      "fingerprint": "073a270ea5497b99",
+      "area": "equivalence-chain",
+      "assumptions": "the process arises as the marginal of an iterated fixed bijection with a fixed hidden prior",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
+          "basis": "named",
+          "evidence": "finite-horizon equivalence"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "MAIN:T-finite-horizon-stochastic-reversible-unitary",
+      "paper": "papers/Main.md",
+      "line": 524,
+      "kind": "Theorem",
+      "label": "(finite-horizon stochastic–reversible–unitary equivalence)",
+      "fingerprint": "eb7422303f7624ea",
+      "area": "equivalence-chain",
+      "assumptions": "finite visible alphabet; finite accessible horizon K",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/Equivalence.lean",
+          "basis": "named",
+          "evidence": "finite_horizon_equivalence"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/finite_horizon_equivalence_probe.py",
+          "basis": "named",
+          "evidence": "finite_horizon_equivalence"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/sdq_probes.py",
+          "basis": "named",
+          "evidence": "finite-horizon equivalence"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/equivalence_recovery_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "THE CENTRAL EQUIVALENCE CHAIN. Kernel-proved as three explicit constructions -- S_imp_D's multi-time clock-and-record carrier over an arbitrary finite-horizon joint law, D_imp_Qfb's permutation unitary with fixed-basis readout at every time, Qfb_imp_S's chain normalization from unitarity -- assembled by the named wrapper finite_horizon_equivalence, which takes NONE of the three as a hypothesis. The three classes are separate predicates and none is defined through another. TWO SCOPE GUARDS, recorded in the Lean header: the hidden-predictive-memory theorem is neither an assumption nor a lemma here (the equivalence is existential and holds for Markov laws too), and the one-step ancilla dilation of EquivalenceChain.lean does not prove S => D. The class (Q_fb) is defined without an autonomous-generator clause, so the manuscript's U = exp(-iH) remark is a property of the construction and is deliberately left unformalized; widening the class definition is what would reopen this."
+    },
+    {
+      "id": "MAIN:T-finite-operational-realization-gluing-form",
+      "paper": "papers/Main.md",
+      "line": 542,
+      "kind": "Theorem",
+      "label": "(finite operational realization and gluing — ε-form)",
+      "fingerprint": "769289a21d84cc02",
+      "area": "equivalence-chain",
+      "assumptions": "fixed d, finite instrument family, horizon K, tolerance epsilon",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/opglue_probes.py",
+          "basis": "named",
+          "evidence": "finite operational realization and gluing"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": "Exact arithmetic over Q(sqrt 2) + i Q(sqrt 2) at d = 2, K = 2 and 3."
+    },
+    {
+      "id": "MAIN:T-uniform-continuum-realization-mutual-density",
+      "paper": "papers/Main.md",
+      "line": 564,
+      "kind": "Theorem",
+      "label": "(uniform continuum realization — mutual ε-density)",
+      "fingerprint": "d5bebe2b4b397137",
+      "area": "equivalence-chain",
+      "assumptions": "a delta-net in diamond norm on the compact set of <= m-outcome instruments",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/opglue_probes.py",
+          "basis": "named",
+          "evidence": "finite operational realization and gluing"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": "The net argument is the analytic step and the probe does not reach it; only the finite instance is certified."
+    },
+    {
+      "id": "MAIN:T-unavoidable-hidden-predictive-memory",
+      "paper": "papers/Main.md",
+      "line": 570,
+      "kind": "Theorem",
+      "label": "(unavoidable hidden predictive memory)",
+      "fingerprint": "d813f5acc348e2d1",
+      "area": "memory-conditions",
+      "assumptions": "ANY faithful deterministic realization — the quantifier is the content",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/memory_probes.py",
+          "basis": "named",
+          "evidence": "universal hidden-memory theorem"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/hidden_memory_probe.py",
+          "basis": "named",
+          "evidence": "OIBridge/HiddenMemory.lean"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/HiddenMemory.lean",
+          "names": [
+            "pushforward_identity",
+            "distinguishability_floor",
+            "capacity_floor",
+            "unavoidable_hidden_predictive_memory"
+          ]
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/FiniteEntropy.lean",
+          "names": [
+            "sum_mul_log_le",
+            "entropy_le_log_card",
+            "cmi3_nonneg",
+            "cmi_le_of_deterministic",
+            "cmi_le_log_card"
+          ]
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "Closed in b448, rank 1 of the backlog, from P. ALL THREE CLAUSES: the pushforward identity, the distinguishability floor, and the capacity floor M_t <= I(X_<t; H_t | X_t) <= log2 |C_H|. Clause (c) required BUILDING A FINITE SHANNON LAYER, since Mathlib carries no entropy of a finite distribution, no mutual information, no conditional mutual information and no data-processing inequality; OIBridge/FiniteEntropy.lean supplies them from one analytic input, log x <= x - 1. Proving only M_t <= log2|C_H| would have been a different theorem wearing this one's name. The next visible value is DEFINED as the visible component of the bijection rather than assumed to be a function of the pair, so the Markov chain X_<t -> H_t -> X_{t+1} given X_t is a consequence and not a hypothesis. THIS THEOREM IS DELIBERATELY SEPARATE FROM THE EQUIVALENCE CHAIN and is not a lemma of it: the equivalence is existential and holds for Markov laws too, which is exactly why it cannot do this theorem's work. Each clause has a countercontrol removing the hypothesis its proof consumes — a stochastic channel for (a), a non-TV distance for (b), and a broken Markov chain for (c)."
+    },
+    {
+      "id": "MAIN:T-canonical-predictive-quotient-purification-ingredient",
+      "paper": "papers/Main.md",
+      "line": 588,
+      "kind": "Theorem",
+      "label": "(canonical predictive quotient — a purification ingredient, substratum form)",
+      "fingerprint": "8b180e8ae437af19",
+      "area": "memory-conditions",
+      "assumptions": "a finite-horizon law on visible trajectories",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/purification_probes.py",
+          "basis": "named",
+          "evidence": "canonical predictive quotient"
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "MAIN:L-rest-frame-selection",
+      "paper": "papers/Main.md",
+      "line": 630,
+      "kind": "Lemma",
+      "label": "(rest-frame selection)",
+      "fingerprint": "9a0d6bb006a18763",
+      "area": "gr",
+      "assumptions": "the partition realized across a causal horizon",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "MAIN:C-boost-rotation-inequivalence",
+      "paper": "papers/Main.md",
+      "line": 634,
+      "kind": "Corollary",
+      "label": "(boost/rotation inequivalence)",
+      "fingerprint": "f3989dfe422a5ab6",
+      "area": "gr",
+      "assumptions": "the rest-frame selection lemma",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "MAIN:T-structural-observer-selection-conditional-em",
+      "paper": "papers/Main.md",
+      "line": 716,
+      "kind": "Theorem",
+      "label": "(structural observer selection — conditional on (EM))",
+      "fingerprint": "ee37bee219b5e0ba",
+      "area": "oi-foundations",
+      "assumptions": "the effective-mixing hypothesis (EM) — EXPLICITLY CONDITIONAL",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": "The conditional form A_EM => conclusion is exactly the shape the kernel can certify while leaving (EM) external."
+    },
+    {
+      "id": "MAIN:C-anti-boltzmann-brain",
+      "paper": "papers/Main.md",
+      "line": 724,
+      "kind": "Corollary",
+      "label": "(anti-Boltzmann-brain)",
+      "fingerprint": "a1b5f6f9cb61e6f6",
+      "area": "oi-foundations",
+      "assumptions": "the structural observer selection theorem, hence (EM)",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "MAIN:C-past-hypothesis-replacement-rate-condition",
+      "paper": "papers/Main.md",
+      "line": 726,
+      "kind": "Corollary",
+      "label": "(past-hypothesis replacement, with its rate condition)",
+      "fingerprint": "d6189921c664b0e7",
+      "area": "oi-foundations",
+      "assumptions": "the observer-selection theorem plus its rate condition — the manuscript is explicit that the two bounds do NOT compose without it",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-factorization-uniqueness-translation-invariant-dynamics",
+      "paper": "papers/SM.md",
+      "line": 70,
+      "kind": "Theorem",
+      "label": "(factorization uniqueness for translation-invariant dynamics)",
+      "fingerprint": "0fbd89bfc72bc254",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:L-unnamed-332dde89",
+      "paper": "papers/SM.md",
+      "line": 118,
+      "kind": "Lemma",
+      "label": "",
+      "fingerprint": "332dde89a60f07d3",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:L-unnamed-5e5c0ff4",
+      "paper": "papers/SM.md",
+      "line": 122,
+      "kind": "Lemma",
+      "label": "",
+      "fingerprint": "5e5c0ff4dc9c3241",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:L-unnamed-cb196ce9",
+      "paper": "papers/SM.md",
+      "line": 136,
+      "kind": "Lemma",
+      "label": "",
+      "fingerprint": "cb196ce983dadfb6",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-unnamed-f1d3c661",
+      "paper": "papers/SM.md",
+      "line": 140,
+      "kind": "Theorem",
+      "label": "",
+      "fingerprint": "f1d3c6619bfdb644",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:C-unnamed-faf4656b",
+      "paper": "papers/SM.md",
+      "line": 206,
+      "kind": "Corollary",
+      "label": "",
+      "fingerprint": "faf4656b6c23bd43",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:L-form-center-free-isotropic-linear",
+      "paper": "papers/SM.md",
+      "line": 220,
+      "kind": "Lemma",
+      "label": "(form of the center-free isotropic linear rule)",
+      "fingerprint": "6671da6a71ecada9",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-1a-equivariant-finite-projection-preserves-spatial",
+      "paper": "papers/SM.md",
+      "line": 238,
+      "kind": "Theorem",
+      "label": "1a (equivariant finite projection preserves spatial symmetry)",
+      "fingerprint": "8e362ef0f004ec78",
+      "area": "sm",
+      "assumptions": "S finite; U the Koopman operator of a bijection; P an equivariant projection",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/observer_isotropy_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "SM:L-1c-canonical-projection-resummed-kernel",
+      "paper": "papers/SM.md",
+      "line": 248,
+      "kind": "Lemma",
+      "label": "1c (canonical projection and the resummed kernel)",
+      "fingerprint": "c5ff80aab6d5c1f6",
+      "area": "sm",
+      "assumptions": "the selected invariant measure",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/observer_isotropy_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "SM:C-1a-cubic-symmetry-forbids-quadratic-anisotropy",
+      "paper": "papers/SM.md",
+      "line": 254,
+      "kind": "Corollary",
+      "label": "1a (cubic symmetry FORBIDS quadratic anisotropy)",
+      "fingerprint": "b577d9af1fafef2b",
+      "area": "sm",
+      "assumptions": "scalar projected kernel; translation invariance; finite second moment; full cubic equivariance",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/CubicIsotropy.lean",
+          "basis": "named",
+          "evidence": "corollary_1a"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/cubic_isotropy_probe.py",
+          "basis": "named",
+          "evidence": "quartic_not_isotropic"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "SCOPE REPAIR FOUND BY FORMALIZING, then closed. The corollary assumed only a finite second moment and concluded an O(|k|^4) remainder; finite second moment gives o(|k|^2) and nothing sharper, since a symmetric kernel can have finite second moment and infinite fourth moment. The statement is now split into clause (i) at o(|k|^2) under a second moment -- which carries the whole negative content -- and clause (ii) at O(|k|^4) under a fourth moment. KERNEL-PROVED, the whole chain from the manuscript's own hypothesis: KernelOh (kernel O_h-equivariance) gives ohInvariant_mom2 (the SECOND MOMENT TENSOR is O_h-invariant) -- the step that was implicit and is now derived -- which with the algebraic core ohInvariant_iff gives dim Sym^2(R^3)^{O_h} = 1 and hence mom2_quadratic_isotropic. Inversion evenness (kernelOh_neg) is derived from the group and reduces the exponential symbol to a cosine series (symbolC_eq_symbol) rather than that form being assumed. On a lattice the second moment gives absolute summability for free (summable_abs_of_mom2, since |v|^2 >= 1 off the origin). symbol_expansion, then rem_littleO by dominated convergence for series -- the uniform bound |cos t - 1 + t^2/2| <= t^2/2 dominates, the global quartic bound t^4/2 gives the pointwise limit -- and rem_bigO for clause (ii) with an explicit constant. corollary_1a is the wrapper. quartic_not_isotropic supplies the 'need not be rotationally invariant' clause. The probe keeps the boundary witness that motivated the repair (axis weights r^-4) as a regression guard on the split."
+    },
+    {
+      "id": "SM:C-1b-when-normalized-adjacency-forced",
+      "paper": "papers/SM.md",
+      "line": 266,
+      "kind": "Corollary",
+      "label": "1b (when the normalized adjacency is forced)",
+      "fingerprint": "f97a955a09311fd4",
+      "area": "sm",
+      "assumptions": "scalar, translation-invariant, nearest-neighbour, O_h-equivariant, constant-row Markov part",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/observer_isotropy_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "SM:T-1-conditional-observer-level-lattice-klein",
+      "paper": "papers/SM.md",
+      "line": 274,
+      "kind": "Theorem",
+      "label": "1 (conditional observer-level lattice Klein--Gordon branch)",
+      "fingerprint": "4d87a9a93518e79d",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-2",
+      "paper": "papers/SM.md",
+      "line": 282,
+      "kind": "Theorem",
+      "label": "2",
+      "fingerprint": "f430eea59c91601c",
+      "area": "sm",
+      "assumptions": "the observer-level lattice-wave branch of Theorem 1 (CONDITIONAL); the sign convention box_lat := -sum_mu (T_mu - T_mu^{-1})^2",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "verification/lean/staggered_relations_probe.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/structural_core_probe.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/chirality_grading_probes.py",
+          "basis": "named",
+          "evidence": "Theorem 2"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean/OI_Staggered_Relations.lean",
+          "names": [
+            "Staggered.factorization",
+            "factorization3",
+            "factorization4"
+          ]
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean/OI_Structural_Core.lean",
+          "names": [
+            "susskind3",
+            "mass_square"
+          ]
+        }
+      ],
+      "kernel": "K2",
+      "delta": "the manuscript does not display the box_lat sign convention beside the theorem, so the formal statement fixes a convention the text leaves implicit (ROADMAP §D); and the periodic realization needs an even-extent hypothesis the text does not carry",
+      "note": "Section C of the ROADMAP is closed: the factorization holds for every n by induction over a list of pairwise-anticommuting summands, not just at three and four axes."
+    },
+    {
+      "id": "SM:T-3",
+      "paper": "papers/SM.md",
+      "line": 296,
+      "kind": "Theorem",
+      "label": "3",
+      "fingerprint": "487eed577016c6d0",
+      "area": "sm",
+      "assumptions": "the staggered generator relations; the diagonal of D_st",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "verification/lean/structural_core_probe.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/chirality_grading_probes.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean/OI_Structural_Core.lean",
+          "names": [
+            "center_anticommutator",
+            "mass_square"
+          ]
+        }
+      ],
+      "kernel": "K2",
+      "delta": "formalized at operator level as {D + m·eps + p_0·1, eps} = 2m + 2p_0·eps; the equivalence to \"exact chiral symmetry of the emergent staggered fermions\" is the physical reading and is not itself kernel-checked",
+      "note": "The scope note in SM §4 that C = 2(1-d) is the Laplacian diagonal and not a mass term is encoded in the formal statement."
+    },
+    {
+      "id": "SM:T-4-conditional-observer-level-mass-spectrum",
+      "paper": "papers/SM.md",
+      "line": 312,
+      "kind": "Theorem",
+      "label": "4 (conditional observer-level mass spectrum)",
+      "fingerprint": "429df1ffcd675a9f",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:L-4a-one-cone-branch",
+      "paper": "papers/SM.md",
+      "line": 322,
+      "kind": "Lemma",
+      "label": "4a (one cone on the branch)",
+      "fingerprint": "1c3f7025195892e5",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:P-4b-symmetric-point-custodial-scalarity-component",
+      "paper": "papers/SM.md",
+      "line": 328,
+      "kind": "Proposition",
+      "label": "4b (symmetric-point custodial scalarity for a component-complete site observer)",
+      "fingerprint": "179be8cffbf610f3",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-5-condensate-stabilizer-conditional-physical-reading",
+      "paper": "papers/SM.md",
+      "line": 334,
+      "kind": "Theorem",
+      "label": "5 (condensate stabilizer, conditional physical reading)",
+      "fingerprint": "ca3bd07272070a3d",
+      "area": "sm",
+      "assumptions": "H-link with one carrier copy; H-cust — CONDITIONAL physical reading",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/gauge_support_probes.py",
+          "basis": "named",
+          "evidence": "Theorem 5"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/condensate_space_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "SM:L-6a-operator-substitution-control",
+      "paper": "papers/SM.md",
+      "line": 348,
+      "kind": "Lemma",
+      "label": "6a (operator-substitution control)",
+      "fingerprint": "d526588a6904040b",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-6-conditional-link-carrier-count",
+      "paper": "papers/SM.md",
+      "line": 360,
+      "kind": "Theorem",
+      "label": "6 (conditional link-carrier count)",
+      "fingerprint": "e72c821fb1b8238a",
+      "area": "sm",
+      "assumptions": "H-link; the single-copy clause m = 1; d = 3",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-7-exact-link-representation-physical-reading",
+      "paper": "papers/SM.md",
+      "line": 368,
+      "kind": "Theorem",
+      "label": "7 (exact link representation; physical reading conditional)",
+      "fingerprint": "4f1f24bf85509709",
+      "area": "sm",
+      "assumptions": "the d = 3 simple-cubic lattice; the cubic rotation group; the physical reading is CONDITIONAL on H-link",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/QuarterTurn.lean",
+          "basis": "named",
+          "evidence": "theorem_7_link"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/QuarterTurn.lean",
+          "basis": "named",
+          "evidence": "character_gate"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/QuarterTurn.lean",
+          "basis": "named",
+          "evidence": "isRot_iff"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/QuarterTurn.lean",
+          "basis": "named",
+          "evidence": "decompEquiv_equivariant"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/QuarterTurn.lean",
+          "basis": "named",
+          "evidence": "irreducible_rhoT"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/Irreducibility.lean",
+          "basis": "named",
+          "evidence": "isIrreducible_of_finrank_intertwiners_eq_one"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/LinkDecomposition.lean",
+          "basis": "named",
+          "evidence": "theorem_7"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/IdempotentTrace.lean",
+          "basis": "named",
+          "evidence": "trace_restrict_range"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/link_decomposition_probe.py",
+          "basis": "named",
+          "evidence": "character inner products"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/gauge_certificates_probe.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/representation_bridge_probe.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean/OI_Gauge_Certificates.lean",
+          "names": [
+            "irr_orthonormal",
+            "irr_degrees",
+            "mult_V6",
+            "chi_consistent"
+          ]
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "KERNEL-PROVED, and the group object is certified rather than named. OIBridge/QuarterTurn.lean builds the cubic rotation group as S4 acting by CONJUGATION on its six four-cycles -- the six quarter turns, hence the six oriented axes -- so the orbit is S4/C4 with no quotient formalized (each stabilizer is the centralizer C4) and antipodality is canonical, q -> q^-1. THE NAME IS A THEOREM: isRot_iff proves the image of the action is EXACTLY the antipode-preserving permutations of the six signed links whose 3x3 signed-permutation matrix has determinant +1, detLink_eq_det ties that hand-written determinant to Mathlib's, card_sym counts the antipode-preserving group at 48 (O_h) and card_rot the rotations at 24 (O), and antiPerm_not_isRot certifies that the inversion -I -- the element separating them -- is absent. THE ACCEPTANCE GATE, character_gate, then proves pointwise that the fixed-link character is the manuscript's own (6, 0, 2, 0, 2); it fires before any representation theory is attached, its absence being what admitted a wrong S4-set once. THE REPRESENTATION rhoLinkQT g = permOp (linkAct g^-1) carries the inverse because permOp is an anti-homomorphism (permOp_mul). The three summands are bundled as Mathlib Subrepresentations TsubQT/EsubQT/AsubQT, so the conclusions are about Representation.character and not about restricted traces that resemble one. The five S4 characters -- A1 = 1, A2 = sign, E = fix3 - 1, T1 = sign * (fix4 - 1), T2 = fix4 - 1, T1 being standard-TENSOR-sign because a four-fold rotation is an ODD permutation -- are proved orthonormal (irr_orthonormal, 5x5 = 24 delta), and mult_link gives 24*(1,0,1,1,0) against the DERIVED chiLink rather than a transcribed table: no A2, no T2. character_rhoT_eq / character_rhoE_eq / character_rhoA_eq identify the three summands' characters through IdempotentTrace.trace_restrict_range, dimensions 3, 2, 1 come from trace_eq_finrank_range, and chiT_c4 pins the three-dimensional summand as T1 rather than T2 -- the two differ exactly at the four-fold class. Irreducibility over Q, not over an algebraically closed field, and in the strict sense: irreducible_rhoT / irreducible_rhoE / irreducible_rhoA assert Representation.IsIrreducible -- no proper nonzero subrepresentation -- not merely dim End = 1. Each self-inner-product is 24, so finrank_intertwiners gives an endomorphism algebra of dimension one over Q with no complexification; the step from there to irreducibility is Maschke, and Mathlib carries that implication only in the converse direction and only under [IsAlgClosed k]. OIBridge/Irreducibility.lean supplies the direction needed here without that hypothesis: Maschke gives every subrepresentation an invariant complement, the projection onto it along that complement is equivariant, and a one-dimensional endomorphism algebra forces that projection to be a single scalar, which a nonzero vector in each summand pins to 1 and to 0 at once unless one summand is zero. The probe's L6g is the countercontrol: the upper-triangular 2x2 algebra has a one-dimensional endomorphism algebra and a reducible module, so semisimplicity is load-bearing rather than decorative. The wrapper theorem_7_link bundles the rotation-group certificate, the gate, the three characters, the dimensions, the three irreducibility statements, and the TERMINAL EQUIVARIANT EQUIVALENCE decompEquiv : V6 = T1 + E + A1 given by v -> (P_T v, P_E v, P_A v). SCOPE: the file proves GEOMETRY. H-link appears only as the hypothesis of the separate, equivariant hlink_transport, and H-cust appears nowhere -- the probe's lint enforces both. CubicIsotropy's 48-element O_h is neither imported nor mentioned. SEPARATELY OPEN, as the A10 gap: the six-face/six-link equivariant identification, and OIBridge.lean's Cubic section, whose 72, 288 and 144 are statements about the two-subset action and carry no link-physics reading until re-established against linkAct."
+    },
+    {
+      "id": "SM:T-7b",
+      "paper": "papers/SM.md",
+      "line": 384,
+      "kind": "Theorem",
+      "label": "7b",
+      "fingerprint": "8d7173320dbc6298",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-8",
+      "paper": "papers/SM.md",
+      "line": 428,
+      "kind": "Theorem",
+      "label": "8",
+      "fingerprint": "b4e78dbf1aec8fb2",
+      "area": "sm",
+      "assumptions": "the cubic group O acting on the four BZ corners",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/TasteBranching.lean",
+          "basis": "named",
+          "evidence": "theorem_8"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean/OI_Gauge_Certificates.lean",
+          "names": [
+            "irr_degrees",
+            "irr_orthonormal"
+          ]
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/taste_branching_probe.py",
+          "basis": "named",
+          "evidence": "THE CARRIER CHECK"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "STATED AS ITS OWN THEOREM, with the manuscript remark's carrier distinction kernel-precise rather than prose. OIBridge/TasteBranching.lean: the taste pairing eta <-> 1 - eta = eta + 1 over F_2 is equivariant (cornerAct_mate), the singlet pair {0, 1} is fixed pointwise (singlet_fixed), the label action carries axis corners along the induced axis permutation (cornerAct_axisCorner), that permutation action is transitive on the three axes (axis_transitive, decided over the 24 rotations), and the four pairs exhaust the Brillouin zone (corners_exhausted) -- so the branching is exactly 4 = 1 + 3 at pair level. THE CARRIER CLAUSES ARE THE REMARK: the triplet's signed carrier is the vector representation rhoT of the same rotation group, already kernel-proved irreducible over Q in the QuarterTurn round and cited (irreducible_rhoT); the UNSIGNED label action on the axis pairs is proved NOT irreducible (axis_rep_reducible) by exhibiting the invariant all-ones line -- the A1 inside A1 + E -- so the manuscript's 'the distinction is representation-theoretically real' is a negative theorem, not a caution. The axis permutation itself is constructed as the orientation quotient of QuarterTurn.linkAct, well defined because every rotation is a Sym of the link set. The probe rebuilds the rotation group independently as the 24 integer orthogonal det-one matrices and confirms the orbit structure, the full S3 on axes, and the two characters: unsigned <chi,chi> = 2 with one trivial constituent, signed <chi,chi> = 1 with none, differing at a face half-turn (3 against -1). Theorem 9's gamma^j construction and the C2(T1) = 2 Casimir input to the Koide chain remain separate obligations, exactly as the remark flags."
+    },
+    {
+      "id": "SM:T-8b",
+      "paper": "papers/SM.md",
+      "line": 434,
+      "kind": "Theorem",
+      "label": "8b",
+      "fingerprint": "9666e97d071006fe",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-9",
+      "paper": "papers/SM.md",
+      "line": 442,
+      "kind": "Theorem",
+      "label": "9",
+      "fingerprint": "5fc2a05ca9c46eb8",
+      "area": "sm",
+      "assumptions": "the octahedral group O acting by conjugation; free-kernel identification REFUTED; H-spin' OPEN",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/hspin_labels_probes.py",
+          "basis": "named",
+          "evidence": "Theorem 9"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/condensate_space_probes.py",
+          "basis": "named",
+          "evidence": "Theorem 9"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/hspin_kernel_probes.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/hspin4d_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": "The probe certifies EXACTLY the algebraic content the theorem keeps after the H-spin split — the refutation is part of the record."
+    },
+    {
+      "id": "SM:C-unnamed-39abc017",
+      "paper": "papers/SM.md",
+      "line": 448,
+      "kind": "Corollary",
+      "label": "",
+      "fingerprint": "39abc0175a95fdda",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-10",
+      "paper": "papers/SM.md",
+      "line": 450,
+      "kind": "Theorem",
+      "label": "10",
+      "fingerprint": "c1774f68700254d6",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-11",
+      "paper": "papers/SM.md",
+      "line": 458,
+      "kind": "Theorem",
+      "label": "11",
+      "fingerprint": "f47488bb1b7cb179",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-12",
+      "paper": "papers/SM.md",
+      "line": 529,
+      "kind": "Theorem",
+      "label": "12",
+      "fingerprint": "94fb79de985592e2",
+      "area": "sm",
+      "assumptions": "the bipartite structure of a range-1 hypercubic coupling graph",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/chirality_grading_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "SM:T-13",
+      "paper": "papers/SM.md",
+      "line": 537,
+      "kind": "Theorem",
+      "label": "13",
+      "fingerprint": "63d989dbd0f92597",
+      "area": "sm",
+      "assumptions": "CONDITIONAL identification; the minimal embedding is certified VECTOR-LIKE; H-chi' sharpened and OPEN",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/chirality_grading_probes.py",
+          "basis": "named",
+          "evidence": "Theorem 13"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/hchi_selectivity_probes.py",
+          "basis": "section",
+          "evidence": ""
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/foundations/hchiprime_probes.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "P",
+      "delta": "no Lean statement",
+      "note": ""
+    },
+    {
+      "id": "SM:T-14",
+      "paper": "papers/SM.md",
+      "line": 569,
+      "kind": "Theorem",
+      "label": "14",
+      "fingerprint": "5030ef7770eb2884",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-15",
+      "paper": "papers/SM.md",
+      "line": 575,
+      "kind": "Theorem",
+      "label": "15",
+      "fingerprint": "6e99ec24b17ecaba",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:C-unnamed-66dedb9a",
+      "paper": "papers/SM.md",
+      "line": 579,
+      "kind": "Corollary",
+      "label": "",
+      "fingerprint": "66dedb9af46d7da9",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-16",
+      "paper": "papers/SM.md",
+      "line": 583,
+      "kind": "Theorem",
+      "label": "16",
+      "fingerprint": "49edbac40239ee5e",
+      "area": "sm",
+      "assumptions": "the Yang-Mills action on the d-dimensional lattice",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/GaugeDimension.lean",
+          "basis": "named",
+          "evidence": "theorem_16"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/gauge_dimension_probe.py",
+          "basis": "named",
+          "evidence": "the balance"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "NOT FORMALIZED BY DEFINING [g] := (3-d)/2, which would kernel-check the notation and nothing else. The physical input is the hypothesis: the action S = (1/4g^2) int d^{d+1}x F^2 is dimensionless, so -2[g] + 2[F] - (d+1) = 0 in mass dimensions, and theorem_16 derives both printed clauses -- [g] = (3-d)/2 and dimensionless iff d = 3 -- from Balance d g 2, with the measure's d+1 and the field strength's 2 visible in the statement. Above it sits the general formula [g] = [F] - (d+1)/2 (coupling_dim_general), of which [F] = 2 is the one instantiation. TWO COUNTERCONTROLS, both kernel-proved: balancing against a d-dimensional measure gives (4-d)/2 (off_by_one), and (4-d)/2 agrees with (3-d)/2 at NO dimension (off_by_one_never_agrees) -- it would even move the dimensionless point to d = 4 -- so the measure exponent is load-bearing. Concrete instances dimensionless_at_three and not_dimensionless_at_four pin the endpoints. The probe mirrors the arithmetic in exact Fractions for d = 0..12 and five field-strength dimensions, confirms the identical bookkeeping gives the standard scalar [phi] = (d-1)/2, and lints that no definition hard-codes the answer. The surrounding prose (renormalizability, asymptotic freedom at d = 3) consists of cited results, not clauses of this theorem, and is not claimed."
+    },
+    {
+      "id": "SM:T-17",
+      "paper": "papers/SM.md",
+      "line": 605,
+      "kind": "Theorem",
+      "label": "17",
+      "fingerprint": "d4ff945f3de05b59",
+      "area": "sm",
+      "assumptions": "the discrete wave equation as displayed",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "verification/lean/time_reversal_probe.py",
+          "basis": "named",
+          "evidence": "[SM] Theorem 17"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean/OI_Time_Reversal.lean",
+          "names": [
+            "waveS_time_reversal_invariant",
+            "wave_time_reversal_invariant",
+            "wave_nonvacuous",
+            "transport_not_time_reversal_invariant"
+          ]
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "Closed in b447's first closure wave, from GAP. Zero-import, so it is kernel-checked by the core gate with no Mathlib dependency. Proved first with the SPATIAL STENCIL LEFT ABSTRACT, which settles the reading question the manuscript leaves open — §5.1 displays the nearest-neighbour form while the theorem says \"the discrete wave equation\", which elsewhere in [SM] is d-dimensional; the displayed form is an instance, so both readings are covered. Carries a non-vacuity control and a countercontrol (first-order transport is reversible and NOT time-reversal invariant), and the companion probe re-derives the same fact by exact integer evolution."
+    },
+    {
+      "id": "SM:T-18",
+      "paper": "papers/SM.md",
+      "line": 613,
+      "kind": "Theorem",
+      "label": "18",
+      "fingerprint": "f16e5a756dd9aee2",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-19",
+      "paper": "papers/SM.md",
+      "line": 621,
+      "kind": "Theorem",
+      "label": "19",
+      "fingerprint": "15482d2e00da0d62",
+      "area": "sm",
+      "assumptions": "partition preserved by time reversal; counting-measure hidden prior; the symmetric form needs T-even visible states",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/Reciprocity.lean",
+          "basis": "named",
+          "evidence": "theorem_19"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/reciprocity_probe.py",
+          "basis": "named",
+          "evidence": "EXHAUSTIVE"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "AUDITED BEFORE FORMALIZING, and the printed proof is exact -- the two counting maps h |-> theta_H(pi_H phi(i,h)) really are mutually inverse -- with ONE implicit hypothesis surfaced. The proof passes from phi^-1 = T phi T to phi = T phi^-1 T and later cancels T T, and both steps need T to be an INVOLUTION, which 'the induced action of T' supplies physically -- classical time reversal squares to the identity -- but which no clause of the printed statement states. It is not removable: on Z_4 with theta a rotation by one and phi the same rotation, phi^-1 = T phi T holds exactly and the conclusion is false (probe R4). The Lean statement carries the involutivity of both components explicitly, and the printed statement now says 'an involutive time reversal (T^2 = id)' in so many words, so prose and kernel agree. THE STATEMENT, IN FULL. theorem_19 has both printed clauses -- N_ij(n) = N_(theta j, theta i)(n) for every time scale n, and the probability form T_ij(n) = T_(theta j, theta i)(n) as the same equality divided by |H|, which is where the counting-measure prior enters -- and detailed_balance is the theta = id specialization of the same theorem, not a statement with its own hypotheses. 'Partition preserved by time reversal' is the product form T = theta x theta_H, built into the formulation. The visible sector is NOT assumed finite: only the hidden sector is counted over, and the probe's lint enforces that no Fintype V appears. THE T-EVEN SIDE CONDITION, [GR 3.2]'s precision note, is countercontrolled rather than merely stated: probe R2 exhibits a T-invariant substratum -- phi = (3-cycle) x id, theta the transposition (0 1) -- where N_02 = |H| against N_20 = 0, so detailed balance is FALSE off theta = id while the (theta j, theta i) form holds at every n. R1 sweeps every permutation of the substratum at |V| = 3, |H| = 2 and |V| = 2, |H| = 3 against every product-form involution (1216 T-invariant bijections) for n = 1..6. R5 runs the manuscript's own wave-equation substratum -- (a,b) -> (Sa - b, a), T the register swap, checkerboard partition -- at L = 4, q = 2, 3 for n = 1..8, exactly; and notes that theta there is a genuine swap of the two visible registers, so the physical instance itself lives off theta = id and needs the general form. The old note asked for exactly this: the side condition is carried in the statement."
+    },
+    {
+      "id": "SM:P-20",
+      "paper": "papers/SM.md",
+      "line": 627,
+      "kind": "Proposition",
+      "label": "20",
+      "fingerprint": "0ecbb951f7fb33b7",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-21",
+      "paper": "papers/SM.md",
+      "line": 631,
+      "kind": "Theorem",
+      "label": "21",
+      "fingerprint": "f2236da0bec98ef3",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:T-22",
+      "paper": "papers/SM.md",
+      "line": 1356,
+      "kind": "Theorem",
+      "label": "22",
+      "fingerprint": "66c883710a56ac79",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SM:C-unnamed-235f5cba",
+      "paper": "papers/SM.md",
+      "line": 1368,
+      "kind": "Corollary",
+      "label": "",
+      "fingerprint": "235f5cba7fc10e49",
+      "area": "sm",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "STRUCTURE:D-9.1",
+      "paper": "papers/Structure.md",
+      "line": 623,
+      "kind": "Definition",
+      "label": "9.1",
+      "fingerprint": "e0499da112de1b28",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "DEF",
+      "delta": "",
+      "note": ""
+    },
+    {
+      "id": "STRUCTURE:D-9.2",
+      "paper": "papers/Structure.md",
+      "line": 628,
+      "kind": "Definition",
+      "label": "9.2",
+      "fingerprint": "17514cb462546e40",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "DEF",
+      "delta": "",
+      "note": ""
+    },
+    {
+      "id": "STRUCTURE:D-9.3",
+      "paper": "papers/Structure.md",
+      "line": 634,
+      "kind": "Definition",
+      "label": "9.3",
+      "fingerprint": "ab7171f54fbcb738",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "DEF",
+      "delta": "",
+      "note": ""
+    },
+    {
+      "id": "STRUCTURE:D-9.4",
+      "paper": "papers/Structure.md",
+      "line": 637,
+      "kind": "Definition",
+      "label": "9.4",
+      "fingerprint": "c1f7875add01be08",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "DEF",
+      "delta": "",
+      "note": ""
+    },
+    {
+      "id": "STRUCTURE:P-9.5",
+      "paper": "papers/Structure.md",
+      "line": 645,
+      "kind": "Proposition",
+      "label": "9.5",
+      "fingerprint": "47fd5a483b0f9e92",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "STRUCTURE:C-9.6",
+      "paper": "papers/Structure.md",
+      "line": 651,
+      "kind": "Corollary",
+      "label": "9.6",
+      "fingerprint": "1ac4f23c6a863bcf",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "STRUCTURE:P-9.7a",
+      "paper": "papers/Structure.md",
+      "line": 659,
+      "kind": "Proposition",
+      "label": "9.7a (Minimal Kraus uniqueness)",
+      "fingerprint": "b735edebf49d1666",
+      "area": "reconstruction",
+      "assumptions": "finite-dimensional visible sector; each Kraus family LINEARLY INDEPENDENT, which is minimality",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/KrausUniqueness.lean",
+          "basis": "named",
+          "evidence": "proposition_9_7a"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/KrausUniqueness.lean",
+          "basis": "named",
+          "evidence": "krausMatrix_eq_transpose"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/FactorUniqueness.lean",
+          "basis": "named",
+          "evidence": "existsUnique_unitary_factor"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/kraus_uniqueness_probe.py",
+          "basis": "named",
+          "evidence": "THE ORIENTATION COUNTERCONTROL"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/factor_uniqueness_probe.py",
+          "basis": "named",
+          "evidence": "THE THEOREM, as a round trip"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/stinespring_scope_probe.py",
+          "basis": "named",
+          "evidence": "PROPOSITION 9.7a, as a round trip"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "KERNEL-PROVED, with the scope repair that preceded it. The former Proposition 9.7 was FALSE as an identity of operators; it was split, and 9.7a is the algebraic core. OIBridge/KrausUniqueness.lean proves it: proposition_9_7a gives equal cardinality (Fintype.card J = Fintype.card I), a UNIQUE unitary on the coefficient space, the Kraus relation B_j = sum_i U_ji A_i in the manuscript's index order, U U^H = 1, and the transpose relating that order to the factor's column matrix. THE UNIQUENESS IS NOT REPROVED HERE: it is OIBridge/FactorUniqueness.lean's existsUnique_unitary_factor, stated with no channel, no Kraus family and no dilation, over an arbitrary RCLike field and with the two index types independent so that equal cardinality is a conclusion. THE FOUR JOINS this file adds: (1) the synthesis map e_i -> vec(A_i) with its analysis map proved to be the adjoint through eq_adjoint_iff; (2) gram_entry, the synthesis Gram operator with all four indices explicit; (3) krausMap_single plus synth_gram_eq_of_krausMap_eq -- evaluating the channel at the matrix unit E_bd and reading entry (a,c) gives exactly the ((a,b),(c,d)) Gram entry, so channel equality IS Gram equality with NOTHING in between; (4) synth_injective_of_linearIndependent, linear independence being injectivity, which is why the hypothesis is independence rather than 'minimal hidden-sector dimension'. NO CHOI LAYER AND NO POSITIVITY: X X* is called the synthesis GRAM operator because positivity is never used -- no Choi theorem, no complete positivity, no spectral theorem, no Cholesky factorization, no pseudoinverse, and no trace, so trace preservation is not assumed either. The probe's lint enforces each absence. THE ORIENTATION IS A THEOREM: Y = X W in the column convention reads B_j = sum_i W_ij A_i while the manuscript writes B_j = sum_i U_ji A_i, so U is the TRANSPOSE, recorded as krausMatrix_eq_transpose; the probe's K4 builds a complex non-symmetric U, discards it, recovers the column factor, certifies W^T = U with W != U, and checks that the SWAPPED index order fails -- so a transposition would be a numerical failure rather than a silent one."
+    },
+    {
+      "id": "STRUCTURE:P-9.7b",
+      "paper": "papers/Structure.md",
+      "line": 668,
+      "kind": "Proposition",
+      "label": "9.7b (Minimal pure-reference dilation uniqueness)",
+      "fingerprint": "f8495fb9263ba1d8",
+      "area": "reconstruction",
+      "assumptions": "PURE reference states; both realizations minimal; conclusion is about the isometry, not the full unitary",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/StinespringUniqueness.lean",
+          "basis": "named",
+          "evidence": "proposition_9_7b"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/StinespringUniqueness.lean",
+          "basis": "named",
+          "evidence": "minimal_iff_linearIndependent"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/StinespringUniqueness.lean",
+          "basis": "named",
+          "evidence": "channel_eq_krausMap"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/KrausUniqueness.lean",
+          "basis": "named",
+          "evidence": "proposition_9_7a"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/stinespring_uniqueness_probe.py",
+          "basis": "named",
+          "evidence": "GATE 3: THE ORIENTATION"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/stinespring_scope_probe.py",
+          "basis": "named",
+          "evidence": "PROPOSITION 9.7b, and exactly where it stops"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "KERNEL-PROVED, and it stops where the repair says it must. OIBridge/StinespringUniqueness.lean's proposition_9_7b gives equal environment dimension and a UNIQUE isometric T with V2 = (1 (x) T) V1 -- and nothing about the full dilating unitaries, which the CNOT pair in stinespring_scope_probe.py certifies are not determined off the prepared reference subspace. THREE GATES, not one reassembly. (1) minimal_iff_linearIndependent proves that MINIMALITY IS KRAUS INDEPENDENCE in the manuscript's own cyclicity form -- Minimal is span {(M (x) 1) V psi} = top with M ranging over ALL of B(H_V), containing no finrank and no cardinality, so it is not the independence it is proved equivalent to. The proof goes through the orthogonal complement: inner_ampl_eq puts the inner product against the cyclic set in closed form, orthogonal_iff turns orthogonality into the annihilation of the Kraus family by the coefficients conj(u(a,i)), and independence closes both directions. It carries [Nonempty n], which is load-bearing rather than decorative: with a zero visible space every dilation is vacuously cyclic while its Kraus family need not be independent, and a zero visible space is not an embedded observer. (2) channel_eq_krausMap proves the Stinespring channel -- defined as what it is, conjugation by V summed over the environment index -- is the Kraus map of A_i = (1 (x) <i|) V, so KrausUniqueness can consume it. (3) THE ORIENTATION, and it is the TRANSPOSE, not the adjoint: FactorUniqueness produces the column factor W : H_H^(2) -> H_H^(1) and the environment unitary runs the other way with T_ji = W(e_j)_i, so the adjoint -- which conjugates the entries -- is a different operator whenever they are not real. hiddenUnitary is built with the transpose orientation, hiddenUnitary_matrix identifies its matrix with KrausUniqueness.krausMatrix (the manuscript's U, in the manuscript's index order), and the probe's G3 uses a complex non-symmetric witness for which the transpose reassembles V2 exactly and the adjoint does not. UNIQUENESS IS PROVED, not inherited: amplR_ext shows the environment operator is determined, again from independence of the Kraus family, so the wrapper is an existential-unique as the manuscript states. The uniqueness of the coefficient factor is KrausUniqueness/FactorUniqueness and is not reproved."
+    },
+    {
+      "id": "STRUCTURE:C-9.8",
+      "paper": "papers/Structure.md",
+      "line": 682,
+      "kind": "Corollary",
+      "label": "9.8",
+      "fingerprint": "b3b8ab680e2a1e42",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/StinespringUniqueness.lean",
+          "basis": "named",
+          "evidence": "proposition_9_7b"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/stinespring_scope_probe.py",
+          "basis": "named",
+          "evidence": "three freedoms of"
+        }
+      ],
+      "kernel": "K2",
+      "delta": "THE TWO NEGATIVE CLAUSES. Kernel-proved: the first positive half -- for a minimal pure-reference representative the embedded observer determines the Stinespring isometry up to a unique hidden-sector unitary, which is StinespringUniqueness.proposition_9_7b. NOT kernel-proved, and recorded as this entry's delta: (a) that the extension of that isometry to a FULL tensor-product unitary is unconstrained off the prepared reference subspace, and (b) that non-minimal realizations introduce further enlargement freedom. Both are negative existence statements about the dilating unitary, and the Lean layer deliberately carries no unitary-realization formalism -- 9.7b is stated for the isometry alone. (a) is witnessed by the CNOT pair in stinespring_scope_probe.py (same channel, same environment, both minimal, minimality forcing W = 1, and the two unitaries differing), which is evidence and not a kernel proof. Formalizing (a) would need the unitary layer built on top of the present isometry layer; (b) would need the non-minimal case.",
+      "note": "STRENGTHENED AND SCOPED. The earlier form named two freedoms in the substratum description, hidden-sector unitary and deep-sector enlargement. There are three: the extension of the Stinespring isometry to a full tensor-product unitary is additionally unconstrained off the prepared reference subspace. The correction WIDENS the gauge freedom, so the substratum-is-gauge reading survives and is reinforced; only 9.7's precise form changed. The corollary now carries the qualification that the second freedom is gauge relative to the fixed-reference observational interface: the off-reference action of U is invisible to the channel only because Definition 9.2 always prepares the same rho_H, and would become observable if the hidden sector were independently preparable."
+    },
+    {
+      "id": "STRUCTURE:D-9.9",
+      "paper": "papers/Structure.md",
+      "line": 714,
+      "kind": "Definition",
+      "label": "9.9",
+      "fingerprint": "2abe6d67e4247481",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "DEF",
+      "delta": "",
+      "note": ""
+    },
+    {
+      "id": "STRUCTURE:P-9.10",
+      "paper": "papers/Structure.md",
+      "line": 724,
+      "kind": "Proposition",
+      "label": "9.10",
+      "fingerprint": "dbd6efee2abea3bc",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "STRUCTURE:C-9.11",
+      "paper": "papers/Structure.md",
+      "line": 728,
+      "kind": "Corollary",
+      "label": "9.11",
+      "fingerprint": "b87569f89d74abf1",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SUBSTRATUM:L-23.0",
+      "paper": "papers/Substratum.md",
+      "line": 188,
+      "kind": "Lemma",
+      "label": "23.0",
+      "fingerprint": "11c8a93fc88cf91b",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SUBSTRATUM:T-23",
+      "paper": "papers/Substratum.md",
+      "line": 192,
+      "kind": "Theorem",
+      "label": "23",
+      "fingerprint": "8dbe0304d1cd55ba",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SUBSTRATUM:T-24",
+      "paper": "papers/Substratum.md",
+      "line": 250,
+      "kind": "Theorem",
+      "label": "24",
+      "fingerprint": "cd76d5df5680765e",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SUBSTRATUM:C-effective-finiteness-gauge-class-transfer",
+      "paper": "papers/Substratum.md",
+      "line": 262,
+      "kind": "Corollary",
+      "label": "(effective finiteness and gauge-class transfer)",
+      "fingerprint": "9330e1f409e986c0",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "SUBSTRATUM:L-24.1",
+      "paper": "papers/Substratum.md",
+      "line": 272,
+      "kind": "Lemma",
+      "label": "24.1",
+      "fingerprint": "86db2ddcb8767cd0",
+      "area": "reconstruction",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
+      "id": "GR:T-bohr-frequency-completeness",
+      "paper": "papers/GR.md",
+      "line": 166,
+      "kind": "Theorem",
+      "label": "(Bohr-frequency completeness)",
+      "fingerprint": "0f77516e175ca030",
+      "area": "gr",
+      "assumptions": "non-degenerate eigenvalues; non-vanishing configuration-basis overlaps",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/BohrFrequency.lean",
+          "basis": "named",
+          "evidence": "bohr_frequency_completeness"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/bohr_frequency_probe.py",
+          "basis": "named",
+          "evidence": "frequency recovery"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "THIS THEOREM REPLACES A WITHDRAWN ONE. The statement that stood here -- matching transition probabilities force H' = D H D^dag -- was false on three counts, each now a permanent countercontrol: the energy origin H + E0 (kernel identity shift_modsq), the antiunitary reflection -conj(H), which conjugates U(t) entrywise (kernel identities reflect_conj/reflect_modsq), and, under the printed eigenvalue-only hypothesis, the C4 ring of [SM] Proposition 20, whose degenerate gaps let conj(H) through while its loop phase forbids diagonal conjugacy (probe F5) -- the corpus's own example, now cross-referenced in GR 3.3. What replaces it is exactly what the dimensional argument consumes: the probabilities determine the full Bohr-frequency set, and no dimensionless data of this kind can determine hbar. KERNEL-PROVED IN FULL, including the analytic step: the return-probability expansion (retProb_eq_sum_gaps), strict positivity of every gap coefficient with degenerate gaps allowed -- merged positives cannot cancel (ampR_pos) -- the |U_ij|^2 expansion over the same frequencies (normSq_expansion), and gap-set determination from equality of the probability families at every real time (gaps_determined), through Dedekind's linear independence of characters (Mathlib's linearIndependent_monoidHom on Multiplicative R -> C), with the injectivity of omega |-> e^{i omega t} pinned by evaluation at t = pi/(omega1 - omega2). No sampling, no truncation, no approximation. The two-branch reconstruction statement is printed separately as a Claim whose status is a reduction, not a proof; its open step is the coefficient-labelled inverse problem, and the homometric Golomb rulers {0,1,4,10,12,17} / {0,1,8,11,13,17} show the raw difference set cannot close it."
+    },
+    {
+      "id": "GR:T-d-gauge-completeness-two-branch",
+      "paper": "papers/GR.md",
+      "line": 172,
+      "kind": "Theorem",
+      "label": "(D-gauge completeness, two-branch form)",
+      "fingerprint": "d82a1ded8503e0a1",
+      "area": "gr",
+      "assumptions": "all energy gaps distinct; non-vanishing overlaps",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/TurnpikeScopeTransfer.lean",
+          "basis": "named",
+          "evidence": "twoBranch_of_BGClassification"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/CongruentReconstruction.lean",
+          "basis": "named",
+          "evidence": "twoBranch_of_spectral_classification"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/FrequencyMatching.lean",
+          "basis": "named",
+          "evidence": "coefficient_line_extraction"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/HomometricKill.lean",
+          "basis": "named",
+          "evidence": "homometricSix_unrealizable"
+        },
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/PiccardBridge.lean",
+          "basis": "named",
+          "evidence": "piccard_mu_bridge"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/bohr_frequency_probe.py",
+          "basis": "named",
+          "evidence": "both branches"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/gap_correspondence_probe.py",
+          "basis": "named",
+          "evidence": "two-branch classification"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/edge_rigidity_probe.py",
+          "basis": "named",
+          "evidence": "K4-rigidity"
+        }
+      ],
+      "kernel": "K2",
+      "delta": "K2, not K3, for exactly one named external step: the integer Piccard classification (Bekir-Golomb, IEEE Trans. Inform. Theory 53 (2007) 2864-2867) is consumed as a cited theorem, stated in the kernel as the explicit premise BGIntegerClassification (TurnpikeScopeTransfer.lean) in the integer scope the primary text unambiguously uses. Everything else -- the Fourier layer, the integer-to-real scope transfer, the congruent reconstruction in every dimension, the six-mode kill chain, and the bridge identifying the cited family's correspondence -- is kernel-proved; the composed conditional statement is twoBranch_of_BGClassification. K3 requires formalizing the 2007 polynomial classification itself, the sole formalization backlog item.",
+      "note": "PRINTED AS A THEOREM, PROVED AT K2: every step is kernel-verified except the one cited external input, the integer Piccard classification of Bekir-Golomb 2007 (see delta). The statement's history is part of its record: a prior proof was withdrawn (the original claim was false on three counts, each now a permanent countercontrol), the statement was reprinted as a Claim and held at P through the entire reconstruction programme, and it was promoted only when the internal mathematics closed end to end and the primary 2007 text had been audited. What is established and kernel-proved: both branches are exactly invisible (shift_modsq, reflect_conj in OIBridge/BohrFrequency.lean), and each relaxation fails on an explicit example -- omitting E0 fails on H + E0; omitting the second branch fails on -conj(H), whose spectrum is not a shift of the original for generic H; weakening distinct gaps to distinct eigenvalues fails on the C4 ring of [SM] Proposition 20, which lands inside the second branch via the bipartite sign diag(1,-1,1,-1). The second branch is an antiunitary ambiguity -- time reversal composed with energy reflection -- not a gauge transformation. WHAT REMAINS OPEN: with gaps distinct, matching forces a bijection mu of ordered mode pairs preserving frequencies and, by rank-one factorization of C^{ab}_{ij} = z^{ab}_i conj(z^{ab}_j), an equality z'^{mu(a,b)} = lambda z^{ab} up to unit scalars; the claim is that the only such bijections are a mode relabeling or the global pair reversal. The raw difference set cannot decide this (homometric Golomb rulers), so the reduction must run on the coefficient-labelled data, where the multiplicative relations z^{ab} z^{bc} = |V_.b|^2 z^{ac} are available. Once the bijection is pinned, the double-difference/coboundary step closes the diagonal factor -- the same H^1 = 0 structure the phase-locking round formalized. Numerically both branches reproduce the data exactly and generic perturbations off them break it (probe F7); local rigidity is checked, global classification is not. CLASSIFICATION PROBE RESULTS (gap_correspondence_probe, exact): at n = 4 (spectrum {0,1,4,6}) the turnpike solutions are exactly the spectrum and its reflection, and all 48 labeled correspondences are 24 relabelings + 24 reversals -- the two-branch classification is exhaustively true there. At n = 6 the printed homometric pair forces the unique genuinely non-two-branch mu, and it admits NO realization: generic overlap moduli violate 5 explicit cokernel identities of the K6 edge-product system (e.g. p1^2 = p3*p4 per row), the exceptional locus is exactly the flat rows p = 1/6, and on that locus the surviving 10-parameter phase family (torsion-free by Smith normal form, Fourier fails 720/720) makes V and V' monomial in two torus variables whose joint unitarity confines all 15 pairwise differences to the 8 common roots-of-unity zeros of two masks sharing the factor 1 + x + x^2 y; the Cayley graph they generate (order 48) has max clique 3 < 6. Both stress tests support the universal two-branch statement; the homometric mu dies by polynomial identities, not genericity. KERNEL INFRASTRUCTURE (OIBridge/EdgeRigidity.lean, OIBridge/HomometricSix.lean, not listed as checks because the Claim stays P): k4_rigidity -- for n >= 5 an edge permutation of K_n preserving all four-cycle product identities as identities is induced by a vertex permutation, with the n = 4 hypersimplex complement exception kernel-verified as sharp; exceptional_relation -- any non-induced correspondence forces a nonzero exponent relation with zero sum, so only the flat direction is never excluded; and the two finite endpoints of the n = 6 kill chain -- flat_locus (L_mu-perp = span(1) for the printed homometric mu) and no_six_orthogonal (the max-clique-3 obstruction over the 8 common mask zeros), plus the mask factorizations, the xi/eta linkage, and mu_not_vertex_induced. The rank census (probe M9) finds homometric Golomb pairs only at n = 6 in the enumerable range, all with full rank n - 1: no exceptional modulus strata exist there, supporting the universal statement. LITERATURE ANCHOR AND SCOPE-CHECK STATUS: the global turnpike classification exists -- S. Piccard's 1939 claim is stated for n-point configurations in the real line with distinct pairwise distances; G. S. Bloom (J. Combin. Theory A 22 (1977) 378-379) gave the six-mark counterexample; Gilbert-Postpischil (Experimental Mathematics 3(2) (1994) 147-152) proved no new homometric Golomb ruler pairs with 7-12 marks and gave the two-dimensional geometric model of the six-mark family; Bekir-Golomb (IEEE Trans. Inform. Theory 53(8) (2007) 2864-2867, 'There Are No Further Counterexamples to S. Piccard's Theorem') closed it by the polynomial method. THE PRIMARY 2007 TEXT HAS NOW BEEN READ AND AUDITED (four pages, IEEE Trans. Inform. Theory 53(8):2864-2867, DOI 10.1109/TIT.2007.899468; received July 14 2005, revised March 12 2007, communicated by R. J. McEliece). FIVE-POINT AUDIT FINDINGS. (1) FORMAL STATEMENT: the paper is an IEEE Correspondence with no numbered theorem; the claim is carried by the abstract ('a geometric manipulation of the Polynomial Method is used to demonstrate that no additional counterexamples are possible') and the conclusion ('no additional counterexamples to Sophie Piccard's Theorem exist, beyond the single infinite parametric family of six-mark homometric spanning rulers'); Piccard's theorem is stated in the paper's terminology as: any two spanning rulers measuring the same set of distances (homometric rulers) must be either identical or mirror images. Fewer than six marks is asserted as easily shown; 7-12 marks cites Postpischil-Gilbert; the analytic argument is size-uniform. (2) AMBIENT DOMAIN -- THE ONE EQUIVOCAL ITEM: the paper NEVER explicitly quantifies over real configurations. Its polynomial model is integer-presented (marks are exponents, 'the 0,1,4,6 four-mark ruler would be represented as 1+x+x^4+x^6', reverse polynomial via the degree N), and the introduction speaks of 'every possible integer distance'. However its Section III argument manipulates SYMBOLIC exponents through linear relations and orderings only -- nothing in the printed argument uses integrality -- the family parameters (a, b) carry no integrality restriction, and the theorem being completed is Piccard 1939, stated for subsets of Euclidean space. The real-scope reading is therefore an interpretation (shared by the later quoting treatment), not a sentence of the paper. (3) TRIVIAL EQUIVALENCE: 'identical or mirror images of one another' -- rulers are presented basepointed at 0, so this is translation + reflection, with relabeling automatic (rulers are sets); exactly the two printed branches. (4) REPEATED-DIFFERENCE HYPOTHESIS: 'a spanning ruler measures each of a set of distances only once... only that no distance is measured more than once' -- verbatim the distinct-gaps hypothesis. (5) EXCEPTIONAL FAMILY: p. 2865 gives the two-parameter representation r = Phi1*Phi2 = (1+x^a+x^b)(1+x^{b-2a}-x^{b-a}+x^{2b-a}), s = Phi1*Phi2* = (1+x^a+x^b)(1-x^b+x^{b+a}+x^{2b-a}), 'an infinite family of six-mark homometric pairs (which turns out to be the unique family of known counterexamples...)', attributing the representation to Yovanof-Golomb (ARS Combinatoria 48 (1998) 43-48). Machine expansion (probe M12, exact symbolic exponents) confirms the products are 0/1 polynomials whose exponent sets are EXACTLY the family this repo kernelized, with (p1, p2) = (a, b), Phi2* the reversal of Phi2, and (1, 6) the printed pair -- so the kernel-proved chain primary factorization -> mark lists -> mu-orbit is closed end to end (piccard_factor_r/s, piccardX/Y_marks, piccard_mu_bridge). CASE-COMPLETENESS RIGOR: the classification argument is a narrative geometric construction (negative-term placement in the Phi1 x Phi2 term matrix; nonsingular Ax=b forces the trivial mirror case, singular forces repeated row/column distances or an infinite regress of compensating terms), at correspondence-level rigor with acknowledged informal steps ('It can be proved that...'); a K3 formalization would be a reconstruction, not a transcription -- estimated comparable to or larger than the entire six-mode kill chain (factorization completeness over Laurent rings, the finite two-negative-term case analysis, and a well-founded version of the infinite-regress counting argument). THE SCOPE CAVEAT IS NOW CLOSED MATHEMATICALLY (OIBridge/TurnpikeScopeTransfer.lean, all seven results axiom-clean): integer_realization_of_real_realization -- a real realization of any fixed ascending gap correspondence, strictly ordered, Golomb, and nontrivial, yields an INTEGER realization of the SAME correspondence with all properties preserved. The proof is elementary and topology-free: every constraint is a homogeneous rational-linear four-term form; the entries of the real solution span a finite-dimensional Q-subspace of R, each basis-coordinate slice of the solution is itself a rational solution of the equality system (rational_solutions), strict/nonzero conditions survive rational approximation of the combination coefficients with an explicit eps/M budget (rational_point via exists_rat_btwn), and denominators clear by homogeneity (exists_int_scaling). BGIntegerClassification states the external premise in the INTEGER scope the primary text unambiguously uses (sorted Golomb integer pairs with equal difference sets, neither translates nor reflections, exist only at six marks with gap data realizing mu -- the mu-form backed by PiccardBridge); spectral_classification_of_BG derives the REAL spectral classification (sort, extract the forced correspondence, transfer, classify the surrogate, and let the integer pair's Golomb rigidity force the combinatorial identification with relabeled mu, which transports back to the real spectra); twoBranch_of_BGClassification composes with the spectral wrapper: equal probabilities + distinct gaps + the INTEGER premise give the two Hamiltonian branches over arbitrary real spectra. Probe M13 exhibits the transfer exactly over Q(sqrt2). The reconstruction theorem now consumes Bekir-Golomb only for its explicitly integer ruler classification; extension from integer to real spectra is proved internally. Independent corroboration in-repo: the orbit census (probe M10) finds exactly ONE mu-orbit across all 136 enumerable correspondences, whose exact realization space is 4-dimensional = 2 translations + 2 genuine parameters -- the same two-parameter family. THE PARAMETRIC MU-ORBIT BRIDGE IS NOW KERNEL-PROVED against the exceptional-family formula quoted by a later peer-reviewed treatment citing the 2007 paper -- X = {0, p1, p2-2p1, 2p2-2p1, 2p2, 3p2-p1}, Y = {0, p1, 2p1+p2, p1+2p2, 2p2-p1, 3p2-p1} (OIBridge/PiccardBridge.lean): with e_S = id and the single target transposition e_T = (3 4) -- which only realigns the quoted listed order with ascending order -- all 15 gap identities of mu hold as polynomial identities in (p1, p2) over any commutative ring (piccard_mu_bridge), in the verbatim shape of the spectral wrapper's third alternative (piccard_realizes_mu); p = (1, 6) specializes to the printed pair. Probe M11 adds in exact arithmetic that (3 4) is the UNIQUE such relabeling, both families are symbolically Golomb, and a perturbed coefficient breaks the bridge. This checks the QUOTED formula; the primary 2007 text remains the audit gate. Because the kill chain consumes only mu's combinatorics, the kernel-proved flat_locus and clique obstruction apply verbatim to the whole continuous family. Orientation coherence is now kernel-proved (orientation_coherence in EdgeRigidity.lean): an induced unordered correspondence has exactly two directed lifts, global preserve or global reverse; mixed per-edge orientations are impossible. THE SIX-MODE ANALYTIC MIDDLE IS NOW KERNEL-CLOSED (OIBridge/HomometricKill.lean): homometricSix_unrealizable proves the forced non-two-branch correspondence admits no pair of unitary eigenbases with all overlaps nonzero -- coefficient-line forcing (line_forcing), the modulus stage through Real.log into the field-generic flat_locus (flat_of_products), the multiplicative phase elimination with explicit integer certificates replacing the Smith normal form (monomial_relations), the torus-zero bridge whose resultant collapses to H - H' = y(1-x)(1+x^2) (torus_zeros), the exponent identification of the eight points as powers of zeta = -i*omega, and the clique contradiction through ZMod transport. With the one-orbit census this kills the coefficient reconstruction across the entire continuous Piccard family. THE CONGRUENT-CASE ASSEMBLY IS NOW KERNEL-CLOSED (OIBridge/CongruentReconstruction.lean): modulus_rigid (the m >= 3 rigidity, sharp -- at m = 2 the hyperbola survives), phase_coboundary (coefficient-line equality along an aligned permutation splits into row phases times column phases, W_{i,ta} = d_i b_a V_{ia}, with no angles, logs, or 2pi-quotients), then reconstruction_translation (H' = D H D^dag + E0*1, only V's unitarity used) and reconstruction_reflection by conjugating branch one. Dimensions 0 and 1 are dispatched outright. THE FOURIER LAYER IS NOW KERNEL-CLOSED (OIBridge/FrequencyMatching.lean): coefficients_by_frequency_determined -- equality of |U_ij(t)|^2 for all real t forces equality of every complex frequency amplitude A_ij(omega) = sum over the fiber E_b - E_a = omega of V_ia V-bar_ja V-bar_ib V_jb, over the union of the two gap sets and trivially off it, by Dedekind's independence of characters; with all gaps distinct each nonzero fiber is a singleton (fiber_singleton), so ONE spectral identity E'_d - E'_c = E_b - E_a extracts one full coefficient line (coefficient_line_extraction) -- the sole converter from probability data to the coefficient hypotheses of every reconstruction branch, with the two models allowed different mode counts. M = 2 IS NOW KERNEL-CLOSED (dim_two_moduli_dichotomy, unitary2_line_dichotomy, reconstruction_dim_two): the diagonal coefficient line q(1-q) = p(1-p) factors as (q-p)(1-p-q) = 0, so each row's moduli match or swap; unitarity's column sums make the choice global (mixed rows collapse to the p = 1/2 degeneracy, landing in both cases); the swap branch composed with the mode swap is the reflection branch verbatim -- diag(E1,E0) = (E0+E1)*1 - diag(E0,E1) -- so W tau = D V B or W tau swap = D V-bar B, and the m = 2 hyperbola that blocks modulus_rigid is exactly the reflection branch, not a third alternative (probe R8 retains it as the countercontrol). The conditional twoBranch_of_PiccardClassification isolates the single external premise: its three-way classification hypothesis (translation-congruent, reflection-congruent, or the exceptional six-mode match stated cast-free via Fin 6 equivalences) yields the two Hamiltonian branches, with the exceptional alternative refuted by homometricSix_unrealizable (exceptional_impossible). AND THE WRAPPER IS NOW PURELY SPECTRAL (twoBranch_of_spectral_classification): its inputs are equal transition probabilities, distinct gaps on both sides, and a classification premise that mentions ONLY spectra -- translated, negation-translated, or realizing the exceptional gap correspondence mu -- with every coefficient clause derived by coefficient_line_extraction. Piccard classifies gap correspondences; quantum coefficient equality is a theorem, not an input. Every internal part of the reconstruction, in every finite dimension, is now kernel-proved; the only remaining gap is the real-line Piccard/Bekir-Golomb turnpike classification itself."
+    }
+  ],
+  "unattached": [
+    {
+      "kind": "lean",
+      "path": "verification/lean/OI_Structural_Chain.lean",
+      "names": [
+        "path_prop",
+        "gD_edges_balanced",
+        "gD_bridge_unbalanced",
+        "gEx_invertible"
+      ],
+      "certifies": "GR §3.2 H-balance: edgewise detailed balance on a connected transition graph fixes the stationary populations to Gibbs form.",
+      "note": "Stated in GR §3.2 as running prose rather than as a bold-headed theorem, so the census assigns it no row. Proved WITHOUT the exponential and without Perron-Frobenius; connectivity is shown load-bearing by a two-component witness."
+    },
+    {
+      "kind": "lean",
+      "path": "verification/lean/OI_Regulator_Symmetry.lean",
+      "names": [
+        "native_card",
+        "hyper_card",
+        "native_fixes_EB",
+        "native_fixes_both",
+        "hyper_does_not_fix_electric",
+        "hyper_does_not_fix_time",
+        "boost_ward"
+      ],
+      "certifies": "ROADMAP A7/A7b: the regulator-symmetry character sums 384 and 192 over the hypercubic and native groups, with the invariant bases exhibited by direct check.",
+      "note": "Supports the boost-sector discussion in GR §8.5 and SM §4.4, neither of which states a bold-headed theorem for it."
+    },
+    {
+      "kind": "lean",
+      "path": "verification/lean-mathlib/OIBridge/CombRealization.lean",
+      "names": [
+        "saturated_class_obstruction",
+        "workspace_state_forced",
+        "class_card_ge_five",
+        "card_ge_ten"
+      ],
+      "certifies": "b446: the saturated-class lemma and the |S| >= 10 lower bound for reversible realizations of the b76B comb at horizon 2.",
+      "note": "RESEARCH LAYER, deliberately unpropagated. b446 states explicitly that nothing propagates to the manuscripts, so there is no canonical row to attach it to — and that is the correct state, not a gap."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/primitive_probes.py",
+      "names": [],
+      "certifies": "Main §1.3: C4 is primitive; C1 and C3 are its consequences within any faithful realization.",
+      "note": "The conditions C1-C4 are introduced in §1.3 as a numbered list rather than as bold-headed statements, so they carry no census row."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/review3_probes.py",
+      "names": [],
+      "certifies": "The third-round review's three load-bearing counterexamples against the 2.8.1 texts.",
+      "note": "A countercontrol against superseded statements."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/review4_probes.py",
+      "names": [],
+      "certifies": "The fourth-round review's two counterexamples, exactly.",
+      "note": "Includes that C4 does NOT imply P-indivisibility — a scope wall, not a certificate."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/coherence_boundary_probes.py",
+      "names": [],
+      "certifies": "b441 research-layer result.",
+      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/native_group_probes.py",
+      "names": [],
+      "certifies": "b442 research-layer result.",
+      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/finite_horizon_probes.py",
+      "names": [],
+      "certifies": "b443 research-layer result.",
+      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/recurrence_entropy_probes.py",
+      "names": [],
+      "certifies": "b444 research-layer result.",
+      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/comb_dimension_probes.py",
+      "names": [],
+      "certifies": "b445 research-layer result.",
+      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/comb_realization_probes.py",
+      "names": [],
+      "certifies": "b446 research-layer result.",
+      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/source_lift_probes.py",
+      "names": [],
+      "certifies": "b434 research-layer result.",
+      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/induced_source_probes.py",
+      "names": [],
+      "certifies": "b436 research-layer result.",
+      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/gauge_support_probes.py",
+      "names": [],
+      "certifies": "b437 research-layer result.",
+      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/bargmann_bridge_probes.py",
+      "names": [],
+      "certifies": "b440 research-layer result.",
+      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+    },
+    {
+      "kind": "probe",
+      "path": "papers/oi_lattice_code/foundations/comb_reachability_probes.py",
+      "names": [],
+      "certifies": "b430-b432 research-layer result.",
+      "note": "Unpropagated by design: the round that produced it records that nothing propagates to the manuscripts."
+    },
+    {
+      "kind": "lean",
+      "path": "verification/lean-mathlib/OIBridge/IdempotentTrace.lean",
+      "names": [
+        "apply_eq_self_of_mem_range",
+        "mapsTo_range",
+        "mapsTo_ker",
+        "isCompl_range_ker",
+        "comp_eq_conj_prodMap",
+        "trace_restrict_range",
+        "trace_restrict_range_of_mapsTo",
+        "trace_eq_finrank_range"
+      ],
+      "certifies": "Library infrastructure, not a manuscript statement: for an idempotent P and a map f commuting with it on a finite-dimensional vector space over any field, tr(f restricted to im P) = tr(f . P), with the block structure it rests on and the corollary tr P = dim(im P).",
+      "note": "The step SM:T-7 was recorded as blocked on. Isolated deliberately so the blocker becomes a resolved dependency rather than a theorem-specific workaround: nothing in the statements mentions a group, a character or equivariance. The companion probe established that commutativity is SUFFICIENT BUT NOT NECESSARY -- image-invariance alone suffices, since it already makes f block triangular and f.P kills the off-diagonal block -- so the weaker trace_restrict_range_of_mapsTo is carried too."
+    },
+    {
+      "kind": "gap",
+      "path": "verification/lean-mathlib/OIBridge.lean",
+      "names": [
+        "Cubic.rho",
+        "LinkJoin.char_two_subset_ne_link",
+        "LinkJoin.char_multiset_collision",
+        "LinkJoin.sum_sq_collision",
+        "LinkJoin.sum_cube_collision"
+      ],
+      "certifies": "NOTHING -- a recorded DEFECT, found by formalizing SM:T-7 and stated in Lean as char_two_subset_ne_link. Cubic.rho is the permutation representation of S4 on the six TWO-ELEMENT SUBSETS of the four body diagonals, which its header calls 'the six faces of the cube'. They are not: a face meets every body diagonal and so determines no pair of them; the six two-element subsets are the six pairs of opposite edges.",
+      "note": "The two representations have the SAME character multiset {6, 2x9, 0x14} -- which is all representation_bridge_probe's multiset comparison ever checked -- and differ as class functions: two-subsets gives (6,0,2,2,0) on (E,8C3,3C2,6C2',6C4) while the six links give (6,0,2,0,2), the manuscript's own proof line. So Cubic.rho carries T2 where the links carry T1: the two three-dimensional irreducibles, swapped. The six links are the coset space S4/C4, which this section had recorded as a control 'rejected because it has the same character' -- the same multiset collision read the wrong way round. Consequences: the A10 face/link identification is NOT closed; LinkJoin's faceEquivLink and linkHom are true as stated but transport the two-subset action, so they are not the rotation action on the coordinate links; and the character sums 72/288/144 in this section are sums for the two-subset representation, which any downstream physical reading of them has to take account of. Three permanent regression controls now record WHY the previous evidence was insufficient: the two characters agree as multisets (char_multiset_collision, which is exactly what the old probe compared) and on the aggregate power sums this bridge reports, sum chi^2 = 72 and sum chi^3 = 288 for both (sum_sq_collision, sum_cube_collision). The two differing classes, 6C2' and 6C4, both have six elements, so the contributions trade places. Those numbers being right is therefore not evidence that the physical representation was right. PARTIALLY ADDRESSED: OIBridge/QuarterTurn.lean now builds the CORRECT six-link action -- S4 by conjugation on its six four-cycles -- and character_gate confirms its character is (6,0,2,0,2), so SM:T-7 no longer needs the face model at all. What is still open is this section's own reading: Cubic.rho and its 72/288/144 sums remain statements about the two-subset representation, and any downstream physical use of finrank_commutant = 3 or finrank_hom_end = 12 as LINK-representation facts must be re-established against QuarterTurn.linkAct. The 144 broken-sector contraction in particular has NOT been checked for invariance under the T1/T2 swap."
+    }
+  ],
+  "backlog_policy": "LEAN-FIRST. Every established canonical mathematical result is a kernel-formalization target by default. GAP IS A BACKLOG STATE AND NOT AN ACCEPTABLE TERMINAL VERIFICATION STATE. An exception requires a RECORDED REASON -- empirical input, an external literature premise, a physical assumption, or a formal library result that does not yet exist -- and even then Lean should prove the implication FROM that premise wherever possible: A_1 and ... and A_n implies the framework conclusion, which is exactly where the framework's own deduction ends and an external assumption begins. Formalization order: central OI/equivalence chain, foundational OI lemmas, existing ROADMAP gaps, reconstruction/representation, comb/locality, GR/SM deductions, then secondary corollaries and controls. WITHIN each tier take the easy K3 conversions first so coverage rises quickly, but NEVER let that displace a central theorem merely because it is harder. And the probes are preserved after Lean catches up: the standard is Lean theorem PLUS independent executable probe PLUS countercontrols, never Lean instead of probes.",
+  "backlog": [
+    {
+      "rank": 1,
+      "id": "GR:T-d-gauge-completeness-two-branch",
+      "centrality": "medium",
+      "difficulty": "high",
+      "tier": 6,
+      "route": "The two-branch reconstruction: EVERYTHING INTERNAL IS NOW KERNEL-PROVED. twoBranch_of_PiccardClassification (CongruentReconstruction.lean) concludes the two Hamiltonian branches from unitarity, nonzero overlaps, and a single classification premise: translation-congruent, reflection-congruent, or the exceptional six-mode match -- the third refuted by homometricSix_unrealizable. Beneath it, all kernel: phase_coboundary and both reconstruction branches (m >= 3, with m = 0, 1, 2 dispatched), K4-rigidity, orientation coherence, the complete six-mode kill, and Bohr-frequency completeness. The Fourier layer is closed (FrequencyMatching.lean: probabilities determine every frequency amplitude; distinct gaps extract each coefficient line from one spectral identity), m = 2 is closed (the dichotomy: the hyperbola IS the reflection branch), and twoBranch_of_spectral_classification consumes equal probabilities + distinct gaps + a purely SPECTRAL classification. THE PRIMARY AUDIT HAS BEEN EXECUTED (five points; findings in the entry note). Outcome: items 1, 3, 4 match the Claim's needs cleanly; item 5's family formula is confirmed EXACTLY by machine expansion of the printed factorization (probe M12, kernel twins in PiccardBridge.lean), closing the formula layer at kernel level; item 2 (ambient domain) is EQUIVOCAL: the paper's polynomial model is integer-presented and it never explicitly quantifies over real marks, though its symbolic-exponent argument is domain-agnostic and the theorem it completes (Piccard 1939) is a real-Euclidean statement. ROUTE (ii) WAS CHOSEN BY THE OWNER AND ITS MATHEMATICS IS EXECUTED: the scope-transfer theorem and the conditional twoBranch_of_BGClassification are kernel-proved (TurnpikeScopeTransfer.lean; probe twin M13), so the real classification is derived from the INTEGER premise with no interpretive step. AFTER PROMOTION under (i) or (ii): the sole formalization backlog item is the 2007 polynomial classification itself, for K3 (size estimate in the entry note); the manuscript boundary to print is K2 = the two-branch reconstruction theorem is mathematically proved using Bekir-Golomb, K3 = the entire proof, including the classical turnpike classification, is kernel-verified. The five-item audit has been performed; route (ii) is executed; the K2 promotion is EXECUTED: the manuscript prints the theorem with its proof citing Bekir-Golomb for the one classical step, and the entry is graded K2 with the external premise recorded in the delta. Negative lead recorded so it is not re-chased: arXiv 2308.12109 (Masai-McShane, isospectral chord-length configurations in Euclidean/hyperbolic geometry) was checked and is NOT the quoting treatment -- it discusses homometric examples and cites Bloom, but carries no Bekir-Golomb theorem statement usable for the primary-source gate. MANUSCRIPT BOUNDARY to preserve at promotion: K2 = the two-branch reconstruction theorem is mathematically proved, using Bekir-Golomb for the one classical turnpike classification step; K3 = the entire proof, including that classification, is kernel-verified."
+    }
+  ],
+  "backlog_tiers": {
+    "1": "central OI / equivalence chain",
+    "2": "foundational OI lemmas",
+    "3": "existing ROADMAP gaps (A5-B22, B3, A9, B3 dispersion)",
+    "4": "reconstruction / representation",
+    "5": "comb / locality",
+    "6": "GR / SM deductions",
+    "7": "secondary corollaries and controls"
+  }
+}

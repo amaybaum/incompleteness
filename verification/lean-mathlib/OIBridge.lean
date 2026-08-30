@@ -17,71 +17,75 @@
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
+import OIBridge.Averaging
 import Mathlib.RepresentationTheory.Invariants
 import Mathlib.RepresentationTheory.Character
+import Mathlib.RepresentationTheory.Subrepresentation
 import Mathlib.LinearAlgebra.Trace
 import Mathlib.LinearAlgebra.Matrix.Permutation
 import Mathlib.LinearAlgebra.Matrix.ToLin
 import Mathlib.GroupTheory.Perm.Fin
 
+-- The lake library's root is this file, so a module the root does not import is never built and
+-- never gated. `OIBridge.CombRealization` carries b446's saturated-class lemma and
+-- `OIBridge.EquivalenceChain` carries b448's Tier-1 closures from Main §2.3, §3.1 and §3.2,
+-- `OIBridge.FiniteEntropy` the finite Shannon layer Mathlib does not have,
+-- `OIBridge.HiddenMemory` the unavoidable-hidden-predictive-memory theorem,
+-- `OIBridge.Equivalence` the finite-horizon stochastic/reversible/unitary equivalence,
+-- `OIBridge.C3Necessity` the C3 capacity theorem, `OIBridge.CanonicalMeasure` Lemma 3's
+-- selected measure, `OIBridge.Finiteness` Lemma 1's conditional finiteness, and `OIBridge.CubicIsotropy`
+-- [SM] Corollary 1a, and `OIBridge.IdempotentTrace` the trace-of-restriction lemma
+-- Theorem 7 was blocked on, `OIBridge.FactorUniqueness` the factor-uniqueness lemma
+-- [Structure] Proposition 9.7a was blocked on and `OIBridge.KrausUniqueness` that
+-- proposition itself and `OIBridge.StinespringUniqueness` its dilation counterpart 9.7b,
+-- `OIBridge.WeylTwirl` the symplectic layer of [Main]'s separability threshold and
+-- `OIBridge.Separability` its entanglement layer and `OIBridge.WeylLift` the
+-- multiplicative lift and the character projectors that carry both its directions,
+-- `OIBridge.BoundaryRank` [Main] Lemma 1, `OIBridge.Reciprocity` [SM] Theorem 19, `OIBridge.GaugeDimension` [SM] Theorem 16,
+-- `OIBridge.BohrFrequency` [GR]'s Bohr-frequency completeness,
+-- `OIBridge.TasteBranching` [SM] Theorem 8,
+-- `OIBridge.Irreducibility` the implication from the
+-- endomorphism dimension to irreducibility that Mathlib carries only for algebraically
+-- closed fields, `OIBridge.LinkDecomposition` that theorem's six-link
+-- decomposition and `OIBridge.QuarterTurn` the cubic rotation group it decomposes under;
+-- none has anything
+-- to do with the representation theory below. The imports are here for exactly one reason, and
+-- that reason is the gate — `coverage_check.py` enforces it.
+import OIBridge.CombRealization
+import OIBridge.EquivalenceChain
+import OIBridge.FiniteEntropy
+import OIBridge.HiddenMemory
+import OIBridge.Equivalence
+import OIBridge.C3Necessity
+import OIBridge.CanonicalMeasure
+import OIBridge.Finiteness
+import OIBridge.CubicIsotropy
+import OIBridge.FactorUniqueness
+import OIBridge.IdempotentTrace
+import OIBridge.Irreducibility
+import OIBridge.KrausUniqueness
+import OIBridge.StinespringUniqueness
+import OIBridge.Separability
+import OIBridge.WeylTwirl
+import OIBridge.WeylLift
+import OIBridge.BoundaryRank
+import OIBridge.Reciprocity
+import OIBridge.GaugeDimension
+import OIBridge.BohrFrequency
+import OIBridge.FrequencyMatching
+import OIBridge.PiccardBridge
+import OIBridge.TasteBranching
+import OIBridge.EdgeRigidity
+import OIBridge.HomometricSix
+import OIBridge.HomometricKill
+import OIBridge.CongruentReconstruction
+import OIBridge.TurnpikeScopeTransfer
+import OIBridge.LinkDecomposition
+import OIBridge.QuarterTurn
+
 namespace OIBridge
 
 open LinearMap Representation
-
-/- `Module.Finite k V` is retained deliberately, and Lean's unused-variable linter is
-correspondingly silenced here rather than the hypothesis dropped. The identity does hold
-without it, but only degenerately: for a module that is not finite and free both
-`Module.finrank` and `LinearMap.trace` take junk values of zero, so the statement reduces to
-`0 = 0` and asserts nothing. Finite-dimensionality is what makes it a theorem about
-dimensions, which is the only reading the counting layer can use. -/
-set_option linter.unusedSectionVars false
-
-/- The group order is written `Nat.card G`, matching the Mathlib statements these derive
-from. `Fintype.card` would read more naturally beside the core layer's integer sums, but the
-two are different *instances* of `Invertible` even though they are propositionally equal, and
-carrying the mismatch would mean converting at every use site for no gain. -/
-variable {k G V : Type*} [Field k] [Group G] [Fintype G]
-  [AddCommGroup V] [Module k V] [Module.Finite k V]
-  [Invertible (Nat.card G : k)]
-
-/-! ### The averaging identity is Mathlib's, not this file's
-
-An earlier version of this file proved
-
-    (Fintype.card G) * finrank k (invariants ρ) = ∑ g, ρ.character g
-
-from `isProj_averageMap` and `LinearMap.IsProj.trace`, and the roadmap described it as the one
-classical identity the layer had to supply. That was wrong: Mathlib already carries exactly
-this result, by exactly that proof, as
-
-    Representation.card_inv_mul_sum_char_eq_finrank :
-      (Nat.card G : k)⁻¹ * ∑ g : G, ρ.character g = finrank k (invariants ρ)
-
-in `Mathlib/RepresentationTheory/Character.lean`. The reconstruction was sound but redundant —
-the pieces were checked and the assembled statement was not. What follows therefore *derives*
-the multiplied form from Mathlib's, rather than reproving it, so the file states only what it
-actually adds: the identity in the shape the counting layer consumes, with the group order on
-the left instead of an inverse on the right. -/
-
-/-- **§A1, restated.** The group order times the dimension of the invariant subspace equals
-the character sum. This is `Representation.card_inv_mul_sum_char_eq_finrank` with the
-inverse cleared, which is the form the kernel-checked sums of the core layer are in:
-`72 = 24 · 3`, `288 = 24 · 12`, `144 = 24 · 6`, `384 = 384 · 1` against `192 = 96 · 2`. -/
-theorem card_mul_finrank_invariants (ρ : Representation k G V) :
-    (Nat.card G : k) * (Module.finrank k (invariants ρ) : k) = ∑ g : G, ρ.character g := by
-  rw [← ρ.card_inv_mul_sum_char_eq_finrank, ← mul_assoc, mul_inv_cancel₀, one_mul]
-  exact Invertible.ne_zero _
-
-/-- The dimension of the space of equivariant maps, which is what the counting layer's
-`72 / 288 / 144` actually measure. Mathlib supplies this too — it is the engine behind §A5
-and §B1, and no part of it needed building here. -/
-theorem finrank_intertwiners {W : Type*} [AddCommGroup W] [Module k W] [Module.Finite k W]
-    (ρ : Representation k G V) (σ : Representation k G W) :
-    (Nat.card G : k) * (Module.finrank k (IntertwiningMap ρ σ) : k)
-      = ∑ g : G, σ.character g * ρ.character g⁻¹ := by
-  rw [← Representation.card_inv_mul_sum_char_mul_char_eq_finrank ρ σ, ← mul_assoc,
-    mul_inv_cancel₀, one_mul]
-  exact Invertible.ne_zero _
 
 /-! ## §A10 — the cubic representation, and §A5's first quotient read off it
 
@@ -147,11 +151,10 @@ noncomputable def rho : Representation ℚ (Perm (Fin 4)) (Face → ℚ) where
   toFun g := (Equiv.Perm.permMatrix ℚ (actHom g⁻¹)).toLin'
   map_one' := by
     ext v x
-    simp [Matrix.toLin'_apply, Matrix.permMatrix_mulVec, Function.comp]
+    simp [Function.comp]
   map_mul' g h := by
     ext v x
-    simp [Matrix.toLin'_apply, Matrix.permMatrix_mulVec, Function.comp, mul_inv_rev,
-      map_mul, Perm.mul_apply]
+    simp [Function.comp, mul_inv_rev, map_mul]
 
 /-- The faces fixed by `g`, as a `Finset`. Phrased on `g⁻¹` to match `rho`, which carries the
 inverse to get the homomorphism direction right; summed over the whole group the distinction is
@@ -365,5 +368,327 @@ round of its own. The mirror already certifies the answer: an exact rank on the 
 system gives 6, with a one-generator control at 68. -/
 
 end Cubic
+
+/-! ## The two-subset model is NOT the six-link representation
+
+**A defect in this section, found by formalizing [SM] Theorem 7, and recorded here rather than
+repaired in passing.**
+
+`Cubic.rho` is the permutation representation of `S₄` on the six two-element subsets of the four
+body diagonals, and its header describes those as "the six faces of the cube". They are not. A face
+of the cube contains one endpoint of every body diagonal, so it determines no two-element subset of
+them; the six two-element subsets are the six pairs of opposite EDGES.
+
+The consequence is exactly the failure mode a multiplicity count cannot see. Both representations
+have character multiset `{6, 2×9, 0×14}`, so comparing multisets — which is what
+`representation_bridge_probe.py` did, and all that the "identification is checked in the probe"
+note ever claimed — cannot tell them apart. As CLASS FUNCTIONS they differ:
+
+    class            E   8C₃  3C₂  6C₂'  6C₄
+    two-subsets      6    0    2    2     0     =  A₁ ⊕ E ⊕ T₂
+    six links        6    0    2    0     2     =  A₁ ⊕ E ⊕ T₁   ([SM] Theorem 7's proof line)
+
+so `Cubic.rho` carries `T₂` where the six links carry `T₁` — the two three-dimensional irreducibles,
+swapped. `char_two_subset_ne_link` below states the discrepancy as a theorem so it cannot be
+mislaid again.
+
+The six links are instead the coset space `S₄/C₄`: the stabilizer of `+e₃` in the rotation group is
+the four-fold rotation about that axis. This section's own note records the coset action as an
+"earlier candidate control, rejected because it has the same character and so discriminates
+nothing" — the same multiset collision, read the wrong way round. It is the correct model, and
+`OIBridge/QuarterTurn.lean` now builds it: `S₄` acting by conjugation on its six four-cycles, whose
+fixed-link character `character_gate` computes to be exactly `(6, 0, 2, 0, 2)`.
+
+WHAT FOLLOWS IS THEREFORE NOT THE ROTATION ACTION ON THE COORDINATE LINKS. `faceEquivLink` is a
+complement-preserving bijection of six-element sets and `linkHom` is a faithful action of `S₄` by
+symmetries of the link set — both true as stated — but the action it transports is the two-subset
+one, so it realizes `T₂` and not `T₁`. It is kept because it is correct as stated and because the
+padding lemmas around it are reusable; it does NOT close the A10 face/link debt, and nothing here
+should be read as the six-link representation of [SM] Theorem 7. -/
+
+namespace LinkJoin
+
+open Equiv OIBridge.LinkDecomposition
+
+/-- The face opposite to a given one. -/
+def op (F : Cubic.Face) : Cubic.Face :=
+  ⟨F.1ᶜ, by rw [Finset.card_compl, F.2]; rfl⟩
+
+/-- The six faces as the six links: outward normals, with opposite faces antipodal. -/
+def faceToLink (F : Cubic.Face) : Link :=
+  if 0 ∈ F.1 then
+    (if 1 ∈ F.1 then (0, false) else if 2 ∈ F.1 then (1, false) else (2, false))
+  else
+    (if 1 ∈ F.1 then (if 2 ∈ F.1 then (2, true) else (1, true)) else (0, true))
+
+/-- Its inverse, given explicitly so the equivalence stays computable and `decide` can run. -/
+def linkToFace (l : Link) : Cubic.Face :=
+  if l.1 = 0 then (if l.2 then ⟨{2, 3}, by decide⟩ else ⟨{0, 1}, by decide⟩)
+  else if l.1 = 1 then (if l.2 then ⟨{1, 3}, by decide⟩ else ⟨{0, 2}, by decide⟩)
+  else (if l.2 then ⟨{1, 2}, by decide⟩ else ⟨{0, 3}, by decide⟩)
+
+/-- **The six faces are the six links.** -/
+def faceEquivLink : Cubic.Face ≃ Link :=
+  ⟨faceToLink, linkToFace, by decide, by decide⟩
+
+/-- **The equivalence is complement-preserving**: opposite faces are antipodal links. This is the
+property the whole join turns on. -/
+theorem faceEquivLink_op (F : Cubic.Face) : faceEquivLink (op F) = anti (faceEquivLink F) := by
+  revert F; decide
+
+/-- The face action commutes with taking the opposite face, because a bijection of the four
+diagonals commutes with complementation. -/
+theorem act_op (g : Perm (Fin 4)) (F : Cubic.Face) :
+    Cubic.act g (op F) = op (Cubic.act g F) := by
+  refine Subtype.ext ?_
+  show (F.1ᶜ).map g.toEmbedding = (F.1.map g.toEmbedding)ᶜ
+  ext x
+  simp only [Finset.mem_map, Finset.mem_compl, Equiv.coe_toEmbedding]
+  constructor
+  · rintro ⟨a, ha, rfl⟩ hc
+    obtain ⟨b, hb, hbx⟩ := hc
+    exact ha (by rwa [← g.injective hbx])
+  · intro hx
+    refine ⟨g.symm x, fun hc => hx ⟨g.symm x, hc, by simp⟩, by simp⟩
+
+/-- The two-subset action, transported to the link set. A faithful action of `S₄` of order 24 by
+symmetries of the link set — but the TWO-SUBSET one, realizing `T₂`, not the rotation action on the
+coordinate links. See the section header. -/
+def linkHom : Perm (Fin 4) →* Perm Link where
+  toFun g := (faceEquivLink.symm.trans (Cubic.actHom g)).trans faceEquivLink
+  map_one' := by
+    refine Equiv.ext fun l => ?_
+    simp [map_one]
+  map_mul' g h := by
+    refine Equiv.ext fun l => ?_
+    simp [map_mul, Equiv.Perm.mul_apply]
+
+theorem linkHom_apply (g : Perm (Fin 4)) (l : Link) :
+    linkHom g l = faceEquivLink (Cubic.act g (faceEquivLink.symm l)) := rfl
+
+/-- **Every rotation is a symmetry of the link set.** Complement-preservation of the bijection plus
+`act_op` gives it directly, with no enumeration over the group. This is what makes
+`LinkDecomposition`'s three projectors invariant under the genuine `S₄` action. -/
+theorem sym_linkHom (g : Perm (Fin 4)) : Sym (linkHom g) := by
+  intro l
+  have hl : faceEquivLink.symm (anti l) = op (faceEquivLink.symm l) := by
+    refine faceEquivLink.injective ?_
+    rw [Equiv.apply_symm_apply, faceEquivLink_op, Equiv.apply_symm_apply]
+  rw [linkHom_apply, linkHom_apply, hl, act_op, faceEquivLink_op]
+
+/- The face action of `S₄` is faithful, decided over the 576 pairs. The recursion limit is raised
+for the same reason as elsewhere in this file: it bounds the evaluator's depth, not the trusted
+base, and `native_decide` is deliberately never used in this project. -/
+set_option maxRecDepth 40000 in
+theorem act_injective : Function.Injective Cubic.act := by decide
+
+/-- The action is faithful, so its image really is a 24-element group of link symmetries. -/
+theorem linkHom_injective : Function.Injective linkHom := by
+  intro g h hgh
+  refine act_injective (Equiv.ext fun F => faceEquivLink.injective ?_)
+  have := congrArg (fun σ => σ (faceEquivLink F)) hgh
+  simpa [linkHom_apply, Equiv.symm_apply_apply] using this
+
+/-! ### The transported representation
+
+`permOp` acts by precomposition and so reverses composition order (`LinkDecomposition.permOp_mul`),
+so the representation carries the INVERSE. That orientation is explicit rather than implicit: every
+character here satisfies `χ(g⁻¹) = χ(g)`, so every numeric consequence would come out right even
+with the orientation wrong, and only a pointwise statement would notice.
+
+This is the two-subset representation read on the link set, `A₁ ⊕ E ⊕ T₂`. The decomposition
+machinery below applies to it verbatim — the projectors do not know which action they commute with
+— but the three-dimensional summand here is `T₂`. -/
+
+/-- The transported representation. NOT [SM] Theorem 7's `V₆`; see the section header. -/
+noncomputable def rhoLink : Representation ℚ (Perm (Fin 4)) LV where
+  toFun g := permOp (linkHom g⁻¹)
+  map_one' := by rw [inv_one, map_one, permOp_one]; rfl
+  map_mul' g h := by
+    rw [mul_inv_rev, map_mul, permOp_mul]
+    rfl
+
+theorem rhoLink_apply (g : Perm (Fin 4)) : rhoLink g = permOp (linkHom g⁻¹) := rfl
+
+/-- Its character is the fixed-link count, through `trace_permOp`. -/
+theorem character_rhoLink (g : Perm (Fin 4)) :
+    rhoLink.character g
+      = ((Finset.univ.filter fun l => linkHom g⁻¹ l = l).card : ℚ) := by
+  rw [Representation.character, rhoLink_apply, trace_permOp]
+
+/-- The three projectors commute with the representation, so all three images are
+SUBREPRESENTATIONS and not merely invariant subspaces of a monoid action. -/
+theorem rhoLink_comm_PT (g : Perm (Fin 4)) : rhoLink g ∘ₗ PT = PT ∘ₗ rhoLink g :=
+  permOp_comp_PT (sym_linkHom g⁻¹)
+
+theorem rhoLink_comm_PE (g : Perm (Fin 4)) : rhoLink g ∘ₗ PE = PE ∘ₗ rhoLink g :=
+  permOp_comp_PE (sym_linkHom g⁻¹)
+
+theorem rhoLink_comm_PA (g : Perm (Fin 4)) : rhoLink g ∘ₗ PA = PA ∘ₗ rhoLink g :=
+  permOp_comp_PA (linkHom g⁻¹)
+
+/-- **The character of a summand is the restricted trace**, through
+`IdempotentTrace.trace_restrict_range`. This is the join between the infrastructure lemma and the
+representation: the left side is a genuine character of a subrepresentation, the right side is
+computable from fixed-point counts by `charOn_PT` and `charOn_PA`. -/
+theorem character_restrict_PT (g : Perm (Fin 4)) :
+    LinearMap.trace ℚ (LinearMap.range PT)
+        ((rhoLink g).restrict (IdempotentTrace.mapsTo_range (rhoLink_comm_PT g)))
+      = charOn PT (linkHom g⁻¹) :=
+  IdempotentTrace.trace_restrict_range PT_idem (rhoLink_comm_PT g)
+
+theorem character_restrict_PE (g : Perm (Fin 4)) :
+    LinearMap.trace ℚ (LinearMap.range PE)
+        ((rhoLink g).restrict (IdempotentTrace.mapsTo_range (rhoLink_comm_PE g)))
+      = charOn PE (linkHom g⁻¹) :=
+  IdempotentTrace.trace_restrict_range PE_idem (rhoLink_comm_PE g)
+
+theorem character_restrict_PA (g : Perm (Fin 4)) :
+    LinearMap.trace ℚ (LinearMap.range PA)
+        ((rhoLink g).restrict (IdempotentTrace.mapsTo_range (rhoLink_comm_PA g)))
+      = charOn PA (linkHom g⁻¹) :=
+  IdempotentTrace.trace_restrict_range PA_comp_PA (rhoLink_comm_PA g)
+
+/-- The one-dimensional summand is the TRIVIAL representation `A₁`: its character is constantly
+one, at every rotation. -/
+theorem character_PA_eq_one (g : Perm (Fin 4)) :
+    LinearMap.trace ℚ (LinearMap.range PA)
+        ((rhoLink g).restrict (IdempotentTrace.mapsTo_range (rhoLink_comm_PA g))) = 1 := by
+  rw [character_restrict_PA, charOn_PA]
+
+/-- The three characters sum to the character of `V₆`, at every rotation. -/
+theorem character_sum (g : Perm (Fin 4)) :
+    charOn PT (linkHom g⁻¹) + charOn PE (linkHom g⁻¹) + charOn PA (linkHom g⁻¹)
+      = rhoLink.character g := by
+  rw [Representation.character, rhoLink_apply, charOn_sum]
+
+/-! ### The three summands as honest subrepresentations
+
+Up to here the three images were invariant submodules and the "characters" were restricted traces.
+Mathlib's `Subrepresentation` bundles the submodule with its invariance and `toRepresentation`
+turns it into a genuine `Representation` whose action is exactly that restricted map — so the join
+theorems below are statements about `Representation.character`, not about a trace that resembles
+one. This also makes `finrank_intertwiners` applicable to the summands directly, which is what the
+irreducibility step needs. -/
+
+/-- The three-dimensional summand, as a subrepresentation. -/
+noncomputable def Tsub : Subrepresentation rhoLink where
+  toSubmodule := LinearMap.range PT
+  apply_mem_toSubmodule g _ hv := IdempotentTrace.mapsTo_range (rhoLink_comm_PT g) _ hv
+
+/-- The two-dimensional summand. -/
+noncomputable def Esub : Subrepresentation rhoLink where
+  toSubmodule := LinearMap.range PE
+  apply_mem_toSubmodule g _ hv := IdempotentTrace.mapsTo_range (rhoLink_comm_PE g) _ hv
+
+/-- The one-dimensional summand. -/
+noncomputable def Asub : Subrepresentation rhoLink where
+  toSubmodule := LinearMap.range PA
+  apply_mem_toSubmodule g _ hv := IdempotentTrace.mapsTo_range (rhoLink_comm_PA g) _ hv
+
+noncomputable def rhoT : Representation ℚ (Perm (Fin 4)) Tsub.toSubmodule := Tsub.toRepresentation
+noncomputable def rhoE : Representation ℚ (Perm (Fin 4)) Esub.toSubmodule := Esub.toRepresentation
+noncomputable def rhoA : Representation ℚ (Perm (Fin 4)) Asub.toSubmodule := Asub.toRepresentation
+
+/-- **The join, at the level of characters of representations.** Each summand's character is
+`charOn`, which `charOn_PT` and `charOn_PA` compute from fixed-point counts. The bridge from the
+left side to the right is `IdempotentTrace.trace_restrict_range`. -/
+theorem character_rhoT (g : Perm (Fin 4)) : rhoT.character g = charOn PT (linkHom g⁻¹) :=
+  IdempotentTrace.trace_restrict_range PT_idem (rhoLink_comm_PT g)
+
+theorem character_rhoE (g : Perm (Fin 4)) : rhoE.character g = charOn PE (linkHom g⁻¹) :=
+  IdempotentTrace.trace_restrict_range PE_idem (rhoLink_comm_PE g)
+
+theorem character_rhoA (g : Perm (Fin 4)) : rhoA.character g = charOn PA (linkHom g⁻¹) :=
+  IdempotentTrace.trace_restrict_range PA_comp_PA (rhoLink_comm_PA g)
+
+/-- **The one-dimensional summand is the trivial representation `A₁`**, now as a statement about a
+representation's character rather than a restricted trace. -/
+theorem character_rhoA_eq_one (g : Perm (Fin 4)) : rhoA.character g = 1 := by
+  rw [character_rhoA, charOn_PA]
+
+/-- The three characters decompose the character of `V₆`. -/
+theorem character_rhoLink_eq_sum (g : Perm (Fin 4)) :
+    rhoLink.character g = rhoT.character g + rhoE.character g + rhoA.character g := by
+  rw [character_rhoT, character_rhoE, character_rhoA, character_sum]
+
+/-! ### The discrepancy, as a theorem
+
+Stated so it cannot be mislaid again: the two-subset character and the six-link character of [SM]
+Theorem 7's proof line agree in multiset and differ as class functions, at the transpositions and
+the four-fold rotations. -/
+
+/-- Fixed two-element subsets of the four diagonals: the character of `Cubic.rho`, and of the
+action transported to the links. -/
+def fixTwoSub (g : Perm (Fin 4)) : ℕ := (Finset.univ.filter fun l => linkHom g l = l).card
+
+/-- **The character of `V₆`**: `6` at the identity, `0` on `8C₃`, `2` on `3C₂`, `0` on `6C₂'`, `2`
+on `6C₄`, which is [SM] Theorem 7's own proof line.
+
+No longer a transcription. `OIBridge.QuarterTurn.character_gate` proves it is the fixed-link
+character of the cubic rotation action, built there from conjugation on the six quarter turns. -/
+abbrev chiLinkTable : Perm (Fin 4) → ℤ := QuarterTurn.chiLink
+
+set_option maxRecDepth 40000 in
+/-- **`Cubic.rho` is not the six-link representation.** The transposition `(0 1)` is a `6C₂'`
+rotation, where the manuscript's character is `0` and the two-subset character is `2`; the
+four-fold class is the mirror image. -/
+theorem char_two_subset_ne_link :
+    ∃ g : Perm (Fin 4), (fixTwoSub g : ℤ) ≠ chiLinkTable g := by
+  refine ⟨Equiv.swap 0 1, ?_⟩
+  decide
+
+/-! ### Why the previous evidence could not have caught this
+
+Three permanent regression controls. The two characters agree as MULTISETS, and they agree on the
+aggregate power sums this bridge reports — so neither the old multiset comparison nor the character
+sums `72` and `288` could ever have distinguished them. The two classes where they differ, `6C₂'`
+and `6C₄`, both have six elements, so the contributions simply trade places. -/
+
+set_option maxRecDepth 100000 in
+/-- The two characters take the same values with the same multiplicities. This is exactly what
+`representation_bridge_probe.py` compared, and it is why that comparison was silent. -/
+theorem char_multiset_collision :
+    (Finset.univ.val.map fun g : Perm (Fin 4) => (fixTwoSub g : ℤ))
+      = (Finset.univ.val.map fun g : Perm (Fin 4) => chiLinkTable g) := by decide
+
+set_option maxRecDepth 100000 in
+/-- The `Σχ² = 72` certificate cannot distinguish them either. -/
+theorem sum_sq_collision :
+    (∑ g : Perm (Fin 4), (fixTwoSub g : ℤ) ^ 2) = 72 ∧
+      (∑ g : Perm (Fin 4), chiLinkTable g ^ 2) = 72 := by
+  refine ⟨by decide, by decide⟩
+
+set_option maxRecDepth 100000 in
+/-- Nor can `Σχ³ = 288`. -/
+theorem sum_cube_collision :
+    (∑ g : Perm (Fin 4), (fixTwoSub g : ℤ) ^ 3) = 288 ∧
+      (∑ g : Perm (Fin 4), chiLinkTable g ^ 3) = 288 := by
+  refine ⟨by decide, by decide⟩
+
+/-! ### What these proofs rest on -/
+
+#print axioms LinkJoin.char_two_subset_ne_link
+#print axioms LinkJoin.char_multiset_collision
+#print axioms LinkJoin.sum_sq_collision
+#print axioms LinkJoin.sum_cube_collision
+#print axioms LinkJoin.faceEquivLink_op
+#print axioms LinkJoin.act_op
+#print axioms LinkJoin.sym_linkHom
+#print axioms LinkJoin.act_injective
+#print axioms LinkJoin.linkHom_injective
+#print axioms LinkJoin.character_rhoLink
+#print axioms LinkJoin.rhoLink_comm_PT
+#print axioms LinkJoin.character_restrict_PT
+#print axioms LinkJoin.character_PA_eq_one
+#print axioms LinkJoin.character_sum
+#print axioms LinkJoin.character_rhoT
+#print axioms LinkJoin.character_rhoE
+#print axioms LinkJoin.character_rhoA
+#print axioms LinkJoin.character_rhoA_eq_one
+#print axioms LinkJoin.character_rhoLink_eq_sum
+
+end LinkJoin
+
 
 end OIBridge
