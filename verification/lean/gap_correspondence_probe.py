@@ -59,6 +59,16 @@ homometric mu is killed by explicit polynomial identities, not by genericity.
       pairs (the printed pair among them) is full-rank. This is outcome one of the
       programme's trichotomy: no exceptional modulus strata in the enumerable range, so the
       universal statement stays the target and no block-decomposition theorem is needed yet.
+  M10 THE ORBIT CENSUS: under source/target vertex relabeling, ALL census correspondences --
+      the printed mu, its inverse, and every other of the 136 -- form a SINGLE orbit, whose
+      exact realization space {(E, E') : E'_d - E'_c = E_b - E_a on all 15 edges} has
+      dimension 4 = two translations + TWO genuine parameters. This is the known continuous
+      two-parameter six-mark family (Gilbert-Postpischil 1994 give its two-dimensional
+      geometric model; Bekir-Golomb 2007 prove no further counterexamples to Piccard exist),
+      re-derived here independently. Because the entire kill chain (M3-M7) consumes only mu's
+      combinatorics and relabeling is a symmetry of every stage, the kernel-proved flat_locus
+      and clique obstruction of OIBridge/HomometricSix.lean apply VERBATIM to the whole
+      family -- the parameters u, v never enter the coefficient reconstruction.
 
 Usage:  python3 gap_correspondence_probe.py
 """
@@ -617,6 +627,91 @@ check("M9", ok9,
       f"exactly: the pulled-back K4 exponent relations always cut the modulus locus down to "
       f"the flat row alone. Outcome one of the trichotomy: no exceptional modulus strata, the "
       f"universal two-branch statement stays the target")
+
+# ---------------------------------------------------------------- M10  the orbit census
+EDGES6 = list(itertools.combinations(range(6), 2))
+
+
+def forced_mu6(Aa, Bb):
+    gB = {}
+    for cc, dd in itertools.combinations(range(6), 2):
+        gB[Bb[dd] - Bb[cc]] = (cc, dd)
+    return {(a, b): gB[Aa[b] - Aa[a]] for a, b in itertools.combinations(range(6), 2)}
+
+
+def induced_tau6(g):
+    tau = [None] * 6
+    for v in range(6):
+        s1 = set(g[tuple(sorted((v, (v + 1) % 6)))])
+        s2 = set(g[tuple(sorted((v, (v + 2) % 6)))])
+        common = s1 & s2
+        if len(common) != 1:
+            return None
+        tau[v] = common.pop()
+    if len(set(tau)) != 6:
+        return None
+    for e in EDGES6:
+        if tuple(sorted(g[e])) != tuple(sorted((tau[e[0]], tau[e[1]]))):
+            return None
+    return tuple(tau)
+
+
+def conjugate6(mua, mub):
+    mu_u = {e: tuple(sorted(mua[e])) for e in EDGES6}
+    nu_u = {e: tuple(sorted(mub[e])) for e in EDGES6}
+    for sigma in itertools.permutations(range(6)):
+        g = {}
+        ok = True
+        for e in EDGES6:
+            se = tuple(sorted((sigma[e[0]], sigma[e[1]])))
+            key = mu_u[e]
+            val = nu_u[se]
+            if key in g and g[key] != val:
+                ok = False
+                break
+            g[key] = val
+        if not ok or len(set(g.values())) != 15:
+            continue
+        if induced_tau6(g) is not None:
+            return True
+    return False
+
+
+all_mus = []
+for X, Y, _ in census[6]:
+    all_mus.append(((X, Y), forced_mu6(X, Y)))
+orbits = []
+for pair, mm in all_mus:
+    for orb in orbits:
+        if conjugate6(orb[1], mm):
+            orb[2].append(pair)
+            break
+    else:
+        orbits.append([pair, mm, [pair]])
+printed_mu = forced_mu6(tuple(R1), tuple(R2))
+inv_printed = {tuple(sorted(v)): k for k, v in printed_mu.items()}
+ok10 = len(orbits) == 1 and len(orbits[0][2]) == 136
+ok10 &= conjugate6(orbits[0][1], printed_mu)
+ok10 &= conjugate6(orbits[0][1], inv_printed)
+# realization space of the orbit: E'_d - E'_c = E_b - E_a on all 15 edges
+rl_rows = []
+for (a, b), (c, d) in printed_mu.items():
+    row = [0] * 12
+    row[a] += 1
+    row[b] -= 1
+    row[6 + c] -= 1
+    row[6 + d] += 1
+    rl_rows.append(row)
+real_dim = len(nullspace(rl_rows))
+ok10 &= real_dim == 4
+check("M10", ok10,
+      f"THE ORBIT CENSUS: under source/target vertex relabeling all {len(all_mus)} census "
+      f"correspondences form {len(orbits)} orbit(s); the printed mu AND its inverse lie in it. "
+      f"Its exact realization space has dimension {real_dim} = 2 translations + 2 genuine "
+      f"parameters -- the known continuous two-parameter six-mark family, re-derived "
+      f"independently. The kill chain consumes only mu's combinatorics and relabeling is a "
+      f"symmetry of every stage, so the kernel-proved flat_locus and clique obstruction apply "
+      f"verbatim across the entire family: u, v never enter the coefficient reconstruction")
 
 print()
 print('     [scope] Settled exactly, at probe level: (i) n = 4 -- every labeled correspondence')

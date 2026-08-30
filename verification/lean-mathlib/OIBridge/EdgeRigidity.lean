@@ -26,11 +26,15 @@
   vertex permutation — so the bound n ≥ 5 in `k4_rigidity` is sharp, and the proof step that uses
   it (a fourth fresh vertex) is the exact point where n = 4 escapes.
 
-  ORIENTATION IS DELIBERATELY ABSENT. Moduli are blind to the direction of a pair — p_a p_b is
-  symmetric — so the modulus layer lives on unordered edges, and a directed correspondence with
-  μ(b,a) = rev μ(a,b) enters through its unordered quotient. Distinguishing the relabeling branch
-  from the reversal branch (and excluding mixed orientations) is phase-level information, outside
-  this file's scope.
+  ORIENTATION ENTERS ONLY AT THE LAST STEP. Moduli are blind to the direction of a pair — p_a p_b
+  is symmetric — so the modulus layer lives on unordered edges, and a directed correspondence with
+  μ(b,a) = rev μ(a,b) enters through its unordered quotient. What remains once the unordered map
+  is pinned to a vertex permutation is closed by `orientation_coherence` at the end of this file:
+  frequency preservation on triangles (the telescoping Δ_ab + Δ_bc = Δ_ac against ε_ab Δ_ab +
+  ε_bc Δ_bc = ε_ac Δ_ac with distinct eigenvalues) forces one GLOBAL sign, so an induced unordered
+  correspondence has exactly two directed lifts — (a,b) ↦ (τa, τb) or (a,b) ↦ (τb, τa) — and
+  mixed per-edge orientations are impossible. Those two lifts are precisely the Claim's two
+  branches at the correspondence level.
 
   PROOF ARCHITECTURE (all elementary, no cardinality bounds beyond the star count):
     1. `exists_mem_inter` — two edges whose images share a vertex must themselves share a vertex:
@@ -54,6 +58,7 @@ import Mathlib.Data.Fintype.Powerset
 import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 import Mathlib.Tactic.Ring
 import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.LinearCombination
 import Mathlib.Tactic.DeriveFintype
 
 namespace OIBridge
@@ -608,11 +613,94 @@ theorem compl4_not_induced :
       compl4 (emk a b hab) = emk (τ a) (τ b) (fun h => hab (τ.injective h)) := by
   decide
 
+section Orientation
+
+variable {K : Type*} [Field K] [LinearOrder K] [IsStrictOrderedRing K]
+
+/-- ORIENTATION COHERENCE. Once the unordered correspondence is induced by a mode permutation τ,
+frequency preservation leaves one sign ε_ab per edge; triangle additivity of gaps forces every
+sign equal, so exactly two directed lifts exist — global preservation or global reversal. Mixed
+per-edge orientations are impossible. The hypotheses: eigenvalues distinct (`hE`), each edge
+carries a sign (`hε`), and the lifted gap matches the source gap up to that sign (`hf`). -/
+theorem orientation_coherence (E E' : Fin n → K) (hE : Function.Injective E)
+    (τ : Fin n ≃ Fin n) (ε : Fin n → Fin n → K)
+    (hε : ∀ a b, a ≠ b → ε a b = 1 ∨ ε a b = -1)
+    (hf : ∀ a b, a ≠ b → E' (τ a) - E' (τ b) = ε a b * (E a - E b)) :
+    (∀ a b, E' (τ a) - E' (τ b) = E a - E b)
+    ∨ (∀ a b, E' (τ a) - E' (τ b) = -(E a - E b)) := by
+  -- the sign is symmetric in its arguments
+  have εsymm : ∀ a b, a ≠ b → ε b a = ε a b := by
+    intro a b hab
+    have h1 := hf a b hab
+    have h2 := hf b a hab.symm
+    have hne : E b - E a ≠ 0 := sub_ne_zero_of_ne (fun h => hab (hE h.symm))
+    have hkey : ε b a * (E b - E a) = ε a b * (E b - E a) := by
+      linear_combination -h2 - h1
+    exact mul_right_cancel₀ hne hkey
+  -- on a triangle, all three signs agree
+  have tri : ∀ a b c, a ≠ b → b ≠ c → a ≠ c → ε a b = ε b c ∧ ε a c = ε a b := by
+    intro a b c hab hbc hac
+    have key : ε a b * (E a - E b) + ε b c * (E b - E c) = ε a c * (E a - E c) := by
+      have h1 := hf a b hab
+      have h2 := hf b c hbc
+      have h3 := hf a c hac
+      linarith
+    rcases hε a b hab with h1 | h1 <;> rcases hε b c hbc with h2 | h2 <;>
+      rcases hε a c hac with h3 | h3 <;>
+      rw [h1, h2, h3] at key <;> rw [h1, h2, h3] <;>
+      refine ⟨?_, ?_⟩ <;>
+      first
+      | rfl
+      | (exfalso; first
+          | exact hab (hE (by linarith))
+          | exact hbc (hE (by linarith))
+          | exact hac (hE (by linarith)))
+  by_cases hn2 : ∃ i j : Fin n, i ≠ j
+  · obtain ⟨i₀, j₀, hij⟩ := hn2
+    -- every sign equals the reference sign ε i₀ j₀
+    have base : ∀ b, b ≠ i₀ → b ≠ j₀ → ε i₀ b = ε i₀ j₀ := fun b hbi hbj =>
+      ((tri i₀ b j₀ (Ne.symm hbi) hbj hij).2).symm
+    have base0 : ∀ b, b ≠ i₀ → ε i₀ b = ε i₀ j₀ := by
+      intro b hbi
+      by_cases hbj : b = j₀
+      · rw [hbj]
+      · exact base b hbi hbj
+    have εconst : ∀ a b, a ≠ b → ε a b = ε i₀ j₀ := by
+      intro a b hab
+      by_cases hai : a = i₀
+      · rw [hai]
+        exact base0 b (fun h => hab (by rw [hai, h]))
+      by_cases hbi : b = i₀
+      · rw [← εsymm a b hab, hbi]
+        exact base0 a (by rw [hbi] at hab; exact fun h => hab h)
+      · have h1 := (tri a b i₀ hab hbi hai).1
+        rw [h1, εsymm i₀ b (Ne.symm hbi)]
+        exact base0 b hbi
+    rcases hε i₀ j₀ hij with hs | hs
+    · left
+      intro a b
+      by_cases hab : a = b
+      · rw [hab]; ring
+      · rw [hf a b hab, εconst a b hab, hs, one_mul]
+    · right
+      intro a b
+      by_cases hab : a = b
+      · rw [hab]; ring
+      · rw [hf a b hab, εconst a b hab, hs, neg_one_mul]
+  · left
+    intro a b
+    push_neg at hn2
+    rw [hn2 a b]
+    ring
+
+end Orientation
+
 #print axioms k4_rigidity
 #print axioms exceptional_relation
 #print axioms induced_preserves
 #print axioms pulledBack_const
 #print axioms compl4_preserves
 #print axioms compl4_not_induced
+#print axioms orientation_coherence
 
 end OIBridge

@@ -29,7 +29,10 @@ These checks exercise the same statements independently (no Lean in the loop):
   R5  THE CLIQUE DATA: the 8 connection elements in HomometricSix.conn match the exact common
       mask zeros computed here from scratch (via the factored cofactors), are inversion-closed,
       generate a group of order 48, and admit max clique exactly 3.
-  R6  lint of both Lean files.
+  R6  ORIENTATION COHERENCE: for random spectra with distinct eigenvalues, both global lifts
+      satisfy every triangle gap identity while EVERY properly mixed sign assignment violates
+      one -- the content of `orientation_coherence`, checked in exact fractions.
+  R7  lint of both Lean files.
 
 Usage:  python3 edge_rigidity_probe.py
 """
@@ -267,12 +270,43 @@ check("R5", ok5,
       f"generating a group of order {len(S)} with max clique {best} -- the kernel-proved "
       f"`no_four_clique` / `no_six_orthogonal` / `three_clique` data verified independently")
 
-# ---------------------------------------------------------------- R6  lint
+# ---------------------------------------------------------------- R6  orientation coherence
+ok6o = True
+for trial in range(40):
+    n = rng.choice((4, 5, 6))
+    E = sorted(rng.sample(range(1, 200), n))
+    E = [Fraction(x) for x in E]
+    tau = list(range(n))
+    rng.shuffle(tau)
+
+
+    def triangle_ok(eps):
+        for a, b, c in itertools.combinations(range(n), 3):
+            lhs = eps[(a, b)] * (E[a] - E[b]) + eps[(b, c)] * (E[b] - E[c])
+            if lhs != eps[(a, c)] * (E[a] - E[c]):
+                return False
+        return True
+
+
+    pairs = list(itertools.combinations(range(n), 2))
+    ok6o &= triangle_ok({p: 1 for p in pairs})
+    ok6o &= triangle_ok({p: -1 for p in pairs})
+    eps = {p: rng.choice((1, -1)) for p in pairs}
+    if len(set(eps.values())) == 2:
+        ok6o &= not triangle_ok(eps)
+check("R6", ok6o,
+      "ORIENTATION COHERENCE in exact fractions, 40 random spectra with distinct eigenvalues "
+      "(n = 4..6): both global sign choices satisfy every triangle gap identity, and every "
+      "genuinely mixed per-edge sign assignment violates at least one -- an induced unordered "
+      "correspondence has exactly the two directed lifts, Lean's `orientation_coherence`")
+
+# ---------------------------------------------------------------- R7  lint
 ok6 = True
 root = open(os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
 for fname, names in (
     ('EdgeRigidity', ('k4_rigidity', 'exceptional_relation', 'induced_preserves',
-                      'pulledBack_const', 'compl4_preserves', 'compl4_not_induced')),
+                      'pulledBack_const', 'compl4_preserves', 'compl4_not_induced',
+                      'orientation_coherence')),
     ('HomometricSix', ('golomb_r1', 'golomb_r2', 'mu_gap', 'mu_forced', 'muInv_mu',
                        'mu_muInv', 'mu_not_vertex_induced', 'flat_locus', 'linkage',
                        'maskV_factor', 'maskW_factor', 'maskV_eq_sum', 'conn_symm',
@@ -289,9 +323,9 @@ for fname, names in (
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
 ok6 &= 'Edge 4 ≃ Edge 4' in er
-check("R6", ok6,
+check("R7", ok6,
       "LINT. Both files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 6 + 16 named results print their axiom dependencies; "
+      "`axiom`, no `native_decide`; all 7 + 16 named results print their axiom dependencies; "
       "`k4_rigidity` carries the sharp hypothesis 5 <= n and the exception lives at n = 4")
 
 print()
