@@ -2109,10 +2109,23 @@
       "fingerprint": "49edbac40239ee5e",
       "area": "sm",
       "assumptions": "the Yang-Mills action on the d-dimensional lattice",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": "K1 TARGET: dimensional bookkeeping."
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/GaugeDimension.lean",
+          "basis": "named",
+          "evidence": "theorem_16"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/gauge_dimension_probe.py",
+          "basis": "named",
+          "evidence": "the balance"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "NOT FORMALIZED BY DEFINING [g] := (3-d)/2, which would kernel-check the notation and nothing else. The physical input is the hypothesis: the action S = (1/4g^2) int d^{d+1}x F^2 is dimensionless, so -2[g] + 2[F] - (d+1) = 0 in mass dimensions, and theorem_16 derives both printed clauses -- [g] = (3-d)/2 and dimensionless iff d = 3 -- from Balance d g 2, with the measure's d+1 and the field strength's 2 visible in the statement. Above it sits the general formula [g] = [F] - (d+1)/2 (coupling_dim_general), of which [F] = 2 is the one instantiation. TWO COUNTERCONTROLS, both kernel-proved: balancing against a d-dimensional measure gives (4-d)/2 (off_by_one), and (4-d)/2 agrees with (3-d)/2 at NO dimension (off_by_one_never_agrees) -- it would even move the dimensionless point to d = 4 -- so the measure exponent is load-bearing. Concrete instances dimensionless_at_three and not_dimensionless_at_four pin the endpoints. The probe mirrors the arithmetic in exact Fractions for d = 0..12 and five field-strength dimensions, confirms the identical bookkeeping gives the standard scalar [phi] = (d-1)/2, and lints that no definition hard-codes the answer. The surrounding prose (renormalizability, asymptotic freedom at d = 3) consists of cited results, not clauses of this theorem, and is not claimed."
     },
     {
       "id": "SM:T-17",
@@ -2165,7 +2178,7 @@
       "line": 621,
       "kind": "Theorem",
       "label": "19",
-      "fingerprint": "bc328464f38b8bc1",
+      "fingerprint": "15482d2e00da0d62",
       "area": "sm",
       "assumptions": "partition preserved by time reversal; counting-measure hidden prior; the symmetric form needs T-even visible states",
       "checks": [
@@ -2184,7 +2197,7 @@
       ],
       "kernel": "K3",
       "delta": "",
-      "note": "AUDITED BEFORE FORMALIZING, and the printed proof is exact -- the two counting maps h |-> theta_H(pi_H phi(i,h)) really are mutually inverse -- with ONE implicit hypothesis surfaced. The proof passes from phi^-1 = T phi T to phi = T phi^-1 T and later cancels T T, and both steps need T to be an INVOLUTION, which 'the induced action of T' supplies physically -- classical time reversal squares to the identity -- but which no clause of the printed statement states. It is not removable: on Z_4 with theta a rotation by one and phi the same rotation, phi^-1 = T phi T holds exactly and the conclusion is false (probe R4). The Lean statement carries the involutivity of both components explicitly. THE STATEMENT, IN FULL. theorem_19 has both printed clauses -- N_ij(n) = N_(theta j, theta i)(n) for every time scale n, and the probability form T_ij(n) = T_(theta j, theta i)(n) as the same equality divided by |H|, which is where the counting-measure prior enters -- and detailed_balance is the theta = id specialization of the same theorem, not a statement with its own hypotheses. 'Partition preserved by time reversal' is the product form T = theta x theta_H, built into the formulation. The visible sector is NOT assumed finite: only the hidden sector is counted over, and the probe's lint enforces that no Fintype V appears. THE T-EVEN SIDE CONDITION, [GR 3.2]'s precision note, is countercontrolled rather than merely stated: probe R2 exhibits a T-invariant substratum -- phi = (3-cycle) x id, theta the transposition (0 1) -- where N_02 = |H| against N_20 = 0, so detailed balance is FALSE off theta = id while the (theta j, theta i) form holds at every n. R1 sweeps every permutation of the substratum at |V| = 3, |H| = 2 and |V| = 2, |H| = 3 against every product-form involution (1216 T-invariant bijections) for n = 1..6. R5 runs the manuscript's own wave-equation substratum -- (a,b) -> (Sa - b, a), T the register swap, checkerboard partition -- at L = 4, q = 2, 3 for n = 1..8, exactly; and notes that theta there is a genuine swap of the two visible registers, so the physical instance itself lives off theta = id and needs the general form. The old note asked for exactly this: the side condition is carried in the statement."
+      "note": "AUDITED BEFORE FORMALIZING, and the printed proof is exact -- the two counting maps h |-> theta_H(pi_H phi(i,h)) really are mutually inverse -- with ONE implicit hypothesis surfaced. The proof passes from phi^-1 = T phi T to phi = T phi^-1 T and later cancels T T, and both steps need T to be an INVOLUTION, which 'the induced action of T' supplies physically -- classical time reversal squares to the identity -- but which no clause of the printed statement states. It is not removable: on Z_4 with theta a rotation by one and phi the same rotation, phi^-1 = T phi T holds exactly and the conclusion is false (probe R4). The Lean statement carries the involutivity of both components explicitly, and the printed statement now says 'an involutive time reversal (T^2 = id)' in so many words, so prose and kernel agree. THE STATEMENT, IN FULL. theorem_19 has both printed clauses -- N_ij(n) = N_(theta j, theta i)(n) for every time scale n, and the probability form T_ij(n) = T_(theta j, theta i)(n) as the same equality divided by |H|, which is where the counting-measure prior enters -- and detailed_balance is the theta = id specialization of the same theorem, not a statement with its own hypotheses. 'Partition preserved by time reversal' is the product form T = theta x theta_H, built into the formulation. The visible sector is NOT assumed finite: only the hidden sector is counted over, and the probe's lint enforces that no Fintype V appears. THE T-EVEN SIDE CONDITION, [GR 3.2]'s precision note, is countercontrolled rather than merely stated: probe R2 exhibits a T-invariant substratum -- phi = (3-cycle) x id, theta the transposition (0 1) -- where N_02 = |H| against N_20 = 0, so detailed balance is FALSE off theta = id while the (theta j, theta i) form holds at every n. R1 sweeps every permutation of the substratum at |V| = 3, |H| = 2 and |V| = 2, |H| = 3 against every product-form involution (1216 T-invariant bijections) for n = 1..6. R5 runs the manuscript's own wave-equation substratum -- (a,b) -> (Sa - b, a), T the register swap, checkerboard partition -- at L = 4, q = 2, 3 for n = 1..8, exactly; and notes that theta there is a genuine swap of the two visible registers, so the physical instance itself lives off theta = id and needs the general form. The old note asked for exactly this: the side condition is carried in the statement."
     },
     {
       "id": "SM:P-20",
@@ -2740,14 +2753,6 @@
   "backlog": [
     {
       "rank": 1,
-      "id": "SM:T-16",
-      "centrality": "low",
-      "difficulty": "low",
-      "tier": 6,
-      "route": "Dimensional bookkeeping: [g] = (3-d)/2, dimensionless iff d = 3. Cheap, and it moves an SM GAP for almost nothing."
-    },
-    {
-      "rank": 2,
       "id": "GR:T-d-gauge-completeness",
       "centrality": "medium",
       "difficulty": "high",
@@ -2755,7 +2760,7 @@
       "route": "Needs non-degenerate spectra, non-vanishing overlaps and an argument over all t -- analytic, and the first GR statement worth attempting."
     },
     {
-      "rank": 3,
+      "rank": 2,
       "id": "SM:T-8",
       "centrality": "low",
       "difficulty": "low",
