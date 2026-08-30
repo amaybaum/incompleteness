@@ -218,7 +218,8 @@ body = re.sub(r'(?m)--.*$', '', re.sub(r'/-.*?-/', '', src, flags=re.S))
 NAMES = ('mul_star_self', 'qform_prodProj', 'prodProj_posSemidefOn', 'prodProj_smul',
          'separable_of_conic', 'Separable.posSemidefOn', 'ptranspose_prodProj',
          'separable_imp_ppt', 'not_separable_of_neg', 'not_eb_of_neg_witness',
-         'separable_of_fintype', 'choi_sum', 'choi_conj_of_factor')
+         'separable_of_fintype', 'choi_sum', 'choi_conj_of_factor', 'vecMulVec_eq_sum',
+         'qform_ptranspose_choi', 'not_eb_of_fixed_plane')
 ok6 = 'import OIBridge.Separability' in root
 ok6 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', body) is None
 ok6 &= re.search(r'(?m)^axiom ', body) is None
@@ -236,8 +237,15 @@ csig = cf[:cf.index(':= by')]
 ok6 &= 'hM : ∀ a i, M a i = x a * y i' in csig
 ok6 &= 'choi (fun ρ => M * ρ * Mᴴ) = prodProj y x' in csig
 # and nothing spectral may be used to get there
-for banned in ('eigen', 'Eigen', 'orthonormal', 'spectral', 'Spectral'):
+for banned in ('eigen', 'Eigen', 'orthonormal', 'spectral', 'Spectral', 'Schmidt'):
     ok6 &= banned not in body
+# the fixed-plane refutation must state non-proportionality as one non-vanishing 2x2 minor, and
+# must not assume the vectors normalized
+fp = src[src.index('theorem not_eb_of_fixed_plane'):]
+fsig = fp[:fp.index(':= by')]
+ok6 &= 'hne : x a₀ * y b₀ ≠ x b₀ * y a₀' in fsig
+for banned in ('norm', 'inner', '‖'):
+    ok6 &= banned not in fsig
 # no convexity, closure or measure-and-prepare machinery crept in
 for banned in ('convexHull', 'Convex', 'closure', 'MeasureAndPrepare', 'POVM'):
     ok6 &= banned not in body
@@ -248,18 +256,19 @@ check("P6", ok6,
       f"product projectors with no convexity library, closure or measure-and-prepare machinery; "
       f"`ptranspose` swaps the second factor's indices; and the Choi entry formula is the "
       f"ancilla-first one. `choi_conj_of_factor` takes rank one as the entrywise factorization "
-      f"M a i = x a * y i and commits to the ancilla-takes-y order, and no eigenvector, "
-      f"orthonormal basis or spectral theorem appears anywhere in the file")
+      f"M a i = x a * y i and commits to the ancilla-takes-y order, and `not_eb_of_fixed_plane` "
+      f"asks only for one non-vanishing 2x2 minor with no normalization. No eigenvector, "
+      f"orthonormal basis, spectral theorem or Schmidt decomposition appears anywhere in the file")
 
 print()
 print('     [scope] Settled in Lean: the Choi matrix, partial transpose, separability as finite')
-print('     sums of pure product projectors, Separable => PPT, and the rank-one Choi bridge')
-print('     choi_conj_of_factor — with positivity defined here in the one form both directions')
-print('     need rather than imported. The maximal direction of [Main] Theorem (separability')
-print('     threshold) is closed through this file, in WeylLift.entanglementBreaking_twirl.')
-print('     NOT settled: the converse. The non-maximal case must build a negative witness from')
-print('     an anticommuting pair in G-perp and feed it to not_eb_of_neg_witness, which is')
-print('     waiting for exactly that.')
+print('     sums of pure product projectors, Separable => PPT, the rank-one Choi bridge')
+print('     choi_conj_of_factor, and the fixed-plane refutation not_eb_of_fixed_plane — with')
+print('     positivity defined here in the one form both directions need rather than imported.')
+print('     BOTH directions of [Main] Theorem (separability threshold) run through this file:')
+print('     the maximal one exhibits a separable decomposition, the non-maximal one exhibits a')
+print('     single negative direction of the partial transpose. Neither uses an eigenvector, a')
+print('     spectral theorem, or a Schmidt decomposition.')
 print()
 print("separability_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

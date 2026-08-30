@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 """Numerical companion checks for OIBridge/WeylLift.lean.
 
-LAYER 3 of [Main] Theorem (separability threshold): the maximal case t = s.
+LAYERS 3 AND 4 of [Main] Theorem (separability threshold), which end in
+
+    G isotropic  ==>  ( EntanglementBreaking(Phi_G)  iff  |G| = 2^s ).
 
 This probe exists because the obvious construction is WRONG, and the record of why it is wrong is
 worth as much as the repair. The self-adjoint involutions H(u) = i^{b.a} W(u) look like they carry
@@ -46,8 +48,9 @@ over Q(i). No floating point anywhere.
   L10 the separable Choi matrix: rank one used as an entrywise factorization, and the Choi matrix
       of the twirl as a sum of pure product projectors -- entanglement breaking, exhibited.
   L11 COUNTERCONTROL for the Choi index convention, on genuinely complex vectors.
-  L12 LAYER 4 PREVIEW: at t < s the partially transposed Choi matrix has an explicit negative
-      direction, the single-vector refutation the remaining direction will consume.
+  L12 the non-maximal direction: trace 2^(s-t) >= 2, a nonzero 2x2 minor, a plane the twirl fixes
+      pointwise, and the antisymmetric witness making the partially transposed Choi form negative.
+  L13 THE CONJUGATION GATE for that witness, on a genuinely complex plane.
   L8  lint.
 
 Usage:  python3 weyl_lift_probe.py
@@ -483,10 +486,10 @@ def single_mat(p1, q1, n):
     return M
 
 
-def choi(Phi, s):
+def choi(Phi, s, dim=None):
     """J(Phi)[(p1,p2)][(q1,q2)] = Phi(E_{p1 q1})[p2][q2], ancilla index FIRST -- the convention
     OIBridge/Separability.lean fixes."""
-    n = 2 ** s
+    n = dim if dim is not None else 2 ** s
     J = [[ZERO] * (n * n) for _ in range(n * n)]
     for p1 in range(n):
         for q1 in range(n):
@@ -563,8 +566,7 @@ check("L11", ok11,
       "differ on these projectors, so the order in `choi_conj_of_factor` is a real commitment and "
       "not a harmless relabelling -- the same discipline the Kraus transpose guard applies")
 
-# ---------------------------------------------------------------- L12  the Layer 4 witness exists
-# Not yet Lean: a preview that the remaining direction has the witness `not_eb_of_neg_witness` wants.
+# ---------------------------------------------------------------- L12  the non-maximal direction
 def ptranspose(J, n):
     T = [[ZERO] * (n * n) for _ in range(n * n)]
     for p1 in range(n):
@@ -583,7 +585,24 @@ def qform(M, w):
     return acc
 
 
-UNITS = (ONE, scal_c(-1, ONE), I, scal_c(-1, I))
+def minor_pair(M):
+    """(a, b, i, j) with a non-vanishing 2x2 minor, or None."""
+    n = len(M)
+    for a in range(n):
+        for b in range(n):
+            for i in range(n):
+                for j in range(n):
+                    if mul(M[a][i], M[b][j]) != mul(M[a][j], M[b][i]):
+                        return a, b, i, j
+    return None
+
+
+def witness(x, y, n):
+    """w(i,a) = conj(x_i) conj(y_a) - conj(y_i) conj(x_a), ancilla index first."""
+    return [sub(mul(conj(x[p // n]), conj(y[p % n])), mul(conj(y[p // n]), conj(x[p % n])))
+            for p in range(n * n)]
+
+
 ok12 = True
 cases12 = 0
 for s in (1, 2):
@@ -592,24 +611,87 @@ for s in (1, 2):
         for gens in isotropic_tuples(s, t):
             cases12 += 1
             G = span(gens, s)
-            T = ptranspose(choi(lambda r: twirl(G, r, s), s), n)
-            found = False
-            for p in range(n * n):
-                for q in range(p + 1, n * n):
-                    for u in UNITS:
-                        w = [ZERO] * (n * n)
-                        w[p] = ONE
-                        w[q] = u
-                        if qform(T, w)[0] < 0:
-                            found = True
-            ok12 &= found
+            Phi = lambda r, G=G, s=s: twirl(G, r, s)
+            T = ptranspose(choi(Phi, s), n)
+            Pe = Pproj(gens, (0,) * t, s)
+            # the trace is 2^{s-t} >= 2, so no rank-one factorization can exist
+            ok12 &= trace(Pe) == (Fraction(2 ** (s - t)), Fraction(0))
+            mp = minor_pair(Pe)
+            ok12 &= mp is not None
+            a0, b0, i, j = mp
+            x = [Pe[k][i] for k in range(n)]
+            y = [Pe[k][j] for k in range(n)]
+            # the twirl fixes the plane pointwise, on every combination
+            for (al, be, ga, de) in itertools.product((ONE, I, scal_c(-1, ONE)), repeat=4):
+                u = [add(mul(al, x[k]), mul(be, y[k])) for k in range(n)]
+                v = [add(mul(ga, x[k]), mul(de, y[k])) for k in range(n)]
+                op = [[mul(u[k], conj(v[l])) for l in range(n)] for k in range(n)]
+                ok12 &= eq(Phi(op), op)
+            # and the witness is negative, at exactly the predicted value
+            q = qform(T, witness(x, y, n))
+            pred = ZERO
+            for a in range(n):
+                for b in range(n):
+                    z = sub(mul(y[a], x[b]), mul(x[a], y[b]))
+                    pred = sub(pred, mul(z, conj(z)))
+            ok12 &= q == pred
+            ok12 &= q[0] < 0
 ok12 &= cases12 > 0
 check("L12", ok12,
-      f"LAYER 4 PREVIEW, not yet in Lean. For every one of the {cases12} non-maximal isotropic "
-      f"subspaces at s = 1, 2 the partially transposed Choi matrix of the twirl has a NEGATIVE "
-      f"quadratic form at a two-support vector with a unit coefficient -- exactly the single-vector "
-      f"refutation `Separability.not_eb_of_neg_witness` consumes. The remaining direction needs to "
-      f"produce such a vector from an anticommuting pair in G-perp, and one always exists")
+      f"THE NON-MAXIMAL DIRECTION, over all {cases12} non-maximal isotropic subspaces at s = 1, 2. "
+      f"Each character projector has trace exactly 2^(s-t) >= 2, so no rank-one factorization "
+      f"exists and some 2x2 minor is nonzero; the two columns it names span a plane the twirl fixes "
+      f"pointwise on all 81 coefficient combinations tried; and the antisymmetric witness makes the "
+      f"partially transposed Choi form equal -sum_(a,b) |y_a x_b - x_a y_b|^2, hence negative. That "
+      f"is the route `not_entanglementBreaking_twirl` takes, with no anticommuting pair anywhere")
+
+# ---------------------------------------------------------------- L13  the conjugation gate
+# The witness is  conj(x) (x) conj(y) - conj(y) (x) conj(x).  On REAL vectors every variant below
+# coincides with it, so the guard needs a genuinely complex plane. Phi(rho) = P rho P for P the
+# orthogonal projector onto span{x,y} fixes the plane and is linear, which is all
+# `not_eb_of_fixed_plane` asks of it.
+def ip(u, v):
+    return _sum(mul(conj(u[k]), v[k]) for k in range(len(u)))
+
+
+n13 = 3
+x13 = [(Fraction(1), Fraction(-1)), (Fraction(1), Fraction(1)), (Fraction(0), Fraction(2))]
+y13 = [(Fraction(1, 4), Fraction(1, 4)), (Fraction(-1, 4), Fraction(1, 4)),
+       (Fraction(1, 2), Fraction(0))]
+ok13 = ip(x13, y13) == ZERO                      # orthogonal
+ok13 &= any(z[1] != 0 for z in x13) and any(z[1] != 0 for z in y13)   # genuinely complex
+P13 = mat_add(
+    mat_scale(inv(ip(x13, x13)), [[mul(x13[a], conj(x13[b])) for b in range(n13)]
+                                  for a in range(n13)]),
+    mat_scale(inv(ip(y13, y13)), [[mul(y13[a], conj(y13[b])) for b in range(n13)]
+                                  for a in range(n13)]))
+Phi13 = lambda r: mat_mul(mat_mul(P13, r), dagger(P13))
+T13 = ptranspose(choi(Phi13, None, n13), n13)
+pred13 = scal_c(-2, mul(ip(x13, x13), ip(y13, y13)))
+q_right = qform(T13, witness(x13, y13, n13))
+ok13 &= q_right == pred13
+VARIANTS = {
+    'no conjugation at all': lambda i, a: sub(mul(x13[i], y13[a]), mul(y13[i], x13[a])),
+    'conjugated on the ancilla slot only':
+        lambda i, a: sub(mul(conj(x13[i]), y13[a]), mul(conj(y13[i]), x13[a])),
+    'conjugated on the output slot only':
+        lambda i, a: sub(mul(x13[i], conj(y13[a])), mul(y13[i], conj(x13[a]))),
+    'symmetric instead of antisymmetric':
+        lambda i, a: add(mul(conj(x13[i]), conj(y13[a])), mul(conj(y13[i]), conj(x13[a]))),
+}
+wrong_ok = 0
+for name, f in VARIANTS.items():
+    qv = qform(T13, [f(p // n13, p % n13) for p in range(n13 * n13)])
+    ok13 &= qv != pred13                              # every variant gets the value wrong
+    if qv[0] >= 0:
+        wrong_ok += 1
+ok13 &= wrong_ok >= 3                                 # and at least three refute nothing at all
+check("L13", ok13,
+      f"THE CONJUGATION GATE. On a genuinely complex orthogonal plane the witness gives exactly "
+      f"-2|x|^2|y|^2 = {pred13[0]}, and all four obvious variants get the value wrong -- {wrong_ok} "
+      f"of them come out NON-NEGATIVE and so would refute nothing. On real vectors all five "
+      f"coincide, which is why the guard has to be complex; the same discipline as the Kraus "
+      f"transpose and the Choi index order")
 
 # ---------------------------------------------------------------- L8  lint
 src = open(os.path.join(BRIDGE, 'OIBridge', 'WeylLift.lean'), encoding='utf-8').read()
@@ -620,7 +702,9 @@ NAMES = ('fac_mul', 'lift_mul', 'lift_conjTranspose', 'lift_eq_smul_W', 'P_conjT
          'P_mul_self', 'P_mul_of_ne', 'sum_P', 'trace_P', 'trace_P_eq_one',
          'lift_conj', 'exists_lagrangian_tuple', 'sum_P_conj', 'sum_P_conj_eq_twirl',
          'exists_factor_of_finrank_range_eq_one', 'finrank_range_P',
-         'entanglementBreaking_twirl')
+         'entanglementBreaking_twirl', 'exists_minor_ne_of_idem_trace', 'trace_P_nonmaximal',
+         'twirl_fixes_plane', 'not_entanglementBreaking_twirl', 'entanglementBreaking_iff',
+         'entanglementBreaking_iff_dim')
 ok8 = 'import OIBridge.WeylLift' in root
 ok8 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', body) is None
 ok8 &= re.search(r'(?m)^axiom ', body) is None
@@ -649,6 +733,20 @@ for banned in ('Fin s → PS s', 'Indep', 'spanF', 'lift', 'P s g'):
     ok8 &= banned not in sig                     # no tuple, no lift, no projector in the statement
 # and the tuple it does use has to be produced from G, not assumed
 ok8 &= 'exists_lagrangian_tuple G hiso hcard' in wr
+# THE TERMINAL WRAPPER, likewise: an iff, with hypotheses naming only G
+iw = src[src.index('theorem entanglementBreaking_iff '):]
+isig = iw[:iw.index(':= by')]
+ok8 &= 'hiso : Isotropic G' in isig
+ok8 &= "EntanglementBreaking (twirl G) ↔ (gset G).card = 2 ^ s" in isig
+for banned in ('Fin s → PS s', 'Indep', 'spanF', 'lift', 'P s g', 'perp'):
+    ok8 &= banned not in isig
+# the converse must NOT go through an anticommuting pair: it is the block-rank route
+nb = src[src.index('theorem not_entanglementBreaking_twirl'):]
+nbody = nb[:nb.index('/-! ###')]
+for banned in ('perp', 'anticommut', 'W_conj'):
+    ok8 &= banned not in nbody
+ok8 &= 'not_eb_of_fixed_plane' in nbody
+ok8 &= 'exists_minor_ne_of_idem_trace' in nbody
 check("L8", ok8,
       f"LINT. The file is imported by OIBridge.lean so CI builds it; no `sorry`, no `axiom`, no "
       f"`native_decide`; all {len(NAMES)} named results print their axiom dependencies. "
@@ -657,15 +755,13 @@ check("L8", ok8,
       f"the whole file is itself kernel-proved as `WeylTwirl.H_not_multiplicative`")
 
 print()
-print('     [scope] Settled in Lean: the projective obstruction; the multiplicative lift along a')
-print('     chosen spanning tuple; the character projectors -- idempotent, self-adjoint, mutually')
-print('     orthogonal, resolving the identity, rank one at t = s; the extraction of a spanning')
-print('     tuple from an arbitrary Lagrangian G; the dephasing identity; and the wrapper')
-print('     G isotropic with |G| = 2^s  ==>  EntanglementBreaking (twirl G), whose hypotheses')
-print('     name only G. NOT settled: the converse, |G| < 2^s ==> not entanglement breaking.')
-print('     L12 shows the witness it needs always exists, but producing it in Lean from an')
-print('     anticommuting pair in G-perp is the remaining work on [Main] Theorem')
-print('     (separability threshold).')
+print('     [scope] [Main] Theorem (separability threshold) is settled in Lean, both directions,')
+print('     as entanglementBreaking_iff: for isotropic G, Phi_G is entanglement breaking exactly')
+print('     when |G| = 2^s, with hypotheses naming only G. The maximal direction runs through the')
+print('     rank-one character projectors and an explicit separable Choi matrix; the non-maximal')
+print('     one through a projector of trace 2^(s-t) >= 2, a fixed two-dimensional sector, and')
+print('     one antisymmetric witness. Neither uses an eigenvector, a spectral theorem, a Witt')
+print('     extension, or the Clifford group.')
 print()
 print("weyl_lift_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

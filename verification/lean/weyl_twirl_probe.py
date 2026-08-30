@@ -285,7 +285,7 @@ body = re.sub(r'(?m)--.*$', '', re.sub(r'/-.*?-/', '', src, flags=re.S))
 NAMES = ('W_mul', 'W_conjTranspose', 'W_conj', 'W_commute_iff', 'isotropic_iff_commute',
          'char_sum', 'twirl_W', 'H_conjTranspose', 'H_mul_self', 'H_commute',
          'sum_chi_dotF', 'trace_W', 'card_mul_card_perp', 'perp_perp', 'card_le_of_isotropic',
-         'perp_eq_self_of_card', 'H_mul', 'H_not_multiplicative')
+         'perp_eq_self_of_card', 'H_mul', 'H_not_multiplicative', 'twirl_add', 'twirl_smul')
 ok9 = 'import OIBridge.WeylTwirl' in root
 ok9 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', body) is None
 ok9 &= re.search(r'(?m)^axiom ', body) is None

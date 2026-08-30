@@ -40,7 +40,7 @@ import Mathlib.GroupTheory.Perm.Fin
 -- proposition itself and `OIBridge.StinespringUniqueness` its dilation counterpart 9.7b,
 -- `OIBridge.WeylTwirl` the symplectic layer of [Main]'s separability threshold and
 -- `OIBridge.Separability` its entanglement layer and `OIBridge.WeylLift` the
--- multiplicative lift that repairs the projective phase in its maximal case,
+-- multiplicative lift and the character projectors that carry both its directions,
 -- `OIBridge.Irreducibility` the implication from the
 -- endomorphism dimension to irreducibility that Mathlib carries only for algebraically
 -- closed fields, `OIBridge.LinkDecomposition` that theorem's six-link

@@ -1,7 +1,15 @@
 /-
-  OIBridge/WeylLift.lean — trivializing the sign cocycle, and the character projectors.
+  OIBridge/WeylLift.lean — the character projectors, and both directions of the threshold.
 
-  LAYER 3 of [Main] Theorem (separability threshold): the maximal case `t = s`.
+  LAYERS 3 AND 4 of [Main] Theorem (separability threshold), ending in
+
+      G isotropic  ⟹  ( EntanglementBreaking (Φ_G)  ↔  |G| = 2^s ).
+
+  Both directions run on the same object. The character projectors have rank `2^{s−t}`: at `t = s`
+  that is one, and the Choi matrix splits into pure product projectors; below `t = s` it is at least
+  two, and a fixed two-dimensional sector refutes entanglement breaking through
+  `Separability.not_eb_of_fixed_plane`. `WeylTwirl.perp_perp` and the anticommuting-pair reading
+  explain what survives below maximality but are not needed on either path.
 
   WHY THIS FILE EXISTS. The natural way to diagonalize a commuting family of Weyl operators is to
   take the self-adjoint involutions `H u = i^{b·a} W u` and build the character projectors
@@ -592,12 +600,12 @@ theorem sum_P_conj (t : ℕ) (g : Fin t → PS s) (ρ : Matrix (Q s) (Q s) ℂ) 
 /-- **`Σ_χ P_χ ρ P_χ = Φ_G(ρ)`.** The projectors are built from a tuple; the twirl is not; they
 agree. -/
 theorem sum_P_conj_eq_twirl (G : Submodule (ZMod 2) (PS s)) [DecidablePred (· ∈ G)]
-    (g : Fin s → PS s) (hg : ∀ i j, omega (g i) (g j) = 0) (hind : Indep s g)
-    (hspan : spanF s g = gset G) (ρ : Matrix (Q s) (Q s) ℂ) :
-    (∑ e : Fin s → ZMod 2, P s g e * ρ * P s g e) = twirl G ρ := by
-  have hcard : (gset G).card = 2 ^ s := by rw [← hspan, card_spanF hind]
-  rw [sum_P_conj s g ρ,
-    Finset.sum_congr rfl fun c (_ : c ∈ Finset.univ) => lift_conj s g hg c ρ,
+    (t : ℕ) (g : Fin t → PS s) (hg : ∀ i j, omega (g i) (g j) = 0) (hind : Indep t g)
+    (hspan : spanF t g = gset G) (ρ : Matrix (Q s) (Q s) ℂ) :
+    (∑ e : Fin t → ZMod 2, P t g e * ρ * P t g e) = twirl G ρ := by
+  have hcard : (gset G).card = 2 ^ t := by rw [← hspan, card_spanF hind]
+  rw [sum_P_conj t g ρ,
+    Finset.sum_congr rfl fun c (_ : c ∈ Finset.univ) => lift_conj t g hg c ρ,
     twirl, hcard]
   congr 1
   rw [← hspan, spanF, Finset.sum_image fun a _ b _ hab => vsum_injective hind hab]
@@ -650,7 +658,7 @@ theorem entanglementBreaking_twirl (G : Submodule (ZMod 2) (PS s)) [DecidablePre
   choose x y hxy using hfac
   have hchan : ∀ ρ, twirl G ρ = ∑ e : Fin s → ZMod 2, P s g e * ρ * (P s g e)ᴴ := by
     intro ρ
-    rw [← sum_P_conj_eq_twirl G g hg hind hspan ρ]
+    rw [← sum_P_conj_eq_twirl G s g hg hind hspan ρ]
     exact Finset.sum_congr rfl fun e _ => by rw [P_conjTranspose s g hg e]
   have hchoi : Separability.choi (twirl G)
       = ∑ e : Fin s → ZMod 2, Separability.prodProj (y e) (x e) := by
@@ -658,6 +666,182 @@ theorem entanglementBreaking_twirl (G : Submodule (ZMod 2) (PS s)) [DecidablePre
     exact Finset.sum_congr rfl fun e _ =>
       Separability.choi_conj_of_factor (P s g e) (x e) (y e) (hxy e)
   exact Separability.separable_of_fintype y x hchoi
+
+/-! ### The non-maximal direction
+
+The converse runs on block rank rather than on an anticommuting pair. Below maximality every
+character projector has trace `2^{s−t} ≥ 2`, so it cannot be rank one; a non-vanishing `2 × 2`
+minor gives two columns spanning a plane the channel fixes pointwise; and
+`Separability.not_eb_of_fixed_plane` refutes entanglement breaking from that alone. Nothing here
+touches `G^⊥`, and no eigenvalue, Schmidt decomposition or PPT characterization is used.
+
+`WeylTwirl.perp_perp` and the anticommuting-pair reading remain true and remain the explanation of
+what survives below maximality; they are simply not on the path. -/
+
+/-- **A trace outside `{0, 1}` forces a non-vanishing `2 × 2` minor.** The contrapositive of "all
+minors vanish makes an idempotent rank one, hence of trace `1`". -/
+theorem exists_minor_ne_of_idem_trace {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (M : Matrix ι ι ℂ) (hidem : M * M = M) (h0 : M.trace ≠ 0) (h1 : M.trace ≠ 1) :
+    ∃ a b i j, M a i * M b j ≠ M a j * M b i := by
+  by_contra hc
+  push Not at hc
+  obtain ⟨a₀, i₀, hai⟩ : ∃ a₀ i₀, M a₀ i₀ ≠ 0 := by
+    by_contra hcc
+    push Not at hcc
+    exact h0 (by rw [Matrix.trace]; exact Finset.sum_eq_zero fun k _ => hcc k k)
+  set x : ι → ℂ := fun a => M a i₀ with hx
+  set y : ι → ℂ := fun i => M a₀ i * (M a₀ i₀)⁻¹ with hy
+  have hfac : ∀ a i, M a i = x a * y i := by
+    intro a i
+    rw [hx, hy]
+    field_simp
+    linear_combination hc a a₀ i i₀
+  have hc1 : ∀ a i, M a i * M.trace = M a i := by
+    intro a i
+    have hsq : (M * M) a i = M a i * ∑ k, x k * y k := by
+      rw [Matrix.mul_apply, Finset.mul_sum]
+      exact Finset.sum_congr rfl fun k _ => by rw [hfac a k, hfac k i, hfac a i]; ring
+    have htr : M.trace = ∑ k, x k * y k :=
+      Finset.sum_congr rfl fun k _ => hfac k k
+    rw [htr, ← hsq, hidem]
+  exact h1 (by
+    have := hc1 a₀ i₀
+    field_simp at this
+    exact this)
+
+/-- **Below maximality the projectors have trace `2^{s−t}`,** which is at least `2`. -/
+theorem trace_P_nonmaximal (t : ℕ) (g : Fin t → PS s) (hind : Indep t g) (ht : t < s)
+    (e : Fin t → ZMod 2) :
+    Matrix.trace (P t g e) ≠ 0 ∧ Matrix.trace (P t g e) ≠ 1 := by
+  have hsplit : (2 : ℕ) ^ s = 2 ^ t * 2 ^ (s - t) := by
+    rw [← pow_add]; congr 1; omega
+  have hval : Matrix.trace (P t g e) = ((2 ^ (s - t) : ℕ) : ℂ) := by
+    rw [trace_P t g hind e, hsplit]
+    have hN := coeff_cast_ne_zero t
+    push_cast
+    push_cast at hN
+    field_simp
+  have hge : 2 ≤ 2 ^ (s - t) := by
+    have h1 : 1 ≤ s - t := by omega
+    calc (2 : ℕ) = 2 ^ 1 := by norm_num
+      _ ≤ 2 ^ (s - t) := Nat.pow_le_pow_right (by norm_num) h1
+  refine ⟨?_, ?_⟩
+  · rw [hval, Nat.cast_ne_zero]; omega
+  · rw [hval]
+    intro hcc
+    rw [Nat.cast_eq_one] at hcc
+    omega
+
+/-- A column of a matrix, pushed through another matrix. -/
+theorem mulVec_col {ι : Type*} [Fintype ι] [DecidableEq ι] (A B : Matrix ι ι ℂ) (i : ι) :
+    A.mulVec (fun k => B k i) = fun k => (A * B) k i := by
+  funext k
+  rw [Matrix.mul_apply]
+  rfl
+
+theorem vecMul_star_of_selfAdjoint {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (B : Matrix ι ι ℂ) (hB : Bᴴ = B) (v : ι → ℂ) :
+    Matrix.vecMul (star v) B = star (B.mulVec v) := by
+  funext j
+  show ∑ i, star (v i) * B i j = star (∑ i, B j i * v i)
+  rw [star_sum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  have hji : B i j = star (B j i) := by rw [← hB, Matrix.conjTranspose_apply, hB]
+  rw [hji, star_mul', mul_comm]
+
+/-- Conjugating a rank-one operator by a self-adjoint matrix moves it through both vectors. -/
+theorem conj_vecMulVec {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (B : Matrix ι ι ℂ) (hB : Bᴴ = B) (u v : ι → ℂ) :
+    B * Matrix.vecMulVec u (star v) * B
+      = Matrix.vecMulVec (B.mulVec u) (star (B.mulVec v)) := by
+  rw [Matrix.mul_vecMulVec, Matrix.vecMulVec_mul, vecMul_star_of_selfAdjoint B hB v]
+
+/-- **The twirl fixes the sector of any one character projector.** -/
+theorem twirl_fixes_plane (G : Submodule (ZMod 2) (PS s)) [DecidablePred (· ∈ G)]
+    (t : ℕ) (g : Fin t → PS s) (hg : ∀ i j, omega (g i) (g j) = 0) (hind : Indep t g)
+    (hspan : spanF t g = gset G) (e : Fin t → ZMod 2) (u v : Q s → ℂ)
+    (hu : (P t g e).mulVec u = u) (hv : (P t g e).mulVec v = v)
+    (hu0 : ∀ f, f ≠ e → (P t g f).mulVec u = 0) :
+    twirl G (Matrix.vecMulVec u (star v)) = Matrix.vecMulVec u (star v) := by
+  rw [← sum_P_conj_eq_twirl G t g hg hind hspan,
+    Finset.sum_congr rfl fun f (_ : f ∈ Finset.univ) =>
+      conj_vecMulVec (P t g f) (P_conjTranspose t g hg f) u v,
+    Finset.sum_eq_single e]
+  · rw [hu, hv]
+  · intro f _ hf
+    rw [hu0 f hf]
+    exact Matrix.ext fun k l => by
+      rw [Matrix.vecMulVec_apply]
+      show (0 : ℂ) * _ = _
+      rw [zero_mul]
+      rfl
+  · intro hcc; exact absurd (Finset.mem_univ e) hcc
+
+/-- **`|G| < 2^s` ⟹ `Φ_G` is not entanglement breaking.** -/
+theorem not_entanglementBreaking_twirl (G : Submodule (ZMod 2) (PS s)) [DecidablePred (· ∈ G)]
+    (hiso : Isotropic G) (hlt : (gset G).card < 2 ^ s) :
+    ¬ Separability.EntanglementBreaking (twirl G) := by
+  obtain ⟨t, g, hmem, hind, hspan⟩ := exists_spanning_tuple G
+  have hg : ∀ i j, omega (g i) (g j) = 0 := fun i j => hiso _ (hmem i) _ (hmem j)
+  have hcard : (gset G).card = 2 ^ t := by rw [← hspan, card_spanF hind]
+  have ht : t < s := by
+    rw [hcard] at hlt
+    by_contra hcc
+    push Not at hcc
+    have := Nat.pow_le_pow_right (show 1 ≤ 2 by norm_num) hcc
+    omega
+  obtain ⟨htr0, htr1⟩ := trace_P_nonmaximal t g hind ht 0
+  obtain ⟨a₀, b₀, i, j, hminor⟩ :=
+    exists_minor_ne_of_idem_trace (P t g 0) (P_mul_self t g hg 0) htr0 htr1
+  set x : Q s → ℂ := fun k => P t g 0 k i with hxdef
+  set y : Q s → ℂ := fun k => P t g 0 k j with hydef
+  -- both columns sit in the range of `P t g 0`, and are killed by every other projector
+  have hfixcol : ∀ (w : Q s → ℂ), (∃ l, w = fun k => P t g 0 k l) →
+      (P t g 0).mulVec w = w ∧ ∀ f, f ≠ 0 → (P t g f).mulVec w = 0 := by
+    rintro w ⟨l, rfl⟩
+    refine ⟨?_, fun f hf => ?_⟩
+    · rw [mulVec_col, P_mul_self t g hg 0]
+    · rw [mulVec_col, P_mul_of_ne t g hg hf]
+      funext k
+      rfl
+  have hlin : ∀ (α β : ℂ) (w₁ w₂ : Q s → ℂ) (A : Matrix (Q s) (Q s) ℂ),
+      A.mulVec (α • w₁ + β • w₂) = α • A.mulVec w₁ + β • A.mulVec w₂ := by
+    intro α β w₁ w₂ A
+    rw [Matrix.mulVec_add, Matrix.mulVec_smul, Matrix.mulVec_smul]
+  refine Separability.not_eb_of_fixed_plane (twirl_add G) (twirl_smul G) x y ?_
+    (a₀ := a₀) (b₀ := b₀) ?_
+  · intro α β γ δ
+    obtain ⟨hx1, hx0⟩ := hfixcol x ⟨i, rfl⟩
+    obtain ⟨hy1, hy0⟩ := hfixcol y ⟨j, rfl⟩
+    refine twirl_fixes_plane G t g hg hind hspan 0 _ _ ?_ ?_ ?_
+    · rw [hlin, hx1, hy1]
+    · rw [hlin, hx1, hy1]
+    · intro f hf
+      rw [hlin, hx0 f hf, hy0 f hf, smul_zero, smul_zero, add_zero]
+  · rw [hxdef, hydef]
+    intro hcc
+    exact hminor (by rw [hcc]; ring)
+
+/-! ### The terminal wrapper -/
+
+/-- **THE SEPARABILITY THRESHOLD.** For an isotropic `G`, the twirl `Φ_G` is entanglement breaking
+exactly at maximality. -/
+theorem entanglementBreaking_iff (G : Submodule (ZMod 2) (PS s)) [DecidablePred (· ∈ G)]
+    (hiso : Isotropic G) :
+    Separability.EntanglementBreaking (twirl G) ↔ (gset G).card = 2 ^ s := by
+  constructor
+  · intro hEB
+    by_contra hcc
+    exact not_entanglementBreaking_twirl G hiso
+      (lt_of_le_of_ne (card_le_of_isotropic G hiso) hcc) hEB
+  · exact entanglementBreaking_twirl G hiso
+
+/-- **The manuscript's form.** With `|G| = 2^t`, entanglement breaking happens exactly at `t = s`. -/
+theorem entanglementBreaking_iff_dim (G : Submodule (ZMod 2) (PS s)) [DecidablePred (· ∈ G)]
+    (hiso : Isotropic G) (t : ℕ) (hcard : (gset G).card = 2 ^ t) :
+    Separability.EntanglementBreaking (twirl G) ↔ t = s := by
+  rw [entanglementBreaking_iff G hiso, hcard]
+  exact ⟨fun h => Nat.pow_right_injective (le_refl 2) h, fun h => by rw [h]⟩
 
 /-! ### What these proofs rest on -/
 
@@ -678,6 +862,12 @@ theorem entanglementBreaking_twirl (G : Submodule (ZMod 2) (PS s)) [DecidablePre
 #print axioms exists_factor_of_finrank_range_eq_one
 #print axioms finrank_range_P
 #print axioms entanglementBreaking_twirl
+#print axioms exists_minor_ne_of_idem_trace
+#print axioms trace_P_nonmaximal
+#print axioms twirl_fixes_plane
+#print axioms not_entanglementBreaking_twirl
+#print axioms entanglementBreaking_iff
+#print axioms entanglementBreaking_iff_dim
 
 end WeylLift
 

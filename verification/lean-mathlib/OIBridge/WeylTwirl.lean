@@ -514,6 +514,18 @@ theorem card_eq_of_perp_eq_self (h : perp G = G) : (gset G).card = 2 ^ s := by
 noncomputable def twirl (ρ : Matrix (Q s) (Q s) ℂ) : Matrix (Q s) (Q s) ℂ :=
   (((gset G).card : ℂ))⁻¹ • ∑ g ∈ gset G, W g * ρ * (W g)ᴴ
 
+/-- The twirl is additive. -/
+theorem twirl_add (ρ σ : Matrix (Q s) (Q s) ℂ) :
+    twirl G (ρ + σ) = twirl G ρ + twirl G σ := by
+  rw [twirl, twirl, twirl, ← smul_add, ← Finset.sum_add_distrib]
+  exact congrArg _ (Finset.sum_congr rfl fun h _ => by rw [Matrix.mul_add, Matrix.add_mul])
+
+/-- The twirl is homogeneous. -/
+theorem twirl_smul (c : ℂ) (ρ : Matrix (Q s) (Q s) ℂ) :
+    twirl G (c • ρ) = c • twirl G ρ := by
+  rw [twirl, twirl, Finset.sum_congr rfl fun h (_ : h ∈ gset G) => by
+    rw [Matrix.mul_smul, Matrix.smul_mul], ← Finset.smul_sum, smul_comm]
+
 /-- **THE TWIRL IDENTITY.** `Φ_G` fixes the Weyl operators commuting with `G` and kills the rest —
 the Hilbert–Schmidt projection onto `G^⊥`. Both halves of the separability theorem read off this. -/
 theorem twirl_W (v : PS s) : twirl G (W v) = if v ∈ perp G then W v else 0 := by
@@ -643,6 +655,8 @@ theorem H_not_multiplicative :
 #print axioms isotropic_iff_commute
 #print axioms char_sum
 #print axioms twirl_W
+#print axioms twirl_add
+#print axioms twirl_smul
 #print axioms H_conjTranspose
 #print axioms H_mul_self
 #print axioms H_commute
