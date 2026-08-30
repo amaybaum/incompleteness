@@ -69,6 +69,11 @@ homometric mu is killed by explicit polynomial identities, not by genericity.
       combinatorics and relabeling is a symmetry of every stage, the kernel-proved flat_locus
       and clique obstruction of OIBridge/HomometricSix.lean apply VERBATIM to the whole
       family -- the parameters u, v never enter the coefficient reconstruction.
+  M11 THE PARAMETRIC MU-ORBIT BRIDGE: the exceptional-family formula quoted from a later
+      peer-reviewed treatment citing Bekir-Golomb 2007 satisfies all 15 gap identities of
+      the printed mu symbolically in (p1, p2), with e_S = id and the UNIQUE target
+      transposition e_T = (3 4); p = (1, 6) reduces to the printed pair. Checks the QUOTED
+      formula only -- the primary 2007 text remains to be audited before K2 consumption.
 
 Usage:  python3 gap_correspondence_probe.py
 """
@@ -713,6 +718,58 @@ check("M10", ok10,
       f"symmetry of every stage, so the kernel-proved flat_locus and clique obstruction apply "
       f"verbatim across the entire family: u, v never enter the coefficient reconstruction")
 
+# ------------------------------------------------- M11  the parametric mu-orbit bridge (exact)
+# The exceptional-family formula as QUOTED by a later peer-reviewed treatment citing
+# Bekir-Golomb 2007 (the primary text is not yet audited; this check is about the quoted
+# formula). Linear forms c0 + c1*p1 + c2*p2 as exact coefficient triples.
+ok11 = True
+PX = [(0, 0, 0), (0, 1, 0), (0, -2, 1), (0, -2, 2), (0, 0, 2), (0, -1, 3)]
+PY = [(0, 0, 0), (0, 1, 0), (0, 2, 1), (0, 1, 2), (0, -1, 2), (0, -1, 3)]
+
+
+def fsub(u, v):
+    return tuple(a - b for a, b in zip(u, v))
+
+
+def fev(u, p1, p2):
+    return u[0] + u[1] * p1 + u[2] * p2
+
+
+SWAP34 = (0, 1, 2, 4, 3, 5)
+# all 15 gap identities hold SYMBOLICALLY with e_S = id, e_T = (3 4)
+for (a, b), (c, d) in printed_mu.items():
+    ok11 &= fsub(PY[SWAP34[d]], PY[SWAP34[c]]) == fsub(PX[b], PX[a])
+# (3 4) is the UNIQUE target relabeling that works; the identity fails without it
+good = [s for s in itertools.permutations(range(6))
+        if all(fsub(PY[s[d]], PY[s[c]]) == fsub(PX[b], PX[a])
+               for (a, b), (c, d) in printed_mu.items())]
+ok11 &= good == [SWAP34]
+ok11 &= sum(1 for (a, b), (c, d) in printed_mu.items()
+            if fsub(PY[d], PY[c]) != fsub(PX[b], PX[a])) == 9
+# both families are symbolically Golomb: no two of the 15 ascending gap forms agree, in
+# either sign -- so gap collisions happen only on finitely many lines in the (p1,p2) plane
+for F in (PX, PY):
+    gset = [fsub(F[b], F[a]) for a, b in itertools.combinations(range(6), 2)]
+    ok11 &= len(set(gset)) == 15
+    ok11 &= not any(g == tuple(-x for x in h)
+                    for i, g in enumerate(gset) for h in gset[i:])
+# the printed pair is the specialization p = (1, 6), with Y listed = sorted r2 o (3 4)
+ok11 &= [fev(x, 1, 6) for x in PX] == list(R1)
+ok11 &= [fev(y, 1, 6) for y in PY] == [R2[SWAP34[i]] for i in range(6)]
+# countercontrol: perturbing one quoted coefficient breaks at least one identity symbolically
+PYbad = PY[:2] + [(0, 2, 2)] + PY[3:]
+ok11 &= any(fsub(PYbad[SWAP34[d]], PYbad[SWAP34[c]]) != fsub(PX[b], PX[a])
+            for (a, b), (c, d) in printed_mu.items())
+check("M11", ok11,
+      "THE PARAMETRIC MU-ORBIT BRIDGE, exact: the quoted Bekir-Golomb exceptional family "
+      "X = {0, p1, p2-2p1, 2p2-2p1, 2p2, 3p2-p1}, Y = {0, p1, 2p1+p2, p1+2p2, 2p2-p1, 3p2-p1} "
+      "satisfies all 15 gap identities of the printed mu with e_S = id and the single target "
+      "transposition e_T = (3 4), as polynomial identities in (p1, p2) -- and (3 4) is the "
+      "UNIQUE relabeling that works (9 of 15 fail without it). Both families are symbolically "
+      "Golomb, p = (1, 6) reduces to the printed pair, and a perturbed coefficient breaks the "
+      "bridge. Kernel twin: OIBridge/PiccardBridge.lean (piccard_mu_bridge over any CommRing). "
+      "Scope: this checks the QUOTED formula; the primary 2007 text remains to be audited")
+
 print()
 print('     [scope] Settled exactly, at probe level: (i) n = 4 -- every labeled correspondence')
 print('     for the Golomb spectrum {0,1,4,6} is a relabeling or the reversal, exhaustively;')
@@ -721,11 +778,13 @@ print('     homometric pair) admits NO realizing pair of eigenbases: generic mod
 print('     explicit cokernel identities, the exceptional locus is exactly the flat rows, and')
 print('     on it joint unitarity is blocked by a max-clique-3 bound over the 8 common mask')
 print('     zeros. The n = 6 kill chain checked here numerically is now ALSO a kernel theorem:')
-print('     OIBridge/HomometricKill.lean assembles homometricSix_unrealizable end to end. NOT')
-print('     settled: the Piccard/Bekir-Golomb classification input (reduces all n to congruent')
-print('     or the six-mark family), the congruent-case assembly, and strata where some')
-print('     overlaps V_ia vanish (the Claim assumes nonzero overlaps); the Claim stays P-grade')
-print('     until those close.')
+print('     OIBridge/HomometricKill.lean assembles homometricSix_unrealizable end to end, the')
+print('     congruent-case assembly and the Fourier layer are kernel-closed, and the parametric')
+print('     mu-orbit bridge to the quoted exceptional family is kernel-proved over any CommRing')
+print('     (OIBridge/PiccardBridge.lean, probe twin M11). NOT settled: the primary-source')
+print('     audit of the Piccard/Bekir-Golomb classification itself (reduces all n to congruent')
+print('     or the six-mark family) and strata where some overlaps V_ia vanish (the Claim')
+print('     assumes nonzero overlaps); the Claim stays P-grade until those close.')
 print()
 print("gap_correspondence_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)
