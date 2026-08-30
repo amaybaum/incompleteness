@@ -419,6 +419,66 @@ check("F11", ok11,
       "not scalar (kernel: ad_eq_scalar / phase_families_shift, backing the exact-unitary "
       "regime of Corollary A.3)")
 
+# ------------------------------------------- F12  the correlated shell assignment (route a)
+ok12 = True
+# joint space: visible energies e = (0,1,2); hidden levels with counts 1,2,4,8 at
+# energies 0,1,2,3 (bath count increasing with energy: beta_E > 0); total energy 3
+evis = [0, 1, 2]
+Ehid = [0] + [1] * 2 + [2] * 4 + [3] * 8          # 15 hidden states
+Etot = 3
+shell = [(i, h) for i in range(3) for h in range(len(Ehid)) if evis[i] + Ehid[h] == Etot]
+wgt = {x: Frac(1, len(shell)) for x in shell}
+marg = [sum(wgt.get((i, h), Frac(0)) for h in range(len(Ehid))) for i in range(3)]
+ok12 &= marg == [Frac(8, 14), Frac(4, 14), Frac(2, 14)]
+# the counting profile is strictly passive for the classical energies (layer one, exact)
+ok12 &= all(marg[b] < marg[a] for a in range(3) for b in range(3) if evis[a] < evis[b])
+# an i-dependent joint permutation preserving the shell: cycle hidden states within each
+# hidden-energy level, with the cycle offset depending on i (genuinely correlated dynamics)
+levels = {}
+for h, Eh in enumerate(Ehid):
+    levels.setdefault(Eh, []).append(h)
+
+
+def phi(i, h):
+    lev = levels[Ehid[h]]
+    k = lev.index(h)
+    return (i, lev[(k + 1 + i) % len(lev)])
+
+
+img = {phi(i, h) for (i, h) in shell}
+ok12 &= img == set(shell)                          # the shell is invariant
+# marginal stationarity, exact, on the ACTUAL correlated ensemble
+inv = {phi(i, h): w for (i, h), w in wgt.items()}
+marg2 = [sum(inv.get((i, h), Frac(0)) for h in range(len(Ehid))) for i in range(3)]
+ok12 &= marg2 == marg
+# the hidden conditionals are i-dependent -- supported on DISJOINT hidden energy shells
+supp = [set(h for (i2, h) in shell if i2 == i) for i in range(3)]
+ok12 &= supp[0].isdisjoint(supp[1]) and supp[1].isdisjoint(supp[2])
+ok12 &= supp[0] != supp[1]                          # mu(.|0) != mu(.|1): no fixed prior
+# the margin selector on this profile: gamma = marg[0]-marg[1] = 2/7; any q within
+# gamma/2 in sup-norm still fails reflected passivity; the uniform profile (far away)
+# is reflected-passive, so the bound is doing real work
+gam = marg[0] - marg[1]
+q12 = [marg[0] - gam * Frac(1, 3), marg[1] + gam * Frac(1, 3), marg[2]]
+ok12 &= max(abs(q12[k] - marg[k]) for k in range(3)) < gam / 2
+ok12 &= not all(q12[b] <= q12[a] for a in range(3) for b in range(3)
+                if (-evis[a]) < (-evis[b]))
+qu = [Frac(1, 3)] * 3
+ok12 &= max(abs(qu[k] - marg[k]) for k in range(3)) > gam / 2
+ok12 &= all(qu[b] <= qu[a] for a in range(3) for b in range(3) if (-evis[a]) < (-evis[b]))
+check("F12", ok12,
+      "THE CORRELATED SHELL ASSIGNMENT, exact fractions (route a): uniform counting on an "
+      "invariant total-energy shell has a strictly passive visible marginal (bath count "
+      "increasing: beta_E > 0), the marginal is STATIONARY under a genuinely i-dependent "
+      "shell-preserving joint dynamics with no product substitution, and the hidden "
+      "conditionals mu(.|i) live on disjoint hidden energy shells -- the correlated "
+      "preparation that blocks the fixed-prior channel (kernel: shellWeight_invariant, "
+      "joint_stationary, marginal_stationary, shellConditional_sum in "
+      "OIBridge/ShellAssignment.lean; the stopping point is the named Prop "
+      "ShellRepresentationConsistency). The margin selector holds within gamma/2 and the "
+      "uniform profile beyond it is reflected-passive: the bound does real work (kernel: "
+      "approx_passivity_selector, exists_margin_pair)")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

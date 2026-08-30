@@ -255,6 +255,37 @@ theorem counting_strictlyPassive {Ω : ℝ → ℝ} (hΩ : StrictMono Ω) (Etot 
   intro a b hab
   exact div_lt_div_of_pos_right (hΩ (by linarith)) hZ
 
+/-- A passive non-uniform profile has a margin pair: some energy-ordered pair with a strict
+population drop. -/
+theorem exists_margin_pair {E p : Fin m → ℝ}
+    (hdist : ∀ a b : Fin m, a ≠ b → E a ≠ E b) (hp : Passive E p)
+    {c d : Fin m} (hne : p c ≠ p d) :
+    ∃ a b : Fin m, E a < E b ∧ 0 < p a - p b := by
+  have hcd : c ≠ d := fun h => hne (congrArg p h)
+  rcases lt_or_gt_of_ne (hdist c d hcd) with h | h
+  · have h1 := hp c d h
+    have h2 : p d < p c := lt_of_le_of_ne h1 fun h' => hne h'.symm
+    exact ⟨c, d, h, by linarith⟩
+  · have h1 := hp d c h
+    have h2 : p c < p d := lt_of_le_of_ne h1 hne
+    exact ⟨d, c, h, by linarith⟩
+
+/-- **THE MARGIN SELECTOR — route (b)'s reusable tool.** Passivity with margin `γ` at one
+energy-ordered pair survives any `∞`-norm perturbation below `γ/2`: the perturbed profile still
+rises across that pair after reflection, so the reflection stays excluded. This is the precise
+target a quantitative route must meet; the `10⁻¹²³` finite-bath number may NOT be inserted for
+the perturbation without a theorem bounding the represented-versus-shell population distance in
+this metric. -/
+theorem approx_passivity_selector {E p q : Fin m → ℝ} {E₀ γ : ℝ}
+    {a b : Fin m} (hab : E a < E b) (hmargin : p a - p b = γ) (_hγ : 0 < γ)
+    (hclose : ∀ c, |q c - p c| < γ / 2) :
+    ¬ Passive (fun c => -E c + E₀) q := by
+  intro hpass
+  have h1 := hpass b a (by simp only; linarith)
+  have h2 := abs_lt.mp (hclose a)
+  have h3 := abs_lt.mp (hclose b)
+  linarith [h2.1, h2.2, h3.1, h3.2]
+
 /-! ### Layer two, the mathematical half: stationarity diagonalizes
 
 `stationary_diagonal` is the purely algebraic implication layer two of the H-orientation
@@ -392,6 +423,8 @@ theorem stationary_spectral_form (V ρ : Matrix (Fin m) (Fin m) ℂ) (E : Fin m 
 #print axioms passivity_selector_nonuniform
 #print axioms counting_passive
 #print axioms counting_strictlyPassive
+#print axioms exists_margin_pair
+#print axioms approx_passivity_selector
 #print axioms commutant_diagonal
 #print axioms umat_spectral
 #print axioms stationary_offdiag
