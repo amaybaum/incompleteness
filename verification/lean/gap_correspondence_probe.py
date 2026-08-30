@@ -52,6 +52,13 @@ homometric mu is killed by explicit polynomial identities, not by genericity.
   M7  the clique bound: the 8 differences generate a group of order 48 whose Cayley
       graph has max clique 3 -- six mutually orthogonal rows are impossible.
   M8  cross-references: the same rulers as bohr_frequency_probe F6 and papers/GR.md.
+  M9  THE RANK CENSUS of L_mu: over every non-congruent homometric Golomb pair enumerable at
+      n = 4..8 (diameter bounds 20/25/32/36/40), the lattice of pulled-back K4 exponent
+      relations has rank EXACTLY n - 1 -- the exceptional modulus locus is always just the
+      flat row. No pairs exist at all except at n = 6, where every one of the 136 ordered
+      pairs (the printed pair among them) is full-rank. This is outcome one of the
+      programme's trichotomy: no exceptional modulus strata in the enumerable range, so the
+      universal statement stays the target and no block-decomposition theorem is needed yet.
 
 Usage:  python3 gap_correspondence_probe.py
 """
@@ -554,6 +561,62 @@ check("M8", ok8,
       "CROSS-REFERENCES: the rulers probed here are byte-identical (modulo whitespace) to the "
       "homometric pair in bohr_frequency_probe F6 and to the pair printed in papers/GR.md -- "
       "this probe stress-tests the manuscript's own example, not a private one")
+
+# ---------------------------------------------------------------- M9  the rank census
+def golomb_rulers(nn, dmax):
+    out = []
+    def rec(marks, diffs):
+        if len(marks) == nn:
+            out.append(tuple(marks))
+            return
+        for nxt in range(marks[-1] + 1, dmax + 1):
+            nd = [nxt - m for m in marks]
+            if len(set(nd)) == len(nd) and not (set(nd) & diffs):
+                rec(marks + [nxt], diffs | set(nd))
+    rec([0], set())
+    return out
+
+
+def rank_census(nn, dmax):
+    buckets = {}
+    for Rr in golomb_rulers(nn, dmax):
+        key = tuple(sorted(Rr[j] - Rr[i] for i, j in itertools.combinations(range(nn), 2)))
+        buckets.setdefault(key, []).append(Rr)
+    out = []
+    for key, group in buckets.items():
+        for Aa, Bb in itertools.combinations(group, 2):
+            Dd = max(Aa)
+            if Bb != Aa and Bb != tuple(sorted(Dd - x for x in Aa)):
+                for X, Y in ((Aa, Bb), (Bb, Aa)):
+                    gY = {}
+                    for cc, dd in itertools.combinations(range(nn), 2):
+                        gY[Y[dd] - Y[cc]] = (cc, dd)
+                    invm = {gY[X[bb] - X[aa]]: (aa, bb)
+                            for aa, bb in itertools.combinations(range(nn), 2)}
+                    edges = list(itertools.combinations(range(nn), 2))
+                    Nm = [[1 if v in e else 0 for v in range(nn)] for e in edges]
+                    Am = [[1 if v in invm[e] else 0 for v in range(nn)] for e in edges]
+                    rN, _, _ = rref(Nm)
+                    rNA, _, _ = rref([Nm[i] + Am[i] for i in range(len(edges))])
+                    out.append((X, Y, rNA - rN))
+    return out
+
+
+census = {}
+for nn, dmax in ((4, 20), (5, 25), (6, 32), (7, 36), (8, 40)):
+    census[nn] = rank_census(nn, dmax)
+ok9 = all(census[nn] == [] for nn in (4, 5, 7, 8))
+ok9 &= len(census[6]) == 136
+ok9 &= all(r == 5 for _, _, r in census[6])
+ok9 &= any(X == tuple(R1) and Y == tuple(R2) for X, Y, _ in census[6])
+check("M9", ok9,
+      f"THE RANK CENSUS: non-congruent homometric Golomb pairs exist in the enumerated range "
+      f"(n = 4..8, diameters up to 20/25/32/36/40) ONLY at n = 6 -- "
+      f"{[len(census[nn]) for nn in (4, 5, 6, 7, 8)]} ordered pairs respectively -- and all "
+      f"{len(census[6])} of them (the printed pair included) have rank L_mu = 5 = n - 1 "
+      f"exactly: the pulled-back K4 exponent relations always cut the modulus locus down to "
+      f"the flat row alone. Outcome one of the trichotomy: no exceptional modulus strata, the "
+      f"universal two-branch statement stays the target")
 
 print()
 print('     [scope] Settled exactly, at probe level: (i) n = 4 -- every labeled correspondence')

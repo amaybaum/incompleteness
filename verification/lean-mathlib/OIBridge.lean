@@ -73,6 +73,8 @@ import OIBridge.Reciprocity
 import OIBridge.GaugeDimension
 import OIBridge.BohrFrequency
 import OIBridge.TasteBranching
+import OIBridge.EdgeRigidity
+import OIBridge.HomometricSix
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
