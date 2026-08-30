@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Exact classification probes for the [GR] two-branch Claim (D-gauge completeness).
+"""Exact classification probes for the [GR] two-branch theorem (D-gauge completeness), which
+was held as a Claim at P-grade until the reconstruction programme closed.
 
-The Claim's open step is a classification: with all gaps distinct, matching transition
+The theorem's decisive step is a classification: with all gaps distinct, matching transition
 probabilities force a frequency-preserving bijection mu of ordered mode pairs, and the
-Claim says the only realizable mu are a mode relabeling (branch one) or the global pair
+theorem says the only realizable mu are a mode relabeling (branch one) or the global pair
 reversal (branch two). These probes decide the two finite stress tests EXACTLY, per the
 programme's decision tree, without choosing random Hamiltonians: the correspondences
 themselves are enumerated and classified.
@@ -32,7 +33,7 @@ exact:
   * the Cayley graph they generate (order 48) has max clique THREE < six: no joint pair
     of flat unitaries exists, so the forced homometric mu admits NO realization at all.
 
-VERDICT ENCODED HERE: both stress tests support the universal two-branch Claim; the
+VERDICT ENCODED HERE: both stress tests support the universal two-branch statement; the
 homometric mu is killed by explicit polynomial identities, not by genericity.
 
   M1  Stage 1: turnpike solutions at n = 4 are exactly {E, reflection}; all 48 labeled
@@ -573,7 +574,7 @@ check("M7", ok7,
       f"max clique at {len(best)} < 6. Six pairwise-orthogonal rows are impossible for V and V' "
       f"JOINTLY, so the forced homometric mu admits NO realization at any point of parameter "
       f"space: generic moduli die at the first filter, the flat locus dies here. The n = 6 "
-      f"stress test therefore SUPPORTS the universal two-branch Claim, by explicit polynomial "
+      f"stress test therefore SUPPORTS the universal two-branch statement, by explicit polynomial "
       f"identities rather than genericity")
 
 # ---------------------------------------------------------------- M8  cross-references
@@ -948,11 +949,12 @@ print('     mu-orbit bridge to the quoted exceptional family is kernel-proved ov
 print('     (OIBridge/PiccardBridge.lean, probe twins M11/M12). The primary 2007 text has been')
 print('     read: its exceptional-family formula is confirmed exactly (M12), its equivalence')
 print('     notion (identical or mirror image) and distinct-difference hypothesis match the')
-print('     Claim, and its classification argument is the cited external step. NOT settled:')
-print('     the real-vs-integer scope reading of the primary text (its polynomial model is')
-print('     integer-presented; the audit finding and the candidate closures are recorded in')
-print('     the ledger) and strata where some overlaps V_ia vanish (the Claim assumes nonzero')
-print('     overlaps); the Claim stays P-grade until the consumption decision is taken.')
+print('     statement, and its classification argument is the cited external step. The')
+print('     real-vs-integer scope gap is CLOSED by the kernel transfer theorem')
+print('     (TurnpikeScopeTransfer.lean, M13), so the manuscript now prints the two-branch')
+print('     THEOREM at K2, citing Bekir-Golomb for the integer classification only; vanishing')
+print('     overlaps remain outside the theorem by hypothesis, and formalizing the 2007')
+print('     classification is the sole remaining K3 backlog item.')
 print()
 print("gap_correspondence_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

@@ -1047,7 +1047,7 @@ what the argument needs: the transition data determine the full
 dynamical frequency content, and the dimensional obstruction then makes
 the determination of \(\hbar\) a question no amount of such data can
 settle. The sharper question --- how far the data pin the Hamiltonian
-itself --- is stated separately below, with its status marked.
+itself --- is settled by the two-branch theorem below.
 
 \textbf{Theorem (Bohr-frequency completeness).} \emph{Let
 \(U(t) = e^{-iHt}\) with non-degenerate eigenvalues and non-vanishing
@@ -1083,62 +1083,101 @@ Hamiltonian carry no scale either: the energy origin
 \(H \mapsto H + E_0\) contributes only the global phase \(e^{-iE_0 t}\),
 the antiunitary reflection \(H \mapsto -\bar{H}\) satisfies
 \(e^{-i(-\bar{H})t} = \overline{e^{-iHt}}\) entrywise and so preserves
-every \(|U_{ij}(t)|^2\) exactly, and whatever further reconstruction
-ambiguity survives the coefficient matching is a discrete relabeling of
-the same frequency data. Step 4's thermal matching is therefore the
-mathematically obligatory entry point for the dimensionful input,
-whatever the final classification of that ambiguity.
+every \(|U_{ij}(t)|^2\) exactly, and the two-branch theorem below shows
+that nothing beyond these survives the coefficient matching. Step 4's
+thermal matching is therefore the mathematically obligatory entry point
+for the dimensionful input.
 
-\textbf{Claim (D-gauge completeness, two-branch form).} \emph{Let
+\textbf{Theorem (D-gauge completeness, two-branch form).} \emph{Let
 \(U(t) = e^{-iHt}\) with all energy gaps \(E_a - E_b\) (\(a \neq b\))
 distinct and all configuration-basis overlaps non-vanishing. If
 \(|U'_{ij}(t)|^2 = |U_{ij}(t)|^2\) for all \(i, j, t\), then
 \(H' = DHD^\dagger + E_0\) or \(H' = -D\bar{H}D^\dagger + E_0\), for a
 time-independent diagonal unitary \(D\) and a real \(E_0\).}
 
-The status of this claim is a reduction, not a proof, and it is recorded
-here as the open reconstruction target. What is established: each listed
-ambiguity is genuinely invisible, and each relaxation of the claim fails
-on an explicit example. Omitting \(E_0\) fails on \(H + E_0\). Omitting
-the second branch fails on \(-\bar{H}\), whose spectrum \(\{-E_a\}\) is
-not a shift of \(\{E_a\}\) for generic \(H\); the second branch is an
-antiunitary ambiguity --- time reversal composed with energy reflection
---- not a gauge transformation. Weakening the gap condition to
-eigenvalue non-degeneracy fails on the \(C_4\) ring of {[}SM{]}
-Proposition 20: its spectrum \(\{\pm 2a, \pm 2b\}\) has distinct
-eigenvalues but degenerate gaps, its overlaps are uniform Fourier
-moduli, its reflection symmetry gives \(|U_{ij}(t)|^2 = |U_{ji}(t)|^2\)
-so that \(\bar{H}\) reproduces every transition probability, and
-\(\bar{H}\) is not diagonal-conjugate to \(H\) because conjugation
-preserves the loop product \(z^4\), which is not real there --- the same
-example that keeps weak-CP phases viable under reciprocity marks the
-exact boundary of Hamiltonian reconstruction. What remains open is the
-reconstruction step. With the gaps distinct, matching forces a bijection
-\(\mu\) of ordered mode pairs preserving frequencies, and rank-one
-factorization of the coefficient tensors
-\(C^{ab}_{ij} = V_{ia} V_{ja}^* V_{jb} V_{ib}^*\) forces
-\(z'^{\mu(a,b)} = \lambda_{ab}\, z^{ab}\) for the vectors
-\(z^{ab}_i = V_{ia} V_{ib}^*\) and unit scalars \(\lambda_{ab}\); the
-claim is that the only such bijections are a relabeling of modes or the
-global pair reversal. The raw frequency set cannot decide this:
-non-congruent homometric Golomb rulers exist --- \(\{0,1,4,10,12,17\}\)
-and \(\{0,1,8,11,13,17\}\) share their fifteen pairwise differences,
-each ruler's differences all distinct, without being translates or
-reflections of one another --- so the reduction must run on the
-coefficient-labelled frequency data, where the multiplicative relations
-\(z^{ab} z^{bc} = |V_{\cdot b}|^2 z^{ac}\) are available, and not on the
-difference set alone. Once the bijection is pinned to a relabeling, the
-double-difference condition
-\(\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0 \pmod{2\pi}\),
-whose general solution on the pair lattice is
-\(\delta_{ia} = \alpha_i + \beta_a\), closes the diagonal factor as
-before.
+\emph{Proof.} Equality of the probability families forces, by the
+character independence above, equality of every per-frequency
+coefficient of
+\(|U_{ij}(t)|^2 = \sum_{a,b} V_{ia} V_{ja}^* V_{ib}^* V_{jb}\, e^{-i(E_b - E_a)t}\)
+over the union of the two gap sets; the gap sets coincide, and with all
+gaps distinct each frequency is carried by exactly one ordered mode pair
+on each side, so the matching forces a bijection \(\nu\) of ordered
+pairs preserving gap values and, pair by pair, equality of the
+coefficient tensors \(C^{ab}_{ij} = V_{ia} V_{ja}^* V_{ib}^* V_{jb}\)
+along \(\nu\). The classification of \(\nu\) concerns the spectra alone,
+and it reduces to integer spectra: the realization constraints of a
+fixed correspondence --- gap identities, orderings, distinctness of
+differences, failure of translation- and reflection-congruence --- are
+homogeneous rational-linear equalities, strict inequalities, and
+inequations, so a real spectrum pair realizing a nontrivial
+correspondence yields an integer pair realizing the same one: the
+entries span a finite-dimensional \(\mathbb{Q}\)-subspace of
+\(\mathbb{R}\), each basis-coordinate slice of the pair is itself a
+rational solution of the equality subsystem, rational combination
+coefficients near the real ones preserve the finitely many strict
+conditions, and a common denominator clears. For integer spectra the
+classification is the completed Piccard theorem: two rulers with all
+internal differences distinct and the same difference set are identical
+or mirror images, except for a single two-parameter six-mark family
+{[}A. Bekir and S. W. Golomb, IEEE Trans. Inform. Theory 53 (2007)
+2864--2867{]}. In the congruent cases the coefficient lines give the
+multiplicative rigidity \(W_{i,\tau a} = d_i \beta_a V_{ia}\) with
+\(d, \beta\) unimodular --- the moduli by diagonal-line rigidity at
+\(m \ge 3\), while at \(m = 2\) the diagonal line factors as
+\((q - p)(1 - p - q) = 0\) and the apparent hyperbola is exactly the
+reflection branch; the phases by the coboundary splitting on the pair
+lattice, the general solution of
+\(\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0\) being
+\(\delta_{ia} = \alpha_i + \beta_a\) --- and the \(\beta\)'s cancel in
+\(H' = W \operatorname{diag}(E') W^\dagger\), giving the first branch;
+reflection congruence is the first branch applied to \((\bar{V}, -E)\),
+giving the second. The exceptional six-mark family induces, up to
+relabeling, the single frequency-preserving correspondence \(\mu\) of
+the homometric pair \(\{0,1,4,10,12,17\}\) / \(\{0,1,8,11,13,17\}\) ---
+the two-parameter family satisfies all fifteen gap identities of \(\mu\)
+identically in its parameters --- and \(\mu\) admits no realization by
+unitary eigenbases with non-vanishing overlaps: its pulled-back
+four-cycle identities force flat moduli, the surviving monomial phase
+family confines the row parameters to the eight common roots-of-unity
+zeros of two mask polynomials, and the graph these eight generate has
+maximum clique three, short of the six mutually orthogonal rows
+required. The two printed branches are all that remains. \(\square\)
+
+The proof is kernel-verified end to end
+(\texttt{verification/lean-mathlib/OIBridge/}, composed statement
+\texttt{twoBranch\_of\_BGClassification}), with a single exception
+consumed as a cited external theorem: the integer classification of
+Bekir--Golomb, stated in the kernel as the explicit premise
+\texttt{BGIntegerClassification} --- in the integer scope the cited text
+uses, the passage from integer to real spectra being proved, not
+assumed. The hypotheses are sharp: each relaxation fails on an explicit
+example. Omitting \(E_0\) fails on \(H + E_0\). Omitting the second
+branch fails on \(-\bar{H}\), whose spectrum \(\{-E_a\}\) is not a shift
+of \(\{E_a\}\) for generic \(H\); the second branch is an antiunitary
+ambiguity --- time reversal composed with energy reflection --- not a
+gauge transformation. Weakening the gap condition to eigenvalue
+non-degeneracy fails on the \(C_4\) ring of {[}SM{]} Proposition 20: its
+spectrum \(\{\pm 2a, \pm 2b\}\) has distinct eigenvalues but degenerate
+gaps, its overlaps are uniform Fourier moduli, its reflection symmetry
+gives \(|U_{ij}(t)|^2 = |U_{ji}(t)|^2\) so that \(\bar{H}\) reproduces
+every transition probability, and \(\bar{H}\) is not diagonal-conjugate
+to \(H\) because conjugation preserves the loop product \(z^4\), which
+is not real there --- the same example that keeps weak-CP phases viable
+under reciprocity marks the exact boundary of Hamiltonian
+reconstruction. And the frequency set alone could not have decided the
+classification: the homometric pair above shares its fifteen pairwise
+differences without the rulers being translates or reflections of one
+another, which is why the proof runs on the coefficient-labelled
+frequency data, where the multiplicative relations
+\(z^{ab} z^{bc} = |V_{\cdot b}|^2 z^{ac}\) of the vectors
+\(z^{ab}_i = V_{ia} V_{ib}^*\) are available, and not on the difference
+set.
 
 Every member of the residual family is invisible to the transition data
 for a stated reason --- diagonal rephasing moves no modulus, the energy
 origin is a global phase, the antiunitary reflection conjugates \(U(t)\)
 entrywise --- and none carries a scale, so §3.4's determination of
-\(\hbar\) does not wait on the claim. Cross-interval transition
+\(\hbar\) does not wait on the theorem. Cross-interval transition
 probabilities fix the relative gauge up to a single global phase; in the
 continuum limit this becomes an unobservable smooth function
 \(e^{i\theta(t)}\).
@@ -4047,4 +4086,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: e842263a58d1127ed622d3b61c7f7ab96e9bb1c9609826b548d16fa091a8ed17
+% source-sha256: 65ddfac853cb96f8608f020010886a15deda863152d3ea81d46319dd12c0cfbb

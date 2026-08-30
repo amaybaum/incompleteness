@@ -227,10 +227,11 @@ ok8 &= 'native_decide' not in body
 # the analytic step must be Dedekind, used at every real time -- no sampling, no approximation
 ok8 &= 'linearIndependent_monoidHom' in src
 ok8 &= '∀ t : ℝ, retProb E p t = retProb E\' p\' t' in src
-# the manuscript must carry the theorem, the claim marked open, and the C4 cross-reference
+# the manuscript must carry both theorems, the K2 citation structure, and the C4 cross-reference
 ok8 &= '**Theorem (Bohr-frequency completeness).**' in gr
-ok8 &= '**Claim (D-gauge completeness, two-branch form).**' in gr
-ok8 &= 'a reduction, not a proof' in gr
+ok8 &= '**Theorem (D-gauge completeness, two-branch form).**' in gr
+ok8 &= 'A. Bekir and S. W. Golomb' in gr
+ok8 &= 'the passage from integer to real spectra being proved, not assumed' in gr
 ok8 &= '[SM] Proposition 20' in gr
 ok8 &= '0,1,4,10,12,17' in gr and '0,1,8,11,13,17' in gr
 # and the withdrawn conclusion must not be asserted anywhere as a theorem
@@ -239,18 +240,22 @@ check("F8", ok8,
       f"LINT. The file is imported by OIBridge.lean so CI builds it; no `sorry`, no `axiom`, no "
       f"`native_decide`; all {len(NAMES)} named results print their axiom dependencies. The "
       f"analytic step is Dedekind's independence of characters at every real time, not sampling. "
-      f"The manuscript carries Bohr-frequency completeness as the theorem, the two-branch form as "
-      f"a Claim whose status is 'a reduction, not a proof', the [SM] Proposition 20 "
-      f"cross-reference, the homometric rulers, and no longer asserts the withdrawn conclusion")
+      f"The manuscript carries Bohr-frequency completeness and the two-branch theorem, the "
+      f"latter proved with the integer Bekir-Golomb classification as its one cited input and "
+      f"the integer-to-real passage proved internally; the [SM] Proposition 20 cross-reference "
+      f"and the homometric rulers stand, and the withdrawn unconditional conclusion is still "
+      f"asserted nowhere")
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
 print('     real time), the |U_ij|^2 expansion over the same frequencies, and both invisible')
 print('     impostors -- the energy origin and the antiunitary reflection -- as exact identities.')
-print('     NOT settled: the two-branch reconstruction Claim, whose open step is the')
-print('     coefficient-labelled inverse problem; the homometric rulers show the raw difference')
-print('     set cannot close it.')
+print('     The two-branch reconstruction is now a manuscript THEOREM at K2: every step is')
+print('     kernel-proved except the cited integer Bekir-Golomb classification (the explicit')
+print('     premise BGIntegerClassification); the homometric rulers mark why the proof runs on')
+print('     coefficient-labelled data, and formalizing the 2007 classification is the sole')
+print('     remaining K3 backlog item.')
 print()
 print("bohr_frequency_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)
