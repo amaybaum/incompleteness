@@ -3,7 +3,7 @@
 *[Status note, 2026-07-26: this companion overview is superseded by the book, `book/`, which
 now carries its content in maintained form, and is frozen at this revision — it will not be
 updated in subsequent releases, and where it and the book disagree, the book is authoritative.
-Two elements are for now available only here: the D-gauge completeness walkthrough (§5.3
+Two elements are for now available only here: the D-gauge walkthrough (§5.3
 below) and the mathematical summary tables of the appendix, pending their incorporation into
 the book.]*
 
@@ -475,23 +475,17 @@ This fixes β = 1/4.
 
 ---
 
-## The D-Gauge Completeness Theorem (§5.3)
+## Frequencies and the D-Gauge Question (§5.3)
 
 **The problem.** The relation T_ij = |U_ij|² discards phase information. Could different Hamiltonians give the same transition probabilities?
 
-**The theorem.** If |U'_ij(t)|² = |U_ij(t)|² for all i, j, t, then H' = DHD† where D is a diagonal unitary (a physically meaningless relabeling of basis phases).
+**What is proved (Bohr-frequency completeness).** The transition probabilities determine the full set of energy differences E_k − E_l. Each return probability expands as |U_ii(t)|² = Σ |V_ik|²|V_il|² e^{−i(E_k−E_l)t}, in which every gap carries a strictly positive coefficient — degenerate gaps merge coefficients but cannot cancel them — and distinct frequencies give linearly independent characters, so equal probability families have equal gap sets.
 
-**The proof in three steps:**
-
-*Step 1 (eigenvalue recovery):* Fourier analysis of T_ij(t) extracts the energy differences E_k - E_l. Non-degeneracy of energy gaps means E'_k = E_k + E₀ (same eigenvalues up to a global shift).
-
-*Step 2 (modulus recovery):* The diagonal Fourier coefficients give |V_ik|² directly. So |V'_ik| = |V_ik|.
-
-*Step 3 (phase structure):* Writing V'_ik = V_ik e^{iδ_ik} and requiring all Fourier coefficients to match gives the double-difference condition:
+**What is conjectured (two-branch reconstruction).** Under the genericity conditions G1–G3 — non-degenerate spectrum, non-degenerate energy gaps, non-vanishing overlaps — the expectation is that matching probabilities force H' = DHD† + E₀ or H' = −DH̄D† + E₀: basis rephasing, an energy origin, and an antiunitary reflection, nothing else. Each listed ambiguity is exactly invisible (the reflection satisfies e^{−i(−H̄)t} = conj(e^{−iHt}) entrywise), each relaxation fails on an explicit example — dropping the gap condition fails on the C₄ ring of [SM] Proposition 20 — and the open step is a discrete inverse problem: the raw difference set does not determine a spectrum (non-congruent homometric Golomb rulers exist), so the reconstruction must run on the coefficient-labelled frequency data. The double-difference condition
 
 $$\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0 \pmod{2\pi}$$
 
-The general solution: δ_ik = α_i + β_k — a sum of a row phase and a column phase. This is just basis rephasing.
+with general solution δ_ik = α_i + β_k then closes the rephasing factor once the mode correspondence is pinned.
 
 **The dimensional obstruction.** The unitary U(t) is dimensionless. The Hamiltonian Ĥ = iℏ ∂_tU · U† contains ℏ, which is dimensionful. No amount of dimensionless data can fix a dimensionful constant. This is why Step 4 (thermal matching) is not just a convenient check but the *mathematically obligatory* step: it's the only place where dimensionful physical input enters the framework.
 
@@ -1032,7 +1026,7 @@ And the incompleteness family extends one step further: Gödel showed that proof
 | §5.2 Step 2: Boundary-only | ℏ depends only on c, G, ε | Deep sector frozen |
 | §5.2 Step 3: Dimensional analysis | ℏ = β c³ε²/G | Unique combination |
 | §5.2 Step 4: Thermal matching | T_cl = T_Q fixes β = 1/4 | ℏ = c³ε²/(4G) |
-| §5.3: D-gauge theorem | No phase ambiguity | Double-difference condition |
+| §5.3: Bohr-frequency completeness | Frequencies determined, ℏ not | Dimensional obstruction |
 | §6: Self-consistency | ε = 2 l_p, S_BH = A/(4l_p²) | ε² = 4ℏG/c³ |
 
 The chain from definition to ℏ:
@@ -1053,9 +1047,9 @@ The framework has one free parameter (ε). The gap equation relates ε to ℏ. Y
 
 The thermal matching in Step 4 uses the KMS condition, which is proved for continuum QFT on curved spacetime. The emergent QFT from Part I is lattice-regularized with cutoff ε. Thermal periodicity on a lattice has corrections of order (εκ/c)². For the cosmological horizon: εκ/c = εH/c ~ 10⁻⁶¹, so corrections are ~ 10⁻¹²². Negligible, but a lattice-native proof of the KMS condition would strengthen the argument.
 
-**3. The D-gauge theorem requires genericity.**
+**3. The D-gauge reconstruction requires genericity, and is stated as a claim.**
 
-The phase-locking and D-gauge results assume non-degenerate spectrum, non-degenerate energy gaps, and non-vanishing overlaps (conditions G1–G3). These fail on a measure-zero set of Hamiltonians. For the cosmological realization, a stronger argument applies to G1 specifically: the genericity conditions concern the *effective* visible-sector Hamiltonian $\hat{H}_{\text{eff}}$ (after the trace-out), not the total Hamiltonian $H_{\text{tot}}$. The relevant distinction is whether a symmetry of $H_{\text{tot}}$ preserves the visible/hidden factorization. The spatial symmetries an observer-centered partition breaks — translation, rotation about distant points, boost — are *factorization-breaking* (they map boundary visible sites to hidden sites across the cosmological horizon), so they have no action on the visible factor alone and the degeneracies they protect are lifted in $\hat{H}_{\text{eff}}$. Factorization-preserving symmetries $S_V\otimes S_H$, by contrast, descend to a visible symmetry $S_V$ of $\hat{H}_{\text{eff}}$ (the uniform-bath trace-out is invariant under any unitary on the hidden factor); the visible-internal ones among these are the gauge symmetries of the emergent QFT, which correspond to physically equivalent states and don't affect the phase-locking argument. G2 (non-degenerate gaps) is not symmetry-protected and rests on genericity directly; it holds for generic $\hat{H}_{\text{eff}}$ and can fail only on a measure-zero set, with no known structural feature of the substratum forcing systematic failure (single-cycle hidden dynamics in particular does not, since the Hermitian $\hat{H}_{\text{eff}}$ — unlike the unitary cycle operator's equally-spaced phases — has unequally-spaced real eigenvalues and retains non-degenerate gaps after the trace-out).
+The phase-locking argument and the two-branch reconstruction claim assume non-degenerate spectrum, non-degenerate energy gaps, and non-vanishing overlaps (conditions G1–G3); Bohr-frequency completeness itself needs only the spectrum and overlap conditions. These fail on a measure-zero set of Hamiltonians. For the cosmological realization, a stronger argument applies to G1 specifically: the genericity conditions concern the *effective* visible-sector Hamiltonian $\hat{H}_{\text{eff}}$ (after the trace-out), not the total Hamiltonian $H_{\text{tot}}$. The relevant distinction is whether a symmetry of $H_{\text{tot}}$ preserves the visible/hidden factorization. The spatial symmetries an observer-centered partition breaks — translation, rotation about distant points, boost — are *factorization-breaking* (they map boundary visible sites to hidden sites across the cosmological horizon), so they have no action on the visible factor alone and the degeneracies they protect are lifted in $\hat{H}_{\text{eff}}$. Factorization-preserving symmetries $S_V\otimes S_H$, by contrast, descend to a visible symmetry $S_V$ of $\hat{H}_{\text{eff}}$ (the uniform-bath trace-out is invariant under any unitary on the hidden factor); the visible-internal ones among these are the gauge symmetries of the emergent QFT, which correspond to physically equivalent states and don't affect the phase-locking argument. G2 (non-degenerate gaps) is not symmetry-protected and rests on genericity directly; it holds for generic $\hat{H}_{\text{eff}}$ and can fail only on a measure-zero set, with no known structural feature of the substratum forcing systematic failure (single-cycle hidden dynamics in particular does not, since the Hermitian $\hat{H}_{\text{eff}}$ — unlike the unitary cycle operator's equally-spaced phases — has unequally-spaced real eigenvalues and retains non-degenerate gaps after the trace-out).
 
 **4. Why doesn't the deep sector matter?**
 

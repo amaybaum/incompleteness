@@ -126,23 +126,9 @@
       "note": ""
     },
     {
-      "id": "GR:T-d-gauge-completeness",
-      "paper": "papers/GR.md",
-      "line": 166,
-      "kind": "Theorem",
-      "label": "(D-gauge completeness)",
-      "fingerprint": "bdc0f01e54fe1d20",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
       "id": "GR:C-invisible-gravitational-budget",
       "paper": "papers/GR.md",
-      "line": 308,
+      "line": 300,
       "kind": "Corollary",
       "label": "(Invisible gravitational budget)",
       "fingerprint": "ea5d16ff902c196d",
@@ -156,7 +142,7 @@
     {
       "id": "GR:T-unnamed-b09a495a",
       "paper": "papers/GR.md",
-      "line": 563,
+      "line": 555,
       "kind": "Theorem",
       "label": "-level statement",
       "fingerprint": "b09a495aaaa74234",
@@ -170,7 +156,7 @@
     {
       "id": "GR:T-a.1",
       "paper": "papers/GR.md",
-      "line": 617,
+      "line": 609,
       "kind": "Theorem",
       "label": "A.1",
       "fingerprint": "6194ab9e0237ac5d",
@@ -184,7 +170,7 @@
     {
       "id": "GR:T-a.2",
       "paper": "papers/GR.md",
-      "line": 631,
+      "line": 623,
       "kind": "Theorem",
       "label": "A.2",
       "fingerprint": "9038fb0a71ad5428",
@@ -198,7 +184,7 @@
     {
       "id": "GR:C-a.3",
       "paper": "papers/GR.md",
-      "line": 637,
+      "line": 629,
       "kind": "Corollary",
       "label": "A.3",
       "fingerprint": "5f71b094854d9ff3",
@@ -212,7 +198,7 @@
     {
       "id": "GR:C-a.4",
       "paper": "papers/GR.md",
-      "line": 641,
+      "line": 633,
       "kind": "Corollary",
       "label": "A.4",
       "fingerprint": "da598c322c63193a",
@@ -226,7 +212,7 @@
     {
       "id": "GR:T-a.5",
       "paper": "papers/GR.md",
-      "line": 647,
+      "line": 639,
       "kind": "Theorem",
       "label": "A.5",
       "fingerprint": "c72669dae57db87f",
@@ -240,7 +226,7 @@
     {
       "id": "GR:T-a.6",
       "paper": "papers/GR.md",
-      "line": 683,
+      "line": 675,
       "kind": "Theorem",
       "label": "A.6",
       "fingerprint": "d2f6e40dab0088fc",
@@ -254,7 +240,7 @@
     {
       "id": "GR:T-a.7",
       "paper": "papers/GR.md",
-      "line": 705,
+      "line": 697,
       "kind": "Theorem",
       "label": "A.7",
       "fingerprint": "afea3a8c2dbcb278",
@@ -268,7 +254,7 @@
     {
       "id": "GR:T-a.8",
       "paper": "papers/GR.md",
-      "line": 709,
+      "line": 701,
       "kind": "Theorem",
       "label": "A.8",
       "fingerprint": "17e40e97098c702e",
@@ -282,7 +268,7 @@
     {
       "id": "GR:T-a.9",
       "paper": "papers/GR.md",
-      "line": 733,
+      "line": 725,
       "kind": "Theorem",
       "label": "A.9",
       "fingerprint": "d42ca3c552d95614",
@@ -2579,6 +2565,54 @@
       "kernel": "GAP",
       "delta": "not formalized",
       "note": ""
+    },
+    {
+      "id": "GR:T-bohr-frequency-completeness",
+      "paper": "papers/GR.md",
+      "line": 166,
+      "kind": "Theorem",
+      "label": "(Bohr-frequency completeness)",
+      "fingerprint": "0f77516e175ca030",
+      "area": "gr",
+      "assumptions": "non-degenerate eigenvalues; non-vanishing configuration-basis overlaps",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/BohrFrequency.lean",
+          "basis": "named",
+          "evidence": "bohr_frequency_completeness"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/bohr_frequency_probe.py",
+          "basis": "named",
+          "evidence": "frequency recovery"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "THIS THEOREM REPLACES A WITHDRAWN ONE. The statement that stood here -- matching transition probabilities force H' = D H D^dag -- was false on three counts, each now a permanent countercontrol: the energy origin H + E0 (kernel identity shift_modsq), the antiunitary reflection -conj(H), which conjugates U(t) entrywise (kernel identities reflect_conj/reflect_modsq), and, under the printed eigenvalue-only hypothesis, the C4 ring of [SM] Proposition 20, whose degenerate gaps let conj(H) through while its loop phase forbids diagonal conjugacy (probe F5) -- the corpus's own example, now cross-referenced in GR 3.3. What replaces it is exactly what the dimensional argument consumes: the probabilities determine the full Bohr-frequency set, and no dimensionless data of this kind can determine hbar. KERNEL-PROVED IN FULL, including the analytic step: the return-probability expansion (retProb_eq_sum_gaps), strict positivity of every gap coefficient with degenerate gaps allowed -- merged positives cannot cancel (ampR_pos) -- the |U_ij|^2 expansion over the same frequencies (normSq_expansion), and gap-set determination from equality of the probability families at every real time (gaps_determined), through Dedekind's linear independence of characters (Mathlib's linearIndependent_monoidHom on Multiplicative R -> C), with the injectivity of omega |-> e^{i omega t} pinned by evaluation at t = pi/(omega1 - omega2). No sampling, no truncation, no approximation. The two-branch reconstruction statement is printed separately as a Claim whose status is a reduction, not a proof; its open step is the coefficient-labelled inverse problem, and the homometric Golomb rulers {0,1,4,10,12,17} / {0,1,8,11,13,17} show the raw difference set cannot close it."
+    },
+    {
+      "id": "GR:K-d-gauge-completeness-two-branch",
+      "paper": "papers/GR.md",
+      "line": 172,
+      "kind": "Claim",
+      "label": "(D-gauge completeness, two-branch form)",
+      "fingerprint": "96870659b1d2716b",
+      "area": "gr",
+      "assumptions": "all energy gaps distinct; non-vanishing overlaps",
+      "checks": [
+        {
+          "kind": "probe",
+          "path": "verification/lean/bohr_frequency_probe.py",
+          "basis": "named",
+          "evidence": "both branches"
+        }
+      ],
+      "kernel": "P",
+      "delta": "PROBED, NOT PROVED. Both branches verified to reproduce the data and local rigidity checked (probe F7); the open mathematics is the coefficient-labelled reconstruction step.",
+      "note": "PRINTED AS A CLAIM, NOT A THEOREM, replacing a withdrawn proof. What is established and kernel-proved: both branches are exactly invisible (shift_modsq, reflect_conj in OIBridge/BohrFrequency.lean), and each relaxation fails on an explicit example -- omitting E0 fails on H + E0; omitting the second branch fails on -conj(H), whose spectrum is not a shift of the original for generic H; weakening distinct gaps to distinct eigenvalues fails on the C4 ring of [SM] Proposition 20, which lands inside the second branch via the bipartite sign diag(1,-1,1,-1). The second branch is an antiunitary ambiguity -- time reversal composed with energy reflection -- not a gauge transformation. WHAT REMAINS OPEN: with gaps distinct, matching forces a bijection mu of ordered mode pairs preserving frequencies and, by rank-one factorization of C^{ab}_{ij} = z^{ab}_i conj(z^{ab}_j), an equality z'^{mu(a,b)} = lambda z^{ab} up to unit scalars; the claim is that the only such bijections are a mode relabeling or the global pair reversal. The raw difference set cannot decide this (homometric Golomb rulers), so the reduction must run on the coefficient-labelled data, where the multiplicative relations z^{ab} z^{bc} = |V_.b|^2 z^{ac} are available. Once the bijection is pinned, the double-difference/coboundary step closes the diagonal factor -- the same H^1 = 0 structure the phase-locking round formalized. Numerically both branches reproduce the data exactly and generic perturbations off them break it (probe F7); local rigidity is checked, global classification is not."
     }
   ],
   "unattached": [
@@ -2753,11 +2787,11 @@
   "backlog": [
     {
       "rank": 1,
-      "id": "GR:T-d-gauge-completeness",
+      "id": "GR:K-d-gauge-completeness-two-branch",
       "centrality": "medium",
       "difficulty": "high",
       "tier": 6,
-      "route": "Needs non-degenerate spectra, non-vanishing overlaps and an argument over all t -- analytic, and the first GR statement worth attempting."
+      "route": "The coefficient-labelled reconstruction: distinct gaps + the complete nonzero coefficient family force the frequency-pair bijection to be a mode relabeling or the global reversal -- equivalently, the only automorphisms of the coefficient-labelled directed gap graph are vertex relabeling and total edge reversal. The data are unusually rich: z'^{mu(a,b)} = lambda z^{ab} up to unit scalars, plus the multiplicative relations z^{ab} z^{bc} = |V_.b|^2 z^{ac} with positive middle factors. The raw difference set cannot close it (homometric Golomb rulers -- probe F6); once the bijection is pinned, the double-difference/coboundary step is the phase-locking machinery already formalized. Both invisible branches and all three countercontrols are already kernel-proved or probe-fixed, so only the classification itself is open."
     },
     {
       "rank": 2,

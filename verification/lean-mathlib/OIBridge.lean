@@ -42,6 +42,7 @@ import Mathlib.GroupTheory.Perm.Fin
 -- `OIBridge.Separability` its entanglement layer and `OIBridge.WeylLift` the
 -- multiplicative lift and the character projectors that carry both its directions,
 -- `OIBridge.BoundaryRank` [Main] Lemma 1, `OIBridge.Reciprocity` [SM] Theorem 19, `OIBridge.GaugeDimension` [SM] Theorem 16,
+-- `OIBridge.BohrFrequency` [GR]'s Bohr-frequency completeness,
 -- `OIBridge.Irreducibility` the implication from the
 -- endomorphism dimension to irreducibility that Mathlib carries only for algebraically
 -- closed fields, `OIBridge.LinkDecomposition` that theorem's six-link
@@ -69,6 +70,7 @@ import OIBridge.WeylLift
 import OIBridge.BoundaryRank
 import OIBridge.Reciprocity
 import OIBridge.GaugeDimension
+import OIBridge.BohrFrequency
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

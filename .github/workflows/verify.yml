@@ -106,7 +106,7 @@ jobs:
                    idempotent_trace link_decomposition stinespring_scope \
                    factor_uniqueness kraus_uniqueness stinespring_uniqueness \
                    weyl_twirl weyl_lift separability boundary_rank reciprocity \
-                   gauge_dimension; do
+                   gauge_dimension bohr_frequency; do
             echo "=== ${p}_probe.py ==="
             python3 "${p}_probe.py"
           done
