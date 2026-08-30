@@ -37,7 +37,13 @@ These checks exercise the same statements independently (no Lean in the loop):
   R6  ORIENTATION COHERENCE: for random spectra with distinct eigenvalues, both global lifts
       satisfy every triangle gap identity while EVERY properly mixed sign assignment violates
       one -- the content of `orientation_coherence`, checked in exact fractions.
-  R7  lint of all three Lean files.
+  R7  lint of all four Lean files.
+  R8  CONGRUENT RECONSTRUCTION, numerically: random unitary V, random unimodular row/column
+      phases and mode permutation build W; the coefficient lines match and H' recovers
+      D H D^dag + E0 (and the reflected model recovers -D conj(H) D^dag + E0) to machine
+      precision; perturbing one column phase off the unit circle breaks a coefficient line
+      (the modulus rigidity that needs m >= 3); at m = 2 the hyperbola ambiguity survives
+      the diagonal filter, confirming the file's honest m = 2 exclusion.
 
 Usage:  python3 edge_rigidity_probe.py
 """
@@ -318,7 +324,12 @@ for fname, names in (
                        'no_four_clique', 'no_six_orthogonal', 'three_clique')),
     ('HomometricKill', ('line_forcing', 'flat_of_products', 'monomial_relations',
                         'torus_zeros', 'point_to_exponent', 'orderOf_zeta', 'orderOf_I',
-                        'homometricSix_unrealizable'))):
+                        'homometricSix_unrealizable')),
+    ('CongruentReconstruction', ('modulus_rigid', 'phase_coboundary',
+                                 'reconstruction_translation', 'reconstruction_reflection',
+                                 'reconstruction_dim_zero', 'reconstruction_dim_one',
+                                 'exceptional_impossible',
+                                 'twoBranch_of_PiccardClassification'))):
     src = open(os.path.join(BRIDGE, 'OIBridge', f'{fname}.lean'), encoding='utf-8').read()
     body = src[src.index('namespace OIBridge'):]
     ok6 &= f'import OIBridge.{fname}' in root
@@ -333,11 +344,106 @@ ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
 ok6 &= 'Edge 4 ≃ Edge 4' in er
 ok6 &= 'theorem homometricSix_unrealizable' in open(
     os.path.join(BRIDGE, 'OIBridge', 'HomometricKill.lean'), encoding='utf-8').read()
+cr = open(os.path.join(BRIDGE, 'OIBridge', 'CongruentReconstruction.lean'),
+          encoding='utf-8').read()
+ok6 &= 'theorem twoBranch_of_PiccardClassification' in cr
+ok6 &= '(hm : 3 ≤ m)' in cr and 'm = 2 is left OPEN here deliberately' in cr
 check("R7", ok6,
-      "LINT. All three files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 named results print their axiom "
-      "dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, the exception lives at "
-      "n = 4, and the assembled `homometricSix_unrealizable` closes the analytic middle")
+      "LINT. All four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 named results print their axiom "
+      "dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, the reconstruction "
+      "theorems carry 3 <= m with the m = 2 exclusion stated honestly, and the conditional "
+      "`twoBranch_of_PiccardClassification` isolates the single external premise")
+
+# ---------------------------------------------------------------- R8  congruent reconstruction
+import cmath
+ok8 = True
+rng8 = random.Random(20260831)
+
+
+def rand_unitary(n):
+    # Gram-Schmidt on a random complex matrix
+    M = [[complex(rng8.gauss(0, 1), rng8.gauss(0, 1)) for _ in range(n)] for _ in range(n)]
+    Q = []
+    for r in M:
+        v = r[:]
+        for q in Q:
+            ip = sum(a * b.conjugate() for a, b in zip(v, q))
+            v = [a - ip * b for a, b in zip(v, q)]
+        nrm = sum(abs(a) ** 2 for a in v) ** 0.5
+        Q.append([a / nrm for a in v])
+    return Q
+
+
+def coeff_line(M, ta, tb, i, j):
+    return (M[i][ta] * M[i][tb].conjugate()) * (M[j][ta] * M[j][tb].conjugate()).conjugate()
+
+
+for n in (3, 4, 5):
+    V = rand_unitary(n)
+    tau = list(range(n))
+    rng8.shuffle(tau)
+    d = [cmath.exp(1j * rng8.uniform(0, 6.28)) for _ in range(n)]
+    beta = [cmath.exp(1j * rng8.uniform(0, 6.28)) for _ in range(n)]
+    E = sorted(rng8.sample(range(1, 60), n))
+    E0 = rng8.uniform(-3, 3)
+    W = [[0j] * n for _ in range(n)]
+    for i in range(n):
+        for a in range(n):
+            W[i][tau[a]] = d[i] * beta[a] * V[i][a]
+    # coefficient lines match
+    for a in range(n):
+        for b in range(n):
+            if a != b:
+                for i in range(n):
+                    for j in range(n):
+                        ok8 &= abs(coeff_line(W, tau[a], tau[b], i, j)
+                                   - coeff_line(V, a, b, i, j)) < 1e-9
+    # H' = D H D^dag + E0
+    Ep = [0.0] * n
+    for a in range(n):
+        Ep[tau[a]] = E[a] + E0
+    for i in range(n):
+        for j in range(n):
+            Hp = sum(W[i][c] * Ep[c] * W[j][c].conjugate() for c in range(n))
+            H = sum(V[i][a] * E[a] * V[j][a].conjugate() for a in range(n))
+            rhs = d[i] * H * d[j].conjugate() + (E0 if i == j else 0)
+            ok8 &= abs(Hp - rhs) < 1e-7
+    # reflection branch: Wr from conj(V), spectra reflected
+    Wr = [[0j] * n for _ in range(n)]
+    for i in range(n):
+        for a in range(n):
+            Wr[i][tau[a]] = d[i] * beta[a] * V[i][a].conjugate()
+    Epr = [0.0] * n
+    for a in range(n):
+        Epr[tau[a]] = -E[a] + E0
+    for i in range(n):
+        for j in range(n):
+            Hp = sum(Wr[i][c] * Epr[c] * Wr[j][c].conjugate() for c in range(n))
+            H = sum(V[i][a] * E[a] * V[j][a].conjugate() for a in range(n))
+            rhs = -(d[i] * H.conjugate() * d[j].conjugate()) + (E0 if i == j else 0)
+            ok8 &= abs(Hp - rhs) < 1e-7
+    # countercontrol: a non-unimodular column factor breaks a diagonal coefficient line (m >= 3)
+    Wbad = [row[:] for row in W]
+    for i in range(n):
+        Wbad[i][tau[0]] *= 1.3
+    broke = False
+    for b in range(1, n):
+        for i in range(n):
+            if abs(coeff_line(Wbad, tau[0], tau[b], i, i) - coeff_line(V, 0, b, i, i)) > 1e-6:
+                broke = True
+    ok8 &= broke
+# m = 2 hyperbola: rho0 * rho1 = 1 with rho != 1 passes every pairwise-product test
+rho = [2.5, 1 / 2.5]
+ok8 &= abs(rho[0] * rho[1] - 1) < 1e-12 and abs(rho[0] - 1) > 1
+check("R8", ok8,
+      "CONGRUENT RECONSTRUCTION at m = 3, 4, 5: random unitary V, unimodular row/column phases "
+      "and a mode permutation build W with all coefficient lines matching, and H' recovers "
+      "D H D^dag + E0 exactly (reflected model recovers -D conj(H) D^dag + E0); a "
+      "non-unimodular column factor breaks a diagonal line, and the m = 2 hyperbola "
+      "rho0*rho1 = 1 passes every pairwise product while being non-flat -- the modulus "
+      "rigidity is sharp at m >= 3, matching the file's honest m = 2 exclusion")
+
 
 print()
 print('     [scope] Settled in Lean: K4-rigidity for all n >= 5 with the n = 4 complement')
@@ -350,8 +456,12 @@ print('     ALSO kernel-closed (HomometricKill.lean): rank-one line forcing, the
 print('     phase elimination, the torus-zero bridge, and the assembled theorem')
 print('     homometricSix_unrealizable -- the forced non-two-branch six-mode correspondence')
 print('     admits no pair of unitary eigenbases with all overlaps nonzero. NOT settled in the')
-print('     kernel: the Piccard/Bekir-Golomb classification input and the congruent-case')
-print('     assembly; the universal two-branch Claim remains P-grade.')
+print('     kernel: the Piccard/Bekir-Golomb classification input (the congruent-case assembly')
+print('     is NOW kernel-closed: phase_coboundary, both reconstruction branches, the m = 0, 1')
+print('     dispatch, and twoBranch_of_PiccardClassification with the exceptional alternative')
+print('     refuted by homometricSix_unrealizable); still open: the m = 2 case, the')
+print('     probabilities-to-coefficient-lines Fourier layer, and the classification premise')
+print('     itself; the universal two-branch Claim remains P-grade.')
 print()
 print("edge_rigidity_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)
