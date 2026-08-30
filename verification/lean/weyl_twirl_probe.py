@@ -227,13 +227,24 @@ for s in (1, 2):
         ok7 &= len(G) * len(perp) == 4 ** s
         iso = not any(omega(u, v, s) for u in G for v in G)
         ok7 &= iso == all(g in perp for g in G)
+        # the double complement returns G exactly
+        pp = [v for v in PS if all(omega(u, v, s) == 0 for u in perp)]
+        ok7 &= sorted(pp) == sorted(G)
         if iso:
             ok7 &= len(G) <= 2 ** s                       # the t <= s bound
+            # maximality is exactly self-duality
+            ok7 &= (len(G) == 2 ** s) == (sorted(perp) == sorted(G))
+            # and below maximality the anticommuting partner is guaranteed inside G-perp
+            for v in perp:
+                if v not in G:
+                    ok7 &= any(omega(v, w, s) == 1 for w in perp)
 check("W7", ok7,
       "THE DIMENSION COUNT. For every subspace at s = 1, 2: the symplectic complement is a "
       "subspace, |G| . |G-perp| = 4^s so dim G-perp = 2s - dim G, and G is isotropic exactly when "
       "G <= G-perp — which is Lean's `isotropic_iff_le_perp`. Isotropy then forces t <= s, the "
-      "bound the manuscript reads off first")
+      "bound the manuscript reads off first; |G| = 2^s holds exactly when G-perp = G; and "
+      "(G-perp)-perp = G, so any v in G-perp outside G has an anticommuting partner inside G-perp "
+      "— the witness the non-maximal direction will be built from")
 
 # ---------------------------------------------------------------- W8  the H interface
 def Hop(u, s):
@@ -272,7 +283,9 @@ src = open(os.path.join(BRIDGE, 'OIBridge', 'WeylTwirl.lean'), encoding='utf-8')
 root = open(os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
 body = re.sub(r'(?m)--.*$', '', re.sub(r'/-.*?-/', '', src, flags=re.S))
 NAMES = ('W_mul', 'W_conjTranspose', 'W_conj', 'W_commute_iff', 'isotropic_iff_commute',
-         'char_sum', 'twirl_W', 'H_conjTranspose', 'H_mul_self', 'H_commute')
+         'char_sum', 'twirl_W', 'H_conjTranspose', 'H_mul_self', 'H_commute',
+         'sum_chi_dotF', 'trace_W', 'card_mul_card_perp', 'perp_perp', 'card_le_of_isotropic',
+         'perp_eq_self_of_card', 'H_mul', 'H_not_multiplicative')
 ok9 = 'import OIBridge.WeylTwirl' in root
 ok9 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', body) is None
 ok9 &= re.search(r'(?m)^axiom ', body) is None

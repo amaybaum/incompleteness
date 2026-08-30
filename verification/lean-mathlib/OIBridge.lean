@@ -39,7 +39,8 @@ import Mathlib.GroupTheory.Perm.Fin
 -- [Structure] Proposition 9.7a was blocked on and `OIBridge.KrausUniqueness` that
 -- proposition itself and `OIBridge.StinespringUniqueness` its dilation counterpart 9.7b,
 -- `OIBridge.WeylTwirl` the symplectic layer of [Main]'s separability threshold and
--- `OIBridge.Separability` its entanglement layer,
+-- `OIBridge.Separability` its entanglement layer and `OIBridge.WeylLift` the
+-- multiplicative lift that repairs the projective phase in its maximal case,
 -- `OIBridge.Irreducibility` the implication from the
 -- endomorphism dimension to irreducibility that Mathlib carries only for algebraically
 -- closed fields, `OIBridge.LinkDecomposition` that theorem's six-link
@@ -63,6 +64,7 @@ import OIBridge.KrausUniqueness
 import OIBridge.StinespringUniqueness
 import OIBridge.Separability
 import OIBridge.WeylTwirl
+import OIBridge.WeylLift
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
