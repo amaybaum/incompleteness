@@ -1245,6 +1245,176 @@ check("F15", ok15,
       "structure, matching the source-lift prior")
 
 
+# ----------------------- F16  the exact (2,2) no-go certificates (phase three, round 4)
+ok16 = True
+# Kernel twins: twoByTwo_affine_rigidity / twoByTwo_nonCP / twoByTwo_no_local_lift
+# (OIBridge/TwoByTwoNoGo.lean). This check recomputes, from scratch and in exact rational
+# arithmetic, everything the Lean file hardcodes: the witness carrier, the 18-equation
+# affine system and its rank-16 uniqueness, the unique Choi candidate, the negativity
+# witness, readout completeness, the distinct-gap condition, preparation feasibility, and
+# the GLOBAL feasibility of the classical action -- which is what makes the theorem the
+# boxed statement: preparation feasible + global intervention feasible does NOT imply a
+# visible-local CPTP coherent lift.
+def giv16(i, j, c, s):
+    G = [[Frac(1) if r == cc else Frac(0) for cc in range(4)] for r in range(4)]
+    G[i][i], G[j][j], G[i][j], G[j][i] = c, c, -s, s
+    return G
+
+
+U16 = [[Frac(1) if r == c else Frac(0) for c in range(4)] for r in range(4)]
+for (i, j), (c, s) in [((0, 1), (Frac(3, 5), Frac(4, 5))),
+                       ((2, 3), (Frac(5, 13), Frac(12, 13))),
+                       ((0, 2), (Frac(3, 5), Frac(4, 5)))]:
+    U16 = mm15(giv16(i, j, c, s), U16)
+q16 = [Frac(1, 2), Frac(1, 4), Frac(1, 8), Frac(1, 8)]
+E16 = [0, 1, 3, 7]
+# distinct gaps (the decide twin): every nonzero difference occurs exactly once
+gapset = {}
+for a in range(4):
+    for b in range(4):
+        if a != b:
+            g = E16[b] - E16[a]
+            ok16 &= g not in gapset
+            gapset[g] = (a, b)
+rho16 = [[sum(U16[p][a] * q16[a] * U16[qq][a] for a in range(4)) for qq in range(4)]
+         for p in range(4)]
+B16 = [[sum(U16[s][a] ** 2 for s in range(4) if s // 2 == i) for a in range(4)]
+       for i in range(2)]
+p16 = [sum(q16[a] * B16[i][a] for a in range(4)) for i in range(2)]
+tp16 = [p16[1], p16[0]]
+ok16 &= p16 == [Frac(1531, 2500), Frac(969, 2500)]
+# readout completeness: every off-diagonal pair is visible at block 0
+N0 = [[sum(U16[s][b2] * U16[s][a2] for s in range(2)) for a2 in range(4)]
+      for b2 in range(4)]
+ok16 &= all(N0[b2][a2] != 0 for a2 in range(4) for b2 in range(4) if a2 != b2)
+# global feasibility: the transposed marginal lies in the spectral-readout polytope
+Ag16 = [[B16[i][a] for a in range(4)] for i in range(2)] + [[Frac(1)] * 4]
+qg16 = lp15(Ag16, tp16 + [Frac(1)])
+ok16 &= qg16 is not None
+# the 18-equation affine system on the 16 Choi entries; rank 16; unique solution
+rows16, rhs16 = [], []
+for a in range(2):
+    for b in range(2):
+        row = [Frac(0)] * 16
+        for i in range(2):
+            row[4 * (2 * i + a) + (2 * i + b)] += 1
+        rows16.append(row)
+        rhs16.append(Frac(1) if a == b else Frac(0))
+
+
+def yrow16(pp, qq):
+    i, x = pp // 2, pp % 2
+    j, y = qq // 2, qq % 2
+    row = [Frac(0)] * 16
+    for i2 in range(2):
+        for j2 in range(2):
+            row[4 * (2 * i + i2) + (2 * j + j2)] += rho16[2 * i2 + x][2 * j2 + y]
+    return row
+
+
+YR = [[yrow16(pp, qq) for qq in range(4)] for pp in range(4)]
+for a in range(4):
+    for b in range(4):
+        if a == b:
+            continue
+        row = [Frac(0)] * 16
+        for pp in range(4):
+            for qq in range(4):
+                coef = U16[pp][a] * U16[qq][b]
+                if coef:
+                    row = [r + coef * yr for r, yr in zip(row, YR[pp][qq])]
+        rows16.append(row)
+        rhs16.append(Frac(0))
+for jv in range(2):
+    row = [Frac(0)] * 16
+    for s in range(4):
+        if s // 2 == jv:
+            row = [r + yr for r, yr in zip(row, YR[s][s])]
+    rows16.append(row)
+    rhs16.append(tp16[jv])
+cons16, part16, null16 = rs15(rows16, rhs16)
+ok16 &= cons16 and len(null16) == 0
+J16 = [[part16[4 * s + t] for t in range(4)] for s in range(4)]
+# the negativity witness: v = (1, -1, -1, -1), v^T J v = -449600/76287 < 0
+v16 = [Frac(1), Frac(-1), Frac(-1), Frac(-1)]
+vval16 = sum(v16[s] * J16[s][t] * v16[t] for s in range(4) for t in range(4))
+ok16 &= vval16 == Frac(-449600, 76287) and vval16 < 0
+# J16 is symmetric and TP (cross-checks on the unique candidate)
+ok16 &= all(J16[s][t] == J16[t][s] for s in range(4) for t in range(4))
+ok16 &= all(sum(J16[2 * i + a][2 * i + b] for i in range(2))
+            == (1 if a == b else 0) for a in range(2) for b in range(2))
+# lint: the Lean witness file carries the same unique candidate and witness value
+tb = open(os.path.join(BRIDGE, 'OIBridge', 'TwoByTwoNoGo.lean'), encoding='utf-8').read()
+ok16 &= '449600' in tb and '76287' in tb
+ok16 &= str(abs(J16[0][0].numerator)) in tb and str(J16[0][0].denominator) in tb
+ok16 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', tb) is None
+# (b) reflection blindness at the coefficient level, exact: for a real carrier and real
+# probe, the response coefficient at (a,b) equals the coefficient at (b,a), so the signal
+# is invariant under E -> -E -- the coefficient-level twin of
+# real_instrument_reflection_invariant, and permutation probes are the special case
+U6 = bu15(6, 1)
+qb = [Frac(2 ** (5 - k), 63) for k in range(6)]
+rho6 = [[sum(U6[p][a] * qb[a] * U6[qq][a] for a in range(6)) for qq in range(6)]
+        for p in range(6)]
+Rreal = [[Frac(3, 5), Frac(-4, 5), 0], [Frac(4, 5), Frac(3, 5), 0], [0, 0, Frac(1)]]
+RL = [[Rreal[p // 2][q // 2] * (1 if p % 2 == q % 2 else 0) for q in range(6)]
+      for p in range(6)]
+X6 = mm15(mm15(RL, rho6), [[RL[c][r] for c in range(6)] for r in range(6)])
+M6 = mm15(mm15([[U6[c][r] for c in range(6)] for r in range(6)], X6), U6)
+for jv in range(3):
+    N6 = [[sum(U6[s][b2] * U6[s][a2] for s in range(6) if s // 2 == jv)
+           for a2 in range(6)] for b2 in range(6)]
+    ok16 &= all(M6[a][b] * N6[b][a] == M6[b][a] * N6[a][b]
+                for a in range(6) for b in range(6))
+# (c) the intertwining form, exact one-step check on the block-diagonal representation
+# with a lifted classical action (the algebraic C1 form of intertwining_all_horizons):
+# R(classStep w) = Q(R(w)) with the ancilla blocks carried untouched
+BLK16 = [[[Frac(1, 3), Frac(1, 7)], [Frac(1, 7), Frac(1, 5)]] for _ in range(3)]
+w16 = [Frac(1, 2), Frac(1, 3), Frac(1, 6)]
+
+
+def Rrep(w):
+    D = 6
+    return [[w[p // 2] * BLK16[p // 2][p % 2][q % 2] if p // 2 == q // 2 else Frac(0)
+             for q in range(D)] for p in range(D)]
+
+
+sig16 = [1, 0, 2]
+out16 = 1
+Pm = [[1 if (sig16[q // 2] == p // 2 and p % 2 == q % 2) else 0 for q in range(6)]
+      for p in range(6)]
+proj16 = [[1 if (p == q and p // 2 == out16) else 0 for q in range(6)] for p in range(6)]
+lhs = Rrep([w16[sig16.index(i)] if i == out16 else Frac(0) for i in range(3)])
+# note: R(classStep w) must use the RELABELLED blocks too; build directly
+lhsblocks = [[r[:] for r in BLK16[sig16.index(i)]] for i in range(3)]
+lhsw = [w16[sig16.index(i)] if i == out16 else Frac(0) for i in range(3)]
+lhs = [[lhsw[p // 2] * lhsblocks[p // 2][p % 2][q % 2] if p // 2 == q // 2 else Frac(0)
+        for q in range(6)] for p in range(6)]
+rhs = mm15(mm15(proj16, mm15(mm15(Pm, Rrep(w16)),
+                             [[Pm[c][r] for c in range(6)] for r in range(6)])), proj16)
+ok16 &= lhs == rhs
+check("F16", ok16,
+      "THE EXACT (2,2) NO-GO CERTIFICATES (phase three, round four; kernel: "
+      "twoByTwo_affine_rigidity, twoByTwo_nonCP, twoByTwo_no_local_lift in "
+      "OIBridge/TwoByTwoNoGo.lean). Recomputed from scratch in exact rationals: the "
+      "witness carrier G02(3/5)*G23(5/13)*G01(3/5) has all fifteen gap differences "
+      "distinct for E = (0,1,3,7), every off-diagonal mode pair visible at block 0 "
+      "(readout completeness), preparation marginal p = (1531/2500, 969/2500) feasible by "
+      "construction, and the transposed marginal GLOBALLY reachable in the "
+      "spectral-readout polytope; the 18-equation affine system on the 16 visible Choi "
+      "entries is CONSISTENT WITH RANK 16 -- the one-slot channel is affinely RIGID -- "
+      "and its unique candidate is symmetric, trace-preserving, and fails positivity at "
+      "the witness v = (1,-1,-1,-1) with v^T J v = -449600/76287 exactly. Hence: "
+      "preparation feasible + global intervention feasible does NOT imply a visible-local "
+      "CPTP coherent lift. Also exact: the coefficient-level reflection-blindness "
+      "identity M_ab N_ba = M_ba N_ab for a real carrier and real probe (kernel twin: "
+      "real_instrument_reflection_invariant, with permMatrix_conjOp the permutation "
+      "case), and the one-step intertwining identity R(classStep w) = Q(R w) on a "
+      "block-diagonal representation (kernel: ActionIntertwining, "
+      "intertwining_all_horizons, intertwining_comb_compatible -- C1 in its final "
+      "algebraic form)")
+
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

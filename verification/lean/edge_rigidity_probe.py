@@ -384,7 +384,14 @@ for fname, names in (
                       'embA_conj_channel', 'local_channel_preserves_ancilla',
                       "umat_spectral'", 'umat_zero', 'trace_diag_sandwich',
                       'intervened_readout_expansion', 'two_time_forces_stationary',
-                      'two_time_necessary')),
+                      'two_time_necessary', 'krausChoi_psd', 'krausChoi_tp',
+                      'vlift_mul_apply', 'mul_vlift_conjTranspose_apply',
+                      'chApply_krausChoi', 'conjOp_transpose', 'transpose_conj_response',
+                      'umat_conjOp_reflect', 'readProj_transpose', 'permMatrix_conjOp',
+                      'real_instrument_reflection_invariant', 'intertwining_all_horizons',
+                      'intertwining_comb_compatible')),
+    ('TwoByTwoNoGo', ('twoByTwo_affine_rigidity', 'twoByTwo_nonCP',
+                      'twoByTwo_no_local_lift')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -424,8 +431,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All eleven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 53 + 5 + 16 named results print their "
+      "LINT. All twelve files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

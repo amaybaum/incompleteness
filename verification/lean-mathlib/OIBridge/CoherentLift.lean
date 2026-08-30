@@ -76,6 +76,7 @@
 -/
 import OIBridge.ThermalOrientation
 import OIBridge.ShellAssignment
+import OIBridge.AntiunitaryInvariance
 
 namespace OIBridge
 namespace CoherentLift
@@ -1247,6 +1248,316 @@ theorem two_time_necessary (V : Matrix (Sv × Sa) (Fin Dm) ℂ) (E : Fin Dm → 
     exact h
 
 
+/-! ### Section E — the Choi form, and reflection blindness of real probes (round 4)
+
+The Choi form makes the one-slot problem finitely presented: a visible instrument is a
+positive `(Sv×Sv)`-square matrix with the trace-preservation marginal, its action on the
+composite is the linear contraction `chApply`, and `chApply_krausChoi` identifies it with
+the Kraus form used by `TwoTimeCoherentLift`. `TwoByTwoNoGo.lean` consumes exactly these
+lemmas to turn the census's sharpest finding into an exact no-go theorem.
+
+Reflection blindness: `transpose_conj_response` derives, from the phase-two transposition
+mechanism (`conjOp` and its transpose identities), that a transpose-symmetric readout and
+a transpose-symmetric intervened state cannot distinguish `U` from its entrywise
+conjugate; `real_instrument_reflection_invariant` instantiates it on the reconstructed
+carrier — for a REAL eigenvector family, a real visible-local instrument, and a symmetric
+preparation, the responses under `E` and under `−E` coincide at every time and readout —
+and `permMatrix_conjOp` makes permutation probes a special case. A complex probe can
+distinguish the orientation pair only because the experiment holds the probe FIXED instead
+of transposing it with the rest of the circuit: antiunitary invariance is not violated —
+the complex probe supplies an externally oriented coherent reference. -/
+
+/-- The visible Choi contraction: the action of the Choi operator `J` (index `(out, in)`)
+on the composite, touching only the visible factor. -/
+def chApply (J : Matrix (Sv × Sv) (Sv × Sv) ℂ) (ρ : Matrix (Sv × Sa) (Sv × Sa) ℂ) :
+    Matrix (Sv × Sa) (Sv × Sa) ℂ :=
+  fun p q => ∑ i2 : Sv, ∑ j2 : Sv, J (p.1, i2) (q.1, j2) * ρ (i2, p.2) (j2, q.2)
+
+/-- The Choi matrix of a visible Kraus family. -/
+def krausChoi {κ : Type*} [Fintype κ] (K : κ → Matrix Sv Sv ℂ) :
+    Matrix (Sv × Sv) (Sv × Sv) ℂ :=
+  fun s t => ∑ k, K k s.1 s.2 * star (K k t.1 t.2)
+
+omit [DecidableEq Sv] in
+/-- The Choi matrix of a Kraus family is positive semidefinite: it factors as `A·Aᴴ`. -/
+theorem krausChoi_psd {κ : Type*} [Fintype κ] (K : κ → Matrix Sv Sv ℂ) :
+    (krausChoi K).PosSemidef := by
+  classical
+  have h : krausChoi K
+      = Matrix.of (fun (s : Sv × Sv) (k : κ) => K k s.1 s.2)
+        * (Matrix.of (fun (s : Sv × Sv) (k : κ) => K k s.1 s.2))ᴴ := by
+    ext s t
+    rw [Matrix.mul_apply, krausChoi]
+    exact Finset.sum_congr rfl fun k _ => by
+      rw [Matrix.conjTranspose_apply, Matrix.of_apply, Matrix.of_apply]
+  rw [h]
+  have h1 := Matrix.PosSemidef.one (n := κ) (R := ℂ)
+  have h2 := h1.mul_mul_conjTranspose_same
+    (B := Matrix.of (fun (s : Sv × Sv) (k : κ) => K k s.1 s.2))
+  rwa [Matrix.mul_one] at h2
+
+omit [Fintype Sa] [DecidableEq Sa] in
+/-- Kraus normalization is the trace-preservation marginal of the Choi matrix. -/
+theorem krausChoi_tp {κ : Type*} [Fintype κ] (K : κ → Matrix Sv Sv ℂ)
+    (hK : ∑ k, (K k)ᴴ * K k = 1) (i i' : Sv) :
+    ∑ o : Sv, krausChoi K (o, i) (o, i') = if i = i' then 1 else 0 := by
+  rw [show (∑ o : Sv, krausChoi K (o, i) (o, i'))
+      = ∑ k, ∑ o : Sv, K k o i * star (K k o i') from by
+    rw [show (∑ o : Sv, krausChoi K (o, i) (o, i'))
+        = ∑ o : Sv, ∑ k, K k o i * star (K k o i') from rfl]
+    exact Finset.sum_comm]
+  rw [Finset.sum_congr rfl fun k _ => show (∑ o : Sv, K k o i * star (K k o i'))
+      = star (((K k)ᴴ * K k) i i') from by
+    rw [Matrix.mul_apply, star_sum]
+    exact Finset.sum_congr rfl fun o _ => by
+      rw [Matrix.conjTranspose_apply, star_mul', star_star, mul_comm]]
+  rw [← star_sum]
+  rw [show (∑ k, ((K k)ᴴ * K k) i i') = (∑ k, (K k)ᴴ * K k) i i' from by
+    rw [Matrix.sum_apply]]
+  rw [hK, Matrix.one_apply]
+  by_cases h : i = i' <;> simp [h]
+
+omit [DecidableEq Sv] in
+/-- Left multiplication by a lifted visible operator, ancilla index collapsed. -/
+theorem vlift_mul_apply (M : Matrix Sv Sv ℂ) (ρ : Matrix (Sv × Sa) (Sv × Sa) ℂ)
+    (p r : Sv × Sa) :
+    ((vlift M : Matrix (Sv × Sa) (Sv × Sa) ℂ) * ρ : Matrix (Sv × Sa) (Sv × Sa) ℂ) p r
+      = ∑ i2 : Sv, M p.1 i2 * ρ (i2, p.2) r := by
+  have hpt : ∀ (i2 : Sv) (x : Sa),
+      (vlift M : Matrix (Sv × Sa) (Sv × Sa) ℂ) p (i2, x) * ρ (i2, x) r
+      = if x = p.2 then M p.1 i2 * ρ (i2, x) r else 0 := by
+    intro i2 x
+    show M p.1 i2 * (if p.2 = x then (1 : ℂ) else 0) * ρ (i2, x) r = _
+    by_cases h : x = p.2
+    · subst h
+      simp
+    · simp [h, Ne.symm h]
+  rw [Matrix.mul_apply, Fintype.sum_prod_type]
+  rw [Finset.sum_congr rfl fun i2 _ => by
+    rw [Finset.sum_congr rfl fun x _ => hpt i2 x,
+      Finset.sum_ite_eq' (Finset.univ : Finset Sa) p.2
+        (fun x => M p.1 i2 * ρ (i2, x) r)]]
+  simp
+
+omit [DecidableEq Sv] in
+/-- Right multiplication by the adjoint of a lifted visible operator, ancilla index
+collapsed. -/
+theorem mul_vlift_conjTranspose_apply (M : Matrix Sv Sv ℂ)
+    (Z : Matrix (Sv × Sa) (Sv × Sa) ℂ) (p q : Sv × Sa) :
+    (Z * (vlift M : Matrix (Sv × Sa) (Sv × Sa) ℂ)ᴴ : Matrix (Sv × Sa) (Sv × Sa) ℂ) p q
+      = ∑ j2 : Sv, Z p (j2, q.2) * star (M q.1 j2) := by
+  have hpt : ∀ (j2 : Sv) (y : Sa),
+      Z p (j2, y) * ((vlift M : Matrix (Sv × Sa) (Sv × Sa) ℂ)ᴴ) (j2, y) q
+      = if y = q.2 then Z p (j2, y) * star (M q.1 j2) else 0 := by
+    intro j2 y
+    rw [Matrix.conjTranspose_apply]
+    show Z p (j2, y) * star (M q.1 j2 * (if q.2 = y then (1 : ℂ) else 0)) = _
+    by_cases h : y = q.2
+    · subst h
+      simp
+    · simp [h, Ne.symm h]
+  rw [Matrix.mul_apply, Fintype.sum_prod_type]
+  rw [Finset.sum_congr rfl fun j2 _ => by
+    rw [Finset.sum_congr rfl fun y _ => hpt j2 y,
+      Finset.sum_ite_eq' (Finset.univ : Finset Sa) q.2
+        (fun y => Z p (j2, y) * star (M q.1 j2))]]
+  simp
+
+omit [DecidableEq Sv] in
+/-- The Choi contraction agrees with the Kraus form of the visible-local channel. -/
+theorem chApply_krausChoi {κ : Type*} [Fintype κ] (K : κ → Matrix Sv Sv ℂ)
+    (ρ : Matrix (Sv × Sa) (Sv × Sa) ℂ) :
+    chApply (krausChoi K) ρ
+      = ∑ k, (vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ) * ρ * (vlift (K k))ᴴ := by
+  ext p q
+  rw [Matrix.sum_apply, chApply]
+  have hR : ∀ k : κ, ((vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ) * ρ
+      * (vlift (K k))ᴴ : Matrix (Sv × Sa) (Sv × Sa) ℂ) p q
+      = ∑ j2 : Sv, ∑ i2 : Sv,
+          K k p.1 i2 * ρ (i2, p.2) (j2, q.2) * star (K k q.1 j2) := by
+    intro k
+    rw [mul_vlift_conjTranspose_apply (K k)
+      ((vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ) * ρ) p q]
+    refine Finset.sum_congr rfl fun j2 _ => ?_
+    rw [vlift_mul_apply (K k) ρ p ((j2, q.2) : Sv × Sa), Finset.sum_mul]
+  have hL : ∀ (i2 j2 : Sv), krausChoi K (p.1, i2) (q.1, j2) * ρ (i2, p.2) (j2, q.2)
+      = ∑ k, K k p.1 i2 * star (K k q.1 j2) * ρ (i2, p.2) (j2, q.2) := by
+    intro i2 j2
+    rw [show krausChoi K (p.1, i2) (q.1, j2)
+      = ∑ k, K k p.1 i2 * star (K k q.1 j2) from rfl]
+    rw [Finset.sum_mul]
+  rw [Finset.sum_congr rfl fun k _ => hR k]
+  rw [Finset.sum_congr rfl fun i2 _ => Finset.sum_congr rfl fun j2 _ => hL i2 j2]
+  conv_lhs => rw [Finset.sum_comm]
+  conv_rhs => rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun j2 _ => ?_
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun k _ => Finset.sum_congr rfl fun i2 _ => by ring
+
+omit [Fintype S] [DecidableEq S] in
+/-- The transpose of the entrywise conjugate is the conjugate transpose. -/
+theorem conjOp_transpose (M : Matrix S S ℂ) :
+    (AntiunitaryInvariance.conjOp M)ᵀ = Mᴴ := by
+  have h := congrArg Matrix.transpose (AntiunitaryInvariance.transpose_conjTranspose_eq M)
+  rwa [Matrix.transpose_transpose] at h
+
+/-- **REFLECTION BLINDNESS, abstract form.** A transpose-symmetric readout and a
+transpose-symmetric intervened state cannot distinguish a propagator from its entrywise
+conjugate: transpose the whole trace and unwind the phase-two `conjOp` identities. -/
+theorem transpose_conj_response {nn : Type*} [Fintype nn] [DecidableEq nn]
+    (P Y Uu : Matrix nn nn ℂ)
+    (hP : Pᵀ = P) (hY : Yᵀ = Y) :
+    Matrix.trace (P * (AntiunitaryInvariance.conjOp Uu * Y
+        * (AntiunitaryInvariance.conjOp Uu)ᴴ))
+      = Matrix.trace (P * (Uu * Y * Uuᴴ)) := by
+  rw [AntiunitaryInvariance.conjOp_conjTranspose]
+  rw [← Matrix.trace_transpose
+    (P * (AntiunitaryInvariance.conjOp Uu * Y * Uuᵀ))]
+  simp only [Matrix.transpose_mul, Matrix.transpose_transpose]
+  rw [conjOp_transpose, hP, hY]
+  rw [Matrix.trace_mul_comm]
+  exact congrArg Matrix.trace (by rw [← Matrix.mul_assoc Uu Y Uuᴴ])
+
+/-- The reflected propagator of a real eigenvector family is the entrywise conjugate. -/
+theorem umat_conjOp_reflect {nn : Type*} (V : Matrix nn (Fin Dm) ℂ)
+    (E : Fin Dm → ℝ) (t : ℝ) (hVreal : ∀ p a, star (V p a) = V p a) :
+    Matrix.of (BohrFrequency.Umat V (fun a => -(E a)) t)
+      = AntiunitaryInvariance.conjOp (Matrix.of (BohrFrequency.Umat V E t)) := by
+  have hfun : (fun i a => star (V i a)) = fun i a => V i a :=
+    funext fun i => funext fun a => hVreal i a
+  ext i j
+  show BohrFrequency.Umat V (fun a => -(E a)) t i j
+    = star (BohrFrequency.Umat V E t i j)
+  rw [← BohrFrequency.reflect_conj V E t i j, hfun]
+
+omit [Fintype Sv] [Fintype Sa] in
+theorem readProj_transpose (π : Sv × Sa → Sv) (i : Sv) :
+    (readProj π i)ᵀ = readProj π i := by
+  rw [readProj, Matrix.diagonal_transpose]
+
+omit [Fintype S] in
+/-- Permutation matrices are real: the permutation probes sit inside the real menu. -/
+theorem permMatrix_conjOp (g : S ≃ S) :
+    AntiunitaryInvariance.conjOp (permMatrix g) = permMatrix g := by
+  ext i j
+  show star (permMatrix g i j) = permMatrix g i j
+  rw [permMatrix]
+  by_cases h : g j = i <;> simp [h]
+
+/-- **`real_instrument_reflection_invariant`.** For a REAL eigenvector family, a
+transpose-symmetric preparation, and a real visible-local instrument, the block-readout
+response under `E` and under `−E` coincide at every time: the whole real menu — the
+permutation probes included (`permMatrix_conjOp`) — is exactly blind to the orientation
+pair. This is the intervention-level face of the phase-two antiunitary invariance, derived
+from its transposition mechanism rather than rebuilt. -/
+theorem real_instrument_reflection_invariant {κ : Type*} [Fintype κ]
+    (V : Matrix (Sv × Sa) (Fin Dm) ℂ) (E : Fin Dm → ℝ)
+    (ρ : Matrix (Sv × Sa) (Sv × Sa) ℂ) (K : κ → Matrix Sv Sv ℂ)
+    (hVreal : ∀ p a, star (V p a) = V p a) (hρ : ρᵀ = ρ)
+    (hKreal : ∀ k i j, star (K k i j) = K k i j) (j : Sv) (t : ℝ) :
+    Matrix.trace (readProj (Prod.fst : Sv × Sa → Sv) j
+      * (Matrix.of (BohrFrequency.Umat V (fun a => -(E a)) t)
+        * (∑ k, (vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ) * ρ * (vlift (K k))ᴴ)
+        * (Matrix.of (BohrFrequency.Umat V (fun a => -(E a)) t))ᴴ))
+      = Matrix.trace (readProj (Prod.fst : Sv × Sa → Sv) j
+      * (Matrix.of (BohrFrequency.Umat V E t)
+        * (∑ k, (vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ) * ρ * (vlift (K k))ᴴ)
+        * (Matrix.of (BohrFrequency.Umat V E t))ᴴ)) := by
+  have hconj : ∀ k, AntiunitaryInvariance.conjOp
+      (vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ) = vlift (K k) := by
+    intro k
+    ext p q
+    show star (K k p.1 q.1 * (if p.2 = q.2 then (1 : ℂ) else 0))
+      = K k p.1 q.1 * (if p.2 = q.2 then (1 : ℂ) else 0)
+    rw [star_mul', hKreal]
+    rw [show star (if p.2 = q.2 then (1 : ℂ) else 0) = if p.2 = q.2 then (1 : ℂ) else 0
+      from by by_cases h : p.2 = q.2 <;> simp [h]]
+  have hXsym : (∑ k, (vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ) * ρ
+      * (vlift (K k))ᴴ)ᵀ
+      = ∑ k, (vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ) * ρ * (vlift (K k))ᴴ := by
+    rw [Matrix.transpose_sum]
+    refine Finset.sum_congr rfl fun k _ => ?_
+    rw [Matrix.transpose_mul, Matrix.transpose_mul]
+    rw [AntiunitaryInvariance.transpose_conjTranspose_eq, hconj]
+    rw [show ((vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ))ᵀ = (vlift (K k))ᴴ from by
+      rw [← conjOp_transpose, hconj]]
+    rw [hρ]
+    noncomm_ring
+  rw [umat_conjOp_reflect V E t hVreal]
+  exact transpose_conj_response _ _ _ (readProj_transpose _ _) hXsym
+
+/-! ### Section F — action intertwining: C1 in its final algebraic form (round 4)
+
+`ActionIntertwining` is the definition the horizon-by-horizon SDPs were converging on: a
+representation `R` of the classical preparations such that every menu slot's classical
+branch step is carried to its represented instrument step, together with the readout
+identity. `intertwining_all_horizons` is the composition-closure theorem: these two
+conditions alone reproduce EVERY finite-horizon branch probability — no per-horizon
+feasibility problem remains, and C1 becomes an algebraic representation problem. A
+waiting slot (classical step = identity on the stationary comb, represented step =
+conjugation by the reconstructed propagator) makes stationarity an intertwining instance;
+the visible-local instrument slots make the one-slot layer one; the readout identity is
+the causal normalization. -/
+
+/-- **`ActionIntertwining`.** On a compatibility domain of classical weight profiles, the
+representation carries each classical branch step to its represented instrument step. -/
+def ActionIntertwining {ι : Type*} (𝒟 : Set (Sv → ℝ))
+    (R : (Sv → ℝ) → Matrix (Sv × Sa) (Sv × Sa) ℂ)
+    (Qs : ι → Matrix (Sv × Sa) (Sv × Sa) ℂ → Matrix (Sv × Sa) (Sv × Sa) ℂ)
+    (cs : ι → (Sv → ℝ) → (Sv → ℝ)) : Prop :=
+  ∀ w ∈ 𝒟, ∀ a : ι, R (cs a w) = Qs a (R w)
+
+/-- **`ReadoutIntertwining`.** The represented state's total weight is the classical total
+weight: the causal-normalization half of the representation. -/
+def ReadoutIntertwining (𝒟 : Set (Sv → ℝ))
+    (R : (Sv → ℝ) → Matrix (Sv × Sa) (Sv × Sa) ℂ) : Prop :=
+  ∀ w ∈ 𝒟, Matrix.trace (R w) = ((∑ i, w i : ℝ) : ℂ)
+
+omit [DecidableEq Sv] [DecidableEq Sa] in
+/-- **COMPOSITION CLOSURE.** Intertwining at single steps propagates to every finite
+horizon by induction: the represented fold IS the representation of the classical fold,
+and the branch probability agrees. One-slot compatibility alone would not suffice; the
+intertwining form is what makes all horizons follow at once. -/
+theorem intertwining_all_horizons {ι : Type*} {𝒟 : Set (Sv → ℝ)}
+    {R : (Sv → ℝ) → Matrix (Sv × Sa) (Sv × Sa) ℂ}
+    {Qs : ι → Matrix (Sv × Sa) (Sv × Sa) ℂ → Matrix (Sv × Sa) (Sv × Sa) ℂ}
+    {cs : ι → (Sv → ℝ) → (Sv → ℝ)}
+    (hclosed : ∀ w ∈ 𝒟, ∀ a : ι, cs a w ∈ 𝒟)
+    (hact : ActionIntertwining 𝒟 R Qs cs) (hread : ReadoutIntertwining 𝒟 R)
+    {w : Sv → ℝ} (hw : w ∈ 𝒟) (word : List ι) :
+    Matrix.trace (word.foldl (fun ρ a => Qs a ρ) (R w))
+      = ((∑ i, (word.foldl (fun w a => cs a w) w) i : ℝ) : ℂ) := by
+  have key : ∀ (word : List ι) (w : Sv → ℝ), w ∈ 𝒟 →
+      word.foldl (fun ρ a => Qs a ρ) (R w) = R (word.foldl (fun w a => cs a w) w)
+      ∧ (word.foldl (fun w a => cs a w) w) ∈ 𝒟 := by
+    intro word
+    induction word with
+    | nil => exact fun w hw => ⟨rfl, hw⟩
+    | cons a rest ih =>
+        intro w hw
+        rw [List.foldl_cons, List.foldl_cons, ← hact w hw a]
+        exact ih (cs a w) (hclosed w hw a)
+  rw [(key word w hw).1]
+  exact hread _ (key word w hw).2
+
+omit [DecidableEq Sa] in
+/-- The comb form: when the classical steps are the branch steps of the visible comb
+(Section A's `classStep` at `π = id`), the intertwining conclusion is exactly agreement
+with `classProb` at every horizon — `allFiniteHorizonsCompatible`, in the vocabulary of
+the overlap identity. -/
+theorem intertwining_comb_compatible {ι : Type*} (menu : ι → (Sv ≃ Sv) × Sv)
+    {𝒟 : Set (Sv → ℝ)} {R : (Sv → ℝ) → Matrix (Sv × Sa) (Sv × Sa) ℂ}
+    {Qs : ι → Matrix (Sv × Sa) (Sv × Sa) ℂ → Matrix (Sv × Sa) (Sv × Sa) ℂ}
+    (hclosed : ∀ w ∈ 𝒟, ∀ a : ι, classStep (fun i : Sv => i) w (menu a) ∈ 𝒟)
+    (hact : ActionIntertwining 𝒟 R Qs
+      (fun a w => classStep (fun i : Sv => i) w (menu a)))
+    (hread : ReadoutIntertwining 𝒟 R)
+    {w : Sv → ℝ} (hw : w ∈ 𝒟) (word : List ι) :
+    Matrix.trace (word.foldl (fun ρ a => Qs a ρ) (R w))
+      = ((classProb (fun i : Sv => i) w (word.map menu) : ℝ) : ℂ) := by
+  rw [intertwining_all_horizons hclosed hact hread hw word, classProb]
+  rw [List.foldl_map]
+
 #print axioms permMatrix_unitary
 #print axioms permMatrix_conj_diagonal
 #print axioms readProj_sum
@@ -1300,6 +1611,19 @@ theorem two_time_necessary (V : Matrix (Sv × Sa) (Fin Dm) ℂ) (E : Fin Dm → 
 #print axioms intervened_readout_expansion
 #print axioms two_time_forces_stationary
 #print axioms two_time_necessary
+#print axioms krausChoi_psd
+#print axioms krausChoi_tp
+#print axioms vlift_mul_apply
+#print axioms mul_vlift_conjTranspose_apply
+#print axioms chApply_krausChoi
+#print axioms conjOp_transpose
+#print axioms transpose_conj_response
+#print axioms umat_conjOp_reflect
+#print axioms readProj_transpose
+#print axioms permMatrix_conjOp
+#print axioms real_instrument_reflection_invariant
+#print axioms intertwining_all_horizons
+#print axioms intertwining_comb_compatible
 
 end CoherentLift
 end OIBridge
