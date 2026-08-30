@@ -16,18 +16,28 @@
       `E'∘τ = −E + E₀` with two distinct energies, the transported thermal state is never a
       positive-temperature Gibbs state of the new model. A physically fixed `β > 0` KMS/Gibbs
       structure therefore excludes the antiunitary branch outright.
-    * the passivity layer (`StrictlyPassive`, `gibbs_strictlyPassive`, `passivity_selector`) —
-      the more general version needing no Gibbs law: a strictly passive population profile
-      (higher energy, strictly lower population) cannot remain passive after energy reflection
-      unless all compared energies coincide; positive-temperature Gibbs states are strictly
-      passive.
+    * the passivity layer — the general version needing no Gibbs law. The WEAK selector
+      (`passivity_selector_nonuniform`) is the sharp form: with distinct energies, ONE
+      passive, NON-UNIFORM state excludes the reflection — passivity for both orientations
+      squeezes every pair of populations equal (`passive_antipassive_const`). Strictness is
+      not needed; `passivity_selector` (strict) and `gibbs_strictlyPassive` (positive-β Gibbs
+      states are strictly passive) are retained as the sufficient special cases.
+    * `counting_passive` / `counting_strictlyPassive` — LAYER ONE of the H-orientation
+      transport programme: exact finite-bath counting with a monotone bath count `Ω`
+      (`β_E = ∂S_H/∂E ≥ 0`) makes the counting-selected profile passive for the classical
+      energies. No Gibbs approximation, no thermodynamic limit, no common temperature.
 
   WHAT THIS DOES AND DOES NOT ESTABLISH. Together with AntiunitaryInvariance the honest
   structure is: operational data determine `H` up to unitary gauge AND the antiunitary
-  reflection; operational data PLUS an independently oriented positive KMS/passive state
-  determine `H` up to unitary gauge only. Whether the substratum DERIVES the positive
-  orientation rather than assuming it is the open Level-3 question recorded in the ledger —
-  these theorems make the alternatives exact, they do not decide them.
+  reflection — two antiunitarily related reconstructions of the same complete circuit
+  statistics, physically distinct only once an oriented structure is fixed; operational data
+  PLUS one passive, non-maximally-mixed state determine `H` up to unitary gauge only. Whether
+  the substratum DERIVES that state is the H-orientation transport programme: layer one
+  (classical counting orients classically) is proved here; layer two (stationarity of the
+  counting state under the reconstructed evolution diagonalizes it in the energy basis) and
+  layer three (`energyOrder_transport`: the classical exchange ordering agrees with one of the
+  two orientations of the reconstructed Bohr spectrum — sign only) are the named open targets,
+  the third being the fork-deciding lemma.
 -/
 import OIBridge.CongruentReconstruction
 
@@ -196,6 +206,55 @@ theorem passivity_selector {E p : Fin m → ℝ} {E₀ : ℝ}
     have h2 := hpass a b (by simp only; linarith)
     linarith
 
+/-- Double passivity forces equal populations on every energy-distinguished pair: passivity
+for the reflected energies reverses every comparison. -/
+theorem passive_antipassive_const {E p : Fin m → ℝ} {E₀ : ℝ}
+    (hp : Passive E p) (hp' : Passive (fun c => -E c + E₀) p)
+    {a b : Fin m} (hab : E a ≠ E b) : p a = p b := by
+  rcases lt_or_gt_of_ne hab with h | h
+  · have h1 := hp a b h
+    have h2 := hp' b a (by simp only; linarith)
+    linarith
+  · have h1 := hp b a h
+    have h2 := hp' a b (by simp only; linarith)
+    linarith
+
+/-- **THE WEAK ORIENTATION SELECTOR.** With distinct energies, ONE passive, non-uniform state
+excludes the reflection — strictness is not needed: if the state stayed passive for the
+reflected energies, every pair of populations would be squeezed equal. This is the minimal
+physical requirement the H-orientation transport programme must meet: passive + not maximally
+mixed, nothing more. -/
+theorem passivity_selector_nonuniform {E p : Fin m → ℝ} {E₀ : ℝ}
+    (hdist : ∀ a b : Fin m, a ≠ b → E a ≠ E b)
+    (hp : Passive E p) {a b : Fin m} (hpab : p a ≠ p b) :
+    ¬ Passive (fun c => -E c + E₀) p := by
+  intro hp'
+  exact hpab (passive_antipassive_const hp hp'
+    (hdist a b fun h => hpab (congrArg p h)))
+
+/-- **H-ORIENTATION TRANSPORT, LAYER ONE: counting orients classically.** If configuration `a`
+carries classical energy `ε a` and receives weight proportional to the bath count
+`Ω(E_tot − ε a)` with `Ω` monotone — that is, `β_E = ∂S_H/∂E ≥ 0` — the resulting profile is
+passive for `ε`. Exact finite-bath counting: no Gibbs approximation, no thermodynamic limit,
+no common temperature, no complete passivity. Layers two (stationarity of the counting state
+under the reconstructed evolution diagonalizes it in the energy eigenbasis) and three
+(`energyOrder_transport`: the classical exchange ordering agrees with one of the two
+orientations of the reconstructed Bohr spectrum — sign only, no magnitudes) are the named open
+targets; layer three is the fork-deciding lemma. -/
+theorem counting_passive {Ω : ℝ → ℝ} (hΩ : Monotone Ω) (Etot : ℝ) (ε : Fin m → ℝ)
+    (Z : ℝ) (hZ : 0 < Z) :
+    Passive ε (fun a => Ω (Etot - ε a) / Z) := by
+  intro a b hab
+  have h1 : Ω (Etot - ε b) ≤ Ω (Etot - ε a) := hΩ (by linarith)
+  exact (div_le_div_iff_of_pos_right hZ).mpr h1
+
+/-- Strictly increasing bath counts give strict passivity. -/
+theorem counting_strictlyPassive {Ω : ℝ → ℝ} (hΩ : StrictMono Ω) (Etot : ℝ)
+    (ε : Fin m → ℝ) (Z : ℝ) (hZ : 0 < Z) :
+    StrictlyPassive ε (fun a => Ω (Etot - ε a) / Z) := by
+  intro a b hab
+  exact div_lt_div_of_pos_right (hΩ (by linarith)) hZ
+
 #print axioms gibbs_reflection
 #print axioms gibbs_reflection_perm
 #print axioms gibbs_orientation
@@ -203,6 +262,10 @@ theorem passivity_selector {E p : Fin m → ℝ} {E₀ : ℝ}
 #print axioms orientation_excludes_reflection
 #print axioms gibbs_strictlyPassive
 #print axioms passivity_selector
+#print axioms passive_antipassive_const
+#print axioms passivity_selector_nonuniform
+#print axioms counting_passive
+#print axioms counting_strictlyPassive
 
 end ThermalOrientation
 end OIBridge

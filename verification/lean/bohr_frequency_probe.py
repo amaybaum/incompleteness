@@ -242,6 +242,8 @@ ok8 &= '∀ t : ℝ, retProb E p t = retProb E\' p\' t' in src
 # the manuscript must carry both theorems, the K2 citation structure, and the C4 cross-reference
 ok8 &= '**Theorem (Bohr-frequency completeness).**' in gr
 ok8 &= '**Theorem (D-gauge completeness, two-branch form).**' in gr
+ok8 &= '**Corollary (operational antiunitary invariance).**' in gr
+ok8 &= '**Corollary (thermodynamic orientation).**' in gr
 ok8 &= 'A. Bekir and S. W. Golomb' in gr
 ok8 &= 'the passage from integer to real spectra being proved, not assumed' in gr
 ok8 &= '[SM] Proposition 20' in gr
@@ -353,14 +355,31 @@ pex = [Frac(1, 2), Frac(1, 3), Frac(1, 6)]
 ok10 &= all(pex[b] < pex[a] for a in range(3) for b in range(3) if Eex[a] < Eex[b])
 Eref = [-e + Frac(5) for e in Eex]
 ok10 &= any(not (pex[b] <= pex[a]) for a in range(3) for b in range(3) if Eref[a] < Eref[b])
+# the WEAK selector: passivity with a TIE (not strict) and non-uniform still fails reflection
+Ew = [Frac(0), Frac(1), Frac(2)]
+pw = [Frac(1, 2), Frac(1, 4), Frac(1, 4)]     # passive (tie at the top), NOT uniform
+ok10 &= all(pw[b] <= pw[a] for a in range(3) for b in range(3) if Ew[a] < Ew[b])
+ok10 &= not all(pw[b] <= pw[a] for a in range(3) for b in range(3) if (-Ew[a]) < (-Ew[b]))
+# and the uniform profile survives both orientations -- the degenerate exception is exact
+pu = [Frac(1, 3)] * 3
+ok10 &= all(pu[b] <= pu[a] for a in range(3) for b in range(3) if Ew[a] < Ew[b])
+ok10 &= all(pu[b] <= pu[a] for a in range(3) for b in range(3) if (-Ew[a]) < (-Ew[b]))
+# layer one of H-orientation transport: monotone finite-bath counting gives passivity
+Om = lambda x: x * x * x + x          # strictly increasing bath count
+Etot10 = Frac(10)
+eps10 = [Frac(0), Frac(2), Frac(5)]
+pc = [Om(Etot10 - e) for e in eps10]
+ok10 &= all(pc[b] < pc[a] for a in range(3) for b in range(3) if eps10[a] < eps10[b])
 check("F10", ok10,
       "THERMAL ORIENTATION: gibbs(-beta) of the reflected energies equals gibbs(beta) of the "
       "original (the E0 shift cancels; machine precision), +beta and -beta profiles differ "
       "whenever energies differ and coincide when all are equal, the matrix identity "
       "D conj(rho_beta) D^dag = rho_{-beta}(H') holds for the reflection-branch coboundary, "
-      "and (exact fractions) a strictly passive profile is strictly active after energy "
-      "reflection -- oriented positive-temperature structure excludes the antiunitary branch "
-      "(kernel: transported_gibbs, gibbs_orientation, passivity_selector)")
+      "and (exact fractions) the WEAK selector: a passive profile with a tie, non-uniform, "
+      "already fails reflected passivity while the uniform profile survives both orientations "
+      "-- and monotone finite-bath counting yields passivity (layer one of H-orientation "
+      "transport). Oriented structure excludes the antiunitary branch (kernel: "
+      "transported_gibbs, gibbs_orientation, passivity_selector_nonuniform, counting_passive)")
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

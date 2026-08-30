@@ -274,14 +274,15 @@ unique selection open; (ii) the emergent description is uniquely
 determined by the partition, with any parameters of the emergent theory
 depending only on the partition boundary's geometric and thermodynamic
 properties (partition-relativity); (iii) the emergent transition
-probabilities \(T_{ij}(t)\) uniquely determine the emergent Hamiltonian
-up to a diagonal-unitary D-gauge, via the phase-locking lemma applied to
-continuous-time sampling. The technical bridge from P-indivisible
-classical stochastic processes on finite configuration spaces to unitary
-quantum evolution on finite Hilbert spaces is Barandes'
-stochastic-quantum correspondence {[}35, 36{]}, used by the companion
-paper for compression and interpretation --- the fixed-basis
-representation itself is supplied internally there
+probabilities \(T_{ij}(t)\) determine the emergent Hamiltonian up to a
+diagonal-unitary D-gauge, an energy origin, and one global antiunitary
+conjugation --- the two-branch form proved in §3.3 --- via the
+phase-locking lemma applied to continuous-time sampling. The technical
+bridge from P-indivisible classical stochastic processes on finite
+configuration spaces to unitary quantum evolution on finite Hilbert
+spaces is Barandes' stochastic-quantum correspondence {[}35, 36{]}, used
+by the companion paper for compression and interpretation --- the
+fixed-basis representation itself is supplied internally there
 (\(S \iff D \iff Q_{\mathrm{fb}}\)). We treat these results as inputs
 and apply them to the cosmological horizon. The cosmological horizon
 satisfies all four conditions: causal coupling via the Einstein
@@ -1173,6 +1174,62 @@ frequency data, where the multiplicative relations
 \(z^{ab}_i = V_{ia} V_{ib}^*\) are available, and not on the difference
 set.
 
+\textbf{Corollary (operational antiunitary invariance).}
+\emph{Transposing the preparation, every operation, and the effect
+simultaneously --- \(\rho \mapsto \rho^T\),
+\(\mathcal{G} \mapsto T \circ \mathcal{G} \circ T\), \(E \mapsto E^T\)
+--- preserves every finite circuit probability, for arbitrary operations
+and arbitrary finite sequences, hence for every fixed outcome branch of
+any adaptive instrument strategy; the transformation carries Kraus
+operations to Kraus operations with conjugated operators, preserves the
+trace normalization, and on unitary evolution is exactly the branch map
+\(H \mapsto -\bar{H}\).}
+
+Enlarging the data from transition probabilities to arbitrary
+preparations, instruments, adaptive finite circuits, and effects
+therefore cannot remove the second branch: at the purely operational
+level the two branches are not two empirically distinguishable theories
+but two antiunitarily related reconstructions of the same complete
+circuit statistics, and they become physically distinct only once an
+oriented structure is fixed. (Kernel: \texttt{circuit\_invariance},
+\texttt{string\_invariance}, \texttt{transposeMap\_kraus},
+\texttt{kraus\_normalization}, \texttt{unitary\_channel\_transpose} in
+\texttt{OIBridge/AntiunitaryInvariance.lean}.)
+
+\textbf{Corollary (thermodynamic orientation).} \emph{Under the
+theorem's hypotheses, the reflection branch inverts thermal orientation:
+the antiunitary image of the positive-temperature Gibbs state of \(H\)
+is the negative-temperature Gibbs state of
+\(H' = -D\bar{H}D^\dagger + E_0\), and no population profile that is
+non-increasing in the energies without being uniform remains so under
+the reflected spectrum. One passive, non-maximally-mixed state fixed
+with respect to the emergent generator therefore excludes the
+antiunitary branch; positive-temperature Gibbs/KMS states are strictly
+passive, hence sufficient.}
+
+The reconstruction's status is thus exactly split: circuit structure
+alone determines the dynamics up to ordinary gauge and one global
+antiunitary orientation; circuit structure together with one passive
+oriented state determines it up to ordinary gauge only, the excluded
+alternative collapsing the theorem's disjunction to
+\(H' = DHD^\dagger + E_0\). Whether the substratum \emph{derives} such a
+state is not claimed here; it is the H-orientation transport question,
+and it is narrower than the H-balance/KMS conditions of §3.2 ---
+single-state passivity, not complete passivity and not the Gibbs law.
+Its classical layer is settled: exact finite-bath counting with
+\(\beta_E = \partial S_H/\partial E > 0\) makes the counting-selected
+profile passive for the classical configuration energies, with no Gibbs
+approximation and no thermodynamic limit (kernel:
+\texttt{counting\_passive}). The open steps are the stationarity of that
+state under the reconstructed evolution and the transport of the
+classical energy ordering to one of the two orientations of the
+reconstructed Bohr spectrum --- a sign correspondence only, far weaker
+than H-spectrum. (Kernel: \texttt{transported\_gibbs},
+\texttt{gibbs\_orientation}, \texttt{passivity\_selector\_nonuniform},
+\texttt{orientation\_excludes\_reflection},
+\texttt{gibbs\_strictlyPassive} in
+\texttt{OIBridge/ThermalOrientation.lean}.)
+
 Every member of the residual family is invisible to the transition data
 for a stated reason --- diagonal rephasing moves no modulus, the energy
 origin is a global phase, the antiunitary reflection conjugates \(U(t)\)
@@ -1347,10 +1404,10 @@ the emergent quantum Hamiltonian inherits spatial locality.}
 \(x, x'\) differ at non-neighboring sites, spatial locality of the
 classical dynamics gives \(T_{x,x'}(dt) = 0\) at leading order, hence
 \(|\langle x'|\hat{H}|x\rangle|^2 = 0\). By the D-gauge theorem (§3.3),
-the residual phase freedom is a diagonal unitary \(D\) that preserves
-the vanishing of off-diagonal moduli, so
-\(\langle x'|\hat{H}|x\rangle = 0\) in any gauge. The emergent
-Hamiltonian has the form
+the residual freedom is a diagonal unitary \(D\) together with the
+global antiunitary conjugation, both of which preserve the vanishing of
+off-diagonal moduli, so \(\langle x'|\hat{H}|x\rangle = 0\) in any
+gauge. The emergent Hamiltonian has the form
 \(\hat{H} = \sum_k \hat{h}_k + \sum_{\langle k,l\rangle} \hat{h}_{kl}\).
 \(\square\)
 
@@ -4086,4 +4143,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: 65ddfac853cb96f8608f020010886a15deda863152d3ea81d46319dd12c0cfbb
+% source-sha256: 9e84dc6ab868e20f7899cbc9eada4f01d306cec88bde0c49b814d486c91af40d
