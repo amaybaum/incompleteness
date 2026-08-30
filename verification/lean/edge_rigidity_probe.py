@@ -335,7 +335,9 @@ for fname, names in (
                         'torus_zeros', 'point_to_exponent', 'orderOf_zeta', 'orderOf_I',
                         'homometricSix_unrealizable')),
     ('PiccardBridge', ('piccard_mu_bridge', 'piccard_realizes_mu',
-                       'piccardX_at_printed', 'piccardY_at_printed')),
+                       'piccardX_at_printed', 'piccardY_at_printed',
+                       'piccard_factor_r', 'piccard_factor_s',
+                       'piccardX_marks', 'piccardY_marks')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -376,7 +378,7 @@ spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(âˆƒ Eâ
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
       "LINT. All six files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 4 + 8 + 5 + 16 named results print their "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

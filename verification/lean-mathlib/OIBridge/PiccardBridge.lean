@@ -1,19 +1,31 @@
 /-
   OIBridge/PiccardBridge.lean — the parametric μ-orbit bridge to the Piccard exceptional family.
 
-  PROVENANCE, STATED EXACTLY. A later peer-reviewed treatment citing Bekir–Golomb (IEEE Trans.
-  Inform. Theory 53(8) (2007) 2864–2867) quotes the sole exceptional six-point family, in listed
-  order and parameterized by (p₁, p₂) ∈ ℝ²:
+  PROVENANCE, NOW AT PRIMARY-SOURCE LEVEL. Bekir–Golomb, "There Are No Further Counterexamples
+  to S. Piccard's Theorem", IEEE Trans. Inform. Theory 53(8) (2007) 2864–2867 (p. 2865, family
+  attributed to Yovanof–Golomb, ARS Combinatoria 48 (1998) 43–48), represents the unique
+  exceptional family of six-mark homometric spanning-ruler pairs by the two-parameter
+  factorization
+
+      r(x) = Φ₁(x)Φ₂(x)  = (1 + xᵃ + xᵇ)(1 + x^{b−2a} − x^{b−a} + x^{2b−a})
+      s(x) = Φ₁(x)Φ₂*(x) = (1 + xᵃ + xᵇ)(1 − xᵇ + x^{b+a} + x^{2b−a}),
+
+  with Φ₂* the reversal of Φ₂. Expanding (the mixed terms cancel in pairs) gives exactly, with
+  (p₁, p₂) = (a, b), the mark lists this file formalizes — confirming the formula previously
+  known only through a quoting treatment:
 
       X = {0, p₁, p₂ − 2p₁, 2p₂ − 2p₁, 2p₂, 3p₂ − p₁}
       Y = {0, p₁, 2p₁ + p₂, p₁ + 2p₂, 2p₂ − p₁, 3p₂ − p₁}.
 
-  THE PRIMARY 2007 TEXT HAS NOT YET BEEN AUDITED: what this file proves is a statement about the
-  QUOTED formula, namely that it induces exactly the repository's forced correspondence μ — the
-  same μ-orbit that `homometricSix_unrealizable` kills. When the primary paper confirms (1) the
-  arbitrary-real distinct-difference scope and (2) this family up to equivalent parameterization,
-  the K2 consumption of the classification is immediate: this bridge already delivers the third
-  alternative of `twoBranch_of_spectral_classification` in its verbatim shape.
+  `piccard_factor_r` / `piccard_factor_s` below kernel-verify those expansions in chamber
+  coordinates s = x^{p₁}, t = x^{p₂−2p₁} (every mark is a ℕ-combination i·p₁ + j·(p₂−2p₁);
+  `piccardX_marks` / `piccardY_marks` pin the exponent bookkeeping), so the whole chain — primary
+  factorization → mark lists → μ-orbit — is kernel-checked. AUDIT CAVEAT THAT REMAINS: the 2007
+  text presents its polynomial model with integer marks-as-exponents and never explicitly
+  quantifies over real configurations; its Section III argument manipulates symbolic exponents
+  through linear relations only (hence is domain-agnostic), but the real-scope reading is an
+  interpretation, recorded in the ledger, not a sentence of the paper. This bridge already
+  delivers the third alternative of `twoBranch_of_spectral_classification` in its verbatim shape.
 
   THE BRIDGE. With source labels untouched (e_S = id) and the single target transposition
   e_T = (3 4) — which merely aligns the quoted LISTED order of Y with ascending order, since
@@ -93,10 +105,68 @@ theorem piccardX_at_printed : ∀ i, piccardX (1 : ℤ) 6 i = r1 i := by decide
 listed order differs from ascending order exactly at labels 3, 4. -/
 theorem piccardY_at_printed : ∀ i, piccardY (1 : ℤ) 6 i = r2 (alignT i) := by decide
 
+/-! ### The primary factorization (Bekir–Golomb 2007, p. 2865), kernel-verified
+
+In chamber coordinates `s = x^{p₁}`, `t = x^{p₂−2p₁}` every exponent of the two-parameter
+representation is a ℕ-combination, and the products expand — with the printed cancellations —
+to 0/1-coefficient six-term sums: valid spanning-ruler polynomials. -/
+
+/-- `Φ₁·Φ₂` expands to the six source marks: the exponent pairs `(i, j)` of the right-hand
+side are exactly `expX` below. -/
+theorem piccard_factor_r (s t : K) :
+    (1 + s + s ^ 2 * t) * (1 + t - s * t + s ^ 3 * t ^ 2)
+      = 1 + s + t + s ^ 2 * t ^ 2 + s ^ 4 * t ^ 2 + s ^ 5 * t ^ 3 := by ring
+
+/-- `Φ₁·Φ₂*` (with `Φ₂*` the reversal of `Φ₂`) expands to the six target marks: the exponent
+pairs of the right-hand side are exactly `expY` below. -/
+theorem piccard_factor_s (s t : K) :
+    (1 + s + s ^ 2 * t) * (1 - s ^ 2 * t + s ^ 3 * t + s ^ 3 * t ^ 2)
+      = 1 + s + s ^ 3 * t ^ 2 + s ^ 4 * t + s ^ 5 * t ^ 2 + s ^ 5 * t ^ 3 := by ring
+
+/-- The `(s, t)`-exponent pairs of `Φ₁·Φ₂`, in the listed order of `piccardX`. -/
+def expX : Fin 6 → ℕ × ℕ
+  | 0 => (0, 0) | 1 => (1, 0) | 2 => (0, 1) | 3 => (2, 2) | 4 => (4, 2) | 5 => (5, 3)
+
+/-- The `(s, t)`-exponent pairs of `Φ₁·Φ₂*`, in the listed order of `piccardY`. -/
+def expY : Fin 6 → ℕ × ℕ
+  | 0 => (0, 0) | 1 => (1, 0) | 2 => (4, 1) | 3 => (5, 2) | 4 => (3, 2) | 5 => (5, 3)
+
+/-- The chamber substitution: the mark carried by the `(s, t)`-exponent pair `(i, j)`. -/
+def markOf (p1 p2 : K) (e : ℕ × ℕ) : K := (e.1 : K) * p1 + (e.2 : K) * (p2 - 2 * p1)
+
+/-- The exponent bookkeeping for the source family: `piccardX` IS the mark list of the
+`Φ₁·Φ₂` expansion. -/
+theorem piccardX_marks (p1 p2 : K) : ∀ i, piccardX p1 p2 i = markOf p1 p2 (expX i) := by
+  intro i
+  fin_cases i
+  · show (0 : K) = ((0 : ℕ) : K) * p1 + ((0 : ℕ) : K) * (p2 - 2 * p1); push_cast; ring
+  · show p1 = ((1 : ℕ) : K) * p1 + ((0 : ℕ) : K) * (p2 - 2 * p1); push_cast; ring
+  · show p2 - 2 * p1 = ((0 : ℕ) : K) * p1 + ((1 : ℕ) : K) * (p2 - 2 * p1); push_cast; ring
+  · show 2 * p2 - 2 * p1 = ((2 : ℕ) : K) * p1 + ((2 : ℕ) : K) * (p2 - 2 * p1)
+    push_cast; ring
+  · show 2 * p2 = ((4 : ℕ) : K) * p1 + ((2 : ℕ) : K) * (p2 - 2 * p1); push_cast; ring
+  · show 3 * p2 - p1 = ((5 : ℕ) : K) * p1 + ((3 : ℕ) : K) * (p2 - 2 * p1); push_cast; ring
+
+/-- The exponent bookkeeping for the target family: `piccardY` IS the mark list of the
+`Φ₁·Φ₂*` expansion. -/
+theorem piccardY_marks (p1 p2 : K) : ∀ i, piccardY p1 p2 i = markOf p1 p2 (expY i) := by
+  intro i
+  fin_cases i
+  · show (0 : K) = ((0 : ℕ) : K) * p1 + ((0 : ℕ) : K) * (p2 - 2 * p1); push_cast; ring
+  · show p1 = ((1 : ℕ) : K) * p1 + ((0 : ℕ) : K) * (p2 - 2 * p1); push_cast; ring
+  · show 2 * p1 + p2 = ((4 : ℕ) : K) * p1 + ((1 : ℕ) : K) * (p2 - 2 * p1); push_cast; ring
+  · show p1 + 2 * p2 = ((5 : ℕ) : K) * p1 + ((2 : ℕ) : K) * (p2 - 2 * p1); push_cast; ring
+  · show 2 * p2 - p1 = ((3 : ℕ) : K) * p1 + ((2 : ℕ) : K) * (p2 - 2 * p1); push_cast; ring
+  · show 3 * p2 - p1 = ((5 : ℕ) : K) * p1 + ((3 : ℕ) : K) * (p2 - 2 * p1); push_cast; ring
+
 #print axioms piccard_mu_bridge
 #print axioms piccard_realizes_mu
 #print axioms piccardX_at_printed
 #print axioms piccardY_at_printed
+#print axioms piccard_factor_r
+#print axioms piccard_factor_s
+#print axioms piccardX_marks
+#print axioms piccardY_marks
 
 end HomometricSix
 end OIBridge

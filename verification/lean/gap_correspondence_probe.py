@@ -72,8 +72,14 @@ homometric mu is killed by explicit polynomial identities, not by genericity.
   M11 THE PARAMETRIC MU-ORBIT BRIDGE: the exceptional-family formula quoted from a later
       peer-reviewed treatment citing Bekir-Golomb 2007 satisfies all 15 gap identities of
       the printed mu symbolically in (p1, p2), with e_S = id and the UNIQUE target
-      transposition e_T = (3 4); p = (1, 6) reduces to the printed pair. Checks the QUOTED
-      formula only -- the primary 2007 text remains to be audited before K2 consumption.
+      transposition e_T = (3 4); p = (1, 6) reduces to the printed pair.
+  M12 THE PRIMARY EXPANSION: the two-parameter factorization printed in Bekir-Golomb 2007
+      (p. 2865) -- r = Phi1*Phi2, s = Phi1*Phi2star -- expands, in exact symbolic exponent
+      arithmetic, to 0/1 polynomials whose exponent sets are EXACTLY M11's X and Y; Phi2star
+      is the reversal of Phi2; (a, b) = (1, 6) reproduces the paper's printed numeric
+      factorizations. The formula layer of the primary audit is thereby machine-confirmed;
+      the remaining audit caveat (real-vs-integer scope, recorded in the ledger) is about
+      the paper's quantification, not its formulas.
 
 Usage:  python3 gap_correspondence_probe.py
 """
@@ -768,7 +774,70 @@ check("M11", ok11,
       "UNIQUE relabeling that works (9 of 15 fail without it). Both families are symbolically "
       "Golomb, p = (1, 6) reduces to the printed pair, and a perturbed coefficient breaks the "
       "bridge. Kernel twin: OIBridge/PiccardBridge.lean (piccard_mu_bridge over any CommRing). "
-      "Scope: this checks the QUOTED formula; the primary 2007 text remains to be audited")
+      "The formula is confirmed against the primary 2007 text by M12")
+
+# --------------------------------------- M12  the primary factorization expands to the family
+# Bekir-Golomb 2007, p. 2865: r = Phi1*Phi2, s = Phi1*Phi2star with
+#   Phi1 = 1 + x^a + x^b,  Phi2 = 1 + x^{b-2a} - x^{b-a} + x^{2b-a},
+#   Phi2star = 1 - x^b + x^{b+a} + x^{2b-a}  (the reversal of Phi2).
+# Exact arithmetic in the group algebra Z[x^{Z + Za + Zb}]: exponents are integer forms
+# (c0, ca, cb) meaning c0 + ca*a + cb*b, coefficients are integers.
+ok12 = True
+
+
+def gmul(P, Q):
+    R = {}
+    for e1, c1 in P.items():
+        for e2, c2 in Q.items():
+            e = tuple(x + y for x, y in zip(e1, e2))
+            R[e] = R.get(e, 0) + c1 * c2
+    return {e: c for e, c in R.items() if c != 0}
+
+
+PHI1 = {(0, 0, 0): 1, (0, 1, 0): 1, (0, 0, 1): 1}
+PHI2 = {(0, 0, 0): 1, (0, -2, 1): 1, (0, -1, 1): -1, (0, -1, 2): 1}
+PHI2S = {(0, 0, 0): 1, (0, 0, 1): -1, (0, 1, 1): 1, (0, -1, 2): 1}
+rpoly = gmul(PHI1, PHI2)
+spoly = gmul(PHI1, PHI2S)
+# the expansions are 0/1 polynomials whose exponent sets are EXACTLY the quoted families
+ok12 &= rpoly == {e: 1 for e in [(0, 0, 0), (0, 1, 0), (0, -2, 1), (0, -2, 2),
+                                 (0, 0, 2), (0, -1, 3)]}
+ok12 &= spoly == {e: 1 for e in [(0, 0, 0), (0, 1, 0), (0, 2, 1), (0, 1, 2),
+                                 (0, -1, 2), (0, -1, 3)]}
+ok12 &= sorted(rpoly) == sorted(PX) and sorted(spoly) == sorted(PY)
+# Phi2star is the reversal x^{2b-a} * Phi2(1/x)
+ok12 &= {tuple(d - e for d, e in zip((0, -1, 2), exp)): c
+         for exp, c in PHI2.items()} == PHI2S
+# (a, b) = (1, 6) gives the paper's p. 2864 printed factorizations and the printed pair
+
+
+def gev(P, a, b):
+    R = {}
+    for (c0, ca, cb), c in P.items():
+        e = c0 + ca * a + cb * b
+        R[e] = R.get(e, 0) + c
+    return {e: c for e, c in R.items() if c != 0}
+
+
+ok12 &= gev(PHI2, 1, 6) == {0: 1, 4: 1, 5: -1, 11: 1}
+ok12 &= gev(PHI2S, 1, 6) == {0: 1, 6: -1, 7: 1, 11: 1}
+ok12 &= sorted(gev(rpoly, 1, 6)) == list(R1) and all(c == 1 for c in gev(rpoly, 1, 6).values())
+ok12 &= sorted(gev(spoly, 1, 6)) == list(R2) and all(c == 1 for c in gev(spoly, 1, 6).values())
+# countercontrol: flipping the negative sign in Phi2 leaves an 8-term signed expansion --
+# NOT a spanning-ruler polynomial, so the printed cancellation is load-bearing
+PHI2BAD = dict(PHI2)
+PHI2BAD[(0, -1, 1)] = 1
+rbad = gmul(PHI1, PHI2BAD)
+ok12 &= (len(rbad) != 6 or any(c != 1 for c in rbad.values()))
+check("M12", ok12,
+      "THE PRIMARY FACTORIZATION (Bekir-Golomb 2007, p. 2865) EXPANDS TO THE FAMILY, exact: "
+      "Phi1*Phi2 and Phi1*Phi2star, computed in the group algebra with symbolic exponents "
+      "(a, b), are 0/1 polynomials whose exponent sets are EXACTLY the quoted X and Y of M11 "
+      "-- the mixed terms cancel in pairs; Phi2star is the reversal of Phi2; (a, b) = (1, 6) "
+      "reproduces the paper's printed p. 2864 factorizations and the printed pair; flipping "
+      "the one negative coefficient destroys the six-term cancellation. Kernel twins: "
+      "piccard_factor_r / piccard_factor_s / piccardX_marks / piccardY_marks in "
+      "OIBridge/PiccardBridge.lean, in chamber coordinates s = x^p1, t = x^(p2-2p1)")
 
 print()
 print('     [scope] Settled exactly, at probe level: (i) n = 4 -- every labeled correspondence')
@@ -781,10 +850,14 @@ print('     zeros. The n = 6 kill chain checked here numerically is now ALSO a k
 print('     OIBridge/HomometricKill.lean assembles homometricSix_unrealizable end to end, the')
 print('     congruent-case assembly and the Fourier layer are kernel-closed, and the parametric')
 print('     mu-orbit bridge to the quoted exceptional family is kernel-proved over any CommRing')
-print('     (OIBridge/PiccardBridge.lean, probe twin M11). NOT settled: the primary-source')
-print('     audit of the Piccard/Bekir-Golomb classification itself (reduces all n to congruent')
-print('     or the six-mark family) and strata where some overlaps V_ia vanish (the Claim')
-print('     assumes nonzero overlaps); the Claim stays P-grade until those close.')
+print('     (OIBridge/PiccardBridge.lean, probe twins M11/M12). The primary 2007 text has been')
+print('     read: its exceptional-family formula is confirmed exactly (M12), its equivalence')
+print('     notion (identical or mirror image) and distinct-difference hypothesis match the')
+print('     Claim, and its classification argument is the cited external step. NOT settled:')
+print('     the real-vs-integer scope reading of the primary text (its polynomial model is')
+print('     integer-presented; the audit finding and the candidate closures are recorded in')
+print('     the ledger) and strata where some overlaps V_ia vanish (the Claim assumes nonzero')
+print('     overlaps); the Claim stays P-grade until the consumption decision is taken.')
 print()
 print("gap_correspondence_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)
