@@ -764,6 +764,487 @@ check("F14", ok14,
       "(kernel boundary: projector_uniform_overlap_obstruction is the exact uniform-"
       "overlap limit of that shrinkage)")
 
+# --------------------- F15  one-slot visible-local interventions (phase three, round 3)
+ok15 = True
+# The guard of round three: interventions must be local to the visible factor,
+# J_a = I_a (x) id_A, or C1 becomes too easy (a global CP map can manipulate the ancilla
+# and manufacture any classical comb). Kernel spine: local_intervention_overlap /
+# local_intervention_branch (layer one), local_channel_preserves_ancilla (the locality
+# invariant), two_time_forces_stationary / two_time_necessary (the Fourier reduction of
+# the named predicate TwoTimeCoherentLift). This census runs the exact necessary layer,
+# the exact affine layer of the one-slot Choi problem, a float PSD completion, and the
+# probe-menu hierarchy.
+TR15 = [(Frac(3, 5), Frac(4, 5)), (Frac(5, 13), Frac(12, 13)), (Frac(8, 17), Frac(15, 17)),
+        (Frac(7, 25), Frac(24, 25)), (Frac(20, 29), Frac(21, 29))]
+
+
+def mm15(A, B):
+    n2, n3 = len(B), len(B[0])
+    return [[sum(A[r][k] * B[k][c] for k in range(n2)) for c in range(n3)]
+            for r in range(len(A))]
+
+
+def bu15(D, sweeps, offset=0):
+    U = [[Frac(1) if r == c else Frac(0) for c in range(D)] for r in range(D)]
+    t = offset
+    for _ in range(sweeps):
+        for k in range(D - 1):
+            c, s = TR15[t % len(TR15)]
+            G = [[Frac(1) if r == cc else Frac(0) for cc in range(D)] for r in range(D)]
+            G[k][k], G[k + 1][k + 1], G[k][k + 1], G[k + 1][k] = c, c, -s, s
+            U = mm15(G, U)
+            t += 1
+    return U
+
+
+def kron15(A, B):
+    ra, ca, rb, cb = len(A), len(A[0]), len(B), len(B[0])
+    return [[A[r // rb][c // cb] * B[r % rb][c % cb] for c in range(ca * cb)]
+            for r in range(ra * rb)]
+
+
+def rs15(A, b):
+    """Exact row reduction: (consistent, particular, nullspace basis)."""
+    rows, cols = len(A), len(A[0])
+    M = [list(A[r]) + [b[r]] for r in range(rows)]
+    piv, r = [], 0
+    for c in range(cols):
+        pr = next((i for i in range(r, rows) if M[i][c] != 0), None)
+        if pr is None:
+            continue
+        M[r], M[pr] = M[pr], M[r]
+        pv = M[r][c]
+        M[r] = [x / pv for x in M[r]]
+        for i in range(rows):
+            if i != r and M[i][c] != 0:
+                f = M[i][c]
+                M[i] = [x - f * y for x, y in zip(M[i], M[r])]
+        piv.append(c)
+        r += 1
+        if r == rows:
+            break
+    for i in range(r, rows):
+        if M[i][cols] != 0:
+            return False, None, None
+    part = [Frac(0)] * cols
+    for k, c in enumerate(piv):
+        part[c] = M[k][cols]
+    free = [c for c in range(cols) if c not in piv]
+    null = []
+    for fc in free:
+        v = [Frac(0)] * cols
+        v[fc] = Frac(1)
+        for k, c in enumerate(piv):
+            v[c] = -M[k][fc]
+        null.append(v)
+    return True, part, null
+
+
+def lp15(A, b):
+    """Exact feasibility of {q >= 0 : A q = b}: basic-solution enumeration (complete)."""
+    cols = len(A[0])
+    cons, _, null = rs15(A, b)
+    if not cons:
+        return None
+    r = cols - len(null)
+    for size in range(0, r + 1):
+        for T in itertools.combinations(range(cols), size):
+            AT = [[A[i][c] for c in T] for i in range(len(A))]
+            cT, pT, nT = rs15(AT, b)
+            if not cT or (nT and len(nT) > 0):
+                continue
+            qq = [Frac(0)] * cols
+            for k, c in enumerate(T):
+                qq[c] = pT[k]
+            if all(x >= 0 for x in qq):
+                return qq
+    return None
+
+
+# ---- (a) layer one, exact: visible-local classical words on a block-diagonal state
+# with NON-diagonal Gaussian-integer ancilla blocks (n = 3, m = 2). The quantum fold must
+# keep the state block-diagonal with the SAME ancilla blocks relabelled/masked (the ancilla
+# identity of local_intervention_overlap), and the trace must equal the classical fold on
+# the visible alphabet alone (local_intervention_branch).
+n15, m15 = 3, 2
+BLK = [[[complex(1 + i, 2 * i), complex(2, -i)], [complex(2, i), complex(3 - i, 0)]]
+       for i in range(n15)]                        # hermitian-ish, entries exact ints
+SIGS = [[1, 0, 2], [1, 2, 0]]
+
+
+def op_fold(word, blocks):
+    for sig, out in word:
+        inv = [sig.index(i) for i in range(n15)]
+        blocks = [blocks[inv[i]] if i == out else [[0, 0], [0, 0]] for i in range(n15)]
+    return blocks
+
+
+def q_fold15(word, blocks):
+    D = n15 * m15
+    rho = [[blocks[p // m15][p % m15][q % m15] if p // m15 == q // m15 else 0
+            for q in range(D)] for p in range(D)]
+    for sig, out in word:
+        P = [[1 if (sig[q // m15] == p // m15 and p % m15 == q % m15) else 0
+              for q in range(D)] for p in range(D)]
+        Pt = [[P[c][r] for c in range(D)] for r in range(D)]
+        proj = [[1 if (p == q and p // m15 == out) else 0 for q in range(D)]
+                for p in range(D)]
+        rho = mm15(mm15(proj, mm15(mm15(P, rho), Pt)), proj)
+    return rho
+
+
+def cl_fold15(word, w):
+    for sig, out in word:
+        inv = [sig.index(i) for i in range(n15)]
+        w = [w[inv[i]] if i == out else 0 for i in range(n15)]
+    return w
+
+
+menu15 = [(sig, out) for sig in SIGS for out in range(n15)]
+w0 = [BLK[i][0][0] + BLK[i][1][1] for i in range(n15)]
+nw = 0
+for L in range(3):
+    for word in itertools.product(menu15, repeat=L):
+        rho = q_fold15(list(word), BLK)
+        blocks = op_fold(list(word), BLK)
+        ok15 &= all(rho[p][q] == (blocks[p // m15][p % m15][q % m15]
+                                  if p // m15 == q // m15 else 0)
+                    for p in range(6) for q in range(6))
+        ok15 &= sum(rho[s][s] for s in range(6)) == sum(cl_fold15(list(word), w0))
+        nw += 1
+ok15 &= nw == 43
+
+# ---- (b) the locality invariant, exact: a visible-local Kraus pair preserves the
+# ancilla marginal on an entangled state; a global (ancilla-touching) channel does not.
+RHOE = [[complex((r * 2 + c) % 5 - 2, (r - c) % 3 - 1) for c in range(6)] for r in range(6)]
+RHOH = [[RHOE[r][c] + RHOE[c][r].conjugate() for c in range(6)] for r in range(6)]
+c35, s35 = 0.6, 0.8
+W1 = [[0, 1, 0], [1, 0, 0], [0, 0, 1]]
+W2 = [[0.6, -0.8, 0], [0.8, 0.6, 0], [0, 0, 1]]
+KS = [[[c35 * W1[r][c] for c in range(3)] for r in range(3)],
+      [[s35 * W2[r][c] for c in range(3)] for r in range(3)]]
+ok15 &= all(abs(sum(KS[k][i][r] * KS[k][i][cc] for k in range(2) for i in range(3))
+                - (1 if r == cc else 0)) < 1e-12 for r in range(3) for cc in range(3))
+
+
+def ptv15(Y):
+    return [[sum(Y[i * 2 + z][i * 2 + y] for i in range(3)) for y in range(2)]
+            for z in range(2)]
+
+
+def vl15(K):
+    return [[K[p // 2][q // 2] * (1 if p % 2 == q % 2 else 0) for q in range(6)]
+            for p in range(6)]
+
+
+Yloc = [[sum(mm15(mm15(vl15(KS[k]), RHOH),
+             [[vl15(KS[k])[c][r].conjugate() if isinstance(vl15(KS[k])[c][r], complex)
+               else vl15(KS[k])[c][r] for c in range(6)] for r in range(6)])[p][q]
+         for k in range(2)) for q in range(6)] for p in range(6)]
+ok15 &= all(abs(ptv15(Yloc)[z][y] - ptv15(RHOH)[z][y]) < 1e-9
+            for z in range(2) for y in range(2))
+# global countercontrol: swap the two ancilla levels inside block 0 only
+Pg = [[1 if ((r, c) in ((0, 1), (1, 0)) or (r == c and r > 1)) else 0
+       for c in range(6)] for r in range(6)]
+Yg = mm15(mm15(Pg, RHOH), [[Pg[c][r] for c in range(6)] for r in range(6)])
+ok15 &= any(abs(ptv15(Yg)[z][y] - ptv15(RHOH)[z][y]) > 0.5 for z in range(2)
+            for y in range(2))
+
+# ---- (c) THE NECESSARY-LP CENSUS, exact: strata x actions. Necessary conditions from
+# two_time_necessary: a stationary target q' >= 0 with B q' = sigma p AND the ancilla
+# marginal of the represented state preserved (local_channel_preserves_ancilla).
+def census15(U, n, m, q, sigma):
+    D = n * m
+    B = [[sum(U[s][a] ** 2 for s in range(D) if s // m == i) for a in range(D)]
+         for i in range(n)]
+    G = [[[sum(U[i * m + z][a] * U[i * m + y][a] for i in range(n))
+           for y in range(m)] for z in range(m)] for a in range(D)]
+    p = [sum(q[a] * B[i][a] for a in range(D)) for i in range(n)]
+    tp = [p[sigma.index(i)] for i in range(n)]
+    Ag = [[B[i][a] for a in range(D)] for i in range(n)] + [[Frac(1)] * D]
+    bg = tp + [Frac(1)]
+    qg = lp15(Ag, bg)
+    Al = [row[:] for row in Ag]
+    bl = list(bg)
+    for z in range(m):
+        for y in range(z, m):
+            Al.append([G[a][z][y] for a in range(D)])
+            bl.append(sum(q[a] * G[a][z][y] for a in range(D)))
+    ql = lp15(Al, bl)
+    return (qg is not None), (ql is not None)
+
+
+Q15 = {4: [Frac(8, 15), Frac(4, 15), Frac(2, 15), Frac(1, 15)],
+       6: [Frac(2 ** (5 - k), 63) for k in range(6)],
+       9: [Frac(2 ** (8 - k), 511) for k in range(9)]}
+verdicts = {}
+for nn, mm in ((2, 2), (3, 2), (3, 3)):
+    D = nn * mm
+    q = Q15[D]
+    strata = (("st", bu15(D, 1)), ("mx", bu15(D, 3)),
+              ("ba", kron15(bu15(nn, 1), bu15(mm, 1, offset=2))))
+    acts = (("id", list(range(nn))),
+            ("tr", [1, 0] + list(range(2, nn))),
+            ("cy", [(i + 1) % nn for i in range(nn)]))
+    for stag, U in strata:
+        for atag, sig in acts:
+            verdicts[(nn, mm, stag, atag)] = census15(U, nn, mm, q, sig)
+# identity actions are always locally feasible (q' = q)
+ok15 &= all(verdicts[k] == (True, True) for k in verdicts if k[3] == 'id')
+# THE BOXED OBSTRUCTION -- globally feasible, locally impossible -- at these exact
+# instances: the classical comb embeds coherently only if the intervention may
+# manipulate the ancilla
+boxed = {k for k, v in verdicts.items() if v == (True, False)}
+ok15 &= boxed == {(2, 2, 'mx', 'tr'), (2, 2, 'mx', 'cy'),
+                  (3, 2, 'st', 'tr'), (3, 2, 'st', 'cy'),
+                  (3, 3, 'st', 'tr'), (3, 3, 'st', 'cy'),
+                  (3, 3, 'mx', 'tr'), (3, 3, 'mx', 'cy')}
+# block-aligned carriers are locally feasible WHENEVER globally feasible
+ok15 &= all((not v[0]) or v[1] for k, v in verdicts.items() if k[2] == 'ba')
+
+# ---- (d) the one-slot Choi problem, exact affine layer + PSD. Parameterize the visible
+# Choi J = S + iA (S symmetric, A antisymmetric; real carrier, so the two sectors
+# decouple); the constraints are TP, stationarity of J(rho) (W = U^T Y U off-diagonal
+# zero), and the block readout. Exact rational row reduction decides consistency and the
+# affine fibre dimension; PSD then decides CP.
+def full_affine15(n, m, U, q, sigma):
+    D = n * m
+    rho = [[sum(U[p][a] * q[a] * U[qq][a] for a in range(D)) for qq in range(D)]
+           for p in range(D)]
+    B = [[sum(U[s][a] ** 2 for s in range(D) if s // m == i) for a in range(D)]
+         for i in range(n)]
+    p = [sum(q[a] * B[i][a] for a in range(D)) for i in range(n)]
+    tp = [p[sigma.index(i)] for i in range(n)]
+    nb = n * n
+    sym = [(i, j) for i in range(nb) for j in range(i, nb)]
+    asym = [(i, j) for i in range(nb) for j in range(i + 1, nb)]
+    Ut = [[U[c][r] for c in range(D)] for r in range(D)]
+
+    def image(J):
+        Y = [[sum(J[(pp // m) * n + i2][(qq // m) * n + j2]
+                  * rho[i2 * m + (pp % m)][j2 * m + (qq % m)]
+                  for i2 in range(n) for j2 in range(n)) for qq in range(D)]
+             for pp in range(D)]
+        return Y, mm15(mm15(Ut, Y), U)
+
+    colS = []
+    for (r, c) in sym:
+        J = [[Frac(0)] * nb for _ in range(nb)]
+        J[r][c] += 1
+        if r != c:
+            J[c][r] += 1
+        colS.append((J,) + image(J))
+    rowsS, rhsS = [], []
+    for i in range(n):
+        for i2 in range(i, n):
+            rowsS.append([sum(cj[0][o * n + i][o * n + i2] for o in range(n))
+                          for cj in colS])
+            rhsS.append(Frac(1) if i == i2 else Frac(0))
+    for a in range(D):
+        for b in range(a + 1, D):
+            rowsS.append([cj[2][a][b] for cj in colS])
+            rhsS.append(Frac(0))
+    for j in range(n):
+        rowsS.append([sum(cj[1][s][s] for s in range(D) if s // m == j) for cj in colS])
+        rhsS.append(tp[j])
+    consS, partS, nullS = rs15(rowsS, rhsS)
+    colA = []
+    for (r, c) in asym:
+        J = [[Frac(0)] * nb for _ in range(nb)]
+        J[r][c] += 1
+        J[c][r] -= 1
+        colA.append((J,) + image(J))
+    rowsA = []
+    for i in range(n):
+        for i2 in range(i + 1, n):
+            rowsA.append([sum(cj[0][o * n + i][o * n + i2] for o in range(n))
+                          for cj in colA])
+    for a in range(D):
+        for b in range(a + 1, D):
+            rowsA.append([cj[2][a][b] for cj in colA])
+    _, _, nullA = rs15(rowsA, [Frac(0)] * len(rowsA))
+    return consS, partS, (len(nullS) if nullS is not None else 0), len(nullA), sym, \
+        rowsS, rhsS
+
+
+Q22 = Q15[4]
+Q32 = Q15[6]
+# (2,2) structured transposition -- the necessary LP PASSED here, yet the one-slot
+# channel problem is RIGID: the affine constraints determine the Choi uniquely
+# (dimS = dimA = 0) and the unique candidate fails PSD by a macroscopic margin. The
+# full Choi constraints strictly refine the ancilla-marginal invariant.
+consS, partS, dimS, dimA, sym22, _, _ = full_affine15(2, 2, bu15(4, 1), Q22, [1, 0])
+ok15 &= consS and dimS == 0 and dimA == 0
+J22 = [[Frac(0)] * 4 for _ in range(4)]
+for k, (r, c) in enumerate(sym22):
+    J22[r][c] += partS[k]
+    if r != c:
+        J22[c][r] += partS[k]
+ok15 &= np.linalg.eigvalsh(np.array([[float(x) for x in row]
+                                     for row in J22])).min() < -1.5
+# (2,2) mixed transposition -- the necessary LP failed; the unique Choi candidate fails
+# PSD too (the two exact layers cross-validate)
+consS, partS, dimS, dimA, sym22, _, _ = full_affine15(2, 2, bu15(4, 3), Q22, [1, 0])
+ok15 &= consS and dimS == 0 and dimA == 0
+J22 = [[Frac(0)] * 4 for _ in range(4)]
+for k, (r, c) in enumerate(sym22):
+    J22[r][c] += partS[k]
+    if r != c:
+        J22[c][r] += partS[k]
+ok15 &= np.linalg.eigvalsh(np.array([[float(x) for x in row]
+                                     for row in J22])).min() < -5
+# (3,2) identity action: the identity channel is an EXACT witness (Choi = the
+# unnormalized maximally-entangled projector, PSD), verified against every row
+consS, partS, dimS, dimA, sym32, rowsS, rhsS = full_affine15(3, 2, bu15(6, 1), Q32,
+                                                             [0, 1, 2])
+ok15 &= consS and dimS > 0
+xid = []
+for (r, c) in sym32:
+    ri, rj = divmod(r, 3)
+    ci, cj = divmod(c, 3)
+    xid.append(Frac(1) if (ri == rj and ci == cj) else Frac(0))
+ok15 &= all(sum(rowsS[k][t] * xid[t] for t in range(len(sym32))) == rhsS[k]
+            for k in range(len(rowsS)))
+
+
+# (2,2) block-aligned transposition: positive-dimensional affine fibre, and Dykstra
+# completes it to a genuine CPTP instrument
+def dykstra15(n, m, U, q, sigma, iters=1500):
+    D = n * m
+    Uf = np.array([[float(x) for x in row] for row in U])
+    qf = np.array([float(x) for x in q])
+    rho = Uf @ np.diag(qf) @ Uf.T
+    B = np.array([[sum(Uf[s, a] ** 2 for s in range(D) if s // m == i)
+                   for a in range(D)] for i in range(n)])
+    tp = np.array([(B @ qf)[sigma.index(i)] for i in range(n)])
+    nb = n * n
+    basis = []
+    for i in range(nb):
+        M = np.zeros((nb, nb)); M[i, i] = 1; basis.append(M)
+    for i in range(nb):
+        for j in range(i + 1, nb):
+            M = np.zeros((nb, nb)); M[i, j] = M[j, i] = 2 ** -0.5; basis.append(M)
+
+    def app(J):
+        Y = np.zeros((D, D))
+        for i in range(n):
+            for x in range(m):
+                for jj in range(n):
+                    for y in range(m):
+                        Y[i * m + x, jj * m + y] = sum(
+                            J[i * n + i2, jj * n + j2] * rho[i2 * m + x, j2 * m + y]
+                            for i2 in range(n) for j2 in range(n))
+        return Y
+
+    rows, rhs = [], []
+    Yapps = [app(Bk) for Bk in basis]
+    Ymaps = [Uf.T @ Ya @ Uf for Ya in Yapps]
+    for i in range(n):
+        for i2 in range(i, n):
+            rows.append([sum(Bk[o * n + i, o * n + i2] for o in range(n))
+                         for Bk in basis])
+            rhs.append(1.0 if i == i2 else 0.0)
+    for a in range(D):
+        for b in range(a + 1, D):
+            rows.append([Ym[a, b] for Ym in Ymaps]); rhs.append(0.0)
+    for j in range(n):
+        rows.append([sum(Ya[s, s] for s in range(D) if s // m == j) for Ya in Yapps])
+        rhs.append(tp[j])
+    L = np.array(rows); cvec = np.array(rhs)
+    from numpy.linalg import pinv
+    Lp = pinv(L)
+    Jid = np.zeros((nb, nb))
+    for i in range(n):
+        for j in range(n):
+            Jid[i * n + i, j * n + j] = 1
+    xv = np.array([np.trace(Bk.T @ Jid) for Bk in basis])
+    pc = np.zeros_like(xv)
+    for _ in range(iters):
+        xa = xv - Lp @ (L @ xv - cvec)
+        y = xa + pc
+        J = sum(y[k] * basis[k] for k in range(len(basis)))
+        w, Vv = np.linalg.eigh(J)
+        Jp = Vv @ np.diag(np.clip(w, 0, None)) @ Vv.T
+        xn = np.array([np.trace(Bk.T @ Jp) for Bk in basis])
+        pc = y - xn
+        xv = xn
+    J = sum(xv[k] * basis[k] for k in range(len(basis)))
+    return np.linalg.norm(L @ xv - cvec), np.linalg.eigvalsh(J).min()
+
+
+resBA, eigBA = dykstra15(2, 2, kron15(bu15(2, 1), bu15(2, 1, offset=2)), Q22, [1, 0])
+ok15 &= resBA < 1e-6 and eigBA > -1e-7
+# (3,2) mixed transposition: the necessary LP passed and the affine fibre is
+# positive-dimensional, but Dykstra stalls at a macroscopic gap -- no CP completion
+# found (recorded as evidence of PSD infeasibility, not a certificate)
+resMX, _ = dykstra15(3, 2, bu15(6, 3), Q32, [1, 0, 2])
+ok15 &= resMX > 1e-2
+
+# ---- (e) the probe-menu hierarchy against the orientation pair (V, E) vs (V, -E):
+# permutation and real coherent probes are exactly blind; ONE complex coherent probe
+# resolves the orientation. This is the intervention-level face of the phase-two
+# antiunitary structure: full transposition would also transpose the probe.
+Uf = np.array([[float(x) for x in row] for row in bu15(6, 1)])
+E15 = np.array([0.0, 1.0, 2.4142135623, 3.7320508075, 5.1, 6.9])
+qf = np.array([float(x) for x in Q15[6]])
+rho15 = Uf @ np.diag(qf) @ Uf.T
+
+
+def resp15(Evec, R):
+    RL = np.kron(R, np.eye(2))
+    X = RL @ rho15 @ RL.conj().T
+    M = Uf.T @ X @ Uf
+    ts = np.linspace(0.13, 7.7, 25)
+    out = []
+    for j in range(3):
+        P = np.diag([1.0 if s // 2 == j else 0 for s in range(6)])
+        N = Uf.T @ P @ Uf
+        out.append([sum(M[a, b] * N[b, a] * np.exp(1j * (Evec[b] - Evec[a]) * t)
+                        for a in range(6) for b in range(6)).real for t in ts])
+    return np.array(out)
+
+
+Rp = np.array([[0, 1, 0], [1, 0, 0], [0, 0, 1.0]])
+Rr = np.array([[0.6, -0.8, 0], [0.8, 0.6, 0], [0, 0, 1.0]])
+Rc = np.array([[np.cos(0.7), -np.sin(0.7) * np.exp(1j * 0.9), 0],
+               [np.sin(0.7) * np.exp(-1j * 0.9), np.cos(0.7), 0], [0, 0, 1.0]])
+dperm = np.max(np.abs(resp15(E15, Rp) - resp15(-E15, Rp)))
+dreal = np.max(np.abs(resp15(E15, Rr) - resp15(-E15, Rr)))
+dcplx = np.max(np.abs(resp15(E15, Rc) - resp15(-E15, Rc)))
+ok15 &= dperm < 1e-10 and dreal < 1e-10 and dcplx > 0.05
+
+check("F15", ok15,
+      "ONE-SLOT VISIBLE-LOCAL INTERVENTIONS (phase three, round three). (a) Layer one "
+      "exact: 43 visible-local classical words on a block-diagonal state with non-diagonal "
+      "Gaussian-integer ancilla blocks -- the quantum fold carries the ancilla blocks "
+      "UNTOUCHED (relabelled and masked only) and the branch trace equals the classical "
+      "fold on the visible alphabet alone (kernel: local_intervention_overlap, "
+      "local_intervention_branch). (b) The locality invariant: a visible-local Kraus pair "
+      "preserves the ancilla marginal on an entangled state exactly; an ancilla-touching "
+      "permutation moves it (kernel: local_channel_preserves_ancilla, embA_conj_channel). "
+      "(c) THE NECESSARY-LP CENSUS (exact fractions; kernel spine two_time_forces_"
+      "stationary + two_time_necessary reduces TwoTimeCoherentLift to: stationary target "
+      "q' >= 0 with B q' = sigma p in the preparation's ancilla-marginal fibre): identity "
+      "actions always locally feasible; THE BOXED OBSTRUCTION -- globally feasible yet "
+      "visible-locally impossible, i.e. the classical comb embeds coherently only if the "
+      "intervention manipulates hidden/ancillary degrees of freedom -- occurs at exactly "
+      "8 of 27 instances, covering every nontrivial action on the non-aligned carriers at "
+      "(3,3); block-aligned (product) carriers are locally feasible wherever globally "
+      "feasible. (d) The one-slot Choi problem, exact affine layer + PSD: at (2,2) the "
+      "problem is RIGID -- TP + stationarity + readout determine the visible Choi "
+      "UNIQUELY (zero-dimensional affine fibre, both sectors), and the unique candidate "
+      "fails positivity by a certified macroscopic margin EVEN WHERE THE NECESSARY LP "
+      "PASSES: the full channel constraints strictly refine the ancilla-marginal "
+      "invariant. The identity action carries the exact identity-channel witness; the "
+      "block-aligned carrier is CPTP-completable (Dykstra) on a positive-dimensional "
+      "instrument fibre; the (3,2) mixed nontrivial action stalls at a macroscopic "
+      "Dykstra gap (evidence, not a certificate). (e) The probe-menu "
+      "hierarchy against the orientation pair (V, E) vs (V, -E): permutation and real "
+      "coherent probes are exactly blind (< 1e-10), one complex coherent probe resolves "
+      "the orientation (> 0.05) -- the intervention-level face of the antiunitary "
+      "structure, matching the source-lift prior")
+
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

@@ -375,7 +375,16 @@ for fname, names in (
                       'projector_shell_representation_from_comb',
                       'comb_mixture_of_projector_shell_representation',
                       'projector_uniform_overlap_obstruction', 'projOverlap_rankOne',
-                      'rankOne_specialization')),
+                      'rankOne_specialization', 'vlift_conjTranspose', 'vlift_mul',
+                      'vlift_one', 'vlift_sum', 'vlift_kraus', 'permMatrix_prodCongr',
+                      'readProj_fst_vlift', 'permMatrix_conj_apply', 'qStep_assemble',
+                      'local_intervention_overlap', 'assemble_trace', 'opStep_trace',
+                      'local_intervention_branch', 'embA_conjTranspose_mul_apply',
+                      'mul_embA_apply', 'ptraceV_eq_trace', 'embA_vlift',
+                      'embA_conj_channel', 'local_channel_preserves_ancilla',
+                      "umat_spectral'", 'umat_zero', 'trace_diag_sandwich',
+                      'intervened_readout_expansion', 'two_time_forces_stationary',
+                      'two_time_necessary')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -416,7 +425,7 @@ spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(âˆƒ Eâ
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
       "LINT. All eleven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 28 + 5 + 16 named results print their "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 53 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

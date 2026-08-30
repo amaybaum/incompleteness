@@ -696,6 +696,557 @@ theorem rankOne_specialization (V : Matrix (Fin m) (Fin m) ℂ) (E : Fin m → �
   · rintro ⟨ρ, hpsd, htr, hstat, hp⟩
     exact ⟨ρ, hpsd, htr, hstat, fun i => by rw [hread ρ i]; exact hp i⟩
 
+/-! ### Section D — visible-local interventions: the one-slot/two-time layer (phase three, round 3)
+
+THE GUARD. On the dilated carrier `ℋ_D = ℋ_V ⊗ ℋ_A` an arbitrary CP map on the whole
+`D`-dimensional space could secretly manipulate the ancilla and manufacture any desired
+classical comb — proving existence of a mathematical extension, not the coherent observer
+lift. Round three therefore constrains every intervention to the visible factor:
+`𝒥_a = ℐ_a ⊗ id_A`, with `P_i = |i⟩⟨i| ⊗ I_A`. Everything below makes that locality
+structural.
+
+  * `vlift` and its algebra — the lift `M ↦ M ⊗ I_A`, multiplicative, star-compatible,
+    normalization-preserving; `permMatrix_prodCongr` and `readProj_fst_vlift` show Section
+    A's carrier at `S = Sv × Sa`, `π = fst` IS this block carrier, so the horizon-`k`
+    overlap identity already runs on it.
+  * `local_intervention_overlap` — LAYER ONE, the classical restriction, with the ancilla
+    identity explicit: on block-diagonal states, a word of lifted classical visible actions
+    and block readouts folds to a block-diagonal state whose ancilla blocks are CARRIED
+    UNTOUCHED (`opStep` only relabels and masks them); the branch probability
+    (`local_intervention_branch`) is the classical action-labelled fold of the block
+    weights on the VISIBLE alphabet alone — the ancilla drops out of the statement.
+  * `local_channel_preserves_ancilla` — THE LOCALITY INVARIANT: a visible-local channel
+    preserves the ancilla marginal `Tr_V` exactly (via the embedding intertwiner
+    `embA_vlift` and trace cyclicity). This is the first hard multi-time constraint of the
+    coherent lift: any state a visible-local intervention can reach carries the SAME
+    ancilla marginal as the preparation. It is a consequence of LOCALITY alone — a global
+    replace-channel moves the marginal freely — so it is the exact form of the round's
+    countercontrol: a classical comb whose coherent embedding would require moving the
+    ancilla marginal needs interventions that manipulate hidden/ancillary degrees of
+    freedom.
+  * `TwoTimeCoherentLift` — the named one-slot predicate, stated and NOT assumed: some
+    visible-local CPTP instrument, applied to the preparation between two reconstructed
+    propagations, reproduces the prescribed classical branch table at the block readout AT
+    EVERY TIME (the stationary classical comb is time-independent, so its coherent image
+    must be; a weaker integer-time prescription would be a deliberate relaxation, recorded
+    here and not adopted).
+  * `two_time_forces_stationary` — THE REDUCTION, by Dedekind independence of the gap
+    characters (`coeffs_eq_zero`, `fiber_singleton`): with nondegenerate gaps and a
+    readout-complete projector family, time-independence of the intervened readout forces
+    the intervened state to be spectrally diagonal. `two_time_necessary` assembles the
+    consequence: the one-slot problem collapses exactly — a two-time lift exists only if
+    some SPECTRALLY DIAGONAL state carrying the classically prescribed block readout AND
+    the preparation's ancilla marginal is visible-locally reachable. Its linear necessary
+    conditions (the readout polytope of Section C plus the ancilla-marginal invariant) are
+    what probe F15 censuses exactly, strata × menus, with the locality countercontrol. -/
+
+variable {Sv Sa : Type*} [Fintype Sv] [DecidableEq Sv] [Fintype Sa] [DecidableEq Sa]
+
+/-- The visible-local lift `M ⊗ I_A`. -/
+def vlift (M : Matrix Sv Sv ℂ) : Matrix (Sv × Sa) (Sv × Sa) ℂ :=
+  fun p q => M p.1 q.1 * (if p.2 = q.2 then 1 else 0)
+
+omit [Fintype Sv] [DecidableEq Sv] [Fintype Sa] in
+theorem vlift_conjTranspose (M : Matrix Sv Sv ℂ) :
+    (vlift M : Matrix (Sv × Sa) (Sv × Sa) ℂ)ᴴ = vlift Mᴴ := by
+  ext p q
+  rw [Matrix.conjTranspose_apply, vlift, vlift, Matrix.conjTranspose_apply, star_mul']
+  rw [show star (if q.2 = p.2 then (1 : ℂ) else 0) = if p.2 = q.2 then (1 : ℂ) else 0 by
+    by_cases h : p.2 = q.2 <;> simp [h, eq_comm]]
+
+omit [DecidableEq Sv] in
+/-- The lift is multiplicative. -/
+theorem vlift_mul (M N : Matrix Sv Sv ℂ) :
+    (vlift M : Matrix (Sv × Sa) (Sv × Sa) ℂ) * vlift N = vlift (M * N) := by
+  ext p q
+  rw [Matrix.mul_apply, Fintype.sum_prod_type]
+  rw [Finset.sum_congr rfl fun k _ => Finset.sum_congr rfl fun z _ => by
+    rw [vlift, vlift,
+      show M p.1 k * (if p.2 = z then (1 : ℂ) else 0)
+          * (N k q.1 * (if z = q.2 then 1 else 0))
+        = if p.2 = z then (if z = q.2 then M p.1 k * N k q.1 else 0) else 0 by
+      by_cases h1 : p.2 = z <;> by_cases h2 : z = q.2 <;> simp [h1, h2]]]
+  rw [Finset.sum_congr rfl fun k _ => Finset.sum_ite_eq (Finset.univ : Finset Sa) p.2
+    (fun z => if z = q.2 then M p.1 k * N k q.1 else 0)]
+  simp only [Finset.mem_univ, if_true]
+  rw [vlift, Matrix.mul_apply]
+  by_cases h : p.2 = q.2 <;> simp [h]
+
+omit [Fintype Sv] [Fintype Sa] in
+theorem vlift_one : (vlift (1 : Matrix Sv Sv ℂ) : Matrix (Sv × Sa) (Sv × Sa) ℂ) = 1 := by
+  ext p q
+  rw [vlift, Matrix.one_apply, Matrix.one_apply]
+  by_cases h1 : p.1 = q.1 <;> by_cases h2 : p.2 = q.2 <;>
+    simp [h1, h2, Prod.ext_iff]
+
+omit [Fintype Sv] [DecidableEq Sv] [Fintype Sa] in
+theorem vlift_sum {κ : Type*} (s : Finset κ) (A : κ → Matrix Sv Sv ℂ) :
+    (∑ k ∈ s, (vlift (A k) : Matrix (Sv × Sa) (Sv × Sa) ℂ)) = vlift (∑ k ∈ s, A k) := by
+  ext p q
+  rw [Matrix.sum_apply, vlift, Matrix.sum_apply, Finset.sum_mul]
+  exact Finset.sum_congr rfl fun k _ => rfl
+
+/-- Kraus normalization transports through the lift: a visible instrument stays an
+instrument on the composite. -/
+theorem vlift_kraus {κ : Type*} [Fintype κ] (K : κ → Matrix Sv Sv ℂ)
+    (hK : ∑ k, (K k)ᴴ * K k = 1) :
+    ∑ k, ((vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ)ᴴ * vlift (K k)) = 1 := by
+  rw [Finset.sum_congr rfl fun k _ => by rw [vlift_conjTranspose, vlift_mul]]
+  rw [vlift_sum, hK, vlift_one]
+
+omit [Fintype Sv] [Fintype Sa] in
+/-- The permutation lift of a visible bijection is the visible-local lift of its
+permutation matrix: Section A's carrier at `S = Sv × Sa`, `π = fst` is the block carrier. -/
+theorem permMatrix_prodCongr (σ : Sv ≃ Sv) :
+    (permMatrix (σ.prodCongr (Equiv.refl Sa)) : Matrix (Sv × Sa) (Sv × Sa) ℂ)
+      = vlift (permMatrix σ) := by
+  ext p q
+  rw [permMatrix, vlift, permMatrix]
+  by_cases h1 : σ q.1 = p.1
+  · by_cases h2 : q.2 = p.2
+    · have hc : (σ.prodCongr (Equiv.refl Sa)) q = p := Prod.ext h1 h2
+      rw [if_pos hc, if_pos h1, if_pos h2.symm, mul_one]
+    · have hc : ¬(σ.prodCongr (Equiv.refl Sa)) q = p := fun h => by
+        have h' := congrArg Prod.snd h
+        exact h2 h'
+      rw [if_neg hc, if_pos h1, if_neg (fun h => h2 h.symm), mul_zero]
+  · have hc : ¬(σ.prodCongr (Equiv.refl Sa)) q = p := fun h => by
+      have h' := congrArg Prod.fst h
+      exact h1 h'
+    rw [if_neg hc, if_neg h1, zero_mul]
+
+omit [Fintype Sv] [Fintype Sa] in
+/-- The fixed-basis block readout IS the lifted rank-one readout. -/
+theorem readProj_fst_vlift (i : Sv) :
+    readProj (Prod.fst : Sv × Sa → Sv) i
+      = vlift (Matrix.diagonal (fun s => if s = i then 1 else 0)) := by
+  ext p q
+  rw [readProj, vlift]
+  by_cases h1 : p = q
+  · subst h1
+    rw [Matrix.diagonal_apply_eq, Matrix.diagonal_apply_eq]
+    simp
+  · rw [Matrix.diagonal_apply_ne _ h1]
+    by_cases h2 : p.1 = q.1
+    · have h3 : p.2 ≠ q.2 := fun h3 => h1 (Prod.ext h2 h3)
+      rw [if_neg h3, mul_zero]
+    · rw [Matrix.diagonal_apply_ne _ h2, zero_mul]
+
+/-- Permutation conjugation relabels every entry: `(P_g Y P_g†)_{pq} = Y_{g⁻¹p, g⁻¹q}`. -/
+theorem permMatrix_conj_apply (g : S ≃ S) (Y : Matrix S S ℂ) (p q : S) :
+    (permMatrix g * Y * (permMatrix g)ᴴ) p q = Y (g.symm p) (g.symm q) := by
+  rw [permMatrix_conjTranspose, Matrix.mul_apply]
+  rw [Finset.sum_congr rfl fun s _ => by
+    rw [permMatrix,
+      show (permMatrix g * Y) p s * (if g.symm q = s then (1 : ℂ) else 0)
+        = if g.symm q = s then (permMatrix g * Y) p s else 0 by
+        by_cases h : g.symm q = s <;> simp [h]]]
+  rw [Finset.sum_ite_eq (Finset.univ : Finset S) (g.symm q)
+    (fun s => (permMatrix g * Y) p s)]
+  simp only [Finset.mem_univ, if_true]
+  rw [Matrix.mul_apply]
+  rw [Finset.sum_congr rfl fun r _ => by
+    rw [permMatrix,
+      show (if g r = p then (1 : ℂ) else 0) * Y r (g.symm q)
+        = if g.symm p = r then Y r (g.symm q) else 0 by
+        by_cases h : g r = p
+        · rw [if_pos h, if_pos (by rw [← h, Equiv.symm_apply_apply]), one_mul]
+        · rw [if_neg h, zero_mul,
+            if_neg (fun h' => h (by rw [← h', Equiv.apply_symm_apply]))]]]
+  rw [Finset.sum_ite_eq (Finset.univ : Finset S) (g.symm p) (fun r => Y r (g.symm q))]
+  simp
+
+/-- A block-diagonal (visible-classical) state: one ancilla operator per visible
+configuration. -/
+def assemble (Ablk : Sv → Matrix Sa Sa ℂ) : Matrix (Sv × Sa) (Sv × Sa) ℂ :=
+  fun p q => if p.1 = q.1 then Ablk p.1 p.2 q.2 else 0
+
+/-- The classical step on block operators: relabel along the visible action and mask by the
+read outcome. THE ANCILLA OPERATORS ARE NEVER MODIFIED — only relabelled and masked. -/
+def opStep (mv : (Sv ≃ Sv) × Sv) (Ablk : Sv → Matrix Sa Sa ℂ) : Sv → Matrix Sa Sa ℂ :=
+  fun i => if i = mv.2 then Ablk (mv.1.symm i) else 0
+
+/-- One visible-local classical step maps block-diagonal to block-diagonal, acting on the
+blocks by `opStep`. -/
+theorem qStep_assemble (Ablk : Sv → Matrix Sa Sa ℂ) (mv : (Sv ≃ Sv) × Sv) :
+    qStep (Prod.fst : Sv × Sa → Sv) (assemble Ablk)
+        (mv.1.prodCongr (Equiv.refl Sa), mv.2)
+      = assemble (opStep mv Ablk) := by
+  have hconj : permMatrix (mv.1.prodCongr (Equiv.refl Sa)) * assemble Ablk
+      * (permMatrix (mv.1.prodCongr (Equiv.refl Sa)))ᴴ
+      = assemble (fun i => Ablk (mv.1.symm i)) := by
+    ext p q
+    rw [permMatrix_conj_apply]
+    rw [show (mv.1.prodCongr (Equiv.refl Sa)).symm p
+      = ((mv.1.symm p.1, p.2) : Sv × Sa) from rfl]
+    rw [show (mv.1.prodCongr (Equiv.refl Sa)).symm q
+      = ((mv.1.symm q.1, q.2) : Sv × Sa) from rfl]
+    rw [assemble, assemble]
+    by_cases h : p.1 = q.1
+    · rw [if_pos (by rw [h] : mv.1.symm p.1 = mv.1.symm q.1), if_pos h]
+    · rw [if_neg h, if_neg (fun h' : mv.1.symm p.1 = mv.1.symm q.1 => h (by
+        have := congrArg mv.1 h'
+        rwa [Equiv.apply_symm_apply, Equiv.apply_symm_apply] at this))]
+  rw [qStep, hconj]
+  ext p q
+  rw [readProj, Matrix.mul_diagonal, Matrix.diagonal_mul, assemble, assemble, opStep]
+  by_cases h1 : p.1 = mv.2 <;> by_cases h2 : q.1 = mv.2 <;> by_cases h3 : p.1 = q.1 <;>
+    simp_all
+
+/-- **`local_intervention_overlap` — LAYER ONE, the fold form.** A word of lifted classical
+visible actions and block readouts keeps a block-diagonal state block-diagonal, and the
+ancilla blocks are carried through by pure relabelling and masking: every step is
+`ℐ ⊗ id_A`, and the identity on the ancilla factor is explicit in the conclusion — the
+final blocks ARE the initial blocks, routed classically. -/
+theorem local_intervention_overlap (word : List ((Sv ≃ Sv) × Sv))
+    (Ablk : Sv → Matrix Sa Sa ℂ) :
+    (word.map (fun mv => (mv.1.prodCongr (Equiv.refl Sa), mv.2))).foldl
+        (qStep (Prod.fst : Sv × Sa → Sv)) (assemble Ablk)
+      = assemble (word.foldl (fun A mv => opStep mv A) Ablk) := by
+  induction word generalizing Ablk with
+  | nil => rfl
+  | cons mv rest ih =>
+      rw [List.map_cons, List.foldl_cons, List.foldl_cons, qStep_assemble, ih]
+
+omit [DecidableEq Sa] in
+theorem assemble_trace (Ablk : Sv → Matrix Sa Sa ℂ) :
+    Matrix.trace (assemble Ablk) = ∑ i, Matrix.trace (Ablk i) := by
+  rw [Matrix.trace, Fintype.sum_prod_type]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [Matrix.trace]
+  refine Finset.sum_congr rfl fun x _ => ?_
+  rw [Matrix.diag_apply, Matrix.diag_apply]
+  rw [show assemble Ablk (i, x) (i, x) = Ablk i x x from if_pos rfl]
+
+omit [Fintype Sv] [DecidableEq Sa] in
+theorem opStep_trace (mv : (Sv ≃ Sv) × Sv) (Ablk : Sv → Matrix Sa Sa ℂ) (i : Sv) :
+    Matrix.trace (opStep mv Ablk i)
+      = if i = mv.2 then Matrix.trace (Ablk (mv.1.symm i)) else 0 := by
+  rw [opStep]
+  by_cases h : i = mv.2 <;> simp [h]
+
+/-- **`local_intervention_branch` — LAYER ONE, the probability form.** The branch
+probability of any word of visible-local classical steps on a block-diagonal state equals
+the classical action-labelled fold of the block weights on the VISIBLE alphabet alone
+(Section A's `classProb` at `S = Sv`, `π = id`): the ancilla has dropped out of the
+statement entirely. -/
+theorem local_intervention_branch (word : List ((Sv ≃ Sv) × Sv))
+    (Ablk : Sv → Matrix Sa Sa ℂ) (w : Sv → ℝ)
+    (hw : ∀ i, Matrix.trace (Ablk i) = ((w i : ℝ) : ℂ)) :
+    Matrix.trace ((word.map (fun mv => (mv.1.prodCongr (Equiv.refl Sa), mv.2))).foldl
+        (qStep (Prod.fst : Sv × Sa → Sv)) (assemble Ablk))
+      = ((classProb (fun i : Sv => i) w word : ℝ) : ℂ) := by
+  rw [local_intervention_overlap, assemble_trace, classProb]
+  have key : ∀ (word : List ((Sv ≃ Sv) × Sv)) (A : Sv → Matrix Sa Sa ℂ) (w : Sv → ℝ),
+      (∀ i, Matrix.trace (A i) = ((w i : ℝ) : ℂ)) →
+      ∀ i, Matrix.trace ((word.foldl (fun A mv => opStep mv A) A) i)
+        = (((word.foldl (classStep (fun i : Sv => i)) w) i : ℝ) : ℂ) := by
+    intro word
+    induction word with
+    | nil => intro A w hw i; exact hw i
+    | cons mv rest ih =>
+        intro A w hw i
+        rw [List.foldl_cons, List.foldl_cons]
+        refine ih (opStep mv A) (classStep (fun i : Sv => i) w mv) (fun i' => ?_) i
+        rw [opStep_trace, classStep]
+        by_cases h : i' = mv.2 <;> simp [h, hw]
+  rw [Complex.ofReal_sum]
+  exact Finset.sum_congr rfl fun i _ => key word Ablk w hw i
+
+/-- The ancilla marginal `Tr_V`. -/
+def ptraceV (Y : Matrix (Sv × Sa) (Sv × Sa) ℂ) : Matrix Sa Sa ℂ :=
+  fun x y => ∑ i : Sv, Y (i, x) (i, y)
+
+/-- The isometric embedding `|i⟩ ↦ |i, x⟩` of the visible factor at ancilla configuration
+`x`. -/
+def embA (x : Sa) : Matrix (Sv × Sa) Sv ℂ :=
+  fun p i => if p = (i, x) then 1 else 0
+
+theorem embA_conjTranspose_mul_apply (Y : Matrix (Sv × Sa) (Sv × Sa) ℂ) (x : Sa)
+    (i : Sv) (q : Sv × Sa) :
+    ((embA x)ᴴ * Y : Matrix Sv (Sv × Sa) ℂ) i q = Y (i, x) q := by
+  rw [Matrix.mul_apply]
+  rw [Finset.sum_congr rfl fun p _ => show (embA x)ᴴ i p * Y p q
+      = if p = ((i, x) : Sv × Sa) then Y p q else 0 from by
+    rw [Matrix.conjTranspose_apply, embA]
+    by_cases h : p = ((i, x) : Sv × Sa) <;> simp [h]]
+  rw [Finset.sum_ite_eq' (Finset.univ : Finset (Sv × Sa)) ((i, x) : Sv × Sa) fun p => Y p q]
+  simp
+
+theorem mul_embA_apply (Z : Matrix Sv (Sv × Sa) ℂ) (y : Sa) (i i' : Sv) :
+    (Z * embA y : Matrix Sv Sv ℂ) i i' = Z i (i', y) := by
+  rw [Matrix.mul_apply]
+  rw [Finset.sum_congr rfl fun q _ => show Z i q * embA y q i'
+      = if q = ((i', y) : Sv × Sa) then Z i q else 0 from by
+    rw [embA]
+    by_cases h : q = ((i', y) : Sv × Sa) <;> simp [h]]
+  rw [Finset.sum_ite_eq' (Finset.univ : Finset (Sv × Sa)) ((i', y) : Sv × Sa) fun q => Z i q]
+  simp
+
+theorem ptraceV_eq_trace (Y : Matrix (Sv × Sa) (Sv × Sa) ℂ) (x y : Sa) :
+    ptraceV Y x y = Matrix.trace ((embA x)ᴴ * Y * embA y) := by
+  rw [ptraceV, Matrix.trace]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [Matrix.diag_apply, mul_embA_apply, embA_conjTranspose_mul_apply]
+
+/-- The embedding intertwines the visible-local lift with the visible operator itself. -/
+theorem embA_vlift (M : Matrix Sv Sv ℂ) (x : Sa) :
+    (embA x)ᴴ * (vlift M : Matrix (Sv × Sa) (Sv × Sa) ℂ) = M * (embA x)ᴴ := by
+  ext i q
+  rw [embA_conjTranspose_mul_apply]
+  simp only [vlift]
+  rw [Matrix.mul_apply]
+  rw [Finset.sum_congr rfl fun j _ => show M i j * (embA x)ᴴ j q
+      = if q = ((j, x) : Sv × Sa) then M i j else 0 from by
+    rw [Matrix.conjTranspose_apply, embA]
+    by_cases h : q = ((j, x) : Sv × Sa) <;> simp [h]]
+  by_cases hx : x = q.2
+  · rw [if_pos hx]
+    rw [Finset.sum_congr rfl fun j _ => show (if q = ((j, x) : Sv × Sa) then M i j else 0)
+        = if q.1 = j then M i q.1 else 0 from by
+      by_cases h : q.1 = j
+      · rw [if_pos (Prod.ext h hx.symm), if_pos h, h]
+      · rw [if_neg (fun h' => h (congrArg Prod.fst h')), if_neg h]]
+    rw [Finset.sum_ite_eq (Finset.univ : Finset Sv) q.1 fun _ => M i q.1]
+    simp
+  · rw [if_neg hx, mul_zero]
+    symm
+    refine Finset.sum_eq_zero fun j _ => ?_
+    have hne : q ≠ ((j, x) : Sv × Sa) := fun h => by
+      have h' := congrArg Prod.snd h
+      exact hx h'.symm
+    rw [if_neg hne]
+
+/-- One visible-local Kraus branch, compressed by the embeddings: the ancilla indices
+contract to a visible-only conjugation. -/
+theorem embA_conj_channel (K : Matrix Sv Sv ℂ) (ρ : Matrix (Sv × Sa) (Sv × Sa) ℂ)
+    (x y : Sa) :
+    (embA x)ᴴ * ((vlift K : Matrix (Sv × Sa) (Sv × Sa) ℂ) * ρ * (vlift K)ᴴ) * embA y
+      = K * ((embA x)ᴴ * ρ * embA y) * Kᴴ := by
+  have hR : (vlift K : Matrix (Sv × Sa) (Sv × Sa) ℂ)ᴴ * embA y = embA y * Kᴴ := by
+    have h := congrArg Matrix.conjTranspose (embA_vlift K y)
+    rwa [Matrix.conjTranspose_mul, Matrix.conjTranspose_mul,
+      Matrix.conjTranspose_conjTranspose] at h
+  trans ((embA x : Matrix (Sv × Sa) Sv ℂ)ᴴ * (vlift K : Matrix (Sv × Sa) (Sv × Sa) ℂ)) * ρ
+    * ((vlift K : Matrix (Sv × Sa) (Sv × Sa) ℂ)ᴴ * (embA y : Matrix (Sv × Sa) Sv ℂ))
+  · simp only [Matrix.mul_assoc]
+  rw [embA_vlift, hR]
+  simp only [Matrix.mul_assoc]
+
+/-- **THE LOCALITY INVARIANT.** A visible-local channel preserves the ancilla marginal
+exactly: any state a visible-local intervention can reach carries the SAME `Tr_V` as the
+preparation. This is the first hard multi-time constraint of the coherent lift, and it is
+a consequence of LOCALITY alone — a global channel moves the marginal freely, which is
+precisely what the round's countercontrol removes. -/
+theorem local_channel_preserves_ancilla {κ : Type*} [Fintype κ] (K : κ → Matrix Sv Sv ℂ)
+    (hK : ∑ k, (K k)ᴴ * K k = 1) (ρ : Matrix (Sv × Sa) (Sv × Sa) ℂ) :
+    ptraceV (∑ k, (vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ) * ρ * (vlift (K k))ᴴ)
+      = ptraceV ρ := by
+  ext x y
+  rw [ptraceV_eq_trace, ptraceV_eq_trace]
+  rw [Matrix.mul_sum, Matrix.sum_mul, Matrix.trace_sum]
+  rw [Finset.sum_congr rfl fun k _ =>
+    congrArg Matrix.trace (embA_conj_channel (K k) ρ x y)]
+  rw [Finset.sum_congr rfl fun k _ => Matrix.trace_mul_cycle (K k)
+    ((embA x)ᴴ * ρ * embA y) ((K k)ᴴ)]
+  rw [← Matrix.trace_sum, ← Finset.sum_mul, hK, one_mul]
+
+/-! #### The two-time reduction -/
+
+variable {Dm : ℕ}
+
+/-- The spectral form of the propagator over an arbitrary carrier index. -/
+theorem umat_spectral' {n : Type*} [Fintype n] (V : Matrix n (Fin Dm) ℂ) (E : Fin Dm → ℝ)
+    (t : ℝ) :
+    Matrix.of (BohrFrequency.Umat V E t)
+      = V * Matrix.diagonal (fun a => Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ)))) * Vᴴ := by
+  ext i j
+  rw [Matrix.of_apply]
+  show (∑ a, V i a * Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ))) * star (V j a)) = _
+  rw [Matrix.mul_apply]
+  refine Finset.sum_congr rfl fun a _ => ?_
+  rw [Matrix.mul_diagonal, Matrix.conjTranspose_apply]
+
+/-- At `t = 0` the propagator is the identity. -/
+theorem umat_zero {n : Type*} [Fintype n] [DecidableEq n] (V : Matrix n (Fin Dm) ℂ)
+    (E : Fin Dm → ℝ) (hV : V * Vᴴ = 1) : Matrix.of (BohrFrequency.Umat V E 0) = 1 := by
+  rw [umat_spectral']
+  rw [show (fun a => Complex.exp (-(Complex.I * (E a : ℂ) * ((0 : ℝ) : ℂ))))
+    = fun _ : Fin Dm => (1 : ℂ) by
+      funext a
+      norm_num]
+  rw [Matrix.diagonal_one, Matrix.mul_one, hV]
+
+/-- The trace of a doubly diagonal sandwich, as a pair sum. -/
+theorem trace_diag_sandwich (N M : Matrix (Fin Dm) (Fin Dm) ℂ) (d e : Fin Dm → ℂ) :
+    Matrix.trace (N * Matrix.diagonal d * M * Matrix.diagonal e)
+      = ∑ q : Fin Dm × Fin Dm, M q.1 q.2 * N q.2 q.1 * (d q.1 * e q.2) := by
+  rw [Matrix.trace]
+  rw [Finset.sum_congr rfl fun b _ => by
+    rw [Matrix.diag_apply, Matrix.mul_diagonal, Matrix.mul_apply, Finset.sum_mul,
+      Finset.sum_congr rfl fun a _ => by rw [Matrix.mul_diagonal]]]
+  rw [Fintype.sum_prod_type, Finset.sum_comm]
+  exact Finset.sum_congr rfl fun b _ => Finset.sum_congr rfl fun a _ => by ring
+
+/-- **The intervened readout, frequency-resolved**: the two-time branch probability is a
+finite combination of the gap characters, with coefficient `M_{ab} N_{ba}` at frequency
+`E_b − E_a` (`M`, `N` the intervened state and the readout in the eigenbasis). Pure
+cyclicity — no unitarity is consumed. -/
+theorem intervened_readout_expansion {n : Type*} [Fintype n]
+    (P X : Matrix n n ℂ) (V : Matrix n (Fin Dm) ℂ) (E : Fin Dm → ℝ) (t : ℝ) :
+    Matrix.trace (P * (Matrix.of (BohrFrequency.Umat V E t) * X
+        * (Matrix.of (BohrFrequency.Umat V E t))ᴴ))
+      = ∑ q : Fin Dm × Fin Dm, (Vᴴ * X * V) q.1 q.2 * (Vᴴ * P * V) q.2 q.1
+          * Complex.exp (Complex.I * ((E q.2 - E q.1 : ℝ) : ℂ) * (t : ℂ)) := by
+  have hU := umat_spectral' V E t
+  have hUH : (Matrix.of (BohrFrequency.Umat V E t))ᴴ
+      = V * Matrix.diagonal (star fun a => Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ))))
+        * Vᴴ := by
+    rw [hU, Matrix.conjTranspose_mul, Matrix.conjTranspose_mul,
+      Matrix.conjTranspose_conjTranspose, Matrix.diagonal_conjTranspose]
+    rw [← Matrix.mul_assoc]
+  have h2 : P * (Matrix.of (BohrFrequency.Umat V E t) * X
+      * (Matrix.of (BohrFrequency.Umat V E t))ᴴ)
+      = (P * V * Matrix.diagonal (fun a => Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ))))
+        * (Vᴴ * X * V)
+        * Matrix.diagonal (star fun a => Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ)))))
+        * Vᴴ := by
+    rw [hUH, hU]
+    simp only [Matrix.mul_assoc]
+  rw [h2, Matrix.trace_mul_comm]
+  rw [show Vᴴ * (P * V
+      * Matrix.diagonal (fun a => Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ))))
+      * (Vᴴ * X * V)
+      * Matrix.diagonal (star fun a => Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ)))))
+    = (Vᴴ * P * V)
+      * Matrix.diagonal (fun a => Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ))))
+      * (Vᴴ * X * V)
+      * Matrix.diagonal (star fun a => Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ))))
+    by simp only [Matrix.mul_assoc]]
+  rw [trace_diag_sandwich]
+  refine Finset.sum_congr rfl fun q _ => ?_
+  rw [Pi.star_apply, BohrFrequency.star_phase]
+  rw [show Complex.exp (-(Complex.I * (E q.1 : ℂ) * (t : ℂ)))
+      * Complex.exp (Complex.I * (E q.2 : ℂ) * (t : ℂ))
+    = Complex.exp (Complex.I * ((E q.2 - E q.1 : ℝ) : ℂ) * (t : ℂ)) by
+      rw [← Complex.exp_add]
+      congr 1
+      push_cast
+      ring]
+
+/-- **THE REDUCTION.** With nondegenerate gaps and a readout-complete projector family,
+time-independence of the intervened readout forces the intervened state to be spectrally
+diagonal: Dedekind independence of the gap characters kills every off-diagonal matrix
+element. This is what collapses the one-slot SDP to the stationary readout polytope. -/
+theorem two_time_forces_stationary {n ι' : Type*} [Fintype n]
+    (V : Matrix n (Fin Dm) ℂ) (X : Matrix n n ℂ) (E : Fin Dm → ℝ)
+    (P : ι' → Matrix n n ℂ) (C : ι' → ℂ)
+    (hgap : ∀ a b c d : Fin Dm, a ≠ b → c ≠ d → E b - E a = E d - E c → a = c ∧ b = d)
+    (hread : ∀ a b : Fin Dm, a ≠ b → ∃ j, (Vᴴ * P j * V) b a ≠ 0)
+    (hconst : ∀ (j : ι') (t : ℝ),
+      Matrix.trace (P j * (Matrix.of (BohrFrequency.Umat V E t) * X
+        * (Matrix.of (BohrFrequency.Umat V E t))ᴴ)) = C j)
+    {a b : Fin Dm} (hab : a ≠ b) : (Vᴴ * X * V) a b = 0 := by
+  obtain ⟨j, hj⟩ := hread a b hab
+  have hexp : ∀ t : ℝ, ∑ q : Fin Dm × Fin Dm,
+      (Vᴴ * X * V) q.1 q.2 * (Vᴴ * P j * V) q.2 q.1
+        * Complex.exp (Complex.I * ((E q.2 - E q.1 : ℝ) : ℂ) * (t : ℂ)) = C j := by
+    intro t
+    rw [← intervened_readout_expansion (P j) X V E t]
+    exact hconst j t
+  have hfib : ∀ t : ℝ, ∑ ω ∈ BohrFrequency.gaps E,
+      (∑ q ∈ Finset.univ.filter (fun q : Fin Dm × Fin Dm => E q.2 - E q.1 = ω),
+        (Vᴴ * X * V) q.1 q.2 * (Vᴴ * P j * V) q.2 q.1)
+        * Complex.exp (Complex.I * (ω : ℂ) * (t : ℂ)) = C j := by
+    intro t
+    rw [← hexp t]
+    rw [← Finset.sum_fiberwise_of_maps_to
+      (g := fun q : Fin Dm × Fin Dm => E q.2 - E q.1)
+      (fun q _ => Finset.mem_image_of_mem _ (Finset.mem_univ q))]
+    refine Finset.sum_congr rfl fun ω _ => ?_
+    rw [Finset.sum_mul]
+    refine Finset.sum_congr rfl fun q hq => ?_
+    rw [(Finset.mem_filter.mp hq).2]
+  have h0mem : (0 : ℝ) ∈ BohrFrequency.gaps E := by
+    rw [BohrFrequency.gaps]
+    exact Finset.mem_image.mpr ⟨(a, a), Finset.mem_univ _, by rw [sub_self]⟩
+  have hzero : ∀ t : ℝ, ∑ ω ∈ BohrFrequency.gaps E,
+      ((∑ q ∈ Finset.univ.filter (fun q : Fin Dm × Fin Dm => E q.2 - E q.1 = ω),
+        (Vᴴ * X * V) q.1 q.2 * (Vᴴ * P j * V) q.2 q.1)
+        - if ω = 0 then C j else 0)
+        * Complex.exp (Complex.I * (ω : ℂ) * (t : ℂ)) = 0 := by
+    intro t
+    rw [Finset.sum_congr rfl fun ω _ => sub_mul _ _ _]
+    rw [Finset.sum_sub_distrib, hfib t]
+    rw [Finset.sum_congr rfl fun ω _ => by
+      rw [show (if ω = (0 : ℝ) then C j else 0)
+          * Complex.exp (Complex.I * (ω : ℂ) * (t : ℂ))
+        = if ω = (0 : ℝ) then C j * Complex.exp (Complex.I * ((0 : ℝ) : ℂ) * (t : ℂ))
+          else 0 by
+          by_cases h : ω = (0 : ℝ)
+          · rw [if_pos h, if_pos h, h]
+          · rw [if_neg h, if_neg h, zero_mul]]]
+    rw [Finset.sum_ite_eq' (BohrFrequency.gaps E) (0 : ℝ)
+      (fun _ => C j * Complex.exp (Complex.I * ((0 : ℝ) : ℂ) * (t : ℂ)))]
+    rw [if_pos h0mem]
+    norm_num
+  have hc := BohrFrequency.coeffs_eq_zero hzero
+  have hω0 : (E b - E a : ℝ) ≠ 0 := by
+    intro h0
+    exact hab (hgap a b b a hab (Ne.symm hab) (by linarith)).1
+  have hmem : (E b - E a : ℝ) ∈ BohrFrequency.gaps E := by
+    rw [BohrFrequency.gaps]
+    exact Finset.mem_image.mpr ⟨(a, b), Finset.mem_univ _, rfl⟩
+  have hval := hc _ hmem
+  rw [if_neg hω0, sub_zero] at hval
+  rw [BohrFrequency.fiber_singleton hgap hab, Finset.sum_singleton] at hval
+  exact (mul_eq_zero.mp hval).resolve_right hj
+
+/-- **THE ONE-SLOT PREDICATE, stated and not assumed.** A visible-local CPTP instrument,
+applied to the preparation, reproduces the prescribed classical branch table at the block
+readout at EVERY time — the stationary classical comb is time-independent, so its coherent
+image must be. Everything in the existential is visible-local by construction: the Kraus
+operators live on the visible factor and enter only through `vlift`. -/
+def TwoTimeCoherentLift (V : Matrix (Sv × Sa) (Fin Dm) ℂ) (E : Fin Dm → ℝ)
+    (ρ : Matrix (Sv × Sa) (Sv × Sa) ℂ) (C : Sv → ℝ) : Prop :=
+  ∃ (κ : ℕ) (K : Fin κ → Matrix Sv Sv ℂ),
+    (∑ k, (K k)ᴴ * K k = 1) ∧
+    ∀ (j : Sv) (t : ℝ),
+      Matrix.trace (readProj (Prod.fst : Sv × Sa → Sv) j
+        * (Matrix.of (BohrFrequency.Umat V E t)
+          * (∑ k, (vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ) * ρ * (vlift (K k))ᴴ)
+          * (Matrix.of (BohrFrequency.Umat V E t))ᴴ))
+      = ((C j : ℝ) : ℂ)
+
+/-- **THE NECESSARY CONDITIONS, assembled.** A two-time lift forces the existence of an
+intervened state that is (i) spectrally diagonal — stationary — by the Fourier reduction,
+(ii) ancilla-marginal-equal to the preparation, by the locality invariant, and (iii)
+carrying the classically prescribed block readout, by evaluation at `t = 0`. The one-slot
+problem is thereby exactly the reachability of the stationary readout polytope inside the
+ancilla-marginal fibre of the preparation — the linear system probe F15 censuses. -/
+theorem two_time_necessary (V : Matrix (Sv × Sa) (Fin Dm) ℂ) (E : Fin Dm → ℝ)
+    (ρ : Matrix (Sv × Sa) (Sv × Sa) ℂ) (C : Sv → ℝ)
+    (hV : V * Vᴴ = 1)
+    (hgap : ∀ a b c d : Fin Dm, a ≠ b → c ≠ d → E b - E a = E d - E c → a = c ∧ b = d)
+    (hread : ∀ a b : Fin Dm, a ≠ b →
+      ∃ j : Sv, (Vᴴ * readProj (Prod.fst : Sv × Sa → Sv) j * V) b a ≠ 0)
+    (hlift : TwoTimeCoherentLift V E ρ C) :
+    ∃ X : Matrix (Sv × Sa) (Sv × Sa) ℂ,
+      (∀ a b : Fin Dm, a ≠ b → (Vᴴ * X * V) a b = 0)
+      ∧ ptraceV X = ptraceV ρ
+      ∧ ∀ j : Sv, Matrix.trace (readProj (Prod.fst : Sv × Sa → Sv) j * X)
+          = ((C j : ℝ) : ℂ) := by
+  obtain ⟨κ, K, hK, hbranch⟩ := hlift
+  refine ⟨∑ k, (vlift (K k) : Matrix (Sv × Sa) (Sv × Sa) ℂ) * ρ * (vlift (K k))ᴴ,
+    fun a b hab => ?_, local_channel_preserves_ancilla K hK ρ, fun j => ?_⟩
+  · exact two_time_forces_stationary V _ E _ (fun j => ((C j : ℝ) : ℂ)) hgap hread
+      (fun j t => hbranch j t) hab
+  · have h := hbranch j 0
+    rw [umat_zero V E hV] at h
+    rw [Matrix.conjTranspose_one, one_mul, mul_one] at h
+    exact h
+
+
 #print axioms permMatrix_unitary
 #print axioms permMatrix_conj_diagonal
 #print axioms readProj_sum
@@ -724,6 +1275,31 @@ theorem rankOne_specialization (V : Matrix (Fin m) (Fin m) ℂ) (E : Fin m → �
 #print axioms projector_uniform_overlap_obstruction
 #print axioms projOverlap_rankOne
 #print axioms rankOne_specialization
+#print axioms vlift_conjTranspose
+#print axioms vlift_mul
+#print axioms vlift_one
+#print axioms vlift_sum
+#print axioms vlift_kraus
+#print axioms permMatrix_prodCongr
+#print axioms readProj_fst_vlift
+#print axioms permMatrix_conj_apply
+#print axioms qStep_assemble
+#print axioms local_intervention_overlap
+#print axioms assemble_trace
+#print axioms opStep_trace
+#print axioms local_intervention_branch
+#print axioms embA_conjTranspose_mul_apply
+#print axioms mul_embA_apply
+#print axioms ptraceV_eq_trace
+#print axioms embA_vlift
+#print axioms embA_conj_channel
+#print axioms local_channel_preserves_ancilla
+#print axioms umat_spectral'
+#print axioms umat_zero
+#print axioms trace_diag_sandwich
+#print axioms intervened_readout_expansion
+#print axioms two_time_forces_stationary
+#print axioms two_time_necessary
 
 end CoherentLift
 end OIBridge
