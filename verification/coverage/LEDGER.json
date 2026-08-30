@@ -2168,10 +2168,23 @@
       "fingerprint": "bc328464f38b8bc1",
       "area": "sm",
       "assumptions": "partition preserved by time reversal; counting-measure hidden prior; the symmetric form needs T-even visible states",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": "The precision note in GR §3.2 — that N_ij = N_ji holds only for T-even coarse states — is exactly the kind of side condition a formal statement should carry."
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/Reciprocity.lean",
+          "basis": "named",
+          "evidence": "theorem_19"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/reciprocity_probe.py",
+          "basis": "named",
+          "evidence": "EXHAUSTIVE"
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "AUDITED BEFORE FORMALIZING, and the printed proof is exact -- the two counting maps h |-> theta_H(pi_H phi(i,h)) really are mutually inverse -- with ONE implicit hypothesis surfaced. The proof passes from phi^-1 = T phi T to phi = T phi^-1 T and later cancels T T, and both steps need T to be an INVOLUTION, which 'the induced action of T' supplies physically -- classical time reversal squares to the identity -- but which no clause of the printed statement states. It is not removable: on Z_4 with theta a rotation by one and phi the same rotation, phi^-1 = T phi T holds exactly and the conclusion is false (probe R4). The Lean statement carries the involutivity of both components explicitly. THE STATEMENT, IN FULL. theorem_19 has both printed clauses -- N_ij(n) = N_(theta j, theta i)(n) for every time scale n, and the probability form T_ij(n) = T_(theta j, theta i)(n) as the same equality divided by |H|, which is where the counting-measure prior enters -- and detailed_balance is the theta = id specialization of the same theorem, not a statement with its own hypotheses. 'Partition preserved by time reversal' is the product form T = theta x theta_H, built into the formulation. The visible sector is NOT assumed finite: only the hidden sector is counted over, and the probe's lint enforces that no Fintype V appears. THE T-EVEN SIDE CONDITION, [GR 3.2]'s precision note, is countercontrolled rather than merely stated: probe R2 exhibits a T-invariant substratum -- phi = (3-cycle) x id, theta the transposition (0 1) -- where N_02 = |H| against N_20 = 0, so detailed balance is FALSE off theta = id while the (theta j, theta i) form holds at every n. R1 sweeps every permutation of the substratum at |V| = 3, |H| = 2 and |V| = 2, |H| = 3 against every product-form involution (1216 T-invariant bijections) for n = 1..6. R5 runs the manuscript's own wave-equation substratum -- (a,b) -> (Sa - b, a), T the register swap, checkerboard partition -- at L = 4, q = 2, 3 for n = 1..8, exactly; and notes that theta there is a genuine swap of the two visible registers, so the physical instance itself lives off theta = id and needs the general form. The old note asked for exactly this: the side condition is carried in the statement."
     },
     {
       "id": "SM:P-20",
@@ -2727,14 +2740,6 @@
   "backlog": [
     {
       "rank": 1,
-      "id": "SM:T-19",
-      "centrality": "medium",
-      "difficulty": "medium",
-      "tier": 6,
-      "route": "Reciprocity of visible transition counts. The side condition is the interesting part and must be carried: the symmetric form T_ij = T_ji holds only for T-EVEN coarse states, and GR section 3.2 is explicit that with T-odd visible data only the (theta j, theta i) form survives."
-    },
-    {
-      "rank": 2,
       "id": "SM:T-16",
       "centrality": "low",
       "difficulty": "low",
@@ -2742,7 +2747,7 @@
       "route": "Dimensional bookkeeping: [g] = (3-d)/2, dimensionless iff d = 3. Cheap, and it moves an SM GAP for almost nothing."
     },
     {
-      "rank": 3,
+      "rank": 2,
       "id": "GR:T-d-gauge-completeness",
       "centrality": "medium",
       "difficulty": "high",
@@ -2750,7 +2755,7 @@
       "route": "Needs non-degenerate spectra, non-vanishing overlaps and an argument over all t -- analytic, and the first GR statement worth attempting."
     },
     {
-      "rank": 4,
+      "rank": 3,
       "id": "SM:T-8",
       "centrality": "low",
       "difficulty": "low",
