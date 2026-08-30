@@ -27,13 +27,13 @@
   polynomials factor over ℤ with the shared factor 1 + x + x²y (`maskV_factor`, `maskW_factor`),
   and the ξ/η exponent linkage holds on all fifteen edges (`linkage`).
 
-  HONEST SCOPE. The analytic reduction connecting these endpoints — rank-one forcing of
-  z'^{μ(a,b)} = λ z^{ab}, the Smith-normal-form completeness of the phase kernel, and the
-  resultant computation showing the eight listed points exhaust the common torus zeros of the two
-  masks — is verified exactly at probe level (gap_correspondence_probe M4–M7), not yet in the
-  kernel. What the kernel certifies here is: the modulus lattice has full rank n − 1 with the flat
-  direction as its entire annihilator, and the final clique obstruction is a true statement about
-  the eight-element difference set. General-n K4-rigidity is OIBridge/EdgeRigidity.lean.
+  SCOPE. The analytic middle connecting these endpoints — rank-one forcing, the multiplicative
+  phase elimination replacing the Smith-normal-form computation, and the torus-zero bridge — is
+  closed in OIBridge/HomometricKill.lean, whose `homometricSix_unrealizable` assembles the whole
+  chain: the forced non-two-branch correspondence admits no pair of unitary eigenbases with all
+  overlaps nonzero. What THIS file certifies: the modulus lattice has full rank n − 1 with the
+  flat direction as its entire annihilator, and the clique obstruction over the eight-element
+  difference set. General-n K4-rigidity is OIBridge/EdgeRigidity.lean.
 -/
 import Mathlib.Data.ZMod.Basic
 import Mathlib.Data.Fintype.Prod
@@ -97,19 +97,21 @@ theorem muInv_mu : ∀ a b : Fin 6, a < b →
 theorem mu_muInv : ∀ c d : Fin 6, c < d →
     (muInv c d).1 < (muInv c d).2 ∧ mu (muInv c d).1 (muInv c d).2 = (c, d) := by decide
 
+variable {K : Type*} [Field K] [LinearOrder K] [IsStrictOrderedRing K]
+
 /-- The edge-product value of a pair on a log-modulus row. -/
-def SL (L : Fin 6 → ℚ) (p : Fin 6 × Fin 6) : ℚ := L p.1 + L p.2
+def SL (L : Fin 6 → K) (p : Fin 6 × Fin 6) : K := L p.1 + L p.2
 
 /-- The pulled-back four-cycle identities: for every ascending target quadruple, both independent
 matching identities hold on the μ-preimages. -/
-def PulledRel (L : Fin 6 → ℚ) : Prop :=
+def PulledRel (L : Fin 6 → K) : Prop :=
   ∀ c d e f : Fin 6, c < d → d < e → e < f →
     SL L (muInv c d) + SL L (muInv e f) = SL L (muInv c e) + SL L (muInv d f)
     ∧ SL L (muInv c d) + SL L (muInv e f) = SL L (muInv c f) + SL L (muInv d e)
 
 /-- THE MODULUS ENDPOINT: L_μ^⊥ = span(1). A log-modulus row satisfies every pulled-back
 four-cycle identity iff it is constant — the exceptional locus is exactly the flat row. -/
-theorem flat_locus (L : Fin 6 → ℚ) : PulledRel L ↔ ∀ i, L i = L 0 := by
+theorem flat_locus (L : Fin 6 → K) : PulledRel L ↔ ∀ i, L i = L 0 := by
   constructor
   · intro h
     have h1 := (h 0 1 3 4 (by decide) (by decide) (by decide)).1
@@ -208,14 +210,38 @@ theorem maskW_factor (x y : ℤ) :
     1 + x + x^4*y + x^3*y^2 + x^5*y^2 + x^5*y^3
       = (1 + x + x^2*y) * (1 - x^2*y + x^3*y + x^3*y^2) := by ring
 
-/-- The V-side mask IS the exponent-table sum. -/
-theorem maskV_eq_sum (x y : ℤ) :
+/-- The V'-side x-exponents in gauge-shifted (nonnegative) form: wp2 = w2 + 3; the shifted
+y-table w3 + 2 coincides with u3. -/
+def wp2 : Fin 6 → ℕ
+  | 0 => 0 | 1 => 1 | 2 => 4 | 3 => 3 | 4 => 5 | 5 => 5
+
+theorem wp2_shift : ∀ c : Fin 6, (wp2 c : ℤ) = w2 c + 3 := by decide
+
+theorem u3_shift : ∀ c : Fin 6, (u3 c : ℤ) = w3 c + 2 := by decide
+
+/-- The linkage in shifted form, ready for natural powers: for every edge,
+`u2 a − u2 b = wp2 c − wp2 d` and `u3 a − u3 b = u3 c − u3 d` over ℤ. -/
+theorem linkage' : ∀ a b : Fin 6, a < b →
+    (u2 a : ℤ) - u2 b = (wp2 (mu a b).1 : ℤ) - wp2 (mu a b).2
+    ∧ (u3 a : ℤ) - u3 b = (u3 (mu a b).1 : ℤ) - u3 (mu a b).2 := by decide
+
+/-- The V-side mask IS the exponent-table sum, over any commutative ring. -/
+theorem maskV_eq_sum {R : Type*} [CommRing R] (x y : R) :
     (∑ a, x ^ u2 a * y ^ u3 a)
       = 1 + x + y + x^2*y^2 + x^4*y^2 + x^5*y^3 := by
   rw [Fin.sum_univ_six]
   show x ^ u2 0 * y ^ u3 0 + x ^ u2 1 * y ^ u3 1 + x ^ u2 2 * y ^ u3 2
       + x ^ u2 3 * y ^ u3 3 + x ^ u2 4 * y ^ u3 4 + x ^ u2 5 * y ^ u3 5 = _
   norm_num [u2, u3]
+
+/-- The V'-side mask IS the shifted exponent-table sum, over any commutative ring. -/
+theorem maskW_eq_sum {R : Type*} [CommRing R] (x y : R) :
+    (∑ c, x ^ wp2 c * y ^ u3 c)
+      = 1 + x + x^4*y + x^3*y^2 + x^5*y^2 + x^5*y^3 := by
+  rw [Fin.sum_univ_six]
+  show x ^ wp2 0 * y ^ u3 0 + x ^ wp2 1 * y ^ u3 1 + x ^ wp2 2 * y ^ u3 2
+      + x ^ wp2 3 * y ^ u3 3 + x ^ wp2 4 * y ^ u3 4 + x ^ wp2 5 * y ^ u3 5 = _
+  norm_num [wp2, u3]
 
 /-- The eight allowed differences: the common torus zeros of both masks, as exponent pairs in
 ℤ/12 × ℤ/4 (x = ζ₁₂^a, y = i^b). Their completeness is the probe-level resultant computation. -/
@@ -260,6 +286,8 @@ theorem three_clique :
 #print axioms maskV_factor
 #print axioms maskW_factor
 #print axioms maskV_eq_sum
+#print axioms maskW_eq_sum
+#print axioms linkage'
 #print axioms conn_symm
 #print axioms no_four_clique
 #print axioms no_six_orthogonal

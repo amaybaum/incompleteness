@@ -75,6 +75,7 @@ import OIBridge.BohrFrequency
 import OIBridge.TasteBranching
 import OIBridge.EdgeRigidity
 import OIBridge.HomometricSix
+import OIBridge.HomometricKill
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Numerical companion checks for OIBridge/EdgeRigidity.lean and OIBridge/HomometricSix.lean.
+"""Numerical companion checks for OIBridge/EdgeRigidity.lean, OIBridge/HomometricSix.lean, and
+OIBridge/HomometricKill.lean.
 
 EdgeRigidity kernel-proves K4-RIGIDITY: for n >= 5, an edge permutation of K_n preserving all
 four-cycle product identities as identities is induced by a vertex permutation -- with the n = 4
@@ -8,7 +9,11 @@ complement exception exposed as sharp -- plus the manuscript-facing corollary th
 edge permutation forces a nontrivial exponent relation (summing to zero, so flat rows always
 survive). HomometricSix kernel-proves the two load-bearing finite endpoints of the n = 6 kill
 chain: the flat-locus theorem L_mu-perp = span(1) and the max-clique-3 obstruction, plus the mask
-factorizations and the xi/eta linkage.
+factorizations and the xi/eta linkage. HomometricKill closes the ANALYTIC MIDDLE in the kernel --
+rank-one line forcing, the multiplicative phase elimination (explicit certificates in place of the
+Smith normal form), the torus-zero bridge, and the assembled `homometricSix_unrealizable`: the
+forced non-two-branch six-mode correspondence admits no pair of unitary eigenbases with all
+overlaps nonzero.
 
 These checks exercise the same statements independently (no Lean in the loop):
 
@@ -32,7 +37,7 @@ These checks exercise the same statements independently (no Lean in the loop):
   R6  ORIENTATION COHERENCE: for random spectra with distinct eigenvalues, both global lifts
       satisfy every triangle gap identity while EVERY properly mixed sign assignment violates
       one -- the content of `orientation_coherence`, checked in exact fractions.
-  R7  lint of both Lean files.
+  R7  lint of all three Lean files.
 
 Usage:  python3 edge_rigidity_probe.py
 """
@@ -310,23 +315,29 @@ for fname, names in (
     ('HomometricSix', ('golomb_r1', 'golomb_r2', 'mu_gap', 'mu_forced', 'muInv_mu',
                        'mu_muInv', 'mu_not_vertex_induced', 'flat_locus', 'linkage',
                        'maskV_factor', 'maskW_factor', 'maskV_eq_sum', 'conn_symm',
-                       'no_four_clique', 'no_six_orthogonal', 'three_clique'))):
+                       'no_four_clique', 'no_six_orthogonal', 'three_clique')),
+    ('HomometricKill', ('line_forcing', 'flat_of_products', 'monomial_relations',
+                        'torus_zeros', 'point_to_exponent', 'orderOf_zeta', 'orderOf_I',
+                        'homometricSix_unrealizable'))):
     src = open(os.path.join(BRIDGE, 'OIBridge', f'{fname}.lean'), encoding='utf-8').read()
     body = src[src.index('namespace OIBridge'):]
     ok6 &= f'import OIBridge.{fname}' in root
     ok6 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', body) is None
     ok6 &= re.search(r'(?m)^axiom ', body) is None
     ok6 &= 'native_decide' not in body
-    ok6 &= all(f'theorem {nm}' in src for nm in names)
+    ok6 &= all((f'theorem {nm}' in src) or (f'lemma {nm}' in src) for nm in names)
     ok6 &= all(f'#print axioms {nm}' in src for nm in names)
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
 ok6 &= 'Edge 4 ≃ Edge 4' in er
+ok6 &= 'theorem homometricSix_unrealizable' in open(
+    os.path.join(BRIDGE, 'OIBridge', 'HomometricKill.lean'), encoding='utf-8').read()
 check("R7", ok6,
-      "LINT. Both files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 named results print their axiom dependencies; "
-      "`k4_rigidity` carries the sharp hypothesis 5 <= n and the exception lives at n = 4")
+      "LINT. All three files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 named results print their axiom "
+      "dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, the exception lives at "
+      "n = 4, and the assembled `homometricSix_unrealizable` closes the analytic middle")
 
 print()
 print('     [scope] Settled in Lean: K4-rigidity for all n >= 5 with the n = 4 complement')
@@ -334,11 +345,13 @@ print('     exception sharp (EdgeRigidity), the non-induced => exceptional-relat
 print('     with its flat-direction control, and the two finite endpoints of the n = 6 kill')
 print('     chain (HomometricSix): L_mu-perp = span(1) and the max-clique-3 obstruction, plus')
 print('     mask factorizations, the xi/eta linkage, Golomb/forcedness of mu, and mu being')
-print('     induced by no vertex map even with mixed orientations. NOT settled in the kernel:')
-print('     the analytic reduction between the endpoints (rank-one forcing, SNF completeness,')
-print('     resultant completeness of the 8 common zeros) -- probe-level in')
-print('     gap_correspondence_probe M4-M7 -- and the universal two-branch Claim itself, which')
-print('     remains P-grade.')
+print('     induced by no vertex map even with mixed orientations. The analytic middle is now')
+print('     ALSO kernel-closed (HomometricKill.lean): rank-one line forcing, the multiplicative')
+print('     phase elimination, the torus-zero bridge, and the assembled theorem')
+print('     homometricSix_unrealizable -- the forced non-two-branch six-mode correspondence')
+print('     admits no pair of unitary eigenbases with all overlaps nonzero. NOT settled in the')
+print('     kernel: the Piccard/Bekir-Golomb classification input and the congruent-case')
+print('     assembly; the universal two-branch Claim remains P-grade.')
 print()
 print("edge_rigidity_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)
