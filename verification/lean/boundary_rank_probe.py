@@ -27,8 +27,13 @@ of two would not merely be ugly, it would be provably not tight.
   B6  COUNTERCONTROL for the support hypothesis: one independent row outside B and the bound fails.
   B7  COUNTERCONTROL for counting cut edges: a star with four cut edges and one boundary site has
       rank one, so the bound is by boundary SITES.
-  B8  an observation the manuscript does not print: the columns are supported on the OTHER
-      boundary too, so both ranks are bounded by the minimum of the two.
+  B8  THE SHARPENING (kernel-proved as `lemma_1_sharpened`, printed as Corollary 2's hypothesis):
+      the columns are supported on the OTHER boundary, so under symmetric adjacency both ranks are
+      bounded by min(|inner|, |outer|).
+  B10 COUNTERCONTROL for the symmetry hypothesis: a one-edge DIGRAPH where the column bound fails
+      outright while the row-side lemma, which never reverses an edge, still holds.
+  B11 the cubic-block threshold of the strengthened Corollary 2: min(...) < |R| iff the block has
+      a non-empty bulk, first at side 3 -- checked by exact counting in Z^3, not by the formula.
   B9  lint.
 
 Usage:  python3 boundary_rank_probe.py
@@ -250,14 +255,103 @@ for name, sites, E in graphs():
         rHV, rVH = rank_f2(MHV, len(vis)), rank_f2(MVH, len(hid))
         ok8 &= rHV <= min(len(inner), len(outer))
         ok8 &= rVH <= min(len(inner), len(outer))
+        # the column supports themselves: visible input enters M_HV only through u_x at inner
+        # boundary sites, and hidden input enters M_VH only through u_y at outer boundary sites
+        for j, i in enumerate(vis):
+            if i[1] == 1 or i[0] not in inner:
+                ok8 &= not any(row[j] for row in MHV)
+        for j, i in enumerate(hid):
+            if i[1] == 1 or i[0] not in outer:
+                ok8 &= not any(row[j] for row in MVH)
         if min(len(inner), len(outer)) < max(len(inner), len(outer)):
             strict += 1
 check("B8", ok8,
-      f"AN OBSERVATION THE MANUSCRIPT DOES NOT PRINT, recorded here and not relied on. The columns "
-      f"of each cross-block are supported on the other boundary, so both ranks are bounded by "
-      f"min(|inner|, |outer|) -- verified on every region above, and the two boundaries differ in "
-      f"size in {strict} of them. The Lean file proves the printed row-side bound only; the "
-      f"sharpening would strengthen Corollary 2 and is a manuscript decision, not a probe's")
+      f"THE SHARPENING, kernel-proved as `lemma_1_sharpened` under symmetric adjacency. The "
+      f"columns of each cross-block are supported on the OTHER boundary -- M_HV reads visible "
+      f"input only through u_x at inner-boundary sites, M_VH only through u_y at outer-boundary "
+      f"sites, both verified column by column -- so both ranks are bounded by min(|inner|, "
+      f"|outer|), verified on every region above, the two boundaries differing in size in "
+      f"{strict} of them. This is what the strengthened Corollary 2 consumes")
+
+# ---------------------------------------------------------------- B10  symmetry is load-bearing
+# A DIRECTED one-edge graph. adj is input -> output: `adj z x` means u_z feeds u'_x. With the only
+# edge 0 -> 1 and R = {0}, visible u_0 feeds hidden u'_1, so rank M_HV = 1; but innerB asks for an
+# edge pointing INTO R (adj z 0 with z hidden), and there is none, so |inner| = 0 and the column
+# bound min(|inner|, |outer|) = 0 FAILS. The row bound |outer| = 1 never reverses an edge and holds.
+def directed_blocks(sites, adjfun, R):
+    Rset = set(R)
+    outside = [z for z in sites if z not in Rset]
+    inner = [x for x in R if any(adjfun(z, x) for z in outside)]
+    outer = [y for y in outside if any(adjfun(z, y) for z in R)]
+    vis = [(x, c) for x in R for c in (0, 1)]
+    hid = [(y, c) for y in outside for c in (0, 1)]
+
+    def row(o, cols):
+        x, c = o
+        if c == 1:
+            return [1 if i == (x, 0) else 0 for i in cols]
+        return [1 if (i[1] == 1 and i[0] == x) or (i[1] == 0 and adjfun(i[0], x)) else 0
+                for i in cols]
+
+    return ([row(o, vis) for o in hid], [row(o, hid) for o in vis], vis, hid, inner, outer)
+
+
+ok10 = True
+# edge 0 -> 1, R = {0}: M_HV breaks the column bound
+MHV, MVH, vis, hid, inner, outer = directed_blocks([0, 1], lambda z, x: (z, x) == (0, 1), [0])
+ok10 &= (len(inner), len(outer)) == (0, 1)
+ok10 &= rank_f2(MHV, len(vis)) == 1
+ok10 &= rank_f2(MHV, len(vis)) > min(len(inner), len(outer))     # the SHARPENED bound fails
+ok10 &= rank_f2(MHV, len(vis)) <= len(outer)                     # the printed lemma holds
+ok10 &= rank_f2(MVH, len(hid)) <= len(inner)
+# edge 1 -> 0, R = {0}: M_VH breaks it, mirrored
+MHV, MVH, vis, hid, inner, outer = directed_blocks([0, 1], lambda z, x: (z, x) == (1, 0), [0])
+ok10 &= (len(inner), len(outer)) == (1, 0)
+ok10 &= rank_f2(MVH, len(hid)) == 1
+ok10 &= rank_f2(MVH, len(hid)) > min(len(inner), len(outer))
+ok10 &= rank_f2(MVH, len(hid)) <= len(inner)
+ok10 &= rank_f2(MHV, len(vis)) <= len(outer)
+check("B10", ok10,
+      "COUNTERCONTROL for the symmetry hypothesis. On the digraph with the single edge 0 -> 1 and "
+      "R = {0}, visible input feeds a hidden output but no edge points back into R, so |inner| = 0 "
+      "while rank M_HV = 1: the min bound FAILS, in both orientations, while both printed row-side "
+      "bounds hold -- the lemma never reverses an edge. `lemma_1_sharpened` carrying symmetry as "
+      "an explicit hypothesis is therefore load-bearing, not decoration, and Lemma 1 keeping the "
+      "arbitrary relation is a genuine gain in scope")
+
+# ---------------------------------------------------------------- B11  the cubic threshold
+# The strengthened Corollary 2 reads min(|inner|, |outer|) < |R| for the exact cubic block, and
+# the threshold claim is: it holds iff the block has a non-empty bulk, first at side 3. Counted
+# exactly in Z^3, not read off the formula the manuscript displays.
+ok11 = True
+for ell in range(1, 7):
+    Rc = {(a, b, c) for a in range(ell) for b in range(ell) for c in range(ell)}
+    def nbrs(p):
+        for d in range(3):
+            for s in (-1, 1):
+                q = list(p); q[d] += s
+                yield tuple(q)
+    inner = {p for p in Rc if any(q not in Rc for q in nbrs(p))}
+    outer = {q for p in Rc for q in nbrs(p) if q not in Rc}
+    bulk = len(Rc) - len(inner)
+    if ell >= 2:
+        ok11 &= len(inner) == ell ** 3 - (ell - 2) ** 3         # the displayed formulas
+        ok11 &= len(outer) == 6 * ell ** 2
+        ok11 &= len(inner) <= len(outer)                        # inner is the smaller
+    holds = min(len(inner), len(outer)) < len(Rc)
+    ok11 &= holds == (bulk > 0)                                 # criterion iff non-empty bulk
+    ok11 &= holds == (ell >= 3)                                 # first at side 3
+    old_holds = len(inner) + len(outer) < 2 * len(Rc)
+    ok11 &= (not old_holds) or holds                            # strictly weaker hypothesis
+    if ell in (3, 4):
+        ok11 &= holds and not old_holds                         # and strictly weaker in fact
+check("B11", ok11,
+      "THE CUBIC THRESHOLD of the strengthened Corollary 2, counted exactly in Z^3 for sides 1..6: "
+      "the displayed formulas |inner| = l^3 - (l-2)^3 and |outer| = 6l^2 are right, inner is the "
+      "smaller boundary, and min(|inner|, |outer|) < |R| holds exactly when the block has a "
+      "non-empty bulk -- first at side 3, where 26 < 27, while side 2 fails at 8 = 8. The old "
+      "hypothesis |inner| + |outer| < 2|R| first held at side 5, so at sides 3 and 4 the new "
+      "corollary applies where the old one was silent")
 
 # ---------------------------------------------------------------- B9  lint
 src = open(os.path.join(BRIDGE, 'OIBridge', 'BoundaryRank.lean'), encoding='utf-8').read()
@@ -266,7 +360,8 @@ body = src[src.index('namespace OIBridge'):]
 
 NAMES = ('eq_extend_mul_restrict', 'rank_le_card_of_rowSupport', 'rowsHV_card', 'rowsVH_card',
          'rowSupport_MHV', 'rowSupport_MVH', 'rank_MHV_le', 'rank_MVH_le',
-         'lemma_1_boundary_bound')
+         'lemma_1_boundary_bound', 'rank_le_card_of_colSupport', 'colSupport_MHV',
+         'colSupport_MVH', 'rank_MHV_le_inner', 'rank_MVH_le_outer', 'lemma_1_sharpened')
 ok9 = 'import OIBridge.BoundaryRank' in root
 ok9 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', body) is None
 ok9 &= re.search(r'(?m)^axiom ', body) is None
@@ -289,6 +384,15 @@ for nm in ('rowsHV', 'rowsVH'):
 ok9 &= '(MHV adj R).rank ≤ (outerB adj R).card' in src
 ok9 &= '(MVH adj R).rank ≤ (innerB adj R).card' in src
 ok9 &= '2 * (outerB' not in src and '2 * (innerB' not in src
+# THE SYMMETRY SCOPE GUARD: the sharpening must carry symmetry as an explicit hypothesis, and the
+# original lemma must NOT acquire it
+sh = src[src.index('theorem lemma_1_sharpened'):]
+shsig = sh[:sh.index(':=')]
+ok9 &= 'hsym : ∀ x y, adj x y → adj y x' in shsig
+ok9 &= 'min (innerB adj R).card (outerB adj R).card' in shsig
+lb = src[src.index('theorem lemma_1_boundary_bound'):]
+lbsig = lb[:lb.index(':=')]
+ok9 &= 'hsym' not in lbsig and 'adj x y → adj y x' not in lbsig
 check("B9", ok9,
       f"LINT. The file is imported by OIBridge.lean so CI builds it; no `sorry`, no `axiom`, no "
       f"`native_decide`; all {len(NAMES)} named results print their axiom dependencies. The generic "
@@ -298,11 +402,13 @@ check("B9", ok9,
 
 print()
 print('     [scope] Settled in Lean: [Main] Lemma 1, both inequalities, for the displayed update')
-print('     on an arbitrary finite lattice and an arbitrary region -- resting on a generic')
-print('     support-factorization theorem proved over any commutative ring with the strong rank')
-print('     condition. NOT settled here: Lemma 2, the normal form, and Corollaries 1 and 2, which')
-print('     consume this bound; the separability threshold they end at is closed separately in')
-print('     OIBridge/WeylLift.lean.')
+print('     on an arbitrary finite lattice, an arbitrary region, and an ARBITRARY adjacency')
+print('     relation; plus the sharpened min(|inner|, |outer|) bound under symmetric adjacency,')
+print('     with symmetry an explicit, probe-guarded hypothesis -- all resting on generic')
+print('     row- and column-support factorization theorems proved over any commutative ring with')
+print('     the strong rank condition. NOT settled here: Lemma 2, the normal form, and')
+print('     Corollaries 1 and 2, which consume these bounds; the separability threshold they end')
+print('     at is closed separately in OIBridge/WeylLift.lean.')
 print()
 print("boundary_rank_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

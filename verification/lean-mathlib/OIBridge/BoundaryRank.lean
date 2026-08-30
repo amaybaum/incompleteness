@@ -26,6 +26,15 @@
   The bound is by boundary SITES, not by cut edges: a star with its four leaves visible has four
   edges crossing the cut and one boundary site, and the rank is one.
 
+  THE SHARPENING NEEDS SYMMETRY; THE LEMMA DOES NOT. The columns of each cross-block are supported
+  on the OTHER boundary — `M_HV` reads visible input only through `u_x` for `x ∈ ∂⁻R` — so under
+  `Symmetric adj` both ranks are bounded by `min(|∂⁻R|, |∂⁺R|)` (`lemma_1_sharpened`), which is
+  what the strengthened Corollary 2 consumes. The symmetry is genuinely load-bearing and is
+  therefore an explicit hypothesis rather than ambient: `innerB` asks for a neighbour pointing IN
+  (`adj z x` with `z ∉ R`) while the column entry records an edge pointing OUT (`adj x y`), and for
+  a directed relation the two come apart — the probe's B10 exhibits a one-edge digraph where the
+  column bound fails outright while the row-side lemma, which never reverses an edge, still holds.
+
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
 import Mathlib.LinearAlgebra.Matrix.Rank
@@ -46,12 +55,12 @@ Nothing here knows about lattices, boundaries, or `𝔽₂`. -/
 section Generic
 
 variable {K : Type*} [CommRing K] [StrongRankCondition K]
-variable {O I : Type*} [Fintype O] [DecidableEq O] [Fintype I]
+variable {O I : Type*} [Fintype O] [DecidableEq O] [Fintype I] [DecidableEq I]
 
 /-- Extension by zero from the rows indexed by `B`. -/
 def extend (B : Finset O) : Matrix O B K := fun o b => if (b : O) = o then 1 else 0
 
-omit [StrongRankCondition K] [Fintype O] [Fintype I] in
+omit [StrongRankCondition K] [Fintype O] [Fintype I] [DecidableEq I] in
 /-- **The factorization.** A matrix whose rows vanish off `B` is its own `B`-rows, extended by
 zero. This is the ring-independent statement: no rank, no field, no dimension. -/
 theorem eq_extend_mul_restrict (M : Matrix O I K) (B : Finset O)
@@ -72,13 +81,44 @@ theorem eq_extend_mul_restrict (M : Matrix O I K) (B : Finset O)
     have hne : (b : O) ≠ o := fun hc => ho (hc ▸ b.2)
     simp [extend, hne]
 
-omit [Fintype O] in
+omit [Fintype O] [DecidableEq I] in
 /-- **The generic boundary bound.** Rank is at most the number of rows that can be nonzero. -/
 theorem rank_le_card_of_rowSupport (M : Matrix O I K) (B : Finset O)
     (h : ∀ o ∉ B, ∀ i, M o i = 0) : M.rank ≤ B.card := by
   rw [eq_extend_mul_restrict M B h]
   refine (Matrix.rank_mul_le_left _ _).trans ?_
   simpa using Matrix.rank_le_card_width (extend B : Matrix O { x // x ∈ B } K)
+
+/-- The projection onto the columns indexed by `B`; the column-side mirror of `extend`. -/
+def project (B : Finset I) : Matrix B I K := fun b i => if (b : I) = i then 1 else 0
+
+omit [StrongRankCondition K] [Fintype O] [DecidableEq O] [Fintype I] in
+/-- The column-side factorization. -/
+theorem eq_submatrix_mul_project (M : Matrix O I K) (B : Finset I)
+    (h : ∀ i ∉ B, ∀ o, M o i = 0) :
+    M = M.submatrix id (Subtype.val : { x // x ∈ B } → I) * project B := by
+  refine Matrix.ext fun o i => ?_
+  symm
+  rw [Matrix.mul_apply]
+  by_cases hi : i ∈ B
+  · rw [Finset.sum_eq_single (⟨i, hi⟩ : { x // x ∈ B })]
+    · simp [project]
+    · intro b _ hb
+      have hne : (b : I) ≠ i := fun hc => hb (Subtype.ext hc)
+      simp [project, hne]
+    · intro hc; exact absurd (Finset.mem_univ _) hc
+  · rw [h i hi o]
+    refine Finset.sum_eq_zero fun b _ => ?_
+    have hne : (b : I) ≠ i := fun hc => hi (hc ▸ b.2)
+    simp [project, hne]
+
+omit [Fintype O] [DecidableEq O] in
+/-- **The column-side bound.** Rank is also at most the number of columns that can be nonzero. -/
+theorem rank_le_card_of_colSupport (M : Matrix O I K) (B : Finset I)
+    (h : ∀ i ∉ B, ∀ o, M o i = 0) : M.rank ≤ B.card := by
+  rw [eq_submatrix_mul_project M B h]
+  refine (Matrix.rank_mul_le_left _ _).trans ?_
+  simpa using Matrix.rank_le_card_width (M.submatrix id (Subtype.val : { x // x ∈ B } → I))
 
 end Generic
 
@@ -240,6 +280,72 @@ theorem rowSupport_MVH (v : Vis R) (hv : v ∉ rowsVH adj R) (h : Hid R) :
       exact hv (Finset.mem_filter.2 ⟨Finset.mem_univ _,
         (mem_innerB adj R).2 ⟨hx, y, hy, hc⟩, rfl⟩)
 
+/-! ### The column supports, under symmetric adjacency
+
+The columns of `M_HV` are supported on `rowsVH` — the same finset that indexes the rows of `M_VH` —
+and dually. `Symmetric adj` is the load-bearing hypothesis: the membership conditions of `innerB`
+and `outerB` orient their edges INTO the named site, while a column entry records an edge OUT of
+its input site, and only symmetry identifies the two. -/
+
+/-- **`M_HV` vanishes off the columns `rowsVH`** — visible input enters only through the `u`
+component at inner-boundary sites — provided adjacency is symmetric. -/
+theorem colSupport_MHV (hsym : ∀ x y, adj x y → adj y x) (v : Vis R) (hv : v ∉ rowsVH adj R) (h : Hid R) :
+    MHV adj R h v = 0 := by
+  obtain ⟨⟨x, d⟩, hx⟩ := v
+  obtain ⟨⟨y, c⟩, hy⟩ := h
+  cases c with
+  | true =>
+    show upd adj (y, true) (x, d) = 0
+    rw [upd_v]
+    refine if_neg ?_
+    intro hc
+    have hxy : x = y := congrArg Prod.fst hc
+    exact hy (by rw [← hxy]; exact hx)
+  | false =>
+    show upd adj (y, false) (x, d) = 0
+    rw [upd_u]
+    cases d with
+    | true =>
+      show (if x = y then (1 : ZMod 2) else 0) = 0
+      refine if_neg ?_
+      intro hxy
+      exact hy (by rw [← hxy]; exact hx)
+    | false =>
+      show (if adj x y then (1 : ZMod 2) else 0) = 0
+      refine if_neg ?_
+      intro hc
+      exact hv (Finset.mem_filter.2 ⟨Finset.mem_univ _,
+        (mem_innerB adj R).2 ⟨hx, y, hy, hsym x y hc⟩, rfl⟩)
+
+/-- **`M_VH` vanishes off the columns `rowsHV`**, dually. -/
+theorem colSupport_MVH (hsym : ∀ x y, adj x y → adj y x) (h : Hid R) (hh : h ∉ rowsHV adj R) (v : Vis R) :
+    MVH adj R v h = 0 := by
+  obtain ⟨⟨y, d⟩, hy⟩ := h
+  obtain ⟨⟨x, c⟩, hx⟩ := v
+  cases c with
+  | true =>
+    show upd adj (x, true) (y, d) = 0
+    rw [upd_v]
+    refine if_neg ?_
+    intro hc
+    have hyx : y = x := congrArg Prod.fst hc
+    exact hy (by rw [hyx]; exact hx)
+  | false =>
+    show upd adj (x, false) (y, d) = 0
+    rw [upd_u]
+    cases d with
+    | true =>
+      show (if y = x then (1 : ZMod 2) else 0) = 0
+      refine if_neg ?_
+      intro hyx
+      exact hy (by rw [hyx]; exact hx)
+    | false =>
+      show (if adj y x then (1 : ZMod 2) else 0) = 0
+      refine if_neg ?_
+      intro hc
+      exact hh (Finset.mem_filter.2 ⟨Finset.mem_univ _,
+        (mem_outerB adj R).2 ⟨hy, x, hx, hsym y x hc⟩, rfl⟩)
+
 /-! ### The lemma -/
 
 theorem rank_MHV_le : (MHV adj R).rank ≤ (outerB adj R).card :=
@@ -256,6 +362,27 @@ theorem lemma_1_boundary_bound :
     (MHV adj R).rank ≤ (outerB adj R).card ∧ (MVH adj R).rank ≤ (innerB adj R).card :=
   ⟨rank_MHV_le adj R, rank_MVH_le adj R⟩
 
+/-! ### The sharpening -/
+
+theorem rank_MHV_le_inner (hsym : ∀ x y, adj x y → adj y x) :
+    (MHV adj R).rank ≤ (innerB adj R).card :=
+  (rowsVH_card adj R) ▸
+    rank_le_card_of_colSupport (MHV adj R) (rowsVH adj R) (colSupport_MHV adj R hsym)
+
+theorem rank_MVH_le_outer (hsym : ∀ x y, adj x y → adj y x) :
+    (MVH adj R).rank ≤ (outerB adj R).card :=
+  (rowsHV_card adj R) ▸
+    rank_le_card_of_colSupport (MVH adj R) (rowsHV adj R) (colSupport_MVH adj R hsym)
+
+/-- **THE SHARPENED BOUNDARY BOUND.** Under symmetric adjacency both cross-blocks are bounded by
+the SMALLER boundary. The symmetry hypothesis is not decoration: the probe exhibits a directed
+one-edge graph where this fails while `lemma_1_boundary_bound` still holds. -/
+theorem lemma_1_sharpened (hsym : ∀ x y, adj x y → adj y x) :
+    (MHV adj R).rank ≤ min (innerB adj R).card (outerB adj R).card ∧
+    (MVH adj R).rank ≤ min (innerB adj R).card (outerB adj R).card :=
+  ⟨le_min (rank_MHV_le_inner adj R hsym) (rank_MHV_le adj R),
+   le_min (rank_MVH_le adj R) (rank_MVH_le_outer adj R hsym)⟩
+
 /-! ### What these proofs rest on -/
 
 #print axioms eq_extend_mul_restrict
@@ -267,6 +394,12 @@ theorem lemma_1_boundary_bound :
 #print axioms rank_MHV_le
 #print axioms rank_MVH_le
 #print axioms lemma_1_boundary_bound
+#print axioms rank_le_card_of_colSupport
+#print axioms colSupport_MHV
+#print axioms colSupport_MVH
+#print axioms rank_MHV_le_inner
+#print axioms rank_MVH_le_outer
+#print axioms lemma_1_sharpened
 
 end BoundaryRank
 

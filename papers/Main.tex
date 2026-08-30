@@ -1676,7 +1676,13 @@ over the \(\mathbb{F}_2\) used here --- it gives the displayed rank
 bounds, ordinary vector-space rank being the relevant notion there. For
 a general nearest-neighbour bijection the same support argument yields
 the weaker conclusion that the hidden output depends on the visible
-input only through \(\partial^{-}R\).
+input only through \(\partial^{-}R\). Since adjacency is symmetric, the
+same reading applies to the columns: \(M_{HV}\) reads visible input only
+through \(\{u_x : x \in \partial^{-}R\}\) and \(M_{VH}\) only through
+\(\{u_y : y \in \partial^{+}R\}\), so each rank is in fact bounded by
+\(\min(|\partial^{-}R|, |\partial^{+}R|)\) --- a sharpening that uses
+the symmetry where the row statement does not, and that Corollary 2
+consumes.
 
 \textbf{Lemma 2 (channel normal form).} \emph{Write \(A = M_{VV}\),
 \(B = M_{VH}\), \(C = M_{HV}\) for the blocks of the update, and
@@ -1761,21 +1767,26 @@ breaking is invariant under composition with the unitary
 \(w \leq \kappa\), matching \(t \leq s\)).
 
 \textbf{Corollary 2.} \emph{If
-\(|\partial^{-}R| + |\partial^{+}R| < 2|R|\) then \(\Phi\) is not
+\(\min(|\partial^{-}R|, |\partial^{+}R|) < |R|\) then \(\Phi\) is not
 entanglement-breaking.}
 
-\emph{Proof.} \(s = 2|R|\), so Lemma 1 gives
-\(w + (s - \kappa) \leq |\partial^{-}R| + |\partial^{+}R| < s\), that is
-\(w < \kappa\). \(\square\)
+\emph{Proof.} \(s = 2|R|\). Lemma 1's column sharpening bounds each of
+\(\mathrm{rank}\, M_{HV} = s - \kappa\) and
+\(\mathrm{rank}\, M_{VH} = w\) by
+\(\min(|\partial^{-}R|, |\partial^{+}R|)\), so
+\(w + (s - \kappa) \leq 2\min(|\partial^{-}R|, |\partial^{+}R|) < 2|R| = s\),
+that is \(w < \kappa\). \(\square\)
 
-\emph{Remark.} For a \(d\)-dimensional region of linear size \(\ell\),
-for an exact cubic block of side \(\ell\) in \(d = 3\):
-\(|\partial^{-}R| = \ell^3 - (\ell-2)^3\) and
-\(|\partial^{+}R| = 6\ell^2\), so the hypothesis
-\(|\partial^{-}R| + |\partial^{+}R| < 2|R|\) reads
-\(6\ell^2 - 6\ell + 4 < \ell^3\) and first holds at \(\ell = 5\) (at
-\(\ell = 4\): \(76 > 64\)); a big-\(O\) statement alone cannot fix the
-threshold. Within this single-step result the criterion carries no
+\emph{Remark.} For an exact cubic block of side \(\ell \geq 2\) in
+\(d = 3\): \(|\partial^{-}R| = \ell^3 - (\ell-2)^3\) and
+\(|\partial^{+}R| = 6\ell^2\), the inner boundary being the smaller of
+the two, so the hypothesis
+\(\min(|\partial^{-}R|, |\partial^{+}R|) < |R|\) reads
+\(\ell^3 - (\ell-2)^3 < \ell^3\), that is \((\ell-2)^3 > 0\): the
+criterion holds exactly when the block has a non-empty bulk, first at
+\(\ell = 3\) (at \(\ell = 2\) every site lies on the cut and \(8 = 8\));
+the threshold is structural, and a big-\(O\) statement alone could not
+name it. Within this single-step result the criterion carries no
 dependence on \(|H|\), since the coupling reads only the boundary; the
 counterexample above is the degenerate case, every visible site lying on
 the cut so that the region has no bulk. Whether the same holds over many
@@ -4801,4 +4812,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: 223c2cdac6cbb2124ace09092f61cee927da9675ed582f51b99ca7c1958d0eb3
+% source-sha256: 0e986479cdfdddaa481515d0bd604e8c6af98cdc77e8bf7773dafe630a09c39c
