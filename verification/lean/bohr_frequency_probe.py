@@ -31,6 +31,18 @@ is what the dimensional determination of hbar actually consumes.
   F7  both branches of the claim reproduce the data exactly; a generic perturbation off them
       does not (local rigidity).
   F8  lint.
+  F9  ANTIUNITARY CIRCUIT INVARIANCE: transposing the preparation, every Kraus operator
+      (entrywise conjugation), and the effect leaves every multi-step circuit probability
+      unchanged, including instrument outcome strings; conjugating only part of the circuit
+      breaks it. Kernel twins: circuit_invariance / string_invariance / transposeMap_kraus
+      (OIBridge/AntiunitaryInvariance.lean) -- no operational data separate the two branches.
+  F10 THERMAL ORIENTATION: the antiunitary image of the +beta Gibbs state of H is the -beta
+      Gibbs state of the reflected Hamiltonian (matrix identity checked to machine precision),
+      +beta and -beta Gibbs profiles differ whenever two energies differ (and coincide when
+      all energies are equal -- the degenerate exception), and an exact rational passivity
+      check: a strictly passive profile turns strictly active under energy reflection. Kernel
+      twins: transported_gibbs / gibbs_orientation / passivity_selector
+      (OIBridge/ThermalOrientation.lean) -- oriented thermal structure excludes the branch.
 
 Usage:  python3 bohr_frequency_probe.py
 """
@@ -245,6 +257,110 @@ check("F8", ok8,
       f"the integer-to-real passage proved internally; the [SM] Proposition 20 cross-reference "
       f"and the homometric rulers stand, and the withdrawn unconditional conclusion is still "
       f"asserted nowhere")
+
+# ---------------------------------------------------------------- F9  antiunitary invariance
+rng9 = np.random.default_rng(20260830)
+
+
+def rmat(k):
+    return rng9.normal(size=(k, k)) + 1j * rng9.normal(size=(k, k))
+
+
+ok9 = True
+for _ in range(5):
+    k = 4
+    rho = rmat(k)
+    rho = rho @ rho.conj().T          # PSD preparation
+    rho /= np.trace(rho)
+    Ef = rmat(k)
+    Ef = Ef @ Ef.conj().T             # PSD effect
+    ops = [rmat(k) for _ in range(6)] # an outcome string of six instrument operators
+    X, Xc = rho, rho.T
+    for A in ops:
+        X = A @ X @ A.conj().T
+        Ac = A.conj()
+        Xc = Ac @ Xc @ Ac.conj().T
+    p = np.trace(Ef @ X)
+    pc = np.trace(Ef.T @ Xc)
+    ok9 &= abs(p - pc) < 1e-9 * max(1.0, abs(p))
+    # multi-Kraus channels, composed
+    X, Xc = rho, rho.T
+    for _ in range(3):
+        As = [rmat(k) for _ in range(3)]
+        X = sum(A @ X @ A.conj().T for A in As)
+        Xc = sum(A.conj() @ Xc @ A.conj().conj().T for A in As)
+    ok9 &= abs(np.trace(Ef @ X) - np.trace(Ef.T @ Xc)) < 1e-7 * max(1.0, abs(np.trace(Ef @ X)))
+    # countercontrol: conjugating only the operators (not the state/effect) breaks it
+    X, Xbad = rho, rho
+    A = ops[0]
+    ok9 &= abs(np.trace(Ef @ (A @ rho @ A.conj().T))
+               - np.trace(Ef @ (A.conj() @ rho @ A.conj().conj().T))) > 1e-9
+# the unitary special case IS the second branch: conj channel of e^{-iHt} = channel of -conj(H)
+H9 = rmat(4)
+H9 = H9 + H9.conj().T
+t9 = 0.7
+from scipy.linalg import expm
+U9 = expm(-1j * H9 * t9)
+U9r = expm(-1j * (-H9.conj()) * t9)
+ok9 &= np.max(np.abs(U9.conj() - U9r)) < 1e-9
+check("F9", ok9,
+      "ANTIUNITARY CIRCUIT INVARIANCE, numerically: transposing the preparation and effect and "
+      "conjugating every instrument operator leaves six-step outcome-string probabilities and "
+      "composed multi-Kraus circuit probabilities unchanged to machine precision; conjugating "
+      "only part of the circuit breaks it; and the conjugated propagator IS the propagator of "
+      "-conj(H) -- the circuit symmetry restricted to unitary evolution is exactly the second "
+      "branch (kernel: circuit_invariance, string_invariance, unitary_channel_transpose)")
+
+# ---------------------------------------------------------------- F10  thermal orientation
+ok10 = True
+from fractions import Fraction as Frac
+E10 = np.array([0.0, 0.3, 1.1, 2.4])
+beta = 0.9
+E0c = 1.7
+
+
+def gibbsv(b, Ev):
+    w = np.exp(-b * Ev)
+    return w / w.sum()
+
+
+# reflection reverses temperature: gibbs(-beta) of (-E + E0) = gibbs(beta) of E
+ok10 &= np.max(np.abs(gibbsv(-beta, -E10 + E0c) - gibbsv(beta, E10))) < 1e-12
+# orientation: +beta and -beta profiles differ for nonconstant E, coincide for constant E
+ok10 &= np.max(np.abs(gibbsv(beta, E10) - gibbsv(-beta, E10))) > 1e-3
+ok10 &= np.max(np.abs(gibbsv(beta, np.ones(4)) - gibbsv(-beta, np.ones(4)))) < 1e-15
+# the matrix identity D conj(rho_beta) D^dag = W diag(gibbs(-beta) E') W^dag
+rngV = np.random.default_rng(20260831)
+M = rngV.normal(size=(4, 4)) + 1j * rngV.normal(size=(4, 4))
+Q, _ = np.linalg.qr(M)
+V10 = Q
+tau = [2, 0, 3, 1]
+d10 = np.exp(1j * rngV.uniform(0, 6.28, 4))
+bc10 = np.exp(1j * rngV.uniform(0, 6.28, 4))
+Ep = np.zeros(4)
+W10 = np.zeros((4, 4), dtype=complex)
+for a in range(4):
+    Ep[tau[a]] = -E10[a] + E0c
+    for i in range(4):
+        W10[i, tau[a]] = d10[i] * bc10[a] * np.conj(V10[i, a])
+rho_b = V10 @ np.diag(gibbsv(beta, E10)).astype(complex) @ V10.conj().T
+lhs = W10 @ np.diag(gibbsv(-beta, Ep)).astype(complex) @ W10.conj().T
+rhs = np.diag(d10) @ rho_b.conj() @ np.diag(d10).conj().T
+ok10 &= np.max(np.abs(lhs - rhs)) < 1e-12
+# exact passivity: a strictly passive rational profile turns strictly active under reflection
+Eex = [Frac(0), Frac(1), Frac(3)]
+pex = [Frac(1, 2), Frac(1, 3), Frac(1, 6)]
+ok10 &= all(pex[b] < pex[a] for a in range(3) for b in range(3) if Eex[a] < Eex[b])
+Eref = [-e + Frac(5) for e in Eex]
+ok10 &= any(not (pex[b] <= pex[a]) for a in range(3) for b in range(3) if Eref[a] < Eref[b])
+check("F10", ok10,
+      "THERMAL ORIENTATION: gibbs(-beta) of the reflected energies equals gibbs(beta) of the "
+      "original (the E0 shift cancels; machine precision), +beta and -beta profiles differ "
+      "whenever energies differ and coincide when all are equal, the matrix identity "
+      "D conj(rho_beta) D^dag = rho_{-beta}(H') holds for the reflection-branch coboundary, "
+      "and (exact fractions) a strictly passive profile is strictly active after energy "
+      "reflection -- oriented positive-temperature structure excludes the antiunitary branch "
+      "(kernel: transported_gibbs, gibbs_orientation, passivity_selector)")
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
