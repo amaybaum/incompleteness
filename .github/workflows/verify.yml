@@ -105,7 +105,7 @@ jobs:
                    c3_necessity canonical_measure finiteness cubic_isotropy \
                    idempotent_trace link_decomposition stinespring_scope \
                    factor_uniqueness kraus_uniqueness stinespring_uniqueness \
-                   weyl_twirl weyl_lift separability; do
+                   weyl_twirl weyl_lift separability boundary_rank; do
             echo "=== ${p}_probe.py ==="
             python3 "${p}_probe.py"
           done

@@ -1667,11 +1667,16 @@ component \(v'_x = u_x\) is a visible input, and \(u'_x\) involves a
 hidden input only if \(x \in \partial^{-}R\). \(\square\)
 
 One update step transports information one lattice site, so the sectors
-resolve one another only across the cut. This argument is a statement
-about supports and uses no property of the coefficient ring: it holds
-verbatim over \(\mathbb{Z}_q\), and for a general nearest-neighbour
-bijection it yields the weaker conclusion that the hidden output depends
-on the visible input only through \(\partial^{-}R\).
+resolve one another only across the cut. What the argument establishes
+is a factorization: each cross-block has non-zero rows only at the
+boundary sites named, so it factors through the corresponding boundary
+coordinates. That statement uses no property of the coefficient ring and
+holds verbatim over \(\mathbb{Z}_q\); over a field --- in particular
+over the \(\mathbb{F}_2\) used here --- it gives the displayed rank
+bounds, ordinary vector-space rank being the relevant notion there. For
+a general nearest-neighbour bijection the same support argument yields
+the weaker conclusion that the hidden output depends on the visible
+input only through \(\partial^{-}R\).
 
 \textbf{Lemma 2 (channel normal form).} \emph{Write \(A = M_{VV}\),
 \(B = M_{VH}\), \(C = M_{HV}\) for the blocks of the update, and
@@ -1782,25 +1787,26 @@ quantity --- the accounting that reappears in the horizon entropy of §7
 --- is at this stage an interpretation of the one-step result, not a
 theorem about the asymptotic dynamics.
 
-\emph{Remark (scope).} Lemma 1 holds over any \(\mathbb{Z}_q\) and, in
-weakened form, for arbitrary nearest-neighbour bijections. Lemma 2, the
-Theorem and both Corollaries are stated for \(q = 2\); the symplectic
-and Clifford arguments carry over to prime \(q\) with \(2^{\bullet}\)
-replaced by \(q^{\bullet}\), while composite \(q\) requires
-module-theoretic treatment of rank and kernel and is not covered. All of
-this concerns the realization displayed above and is not a property of
-arbitrary finite bijections. For a general linear bijection the abelian
-property of Lemma 2(iv) can fail (\(C A^{-1} B \neq 0\)); the mixture is
-then over a non-abelian Weyl family, and entanglement breaking is
-governed by the isotropy of the surviving index set rather than by its
-order alone --- not treated here. Two boundary markers on
-interpretation. Coherence preservation is a property of this
-realization, not an additional structural condition: (C1)--(C4)
-constrain coupling, timescales, and capacity, and neither contain nor
-imply a coherence requirement --- the swap example satisfies (C1) while
-its channel is entanglement-breaking, and which realizations preserve
-one-step coherence is the geometric question answered above for the
-displayed update alone. And non-entanglement-breaking is a statement
+\emph{Remark (scope).} Lemma 1's factorization holds over any
+\(\mathbb{Z}_q\), the displayed rank bounds being its reading over a
+field, and in weakened form the support argument covers arbitrary
+nearest-neighbour bijections. Lemma 2, the Theorem and both Corollaries
+are stated for \(q = 2\); the symplectic and Clifford arguments carry
+over to prime \(q\) with \(2^{\bullet}\) replaced by \(q^{\bullet}\),
+while composite \(q\) requires module-theoretic treatment of rank and
+kernel and is not covered. All of this concerns the realization
+displayed above and is not a property of arbitrary finite bijections.
+For a general linear bijection the abelian property of Lemma 2(iv) can
+fail (\(C A^{-1} B \neq 0\)); the mixture is then over a non-abelian
+Weyl family, and entanglement breaking is governed by the isotropy of
+the surviving index set rather than by its order alone --- not treated
+here. Two boundary markers on interpretation. Coherence preservation is
+a property of this realization, not an additional structural condition:
+(C1)--(C4) constrain coupling, timescales, and capacity, and neither
+contain nor imply a coherence requirement --- the swap example satisfies
+(C1) while its channel is entanglement-breaking, and which realizations
+preserve one-step coherence is the geometric question answered above for
+the displayed update alone. And non-entanglement-breaking is a statement
 about a single channel, not about quantum mechanics: it supplies neither
 the observable algebra, nor preparations and interventions, nor tensor
 composition, nor multi-time statistics --- the operational
@@ -4795,4 +4801,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: 55fbc2fe9906b22222e15da6f17a8d5a37ac838f2ef730e1919518077967df86
+% source-sha256: 223c2cdac6cbb2124ace09092f61cee927da9675ed582f51b99ca7c1958d0eb3

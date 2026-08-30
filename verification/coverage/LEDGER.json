@@ -731,10 +731,29 @@
       "fingerprint": "f483bbbc56bff0dc",
       "area": "locality-combs",
       "assumptions": "the block decomposition of the update on a region R",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/BoundaryRank.lean",
+          "basis": "named",
+          "evidence": "lemma_1_boundary_bound"
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/boundary_rank_probe.py",
+          "basis": "named",
+          "evidence": "THE LEMMA"
+        },
+        {
+          "kind": "probe",
+          "path": "papers/oi_lattice_code/coherence/coherence_enumeration.py",
+          "basis": "section",
+          "evidence": ""
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "AUDITED BEFORE FORMALIZING, and the lemma survived intact. Exhaustive check over all 316 proper nonempty regions of four paths, four cycles, a 2x3 grid and a star: no violation of either bound, and both bounds attained. TWO LAYERS, DELIBERATELY SEPARATED, because the mathematics is a support statement and the rank bound is its reading over a ring where rank means the usual thing. rank_le_card_of_rowSupport is proved for an ARBITRARY commutative ring with the strong rank condition, with no lattice, no adjacency and no ZMod anywhere in its section -- the probe's lint enforces that: a matrix whose rows vanish off a finite B equals extend B times its own B-rows (eq_extend_mul_restrict, the ring-independent content), hence has rank at most |B|. The OI consumer then instantiates it twice. THE FACTOR OF TWO IS THE THING TO GET WRONG. Each site carries two components, so the visible sector has dimension 2|R|, and yet the bounds count SITES. The reason is that exactly one output row per site participates: v'_x = u_x reads a single input from its own sector, so its row in the cross-block is identically zero. rowsHV and rowsVH therefore carry .val.2 = false as half of their defining condition, and rowsHV_card / rowsVH_card are where |boundary| rather than 2|boundary| is earned. The probe guards this twice: B4 checks all 1714 v'-rows vanish, and B3 checks the bound is ATTAINED, so a spurious factor of two would be provably not tight. B7 is the other miscount: a star with four leaves visible has four edges crossing the cut and one boundary site, and the rank is one -- the bound is by boundary sites. MANUSCRIPT SHARPENING, applied. The prose after the proof said the rank argument 'uses no property of the coefficient ring' and 'holds verbatim over Z_q'. For composite q ordinary vector-space rank is not the same object, so what is ring-independent is the FACTORIZATION; the rank inequality is its reading over a field. Both the proof remark and the scope remark now say that, in all three parallel sources. ONE OBSERVATION NOT PRINTED AND NOT RELIED ON: the columns of each cross-block are supported on the other boundary, so both ranks are in fact bounded by min(|inner|, |outer|), verified on every region and with the two boundaries differing in size in 168 of them. That would strengthen Corollary 2; it is recorded in the probe as B8 and left as a manuscript decision. The Lean file proves the printed row-side bound only."
     },
     {
       "id": "MAIN:L-2-channel-normal-form",
@@ -2702,14 +2721,6 @@
   "backlog": [
     {
       "rank": 1,
-      "id": "MAIN:L-1-boundary-bound",
-      "centrality": "medium",
-      "difficulty": "medium",
-      "tier": 5,
-      "route": "A rank bound on the off-diagonal blocks of a local update. Mathlib has matrix rank and the submatrix API; the content is that the block factors through the boundary index set."
-    },
-    {
-      "rank": 2,
       "id": "SM:T-19",
       "centrality": "medium",
       "difficulty": "medium",
@@ -2717,7 +2728,7 @@
       "route": "Reciprocity of visible transition counts. The side condition is the interesting part and must be carried: the symmetric form T_ij = T_ji holds only for T-EVEN coarse states, and GR section 3.2 is explicit that with T-odd visible data only the (theta j, theta i) form survives."
     },
     {
-      "rank": 3,
+      "rank": 2,
       "id": "SM:T-16",
       "centrality": "low",
       "difficulty": "low",
@@ -2725,7 +2736,7 @@
       "route": "Dimensional bookkeeping: [g] = (3-d)/2, dimensionless iff d = 3. Cheap, and it moves an SM GAP for almost nothing."
     },
     {
-      "rank": 4,
+      "rank": 3,
       "id": "GR:T-d-gauge-completeness",
       "centrality": "medium",
       "difficulty": "high",
@@ -2733,7 +2744,7 @@
       "route": "Needs non-degenerate spectra, non-vanishing overlaps and an argument over all t -- analytic, and the first GR statement worth attempting."
     },
     {
-      "rank": 5,
+      "rank": 4,
       "id": "SM:T-8",
       "centrality": "low",
       "difficulty": "low",
