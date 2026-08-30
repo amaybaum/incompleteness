@@ -479,6 +479,133 @@ check("F12", ok12,
       "uniform profile beyond it is reflected-passive: the bound does real work (kernel: "
       "approx_passivity_selector, exists_margin_pair)")
 
+# ------------------------------------------- F13  the coherent lift as an extension problem (C1)
+ok13 = True
+# (a) THE OVERLAP IDENTITY, exhaustive census: joint space S = {0..5}, readout pi(s) = s // 2,
+# a menu of two bijections x three outcomes, ALL 259 words to horizon 3, exact fractions.
+# The quantum fold (permutation lift, Born branch update) must equal the classical trajectory
+# fold at every word -- and stay diagonal with the classical weights as entries, which is the
+# invariant the kernel induction (qfold_diagonal) runs on.
+S13 = list(range(6))
+
+
+def pi13(s):
+    return s // 2
+
+
+perms13 = [
+    [1, 2, 3, 4, 5, 0],           # a 6-cycle
+    [0, 2, 1, 5, 3, 4],           # a transposition times a 3-cycle
+]
+w13 = [Frac(k + 1, 21) for k in range(6)]          # normalized: 1+2+...+6 = 21
+
+
+def mat_mul13(A, B):
+    return [[sum(A[i][k] * B[k][j] for k in S13) for j in S13] for i in S13]
+
+
+def class_fold13(word, w):
+    w = list(w)
+    for (g, i) in word:
+        w = [w[g.index(s)] if pi13(s) == i else Frac(0) for s in S13]
+    return w
+
+
+def q_fold13(word, rho):
+    for (g, i) in word:
+        P = [[1 if g[j] == r else 0 for j in S13] for r in S13]
+        Pt = [[P[c][r] for c in S13] for r in S13]
+        proj = [[1 if (pi13(r) == i and r == c) else 0 for c in S13] for r in S13]
+        rho = mat_mul13(mat_mul13(proj, mat_mul13(mat_mul13(P, rho), Pt)), proj)
+    return rho
+
+
+menu13 = [(g, i) for g in perms13 for i in range(3)]
+rho13 = [[w13[r] if r == c else Frac(0) for c in S13] for r in S13]
+nwords = 0
+for L in range(4):
+    for word in itertools.product(menu13, repeat=L):
+        cw = class_fold13(word, w13)
+        rho = q_fold13(word, rho13)
+        ok13 &= all(rho[r][c] == (cw[r] if r == c else Frac(0)) for r in S13 for c in S13)
+        nwords += 1
+ok13 &= nwords == 259
+# (b) causal normalization at one slot, on a NON-diagonal Gaussian-integer state (exact):
+# the branch traces over the outcome partition sum to the parent trace.
+A13 = [[complex(((r * 3 + c) % 5) - 2, ((r - c) * 2) % 7 - 3) for c in S13] for r in S13]
+rhoH = [[A13[r][c] + A13[c][r].conjugate() for c in S13] for r in S13]
+for g in perms13:
+    tot = 0
+    for i in range(3):
+        P = [[1 if g[j] == r else 0 for j in S13] for r in S13]
+        Pt = [[P[c][r] for c in S13] for r in S13]
+        proj = [[1 if (pi13(r) == i and r == c) else 0 for c in S13] for r in S13]
+        Y = mat_mul13(mat_mul13(proj, mat_mul13(mat_mul13(P, rhoH), Pt)), proj)
+        tot += sum(Y[s][s] for s in S13)
+    ok13 &= tot == sum(rhoH[s][s] for s in S13)
+# (c) THE PREPARATION SLOT, exact LP landscape: the strengthened
+# ShellRepresentationConsistency holds iff p = B*q with q in the simplex,
+# B_{ia} = |V_{ia}|^2 doubly stochastic. Exact instance: the 3-4-5 rotation.
+B345 = [[Frac(9, 25), Frac(16, 25)], [Frac(16, 25), Frac(9, 25)]]
+ok13 &= all(sum(row) == 1 for row in B345)
+ok13 &= all(sum(B345[i][a] for i in range(2)) == 1 for a in range(2))
+# feasible: p = (3/5, 2/5) has the unique solution q = (1/7, 6/7), inside the simplex
+p_f = [Frac(3, 5), Frac(2, 5)]
+q_f = [Frac(1, 7), Frac(6, 7)]
+ok13 &= all(sum(B345[i][a] * q_f[a] for a in range(2)) == p_f[i] for i in range(2))
+ok13 &= all(qa >= 0 for qa in q_f) and sum(q_f) == 1
+# the constructive witness rho = V diag(q) V^T: visible diagonal is p, eigenbasis form is
+# diagonal (hence stationary at every time under any nondegenerate spectrum)
+V345 = [[Frac(3, 5), Frac(-4, 5)], [Frac(4, 5), Frac(3, 5)]]
+rho_w = [[sum(V345[i][a] * q_f[a] * V345[j][a] for a in range(2))
+          for j in range(2)] for i in range(2)]
+ok13 &= [rho_w[i][i] for i in range(2)] == p_f
+back = [[sum(V345[a][i] * rho_w[a][b] * V345[b][j] for a in range(2) for b in range(2))
+         for j in range(2)] for i in range(2)]
+ok13 &= back == [[q_f[0], Frac(0)], [Frac(0), q_f[1]]]
+# infeasible: p = (7/10, 3/10) -- B is invertible, the unique solution leaves the simplex
+p_i = [Frac(7, 10), Frac(3, 10)]
+det13 = B345[0][0] * B345[1][1] - B345[0][1] * B345[1][0]
+ok13 &= det13 == Frac(-7, 25)
+q_i = [(B345[1][1] * p_i[0] - B345[0][1] * p_i[1]) / det13,
+       (B345[0][0] * p_i[1] - B345[1][0] * p_i[0]) / det13]
+ok13 &= all(sum(B345[i][a] * q_i[a] for a in range(2)) == p_i[i] for i in range(2))
+ok13 &= sum(q_i) == 1 and any(qa < 0 for qa in q_i)
+# the uniform-modulus obstruction, tied to route (a): the ACTUAL classical counting marginal
+# of F12 is (4/7, 2/7, 1/7); under Fourier-type eigenvectors (B all 1/3) every stationary
+# state has UNIFORM visible readout, so that marginal admits no coherent stationary
+# representation -- the first exact infeasible instance of the coherent-lift extension
+marg13 = [Frac(4, 7), Frac(2, 7), Frac(1, 7)]
+ok13 &= marg13 == marg
+for k in range(3):
+    ek = [Frac(1) if a == k else Frac(0) for a in range(3)]
+    ok13 &= [sum(Frac(1, 3) * ek[a] for a in range(3)) for i in range(3)] == [Frac(1, 3)] * 3
+ok13 &= marg13 != [Frac(1, 3)] * 3
+# (d) THE DISAGREEMENT COUNTERCONTROL: corrupting one classical branch probability by 1/7
+# makes the corrupted prescription differ from the quantum functional at that word (the true
+# one agrees everywhere by (a)), so no functional extends both -- the infeasibility
+# certificate of no_common_extension_of_disagreement, numerically instantiated.
+word_x = [menu13[0], menu13[3]]
+true_x = sum(class_fold13(word_x, w13))
+ok13 &= sum(q_fold13(word_x, rho13)[s][s] for s in S13) == true_x
+ok13 &= true_x > 0 and true_x + Frac(1, 7) != true_x
+check("F13", ok13,
+      "THE COHERENT LIFT AS AN EXTENSION PROBLEM (phase three, C1): the overlap identity "
+      "holds EXACTLY at all 259 words to horizon 3 over a 6-state joint space with a "
+      "two-bijection menu -- the quantum fold stays diagonal with the classical weights as "
+      "entries (kernel: qfold_diagonal, intersection_consistent, finite_comb_extension in "
+      "OIBridge/CoherentLift.lean); branch traces over each outcome partition sum to the "
+      "parent trace on a non-diagonal state (kernel: branch_normalization); the preparation "
+      "slot is an exact LP landscape p = B*q with B doubly stochastic -- the 3-4-5 rotation "
+      "gives a feasible instance with its constructive witness verified and an infeasible "
+      "instance whose unique solution leaves the simplex, and the F12 shell marginal "
+      "(4/7, 2/7, 1/7) is infeasible outright under uniform-modulus eigenvectors (kernel: "
+      "shell_representation_from_comb, comb_mixture_of_shell_representation, "
+      "uniform_overlap_obstruction; the audit lemma spectral_clauses_insufficient records "
+      "why ShellRepresentationConsistency was strengthened); a corrupted classical branch "
+      "probability yields a disagreement certificate: no common extension (kernel: "
+      "no_common_extension_of_disagreement)")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

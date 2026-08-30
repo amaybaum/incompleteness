@@ -83,6 +83,7 @@ import OIBridge.TurnpikeScopeTransfer
 import OIBridge.AntiunitaryInvariance
 import OIBridge.ThermalOrientation
 import OIBridge.ShellAssignment
+import OIBridge.CoherentLift
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

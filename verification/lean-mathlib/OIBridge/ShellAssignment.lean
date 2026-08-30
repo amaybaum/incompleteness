@@ -27,10 +27,12 @@
       precisely what blocks substituting the fixed prior.
 
   THE STOPPING POINT — recorded, not assumed. Extending 𝒜_shell into the coherent
-  reconstructed theory — producing a density operator ρ*, evolving by conjugation under the
-  reconstructed U(t), stationary, whose energy-eigenbasis populations are the classical
-  marginal — is the first step that REQUIRES A NEW ASSUMPTION. It is stated below as the
-  named Prop `ShellRepresentationConsistency` and deliberately not axiomatized. The
+  reconstructed theory — producing a genuine state (PSD, trace one), stationary under the
+  reconstructed U(t), whose FIXED-BASIS READOUT is the classical marginal — is the first
+  step that REQUIRES A NEW ASSUMPTION. It is stated below as the named Prop
+  `ShellRepresentationConsistency` and deliberately not axiomatized; the phase-three audit
+  (CoherentLift.lean) strengthened its clauses, and its feasibility is now characterized
+  exactly there (see the Prop's docstring). The
   obligation it names is the coherent operational lift: representing the classically defined,
   i-dependent hidden assignment inside the coherent instrument algebra whose "unique
   selection" [Main] leaves open. GR §3.2's RATE route stops at the same wall from the other
@@ -46,11 +48,15 @@
 -/
 import OIBridge.BohrFrequency
 import Mathlib.Algebra.BigOperators.Field
+import Mathlib.LinearAlgebra.Matrix.PosDef
+import Mathlib.LinearAlgebra.Matrix.Trace
+import Mathlib.Analysis.Complex.Order
 
 namespace OIBridge
 namespace ShellAssignment
 
 open Matrix
+open scoped ComplexOrder
 
 variable {V H : Type*} [Fintype V] [Fintype H] [DecidableEq V] [DecidableEq H]
 
@@ -120,18 +126,33 @@ theorem shellConditional_sum (shell : Finset (V × H)) (i : V)
 
 /-- **THE STOPPING POINT — the named open target of route (a), stated and not assumed.**
 The correlated shell preparation is represented inside the coherent reconstructed theory:
-there is a density operator, evolving by conjugation under the reconstructed propagator,
-stationary at every time, whose energy-eigenbasis populations are the classical marginal
-profile. Everything after this Prop is already kernel-proved (`stationary_spectral_form`
-turns it into spectral populations; the selectors of ThermalOrientation operate on them).
-Everything before it is proved above, classically and exactly. Proving THIS Prop from the
-substratum is the coherent-lift obligation both transport routes converge on. -/
+there is a genuine state — positive semidefinite, trace one — stationary under the
+reconstructed propagator at every time, WHOSE VISIBLE READOUT IS THE CLASSICAL MARGINAL:
+the fixed-basis diagonal reproduces the profile `p` the classical shell ensemble supplies.
+
+STRENGTHENED BY THE PHASE-THREE AUDIT (CoherentLift.lean). The previous form of this Prop
+constrained only spectral data — stationarity plus prescribed energy-eigenbasis
+populations — and `CoherentLift.spectral_clauses_insufficient` proves those clauses (with
+positivity and trace one added) are satisfiable for EVERY profile by the fiat witness
+`V·diag(q)·Vᴴ` whenever `V` is unitary: they never tie the represented state to the
+classical ensemble, so they under-specified the obligation this Prop exists to name. The
+binding clause is the VISIBLE restriction — the comb condition `ρ_ii = p_i` — and with it
+existence becomes a genuine feasibility problem, solved exactly in CoherentLift.lean:
+this Prop holds iff `p` is a mixture `p = B·q` of the eigenvector population columns
+`B_{ia} = |V_{ia}|²` (`shell_representation_from_comb`,
+`comb_mixture_of_shell_representation`), and fails outright for uniform-modulus
+eigenvectors with a non-uniform marginal (`uniform_overlap_obstruction`). Everything after
+this Prop is kernel-proved (`stationary_spectral_form` extracts the populations; the
+selectors of ThermalOrientation operate on them). Everything before it is proved above,
+classically and exactly. Proving THIS Prop from the substratum is the coherent-lift
+obligation both transport routes converge on. -/
 def ShellRepresentationConsistency {m : ℕ} (Vm : Matrix (Fin m) (Fin m) ℂ)
     (E : Fin m → ℝ) (p : Fin m → ℝ) : Prop :=
   ∃ ρ : Matrix (Fin m) (Fin m) ℂ,
-    (∀ t : ℝ, Matrix.of (BohrFrequency.Umat Vm E t) * ρ
-      * (Matrix.of (BohrFrequency.Umat Vm E t))ᴴ = ρ)
-    ∧ ∀ a, (Vmᴴ * ρ * Vm) a a = ((p a : ℝ) : ℂ)
+    ρ.PosSemidef ∧ Matrix.trace ρ = 1
+    ∧ (∀ t : ℝ, Matrix.of (BohrFrequency.Umat Vm E t) * ρ
+        * (Matrix.of (BohrFrequency.Umat Vm E t))ᴴ = ρ)
+    ∧ ∀ i, ρ i i = ((p i : ℝ) : ℂ)
 
 #print axioms shellWeight_invariant
 #print axioms joint_stationary
