@@ -1877,10 +1877,10 @@
       "assumptions": "the cubic group O acting on the four BZ corners",
       "checks": [
         {
-          "kind": "probe",
-          "path": "verification/lean/gauge_certificates_probe.py",
-          "basis": "section",
-          "evidence": ""
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/TasteBranching.lean",
+          "basis": "named",
+          "evidence": "theorem_8"
         },
         {
           "kind": "lean",
@@ -1889,11 +1889,17 @@
             "irr_degrees",
             "irr_orthonormal"
           ]
+        },
+        {
+          "kind": "probe",
+          "path": "verification/lean/taste_branching_probe.py",
+          "basis": "named",
+          "evidence": "THE CARRIER CHECK"
         }
       ],
-      "kernel": "K1",
-      "delta": "the irreducible characters and their orthonormality are kernel-checked over the 24 rotations; the specific 4 = 1 + 3 branching is read off the same table but is not stated as its own theorem",
-      "note": ""
+      "kernel": "K3",
+      "delta": "",
+      "note": "STATED AS ITS OWN THEOREM, with the manuscript remark's carrier distinction kernel-precise rather than prose. OIBridge/TasteBranching.lean: the taste pairing eta <-> 1 - eta = eta + 1 over F_2 is equivariant (cornerAct_mate), the singlet pair {0, 1} is fixed pointwise (singlet_fixed), the label action carries axis corners along the induced axis permutation (cornerAct_axisCorner), that permutation action is transitive on the three axes (axis_transitive, decided over the 24 rotations), and the four pairs exhaust the Brillouin zone (corners_exhausted) -- so the branching is exactly 4 = 1 + 3 at pair level. THE CARRIER CLAUSES ARE THE REMARK: the triplet's signed carrier is the vector representation rhoT of the same rotation group, already kernel-proved irreducible over Q in the QuarterTurn round and cited (irreducible_rhoT); the UNSIGNED label action on the axis pairs is proved NOT irreducible (axis_rep_reducible) by exhibiting the invariant all-ones line -- the A1 inside A1 + E -- so the manuscript's 'the distinction is representation-theoretically real' is a negative theorem, not a caution. The axis permutation itself is constructed as the orientation quotient of QuarterTurn.linkAct, well defined because every rotation is a Sym of the link set. The probe rebuilds the rotation group independently as the 24 integer orthogonal det-one matrices and confirms the orbit structure, the full S3 on axes, and the two characters: unsigned <chi,chi> = 2 with one trivial constituent, signed <chi,chi> = 1 with none, differing at a face half-turn (3 against -1). Theorem 9's gamma^j construction and the C2(T1) = 2 Casimir input to the Koide chain remain separate obligations, exactly as the remark flags."
     },
     {
       "id": "SM:T-8b",
@@ -2792,14 +2798,6 @@
       "difficulty": "high",
       "tier": 6,
       "route": "The coefficient-labelled reconstruction: distinct gaps + the complete nonzero coefficient family force the frequency-pair bijection to be a mode relabeling or the global reversal -- equivalently, the only automorphisms of the coefficient-labelled directed gap graph are vertex relabeling and total edge reversal. The data are unusually rich: z'^{mu(a,b)} = lambda z^{ab} up to unit scalars, plus the multiplicative relations z^{ab} z^{bc} = |V_.b|^2 z^{ac} with positive middle factors. The raw difference set cannot close it (homometric Golomb rulers -- probe F6); once the bijection is pinned, the double-difference/coboundary step is the phase-locking machinery already formalized. Both invisible branches and all three countercontrols are already kernel-proved or probe-fixed, so only the classification itself is open."
-    },
-    {
-      "rank": 2,
-      "id": "SM:T-8",
-      "centrality": "low",
-      "difficulty": "low",
-      "tier": 6,
-      "route": "Already K1: the irreducible characters and their orthonormality are kernel-checked over the 24 rotations. Upgrading to K3 means stating the 4 = 1 + 3 branching as its own theorem rather than reading it off the table."
     }
   ],
   "backlog_tiers": {
