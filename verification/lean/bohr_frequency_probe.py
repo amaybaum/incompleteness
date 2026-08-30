@@ -244,6 +244,7 @@ ok8 &= '**Theorem (Bohr-frequency completeness).**' in gr
 ok8 &= '**Theorem (D-gauge completeness, two-branch form).**' in gr
 ok8 &= '**Corollary (operational antiunitary invariance).**' in gr
 ok8 &= '**Corollary (thermodynamic orientation).**' in gr
+ok8 &= 'no antiunitary branch and no nontrivial $D$' in gr
 ok8 &= 'A. Bekir and S. W. Golomb' in gr
 ok8 &= 'the passage from integer to real spectra being proved, not assumed' in gr
 ok8 &= '[SM] Proposition 20' in gr
@@ -380,6 +381,43 @@ check("F10", ok10,
       "-- and monotone finite-bath counting yields passivity (layer one of H-orientation "
       "transport). Oriented structure excludes the antiunitary branch (kernel: "
       "transported_gibbs, gibbs_orientation, passivity_selector_nonuniform, counting_passive)")
+
+# ---------------------------------------------------------------- F11  stationarity + rigidity
+ok11 = True
+rng11 = np.random.default_rng(20260901)
+M11 = rng11.normal(size=(4, 4)) + 1j * rng11.normal(size=(4, 4))
+Q11, _ = np.linalg.qr(M11)
+E11 = np.array([0.0, 0.7, 1.9, 3.2])
+# a stationary state is a population profile: rho = V f(E) V^dag is fixed by U(t)-conjugation
+# and diagonal in the eigenbasis; a generic rho is neither
+pops = rng11.uniform(0.1, 1.0, 4)
+pops /= pops.sum()
+rho_st = Q11 @ np.diag(pops).astype(complex) @ Q11.conj().T
+rho_gen = M11 @ M11.conj().T
+rho_gen /= np.trace(rho_gen).real
+for t in (0.37, 1.13, 2.9):
+    U11 = Q11 @ np.diag(np.exp(-1j * E11 * t)) @ Q11.conj().T
+    ok11 &= np.max(np.abs(U11 @ rho_st @ U11.conj().T - rho_st)) < 1e-12
+    ok11 &= np.max(np.abs(U11 @ rho_gen @ U11.conj().T - rho_gen)) > 1e-3
+Min = Q11.conj().T @ rho_st @ Q11
+ok11 &= np.max(np.abs(Min - np.diag(np.diag(Min)))) < 1e-12
+# ad_eq_scalar numerically: e^{i theta} U has the same conjugation action; an unrelated W does not
+U0 = Q11 @ np.diag(np.exp(-1j * E11 * 0.37)) @ Q11.conj().T
+Up = np.exp(1j * 1.234) * U0
+Wu, _ = np.linalg.qr(rng11.normal(size=(4, 4)) + 1j * rng11.normal(size=(4, 4)))
+X11 = rng11.normal(size=(4, 4)) + 1j * rng11.normal(size=(4, 4))
+ok11 &= np.max(np.abs(U0 @ X11 @ U0.conj().T - Up @ X11 @ Up.conj().T)) < 1e-12
+ok11 &= np.max(np.abs(U0 @ X11 @ U0.conj().T - Wu @ X11 @ Wu.conj().T)) > 1e-3
+Zrel = Wu.conj().T @ U0
+ok11 &= np.max(np.abs(Zrel - np.diag(np.diag(Zrel)))) > 1e-3  # not scalar for unrelated W
+check("F11", ok11,
+      "STATIONARITY AND CHANNEL RIGIDITY, numerically: a population-profile state is fixed by "
+      "U(t)-conjugation at every sampled time and is diagonal in the energy eigenbasis, while "
+      "a generic state is neither (kernel: stationary_offdiag / stationary_spectral_form -- "
+      "the mathematical half of transport layer two); a phase multiple of U has the identical "
+      "conjugation action while an unrelated unitary does not, and its relative operator is "
+      "not scalar (kernel: ad_eq_scalar / phase_families_shift, backing the exact-unitary "
+      "regime of Corollary A.3)")
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

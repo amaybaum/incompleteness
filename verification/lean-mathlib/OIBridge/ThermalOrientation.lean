@@ -255,6 +255,132 @@ theorem counting_strictlyPassive {Ω : ℝ → ℝ} (hΩ : StrictMono Ω) (Etot 
   intro a b hab
   exact div_lt_div_of_pos_right (hΩ (by linarith)) hZ
 
+/-! ### Layer two, the mathematical half: stationarity diagonalizes
+
+`stationary_diagonal` is the purely algebraic implication layer two of the H-orientation
+transport programme needs: a state fixed by the evolution at every time, with a nondegenerate
+spectrum, is diagonal in the energy eigenbasis — so it HAS a population profile for the
+selectors above to test. Whether the counting-selected marginal IS stationary
+(`counting_state_stationary`) is the physical half, audited separately: it does not follow
+from the current substratum construction without new work, because the shell-counting state
+is a correlated visible–hidden ensemble while the reconstructed channel is built on a fixed
+product prior (GR §3.2's H-shell caveat). -/
+
+/-- A matrix commuting with a nondegenerate diagonal is diagonal. -/
+theorem commutant_diagonal (M : Matrix (Fin m) (Fin m) ℂ) (E : Fin m → ℝ)
+    (hcomm : M * Matrix.diagonal (fun a => (E a : ℂ))
+      = Matrix.diagonal (fun a => (E a : ℂ)) * M)
+    (hE : Function.Injective E) {a b : Fin m} (hab : a ≠ b) : M a b = 0 := by
+  have h := congrFun (congrFun hcomm a) b
+  rw [Matrix.mul_diagonal, Matrix.diagonal_mul] at h
+  have h2 : ((E b : ℂ) - (E a : ℂ)) * M a b = 0 := by linear_combination h
+  rcases mul_eq_zero.mp h2 with h' | h'
+  · exfalso
+    apply hab
+    apply hE
+    have : (E a : ℂ) = (E b : ℂ) := by linear_combination -h'
+    exact_mod_cast this
+  · exact h'
+
+/-- The propagator in matrix form is the spectral sandwich. -/
+lemma umat_spectral (V : Matrix (Fin m) (Fin m) ℂ) (E : Fin m → ℝ) (t : ℝ) :
+    Matrix.of (BohrFrequency.Umat V E t)
+      = V * Matrix.diagonal (fun a => Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ)))) * Vᴴ := by
+  ext i j
+  rw [Matrix.of_apply, spectral_apply]
+  show (∑ a, V i a * Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ))) * star (V j a)) = _
+  exact Finset.sum_congr rfl fun a _ => by rw [Complex.star_def]
+
+/-- **STATIONARITY DIAGONALIZES.** A state fixed by the evolution at every time, with all
+energies distinct, has vanishing off-diagonal matrix elements in the energy eigenbasis: the
+phase `e^{−i(E_a−E_b)t}` evaluated at `t = π/(E_a−E_b)` is `−1`. -/
+theorem stationary_offdiag (V ρ : Matrix (Fin m) (Fin m) ℂ) (E : Fin m → ℝ)
+    (hV : V * Vᴴ = 1) (hE : Function.Injective E)
+    (hstat : ∀ t : ℝ, Matrix.of (BohrFrequency.Umat V E t) * ρ
+      * (Matrix.of (BohrFrequency.Umat V E t))ᴴ = ρ)
+    {a b : Fin m} (hab : a ≠ b) : (Vᴴ * ρ * V) a b = 0 := by
+  have hV' : Vᴴ * V = 1 := mul_eq_one_comm.mp hV
+  have hEab : E a - E b ≠ 0 := sub_ne_zero.mpr (fun h => hab (hE h))
+  set t : ℝ := Real.pi / (E a - E b) with ht
+  have h1 := hstat t
+  rw [umat_spectral] at h1
+  -- conjugate by Vᴴ … V to land in the eigenbasis
+  have h2 : Matrix.diagonal (fun c => Complex.exp (-(Complex.I * (E c : ℂ) * (t : ℂ))))
+      * (Vᴴ * ρ * V)
+      * (Matrix.diagonal (fun c => Complex.exp (-(Complex.I * (E c : ℂ) * (t : ℂ)))))ᴴ
+      = Vᴴ * ρ * V := by
+    calc Matrix.diagonal (fun c => Complex.exp (-(Complex.I * (E c : ℂ) * (t : ℂ))))
+          * (Vᴴ * ρ * V)
+          * (Matrix.diagonal (fun c => Complex.exp (-(Complex.I * (E c : ℂ) * (t : ℂ)))))ᴴ
+        = (Vᴴ * V) * Matrix.diagonal (fun c => Complex.exp (-(Complex.I * (E c : ℂ) * (t : ℂ))))
+          * (Vᴴ * ρ * V)
+          * (Matrix.diagonal (fun c => Complex.exp (-(Complex.I * (E c : ℂ) * (t : ℂ)))))ᴴ
+          * (Vᴴ * V) := by rw [hV']; noncomm_ring
+      _ = Vᴴ * (V * Matrix.diagonal (fun c => Complex.exp (-(Complex.I * (E c : ℂ) * (t : ℂ))))
+          * Vᴴ * ρ
+          * (V * (Matrix.diagonal (fun c => Complex.exp (-(Complex.I * (E c : ℂ) * (t : ℂ)))))ᴴ
+            * Vᴴ)) * V := by noncomm_ring
+      _ = Vᴴ * (V * Matrix.diagonal (fun c => Complex.exp (-(Complex.I * (E c : ℂ) * (t : ℂ))))
+          * Vᴴ * ρ
+          * (V * Matrix.diagonal (fun c => Complex.exp (-(Complex.I * (E c : ℂ) * (t : ℂ))))
+            * Vᴴ)ᴴ) * V := by
+            rw [Matrix.conjTranspose_mul, Matrix.conjTranspose_mul,
+              Matrix.conjTranspose_conjTranspose]
+            noncomm_ring
+      _ = Vᴴ * ρ * V := by rw [show V * Matrix.diagonal (fun c => Complex.exp
+            (-(Complex.I * (E c : ℂ) * (t : ℂ)))) * Vᴴ * ρ
+            * (V * Matrix.diagonal (fun c => Complex.exp (-(Complex.I * (E c : ℂ) * (t : ℂ))))
+              * Vᴴ)ᴴ = ρ from h1]
+  have h3 := congrFun (congrFun h2 a) b
+  rw [Matrix.diagonal_conjTranspose, Matrix.mul_diagonal, Matrix.diagonal_mul] at h3
+  -- the phase at t = π/(E_a − E_b) is −1
+  have hphase : Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ)))
+      * star (Complex.exp (-(Complex.I * (E b : ℂ) * (t : ℂ)))) = -1 := by
+    rw [Complex.star_def, ← Complex.exp_conj]
+    rw [show (starRingEnd ℂ) (-(Complex.I * (E b : ℂ) * (t : ℂ)))
+      = Complex.I * (E b : ℂ) * (t : ℂ) by
+        simp only [map_neg, map_mul, Complex.conj_I, Complex.conj_ofReal]
+        ring]
+    rw [← Complex.exp_add]
+    have hreal : (E a - E b) * t = Real.pi := by
+      rw [ht]
+      field_simp
+    have hrealC : ((E a : ℂ) - (E b : ℂ)) * (t : ℂ) = (Real.pi : ℂ) := by
+      exact_mod_cast congrArg (fun x : ℝ => (x : ℂ)) hreal
+    rw [show -(Complex.I * (E a : ℂ) * (t : ℂ)) + Complex.I * (E b : ℂ) * (t : ℂ)
+      = -(((E a : ℂ) - (E b : ℂ)) * (t : ℂ)) * Complex.I by ring]
+    rw [hrealC, show (-(Real.pi : ℂ)) * Complex.I = -((Real.pi : ℂ) * Complex.I) by ring,
+      Complex.exp_neg, Complex.exp_pi_mul_I]
+    norm_num
+  rw [Pi.star_apply] at h3
+  have h4 : (Vᴴ * ρ * V) a b
+      * (Complex.exp (-(Complex.I * (E a : ℂ) * (t : ℂ)))
+        * star (Complex.exp (-(Complex.I * (E b : ℂ) * (t : ℂ))))) = (Vᴴ * ρ * V) a b := by
+    linear_combination h3
+  rw [hphase] at h4
+  have h5 : (2 : ℂ) * (Vᴴ * ρ * V) a b = 0 := by linear_combination -h4
+  exact (mul_eq_zero.mp h5).resolve_left (by norm_num)
+
+/-- Packaged: a stationary state with nondegenerate spectrum IS a population profile on the
+energy eigenbasis — the object the orientation selectors test. -/
+theorem stationary_spectral_form (V ρ : Matrix (Fin m) (Fin m) ℂ) (E : Fin m → ℝ)
+    (hV : V * Vᴴ = 1) (hE : Function.Injective E)
+    (hstat : ∀ t : ℝ, Matrix.of (BohrFrequency.Umat V E t) * ρ
+      * (Matrix.of (BohrFrequency.Umat V E t))ᴴ = ρ) :
+    ρ = V * Matrix.diagonal (fun a => (Vᴴ * ρ * V) a a) * Vᴴ := by
+  have hM : Vᴴ * ρ * V = Matrix.diagonal (fun a => (Vᴴ * ρ * V) a a) := by
+    ext i j
+    by_cases hij : i = j
+    · subst hij
+      rw [Matrix.diagonal_apply_eq]
+    · rw [Matrix.diagonal_apply_ne _ hij]
+      exact stationary_offdiag V ρ E hV hE hstat hij
+  calc ρ = (V * Vᴴ) * ρ * (V * Vᴴ) := by rw [hV]; noncomm_ring
+    _ = V * (Vᴴ * ρ * V) * Vᴴ := by noncomm_ring
+    _ = V * Matrix.diagonal (fun a => (Vᴴ * ρ * V) a a) * Vᴴ := by
+        rw [hM]
+        simp [Matrix.diagonal_apply_eq]
+
 #print axioms gibbs_reflection
 #print axioms gibbs_reflection_perm
 #print axioms gibbs_orientation
@@ -266,6 +392,10 @@ theorem counting_strictlyPassive {Ω : ℝ → ℝ} (hΩ : StrictMono Ω) (Etot 
 #print axioms passivity_selector_nonuniform
 #print axioms counting_passive
 #print axioms counting_strictlyPassive
+#print axioms commutant_diagonal
+#print axioms umat_spectral
+#print axioms stationary_offdiag
+#print axioms stationary_spectral_form
 
 end ThermalOrientation
 end OIBridge
