@@ -72,6 +72,7 @@ import OIBridge.BoundaryRank
 import OIBridge.Reciprocity
 import OIBridge.GaugeDimension
 import OIBridge.BohrFrequency
+import OIBridge.FrequencyMatching
 import OIBridge.TasteBranching
 import OIBridge.EdgeRigidity
 import OIBridge.HomometricSix

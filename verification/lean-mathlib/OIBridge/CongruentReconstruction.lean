@@ -30,15 +30,28 @@
   BohrFrequency and the μ-orbit bridge of probe M10) will eventually supply.
 
   DIMENSIONS 0, 1, 2. The main theorems hypothesize 3 ≤ m, and the printed Claim carries no
-  lower-dimensional exclusion, so the small cases are dispatched or flagged explicitly:
+  lower-dimensional exclusion, so the small cases are dispatched explicitly:
   `reconstruction_dim_zero` and `reconstruction_dim_one` close m = 0, 1 outright (the latter
-  needs W's unitarity and no coefficient data at all). m = 2 is left OPEN here deliberately: the
-  modulus ambiguity |r_{i0}||r_{i1}| = 1 is not rigid at m = 2, and the expectation that it is
-  absorbed by the reflection branch is recorded as a target, not assumed.
+  needs W's unitarity and no coefficient data at all). m = 2 closes by the TWO-LEVEL DICHOTOMY:
+  the diagonal coefficient line q(1−q) = p(1−p) factors as (q−p)(1−p−q) = 0, so each row's
+  moduli match or swap, unitarity's column sums make the choice global
+  (`dim_two_moduli_dichotomy`), and the swap IS the reflection branch — diag(E₁,E₀) =
+  (E₀+E₁)·1 − diag(E₀,E₁) — giving `unitary2_line_dichotomy` (W∘τ = DVB or W∘τ∘swap = DV̄B)
+  and `reconstruction_dim_two`. The hyperbola that blocks `modulus_rigid` at m = 2 is not a
+  third alternative; it is exactly the swap.
+
+  THE SPECTRAL WRAPPER `twoBranch_of_spectral_classification` goes one step further than the
+  coefficient-level wrapper: its classification premise mentions ONLY spectra (translated,
+  negated-translated, or realizing the exceptional gap correspondence μ), and every coefficient
+  hypothesis is derived from equal transition probabilities via
+  `BohrFrequency.coefficient_line_extraction` under the Golomb (all-gaps-distinct) hypotheses.
+  Piccard classifies gap correspondences; quantum coefficient equality is a theorem, not an input.
 -/
 import OIBridge.HomometricKill
 import OIBridge.EdgeRigidity
+import OIBridge.FrequencyMatching
 import Mathlib.Tactic.FieldSimp
+import Mathlib.LinearAlgebra.FiniteDimensional.Basic
 
 namespace OIBridge
 namespace CongruentReconstruction
@@ -99,38 +112,44 @@ lemma modulus_rigid (hm : 3 ≤ m) (ρ : Fin m → ℝ) (hnn : ∀ a, 0 ≤ ρ a
     have := hpos a
     linarith
 
-/-- THE PHASE-COBOUNDARY THEOREM. Coefficient-line equality along an aligned permutation splits
-the ratio into row phases times column phases: `W_{i,τa} = d_i β_a V_{ia}` with `d`, `β`
-unimodular. No unitarity, no angles, no quotients — just modulus rigidity, `line_forcing`, and
-multiplication. -/
-theorem phase_coboundary (hm : 3 ≤ m) (V W : Matrix (Fin m) (Fin m) ℂ)
+/-- MODULI MATCH from the diagonal coefficient lines, for m ≥ 3 — the only step of the whole
+congruent assembly that needs the dimension. -/
+theorem moduli_match (hm : 3 ≤ m) (V W : Matrix (Fin m) (Fin m) ℂ)
     (τ : Equiv.Perm (Fin m)) (hVnz : ∀ i a, V i a ≠ 0)
+    (hC : ∀ a b : Fin m, a ≠ b → ∀ i j,
+      (W i (τ a) * conj' (W i (τ b))) * conj' (W j (τ a) * conj' (W j (τ b)))
+        = (V i a * conj' (V i b)) * conj' (V j a * conj' (V j b))) :
+    ∀ i a, normSq (W i (τ a)) = normSq (V i a) := by
+  intro i a
+  have hprod : ∀ x y : Fin m, x ≠ y →
+      (normSq (W i (τ x)) / normSq (V i x)) * (normSq (W i (τ y)) / normSq (V i y)) = 1 := by
+    intro x y hxy
+    have hcd := hC x y hxy i i
+    rw [line_diag, line_diag] at hcd
+    have hreal : normSq (W i (τ x)) * normSq (W i (τ y))
+        = normSq (V i x) * normSq (V i y) := by exact_mod_cast hcd
+    have hx : normSq (V i x) ≠ 0 := ne_of_gt (normSq_pos.mpr (hVnz i x))
+    have hy : normSq (V i y) ≠ 0 := ne_of_gt (normSq_pos.mpr (hVnz i y))
+    field_simp
+    linarith [hreal]
+  have hone := modulus_rigid hm (fun x => normSq (W i (τ x)) / normSq (V i x))
+    (fun x => div_nonneg (normSq_nonneg _) (normSq_nonneg _)) hprod a
+  have hVa : normSq (V i a) ≠ 0 := ne_of_gt (normSq_pos.mpr (hVnz i a))
+  field_simp at hone
+  exact hone
+
+/-- THE PHASE-COBOUNDARY THEOREM, moduli-hypothesis core: needs only a nonempty mode set. The
+dimension enters this file solely through `moduli_match`; every dimension where the moduli can
+be matched (m ≥ 3 generically, m = 2 by the two-level dichotomy) inherits the splitting. -/
+theorem phase_coboundary_of_moduli (hm0 : 0 < m) (V W : Matrix (Fin m) (Fin m) ℂ)
+    (τ : Equiv.Perm (Fin m)) (hVnz : ∀ i a, V i a ≠ 0)
+    (hmod : ∀ i a, normSq (W i (τ a)) = normSq (V i a))
     (hC : ∀ a b : Fin m, a ≠ b → ∀ i j,
       (W i (τ a) * conj' (W i (τ b))) * conj' (W j (τ a) * conj' (W j (τ b)))
         = (V i a * conj' (V i b)) * conj' (V j a * conj' (V j b))) :
     ∃ d β : Fin m → ℂ, (∀ i, d i * conj' (d i) = 1) ∧ (∀ a, β a * conj' (β a) = 1)
       ∧ ∀ i a, W i (τ a) = d i * β a * V i a := by
-  have hm0 : 0 < m := by omega
   set o : Fin m := ⟨0, hm0⟩ with ho
-  -- step 1: moduli agree
-  have hmod : ∀ i a, normSq (W i (τ a)) = normSq (V i a) := by
-    intro i a
-    have hprod : ∀ x y : Fin m, x ≠ y →
-        (normSq (W i (τ x)) / normSq (V i x)) * (normSq (W i (τ y)) / normSq (V i y)) = 1 := by
-      intro x y hxy
-      have hcd := hC x y hxy i i
-      rw [line_diag, line_diag] at hcd
-      have hreal : normSq (W i (τ x)) * normSq (W i (τ y))
-          = normSq (V i x) * normSq (V i y) := by exact_mod_cast hcd
-      have hx : normSq (V i x) ≠ 0 := ne_of_gt (normSq_pos.mpr (hVnz i x))
-      have hy : normSq (V i y) ≠ 0 := ne_of_gt (normSq_pos.mpr (hVnz i y))
-      field_simp
-      linarith [hreal]
-    have hone := modulus_rigid hm (fun x => normSq (W i (τ x)) / normSq (V i x))
-      (fun x => div_nonneg (normSq_nonneg _) (normSq_nonneg _)) hprod a
-    have hVa : normSq (V i a) ≠ 0 := ne_of_gt (normSq_pos.mpr (hVnz i a))
-    field_simp at hone
-    exact hone
   have hWnz : ∀ i a, W i (τ a) ≠ 0 := by
     intro i a
     intro hzero
@@ -202,6 +221,16 @@ theorem phase_coboundary (hm : 3 ≤ m) (V W : Matrix (Fin m) (Fin m) ℂ)
               rw [h1]
         _ = W i (τ o) * conj' (V i o) * lam a ha * V i a * conj' (W i (τ o)) := by ring
 
+/-- The phase-coboundary theorem at m ≥ 3: moduli match by rigidity, then split. -/
+theorem phase_coboundary (hm : 3 ≤ m) (V W : Matrix (Fin m) (Fin m) ℂ)
+    (τ : Equiv.Perm (Fin m)) (hVnz : ∀ i a, V i a ≠ 0)
+    (hC : ∀ a b : Fin m, a ≠ b → ∀ i j,
+      (W i (τ a) * conj' (W i (τ b))) * conj' (W j (τ a) * conj' (W j (τ b)))
+        = (V i a * conj' (V i b)) * conj' (V j a * conj' (V j b))) :
+    ∃ d β : Fin m → ℂ, (∀ i, d i * conj' (d i) = 1) ∧ (∀ a, β a * conj' (β a) = 1)
+      ∧ ∀ i a, W i (τ a) = d i * β a * V i a :=
+  phase_coboundary_of_moduli (by omega) V W τ hVnz (moduli_match hm V W τ hVnz hC) hC
+
 /-- Entry form of a spectral sandwich. -/
 lemma spectral_apply (M : Matrix (Fin m) (Fin m) ℂ) (f : Fin m → ℂ) (i j : Fin m) :
     (M * Matrix.diagonal f * Mᴴ) i j = ∑ c, M i c * f c * conj' (M j c) := by
@@ -217,12 +246,13 @@ lemma row_sums (V : Matrix (Fin m) (Fin m) ℂ) (hV : V * Vᴴ = 1) (i j : Fin m
   simp only [Matrix.conjTranspose_apply, Complex.star_def] at h
   rw [h, Matrix.one_apply]
 
-/-- BRANCH ONE. Aligned spectra plus coefficient-line equality give
+/-- BRANCH ONE, moduli-hypothesis core. Aligned spectra plus coefficient-line equality give
 `H' = D H D† + E₀·1` with `D` a unimodular diagonal. Only V's unitarity is used. -/
-theorem reconstruction_translation (hm : 3 ≤ m)
+theorem reconstruction_translation_of_moduli (hm0 : 0 < m)
     (V W : Matrix (Fin m) (Fin m) ℂ) (τ : Equiv.Perm (Fin m))
     (E E' : Fin m → ℝ) (E₀ : ℝ)
     (hV : V * Vᴴ = 1) (hVnz : ∀ i a, V i a ≠ 0)
+    (hmod : ∀ i a, normSq (W i (τ a)) = normSq (V i a))
     (halign : ∀ a, E' (τ a) = E a + E₀)
     (hC : ∀ a b : Fin m, a ≠ b → ∀ i j,
       (W i (τ a) * conj' (W i (τ b))) * conj' (W j (τ a) * conj' (W j (τ b)))
@@ -231,7 +261,7 @@ theorem reconstruction_translation (hm : 3 ≤ m)
       W * Matrix.diagonal (fun c => (E' c : ℂ)) * Wᴴ
         = Matrix.diagonal d * (V * Matrix.diagonal (fun a => (E a : ℂ)) * Vᴴ)
             * (Matrix.diagonal d)ᴴ + (E₀ : ℂ) • 1 := by
-  obtain ⟨d, β, hd, hβ, hcob⟩ := phase_coboundary hm V W τ hVnz hC
+  obtain ⟨d, β, hd, hβ, hcob⟩ := phase_coboundary_of_moduli hm0 V W τ hVnz hmod hC
   refine ⟨d, hd, ?_⟩
   ext i j
   have hterm : ∀ a : Fin m, W i (τ a) * ((E' (τ a) : ℝ) : ℂ) * conj' (W j (τ a))
@@ -276,6 +306,22 @@ theorem reconstruction_translation (hm : 3 ≤ m)
           push_cast
           ring
 
+/-- BRANCH ONE at m ≥ 3. -/
+theorem reconstruction_translation (hm : 3 ≤ m)
+    (V W : Matrix (Fin m) (Fin m) ℂ) (τ : Equiv.Perm (Fin m))
+    (E E' : Fin m → ℝ) (E₀ : ℝ)
+    (hV : V * Vᴴ = 1) (hVnz : ∀ i a, V i a ≠ 0)
+    (halign : ∀ a, E' (τ a) = E a + E₀)
+    (hC : ∀ a b : Fin m, a ≠ b → ∀ i j,
+      (W i (τ a) * conj' (W i (τ b))) * conj' (W j (τ a) * conj' (W j (τ b)))
+        = (V i a * conj' (V i b)) * conj' (V j a * conj' (V j b))) :
+    ∃ d : Fin m → ℂ, (∀ i, d i * conj' (d i) = 1) ∧
+      W * Matrix.diagonal (fun c => (E' c : ℂ)) * Wᴴ
+        = Matrix.diagonal d * (V * Matrix.diagonal (fun a => (E a : ℂ)) * Vᴴ)
+            * (Matrix.diagonal d)ᴴ + (E₀ : ℂ) • 1 :=
+  reconstruction_translation_of_moduli (by omega) V W τ E E' E₀ hV hVnz
+    (moduli_match hm V W τ hVnz hC) halign hC
+
 /-- Entrywise conjugation of a matrix. -/
 noncomputable def conjM (M : Matrix (Fin m) (Fin m) ℂ) : Matrix (Fin m) (Fin m) ℂ :=
   M.map (starRingEnd ℂ)
@@ -298,12 +344,13 @@ lemma conjM_unitary {M : Matrix (Fin m) (Fin m) ℂ} (hM : M * Mᴴ = 1) :
   · rw [if_pos hij, map_one]
   · rw [if_neg hij, map_zero]
 
-/-- BRANCH TWO, by conjugation of branch one. Reflected spectra plus coefficient-line equality
-with the pair orientation swapped give `H' = −(D H̄ D†) + E₀·1`. -/
-theorem reconstruction_reflection (hm : 3 ≤ m)
+/-- BRANCH TWO, moduli-hypothesis core, by conjugation of branch one. Reflected spectra plus
+coefficient-line equality with the pair orientation swapped give `H' = −(D H̄ D†) + E₀·1`. -/
+theorem reconstruction_reflection_of_moduli (hm0 : 0 < m)
     (V W : Matrix (Fin m) (Fin m) ℂ) (τ : Equiv.Perm (Fin m))
     (E E' : Fin m → ℝ) (E₀ : ℝ)
     (hV : V * Vᴴ = 1) (hVnz : ∀ i a, V i a ≠ 0)
+    (hmod : ∀ i a, normSq (W i (τ a)) = normSq (V i a))
     (halign : ∀ a, E' (τ a) = -E a + E₀)
     (hC : ∀ a b : Fin m, a ≠ b → ∀ i j,
       (W i (τ a) * conj' (W i (τ b))) * conj' (W j (τ a) * conj' (W j (τ b)))
@@ -314,9 +361,10 @@ theorem reconstruction_reflection (hm : 3 ≤ m)
               * conjM (V * Matrix.diagonal (fun a => (E a : ℂ)) * Vᴴ)
               * (Matrix.diagonal d)ᴴ) + (E₀ : ℂ) • 1 := by
   -- apply branch one to the conjugated source model (V̄, −E)
-  obtain ⟨d, hd, hmain⟩ := reconstruction_translation hm (conjM V) W τ
+  obtain ⟨d, hd, hmain⟩ := reconstruction_translation_of_moduli hm0 (conjM V) W τ
     (fun a => -E a) E' E₀ (conjM_unitary hV)
     (fun i a => by simpa [conjM_apply] using hVnz i a)
+    (fun i a => by rw [conjM_apply, Complex.normSq_conj]; exact hmod i a)
     (fun a => by rw [halign a])
     (by
       intro a b hab i j
@@ -341,6 +389,35 @@ theorem reconstruction_reflection (hm : 3 ≤ m)
     ring
   rw [hcore]
   rw [Matrix.mul_neg, Matrix.neg_mul]
+
+/-- BRANCH TWO at m ≥ 3. The moduli still match directly: the swapped-orientation lines have the
+same diagonal products. -/
+theorem reconstruction_reflection (hm : 3 ≤ m)
+    (V W : Matrix (Fin m) (Fin m) ℂ) (τ : Equiv.Perm (Fin m))
+    (E E' : Fin m → ℝ) (E₀ : ℝ)
+    (hV : V * Vᴴ = 1) (hVnz : ∀ i a, V i a ≠ 0)
+    (halign : ∀ a, E' (τ a) = -E a + E₀)
+    (hC : ∀ a b : Fin m, a ≠ b → ∀ i j,
+      (W i (τ a) * conj' (W i (τ b))) * conj' (W j (τ a) * conj' (W j (τ b)))
+        = (V i b * conj' (V i a)) * conj' (V j b * conj' (V j a))) :
+    ∃ d : Fin m → ℂ, (∀ i, d i * conj' (d i) = 1) ∧
+      W * Matrix.diagonal (fun c => (E' c : ℂ)) * Wᴴ
+        = -(Matrix.diagonal d
+              * conjM (V * Matrix.diagonal (fun a => (E a : ℂ)) * Vᴴ)
+              * (Matrix.diagonal d)ᴴ) + (E₀ : ℂ) • 1 := by
+  have hCconj : ∀ a b : Fin m, a ≠ b → ∀ i j,
+      (W i (τ a) * conj' (W i (τ b))) * conj' (W j (τ a) * conj' (W j (τ b)))
+        = (conjM V i a * conj' (conjM V i b)) * conj' (conjM V j a * conj' (conjM V j b)) := by
+    intro a b hab i j
+    rw [hC a b hab i j]
+    simp only [conjM_apply, map_mul, Complex.conj_conj]
+    ring
+  have hmod : ∀ i a, normSq (W i (τ a)) = normSq (V i a) := by
+    intro i a
+    have := moduli_match hm (conjM V) W τ
+      (fun i a => by simpa [conjM_apply] using hVnz i a) hCconj i a
+    rwa [conjM_apply, Complex.normSq_conj] at this
+  exact reconstruction_reflection_of_moduli (by omega) V W τ E E' E₀ hV hVnz hmod halign hC
 
 /-- Dimension 0: vacuous. -/
 theorem reconstruction_dim_zero (V W : Matrix (Fin 0) (Fin 0) ℂ) (E E' : Fin 0 → ℝ) (E₀ : ℝ) :
@@ -383,6 +460,210 @@ theorem reconstruction_dim_one (V W : Matrix (Fin 1) (Fin 1) ℂ) (E E' : Fin 1 
   rw [hE]
   simp only [smul_eq_mul, map_one]
   linear_combination (((E 0 : ℝ) : ℂ) + ((E₀ : ℝ) : ℂ)) * hWu - ((E 0 : ℝ) : ℂ) * hVu
+
+/-! ### Dimension two: the dichotomy that closes the last small case -/
+
+/-- Row sums of a unitary in `normSq` form, reindexed along a permutation. -/
+lemma normSq_row_sum {k : ℕ} (M : Matrix (Fin k) (Fin k) ℂ) (hM : M * Mᴴ = 1)
+    (τ : Equiv.Perm (Fin k)) (i : Fin k) :
+    (∑ a, normSq (M i (τ a))) = 1 := by
+  have h := row_sums M hM i i
+  rw [if_pos rfl] at h
+  have hre : (∑ a, M i (τ a) * conj' (M i (τ a))) = 1 := by
+    rw [Equiv.sum_comp τ (fun c => M i c * conj' (M i c))]
+    exact h
+  have hcast : (∑ a, ((normSq (M i (τ a)) : ℝ) : ℂ)) = 1 := by
+    rw [← hre]
+    exact Finset.sum_congr rfl fun a _ => (Complex.mul_conj _).symm
+  exact_mod_cast hcast
+
+/-- Column sums of a unitary in `normSq` form. -/
+lemma normSq_col_sum {k : ℕ} (M : Matrix (Fin k) (Fin k) ℂ) (hM : M * Mᴴ = 1) (c : Fin k) :
+    (∑ i, normSq (M i c)) = 1 := by
+  have hM' := mul_eq_one_comm.mp hM
+  have h := congrFun (congrFun hM' c) c
+  rw [Matrix.mul_apply] at h
+  simp only [Matrix.conjTranspose_apply, Complex.star_def] at h
+  rw [Matrix.one_apply, if_pos rfl] at h
+  have hre : (∑ i, M i c * conj' (M i c)) = 1 := by
+    rw [← h]
+    exact Finset.sum_congr rfl fun i _ => mul_comm _ _
+  have hcast : (∑ i, ((normSq (M i c) : ℝ) : ℂ)) = 1 := by
+    rw [← hre]
+    exact Finset.sum_congr rfl fun i _ => (Complex.mul_conj _).symm
+  exact_mod_cast hcast
+
+/-- THE TWO-LEVEL MODULUS DICHOTOMY. At m = 2 the diagonal coefficient line factors as
+`(q − p)(1 − p − q) = 0`, so each row's moduli either match or swap; unitarity's column sums
+force the choice to be global. The apparent hyperbola of `modulus_rigid` is not a third branch —
+it is exactly the swap. -/
+theorem dim_two_moduli_dichotomy (V W : Matrix (Fin 2) (Fin 2) ℂ) (τ : Equiv.Perm (Fin 2))
+    (hV : V * Vᴴ = 1) (hW : W * Wᴴ = 1)
+    (hC : ∀ a b : Fin 2, a ≠ b → ∀ i j,
+      (W i (τ a) * conj' (W i (τ b))) * conj' (W j (τ a) * conj' (W j (τ b)))
+        = (V i a * conj' (V i b)) * conj' (V j a * conj' (V j b))) :
+    (∀ i a, normSq (W i (τ a)) = normSq (V i a))
+    ∨ (∀ i a, normSq (W i (τ (Equiv.swap 0 1 a))) = normSq (V i a)) := by
+  have hVrow : ∀ i : Fin 2, normSq (V i 0) + normSq (V i 1) = 1 := by
+    intro i
+    have := normSq_row_sum V hV (Equiv.refl _) i
+    rwa [Fin.sum_univ_two] at this
+  have hWrow : ∀ i : Fin 2, normSq (W i (τ 0)) + normSq (W i (τ 1)) = 1 := by
+    intro i
+    have := normSq_row_sum W hW τ i
+    rwa [Fin.sum_univ_two] at this
+  have hVcol : normSq (V 0 0) + normSq (V 1 0) = 1 := by
+    have := normSq_col_sum V hV 0
+    rwa [Fin.sum_univ_two] at this
+  have hWcol : normSq (W 0 (τ 0)) + normSq (W 1 (τ 0)) = 1 := by
+    have := normSq_col_sum W hW (τ 0)
+    rwa [Fin.sum_univ_two] at this
+  have hdich : ∀ i : Fin 2,
+      normSq (W i (τ 0)) = normSq (V i 0) ∨ normSq (W i (τ 0)) = 1 - normSq (V i 0) := by
+    intro i
+    have hcd := hC 0 1 (by decide) i i
+    rw [line_diag, line_diag] at hcd
+    have hreal : normSq (W i (τ 0)) * normSq (W i (τ 1))
+        = normSq (V i 0) * normSq (V i 1) := by exact_mod_cast hcd
+    have h1 : normSq (W i (τ 1)) = 1 - normSq (W i (τ 0)) := by linarith [hWrow i]
+    have h2 : normSq (V i 1) = 1 - normSq (V i 0) := by linarith [hVrow i]
+    rw [h1, h2] at hreal
+    have hfac : (normSq (W i (τ 0)) - normSq (V i 0))
+        * (1 - normSq (V i 0) - normSq (W i (τ 0))) = 0 := by
+      linear_combination hreal
+    rcases mul_eq_zero.mp hfac with h | h
+    · left; linarith
+    · right; linarith
+  -- reduce mixed rows to the pure cases through the column sums
+  have hsame : (normSq (W 0 (τ 0)) = normSq (V 0 0) ∧ normSq (W 1 (τ 0)) = normSq (V 1 0))
+      ∨ (normSq (W 0 (τ 0)) = 1 - normSq (V 0 0)
+          ∧ normSq (W 1 (τ 0)) = 1 - normSq (V 1 0)) := by
+    rcases hdich 0 with h0 | h0 <;> rcases hdich 1 with h1 | h1
+    · exact Or.inl ⟨h0, h1⟩
+    · -- mixed forces the half-half degeneracy, which lands in BOTH cases
+      exact Or.inl ⟨h0, by linarith [hWcol, hVcol]⟩
+    · exact Or.inl ⟨by linarith [hWcol, hVcol], h1⟩
+    · exact Or.inr ⟨h0, h1⟩
+  have hswap : ∀ a : Fin 2, τ (Equiv.swap 0 1 a) = τ (Equiv.swap 0 1 a) := fun _ => rfl
+  rcases hsame with ⟨h0, h1⟩ | ⟨h0, h1⟩
+  · left
+    intro i a
+    fin_cases i <;> fin_cases a
+    · exact h0
+    · show normSq (W 0 (τ 1)) = normSq (V 0 1)
+      have := hWrow 0; have := hVrow 0; linarith
+    · exact h1
+    · show normSq (W 1 (τ 1)) = normSq (V 1 1)
+      have := hWrow 1; have := hVrow 1; linarith
+  · right
+    intro i a
+    fin_cases i <;> fin_cases a
+    · show normSq (W 0 (τ (Equiv.swap 0 1 0))) = normSq (V 0 0)
+      rw [Equiv.swap_apply_left]
+      have := hWrow 0; linarith
+    · show normSq (W 0 (τ (Equiv.swap 0 1 1))) = normSq (V 0 1)
+      rw [Equiv.swap_apply_right]
+      have := hVrow 0; linarith
+    · show normSq (W 1 (τ (Equiv.swap 0 1 0))) = normSq (V 1 0)
+      rw [Equiv.swap_apply_left]
+      have := hWrow 1; linarith
+    · show normSq (W 1 (τ (Equiv.swap 0 1 1))) = normSq (V 1 1)
+      rw [Equiv.swap_apply_right]
+      have := hVrow 1; linarith
+
+/-- THE TWO-LEVEL LINE DICHOTOMY: `W∘τ = D V B` or `W∘τ∘swap = D V̄ B` with `D`, `B` diagonal
+unimodular. The swap branch carries entrywise conjugation — it is the reflection branch in
+matrix form, exactly as the two-branch Claim demands. -/
+theorem unitary2_line_dichotomy (V W : Matrix (Fin 2) (Fin 2) ℂ) (τ : Equiv.Perm (Fin 2))
+    (hV : V * Vᴴ = 1) (hW : W * Wᴴ = 1) (hVnz : ∀ i a, V i a ≠ 0)
+    (hC : ∀ a b : Fin 2, a ≠ b → ∀ i j,
+      (W i (τ a) * conj' (W i (τ b))) * conj' (W j (τ a) * conj' (W j (τ b)))
+        = (V i a * conj' (V i b)) * conj' (V j a * conj' (V j b))) :
+    (∃ d β : Fin 2 → ℂ, (∀ i, d i * conj' (d i) = 1) ∧ (∀ a, β a * conj' (β a) = 1)
+      ∧ ∀ i a, W i (τ a) = d i * β a * V i a)
+    ∨ (∃ d β : Fin 2 → ℂ, (∀ i, d i * conj' (d i) = 1) ∧ (∀ a, β a * conj' (β a) = 1)
+      ∧ ∀ i a, W i (τ (Equiv.swap 0 1 a)) = d i * β a * conj' (V i a)) := by
+  rcases dim_two_moduli_dichotomy V W τ hV hW hC with hmod | hmod
+  · exact Or.inl (phase_coboundary_of_moduli (by omega) V W τ hVnz hmod hC)
+  · right
+    set τ' : Equiv.Perm (Fin 2) := (Equiv.swap 0 1).trans τ with hτ'
+    have hτ'app : ∀ a, τ' a = τ (Equiv.swap 0 1 a) := fun a => rfl
+    have hC' : ∀ a b : Fin 2, a ≠ b → ∀ i j,
+        (W i (τ' a) * conj' (W i (τ' b))) * conj' (W j (τ' a) * conj' (W j (τ' b)))
+          = (conjM V i a * conj' (conjM V i b)) * conj' (conjM V j a * conj' (conjM V j b)) := by
+      intro a b hab i j
+      rw [hτ'app a, hτ'app b]
+      have hσ : Equiv.swap 0 1 a ≠ Equiv.swap 0 1 b := fun h => hab ((Equiv.swap 0 1).injective h)
+      have hval := hC (Equiv.swap 0 1 a) (Equiv.swap 0 1 b) hσ i j
+      rw [hval]
+      have hσa : Equiv.swap 0 1 a = b := by
+        fin_cases a <;> fin_cases b <;> first | (exact absurd rfl hab) | rfl
+      have hσb : Equiv.swap 0 1 b = a := by
+        fin_cases a <;> fin_cases b <;> first | (exact absurd rfl hab) | rfl
+      rw [hσa, hσb]
+      simp only [conjM_apply, map_mul, Complex.conj_conj]
+      ring
+    have hmod' : ∀ i a, normSq (W i (τ' a)) = normSq (conjM V i a) := by
+      intro i a
+      rw [hτ'app a, conjM_apply, Complex.normSq_conj]
+      exact hmod i a
+    obtain ⟨d, β, hd, hβ, hcob⟩ := phase_coboundary_of_moduli (by omega) (conjM V) W τ'
+      (fun i a => by simpa [conjM_apply] using hVnz i a) hmod' hC'
+    exact ⟨d, β, hd, hβ, fun i a => hcob i a⟩
+
+/-- DIMENSION TWO CLOSES: translation-aligned data at m = 2 yields one of the two printed
+branches — the second with the shifted origin `E⋆ = E₀ + E₀' + E₀''`. The hyperbola that blocks
+`modulus_rigid` is precisely the reflection branch, not a third alternative. -/
+theorem reconstruction_dim_two (V W : Matrix (Fin 2) (Fin 2) ℂ) (τ : Equiv.Perm (Fin 2))
+    (E E' : Fin 2 → ℝ) (E₀ : ℝ)
+    (hV : V * Vᴴ = 1) (hW : W * Wᴴ = 1) (hVnz : ∀ i a, V i a ≠ 0)
+    (halign : ∀ a, E' (τ a) = E a + E₀)
+    (hC : ∀ a b : Fin 2, a ≠ b → ∀ i j,
+      (W i (τ a) * conj' (W i (τ b))) * conj' (W j (τ a) * conj' (W j (τ b)))
+        = (V i a * conj' (V i b)) * conj' (V j a * conj' (V j b))) :
+    (∃ d : Fin 2 → ℂ, (∀ i, d i * conj' (d i) = 1) ∧
+      W * Matrix.diagonal (fun c => (E' c : ℂ)) * Wᴴ
+        = Matrix.diagonal d * (V * Matrix.diagonal (fun a => (E a : ℂ)) * Vᴴ)
+            * (Matrix.diagonal d)ᴴ + (E₀ : ℂ) • 1)
+    ∨ (∃ Estar : ℝ, ∃ d : Fin 2 → ℂ, (∀ i, d i * conj' (d i) = 1) ∧
+      W * Matrix.diagonal (fun c => (E' c : ℂ)) * Wᴴ
+        = -(Matrix.diagonal d * conjM (V * Matrix.diagonal (fun a => (E a : ℂ)) * Vᴴ)
+            * (Matrix.diagonal d)ᴴ) + (Estar : ℂ) • 1) := by
+  rcases dim_two_moduli_dichotomy V W τ hV hW hC with hmod | hmod
+  · exact Or.inl (reconstruction_translation_of_moduli (by omega) V W τ E E' E₀
+      hV hVnz hmod halign hC)
+  · right
+    refine ⟨E 0 + E 1 + E₀, ?_⟩
+    set τ' : Equiv.Perm (Fin 2) := (Equiv.swap 0 1).trans τ with hτ'
+    have hτ'app : ∀ a, τ' a = τ (Equiv.swap 0 1 a) := fun a => rfl
+    have halign' : ∀ a, E' (τ' a) = -E a + (E 0 + E 1 + E₀) := by
+      intro a
+      fin_cases a
+      · show E' (τ' 0) = -E 0 + (E 0 + E 1 + E₀)
+        rw [hτ'app 0, Equiv.swap_apply_left, halign 1]
+        ring
+      · show E' (τ' 1) = -E 1 + (E 0 + E 1 + E₀)
+        rw [hτ'app 1, Equiv.swap_apply_right, halign 0]
+        ring
+    have hmod' : ∀ i a, normSq (W i (τ' a)) = normSq (V i a) := by
+      intro i a
+      rw [hτ'app a]
+      exact hmod i a
+    have hC' : ∀ a b : Fin 2, a ≠ b → ∀ i j,
+        (W i (τ' a) * conj' (W i (τ' b))) * conj' (W j (τ' a) * conj' (W j (τ' b)))
+          = (V i b * conj' (V i a)) * conj' (V j b * conj' (V j a)) := by
+      intro a b hab i j
+      rw [hτ'app a, hτ'app b]
+      have hσ : Equiv.swap 0 1 a ≠ Equiv.swap 0 1 b := fun h => hab ((Equiv.swap 0 1).injective h)
+      have hval := hC (Equiv.swap 0 1 a) (Equiv.swap 0 1 b) hσ i j
+      rw [hval]
+      have hσa : Equiv.swap 0 1 a = b := by
+        fin_cases a <;> fin_cases b <;> first | (exact absurd rfl hab) | rfl
+      have hσb : Equiv.swap 0 1 b = a := by
+        fin_cases a <;> fin_cases b <;> first | (exact absurd rfl hab) | rfl
+      rw [hσa, hσb]
+    exact reconstruction_reflection_of_moduli (by omega) V W τ' E E' (E 0 + E 1 + E₀)
+      hV hVnz hmod' halign' hC'
 
 /-- The exceptional six-mode coefficient match, stated through equivalences `Fin 6 ≃ Fin m` so
 that it forces `m = 6` with no dependent casts: relabelings of rows, source modes, and target
@@ -460,14 +741,82 @@ theorem twoBranch_of_PiccardClassification (hm : 3 ≤ m)
     exact ⟨E₀, d, hd, hmain⟩
   · exact (exceptional_impossible V W hV hW hVnz hWnz hex).elim
 
+/-- **THE SPECTRAL TWO-BRANCH THEOREM.** The classification premise now speaks ONLY about
+spectra: the target energies are a translate of the source energies, their negation-translate,
+or (both spectra being six-mode) they realize the exceptional gap correspondence `mu`. Every
+coefficient hypothesis of `twoBranch_of_PiccardClassification` is manufactured from equal
+transition probabilities by `BohrFrequency.coefficient_line_extraction` — one spectral identity
+per line, using only that both gap structures are Golomb (all gaps distinct). This is the
+theorem in the form the Piccard/Bekir–Golomb turnpike classification can actually feed:
+Piccard classifies gap correspondences; quantum coefficient equality is derived, not assumed. -/
+theorem twoBranch_of_spectral_classification (hm : 3 ≤ m)
+    (V W : Matrix (Fin m) (Fin m) ℂ) (E E' : Fin m → ℝ)
+    (hV : V * Vᴴ = 1) (hW : W * Wᴴ = 1)
+    (hVnz : ∀ i a, V i a ≠ 0) (hWnz : ∀ i c, W i c ≠ 0)
+    (hgapV : ∀ a b c d : Fin m, a ≠ b → c ≠ d → E b - E a = E d - E c → a = c ∧ b = d)
+    (hgapW : ∀ a b c d : Fin m, a ≠ b → c ≠ d → E' b - E' a = E' d - E' c → a = c ∧ b = d)
+    (hU : ∀ i j : Fin m, ∀ t : ℝ,
+      BohrFrequency.Umat V E t i j * star (BohrFrequency.Umat V E t i j)
+        = BohrFrequency.Umat W E' t i j * star (BohrFrequency.Umat W E' t i j))
+    (hclass :
+      (∃ τ : Equiv.Perm (Fin m), ∃ E₀ : ℝ, ∀ a, E' (τ a) = E a + E₀)
+      ∨ (∃ τ : Equiv.Perm (Fin m), ∃ E₀ : ℝ, ∀ a, E' (τ a) = -E a + E₀)
+      ∨ (∃ eS eT : Fin 6 ≃ Fin m, ∀ a b : Fin 6, a < b →
+          E' (eT (mu a b).2) - E' (eT (mu a b).1) = E (eS b) - E (eS a))) :
+    (∃ E₀ : ℝ, ∃ d : Fin m → ℂ, (∀ i, d i * conj' (d i) = 1) ∧
+      W * Matrix.diagonal (fun c => (E' c : ℂ)) * Wᴴ
+        = Matrix.diagonal d * (V * Matrix.diagonal (fun a => (E a : ℂ)) * Vᴴ)
+            * (Matrix.diagonal d)ᴴ + (E₀ : ℂ) • 1)
+    ∨ (∃ E₀ : ℝ, ∃ d : Fin m → ℂ, (∀ i, d i * conj' (d i) = 1) ∧
+      W * Matrix.diagonal (fun c => (E' c : ℂ)) * Wᴴ
+        = -(Matrix.diagonal d * conjM (V * Matrix.diagonal (fun a => (E a : ℂ)) * Vᴴ)
+            * (Matrix.diagonal d)ᴴ) + (E₀ : ℂ) • 1) := by
+  apply twoBranch_of_PiccardClassification hm V W E E' hV hW hVnz hWnz
+  rcases hclass with ⟨τ, E₀, halign⟩ | ⟨τ, E₀, halign⟩ | ⟨eS, eT, hspec⟩
+  · refine Or.inl ⟨τ, E₀, halign, fun a b hab i j => ?_⟩
+    have hmatch : E' (τ b) - E' (τ a) = E b - E a := by
+      rw [halign a, halign b]; ring
+    have hline := BohrFrequency.coefficient_line_extraction V W E E' hgapV hgapW hU
+      (a := a) (b := b) (c := τ a) (d := τ b) hab
+      (fun h => hab (τ.injective h)) hmatch i j
+    simp only [Complex.star_def] at hline
+    simp only [map_mul, Complex.conj_conj]
+    linear_combination hline
+  · refine Or.inr (Or.inl ⟨τ, E₀, halign, fun a b hab i j => ?_⟩)
+    have hmatch : E' (τ b) - E' (τ a) = E a - E b := by
+      rw [halign a, halign b]; ring
+    have hline := BohrFrequency.coefficient_line_extraction V W E E' hgapV hgapW hU
+      (a := b) (b := a) (c := τ a) (d := τ b) (Ne.symm hab)
+      (fun h => hab (τ.injective h)) hmatch i j
+    simp only [Complex.star_def] at hline
+    simp only [map_mul, Complex.conj_conj]
+    linear_combination hline
+  · refine Or.inr (Or.inr ⟨eS, eS, eT, fun a b hab i j => ?_⟩)
+    have hmatch := hspec a b hab
+    have hline := BohrFrequency.coefficient_line_extraction V W E E' hgapV hgapW hU
+      (a := eS a) (b := eS b) (c := eT (mu a b).1) (d := eT (mu a b).2)
+      (fun h => hab.ne (eS.injective h))
+      (fun h => (mu_gap a b hab).1.ne (eT.injective h)) hmatch (eS i) (eS j)
+    simp only [Complex.star_def] at hline
+    simp only [map_mul, Complex.conj_conj]
+    linear_combination hline
+
 #print axioms modulus_rigid
+#print axioms moduli_match
+#print axioms phase_coboundary_of_moduli
 #print axioms phase_coboundary
+#print axioms reconstruction_translation_of_moduli
 #print axioms reconstruction_translation
+#print axioms reconstruction_reflection_of_moduli
 #print axioms reconstruction_reflection
 #print axioms reconstruction_dim_zero
 #print axioms reconstruction_dim_one
+#print axioms dim_two_moduli_dichotomy
+#print axioms unitary2_line_dichotomy
+#print axioms reconstruction_dim_two
 #print axioms exceptional_impossible
 #print axioms twoBranch_of_PiccardClassification
+#print axioms twoBranch_of_spectral_classification
 
 end CongruentReconstruction
 end OIBridge

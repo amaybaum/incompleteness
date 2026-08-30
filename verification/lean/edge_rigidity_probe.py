@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Numerical companion checks for OIBridge/EdgeRigidity.lean, OIBridge/HomometricSix.lean, and
-OIBridge/HomometricKill.lean.
+"""Numerical companion checks for OIBridge/EdgeRigidity.lean, OIBridge/HomometricSix.lean,
+OIBridge/HomometricKill.lean, OIBridge/CongruentReconstruction.lean, and
+OIBridge/FrequencyMatching.lean.
 
 EdgeRigidity kernel-proves K4-RIGIDITY: for n >= 5, an edge permutation of K_n preserving all
 four-cycle product identities as identities is induced by a vertex permutation -- with the n = 4
@@ -37,13 +38,21 @@ These checks exercise the same statements independently (no Lean in the loop):
   R6  ORIENTATION COHERENCE: for random spectra with distinct eigenvalues, both global lifts
       satisfy every triangle gap identity while EVERY properly mixed sign assignment violates
       one -- the content of `orientation_coherence`, checked in exact fractions.
-  R7  lint of all four Lean files.
+  R7  lint of all five Lean files.
   R8  CONGRUENT RECONSTRUCTION, numerically: random unitary V, random unimodular row/column
       phases and mode permutation build W; the coefficient lines match and H' recovers
       D H D^dag + E0 (and the reflected model recovers -D conj(H) D^dag + E0) to machine
       precision; perturbing one column phase off the unit circle breaks a coefficient line
       (the modulus rigidity that needs m >= 3); at m = 2 the hyperbola ambiguity survives
-      the diagonal filter, confirming the file's honest m = 2 exclusion.
+      the diagonal filter -- retained as the countercontrol showing modulus rigidity is
+      sharp at m >= 3, and identified by `dim_two_moduli_dichotomy` as exactly the swap
+      (= reflection) branch, never a third alternative.
+  R9  FREQUENCIES TO COEFFICIENTS, numerically: for random V and a Golomb spectrum, the
+      complex amplitude of each frequency in |U_ij(t)|^2 (the ampC fiber sum) equals the
+      single coefficient line C^{ab}_{ij}; a translation-congruent W matches every amplitude
+      at the translated frequency; a degenerate spectrum collides two fibers and the
+      per-line extraction fails, showing the distinct-gap hypothesis is load-bearing; and
+      the m = 2 dichotomy factorization (q-p)(1-p-q) = 0 is verified on random rows.
 
 Usage:  python3 edge_rigidity_probe.py
 """
@@ -325,11 +334,20 @@ for fname, names in (
     ('HomometricKill', ('line_forcing', 'flat_of_products', 'monomial_relations',
                         'torus_zeros', 'point_to_exponent', 'orderOf_zeta', 'orderOf_I',
                         'homometricSix_unrealizable')),
-    ('CongruentReconstruction', ('modulus_rigid', 'phase_coboundary',
-                                 'reconstruction_translation', 'reconstruction_reflection',
+    ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
+                           'coefficients_by_frequency_determined', 'fiber_singleton',
+                           'coefficient_line_extraction')),
+    ('CongruentReconstruction', ('modulus_rigid', 'moduli_match',
+                                 'phase_coboundary_of_moduli', 'phase_coboundary',
+                                 'reconstruction_translation_of_moduli',
+                                 'reconstruction_translation',
+                                 'reconstruction_reflection_of_moduli',
+                                 'reconstruction_reflection',
                                  'reconstruction_dim_zero', 'reconstruction_dim_one',
-                                 'exceptional_impossible',
-                                 'twoBranch_of_PiccardClassification'))):
+                                 'dim_two_moduli_dichotomy', 'unitary2_line_dichotomy',
+                                 'reconstruction_dim_two', 'exceptional_impossible',
+                                 'twoBranch_of_PiccardClassification',
+                                 'twoBranch_of_spectral_classification'))):
     src = open(os.path.join(BRIDGE, 'OIBridge', f'{fname}.lean'), encoding='utf-8').read()
     body = src[src.index('namespace OIBridge'):]
     ok6 &= f'import OIBridge.{fname}' in root
@@ -347,13 +365,19 @@ ok6 &= 'theorem homometricSix_unrealizable' in open(
 cr = open(os.path.join(BRIDGE, 'OIBridge', 'CongruentReconstruction.lean'),
           encoding='utf-8').read()
 ok6 &= 'theorem twoBranch_of_PiccardClassification' in cr
-ok6 &= '(hm : 3 ≤ m)' in cr and 'm = 2 is left OPEN here deliberately' in cr
+ok6 &= 'theorem twoBranch_of_spectral_classification' in cr
+ok6 &= '(hm : 3 ≤ m)' in cr and 'theorem reconstruction_dim_two' in cr
+# the spectral wrapper's classification premise must mention only spectra: no coefficient
+# products in its hclass block (the coefficient hypotheses are DERIVED, not assumed)
+spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
+spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
+ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 named results print their axiom "
-      "dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, the reconstruction "
-      "theorems carry 3 <= m with the m = 2 exclusion stated honestly, and the conditional "
-      "`twoBranch_of_PiccardClassification` isolates the single external premise")
+      "LINT. All five files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 5 + 16 named results print their axiom "
+      "dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes via "
+      "`reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s classification "
+      "premise is purely spectral -- no coefficient product appears in its hclass block")
 
 # ---------------------------------------------------------------- R8  congruent reconstruction
 import cmath
@@ -442,7 +466,95 @@ check("R8", ok8,
       "D H D^dag + E0 exactly (reflected model recovers -D conj(H) D^dag + E0); a "
       "non-unimodular column factor breaks a diagonal line, and the m = 2 hyperbola "
       "rho0*rho1 = 1 passes every pairwise product while being non-flat -- the modulus "
-      "rigidity is sharp at m >= 3, matching the file's honest m = 2 exclusion")
+      "rigidity is sharp at m >= 3; the hyperbola is retained as the countercontrol, and "
+      "`dim_two_moduli_dichotomy` identifies it as exactly the swap (reflection) branch")
+
+# ------------------------------------------- R9  frequencies to coefficients (FrequencyMatching)
+ok9 = True
+rng9 = random.Random(20260830)
+
+
+def ampC_num(M, En, i, j, om):
+    """The fiber sum of FrequencyMatching.ampC, numerically."""
+    tot = 0j
+    for p in range(len(En)):
+        for q in range(len(En)):
+            if abs((En[q] - En[p]) - om) < 1e-9:
+                tot += M[i][p] * M[j][p].conjugate() * (M[i][q].conjugate()) * M[j][q]
+    return tot
+
+
+for _ in range(3):
+    m9 = 4
+    V = rand_unitary(m9)
+    E = [0.0, 1.0, 4.0, 9.0]          # Golomb: all signed gaps distinct
+    # 1. singleton fibers: the amplitude at omega = E_b - E_a IS the coefficient line
+    for a in range(m9):
+        for b in range(m9):
+            if a != b:
+                for i in range(m9):
+                    for j in range(m9):
+                        line = (V[i][a] * V[j][a].conjugate()
+                                * V[i][b].conjugate() * V[j][b])
+                        ok9 &= abs(ampC_num(V, E, i, j, E[b] - E[a]) - line) < 1e-9
+    # 2. |U_ij(t)|^2 equals the Fourier sum of the amplitudes over the gap set
+    gaps9 = sorted({round(E[q] - E[p], 9) for p in range(m9) for q in range(m9)})
+    for _ in range(3):
+        t = rng9.uniform(-2, 2)
+        for i in range(m9):
+            for j in range(m9):
+                U = sum(V[i][a] * cmath.exp(-1j * E[a] * t) * V[j][a].conjugate()
+                        for a in range(m9))
+                four = sum(ampC_num(V, E, i, j, om) * cmath.exp(1j * om * t)
+                           for om in gaps9)
+                ok9 &= abs(abs(U) ** 2 - four) < 1e-7
+    # 3. a translation-congruent W matches every amplitude at the translated frequency
+    tau = list(range(m9))
+    rng9.shuffle(tau)
+    d = [cmath.exp(1j * rng9.uniform(0, 6.28)) for _ in range(m9)]
+    beta = [cmath.exp(1j * rng9.uniform(0, 6.28)) for _ in range(m9)]
+    E0 = rng9.uniform(-3, 3)
+    W = [[0j] * m9 for _ in range(m9)]
+    Ep = [0.0] * m9
+    for a in range(m9):
+        Ep[tau[a]] = E[a] + E0
+        for i in range(m9):
+            W[i][tau[a]] = d[i] * beta[a] * V[i][a]
+    for om in gaps9:
+        for i in range(m9):
+            for j in range(m9):
+                ok9 &= abs(ampC_num(W, Ep, i, j, om) - ampC_num(V, E, i, j, om)) < 1e-9
+# 4. countercontrol: a DEGENERATE spectrum collides two fibers, and the amplitude at the
+#    shared frequency is no longer any single coefficient line
+Vd = rand_unitary(4)
+Ed = [0.0, 1.0, 2.0, 5.0]             # E1-E0 = E2-E1 = 1: the omega = 1 fiber has two pairs
+collided = False
+for i in range(4):
+    for j in range(4):
+        amp = ampC_num(Vd, Ed, i, j, 1.0)
+        l01 = Vd[i][0] * Vd[j][0].conjugate() * Vd[i][1].conjugate() * Vd[j][1]
+        l12 = Vd[i][1] * Vd[j][1].conjugate() * Vd[i][2].conjugate() * Vd[j][2]
+        if abs(amp - l01) > 1e-6 and abs(amp - l12) > 1e-6:
+            collided = True
+        ok9 &= abs(amp - (l01 + l12)) < 1e-9
+ok9 &= collided
+# 5. the m = 2 dichotomy algebra: q(1-q) = p(1-p) iff q = p or q = 1 - p
+for _ in range(50):
+    p = rng9.uniform(0.01, 0.99)
+    for q in (p, 1 - p):
+        ok9 &= abs((q - p) * (1 - p - q)) < 1e-12
+        ok9 &= abs(q * (1 - q) - p * (1 - p)) < 1e-12
+    q = rng9.uniform(0.01, 0.99)
+    if abs(q - p) > 1e-3 and abs(q - (1 - p)) > 1e-3:
+        ok9 &= abs(q * (1 - q) - p * (1 - p)) > 1e-7
+check("R9", ok9,
+      "FREQUENCIES TO COEFFICIENTS at m = 4: with a Golomb spectrum every fiber is a "
+      "singleton, so each frequency amplitude of |U_ij(t)|^2 IS one coefficient line "
+      "(`fiber_singleton` + `coefficient_line_extraction`); |U|^2 equals the Fourier sum of "
+      "the amplitudes (`normSq_eq_sum_gaps`); a translation-congruent model matches every "
+      "amplitude; a degenerate spectrum merges two fibers and the amplitude is their SUM, not "
+      "a line -- the distinct-gap hypothesis is load-bearing; and the m = 2 factorization "
+      "(q-p)(1-p-q) = 0 characterizes q(1-q) = p(1-p) exactly")
 
 
 print()
@@ -455,13 +567,17 @@ print('     induced by no vertex map even with mixed orientations. The analytic 
 print('     ALSO kernel-closed (HomometricKill.lean): rank-one line forcing, the multiplicative')
 print('     phase elimination, the torus-zero bridge, and the assembled theorem')
 print('     homometricSix_unrealizable -- the forced non-two-branch six-mode correspondence')
-print('     admits no pair of unitary eigenbases with all overlaps nonzero. NOT settled in the')
-print('     kernel: the Piccard/Bekir-Golomb classification input (the congruent-case assembly')
-print('     is NOW kernel-closed: phase_coboundary, both reconstruction branches, the m = 0, 1')
-print('     dispatch, and twoBranch_of_PiccardClassification with the exceptional alternative')
-print('     refuted by homometricSix_unrealizable); still open: the m = 2 case, the')
-print('     probabilities-to-coefficient-lines Fourier layer, and the classification premise')
-print('     itself; the universal two-branch Claim remains P-grade.')
+print('     admits no pair of unitary eigenbases with all overlaps nonzero. The congruent-case')
+print('     assembly is kernel-closed (phase_coboundary, both reconstruction branches, the')
+print('     m = 0, 1 dispatch), the Fourier layer is kernel-closed (FrequencyMatching:')
+print('     probabilities determine every frequency amplitude, and distinct gaps extract each')
+print('     coefficient line from one spectral identity), and m = 2 is kernel-closed')
+print('     (dim_two_moduli_dichotomy / unitary2_line_dichotomy / reconstruction_dim_two: the')
+print('     hyperbola IS the reflection branch). twoBranch_of_spectral_classification now needs')
+print('     only equal probabilities + distinct gaps + a purely SPECTRAL classification. NOT')
+print('     settled in the kernel: that classification premise itself -- the real-line')
+print('     Piccard/Bekir-Golomb turnpike classification; the universal two-branch Claim')
+print('     remains P-grade.')
 print()
 print("edge_rigidity_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)
