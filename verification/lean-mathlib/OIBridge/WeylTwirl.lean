@@ -319,6 +319,40 @@ theorem twirl_W (v : PS s) : twirl G (W v) = if v ∈ perp G then W v else 0 := 
   · rw [if_pos hv, if_pos hv, smul_smul, inv_mul_cancel₀ hcard, one_smul]
   · rw [if_neg hv, if_neg hv, zero_smul, smul_zero]
 
+/-! ### The self-adjoint normalization
+
+`W` keeps its clean real-sign convention above — `(W u)ᴴ = (−1)^{b·a} W u`, which is what makes
+the twirl a real-signed average. The maximal-isotropic direction, though, wants genuine self-adjoint
+involutions to diagonalize, so the phase is normalized away HERE and only here:
+
+    H u = i^{b·a} · W u,   Hᴴ = H,   H² = 1,   and ω(u,v) = 0 ⟹ H u and H v commute.
+
+Nothing above changes; `H` is a separate interface for the diagonalization layer. -/
+
+/-- `i^z` for `z` in `ZMod 2`. -/
+noncomputable def iPow : ZMod 2 → ℂ := fun z => if z = 0 then 1 else Complex.I
+
+/-- **The self-adjoint Weyl operator.** -/
+noncomputable def H (u : PS s) : Matrix (Q s) (Q s) ℂ := iPow (dotF u.2 u.1) • W u
+
+/-- **`H u` is self-adjoint.** -/
+theorem H_conjTranspose (u : PS s) : (H u)ᴴ = H u := by
+  rw [H, Matrix.conjTranspose_smul, W_conjTranspose, smul_smul]
+  congr 1
+  rcases zmod_two_cases (dotF u.2 u.1) with h | h <;> rw [h] <;> simp [iPow, chi]
+
+/-- **`H u` is an involution.** -/
+theorem H_mul_self (u : PS s) : H u * H u = 1 := by
+  rw [H, Matrix.smul_mul, Matrix.mul_smul, W_mul, smul_smul, smul_smul, addPS_self, W_zero]
+  rw [show iPow (dotF u.2 u.1) * iPow (dotF u.2 u.1) * chi (dotF u.2 u.1) = 1 from ?_, one_smul]
+  rcases zmod_two_cases (dotF u.2 u.1) with h | h <;> rw [h] <;> simp [iPow, chi]
+
+/-- **Commuting `W` gives commuting `H`**, so an isotropic subspace supplies a commuting family of
+self-adjoint involutions — the input the joint-eigenspace decomposition wants. -/
+theorem H_commute (u v : PS s) (h : omega u v = 0) : H u * H v = H v * H u := by
+  rw [H, H, Matrix.smul_mul, Matrix.mul_smul, Matrix.smul_mul, Matrix.mul_smul,
+    (W_commute_iff u v).2 h, smul_smul, smul_smul, mul_comm]
+
 /-! ### What these proofs rest on -/
 
 #print axioms W_mul
@@ -328,6 +362,9 @@ theorem twirl_W (v : PS s) : twirl G (W v) = if v ∈ perp G then W v else 0 := 
 #print axioms isotropic_iff_commute
 #print axioms char_sum
 #print axioms twirl_W
+#print axioms H_conjTranspose
+#print axioms H_mul_self
+#print axioms H_commute
 
 end WeylTwirl
 

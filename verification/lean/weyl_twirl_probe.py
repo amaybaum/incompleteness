@@ -22,7 +22,9 @@ and all 16 phase-space vectors, and all isotropic subspaces.
       (XZ)^2 = -1 -- so "a subgroup of order 2^t" is not a statement about that set, which is why
       the Lean file takes an isotropic SUBSPACE and not a Pauli subgroup.
   W7  the dimension count  dim G-perp = 2s - dim G,  and G isotropic iff G <= G-perp.
-  W8  lint.
+  W8  the self-adjoint normalization H(u) = i^{b.a} W(u): Hermitian, squaring to 1, and commuting
+      whenever omega vanishes -- the interface the maximal-isotropic diagonalization will consume.
+  W9  lint.
 
 Usage:  python3 weyl_twirl_probe.py
 """
@@ -50,6 +52,12 @@ def mat_mul(A, B):
 
 def dagger(A):
     return [[A[j][i] for j in range(len(A))] for i in range(len(A))]     # real entries
+
+
+def dagger_c(A):
+    """Conjugate transpose, for the complex-valued H below."""
+    return [[A[j][i].conjugate() if isinstance(A[j][i], complex) else A[j][i]
+             for j in range(len(A))] for i in range(len(A))]
 
 
 def scal(c, A):
@@ -227,31 +235,63 @@ check("W7", ok7,
       "G <= G-perp — which is Lean's `isotropic_iff_le_perp`. Isotropy then forces t <= s, the "
       "bound the manuscript reads off first")
 
-# ---------------------------------------------------------------- W8  lint
+# ---------------------------------------------------------------- W8  the H interface
+def Hop(u, s):
+    """H(u) = i^{b.a} W(u), as an exact Gaussian-integer matrix (entries in Z[i])."""
+    ph = 1j if dot(u[s:], u[:s]) else 1
+    return [[ph * v for v in row] for row in W(u, s)]
+
+
+ok8 = True
+nontrivial = 0
+for s in (1, 2):
+    d = 2 ** s
+    ident = [[1 if i == j else 0 for j in range(d)] for i in range(d)]
+    for u in phase_space(s):
+        Hu = Hop(u, s)
+        ok8 &= eq(dagger_c(Hu), Hu)                       # Hermitian
+        ok8 &= eq(mat_mul(Hu, Hu), ident)                 # an involution
+        if dot(u[s:], u[:s]):
+            nontrivial += 1
+            # and W itself is NOT Hermitian there, so the phase is doing work
+            ok8 &= not eq(dagger_c(W(u, s)), W(u, s))
+        for v in phase_space(s):
+            if omega(u, v, s) == 0:
+                ok8 &= eq(mat_mul(Hu, Hop(v, s)), mat_mul(Hop(v, s), Hu))
+check("W8", ok8,
+      f"THE SELF-ADJOINT NORMALIZATION. H(u) = i^{{b.a}} W(u) is Hermitian and squares to the "
+      f"identity at every one of the 4 + 16 phase-space points, and any two with omega = 0 commute "
+      f"-- so an isotropic subspace supplies a commuting family of self-adjoint involutions, which "
+      f"is the input a joint-eigenspace decomposition wants. At the {nontrivial} points where "
+      f"b.a = 1 the bare W is NOT Hermitian, so the phase is load-bearing rather than cosmetic. "
+      f"W keeps its real-sign convention; H is a separate interface, which is why the twirl above "
+      f"is unaffected")
+
+# ---------------------------------------------------------------- W9  lint
 src = open(os.path.join(BRIDGE, 'OIBridge', 'WeylTwirl.lean'), encoding='utf-8').read()
 root = open(os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
 body = re.sub(r'(?m)--.*$', '', re.sub(r'/-.*?-/', '', src, flags=re.S))
 NAMES = ('W_mul', 'W_conjTranspose', 'W_conj', 'W_commute_iff', 'isotropic_iff_commute',
-         'char_sum', 'twirl_W')
-ok8 = 'import OIBridge.WeylTwirl' in root
-ok8 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', body) is None
-ok8 &= re.search(r'(?m)^axiom ', body) is None
-ok8 &= all(f'theorem {n}' in src for n in NAMES)
-ok8 &= all(f'#print axioms {n}' in src for n in NAMES)
-ok8 &= 'native_decide' not in body
+         'char_sum', 'twirl_W', 'H_conjTranspose', 'H_mul_self', 'H_commute')
+ok9 = 'import OIBridge.WeylTwirl' in root
+ok9 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', body) is None
+ok9 &= re.search(r'(?m)^axiom ', body) is None
+ok9 &= all(f'theorem {n}' in src for n in NAMES)
+ok9 &= all(f'#print axioms {n}' in src for n in NAMES)
+ok9 &= 'native_decide' not in body
 # G MUST BE A SUBMODULE, not a Pauli subgroup, and the twirl identity must be the pointwise one
-ok8 &= 'G : Submodule (ZMod 2) (PS s)' in src
+ok9 &= 'G : Submodule (ZMod 2) (PS s)' in src
 tw = src[src.index('theorem twirl_W'):]
-ok8 &= 'twirl G (W v) = if v ∈ perp G then W v else 0' in tw[:tw.index(':= by')]
+ok9 &= 'twirl G (W v) = if v ∈ perp G then W v else 0' in tw[:tw.index(':= by')]
 # NO WITT, NO CLIFFORD -- the route the file claims to avoid must actually be absent
 for banned in ('Witt', 'Clifford', 'witt', 'clifford'):
-    ok8 &= banned not in body
-ok8 &= 'NO WITT, NO CLIFFORD' in src            # and the claim is made in the header
+    ok9 &= banned not in body
+ok9 &= 'NO WITT, NO CLIFFORD' in src            # and the claim is made in the header
 # isotropy must be stated on the form, with the commutation bridge proved rather than assumed
-ok8 &= 'def Isotropic : Prop := ∀ u ∈ G, ∀ v ∈ G, omega u v = 0' in src
+ok9 &= 'def Isotropic : Prop := ∀ u ∈ G, ∀ v ∈ G, omega u v = 0' in src
 ic = src[src.index('theorem isotropic_iff_commute'):]
-ok8 &= 'W u * W v = W v * W u' in ic[:ic.index(':=')]
-check("W8", ok8,
+ok9 &= 'W u * W v = W v * W u' in ic[:ic.index(':=')]
+check("W9", ok9,
       f"LINT. The file is imported by OIBridge.lean so CI builds it; no `sorry`, no `axiom`, no "
       f"`native_decide`; all {len(NAMES)} named results print their axiom dependencies. G is a "
       f"`Submodule (ZMod 2) (PS s)` — an isotropic subspace, not a phase-sensitive Pauli subgroup — "
