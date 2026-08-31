@@ -85,6 +85,7 @@ import OIBridge.ThermalOrientation
 import OIBridge.ShellAssignment
 import OIBridge.CoherentLift
 import OIBridge.TwoByTwoNoGo
+import OIBridge.AccessibleAlgebra
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

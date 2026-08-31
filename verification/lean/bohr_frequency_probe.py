@@ -1414,6 +1414,265 @@ check("F16", ok16,
       "intertwining_all_horizons, intertwining_comb_compatible -- C1 in its final "
       "algebraic form)")
 
+# ----------------------- F17  the accessible-algebra commutant census (phase three, round 5)
+# The generated accessible algebra A_OI = alg*({P_j x I}, {U_t (M x I) U_t^H}) has trivial
+# commutant iff Z commuting with the full-time Heisenberg orbit is scalar.  With distinct
+# gaps the fibers are singletons and the commutant equations on W = V^H Z V are EXACT:
+#   entry (r,s), frequency E_b - E_a (a != b):  [a=r] N_ab W_bs - [b=s] W_ra N_as = 0
+#   entry (r,s), frequency 0:                   W_rs (N_rr - N_ss) = 0
+# with N = V^H (M x I) V (kernel: gap_coefficient_vanish + dyad_conjugation +
+# accessible_trivial_commutant).  This census computes exact commutant dimensions across
+# carriers x menus, cross-checked by float time-sampling.
+ok17 = True
+
+class C17:
+    __slots__ = ('re', 'im')
+    def __init__(s, re=0, im=0):
+        s.re = Frac(re); s.im = Frac(im)
+    def __add__(s, o): return C17(s.re + o.re, s.im + o.im)
+    def __sub__(s, o): return C17(s.re - o.re, s.im - o.im)
+    def __mul__(s, o): return C17(s.re * o.re - s.im * o.im, s.re * o.im + s.im * o.re)
+    def conj(s): return C17(s.re, -s.im)
+    def __eq__(s, o): return s.re == o.re and s.im == o.im
+    def z(s): return s.re == 0 and s.im == 0
+    def inv(s):
+        d = s.re * s.re + s.im * s.im
+        return C17(s.re / d, -s.im / d)
+    def f(s): return complex(s.re, s.im)
+
+CZ17, CO17 = C17(0), C17(1)
+
+def mmc17(A, B):
+    return [[sum((A[i][k] * B[k][j] for k in range(len(B))), CZ17)
+             for j in range(len(B[0]))] for i in range(len(A))]
+
+def dag17(A):
+    return [[A[j][i].conj() for j in range(len(A))] for i in range(len(A[0]))]
+
+def kr17(A, B):
+    ra, ca, rb, cb = len(A), len(A[0]), len(B), len(B[0])
+    return [[A[i // rb][j // cb] * B[i % rb][j % cb]
+             for j in range(ca * cb)] for i in range(ra * rb)]
+
+def eye17(n): return [[CO17 if i == j else CZ17 for j in range(n)] for i in range(n)]
+
+def rank17(rows):
+    rows = [r[:] for r in rows if any(not x.z() for x in r)]
+    nc = len(rows[0]) if rows else 0
+    rk, piv = 0, 0
+    while piv < nc and rk < len(rows):
+        sel = next((i for i in range(rk, len(rows)) if not rows[i][piv].z()), None)
+        if sel is None:
+            piv += 1
+            continue
+        rows[rk], rows[sel] = rows[sel], rows[rk]
+        iv = rows[rk][piv].inv()
+        rows[rk] = [x * iv for x in rows[rk]]
+        for i in range(len(rows)):
+            if i != rk and not rows[i][piv].z():
+                f = rows[i][piv]
+                rows[i] = [rows[i][j] - f * rows[rk][j] for j in range(nc)]
+        rk += 1
+        piv += 1
+    return rk
+
+def nulsp17(rows, nc):
+    rows = [r[:] for r in rows if any(not x.z() for x in r)]
+    rk, piv, pivots = 0, 0, []
+    while piv < nc and rk < len(rows):
+        sel = next((i for i in range(rk, len(rows)) if not rows[i][piv].z()), None)
+        if sel is None:
+            piv += 1
+            continue
+        rows[rk], rows[sel] = rows[sel], rows[rk]
+        iv = rows[rk][piv].inv()
+        rows[rk] = [x * iv for x in rows[rk]]
+        for i in range(len(rows)):
+            if i != rk and not rows[i][piv].z():
+                f = rows[i][piv]
+                rows[i] = [rows[i][j] - f * rows[rk][j] for j in range(nc)]
+        pivots.append(piv)
+        rk += 1
+        piv += 1
+    basis = []
+    for fc in (j for j in range(nc) if j not in pivots):
+        v = [CZ17] * nc
+        v[fc] = CO17
+        for r, pc in enumerate(pivots):
+            v[pc] = CZ17 - rows[r][fc]
+        basis.append(v)
+    return basis
+
+def comm_dim17(V, E, Ms, D, da, want_basis=False):
+    # distinct-gap sanity, then the fiber equations on W
+    diffs = set()
+    for a in range(D):
+        for b in range(D):
+            if a != b:
+                d = E[b] - E[a]
+                assert d != 0 and d not in diffs
+                diffs.add(d)
+    Vh = dag17(V)
+    rows = []
+    for M in Ms:
+        N = mmc17(mmc17(Vh, kr17(M, eye17(da))), V)
+        for r in range(D):
+            for s in range(D):
+                row = [CZ17] * (D * D)
+                row[r * D + s] = N[r][r] - N[s][s]
+                rows.append(row)
+                for a in range(D):
+                    for b in range(D):
+                        if a == b:
+                            continue
+                        row = [CZ17] * (D * D)
+                        if a == r:
+                            row[b * D + s] = row[b * D + s] + N[r][b]
+                        if b == s:
+                            row[r * D + a] = row[r * D + a] - N[a][s]
+                        if any(not x.z() for x in row):
+                            rows.append(row)
+    if want_basis:
+        return D * D - rank17(rows), nulsp17(rows, D * D)
+    return D * D - rank17(rows)
+
+def fdim17(V, E, Ms, D, da, nts=9):
+    # float cross-check: stack [U_t (M x I) U_t^H, Z] = 0 over sampled times
+    rows = []
+    for M in Ms:
+        A = np.kron(np.array([[x.f() for x in r] for r in M]), np.eye(da))
+        Vf = np.array([[x.f() for x in r] for r in V])
+        for k in range(nts):
+            t = 0.37 + 1.113 * k
+            U = Vf @ np.diag(np.exp(-1j * np.array([float(e) for e in E]) * t)) @ Vf.conj().T
+            B = U @ A @ U.conj().T
+            for r in range(D):
+                for s in range(D):
+                    row = np.zeros(D * D, complex)
+                    for p in range(D):
+                        row[p * D + s] += B[r, p]
+                        row[r * D + p] -= B[p, s]
+                    rows.append(row)
+    return D * D - np.linalg.matrix_rank(np.array(rows), tol=1e-8)
+
+def giv17(D, i, j, c, s):
+    G = eye17(D)
+    G[i][i], G[i][j] = C17(c), C17(-s)
+    G[j][i], G[j][j] = C17(s), C17(c)
+    return G
+
+def menus17(dv):
+    nat = [[[CO17 if (r == c == i) else CZ17 for c in range(dv)] for r in range(dv)]
+           for i in range(dv)]
+    Gr = eye17(dv)                      # a DENSE rotation: chained Givens over all pairs
+    for k in range(dv - 1):
+        cs = (Frac(3, 5), Frac(4, 5)) if k % 2 == 0 else (Frac(5, 13), Frac(12, 13))
+        Gr = mmc17(Gr, giv17(dv, k, k + 1, *cs))
+    real = [mmc17(mmc17(dag17(Gr), P), Gr) for P in nat]
+    Ph = eye17(dv)
+    Ph[1][1] = C17(0, 1)
+    gc = mmc17(Gr, Ph)
+    cplx = [mmc17(mmc17(dag17(gc), P), gc) for P in nat]
+    return nat, real, cplx
+
+def complete17(V, E, Ms, D, da):
+    # the Lean hypothesis hcomplete: every off-diagonal eigenpair visible to some menu element
+    Vh = dag17(V)
+    Ns = [mmc17(mmc17(Vh, kr17(M, eye17(da))), V) for M in Ms]
+    return all(any(not N[a][b].z() for N in Ns)
+               for a in range(D) for b in range(D) if a != b)
+
+E17 = [Frac(0), Frac(1), Frac(3), Frac(7)]
+# (a) the (2,2) no-go carrier: native menu ALREADY generates (dim 1, no probe needed)
+V22 = mmc17(mmc17(giv17(4, 0, 2, Frac(3, 5), Frac(4, 5)),
+                  giv17(4, 2, 3, Frac(5, 13), Frac(12, 13))),
+            giv17(4, 0, 1, Frac(3, 5), Frac(4, 5)))
+nat2, real2, cplx2 = menus17(2)
+for Ms in (nat2, nat2 + real2, nat2 + cplx2):
+    ok17 &= comm_dim17(V22, E17, Ms, 4, 2) == 1
+    ok17 &= fdim17(V22, E17, Ms, 4, 2) == 1
+ok17 &= complete17(V22, E17, nat2, 4, 2)          # hcomplete holds natively
+# (b) the Fourier carrier (n = 4 visible, Gaussian-rational): same verdict
+i4 = [CO17, C17(0, 1), C17(-1), C17(0, -1)]
+VF = [[i4[(i * k) % 4] * C17(Frac(1, 2)) for k in range(4)] for i in range(4)]
+nat4 = menus17(4)[0]
+ok17 &= comm_dim17(VF, E17, nat4, 4, 1) == 1 and complete17(VF, E17, nat4, 4, 1)
+# (c) the decoupled carrier: EVERY visible-local menu is defeated (kernel countercontrol:
+# decoupled_carrier_commutes + ancillaPhase_not_scalar); the surviving commutant is
+# exactly the ancilla phases diagonal(y o snd)
+VP = kr17(giv17(2, 0, 1, Frac(3, 5), Frac(4, 5)), eye17(2))
+for Ms in (nat2, nat2 + real2, nat2 + cplx2):
+    ok17 &= comm_dim17(VP, E17, Ms, 4, 2) == 2
+dimP, basP = comm_dim17(VP, E17, nat2 + cplx2, 4, 2, want_basis=True)
+ok17 &= dimP == 2
+for v in basP:
+    W = [[v[b * 4 + s] for s in range(4)] for b in range(4)]
+    Z = mmc17(mmc17(VP, W), dag17(VP))
+    ok17 &= all(Z[p][q].z() for p in range(4) for q in range(4) if p != q)
+    ok17 &= Z[0][0] == Z[2][2] and Z[1][1] == Z[3][3]   # y depends on the ancilla only
+# hdec: every eigencolumn of VP lives in one ancilla sector (the Lean hypothesis)
+ok17 &= all(len({p % 2 for p in range(4) if not VP[p][k].z()}) == 1 for k in range(4))
+# (d) the blind stratum at (3,2): two product eigenvectors sharing an ancilla state make
+# the NATIVE menu incomplete (commutant dim 3 > 1); a probe with visible off-diagonal
+# support restores completeness and generation (kernel: complexProbe_trivialCommutant)
+E6 = [Frac(0), Frac(1), Frac(3), Frac(7), Frac(12), Frac(20)]
+W4 = mmc17(mmc17(giv17(4, 0, 1, Frac(3, 5), Frac(4, 5)),
+                 giv17(4, 2, 3, Frac(5, 13), Frac(12, 13))),
+           mmc17(giv17(4, 0, 2, Frac(3, 5), Frac(4, 5)),
+                 giv17(4, 1, 3, Frac(4, 5), Frac(3, 5))))
+ok17 &= all(not W4[i][j].z() for i in range(4) for j in range(4))
+V32 = [[CZ17] * 6 for _ in range(6)]
+V32[0][0] = CO17                                   # v0 = e0 x a0   (row 2i+a)
+V32[2][1] = CO17                                   # v1 = e1 x a0
+rows4 = [4, 1, 3, 5]                               # span{e2xa0, e0xa1, e1xa1, e2xa1}
+for r in range(4):
+    for c in range(4):
+        V32[rows4[r]][2 + c] = W4[r][c]
+nat3, real3, cplx3 = menus17(3)
+dnat = comm_dim17(V32, E6, nat3, 6, 2)
+dreal = comm_dim17(V32, E6, nat3 + real3, 6, 2)
+dcplx = comm_dim17(V32, E6, nat3 + cplx3, 6, 2)
+ok17 &= dnat == 3 and dreal == 1 and dcplx == 1
+ok17 &= (not complete17(V32, E6, nat3, 6, 2)) and complete17(V32, E6, nat3 + real3, 6, 2)
+ok17 &= fdim17(V32, E6, nat3, 6, 2) == 3 and fdim17(V32, E6, nat3 + real3, 6, 2) == 1
+# (e) the antilinear residue: for a real carrier the eigenbasis coefficient tensor of
+# every real response is REAL, so conjugation carries the accessible family to the
+# reflected-spectrum family (kernel: real_menu_conjugation_stable); the complex probe's
+# response is Hermitian but NOT conjugation-fixed (kernel: probeG_unitary,
+# probeResp_is_probe_response, complexProbe_breaks_conjugation)
+for M in nat2 + real2:
+    N = mmc17(mmc17(dag17(V22), kr17(M, eye17(2))), V22)
+    ok17 &= all(N[a][b].im == 0 for a in range(4) for b in range(4))
+Ph2 = eye17(2)
+Ph2[1][1] = C17(0, 1)
+gC = mmc17(giv17(2, 0, 1, Frac(3, 5), Frac(4, 5)), Ph2)
+ok17 &= mmc17(dag17(gC), gC) == eye17(2)
+respC = mmc17(mmc17(dag17(gC), [[CO17, CZ17], [CZ17, CZ17]]), gC)
+ok17 &= respC == [[C17(Frac(9, 25)), C17(0, Frac(-12, 25))],
+                  [C17(0, Frac(12, 25)), C17(Frac(16, 25))]]
+ok17 &= dag17(respC) == respC                       # Hermitian: a genuine readout response
+ok17 &= [[x.conj() for x in r] for r in respC] != respC   # but not conjugation-fixed
+check("F17", ok17,
+      "THE ACCESSIBLE-ALGEBRA COMMUTANT CENSUS (phase three, round five; kernel: "
+      "gap_coefficient_vanish, dyad_conjugation, accessible_trivial_commutant, "
+      "native_menu_generates, complexProbe_trivialCommutant in "
+      "OIBridge/AccessibleAlgebra.lean). Exact fiber-equation commutants, float "
+      "time-sampling agreeing everywhere: (a) on the aligned (2,2) no-go carrier and "
+      "(b) the Fourier carrier the NATIVE block readouts already have commutant "
+      "dimension 1 -- readout completeness = generation, no probe needed, DEVIATING "
+      "from the round's expectation that removing the complex probe leaves a nontrivial "
+      "linear commutant; (c) on the sector-decoupled carrier every visible-local menu "
+      "-- complex probe included -- leaves the exact ancilla-phase commutant "
+      "diagonal(y o snd) (dim 2; kernel countercontrol decoupled_carrier_commutes + "
+      "ancillaPhase_not_scalar): generation is carrier ALIGNMENT, not menu size; "
+      "(d) the blind stratum at (3,2): two product eigenvectors sharing an ancilla "
+      "state leave the native commutant at dim 3, and one rotated probe restores "
+      "completeness and dim 1 -- the probe's genuine C3a role; (e) the ZZ_2 residue is "
+      "ANTILINEAR: real responses have real eigenbasis tensors (conjugation maps the "
+      "accessible family to the reflected spectrum), while the unitary complex probe's "
+      "Hermitian response is not conjugation-fixed -- the complex probe orients, it "
+      "does not generate")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

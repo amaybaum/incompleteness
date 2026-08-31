@@ -392,6 +392,15 @@ for fname, names in (
                       'intertwining_comb_compatible')),
     ('TwoByTwoNoGo', ('twoByTwo_affine_rigidity', 'twoByTwo_nonCP',
                       'twoByTwo_no_local_lift')),
+    ('AccessibleAlgebra', ('gap_coefficient_vanish', 'dyad_conjugation',
+                           'dyad_conjugation_apply', 'accessible_trivial_commutant',
+                           'native_menu_generates', 'complexProbe_trivialCommutant',
+                           'vlift_ancillaBlockDiagonal', 'ancillaBlockDiagonal_mul',
+                           'umat_ancillaBlockDiagonal', 'decoupled_carrier_commutes',
+                           'ancillaPhase_not_scalar', 'conjOp_mul', 'conjOp_vlift',
+                           'real_menu_conjugation_stable', 'probeG_unitary',
+                           'probeResp_is_probe_response',
+                           'complexProbe_breaks_conjugation')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -431,8 +440,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All twelve files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 5 + 16 named results print their "
+      "LINT. All thirteen files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
