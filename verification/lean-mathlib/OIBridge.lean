@@ -92,6 +92,7 @@ import OIBridge.OrientationSelection
 import OIBridge.OrientationClosure
 import OIBridge.CycleFibreHull
 import OIBridge.DynamicsGlue
+import OIBridge.DomainGlue
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

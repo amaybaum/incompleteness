@@ -2529,6 +2529,152 @@ check("F24", ok24,
       "force SRC; diagonal-sector dynamics glue does. THE AUDIT QUESTION IS NOW ONE "
       "LINE: does OI require G1, or only G0?")
 
+# ----------------------- F25  the domain span: G1 earned, not chosen (phase three, round 14)
+# G_D (CompatibilityDomainGlue): the coherent lift intertwines the state dynamics only on
+# the classical branch domain -- the closure of the shell ensemble under reversible
+# evolution and visible branch selection, exactly the preparations of the corpus's own
+# classical trajectory fold.  (a) the F22 shell cut is ITINERARY-SEPARATING: the 14
+# visible itineraries are pairwise distinct; (b) the branch-evolve closure of the shell
+# ensemble reaches every singleton indicator and spans the full 14-dim diagonal algebra
+# exactly; (c) hence any U satisfying the domain glue satisfies it on every indicator
+# and the monomial forcing applies -- verified on the phased cycle; (d) countercontrol:
+# a label-symmetric 4-cycle (labels 0,1,0,1) is NOT itinerary-separating, its domain
+# closure spans only 2 of 4 dimensions, and an explicitly non-monomial unitary satisfies
+# the domain glue on the whole closure -- the separation property is load-bearing.
+ok25 = True
+# (a) itinerary separation on the 14-shell
+words25 = []
+for s in sh24:
+    t, word = s, []
+    for _ in range(14):
+        word.append(t[0])
+        t = phi22[t]
+    words25.append(tuple(word))
+ok25 &= len(set(words25)) == 14
+# (b) branch-evolve closure: exact span over Q
+def rankQ25(rows):
+    rows = [r[:] for r in rows if any(x != 0 for x in r)]
+    rk, piv, nc = 0, 0, 14
+    while piv < nc and rk < len(rows):
+        sel = next((i for i in range(rk, len(rows)) if rows[i][piv] != 0), None)
+        if sel is None:
+            piv += 1
+            continue
+        rows[rk], rows[sel] = rows[sel], rows[rk]
+        iv = rows[rk][piv]
+        rows[rk] = [x / iv for x in rows[rk]]
+        for i in range(len(rows)):
+            if i != rk and rows[i][piv] != 0:
+                c = rows[i][piv]
+                rows[i] = [a - c * b for a, b in zip(rows[i], rows[rk])]
+        rk += 1
+        piv += 1
+    return rk
+
+# the singleton indicators are constructed BY the domain operations themselves,
+# mirroring the kernel proof: u_{T+1} = branch_{c 0}(evolve(u_T shifted))
+def evolve25(w):
+    return tuple(w[pos25[phi22[sh24[k]]]] for k in range(14))
+
+def branch25(i, w):
+    return tuple(w[k] if sh24[k][0] == i else Frac(0) for k in range(14))
+
+pos25 = {s: k for k, s in enumerate(sh24)}
+built25 = set()
+
+def itiInd25b(word):
+    if not word:
+        w = tuple([Frac(1)] * 14)
+    else:
+        w = branch25(word[0], evolve25(itiInd25b(word[1:])))
+    built25.add(w)
+    return w
+
+for k0, s in enumerate(sh24):
+    ind = itiInd25b(list(words25[k0]))
+    ok25 &= ind == tuple(Frac(1) if k == k0 else Frac(0) for k in range(14))
+ok25 &= rankQ25([list(v) for v in built25]) == 14
+# (d) countercontrol: 4-cycle, labels (0,1,0,1) -- NOT separating, span 2, and a
+# non-monomial unitary satisfies the glue on the whole closure
+phi4 = [1, 2, 3, 0]
+lab4 = [0, 1, 0, 1]
+w4 = []
+for s0 in range(4):
+    t, word = s0, []
+    for _ in range(4):
+        word.append(lab4[t])
+        t = phi4[t]
+    w4.append(tuple(word))
+ok25 &= len(set(w4)) == 2                                  # itineraries collide
+seen4 = set()
+front4 = [tuple([Frac(1)] * 4)]
+seen4.add(front4[0])
+while front4:
+    w = front4.pop()
+    ev = tuple(w[phi4[k]] for k in range(4))
+    outs = [ev] + [tuple(w[k] if lab4[k] == i else Frac(0) for k in range(4))
+                   for i in range(2)]
+    for o in outs:
+        if o not in seen4:
+            seen4.add(o)
+            front4.append(o)
+def rankQ4(rows):
+    rows = [list(r) for r in rows if any(x != 0 for x in r)]
+    rk, piv = 0, 0
+    while piv < 4 and rk < len(rows):
+        sel = next((i for i in range(rk, len(rows)) if rows[i][piv] != 0), None)
+        if sel is None:
+            piv += 1
+            continue
+        rows[rk], rows[sel] = rows[sel], rows[rk]
+        iv = rows[rk][piv]
+        rows[rk] = [x / iv for x in rows[rk]]
+        for i in range(len(rows)):
+            if i != rk and rows[i][piv] != 0:
+                c = rows[i][piv]
+                rows[i] = [a - c * b for a, b in zip(rows[i], rows[rk])]
+        rk += 1
+        piv += 1
+    return rk
+ok25 &= rankQ4(seen4) == 2                                 # proper subspace
+P4 = [[CO17 if phi4[c] == r else CZ17 for c in range(4)] for r in range(4)]
+R4 = [[C17(Frac(3, 5)) if (r, c) in ((0, 0), (2, 2)) else
+       C17(Frac(-4, 5)) if (r, c) == (0, 2) else
+       C17(Frac(4, 5)) if (r, c) == (2, 0) else
+       C17(Frac(5, 13)) if (r, c) in ((1, 1), (3, 3)) else
+       C17(Frac(-12, 13)) if (r, c) == (1, 3) else
+       C17(Frac(12, 13)) if (r, c) == (3, 1) else CZ17 for c in range(4)]
+      for r in range(4)]
+U4 = mmc17(P4, R4)
+ok25 &= mmc17(U4, dag17(U4)) == eye17(4)
+ok25 &= any(sum(1 for r in range(4) if not U4[r][c].z()) >= 2 for c in range(4))
+for w in seen4:                                            # glue on the WHOLE closure
+    dw = [[C17(w[r]) if r == c else CZ17 for c in range(4)] for r in range(4)]
+    ok25 &= mmc17(mmc17(U4, dw), dag17(U4)) == mmc17(mmc17(P4, dw), dag17(P4))
+check("F25", ok25,
+      "THE DOMAIN SPAN: G1 EARNED, NOT CHOSEN (phase three, round fourteen; kernel: "
+      "CompatibilityDomainGlue, ClassicalBranchDomain, ItinerarySeparating, "
+      "itiIndicator, spanning_domain_glue_implies_G1, itiIndicator_mem, "
+      "separating_singleton_mem, separating_domain_span_top, "
+      "classicalBranch_glue_forces_G1, classicalBranch_glue_forces_monomial, "
+      "ergodicShell_SRC_of_domainGlue in OIBridge/DomainGlue.lean). The domain-relative "
+      "glue G_D asks intertwining only on the classical branch domain -- the closure of "
+      "the shell ensemble under reversible evolution and visible branch selection, "
+      "exactly the preparations of the corpus's own classical trajectory fold. (a) the "
+      "F22 shell cut IS itinerary-separating: all 14 visible itineraries are pairwise "
+      "distinct; (b) the branch-evolve closure reaches every singleton indicator "
+      "literally and spans the full 14-dimensional diagonal algebra exactly (rank "
+      "14/14 over Q), so by the linearity bridge G_D implies full G1 there, the "
+      "monomial forcing fires, and ergodicShell_SRC_of_domainGlue closes physical-flow "
+      "SRC from OI compatibility + observability + ergodicity -- G1 is derived from "
+      "the corpus's own preparations, not postulated; (c) countercontrol: the "
+      "label-symmetric 4-cycle (labels 0,1,0,1) is NOT separating -- itineraries "
+      "collide pairwise, the closure spans only 2/4 dimensions, and an explicitly "
+      "non-monomial unitary (a phased pair rotation) satisfies the domain glue on the "
+      "ENTIRE closure: itinerary separation is the load-bearing hypothesis, and where "
+      "it fails the F22 underdetermination is genuine. The existence question is now: "
+      "is the actual observer cut itinerary-separating?")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
