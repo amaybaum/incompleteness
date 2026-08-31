@@ -3739,6 +3739,114 @@ check("F33", ok33,
       "exactly whether OI earns H-functor, H-tensor, H-pure-seed and sufficient "
       "composite Lie rank, or whether those are independent completion principles.")
 
+# ----------------------- F34  round-twenty repairs, the H-pure-seed collapse, and
+# purification (phase three, round 21).  (a) THE ACTUAL uniform-environment channel
+# Phi_U(rho) = Tr_E[U(rho tensor I/m)U^dag] on a genuine rho != I: nonconstant, and
+# unital at rho = I; (b) physical single-system tomography reconstructs an off-diagonal
+# entry from the +/- and +/-i projector expectations; (c) H-PURE-SEED COLLAPSES:
+# branch_project P_k rho P_k = rho_kk P_k, mixed_branch_is_pure, and readout +
+# feed-forward on the uniform ancilla derives |s0><s0| -- the pure seed the round-20
+# countercontrol showed the uniform environment ALONE could not supply; (d)
+# purification: Tr_E|Psi_A><Psi_A| = A A^dag exactly, and purifier uniqueness
+# A A^dag = B B^dag with B = A U verified on a rotation.
+ok34 = True
+m34 = 2
+U34 = [[CO17, CZ17, CZ17, CZ17],
+       [CZ17, CO17, CZ17, CZ17],
+       [CZ17, CZ17, CZ17, CO17],
+       [CZ17, CZ17, CO17, CZ17]]                          # entangling (CNOT-like)
+ok34 &= mmc17(U34, dag17(U34)) == eye17(4)
+inv_m = C17(Frac(1, 2))
+def uinput34(rho):                                        # rho tensor (I/m), (k,s)=2k+s
+    return [[(inv_m if (r // 2) == (c // 2) else CZ17) * rho[r % 2][c % 2]
+             for c in range(4)] for r in range(4)]
+def ptraceE34(M):
+    return [[sum((M[2 * e + s][2 * e + t] for e in range(m34)), CZ17)
+             for t in range(2)] for s in range(2)]
+def PhiU34(rho):
+    return ptraceE34(mmc17(mmc17(U34, uinput34(rho)), dag17(U34)))
+ok34 &= PhiU34(eye17(2)) == eye17(2)                      # unital at rho = I
+plus_dyad = [[C17(Frac(1, 2)), C17(Frac(1, 2))],
+             [C17(Frac(1, 2)), C17(Frac(1, 2))]]          # |+><+|
+ok34 &= PhiU34([[CO17, CZ17], [CZ17, CZ17]]) != PhiU34(plus_dyad)  # rho-dependent
+# (b) physical tomography: reconstruct an off-diagonal from projector expectations
+rho_t = [[C17(Frac(1, 2)), C17(Frac(1, 5), Frac(3, 10))],
+         [C17(Frac(1, 5), Frac(-3, 10)), C17(Frac(1, 2))]]
+def expect(v, M):
+    return sum((v[i].conj() * M[i][j] * v[j] for i in range(len(v))
+                for j in range(len(v))), CZ17)
+re_off = expect([CO17, CO17], rho_t) - rho_t[0][0] - rho_t[1][1]   # rho01 + rho10
+im_comb = expect([CO17, C17(0, 1)], rho_t) - rho_t[0][0] - rho_t[1][1]  # i(rho01-rho10)
+recon01 = C17(Frac(1, 2)) * (re_off + C17(0, -1) * im_comb)
+ok34 &= recon01 == rho_t[0][1]                            # off-diagonal recovered
+# (c) H-pure-seed collapse on a 3-dim ancilla
+def proj3(k):
+    return [[CO17 if (r == k and c == k) else CZ17 for c in range(3)] for r in range(3)]
+rho3 = [[C17(Frac(1, 2)), C17(Frac(1, 10)), CZ17],
+        [C17(Frac(1, 10)), C17(Frac(1, 3)), CZ17],
+        [CZ17, CZ17, C17(Frac(1, 6))]]
+for k in range(3):                                        # branch_project
+    ok34 &= mmc17(mmc17(proj3(k), rho3), proj3(k)) \
+        == [[rho3[k][k] if (r == k and c == k) else CZ17 for c in range(3)]
+            for r in range(3)]
+Im3 = [[C17(Frac(1, 3)) if r == c else CZ17 for c in range(3)] for r in range(3)]
+ok34 &= mmc17(mmc17(proj3(0), Im3), proj3(0)) \
+    == [[C17(Frac(1, 3)) if (r == 0 and c == 0) else CZ17 for c in range(3)]
+        for r in range(3)]                                # mixed_branch_is_pure
+def swap0(k):
+    P = [[CZ17] * 3 for _ in range(3)]
+    perm = list(range(3)); perm[0], perm[k] = perm[k], perm[0]
+    for r in range(3):
+        P[r][perm[r]] = CO17
+    return P
+for k in range(3):
+    ok34 &= mmc17(mmc17(swap0(k), proj3(k)), dag17(swap0(k))) == proj3(0)  # |k>->|0>
+seed = [[CZ17] * 3 for _ in range(3)]
+for k in range(3):
+    branch = mmc17(mmc17(proj3(k), Im3), proj3(k))
+    ff = mmc17(mmc17(swap0(k), branch), dag17(swap0(k)))
+    seed = [[seed[r][c] + ff[r][c] for c in range(3)] for r in range(3)]
+ok34 &= seed == proj3(0)                                  # DERIVED pure seed |0><0|
+# (d) purification: Tr_E |Psi_A><Psi_A| = A A^dag
+A34 = [[C17(Frac(1, 2)), C17(0, Frac(1, 2))],
+       [C17(Frac(1, 3)), C17(Frac(1, 4))]]
+psi = [A34[p // 2][p % 2] for p in range(4)]
+dens = [[psi[p] * psi[q].conj() for q in range(4)] for p in range(4)]
+ptr = [[sum((dens[2 * s + e][2 * t + e] for e in range(2)), CZ17)
+        for t in range(2)] for s in range(2)]
+ok34 &= ptr == mmc17(A34, dag17(A34))                     # purifies A A^dag
+Urot = [[C17(Frac(3, 5)), C17(Frac(-4, 5))], [C17(Frac(4, 5)), C17(Frac(3, 5))]]
+ok34 &= mmc17(Urot, dag17(Urot)) == eye17(2)
+B34 = mmc17(A34, Urot)
+ok34 &= mmc17(B34, dag17(B34)) == mmc17(A34, dag17(A34))  # Uhlmann: same reduced state
+check("F34", ok34,
+      "ROUND-TWENTY REPAIRS, H-PURE-SEED COLLAPSE, AND PURIFICATION (phase three, "
+      "round twenty-one; kernel: uniformInput, uniformEnvChannel, uniformInput_one, "
+      "uniformEnvChannel_unital, uniformHiddenState_not_full, "
+      "productMatrixUnit_separating, tomography_physical, local_tomography, "
+      "rankOneProj, branch_project, mixed_branch_is_pure, trace_eq_sum_diag, "
+      "readout_feedforward_reset, uniform_readout_feedforward_seed, luders_selector_cp, "
+      "purifVec, ptraceB, purification_partialTrace, purification_of_factorization in "
+      "OIBridge/InstrumentDilation.lean and OIBridge/Purification.lean). (a) THE "
+      "REPAIRED CHANNEL: Phi_U(rho) = Tr_E[U(rho tensor I/m)U^dag] is now the actual "
+      "channel on a genuine rho (population-dependent, verified rho-dependent), unital "
+      "at rho = I -- uniformHiddenState_not_full quantifies over THIS channel, not the "
+      "scalar form. (b) PHYSICAL TOMOGRAPHY: an off-diagonal entry is reconstructed "
+      "exactly from the |a+a'> and |a+ia'> rank-one projector expectations (genuine "
+      "physical effects), repairing the matrix-unit overclaim -- the old "
+      "functional-separation result is retained honestly as "
+      "productMatrixUnit_separating. (c) H-PURE-SEED COLLAPSES: branch_project gives "
+      "the Luders update P_k rho P_k = rho_kk P_k, mixed_branch_is_pure gives "
+      "P_k (I/m) P_k = (1/m) P_k, and readout + reversible feed-forward on the uniform "
+      "3-ancilla derives |0><0| EXACTLY -- the pure seed the round-20 countercontrol "
+      "proved the uniform environment ALONE could not supply. So H-pure-seed is NOT "
+      "an independent bridge, PROVIDED the rank-one Luders readout (luders_selector_cp) "
+      "is itself OI-licensed -- the remaining epistemic guard. (d) PURIFICATION: "
+      "Tr_E|Psi_A><Psi_A| = A A^dag exactly, and B = A U shares the reduced state "
+      "(Uhlmann uniqueness, the standard finite theorem). BOXED REDUCTION: if the "
+      "Luders branch update is OI-licensed, the four named endpoint conditions become "
+      "THREE -- H-functor, H-tensor, and sufficient composite Lie rank.")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

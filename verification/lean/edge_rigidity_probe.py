@@ -528,10 +528,16 @@ for fname, names in (
     ('InstrumentDilation', ('krausInstrument_isometry', 'dilation_sysBlock',
                             'instrument_coarsegrain',
                             'finiteInstrument_of_ancillaControl',
-                            'uniform_input_scalar', 'uniformEnvChannel_unital',
+                            'uniformInput_one', 'uniformEnvChannel_unital',
                             'resetChannel_not_unital', 'uniformHiddenState_not_full',
                             'tensorProduct_entry', 'localEffect_trace',
+                            'productMatrixUnit_separating', 'tomography_physical',
                             'local_tomography')),
+    ('Purification', ('branch_project', 'mixed_branch_is_pure',
+                      'trace_eq_sum_diag', 'readout_feedforward_reset',
+                      'uniform_readout_feedforward_seed', 'luders_selector_cp',
+                      'purification_partialTrace',
+                      'purification_of_factorization')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -571,8 +577,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All twenty-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 11 + 5 + 16 named results print their "
+      "LINT. All twenty-eight files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 13 + 8 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

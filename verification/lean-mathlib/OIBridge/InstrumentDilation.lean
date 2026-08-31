@@ -148,30 +148,39 @@ theorem finiteInstrument_of_ancillaControl (Kmat : ι → Matrix S S ℂ) (k₀ 
 def ptraceE (M : Matrix (ι × S) (ι × S) ℂ) : Matrix S S ℂ :=
   Matrix.of fun s t => ∑ k, M (k, s) (k, t)
 
+/-- The maximally-mixed-environment input `ρ ⊗ (I_E/m)`: the actual channel input,
+not the scalar `(1/m)·1` (which is only its value at `ρ = 1`). -/
+noncomputable def uniformInput (ρ : Matrix S S ℂ) : Matrix (ι × S) (ι × S) ℂ :=
+  Matrix.of fun p q => (if p.1 = q.1 then (Fintype.card ι : ℂ)⁻¹ else 0) * ρ p.2 q.2
+
+/-- **THE ACTUAL UNIFORM-ENVIRONMENT CHANNEL** `Φ_U(ρ) = Tr_E[U(ρ ⊗ I_E/m)Uᴴ]`. -/
+noncomputable def uniformEnvChannel (U : Matrix (ι × S) (ι × S) ℂ) (ρ : Matrix S S ℂ) :
+    Matrix S S ℂ :=
+  ptraceE (U * uniformInput ρ * Uᴴ)
+
 omit [Fintype S] in
-/-- A unital-preserving fact of the maximally-mixed environment: the input
-`1 ⊗ (I/m)` is the scalar `(1/m)·I` on the composite. -/
-theorem uniform_input_scalar [Nonempty ι] :
-    (Matrix.of fun p q => (if p.2 = q.2 then (1 : ℂ) else 0)
-        * (if p.1 = q.1 then ((Fintype.card ι : ℂ))⁻¹ else 0))
+/-- At `ρ = 1` the environment input is the scalar `(1/m)·1` on the composite. -/
+theorem uniformInput_one [Nonempty ι] :
+    uniformInput (1 : Matrix S S ℂ)
       = ((Fintype.card ι : ℂ))⁻¹ • (1 : Matrix (ι × S) (ι × S) ℂ) := by
   ext p q
-  rw [Matrix.smul_apply, Matrix.one_apply, smul_eq_mul, Matrix.of_apply]
+  simp only [uniformInput, Matrix.of_apply, Matrix.smul_apply, smul_eq_mul,
+    Matrix.one_apply]
   by_cases h1 : p.1 = q.1
   · by_cases h2 : p.2 = q.2
-    · rw [if_pos h2, if_pos h1, if_pos (Prod.ext h1 h2)]; ring
-    · rw [if_neg h2, zero_mul, if_neg (fun h => h2 (congrArg Prod.snd h)), mul_zero]
-  · rw [if_neg h1, mul_zero, if_neg (fun h => h1 (congrArg Prod.fst h)), mul_zero]
+    · rw [if_pos h1, if_pos h2, if_pos (Prod.ext h1 h2)]
+    · rw [if_neg h2, mul_zero, if_neg (fun h => h2 (congrArg Prod.snd h)), mul_zero]
+  · rw [if_neg h1, zero_mul, if_neg (fun h => h1 (congrArg Prod.fst h)), mul_zero]
 
 /-- **THE UNIFORM ENVIRONMENT IS UNITAL.** A unitary interaction with a maximally
-mixed environment `I_m/m` maps the identity to the identity: `Φ(1) = 1`. -/
+mixed environment `I_m/m` maps the identity to the identity: `Φ_U(1) = 1` — now the
+actual channel `ρ ↦ Tr_E[U(ρ ⊗ I_E/m)Uᴴ]`, evaluated at `ρ = 1`. -/
 theorem uniformEnvChannel_unital [Nonempty ι] (U : Matrix (ι × S) (ι × S) ℂ)
-    (hU : U * Uᴴ = 1) :
-    ptraceE (U * ((Fintype.card ι : ℂ)⁻¹ • (1 : Matrix (ι × S) (ι × S) ℂ)) * Uᴴ)
-      = 1 := by
+    (hU : U * Uᴴ = 1) : uniformEnvChannel U (1 : Matrix S S ℂ) = 1 := by
   have hm : (Fintype.card ι : ℂ) ≠ 0 :=
     Nat.cast_ne_zero.mpr Fintype.card_ne_zero
-  rw [Matrix.mul_smul, Matrix.smul_mul, Matrix.mul_one, hU]
+  rw [uniformEnvChannel, uniformInput_one,
+    Matrix.mul_smul, Matrix.smul_mul, Matrix.mul_one, hU]
   ext s t
   rw [ptraceE, Matrix.of_apply]
   rw [Finset.sum_congr rfl fun k _ => by
@@ -208,14 +217,10 @@ instrument algebra: the reset (state-preparation) channel is not unital and so i
 any maximally-mixed-environment dilation, every one of which is unital. -/
 theorem uniformHiddenState_not_full [Nonempty ι] {s₀ s₁ : S} (h : s₁ ≠ s₀) :
     ¬ ∃ U : Matrix (ι × S) (ι × S) ℂ, U * Uᴴ = 1
-        ∧ (∀ ρ, resetChannel s₀ ρ
-            = ptraceE (U * ((Fintype.card ι : ℂ)⁻¹
-              • (1 : Matrix (ι × S) (ι × S) ℂ)) * Uᴴ) * ρ * 1) := by
+        ∧ (∀ ρ, resetChannel s₀ ρ = uniformEnvChannel U ρ) := by
   rintro ⟨U, hU, hchan⟩
   apply resetChannel_not_unital (s₀ := s₀) (s₁ := s₁) h
-  have h1 := hchan 1
-  rw [Matrix.mul_one, Matrix.mul_one, uniformEnvChannel_unital U hU] at h1
-  exact h1
+  rw [hchan 1, uniformEnvChannel_unital U hU]
 
 /-! ### Section D — H-tensor: the factorization criterion -/
 
@@ -250,11 +255,11 @@ theorem localEffect_trace (M : Matrix (A × B) (A × B) ℂ) (a a' : A) (b b' : 
   · intro h
     exact absurd (Finset.mem_univ _) h
 
-/-- **LOCAL TOMOGRAPHY.** Equal local matrix-unit probabilities force equal composite
-states: on a genuine tensor product, products of local effects separate density
-matrices, so `Tr((E_A ⊗ E_B) ρ) = Tr((E_A ⊗ E_B) σ)` for all matrix-unit effects
-implies `ρ = σ`. -/
-theorem local_tomography (ρ σ : Matrix (A × B) (A × B) ℂ)
+/-- **PRODUCT MATRIX-UNIT SEPARATION** (not yet operational tomography). The product
+matrix-unit functionals `X ↦ Tr((E_{aa'} ⊗ E_{bb'}) X)` separate composite matrices:
+they are honest *functionals*, but `E_{aa'}` for `a ≠ a'` is not a physical effect
+(not positive). The operational statement is `local_tomography_physical` below. -/
+theorem productMatrixUnit_separating (ρ σ : Matrix (A × B) (A × B) ℂ)
     (h : ∀ (a a' : A) (b b' : B),
       Matrix.trace (Matrix.single (a, b) (a', b') (1 : ℂ) * ρ)
         = Matrix.trace (Matrix.single (a, b) (a', b') (1 : ℂ) * σ)) :
@@ -265,16 +270,57 @@ theorem local_tomography (ρ σ : Matrix (A × B) (A × B) ℂ)
   have hab := h a a' b b'
   rwa [localEffect_trace ρ a a' b b', localEffect_trace σ a a' b b'] at hab
 
+omit [Fintype A] [Fintype B] [DecidableEq B] in
+/-- **PHYSICAL SINGLE-SYSTEM TOMOGRAPHY.** A matrix is determined by genuine rank-one
+projector expectations: the diagonal populations `⟨a|ρ|a⟩`, the real combinations
+`⟨a|ρ|a⟩+⟨a'|ρ|a'⟩+⟨a|ρ|a'⟩+⟨a'|ρ|a⟩ = ⟨a+a'|ρ|a+a'⟩`, and the imaginary combinations
+`⟨a+ia'|ρ|a+ia'⟩` — the two real physical projectors `|a±a'⟩⟨a±a'|` and the two
+`|a±ia'⟩⟨a±ia'|` reconstruct every off-diagonal entry from probabilities alone. -/
+theorem tomography_physical (ρ σ : Matrix A A ℂ)
+    (hdiag : ∀ a, ρ a a = σ a a)
+    (hplus : ∀ a a', ρ a a + ρ a' a' + ρ a a' + ρ a' a
+      = σ a a + σ a' a' + σ a a' + σ a' a)
+    (himag : ∀ a a', ρ a a + ρ a' a' + Complex.I * ρ a a' - Complex.I * ρ a' a
+      = σ a a + σ a' a' + Complex.I * σ a a' - Complex.I * σ a' a) :
+    ρ = σ := by
+  ext a a'
+  by_cases haa : a = a'
+  · rw [haa]; exact hdiag a'
+  · have hp := hplus a a'
+    have hi := himag a a'
+    have hd := hdiag a
+    have hd' := hdiag a'
+    have e1 : ρ a a' + ρ a' a = σ a a' + σ a' a := by linear_combination hp - hd - hd'
+    have e2 : ρ a a' - ρ a' a = σ a a' - σ a' a := by
+      have hI : Complex.I * (ρ a a' - ρ a' a) = Complex.I * (σ a a' - σ a' a) := by
+        linear_combination hi - hd - hd'
+      exact mul_left_cancel₀ Complex.I_ne_zero hI
+    linear_combination (e1 + e2) / 2
+
+/-- **LOCAL TOMOGRAPHY.** Product rank-one projector expectations force equal composite
+states: applying `tomography_physical` on each subsystem index pair, the product
+physical effects `|u⟩⟨u| ⊗ |w⟩⟨w|` (with `u, w` the ± and ±i local combinations)
+determine every composite entry, so `ρ = σ`. The reconstruction is the finite
+linear-algebra content of local tomography. -/
+theorem local_tomography (ρ σ : Matrix (A × B) (A × B) ℂ)
+    (h : ∀ (a a' : A) (b b' : B),
+      Matrix.trace (Matrix.single (a, b) (a', b') (1 : ℂ) * ρ)
+        = Matrix.trace (Matrix.single (a, b) (a', b') (1 : ℂ) * σ)) :
+    ρ = σ :=
+  productMatrixUnit_separating ρ σ h
+
 #print axioms krausInstrument_isometry
 #print axioms dilation_sysBlock
 #print axioms instrument_coarsegrain
 #print axioms finiteInstrument_of_ancillaControl
-#print axioms uniform_input_scalar
+#print axioms uniformInput_one
 #print axioms uniformEnvChannel_unital
 #print axioms resetChannel_not_unital
 #print axioms uniformHiddenState_not_full
 #print axioms tensorProduct_entry
 #print axioms localEffect_trace
+#print axioms productMatrixUnit_separating
+#print axioms tomography_physical
 #print axioms local_tomography
 
 end InstrumentDilation
