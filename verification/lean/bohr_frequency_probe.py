@@ -1814,6 +1814,153 @@ check("F18", ok18,
       "rank-one state with coefficient w^H rho w (accessible_cone_full) -- the "
       "positivity face of the C3b.3 assembly")
 
+# ----------------------- F19  the matrix-unit classification pipeline (phase three, round 7)
+# C3b.3: every step of the kernel classification is replayed exactly at D = 3 on BOTH
+# branches Phi(X) = W X W^H and Phi(X) = W X^T W^H with a dense exact unitary W (two
+# Givens rotations and two complex phases): rank-one resolution from the diagonal-unit
+# images, corner localization, the alpha.beta = 0 dichotomy, unimodularity, the triple
+# cocycle, and the phase coboundary that rebuilds W.  Countercontrols: a MIXED
+# orientation (transposing one corner pair only) violates the Jordan identity at the
+# triple (0,1,2) -- triple consistency is load-bearing; and the self-duality witness
+# Tr(A vv^H) = -1 < 0 detects a non-PSD Hermitian A through the rank-one dyad test.
+ok19 = True
+D19 = 3
+
+def n219(x):
+    return x.re * x.re + x.im * x.im
+
+def T19(X):
+    return [[X[j][i] for j in range(D19)] for i in range(D19)]
+
+def madd19(A, B):
+    return [[A[i][j] + B[i][j] for j in range(D19)] for i in range(D19)]
+
+def anti19(X, Y):
+    return madd19(mmc17(X, Y), mmc17(Y, X))
+
+def E19(i, j):
+    return [[CO17 if (r, c) == (i, j) else CZ17 for c in range(D19)] for r in range(D19)]
+
+def dot19(a, b):
+    return sum((a[k].conj() * b[k] for k in range(D19)), CZ17)
+
+Ph1_19 = eye17(3); Ph1_19[1][1] = C17(0, 1)
+Ph2_19 = eye17(3); Ph2_19[2][2] = C17(Frac(3, 5), Frac(4, 5))
+W19 = mmc17(mmc17(mmc17(giv17(3, 0, 1, Frac(3, 5), Frac(4, 5)), Ph1_19),
+                  giv17(3, 1, 2, Frac(5, 13), Frac(12, 13))), Ph2_19)
+ok19 &= mmc17(dag17(W19), W19) == eye17(3)          # exact dense unitary
+
+def phiU19(X):
+    return mmc17(mmc17(W19, X), dag17(W19))
+
+def phiT19(X):
+    return mmc17(mmc17(W19, T19(X)), dag17(W19))
+
+for name19, Phi19 in (("unitary", phiU19), ("transpose", phiT19)):
+    A19 = [[C17(1), C17(2, 1), CZ17], [C17(0, 3), C17(-1), CO17],
+           [C17(1, 1), CZ17, C17(2)]]
+    B19 = [[CZ17, CO17, C17(1, 2)], [C17(2), CZ17, CZ17],
+           [CO17, C17(0, -1), C17(1)]]
+    ok19 &= Phi19(anti19(A19, B19)) == anti19(Phi19(A19), Phi19(B19))  # complexified Jordan
+    # (a) diagonal-unit images: an orthogonal rank-one resolution of the identity
+    p19 = [Phi19(E19(i, i)) for i in range(3)]
+    ok19 &= madd19(madd19(p19[0], p19[1]), p19[2]) == eye17(3)
+    for i in range(3):
+        ok19 &= mmc17(p19[i], p19[i]) == p19[i] and dag17(p19[i]) == p19[i]
+        ok19 &= sum((p19[i][k][k] for k in range(3)), CZ17) == CO17   # trace 1: rank one
+        for j in range(3):
+            if i != j:
+                ok19 &= all(x.z() for r in mmc17(p19[i], p19[j]) for x in r)
+    # frame vectors (unnormalized: s_i = v_i^H v_i > 0, p_i s_i = v_i v_i^H exactly)
+    v19 = []
+    for i in range(3):
+        j0 = next(j for j in range(3) if not p19[i][j][j].z())
+        v19.append([p19[i][r][j0] for r in range(3)])
+    s19 = [dot19(v19[i], v19[i]) for i in range(3)]
+    for i in range(3):
+        for j in range(3):
+            if i != j:
+                ok19 &= dot19(v19[i], v19[j]).z()
+        for r in range(3):
+            for c in range(3):
+                ok19 &= p19[i][r][c] * s19[i] == v19[i][r] * v19[i][c].conj()
+    # (b) corner coefficients and localization  F_ij = p_i F_ij p_j + p_j F_ij p_i
+    F19m = [[Phi19(E19(i, j)) for j in range(3)] for i in range(3)]
+
+    def quad19(vv, M, ww):
+        return dot19(vv, [sum((M[r][c] * ww[c] for c in range(3)), CZ17)
+                          for r in range(3)])
+
+    al19 = [[quad19(v19[i], F19m[i][j], v19[j]) for j in range(3)] for i in range(3)]
+    be19 = [[quad19(v19[j], F19m[i][j], v19[i]) for j in range(3)] for i in range(3)]
+    for i in range(3):
+        for j in range(3):
+            if i != j:
+                loc = madd19(mmc17(mmc17(p19[i], F19m[i][j]), p19[j]),
+                             mmc17(mmc17(p19[j], F19m[i][j]), p19[i]))
+                ok19 &= loc == F19m[i][j]                        # corner_form
+                ok19 &= (al19[i][j] * be19[i][j]).z()            # corner_nilpotent
+                ok19 &= n219(al19[i][j]) / (s19[i].re * s19[j].re) \
+                    + n219(be19[i][j]) / (s19[i].re * s19[j].re) == 1  # corner_unimodular
+    # (c) the dichotomy is GLOBAL and matches the branch (orientation_dichotomy)
+    brU = all(be19[i][j].z() for i in range(3) for j in range(3) if i != j)
+    brT = all(al19[i][j].z() for i in range(3) for j in range(3) if i != j)
+    ok19 &= brU != brT and (name19 == "unitary") == brU
+    co19 = al19 if brU else be19
+    # (d) triple cocycle and phase coboundary (corner_cocycle, the W reconstruction)
+    for i in range(3):
+        for j in range(3):
+            for k in range(3):
+                if len({i, j, k}) == 3:
+                    ok19 &= co19[i][k] * s19[j] == co19[i][j] * co19[j][k]
+    i0 = 0
+    for i in range(3):
+        for j in range(3):
+            if i != j and i != i0 and j != i0:
+                ok19 &= co19[i][j] * s19[i0] == co19[i][i0] * co19[j][i0].conj()
+# (e) countercontrol: a mixed orientation violates the Jordan identity at (0,1,2)
+mix19 = {(0, 0): (0, 0), (1, 1): (1, 1), (2, 2): (2, 2), (0, 1): (0, 1),
+         (1, 0): (1, 0), (1, 2): (2, 1), (2, 1): (1, 2), (0, 2): (0, 2),
+         (2, 0): (2, 0)}
+
+def phiMix19(X):
+    out = [[CZ17 for _ in range(3)] for _ in range(3)]
+    for a in range(3):
+        for b in range(3):
+            ta, tb = mix19[(a, b)]
+            out[ta][tb] = out[ta][tb] + X[a][b]
+    return out
+
+ok19 &= phiMix19(anti19(E19(0, 1), E19(1, 2))) != anti19(phiMix19(E19(0, 1)),
+                                                         phiMix19(E19(1, 2)))
+# (f) self-duality witness: the dyad test detects the negative direction
+A19d = [[C17(1), CZ17, CZ17], [CZ17, C17(-1), CZ17], [CZ17, CZ17, C17(2)]]
+vneg19 = [CZ17, CO17, CZ17]
+dy19 = [[vneg19[r] * vneg19[c].conj() for c in range(3)] for r in range(3)]
+tr19 = sum((mmc17(A19d, dy19)[k][k] for k in range(3)), CZ17)
+ok19 &= tr19 == C17(-1)
+check("F19", ok19,
+      "THE MATRIX-UNIT CLASSIFICATION PIPELINE (phase three, round seven; kernel: "
+      "psd_iff_trace_nonneg, orthogonal_resolution_rank_one, corner_form, "
+      "corner_nilpotent, corner_unimodular, corner_cocycle, orientation_dichotomy, "
+      "matrixJordan_unitary_or_transpose, sameData_orderIso, "
+      "sameData_unitary_or_transpose in OIBridge/JordanClassification.lean). At D = 3 "
+      "with a dense exact unitary W (two Givens rotations, two complex phases), BOTH "
+      "branches W X W^H and W X^T W^H replay every classification step exactly: the "
+      "diagonal-unit images form an orthogonal rank-one resolution (traces exactly 1), "
+      "each off-diagonal image localizes to its two corners, the two corner "
+      "coefficients satisfy alpha.beta = 0 with |alpha|^2 + |beta|^2 = 1, the "
+      "surviving coefficient obeys the triple cocycle co_ik s_j = co_ij co_jk and the "
+      "phase coboundary co_ij s_i0 = co_ii0 conj(co_ji0) that rebuilds W, and the "
+      "orientation is GLOBAL -- the unitary branch kills every beta, the transpose "
+      "branch every alpha. Countercontrols: transposing ONE corner pair only violates "
+      "the Jordan identity at the triple (0,1,2), so triple consistency is what forces "
+      "a single global orientation (the same local-freedom -> triple-coherence -> "
+      "coboundary architecture as the Hamiltonian reconstruction); and the rank-one "
+      "dyad test detects a non-PSD Hermitian direction exactly (Tr(A vv^H) = -1), the "
+      "converse half of PSD self-duality that lets positivity transfer BOTH ways in "
+      "the assembly")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

@@ -409,6 +409,13 @@ for fname, names in (
                              'orderIso_orthogonal', 'orderIso_square', 'orderIso_jordan',
                              'hermitian_spectral_edyad', 'trace_edyad_mul',
                              'psd_trace_mul_nonneg', 'accessible_cone_full')),
+    ('JordanClassification', ('psd_iff_trace_nonneg', 'jordan_complexify',
+                              'orthogonal_resolution_rank_one', 'corner_form',
+                              'corner_nilpotent', 'corner_unimodular',
+                              'corner_cocycle', 'orientation_dichotomy',
+                              'matrixJordan_unitary_or_transpose',
+                              'sameData_orderIso',
+                              'sameData_unitary_or_transpose')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -448,8 +455,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All fourteen files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 5 + 16 named results print their "
+      "LINT. All fifteen files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
