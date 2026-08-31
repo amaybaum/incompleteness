@@ -80,6 +80,16 @@ import OIBridge.HomometricSix
 import OIBridge.HomometricKill
 import OIBridge.CongruentReconstruction
 import OIBridge.TurnpikeScopeTransfer
+import OIBridge.AntiunitaryInvariance
+import OIBridge.ThermalOrientation
+import OIBridge.ShellAssignment
+import OIBridge.CoherentLift
+import OIBridge.TwoByTwoNoGo
+import OIBridge.AccessibleAlgebra
+import OIBridge.OperationalRigidity
+import OIBridge.JordanClassification
+import OIBridge.OrientationSelection
+import OIBridge.OrientationClosure
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

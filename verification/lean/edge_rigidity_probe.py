@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 """Numerical companion checks for OIBridge/EdgeRigidity.lean, OIBridge/HomometricSix.lean,
 OIBridge/HomometricKill.lean, OIBridge/PiccardBridge.lean, OIBridge/TurnpikeScopeTransfer.lean,
-OIBridge/CongruentReconstruction.lean, and OIBridge/FrequencyMatching.lean.
+OIBridge/CongruentReconstruction.lean, OIBridge/FrequencyMatching.lean,
+OIBridge/AntiunitaryInvariance.lean, OIBridge/ThermalOrientation.lean, and
+OIBridge/ShellAssignment.lean.
 
 EdgeRigidity kernel-proves K4-RIGIDITY: for n >= 5, an edge permutation of K_n preserving all
 four-cycle product identities as identities is induced by a vertex permutation -- with the n = 4
@@ -38,7 +40,7 @@ These checks exercise the same statements independently (no Lean in the loop):
   R6  ORIENTATION COHERENCE: for random spectra with distinct eigenvalues, both global lifts
       satisfy every triangle gap identity while EVERY properly mixed sign assignment violates
       one -- the content of `orientation_coherence`, checked in exact fractions.
-  R7  lint of all seven Lean files.
+  R7  lint of all ten Lean files.
   R8  CONGRUENT RECONSTRUCTION, numerically: random unitary V, random unimodular row/column
       phases and mode permutation build W; the coefficient lines match and H' recovers
       D H D^dag + E0 (and the reflected model recovers -D conj(H) D^dag + E0) to machine
@@ -343,6 +345,97 @@ for fname, names in (
                                'spectral_classification_of_BG',
                                'gaps_eq_of_equal_probabilities',
                                'twoBranch_of_BGClassification')),
+    ('AntiunitaryInvariance', ('run_transposeMap', 'pairing_transpose', 'circuit_invariance',
+                               'transposeMap_kraus', 'kraus_normalization',
+                               'string_invariance', 'unitary_channel_transpose',
+                               'commute_all_scalar', 'ad_eq_scalar',
+                               'phase_families_shift', "phase_families_shift'")),
+    ('ThermalOrientation', ('gibbs_reflection', 'gibbs_reflection_perm', 'gibbs_orientation',
+                            'transported_gibbs', 'orientation_excludes_reflection',
+                            'gibbs_strictlyPassive', 'passivity_selector',
+                            'passive_antipassive_const', 'passivity_selector_nonuniform',
+                            'counting_passive', 'counting_strictlyPassive',
+                            'commutant_diagonal', 'umat_spectral', 'stationary_offdiag',
+                            'stationary_spectral_form', 'exists_margin_pair',
+                            'approx_passivity_selector', 'rate_sign_transport',
+                            'energyOrder_transport', 'passive_transport',
+                            'reflection_excluded_of_transition_identification')),
+    ('ShellAssignment', ('shellWeight_invariant', 'joint_stationary',
+                         'marginal_stationary', 'shellConditional_sum')),
+    ('CoherentLift', ('permMatrix_unitary', 'permMatrix_conj_diagonal', 'readProj_sum',
+                      'branch_normalization', 'qfold_diagonal', 'intersection_consistent',
+                      'extension_forces_agreement', 'no_common_extension_of_disagreement',
+                      'finite_comb_extension', 'sandwich_stationary',
+                      'spectral_clauses_insufficient', 'overlap_row_sum', 'overlap_col_sum',
+                      'mixture_diag', 'shell_representation_from_comb',
+                      'comb_mixture_of_shell_representation', 'uniform_overlap_obstruction',
+                      'populations_nonuniform_of_marginal', 'projOverlap_complex',
+                      'projector_overlap_nonneg', 'projector_overlap_col_sum',
+                      'projector_overlap_row_sum', 'projector_mixture_readout',
+                      'projector_shell_representation_from_comb',
+                      'comb_mixture_of_projector_shell_representation',
+                      'projector_uniform_overlap_obstruction', 'projOverlap_rankOne',
+                      'rankOne_specialization', 'vlift_conjTranspose', 'vlift_mul',
+                      'vlift_one', 'vlift_sum', 'vlift_kraus', 'permMatrix_prodCongr',
+                      'readProj_fst_vlift', 'permMatrix_conj_apply', 'qStep_assemble',
+                      'local_intervention_overlap', 'assemble_trace', 'opStep_trace',
+                      'local_intervention_branch', 'embA_conjTranspose_mul_apply',
+                      'mul_embA_apply', 'ptraceV_eq_trace', 'embA_vlift',
+                      'embA_conj_channel', 'local_channel_preserves_ancilla',
+                      "umat_spectral'", 'umat_zero', 'trace_diag_sandwich',
+                      'intervened_readout_expansion', 'two_time_forces_stationary',
+                      'two_time_necessary', 'krausChoi_psd', 'krausChoi_tp',
+                      'vlift_mul_apply', 'mul_vlift_conjTranspose_apply',
+                      'chApply_krausChoi', 'conjOp_transpose', 'transpose_conj_response',
+                      'umat_conjOp_reflect', 'readProj_transpose', 'permMatrix_conjOp',
+                      'real_instrument_reflection_invariant', 'intertwining_all_horizons',
+                      'intertwining_comb_compatible')),
+    ('TwoByTwoNoGo', ('twoByTwo_affine_rigidity', 'twoByTwo_nonCP',
+                      'twoByTwo_no_local_lift')),
+    ('AccessibleAlgebra', ('gap_coefficient_vanish', 'dyad_conjugation',
+                           'dyad_conjugation_apply', 'accessible_trivial_commutant',
+                           'native_menu_generates', 'complexProbe_trivialCommutant',
+                           'vlift_ancillaBlockDiagonal', 'ancillaBlockDiagonal_mul',
+                           'umat_ancillaBlockDiagonal', 'decoupled_carrier_commutes',
+                           'ancillaPhase_not_scalar', 'conjOp_mul', 'conjOp_vlift',
+                           'real_menu_conjugation_stable', 'probeG_unitary',
+                           'probeResp_is_probe_response',
+                           'complexProbe_breaks_conjugation')),
+    ('OperationalRigidity', ('line_coefficient_vanish', 'conj_context_entry',
+                             'operational_separation', 'sameData_unique_state',
+                             'sameData_combination_transfer', 'sameData_linear_extension',
+                             'psd_pair_kernel', 'projection_extreme',
+                             'extreme_projection', 'orderIso_maps_projections',
+                             'orderIso_orthogonal', 'orderIso_square', 'orderIso_jordan',
+                             'hermitian_spectral_edyad', 'trace_edyad_mul',
+                             'psd_trace_mul_nonneg', 'accessible_cone_full')),
+    ('JordanClassification', ('psd_iff_trace_nonneg', 'jordan_complexify',
+                              'orthogonal_resolution_rank_one', 'corner_form',
+                              'corner_nilpotent', 'corner_unimodular',
+                              'corner_cocycle', 'orientation_dichotomy',
+                              'matrixJordan_unitary_or_transpose',
+                              'sameData_orderIso',
+                              'sameData_unitary_or_transpose')),
+    ('OrientationSelection', ('transpose_data_eq', 'selector_factorization_invariant',
+                              'operational_orientation_noGo', 'transpose_span',
+                              'transpose_sep', 'transpose_cone',
+                              'transpose_completion_admissible',
+                              'transpose_realizes_second_branch', 'transpose_not_inner',
+                              'orientedReference_excludes_transpose',
+                              'oriented_functional_not_data_definable',
+                              'sameData_unitary_of_orientedReference',
+                              'shellRepresentation_stationary_profile',
+                              'sameData_unitary_of_transitionIdentification',
+                              'sameData_unitary_of_shellRepresentation')),
+    ('OrientationClosure', ('conjM_conjM', 'conjM_sandwich_transpose',
+                            'umat_reflect_conjM',
+                            'shellRepresentation_transpose_stable',
+                            'transitionIdentification_orientation_sensitive',
+                            'stationary_readout',
+                            'orientedShellRepresentation_orientation_sensitive',
+                            'no_universal_oriented_property',
+                            'no_symmetric_condition_forces_transitionIdentification',
+                            'no_symmetric_condition_forces_orientedShell')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -382,8 +475,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 5 + 16 named results print their "
+      "LINT. All seventeen files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

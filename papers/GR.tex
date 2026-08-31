@@ -274,14 +274,15 @@ unique selection open; (ii) the emergent description is uniquely
 determined by the partition, with any parameters of the emergent theory
 depending only on the partition boundary's geometric and thermodynamic
 properties (partition-relativity); (iii) the emergent transition
-probabilities \(T_{ij}(t)\) uniquely determine the emergent Hamiltonian
-up to a diagonal-unitary D-gauge, via the phase-locking lemma applied to
-continuous-time sampling. The technical bridge from P-indivisible
-classical stochastic processes on finite configuration spaces to unitary
-quantum evolution on finite Hilbert spaces is Barandes'
-stochastic-quantum correspondence {[}35, 36{]}, used by the companion
-paper for compression and interpretation --- the fixed-basis
-representation itself is supplied internally there
+probabilities \(T_{ij}(t)\) determine the emergent Hamiltonian up to a
+diagonal-unitary D-gauge, an energy origin, and one global antiunitary
+conjugation --- the two-branch form proved in §3.3 --- via the
+phase-locking lemma applied to continuous-time sampling. The technical
+bridge from P-indivisible classical stochastic processes on finite
+configuration spaces to unitary quantum evolution on finite Hilbert
+spaces is Barandes' stochastic-quantum correspondence {[}35, 36{]}, used
+by the companion paper for compression and interpretation --- the
+fixed-basis representation itself is supplied internally there
 (\(S \iff D \iff Q_{\mathrm{fb}}\)). We treat these results as inputs
 and apply them to the cosmological horizon. The cosmological horizon
 satisfies all four conditions: causal coupling via the Einstein
@@ -1173,6 +1174,194 @@ frequency data, where the multiplicative relations
 \(z^{ab}_i = V_{ia} V_{ib}^*\) are available, and not on the difference
 set.
 
+\textbf{Corollary (operational antiunitary invariance).}
+\emph{Transposing the preparation, every operation, and the effect
+simultaneously --- \(\rho \mapsto \rho^T\),
+\(\mathcal{G} \mapsto T \circ \mathcal{G} \circ T\), \(E \mapsto E^T\)
+--- preserves every finite circuit probability, for arbitrary operations
+and arbitrary finite sequences, hence for every fixed outcome branch of
+any adaptive instrument strategy; the transformation carries Kraus
+operations to Kraus operations with conjugated operators, preserves the
+trace normalization, and on unitary evolution is exactly the branch map
+\(H \mapsto -\bar{H}\).}
+
+Enlarging the data from transition probabilities to arbitrary
+preparations, instruments, adaptive finite circuits, and effects
+therefore cannot remove the second branch: at the purely operational
+level the two branches are not two empirically distinguishable theories
+but two antiunitarily related reconstructions of the same complete
+circuit statistics, and they become physically distinct only once an
+oriented structure is fixed. (Kernel: \texttt{circuit\_invariance},
+\texttt{string\_invariance}, \texttt{transposeMap\_kraus},
+\texttt{kraus\_normalization}, \texttt{unitary\_channel\_transpose} in
+\texttt{OIBridge/AntiunitaryInvariance.lean}.)
+
+\textbf{Corollary (thermodynamic orientation).} \emph{Under the
+theorem's hypotheses, the reflection branch inverts thermal orientation:
+the antiunitary image of the positive-temperature Gibbs state of \(H\)
+is the negative-temperature Gibbs state of
+\(H' = -D\bar{H}D^\dagger + E_0\), and no population profile that is
+non-increasing in the energies without being uniform remains so under
+the reflected spectrum. One passive, non-maximally-mixed state fixed
+with respect to the emergent generator therefore excludes the
+antiunitary branch; positive-temperature Gibbs/KMS states are strictly
+passive, hence sufficient.}
+
+The reconstruction's status is thus exactly split: circuit structure
+alone determines the dynamics up to ordinary gauge and one global
+antiunitary orientation; circuit structure together with one passive
+oriented state determines it up to ordinary gauge only, the excluded
+alternative collapsing the theorem's disjunction to
+\(H' = DHD^\dagger + E_0\). Whether the substratum \emph{derives} such a
+state is not claimed here; it is the H-orientation transport question,
+and it is narrower than the H-balance/KMS conditions of §3.2 ---
+single-state passivity, not complete passivity and not the Gibbs law.
+Its classical layer is settled: exact finite-bath counting with
+\(\beta_E = \partial S_H/\partial E > 0\) makes the counting-selected
+profile passive for the classical configuration energies, with no Gibbs
+approximation and no thermodynamic limit (kernel:
+\texttt{counting\_passive}). The open steps are the stationarity of that
+state under the reconstructed evolution and the transport of the
+classical energy ordering to one of the two orientations of the
+reconstructed Bohr spectrum --- a sign correspondence only, far weaker
+than H-spectrum. (Kernel: \texttt{transported\_gibbs},
+\texttt{gibbs\_orientation}, \texttt{passivity\_selector\_nonuniform},
+\texttt{orientation\_excludes\_reflection},
+\texttt{gibbs\_strictlyPassive} in
+\texttt{OIBridge/ThermalOrientation.lean}.)
+
+\textbf{The coherent-completion classification.} The completion problem
+separates into three logically distinct questions --- existence,
+classification, orientation --- with three different statuses, recorded
+here exactly.
+
+\emph{Existence.} The classical fixed-basis operational theory admits a
+conservative quantum realization, but extension to a coherent,
+visible-local, multi-time representation is not automatic. For a
+stationary preparation, feasibility reduces to a convex condition
+determined by the reconstructed eigenvectors and the visible readout:
+\texttt{ShellRepresentationConsistency} holds precisely when the
+classical marginal is a mixture of the eigenvector population columns
+(kernel: \texttt{shell\_representation\_from\_comb},
+\texttt{comb\_mixture\_of\_shell\_representation}, with
+\texttt{uniform\_overlap\_obstruction} an explicit failure).
+Visible-local interventions impose further invariants and
+complete-positivity constraints, and an explicit finite carrier ---
+preparation-feasible, with a globally reachable intervention table ---
+admits no visible-local CPTP coherent lift at all (kernel:
+\texttt{twoByTwo\_affine\_rigidity}, \texttt{twoByTwo\_nonCP},
+\texttt{twoByTwo\_no\_local\_lift}). Not every nominal carrier belongs
+to the coherent-completion class, and every statement below is about the
+completions that exist.
+
+\emph{Classification.} Conditional on existence, the remaining freedom
+is rigid. Two-slot operational contexts separate operators --- one-slot
+contexts do not, even where the accessible algebra is already the full
+matrix algebra (kernel: \texttt{operational\_separation},
+\texttt{sameData\_unique\_state}) --- so identical complete operational
+data induce a well-defined correspondence between two completions'
+accessible algebras, and the correspondence is bijective, unital,
+star-preserving, and positive in both directions by construction from
+the data, positivity transferring both ways through the self-duality of
+the positive cone (kernel: \texttt{sameData\_orderIso},
+\texttt{psd\_iff\_trace\_nonneg}). It is consequently a Jordan
+\(*\)-isomorphism (kernel: \texttt{orderIso\_jordan}, proved
+internally), and the finite-dimensional matrix-unit classification
+leaves exactly two possibilities.
+
+\textbf{Theorem (coherent-completion classification).} \emph{Let two
+OI-compatible coherent completions on the same finite visible dimension
+carry Hermitian accessible menus \(\{G^{(1)}_i\}\), \(\{G^{(2)}_i\}\),
+each spanning the full matrix algebra and containing the unit at a
+common index, and positive-semidefinite state families
+\(\{\sigma^{(1)}_k\}\), \(\{\sigma^{(2)}_k\}\), each separating
+(\(\mathrm{Tr}(M\sigma_k) = 0\) for all \(k\) forces \(M = 0\)) and each
+generating the full positive cone by nonnegative finite combinations. If
+the two completions carry the same complete operational data,
+\(\mathrm{Tr}(G^{(1)}_i\,\sigma^{(1)}_k) = \mathrm{Tr}(G^{(2)}_i\,\sigma^{(2)}_k)\)
+for all \(i, k\), then there are a linear map \(\Phi\) with
+\(\Phi(G^{(1)}_i) = G^{(2)}_i\) for every \(i\) and a unitary \(W\) with
+\(\Phi(X) = W X W^\dagger\) for all \(X\), or
+\(\Phi(X) = W X^T W^\dagger\) for all \(X\).} (Kernel:
+\texttt{sameData\_unitary\_or\_transpose} in
+\texttt{OIBridge/JordanClassification.lean}, chaining
+\texttt{sameData\_orderIso}, \texttt{orderIso\_jordan}, and
+\texttt{matrixJordan\_unitary\_or\_transpose}; the matrix-unit chain
+\texttt{orthogonal\_resolution\_rank\_one}, \texttt{corner\_form},
+\texttt{corner\_nilpotent}, \texttt{corner\_unimodular},
+\texttt{corner\_cocycle}, \texttt{orientation\_dichotomy} runs the same
+local-freedom, triple-consistency, phase-coboundary architecture as the
+Hamiltonian reconstruction of the theorem above.)
+
+Every two existing OI-compatible coherent completions with identical
+complete operational data are therefore equivalent either by ordinary
+unitary gauge or by one global antiunitary orientation reversal. No
+larger coherent fibre survives these conditions.
+
+\emph{Orientation.} The residual transpose branch cannot be selected by
+the unoriented operational data themselves.
+
+\textbf{Theorem (operational orientation no-go).} \emph{Transposition
+carries every admissible completion to an admissible completion ---
+Hermiticity, positivity, span, separation, the unit, and the full cone
+all transport --- with exactly the same complete operational data, and
+realizes the transpose branch of the classification with
+\(W = \mathbb{1}\) while being the conjugation action of no unitary.
+Consequently every selector that factors only through the operational
+data assigns the same value to the two members of an orientation pair;
+and, in general, no inhabited class of completions closed under
+transposition satisfies throughout a property \(P\) with
+\(P(R) \Rightarrow \neg P(\Theta R)\).} (Kernel:
+\texttt{transpose\_data\_eq},
+\texttt{transpose\_completion\_admissible},
+\texttt{transpose\_realizes\_second\_branch},
+\texttt{transpose\_not\_inner}, \texttt{operational\_orientation\_noGo}
+in \texttt{OIBridge/OrientationSelection.lean};
+\texttt{no\_universal\_oriented\_property} in
+\texttt{OIBridge/OrientationClosure.lean}.)
+
+The two named premises are accordingly not symmetric obligations.
+\texttt{ShellRepresentationConsistency} is an existence condition: it
+holds for a model precisely when it holds for the reflected partner
+\((\bar V, -E)\) (kernel:
+\texttt{shellRepresentation\_transpose\_stable}), so it cannot select an
+orientation. Orientation requires additional alignment ---
+\texttt{OperationalTransitionIdentification}, or an
+\texttt{OrientedShellRepresentation} in which the represented spectral
+populations are non-uniform and passive with respect to the derived
+classical energy ordering. Those conditions are orientation-sensitive
+(kernel: \texttt{transitionIdentification\_orientation\_sensitive},
+\texttt{orientedShellRepresentation\_orientation\_sensitive}), by the
+no-go they are not consequences of transpose-symmetric operational data
+alone, and either one, combined with the classification, excludes the
+transpose branch (kernel:
+\texttt{sameData\_unitary\_of\_orientedReference},
+\texttt{sameData\_unitary\_of\_transitionIdentification},
+\texttt{sameData\_unitary\_of\_shellRepresentation}). The boundary is
+therefore
+
+\[\boxed{\;\mathrm{OI} \;+\; \text{OI-compatible coherent-completion conditions} \;\Longrightarrow\; \mathrm{QM}/\mathbb{Z}_2^{\mathrm{anti}}\;}\]
+
+for the coherent completions that exist, subject to the stated carrier,
+locality, genericity, and operational-completeness hypotheses; and if
+the positive classical thermodynamic orientation is additionally
+identified with the coherent energy ordering --- through
+\texttt{OperationalTransitionIdentification} or the oriented shell
+condition ---
+
+\[\boxed{\;\mathrm{OI} \;+\; \text{coherent completion} \;+\; \text{positive thermodynamic orientation} \;\Longrightarrow\; \mathrm{QM}\;}\]
+
+up to ordinary unitary gauge. Two substantive questions accordingly
+remain: whether the actual OI substratum lies in the class admitting an
+OI-compatible coherent completion, and whether its derived classical
+thermodynamic arrow --- \(\beta_E = \partial S_H/\partial E > 0\),
+settled classically by exact counting (kernel:
+\texttt{counting\_passive}) --- enters that completion through an
+orientation-sensitive bridge. The classification of alternative coherent
+theories is otherwise closed: existing completions are ordinary complex
+quantum mechanics modulo one global antiunitary \(\mathbb{Z}_2\), while
+some nominal carriers admit no coherent completion at all.
+
 Every member of the residual family is invisible to the transition data
 for a stated reason --- diagonal rephasing moves no modulus, the energy
 origin is a global phase, the antiunitary reflection conjugates \(U(t)\)
@@ -1347,10 +1536,10 @@ the emergent quantum Hamiltonian inherits spatial locality.}
 \(x, x'\) differ at non-neighboring sites, spatial locality of the
 classical dynamics gives \(T_{x,x'}(dt) = 0\) at leading order, hence
 \(|\langle x'|\hat{H}|x\rangle|^2 = 0\). By the D-gauge theorem (§3.3),
-the residual phase freedom is a diagonal unitary \(D\) that preserves
-the vanishing of off-diagonal moduli, so
-\(\langle x'|\hat{H}|x\rangle = 0\) in any gauge. The emergent
-Hamiltonian has the form
+the residual freedom is a diagonal unitary \(D\) together with the
+global antiunitary conjugation, both of which preserve the vanishing of
+off-diagonal moduli, so \(\langle x'|\hat{H}|x\rangle = 0\) in any
+gauge. The emergent Hamiltonian has the form
 \(\hat{H} = \sum_k \hat{h}_k + \sum_{\langle k,l\rangle} \hat{h}_{kl}\).
 \(\square\)
 
@@ -3486,17 +3675,41 @@ On finite-dimensional tensor products,
 \subsubsection{\texorpdfstring{A.4 Hamiltonian and \(\hbar\)
 Consistency}{A.4 Hamiltonian and \textbackslash hbar Consistency}}\label{a.4-hamiltonian-and-hbar-consistency}}
 
-\textbf{Corollary A.3} (Hamiltonian consistency). \emph{The emergent
-Hamiltonians \(\hat{H}_V^{\text{dir}}\) and \(\hat{H}_V^{\text{seq}}\)
-satisfy
-\(\hat{H}_V^{\text{dir}} = D\,\hat{H}_V^{\text{seq}}\,D^\dagger\) for a
-time-independent diagonal unitary \(D\).}
+\textbf{Corollary A.3} (Hamiltonian consistency). \emph{The direct and
+sequential procedures yield the same emergent dynamics in two regimes.
+At the reconstruction level, with no assumption beyond the §3.3
+hypotheses: Theorem A.2 gives equal transition data, so under the §3.3
+hypotheses
+\(\hat{H}_V^{\text{dir}} = D\,\hat{H}_V^{\text{seq}}\,D^\dagger + E_0\)
+or
+\(\hat{H}_V^{\text{dir}} = -D\,\bar{\hat{H}}_V^{\text{seq}}\,D^\dagger + E_0\),
+for a time-independent diagonal unitary \(D\) and a real \(E_0\). If
+moreover the common channel family of Theorem A.2 is exactly unitary,
+\(\Phi_t = \mathrm{Ad}_{U(t)}\) for both procedures, then
+\(\mathrm{Ad}_{U_{\text{dir}}(t)} = \mathrm{Ad}_{U_{\text{seq}}(t)}\)
+forces \(U_{\text{dir}}(t) = e^{i\theta(t)}\,U_{\text{seq}}(t)\) with
+\(\theta(t) = -E_0 t\), and
+\(\hat{H}_V^{\text{dir}} = \hat{H}_V^{\text{seq}} + E_0\) --- no
+antiunitary branch and no nontrivial \(D\).}
 
 \emph{Proof.} Theorem A.2 gives
 \(\Phi_V^{\text{dir}} = \Phi_V^{\text{seq}}\), hence
 \(T^{\text{dir}}_{ij}(t) = T^{\text{seq}}_{ij}(t)\) for all \(t\) (Born
-rule applied to diagonal elements). The D-gauge theorem (§3.3) gives the
-result. \(\square\)
+rule applied to diagonal elements), and the two-branch theorem (§3.3)
+gives the reconstructed form. In the exact-unitary regime, equality of
+the conjugation actions at each time makes
+\(U_{\text{seq}}(t)^\dagger U_{\text{dir}}(t)\) commute with every
+visible operator, hence a unimodular scalar (kernel:
+\texttt{ad\_eq\_scalar}); the resulting identity of spectral phase
+families \(e^{-iE_a t} = c(t)\,e^{-iE'_a t}\) forces the eigenvalue
+differences \(E_a - E'_a\) to be mode-independent (kernel:
+\texttt{phase\_families\_shift}), so \(\theta(t) = -E_0 t\) and the
+generators differ by the scalar shift alone. Exact channel equality in
+the same visible algebra carries the coherence information that
+transition probabilities discard, which is why the antiunitary branch
+and the diagonal gauge both disappear; a general CPTP reduced dynamics,
+by contrast, has no uniquely defined Hamiltonian part, and the
+reconstruction-level clause claims none. \(\square\)
 
 \textbf{Corollary A.4} (\(\hbar\) universality). \emph{Both procedures
 yield the same emergent action scale \(\hbar = c^3 \epsilon^2 / (4G)\).}
@@ -4086,4 +4299,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: 65ddfac853cb96f8608f020010886a15deda863152d3ea81d46319dd12c0cfbb
+% source-sha256: df4ed724166c33c56a6837cb01ce1b26bec632ef65b03d48eac00710d1fea2e3
