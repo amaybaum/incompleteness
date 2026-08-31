@@ -2448,6 +2448,87 @@ check("F23", ok23,
       "statements, with the generic-flow B beyond the permutation shadow still the one "
       "named missing premise")
 
+# ----------------------- F24  the dynamics glue G1 (phase three, round 13)
+# The glue hierarchy separated exactly.  G1 (diagonal-sector dynamics glue): the sampled
+# coherent dynamics agrees with the substratum permutation on the WHOLE classical
+# diagonal sector.  (a) G1 <=> monomial: a phased cycle D.C on the F22 shell satisfies
+# the glue at EVERY diagonal indicator exactly, and the indicator dyads force the
+# monomial column structure back out (unimodular phases included); (b) G1 pins B: a
+# genuinely coherent D.C-commutant state (with off-diagonal coherences) reads out the
+# counting marginal exactly -- phases cannot move the readout; (c) countercontrol: the
+# two F22 generic carriers are G0-compatible (same p) with opposite feasibility, and
+# BOTH fail G1 at an explicit indicator -- observable agreement alone does not force
+# SRC; diagonal-sector dynamics glue does.
+ok24 = True
+sh24 = order22[3]
+N24 = len(sh24)
+idx24 = {s: k for k, s in enumerate(sh24)}
+u24 = C17(Frac(3, 5), Frac(4, 5))
+pw24 = [CO17, u24, u24 * u24, u24 * u24 * u24]
+d24 = [pw24[k % 4] for k in range(N24)]
+ok24 &= all(d24[k] * d24[k].conj() == CO17 for k in range(N24))
+C24 = [[CO17 if idx24[phi22[sh24[c]]] == r else CZ17 for c in range(N24)]
+       for r in range(N24)]
+W24 = [[d24[r] * C24[r][c] for c in range(N24)] for r in range(N24)]
+ok24 &= mmc17(W24, dag17(W24)) == eye17(N24)
+# (a) G1 holds at EVERY diagonal indicator, exactly
+P24 = C24
+for s0 in range(N24):
+    ind = [[CO17 if (r == c == s0) else CZ17 for c in range(N24)] for r in range(N24)]
+    ok24 &= mmc17(mmc17(W24, ind), dag17(W24)) == mmc17(mmc17(P24, ind), dag17(P24))
+# and the indicator dyads force monomiality back out: column s of any G1 solution is
+# supported on phi(s) with a unimodular phase
+for s0 in range(N24):
+    tgt = idx24[phi22[sh24[s0]]]
+    col = [W24[r][s0] for r in range(N24)]
+    ok24 &= all(col[r].z() for r in range(N24) if r != tgt)
+    ok24 &= col[tgt] * col[tgt].conj() == CO17
+# (b) G1 pins B: rho = I/N + (W + W^H)/(4N) has genuine coherences, commutes with W
+# exactly, and reads out the counting marginal
+rho24 = [[(CO17 if r == c else CZ17) * C17(Frac(1, N24))
+          + (W24[r][c] + dag17(W24)[r][c]) * C17(Frac(1, 4 * N24))
+          for c in range(N24)] for r in range(N24)]
+ok24 &= mmc17(mmc17(W24, rho24), dag17(W24)) == rho24
+ok24 &= dag17(rho24) == rho24 and tr20(rho24) == CO17
+ok24 &= any(not rho24[r][c].z() for r in range(N24) for c in range(N24) if r != c)
+ok24 &= all(rho24[k][k] == C17(Frac(1, N24)) for k in range(N24))   # zero-diag coherences
+read24 = [sum((rho24[k][k] for k, s in enumerate(sh24) if s[0] == i), CZ17)
+          for i in range(3)]
+ok24 &= read24 == [C17(p22[i]) for i in range(3)]                   # counting marginal
+# (c) countercontrol: the F22 generic carriers are G0-compatible with opposite
+# feasibility (qF in the simplex, qI outside -- recorded by F22) and BOTH fail G1
+# against the visible 3-cycle at the first indicator: their columns are not monomial
+phi3 = [1, 2, 0]
+P3 = [[CO17 if phi3[c] == r else CZ17 for c in range(3)] for r in range(3)]
+for V in (VF, VI):
+    Vc = [[C17(V[r][c]) for c in range(3)] for r in range(3)]
+    ok24 &= all(sum(1 for r in range(3) if not Vc[r][c].z()) >= 2 for c in range(3))
+    ind3 = [[CO17 if (r == c == 0) else CZ17 for c in range(3)] for r in range(3)]
+    ok24 &= mmc17(mmc17(Vc, ind3), dag17(Vc)) != mmc17(mmc17(P3, ind3), dag17(P3))
+ok24 &= all(x >= 0 for x in qF) and any(x < 0 for x in qI)
+check("F24", ok24,
+      "THE DYNAMICS GLUE G1 (phase three, round thirteen; kernel: DiagonalSectorGlue, "
+      "conj_diag_entry, diagonalGlue_forces_monomial, glue_of_monomial, "
+      "diagonalGlue_iff_monomial, monomial_unitary, monomial_conj_apply, "
+      "diag_invariant_pow, diag_invariant_freq_readout, "
+      "monomial_ergodic_readout_unique, phasedCycle_columnModuli, "
+      "ergodicShell_SRC_of_dynamicsGlue in OIBridge/DynamicsGlue.lean). (a) G1 <=> "
+      "MONOMIAL, exactly: a phased 14-cycle D.C on the F22 shell (unimodular rational "
+      "phases, unitary) satisfies the diagonal-sector glue at EVERY rank-one diagonal "
+      "indicator, and the indicator dyads force the monomial column structure back out "
+      "-- each column supported on phi(s) with a unimodular phase, no unitarity "
+      "assumed; (b) G1 PINS B: a D.C-commutant state with genuine off-diagonal "
+      "coherences (rho = I/N + (W + W^H)/4N, exactly stationary, Hermitian, trace one) "
+      "reads out the counting marginal (4/7, 2/7, 1/7) exactly -- the phases wind the "
+      "cycle but cannot move a readout, matching monomial_ergodic_readout_unique and "
+      "ergodicShell_SRC_of_dynamicsGlue: G1 + ergodic shell close physical-flow SRC "
+      "with canonical B, independent of phases and logarithm branch; (c) "
+      "COUNTERCONTROL: the two F22 generic carriers are G0-compatible (same visible p) "
+      "with opposite feasibility, and BOTH fail G1 at the first diagonal indicator -- "
+      "their columns are nowhere monomial. BOXED: observable agreement alone does not "
+      "force SRC; diagonal-sector dynamics glue does. THE AUDIT QUESTION IS NOW ONE "
+      "LINE: does OI require G1, or only G0?")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

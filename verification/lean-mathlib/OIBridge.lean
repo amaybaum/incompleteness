@@ -91,6 +91,7 @@ import OIBridge.JordanClassification
 import OIBridge.OrientationSelection
 import OIBridge.OrientationClosure
 import OIBridge.CycleFibreHull
+import OIBridge.DynamicsGlue
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
