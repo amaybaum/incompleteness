@@ -1673,6 +1673,147 @@ check("F17", ok17,
       "Hermitian response is not conjugation-fixed -- the complex probe orients, it "
       "does not generate")
 
+# ----------------------- F18  operational separation and the Jordan chain (phase three, round 6)
+# C3b.1: contexts must SEPARATE operators before any data-defined map is well-defined.
+# The Fourier-resolved span of {1} + one-slot + two-slot contexts is computed exactly;
+# the one-slot layer leaves a diagonal deficiency (two exact states with identical
+# one-slot data), and the two-slot layer closes it (kernel: operational_separation,
+# sameData_unique_state).  C3b.2: the Kadison chain (kernel: orderIso_jordan) is checked
+# on both matrix branches, and the pinching countercontrol shows one-sided positivity
+# does not suffice.
+ok18 = True
+
+def span_rank18(V, E, Ms, D, da, slots):
+    Vh = dag17(V)
+    Ns = [mmc17(mmc17(Vh, kr17(M, eye17(da))), V) for M in Ms]
+    gens = [[CO17 if a == b else CZ17 for a in range(D) for b in range(D)]]
+    for N in Ns:
+        for a in range(D):
+            for b in range(D):
+                if a != b and not N[a][b].z():
+                    v = [CZ17] * (D * D)
+                    v[a * D + b] = CO17
+                    gens.append(v)
+        v = [CZ17] * (D * D)
+        for p in range(D):
+            v[p * D + p] = N[p][p]
+        gens.append(v)
+    if slots >= 2:
+        for NA in Ns:
+            for NB in Ns:
+                for a in range(D):
+                    for b in range(D):
+                        if a == b:
+                            continue
+                        for c in range(D):
+                            if NA[a][b].z() or NB[b][c].z():
+                                continue
+                            v = [CZ17] * (D * D)
+                            v[a * D + c] = CO17
+                            gens.append(v)
+    return rank17(gens)
+
+# (a) the separation census at the (2,2) no-go carrier, native menu
+V22a = mmc17(mmc17(giv17(4, 0, 2, Frac(3, 5), Frac(4, 5)),
+                   giv17(4, 2, 3, Frac(5, 13), Frac(12, 13))),
+             giv17(4, 0, 1, Frac(3, 5), Frac(4, 5)))
+E18 = [Frac(0), Frac(1), Frac(3), Frac(7)]
+nat18 = menus17(2)[0]
+r1s = span_rank18(V22a, E18, nat18, 4, 2, 1)
+r2s = span_rank18(V22a, E18, nat18, 4, 2, 2)
+ok18 &= r1s == 14 and r2s == 16      # one-slot deficient by 2; two-slot SEPARATES
+# (b) the degeneracy witness: a diagonal direction invisible to all one-slot data
+Vh18 = dag17(V22a)
+Ns18 = [mmc17(mmc17(Vh18, kr17(M, eye17(2))), V22a) for M in nat18]
+rows18 = [[Ns18[j][p][p] for p in range(4)] for j in range(2)] + [[CO17] * 4]
+ker18 = nulsp17(rows18, 4)
+ok18 &= len(ker18) == 2              # dim = D - rank(diag lumps + trace) = 4 - 2
+y18 = ker18[0]
+q18 = [Frac(1, 2), Frac(1, 4), Frac(1, 8), Frac(1, 8)]
+eps18 = min(q18) / (2 * max(abs(v.re) for v in y18))
+pops_p = [q18[p] + eps18 * y18[p].re for p in range(4)]
+pops_m = [q18[p] - eps18 * y18[p].re for p in range(4)]
+ok18 &= all(pp >= 0 and pm >= 0 for pp, pm in zip(pops_p, pops_m))
+ok18 &= pops_p != pops_m and sum(pops_p) == sum(pops_m) == 1
+# identical one-slot data at every frequency (off-diagonals equal: both diagonal states;
+# zero-frequency lumps equal by construction), discriminated by a two-slot triple (a,b,a)
+for j in range(2):
+    lump = sum((Ns18[j][p][p] * C17(pops_p[p] - pops_m[p]) for p in range(4)), CZ17)
+    ok18 &= lump.z()
+disc = None
+for a in range(4):
+    for b in range(4):
+        if a != b and not Ns18[0][a][b].z() and not Ns18[1][b][a].z() \
+                and pops_p[a] != pops_m[a]:
+            disc = Ns18[0][a][b] * Ns18[1][b][a] * C17(pops_p[a] - pops_m[a])
+ok18 &= disc is not None and not disc.z()
+# (c) the Jordan chain on both branches, and the pinching countercontrol
+W18 = mmc17(giv17(3, 0, 1, Frac(3, 5), Frac(4, 5)), giv17(3, 1, 2, Frac(5, 13), Frac(12, 13)))
+A18 = [[C17(1), C17(2, 1), C17(0, -1)], [C17(2, -1), C17(-1), C17(Frac(1, 2))],
+       [C17(0, 1), C17(Frac(1, 2)), C17(3)]]
+B18 = [[C17(2), C17(0, 2), C17(1)], [C17(0, -2), C17(0), C17(1, 1)],
+       [C17(1), C17(1, -1), C17(-1)]]
+ok18 &= dag17(A18) == A18 and dag17(B18) == B18
+
+def anti18(X, Y):
+    return [[sum((X[i][k] * Y[k][j] + Y[i][k] * X[k][j] for k in range(3)), CZ17)
+             for j in range(3)] for i in range(3)]
+
+def phiU18(X):
+    return mmc17(mmc17(W18, X), dag17(W18))
+
+def phiT18(X):
+    return mmc17(mmc17(W18, [[X[j][i] for j in range(3)] for i in range(3)]), dag17(W18))
+
+def pinch18(X):
+    return [[X[i][j] if i == j else CZ17 for j in range(3)] for i in range(3)]
+
+for Phi in (phiU18, phiT18):
+    ok18 &= anti18(Phi(A18), Phi(B18)) == Phi(anti18(A18, B18))       # Jordan identity
+ok18 &= anti18(pinch18(A18), pinch18(B18)) != pinch18(anti18(A18, B18))  # pinching FAILS
+# projection transport on both branches (extreme points of [0,1] map to extreme points)
+P18 = mmc17(mmc17(dag17(giv17(3, 0, 1, Frac(3, 5), Frac(4, 5))),
+                  [[CO17, CZ17, CZ17], [CZ17, CZ17, CZ17], [CZ17, CZ17, CZ17]]),
+            giv17(3, 0, 1, Frac(3, 5), Frac(4, 5)))
+ok18 &= mmc17(P18, P18) == P18 and dag17(P18) == P18
+for Phi in (phiU18, phiT18):
+    Q18 = Phi(P18)
+    ok18 &= mmc17(Q18, Q18) == Q18 and dag17(Q18) == Q18
+# (d) the accessible cone construction, exact: M rho M^H = (w^H rho w)|u><u|
+rho18 = mmc17(mmc17(V22a, [[C17(q18[p]) if p == qq else CZ17 for qq in range(4)]
+                           for p in range(4)]), Vh18)
+w18 = [CO17, CZ17, CZ17, CZ17]
+wr18 = sum((w18[p].conj() * sum((rho18[p][r] * w18[r] for r in range(4)), CZ17)
+            for p in range(4)), CZ17)
+ok18 &= not wr18.z()
+M18 = [[(w18[jj].conj()) * (CO17 if ii == 1 else CZ17) for jj in range(4)]
+       for ii in range(4)]
+MrM = mmc17(mmc17(M18, rho18), dag17(M18))
+ok18 &= MrM[1][1] == wr18 and all(MrM[i][j].z() for i in range(4) for j in range(4)
+                                  if (i, j) != (1, 1))
+check("F18", ok18,
+      "OPERATIONAL SEPARATION AND THE JORDAN CHAIN (phase three, round six; kernel: "
+      "operational_separation, sameData_unique_state, sameData_combination_transfer, "
+      "sameData_linear_extension, orderIso_jordan, accessible_cone_full in "
+      "OIBridge/OperationalRigidity.lean). (a) Exact Fourier-resolved context spans at "
+      "the (2,2) no-go carrier, native menu: {normalization + one-slot} spans 14/16 -- "
+      "one-slot contexts do NOT separate operators even where the commutant is trivial "
+      "-- and adding two-slot contexts closes the span to 16/16, exactly as "
+      "operational_separation requires; (b) the deficiency is PHYSICAL: two distinct "
+      "exact stationary states (populations perturbed along the 2-dim kernel of the "
+      "diagonal lumps) carry identical normalization and one-slot data at every "
+      "frequency yet are discriminated by an explicit two-slot triple (a,b,a) -- "
+      "temporal depth of data, not menu size, is what pins the state "
+      "(sameData_unique_state); (c) the Kadison chain: the Jordan identity "
+      "Phi(A.B+B.A) = Phi(A).Phi(B)+Phi(B).Phi(A) holds exactly on BOTH matrix "
+      "branches W X W^H and W X^T W^H, projections transport on both, and the pinching "
+      "countercontrol (positive, unital, NOT an order isomorphism) violates the "
+      "identity -- Kadison's two-sided positivity is load-bearing, matching "
+      "orderIso_jordan's hypothesis package; (d) the accessible-cone construction is "
+      "exact: a selective word maps any nonzero positive preparation onto a prescribed "
+      "rank-one state with coefficient w^H rho w (accessible_cone_full) -- the "
+      "positivity face of the C3b.3 assembly")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
