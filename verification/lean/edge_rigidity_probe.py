@@ -485,6 +485,35 @@ for fname, names in (
                          'hiddenExt_same_law', 'hiddenExt_quotient_recovers_base',
                          'addEquiv_pow_sub', 'linear_itiRelInf_iff',
                          'linear_separating_iff_observability')),
+    ('ControlledQuotient', ('actWord_append', 'actWord_replicate',
+                            'ctrlRel_evolve', 'ctrlRel_word',
+                            'ctrlRel_symm_evolve', 'ctrlRel_le_itiRelInf',
+                            'ctrlRel_greatest_congruence', 'ctrlPerm_mk',
+                            'ctrlWord_mk', 'controlled_actionSeparating',
+                            'controlledMinimal_iff_actionSeparating',
+                            'controlledToPassive_surjective',
+                            'intervention_separates_passive_fibre')),
+    ('CoherentExtension', ('basisVec_mulVec', 'basisVec_dot', 'form_basis',
+                           'hermitian_form_conj', 'psd_zero_form_mulVec_zero',
+                           'psd_diag_zero_entry_zero',
+                           'psd_unit_diag_entry_bound',
+                           'psd_unimodular_rank_one',
+                           'correlationExtension_single',
+                           'correlationExtension_classical', 'embed_sum',
+                           'choi_correlation',
+                           'correlationExtension_completelyPositive',
+                           'correlationExtension_trace',
+                           'correlationExtension_cptp',
+                           'cptp_classical_forces_correlation',
+                           'cptpExtension_iff_correlationMatrix',
+                           'correlationExtension_comp',
+                           'correlationExtension_one_eq_id_iff',
+                           'reversibleExtension_iff_rankOne',
+                           'rankOne_extension_monomial',
+                           'purity_selector_rank_one',
+                           'correlationExtension_diagonal', 'combPerm_cons',
+                           'combFold_diagonal', 'combPerm_eq_permProd',
+                           'classicalComb_blind_to_correlation')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -524,8 +553,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All twenty-two files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 5 + 16 named results print their "
+      "LINT. All twenty-four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

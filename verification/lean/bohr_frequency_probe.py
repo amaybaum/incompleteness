@@ -3100,6 +3100,237 @@ check("F28", ok28,
       "solution-level identification of the ACTUAL cosmological window remains open, "
       "as does the nonlinear/state-dependent-graph regime.")
 
+# ----------------------- F29  the coherent extension fibre on a 3-cycle (phase three,
+# round 17).  Three members of the SAME classification fibre over the classical
+# 3-cycle g: a rank-one phase matrix (the unitary monomial lift), a genuinely
+# partially dephasing correlation matrix, and complete dephasing C = I.  They realize
+# the identical classical action, produce IDENTICAL action-labelled comb statistics on
+# every diagonal preparation and every branch interleaving, and are separated by one
+# coherent effect; only the rank-one member has a CPTP inverse, and the classical
+# inverse composed coherently is NOT the identity -- the audit guard exact.
+ok29 = True
+g29 = [1, 2, 0]                                            # the 3-cycle 0->1->2->0
+gi29 = [2, 0, 1]                                           # its inverse
+d29 = [CO17, C17(Frac(3, 5), Frac(4, 5)), C17(Frac(3, 5), Frac(-4, 5))]
+C1_29 = [[d29[s] * d29[t].conj() for t in range(3)] for s in range(3)]
+C2_29 = [[CO17 if s == t else C17(Frac(2, 3)) for t in range(3)] for s in range(3)]
+C3_29 = eye17(3)
+# (a) validity: C1 rank-one unimodular; C2 = (2/3) v v^H + (1/3) I is an explicit PSD
+# certificate; C3 = I
+ok29 &= all((d29[s] * d29[s].conj()) == CO17 for s in range(3))
+v29 = [CO17, CO17, CO17]
+ok29 &= all(C2_29[s][t]
+            == C17(Frac(2, 3)) * v29[s] * v29[t].conj()
+              + (C17(Frac(1, 3)) if s == t else CZ17)
+            for s in range(3) for t in range(3))
+def Phi29(C, X):
+    return [[C[gi29[a]][gi29[b]] * X[gi29[a]][gi29[b]] for b in range(3)]
+            for a in range(3)]
+
+def E29(s, t):
+    return [[CO17 if (a, b) == (s, t) else CZ17 for b in range(3)] for a in range(3)]
+
+# (b) all three classically realize g on every classical pure state
+for C in (C1_29, C2_29, C3_29):
+    ok29 &= all(Phi29(C, E29(s, s)) == E29(g29[s], g29[s]) for s in range(3))
+# (c) comb blindness: a 3-step comb with branch selection between steps produces the
+# SAME statistics for the three members, on every classical trajectory
+p29 = [C17(Frac(1, 2)), C17(Frac(1, 3)), C17(Frac(1, 6))]
+def branch29(i, X):
+    return [[X[a][b] if a == i and b == i else CZ17 for b in range(3)]
+            for a in range(3)]
+
+for traj in [(i, j, k) for i in range(3) for j in range(3) for k in range(3)]:
+    vals = []
+    for C in (C1_29, C2_29, C3_29):
+        X = [[p29[a] if a == b else CZ17 for b in range(3)] for a in range(3)]
+        for step in traj:
+            X = branch29(step, Phi29(C, X))
+        vals.append(sum(X[a][a].re for a in range(3)))
+    ok29 &= vals[0] == vals[1] == vals[2]
+# (d) ONE coherent effect separates all three: on the uniform superposition dyad the
+# all-ones effect reads sum_{s,t} C_st = 121/25, 7, 3 respectively
+ones29 = [[CO17] * 3 for _ in range(3)]
+reads = []
+for C in (C1_29, C2_29, C3_29):
+    Y = Phi29(C, ones29)
+    tot = CZ17
+    for a in range(3):
+        for b in range(3):
+            tot = tot + Y[a][b]
+    reads.append(tot)
+ok29 &= reads[0] == C17(Frac(121, 25)) and reads[1] == C17(7) \
+    and reads[2] == C17(3) and len({(r.re, r.im) for r in reads}) == 3
+# (e) reversibility: ONLY the rank-one member. Its family inverse is exact and it IS
+# the monomial conjugation Ad(D P_g)
+C1inv = [[d29[gi29[a]].conj() * d29[gi29[b]] for b in range(3)] for a in range(3)]
+def Psi29(X):
+    return [[C1inv[g29[a]][g29[b]] * X[g29[a]][g29[b]] for b in range(3)]
+            for a in range(3)]
+
+ok29 &= all(Psi29(Phi29(C1_29, E29(s, t))) == E29(s, t)
+            for s in range(3) for t in range(3))
+P29 = [[CO17 if g29[c] == r else CZ17 for c in range(3)] for r in range(3)]
+D29 = [[d29[gi29[r]] if r == c else CZ17 for c in range(3)] for r in range(3)]
+M29 = mmc17(D29, P29)
+ok29 &= mmc17(M29, dag17(M29)) == eye17(3)
+ok29 &= all(Phi29(C1_29, E29(s, t)) == mmc17(mmc17(M29, E29(s, t)), dag17(M29))
+            for s in range(3) for t in range(3))
+# the family inverse candidate for C2 needs entries 3/2 off-diagonal: NOT PSD, with
+# the explicit witness x = (1,-1,0):  x^H C' x = 2 - 2*(3/2) = -1 < 0
+C2inv = [[CO17 if s == t else C17(Frac(3, 2)) for t in range(3)] for s in range(3)]
+x29 = [CO17, C17(-1), CZ17]
+q29 = CZ17
+for s in range(3):
+    for t in range(3):
+        q29 = q29 + x29[s].conj() * C2inv[s][t] * x29[t]
+ok29 &= q29 == C17(-1)                                     # negative: no CPTP inverse
+# complete dephasing is not even injective
+ok29 &= Phi29(C3_29, E29(0, 1)) == [[CZ17] * 3 for _ in range(3)]
+# (f) THE AUDIT GUARD: the classical inverse composed coherently is NOT the identity.
+# Phi_{g^-1, I} after Phi_{g, I} is complete dephasing: identity on every diagonal
+# (the classical comb identity I_{a^-1} I_a = id) yet it kills E_01
+def comp29(X):
+    Y = Phi29(C3_29, X)                                    # Phi_{g, I}
+    return [[(C3_29[g29[a]][g29[b]] * Y[g29[a]][g29[b]]) for b in range(3)]
+            for a in range(3)]                             # then Phi_{g^-1, I}
+
+diag29 = [[p29[a] if a == b else CZ17 for b in range(3)] for a in range(3)]
+ok29 &= comp29(diag29) == diag29                           # classical comb: identity
+ok29 &= comp29(E29(0, 1)) == [[CZ17] * 3 for _ in range(3)]  # coherent: NOT identity
+# (g) the purity selector: the rank-one member maps the uniform dyad to a PURE dyad
+# (all 2x2 minors vanish); the partial dephaser does not (minor 1 - 4/9 = 5/9)
+Y1 = Phi29(C1_29, ones29)
+ok29 &= all(Y1[a][b] * Y1[c][dd] == Y1[a][dd] * Y1[c][b]
+            for a in range(3) for b in range(3) for c in range(3) for dd in range(3))
+Y2 = Phi29(C2_29, ones29)
+m29 = Y2[0][0] * Y2[1][1] - Y2[0][1] * Y2[1][0]
+ok29 &= m29 == C17(Frac(5, 9))
+check("F29", ok29,
+      "THE COHERENT EXTENSION FIBRE (phase three, round seventeen; kernel: "
+      "basisVec_mulVec, basisVec_dot, form_basis, hermitian_form_conj, "
+      "psd_zero_form_mulVec_zero, psd_diag_zero_entry_zero, "
+      "psd_unit_diag_entry_bound, psd_unimodular_rank_one, "
+      "correlationExtension_single, correlationExtension_classical, embed_sum, "
+      "choi_correlation, correlationExtension_completelyPositive, "
+      "correlationExtension_trace, correlationExtension_cptp, "
+      "cptp_classical_forces_correlation, cptpExtension_iff_correlationMatrix, "
+      "correlationExtension_comp, correlationExtension_one_eq_id_iff, "
+      "reversibleExtension_iff_rankOne, rankOne_extension_monomial, "
+      "purity_selector_rank_one, correlationExtension_diagonal, combPerm_cons, "
+      "combFold_diagonal, combPerm_eq_permProd, classicalComb_blind_to_correlation "
+      "in OIBridge/CoherentExtension.lean). The kernel classifies EVERY completely "
+      "positive extension of a classical permutation action as Ad(P_g) compose "
+      "Schur_C with C PSD and unit-diagonal, and this probe walks the fibre over the "
+      "3-cycle exactly: a rank-one unimodular phase matrix, a partial dephaser "
+      "(2/3 off-diagonal, PSD certificate exhibited), and complete dephasing C = I. "
+      "All three realize the same classical action; every 3-step branch-interleaved "
+      "comb produces IDENTICAL statistics on all 27 classical trajectories (comb "
+      "blindness, exact); one coherent effect -- the all-ones effect on the uniform "
+      "superposition dyad -- reads 121/25, 7, 3 respectively and separates the "
+      "fibre. ONLY the rank-one member is reversible: its family inverse is exact "
+      "and the member IS the monomial conjugation Ad(D P_g) (unitary, verified on "
+      "all 9 matrix units); the partial dephaser's would-be inverse matrix has "
+      "x^H C' x = -1 < 0 on the witness (1,-1,0) and so is not PSD -- by the "
+      "classification no CPTP inverse exists; complete dephasing is not even "
+      "injective. THE AUDIT GUARD: composing the coherent lifts of g and g^-1 (both "
+      "with C = I) is the identity on every diagonal -- the classical comb identity "
+      "-- yet kills E_01: classical invertibility of the intervention does NOT give "
+      "coherent reversibility. The purity selector fires exactly: the rank-one "
+      "member maps the uniform dyad to a pure dyad (all 2x2 minors vanish), the "
+      "partial dephaser leaves minor 5/9. BOXED: classical OI comb => the "
+      "correlation-matrix family; OI comb + coherent reversibility => the monomial "
+      "unitary intervention lift. Standard QM is the rank-one member; the "
+      "alternative OI-derived theories are precisely its correlation/dephasing "
+      "extensions.")
+
+# ----------------------- F30  the controlled quotient countercontrol (phase three,
+# round 17).  The 4-cycle with labels (0,1,0,1) has a nontrivial PASSIVE quotient
+# (classes {0,2},{1,3}) -- but adding ONE intervention (the transposition tau = (0 1))
+# to the menu makes the CONTROLLED quotient trivial: every state is separated by some
+# action word.  The controlled relation is computed two independent ways -- partition
+# refinement (the greatest-congruence fixpoint) and explicit word search -- and the
+# caveat-closing instance is exhibited: (0,2) passively glued, separated by the
+# single-letter word [tau].
+ok30 = True
+tau30 = [1, 0, 2, 3]
+menu30 = {'phi': phi4, 'tau': tau30}
+# (a) partition refinement over the menu: greatest observation-preserving congruence
+def refine30(gens):
+    blk = {s: lab4[s] for s in range(4)}
+    while True:
+        sig = {s: (blk[s],) + tuple(blk[g[s]] for g in gens) for s in range(4)}
+        codes = {v: k for k, v in enumerate(sorted(set(sig.values())))}
+        new = {s: codes[sig[s]] for s in range(4)}
+        if new == blk:
+            return blk
+        blk = new
+
+ctrl30 = refine30([phi4, tau30])
+ok30 &= len(set(ctrl30.values())) == 4                     # singletons: separated
+pass30 = refine30([phi4])
+ok30 &= sorted(sorted(s for s in range(4) if pass30[s] == c)
+               for c in set(pass30.values())) == [[0, 2], [1, 3]]
+# (b) word search confirms: every pair is separated by an explicit word over the menu
+def word_apply30(word, s):
+    for a in word:
+        s = menu30[a][s]
+    return s
+
+from itertools import product as iprod30
+def sep_word30(s, t):
+    for L in range(4):
+        for word in iprod30(('phi', 'tau'), repeat=L):
+            if lab4[word_apply30(word, s)] != lab4[word_apply30(word, t)]:
+                return word
+    return None
+
+for s in range(4):
+    for t in range(s + 1, 4):
+        ok30 &= sep_word30(s, t) is not None
+# (c) the caveat closer: (0,2) passively glued (identical phi-itineraries), separated
+# by the single letter [tau]
+ok30 &= w4[0] == w4[2]                                     # passive itineraries agree
+ok30 &= sep_word30(0, 2) == ('tau',)
+ok30 &= lab4[tau30[0]] == 1 and lab4[tau30[2]] == 0
+# (d) exhaustive greatest congruence for the TWO-generator menu: of all 15 partitions
+# only the trivial one is label-constant and stable under BOTH actions
+ncong30 = 0
+for p in partitions27([0, 1, 2, 3]):
+    blk = {s: k for k, b in enumerate(p) for s in b}
+    lab_const = all(lab4[s] == lab4[t] for b in p for s in b for t in b)
+    stab = all(blk[gg[s]] == blk[gg[t]] for gg in (phi4, tau30)
+               for b in p for s in b for t in b)
+    if lab_const and stab:
+        ncong30 += 1
+        ok30 &= all(len(b) == 1 for b in p)
+ok30 &= ncong30 == 1                                       # controlled-minimal
+# (e) the refinement map: 4 controlled classes onto 2 passive classes, strictly finer
+img30 = {ctrl30[s]: pass30[s] for s in range(4)}
+ok30 &= set(img30.values()) == set(pass30.values())        # onto
+ok30 &= len(set(ctrl30.values())) > len(set(pass30.values()))
+check("F30", ok30,
+      "THE CONTROLLED QUOTIENT COUNTERCONTROL (phase three, round seventeen; kernel: "
+      "actWord_append, actWord_replicate, ctrlRel_evolve, ctrlRel_word, "
+      "ctrlRel_symm_evolve, ctrlRel_le_itiRelInf, ctrlRel_greatest_congruence, "
+      "ctrlPerm_mk, ctrlWord_mk, controlled_actionSeparating, "
+      "controlledMinimal_iff_actionSeparating, controlledToPassive_surjective, "
+      "intervention_separates_passive_fibre in OIBridge/ControlledQuotient.lean). "
+      "The label-symmetric 4-cycle has passive classes {0,2},{1,3}; adding the single "
+      "transposition tau = (0 1) to the action menu separates EVERYTHING: the "
+      "greatest-congruence partition refinement reaches singletons, explicit "
+      "separating words exist for every pair (word search to length 3), and of all "
+      "15 partitions only the trivial one is label-constant and stable under both "
+      "menu actions -- the carrier is controlled-minimal exactly as "
+      "controlledMinimal_iff_actionSeparating states. THE CAVEAT, CLOSED: the pair "
+      "(0,2) has identical passive phi-itineraries yet is separated by the "
+      "one-letter word [tau] (labels 1 vs 0) -- passively glued, interventionally "
+      "distinct, the exact instance of intervention_separates_passive_fibre. The "
+      "controlled carrier maps ONTO the passive carrier (4 classes onto 2, strictly "
+      "finer): the interventional coherent description is accountable to the "
+      "controlled quotient, and with a single passive generator the controlled "
+      "relation collapses back to the passive one exactly.")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

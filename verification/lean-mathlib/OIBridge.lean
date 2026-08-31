@@ -95,6 +95,8 @@ import OIBridge.DynamicsGlue
 import OIBridge.DomainGlue
 import OIBridge.ObservabilityQuotient
 import OIBridge.PassiveQuotient
+import OIBridge.ControlledQuotient
+import OIBridge.CoherentExtension
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
