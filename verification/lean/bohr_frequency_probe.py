@@ -1961,6 +1961,120 @@ check("F19", ok19,
       "converse half of PSD self-duality that lets positivity transfer BOTH ways in "
       "the assembly")
 
+# ----------------------- F20  the selector no-go and the oriented reference (phase three, round 8)
+# C3c bounded exactly.  (a) The transpose partner ({G^T},{sigma^T}) of a completion carries
+# IDENTICAL pairing data and remains admissible (PSD transports, span transports); (b) the
+# transpose map realizes the second branch with W = 1 yet is NOT any unitary conjugation
+# (inner maps are multiplicative, transpose is antimultiplicative); (c) an oriented
+# functional O with O(Theta R) = -O(R) and O(R) > 0 excludes the transpose branch, and since
+# the data are Theta-invariant while O flips, O provably CANNOT factor through the data;
+# (d) the OTI sign transport is exact, and the passivity margin refutes the reflected
+# orientation, replaying both assembly routes' fork resolution arithmetic.
+ok20 = True
+
+def T20(X):
+    return [[X[j][i] for j in range(len(X))] for i in range(len(X[0]))]
+
+def conj20(X):
+    return [[X[i][j].conj() for j in range(len(X[0]))] for i in range(len(X))]
+
+def tr20(X):
+    return sum((X[k][k] for k in range(len(X))), CZ17)
+
+# (a) data identity at D = 2 with a dense complex menu: I, sigma_x, sigma_y, sigma_z and a
+# genuinely complex two-slot product sigma_x . sigma_y = i sigma_z
+sx20 = [[CZ17, CO17], [CO17, CZ17]]
+sy20 = [[CZ17, C17(0, -1)], [C17(0, 1), CZ17]]
+sz20 = [[CO17, CZ17], [CZ17, C17(-1)]]
+G20 = [eye17(2), sx20, sy20, sz20, mmc17(sx20, sy20)]
+A20a = [[C17(1), C17(2, 1)], [C17(0, -1), C17(Frac(1, 2))]]
+A20b = [[C17(Frac(3, 5), Frac(4, 5)), CZ17], [C17(1, 1), C17(2)]]
+S20 = [mmc17(A, dag17(A)) for A in (A20a, A20b)] + [eye17(2)]
+for Gm in G20:
+    for sm in S20:
+        ok20 &= tr20(mmc17(T20(Gm), T20(sm))) == tr20(mmc17(Gm, sm))
+# any selector factoring through the data therefore CANNOT split R from Theta R: the two
+# data tables are equal entry by entry (operational_orientation_noGo)
+# (b) admissibility of the partner: sigma^T = conj(A).conj(A)^H is PSD by construction,
+# and the transposed menu still spans all of M_2 (4/4 over C)
+for A in (A20a, A20b):
+    ok20 &= T20(mmc17(A, dag17(A))) == mmc17(conj20(A), dag17(conj20(A)))
+vec20 = lambda M: [M[r][c] for r in range(2) for c in range(2)]
+ok20 &= rank17([vec20(M) for M in G20[:4]]) == 4
+ok20 &= rank17([vec20(T20(M)) for M in G20[:4]]) == 4
+# (c) the second branch is realized (Phi = transpose, W = 1) and the branches are disjoint:
+# transpose is antimultiplicative, inner maps are multiplicative, matrix units refuse
+E11_20, E12_20 = [[CO17, CZ17], [CZ17, CZ17]], [[CZ17, CO17], [CZ17, CZ17]]
+prod20 = mmc17(E11_20, E12_20)
+ok20 &= T20(prod20) == mmc17(T20(E12_20), T20(E11_20))          # (XY)^T = Y^T X^T
+ok20 &= T20(prod20) != mmc17(T20(E11_20), T20(E12_20))          # not X^T Y^T
+ok20 &= prod20 == E12_20 and all(x.z() for r in mmc17(E12_20, E11_20) for x in r)
+ok20 &= any(not x.z() for r in E12_20 for x in r)               # transpose_not_inner witness
+# (d) the oriented reference: a passive profile at ordered energies, its margin flips sign
+# under the reflection while the pairing data are unchanged -- so the margin is positive on
+# R, negative on Theta R, and provably NOT a function of the data
+E20 = [0, 1, 3, 7]
+p20 = [Frac(1, 2), Frac(1, 4), Frac(1, 8), Frac(1, 8)]
+ok20 &= all(p20[bb] <= p20[aa] for aa in range(4) for bb in range(4)
+            if E20[aa] < E20[bb])                                # Passive E p
+Erefl20 = [-e + 10 for e in E20]
+Om20 = p20[0] - p20[1]                                           # the margin at pair (0,1)
+OmT20 = p20[1] - p20[0]                                          # the same pair, reflected order
+ok20 &= Om20 == Frac(1, 4) and OmT20 == -Om20 and Om20 > 0 and OmT20 < 0
+ok20 &= not all(p20[bb] <= p20[aa] for aa in range(4) for bb in range(4)
+                if Erefl20[aa] < Erefl20[bb])                    # reflected passivity FAILS
+# (e) OTI sign transport, exact: betaE (eps_b - eps_a) = tauK (omega_b - omega_a) with
+# betaE = 2, tauK = 3, eps = 3k, omega = 2k -- the classical order IS the Bohr order; a
+# negative tauK reverses it (the countercontrol the positivity premises exclude)
+eps20 = [3 * k for k in (0, 1, 4, 6)]
+omg20 = [2 * k for k in (0, 1, 4, 6)]
+for aa in range(4):
+    for bb in range(4):
+        ok20 &= 2 * (eps20[bb] - eps20[aa]) == 3 * (omg20[bb] - omg20[aa])
+        ok20 &= (eps20[aa] < eps20[bb]) == (omg20[aa] < omg20[bb])
+        ok20 &= (eps20[aa] < eps20[bb]) == ((-3) * omg20[aa] > (-3) * omg20[bb]) \
+            or eps20[aa] == eps20[bb]
+# (f) the state route's profile: rho = V diag(p) V^H at the exact (2,2)-carrier unitary is
+# PSD with trace one, spectral populations exactly p, and is RECONSTRUCTED from them
+rho20 = mmc17(mmc17(V22a, [[C17(p20[aa]) if aa == bb else CZ17 for bb in range(4)]
+                           for aa in range(4)]), dag17(V22a))
+ok20 &= tr20(rho20) == CO17 and dag17(rho20) == rho20
+spec20 = mmc17(mmc17(dag17(V22a), rho20), V22a)
+ok20 &= all(spec20[aa][aa] == C17(p20[aa]) for aa in range(4))
+ok20 &= all(spec20[aa][bb].z() for aa in range(4) for bb in range(4) if aa != bb)
+recon20 = mmc17(mmc17(V22a, [[spec20[aa][aa] if aa == bb else CZ17 for bb in range(4)]
+                             for aa in range(4)]), dag17(V22a))
+ok20 &= recon20 == rho20                                         # the state IS its profile
+check("F20", ok20,
+      "THE SELECTOR NO-GO AND THE ORIENTED REFERENCE (phase three, round eight; kernel: "
+      "transpose_data_eq, selector_factorization_invariant, operational_orientation_noGo, "
+      "transpose_span, transpose_sep, transpose_cone, transpose_completion_admissible, "
+      "transpose_realizes_second_branch, transpose_not_inner, "
+      "orientedReference_excludes_transpose, oriented_functional_not_data_definable, "
+      "sameData_unitary_of_orientedReference, shellRepresentation_stationary_profile, "
+      "sameData_unitary_of_transitionIdentification, "
+      "sameData_unitary_of_shellRepresentation in OIBridge/OrientationSelection.lean). "
+      "(a) The transpose partner ({G^T},{sigma^T}) carries IDENTICAL pairing data -- every "
+      "trace pairs equal exactly, complex two-slot products included -- so any selector "
+      "factoring through operational data assigns the same verdict to both members of the "
+      "orientation pair: full unoriented data select QM only up to antiunitary "
+      "equivalence; (b) the partner is ADMISSIBLE (transposed states stay PSD by exact "
+      "construction, the transposed menu still spans 4/4) and the transpose map itself "
+      "realizes the classification's second branch with W = 1, yet is NOT any unitary "
+      "conjugation -- transpose is antimultiplicative and matrix units refuse to commute; "
+      "(c) the oriented functional: a passive profile's margin is +1/4 on R and -1/4 on "
+      "Theta R while the data tables are equal, so the margin flips where the data cannot "
+      "-- the oriented datum is provably not data-definable, and positivity on both "
+      "completions excludes the transpose branch; (d) the OTI sign transport is exact "
+      "(betaE.d_eps = tauK.d_omega with positive betaE, tauK forces the classical order "
+      "to BE the Bohr order; negative tauK reverses it) and reflected passivity fails at "
+      "an explicit pair -- the arithmetic both assembly capstones run; (e) the state "
+      "route's stationary state is exactly its spectral profile (PSD, trace one, "
+      "populations p, reconstructed from its own diagonal) -- what "
+      "shellRepresentation_stationary_profile extracts from "
+      "ShellRepresentationConsistency. The remaining question is precise: does bare OI "
+      "derive OperationalTransitionIdentification or ShellRepresentationConsistency?")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
