@@ -90,6 +90,7 @@ import OIBridge.OperationalRigidity
 import OIBridge.JordanClassification
 import OIBridge.OrientationSelection
 import OIBridge.OrientationClosure
+import OIBridge.CycleFibreHull
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

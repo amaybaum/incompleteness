@@ -436,6 +436,16 @@ for fname, names in (
                             'no_universal_oriented_property',
                             'no_symmetric_condition_forces_transitionIdentification',
                             'no_symmetric_condition_forces_orientedShell')),
+    ('CycleFibreHull', ('sum_range_shift', 'freq_shift', 'freq_pow', 'freq_sum_one',
+                        'freq_sum_card', 'fiberProj_trace', 'stationary_diag_pow',
+                        'stationary_freq_readout', 'psd_diag_real',
+                        'stationary_readout_hull', 'hull_readout_achieved',
+                        'no_representation_outside_hull', 'transitive_freq_const',
+                        'transitive_freq_eq_countMarginal',
+                        'ergodicShell_readout_unique', 'ergodicShell_SRC',
+                        'cycle_eigenvector_overlap', 'commutant_entry_zero',
+                        'simple_spectrum_column_moduli',
+                        'permLogBranch_projOverlap_invariant')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -475,8 +485,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All seventeen files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 5 + 16 named results print their "
+      "LINT. All eighteen files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

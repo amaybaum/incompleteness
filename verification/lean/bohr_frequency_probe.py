@@ -2370,6 +2370,84 @@ check("F22", ok22,
       "continuous-flow layer is exactly the generic-flow spectral/projector data "
       "(the eigenvector moduli B) that no corpus datum currently pins")
 
+# ----------------------- F23  the cycle-fibre hull, kernelized (phase three, round 12)
+# The F22 geometry is now theorem, not carrier arithmetic; this section replays the
+# KERNEL statements exactly on the F22 model.  (a) freq: the orbit-frequency vectors are
+# constant on orbits, sum to one at each point, and total to the fibre cardinalities;
+# (b) the hull identity: for a genuinely mixed stationary state, weighting the orbit
+# frequencies by the state's own diagonal reproduces every fibre readout exactly
+# (stationary_readout_hull's convex decomposition); (c) achievability: the orbit-averaged
+# diagonal state built from an arbitrary weight vector is stationary and reads out the
+# prescribed convex combination (hull_readout_achieved's construction).
+ok23 = True
+L23 = 1
+for E in shells22:
+    L23 = L23 * len(shells22[E]) // __import__('math').gcd(L23, len(shells22[E]))
+
+def iter23(s, k):
+    for _ in range(k % L23):
+        s = phi22[s]
+    return s
+
+def freq23(i, s):
+    return Frac(sum(1 for k in range(L23) if iter23(s, k)[0] == i), L23)
+
+# (a) freq facts: orbit constancy, probability vector, fibre mass
+for E in shells22:
+    s0 = shells22[E][0]
+    ok23 &= all(freq23(i, phi22[s0]) == freq23(i, s0) for i in range(3))
+    ok23 &= sum(freq23(i, s0) for i in range(3)) == 1
+    ok23 &= [freq23(i, s0) for i in range(3)] == ratio22[E]      # r^(alpha) exactly
+for i in range(3):
+    ok23 &= sum(freq23(i, s) for s in J22) == sum(1 for s in J22 if s[0] == i)
+# (b) the hull identity on a mixed stationary state: rho = (2/3) uniform(Sigma_3)
+# + (1/3) uniform(Sigma_4) -- diagonal, orbit-constant, hence stationary
+rho23 = {}
+for s in shells22[3]:
+    rho23[s] = Frac(2, 3) / len(shells22[3])
+for s in shells22[4]:
+    rho23[s] = Frac(1, 3) / len(shells22[4])
+ok23 &= {phi22[s]: v for s, v in rho23.items()} == rho23
+for i in range(3):
+    readout = sum(v for s, v in rho23.items() if s[0] == i)
+    hull = sum(v * freq23(i, s) for s, v in rho23.items())
+    ok23 &= readout == hull                                       # the convex identity
+    ok23 &= readout == Frac(2, 3) * ratio22[3][i] + Frac(1, 3) * ratio22[4][i]
+# (c) achievability: arbitrary weights w, orbit-averaged diagonal d, stationary + exact
+w23 = {s: Frac(1 + (7 * k) % 11, 45 * 6) for k, s in enumerate(J22)}
+tot23 = sum(w23.values())
+w23 = {s: v / tot23 for s, v in w23.items()}
+d23 = {}
+for s in J22:
+    d23[s] = sum(w23[iter23(s, k)] for k in range(L23)) / L23
+ok23 &= {phi22[s]: v for s, v in d23.items()} == d23              # stationary diagonal
+ok23 &= sum(d23.values()) == 1 and all(v >= 0 for v in d23.values())
+for i in range(3):
+    ok23 &= sum(v for s, v in d23.items() if s[0] == i) \
+        == sum(w23[s] * freq23(i, s) for s in J22)                # prescribed readout
+check("F23", ok23,
+      "THE CYCLE-FIBRE HULL, KERNELIZED (phase three, round twelve; kernel: freq_shift, "
+      "freq_pow, freq_sum_one, freq_sum_card, fiberProj_trace, stationary_diag_pow, "
+      "stationary_freq_readout, psd_diag_real, stationary_readout_hull, "
+      "hull_readout_achieved, no_representation_outside_hull, transitive_freq_const, "
+      "transitive_freq_eq_countMarginal, ergodicShell_readout_unique, ergodicShell_SRC, "
+      "cycle_eigenvector_overlap, commutant_entry_zero, simple_spectrum_column_moduli, "
+      "permLogBranch_projOverlap_invariant, sum_range_shift in "
+      "OIBridge/CycleFibreHull.lean). The F22 geometry is now theorem: on the F22 model "
+      "the orbit-frequency vectors are orbit-constant probability vectors totalling the "
+      "fibre cardinalities and equal to the shell ratio points r^(alpha) exactly; a "
+      "genuinely mixed stationary state (2/3 on the 14-shell, 1/3 on the 12-shell) "
+      "satisfies the hull identity -- every fibre readout equals the diagonal-weighted "
+      "average of the orbit frequencies -- and an arbitrary weight vector's "
+      "orbit-averaged diagonal state is stationary with exactly the prescribed convex "
+      "readout: the stationary readout set IS conv{r^(alpha)}, both directions. With "
+      "transitivity the hull collapses to the counting marginal (unique readout, the "
+      "DFT identity in readout form with no roots of unity), and simple-spectrum "
+      "diagonalizations are unique up to diagonal phase, so the carrier datum B is "
+      "branch-invariant on nondegenerate blocks -- the F22 verdict now rests on kernel "
+      "statements, with the generic-flow B beyond the permutation shadow still the one "
+      "named missing premise")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
