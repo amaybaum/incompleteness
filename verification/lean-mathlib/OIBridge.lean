@@ -99,6 +99,7 @@ import OIBridge.ControlledQuotient
 import OIBridge.CoherentExtension
 import OIBridge.ProjectiveAction
 import OIBridge.ControlLie
+import OIBridge.InstrumentDilation
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

@@ -3609,6 +3609,136 @@ check("F32", ok32,
       "selected H-functor completion with gauge-equivalent lifts identified: the "
       "classical permutation action alone does not determine L.")
 
+# ----------------------- F33  the operational-dilation boundary: instrument dilation
+# and the two load-bearing bridges (phase three, round 20).  (a) the Stinespring
+# dilation of an exact 2-outcome qubit instrument -- an amplitude-damping-style Kraus
+# pair with K0^dag K0 + K1^dag K1 = I -- gives an isometry V^dag V = I, its ancilla
+# blocks read back the Kraus post-states K_k rho K_k^dag, and the coarse-grained
+# channel is CP; (b) H-PURE-SEED countercontrol: a maximally-mixed-environment
+# channel is UNITAL (Phi(I) = I), while the reset channel rho -> |0><0| Tr(rho) is
+# NOT unital, so the uniform hidden state cannot realize state preparation;
+# (c) H-TENSOR countercontrol: a nonfactorizable-phase monomial unitary on A x B
+# (swap on A, identity on B, phases 1,i,1,-i) is exactly unitary with U^2 = I and
+# realizes a purely local classical permutation, yet is NOT of the form U_A tensor
+# I_B -- H-functor and classical locality hold, tensor locality fails; (d) local
+# tomography: the local matrix-unit effects read off every composite entry.
+ok33 = True
+# (a) qubit instrument dilation.  Amplitude-damping Kraus pair (p = 9/25):
+p33 = Frac(9, 25)
+sp, sq = C17(Frac(4, 5)), C17(Frac(3, 5))                  # sqrt(1-p)=4/5, sqrt(p)=3/5
+K0 = [[CO17, CZ17], [CZ17, sp]]
+K1 = [[CZ17, sq], [CZ17, CZ17]]
+Klist = [K0, K1]
+# completeness: sum K_k^dag K_k = I
+comp = [[CZ17, CZ17], [CZ17, CZ17]]
+for K in Klist:
+    KdK = mmc17(dag17(K), K)
+    comp = [[comp[r][c] + KdK[r][c] for c in range(2)] for r in range(2)]
+ok33 &= comp == eye17(2)
+# V : (k, s') -> s, indexed rows (k,s') = 2k + s', cols s.  V^dag V = I
+V33 = [[Klist[kk][sp2][s] for s in range(2)] for kk in range(2) for sp2 in range(2)]
+VdV = mmc17(dag17(V33), V33)
+ok33 &= VdV == eye17(2)
+# branch: sysBlock(V rho V^dag, k) = K_k rho K_k^dag on a generic state
+rho33 = [[C17(Frac(1, 2)), C17(Frac(1, 5), Frac(1, 10))],
+         [C17(Frac(1, 5), Frac(-1, 10)), C17(Frac(1, 2))]]
+VrV = mmc17(mmc17(V33, rho33), dag17(V33))
+for kk in range(2):
+    block = [[VrV[2 * kk + r][2 * kk + c] for c in range(2)] for r in range(2)]
+    ok33 &= block == mmc17(mmc17(Klist[kk], rho33), dag17(Klist[kk]))
+# coarse-grain (single outcome each here): the channel is trace-preserving on rho
+chan = [[CZ17, CZ17], [CZ17, CZ17]]
+for kk in range(2):
+    KrK = mmc17(mmc17(Klist[kk], rho33), dag17(Klist[kk]))
+    chan = [[chan[r][c] + KrK[r][c] for c in range(2)] for r in range(2)]
+ok33 &= (chan[0][0] + chan[1][1]) == (rho33[0][0] + rho33[1][1])   # Tr preserved
+# (b) H-pure-seed: unital uniform environment vs non-unital reset
+# uniform-env channel Phi(X) = Tr_E[U (X tensor I/m) U^dag]; at X = I this is I for
+# ANY unitary U (probe the identity interaction U = I on a 2-dim environment)
+m33 = 2
+Uenv = eye17(4)                                            # trivial interaction
+Iin = [[(CO17 if r == c else CZ17)
+        for c in range(4)] for r in range(4)]              # 1 tensor 1 (before /m)
+big = mmc17(mmc17(Uenv, Iin), dag17(Uenv))
+PhiI = [[sum((big[2 * r + e][2 * c + e] for e in range(m33)), CZ17)
+         for c in range(2)] for r in range(2)]
+PhiI = [[C17(Frac(1, m33)) * PhiI[r][c] for c in range(2)] for r in range(2)]
+ok33 &= PhiI == eye17(2)                                   # UNITAL
+# reset channel at I: |0><0| Tr(I) = 2|0><0| != I
+resetI = [[C17(2) if (r, c) == (0, 0) else CZ17 for c in range(2)] for r in range(2)]
+ok33 &= not (resetI == eye17(2))                           # NOT unital
+# (c) H-tensor: nonfactorizable-phase monomial unitary, basis (a,b) -> idx 2a+b
+Ci, Cmi = C17(0, 1), C17(0, -1)
+# columns: (0,0)->(1,0) phase 1; (0,1)->(1,1) phase i; (1,0)->(0,0) phase 1;
+# (1,1)->(0,1) phase -i
+Utens = [[CZ17, CZ17, CO17, CZ17],
+         [CZ17, CZ17, CZ17, Cmi],
+         [CO17, CZ17, CZ17, CZ17],
+         [CZ17, Ci, CZ17, CZ17]]
+ok33 &= mmc17(Utens, dag17(Utens)) == eye17(4)             # exactly unitary
+ok33 &= mmc17(Utens, Utens) == eye17(4)                    # U^2 = I: C2 functorial
+# classical locality: the support permutation is swap-on-A, identity-on-B
+supp = {}
+for c in range(4):
+    r = next(r for r in range(4) if not Utens[r][c].z())
+    supp[c] = r
+ok33 &= supp == {0: 2, 1: 3, 2: 0, 3: 1}                   # (a,b)->(1-a,b)
+# tensor locality FAILS: U = M tensor I_B would force M[1][0] = phase in BOTH b
+# sectors, but b=0 gives U[2][0] = 1 and b=1 gives U[3][1] = i, unequal
+ok33 &= Utens[2][0] == CO17 and Utens[3][1] == Ci
+ok33 &= not (Utens[2][0] == Utens[3][1])                   # nonfactorizable
+# a genuine M tensor I would satisfy this equality (kernel tensorProduct_entry):
+Mloc = [[C17(Frac(3, 5)), C17(Frac(-4, 5))],
+        [C17(Frac(4, 5)), C17(Frac(3, 5))]]
+kronMI = [[Mloc[r // 2][c // 2] * (CO17 if r % 2 == c % 2 else CZ17)
+           for c in range(4)] for r in range(4)]
+ok33 &= kronMI[2][0] == kronMI[3][1]                       # factorizes: M[1][0]
+# (d) local tomography: local matrix-unit effects read off entries
+def loceff(a, ap, b, bp):
+    return [[(CO17 if (r // 2 == a and c // 2 == ap) else CZ17)
+             * (CO17 if (r % 2 == b and c % 2 == bp) else CZ17)
+             for c in range(4)] for r in range(4)]
+
+X33 = [[C17(r + 1, c) for c in range(4)] for r in range(4)]
+for a in range(2):
+    for ap in range(2):
+        for b in range(2):
+            for bp in range(2):
+                tr = sum((mmc17(loceff(a, ap, b, bp), X33)[i][i]
+                          for i in range(4)), CZ17)
+                ok33 &= tr == X33[2 * ap + bp][2 * a + b]
+check("F33", ok33,
+      "THE OPERATIONAL-DILATION BOUNDARY (phase three, round twenty; kernel: "
+      "krausInstrument_isometry, dilation_sysBlock, instrument_coarsegrain, "
+      "seeded_prep_eq, finiteInstrument_of_ancillaControl, uniform_input_scalar, "
+      "uniformEnvChannel_unital, resetChannel_not_unital, uniformHiddenState_not_full, "
+      "tensorProduct_entry, localEffect_trace, local_tomography in "
+      "OIBridge/InstrumentDilation.lean). (a) the Stinespring dilation of an exact "
+      "amplitude-damping qubit instrument (p = 9/25) gives an isometry V^dag V = I "
+      "whose ancilla blocks read back the Kraus post-states K_k rho K_k^dag exactly, "
+      "and the coarse-grained channel is trace-preserving -- the whole finite "
+      "instrument reduced to seed + unitary + basis readout; (b) H-PURE-SEED is "
+      "load-bearing: a maximally-mixed-environment channel is UNITAL (Phi(I) = I for "
+      "any interaction), the reset channel rho -> |0><0| Tr(rho) reads 2|0><0| at I "
+      "and is NOT unital, so the existing uniform hidden state cannot supply state "
+      "preparation and H-pure-seed cannot be identified with the hidden-sector prior; "
+      "(c) H-TENSOR is load-bearing: the nonfactorizable-phase monomial unitary "
+      "(swap on A, identity on B, phases 1, i, 1, -i) is exactly unitary with "
+      "U^2 = I (so H-functor holds for its C2) and realizes the purely local "
+      "classical permutation (a,b) -> (1-a,b), yet is NOT U_A tensor I_B -- the b=0 "
+      "and b=1 sectors would force M[1][0] = 1 and M[1][0] = i, unequal, while a "
+      "genuine M tensor I factorizes (kernel tensorProduct_entry): H-functor and "
+      "classical locality green, tensor locality RED; (d) local tomography -- the "
+      "local matrix-unit effects read off every composite entry, so equal "
+      "local-product probabilities force equal composite states. BOXED CHAIN: bare "
+      "OI => classical core + correlation extensions; + H-functor => projective "
+      "monomial coherent dynamics; + L_0 = su(D) => universal unitary control; "
+      "+ H-tensor + H-pure-seed => the full finite quantum instrument algebra. "
+      "Purification (Schmidt/Uhlmann) and local tomography are the theorem targets "
+      "immediately behind the dilation reduction; the remaining OI/QM question is "
+      "exactly whether OI earns H-functor, H-tensor, H-pure-seed and sufficient "
+      "composite Lie rank, or whether those are independent completion principles.")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
