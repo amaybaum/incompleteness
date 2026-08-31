@@ -2075,6 +2075,104 @@ check("F20", ok20,
       "ShellRepresentationConsistency. The remaining question is precise: does bare OI "
       "derive OperationalTransitionIdentification or ShellRepresentationConsistency?")
 
+# ----------------------- F21  SRC transpose stability and the universal no-go (phase three, round 9)
+# The final audit before the phase-three synthesis.  (a) SRC is an EXISTENCE condition,
+# not an orientation selector: transposing the represented state and reflecting the model
+# preserves every SRC clause exactly -- the reflected propagator IS the conjugated
+# propagator (checked at the formal phase level: integer powers of z = e^{-it}), the
+# transposed state keeps PSD/trace/readout; (b) OTI is genuinely orientation-sensitive:
+# the identification for the labels and for their reflection jointly force every Bohr gap
+# to zero; (c) the state-side oriented condition (SRC + aligned spectral passivity +
+# nonuniformity) is orientation-sensitive under the carrier nondegeneracies: the shared
+# readout pins ONE spectral profile (the moduli mixture B is injective at the census
+# carrier), and a nonuniform profile cannot be passive for both orientations; (d) the
+# universal no-go replayed on a two-element Theta-closed class.
+ok21 = True
+E21 = [0, 1, 3, 7]
+p21 = [Frac(1, 2), Frac(1, 4), Frac(1, 8), Frac(1, 8)]
+
+def dyad21(V, a):
+    return [[V[r][a] * V[c][a].conj() for c in range(4)] for r in range(4)]
+
+def prop21(V, E):
+    U = {}
+    for a in range(4):
+        M = dyad21(V, a)
+        if E[a] in U:
+            U[E[a]] = [[U[E[a]][r][c] + M[r][c] for c in range(4)] for r in range(4)]
+        else:
+            U[E[a]] = M
+    return U
+
+# (a) the reflected propagator is the conjugated propagator, formally in z-powers
+V21c = [[V22a[r][c].conj() for c in range(4)] for r in range(4)]
+U21 = prop21(V22a, E21)
+U21r = prop21(V21c, [-e for e in E21])
+ok21 &= set(U21r) == {-k for k in U21}
+for k, M in U21.items():
+    ok21 &= U21r[-k] == [[M[r][c].conj() for c in range(4)] for r in range(4)]
+# the transposed state: every SRC clause survives exactly
+rho21 = mmc17(mmc17(V22a, [[C17(p21[a]) if a == b else CZ17 for b in range(4)]
+                           for a in range(4)]), dag17(V22a))
+rho21T = T20(rho21)
+rho21r = mmc17(mmc17(V21c, [[C17(p21[a]) if a == b else CZ17 for b in range(4)]
+                            for a in range(4)]), dag17(V21c))
+ok21 &= rho21T == rho21r                                  # rho^T IS the reflected witness
+ok21 &= dag17(rho21T) == rho21T and tr20(rho21T) == CO17
+ok21 &= all(rho21T[i][i] == rho21[i][i] for i in range(4))  # readout survives
+# (b) OTI orientation sensitivity: 2.d_eps = 3.d_omega holds, 2.d_eps = -3.d_omega fails
+eps21 = [3 * k for k in (0, 1, 4, 6)]
+omg21 = [2 * k for k in (0, 1, 4, 6)]
+ok21 &= all(2 * (eps21[b] - eps21[a]) == 3 * (omg21[b] - omg21[a])
+            for a in range(4) for b in range(4))
+viol21 = [(a, b) for a in range(4) for b in range(4)
+          if 2 * (eps21[b] - eps21[a]) != -3 * (omg21[b] - omg21[a])]
+ok21 &= len(viol21) > 0                                   # both together are impossible
+ok21 &= all(omg21[a] == omg21[b]
+            for a in range(4) for b in range(4) if (a, b) not in viol21)
+# (c) the readout pins the profile: B = |V_ia|^2 is injective at the census carrier, the
+# shared p forces one q, and q passive for E is NOT passive for -E (nonuniform squeeze)
+B21 = [[V22a[i][a] * V22a[i][a].conj() for a in range(4)] for i in range(4)]
+ok21 &= rank17(B21) == 4                                  # ReadoutSeparating holds
+Bc21 = [[V21c[i][a] * V21c[i][a].conj() for a in range(4)] for i in range(4)]
+ok21 &= B21 == Bc21                                       # the partner has the SAME mixture
+ok21 &= all(p21[b] <= p21[a] for a in range(4) for b in range(4)
+            if E21[a] < E21[b])                           # Passive E q
+ok21 &= not all(p21[b] <= p21[a] for a in range(4) for b in range(4)
+                if -E21[a] < -E21[b])                     # Passive (-E) q FAILS
+# (d) the universal no-go on a two-element Theta-closed class: P(R) and not P(Theta R)
+cls21 = [("R", E21), ("ThetaR", [-e for e in E21])]
+def P21(lab):
+    Em = dict(cls21)[lab]
+    return all(p21[b] <= p21[a] for a in range(4) for b in range(4)
+               if Em[a] < Em[b]) and any(p21[a] != p21[b]
+                                         for a in range(4) for b in range(4))
+ok21 &= P21("R") and not P21("ThetaR")                    # no Theta-closed class forces P
+check("F21", ok21,
+      "SRC TRANSPOSE STABILITY AND THE UNIVERSAL ORIENTATION NO-GO (phase three, round "
+      "nine; kernel: conjM_conjM, conjM_sandwich_transpose, umat_reflect_conjM, "
+      "shellRepresentation_transpose_stable, transitionIdentification_orientation_"
+      "sensitive, stationary_readout, orientedShellRepresentation_orientation_sensitive, "
+      "no_universal_oriented_property, no_symmetric_condition_forces_transition"
+      "Identification, no_symmetric_condition_forces_orientedShell in "
+      "OIBridge/OrientationClosure.lean). (a) SRC is an EXISTENCE condition, not an "
+      "orientation selector: at the census carrier the reflected model's propagator "
+      "equals the conjugated propagator formally in z-powers (power negation + "
+      "coefficient conjugation, exact), and the transposed state IS the reflected "
+      "witness -- Hermitian, trace one, identical visible readout -- so every SRC clause "
+      "transports both ways (shellRepresentation_transpose_stable); (b) OTI is genuinely "
+      "orientation-sensitive: betaE.d_eps = tauK.d_omega holds exactly on all pairs while "
+      "its reflection fails on every pair with a nonzero gap -- the two together force "
+      "all gaps to zero; (c) the state-side oriented condition is orientation-sensitive "
+      "under the carrier nondegeneracies: the moduli mixture B = |V_ia|^2 has full rank "
+      "4/4 (ReadoutSeparating), the partner carries the SAME mixture, so the shared "
+      "readout pins one spectral profile -- and the nonuniform passive profile fails "
+      "reflected passivity at an explicit pair; (d) the universal no-go replayed on a "
+      "two-element Theta-closed class: P holds at R, fails at Theta R, so no "
+      "transpose-symmetric condition can force P throughout. BOXED: bare "
+      "transpose-symmetric coherent-completion conditions cannot force an orientation -- "
+      "'impossible from unoriented data', not 'not yet derived'")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

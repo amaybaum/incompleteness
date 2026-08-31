@@ -89,6 +89,7 @@ import OIBridge.AccessibleAlgebra
 import OIBridge.OperationalRigidity
 import OIBridge.JordanClassification
 import OIBridge.OrientationSelection
+import OIBridge.OrientationClosure
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
