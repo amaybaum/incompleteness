@@ -93,6 +93,7 @@ import OIBridge.OrientationClosure
 import OIBridge.CycleFibreHull
 import OIBridge.DynamicsGlue
 import OIBridge.DomainGlue
+import OIBridge.ObservabilityQuotient
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

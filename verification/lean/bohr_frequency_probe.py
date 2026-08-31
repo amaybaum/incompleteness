@@ -2675,6 +2675,98 @@ check("F25", ok25,
       "it fails the F22 underdetermination is genuine. The existence question is now: "
       "is the actual observer cut itinerary-separating?")
 
+# ----------------------- F26  the observability quotient: exactly the resolvable distinctions
+# (phase three, round 15).  The finite-horizon quotient theorem span(D_K) = {f constant on
+# every ~_K class} and the residual classification (glue <=> class-indicator transport;
+# block-unitary freedom inside itinerary fibres) verified finitely.  (a) graded class-count
+# profile at the F22 14-shell: #(~_K classes) for K = 0..K*, monotone, reaching 14
+# singletons at the separation horizon K*; (b) the graded branch domain D_K, built by the
+# kernel's own constructors (shell / mono / evolve / branch), has Q-span rank EQUAL to the
+# class count at EVERY horizon K -- the quotient theorem, not just its top; (c) residual
+# classification at the non-separating 4-cycle: classes {0,2},{1,3} stable for all K >= 1,
+# the F25 non-monomial unitary U4 satisfies class-indicator transport U E_C U^dag =
+# P E_C P^dag exactly (the countercontrol is a CLASSIFICATION INSTANCE, not an anomaly),
+# its columns are supported inside the phi-transported fibre of each class
+# (glue_column_support), while a fibre-crossing unitary FAILS the transport equation --
+# necessity; (d) unitarity is forced by the base preparation w = 1 alone
+# (domainGlue_unitary): a non-unitary multiple of P4 already fails the shell equation.
+ok26 = True
+# (a) graded class counts on the 14-shell: ~_K classes = distinct K-prefixes of itineraries
+prof26 = [len({w[:K] for w in words25}) for K in range(15)]
+Kstar26 = next(K for K in range(15) if prof26[K] == 14)
+ok26 &= prof26[0] == 1                                     # horizon 0: everything glued
+ok26 &= all(prof26[K] <= prof26[K + 1] for K in range(14)) # monotone refinement
+ok26 &= all(prof26[K] == 14 for K in range(Kstar26, 15))   # stable once separated
+ok26 &= Kstar26 <= 14                                      # within one period (orderOf phi)
+# (b) graded domain vs graded quotient: build D_K by the kernel constructors and check
+# rank(span D_K) == #classes(K) at every K -- branchDomain_span_eq_itineraryInvariant
+lvl26 = {tuple([Frac(1)] * 14)}                            # BDK 0 = {shell}
+for K in range(Kstar26 + 1):
+    ok26 &= rankQ25([list(v) for v in lvl26]) == prof26[K]
+    nxt = set(lvl26)                                       # mono
+    nxt |= {evolve25(w) for w in lvl26}                    # evolve
+    frontier = list(nxt)
+    while frontier:                                        # branch closes level K+1
+        w = frontier.pop()
+        for i in range(3):
+            b = branch25(i, w)
+            if b not in nxt:
+                nxt.add(b)
+                frontier.append(b)
+    lvl26 = nxt
+ok26 &= rankQ25([list(v) for v in lvl26]) == 14            # separating: full algebra
+# (c) residual classification at the 4-cycle.  Classes stable at {0,2},{1,3} for K >= 1.
+w4p = [len({w[:K] for w in w4}) for K in range(5)]
+ok26 &= w4p == [1, 2, 2, 2, 2]
+E02 = [[CO17 if r == c and r in (0, 2) else CZ17 for c in range(4)] for r in range(4)]
+E13 = [[CO17 if r == c and r in (1, 3) else CZ17 for c in range(4)] for r in range(4)]
+for EC in (E02, E13):                                      # class-indicator transport
+    ok26 &= mmc17(mmc17(U4, EC), dag17(U4)) == mmc17(mmc17(P4, EC), dag17(P4))
+# phi transports the fibres: P E_{02} P^dag = E_{13} and vice versa
+ok26 &= mmc17(mmc17(P4, E02), dag17(P4)) == E13
+ok26 &= mmc17(mmc17(P4, E13), dag17(P4)) == E02
+# column support (glue_column_support): column s of U4 lives inside phi(class(s))
+cls4 = {0: (0, 2), 1: (1, 3), 2: (0, 2), 3: (1, 3)}
+for s0 in range(4):
+    img = {phi4[t] for t in cls4[s0]}
+    ok26 &= all(U4[r][s0].z() for r in range(4) if r not in img)
+# necessity: a fibre-crossing unitary (3-4-5 rotation of coordinates 0,1 after P4)
+# violates the E02 transport equation even though it is exactly unitary
+X01 = [[C17(Frac(3, 5)) if (r, c) in ((0, 0), (1, 1)) else
+        C17(Frac(-4, 5)) if (r, c) == (0, 1) else
+        C17(Frac(4, 5)) if (r, c) == (1, 0) else
+        CO17 if r == c else CZ17 for c in range(4)] for r in range(4)]
+V4 = mmc17(X01, P4)
+ok26 &= mmc17(V4, dag17(V4)) == eye17(4)
+ok26 &= mmc17(mmc17(V4, E02), dag17(V4)) != mmc17(mmc17(P4, E02), dag17(P4))
+# (d) unitarity from the base preparation alone: 2*P4 fails the w = 1 shell equation
+W4 = [[P4[r][c] + P4[r][c] for c in range(4)] for r in range(4)]
+ok26 &= mmc17(W4, dag17(W4)) != eye17(4)
+ok26 &= mmc17(mmc17(W4, eye17(4)), dag17(W4)) != mmc17(mmc17(P4, eye17(4)), dag17(P4))
+check("F26", ok26,
+      "THE OBSERVABILITY QUOTIENT: EXACTLY THE RESOLVABLE DISTINCTIONS (phase three, "
+      "round fifteen; kernel: branchDomainK_invariant, classIndicator_eq_itiIndicator, "
+      "itiIndicator_mem_BDK, classIndicator_mem_BDK, invariant_le_span_classIndicators, "
+      "branchDomain_span_eq_itineraryInvariant, classicalBranchDomain_iff_horizon, "
+      "itiRelInf_iff_orderOf, classicalBranch_span_eq_invariant, glueEq_span, "
+      "domainGlue_classification_mod_itineraryFibres, domainGlue_unitary, "
+      "glue_column_support in OIBridge/ObservabilityQuotient.lean). The finite-horizon "
+      "quotient theorem span(D_K) = {f constant on every ~_K class} holds at EVERY "
+      "horizon on the F22 shell: the graded branch domain built by the kernel's own "
+      "constructors has Q-span rank equal to the ~_K class count for each K from 0 to "
+      f"the separation horizon K* = {Kstar26} (profile {prof26[:Kstar26 + 1]}), where "
+      "the classes become singletons and the round-14 monomial collapse fires. Where "
+      "separation FAILS, the surviving freedom is classified, not mysterious: on the "
+      "4-cycle the classes freeze at the two fibres {0,2},{1,3}, the domain glue is "
+      "EQUIVALENT to class-indicator transport U E_C U^dag = P E_C P^dag, the F25 "
+      "non-monomial countercontrol satisfies exactly those equations (a classification "
+      "instance now, not an anomaly), every glue-compatible column is supported inside "
+      "the phi-transported fibre of its class, a fibre-crossing unitary fails the "
+      "transport equation, and unitarity itself is forced by the shell preparation "
+      "w = 1 alone. Boxed: OI earns G1 on exactly the distinctions the observer cut "
+      "can operationally resolve, and nothing stronger -- full QM follows precisely "
+      "when the physical cut is informationally complete on the relevant shell.")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
