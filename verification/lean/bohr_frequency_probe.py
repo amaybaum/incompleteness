@@ -2173,6 +2173,203 @@ check("F21", ok21,
       "transpose-symmetric coherent-completion conditions cannot force an orientation -- "
       "'impossible from unoriented data', not 'not yet derived'")
 
+# ----------------------- F22  actual-substratum preparation feasibility (phase three, round 11)
+# The substratum coherent-existence test, stage one: ONE microscopic model -- the corpus's
+# concrete shell shape (visible energies 0,1,2; bath counts 1,2,4,8 so beta_E > 0; joint
+# permutation conserving total energy, ergodic within each shell) -- generates BOTH the
+# shell marginal p AND the carrier (U_phi, P_i).  No hand-chosen V, no fitting B to p.
+# (a) same model sources shell and transition data; (b) the carrier's B on the target shell
+# block is CANONICAL -- the block is a single 14-cycle, its spectrum nondegenerate, so the
+# eigenvector moduli (hence B) are invariant under every branch of the interpolation
+# ambiguity [Main] names; (c) the feasibility p = Bq is decided POSITIVELY with the
+# classical shell ensemble itself as the representing state; (d) changing the preparation
+# with the carrier fixed flips feasibility (exact separating certificate); (e) beyond the
+# permutation shadow the corpus specifies no finite continuous flow, and two generic
+# carriers compatible with everything the corpus fixes give OPPOSITE verdicts for the same
+# p: the physical-flow carrier datum is underdetermined -- the named missing premise.
+ok22 = True
+evis22 = [0, 1, 2]
+Ehid22 = [0] + [1] * 2 + [2] * 4 + [3] * 8            # counts 1,2,4,8: beta_E > 0
+J22 = [(i, h) for i in range(3) for h in range(len(Ehid22))]
+shells22 = {}
+for s in J22:
+    shells22.setdefault(evis22[s[0]] + Ehid22[s[1]], []).append(s)
+ok22 &= sorted(len(v) for v in shells22.values()) == [1, 3, 7, 8, 12, 14]
+ratio22 = {}
+for E, sh in shells22.items():
+    ratio22[E] = [Frac(sum(1 for s in sh if s[0] == i), len(sh)) for i in range(3)]
+# phi: fiber-interleaved single cycle within each shell (round-robin over visible labels)
+order22 = {}
+for E, sh in shells22.items():
+    byf = [[s for s in sh if s[0] == i] for i in range(3)]
+    seq, k = [], 0
+    while any(byf):
+        if byf[k % 3]:
+            seq.append(byf[k % 3].pop(0))
+        k += 1
+    order22[E] = seq
+phi22 = {}
+for E, seq in order22.items():
+    for k, s in enumerate(seq):
+        phi22[s] = seq[(k + 1) % len(seq)]
+ok22 &= sorted(phi22) == sorted(J22) and sorted(phi22.values()) == sorted(J22)
+for E, sh in shells22.items():
+    ok22 &= {phi22[s] for s in sh} == set(sh)          # every shell conserved
+    orb, s = [sh[0]], phi22[sh[0]]
+    while s != sh[0]:
+        orb.append(s)
+        s = phi22[s]
+    ok22 &= len(orb) == len(sh)                        # ergodic: one cycle per shell
+# (a) the SAME phi sources the transition data: T(1) with the uniform hidden prior is
+# doubly stochastic and genuinely mixes the visible labels
+T22 = [[Frac(0)] * 3 for _ in range(3)]
+for i in range(3):
+    for h in range(len(Ehid22)):
+        T22[i][phi22[(i, h)][0]] += Frac(1, len(Ehid22))
+ok22 &= all(sum(r) == 1 for r in T22) and all(sum(T22[i][j] for i in range(3)) == 1
+                                              for j in range(3))
+ok22 &= sum(T22[i][j] for i in range(3) for j in range(3) if i != j) == Frac(5, 3)
+ok22 &= sum(1 for s in shells22[3] if phi22[s][0] != s[0]) == 10   # mixing on the shell
+# (b) canonical B on the target shell block: no nontrivial fixed powers, so every
+# eigenprojector of the 14-cycle has constant diagonal 1/14 (the DFT fixed-point
+# identity), the spectrum is the 14 distinct fourteenth roots, and B_ia = tr(P_i Pi_a)
+# = m_i/14 for EVERY a -- invariant under every log-branch of the interpolation
+sh22 = order22[3]
+N22 = len(sh22)
+
+def powfix22(t, j):
+    s = t
+    for _ in range(j):
+        s = phi22[s]
+    return s == t
+
+ok22 &= all(not powfix22(t, j) for j in range(1, N22) for t in sh22)
+m22 = [sum(1 for s in sh22 if s[0] == i) for i in range(3)]
+Bcol22 = [Frac(mi, N22) for mi in m22]
+ok22 &= sum(Bcol22) == 1 and m22 == [8, 4, 2]
+# (c) FEASIBILITY, decided positively: p IS the (unique) column, q uniform solves p = Bq,
+# and the representing state is the classical shell ensemble itself -- exactly stationary,
+# correct readout, PSD, trace one.  SRC holds for the actual substratum truncation.
+p22 = ratio22[3]
+ok22 &= p22 == Bcol22 == [Frac(4, 7), Frac(2, 7), Frac(1, 7)]
+rho22 = {s: Frac(1, N22) for s in sh22}
+ok22 &= {phi22[s]: w for s, w in rho22.items()} == rho22           # U rho U^T = rho
+ok22 &= [sum(w for s, w in rho22.items() if s[0] == i) for i in range(3)] == p22
+ok22 &= sum(rho22.values()) == 1 and all(w > 0 for w in rho22.values())
+# every shell's counting marginal is its own cycle ratio point: the counting preparation
+# is feasible at EVERY shell of the model, unconditionally
+ok22 &= all(ratio22[E] == [Frac(sum(1 for s in order22[E] if s[0] == i),
+                                len(order22[E])) for i in range(3)] for E in shells22)
+# (d) COUNTERCONTROL: the stationary-readout hull is spanned by the shells' ratio points;
+# the exact observable bound (cycle-averaging M = c.P) certifies that the modified
+# preparation p'' = (1/3, 2/3, 0) is INFEASIBLE on the same carrier: every stationary
+# state pays at most 2/3 on M = P_0/2 + P_1, while p'' pays 5/6
+c22 = [Frac(1, 2), Frac(1), Frac(0)]
+d22 = Frac(2, 3)
+ok22 &= all(sum(ci * vi for ci, vi in zip(c22, ratio22[E])) <= d22 for E in shells22)
+avg22 = {}
+for E, seq in order22.items():
+    a = sum(c22[s[0]] for s in seq) / len(seq)
+    for s in seq:
+        avg22[s] = a
+ok22 &= max(avg22.values()) == d22                     # max cycle average = the bound
+p2_22 = [Frac(1, 3), Frac(2, 3), Frac(0)]
+ok22 &= sum(ci * vi for ci, vi in zip(c22, p2_22)) == Frac(5, 6) > d22
+# a commutant state with genuine coherences (rho = I/14 + (C + C^T)/56 on the shell,
+# C the cycle shift: commutes with C, PSD since its eigenvalues are
+# 1/14 + cos(2 pi k/14)/28 >= 1/14 - 1/28 > 0) keeps its readout at p exactly: C has no
+# fixed point on the cycle, so C + C^T has zero diagonal and coherences never move the
+# diagonal readout of the diagonal projectors -- the hull of the shells' ratio points is
+# the EXACT stationary-readout set
+ok22 &= all(phi22[s] != s for s in sh22)               # zero diagonal for C + C^T
+# (e) THE PHYSICAL-FLOW LAYER IS UNDERDETERMINED.  The corpus fixes p, the classical
+# energies, and beta_E > 0, but names the continuous interpolation as additional chosen
+# structure and its genericity fails AT the permutation limit (root-of-unity eigenphases:
+# maximally gap-degenerate).  Two generic rational-orthogonal carriers compatible with
+# everything the corpus fixes give opposite verdicts for the SAME p:
+def giv22(i, j, c, s):
+    G = [[Frac(1) if a == b else Frac(0) for b in range(3)] for a in range(3)]
+    G[i][i], G[i][j], G[j][i], G[j][j] = c, -s, s, c
+    return G
+
+def mm22(A, B):
+    return [[sum(A[i][k] * B[k][j] for k in range(3)) for j in range(3)]
+            for i in range(3)]
+
+def det22(M):
+    return (M[0][0] * (M[1][1] * M[2][2] - M[1][2] * M[2][1])
+            - M[0][1] * (M[1][0] * M[2][2] - M[1][2] * M[2][0])
+            + M[0][2] * (M[1][0] * M[2][1] - M[1][1] * M[2][0]))
+
+def solve22(B, p):
+    D = det22(B)
+    rep = lambda k: [[p[r] if c == k else B[r][c] for c in range(3)] for r in range(3)]
+    return [det22(rep(k)) / D for k in range(3)]
+
+VF = mm22(giv22(0, 1, Frac(5, 13), Frac(12, 13)), giv22(1, 2, Frac(5, 13), Frac(12, 13)))
+VI = mm22(giv22(0, 1, Frac(3, 5), Frac(4, 5)), giv22(1, 2, Frac(5, 13), Frac(12, 13)))
+for V in (VF, VI):
+    for a in range(3):
+        for b in range(3):
+            ok22 &= sum(V[i][a] * V[i][b] for i in range(3)) == (1 if a == b else 0)
+BF = [[VF[i][a] ** 2 for a in range(3)] for i in range(3)]
+BI = [[VI[i][a] ** 2 for a in range(3)] for i in range(3)]
+ok22 &= all(sum(B[i][a] for i in range(3)) == 1 for B in (BF, BI) for a in range(3))
+qF = solve22(BF, p22)
+ok22 &= all(x >= 0 for x in qF) and sum(qF) == 1
+ok22 &= qF == [Frac(188, 833), Frac(3986, 99127), Frac(72769, 99127)]
+ok22 &= [sum(BF[i][a] * qF[a] for a in range(3)) for i in range(3)] == list(p22)
+qI = solve22(BI, p22)
+ok22 &= any(x < 0 for x in qI)                         # unique solution leaves the simplex
+# exact Farkas certificate for the infeasible carrier: the B-inverse row of a negative
+# component is nonnegative on every column and negative on p
+aneg = min(k for k in range(3) if qI[k] < 0)
+DI = det22(BI)
+cof = lambda r, c: [[BI[x][y] for y in range(3) if y != c] for x in range(3) if x != r]
+det2 = lambda M: M[0][0] * M[1][1] - M[0][1] * M[1][0]
+crow = [(-1) ** (aneg + j) * det2(cof(j, aneg)) / DI for j in range(3)]
+ok22 &= all(sum(crow[i] * BI[i][a] for i in range(3)) == (1 if a == aneg else 0)
+            for a in range(3))
+ok22 &= sum(crow[i] * p22[i] for i in range(3)) < 0
+# and the Fourier-uniform carrier is infeasible outright: only the uniform readout
+ok22 &= p22 != [Frac(1, 3)] * 3
+check("F22", ok22,
+      "ACTUAL-SUBSTRATUM PREPARATION FEASIBILITY (phase three, round eleven; the "
+      "substratum coherent-existence test, stage one; kernel context: "
+      "ShellRepresentationConsistency, shellWeight_invariant, joint_stationary, "
+      "marginal_stationary in OIBridge/ShellAssignment.lean; "
+      "shell_representation_from_comb, comb_mixture_of_shell_representation, "
+      "uniform_overlap_obstruction in OIBridge/CoherentLift.lean; "
+      "shellRepresentation_transpose_stable in OIBridge/OrientationClosure.lean). ONE "
+      "microscopic model -- the corpus's shell shape: visible energies 0,1,2, bath "
+      "counts 1,2,4,8 (beta_E > 0), a joint permutation conserving every total-energy "
+      "shell and ergodic within each -- generates BOTH the shell marginal "
+      "p = (4/7, 2/7, 1/7) AND the carrier: (a) the same phi yields doubly stochastic, "
+      "genuinely mixing transition data (off-diagonal mass 5/3 at one step); (b) on the "
+      "14-state target shell the block is a single cycle with no nontrivial fixed "
+      "powers, so every eigenprojector has constant diagonal 1/14 and "
+      "B_ia = m_i/14 = (4/7, 2/7, 1/7) for EVERY a -- canonical, and invariant under "
+      "every log-branch of the interpolation ambiguity [Main] records; (c) FEASIBLE: "
+      "p equals the column, uniform q solves p = Bq, and the representing state is the "
+      "classical shell ensemble itself -- exactly stationary under the carrier, correct "
+      "readout, PSD, trace one: SRC HOLDS FOR THE ACTUAL SUBSTRATUM TRUNCATION, with "
+      "the counting preparation feasible at every shell of the model unconditionally; "
+      "(d) countercontrol: with the carrier fixed, the modified preparation "
+      "(1/3, 2/3, 0) is INFEASIBLE -- every stationary state pays at most 2/3 on the "
+      "exact observable P_0/2 + P_1 (the maximal cycle average) while the target pays "
+      "5/6; feasibility has content at the permutation layer; (e) BEYOND the "
+      "permutation shadow the physical-flow carrier is UNDERDETERMINED: the corpus "
+      "names the continuous interpolation as chosen structure and its reconstruction "
+      "genericity fails at the permutation limit, and two generic rational-orthogonal "
+      "carriers compatible with everything the corpus fixes give opposite verdicts for "
+      "the same p -- G01(5/13).G12(5/13) is feasible with exact "
+      "q = (188/833, 3986/99127, 72769/99127), G01(3/5).G12(5/13) is infeasible with "
+      "an exact Farkas row certificate, and the Fourier-uniform carrier is infeasible "
+      "outright. VERDICT: existence holds at the permutation truncation with a "
+      "canonical branch-invariant carrier; the missing premise for the physical "
+      "continuous-flow layer is exactly the generic-flow spectral/projector data "
+      "(the eigenvector moduli B) that no corpus datum currently pins")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
