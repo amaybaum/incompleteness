@@ -1230,45 +1230,137 @@ than H-spectrum. (Kernel: \texttt{transported\_gibbs},
 \texttt{gibbs\_strictlyPassive} in
 \texttt{OIBridge/ThermalOrientation.lean}.)
 
-\textbf{One frontier, not two.} The state-based and the rate-based
-attempts to derive that orientation from the substratum terminate at the
-same unresolved structure, and each is now reduced to a single named
-premise with everything on either side kernel-proved. The state route:
-the uniform ensemble on an invariant total-energy shell is jointly
-stationary and its visible marginal is stationary on the actual
-correlated preparation, exactly and with no product substitution; what
-remains is \texttt{ShellRepresentationConsistency} --- that this
-correlated preparation is represented by a stationary density operator
-of the reconstructed theory --- after which stationarity forces spectral
-populations and the passivity selector excludes the reflection. The rate
-route: if the classical shell transition and the frequency-resolved
-detector transition are the same operational transition
-(\texttt{OperationalTransitionIdentification}), the two Boltzmann ratios
-are one object, and positivity of \(\beta_E\) and \(\tau_K\) transports
-the classical energy ordering to the Bohr ordering sign for sign
-(\texttt{energyOrder\_transport}), whereupon the same selector excludes
-the reflection
-(\texttt{reflection\_excluded\_of\_transition\_identification}). Both
-premises are instances of one obligation: identifying the classical
-energy-oriented preparation and transition structure with the coherent
-quantum state-and-instrument representation --- the operational
-completion that §3.2 marks open and {[}Main §3.2, §3.4{]} names as the
-remaining bridge (coherent preparations, noncommuting interventions, the
-full instrument algebra). The antiunitary ambiguity is therefore not an
-additional independent incompleteness of the framework; it is a
-consequence of the already identified coherent-completion frontier, and
-the remaining question is a classification: whether the coherent
-completions of the framework's operational data form a single
-unitary--antiunitary equivalence class --- in which case the derived
-orientation selects complex quantum mechanics essentially uniquely ---
-or a larger family, in which case the terminal result is a
-classification of coherent completions. (Kernel:
-\texttt{ShellRepresentationConsistency} in
-\texttt{OIBridge/ShellAssignment.lean};
-\texttt{OperationalTransitionIdentification},
-\texttt{energyOrder\_transport},
-\texttt{reflection\_excluded\_of\_transition\_identification} in
-\texttt{OIBridge/ThermalOrientation.lean}.)
+\textbf{The coherent-completion classification.} The completion problem
+separates into three logically distinct questions --- existence,
+classification, orientation --- with three different statuses, recorded
+here exactly.
+
+\emph{Existence.} The classical fixed-basis operational theory admits a
+conservative quantum realization, but extension to a coherent,
+visible-local, multi-time representation is not automatic. For a
+stationary preparation, feasibility reduces to a convex condition
+determined by the reconstructed eigenvectors and the visible readout:
+\texttt{ShellRepresentationConsistency} holds precisely when the
+classical marginal is a mixture of the eigenvector population columns
+(kernel: \texttt{shell\_representation\_from\_comb},
+\texttt{comb\_mixture\_of\_shell\_representation}, with
+\texttt{uniform\_overlap\_obstruction} an explicit failure).
+Visible-local interventions impose further invariants and
+complete-positivity constraints, and an explicit finite carrier ---
+preparation-feasible, with a globally reachable intervention table ---
+admits no visible-local CPTP coherent lift at all (kernel:
+\texttt{twoByTwo\_affine\_rigidity}, \texttt{twoByTwo\_nonCP},
+\texttt{twoByTwo\_no\_local\_lift}). Not every nominal carrier belongs
+to the coherent-completion class, and every statement below is about the
+completions that exist.
+
+\emph{Classification.} Conditional on existence, the remaining freedom
+is rigid. Two-slot operational contexts separate operators --- one-slot
+contexts do not, even where the accessible algebra is already the full
+matrix algebra (kernel: \texttt{operational\_separation},
+\texttt{sameData\_unique\_state}) --- so identical complete operational
+data induce a well-defined correspondence between two completions'
+accessible algebras, and the correspondence is bijective, unital,
+star-preserving, and positive in both directions by construction from
+the data, positivity transferring both ways through the self-duality of
+the positive cone (kernel: \texttt{sameData\_orderIso},
+\texttt{psd\_iff\_trace\_nonneg}). It is consequently a Jordan
+\(*\)-isomorphism (kernel: \texttt{orderIso\_jordan}, proved
+internally), and the finite-dimensional matrix-unit classification
+leaves exactly two possibilities.
+
+\textbf{Theorem (coherent-completion classification).} \emph{Let two
+OI-compatible coherent completions on the same finite visible dimension
+carry Hermitian accessible menus \(\{G^{(1)}_i\}\), \(\{G^{(2)}_i\}\),
+each spanning the full matrix algebra and containing the unit at a
+common index, and positive-semidefinite state families
+\(\{\sigma^{(1)}_k\}\), \(\{\sigma^{(2)}_k\}\), each separating
+(\(\mathrm{Tr}(M\sigma_k) = 0\) for all \(k\) forces \(M = 0\)) and each
+generating the full positive cone by nonnegative finite combinations. If
+the two completions carry the same complete operational data,
+\(\mathrm{Tr}(G^{(1)}_i\,\sigma^{(1)}_k) = \mathrm{Tr}(G^{(2)}_i\,\sigma^{(2)}_k)\)
+for all \(i, k\), then there are a linear map \(\Phi\) with
+\(\Phi(G^{(1)}_i) = G^{(2)}_i\) for every \(i\) and a unitary \(W\) with
+\(\Phi(X) = W X W^\dagger\) for all \(X\), or
+\(\Phi(X) = W X^T W^\dagger\) for all \(X\).} (Kernel:
+\texttt{sameData\_unitary\_or\_transpose} in
+\texttt{OIBridge/JordanClassification.lean}, chaining
+\texttt{sameData\_orderIso}, \texttt{orderIso\_jordan}, and
+\texttt{matrixJordan\_unitary\_or\_transpose}; the matrix-unit chain
+\texttt{orthogonal\_resolution\_rank\_one}, \texttt{corner\_form},
+\texttt{corner\_nilpotent}, \texttt{corner\_unimodular},
+\texttt{corner\_cocycle}, \texttt{orientation\_dichotomy} runs the same
+local-freedom, triple-consistency, phase-coboundary architecture as the
+Hamiltonian reconstruction of the theorem above.)
+
+Every two existing OI-compatible coherent completions with identical
+complete operational data are therefore equivalent either by ordinary
+unitary gauge or by one global antiunitary orientation reversal. No
+larger coherent fibre survives these conditions.
+
+\emph{Orientation.} The residual transpose branch cannot be selected by
+the unoriented operational data themselves.
+
+\textbf{Theorem (operational orientation no-go).} \emph{Transposition
+carries every admissible completion to an admissible completion ---
+Hermiticity, positivity, span, separation, the unit, and the full cone
+all transport --- with exactly the same complete operational data, and
+realizes the transpose branch of the classification with
+\(W = \mathbb{1}\) while being the conjugation action of no unitary.
+Consequently every selector that factors only through the operational
+data assigns the same value to the two members of an orientation pair;
+and, in general, no inhabited class of completions closed under
+transposition satisfies throughout a property \(P\) with
+\(P(R) \Rightarrow \neg P(\Theta R)\).} (Kernel:
+\texttt{transpose\_data\_eq},
+\texttt{transpose\_completion\_admissible},
+\texttt{transpose\_realizes\_second\_branch},
+\texttt{transpose\_not\_inner}, \texttt{operational\_orientation\_noGo}
+in \texttt{OIBridge/OrientationSelection.lean};
+\texttt{no\_universal\_oriented\_property} in
+\texttt{OIBridge/OrientationClosure.lean}.)
+
+The two named premises are accordingly not symmetric obligations.
+\texttt{ShellRepresentationConsistency} is an existence condition: it
+holds for a model precisely when it holds for the reflected partner
+\((\bar V, -E)\) (kernel:
+\texttt{shellRepresentation\_transpose\_stable}), so it cannot select an
+orientation. Orientation requires additional alignment ---
+\texttt{OperationalTransitionIdentification}, or an
+\texttt{OrientedShellRepresentation} in which the represented spectral
+populations are non-uniform and passive with respect to the derived
+classical energy ordering. Those conditions are orientation-sensitive
+(kernel: \texttt{transitionIdentification\_orientation\_sensitive},
+\texttt{orientedShellRepresentation\_orientation\_sensitive}), by the
+no-go they are not consequences of transpose-symmetric operational data
+alone, and either one, combined with the classification, excludes the
+transpose branch (kernel:
+\texttt{sameData\_unitary\_of\_orientedReference},
+\texttt{sameData\_unitary\_of\_transitionIdentification},
+\texttt{sameData\_unitary\_of\_shellRepresentation}). The boundary is
+therefore
+
+\[\boxed{\;\mathrm{OI} \;+\; \text{OI-compatible coherent-completion conditions} \;\Longrightarrow\; \mathrm{QM}/\mathbb{Z}_2^{\mathrm{anti}}\;}\]
+
+for the coherent completions that exist, subject to the stated carrier,
+locality, genericity, and operational-completeness hypotheses; and if
+the positive classical thermodynamic orientation is additionally
+identified with the coherent energy ordering --- through
+\texttt{OperationalTransitionIdentification} or the oriented shell
+condition ---
+
+\[\boxed{\;\mathrm{OI} \;+\; \text{coherent completion} \;+\; \text{positive thermodynamic orientation} \;\Longrightarrow\; \mathrm{QM}\;}\]
+
+up to ordinary unitary gauge. Two substantive questions accordingly
+remain: whether the actual OI substratum lies in the class admitting an
+OI-compatible coherent completion, and whether its derived classical
+thermodynamic arrow --- \(\beta_E = \partial S_H/\partial E > 0\),
+settled classically by exact counting (kernel:
+\texttt{counting\_passive}) --- enters that completion through an
+orientation-sensitive bridge. The classification of alternative coherent
+theories is otherwise closed: existing completions are ordinary complex
+quantum mechanics modulo one global antiunitary \(\mathbb{Z}_2\), while
+some nominal carriers admit no coherent completion at all.
 
 Every member of the residual family is invisible to the transition data
 for a stated reason --- diagonal rephasing moves no modulus, the energy
@@ -4207,4 +4299,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: 013593715e7944449465c00b1aa23d1ef5700a249e48bc1aeb8501a5566e088d
+% source-sha256: df4ed724166c33c56a6837cb01ce1b26bec632ef65b03d48eac00710d1fea2e3
