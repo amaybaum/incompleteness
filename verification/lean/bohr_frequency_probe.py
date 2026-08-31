@@ -2767,6 +2767,339 @@ check("F26", ok26,
       "can operationally resolve, and nothing stronger -- full QM follows precisely "
       "when the physical cut is informationally complete on the relevant shell.")
 
+# ----------------------- F27  the passive-minimal quotient (phase three, round 16)
+# The canonical quotient Q = S/~_inf: the greatest observation-preserving dynamical
+# congruence, the descended permutation, minimality = separation, law preservation,
+# and the mandatory hidden-fibre negative control -- each verified exactly on the
+# round-14/15 controls.  (a) 4-cycle quotient: classes {0,2},{1,3}, descended dynamics
+# the swap, descended labels (0,1), separating by construction; (b) greatest
+# congruence EXHAUSTIVELY: of all 15 partitions of the 4 states, exactly 2 are
+# label-constant and phi-stable (the trivial one and ~_inf itself) and every one is
+# contained in ~_inf; (c) law preservation: a generic rational prior pushed forward by
+# fibre sums reproduces every trajectory probability at every horizon T = 0..4, and
+# the pushforward commutes with evolve and branch; (d) capstone on the quotient: the
+# separating 2-state carrier reaches its singletons, and a non-monomial rotation
+# fails the singleton glue there -- G_D forces monomial with no separation premise;
+# (e) hidden-fibre extension of the F22 shell: a 2-point fibre with per-state fibre
+# dynamics is a permutation, glues every fibre, is NOT separating, preserves every
+# trajectory probability for a CORRELATED prior with the shell marginal, and its
+# quotient recovers exactly the 14 base classes.
+ok27 = True
+# (a) the quotient of the 4-cycle
+cls27 = {0: 0, 1: 1, 2: 0, 3: 1}
+phiQ, okwd = {}, True
+for s0 in range(4):
+    c, img = cls27[s0], cls27[phi4[s0]]
+    if c in phiQ:
+        okwd &= phiQ[c] == img
+    else:
+        phiQ[c] = img
+ok27 &= okwd and phiQ == {0: 1, 1: 0}                      # descends to the swap
+visQ = {0: lab4[0], 1: lab4[1]}
+ok27 &= all(visQ[cls27[s0]] == lab4[s0] for s0 in range(4))
+wq = []
+for c in range(2):
+    t, word = c, []
+    for _ in range(2):
+        word.append(visQ[t])
+        t = phiQ[t]
+    wq.append(tuple(word))
+ok27 &= len(set(wq)) == 2                                  # separating by construction
+# (b) greatest congruence, exhaustively over all 15 partitions of {0,1,2,3}
+def partitions27(xs):
+    if not xs:
+        yield []
+        return
+    x, rest = xs[0], xs[1:]
+    for p in partitions27(rest):
+        for k in range(len(p)):
+            yield p[:k] + [[x] + p[k]] + p[k + 1:]
+        yield [[x]] + p
+
+nprt, ncong = 0, 0
+for p in partitions27([0, 1, 2, 3]):
+    nprt += 1
+    blk = {s: k for k, b in enumerate(p) for s in b}
+    lab_const = all(lab4[s] == lab4[t] for b in p for s in b for t in b)
+    stable = all(blk[phi4[s]] == blk[phi4[t]] for b in p for s in b for t in b)
+    if lab_const and stable:
+        ncong += 1
+        ok27 &= all(cls27[s] == cls27[t] for b in p for s in b for t in b)
+ok27 &= nprt == 15 and ncong == 2          # only the trivial congruence and ~_inf
+# (c) law preservation under the pushforward
+mu27 = [Frac(1, 2), Frac(1, 4), Frac(1, 6), Frac(1, 12)]
+push27 = lambda m: [m[0] + m[2], m[1] + m[3]]
+muQ = push27(mu27)
+def traj27(phi, vis, n, T, word, mu):
+    tot = Frac(0)
+    for s0 in range(n):
+        t, okw = s0, True
+        for k in range(T):
+            if vis[t] != word[k]:
+                okw = False
+                break
+            t = phi[t]
+        if okw:
+            tot += mu[s0]
+    return tot
+
+from itertools import product as iprod27
+phiQl, visQl = [phiQ[0], phiQ[1]], [visQ[0], visQ[1]]
+for T in range(5):
+    for word in iprod27(range(2), repeat=T):
+        ok27 &= traj27(phi4, lab4, 4, T, word, mu27) \
+            == traj27(phiQl, visQl, 2, T, word, muQ)
+ev27 = [mu27[phi4[s]] for s in range(4)]
+ok27 &= push27(ev27) == [muQ[phiQ[c]] for c in range(2)]   # evolve commutes
+for i in range(2):
+    br27 = [mu27[s] if lab4[s] == i else Frac(0) for s in range(4)]
+    ok27 &= push27(br27) == [muQ[c] if visQ[c] == i else Frac(0) for c in range(2)]
+# (d) capstone: on the separating quotient the singleton glue kills non-monomials
+P2 = [[CZ17, CO17], [CO17, CZ17]]
+R2 = [[C17(Frac(3, 5)), C17(Frac(-4, 5))], [C17(Frac(4, 5)), C17(Frac(3, 5))]]
+E0q = [[CO17, CZ17], [CZ17, CZ17]]
+ok27 &= mmc17(R2, dag17(R2)) == eye17(2)
+ok27 &= mmc17(mmc17(R2, E0q), dag17(R2)) != mmc17(mmc17(P2, E0q), dag17(P2))
+ok27 &= [Frac(1) if visQl[c] == 0 else Frac(0) for c in range(2)] \
+    == [Frac(1), Frac(0)]                                  # branch_0(shell) = e0
+# (e) hidden-fibre extension of the F22 shell
+ext27 = {}
+for k, s in enumerate(sh24):
+    sig = 1 if k == 0 else 0                               # sigma_s: swap at one state
+    for a in range(2):
+        ext27[(k, a)] = (pos25[phi22[s]], a ^ sig)
+ok27 &= sorted(ext27.values()) == sorted(ext27.keys())     # a permutation
+lab22 = [s[0] for s in sh24]
+wext = {}
+for p in ext27:
+    t, word = p, []
+    for _ in range(28):
+        word.append(lab22[t[0]])
+        t = ext27[t]
+    wext[p] = tuple(word)
+ok27 &= all(wext[(k, 0)] == wext[(k, 1)] for k in range(14))
+ok27 &= len(set(wext.values())) == 14                      # quotient recovers the base
+nuu = {}
+for k in range(14):
+    nuu[(k, 0)] = Frac(k + 1, 210)
+    nuu[(k, 1)] = Frac(1, 14) - Frac(k + 1, 210)           # correlated, marginal 1/14
+ok27 &= all(v > 0 for v in nuu.values())
+phl = [pos25[phi22[s]] for s in sh24]
+for T in (0, 1, 3, 6, 9):
+    for k0 in range(14):
+        word = words25[k0][:T]
+        base = traj27(phl, lab22, 14, T, word, [Frac(1, 14)] * 14)
+        tot = Frac(0)
+        for p in ext27:
+            t, okw = p, True
+            for k in range(T):
+                if lab22[t[0]] != word[k]:
+                    okw = False
+                    break
+                t = ext27[t]
+            if okw:
+                tot += nuu[p]
+        ok27 &= tot == base
+check("F27", ok27,
+      "THE PASSIVE-MINIMAL QUOTIENT (phase three, round sixteen; kernel: itiRelInf_pow, "
+      "itiRelInf_evolve, itiRelInf_symm_evolve, itiSetoid, MinimalCarrier, quotVis, "
+      "quotPerm, quotPerm_mk, quotPerm_pow_mk, itiRelInf_greatest_congruence, "
+      "quotient_itinerarySeparating, ObservationCongruence, PassivelyMinimal, "
+      "passiveMinimal_iff_itinerarySeparating, realization_pow, realizationMap, "
+      "minimal_realization_bijective, realizationMap_equivariant, realizationMap_vis, "
+      "realization_factor_unique, trajProb, quotMeasure, quotMeasure_weighted_sum, "
+      "itiIndicator_quotient_mk, trajProb_quotient, quotMeasure_evolve, "
+      "quotMeasure_branch, quotient_transitive, passiveQuotient_glue_forces_G1, "
+      "passiveQuotient_glue_forces_monomial, ergodicShell_SRC_of_passiveQuotient, "
+      "hiddenExt, hiddenExt_pow_fst, hiddenExt_itiRelInf_fibre, "
+      "hiddenExt_not_separating, hiddenExt_itiIndicator, hiddenExt_same_law, "
+      "hiddenExt_quotient_recovers_base in OIBridge/PassiveQuotient.lean). The "
+      "canonical passive quotient S/~_inf: (a) the 4-cycle descends to the labelled "
+      "swap, separating by construction; (b) ~_inf is the GREATEST observation-"
+      "preserving dynamical congruence, verified exhaustively -- of all 15 partitions "
+      "of the 4 states exactly 2 are label-constant and phi-stable, and both refine "
+      "the itinerary classes; (c) the fibre-sum pushforward preserves every "
+      "trajectory probability at every horizon T = 0..4 for a generic rational prior "
+      "and commutes with evolve and branch -- the full closed passive multi-time law "
+      "is quotient-invariant; (d) on the separating quotient the branch domain "
+      "reaches its singletons and a non-monomial 3-4-5 rotation fails the singleton "
+      "glue: G_D forces monomial WITH NO SEPARATION PREMISE LEFT; (e) the mandatory "
+      "negative control: a 2-point hidden fibre with per-state fibre dynamics on the "
+      "F22 shell is a permutation that glues every fibre, is NOT separating, "
+      "preserves every trajectory probability for a correlated prior with the shell "
+      "marginal, and its quotient recovers exactly the 14 base classes. BOXED: bare "
+      "OI does not make the ontic carrier observable, but the minimal carrier of the "
+      "complete passive observational law is automatically separating -- domain glue "
+      "earns full G1 on exactly the state space to which the passive coherent "
+      "description is operationally accountable. The quotient is observer-relative "
+      "(Structure's G4 observational equivalence, not G3 substratum gauge): "
+      "interventions may yet separate what the passive law glues.")
+
+# ----------------------- F28  SM linear observability: the wave rule audited exactly
+# (phase three, round 16).  The SM reference branch's second-order mod-q wave rule
+# x_i(t+1) = sum_nbrs x_j(t) - x_i(t-1)  (SM SS4.1: the unique center-free isotropic
+# linear rule) in companion form z = (x_t, x_{t-1}), A = [[K,-I],[I,0]], with the
+# component-complete site observer reading the CURRENT field on its sites (SM Lemma 1c:
+# current field visible, retarded register hidden).  By linear_itiRelInf_iff /
+# linear_separating_iff_observability the itinerary audit IS the Kalman observability
+# computation: kernel of the stacked family (C, CA, CA^2, ...) over GF(q).
+# (a) A is an exact bijection (explicit inverse [[0,I],[-I,K]]);  (b) full visibility
+# separates at horizon 2 exactly (the retarded register is reconstructed in one step);
+# (c) ring L=12: a SINGLE visible site leaves a 10-dim unobservable sector -- exactly
+# the mirror-odd modes about that site (2*(L/2-1) = 10, kernel verified) -- while TWO
+# adjacent sites already observe everything (profile [10,0,0,...] identically over
+# q = 3, 5, 7; q = 2 degenerates to 12 at width 1 and still closes at width 2);
+# (d) 3-torus L=3: one slab of 9 sites leaves an 18-dim unobservable sector -- exactly
+# the mirror-odd modes of the z -> -z reflection -- and two adjacent slabs observe
+# everything (identical over q = 5, 7); (e) fibre semantics: states differing by a
+# mirror-odd mode share their entire visible itinerary; a non-fibre difference is
+# separated.  Verdict: the SM reference geometry supplies itinerary separation on the
+# linear branch whenever the observer's window has thickness >= 2 in the propagation
+# direction; thickness-one screens have exactly the reflection-odd sector as their
+# itinerary fibres -- the block-unitary freedom of the round-15 classification.
+ok28 = True
+def rank28(rows, q, ncols):
+    rows = [r[:] for r in rows]
+    rk, piv = 0, 0
+    while piv < ncols and rk < len(rows):
+        sel = next((i for i in range(rk, len(rows)) if rows[i][piv] % q != 0), None)
+        if sel is None:
+            piv += 1
+            continue
+        rows[rk], rows[sel] = rows[sel], rows[rk]
+        iv = pow(rows[rk][piv], -1, q)
+        rows[rk] = [(x * iv) % q for x in rows[rk]]
+        for i in range(len(rows)):
+            if i != rk and rows[i][piv] % q != 0:
+                c = rows[i][piv]
+                rows[i] = [(a - c * b) % q for a, b in zip(rows[i], rows[rk])]
+        rk += 1
+        piv += 1
+    return rk
+
+def mm28(A, B, q):
+    m, p = len(B), len(B[0])
+    return [[sum(A[i][k] * B[k][j] for k in range(m)) % q for j in range(p)]
+            for i in range(len(A))]
+
+def companion28(nbrs, n, q):
+    A = [[0] * (2 * n) for _ in range(2 * n)]
+    for i in range(n):
+        for j in nbrs[i]:
+            A[i][j] = (A[i][j] + 1) % q
+        A[i][n + i] = (-1) % q
+        A[n + i][i] = 1
+    return A
+
+def inverse28(nbrs, n, q):
+    B = [[0] * (2 * n) for _ in range(2 * n)]
+    for i in range(n):
+        B[i][n + i] = 1
+        B[n + i][i] = (-1) % q
+        for j in nbrs[i]:
+            B[n + i][n + j] = (B[n + i][n + j] + 1) % q
+    return B
+
+def obsrows28(A, vis_sites, q, horizon):
+    n2 = len(A)
+    rows, M = [], [[1 if i == j else 0 for j in range(n2)] for i in range(n2)]
+    for _ in range(horizon):
+        for i in vis_sites:
+            rows.append(M[i][:])
+        M = mm28(M, A, q)
+    return rows
+
+def unobs28(A, vis_sites, q):
+    n2 = len(A)
+    return n2 - rank28(obsrows28(A, vis_sites, q, n2), q, n2)
+
+ring28 = lambda L: [[(i - 1) % L, (i + 1) % L] for i in range(L)]
+L28 = 12
+eye28 = [[1 if i == j else 0 for j in range(2 * L28)] for i in range(2 * L28)]
+for q in (5, 7):
+    A28 = companion28(ring28(L28), L28, q)
+    ok28 &= mm28(A28, inverse28(ring28(L28), L28, q), q) == eye28       # (a)
+    ok28 &= rank28(obsrows28(A28, range(L28), q, 2), q, 2 * L28) == 2 * L28  # (b)
+# (c) window profile on the ring, exactly over three odd primes and q = 2
+for q in (3, 5, 7):
+    A28 = companion28(ring28(L28), L28, q)
+    ok28 &= [unobs28(A28, range(w), q) for w in range(1, 4)] == [10, 0, 0]
+A2q = companion28(ring28(L28), L28, 2)
+ok28 &= [unobs28(A2q, range(w), 2) for w in range(1, 3)] == [12, 0]
+# the width-1 kernel IS the mirror-odd sector about the visible site
+q28 = 5
+A28 = companion28(ring28(L28), L28, q28)
+rows28 = obsrows28(A28, [0], q28, 2 * L28)
+odd28 = []
+for layer in range(2):
+    for i in range(1, L28 // 2):
+        v = [0] * (2 * L28)
+        v[layer * L28 + i] = 1
+        v[layer * L28 + (L28 - i)] = q28 - 1
+        odd28.append(v)
+ok28 &= len(odd28) == 10
+ok28 &= all(sum(r[j] * v[j] for j in range(2 * L28)) % q28 == 0
+            for v in odd28 for r in rows28)
+# (d) the 3-torus: one slab leaves the z-mirror-odd 18-dim sector; two slabs close it
+L3, n3 = 3, 27
+idx28 = lambda x, y, z: (x % L3) * 9 + (y % L3) * 3 + (z % L3)
+nbrs3 = [[idx28(x + 1, y, z), idx28(x - 1, y, z), idx28(x, y + 1, z),
+          idx28(x, y - 1, z), idx28(x, y, z + 1), idx28(x, y, z - 1)]
+         for x in range(L3) for y in range(L3) for z in range(L3)]
+for q in (5, 7):
+    A3 = companion28(nbrs3, n3, q)
+    slab = [i for i in range(n3) if i % 3 == 0]
+    ok28 &= unobs28(A3, range(n3), q) == 0
+    ok28 &= unobs28(A3, slab, q) == 18
+    ok28 &= unobs28(A3, [i for i in range(n3) if i % 3 in (0, 1)], q) == 0
+A3 = companion28(nbrs3, n3, q28)
+rows3 = obsrows28(A3, [i for i in range(n3) if i % 3 == 0], q28, 2 * n3)
+odd3 = []
+for layer in range(2):
+    for x in range(3):
+        for y in range(3):
+            v = [0] * (2 * n3)
+            v[layer * n3 + idx28(x, y, 1)] = 1
+            v[layer * n3 + idx28(x, y, 2)] = q28 - 1
+            odd3.append(v)
+ok28 &= len(odd3) == 18
+ok28 &= all(sum(r[j] * v[j] for j in range(2 * n3)) % q28 == 0
+            for v in odd3 for r in rows3)
+# (e) fibre semantics on the ring: mirror-odd difference invisible, generic one seen
+x28 = [(3 * i * i + 1) % q28 for i in range(2 * L28)]
+y28 = [(a + b) % q28 for a, b in zip(x28, odd28[3])]
+ok28 &= all(sum(r[j] * (x28[j] - y28[j]) for j in range(2 * L28)) % q28 == 0
+            for r in rows28)
+w28 = [0] * (2 * L28)
+w28[1] = 1
+z28 = [(a + b) % q28 for a, b in zip(x28, w28)]
+ok28 &= any(sum(r[j] * (x28[j] - z28[j]) for j in range(2 * L28)) % q28 != 0
+            for r in rows28)
+check("F28", ok28,
+      "SM LINEAR OBSERVABILITY: THE WAVE RULE AUDITED EXACTLY (phase three, round "
+      "sixteen; kernel: addEquiv_pow_sub, linear_itiRelInf_iff, "
+      "linear_separating_iff_observability in OIBridge/PassiveQuotient.lean). The SM "
+      "reference branch's second-order mod-q wave rule in companion form, read by the "
+      "component-complete site observer (current field visible, retarded register "
+      "hidden -- SM Lemma 1c), audited as the Kalman observability computation the "
+      "kernel bridge makes exact: (a) the update is an exact bijection with explicit "
+      "inverse; (b) full visibility separates at horizon 2 -- one step reconstructs "
+      "the retarded register; (c) on the L = 12 ring a SINGLE visible site leaves a "
+      "10-dimensional unobservable sector, verified to be EXACTLY the mirror-odd "
+      "modes about that site, while TWO adjacent sites already observe the entire "
+      "state (profile [10, 0, 0] identically over q = 3, 5, 7; q = 2 degenerates to "
+      "12 at width one and still closes at width two); (d) on the 3-torus one slab "
+      "of 9 sites leaves the 18-dimensional z-mirror-odd sector and two adjacent "
+      "slabs observe everything (identical over q = 5, 7); (e) states differing by a "
+      "mirror-odd mode share their ENTIRE visible itinerary and a generic difference "
+      "is separated -- the fibres are real and they are exactly the reflection-odd "
+      "modes, the block-unitary freedom of the round-15 classification. VERDICT: the "
+      "SM reference geometry supplies itinerary separation on the linear branch "
+      "whenever the observer's window has thickness >= 2 in the propagation "
+      "direction; a thickness-one screen fails by exactly its mirror symmetry. The "
+      "solution-level identification of the ACTUAL cosmological window remains open, "
+      "as does the nonlinear/state-dependent-graph regime.")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

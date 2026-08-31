@@ -467,6 +467,24 @@ for fname, names in (
                                'classicalBranch_span_eq_invariant', 'glueEq_span',
                                'domainGlue_classification_mod_itineraryFibres',
                                'domainGlue_unitary', 'glue_column_support')),
+    ('PassiveQuotient', ('itiRelInf_pow', 'itiRelInf_evolve',
+                         'itiRelInf_symm_evolve', 'quotPerm_mk', 'quotPerm_pow_mk',
+                         'itiRelInf_greatest_congruence',
+                         'quotient_itinerarySeparating',
+                         'passiveMinimal_iff_itinerarySeparating',
+                         'realization_pow', 'minimal_realization_bijective',
+                         'realizationMap_equivariant', 'realizationMap_vis',
+                         'realization_factor_unique', 'quotMeasure_weighted_sum',
+                         'itiIndicator_quotient_mk', 'trajProb_quotient',
+                         'quotMeasure_evolve', 'quotMeasure_branch',
+                         'quotient_transitive', 'passiveQuotient_glue_forces_G1',
+                         'passiveQuotient_glue_forces_monomial',
+                         'ergodicShell_SRC_of_passiveQuotient',
+                         'hiddenExt_pow_fst', 'hiddenExt_itiRelInf_fibre',
+                         'hiddenExt_not_separating', 'hiddenExt_itiIndicator',
+                         'hiddenExt_same_law', 'hiddenExt_quotient_recovers_base',
+                         'addEquiv_pow_sub', 'linear_itiRelInf_iff',
+                         'linear_separating_iff_observability')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -506,8 +524,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All twenty-one files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 5 + 16 named results print their "
+      "LINT. All twenty-two files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
