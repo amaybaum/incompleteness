@@ -97,6 +97,7 @@ import OIBridge.ObservabilityQuotient
 import OIBridge.PassiveQuotient
 import OIBridge.ControlledQuotient
 import OIBridge.CoherentExtension
+import OIBridge.ProjectiveAction
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

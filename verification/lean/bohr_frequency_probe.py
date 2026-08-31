@@ -3331,6 +3331,126 @@ check("F30", ok30,
       "controlled quotient, and with a single passive generator the controlled "
       "relation collapses back to the passive one exactly.")
 
+# ----------------------- F31  coherent functoriality: the projective action and the
+# H-functor boundary (phase three, round 18).  On the C3 rotation action, two
+# families of classical CPTP extensions: a PROJECTIVE PHASE FAMILY (rank-one
+# correlations built from exact Gaussian-rational phases, with a genuinely
+# nontrivial multiplier omega(1,1) = (3+4i)/5 != 1) that satisfies coherent
+# functoriality exactly -- channels compose strictly, the monomial unitaries
+# multiply projectively U_g U_h = omega(g,h) U_{g+h}, and omega passes all 27
+# cocycle identities -- and a DEPHASING FAMILY (C_e = all-ones, C_g = C_{g^2} = I)
+# that produces IDENTICAL classical comb statistics on every group word and every
+# branch-interleaved trajectory yet violates functoriality: Phi_g o Phi_{g^2} kills
+# E_01 while Phi_e preserves it.  Complete classical comb data do not imply coherent
+# functoriality: H-functor is a named bridge, and with it unitarity FOLLOWS.
+ok31 = True
+rho31 = [[(s + j) % 3 for s in range(3)] for j in range(3)]
+rhoinv31 = [[(s - j) % 3 for s in range(3)] for j in range(3)]
+w0_31 = C17(Frac(3, 5), Frac(4, 5))                        # omega(1,1), unimodular
+alpha31 = [
+    [CO17, CO17, CO17],
+    d29,
+    [w0_31.conj() * d29[s] * d29[(s + 1) % 3] for s in range(3)],
+]
+ok31 &= all((alpha31[j][s] * alpha31[j][s].conj()) == CO17
+            for j in range(3) for s in range(3))
+Cfam31 = [[[alpha31[j][s] * alpha31[j][t].conj() for t in range(3)]
+           for s in range(3)] for j in range(3)]
+def Phi31(j, C, X):
+    return [[C[rhoinv31[j][a]][rhoinv31[j][b]] * X[rhoinv31[j][a]][rhoinv31[j][b]]
+             for b in range(3)] for a in range(3)]
+
+# (a) the multiplier: beta(g,h,s) is s-INDEPENDENT and unimodular for all 9 pairs
+omega31 = {}
+for g in range(3):
+    for h in range(3):
+        betas = [alpha31[h][s] * alpha31[g][rho31[h][s]]
+                 * alpha31[(g + h) % 3][s].conj() for s in range(3)]
+        ok31 &= betas[0] == betas[1] == betas[2]
+        ok31 &= (betas[0] * betas[0].conj()) == CO17
+        omega31[(g, h)] = betas[0]
+ok31 &= omega31[(1, 1)] == w0_31 and not (omega31[(1, 1)] == CO17)
+# (b) coherent functoriality of the CHANNELS, exactly, on all 9 matrix units
+ok31 &= all(Phi31(0, Cfam31[0], E29(s, t)) == E29(s, t)
+            for s in range(3) for t in range(3))
+for g in range(3):
+    for h in range(3):
+        ok31 &= all(Phi31(g, Cfam31[g], Phi31(h, Cfam31[h], E29(s, t)))
+                    == Phi31((g + h) % 3, Cfam31[(g + h) % 3], E29(s, t))
+                    for s in range(3) for t in range(3))
+# (c) the projective unitary law U_g U_h = omega(g,h) U_{g+h}, all 9 pairs
+U31 = []
+for j in range(3):
+    D = [[alpha31[j][rhoinv31[j][a]] if a == c else CZ17 for c in range(3)]
+         for a in range(3)]
+    P = [[CO17 if rho31[j][c] == a else CZ17 for c in range(3)] for a in range(3)]
+    U31.append(mmc17(D, P))
+    ok31 &= mmc17(U31[j], dag17(U31[j])) == eye17(3)
+for g in range(3):
+    for h in range(3):
+        lhs = mmc17(U31[g], U31[h])
+        rhs = [[omega31[(g, h)] * U31[(g + h) % 3][a][b] for b in range(3)]
+               for a in range(3)]
+        ok31 &= lhs == rhs
+# (d) omega is a 2-cocycle: all 27 triples
+for g in range(3):
+    for h in range(3):
+        for k in range(3):
+            ok31 &= omega31[(g, h)] * omega31[((g + h) % 3, k)] \
+                == omega31[(g, (h + k) % 3)] * omega31[(h, k)]
+# (e) THE BOUNDARY: the dephasing family -- identical classical combs, no
+# functoriality
+Cdeph31 = [[[CO17 for _ in range(3)] for _ in range(3)], eye17(3), eye17(3)]
+ok31 &= all(Phi31(0, Cdeph31[0], E29(s, t)) == E29(s, t)
+            for s in range(3) for t in range(3))             # Phi_e = id holds
+from itertools import product as iprod31
+diag31 = [[p29[a] if a == b else CZ17 for b in range(3)] for a in range(3)]
+for L in range(4):
+    for word in iprod31(range(3), repeat=L):
+        X1, X2 = diag31, diag31
+        for j in word:
+            X1 = Phi31(j, Cfam31[j], X1)
+            X2 = Phi31(j, Cdeph31[j], X2)
+        ok31 &= X1 == X2                                    # plain word combs agree
+for word in iprod31(range(3), repeat=2):
+    for traj in iprod31(range(3), repeat=2):
+        X1, X2 = diag31, diag31
+        for j, i in zip(word, traj):
+            X1 = branch29(i, Phi31(j, Cfam31[j], X1))
+            X2 = branch29(i, Phi31(j, Cdeph31[j], X2))
+        ok31 &= X1 == X2                                    # branch-interleaved too
+ok31 &= Phi31(1, Cdeph31[1], Phi31(2, Cdeph31[2], E29(0, 1))) \
+    == [[CZ17] * 3 for _ in range(3)]                       # functoriality FAILS
+ok31 &= not (Phi31(1, Cdeph31[1], Phi31(2, Cdeph31[2], E29(0, 1))) == E29(0, 1))
+check("F31", ok31,
+      "COHERENT FUNCTORIALITY: THE PROJECTIVE ACTION AND THE H-FUNCTOR BOUNDARY "
+      "(phase three, round eighteen; kernel: unimodular_ne_zero, "
+      "correlationExtension_matrix_eq, functoriality_forces_rankOne, "
+      "functoriality_schur_law, coherentFunctoriality_iff_projectiveMonomial, "
+      "monomial_entry, functorial_projective_unitaries, functorial_cocycle, "
+      "groupFamily_comb_blind in OIBridge/ProjectiveAction.lean). On the C3 rotation "
+      "action, the projective phase family (exact Gaussian-rational phases, "
+      "multiplier omega(1,1) = (3+4i)/5 genuinely nontrivial) satisfies coherent "
+      "functoriality EXACTLY: the multiplier is s-independent and unimodular for all "
+      "9 pairs, the channels compose strictly on all matrix units, the monomial "
+      "unitaries are exactly unitary and multiply projectively U_g U_h = omega(g,h) "
+      "U_{g+h}, and omega passes all 27 cocycle identities -- the kernel capstone "
+      "coherentFunctoriality_iff_projectiveMonomial instantiated, and the Weyl-lift "
+      "probe's projective-binding observation (L1: H(u)H(v) = +-H(u+v)) replaced by "
+      "the exact classification. THE BOUNDARY: the dephasing family (C_e = all-ones, "
+      "C_g = C_g2 = I) realizes the same classical action with Phi_e = id, produces "
+      "IDENTICAL comb statistics on every group word up to length 3 and every "
+      "branch-interleaved trajectory, yet Phi_g o Phi_g2 kills E_01 while the "
+      "identity preserves it: complete classical comb data do not imply coherent "
+      "functoriality. BOXED: bare OI => controlled-minimal classical core + the "
+      "correlation-matrix coherent extensions; + H-functor (a NAMED BRIDGE -- two "
+      "intervention words realizing the same reversible transformation must act "
+      "identically on the completed coherent state space) => the projective monomial "
+      "unitary action. Unitarity is not postulated: it follows. Full operational QM "
+      "is not presently a theorem of bare OI; the quantum branch is selected by "
+      "exactly this coherent composition principle -- the precise boundary the "
+      "programme set out to locate.")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
