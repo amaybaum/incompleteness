@@ -590,6 +590,9 @@ for fname, names in (
                              'localLuders_uniform', 'pureSeedPrep_available',
                              'circuit_available', 'circuit_available_pureSeed',
                              'circuit_branch')),
+    ('StinespringAssembly', ('Vsf_eq_dilationIsometry', 'Esf_eq_seedEmbed', 'vsf_gram',
+                             'esf_conj', 'vsf_block', 'stinespringCircuit_branch',
+                             'fullInstruments_of_control')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -738,6 +741,44 @@ ok6 &= 'prep_isProduct' not in oa
 # blockDephase is a CP SELECTIVE operation, not a channel: trace preservation is unproved
 _bd = _slice(oa, '/-- **The surviving freedom is a genuine CP operation.**', '-/')
 ok6 &= bool(_bd) and 'not a channel' in ' '.join(_bd.split())
+# KRAUS-ROUND GUARDS.  The one external fact must be an explicit HYPOTHESIS carried in the
+# capstone's own binder list, never an `axiom` and never a structure field -- and the
+# capstone must consume NOTHING else beyond composite unitary control.
+sa = open(os.path.join(BRIDGE, 'OIBridge', 'StinespringAssembly.lean'),
+          encoding='utf-8').read()
+ok6 &= 'def FiniteIsometryExtensionSF' in sa
+ok6 &= re.search(r'(?m)^axiom ', sa) is None
+_cap = _slice(sa, 'theorem fullInstruments_of_control', ':= by')
+ok6 &= bool(_cap)
+ok6 &= 'FiniteIsometryExtensionSF A' in _cap and 'HasCompositeUnitaryControl T' in _cap
+# neither the readout FORM nor a pure seed may reappear as a premise: both are derived
+ok6 &= all(bad not in _cap for bad in ('localLuders', 'pureAttach', 'ProductPreparation',
+                                       'MapSpectatorIndependent'))
+# the system-first mirrors must be PINNED to round twenty pointwise, or the two dilation
+# developments can drift apart silently under the factor swap
+_pin1 = _slice(sa, 'theorem Vsf_eq_dilationIsometry', '\n\n')
+_pin2 = _slice(sa, 'theorem Esf_eq_seedEmbed', '\n\n')
+ok6 &= bool(_pin1) and 'dilationIsometry K (k, s\') s := rfl' in ' '.join(_pin1.split())
+ok6 &= bool(_pin2) and 'seedEmbed k₀ (k, s\') s := rfl' in ' '.join(_pin2.split())
+# the fine branch must be a STANDALONE theorem, provable from `U E = V` alone -- no
+# availability bookkeeping inside it
+_fb = _slice(sa, 'theorem stinespringCircuit_branch', ':= by')
+ok6 &= bool(_fb) and 'avail' not in _fb and 'hUE : U * Esf k₀ = Vsf K' in _fb
+# the scope must stay ENDOMORPHIC and the Kraus index nonempty
+_hf = _slice(sa, 'def HasFullFiniteEndomorphicInstruments', '/--')
+ok6 &= bool(_hf) and 'Fin (n + 1) → Matrix A A ℂ' in _hf
+ok6 &= '(K k)ᴴ * K k = 1' in _hf and 'instrumentBranch K out' in _hf
+_saflat = ' '.join(sa.split())
+ok6 &= 'ALL FINITE ENDOMORPHIC INSTRUMENTS ON A FIXED SYSTEM' in _saflat
+ok6 &= 'Purification and Uhlmann uniqueness are not used' in _saflat
+# and the header of the file it builds on must not misdescribe the dependency graph:
+# the endpoint object is FiniteOperationalTheory, and no closure rule grants a product
+# preparation with a chosen ancilla state
+_oaflat = ' '.join(oa.split())
+ok6 &= 'it is NOT the object the assembly runs on' in _oaflat
+ok6 &= 'the ONLY preparation granted' in _oaflat
+ok6 &= 'no rule grants a product preparation with a chosen ancilla state' in _oaflat
+ok6 &= 'hComp_forward' not in mc
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -755,8 +796,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All thirty-two files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 5 + 16 named results print their "
+      "LINT. All thirty-three files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

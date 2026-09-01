@@ -1,6 +1,7 @@
 /-
   OIBridge/OperationalAssembly.lean — map-level spectator independence, the local Lüders
-  selector, independent product preparation, and the common operational structure.
+  selector, the product-preparation clause, and the operational closure structure the
+  assembly runs on.
 
   PHASE THREE, ROUND TWENTY-FIVE (opening items). Round twenty-four's `H_comp` is still a
   REVERSIBLE-operation compositionality principle: its spectator clause is formulated for
@@ -45,12 +46,19 @@
   independently prepared STATES are related physical ideas but they are not the same
   predicate, so `ProductPreparation` is its own clause and is not smuggled into `H_comp`.
 
-  §D — THE COMMON OPERATIONAL STRUCTURE. Round twenty-four's `UniversalUnitaryReachability`
-  and `FullFiniteInstrumentAvailability` speak through an abstract `avail`, while `HComp`
-  speaks about `act`/`corr`. Those are logically disconnected objects, so no honest
-  assembly can conjoin them. `FiniteOperationalCompletion` gathers the availability and
-  closure rules into ONE object, and the control and richness principles become properties
-  of that same structure (`HasUniversalUnitaryControl`, `HasFullFiniteInstruments`).
+  §D — THE PER-CARRIER STRUCTURE, AND WHY IT IS NOT THE ENDPOINT. Round twenty-four's
+  `UniversalUnitaryReachability` and `FullFiniteInstrumentAvailability` speak through an
+  abstract `avail`, while `HComp` speaks about `act`/`corr`. Those are logically
+  disconnected objects, so no honest assembly can conjoin them.
+  `FiniteOperationalCompletion` was the first repair: it gathers a SYSTEM-ONLY availability
+  notion and its closure rules into one object, with the control and richness principles as
+  properties of it (`HasUniversalUnitaryControl`, `HasFullFiniteInstruments`,
+  `hasFullInstruments_hasUniversalControl`). It is kept because that implication is a fact
+  about the system-only notion and needs nothing more — but it is NOT the object the
+  assembly runs on. A per-carrier `avail` cannot mention an ancilla at all, so §E replaces
+  it with `FiniteOperationalTheory`, and every principle the Kraus round consumes
+  (`HasCompositeUnitaryControl`, `HasFullFiniteEndomorphicInstruments`) is a property of
+  THAT structure.
 
   SCOPE, STATED UP FRONT. Two guards that the remaining assembly must carry, recorded here
   so they cannot be lost:
@@ -68,10 +76,15 @@
   EXISTS, that independently prepared parts compose to a PRODUCT, and that a circuit on
   `A × Fin n` with the ancilla forgotten defines an operation on `A` alone.
   `FiniteOperationalTheory` carries an availability family for the system AND for every
-  finite ancilla extension, with six closure rules: identity, classical coarse-graining on
-  each carrier, GENERAL INSTRUMENT COMPOSITION (`availExt_bind` — feed-forward, which is
-  what round twenty-one's measure-then-reset seed derivation actually uses), independent
-  product preparation, native basis readout, and ancilla discard.
+  finite ancilla extension, plus a separate PREPARATION availability notion, with these
+  closure rules: identity, classical coarse-graining on each carrier, GENERAL INSTRUMENT
+  COMPOSITION (`availExt_bind` — feed-forward, which is what round twenty-one's
+  measure-then-reset seed derivation actually uses), the UNIFORM ancilla attachment
+  (`prepAvail_uniform` — the ONLY preparation granted) with post-composition of available
+  composite operations (`prepAvail_post`), native basis readout, and ancilla discard.
+  NOTE what is NOT among them: no rule grants a product preparation with a chosen ancilla
+  state. §C's `ProductPreparation` is a clause ABOUT a preparation map, not a field of this
+  structure, and the pure product `ρ ⊗ |k₀⟩⟨k₀|` is derived at `pureSeedPrep_available`.
 
   TWO THINGS ARE EARNED RATHER THAN POSTULATED, and this is the point of the section.
 
@@ -98,17 +111,21 @@
   rules alone deliver an available outcome family ON THE SYSTEM. `circuit_branch` computes
   each branch as the corresponding ancilla block.
 
-  WHAT IS NOT HERE. The system-first Stinespring adapter layer (round twenty's
-  `dilationIsometry` is ancilla-first, so the assembly needs a small mirrored adapter and a
-  probe pinning the two together under the factor swap), the isolated finite
-  isometry-extension statement in the form the assembly consumes, the generic
-  normalized-Kraus instantiation of that skeleton, the derivation of full finite-instrument availability, and the structured
-  standard-completion predicate are the remaining items; none is asserted. Note that
-  PURIFICATION AND UHLMANN UNIQUENESS ARE NOT USED and will not be: instrument availability
-  needs pure seed, Stinespring, unitary control and local readout only, so the boundary for
-  that particular theorem is finite isometry extension alone. The project's global boundary
-  remains exactly four items and no more: compact Lie integration, finite isometry
-  extension, PSD square-root/factorization, and finite Uhlmann/Schmidt uniqueness.
+  WHAT IS NOT HERE. Four of the five items this header once listed as outstanding are now
+  discharged, in `OIBridge/StinespringAssembly.lean` and nowhere else: the system-first
+  adapter layer pinned pointwise to round twenty's ancilla-first `dilationIsometry`
+  (`Vsf_eq_dilationIsometry`, `Esf_eq_seedEmbed`), the isolated finite isometry-extension
+  statement in exactly the form consumed (`FiniteIsometryExtensionSF`), the generic
+  normalized-Kraus instantiation of the circuit skeleton (`stinespringCircuit_branch`), and
+  the derivation of full finite-instrument availability (`fullInstruments_of_control`).
+  That file IMPORTS this one; nothing here depends on it, so the dependency runs one way.
+  What remains unasserted is the structured standard-completion predicate and its two
+  characterization directions. Note that PURIFICATION AND UHLMANN UNIQUENESS ARE NOT USED:
+  instrument availability needs pure seed, Stinespring, unitary control and local readout
+  only, so the boundary for that particular theorem is finite isometry extension alone. The
+  project's global boundary remains exactly four items and no more: compact Lie
+  integration, finite isometry extension, PSD square-root/factorization, and finite
+  Uhlmann/Schmidt uniqueness.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/

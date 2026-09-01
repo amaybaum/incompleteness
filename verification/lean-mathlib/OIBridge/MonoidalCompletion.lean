@@ -34,8 +34,11 @@
 
   §C — THE COMPOSITIONAL PRINCIPLE. `HComp = ImplementationExtensionality ∧
   SpectatorIndependence`, named only after both clauses are independently defined. The
-  forward compression `hComp_forward` gives H-functor (on the reachable quotient) and
-  H-tensor together. The converse is NOT forced: H-functor is formulated for a group
+  compression theorem is `hComp_iff`: `H_comp` holds exactly when the CLASSIFICATIONS of
+  its two clauses do — H-functor on the reachable quotient, and H-tensor in classified
+  form. What that iff is NOT is an identification of `H_comp` with round eighteen's
+  `CoherentFunctoriality` together with round twenty's H-tensor: H-functor is stated for a
+  group
   action and H-tensor for selected product actions, so the reverse direction is stated
   scoped, under a menu-generation hypothesis, rather than asserted as a syntactic iff.
 

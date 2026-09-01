@@ -105,6 +105,7 @@ import OIBridge.BranchSelector
 import OIBridge.IndependenceCensus
 import OIBridge.MonoidalCompletion
 import OIBridge.OperationalAssembly
+import OIBridge.StinespringAssembly
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

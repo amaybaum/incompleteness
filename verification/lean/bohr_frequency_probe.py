@@ -4592,8 +4592,10 @@ check("F38", ok38,
       "across the system indices -- the local form of F35 -- and they differ exactly on a "
       "system coherence inside the surviving block, where Luders preserves it and "
       "dephasing sends it to zero. Since blockDephase is a Kraus sum of rank-one branches "
-      "it is a genuine CP channel, so the freedom is physical, not an artifact: spectator "
-      "independence, i.e. COMPOSITION, is precisely what removes it. Product preparation "
+      "it is a genuine CP SELECTIVE OPERATION -- one branch of a readout, with trace "
+      "preservation neither established nor claimed -- so the freedom is physical, not an "
+      "artifact: spectator independence, i.e. COMPOSITION, is precisely what removes it. "
+      "Product preparation "
       "is kept a SEPARATE clause (round 21 supplies the pure ancilla, not the joint "
       "product state), and the availability/closure notions are gathered into one "
       "FiniteOperationalCompletion structure so the principles are properties of the same "
@@ -4624,6 +4626,163 @@ check("F38", ok38,
       "repaired: blockDephase is a CP SELECTIVE operation, one branch of a readout -- "
       "trace preservation is neither established nor claimed, so it is not called a "
       "channel.")
+
+
+# ----------------------- F39  the Kraus round: the system-first mirrors pinned to round
+# twenty's ancilla-first dilation under the explicit factor swap, the three exact
+# identities, and the fine branch of the circuit (phase three, the Kraus round).
+ok39 = True
+# TWO INDEXINGS OF THE SAME COMPOSITE.  System-first (the operational development):
+# (s, k) -> 2s + k.  Ancilla-first (round twenty's dilation algebra): (k, s) -> 2k + s.
+# The swap is the involution that exchanges the two bits.
+
+
+def ixsf39(s, k):
+    return (s << 1) | k
+
+
+def ixaf39(k, s):
+    return (k << 1) | s
+
+
+def swap39(p):
+    return ((p & 1) << 1) | (p >> 1)
+
+
+PSW39 = [[CO17 if c == swap39(r) else CZ17 for c in range(4)] for r in range(4)]
+ok39 &= mmc17(PSW39, PSW39) == eye17(4)          # the reindexing is an involution
+
+
+def Vsf39(K):
+    """SYSTEM-FIRST Stinespring isometry:  V[(s', k)][s] = K_k(s', s)."""
+    return [[K[p & 1][p >> 1][s] for s in range(2)] for p in range(4)]
+
+
+def dil39(K):
+    """Round twenty's ANCILLA-FIRST dilationIsometry:  V[(k, s')][s] = K_k(s', s)."""
+    return [[K[q >> 1][q & 1][s] for s in range(2)] for q in range(4)]
+
+
+def Esf39(k0):
+    """SYSTEM-FIRST seed embedding:  E[(s', k)][s] = [k = k0][s' = s]."""
+    return [[CO17 if ((p & 1) == k0 and (p >> 1) == s) else CZ17 for s in range(2)]
+            for p in range(4)]
+
+
+def seedEmbed39(k0):
+    """Round twenty's ANCILLA-FIRST seedEmbed:  E[(k, s')][s] = [k = k0][s' = s]."""
+    return [[CO17 if ((q >> 1) == k0 and (q & 1) == s) else CZ17 for s in range(2)]
+            for q in range(4)]
+
+
+# --- (a) the circuit, built the honest way round: start from an EXACT rational unitary on
+# the composite, read the Kraus family off its seed column, and check normalization.  This
+# is `U E_{k0} = V_K` by construction, so the fine-branch identity is being tested, not
+# assumed.  U = (swap permutation) . (R1 (x) R2) with two rational rotations.
+R1_39 = [[C17(Frac(3, 5)), C17(Frac(-4, 5))], [C17(Frac(4, 5)), C17(Frac(3, 5))]]
+R2_39 = [[C17(Frac(5, 13)), C17(Frac(-12, 13))], [C17(Frac(12, 13)), C17(Frac(5, 13))]]
+KRON39 = [[R1_39[r >> 1][c >> 1] * R2_39[r & 1][c & 1] for c in range(4)]
+          for r in range(4)]
+PERM39 = [[CO17 if (r, c) in ((0, 3), (1, 0), (2, 1), (3, 2)) else CZ17
+           for c in range(4)] for r in range(4)]
+U39 = mmc17(PERM39, KRON39)
+ok39 &= mmc17(dag17(U39), U39) == eye17(4)
+K0_39 = 0
+V39 = mmc17(U39, Esf39(K0_39))
+KR39 = [[[V39[ixsf39(sp, k)][s] for s in range(2)] for sp in range(2)] for k in range(2)]
+# the family is normalized: sum_k K_k^dag K_k = I
+gram39 = [[CZ17] * 2 for _ in range(2)]
+for k in range(2):
+    g = mmc17(dag17(KR39[k]), KR39[k])
+    gram39 = [[gram39[r][c] + g[r][c] for c in range(2)] for r in range(2)]
+ok39 &= gram39 == eye17(2)
+# the family is NOT degenerate -- the two branches are genuinely different operators
+ok39 &= KR39[0] != KR39[1]
+
+# --- (b) THE PINNING, POINTWISE AND AS COMPLETE MATRICES.  Pointwise is the Lean statement
+# (Vsf_eq_dilationIsometry, Esf_eq_seedEmbed); the complete-matrix form is the extra check
+# the probe can do that the pointwise lemma does not display: the system-first matrix is the
+# ancilla-first one REINDEXED BY THE SWAP, as whole matrices.
+ok39 &= all(Vsf39(KR39)[ixsf39(sp, k)][s] == dil39(KR39)[ixaf39(k, sp)][s]
+            for sp in range(2) for k in range(2) for s in range(2))
+ok39 &= all(Esf39(K0_39)[ixsf39(sp, k)][s] == seedEmbed39(K0_39)[ixaf39(k, sp)][s]
+            for sp in range(2) for k in range(2) for s in range(2))
+ok39 &= Vsf39(KR39) == mmc17(PSW39, dil39(KR39))
+ok39 &= Esf39(K0_39) == mmc17(PSW39, seedEmbed39(K0_39))
+# and the reindexing is doing real work: WITHOUT the swap the two disagree
+ok39 &= Vsf39(KR39) != dil39(KR39)
+ok39 &= Esf39(1) != seedEmbed39(1)
+
+# --- (c) THE THREE EXACT IDENTITIES.
+# vsf_gram: (V_K)^dag V_K = sum_k K_k^dag K_k -- normalization IS isometry
+ok39 &= mmc17(dag17(Vsf39(KR39)), Vsf39(KR39)) == gram39 == eye17(2)
+rho39 = [[C17(Frac(2, 3)), C17(Frac(1, 6), Frac(1, 6))],
+         [C17(Frac(1, 6), Frac(-1, 6)), C17(Frac(1, 3))]]
+for k0 in range(2):
+    # esf_conj: E_{k0} rho E_{k0}^dag = rho (x) |k0><k0|
+    ok39 &= mmc17(mmc17(Esf39(k0), rho39), dag17(Esf39(k0))) \
+        == tensor38(rho39, [[CO17 if (r, c) == (k0, k0) else CZ17 for c in range(2)]
+                            for r in range(2)])
+# vsf_block: block_k(V_K rho V_K^dag) = K_k rho K_k^dag
+big39 = mmc17(mmc17(Vsf39(KR39), rho39), dag17(Vsf39(KR39)))
+for k in range(2):
+    ok39 &= [[big39[ixsf39(s, k)][ixsf39(t, k)] for t in range(2)] for s in range(2)] \
+        == mmc17(mmc17(KR39[k], rho39), dag17(KR39[k]))
+
+# --- (d) THE FINE BRANCH.  Run the round-25b circuit on the DERIVED pure seed -- prepare,
+# conjugate by U, read the ancilla, discard it -- and check each branch is exactly
+# rho -> K_k rho K_k^dag.  This is stinespringCircuit_branch.
+prep39 = tensor38(rho39, [[CO17 if (r, c) == (K0_39, K0_39) else CZ17 for c in range(2)]
+                          for r in range(2)])
+run39 = mmc17(mmc17(U39, prep39), dag17(U39))
+for k in range(2):
+    ok39 &= ptraceAnc38(localLuders38(k, run39)) \
+        == mmc17(mmc17(KR39[k], rho39), dag17(KR39[k]))
+
+# --- (e) COARSE-GRAINING to an instrument.  Sending both fine outcomes to one label gives
+# the channel sum, which is trace preserving; sending them to distinct labels leaves the two
+# branches apart.  This is instrumentBranch, and the last step of fullInstruments_of_control.
+coarse39 = [[sum((mmc17(mmc17(KR39[k], rho39), dag17(KR39[k]))[r][c] for k in range(2)),
+                 CZ17) for c in range(2)] for r in range(2)]
+ok39 &= coarse39[0][0] + coarse39[1][1] == rho39[0][0] + rho39[1][1]
+ok39 &= mmc17(mmc17(KR39[0], rho39), dag17(KR39[0])) \
+    != mmc17(mmc17(KR39[1], rho39), dag17(KR39[1]))
+check("F39", ok39,
+      "THE KRAUS ROUND: SYSTEM-FIRST MIRRORS PINNED TO ROUND TWENTY, AND THE FINE BRANCH "
+      "(phase three, the Kraus round; kernel: Vsf, Esf, Vsf_eq_dilationIsometry, "
+      "Esf_eq_seedEmbed, vsf_gram, esf_conj, vsf_block, FiniteIsometryExtensionSF, "
+      "stinespringCircuit_branch, HasFullFiniteEndomorphicInstruments, "
+      "fullInstruments_of_control in OIBridge/StinespringAssembly.lean). Round twenty's "
+      "dilation algebra is ANCILLA-FIRST, (k, s') -> Matrix (iota x S) S, while the "
+      "operational development of rounds 25/25b/25c is SYSTEM-FIRST, (s', k) -> Matrix "
+      "(A x Fin n) A. Rather than rewrite either, the Kraus round adds mirrored Vsf/Esf and "
+      "PINS them to round twenty pointwise, so the two developments cannot drift apart. "
+      "Verified here in exact Gaussian rationals, on a two-Kraus family over a two-level "
+      "system: the pointwise pinning V^SF(s', k, s) = dilationIsometry(K)(k, s', s) and its "
+      "seed analogue, AND the complete-matrix form the pointwise lemmas do not display -- "
+      "the system-first matrix is the ancilla-first one left-multiplied by the explicit "
+      "swap permutation, which is checked to be an involution; without that reindexing the "
+      "two matrices genuinely DISAGREE, so the swap is doing real work and is not a "
+      "notational nicety. The three identities: (V_K)^dag V_K = sum_k K_k^dag K_k, so "
+      "normalization IS isometry; E_{k0} rho E_{k0}^dag = rho (x) |k0><k0|, so the seed "
+      "embedding prepares exactly the pure product 25c DERIVES rather than assumes; and "
+      "block_k(V_K rho V_K^dag) = K_k rho K_k^dag, the ancilla block IS the Kraus branch. "
+      "THE FINE BRANCH is tested and not assumed: the circuit is built the honest way "
+      "round, starting from an exact rational unitary U on the composite (a permutation "
+      "times a Kronecker product of two rational rotations, checked unitary), reading the "
+      "Kraus family off its seed column so that U E_{k0} = V_K holds by construction, and "
+      "checking sum_k K_k^dag K_k = I and that the two branches are genuinely different "
+      "operators. Running the round-25b circuit -- prepare the derived pure seed, conjugate "
+      "by U, read the ancilla, discard it -- then reproduces rho -> K_k rho K_k^dag on the "
+      "nose, for both outcomes. Finally the coarse-graining step: sending both fine "
+      "outcomes to one label gives a trace-preserving channel sum, while distinct labels "
+      "keep the branches apart -- instrumentBranch, and the last move of "
+      "fullInstruments_of_control. SCOPE. The Kraus operators are SQUARE, so the capstone "
+      "delivers all finite ENDOMORPHIC instruments on a fixed system, not all finite "
+      "quantum instruments unqualified. The one external fact, finite isometry extension, "
+      "is an explicit HYPOTHESIS of the capstone rather than an axiom in the file; here it "
+      "is sidestepped entirely by constructing U first. Purification and Uhlmann uniqueness "
+      "are NOT used, and the project's global boundary remains the four-item ledger.")
 
 
 print()
