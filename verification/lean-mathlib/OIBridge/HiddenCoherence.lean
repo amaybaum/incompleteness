@@ -543,9 +543,11 @@ theorem hiddenCoherence_not_krausSoundExt [Nonempty A] :
   exact badOp_not_kraus 2 s (show (0 : Fin 2) ≠ 1 by decide)
     (h 2 Unit (fun _ => badOp 2) (badOp_availExt 2))
 
-/-- **THE FORK, SETTLED.** Exact quantum operations on the visible system do NOT force exact
-quantum operations on the composites. The separation is real, so composite exactness is a
-distinct axis and has to be asked for rather than assumed. -/
+/-- **THE FORK, SETTLED — THE WEAK FORM.** SYSTEM SOUNDNESS does not force composite
+soundness. Read the antecedent and stop there: the `T` exhibited here is sound but
+INCOMPLETE on the system, so this theorem does not by itself say anything about exact system
+quantum mechanics. It is `exact_not_implies_krausSoundExt` below, whose antecedent is
+exactness, that establishes the separation worth having. -/
 theorem krausSound_not_implies_krausSoundExt (A : Type*) [Fintype A] [DecidableEq A]
     [Nonempty A] :
     ∃ T : FiniteOperationalTheory A, KrausSound T ∧ ¬ KrausSoundExt T :=

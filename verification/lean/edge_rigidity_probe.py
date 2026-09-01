@@ -896,6 +896,12 @@ _ex28 = _slice(hc, 'theorem exact_not_implies_krausSoundExt', ':=')
 ok6 &= bool(_ex28) and 'ExactFiniteEndomorphicQuantumOps T ∧ ¬ KrausSoundExt T' in _ex28
 ok6 &= 'sound but very INCOMPLETE' in _hcflat
 ok6 &= 'only the second theorem licenses the sentence at the top of this file' in _hcflat
+# the WEAK theorem's own docstring must not claim the strong statement either: locally it
+# proves KrausSound -/-> KrausSoundExt and nothing more
+_wk = _slice(hc, '**THE FORK, SETTLED', 'theorem krausSound_not_implies_krausSoundExt')
+ok6 &= bool(_wk) and 'SYSTEM SOUNDNESS does not force composite' in ' '.join(_wk.split())
+ok6 &= bool(_wk) and 'Exact quantum operations on the visible system do NOT force' \
+    not in ' '.join(_wk.split())
 # and the trace wording must be right: badOp preserves the trace OUTRIGHT, since a coherence
 # never contributes to a trace at all -- it scales amplitudes, not traces
 ok6 &= 'TRACE-PRESERVING OUTRIGHT, not merely on the diagonal' in _hcflat
