@@ -3968,6 +3968,267 @@ check("F35", ok35,
       "by an H-readout assumption -- and the endpoint is genuinely three conditions: "
       "H-functor, H-tensor, and sufficient composite Lie rank.")
 
+# ----------------------- F36  the OI independence census: one shared C1-C4 core carrying
+# three inequivalent coherent completions (phase three, round 23).  (a) THE SHARED CORE:
+# three bits (v,h,b), observer reads (v,b), sigma(v,h,b) = (h,v,b), tau(v,h,b) =
+# (v,h,b^1) -- reversible, commuting, C1 literal (the hidden bit drives the visible
+# future), C2 structural (v_{t+2} = v_t), and already observer-minimal (the two-step
+# visible itinerary separates all eight states); (b) THE COMB IDENTITY: all three
+# completions return identical branch statistics on EVERY word of passive steps,
+# tau-controls and rank-one readouts, equal to the bare classical comb; (c) NOT
+# H-FUNCTOR: the dephasing tau-member is CPTP and classically exact but Phi_tau^2 != id;
+# (d) NOT H-TENSOR: the phased lifts form a STRICT unitary rep of Z2 x Z2 (involutions
+# that commute -- no projective cocycle) whose tau-lift is not I_vh (x) M_b; (e) PROPER
+# LIE RANK: the phase-free lifts are tensor-local, every reachable control commutes with
+# H = pi P_- (x) I_b, so the control Lie algebra is a single real line inside su(8).
+ok36 = True
+N36 = 8
+
+
+def vhb36(i):
+    return (i >> 2, (i >> 1) & 1, i & 1)
+
+
+def idx36(v, h, b):
+    return (v << 2) | (h << 1) | b
+
+
+def vh36(i):
+    return i >> 1
+
+
+def b36(i):
+    return i & 1
+
+
+# --- (a) the shared swap-memory core
+sig36 = [idx36(h, v, b) for (v, h, b) in map(vhb36, range(N36))]
+tau36 = [idx36(v, h, 1 - b) for (v, h, b) in map(vhb36, range(N36))]
+vis36 = [(v, b) for (v, h, b) in map(vhb36, range(N36))]
+ok36 &= all(sig36[sig36[i]] == i for i in range(N36))        # reversible involutions
+ok36 &= all(tau36[tau36[i]] == i for i in range(N36))
+ok36 &= all(sig36[tau36[i]] == tau36[sig36[i]] for i in range(N36))   # commuting
+# C1: two states with the same visible readout separated after one passive step
+ok36 &= any(vis36[p] == vis36[q] and p != q and vis36[sig36[p]] != vis36[sig36[q]]
+            for p in range(N36) for q in range(N36))
+# C2: the visible stream carries a genuine one-bit memory, v_{t+2} = v_t
+ok36 &= all(vis36[sig36[sig36[i]]] == vis36[i] for i in range(N36))
+# observer-minimal: the two-step visible itinerary separates all eight states
+ok36 &= len({(vis36[i], vis36[sig36[i]]) for i in range(N36)}) == N36
+
+# --- the three completions, as correlation matrices over the SAME classical actions
+
+
+def Est36(s, t):
+    return [[CO17 if (r == s and c == t) else CZ17 for c in range(N36)]
+            for r in range(N36)]
+
+
+def inv36(g):
+    gi = [0] * N36
+    for x in range(N36):
+        gi[g[x]] = x
+    return gi
+
+
+def corr36(g, C, X):
+    gi = inv36(g)
+    return [[C[gi[a]][gi[bb]] * X[gi[a]][gi[bb]] for bb in range(N36)]
+            for a in range(N36)]
+
+
+def luders36(k, X):
+    out = [[CZ17] * N36 for _ in range(N36)]
+    out[k][k] = X[k][k]
+    return out
+
+
+def rank1C36(d):
+    return [[d[r] * d[c].conj() for c in range(N36)] for r in range(N36)]
+
+
+allones36 = [[CO17] * N36 for _ in range(N36)]
+dephase36 = [[CO17 if r == c else CZ17 for c in range(N36)] for r in range(N36)]
+# the nonfactorizable phase: 1 on the v = h sector, +-i on v != h, sign set by b
+nl36 = [CO17 if v == h else (C17(0, -1) if b else C17(0, 1))
+        for (v, h, b) in map(vhb36, range(N36))]
+ok36 &= all((z * z.conj()) == CO17 for z in nl36)             # unimodular
+ok36 &= all(nl36[sig36[i]] == nl36[i] for i in range(N36))    # depends on v ^ h only
+compl36 = {'nonFunctorial': {'pass': allones36, 'ctrl': dephase36},
+           'nonTensor': {'pass': allones36, 'ctrl': rank1C36(nl36)},
+           'restricted': {'pass': allones36, 'ctrl': allones36}}
+# every member is a unit-diagonal correlation matrix, and the two coherent ones are
+# rank-one d d^H (hence PSD by construction); dephasing is the identity (PSD)
+for nm, tbl in compl36.items():
+    for gen, C in tbl.items():
+        ok36 &= all(C[s][s] == CO17 for s in range(N36))
+ok36 &= allones36 == rank1C36([CO17] * N36)
+ok36 &= dephase36 == eye17(N36)
+
+# --- (b) THE COMB IDENTITY: every word gives the bare classical comb, for all three
+perm36 = {'pass': sig36, 'ctrl': tau36}
+
+
+def run_state36(name, word, w):
+    X = [[w[r] if r == c else CZ17 for c in range(N36)] for r in range(N36)]
+    for s in word:
+        if s[0] == 'act':
+            X = corr36(perm36[s[1]], compl36[name][s[1]], X)
+        else:
+            X = luders36(s[1], X)
+    return X
+
+
+def run_weight36(word, w):
+    v = list(w)
+    for s in word:
+        if s[0] == 'act':
+            gi = inv36(perm36[s[1]])
+            v = [v[gi[a]] for a in range(N36)]
+        else:
+            k = s[1]
+            v = [v[k] if a == k else CZ17 for a in range(N36)]
+    return v
+
+
+w36 = [C17(Frac(1, 8)), C17(Frac(1, 4)), C17(Frac(1, 16)), C17(Frac(1, 16)),
+       C17(Frac(1, 8)), C17(Frac(1, 8)), C17(Frac(1, 8)), C17(Frac(1, 8))]
+steps36 = [('act', 'pass'), ('act', 'ctrl'), ('read', 0), ('read', 3)]
+for L in range(4):
+    for word in itertools.product(steps36, repeat=L):
+        ref = run_weight36(word, w36)
+        dref = [[ref[r] if r == c else CZ17 for c in range(N36)] for r in range(N36)]
+        for nm in compl36:
+            ok36 &= run_state36(nm, word, w36) == dref
+
+# --- (c) COUNTERMODEL 1: CPTP, classically exact, but not functorial
+for s in range(N36):                       # classically exact on every classical state
+    for nm in compl36:
+        gen = 'ctrl'
+        ok36 &= corr36(perm36[gen], compl36[nm][gen], Est36(s, s)) \
+            == Est36(tau36[s], tau36[s])
+E36 = Est36(0, 1)
+twice36 = corr36(tau36, dephase36, corr36(tau36, dephase36, E36))
+ok36 &= twice36 == [[CZ17] * N36 for _ in range(N36)]        # coherence killed twice over
+ok36 &= twice36 != E36                                       # so Phi_tau^2 != identity
+# the composed correlation is the Schur square of I, not the all-ones identity member
+comp36 = [[dephase36[s][t] * dephase36[tau36[s]][tau36[t]] for t in range(N36)]
+          for s in range(N36)]
+ok36 &= comp36 != allones36
+# the OTHER two completions DO compose to the identity on the same word
+for nm in ('nonTensor', 'restricted'):
+    C = compl36[nm]['ctrl']
+    ok36 &= corr36(tau36, C, corr36(tau36, C, E36)) == E36
+
+# --- (d) COUNTERMODEL 2: a strict unitary rep that is not tensor-local
+
+
+def monoU36(c, g):
+    return [[c[x] if g[x] == y else CZ17 for x in range(N36)] for y in range(N36)]
+
+
+one36 = [CO17] * N36
+Us36 = monoU36(one36, sig36)
+Ut36 = monoU36(nl36, tau36)
+Vt36 = monoU36(one36, tau36)
+I36 = eye17(N36)
+ok36 &= all(mmc17(U, dag17(U)) == I36 for U in (Us36, Ut36, Vt36))    # unitary
+ok36 &= mmc17(Us36, Us36) == I36 and mmc17(Ut36, Ut36) == I36        # STRICT involutions
+ok36 &= mmc17(Us36, Ut36) == mmc17(Ut36, Us36)                       # STRICT commutation
+# conjugation by the phased lift IS the rank-one member of the round-17 family
+for (s, t) in ((0, 1), (2, 5), (3, 3), (6, 1)):
+    ok36 &= mmc17(mmc17(Ut36, Est36(s, t)), dag17(Ut36)) \
+        == corr36(tau36, rank1C36(nl36), Est36(s, t))
+# NOT I_vh (x) M_b: one and the same M entry is demanded to be both 1 and i
+x1_36, x2_36 = idx36(0, 1, 0), idx36(0, 0, 0)
+y1_36, y2_36 = tau36[x1_36], tau36[x2_36]
+ok36 &= vh36(y1_36) == vh36(x1_36) and vh36(y2_36) == vh36(x2_36)
+ok36 &= (b36(y1_36), b36(x1_36)) == (b36(y2_36), b36(x2_36))   # same M entry demanded
+ok36 &= Ut36[y1_36][x1_36] == C17(0, 1) and Ut36[y2_36][x2_36] == CO17
+ok36 &= Ut36[y1_36][x1_36] != Ut36[y2_36][x2_36]               # so no such M exists
+
+# --- (e) COUNTERMODEL 3: tensor-local, functorial, proper control Lie rank
+Mb36 = [[CO17 if y != x else CZ17 for x in range(2)] for y in range(2)]      # the X gate
+ok36 &= all(Vt36[y][x] == ((CO17 if vh36(y) == vh36(x) else CZ17)
+                           * Mb36[b36(y)][b36(x)])
+            for y in range(N36) for x in range(N36))           # V_tau = I_vh (x) X_b
+
+
+def swp2_36(a):
+    return ((a & 1) << 1) | (a >> 1)
+
+
+Mvh36 = [[CO17 if y == swp2_36(x) else CZ17 for x in range(4)] for y in range(4)]
+ok36 &= all(Us36[y][x] == (Mvh36[vh36(y)][vh36(x)]
+                           * (CO17 if b36(y) == b36(x) else CZ17))
+            for y in range(N36) for x in range(N36))           # U_sigma = S (x) I_b
+half36 = C17(Frac(1, 2))
+Pm36 = [[half36 * ((CO17 if r == c else CZ17) - Us36[r][c]) for c in range(N36)]
+        for r in range(N36)]
+ok36 &= mmc17(Pm36, Pm36) == Pm36                              # P_- is idempotent
+ok36 &= [[(CO17 if r == c else CZ17) - C17(2) * Pm36[r][c] for c in range(N36)]
+         for r in range(N36)] == Us36                          # 1 - 2 P_- = U_sigma
+# every reachable control fixes H by conjugation (H = pi P_-; the scale is irrelevant
+# to the Lie rank, so the probe carries the rational generator P_-)
+lifts36 = {'pass': Us36, 'ctrl': Vt36}
+words36 = []
+for L in range(5):
+    for wt in itertools.product(('pass', 'ctrl'), repeat=L):
+        U = eye17(N36)
+        for g in wt:
+            U = mmc17(lifts36[g], U)
+        words36.append(U)
+ok36 &= all(mmc17(mmc17(U, Pm36), dag17(U)) == Pm36 for U in words36)
+# so every control generator -i U H U^H coincides: the Lie algebra is ONE real line
+ok36 &= len({tuple(tuple((e.re, e.im) for e in row)
+                   for row in mmc17(mmc17(U, Pm36), dag17(U))) for U in words36}) == 1
+# a traceless skew-Hermitian direction outside that line
+A36 = [[CZ17] * N36 for _ in range(N36)]
+A36[0][0], A36[1][1] = C17(0, -1), C17(0, 1)
+ok36 &= dag17(A36) == [[CZ17 - A36[r][c] for c in range(N36)] for r in range(N36)]
+ok36 &= sum((A36[i][i] for i in range(N36)), CZ17) == CZ17     # traceless
+# H has a nonzero off-diagonal entry exactly where A vanishes, so A = r(-iH) forces
+# r = 0, hence A = 0 -- contradicted by A[0][0] != 0
+qx36, qy36 = idx36(0, 1, 0), idx36(1, 0, 0)
+ok36 &= not Pm36[qy36][qx36].z() and A36[qy36][qx36].z()
+ok36 &= not A36[0][0].z()
+ok36 &= 1 < N36 * N36 - 1                                      # dim line = 1 < 63 = su(8)
+check("F36", ok36,
+      "THE OI INDEPENDENCE CENSUS: ONE SHARED C1-C4 CORE, THREE INEQUIVALENT "
+      "COMPLETIONS (phase three, round twenty-three; kernel: swapFn, flipFn, sigmaPerm, "
+      "tauPerm, core_hidden_drives_visible, core_visible_period_two, "
+      "core_observer_minimal, threeCompletions_same_classical_comb, "
+      "nonFunctorial_not_functorial, nonTensor_not_local, restrictedU_fixes_coreH, "
+      "restricted_controlLie_line, outsideGen_not_mem, "
+      "oi_core_underdetermines_completion in OIBridge/IndependenceCensus.lean). (a) THE "
+      "SHARED CORE: three bits (v,h,b) with the observer reading (v,b); the passive step "
+      "sigma(v,h,b) = (h,v,b) and the control tau(v,h,b) = (v,h,b^1) are commuting "
+      "involutions, C1 is literal (v_{t+1} = h_t, so two states with the same readout "
+      "separate after one step), C2 is structural (v_{t+2} = v_t, a genuine one-bit "
+      "memory) and the core is ALREADY observer-minimal -- the two-step visible "
+      "itinerary separates all eight states, so no quotient collapses it. (b) THE COMB "
+      "IDENTITY: exhaustively over every word of length <= 3 in passive steps, "
+      "tau-controls and rank-one readouts, all three completions return EXACTLY the bare "
+      "classical comb -- the correlations drop out, so nothing in the C1-C4 operational "
+      "data stream distinguishes them. (c) NOT H-FUNCTOR: the dephasing tau-member is "
+      "CPTP and classically exact on every classical state, yet Phi_tau^2 kills the "
+      "coherence E_01 that the identity preserves, so Phi_tau^2 != Phi_e while the other "
+      "two completions do compose correctly. (d) NOT H-TENSOR: the phased lifts are "
+      "unitary involutions that commute -- a STRICT representation of Z2 x Z2, no "
+      "projective cocycle, hence functorial -- and conjugation by the tau-lift is "
+      "verified to be the rank-one member of the round-17 family; but its b-flip "
+      "amplitude is 1 on the v = h sector and i on v != h, and both are forced into the "
+      "SAME entry M[1][0] of any I_vh (x) M_b, so no such M exists. (e) PROPER LIE RANK: "
+      "the phase-free lifts really are S (x) I_b and I_vh (x) X_b, P_- = (1 - S(x)I)/2 is "
+      "idempotent with 1 - 2P_- = U_sigma (so exp(-i pi P_-) = U_sigma), every one of the "
+      "reachable controls fixes H by conjugation, so all control generators -i U H U^H "
+      "coincide and the dynamical Lie algebra is a single real line -- dimension 1 "
+      "against dim su(8) = 63 -- with an explicit traceless skew-Hermitian direction "
+      "outside it. THE CENSUS: C1-C4 OI does NOT select the unrestricted operational "
+      "completion. Case (e) is ordinary quantum kinematics with a restricted reachable "
+      "control subgroup, NOT a non-quantum theory: S <=> D <=> Q_fb is untouched, and "
+      "what fails is the unrestricted finite operational package.")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

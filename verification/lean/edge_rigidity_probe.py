@@ -543,6 +543,19 @@ for fname, names in (
                         'cp_rankOneSelector_forces_luders',
                         'cp_rankOneSelector_iff_luders',
                         'monomial_luders_classicalBranch')),
+    ('IndependenceCensus', ('core_hidden_drives_visible', 'core_visible_period_two',
+                            'core_observer_minimal', 'sigma_tau_commute',
+                            'ludersLift_diagonal', 'stateFold_diagonal',
+                            'threeCompletions_same_classical_comb', 'monoU_conj',
+                            'monoU_mul', 'monoU_unitary', 'nonFunctorial_cptp',
+                            'nonFunctorial_classical', 'nonFunctorial_not_functorial',
+                            'Utau_involution', 'Usigma_Utau_commute',
+                            'nonTensor_not_local', 'Usigma_local', 'Vtau_local',
+                            'passiveProj_idempotent', 'one_sub_two_passiveProj',
+                            'restrictedU_fixes_coreH', 'restricted_controlLie_line',
+                            'outsideGen_skewHermitian', 'outsideGen_traceless',
+                            'outsideGen_not_mem',
+                            'oi_core_underdetermines_completion')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -565,6 +578,16 @@ for fname, names in (
     ok6 &= 'native_decide' not in body
     ok6 &= all((f'theorem {nm}' in src) or (f'lemma {nm}' in src) for nm in names)
     ok6 &= all(f'#print axioms {nm}' in src for nm in names)
+# the census must attach all three failures to ONE shared core: the same classical comb
+# must be proved for every completion, or the independence claim is three unrelated examples
+ic = open(os.path.join(BRIDGE, 'OIBridge', 'IndependenceCensus.lean'),
+          encoding='utf-8').read()
+ok6 &= all(f'stateFold {c} steps (Matrix.diagonal w)' in ic
+           for c in ('nonFunctorialC', 'nonTensorC', 'restrictedC'))
+# the restricted-control completion is ordinary quantum kinematics with a proper reachable
+# subgroup, NOT a non-quantum theory: the wording guard must be present, not an overclaim
+ok6 &= 'not "non-quantum"' in ic and 'UNRESTRICTED' in ic
+ok6 &= 'S ⇔ D ⇔ Q_fb` is untouched' in ic
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -582,8 +605,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All twenty-nine files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 13 + 8 + 6 + 5 + 16 named results print their "
+      "LINT. All thirty files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 13 + 8 + 6 + 26 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
