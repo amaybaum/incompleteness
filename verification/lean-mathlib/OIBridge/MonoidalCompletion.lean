@@ -370,8 +370,8 @@ subgroup whose Lie algebra is `su(D)` is `SU(D)`. That passage, and only it, is 
 compact Lie-integration fact; it is recorded here, not re-derived. Nothing else in this
 file uses it — in particular `HControl_iff_controlLie0_full` is kernel-internal. -/
 def UniversalUnitaryReachability
-    (avail : Set (Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ)) : Prop :=
-  ∀ V : Matrix S S ℂ, V * Vᴴ = 1 → conjChannel V ∈ avail
+    (avail : ∀ m : ℕ, (Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) → Prop) : Prop :=
+  ∀ V : Matrix S S ℂ, Vᴴ * V = 1 → avail 1 (fun _ => conjChannel V)
 
 omit [Fintype S] in
 theorem single_diag_hermitian' (k : S) :
@@ -720,38 +720,79 @@ theorem census_clause_taxonomy :
 
 /-! ### Section F — the operational package -/
 
-/-- **`FullFiniteQuantumOps`**, at the level this round can state honestly: every finite
-instrument branch map `X ↦ K X K†` is among the available coherent operations. The
-remaining operational contents of the package are already kernel theorems DOWNSTREAM of
-this and of `H_comp`, and are cited rather than re-listed here: intervention dilation and
-all finite instruments (`finiteInstrument_of_ancillaControl`, round twenty), the pure
-ancilla seed (`uniform_readout_feedforward_seed`, round twenty-one), purification
+/-- The outcome-`a` branch of a finite Kraus family under an outcome labelling: the Kraus
+operators sharing an outcome are SUMMED. That summation is what makes an instrument an
+instrument rather than a bag of unrelated branch maps. -/
+def instrumentBranch {n m : ℕ} (K : Fin n → Matrix S S ℂ) (out : Fin n → Fin m)
+    (a : Fin m) : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ :=
+  ∑ k ∈ Finset.univ.filter (fun k => out k = a), conjChannel (K k)
+
+/-- **FULL FINITE-INSTRUMENT AVAILABILITY.** For every finite NORMALIZED Kraus family
+(`∑ K†K = 1`) under every finite outcome labelling, the whole outcome family is JOINTLY
+available. Two things matter in this shape. Availability is a predicate on the outcome
+family as a whole, not membership of each branch map in an unrelated set — an instrument
+is the family, not its branches taken separately. And the statement is schematic in the
+finite index types `Fin n`, `Fin m`, so it means every finite Kraus family and every finite
+outcome set, not one fixed ancilla size silently realizing all of them. -/
+def FullFiniteInstrumentAvailability
+    (avail : ∀ m : ℕ, (Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) → Prop) : Prop :=
+  ∀ (n m : ℕ) (K : Fin n → Matrix S S ℂ) (out : Fin n → Fin m),
+    (∑ k, (K k)ᴴ * K k = 1) → avail m (instrumentBranch K out)
+
+/-- **UNITARY CONTROLS ARE NOT A SEPARATE CONJUNCT.** A unitary channel is the ONE-KRAUS,
+one-outcome instrument `K₀ = V`, whose normalization condition is exactly `V†V = 1`. So
+full finite-instrument availability delivers universal unitary reachability — derived from
+the single-Kraus case rather than from an over-strong arbitrary-`K` definition. -/
+theorem fullOps_universalUnitary
+    (avail : ∀ m : ℕ, (Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) → Prop)
+    (h : FullFiniteInstrumentAvailability avail) :
+    UniversalUnitaryReachability avail := by
+  intro V hV
+  have hb := h 1 1 (fun _ => V) (fun _ => 0) (by simpa using hV)
+  have heq : instrumentBranch (fun _ : Fin 1 => V) (fun _ => (0 : Fin 1))
+      = fun _ => conjChannel V := by
+    funext a
+    rw [instrumentBranch, Finset.filter_true_of_mem fun k _ => Subsingleton.elim _ _]
+    simp
+  rwa [heq] at hb
+
+/-- **RICHNESS DOES NOT IMPLY COMPOSITIONALITY.** Instrument availability constrains which
+channels EXIST; it says nothing about how the OI intervention words are COMPLETED. Taking
+the everywhere-available menu, full finite-instrument availability holds outright while
+round twenty-three's completion 1 still fails implementation extensionality. So the reverse
+direction of a would-be characterization is FALSE for a richness-only predicate — this is a
+mathematical fact about the predicates, not an editorial caution. -/
+theorem availability_not_implies_hComp :
+    FullFiniteInstrumentAvailability (S := Core) (fun _ _ => True)
+      ∧ ¬ImplementationExtensionality genPerm nonFunctorialC :=
+  ⟨fun _ _ _ _ _ => trivial, nonFunctorial_not_implementationExtensional⟩
+
+/-! ### What is proved, what is one-way, and what is not yet done
+
+The operational contents of the standard package that are ALREADY kernel theorems
+downstream of `H_comp` are cited, not re-listed: intervention dilation and all finite
+instruments (`finiteInstrument_of_ancillaControl`, round twenty), the pure ancilla seed
+(`uniform_readout_feedforward_seed`, round twenty-one), purification
 (`purification_of_factorization`, round twenty-one), the forced branch update
 (`cp_rankOneSelector_iff_luders`, round twenty-two), and physical local tomography
-(`local_tomography`, round twenty).
+(`local_tomography_physical`, round twenty as repaired).
 
-WHAT IS NOT YET A KERNEL STATEMENT. The full conditional characterization
+THE REVERSE IMPLICATION IS FALSE, NOT MERELY UNASSEMBLED. `availability_not_implies_hComp`
+proves that full finite-instrument availability does NOT imply `H_comp`. So with a
+richness-only predicate the honest target is ONE-WAY:
 
-    FullFiniteQuantumOps  ↔  H_comp ∧ H_opControl
+    H_comp ∧ H_opControl  ⟹  full finite-instrument availability,
 
-needs the forward assembly of rounds eighteen through twenty-two at a single carrier and
-menu. That assembly is the remaining item; it is deliberately NOT asserted here. The
-external boundary it will rest on stays exactly four items and no more: compact Lie
-integration, finite isometry extension, PSD square-root/factorization, and finite
-Uhlmann/Schmidt uniqueness. -/
-def FullFiniteQuantumOps (avail : Set (Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ)) : Prop :=
-  ∀ K : Matrix S S ℂ, conjChannel K ∈ avail
+and even that forward assembly of rounds eighteen through twenty-two at a single carrier
+and menu is still to be done; it is NOT asserted here. A genuine iff would need a
+STRUCTURED predicate — standard equality of physically equivalent implementations, standard
+spectator/local composition, and full finite-instrument availability — defined
+operationally rather than by naming `HComp`, so that round twenty-four's classification
+converts its first two requirements into `H_comp`.
 
-/-- **UNITARY CONTROLS ARE NOT A SEPARATE CONJUNCT.** A unitary channel is precisely the
-one-outcome instrument with Kraus operator `V`, so full finite-instrument availability
-already delivers universal unitary reachability. The operational package therefore implies
-`H_opControl` — and, per `centralDrift_not_HControl`, it does NOT imply `H_Lie`: that is
-exactly why the reverse direction of the characterization must be stated with the
-operational principle and not with the Lie certificate. -/
-theorem fullOps_universalUnitary
-    (avail : Set (Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ))
-    (h : FullFiniteQuantumOps avail) : UniversalUnitaryReachability avail :=
-  fun V _ => h V
+The external boundary any such assembly rests on stays exactly four items and no more:
+compact Lie integration, finite isometry extension, PSD square-root/factorization, and
+finite Uhlmann/Schmidt uniqueness. -/
 
 #print axioms wordPerm_append
 #print axioms wordMap_append
@@ -775,6 +816,7 @@ theorem fullOps_universalUnitary
 #print axioms restricted_not_HControl
 #print axioms census_clause_taxonomy
 #print axioms fullOps_universalUnitary
+#print axioms availability_not_implies_hComp
 
 end MonoidalCompletion
 end OIBridge

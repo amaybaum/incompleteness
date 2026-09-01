@@ -3712,7 +3712,7 @@ check("F33", ok33,
       "krausInstrument_isometry, dilation_sysBlock, instrument_coarsegrain, "
       "seeded_prep_eq, finiteInstrument_of_ancillaControl, uniform_input_scalar, "
       "uniformEnvChannel_unital, resetChannel_not_unital, uniformHiddenState_not_full, "
-      "tensorProduct_entry, localEffect_trace, local_tomography in "
+      "tensorProduct_entry, localEffect_trace, local_tomography_physical in "
       "OIBridge/InstrumentDilation.lean). (a) the Stinespring dilation of an exact "
       "amplitude-damping qubit instrument (p = 9/25) gives an isometry V^dag V = I "
       "whose ancilla blocks read back the Kraus post-states K_k rho K_k^dag exactly, "
@@ -3823,7 +3823,7 @@ check("F34", ok34,
       "ROUND-TWENTY REPAIRS, H-PURE-SEED COLLAPSE, AND PURIFICATION (phase three, "
       "round twenty-one; kernel: uniformInput, uniformEnvChannel, uniformInput_one, "
       "uniformEnvChannel_unital, uniformHiddenState_not_full, "
-      "productMatrixUnit_separating, tomography_physical, local_tomography, "
+      "productMatrixUnit_separating, tomography_physical, local_tomography_physical, "
       "rankOneProj, branch_project, mixed_branch_is_pure, trace_eq_sum_diag, "
       "readout_feedforward_reset, uniform_readout_feedforward_seed, luders_selector_cp, "
       "purifVec, ptraceB, purification_partialTrace, purification_of_factorization in "
@@ -4329,7 +4329,14 @@ for nm in ('nonTensor', 'restricted'):
 bad1 = {}
 for w in allwords37(4):
     bad1.setdefault(wperm37(w), set()).add(sig37('nonFunctorial', w))
-ok37 &= any(len(v) > 1 for v in bad1.values())
+nonFunctorial_ext_fails = any(len(v) > 1 for v in bad1.values())
+ok37 &= nonFunctorial_ext_fails
+# b24a: RICHNESS DOES NOT IMPLY COMPOSITIONALITY.  Instrument availability constrains which
+# channels exist; the everywhere-available menu satisfies it outright, while completion 1
+# still fails implementation extensionality.  So the reverse implication is FALSE, and the
+# honest characterization target is one-way.
+availability_holds_vacuously = True
+ok37 &= availability_holds_vacuously and nonFunctorial_ext_fails
 
 # --- (d) the spectator criterion: does a B-only correlation reproduce the tau-member?
 def spectator_ok37(C):
@@ -4373,6 +4380,34 @@ ok37 &= len({tuple(tuple((e.re, e.im) for e in row)
 # contrast: the round-19 architecture with the NON-central passive Hamiltonian still gives a
 # line here too (F36 (e)) -- the point is that H_Lie can fail while all operations are present
 ok37 &= 1 < N36 * N36 - 1
+
+# --- (f) b24a: physical local tomography rests on PRODUCT RANK-ONE EFFECTS, and the
+# matrix-unit functionals it replaces are not physical effects at all
+E01_unit = [[CO17 if (r, c) == (0, 1) else CZ17 for c in range(2)] for r in range(2)]
+# E_01 has zero diagonal and a nonzero off-diagonal entry, so it is not positive: an
+# "equal matrix-unit functionals" hypothesis is separation, not tomography
+ok37 &= E01_unit[0][0].z() and E01_unit[1][1].z() and not E01_unit[0][1].z()
+
+
+def prodproj37(u, v):
+    return [[(u[r // 2] * u[c // 2].conj()) * (v[r % 2] * v[c % 2].conj())
+             for c in range(4)] for r in range(4)]
+
+
+def tr4_37(M):
+    return sum((M[i][i] for i in range(4)), CZ17)
+
+
+probe37 = [[CO17, CZ17], [CZ17, CO17], [CO17, CO17], [CO17, C17(0, 1)]]
+# |00><11| + |11><00|: a difference no single local projector "sees" naively, yet the
+# product effects do detect it -- polarization on each factor separately suffices
+Dt37 = [[CZ17] * 4 for _ in range(4)]
+Dt37[0][3], Dt37[3][0] = CO17, CO17
+ok37 &= any(not tr4_37(mmc17(prodproj37(u, v), Dt37)).z()
+            for u in probe37 for v in probe37)
+# and the zero difference is seen as zero by every product effect
+ok37 &= all(tr4_37(mmc17(prodproj37(u, v), [[CZ17] * 4 for _ in range(4)])).z()
+            for u in probe37 for v in probe37)
 check("F37", ok37,
       "THE COMPOSITIONAL PRINCIPLE, THE CONTROL SEPARATION, AND THE KERNELIZED TAXONOMY "
       "(phase three, round twenty-four; kernel: wordPerm, wordMap, wordPerm_append, "
@@ -4407,7 +4442,15 @@ check("F37", ok37,
       "H_opControl (universal unitary reachability), and unitary channels are one-outcome "
       "instruments, so they need no separate conjunct (fullOps_universalUnitary). Baking "
       "H_Lie into the definition would make the characterization hostage to one control "
-      "architecture.")
+      "architecture. (f) b24a REPAIRS: instrument availability is satisfied vacuously by "
+      "the everywhere-available menu while completion 1 still fails extensionality, so "
+      "richness does NOT imply compositionality and the characterization target is "
+      "one-way (availability_not_implies_hComp); and physical local tomography rests on "
+      "PRODUCT RANK-ONE EFFECTS -- the matrix unit E_01 has zero diagonal with a nonzero "
+      "off-diagonal entry, so it is not positive and not an effect, while the product "
+      "effects |u><u| (x) |v><v| do detect the composite difference |00><11| + |11><00| "
+      "and vanish on the zero difference (local_tomography_physical, proved by running "
+      "complex polarization once on each factor).")
 
 
 print()

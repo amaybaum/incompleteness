@@ -532,7 +532,9 @@ for fname, names in (
                             'resetChannel_not_unital', 'uniformHiddenState_not_full',
                             'tensorProduct_entry', 'localEffect_trace',
                             'productMatrixUnit_separating', 'tomography_physical',
-                            'local_tomography')),
+                            'productMatrixUnit_local_separating', 'form_expand',
+                            'eq_zero_of_form_vanishes', 'prodProj_trace',
+                            'local_tomography_physical')),
     ('Purification', ('branch_project', 'mixed_branch_is_pure',
                       'trace_eq_sum_diag', 'readout_feedforward_reset',
                       'uniform_readout_feedforward_seed', 'luders_selector_cp',
@@ -571,7 +573,8 @@ for fname, names in (
                             'restricted_implementationExtensional',
                             'nonFunctorial_not_implementationExtensional',
                             'nonTensor_not_spectatorPattern', 'restricted_not_HControl',
-                            'census_clause_taxonomy', 'fullOps_universalUnitary')),
+                            'census_clause_taxonomy', 'fullOps_universalUnitary',
+                            'availability_not_implies_hComp')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -657,6 +660,21 @@ ok6 &= 'stays exactly four items and no more' in _flat
 ok6 &= all(item in _flat for item in
            ('compact Lie integration', 'finite isometry extension',
             'PSD square-root/factorization', 'Uhlmann/Schmidt uniqueness'))
+# b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
+# matrix-unit functionals; the matrix-unit statement keeps its own separate name.
+idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
+            encoding='utf-8').read()
+ok6 &= 'theorem productMatrixUnit_local_separating' in idil
+_ltp = _slice(idil, 'theorem local_tomography_physical', ':= by')
+ok6 &= bool(_ltp) and 'prodProj' in _ltp and 'Matrix.single' not in _ltp
+# and instrument availability must be family-level and NORMALIZED, not "every conjugation
+# by an arbitrary K is available"
+_ffa = _slice(mc, 'def FullFiniteInstrumentAvailability', '/--')
+ok6 &= bool(_ffa) and 'instrumentBranch K out' in _ffa
+ok6 &= '(K k)ᴴ * K k = 1' in _ffa
+ok6 &= 'FullFiniteQuantumOps' not in mc
+# the reverse implication must be recorded as FALSE, with the countermodel
+ok6 &= 'theorem availability_not_implies_hComp' in mc
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -675,7 +693,7 @@ spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E�
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
       "LINT. All thirty-one files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 13 + 8 + 6 + 29 + 22 + 5 + 16 named results print their "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
