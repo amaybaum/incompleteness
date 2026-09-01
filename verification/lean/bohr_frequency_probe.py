@@ -4996,7 +4996,7 @@ check("F41", ok41,
       "ROUND 27: THE COMPOSITE-SOUNDNESS AUDIT (phase three, round twenty-seven; kernel: "
       "IsKrausFamily, isKrausFamily_iff, KrausSoundExt, krausSound_exposedComposite, "
       "ptraceAnc_trace, discardWith_trace, not_kraus_of_trace_ne, "
-      "traceWitness_always_exposed, posSemidef_sum, choiMatrix_finsum, conjChannel_cp, "
+      "traceWitness_exposed_on_reachable, posSemidef_sum, choiMatrix_finsum, conjChannel_cp, "
       "krausFamily_cp, exposedComposite_cp, form_of_two_singles, transposeMap_trace, "
       "transposeMap_not_cp, transposeMap_not_kraus in OIBridge/CompositeSoundness.lean). "
       "Round 26 proves exactness for the base system's avail and says nothing directly about "
@@ -5008,9 +5008,12 @@ check("F41", ok41,
       "through an admissible context a Kraus representation on A -- no new hypothesis. WHICH "
       "SURPLUS THAT RULES OUT: verified here that the partial trace preserves the trace "
       "exactly, so a composite map that scales the trace is scaled identically after the "
-      "discard and is exposed at EVERY preparation; hence any genuine surplus composite "
-      "structure must be TRACE-CONSISTENT AND DISCARD-INVISIBLE, which is exactly why the "
-      "cheap countermodels fail. THE SECOND REFUTATION TOOL: Kraus implies CP, verified here "
+      "discard. READ THE QUANTIFIERS: the kernel theorem assumes a violation ALREADY "
+      "OCCURRING ON THE REACHABLE STATE P rho, so what is proved is that no trace violation "
+      "can hide on the operationally reachable preparation image -- NOT that every composite "
+      "surplus must globally preserve the trace. A surplus confined to a sector no available "
+      "preparation reaches may violate the trace there and stay invisible; that route is left "
+      "open, and it is the one the next round should try. THE SECOND REFUTATION TOOL: Kraus implies CP, verified here "
       "as the exact matrix identity the kernel proof turns on -- the Choi matrix of "
       "conjugation by V is the outer product of w(s,a) = V[a][s] with itself, checked for "
       "four different V, with the quadratic form nonnegative (zero imaginary part, "
@@ -5024,10 +5027,12 @@ check("F41", ok41,
       "form_of_two_singles proves is checked to agree with the full quadratic form, and to "
       "come out nonnegative on the Kraus side. NOT SETTLED, and nothing asserts it either "
       "way: whether KrausSound T implies KrausSoundExt T. The shape a real countermodel must "
-      "have is now visible -- a trace-preserving, non-CP composite map whose surplus lives "
-      "entirely in the ancilla coherences the discard annihilates, in a theory whose availExt "
-      "is closed under availExt_bind without exposing it -- and building it is a round of its "
-      "own.")
+      "have is now visible -- a map acting exactly quantumly on everything obtainable from the "
+      "allowed preparation and closure machinery, with its bad component confined to ancilla "
+      "coherences no available preparation produces and the discard annihilates. Note that "
+      "HasCompositeUnitaryControl is NOT a structure field, so such a theory may withhold "
+      "precisely the unitaries that would rotate the invisible sector into the preparation "
+      "image -- building it is a round of its own.")
 
 
 print()

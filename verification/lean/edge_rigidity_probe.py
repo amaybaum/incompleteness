@@ -600,7 +600,7 @@ for fname, names in (
                         'everywhereAvailable_full_not_exact')),
     ('CompositeSoundness', ('isKrausFamily_iff', 'krausSound_exposedComposite',
                             'ptraceAnc_trace', 'discardWith_trace',
-                            'not_kraus_of_trace_ne', 'traceWitness_always_exposed',
+                            'not_kraus_of_trace_ne', 'traceWitness_exposed_on_reachable',
                             'posSemidef_sum', 'choiMatrix_finsum', 'conjChannel_cp',
                             'krausFamily_cp', 'exposedComposite_cp', 'transposeMap_trace',
                             'form_of_two_singles', 'transposeMap_not_cp',
@@ -845,6 +845,11 @@ ok6 &= 'theorem transposeMap_not_kraus' in cs
 ok6 &= 'krausSound_implies_ext' not in cs and 'krausSound_not_implies_ext' not in cs
 ok6 &= 'whether `KrausSound T` implies `KrausSoundExt T`. Neither direction is asserted' \
     in _csflat
+# and the exposure principle must NOT be overstated: it is conditioned on a violation
+# occurring on the REACHABLE state P rho, not on global trace preservation
+ok6 &= 'no trace violation can hide ON THE OPERATIONALLY REACHABLE PREPARATION IMAGE' in _csflat
+ok6 &= 'every composite surplus must globally preserve the trace' in _csflat
+ok6 &= 'traceWitness_always_exposed' not in cs
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er

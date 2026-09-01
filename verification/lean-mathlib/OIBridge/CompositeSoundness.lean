@@ -31,13 +31,21 @@
       │  context has a Kraus representation ON `A`.                         │
       └────────────────────────────────────────────────────────────────────┘
 
-  §C — WHICH SURPLUS STRUCTURE THAT RULES OUT. `discardWith_trace` — discard preserves the
-  trace exactly — turns round twenty-six's trace identity into an exposure principle:
-  `traceWitness_always_exposed` shows a composite family whose aggregate output trace
-  differs from the input's is exposed at EVERY available preparation. So a trace-based
-  witness can never hide in the composite sector, and any genuine surplus structure must be
-  TRACE-CONSISTENT AND DISCARD-INVISIBLE. That is a sharp constraint on the countermodel
-  search, and it is why the cheap candidates do not work.
+  §C — WHICH SURPLUS STRUCTURE THAT RULES OUT, AND EXACTLY HOW MUCH. `discardWith_trace` —
+  discard preserves the trace exactly — turns round twenty-six's trace identity into an
+  exposure principle. READ THE QUANTIFIERS. `traceWitness_exposed_on_reachable` assumes a
+  preparation `P`, an input `ρ`, and a trace violation ALREADY OCCURRING ON THE REACHABLE
+  STATE `P ρ`; only then is the discarded family non-Kraus. So what is proved is
+
+      no trace violation can hide ON THE OPERATIONALLY REACHABLE PREPARATION IMAGE,
+
+  and NOT
+
+      every composite surplus must globally preserve the trace.
+
+  The difference is not pedantry, it is the whole countermodel search. A surplus supported
+  on a sector no available preparation reaches may violate the trace THERE and still be
+  invisible. What §C rules out is a witness that shows up on `P ρ` — nothing more.
 
   §D — THE SECOND REFUTATION TOOL, and the transpose. Round twenty-six had only the trace
   identity, which cannot refute transposition. The EASY direction of the Kraus–CP
@@ -51,13 +59,15 @@
   `exposedComposite_cp` records the consequence for §B.
 
   WHAT THIS ROUND DOES NOT SETTLE, stated plainly rather than left to inference:
-  whether `KrausSound T` implies `KrausSoundExt T`. Neither direction is asserted. §C shows
-  why the obvious countermodels fail — a surplus composite operation must be invisible after
-  discard at every available preparation, which kills every trace-based witness — and the
-  shape a real countermodel must have is now visible: a trace-preserving, non-CP composite
-  map whose surplus lives entirely in the ancilla coherences the discard annihilates, in a
-  theory whose `availExt` is closed under `availExt_bind` without exposing it. Building that
-  is a round of its own, and nothing here claims it exists or that it does not.
+  whether `KrausSound T` implies `KrausSoundExt T`. Neither direction is asserted. What §C
+  does establish is where a countermodel may NOT put its witness — anywhere the available
+  preparations actually reach. It may still put one on an UNREACHABLE sector: a map acting
+  exactly quantumly on everything obtainable from the allowed preparation and closure
+  machinery, with its bad component confined to ancilla coherences no available preparation
+  produces and the discard annihilates. Note that `HasCompositeUnitaryControl` is NOT a
+  structure field, so such a theory is free to withhold precisely the unitaries that would
+  rotate the invisible sector into the preparation image. Building it is a round of its own,
+  and nothing here claims it exists or that it does not.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
@@ -146,12 +156,17 @@ theorem not_kraus_of_trace_ne {m : ℕ} (G : Fin m → Matrix A A ℂ →ₗ[ℂ
   rintro ⟨n, K, out, hnorm, rfl⟩
   exact h (instrumentBranch_trace K out hnorm ρ)
 
-/-- **A TRACE-BASED WITNESS CAN NEVER HIDE IN THE COMPOSITE SECTOR.** If a composite family
-fails aggregate trace conservation as seen through a preparation, then the discarded family
-fails it on the system, so system soundness already excludes it. Hence any genuine surplus
-composite structure must be TRACE-CONSISTENT and DISCARD-INVISIBLE — which is exactly why
-the cheap countermodels to `KrausSound ⟹ KrausSoundExt` do not work. -/
-theorem traceWitness_always_exposed (n m : ℕ)
+/-- **A TRACE VIOLATION CANNOT HIDE ON THE REACHABLE PREPARATION IMAGE.** READ THE
+HYPOTHESIS: the violation is assumed to occur ON `P ρ`, a state the preparation actually
+produces. Under that assumption the discarded family fails trace conservation on the system
+too, so system soundness excludes it.
+
+WHAT THIS DOES NOT SAY. It does not say a composite surplus must globally preserve the
+trace. A map may violate the trace on a sector no available preparation reaches and remain
+invisible here; the hypothesis simply never fires there. So this closes the countermodel
+route that puts its witness where the preparations go, and leaves open the route that
+hides it where they do not. -/
+theorem traceWitness_exposed_on_reachable (n m : ℕ)
     (P : Matrix A A ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
     (F : Fin m → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
     (ρ : Matrix A A ℂ) (h : ∑ a, ((F a) (P ρ)).trace ≠ ρ.trace) :
@@ -342,7 +357,7 @@ theorem transposeMap_not_kraus {S : Type*} [Fintype S] [DecidableEq S] {a b : S}
 #print axioms ptraceAnc_trace
 #print axioms discardWith_trace
 #print axioms not_kraus_of_trace_ne
-#print axioms traceWitness_always_exposed
+#print axioms traceWitness_exposed_on_reachable
 #print axioms posSemidef_sum
 #print axioms choiMatrix_finsum
 #print axioms conjChannel_cp
