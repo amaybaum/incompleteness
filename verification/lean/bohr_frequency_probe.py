@@ -4542,6 +4542,33 @@ blk38 = mmc17(mmc17(Usw38, prep38), dag17(Usw38))
 for kk38 in range(2):
     ok38 &= ptraceAnc38(localLuders38(kk38, blk38)) \
         == [[blk38[ix38(s, kk38)][ix38(t, kk38)] for t in range(2)] for s in range(2)]
+# --- 25c: THE PURE SEED IS DERIVED, not assumed.  Attach a MAXIMALLY MIXED ancilla, read
+# it out, apply the outcome-dependent swap correction k -> k0, and forget the outcome; the
+# branches sum to the pure product.  No pure seed is assumed anywhere.
+half38 = C17(Frac(1, 2))
+unif38 = tensor38(rho38, [[half38 if r == c else CZ17 for c in range(2)]
+                          for r in range(2)])
+
+
+def ancswap38(k, k0):
+    def sw(b):
+        return k0 if b == k else (k if b == k0 else b)
+    return [[CO17 if r == ix38(c >> 1, sw(c & 1)) else CZ17 for c in range(N38)]
+            for r in range(N38)]
+
+
+for k0_38 in range(2):
+    acc38 = [[CZ17] * N38 for _ in range(N38)]
+    for kk38 in range(2):
+        Sw38 = ancswap38(kk38, k0_38)
+        ok38 &= mmc17(Sw38, dag17(Sw38)) == eye17(N38)
+        cor38 = mmc17(mmc17(Sw38, localLuders38(kk38, unif38)), dag17(Sw38))
+        acc38 = [[acc38[r][c] + cor38[r][c] for c in range(N38)] for r in range(N38)]
+    ok38 &= acc38 == tensor38(rho38, [[CO17 if (r, c) == (k0_38, k0_38) else CZ17
+                                       for c in range(2)] for r in range(2)])
+# and the uniform attachment is NOT already a pure seed
+ok38 &= unif38 != tensor38(rho38, [[CO17 if (r, c) == (0, 0) else CZ17 for c in range(2)]
+                                   for r in range(2)])
 check("F38", ok38,
       "ROUND 25 OPENING: MAP-LEVEL SPECTATOR INDEPENDENCE AND THE LOCAL LUDERS SELECTOR "
       "(phase three, round twenty-five; kernel: MapSpectatorIndependent, "
@@ -4585,7 +4612,18 @@ check("F38", ok38,
       "conjugated prepared state -- the skeleton the generic Kraus assembly will "
       "instantiate. Purification and Uhlmann uniqueness are NOT used and will not be: "
       "instrument availability needs pure seed, Stinespring, unitary control and local "
-      "readout only.")
+      "readout only. 25c -- THE PURE SEED IS DERIVED, NOT ASSUMED: preparation is itself "
+      "an availability notion, the only granted instance being the UNIFORM attachment, and "
+      "pureSeedPrep_available PROVES the pure attachment rho -> rho (x) |k0><k0| is "
+      "available by the operational lifting of round 21's construction -- read the uniform "
+      "ancilla, apply the outcome-dependent swap correction k -> k0, forget the outcome, "
+      "and the n branches rho (x) |k><k|/n sum to rho (x) |k0><k0|. Verified here for both "
+      "target levels, with each correction checked unitary and the uniform attachment "
+      "checked NOT to be a pure seed already. So H-pure-seed appears nowhere among the "
+      "operational assumptions and the round-22 endpoint reduction survives intact. Also "
+      "repaired: blockDephase is a CP SELECTIVE operation, one branch of a readout -- "
+      "trace preservation is neither established nor claimed, so it is not called a "
+      "channel.")
 
 
 print()

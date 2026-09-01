@@ -30,7 +30,9 @@
 
   The logical role of composition is then made completely transparent by exhibiting the
   freedom it kills. `blockDephase` is the within-block dephasing selector: a manifestly CP
-  map (a sum of rank-one conjugations, `blockDephase_kraus`) with EXACTLY the same action
+  CP SELECTIVE OPERATION — a sum of rank-one branches, so completely positive by
+  construction; it is one branch of a readout, and trace preservation is neither
+  established nor claimed — with EXACTLY the same action
   on every classical composite state (`blockDephase_classical_eq`), yet it destroys system
   coherence (`blockDephase_ne_localLuders`) and fails map-level spectator independence
   (`blockDephase_not_mapSpectatorIndependent`). So the classical ancilla-readout condition
@@ -61,7 +63,7 @@
       system `S`", not "all finite quantum instruments" without qualification — the latter
       needs rectangular Kraus maps or a dimension-changing encoding.
 
-  §E — OPERATIONAL CLOSURE (round 25b). A PER-CARRIER availability notion cannot express
+  §E — OPERATIONAL CLOSURE (rounds 25b/25c). A PER-CARRIER availability notion cannot express
   the three cross-carrier joins the reconstruction consumes: that a native ancilla readout
   EXISTS, that independently prepared parts compose to a PRODUCT, and that a circuit on
   `A × Fin n` with the ancilla forgotten defines an operation on `A` alone.
@@ -71,11 +73,24 @@
   what round twenty-one's measure-then-reset seed derivation actually uses), independent
   product preparation, native basis readout, and ancilla discard.
 
-  The readout is deliberately NOT postulated as `id_A ⊗ ℒ_k`. It is postulated only to
-  exist and to be spectator-independent, and `readout_is_localLuders` DERIVES the form from
-  §B. That is the payoff of the §B theorem: the local readout branch is earned by
-  composition, not assumed. `ptraceAnc_localLuders` then shows discard-after-readout is
-  exactly the `k`-th ancilla block — round twenty's `sysBlock`, on the nose.
+  TWO THINGS ARE EARNED RATHER THAN POSTULATED, and this is the point of the section.
+
+  (i) The readout is NOT postulated as `id_A ⊗ ℒ_k`. It is postulated only to exist and to
+  be spectator-independent, and `readout_is_localLuders` DERIVES the form from §B.
+
+  (ii) NO PURE SEED IS ASSUMED (round 25c). Preparation is itself an AVAILABILITY notion:
+  the only preparation the structure grants is `prepAvail_uniform`, attaching a MAXIMALLY
+  MIXED ancilla. `pureSeedPrep_available` then PROVES that the pure attachment
+  `ρ ↦ ρ ⊗ |k₀⟩⟨k₀|` is available — the operational lifting of round twenty-one's
+  measure-then-feed-forward construction: read the uniform ancilla, apply the
+  outcome-dependent swap correction `k ↦ k₀` (`conj_ancSwap_single`), and forget the
+  outcome; the `n` branches `ρ ⊗ |k⟩⟨k|/n` sum to `ρ ⊗ |k₀⟩⟨k₀|`. So `H-pure-seed` appears
+  nowhere among the operational assumptions, and the round-22 endpoint reduction survives
+  intact. The construction needs a nonempty ancilla, which is why the preparation rules are
+  stated at `Fin (n+1)`.
+
+  `ptraceAnc_localLuders` then shows discard-after-readout is exactly the `k`-th ancilla
+  block — round twenty's `sysBlock`, on the nose.
 
   `circuit_available` assembles the skeleton: prepare a pure ancilla, run any composite
   unitary (from `HasCompositeUnitaryControl`, which is family-level in the ancilla size —
@@ -83,8 +98,11 @@
   rules alone deliver an available outcome family ON THE SYSTEM. `circuit_branch` computes
   each branch as the corresponding ancilla block.
 
-  WHAT IS NOT HERE. The generic normalized-Kraus Stinespring instantiation of that
-  skeleton, the derivation of full finite-instrument availability, and the structured
+  WHAT IS NOT HERE. The system-first Stinespring adapter layer (round twenty's
+  `dilationIsometry` is ancilla-first, so the assembly needs a small mirrored adapter and a
+  probe pinning the two together under the factor swap), the isolated finite
+  isometry-extension statement in the form the assembly consumes, the generic
+  normalized-Kraus instantiation of that skeleton, the derivation of full finite-instrument availability, and the structured
   standard-completion predicate are the remaining items; none is asserted. Note that
   PURIFICATION AND UHLMANN UNIQUENESS ARE NOT USED and will not be: instrument availability
   needs pure seed, Stinespring, unitary control and local readout only, so the boundary for
@@ -237,8 +255,10 @@ theorem choiMatrix_sum {ι' : Type*} (s : Finset ι')
   ext p q
   simp [choiMatrix, LinearMap.sum_apply, Matrix.sum_apply]
 
-/-- **The surviving freedom is a genuine channel.** `blockDephase` is a Kraus sum of
-rank-one branches, hence completely positive. -/
+/-- **The surviving freedom is a genuine CP operation.** `blockDephase` is a Kraus sum of
+rank-one branches, hence completely positive by construction. It is a SELECTIVE operation
+— one branch of a readout — and not a channel: trace preservation is neither established
+here nor claimed. -/
 theorem blockDephase_cp (k : B) : IsCompletelyPositive (blockDephase (A := A) k) := by
   show (choiMatrix (blockDephase (A := A) k)).PosSemidef
   rw [blockDephase, choiMatrix_sum]
@@ -405,6 +425,13 @@ theorem tensorOf_smul_left (c : ℂ) (ρ : Matrix A A ℂ) (τ : Matrix B B ℂ)
   simp only [tensorOf_apply, Matrix.smul_apply, smul_eq_mul]
   ring
 
+omit [Fintype A] [DecidableEq A] [Fintype B] [DecidableEq B] in
+theorem tensorOf_smul_right (c : ℂ) (ρ : Matrix A A ℂ) (τ : Matrix B B ℂ) :
+    tensorOf ρ (c • τ) = c • tensorOf ρ τ := by
+  ext p q
+  simp only [tensorOf_apply, Matrix.smul_apply, smul_eq_mul]
+  ring
+
 /-- The partial trace over the ancilla factor. -/
 def ptraceAnc (n : ℕ) (M : Matrix (A × Fin n) (A × Fin n) ℂ) : Matrix A A ℂ :=
   Matrix.of fun s t => ∑ e : Fin n, M (s, e) (t, e)
@@ -432,23 +459,105 @@ theorem ptraceAnc_localLuders (n : ℕ) (k : Fin n)
   · intro hc
     exact absurd (Finset.mem_univ _) hc
 
-/-- Run a composite operation on an independently prepared pure ancilla, then discard the
-ancilla: the operation this induces on the system alone. -/
-def discardMap (n : ℕ) (k₀ : Fin n)
-    (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) :
-    Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ where
-  toFun ρ := ptraceAnc n (Φ (tensorOf ρ (Matrix.single k₀ k₀ 1)))
-  map_add' ρ σ := by
+/-- The partial trace over the ancilla, as a linear map. -/
+def ptraceAncL (n : ℕ) :
+    Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix A A ℂ where
+  toFun := ptraceAnc n
+  map_add' M N := by
     ext s t
-    show ∑ e : Fin n, (Φ (tensorOf (ρ + σ) (Matrix.single k₀ k₀ 1))) (s, e) (t, e) = _
-    rw [tensorOf_add_left, map_add]
-    simp [Matrix.add_apply, Finset.sum_add_distrib]
-  map_smul' c ρ := by
+    simp [ptraceAnc, Matrix.add_apply, Finset.sum_add_distrib]
+  map_smul' c M := by
     ext s t
-    show ∑ e : Fin n, (Φ (tensorOf (c • ρ) (Matrix.single k₀ k₀ 1))) (s, e) (t, e) = _
-    rw [tensorOf_smul_left, map_smul]
-    simp [Matrix.smul_apply, Finset.mul_sum]
+    simp [ptraceAnc, Matrix.smul_apply, Finset.mul_sum]
 
+/-- **The UNIFORM ancilla attachment** `ρ ↦ ρ ⊗ (I/n)`: the only preparation the theory
+assumes. It attaches a MAXIMALLY MIXED ancilla, never a pure one. -/
+noncomputable def uniformAttach (n : ℕ) :
+    Matrix A A ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ where
+  toFun ρ := tensorOf ρ ((n : ℂ)⁻¹ • (1 : Matrix (Fin n) (Fin n) ℂ))
+  map_add' ρ σ := tensorOf_add_left ρ σ _
+  map_smul' c ρ := tensorOf_smul_left c ρ _
+
+/-- The PURE ancilla attachment `ρ ↦ ρ ⊗ |k₀⟩⟨k₀|`. This is NOT assumed available; it is
+DERIVED (`pureSeedPrep_available`). -/
+def pureAttach (n : ℕ) (k₀ : Fin n) :
+    Matrix A A ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ where
+  toFun ρ := tensorOf ρ (Matrix.single k₀ k₀ 1)
+  map_add' ρ σ := tensorOf_add_left ρ σ _
+  map_smul' c ρ := tensorOf_smul_left c ρ _
+
+omit [Fintype A] [DecidableEq A] in
+@[simp] theorem uniformAttach_apply (n : ℕ) (ρ : Matrix A A ℂ) :
+    uniformAttach n ρ = tensorOf ρ ((n : ℂ)⁻¹ • (1 : Matrix (Fin n) (Fin n) ℂ)) := rfl
+
+omit [Fintype A] [DecidableEq A] in
+@[simp] theorem pureAttach_apply (n : ℕ) (k₀ : Fin n) (ρ : Matrix A A ℂ) :
+    pureAttach n k₀ ρ = tensorOf ρ (Matrix.single k₀ k₀ 1) := rfl
+
+/-- Prepare, run a composite operation, then discard the ancilla. -/
+def discardWith (n : ℕ) (P : Matrix A A ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+    (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) :
+    Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ :=
+  (ptraceAncL n).comp (Φ.comp P)
+
+/-- The pure-seed special case, kept for the circuit computation. -/
+noncomputable def discardMap (n : ℕ) (k₀ : Fin n)
+    (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) :
+    Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ :=
+  discardWith n (pureAttach n k₀) Φ
+
+/-- The ancilla-level swap `k ↔ k₀`, with the system untouched: the outcome-dependent
+reversible correction of round twenty-one's feed-forward. -/
+def ancSwap (n : ℕ) (k k₀ : Fin n) : Equiv.Perm (A × Fin n) :=
+  (Equiv.refl A).prodCongr (Equiv.swap k k₀)
+
+omit [Fintype A] [DecidableEq A] in
+theorem ancSwap_symm_apply (n : ℕ) (k k₀ : Fin n) (p : A × Fin n) :
+    (ancSwap (A := A) n k k₀).symm p = (p.1, Equiv.swap k k₀ p.2) := by
+  show ((Equiv.refl A).symm p.1, (Equiv.swap k k₀).symm p.2) = _
+  rw [Equiv.symm_swap]
+  rfl
+
+omit [Fintype A] [DecidableEq A] in
+theorem swapEq {n : ℕ} (k k₀ x : Fin n) : k = Equiv.swap k k₀ x ↔ k₀ = x := by
+  constructor
+  · intro h
+    have h2 := congrArg (Equiv.swap k k₀) h
+    rwa [Equiv.swap_apply_left, Equiv.swap_apply_self] at h2
+  · rintro rfl
+    exact (Equiv.swap_apply_right k k₀).symm
+
+/-- **THE FEED-FORWARD CORRECTION WORKS.** Conjugating by the ancilla swap sends the
+branch `ρ ⊗ |k⟩⟨k|` to the seed `ρ ⊗ |k₀⟩⟨k₀|`, for every outcome `k`. -/
+theorem conj_ancSwap_single (n : ℕ) (k k₀ : Fin n) (ρ : Matrix A A ℂ) :
+    conjChannel (CoherentLift.permMatrix (ancSwap (A := A) n k k₀))
+        (tensorOf ρ (Matrix.single k k 1))
+      = tensorOf ρ (Matrix.single k₀ k₀ 1) := by
+  ext p q
+  show (CoherentLift.permMatrix (ancSwap (A := A) n k k₀)
+      * tensorOf ρ (Matrix.single k k 1)
+      * (CoherentLift.permMatrix (ancSwap (A := A) n k k₀))ᴴ) p q = _
+  rw [CoherentLift.permMatrix_conj_apply, ancSwap_symm_apply, ancSwap_symm_apply,
+    tensorOf_apply, tensorOf_apply, single_entry, single_entry]
+  congr 1
+  by_cases h : k₀ = p.2 ∧ k₀ = q.2
+  · rw [if_pos h,
+      if_pos ⟨(swapEq k k₀ p.2).mpr h.1, (swapEq k k₀ q.2).mpr h.2⟩]
+  · rw [if_neg h, if_neg fun hh =>
+      h ⟨(swapEq k k₀ p.2).mp hh.1, (swapEq k k₀ q.2).mp hh.2⟩]
+
+theorem ancSwap_unitary (n : ℕ) (k k₀ : Fin n) :
+    (CoherentLift.permMatrix (ancSwap (A := A) n k k₀))ᴴ
+      * CoherentLift.permMatrix (ancSwap (A := A) n k k₀) = 1 :=
+  mul_eq_one_comm.mp (CoherentLift.permMatrix_unitary _)
+
+omit [Fintype A] [DecidableEq A] in
+/-- The Lüders branch of the uniform ancilla is the weighted pure branch. -/
+theorem localLuders_uniform (n : ℕ) (k : Fin n) (ρ : Matrix A A ℂ) :
+    localLuders k (uniformAttach n ρ)
+      = (n : ℂ)⁻¹ • tensorOf ρ (Matrix.single k k 1) := by
+  rw [uniformAttach_apply, localLuders_tensor, ludersLift_apply, Matrix.smul_apply,
+    Matrix.one_apply_eq, smul_eq_mul, mul_one, ← tensorOf_smul_right]
 
 /-- **A FINITE OPERATIONAL THEORY over a fixed system `A`.** A per-carrier availability
 notion cannot express the three cross-carrier joins the reconstruction actually consumes:
@@ -495,10 +604,19 @@ structure FiniteOperationalTheory (A : Type*) [Fintype A] [DecidableEq A] where
         Matrix (A × Fin n) (A × Fin n) ℂ),
     availExt n O F → (∀ a, availExt n O' (G a)) →
       availExt n (O × O') (fun c => (G c.1 c.2).comp (F c.1))
-  /-- INDEPENDENT PRODUCT PREPARATION, as a clause of the theory. -/
-  prep : ∀ n : ℕ, Fin n → Matrix A A ℂ → Matrix (A × Fin n) (A × Fin n) ℂ
-  prep_isProduct : ∀ (n : ℕ) (k₀ : Fin n) (ρ : Matrix A A ℂ),
-    prep n k₀ ρ = tensorOf ρ (Matrix.single k₀ k₀ 1)
+  /-- Which cross-carrier PREPARATIONS are available. Preparation is an availability
+  notion, NOT a postulate that a pure product can be made. -/
+  prepAvail : ∀ n : ℕ,
+    (Matrix A A ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) → Prop
+  /-- The only preparation ASSUMED: attaching a MAXIMALLY MIXED ancilla. No pure seed is
+  postulated anywhere in this structure. -/
+  prepAvail_uniform : ∀ n : ℕ, prepAvail (n + 1) (uniformAttach (n + 1))
+  /-- An available composite deterministic operation may be POST-COMPOSED onto an
+  available preparation. -/
+  prepAvail_post : ∀ (n : ℕ)
+      (P : Matrix A A ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+      (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ),
+    prepAvail n P → availExt n Unit (fun _ => Φ) → prepAvail n (Φ.comp P)
   /-- NATIVE FINITE BASIS READOUT of the ancilla: some outcome family is available whose
   branches are spectator-independent over the rank-one Lüders selectors. Its FORM is not
   postulated — see `readout_is_localLuders`. -/
@@ -507,12 +625,15 @@ structure FiniteOperationalTheory (A : Type*) [Fintype A] [DecidableEq A] where
   readout_avail : ∀ n : ℕ, availExt n (Fin n) (readout n)
   readout_local : ∀ (n : ℕ) (k : Fin n),
     MapSpectatorIndependent (ludersLift k) (readout n k)
-  /-- ANCILLA DISCARD. A circuit on the extended carrier, run on an independently prepared
-  ancilla and then forgotten, defines an available operation family on the system alone.
-  This is the cross-carrier rule the per-carrier structure could not express. -/
-  availExt_discard : ∀ (n : ℕ) (k₀ : Fin n) (O : Type) [Fintype O] [DecidableEq O]
+  /-- ANCILLA DISCARD. An AVAILABLE preparation, followed by an available composite
+  instrument, followed by forgetting the ancilla, induces an available operation family on
+  the system alone. This is the cross-carrier rule the per-carrier structure could not
+  express, and it now consumes a preparation that has to be earned. -/
+  prepAvail_discard : ∀ (n : ℕ)
+      (P : Matrix A A ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+      (O : Type) [Fintype O] [DecidableEq O]
       (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ),
-    availExt n O F → avail O (fun a => discardMap n k₀ (F a))
+    prepAvail n P → availExt n O F → avail O (fun a => discardWith n P (F a))
 
 /-- **THE READOUT FORM IS DERIVED, NOT POSTULATED.** A theory's native ancilla readout is
 assumed only to exist and to be spectator-independent; the round-25 uniqueness theorem
@@ -521,14 +642,6 @@ theorem readout_is_localLuders (T : FiniteOperationalTheory A) (n : ℕ) (k : Fi
     T.readout n k = localLuders k :=
   (mapSpectatorIndependent_iff_localLuders k _).mp (T.readout_local n k)
 
-/-- The discard rule's product form is licensed by the theory's preparation clause. -/
-theorem discardMap_eq_prep (T : FiniteOperationalTheory A) (n : ℕ) (k₀ : Fin n)
-    (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
-    (ρ : Matrix A A ℂ) :
-    discardMap n k₀ Φ ρ = ptraceAnc n (Φ (T.prep n k₀ ρ)) := by
-  rw [T.prep_isProduct]
-  rfl
-
 /-- **COMPOSITE-DIMENSION CONTROL.** Universal unitary control on EVERY finite ancilla
 extension, not merely on the system: a control premise on `A` says nothing whatever about
 unitaries on `A × Fin n`, so the assembly's control hypothesis must be family-level. -/
@@ -536,15 +649,71 @@ def HasCompositeUnitaryControl (T : FiniteOperationalTheory A) : Prop :=
   ∀ (n : ℕ) (U : Matrix (A × Fin n) (A × Fin n) ℂ), Uᴴ * U = 1 →
     T.availExt n Unit (fun _ => conjChannel U)
 
-/-- **THE CIRCUIT IS AVAILABLE.** Prepare an `n`-level ancilla in a pure basis state, run
-any composite unitary, read the ancilla in its fixed basis, and discard it: the closure
-rules alone deliver an available outcome family on the SYSTEM, indexed by the ancilla
-outcome. No Kraus family, no Stinespring, no purification and no Uhlmann uniqueness is
-used — this is the circuit skeleton the generic assembly will instantiate. -/
+/-- **THE PURE SEED IS DERIVED, NOT ASSUMED.** Round twenty-one's construction, lifted to
+the operational structure: attach a MAXIMALLY MIXED ancilla, read it in the fixed basis,
+apply the outcome-dependent reversible correction swapping the observed level to `k₀`, and
+forget which outcome occurred. Each branch `ρ ⊗ |k⟩⟨k|/n` is corrected to
+`ρ ⊗ |k₀⟩⟨k₀|/n`, and the `n` branches sum to `ρ ⊗ |k₀⟩⟨k₀|`.
+
+So `H-pure-seed` appears NOWHERE in `FiniteOperationalTheory`: the only preparation
+assumed is the uniform attachment, and the pure attachment is a theorem. -/
+theorem pureSeedPrep_available (T : FiniteOperationalTheory A)
+    (hctrl : HasCompositeUnitaryControl T) (n : ℕ) (k₀ : Fin (n + 1)) :
+    T.prepAvail (n + 1) (pureAttach (n + 1) k₀) := by
+  have hbind := T.availExt_bind (n + 1) (Fin (n + 1)) Unit (T.readout (n + 1))
+    (fun k _ => conjChannel (CoherentLift.permMatrix (ancSwap (A := A) (n + 1) k k₀)))
+    (T.readout_avail (n + 1))
+    (fun k => hctrl (n + 1) _ (ancSwap_unitary (n + 1) k k₀))
+  have hco := T.availExt_coarse (n + 1) (Fin (n + 1) × Unit) Unit _
+    (fun _ => (() : Unit)) hbind
+  rw [show (fun a : Unit => ∑ j ∈ Finset.univ.filter
+        (fun _ : Fin (n + 1) × Unit => (() : Unit) = a),
+        (conjChannel (CoherentLift.permMatrix (ancSwap (A := A) (n + 1) j.1 k₀))).comp
+          (T.readout (n + 1) j.1))
+      = fun _ : Unit => ∑ j : Fin (n + 1) × Unit,
+        (conjChannel (CoherentLift.permMatrix (ancSwap (A := A) (n + 1) j.1 k₀))).comp
+          (T.readout (n + 1) j.1) from by
+    funext a
+    rw [Finset.filter_true_of_mem fun _ _ => Subsingleton.elim _ a]] at hco
+  have hpost := T.prepAvail_post (n + 1) (uniformAttach (n + 1)) _
+    (T.prepAvail_uniform n) hco
+  have hfin : (∑ j : Fin (n + 1) × Unit,
+        (conjChannel (CoherentLift.permMatrix (ancSwap (A := A) (n + 1) j.1 k₀))).comp
+          (T.readout (n + 1) j.1)).comp (uniformAttach (n + 1))
+      = pureAttach (n + 1) k₀ := by
+    refine LinearMap.ext fun ρ => ?_
+    show (∑ j : Fin (n + 1) × Unit,
+        (conjChannel (CoherentLift.permMatrix (ancSwap (A := A) (n + 1) j.1 k₀))).comp
+          (T.readout (n + 1) j.1)) (uniformAttach (n + 1) ρ) = _
+    rw [LinearMap.sum_apply]
+    rw [show (∑ j : Fin (n + 1) × Unit,
+          ((conjChannel (CoherentLift.permMatrix (ancSwap (A := A) (n + 1) j.1 k₀))).comp
+            (T.readout (n + 1) j.1)) (uniformAttach (n + 1) ρ))
+        = ∑ _k : Fin (n + 1),
+          (((n + 1 : ℕ) : ℂ))⁻¹ • tensorOf ρ (Matrix.single k₀ k₀ 1) from by
+      rw [Fintype.sum_prod_type]
+      refine Finset.sum_congr rfl fun k _ => ?_
+      rw [Fintype.sum_unique]
+      show conjChannel (CoherentLift.permMatrix (ancSwap (A := A) (n + 1) k k₀))
+          (T.readout (n + 1) k (uniformAttach (n + 1) ρ)) = _
+      rw [readout_is_localLuders, localLuders_uniform, map_smul, conj_ancSwap_single]]
+    rw [Finset.sum_const, Finset.card_univ, Fintype.card_fin,
+      ← Nat.cast_smul_eq_nsmul ℂ, smul_smul,
+      mul_inv_cancel₀ (show ((n + 1 : ℕ) : ℂ) ≠ 0 from
+        Nat.cast_ne_zero.mpr (Nat.succ_ne_zero n)),
+      one_smul, pureAttach_apply]
+  rw [← hfin]
+  exact hpost
+
+/-- **THE CIRCUIT IS AVAILABLE.** Prepare an ancilla by any AVAILABLE preparation, run any
+composite unitary, read the ancilla in its fixed basis, and discard it: the closure rules
+alone deliver an available outcome family on the SYSTEM, indexed by the ancilla outcome.
+No Kraus family, no Stinespring, no purification and no Uhlmann uniqueness is used. -/
 theorem circuit_available (T : FiniteOperationalTheory A)
-    (hctrl : HasCompositeUnitaryControl T) (n : ℕ) (k₀ : Fin n)
+    (hctrl : HasCompositeUnitaryControl T) (n : ℕ)
+    (P : Matrix A A ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) (hP : T.prepAvail n P)
     (U : Matrix (A × Fin n) (A × Fin n) ℂ) (hU : Uᴴ * U = 1) :
-    T.avail (Fin n) (fun k => discardMap n k₀ ((localLuders k).comp (conjChannel U))) := by
+    T.avail (Fin n) (fun k => discardWith n P ((localLuders k).comp (conjChannel U))) := by
   have h2 := T.availExt_bind n Unit (Fin n) (fun _ => conjChannel U)
     (fun _ => T.readout n) (hctrl n U hU) (fun _ => T.readout_avail n)
   have h3 := T.availExt_coarse n (Unit × Fin n) (Fin n) _ Prod.snd h2
@@ -559,12 +728,23 @@ theorem circuit_available (T : FiniteOperationalTheory A)
     funext a
     rw [hfilter a, Finset.sum_singleton, readout_is_localLuders]
   rw [h4] at h3
-  exact T.availExt_discard n k₀ (Fin n) _ h3
+  exact T.prepAvail_discard n P (Fin n) _ hP h3
 
+/-- **THE CIRCUIT ON A DERIVED PURE SEED.** Same circuit, with the pure attachment supplied
+by `pureSeedPrep_available` rather than assumed — so no `H-pure-seed` hypothesis is used
+anywhere in reaching it. -/
+theorem circuit_available_pureSeed (T : FiniteOperationalTheory A)
+    (hctrl : HasCompositeUnitaryControl T) (n : ℕ) (k₀ : Fin (n + 1))
+    (U : Matrix (A × Fin (n + 1)) (A × Fin (n + 1)) ℂ) (hU : Uᴴ * U = 1) :
+    T.avail (Fin (n + 1))
+      (fun k => discardMap (n + 1) k₀ ((localLuders k).comp (conjChannel U))) :=
+  circuit_available T hctrl (n + 1) _ (pureSeedPrep_available T hctrl n k₀) U hU
+
+omit [DecidableEq A] in
 /-- **AND ITS BRANCHES ARE THE ANCILLA BLOCKS.** Each branch of that circuit is exactly the
 `k`-th ancilla block of the conjugated prepared state — round twenty's `sysBlock`. With `U`
-taken to be a Stinespring dilation of a normalized Kraus family this is `K_k ρ K_k†`, which
-is the one remaining step of the generic assembly. -/
+a Stinespring dilation of a normalized Kraus family this is `K_k ρ K_k†`, the one remaining
+step of the generic assembly. -/
 theorem circuit_branch (n : ℕ) (k₀ k : Fin n)
     (U : Matrix (A × Fin n) (A × Fin n) ℂ) (ρ : Matrix A A ℂ) :
     discardMap n k₀ ((localLuders k).comp (conjChannel U)) ρ
@@ -594,8 +774,11 @@ theorem circuit_branch (n : ℕ) (k₀ k : Fin n)
 #print axioms tensorOf_add_left
 #print axioms ptraceAnc_localLuders
 #print axioms readout_is_localLuders
-#print axioms discardMap_eq_prep
+#print axioms conj_ancSwap_single
+#print axioms localLuders_uniform
+#print axioms pureSeedPrep_available
 #print axioms circuit_available
+#print axioms circuit_available_pureSeed
 #print axioms circuit_branch
 
 end OperationalAssembly
