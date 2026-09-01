@@ -5167,6 +5167,89 @@ check("F42", ok42,
       "construction, but that is not proved, and whether something weaker suffices is not "
       "even formulated.")
 
+# ----------------------- F43  round 29: interference, not merely coherence reachability --
+# the smallest condition that exposes the round-28 surplus (phase three, round twenty-nine).
+ok43 = True
+# The mixer carries a 1/sqrt(2), which is not a Gaussian rational -- but it enters only as
+# H X H^dag = (1/2) hRaw X hRaw^dag, so the whole experiment stays exact over the rationals.
+HRAW43 = [[CO17, CO17], [CO17, C17(-1)]]
+HALF43 = C17(Frac(1, 2))
+
+
+def conjRaw43(X):
+    """H X H^dag with the normalization folded in: (1/2) hRaw X hRaw^dag."""
+    Y = mmc17(mmc17(HRAW43, X), dag17(HRAW43))
+    return [[Y[r][c] * HALF43 for c in range(2)] for r in range(2)]
+
+
+def ancScale43(X):
+    """The round-28 surplus on the ancilla: coherences doubled, diagonal untouched."""
+    return [[X[r][c] * (CO17 if r == c else C17(2)) for c in range(2)] for r in range(2)]
+
+
+SEED43 = [[CO17, CZ17], [CZ17, CZ17]]
+# --- (a) the mixer is unitary up to the normalization: hRaw^dag hRaw = 2 . I
+ok43 &= mmc17(dag17(HRAW43), HRAW43) == [[C17(2), CZ17], [CZ17, C17(2)]]
+# --- (b) THE EXPERIMENT.  seed -> mix -> surplus -> mix.
+T1_43 = conjRaw43(SEED43)
+ok43 &= T1_43 == [[HALF43, HALF43], [HALF43, HALF43]]      # the balanced superposition
+T2_43 = ancScale43(T1_43)
+ok43 &= T2_43 == [[HALF43, CO17], [CO17, HALF43]]          # the surplus doubled the coherence
+T3_43 = conjRaw43(T2_43)
+ok43 &= T3_43[0][0] == C17(Frac(3, 2)) and T3_43[1][1] == C17(Frac(-1, 2))
+ok43 &= T3_43[0][1] == CZ17 and T3_43[1][0] == CZ17
+# --- (c) THE TRACE TEST IS BLIND: the two branches sum to one, so the round-26 identity is
+# satisfied exactly and cannot see the problem.  It is POSITIVITY that catches it.
+ok43 &= T3_43[0][0] + T3_43[1][1] == CO17
+ok43 &= T3_43[1][1].re < 0
+# --- (d) THE CONTROLS.  Neither half of the experiment does it alone.
+ok43 &= ancScale43(SEED43) == SEED43                        # surplus with no coherence: inert
+ok43 &= conjRaw43(conjRaw43(SEED43)) == SEED43              # mixing twice: back to the seed
+for _b in (ancScale43(SEED43), conjRaw43(conjRaw43(SEED43))):
+    ok43 &= _b[0][0].re >= 0 and _b[1][1].re >= 0           # both branches nonnegative
+# so it is RECOMBINATION of a coherence the surplus has touched, not reachability alone
+ok43 &= conjRaw43(ancScale43(conjRaw43(SEED43)))[1][1] != conjRaw43(conjRaw43(SEED43))[1][1]
+# --- (e) and the negative branch has no Kraus representation: rho -> (-1/2) rho has Choi
+# entry -1/2 at the matched diagonal index, so it is not completely positive.
+ok43 &= (T3_43[1][1] * CO17).re < 0
+check("F43",
+      ok43,
+      "ROUND 29: INTERFERENCE, NOT MERELY COHERENCE REACHABILITY (phase three, round "
+      "twenty-nine; kernel: hSign, hRaw, hMat, ancMix, sqrt2_inv_sq, hRaw_gram, "
+      "hMat_unitary, ancMix_unitary, conjChannel_ancMix_tensor, ancScale, badOp_tensor, "
+      "HasAncillaQubitInterference, tauChain, mix_seed, tauChain_diag, interference_branch, "
+      "form_of_one_single, smul_id_cp_nonneg, interference_exposes_badOp, "
+      "compositeControl_hasInterference in OIBridge/AncillaInterference.lean). Round 28 "
+      "showed the composite gap is real, so something must be added; the obvious candidate "
+      "is composite unitary control, and this round shows a much smaller condition already "
+      "kills that surplus. WHY REACHABILITY IS NOT THE RIGHT CONDITION: merely CREATING an "
+      "ancilla coherence does not help, because the surplus can modify a coherence while the "
+      "discard still annihilates it. What exposes it is creating a coherence and RECOMBINING "
+      "it, so that the surplus's effect is folded back onto the readout diagonal, which the "
+      "discard does see. HasAncillaQubitInterference asks for exactly two things -- a pure "
+      "two-level ancilla seed, and one balanced mixer available on the composite -- with no "
+      "arbitrary composite unitary and no control over the system factor at all. Verified "
+      "here in exact rationals (the 1/sqrt(2) enters only as H X H^dag = (1/2) hRaw X "
+      "hRaw^dag, so the experiment stays exact): the mixer is unitary up to normalization; "
+      "the chain |0><0| -> balanced superposition -> surplus doubles the coherence -> "
+      "recombination gives ancilla diagonal (3/2, -1/2) with both off-diagonal entries "
+      "exactly zero. THE TRACE TEST IS BLIND: the two branches sum to exactly 1, so round "
+      "26's identity is satisfied and cannot see the problem, and the surplus is still "
+      "invisible to a bare prepare-apply-discard so round 27's exposure principle still does "
+      "not fire. It is the NEGATIVE branch that a Kraus representation forbids, through round "
+      "27's Kraus => CP direction -- the third distinct job positivity has done, after the "
+      "transpose and the surplus itself. THE CONTROLS confirm that neither half suffices: the "
+      "surplus applied to the bare seed is inert (no coherence to touch), mixing twice "
+      "returns the seed exactly, and both of those give nonnegative branches; only the full "
+      "create-disturb-recombine sequence produces the negative one. STRICT WEAKNESS: "
+      "compositeControl_hasInterference shows composite unitary control gives the principle, "
+      "since the mixer is unitary and the pure seed is already derived. NOT PROVED AND NOT "
+      "CLAIMED, in the file or here: the converse, or that HasAncillaQubitInterference "
+      "implies KrausSoundExt in general. It kills THIS surplus, a specific non-CP block "
+      "multiplier; it says nothing about every possible one. The informative next test is a "
+      "theory satisfying the principle that still fails KrausSoundExt, or a proof that none "
+      "exists.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

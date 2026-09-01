@@ -616,6 +616,12 @@ for fname, names in (
                          'hiddenCoherenceFull_exact',
                          'hiddenCoherenceFull_not_krausSoundExt',
                          'exact_not_implies_krausSoundExt')),
+    ('AncillaInterference', ('sqrt2_inv_sq', 'hRaw_gram', 'hMat_unitary', 'ancMix_unitary',
+                             'conjChannel_ancMix_tensor', 'hMat_conjTranspose_apply',
+                             'badOp_tensor', 'mix_seed', 'tauChain_diag',
+                             'interference_branch', 'form_of_one_single',
+                             'smul_id_cp_nonneg', 'interference_exposes_badOp',
+                             'compositeControl_hasInterference')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -906,6 +912,29 @@ ok6 &= bool(_wk) and 'Exact quantum operations on the visible system do NOT forc
 # never contributes to a trace at all -- it scales amplitudes, not traces
 ok6 &= 'TRACE-PRESERVING OUTRIGHT, not merely on the diagonal' in _hcflat
 ok6 &= 'trace-scaling only on coherences' not in _hcflat
+# ROUND-29 GUARDS.  The interference principle must be SMALL -- a pure two-level seed and
+# one mixer -- and must not smuggle composite unitary control back in; and the file must not
+# claim the general implication it does not prove.
+ai = open(os.path.join(BRIDGE, 'OIBridge', 'AncillaInterference.lean'),
+          encoding='utf-8').read()
+_prin = _slice(ai, 'def HasAncillaQubitInterference', '/-!')
+ok6 &= bool(_prin) and 'T.prepAvail 2 (pureAttach 2 0)' in _prin
+ok6 &= bool(_prin) and 'conjChannel (ancMix A)' in _prin
+ok6 &= bool(_prin) and 'HasCompositeUnitaryControl' not in _prin
+ok6 &= bool(_prin) and 'KrausSoundExt' not in _prin
+# the exposure theorem kills THIS surplus, and says only that
+_exp = _slice(ai, 'theorem interference_exposes_badOp', ':= by')
+ok6 &= bool(_exp) and '¬ T.availExt 2 Unit (fun _ => badOp (A := A) 2)' in _exp
+ok6 &= bool(_exp) and 'KrausSound T' in _exp and 'HasAncillaQubitInterference T' in _exp
+# strict-weakness direction only; the converse must not appear
+ok6 &= 'theorem compositeControl_hasInterference' in ai
+ok6 &= 'interference_implies_krausSoundExt' not in ai
+ok6 &= 'theorem interference_hasCompositeControl' not in ai
+_aiflat = ' '.join(ai.split())
+ok6 &= 'The converse is NOT proved and NOT claimed' in _aiflat
+ok6 &= 'it says nothing about every possible one' in _aiflat
+# and the reason the contradiction is positivity, not trace, must be on the record
+ok6 &= 'THE CONTRADICTION IS POSITIVITY, NOT TRACE' in _aiflat
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -923,8 +952,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All thirty-six files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 8 + 15 + 21 + 5 + 16 named results print their "
+      "LINT. All thirty-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 8 + 15 + 21 + 14 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
