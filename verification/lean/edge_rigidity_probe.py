@@ -611,7 +611,11 @@ for fname, names in (
                          'hiddenCoherence_krausSound', 'badOp_availExt',
                          'badOp_invisible', 'badOp_choi', 'badOp_not_cp',
                          'badOp_not_kraus', 'hiddenCoherence_not_krausSoundExt',
-                         'krausSound_not_implies_krausSoundExt')),
+                         'krausSound_not_implies_krausSoundExt',
+                         'isKrausFamily_coarse', 'discard_uniform_scalarAvail',
+                         'hiddenCoherenceFull_exact',
+                         'hiddenCoherenceFull_not_krausSoundExt',
+                         'exact_not_implies_krausSoundExt')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -881,6 +885,21 @@ ok6 &= '`HasCompositeUnitaryControl` is NOT a field of `FiniteOperationalTheory`
 ok6 &= 'that is not proved here' in _hcflat
 ok6 &= 'compositeControl_implies_krausSoundExt' not in hc
 ok6 &= 'theorem hiddenCoherence_hasCompositeUnitaryControl' not in hc
+# THE ANTECEDENT MUST BE EXACTNESS, NOT MERE SOUNDNESS.  KrausSound alone is a weak
+# antecedent: hiddenCoherence is sound but INCOMPLETE on the system, so that separation is
+# not the one at issue.  The strong model must have avail = ALL Kraus families, and the
+# file must say plainly why the two theorems are different.
+_hcf = _slice(hc, 'noncomputable def hiddenCoherenceFull', '/-- **THE SYSTEM SECTOR')
+ok6 &= bool(_hcf) and 'avail := fun _ _ _ F => CompositeSoundness.IsKrausFamily F' in _hcf
+ok6 &= 'theorem hiddenCoherenceFull_exact' in hc
+_ex28 = _slice(hc, 'theorem exact_not_implies_krausSoundExt', ':=')
+ok6 &= bool(_ex28) and 'ExactFiniteEndomorphicQuantumOps T ∧ ¬ KrausSoundExt T' in _ex28
+ok6 &= 'sound but very INCOMPLETE' in _hcflat
+ok6 &= 'only the second theorem licenses the sentence at the top of this file' in _hcflat
+# and the trace wording must be right: badOp preserves the trace OUTRIGHT, since a coherence
+# never contributes to a trace at all -- it scales amplitudes, not traces
+ok6 &= 'TRACE-PRESERVING OUTRIGHT, not merely on the diagonal' in _hcflat
+ok6 &= 'trace-scaling only on coherences' not in _hcflat
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -899,7 +918,7 @@ spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E�
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
       "LINT. All thirty-six files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 8 + 15 + 16 + 5 + 16 named results print their "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 8 + 15 + 21 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

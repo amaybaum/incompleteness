@@ -3,12 +3,26 @@
   system do NOT force exact quantum operations on the composites.
 
   PHASE THREE, ROUND TWENTY-EIGHT. Round twenty-seven left one question open and said so:
-  does `KrausSound T` imply `KrausSoundExt T`? This file answers NO, by construction.
+  does `KrausSound T` imply `KrausSoundExt T`? This file answers NO, by construction — and
+  then answers the sharper question, because soundness alone is a weak antecedent.
 
       ┌────────────────────────────────────────────────────────────────────┐
       │  `krausSound_not_implies_krausSoundExt`:                            │
       │      ∃ T,  KrausSound T  ∧  ¬ KrausSoundExt T.                      │
+      │                                                                     │
+      │  `exact_not_implies_krausSoundExt`:                                 │
+      │      ∃ T,  ExactFiniteEndomorphicQuantumOps T  ∧  ¬ KrausSoundExt T.│
       └────────────────────────────────────────────────────────────────────┘
+
+  READ THE TWO APART. The first is cheap in a way that matters: `hiddenCoherence` is sound
+  but very INCOMPLETE — its system availability is nonnegative classical weights times the
+  identity, so it does not have all the quantum operations on the system either. A theory
+  can fail composite soundness while being poor on the system, which is not the separation
+  anyone cares about. The second is the real one: `hiddenCoherenceFull` has EXACTLY the
+  finite endomorphic quantum instruments on the system — available ⟺ Kraus-representable,
+  by `isKrausFamily_iff` — and still carries a non-quantum composite operation. Only that
+  makes "exact system QM" versus "exact composite QM" a genuine separation, and only the
+  second theorem licenses the sentence at the top of this file.
 
   WHY THE ROUND-27 EXPOSURE PRINCIPLE DOES NOT BLOCK THIS. That principle is conditioned on
   a trace violation occurring ON THE REACHABLE STATE `P ρ`. The witness here lives where no
@@ -25,24 +39,31 @@
   local Lüders selector are of this form (`blockOp_one`, `localLuders_eq_blockOp`), so the
   theory keeps its identity and its native readout.
 
-  §B — THE THEORY. `hiddenCoherence`:
+  §B — THE TWO THEORIES. They differ in ONE field and share everything else.
 
-      avail      = families of nonnegative scalars summing to one, times the identity
       availExt   = block multipliers whose block weights are nonnegative and sum to one
       prepAvail  = the uniform attachment, and nothing else
       readout    = the local Lüders selectors
 
-  Every closure rule is discharged. `scalarAvail_isKraus` proves the system sector is sound
-  — those families really are normalized Kraus instruments — so `hiddenCoherence_krausSound`
-  holds.
+      `hiddenCoherence`      avail = nonneg scalars summing to one, times the identity
+      `hiddenCoherenceFull`  avail = ALL finite endomorphic Kraus families
+
+  Every closure rule is discharged for both. `scalarAvail_isKraus` proves the scalar
+  families really are normalized Kraus instruments, which gives `hiddenCoherence_krausSound`
+  AND makes the shared `prepAvail_discard` computation serve both structures: every
+  reachable discarded family is scalar (`discard_uniform_scalarAvail`), hence Kraus. The
+  full theory then needs only that Kraus families are closed under coarse-graining
+  (`isKrausFamily_coarse`), and its exactness is `isKrausFamily_iff` on the nose.
 
   §C — THE WITNESS. `badOp n = blockOp n 2 1` leaves every ancilla-diagonal block alone and
   DOUBLES every ancilla coherence. It is available (`badOp_availExt`), it is invisible
   through the granted preparation (`badOp_invisible`), and it is not completely positive
   (`badOp_not_cp`: its Choi matrix has the direction `e_{(s,k₀)} - e_{(s,k₁)}` at value
-  `-2`), hence not Kraus by round twenty-seven's easy direction. Note it is also
-  TRACE-PRESERVING on the ancilla diagonal and trace-scaling only on coherences — exactly
-  the sector the discard annihilates.
+  `-2`), hence not Kraus by round twenty-seven's easy direction. Note it is TRACE-PRESERVING
+  OUTRIGHT, not merely on the diagonal: a coherence never contributes to a trace, so
+  doubling one changes no trace at all. What it scales is coherence AMPLITUDES, in exactly
+  the sector the discard annihilates — which is why round twenty-six's trace identity is
+  blind to it everywhere, not just on the reachable image.
 
   WHAT MAKES THIS LEGITIMATE, and it is worth being explicit. `HasCompositeUnitaryControl`
   is NOT a field of `FiniteOperationalTheory`. This theory withholds precisely the unitaries
@@ -242,6 +263,73 @@ theorem scalarAvail_isKraus {O : Type} [Fintype O] [DecidableEq O]
     congr 1
     rw [hstar, hsq _ (hnn a)]
 
+/-- **KRAUS FAMILIES ARE CLOSED UNDER COARSE-GRAINING.** Relabel the output map; the
+fibres regroup. This is what `hiddenCoherenceFull` needs for `avail_coarse`, and it is a
+general fact about the representation predicate rather than anything about this theory. -/
+theorem isKrausFamily_coarse {S : Type*} {O O' : Type} [Fintype S] [DecidableEq S] [Fintype O]
+    [DecidableEq O] [Fintype O'] [DecidableEq O']
+    {F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ} (h : CompositeSoundness.IsKrausFamily F)
+    (f : O → O') :
+    CompositeSoundness.IsKrausFamily
+      (fun a' => ∑ j ∈ Finset.univ.filter (fun j => f j = a'), F j) := by
+  obtain ⟨n, K, out, hnorm, hF⟩ := h
+  refine ⟨n, K, fun k => f (out k), hnorm, fun a' => ?_⟩
+  have key : ∀ y ∈ Finset.univ.filter (fun j => f j = a'),
+      (Finset.univ.filter (fun k => f (out k) = a')).filter (fun k => out k = y)
+        = Finset.univ.filter (fun k => out k = y) := by
+    intro y hy
+    rw [Finset.mem_filter] at hy
+    ext k
+    simp only [Finset.mem_filter, Finset.mem_univ, true_and]
+    exact ⟨fun hk => hk.2, fun hk => ⟨by rw [hk, hy.2], hk⟩⟩
+  show (∑ j ∈ Finset.univ.filter (fun j => f j = a'), F j)
+      = ∑ k ∈ Finset.univ.filter (fun k => f (out k) = a'), conjChannel (K k)
+  rw [Finset.sum_congr rfl fun j _ => hF j,
+    Finset.sum_congr rfl fun y hy =>
+      congrArg (fun t => ∑ k ∈ t, conjChannel (K k)) (key y hy).symm]
+  exact Finset.sum_fiberwise_of_maps_to
+    (fun k hk => by
+      rw [Finset.mem_filter] at hk ⊢
+      exact ⟨Finset.mem_univ _, hk.2⟩) _
+
+/-- **EVERY REACHABLE DISCARDED FAMILY IS SCALAR.** Prepare with the uniform attachment, run
+an available composite family, discard: what comes out on the system is a nonnegative weight
+family times the identity. Shared by both theories below — it is what makes
+`prepAvail_discard` a computation rather than a classification. -/
+theorem discard_uniform_scalarAvail {n : ℕ} (hn : 0 < n) {O : Type} [Fintype O]
+    [DecidableEq O]
+    {F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ}
+    (hFa : BlockAvail n F) :
+    ScalarAvail (fun a => discardWith n (uniformAttach n) (F a)) := by
+  obtain ⟨α, w, hnn, hsum, hF⟩ := hFa
+  have hn' : (n : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hn.ne'
+  refine ⟨fun a => (n : ℝ)⁻¹ * ∑ e, w a e,
+    fun a => mul_nonneg (by positivity) (Finset.sum_nonneg fun e _ => hnn a e), ?_, ?_⟩
+  · show ∑ a, (n : ℝ)⁻¹ * ∑ e, w a e = 1
+    rw [← Finset.mul_sum, Finset.sum_comm]
+    rw [Finset.sum_congr rfl fun e _ => hsum e, Finset.sum_const, Finset.card_univ,
+      Fintype.card_fin, nsmul_eq_mul, mul_one, inv_mul_cancel₀ hn']
+  · intro a
+    refine LinearMap.ext fun ρ => ?_
+    ext s t
+    have hterm : ∀ e : Fin n,
+        blockOp n (α a) (fun k => (w a k : ℂ)) (uniformAttach n ρ) (s, e) (t, e)
+          = ((w a e : ℝ) : ℂ) * ((n : ℂ)⁻¹ * ρ s t) := by
+      intro e
+      rw [blockOp_uniformAttach, if_pos rfl]
+      show ((w a e : ℝ) : ℂ)
+          * (ρ s t * (((n : ℂ)⁻¹ • (1 : Matrix (Fin n) (Fin n) ℂ)) e e)) = _
+      rw [Matrix.smul_apply, Matrix.one_apply_eq, smul_eq_mul, mul_one]
+      ring
+    show ptraceAnc n (F a (uniformAttach n ρ)) s t
+        = ((((n : ℝ)⁻¹ * ∑ e, w a e : ℝ) : ℂ)
+            • (LinearMap.id : Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ)) ρ s t
+    rw [ptraceAnc_apply, hF a,
+      Finset.sum_congr rfl fun e _ => hterm e, ← Finset.sum_mul,
+      LinearMap.smul_apply, LinearMap.id_apply, Matrix.smul_apply, smul_eq_mul]
+    push_cast
+    ring
+
 /-- **THE COUNTERMODEL THEORY.** Quantum on the visible system, with a surplus confined to
 the ancilla coherences no available preparation produces. It withholds composite unitary
 control, which it is entitled to do: control richness is a property a theory may have, not
@@ -336,38 +424,37 @@ noncomputable def hiddenCoherence (A : Type*) [Fintype A] [DecidableEq A] :
       rw [localLuders_eq_blockOp, hγ]
   readout_local := fun _ k => localLuders_mapSpectatorIndependent k
   prepAvail_discard := by
-    rintro n P O _ _ F ⟨hn, rfl⟩ ⟨α, w, hnn, hsum, hF⟩
-    have hn' : (n : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hn.ne'
-    refine ⟨fun a => (n : ℝ)⁻¹ * ∑ e, w a e,
-      fun a => mul_nonneg (by positivity) (Finset.sum_nonneg fun e _ => hnn a e), ?_, ?_⟩
-    · show ∑ a, (n : ℝ)⁻¹ * ∑ e, w a e = 1
-      rw [← Finset.mul_sum, Finset.sum_comm]
-      rw [Finset.sum_congr rfl fun e _ => hsum e, Finset.sum_const, Finset.card_univ,
-        Fintype.card_fin, nsmul_eq_mul, mul_one, inv_mul_cancel₀ hn']
-    · intro a
-      refine LinearMap.ext fun ρ => ?_
-      ext s t
-      have hterm : ∀ e : Fin n,
-          blockOp n (α a) (fun k => (w a k : ℂ)) (uniformAttach n ρ) (s, e) (t, e)
-            = ((w a e : ℝ) : ℂ) * ((n : ℂ)⁻¹ * ρ s t) := by
-        intro e
-        rw [blockOp_uniformAttach, if_pos rfl]
-        show ((w a e : ℝ) : ℂ)
-            * (ρ s t * (((n : ℂ)⁻¹ • (1 : Matrix (Fin n) (Fin n) ℂ)) e e)) = _
-        rw [Matrix.smul_apply, Matrix.one_apply_eq, smul_eq_mul, mul_one]
-        ring
-      show ptraceAnc n (F a (uniformAttach n ρ)) s t
-          = ((((n : ℝ)⁻¹ * ∑ e, w a e : ℝ) : ℂ)
-              • (LinearMap.id : Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ)) ρ s t
-      rw [ptraceAnc_apply, hF a,
-        Finset.sum_congr rfl fun e _ => hterm e, ← Finset.sum_mul,
-        LinearMap.smul_apply, LinearMap.id_apply, Matrix.smul_apply, smul_eq_mul]
-      push_cast
-      ring
+    rintro n P O _ _ F ⟨hn, rfl⟩ hFa
+    exact discard_uniform_scalarAvail hn hFa
 
 /-- **THE THEORY IS SOUND ON THE SYSTEM.** -/
 theorem hiddenCoherence_krausSound : KrausSound (hiddenCoherence A) := fun _ _ hF =>
   (isKrausFamily_iff _).mp (scalarAvail_isKraus hF)
+
+/-- **THE STRONGER COUNTERMODEL.** The same theory with the system sector made COMPLETE:
+`avail` is now every finite endomorphic Kraus family, so exactly the quantum instruments are
+available on the system. Only one field changes and only three need reproving, because
+`avail` occurs in exactly those three types. -/
+noncomputable def hiddenCoherenceFull (A : Type*) [Fintype A] [DecidableEq A] :
+    FiniteOperationalTheory A :=
+  { hiddenCoherence A with
+    avail := fun _ _ _ F => CompositeSoundness.IsKrausFamily F
+    avail_id := scalarAvail_isKraus
+      ⟨fun _ => 1, fun _ => zero_le_one, by simp, fun _ => by
+        rw [Complex.ofReal_one, one_smul]⟩
+    avail_coarse := by
+      rintro O O' _ _ _ _ F f hF
+      exact isKrausFamily_coarse hF f
+    prepAvail_discard := by
+      rintro n P O _ _ F ⟨hn, rfl⟩ hFa
+      exact scalarAvail_isKraus (discard_uniform_scalarAvail hn hFa) }
+
+/-- **THE SYSTEM SECTOR IS EXACTLY QUANTUM.** Available ⟺ Kraus-representable, on the nose:
+this theory is not merely sound on the system, it has every finite endomorphic quantum
+instrument and nothing else. -/
+theorem hiddenCoherenceFull_exact :
+    ExactFiniteEndomorphicQuantumOps (hiddenCoherenceFull A) := fun _ F =>
+  isKrausFamily_iff F
 
 /-! ### Section C — the witness -/
 
@@ -464,6 +551,26 @@ theorem krausSound_not_implies_krausSoundExt (A : Type*) [Fintype A] [DecidableE
     ∃ T : FiniteOperationalTheory A, KrausSound T ∧ ¬ KrausSoundExt T :=
   ⟨hiddenCoherence A, hiddenCoherence_krausSound, hiddenCoherence_not_krausSoundExt⟩
 
+/-- **THE FULL THEORY IS STILL NOT SOUND ON THE COMPOSITES.** Its `availExt` is the same one,
+so the same witness works — but now the antecedent is exactness, not mere soundness. -/
+theorem hiddenCoherenceFull_not_krausSoundExt [Nonempty A] :
+    ¬ KrausSoundExt (hiddenCoherenceFull A) := by
+  intro h
+  obtain ⟨s⟩ := ‹Nonempty A›
+  exact badOp_not_kraus 2 s (show (0 : Fin 2) ≠ 1 by decide)
+    (h 2 Unit (fun _ => badOp 2) (badOp_availExt 2))
+
+/-- **THE SEPARATION THAT ACTUALLY MATTERS.** A theory with EXACTLY the finite endomorphic
+quantum instruments on the system — available ⟺ Kraus-representable — still carrying a
+non-quantum composite operation. Exact system QM does not force composite soundness, so
+"exact on the system" and "exact on the composites" are genuinely different statements and
+the second has to be asked for. -/
+theorem exact_not_implies_krausSoundExt (A : Type*) [Fintype A] [DecidableEq A]
+    [Nonempty A] :
+    ∃ T : FiniteOperationalTheory A,
+      ExactFiniteEndomorphicQuantumOps T ∧ ¬ KrausSoundExt T :=
+  ⟨hiddenCoherenceFull A, hiddenCoherenceFull_exact, hiddenCoherenceFull_not_krausSoundExt⟩
+
 #print axioms blockOp_one
 #print axioms blockOp_comp
 #print axioms blockOp_sum
@@ -479,7 +586,12 @@ theorem krausSound_not_implies_krausSoundExt (A : Type*) [Fintype A] [DecidableE
 #print axioms badOp_not_cp
 #print axioms badOp_not_kraus
 #print axioms hiddenCoherence_not_krausSoundExt
+#print axioms isKrausFamily_coarse
+#print axioms discard_uniform_scalarAvail
+#print axioms hiddenCoherenceFull_exact
 #print axioms krausSound_not_implies_krausSoundExt
+#print axioms hiddenCoherenceFull_not_krausSoundExt
+#print axioms exact_not_implies_krausSoundExt
 
 end HiddenCoherence
 end OIBridge

@@ -27,13 +27,15 @@ refactor that breaks the detection fails the check rather than passing it
 quietly. That is the same defect class this file exists to catch.
 
 Usage:
-    python3 tools/lean_axiom_check.py [--log FILE] [--root DIR]
+    python3 tools/lean_axiom_check.py [--log FILE] [--root DIR] [--require-lake]
 
 With --log, scans a previously captured build log instead of building. Without
 it, runs `lake build` in verification/lean-mathlib and scans what comes back.
-If lake cannot be found the check reports SKIPPED and exits 0 -- the tree is
-still checkable without a Lean toolchain -- but says so loudly, because a
-skipped proof-health check is not a passed one.
+If lake cannot be found the check reports SKIPPED and exits 0, so the tree is
+still checkable without a Lean toolchain. That is a hole when the caller reads
+only the exit code, so release_gate.py passes --require-lake, which turns a
+missing toolchain into a FAILURE: the gate will not report a kernel-health check
+it never ran.
 
 Exit 1 on any failure.
 """
@@ -163,12 +165,24 @@ def main():
     else:
         lake = find_lake()
         if lake is None:
+            # SKIPPED must not read as PASS to a caller that only sees the exit
+            # code. release_gate.py passes --require-lake, so on a machine with no
+            # toolchain the gate FAILS loudly rather than reporting a green check
+            # it never ran.
+            if '--require-lake' in sys.argv:
+                print("lean_axiom_check: FAILED - no `lake` on PATH or in "
+                      "~/.elan/bin, and --require-lake was given.")
+                print("             The gate will not report a kernel-health "
+                      "check it did not run. Install")
+                print("             the toolchain, or run the check by hand with "
+                      "--log on a captured build.")
+                return 1
             print("lean_axiom_check: SKIPPED - no `lake` on PATH or in "
                   "~/.elan/bin, so there is no kernel report to read.")
             print("             A SKIPPED proof-health check is not a passed "
-                  "one. Install the toolchain,")
-            print("             or pass --log with a captured `lake build` "
-                  "output.")
+                  "one, and the release gate")
+            print("             passes --require-lake so that it cannot be "
+                  "mistaken for one.")
             return 0
         try:
             r = subprocess.run([lake, 'build'],

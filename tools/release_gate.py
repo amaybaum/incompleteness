@@ -91,7 +91,11 @@ def main():
         # carried sorryAx -- lake prints the severity BEFORE the filename, so the
         # pattern matched nothing and silence read as success. Diagnostic
         # formatting is not a contract; the axiom report is.
-        ("lean-axioms", [sys.executable, "tools/lean_axiom_check.py"]),
+        # --require-lake: without it a missing toolchain prints SKIPPED and exits 0,
+        # which this runner would score as PASS. The gate must not report a
+        # kernel-health check it never ran.
+        ("lean-axioms",
+                      [sys.executable, "tools/lean_axiom_check.py", "--require-lake"]),
     ]
     # baselines are named in the TRANSFER's docs, not the manuscript tree, so
     # point the label check there when a transfer path is supplied
