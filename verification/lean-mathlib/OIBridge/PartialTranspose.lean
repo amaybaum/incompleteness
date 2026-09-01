@@ -54,12 +54,20 @@
   29–30 returns the null result, and it proves transposition is positive, which is the
   reason to expect the general obstruction.
 
-  A STRUCTURAL NOTE FOR THAT NEXT ROUND, recorded rather than acted on.
-  `FiniteOperationalTheory` has no rule lifting an available SYSTEM operation to `A × Fin n`,
-  and its preparation starts from the supplied system input rather than granting a fixed
-  system state. A Bell-type test needs one or the other. If it does, that rule is not a
-  convenience — it would be the next genuinely independent compositional condition, and it
-  should be named and argued for on its own, not slipped in.
+  A STRUCTURAL NOTE, CORRECTED BY ROUND THIRTY-TWO. This header originally said that
+  exposing the survivor needed a Bell-type test, and that `FiniteOperationalTheory` — which
+  has no rule lifting an available SYSTEM operation to `A × Fin n` and starts every
+  preparation from the supplied system input — would therefore need a lift rule or a fixed
+  system state. The first half was wrong, and so the second never arises. For a qubit system
+  the SWAP gate alone routes the ancilla transpose onto the system, where round twenty-seven's
+  `transposeMap_not_kraus` already refutes it: `FactorExchange.lean` proves
+  `KrausSound T ∧ HasQubitFactorExchange T ⟹ ¬ availExt (ancTranspose)` with a uniform
+  ancilla, two swaps and a discard, and nothing else. The "entangled reference" that the
+  ladder above names is the Choi matrix inside the proof of non-Kraus-ness, not a state the
+  experiment has to prepare. The observation that no ancilla-local certificate can see the
+  survivor stands; the guess that only a Bell pair could was a wrong guess about which
+  composite capability is minimal, and it is left here, corrected, because it was the natural
+  one.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/

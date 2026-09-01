@@ -633,6 +633,12 @@ for fname, names in (
                           'mixSeed_symm', 'tauChainT_eq', 'tauChainT_diag',
                           'interference_branch_transpose',
                           'ancTranspose_survives_interference')),
+    ('FactorExchange', ('swapMat_unitary', 'conjChannel_swapMat_apply',
+                        'conjChannel_swapMat_tensor', 'ptraceAnc_tensor_uniform',
+                        'exchange_transpose_exchange', 'exchanged_transpose_eq',
+                        'compositeControl_hasFactorExchange',
+                        'factorExchange_exposes_ancTranspose',
+                        'compositeControl_exposes_ancTranspose')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -983,6 +989,39 @@ ok6 &= 'minimalEntangling' not in pt and 'theorem entangling_exposes' not in pt
 # the structural gap is NAMED, not silently patched: this round adds no structure field
 ok6 &= 'structure ' not in pt
 ok6 &= 'no rule lifting an available SYSTEM operation' in _ptflat
+# ROUND-32 GUARDS.  The round-31 header's guess that a Bell-type test was needed must be
+# recorded as CORRECTED, not deleted and not left standing.
+ok6 &= 'A STRUCTURAL NOTE, CORRECTED BY ROUND THIRTY-TWO' in _ptflat
+ok6 &= 'A Bell-type test needs one or the other' not in _ptflat
+ok6 &= 'The first half was wrong' in _ptflat
+# The exposure must be by ONE composite unitary on a qubit system, through closure alone:
+# no lift rule, no fixed system state, no pure ancilla, no mixer, no Bell pair.
+fe = open(os.path.join(BRIDGE, 'OIBridge', 'FactorExchange.lean'), encoding='utf-8').read()
+_feflat = ' '.join(fe.split())
+ok6 &= 'def factorSwap : Equiv.Perm (Fin 2 × Fin 2) := Equiv.prodComm (Fin 2) (Fin 2)' in fe
+_hq = _slice(fe, 'def HasQubitFactorExchange', 'theorem compositeControl_hasFactorExchange')
+ok6 &= bool(_hq) and 'T.availExt 2 Unit (fun _ => conjChannel swapMat)' in _hq
+ok6 &= _hq.count('∧') == 0 and 'prepAvail' not in _hq and 'ancMix' not in _hq
+# the exact computation must be an equation of MAPS, uniform ancilla in, system transpose out
+_eq = _slice(fe, 'theorem exchanged_transpose_eq', ':=')
+ok6 &= bool(_eq) and 'uniformAttach 2' in _eq and '= transposeMap (Fin 2)' in _eq
+ok6 &= 'ancTranspose (Fin 2) 2' in _eq and _eq.count('conjChannel swapMat') == 2
+# the exposure theorem's premises are exactly soundness and the exchange
+_ex = _slice(fe, 'theorem factorExchange_exposes_ancTranspose', ':= by')
+ok6 &= bool(_ex) and '(hsound : KrausSound T)' in _ex and '(hex : HasQubitFactorExchange T)' in _ex
+ok6 &= 'HasCompositeUnitaryControl' not in _ex and 'pureAttach' not in _ex and 'Bell' not in _ex
+ok6 &= '¬ T.availExt 2 Unit (fun _ => ancTranspose (Fin 2) 2)' in _ex
+# and the proof must reach round 27's system-side refutation, not re-prove non-CP-ness
+_exb = _slice(fe, 'theorem factorExchange_exposes_ancTranspose', 'theorem compositeControl_exposes_ancTranspose')
+ok6 &= 'transposeMap_not_kraus' in _exb and 'T.prepAvail_uniform' in _exb
+ok6 &= 'choiMatrix' not in _exb and 'dotProduct_mulVec_nonneg' not in _exb
+# no structure field, no Bell state, no lift rule is added anywhere in this file
+ok6 &= re.search(r'(?m)^structure ', fe) is None and 'bellState' not in fe and 'liftRule' not in fe
+ok6 &= 'KrausSoundExt' not in fe.split('namespace OIBridge')[1]
+# WORDING: one direction only, and composite soundness is NOT derived
+ok6 &= 'the converse is not proved and not claimed' in _feflat
+ok6 &= '`KrausSoundExt` is not derived here' in _feflat
+ok6 &= 'is strictly weaker' not in _feflat and 'strictly below' not in _feflat
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -1000,8 +1039,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All thirty-eight files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 14 + 5 + 16 named results print their "
+      "LINT. All thirty-nine files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 14 + 9 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

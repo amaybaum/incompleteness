@@ -5448,6 +5448,144 @@ check("F45", ok45,
       "Bell-type test needs one or the other, and if so that rule is the next genuinely "
       "independent compositional condition and should be argued for on its own.")
 
+# ----------------------- F46  round 32: the survivor falls to one factor exchange ---------
+# and no Bell pair was ever needed (phase three, round thirty-two).
+ok46 = True
+
+
+def swapIdx46(i):
+    """factorSwap on the composite index (s,k) = 2s + k: (s,k) -> (k,s)."""
+    return ((i & 1) << 1) | (i >> 1)
+
+
+# swapMat = permMatrix factorSwap, entry (i,j) = [factorSwap j = i]
+SWAP46 = [[CO17 if swapIdx46(j) == i else CZ17 for j in range(4)] for i in range(4)]
+
+
+def conjSwap46(X):
+    """conjChannel swapMat X = swapMat X swapMat^dag."""
+    return mmc17(mmc17(SWAP46, X), dag17(SWAP46))
+
+
+def tensor46(rho, tau):
+    """tensorOf rho tau at ((s,k),(t,l)) = rho s t * tau k l, index 2s + k."""
+    return [[rho[r >> 1][c >> 1] * tau[r & 1][c & 1] for c in range(4)] for r in range(4)]
+
+
+# --- (a) THE EXCHANGE IS UNITARY AND EXCHANGES FACTORS (swapMat_unitary,
+# conjChannel_swapMat_apply, conjChannel_swapMat_tensor).
+ok46 &= mmc17(dag17(SWAP46), SWAP46) == eye17(4)
+ok46 &= mmc17(SWAP46, dag17(SWAP46)) == eye17(4)
+ok46 &= SWAP46 == dag17(SWAP46)                       # the exchange is its own inverse
+SAMPLE46 = (SEED43, conjRaw43(SEED43),
+            [[C17(Frac(2, 3)), C17(Frac(1, 5), Frac(1, 7))],
+             [C17(Frac(1, 5), Frac(-1, 7)), C17(Frac(1, 3))]],
+            [[C17(1), C17(2, 3)], [C17(-1, 5), C17(0, 7)]])   # not Hermitian: a map test
+_X46 = [[C17(Frac(1 + 3 * r + 5 * c, 11), Frac(2 * r - c, 13)) for c in range(4)]
+        for r in range(4)]
+_Y46 = conjSwap46(_X46)
+ok46 &= all(_Y46[p][q] == _X46[swapIdx46(p)][swapIdx46(q)] for p in range(4) for q in range(4))
+for _r in SAMPLE46:
+    for _t in SAMPLE46:
+        ok46 &= conjSwap46(tensor46(_r, _t)) == tensor46(_t, _r)
+
+# --- (b) THE EXACT COMPUTATION (ptraceAnc_tensor_uniform, exchange_transpose_exchange,
+# exchanged_transpose_eq): rho (x) I/2 -> I/2 (x) rho -> I/2 (x) rho^T -> rho^T (x) I/2 -> rho^T.
+UNIF46 = [[HALF43, CZ17], [CZ17, HALF43]]
+for _r in SAMPLE46:
+    ok46 &= uniform42(_r) == tensor46(_r, UNIF46)               # uniformAttach 2
+    ok46 &= ptraceAnc38(tensor46(_r, UNIF46)) == _r             # discard of I/2 is exact
+    _s1 = conjSwap46(uniform42(_r))
+    ok46 &= _s1 == tensor46(UNIF46, _r)
+    _s2 = ancT45(_s1)
+    ok46 &= _s2 == tensor46(UNIF46, transpose45(_r))
+    _s3 = conjSwap46(_s2)
+    ok46 &= _s3 == tensor46(transpose45(_r), UNIF46)
+    ok46 &= ptraceAnc38(_s3) == transpose45(_r)
+# as an equation of LINEAR MAPS, on the full matrix-unit basis of the system
+
+
+def routed46(rho):
+    return ptraceAnc38(conjSwap46(ancT45(conjSwap46(uniform42(rho)))))
+
+
+for _s in range(2):
+    for _t in range(2):
+        _E = [[CO17 if (r, c) == (_s, _t) else CZ17 for c in range(2)] for r in range(2)]
+        ok46 &= routed46(_E) == transpose45(_E)
+# and the two maps agree entry-for-entry on the sample, with the surplus visible
+ok46 &= routed46(SAMPLE46[3]) == transpose45(SAMPLE46[3])
+ok46 &= routed46(SAMPLE46[3]) != SAMPLE46[3]
+
+# --- (c) THE RESULT IS THE SYSTEM TRANSPOSE, WHICH ROUND 27 REFUTES: its Choi matrix has
+# the witness e_(0,1) - e_(1,0) at exactly -2 (transposeMap_not_kraus, via isKrausFamily_iff).
+CH46 = choi41(routed46)
+ok46 &= CH46 == choi41(transpose45)
+_w46 = [CZ17] * 4
+_w46[2 * 0 + 1], _w46[2 * 1 + 0] = CO17, C17(-1)
+ok46 &= qform41(CH46, _w46) == C17(-2)
+# --- (d) NOTHING ENTANGLED WAS PREPARED: every intermediate composite state is a product,
+# and each factor is a state -- the entangled reference lives in (c), inside the proof.
+for _r in (SEED43, conjRaw43(SEED43)):
+    for _M in (uniform42(_r), conjSwap46(uniform42(_r)), ancT45(conjSwap46(uniform42(_r))),
+               conjSwap46(ancT45(conjSwap46(uniform42(_r))))):
+        # rank-one-factor test: M = (ptr_anc M) (x) (ptr_sys M) exactly, with unit traces
+        _a = ptraceAnc38(_M)
+        _b = [[sum((_M[2 * e + k][2 * e + l] for e in range(2)), CZ17) for l in range(2)]
+              for k in range(2)]
+        ok46 &= trace40(_a) == CO17 and trace40(_b) == CO17
+        ok46 &= _M == tensor46(_a, _b)
+# --- (e) THE CORRECTED STRUCTURAL NOTE, checked against the kernel file's own text.
+_fe46 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'FactorExchange.lean')
+_pt46 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'PartialTranspose.lean')
+if os.path.exists(_fe46) and os.path.exists(_pt46):
+    with open(_fe46, encoding='utf-8') as _f:
+        _fe_txt46 = ' '.join(_f.read().split())
+    with open(_pt46, encoding='utf-8') as _f:
+        _pt_txt46 = ' '.join(_f.read().split())
+    ok46 &= 'def HasQubitFactorExchange (T : FiniteOperationalTheory (Fin 2)) : Prop := ' \
+            'T.availExt 2 Unit (fun _ => conjChannel swapMat)' in _fe_txt46
+    ok46 &= 'the converse is not proved and not claimed' in _fe_txt46
+    ok46 &= '`KrausSoundExt` is not derived here' in _fe_txt46
+    ok46 &= 'A STRUCTURAL NOTE, CORRECTED BY ROUND THIRTY-TWO' in _pt_txt46
+    ok46 &= 'A Bell-type test needs one or the other' not in _pt_txt46
+check("F46", ok46,
+      "ROUND 32: THE SURVIVOR FALLS TO ONE FACTOR EXCHANGE, AND NO BELL PAIR WAS EVER NEEDED "
+      "(phase three, round thirty-two; kernel: swapMat_unitary, conjChannel_swapMat_apply, "
+      "conjChannel_swapMat_tensor, ptraceAnc_tensor_uniform, exchange_transpose_exchange, "
+      "exchanged_transpose_eq, compositeControl_hasFactorExchange, "
+      "factorExchange_exposes_ancTranspose, compositeControl_exposes_ancTranspose in "
+      "OIBridge/FactorExchange.lean). Round 31 identified ancilla transposition as the "
+      "surplus no ancilla-local experiment reaches, and its structural note guessed that "
+      "exposing it needs a Bell-type test, hence a rule lifting system operations to the "
+      "composite or a fixed system state. THAT GUESS WAS WRONG, and this round records why "
+      "with a theorem. For a qubit system the ancilla carries exactly what the system does, "
+      "and the SWAP gate -- the permutation lift of the factor exchange, checked here as "
+      "unitary, self-inverse, an index relabelling, and rho (x) tau -> tau (x) rho on sixteen "
+      "products -- routes the ancilla surplus onto the system: rho (x) I/2 -> I/2 (x) rho -> "
+      "I/2 (x) rho^T -> rho^T (x) I/2 -> rho^T, every arrow verified exactly on four sample "
+      "matrices, and as an equation of LINEAR MAPS on the full matrix-unit basis: uniform "
+      "ancilla, swap, ancilla transpose, swap, discard IS the system transpose. Its Choi "
+      "matrix carries the round-27 witness e_(0,1) - e_(1,0) at exactly -2, so "
+      "transposeMap_not_kraus refutes it. THE PRINCIPLE: HasQubitFactorExchange T is "
+      "availExt of conjugation by SWAP -- one composite unitary, no pure ancilla, no mixer, "
+      "no lift rule, no fixed system state -- and by closure alone (availExt_bind twice, "
+      "prepAvail_discard on the uniform preparation the structure already grants, one "
+      "classical coarse-graining): KrausSound T AND HasQubitFactorExchange T IMPLY "
+      "ancTranspose is NOT available. Composite unitary control gives the principle, one "
+      "direction only; the converse is not proved and not claimed. NOTHING ENTANGLED WAS "
+      "PREPARED: every intermediate composite state in the experiment is checked here to be "
+      "an exact product of two unit-trace factors; the entangled reference complete "
+      "positivity is about is the Choi matrix inside the proof of non-Kraus-ness, not a "
+      "state the experiment forms. The round-31 structural note is corrected in place in "
+      "PartialTranspose.lean and the correction is read back here from the file. NOT DONE "
+      "AND NOT CLAIMED: that every non-CP ancilla operation is reachable this way, and "
+      "KrausSoundExt is not derived. THE NEXT QUESTION, recorded and not answered: how much "
+      "subsystem-exchange or routing structure propagates system Kraus soundness to "
+      "composite Kraus soundness.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

@@ -111,6 +111,7 @@ import OIBridge.CompositeSoundness
 import OIBridge.HiddenCoherence
 import OIBridge.AncillaInterference
 import OIBridge.PartialTranspose
+import OIBridge.FactorExchange
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
