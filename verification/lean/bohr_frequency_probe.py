@@ -4452,6 +4452,100 @@ check("F37", ok37,
       "and vanish on the zero difference (local_tomography_physical, proved by running "
       "complex polarization once on each factor).")
 
+# ----------------------- F38  round 25 opening: map-level spectator independence, the local
+# Luders selector, and the freedom that composition kills (phase three, round 25).
+ok38 = True
+N38 = 4                                   # (a,b) -> 2a + b;  A = B = Bool, outcome k = 0
+K38 = 0
+
+
+def ix38(a, b):
+    return (a << 1) | b
+
+
+def tensor38(XA, XB):
+    return [[XA[r >> 1][c >> 1] * XB[r & 1][c & 1] for c in range(N38)] for r in range(N38)]
+
+
+def luders2_38(k, X):
+    out = [[CZ17] * 2 for _ in range(2)]
+    out[k][k] = X[k][k]
+    return out
+
+
+def localLuders38(k, X):
+    return [[X[ix38(r >> 1, k)][ix38(c >> 1, k)]
+             if ((r & 1) == k and (c & 1) == k) else CZ17
+             for c in range(N38)] for r in range(N38)]
+
+
+def blockDephase38(k, X):
+    out = [[CZ17] * N38 for _ in range(N38)]
+    for a in range(2):
+        out[ix38(a, k)][ix38(a, k)] = X[ix38(a, k)][ix38(a, k)]
+    return out
+
+
+def E38(r, c):
+    return [[CO17 if (i, j) == (r, c) else CZ17 for j in range(N38)] for i in range(N38)]
+
+
+def E2_38(r, c):
+    return [[CO17 if (i, j) == (r, c) else CZ17 for j in range(2)] for i in range(2)]
+
+
+# composite matrix units ARE product matrices -- this is what makes agreement on products
+# agreement everywhere, and it needs no positivity assumption
+ok38 &= all(tensor38(E2_38(a, a2), E2_38(b, b2)) == E38(ix38(a, b), ix38(a2, b2))
+            for a in range(2) for a2 in range(2) for b in range(2) for b2 in range(2))
+Xs38 = [E2_38(0, 0), E2_38(0, 1), E2_38(1, 0), E2_38(1, 1),
+        [[C17(Frac(1, 2)), C17(0, 1)], [C17(0, -1), C17(Frac(1, 3))]]]
+# the local Luders selector IS map-spectator-independent over the rank-one selector
+ok38 &= all(localLuders38(K38, tensor38(XA, XB)) == tensor38(XA, luders2_38(K38, XB))
+            for XA in Xs38 for XB in Xs38)
+# within-block dephasing is NOT
+ok38 &= any(blockDephase38(K38, tensor38(XA, XB)) != tensor38(XA, luders2_38(K38, XB))
+            for XA in Xs38 for XB in Xs38)
+# yet the two agree on EVERY classical composite state, so the classical ancilla-readout
+# condition alone cannot distinguish them
+ok38 &= all(localLuders38(K38, E38(ix38(a, b), ix38(a, b)))
+            == blockDephase38(K38, E38(ix38(a, b), ix38(a, b)))
+            for a in range(2) for b in range(2))
+# and they differ exactly on a SYSTEM coherence inside the surviving block
+Xc38 = E38(ix38(0, K38), ix38(1, K38))
+ok38 &= localLuders38(K38, Xc38) == Xc38
+ok38 &= blockDephase38(K38, Xc38) == [[CZ17] * N38 for _ in range(N38)]
+ok38 &= localLuders38(K38, Xc38) != blockDephase38(K38, Xc38)
+check("F38", ok38,
+      "ROUND 25 OPENING: MAP-LEVEL SPECTATOR INDEPENDENCE AND THE LOCAL LUDERS SELECTOR "
+      "(phase three, round twenty-five; kernel: MapSpectatorIndependent, "
+      "spectatorIndependent_iff_mapLevel, tensorOf_single, localLuders, "
+      "localLuders_tensor, mapSpectatorIndependent_iff_localLuders, blockDephase, "
+      "blockDephase_cp, blockDephase_classical_eq, blockDephase_ne_localLuders, "
+      "blockDephase_not_mapSpectatorIndependent, ProductPreparation, "
+      "FiniteOperationalCompletion, hasFullInstruments_hasUniversalControl in "
+      "OIBridge/OperationalAssembly.lean). Round 24's H_comp is a REVERSIBLE-operation "
+      "principle -- its spectator clause is stated for Equiv.Perm actions completed by "
+      "correlation extensions -- so it cannot by itself deliver id_S (x) L_k at a "
+      "Stinespring output, because a Luders selector is not reversible. The generic "
+      "notion is map-level: Phi_AB(X_A (x) X_B) = X_A (x) Phi_B(X_B) for ARBITRARY linear "
+      "maps. Verified here: composite matrix units ARE product matrices (so agreement on "
+      "products is agreement everywhere, and complete positivity is not needed as a "
+      "hypothesis -- the kernel iff mapSpectatorIndependent_iff_localLuders is therefore "
+      "stronger than the CP-hypothesised form); the local Luders selector satisfies the "
+      "condition on every product input while within-block dephasing does not. THE "
+      "FREEDOM COMPOSITION KILLS: the two maps agree on EVERY classical composite state, "
+      "so the classical ancilla-readout condition alone leaves a correlation freedom "
+      "across the system indices -- the local form of F35 -- and they differ exactly on a "
+      "system coherence inside the surviving block, where Luders preserves it and "
+      "dephasing sends it to zero. Since blockDephase is a Kraus sum of rank-one branches "
+      "it is a genuine CP channel, so the freedom is physical, not an artifact: spectator "
+      "independence, i.e. COMPOSITION, is precisely what removes it. Product preparation "
+      "is kept a SEPARATE clause (round 21 supplies the pure ancilla, not the joint "
+      "product state), and the availability/closure notions are gathered into one "
+      "FiniteOperationalCompletion structure so the principles are properties of the same "
+      "object rather than predicates on unrelated parameters.")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

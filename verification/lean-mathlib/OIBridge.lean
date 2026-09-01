@@ -104,6 +104,7 @@ import OIBridge.Purification
 import OIBridge.BranchSelector
 import OIBridge.IndependenceCensus
 import OIBridge.MonoidalCompletion
+import OIBridge.OperationalAssembly
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

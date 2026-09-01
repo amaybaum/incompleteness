@@ -575,6 +575,16 @@ for fname, names in (
                             'nonTensor_not_spectatorPattern', 'restricted_not_HControl',
                             'census_clause_taxonomy', 'fullOps_universalUnitary',
                             'availability_not_implies_hComp')),
+    ('OperationalAssembly', ('spectatorIndependent_iff_mapLevel', 'tensorOf_single',
+                             'localLuders_tensor', 'localLuders_mapSpectatorIndependent',
+                             'eq_of_agree_on_single',
+                             'mapSpectatorIndependent_iff_localLuders',
+                             'blockDephase_apply', 'choiMatrix_sum', 'blockDephase_cp',
+                             'localLuders_classical', 'blockDephase_classical',
+                             'blockDephase_classical_eq', 'blockDephase_ne_localLuders',
+                             'blockDephase_not_mapSpectatorIndependent',
+                             'tensorOf_productPreparation',
+                             'hasFullInstruments_hasUniversalControl')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -675,6 +685,25 @@ ok6 &= '(K k)ᴴ * K k = 1' in _ffa
 ok6 &= 'FullFiniteQuantumOps' not in mc
 # the reverse implication must be recorded as FALSE, with the countermodel
 ok6 &= 'theorem availability_not_implies_hComp' in mc
+# ROUND-25 OPENING GUARDS.  Map-level spectator independence must be stated for ARBITRARY
+# linear maps (an irreversible Lüders selector is the whole point), and the three physically
+# distinct clauses must stay distinct predicates.
+oa = open(os.path.join(BRIDGE, 'OIBridge', 'OperationalAssembly.lean'),
+          encoding='utf-8').read()
+_msi = _slice(oa, 'def MapSpectatorIndependent', '/--')
+ok6 &= bool(_msi) and 'Equiv.Perm' not in _msi and 'correlationExtension' not in _msi
+# the reversible round-24 clause must be recorded as a SPECIALIZATION of it
+ok6 &= 'theorem spectatorIndependent_iff_mapLevel' in oa
+# product preparation is its own clause, not smuggled into the operation-level notion
+ok6 &= 'def ProductPreparation' in oa
+_pp = _slice(oa, 'def ProductPreparation', '/--')
+ok6 &= bool(_pp) and 'MapSpectatorIndependent' not in _pp
+# the surviving freedom must be exhibited as a genuine CP channel, not merely asserted
+ok6 &= 'theorem blockDephase_cp' in oa
+ok6 &= 'theorem blockDephase_classical_eq' in oa
+ok6 &= 'theorem blockDephase_not_mapSpectatorIndependent' in oa
+# the endomorphic-scope phrase must be present on the instrument predicate
+ok6 &= 'finite endomorphic instruments on a fixed system' in ' '.join(oa.split())
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -692,8 +721,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All thirty-one files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 5 + 16 named results print their "
+      "LINT. All thirty-two files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 16 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
