@@ -2173,6 +2173,2752 @@ check("F21", ok21,
       "transpose-symmetric coherent-completion conditions cannot force an orientation -- "
       "'impossible from unoriented data', not 'not yet derived'")
 
+# ----------------------- F22  actual-substratum preparation feasibility (phase three, round 11)
+# The substratum coherent-existence test, stage one: ONE microscopic model -- the corpus's
+# concrete shell shape (visible energies 0,1,2; bath counts 1,2,4,8 so beta_E > 0; joint
+# permutation conserving total energy, ergodic within each shell) -- generates BOTH the
+# shell marginal p AND the carrier (U_phi, P_i).  No hand-chosen V, no fitting B to p.
+# (a) same model sources shell and transition data; (b) the carrier's B on the target shell
+# block is CANONICAL -- the block is a single 14-cycle, its spectrum nondegenerate, so the
+# eigenvector moduli (hence B) are invariant under every branch of the interpolation
+# ambiguity [Main] names; (c) the feasibility p = Bq is decided POSITIVELY with the
+# classical shell ensemble itself as the representing state; (d) changing the preparation
+# with the carrier fixed flips feasibility (exact separating certificate); (e) beyond the
+# permutation shadow the corpus specifies no finite continuous flow, and two generic
+# carriers compatible with everything the corpus fixes give OPPOSITE verdicts for the same
+# p: the physical-flow carrier datum is underdetermined -- the named missing premise.
+ok22 = True
+evis22 = [0, 1, 2]
+Ehid22 = [0] + [1] * 2 + [2] * 4 + [3] * 8            # counts 1,2,4,8: beta_E > 0
+J22 = [(i, h) for i in range(3) for h in range(len(Ehid22))]
+shells22 = {}
+for s in J22:
+    shells22.setdefault(evis22[s[0]] + Ehid22[s[1]], []).append(s)
+ok22 &= sorted(len(v) for v in shells22.values()) == [1, 3, 7, 8, 12, 14]
+ratio22 = {}
+for E, sh in shells22.items():
+    ratio22[E] = [Frac(sum(1 for s in sh if s[0] == i), len(sh)) for i in range(3)]
+# phi: fiber-interleaved single cycle within each shell (round-robin over visible labels)
+order22 = {}
+for E, sh in shells22.items():
+    byf = [[s for s in sh if s[0] == i] for i in range(3)]
+    seq, k = [], 0
+    while any(byf):
+        if byf[k % 3]:
+            seq.append(byf[k % 3].pop(0))
+        k += 1
+    order22[E] = seq
+phi22 = {}
+for E, seq in order22.items():
+    for k, s in enumerate(seq):
+        phi22[s] = seq[(k + 1) % len(seq)]
+ok22 &= sorted(phi22) == sorted(J22) and sorted(phi22.values()) == sorted(J22)
+for E, sh in shells22.items():
+    ok22 &= {phi22[s] for s in sh} == set(sh)          # every shell conserved
+    orb, s = [sh[0]], phi22[sh[0]]
+    while s != sh[0]:
+        orb.append(s)
+        s = phi22[s]
+    ok22 &= len(orb) == len(sh)                        # ergodic: one cycle per shell
+# (a) the SAME phi sources the transition data: T(1) with the uniform hidden prior is
+# doubly stochastic and genuinely mixes the visible labels
+T22 = [[Frac(0)] * 3 for _ in range(3)]
+for i in range(3):
+    for h in range(len(Ehid22)):
+        T22[i][phi22[(i, h)][0]] += Frac(1, len(Ehid22))
+ok22 &= all(sum(r) == 1 for r in T22) and all(sum(T22[i][j] for i in range(3)) == 1
+                                              for j in range(3))
+ok22 &= sum(T22[i][j] for i in range(3) for j in range(3) if i != j) == Frac(5, 3)
+ok22 &= sum(1 for s in shells22[3] if phi22[s][0] != s[0]) == 10   # mixing on the shell
+# (b) canonical B on the target shell block: no nontrivial fixed powers, so every
+# eigenprojector of the 14-cycle has constant diagonal 1/14 (the DFT fixed-point
+# identity), the spectrum is the 14 distinct fourteenth roots, and B_ia = tr(P_i Pi_a)
+# = m_i/14 for EVERY a -- invariant under every log-branch of the interpolation
+sh22 = order22[3]
+N22 = len(sh22)
+
+def powfix22(t, j):
+    s = t
+    for _ in range(j):
+        s = phi22[s]
+    return s == t
+
+ok22 &= all(not powfix22(t, j) for j in range(1, N22) for t in sh22)
+m22 = [sum(1 for s in sh22 if s[0] == i) for i in range(3)]
+Bcol22 = [Frac(mi, N22) for mi in m22]
+ok22 &= sum(Bcol22) == 1 and m22 == [8, 4, 2]
+# (c) FEASIBILITY, decided positively: p IS the (unique) column, q uniform solves p = Bq,
+# and the representing state is the classical shell ensemble itself -- exactly stationary,
+# correct readout, PSD, trace one.  SRC holds for the actual substratum truncation.
+p22 = ratio22[3]
+ok22 &= p22 == Bcol22 == [Frac(4, 7), Frac(2, 7), Frac(1, 7)]
+rho22 = {s: Frac(1, N22) for s in sh22}
+ok22 &= {phi22[s]: w for s, w in rho22.items()} == rho22           # U rho U^T = rho
+ok22 &= [sum(w for s, w in rho22.items() if s[0] == i) for i in range(3)] == p22
+ok22 &= sum(rho22.values()) == 1 and all(w > 0 for w in rho22.values())
+# every shell's counting marginal is its own cycle ratio point: the counting preparation
+# is feasible at EVERY shell of the model, unconditionally
+ok22 &= all(ratio22[E] == [Frac(sum(1 for s in order22[E] if s[0] == i),
+                                len(order22[E])) for i in range(3)] for E in shells22)
+# (d) COUNTERCONTROL: the stationary-readout hull is spanned by the shells' ratio points;
+# the exact observable bound (cycle-averaging M = c.P) certifies that the modified
+# preparation p'' = (1/3, 2/3, 0) is INFEASIBLE on the same carrier: every stationary
+# state pays at most 2/3 on M = P_0/2 + P_1, while p'' pays 5/6
+c22 = [Frac(1, 2), Frac(1), Frac(0)]
+d22 = Frac(2, 3)
+ok22 &= all(sum(ci * vi for ci, vi in zip(c22, ratio22[E])) <= d22 for E in shells22)
+avg22 = {}
+for E, seq in order22.items():
+    a = sum(c22[s[0]] for s in seq) / len(seq)
+    for s in seq:
+        avg22[s] = a
+ok22 &= max(avg22.values()) == d22                     # max cycle average = the bound
+p2_22 = [Frac(1, 3), Frac(2, 3), Frac(0)]
+ok22 &= sum(ci * vi for ci, vi in zip(c22, p2_22)) == Frac(5, 6) > d22
+# a commutant state with genuine coherences (rho = I/14 + (C + C^T)/56 on the shell,
+# C the cycle shift: commutes with C, PSD since its eigenvalues are
+# 1/14 + cos(2 pi k/14)/28 >= 1/14 - 1/28 > 0) keeps its readout at p exactly: C has no
+# fixed point on the cycle, so C + C^T has zero diagonal and coherences never move the
+# diagonal readout of the diagonal projectors -- the hull of the shells' ratio points is
+# the EXACT stationary-readout set
+ok22 &= all(phi22[s] != s for s in sh22)               # zero diagonal for C + C^T
+# (e) THE PHYSICAL-FLOW LAYER IS UNDERDETERMINED.  The corpus fixes p, the classical
+# energies, and beta_E > 0, but names the continuous interpolation as additional chosen
+# structure and its genericity fails AT the permutation limit (root-of-unity eigenphases:
+# maximally gap-degenerate).  Two generic rational-orthogonal carriers compatible with
+# everything the corpus fixes give opposite verdicts for the SAME p:
+def giv22(i, j, c, s):
+    G = [[Frac(1) if a == b else Frac(0) for b in range(3)] for a in range(3)]
+    G[i][i], G[i][j], G[j][i], G[j][j] = c, -s, s, c
+    return G
+
+def mm22(A, B):
+    return [[sum(A[i][k] * B[k][j] for k in range(3)) for j in range(3)]
+            for i in range(3)]
+
+def det22(M):
+    return (M[0][0] * (M[1][1] * M[2][2] - M[1][2] * M[2][1])
+            - M[0][1] * (M[1][0] * M[2][2] - M[1][2] * M[2][0])
+            + M[0][2] * (M[1][0] * M[2][1] - M[1][1] * M[2][0]))
+
+def solve22(B, p):
+    D = det22(B)
+    rep = lambda k: [[p[r] if c == k else B[r][c] for c in range(3)] for r in range(3)]
+    return [det22(rep(k)) / D for k in range(3)]
+
+VF = mm22(giv22(0, 1, Frac(5, 13), Frac(12, 13)), giv22(1, 2, Frac(5, 13), Frac(12, 13)))
+VI = mm22(giv22(0, 1, Frac(3, 5), Frac(4, 5)), giv22(1, 2, Frac(5, 13), Frac(12, 13)))
+for V in (VF, VI):
+    for a in range(3):
+        for b in range(3):
+            ok22 &= sum(V[i][a] * V[i][b] for i in range(3)) == (1 if a == b else 0)
+BF = [[VF[i][a] ** 2 for a in range(3)] for i in range(3)]
+BI = [[VI[i][a] ** 2 for a in range(3)] for i in range(3)]
+ok22 &= all(sum(B[i][a] for i in range(3)) == 1 for B in (BF, BI) for a in range(3))
+qF = solve22(BF, p22)
+ok22 &= all(x >= 0 for x in qF) and sum(qF) == 1
+ok22 &= qF == [Frac(188, 833), Frac(3986, 99127), Frac(72769, 99127)]
+ok22 &= [sum(BF[i][a] * qF[a] for a in range(3)) for i in range(3)] == list(p22)
+qI = solve22(BI, p22)
+ok22 &= any(x < 0 for x in qI)                         # unique solution leaves the simplex
+# exact Farkas certificate for the infeasible carrier: the B-inverse row of a negative
+# component is nonnegative on every column and negative on p
+aneg = min(k for k in range(3) if qI[k] < 0)
+DI = det22(BI)
+cof = lambda r, c: [[BI[x][y] for y in range(3) if y != c] for x in range(3) if x != r]
+det2 = lambda M: M[0][0] * M[1][1] - M[0][1] * M[1][0]
+crow = [(-1) ** (aneg + j) * det2(cof(j, aneg)) / DI for j in range(3)]
+ok22 &= all(sum(crow[i] * BI[i][a] for i in range(3)) == (1 if a == aneg else 0)
+            for a in range(3))
+ok22 &= sum(crow[i] * p22[i] for i in range(3)) < 0
+# and the Fourier-uniform carrier is infeasible outright: only the uniform readout
+ok22 &= p22 != [Frac(1, 3)] * 3
+check("F22", ok22,
+      "ACTUAL-SUBSTRATUM PREPARATION FEASIBILITY (phase three, round eleven; the "
+      "substratum coherent-existence test, stage one; kernel context: "
+      "ShellRepresentationConsistency, shellWeight_invariant, joint_stationary, "
+      "marginal_stationary in OIBridge/ShellAssignment.lean; "
+      "shell_representation_from_comb, comb_mixture_of_shell_representation, "
+      "uniform_overlap_obstruction in OIBridge/CoherentLift.lean; "
+      "shellRepresentation_transpose_stable in OIBridge/OrientationClosure.lean). ONE "
+      "microscopic model -- the corpus's shell shape: visible energies 0,1,2, bath "
+      "counts 1,2,4,8 (beta_E > 0), a joint permutation conserving every total-energy "
+      "shell and ergodic within each -- generates BOTH the shell marginal "
+      "p = (4/7, 2/7, 1/7) AND the carrier: (a) the same phi yields doubly stochastic, "
+      "genuinely mixing transition data (off-diagonal mass 5/3 at one step); (b) on the "
+      "14-state target shell the block is a single cycle with no nontrivial fixed "
+      "powers, so every eigenprojector has constant diagonal 1/14 and "
+      "B_ia = m_i/14 = (4/7, 2/7, 1/7) for EVERY a -- canonical, and invariant under "
+      "every log-branch of the interpolation ambiguity [Main] records; (c) FEASIBLE: "
+      "p equals the column, uniform q solves p = Bq, and the representing state is the "
+      "classical shell ensemble itself -- exactly stationary under the carrier, correct "
+      "readout, PSD, trace one: SRC HOLDS FOR THE ACTUAL SUBSTRATUM TRUNCATION, with "
+      "the counting preparation feasible at every shell of the model unconditionally; "
+      "(d) countercontrol: with the carrier fixed, the modified preparation "
+      "(1/3, 2/3, 0) is INFEASIBLE -- every stationary state pays at most 2/3 on the "
+      "exact observable P_0/2 + P_1 (the maximal cycle average) while the target pays "
+      "5/6; feasibility has content at the permutation layer; (e) BEYOND the "
+      "permutation shadow the physical-flow carrier is UNDERDETERMINED: the corpus "
+      "names the continuous interpolation as chosen structure and its reconstruction "
+      "genericity fails at the permutation limit, and two generic rational-orthogonal "
+      "carriers compatible with everything the corpus fixes give opposite verdicts for "
+      "the same p -- G01(5/13).G12(5/13) is feasible with exact "
+      "q = (188/833, 3986/99127, 72769/99127), G01(3/5).G12(5/13) is infeasible with "
+      "an exact Farkas row certificate, and the Fourier-uniform carrier is infeasible "
+      "outright. VERDICT: existence holds at the permutation truncation with a "
+      "canonical branch-invariant carrier; the missing premise for the physical "
+      "continuous-flow layer is exactly the generic-flow spectral/projector data "
+      "(the eigenvector moduli B) that no corpus datum currently pins")
+
+# ----------------------- F23  the cycle-fibre hull, kernelized (phase three, round 12)
+# The F22 geometry is now theorem, not carrier arithmetic; this section replays the
+# KERNEL statements exactly on the F22 model.  (a) freq: the orbit-frequency vectors are
+# constant on orbits, sum to one at each point, and total to the fibre cardinalities;
+# (b) the hull identity: for a genuinely mixed stationary state, weighting the orbit
+# frequencies by the state's own diagonal reproduces every fibre readout exactly
+# (stationary_readout_hull's convex decomposition); (c) achievability: the orbit-averaged
+# diagonal state built from an arbitrary weight vector is stationary and reads out the
+# prescribed convex combination (hull_readout_achieved's construction).
+ok23 = True
+L23 = 1
+for E in shells22:
+    L23 = L23 * len(shells22[E]) // __import__('math').gcd(L23, len(shells22[E]))
+
+def iter23(s, k):
+    for _ in range(k % L23):
+        s = phi22[s]
+    return s
+
+def freq23(i, s):
+    return Frac(sum(1 for k in range(L23) if iter23(s, k)[0] == i), L23)
+
+# (a) freq facts: orbit constancy, probability vector, fibre mass
+for E in shells22:
+    s0 = shells22[E][0]
+    ok23 &= all(freq23(i, phi22[s0]) == freq23(i, s0) for i in range(3))
+    ok23 &= sum(freq23(i, s0) for i in range(3)) == 1
+    ok23 &= [freq23(i, s0) for i in range(3)] == ratio22[E]      # r^(alpha) exactly
+for i in range(3):
+    ok23 &= sum(freq23(i, s) for s in J22) == sum(1 for s in J22 if s[0] == i)
+# (b) the hull identity on a mixed stationary state: rho = (2/3) uniform(Sigma_3)
+# + (1/3) uniform(Sigma_4) -- diagonal, orbit-constant, hence stationary
+rho23 = {}
+for s in shells22[3]:
+    rho23[s] = Frac(2, 3) / len(shells22[3])
+for s in shells22[4]:
+    rho23[s] = Frac(1, 3) / len(shells22[4])
+ok23 &= {phi22[s]: v for s, v in rho23.items()} == rho23
+for i in range(3):
+    readout = sum(v for s, v in rho23.items() if s[0] == i)
+    hull = sum(v * freq23(i, s) for s, v in rho23.items())
+    ok23 &= readout == hull                                       # the convex identity
+    ok23 &= readout == Frac(2, 3) * ratio22[3][i] + Frac(1, 3) * ratio22[4][i]
+# (c) achievability: arbitrary weights w, orbit-averaged diagonal d, stationary + exact
+w23 = {s: Frac(1 + (7 * k) % 11, 45 * 6) for k, s in enumerate(J22)}
+tot23 = sum(w23.values())
+w23 = {s: v / tot23 for s, v in w23.items()}
+d23 = {}
+for s in J22:
+    d23[s] = sum(w23[iter23(s, k)] for k in range(L23)) / L23
+ok23 &= {phi22[s]: v for s, v in d23.items()} == d23              # stationary diagonal
+ok23 &= sum(d23.values()) == 1 and all(v >= 0 for v in d23.values())
+for i in range(3):
+    ok23 &= sum(v for s, v in d23.items() if s[0] == i) \
+        == sum(w23[s] * freq23(i, s) for s in J22)                # prescribed readout
+check("F23", ok23,
+      "THE CYCLE-FIBRE HULL, KERNELIZED (phase three, round twelve; kernel: freq_shift, "
+      "freq_pow, freq_sum_one, freq_sum_card, fiberProj_trace, stationary_diag_pow, "
+      "stationary_freq_readout, psd_diag_real, stationary_readout_hull, "
+      "hull_readout_achieved, no_representation_outside_hull, transitive_freq_const, "
+      "transitive_freq_eq_countMarginal, ergodicShell_readout_unique, ergodicShell_SRC, "
+      "cycle_eigenvector_overlap, commutant_entry_zero, simple_spectrum_column_moduli, "
+      "permLogBranch_projOverlap_invariant, sum_range_shift in "
+      "OIBridge/CycleFibreHull.lean). The F22 geometry is now theorem: on the F22 model "
+      "the orbit-frequency vectors are orbit-constant probability vectors totalling the "
+      "fibre cardinalities and equal to the shell ratio points r^(alpha) exactly; a "
+      "genuinely mixed stationary state (2/3 on the 14-shell, 1/3 on the 12-shell) "
+      "satisfies the hull identity -- every fibre readout equals the diagonal-weighted "
+      "average of the orbit frequencies -- and an arbitrary weight vector's "
+      "orbit-averaged diagonal state is stationary with exactly the prescribed convex "
+      "readout: the stationary readout set IS conv{r^(alpha)}, both directions. With "
+      "transitivity the hull collapses to the counting marginal (unique readout, the "
+      "DFT identity in readout form with no roots of unity), and simple-spectrum "
+      "diagonalizations are unique up to diagonal phase, so the carrier datum B is "
+      "branch-invariant on nondegenerate blocks -- the F22 verdict now rests on kernel "
+      "statements, with the generic-flow B beyond the permutation shadow still the one "
+      "named missing premise")
+
+# ----------------------- F24  the dynamics glue G1 (phase three, round 13)
+# The glue hierarchy separated exactly.  G1 (diagonal-sector dynamics glue): the sampled
+# coherent dynamics agrees with the substratum permutation on the WHOLE classical
+# diagonal sector.  (a) G1 <=> monomial: a phased cycle D.C on the F22 shell satisfies
+# the glue at EVERY diagonal indicator exactly, and the indicator dyads force the
+# monomial column structure back out (unimodular phases included); (b) G1 pins B: a
+# genuinely coherent D.C-commutant state (with off-diagonal coherences) reads out the
+# counting marginal exactly -- phases cannot move the readout; (c) countercontrol: the
+# two F22 generic carriers are G0-compatible (same p) with opposite feasibility, and
+# BOTH fail G1 at an explicit indicator -- observable agreement alone does not force
+# SRC; diagonal-sector dynamics glue does.
+ok24 = True
+sh24 = order22[3]
+N24 = len(sh24)
+idx24 = {s: k for k, s in enumerate(sh24)}
+u24 = C17(Frac(3, 5), Frac(4, 5))
+pw24 = [CO17, u24, u24 * u24, u24 * u24 * u24]
+d24 = [pw24[k % 4] for k in range(N24)]
+ok24 &= all(d24[k] * d24[k].conj() == CO17 for k in range(N24))
+C24 = [[CO17 if idx24[phi22[sh24[c]]] == r else CZ17 for c in range(N24)]
+       for r in range(N24)]
+W24 = [[d24[r] * C24[r][c] for c in range(N24)] for r in range(N24)]
+ok24 &= mmc17(W24, dag17(W24)) == eye17(N24)
+# (a) G1 holds at EVERY diagonal indicator, exactly
+P24 = C24
+for s0 in range(N24):
+    ind = [[CO17 if (r == c == s0) else CZ17 for c in range(N24)] for r in range(N24)]
+    ok24 &= mmc17(mmc17(W24, ind), dag17(W24)) == mmc17(mmc17(P24, ind), dag17(P24))
+# and the indicator dyads force monomiality back out: column s of any G1 solution is
+# supported on phi(s) with a unimodular phase
+for s0 in range(N24):
+    tgt = idx24[phi22[sh24[s0]]]
+    col = [W24[r][s0] for r in range(N24)]
+    ok24 &= all(col[r].z() for r in range(N24) if r != tgt)
+    ok24 &= col[tgt] * col[tgt].conj() == CO17
+# (b) G1 pins B: rho = I/N + (W + W^H)/(4N) has genuine coherences, commutes with W
+# exactly, and reads out the counting marginal
+rho24 = [[(CO17 if r == c else CZ17) * C17(Frac(1, N24))
+          + (W24[r][c] + dag17(W24)[r][c]) * C17(Frac(1, 4 * N24))
+          for c in range(N24)] for r in range(N24)]
+ok24 &= mmc17(mmc17(W24, rho24), dag17(W24)) == rho24
+ok24 &= dag17(rho24) == rho24 and tr20(rho24) == CO17
+ok24 &= any(not rho24[r][c].z() for r in range(N24) for c in range(N24) if r != c)
+ok24 &= all(rho24[k][k] == C17(Frac(1, N24)) for k in range(N24))   # zero-diag coherences
+read24 = [sum((rho24[k][k] for k, s in enumerate(sh24) if s[0] == i), CZ17)
+          for i in range(3)]
+ok24 &= read24 == [C17(p22[i]) for i in range(3)]                   # counting marginal
+# (c) countercontrol: the F22 generic carriers are G0-compatible with opposite
+# feasibility (qF in the simplex, qI outside -- recorded by F22) and BOTH fail G1
+# against the visible 3-cycle at the first indicator: their columns are not monomial
+phi3 = [1, 2, 0]
+P3 = [[CO17 if phi3[c] == r else CZ17 for c in range(3)] for r in range(3)]
+for V in (VF, VI):
+    Vc = [[C17(V[r][c]) for c in range(3)] for r in range(3)]
+    ok24 &= all(sum(1 for r in range(3) if not Vc[r][c].z()) >= 2 for c in range(3))
+    ind3 = [[CO17 if (r == c == 0) else CZ17 for c in range(3)] for r in range(3)]
+    ok24 &= mmc17(mmc17(Vc, ind3), dag17(Vc)) != mmc17(mmc17(P3, ind3), dag17(P3))
+ok24 &= all(x >= 0 for x in qF) and any(x < 0 for x in qI)
+check("F24", ok24,
+      "THE DYNAMICS GLUE G1 (phase three, round thirteen; kernel: DiagonalSectorGlue, "
+      "conj_diag_entry, diagonalGlue_forces_monomial, glue_of_monomial, "
+      "diagonalGlue_iff_monomial, monomial_unitary, monomial_conj_apply, "
+      "diag_invariant_pow, diag_invariant_freq_readout, "
+      "monomial_ergodic_readout_unique, phasedCycle_columnModuli, "
+      "ergodicShell_SRC_of_dynamicsGlue in OIBridge/DynamicsGlue.lean). (a) G1 <=> "
+      "MONOMIAL, exactly: a phased 14-cycle D.C on the F22 shell (unimodular rational "
+      "phases, unitary) satisfies the diagonal-sector glue at EVERY rank-one diagonal "
+      "indicator, and the indicator dyads force the monomial column structure back out "
+      "-- each column supported on phi(s) with a unimodular phase, no unitarity "
+      "assumed; (b) G1 PINS B: a D.C-commutant state with genuine off-diagonal "
+      "coherences (rho = I/N + (W + W^H)/4N, exactly stationary, Hermitian, trace one) "
+      "reads out the counting marginal (4/7, 2/7, 1/7) exactly -- the phases wind the "
+      "cycle but cannot move a readout, matching monomial_ergodic_readout_unique and "
+      "ergodicShell_SRC_of_dynamicsGlue: G1 + ergodic shell close physical-flow SRC "
+      "with canonical B, independent of phases and logarithm branch; (c) "
+      "COUNTERCONTROL: the two F22 generic carriers are G0-compatible (same visible p) "
+      "with opposite feasibility, and BOTH fail G1 at the first diagonal indicator -- "
+      "their columns are nowhere monomial. BOXED: observable agreement alone does not "
+      "force SRC; diagonal-sector dynamics glue does. THE AUDIT QUESTION IS NOW ONE "
+      "LINE: does OI require G1, or only G0?")
+
+# ----------------------- F25  the domain span: G1 earned, not chosen (phase three, round 14)
+# G_D (CompatibilityDomainGlue): the coherent lift intertwines the state dynamics only on
+# the classical branch domain -- the closure of the shell ensemble under reversible
+# evolution and visible branch selection, exactly the preparations of the corpus's own
+# classical trajectory fold.  (a) the F22 shell cut is ITINERARY-SEPARATING: the 14
+# visible itineraries are pairwise distinct; (b) the branch-evolve closure of the shell
+# ensemble reaches every singleton indicator and spans the full 14-dim diagonal algebra
+# exactly; (c) hence any U satisfying the domain glue satisfies it on every indicator
+# and the monomial forcing applies -- verified on the phased cycle; (d) countercontrol:
+# a label-symmetric 4-cycle (labels 0,1,0,1) is NOT itinerary-separating, its domain
+# closure spans only 2 of 4 dimensions, and an explicitly non-monomial unitary satisfies
+# the domain glue on the whole closure -- the separation property is load-bearing.
+ok25 = True
+# (a) itinerary separation on the 14-shell
+words25 = []
+for s in sh24:
+    t, word = s, []
+    for _ in range(14):
+        word.append(t[0])
+        t = phi22[t]
+    words25.append(tuple(word))
+ok25 &= len(set(words25)) == 14
+# (b) branch-evolve closure: exact span over Q
+def rankQ25(rows):
+    rows = [r[:] for r in rows if any(x != 0 for x in r)]
+    rk, piv, nc = 0, 0, 14
+    while piv < nc and rk < len(rows):
+        sel = next((i for i in range(rk, len(rows)) if rows[i][piv] != 0), None)
+        if sel is None:
+            piv += 1
+            continue
+        rows[rk], rows[sel] = rows[sel], rows[rk]
+        iv = rows[rk][piv]
+        rows[rk] = [x / iv for x in rows[rk]]
+        for i in range(len(rows)):
+            if i != rk and rows[i][piv] != 0:
+                c = rows[i][piv]
+                rows[i] = [a - c * b for a, b in zip(rows[i], rows[rk])]
+        rk += 1
+        piv += 1
+    return rk
+
+# the singleton indicators are constructed BY the domain operations themselves,
+# mirroring the kernel proof: u_{T+1} = branch_{c 0}(evolve(u_T shifted))
+def evolve25(w):
+    return tuple(w[pos25[phi22[sh24[k]]]] for k in range(14))
+
+def branch25(i, w):
+    return tuple(w[k] if sh24[k][0] == i else Frac(0) for k in range(14))
+
+pos25 = {s: k for k, s in enumerate(sh24)}
+built25 = set()
+
+def itiInd25b(word):
+    if not word:
+        w = tuple([Frac(1)] * 14)
+    else:
+        w = branch25(word[0], evolve25(itiInd25b(word[1:])))
+    built25.add(w)
+    return w
+
+for k0, s in enumerate(sh24):
+    ind = itiInd25b(list(words25[k0]))
+    ok25 &= ind == tuple(Frac(1) if k == k0 else Frac(0) for k in range(14))
+ok25 &= rankQ25([list(v) for v in built25]) == 14
+# (d) countercontrol: 4-cycle, labels (0,1,0,1) -- NOT separating, span 2, and a
+# non-monomial unitary satisfies the glue on the whole closure
+phi4 = [1, 2, 3, 0]
+lab4 = [0, 1, 0, 1]
+w4 = []
+for s0 in range(4):
+    t, word = s0, []
+    for _ in range(4):
+        word.append(lab4[t])
+        t = phi4[t]
+    w4.append(tuple(word))
+ok25 &= len(set(w4)) == 2                                  # itineraries collide
+seen4 = set()
+front4 = [tuple([Frac(1)] * 4)]
+seen4.add(front4[0])
+while front4:
+    w = front4.pop()
+    ev = tuple(w[phi4[k]] for k in range(4))
+    outs = [ev] + [tuple(w[k] if lab4[k] == i else Frac(0) for k in range(4))
+                   for i in range(2)]
+    for o in outs:
+        if o not in seen4:
+            seen4.add(o)
+            front4.append(o)
+def rankQ4(rows):
+    rows = [list(r) for r in rows if any(x != 0 for x in r)]
+    rk, piv = 0, 0
+    while piv < 4 and rk < len(rows):
+        sel = next((i for i in range(rk, len(rows)) if rows[i][piv] != 0), None)
+        if sel is None:
+            piv += 1
+            continue
+        rows[rk], rows[sel] = rows[sel], rows[rk]
+        iv = rows[rk][piv]
+        rows[rk] = [x / iv for x in rows[rk]]
+        for i in range(len(rows)):
+            if i != rk and rows[i][piv] != 0:
+                c = rows[i][piv]
+                rows[i] = [a - c * b for a, b in zip(rows[i], rows[rk])]
+        rk += 1
+        piv += 1
+    return rk
+ok25 &= rankQ4(seen4) == 2                                 # proper subspace
+P4 = [[CO17 if phi4[c] == r else CZ17 for c in range(4)] for r in range(4)]
+R4 = [[C17(Frac(3, 5)) if (r, c) in ((0, 0), (2, 2)) else
+       C17(Frac(-4, 5)) if (r, c) == (0, 2) else
+       C17(Frac(4, 5)) if (r, c) == (2, 0) else
+       C17(Frac(5, 13)) if (r, c) in ((1, 1), (3, 3)) else
+       C17(Frac(-12, 13)) if (r, c) == (1, 3) else
+       C17(Frac(12, 13)) if (r, c) == (3, 1) else CZ17 for c in range(4)]
+      for r in range(4)]
+U4 = mmc17(P4, R4)
+ok25 &= mmc17(U4, dag17(U4)) == eye17(4)
+ok25 &= any(sum(1 for r in range(4) if not U4[r][c].z()) >= 2 for c in range(4))
+for w in seen4:                                            # glue on the WHOLE closure
+    dw = [[C17(w[r]) if r == c else CZ17 for c in range(4)] for r in range(4)]
+    ok25 &= mmc17(mmc17(U4, dw), dag17(U4)) == mmc17(mmc17(P4, dw), dag17(P4))
+check("F25", ok25,
+      "THE DOMAIN SPAN: G1 EARNED, NOT CHOSEN (phase three, round fourteen; kernel: "
+      "CompatibilityDomainGlue, ClassicalBranchDomain, ItinerarySeparating, "
+      "itiIndicator, spanning_domain_glue_implies_G1, itiIndicator_mem, "
+      "separating_singleton_mem, separating_domain_span_top, "
+      "classicalBranch_glue_forces_G1, classicalBranch_glue_forces_monomial, "
+      "ergodicShell_SRC_of_domainGlue in OIBridge/DomainGlue.lean). The domain-relative "
+      "glue G_D asks intertwining only on the classical branch domain -- the closure of "
+      "the shell ensemble under reversible evolution and visible branch selection, "
+      "exactly the preparations of the corpus's own classical trajectory fold. (a) the "
+      "F22 shell cut IS itinerary-separating: all 14 visible itineraries are pairwise "
+      "distinct; (b) the branch-evolve closure reaches every singleton indicator "
+      "literally and spans the full 14-dimensional diagonal algebra exactly (rank "
+      "14/14 over Q), so by the linearity bridge G_D implies full G1 there, the "
+      "monomial forcing fires, and ergodicShell_SRC_of_domainGlue closes physical-flow "
+      "SRC from OI compatibility + observability + ergodicity -- G1 is derived from "
+      "the corpus's own preparations, not postulated; (c) countercontrol: the "
+      "label-symmetric 4-cycle (labels 0,1,0,1) is NOT separating -- itineraries "
+      "collide pairwise, the closure spans only 2/4 dimensions, and an explicitly "
+      "non-monomial unitary (a phased pair rotation) satisfies the domain glue on the "
+      "ENTIRE closure: itinerary separation is the load-bearing hypothesis, and where "
+      "it fails the F22 underdetermination is genuine. The existence question is now: "
+      "is the actual observer cut itinerary-separating?")
+
+# ----------------------- F26  the observability quotient: exactly the resolvable distinctions
+# (phase three, round 15).  The finite-horizon quotient theorem span(D_K) = {f constant on
+# every ~_K class} and the residual classification (glue <=> class-indicator transport;
+# block-unitary freedom inside itinerary fibres) verified finitely.  (a) graded class-count
+# profile at the F22 14-shell: #(~_K classes) for K = 0..K*, monotone, reaching 14
+# singletons at the separation horizon K*; (b) the graded branch domain D_K, built by the
+# kernel's own constructors (shell / mono / evolve / branch), has Q-span rank EQUAL to the
+# class count at EVERY horizon K -- the quotient theorem, not just its top; (c) residual
+# classification at the non-separating 4-cycle: classes {0,2},{1,3} stable for all K >= 1,
+# the F25 non-monomial unitary U4 satisfies class-indicator transport U E_C U^dag =
+# P E_C P^dag exactly (the countercontrol is a CLASSIFICATION INSTANCE, not an anomaly),
+# its columns are supported inside the phi-transported fibre of each class
+# (glue_column_support), while a fibre-crossing unitary FAILS the transport equation --
+# necessity; (d) unitarity is forced by the base preparation w = 1 alone
+# (domainGlue_unitary): a non-unitary multiple of P4 already fails the shell equation.
+ok26 = True
+# (a) graded class counts on the 14-shell: ~_K classes = distinct K-prefixes of itineraries
+prof26 = [len({w[:K] for w in words25}) for K in range(15)]
+Kstar26 = next(K for K in range(15) if prof26[K] == 14)
+ok26 &= prof26[0] == 1                                     # horizon 0: everything glued
+ok26 &= all(prof26[K] <= prof26[K + 1] for K in range(14)) # monotone refinement
+ok26 &= all(prof26[K] == 14 for K in range(Kstar26, 15))   # stable once separated
+ok26 &= Kstar26 <= 14                                      # within one period (orderOf phi)
+# (b) graded domain vs graded quotient: build D_K by the kernel constructors and check
+# rank(span D_K) == #classes(K) at every K -- branchDomain_span_eq_itineraryInvariant
+lvl26 = {tuple([Frac(1)] * 14)}                            # BDK 0 = {shell}
+for K in range(Kstar26 + 1):
+    ok26 &= rankQ25([list(v) for v in lvl26]) == prof26[K]
+    nxt = set(lvl26)                                       # mono
+    nxt |= {evolve25(w) for w in lvl26}                    # evolve
+    frontier = list(nxt)
+    while frontier:                                        # branch closes level K+1
+        w = frontier.pop()
+        for i in range(3):
+            b = branch25(i, w)
+            if b not in nxt:
+                nxt.add(b)
+                frontier.append(b)
+    lvl26 = nxt
+ok26 &= rankQ25([list(v) for v in lvl26]) == 14            # separating: full algebra
+# (c) residual classification at the 4-cycle.  Classes stable at {0,2},{1,3} for K >= 1.
+w4p = [len({w[:K] for w in w4}) for K in range(5)]
+ok26 &= w4p == [1, 2, 2, 2, 2]
+E02 = [[CO17 if r == c and r in (0, 2) else CZ17 for c in range(4)] for r in range(4)]
+E13 = [[CO17 if r == c and r in (1, 3) else CZ17 for c in range(4)] for r in range(4)]
+for EC in (E02, E13):                                      # class-indicator transport
+    ok26 &= mmc17(mmc17(U4, EC), dag17(U4)) == mmc17(mmc17(P4, EC), dag17(P4))
+# phi transports the fibres: P E_{02} P^dag = E_{13} and vice versa
+ok26 &= mmc17(mmc17(P4, E02), dag17(P4)) == E13
+ok26 &= mmc17(mmc17(P4, E13), dag17(P4)) == E02
+# column support (glue_column_support): column s of U4 lives inside phi(class(s))
+cls4 = {0: (0, 2), 1: (1, 3), 2: (0, 2), 3: (1, 3)}
+for s0 in range(4):
+    img = {phi4[t] for t in cls4[s0]}
+    ok26 &= all(U4[r][s0].z() for r in range(4) if r not in img)
+# necessity: a fibre-crossing unitary (3-4-5 rotation of coordinates 0,1 after P4)
+# violates the E02 transport equation even though it is exactly unitary
+X01 = [[C17(Frac(3, 5)) if (r, c) in ((0, 0), (1, 1)) else
+        C17(Frac(-4, 5)) if (r, c) == (0, 1) else
+        C17(Frac(4, 5)) if (r, c) == (1, 0) else
+        CO17 if r == c else CZ17 for c in range(4)] for r in range(4)]
+V4 = mmc17(X01, P4)
+ok26 &= mmc17(V4, dag17(V4)) == eye17(4)
+ok26 &= mmc17(mmc17(V4, E02), dag17(V4)) != mmc17(mmc17(P4, E02), dag17(P4))
+# (d) unitarity from the base preparation alone: 2*P4 fails the w = 1 shell equation
+W4 = [[P4[r][c] + P4[r][c] for c in range(4)] for r in range(4)]
+ok26 &= mmc17(W4, dag17(W4)) != eye17(4)
+ok26 &= mmc17(mmc17(W4, eye17(4)), dag17(W4)) != mmc17(mmc17(P4, eye17(4)), dag17(P4))
+check("F26", ok26,
+      "THE OBSERVABILITY QUOTIENT: EXACTLY THE RESOLVABLE DISTINCTIONS (phase three, "
+      "round fifteen; kernel: branchDomainK_invariant, classIndicator_eq_itiIndicator, "
+      "itiIndicator_mem_BDK, classIndicator_mem_BDK, invariant_le_span_classIndicators, "
+      "branchDomain_span_eq_itineraryInvariant, classicalBranchDomain_iff_horizon, "
+      "itiRelInf_iff_orderOf, classicalBranch_span_eq_invariant, glueEq_span, "
+      "domainGlue_classification_mod_itineraryFibres, domainGlue_unitary, "
+      "glue_column_support in OIBridge/ObservabilityQuotient.lean). The finite-horizon "
+      "quotient theorem span(D_K) = {f constant on every ~_K class} holds at EVERY "
+      "horizon on the F22 shell: the graded branch domain built by the kernel's own "
+      "constructors has Q-span rank equal to the ~_K class count for each K from 0 to "
+      f"the separation horizon K* = {Kstar26} (profile {prof26[:Kstar26 + 1]}), where "
+      "the classes become singletons and the round-14 monomial collapse fires. Where "
+      "separation FAILS, the surviving freedom is classified, not mysterious: on the "
+      "4-cycle the classes freeze at the two fibres {0,2},{1,3}, the domain glue is "
+      "EQUIVALENT to class-indicator transport U E_C U^dag = P E_C P^dag, the F25 "
+      "non-monomial countercontrol satisfies exactly those equations (a classification "
+      "instance now, not an anomaly), every glue-compatible column is supported inside "
+      "the phi-transported fibre of its class, a fibre-crossing unitary fails the "
+      "transport equation, and unitarity itself is forced by the shell preparation "
+      "w = 1 alone. Boxed: OI earns G1 on exactly the distinctions the observer cut "
+      "can operationally resolve, and nothing stronger -- full QM follows precisely "
+      "when the physical cut is informationally complete on the relevant shell.")
+
+# ----------------------- F27  the passive-minimal quotient (phase three, round 16)
+# The canonical quotient Q = S/~_inf: the greatest observation-preserving dynamical
+# congruence, the descended permutation, minimality = separation, law preservation,
+# and the mandatory hidden-fibre negative control -- each verified exactly on the
+# round-14/15 controls.  (a) 4-cycle quotient: classes {0,2},{1,3}, descended dynamics
+# the swap, descended labels (0,1), separating by construction; (b) greatest
+# congruence EXHAUSTIVELY: of all 15 partitions of the 4 states, exactly 2 are
+# label-constant and phi-stable (the trivial one and ~_inf itself) and every one is
+# contained in ~_inf; (c) law preservation: a generic rational prior pushed forward by
+# fibre sums reproduces every trajectory probability at every horizon T = 0..4, and
+# the pushforward commutes with evolve and branch; (d) capstone on the quotient: the
+# separating 2-state carrier reaches its singletons, and a non-monomial rotation
+# fails the singleton glue there -- G_D forces monomial with no separation premise;
+# (e) hidden-fibre extension of the F22 shell: a 2-point fibre with per-state fibre
+# dynamics is a permutation, glues every fibre, is NOT separating, preserves every
+# trajectory probability for a CORRELATED prior with the shell marginal, and its
+# quotient recovers exactly the 14 base classes.
+ok27 = True
+# (a) the quotient of the 4-cycle
+cls27 = {0: 0, 1: 1, 2: 0, 3: 1}
+phiQ, okwd = {}, True
+for s0 in range(4):
+    c, img = cls27[s0], cls27[phi4[s0]]
+    if c in phiQ:
+        okwd &= phiQ[c] == img
+    else:
+        phiQ[c] = img
+ok27 &= okwd and phiQ == {0: 1, 1: 0}                      # descends to the swap
+visQ = {0: lab4[0], 1: lab4[1]}
+ok27 &= all(visQ[cls27[s0]] == lab4[s0] for s0 in range(4))
+wq = []
+for c in range(2):
+    t, word = c, []
+    for _ in range(2):
+        word.append(visQ[t])
+        t = phiQ[t]
+    wq.append(tuple(word))
+ok27 &= len(set(wq)) == 2                                  # separating by construction
+# (b) greatest congruence, exhaustively over all 15 partitions of {0,1,2,3}
+def partitions27(xs):
+    if not xs:
+        yield []
+        return
+    x, rest = xs[0], xs[1:]
+    for p in partitions27(rest):
+        for k in range(len(p)):
+            yield p[:k] + [[x] + p[k]] + p[k + 1:]
+        yield [[x]] + p
+
+nprt, ncong = 0, 0
+for p in partitions27([0, 1, 2, 3]):
+    nprt += 1
+    blk = {s: k for k, b in enumerate(p) for s in b}
+    lab_const = all(lab4[s] == lab4[t] for b in p for s in b for t in b)
+    stable = all(blk[phi4[s]] == blk[phi4[t]] for b in p for s in b for t in b)
+    if lab_const and stable:
+        ncong += 1
+        ok27 &= all(cls27[s] == cls27[t] for b in p for s in b for t in b)
+ok27 &= nprt == 15 and ncong == 2          # only the trivial congruence and ~_inf
+# (c) law preservation under the pushforward
+mu27 = [Frac(1, 2), Frac(1, 4), Frac(1, 6), Frac(1, 12)]
+push27 = lambda m: [m[0] + m[2], m[1] + m[3]]
+muQ = push27(mu27)
+def traj27(phi, vis, n, T, word, mu):
+    tot = Frac(0)
+    for s0 in range(n):
+        t, okw = s0, True
+        for k in range(T):
+            if vis[t] != word[k]:
+                okw = False
+                break
+            t = phi[t]
+        if okw:
+            tot += mu[s0]
+    return tot
+
+from itertools import product as iprod27
+phiQl, visQl = [phiQ[0], phiQ[1]], [visQ[0], visQ[1]]
+for T in range(5):
+    for word in iprod27(range(2), repeat=T):
+        ok27 &= traj27(phi4, lab4, 4, T, word, mu27) \
+            == traj27(phiQl, visQl, 2, T, word, muQ)
+ev27 = [mu27[phi4[s]] for s in range(4)]
+ok27 &= push27(ev27) == [muQ[phiQ[c]] for c in range(2)]   # evolve commutes
+for i in range(2):
+    br27 = [mu27[s] if lab4[s] == i else Frac(0) for s in range(4)]
+    ok27 &= push27(br27) == [muQ[c] if visQ[c] == i else Frac(0) for c in range(2)]
+# (d) capstone: on the separating quotient the singleton glue kills non-monomials
+P2 = [[CZ17, CO17], [CO17, CZ17]]
+R2 = [[C17(Frac(3, 5)), C17(Frac(-4, 5))], [C17(Frac(4, 5)), C17(Frac(3, 5))]]
+E0q = [[CO17, CZ17], [CZ17, CZ17]]
+ok27 &= mmc17(R2, dag17(R2)) == eye17(2)
+ok27 &= mmc17(mmc17(R2, E0q), dag17(R2)) != mmc17(mmc17(P2, E0q), dag17(P2))
+ok27 &= [Frac(1) if visQl[c] == 0 else Frac(0) for c in range(2)] \
+    == [Frac(1), Frac(0)]                                  # branch_0(shell) = e0
+# (e) hidden-fibre extension of the F22 shell
+ext27 = {}
+for k, s in enumerate(sh24):
+    sig = 1 if k == 0 else 0                               # sigma_s: swap at one state
+    for a in range(2):
+        ext27[(k, a)] = (pos25[phi22[s]], a ^ sig)
+ok27 &= sorted(ext27.values()) == sorted(ext27.keys())     # a permutation
+lab22 = [s[0] for s in sh24]
+wext = {}
+for p in ext27:
+    t, word = p, []
+    for _ in range(28):
+        word.append(lab22[t[0]])
+        t = ext27[t]
+    wext[p] = tuple(word)
+ok27 &= all(wext[(k, 0)] == wext[(k, 1)] for k in range(14))
+ok27 &= len(set(wext.values())) == 14                      # quotient recovers the base
+nuu = {}
+for k in range(14):
+    nuu[(k, 0)] = Frac(k + 1, 210)
+    nuu[(k, 1)] = Frac(1, 14) - Frac(k + 1, 210)           # correlated, marginal 1/14
+ok27 &= all(v > 0 for v in nuu.values())
+phl = [pos25[phi22[s]] for s in sh24]
+for T in (0, 1, 3, 6, 9):
+    for k0 in range(14):
+        word = words25[k0][:T]
+        base = traj27(phl, lab22, 14, T, word, [Frac(1, 14)] * 14)
+        tot = Frac(0)
+        for p in ext27:
+            t, okw = p, True
+            for k in range(T):
+                if lab22[t[0]] != word[k]:
+                    okw = False
+                    break
+                t = ext27[t]
+            if okw:
+                tot += nuu[p]
+        ok27 &= tot == base
+check("F27", ok27,
+      "THE PASSIVE-MINIMAL QUOTIENT (phase three, round sixteen; kernel: itiRelInf_pow, "
+      "itiRelInf_evolve, itiRelInf_symm_evolve, itiSetoid, MinimalCarrier, quotVis, "
+      "quotPerm, quotPerm_mk, quotPerm_pow_mk, itiRelInf_greatest_congruence, "
+      "quotient_itinerarySeparating, ObservationCongruence, PassivelyMinimal, "
+      "passiveMinimal_iff_itinerarySeparating, realization_pow, realizationMap, "
+      "minimal_realization_bijective, realizationMap_equivariant, realizationMap_vis, "
+      "realization_factor_unique, trajProb, quotMeasure, quotMeasure_weighted_sum, "
+      "itiIndicator_quotient_mk, trajProb_quotient, quotMeasure_evolve, "
+      "quotMeasure_branch, quotient_transitive, passiveQuotient_glue_forces_G1, "
+      "passiveQuotient_glue_forces_monomial, ergodicShell_SRC_of_passiveQuotient, "
+      "hiddenExt, hiddenExt_pow_fst, hiddenExt_itiRelInf_fibre, "
+      "hiddenExt_not_separating, hiddenExt_itiIndicator, hiddenExt_same_law, "
+      "hiddenExt_quotient_recovers_base in OIBridge/PassiveQuotient.lean). The "
+      "canonical passive quotient S/~_inf: (a) the 4-cycle descends to the labelled "
+      "swap, separating by construction; (b) ~_inf is the GREATEST observation-"
+      "preserving dynamical congruence, verified exhaustively -- of all 15 partitions "
+      "of the 4 states exactly 2 are label-constant and phi-stable, and both refine "
+      "the itinerary classes; (c) the fibre-sum pushforward preserves every "
+      "trajectory probability at every horizon T = 0..4 for a generic rational prior "
+      "and commutes with evolve and branch -- the full closed passive multi-time law "
+      "is quotient-invariant; (d) on the separating quotient the branch domain "
+      "reaches its singletons and a non-monomial 3-4-5 rotation fails the singleton "
+      "glue: G_D forces monomial WITH NO SEPARATION PREMISE LEFT; (e) the mandatory "
+      "negative control: a 2-point hidden fibre with per-state fibre dynamics on the "
+      "F22 shell is a permutation that glues every fibre, is NOT separating, "
+      "preserves every trajectory probability for a correlated prior with the shell "
+      "marginal, and its quotient recovers exactly the 14 base classes. BOXED: bare "
+      "OI does not make the ontic carrier observable, but the minimal carrier of the "
+      "complete passive observational law is automatically separating -- domain glue "
+      "earns full G1 on exactly the state space to which the passive coherent "
+      "description is operationally accountable. The quotient is observer-relative "
+      "(Structure's G4 observational equivalence, not G3 substratum gauge): "
+      "interventions may yet separate what the passive law glues.")
+
+# ----------------------- F28  SM linear observability: the wave rule audited exactly
+# (phase three, round 16).  The SM reference branch's second-order mod-q wave rule
+# x_i(t+1) = sum_nbrs x_j(t) - x_i(t-1)  (SM SS4.1: the unique center-free isotropic
+# linear rule) in companion form z = (x_t, x_{t-1}), A = [[K,-I],[I,0]], with the
+# component-complete site observer reading the CURRENT field on its sites (SM Lemma 1c:
+# current field visible, retarded register hidden).  By linear_itiRelInf_iff /
+# linear_separating_iff_observability the itinerary audit IS the Kalman observability
+# computation: kernel of the stacked family (C, CA, CA^2, ...) over GF(q).
+# (a) A is an exact bijection (explicit inverse [[0,I],[-I,K]]);  (b) full visibility
+# separates at horizon 2 exactly (the retarded register is reconstructed in one step);
+# (c) ring L=12: a SINGLE visible site leaves a 10-dim unobservable sector -- exactly
+# the mirror-odd modes about that site (2*(L/2-1) = 10, kernel verified) -- while TWO
+# adjacent sites already observe everything (profile [10,0,0,...] identically over
+# q = 3, 5, 7; q = 2 degenerates to 12 at width 1 and still closes at width 2);
+# (d) 3-torus L=3: one slab of 9 sites leaves an 18-dim unobservable sector -- exactly
+# the mirror-odd modes of the z -> -z reflection -- and two adjacent slabs observe
+# everything (identical over q = 5, 7); (e) fibre semantics: states differing by a
+# mirror-odd mode share their entire visible itinerary; a non-fibre difference is
+# separated.  Verdict: the SM reference geometry supplies itinerary separation on the
+# linear branch whenever the observer's window has thickness >= 2 in the propagation
+# direction; thickness-one screens have exactly the reflection-odd sector as their
+# itinerary fibres -- the block-unitary freedom of the round-15 classification.
+ok28 = True
+def rank28(rows, q, ncols):
+    rows = [r[:] for r in rows]
+    rk, piv = 0, 0
+    while piv < ncols and rk < len(rows):
+        sel = next((i for i in range(rk, len(rows)) if rows[i][piv] % q != 0), None)
+        if sel is None:
+            piv += 1
+            continue
+        rows[rk], rows[sel] = rows[sel], rows[rk]
+        iv = pow(rows[rk][piv], -1, q)
+        rows[rk] = [(x * iv) % q for x in rows[rk]]
+        for i in range(len(rows)):
+            if i != rk and rows[i][piv] % q != 0:
+                c = rows[i][piv]
+                rows[i] = [(a - c * b) % q for a, b in zip(rows[i], rows[rk])]
+        rk += 1
+        piv += 1
+    return rk
+
+def mm28(A, B, q):
+    m, p = len(B), len(B[0])
+    return [[sum(A[i][k] * B[k][j] for k in range(m)) % q for j in range(p)]
+            for i in range(len(A))]
+
+def companion28(nbrs, n, q):
+    A = [[0] * (2 * n) for _ in range(2 * n)]
+    for i in range(n):
+        for j in nbrs[i]:
+            A[i][j] = (A[i][j] + 1) % q
+        A[i][n + i] = (-1) % q
+        A[n + i][i] = 1
+    return A
+
+def inverse28(nbrs, n, q):
+    B = [[0] * (2 * n) for _ in range(2 * n)]
+    for i in range(n):
+        B[i][n + i] = 1
+        B[n + i][i] = (-1) % q
+        for j in nbrs[i]:
+            B[n + i][n + j] = (B[n + i][n + j] + 1) % q
+    return B
+
+def obsrows28(A, vis_sites, q, horizon):
+    n2 = len(A)
+    rows, M = [], [[1 if i == j else 0 for j in range(n2)] for i in range(n2)]
+    for _ in range(horizon):
+        for i in vis_sites:
+            rows.append(M[i][:])
+        M = mm28(M, A, q)
+    return rows
+
+def unobs28(A, vis_sites, q):
+    n2 = len(A)
+    return n2 - rank28(obsrows28(A, vis_sites, q, n2), q, n2)
+
+ring28 = lambda L: [[(i - 1) % L, (i + 1) % L] for i in range(L)]
+L28 = 12
+eye28 = [[1 if i == j else 0 for j in range(2 * L28)] for i in range(2 * L28)]
+for q in (5, 7):
+    A28 = companion28(ring28(L28), L28, q)
+    ok28 &= mm28(A28, inverse28(ring28(L28), L28, q), q) == eye28       # (a)
+    ok28 &= rank28(obsrows28(A28, range(L28), q, 2), q, 2 * L28) == 2 * L28  # (b)
+# (c) window profile on the ring, exactly over three odd primes and q = 2
+for q in (3, 5, 7):
+    A28 = companion28(ring28(L28), L28, q)
+    ok28 &= [unobs28(A28, range(w), q) for w in range(1, 4)] == [10, 0, 0]
+A2q = companion28(ring28(L28), L28, 2)
+ok28 &= [unobs28(A2q, range(w), 2) for w in range(1, 3)] == [12, 0]
+# the width-1 kernel IS the mirror-odd sector about the visible site
+q28 = 5
+A28 = companion28(ring28(L28), L28, q28)
+rows28 = obsrows28(A28, [0], q28, 2 * L28)
+odd28 = []
+for layer in range(2):
+    for i in range(1, L28 // 2):
+        v = [0] * (2 * L28)
+        v[layer * L28 + i] = 1
+        v[layer * L28 + (L28 - i)] = q28 - 1
+        odd28.append(v)
+ok28 &= len(odd28) == 10
+ok28 &= all(sum(r[j] * v[j] for j in range(2 * L28)) % q28 == 0
+            for v in odd28 for r in rows28)
+# (d) the 3-torus: one slab leaves the z-mirror-odd 18-dim sector; two slabs close it
+L3, n3 = 3, 27
+idx28 = lambda x, y, z: (x % L3) * 9 + (y % L3) * 3 + (z % L3)
+nbrs3 = [[idx28(x + 1, y, z), idx28(x - 1, y, z), idx28(x, y + 1, z),
+          idx28(x, y - 1, z), idx28(x, y, z + 1), idx28(x, y, z - 1)]
+         for x in range(L3) for y in range(L3) for z in range(L3)]
+for q in (5, 7):
+    A3 = companion28(nbrs3, n3, q)
+    slab = [i for i in range(n3) if i % 3 == 0]
+    ok28 &= unobs28(A3, range(n3), q) == 0
+    ok28 &= unobs28(A3, slab, q) == 18
+    ok28 &= unobs28(A3, [i for i in range(n3) if i % 3 in (0, 1)], q) == 0
+A3 = companion28(nbrs3, n3, q28)
+rows3 = obsrows28(A3, [i for i in range(n3) if i % 3 == 0], q28, 2 * n3)
+odd3 = []
+for layer in range(2):
+    for x in range(3):
+        for y in range(3):
+            v = [0] * (2 * n3)
+            v[layer * n3 + idx28(x, y, 1)] = 1
+            v[layer * n3 + idx28(x, y, 2)] = q28 - 1
+            odd3.append(v)
+ok28 &= len(odd3) == 18
+ok28 &= all(sum(r[j] * v[j] for j in range(2 * n3)) % q28 == 0
+            for v in odd3 for r in rows3)
+# (e) fibre semantics on the ring: mirror-odd difference invisible, generic one seen
+x28 = [(3 * i * i + 1) % q28 for i in range(2 * L28)]
+y28 = [(a + b) % q28 for a, b in zip(x28, odd28[3])]
+ok28 &= all(sum(r[j] * (x28[j] - y28[j]) for j in range(2 * L28)) % q28 == 0
+            for r in rows28)
+w28 = [0] * (2 * L28)
+w28[1] = 1
+z28 = [(a + b) % q28 for a, b in zip(x28, w28)]
+ok28 &= any(sum(r[j] * (x28[j] - z28[j]) for j in range(2 * L28)) % q28 != 0
+            for r in rows28)
+check("F28", ok28,
+      "SM LINEAR OBSERVABILITY: THE WAVE RULE AUDITED EXACTLY (phase three, round "
+      "sixteen; kernel: addEquiv_pow_sub, linear_itiRelInf_iff, "
+      "linear_separating_iff_observability in OIBridge/PassiveQuotient.lean). The SM "
+      "reference branch's second-order mod-q wave rule in companion form, read by the "
+      "component-complete site observer (current field visible, retarded register "
+      "hidden -- SM Lemma 1c), audited as the Kalman observability computation the "
+      "kernel bridge makes exact: (a) the update is an exact bijection with explicit "
+      "inverse; (b) full visibility separates at horizon 2 -- one step reconstructs "
+      "the retarded register; (c) on the L = 12 ring a SINGLE visible site leaves a "
+      "10-dimensional unobservable sector, verified to be EXACTLY the mirror-odd "
+      "modes about that site, while TWO adjacent sites already observe the entire "
+      "state (profile [10, 0, 0] identically over q = 3, 5, 7; q = 2 degenerates to "
+      "12 at width one and still closes at width two); (d) on the 3-torus one slab "
+      "of 9 sites leaves the 18-dimensional z-mirror-odd sector and two adjacent "
+      "slabs observe everything (identical over q = 5, 7); (e) states differing by a "
+      "mirror-odd mode share their ENTIRE visible itinerary and a generic difference "
+      "is separated -- the fibres are real and they are exactly the reflection-odd "
+      "modes, the block-unitary freedom of the round-15 classification. VERDICT: the "
+      "SM reference geometry supplies itinerary separation on the linear branch "
+      "whenever the observer's window has thickness >= 2 in the propagation "
+      "direction; a thickness-one screen fails by exactly its mirror symmetry. The "
+      "solution-level identification of the ACTUAL cosmological window remains open, "
+      "as does the nonlinear/state-dependent-graph regime.")
+
+# ----------------------- F29  the coherent extension fibre on a 3-cycle (phase three,
+# round 17).  Three members of the SAME classification fibre over the classical
+# 3-cycle g: a rank-one phase matrix (the unitary monomial lift), a genuinely
+# partially dephasing correlation matrix, and complete dephasing C = I.  They realize
+# the identical classical action, produce IDENTICAL action-labelled comb statistics on
+# every diagonal preparation and every branch interleaving, and are separated by one
+# coherent effect; only the rank-one member has a CPTP inverse, and the classical
+# inverse composed coherently is NOT the identity -- the audit guard exact.
+ok29 = True
+g29 = [1, 2, 0]                                            # the 3-cycle 0->1->2->0
+gi29 = [2, 0, 1]                                           # its inverse
+d29 = [CO17, C17(Frac(3, 5), Frac(4, 5)), C17(Frac(3, 5), Frac(-4, 5))]
+C1_29 = [[d29[s] * d29[t].conj() for t in range(3)] for s in range(3)]
+C2_29 = [[CO17 if s == t else C17(Frac(2, 3)) for t in range(3)] for s in range(3)]
+C3_29 = eye17(3)
+# (a) validity: C1 rank-one unimodular; C2 = (2/3) v v^H + (1/3) I is an explicit PSD
+# certificate; C3 = I
+ok29 &= all((d29[s] * d29[s].conj()) == CO17 for s in range(3))
+v29 = [CO17, CO17, CO17]
+ok29 &= all(C2_29[s][t]
+            == C17(Frac(2, 3)) * v29[s] * v29[t].conj()
+              + (C17(Frac(1, 3)) if s == t else CZ17)
+            for s in range(3) for t in range(3))
+def Phi29(C, X):
+    return [[C[gi29[a]][gi29[b]] * X[gi29[a]][gi29[b]] for b in range(3)]
+            for a in range(3)]
+
+def E29(s, t):
+    return [[CO17 if (a, b) == (s, t) else CZ17 for b in range(3)] for a in range(3)]
+
+# (b) all three classically realize g on every classical pure state
+for C in (C1_29, C2_29, C3_29):
+    ok29 &= all(Phi29(C, E29(s, s)) == E29(g29[s], g29[s]) for s in range(3))
+# (c) comb blindness: a 3-step comb with branch selection between steps produces the
+# SAME statistics for the three members, on every classical trajectory
+p29 = [C17(Frac(1, 2)), C17(Frac(1, 3)), C17(Frac(1, 6))]
+def branch29(i, X):
+    return [[X[a][b] if a == i and b == i else CZ17 for b in range(3)]
+            for a in range(3)]
+
+for traj in [(i, j, k) for i in range(3) for j in range(3) for k in range(3)]:
+    vals = []
+    for C in (C1_29, C2_29, C3_29):
+        X = [[p29[a] if a == b else CZ17 for b in range(3)] for a in range(3)]
+        for step in traj:
+            X = branch29(step, Phi29(C, X))
+        vals.append(sum(X[a][a].re for a in range(3)))
+    ok29 &= vals[0] == vals[1] == vals[2]
+# (d) ONE coherent effect separates all three: on the uniform superposition dyad the
+# all-ones effect reads sum_{s,t} C_st = 121/25, 7, 3 respectively
+ones29 = [[CO17] * 3 for _ in range(3)]
+reads = []
+for C in (C1_29, C2_29, C3_29):
+    Y = Phi29(C, ones29)
+    tot = CZ17
+    for a in range(3):
+        for b in range(3):
+            tot = tot + Y[a][b]
+    reads.append(tot)
+ok29 &= reads[0] == C17(Frac(121, 25)) and reads[1] == C17(7) \
+    and reads[2] == C17(3) and len({(r.re, r.im) for r in reads}) == 3
+# (e) reversibility: ONLY the rank-one member. Its family inverse is exact and it IS
+# the monomial conjugation Ad(D P_g)
+C1inv = [[d29[gi29[a]].conj() * d29[gi29[b]] for b in range(3)] for a in range(3)]
+def Psi29(X):
+    return [[C1inv[g29[a]][g29[b]] * X[g29[a]][g29[b]] for b in range(3)]
+            for a in range(3)]
+
+ok29 &= all(Psi29(Phi29(C1_29, E29(s, t))) == E29(s, t)
+            for s in range(3) for t in range(3))
+P29 = [[CO17 if g29[c] == r else CZ17 for c in range(3)] for r in range(3)]
+D29 = [[d29[gi29[r]] if r == c else CZ17 for c in range(3)] for r in range(3)]
+M29 = mmc17(D29, P29)
+ok29 &= mmc17(M29, dag17(M29)) == eye17(3)
+ok29 &= all(Phi29(C1_29, E29(s, t)) == mmc17(mmc17(M29, E29(s, t)), dag17(M29))
+            for s in range(3) for t in range(3))
+# the family inverse candidate for C2 needs entries 3/2 off-diagonal: NOT PSD, with
+# the explicit witness x = (1,-1,0):  x^H C' x = 2 - 2*(3/2) = -1 < 0
+C2inv = [[CO17 if s == t else C17(Frac(3, 2)) for t in range(3)] for s in range(3)]
+x29 = [CO17, C17(-1), CZ17]
+q29 = CZ17
+for s in range(3):
+    for t in range(3):
+        q29 = q29 + x29[s].conj() * C2inv[s][t] * x29[t]
+ok29 &= q29 == C17(-1)                                     # negative: no CPTP inverse
+# complete dephasing is not even injective
+ok29 &= Phi29(C3_29, E29(0, 1)) == [[CZ17] * 3 for _ in range(3)]
+# (f) THE AUDIT GUARD: the classical inverse composed coherently is NOT the identity.
+# Phi_{g^-1, I} after Phi_{g, I} is complete dephasing: identity on every diagonal
+# (the classical comb identity I_{a^-1} I_a = id) yet it kills E_01
+def comp29(X):
+    Y = Phi29(C3_29, X)                                    # Phi_{g, I}
+    return [[(C3_29[g29[a]][g29[b]] * Y[g29[a]][g29[b]]) for b in range(3)]
+            for a in range(3)]                             # then Phi_{g^-1, I}
+
+diag29 = [[p29[a] if a == b else CZ17 for b in range(3)] for a in range(3)]
+ok29 &= comp29(diag29) == diag29                           # classical comb: identity
+ok29 &= comp29(E29(0, 1)) == [[CZ17] * 3 for _ in range(3)]  # coherent: NOT identity
+# (g) the purity selector: the rank-one member maps the uniform dyad to a PURE dyad
+# (all 2x2 minors vanish); the partial dephaser does not (minor 1 - 4/9 = 5/9)
+Y1 = Phi29(C1_29, ones29)
+ok29 &= all(Y1[a][b] * Y1[c][dd] == Y1[a][dd] * Y1[c][b]
+            for a in range(3) for b in range(3) for c in range(3) for dd in range(3))
+Y2 = Phi29(C2_29, ones29)
+m29 = Y2[0][0] * Y2[1][1] - Y2[0][1] * Y2[1][0]
+ok29 &= m29 == C17(Frac(5, 9))
+check("F29", ok29,
+      "THE COHERENT EXTENSION FIBRE (phase three, round seventeen; kernel: "
+      "basisVec_mulVec, basisVec_dot, form_basis, hermitian_form_conj, "
+      "psd_zero_form_mulVec_zero, psd_diag_zero_entry_zero, "
+      "psd_unit_diag_entry_bound, psd_unimodular_rank_one, "
+      "correlationExtension_single, correlationExtension_classical, embed_sum, "
+      "choi_correlation, correlationExtension_completelyPositive, "
+      "correlationExtension_trace, correlationExtension_cptp, "
+      "cptp_classical_forces_correlation, cptpExtension_iff_correlationMatrix, "
+      "correlationExtension_comp, correlationExtension_one_eq_id_iff, "
+      "reversibleExtension_iff_rankOne, rankOne_extension_monomial, "
+      "purity_selector_rank_one, correlationExtension_diagonal, combPerm_cons, "
+      "combFold_diagonal, combPerm_eq_permProd, classicalComb_blind_to_correlation "
+      "in OIBridge/CoherentExtension.lean). The kernel classifies EVERY completely "
+      "positive extension of a classical permutation action as Ad(P_g) compose "
+      "Schur_C with C PSD and unit-diagonal, and this probe walks the fibre over the "
+      "3-cycle exactly: a rank-one unimodular phase matrix, a partial dephaser "
+      "(2/3 off-diagonal, PSD certificate exhibited), and complete dephasing C = I. "
+      "All three realize the same classical action; every 3-step branch-interleaved "
+      "comb produces IDENTICAL statistics on all 27 classical trajectories (comb "
+      "blindness, exact); one coherent effect -- the all-ones effect on the uniform "
+      "superposition dyad -- reads 121/25, 7, 3 respectively and separates the "
+      "fibre. ONLY the rank-one member is reversible: its family inverse is exact "
+      "and the member IS the monomial conjugation Ad(D P_g) (unitary, verified on "
+      "all 9 matrix units); the partial dephaser's would-be inverse matrix has "
+      "x^H C' x = -1 < 0 on the witness (1,-1,0) and so is not PSD -- by the "
+      "classification no CPTP inverse exists; complete dephasing is not even "
+      "injective. THE AUDIT GUARD: composing the coherent lifts of g and g^-1 (both "
+      "with C = I) is the identity on every diagonal -- the classical comb identity "
+      "-- yet kills E_01: classical invertibility of the intervention does NOT give "
+      "coherent reversibility. The purity selector fires exactly: the rank-one "
+      "member maps the uniform dyad to a pure dyad (all 2x2 minors vanish), the "
+      "partial dephaser leaves minor 5/9. BOXED: classical OI comb => the "
+      "correlation-matrix family; OI comb + coherent reversibility => the monomial "
+      "unitary intervention lift. Standard QM is the rank-one member; the "
+      "alternative OI-derived theories are precisely its correlation/dephasing "
+      "extensions.")
+
+# ----------------------- F30  the controlled quotient countercontrol (phase three,
+# round 17).  The 4-cycle with labels (0,1,0,1) has a nontrivial PASSIVE quotient
+# (classes {0,2},{1,3}) -- but adding ONE intervention (the transposition tau = (0 1))
+# to the menu makes the CONTROLLED quotient trivial: every state is separated by some
+# action word.  The controlled relation is computed two independent ways -- partition
+# refinement (the greatest-congruence fixpoint) and explicit word search -- and the
+# caveat-closing instance is exhibited: (0,2) passively glued, separated by the
+# single-letter word [tau].
+ok30 = True
+tau30 = [1, 0, 2, 3]
+menu30 = {'phi': phi4, 'tau': tau30}
+# (a) partition refinement over the menu: greatest observation-preserving congruence
+def refine30(gens):
+    blk = {s: lab4[s] for s in range(4)}
+    while True:
+        sig = {s: (blk[s],) + tuple(blk[g[s]] for g in gens) for s in range(4)}
+        codes = {v: k for k, v in enumerate(sorted(set(sig.values())))}
+        new = {s: codes[sig[s]] for s in range(4)}
+        if new == blk:
+            return blk
+        blk = new
+
+ctrl30 = refine30([phi4, tau30])
+ok30 &= len(set(ctrl30.values())) == 4                     # singletons: separated
+pass30 = refine30([phi4])
+ok30 &= sorted(sorted(s for s in range(4) if pass30[s] == c)
+               for c in set(pass30.values())) == [[0, 2], [1, 3]]
+# (b) word search confirms: every pair is separated by an explicit word over the menu
+def word_apply30(word, s):
+    for a in word:
+        s = menu30[a][s]
+    return s
+
+from itertools import product as iprod30
+def sep_word30(s, t):
+    for L in range(4):
+        for word in iprod30(('phi', 'tau'), repeat=L):
+            if lab4[word_apply30(word, s)] != lab4[word_apply30(word, t)]:
+                return word
+    return None
+
+for s in range(4):
+    for t in range(s + 1, 4):
+        ok30 &= sep_word30(s, t) is not None
+# (c) the caveat closer: (0,2) passively glued (identical phi-itineraries), separated
+# by the single letter [tau]
+ok30 &= w4[0] == w4[2]                                     # passive itineraries agree
+ok30 &= sep_word30(0, 2) == ('tau',)
+ok30 &= lab4[tau30[0]] == 1 and lab4[tau30[2]] == 0
+# (d) exhaustive greatest congruence for the TWO-generator menu: of all 15 partitions
+# only the trivial one is label-constant and stable under BOTH actions
+ncong30 = 0
+for p in partitions27([0, 1, 2, 3]):
+    blk = {s: k for k, b in enumerate(p) for s in b}
+    lab_const = all(lab4[s] == lab4[t] for b in p for s in b for t in b)
+    stab = all(blk[gg[s]] == blk[gg[t]] for gg in (phi4, tau30)
+               for b in p for s in b for t in b)
+    if lab_const and stab:
+        ncong30 += 1
+        ok30 &= all(len(b) == 1 for b in p)
+ok30 &= ncong30 == 1                                       # controlled-minimal
+# (e) the refinement map: 4 controlled classes onto 2 passive classes, strictly finer
+img30 = {ctrl30[s]: pass30[s] for s in range(4)}
+ok30 &= set(img30.values()) == set(pass30.values())        # onto
+ok30 &= len(set(ctrl30.values())) > len(set(pass30.values()))
+check("F30", ok30,
+      "THE CONTROLLED QUOTIENT COUNTERCONTROL (phase three, round seventeen; kernel: "
+      "actWord_append, actWord_replicate, ctrlRel_evolve, ctrlRel_word, "
+      "ctrlRel_symm_evolve, ctrlRel_le_itiRelInf, ctrlRel_greatest_congruence, "
+      "ctrlPerm_mk, ctrlWord_mk, controlled_actionSeparating, "
+      "controlledMinimal_iff_actionSeparating, controlledToPassive_surjective, "
+      "intervention_separates_passive_fibre in OIBridge/ControlledQuotient.lean). "
+      "The label-symmetric 4-cycle has passive classes {0,2},{1,3}; adding the single "
+      "transposition tau = (0 1) to the action menu separates EVERYTHING: the "
+      "greatest-congruence partition refinement reaches singletons, explicit "
+      "separating words exist for every pair (word search to length 3), and of all "
+      "15 partitions only the trivial one is label-constant and stable under both "
+      "menu actions -- the carrier is controlled-minimal exactly as "
+      "controlledMinimal_iff_actionSeparating states. THE CAVEAT, CLOSED: the pair "
+      "(0,2) has identical passive phi-itineraries yet is separated by the "
+      "one-letter word [tau] (labels 1 vs 0) -- passively glued, interventionally "
+      "distinct, the exact instance of intervention_separates_passive_fibre. The "
+      "controlled carrier maps ONTO the passive carrier (4 classes onto 2, strictly "
+      "finer): the interventional coherent description is accountable to the "
+      "controlled quotient, and with a single passive generator the controlled "
+      "relation collapses back to the passive one exactly.")
+
+# ----------------------- F31  coherent functoriality: the projective action and the
+# H-functor boundary (phase three, round 18).  On the C3 rotation action, two
+# families of classical CPTP extensions: a PROJECTIVE PHASE FAMILY (rank-one
+# correlations built from exact Gaussian-rational phases, with a genuinely
+# nontrivial multiplier omega(1,1) = (3+4i)/5 != 1) that satisfies coherent
+# functoriality exactly -- channels compose strictly, the monomial unitaries
+# multiply projectively U_g U_h = omega(g,h) U_{g+h}, and omega passes all 27
+# cocycle identities -- and a DEPHASING FAMILY (C_e = all-ones, C_g = C_{g^2} = I)
+# that produces IDENTICAL classical comb statistics on every group word and every
+# branch-interleaved trajectory yet violates functoriality: Phi_g o Phi_{g^2} kills
+# E_01 while Phi_e preserves it.  Complete classical comb data do not imply coherent
+# functoriality: H-functor is a named bridge, and with it unitarity FOLLOWS.
+ok31 = True
+rho31 = [[(s + j) % 3 for s in range(3)] for j in range(3)]
+rhoinv31 = [[(s - j) % 3 for s in range(3)] for j in range(3)]
+w0_31 = C17(Frac(3, 5), Frac(4, 5))                        # omega(1,1), unimodular
+alpha31 = [
+    [CO17, CO17, CO17],
+    d29,
+    [w0_31.conj() * d29[s] * d29[(s + 1) % 3] for s in range(3)],
+]
+ok31 &= all((alpha31[j][s] * alpha31[j][s].conj()) == CO17
+            for j in range(3) for s in range(3))
+Cfam31 = [[[alpha31[j][s] * alpha31[j][t].conj() for t in range(3)]
+           for s in range(3)] for j in range(3)]
+def Phi31(j, C, X):
+    return [[C[rhoinv31[j][a]][rhoinv31[j][b]] * X[rhoinv31[j][a]][rhoinv31[j][b]]
+             for b in range(3)] for a in range(3)]
+
+# (a) the multiplier: beta(g,h,s) is s-INDEPENDENT and unimodular for all 9 pairs
+omega31 = {}
+for g in range(3):
+    for h in range(3):
+        betas = [alpha31[h][s] * alpha31[g][rho31[h][s]]
+                 * alpha31[(g + h) % 3][s].conj() for s in range(3)]
+        ok31 &= betas[0] == betas[1] == betas[2]
+        ok31 &= (betas[0] * betas[0].conj()) == CO17
+        omega31[(g, h)] = betas[0]
+ok31 &= omega31[(1, 1)] == w0_31 and not (omega31[(1, 1)] == CO17)
+# (b) coherent functoriality of the CHANNELS, exactly, on all 9 matrix units
+ok31 &= all(Phi31(0, Cfam31[0], E29(s, t)) == E29(s, t)
+            for s in range(3) for t in range(3))
+for g in range(3):
+    for h in range(3):
+        ok31 &= all(Phi31(g, Cfam31[g], Phi31(h, Cfam31[h], E29(s, t)))
+                    == Phi31((g + h) % 3, Cfam31[(g + h) % 3], E29(s, t))
+                    for s in range(3) for t in range(3))
+# (c) the projective unitary law U_g U_h = omega(g,h) U_{g+h}, all 9 pairs
+U31 = []
+for j in range(3):
+    D = [[alpha31[j][rhoinv31[j][a]] if a == c else CZ17 for c in range(3)]
+         for a in range(3)]
+    P = [[CO17 if rho31[j][c] == a else CZ17 for c in range(3)] for a in range(3)]
+    U31.append(mmc17(D, P))
+    ok31 &= mmc17(U31[j], dag17(U31[j])) == eye17(3)
+for g in range(3):
+    for h in range(3):
+        lhs = mmc17(U31[g], U31[h])
+        rhs = [[omega31[(g, h)] * U31[(g + h) % 3][a][b] for b in range(3)]
+               for a in range(3)]
+        ok31 &= lhs == rhs
+# (d) omega is a 2-cocycle: all 27 triples
+for g in range(3):
+    for h in range(3):
+        for k in range(3):
+            ok31 &= omega31[(g, h)] * omega31[((g + h) % 3, k)] \
+                == omega31[(g, (h + k) % 3)] * omega31[(h, k)]
+# (e) THE BOUNDARY: the dephasing family -- identical classical combs, no
+# functoriality
+Cdeph31 = [[[CO17 for _ in range(3)] for _ in range(3)], eye17(3), eye17(3)]
+ok31 &= all(Phi31(0, Cdeph31[0], E29(s, t)) == E29(s, t)
+            for s in range(3) for t in range(3))             # Phi_e = id holds
+from itertools import product as iprod31
+diag31 = [[p29[a] if a == b else CZ17 for b in range(3)] for a in range(3)]
+for L in range(4):
+    for word in iprod31(range(3), repeat=L):
+        X1, X2 = diag31, diag31
+        for j in word:
+            X1 = Phi31(j, Cfam31[j], X1)
+            X2 = Phi31(j, Cdeph31[j], X2)
+        ok31 &= X1 == X2                                    # plain word combs agree
+for word in iprod31(range(3), repeat=2):
+    for traj in iprod31(range(3), repeat=2):
+        X1, X2 = diag31, diag31
+        for j, i in zip(word, traj):
+            X1 = branch29(i, Phi31(j, Cfam31[j], X1))
+            X2 = branch29(i, Phi31(j, Cdeph31[j], X2))
+        ok31 &= X1 == X2                                    # branch-interleaved too
+ok31 &= Phi31(1, Cdeph31[1], Phi31(2, Cdeph31[2], E29(0, 1))) \
+    == [[CZ17] * 3 for _ in range(3)]                       # functoriality FAILS
+ok31 &= not (Phi31(1, Cdeph31[1], Phi31(2, Cdeph31[2], E29(0, 1))) == E29(0, 1))
+check("F31", ok31,
+      "COHERENT FUNCTORIALITY: THE PROJECTIVE ACTION AND THE H-FUNCTOR BOUNDARY "
+      "(phase three, round eighteen; kernel: unimodular_ne_zero, "
+      "correlationExtension_matrix_eq, functoriality_forces_rankOne, "
+      "functoriality_schur_law, coherentFunctoriality_iff_projectiveMonomial, "
+      "monomial_entry, functorial_projective_unitaries, functorial_cocycle, "
+      "groupFamily_comb_blind in OIBridge/ProjectiveAction.lean). On the C3 rotation "
+      "action, the projective phase family (exact Gaussian-rational phases, "
+      "multiplier omega(1,1) = (3+4i)/5 genuinely nontrivial) satisfies coherent "
+      "functoriality EXACTLY: the multiplier is s-independent and unimodular for all "
+      "9 pairs, the channels compose strictly on all matrix units, the monomial "
+      "unitaries are exactly unitary and multiply projectively U_g U_h = omega(g,h) "
+      "U_{g+h}, and omega passes all 27 cocycle identities -- the kernel capstone "
+      "coherentFunctoriality_iff_projectiveMonomial instantiated, and the Weyl-lift "
+      "probe's projective-binding observation (L1: H(u)H(v) = +-H(u+v)) replaced by "
+      "the exact classification. THE BOUNDARY: the dephasing family (C_e = all-ones, "
+      "C_g = C_g2 = I) realizes the same classical action with Phi_e = id, produces "
+      "IDENTICAL comb statistics on every group word up to length 3 and every "
+      "branch-interleaved trajectory, yet Phi_g o Phi_g2 kills E_01 while the "
+      "identity preserves it: complete classical comb data do not imply coherent "
+      "functoriality. BOXED: bare OI => controlled-minimal classical core + the "
+      "correlation-matrix coherent extensions; + H-functor (a NAMED BRIDGE -- two "
+      "intervention words realizing the same reversible transformation must act "
+      "identically on the completed coherent state space) => the projective monomial "
+      "unitary action. Unitarity is not postulated: it follows. Full operational QM "
+      "is not presently a theorem of bare OI; the quantum branch is selected by "
+      "exactly this coherent composition principle -- the precise boundary the "
+      "programme set out to locate.")
+
+# ----------------------- F32  the dynamical control Lie algebra: separation from the
+# accessible algebra, and the one-control jump to u(2) (phase three, round 19).
+# The unitary-controllability CLASSIFICATION on Alex's exact 2x2 carrier:
+# H = V diag(0,1) V^T with V the 3-4-5 rotation.  (a) with NO nontrivial controls the
+# dynamical Lie algebra is the line R(-iH) -- real rank 1, a PROPER subalgebra of the
+# 4-dimensional u(2); (b) on the SAME carrier the accessible *-algebra generated by
+# the readout E_00 and the Hamiltonian is ALL of M_2(C) (nondegenerate gap {0,1},
+# every eigenvector overlap nonzero -- the native_menu_generates hypotheses): algebra
+# generation and dynamical controllability are DIFFERENT notions, exactly separated;
+# (c) adding the single classical swap control X jumps the bracket closure of
+# {-iH, -iXHX} to real rank 4 = dim u(2), with traceless part of rank 3 = dim su(2):
+# the boxed criterion L_0 = su(D) holds and universal unitary control up to phase
+# follows through the (recorded, analytic) Lie-closure bridge; (d) projective
+# invariance and gauge covariance verified exactly; (e) the finite algebraic core of
+# the conjugated-flow identity U e^{-itH} U^dag = e^{-it UHU^dag}: term-by-term
+# power conjugation U H^n U^dag = (U H U^dag)^n.
+ok32 = True
+V32 = [[C17(Frac(3, 5)), C17(Frac(-4, 5))], [C17(Frac(4, 5)), C17(Frac(3, 5))]]
+H32 = mmc17(mmc17(V32, [[CZ17, CZ17], [CZ17, CO17]]), dag17(V32))
+ok32 &= H32 == [[C17(Frac(16, 25)), C17(Frac(-12, 25))],
+                [C17(Frac(-12, 25)), C17(Frac(9, 25))]]
+mi32 = C17(0, -1)
+def smul32(c, M):
+    return [[c * M[r][s] for s in range(2)] for r in range(2)]
+
+def msub32(A, B):
+    return [[A[r][s] - B[r][s] for s in range(2)] for r in range(2)]
+
+def brk32(A, B):
+    return msub32(mmc17(A, B), mmc17(B, A))
+
+def vec32(M):
+    out = []
+    for r in range(2):
+        for s in range(2):
+            out += [M[r][s].re, M[r][s].im]
+    return out
+
+def rankR32(mats):
+    rows = [vec32(M) for M in mats if any(not x.z() for r in M for x in r)]
+    rk, piv = 0, 0
+    while piv < 8 and rk < len(rows):
+        sel = next((i for i in range(rk, len(rows)) if rows[i][piv] != 0), None)
+        if sel is None:
+            piv += 1
+            continue
+        rows[rk], rows[sel] = rows[sel], rows[rk]
+        iv = rows[rk][piv]
+        rows[rk] = [x / iv for x in rows[rk]]
+        for i in range(len(rows)):
+            if i != rk and rows[i][piv] != 0:
+                f = rows[i][piv]
+                rows[i] = [a - f * b for a, b in zip(rows[i], rows[rk])]
+        rk += 1
+        piv += 1
+    return rk
+
+def lieClose32(gens):
+    basis = []
+    for M in gens:
+        if rankR32(basis + [M]) > rankR32(basis):
+            basis.append(M)
+    while True:
+        grew = False
+        for i in range(len(basis)):
+            for j in range(i + 1, len(basis)):
+                B = brk32(basis[i], basis[j])
+                if rankR32(basis + [B]) > rankR32(basis):
+                    basis.append(B)
+                    grew = True
+        if not grew:
+            return rankR32(basis), basis
+
+A1_32 = smul32(mi32, H32)
+# (a) no controls: the line R(-iH)
+r0, _ = lieClose32([A1_32])
+ok32 &= r0 == 1
+# (b) the accessible *-algebra on the same carrier is full M_2: associative closure
+# of {I, H, E00} under multiplication and dagger has complex rank 4
+ok32 &= all(not V32[r][s].z() for r in range(2) for s in range(2))  # overlaps
+E00_32 = [[CO17, CZ17], [CZ17, CZ17]]
+def cvec32(M):
+    return [M[0][0], M[0][1], M[1][0], M[1][1]]
+
+alg32 = [eye17(2), H32, E00_32]
+while True:
+    grew = False
+    cur = rank17([cvec32(M) for M in alg32])
+    cand = [mmc17(A, B) for A in alg32 for B in alg32] + [dag17(A) for A in alg32]
+    for M in cand:
+        if rank17([cvec32(N) for N in alg32] + [cvec32(M)]) > cur:
+            alg32.append(M)
+            cur += 1
+            grew = True
+    if not grew:
+        break
+ok32 &= rank17([cvec32(M) for M in alg32]) == 4          # full M_2(C)
+# THE SEPARATION on one carrier: algebra rank 4 (full), Lie rank 1 (a line)
+# (c) one classical control: the swap
+X32 = [[CZ17, CO17], [CO17, CZ17]]
+A2_32 = smul32(mi32, mmc17(mmc17(X32, H32), X32))
+rfull, basis32 = lieClose32([A1_32, A2_32])
+ok32 &= rfull == 4                                       # L = u(2)
+half32 = C17(Frac(1, 2))
+def traceless32(M):
+    tr = M[0][0] + M[1][1]
+    return msub32(M, [[half32 * tr, CZ17], [CZ17, half32 * tr]])
+
+ok32 &= rankR32([traceless32(M) for M in basis32]) == 3  # L_0 = su(2)
+# (d) projective invariance and gauge covariance, exactly
+lam32 = C17(Frac(3, 5), Frac(4, 5))
+lamX = smul32(lam32, X32)
+ok32 &= mmc17(mmc17(lamX, H32), dag17(lamX)) == mmc17(mmc17(X32, H32), dag17(X32))
+W32 = mmc17(V32, [[CO17, CZ17], [CZ17, lam32]])          # a rational unitary gauge
+ok32 &= mmc17(W32, dag17(W32)) == eye17(2)
+gaugegens = [mmc17(mmc17(W32, A), dag17(W32)) for A in (A1_32, A2_32)]
+rgauge, _ = lieClose32(gaugegens)
+ok32 &= rgauge == 4                                      # rank is gauge-invariant
+# (e) the finite core of the conjugated-flow identity: power-by-power conjugation
+Hpow, XHXpow = H32, mmc17(mmc17(X32, H32), X32)
+for _ in range(3):
+    Hpow = mmc17(Hpow, H32)
+    XHXpow = mmc17(XHXpow, mmc17(mmc17(X32, H32), X32))
+    ok32 &= mmc17(mmc17(X32, Hpow), X32) == XHXpow
+check("F32", ok32,
+      "THE DYNAMICAL CONTROL LIE ALGEBRA (phase three, round nineteen; kernel: "
+      "phase_conj_invariant, controlGenerators_phase_invariant, "
+      "controlLie_phase_invariant, conj_conj_collapse, controlLie_gauge_mem, "
+      "controlLie_gauge_mem_iff, controlLie_le_skewHerm, "
+      "unitary_inv_eq_conjTranspose, unitary_exp_conj, conjugated_flow, "
+      "controlLie_trivial in OIBridge/ControlLie.lean). The unitary-controllability "
+      "classification on the exact 2x2 carrier H = V diag(0,1) V^T (V the 3-4-5 "
+      "rotation): (a) with no nontrivial controls the bracket closure of {-iH} has "
+      "real rank 1 -- the line R(-iH), kernel theorem controlLie_trivial -- a PROPER "
+      "subalgebra of the 4-dimensional u(2); (b) on the SAME carrier the accessible "
+      "*-algebra generated by the readout E_00 and the Hamiltonian closes to full "
+      "M_2(C) (complex rank 4; nondegenerate gap {0,1} and all eigenvector overlaps "
+      "nonzero, the native_menu_generates hypotheses): the MANDATORY SEPARATION -- "
+      "algebra generation and dynamical controllability are different notions, and "
+      "the accessible-algebra theorem must never be read as a controllability "
+      "theorem; (c) adding the single classical swap control X jumps the closure of "
+      "{-iH, -iXHX} to real rank 4 = dim u(2), with traceless projections of rank "
+      "3 = dim su(2): the boxed criterion L_0 = su(D) holds exactly, and universal "
+      "unitary control up to phase follows through the recorded analytic Lie-closure "
+      "bridge Lie(K^0) = L(H,U) -- kept at probe level, not claimed in the kernel; "
+      "(d) the projective phase freedom moves nothing (lam*X conjugates H "
+      "identically to X, kernel phase_conj_invariant / controlLie_phase_invariant) "
+      "and a rational unitary gauge W leaves the closure rank at 4 "
+      "(controlLie_gauge_mem_iff); (e) the finite algebraic core of the "
+      "conjugated-flow identity U e^{-itH} U^dag = e^{-it UHU^dag} verified "
+      "power-by-power (kernel unitary_exp_conj / conjugated_flow via the matrix "
+      "exponential). THE CHAIN: bare OI => classical core + correlation extensions; "
+      "+ H-functor => projective monomial quantum controls; + L_0 = su(D) => "
+      "universal unitary control up to phase; and only then the remaining "
+      "purification/composite/instrument bridge. The theorem is conditional on the "
+      "selected H-functor completion with gauge-equivalent lifts identified: the "
+      "classical permutation action alone does not determine L.")
+
+# ----------------------- F33  the operational-dilation boundary: instrument dilation
+# and the two load-bearing bridges (phase three, round 20).  (a) the Stinespring
+# dilation of an exact 2-outcome qubit instrument -- an amplitude-damping-style Kraus
+# pair with K0^dag K0 + K1^dag K1 = I -- gives an isometry V^dag V = I, its ancilla
+# blocks read back the Kraus post-states K_k rho K_k^dag, and the coarse-grained
+# channel is CP; (b) H-PURE-SEED countercontrol: a maximally-mixed-environment
+# channel is UNITAL (Phi(I) = I), while the reset channel rho -> |0><0| Tr(rho) is
+# NOT unital, so the uniform hidden state cannot realize state preparation;
+# (c) H-TENSOR countercontrol: a nonfactorizable-phase monomial unitary on A x B
+# (swap on A, identity on B, phases 1,i,1,-i) is exactly unitary with U^2 = I and
+# realizes a purely local classical permutation, yet is NOT of the form U_A tensor
+# I_B -- H-functor and classical locality hold, tensor locality fails; (d) local
+# tomography: the local matrix-unit effects read off every composite entry.
+ok33 = True
+# (a) qubit instrument dilation.  Amplitude-damping Kraus pair (p = 9/25):
+p33 = Frac(9, 25)
+sp, sq = C17(Frac(4, 5)), C17(Frac(3, 5))                  # sqrt(1-p)=4/5, sqrt(p)=3/5
+K0 = [[CO17, CZ17], [CZ17, sp]]
+K1 = [[CZ17, sq], [CZ17, CZ17]]
+Klist = [K0, K1]
+# completeness: sum K_k^dag K_k = I
+comp = [[CZ17, CZ17], [CZ17, CZ17]]
+for K in Klist:
+    KdK = mmc17(dag17(K), K)
+    comp = [[comp[r][c] + KdK[r][c] for c in range(2)] for r in range(2)]
+ok33 &= comp == eye17(2)
+# V : (k, s') -> s, indexed rows (k,s') = 2k + s', cols s.  V^dag V = I
+V33 = [[Klist[kk][sp2][s] for s in range(2)] for kk in range(2) for sp2 in range(2)]
+VdV = mmc17(dag17(V33), V33)
+ok33 &= VdV == eye17(2)
+# branch: sysBlock(V rho V^dag, k) = K_k rho K_k^dag on a generic state
+rho33 = [[C17(Frac(1, 2)), C17(Frac(1, 5), Frac(1, 10))],
+         [C17(Frac(1, 5), Frac(-1, 10)), C17(Frac(1, 2))]]
+VrV = mmc17(mmc17(V33, rho33), dag17(V33))
+for kk in range(2):
+    block = [[VrV[2 * kk + r][2 * kk + c] for c in range(2)] for r in range(2)]
+    ok33 &= block == mmc17(mmc17(Klist[kk], rho33), dag17(Klist[kk]))
+# coarse-grain (single outcome each here): the channel is trace-preserving on rho
+chan = [[CZ17, CZ17], [CZ17, CZ17]]
+for kk in range(2):
+    KrK = mmc17(mmc17(Klist[kk], rho33), dag17(Klist[kk]))
+    chan = [[chan[r][c] + KrK[r][c] for c in range(2)] for r in range(2)]
+ok33 &= (chan[0][0] + chan[1][1]) == (rho33[0][0] + rho33[1][1])   # Tr preserved
+# (b) H-pure-seed: unital uniform environment vs non-unital reset
+# uniform-env channel Phi(X) = Tr_E[U (X tensor I/m) U^dag]; at X = I this is I for
+# ANY unitary U (probe the identity interaction U = I on a 2-dim environment)
+m33 = 2
+Uenv = eye17(4)                                            # trivial interaction
+Iin = [[(CO17 if r == c else CZ17)
+        for c in range(4)] for r in range(4)]              # 1 tensor 1 (before /m)
+big = mmc17(mmc17(Uenv, Iin), dag17(Uenv))
+PhiI = [[sum((big[2 * r + e][2 * c + e] for e in range(m33)), CZ17)
+         for c in range(2)] for r in range(2)]
+PhiI = [[C17(Frac(1, m33)) * PhiI[r][c] for c in range(2)] for r in range(2)]
+ok33 &= PhiI == eye17(2)                                   # UNITAL
+# reset channel at I: |0><0| Tr(I) = 2|0><0| != I
+resetI = [[C17(2) if (r, c) == (0, 0) else CZ17 for c in range(2)] for r in range(2)]
+ok33 &= not (resetI == eye17(2))                           # NOT unital
+# (c) H-tensor: nonfactorizable-phase monomial unitary, basis (a,b) -> idx 2a+b
+Ci, Cmi = C17(0, 1), C17(0, -1)
+# columns: (0,0)->(1,0) phase 1; (0,1)->(1,1) phase i; (1,0)->(0,0) phase 1;
+# (1,1)->(0,1) phase -i
+Utens = [[CZ17, CZ17, CO17, CZ17],
+         [CZ17, CZ17, CZ17, Cmi],
+         [CO17, CZ17, CZ17, CZ17],
+         [CZ17, Ci, CZ17, CZ17]]
+ok33 &= mmc17(Utens, dag17(Utens)) == eye17(4)             # exactly unitary
+ok33 &= mmc17(Utens, Utens) == eye17(4)                    # U^2 = I: C2 functorial
+# classical locality: the support permutation is swap-on-A, identity-on-B
+supp = {}
+for c in range(4):
+    r = next(r for r in range(4) if not Utens[r][c].z())
+    supp[c] = r
+ok33 &= supp == {0: 2, 1: 3, 2: 0, 3: 1}                   # (a,b)->(1-a,b)
+# tensor locality FAILS: U = M tensor I_B would force M[1][0] = phase in BOTH b
+# sectors, but b=0 gives U[2][0] = 1 and b=1 gives U[3][1] = i, unequal
+ok33 &= Utens[2][0] == CO17 and Utens[3][1] == Ci
+ok33 &= not (Utens[2][0] == Utens[3][1])                   # nonfactorizable
+# a genuine M tensor I would satisfy this equality (kernel tensorProduct_entry):
+Mloc = [[C17(Frac(3, 5)), C17(Frac(-4, 5))],
+        [C17(Frac(4, 5)), C17(Frac(3, 5))]]
+kronMI = [[Mloc[r // 2][c // 2] * (CO17 if r % 2 == c % 2 else CZ17)
+           for c in range(4)] for r in range(4)]
+ok33 &= kronMI[2][0] == kronMI[3][1]                       # factorizes: M[1][0]
+# (d) local tomography: local matrix-unit effects read off entries
+def loceff(a, ap, b, bp):
+    return [[(CO17 if (r // 2 == a and c // 2 == ap) else CZ17)
+             * (CO17 if (r % 2 == b and c % 2 == bp) else CZ17)
+             for c in range(4)] for r in range(4)]
+
+X33 = [[C17(r + 1, c) for c in range(4)] for r in range(4)]
+for a in range(2):
+    for ap in range(2):
+        for b in range(2):
+            for bp in range(2):
+                tr = sum((mmc17(loceff(a, ap, b, bp), X33)[i][i]
+                          for i in range(4)), CZ17)
+                ok33 &= tr == X33[2 * ap + bp][2 * a + b]
+check("F33", ok33,
+      "THE OPERATIONAL-DILATION BOUNDARY (phase three, round twenty; kernel: "
+      "krausInstrument_isometry, dilation_sysBlock, instrument_coarsegrain, "
+      "seeded_prep_eq, finiteInstrument_of_ancillaControl, uniform_input_scalar, "
+      "uniformEnvChannel_unital, resetChannel_not_unital, uniformHiddenState_not_full, "
+      "tensorProduct_entry, localEffect_trace, local_tomography_physical in "
+      "OIBridge/InstrumentDilation.lean). (a) the Stinespring dilation of an exact "
+      "amplitude-damping qubit instrument (p = 9/25) gives an isometry V^dag V = I "
+      "whose ancilla blocks read back the Kraus post-states K_k rho K_k^dag exactly, "
+      "and the coarse-grained channel is trace-preserving -- the whole finite "
+      "instrument reduced to seed + unitary + basis readout; (b) H-PURE-SEED is "
+      "load-bearing: a maximally-mixed-environment channel is UNITAL (Phi(I) = I for "
+      "any interaction), the reset channel rho -> |0><0| Tr(rho) reads 2|0><0| at I "
+      "and is NOT unital, so the existing uniform hidden state cannot supply state "
+      "preparation and H-pure-seed cannot be identified with the hidden-sector prior; "
+      "(c) H-TENSOR is load-bearing: the nonfactorizable-phase monomial unitary "
+      "(swap on A, identity on B, phases 1, i, 1, -i) is exactly unitary with "
+      "U^2 = I (so H-functor holds for its C2) and realizes the purely local "
+      "classical permutation (a,b) -> (1-a,b), yet is NOT U_A tensor I_B -- the b=0 "
+      "and b=1 sectors would force M[1][0] = 1 and M[1][0] = i, unequal, while a "
+      "genuine M tensor I factorizes (kernel tensorProduct_entry): H-functor and "
+      "classical locality green, tensor locality RED; (d) local tomography -- the "
+      "local matrix-unit effects read off every composite entry, so equal "
+      "local-product probabilities force equal composite states. BOXED CHAIN: bare "
+      "OI => classical core + correlation extensions; + H-functor => projective "
+      "monomial coherent dynamics; + L_0 = su(D) => universal unitary control; "
+      "+ H-tensor + H-pure-seed => the full finite quantum instrument algebra. "
+      "Purification (Schmidt/Uhlmann) and local tomography are the theorem targets "
+      "immediately behind the dilation reduction; the remaining OI/QM question is "
+      "exactly whether OI earns H-functor, H-tensor, H-pure-seed and sufficient "
+      "composite Lie rank, or whether those are independent completion principles.")
+
+# ----------------------- F34  round-twenty repairs, the H-pure-seed collapse, and
+# purification (phase three, round 21).  (a) THE ACTUAL uniform-environment channel
+# Phi_U(rho) = Tr_E[U(rho tensor I/m)U^dag] on a genuine rho != I: nonconstant, and
+# unital at rho = I; (b) physical single-system tomography reconstructs an off-diagonal
+# entry from the +/- and +/-i projector expectations; (c) H-PURE-SEED COLLAPSES:
+# branch_project P_k rho P_k = rho_kk P_k, mixed_branch_is_pure, and readout +
+# feed-forward on the uniform ancilla derives |s0><s0| -- the pure seed the round-20
+# countercontrol showed the uniform environment ALONE could not supply; (d)
+# purification: Tr_E|Psi_A><Psi_A| = A A^dag exactly, and purifier uniqueness
+# A A^dag = B B^dag with B = A U verified on a rotation.
+ok34 = True
+m34 = 2
+U34 = [[CO17, CZ17, CZ17, CZ17],
+       [CZ17, CO17, CZ17, CZ17],
+       [CZ17, CZ17, CZ17, CO17],
+       [CZ17, CZ17, CO17, CZ17]]                          # entangling (CNOT-like)
+ok34 &= mmc17(U34, dag17(U34)) == eye17(4)
+inv_m = C17(Frac(1, 2))
+def uinput34(rho):                                        # rho tensor (I/m), (k,s)=2k+s
+    return [[(inv_m if (r // 2) == (c // 2) else CZ17) * rho[r % 2][c % 2]
+             for c in range(4)] for r in range(4)]
+def ptraceE34(M):
+    return [[sum((M[2 * e + s][2 * e + t] for e in range(m34)), CZ17)
+             for t in range(2)] for s in range(2)]
+def PhiU34(rho):
+    return ptraceE34(mmc17(mmc17(U34, uinput34(rho)), dag17(U34)))
+ok34 &= PhiU34(eye17(2)) == eye17(2)                      # unital at rho = I
+plus_dyad = [[C17(Frac(1, 2)), C17(Frac(1, 2))],
+             [C17(Frac(1, 2)), C17(Frac(1, 2))]]          # |+><+|
+ok34 &= PhiU34([[CO17, CZ17], [CZ17, CZ17]]) != PhiU34(plus_dyad)  # rho-dependent
+# (b) physical tomography: reconstruct an off-diagonal from projector expectations
+rho_t = [[C17(Frac(1, 2)), C17(Frac(1, 5), Frac(3, 10))],
+         [C17(Frac(1, 5), Frac(-3, 10)), C17(Frac(1, 2))]]
+def expect(v, M):
+    return sum((v[i].conj() * M[i][j] * v[j] for i in range(len(v))
+                for j in range(len(v))), CZ17)
+re_off = expect([CO17, CO17], rho_t) - rho_t[0][0] - rho_t[1][1]   # rho01 + rho10
+im_comb = expect([CO17, C17(0, 1)], rho_t) - rho_t[0][0] - rho_t[1][1]  # i(rho01-rho10)
+recon01 = C17(Frac(1, 2)) * (re_off + C17(0, -1) * im_comb)
+ok34 &= recon01 == rho_t[0][1]                            # off-diagonal recovered
+# (c) H-pure-seed collapse on a 3-dim ancilla
+def proj3(k):
+    return [[CO17 if (r == k and c == k) else CZ17 for c in range(3)] for r in range(3)]
+rho3 = [[C17(Frac(1, 2)), C17(Frac(1, 10)), CZ17],
+        [C17(Frac(1, 10)), C17(Frac(1, 3)), CZ17],
+        [CZ17, CZ17, C17(Frac(1, 6))]]
+for k in range(3):                                        # branch_project
+    ok34 &= mmc17(mmc17(proj3(k), rho3), proj3(k)) \
+        == [[rho3[k][k] if (r == k and c == k) else CZ17 for c in range(3)]
+            for r in range(3)]
+Im3 = [[C17(Frac(1, 3)) if r == c else CZ17 for c in range(3)] for r in range(3)]
+ok34 &= mmc17(mmc17(proj3(0), Im3), proj3(0)) \
+    == [[C17(Frac(1, 3)) if (r == 0 and c == 0) else CZ17 for c in range(3)]
+        for r in range(3)]                                # mixed_branch_is_pure
+def swap0(k):
+    P = [[CZ17] * 3 for _ in range(3)]
+    perm = list(range(3)); perm[0], perm[k] = perm[k], perm[0]
+    for r in range(3):
+        P[r][perm[r]] = CO17
+    return P
+for k in range(3):
+    ok34 &= mmc17(mmc17(swap0(k), proj3(k)), dag17(swap0(k))) == proj3(0)  # |k>->|0>
+seed = [[CZ17] * 3 for _ in range(3)]
+for k in range(3):
+    branch = mmc17(mmc17(proj3(k), Im3), proj3(k))
+    ff = mmc17(mmc17(swap0(k), branch), dag17(swap0(k)))
+    seed = [[seed[r][c] + ff[r][c] for c in range(3)] for r in range(3)]
+ok34 &= seed == proj3(0)                                  # DERIVED pure seed |0><0|
+# (d) purification: Tr_E |Psi_A><Psi_A| = A A^dag
+A34 = [[C17(Frac(1, 2)), C17(0, Frac(1, 2))],
+       [C17(Frac(1, 3)), C17(Frac(1, 4))]]
+psi = [A34[p // 2][p % 2] for p in range(4)]
+dens = [[psi[p] * psi[q].conj() for q in range(4)] for p in range(4)]
+ptr = [[sum((dens[2 * s + e][2 * t + e] for e in range(2)), CZ17)
+        for t in range(2)] for s in range(2)]
+ok34 &= ptr == mmc17(A34, dag17(A34))                     # purifies A A^dag
+Urot = [[C17(Frac(3, 5)), C17(Frac(-4, 5))], [C17(Frac(4, 5)), C17(Frac(3, 5))]]
+ok34 &= mmc17(Urot, dag17(Urot)) == eye17(2)
+B34 = mmc17(A34, Urot)
+ok34 &= mmc17(B34, dag17(B34)) == mmc17(A34, dag17(A34))  # Uhlmann: same reduced state
+check("F34", ok34,
+      "ROUND-TWENTY REPAIRS, H-PURE-SEED COLLAPSE, AND PURIFICATION (phase three, "
+      "round twenty-one; kernel: uniformInput, uniformEnvChannel, uniformInput_one, "
+      "uniformEnvChannel_unital, uniformHiddenState_not_full, "
+      "productMatrixUnit_separating, tomography_physical, local_tomography_physical, "
+      "rankOneProj, branch_project, mixed_branch_is_pure, trace_eq_sum_diag, "
+      "readout_feedforward_reset, uniform_readout_feedforward_seed, luders_selector_cp, "
+      "purifVec, ptraceB, purification_partialTrace, purification_of_factorization in "
+      "OIBridge/InstrumentDilation.lean and OIBridge/Purification.lean). (a) THE "
+      "REPAIRED CHANNEL: Phi_U(rho) = Tr_E[U(rho tensor I/m)U^dag] is now the actual "
+      "channel on a genuine rho (population-dependent, verified rho-dependent), unital "
+      "at rho = I -- uniformHiddenState_not_full quantifies over THIS channel, not the "
+      "scalar form. (b) PHYSICAL TOMOGRAPHY: an off-diagonal entry is reconstructed "
+      "exactly from the |a+a'> and |a+ia'> rank-one projector expectations (genuine "
+      "physical effects), repairing the matrix-unit overclaim -- the old "
+      "functional-separation result is retained honestly as "
+      "productMatrixUnit_separating. (c) H-PURE-SEED COLLAPSES: branch_project gives "
+      "the Luders update P_k rho P_k = rho_kk P_k, mixed_branch_is_pure gives "
+      "P_k (I/m) P_k = (1/m) P_k, and readout + reversible feed-forward on the uniform "
+      "3-ancilla derives |0><0| EXACTLY -- the pure seed the round-20 countercontrol "
+      "proved the uniform environment ALONE could not supply. So H-pure-seed is NOT "
+      "an independent bridge, PROVIDED the rank-one Luders readout (luders_selector_cp) "
+      "is itself OI-licensed -- the remaining epistemic guard. (d) PURIFICATION: "
+      "Tr_E|Psi_A><Psi_A| = A A^dag exactly, and B = A U shares the reduced state "
+      "(Uhlmann uniqueness, the standard finite theorem). BOXED REDUCTION: if the "
+      "Luders branch update is OI-licensed, the four named endpoint conditions become "
+      "THREE -- H-functor, H-tensor, and sufficient composite Lie rank.")
+
+# ----------------------- F35  the selector-completion round: rank-one uniqueness and
+# the coarse-fibre correlation family (phase three, round 22).  (a) RANK-ONE: the CP
+# map P_k X P_k is the UNIQUE CP extension of the rank-one classical selector
+# Phi(E_ss) = delta_sk E_kk -- its Choi matrix is the single entry at ((k,k),(k,k)),
+# PSD, and no other CP map has that Choi diagonal; (b) MONOMIAL-LUDERS COMPATIBILITY:
+# on a diagonal classical state the fixed-basis Luders readout after a monomial lift
+# U_g = D P_g is the phase-free classical branch w(g^-1 k) P_k, independent of the
+# phases D; (c) COARSE FIBRE: on a rank-two fibre F = {0,1} the Luders map (C = all
+# ones) and complete within-block dephasing (C = I) are DIFFERENT CP selectors that
+# agree on every classical branch probability yet differ on E_01 -- the surviving
+# freedom is a correlation matrix inside the block; (d) RANK-ONE COLLAPSE: on the
+# rank-one fibre {0} the block is 1x1, C = [1] for both, and the family collapses to
+# the unique Luders member.
+ok35 = True
+def Est(s, t, n=3):
+    return [[CO17 if (r == s and c == t) else CZ17 for c in range(n)] for r in range(n)]
+# (a) rank-one selector uniqueness: Choi of P_k . P_k, k = 0
+k35 = 0
+def luders_map(k, X, n=3):
+    P = Est(k, k, n)
+    return mmc17(mmc17(P, X), P)
+# Choi matrix J[(s,a)][(t,b)] = Phi(E_st)[a][b], over 3x3 -> 9x9
+def choi(phi, n=3):
+    J = [[CZ17] * (n * n) for _ in range(n * n)]
+    for s in range(n):
+        for t in range(n):
+            PhiE = phi(Est(s, t, n))
+            for a in range(n):
+                for bb in range(n):
+                    J[n * s + a][n * t + bb] = PhiE[a][bb]
+    return J
+JL = choi(lambda X: luders_map(k35, X))
+# the Choi is the single entry at index (n*k + k) = 0
+exp = [[CO17 if (r == 0 and c == 0) else CZ17 for c in range(9)] for r in range(9)]
+ok35 &= JL == exp
+# PSD (Hermitian, and it is a rank-one projector |e><e|): J = v v^H with v = e_0
+vJ = [CO17 if r == 0 else CZ17 for r in range(9)]
+ok35 &= JL == [[vJ[r] * vJ[c].conj() for c in range(9)] for r in range(9)]
+# rank-one selector condition holds
+ok35 &= all(luders_map(k35, Est(s, s)) == (Est(k35, k35) if s == k35
+            else [[CZ17] * 3 for _ in range(3)]) for s in range(3))
+# (b) monomial-Luders: phases vanish on a diagonal classical state
+g35 = [1, 2, 0]                                           # 3-cycle
+gi35 = [2, 0, 1]
+d35 = [CO17, C17(Frac(3, 5), Frac(4, 5)), C17(Frac(3, 5), Frac(-4, 5))]
+ok35 &= all((d35[s] * d35[s].conj()) == CO17 for s in range(3))
+P35 = [[CO17 if g35[c] == r else CZ17 for c in range(3)] for r in range(3)]
+D35 = [[d35[r] if r == c else CZ17 for c in range(3)] for r in range(3)]
+U35 = mmc17(D35, P35)
+w35 = [C17(Frac(1, 2)), C17(Frac(1, 3)), C17(Frac(1, 6))]
+diagw = [[w35[r] if r == c else CZ17 for c in range(3)] for r in range(3)]
+for k in range(3):
+    lhs = luders_map(k, mmc17(mmc17(U35, diagw), dag17(U35)))
+    rhs = [[w35[gi35[k]] if (r == k and c == k) else CZ17 for c in range(3)]
+           for r in range(3)]
+    ok35 &= lhs == rhs                                    # phase-free classical branch
+# a phase-FREE lift (D = I) gives the same branch -> phases irrelevant
+U35_nophase = P35
+for k in range(3):
+    ok35 &= luders_map(k, mmc17(mmc17(U35, diagw), dag17(U35))) \
+        == luders_map(k, mmc17(mmc17(U35_nophase, diagw), dag17(U35_nophase)))
+# (c) coarse rank-two fibre F = {0,1}: Luders vs dephasing
+PF = [[CO17 if (r == c and r in (0, 1)) else CZ17 for c in range(3)] for r in range(3)]
+def luders_F(X):
+    return mmc17(mmc17(PF, X), PF)
+def dephase_F(X):
+    out = [[CZ17] * 3 for _ in range(3)]
+    for i in (0, 1):
+        Pi = Est(i, i)
+        term = mmc17(mmc17(Pi, X), Pi)
+        out = [[out[r][c] + term[r][c] for c in range(3)] for r in range(3)]
+    return out
+# both are classical selectors: Phi(E_ss) = E_ss for s in F, 0 for s notin F
+for s in range(3):
+    tgt = Est(s, s) if s in (0, 1) else [[CZ17] * 3 for _ in range(3)]
+    ok35 &= luders_F(Est(s, s)) == tgt and dephase_F(Est(s, s)) == tgt
+# agree on every diagonal (classical) state
+for w in [[C17(Frac(1, 2)), C17(Frac(1, 3)), C17(Frac(1, 6))],
+          [C17(1), CZ17, CZ17], [CZ17, C17(1), CZ17]]:
+    dw = [[w[r] if r == c else CZ17 for c in range(3)] for r in range(3)]
+    ok35 &= luders_F(dw) == dephase_F(dw)
+# but DIFFER on the coherence E_01
+ok35 &= luders_F(Est(0, 1)) == Est(0, 1)                  # Luders: C = all-ones, survives
+ok35 &= dephase_F(Est(0, 1)) == [[CZ17] * 3 for _ in range(3)]  # dephasing: C = I, killed
+ok35 &= luders_F(Est(0, 1)) != dephase_F(Est(0, 1))
+# (d) rank-one collapse: fibre {0}
+P0 = Est(0, 0)
+def luders_1(X):
+    return mmc17(mmc17(P0, X), P0)
+def dephase_1(X):
+    return mmc17(mmc17(P0, X), P0)                        # single block -> identical
+ok35 &= all(luders_1(Est(s, t)) == dephase_1(Est(s, t))
+            for s in range(3) for t in range(3))          # family collapses to Luders
+check("F35", ok35,
+      "THE SELECTOR-COMPLETION ROUND: RANK-ONE UNIQUENESS AND THE COARSE FIBRE "
+      "(phase three, round twenty-two; kernel: ludersLift, ludersLift_apply, "
+      "RankOneSelector, ludersLift_selector, choi_ludersLift, ludersLift_cp, "
+      "cp_rankOneSelector_forces_luders, cp_rankOneSelector_iff_luders, "
+      "monomial_luders_classicalBranch in OIBridge/BranchSelector.lean). (a) RANK-ONE "
+      "UNIQUENESS: the Choi matrix of the Luders map P_k . P_k is the single entry at "
+      "((k,k),(k,k)) -- exactly the rank-one projector |e><e|, PSD -- so by the "
+      "round-17 PSD zero-diagonal lemma NO other CP map shares that Choi diagonal: the "
+      "capstone cp_rankOneSelector_iff_luders says a CP coherent completion of the "
+      "rank-one classical selector Phi(E_ss) = delta_sk E_kk has NO ALTERNATIVE to "
+      "Luders. The branch update is forced, not a new freedom. (b) "
+      "MONOMIAL-LUDERS COMPATIBILITY: on a diagonal classical state the fixed-basis "
+      "Luders readout after any H-functor monomial lift U_g = D P_g is the phase-free "
+      "classical branch w(g^-1 k) P_k, verified identical to the phase-free lift -- "
+      "H-functor's phases do not disturb the branch. (c) COARSE FIBRE: on the "
+      "rank-two fibre {0,1} the Luders map (correlation C = all-ones) and complete "
+      "within-block dephasing (C = I) are DIFFERENT CP selectors agreeing on every "
+      "classical branch probability yet differing on the coherence E_01 -- the "
+      "surviving freedom is exactly a correlation matrix inside the selected block; "
+      "(d) RANK-ONE COLLAPSE: on the fibre {0} the block is 1x1, C = [1] for both, and "
+      "the family collapses to the unique Luders member. THE CLOSED CHAIN: bare Q_fb "
+      "gives a CP rank-one branch extension; CP uniqueness makes it Luders; H-functor "
+      "monomial phases do not disturb it; H-tensor supplies the ancilla; round-21 "
+      "feed-forward produces the pure seed. So H-pure-seed disappears -- NOT replaced "
+      "by an H-readout assumption -- and the endpoint is genuinely three conditions: "
+      "H-functor, H-tensor, and sufficient composite Lie rank.")
+
+# ----------------------- F36  the OI independence census: one shared C1-C4 core carrying
+# three inequivalent coherent completions (phase three, round 23).  (a) THE SHARED CORE:
+# three bits (v,h,b), observer reads (v,b), sigma(v,h,b) = (h,v,b), tau(v,h,b) =
+# (v,h,b^1) -- reversible, commuting, C1 literal (the hidden bit drives the visible
+# future), C2 structural (v_{t+2} = v_t), and already observer-minimal (the two-step
+# visible itinerary separates all eight states); (b) THE COMB IDENTITY: all three
+# completions return identical branch statistics on EVERY word of passive steps,
+# tau-controls and rank-one readouts, equal to the bare classical comb; (c) NOT
+# H-FUNCTOR: the dephasing tau-member is CPTP and classically exact but Phi_tau^2 != id;
+# (d) NOT H-TENSOR: the phased lifts form a STRICT unitary rep of Z2 x Z2 (involutions
+# that commute -- no projective cocycle) whose tau-lift is not I_vh (x) M_b; (e) PROPER
+# LIE RANK: the phase-free lifts are tensor-local, every reachable control commutes with
+# H = pi P_- (x) I_b, so the control Lie algebra is a single real line inside su(8).
+ok36 = True
+N36 = 8
+
+
+def vhb36(i):
+    return (i >> 2, (i >> 1) & 1, i & 1)
+
+
+def idx36(v, h, b):
+    return (v << 2) | (h << 1) | b
+
+
+def vh36(i):
+    return i >> 1
+
+
+def b36(i):
+    return i & 1
+
+
+# --- (a) the shared swap-memory core
+sig36 = [idx36(h, v, b) for (v, h, b) in map(vhb36, range(N36))]
+tau36 = [idx36(v, h, 1 - b) for (v, h, b) in map(vhb36, range(N36))]
+vis36 = [(v, b) for (v, h, b) in map(vhb36, range(N36))]
+ok36 &= all(sig36[sig36[i]] == i for i in range(N36))        # reversible involutions
+ok36 &= all(tau36[tau36[i]] == i for i in range(N36))
+ok36 &= all(sig36[tau36[i]] == tau36[sig36[i]] for i in range(N36))   # commuting
+# C1: two states with the same visible readout separated after one passive step
+ok36 &= any(vis36[p] == vis36[q] and p != q and vis36[sig36[p]] != vis36[sig36[q]]
+            for p in range(N36) for q in range(N36))
+# C2: the visible stream carries a genuine one-bit memory, v_{t+2} = v_t
+ok36 &= all(vis36[sig36[sig36[i]]] == vis36[i] for i in range(N36))
+# observer-minimal: the two-step visible itinerary separates all eight states
+ok36 &= len({(vis36[i], vis36[sig36[i]]) for i in range(N36)}) == N36
+# C4 -- history readback: the present readout fixes neither past nor future.  Since the
+# passive step is an involution the predecessor coincides with the successor, so the
+# visible window (v_{t-1}, v_t, v_{t+1}) around state i is (h, v, h).
+def hist36(i):
+    return (sig36[i] >> 2, i >> 2, sig36[i] >> 2)
+
+
+ok36 &= any(vis36[p] == vis36[q] and p != q
+            and hist36(p) == (0, 0, 0) and hist36(q) == (1, 0, 1)
+            for p in range(N36) for q in range(N36))
+# C3 -- sufficient hidden memory capacity: every visible readout is carried by two states,
+# separated precisely by the hidden bit, with differing visible futures; the hidden Bool
+# has exactly two states, so the one-bit memory is EXACTLY saturated -- it carries the
+# full past-to-future distinction the visible stream can express, and nothing more
+ok36 &= len({(i >> 1) & 1 for i in range(N36)}) == 2
+for r36 in {vis36[i] for i in range(N36)}:
+    cls36 = [i for i in range(N36) if vis36[i] == r36]
+    ok36 &= (len(cls36) == 2 and len({(i >> 1) & 1 for i in cls36}) == 2
+             and vis36[sig36[cls36[0]]] != vis36[sig36[cls36[-1]]])
+
+# --- the three completions, as correlation matrices over the SAME classical actions
+
+
+def Est36(s, t):
+    return [[CO17 if (r == s and c == t) else CZ17 for c in range(N36)]
+            for r in range(N36)]
+
+
+def inv36(g):
+    gi = [0] * N36
+    for x in range(N36):
+        gi[g[x]] = x
+    return gi
+
+
+def corr36(g, C, X):
+    gi = inv36(g)
+    return [[C[gi[a]][gi[bb]] * X[gi[a]][gi[bb]] for bb in range(N36)]
+            for a in range(N36)]
+
+
+def luders36(k, X):
+    out = [[CZ17] * N36 for _ in range(N36)]
+    out[k][k] = X[k][k]
+    return out
+
+
+def rank1C36(d):
+    return [[d[r] * d[c].conj() for c in range(N36)] for r in range(N36)]
+
+
+allones36 = [[CO17] * N36 for _ in range(N36)]
+dephase36 = [[CO17 if r == c else CZ17 for c in range(N36)] for r in range(N36)]
+# the nonfactorizable phase: 1 on the v = h sector, +-i on v != h, sign set by b
+nl36 = [CO17 if v == h else (C17(0, -1) if b else C17(0, 1))
+        for (v, h, b) in map(vhb36, range(N36))]
+ok36 &= all((z * z.conj()) == CO17 for z in nl36)             # unimodular
+ok36 &= all(nl36[sig36[i]] == nl36[i] for i in range(N36))    # depends on v ^ h only
+compl36 = {'nonFunctorial': {'pass': allones36, 'ctrl': dephase36},
+           'nonTensor': {'pass': allones36, 'ctrl': rank1C36(nl36)},
+           'restricted': {'pass': allones36, 'ctrl': allones36}}
+# every member is a unit-diagonal correlation matrix, and the two coherent ones are
+# rank-one d d^H (hence PSD by construction); dephasing is the identity (PSD)
+for nm, tbl in compl36.items():
+    for gen, C in tbl.items():
+        ok36 &= all(C[s][s] == CO17 for s in range(N36))
+ok36 &= allones36 == rank1C36([CO17] * N36)
+ok36 &= dephase36 == eye17(N36)
+
+# --- (b) THE COMB IDENTITY: every word gives the bare classical comb, for all three
+perm36 = {'pass': sig36, 'ctrl': tau36}
+
+
+def run_state36(name, word, w):
+    X = [[w[r] if r == c else CZ17 for c in range(N36)] for r in range(N36)]
+    for s in word:
+        if s[0] == 'act':
+            X = corr36(perm36[s[1]], compl36[name][s[1]], X)
+        else:
+            X = luders36(s[1], X)
+    return X
+
+
+def run_weight36(word, w):
+    v = list(w)
+    for s in word:
+        if s[0] == 'act':
+            gi = inv36(perm36[s[1]])
+            v = [v[gi[a]] for a in range(N36)]
+        else:
+            k = s[1]
+            v = [v[k] if a == k else CZ17 for a in range(N36)]
+    return v
+
+
+w36 = [C17(Frac(1, 8)), C17(Frac(1, 4)), C17(Frac(1, 16)), C17(Frac(1, 16)),
+       C17(Frac(1, 8)), C17(Frac(1, 8)), C17(Frac(1, 8)), C17(Frac(1, 8))]
+steps36 = [('act', 'pass'), ('act', 'ctrl'), ('read', 0), ('read', 3)]
+for L in range(4):
+    for word in itertools.product(steps36, repeat=L):
+        ref = run_weight36(word, w36)
+        dref = [[ref[r] if r == c else CZ17 for c in range(N36)] for r in range(N36)]
+        for nm in compl36:
+            ok36 &= run_state36(nm, word, w36) == dref
+
+# --- (c) COUNTERMODEL 1: CPTP, classically exact, but not functorial
+for s in range(N36):                       # classically exact on every classical state
+    for nm in compl36:
+        gen = 'ctrl'
+        ok36 &= corr36(perm36[gen], compl36[nm][gen], Est36(s, s)) \
+            == Est36(tau36[s], tau36[s])
+E36 = Est36(0, 1)
+twice36 = corr36(tau36, dephase36, corr36(tau36, dephase36, E36))
+ok36 &= twice36 == [[CZ17] * N36 for _ in range(N36)]        # coherence killed twice over
+ok36 &= twice36 != E36                                       # so Phi_tau^2 != identity
+# the composed correlation is the Schur square of I, not the all-ones identity member
+comp36 = [[dephase36[s][t] * dephase36[tau36[s]][tau36[t]] for t in range(N36)]
+          for s in range(N36)]
+ok36 &= comp36 != allones36
+# the OTHER two completions DO compose to the identity on the same word
+for nm in ('nonTensor', 'restricted'):
+    C = compl36[nm]['ctrl']
+    ok36 &= corr36(tau36, C, corr36(tau36, C, E36)) == E36
+
+# --- (d) COUNTERMODEL 2: a strict unitary rep that is not tensor-local
+
+
+def monoU36(c, g):
+    return [[c[x] if g[x] == y else CZ17 for x in range(N36)] for y in range(N36)]
+
+
+one36 = [CO17] * N36
+Us36 = monoU36(one36, sig36)
+Ut36 = monoU36(nl36, tau36)
+Vt36 = monoU36(one36, tau36)
+I36 = eye17(N36)
+ok36 &= all(mmc17(U, dag17(U)) == I36 for U in (Us36, Ut36, Vt36))    # unitary
+ok36 &= mmc17(Us36, Us36) == I36 and mmc17(Ut36, Ut36) == I36        # STRICT involutions
+ok36 &= mmc17(Us36, Ut36) == mmc17(Ut36, Us36)                       # STRICT commutation
+# conjugation by the phased lift IS the rank-one member of the round-17 family
+for (s, t) in ((0, 1), (2, 5), (3, 3), (6, 1)):
+    ok36 &= mmc17(mmc17(Ut36, Est36(s, t)), dag17(Ut36)) \
+        == corr36(tau36, rank1C36(nl36), Est36(s, t))
+# NOT I_vh (x) M_b: one and the same M entry is demanded to be both 1 and i
+x1_36, x2_36 = idx36(0, 1, 0), idx36(0, 0, 0)
+y1_36, y2_36 = tau36[x1_36], tau36[x2_36]
+ok36 &= vh36(y1_36) == vh36(x1_36) and vh36(y2_36) == vh36(x2_36)
+ok36 &= (b36(y1_36), b36(x1_36)) == (b36(y2_36), b36(x2_36))   # same M entry demanded
+ok36 &= Ut36[y1_36][x1_36] == C17(0, 1) and Ut36[y2_36][x2_36] == CO17
+ok36 &= Ut36[y1_36][x1_36] != Ut36[y2_36][x2_36]               # so no such M exists
+
+# --- (e) COUNTERMODEL 3: tensor-local, functorial, proper control Lie rank
+Mb36 = [[CO17 if y != x else CZ17 for x in range(2)] for y in range(2)]      # the X gate
+ok36 &= all(Vt36[y][x] == ((CO17 if vh36(y) == vh36(x) else CZ17)
+                           * Mb36[b36(y)][b36(x)])
+            for y in range(N36) for x in range(N36))           # V_tau = I_vh (x) X_b
+
+
+def swp2_36(a):
+    return ((a & 1) << 1) | (a >> 1)
+
+
+Mvh36 = [[CO17 if y == swp2_36(x) else CZ17 for x in range(4)] for y in range(4)]
+ok36 &= all(Us36[y][x] == (Mvh36[vh36(y)][vh36(x)]
+                           * (CO17 if b36(y) == b36(x) else CZ17))
+            for y in range(N36) for x in range(N36))           # U_sigma = S (x) I_b
+half36 = C17(Frac(1, 2))
+Pm36 = [[half36 * ((CO17 if r == c else CZ17) - Us36[r][c]) for c in range(N36)]
+        for r in range(N36)]
+ok36 &= mmc17(Pm36, Pm36) == Pm36                              # P_- is idempotent
+ok36 &= [[(CO17 if r == c else CZ17) - C17(2) * Pm36[r][c] for c in range(N36)]
+         for r in range(N36)] == Us36                          # 1 - 2 P_- = U_sigma
+# every reachable control fixes H by conjugation (H = pi P_-; the scale is irrelevant
+# to the Lie rank, so the probe carries the rational generator P_-)
+lifts36 = {'pass': Us36, 'ctrl': Vt36}
+words36 = []
+for L in range(5):
+    for wt in itertools.product(('pass', 'ctrl'), repeat=L):
+        U = eye17(N36)
+        for g in wt:
+            U = mmc17(lifts36[g], U)
+        words36.append(U)
+ok36 &= all(mmc17(mmc17(U, Pm36), dag17(U)) == Pm36 for U in words36)
+# so every control generator -i U H U^H coincides: the Lie algebra is ONE real line
+ok36 &= len({tuple(tuple((e.re, e.im) for e in row)
+                   for row in mmc17(mmc17(U, Pm36), dag17(U))) for U in words36}) == 1
+# a traceless skew-Hermitian direction outside that line
+A36 = [[CZ17] * N36 for _ in range(N36)]
+A36[0][0], A36[1][1] = C17(0, -1), C17(0, 1)
+ok36 &= dag17(A36) == [[CZ17 - A36[r][c] for c in range(N36)] for r in range(N36)]
+ok36 &= sum((A36[i][i] for i in range(N36)), CZ17) == CZ17     # traceless
+# H has a nonzero off-diagonal entry exactly where A vanishes, so A = r(-iH) forces
+# r = 0, hence A = 0 -- contradicted by A[0][0] != 0
+qx36, qy36 = idx36(0, 1, 0), idx36(1, 0, 0)
+ok36 &= not Pm36[qy36][qx36].z() and A36[qy36][qx36].z()
+ok36 &= not A36[0][0].z()
+ok36 &= 1 < N36 * N36 - 1                                      # dim line = 1 < 63 = su(8)
+check("F36", ok36,
+      "THE OI INDEPENDENCE CENSUS: ONE SHARED C1-C4 CORE, THREE INEQUIVALENT "
+      "COMPLETIONS (phase three, round twenty-three; kernel: swapFn, flipFn, sigmaPerm, "
+      "tauPerm, core_hidden_drives_visible, core_visible_period_two, "
+      "core_observer_minimal, core_capacity_saturates, core_history_readback, "
+      "core_isC1C4, threeCompletions_same_classical_comb, "
+      "nonFunctorial_not_functorial, nonTensor_not_local, restrictedU_fixes_coreH, "
+      "restricted_controlLie_line, outsideGen_not_mem, "
+      "oi_core_underdetermines_completion in OIBridge/IndependenceCensus.lean). (a) THE "
+      "SHARED CORE: three bits (v,h,b) with the observer reading (v,b); the passive step "
+      "sigma(v,h,b) = (h,v,b) and the control tau(v,h,b) = (v,h,b^1) are commuting "
+      "involutions, C1 is literal (v_{t+1} = h_t, so two states with the same readout "
+      "separate after one step), C2 is structural (v_{t+2} = v_t, a genuine one-bit "
+      "memory), C3 is sufficient hidden memory capacity (every visible readout is carried "
+      "by exactly two states, separated precisely by the hidden bit, with differing "
+      "visible futures -- the one-bit hidden sector has exactly the capacity the "
+      "conditional past-to-future distinction demands), C4 is history readback (two "
+      "states with the SAME present (v,b) carry the histories 0->0->0 and 1->0->1, so "
+      "the present fixes neither past nor future and only the hidden bit separates them), and "
+      "the core is ALREADY observer-minimal -- the two-step visible "
+      "itinerary separates all eight states, so no quotient collapses it. (b) THE COMB "
+      "IDENTITY: exhaustively over every word of length <= 3 in passive steps, "
+      "tau-controls and rank-one readouts, all three completions return EXACTLY the bare "
+      "classical comb -- the correlations drop out, so nothing in the C1-C4 operational "
+      "data stream distinguishes them. (c) NOT H-FUNCTOR: the dephasing tau-member is "
+      "CPTP and classically exact on every classical state, yet Phi_tau^2 kills the "
+      "coherence E_01 that the identity preserves, so Phi_tau^2 != Phi_e while the other "
+      "two completions do compose correctly. (d) NOT H-TENSOR: the phased lifts are "
+      "unitary involutions that commute -- a STRICT representation of Z2 x Z2, no "
+      "projective cocycle, hence functorial -- and conjugation by the tau-lift is "
+      "verified to be the rank-one member of the round-17 family; but its b-flip "
+      "amplitude is 1 on the v = h sector and i on v != h, and both are forced into the "
+      "SAME entry M[1][0] of any I_vh (x) M_b, so no such M exists. (e) PROPER LIE RANK: "
+      "the phase-free lifts really are S (x) I_b and I_vh (x) X_b, P_- = (1 - S(x)I)/2 is "
+      "idempotent with 1 - 2P_- = U_sigma (so exp(-i pi P_-) = U_sigma), every one of the "
+      "reachable controls fixes H by conjugation, so all control generators -i U H U^H "
+      "coincide and the dynamical Lie algebra is a single real line -- dimension 1 "
+      "against dim su(8) = 63 -- with an explicit traceless skew-Hermitian direction "
+      "outside it. THE CENSUS: C1-C4 OI does NOT select the unrestricted operational "
+      "completion. Case (e) is ordinary quantum kinematics with a restricted reachable "
+      "control subgroup, NOT a non-quantum theory: S <=> D <=> Q_fb is untouched, and "
+      "what fails is the unrestricted finite operational package.")
+
+# ----------------------- F37  the compositional principle, the control separation, and the
+# kernelized taxonomy (phase three, round 24).  (a) WORDS: concatenating implementations
+# composes both the classical map and the coherent map -- structural, not an axiom;
+# (b) EXTENSIONALITY FAILS for completion 1: [ctrl,ctrl] and [] realize the SAME classical
+# transformation (tau^2 = 1) yet are completed differently; (c) EXTENSIONALITY HOLDS for
+# completions 2 and 3: exhaustively over every word of length <= 4, words realizing the same
+# transformation are completed identically -- so the coherent representation descends to the
+# quotient by implementation equivalence; (d) SPECTATOR INDEPENDENCE: completion 2's tau-lift
+# correlation depends on the spectator vh indices (no B-only CB reproduces it) while
+# completion 3's does; (e) THE CONTROL SEPARATION: for a CENTRAL drift H = c.I every unitary
+# fixes H by conjugation, so the control Lie algebra is one line for EVERY menu however rich
+# -- H_Lie is a sufficient certificate, NOT a necessary condition.
+ok37 = True
+gens37 = ('pass', 'ctrl')
+
+
+def wperm37(word):
+    g = list(range(N36))
+    for i in reversed(word):
+        p = perm36[i]
+        g = [p[g[x]] for x in range(N36)]
+    return tuple(g)
+
+
+def wmap37(name, word, X):
+    for i in reversed(word):
+        X = corr36(perm36[i], compl36[name][i], X)
+    return X
+
+
+def allwords37(maxlen):
+    out = []
+    for L in range(maxlen + 1):
+        out.extend(itertools.product(gens37, repeat=L))
+    return [list(w) for w in out]
+
+
+# --- (a) concatenation is structural: it composes classical maps AND coherent maps
+Xg37 = [[C17(Frac(1 + 3 * r + 5 * c, 7), Frac(2 + r - c, 11)) for c in range(N36)]
+        for r in range(N36)]
+for u in allwords37(2):
+    for v in allwords37(2):
+        gu, gv = wperm37(u), wperm37(v)
+        ok37 &= wperm37(u + v) == tuple(gu[gv[x]] for x in range(N36))
+        for nm in compl36:
+            ok37 &= wmap37(nm, u + v, Xg37) == wmap37(nm, u, wmap37(nm, v, Xg37))
+
+# --- (b) completion 1 is NOT implementation-extensional
+ok37 &= wperm37(['ctrl', 'ctrl']) == wperm37([])            # same classical transformation
+E01_37 = Est36(0, 1)
+ok37 &= wmap37('nonFunctorial', ['ctrl', 'ctrl'], E01_37) \
+    != wmap37('nonFunctorial', [], E01_37)                  # different coherent map
+
+# --- (c) completions 2 and 3 ARE implementation-extensional, exhaustively to length 4.
+# The coherent map is identified by its action on ALL 64 matrix units, so "same map" is
+# tested exactly rather than on a single probe input.
+units37 = [Est36(a, b) for a in range(N36) for b in range(N36)]
+
+
+def sig37(name, word):
+    return tuple(tuple(tuple((e.re, e.im) for e in row) for row in wmap37(name, word, U))
+                 for U in units37)
+
+
+for nm in ('nonTensor', 'restricted'):
+    byperm = {}
+    for w in allwords37(4):
+        byperm.setdefault(wperm37(w), set()).add(sig37(nm, w))
+    ok37 &= all(len(v) == 1 for v in byperm.values())       # descends to the quotient
+    ok37 &= len(byperm) == 4                                # exactly Z2 x Z2 is realized
+# completion 1 fails the same exhaustive test
+bad1 = {}
+for w in allwords37(4):
+    bad1.setdefault(wperm37(w), set()).add(sig37('nonFunctorial', w))
+nonFunctorial_ext_fails = any(len(v) > 1 for v in bad1.values())
+ok37 &= nonFunctorial_ext_fails
+# b24a: RICHNESS DOES NOT IMPLY COMPOSITIONALITY.  Instrument availability constrains which
+# channels exist; the everywhere-available menu satisfies it outright, while completion 1
+# still fails implementation extensionality.  So the reverse implication is FALSE, and the
+# honest characterization target is one-way.
+availability_holds_vacuously = True
+ok37 &= availability_holds_vacuously and nonFunctorial_ext_fails
+
+# --- (d) the spectator criterion: does a B-only correlation reproduce the tau-member?
+def spectator_ok37(C):
+    seen = {}
+    for p in range(N36):
+        for q in range(N36):
+            key = (b36(p), b36(q))
+            val = (C[p][q].re, C[p][q].im)
+            if key in seen and seen[key] != val:
+                return False
+            seen[key] = val
+    return True
+
+
+ok37 &= not spectator_ok37(compl36['nonTensor']['ctrl'])    # depends on the spectator
+ok37 &= spectator_ok37(compl36['restricted']['ctrl'])       # genuinely local
+ok37 &= spectator_ok37(compl36['restricted']['pass'])
+# the exact overdetermined entry: -1 on the v != h sector, +1 on v = h, same (b,b') slot
+Cnt37 = compl36['nonTensor']['ctrl']
+p1_37, q1_37 = idx36(0, 1, 0), idx36(0, 1, 1)
+p2_37, q2_37 = idx36(0, 0, 0), idx36(0, 0, 1)
+ok37 &= (b36(p1_37), b36(q1_37)) == (b36(p2_37), b36(q2_37))
+ok37 &= Cnt37[p1_37][q1_37] == C17(-1) and Cnt37[p2_37][q2_37] == CO17
+
+# --- (e) THE CONTROL SEPARATION: a central drift defeats H_Lie for EVERY menu
+Hc37 = eye17(N36)                                            # H = 1.I, central
+menu37 = [Us36, Ut36, Vt36, mmc17(Us36, Vt36), mmc17(Ut36, Vt36), I36]
+for V in menu37:
+    ok37 &= mmc17(V, dag17(V)) == I36                        # unitary
+    ok37 &= mmc17(mmc17(V, Hc37), dag17(V)) == Hc37          # fixes the central drift
+# so every control generator -i V H V^dag equals -i H: the algebra is the single line R(-iH),
+# and every element of that line is a multiple of the identity -- equal diagonal entries
+A37 = [[CZ17] * N36 for _ in range(N36)]
+A37[0][0], A37[1][1] = C17(0, -1), C17(0, 1)
+ok37 &= dag17(A37) == [[CZ17 - A37[r][c] for c in range(N36)] for r in range(N36)]
+ok37 &= sum((A37[i][i] for i in range(N36)), CZ17) == CZ17   # traceless skew-Hermitian
+ok37 &= A37[0][0] != A37[1][1]                               # unequal diagonal -> not r.I
+# a genuinely rich menu still fails H_Lie, because H_Lie constrains H, not the menu
+ok37 &= len({tuple(tuple((e.re, e.im) for e in row)
+             for row in mmc17(mmc17(V, Hc37), dag17(V))) for V in menu37}) == 1
+# contrast: the round-19 architecture with the NON-central passive Hamiltonian still gives a
+# line here too (F36 (e)) -- the point is that H_Lie can fail while all operations are present
+ok37 &= 1 < N36 * N36 - 1
+
+# --- (f) b24a: physical local tomography rests on PRODUCT RANK-ONE EFFECTS, and the
+# matrix-unit functionals it replaces are not physical effects at all
+E01_unit = [[CO17 if (r, c) == (0, 1) else CZ17 for c in range(2)] for r in range(2)]
+# E_01 has zero diagonal and a nonzero off-diagonal entry, so it is not positive: an
+# "equal matrix-unit functionals" hypothesis is separation, not tomography
+ok37 &= E01_unit[0][0].z() and E01_unit[1][1].z() and not E01_unit[0][1].z()
+
+
+def prodproj37(u, v):
+    return [[(u[r // 2] * u[c // 2].conj()) * (v[r % 2] * v[c % 2].conj())
+             for c in range(4)] for r in range(4)]
+
+
+def tr4_37(M):
+    return sum((M[i][i] for i in range(4)), CZ17)
+
+
+probe37 = [[CO17, CZ17], [CZ17, CO17], [CO17, CO17], [CO17, C17(0, 1)]]
+# |00><11| + |11><00|: a difference no single local projector "sees" naively, yet the
+# product effects do detect it -- polarization on each factor separately suffices
+Dt37 = [[CZ17] * 4 for _ in range(4)]
+Dt37[0][3], Dt37[3][0] = CO17, CO17
+ok37 &= any(not tr4_37(mmc17(prodproj37(u, v), Dt37)).z()
+            for u in probe37 for v in probe37)
+# and the zero difference is seen as zero by every product effect
+ok37 &= all(tr4_37(mmc17(prodproj37(u, v), [[CZ17] * 4 for _ in range(4)])).z()
+            for u in probe37 for v in probe37)
+check("F37", ok37,
+      "THE COMPOSITIONAL PRINCIPLE, THE CONTROL SEPARATION, AND THE KERNELIZED TAXONOMY "
+      "(phase three, round twenty-four; kernel: wordPerm, wordMap, wordPerm_append, "
+      "wordMap_append, ImplementationExtensionality, "
+      "implementationExtensionality_descends, descendedAction_functorial, "
+      "implementationExtensionality_iff_functorial, SpectatorIndependent, "
+      "spectatorIndependent_iff, HComp, hComp_iff, HControl, "
+      "HControl_iff_controlLie0_full, centralDrift_not_HControl, "
+      "UniversalUnitaryReachability, fullOps_universalUnitary, census_clause_taxonomy in "
+      "OIBridge/MonoidalCompletion.lean). (a) WORDS: concatenating implementations composes "
+      "both the classical map and the coherent map -- verified over every pair of words of "
+      "length <= 2 -- so sequential composition is STRUCTURAL at the word level, not an "
+      "axiom. The single axiom is implementation extensionality, and its content is DESCENT: "
+      "the coherent representation factors through the quotient by implementation "
+      "equivalence, becoming a representation of physical transformations rather than of "
+      "implementation strings. (b) COMPLETION 1 FAILS IT: [ctrl,ctrl] and [] realize the "
+      "SAME classical transformation, tau^2 = 1, yet complete differently on E_01. (c) "
+      "COMPLETIONS 2 AND 3 SATISFY IT: exhaustively over every word of length <= 4, words "
+      "realizing the same transformation have identical coherent maps -- compared on ALL 64 "
+      "matrix units, so map equality is exact -- and exactly the four elements of Z2 x Z2 "
+      "are realized; completion 1 fails the same test. (d) SPECTATOR INDEPENDENCE: "
+      "completion 2's tau-correlation forces the SAME (b,b') slot to be both -1 (on v != h) "
+      "and +1 (on v = h), so no I_vh (x) M_b reproduces it, while completion 3's "
+      "correlations are constant and do. (e) THE CONTROL SEPARATION -- the round's central "
+      "correction: for a CENTRAL drift H = c.I EVERY unitary fixes H by conjugation, so the "
+      "control Lie algebra is the single line R(-iH) for EVERY menu however rich, and every "
+      "element of that line is a multiple of the identity with equal diagonal entries -- "
+      "while the traceless skew-Hermitian direction -i(E_00 - E_11) has unequal diagonal. So "
+      "an observer possessing every unitary still FAILS H_Lie. H_Lie is a sufficient "
+      "CERTIFICATE for universal reachability in the round-19 drift/control architecture, "
+      "NOT a necessary condition for full operational QM; the operational principle is "
+      "H_opControl (universal unitary reachability), and unitary channels are one-outcome "
+      "instruments, so they need no separate conjunct (fullOps_universalUnitary). Baking "
+      "H_Lie into the definition would make the characterization hostage to one control "
+      "architecture. (f) b24a REPAIRS: instrument availability is satisfied vacuously by "
+      "the everywhere-available menu while completion 1 still fails extensionality, so "
+      "richness does NOT imply compositionality and the characterization target is "
+      "one-way (availability_not_implies_hComp); and physical local tomography rests on "
+      "PRODUCT RANK-ONE EFFECTS -- the matrix unit E_01 has zero diagonal with a nonzero "
+      "off-diagonal entry, so it is not positive and not an effect, while the product "
+      "effects |u><u| (x) |v><v| do detect the composite difference |00><11| + |11><00| "
+      "and vanish on the zero difference (local_tomography_physical, proved by running "
+      "complex polarization once on each factor).")
+
+# ----------------------- F38  round 25 opening: map-level spectator independence, the local
+# Luders selector, and the freedom that composition kills (phase three, round 25).
+ok38 = True
+N38 = 4                                   # (a,b) -> 2a + b;  A = B = Bool, outcome k = 0
+K38 = 0
+
+
+def ix38(a, b):
+    return (a << 1) | b
+
+
+def tensor38(XA, XB):
+    return [[XA[r >> 1][c >> 1] * XB[r & 1][c & 1] for c in range(N38)] for r in range(N38)]
+
+
+def luders2_38(k, X):
+    out = [[CZ17] * 2 for _ in range(2)]
+    out[k][k] = X[k][k]
+    return out
+
+
+def localLuders38(k, X):
+    return [[X[ix38(r >> 1, k)][ix38(c >> 1, k)]
+             if ((r & 1) == k and (c & 1) == k) else CZ17
+             for c in range(N38)] for r in range(N38)]
+
+
+def blockDephase38(k, X):
+    out = [[CZ17] * N38 for _ in range(N38)]
+    for a in range(2):
+        out[ix38(a, k)][ix38(a, k)] = X[ix38(a, k)][ix38(a, k)]
+    return out
+
+
+def E38(r, c):
+    return [[CO17 if (i, j) == (r, c) else CZ17 for j in range(N38)] for i in range(N38)]
+
+
+def E2_38(r, c):
+    return [[CO17 if (i, j) == (r, c) else CZ17 for j in range(2)] for i in range(2)]
+
+
+# composite matrix units ARE product matrices -- this is what makes agreement on products
+# agreement everywhere, and it needs no positivity assumption
+ok38 &= all(tensor38(E2_38(a, a2), E2_38(b, b2)) == E38(ix38(a, b), ix38(a2, b2))
+            for a in range(2) for a2 in range(2) for b in range(2) for b2 in range(2))
+Xs38 = [E2_38(0, 0), E2_38(0, 1), E2_38(1, 0), E2_38(1, 1),
+        [[C17(Frac(1, 2)), C17(0, 1)], [C17(0, -1), C17(Frac(1, 3))]]]
+# the local Luders selector IS map-spectator-independent over the rank-one selector
+ok38 &= all(localLuders38(K38, tensor38(XA, XB)) == tensor38(XA, luders2_38(K38, XB))
+            for XA in Xs38 for XB in Xs38)
+# within-block dephasing is NOT
+ok38 &= any(blockDephase38(K38, tensor38(XA, XB)) != tensor38(XA, luders2_38(K38, XB))
+            for XA in Xs38 for XB in Xs38)
+# yet the two agree on EVERY classical composite state, so the classical ancilla-readout
+# condition alone cannot distinguish them
+ok38 &= all(localLuders38(K38, E38(ix38(a, b), ix38(a, b)))
+            == blockDephase38(K38, E38(ix38(a, b), ix38(a, b)))
+            for a in range(2) for b in range(2))
+# and they differ exactly on a SYSTEM coherence inside the surviving block
+Xc38 = E38(ix38(0, K38), ix38(1, K38))
+ok38 &= localLuders38(K38, Xc38) == Xc38
+ok38 &= blockDephase38(K38, Xc38) == [[CZ17] * N38 for _ in range(N38)]
+ok38 &= localLuders38(K38, Xc38) != blockDephase38(K38, Xc38)
+
+
+# --- 25b operational closure: discard after readout IS the ancilla block, and the circuit
+# branch is the k-block of the conjugated prepared state
+def ptraceAnc38(M):
+    return [[sum((M[ix38(s, e)][ix38(t, e)] for e in range(2)), CZ17)
+             for t in range(2)] for s in range(2)]
+
+
+Mg38 = [[C17(Frac(1 + 2 * r + 3 * c, 5), Frac(r - c, 7)) for c in range(N38)]
+        for r in range(N38)]
+for kk38 in range(2):
+    ok38 &= ptraceAnc38(localLuders38(kk38, Mg38)) \
+        == [[Mg38[ix38(s, kk38)][ix38(t, kk38)] for t in range(2)] for s in range(2)]
+# the circuit: prepare |k0><k0|, conjugate by a composite unitary, read out, discard
+Usw38 = [[CO17 if (r, c) in ((0, 0), (1, 2), (2, 1), (3, 3)) else CZ17
+          for c in range(N38)] for r in range(N38)]
+ok38 &= mmc17(Usw38, dag17(Usw38)) == eye17(N38)
+rho38 = [[C17(Frac(2, 3)), C17(Frac(1, 6), Frac(1, 6))],
+         [C17(Frac(1, 6), Frac(-1, 6)), C17(Frac(1, 3))]]
+prep38 = tensor38(rho38, [[CO17 if (r, c) == (0, 0) else CZ17 for c in range(2)]
+                          for r in range(2)])
+blk38 = mmc17(mmc17(Usw38, prep38), dag17(Usw38))
+for kk38 in range(2):
+    ok38 &= ptraceAnc38(localLuders38(kk38, blk38)) \
+        == [[blk38[ix38(s, kk38)][ix38(t, kk38)] for t in range(2)] for s in range(2)]
+# --- 25c: THE PURE SEED IS DERIVED, not assumed.  Attach a MAXIMALLY MIXED ancilla, read
+# it out, apply the outcome-dependent swap correction k -> k0, and forget the outcome; the
+# branches sum to the pure product.  No pure seed is assumed anywhere.
+half38 = C17(Frac(1, 2))
+unif38 = tensor38(rho38, [[half38 if r == c else CZ17 for c in range(2)]
+                          for r in range(2)])
+
+
+def ancswap38(k, k0):
+    def sw(b):
+        return k0 if b == k else (k if b == k0 else b)
+    return [[CO17 if r == ix38(c >> 1, sw(c & 1)) else CZ17 for c in range(N38)]
+            for r in range(N38)]
+
+
+for k0_38 in range(2):
+    acc38 = [[CZ17] * N38 for _ in range(N38)]
+    for kk38 in range(2):
+        Sw38 = ancswap38(kk38, k0_38)
+        ok38 &= mmc17(Sw38, dag17(Sw38)) == eye17(N38)
+        cor38 = mmc17(mmc17(Sw38, localLuders38(kk38, unif38)), dag17(Sw38))
+        acc38 = [[acc38[r][c] + cor38[r][c] for c in range(N38)] for r in range(N38)]
+    ok38 &= acc38 == tensor38(rho38, [[CO17 if (r, c) == (k0_38, k0_38) else CZ17
+                                       for c in range(2)] for r in range(2)])
+# and the uniform attachment is NOT already a pure seed
+ok38 &= unif38 != tensor38(rho38, [[CO17 if (r, c) == (0, 0) else CZ17 for c in range(2)]
+                                   for r in range(2)])
+check("F38", ok38,
+      "ROUND 25 OPENING: MAP-LEVEL SPECTATOR INDEPENDENCE AND THE LOCAL LUDERS SELECTOR "
+      "(phase three, round twenty-five; kernel: MapSpectatorIndependent, "
+      "spectatorIndependent_iff_mapLevel, tensorOf_single, localLuders, "
+      "localLuders_tensor, mapSpectatorIndependent_iff_localLuders, blockDephase, "
+      "blockDephase_cp, blockDephase_classical_eq, blockDephase_ne_localLuders, "
+      "blockDephase_not_mapSpectatorIndependent, ProductPreparation, "
+      "FiniteOperationalCompletion, hasFullInstruments_hasUniversalControl in "
+      "OIBridge/OperationalAssembly.lean). Round 24's H_comp is a REVERSIBLE-operation "
+      "principle -- its spectator clause is stated for Equiv.Perm actions completed by "
+      "correlation extensions -- so it cannot by itself deliver id_S (x) L_k at a "
+      "Stinespring output, because a Luders selector is not reversible. The generic "
+      "notion is map-level: Phi_AB(X_A (x) X_B) = X_A (x) Phi_B(X_B) for ARBITRARY linear "
+      "maps. Verified here: composite matrix units ARE product matrices (so agreement on "
+      "products is agreement everywhere, and complete positivity is not needed as a "
+      "hypothesis -- the kernel iff mapSpectatorIndependent_iff_localLuders is therefore "
+      "stronger than the CP-hypothesised form); the local Luders selector satisfies the "
+      "condition on every product input while within-block dephasing does not. THE "
+      "FREEDOM COMPOSITION KILLS: the two maps agree on EVERY classical composite state, "
+      "so the classical ancilla-readout condition alone leaves a correlation freedom "
+      "across the system indices -- the local form of F35 -- and they differ exactly on a "
+      "system coherence inside the surviving block, where Luders preserves it and "
+      "dephasing sends it to zero. Since blockDephase is a Kraus sum of rank-one branches "
+      "it is a genuine CP SELECTIVE OPERATION -- one branch of a readout, with trace "
+      "preservation neither established nor claimed -- so the freedom is physical, not an "
+      "artifact: spectator independence, i.e. COMPOSITION, is precisely what removes it. "
+      "Product preparation "
+      "is kept a SEPARATE clause (round 21 supplies the pure ancilla, not the joint "
+      "product state), and the availability/closure notions are gathered into one "
+      "FiniteOperationalCompletion structure so the principles are properties of the same "
+      "object rather than predicates on unrelated parameters. 25b OPERATIONAL CLOSURE: a "
+      "per-carrier availability notion cannot express the three cross-carrier joins the "
+      "reconstruction consumes -- that a native ancilla readout EXISTS, that independently "
+      "prepared parts compose to a PRODUCT, and that a circuit on A x Fin n with the "
+      "ancilla forgotten defines an operation on A alone. FiniteOperationalTheory carries "
+      "both availability families with six closure rules including GENERAL INSTRUMENT "
+      "COMPOSITION (feed-forward, which round 21's measure-then-reset seed actually uses) "
+      "and ANCILLA DISCARD; its readout is postulated only to EXIST and be "
+      "spectator-independent, and readout_is_localLuders DERIVES the id (x) Luders form "
+      "from the theorem above. Verified here: tracing out the ancilla after the readout "
+      "returns EXACTLY the k-th ancilla block (round 20's sysBlock, on the nose), and the "
+      "full prepare-unitary-readout-discard circuit branch is exactly that block of the "
+      "conjugated prepared state -- the skeleton the generic Kraus assembly will "
+      "instantiate. Purification and Uhlmann uniqueness are NOT used and will not be: "
+      "instrument availability needs pure seed, Stinespring, unitary control and local "
+      "readout only. 25c -- THE PURE SEED IS DERIVED, NOT ASSUMED: preparation is itself "
+      "an availability notion, the only granted instance being the UNIFORM attachment, and "
+      "pureSeedPrep_available PROVES the pure attachment rho -> rho (x) |k0><k0| is "
+      "available by the operational lifting of round 21's construction -- read the uniform "
+      "ancilla, apply the outcome-dependent swap correction k -> k0, forget the outcome, "
+      "and the n branches rho (x) |k><k|/n sum to rho (x) |k0><k0|. Verified here for both "
+      "target levels, with each correction checked unitary and the uniform attachment "
+      "checked NOT to be a pure seed already. So H-pure-seed appears nowhere among the "
+      "operational assumptions and the round-22 endpoint reduction survives intact. Also "
+      "repaired: blockDephase is a CP SELECTIVE operation, one branch of a readout -- "
+      "trace preservation is neither established nor claimed, so it is not called a "
+      "channel.")
+
+
+# ----------------------- F39  the Kraus round: the system-first mirrors pinned to round
+# twenty's ancilla-first dilation under the explicit factor swap, the three exact
+# identities, and the fine branch of the circuit (phase three, the Kraus round).
+ok39 = True
+# TWO INDEXINGS OF THE SAME COMPOSITE.  System-first (the operational development):
+# (s, k) -> 2s + k.  Ancilla-first (round twenty's dilation algebra): (k, s) -> 2k + s.
+# The swap is the involution that exchanges the two bits.
+
+
+def ixsf39(s, k):
+    return (s << 1) | k
+
+
+def ixaf39(k, s):
+    return (k << 1) | s
+
+
+def swap39(p):
+    return ((p & 1) << 1) | (p >> 1)
+
+
+PSW39 = [[CO17 if c == swap39(r) else CZ17 for c in range(4)] for r in range(4)]
+ok39 &= mmc17(PSW39, PSW39) == eye17(4)          # the reindexing is an involution
+
+
+def Vsf39(K):
+    """SYSTEM-FIRST Stinespring isometry:  V[(s', k)][s] = K_k(s', s)."""
+    return [[K[p & 1][p >> 1][s] for s in range(2)] for p in range(4)]
+
+
+def dil39(K):
+    """Round twenty's ANCILLA-FIRST dilationIsometry:  V[(k, s')][s] = K_k(s', s)."""
+    return [[K[q >> 1][q & 1][s] for s in range(2)] for q in range(4)]
+
+
+def Esf39(k0):
+    """SYSTEM-FIRST seed embedding:  E[(s', k)][s] = [k = k0][s' = s]."""
+    return [[CO17 if ((p & 1) == k0 and (p >> 1) == s) else CZ17 for s in range(2)]
+            for p in range(4)]
+
+
+def seedEmbed39(k0):
+    """Round twenty's ANCILLA-FIRST seedEmbed:  E[(k, s')][s] = [k = k0][s' = s]."""
+    return [[CO17 if ((q >> 1) == k0 and (q & 1) == s) else CZ17 for s in range(2)]
+            for q in range(4)]
+
+
+# --- (a) the circuit, built the honest way round: start from an EXACT rational unitary on
+# the composite, read the Kraus family off its seed column, and check normalization.  This
+# is `U E_{k0} = V_K` by construction, so the fine-branch identity is being tested, not
+# assumed.  U = (swap permutation) . (R1 (x) R2) with two rational rotations.
+R1_39 = [[C17(Frac(3, 5)), C17(Frac(-4, 5))], [C17(Frac(4, 5)), C17(Frac(3, 5))]]
+R2_39 = [[C17(Frac(5, 13)), C17(Frac(-12, 13))], [C17(Frac(12, 13)), C17(Frac(5, 13))]]
+KRON39 = [[R1_39[r >> 1][c >> 1] * R2_39[r & 1][c & 1] for c in range(4)]
+          for r in range(4)]
+PERM39 = [[CO17 if (r, c) in ((0, 3), (1, 0), (2, 1), (3, 2)) else CZ17
+           for c in range(4)] for r in range(4)]
+U39 = mmc17(PERM39, KRON39)
+ok39 &= mmc17(dag17(U39), U39) == eye17(4)
+K0_39 = 0
+V39 = mmc17(U39, Esf39(K0_39))
+KR39 = [[[V39[ixsf39(sp, k)][s] for s in range(2)] for sp in range(2)] for k in range(2)]
+# the family is normalized: sum_k K_k^dag K_k = I
+gram39 = [[CZ17] * 2 for _ in range(2)]
+for k in range(2):
+    g = mmc17(dag17(KR39[k]), KR39[k])
+    gram39 = [[gram39[r][c] + g[r][c] for c in range(2)] for r in range(2)]
+ok39 &= gram39 == eye17(2)
+# the family is NOT degenerate -- the two branches are genuinely different operators
+ok39 &= KR39[0] != KR39[1]
+
+# --- (b) THE PINNING, POINTWISE AND AS COMPLETE MATRICES.  Pointwise is the Lean statement
+# (Vsf_eq_dilationIsometry, Esf_eq_seedEmbed); the complete-matrix form is the extra check
+# the probe can do that the pointwise lemma does not display: the system-first matrix is the
+# ancilla-first one REINDEXED BY THE SWAP, as whole matrices.
+ok39 &= all(Vsf39(KR39)[ixsf39(sp, k)][s] == dil39(KR39)[ixaf39(k, sp)][s]
+            for sp in range(2) for k in range(2) for s in range(2))
+ok39 &= all(Esf39(K0_39)[ixsf39(sp, k)][s] == seedEmbed39(K0_39)[ixaf39(k, sp)][s]
+            for sp in range(2) for k in range(2) for s in range(2))
+ok39 &= Vsf39(KR39) == mmc17(PSW39, dil39(KR39))
+ok39 &= Esf39(K0_39) == mmc17(PSW39, seedEmbed39(K0_39))
+# and the reindexing is doing real work: WITHOUT the swap the two disagree
+ok39 &= Vsf39(KR39) != dil39(KR39)
+ok39 &= Esf39(1) != seedEmbed39(1)
+
+# --- (c) THE THREE EXACT IDENTITIES.
+# vsf_gram: (V_K)^dag V_K = sum_k K_k^dag K_k -- normalization IS isometry
+ok39 &= mmc17(dag17(Vsf39(KR39)), Vsf39(KR39)) == gram39 == eye17(2)
+rho39 = [[C17(Frac(2, 3)), C17(Frac(1, 6), Frac(1, 6))],
+         [C17(Frac(1, 6), Frac(-1, 6)), C17(Frac(1, 3))]]
+for k0 in range(2):
+    # esf_conj: E_{k0} rho E_{k0}^dag = rho (x) |k0><k0|
+    ok39 &= mmc17(mmc17(Esf39(k0), rho39), dag17(Esf39(k0))) \
+        == tensor38(rho39, [[CO17 if (r, c) == (k0, k0) else CZ17 for c in range(2)]
+                            for r in range(2)])
+# vsf_block: block_k(V_K rho V_K^dag) = K_k rho K_k^dag
+big39 = mmc17(mmc17(Vsf39(KR39), rho39), dag17(Vsf39(KR39)))
+for k in range(2):
+    ok39 &= [[big39[ixsf39(s, k)][ixsf39(t, k)] for t in range(2)] for s in range(2)] \
+        == mmc17(mmc17(KR39[k], rho39), dag17(KR39[k]))
+
+# --- (d) THE FINE BRANCH.  Run the round-25b circuit on the DERIVED pure seed -- prepare,
+# conjugate by U, read the ancilla, discard it -- and check each branch is exactly
+# rho -> K_k rho K_k^dag.  This is stinespringCircuit_branch.
+prep39 = tensor38(rho39, [[CO17 if (r, c) == (K0_39, K0_39) else CZ17 for c in range(2)]
+                          for r in range(2)])
+run39 = mmc17(mmc17(U39, prep39), dag17(U39))
+for k in range(2):
+    ok39 &= ptraceAnc38(localLuders38(k, run39)) \
+        == mmc17(mmc17(KR39[k], rho39), dag17(KR39[k]))
+
+# --- (e) COARSE-GRAINING to an instrument.  Sending both fine outcomes to one label gives
+# the channel sum, which is trace preserving; sending them to distinct labels leaves the two
+# branches apart.  This is instrumentBranch, and the last step of fullInstruments_of_control.
+coarse39 = [[sum((mmc17(mmc17(KR39[k], rho39), dag17(KR39[k]))[r][c] for k in range(2)),
+                 CZ17) for c in range(2)] for r in range(2)]
+ok39 &= coarse39[0][0] + coarse39[1][1] == rho39[0][0] + rho39[1][1]
+ok39 &= mmc17(mmc17(KR39[0], rho39), dag17(KR39[0])) \
+    != mmc17(mmc17(KR39[1], rho39), dag17(KR39[1]))
+check("F39", ok39,
+      "THE KRAUS ROUND: SYSTEM-FIRST MIRRORS PINNED TO ROUND TWENTY, AND THE FINE BRANCH "
+      "(phase three, the Kraus round; kernel: Vsf, Esf, Vsf_eq_dilationIsometry, "
+      "Esf_eq_seedEmbed, vsf_gram, esf_conj, vsf_block, FiniteIsometryExtensionSF, "
+      "stinespringCircuit_branch, HasFullFiniteEndomorphicInstruments, "
+      "fullInstruments_of_control in OIBridge/StinespringAssembly.lean). Round twenty's "
+      "dilation algebra is ANCILLA-FIRST, (k, s') -> Matrix (iota x S) S, while the "
+      "operational development of rounds 25/25b/25c is SYSTEM-FIRST, (s', k) -> Matrix "
+      "(A x Fin n) A. Rather than rewrite either, the Kraus round adds mirrored Vsf/Esf and "
+      "PINS them to round twenty pointwise, so the two developments cannot drift apart. "
+      "Verified here in exact Gaussian rationals, on a two-Kraus family over a two-level "
+      "system: the pointwise pinning V^SF(s', k, s) = dilationIsometry(K)(k, s', s) and its "
+      "seed analogue, AND the complete-matrix form the pointwise lemmas do not display -- "
+      "the system-first matrix is the ancilla-first one left-multiplied by the explicit "
+      "swap permutation, which is checked to be an involution; without that reindexing the "
+      "two matrices genuinely DISAGREE, so the swap is doing real work and is not a "
+      "notational nicety. The three identities: (V_K)^dag V_K = sum_k K_k^dag K_k, so "
+      "normalization IS isometry; E_{k0} rho E_{k0}^dag = rho (x) |k0><k0|, so the seed "
+      "embedding prepares exactly the pure product 25c DERIVES rather than assumes; and "
+      "block_k(V_K rho V_K^dag) = K_k rho K_k^dag, the ancilla block IS the Kraus branch. "
+      "THE FINE BRANCH is tested and not assumed: the circuit is built the honest way "
+      "round, starting from an exact rational unitary U on the composite (a permutation "
+      "times a Kronecker product of two rational rotations, checked unitary), reading the "
+      "Kraus family off its seed column so that U E_{k0} = V_K holds by construction, and "
+      "checking sum_k K_k^dag K_k = I and that the two branches are genuinely different "
+      "operators. Running the round-25b circuit -- prepare the derived pure seed, conjugate "
+      "by U, read the ancilla, discard it -- then reproduces rho -> K_k rho K_k^dag on the "
+      "nose, for both outcomes. Finally the coarse-graining step: sending both fine "
+      "outcomes to one label gives a trace-preserving channel sum, while distinct labels "
+      "keep the branches apart -- instrumentBranch, and the last move of "
+      "fullInstruments_of_control. SCOPE. The Kraus operators are SQUARE, so the capstone "
+      "delivers all finite ENDOMORPHIC instruments on a fixed system, not all finite "
+      "quantum instruments unqualified. The one external fact, finite isometry extension, "
+      "is an explicit HYPOTHESIS of the capstone rather than an axiom in the file; here it "
+      "is sidestepped entirely by constructing U first. Purification and Uhlmann uniqueness "
+      "are NOT used, and the project's global boundary remains the four-item ledger.")
+
+
+# ----------------------- F40  round 26: Kraus soundness and exactness -- the trace identity
+# that gives the representation predicate teeth, the non-quantum witness it refutes, and the
+# honest control on the witness that was NOT chosen (phase three, round twenty-six).
+ok40 = True
+
+
+def trace40(M):
+    return sum((M[i][i] for i in range(len(M))), CZ17)
+
+
+def transpose40(M):
+    return [[M[c][r] for c in range(len(M))] for r in range(len(M))]
+
+
+def branchsum40(Ks, out, m, X):
+    """sum over the outcome label of tr(instrumentBranch K out a X) -- computed through the
+    fibres, exactly as instrumentBranch is defined, not through the collapsed sum."""
+    tot = CZ17
+    for a in range(m):
+        for k in range(len(Ks)):
+            if out[k] == a:
+                tot = tot + trace40(mmc17(mmc17(Ks[k], X), dag17(Ks[k])))
+    return tot
+
+
+def kraus_from_unitary40(U, k0):
+    """Read a normalized two-operator Kraus family off the seed column of a composite
+    unitary -- the F39 construction, which makes sum_k K_k^dag K_k = I automatic."""
+    E = [[CO17 if ((p & 1) == k0 and (p >> 1) == s) else CZ17 for s in range(2)]
+         for p in range(4)]
+    V = mmc17(U, E)
+    return [[[V[(sp << 1) | k][s] for s in range(2)] for sp in range(2)] for k in range(2)]
+
+
+# two genuinely different normalized families, from two different composite unitaries
+FAMS40 = []
+for _pcyc in (((0, 3), (1, 0), (2, 1), (3, 2)), ((0, 1), (1, 2), (2, 3), (3, 0))):
+    _P = [[CO17 if (r, c) in _pcyc else CZ17 for c in range(4)] for r in range(4)]
+    _U = mmc17(_P, KRON39)
+    ok40 &= mmc17(dag17(_U), _U) == eye17(4)
+    FAMS40.append(kraus_from_unitary40(_U, 0))
+# test states: Hermitian, non-Hermitian, and traceless -- the identity is about linear
+# algebra, not about density matrices, so none of that is assumed
+XS40 = [rho39,
+        [[C17(Frac(1, 4)), C17(Frac(2, 3), Frac(1, 5))],
+         [C17(Frac(-1, 7), Frac(3, 8)), C17(Frac(5, 9), Frac(-2, 11))]],
+        [[C17(Frac(3, 5)), C17(0, 1)], [C17(1, -1), C17(Frac(-3, 5))]]]
+OUTS40 = [[0, 1], [0, 0], [1, 1]]        # fine, fully coarse, and constant-to-the-other-label
+for _Ks in FAMS40:
+    # normalized: sum_k K_k^dag K_k = I
+    _g = [[CZ17] * 2 for _ in range(2)]
+    for _k in range(2):
+        _gg = mmc17(dag17(_Ks[_k]), _Ks[_k])
+        _g = [[_g[r][c] + _gg[r][c] for c in range(2)] for r in range(2)]
+    ok40 &= _g == eye17(2)
+    # --- (a) THE TRACE IDENTITY, for every output map and every test matrix
+    for _out in OUTS40:
+        for _X in XS40:
+            ok40 &= branchsum40(_Ks, _out, 2, _X) == trace40(_X)
+    # --- (b) NORMALIZATION IS WHAT DOES THE WORK: rescale one operator and it fails
+    _bad = [[[_Ks[0][r][c] * C17(Frac(3, 2)) for c in range(2)] for r in range(2)], _Ks[1]]
+    ok40 &= any(branchsum40(_bad, [0, 1], 2, _X) != trace40(_X) for _X in XS40)
+
+# --- (c) THE NON-QUANTUM WITNESS.  Doubling is linear and completely positive, and it
+# doubles the trace, so by (a) it has NO normalized Kraus representation at any n or out.
+for _X in XS40:
+    _dbl = [[_X[r][c] * C17(2) for c in range(2)] for r in range(2)]
+    ok40 &= trace40(_dbl) == trace40(_X) + trace40(_X)
+    ok40 &= (trace40(_dbl) != trace40(_X)) == (trace40(_X) != CZ17)
+# and it is a genuine element of the everywhere-available theory: nothing in the closure
+# rules excludes it, since every availability predicate there is True
+ok40 &= trace40(XS40[0]) != CZ17
+
+# --- (d) THE CONTROL ON THE WITNESS THAT WAS NOT CHOSEN.  The transpose is the other
+# obvious non-quantum map, and the trace identity CANNOT refute it: transposition preserves
+# the trace exactly.  Refuting the transpose needs positivity -- its Choi matrix is the swap,
+# which has a negative direction -- and that is a strictly larger argument than the kernel
+# round consumes.  So the trace amplifier is the honest witness to use, and this is why.
+for _X in XS40:
+    ok40 &= trace40(transpose40(_X)) == trace40(_X)
+CHOI_T40 = [[CO17 if ((r >> 1) == (c & 1) and (c >> 1) == (r & 1)) else CZ17
+             for c in range(4)] for r in range(4)]
+V40 = [CZ17, CO17, C17(-1), CZ17]          # e_(0,1) - e_(1,0)
+_q40 = sum((V40[r].conj() * CHOI_T40[r][c] * V40[c]
+            for r in range(4) for c in range(4)), CZ17)
+ok40 &= _q40 == C17(-2)                    # strictly negative: the transpose is NOT CP
+# while the trace identity is blind to it, exactly as claimed above
+ok40 &= all(trace40(transpose40(_X)) == trace40(_X) for _X in XS40)
+check("F40", ok40,
+      "ROUND 26: KRAUS SOUNDNESS AND EXACTNESS (phase three, round twenty-six; kernel: "
+      "instrumentBranch_trace, IsFiniteEndomorphicKrausInstrument, instrumentBranch_isKraus, "
+      "KrausSound, ExactFiniteEndomorphicQuantumOps, exact_iff_sound_and_full, "
+      "exact_of_sound_control, krausSound_trace_preserving, traceAmplifier_not_kraus, "
+      "everywhereAvailable, everywhereAvailable_not_sound, "
+      "everywhereAvailable_full_not_exact in OIBridge/KrausSoundness.lean). The Kraus round "
+      "proved an INCLUSION, QM_instruments SUBSET Ops(T), not an identity. FiniteOperational"
+      "Theory.avail is an abstract predicate, so a theory may carry every operation that "
+      "round constructs AND a transpose, a trace amplifier, or any other non-quantum linear "
+      "map -- and an everywhere-available theory satisfies composite unitary control and the "
+      "capstone outright while being strictly larger than quantum mechanics. Round 26 "
+      "kernelizes the gap: exact_iff_sound_and_full splits the exact endpoint (available <-> "
+      "Kraus-representable) into precisely its two inclusions, KrausSound and "
+      "HasFullFiniteEndomorphicInstruments, and nothing else; exact_of_sound_control reads "
+      "off soundness + finite isometry extension + composite unitary control => exactness. "
+      "The two conjuncts are proved by completely different means -- completeness is "
+      "CONSTRUCTED by the Stinespring circuit, soundness is a RESTRICTION on what the theory "
+      "admits and cannot be constructed at all. Verified here in exact Gaussian rationals: "
+      "(a) THE TRACE IDENTITY that gives the representation predicate teeth -- for a "
+      "normalized family, sum over outcomes of tr(instrumentBranch K out a X) = tr X, checked "
+      "through the FIBRES exactly as instrumentBranch is defined, for two different "
+      "normalized families read off two composite unitaries, three output maps (fine, fully "
+      "coarse-grained, and relabelled) and three test matrices including a non-Hermitian and "
+      "a traceless one, since the identity is linear algebra and assumes nothing about "
+      "density matrices; (b) NORMALIZATION IS WHAT DOES THE WORK -- rescaling one Kraus "
+      "operator breaks it; (c) THE NON-QUANTUM WITNESS -- rho -> 2 rho doubles the trace, so "
+      "by (a) it has no normalized Kraus representation at any n or out, while nothing in the "
+      "closure rules excludes it from an everywhere-available theory; (d) THE CONTROL ON THE "
+      "WITNESS THAT WAS NOT CHOSEN -- the transpose is the other obvious non-quantum map and "
+      "the trace identity CANNOT refute it, because transposition preserves the trace "
+      "exactly; refuting it needs POSITIVITY (its Choi matrix is the swap, and the direction "
+      "e_01 - e_10 gives -2, checked here exactly), a strictly larger argument than this "
+      "round consumes. That is why the trace amplifier is the honest witness. SCOPE: "
+      "HasCompositeUnitaryControl is a SUFFICIENT Stinespring architecture for richness, NOT "
+      "necessary for exact system-level quantum operations -- a theory could make every "
+      "instrument on A primitive without exposing arbitrary unitary control on every "
+      "A x Fin n, just as universal operational control did not imply the round-19 Lie "
+      "certificate. So the final characterization is NOT QM <-> H_comp + H_compositeControl; "
+      "both control principles are constructive sufficient certificates. That non-necessity "
+      "countermodel is NOT built in this round and nothing asserts it. The three axes now "
+      "stand as COMPOSITION (rounds 24/25), SOUNDNESS (this round), COMPLETENESS (the Kraus "
+      "round); the remaining interface is that round 24's HComp speaks about coherent "
+      "completions of OI intervention words while FiniteOperationalTheory speaks about "
+      "operational circuits, and those are not yet one object.")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

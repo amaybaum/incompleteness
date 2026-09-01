@@ -436,6 +436,168 @@ for fname, names in (
                             'no_universal_oriented_property',
                             'no_symmetric_condition_forces_transitionIdentification',
                             'no_symmetric_condition_forces_orientedShell')),
+    ('CycleFibreHull', ('sum_range_shift', 'freq_shift', 'freq_pow', 'freq_sum_one',
+                        'freq_sum_card', 'fiberProj_trace', 'stationary_diag_pow',
+                        'stationary_freq_readout', 'psd_diag_real',
+                        'stationary_readout_hull', 'hull_readout_achieved',
+                        'no_representation_outside_hull', 'transitive_freq_const',
+                        'transitive_freq_eq_countMarginal',
+                        'ergodicShell_readout_unique', 'ergodicShell_SRC',
+                        'cycle_eigenvector_overlap', 'commutant_entry_zero',
+                        'simple_spectrum_column_moduli',
+                        'permLogBranch_projOverlap_invariant')),
+    ('DynamicsGlue', ('conj_diag_entry', 'diagonalGlue_forces_monomial',
+                      'monomial_conj_apply', 'glue_of_monomial',
+                      'diagonalGlue_iff_monomial', 'monomial_unitary',
+                      'diag_invariant_pow', 'diag_invariant_freq_readout',
+                      'monomial_ergodic_readout_unique', 'phasedCycle_columnModuli',
+                      'ergodicShell_SRC_of_dynamicsGlue')),
+    ('DomainGlue', ('spanning_domain_glue_implies_G1', 'itiIndicator_mem',
+                    'separating_singleton_mem', 'separating_domain_span_top',
+                    'classicalBranch_glue_forces_G1',
+                    'classicalBranch_glue_forces_monomial',
+                    'ergodicShell_SRC_of_domainGlue')),
+    ('ObservabilityQuotient', ('branchDomainK_invariant',
+                               'classIndicator_eq_itiIndicator',
+                               'itiIndicator_mem_BDK', 'classIndicator_mem_BDK',
+                               'invariant_le_span_classIndicators',
+                               'branchDomain_span_eq_itineraryInvariant',
+                               'classicalBranchDomain_iff_horizon',
+                               'itiRelInf_iff_orderOf',
+                               'classicalBranch_span_eq_invariant', 'glueEq_span',
+                               'domainGlue_classification_mod_itineraryFibres',
+                               'domainGlue_unitary', 'glue_column_support')),
+    ('PassiveQuotient', ('itiRelInf_pow', 'itiRelInf_evolve',
+                         'itiRelInf_symm_evolve', 'quotPerm_mk', 'quotPerm_pow_mk',
+                         'itiRelInf_greatest_congruence',
+                         'quotient_itinerarySeparating',
+                         'passiveMinimal_iff_itinerarySeparating',
+                         'realization_pow', 'minimal_realization_bijective',
+                         'realizationMap_equivariant', 'realizationMap_vis',
+                         'realization_factor_unique', 'quotMeasure_weighted_sum',
+                         'itiIndicator_quotient_mk', 'trajProb_quotient',
+                         'quotMeasure_evolve', 'quotMeasure_branch',
+                         'quotient_transitive', 'passiveQuotient_glue_forces_G1',
+                         'passiveQuotient_glue_forces_monomial',
+                         'ergodicShell_SRC_of_passiveQuotient',
+                         'hiddenExt_pow_fst', 'hiddenExt_itiRelInf_fibre',
+                         'hiddenExt_not_separating', 'hiddenExt_itiIndicator',
+                         'hiddenExt_same_law', 'hiddenExt_quotient_recovers_base',
+                         'addEquiv_pow_sub', 'linear_itiRelInf_iff',
+                         'linear_separating_iff_observability')),
+    ('ControlledQuotient', ('actWord_append', 'actWord_replicate',
+                            'ctrlRel_evolve', 'ctrlRel_word',
+                            'ctrlRel_symm_evolve', 'ctrlRel_le_itiRelInf',
+                            'ctrlRel_greatest_congruence', 'ctrlPerm_mk',
+                            'ctrlWord_mk', 'controlled_actionSeparating',
+                            'controlledMinimal_iff_actionSeparating',
+                            'controlledToPassive_surjective',
+                            'intervention_separates_passive_fibre')),
+    ('CoherentExtension', ('basisVec_mulVec', 'basisVec_dot', 'form_basis',
+                           'hermitian_form_conj', 'psd_zero_form_mulVec_zero',
+                           'psd_diag_zero_entry_zero',
+                           'psd_unit_diag_entry_bound',
+                           'psd_unimodular_rank_one',
+                           'correlationExtension_single',
+                           'correlationExtension_classical', 'embed_sum',
+                           'choi_correlation',
+                           'correlationExtension_completelyPositive',
+                           'correlationExtension_trace',
+                           'correlationExtension_cptp',
+                           'cptp_classical_forces_correlation',
+                           'cptpExtension_iff_correlationMatrix',
+                           'correlationExtension_comp',
+                           'correlationExtension_one_eq_id_iff',
+                           'reversibleExtension_iff_rankOne',
+                           'rankOne_extension_monomial',
+                           'purity_selector_rank_one',
+                           'correlationExtension_diagonal', 'combPerm_cons',
+                           'combFold_diagonal', 'combPerm_eq_permProd',
+                           'classicalComb_blind_to_correlation')),
+    ('ProjectiveAction', ('unimodular_ne_zero', 'correlationExtension_matrix_eq',
+                          'functoriality_forces_rankOne',
+                          'functoriality_schur_law',
+                          'coherentFunctoriality_iff_projectiveMonomial',
+                          'monomial_entry', 'functorial_projective_unitaries',
+                          'functorial_cocycle', 'groupFamily_comb_blind')),
+    ('ControlLie', ('phase_conj_invariant', 'controlGenerators_phase_invariant',
+                    'controlLie_phase_invariant', 'conj_conj_collapse',
+                    'controlLie_gauge_mem', 'controlLie_gauge_mem_iff',
+                    'controlLie_le_skewHerm', 'unitary_inv_eq_conjTranspose',
+                    'unitary_exp_conj', 'conjugated_flow', 'controlLie_trivial')),
+    ('InstrumentDilation', ('krausInstrument_isometry', 'dilation_sysBlock',
+                            'instrument_coarsegrain',
+                            'finiteInstrument_of_ancillaControl',
+                            'uniformInput_one', 'uniformEnvChannel_unital',
+                            'resetChannel_not_unital', 'uniformHiddenState_not_full',
+                            'tensorProduct_entry', 'localEffect_trace',
+                            'productMatrixUnit_separating', 'tomography_physical',
+                            'productMatrixUnit_local_separating', 'form_expand',
+                            'eq_zero_of_form_vanishes', 'prodProj_trace',
+                            'local_tomography_physical')),
+    ('Purification', ('branch_project', 'mixed_branch_is_pure',
+                      'trace_eq_sum_diag', 'readout_feedforward_reset',
+                      'uniform_readout_feedforward_seed', 'luders_selector_cp',
+                      'purification_partialTrace',
+                      'purification_of_factorization')),
+    ('BranchSelector', ('ludersLift_selector',
+                        'choi_ludersLift', 'ludersLift_cp',
+                        'cp_rankOneSelector_forces_luders',
+                        'cp_rankOneSelector_iff_luders',
+                        'monomial_luders_classicalBranch')),
+    ('IndependenceCensus', ('core_hidden_drives_visible', 'core_visible_period_two',
+                            'core_observer_minimal', 'core_capacity_saturates',
+                            'core_history_readback', 'core_isC1C4',
+                            'sigma_tau_commute',
+                            'ludersLift_diagonal', 'stateFold_diagonal',
+                            'threeCompletions_same_classical_comb', 'monoU_conj',
+                            'monoU_mul', 'monoU_unitary', 'nonFunctorial_cptp',
+                            'nonFunctorial_classical', 'nonFunctorial_not_functorial',
+                            'Utau_involution', 'Usigma_Utau_commute',
+                            'nonTensor_not_local', 'Usigma_local', 'Vtau_local',
+                            'passiveProj_idempotent', 'one_sub_two_passiveProj',
+                            'restrictedU_fixes_coreH', 'restricted_controlLie_line',
+                            'outsideGen_skewHermitian', 'outsideGen_traceless',
+                            'outsideGen_not_mem',
+                            'oi_core_underdetermines_completion')),
+    ('MonoidalCompletion', ('wordPerm_append', 'wordMap_append',
+                            'implementationExtensionality_descends',
+                            'descendedAction_functorial', 'spectatorIndependent_iff',
+                            'wordMap_isCorrelationExtension',
+                            'implementationExtensionality_iff_functorial', 'hComp_iff',
+                            'HControl_iff_controlLie0_full', 'central_conj_fixed',
+                            'centralDrift_not_HControl', 'wordPerm_eq_parityPerm',
+                            'wordMap_eq_parityMap', 'parityPerm_injective',
+                            'implementationExtensionality_of_involutive',
+                            'nonTensor_implementationExtensional',
+                            'restricted_implementationExtensional',
+                            'nonFunctorial_not_implementationExtensional',
+                            'nonTensor_not_spectatorPattern', 'restricted_not_HControl',
+                            'census_clause_taxonomy', 'fullOps_universalUnitary',
+                            'availability_not_implies_hComp')),
+    ('OperationalAssembly', ('spectatorIndependent_iff_mapLevel', 'tensorOf_single',
+                             'localLuders_tensor', 'localLuders_mapSpectatorIndependent',
+                             'eq_of_agree_on_single',
+                             'mapSpectatorIndependent_iff_localLuders',
+                             'blockDephase_apply', 'choiMatrix_sum', 'blockDephase_cp',
+                             'localLuders_classical', 'blockDephase_classical',
+                             'blockDephase_classical_eq', 'blockDephase_ne_localLuders',
+                             'blockDephase_not_mapSpectatorIndependent',
+                             'tensorOf_productPreparation',
+                             'hasFullInstruments_hasUniversalControl',
+                             'tensorOf_add_left', 'ptraceAnc_localLuders',
+                             'readout_is_localLuders', 'conj_ancSwap_single',
+                             'localLuders_uniform', 'pureSeedPrep_available',
+                             'circuit_available', 'circuit_available_pureSeed',
+                             'circuit_branch')),
+    ('StinespringAssembly', ('Vsf_eq_dilationIsometry', 'Esf_eq_seedEmbed', 'vsf_gram',
+                             'esf_conj', 'vsf_block', 'stinespringCircuit_branch',
+                             'fullInstruments_of_control')),
+    ('KrausSoundness', ('instrumentBranch_trace', 'instrumentBranch_isKraus',
+                        'exact_iff_sound_and_full', 'exact_of_sound_control',
+                        'krausSound_trace_preserving', 'traceAmplifier_not_kraus',
+                        'everywhereAvailable_not_sound',
+                        'everywhereAvailable_full_not_exact')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -458,6 +620,198 @@ for fname, names in (
     ok6 &= 'native_decide' not in body
     ok6 &= all((f'theorem {nm}' in src) or (f'lemma {nm}' in src) for nm in names)
     ok6 &= all(f'#print axioms {nm}' in src for nm in names)
+# the census must attach all three failures to ONE shared core: the same classical comb
+# must be proved for every completion, or the independence claim is three unrelated examples
+ic = open(os.path.join(BRIDGE, 'OIBridge', 'IndependenceCensus.lean'),
+          encoding='utf-8').read()
+ok6 &= all(f'stateFold {c} steps (Matrix.diagonal w)' in ic
+           for c in ('nonFunctorialC', 'nonTensorC', 'restrictedC'))
+# the restricted-control completion is ordinary quantum kinematics with a proper reachable
+# subgroup, NOT a non-quantum theory: the wording guard must be present, not an overclaim
+ok6 &= 'not "non-quantum"' in ic and 'UNRESTRICTED' in ic
+# C1-C4 must be kernel conditions bound into the capstone, not a prose reading of it
+ok6 &= 'def CoreC1C4 : Prop' in ic and 'theorem core_isC1C4 : CoreC1C4' in ic
+# CANONICAL C-NUMBERING GUARD.  OI numbers the conditions C1 coupling, C2 memory
+# persistence, C3 sufficient hidden memory capacity, C4 history readback.  Pin each label
+# to the docstring that actually precedes its theorem, so the C3/C4 pair cannot silently
+# flip again (they were reversed once, and the theorem content does not catch it).
+for _lbl, _thm in (('C3', 'core_capacity_saturates'), ('C4', 'core_history_readback')):
+    _i = ic.index(f'theorem {_thm}')
+    _doc = ic[ic.rindex('/--', 0, _i):_i]
+    ok6 &= f'**{_lbl} ' in _doc
+ok6 &= ic.index('theorem core_capacity_saturates') < ic.index('theorem core_history_readback')
+ok6 &= 'C3 (sufficient hidden memory capacity)' in ic and 'C4 (history readback)' in ic
+cap = ic[ic.index('theorem oi_core_underdetermines_completion'):]
+ok6 &= 'CoreC1C4' in cap[:cap.index(':=')]
+ok6 &= 'S ⇔ D ⇔ Q_fb` is untouched' in ic
+# ROUND-24 SCOPE GUARDS.  The compositional principle must DESCEND from implementation-level
+# clauses, not be defined as a conjunction of the round-18/20 predicates; and the Lie
+# certificate must stay a SEPARATE predicate from operational control richness.
+mc = open(os.path.join(BRIDGE, 'OIBridge', 'MonoidalCompletion.lean'),
+          encoding='utf-8').read()
+
+
+def _slice(text, start, stop):
+    """Text between two markers, or '' if either is missing (a clean lint failure)."""
+    if start not in text:
+        return ''
+    rest = text[text.index(start):]
+    return rest[:rest.index(stop)] if stop in rest else rest
+
+
+ok6 &= 'def ImplementationExtensionality' in mc and 'def SpectatorIndependent' in mc
+# HComp's DEFINITION must be the two independent clauses -- round 18's predicate may be
+# NAMED in the scope note, but must not appear in the definition itself
+_hcomp = _slice(mc, 'def HComp', '/--')
+ok6 &= bool(_hcomp) and 'CoherentFunctoriality' not in _hcomp
+ok6 &= 'ImplementationExtensionality' in _hcomp and 'SpectatorIndependent' in _hcomp
+# the certificate and the operational richness principle must be genuinely DIFFERENT
+# notions, not aliases: one is about the control Lie algebra, the other about which
+# channels are available.  H_Lie is sufficient for reachability, not necessary for full QM.
+_hlie = _slice(mc, 'def HControl {G : Type*}', '/--')
+_hop = _slice(mc, 'def UniversalUnitaryReachability\n', 'omit')
+ok6 &= bool(_hlie) and bool(_hop)
+ok6 &= 'controlLie' in _hlie and 'controlLie' not in _hop
+ok6 &= 'conjChannel' in _hop and 'conjChannel' not in _hlie
+ok6 &= 'theorem centralDrift_not_HControl' in mc
+# HControl_iff_controlLie0_full must be kernel-internal: no exponential, no Lie integration
+_hc = _slice(mc, 'theorem HControl_iff_controlLie0_full', '/--')
+ok6 &= bool(_hc) and 'exp' not in _hc
+# the external analytic boundary stays exactly four items and no more
+_flat = ' '.join(mc.split())
+ok6 &= 'stays exactly four items and no more' in _flat
+ok6 &= all(item in _flat for item in
+           ('compact Lie integration', 'finite isometry extension',
+            'PSD square-root/factorization', 'Uhlmann/Schmidt uniqueness'))
+# b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
+# matrix-unit functionals; the matrix-unit statement keeps its own separate name.
+idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
+            encoding='utf-8').read()
+ok6 &= 'theorem productMatrixUnit_local_separating' in idil
+_ltp = _slice(idil, 'theorem local_tomography_physical', ':= by')
+ok6 &= bool(_ltp) and 'prodProj' in _ltp and 'Matrix.single' not in _ltp
+# and instrument availability must be family-level and NORMALIZED, not "every conjugation
+# by an arbitrary K is available"
+_ffa = _slice(mc, 'def FullFiniteInstrumentAvailability', '/--')
+ok6 &= bool(_ffa) and 'instrumentBranch K out' in _ffa
+ok6 &= '(K k)ᴴ * K k = 1' in _ffa
+ok6 &= 'FullFiniteQuantumOps' not in mc
+# the reverse implication must be recorded as FALSE, with the countermodel
+ok6 &= 'theorem availability_not_implies_hComp' in mc
+# ROUND-25 OPENING GUARDS.  Map-level spectator independence must be stated for ARBITRARY
+# linear maps (an irreversible Lüders selector is the whole point), and the three physically
+# distinct clauses must stay distinct predicates.
+oa = open(os.path.join(BRIDGE, 'OIBridge', 'OperationalAssembly.lean'),
+          encoding='utf-8').read()
+_msi = _slice(oa, 'def MapSpectatorIndependent', '/--')
+ok6 &= bool(_msi) and 'Equiv.Perm' not in _msi and 'correlationExtension' not in _msi
+# the reversible round-24 clause must be recorded as a SPECIALIZATION of it
+ok6 &= 'theorem spectatorIndependent_iff_mapLevel' in oa
+# product preparation is its own clause, not smuggled into the operation-level notion
+ok6 &= 'def ProductPreparation' in oa
+_pp = _slice(oa, 'def ProductPreparation', '/--')
+ok6 &= bool(_pp) and 'MapSpectatorIndependent' not in _pp
+# the surviving freedom must be exhibited as a genuine CP channel, not merely asserted
+ok6 &= 'theorem blockDephase_cp' in oa
+ok6 &= 'theorem blockDephase_classical_eq' in oa
+ok6 &= 'theorem blockDephase_not_mapSpectatorIndependent' in oa
+# the endomorphic-scope phrase must be present on the instrument predicate
+ok6 &= 'finite endomorphic instruments on a fixed system' in ' '.join(oa.split())
+# ROUND-25b GUARDS.  The native readout must NOT be postulated as id (x) Luders: the
+# structure may only assume it exists and is spectator-independent, and the FORM must be
+# derived.  So `localLuders` must not appear among the structure's readout fields.
+_ft = _slice(oa, 'structure FiniteOperationalTheory', '/-- **THE READOUT FORM')
+ok6 &= bool(_ft) and '= localLuders' not in _ft
+ok6 &= 'MapSpectatorIndependent (ludersLift k) (readout n k)' in _ft
+ok6 &= 'theorem readout_is_localLuders' in oa
+# the closure rules the reconstruction actually consumes must be present by name
+ok6 &= all(f in _ft for f in ('availExt_bind', 'prepAvail_discard', 'availExt_coarse',
+                              'avail_coarse', 'prepAvail_uniform', 'readout_avail'))
+# composite control must be family-level in the ancilla size, not a premise on A alone
+_cc = _slice(oa, 'def HasCompositeUnitaryControl', '/-- **THE CIRCUIT')
+ok6 &= bool(_cc) and '(n : ℕ)' in _cc and 'availExt n' in _cc
+# purification / Uhlmann must NOT be used by this assembly
+ok6 &= 'PURIFICATION AND UHLMANN UNIQUENESS ARE NOT USED' in ' '.join(oa.split())
+# b25c GUARD: NO PURE SEED may be postulated.  Preparation must be an availability notion
+# whose only granted instance is the UNIFORM attachment; the pure attachment must be a
+# THEOREM.  So no structure field may mention pureAttach, and prepAvail_uniform must be
+# the uniform one.
+ok6 &= 'def prepAvail' not in oa            # prepAvail is a structure FIELD, not a def
+ok6 &= bool(_ft) and 'pureAttach' not in _ft
+ok6 &= 'prepAvail_uniform : ∀ n : ℕ, prepAvail (n + 1) (uniformAttach (n + 1))' in oa
+ok6 &= 'theorem pureSeedPrep_available' in oa
+ok6 &= all(f in _ft for f in ('prepAvail', 'prepAvail_post', 'prepAvail_discard'))
+# and the old pure-product postulate must be gone
+ok6 &= 'prep_isProduct' not in oa
+# blockDephase is a CP SELECTIVE operation, not a channel: trace preservation is unproved
+_bd = _slice(oa, '/-- **The surviving freedom is a genuine CP operation.**', '-/')
+ok6 &= bool(_bd) and 'not a channel' in ' '.join(_bd.split())
+# KRAUS-ROUND GUARDS.  The one external fact must be an explicit HYPOTHESIS carried in the
+# capstone's own binder list, never an `axiom` and never a structure field -- and the
+# capstone must consume NOTHING else beyond composite unitary control.
+sa = open(os.path.join(BRIDGE, 'OIBridge', 'StinespringAssembly.lean'),
+          encoding='utf-8').read()
+ok6 &= 'def FiniteIsometryExtensionSF' in sa
+ok6 &= re.search(r'(?m)^axiom ', sa) is None
+_cap = _slice(sa, 'theorem fullInstruments_of_control', ':= by')
+ok6 &= bool(_cap)
+ok6 &= 'FiniteIsometryExtensionSF A' in _cap and 'HasCompositeUnitaryControl T' in _cap
+# neither the readout FORM nor a pure seed may reappear as a premise: both are derived
+ok6 &= all(bad not in _cap for bad in ('localLuders', 'pureAttach', 'ProductPreparation',
+                                       'MapSpectatorIndependent'))
+# the system-first mirrors must be PINNED to round twenty pointwise, or the two dilation
+# developments can drift apart silently under the factor swap
+_pin1 = _slice(sa, 'theorem Vsf_eq_dilationIsometry', '\n\n')
+_pin2 = _slice(sa, 'theorem Esf_eq_seedEmbed', '\n\n')
+ok6 &= bool(_pin1) and 'dilationIsometry K (k, s\') s := rfl' in ' '.join(_pin1.split())
+ok6 &= bool(_pin2) and 'seedEmbed k₀ (k, s\') s := rfl' in ' '.join(_pin2.split())
+# the fine branch must be a STANDALONE theorem, provable from `U E = V` alone -- no
+# availability bookkeeping inside it
+_fb = _slice(sa, 'theorem stinespringCircuit_branch', ':= by')
+ok6 &= bool(_fb) and 'avail' not in _fb and 'hUE : U * Esf k₀ = Vsf K' in _fb
+# the scope must stay ENDOMORPHIC and the Kraus index nonempty
+_hf = _slice(sa, 'def HasFullFiniteEndomorphicInstruments', '/--')
+ok6 &= bool(_hf) and 'Fin (n + 1) → Matrix A A ℂ' in _hf
+ok6 &= '(K k)ᴴ * K k = 1' in _hf and 'instrumentBranch K out' in _hf
+_saflat = ' '.join(sa.split())
+ok6 &= 'ALL FINITE ENDOMORPHIC INSTRUMENTS ON A FIXED SYSTEM' in _saflat
+ok6 &= 'Purification and Uhlmann uniqueness are not used' in _saflat
+# and the header of the file it builds on must not misdescribe the dependency graph:
+# the endpoint object is FiniteOperationalTheory, and no closure rule grants a product
+# preparation with a chosen ancilla state
+_oaflat = ' '.join(oa.split())
+ok6 &= 'it is NOT the object the assembly runs on' in _oaflat
+ok6 &= 'the ONLY preparation granted' in _oaflat
+ok6 &= 'no rule grants a product preparation with a chosen ancilla state' in _oaflat
+ok6 &= 'hComp_forward' not in mc
+# ROUND-26 GUARDS.  Soundness must be a RESTRICTION (available => representable), exactness
+# must be a genuine iff, and the split must be into exactly the two inclusions.
+ks = open(os.path.join(BRIDGE, 'OIBridge', 'KrausSoundness.lean'), encoding='utf-8').read()
+_snd = _slice(ks, 'def KrausSound', '/--')
+ok6 &= bool(_snd) and 'T.avail (Fin m) F → IsFiniteEndomorphicKrausInstrument F' in _snd
+_ex = _slice(ks, 'def ExactFiniteEndomorphicQuantumOps', '/--')
+ok6 &= bool(_ex) and 'T.avail (Fin m) F ↔ IsFiniteEndomorphicKrausInstrument F' in _ex
+_spl = _slice(ks, 'theorem exact_iff_sound_and_full', ':= by')
+ok6 &= bool(_spl) and 'KrausSound T ∧ HasFullFiniteEndomorphicInstruments T' in _spl
+# the representation predicate must be an EXISTENTIAL over a normalized Kraus family, not a
+# CP/Choi classification -- no external analytic fact may enter through it
+_rep = _slice(ks, 'def IsFiniteEndomorphicKrausInstrument', '/--')
+ok6 &= bool(_rep) and '(K k)ᴴ * K k = 1' in _rep and 'F = instrumentBranch K out' in _rep
+ok6 &= bool(_rep) and 'PosSemidef' not in _rep and 'choiMatrix' not in _rep
+# the countercontrol must be an everywhere-available GENUINE theory that fails soundness
+ok6 &= 'def everywhereAvailable' in ks
+_ev = _slice(ks, 'def everywhereAvailable', '/-- **THE EVERYWHERE-AVAILABLE THEORY IS NOT')
+ok6 &= bool(_ev) and 'avail := fun _ _ _ _ => True' in _ev
+ok6 &= bool(_ev) and 'readout := fun _ k => localLuders k' in _ev
+ok6 &= 'theorem everywhereAvailable_not_sound' in ks
+# NON-NECESSITY MUST NOT BE ASSERTED.  Composite unitary control is sufficient, not
+# necessary, and this round does not build that countermodel -- the scope note must say so
+# and no theorem may claim it.
+_ksflat = ' '.join(ks.split())
+ok6 &= 'SUFFICIENT Stinespring architecture for richness, not a necessary condition' in _ksflat
+ok6 &= 'countermodel is NOT built here' in _ksflat
+ok6 &= 'theorem exact_not_implies_compositeControl' not in ks
+ok6 &= '¬ HasCompositeUnitaryControl' not in ks
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -475,8 +829,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All seventeen files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 5 + 16 named results print their "
+      "LINT. All thirty-four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 8 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

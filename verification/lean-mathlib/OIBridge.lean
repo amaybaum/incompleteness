@@ -90,6 +90,23 @@ import OIBridge.OperationalRigidity
 import OIBridge.JordanClassification
 import OIBridge.OrientationSelection
 import OIBridge.OrientationClosure
+import OIBridge.CycleFibreHull
+import OIBridge.DynamicsGlue
+import OIBridge.DomainGlue
+import OIBridge.ObservabilityQuotient
+import OIBridge.PassiveQuotient
+import OIBridge.ControlledQuotient
+import OIBridge.CoherentExtension
+import OIBridge.ProjectiveAction
+import OIBridge.ControlLie
+import OIBridge.InstrumentDilation
+import OIBridge.Purification
+import OIBridge.BranchSelector
+import OIBridge.IndependenceCensus
+import OIBridge.MonoidalCompletion
+import OIBridge.OperationalAssembly
+import OIBridge.StinespringAssembly
+import OIBridge.KrausSoundness
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
