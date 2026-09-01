@@ -598,6 +598,13 @@ for fname, names in (
                         'krausSound_trace_preserving', 'traceAmplifier_not_kraus',
                         'everywhereAvailable_not_sound',
                         'everywhereAvailable_full_not_exact')),
+    ('CompositeSoundness', ('isKrausFamily_iff', 'krausSound_exposedComposite',
+                            'ptraceAnc_trace', 'discardWith_trace',
+                            'not_kraus_of_trace_ne', 'traceWitness_always_exposed',
+                            'posSemidef_sum', 'choiMatrix_finsum', 'conjChannel_cp',
+                            'krausFamily_cp', 'exposedComposite_cp', 'transposeMap_trace',
+                            'form_of_two_singles', 'transposeMap_not_cp',
+                            'transposeMap_not_kraus')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -812,6 +819,32 @@ ok6 &= 'SUFFICIENT Stinespring architecture for richness, not a necessary condit
 ok6 &= 'countermodel is NOT built here' in _ksflat
 ok6 &= 'theorem exact_not_implies_compositeControl' not in ks
 ok6 &= '¬ HasCompositeUnitaryControl' not in ks
+# ROUND-27 GUARDS.  The composite audit must generalize the representation predicate
+# without forking it, must consume only the EASY Kraus => CP direction, and must not assert
+# the implication it does not settle.
+cs = open(os.path.join(BRIDGE, 'OIBridge', 'CompositeSoundness.lean'),
+          encoding='utf-8').read()
+_ikf = _slice(cs, 'def IsKrausFamily', '/--')
+ok6 &= bool(_ikf) and '(K k)ᴴ * K k = 1' in _ikf
+ok6 &= bool(_ikf) and 'PosSemidef' not in _ikf and 'choiMatrix' not in _ikf
+ok6 &= 'theorem isKrausFamily_iff' in cs        # the two predicates must be pinned together
+_kse = _slice(cs, 'def KrausSoundExt', '/-!')
+ok6 &= bool(_kse) and 'T.availExt n O F → IsKrausFamily F' in _kse
+# the exposed-composite theorem must come from prepAvail_discard and add no hypothesis
+_exc = _slice(cs, 'theorem krausSound_exposedComposite', '\n\n')
+ok6 &= bool(_exc) and 'prepAvail_discard' in _exc
+# ONLY THE EASY DIRECTION.  CP => Kraus needs PSD factorization and must not appear.
+_csflat = ' '.join(cs.split())
+ok6 &= 'this is Kraus ⟹ CP, which is a computation' in _csflat
+ok6 &= 'it is NOT used here, so the external boundary is untouched' in _csflat
+ok6 &= 'theorem cp_implies_kraus' not in cs and 'theorem kraus_of_cp' not in cs
+# the transpose must be refuted by POSITIVITY, with the trace blindness recorded
+ok6 &= 'theorem transposeMap_trace' in cs and 'theorem transposeMap_not_cp' in cs
+ok6 &= 'theorem transposeMap_not_kraus' in cs
+# and the open fork must stay open: no theorem may claim either direction
+ok6 &= 'krausSound_implies_ext' not in cs and 'krausSound_not_implies_ext' not in cs
+ok6 &= 'whether `KrausSound T` implies `KrausSoundExt T`. Neither direction is asserted' \
+    in _csflat
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -829,8 +862,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All thirty-four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 8 + 5 + 16 named results print their "
+      "LINT. All thirty-five files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 8 + 15 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

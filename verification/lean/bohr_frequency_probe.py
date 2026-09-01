@@ -4920,6 +4920,116 @@ check("F40", ok40,
       "operational circuits, and those are not yet one object.")
 
 
+# ----------------------- F41  round 27: the composite-soundness audit -- discard is
+# trace-transparent, Kraus implies CP, and the transpose finally refuted (phase three,
+# round twenty-seven).
+ok41 = True
+
+
+def choi41(phi, d=2):
+    """choiMatrix phi (s,a) (t,b) = phi(single s t 1) a b, indexed p = d*s + a."""
+    out = [[CZ17] * (d * d) for _ in range(d * d)]
+    for s in range(d):
+        for t in range(d):
+            im = phi([[CO17 if (r, c) == (s, t) else CZ17 for c in range(d)]
+                      for r in range(d)])
+            for a in range(d):
+                for b in range(d):
+                    out[d * s + a][d * t + b] = im[a][b]
+    return out
+
+
+def qform41(C, v):
+    return sum((v[r].conj() * C[r][c] * v[c]
+                for r in range(len(C)) for c in range(len(C))), CZ17)
+
+
+# --- (a) DISCARD IS TRACE-TRANSPARENT, so whatever a composite map does to the trace is
+# visible on the system: this is what makes every trace-based witness exposed.
+for _M in (Mg38, run39, unif38, prep39):
+    ok41 &= trace40(ptraceAnc38(_M)) == trace40(_M)
+# a composite map that doubles the trace is therefore doubled after the discard too --
+# it cannot hide in the composite sector at any preparation
+for _rho in (rho39, rho38):
+    _P = tensor38(_rho, [[half38 if r == c else CZ17 for c in range(2)] for r in range(2)])
+    _dbl = [[_P[r][c] * C17(2) for c in range(4)] for r in range(4)]
+    ok41 &= trace40(ptraceAnc38(_dbl)) == trace40(_dbl) == trace40(_rho) + trace40(_rho)
+    ok41 &= trace40(ptraceAnc38(_dbl)) != trace40(_rho)
+
+# --- (b) KRAUS IMPLIES CP, as the EXACT matrix identity the kernel proof turns on: the
+# Choi matrix of conjugation by V is the outer product of w(s,a) = V[a][s] with itself.
+# This is the easy direction; the converse needs PSD factorization and is not used.
+for _V in (R1_39, KR39[0], KR39[1],
+           [[C17(Frac(1, 2)), C17(0, Frac(1, 3))], [C17(Frac(-2, 5)), C17(Frac(3, 7))]]):
+    _C = choi41(lambda X, V=_V: mmc17(mmc17(V, X), dag17(V)))
+    _w = [_V[p & 1][p >> 1] for p in range(4)]
+    ok41 &= _C == [[_w[r] * _w[c].conj() for c in range(4)] for r in range(4)]
+    # and the quadratic form is nonnegative in every rational direction tried, as it must be
+    for _v in ([CO17, CZ17, CZ17, CZ17], [CZ17, CO17, C17(-1), CZ17],
+               [C17(Frac(1, 3)), C17(0, 1), C17(-2), C17(Frac(5, 7), Frac(-1, 2))]):
+        _q = qform41(_C, _v)
+        ok41 &= _q.im == Frac(0) and _q.re >= 0
+# a Kraus BRANCH is a sum of such outer products, so its Choi is a sum of them exactly
+_Cbr = choi41(lambda X: [[sum((mmc17(mmc17(KR39[k], X), dag17(KR39[k]))[r][c]
+                               for k in range(2)), CZ17) for c in range(2)]
+                         for r in range(2)])
+_Csum = [[sum((KR39[k][r & 1][r >> 1] * KR39[k][c & 1][c >> 1].conj()
+               for k in range(2)), CZ17) for c in range(4)] for r in range(4)]
+ok41 &= _Cbr == _Csum
+
+# --- (c) THE TRANSPOSE, FINALLY REFUTED.  It is trace-preserving, so round 26's identity
+# misses it; its Choi matrix is the swap, whose value on e_(0,1) - e_(1,0) is -2, so the
+# CP test catches it.  Two independent refutation tools, neither consuming an external fact.
+for _X in XS40:
+    ok41 &= trace40(transpose40(_X)) == trace40(_X)
+CT41 = choi41(transpose40)
+ok41 &= CT41 == [[CO17 if ((r >> 1) == (c & 1) and (c >> 1) == (r & 1)) else CZ17
+                  for c in range(4)] for r in range(4)]
+VT41 = [CZ17, CO17, C17(-1), CZ17]
+ok41 &= qform41(CT41, VT41) == C17(-2)
+# the four-entry expansion the kernel lemma uses: C p p - C p q - C q p + C q q
+ok41 &= qform41(CT41, VT41) == CT41[1][1] - CT41[1][2] - CT41[2][1] + CT41[2][2]
+# and the same expansion is what the Kraus Choi passes: nonnegative on that direction
+ok41 &= all(qform41(choi41(lambda X, V=_V: mmc17(mmc17(V, X), dag17(V))), VT41).re >= 0
+            for _V in (R1_39, KR39[0], KR39[1]))
+check("F41", ok41,
+      "ROUND 27: THE COMPOSITE-SOUNDNESS AUDIT (phase three, round twenty-seven; kernel: "
+      "IsKrausFamily, isKrausFamily_iff, KrausSoundExt, krausSound_exposedComposite, "
+      "ptraceAnc_trace, discardWith_trace, not_kraus_of_trace_ne, "
+      "traceWitness_always_exposed, posSemidef_sum, choiMatrix_finsum, conjChannel_cp, "
+      "krausFamily_cp, exposedComposite_cp, form_of_two_singles, transposeMap_trace, "
+      "transposeMap_not_cp, transposeMap_not_kraus in OIBridge/CompositeSoundness.lean). "
+      "Round 26 proves exactness for the base system's avail and says nothing directly about "
+      "availExt n on A x Fin n, so its endpoint is exact finite endomorphic QM ON THE SYSTEM "
+      "A, not yet the claim that the whole system+ancilla theory is exactly finite QM. This "
+      "round settles what can be settled. WHAT SYSTEM SOUNDNESS FORCES FOR FREE: "
+      "prepAvail_discard already makes prepare-operate-discard an available SYSTEM "
+      "instrument, so krausSound_exposedComposite gives every composite process visible "
+      "through an admissible context a Kraus representation on A -- no new hypothesis. WHICH "
+      "SURPLUS THAT RULES OUT: verified here that the partial trace preserves the trace "
+      "exactly, so a composite map that scales the trace is scaled identically after the "
+      "discard and is exposed at EVERY preparation; hence any genuine surplus composite "
+      "structure must be TRACE-CONSISTENT AND DISCARD-INVISIBLE, which is exactly why the "
+      "cheap countermodels fail. THE SECOND REFUTATION TOOL: Kraus implies CP, verified here "
+      "as the exact matrix identity the kernel proof turns on -- the Choi matrix of "
+      "conjugation by V is the outer product of w(s,a) = V[a][s] with itself, checked for "
+      "four different V, with the quadratic form nonnegative (zero imaginary part, "
+      "nonnegative real part) in every rational direction tried, and a Kraus branch's Choi "
+      "checked equal to the exact sum of such outer products. NOTE THE DIRECTION: this is "
+      "Kraus => CP, a computation; the converse needs PSD factorization and is NOT used, so "
+      "the external boundary is untouched. THE TRANSPOSE IS FINALLY REFUTED: trace-preserving "
+      "on every test matrix, so round 26's identity misses it, while its Choi matrix is the "
+      "swap and the direction e_(0,1) - e_(1,0) gives exactly -2, so the CP test catches it. "
+      "The four-entry expansion C p p - C p q - C q p + C q q that the kernel lemma "
+      "form_of_two_singles proves is checked to agree with the full quadratic form, and to "
+      "come out nonnegative on the Kraus side. NOT SETTLED, and nothing asserts it either "
+      "way: whether KrausSound T implies KrausSoundExt T. The shape a real countermodel must "
+      "have is now visible -- a trace-preserving, non-CP composite map whose surplus lives "
+      "entirely in the ancilla coherences the discard annihilates, in a theory whose availExt "
+      "is closed under availExt_bind without exposing it -- and building it is a round of its "
+      "own.")
+
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
