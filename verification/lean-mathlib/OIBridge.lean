@@ -101,6 +101,7 @@ import OIBridge.ProjectiveAction
 import OIBridge.ControlLie
 import OIBridge.InstrumentDilation
 import OIBridge.Purification
+import OIBridge.BranchSelector
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

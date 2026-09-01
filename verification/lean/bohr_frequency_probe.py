@@ -3847,6 +3847,127 @@ check("F34", ok34,
       "Luders branch update is OI-licensed, the four named endpoint conditions become "
       "THREE -- H-functor, H-tensor, and sufficient composite Lie rank.")
 
+# ----------------------- F35  the selector-completion round: rank-one uniqueness and
+# the coarse-fibre correlation family (phase three, round 22).  (a) RANK-ONE: the CP
+# map P_k X P_k is the UNIQUE CP extension of the rank-one classical selector
+# Phi(E_ss) = delta_sk E_kk -- its Choi matrix is the single entry at ((k,k),(k,k)),
+# PSD, and no other CP map has that Choi diagonal; (b) MONOMIAL-LUDERS COMPATIBILITY:
+# on a diagonal classical state the fixed-basis Luders readout after a monomial lift
+# U_g = D P_g is the phase-free classical branch w(g^-1 k) P_k, independent of the
+# phases D; (c) COARSE FIBRE: on a rank-two fibre F = {0,1} the Luders map (C = all
+# ones) and complete within-block dephasing (C = I) are DIFFERENT CP selectors that
+# agree on every classical branch probability yet differ on E_01 -- the surviving
+# freedom is a correlation matrix inside the block; (d) RANK-ONE COLLAPSE: on the
+# rank-one fibre {0} the block is 1x1, C = [1] for both, and the family collapses to
+# the unique Luders member.
+ok35 = True
+def Est(s, t, n=3):
+    return [[CO17 if (r == s and c == t) else CZ17 for c in range(n)] for r in range(n)]
+# (a) rank-one selector uniqueness: Choi of P_k . P_k, k = 0
+k35 = 0
+def luders_map(k, X, n=3):
+    P = Est(k, k, n)
+    return mmc17(mmc17(P, X), P)
+# Choi matrix J[(s,a)][(t,b)] = Phi(E_st)[a][b], over 3x3 -> 9x9
+def choi(phi, n=3):
+    J = [[CZ17] * (n * n) for _ in range(n * n)]
+    for s in range(n):
+        for t in range(n):
+            PhiE = phi(Est(s, t, n))
+            for a in range(n):
+                for bb in range(n):
+                    J[n * s + a][n * t + bb] = PhiE[a][bb]
+    return J
+JL = choi(lambda X: luders_map(k35, X))
+# the Choi is the single entry at index (n*k + k) = 0
+exp = [[CO17 if (r == 0 and c == 0) else CZ17 for c in range(9)] for r in range(9)]
+ok35 &= JL == exp
+# PSD (Hermitian, and it is a rank-one projector |e><e|): J = v v^H with v = e_0
+vJ = [CO17 if r == 0 else CZ17 for r in range(9)]
+ok35 &= JL == [[vJ[r] * vJ[c].conj() for c in range(9)] for r in range(9)]
+# rank-one selector condition holds
+ok35 &= all(luders_map(k35, Est(s, s)) == (Est(k35, k35) if s == k35
+            else [[CZ17] * 3 for _ in range(3)]) for s in range(3))
+# (b) monomial-Luders: phases vanish on a diagonal classical state
+g35 = [1, 2, 0]                                           # 3-cycle
+gi35 = [2, 0, 1]
+d35 = [CO17, C17(Frac(3, 5), Frac(4, 5)), C17(Frac(3, 5), Frac(-4, 5))]
+ok35 &= all((d35[s] * d35[s].conj()) == CO17 for s in range(3))
+P35 = [[CO17 if g35[c] == r else CZ17 for c in range(3)] for r in range(3)]
+D35 = [[d35[r] if r == c else CZ17 for c in range(3)] for r in range(3)]
+U35 = mmc17(D35, P35)
+w35 = [C17(Frac(1, 2)), C17(Frac(1, 3)), C17(Frac(1, 6))]
+diagw = [[w35[r] if r == c else CZ17 for c in range(3)] for r in range(3)]
+for k in range(3):
+    lhs = luders_map(k, mmc17(mmc17(U35, diagw), dag17(U35)))
+    rhs = [[w35[gi35[k]] if (r == k and c == k) else CZ17 for c in range(3)]
+           for r in range(3)]
+    ok35 &= lhs == rhs                                    # phase-free classical branch
+# a phase-FREE lift (D = I) gives the same branch -> phases irrelevant
+U35_nophase = P35
+for k in range(3):
+    ok35 &= luders_map(k, mmc17(mmc17(U35, diagw), dag17(U35))) \
+        == luders_map(k, mmc17(mmc17(U35_nophase, diagw), dag17(U35_nophase)))
+# (c) coarse rank-two fibre F = {0,1}: Luders vs dephasing
+PF = [[CO17 if (r == c and r in (0, 1)) else CZ17 for c in range(3)] for r in range(3)]
+def luders_F(X):
+    return mmc17(mmc17(PF, X), PF)
+def dephase_F(X):
+    out = [[CZ17] * 3 for _ in range(3)]
+    for i in (0, 1):
+        Pi = Est(i, i)
+        term = mmc17(mmc17(Pi, X), Pi)
+        out = [[out[r][c] + term[r][c] for c in range(3)] for r in range(3)]
+    return out
+# both are classical selectors: Phi(E_ss) = E_ss for s in F, 0 for s notin F
+for s in range(3):
+    tgt = Est(s, s) if s in (0, 1) else [[CZ17] * 3 for _ in range(3)]
+    ok35 &= luders_F(Est(s, s)) == tgt and dephase_F(Est(s, s)) == tgt
+# agree on every diagonal (classical) state
+for w in [[C17(Frac(1, 2)), C17(Frac(1, 3)), C17(Frac(1, 6))],
+          [C17(1), CZ17, CZ17], [CZ17, C17(1), CZ17]]:
+    dw = [[w[r] if r == c else CZ17 for c in range(3)] for r in range(3)]
+    ok35 &= luders_F(dw) == dephase_F(dw)
+# but DIFFER on the coherence E_01
+ok35 &= luders_F(Est(0, 1)) == Est(0, 1)                  # Luders: C = all-ones, survives
+ok35 &= dephase_F(Est(0, 1)) == [[CZ17] * 3 for _ in range(3)]  # dephasing: C = I, killed
+ok35 &= luders_F(Est(0, 1)) != dephase_F(Est(0, 1))
+# (d) rank-one collapse: fibre {0}
+P0 = Est(0, 0)
+def luders_1(X):
+    return mmc17(mmc17(P0, X), P0)
+def dephase_1(X):
+    return mmc17(mmc17(P0, X), P0)                        # single block -> identical
+ok35 &= all(luders_1(Est(s, t)) == dephase_1(Est(s, t))
+            for s in range(3) for t in range(3))          # family collapses to Luders
+check("F35", ok35,
+      "THE SELECTOR-COMPLETION ROUND: RANK-ONE UNIQUENESS AND THE COARSE FIBRE "
+      "(phase three, round twenty-two; kernel: ludersLift, ludersLift_apply, "
+      "RankOneSelector, ludersLift_selector, choi_ludersLift, ludersLift_cp, "
+      "cp_rankOneSelector_forces_luders, cp_rankOneSelector_iff_luders, "
+      "monomial_luders_classicalBranch in OIBridge/BranchSelector.lean). (a) RANK-ONE "
+      "UNIQUENESS: the Choi matrix of the Luders map P_k . P_k is the single entry at "
+      "((k,k),(k,k)) -- exactly the rank-one projector |e><e|, PSD -- so by the "
+      "round-17 PSD zero-diagonal lemma NO other CP map shares that Choi diagonal: the "
+      "capstone cp_rankOneSelector_iff_luders says a CP coherent completion of the "
+      "rank-one classical selector Phi(E_ss) = delta_sk E_kk has NO ALTERNATIVE to "
+      "Luders. The branch update is forced, not a new freedom. (b) "
+      "MONOMIAL-LUDERS COMPATIBILITY: on a diagonal classical state the fixed-basis "
+      "Luders readout after any H-functor monomial lift U_g = D P_g is the phase-free "
+      "classical branch w(g^-1 k) P_k, verified identical to the phase-free lift -- "
+      "H-functor's phases do not disturb the branch. (c) COARSE FIBRE: on the "
+      "rank-two fibre {0,1} the Luders map (correlation C = all-ones) and complete "
+      "within-block dephasing (C = I) are DIFFERENT CP selectors agreeing on every "
+      "classical branch probability yet differing on the coherence E_01 -- the "
+      "surviving freedom is exactly a correlation matrix inside the selected block; "
+      "(d) RANK-ONE COLLAPSE: on the fibre {0} the block is 1x1, C = [1] for both, and "
+      "the family collapses to the unique Luders member. THE CLOSED CHAIN: bare Q_fb "
+      "gives a CP rank-one branch extension; CP uniqueness makes it Luders; H-functor "
+      "monomial phases do not disturb it; H-tensor supplies the ancilla; round-21 "
+      "feed-forward produces the pure seed. So H-pure-seed disappears -- NOT replaced "
+      "by an H-readout assumption -- and the endpoint is genuinely three conditions: "
+      "H-functor, H-tensor, and sufficient composite Lie rank.")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
