@@ -4015,6 +4015,25 @@ ok36 &= any(vis36[p] == vis36[q] and p != q and vis36[sig36[p]] != vis36[sig36[q
 ok36 &= all(vis36[sig36[sig36[i]]] == vis36[i] for i in range(N36))
 # observer-minimal: the two-step visible itinerary separates all eight states
 ok36 &= len({(vis36[i], vis36[sig36[i]]) for i in range(N36)}) == N36
+# C3 -- history readback: the present readout fixes neither past nor future.  Since the
+# passive step is an involution the predecessor coincides with the successor, so the
+# visible window (v_{t-1}, v_t, v_{t+1}) around state i is (h, v, h).
+def hist36(i):
+    return (sig36[i] >> 2, i >> 2, sig36[i] >> 2)
+
+
+ok36 &= any(vis36[p] == vis36[q] and p != q
+            and hist36(p) == (0, 0, 0) and hist36(q) == (1, 0, 1)
+            for p in range(N36) for q in range(N36))
+# C4 -- capacity saturation: every visible readout is carried by exactly two states,
+# separated precisely by the hidden bit, with differing visible futures; the hidden Bool
+# has exactly two states, so the one-bit memory is EXACTLY saturated -- it carries the
+# full past-to-future distinction the visible stream can express, and nothing more
+ok36 &= len({(i >> 1) & 1 for i in range(N36)}) == 2
+for r36 in {vis36[i] for i in range(N36)}:
+    cls36 = [i for i in range(N36) if vis36[i] == r36]
+    ok36 &= (len(cls36) == 2 and len({(i >> 1) & 1 for i in cls36}) == 2
+             and vis36[sig36[cls36[0]]] != vis36[sig36[cls36[-1]]])
 
 # --- the three completions, as correlation matrices over the SAME classical actions
 
@@ -4197,7 +4216,8 @@ check("F36", ok36,
       "THE OI INDEPENDENCE CENSUS: ONE SHARED C1-C4 CORE, THREE INEQUIVALENT "
       "COMPLETIONS (phase three, round twenty-three; kernel: swapFn, flipFn, sigmaPerm, "
       "tauPerm, core_hidden_drives_visible, core_visible_period_two, "
-      "core_observer_minimal, threeCompletions_same_classical_comb, "
+      "core_observer_minimal, core_history_readback, core_capacity_saturates, "
+      "core_isC1C4, threeCompletions_same_classical_comb, "
       "nonFunctorial_not_functorial, nonTensor_not_local, restrictedU_fixes_coreH, "
       "restricted_controlLie_line, outsideGen_not_mem, "
       "oi_core_underdetermines_completion in OIBridge/IndependenceCensus.lean). (a) THE "
@@ -4205,7 +4225,12 @@ check("F36", ok36,
       "sigma(v,h,b) = (h,v,b) and the control tau(v,h,b) = (v,h,b^1) are commuting "
       "involutions, C1 is literal (v_{t+1} = h_t, so two states with the same readout "
       "separate after one step), C2 is structural (v_{t+2} = v_t, a genuine one-bit "
-      "memory) and the core is ALREADY observer-minimal -- the two-step visible "
+      "memory), C3 is history readback (two states with the SAME present (v,b) carry the "
+      "histories 0->0->0 and 1->0->1, so the present fixes neither past nor future and "
+      "only the hidden bit separates them), C4 is capacity saturation (every visible "
+      "readout is carried by exactly two states, separated precisely by the hidden bit, "
+      "with differing visible futures -- the one-bit memory is EXACTLY saturated), and "
+      "the core is ALREADY observer-minimal -- the two-step visible "
       "itinerary separates all eight states, so no quotient collapses it. (b) THE COMB "
       "IDENTITY: exhaustively over every word of length <= 3 in passive steps, "
       "tau-controls and rank-one readouts, all three completions return EXACTLY the bare "

@@ -544,7 +544,9 @@ for fname, names in (
                         'cp_rankOneSelector_iff_luders',
                         'monomial_luders_classicalBranch')),
     ('IndependenceCensus', ('core_hidden_drives_visible', 'core_visible_period_two',
-                            'core_observer_minimal', 'sigma_tau_commute',
+                            'core_observer_minimal', 'core_history_readback',
+                            'core_capacity_saturates', 'core_isC1C4',
+                            'sigma_tau_commute',
                             'ludersLift_diagonal', 'stateFold_diagonal',
                             'threeCompletions_same_classical_comb', 'monoU_conj',
                             'monoU_mul', 'monoU_unitary', 'nonFunctorial_cptp',
@@ -587,6 +589,10 @@ ok6 &= all(f'stateFold {c} steps (Matrix.diagonal w)' in ic
 # the restricted-control completion is ordinary quantum kinematics with a proper reachable
 # subgroup, NOT a non-quantum theory: the wording guard must be present, not an overclaim
 ok6 &= 'not "non-quantum"' in ic and 'UNRESTRICTED' in ic
+# C1-C4 must be kernel conditions bound into the capstone, not a prose reading of it
+ok6 &= 'def CoreC1C4 : Prop' in ic and 'theorem core_isC1C4 : CoreC1C4' in ic
+cap = ic[ic.index('theorem oi_core_underdetermines_completion'):]
+ok6 &= 'CoreC1C4' in cap[:cap.index(':=')]
 ok6 &= 'S ⇔ D ⇔ Q_fb` is untouched' in ic
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
@@ -606,7 +612,7 @@ spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E�
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
       "LINT. All thirty files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 13 + 8 + 6 + 26 + 5 + 16 named results print their "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 13 + 8 + 6 + 29 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
