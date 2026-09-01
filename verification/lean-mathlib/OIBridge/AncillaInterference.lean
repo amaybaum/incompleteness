@@ -40,9 +40,25 @@
   direction. That is the third distinct role positivity has played, after the transpose and
   the surplus itself.
 
-  §D — AND IT IS WEAKER THAN COMPOSITE CONTROL. `compositeControl_hasInterference`: composite
-  unitary control gives the principle, since the mixer is unitary and the pure seed is
-  already derived (`pureSeedPrep_available`). The converse is NOT proved and NOT claimed.
+  §D — AND IT IS NO STRONGER THAN COMPOSITE CONTROL. `compositeControl_hasInterference`:
+  composite unitary control gives the principle, since the mixer is unitary and the pure seed
+  is already derived (`pureSeedPrep_available`). READ THE DIRECTION AND STOP THERE. That is
+  an implication one way. It does NOT license "strictly weaker", which would need a theory
+  with the interference principle and WITHOUT full composite unitary control, and no such
+  witness is constructed here. The converse is NOT proved and NOT claimed.
+
+  §E — AND THE LAST AVAILABILITY PREMISE REMOVED (round thirty). The principle above takes
+  the pure two-level seed as an AVAILABILITY hypothesis, which is honest but not minimal:
+  round twenty-five's derivation shows what is actually consumed is the outcome-dependent
+  ancilla SWAP, and `pureSeedPrep_available_of_swap` now carries exactly that premise,
+  localized to the ancilla size and target level used. So
+
+      `HasAncillaQubitInterferenceControl` = qubit swap control ∧ the balanced mixer
+
+  is a purely CONTROL-side certificate — no pure state is assumed anywhere — and
+  `interferenceControl_exposes_badOp` reaches the same conclusion from it. The physical
+  statement is then: UNIFORM ANCILLA, BASIS READOUT, ONE SWAP CONTROL AND ONE BALANCED MIXER
+  suffice to expose the hidden-coherence surplus.
 
   WHAT THIS DOES NOT SETTLE, and the lint enforces that nothing here says otherwise: whether
   `HasAncillaQubitInterference` implies `KrausSoundExt` in general. It kills THIS surplus, a
@@ -327,12 +343,46 @@ theorem interference_exposes_badOp [Nonempty A] (T : FiniteOperationalTheory A)
   rw [Complex.le_def] at hneg
   norm_num at hneg
 
-/-- **AND THE PRINCIPLE IS WEAKER THAN COMPOSITE CONTROL.** Composite unitary control gives
-it: the mixer is a unitary, and the pure seed is already derived from the uniform one. The
-CONVERSE is not proved and not claimed — that is the point of naming the weak principle. -/
+/-- **AND THE PRINCIPLE IS NO STRONGER THAN COMPOSITE CONTROL.** Composite unitary control
+gives it: the mixer is a unitary, and the pure seed is already derived from the uniform one.
+One direction only. This does NOT license the phrase "strictly weaker" — that needs a theory
+having it without full composite control, and none is built here. -/
 theorem compositeControl_hasInterference (T : FiniteOperationalTheory A)
     (hctrl : HasCompositeUnitaryControl T) : HasAncillaQubitInterference T :=
   ⟨pureSeedPrep_available T hctrl 1 0, hctrl 2 (ancMix A) ancMix_unitary⟩
+
+/-! ### Section E — the principle as pure control (round thirty) -/
+
+/-- **QUBIT SWAP CONTROL**, the two-level instance of `HasAncillaSwapControl`: the
+outcome-dependent corrections `k ↦ 0` on a two-level ancilla, system untouched. -/
+def HasAncillaQubitSwapControl (T : FiniteOperationalTheory A) : Prop :=
+  ∀ k : Fin 2, T.availExt 2 Unit
+    (fun _ => conjChannel (CoherentLift.permMatrix (ancSwap (A := A) 2 k 0)))
+
+/-- **THE PRINCIPLE AS PURE CONTROL.** Qubit swap control plus the balanced mixer. No
+availability hypothesis about a pure state survives: the seed is DERIVED from the uniform
+ancilla, the readout, and the swap. -/
+def HasAncillaQubitInterferenceControl (T : FiniteOperationalTheory A) : Prop :=
+  HasAncillaQubitSwapControl T ∧ T.availExt 2 Unit (fun _ => conjChannel (ancMix A))
+
+/-- The control-side certificate delivers the availability-side principle. -/
+theorem interferenceControl_hasInterference (T : FiniteOperationalTheory A)
+    (h : HasAncillaQubitInterferenceControl T) : HasAncillaQubitInterference T :=
+  ⟨pureSeedPrep_available_of_swap T 1 0 h.1, h.2⟩
+
+/-- **THE EXPOSURE THEOREM WITH NO PURE-STATE PREMISE.** Uniform ancilla, basis readout, one
+swap control and one balanced mixer: that is the whole physical hypothesis, and it already
+forbids the round-28 surplus in any sound theory. -/
+theorem interferenceControl_exposes_badOp [Nonempty A] (T : FiniteOperationalTheory A)
+    (hsound : KrausSound T) (h : HasAncillaQubitInterferenceControl T) :
+    ¬ T.availExt 2 Unit (fun _ => badOp (A := A) 2) :=
+  interference_exposes_badOp T hsound (interferenceControl_hasInterference T h)
+
+/-- Composite unitary control gives the control-side certificate too. One direction only. -/
+theorem compositeControl_hasInterferenceControl (T : FiniteOperationalTheory A)
+    (hctrl : HasCompositeUnitaryControl T) : HasAncillaQubitInterferenceControl T :=
+  ⟨fun k => compositeControl_hasSwapControl T hctrl 2 k 0,
+    hctrl 2 (ancMix A) ancMix_unitary⟩
 
 #print axioms sqrt2_inv_sq
 #print axioms hRaw_gram
@@ -348,6 +398,9 @@ theorem compositeControl_hasInterference (T : FiniteOperationalTheory A)
 #print axioms smul_id_cp_nonneg
 #print axioms interference_exposes_badOp
 #print axioms compositeControl_hasInterference
+#print axioms interferenceControl_hasInterference
+#print axioms interferenceControl_exposes_badOp
+#print axioms compositeControl_hasInterferenceControl
 
 end AncillaInterference
 end OIBridge

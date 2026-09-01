@@ -5250,6 +5250,87 @@ check("F43",
       "theory satisfying the principle that still fails KrausSoundExt, or a proof that none "
       "exists.")
 
+# ----------------------- F44  round 30: the interference certificate as PURE CONTROL --
+# uniform ancilla, basis readout, one swap control and one balanced mixer, end to end
+# (phase three, round thirty).
+ok44 = True
+HRAW4_44 = [[(CO17 if (r >> 1) == (c >> 1) else CZ17) * HRAW43[r & 1][c & 1]
+             for c in range(4)] for r in range(4)]
+
+
+def conj4_44(X):
+    """The mixer on the composite, normalization folded in: (1/2)(I (x) hRaw) X (...)^dag."""
+    Y = mmc17(mmc17(HRAW4_44, X), dag17(HRAW4_44))
+    return [[Y[r][c] * HALF43 for c in range(4)] for r in range(4)]
+
+
+def badOp4_44(X):
+    return [[X[r][c] * (CO17 if (r & 1) == (c & 1) else C17(2)) for c in range(4)]
+            for r in range(4)]
+
+
+for _rho in (rho38, rho39):
+    UNI44 = tensor38(_rho, [[half38 if r == c else CZ17 for c in range(2)]
+                            for r in range(2)])
+    # --- (a) THE SEED IS DERIVED, not assumed: read the uniform ancilla, apply the swap
+    # correction k -> 0, forget the outcome.  Only the SWAPS are used, not general unitaries.
+    SEED44 = [[CZ17] * 4 for _ in range(4)]
+    for _k in range(2):
+        Sw = ancswap38(_k, 0)
+        ok44 &= mmc17(Sw, dag17(Sw)) == eye17(4)
+        _cor = mmc17(mmc17(Sw, localLuders38(_k, UNI44)), dag17(Sw))
+        SEED44 = [[SEED44[r][c] + _cor[r][c] for c in range(4)] for r in range(4)]
+    ok44 &= SEED44 == tensor38(_rho, [[CO17 if (r, c) == (0, 0) else CZ17
+                                       for c in range(2)] for r in range(2)])
+    # --- (b) AND THEN THE INTERFERENCE EXPERIMENT RUNS ON IT, end to end from the uniform
+    # ancilla: mix, surplus, mix, read, discard.
+    X3_44 = conj4_44(badOp4_44(conj4_44(SEED44)))
+    B0 = ptraceAnc38(localLuders38(0, X3_44))
+    B1 = ptraceAnc38(localLuders38(1, X3_44))
+    ok44 &= B0 == [[_rho[r][c] * C17(Frac(3, 2)) for c in range(2)] for r in range(2)]
+    ok44 &= B1 == [[_rho[r][c] * C17(Frac(-1, 2)) for c in range(2)] for r in range(2)]
+    # the branches still sum to the input, so the trace layer remains blind
+    ok44 &= [[B0[r][c] + B1[r][c] for c in range(2)] for r in range(2)] == _rho
+    # --- (c) THE CONTROL: with the mixers removed the same chain is harmless
+    Y44 = badOp4_44(SEED44)
+    ok44 &= ptraceAnc38(localLuders38(0, Y44)) == _rho
+    ok44 &= ptraceAnc38(localLuders38(1, Y44)) == [[CZ17] * 2 for _ in range(2)]
+check("F44", ok44,
+      "ROUND 30: THE INTERFERENCE CERTIFICATE AS PURE CONTROL (phase three, round thirty; "
+      "kernel: HasAncillaSwapControl, pureSeedPrep_available_of_swap, "
+      "compositeControl_hasSwapControl, pureSeedPrep_available_of_swapControl in "
+      "OIBridge/OperationalAssembly.lean; HasAncillaQubitSwapControl, "
+      "HasAncillaQubitInterferenceControl, interferenceControl_hasInterference, "
+      "interferenceControl_exposes_badOp, compositeControl_hasInterferenceControl in "
+      "OIBridge/AncillaInterference.lean). Round 29's principle took the pure two-level seed "
+      "as an AVAILABILITY hypothesis -- honest but not minimal, since round 25's derivation "
+      "shows what is actually consumed is the outcome-dependent ancilla SWAP. "
+      "pureSeedPrep_available_of_swap now carries exactly that premise, LOCALIZED to the "
+      "ancilla size and target level used, so a theory needs no swap control at any other "
+      "size and full composite unitary control is not needed at all; "
+      "compositeControl_hasSwapControl records that composite control still supplies it. "
+      "HasAncillaQubitInterferenceControl is then qubit swap control AND the balanced mixer "
+      "-- a purely control-side certificate with no pure state assumed anywhere -- and "
+      "interferenceControl_exposes_badOp reaches round 29's conclusion from it. The physical "
+      "statement is now: UNIFORM ANCILLA, BASIS READOUT, ONE SWAP CONTROL AND ONE BALANCED "
+      "MIXER suffice to expose the hidden-coherence surplus. Verified here end to end in "
+      "exact rationals, at two different system states: each swap correction is unitary; the "
+      "derived seed from the uniform ancilla is EXACTLY rho (x) |0><0|; running the "
+      "interference chain on that derived seed gives branches exactly (3/2)rho and "
+      "(-1/2)rho; and those still sum to rho, so the trace layer stays blind and it is "
+      "positivity alone that refutes the surplus. THE CONTROL: with the mixers removed the "
+      "same chain is harmless -- branches rho and 0, both nonnegative -- so it is the "
+      "recombination, not the seed or the surplus alone, that does the work. WORDING, "
+      "corrected in the same round: compositeControl_hasInterference proves ONE direction, "
+      "so the interference principle is NO STRONGER than composite unitary control; calling "
+      "it strictly weaker would need a theory having the principle WITHOUT full composite "
+      "control, and no such witness exists yet. NOT PROVED AND NOT CLAIMED: that the "
+      "principle implies KrausSoundExt in general. One fixed qubit interferometer plausibly "
+      "does not detect every non-CP composite extension, and the informative next step is a "
+      "second surplus that passes THIS test -- which would say exactly which further mixer "
+      "bases or phases are needed, and start the climb from one interferometer to "
+      "tomographically complete interference.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

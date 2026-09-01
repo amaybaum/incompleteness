@@ -589,7 +589,9 @@ for fname, names in (
                              'readout_is_localLuders', 'conj_ancSwap_single',
                              'localLuders_uniform', 'pureSeedPrep_available',
                              'circuit_available', 'circuit_available_pureSeed',
-                             'circuit_branch')),
+                             'circuit_branch', 'pureSeedPrep_available_of_swap',
+                             'compositeControl_hasSwapControl',
+                             'pureSeedPrep_available_of_swapControl')),
     ('StinespringAssembly', ('Vsf_eq_dilationIsometry', 'Esf_eq_seedEmbed', 'vsf_gram',
                              'esf_conj', 'vsf_block', 'stinespringCircuit_branch',
                              'fullInstruments_of_control')),
@@ -621,7 +623,10 @@ for fname, names in (
                              'badOp_tensor', 'mix_seed', 'tauChain_diag',
                              'interference_branch', 'form_of_one_single',
                              'smul_id_cp_nonneg', 'interference_exposes_badOp',
-                             'compositeControl_hasInterference')),
+                             'compositeControl_hasInterference',
+                             'interferenceControl_hasInterference',
+                             'interferenceControl_exposes_badOp',
+                             'compositeControl_hasInterferenceControl')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -935,6 +940,21 @@ ok6 &= 'The converse is NOT proved and NOT claimed' in _aiflat
 ok6 &= 'it says nothing about every possible one' in _aiflat
 # and the reason the contradiction is positivity, not trace, must be on the record
 ok6 &= 'THE CONTRADICTION IS POSITIVITY, NOT TRACE' in _aiflat
+# ROUND-30 GUARDS.  The pure seed must be derivable from the SWAPS alone, so the interference
+# certificate can be stated purely as control with no pure-state availability premise.
+_pss = _slice(oa, 'theorem pureSeedPrep_available_of_swap', ':= by')
+ok6 &= bool(_pss) and 'HasCompositeUnitaryControl' not in _pss
+ok6 &= bool(_pss) and 'ancSwap (A := A) (n + 1) k k₀' in _pss
+ok6 &= 'def HasAncillaSwapControl' in oa
+ok6 &= 'theorem compositeControl_hasSwapControl' in oa
+_ctrl = _slice(ai, 'def HasAncillaQubitInterferenceControl', '/--')
+ok6 &= bool(_ctrl) and 'HasAncillaQubitSwapControl T' in _ctrl
+ok6 &= bool(_ctrl) and 'prepAvail' not in _ctrl and 'pureAttach' not in _ctrl
+ok6 &= 'theorem interferenceControl_exposes_badOp' in ai
+# WORDING: one direction is proved, so "strictly weaker" is not licensed anywhere
+ok6 &= 'is strictly weaker' not in _aiflat and 'strictly below' not in _aiflat
+ok6 &= 'IS WEAKER THAN COMPOSITE CONTROL' not in _aiflat
+ok6 &= 'It does NOT license "strictly weaker"' in _aiflat
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -953,7 +973,7 @@ spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E�
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
       "LINT. All thirty-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 8 + 15 + 21 + 14 + 5 + 16 named results print their "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
