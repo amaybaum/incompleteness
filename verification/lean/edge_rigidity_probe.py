@@ -627,6 +627,12 @@ for fname, names in (
                              'interferenceControl_hasInterference',
                              'interferenceControl_exposes_badOp',
                              'compositeControl_hasInterferenceControl')),
+    ('PartialTranspose', ('ancTranspose_apply', 'ancTranspose_tensor', 'ancTranspose_trace',
+                          'posSemidef_transpose', 'ancTranspose_choi', 'ancTranspose_not_cp',
+                          'ancTranspose_not_kraus', 'hMat_symm', 'hMat_involutive',
+                          'mixSeed_symm', 'tauChainT_eq', 'tauChainT_diag',
+                          'interference_branch_transpose',
+                          'ancTranspose_survives_interference')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -955,6 +961,28 @@ ok6 &= 'theorem interferenceControl_exposes_badOp' in ai
 ok6 &= 'is strictly weaker' not in _aiflat and 'strictly below' not in _aiflat
 ok6 &= 'IS WEAKER THAN COMPOSITE CONTROL' not in _aiflat
 ok6 &= 'It does NOT license "strictly weaker"' in _aiflat
+# ROUND-31 GUARDS.  The survivor must be the ANCILLA-only transpose, positive and not CP,
+# and the round-30 certificate must be shown BLIND to it -- with no claim about what would
+# expose it.
+pt = open(os.path.join(BRIDGE, 'OIBridge', 'PartialTranspose.lean'), encoding='utf-8').read()
+_at = _slice(pt, 'def ancTranspose', '@[simp]')
+ok6 &= bool(_at) and 'X (p.1, q.2) (q.1, p.2)' in _at
+ok6 &= 'theorem ancTranspose_trace' in pt and 'theorem posSemidef_transpose' in pt
+ok6 &= 'theorem ancTranspose_not_cp' in pt and 'theorem ancTranspose_not_kraus' in pt
+# the null result must be a THEOREM about the round-30 chain, not prose
+_nul = _slice(pt, 'theorem interference_branch_transpose', ':= by')
+ok6 &= bool(_nul) and 'conjChannel (ancMix A)' in _nul and 'ancTranspose A 2' in _nul
+ok6 &= 'theorem tauChainT_eq' in pt and 'theorem ancTranspose_survives_interference' in pt
+_ptflat = ' '.join(pt.split())
+# the corrected phase reasoning must be recorded, since it was the natural wrong guess
+ok6 &= 'Pure phase gives nothing new in either direction' in _ptflat
+# and NOTHING may claim the minimal entangling capability or a general impossibility
+ok6 &= 'it does not exhibit the minimal entangling capability that DOES expose' in _ptflat
+ok6 &= 'does not prove that no ancilla-local principle whatsoever could' in _ptflat
+ok6 &= 'minimalEntangling' not in pt and 'theorem entangling_exposes' not in pt
+# the structural gap is NAMED, not silently patched: this round adds no structure field
+ok6 &= 'structure ' not in pt
+ok6 &= 'no rule lifting an available SYSTEM operation' in _ptflat
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -972,8 +1000,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All thirty-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 5 + 16 named results print their "
+      "LINT. All thirty-eight files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 14 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

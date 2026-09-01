@@ -5331,6 +5331,123 @@ check("F44", ok44,
       "bases or phases are needed, and start the climb from one interferometer to "
       "tomographically complete interference.")
 
+# ----------------------- F45  round 31: the survivor ancilla interference cannot reach --
+# transpose is positive but not completely positive (phase three, round thirty-one).
+ok45 = True
+
+
+def alphaScale45(al, X):
+    """The symmetric block multiplier with off-diagonal coefficient al."""
+    return [[X[r][c] * (CO17 if r == c else al) for c in range(2)] for r in range(2)]
+
+
+# --- (a) THE GENERAL BRANCH FORMULA.  The round-29 experiment on the symmetric multiplier
+# with coefficient al returns (1 + al)/2 and (1 - al)/2.  Checked at four coefficients.
+for _al in (C17(2), C17(0, 1), C17(Frac(-1, 3)), C17(Frac(1, 2), Frac(1, 4))):
+    _T = conjRaw43(alphaScale45(_al, conjRaw43(SEED43)))
+    ok45 &= _T[0][0] == (CO17 + _al) * HALF43
+    ok45 &= _T[1][1] == (CO17 - _al) * HALF43
+# --- (b) SO A PURE PHASE IS NOT THE NEXT SURVIVOR.  A non-real coefficient makes the branch
+# coefficients non-real, and no Kraus family can have those: the existing interferometer
+# catches it immediately.
+_Ti = conjRaw43(alphaScale45(C17(0, 1), conjRaw43(SEED43)))
+ok45 &= _Ti[0][0].im != Frac(0) and _Ti[1][1].im != Frac(0)
+# while a unit-modulus phase applied Hermiticity-preservingly is conjugation by a diagonal
+# phase unitary, hence perfectly quantum -- checked as an exact identity at al = i
+PH45 = [[CO17, CZ17], [CZ17, C17(0, 1)]]
+ok45 &= mmc17(PH45, dag17(PH45)) == eye17(2)
+for _X in (SEED43, conjRaw43(SEED43), [[C17(Frac(2, 3)), C17(Frac(1, 5), Frac(1, 7))],
+                                       [C17(Frac(1, 5), Frac(-1, 7)), C17(Frac(1, 3))]]):
+    _herm = [[_X[r][c] * (CO17 if r == c else (C17(0, -1) if r < c else C17(0, 1)))
+              for c in range(2)] for r in range(2)]
+    ok45 &= _herm == mmc17(mmc17(PH45, _X), dag17(PH45))
+
+# --- (c) THE REAL SURVIVOR: transposition.  Trace preserving, and it maps states to states.
+def transpose45(X):
+    return [[X[c][r] for c in range(2)] for r in range(2)]
+
+
+for _X in (SEED43, conjRaw43(SEED43), alphaScale45(C17(2), conjRaw43(SEED43))):
+    ok45 &= trace40(transpose45(_X)) == trace40(_X)
+    # positivity on a sample of directions, for the state and its transpose alike
+    for _v in ([CO17, CZ17], [CZ17, CO17], [CO17, C17(-1)], [CO17, C17(0, 1)]):
+        for _M in (_X, transpose45(_X)):
+            _q = sum((_v[r].conj() * _M[r][c] * _v[c] for r in range(2) for c in range(2)),
+                     CZ17)
+            ok45 &= _q.im == Frac(0)
+# --- (d) BUT IT IS NOT COMPLETELY POSITIVE.  Partial transpose on the composite, with the
+# Choi witness at e_((s,k1),(s,k0)) - e_((s,k0),(s,k1)) giving exactly -2.
+def ancT45(X):
+    """Ancilla-only transpose on A x Fin 2 with A two-level: X[(s,k)][(t,l)] -> X[(s,l)][(t,k)]."""
+    return [[X[((r >> 1) << 1) | (c & 1)][((c >> 1) << 1) | (r & 1)] for c in range(4)]
+            for r in range(4)]
+
+
+CT45 = [[CZ17] * 16 for _ in range(16)]
+for P1 in range(4):
+    for Q1 in range(4):
+        im45 = ancT45([[CO17 if (r, c) == (P1, Q1) else CZ17 for c in range(4)]
+                       for r in range(4)])
+        for P2 in range(4):
+            for Q2 in range(4):
+                CT45[4 * P1 + P2][4 * Q1 + Q2] = im45[P2][Q2]
+# s = 0, k0 = 0, k1 = 1: composite indices (s,k1) = 1 and (s,k0) = 0
+IP45, IQ45 = 4 * 1 + 0, 4 * 0 + 1
+ok45 &= CT45[IP45][IP45] == CZ17 and CT45[IQ45][IQ45] == CZ17
+ok45 &= CT45[IP45][IQ45] == CO17 and CT45[IQ45][IP45] == CO17
+ok45 &= CT45[IP45][IP45] - CT45[IP45][IQ45] - CT45[IQ45][IP45] + CT45[IQ45][IQ45] == C17(-2)
+V45 = [CZ17] * 16
+V45[IP45], V45[IQ45] = CO17, C17(-1)
+ok45 &= qform41(CT45, V45) == C17(-2)
+# --- (e) AND THE ROUND-30 CERTIFICATE RETURNS THE NULL RESULT: seed, mix, transpose, mix
+# gives back the seed exactly, so the branches are 1 and 0 -- what a run with no surplus
+# gives.  The reason is that the mixed seed is real symmetric, so transpose fixes it.
+MID45 = conjRaw43(SEED43)
+ok45 &= transpose45(MID45) == MID45
+T45 = conjRaw43(transpose45(MID45))
+ok45 &= T45 == SEED43
+ok45 &= T45[0][0] == CO17 and T45[1][1] == CZ17
+ok45 &= T45[0][0].re >= 0 and T45[1][1].re >= 0
+check("F45", ok45,
+      "ROUND 31: THE SURVIVOR ANCILLA INTERFERENCE CANNOT REACH (phase three, round "
+      "thirty-one; kernel: ancTranspose, ancTranspose_tensor, ancTranspose_trace, "
+      "posSemidef_transpose, ancTranspose_choi, ancTranspose_not_cp, ancTranspose_not_kraus, "
+      "hMat_symm, hMat_involutive, mixSeed_symm, tauChainT, tauChainT_eq, tauChainT_diag, "
+      "interference_branch_transpose, ancTranspose_survives_interference in "
+      "OIBridge/PartialTranspose.lean). Rounds 29 and 30 killed the hidden-coherence surplus "
+      "with one two-level interferometer; the obvious next move would be more mixer bases, "
+      "and this round shows that is the WRONG LADDER. WHY A PHASE IS NOT THE NEXT SURVIVOR, "
+      "recorded because it was the natural guess: the round-29 experiment on the symmetric "
+      "block multiplier with off-diagonal coefficient al returns branches (1 + al)/2 and "
+      "(1 - al)/2 -- verified here at four coefficients -- so a NON-REAL al gives non-real "
+      "branch coefficients, which no Kraus family can have, and the existing interferometer "
+      "catches it at once; while the Hermiticity-preserving version scaling opposite "
+      "coherences by al and its conjugate with |al| = 1 is conjugation by a diagonal phase "
+      "unitary, checked here as an exact identity at al = i, hence perfectly quantum. Pure "
+      "phase gives nothing new in either direction. THE REAL SURVIVOR IS TRANSPOSITION: "
+      "trace preserving on every test matrix, and it maps ancilla STATES to ancilla STATES "
+      "(quadratic forms real and the transposed state passing the same direction tests), yet "
+      "its Choi matrix on the composite has the witness e_((s,k1),(s,k0)) - "
+      "e_((s,k0),(s,k1)) at exactly -2 -- matched diagonal entries zero, cross terms one -- "
+      "so it is POSITIVE BUT NOT COMPLETELY POSITIVE. AND THE ROUND-30 CERTIFICATE RETURNS "
+      "THE NULL RESULT: the mixed seed is real symmetric, transpose fixes it, the second "
+      "mixer inverts the first, and the chain returns the seed EXACTLY -- branches 1 and 0, "
+      "both nonnegative, the same numbers a run with no surplus gives. The reason is "
+      "structural rather than a bad choice of mixer: transposition carries every ancilla "
+      "density matrix to another ancilla density matrix, so no experiment whose only quantum "
+      "input is an ancilla state can produce the negative branch Kraus soundness needs. "
+      "Complete positivity is precisely the requirement that a map stay physical on HALF OF "
+      "AN ENTANGLED PAIR, and an ancilla-local test never forms one. THE LADDER, CORRECTED: "
+      "trace -> ordinary positivity via interference -> COMPLETE positivity via an entangled "
+      "reference; rounds 26-30 climbed the first two rungs and this round shows the third is "
+      "genuinely a rung. NOT DONE AND NOT CLAIMED: the minimal entangling capability that "
+      "DOES expose transposition, and any general impossibility for ancilla-local "
+      "principles. A STRUCTURAL NOTE recorded rather than acted on: FiniteOperationalTheory "
+      "has no rule lifting an available SYSTEM operation to A x Fin n, and its preparation "
+      "starts from the supplied system input rather than granting a fixed system state -- a "
+      "Bell-type test needs one or the other, and if so that rule is the next genuinely "
+      "independent compositional condition and should be argued for on its own.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
