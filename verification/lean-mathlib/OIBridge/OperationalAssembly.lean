@@ -61,11 +61,36 @@
       system `S`", not "all finite quantum instruments" without qualification — the latter
       needs rectangular Kraus maps or a dimension-changing encoding.
 
-  WHAT IS NOT HERE. The generic normalized-Kraus Stinespring assembly, the derivation of
-  full finite-instrument availability, and the structured standard-completion predicate are
-  the remaining items; none is asserted. The external boundary stays exactly four items and
-  no more: compact Lie integration, finite isometry extension, PSD square-root/
-  factorization, and finite Uhlmann/Schmidt uniqueness.
+  §E — OPERATIONAL CLOSURE (round 25b). A PER-CARRIER availability notion cannot express
+  the three cross-carrier joins the reconstruction consumes: that a native ancilla readout
+  EXISTS, that independently prepared parts compose to a PRODUCT, and that a circuit on
+  `A × Fin n` with the ancilla forgotten defines an operation on `A` alone.
+  `FiniteOperationalTheory` carries an availability family for the system AND for every
+  finite ancilla extension, with six closure rules: identity, classical coarse-graining on
+  each carrier, GENERAL INSTRUMENT COMPOSITION (`availExt_bind` — feed-forward, which is
+  what round twenty-one's measure-then-reset seed derivation actually uses), independent
+  product preparation, native basis readout, and ancilla discard.
+
+  The readout is deliberately NOT postulated as `id_A ⊗ ℒ_k`. It is postulated only to
+  exist and to be spectator-independent, and `readout_is_localLuders` DERIVES the form from
+  §B. That is the payoff of the §B theorem: the local readout branch is earned by
+  composition, not assumed. `ptraceAnc_localLuders` then shows discard-after-readout is
+  exactly the `k`-th ancilla block — round twenty's `sysBlock`, on the nose.
+
+  `circuit_available` assembles the skeleton: prepare a pure ancilla, run any composite
+  unitary (from `HasCompositeUnitaryControl`, which is family-level in the ancilla size —
+  control on `A` says nothing about `A × Fin n`), read the ancilla, discard it; the closure
+  rules alone deliver an available outcome family ON THE SYSTEM. `circuit_branch` computes
+  each branch as the corresponding ancilla block.
+
+  WHAT IS NOT HERE. The generic normalized-Kraus Stinespring instantiation of that
+  skeleton, the derivation of full finite-instrument availability, and the structured
+  standard-completion predicate are the remaining items; none is asserted. Note that
+  PURIFICATION AND UHLMANN UNIQUENESS ARE NOT USED and will not be: instrument availability
+  needs pure seed, Stinespring, unitary control and local readout only, so the boundary for
+  that particular theorem is finite isometry extension alone. The project's global boundary
+  remains exactly four items and no more: compact Lie integration, finite isometry
+  extension, PSD square-root/factorization, and finite Uhlmann/Schmidt uniqueness.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
@@ -364,6 +389,192 @@ theorem hasFullInstruments_hasUniversalControl {S : Type*} [Fintype S] [Decidabl
     simp
   rwa [heq] at hb
 
+/-! ### Section E — the operational closure structure (round 25b) -/
+
+omit [Fintype A] [DecidableEq A] [Fintype B] [DecidableEq B] in
+theorem tensorOf_add_left (ρ σ : Matrix A A ℂ) (τ : Matrix B B ℂ) :
+    tensorOf (ρ + σ) τ = tensorOf ρ τ + tensorOf σ τ := by
+  ext p q
+  simp only [tensorOf_apply, Matrix.add_apply]
+  ring
+
+omit [Fintype A] [DecidableEq A] [Fintype B] [DecidableEq B] in
+theorem tensorOf_smul_left (c : ℂ) (ρ : Matrix A A ℂ) (τ : Matrix B B ℂ) :
+    tensorOf (c • ρ) τ = c • tensorOf ρ τ := by
+  ext p q
+  simp only [tensorOf_apply, Matrix.smul_apply, smul_eq_mul]
+  ring
+
+/-- The partial trace over the ancilla factor. -/
+def ptraceAnc (n : ℕ) (M : Matrix (A × Fin n) (A × Fin n) ℂ) : Matrix A A ℂ :=
+  Matrix.of fun s t => ∑ e : Fin n, M (s, e) (t, e)
+
+omit [Fintype A] [DecidableEq A] [Fintype B] [DecidableEq B] in
+@[simp] theorem ptraceAnc_apply (n : ℕ) (M : Matrix (A × Fin n) (A × Fin n) ℂ) (s t : A) :
+    ptraceAnc n M s t = ∑ e : Fin n, M (s, e) (t, e) := rfl
+
+omit [Fintype A] [DecidableEq A] in
+/-- **DISCARD AFTER READOUT IS EXACTLY THE ANCILLA BLOCK.** Tracing out the ancilla after
+the local Lüders readout keeping outcome `k` returns precisely the `k`-th ancilla block —
+which is round twenty's `sysBlock`. So "read the ancilla, then forget it" is not an extra
+approximation: it is block extraction, on the nose. -/
+theorem ptraceAnc_localLuders (n : ℕ) (k : Fin n)
+    (M : Matrix (A × Fin n) (A × Fin n) ℂ) :
+    ptraceAnc n (localLuders k M) = Matrix.of fun s t => M (s, k) (t, k) := by
+  ext s t
+  rw [ptraceAnc_apply, Finset.sum_eq_single k]
+  · rw [localLuders_apply, if_pos ⟨rfl, rfl⟩]
+    rfl
+  · intro e _ he
+    rw [localLuders_apply, if_neg]
+    rintro ⟨h1, -⟩
+    exact he h1
+  · intro hc
+    exact absurd (Finset.mem_univ _) hc
+
+/-- Run a composite operation on an independently prepared pure ancilla, then discard the
+ancilla: the operation this induces on the system alone. -/
+def discardMap (n : ℕ) (k₀ : Fin n)
+    (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) :
+    Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ where
+  toFun ρ := ptraceAnc n (Φ (tensorOf ρ (Matrix.single k₀ k₀ 1)))
+  map_add' ρ σ := by
+    ext s t
+    show ∑ e : Fin n, (Φ (tensorOf (ρ + σ) (Matrix.single k₀ k₀ 1))) (s, e) (t, e) = _
+    rw [tensorOf_add_left, map_add]
+    simp [Matrix.add_apply, Finset.sum_add_distrib]
+  map_smul' c ρ := by
+    ext s t
+    show ∑ e : Fin n, (Φ (tensorOf (c • ρ) (Matrix.single k₀ k₀ 1))) (s, e) (t, e) = _
+    rw [tensorOf_smul_left, map_smul]
+    simp [Matrix.smul_apply, Finset.mul_sum]
+
+
+/-- **A FINITE OPERATIONAL THEORY over a fixed system `A`.** A per-carrier availability
+notion cannot express the three cross-carrier joins the reconstruction actually consumes:
+that a native ancilla readout EXISTS, that independently prepared parts compose to a
+PRODUCT, and that a circuit on `A × Fin n` with the ancilla forgotten defines an operation
+on `A` alone. This structure carries an availability family for the system AND for every
+finite ancilla extension, together with the closure rules relating them.
+
+The readout is deliberately NOT postulated in the form `id_A ⊗ ℒ_k`. It is postulated only
+to exist and to be spectator-independent; `readout_is_localLuders` then DERIVES the form
+from `mapSpectatorIndependent_iff_localLuders`. That is the whole point of the round-25
+theorem: the local readout branch is earned, not assumed.
+
+DELIBERATELY ABSENT: parallel extension of a SYSTEM operation to the composite. The
+circuit below never lifts a system operation — its composite unitary comes from
+composite-dimension control — so the rule is not included rather than added unused. -/
+structure FiniteOperationalTheory (A : Type*) [Fintype A] [DecidableEq A] where
+  /-- Available finite outcome families of operations on the SYSTEM. -/
+  avail : ∀ (O : Type) [Fintype O] [DecidableEq O],
+    (O → Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ) → Prop
+  /-- Available finite outcome families on the system extended by an `n`-level ANCILLA. -/
+  availExt : ∀ (n : ℕ) (O : Type) [Fintype O] [DecidableEq O],
+    (O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) → Prop
+  /-- Doing nothing is available. -/
+  avail_id : avail Unit (fun _ => LinearMap.id)
+  /-- CLASSICAL COARSE-GRAINING of the outcome label, on the system. -/
+  avail_coarse : ∀ (O O' : Type) [Fintype O] [DecidableEq O] [Fintype O'] [DecidableEq O']
+      (F : O → Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ) (f : O → O'), avail O F →
+    avail O' (fun a => ∑ j ∈ Finset.univ.filter (fun j => f j = a), F j)
+  /-- CLASSICAL COARSE-GRAINING on the extended carrier. -/
+  availExt_coarse : ∀ (n : ℕ) (O O' : Type) [Fintype O] [DecidableEq O] [Fintype O']
+      [DecidableEq O']
+      (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+      (f : O → O'), availExt n O F →
+    availExt n O' (fun a => ∑ j ∈ Finset.univ.filter (fun j => f j = a), F j)
+  /-- GENERAL INSTRUMENT COMPOSITION (feed-forward): run `F`, then run an
+  outcome-dependent instrument `G a`. The joint outcome set is the product. This is the
+  standard closure rule, and it is what round twenty-one's measure-then-reset seed
+  derivation actually uses. -/
+  availExt_bind : ∀ (n : ℕ) (O O' : Type) [Fintype O] [DecidableEq O] [Fintype O']
+      [DecidableEq O']
+      (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+      (G : O → O' → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ]
+        Matrix (A × Fin n) (A × Fin n) ℂ),
+    availExt n O F → (∀ a, availExt n O' (G a)) →
+      availExt n (O × O') (fun c => (G c.1 c.2).comp (F c.1))
+  /-- INDEPENDENT PRODUCT PREPARATION, as a clause of the theory. -/
+  prep : ∀ n : ℕ, Fin n → Matrix A A ℂ → Matrix (A × Fin n) (A × Fin n) ℂ
+  prep_isProduct : ∀ (n : ℕ) (k₀ : Fin n) (ρ : Matrix A A ℂ),
+    prep n k₀ ρ = tensorOf ρ (Matrix.single k₀ k₀ 1)
+  /-- NATIVE FINITE BASIS READOUT of the ancilla: some outcome family is available whose
+  branches are spectator-independent over the rank-one Lüders selectors. Its FORM is not
+  postulated — see `readout_is_localLuders`. -/
+  readout : ∀ n : ℕ, Fin n →
+    Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ
+  readout_avail : ∀ n : ℕ, availExt n (Fin n) (readout n)
+  readout_local : ∀ (n : ℕ) (k : Fin n),
+    MapSpectatorIndependent (ludersLift k) (readout n k)
+  /-- ANCILLA DISCARD. A circuit on the extended carrier, run on an independently prepared
+  ancilla and then forgotten, defines an available operation family on the system alone.
+  This is the cross-carrier rule the per-carrier structure could not express. -/
+  availExt_discard : ∀ (n : ℕ) (k₀ : Fin n) (O : Type) [Fintype O] [DecidableEq O]
+      (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ),
+    availExt n O F → avail O (fun a => discardMap n k₀ (F a))
+
+/-- **THE READOUT FORM IS DERIVED, NOT POSTULATED.** A theory's native ancilla readout is
+assumed only to exist and to be spectator-independent; the round-25 uniqueness theorem
+then forces it to be exactly `id_A ⊗ ℒ_k`. -/
+theorem readout_is_localLuders (T : FiniteOperationalTheory A) (n : ℕ) (k : Fin n) :
+    T.readout n k = localLuders k :=
+  (mapSpectatorIndependent_iff_localLuders k _).mp (T.readout_local n k)
+
+/-- The discard rule's product form is licensed by the theory's preparation clause. -/
+theorem discardMap_eq_prep (T : FiniteOperationalTheory A) (n : ℕ) (k₀ : Fin n)
+    (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+    (ρ : Matrix A A ℂ) :
+    discardMap n k₀ Φ ρ = ptraceAnc n (Φ (T.prep n k₀ ρ)) := by
+  rw [T.prep_isProduct]
+  rfl
+
+/-- **COMPOSITE-DIMENSION CONTROL.** Universal unitary control on EVERY finite ancilla
+extension, not merely on the system: a control premise on `A` says nothing whatever about
+unitaries on `A × Fin n`, so the assembly's control hypothesis must be family-level. -/
+def HasCompositeUnitaryControl (T : FiniteOperationalTheory A) : Prop :=
+  ∀ (n : ℕ) (U : Matrix (A × Fin n) (A × Fin n) ℂ), Uᴴ * U = 1 →
+    T.availExt n Unit (fun _ => conjChannel U)
+
+/-- **THE CIRCUIT IS AVAILABLE.** Prepare an `n`-level ancilla in a pure basis state, run
+any composite unitary, read the ancilla in its fixed basis, and discard it: the closure
+rules alone deliver an available outcome family on the SYSTEM, indexed by the ancilla
+outcome. No Kraus family, no Stinespring, no purification and no Uhlmann uniqueness is
+used — this is the circuit skeleton the generic assembly will instantiate. -/
+theorem circuit_available (T : FiniteOperationalTheory A)
+    (hctrl : HasCompositeUnitaryControl T) (n : ℕ) (k₀ : Fin n)
+    (U : Matrix (A × Fin n) (A × Fin n) ℂ) (hU : Uᴴ * U = 1) :
+    T.avail (Fin n) (fun k => discardMap n k₀ ((localLuders k).comp (conjChannel U))) := by
+  have h2 := T.availExt_bind n Unit (Fin n) (fun _ => conjChannel U)
+    (fun _ => T.readout n) (hctrl n U hU) (fun _ => T.readout_avail n)
+  have h3 := T.availExt_coarse n (Unit × Fin n) (Fin n) _ Prod.snd h2
+  have hfilter : ∀ a : Fin n,
+      (Finset.univ.filter (fun j : Unit × Fin n => j.2 = a)) = {((), a)} := by
+    intro a
+    ext ⟨u, b⟩
+    simp [Prod.ext_iff]
+  have h4 : (fun a : Fin n => ∑ j ∈ Finset.univ.filter (fun j : Unit × Fin n => j.2 = a),
+        (T.readout n j.2).comp (conjChannel U))
+      = fun a : Fin n => (localLuders a).comp (conjChannel U) := by
+    funext a
+    rw [hfilter a, Finset.sum_singleton, readout_is_localLuders]
+  rw [h4] at h3
+  exact T.availExt_discard n k₀ (Fin n) _ h3
+
+/-- **AND ITS BRANCHES ARE THE ANCILLA BLOCKS.** Each branch of that circuit is exactly the
+`k`-th ancilla block of the conjugated prepared state — round twenty's `sysBlock`. With `U`
+taken to be a Stinespring dilation of a normalized Kraus family this is `K_k ρ K_k†`, which
+is the one remaining step of the generic assembly. -/
+theorem circuit_branch (n : ℕ) (k₀ k : Fin n)
+    (U : Matrix (A × Fin n) (A × Fin n) ℂ) (ρ : Matrix A A ℂ) :
+    discardMap n k₀ ((localLuders k).comp (conjChannel U)) ρ
+      = Matrix.of fun s t =>
+          (U * tensorOf ρ (Matrix.single k₀ k₀ 1) * Uᴴ) (s, k) (t, k) := by
+  show ptraceAnc n (localLuders k (conjChannel U
+    (tensorOf ρ (Matrix.single k₀ k₀ 1)))) = _
+  rw [ptraceAnc_localLuders]
+  rfl
+
 #print axioms spectatorIndependent_iff_mapLevel
 #print axioms tensorOf_single
 #print axioms localLuders_tensor
@@ -380,6 +591,12 @@ theorem hasFullInstruments_hasUniversalControl {S : Type*} [Fintype S] [Decidabl
 #print axioms blockDephase_not_mapSpectatorIndependent
 #print axioms tensorOf_productPreparation
 #print axioms hasFullInstruments_hasUniversalControl
+#print axioms tensorOf_add_left
+#print axioms ptraceAnc_localLuders
+#print axioms readout_is_localLuders
+#print axioms discardMap_eq_prep
+#print axioms circuit_available
+#print axioms circuit_branch
 
 end OperationalAssembly
 end OIBridge

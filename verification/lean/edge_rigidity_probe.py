@@ -584,7 +584,10 @@ for fname, names in (
                              'blockDephase_classical_eq', 'blockDephase_ne_localLuders',
                              'blockDephase_not_mapSpectatorIndependent',
                              'tensorOf_productPreparation',
-                             'hasFullInstruments_hasUniversalControl')),
+                             'hasFullInstruments_hasUniversalControl',
+                             'tensorOf_add_left', 'ptraceAnc_localLuders',
+                             'readout_is_localLuders', 'discardMap_eq_prep',
+                             'circuit_available', 'circuit_branch')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -704,6 +707,21 @@ ok6 &= 'theorem blockDephase_classical_eq' in oa
 ok6 &= 'theorem blockDephase_not_mapSpectatorIndependent' in oa
 # the endomorphic-scope phrase must be present on the instrument predicate
 ok6 &= 'finite endomorphic instruments on a fixed system' in ' '.join(oa.split())
+# ROUND-25b GUARDS.  The native readout must NOT be postulated as id (x) Luders: the
+# structure may only assume it exists and is spectator-independent, and the FORM must be
+# derived.  So `localLuders` must not appear among the structure's readout fields.
+_ft = _slice(oa, 'structure FiniteOperationalTheory', '/-- **THE READOUT FORM')
+ok6 &= bool(_ft) and '= localLuders' not in _ft
+ok6 &= 'MapSpectatorIndependent (ludersLift k) (readout n k)' in _ft
+ok6 &= 'theorem readout_is_localLuders' in oa
+# the closure rules the reconstruction actually consumes must be present by name
+ok6 &= all(f in _ft for f in ('availExt_bind', 'availExt_discard', 'availExt_coarse',
+                              'avail_coarse', 'prep_isProduct', 'readout_avail'))
+# composite control must be family-level in the ancilla size, not a premise on A alone
+_cc = _slice(oa, 'def HasCompositeUnitaryControl', '/-- **THE CIRCUIT')
+ok6 &= bool(_cc) and '(n : ℕ)' in _cc and 'availExt n' in _cc
+# purification / Uhlmann must NOT be used by this assembly
+ok6 &= 'PURIFICATION AND UHLMANN UNIQUENESS ARE NOT USED' in ' '.join(oa.split())
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -722,7 +740,7 @@ spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E�
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
       "LINT. All thirty-two files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 16 + 5 + 16 named results print their "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 22 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

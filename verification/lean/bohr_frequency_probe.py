@@ -4516,6 +4516,32 @@ Xc38 = E38(ix38(0, K38), ix38(1, K38))
 ok38 &= localLuders38(K38, Xc38) == Xc38
 ok38 &= blockDephase38(K38, Xc38) == [[CZ17] * N38 for _ in range(N38)]
 ok38 &= localLuders38(K38, Xc38) != blockDephase38(K38, Xc38)
+
+
+# --- 25b operational closure: discard after readout IS the ancilla block, and the circuit
+# branch is the k-block of the conjugated prepared state
+def ptraceAnc38(M):
+    return [[sum((M[ix38(s, e)][ix38(t, e)] for e in range(2)), CZ17)
+             for t in range(2)] for s in range(2)]
+
+
+Mg38 = [[C17(Frac(1 + 2 * r + 3 * c, 5), Frac(r - c, 7)) for c in range(N38)]
+        for r in range(N38)]
+for kk38 in range(2):
+    ok38 &= ptraceAnc38(localLuders38(kk38, Mg38)) \
+        == [[Mg38[ix38(s, kk38)][ix38(t, kk38)] for t in range(2)] for s in range(2)]
+# the circuit: prepare |k0><k0|, conjugate by a composite unitary, read out, discard
+Usw38 = [[CO17 if (r, c) in ((0, 0), (1, 2), (2, 1), (3, 3)) else CZ17
+          for c in range(N38)] for r in range(N38)]
+ok38 &= mmc17(Usw38, dag17(Usw38)) == eye17(N38)
+rho38 = [[C17(Frac(2, 3)), C17(Frac(1, 6), Frac(1, 6))],
+         [C17(Frac(1, 6), Frac(-1, 6)), C17(Frac(1, 3))]]
+prep38 = tensor38(rho38, [[CO17 if (r, c) == (0, 0) else CZ17 for c in range(2)]
+                          for r in range(2)])
+blk38 = mmc17(mmc17(Usw38, prep38), dag17(Usw38))
+for kk38 in range(2):
+    ok38 &= ptraceAnc38(localLuders38(kk38, blk38)) \
+        == [[blk38[ix38(s, kk38)][ix38(t, kk38)] for t in range(2)] for s in range(2)]
 check("F38", ok38,
       "ROUND 25 OPENING: MAP-LEVEL SPECTATOR INDEPENDENCE AND THE LOCAL LUDERS SELECTOR "
       "(phase three, round twenty-five; kernel: MapSpectatorIndependent, "
@@ -4544,7 +4570,22 @@ check("F38", ok38,
       "is kept a SEPARATE clause (round 21 supplies the pure ancilla, not the joint "
       "product state), and the availability/closure notions are gathered into one "
       "FiniteOperationalCompletion structure so the principles are properties of the same "
-      "object rather than predicates on unrelated parameters.")
+      "object rather than predicates on unrelated parameters. 25b OPERATIONAL CLOSURE: a "
+      "per-carrier availability notion cannot express the three cross-carrier joins the "
+      "reconstruction consumes -- that a native ancilla readout EXISTS, that independently "
+      "prepared parts compose to a PRODUCT, and that a circuit on A x Fin n with the "
+      "ancilla forgotten defines an operation on A alone. FiniteOperationalTheory carries "
+      "both availability families with six closure rules including GENERAL INSTRUMENT "
+      "COMPOSITION (feed-forward, which round 21's measure-then-reset seed actually uses) "
+      "and ANCILLA DISCARD; its readout is postulated only to EXIST and be "
+      "spectator-independent, and readout_is_localLuders DERIVES the id (x) Luders form "
+      "from the theorem above. Verified here: tracing out the ancilla after the readout "
+      "returns EXACTLY the k-th ancilla block (round 20's sysBlock, on the nose), and the "
+      "full prepare-unitary-readout-discard circuit branch is exactly that block of the "
+      "conjugated prepared state -- the skeleton the generic Kraus assembly will "
+      "instantiate. Purification and Uhlmann uniqueness are NOT used and will not be: "
+      "instrument availability needs pure seed, Stinespring, unitary control and local "
+      "readout only.")
 
 
 print()
