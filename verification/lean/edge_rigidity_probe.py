@@ -593,6 +593,11 @@ for fname, names in (
     ('StinespringAssembly', ('Vsf_eq_dilationIsometry', 'Esf_eq_seedEmbed', 'vsf_gram',
                              'esf_conj', 'vsf_block', 'stinespringCircuit_branch',
                              'fullInstruments_of_control')),
+    ('KrausSoundness', ('instrumentBranch_trace', 'instrumentBranch_isKraus',
+                        'exact_iff_sound_and_full', 'exact_of_sound_control',
+                        'krausSound_trace_preserving', 'traceAmplifier_not_kraus',
+                        'everywhereAvailable_not_sound',
+                        'everywhereAvailable_full_not_exact')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -779,6 +784,34 @@ ok6 &= 'it is NOT the object the assembly runs on' in _oaflat
 ok6 &= 'the ONLY preparation granted' in _oaflat
 ok6 &= 'no rule grants a product preparation with a chosen ancilla state' in _oaflat
 ok6 &= 'hComp_forward' not in mc
+# ROUND-26 GUARDS.  Soundness must be a RESTRICTION (available => representable), exactness
+# must be a genuine iff, and the split must be into exactly the two inclusions.
+ks = open(os.path.join(BRIDGE, 'OIBridge', 'KrausSoundness.lean'), encoding='utf-8').read()
+_snd = _slice(ks, 'def KrausSound', '/--')
+ok6 &= bool(_snd) and 'T.avail (Fin m) F → IsFiniteEndomorphicKrausInstrument F' in _snd
+_ex = _slice(ks, 'def ExactFiniteEndomorphicQuantumOps', '/--')
+ok6 &= bool(_ex) and 'T.avail (Fin m) F ↔ IsFiniteEndomorphicKrausInstrument F' in _ex
+_spl = _slice(ks, 'theorem exact_iff_sound_and_full', ':= by')
+ok6 &= bool(_spl) and 'KrausSound T ∧ HasFullFiniteEndomorphicInstruments T' in _spl
+# the representation predicate must be an EXISTENTIAL over a normalized Kraus family, not a
+# CP/Choi classification -- no external analytic fact may enter through it
+_rep = _slice(ks, 'def IsFiniteEndomorphicKrausInstrument', '/--')
+ok6 &= bool(_rep) and '(K k)ᴴ * K k = 1' in _rep and 'F = instrumentBranch K out' in _rep
+ok6 &= bool(_rep) and 'PosSemidef' not in _rep and 'choiMatrix' not in _rep
+# the countercontrol must be an everywhere-available GENUINE theory that fails soundness
+ok6 &= 'def everywhereAvailable' in ks
+_ev = _slice(ks, 'def everywhereAvailable', '/-- **THE EVERYWHERE-AVAILABLE THEORY IS NOT')
+ok6 &= bool(_ev) and 'avail := fun _ _ _ _ => True' in _ev
+ok6 &= bool(_ev) and 'readout := fun _ k => localLuders k' in _ev
+ok6 &= 'theorem everywhereAvailable_not_sound' in ks
+# NON-NECESSITY MUST NOT BE ASSERTED.  Composite unitary control is sufficient, not
+# necessary, and this round does not build that countermodel -- the scope note must say so
+# and no theorem may claim it.
+_ksflat = ' '.join(ks.split())
+ok6 &= 'SUFFICIENT Stinespring architecture for richness, not a necessary condition' in _ksflat
+ok6 &= 'countermodel is NOT built here' in _ksflat
+ok6 &= 'theorem exact_not_implies_compositeControl' not in ks
+ok6 &= '¬ HasCompositeUnitaryControl' not in ks
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -796,8 +829,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All thirty-three files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 5 + 16 named results print their "
+      "LINT. All thirty-four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 8 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

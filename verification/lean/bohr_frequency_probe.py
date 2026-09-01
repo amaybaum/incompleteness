@@ -4785,6 +4785,141 @@ check("F39", ok39,
       "are NOT used, and the project's global boundary remains the four-item ledger.")
 
 
+# ----------------------- F40  round 26: Kraus soundness and exactness -- the trace identity
+# that gives the representation predicate teeth, the non-quantum witness it refutes, and the
+# honest control on the witness that was NOT chosen (phase three, round twenty-six).
+ok40 = True
+
+
+def trace40(M):
+    return sum((M[i][i] for i in range(len(M))), CZ17)
+
+
+def transpose40(M):
+    return [[M[c][r] for c in range(len(M))] for r in range(len(M))]
+
+
+def branchsum40(Ks, out, m, X):
+    """sum over the outcome label of tr(instrumentBranch K out a X) -- computed through the
+    fibres, exactly as instrumentBranch is defined, not through the collapsed sum."""
+    tot = CZ17
+    for a in range(m):
+        for k in range(len(Ks)):
+            if out[k] == a:
+                tot = tot + trace40(mmc17(mmc17(Ks[k], X), dag17(Ks[k])))
+    return tot
+
+
+def kraus_from_unitary40(U, k0):
+    """Read a normalized two-operator Kraus family off the seed column of a composite
+    unitary -- the F39 construction, which makes sum_k K_k^dag K_k = I automatic."""
+    E = [[CO17 if ((p & 1) == k0 and (p >> 1) == s) else CZ17 for s in range(2)]
+         for p in range(4)]
+    V = mmc17(U, E)
+    return [[[V[(sp << 1) | k][s] for s in range(2)] for sp in range(2)] for k in range(2)]
+
+
+# two genuinely different normalized families, from two different composite unitaries
+FAMS40 = []
+for _pcyc in (((0, 3), (1, 0), (2, 1), (3, 2)), ((0, 1), (1, 2), (2, 3), (3, 0))):
+    _P = [[CO17 if (r, c) in _pcyc else CZ17 for c in range(4)] for r in range(4)]
+    _U = mmc17(_P, KRON39)
+    ok40 &= mmc17(dag17(_U), _U) == eye17(4)
+    FAMS40.append(kraus_from_unitary40(_U, 0))
+# test states: Hermitian, non-Hermitian, and traceless -- the identity is about linear
+# algebra, not about density matrices, so none of that is assumed
+XS40 = [rho39,
+        [[C17(Frac(1, 4)), C17(Frac(2, 3), Frac(1, 5))],
+         [C17(Frac(-1, 7), Frac(3, 8)), C17(Frac(5, 9), Frac(-2, 11))]],
+        [[C17(Frac(3, 5)), C17(0, 1)], [C17(1, -1), C17(Frac(-3, 5))]]]
+OUTS40 = [[0, 1], [0, 0], [1, 1]]        # fine, fully coarse, and constant-to-the-other-label
+for _Ks in FAMS40:
+    # normalized: sum_k K_k^dag K_k = I
+    _g = [[CZ17] * 2 for _ in range(2)]
+    for _k in range(2):
+        _gg = mmc17(dag17(_Ks[_k]), _Ks[_k])
+        _g = [[_g[r][c] + _gg[r][c] for c in range(2)] for r in range(2)]
+    ok40 &= _g == eye17(2)
+    # --- (a) THE TRACE IDENTITY, for every output map and every test matrix
+    for _out in OUTS40:
+        for _X in XS40:
+            ok40 &= branchsum40(_Ks, _out, 2, _X) == trace40(_X)
+    # --- (b) NORMALIZATION IS WHAT DOES THE WORK: rescale one operator and it fails
+    _bad = [[[_Ks[0][r][c] * C17(Frac(3, 2)) for c in range(2)] for r in range(2)], _Ks[1]]
+    ok40 &= any(branchsum40(_bad, [0, 1], 2, _X) != trace40(_X) for _X in XS40)
+
+# --- (c) THE NON-QUANTUM WITNESS.  Doubling is linear and completely positive, and it
+# doubles the trace, so by (a) it has NO normalized Kraus representation at any n or out.
+for _X in XS40:
+    _dbl = [[_X[r][c] * C17(2) for c in range(2)] for r in range(2)]
+    ok40 &= trace40(_dbl) == trace40(_X) + trace40(_X)
+    ok40 &= (trace40(_dbl) != trace40(_X)) == (trace40(_X) != CZ17)
+# and it is a genuine element of the everywhere-available theory: nothing in the closure
+# rules excludes it, since every availability predicate there is True
+ok40 &= trace40(XS40[0]) != CZ17
+
+# --- (d) THE CONTROL ON THE WITNESS THAT WAS NOT CHOSEN.  The transpose is the other
+# obvious non-quantum map, and the trace identity CANNOT refute it: transposition preserves
+# the trace exactly.  Refuting the transpose needs positivity -- its Choi matrix is the swap,
+# which has a negative direction -- and that is a strictly larger argument than the kernel
+# round consumes.  So the trace amplifier is the honest witness to use, and this is why.
+for _X in XS40:
+    ok40 &= trace40(transpose40(_X)) == trace40(_X)
+CHOI_T40 = [[CO17 if ((r >> 1) == (c & 1) and (c >> 1) == (r & 1)) else CZ17
+             for c in range(4)] for r in range(4)]
+V40 = [CZ17, CO17, C17(-1), CZ17]          # e_(0,1) - e_(1,0)
+_q40 = sum((V40[r].conj() * CHOI_T40[r][c] * V40[c]
+            for r in range(4) for c in range(4)), CZ17)
+ok40 &= _q40 == C17(-2)                    # strictly negative: the transpose is NOT CP
+# while the trace identity is blind to it, exactly as claimed above
+ok40 &= all(trace40(transpose40(_X)) == trace40(_X) for _X in XS40)
+check("F40", ok40,
+      "ROUND 26: KRAUS SOUNDNESS AND EXACTNESS (phase three, round twenty-six; kernel: "
+      "instrumentBranch_trace, IsFiniteEndomorphicKrausInstrument, instrumentBranch_isKraus, "
+      "KrausSound, ExactFiniteEndomorphicQuantumOps, exact_iff_sound_and_full, "
+      "exact_of_sound_control, krausSound_trace_preserving, traceAmplifier_not_kraus, "
+      "everywhereAvailable, everywhereAvailable_not_sound, "
+      "everywhereAvailable_full_not_exact in OIBridge/KrausSoundness.lean). The Kraus round "
+      "proved an INCLUSION, QM_instruments SUBSET Ops(T), not an identity. FiniteOperational"
+      "Theory.avail is an abstract predicate, so a theory may carry every operation that "
+      "round constructs AND a transpose, a trace amplifier, or any other non-quantum linear "
+      "map -- and an everywhere-available theory satisfies composite unitary control and the "
+      "capstone outright while being strictly larger than quantum mechanics. Round 26 "
+      "kernelizes the gap: exact_iff_sound_and_full splits the exact endpoint (available <-> "
+      "Kraus-representable) into precisely its two inclusions, KrausSound and "
+      "HasFullFiniteEndomorphicInstruments, and nothing else; exact_of_sound_control reads "
+      "off soundness + finite isometry extension + composite unitary control => exactness. "
+      "The two conjuncts are proved by completely different means -- completeness is "
+      "CONSTRUCTED by the Stinespring circuit, soundness is a RESTRICTION on what the theory "
+      "admits and cannot be constructed at all. Verified here in exact Gaussian rationals: "
+      "(a) THE TRACE IDENTITY that gives the representation predicate teeth -- for a "
+      "normalized family, sum over outcomes of tr(instrumentBranch K out a X) = tr X, checked "
+      "through the FIBRES exactly as instrumentBranch is defined, for two different "
+      "normalized families read off two composite unitaries, three output maps (fine, fully "
+      "coarse-grained, and relabelled) and three test matrices including a non-Hermitian and "
+      "a traceless one, since the identity is linear algebra and assumes nothing about "
+      "density matrices; (b) NORMALIZATION IS WHAT DOES THE WORK -- rescaling one Kraus "
+      "operator breaks it; (c) THE NON-QUANTUM WITNESS -- rho -> 2 rho doubles the trace, so "
+      "by (a) it has no normalized Kraus representation at any n or out, while nothing in the "
+      "closure rules excludes it from an everywhere-available theory; (d) THE CONTROL ON THE "
+      "WITNESS THAT WAS NOT CHOSEN -- the transpose is the other obvious non-quantum map and "
+      "the trace identity CANNOT refute it, because transposition preserves the trace "
+      "exactly; refuting it needs POSITIVITY (its Choi matrix is the swap, and the direction "
+      "e_01 - e_10 gives -2, checked here exactly), a strictly larger argument than this "
+      "round consumes. That is why the trace amplifier is the honest witness. SCOPE: "
+      "HasCompositeUnitaryControl is a SUFFICIENT Stinespring architecture for richness, NOT "
+      "necessary for exact system-level quantum operations -- a theory could make every "
+      "instrument on A primitive without exposing arbitrary unitary control on every "
+      "A x Fin n, just as universal operational control did not imply the round-19 Lie "
+      "certificate. So the final characterization is NOT QM <-> H_comp + H_compositeControl; "
+      "both control principles are constructive sufficient certificates. That non-necessity "
+      "countermodel is NOT built in this round and nothing asserts it. The three axes now "
+      "stand as COMPOSITION (rounds 24/25), SOUNDNESS (this round), COMPLETENESS (the Kraus "
+      "round); the remaining interface is that round 24's HComp speaks about coherent "
+      "completions of OI intervention words while FiniteOperationalTheory speaks about "
+      "operational circuits, and those are not yet one object.")
+
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
