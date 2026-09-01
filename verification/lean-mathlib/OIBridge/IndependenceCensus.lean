@@ -22,17 +22,17 @@
   `CoreC1C4` (`core_isC1C4`) so the census capstone carries them in its own statement
   rather than in its prose:
 
-    C1 is literal: `v_{t+1} = h_t`, so the hidden bit drives the visible future
-       (`core_hidden_drives_visible`).
-    C2 is structural, not merely statistical: `v_{t+2} = v_t`
+    C1 (non-trivial coupling) is literal: `v_{t+1} = h_t`, so the hidden bit drives the
+       visible future (`core_hidden_drives_visible`).
+    C2 (memory persistence) is structural, not merely statistical: `v_{t+2} = v_t`
        (`core_visible_period_two`), so the visible stream carries a real one-bit memory.
-    C3 is history readback: the present readout determines neither past nor future —
-       two states with the same present `(v,b)` carry the histories `0 → 0 → 0` and
+    C3 (sufficient hidden memory capacity): every visible readout is carried by exactly
+       two states, separated precisely by the hidden bit, with differing visible futures
+       (`core_capacity_saturates`) — the one-bit hidden sector has exactly the capacity
+       the conditional past-to-future distinction demands, saturating the bound.
+    C4 (history readback): the present readout determines neither past nor future — two
+       states with the same present `(v,b)` carry the histories `0 → 0 → 0` and
        `1 → 0 → 1` (`core_history_readback`), and only the hidden bit separates them.
-    C4 is capacity saturation: every visible readout is carried by exactly two states,
-       separated precisely by the hidden bit, with differing visible futures
-       (`core_capacity_saturates`) — the one-bit memory is exactly saturated, carrying
-       the full past-to-future distinction and nothing more.
 
   And the core is already observer-minimal — the two-step visible itinerary separates
   all eight states (`core_observer_minimal`), so no quotient collapses it.
@@ -149,25 +149,11 @@ def itin (p : Core) : List (Bool × Bool) := [vis p, vis (swapFn p)]
 all eight states, so no observational quotient collapses it. -/
 theorem core_observer_minimal : ∀ p q : Core, itin p = itin q → p = q := by decide
 
-/-- The visible `v` at times `t-1`, `t`, `t+1` around a state. The passive step is an
-involution, so the predecessor of `p` is `σ p`, exactly as its successor is — which is
-the `v_{t+2} = v_t` recurrence of `core_visible_period_two` seen from one step back. -/
-def histTriple (p : Core) : Bool × Bool × Bool :=
-  ((swapFn p).1.1, p.1.1, (swapFn p).1.1)
-
-/-- **C3 — history readback.** The present visible readout determines neither the visible
-past nor the visible future: two states with the SAME present `(v,b)` carry the histories
-`0 → 0 → 0` and `1 → 0 → 1`. The hidden bit is exactly the record that separates them, so
-the past is readable from, and the future predicted by, the hidden state alone. -/
-theorem core_history_readback :
-    ∃ p q : Core, vis p = vis q ∧ p ≠ q
-      ∧ histTriple p = (false, false, false)
-      ∧ histTriple q = (true, false, true) := by decide
-
-/-- **C4 — capacity saturation.** For every current visible readout there are exactly two
-states carrying it; they are separated precisely by the hidden bit, and their visible
-futures differ. So the one-bit hidden memory is EXACTLY saturated — it carries the full
-past-to-future distinction the visible stream can express, and nothing more. -/
+/-- **C3 — sufficient hidden memory capacity.** For every current visible readout there
+are exactly two states carrying it; they are separated precisely by the hidden bit, and
+their visible futures differ. So the one-bit hidden sector has exactly the capacity the
+conditional past-to-future distinction demands — the framework realization saturates the
+capacity bound rather than merely exceeding it. -/
 theorem core_capacity_saturates :
     Fintype.card Bool = 2
       ∧ ∀ r : Bool × Bool,
@@ -177,27 +163,43 @@ theorem core_capacity_saturates :
   refine ⟨rfl, ?_⟩
   decide
 
-/-- **THE FOUR OI CONDITIONS ON THE SHARED CORE**, as one predicate: C1 (the hidden state
-drives the visible future), C2 (the visible stream carries structural memory), C3 (history
-readback — the present determines neither past nor future, the hidden state does), and C4
-(the hidden capacity is exactly saturated). Bundled so that the census capstone carries
-the core conditions inside its own statement rather than in its prose. -/
+/-- The visible `v` at times `t-1`, `t`, `t+1` around a state. The passive step is an
+involution, so the predecessor of `p` is `σ p`, exactly as its successor is — which is
+the `v_{t+2} = v_t` recurrence of `core_visible_period_two` seen from one step back. -/
+def histTriple (p : Core) : Bool × Bool × Bool :=
+  ((swapFn p).1.1, p.1.1, (swapFn p).1.1)
+
+/-- **C4 — history readback.** The present visible readout determines neither the visible
+past nor the visible future: two states with the SAME present `(v,b)` carry the histories
+`0 → 0 → 0` and `1 → 0 → 1`. The hidden bit is exactly the record that separates them, so
+the past is readable from, and the future predicted by, the hidden state alone. -/
+theorem core_history_readback :
+    ∃ p q : Core, vis p = vis q ∧ p ≠ q
+      ∧ histTriple p = (false, false, false)
+      ∧ histTriple q = (true, false, true) := by decide
+
+/-- **THE FOUR OI CONDITIONS ON THE SHARED CORE**, as one predicate, in canonical order:
+C1 (non-trivial coupling — the hidden state drives the visible future), C2 (memory
+persistence — the visible stream carries structural memory), C3 (sufficient hidden memory
+capacity — exactly saturated here), and C4 (history readback — the present determines
+neither past nor future, the hidden state does). Bundled so that the census capstone
+carries the core conditions inside its own statement rather than in its prose. -/
 def CoreC1C4 : Prop :=
   (∃ p q : Core, vis p = vis q ∧ p ≠ q ∧ vis (swapFn p) ≠ vis (swapFn q))
     ∧ (∀ p : Core, vis (swapFn (swapFn p)) = vis p)
-    ∧ (∃ p q : Core, vis p = vis q ∧ p ≠ q
-        ∧ histTriple p = (false, false, false)
-        ∧ histTriple q = (true, false, true))
     ∧ (Fintype.card Bool = 2
         ∧ ∀ r : Bool × Bool,
             (Finset.univ.filter (fun p : Core => vis p = r)).card = 2
             ∧ ∀ p q : Core, vis p = r → vis q = r → p ≠ q →
                 vis (swapFn p) ≠ vis (swapFn q))
+    ∧ (∃ p q : Core, vis p = vis q ∧ p ≠ q
+        ∧ histTriple p = (false, false, false)
+        ∧ histTriple q = (true, false, true))
 
 /-- The swap-memory core satisfies all four OI conditions. -/
 theorem core_isC1C4 : CoreC1C4 :=
-  ⟨core_hidden_drives_visible, core_visible_period_two, core_history_readback,
-   core_capacity_saturates⟩
+  ⟨core_hidden_drives_visible, core_visible_period_two, core_capacity_saturates,
+   core_history_readback⟩
 
 /-! ### Section B — the three completions and the comb identity -/
 
@@ -830,8 +832,8 @@ theorem oi_core_underdetermines_completion :
 #print axioms core_hidden_drives_visible
 #print axioms core_visible_period_two
 #print axioms core_observer_minimal
-#print axioms core_history_readback
 #print axioms core_capacity_saturates
+#print axioms core_history_readback
 #print axioms core_isC1C4
 #print axioms sigma_tau_commute
 #print axioms ludersLift_diagonal

@@ -544,8 +544,8 @@ for fname, names in (
                         'cp_rankOneSelector_iff_luders',
                         'monomial_luders_classicalBranch')),
     ('IndependenceCensus', ('core_hidden_drives_visible', 'core_visible_period_two',
-                            'core_observer_minimal', 'core_history_readback',
-                            'core_capacity_saturates', 'core_isC1C4',
+                            'core_observer_minimal', 'core_capacity_saturates',
+                            'core_history_readback', 'core_isC1C4',
                             'sigma_tau_commute',
                             'ludersLift_diagonal', 'stateFold_diagonal',
                             'threeCompletions_same_classical_comb', 'monoU_conj',
@@ -591,6 +591,16 @@ ok6 &= all(f'stateFold {c} steps (Matrix.diagonal w)' in ic
 ok6 &= 'not "non-quantum"' in ic and 'UNRESTRICTED' in ic
 # C1-C4 must be kernel conditions bound into the capstone, not a prose reading of it
 ok6 &= 'def CoreC1C4 : Prop' in ic and 'theorem core_isC1C4 : CoreC1C4' in ic
+# CANONICAL C-NUMBERING GUARD.  OI numbers the conditions C1 coupling, C2 memory
+# persistence, C3 sufficient hidden memory capacity, C4 history readback.  Pin each label
+# to the docstring that actually precedes its theorem, so the C3/C4 pair cannot silently
+# flip again (they were reversed once, and the theorem content does not catch it).
+for _lbl, _thm in (('C3', 'core_capacity_saturates'), ('C4', 'core_history_readback')):
+    _i = ic.index(f'theorem {_thm}')
+    _doc = ic[ic.rindex('/--', 0, _i):_i]
+    ok6 &= f'**{_lbl} ' in _doc
+ok6 &= ic.index('theorem core_capacity_saturates') < ic.index('theorem core_history_readback')
+ok6 &= 'C3 (sufficient hidden memory capacity)' in ic and 'C4 (history readback)' in ic
 cap = ic[ic.index('theorem oi_core_underdetermines_completion'):]
 ok6 &= 'CoreC1C4' in cap[:cap.index(':=')]
 ok6 &= 'S ⇔ D ⇔ Q_fb` is untouched' in ic
