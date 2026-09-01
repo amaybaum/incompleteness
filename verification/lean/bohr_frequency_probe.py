@@ -5035,6 +5035,133 @@ check("F41", ok41,
       "image -- building it is a round of its own.")
 
 
+# ----------------------- F42  round 28: the fork settled -- system exactness does NOT force
+# composite exactness, by an explicit theory whose surplus lives on an unreachable sector
+# (phase three, round twenty-eight).
+ok42 = True
+
+
+def blockop42(al, ga, M):
+    """blockOp: multiply ancilla-diagonal block k by ga[k], everything else by al."""
+    return [[(ga[r & 1] if (r & 1) == (c & 1) else al) * M[r][c] for c in range(4)]
+            for r in range(4)]
+
+
+def uniform42(rho):
+    half = C17(Frac(1, 2))
+    return [[rho[r >> 1][c >> 1] * (half if (r & 1) == (c & 1) else CZ17)
+             for c in range(4)] for r in range(4)]
+
+
+BAD42 = (C17(2), [CO17, CO17])                # badOp = blockOp 2 1
+
+# --- (a) THE PREPARATION IMAGE IS ANCILLA-DIAGONAL, which is what makes the surplus
+# unreachable: the only preparation the theory grants produces no ancilla coherence at all.
+for _rho in (rho39, rho38):
+    U42 = uniform42(_rho)
+    ok42 &= all(U42[r][c] == CZ17 for r in range(4) for c in range(4)
+                if (r & 1) != (c & 1))
+    # --- (b) AND THE SURPLUS IS INVISIBLE THROUGH IT: discard after badOp is the identity
+    ok42 &= ptraceAnc38(blockop42(BAD42[0], BAD42[1], U42)) == _rho
+    ok42 &= ptraceAnc38(U42) == _rho
+# --- (c) BUT THE SURPLUS IS NOT THE IDENTITY: it doubles every ancilla coherence, which is
+# invisible only because nothing available produces one
+COH42 = [[C17(Frac(1, 3)) if (r, c) in ((0, 1), (1, 0)) else CZ17 for c in range(4)]
+         for r in range(4)]
+ok42 &= blockop42(BAD42[0], BAD42[1], COH42) != COH42
+ok42 &= blockop42(BAD42[0], BAD42[1], COH42)[0][1] == COH42[0][1] * C17(2)
+# and it is trace preserving, so the round-26 trace identity cannot see it either
+for _M in (COH42, uniform42(rho39), Mg38):
+    ok42 &= trace40(blockop42(BAD42[0], BAD42[1], _M)) == trace40(_M)
+
+# --- (d) THE COEFFICIENT LAWS the closure rules rest on: composition multiplies and sums
+# add, exactly, so the available set really is closed under bind and coarse-graining.
+A42, G42 = C17(Frac(2, 3), Frac(1, 5)), [C17(Frac(3, 7)), C17(0, Frac(-1, 2))]
+B42, D42 = C17(Frac(-1, 4), 1), [C17(2), C17(Frac(5, 9), Frac(1, 3))]
+for _M in (Mg38, COH42, uniform42(rho38)):
+    ok42 &= blockop42(A42, G42, blockop42(B42, D42, _M)) \
+        == blockop42(A42 * B42, [G42[k] * D42[k] for k in range(2)], _M)
+    lhs42 = blockop42(A42, G42, _M)
+    rhs42 = blockop42(B42, D42, _M)
+    ok42 &= [[lhs42[r][c] + rhs42[r][c] for c in range(4)] for r in range(4)] \
+        == blockop42(A42 + B42, [G42[k] + D42[k] for k in range(2)], _M)
+
+# --- (e) NOT COMPLETELY POSITIVE.  Choi of badOp, and the direction that sees it.
+CB42 = [[CZ17] * 16 for _ in range(16)]
+for P1 in range(4):
+    for Q1 in range(4):
+        im42 = blockop42(BAD42[0], BAD42[1],
+                         [[CO17 if (r, c) == (P1, Q1) else CZ17 for c in range(4)]
+                          for r in range(4)])
+        for P2 in range(4):
+            for Q2 in range(4):
+                CB42[4 * P1 + P2][4 * Q1 + Q2] = im42[P2][Q2]
+# the kernel lemma's entry formula: 1 on a matched ancilla-diagonal pair, 2 on a matched
+# coherence pair, 0 off the matched pairs
+ok42 &= all(CB42[4 * P1 + P2][4 * Q1 + Q2]
+            == (CO17 if (P2 & 1) == (Q2 & 1) else C17(2))
+            * (CO17 if (P1 == P2 and Q1 == Q2) else CZ17)
+            for P1 in range(4) for P2 in range(4) for Q1 in range(4) for Q2 in range(4))
+# and the direction e_((s,0),(s,0)) - e_((s,1),(s,1)) at s = 0: indices 0 and 5
+ok42 &= CB42[0][0] == CO17 and CB42[0][5] == C17(2)
+ok42 &= CB42[5][0] == C17(2) and CB42[5][5] == CO17
+ok42 &= CB42[0][0] - CB42[0][5] - CB42[5][0] + CB42[5][5] == C17(-2)
+V42 = [CZ17] * 16
+V42[0], V42[5] = CO17, C17(-1)
+ok42 &= qform41(CB42, V42) == C17(-2)
+
+# --- (f) THE SYSTEM SECTOR IS STILL SOUND: a nonnegative weight family summing to one,
+# times the identity, really is a normalized Kraus instrument K_a = sqrt(w_a) . 1.
+W42 = [Frac(9, 25), Frac(16, 25)]
+SQ42 = [C17(Frac(3, 5)), C17(Frac(4, 5))]
+ok42 &= sum(W42, Frac(0)) == Frac(1)
+gr42 = [[CZ17] * 2 for _ in range(2)]
+for a in range(2):
+    Ka = [[SQ42[a] if r == c else CZ17 for c in range(2)] for r in range(2)]
+    g = mmc17(dag17(Ka), Ka)
+    gr42 = [[gr42[r][c] + g[r][c] for c in range(2)] for r in range(2)]
+    # each branch acts as w_a times the identity
+    for _X in XS40:
+        ok42 &= mmc17(mmc17(Ka, _X), dag17(Ka)) \
+            == [[_X[r][c] * C17(W42[a]) for c in range(2)] for r in range(2)]
+ok42 &= gr42 == eye17(2)
+check("F42", ok42,
+      "ROUND 28: THE FORK SETTLED -- SYSTEM EXACTNESS DOES NOT FORCE COMPOSITE EXACTNESS "
+      "(phase three, round twenty-eight; kernel: blockOp, blockOp_one, blockOp_comp, "
+      "blockOp_sum, localLuders_eq_blockOp, uniformAttach_offDiag, blockOp_uniformAttach, "
+      "sum_fibers, ScalarAvail, BlockAvail, SeedAvail, scalarAvail_isKraus, "
+      "hiddenCoherence, hiddenCoherence_krausSound, badOp, badOp_availExt, badOp_invisible, "
+      "badOp_choi, badOp_not_cp, badOp_not_kraus, hiddenCoherence_not_krausSoundExt, "
+      "krausSound_not_implies_krausSoundExt in OIBridge/HiddenCoherence.lean). Round 27 left "
+      "open whether KrausSound T implies KrausSoundExt T. The answer is NO, by construction: "
+      "there is a genuine FiniteOperationalTheory -- every closure rule discharged, the "
+      "derived readout structure intact -- that is exactly quantum on the visible system and "
+      "carries a non-quantum operation on the composite. WHY ROUND 27's EXPOSURE PRINCIPLE "
+      "DOES NOT BLOCK IT: that principle is conditioned on a trace violation occurring on the "
+      "REACHABLE state P rho, and the witness here lives where no available preparation goes. "
+      "Verified here in exact Gaussian rationals: (a) the only granted preparation, the "
+      "uniform attachment, produces NO ancilla coherence at all -- every off-ancilla-diagonal "
+      "entry is exactly zero; (b) the surplus badOp = blockOp 2 1 is INVISIBLE through it -- "
+      "prepare, apply, discard returns rho on the nose, at two different inputs; (c) yet it "
+      "is NOT the identity -- it doubles every ancilla coherence -- and it IS trace "
+      "preserving, so neither round 26's trace identity nor round 27's exposure principle can "
+      "see it; (d) the coefficient laws the closure rules rest on, composition multiplying "
+      "and sums adding, checked exactly on three matrices, which is why availExt_bind and the "
+      "coarse-graining rules go through; (e) it is NOT completely positive -- its Choi matrix "
+      "matches the kernel's entry formula at all 256 index pairs, and the direction "
+      "e_((s,0),(s,0)) - e_((s,1),(s,1)) gives exactly -2, so round 27's Kraus => CP "
+      "direction refutes it; (f) the system sector is still sound -- the weight family "
+      "(9/25, 16/25) with K_a = sqrt(w_a) . 1 has sum_a K_a^dag K_a = I exactly and each "
+      "branch acting as w_a times the identity. WHAT MAKES THIS LEGITIMATE: "
+      "HasCompositeUnitaryControl is NOT a field of FiniteOperationalTheory, so a theory may "
+      "withhold precisely the unitaries that would rotate the invisible coherence sector into "
+      "the preparation image. The countermodel therefore says nothing against the Kraus "
+      "round; it says composite exactness is a SEPARATE AXIS from system exactness and must "
+      "be asked for rather than buried in a definition. STILL OPEN, and not claimed here: "
+      "what extra richness closes the gap. Composite unitary control plainly does for this "
+      "construction, but that is not proved, and whether something weaker suffices is not "
+      "even formulated.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

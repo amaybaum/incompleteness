@@ -605,6 +605,13 @@ for fname, names in (
                             'krausFamily_cp', 'exposedComposite_cp', 'transposeMap_trace',
                             'form_of_two_singles', 'transposeMap_not_cp',
                             'transposeMap_not_kraus')),
+    ('HiddenCoherence', ('blockOp_one', 'blockOp_comp', 'blockOp_sum',
+                         'localLuders_eq_blockOp', 'uniformAttach_offDiag',
+                         'blockOp_uniformAttach', 'sum_fibers', 'scalarAvail_isKraus',
+                         'hiddenCoherence_krausSound', 'badOp_availExt',
+                         'badOp_invisible', 'badOp_choi', 'badOp_not_cp',
+                         'badOp_not_kraus', 'hiddenCoherence_not_krausSoundExt',
+                         'krausSound_not_implies_krausSoundExt')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -850,6 +857,30 @@ ok6 &= 'whether `KrausSound T` implies `KrausSoundExt T`. Neither direction is a
 ok6 &= 'no trace violation can hide ON THE OPERATIONALLY REACHABLE PREPARATION IMAGE' in _csflat
 ok6 &= 'every composite surplus must globally preserve the trace' in _csflat
 ok6 &= 'traceWitness_always_exposed' not in cs
+# ROUND-28 GUARDS.  The countermodel must grant ONLY the uniform attachment, must keep the
+# surplus operationally invisible, and must not claim what closes the gap.
+hc = open(os.path.join(BRIDGE, 'OIBridge', 'HiddenCoherence.lean'), encoding='utf-8').read()
+_seed = _slice(hc, 'def SeedAvail', '/--')
+ok6 &= bool(_seed) and 'P = uniformAttach n' in _seed
+# the only granted preparation: no second disjunct may sneak a richer preparation in
+ok6 &= bool(_seed) and '∨' not in _seed
+# the surplus must be PROVED invisible through that preparation, not asserted
+ok6 &= 'theorem badOp_invisible' in hc
+_inv = _slice(hc, 'theorem badOp_invisible', ':= by')
+ok6 &= bool(_inv) and 'discardWith n (uniformAttach n)' in _inv and 'LinearMap.id' in _inv
+# refuted by POSITIVITY (the trace test cannot see it), via round 27's easy direction
+ok6 &= 'theorem badOp_not_cp' in hc and 'theorem badOp_not_kraus' in hc
+ok6 &= 'krausFamily_cp' in _slice(hc, 'theorem badOp_not_kraus', '\n\n')
+# the capstone is an existential separation, on ONE theory
+_sep = _slice(hc, 'theorem krausSound_not_implies_krausSoundExt', ':=')
+ok6 &= bool(_sep) and 'KrausSound T ∧ ¬ KrausSoundExt T' in _sep
+_hcflat = ' '.join(hc.split())
+# the legitimacy note must be present: control richness is a property, not a structure field
+ok6 &= '`HasCompositeUnitaryControl` is NOT a field of `FiniteOperationalTheory`' in _hcflat
+# and what closes the gap must NOT be claimed
+ok6 &= 'that is not proved here' in _hcflat
+ok6 &= 'compositeControl_implies_krausSoundExt' not in hc
+ok6 &= 'theorem hiddenCoherence_hasCompositeUnitaryControl' not in hc
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -867,8 +898,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All thirty-five files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 8 + 15 + 5 + 16 named results print their "
+      "LINT. All thirty-six files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 25 + 7 + 8 + 15 + 16 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

@@ -108,6 +108,7 @@ import OIBridge.OperationalAssembly
 import OIBridge.StinespringAssembly
 import OIBridge.KrausSoundness
 import OIBridge.CompositeSoundness
+import OIBridge.HiddenCoherence
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
