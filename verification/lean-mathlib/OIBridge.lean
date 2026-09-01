@@ -103,6 +103,7 @@ import OIBridge.InstrumentDilation
 import OIBridge.Purification
 import OIBridge.BranchSelector
 import OIBridge.IndependenceCensus
+import OIBridge.MonoidalCompletion
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

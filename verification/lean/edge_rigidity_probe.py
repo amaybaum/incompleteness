@@ -558,6 +558,20 @@ for fname, names in (
                             'outsideGen_skewHermitian', 'outsideGen_traceless',
                             'outsideGen_not_mem',
                             'oi_core_underdetermines_completion')),
+    ('MonoidalCompletion', ('wordPerm_append', 'wordMap_append',
+                            'implementationExtensionality_descends',
+                            'descendedAction_functorial', 'spectatorIndependent_iff',
+                            'wordMap_isCorrelationExtension',
+                            'implementationExtensionality_iff_functorial', 'hComp_iff',
+                            'HControl_iff_controlLie0_full', 'central_conj_fixed',
+                            'centralDrift_not_HControl', 'wordPerm_eq_parityPerm',
+                            'wordMap_eq_parityMap', 'parityPerm_injective',
+                            'implementationExtensionality_of_involutive',
+                            'nonTensor_implementationExtensional',
+                            'restricted_implementationExtensional',
+                            'nonFunctorial_not_implementationExtensional',
+                            'nonTensor_not_spectatorPattern', 'restricted_not_HControl',
+                            'census_clause_taxonomy', 'fullOps_universalUnitary')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -604,6 +618,45 @@ ok6 &= 'C3 (sufficient hidden memory capacity)' in ic and 'C4 (history readback)
 cap = ic[ic.index('theorem oi_core_underdetermines_completion'):]
 ok6 &= 'CoreC1C4' in cap[:cap.index(':=')]
 ok6 &= 'S ⇔ D ⇔ Q_fb` is untouched' in ic
+# ROUND-24 SCOPE GUARDS.  The compositional principle must DESCEND from implementation-level
+# clauses, not be defined as a conjunction of the round-18/20 predicates; and the Lie
+# certificate must stay a SEPARATE predicate from operational control richness.
+mc = open(os.path.join(BRIDGE, 'OIBridge', 'MonoidalCompletion.lean'),
+          encoding='utf-8').read()
+
+
+def _slice(text, start, stop):
+    """Text between two markers, or '' if either is missing (a clean lint failure)."""
+    if start not in text:
+        return ''
+    rest = text[text.index(start):]
+    return rest[:rest.index(stop)] if stop in rest else rest
+
+
+ok6 &= 'def ImplementationExtensionality' in mc and 'def SpectatorIndependent' in mc
+# HComp's DEFINITION must be the two independent clauses -- round 18's predicate may be
+# NAMED in the scope note, but must not appear in the definition itself
+_hcomp = _slice(mc, 'def HComp', '/--')
+ok6 &= bool(_hcomp) and 'CoherentFunctoriality' not in _hcomp
+ok6 &= 'ImplementationExtensionality' in _hcomp and 'SpectatorIndependent' in _hcomp
+# the certificate and the operational richness principle must be genuinely DIFFERENT
+# notions, not aliases: one is about the control Lie algebra, the other about which
+# channels are available.  H_Lie is sufficient for reachability, not necessary for full QM.
+_hlie = _slice(mc, 'def HControl {G : Type*}', '/--')
+_hop = _slice(mc, 'def UniversalUnitaryReachability\n', 'omit')
+ok6 &= bool(_hlie) and bool(_hop)
+ok6 &= 'controlLie' in _hlie and 'controlLie' not in _hop
+ok6 &= 'conjChannel' in _hop and 'conjChannel' not in _hlie
+ok6 &= 'theorem centralDrift_not_HControl' in mc
+# HControl_iff_controlLie0_full must be kernel-internal: no exponential, no Lie integration
+_hc = _slice(mc, 'theorem HControl_iff_controlLie0_full', '/--')
+ok6 &= bool(_hc) and 'exp' not in _hc
+# the external analytic boundary stays exactly four items and no more
+_flat = ' '.join(mc.split())
+ok6 &= 'stays exactly four items and no more' in _flat
+ok6 &= all(item in _flat for item in
+           ('compact Lie integration', 'finite isometry extension',
+            'PSD square-root/factorization', 'Uhlmann/Schmidt uniqueness'))
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -621,8 +674,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All thirty files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 13 + 8 + 6 + 29 + 5 + 16 named results print their "
+      "LINT. All thirty-one files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 13 + 8 + 6 + 29 + 22 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

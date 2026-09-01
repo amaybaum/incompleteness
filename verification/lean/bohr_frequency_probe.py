@@ -4255,6 +4255,160 @@ check("F36", ok36,
       "control subgroup, NOT a non-quantum theory: S <=> D <=> Q_fb is untouched, and "
       "what fails is the unrestricted finite operational package.")
 
+# ----------------------- F37  the compositional principle, the control separation, and the
+# kernelized taxonomy (phase three, round 24).  (a) WORDS: concatenating implementations
+# composes both the classical map and the coherent map -- structural, not an axiom;
+# (b) EXTENSIONALITY FAILS for completion 1: [ctrl,ctrl] and [] realize the SAME classical
+# transformation (tau^2 = 1) yet are completed differently; (c) EXTENSIONALITY HOLDS for
+# completions 2 and 3: exhaustively over every word of length <= 4, words realizing the same
+# transformation are completed identically -- so the coherent representation descends to the
+# quotient by implementation equivalence; (d) SPECTATOR INDEPENDENCE: completion 2's tau-lift
+# correlation depends on the spectator vh indices (no B-only CB reproduces it) while
+# completion 3's does; (e) THE CONTROL SEPARATION: for a CENTRAL drift H = c.I every unitary
+# fixes H by conjugation, so the control Lie algebra is one line for EVERY menu however rich
+# -- H_Lie is a sufficient certificate, NOT a necessary condition.
+ok37 = True
+gens37 = ('pass', 'ctrl')
+
+
+def wperm37(word):
+    g = list(range(N36))
+    for i in reversed(word):
+        p = perm36[i]
+        g = [p[g[x]] for x in range(N36)]
+    return tuple(g)
+
+
+def wmap37(name, word, X):
+    for i in reversed(word):
+        X = corr36(perm36[i], compl36[name][i], X)
+    return X
+
+
+def allwords37(maxlen):
+    out = []
+    for L in range(maxlen + 1):
+        out.extend(itertools.product(gens37, repeat=L))
+    return [list(w) for w in out]
+
+
+# --- (a) concatenation is structural: it composes classical maps AND coherent maps
+Xg37 = [[C17(Frac(1 + 3 * r + 5 * c, 7), Frac(2 + r - c, 11)) for c in range(N36)]
+        for r in range(N36)]
+for u in allwords37(2):
+    for v in allwords37(2):
+        gu, gv = wperm37(u), wperm37(v)
+        ok37 &= wperm37(u + v) == tuple(gu[gv[x]] for x in range(N36))
+        for nm in compl36:
+            ok37 &= wmap37(nm, u + v, Xg37) == wmap37(nm, u, wmap37(nm, v, Xg37))
+
+# --- (b) completion 1 is NOT implementation-extensional
+ok37 &= wperm37(['ctrl', 'ctrl']) == wperm37([])            # same classical transformation
+E01_37 = Est36(0, 1)
+ok37 &= wmap37('nonFunctorial', ['ctrl', 'ctrl'], E01_37) \
+    != wmap37('nonFunctorial', [], E01_37)                  # different coherent map
+
+# --- (c) completions 2 and 3 ARE implementation-extensional, exhaustively to length 4.
+# The coherent map is identified by its action on ALL 64 matrix units, so "same map" is
+# tested exactly rather than on a single probe input.
+units37 = [Est36(a, b) for a in range(N36) for b in range(N36)]
+
+
+def sig37(name, word):
+    return tuple(tuple(tuple((e.re, e.im) for e in row) for row in wmap37(name, word, U))
+                 for U in units37)
+
+
+for nm in ('nonTensor', 'restricted'):
+    byperm = {}
+    for w in allwords37(4):
+        byperm.setdefault(wperm37(w), set()).add(sig37(nm, w))
+    ok37 &= all(len(v) == 1 for v in byperm.values())       # descends to the quotient
+    ok37 &= len(byperm) == 4                                # exactly Z2 x Z2 is realized
+# completion 1 fails the same exhaustive test
+bad1 = {}
+for w in allwords37(4):
+    bad1.setdefault(wperm37(w), set()).add(sig37('nonFunctorial', w))
+ok37 &= any(len(v) > 1 for v in bad1.values())
+
+# --- (d) the spectator criterion: does a B-only correlation reproduce the tau-member?
+def spectator_ok37(C):
+    seen = {}
+    for p in range(N36):
+        for q in range(N36):
+            key = (b36(p), b36(q))
+            val = (C[p][q].re, C[p][q].im)
+            if key in seen and seen[key] != val:
+                return False
+            seen[key] = val
+    return True
+
+
+ok37 &= not spectator_ok37(compl36['nonTensor']['ctrl'])    # depends on the spectator
+ok37 &= spectator_ok37(compl36['restricted']['ctrl'])       # genuinely local
+ok37 &= spectator_ok37(compl36['restricted']['pass'])
+# the exact overdetermined entry: -1 on the v != h sector, +1 on v = h, same (b,b') slot
+Cnt37 = compl36['nonTensor']['ctrl']
+p1_37, q1_37 = idx36(0, 1, 0), idx36(0, 1, 1)
+p2_37, q2_37 = idx36(0, 0, 0), idx36(0, 0, 1)
+ok37 &= (b36(p1_37), b36(q1_37)) == (b36(p2_37), b36(q2_37))
+ok37 &= Cnt37[p1_37][q1_37] == C17(-1) and Cnt37[p2_37][q2_37] == CO17
+
+# --- (e) THE CONTROL SEPARATION: a central drift defeats H_Lie for EVERY menu
+Hc37 = eye17(N36)                                            # H = 1.I, central
+menu37 = [Us36, Ut36, Vt36, mmc17(Us36, Vt36), mmc17(Ut36, Vt36), I36]
+for V in menu37:
+    ok37 &= mmc17(V, dag17(V)) == I36                        # unitary
+    ok37 &= mmc17(mmc17(V, Hc37), dag17(V)) == Hc37          # fixes the central drift
+# so every control generator -i V H V^dag equals -i H: the algebra is the single line R(-iH),
+# and every element of that line is a multiple of the identity -- equal diagonal entries
+A37 = [[CZ17] * N36 for _ in range(N36)]
+A37[0][0], A37[1][1] = C17(0, -1), C17(0, 1)
+ok37 &= dag17(A37) == [[CZ17 - A37[r][c] for c in range(N36)] for r in range(N36)]
+ok37 &= sum((A37[i][i] for i in range(N36)), CZ17) == CZ17   # traceless skew-Hermitian
+ok37 &= A37[0][0] != A37[1][1]                               # unequal diagonal -> not r.I
+# a genuinely rich menu still fails H_Lie, because H_Lie constrains H, not the menu
+ok37 &= len({tuple(tuple((e.re, e.im) for e in row)
+             for row in mmc17(mmc17(V, Hc37), dag17(V))) for V in menu37}) == 1
+# contrast: the round-19 architecture with the NON-central passive Hamiltonian still gives a
+# line here too (F36 (e)) -- the point is that H_Lie can fail while all operations are present
+ok37 &= 1 < N36 * N36 - 1
+check("F37", ok37,
+      "THE COMPOSITIONAL PRINCIPLE, THE CONTROL SEPARATION, AND THE KERNELIZED TAXONOMY "
+      "(phase three, round twenty-four; kernel: wordPerm, wordMap, wordPerm_append, "
+      "wordMap_append, ImplementationExtensionality, "
+      "implementationExtensionality_descends, descendedAction_functorial, "
+      "implementationExtensionality_iff_functorial, SpectatorIndependent, "
+      "spectatorIndependent_iff, HComp, hComp_iff, HControl, "
+      "HControl_iff_controlLie0_full, centralDrift_not_HControl, "
+      "UniversalUnitaryReachability, fullOps_universalUnitary, census_clause_taxonomy in "
+      "OIBridge/MonoidalCompletion.lean). (a) WORDS: concatenating implementations composes "
+      "both the classical map and the coherent map -- verified over every pair of words of "
+      "length <= 2 -- so sequential composition is STRUCTURAL at the word level, not an "
+      "axiom. The single axiom is implementation extensionality, and its content is DESCENT: "
+      "the coherent representation factors through the quotient by implementation "
+      "equivalence, becoming a representation of physical transformations rather than of "
+      "implementation strings. (b) COMPLETION 1 FAILS IT: [ctrl,ctrl] and [] realize the "
+      "SAME classical transformation, tau^2 = 1, yet complete differently on E_01. (c) "
+      "COMPLETIONS 2 AND 3 SATISFY IT: exhaustively over every word of length <= 4, words "
+      "realizing the same transformation have identical coherent maps -- compared on ALL 64 "
+      "matrix units, so map equality is exact -- and exactly the four elements of Z2 x Z2 "
+      "are realized; completion 1 fails the same test. (d) SPECTATOR INDEPENDENCE: "
+      "completion 2's tau-correlation forces the SAME (b,b') slot to be both -1 (on v != h) "
+      "and +1 (on v = h), so no I_vh (x) M_b reproduces it, while completion 3's "
+      "correlations are constant and do. (e) THE CONTROL SEPARATION -- the round's central "
+      "correction: for a CENTRAL drift H = c.I EVERY unitary fixes H by conjugation, so the "
+      "control Lie algebra is the single line R(-iH) for EVERY menu however rich, and every "
+      "element of that line is a multiple of the identity with equal diagonal entries -- "
+      "while the traceless skew-Hermitian direction -i(E_00 - E_11) has unequal diagonal. So "
+      "an observer possessing every unitary still FAILS H_Lie. H_Lie is a sufficient "
+      "CERTIFICATE for universal reachability in the round-19 drift/control architecture, "
+      "NOT a necessary condition for full operational QM; the operational principle is "
+      "H_opControl (universal unitary reachability), and unitary channels are one-outcome "
+      "instruments, so they need no separate conjunct (fullOps_universalUnitary). Baking "
+      "H_Lie into the definition would make the characterization hostage to one control "
+      "architecture.")
+
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
