@@ -32,6 +32,10 @@
       │    (availExt (k+1) (Fin m) F ⟺ F is a normalized finite Kraus instrument),       │
       │    against boundary item 2 at `Unit` (soundness) and at `Fin 2 × Fin (k+1)`      │
       │    (completeness). `fullQuantum` satisfies all four conditions.                  │
+      │  [ROUND FORTY-ONE, `OperationalValidity.lean`: the system-soundness premise and  │
+      │    the `Unit` isometry hypothesis are removed — `exactComposite_of_validity`     │
+      │    needs only valid probabilities, inert spectators, control and closure,        │
+      │    against item 2 at the composite carriers.]                                   │
       └──────────────────────────────────────────────────────────────────────────────┘
 
   THE MISSING RULE, in physical words. ITERATED ANCILLA CLOSURE: a composite carrier may

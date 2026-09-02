@@ -7098,6 +7098,85 @@ check("F54", ok54,
       "manuscript's foundational prose permits these completions; OI iff QM; no structure "
       "field.")
 
+# ----------------------- F55  round 41: operational validity ------------------------------
+# valid probabilities plus inert spectators give complete positivity; the exact-composite
+# endpoint without the quantum-shaped premise (phase three, round forty-one).
+ok55 = True
+# --- (a) POSITIVITY IS NOT COMPLETE POSITIVITY, AND AN UNTOUCHED COPY OF THE COMPOSITE
+# DETECTS THE DIFFERENCE (cp_of_valid_inert, choiMatrix_eq_amplRef): Phi_2 on the 4-level
+# composite carries every PSD input to a PSD output (random dyads and random Gram matrices),
+# yet id_4 (x) Phi_2 on the maximally entangled dyad |Omega_4><Omega_4| is the Choi matrix
+# J47, which is NOT PSD -- exposure -8/7 on Omega (F47).
+for _s in range(3):
+    _v = gvec47(_s + 250, 4)
+    ok55 &= psd47(red47(dyad47(_v)))
+    _G = gmat47(_s + 260, 4)
+    ok55 &= psd47(red47(mmc17(_G, dag17(_G))))
+_amp = amplGen48(red47, dyad47(OM47), 4, dref=4)                   # (id_4 (x) Phi_2)(|Omega><Omega|)
+ok55 &= _amp == J47 and not psd47(_amp)
+# --- (b) THE PROMOTION ON A GENUINELY CP MAP: the qubit map psi53 (= attach-run-discard of
+# Phi_2) is positive AND its self-referenced amplification on |Omega_2><Omega_2| is PSD, so
+# validity + the untouched copy certifies complete positivity where it holds.
+_amp2 = amplGen48(psi53, dyad47(OM2), 2, dref=2)
+ok55 &= psd47(_amp2) and _amp2 == choi41(psi53, 2)
+# --- (c) VALIDITY IS STRICTLY WEAKER THAN SOUNDNESS (validity_not_implies_krausSoundExt):
+# the countermodel's Phi_2 is trace preserving and positive at every level, not CP.
+for _s in range(2):
+    _X = gmat47(_s + 270, 4)
+    ok55 &= trace40(red47(_X)) == trace40(_X)
+# --- (d) the kernel's own claim discipline, read back
+_ov55 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'OperationalValidity.lean')
+if os.path.exists(_ov55):
+    with open(_ov55, encoding='utf-8') as _f:
+        _ov_txt55 = ' '.join(_f.read().split())
+    ok55 &= 'def CompositeOperationalValidity' in _ov_txt55
+    ok55 &= 'theorem krausSoundExt_of_validity_inert' in _ov_txt55
+    ok55 &= 'theorem exactComposite_of_validity' in _ov_txt55
+    ok55 &= 'theorem physical_classification' in _ov_txt55
+    ok55 &= 'CLASSIFICATION OF OPERATIONAL COMPLETIONS COMPATIBLE WITH OI' in _ov_txt55
+check("F55", ok55,
+      "ROUND 41: OPERATIONAL VALIDITY -- valid probabilities plus inert spectators give "
+      "complete positivity, and the exact-composite endpoint drops the quantum-shaped premise "
+      "(phase three, round forty-one; kernel: OIBridge/OperationalValidity.lean, 12 results -- "
+      "cp_of_valid_inert, krausSoundExt_of_validity_inert, validity_of_krausSoundExt, "
+      "krausSoundExt_iff_validity_of_inert, countermodel_validity, admissible_validity, "
+      "fullQuantum_validity, validity_not_implies_krausSoundExt, exactComposite_of_validity, "
+      "physical_classification, physical_inert_not_deletable, physical_closure_not_deletable; "
+      "and the round-41 wording repair in OIRealization.lean: sameCore_both_sides and "
+      "finiteOI_not_implies_inert / _closure now carry ExactFiniteEndomorphicQuantumOps, "
+      "which the witnesses satisfy, not merely KrausSound). CompositeOperationalValidity T: "
+      "every available family at every composite level produces valid probabilities -- each "
+      "branch carries PSD to PSD and the outcomes sum to a trace-preserving map; no CP, no "
+      "Choi matrix, no Kraus form in the definition. THE PROMOTION: inert-spectator "
+      "compositionality makes the extension of an available branch by an untouched copy of "
+      "the composite available (selfRefIdx, an explicit reindexing), validity makes it "
+      "positive, its value on the reindexed maximally entangled dyad IS the Choi matrix "
+      "(choiMatrix_eq_amplRef), so the Choi matrix is PSD; the aggregate trace normalizes; "
+      "the factorization is kernel-internal: KrausSoundExt from validity + inert spectators, "
+      "with NO system soundness, NO unitary control and NO isometry extension. Validity is "
+      "strictly weaker than soundness (the round-34 countermodel is valid, exactly quantum on "
+      "the system, fully controlled, and not composite-sound), so the spectator clause does "
+      "real work; under inert spectators the two coincide. THE ENDPOINT "
+      "exactComposite_of_validity: validity + inert spectators + composite unitary control + "
+      "iterated ancilla closure give ExactCompositeQuantumOps against finite isometry "
+      "extension at the COMPOSITE carriers only -- the Unit isometry hypothesis of rounds "
+      "36-39 is gone, and so is KrausSound; physical_classification restates the frozen "
+      "classification with validity in place of system soundness, with the three witnesses, "
+      "and neither compositional clause can be deleted. THE READING, recorded as directed: "
+      "since realizesSealedOICore_of_control shows control alone realizes the sealed OI "
+      "core, the endpoint is a classification of operational completions compatible with OI, "
+      "not a derivation of quantum structure from OI alone; what round 41 changes is that the "
+      "remaining conditions are observer-level -- valid probabilities, sufficient reversible "
+      "control, inert spectators, and the ability to reuse a composite as a system -- rather "
+      "than quantum formalism. Verified exactly here: Phi_2 positive on random dyads and Gram "
+      "matrices yet its self-referenced amplification on |Omega_4> is the non-PSD Choi matrix "
+      "J47; the qubit map psi53 positive with PSD self-referenced amplification equal to its "
+      "Choi matrix; trace preservation of Phi_2. NOT CLAIMED, lint-guarded: that validity or "
+      "inert spectators follow from OI; OI iff QM; anything about the visible-system sector "
+      "avail and its consistency with level-one availExt (round 42's seam); no structure "
+      "field.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

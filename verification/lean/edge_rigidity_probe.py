@@ -768,6 +768,12 @@ for fname, names in (
                        'partIdx_fst', 'sealedCore_is_finiteOI', 'sameCore_closure_not_inert',
                        'sameCore_inert_not_closure', 'sameCore_both', 'sameCore_both_sides',
                        'finiteOI_not_implies_inert', 'finiteOI_not_implies_closure')),
+    ('OperationalValidity', ('cp_of_valid_inert', 'krausSoundExt_of_validity_inert',
+                             'validity_of_krausSoundExt', 'krausSoundExt_iff_validity_of_inert',
+                             'countermodel_validity', 'admissible_validity',
+                             'fullQuantum_validity', 'validity_not_implies_krausSoundExt',
+                             'exactComposite_of_validity', 'physical_classification',
+                             'physical_inert_not_deletable', 'physical_closure_not_deletable')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -1112,7 +1118,8 @@ ok6 &= 'swapFn p = swapFn q → p = q' in _aud and 'swapFn (swapFn p) = p' in _a
 ok6 &= 'visWeightStep (.act g) (fun _ => c) = fun _ => c' in _aud and 'CoreC1C4' in _aud
 _cap = ' '.join(_slice(oi, 'theorem sameCore_both_sides', ':=').split())
 ok6 &= bool(_cap) and _cap.startswith('theorem sameCore_both_sides : SealedCoreIsFiniteOI')
-ok6 &= _cap.count('RealizesSealedOICore T ∧ KrausSound T') == 3
+ok6 &= _cap.count('RealizesSealedOICore T ∧ ExactFiniteEndomorphicQuantumOps T') == 3
+ok6 &= 'KrausSound' not in _cap
 ok6 &= 'IteratedAncillaClosure T ∧ ¬ InertSpectatorCompositionality T' in _cap
 ok6 &= 'InertSpectatorCompositionality T ∧ ¬ IteratedAncillaClosure T' in _cap
 ok6 &= 'theorem finiteOI_not_implies_inert' in oi and 'theorem finiteOI_not_implies_closure' in oi
@@ -1120,6 +1127,40 @@ ok6 &= 'What remains outside the kernel is interpretive only' in _oiflat
 ok6 &= re.search(r'(?m)^structure ', oi) is None
 ok6 &= 'theorem oi_iff_quantum' not in oi and 'theorem oi_implies_quantum' not in oi
 ok6 &= 'theorem manuscript_oi_not_implies' not in oi
+# ROUND-41 GUARDS.  Validity must be stated WITHOUT any quantum formalism (no CP, Choi or
+# Kraus in the definition); the promotion theorem must consume validity and inert spectators
+# only; the physical endpoint must not mention KrausSound, exactness or the Unit isometry
+# hypothesis; the classification must carry the three witnesses; the reading of the endpoint
+# as a classification of completions compatible with OI must be explicit.
+ov = open(os.path.join(BRIDGE, 'OIBridge', 'OperationalValidity.lean'), encoding='utf-8').read()
+_ovflat = ' '.join(ov.split())
+_val = _slice(ov, 'def CompositeOperationalValidity', 'noncomputable def selfRefIdx')
+ok6 &= bool(_val) and 'X.PosSemidef → ((F a) X).PosSemidef' in _val
+ok6 &= '∑ a, ((F a) X).trace = X.trace' in _val
+ok6 &= 'IsCompletelyPositive' not in _val and 'choiMatrix' not in _val
+ok6 &= 'Kraus' not in _val and 'conjChannel' not in _val
+_prom = ' '.join(_slice(ov, 'theorem krausSoundExt_of_validity_inert', ':=').split())
+ok6 &= bool(_prom) and '(hval : CompositeOperationalValidity T) (hin : InertSpectatorCompositionality T)' in _prom
+ok6 &= _prom.rstrip().endswith('KrausSoundExt T')
+ok6 &= 'KrausSound T' not in _prom.replace('KrausSoundExt T', '')
+ok6 &= 'HasCompositeUnitaryControl' not in _prom and 'FiniteIsometryExtensionSF' not in _prom
+_cpv = _slice(ov, 'theorem cp_of_valid_inert', 'theorem krausSoundExt_of_validity_inert')
+ok6 &= bool(_cpv) and 'choiMatrix_eq_amplRef' in _cpv and 'selfRefIdx' in _cpv
+_pe = ' '.join(_slice(ov, 'theorem exactComposite_of_validity', ':=').split())
+ok6 &= bool(_pe) and 'FiniteIsometryExtensionSF (Fin 2 × Fin (k + 1))' in _pe
+ok6 &= 'FiniteIsometryExtensionSF Unit' not in _pe
+ok6 &= 'KrausSound T' not in _pe and 'ExactFiniteEndomorphicQuantumOps' not in _pe
+ok6 &= '(hval : CompositeOperationalValidity T)' in _pe and '(hclos : IteratedAncillaClosure T)' in _pe
+ok6 &= _pe.rstrip().endswith('ExactCompositeQuantumOps T')
+_pc = ' '.join(_slice(ov, 'theorem physical_classification', ':=').split())
+ok6 &= bool(_pc) and _pc.count('CompositeOperationalValidity T ∧ HasCompositeUnitaryControl T') == 3
+ok6 &= 'FiniteIsometryExtensionSF Unit' not in _pc
+ok6 &= 'theorem validity_not_implies_krausSoundExt' in ov
+ok6 &= 'theorem physical_inert_not_deletable' in ov and 'theorem physical_closure_not_deletable' in ov
+ok6 &= 'CLASSIFICATION OF OPERATIONAL COMPLETIONS COMPATIBLE WITH OI' in _ovflat
+ok6 &= 'not yet a derivation of the quantum structure from OI alone' in _ovflat
+ok6 &= re.search(r'(?m)^structure ', ov) is None
+ok6 &= 'theorem oi_iff_quantum' not in ov and 'theorem validity_of_oi' not in ov
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1524,8 +1565,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All forty-nine files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 5 + 16 named results print their "
+      "LINT. All fifty files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

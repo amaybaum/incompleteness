@@ -314,27 +314,27 @@ end Audit
 
 /-- **THE SAME CORE, CLOSURE WITHOUT INERT SPECTATORS** (the round-34 countermodel). -/
 theorem sameCore_closure_not_inert :
-    RealizesSealedOICore countermodel ∧ KrausSound countermodel
+    RealizesSealedOICore countermodel ∧ ExactFiniteEndomorphicQuantumOps countermodel
       ∧ HasCompositeUnitaryControl countermodel ∧ IteratedAncillaClosure countermodel
       ∧ ¬ InertSpectatorCompositionality countermodel :=
-  ⟨countermodel_realizesSealedOICore, countermodel_krausSound, countermodel_control,
+  ⟨countermodel_realizesSealedOICore, countermodel_exact, countermodel_control,
     countermodel_iteratedAncillaClosure, countermodel_not_inert⟩
 
 /-- **THE SAME CORE, INERT SPECTATORS WITHOUT CLOSURE** (the round-38 admissible theory). -/
 theorem sameCore_inert_not_closure :
-    RealizesSealedOICore admissibleTheory ∧ KrausSound admissibleTheory
+    RealizesSealedOICore admissibleTheory ∧ ExactFiniteEndomorphicQuantumOps admissibleTheory
       ∧ HasCompositeUnitaryControl admissibleTheory
       ∧ InertSpectatorCompositionality admissibleTheory
       ∧ ¬ IteratedAncillaClosure admissibleTheory :=
-  ⟨admissible_realizesSealedOICore, admissible_krausSound, admissible_control,
+  ⟨admissible_realizesSealedOICore, admissible_exact, admissible_control,
     admissible_inert, admissible_not_iteratedAncillaClosure⟩
 
 /-- **THE SAME CORE, BOTH** (the full quantum theory). -/
 theorem sameCore_both :
-    RealizesSealedOICore fullQuantum ∧ KrausSound fullQuantum
+    RealizesSealedOICore fullQuantum ∧ ExactFiniteEndomorphicQuantumOps fullQuantum
       ∧ HasCompositeUnitaryControl fullQuantum ∧ InertSpectatorCompositionality fullQuantum
       ∧ IteratedAncillaClosure fullQuantum :=
-  ⟨fullQuantum_realizesSealedOICore, ((exact_iff_sound_and_full _).mp fullQuantum_exact).1,
+  ⟨fullQuantum_realizesSealedOICore, fullQuantum_exact,
     fullQuantum_control, fullQuantum_inert, fullQuantum_iteratedAncillaClosure⟩
 
 /-- **THE CAPSTONE.** One and the same finite, reversible, C1–C4 Observation-Incompleteness
@@ -342,32 +342,32 @@ process — audited as a finite OI process in the manuscript's sense — admits 
 completions on either side of the compositional independence matrix, and one with both. -/
 theorem sameCore_both_sides :
     SealedCoreIsFiniteOI
-      ∧ (∃ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T ∧ KrausSound T
+      ∧ (∃ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T ∧ ExactFiniteEndomorphicQuantumOps T
           ∧ HasCompositeUnitaryControl T ∧ IteratedAncillaClosure T
           ∧ ¬ InertSpectatorCompositionality T)
-      ∧ (∃ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T ∧ KrausSound T
+      ∧ (∃ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T ∧ ExactFiniteEndomorphicQuantumOps T
           ∧ HasCompositeUnitaryControl T ∧ InertSpectatorCompositionality T
           ∧ ¬ IteratedAncillaClosure T)
-      ∧ (∃ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T ∧ KrausSound T
+      ∧ (∃ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T ∧ ExactFiniteEndomorphicQuantumOps T
           ∧ HasCompositeUnitaryControl T ∧ InertSpectatorCompositionality T
           ∧ IteratedAncillaClosure T) :=
   ⟨sealedCore_is_finiteOI, ⟨countermodel, sameCore_closure_not_inert⟩,
     ⟨admissibleTheory, sameCore_inert_not_closure⟩, ⟨fullQuantum, sameCore_both⟩⟩
 
 /-- **BARE FINITE OI DOES NOT IMPLY EITHER COMPOSITIONAL PRINCIPLE**: realizing the audited
-core, with exact system quantum mechanics and full composite unitary control, forces neither
+core, with EXACT system quantum mechanics and full composite unitary control, forces neither
 inert-spectator compositionality nor iterated ancilla closure. -/
 theorem finiteOI_not_implies_inert :
-    ¬ ∀ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T → KrausSound T
+    ¬ ∀ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T → ExactFiniteEndomorphicQuantumOps T
       → HasCompositeUnitaryControl T → InertSpectatorCompositionality T :=
   fun h => countermodel_not_inert
-    (h countermodel countermodel_realizesSealedOICore countermodel_krausSound countermodel_control)
+    (h countermodel countermodel_realizesSealedOICore countermodel_exact countermodel_control)
 
 theorem finiteOI_not_implies_closure :
-    ¬ ∀ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T → KrausSound T
+    ¬ ∀ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T → ExactFiniteEndomorphicQuantumOps T
       → HasCompositeUnitaryControl T → IteratedAncillaClosure T :=
   fun h => admissible_not_iteratedAncillaClosure
-    (h admissibleTheory admissible_realizesSealedOICore admissible_krausSound admissible_control)
+    (h admissibleTheory admissible_realizesSealedOICore admissible_exact admissible_control)
 
 #print axioms coreIdx_apply
 #print axioms vis_coreIdx_symm_iff
