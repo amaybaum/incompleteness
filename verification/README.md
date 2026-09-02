@@ -166,6 +166,10 @@ with provenance preserved (`BoundaryAudit.lean`, `IsometryExtension.lean`,
   external premise (`universalReachability_of_lieRank_unconditional`).
 - **Remaining:** none.
 
+Formal external-boundary ledger: empty. OI/QM classification and finite compact-matrix
+reachability routes kernel-internal within their stated hypotheses. The programme is
+publication-frozen at this state.
+
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general
 orbit theorem, the closed-subgroup theorem, or anything about non-compact groups; that the

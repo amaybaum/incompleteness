@@ -38,6 +38,13 @@
     instance: accessible algebra full, 𝔏 = ℝ(-iH); adding one classical swap control
     jumps 𝔏 to all of u(2), with traceless part su(2).
 
+  [DISCHARGED IN ROUND FIFTY BY `OrbitReachability.lean`: the criterion
+  "𝔏₀ = su(D) ⟹ universal unitary control up to phase" is a theorem
+  (`universalReachability_of_lieRank_unconditional`, via `localReachabilityOfLieRank`),
+  proved by the orbit-direction route and not through the Lie-closure equality, which
+  remains unformalized and unused. The paragraph below is preserved as the round-nineteen
+  record.]
+
   WHAT REMAINS ANALYTIC, recorded not claimed: the Lie-closure equality
   Lie(K⁰) = 𝔏(H,U) for the closure K of the generated subgroup (the
   closed-subgroup/analytic-subgroup step), and the criterion "𝔏₀ = su(D) ⟹

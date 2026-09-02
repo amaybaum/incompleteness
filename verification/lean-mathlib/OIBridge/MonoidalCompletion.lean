@@ -49,7 +49,9 @@
       H_opControl:  reachable controls ⊇ PSU(D) — the operational RICHNESS principle
 
   `HControl_iff_controlLie0_full` is kernel-internal and invokes no Lie integration; only
-  the passage `H_Lie ⟹ H_opControl` sits at the cited compact-Lie boundary. That the
+  the passage `H_Lie ⟹ H_opControl` sits at the cited compact-Lie boundary [DISCHARGED IN
+  ROUND FIFTY: that passage is `OrbitReachability.universalReachability_of_lieRank_unconditional`,
+  kernel-internal; no cited boundary remains]. That the
   certificate is not necessary is a THEOREM here, not a caveat: `centralDrift_not_HControl`
   shows that for a central drift `H = c·1` the control algebra collapses to a line FOR
   EVERY control family whatsoever — so an observer with a maximally rich menu still fails
