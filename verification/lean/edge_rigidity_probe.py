@@ -639,6 +639,15 @@ for fname, names in (
                         'compositeControl_hasFactorExchange',
                         'factorExchange_exposes_ancTranspose',
                         'compositeControl_exposes_ancTranspose')),
+    ('DimensionalObstruction', ('reduction2_trace', 'reduction2_unital', 'reduction2_covariant',
+                                'reduction2_commutes_conj', 'maxEntVec_norm', 'reduction2_choi',
+                                'reduction2_choi_form', 'reduction2_choi_maxEnt',
+                                'reduction2_not_cp', 'pairForm_of_orth',
+                                'rankTwo_bound_of_orth', 'rankTwo_bound_re',
+                                'rankTwo_trace_bound', 'dot_rankTwo_bound', 'ampl2_sum',
+                                'ampl2_reduction2', 'form_tensor_one',
+                                'ampl2_reduction2_rankOne', 'reduction2_twoPositive',
+                                'qubit_tests_do_not_characterize_cp')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -1022,6 +1031,41 @@ ok6 &= 'KrausSoundExt' not in fe.split('namespace OIBridge')[1]
 ok6 &= 'the converse is not proved and not claimed' in _feflat
 ok6 &= '`KrausSoundExt` is not derived here' in _feflat
 ok6 &= 'is strictly weaker' not in _feflat and 'strictly below' not in _feflat
+# ROUND-33 GUARDS.  The dimensional obstruction must be the reduction-type map, refuted by
+# an explicit Choi witness, proved 2-positive WITHOUT a PSD square root, and must claim no
+# operational countermodel and nothing about any theory.
+do = open(os.path.join(BRIDGE, 'OIBridge', 'DimensionalObstruction.lean'), encoding='utf-8').read()
+_dobody = do.split('namespace OIBridge')[1]
+_doflat = ' '.join(do.split())
+ok6 &= 'toFun X := (7 : ℂ)⁻¹ • ((2 * X.trace) • (1 : Matrix S S ℂ) - X)' in do
+# 2-positivity is DEFINED as the qubit-reference test, nothing weaker
+_tp = _slice(do, 'def IsTwoPositive', '/--')
+ok6 &= bool(_tp) and 'M.PosSemidef → (ampl2 Φ M).PosSemidef' in _tp
+# non-CP by the explicit witness, not by a CP/Kraus classification
+_ncp = _slice(do, 'theorem reduction2_not_cp', 'end Choi')
+ok6 &= bool(_ncp) and 'maxEntVec' in _ncp and 'dotProduct_mulVec_nonneg' in _ncp
+ok6 &= 'IsKrausFamily' not in _dobody and 'krausFamily_cp' not in _dobody
+# the pure case is proved by hand (Gram-Schmidt), and the extension to all PSD inputs uses
+# the spectral resolution and eigenvalue nonnegativity -- no square root anywhere
+_r1 = _slice(do, 'theorem ampl2_reduction2_rankOne', 'theorem edyad_eq_vecMulVec')
+ok6 &= bool(_r1) and 'dot_rankTwo_bound' in _r1 and 'eigenvalues' not in _r1
+_tpp = _slice(do, 'theorem reduction2_twoPositive', 'end Amplification')
+ok6 &= bool(_tpp) and 'hermitian_spectral_edyad' in _tpp and 'eigenvalues_nonneg' in _tpp
+ok6 &= 'sqrt' not in _dobody and 'conjTranspose_mul_self' not in _dobody
+ok6 &= 'posSemidef_iff_eq' not in _dobody
+# the boxed statement carries all four properties
+_box = _slice(do, 'theorem qubit_tests_do_not_characterize_cp', ':=')
+ok6 &= bool(_box) and 'IsTracePreserving Φ ∧ Φ 1 = 1 ∧ IsTwoPositive Φ ∧ ¬ IsCompletelyPositive Φ' in _box
+# NO operational content is claimed: no theory, no availability, no structure field
+ok6 &= 'availExt' not in _dobody and 'KrausSoundExt' not in _dobody
+ok6 &= 'FiniteOperationalTheory' not in _dobody
+ok6 &= re.search(r'(?m)^structure ', do) is None
+# WORDING: the non-claims must be on the record
+ok6 &= 'no operational countermodel is claimed' in _doflat
+ok6 &= 'boundary item 3 (PSD square-root/factorization) is NOT consumed' in _doflat
+ok6 &= 'It does NOT prove that `Φ₂` fails 3-positivity' in _doflat
+ok6 &= 'The next question, recorded and not answered' in _doflat
+ok6 &= 'is strictly weaker' not in _doflat and 'countermodel exists' not in _doflat
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -1039,8 +1083,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All thirty-nine files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 14 + 9 + 5 + 16 named results print their "
+      "LINT. All forty files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 14 + 9 + 20 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

@@ -5442,11 +5442,14 @@ check("F45", ok45,
       "reference; rounds 26-30 climbed the first two rungs and this round shows the third is "
       "genuinely a rung. NOT DONE AND NOT CLAIMED: the minimal entangling capability that "
       "DOES expose transposition, and any general impossibility for ancilla-local "
-      "principles. A STRUCTURAL NOTE recorded rather than acted on: FiniteOperationalTheory "
-      "has no rule lifting an available SYSTEM operation to A x Fin n, and its preparation "
-      "starts from the supplied system input rather than granting a fixed system state -- a "
-      "Bell-type test needs one or the other, and if so that rule is the next genuinely "
-      "independent compositional condition and should be argued for on its own.")
+      "principles. A STRUCTURAL NOTE, the true half: FiniteOperationalTheory has no rule "
+      "lifting an available SYSTEM operation to A x Fin n, and its preparation starts from "
+      "the supplied system input rather than granting a fixed system state. HISTORICAL -- "
+      "SUPERSEDED BY ROUND 32: this round's original text went on to guess that a Bell-type "
+      "test therefore needs one or the other; that guess was wrong. CURRENT STATEMENT (F46, "
+      "OIBridge/FactorExchange.lean): for a qubit system the single SWAP gate routes ancilla "
+      "transposition onto the system, so KrausSound plus HasQubitFactorExchange already "
+      "excludes it, with no lift rule, no fixed system state and no Bell pair.")
 
 # ----------------------- F46  round 32: the survivor falls to one factor exchange ---------
 # and no Bell pair was ever needed (phase three, round thirty-two).
@@ -5585,6 +5588,258 @@ check("F46", ok46,
       "KrausSoundExt is not derived. THE NEXT QUESTION, recorded and not answered: how much "
       "subsystem-exchange or routing structure propagates system Kraus soundness to "
       "composite Kraus soundness.")
+
+# ----------------------- F47  round 33: the dimensional obstruction ----------------------
+# a trace-preserving, unital, 2-positive, NOT completely positive map on the two-qubit
+# composite (phase three, round thirty-three).
+ok47 = True
+SEV47 = C17(Frac(1, 7))
+
+
+def red47(X):
+    """reduction2 on a 4x4: (2 tr(X) I - X)/7."""
+    t = trace40(X)
+    return [[(C17(2) * t * (CO17 if r == c else CZ17) - X[r][c]) * SEV47
+             for c in range(4)] for r in range(4)]
+
+
+def gvec47(seed, n):
+    """A deterministic Gaussian-rational vector with no structure (not real, not unit)."""
+    return [C17(Frac(1 + (3 * seed + 5 * k) % 11, 2 + k), Frac((7 * seed - 2 * k) % 9 - 4, 3 + k))
+            for k in range(n)]
+
+
+def gmat47(seed, n):
+    return [[C17(Frac(1 + (2 * seed + 3 * r + 5 * c) % 13, 4), Frac((r - 2 * c + seed) % 7 - 3, 5))
+             for c in range(n)] for r in range(n)]
+
+
+def inner47(a, b):
+    """<a,b> = star a . b, conjugate-linear in the first slot (Mathlib's convention)."""
+    return sum((a[k].conj() * b[k] for k in range(len(a))), CZ17)
+
+
+def herm47(H):
+    return all(H[r][c] == H[c][r].conj() for r in range(len(H)) for c in range(len(H)))
+
+
+def psd47(H):
+    """EXACT positive-semidefiniteness of a Hermitian matrix, by symmetric Gaussian
+    elimination: every pivot must be a nonnegative real, a zero pivot forces a zero row and
+    column, and the Schur complement is recursed on.  No floating eigenvalue."""
+    n = len(H)
+    A = [row[:] for row in H]
+    for k in range(n):
+        d = A[k][k]
+        if d.im != Frac(0) or d.re < 0:
+            return False
+        if d.re == 0:
+            # the remaining Schur block is A[k:, k:]; a zero pivot forces its row and column
+            # (to the right of and below the pivot) to vanish
+            if any(not A[k][j].z() for j in range(k + 1, n)) \
+                    or any(not A[i][k].z() for i in range(k + 1, n)):
+                return False
+            continue
+        dinv = d.inv()
+        for i in range(k + 1, n):
+            for j in range(k + 1, n):
+                A[i][j] = A[i][j] - A[i][k] * dinv * A[k][j]
+    return True
+
+
+# --- (a) TRACE PRESERVING AND UNITAL, on non-Hermitian samples too (reduction2_trace,
+# reduction2_unital): 2*4 - 1 = 7 is the whole reason for the normalization.
+for _s in range(4):
+    _X = gmat47(_s, 4)
+    ok47 &= trace40(red47(_X)) == trace40(_X)
+ok47 &= red47(eye17(4)) == eye17(4)
+# --- (b) UNITARY COVARIANCE (reduction2_covariant): Phi(U X U^dag) = U Phi(X) U^dag for
+# the SWAP of F46, a diagonal phase unitary, and a CNOT permutation; and the hypothesis is
+# load-bearing: a rank-one projector in place of U breaks it.
+PH47 = [[CO17, CZ17, CZ17, CZ17], [CZ17, C17(0, 1), CZ17, CZ17],
+        [CZ17, CZ17, C17(-1), CZ17], [CZ17, CZ17, CZ17, C17(0, -1)]]
+CN47 = [[CO17 if c == (r if r < 2 else 5 - r) else CZ17 for c in range(4)] for r in range(4)]
+for _U in (SWAP46, PH47, CN47):
+    ok47 &= mmc17(dag17(_U), _U) == eye17(4)
+    for _s in range(3):
+        _X = gmat47(_s, 4)
+        ok47 &= red47(mmc17(mmc17(_U, _X), dag17(_U))) == mmc17(mmc17(_U, red47(_X)), dag17(_U))
+_E00 = [[CO17 if (r, c) == (0, 0) else CZ17 for c in range(4)] for r in range(4)]
+_Xc = gmat47(5, 4)
+ok47 &= red47(mmc17(mmc17(_E00, _Xc), dag17(_E00))) != mmc17(mmc17(_E00, red47(_Xc)), dag17(_E00))
+# --- (c) THE CHOI MATRIX, EXACTLY (reduction2_choi, reduction2_choi_maxEnt, reduction2_not_cp):
+# J = (2 I_16 - |Om><Om|)/7 entry for entry, Om an eigenvector at -2/7, and the witness -8/7.
+J47 = choi41(red47, 4)
+OM47 = [CO17 if (p >> 2) == (p & 3) else CZ17 for p in range(16)]
+for _p in range(16):
+    for _q in range(16):
+        _want = (C17(2) * (CO17 if _p == _q else CZ17) - OM47[_p] * OM47[_q].conj()) * SEV47
+        ok47 &= J47[_p][_q] == _want
+ok47 &= herm47(J47)
+_JOm = [sum((J47[_p][_q] * OM47[_q] for _q in range(16)), CZ17) for _p in range(16)]
+ok47 &= _JOm == [C17(Frac(-2, 7)) * OM47[_p] for _p in range(16)]
+ok47 &= qform41(J47, OM47) == C17(Frac(-8, 7))
+ok47 &= not psd47(J47)
+# --- (d) 2-POSITIVE (ampl2_reduction2, ampl2_reduction2_rankOne, reduction2_twoPositive):
+# id_2 (x) Phi on C^2 (x) C^4, index 4 i + k.  First the block definition agrees with the
+# closed form (2 rho_2 (x) I_4 - M)/7 on a full 8x8 sample; then every pure input gives an
+# EXACTLY positive semidefinite output, including the tight Bell-type input, a product
+# input, and unstructured Gaussian-rational inputs; then a genuinely mixed input.  Every
+# pure output is SINGULAR (the elimination ends on a zero pivot), so the test is sharp:
+# a zero pivot is accepted only when its remaining row and column vanish.
+def refMarg47(M, d):
+    return [[sum((M[4 * i + m][4 * j + m] for m in range(4)), CZ17) for j in range(d)]
+            for i in range(d)]
+
+
+def ampl47(M, d):
+    """(id_d (x) Phi)(M) by blocks: Phi applied to each (i,j) block."""
+    out = [[CZ17] * (4 * d) for _ in range(4 * d)]
+    for i in range(d):
+        for j in range(d):
+            blk = red47([[M[4 * i + k][4 * j + l] for l in range(4)] for k in range(4)])
+            for k in range(4):
+                for l in range(4):
+                    out[4 * i + k][4 * j + l] = blk[k][l]
+    return out
+
+
+def closed47(M, d):
+    R = refMarg47(M, d)
+    T = kr17(R, eye17(4))
+    return [[(C17(2) * T[r][c] - M[r][c]) * SEV47 for c in range(4 * d)] for r in range(4 * d)]
+
+
+_M8 = gmat47(9, 8)
+ok47 &= ampl47(_M8, 2) == closed47(_M8, 2)
+
+
+def dyad47(psi):
+    return [[psi[r] * psi[c].conj() for c in range(len(psi))] for r in range(len(psi))]
+
+
+BELL47 = [CO17 if p in (0, 5) else CZ17 for p in range(8)]        # |0>|0> + |1>|1>
+PROD47 = [CZ17] * 4 + gvec47(2, 4)                                  # |1> (x) u
+pure47 = [BELL47, PROD47] + [gvec47(_s, 8) for _s in range(5)]
+for _psi in pure47:
+    _A = ampl47(dyad47(_psi), 2)
+    ok47 &= herm47(_A) and psd47(_A)
+# the Bell-type input is TIGHT: the output annihilates the input direction exactly
+_AB = ampl47(dyad47(BELL47), 2)
+ok47 &= qform41(_AB, BELL47) == CZ17
+# a mixed input: nonnegative combination of two dyads, PSD out (by linearity)
+_Amix = ampl47([[C17(3) * dyad47(pure47[2])[r][c] + C17(Frac(1, 2)) * dyad47(pure47[3])[r][c]
+                 for c in range(8)] for r in range(8)], 2)
+ok47 &= herm47(_Amix) and psd47(_Amix)
+# --- (e) THE RANK-TWO TRACE BOUND AND ITS GRAM-SCHMIDT PROOF (pairForm_of_orth,
+# rankTwo_bound_re, rankTwo_trace_bound, dot_rankTwo_bound): |c|^2 <= 2 Re P with the
+# form P real; the orthogonalized data satisfy <v0,w1> = 0, c' = G c and P' = G^2 P; the
+# constant 2 is TIGHT (equality on an identity-like pair) and 1 would be FALSE there.
+def pairForm47(u0, u1, v0, v1):
+    return (inner47(u0, u0) * inner47(v0, v0) + inner47(u0, u1) * inner47(v1, v0)
+            + inner47(u1, u0) * inner47(v0, v1) + inner47(u1, u1) * inner47(v1, v1))
+
+
+def scal47(a, v):
+    return [a * x for x in v]
+
+
+def vadd47(a, b):
+    return [x + y for x, y in zip(a, b)]
+
+
+def vsub47(a, b):
+    return [x - y for x, y in zip(a, b)]
+
+
+for _s in range(5):
+    u0, u1, v0, v1 = gvec47(_s, 4), gvec47(_s + 7, 4), gvec47(_s + 3, 4), gvec47(_s + 11, 4)
+    c = inner47(u0, v0) + inner47(u1, v1)
+    P = pairForm47(u0, u1, v0, v1)
+    ok47 &= P.im == Frac(0)
+    ok47 &= c.re * c.re + c.im * c.im <= 2 * P.re
+    G = inner47(v0, v0)
+    w1 = vsub47(scal47(G, v1), scal47(inner47(v0, v1), v0))
+    y0 = vadd47(scal47(G, u0), scal47(inner47(v1, v0), u1))
+    ok47 &= inner47(v0, w1) == CZ17
+    ok47 &= inner47(y0, v0) + inner47(u1, w1) == G * c
+    Pp = pairForm47(y0, u1, v0, w1)
+    ok47 &= Pp == G * G * P
+    ok47 &= Pp == inner47(y0, y0) * inner47(v0, v0) + inner47(u1, u1) * inner47(w1, w1)
+# tightness and the necessity of the constant 2
+e0, e1 = [CO17, CZ17, CZ17, CZ17], [CZ17, CO17, CZ17, CZ17]
+_ct = inner47(e0, e0) + inner47(e1, e1)
+_Pt = pairForm47(e0, e1, e0, e1)
+ok47 &= _ct.re * _ct.re == 2 * _Pt.re and _ct.re * _ct.re > _Pt.re
+# --- (f) PROBE-ONLY, NOT KERNELIZED: a QUTRIT reference already detects the map.  On the
+# rank-three maximally entangled input in C^3 (x) C^4 the amplified output has quadratic form
+# (2*3 - 9)/7 = -3/7 < 0, so Phi_2 is exactly 2-positive and not 3-positive.  The kernel
+# does not claim this; it is recorded here because it sizes the reference round 34 needs.
+PSI3 = [CO17 if (p >> 2) == (p & 3) else CZ17 for p in range(12)]
+_A3 = ampl47(dyad47(PSI3), 3)
+ok47 &= herm47(_A3)
+ok47 &= qform41(_A3, PSI3) == C17(Frac(-3, 7))
+ok47 &= not psd47(_A3)
+# --- (g) the file's own non-claims, read back
+_do47 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'DimensionalObstruction.lean')
+if os.path.exists(_do47):
+    with open(_do47, encoding='utf-8') as _f:
+        _do_txt47 = ' '.join(_f.read().split())
+    ok47 &= 'no operational countermodel is claimed' in _do_txt47
+    ok47 &= 'boundary item 3 (PSD square-root/factorization) is NOT consumed' in _do_txt47
+    ok47 &= 'It does NOT prove that `Φ₂` fails 3-positivity' in _do_txt47
+check("F47", ok47,
+      "ROUND 33: THE DIMENSIONAL OBSTRUCTION -- qubit-level positivity tests do not "
+      "characterize complete positivity on a four-dimensional composite (phase three, round "
+      "thirty-three; kernel: reduction2_trace, reduction2_unital, reduction2_covariant, "
+      "reduction2_commutes_conj, maxEntVec_norm, reduction2_choi, reduction2_choi_form, "
+      "reduction2_choi_maxEnt, reduction2_not_cp, pairForm_of_orth, rankTwo_bound_of_orth, "
+      "rankTwo_bound_re, rankTwo_trace_bound, dot_rankTwo_bound, ampl2_sum, ampl2_reduction2, "
+      "form_tensor_one, ampl2_reduction2_rankOne, reduction2_twoPositive, "
+      "qubit_tests_do_not_characterize_cp in OIBridge/DimensionalObstruction.lean). Round 32 "
+      "suggested a sharper question than the next ad-hoc surplus: can exact system QM plus "
+      "very rich routing and control still fail to force composite CP because the VISIBLE "
+      "system is too small to test it? This round establishes the mathematics that question "
+      "rests on. THE MAP is Phi_2(X) = (2 tr(X) I_4 - X)/7 on the two-qubit composite: trace "
+      "preserving and unital (2*4 - 1 = 7), verified here on non-Hermitian samples; unitarily "
+      "covariant, Phi_2(U X U^dag) = U Phi_2(X) U^dag, checked for the SWAP of F46, a diagonal "
+      "phase unitary and a CNOT permutation, with a rank-one projector in place of U breaking "
+      "it -- so composite unitaries thrown around the map do not move the obstruction. NOT "
+      "COMPLETELY POSITIVE by the same explicit Choi witness round 27 used for the transpose: "
+      "the 16x16 Choi matrix is EXACTLY (2 I - |Om><Om|)/7 entry for entry, |Om> is an "
+      "eigenvector at -2/7, and the quadratic form on |Om> is exactly -8/7; no CP <=> Kraus "
+      "classification is used. 2-POSITIVE, THE SUBSTANTIVE RESULT: id_2 (x) Phi_2 carries every "
+      "positive semidefinite 8x8 input to a positive semidefinite output, i.e. every test whose "
+      "untouched reference is ONE QUBIT passes. Verified here with an EXACT positivity test "
+      "(symmetric elimination over Gaussian rationals, no floating eigenvalue) on the tight "
+      "Bell-type input, a product input, five unstructured inputs and a mixed input, after "
+      "checking the block definition of the amplification against the closed form "
+      "(2 rho_2 (x) I - M)/7. THE KEY INEQUALITY |psi><psi| <= 2 rho_2 (x) I is the rank-two "
+      "trace bound |tr M|^2 <= 2 |M|_F^2 for rank <= 2, proved in the kernel by an explicit "
+      "Gram-Schmidt step on the two reference rows -- no eigenvalue, no square root -- and two "
+      "Cauchy-Schwarz steps; its identities (the orthogonalized row is orthogonal, the trace "
+      "scales by G = |v0|^2, the form scales by G^2 and collapses to two products of squared "
+      "norms) are checked exactly on five instances, and the constant 2 is TIGHT: equality on "
+      "an identity-like pair, where the constant 1 is false. The Schmidt rank being at most two "
+      "is exactly the reference qubit's dimension; that is where 'the visible system is too "
+      "small' enters. THE EXTENSION FROM PURE TO ARBITRARY PSD INPUTS uses the rank-one "
+      "spectral resolution (Mathlib's spectral theorem, kernel-internal since the Kadison "
+      "round) plus eigenvalue nonnegativity: NO PSD SQUARE ROOT IS TAKEN, and boundary item 3 "
+      "is not consumed, contrary to the expectation that PSD factorization might enter. THE "
+      "BOXED STATEMENT, qubit_tests_do_not_characterize_cp: a trace-preserving, unital, "
+      "2-positive, not completely positive map exists on the two-qubit composite. PROBE-ONLY, "
+      "NOT KERNELIZED AND NOT CLAIMED: a QUTRIT reference already detects it -- on the "
+      "rank-three maximally entangled input the amplified form is exactly -3/7 -- so Phi_2 is "
+      "exactly 2-positive and not 3-positive, which sizes the reference the next round would "
+      "need. NOT DONE AND NOT CLAIMED: no operational countermodel; no FiniteOperationalTheory "
+      "is shown to contain Phi_2 while satisfying exact system QM, factor exchange, ancilla "
+      "interference or composite unitary control; nothing about KrausSoundExt for any theory; "
+      "no structure field added. THE NEXT QUESTION, recorded and not answered: whether the "
+      "present architecture admits such a countermodel, and if so whether the missing "
+      "ingredient is not more control but a reference-extension or parallel-composition "
+      "principle that lets a composite operation be tested against a sufficiently large "
+      "untouched reference.")
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

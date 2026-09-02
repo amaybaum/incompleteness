@@ -112,6 +112,7 @@ import OIBridge.HiddenCoherence
 import OIBridge.AncillaInterference
 import OIBridge.PartialTranspose
 import OIBridge.FactorExchange
+import OIBridge.DimensionalObstruction
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
